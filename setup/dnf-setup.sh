@@ -53,13 +53,6 @@ else
   printf "${CLEAR_LINE}Curl Found\n"
 fi
 
-printf '[*] Installing R... \n'
-if which R > /dev/null; then
-  printf "${CLEAR_LINE}R already installed\n"
-else
-  output_line "sudo dnf install -y R-core" && printf "${CLEAR_LINE}[+] R installed\n"
-fi
-
 printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
   printf "${CLEAR_LINE}Node already installed\n"

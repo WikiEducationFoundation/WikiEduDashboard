@@ -56,12 +56,13 @@ describe Course, type: :model do
       create(:course, needs_update: true)
       create(:course, needs_update: true, slug: 'foo/2')
     end
+
     it 'runs without error for multiple courses' do
       Course.update_all_caches_concurrently
     end
   end
 
-  it 'should cache revision data for students' do
+  it 'caches revision data for students' do
     build(:user,
           id: 1,
           username: 'Ragesoss').save
@@ -120,14 +121,14 @@ describe Course, type: :model do
     expect(course.article_count).to eq(1)
   end
 
-  it 'should return a valid course slug for ActiveRecord' do
+  it 'returns a valid course slug for ActiveRecord' do
     course = build(:course,
                    title: 'History Class',
                    slug: 'History_Class')
     expect(course.to_param).to eq('History_Class')
   end
 
-  it 'should update start/end times when changing course type' do
+  it 'updates start/end times when changing course type' do
     course = create(:basic_course,
                     start: Time.new(2016, 1, 1, 12, 45, 0),
                     end: Time.new(2016, 1, 10, 15, 30, 0),
@@ -153,7 +154,7 @@ describe Course, type: :model do
   end
 
   describe '#url' do
-    it 'should return the url of a course page' do
+    it 'returns the url of a course page' do
       # A legacy course
       lang = Figaro.env.wiki_language
       prefix = Figaro.env.course_prefix
@@ -187,6 +188,8 @@ describe Course, type: :model do
   end
 
   describe 'validation' do
+    subject { course.valid? }
+
     let(:course) do
       Course.new(passcode: passcode,
                  type: type,
@@ -194,25 +197,29 @@ describe Course, type: :model do
                  end: '2013-07-01',
                  home_wiki_id: 1)
     end
-    subject { course.valid? }
 
     context 'non-legacy course' do
       let(:type) { 'ClassroomProgramCourse' }
 
       context 'passcode nil' do
         let(:passcode) { nil }
+
         it "doesn't save" do
           expect(subject).to eq(false)
         end
       end
+
       context 'passcode empty string' do
         let(:passcode) { '' }
+
         it "doesn't save" do
           expect(subject).to eq(false)
         end
       end
+
       context 'valid passcode' do
         let(:passcode) { 'Peanut Butter' }
+
         it 'saves' do
           expect(subject).to eq(true)
         end
@@ -230,6 +237,8 @@ describe Course, type: :model do
   end
 
   describe '#user_count' do
+    subject { course.user_count }
+
     let!(:course) { create(:course) }
     let!(:user1)  { create(:test_user, username: 'user1') }
     let!(:user2)  { create(:test_user, username: 'user2') }
@@ -238,13 +247,13 @@ describe Course, type: :model do
     let!(:cu3)    { create(:courses_user, course_id: course.id, user_id: user3, role: role3) }
 
     before  { course.update_cache }
-    subject { course.user_count }
 
     context 'students in course, no instructor-students' do
       let(:role1) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:role2) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:user3) { nil }
       let(:role3) { nil }
+
       it 'returns 2' do
         expect(subject).to eq(2)
       end
@@ -255,6 +264,7 @@ describe Course, type: :model do
       let(:role2) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:user3) { user1.id }
       let(:role3) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
+
       it 'returns 2' do
         expect(subject).to eq(2)
       end
@@ -264,7 +274,7 @@ describe Course, type: :model do
   describe '#article_count' do
     let(:course) { create(:course) }
 
-    it 'should count mainspace articles edited by students' do
+    it 'counts mainspace articles edited by students' do
       student = create(:user)
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -285,7 +295,7 @@ describe Course, type: :model do
   describe '#new_article_count' do
     let(:course) { create(:course, end: '2015-01-01') }
 
-    it 'should count newly created mainspace articles' do
+    it 'counts newly created mainspace articles' do
       student = create(:user)
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -314,10 +324,15 @@ describe Course, type: :model do
       create(:user, username: 'user3', id: 3, trained: 1)
       create(:courses_user, user_id: 3, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
+
     context 'after the introduction of in-dashboard training modules' do
       let(:course) do
         create(:course, id: 1, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date,
                         timeline_start: '2016-01-01'.to_date, timeline_end: '2016-06-01'.to_date)
+      end
+
+      after do
+        Timecop.return
       end
 
       it 'returns the whole student count if no training modules are assigned' do
@@ -350,11 +365,8 @@ describe Course, type: :model do
         course.update_cache
         expect(course.trained_count).to eq(1)
       end
-
-      after do
-        Timecop.return
-      end
     end
+
     context 'before in-dashboard training modules' do
       let(:course) do
         create(:course, id: 1, start: '2015-01-01'.to_date, end: '2015-06-01'.to_date)
@@ -376,11 +388,12 @@ describe Course, type: :model do
       create(:commons_upload, id: 2, user_id: 1, uploaded_at: 2.years.ago)
       create(:commons_upload, id: 3, user_id: 1, uploaded_at: 1.day.ago)
     end
-    it 'should include uploads by students during the course' do
+
+    it 'includes uploads by students during the course' do
       course = Course.find(1)
       expect(course.uploads).to include(CommonsUpload.find(1))
     end
-    it 'should exclude uploads from before or after the course' do
+    it 'excludes uploads from before or after the course' do
       course = Course.find(1)
       expect(course.uploads).not_to include(CommonsUpload.find(2))
       expect(course.uploads).not_to include(CommonsUpload.find(3))
@@ -393,6 +406,7 @@ describe Course, type: :model do
 
     context 'when the :wiki_edits_enabled flag is set false' do
       let(:flags) { { wiki_edits_enabled: false } }
+
       it 'returns false' do
         expect(subject).to be false
       end
@@ -400,6 +414,7 @@ describe Course, type: :model do
 
     context 'when the :wiki_edits_enabled flag is set true' do
       let(:flags) { { wiki_edits_enabled: true } }
+
       it 'returns true' do
         expect(subject).to be true
       end
@@ -407,8 +422,55 @@ describe Course, type: :model do
 
     context 'when the :wiki_edits_enabled flag is not set' do
       let(:flags) { nil }
+
       it 'returns true' do
         expect(subject).to be true
+      end
+    end
+  end
+
+  describe '#cloneable?' do
+    let(:subject) { course.cloneable? }
+
+    context 'for a LegacyCourse' do
+      let(:course) { build(:legacy_course) }
+
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'for a BasicCourse without the no_clone tag' do
+      let(:course) { build(:basic_course) }
+
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'for a BasicCourse with the no_clone tag' do
+      let(:course) { build(:basic_course) }
+      let!(:tag) { create(:tag, tag: 'no_clone', course: course) }
+
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'for a ClassroomProgramCourse with the cloneable tag' do
+      let(:course) { build(:course) }
+      let!(:tag) { create(:tag, tag: 'cloneable', course: course) }
+
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'for a ClassroomProgramCourse without the cloneable tag' do
+      let(:course) { build(:course) }
+
+      it 'returns false' do
+        expect(subject).to be false
       end
     end
   end
@@ -418,32 +480,42 @@ describe Course, type: :model do
 
     describe '#before_save' do
       subject { course.update_attributes(course_attrs) }
+
       context 'params are legit' do
         let(:course_attrs) { { end: 1.year.from_now } }
+
         it 'succeeds' do
           expect(subject).to eq(true)
         end
       end
+
       context 'slug is nil' do
         let(:course_attrs) { { slug: nil } }
+
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
+
       context 'title is nil' do
         let(:course_attrs) { { title: nil } }
+
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
+
       context 'school is nil' do
         let(:course_attrs) { { school: nil } }
+
         it 'fails' do
           expect(subject).to eq(false)
         end
       end
+
       context 'term is nil' do
         let(:course_attrs) { { term: nil } }
+
         it 'fails' do
           expect(subject).to eq(false)
         end
@@ -455,14 +527,18 @@ describe Course, type: :model do
         course.update_attributes(course_attrs)
         course
       end
+
       context 'end is at the beginning of day' do
         let(:course_attrs) { { end: 1.year.from_now.beginning_of_day } }
+
         it 'converts to end of day' do
           expect(subject.end).to be_within(1.second).of(1.year.from_now.end_of_day)
         end
       end
+
       context 'timeline_end is at the beginning of day' do
         let(:course_attrs) { { timeline_end: 1.year.from_now.beginning_of_day } }
+
         it 'converts to end of day' do
           expect(subject.timeline_end).to be_within(1.second).of(1.year.from_now.end_of_day)
         end
@@ -472,6 +548,8 @@ describe Course, type: :model do
 
   describe 'typing and validation' do
     let(:course) { create(:course) }
+    let(:arbitrary_course_type) { create(:course, type: 'Foo') }
+
     it 'creates ClassroomProgramCourse type by default' do
       expect(course.class).to eq(ClassroomProgramCourse)
     end
@@ -496,7 +574,6 @@ describe Course, type: :model do
       expect(Course.last.class).to eq(FellowsCohort)
     end
 
-    let(:arbitrary_course_type) { create(:course, type: 'Foo') }
     it 'does not allow creation of arbitrary types' do
       expect { arbitrary_course_type }.to raise_error(ActiveRecord::RecordInvalid)
     end
@@ -713,6 +790,7 @@ describe Course, type: :model do
                         article_id: article2.id,
                         user_id: user.id)
     end
+
     before do
       course.students << user
     end

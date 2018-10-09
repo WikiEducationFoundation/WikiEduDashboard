@@ -1,4 +1,21 @@
-import { RECEIVE_INITIAL_CAMPAIGN, RECEIVE_COURSE_CLONE, UPDATE_COURSE, CREATED_COURSE } from "../constants";
+import _ from 'lodash';
+import {
+  RECEIVE_INITIAL_CAMPAIGN,
+  RECEIVE_COURSE_CLONE,
+  RECEIVE_COURSE,
+  RECEIVE_COURSE_UPDATE,
+  PERSISTED_COURSE,
+  UPDATE_COURSE,
+  CREATED_COURSE,
+  ADD_CAMPAIGN,
+  DELETE_CAMPAIGN,
+  DISMISS_SURVEY_NOTIFICATION,
+  TOGGLE_EDITING_SYLLABUS,
+  START_SYLLABUS_UPLOAD,
+  SYLLABUS_UPLOAD_SUCCESS,
+  LINKED_TO_SALESFORCE
+} from '../constants';
+import CourseUtils from '../utils/course_utils';
 
 const initialState = {
   title: '',
@@ -20,6 +37,12 @@ const initialState = {
 
 export default function course(state = initialState, action) {
   switch (action.type) {
+    case RECEIVE_COURSE:
+      return { ...action.data.course };
+    case RECEIVE_COURSE_UPDATE:
+      return { ...action.data.course, newStats: CourseUtils.newCourseStats(state, action.data.course) };
+    case PERSISTED_COURSE:
+      return { ...state, ...action.data.course };
     case UPDATE_COURSE:
       return { ...state, ...action.course };
     case CREATED_COURSE:
@@ -36,8 +59,29 @@ export default function course(state = initialState, action) {
       };
       return newState;
     }
+    case ADD_CAMPAIGN:
+    case DELETE_CAMPAIGN:
+      return { ...state, published: action.data.course.published };
     case RECEIVE_COURSE_CLONE:
       return { ...action.data.course };
+    case DISMISS_SURVEY_NOTIFICATION: {
+      const newState = { ...state };
+      newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
+      return newState;
+    }
+    case TOGGLE_EDITING_SYLLABUS:
+      return { ...state, editingSyllabus: !state.editingSyllabus };
+    case START_SYLLABUS_UPLOAD:
+      return { ...state, uploadingSyllabus: true };
+    case SYLLABUS_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        uploadingSyllabus: false,
+        editingSyllabus: false,
+        syllabus: action.syllabus
+      };
+    case LINKED_TO_SALESFORCE:
+      return { ...state, flags: action.data.flags };
     default:
       return state;
   }

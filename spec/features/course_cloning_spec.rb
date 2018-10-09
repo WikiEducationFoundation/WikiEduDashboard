@@ -10,6 +10,7 @@ describe 'cloning a course', js: true do
   # This is super hacky to work around a combination of bugginess in the modal
   # and bugginess in the Capybara drivers. We want to avoid setting a date the
   # same as today's date.
+
   if (11..12).cover? Date.today.day
     let(:course_start) { '13' }
     let(:timeline_start) { '14' }
@@ -36,15 +37,17 @@ describe 'cloning a course', js: true do
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0)
   end
-  let!(:week)      { create(:week, course_id: course.id) }
-  let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months) }
-  let!(:gradeable) do
-    create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
-  end
-  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
-  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+  let!(:week) { create(:week, course_id: course.id) }
+  let!(:block) { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
+  let!(:user) { create(:user, permissions: User::Permissions::ADMIN) }
+  let!(:c_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
   let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
+  let!(:tag) { create(:tag, tag: 'cloneable', course_id: course.id) }
+
+  after do
+    logout
+  end
 
   it 'copies relevant attributes of an existing course' do
     login_as user, scope: :user, run_callbacks: false
@@ -96,16 +99,10 @@ describe 'cloning a course', js: true do
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
     expect(new_course.blocks.first.due_date)
       .to be_nil
-    expect(new_course.blocks.first.gradeable.points).to eq(gradeable.points)
-    expect(new_course.blocks.first.gradeable.gradeable_item_id)
-      .to eq(new_course.blocks.first.id)
+    expect(new_course.blocks.first.points).to eq(15)
     expect(new_course.instructors.first).to eq(user)
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
-  end
-
-  after do
-    logout
   end
 end

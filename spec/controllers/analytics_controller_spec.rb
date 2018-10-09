@@ -22,6 +22,7 @@ end
 
 describe AnalyticsController do
   let(:user) { create(:user) }
+
   before do
     allow(controller).to receive(:current_user).and_return(nil)
     create(:campaign, id: 1, title: 'First Campaign')
@@ -87,6 +88,7 @@ describe AnalyticsController do
       create(:courses_user, user_id: user.id, course_id: 1,
                             role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
     end
+
     it 'returns a CSV' do
       allow(controller).to receive(:current_user).and_return(user)
       get 'ungreeted', params: { format: 'csv' }
@@ -96,6 +98,7 @@ describe AnalyticsController do
 
   describe '#course_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
     it 'returns a CSV' do
       get 'course_csv', params: { course: course.slug }
       expect(response.body).to have_content(course.slug)
@@ -104,6 +107,7 @@ describe AnalyticsController do
 
   describe '#course_edits_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
     it 'returns a CSV' do
       get 'course_edits_csv', params: { course: course.slug }
       expect(response.body).to have_content('revision_id')
@@ -112,6 +116,7 @@ describe AnalyticsController do
 
   describe '#course_uploads_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
     it 'returns a CSV' do
       get 'course_uploads_csv', params: { course: course.slug }
       expect(response.body).to have_content('filename')
@@ -120,6 +125,7 @@ describe AnalyticsController do
 
   describe '#course_students_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
     it 'returns a CSV' do
       get 'course_students_csv', params: { course: course.slug }
       expect(response.body).to have_content('username')
@@ -128,6 +134,7 @@ describe AnalyticsController do
 
   describe '#course_articles_csv' do
     let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
     it 'returns a CSV' do
       get 'course_articles_csv', params: { course: course.slug }
       expect(response.body).to have_content('pageviews_link')

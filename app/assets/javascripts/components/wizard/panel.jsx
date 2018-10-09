@@ -3,7 +3,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import WizardActions from '../../actions/wizard_actions.js';
 import Option from './option.jsx';
 
 const md = require('../../utils/markdown_it.js').default();
@@ -14,18 +13,20 @@ const Panel = createReactClass({
   propTypes: {
     course: PropTypes.object,
     panel: PropTypes.object,
+    active: PropTypes.bool.isRequired,
     saveCourse: PropTypes.func,
     nextEnabled: PropTypes.func,
     index: PropTypes.number,
-    rewind: PropTypes.func,
     open_weeks: PropTypes.number,
     raw_options: PropTypes.node,
-    advance: PropTypes.func,
+    advance: PropTypes.func.isRequired,
+    rewind: PropTypes.func,
     button_text: PropTypes.string,
     helperText: PropTypes.string,
     summary: PropTypes.bool,
     step: PropTypes.string,
-    panelCount: PropTypes.number
+    panelCount: PropTypes.number,
+    selectWizardOption: PropTypes.func.isRequired
   },
 
   persistState() {
@@ -39,36 +40,28 @@ const Panel = createReactClass({
       document.title = document.title.replace(/\d+$/, step[1]);
   },
 
-  handlePrevious() {
-    window.history.back();
-  },
-
   advance() {
     if (this.props.summary) {
       window.location.hash = `step${this.props.panelCount}`;
       document.title = document.title.replace(/\d+$/, this.props.panelCount); // Sync Title
+      return this.props.goToWizard(this.props.panelCount - 1);
     }
-    else { this.persistState(); }
+    this.persistState();
     if (this.props.saveCourse) {
-      if (this.props.saveCourse()) { return WizardActions.advanceWizard(); }
+      if (this.props.saveCourse()) { return this.props.advance(); }
     } else {
-      return WizardActions.advanceWizard();
+      return this.props.advance();
     }
   },
 
-  rewind(e) {
-    e.preventDefault();
-    this.handlePrevious();
-    if (this.props.saveCourse) {
-      if (this.props.saveCourse()) { return WizardActions.rewindWizard(); }
+  rewind() {
+    if (this.props.rewind) {
+      this.props.rewind();
     } else {
-      return WizardActions.rewindWizard();
+      window.history.back();
     }
   },
-  reset(e) {
-    e.preventDefault();
-    return WizardActions.resetWizard();
-  },
+
   close() {
     return confirm('This will close the wizard without saving your progress. Are you sure you want to do this?');
   },
@@ -95,6 +88,7 @@ const Panel = createReactClass({
             index={i}
             multiple={this.props.panel.type === 0}
             open_weeks={this.props.open_weeks}
+            selectWizardOption={this.props.selectWizardOption}
           />
         );
         if (i % 2 === 0) { return options1.push(option); }
@@ -109,8 +103,7 @@ const Panel = createReactClass({
       </div>
     );
     let classes = 'wizard__panel';
-    if (this.props.panel.active) { classes += ' active'; }
-    const advance = this.props.advance || this.advance;
+    if (this.props.active) { classes += ' active'; }
 
     const nextText = this.props.button_text || (this.props.summary ? 'Summary' : 'Next');
 
@@ -150,13 +143,12 @@ const Panel = createReactClass({
             <div><p className={errorClass}>{this.props.panel.error || reqs}</p></div>
             {rewind}
             <div><p>{helperText}</p></div>
-            <button className="button dark" onClick={advance} disabled={nextDisabled}>{nextText}</button>
+            <button className="button dark" onClick={this.advance} disabled={nextDisabled}>{nextText}</button>
           </div>
         </div>
       </div>
     );
   }
-}
-);
+});
 
 export default Panel;

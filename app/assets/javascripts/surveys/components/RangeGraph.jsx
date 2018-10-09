@@ -54,7 +54,7 @@ export default class RangeGraph extends Component {
       const increment = (graphHeight / mostFrequent) - 1;
       const yRows = [];
       while (i < mostFrequent) {
-        i++;
+        i += 1;
         yRows.push(
           <div key={`row${i}`} style={{ position: 'relative', height: increment }} className="results__range-graph__row">
             <div style={{ position: 'absolute', height: 15, top: -8, left: -20 }}>{mostFrequent - (i - 1)}</div>

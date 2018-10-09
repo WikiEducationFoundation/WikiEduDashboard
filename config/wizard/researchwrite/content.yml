@@ -95,14 +95,14 @@ essentials:
         points: 10
         content: |
           <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
+          <a href="https://dashboard.wikiedu.org/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
 
       -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">Thinking about sources and plagiarism</a>
+          <a href="https://dashboard.wikiedu.org/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">Thinking about sources and plagiarism</a>
 
 
   - # Week three
@@ -122,7 +122,7 @@ essentials:
         training_module_ids: [17] # Find Your Article
         content: |
           <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
+          <a href="https://dashboard.wikiedu.org/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
 
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=6">Editing Wikipedia</a>, page 6</p>
 
@@ -131,14 +131,14 @@ essentials:
         title: Exercise
         kind: 1
         content: |
-          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose your topic / Find your sources</a>
+          <a href="https://dashboard.wikiedu.org/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose your topic / Find your sources</a>
 
       -
         if: content_gaps_discussion
         title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">What's a content gap?</a>
+          <a href="https://dashboard.wikiedu.org/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">What's a content gap?</a>
 
       -
         if: choose_articles_from_list
@@ -157,7 +157,7 @@ essentials:
         points: 10
         content: |
           <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Add a citation</a>
+          <a href="https://dashboard.wikiedu.org/training/students/add-to-article-exercise" class="timeline-exercise">Add a citation</a>
 
       -
         if: copyedit
@@ -166,14 +166,21 @@ essentials:
         graded: true
         points: 5
         content: |
-          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
+          <a href="https://dashboard.wikiedu.org/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
+
+      -
+        if: explore_to_find_articles
+        title: Exercise
+        kind: 1
+        content: |
+          <a href="https://dashboard.wikiedu.org/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
 
   - # Week five
     weight: 4
     blocks:
       -
         if: working_individually
-        title: Start drafting your article
+        title: Start drafting your contributions
         kind: 1
         graded: true
         points: 20
@@ -187,21 +194,13 @@ essentials:
 
       -
         if: working_in_groups
-        title: Start drafting your article
+        title: Start drafting your contributions
         kind: 1
         graded: true
         points: 20
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
-
-      -
-        if: explore_to_find_articles
-        title: Exercise
-        kind: 1
-        content: |
-          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
-
       -
         if: explore_to_find_articles
         title: Guide(s) for writing articles in your topic area
@@ -219,39 +218,31 @@ essentials:
 
       - # 1 peer review
         if: 1_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review an article
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first draft. Get a draft ready for peer-review. </p>
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 2 peer reviews
         if: 2_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review two articles
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first
-            draft. Get ready to peer review two of your classmates' articles. </p>
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 3 peer reviews
         if: 3_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review three articles
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first
-            draft. Get ready to peer review three of your classmates' articles. </p>
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       -
         if: thinking_about_wikipedia_discussion
         title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
+          <a href="https://dashboard.wikiedu.org/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
 
       -
         title: Peer reviews are complete
@@ -312,7 +303,7 @@ essentials:
         title: Exercise
         kind: 1
         content: |
-          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for Did You Know</a>
+          <a href="https://dashboard.wikiedu.org/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for Did You Know</a>
 
 
   - # Week nine
@@ -324,7 +315,7 @@ essentials:
         training_module_ids: [6] # Images and multimedia
         content: |
           <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
+          <a href="https://dashboard.wikiedu.org/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
 
           <p>Now's the time to revisit your text and refine your work. You may
           do more research and find missing information; rewrite the lead section
@@ -343,15 +334,6 @@ essentials:
             Continue to expand and improve your work, and format your article to
             match Wikipedia's tone and standards. Remember to contact your
             Wikipedia Expert at any time if you need further help!
-          </p>
-
-      -
-        if: presentation
-        title: Prepare for in-class presentation
-        kind: 1
-        content: |
-          <p>
-            Prepare for an in-class presentation about your Wikipedia editing experience.
           </p>
 
   - # Week eleven
@@ -376,7 +358,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
+          <a href="https://dashboard.wikiedu.org/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
 
       -
         if: reflective_essay
@@ -385,7 +367,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Guiding questions</a>
+          <a href="https://dashboard.wikiedu.org/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Guiding questions</a>
       -
         if: original_analytical_paper
         title: Original analytical paper

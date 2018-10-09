@@ -17,7 +17,7 @@ describe RequestedAccount do
   describe 'email validation' do
     context 'when email is valid' do
       it 'saves the email' do
-        account = RequestedAccount.new(username: 'foo', email: 'me@foo.com')
+        account = described_class.new(username: 'foo', email: 'me@foo.com')
         account.save
         expect(account.email).to eq('me@foo.com')
       end
@@ -25,7 +25,7 @@ describe RequestedAccount do
 
     context 'when email is not valid' do
       it 'does not save the record and adds an error' do
-        account = RequestedAccount.new(username: 'foo', email: 'me@foo')
+        account = described_class.new(username: 'foo', email: 'me@foo')
         account.save
         expect(account.errors).not_to be_empty
         expect(account.persisted?).to eq(false)

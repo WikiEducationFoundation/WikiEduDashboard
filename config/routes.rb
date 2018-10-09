@@ -28,8 +28,8 @@ Rails.application.routes.draw do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences'
-    post 'users/update/:username' => 'user_profiles#update'
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
   # Users
@@ -93,12 +93,35 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
-    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
-        defaults: { endpoint: 'overview' }, :as => 'show',
+    # show-type actions: first all the specific json endpoints,
+    # then the catchall show endpoint
+    get 'courses/:slug/course.json' => 'courses#course',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/articles.json' => 'courses#articles',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/revisions.json' => 'courses#revisions',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/users.json' => 'courses#users',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignments.json' => 'courses#assignments',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/campaigns.json' => 'courses#campaigns',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/categories.json' => 'courses#categories',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/tags.json' => 'courses#tags',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/timeline.json' => 'courses#timeline',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/uploads.json' => 'courses#uploads',
+        constraints: { slug: /.*/ }
+    get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'courses#show',
+        :as => 'show',
         constraints: {
           school: /[^\/]*/,
           titleterm: /[^\/]*/
         }
+
     post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
@@ -113,7 +136,6 @@ Rails.application.routes.draw do
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'
   get 'lookups/tag(.:format)' => 'lookups#tag'
-  get 'lookups/article(.:format)' => 'lookups#article'
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
@@ -122,7 +144,6 @@ Rails.application.routes.draw do
   end
   resources :weeks, only: [:index, :show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
-  resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
@@ -187,6 +208,7 @@ Rails.application.routes.draw do
       controller: :campaigns,
       action: :programs,
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
+  get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
@@ -224,6 +246,7 @@ Rails.application.routes.draw do
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
+  get 'user_training_status' => 'training_status#user'
 
   # for React
   get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'
@@ -237,7 +260,8 @@ Rails.application.routes.draw do
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
-  # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
+  get 'active_courses' => 'active_courses#index'
+  get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
@@ -317,7 +341,7 @@ Rails.application.routes.draw do
   resources :alerts_list
   resources :settings, only: [:index]
 
-  require 'sidekiq/web'
+  require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end

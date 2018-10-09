@@ -79,16 +79,16 @@ describe ArticleScopedProgram, type: :model do
   let(:in_scope_rev) { Revision.find(2) }
   let(:asp) { Course.find(10001) }
 
-  it 'should only count assigned articles' do
+  it 'onlies count assigned articles' do
     expect(asp.article_count).to eq(1)
   end
-  it 'should only generate ArticlesCourses for assigned articles' do
+  it 'onlies generate ArticlesCourses for assigned articles' do
     expect(asp.articles_courses.count).to eq(1)
   end
-  it 'should only count revisions to assigned articles' do
+  it 'onlies count revisions to assigned articles' do
     expect(asp.revision_count).to eq(1)
   end
-  it 'should only count characters for assigned articles' do
+  it 'onlies count characters for assigned articles' do
     expect(asp.character_sum).to eq(in_scope_rev.characters)
   end
 end

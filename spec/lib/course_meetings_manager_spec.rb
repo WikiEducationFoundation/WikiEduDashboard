@@ -53,15 +53,6 @@ describe CourseMeetingsManager do
      ['2016-01-12'.to_date, '2016-01-14'.to_date]]
   end
 
-  describe '#week_meeting_dates' do
-    subject { described_class.new(course).instance_variable_get(:@week_meeting_dates) }
-    context 'course with timeline start and end' do
-      it 'returns an array of meetings dates for each week, factoring in blackout dates' do
-        expect(subject).to eq(expected_week_meeting_dates)
-      end
-    end
-  end
-
   let(:expected_week_meetings) do
     ['()', # August 23 - 29, 2015
      # August 30 - October 10
@@ -76,8 +67,19 @@ describe CourseMeetingsManager do
      '(Tue, Thu)'] # January 10 - 16
   end
 
+  describe '#week_meeting_dates' do
+    subject { described_class.new(course).instance_variable_get(:@week_meeting_dates) }
+
+    context 'course with timeline start and end' do
+      it 'returns an array of meetings dates for each week, factoring in blackout dates' do
+        expect(subject).to eq(expected_week_meeting_dates)
+      end
+    end
+  end
+
   describe '#week_meetings' do
     subject { described_class.new(course).week_meetings }
+
     context 'course with timeline start and end' do
       it 'returns an array of day meetings for each week, factoring in blackout dates' do
         expect(subject).to eq(expected_week_meetings)
@@ -86,6 +88,7 @@ describe CourseMeetingsManager do
 
     context 'course has no timeline start or end' do
       let(:course_type) { 'LegacyCourse' }
+
       it 'returns nil' do
         expect(subject).to be_nil
       end
@@ -93,6 +96,7 @@ describe CourseMeetingsManager do
 
     context 'course with no week days, but with day exceptions' do
       let(:weekdays) { '0000000' }
+
       it 'returns the day exceptions, week by week' do
         # December 6 - 12, with exceptions for three days
         expect(subject).to include('(Tue, Wed, Thu)')
@@ -102,6 +106,7 @@ describe CourseMeetingsManager do
 
   describe '#day_meetings' do
     subject { described_class.new(course).send(:day_meetings) }
+
     it 'returns an array of symbols reprensenting the course meeting days' do
       expect(subject).to eq(%i[tuesday thursday])
     end
@@ -109,6 +114,7 @@ describe CourseMeetingsManager do
 
   describe '#calculate_timeline_week_count' do
     subject { described_class.new(course).instance_variable_get(:@timeline_week_count) }
+
     context 'course has start and end dates' do
       it 'returns an integer representing the weeks in the timeline, irrespective of blackouts' do
         expect(subject).to eq(21)
@@ -117,6 +123,7 @@ describe CourseMeetingsManager do
 
     context 'course has no timeline start or end' do
       let(:course_type) { 'LegacyCourse' }
+
       it 'returns nil' do
         expect(subject).to be_nil
       end
@@ -124,12 +131,14 @@ describe CourseMeetingsManager do
   end
 
   describe '#all_potential_meetings' do
+    subject { described_class.new(course).send(:all_potential_meetings) }
+
     let(:expected) do
       [Date.new(2015, 8, 25),
        Date.new(2015, 8, 27),
        Date.new(2015, 9, 1)]
     end
-    subject { described_class.new(course).send(:all_potential_meetings) }
+
     it 'returns an array of all days the course would have met, irrespective of blackouts' do
       expect(subject.first(3)).to eq(expected)
     end
@@ -138,8 +147,11 @@ describe CourseMeetingsManager do
   describe '#open_weeks' do
     subject { described_class.new(course).open_weeks }
     # an array with 12 elements
+
     let(:weeks) { %w[foo foo foo foo foo foo foo foo foo foo foo foo] }
+
     before { allow_any_instance_of(Course).to receive(:weeks).and_return(weeks) }
+
     context 'course has timeline start/end' do
       it 'returns an int representing the weeks the timeline can accomodate' do
         # There are 16 weeks with meetings, so 4 open weeks.
@@ -149,6 +161,7 @@ describe CourseMeetingsManager do
 
     context 'course has no timeline start or end' do
       let(:course_type) { 'LegacyCourse' }
+
       it 'returns zero' do
         expect(subject).to be_zero
       end
@@ -180,29 +193,30 @@ describe CourseMeetingsManager do
   # These tests match those in test/utils/course_date_utils.spec.js
   describe '#weeks_before_timeline' do
     let(:slug) { 'University_of_Chicago/History_of_Skepticism_(Winter_Quarter)' }
+
     it 'rounds times within the same week to zero' do
       course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-05')
-      expect(described_class.new(course).weeks_before_timeline).to eql(0)
+      expect(described_class.new(course).weeks_before_timeline).to be(0)
     end
     it 'counts whole weeks accurately, Sunday to Sunday' do
       course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-09')
-      expect(described_class.new(course).weeks_before_timeline).to eql(1)
+      expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
     it 'counts partial weeks if they cross between Sunday-bounded weeks' do
       course = create(:course, slug: slug, start: '2017-07-06', timeline_start: '2017-07-10')
-      expect(described_class.new(course).weeks_before_timeline).to eql(1)
+      expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
     it 'rounds down to the number of week boundaries crossed' do
       course = create(:course, slug: slug, start: '2017-07-02', timeline_start: '2017-07-13')
-      expect(described_class.new(course).weeks_before_timeline).to eql(1)
+      expect(described_class.new(course).weeks_before_timeline).to be(1)
     end
     it 'works for longer stretches' do
       course = create(:course, slug: slug, start: '2017-08-29', timeline_start: '2017-10-23')
-      expect(described_class.new(course).weeks_before_timeline).to eql(8)
+      expect(described_class.new(course).weeks_before_timeline).to be(8)
     end
     it 'works for exactly two weeks between start and timeline start' do
       course = create(:course, slug: slug, start: '2018-01-09', timeline_start: '2018-01-23')
-      expect(described_class.new(course).weeks_before_timeline).to eql(2)
+      expect(described_class.new(course).weeks_before_timeline).to be(2)
     end
   end
 end

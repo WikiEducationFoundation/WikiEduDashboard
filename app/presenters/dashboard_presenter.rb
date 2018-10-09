@@ -43,7 +43,7 @@ class DashboardPresenter
 
   # Show 'Welcome' for people without any courses on the screen, otherwise 'My Dashboard'
   def heading_message
-    return I18n.t('application.my_dashboard') if @current.any? && @past.any? || @submitted.any?
+    return I18n.t('application.my_dashboard') if any_courses?
     return I18n.t('application.greeting2')
   end
 
@@ -102,6 +102,10 @@ class DashboardPresenter
       .where(training_module_id: ORIENTATION_ID)
       .where(user_id: current_user.id)
       .where.not(completed_at: nil).any?
+  end
+
+  def any_courses?
+    @current.any? || @past.any? || @submitted.any?
   end
 
   def submitted_and_current_courses?

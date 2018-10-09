@@ -11,13 +11,7 @@ import EmptyWeek from './empty_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
-
-import WeekActions from '../../actions/week_actions.js';
-import BlockActions from '../../actions/block_actions.js';
-import CourseActions from '../../actions/course_actions.js';
-
-import BlockStore from '../../stores/block_store.js';
-import WeekStore from '../../stores/week_store.js';
+import EditableRedux from '../high_order/editable_redux';
 
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -31,9 +25,14 @@ const Timeline = createReactClass({
     course: PropTypes.object.isRequired,
     weeks: PropTypes.array,
     week_meetings: PropTypes.array,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func,
+    addWeek: PropTypes.func.isRequired,
+    addBlock: PropTypes.func.isRequired,
+    insertBlock: PropTypes.func.isRequired,
+    deleteWeek: PropTypes.func.isRequired,
+    deleteAllWeeks: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
     saveBlockChanges: PropTypes.func,
@@ -56,44 +55,53 @@ const Timeline = createReactClass({
     return window.removeEventListener('scroll', this._handleScroll);
   },
 
+  getBlocksInWeek(weekId) {
+    const week = this.props.weeks.find(thisWeek => thisWeek.id === weekId);
+    return week.blocks;
+  },
+
   hasTimeline() {
     return this.props.weeks && this.props.weeks.length;
   },
 
   addWeek() {
-    return WeekActions.addWeek();
+    const lastWeek = document.getElementsByClassName(`week-${this.props.weeks.length}`)[0];
+    const scrollTop = window.scrollY || document.body.scrollTop;
+    const bottom = Math.abs(__guard__(lastWeek, x => x.getBoundingClientRect().bottom));
+    const elBottom = (bottom + scrollTop) - 50;
+    window.scrollTo({ top: elBottom, behavior: 'smooth' });
+    return this.props.addWeek();
   },
 
   deleteWeek(weekId) {
     if (confirm(I18n.t('timeline.delete_week_confirmation'))) {
-      return WeekActions.deleteWeek(weekId);
+      return this.props.deleteWeek(weekId);
     }
   },
 
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
-      return CourseActions.deleteAllWeeks(this.props.course.slug)
+      return this.props.deleteAllWeeks(this.props.course.slug)
                .then(() => { return window.location.reload(); });
     }
   },
 
   _handleBlockDrag(targetIndex, block, target) {
-    const originalIndexCheck = BlockStore.getBlocksInWeek(block.week_id).indexOf(block);
+    const originalIndexCheck = this.getBlocksInWeek(block.week_id).indexOf(block);
     if (originalIndexCheck !== targetIndex || block.week_id !== target.week_id) {
-      const toWeek = WeekStore.getWeek(target.week_id);
-      return this._moveBlock(block, toWeek, targetIndex);
+      return this._moveBlock(block, target.week_id, targetIndex);
     }
   },
 
-  _moveBlock(block, toWeek, afterBlock) {
-    return BlockActions.insertBlock(block, toWeek, afterBlock);
+  _moveBlock(block, newWeekId, targetIndex) {
+    return this.props.insertBlock(block, newWeekId, targetIndex);
   },
 
   _handleMoveBlock(moveUp, blockId) {
-    for (let i = 0; i < this.props.weeks.length; i++) {
+    for (let i = 0; i < this.props.weeks.length; i += 1) {
       const week = this.props.weeks[i];
-      const blocks = BlockStore.getBlocksInWeek(week.id);
-      for (let j = 0; j < blocks.length; j++) {
+      const blocks = this.getBlocksInWeek(week.id);
+      for (let j = 0; j < blocks.length; j += 1) {
         const block = blocks[j];
         if (blockId === block.id) {
           let atIndex;
@@ -101,14 +109,14 @@ const Timeline = createReactClass({
             // Move to adjacent week
             const toWeek = this.props.weeks[moveUp ? i - 1 : i + 1];
             if (moveUp) {
-              const toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id);
-              atIndex = toWeekBlocks.length - 1;
+              const toWeekBlocks = this.getBlocksInWeek(toWeek.id);
+              atIndex = toWeekBlocks.length;
             }
-            this._moveBlock(block, toWeek, atIndex);
+            this._moveBlock(block, toWeek.id, atIndex);
           } else {
             // Swap places with the adjacent block
             atIndex = moveUp ? j - 1 : j + 1;
-            this._moveBlock(block, week, atIndex);
+            this._moveBlock(block, week.id, atIndex);
           }
           return;
         }
@@ -117,7 +125,7 @@ const Timeline = createReactClass({
   },
 
   _canBlockMoveDown(week, weekIndexInTimeline, block, blockIndexInWeek) {
-    if (weekIndexInTimeline === this.props.weeks.length - 1 && blockIndexInWeek === BlockStore.getBlocksInWeek(week.id).length - 1) { return false; }
+    if (weekIndexInTimeline === this.props.weeks.length - 1 && blockIndexInWeek === this.getBlocksInWeek(week.id).length - 1) { return false; }
     // TODO: return false if it's the last block in the last non-blackout week
     return true;
   },
@@ -204,11 +212,12 @@ const Timeline = createReactClass({
               timeline_start={this.props.course.timeline_start}
               timeline_end={this.props.course.timeline_end}
               weeksBeforeTimeline={weeksBeforeTimeline}
+              addWeek={this.props.addWeek}
             />
           </div>
         )
         );
-        i++;
+        i += 1;
       }
 
       const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
@@ -219,16 +228,20 @@ const Timeline = createReactClass({
             week={week}
             index={i + 1}
             reorderable={this.props.reorderable}
-            blocks={BlockStore.getBlocksInWeek(week.id)}
+            blocks={week.blocks}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
             meetings={this.props.week_meetings[i]}
             timeline_start={this.props.course.timeline_start}
             timeline_end={this.props.course.timeline_end}
             all_training_modules={this.props.all_training_modules}
-            editable_block_ids={this.props.editable_block_ids}
+            editableBlockIds={this.props.editableBlockIds}
             edit_permissions={this.props.edit_permissions}
             saveBlockChanges={this.props.saveBlockChanges}
+            setBlockEditable={this.props.setBlockEditable}
             cancelBlockEditable={this.props.cancelBlockEditable}
+            updateBlock={this.props.updateBlock}
+            addBlock={this.props.addBlock}
+            deleteBlock={this.props.deleteBlock}
             saveGlobalChanges={this.props.saveGlobalChanges}
             canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
             canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}
@@ -240,7 +253,7 @@ const Timeline = createReactClass({
         </div>
       )
       );
-      return i++;
+      return i += 1;
     }
     );
 
@@ -256,6 +269,7 @@ const Timeline = createReactClass({
           timeline_start={this.props.course.timeline_start}
           timeline_end={this.props.course.timeline_end}
           edit_permissions={this.props.edit_permissions}
+          addWeek={this.props.addWeek}
         />
       );
     }
@@ -266,7 +280,7 @@ const Timeline = createReactClass({
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }
 
-    const controls = this.props.reorderable || __guard__(this.props, x => x.editable_block_ids.length) > 1 ? (
+    const controls = this.props.reorderable || __guard__(this.props, x => x.editableBlockIds.length) > 1 ? (
       <div>
         <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
           {I18n.t('timeline.save_all_changes')}
@@ -288,7 +302,7 @@ const Timeline = createReactClass({
             <p className="muted">{I18n.t('timeline.arrange_timeline_instructions')}</p>
           </div>
         );
-      } else if (this.props.editable_block_ids.length === 0) {
+      } else if (this.props.editableBlockIds.length === 0) {
         reorderableControls = (
           <div className="reorderable-controls">
             <button className="button border button--block" onClick={this.props.enableReorderable}>Arrange Timeline</button>
@@ -388,7 +402,7 @@ const Timeline = createReactClass({
   }
 });
 
-export default DragDropContext(Touch({ enableMouseEvents: true }))(Timeline);
+export default EditableRedux(DragDropContext(Touch({ enableMouseEvents: true }))(Timeline));
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

@@ -72,7 +72,7 @@ class Fall2017CmuExperiment
   end
 
   def send_email_invitation
-    email_code = Course.generate_passcode + Course.generate_passcode
+    email_code = GeneratePasscode.call(length: 16)
     first_instructor = @course.instructors.first
     Fall2017CmuExperimentMailer.send_invitation(@course, first_instructor, email_code)
     update_status('email_sent', email_just_sent: true, email_code: email_code)

@@ -207,7 +207,7 @@ el:
     end: Τέλος
     ended: Το μάθημα έχει τελειώσει.
     enroll: Εγγραφή
-    enrollment: Εγγραφή
+    enrollment: Προσθήκη/Αφαίρεση Μαθητών
     error:
       user_exists: Λυπούμαστε, ο χρήστης %{username} δεν υπάρχει.
       invalid_language_or_project: Μη έγκυρη γλώσσα/εγχείρημα
@@ -249,12 +249,14 @@ el:
     course_details: Λεπτομέρειες μαθήματος
     subject: Θέμα
     submitted: Υποβεβλημμένα
+    tags: 'Ετικέτες:'
     term: Περίοδος
     timeline_enabled: Το χρονολόγιο ενεργοποιήθηκε
     timeline_link: Χρονολόγιο
     time_zone_message: Οι χρόνοι αρχής και τέλους εμφανίζονται στην τοπική ζώνη ώρας
       σας.
     title: Τίτλος
+    user_recent_uploads: Πρόσφατες φορτώσεις
     wiki_edits_enabled: Οι επεξεργασίες βίκι είναι ενεργοποιημένες
   courses_generic:
     all_courses: Όλα τα προγράμματα.
@@ -271,12 +273,17 @@ el:
       course_title: Τίτλος προγράμματος
       save_cloned_course: Αποθήκευση
     delete_course: Διαγραφή προγράμματος
-    enrollment: Συμμετοχή
+    enrollment: Προσθήκη/Αφαίρεση Συντακτών
     view_page: Δείτε τη Σελίδα του Προγράμματος
   metrics:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών
     bytes_added: Μπάιτ που προστέθηκαν
+  training:
+    previous: < Προηγούμενο
+    view_library_source: προβολή πηγής βιβλιοθήκης
+    view_module_source: προβολή πηγής δομοστοιχείου
+    reload_from_source: επαναφόρτωση από πηγή
   uploads:
     uploaded_at: Ώρα ανεβάσματος
     uploader: Ανεβαστής
@@ -303,8 +310,8 @@ el:
     search_placeholder: Εισαγάγετε τη λέξη κλειδιού σας
     search: Αναζήτηση
     tools: Εργαλεία
-    show_filters: Εμφάνιση φίλτρων
-    hide_filters: Απόκρυψη φίλτρων
+    show_options: Εμφάνιση επιλογών
+    hide_options: Απόκρυψη επιλογών
     keyword_search: Αναζήτηση πληκτρολογίου
     category_search: Αναζήτηση κατηγοριών
     article_quality: Ποιότητα Λήμματος (0-100)
@@ -313,4 +320,6 @@ el:
     searching_articles: Αναζήτηση λημμάτων
     article_finder: Ευρητής λημμάτων
     submit: Υποβολή
+    assign_article_self: Ανάθεση του εαυτού σας
+    unassign_article_self: Ξεανάθεση άρθρου
 ...

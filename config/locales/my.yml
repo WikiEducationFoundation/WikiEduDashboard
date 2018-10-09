@@ -1,6 +1,7 @@
 # Messages for Burmese (မြန်မာဘာသာ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dr Lotus Black
 # Author: Khinelay
 # Author: Ninjastrikers
 ---
@@ -28,6 +29,7 @@ my:
     my_dashboard: လုပ်ဆောင်ချက်များ ပြသသည့်နေရာ
     recent_activity: မကြာသေးမီက လုပ်ခဲ့သည်များ
     report_problem: အခက်အခဲများ တင်ပြရန်
+    request_account: အကောင့်တစ်ခု တောင်းဆိုရန်
     request_account_create: အကောင့် ဖန်တီးရန်
     search: မေးခွန်းမေးရန်
     search_results: '''%{search_terms}'' အတွက်တွေ့ရှိမှုများ'
@@ -38,8 +40,8 @@ my:
     submit: ထည့်သွင်းရန်
     training: လေ့ကျင့်ခန်း
     change: ပြောင်းလဲခြင်း
-    details: အေသးစိတ္အေၾကာင္းအရာမ်ား
-    confirm: ဟုတ်ပြီ
+    details: အသေးစိတ်များ
+    confirm: အိုကေ
     opt_in: ဟုတ်ပြီ
     opt_out: မလုပ်ဘူး
   dashboard:
@@ -50,7 +52,92 @@ my:
       မိတ်ဆွေ လိုအပ်သည့်အတိုင်း မိတ်ဆွေအချိန်ဇယားကိုပြင်ဆင်နိုင်ပါသည်။
     explore_course_pages: သင်ခန်းစာများကို ကြည့်ရှုပါ
   home:
+    explore: ရှာဖွေစူးစမ်းပါ
+    log_in: ဝီကီပီးဒီးယားဖြင့် အကောင့်ထဲဝင်ရန်
     sign_up: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
+  articles:
+    available: ရရှိနိုင်သော ဆောင်းပါးများ
+    deleted: (ဖျက်ထားသော)
+    edited_mobile: ဆောင်းပါးများ
+    hide: ဝှက်
+    history: (ရာဇဝင်)
+    label: ဆောင်းပါးများ
+    new: (အသစ်)
+    rating: အတန်း
+    rating_docs:
+      does_not_exist: ဤဆောင်းပါးသည် ဝီကီပီးဒီးယားတွင် မတည်ရှိပါ
+    see_more: ပို၍ ကြည့်ရန်
+    title: ခေါင်းစဉ်
+    title_example: ဆောင်းပါး ခေါင်းစဉ်
+    view: ဆောင်းပါး ကြည့်ရန်
+    view_all: အကုန် ကြည့်ရန်
+    view_on_wiki: ဝီကီပေါ်တွင် ကြည့်ရန်
+    wiki: ဝီကီ
+  assignments:
+    add_available_submit: ဆောင်းပါး ပေါင်းထည့်ရန်
+    remove: ဖယ်ရှားရန်
+    select: ရွေးချယ်
+  blocks:
+    milestones:
+      title: မှတ်တိုင်များ
+  campaign:
+    alert_article: ဆောင်းပါး ခေါင်းစဉ်
+    alert_type: အမျိုးအစား
+    alert_user_id: အသုံးပြုသူ
+    created_at: ရက်စွဲ
+    course: သင်တန်း
+    description: ဖော်ပြချက်
+    program_template: ပရိုဂရမ် တမ်းပလိပ်
+    requested_accounts: တောင်းဆိုထားသော အကောင့်များ
+    title: ခေါင်းစဉ်
+  categories:
+    add_category: ကဏ္ဍပေါင်းထည့်ရန်
+    add_template: တမ်းပလိတ် ပေါင်းထည့်ရန်
+    add_this_category: ဤကဏ္ဍကို ထည့်ပေါင်းရန်
+    add_this_template: ဤတမ်းပလိတ်ကို ထည့်ပေါင်းရန်
+    name: အမည်
+    category_name: ကဏ္ဍအမည်
+    template_name: တမ်းပလိတ်အမည်
+    remove: ဖယ်ရှားရန်
+  courses:
+    alerts: အသိပေးချက်များ
+    articles: ဆောင်းပါးများ
+    calendar:
+      legend: အညွှန်း
+    cancel: ပယ်ဖျက်
+    campaign_articles: '%{title} ဆောင်းပါးများ'
+    campaign_courses: '%{title} သင်တန်းများ'
+    campaign_users: '%{title} တည်းဖြတ်သူများ'
+    course: သင်တန်း
+    course_description: သင်တန်းများ
+    courses: သင်တန်းများ
+    creator:
+      course_description: သင်တန်း ဖော်ပြချက်
+      course_language: ပင်မ ဘာသာစကား
+      course_project: ပင်မ ပရောဂျက်
+      course_title: သင်တန်းခေါင်းစဉ်
+      end_date: ပြီးဆုံးရက်
+      subject: အကြောင်းအရာ
+    delete_suggestion: ဖျက်ရန်
+    features_feedback: 'အလိုအလျောက် အကြံပေးချက်များ:'
+    feedback: အကြံပေးရန်
+    home_wiki_language: ပင်မဝီကီ ဘာသာစကား
+    home_wiki_project: ပင်မဝီကီ ပရောဂျက်
+    new_account_email: အီးမေးလ် လိပ်စာ
+    new_account_email_placeholder: name@example.org
+    new_account_submit: အကောင့် တောင်းဆိုရန်
+    overview: ပင်မ
+    please_log_in: ကျေးဇူးပြု၍ အကောင့်ထဲဝင်ပါ။
+  courses_generic:
+    cancel: မလုပ်တော့ပါ
+    not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
+  editable:
+    cancel: မလုပ်တော့ပါ
+  training:
+    page: စာမျက်နှာ
+    previous: « ယခင်က
+  users:
+    name: အမည်
   article_finder:
     submit: ထည့်သွင်းရန်
 ...

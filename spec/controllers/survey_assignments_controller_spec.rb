@@ -32,7 +32,9 @@ describe SurveyAssignmentsController do
         }
       }
     end
+
     before { allow(controller).to receive(:current_user).and_return(admin) }
+
     it 'allows create and sets appropriate params' do
       post :create, params: post_params
       expect(SurveyAssignment.last.follow_up_days_after_first_notification).to eq(follow_up)
@@ -53,6 +55,7 @@ describe SurveyAssignmentsController do
                                    dismissed: false, completed: false,
                                    courses_users_id: courses_user.id)
     end
+
     before { allow(controller).to receive(:current_user).and_return(admin) }
 
     context 'send_email is not set' do
@@ -64,6 +67,7 @@ describe SurveyAssignmentsController do
 
     context 'send_email is set' do
       let(:send_email) { true }
+
       it 'attempts to send email' do
         expect(SurveyMailer).to receive(:send_notification)
         post :send_notifications
@@ -76,7 +80,9 @@ describe SurveyAssignmentsController do
       create(:survey_assignment, survey_id: survey.id)
     end
     let(:params) { { id: survey_assignment.id } }
+
     before { allow(controller).to receive(:current_user).and_return(admin) }
+
     it 'invokes SurveyTestEmailManager and redirects' do
       expect_any_instance_of(SurveyTestEmailManager).to receive(:send_email)
       post :send_test_email, params: params

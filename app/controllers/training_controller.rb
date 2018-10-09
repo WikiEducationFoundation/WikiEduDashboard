@@ -21,6 +21,10 @@ class TrainingController < ApplicationController
 
   def training_module
     fail_if_entity_not_found(TrainingModule, params[:module_id])
+    # Save the return-to source, typically a course page, so that
+    # at the end of the training we can return the user to where they
+    # started from.
+    session[:training_return_to] = request.referer
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb
@@ -42,8 +46,8 @@ class TrainingController < ApplicationController
   def reload
     render plain: TrainingUpdate.new(module_slug: params[:module]).result
   rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
-         TrainingModule::ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound,
-         TrainingLoader::InvalidYamlError => e
+         TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
+         YamlTrainingLoader::InvalidYamlError => e
     render plain: e.message
   end
 
@@ -62,8 +66,7 @@ class TrainingController < ApplicationController
   end
 
   def fail_if_entity_not_found(entity, finder)
-    raise ModuleNotFound, "#{entity}: #{finder}" unless entity.find_by(slug: finder).present?
+    return if entity.find_by(slug: finder).present?
+    raise ActionController::RoutingError, 'not found'
   end
-
-  class ModuleNotFound < StandardError; end
 end

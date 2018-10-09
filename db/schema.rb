@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_13_173211) do
+ActiveRecord::Schema.define(version: 2018_08_30_173705) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -89,13 +89,13 @@ ActiveRecord::Schema.define(version: 2018_06_13_173211) do
     t.integer "kind"
     t.text "content"
     t.integer "week_id"
-    t.integer "gradeable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "title"
     t.integer "order"
     t.date "due_date"
     t.text "training_module_ids"
+    t.integer "points"
     t.index ["week_id"], name: "index_blocks_on_week_id"
   end
 
@@ -247,15 +247,6 @@ ActiveRecord::Schema.define(version: 2018_06_13_173211) do
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at"
-  end
-
-  create_table "gradeables", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "title"
-    t.integer "points"
-    t.integer "gradeable_item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "gradeable_item_type"
   end
 
   create_table "question_group_conditionals", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

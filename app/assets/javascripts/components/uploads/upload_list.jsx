@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import Upload from './upload.jsx';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import List from '../common/list.jsx';
+import Loading from '../common/loading.jsx';
 
 const UploadList = createReactClass({
   displayName: 'UploadList',
@@ -15,6 +16,20 @@ const UploadList = createReactClass({
   },
 
   render() {
+    const uploads = this.props.uploads;
+    let elements;
+    if (uploads.length > 0) {
+      elements = uploads.map(upload => {
+        return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
+      });
+    } else if (!this.props.loadingUploads && this.props.totalUploadsCount > 0 && uploads.length === 0) {
+      elements = (<div className="none"><p>{I18n.t('courses_generic.user_uploads_none')}</p></div>);
+    } else if (!this.props.loadingUploads && uploads.length === 0) {
+      elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
+    } else {
+      elements = (<div style={{ width: '100%' }}><Loading /></div>);
+    }
+
     const keys = {
       image: {
         label: I18n.t('uploads.image'),
@@ -37,16 +52,12 @@ const UploadList = createReactClass({
         label: I18n.t('uploads.uploaded_at'),
         desktop_only: true,
         info_key: 'uploads.time_doc'
+      },
+      credit: {
+        label: I18n.t('uploads.credit'),
+        desktop_only: true,
       }
     };
-    let elements;
-    if (this.props.uploads.length > 0) {
-      elements = this.props.uploads.map(upload => {
-        return <Upload upload={upload} key={upload.id} linkUsername={true} />;
-      });
-    } else {
-      elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
-    }
 
     let uploadsView;
 

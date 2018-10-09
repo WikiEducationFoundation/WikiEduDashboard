@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
 import { fetchSuspectedPlagiarism, sortSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
 

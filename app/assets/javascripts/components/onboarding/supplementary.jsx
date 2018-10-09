@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';

@@ -27,6 +27,7 @@ const createBlock = (opts) => {
       training_modules={opts.training_modules || []}
       saveBlockChanges={noOp}
       editableBlockIds={opts.editableBlockIds || []}
+      updateBlock={noOp}
     />
   );
 };
@@ -47,6 +48,7 @@ describe('Block', () => {
           week_index={1}
           all_training_modules={[]}
           saveBlockChanges={noOp}
+          updateBlock={noOp}
         />
       );
       // Shallow rendering. See

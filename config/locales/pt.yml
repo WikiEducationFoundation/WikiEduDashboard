@@ -12,9 +12,20 @@
 # Author: Ldacosta
 # Author: Macofe
 # Author: MokaAkashiyaPT
+# Author: Ruila
 # Author: Vitorvicentevalente
 ---
 pt:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Este campo é numérico. Os botões mostrados pela maioria dos navegadores
       aumentam ou reduzem a entrada.
@@ -72,7 +83,7 @@ pt:
     opt_out: Pedir para ser excluído da introdução
     orientation_notice: Antes de criar um curso, façamos uma introdução para ajudá-lo
       a começar (dura cerca de 30 minutos).
-    review_orientation: Rever a orientação
+    review_orientation: Rever a introdução
     start_orientation: Começar a introdução
     blog_headline: Notícias recentes da Wiki Educação
     about_programs: Este sítio acompanha as atividades da wiki através dos programas
@@ -86,7 +97,7 @@ pt:
   home:
     explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
-    sign_up: Registar-se com Wikipédia
+    sign_up: Registar-se através da Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -419,7 +430,7 @@ pt:
     end: Fim
     ended: O curso terminou.
     enroll: Inscreva-se
-    enrollment: Inscrição
+    enrollment: Adicionar ou remover alunos
     courses_enrolled: Cursos matriculados
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -490,6 +501,7 @@ pt:
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
+    not_permitted: Não lhe é permitido editar este curso.
     notify_untrained_confirmation: Isto colocará um lembrete nas páginas de discussão
       de todos os estudantes que não completaram os módulos indicados. Tem certeza
       de que deseja prosseguir?
@@ -499,15 +511,17 @@ pt:
     passcode: Código de acesso
     passcode_none: Sem código de acesso
     passcode_prompt: 'Insira o código de acesso para participar:'
+    please_log_in: Inicie uma sessão, por favor.
     private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
-    review_timeline: Por favor, reveja este cronograma e faça mudanças. Quando estiver
-      satisfeito com o cronograma, envie-o para aprovação da equipa da Wiki Educação.
-      Após a aprovação, receberá um URL de inscrição que os alunos podem usar para
-      participar do curso (poderá editá-lo depois.)
+    review_timeline: 'Agora, reveja o seu calendário de tarefas e faça as alterações
+      necessárias. Quando estiver satisfeito, pode enviá-lo para aprovação da equipa
+      da Wiki Educação. Após a aprovação, receberá um URL de inscrição que os alunos
+      podem usar para participar no curso e aceder aos materiais (nota: poderá editar
+      o calendário mais tarde.)'
     revisions_doc: O número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
@@ -539,6 +553,8 @@ pt:
       relevante para o tipo de curso ClassroomProgram.
     subject: Tema
     submitted: Enviado
+    tag_select: Selecionar ou criar uma etiqueta
+    tags: 'Etiquetas:'
     term: Período
     timeline: Detalhes da tarefa
     timeline_enabled: Cronograma ativado
@@ -559,6 +575,9 @@ pt:
     update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu com nenhuma imagem nem outro ficheiro
       multimédia para a wiki Wikimedia Commons.
+    user_uploads_none: Este utilizador não contribuiu com nenhuma imagem nem outro
+      ficheiro multimédia para a wiki Wikimedia Commons.
+    user_recent_uploads: Carregamentos recentes
     user_suggestions: 'Sugestões do utilizador:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
@@ -645,7 +664,7 @@ pt:
     edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
     enroll: Adicionar editor
-    enrollment: Participação
+    enrollment: Adicionar ou remover editores
     explore: Encontrar programas
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados
@@ -655,6 +674,7 @@ pt:
       de uma hiperligação que inclua a palavra-passe — do facilitador.
     leave_course: Sair do programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
+    not_permitted: Não lhe é permitido editar este programa.
     published: 'Este projeto foi publicado! Possíveis editores podem inscrever-se
       visitando o seguinte URL:'
     request_accounts: Pedir contas
@@ -672,6 +692,8 @@ pt:
     unsubmitted: Programas não enviados
     uploads_none: Este projeto não contribuiu com nenhuma imagem nem outro ficheiro
       multimédia para a wiki Wikimedia Commons.
+    user_uploads_none: Os utilizadores selecionados não contribuíram com nenhuma imagem
+      nem outro ficheiro multimédia para este projeto.
     view_other: Ver outras campanhas
     view_page: Ver a página do programa
     word_count_doc: Uma estimativa do número de palavras acrescentadas ao domínio
@@ -864,7 +886,7 @@ pt:
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
-    grading_header: 'Avaliação (Total: %{total}%)'
+    grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover o bloco para baixo
     move_block_up: Mover o bloco para cima
     no_class_holidays: Não tenho férias
@@ -886,6 +908,7 @@ pt:
     next: Página seguinte
     page: Página
     page_number: Página %{number} de %{total}
+    previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formação
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
@@ -893,7 +916,11 @@ pt:
     done: Concluído!
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
+    view_library_source: ver a fonte da biblioteca
+    view_module_source: ver a fonte do módulo
+    reload_from_source: recarregar da fonte
   uploads:
+    credit: Créditos
     file_name: Nome do ficheiro
     header: Os ficheiros enviados ao Wikimedia Commons
     image: Imagem
@@ -901,7 +928,7 @@ pt:
     loading: A carregar os envios...
     none: Esta classe não contribuiu com nenhuma imagem nem outros ficheiros multimédia
       para a wiki Wikimedia Commons.
-    select_label: Filtrar por quem carregou
+    select_label: Filtrar por quem enviou
     time_doc: A hora de cada envio no seu horário local
     uploaded_at: Enviado a
     uploader: Carregado por
@@ -938,10 +965,10 @@ pt:
     first_name: Primeiro nome
     last_name: Apelido
     loading: A carregar os utilizadores...
-    characters_added_mainspace: Os caracteres foram acrescentados no espaço principal
+    characters_added_mainspace: Caracteres acrescentados (artigo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Os caracteres foram acrescentados no espaço do utilizador
-    characters_added_draftspace: Os caracteres foram acrescentados no espaço do rascunho
+    characters_added_userspace: Caracteres acrescentados (utilizador)
+    characters_added_draftspace: Caracteres acrescentados (rascunho)
     my_assigned: 'Atribuição:'
     my_reviewing: 'A revisar:'
     name: Nome
@@ -974,6 +1001,8 @@ pt:
       other: '%{completed_count}/%{count} módulos de capacitações concluídos'
     training_module_name: Módulo de formação
     training_module_status: Estado
+    user_training_status: Estado de formação
+    user_no_training_status: Este utilizador não completou nenhum módulo de formação.
     up_to_date_with_training: em dia com a formação
     uploads_doc: Número de carregamentos de ficheiros na wiki Wikimedia Commons
     username: Nome de utilizador
@@ -1080,7 +1109,7 @@ pt:
       por isto! Pode ocorrer por vezes.) Por favor, tente novamente iniciar a sessão
       ou matricular-se.
   survey:
-    login_message: Obrigado pelo seu tempo. Entre no seu Painel da Wiki Educação para
+    login_message: Obrigado pelo seu tempo. Entre no seu painel da Wiki Educação para
       participar do inquérito, por favor.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de
@@ -1128,8 +1157,8 @@ pt:
     search_placeholder: Introduza a sua palavra-chave
     search: Pesquisar
     tools: Ferramentas
-    show_filters: Mostrar filtros
-    hide_filters: Esconder filtros
+    show_options: Mostrar opções
+    hide_options: Ocultar opções
     keyword_search: Pesquisa por palavra-chave
     category_search: Pesquisa por categoria
     article_quality: Qualidade do artigo (0-100)
@@ -1141,7 +1170,7 @@ pt:
     fetching_revisions: A obter revisões de páginas
     fetching_scores: A obter classificações de integridade
     fetching_pageviews: A obter visitas de páginas
-    subheading_message: Vamos procurar um artigo que satisfaz as suas necessidades
+    subheading_message: Vamos procurar um artigo da Wikipédia para trabalhar nele.
     article_finder: Pesquisa de artigos
     submit: Enviar
     relevanceIndex: Índice de relevância

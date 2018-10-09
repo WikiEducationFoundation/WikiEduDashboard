@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aursani
+# Author: BukhariSaeed
 # Author: Indus Asia
 # Author: Macofe
 # Author: Mehtab ahmed
@@ -10,6 +11,7 @@
 sd:
   application:
     cancel: رد
+    create_accounts: وڪيپيڊيا کاتا کوليو
     dashboard: وڪي ايڊيٽر ڊيشبورڊ
     documentation: دستاويزسازي
     error: 'ڪا خرابي ھئي:'
@@ -25,20 +27,28 @@ sd:
     log_in_extended: وڪيپيڊيا سان داخل ٿيو
     log_in: داخل ٿيو
     log_out: خارج ٿيو
+    my_dashboard: منهنجو ڊيش بورڊ
     recent_activity: تازي سرگرمي
+    request_account: کاتي لاءِ درخواست ڪيو
+    request_account_create: کاتو کوليو
     search: ڪو سوال پڇو
     sign_up_extended: وڪيپيڊيا ۾ کاتو کوليو
+    sign_up_wikipedia: يا وڪيپيڊيا تي سائن اَپ ڪيو
     sign_up_log_in_extended: وڪيپيڊيا سان
     sign_up: کاتو کوليو
     submit: اماڻيو
     training: تربيت
     change: تبديل ڪريو
+    details: تفصيلَ
     confirm: ٺيڪ
+    opt_in: ها
+    opt_out: نہ
   dashboard:
     explore_course_pages: ڪورس جا صفحا کوجيو
     explore_examples: مثالَ ڳوليو
     no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
     no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
+    start_orientation: اوريئنٽيشن شروع ڪيو
     blog_headline: وڪي ايڊيوڪيشن مان تازيون خبرون
   home:
     explore: کوجيو
@@ -57,10 +67,12 @@ sd:
     assigned_to: تخصيصدار
     character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
       ڪيل اکرن جو ڪل تعداد
+    deleted: ڊاٿل
     edited: سنواريل مضمون
     edited_by: جي طرفان سنواريو ويو
     edited_mobile: مضمون
     hide: لڪايو
+    history: اڳوڻا تفصيل
     label: مضمون
     loading: مضمون اتارجي رهيا آهن...
     new: (نئون)
@@ -77,8 +89,11 @@ sd:
         آهي.
       stub: ڪچو درجو — شروعاتي مرحلن وارو مضمون، جنهن ۾ مواد تمام محدود هجي.
       list: فهرست درجو — ڪنهن روايتي مضمون بدران هڪ فهرست
+    see_more: وڌيڪ ڏسو
+    show_current_version: تازو ورزن ڏيکاريو
     title: عنوان
     title_example: مضمون جو عنوان
+    tools: تشخيص جا اوزار
     view: مضمون ڏسو
     view_all: سڀ ڏسو
     view_on_wiki: وڪيءَ تي ڏسو
@@ -88,6 +103,7 @@ sd:
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
     add_available: ڪو موجود مضمون شامل ڪريو
+    add_available_submit: مضمون شامل ڪيو
     assign_self: مون کي مضمون سونپيو
     confirm_deletion: پڪ سان توهان هيءَ مضمون مشق ڊاهڻ گھرو ٿا؟
     label: سونپيو
@@ -105,13 +121,32 @@ sd:
       title: سنگ ميل
   campaign:
     add_organizer: سرپرست شامل ڪيو (Add organizer)
+    alert_article: مضمون جو عنوان
+    alert_user_id: واهپيندڙ (يُوزر)
     all_campaigns: سڀ مهمون (All Campaigns)
     campaign: مهم (Campaign)
+    created_at: تاريخ
+    course: ڪورس
+    description: تفصيل
+    delete_campaign: هيءَ ڪئيمپين ڊاهيو
     none: ڪوبہ نہ
     organizers: سرپرستَ (Organizers)
     title: عنوان
+  categories:
+    add_category: ڏَسان (زمرو) شامل ڪيو
+    add_template: سانچو شامل ڪريو
+    add_this_category: هي ڏَسان (زمرو) شامل ڪيو
+    add_this_template: ھڪ سانچو شامل ڪريو
+    category_name: ڏَسان (زمري) جو نالو
+    template_name: سانچي جو نالو
+    remove: هٽايو
+  chat:
+    label: ڳالھ ٻولھ
   courses:
     activity: سرگرمي
+    alerts: تاڪيدون
+    all_courses: سڀئي ڪورسَ
+    archived: آرڪائيوو ٿيل ڪورسَ
     actions: عمل
     articles: مضمون
     articles_none: ھن ڪورس ڪي بہ مضمون سنواريا نہ آھن.
@@ -123,36 +158,59 @@ sd:
       select_meeting_days: ھفتي جا اھي ڏينھن چونڊيو جن تي اوھان جي ڪلاس جي گڏجاڻي
         ٿئي ٿي.
     cancel: رد
+    course: ڪورس
     course_description: ' ڪورسز'
     courses: ڪورسز
+    creation_date: ٺاهڻ جي تاريخ
     creator:
+      course_description: ڪورس جو تفصيل
       course_language: مکيه ٻولي
       course_project: مکيه رٿا
+      course_subject: ڪورس جو سبجيڪٽ
+      course_title: ڪورس جو عنوان
+      create_button: منهنجو ڪورس ٺاهيو!
+      create_label: نئون ڪورس ٺاهيو
+      create_new: نئون ڪورس ٺاهيو
+      create_short: ڪورس ٺاهيو
       end_date: پڄاڻيءَ جي تاريخ
       end_date_placeholder: پڄاڻيءَ جي تاريخ (YYYY-MM-DD)
+      expected_number: شاگردن جو گُهربل تعداد
+      find: پنهنجو ڪورس ڳولهيو
+      save_cloned_course: نئون ڪورس سانڍيو
       start_date: شروع ڪرڻ جي تاريخ
       start_date_placeholder: شروع ٿيڻ جي تاريخ (YYYY-MM-DD)
       subject: موضوع
     current: حاليہ ڪورسز
+    data_articles: مضمونن جا انگ اکر
     data_overview: انگ اکرَ ڏسو
+    delete_course: ڪورس ڊاهيو
+    delete_suggestion: ڊاھيو
     duration: ڪورس جو دورانيو
     enable_chat: ڪچھري قابلِڪار بڻايو
+    end: پُڄاڻي
     ended: ڪورس ختم ٿي ويو آهي.
     error:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
       user_exists: معاف ڪندا، %{username} نالي واپرائيندڙ وجود نٿو رکي.
     feedback: اوهان جي راءِ
+    home_wiki_language: وڪي ٻوليءَ جو مکيه صفحو
+    home_wiki_project: وڪي پراجيڪٽ جو مکيه صفحو
     instructor:
       one: استادُ
       other: استادَ
+    instructors: سکيا ڏيندڙ
     join: شامل ٿيو
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو شامل ڪريو
+    new_account_email: برق ٽپال پتو
+    new_account_username_placeholder: وڪي ايڊيٽر 123
     nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     overview: گھر
+    private: ذاتي
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
     school: اسڪول
     students: شاگرد
+    students_count: '# شاگردَ'
     students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
     students_short: شاگرد
     user_role: ڪردار
@@ -273,7 +331,7 @@ sd:
     read_less: گھٽ پڙهو
     read_more: وڌيڪ پڙهو
     select_assignment: پنهنجي اوقاتي خط ۾ شامل ڪرڻ لاءِ مشقن جو قسم چونڊيو.
-    summary: تَتُ
+    summary: خلاصو
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
     unsupported_browser:

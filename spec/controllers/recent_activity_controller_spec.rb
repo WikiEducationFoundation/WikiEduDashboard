@@ -13,6 +13,7 @@ describe RecentActivityController do
       end
 
       let(:subject) { get :plagiarism_report, params: { ithenticate_id: 123 } }
+
       it 'fetches an iThenticate url and redirects' do
         expect(PlagiabotImporter).to receive(:api_get_url)
           .with(ithenticate_id: '123').and_return(root_path)
@@ -26,6 +27,7 @@ describe RecentActivityController do
       end
 
       let(:subject) { get :plagiarism_report, params: { ithenticate_id: 123 } }
+
       it 'redirects to login' do
         expect(subject).to redirect_to %r{/users/auth/mediawiki}
       end

@@ -704,8 +704,6 @@ ca:
     search_placeholder: Introduïu la paraula clau
     search: Cerca
     tools: Eines
-    show_filters: Mostra els filtres
-    hide_filters: Amaga els filtres
     keyword_search: Cerca per paraules clau
     category_search: Cerca per categories
     more_results: Més resultats

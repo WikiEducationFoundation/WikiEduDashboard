@@ -10,6 +10,7 @@ describe CourseEditsCsvBuilder do
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
   let(:revision_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
+
   before do
     # revisions during the course
     revision_count.times do |i|

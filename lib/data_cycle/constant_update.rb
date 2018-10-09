@@ -55,8 +55,8 @@ class ConstantUpdate
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles
 
-    log_message 'Importing wp10 scores for all en.wiki revisions'
-    RevisionScoreImporter.new.update_revision_scores
+    log_message 'Importing articlequality scores for all revisions on supported wikis'
+    RevisionScoreImporter.update_revision_scores_for_all_wikis
 
     log_message 'Checking for plagiarism in recent revisions'
     PlagiabotImporter.find_recent_plagiarism

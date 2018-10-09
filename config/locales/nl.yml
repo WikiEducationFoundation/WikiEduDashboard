@@ -2,15 +2,18 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Festina90
+# Author: Goefie
 # Author: KlaasZ4usV
 # Author: Mainframe98
 # Author: Mar(c)
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
+# Author: Optilete
 # Author: Patio
 # Author: Ragesoss
 # Author: Romaine
+# Author: SPQRobin
 # Author: Siebrand
 # Author: Sjoerddebruin
 ---
@@ -263,6 +266,8 @@ nl:
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     submitted: Verzonden
+    tag_select: Een label selecteren of aanmaken
+    tags: 'Labels:'
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn
@@ -413,8 +418,13 @@ nl:
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
+    select_label: Filteren op uploader
     time_doc: De tijd van iedere upload in je lokale tijd
-    uploaded_at: Opgeslagen bij
+    uploaded_at: Uploadtijd
+    uploader: Uploader
+    uploaded_on: Geüpload op
+    usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
+    usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!

@@ -15,7 +15,7 @@
 
 FactoryBot.define do
   factory :category do
-    name 'Foo'
-    wiki_id 1
+    name { 'Foo' }
+    wiki_id { 1 }
   end
 end

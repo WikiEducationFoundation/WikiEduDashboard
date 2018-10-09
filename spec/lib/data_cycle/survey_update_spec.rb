@@ -7,7 +7,7 @@ describe SurveyUpdate do
   describe '#initialize' do
     it 'creates notifications, sends emails, and sends follow-ups' do
       expect(SurveyNotificationsManager).to receive(:create_notifications)
-      update = SurveyUpdate.new
+      update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/SurveyNotifications created/).any?).to eq(true)
       expect(sentry_logs.grep(/survey invitations sent/).any?).to eq(true)
@@ -18,7 +18,7 @@ describe SurveyUpdate do
   context 'when there are active surveys' do
     include_context 'survey_assignment'
     before do
-      SurveyUpdate.new
+      described_class.new
     end
 
     it "sends emails for all SurveyNotifications with emails that haven\'t been sent" do
@@ -35,7 +35,7 @@ describe SurveyUpdate do
     end
 
     it "only sends emails for notifications which haven't been dismissed" do
-      SurveyUpdate.new
+      described_class.new
       expect(ActionMailer::Base.deliveries.count).to eq(2)
     end
 
@@ -43,7 +43,7 @@ describe SurveyUpdate do
     it 're-raises common SMTP errors if they recur' do
       allow_any_instance_of(SurveyNotification).to receive(:send_email)
         .and_raise(Net::SMTPAuthenticationError)
-      expect { SurveyUpdate.new }.to raise_error Net::SMTPAuthenticationError
+      expect { described_class.new }.to raise_error Net::SMTPAuthenticationError
     end
   end
 end

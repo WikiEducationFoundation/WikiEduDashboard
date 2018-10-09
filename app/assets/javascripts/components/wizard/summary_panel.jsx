@@ -1,12 +1,25 @@
-// use WizardStore.getPanels() for answers
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import ServerActions from '../../actions/server_actions.js';
-import WizardActions from '../../actions/wizard_actions.js';
-import WizardStore from '../../stores/wizard_store.js';
 import Panel from './panel.jsx';
+
+const answersFromPanels = panels => {
+  const answers = [];
+  panels.forEach((panel, i) => {
+    if (i === panels.length - 1) { return; }
+    const answer = { title: panel.title, selections: [] };
+    if (panel.options !== undefined && panel.options.length > 0) {
+      panel.options.map((option) => {
+        if (option.selected) { return answer.selections.push(option.title); }
+        return undefined;
+      });
+      if (answer.selections.length === 0) { answer.selections = ['No selections']; }
+    }
+    return answers.push(answer);
+  });
+  return answers;
+};
 
 const SummaryPanel = createReactClass({
   displayName: 'SummaryPanel',
@@ -14,21 +27,25 @@ const SummaryPanel = createReactClass({
   propTypes: {
     courseId: PropTypes.string,
     course: PropTypes.object.isRequired,
-    wizardId: PropTypes.string
+    panels: PropTypes.array.isRequired
   },
 
   submit() {
-    ServerActions.submitWizard(this.props.courseId, this.props.wizardId, WizardStore.getOutput());
+    this.props.submitWizard(this.props.courseId);
     window.onbeforeunload = null;
     return browserHistory.push(`/courses/${this.props.courseId}/timeline`);
   },
   rewind(toIndex) {
-    WizardActions.rewindWizard(toIndex);
+    this.props.goToWizard(toIndex);
     window.location.hash = `step${toIndex + 1}`; // Sync Step Changes
     document.title = document.title.replace(/\d+$/, toIndex + 1); // Sync Title
   },
   render() {
-    const rawOptions = WizardStore.getAnswers().map((answer, i) => {
+    let answers = [];
+    if (this.props.active) {
+      answers = answersFromPanels(this.props.panels);
+    }
+    const rawOptions = answers.map((answer, i) => {
       // summary of the Course Dates panel
       let details;
       if (i === 0) {

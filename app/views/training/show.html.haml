@@ -12,6 +12,9 @@
         .training__category__header
           %h1.h3= lib_category.title
           %p= lib_category.description
+          - if @library.wiki_page
+            .training__category__source
+              %a{href: "https://meta.wikimedia.org/wiki/#{@library.wiki_page}"}= t('training.view_library_source')
         %ul.training__categories__modules
           - lib_category.modules.each do |lib_module|
             - mod = TrainingModule.find_by(slug: lib_module.slug)

@@ -1,4 +1,4 @@
-import { RECEIVE_DYK, SORT_DYK } from "../constants";
+import { RECEIVE_DYK, SORT_DYK } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {

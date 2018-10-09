@@ -317,7 +317,7 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
-    last_update: Lescht Aktualisatioun vun de Statistiken
+    last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -401,6 +401,7 @@ lb:
     next: Nächst Säit
     page: Säit
     page_number: Säit %{number} vu(n) %{total}
+    previous: < Vireg
     table_of_contents: Inhaltsverzeechnes
     training_library: Formatiouns-Bibliothéik
     done: Fäerdeg!
@@ -415,6 +416,7 @@ lb:
     uploaded_by: Eropgeluede vum
     uploaded_on: Eropgelueden de(n)
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
+    usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg
@@ -515,8 +517,8 @@ lb:
     no_article_found: Keng Artikelen an dëser Kategorie fonnt
     search: Sichen
     tools: Geschirkëscht
-    show_filters: Filtere weisen
-    hide_filters: Filtere verstoppen
+    show_options: Optioune weisen
+    hide_options: Optioune verstoppen
     category_search: Kategorie Sichen
     more_results: Méi Resultater
     filtered_articles: Gefiltert Artikelen

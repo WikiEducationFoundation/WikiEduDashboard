@@ -7,18 +7,24 @@ import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 const SalesforceLink = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    linkToSalesforce: PropTypes.func.isRequired
   },
 
   linkToSalesforce() {
     const rawSalesforceId = prompt('Enter the Salesforce record ID or url for this course.');
+    if (!rawSalesforceId) { return; }
     const salesforceId = extractSalesforceId(rawSalesforceId);
-    ServerActions.linkToSalesforce(this.props.course.id, salesforceId);
+    if (!salesforceId) {
+      alert('That input did not include a valid Salesforce record ID or url.');
+      return;
+    }
+    return this.props.linkToSalesforce(this.props.course.id, salesforceId);
   },
 
   updateSalesforceRecord() {
     ServerActions.updateSalesforceRecord(this.props.course.id)
-      .then(alert('updated!'));
+      .then(alert('updating!'));
   },
 
   render() {

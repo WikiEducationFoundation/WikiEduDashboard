@@ -1,4 +1,4 @@
-import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS } from "../constants";
+import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {

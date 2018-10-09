@@ -21,7 +21,7 @@ describe DailyUpdate do
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
       expect(Raven).to receive(:capture_message).and_call_original
-      update = DailyUpdate.new
+      update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
     end
@@ -29,17 +29,17 @@ describe DailyUpdate do
     it 'reports logs to sentry even when it errors out' do
       allow(Raven).to receive(:capture_message)
       allow(UploadImporter).to receive(:find_deleted_files).and_raise(StandardError)
-      expect { DailyUpdate.new }.to raise_error(StandardError)
+      expect { described_class.new }.to raise_error(StandardError)
       expect(Raven).to have_received(:capture_message)
     end
   end
 
   context 'when a pid file is present' do
     it 'deletes the pid file for a non-running process' do
-      allow_any_instance_of(DailyUpdate).to receive(:create_pid_file)
-      allow_any_instance_of(DailyUpdate).to receive(:run_update)
+      allow_any_instance_of(described_class).to receive(:create_pid_file)
+      allow_any_instance_of(described_class).to receive(:run_update)
       File.open('tmp/batch_update_daily.pid', 'w') { |f| f.puts '123456789' }
-      DailyUpdate.new
+      described_class.new
       expect(File.exist?('tmp/batch_update_daily.pid')).to eq(false)
     end
   end

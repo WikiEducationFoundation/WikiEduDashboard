@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseStats from './course_stats.jsx';
@@ -8,54 +8,42 @@ import Description from './description.jsx';
 import Milestones from './milestones.jsx';
 import Details from './details.jsx';
 import ThisWeek from './this_week.jsx';
-import CourseStore from '../../stores/course_store.js';
-import WeekStore from '../../stores/week_store.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
-import ServerActions from '../../actions/server_actions.js';
-import { getStudentUsers } from '../../selectors';
-
-const getState = () =>
-  ({
-    course: CourseStore.getCourse(),
-    loading: WeekStore.getLoadingStatus(),
-    weeks: WeekStore.getWeeks()
-  })
-;
+import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
+import { fetchTags } from '../../actions/tag_actions';
+import { getStudentUsers, getWeeksArray } from '../../selectors';
 
 const Overview = createReactClass({
   displayName: 'Overview',
 
   propTypes: {
+    course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     course_id: PropTypes.string,
     location: PropTypes.object,
-    students: PropTypes.array
-  },
-
-  mixins: [WeekStore.mixin, CourseStore.mixin],
-
-  getInitialState() {
-    return getState();
+    students: PropTypes.array,
+    fetchTags: PropTypes.func.isRequired,
+    updateCourse: PropTypes.func.isRequired,
+    resetCourse: PropTypes.func.isRequired,
+    updateClonedCourse: PropTypes.func.isRequired,
+    weeks: PropTypes.array.isRequired
   },
 
   componentDidMount() {
-    ServerActions.fetch('timeline', this.props.course_id);
-    return ServerActions.fetch('tags', this.props.course_id);
-  },
-
-  storeDidChange() {
-    return this.setState(getState());
+    if (this.props.current_user.admin) {
+      this.props.fetchTags(this.props.course_id);
+    }
   },
 
   render() {
-    const course = this.state.course;
+    const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} />;
+      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} currentUser={this.props.current_user} />;
     }
 
     let syllabusUpload;
@@ -68,17 +56,17 @@ const Overview = createReactClass({
     }
 
     let thisWeek;
-    const noWeeks = !this.state.weeks || this.state.weeks.length === 0;
+    const noWeeks = this.props.weeks.length === 0;
     if (!course.legacy && !noWeeks) {
       thisWeek = (
         <ThisWeek
           course={course}
-          weeks={this.state.weeks}
+          weeks={this.props.weeks}
         />
       );
     }
 
-    const primaryContent = this.state.loading ? (
+    const primaryContent = this.props.loading ? (
       <Loading />
     ) : (
       <div>
@@ -87,6 +75,10 @@ const Overview = createReactClass({
           title={course.title}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
+          updateCourse={this.props.updateCourse}
+          resetState={this.props.resetCourse}
+          persistCourse={this.props.persistCourse}
+          nameHasChanged={this.props.nameHasChanged}
         />
         {thisWeek}
       </div>
@@ -105,9 +97,16 @@ const Overview = createReactClass({
 
     const sidebar = course.id ? (
       <div className="sidebar">
-        <Details {...this.props} />
-        <AvailableActions course={course} current_user={this.props.current_user} />
-        <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
+        <Details
+          {...this.props}
+          updateCourse={this.props.updateCourse}
+          resetState={this.props.resetCourse}
+          persistCourse={this.props.persistCourse}
+          nameHasChanged={this.props.nameHasChanged}
+          refetchCourse={this.props.refetchCourse}
+        />
+        <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
+        <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} />
       </div>
     ) : (
       <div className="sidebar" />
@@ -133,8 +132,20 @@ const Overview = createReactClass({
 
 const mapStateToProps = state => ({
   students: getStudentUsers(state),
-  campaigns: state.campaigns.campaigns
+  campaigns: state.campaigns.campaigns,
+  weeks: getWeeksArray(state),
+  loading: state.timeline.loading
  });
 
+const mapDispatchToProps = {
+  updateCourse,
+  resetCourse,
+  persistCourse,
+  nameHasChanged,
+  updateClonedCourse,
+  fetchTags,
+  refetchCourse
+};
 
-export default connect(mapStateToProps)(Overview);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);

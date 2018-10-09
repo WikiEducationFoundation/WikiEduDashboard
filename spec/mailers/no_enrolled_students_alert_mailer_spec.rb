@@ -23,6 +23,7 @@ describe NoEnrolledStudentsAlertMailer do
 
   describe '.email' do
     let(:mail) { described_class.email(alert) }
+
     it 'delivers an email to the instructor and CCs Wiki Ed staff' do
       allow(Features).to receive(:email?).and_return(true)
       expect(mail.subject).to include(course.slug)

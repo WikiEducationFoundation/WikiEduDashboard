@@ -1,6 +1,6 @@
 require:
   - rubocop/rspec/focused
-
+  - rubocop-rspec
 Documentation:
   Enabled: false
 AllCops:
@@ -23,7 +23,7 @@ Metrics/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 140 # We should bring this down, ideally to the default of 100
+  Max: 134 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'lib/importers/category_importer.rb'
     - 'app/models/course.rb'
@@ -31,6 +31,7 @@ Metrics/ClassLength:
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
     - 'lib/analytics/histogram_plotter.rb'
+    - 'lib/importers/revision_score_importer.rb'
 
 Metrics/AbcSize:
   Max: 44 # We should bring this down, ideally to the default of 15
@@ -50,10 +51,9 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
 Metrics/ModuleLength:
-  Max: 145 # We should bring this down, ideally to the default of 100
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
-    - 'app/helpers/surveys_helper.rb'
+    - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
 ########################
 # Permanent exceptions #
@@ -85,6 +85,8 @@ Layout/EmptyLineAfterMagicComment:
   Enabled: false # These get removed whenever 'annotate' updates a file anyway.
 Naming/UncommunicativeMethodParamName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false # Not very helpful
 ########################
 # Temporary exceptions #
 ########################
@@ -141,3 +143,47 @@ Style/ExpandPathArguments:
   Enabled: false
 Layout/ClosingHeredocIndentation:
   Enabled: false # buggy in 0.57.2: https://github.com/rubocop-hq/rubocop/issues/6009
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/BeforeAfterAll:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Enabled: false
+RSpec/FilePath:
+  Enabled: false
+RSpec/ScatteredLet:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/RepeatedDescription:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+Capybara/CurrentPathExpectation:
+  Enabled: false
+RSpec/DescribeClass:
+  Enabled: false
+RSpec/ExpectInHook:
+  Enabled: false
+RSpec/ScatteredSetup:
+  Enabled: false
+RSpec/MultipleDescribes:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/Be:
+  Enabled: false

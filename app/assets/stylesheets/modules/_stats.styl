@@ -1,3 +1,15 @@
+@keyframes STAT-CHANGE
+  0% {
+    opacity 0
+    transform scale(1.4)
+  }
+  50% {
+    opacity 1
+  }
+  100% {
+    opacity 1
+  }
+
 .main-page
   h1
     font-weight 300
@@ -26,6 +38,9 @@
       font-size 38px
       margin 0
       font-weight 300
+
+      &.stat-change
+        animation STAT-CHANGE 3s;
 
       img
         max-width 13%

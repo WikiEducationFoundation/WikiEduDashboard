@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
+json.weeks course.weeks.eager_load(:blocks) do |week|
   # 0 index the array and offset according to blackout weeks prior
   week_array_index = week.order - 1 + course.meetings_manager.blackout_weeks_prior_to(week)
   if course.timeline_start
@@ -12,13 +12,8 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
   json.start_date start_date.present? ? start_date.strftime('%m/%d') : nil
   json.end_date start_date.present? ? start_date.end_of_week(:sunday).strftime('%m/%d') : nil
   json.blocks week.blocks do |block|
-    json.call(block, :id, :kind, :content, :week_id,
-              :gradeable_id, :title, :order, :due_date,
-              :training_module_ids)
-    unless block.gradeable.nil?
-      json.gradeable block.gradeable, :id, :points,
-                     :gradeable_item_type, :gradeable_item_id
-    end
+    json.call(block, :id, :kind, :content, :week_id, :title,
+              :order, :due_date, :training_module_ids, :points)
     if block.training_modules.any?
       json.training_modules block.training_modules do |tm|
         # The available training modules may change over time, especially on

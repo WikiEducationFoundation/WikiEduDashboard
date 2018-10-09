@@ -1,4 +1,4 @@
-import { RECEIVE_SUSPECTED_PLAGIARISM, SORT_SUSPECTED_PLAGIARISM } from "../constants";
+import { RECEIVE_SUSPECTED_PLAGIARISM, SORT_SUSPECTED_PLAGIARISM } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {

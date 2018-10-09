@@ -40,7 +40,14 @@ const InputHOC = (Component) => {
     },
     // onChange will now be handled by the HOC component
     onChange(e) {
-      const { value } = e.target;
+      let value;
+      // Workaround to ensure that we don't render checkboxes with a string value instead of boolean
+      if (Component.displayName === 'Checkbox') {
+        value = /true/.test(e.target.value);
+      } else {
+        value = e.target.value;
+      }
+
       if (value !== this.state.value) {
         return this.setState({ value }, function () {
           this.props.onChange(this.props.value_key, value);

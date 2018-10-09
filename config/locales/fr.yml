@@ -24,6 +24,16 @@
 # Author: Zetud
 ---
 fr:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: k
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
       des navigateurs incrémenteront et décrémenteront cette entrée.
@@ -434,7 +444,7 @@ fr:
     end: Fin
     ended: Le cours est terminé.
     enroll: S’inscrire
-    enrollment: Inscription
+    enrollment: Ajouter/Supprimer des étudiants
     courses_enrolled: Inscrit aux cours
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
@@ -507,6 +517,7 @@ fr:
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.
     none: Aucun
+    not_permitted: Vous n'êtes pas autorisé à modifier ce cours.
     notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
       affectés. Êtes-vous sûr de vouloir faire cela ?
@@ -517,16 +528,17 @@ fr:
     passcode_none: Aucun mot de passe
     passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
       cours :'
+    please_log_in: Veuillez vous connecter.
     private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     rating_feedback: 'La note prévue pour cet article est :'
     requested_accounts: Comptes demandés
-    review_timeline: Veuillez consulter ce calendrier et faire les modifications.
-      Une fois satisfait de votre calendrier, soumettez-le pour approbation par l’équipe
-      Wiki Ed. Une fois approuvé, une URL d’inscription vous sera fournie afin que
-      les étudiants puissent rejoindre le cours (vous pourrez toujours faire des modifications
-      ultérieurement).
+    review_timeline: 'Veuillez consulter maintenant votre calendrier et faire les
+      adaptations qui conviennent. Une fois satisfait, soumettez-le pour approbation
+      par l’équipe Wiki Education. Dès qu''il aura été approuvé, une URL d’inscription
+      vous sera fournie afin que les étudiants puissent rejoindre le cours et accéder
+      aux matériels (Note: vous pourrez toujours faire des modifications ultérieurement).'
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
@@ -543,8 +555,8 @@ fr:
       l’ajouter à une campagne sur la page de présentation.
     submitted_and_pending_heading: Soumis et en attente d’approbation
     submitted_heading: Cours soumis
-    submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
-      contactera pour toute question.
+    submitted_note: Votre cours a été soumis. L’équipe de Wiki Education l’examinera
+      et vous contactera pour toute question.
     suggestions_feedback: Vous avez des suggestions pour améliorer cette fonctionnalité ?
       Faites-le nous savoir !
     suggestions_sending: Envoi du commentaire…
@@ -557,6 +569,8 @@ fr:
       n’est significatif que pour le type de cours ClassroomProgram.
     subject: Sujet
     submitted: Soumis
+    tag_select: Sélectionner ou créer une balise
+    tags: 'Balises :'
     term: Période
     timeline: Détails d'assignement
     timeline_enabled: Chronologie activée
@@ -578,6 +592,9 @@ fr:
     update_stats: Mettre à jour les statistiques
     uploads_none: Cette classe n'a importé aucune image ni aucun fichier media sur
       Wikimedia Commons.
+    user_uploads_none: Cet utilisateur n’a contribué à aucune image ni autre fichier
+      de média de Wikimédia Communs.
+    user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
@@ -599,7 +616,7 @@ fr:
       Désactivez les modifications du wiki si vous ne voulez pas que les modèles soient
       ajoutés aux pages utilisateur, aux pages de discussion des articles affectés,
       etc.
-    wiki_staff: Équipe d’édition de wiki
+    wiki_staff: Équipe de Wiki éducation
     withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
@@ -666,7 +683,7 @@ fr:
     edit_course_dates: Modifier les dates du projet
     end: Fin du suivi d’activité
     enroll: Ajouter éditeur
-    enrollment: Participation
+    enrollment: Ajouter/Supprimer des contributeurs
     explore: Trouver des programmes
     courses_enrolled: Participé aux programmes
     expected_students: Éditeurs attendus
@@ -676,6 +693,7 @@ fr:
       — ou un lien qui l’inclut — de la part de l’animateur.
     leave_course: Quitter le programme
     milestones_none: Ce projet n’a actuellement aucun jalon.
+    not_permitted: Vous n'êtes pas autorisé à modifier ce programme.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
     request_accounts: Demander des comptes
@@ -693,6 +711,8 @@ fr:
     unsubmitted: Programmes non soumis
     uploads_none: Ce projet n'a importé aucune image ni aucun fichier media sur Wikimedia
       Commons.
+    user_uploads_none: Les utilisateurs sélectionnés non apporté aucune image ni autre
+      fichier média pour ce projet.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
     word_count_doc: Estimé du nombre de mots ajoutés aux articles de l’espace principal
@@ -888,7 +908,7 @@ fr:
     first_week_title: Première semaine active
     gradeable_value: Valeur
     gradeables_none: Ce planning n’a aucune affectation marquée comme évaluée.
-    grading_header: 'Évaluation (Total : %{total}%)'
+    grading_header: 'Évaluation (Total : %{total})'
     move_block_down: Faire descendre le bloc
     move_block_up: Faire monter le bloc
     no_class_holidays: Je n’ai pas de congés scolaires
@@ -910,6 +930,7 @@ fr:
     next: Page suivante
     page: Page
     page_number: Page %{number} sur %{total}
+    previous: < Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
@@ -917,7 +938,11 @@ fr:
     done: Terminé !
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
+    view_library_source: afficher la source de la bibliothèque
+    view_module_source: afficher la source du module
+    reload_from_source: recharger depuis la source
   uploads:
+    credit: Crédit
     file_name: Nom de fichier
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
@@ -927,8 +952,8 @@ fr:
       Commons.
     select_label: Filtrer par téléverseur
     time_doc: L’heure de chaque téléversement dans votre heure locale
-    uploaded_at: Heure de téléchargement
-    uploader: Téléchargeur
+    uploaded_at: Durée du téléversement
+    uploader: Téléverseur
     uploaded_by: Téléversé par
     uploaded_on: Téléversé le
     usage_count: Nombre d’utilisations
@@ -963,10 +988,10 @@ fr:
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
-    characters_added_mainspace: Caractères MS ajoutés
+    characters_added_mainspace: Caractères ajoutés (article)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caractères US ajoutés
-    characters_added_draftspace: Caractères espaces d’ébauche ajoutés
+    characters_added_userspace: Caractères ajoutés (utilisateur)
+    characters_added_draftspace: Caractères ajoutés (brouillon)
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom
@@ -999,6 +1024,8 @@ fr:
       other: '%{completed_count}/%{count} modules de formation terminés'
     training_module_name: Module de formation
     training_module_status: État
+    user_training_status: Etat de la formation
+    user_no_training_status: Cet utilisateur n'a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
     uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
     username: Nom d’utilisateur
@@ -1012,7 +1039,7 @@ fr:
       instructor: Formateur
       campus_volunteer: Bénévole du campus
       online_volunteer: Bénévole en ligne
-      wiki_ed_staff: Équipe d’édition du wiki
+      wiki_ed_staff: Équipe de wiki Education
   user_profiles:
     student_impact: Impact total fait par %{username} en tant qu’étudiant
     instructor_impact: Impact total fait par %{username} en tant que formateur
@@ -1106,8 +1133,8 @@ fr:
       à ce sujet! Cela arrive de temps en temps.) S'il vous plaît essayez de vous
       reconnecter, ou réinscrivez-vous à nouveau.
   survey:
-    login_message: Merci pour votre temps. Veuillez vous connecter à notre tableau
-      de bord Wiki Ed pour participer au sondage.
+    login_message: Merci pour votre temps. Veuillez vous connecter à votre tableau
+      de bord Wiki Education pour participer au sondage.
     notification_explanation: Si la case ci-dessous est cochée, les utilisateurs recevront
       des courriels selon le calendrier de notifications, en plus de voir les notifications
       dans le navigateur. Si non, seules les notifications dans le navigateur seront
@@ -1118,7 +1145,7 @@ fr:
       ne sont pas souhaités.
     email:
       headline: Bonjour, %{username}
-      message_line1: Nous espérons que vous avez passé une bonne période ! Wiki Ed
+      message_line1: Nous espérons que vous avez passé une bonne période ! Wiki Education
         attend votre avis pour améliorer ses ressources et soutenir vos affectations
         sur Wikipédia. Votre réponse est cruciale pour améliorer nos offres actuelles.
       message_line2: Voulez-vous prendre 15 minutes pour notre enquête d’instructeur ?
@@ -1126,7 +1153,7 @@ fr:
         avec Wikipédia une expérience encore plus enrichissante et valorisante.
       course: 'Cours : %{course_info}'
       closing: Sincèrement vôtre,
-      signed: '- l’équipe Wiki Ed'
+      signed: '- l’équipe de Wiki Education'
       link: Participer au sondage
     follow_up:
       message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
@@ -1153,8 +1180,8 @@ fr:
     search_placeholder: Saisir votre mot de passe
     search: Rechercher
     tools: Outils
-    show_filters: Afficher les filtres
-    hide_filters: Masquer les filtres
+    show_options: Afficher les options
+    hide_options: Masquer les options
     keyword_search: Recherche par mot-clé
     category_search: Recherche par catégorie
     article_quality: Qualité de l’article (0-100)
@@ -1166,7 +1193,7 @@ fr:
     fetching_revisions: Récupération des révisions de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération des compteurs de vue de page
-    subheading_message: Trouvons un article qui corresponde à vos besoins
+    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
     article_finder: Découvreur d’article
     submit: Soumettre
     relevanceIndex: Indice de pertinence

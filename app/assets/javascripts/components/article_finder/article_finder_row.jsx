@@ -1,9 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
 import ArticleViewer from '../common/article_viewer.jsx';
 
-import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from "../../constants";
+import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from '../../constants';
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 
 const ArticleFinderRow = createReactClass({
@@ -55,38 +56,33 @@ const ArticleFinderRow = createReactClass({
 
   render() {
     let pageviews;
-    if (this.props.article.fetchState === "REVISIONSCORE_RECEIVED") {
+    if (this.props.article.fetchState === 'REVISIONSCORE_RECEIVED') {
      pageviews = (<div className="results-loading"> &nbsp; &nbsp; </div>);
     }
     if (this.props.article.pageviews) {
       pageviews = this.props.article.pageviews;
-    }
-    else if (this.props.article.fetchState === "PAGEVIEWS_RECEIVED") {
+    } else if (this.props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
       pageviews = (<div>Page Views not found!</div>);
     }
 
     let revScore;
     if (_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
-      if (this.props.article.fetchState === "PAGEASSESSMENT_RECEIVED" || this.props.article.fetchState === "REVISION_RECEIVED") {
+      if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
        revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
-      }
-      else if (this.props.article.revScore) {
+      } else if (this.props.article.revScore) {
         revScore = (<td>{this.props.article.revScore}</td>);
-      }
-      else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
+      } else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
         revScore = (<td><div>Estimation Score not found!</div></td>);
-      }
-      else {
+      } else {
         revScore = (<td />);
       }
     }
 
     let grade;
     if (_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
-      if (this.props.article.fetchState === "TITLE_RECEIVED") {
+      if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
-      }
-      else if (this.props.article.grade) {
+      } else if (this.props.article.grade) {
         const gradeClass = `rating ${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class}`;
         grade = (
           <td className="tooltip-trigger">
@@ -96,18 +92,16 @@ const ArticleFinderRow = createReactClass({
             </div>
           </td>
           );
-      }
-      else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
+      } else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
         grade = (
           <td className="tooltip-trigger">
             <div className="rating null"><p>-</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.?`)}</p>
+              <p>{I18n.t('articles.rating_docs.?')}</p>
             </div>
           </td>
           );
-      }
-      else {
+      } else {
         grade = (<td />);
       }
     }
@@ -120,8 +114,7 @@ const ArticleFinderRow = createReactClass({
             <button className={className} onClick={() => this.unassignArticle()}>{I18n.t('article_finder.remove_article')}</button>
           </td>
         );
-      }
-      else {
+      } else {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
@@ -129,8 +122,7 @@ const ArticleFinderRow = createReactClass({
           </td>
           );
       }
-    }
-    else if (this.props.courseSlug && this.props.current_user.role === STUDENT_ROLE) {
+    } else if (this.props.courseSlug && this.props.current_user.role === STUDENT_ROLE) {
       if (this.props.assignment) {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
@@ -138,8 +130,7 @@ const ArticleFinderRow = createReactClass({
             <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t('article_finder.unassign_article_self')}</button>
           </td>
         );
-      }
-      else {
+      } else {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amire80
 # Author: Deborahjay
+# Author: Drorsnir
 # Author: Esh77
 # Author: Guycn2
 # Author: IKhitron
@@ -324,6 +325,7 @@ he:
     passcode: קוד הרשמה
     passcode_none: אין קוד הרשמה
     passcode_prompt: נא להקליד את קוד ההרשמה שקיבלת מהמנחה שלך
+    please_log_in: אנא התחברו
     published: 'התוכנית \ הקורס \ המיזם שלך פורסם ופעיל! כעת משתתפים יכולים להירשם
       אליו ע"י ביקור בכתובת האינטרנט הבאה:'
     review_timeline: יש לעבור על לוח הזמנים הזה ולבצע בו שינויים על פי הצורך. בסיום,
@@ -444,6 +446,8 @@ he:
     term: מתי
     uploads_none: במסגרת התוכנית \ הקורס \ המיזם הזה לא נתרמו תמונות או קובצי מדיה
       אחרים לוויקישיתוף.
+    user_uploads_none: המשתמשים שנבחרו לא תרמו שום תמונות או קובצי מדיה אחרים למיזם
+      זה.
     view_other: צפיה במיזמים אחרים
     view_page: צפייה בדף התוכנית \ הקורס \ המיזם
     word_count_doc: הערכה של מספר המלים שנוספו לערכים במרחב הראשי ע"י משתתפי התוכנית
@@ -577,6 +581,7 @@ he:
     view: צפייה
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
+    credit: קרדיט
     file_name: שם הקובץ
     header: קבצים שהועלו לוויקישיתוף
     image: תמונה
@@ -614,9 +619,10 @@ he:
     first_name: שם פרטי
     last_name: שם משפחה
     loading: טעינת משתמשים...
-    characters_added_mainspace: תווים שנוספו
+    characters_added_mainspace: תווים שנוספו (ערכים)
     characters_added_short: 'המרחב הראשי: %{mainspace}, מרחב המשתמש: %{userspace}'
-    characters_added_userspace: תווים שנוספו
+    characters_added_userspace: תווים שנוספו (משתמש)
+    characters_added_draftspace: תווים שנוספו (טיוטה)
     my_assigned: משוייך
     my_reviewing: 'בבדיקה:'
     name: שם
@@ -756,8 +762,6 @@ he:
     search_placeholder: יש להקליד מילת מפתח
     search: חיפוש
     tools: כלים
-    show_filters: הצגת מסננים
-    hide_filters: הסתרת מסננים
     keyword_search: חיפוש לפי מילת מפתח
     category_search: חיפוש לפי קטגוריה
     article_quality: איכות הערך (0–100)

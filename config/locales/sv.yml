@@ -292,10 +292,12 @@ sv:
     nocourses: Du deltar inte i alla kurser.
     nocourse: har inte deltagit i några kurser.
     none: Ingen
+    not_permitted: Du har inte behörighet att redigera denna kurs.
     no_available_actions: Inga tillgängliga åtgärder
     ores_plot: ORES
     overview: Hem
     passcode_none: Inget lösenord
+    please_log_in: Var god logga in.
     private: Privat
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
@@ -324,6 +326,7 @@ sv:
     title: Titel
     training_nav: Gå till träning
     update_stats: Uppdatera statistik
+    user_recent_uploads: Senaste uppladdningar
     user_suggestions: 'Användarförslag:'
     view_other: Visa andra kampanjer
     view: Visa kurs
@@ -378,12 +381,15 @@ sv:
     expected_students: Förväntade redigerare
     join_course: Gå med i program
     leave_course: Lämna program
+    not_permitted: Du har inte behörighet att redigera detta program.
     request_accounts: Begär konton
     student_editors: Redigerare
     students: Redigerare
     students_short: Redigerare
     students_count: Antal deltagare
     term: När
+    user_uploads_none: Valda användare har inte bidragit några bilder eller mediafiler
+      i detta projekt.
     view_other: Visa andra kampanjer
     view_page: Visa programsida
     yourcourses: Dina program
@@ -501,12 +507,15 @@ sv:
     next: Nästa sida
     page: Sida
     page_number: Sida %{number} av %{total}
+    previous: < Föregående
     table_of_contents: Innehållsförteckning
     training_library: Träningsbibliotek
     done: Klar!
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
+    view_library_source: via bibliotekskälla
   uploads:
+    credit: Erkännande
     file_name: Filnamn
     header: Filer som har laddats upp till Wikimedia Commons
     image: Bild
@@ -539,6 +548,9 @@ sv:
     first_name: Förnamn
     last_name: Efternamn
     loading: Laddar användare...
+    characters_added_mainspace: Tecken som lades till (artikel)
+    characters_added_userspace: Tecken som lades till (användare)
+    characters_added_draftspace: Tecken som lades till (skiss)
     my_assigned: 'Tilldelade:'
     my_reviewing: 'Granskar:'
     name: Namn
@@ -621,5 +633,8 @@ sv:
       where_did_you_hear: Var, eller från vem, fick du först reda på om Wiki Education?
       why_are_you_here: Vad vill du göra?
   article_finder:
+    remove_article: Ta bort artikel
+    show_options: Visa alternativ
+    hide_options: Dölj alternativ
     assign_article_self: Tilldela dig själv
 ...

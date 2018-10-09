@@ -4,7 +4,7 @@ import { addAssignment, deleteAssignment } from '../../app/assets/javascripts/ac
 describe('AssignmentActions', () => {
   const testAssignment = { title: 'Foo', user_id: 1, id: 4 };
   const initialAssignments = [];
-  sinon.stub($, "ajax").yieldsTo("success", { assignment: testAssignment });
+  sinon.stub($, 'ajax').yieldsTo('success', { assignment: testAssignment });
   it('.addAssignment sets a new assignment and .deleteAssignment removes one', () => {
     expect(reduxStore.getState().assignments.assignments).to.deep.eq(initialAssignments);
     addAssignment(testAssignment)(reduxStore.dispatch)

@@ -1,4 +1,13 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, GALLERY_VIEW, FILTER_UPLOADS } from '../constants';
+import _ from 'lodash';
+import {
+  RECEIVE_UPLOADS,
+  SORT_UPLOADS,
+  SET_VIEW,
+  GALLERY_VIEW,
+  FILTER_UPLOADS,
+  SET_UPLOAD_METADATA,
+  SET_UPLOAD_VIEWER_METADATA
+} from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -6,6 +15,9 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
+  loading: true,
+  uploadMetadata: {}
+
 };
 
 const SORT_DESCENDING = {
@@ -17,12 +29,14 @@ export default function uploads(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_UPLOADS: {
       const dataUploads = action.data.course.uploads;
-      //Intial sorting by upload date
+      // Intial sorting by upload date
       const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
+
       return {
         ...state,
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
+        loading: false
       };
     }
     case SORT_UPLOADS: {
@@ -31,6 +45,28 @@ export default function uploads(state = initialState, action) {
         ...state,
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
+      };
+    }
+    case SET_UPLOAD_METADATA: {
+      let fetchedData;
+      _.forEach(action.data, data => {
+        if (data.query) {
+          fetchedData = { ...fetchedData, ...data.query.pages };
+        }
+      });
+      const updatedUploads = state.uploads.map(upload => {
+        if (fetchedData && fetchedData[upload.id]) {
+          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
+          if (!upload.thumburl) {
+            upload.thumburl = _.get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
+          }
+          upload.fetchState = true;
+        }
+        return upload;
+      });
+      return {
+        ...state,
+        uploads: updatedUploads,
       };
     }
     case SET_VIEW: {
@@ -43,6 +79,12 @@ export default function uploads(state = initialState, action) {
       return {
         ...state,
         selectedFilters: action.selectedFilters,
+      };
+    }
+    case SET_UPLOAD_VIEWER_METADATA: {
+      return {
+        ...state,
+        uploadMetadata: action.data,
       };
     }
     default:

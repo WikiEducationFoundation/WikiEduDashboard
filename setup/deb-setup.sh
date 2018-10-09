@@ -64,13 +64,6 @@ printf "${CLEAR_LINE}[+] Added keys for required repositries\n"
 printf '[*] Updating Package lists... \n'
 output_line "sudo apt-get update" && printf "${CLEAR_LINE}[+] Updated Package lists\n"
 
-printf '[*] Installing R... \n'
-if which R > /dev/null; then
-  printf "${CLEAR_LINE}R already installed\n"
-else
-  output_line "sudo apt install -y r-base" && printf "${CLEAR_LINE}[+] R installed\n"
-fi
-
 printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
   printf "${CLEAR_LINE}Node already installed\n"
@@ -172,4 +165,4 @@ output_line "yarn" && printf "${CLEAR_LINE}[+] node_modules installed\n"
 printf '[*] Installing gulp... \n'
 output_line "sudo yarn global add gulp" && printf "${CLEAR_LINE}[+] Gulp installed\n"
 
-echo 'Your developmental environment setup is completed  If you have any errors try to refer to the docs for manual installation or ask for help '
+echo 'Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.'

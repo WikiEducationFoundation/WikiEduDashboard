@@ -265,7 +265,7 @@ it:
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
-    enrollment: Iscrizione
+    enrollment: Aggiungi/rimuovi studenti
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -295,6 +295,7 @@ it:
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
+    not_permitted: Non sei autorizzato a modificare questo corso.
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
@@ -318,8 +319,8 @@ it:
       suo creatore. Per approvarlo, aggiungerlo a una campagna nella pagina panoramica.
     submitted_and_pending_heading: Presentato e in attesa di approvazione
     submitted_heading: Corsi presentati
-    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
-      e si metterà in contatto per tutte le domande.
+    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Education
+      lo controllerà e si metterà in contatto per tutte le domande.
     suggestions_feedback: Hai suggerimenti per migliorare questa funzionalità? Facci
       sapere!
     user_role: Ruolo
@@ -350,7 +351,7 @@ it:
       one: Volontario
       other: Volontari
     weeks_none: Questo corso non ha ancora una linea temporale.
-    wiki_staff: Staff Wiki Ed
+    wiki_staff: Staff Wiki Education
     withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
@@ -404,13 +405,14 @@ it:
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor
-    enrollment: Partecipazione
+    enrollment: Aggiungi/rimuovi editori
     explore: Trova programmi
     expected_students: Editori previsti
     instructors: Facilitatori
     join_course: Partecipa al programma
     leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
+    not_permitted: Non sei autorizzato a modificare questo programma.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
     revisions_none: Questo progetto non ha attività di modifica recenti.
@@ -538,6 +540,7 @@ it:
     next: Pagina successiva
     page: Pagina
     page_number: Pagina %{number} di %{total}
+    previous: < Precedente
     table_of_contents: Sommario
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
@@ -616,7 +619,7 @@ it:
       instructor: Insegnante
       campus_volunteer: Volontario del campus
       online_volunteer: Volontario online
-      wiki_ed_staff: Staff Wiki Ed
+      wiki_ed_staff: Staff Wiki Education
   user_profiles:
     bio_placeholder: Aggiungi la tua biografia (opzionale)
     location_placeholder: Aggiungi la tua posizione (opzionale)
@@ -667,20 +670,20 @@ it:
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   survey:
-    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Ed per partecipare
-      al sondaggio.
+    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Education
+      per partecipare al sondaggio.
     email:
       headline: Ciao, %{username}
-      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Ed sta cercando
-        il tuo feedback per migliorare le nostre risorse e il supporto per le assegnazioni
-        di Wikipedia. La tua risposta è fondamentale per migliorare le nostre attuali
-        offerte.
+      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Education
+        sta cercando il tuo feedback per migliorare le nostre risorse e il supporto
+        per le assegnazioni di Wikipedia. La tua risposta è fondamentale per migliorare
+        le nostre attuali offerte.
       message_line2: Siete disposti a prendere 15 minuti per compilare il nostro sondaggio
         sull'istruttore? Clicca sul pulsante qui sotto per aiutarci a rendere la didattica
         con Wikipedia un'esperienza ancora più gratificante e preziosa.
       course: 'Corso: %{course_info}'
       closing: Cordiali saluti,
-      signed: '- il team Wiki Ed'
+      signed: '- il team Wiki Education'
       link: Rispondi sondaggio
   wiki_api:
     create_account_reason: Questo utente sta partecipando a %{event}.
@@ -692,10 +695,10 @@ it:
     remove_article: Rimuovi voce
     search: Cerca
     tools: Strumenti
-    show_filters: Mostra filtri
-    hide_filters: Nascondi filtri
+    show_options: Mostra opzioni
+    hide_options: Nascondi opzioni
     keyword_search: Ricerca per parole chiave
     category_search: Ricerca per categoria
-    subheading_message: Troviamo una voce che si adatta alle tue esigenze
+    subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
 ...

@@ -4,7 +4,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
 
 describe UnsubmittedCourseAlertManager do
-  let(:subject) { UnsubmittedCourseAlertManager.new }
+  let(:subject) { described_class.new }
   let(:classroom_program_manager) { create(:user, username: 'CPM', email: 'cpm@wikiedu.org') }
   let(:outreach_manager) { create(:user, username: 'OM', email: 'om@wikiedu.org') }
 
@@ -31,6 +31,7 @@ describe UnsubmittedCourseAlertManager do
 
   context 'when alerts already exist' do
     before { create(:alert, type: 'UnsubmittedCourseAlert', course: @first_course) }
+
     before { create(:alert, type: 'UnsubmittedCourseAlert', course: @returing_course) }
 
     it 'does not create new ones' do

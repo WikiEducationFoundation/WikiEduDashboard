@@ -22,6 +22,8 @@ const ArticleGraphs = createReactClass({
   },
 
   getData() {
+    if (this.state.articleData) { return; }
+
     const articleId = this.props.article.id;
     const articledataUrl = `/articles/article_data.json?article_id=${articleId}`;
     $.ajax(
@@ -37,12 +39,11 @@ const ArticleGraphs = createReactClass({
   },
 
   showGraph() {
-    this.state.selectedRadio = 'wp10_score';
     this.getData();
     this.setState({ showGraph: true });
   },
 
-  handleRadioChange: function (event) {
+  handleRadioChange(event) {
     this.setState({
       selectedRadio: event.currentTarget.value
     });
@@ -75,9 +76,8 @@ const ArticleGraphs = createReactClass({
     const className = `vega-graph ${style}`;
 
     if (this.state.articleData != null) {
-      // Only render the wp10 graph radio button if it is an en.wikipedia article, since only
-      // those articles have wp10 scores.
-      if (this.props.article.url.match(/en.wikipedia/)) {
+      // Only render the wp10 graph radio button if the data includes wp10 / article completeness scores
+      if (this.state.articleData[0].wp10) {
         radioInput = (
           <div>
             <div className="input-row">
@@ -102,8 +102,7 @@ const ArticleGraphs = createReactClass({
             </div>
           </div>
         );
-        if (this.state.selectedRadio === 'wp10_score')
-        {
+        if (this.state.selectedRadio === 'wp10_score') {
           graph = (
             <Wp10Graph
               graphid = {this.graphId()}
@@ -112,8 +111,7 @@ const ArticleGraphs = createReactClass({
               articleData = {this.state.articleData}
             />
           );
-        }
-        else {
+        } else {
           graph = (
             <EditSizeGraph
               graphid ={this.graphId()}
@@ -123,8 +121,7 @@ const ArticleGraphs = createReactClass({
             />
           );
         }
-      }
-      else {
+      } else {
         editSize = (
           <p>{I18n.t('articles.edit_size')}</p>
         );
@@ -136,10 +133,8 @@ const ArticleGraphs = createReactClass({
             articleData = {this.state.articleData}
           />
         );
-      }
-    }
-    // Display the loading element if articleData is not available
-    else {
+      } // Display the loading element if articleData is not available
+     } else {
       graph = <Loading />;
     }
 

@@ -1,4 +1,4 @@
-import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS, API_FAIL } from "../constants";
+import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS, API_FAIL } from '../constants';
 
 const _fetchRecentEdits = (opts = {}) => {
     return new Promise((res, rej) =>

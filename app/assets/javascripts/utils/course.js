@@ -81,7 +81,8 @@ $(() => {
         case 'campaign-articles': return articlesList;
         case 'users': return studentsList;
         default: break;
-      } })();
+      }
+})();
     if (list) {
       return list.sort($(this).val(), {
         order: $(this).children('option:selected').attr('rel')

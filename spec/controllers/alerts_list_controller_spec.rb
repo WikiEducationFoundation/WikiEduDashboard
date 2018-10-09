@@ -30,6 +30,7 @@ describe AlertsListController do
 
     context 'for non-admins' do
       before { allow(controller).to receive(:current_user).and_return(user) }
+
       it 'redirects to the home page' do
         get :index
         expect(response).to redirect_to(root_path)
@@ -70,6 +71,7 @@ describe AlertsListController do
 
     context 'for non-admins' do
       before { allow(controller).to receive(:current_user).and_return(user) }
+
       it 'redirects to the home page' do
         get :show, params: { id: alert.id }
         expect(response).to redirect_to(root_path)

@@ -4,10 +4,12 @@ import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import { receiveUploads, sortUploads, setView, setUploadFilters } from '../../actions/uploads_actions.js';
+import { receiveUploads, sortUploads, setView, setUploadFilters, setUploadMetadata } from '../../actions/uploads_actions.js';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import MultiSelectField from '../common/multi_select_field.jsx';
 import { getStudentUsers, getFilteredUploads } from '../../selectors';
+
+const UPLOADS_PER_PAGE = 100;
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
@@ -19,47 +21,35 @@ const UploadsHandler = createReactClass({
 
   getInitialState() {
     return {
-      options: [],
       offset: 0,
-      data: [],
-      perPage: 100,
+      data: this.props.selectedUploads.slice(0, UPLOADS_PER_PAGE),
+      perPage: UPLOADS_PER_PAGE,
       currentPage: 0,
     };
   },
 
   componentWillMount() {
-    return this.props.receiveUploads(this.props.course_id);
+    if (this.props.loadingUploads) {
+      return this.props.receiveUploads(this.props.course_id);
+    }
   },
 
   componentWillReceiveProps(nextProps) {
     const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-    const options = nextProps.students.map(student => {
-      return { label: student.username, value: student.username };
-    });
+
     this.setState({
       data: data,
       pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
-      options: options,
      });
-    if (nextProps.view === LIST_VIEW) {
-      document.getElementById("list-view").classList.add("dark");
-      document.getElementById("gallery-view").classList.remove("dark");
-      document.getElementById("tile-view").classList.remove("dark");
-    }
-    else if (nextProps.view === GALLERY_VIEW) {
-      document.getElementById("gallery-view").classList.add("dark");
-      document.getElementById("list-view").classList.remove("dark");
-      document.getElementById("tile-view").classList.remove("dark");
-    }
-    else {
-      document.getElementById("gallery-view").classList.remove("dark");
-      document.getElementById("list-view").classList.remove("dark");
-      document.getElementById("tile-view").classList.add("dark");
-    }
+
+     if (this.state.currentPage === 0) {
+       this.setUploadMetadata(data);
+     }
   },
 
   setUploadData(offset, selectedPage) {
     const data = this.props.selectedUploads.slice(offset, offset + this.state.perPage);
+    this.setUploadMetadata(data);
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
@@ -73,6 +63,10 @@ const UploadsHandler = createReactClass({
     });
   },
 
+  setUploadMetadata(uploads) {
+    return this.props.setUploadMetadata(uploads);
+  },
+
   handlePageClick(data) {
     const selectedPage = data.selected;
     const offset = Math.ceil(selectedPage * this.state.perPage);
@@ -84,23 +78,38 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
+    const options = this.props.students.map(student => {
+      return { label: student.username, value: student.username };
+    });
+
+    let galleryClass = 'button border icon-gallery_view icon tooltip-trigger';
+    let listClass = 'button border icon-list_view icon tooltip-trigger';
+    let tileClass = 'button border icon-tile_view icon tooltip-trigger';
+    if (this.props.view === GALLERY_VIEW) {
+      galleryClass += ' dark';
+    } else if (this.props.view === LIST_VIEW) {
+      listClass += ' dark';
+    } else if (this.props.view === TILE_VIEW) {
+      tileClass += ' dark';
+    }
+
     let paginationElement;
     if (this.state.pageCount > 1) {
       paginationElement = (
         <ReactPaginate
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
+          previousLabel={'← Previous'}
+          nextLabel={'Next →'}
           breakLabel={<span className="gap">...</span>}
           pageCount={this.state.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={6}
           onPageChange={this.handlePageClick}
           forcePage={this.state.currentPage}
-          containerClassName={"pagination"}
-          previousLinkClassName={"previous_page"}
-          nextLinkClassName={"next_page"}
-          disabledClassName={"disabled"}
-          activeClassName={"active"}
+          containerClassName={'pagination'}
+          previousLinkClassName={'previous_page'}
+          nextLinkClassName={'next_page'}
+          disabledClassName={'disabled'}
+          activeClassName={'active'}
         />
       );
     }
@@ -110,13 +119,13 @@ const UploadsHandler = createReactClass({
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
           <div className="view-buttons">
-            <button id="gallery-view" className="button border icon-gallery_view icon tooltip-trigger" onClick={() => {this.setView(GALLERY_VIEW);}}>
+            <button id="gallery-view" className={galleryClass} onClick={() => { this.setView(GALLERY_VIEW); }}>
               <p className="tooltip dark">Gallery View</p>
             </button>
-            <button id="list-view" className="button border icon-list_view icon tooltip-trigger" onClick={() => {this.setView(LIST_VIEW);}}>
+            <button id="list-view" className={listClass} onClick={() => { this.setView(LIST_VIEW); }}>
               <p className="tooltip dark">List View</p>
             </button>
-            <button id="tile-view" className="button border icon-tile_view icon tooltip-trigger" onClick={() => {this.setView(TILE_VIEW);}}>
+            <button id="tile-view" className={tileClass} onClick={() => { this.setView(TILE_VIEW); }}>
               <p className="tooltip dark">Tile View</p>
             </button>
           </div>
@@ -128,9 +137,9 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <MultiSelectField options={this.state.options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
+        <MultiSelectField options={options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
         {paginationElement}
-        <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
+        <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} loadingUploads={this.props.loadingUploads} totalUploadsCount={this.props.uploads.length} />
         {paginationElement}
       </div>
     );
@@ -140,6 +149,7 @@ const UploadsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   uploads: state.uploads.uploads,
+  loadingUploads: state.uploads.loading,
   view: state.uploads.view,
   students: getStudentUsers(state),
   selectedFilters: state.uploads.selectedFilters,
@@ -151,6 +161,7 @@ const mapDispatchToProps = {
   sortUploads,
   setView,
   setUploadFilters,
+  setUploadMetadata,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);

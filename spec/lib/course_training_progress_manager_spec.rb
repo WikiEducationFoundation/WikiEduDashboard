@@ -18,14 +18,15 @@ describe CourseTrainingProgressManager do
   end
 
   describe '#course_training_progress' do
+    subject { described_class.new(course).course_training_progress(user) }
+
     before do
       create_block_with_tm_ids
     end
 
-    subject { described_class.new(course).course_training_progress(user) }
-
     context 'course begins before December 1, 2015' do
       let(:start) { Date.new(2015, 1, 1) }
+
       context 'training boolean for user is complete' do
         it 'returns nil' do
           expect(subject).to be_nil
@@ -34,6 +35,7 @@ describe CourseTrainingProgressManager do
 
       context 'training boolean for user is nil' do
         let(:trained) { nil }
+
         it 'returns `Training Incomplete`' do
           expect(subject).to eq('Training Incomplete')
         end
@@ -43,6 +45,7 @@ describe CourseTrainingProgressManager do
     context 'course begins after December 1, 2015' do
       context '0 training modules assigned, 0 completed' do
         let(:tm_ids) { [] }
+
         it 'returns nil' do
           expect(subject).to be_nil
         end
@@ -50,6 +53,7 @@ describe CourseTrainingProgressManager do
 
       context '1 training modules assigned, 1 completed' do
         let(:tm_ids) { [1] }
+
         before do
           tm_ids.each do |tm_id|
             create(:training_modules_users,
@@ -58,6 +62,7 @@ describe CourseTrainingProgressManager do
           end
           TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
         end
+
         it 'returns "1/1 training modules completed"' do
           expect(subject).to eq('1/1 training module completed')
         end
@@ -65,6 +70,7 @@ describe CourseTrainingProgressManager do
 
       context '2 training modules assigned, 1 completed' do
         let(:tm_ids) { [1, 2] }
+
         before do
           tm_ids.each do |tm_id|
             create(:training_modules_users,
@@ -73,6 +79,7 @@ describe CourseTrainingProgressManager do
           end
           TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
         end
+
         it 'returns "1/2 training modules completed"' do
           expect(subject).to eq('1/2 training modules completed')
         end
@@ -123,16 +130,20 @@ describe CourseTrainingProgressManager do
       before do
         create_block_with_tm_ids
       end
+
       it 'returns an array with incomplete modules, with due date' do
         expect(subject.length).to eq(2)
         expect(subject[0].due_date.to_date).to eq(due_date)
       end
     end
+
     context 'when an incomplete module has no specific due date' do
       let(:due_date) { nil }
+
       before do
         create_block_with_tm_ids
       end
+
       it 'calculates the due date from timeline data' do
         # The assignment is in the first week, and the due date
         # is inferred to be the end of that week.

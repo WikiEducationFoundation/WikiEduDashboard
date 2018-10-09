@@ -430,7 +430,7 @@ en:
     end: End
     ended: The course has ended.
     enroll: Enroll
-    enrollment: Enrollment
+    enrollment: Add/Remove Students
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -500,6 +500,7 @@ en:
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None
+    not_permitted: You are not permitted to edit this course.
     notify_untrained_confirmation: >
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
@@ -509,6 +510,7 @@ en:
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
+    please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
@@ -547,6 +549,8 @@ en:
     course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
     subject: Subject
     submitted: Submitted
+    tag_select: 'Select or create a tag'
+    tags: 'Tags: '
     term: Term
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
@@ -563,6 +567,8 @@ en:
     untrained: Untrained
     update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
+    user_recent_uploads: Recent Uploads
     user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
     view_other: View other campaigns
@@ -652,7 +658,7 @@ en:
     edit_course_dates: Edit Project Dates
     end: Activity tracking end
     enroll: Add Editor
-    enrollment: Participation
+    enrollment: Add/Remove Editors
     explore: Find Programs
     courses_enrolled: Programs participated
     expected_students: Expected Editors
@@ -661,6 +667,7 @@ en:
     join_details: To join this program, you need to get the passcode — or link that includes the passcode — from the facilitator.
     leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
+    not_permitted: You are not permitted to edit this program.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     request_accounts: Request accounts
     revisions_none: This project has no recent editing activity.
@@ -676,6 +683,7 @@ en:
     term: When
     unsubmitted: Unsubmitted Programs
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Program Page
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
@@ -846,7 +854,7 @@ en:
     first_week_title: First Active Week
     gradeable_value: Value
     gradeables_none: This timeline has no assignments marked as graded.
-    grading_header: 'Grading (Total: %{total}%)'
+    grading_header: 'Grading (Total: %{total})'
     move_block_down: Move block down
     move_block_up: Move block up
     no_class_holidays: I have no class holidays
@@ -869,14 +877,19 @@ en:
     next: Next Page
     page: Page
     page_number: Page %{number} of %{total}
+    previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
     done: Done!
     check_answer: Check Answer
     included_modules: Included Modules
+    view_library_source: view library source
+    view_module_source: view module source
+    reload_from_source: reload from source
 
   uploads:
+    credit: Credit
     file_name: File Name
     header: Files Uploaded to Wikimedia Commons
     image: Image
@@ -923,10 +936,10 @@ en:
     first_name: First name
     last_name: Last name
     loading: Loading users...
-    characters_added_mainspace: MS Chars Added
+    characters_added_mainspace: Characters Added (article)
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
-    characters_added_userspace: US Chars Added
-    characters_added_draftspace: DS Chars Added
+    characters_added_userspace: Characters Added (user)
+    characters_added_draftspace: Characters Added (draft)
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name
@@ -959,6 +972,8 @@ en:
       other: "%{completed_count}/%{count} training modules completed"
     training_module_name: Training module
     training_module_status: Status
+    user_training_status: Training Status
+    user_no_training_status: This user has not completed any training modules.
     up_to_date_with_training: 'up-to-date with training'
     uploads_doc: 'Number of file uploads to Wikimedia Commons'
     username: Username
@@ -1125,8 +1140,8 @@ en:
     search_placeholder: "Enter your keyword"
     search: "Search"
     tools: "Tools"
-    show_filters: "Show Filters"
-    hide_filters: "Hide Filters"
+    show_options: "Show Options"
+    hide_options: "Hide Options"
     keyword_search: "Keyword Search"
     category_search: "Category Search"
     article_quality: "Article Quality(0-100)"
@@ -1138,7 +1153,7 @@ en:
     fetching_revisions: "Fetching Page Revisions"
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
-    subheading_message: "Let's find an article which fits your needs"
+    subheading_message: "Let's find a Wikipedia article to work on."
     article_finder: "Article Finder"
     submit: "Submit"
     relevanceIndex: "Relevance Index"

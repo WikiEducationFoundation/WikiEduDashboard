@@ -7,6 +7,7 @@ describe AssignmentsController do
 
   let!(:course) { create(:course, id: 1) }
   let!(:user) { create(:user) }
+
   before do
     stub_wiki_validation
     allow(controller).to receive(:current_user).and_return(user)
@@ -19,6 +20,7 @@ describe AssignmentsController do
       allow(Assignment).to receive(:where).and_return(assignment)
       get :index, params: { course_id: course.slug }
     end
+
     it 'sets assignments ivar' do
       expect(assigns(:assignments)).to eq(assignment)
     end
@@ -42,9 +44,11 @@ describe AssignmentsController do
 
       context 'when the assignment_id is provided' do
         let(:params) { { course_id: course.slug } }
+
         before do
           delete :destroy, params: { id: assignment.id }.merge(params)
         end
+
         it 'destroys the assignment' do
           expect(Assignment.count).to eq(0)
         end
@@ -59,12 +63,14 @@ describe AssignmentsController do
           { course_id: course.slug, user_id: user.id,
             article_title: assignment.article_title, role: assignment.role }
         end
+
         before do
           delete :destroy, params: { id: 'undefined' }.merge(params)
         end
         # This happens when an assignment is deleted right after it has been created.
         # The React frontend will not have an assignment_id until
         # it gets refreshed from the server.
+
         it 'deletes the assignment' do
           expect(Assignment.count).to eq(0)
         end
@@ -74,6 +80,7 @@ describe AssignmentsController do
     context 'when the user does not have permission do destroy the assignment' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
       let(:params) { { course_id: course.slug } }
+
       before do
         delete :destroy, params: { id: assignment }.merge(params)
       end
@@ -93,12 +100,14 @@ describe AssignmentsController do
         { course_id: course.slug, user_id: user.id + 1,
           article_title: assignment.article_title, role: assignment.role }
       end
+
       before do
         delete :destroy, params: { id: 'undefined' }.merge(params)
       end
       # This happens when an assignment is deleted right after it has been created.
       # The React frontend will not will not have an assignment_id until
       # it gets refreshed from the server.
+
       it 'renders a 404' do
         expect(response.status).to eq(404)
       end
@@ -136,6 +145,7 @@ describe AssignmentsController do
           { user_id: user.id, course_id: course.slug, title: 'selfie', role: 0,
             language: 'en', project: 'wiktionary' }
         end
+
         it 'imports the article with a lower-case title' do
           expect(Article.find_by(title: 'selfie')).to be_nil
 
@@ -204,6 +214,17 @@ describe AssignmentsController do
           create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
         end
 
+        let(:assignment_params_with_language_and_project) do
+          { user_id: user.id, course_id: course.slug, title: 'pizza',
+            role: 0, language: 'es', project: 'wikibooks' }
+        end
+        before do
+          create(:article, title: 'Pizza', wiki_id: es_wikibooks.id,
+                           namespace: Article::Namespaces::MAINSPACE)
+        end
+
+        let(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
+
         it 'sets assignments ivar with a default wiki' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
@@ -232,16 +253,6 @@ describe AssignmentsController do
           expect(json_response['role']).to eq(Assignment.last.role)
         end
 
-        let(:assignment_params_with_language_and_project) do
-          { user_id: user.id, course_id: course.slug, title: 'pizza',
-            role: 0, language: 'es', project: 'wikibooks' }
-        end
-        let(:es_wikibooks) { create(:wiki, language: 'es', project: 'wikibooks') }
-        before do
-          create(:article, title: 'Pizza', wiki_id: es_wikibooks.id,
-                           namespace: Article::Namespaces::MAINSPACE)
-        end
-
         it 'sets the wiki based on language and project params' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
@@ -258,6 +269,7 @@ describe AssignmentsController do
       let(:assignment_params) do
         { user_id: user.id + 1, course_id: course.slug, title: 'pizza', role: 0 }
       end
+
       before do
         put :create, params: assignment_params
       end
@@ -280,6 +292,7 @@ describe AssignmentsController do
       let(:subject) do
         put :create, params: invalid_wiki_params, format: :json
       end
+
       it 'returns a 404 error message' do
         expect(subject.body).to have_content('Invalid assignment')
         expect(subject.status).to eq(404)
@@ -294,6 +307,7 @@ describe AssignmentsController do
       let(:duplicate_assignment_params) do
         { user_id: user.id, course_id: course.slug, title: title, role: 0 }
       end
+
       before do
         VCR.use_cassette 'assignment_import' do
           put :create, params: duplicate_assignment_params, format: :json
@@ -315,6 +329,7 @@ describe AssignmentsController do
       let(:case_variant_assignment_params) do
         { user_id: user.id, course_id: course.slug, title: variant_title, role: 0 }
       end
+
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
         expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
@@ -342,6 +357,7 @@ describe AssignmentsController do
         expect(response.status).to eq(200)
       end
     end
+
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)

@@ -5,10 +5,9 @@ require 'rails_helper'
 describe 'Admin users', type: :feature, js: true do
   before do
     page.current_window.resize_to(1920, 1080)
-    page.driver.browser.url_blacklist = ['https://wikiedu.org']
   end
 
-  before :each do
+  before do
     create(:user,
            id: 100,
            username: 'Professor Sage')
@@ -55,19 +54,20 @@ describe 'Admin users', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
+  after do
+    logout
+  end
+
   describe 'visiting the dashboard' do
-    it 'should see submitted courses awaiting approval' do
+    it 'sees submitted courses awaiting approval' do
       visit root_path
-      sleep 1
       expect(page).to have_content 'Submitted & Pending Approval'
       expect(page).to have_content 'My Submitted Course'
     end
   end
 
   describe 'adding a course to a campaign' do
-    it 'should make the course live' do
-      pending 'This sometimes fails on travis.'
-
+    it 'makes the course live' do
       stub_oauth_edit
       stub_chat_channel_create_success
 
@@ -78,14 +78,12 @@ describe 'Admin users', type: :feature, js: true do
       click_button 'Edit Details'
       within '#course_campaigns' do
         page.find('.button.border.plus').click
-        find('div.Select').send_keys('Fall 2015', :enter)
-        omniclick find('.pop button', visible: true)
+        find('input').send_keys('Fall 2015', :enter)
+        click_button 'Add'
       end
 
       expect(page).to have_content 'Your course has been published'
       expect(page).not_to have_content 'This course has been submitted for approval by its creator'
-
-      pass_pending_spec
     end
   end
 
@@ -112,16 +110,14 @@ describe 'Admin users', type: :feature, js: true do
   end
 
   describe 'adding a tag to a course' do
-    it 'should work' do
-      pending 'This sometimes fails on travis.'
-
+    it 'works' do
       stub_token_request
       visit "/courses/#{Course.first.slug}"
       click_button('Edit Details')
-      within '.tags' do
-        page.find('.button.border.plus').click
-        page.find('input').set 'My Tag'
-        find('.pop button', visible: true).click
+      within '.pop__container.tags' do
+        click_button '+'
+        find('input').send_keys('My Tag', :enter)
+        click_button 'Add'
       end
 
       sleep 1
@@ -130,28 +126,22 @@ describe 'Admin users', type: :feature, js: true do
 
       # Add the same tag again
       click_button('Edit Details')
-      within('div.tags') do
-        page.find('.button.border.plus').click
-      end
-      page.find('section.overview input[placeholder="Tag"]').set 'My Tag'
-      page.all('.pop button', visible: true)[1].click
+      within '.pop__container.tags' do
+        click_button '+'
+        find('input').send_keys('My Tag', :enter)
+        click_button 'Add'
 
-      # Delete the tag
-      within('div.tags') do
+        # Delete the tag
         click_button '-'
       end
       sleep 1
       visit "/courses/#{Course.first.slug}"
       expect(page).not_to have_content 'My Tag'
-
-      pass_pending_spec
     end
   end
 
   describe 'linking a course to its Salesforce record' do
     it 'makes the Link to Salesforce button appear' do
-      pending 'This sometimes fails on travis.'
-
       stub_token_request
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
 
@@ -161,12 +151,6 @@ describe 'Admin users', type: :feature, js: true do
       end
       expect(page).to have_content 'Open in Salesforce'
       expect(Course.first.flags[:salesforce_id]).to eq('a0f1a011101Xyas')
-
-      pass_pending_spec
     end
-  end
-
-  after do
-    logout
   end
 end

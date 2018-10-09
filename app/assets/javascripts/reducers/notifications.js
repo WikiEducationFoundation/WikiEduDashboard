@@ -1,7 +1,18 @@
 import _ from 'lodash';
-import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL } from "../constants";
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL, SAVE_TIMELINE_FAIL } from '../constants';
 
 const initialState = [];
+
+const saveTimelineFailedNotification = {
+  closable: true,
+  type: 'error',
+  message: 'The changes you just submitted were not saved. ' +
+           'This may happen if the timeline has been changed — ' +
+           'by someone else, or by you in another browser ' +
+           'window — since the page was loaded. The latest ' +
+           'course data has been reloaded, and is ready for ' +
+           'you to edit further.'
+};
 
 const handleErrorNotification = function (data) {
   const notification = {};
@@ -21,11 +32,10 @@ const handleErrorNotification = function (data) {
 
   if (!notification.message) { notification.message = data.statusText; }
   if (_.isEmpty(data)) {
-    console.error("Error: ", data); // eslint-disable-line no-console
+    console.error('Error: ', data); // eslint-disable-line no-console
   }
   return notification;
 };
-
 
 export default function notifications(state = initialState, action) {
   switch (action.type) {
@@ -47,6 +57,11 @@ export default function notifications(state = initialState, action) {
       const newState = [...state];
       const errorNotification = handleErrorNotification(action.data);
       newState.push(errorNotification);
+      return newState;
+    }
+    case SAVE_TIMELINE_FAIL: {
+      const newState = [...state];
+      newState.push(saveTimelineFailedNotification);
       return newState;
     }
     default:

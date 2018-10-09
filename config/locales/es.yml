@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alebecerrasj
+# Author: Astroemi
+# Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Dgstranz
@@ -15,6 +17,7 @@
 # Author: Macofe
 # Author: MarcoAurelio
 # Author: Themasterriot
+# Author: Tiberius1701
 # Author: Tusca
 # Author: Yllelder
 # Author: YoViajo
@@ -461,6 +464,7 @@ es:
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
+    tag_select: Selecciona o crea una etiqueta
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma
@@ -570,6 +574,8 @@ es:
     unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    user_uploads_none: Los usuarios seleccionados no han contribuido con ninguna imagen
+      u otro archivo multimedia a este proyecto.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
@@ -744,6 +750,7 @@ es:
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
   uploads:
+    credit: Crédito
     file_name: Nombre del archivo
     header: Archivos subidos a Wikimedia Commons
     image: Imagen
@@ -755,6 +762,7 @@ es:
     uploaded_at: Cargado el
     uploaded_by: Subido por
     usage_count: Total de usos
+    usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
@@ -783,9 +791,10 @@ es:
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
-    characters_added_mainspace: Caracteres añadidos en el espacio principal
+    characters_added_mainspace: Caracteres añadidos (artículo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caracteres añadidos en el espacio de usuario
+    characters_added_userspace: Caracteres añadidos (usuario)
+    characters_added_draftspace: Caracteres añadidos (borrador)
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre
@@ -954,8 +963,6 @@ es:
     search_placeholder: Escribe una palabra clave
     search: Buscar
     tools: Herramientas
-    show_filters: Mostrar filtros
-    hide_filters: Ocultar filtros
     keyword_search: Búsqueda por palabras clave
     category_search: Búsqueda por categorías
     article_quality: Calidad de artículo (0-100)

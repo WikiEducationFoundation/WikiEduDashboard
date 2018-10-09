@@ -50,11 +50,11 @@ describe ArticlesForDeletionMonitor do
     end
 
     before do
-      ArticlesForDeletionMonitor.enable_for(Wiki.find(1),
-                                            afd: 'Category:AfD debates',
-                                            afd_prefix: 'Wikipedia:Articles for deletion/',
-                                            prod: 'Category:All articles proposed for deletion',
-                                            speedy: 'Category:Speedy deletion')
+      described_class.enable_for(Wiki.find(1),
+                                 afd: 'Category:AfD debates',
+                                 afd_prefix: 'Wikipedia:Articles for deletion/',
+                                 prod: 'Category:All articles proposed for deletion',
+                                 speedy: 'Category:Speedy deletion')
 
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:AfD debates', 2)
@@ -72,10 +72,11 @@ describe ArticlesForDeletionMonitor do
 
     context 'when there is a new article' do
       let(:article_is_new) { true }
+
       before { articles_course && revision && courses_user }
 
       it 'creates Alert records for both AfD and PROD' do
-        ArticlesForDeletionMonitor.create_alerts_for_course_articles
+        described_class.create_alerts_for_course_articles
         expect(Alert.count).to eq(2)
         alerted_article_ids = Alert.all.pluck(:article_id)
         expect(alerted_article_ids).to include(article.id)
@@ -85,7 +86,7 @@ describe ArticlesForDeletionMonitor do
       it 'emails a greeter' do
         create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
         allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-        ArticlesForDeletionMonitor.create_alerts_for_course_articles
+        described_class.create_alerts_for_course_articles
         expect(Alert.last.email_sent_at).not_to be_nil
       end
 
@@ -93,7 +94,7 @@ describe ArticlesForDeletionMonitor do
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id, course_id: course.id)
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: prod.id, course_id: course.id)
         expect(Alert.count).to eq(2)
-        ArticlesForDeletionMonitor.create_alerts_for_course_articles
+        described_class.create_alerts_for_course_articles
         expect(Alert.count).to eq(2)
       end
 
@@ -102,17 +103,18 @@ describe ArticlesForDeletionMonitor do
                      course_id: course.id, resolved: true)
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: prod.id, course_id: course.id)
         expect(Alert.count).to eq(2)
-        ArticlesForDeletionMonitor.create_alerts_for_course_articles
+        described_class.create_alerts_for_course_articles
         expect(Alert.count).to eq(3)
       end
     end
 
     context 'when there is not a new article' do
       let(:article_is_new) { false }
+
       before { articles_course && revision && courses_user }
 
       it 'does still creates an Alert record' do
-        ArticlesForDeletionMonitor.create_alerts_for_course_articles
+        described_class.create_alerts_for_course_articles
         expect(Alert.count).to eq(2)
       end
     end

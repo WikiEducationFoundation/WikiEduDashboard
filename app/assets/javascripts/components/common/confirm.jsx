@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import Modal from './modal.jsx';
 import TextInput from './text_input.jsx';
@@ -61,8 +61,7 @@ const Confirm = createReactClass({
           {this.props.confirmMessage}
         </div>
       );
-    }
-    else {
+    } else {
       confirmMessage = (
         <p>{this.props.confirmMessage}</p>
       );
@@ -83,7 +82,7 @@ const Confirm = createReactClass({
 
     return (
       <Modal modalClass="confirm-modal-overlay">
-        <div className="confirm-modal">
+        <div className="confirm-modal" role="alert">
           {description}
           {confirmMessage}
           {textInput}

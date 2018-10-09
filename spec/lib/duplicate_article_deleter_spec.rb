@@ -14,7 +14,7 @@ describe DuplicateArticleDeleter do
                       id: 46349871,
                       title: 'Kostanay',
                       namespace: 0)
-      DuplicateArticleDeleter.new.resolve_duplicates([first])
+      described_class.new.resolve_duplicates([first])
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
@@ -33,7 +33,7 @@ describe DuplicateArticleDeleter do
                       id: 456,
                       title: 'Communicative_Language_Teaching',
                       namespace: 0)
-      DuplicateArticleDeleter.new.resolve_duplicates([first, second])
+      described_class.new.resolve_duplicates([first, second])
       expect(first.reload.deleted).to eq(false)
       expect(second.reload.deleted).to eq(false)
     end

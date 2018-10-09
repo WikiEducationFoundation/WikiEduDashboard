@@ -29,7 +29,7 @@ class TransclusionImporter
     until @continue == 'done'
       @query.merge! @continue unless @continue.nil?
       response = wiki_api.query @query
-      @transcluded_in += response.data['pages'].values.first['transcludedin']
+      @transcluded_in += response.data['pages'].values.first['transcludedin'] || []
       @continue = response['continue'] || 'done'
     end
 

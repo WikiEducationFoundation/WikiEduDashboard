@@ -18,6 +18,7 @@ describe SuspectedPlagiarismMailer do
     create(:courses_user, course_id: course.id, user_id: content_expert.id,
                           role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
+
   let(:article) { create(:article) }
   let(:revision) do
     create(:revision, article_id: article.id,
@@ -27,6 +28,7 @@ describe SuspectedPlagiarismMailer do
 
   describe '.alert_content_expert' do
     let(:mail) { described_class.alert_content_expert(revision) }
+
     it 'delivers an email with to the content expert' do
       allow(Features).to receive(:email?).and_return(true)
       expect(mail.body.encoded).to match(course.title)

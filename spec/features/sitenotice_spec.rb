@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'sitenotice', type: :feature do
-  before :each do
+  before do
     ENV['sitenotice'] = notice
   end
 

@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
+import _ from 'lodash';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -9,7 +10,7 @@ import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 import ArticlesNavbar from '../articles/articles_navbar.jsx';
 
-import { STUDENT_ROLE } from "../../constants";
+import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
@@ -84,7 +85,7 @@ const ArticleFinder = createReactClass({
 
   handleChange(e) {
     const grade = e.target.value;
-    return this.props.updateFields("grade", grade);
+    return this.props.updateFields('grade', grade);
   },
 
   sortSelect(e) {
@@ -107,44 +108,51 @@ const ArticleFinder = createReactClass({
       />);
 
     const searchType = (
-      <div className="search-type">
-        <div>
-          <label>
-            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            {I18n.t('article_finder.keyword_search')}
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            {I18n.t('article_finder.category_search')}
-          </label>
+      <div>
+        <div className="search-type">
+          <div>
+            <label>
+              <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              {I18n.t('article_finder.keyword_search')}
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              {I18n.t('article_finder.category_search')}
+            </label>
+          </div>
         </div>
       </div>
       );
 
     const minimumViews = (
-      <TextInput
-        id="min_views"
-        onChange={this.updateFields}
-        value={this.props.min_views}
-        value_key="min_views"
-        required
-        editable
-        label={I18n.t('article_finder.minimum_views_label')}
-        placeholder={I18n.t('article_finder.minimum_views_label')}
-      />);
+      <div>
+        <TextInput
+          id="min_views"
+          onChange={this.updateFields}
+          value={this.props.min_views}
+          value_key="min_views"
+          required
+          editable
+          label={I18n.t('article_finder.minimum_views_label')}
+          placeholder={I18n.t('article_finder.minimum_views_label')}
+        />
+      </div>
+      );
 
     const articleQuality = (
-      <div className="form-group range-container">
-        <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
-        <InputRange
-          maxValue={100}
-          minValue={0}
-          value={this.props.article_quality}
-          onChange={value => this.updateFields('article_quality', value)}
-          step={1}
-        />
+      <div>
+        <div className="form-group range-container">
+          <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
+          <InputRange
+            maxValue={100}
+            minValue={0}
+            value={this.props.article_quality}
+            onChange={value => this.updateFields('article_quality', value)}
+            step={1}
+          />
+        </div>
       </div>
       );
     let filters;
@@ -153,6 +161,7 @@ const ArticleFinder = createReactClass({
         <div className="filters">
           {minimumViews}
           {articleQuality}
+          {searchType}
         </div>
       );
     }
@@ -160,12 +169,11 @@ const ArticleFinder = createReactClass({
     let filterButton;
     if (!this.state.showFilters) {
       filterButton = (
-        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_filters')}</button>
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_options')}</button>
       );
-    }
-    else {
+    } else {
       filterButton = (
-        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_filters')}</button>
+        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
       );
     }
 
@@ -173,8 +181,12 @@ const ArticleFinder = createReactClass({
     if (this.state.isSubmitted && !this.props.loading) {
       filterBlock = (
         <div className="filter-block">
-          {filterButton}
-          {filters}
+          <div className="filter-button-block">
+            {filterButton}
+          </div>
+          <div className="filter-items">
+            {filters}
+          </div>
         </div>
       );
     }
@@ -232,8 +244,7 @@ const ArticleFinder = createReactClass({
         if (this.props.course_id) {
           if (this.props.current_user.isNonstudent) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
-          }
-          else if (this.props.current_user.role === STUDENT_ROLE) {
+          } else if (this.props.current_user.role === STUDENT_ROLE) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
           }
         }
@@ -305,7 +316,7 @@ const ArticleFinder = createReactClass({
     };
 
     let fetchingLoader;
-    if (this.props.fetchState !== "PAGEVIEWS_RECEIVED" && !this.props.loading) {
+    if (this.props.fetchState !== 'PAGEVIEWS_RECEIVED' && !this.props.loading) {
       fetchingLoader = (
         <div className="text-center">
           <div className="loading__spinner__small" />
@@ -341,12 +352,13 @@ const ArticleFinder = createReactClass({
             <div className="search-bar">
               <div>
                 {searchTerm}
-                {searchType}
               </div>
               <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
             </div>
           </div>
-          {feedbackButton}
+          <div className="feedback-button">
+            {feedbackButton}
+          </div>
           {filterBlock}
           <div className="article-finder-stats horizontal-flex">
             {searchStats}

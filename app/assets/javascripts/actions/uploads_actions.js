@@ -1,4 +1,5 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, API_FAIL } from '../constants';
+import _ from 'lodash';
+import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchUploads = (courseId) => {
@@ -22,6 +23,83 @@ export const receiveUploads = (courseId) => dispatch => {
     fetchUploads(courseId)
       .then(resp => dispatch({
         type: RECEIVE_UPLOADS,
+        data: resp,
+      }))
+      .catch(resp => dispatch({
+        type: API_FAIL,
+        data: resp
+      }))
+  );
+};
+
+const fetchUploadMetadata = (uploads) => {
+  let url = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&pageids=';
+  _.forEach(uploads, upload => {
+    url = `${url}${upload.id}|`;
+  });
+  url = url.slice(0, -1);
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'GET',
+      url: `${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const setUploadMetadata = (uploadsList) => dispatch => {
+  const list = uploadsList.filter(upload => !upload.fetchState);
+  if (list.length === 0) { return; }
+  const promises = _.chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
+  return (
+    Promise.all(promises)
+    .then(resp => dispatch({
+      type: SET_UPLOAD_METADATA,
+      data: resp,
+    }))
+    .catch(resp => dispatch({
+      type: API_FAIL,
+      data: resp
+    }))
+  );
+};
+
+const fetchUploadViewerMetadata = (upload) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'GET',
+      url: 'https://commons.wikimedia.org/w/api.php?',
+      data: {
+        action: 'query',
+        origin: '*',
+        format: 'json',
+        pageids: upload.id,
+        prop: 'globalusage|categories|imageinfo',
+        iiprop: 'size|extmetadata|url',
+        clshow: '!hidden',
+      },
+      success(data) {
+        return res(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+  });
+};
+
+export const setUploadViewerMetadata = (upload) => dispatch => {
+  return (
+    fetchUploadViewerMetadata(upload)
+      .then(resp => dispatch({
+        type: SET_UPLOAD_VIEWER_METADATA,
         data: resp,
       }))
       .catch(resp => dispatch({

@@ -50,6 +50,7 @@ describe AssignmentUpdater do
       end
       let!(:article) { create(:article, title: 'Deep_sea_FISHing') }
       let!(:another_article) { create(:article, title: 'Scuba_DIVING') }
+
       it 'updates the records it can and does not raise an error' do
         described_class.update_assignment_article_ids_and_titles
         expect(Assignment.find(assignment.id).article_title).to eq('Deep_Sea_Fishing')

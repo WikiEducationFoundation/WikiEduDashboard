@@ -53,4 +53,25 @@ RSpec.describe Category, type: :model do
       end
     end
   end
+
+  context 'when the requested page is missing' do
+    let(:mr_wiki) { create(:wiki, language: 'mr', project: 'wikipedia') }
+    let(:category) do
+      # This is a template that mistakenly includes the localized template prefix,
+      # so it ends up double-prefixed in the search, and is thus not found.
+      create(:category, name: 'साचा:स्वातंत्र्यलढा_अभियान_२०१८',
+                        wiki: mr_wiki, source: 'template')
+    end
+
+    before do
+      stub_wiki_validation
+    end
+
+    it 'works without error' do
+      VCR.use_cassette 'categories/mr_wiki' do
+        category.refresh_titles
+        expect(category.article_titles).to eq([])
+      end
+    end
+  end
 end

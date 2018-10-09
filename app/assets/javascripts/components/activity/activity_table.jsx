@@ -43,7 +43,7 @@ const ActivityTable = createReactClass({
   },
 
   sortItems(e) {
-    this.props.onSort(e.currentTarget.getAttribute("data-sort-key"));
+    this.props.onSort(e.currentTarget.getAttribute('data-sort-key'));
   },
 
   _renderActivites() {

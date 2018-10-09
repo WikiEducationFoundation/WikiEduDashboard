@@ -1,4 +1,4 @@
-import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY } from "../constants";
+import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY } from '../constants';
 
 const initialState = {
   categories: [],

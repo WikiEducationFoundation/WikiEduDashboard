@@ -13,6 +13,6 @@
 
 FactoryBot.define do
   factory :assignment_suggestion do
-    text 'Improve this article'
+    text { 'Improve this article' }
   end
 end

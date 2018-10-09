@@ -5,9 +5,6 @@ import { Motion, spring } from 'react-motion';
 import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import BlockActions from '../../actions/block_actions.js';
-import GradeableStore from '../../stores/gradeable_store.js';
-
 
 import DateCalculator from '../../utils/date_calculator.js';
 
@@ -21,7 +18,7 @@ const Week = createReactClass({
     meetings: PropTypes.string,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     reorderable: PropTypes.bool,
     onBlockDrag: PropTypes.func,
     onMoveBlockUp: PropTypes.func,
@@ -30,6 +27,7 @@ const Week = createReactClass({
     canBlockMoveDown: PropTypes.func,
     saveBlockChanges: PropTypes.func,
     cancelBlockEditable: PropTypes.func,
+    addBlock: PropTypes.func,
     deleteWeek: PropTypes.func,
     all_training_modules: PropTypes.array,
     weeksBeforeTimeline: PropTypes.number
@@ -37,12 +35,17 @@ const Week = createReactClass({
   getInitialState() {
     return { focusedBlockId: null };
   },
+  componentDidMount() {
+    const hash = location.hash.substring(1);
+    const weekNo = this.weekNumber();
+    if (hash === `week-${weekNo}`) {
+      const week = document.getElementsByName(hash)[0];
+      week.scrollIntoView();
+    }
+  },
   addBlock() {
     this._scrollToAddedBlock();
-    return BlockActions.addBlock(this.props.week.id);
-  },
-  deleteBlock(blockId) {
-    return BlockActions.deleteBlock(blockId);
+    return this.props.addBlock(this.props.week.id);
   },
   toggleFocused(blockId) {
     if (this.state.focusedBlockId === blockId) {
@@ -52,10 +55,13 @@ const Week = createReactClass({
   },
   _scrollToAddedBlock() {
     const wk = document.getElementsByClassName(`week-${this.props.index}`)[0];
-    const scrollTop = window.scrollTop || document.body.scrollTop;
+    const scrollTop = window.scrollY || document.body.scrollTop;
     const bottom = Math.abs(__guard__(wk, x => x.getBoundingClientRect().bottom));
     const elBottom = (bottom + scrollTop) - 50;
-    return window.scrollTo(0, elBottom);
+    return window.scrollTo({ top: elBottom, behavior: 'smooth' });
+  },
+  weekNumber() {
+    return this.props.index + this.props.weeksBeforeTimeline;
   },
   render() {
     let style;
@@ -78,9 +84,6 @@ const Week = createReactClass({
 
 
     const blocks = this.props.blocks.map((block, i) => {
-      if (block.deleted) {
-        return null;
-      }
       // If in reorderable mode
       if (this.props.reorderable) {
         const orderableBlock = value => {
@@ -127,14 +130,15 @@ const Week = createReactClass({
           block={block}
           key={block.id}
           editPermissions={this.props.edit_permissions}
-          gradeable={GradeableStore.getGradeableByBlock(block.id)}
-          deleteBlock={this.deleteBlock.bind(this, block.id)}
+          deleteBlock={this.props.deleteBlock}
           week_index={this.props.index}
           weekStart={dateCalc.startDate()}
           all_training_modules={this.props.all_training_modules}
-          editableBlockIds={this.props.editable_block_ids}
+          editableBlockIds={this.props.editableBlockIds}
           saveBlockChanges={this.props.saveBlockChanges}
+          setBlockEditable={this.props.setBlockEditable}
           cancelBlockEditable={this.props.cancelBlockEditable}
+          updateBlock={this.props.updateBlock}
         />
       );
     });
@@ -175,13 +179,12 @@ const Week = createReactClass({
       weekClassName += ' timeline-warning';
     }
 
-    const weekNumber = this.props.index + this.props.weeksBeforeTimeline;
     return (
       <li className={weekClassName}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekDates}
-          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber })}</p>
+          <p className="week-index">{I18n.t('timeline.week_number', { number: this.weekNumber() })}</p>
         </div>
         {weekContent}
       </li>

@@ -8,7 +8,7 @@ def mock_mailer
 end
 
 describe CourseAlertManager do
-  let(:subject) { CourseAlertManager.new }
+  let(:subject) { described_class.new }
 
   let(:course) do
     create(:course, start: course_start,
@@ -35,12 +35,12 @@ describe CourseAlertManager do
            role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
-  before :each do
+  before do
     enroll_admin
   end
 
   describe '#create_no_students_alerts' do
-    before :each do
+    before do
       # These alerts are only created if the course is approved.
       create(:campaigns_course, course: course, campaign: Campaign.first)
     end
@@ -71,17 +71,20 @@ describe CourseAlertManager do
         expect(Alert.count).to eq(0)
       end
     end
+
     context 'when a course has no training modules' do
       before do
         enroll_student
         course.update_cache
       end
+
       it 'does not create an alert' do
         expect(course.user_count).to eq(1)
         subject.create_untrained_students_alerts
         expect(Alert.count).to eq(0)
       end
     end
+
     context 'when a course has a training module that is long overdue' do
       before do
         week = Week.new
@@ -94,6 +97,7 @@ describe CourseAlertManager do
         create(:campaigns_course, course: course, campaign: Campaign.first)
         course.update_cache
       end
+
       it 'creates an alert' do
         expect_any_instance_of(UntrainedStudentsAlertMailer)
           .to receive(:email).and_return(mock_mailer)

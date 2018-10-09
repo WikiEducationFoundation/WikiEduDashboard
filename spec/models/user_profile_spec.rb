@@ -19,8 +19,10 @@ require 'rails_helper'
 
 describe UserProfile do
   let(:user_profile) { create(:user_profile) }
+
   describe '#email_opt_out' do
     let(:subject) { user_profile.email_opt_out('InvalidType') }
+
     it 'raises an error if the type is invalid' do
       expect { subject }.to raise_error(UserProfile::InvalidEmailPreferencesType)
     end

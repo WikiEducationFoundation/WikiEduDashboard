@@ -28,7 +28,7 @@ describe ExploreController do
       get :index
       expect(response.status).to eq(200)
       expect(response.body).to have_content(campaign.title)
-      expect(response.body).to_not have_content(campaign2.title)
+      expect(response.body).not_to have_content(campaign2.title)
     end
 
     it 'lists active courses of the default campaign' do
@@ -45,7 +45,7 @@ describe ExploreController do
                               campaign_id: Campaign.default_campaign.id)
       get :index
       expect(response.body).to have_content(course.title)
-      expect(response.body).to_not have_content(course2.title)
+      expect(response.body).not_to have_content(course2.title)
     end
 
     it 'works for admins' do

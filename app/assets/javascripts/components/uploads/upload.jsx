@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
+import UploadViewer from './upload_viewer.jsx';
+import Modal from '../common/modal.jsx';
 
 const Upload = createReactClass({
   displayName: 'Upload',
@@ -17,11 +18,18 @@ const Upload = createReactClass({
     return {
       width: null,
       height: null,
+      isUploadViewerOpen: false,
     };
   },
 
   componentWillMount() {
     this.setImageFile();
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.imageFile) {
+      this.setState({ imageFile: nextProps.upload.thumburl });
+    }
   },
 
   setImageFile() {
@@ -41,6 +49,10 @@ const Upload = createReactClass({
     img.onload = function () {
       component.setState({ width: this.width, height: this.height });
     };
+  },
+
+  isUploadViewerOpen() {
+    this.setState({ isUploadViewerOpen: !this.state.isUploadViewerOpen });
   },
 
   render() {
@@ -64,8 +76,8 @@ const Upload = createReactClass({
     let uploadDivStyle;
     if (this.state.width && this.state.height) {
       uploadDivStyle = {
-        width: this.state.width * 250 / this.state.height,
-        flexGrow: this.state.width * 250 / this.state.height,
+        width: (this.state.width * 250) / this.state.height,
+        flexGrow: (this.state.width * 250) / this.state.height,
       };
     }
 
@@ -84,62 +96,67 @@ const Upload = createReactClass({
       );
     }
 
+    let credit = '<div class="results-loading"> &nbsp; &nbsp; </div>';
+    if (this.props.upload.credit) {
+      credit = this.props.upload.credit;
+    }
+
+    if (this.state.isUploadViewerOpen) {
+      return (
+        <Modal>
+          <UploadViewer closeUploadViewer={this.isUploadViewerOpen} upload={this.props.upload} imageFile={this.state.imageFile} />
+        </Modal>
+      );
+    }
+
+
     if (this.props.view === LIST_VIEW) {
       usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
       return (
-        <tr className="upload">
+        <tr className="upload list-view" onClick={this.isUploadViewerOpen}>
           <td>
-            <a href={this.props.upload.url} target="_blank">
-              <img src={this.state.imageFile} alt={fileName} />
-            </a>
+            <img src={this.state.imageFile} alt={fileName} />
             {details}
           </td>
           <td className="desktop-only-tc">
-            <a href={this.props.upload.url} target="_blank">{fileName}</a>
+            <a onClick={(event) => event.stopPropagation()} href={this.props.upload.url} target="_blank">{fileName}</a>
           </td>
           <td className="desktop-only-tc">{uploader}</td>
           <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
           <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
+          <td className="desktop-only-tc" dangerouslySetInnerHTML={{ __html: credit }} />
         </tr>
       );
-    }
-
-    else if (this.props.view === GALLERY_VIEW) {
+    } else if (this.props.view === GALLERY_VIEW) {
       return (
-        <div className="upload" style={uploadDivStyle} >
+        <div className="upload" style={uploadDivStyle} onClick={this.isUploadViewerOpen} >
           <img src={this.state.imageFile} alt={fileName} />
           <div className="info">
             <p className="usage"><b>{usage}</b></p>
-            <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+            <p><b><a href={this.props.upload.url} target="_blank" onClick={(event) => event.stopPropagation()}>{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
             <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
           </div>
         </div>
       );
-    }
-
-    else if (this.props.view === TILE_VIEW) {
+    } else if (this.props.view === TILE_VIEW) {
       return (
-        <div className="tile-container" >
+        <div className="tile-container" onClick={this.isUploadViewerOpen}>
           <div className="tile">
-            <a href={this.props.upload.url} target="_blank">
-              <img src={this.state.imageFile} alt={fileName} />
-            </a>
+            <img src={this.state.imageFile} alt={fileName} />
             <div className="info">
               <p className="usage"><b>{usage}</b></p>
-              <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+              <p><b><a href={this.props.upload.url} target="_blank" onClick={(event) => event.stopPropagation()}>{fileName}</a></b></p>
               <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-              <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+              <p>
+                <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}
+              </p>
             </div>
           </div>
         </div>
       );
     }
-  },
+  }
 });
 
-const mapStateToProps = state => ({
-  view: state.uploads.view,
-});
-
-export default connect(mapStateToProps)(Upload);
+export default Upload;

@@ -1,9 +1,9 @@
-import "../testHelper";
-import reducer from "../../app/assets/javascripts/reducers/settings.js";
-import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
+import '../testHelper';
+import reducer from '../../app/assets/javascripts/reducers/settings.js';
+import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../../app/assets/javascripts/constants';
 
-describe("Settings reducer", () => {
-  it("should return the initial state", () => {
+describe('Settings reducer', () => {
+  it('should return the initial state', () => {
     const initialState = {
       adminUsers: [],
       fetchingUsers: false,
@@ -16,9 +16,9 @@ describe("Settings reducer", () => {
     expect(reducer(undefined, {})).to.deep.eq(initialState);
   });
 
-  it("should update array with new admin users", () => {
-    const oldAdmins = [{ id: 1, username: "Admin1" }];
-    const newAdmins = [{ id: 1, username: "Admin1" }, { id: 2, username: 'Admin2' }];
+  it('should update array with new admin users', () => {
+    const oldAdmins = [{ id: 1, username: 'Admin1' }];
+    const newAdmins = [{ id: 1, username: 'Admin1' }, { id: 2, username: 'Admin2' }];
 
     const initialState = {
       adminUsers: oldAdmins

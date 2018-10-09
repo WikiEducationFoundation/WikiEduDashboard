@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 describe Survey do
-  before(:each) do
+  before do
     @survey = create(:survey)
     @survey.rapidfire_question_groups << create(:question_group)
   end

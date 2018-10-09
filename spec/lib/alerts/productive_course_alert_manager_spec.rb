@@ -9,7 +9,7 @@ end
 
 describe ProductiveCourseAlertManager do
   let(:course) { create(:course, user_count: user_count, character_sum: character_sum) }
-  let(:subject) { ProductiveCourseAlertManager.new([course]) }
+  let(:subject) { described_class.new([course]) }
 
   context 'when there are no users' do
     let(:user_count) { 0 }
@@ -24,6 +24,7 @@ describe ProductiveCourseAlertManager do
   context 'when user productivity is low' do
     let(:user_count) { 5 }
     let(:character_sum) { 100 }
+
     it 'does not create an alert' do
       subject.create_alerts
       expect(Alert.count).to eq(0)
@@ -33,6 +34,7 @@ describe ProductiveCourseAlertManager do
   context 'when user productivity is high' do
     let(:user_count) { 5 }
     let(:character_sum) { 50_000 }
+
     it 'creates an alert and sends an email' do
       subject.create_alerts
       expect(Alert.count).to eq(1)
@@ -44,6 +46,7 @@ describe ProductiveCourseAlertManager do
   context 'when productivity is high but there is already an alert' do
     let(:user_count) { 5 }
     let(:character_sum) { 50_000 }
+
     before { create(:alert, type: 'ProductiveCourseAlert', course_id: course.id) }
 
     it 'does not create an alert' do

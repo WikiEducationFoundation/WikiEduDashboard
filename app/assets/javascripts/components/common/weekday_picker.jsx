@@ -66,7 +66,7 @@ const WeekdayPicker = createReactClass({
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
     const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
     let nodeIndex;
-    for (let i = 0; i < dayNodes.length; i++) {
+    for (let i = 0; i < dayNodes.length; i += 1) {
       if (dayNodes[i] === dayNode) {
         nodeIndex = i;
         break;
@@ -81,7 +81,7 @@ const WeekdayPicker = createReactClass({
     const body = dayNode.parentNode.parentNode.parentNode.parentNode;
     const dayNodes = body.querySelectorAll('.DayPicker-Weekday:not(.DayPicker-Weekday--outside)');
     let nodeIndex;
-    for (let i = 0; i < dayNodes.length; i++) {
+    for (let i = 0; i < dayNodes.length; i += 1) {
       if (dayNodes[i] === dayNode) {
         nodeIndex = i;
         break;
@@ -137,7 +137,7 @@ const WeekdayPicker = createReactClass({
 
   renderWeekDays() {
     const weekdays = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i += 1) {
       weekdays.push(this.renderWeekday(i));
     }
     return (

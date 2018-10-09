@@ -1,4 +1,4 @@
-import { RECEIVE_USER_COURSES } from "../constants";
+import { RECEIVE_USER_COURSES } from '../constants';
 
 const initialState = {
   userCourses: [],

@@ -269,6 +269,7 @@ describe CampaignsController do
       create(:courses_user, course_id: course.id, user_id: instructor.id,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
+
     it 'returns a csv of course data' do
       get :courses, params: request_params
       expect(response.body).to have_content(course.slug)
@@ -289,6 +290,7 @@ describe CampaignsController do
       campaign.courses << course
       create(:courses_user, course: course, user: user)
     end
+
     it 'returns a csv of course data' do
       get :articles_csv, params: request_params
       expect(response.body).to have_content(course.slug)
@@ -348,7 +350,7 @@ describe CampaignsController do
 
     it 'shows a remove button for the programs if the user is an organizer or admin' do
       # don't show it if they are not an organizer or admin
-      expect(response.body).to_not have_content(I18n.t('assignments.remove'))
+      expect(response.body).not_to have_content(I18n.t('assignments.remove'))
 
       # when they are an organizer...
       user = create(:user)

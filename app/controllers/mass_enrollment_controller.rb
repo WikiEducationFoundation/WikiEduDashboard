@@ -15,7 +15,9 @@ class MassEnrollmentController < ApplicationController
     @course = Course.find_by(slug: params[:course_id])
     usernames_list = params[:usernames].lines.map(&:strip)
     @results = AddUsers.new(course: @course, usernames_list: usernames_list).add_all_at_once
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+    MassEnrollmentWorker.schedule_edits(course: @course,
+                                        editing_user: current_user,
+                                        enrollment_results: @results)
     render :index
   end
 end

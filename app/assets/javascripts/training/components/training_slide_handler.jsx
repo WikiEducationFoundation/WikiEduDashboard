@@ -96,6 +96,10 @@ const TrainingSlideHandler = createReactClass({
     return Boolean(this.state.currentSlide.assessment) && !this.state.currentSlide.answeredCorrectly;
   },
 
+  returnToLink() {
+    return document.getElementById('react_root').getAttribute('data-return-to');
+  },
+
   trainingUrl(params) {
     return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
   },
@@ -140,7 +144,10 @@ const TrainingSlideHandler = createReactClass({
         />
       );
     } else {
-      const nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+      let nextHref = this.returnToLink();
+      if (!nextHref) {
+        nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+      }
       nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
     }
 
@@ -160,7 +167,7 @@ const TrainingSlideHandler = createReactClass({
       previousLink = (
         <SlideLink
           slideId={this.state.previousSlide.slug}
-          direction="< Previous"
+          buttonText={I18n.t('training.previous')}
           params={this.props.params}
         />
       );
@@ -207,6 +214,11 @@ const TrainingSlideHandler = createReactClass({
       );
     }
 
+   let sourceLink;
+   if (this.state.currentSlide.wiki_page) {
+     sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${this.state.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   }
+
     return (
       <div>
         <header>
@@ -238,6 +250,7 @@ const TrainingSlideHandler = createReactClass({
           {quiz}
           <footer className="training__slide__footer">
             <span className="pull-left">{previousLink}</span>
+            {sourceLink}
             <span className="pull-right">{nextLink}</span>
           </footer>
         </article>

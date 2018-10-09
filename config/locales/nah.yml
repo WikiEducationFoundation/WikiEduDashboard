@@ -1,6 +1,7 @@
 # Messages for Nāhuatl (Nāhuatl)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Akapochtli
 # Author: Taresi
 ---
 nah:
@@ -15,6 +16,8 @@ nah:
     main: Huēyitlacāuhtli
     user: Tequihuihcātlacāuhtli
     user_ns: Tequihuihqui
+  revisions:
+    diff_show: Monextiz
   users:
     name: Tōcāitl
   wizard:

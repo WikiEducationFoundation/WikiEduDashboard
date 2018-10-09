@@ -28,35 +28,35 @@
 
 FactoryBot.define do
   factory :test_user, class: User do
-    username 'Pizza'
-    onboarded true
+    username { 'Pizza' }
+    onboarded { true }
   end
 
   factory :user do
-    username 'Ragesock' # en.wiki local id 4543197
-    onboarded true
+    username { 'Ragesock' } # en.wiki local id 4543197
+    onboarded { true }
   end
 
   factory :trained, class: User do
-    username 'Ragesoss' # en.wiki local id 319203
-    onboarded true
+    username { 'Ragesoss' } # en.wiki local id 319203
+    onboarded { true }
   end
 
   factory :instructor, class: User do
-    username 'Prof. Ragesoss'
-    onboarded true
-    permissions 2
+    username { 'Prof. Ragesoss' }
+    onboarded { true }
+    permissions { 2 }
   end
 
   factory :admin, class: User do
-    username 'Ragesauce'
-    permissions 1
-    onboarded true
+    username { 'Ragesauce' }
+    permissions { 1 }
+    onboarded { true }
   end
 
   factory :super_admin, class: User do
-    username 'Superragesauce'
-    permissions 3
-    onboarded true
+    username { 'Superragesauce' }
+    permissions { 3 }
+    onboarded { true }
   end
 end

@@ -5,7 +5,8 @@ json.courses do
     course = course_user.course
     json.id course.id
     json.title pretty_course_title(course)
+    json.slug course.slug
     json.type course.type
-    json.cloneable !course.legacy? && !course.tag?('no_clone')
+    json.cloneable course.cloneable?
   end
 end

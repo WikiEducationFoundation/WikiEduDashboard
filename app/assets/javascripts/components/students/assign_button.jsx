@@ -2,11 +2,10 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
-import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
@@ -25,7 +24,6 @@ const AssignButton = createReactClass({
     role: PropTypes.number.isRequired,
     student: PropTypes.object,
     current_user: PropTypes.object,
-    course_id: PropTypes.string.isRequired,
     is_open: PropTypes.bool,
     permitted: PropTypes.bool,
     addAvailable: PropTypes.bool,
@@ -100,7 +98,7 @@ const AssignButton = createReactClass({
       title: decodeURIComponent(this.state.title).trim(),
       project: this.state.project,
       language: this.state.language,
-      course_id: this.props.course_id,
+      course_id: this.props.course.slug,
       user_id: student,
       role: this.props.role
     };
@@ -202,7 +200,7 @@ const AssignButton = createReactClass({
     let assignments = this.props.assignments.map(ass => {
       let removeButton;
       let articleLink;
-      ass.course_id = this.props.course_id;
+      ass.course_id = this.props.course.slug;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
       if (this.props.permitted) {
         removeButton = <button className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button>;
@@ -281,14 +279,11 @@ const AssignButton = createReactClass({
         assignmentInput = (
           <td>
             <form onSubmit={this.assign}>
-              <Lookup
-                model="article"
+              <input
                 placeholder={I18n.t('articles.title_example')}
-                ref="lookup"
                 value={this.state.title}
                 onSubmit={this.assign}
                 onChange={this.handleChangeTitle}
-                disabled={true}
               />
               <button className="button border" type="submit">{I18n.t('assignments.label')}</button>
               {options}

@@ -7,7 +7,7 @@ describe FirstStudentAlertManager do
   let(:course) { create(:course) }
   let(:instructor) { create(:user, email: 'teach@wiki.edu') }
   let(:student) { create(:user, username: 'Student') }
-  let(:subject) { FirstStudentAlertManager.new([course]) }
+  let(:subject) { described_class.new([course]) }
 
   before do
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
@@ -28,6 +28,7 @@ describe FirstStudentAlertManager do
       create(:courses_user, user: student, course: course,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
+
     it 'creates an alert' do
       subject.create_alerts
       expect(Alert.count).to eq(1)
@@ -40,6 +41,7 @@ describe FirstStudentAlertManager do
                             role: CoursesUsers::Roles::STUDENT_ROLE,
                             created_at: 4.days.ago)
     end
+
     it 'does not create an alert' do
       subject.create_alerts
       expect(Alert.count).to eq(0)
@@ -51,6 +53,7 @@ describe FirstStudentAlertManager do
       create(:courses_user, user: student, course: course,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
+
     before { create(:alert, type: 'FirstEnrolledStudentAlert', course_id: course.id) }
 
     it 'does not create an alert' do

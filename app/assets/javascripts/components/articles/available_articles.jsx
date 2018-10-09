@@ -34,7 +34,7 @@ const AvailableArticles = createReactClass({
 
     if (this.props.assignments.length > 0) {
       elements = this.props.assignments.map((assignment) => {
-        if (assignment.user_id === null && !assignment.deleted) {
+        if (assignment.user_id === null) {
           return (
             <ConnectedAvailableArticle
               {...this.props}

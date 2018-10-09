@@ -15,18 +15,24 @@ import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
 import notifications from './notifications';
+import persistedCourse from './persisted_course';
 import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
+import tags from './tags';
+import timeline from './timeline';
+import trainingStatus from './training_status';
+import userTrainingStatus from './user_training_status';
 import ui from './ui';
 import uploads from './uploads';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
+import userRevisions from './user_revisions';
 import users from './users';
 import wikidataLabels from './wikidata_labels';
-
+import wizard from './wizard';
 
 const reducer = combineReducers({
   alerts,
@@ -46,17 +52,24 @@ const reducer = combineReducers({
   needHelpAlert,
   newAccount,
   notifications,
+  persistedCourse,
   recentEdits,
   recentUploads,
   revisions,
   suspectedPlagiarism,
   settings,
+  tags,
+  timeline,
+  trainingStatus,
   ui,
   uploads,
   userCourses,
   userProfile,
+  userRevisions,
+  userTrainingStatus,
   users,
-  wikidataLabels
+  wikidataLabels,
+  wizard
 });
 
 export default reducer;

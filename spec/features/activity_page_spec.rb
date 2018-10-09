@@ -4,13 +4,14 @@ require 'rails_helper'
 require "#{Rails.root}/lib/revision_analytics_service"
 
 describe 'activity page', type: :feature, js: true do
-  before :each do
+  before do
     login_as(user, scope: :user)
     visit '/'
   end
 
   describe 'non-admins' do
     let(:user) { create(:user) }
+
     it 'shouldn\'t be linked for non-admins' do
       within '.top-nav' do
         expect(page).not_to have_content 'Admin'
@@ -49,7 +50,7 @@ describe 'activity page', type: :feature, js: true do
       visit '/'
     end
 
-    it 'should be viewable by admins' do
+    it 'is viewable by admins' do
       within '.top-nav' do
         click_link 'Admin'
       end

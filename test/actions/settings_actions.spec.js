@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import '../testHelper';
-import { REVOKING_ADMIN, SET_ADMIN_USERS } from "../../app/assets/javascripts/constants";
+import { REVOKING_ADMIN, SET_ADMIN_USERS } from '../../app/assets/javascripts/constants';
 import { downgradeAdmin, fetchAdminUsers, upgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
 
 
@@ -15,7 +15,7 @@ describe('SettingsActions', () => {
   // or this: https://github.com/reactjs/redux/blob/master/docs/recipes/WritingTests.md#async-action-creators
 
   beforeEach(() => {
-    sinon.stub($, "ajax").yieldsTo("success", { spam: 'eggs' });
+    sinon.stub($, 'ajax').yieldsTo('success', { spam: 'eggs' });
   });
 
   afterEach(() => {
@@ -38,7 +38,7 @@ describe('upgradeAdmin', () => {
   let cannedResponse;
   beforeEach(() => {
     cannedResponse = { spam: 'eggs' };
-    sinon.stub($, "ajax")
+    sinon.stub($, 'ajax')
       .onCall(0).yieldsTo('success', {})
       .onCall(1).yieldsTo('success', { spam: 'eggs' });
   });
@@ -86,7 +86,7 @@ describe('downgradeAdmin', () => {
   let cannedResponse;
   beforeEach(() => {
     cannedResponse = { spam: 'eggs' };
-    sinon.stub($, "ajax")
+    sinon.stub($, 'ajax')
       .onCall(0).yieldsTo('success', {})
       .onCall(1).yieldsTo('success', { spam: 'eggs' });
   });

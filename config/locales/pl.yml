@@ -209,7 +209,14 @@ pl:
     title: Tytuł
     use_start_end_dates: Użyć dat rozpoczęcia i zakończenia?
   categories:
+    add_category: Dodaj kategorię
+    add_template: Dodaj szablon
+    add_this_category: Dodaj tę kategorię
+    add_this_template: Dodaj ten szablon
+    depth: Głębokość podkategorii
     category_name: Nazwa kategorii
+    template_name: Nazwa szablonu
+    remove: Usuń
   chat:
     label: Czat
   courses:
@@ -300,6 +307,7 @@ pl:
         programy zostaną zaktualizowane podczas najbliższego cyklu aktualizacji. Potrwa
         to kilka godzin.
     current: Aktualne kursy
+    data_download_info: Pobierz dane w formacie CSV.
     delete_course: Usuń kurs
     delete_suggestion: Usuń
     delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
@@ -343,6 +351,7 @@ pl:
       not_yet_approved: Kurs nie został jeszcze zaaprobowany.
     join_details: By zapisać się na ten kurs musisz mieć hasło lub zawierający je
       link. Jeśli jeszcze ich nie masz, poproś prowadzącego.
+    join_no_passcode: Czy na pewno chcesz dołączyć do tego kursu?
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
@@ -362,10 +371,12 @@ pl:
       wszystkim uczestnikom, którzy nie ukończyli na czas wymaganych modułów szkoleniowych.
       Czy chcesz wykonać tę operację?
     no_available_actions: Brak dostępnych akcji
+    ores_plot: ORES
     overview: Strona główna
     passcode: Kod dostępu
     passcode_none: Brak kodu dostępu
     passcode_prompt: 'Wprowadź kod dostępu/hasło by dołączyć:'
+    please_log_in: Zaloguj się.
     published: 'Twój kurs został opublikowany. Uczestnicy mogą się na niego zapisywać
       pod następującym adresem URL:'
     review_timeline: Skontroluj harmonogram i wprowadź poprawki. Gdy już będziesz
@@ -405,6 +416,9 @@ pl:
     unsubmitted: Niezgłoszone kursy
     untrained: Nieprzeszkoleni
     uploads_none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    user_uploads_none: Ten użytkownik nie dodał żadnych zdjęć ani innych plików multimedialnych
+      do Wikimedia Commons.
+    user_recent_uploads: Niedawno przesłane
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników
@@ -440,6 +454,10 @@ pl:
     campaigns: 'Kampanie:'
     campaign_courses: Programy %{title}
     creator:
+      assignment_end: Koniec wydarzenia
+      assignment_end_placeholder: Koniec wydarzenia (RRRR-MM-DD)
+      assignment_start: Rozpoczęcie wydarzenia
+      assignment_start_placeholder: Rozpoczęcie wydarzenia (RRRR-MM-DD)
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
@@ -473,6 +491,7 @@ pl:
       hasło od prowadzącego lub współpracownika.
     leave_course: Opuść program
     milestones_none: Ten projekt aktualnie nie posiada ustalonych kamieni milowych.
+    not_permitted: Nie masz uprawnień do edytowania tego programu.
     published: 'Projekt został opublikowany. Uczestnicy mogą dopisać się za pomocą
       następującego adresu URL:'
     revisions_none: W tym projekcie nie było ostatnio aktywności.
@@ -644,6 +663,8 @@ pl:
     logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
     done: Gotowe!
+    view_module_source: zobacz źródło modułu
+    reload_from_source: załaduj ponownie ze źródła
   uploads:
     file_name: Nazwa pliku
     header: Pliki przesłane na Wikimedia Commons
@@ -680,9 +701,9 @@ pl:
     first_name: Imię
     last_name: Nazwisko
     loading: Wczytywanie użytkowników...
-    characters_added_mainspace: Znaki dodane w PG
+    characters_added_mainspace: Znaki dodane (artykuł)
     characters_added_short: 'PG: %{mainspace}, PU: %{userspace}'
-    characters_added_userspace: Znaki dodane w PU
+    characters_added_userspace: Znaki dodane (użytkownik)
     my_assigned: 'Przypisane:'
     my_reviewing: 'Recenzuje:'
     name: Nazwa
@@ -843,11 +864,10 @@ pl:
   article_finder:
     page_assessment_class: Klasa
     average_views: Średnia dzienna liczba wyświetleń
+    remove_article: Usuń artykuł
     no_article_found: Nie znaleziono artykułów w tej kategorii
     search_placeholder: Wpisz słowo kluczowe
     tools: Narzędzia
-    show_filters: Pokaż filtry
-    hide_filters: Ukryj filtry
     more_results: Więcej wyników
     submit: Wyślij
     assign_article_self: Przydziel się

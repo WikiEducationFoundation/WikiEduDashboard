@@ -12,6 +12,7 @@ describe 'feedback form' do
   context 'from a training module', type: :feature, js: true do
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
+
     it 'submits successfully for a logged in user' do
       login_as user
       visit slide_with_feedback_link
@@ -46,6 +47,7 @@ describe 'feedback form' do
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
     let(:referer) { 'wikipedia.org' }
+
     it 'submits successfully' do
       login_as user
       visit "/feedback?referer=#{referer}"
@@ -86,6 +88,7 @@ describe 'feedback form' do
             expect(page).to have_content "You don't have access to that page"
           end
         end
+
         context 'logged out' do
           it 'denies access' do
             visit feedback_form_responses_path
@@ -93,8 +96,10 @@ describe 'feedback form' do
           end
         end
       end
+
       context 'admin' do
         let(:user) { create(:admin) }
+
         it 'permits' do
           expect(page).to have_content text
           expect(page).to have_content resp.topic

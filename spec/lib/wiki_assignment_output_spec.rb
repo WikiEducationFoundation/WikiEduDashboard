@@ -28,13 +28,14 @@ describe WikiAssignmentOutput do
     create(:user, id: 3, username: 'Keï')
     create(:courses_user, user_id: 3, course_id: 10001)
   end
+
   let(:templates) do
     template_file_path = "config/templates/#{ENV['dashboard_url']}_#{course.home_wiki.language}.yml"
     YAML.load_file(Rails.root + template_file_path)
   end
 
   let(:wiki_assignment_output) do
-    WikiAssignmentOutput.new(course, title, talk_title, assignments, templates)
+    described_class.new(course, title, talk_title, assignments, templates)
   end
   let(:course) { Course.find(10001) }
   let(:assignments) do
@@ -147,6 +148,7 @@ describe WikiAssignmentOutput do
       context 'when the assignment is being removed so the new tag is blank' do
         let(:title) { 'South_Efate_language' }
         let(:talk_title) { 'Talk:South_Efate_language' }
+
         it 'removes the existing assignment template if the new tag is blank' do
           old_content = '{{dashboard.wikiedu.org assignment'\
                         ' | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/'\

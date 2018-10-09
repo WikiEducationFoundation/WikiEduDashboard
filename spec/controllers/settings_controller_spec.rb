@@ -28,11 +28,13 @@ describe SettingsController do
       create(:admin)
       @super_admin = create(:super_admin)
     end
+
     context 'when request is json' do
       before do
         allow(controller).to receive(:current_user).and_return(@super_admin)
         get :all_admins, format: :json
       end
+
       it 'returns all admin users' do
         expect(JSON.parse(response.body)['admins'].length).to be(2)
       end
@@ -58,6 +60,7 @@ describe SettingsController do
         allow(controller).to receive(:current_user).and_return(create(:user, username: 'reg_user'))
         get :all_admins, format: :json
       end
+
       it 'denies access' do
         expect(response.status).to eq(401)
       end
@@ -120,6 +123,7 @@ describe SettingsController do
         @user = build(:user)
         post_params
       end
+
       it 'returns a 404' do
         expect(response.status).to eq(404)
       end
@@ -182,6 +186,7 @@ describe SettingsController do
         @user = create(:super_admin, username: 'tryandrevokeme')
         post_params
       end
+
       it 'disallows revocation' do
         expect(@user.reload.super_admin?).to be true
       end

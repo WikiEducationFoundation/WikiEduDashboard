@@ -53,11 +53,11 @@ const ByStudentsStats = ({ username, stats }) => {
               {stats.uploads_in_use_count}
             </h4>
             <p>
-              {I18n.t("metrics.uploads_in_use_count", { count: stats.uploads_in_use_count })}
+              {I18n.t('metrics.uploads_in_use_count', { count: stats.uploads_in_use_count })}
             </p>
             <h4>{stats.upload_usage_count}</h4>
             <p>
-              {I18n.t("metrics.upload_usages_count", { count: stats.upload_usage_count })}
+              {I18n.t('metrics.upload_usages_count', { count: stats.upload_usage_count })}
             </p>
           </div>
         </div>

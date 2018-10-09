@@ -8,10 +8,11 @@ class Wikitext
   # wikitext formatting methods #
   ################################
   def self.markdown_to_mediawiki(item)
-    wikitext = PandocRuby.convert(item, from: :markdown, to: :mediawiki)
+    wikitext = PandocRuby.convert(item, from: :markdown_github, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
+    wikitext = reformat_links(wikitext)
     wikitext
   end
 
@@ -24,7 +25,7 @@ class Wikitext
   end
 
   def self.mediawiki_to_markdown(item)
-    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown)
+    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown_github)
     markdown
   end
 
@@ -46,11 +47,29 @@ class Wikitext
     text
   end
 
-  def self.titles_to_wikilinks(titles)
-    return '' if titles.blank?
-    formatted_titles = titles.map { |title| format_title(title) }
+  def self.assignments_to_wikilinks(assignments, home_wiki)
+    return '' if assignments.blank?
+    formatted_titles = assignments.map do |assignment|
+      format_assignment_title(assignment, home_wiki)
+    end
     wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
     wikitext
+  end
+
+  def self.format_assignment_title(assignment, home_wiki)
+    # If a page is on the same wiki, no prefix is needed.
+    title = format_title(assignment.article_title)
+    return title if assignment.wiki_id == home_wiki.id
+
+    project = assignment.wiki.project
+    language = assignment.wiki.language
+
+    # For other wikis a language prefix is required, except for wikidata where the language is nil
+    language_prefix = language ? ":#{language}:" : ''
+    # If the project is different, a project prefix is also necessary.
+    project_prefix = project == home_wiki.project ? '' : "#{project}:"
+
+    language_prefix + project_prefix + title
   end
 
   # converts page title to a format suitable for on-wiki use
@@ -60,10 +79,10 @@ class Wikitext
       .sub(/^Category:/, ':Category:') # Proper linking of categories
   end
 
-  # Fix full urls that have been formatted like wikilinks.
+  # Fix full urls, with or without quote marks, that have been formatted like wikilinks.
   # [["https://foo.com"|Foo]] -> [https://foo.com Foo]
   def self.reformat_links(text)
-    text = text.gsub(/\[\["(http.*?)"\|(.*?)\]\]/, '[\1 \2]')
+    text = text.gsub(/\[\["?(http.*?)"?\|(.*?)\]\]/, '[\1 \2]')
     text
   end
 

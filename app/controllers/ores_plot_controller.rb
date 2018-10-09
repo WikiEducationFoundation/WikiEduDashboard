@@ -1,11 +1,19 @@
 # frozen_string_literal: true
-
+require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 
 class OresPlotController < ApplicationController
   def course_plot
     @course = Course.find_by slug: params[:id]
-    @ores_changes_plot = HistogramPlotter.plot(course: @course, opts: { simple: true })
-    render json: { plot_path: @ores_changes_plot }
+    @ores_changes_csv = HistogramPlotter.csv(course: @course)
+    json_data = CSV.table(@ores_changes_csv).map(&:to_hash)
+    render json: json_data
+  end
+
+  def campaign_plot
+    @campaign = Campaign.find_by slug: params[:slug]
+    @ores_changes_csv = HistogramPlotter.csv(campaign: @campaign)
+    json_data = CSV.table(@ores_changes_csv).map(&:to_hash)
+    render json: json_data
   end
 end
