@@ -8,7 +8,7 @@ const OrderableBlock = createReactClass({
 
   propTypes: {
     title: PropTypes.string,
-    kind: PropTypes.string.isRequired,
+    kind: PropTypes.string,
     disableUp: PropTypes.bool.isRequired,
     disableDown: PropTypes.bool.isRequired,
     canDrag: PropTypes.bool.isRequired,

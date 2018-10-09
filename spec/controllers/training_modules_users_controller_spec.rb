@@ -21,6 +21,7 @@ describe TrainingModulesUsersController do
           allow(controller).to receive(:current_user).and_return(user)
           post 'create_or_update', params: request_params1
         end
+
         it 'sets last slide completed' do
           expect(TrainingModulesUsers.last.last_slide_completed)
             .to eq(slide.slug)
@@ -36,6 +37,7 @@ describe TrainingModulesUsersController do
             module_id: training_module.slug,
             slide_id: TrainingModule.find(training_module.id).slides.first.slug }
         end
+
         before do
           allow(controller).to receive(:current_user).and_return(user)
           post 'create_or_update', params: request_params1

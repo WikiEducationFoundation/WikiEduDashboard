@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses_users
@@ -18,6 +17,7 @@
 #  character_sum_draft    :integer          default(0)
 #  real_name              :string(255)
 #  role_description       :string(255)
+#  total_uploads          :integer
 #
 
 require_dependency "#{Rails.root}/lib/course_cleanup_manager"
@@ -119,7 +119,7 @@ class CoursesUsers < ApplicationRecord
   # Class methods #
   #################
   def self.update_all_caches(courses_users)
-    courses_users.includes(:user).each(&:update_cache)
+    courses_users.includes(:user).find_each(&:update_cache)
   end
 
   def self.update_all_caches_concurrently(concurrency = 2)

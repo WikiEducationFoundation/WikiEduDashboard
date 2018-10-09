@@ -1,9 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
-import { fetchRecentEdits, sortRecentEdits } from "../../actions/recent_edits_actions.js";
+import { fetchRecentEdits, sortRecentEdits } from '../../actions/recent_edits_actions.js';
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 

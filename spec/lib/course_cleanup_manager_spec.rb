@@ -29,7 +29,7 @@ describe CourseCleanupManager do
   describe '#cleanup_articles' do
     it 'only deletes ArticlesCourses that belong solely to the removed user' do
       expect(course.articles.count).to eq(2)
-      CourseCleanupManager.new(course, user).cleanup_articles
+      described_class.new(course, user).cleanup_articles
       expect(course.articles.count).to eq(1)
     end
   end

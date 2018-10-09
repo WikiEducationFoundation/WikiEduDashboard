@@ -7,6 +7,7 @@ describe WikiPreferencesManager do
   before do
     allow(Features).to receive(:disable_wiki_output?).and_return(false)
   end
+
   let(:user) { create(:user, wiki_token: 'foo', wiki_secret: 'bar') }
   let(:manager) { described_class.new(user: user) }
 

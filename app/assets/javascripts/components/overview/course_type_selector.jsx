@@ -2,12 +2,12 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
-import CourseActions from '../../actions/course_actions.js';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   componentWillMount() {
@@ -28,7 +28,7 @@ const CourseTypeSelector = createReactClass({
         course.timeline_end = course.end;
       }
     }
-    CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
 
   _getFormattedCourseType(type) {

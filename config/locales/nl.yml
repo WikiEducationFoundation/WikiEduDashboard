@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Festina90
+# Author: Goefie
 # Author: KlaasZ4usV
 # Author: Mainframe98
 # Author: Mar(c)
@@ -265,6 +266,8 @@ nl:
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     submitted: Verzonden
+    tag_select: Een label selecteren of aanmaken
+    tags: 'Labels:'
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn

@@ -9,15 +9,15 @@ class TrainingBase
     attr_accessor :path_to_yaml
   end
 
-  attr_accessor :slug, :id
+  attr_accessor :slug, :id, :wiki_page
 
   #################
   # Class methods #
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(slug_whitelist: nil, content_class: self)
-    loader = training_loader_class.new(content_class: content_class, slug_whitelist: slug_whitelist)
+  def self.load(slug_list: nil, content_class: self)
+    loader = training_loader_class.new(content_class: content_class, slug_list: slug_list)
     @all = loader.load_content
     return if content_class.superclass.name == 'ApplicationRecord'
 
@@ -35,7 +35,7 @@ class TrainingBase
     TrainingModule.flush
     if Features.wiki_trainings?
       TrainingModule.load
-      TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
       TrainingModule.flush
       TrainingModule.load
       TrainingLibrary.load
@@ -93,8 +93,8 @@ class TrainingBase
   end
 
   # called for each training unit in TrainingLoader
-  def self.inflate(content, slug)
-    new(content.to_hashugar, slug)
+  def self.inflate(content, slug, wiki_page = nil)
+    new(content.to_hashugar, slug, wiki_page)
   end
 
   def self.training_loader_class
@@ -111,11 +111,12 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  def initialize(content, slug)
+  def initialize(content, slug, wiki_page)
     self.slug = slug
     content.each do |key, value|
       instance_variable_set("@#{key}", value)
     end
+    self.wiki_page = wiki_page
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e

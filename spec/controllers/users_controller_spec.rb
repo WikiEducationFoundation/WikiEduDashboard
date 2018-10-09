@@ -31,7 +31,7 @@ describe UsersController do
 
       before { allow(controller).to receive(:current_user).and_return(user) }
 
-      it 'should not authorize' do
+      it 'does not authorize' do
         get :index
         expect(response.body).to have_content('Only administrators may do that.')
       end
@@ -50,24 +50,24 @@ describe UsersController do
                       permissions: User::Permissions::INSTRUCTOR)
       end
 
-      it 'should list instructors by default' do
+      let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
+
+      it 'lists instructors by default' do
         get :index
 
         expect(response.body).to have_content instructor.username
         expect(response.body).to have_content instructor.real_name
         expect(response.body).to have_content instructor.email
 
-        expect(response.body).to_not have_content admin.email
+        expect(response.body).not_to have_content admin.email
       end
 
-      let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
-
-      it 'should accept email param and return associated user' do
+      it 'accepts email param and return associated user' do
         get :index, params: { email: search_user.email }
         expect(response.body).to have_content search_user.email
       end
 
-      it 'should accept real name param and return associated user' do
+      it 'accepts real name param and return associated user' do
         get :index, params: { real_name: search_user.real_name }
         expect(response.body).to have_content search_user.real_name
       end

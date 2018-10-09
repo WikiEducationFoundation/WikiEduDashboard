@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe QuestionGroupsHelper, type: :helper do
   describe '#course_meets_conditions_for_question_group?' do
-    before :each do
+    before do
       @tag = create(:tag, tag: 'pizza')
       @campaign = create(:campaign)
       @survey = build_stubbed(:survey)

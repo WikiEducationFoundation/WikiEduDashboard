@@ -12,8 +12,8 @@ const getNativeName = (code) => {
 class LanguagePicker extends React.Component {
   selectLanguage(locale) {
     const name = locale.value;
-    if (name === "help_translate") {
-      window.open("https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard");
+    if (name === 'help_translate') {
+      window.open('https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard');
       return;
     }
     if (window.currentUser.id !== '') {
@@ -25,18 +25,18 @@ class LanguagePicker extends React.Component {
     }
   }
   render() {
-    const enN = getNativeName("en");
-    const esN = getNativeName("es");
-    const frN = getNativeName("fr");
+    const enN = getNativeName('en');
+    const esN = getNativeName('es');
+    const frN = getNativeName('fr');
 
     const popularLocales = [
-      { label: enN, value: "en" },
-      { label: esN, value: "es" },
-      { label: frN, value: "fr" },
+      { label: enN, value: 'en' },
+      { label: esN, value: 'es' },
+      { label: frN, value: 'fr' },
     ];
 
     const translateLink = [
-      { label: "Help translate", value: 'help_translate' },
+      { label: 'Help translate', value: 'help_translate' },
     ];
 
     const allLocales = _.compact(I18n.availableLocales).map(code => {

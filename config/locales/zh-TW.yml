@@ -17,6 +17,16 @@
 # Author: Wwycheuk
 ---
 zh-TW:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
@@ -330,7 +340,7 @@ zh-TW:
     end: 結束
     ended: 課程已結束。
     enroll: 登記
-    enrollment: 登記
+    enrollment: 添加/移除學生
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
@@ -384,13 +394,15 @@ zh-TW:
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
     none: 無
-    notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
+    not_permitted: 您不被允許編輯此課程。
+    notify_untrained_confirmation: 這將會在所有沒有完成已經交派培訓模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
     passcode_prompt: 請輸入選課代碼來加入：
+    please_log_in: 請先登入。
     private: 非公開
     published: |-
       您的課程已經發布！
@@ -428,6 +440,8 @@ zh-TW:
     course_submitted: 提交狀態是用於教育方案課程裡，必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
     subject: 主題
     submitted: 已提交
+    tag_select: 選擇或建立一個標籤
+    tags: 標籤：
     term: 學期
     timeline: 分配作業細節
     timeline_enabled: 時間軸已啟用
@@ -435,13 +449,15 @@ zh-TW:
     timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育方案課程以及其它長時間、高度結構化方案很有用。
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
-    training_due: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_due: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
     training_nav: 前往培訓
-    training_overdue: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_overdue: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
     unsubmitted: 尚未送出的課程。
     untrained: 未受訓
     update_stats: 更新統計內容
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    user_uploads_none: 此使用者未上傳任何圖片或媒體檔案至維基共享資源。
+    user_recent_uploads: 最新上傳
     user_suggestions: 使用者建議：
     user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
@@ -513,7 +529,7 @@ zh-TW:
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束
     enroll: 增加編輯者
-    enrollment: 參與
+    enrollment: 添加/移除編者
     explore: 尋找方案
     courses_enrolled: 方案已參與
     expected_students: 預期編輯者
@@ -522,6 +538,7 @@ zh-TW:
     join_details: 要加入此方案，您需要獲得課程代碼 — 或來自主持者的包含選課代碼連結。
     leave_course: 退出方案
     milestones_none: 此專案裡目前沒有任何里程碑。
+    not_permitted: 您不被允許編輯此方案。
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
     request_accounts: 申請帳號
     revisions_none: 此專案目前沒有編輯活動。
@@ -692,7 +709,7 @@ zh-TW:
     first_week_title: 活躍首週
     gradeable_value: 數值
     gradeables_none: 此時間軸上沒有分配作業被標註分級。
-    grading_header: 分級中 (總計： %{total}%)
+    grading_header: 分級中（總計：%{total}）
     move_block_down: 區塊下移
     move_block_up: 區塊上移
     no_class_holidays: 我的開課時段沒有遭遇假日
@@ -712,12 +729,16 @@ zh-TW:
     next: 下一頁
     page: 頁面
     page_number: 總計共 %{total} 個裡的第 %{number} 頁
+    previous: <上一個
     table_of_contents: 目錄
     training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！
     check_answer: 檢查答案
     included_modules: 已包含模組
+    view_library_source: 檢視圖書館來源
+    view_module_source: 檢視模組來源
+    reload_from_source: 從來源重新載入
   uploads:
     credit: 製作者
     file_name: 檔案名稱
@@ -786,13 +807,15 @@ zh-TW:
     training_complete_count:
       one: '%{count}最近的培訓'
       other: '%{count}最近的培訓'
-    training_doc: 完成所有已到期的分配教育模組之編輯者可視為完成最近培訓。
+    training_doc: 完成所有已到期的分配培訓模組之編輯者可視為完成最近培訓。
     training_incomplete: 未完成的培訓
     training_modules_completed:
       one: '%{completed_count}/%{count}培訓模組完成'
       other: '%{completed_count}/%{count}培訓模組完成'
     training_module_name: 培訓模組
     training_module_status: 狀態
+    user_training_status: 培訓狀態
+    user_no_training_status: 此使用者尚未完成任何培訓模組
     up_to_date_with_training: 最近培訓
     uploads_doc: 上傳到維基共享資源的檔案數量
     username: 使用者名稱
@@ -819,7 +842,7 @@ zh-TW:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
       header: 您有一項過期的培訓分配作業。
-      message: 請完成分配的[%{link}訓練模組]。
+      message: 請完成分配的[%{link}培訓模組]。
       summary: 學生培訓逾期
   wizard:
     assignment_dates: 分配作業日期
@@ -905,8 +928,8 @@ zh-TW:
     search_placeholder: 輸入您的關鍵詞
     search: 搜尋
     tools: 工具
-    show_filters: 顯示篩選
-    hide_filters: 隱藏篩選
+    show_options: 顯示選項
+    hide_options: 隱藏選項
     keyword_search: 關鍵詞搜尋
     category_search: 分類搜尋
     article_quality: 條目品質（0 - 100）
@@ -918,7 +941,7 @@ zh-TW:
     fetching_revisions: 索取頁面修訂中
     fetching_scores: 索取完整性分數中
     fetching_pageviews: 索取頁面檢視次數中
-    subheading_message: 讓我們來找出符合您需求的條目
+    subheading_message: 讓我們來找出影響的維基百科條目
     article_finder: 條目查找
     submit: 提交
     relevanceIndex: 關聯索引

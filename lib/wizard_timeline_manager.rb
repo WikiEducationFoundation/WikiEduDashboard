@@ -97,7 +97,7 @@ class WizardTimelineManager
         next unless if_dependencies_met?(block)
         block['week_id'] = week_record.id
         block['order'] = block_index + 1
-        save_block_and_gradeable(block)
+        save_block(block)
       end
     end
   end
@@ -110,18 +110,12 @@ class WizardTimelineManager
     if_met
   end
 
-  def save_block_and_gradeable(block)
-    attr_keys_to_skip = %w[if graded points]
+  def save_block(block)
+    attr_keys_to_skip = %w[if graded]
     block_params = block.except(*attr_keys_to_skip)
+    block_params['points'] ||= Block::DEFAULT_POINTS if block['graded']
     block_record = Block.create(block_params)
     add_handouts(block_record) if block_record.kind == Block::KINDS['handouts']
-
-    return unless block['graded']
-
-    gradeable = Gradeable.create(gradeable_item_id: block_record.id,
-                                 points: block['points'] || 10,
-                                 gradeable_item_type: 'block')
-    block_record.update(gradeable_id: gradeable.id)
   end
   # rubocop:disable Metrics/LineLength
   HANDOUTS = {
@@ -139,7 +133,7 @@ class WizardTimelineManager
     'medicine_handout' => ['Medicine', 'https://wikiedu.org/medicine'],
     'political_science_handout' => ['Political Science', 'https://wikiedu.org/political_science'],
     'psychology_handout' => ['Psychology', 'https://wikiedu.org/psychology'],
-    'science_communication_handout' => ['Science Communcation', 'https://wikiedu.org/science_communication'],
+    'science_communication_handout' => ['Science Communication', 'https://wikiedu.org/science_communication'],
     'sociology_handout' => ['Sociology', 'https://wikiedu.org/sociology'],
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']

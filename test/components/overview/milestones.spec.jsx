@@ -11,7 +11,7 @@ describe('Milestones', () => {
 
   const TestMilestonesWithWeeks = ReactTestUtils.renderIntoDocument(
     <Milestones
-      timelineStart={"2018-07-20T23:59:59.000Z"}
+      timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[week, week2]}
     />
   );
@@ -23,7 +23,7 @@ describe('Milestones', () => {
 
   const TestMilestonesWithoutWeeks = ReactTestUtils.renderIntoDocument(
     <Milestones
-      timelineStart={"2018-07-20T23:59:59.000Z"}
+      timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[]}
     />
   );

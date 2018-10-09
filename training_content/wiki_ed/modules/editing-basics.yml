@@ -1,5 +1,6 @@
 name: 'Editing Basics'
 id: 2
+status: deprecated
 description: |
   In this tutorial, you'll be given practical advice on navigating and editing Wikipedia.
 estimated_ttc: 20 minutes

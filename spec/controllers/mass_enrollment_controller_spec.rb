@@ -48,6 +48,7 @@ describe MassEnrollmentController do
       before do
         course.campaigns << Campaign.first
       end
+
       it 'returns a 401' do
         post :add_users, params: { course_id: course.slug, usernames: usernames }
         expect(response.status).to eq(401)

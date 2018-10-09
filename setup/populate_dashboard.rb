@@ -50,7 +50,7 @@ def populate_dashboard
   en_wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
 
   selfie = Article.create!(title: 'Selfie', mw_page_id: 1, wiki: en_wiki)
-  Assignment.create!(course: florence_editathon, article: selfie)
+  Assignment.create!(course: florence_editathon, article: selfie, article_title: 'Selfie', role: 0)
 
   brisbane_editathon = Course.create!(type: 'Editathon',
                                       slug: 'QCA/Brisbane_QCA_ArtandFeminism_2018',

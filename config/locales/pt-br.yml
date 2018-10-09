@@ -422,7 +422,7 @@ pt-br:
     end: Fim
     ended: O curso terminou.
     enroll: Inscrever-se
-    enrollment: Inscrição
+    enrollment: Adicionar/Remover Alunos
     courses_enrolled: Cursos inscritos
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -491,6 +491,7 @@ pt-br:
     nocourses: Você não está participando em nenhum curso
     nocourse: Não participou de nenhum curso.
     none: Nenhum
+    not_permitted: Você não tem permissão para editar este curso.
     notify_untrained_confirmation: Isto irá postar um lembrete nas páginas de discussão
       de todos estudantes que não completaram os módulos de treinamento. Você está
       certo que deseja fazer isso?
@@ -500,6 +501,7 @@ pt-br:
     passcode: Código de acesso
     passcode_none: Sem senha
     passcode_prompt: 'Digite a senha para entrar:'
+    please_log_in: Por favor entre.
     private: Privado
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
@@ -541,6 +543,8 @@ pt-br:
       relevante para o tipo de curso ClassroomProgram.
     subject: Assunto
     submitted: Enviado
+    tag_select: Selecione ou crie uma etiqueta
+    tags: 'Etiquetas:'
     term: Prazo
     timeline: Detalhes da atribuição
     timeline_enabled: Cronograma ativado
@@ -561,6 +565,9 @@ pt-br:
     update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu nenhuma imagem ou outros arquivos de
       mídia no Wikimedia Commons.
+    user_uploads_none: Este usuário não contribuiu com nenhuma imagem ou outros arquivos
+      de mídia para o Wikimedia Commons.
+    user_recent_uploads: Últimos Envios
     user_suggestions: 'Sugestões do usuário:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
@@ -647,7 +654,7 @@ pt-br:
     edit_course_dates: Editar Datas do projeto
     end: Fim da atividade de monitorização
     enroll: Adicionar Editor
-    enrollment: Participação
+    enrollment: Adicionar/Remover Editores
     explore: Encontrar um Programa
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados
@@ -657,6 +664,7 @@ pt-br:
       inclui a senha - do facilitador.
     leave_course: Deixar o programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
+    not_permitted: Você não tem permissão para editar este programa.
     published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
       a seguinte URL:'
     request_accounts: Solicitar contas
@@ -867,7 +875,7 @@ pt-br:
     first_week_title: Primeira Semana Ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
-    grading_header: 'Avaliação (Total: %{total}%)'
+    grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover bloco para baixo
     move_block_up: Mover bloco para cima
     no_class_holidays: Não há férias
@@ -889,6 +897,7 @@ pt-br:
     next: Próxima Página
     page: Página
     page_number: Página %{number} de %{total}
+    previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formação
     logged_out: Sua sessão de usuário não está aberta. Você não receberá crédito ao
@@ -896,6 +905,9 @@ pt-br:
     done: Concluído!
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
+    view_library_source: ver fonte da biblioteca
+    view_module_source: ver a fonte do módulo
+    reload_from_source: recarregar da fonte
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo
@@ -978,6 +990,8 @@ pt-br:
       other: '%{completed_count}/%{count} módulos de treinamento completados'
     training_module_name: Módulo de treinamento
     training_module_status: Status
+    user_training_status: Status de treinamento
+    user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
     uploads_doc: Número de pastas enviadas para Wikimedia Commons
     username: Nome de usuário
@@ -1129,8 +1143,8 @@ pt-br:
     search_placeholder: Digite sua palavra-chave
     search: Pesquisar
     tools: Ferramentas
-    show_filters: Mostrar filtros
-    hide_filters: Ocultar filtros
+    show_options: Mostrar opções
+    hide_options: Ocultar opções
     keyword_search: Pesquisa por palavra-chave
     category_search: Pesquisar por categoria
     article_quality: Qualidade do Artigo(0-100)
@@ -1142,7 +1156,7 @@ pt-br:
     fetching_revisions: Buscando revisões de página
     fetching_scores: Buscando Pontuação de Completude
     fetching_pageviews: Buscando vistas de página
-    subheading_message: Vamos encontrar um artigo que atenda às suas necessidades
+    subheading_message: Vamos encontrar um artigo da Wikipedia para trabalhar.
     article_finder: Localizador de artigos
     submit: Enviar
     relevanceIndex: Índice de Relevância

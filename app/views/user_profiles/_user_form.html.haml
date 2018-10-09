@@ -69,7 +69,7 @@
 
           .section
             #profile_user_contributions
-              - if @courses_users.last
+              - if @last_courses_user
                 %p
                   %i.icon.icon-z-external-link
-                  = contribution_link(@courses_users.last, 'Contributions', 'contribution_link')
+                  = contribution_link(@last_courses_user, 'Contributions', 'contribution_link')

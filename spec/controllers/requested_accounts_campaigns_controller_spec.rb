@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/importers/user_importer"
 
 describe RequestedAccountsCampaignsController do
   before { allow(Features).to receive(:enable_account_requests?).and_return(true) }
+
   describe '#request_account' do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:campaign) { create(:campaign, register_accounts: true) }

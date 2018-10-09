@@ -23,7 +23,7 @@ describe ArticlesCourses, type: :model do
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
 
   describe '.update_all_caches' do
-    it 'should update data for article-course relationships' do
+    it 'updates data for article-course relationships' do
       # Make an ArticlesCourses record
       create(:articles_course, article: article, course: course)
       # Add user to course

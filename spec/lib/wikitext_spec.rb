@@ -28,6 +28,22 @@ My list:
       output = subject.markdown_to_mediawiki(list)
       expect(output).to include(expected.chomp)
     end
+
+    it 'handles raw links with unicode characters correctly' do
+      # Pandoc behaves differently for raw links that include unicode characters,
+      # converting them to wikilinks when similar input without the unicode would
+      # be left as a raw link.
+      # Here, we're making sure they get converted back to a format that works on-wiki.
+      input = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
+      # rubocop:disable Metrics/LineLength
+      expected = '[https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice]'
+      # Some versions of Pandoc don't have this bug and treat it as raw text, so that's
+      # an acceptable alternative
+      alternative_expected = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
+      # rubocop:enable Metrics/LineLength
+      output = subject.markdown_to_mediawiki(input)
+      expect(output).to include(expected).or(include(alternative_expected))
+    end
   end
 
   describe '.replace_code_with_nowiki' do
@@ -64,13 +80,32 @@ My list:
     end
   end
 
-  describe '.titles_to_wikilinks' do
-    it 'converts an array of titles into wikilink format' do
-      titles = ['Selfie', 'Category:Photography', 'Bishnu_Priya']
-      output = subject.titles_to_wikilinks(titles)
-      expect(output).to include('[[Selfie]],')
+  describe '.assignments_to_wikilinks' do
+    let(:en_wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
+    let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+    let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+    let(:wikidata) { create(:wiki, project: 'wikidata') }
+    let(:assignments) do
+      [
+        create(:assignment, article_title: 'Selfie'),
+        create(:assignment, article_title: 'Category:Photography'),
+        create(:assignment, article_title: 'Bishnu Priya'),
+        create(:assignment, article_title: 'Blanca de Beaulieu', wiki: es_wiki),
+        create(:assignment, article_title: 'agrazarías', wiki: es_wiktionary),
+        create(:assignment, article_title: 'Q60', wiki: wikidata)
+      ]
+    end
+
+    before { stub_wiki_validation }
+
+    it 'converts a set of assignments into wikilink format' do
+      output = subject.assignments_to_wikilinks(assignments, en_wiki)
+      expect(output).to include('[[Selfie]], ')
       expect(output).to include('[[:Category:Photography]]')
       expect(output).to include('[[Bishnu Priya]]')
+      expect(output).to include('[[:es:Blanca de Beaulieu]]')
+      expect(output).to include('[[:es:wiktionary:agrazarías]]')
+      expect(output).to include('[[wikidata:Q60]]')
     end
   end
 end

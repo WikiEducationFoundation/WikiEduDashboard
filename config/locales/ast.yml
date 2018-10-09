@@ -355,7 +355,7 @@ ast:
     end: Fin
     ended: El cursu terminó.
     enroll: Inscribise
-    enrollment: Inscripción
+    enrollment: Amestar/Desaniciar estudiantes
     courses_enrolled: Cursos matriculaos
     error:
       exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
@@ -505,7 +505,7 @@ ast:
     delete_course: Desaniciar programa
     edit_course_dates: Editar les dates de los proyeutos
     enroll: Añadir editor
-    enrollment: Participación
+    enrollment: Amestar/Desaniciar editores
     explore: Alcontrar programes
     expected_students: Editores esperaos
     instructors: Facilitadores
@@ -667,7 +667,7 @@ ast:
     first_week_title: Primera selmana activa
     gradeable_value: Valor
     gradeables_none: Esti cronograma nun tien xeres marcaes como calificables.
-    grading_header: 'Calificación (Total: %{total}%)'
+    grading_header: 'Calificación (Total: %{total})'
     move_block_down: Baxar el bloque
     move_block_up: Xubir el bloque
     no_class_holidays: Nun tengo vacaciones de clases
@@ -734,9 +734,9 @@ ast:
     first_name: Nome
     last_name: Apellíu
     loading: Cargando usuarios...
-    characters_added_mainspace: Caráuteres añadíos al espaciu principal
+    characters_added_mainspace: Caráuteres añadíos (artículu)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caráuteres añadíos al espaciu d'usuariu
+    characters_added_userspace: Caráuteres añadíos (usuariu)
     my_assigned: 'Axudicaos:'
     my_reviewing: 'En revisión:'
     name: Nome

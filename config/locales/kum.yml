@@ -1,0 +1,34 @@
+# Messages for Kumyk (къумукъ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: ArslanX
+---
+kum:
+  application:
+    cancel: Гери алмакъ
+    create_accounts: Википедияда оьзюнгню гьисабынгны яса
+    documentation: Кагъызлыкъ
+    error: 'Хата болду:'
+    greeting2: Хош гел!
+    greeting_extended: Хош гел Википедиягъа
+    greeting: Эсенликлер!
+    help: Ярдым
+    home: Баш
+    log_in_extended: Википедиядан таба гирмек
+    log_in: Гирмек
+    log_out: Чыкъмакъ
+    request_account_create: Гьисап бет ачмакъ
+    search: сорав бермек
+    search_results: 'Гьасиллери: "%{search_terms}"'
+    sign_up_extended: Википедияда къайытланмакъ
+    sign_up_wikipedia: Яда Википедиягъа гир
+    sign_up_log_in_extended: Википедиядан таба
+    sign_up: Къайытланмакъ
+    submit: Йибермек
+    training: Уьйретив
+    change: Алышдырмакъ
+    details: Толу
+    confirm: OK
+    opt_in: Дюр
+    opt_out: Ёкъ
+...

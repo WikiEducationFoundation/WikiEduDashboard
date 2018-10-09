@@ -8,7 +8,7 @@ describe 'a user with invalid oauth credentials', type: :feature do
     login_as user
   end
 
-  it 'should get logged out and see a message about the problem' do
+  it 'gets logged out and see a message about the problem' do
     error_message = I18n.t('error.oauth_invalid')
     visit root_path
     expect(page).to have_content error_message

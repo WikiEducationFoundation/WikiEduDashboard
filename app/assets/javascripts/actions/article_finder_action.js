@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 
@@ -31,13 +31,12 @@ export const fetchCategoryResults = (category, course, cmcontinue = '', continue
     dispatch({
       type: INITIATE_SEARCH,
     });
-  }
-  else {
+  } else {
     dispatch({
       type: UPDATE_FIELD,
       data: {
         key: 'fetchState',
-        value: "ARTICLES_LOADING",
+        value: 'ARTICLES_LOADING',
       }
     });
   }
@@ -98,8 +97,7 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
   let desc = false;
   if (!sort.key) {
     sort.key = 'relevanceIndex';
-  }
-  else if (!sort.sortKey) {
+  } else if (!sort.sortKey) {
     desc = true;
   }
   Promise.all(promises)
@@ -133,8 +131,7 @@ const fetchPageAssessment = (articlesList, course, dispatch, getState) => {
     .then(() => {
       fetchPageRevision(articlesList, course, dispatch, getState);
     });
-  }
-  else {
+  } else {
     fetchPageRevision(articlesList, course, dispatch, getState);
   }
 };
@@ -161,8 +158,7 @@ const fetchPageRevision = (articlesList, course, dispatch, getState) => {
     .then(() => {
       fetchPageViews(articlesList, course, dispatch, getState);
     });
-  }
-  else {
+  } else {
     fetchPageViews(articlesList, course, dispatch, getState);
   }
 };
@@ -171,7 +167,7 @@ const fetchPageRevisionScore = (revids, course, dispatch) => {
     const query = pageRevisionScoreQueryGenerator(_.map(revids, (revid) => {
       return revid.revisions[0].revid;
     }));
-    return limit(() => queryUrl(oresApiBase(course.home_wiki.language), query))
+    return promiseLimit(4)(() => queryUrl(oresApiBase(course.home_wiki.language), query))
     .then((data) => data[`${course.home_wiki.language}wiki`].scores)
     .then((data) => {
       dispatch({
@@ -191,13 +187,12 @@ export const fetchKeywordResults = (keyword, course, offset = 0, continueResults
     dispatch({
       type: INITIATE_SEARCH
     });
-  }
-  else {
+  } else {
     dispatch({
       type: UPDATE_FIELD,
       data: {
         key: 'fetchState',
-        value: "ARTICLES_LOADING",
+        value: 'ARTICLES_LOADING',
       }
     });
   }

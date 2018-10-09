@@ -134,11 +134,11 @@ class User < ApplicationRecord
   end
 
   def course_instructor?
-    courses.any? { |course| instructor?(course) }
+    @course_instructor ||= courses_users.exists?(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
   def instructor?(course)
-    course.users.role('instructor').include? self
+    courses_users.exists?(role: CoursesUsers::Roles::INSTRUCTOR_ROLE, course_id: course.id)
   end
 
   # A user is a returning instructor if they have at least one approved course
@@ -148,11 +148,11 @@ class User < ApplicationRecord
   end
 
   def student?(course)
-    course.users.role('student').include? self
+    courses_users.exists?(role: CoursesUsers::Roles::STUDENT_ROLE, course_id: course.id)
   end
 
   def course_student?
-    courses.any? { |course| student?(course) }
+    @course_student ||= courses_users.exists?(role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
   def role(course)

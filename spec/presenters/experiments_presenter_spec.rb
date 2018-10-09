@@ -9,6 +9,7 @@ describe ExperimentsPresenter do
   describe '#experiment' do
     context 'when the course is not in an experiment' do
       let(:flags) { {} }
+
       it 'retuns nil' do
         expect(subject.experiment).to be_nil
       end
@@ -16,6 +17,7 @@ describe ExperimentsPresenter do
 
     context 'when the course is in an active experiment' do
       let(:flags) { { spring_2018_cmu_experiment: 'email_sent' } }
+
       it 'retuns the experiment class' do
         expect(subject.experiment).to eq(Spring2018CmuExperiment)
       end

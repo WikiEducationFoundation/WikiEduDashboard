@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import CourseActions from '../../actions/course_actions.js';
 
 const YesNoSelector = createReactClass({
   propTypes: {
@@ -9,7 +8,8 @@ const YesNoSelector = createReactClass({
     label: PropTypes.string.isRequired,
     tooltip: PropTypes.string,
     course: PropTypes.object.isRequired,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   _handleChange(e) {
@@ -20,7 +20,7 @@ const YesNoSelector = createReactClass({
     } else if (value === 'no') {
       course[this.props.courseProperty] = false;
     }
-    CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
 
   render() {

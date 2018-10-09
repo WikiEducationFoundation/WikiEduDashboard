@@ -1,5 +1,5 @@
-import API from "../utils/api.js";
-import { RECEIVE_USER_COURSES, API_FAIL } from "../constants";
+import API from '../utils/api.js';
+import { RECEIVE_USER_COURSES, API_FAIL } from '../constants';
 
 export const fetchCoursesForUser = userId => dispatch =>
   API.fetchUserCourses(userId)

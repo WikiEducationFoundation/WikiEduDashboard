@@ -97,7 +97,8 @@ $(() => {
         case 'campaigns': return campaignList;
         case 'articles': return articlesList;
         default: break;
-      } })();
+      }
+})();
     if (list) {
       return list.sort($(this).val(), {
         order: $(this).children('option:selected').attr('rel')

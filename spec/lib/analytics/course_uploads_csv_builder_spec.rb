@@ -9,6 +9,7 @@ describe CourseUploadsCsvBuilder do
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
   let(:upload_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
+
   before do
     # Uploads during the course
     upload_count.times do |i|

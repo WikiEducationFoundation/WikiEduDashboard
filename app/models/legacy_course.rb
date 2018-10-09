@@ -79,4 +79,8 @@ class LegacyCourse < Course
   def passcode_required?
     false
   end
+
+  def cloneable?
+    false
+  end
 end

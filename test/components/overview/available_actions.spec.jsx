@@ -14,6 +14,7 @@ describe('AvailableActions', () => {
         store={reduxStore}
         course={endedCourse}
         current_user={{}}
+        updateCourse={sinon.spy()}
       />
     );
 

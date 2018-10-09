@@ -4,7 +4,7 @@ export function answerTotals(question) {
     let count = 0;
     question.answers.forEach((answer) => {
       if (option === answer) {
-        count++;
+        count += 1;
       }
     });
     optionTotals[option] = count;
@@ -18,7 +18,7 @@ export function answerFrequency(question) {
     if (counts[answer] === undefined) {
       counts[answer] = 1;
     } else {
-      counts[answer]++;
+      counts[answer] += 1;
     }
   });
   return counts;

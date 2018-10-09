@@ -25,16 +25,16 @@ describe Wiki do
         VCR.use_cassette 'wiki' do
           create(:wiki, language: nil, project: 'wikidata')
         end
-        expect(Wiki.last.project).to eq('wikidata')
-        expect(Wiki.last.language).to be_nil
+        expect(described_class.last.project).to eq('wikidata')
+        expect(described_class.last.language).to be_nil
       end
 
       it 'ensures nil language for wikidata' do
         VCR.use_cassette 'wiki' do
           create(:wiki, language: 'en', project: 'wikidata')
         end
-        expect(Wiki.last.project).to eq('wikidata')
-        expect(Wiki.last.language).to be_nil
+        expect(described_class.last.project).to eq('wikidata')
+        expect(described_class.last.language).to be_nil
       end
 
       it 'allows nil language for wikisource' do
@@ -55,20 +55,21 @@ describe Wiki do
 
     context 'For invalid wiki projects' do
       let(:bad_language) { create(:wiki, language: 'xx', project: 'wikipedia') }
+      let(:bad_project) { create(:wiki, language: 'en', project: 'wikinothing') }
+      let(:nil_language) { create(:wiki, language: nil, project: 'wikipedia') }
+
       it 'does not allow bad language codes' do
         VCR.use_cassette('wiki') do
           expect { bad_language }.to raise_error(Wiki::InvalidWikiError)
         end
       end
 
-      let(:bad_project) { create(:wiki, language: 'en', project: 'wikinothing') }
       it 'does not allow bad projects' do
         VCR.use_cassette('wiki') do
           expect { bad_project }.to raise_error(Wiki::InvalidWikiError)
         end
       end
 
-      let(:nil_language) { create(:wiki, language: nil, project: 'wikipedia') }
       it 'does not allow nil language for standard projects' do
         expect { nil_language }.to raise_error(Wiki::InvalidWikiError)
       end
@@ -108,7 +109,7 @@ describe Wiki do
       it 'returns the existing record' do
         VCR.use_cassette('wiki') do
           new_wiki   = create(:wiki, language: 'zh', project: 'wiktionary')
-          found_wiki = Wiki.get_or_create(language: 'zh', project: 'wiktionary')
+          found_wiki = described_class.get_or_create(language: 'zh', project: 'wiktionary')
           expect(new_wiki).to eq(found_wiki), -> { 'the pre existing wiki object was not found' }
         end
       end
@@ -117,7 +118,7 @@ describe Wiki do
         it 'will ignore language but still return a record for wikidata' do
           VCR.use_cassette 'wiki' do
             new_wiki = create(:wiki, language: nil, project: 'wikidata')
-            found_wiki = Wiki.get_or_create(language: 'es', project: 'wikidata')
+            found_wiki = described_class.get_or_create(language: 'es', project: 'wikidata')
             expect(new_wiki).to eq(found_wiki), -> { "we did not find wikidata for language: 'es'" }
           end
         end
@@ -128,7 +129,7 @@ describe Wiki do
           it 'will return the approriate record' do
             VCR.use_cassette 'wiki' do
               new_wiki = create(:wiki, language: 'es', project: 'wikisource')
-              found_wiki = Wiki.get_or_create(language: 'es', project: 'wikisource')
+              found_wiki = described_class.get_or_create(language: 'es', project: 'wikisource')
               expect(new_wiki).to eq(found_wiki),
                                   -> { 'Unfortunately the correct Wiki object was not returned' }
               expect(new_wiki.language).to eq('es')
@@ -140,7 +141,7 @@ describe Wiki do
           it 'will return a valid record' do
             VCR.use_cassette 'wiki' do
               new_wiki = create(:wiki, language: nil, project: 'wikisource')
-              found_wiki = Wiki.get_or_create(language: nil, project: 'wikisource')
+              found_wiki = described_class.get_or_create(language: nil, project: 'wikisource')
               expect(new_wiki).to eq(found_wiki),
                                   -> { 'Unfortunately the correct Wiki object was not returned' }
             end
@@ -155,8 +156,8 @@ describe Wiki do
 
       it 'creates and returns the record' do
         VCR.use_cassette('wiki') do
-          expect(Wiki.find_by(language: language, project: project)).to be_nil
-          wiki = Wiki.get_or_create(language: language, project: project)
+          expect(described_class.find_by(language: language, project: project)).to be_nil
+          wiki = described_class.get_or_create(language: language, project: project)
           expect(wiki).to be_persisted
           expect(wiki.language).to eq(language)
           expect(wiki.project).to eq(project)
@@ -169,10 +170,10 @@ describe Wiki do
 
         it 'creates and returns the multilingual project' do
           VCR.use_cassette 'wiki' do
-            existing_record = Wiki.find_by(project: project)
+            existing_record = described_class.find_by(project: project)
             expect(existing_record).to be_nil
 
-            wiki = Wiki.get_or_create(language: language, project: project)
+            wiki = described_class.get_or_create(language: language, project: project)
             expect(wiki.project).to eq(project)
             expect(wiki.language).to eq(language)
             expect(wiki).to be_persisted
@@ -185,21 +186,21 @@ describe Wiki do
   describe '#base_url' do
     it 'returns the correct url for standard projects' do
       VCR.use_cassette('wiki') do
-        wiki = Wiki.get_or_create(language: 'es', project: 'wikibooks')
+        wiki = described_class.get_or_create(language: 'es', project: 'wikibooks')
         expect(wiki.base_url).to eq('https://es.wikibooks.org')
       end
     end
 
     it 'returns the correct url for wikidata' do
       VCR.use_cassette 'wiki' do
-        wiki = Wiki.get_or_create(language: nil, project: 'wikidata')
+        wiki = described_class.get_or_create(language: nil, project: 'wikidata')
         expect(wiki.base_url).to eq('https://www.wikidata.org')
       end
     end
 
     it 'returns the correct url for wikimedia incubator' do
       VCR.use_cassette 'wiki' do
-        wiki = Wiki.get_or_create(language: 'incubator', project: 'wikimedia')
+        wiki = described_class.get_or_create(language: 'incubator', project: 'wikimedia')
         expect(wiki.base_url).to eq('https://incubator.wikimedia.org')
       end
     end

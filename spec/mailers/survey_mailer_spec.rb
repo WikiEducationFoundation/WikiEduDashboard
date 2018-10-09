@@ -30,6 +30,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is an instructor survey' do
       let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
       let(:email_template) { 'instructor_survey' }
+
       it 'sends a personalized email to the instructor' do
         expect(mail.body.encoded).to match(user.username)
         expect(mail.subject).to match('A survey is available for your course')
@@ -40,6 +41,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is a student assessment survey' do
       let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:email_template) { 'student_learning_preassessment' }
+
       it 'sends a personalized email about the student survey' do
         expect(mail.to).to eq([user.email])
       end
@@ -48,6 +50,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is a custom survey' do
       let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:email_template) { 'custom' }
+
       it 'sends an email with the custom email content' do
         expect(mail.body.encoded).to match('Custom headline')
         expect(mail.body.encoded).to match('Custom email body')
@@ -63,6 +66,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is an instructor survey' do
       let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
       let(:email_template) { 'instructor_survey' }
+
       it 'contains the correct user email and body' do
         expect(mail.body.encoded).to match(user.username)
         expect(mail.subject).to match('Reminder: A survey is available for your course')
@@ -73,6 +77,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is a student assessment survey' do
       let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:email_template) { 'student_learning_preassessment' }
+
       it 'contains the correct user email and body' do
         expect(mail.to).to eq([user.email])
       end
@@ -81,6 +86,7 @@ describe SurveyMailer, type: :mailer do
     context 'when it is a custom survey' do
       let(:role) { CoursesUsers::Roles::STUDENT_ROLE }
       let(:email_template) { 'custom' }
+
       it 'sends an email with the custom email content' do
         expect(mail.body.encoded).to match('Custom headline')
         expect(mail.body.encoded).to match('Custom email body')

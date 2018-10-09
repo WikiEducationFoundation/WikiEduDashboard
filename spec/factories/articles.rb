@@ -22,10 +22,10 @@
 
 FactoryBot.define do
   factory :article do
-    title 'History_of_biology'
-    namespace 0
-    language 'en'
-    wiki_id 1
+    title { 'History_of_biology' }
+    namespace { 0 }
+    language { 'en' }
+    wiki_id { 1 }
     sequence(:mw_page_id)
   end
 end

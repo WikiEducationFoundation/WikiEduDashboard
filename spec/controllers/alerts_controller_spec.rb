@@ -21,7 +21,7 @@ describe AlertsController do
       controller.instance_variable_set(:@course, course)
     end
 
-    it 'should create Need Help alert and send email' do
+    it 'creates Need Help alert and send email' do
       post :create, params: alert_params, format: :json
 
       expect(response.status).to eq(200)
@@ -44,6 +44,7 @@ describe AlertsController do
       let(:alert_params) do
         { message: 'hello?', course_id: course.id }
       end
+
       it 'still works' do
         post :create, params: alert_params, format: :json
         expect(response.status).to eq(200)
@@ -71,14 +72,14 @@ describe AlertsController do
       allow(controller).to receive(:current_user).and_return(admin)
     end
 
-    it 'should update Alert resolved column to true' do
+    it 'updates Alert resolved column to true' do
       put :resolve, params: { id: alert.id }, format: :json
 
       expect(response.status).to eq(200)
       expect(alert.reload.resolved).to be(true)
     end
 
-    it 'should not update Alert unless its resolvable' do
+    it 'does not update Alert unless its resolvable' do
       alert.update resolved: true
 
       put :resolve, params: { id: alert.id }, format: :json

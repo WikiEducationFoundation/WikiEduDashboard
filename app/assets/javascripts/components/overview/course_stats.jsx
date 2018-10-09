@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 
 const CourseStats = ({ course }) => {
+  const valueClass = (stat) => {
+    if (!course.newStats) { return 'stat-display__value'; }
+    return course.newStats[stat] ? 'stat-display__value stat-change' : 'stat-display__value';
+  };
+
   let viewData;
   let infoImg;
   let trainedTooltip;
@@ -11,14 +16,14 @@ const CourseStats = ({ course }) => {
   if (course.home_wiki.language === 'en') {
     contentCount = (
       <div className="stat-display__stat" id="word-count">
-        <div className="stat-display__value">{course.word_count}</div>
+        <div className={valueClass('wordCount')}>{course.word_count}</div>
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
     );
   } else {
     contentCount = (
       <div className="stat-display__stat" id="bytes-added">
-        <div className="stat-display__value">{course.character_sum_human}</div>
+        <div className={valueClass('wordCount')}>{course.character_sum_human}</div>
         <small>{I18n.t('metrics.bytes_added')}</small>
       </div>
     );
@@ -35,7 +40,7 @@ const CourseStats = ({ course }) => {
     );
   } else {
     viewData = (
-      <div className="stat-display__value">
+      <div className={valueClass('viewCount')}>
         {course.view_count}
       </div>
     );
@@ -55,19 +60,19 @@ const CourseStats = ({ course }) => {
   return (
     <div className="stat-display">
       <div className="stat-display__stat" id="articles-created">
-        <div className="stat-display__value">{course.created_count}</div>
+        <div className={valueClass('createdCount')}>{course.created_count}</div>
         <small>{I18n.t('metrics.articles_created')}</small>
       </div>
       <div className="stat-display__stat" id="articles-edited">
-        <div className="stat-display__value">{course.edited_count}</div>
+        <div className={valueClass('editedCount')}>{course.edited_count}</div>
         <small>{I18n.t('metrics.articles_edited')}</small>
       </div>
       <div className="stat-display__stat" id="total-edits">
-        <div className="stat-display__value">{course.edit_count}</div>
+        <div className={valueClass('editCount')}>{course.edit_count}</div>
         <small>{I18n.t('metrics.edit_count_description')}</small>
       </div>
       <div className="stat-display__stat tooltip-trigger" id="student-editors">
-        <div className="stat-display__value">
+        <div className={valueClass('studentCount')}>
           {course.student_count}
           {infoImg}
         </div>
@@ -80,14 +85,14 @@ const CourseStats = ({ course }) => {
         <small>{I18n.t('metrics.view_count_description')}</small>
       </div>
       <div className="stat-display__stat tooltip-trigger" id="upload-count">
-        <div className="stat-display__value">
+        <div className={valueClass('uploadCount')}>
           {course.upload_count}
           <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
         </div>
         <small>{I18n.t('metrics.upload_count')}</small>
         <div className="tooltip dark" id="upload-usage">
           <h4 className="stat-display__value">{course.upload_usages_count}</h4>
-          <p>{I18n.t('metrics.uploads_in_use_count', { count: course.upload_usages_count })}</p>
+          <p>{I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })}</p>
           <h4 className="stat-display__value">{course.upload_usages_count}</h4>
           <p>{I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })}</p>
         </div>

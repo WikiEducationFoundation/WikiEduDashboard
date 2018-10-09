@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -10,7 +9,8 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
-import TagButton from './tag_button.jsx';
+import TagList from './tag_list.jsx';
+import TagEditable from './tag_editable';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
@@ -22,29 +22,23 @@ import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
 import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
 import Modal from '../common/modal.jsx';
 
-import Editable from '../high_order/editable.jsx';
+import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
 import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
-import CourseActions from '../../actions/course_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 
-import CourseStore from '../../stores/course_store.js';
-import TagStore from '../../stores/tag_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = () =>
   ({
-    course: CourseStore.getCourse(),
-    tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
 ;
 
-const POLL_INTERVAL = 300000; // 5 minutes
+const POLL_INTERVAL = 60000; // 1 minute
 
 const Details = createReactClass({
   displayName: 'Details',
@@ -53,12 +47,14 @@ const Details = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     campaigns: PropTypes.array,
-    tags: PropTypes.array,
     controls: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired,
+    refetchCourse: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
+
   getInitialState() {
     return getState();
   },
@@ -75,23 +71,23 @@ const Details = createReactClass({
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateSlugPart(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   storeDidChange() {
-    return this.setState({ error_message: ValidationStore.firstMessage() });
+    return this.setState(getState());
   },
 
   canRename() {
@@ -106,7 +102,7 @@ const Details = createReactClass({
   poll() {
     return setInterval(() => {
       if (!this.props.editable) {
-        ServerActions.fetch('course', this.props.course.slug);
+        this.props.refetchCourse(this.props.course.slug);
       }
     }, POLL_INTERVAL);
   },
@@ -257,10 +253,6 @@ const Details = createReactClass({
     let projectSelector;
     let languageSelector;
     if (this.props.current_user.admin) {
-      const tagsList = this.props.tags.length > 0 ?
-        _.map(this.props.tags, 'tag').join(', ')
-      : I18n.t('courses.none');
-
       subject = (
         <TextInput
           onChange={this.updateDetails}
@@ -273,20 +265,22 @@ const Details = createReactClass({
       );
       tags = (
         <div className="tags">
-          <span><strong>Tags:</strong> {tagsList}</span>
-          <TagButton {...this.props} show={this.props.editable} />
+          <TagList course={this.props.course} />
+          <TagEditable {...this.props} show={this.props.editable} />
         </div>
       );
       submittedSelector = (
         <SubmittedSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
       withdrawnSelector = (
         <WithdrawnSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -297,6 +291,7 @@ const Details = createReactClass({
         <CourseTypeSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -307,6 +302,7 @@ const Details = createReactClass({
         <PrivacySelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -327,6 +323,7 @@ const Details = createReactClass({
         <TimelineToggle
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -338,6 +335,7 @@ const Details = createReactClass({
         <WikiEditsToggle
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -346,11 +344,13 @@ const Details = createReactClass({
       projectSelector = (
         <HomeWikiProjectSelector
           course={this.props.course}
+          updateCourse={this.props.updateCourse}
         />
       );
       languageSelector = (
         <HomeWikiLanguageSelector
           course={this.props.course}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -440,16 +440,4 @@ const Details = createReactClass({
 }
 );
 
-// If the course has been renamed, we first warn the user that this is happening.
-const saveCourseDetails = (data, courseId = null) => {
-  if (!CourseStore.isRenamed()) {
-    return CourseActions.persistCourse(data, courseId);
-  }
-  if (confirm(I18n.t('editable.rename_confirmation'))) {
-    data.course = CourseUtils.cleanupCourseSlugComponents(data.course);
-    const newSlug = CourseUtils.generateTempId(data.course);
-    return CourseActions.persistAndRedirectCourse(data, courseId, newSlug);
-  }
-};
-
-export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default EditableRedux(Details, I18n.t('editable.edit_details'));

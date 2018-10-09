@@ -265,7 +265,7 @@ it:
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
-    enrollment: Iscrizione
+    enrollment: Aggiungi/rimuovi studenti
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -295,6 +295,7 @@ it:
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
+    not_permitted: Non sei autorizzato a modificare questo corso.
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
@@ -404,13 +405,14 @@ it:
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor
-    enrollment: Partecipazione
+    enrollment: Aggiungi/rimuovi editori
     explore: Trova programmi
     expected_students: Editori previsti
     instructors: Facilitatori
     join_course: Partecipa al programma
     leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
+    not_permitted: Non sei autorizzato a modificare questo programma.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
     revisions_none: Questo progetto non ha attività di modifica recenti.
@@ -538,6 +540,7 @@ it:
     next: Pagina successiva
     page: Pagina
     page_number: Pagina %{number} di %{total}
+    previous: < Precedente
     table_of_contents: Sommario
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
@@ -692,10 +695,10 @@ it:
     remove_article: Rimuovi voce
     search: Cerca
     tools: Strumenti
-    show_filters: Mostra filtri
-    hide_filters: Nascondi filtri
+    show_options: Mostra opzioni
+    hide_options: Nascondi opzioni
     keyword_search: Ricerca per parole chiave
     category_search: Ricerca per categoria
-    subheading_message: Troviamo una voce che si adatta alle tue esigenze
+    subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
 ...

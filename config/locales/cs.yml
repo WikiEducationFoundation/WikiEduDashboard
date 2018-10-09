@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aktron
+# Author: Clon
 # Author: Dominikmatus
 # Author: Dvorapa
 # Author: Frettie
@@ -19,6 +20,10 @@
 # Author: Walter Klosse
 ---
 cs:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
   accessibility:
     number_field: Toto je číselné pole. Tlačítka možná zobrazená prohlížečem mohou
       zvýšit nebo snížit hodnotu.
@@ -408,7 +413,7 @@ cs:
     end: Konec
     ended: Kurz již skončil.
     enroll: Zapsat se
-    enrollment: Zápis
+    enrollment: Přidat/Odebrat studenty
     courses_enrolled: Účastníci kurzů
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
@@ -541,6 +546,9 @@ cs:
     update_stats: Aktualizace statistik
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
+    user_uploads_none: Tento uživatel nepřispěl žádnými obrázky či jinými médii na
+      Wikimedia Commons.
+    user_recent_uploads: Poslední nahrané soubory
     user_suggestions: 'Uživatelův návrh:'
     user_suggestions_prompt: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy
@@ -622,7 +630,7 @@ cs:
     edit_course_dates: Upravit data projektu
     end: Konec sledování aktivity
     enroll: Přidat editora
-    enrollment: Účastníci
+    enrollment: Přidat/Odebrat editory
     explore: Aktuální projekty
     courses_enrolled: Programy, jichž jste se zúčastnil(a)
     expected_students: Očekávaní editoři
@@ -649,6 +657,8 @@ cs:
     unsubmitted: Neschválené programy
     uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
       mediálními soubory do Wikimedia Commons.
+    user_uploads_none: Zvolený uživatel nepřispěl žadným obrázkem, ani jiným médiem
+      k tomuto projektu.
     view_other: Zobrazit další programy
     view_page: Zobrazit stránku projektu
     word_count_doc: Odhadované množství slov přidaných do hlavního jmenného prostoru
@@ -808,7 +818,7 @@ cs:
     first_week_title: První aktivní týden
     gradeable_value: Hodnota
     gradeables_none: Tato časová osa nemá žádné úkoly označené jako "pro hodnocení".
-    grading_header: 'Hodnocení (Celkem: %{total}%)'
+    grading_header: 'Hodnocení (Celkem: %{total})'
     move_block_down: Přesunout blok dolů
     move_block_up: Přesunout blok nahoru
     no_class_holidays: Třída nemá prázdniny
@@ -878,10 +888,10 @@ cs:
     first_name: Křestní jméno
     last_name: Příjmení
     loading: Načítám uživatele...
-    characters_added_mainspace: Přidáno znaků v HP
+    characters_added_mainspace: Přidáno znaků (článek)
     characters_added_short: 'HP: %{mainspace}, UP: %{userspace}'
-    characters_added_userspace: Přidáno znaků v UP
-    characters_added_draftspace: Přidány znaky DS
+    characters_added_userspace: Přidáno znaků (uživatel)
+    characters_added_draftspace: Přidáno znaků (koncept)
     my_assigned: 'Přiřazeno:'
     my_reviewing: 'Kontroluje:'
     name: Jméno
@@ -1037,19 +1047,24 @@ cs:
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
       why_are_you_here: Co byste chtěli dělat?
   article_finder:
+    page_assessment_class: Třída
     add_available_article: Přidat jako dostupný článek
     remove_article: Odstranit článek
     minimum_views_label: Minimální počet zobrazení
     no_article_found: V této kategorii nebyl nalezen žádný článek
+    search_placeholder: Vložte klíčové slovo
     search: Hledat
     tools: Nástroje
-    show_filters: Zobrazit filtry
-    hide_filters: Skrýt filtry
     keyword_search: Vyhledávání klíčových slov
     category_search: Vyhledávání kategorií
     article_quality: Kvalita článku (0-100)
     more_results: Více výsledků
+    filtered_articles: Filtrované články
+    searching_articles: Vyhledávání článků
+    subheading_message: Najděte si článek na Wikipedii, na kterém chcete pracovat.
     article_finder: Vyhledávač článků
     submit: Odeslat
     relevanceIndex: Shoda
+    assign_article_self: Přiřaďte se
+    unassign_article_self: Nepřiřazený článek
 ...

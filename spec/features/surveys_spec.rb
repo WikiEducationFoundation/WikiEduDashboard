@@ -12,6 +12,10 @@ describe 'Surveys', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
   end
 
+  after do
+    logout
+  end
+
   describe 'Instructor takes survey' do
     before do
       @instructor = create(:user)
@@ -132,10 +136,6 @@ describe 'Surveys', type: :feature, js: true do
     end
 
     it 'navigates correctly between each question and submits' do
-      Capybara.current_driver = :poltergeist
-
-      pending 'This sometimes fails on travis.'
-
       expect(Rapidfire::Answer.count).to eq(0)
       expect(SurveyNotification.last.completed).to eq(false)
       login_as(@instructor, scope: :user)
@@ -230,11 +230,9 @@ describe 'Surveys', type: :feature, js: true do
 
       expect(Survey.last.to_csv).to match('username,') # beginning of header
       expect(Survey.last.to_csv).to match(@instructor.username + ',') # beginning of response row
-      pass_pending_spec
     end
 
     it 'loads a question group preview' do
-      Capybara.current_driver = :poltergeist
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'\
             "&course_slug=#{Course.last.slug}"
@@ -243,10 +241,6 @@ describe 'Surveys', type: :feature, js: true do
 
   describe 'Permissions' do
     before do
-      Capybara.current_driver = :poltergeist
-    end
-
-    before(:each) do
       @user = create(:user)
       @admin = create(:admin)
 
@@ -301,9 +295,5 @@ describe 'Surveys', type: :feature, js: true do
       visit survey_path(@survey)
       expect(current_path).to eq(root_path)
     end
-  end
-
-  after do
-    logout
   end
 end

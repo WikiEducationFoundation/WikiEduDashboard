@@ -14,7 +14,7 @@ describe CourseRevisionUpdater do
 
     let(:revision_import) do
       course && user && courses_user
-      CourseRevisionUpdater.import_new_revisions(Course.all)
+      described_class.import_new_revisions(Course.all)
     end
 
     it 'includes the correct article and revision data' do
@@ -56,7 +56,7 @@ describe CourseRevisionUpdater do
                               user_id: 1,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        CourseRevisionUpdater.import_new_revisions(Course.all)
+        described_class.import_new_revisions(Course.all)
 
         expect(User.find(1).revisions.count).to eq(3)
         expect(Course.find(1).revisions.count).to eq(3)
@@ -70,7 +70,7 @@ describe CourseRevisionUpdater do
         create(:courses_user, course_id: 1, user_id: 15,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        CourseRevisionUpdater.import_new_revisions(Course.all)
+        described_class.import_new_revisions(Course.all)
 
         expect(User.find(15).revisions.count).to eq(3)
         expect(Course.find(1).revisions.count).to eq(0)
@@ -102,7 +102,7 @@ describe CourseRevisionUpdater do
                user_id: 5,
                role: 0)
         CoursesUsers.update_all_caches(CoursesUsers.all)
-        CourseRevisionUpdater.import_new_revisions(Course.all)
+        described_class.import_new_revisions(Course.all)
         expect(Revision.all.count > 1).to be true
       end
     end
@@ -110,11 +110,12 @@ describe CourseRevisionUpdater do
 
   describe '.import_new_revisions_concurrently' do
     let!(:course) { create(:course) }
+
     it 'calls import_new_revisions multiple times' do
       VCR.use_cassette 'course_revision_updater' do
-        expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+        expect(described_class).to receive(:import_new_revisions)
           .exactly(Replica::CONCURRENCY_LIMIT).times
-        CourseRevisionUpdater.import_new_revisions_concurrently(Course.all)
+        described_class.import_new_revisions_concurrently(Course.all)
       end
     end
   end
@@ -125,7 +126,7 @@ describe CourseRevisionUpdater do
       wiki_data = Wiki.get_or_create(language: nil, project: 'wikidata')
       VCR.use_cassette 'course_revision_updater' do
         allow(Features).to receive(:wiki_ed?).and_return(false)
-        ids = CourseRevisionUpdater.new(create(:course)).default_wiki_ids
+        ids = described_class.new(create(:course)).default_wiki_ids
         expect(ids).to include(wiki_data.id)
       end
     end

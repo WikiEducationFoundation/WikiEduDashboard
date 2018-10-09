@@ -18,6 +18,7 @@ describe PushCourseToSalesforce do
 
   context 'when a course has a Salesforce record already' do
     let(:flags) { { salesforce_id: salesforce_id } }
+
     it 'updates the record' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
       expect(subject.result).to eq(true)
@@ -68,6 +69,7 @@ describe PushCourseToSalesforce do
 
   context 'when a course does not have a Salesforce record' do
     let(:flags) { {} }
+
     it 'creates the record and saves the ID as a course flag' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:create!).and_return(salesforce_id)
       expect(subject.result).to eq(salesforce_id)

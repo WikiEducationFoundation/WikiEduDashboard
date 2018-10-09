@@ -38,8 +38,9 @@ describe WizardTimelineManager do
                        { key: 'dyk_and_ga', tag: 'dyk_and_ga' }] } }
     end
     let(:subject) do
-      WizardTimelineManager.update_timeline_and_tags(course, wizard_id, wizard_params)
+      described_class.update_timeline_and_tags(course, wizard_id, wizard_params)
     end
+
     it 'creates weeks and blocks' do
       subject
       expect(course.weeks.count).to eq(expected_week_count)
@@ -47,7 +48,7 @@ describe WizardTimelineManager do
   end
 
   describe '#add_tags' do
-    it 'should update a tag with the same key as an existing tag' do
+    it 'updates a tag with the same key as an existing tag' do
       create(:course, id: 10001, timeline_start: Time.zone.today, timeline_end: Time.zone.today)
       create(:tag, id: 1, course_id: 10001, tag: 'use_sandboxes', key: 'draft_and_mainspace')
 
@@ -56,7 +57,7 @@ describe WizardTimelineManager do
                         { 'tags' =>
                           [{ tag: 'work_live', key: 'draft_and_mainspace' }] } }
       course = Course.find(10001)
-      WizardTimelineManager.update_timeline_and_tags(course, wizard_id, wizard_params)
+      described_class.update_timeline_and_tags(course, wizard_id, wizard_params)
       expect(Tag.find(1).tag).to eq('work_live')
     end
   end

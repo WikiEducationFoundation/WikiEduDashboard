@@ -6,83 +6,10 @@ const Flux = new McFly();
 const ServerActions = Flux.createActions({
 
   // General-purpose
-  fetch(model, courseId) {
-    const actionType = `RECEIVE_${model.toUpperCase()}`;
-    return API.fetch(courseId, model)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  add(model, courseId, data) {
-    const actionType = `${model.toUpperCase()}_MODIFIED`;
-    return API.modify(model, courseId, data, true)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   remove(model, courseId, data) {
     const actionType = `${model.toUpperCase()}_MODIFIED`;
     return API.modify(model, courseId, data, false)
       .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchLookups(key) {
-    return API.fetchLookups(key)
-      .then(resp => ({
-        actionType: 'RECEIVE_LOOKUPS',
-        data: {
-          model: resp.model,
-          values: resp.values
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchWizardIndex() {
-    return API.fetchWizardIndex()
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_INDEX',
-        data: {
-          wizard_index: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchWizardPanels(wizardId) {
-    return API.fetchWizardPanels(wizardId)
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_PANELS',
-        data: {
-          wizard_panels: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchRevisions(studentId, courseId) {
-    return API.fetchRevisions(studentId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_REVISIONS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchCourseRevisions(courseId, limit) {
-    const actionType = 'RECEIVE_REVISIONS';
-    return API.fetchCourseRevisions(courseId, limit)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchTrainingStatus(studentId, courseId) {
-    return API.fetchTrainingStatus(studentId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchSuspectedPlagiarism(opts = {}) {
-    return API.fetchSuspectedPlagiarism(opts)
-      .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
@@ -101,39 +28,6 @@ const ServerActions = Flux.createActions({
   setSlideCompleted(opts) {
     return API.setSlideCompleted(opts)
       .then(resp => ({ actionType: 'SLIDE_COMPLETED', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  // Save
-  saveCourse(data, courseId = null, failureCallback) {
-    const actionType = courseId === null ? 'CREATED_COURSE' : 'SAVED_COURSE';
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType, data: resp }))
-      .catch((resp) => {
-        if (failureCallback) { failureCallback(); }
-        return { actionType: 'API_FAIL', data: resp };
-      });
-  },
-
-  updateClone(data, courseId) {
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType: 'UPDATE_CLONE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  saveStudents() {
-    return null;
-  },
-
-  saveTimeline(data, courseId) {
-    return API.saveTimeline(courseId, data)
-      .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  submitWizard(courseId, wizardId, data) {
-    return API.submitWizard(courseId, wizardId, data)
-      .then(resp => ({ actionType: 'WIZARD_SUBMITTED', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
@@ -159,12 +53,7 @@ const ServerActions = Flux.createActions({
       .then(resp => ({ actionType: 'DELETED_COURSE', data: resp }));
   },
 
-  linkToSalesforce(courseId, salesforceId) {
-    return API.linkToSalesforce(courseId, salesforceId)
-      .then(resp => ({ actionType: 'LINKED_TO_SALESFORCE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
+  // This action is not handled by any store.
   updateSalesforceRecord(courseId) {
     return API.updateSalesforceRecord(courseId)
       .then(resp => ({ actionType: 'UPDATED_SALESFORCE_RECORD', data: resp }))

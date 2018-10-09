@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { getStaffUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
 import { STAFF_ROLE } from '../../constants';

@@ -184,7 +184,6 @@ class Course < ApplicationRecord
   ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
-  has_many :gradeables, as: :gradeable_item, dependent: :destroy
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,
@@ -317,6 +316,11 @@ class Course < ApplicationRecord
   # Overidden by ClassroomProgramCourse
   def timeline_enabled?
     flags[:timeline_enabled].present?
+  end
+
+  # Overridden for some course types
+  def cloneable?
+    !tag?('no_clone')
   end
 
   def account_requests_enabled?

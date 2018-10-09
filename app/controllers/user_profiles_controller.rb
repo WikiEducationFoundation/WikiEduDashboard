@@ -9,7 +9,8 @@ class UserProfilesController < ApplicationController
 
   def show
     if @user
-      @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
+      @last_courses_user = @user.courses_users.includes(:course)
+                                .where(courses: { private: false }).last
       @user_profile = UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
@@ -25,11 +26,13 @@ class UserProfilesController < ApplicationController
   end
 
   def stats
+    @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = public_courses.where('courses_users.role = ?',
                                          CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
+    @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
   end
 
   def stats_graphs

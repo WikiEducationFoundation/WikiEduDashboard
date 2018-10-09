@@ -12,9 +12,20 @@
 # Author: Ldacosta
 # Author: Macofe
 # Author: MokaAkashiyaPT
+# Author: Ruila
 # Author: Vitorvicentevalente
 ---
 pt:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Este campo é numérico. Os botões mostrados pela maioria dos navegadores
       aumentam ou reduzem a entrada.
@@ -419,7 +430,7 @@ pt:
     end: Fim
     ended: O curso terminou.
     enroll: Inscreva-se
-    enrollment: Inscrição
+    enrollment: Adicionar ou remover alunos
     courses_enrolled: Cursos matriculados
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -490,6 +501,7 @@ pt:
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
+    not_permitted: Não lhe é permitido editar este curso.
     notify_untrained_confirmation: Isto colocará um lembrete nas páginas de discussão
       de todos os estudantes que não completaram os módulos indicados. Tem certeza
       de que deseja prosseguir?
@@ -499,6 +511,7 @@ pt:
     passcode: Código de acesso
     passcode_none: Sem código de acesso
     passcode_prompt: 'Insira o código de acesso para participar:'
+    please_log_in: Inicie uma sessão, por favor.
     private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
@@ -540,6 +553,8 @@ pt:
       relevante para o tipo de curso ClassroomProgram.
     subject: Tema
     submitted: Enviado
+    tag_select: Selecionar ou criar uma etiqueta
+    tags: 'Etiquetas:'
     term: Período
     timeline: Detalhes da tarefa
     timeline_enabled: Cronograma ativado
@@ -560,6 +575,9 @@ pt:
     update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu com nenhuma imagem nem outro ficheiro
       multimédia para a wiki Wikimedia Commons.
+    user_uploads_none: Este utilizador não contribuiu com nenhuma imagem nem outro
+      ficheiro multimédia para a wiki Wikimedia Commons.
+    user_recent_uploads: Carregamentos recentes
     user_suggestions: 'Sugestões do utilizador:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
@@ -646,7 +664,7 @@ pt:
     edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
     enroll: Adicionar editor
-    enrollment: Participação
+    enrollment: Adicionar ou remover editores
     explore: Encontrar programas
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados
@@ -656,6 +674,7 @@ pt:
       de uma hiperligação que inclua a palavra-passe — do facilitador.
     leave_course: Sair do programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
+    not_permitted: Não lhe é permitido editar este programa.
     published: 'Este projeto foi publicado! Possíveis editores podem inscrever-se
       visitando o seguinte URL:'
     request_accounts: Pedir contas
@@ -867,7 +886,7 @@ pt:
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
-    grading_header: 'Avaliação (Total: %{total}%)'
+    grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover o bloco para baixo
     move_block_up: Mover o bloco para cima
     no_class_holidays: Não tenho férias
@@ -889,6 +908,7 @@ pt:
     next: Página seguinte
     page: Página
     page_number: Página %{number} de %{total}
+    previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formação
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
@@ -896,6 +916,9 @@ pt:
     done: Concluído!
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
+    view_library_source: ver a fonte da biblioteca
+    view_module_source: ver a fonte do módulo
+    reload_from_source: recarregar da fonte
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro
@@ -978,6 +1001,8 @@ pt:
       other: '%{completed_count}/%{count} módulos de capacitações concluídos'
     training_module_name: Módulo de formação
     training_module_status: Estado
+    user_training_status: Estado de formação
+    user_no_training_status: Este utilizador não completou nenhum módulo de formação.
     up_to_date_with_training: em dia com a formação
     uploads_doc: Número de carregamentos de ficheiros na wiki Wikimedia Commons
     username: Nome de utilizador
@@ -1132,8 +1157,8 @@ pt:
     search_placeholder: Introduza a sua palavra-chave
     search: Pesquisar
     tools: Ferramentas
-    show_filters: Mostrar filtros
-    hide_filters: Esconder filtros
+    show_options: Mostrar opções
+    hide_options: Ocultar opções
     keyword_search: Pesquisa por palavra-chave
     category_search: Pesquisa por categoria
     article_quality: Qualidade do artigo (0-100)
@@ -1145,7 +1170,7 @@ pt:
     fetching_revisions: A obter revisões de páginas
     fetching_scores: A obter classificações de integridade
     fetching_pageviews: A obter visitas de páginas
-    subheading_message: Vamos procurar um artigo que satisfaz as suas necessidades
+    subheading_message: Vamos procurar um artigo da Wikipédia para trabalhar nele.
     article_finder: Pesquisa de artigos
     submit: Enviar
     relevanceIndex: Índice de relevância

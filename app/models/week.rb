@@ -16,7 +16,6 @@
 class Week < ApplicationRecord
   belongs_to :course
   has_many :blocks, -> { order(:order) }, dependent: :destroy
-  has_many :gradeables, through: :blocks
 
   def meeting_dates
     course.meetings_manager.meeting_dates_of(self)

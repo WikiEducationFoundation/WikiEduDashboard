@@ -481,7 +481,7 @@ sr-el:
     image: Slika
     file_name: Naziv datoteke
     no_dyk_eligible: Trenutno nema potencijalnih „Da li ste znali” članaka.
-    no_plagiarism: Trenutno nema nijedne skorašnje revizije pod sumnjom da je plagijat.
+    no_plagiarism: Trenutno nema nijedne skorašnje izmene pod sumnjom da je plagijat.
     no_edits: Ne postoje skorašnje izmene.
     plagiarism_report: Prijavi plagijat
     possible_plagiarism: Moguć plagijat
@@ -489,7 +489,7 @@ sr-el:
     recent_uploads: Skorašnje otpreme
     revision_author: 'Autor izmene:'
     revision_datetime: Datum/vreme izmene
-    revision_score: Ocena revizije
+    revision_score: Ocena izmene
     show_courses: Prikaži samo moje kurseve
     uploaded_by: 'Otpremio:'
     usage_count: Broj upotreba

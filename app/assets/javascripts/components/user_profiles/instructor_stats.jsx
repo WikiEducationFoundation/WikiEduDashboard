@@ -44,8 +44,7 @@ const InstructorStats = createReactClass({
         stats = {this.props.stats.by_students}
       />
     );
-    if (this.state.selectedGraph === 'courses_count')
-    {
+    if (this.state.selectedGraph === 'courses_count') {
       if (this.props.statsGraphsData != null) {
         statsVisualizations = (
           <CoursesTaughtGraph
@@ -55,8 +54,7 @@ const InstructorStats = createReactClass({
             courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
           />
          );
-      }
-      else {
+      } else {
         statsVisualizations = <Loading />;
       }
     } else if (this.state.selectedGraph === 'students_count') {
@@ -106,7 +104,7 @@ const InstructorStats = createReactClass({
                   %
                 </h4>
                 <p>
-                  {I18n.t("users.up_to_date_with_training")}
+                  {I18n.t('users.up_to_date_with_training')}
                 </p>
               </div>
             </div>

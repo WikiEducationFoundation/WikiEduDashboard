@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import AssignCell from '../students/assign_cell.jsx';
@@ -66,7 +66,6 @@ const MyArticles = createReactClass({
               course={this.props.course}
               role={0}
               editable
-              course_id={this.props.course_id}
               current_user={this.props.current_user}
               student={this.props.current_user}
               assignments={assigned}
@@ -78,14 +77,13 @@ const MyArticles = createReactClass({
               course={this.props.course}
               role={1}
               editable
-              course_id={this.props.course_id}
               current_user={this.props.current_user}
               student={this.props.current_user}
               assignments={reviewing}
               prefix={I18n.t('users.my_reviewing')}
               tooltip_message={I18n.t('assignments.review_tooltip')}
             />
-            <Link to={`/courses/${this.props.course_id}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
+            <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
           </div>
         </div>
         {assignments}

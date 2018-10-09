@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Botansahin
+# Author: By erdo can
 # Author: Chansey
 # Author: Elftrkn
 # Author: HakanIST
@@ -107,7 +108,7 @@ tr:
       eklenen karakterlerin toplamı
     cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana alan
       sayfaları aşağıda listelenmiştir. Gösterge paneli, bir Atama veya Mevcut Makale
-      bulunmayan diğer vikilerle birlikte, bu programın ana sayfa viki'sinden katkıları
+      bulunmayan diğer vikilerle birlikte, bu programın anasayfa viki'sinden katkıları
       çeker.
     deleted: (silindi)
     edited: Düzenlenen Makaleler
@@ -193,6 +194,7 @@ tr:
     add_organizer: Organizatör ekle
     alert_article: Makale başlığı
     alert_label: Kampanya Uyarıları
+    alert_select_label: Uyarı türüne göre filtre
     alert_type: Tür
     alert_user_id: Kullanıcı
     all_campaigns: Tüm Kampanyalar
@@ -467,9 +469,10 @@ tr:
     no_available_actions: Kullanılabilir işlem yok
     ores_plot: ORES
     overview: Anasayfa
-    passcode: Şifre Kodu
+    passcode: Parola Kodu
     passcode_none: Şifre yok
     passcode_prompt: 'Katılmak için şifreyi girin:'
+    please_log_in: Lütfen giriş yapın.
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
@@ -503,6 +506,7 @@ tr:
       türü ile ilgilidir.
     subject: Konu
     submitted: Gönderilen
+    tags: 'Etiketler:'
     term: Dönem
     timeline: Atama Detayları
     timeline_enabled: Zaman çizelgesi etkin
@@ -513,6 +517,7 @@ tr:
     unsubmitted: Gönderilmeyen Kurslar
     untrained: Eğitimsiz
     update_stats: İstatistikleri güncelle
+    user_recent_uploads: Son Yüklenenler
     user_suggestions: 'Kullanıcı Önerileri:'
     user_suggestions_prompt: Makalenin editörleri için önerileriniz
     view_other: Diğer kampanyaları görüntüle
@@ -523,7 +528,8 @@ tr:
       one: Gönüllü
       other: Gönüllü
     weeks_none: Bu kursun henüz bir zaman çizelgesi yok.
-    wiki_staff: Wiki Ed Ekibi
+    wiki_edits_enabled: Viki düzenlemeleri etkinleştirildi
+    wiki_staff: Viki Eğitim ekibi
     yourcourses: Kurslarınız
     survey:
       notification_message: Bu kurs için anketimize katılın.
@@ -576,7 +582,7 @@ tr:
     edit_course_dates: Proje Tarihini Düzenle
     end: Etkinlik izleme sonu
     enroll: Editör Ekle
-    enrollment: Katılım
+    enrollment: Editörleri ekle/kaldır
     explore: Program bul
     courses_enrolled: Katılınan programlar
     expected_students: Beklenen Editörler
@@ -586,6 +592,7 @@ tr:
       kolaylaştırıcıdan almanız gerekmektedir.
     leave_course: Programdan ayrıl
     milestones_none: Bu projenin şu anda herhangi bir dönüm noktası bulunmamaktadır.
+    not_permitted: Bu programı düzenleme yetkiniz yok.
     published: 'Bu proje yayınlandı! Editörler aşağıdaki URL’yi ziyaret ederek kayıt
       olabilirler:'
     request_accounts: Hesap iste
@@ -992,8 +999,6 @@ tr:
     search_placeholder: Anahtar kelimenizi girin
     search: Arama
     tools: Araçlar
-    show_filters: Filtreleri Göster
-    hide_filters: Filtreleri Gizle
     keyword_search: Anahtar Kelime Arama
     category_search: Kategori Arama
     article_quality: Makale Kalitesi(0-100)

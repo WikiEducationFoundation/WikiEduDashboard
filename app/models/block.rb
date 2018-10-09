@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: blocks
@@ -8,13 +7,13 @@
 #  kind                :integer
 #  content             :text(65535)
 #  week_id             :integer
-#  gradeable_id        :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #  title               :string(255)
 #  order               :integer
 #  due_date            :date
 #  training_module_ids :text(65535)
+#  points              :integer
 #
 
 require_dependency "#{Rails.root}/lib/block_date_manager"
@@ -23,7 +22,6 @@ require_dependency "#{Rails.root}/lib/block_date_manager"
 class Block < ApplicationRecord
   belongs_to :week
   has_one :course, through: :week
-  has_one :gradeable, as: :gradeable_item, dependent: :destroy
   serialize :training_module_ids, Array
   default_scope { includes(:week, :course) }
 
@@ -34,6 +32,8 @@ class Block < ApplicationRecord
     'custom'     => 3,
     'handouts'   => 4
   }.freeze
+
+  DEFAULT_POINTS = 10
 
   def training_modules
     training_module_ids.collect { |id| TrainingModule.find(id) }

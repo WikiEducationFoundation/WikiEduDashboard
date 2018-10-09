@@ -1,4 +1,4 @@
-/* global vg */
+/* global vegaEmbed */
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
@@ -13,11 +13,15 @@ const Wp10Graph = createReactClass({
     articleData: PropTypes.array
   },
 
+  componentDidMount() {
+    this.renderGraph();
+  },
+
   renderGraph() {
     const vegaSpec = {
       width: this.props.graphWidth,
       height: this.props.graphHeight,
-      padding: { top: 40, left: 70, right: 20, bottom: 35 },
+      padding: 5,
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -26,22 +30,18 @@ const Wp10Graph = createReactClass({
           name: 'x',
           type: 'time',
           domain: {
-            fields: [{
-              data: 'wp10_scores',
-              field: 'date',
-              sort: { field: 'date', op: 'min' }
-            }]
+            data: 'wp10_scores',
+            field: 'date',
+            sort: { field: 'date', op: 'min' }
           },
-          rangeMin: 0,
-          rangeMax: this.props.graphWidth,
+          range: 'width',
           round: true
         },
         {
           name: 'y',
           type: 'linear',
           domain: [0, 100, 0, 100],
-          rangeMin: this.props.graphHeight,
-          rangeMax: 0,
+          range: 'height',
           round: true,
           nice: true,
           zero: false
@@ -49,25 +49,17 @@ const Wp10Graph = createReactClass({
       ],
       axes: [
         {
-          type: 'x',
+          orient: 'bottom',
           scale: 'x',
           grid: true,
-          layer: 'back',
-          ticks: 5,
-          title: 'Date',
-          properties: {
-            labels: {
-              text: { template: '{{datum["data"] | time:\'%b %d\'}}' },
-              angle: { value: 0 }
-            }
-          }
+          ticks: true,
+          title: 'Date'
         },
         {
-          type: 'y',
+          orient: 'left',
           scale: 'y',
           format: 's',
           grid: true,
-          layer: 'back',
           offset: 10,
           title: I18n.t('articles.wp10')
         }
@@ -82,7 +74,7 @@ const Wp10Graph = createReactClass({
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum.date !== null && !isNaN(datum.date) && datum.wp10 !== null && !isNaN(datum.wp10)'
+            expr: 'datum.date !== null && !isNaN(datum.date) && datum.wp10 !== null && !isNaN(datum.wp10)'
           }]
         }
       ],
@@ -95,17 +87,16 @@ const Wp10Graph = createReactClass({
           name: 'area_marks',
           type: 'area',
           from: {
-            data: 'wp10_scores',
-            transform: [{ type: 'sort', by: '-date' }]
+            data: 'wp10_scores'
           },
-          properties: { enter: {
+          encode: { enter: {
             orient: { value: 'vertical' },
             x: { scale: 'x', field: 'date' },
             y: { scale: 'y', field: 'wp10' },
             y2: { scale: 'y', value: 0 },
             fill: { value: '#676EB4' },
             opacity: { value: 0.7 },
-            interpolate: { value: 'step-before' }
+            interpolate: { value: 'step-after' }
           } }
         },
         // Revision point marks
@@ -113,90 +104,34 @@ const Wp10Graph = createReactClass({
           name: 'circle_marks',
           type: 'symbol',
           from: {
-            data: 'wp10_scores',
-            transform: [{ type: 'sort', by: '-date' }]
+            data: 'wp10_scores'
           },
-          properties: {
+          encode: {
             enter: {
               x: { scale: 'x', field: 'date' },
               y: { scale: 'y', field: 'wp10' },
               size: { value: 100 },
               shape: { value: 'circle' },
               fill: { value: '#359178' },
-              opacity: { value: 0.7 }
+              opacity: { value: 0.7 },
+              tooltip: { field: 'username' }
             },
+            hover: { fill: { value: '#333' }, opacity: { value: 1 } },
             update: {
-              fill: {
-                rule: [
-                  {
-                    predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
-                    value: '#333',
-                  },
-                  { value: '#359178' }
-                ]
-              }
+              fill: { value: '#359178' },
+              opacity: { value: 0.7 }
             }
           }
         },
-        // Labels on revision mouseover
-        {
-          name: 'revision_detail_marks',
-          type: 'text',
-          properties: {
-            enter: {
-              x: { value: 70 },
-              y: { value: -15 },
-              align: { value: 'center' },
-              fill: { value: '#333' },
-              fontSize: { value: 28 }
-            },
-            update: {
-              text: { signal: 'revisionDetails.username' },
-              fillOpacity: {
-                rule: [
-                  {
-                    predicate: { name: 'ifRevisionDetails', id: { value: null } },
-                    value: 0
-                  },
-                  { value: 1 }
-                ]
-              }
-            }
-          }
-        }
+
       ],
-      // ///////////////
-      // Interactions //
-      // ///////////////
-      signals: [
-        {
-          name: 'revisionDetails',
-          init: {},
-          streams: [
-            { type: 'symbol:mouseover', expr: 'datum' },
-            { type: 'symbol:mouseout', expr: '{}' }
-          ]
-        }
-      ],
-      predicates: [
-        {
-          name: 'ifRevisionDetails',
-          type: '==',
-          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }]
-        }
-      ]
+
     };
 
-    const embedSpec = {
-      mode: 'vega',
-      spec: vegaSpec,
-      actions: false
-    };
-    vg.embed(`#${this.props.graphid}`, embedSpec);
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   },
 
   render() {
-    this.renderGraph();
     return (
       <div>
         <div id={this.props.graphid} />

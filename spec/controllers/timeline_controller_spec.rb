@@ -27,7 +27,9 @@ describe TimelineController do
         }]
       }
     end
+
     before { allow(controller).to receive(:current_user).and_return(admin) }
+
     describe 'setting training_module_ids' do
       it 'sets the training_module_ids to value provided' do
         # FIXME: Remove workaround after Rails 5.0.1
@@ -40,6 +42,7 @@ describe TimelineController do
         # When this gets set to [], ActiveRecord doesn't convert it to nil
         # like it does irl, so…
         let(:ids) { nil }
+
         it 'sets training_module_ids to [] as expected' do
           # FIXME: Remove workaround after Rails 5.0.1
           # See https://github.com/rails/rails/issues/26075

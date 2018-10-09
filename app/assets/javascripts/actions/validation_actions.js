@@ -2,6 +2,11 @@ import McFly from 'mcfly';
 const Flux = new McFly();
 
 const ValidationActions = Flux.createActions({
+  // Workaround for dispatching a McFly action from a Redux action
+  dispatchAction(action) {
+    return action;
+  },
+
   initialize(key, message) {
     return {
       actionType: 'INITIALIZE',

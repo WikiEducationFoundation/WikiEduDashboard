@@ -22,8 +22,10 @@
 # Author: Nzeemin
 # Author: Okras
 # Author: Patrick Star
+# Author: Pplex.vhs
 # Author: Putnik
 # Author: Redredsonia
+# Author: Shaleych
 # Author: SmartNart12
 # Author: Vlad5250
 # Author: Туллук
@@ -151,6 +153,7 @@ ru:
     view_doc: Сумма всех Просмотров каждой статьи в рамках проекта
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
+    edit_size: Изменить размер
     wiki: Вики
   assignments:
     article: Вам назначена статья %{title}.
@@ -193,11 +196,13 @@ ru:
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учётной записи
     enable_account_requests: Включить запросы учётной записи
+    no_passcode: Нет кода доступа
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     program_template: Шаблон программы
+    random_passcode: Случайный код доступа
     title: Название
     use_start_end_dates: Использовать даты начала и окончания
   categories:
@@ -226,7 +231,9 @@ ru:
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     campaigns: 'Кампании:'
+    campaign_articles: '%{title} Статьи'
     campaign_courses: Курсы %{title}
+    campaign_select: Выберите кампанию
     campaign_users: Редакторы %{title}
     course: Курс
     course_description: Курсы
@@ -277,6 +284,7 @@ ru:
     end: Завершение
     ended: Курс завершен.
     enroll: Записаться
+    enrollment: Добавить/удалить студентов
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.
@@ -305,11 +313,13 @@ ru:
     new_account_username_invalid: Введено недействительное имя пользователя.
     nocourses: Вы не участвуете ни в одном курсе.
     nocourse: не участвовал в каких-либо курсах.
+    not_permitted: У вас нет разрешения на правку этого курса.
     ores_plot: ORES
     overview: В начало
     passcode: Код доступа
     passcode_none: Нет кода доступа
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
+    please_log_in: Представьтесь, пожалуйста.
     private: Скрытый
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
@@ -323,11 +333,16 @@ ru:
     suggestions_sending: Отправка отзыва...
     suggestions_failed: Невозможно отправить отзыв. Попробуйте позже ещё раз.
     user_role: Роль
+    tag_select: Выберите или создайте метку
+    tags: 'Метки:'
     term: Семестр
     timeline_enabled: Расписание включено
     time_zone_message: Начало и окончание программы отображается с учётом вашего часового
       пояса.
     title: Название
+    user_uploads_none: Этот участник не добавлял никакие изображения или иные медиафайлы
+      на Викисклад.
+    user_recent_uploads: Недавние загрузки
     view_other: Посмотреть другие кампании
     view: Просмотр курса
     view_doc: Общее число просмотров статей, редактированных участниками, начиная
@@ -366,12 +381,13 @@ ru:
       save_cloned_course: Сохранить
     delete_course: Удалить программу
     enroll: Добавить редактора
-    enrollment: Участие
+    enrollment: Добавить/удалить редакторов
     explore: Найти программы
     join_course: Присоединиться к программе
     join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника
       код доступа или ссылку, которая включает пароль.
     leave_course: Покинуть программу
+    not_permitted: У вас нет разрешения на правку этой программы.
     request_accounts: Запрос учётных записей
     school: Учреждение
     student_editors: Редакторы
@@ -394,6 +410,7 @@ ru:
     activity: Недавние действия
     articles_created: Статей создано
     articles_edited: Статей отредактировано
+    bytes_added: Байт добавлено
     characters: Символов
     char_added: Символов добавлено
     char_changed: Символов изменено
@@ -453,6 +470,7 @@ ru:
     view: Просмотр
     next: Следующая страница
     page: Страница
+    previous: < Предыдущая
     done: Готово!
     check_answer: Проверить ответ
   uploads:
@@ -501,7 +519,10 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    username: Имя участника
+    username_placeholder: Имя участника
     useremail_placeholder: Эл. почта
+    userpasscode_placeholder: Код доступа
     role:
       visitor: Посетитель
       student: Студент
@@ -562,11 +583,12 @@ ru:
     average_views: В среднем просмотров в день
     search: Найти
     tools: Инструменты
-    show_filters: Показать фильтры
-    hide_filters: Скрыть фильтры
+    show_options: Показать параметры
+    hide_options: Скрыть параметры
     category_search: Поиск по категории
     article_quality: Качество статьи(0-100)
     more_results: Ещё результаты
+    article_finder: Поиск статьи
     submit: Отправить
     relevanceIndex: Индекс релевантности
     assign_article_self: Назначить себя

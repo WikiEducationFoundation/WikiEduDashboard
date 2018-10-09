@@ -37,10 +37,10 @@ class WikiCourseEdits
     response = @wiki_editor.post_whole_page(@current_user, @course.wiki_title, wiki_text, summary)
     return response unless response['edit']
 
-    # If it hit the spam blacklist, replace the offending links and try again.
-    blacklist = response['edit']['spamblacklist']
-    return response if blacklist.nil?
-    repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, blacklist)
+    # If it hit the spam blocklist, replace the offending links and try again.
+    spamlist = response['edit']['spamblacklist']
+    return response if spamlist.nil?
+    repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, spamlist)
   end
 
   # Posts to the instructor's userpage, and also makes a public
@@ -113,8 +113,8 @@ class WikiCourseEdits
 
   private
 
-  def repost_with_sanitized_links(wiki_title, wiki_text, summary, blacklist)
-    bad_links = blacklist.split('|')
+  def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
+    bad_links = spamlist.split('|')
     safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end

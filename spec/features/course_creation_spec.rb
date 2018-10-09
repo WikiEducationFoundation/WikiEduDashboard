@@ -78,7 +78,8 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
-  find('.wizard__option', match: :first).find('button', match: :first).click # Biographies handout
+  # Choose the first handout
+  omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
   sleep 1
 
@@ -103,7 +104,7 @@ describe 'New course creation and editing', type: :feature do
     set_up_suite
   end
 
-  before :each do
+  before do
     user = create(:user,
                   id: 1,
                   permissions: User::Permissions::INSTRUCTOR)
@@ -115,11 +116,15 @@ describe 'New course creation and editing', type: :feature do
     visit root_path
   end
 
+  after do
+    logout
+  end
+
   describe 'course workflow', js: true do
     let(:expected_course_blocks) { 21 }
     let(:module_name) { 'Get started on Wikipedia' }
 
-    it 'should allow the user to create a course' do
+    it 'allows the user to create a course' do
       allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
       click_link 'Create Course'
 
@@ -222,7 +227,7 @@ describe 'New course creation and editing', type: :feature do
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
 
-      # Click edit, mark a gradeable and save it.
+      # Click edit, mark it graded and save it.
       find('.week-1').hover
       sleep 0.5
       within('.week-1') do
@@ -233,7 +238,7 @@ describe 'New course creation and editing', type: :feature do
       end
       sleep 1
 
-      # Edit the gradeable.
+      # Edit the points.
       within('.grading__grading-container') do
         click_button 'Edit'
         sleep 1
@@ -241,7 +246,7 @@ describe 'New course creation and editing', type: :feature do
         sleep 1
         click_button 'Save'
         sleep 1
-        expect(page).to have_content 'Value: 50%'
+        expect(page).to have_content 'Value: 50'
       end
 
       # Navigate back to overview, check relevant data, then delete course
@@ -258,7 +263,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Looks like you don\'t have any courses'
     end
 
-    it 'should not allow a second course with the same slug' do
+    it 'does not allow a second course with the same slug' do
       create(:course,
              id: 10001,
              title: 'Course',
@@ -293,7 +298,7 @@ describe 'New course creation and editing', type: :feature do
       expect(Course.all.count).to eq(1)
     end
 
-    it 'should create a full-length research-write assignment' do
+    it 'creates a full-length research-write assignment' do
       create(:course,
              id: 10001,
              title: 'Course',
@@ -333,7 +338,7 @@ describe 'New course creation and editing', type: :feature do
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
     end
 
-    it 'should squeeze assignments into the course dates' do
+    it 'squeezes assignments into the course dates' do
       create(:course,
              id: 10001,
              title: 'Course',
@@ -375,9 +380,10 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       create(:campaigns_course, course_id: 1, campaign_id: Campaign.first.id)
+      create(:tag, tag: 'cloneable', course_id: 1)
     end
 
-    it 'should have the option of starting with no timeline' do
+    it 'has the option of starting with no timeline' do
       visit root_path
 
       click_link 'Create Course'
@@ -423,10 +429,6 @@ describe 'New course creation and editing', type: :feature do
       # Add Assignment button should not appear once there is timeline content.
       expect(page).not_to have_content 'Add Assignment'
     end
-  end
-
-  after do
-    logout
   end
 end
 
@@ -481,19 +483,19 @@ describe 'timeline editing', js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
     # move down
-    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type')
     sleep 0.5
     # move down again
-    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 2')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 3')
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 1')
     # move up
-    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type')
     sleep 0.5
     # move up again
-    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 1')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 2')
@@ -518,12 +520,12 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
+    omniclick find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move back down to week 2
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type')
     sleep 0.5
     expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
   end
@@ -533,13 +535,13 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
+    omniclick find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type')
     click_button 'Save All'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move down to week 2 and discard Changes
     click_button 'Arrange Timeline'
-    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
+    omniclick find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type')
     click_button 'Discard All Changes'
     # still in week 1
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'

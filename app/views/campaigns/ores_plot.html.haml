@@ -8,11 +8,5 @@
 
 .container
   %section#ores_plot
-    .section-header
-      %h3
-        = t('courses.ores_plot')
-    - if @ores_plot_path.nil?
-      %p
-        No data available
-    - if @ores_plot_path.present?
-      %img{src: "/#{@ores_plot_path}"}
+    #react_root{data: {slug: @campaign.slug}}
+

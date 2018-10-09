@@ -17,14 +17,14 @@ describe ScheduleCourseUpdates do
     it 'calls the revisions and articles updates on courses currently taking place' do
       expect(UpdateCourseStats).to receive(:new).thrice
       expect(Raven).to receive(:capture_message).and_call_original
-      update = ScheduleCourseUpdates.new
+      update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)
     end
 
     it 'clears the needs_update flag from courses' do
       expect(Course.where(needs_update: true).count).to eq(1)
-      ScheduleCourseUpdates.new
+      described_class.new
       expect(Course.where(needs_update: true).count).to eq(0)
     end
 
@@ -32,7 +32,7 @@ describe ScheduleCourseUpdates do
       allow(Raven).to receive(:capture_message)
       expect(UpdateCourseStats).to receive(:new)
         .and_raise(StandardError)
-      expect { ScheduleCourseUpdates.new }.to raise_error(StandardError)
+      expect { described_class.new }.to raise_error(StandardError)
       expect(Raven).to have_received(:capture_message)
     end
   end

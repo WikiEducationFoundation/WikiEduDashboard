@@ -65,9 +65,10 @@ arbitrary activity data.
 1. Go to Wikipedia and find a recently-active editors, for example by picking some usernames from https://en.wikipedia.org/wiki/Special:RecentChanges
 2. For populating the Uploads, find users who have recently uploaded files by picking some usernames from https://en.wikipedia.org/wiki/Special:Log/upload
 3. As an instructor or admin, go the Students tab, click Participation, and add them.
-4. Run the 'constant_update' and 'daily_update' routines (which run via cron job in production) to pull in activity from those users. For Uploads, only the 'constant_update' step is necessary.
-    * $ `rake batch:update_constantly`
-    * $ `rake batch:update_daily`
+4. Import course data by triggering a manual update. Either add `/manual_update` to the end of the base course URL, or use a console to load the Course record (e.g., `course = Course.last`) and then run `UpdateCourseStats.new(course)`.
+5. Optionally, load additional metadata by running a `ConstantUpdate` in a console:
+    * `require "#{Rails.root}/lib/data_cycle/constant_update`
+    * `ConstantUpdate.new`
 
 ## Wiki Education configuration vs. Programs & Events configuration
 
@@ -83,3 +84,6 @@ courses are by default called "Programs", and they are approved by default upon 
 
 Some features are only enabled for one configuration or the other, and some of the
 interface messages differ between them: Course vs. Program, Student vs. Editor, etc.
+
+In `config/application.yml`, use `wiki_education: true` or `wiki_education: false` to
+toggle between these configurations.

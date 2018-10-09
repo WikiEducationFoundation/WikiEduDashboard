@@ -17,7 +17,7 @@ import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
 import Meetings from '../components/timeline/meetings.jsx';
-import { ConnectedCourseCreator } from "../components/course_creator/course_creator.jsx";
+import { ConnectedCourseCreator } from '../components/course_creator/course_creator.jsx';
 import OverviewHandler from '../components/overview/overview_handler.jsx';
 import TimelineHandler from '../components/timeline/timeline_handler.jsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
@@ -25,6 +25,7 @@ import StudentsHandler from '../components/students/students_handler.jsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.jsx';
 import AlertsHandler from '../components/alerts/alerts_handler.jsx';
+import CampaignOresPlot from '../components/campaign/campaign_ores_plot.jsx';
 import ArticleFinder from '../components/article_finder/article_finder.jsx';
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
@@ -38,7 +39,7 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 
 import RocketChat from '../components/common/rocket_chat.jsx';
 
-import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+import UserProfile from '../components/user_profiles/user_profile.jsx';
 import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
@@ -110,8 +111,9 @@ const routes = (
       <Route path=":library_id/:module_id" component={TrainingModuleHandler} />
       <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
-    <Route path="users/:username" component={ContributionStats} />
+    <Route path="users/:username" component={UserProfile} />
     <Route path="campaigns/:campaign_slug/alerts" component={AlertsHandler} />
+    <Route path="campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
     <Route path="settings" component={SettingsHandler} />
     <Route path="article_finder" component={ArticleFinder} />
   </Route>

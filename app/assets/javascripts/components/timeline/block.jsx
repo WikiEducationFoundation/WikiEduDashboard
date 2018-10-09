@@ -7,19 +7,19 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
 import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
-import BlockActions from '../../actions/block_actions.js';
-import GradeableActions from '../../actions/gradeable_actions.js';
+
+const DEFAULT_POINTS = 10;
 
 const Block = createReactClass({
   displayName: 'Block',
 
   propTypes: {
     block: PropTypes.object,
-    gradeable: PropTypes.object,
     editableBlockIds: PropTypes.array,
     editPermissions: PropTypes.bool,
     saveBlockChanges: PropTypes.func,
     cancelBlockEditable: PropTypes.func,
+    updateBlock: PropTypes.func,
     toggleFocused: PropTypes.func,
     isDragging: PropTypes.bool,
     all_training_modules: PropTypes.array,
@@ -27,26 +27,26 @@ const Block = createReactClass({
   },
 
   updateBlock(valueKey, value) {
-    const toPass = $.extend(true, {}, this.props.block);
+    const toPass = { ...this.props.block };
     toPass[valueKey] = value;
     delete toPass.deleteBlock;
-    return BlockActions.updateBlock(toPass);
+    return this.props.updateBlock(toPass);
   },
 
   passedUpdateBlock(selectedIds) {
     const newBlock = $.extend(true, {}, this.props.block);
     newBlock.training_module_ids = selectedIds;
-    return BlockActions.updateBlock(newBlock);
+    return this.props.updateBlock(newBlock);
   },
 
   deleteBlock() {
     if (confirm('Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.')) {
-      return BlockActions.deleteBlock(this.props.block.id);
+      return this.props.deleteBlock(this.props.block.id);
     }
   },
 
   _setEditable() {
-    return BlockActions.setEditable(this.props.block.id);
+    return this.props.setBlockEditable(this.props.block.id);
   },
 
   _isEditable() {
@@ -56,16 +56,17 @@ const Block = createReactClass({
     return false;
   },
 
-  updateGradeable(valueKey, value) {
-    if (value === 'true') {
-      return GradeableActions.addGradeable(this.props.block);
+  updateGradeable(_valueKey, value) {
+    if (value) {
+      this.updateBlock('points', DEFAULT_POINTS);
+    } else {
+      this.updateBlock('points', null);
     }
-    return GradeableActions.deleteGradeable(this.props.gradeable.id);
   },
 
   render() {
     const isEditable = this._isEditable();
-    const isGraded = this.props.gradeable !== undefined && !this.props.gradeable.deleted;
+    const isGraded = !!this.props.block.points;
     let className = 'block';
     className += ` block-kind-${this.props.block.kind}`;
 

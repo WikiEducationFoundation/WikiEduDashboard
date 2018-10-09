@@ -1,4 +1,4 @@
-import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS } from "../constants";
+import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {

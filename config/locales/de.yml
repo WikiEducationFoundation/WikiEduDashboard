@@ -5,6 +5,16 @@
 # Author: Taresi
 ---
 de:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          thousand: T
+          million: M
+          billion: Mrd
+          trillion: B
+          quadrillion: Brd
   accessibility:
     number_field: Dies ist ein Zahlenfeld. Die von den meisten Browsern dargestellten
       Schaltflächen erhöhen und vermindern die Eingabe.
@@ -412,7 +422,7 @@ de:
     end: Ende
     ended: Der Kurs ist beendet.
     enroll: Einschreiben
-    enrollment: Einschreibung
+    enrollment: Studenten hinzufügen/entfernen
     courses_enrolled: Eingeschriebene Kurse
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
@@ -485,6 +495,7 @@ de:
     nocourses: Du nimmst an keinen Kursen teil.
     nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
+    not_permitted: Du bist nicht berechtigt, diesen Kurs zu bearbeiten.
     notify_untrained_confirmation: Dies sendet eine Erinnerung an die Diskussionsseiten
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
       überfällig sind. Bist du sicher, dass du dies tun möchtest?
@@ -494,6 +505,7 @@ de:
     passcode: Passcode
     passcode_none: Kein Passcode
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
+    please_log_in: Bitte melde dich an.
     private: Privat
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
@@ -536,6 +548,8 @@ de:
       ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
     subject: Thema
     submitted: Eingereicht
+    tag_select: Wähle eine Markierung aus oder erstelle eine
+    tags: 'Markierungen:'
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_enabled: Zeitleiste aktiviert
@@ -556,6 +570,9 @@ de:
     update_stats: Statistiken aktualisieren
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    user_uploads_none: Dieser Benutzer hat keine Bilder oder andere Mediendateien
+      auf Wikimedia Commons hochgeladen.
+    user_recent_uploads: Zuletzt hochgeladene Dateien
     user_suggestions: 'Benutzervorschläge:'
     user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen
@@ -644,7 +661,7 @@ de:
     edit_course_dates: Projektdaten bearbeiten
     end: Ende der Aktivitätsverfolgung
     enroll: Autor hinzufügen
-    enrollment: Teilnahme
+    enrollment: Autoren hinzufügen/entfernen
     explore: Programme finden
     courses_enrolled: Teilgenommene Programme
     expected_students: Erwartete Autoren
@@ -654,6 +671,7 @@ de:
       Passcode oder einen Link, der den Passcode enthält.
     leave_course: Programm verlassen
     milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
+    not_permitted: Du bist nicht berechtigt, dieses Programm zu bearbeiten.
     published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
       der folgenden URL einschreiben:'
     request_accounts: Benutzerkonten beantragen
@@ -868,7 +886,7 @@ de:
     gradeable_value: Wert
     gradeables_none: Diese Zeitleiste hat keine Zuweisungen, die als eingeteilt markiert
       wurden.
-    grading_header: 'Eingeteilt (Gesamt: %{total}%)'
+    grading_header: 'Eingeteilt (Gesamt: %{total})'
     move_block_down: Block nach unten verschieben
     move_block_up: Block nach oben verschieben
     no_class_holidays: Ich habe keine Ferien
@@ -890,6 +908,7 @@ de:
     next: Nächste Seite
     page: Seite
     page_number: Seite %{number} von %{total}
+    previous: < Vorherige
     table_of_contents: Inhaltsverzeichnis
     training_library: Ausbildungsbibliothek
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
@@ -897,6 +916,9 @@ de:
     done: Fertig!
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
+    view_library_source: Bibliotheksquelle ansehen
+    view_module_source: Modulquelle ansehen
+    reload_from_source: Von Quelle neu laden
   uploads:
     credit: Danksagung
     file_name: Dateiname
@@ -982,6 +1004,8 @@ de:
       other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
     training_module_name: Ausbildungsmodul
     training_module_status: Status
+    user_training_status: Ausbildungsstatus
+    user_no_training_status: Dieser Benutzer hat keine Ausbildungsmodule vervollständigt.
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
     username: Benutzername
@@ -1136,8 +1160,8 @@ de:
     search_placeholder: Gib dein Schlüsselwort ein
     search: Suchen
     tools: Werkzeuge
-    show_filters: Filter anzeigen
-    hide_filters: Filter ausblenden
+    show_options: Optionen anzeigen
+    hide_options: Optionen ausblenden
     keyword_search: Schlüsselwortsuche
     category_search: Kategoriesuche
     article_quality: Artikelqualität (0–100)
@@ -1149,7 +1173,8 @@ de:
     fetching_revisions: Abrufen der Seitenversionen
     fetching_scores: Abrufen des Vervollständigungs-Punktestandes
     fetching_pageviews: Abrufen der Seitenaufrufe
-    subheading_message: Lass uns einen Artikel finden, der deinen Bedürfnissen entspricht.
+    subheading_message: Lass uns einen Wikipedia-Artikel finden, an dem gearbeitet
+      werden soll.
     article_finder: Artikelfinder
     submit: Absenden
     relevanceIndex: Relevanzindex

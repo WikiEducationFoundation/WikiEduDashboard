@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '5.2.0'
+gem 'rails', '5.2.1'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -47,7 +47,7 @@ end
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
-gem 'restforce', git: 'https://github.com/ejholmes/restforce.git' # Salesforce API access
+gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 
 ### Internationalization
@@ -75,7 +75,6 @@ gem 'chartkick' # Used for plots in Rails views
 
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
-gem 'rinruby' # R plots!
 
 ### Platform-specific fixes
 # TZ information is not available on Windows, needs to be installed separately
@@ -108,8 +107,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rspec-focused', require: false
+  gem 'rubocop-rspec', require: false
   gem 'timecop' # Test utility for setting the time
-  gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
 
@@ -118,6 +117,8 @@ group :test do
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
+  gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
+  gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests

@@ -23,6 +23,7 @@ lv:
     report_problem: Ziņot par problēmu
     search: uzdot jautājumu
     sign_up_extended: Reģistrēties ar Vikipēdijas kontu
+    sign_up_log_in_extended: ar Vikipēdijas kontu
     sign_up: Reģistrēties
     submit: Iesniegt
     training: Apmācības
@@ -111,6 +112,7 @@ lv:
     campaigns: 'Kampaņas:'
     campaign_articles: '%{title} raksti'
     campaign_courses: '%{title} kursi'
+    campaign_select: Izvēlies kampaņu
     course: Kurss
     course_description: Kursi
     courses: Kursi
@@ -152,8 +154,9 @@ lv:
     end: Beigas
     ended: Kurss ir noslēdzies.
     enroll: Reģistrēties
-    enrollment: Reģistrācija
+    enrollment: Pievienot/noņemt studentus
     feedback: Atsauksmes
+    instructors: Pasniedzēji
     join: Pievienoties
     join_course: Pievienoties kursam
     join_prompt: Pievienoties '%{title}'?
@@ -162,6 +165,7 @@ lv:
     my_articles: Mani raksti
     needs_update: Ieplānot datu atjaunināšanu
     new_week: Pievienot jaunu nedēļu
+    new_account_email: E-pasta adrese
     new_account_submit: Pieprasīt kontu
     no_available_actions: Nav pieejamu darbību
     ores_plot: ORES
@@ -180,9 +184,11 @@ lv:
     user_role: Loma
     course_details: Kursa informācija
     subject: Temats
+    tags: 'Iezīmes:'
     term: Semestris
     title: Nosaukums
     update_stats: Atjaunināt statistiku
+    user_recent_uploads: Nesenās augšupielādes
     view_other: Skatīt citas kampaņas
     view: Apskatīt kursu
     view_page: Skatīt kursa lapu
@@ -227,6 +233,7 @@ lv:
     save: Saglabāt
     edit_description: Labot aprakstu
     edit_details: Labot datus
+    edit_template: Labot veidni
   metrics:
     label: Kursa aktivitāte
     activity: Nesenās darbības
@@ -238,6 +245,7 @@ lv:
     date_time: Datums/laiks
     edit_count_description: Labojumi kopā
     revisions: Neseni labojumi
+    tags: Iezīmes
     upload_count: Augšupielādes Vikikrātuvē
     view_count_description: Rakstu skatījumi
     view: Skatījumi
@@ -256,11 +264,16 @@ lv:
     usage_count: Lietojumu skaits
   revisions:
     chars_added: Rakstzīmes pievienotas
+    class: Klase
     date_time: Datums/laiks
+    diff: izmaiņas
+    diff_show: Rādīt
+    diff_hide: Paslēpt
     loading: Ielādē versijas...
     title: Nosaukums
     see_more: Skatīt vairāk
   timeline:
+    add_week: Pievienot nedēļu
     course_end: Kursa beigas
     course_start: Kursa sākums
     save_all_changes: Saglabāt visu
@@ -287,6 +300,8 @@ lv:
     contributions: Dalībieka devums
     course_passcode: 'Piekļuves kods:'
     editors: Redaktori
+    first_name: Vārds
+    last_name: Uzvārds
     loading: Ielādē lietotājus...
     name: Nosaukums
     none: Dalībnieku nav.

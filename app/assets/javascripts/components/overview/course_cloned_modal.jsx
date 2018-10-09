@@ -2,10 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
-import CourseStore from '../../stores/course_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import CourseActions from '../../actions/course_actions.js';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -17,10 +15,13 @@ const CourseClonedModal = createReactClass({
   displayName: 'CourseClonedModal',
 
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object.isRequired,
+    updateCourse: PropTypes.func.isRequired,
+    updateClonedCourse: PropTypes.func.isRequired,
+    currentUser: PropTypes.object.isRequired
   },
 
-  mixins: [ValidationStore.mixin, CourseStore.mixin],
+  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return {
@@ -82,11 +83,13 @@ const CourseClonedModal = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid()) {
       ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
-      const updatedCourse = $.extend(true, {}, { course: this.state.course });
-      updatedCourse.course.cloned_status = this.cloneCompletedStatus;
       const { slug } = this.state.course;
-      const id = CourseUtils.generateTempId(this.state.course);
-      CourseActions.updateClonedCourse(updatedCourse, slug, id);
+      const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
+      updatedCourse.cloned_status = this.cloneCompletedStatus;
+
+      const newSlug = CourseUtils.generateTempId(updatedCourse);
+      updatedCourse.slug = newSlug;
+      this.props.updateClonedCourse(updatedCourse, slug, newSlug);
       return this.setState({ isPersisting: true });
     }
   },
@@ -97,6 +100,9 @@ const CourseClonedModal = createReactClass({
   },
 
   saveEnabled() {
+    // You must be logged in and have permission to edit the course.
+    // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
+    if (!this.props.currentUser.isNonstudent) { return false; }
     // ClassroomProgramCourse conditions
     if (this.props.course.type === 'ClassroomProgramCourse') {
       if (!this.state.valuesUpdated || !this.state.dateValuesUpdated) { return false; }
@@ -118,6 +124,10 @@ const CourseClonedModal = createReactClass({
     let errorMessage;
     if (this.state.error_message) {
       errorMessage = <div className="warning">{this.state.error_message}</div>;
+    } else if (!this.props.currentUser.id) {
+      errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
+    } else if (!this.props.currentUser.isNonstudent) {
+      errorMessage = <div className="warning">{CourseUtils.i18n('not_permitted', i18nPrefix)}</div>;
     }
 
     const dateProps = CourseDateUtils.dateProps(this.state.course);
@@ -221,9 +231,10 @@ const CourseClonedModal = createReactClass({
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
             shouldShowSteps={false}
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
+            updateCourse={this.props.updateCourse}
           />
           <label> {I18n.t('courses.creator.no_class_holidays')}
-            <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
+            <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />
           </label>
         </div>
       );
