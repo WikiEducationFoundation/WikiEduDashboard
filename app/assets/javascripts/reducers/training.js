@@ -57,6 +57,16 @@ const desiredSlideIsCurrentSlide = (opts, currentSlide, slides) => {
   return (opts.position === 'next' && currentSlide.id === slides.length) || (opts.position === 'previous' && currentSlide.id === 1);
 };
 
+const update = (state) => {
+  return {
+    ...state,
+    previousSlide: getPreviousSlide(state),
+    nextSlide: getNextSlide(state),
+    isFirstSlide: isFirstSlide(state),
+    slides: state.module.slides
+  };
+};
+
 const initialState = {
   modules: [],
   module: {},
@@ -75,40 +85,26 @@ const initialState = {
 };
 
 export default function training(state = initialState, action) {
-  let newState = {};
   const data = action.data;
   switch (action.type) {
     case RECEIVE_TRAINING_MODULE: {
       const temp = { ...state, module: data.training_module };
-      newState = setCurrentSlide(temp, data.slide);
-      break;
+      return update(setCurrentSlide(temp, data.slide));
     }
     case MENU_TOGGLE:
-      newState = { ...state, menuIsOpen: !data.currently };
-      break;
+      return { ...state, menuIsOpen: !data.currently };
     case SET_SELECTED_ANSWER:
-      newState = setSelectedAnswer(state, data.answer);
-      break;
+      return setSelectedAnswer(state, data.answer);
     case SET_CURRENT_SLIDE:
-      newState = setCurrentSlide(state, data.slide);
-      break;
+      return update(setCurrentSlide(state, data.slide));
     case RECEIVE_ALL_TRAINING_MODULES:
-      newState = { ...state, modules: data.training_modules };
-      break;
+      return { ...state, modules: data.training_modules };
     case SLIDE_COMPLETED:
-      newState = setEnabledSlides(state, data.slide);
-      break;
+      return setEnabledSlides(state, data.slide);
     case MODULE_COMPLETED:
       redirectTo(data);
       break;
     default:
       return state;
   }
-  return {
-    ...newState,
-    previousSlide: getPreviousSlide(newState),
-    nextSlide: getNextSlide(newState),
-    isFirstSlide: isFirstSlide(newState),
-    slides: newState.module.slides
-  };
 }
