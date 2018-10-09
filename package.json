@@ -100,7 +100,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-test-utils": "^15.4.1",
-    "react-burger-menu": "2.5.0",
+    "react-burger-menu": "2.5.3",
     "react-confetti": "^2.3.0",
     "react-day-picker": "7.1.9",
     "react-dnd": "^2.5.4",
