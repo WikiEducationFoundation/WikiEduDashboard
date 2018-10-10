@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import article_details from '../../app/assets/javascripts/reducers/article_details';
 import { RECEIVE_ARTICLE_DETAILS } from '../../app/assets/javascripts/constants/article_details';
 import '../testHelper';
@@ -8,6 +9,7 @@ describe('article_details reducer', () => {
       type: 'NO_TYPE'
     };
     const initialState = {};
+    deepFreeze(initialState);
 
     const result = article_details(undefined, mockAction);
     expect(result).to.deep.eq(initialState);
