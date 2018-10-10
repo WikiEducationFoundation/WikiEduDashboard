@@ -40,8 +40,8 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if (this.props.showDiff) {
-      this.showDiff();
+    if (nextProps.showDiff) {
+      this.showDiff(nextProps);
     }
 
     if (nextProps.revision && this.props.revision && nextProps.revision.id !== this.props.revision.id) {
@@ -68,12 +68,12 @@ const DiffViewer = createReactClass({
     return I18n.t('revisions.diff_show');
   },
 
-  showDiff() {
+  showDiff(nextProps) {
     this.setState({ showDiff: true });
     if (!this.props.editors) {
       this.props.fetchArticleDetails();
     } else if (!this.state.fetched) {
-      this.initiateDiffFetch(this.props);
+      this.initiateDiffFetch(nextProps || this.props);
     }
   },
 
