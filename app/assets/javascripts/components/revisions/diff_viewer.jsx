@@ -44,7 +44,7 @@ const DiffViewer = createReactClass({
       this.showDiff();
     }
 
-    if (nextProps.revision.id !== this.props.revision.id) {
+    if (nextProps.revision && this.props.revision && nextProps.revision.id !== this.props.revision.id) {
       this.setState(
         { diffFetchInitiated: false, fetched: false, comment: '' },
         () => {
