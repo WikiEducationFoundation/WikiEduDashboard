@@ -7,7 +7,7 @@ describe('course reducer', () => {
   it('updates an attribute via UPDATE_COURSE', () => {
     const initialState = { title: 'old title', term: 'old term' };
     const action = { type: UPDATE_COURSE, course: { title: 'new title' } };
-    // deepFreeze(initialState);
+    deepFreeze(initialState);
 
     const newState = course(initialState, action);
     expect(newState.title).to.eq('new title');
