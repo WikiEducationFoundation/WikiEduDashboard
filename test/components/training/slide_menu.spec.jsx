@@ -7,6 +7,7 @@ import '../../testHelper';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import SlideMenu from '../../../app/assets/javascripts/training/components/slide_menu.jsx';
 
+jest.mock('../../../app/assets/javascripts/components/common/notifications.jsx', () => 'Notifications');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
