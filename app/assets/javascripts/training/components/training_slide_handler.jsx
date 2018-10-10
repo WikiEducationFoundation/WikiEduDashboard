@@ -9,6 +9,7 @@ import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import slugs from './slugs.js';
+import Notifications from '../../components/common/notifications.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
@@ -110,6 +111,7 @@ const TrainingSlideHandler = createReactClass({
     }
 
     let nextLink;
+    let pendingWarning;
     if (__guard__(this.props.training.nextSlide, x1 => x1.slug)) {
       nextLink = (
         <SlideLink
@@ -125,7 +127,18 @@ const TrainingSlideHandler = createReactClass({
       if (!nextHref) {
         nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
       }
-      nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
+      if (this.props.training.completed) {
+        nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
+      } else {
+        pendingWarning = (
+          <div className="training__slide__notification" key="not_logged_in">
+            <div className="container">
+              <p>Please stay on this page while we update your training progress.</p>;
+            </div>
+          </div>
+        );
+        nextLink = <div className="wait pull-right"> &nbsp; &nbsp; </div>;
+      }
     }
 
     let loginWarning;
@@ -198,6 +211,7 @@ const TrainingSlideHandler = createReactClass({
 
     return (
       <div>
+        <Notifications />
         <header>
           <div className="pull-right training__slide__nav" onClick={this.toggleMenuOpen}>
             <div className="pull-right hamburger">
@@ -220,6 +234,7 @@ const TrainingSlideHandler = createReactClass({
           />
         </header>
         {loginWarning}
+        {pendingWarning}
         <article className="training__slide">
           {titlePrefix}
           <h1>{slideTitle}</h1>

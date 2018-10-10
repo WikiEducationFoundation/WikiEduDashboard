@@ -27,8 +27,6 @@ const setEnabledSlides = function (state, slide) {
   return state;
 };
 
-const redirectTo = data => window.location = `/training/${data.library_id}/${data.module_id}`;
-
 const getCurrentSlide = (state) => {
   return state.currentSlide;
 };
@@ -81,7 +79,8 @@ const initialState = {
   menuIsOpen: false,
   enabledSlides: [],
   loading: true,
-  isFirstSlide: false
+  isFirstSlide: false,
+  completed: false
 };
 
 export default function training(state = initialState, action) {
@@ -102,8 +101,7 @@ export default function training(state = initialState, action) {
     case SLIDE_COMPLETED:
       return setEnabledSlides(state, data.slide);
     case MODULE_COMPLETED:
-      redirectTo(data);
-      break;
+      return { ...state, completed: true };
     default:
       return state;
   }

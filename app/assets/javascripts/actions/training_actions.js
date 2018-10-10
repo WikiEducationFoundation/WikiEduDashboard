@@ -2,8 +2,9 @@ import _ from 'lodash';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED, API_FAIL
+  SLIDE_COMPLETED, API_FAIL, MODULE_COMPLETED
 } from '../constants';
+import logErrorMessage from '../utils/log_error_message';
 
 const fetchAllTrainingModulesPromise = () => {
   return new Promise((res, rej) =>
@@ -71,7 +72,12 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
 
 export const setSlideCompleted = (opts) => (dispatch) => {
   return setSlideCompletedPromise(opts)
-    .then(resp => dispatch({ type: SLIDE_COMPLETED, data: resp }))
+    .then(resp => {
+      dispatch({ type: SLIDE_COMPLETED, data: resp });
+      if (resp.completed) {
+        dispatch({ type: MODULE_COMPLETED, data: resp });
+      }
+    })
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
