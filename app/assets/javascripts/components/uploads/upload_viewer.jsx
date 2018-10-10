@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
-import { setUploadViewerMetadata, setUploadPageViews } from '../../actions/uploads_actions.js';
+import { setUploadViewerMetadata, setUploadPageViews, resetUploadsViews } from '../../actions/uploads_actions.js';
 
 const UploadViewer = createReactClass({
   displayName: 'UploadViewer',
@@ -33,6 +33,10 @@ const UploadViewer = createReactClass({
         this.handleGetFileViews(fileUsage);
       }
     }
+  },
+
+  componentWillUnmount() {
+    this.props.resetUploadsViews();
   },
 
   handleGetFileViews(files) {
@@ -164,7 +168,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setUploadViewerMetadata,
-  setUploadPageViews
+  setUploadPageViews,
+  resetUploadsViews
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(UploadViewer));
