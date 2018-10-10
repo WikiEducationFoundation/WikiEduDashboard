@@ -45,7 +45,6 @@ const RevisionList = createReactClass({
 
   render() {
     const { revisions, course, sortBy, wikidataLabels, sort } = this.props;
-    const {revision} = this.state
 
     const elements = revisions.map((revision, index) => {
       return (
@@ -58,6 +57,8 @@ const RevisionList = createReactClass({
         />
       );
     });
+
+    const { revision } = this.state;
 
     const keys = {
       rating_num: {
@@ -99,8 +100,14 @@ const RevisionList = createReactClass({
           sortBy={sortBy}
           sortable={true}
         />
-       <DiffViewer revision={revision} editors={[revision.revisor]} handleNext={this.handleNext}
-          handlePrevious={this.handlePrevious} showDiff={this.state.showDiffViewer} showNextAndPrevButton/>
+        <DiffViewer
+          revision={revision}
+          editors={[revision.revisor]}
+          handleNext={this.handleNext}
+          handlePrevious={this.handlePrevious}
+          showDiff={this.state.showDiffViewer}
+          showNextAndPrevButton
+        />
       </div>
     );
   }

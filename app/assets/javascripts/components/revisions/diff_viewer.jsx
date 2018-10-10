@@ -29,7 +29,7 @@ const DiffViewer = createReactClass({
 
   getInitialState() {
     return {
-      showDiff: false,
+      showDiff: false
     };
   },
 
@@ -40,20 +40,25 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if(this.props.showDiff){
-      this.showDiff()
+    if (this.props.showDiff) {
+      this.showDiff();
     }
 
     if (nextProps.revision.id !== this.props.revision.id) {
-      this.setState({ diffFetchInitiated: false, fetched: false, comment: '' }, () => {
-        this.initiateDiffFetch(nextProps);
-      });
+      this.setState(
+        { diffFetchInitiated: false, fetched: false, comment: '' },
+        () => {
+          this.initiateDiffFetch(nextProps);
+        }
+      );
     }
 
-    if (!this.props.editors && nextProps.editors && this.state.showDiff || this.props.showDiff) {
+    if (
+      (!this.props.editors && nextProps.editors && this.state.showDiff) ||
+      this.props.showDiff
+    ) {
       this.initiateDiffFetch(nextProps);
     }
-
   },
 
   showButtonLabel() {
@@ -109,11 +114,17 @@ const DiffViewer = createReactClass({
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${
+        lastRevision.mw_rev_id
+      }&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
     } else if (firstRevision) {
-      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${
+        lastRevision.mw_rev_id
+      }&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
     } else {
-      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev&format=json`;
+      diffUrl = `${queryBase}&revids=${
+        lastRevision.mw_rev_id
+      }&rvdiffto=prev&format=json`;
     }
 
     return diffUrl;
@@ -122,9 +133,13 @@ const DiffViewer = createReactClass({
   webDiffUrl() {
     const wikiUrl = this.wikiUrl(this.props.revision);
     if (this.state.parentRevisionId) {
-      return `${wikiUrl}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${
+        this.state.parentRevisionId
+      }&diff=${this.props.revision.mw_rev_id}`;
     } else if (this.props.first_revision) {
-      return `${wikiUrl}/w/index.php?oldid=${this.props.first_revision.mw_rev_id}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${
+        this.props.first_revision.mw_rev_id
+      }&diff=${this.props.revision.mw_rev_id}`;
     }
     return `${wikiUrl}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
   },
@@ -132,54 +147,60 @@ const DiffViewer = createReactClass({
   findParentOfFirstRevision(props) {
     const wikiUrl = this.wikiUrl(props.revision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
-    const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
-    jQuery.ajax(
-      {
-        dataType: 'jsonp',
-        url: diffUrl,
-        success: (data) => {
-          const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
-          const parentRevisionId = revisionData.parentid;
-          this.setState({ parentRevisionId });
-          this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
-        }
-      });
+    const diffUrl = `${queryBase}&revids=${
+      props.first_revision.mw_rev_id
+    }&format=json`;
+    jQuery.ajax({
+      dataType: 'jsonp',
+      url: diffUrl,
+      success: data => {
+        const revisionData =
+          data.query.pages[props.first_revision.mw_page_id].revisions[0];
+        const parentRevisionId = revisionData.parentid;
+        this.setState({ parentRevisionId });
+        this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
+      }
+    });
   },
 
   fetchDiff(diffUrl) {
-    jQuery.ajax(
-      {
-        dataType: 'jsonp',
-        url: diffUrl,
-        success: (data) => {
-          let firstRevisionData;
-          try {
-            firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
-          } catch (_err) {
-            firstRevisionData = {};
-          }
-          let lastRevisionData;
-          try {
-            lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
-          } catch (_err) { /* noop */ }
-
-          // Data may or may not include the diff.
-          let diff;
-          if (firstRevisionData.diff) {
-            diff = firstRevisionData.diff['*'];
-          } else {
-            diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
-          }
-
-          this.setState({
-            diff: diff,
-            comment: firstRevisionData.comment,
-            fetched: true,
-            firstRevDateTime: firstRevisionData.timestamp,
-            lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
-          });
+    jQuery.ajax({
+      dataType: 'jsonp',
+      url: diffUrl,
+      success: data => {
+        let firstRevisionData;
+        try {
+          firstRevisionData =
+            data.query.pages[this.props.revision.mw_page_id].revisions[0];
+        } catch (_err) {
+          firstRevisionData = {};
         }
-      });
+        let lastRevisionData;
+        try {
+          lastRevisionData =
+            data.query.pages[this.props.revision.mw_page_id].revisions[1];
+        } catch (_err) {
+          /* noop */
+        }
+
+        // Data may or may not include the diff.
+        let diff;
+        if (firstRevisionData.diff) {
+          diff = firstRevisionData.diff['*'];
+        } else {
+          diff =
+            '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
+        }
+
+        this.setState({
+          diff: diff,
+          comment: firstRevisionData.comment,
+          fetched: true,
+          firstRevDateTime: firstRevisionData.timestamp,
+          lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
+        });
+      }
+    });
   },
 
   render() {
@@ -202,9 +223,17 @@ const DiffViewer = createReactClass({
 
     let diff;
     if (!this.state.fetched) {
-      diff = <tbody><Loading /></tbody>;
+      diff = (
+        <tbody>
+          <Loading />
+        </tbody>
+      );
     } else if (this.state.diff === '') {
-      diff = <tbody><div> — </div></tbody>;
+      diff = (
+        <tbody>
+          <div> — </div>
+        </tbody>
+      );
     } else {
       diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} />;
     }
@@ -223,20 +252,33 @@ const DiffViewer = createReactClass({
     // Edit summary for range of revisions:
     //  > First and last times for edits to article (from first applicable rev to last)
     if (!this.props.first_revision) {
-      revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
+      revisionDateTime = moment(this.props.revision.date).format(
+        'YYYY/MM/DD h:mm a'
+      );
 
       diffComment = <p className="diff-comment">{this.state.comment}</p>;
 
-      editDate = (<p className="diff-comment">
-        ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
-        {this.props.revision.characters}&nbsp;
-        {I18n.t('revisions.chars_added')})</p>);
+      editDate = (
+        <p className="diff-comment">
+          ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })}
+          ;&nbsp;
+          {this.props.revision.characters}
+          &nbsp;
+          {I18n.t('revisions.chars_added')})
+        </p>
+      );
     } else {
-      firstRevTime = moment(this.state.firstRevDateTime).format('YYYY/MM/DD h:mm a');
-      lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');
+      firstRevTime = moment(this.state.firstRevDateTime).format(
+        'YYYY/MM/DD h:mm a'
+      );
+      lastRevTime = moment(this.state.lastRevDateTime).format(
+        'YYYY/MM/DD h:mm a'
+      );
 
-      timeSpan = I18n.t('revisions.edit_time_span',
-                        { first_time: firstRevTime, last_time: lastRevTime });
+      timeSpan = I18n.t('revisions.edit_time_span', {
+        first_time: firstRevTime,
+        last_time: lastRevTime
+      });
 
       editDate = <p className="diff-comment">({timeSpan})</p>;
     }
@@ -256,27 +298,48 @@ const DiffViewer = createReactClass({
 
     return (
       <div>
-        {
-          this.props.showNextAndPrevButton &&
+        {this.props.showNextAndPrevButton && (
           <div>
-            <button onClick={this.props.handlePrevious} className="previous button dark small">Previous</button>
-            <button onClick={this.props.handleNext} className="next button dark small">Next</button>
+            <button
+              onClick={this.props.handlePrevious}
+              className="previous button dark small"
+            >
+              Previous
+            </button>
+            <button
+              onClick={this.props.handleNext}
+              className="next button dark small"
+            >
+              Next
+            </button>
           </div>
-        }
+        )}
         <div className={className}>
           <div className="diff-viewer-header">
-            <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
+            <a className="button dark small" href={wikiDiffUrl} target="_blank">
+              {I18n.t('revisions.view_on_wiki')}
+            </a>
             <button onClick={this.hideDiff} className="pull-right icon-close" />
-            <a className="pull-right button small diff-viewer-feedback" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
+            <a
+              className="pull-right button small diff-viewer-feedback"
+              href="/feedback?subject=Diff Viewer"
+              target="_blank"
+            >
+              How did the diff viewer work for you?
+            </a>
           </div>
           {salesforceButtons}
           <table>
             <thead>
               <tr>
-                <th colSpan="4" className="diff-header">{diffComment}</th>
+                <th colSpan="4" className="diff-header">
+                  {diffComment}
+                </th>
               </tr>
               <tr>
-                <th colSpan="4" className="diff-header">{editDate}</th>
+                <th colSpan="4" className="diff-header">
+                  {editDate}
+                </th>
               </tr>
             </thead>
             {diff}
