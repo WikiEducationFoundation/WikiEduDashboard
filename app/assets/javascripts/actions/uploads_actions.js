@@ -132,6 +132,11 @@ const fetchUploadPageViews = (articleList) => {
         }
       })
         .fail((obj) => {
+          if (obj.status === 404) {
+            // Returns an object with the same structure as the api response
+            // This will be used for handling 404 error for articles with zero views
+            return res({ items: [{ views: 0 }] });
+          }
           logErrorMessage(obj);
           return rej(obj);
         });
