@@ -6,7 +6,9 @@ import {
   GALLERY_VIEW,
   FILTER_UPLOADS,
   SET_UPLOAD_METADATA,
-  SET_UPLOAD_VIEWER_METADATA
+  SET_UPLOAD_VIEWER_METADATA,
+  SET_UPLOAD_PAGEVIEWS,
+  RESET_UPLOAD_PAGEVIEWS
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
@@ -16,8 +18,8 @@ const initialState = {
   view: GALLERY_VIEW,
   selectedFilters: [],
   loading: true,
-  uploadMetadata: {}
-
+  uploadMetadata: {},
+  averageViews: []
 };
 
 const SORT_DESCENDING = {
@@ -85,6 +87,26 @@ export default function uploads(state = initialState, action) {
       return {
         ...state,
         uploadMetadata: action.data,
+      };
+    }
+    case SET_UPLOAD_PAGEVIEWS: {
+      const views = [];
+      _.forEach(action.data, fileView => {
+        let fileViews = 0;
+        _.forEach(fileView.items, article => {
+          fileViews += _.get(article, 'views');
+        });
+        views.push(Math.round(fileViews / fileView.items.length));
+      });
+      return {
+        ...state,
+        averageViews: views,
+      };
+    }
+    case RESET_UPLOAD_PAGEVIEWS: {
+      return {
+        ...state,
+        averageViews: initialState.averageViews,
       };
     }
     default:
