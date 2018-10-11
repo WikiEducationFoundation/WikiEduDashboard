@@ -60,7 +60,7 @@ const ArticleFinderRow = createReactClass({
      pageviews = (<div className="results-loading"> &nbsp; &nbsp; </div>);
     }
     if (this.props.article.pageviews) {
-      pageviews = this.props.article.pageviews;
+      pageviews = Math.round(this.props.article.pageviews);
     } else if (this.props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
       pageviews = (<div>Page Views not found!</div>);
     }
@@ -70,7 +70,7 @@ const ArticleFinderRow = createReactClass({
       if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
        revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.revScore) {
-        revScore = (<td>{this.props.article.revScore}</td>);
+        revScore = (<td>{Math.round(this.props.article.revScore)}</td>);
       } else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
         revScore = (<td><div>Estimation Score not found!</div></td>);
       } else {
