@@ -104,7 +104,7 @@
     "react-burger-menu": "2.5.3",
     "react-confetti": "^2.3.0",
     "react-day-picker": "7.1.9",
-    "react-dnd": "^2.5.4",
+    "react-dnd": "^4.0.5",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dnd-touch-backend": "^0.3.15",
     "react-dom": "^15.6.2",
