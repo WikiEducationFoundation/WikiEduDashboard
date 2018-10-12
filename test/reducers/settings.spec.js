@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import '../testHelper';
 import reducer from '../../app/assets/javascripts/reducers/settings.js';
 import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../../app/assets/javascripts/constants';
@@ -23,6 +24,8 @@ describe('Settings reducer', () => {
     const initialState = {
       adminUsers: oldAdmins
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: SET_ADMIN_USERS,
@@ -37,6 +40,8 @@ describe('Settings reducer', () => {
     const initialState = {
       submittingNewAdmin: false
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: SUBMITTING_NEW_ADMIN,
@@ -54,6 +59,8 @@ describe('Settings reducer', () => {
         username: null,
       }
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: REVOKING_ADMIN,

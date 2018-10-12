@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import '../testHelper';
 import reducer from '../../app/assets/javascripts/reducers/user_courses.js';
 import { RECEIVE_USER_COURSES } from '../../app/assets/javascripts/constants';
@@ -8,6 +9,7 @@ describe('Did you know reducer menu reducer', () => {
       userCourses: [],
       loading: true
     };
+    deepFreeze(initialState);
 
     expect(reducer(undefined, {})).to.deep.eq(initialState);
   });
@@ -20,6 +22,7 @@ describe('Did you know reducer menu reducer', () => {
       userCourses: oldCourses,
       loading: false
     };
+    deepFreeze(initialState);
 
     expect(
       reducer(initialState, {

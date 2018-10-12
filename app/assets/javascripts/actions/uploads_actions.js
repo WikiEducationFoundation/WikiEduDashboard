@@ -110,6 +110,8 @@ export const setUploadViewerMetadata = (upload) => dispatch => {
   );
 };
 
+const zeroViewsResponse = { items: [{ views: 0 }] };
+
 const fetchUploadPageViews = (articleList) => {
   const viewPerArticle = [];
   // To obtain the start date, decalare a date const, calculate 60 days from the date of today
@@ -132,11 +134,11 @@ const fetchUploadPageViews = (articleList) => {
         }
       })
         .fail((obj) => {
-          if (obj.status === 404) {
-            // Returns an object with the same structure as the api response
-            // This will be used for handling 404 error for articles with zero views
-            return res({ items: [{ views: 0 }] });
-          }
+          // The Wikimedia pageviews API responds with a 404 if there are zero pageviews
+          // for the entire requested range.
+          // Here, we assume that any 404 is because there are no pageviews, and return
+          // a simple zero views mock response instead of throwing an error.
+          if (obj.status === 404) { return res(zeroViewsResponse); }
           logErrorMessage(obj);
           return rej(obj);
         });

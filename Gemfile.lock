@@ -9,16 +9,6 @@ GIT
       rails (>= 3.2.13)
 
 GIT
-  remote: https://github.com/ejholmes/restforce.git
-  revision: 7012e1dca95cb6953123620535144fb41011db82
-  specs:
-    restforce (3.1.0)
-      faraday (>= 0.9.0, <= 1.0)
-      faraday_middleware (>= 0.8.8, <= 1.0)
-      hashie (>= 1.2.0, < 4.0)
-      json (>= 1.7.5)
-
-GIT
   remote: https://github.com/halfdan/piwik-ruby-tracking.git
   revision: 5c733bd0d4deaef1f72dbfe8c9e305ddf3bca52a
   specs:
@@ -72,7 +62,7 @@ GEM
       activemodel (= 5.2.1)
       activesupport (= 5.2.1)
       arel (>= 9.0)
-    activerecord-import (0.25.0)
+    activerecord-import (0.27.0)
       activerecord (>= 3.2)
     activestorage (5.2.1)
       actionpack (= 5.2.1)
@@ -392,6 +382,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    restforce (3.1.0)
+      faraday (>= 0.9.0, <= 1.0)
+      faraday_middleware (>= 0.8.8, <= 1.0)
+      hashie (>= 1.2.0, < 4.0)
+      json (>= 1.7.5)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -421,7 +416,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    rubocop-rspec (1.29.1)
+    rubocop-rspec (1.30.0)
       rubocop (>= 0.58.0)
     rubocop-rspec-focused (1.0.0)
       rubocop (>= 0.51)
@@ -570,7 +565,7 @@ DEPENDENCIES
   rb-inotify
   rb-readline
   redcarpet
-  restforce!
+  restforce
   rspec-rails
   rubocop
   rubocop-rspec

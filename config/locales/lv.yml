@@ -21,12 +21,15 @@ lv:
     my_dashboard: Mans panelis
     recent_activity: Nesenās darbības
     report_problem: Ziņot par problēmu
+    request_account_create: Izveidot kontu
     search: uzdot jautājumu
     sign_up_extended: Reģistrēties ar Vikipēdijas kontu
+    sign_up_log_in_extended: ar Vikipēdijas kontu
     sign_up: Reģistrēties
     submit: Iesniegt
     training: Apmācības
     change: Mainīt
+    details: Papildinformācija
     confirm: Labi
     opt_in: Jā
     opt_out: Nē
@@ -72,6 +75,7 @@ lv:
     active_campaigns: Aktīvās kampaņas
     add_organizer: Pievienot organizatoru
     alert_article: Raksta nosaukums
+    alert_label: Kampaņas brīdinājumi
     alert_type: Veids
     alert_user_id: Dalībnieks
     all_campaigns: Visas kampaņas
@@ -85,6 +89,8 @@ lv:
     delete_campaign: Dzēst šo kampaņu
     none: Nav
     organizers: Organizatori
+    program_template: Programmas veidne
+    requested_accounts: Pieprasītie konti
     title: Nosaukums
   categories:
     add_category: Pievienot kategoriju
@@ -94,6 +100,7 @@ lv:
     name: Nosaukums
     category_name: Kategorijas nosaukums
     template_name: Veidnes nosaukums
+    remove: Noņemt
   chat:
     label: Tērzētava
   courses:
@@ -103,6 +110,7 @@ lv:
     archived: Arhivētie kursi
     actions: Darbības
     articles: Raksti
+    articles_none: Šajā kursā nav labots neviens raksts.
     calendar:
       legend: Apzīmējumi
       legend_class_canceled: Brīvdiena/atcelts
@@ -111,6 +119,8 @@ lv:
     campaigns: 'Kampaņas:'
     campaign_articles: '%{title} raksti'
     campaign_courses: '%{title} kursi'
+    campaign_select: Izvēlies kampaņu
+    campaign_users: '%{title} Dalībnieki'
     course: Kurss
     course_description: Kursi
     courses: Kursi
@@ -127,6 +137,8 @@ lv:
       course_title: Kursa nosaukums
       create_button: Izveidot manu kursu!
       create_label: Izveidot jaunu kursu
+      create_new: Izveidot jaunu kursu
+      create_short: Izveidot kursu
       end_date: Beigu datums
       end_date_placeholder: Beigu datums (GGGG-MM-DD)
       expected_number: Paredzamais studentu skaits
@@ -152,8 +164,9 @@ lv:
     end: Beigas
     ended: Kurss ir noslēdzies.
     enroll: Reģistrēties
-    enrollment: Reģistrācija
+    enrollment: Pievienot/noņemt studentus
     feedback: Atsauksmes
+    instructors: Pasniedzēji
     join: Pievienoties
     join_course: Pievienoties kursam
     join_prompt: Pievienoties '%{title}'?
@@ -162,6 +175,7 @@ lv:
     my_articles: Mani raksti
     needs_update: Ieplānot datu atjaunināšanu
     new_week: Pievienot jaunu nedēļu
+    new_account_email: E-pasta adrese
     new_account_submit: Pieprasīt kontu
     no_available_actions: Nav pieejamu darbību
     ores_plot: ORES
@@ -169,6 +183,7 @@ lv:
     passcode: Piekļuves kods
     passcode_none: Nav piekļuves koda
     passcode_prompt: 'Ievadi piekļuves kodu, lai pievienotos:'
+    private: Privāts
     revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
     school: Skola
     start: Sākums
@@ -180,6 +195,7 @@ lv:
     user_role: Loma
     course_details: Kursa informācija
     subject: Temats
+    tags: 'Iezīmes:'
     term: Semestris
     title: Nosaukums
     update_stats: Atjaunināt statistiku
@@ -207,20 +223,27 @@ lv:
       create_button: Izveidot manu programmu!
       create_label: Izveidot jaunu programmu
       create_new: Izveido neatkarīgu programmu
+      end_date: Darbību sekošanas beigas
       find: Atrodi programmu
       participate_in_campaign: Piedalies kampaņā
       save_cloned_course: Saglabāt
+      start_date: Darbību sekošanas sākums
     delete_course: Dzēst programmu
+    end: Darbību sekošanas beigas
     enroll: Pievienot dalībnieku
-    enrollment: Dalība
+    enrollment: Pievienot/noņemt dalībniekus
     explore: Atrast programmas
     expected_students: Plānotie dalībnieki
     instructors: Koordinatori
     join_course: Pievienoties programmai
     request_accounts: Pieprasīt kontus
     school: Iestāde
+    start: Darbību sekošanas sākums
     student_editors: Redaktori
     students: Redaktori
+    students_count: Dalībnieku skaits
+    term: Kad
+    view_page: Skatīt programmas lapu
     yourcourses: Tavas programmas
   editable:
     edit: Labot
@@ -228,8 +251,10 @@ lv:
     save: Saglabāt
     edit_description: Labot aprakstu
     edit_details: Labot datus
+    edit_template: Labot veidni
   metrics:
     label: Kursa aktivitāte
+    last_update: Statistika atjaunināta
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti
@@ -239,6 +264,7 @@ lv:
     date_time: Datums/laiks
     edit_count_description: Labojumi kopā
     revisions: Neseni labojumi
+    tags: Iezīmes
     upload_count: Augšupielādes Vikikrātuvē
     view_count_description: Rakstu skatījumi
     view: Skatījumi
@@ -257,11 +283,17 @@ lv:
     usage_count: Lietojumu skaits
   revisions:
     chars_added: Rakstzīmes pievienotas
+    class: Klase
     date_time: Datums/laiks
+    diff: izmaiņas
+    diff_show: Rādīt
+    diff_hide: Paslēpt
+    edited_by: Labotājs
     loading: Ielādē versijas...
     title: Nosaukums
     see_more: Skatīt vairāk
   timeline:
+    add_week: Pievienot nedēļu
     course_end: Kursa beigas
     course_start: Kursa sākums
     save_all_changes: Saglabāt visu
@@ -288,11 +320,14 @@ lv:
     contributions: Dalībieka devums
     course_passcode: 'Piekļuves kods:'
     editors: Redaktori
+    first_name: Vārds
+    last_name: Uzvārds
     loading: Ielādē lietotājus...
     name: Nosaukums
     none: Dalībnieku nav.
     recent_revisions: Neseni labojumi
     revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
+    total_uploads: Kopējās augšupielādes
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
     useremail_placeholder: E-pasts
@@ -317,4 +352,7 @@ lv:
       course: 'Kurss: %{course_info}'
   wiki_api:
     create_account_reason: Šis dalībnieks piedalās pasākumā "%{event}".
+  article_finder:
+    submit: Iesniegt
+    assign_article_self: Piešķirt sev
 ...

@@ -33,11 +33,4 @@ describe('CourseClonedModal', () => {
     const warnings = TestModal.find('.warning');
     expect(warnings).to.have.length(0);
   });
-
-  it('renders an error message if state includes one', () => {
-    TestModal.setState({ error_message: 'test error message' });
-    const warnings = TestModal.find('.warning');
-    expect(warnings).not.to.be.empty;
-    expect(warnings.first().text()).to.eq('test error message');
-  });
 });
