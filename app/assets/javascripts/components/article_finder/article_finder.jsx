@@ -8,7 +8,6 @@ import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
-import ArticlesNavbar from '../articles/articles_navbar.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
@@ -41,7 +40,6 @@ const ArticleFinder = createReactClass({
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
-    this.props.updateArticlesCurrent('articles-finder');
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
@@ -331,13 +329,6 @@ const ArticleFinder = createReactClass({
         <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
       );
     }
-    let articlesNavbar;
-    if (this.props.course_id) {
-      articlesNavbar = (<ArticlesNavbar
-        current_user={this.props.current_user}
-        course_id={this.props.course_id}
-      />);
-    }
 
     return (
       <div className="article-finder">
@@ -375,7 +366,6 @@ const ArticleFinder = createReactClass({
             {fetchMoreButton}
           </div>
         </div>
-        {articlesNavbar}
       </div>
       );
   }

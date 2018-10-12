@@ -103,7 +103,6 @@ const routes = (
         <Route path="articles" component={ArticlesHandler} />
         <Route path="uploads" component={UploadsHandler} />
         <Route path="chat" component={RocketChat} />
-        <Route path="article_finder" component={ArticleFinder} />
       </Route>
     </Route>
     <Route path="course_creator" component={ConnectedCourseCreator} />

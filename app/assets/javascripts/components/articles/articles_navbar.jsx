@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import { updateArticlesCurrent, toggleScrollDebounce } from '../../actions/ui_actions_redux.js';
@@ -43,8 +43,8 @@ const ArticlesNavbar = createReactClass({
                 </Link>
               </li>
               {availableArticlesNav}
-              <li key="articles-finder" className={this.props.articlesUi.articlesCurrent === 'articles-finder' ? 'is-current' : ''}>
-                <Link data-key="articles-finder" to={`/courses/${this.props.course_id}/article_finder`} onClick={this.onNavClick}>Article Finder</Link>
+              <li key="article-finder" className={this.props.articlesUi.articlesCurrent === 'article-finder' ? 'is-current' : ''}>
+                <Link data-key="article-finder" to={`/courses/${this.props.course_id}/articles#article-finder`} onClick={this.onNavClick}>Article Finder</Link>
               </li>
             </ol>
           </div>
