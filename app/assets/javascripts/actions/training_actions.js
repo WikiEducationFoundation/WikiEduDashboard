@@ -75,7 +75,10 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
     }).catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
-export const setSlideCompleted = (opts) => (dispatch) => {
+export const setSlideCompleted = (opts) => (dispatch, getState) => {
+  // No need to ping the server if the module is already complete.
+  if (getState().training.completed) { return; }
+
   return setSlideCompletedPromise(opts)
     .then(resp => {
       dispatch({ type: SLIDE_COMPLETED, data: resp });

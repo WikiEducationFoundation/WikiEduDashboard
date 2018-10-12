@@ -19,13 +19,10 @@ const TrainingSlideHandler = createReactClass({
     params: PropTypes.object
   },
 
-  componentWillMount() {
+  componentDidMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
-  },
-
-  componentDidMount() {
     window.addEventListener('keyup', this.handleKeyPress);
   },
 
@@ -44,8 +41,9 @@ const TrainingSlideHandler = createReactClass({
   },
 
   next() {
-    this.props.setCurrentSlide(this.props.training.nextSlide.slug);
-    this.setSlideCompleted(this.props.training.nextSlide.slug);
+    const nextSlug = this.props.training.nextSlide.slug;
+    this.props.setCurrentSlide(nextSlug);
+    this.setSlideCompleted(nextSlug);
   },
 
   prev() {
