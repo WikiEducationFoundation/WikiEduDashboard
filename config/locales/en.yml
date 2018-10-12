@@ -882,6 +882,8 @@ en:
     training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
     done: Done!
+    invalid: Sorry that slide does not exist!
+    wait: Please do not leave the page as your training progress is being updated.
     check_answer: Check Answer
     included_modules: Included Modules
     view_library_source: view library source

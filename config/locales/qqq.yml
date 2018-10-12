@@ -671,6 +671,8 @@ qqq:
       {{Identical|View}}
     page: '{{Identical|Page}}'
     done: '{{Identical|Done}}'
+    wait: Alert to not leave the page as the training progress is being updated in the background
+    invalid: Alert stating the slide does not exist
   uploads:
     image: '{{Identical|Image}}'
     label: |-

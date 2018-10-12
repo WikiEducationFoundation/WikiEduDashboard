@@ -15,7 +15,7 @@ const setSelectedAnswer = function (state, answer) {
 };
 
 const setCurrentSlide = function (state, slideId) {
-  if (!state.module.slides) { return state.currentSlide; }
+  if (!state.module.slides) { return state; }
   const slideIndex = _.findIndex(state.module.slides, slide => slide.slug === slideId);
   return { ...state, currentSlide: { ...state.module.slides[slideIndex] }, loading: false };
 };
@@ -80,15 +80,24 @@ const initialState = {
   enabledSlides: [],
   loading: true,
   isFirstSlide: false,
-  completed: false
+  completed: false,
+  valid: false
 };
 
 export default function training(state = initialState, action) {
   const data = action.data;
   switch (action.type) {
     case RECEIVE_TRAINING_MODULE: {
-      const temp = { ...state, module: data.training_module };
-      return update(setCurrentSlide(temp, data.slide));
+      const newState = {
+        ...state,
+        module: data.training_module,
+        valid: data.valid
+      };
+      if (newState.valid) {
+        return update(setCurrentSlide(newState, data.slide));
+      } else {
+        return { ...newState, loading: false };
+      }
     }
     case MENU_TOGGLE:
       return { ...state, menuIsOpen: !data.currently };

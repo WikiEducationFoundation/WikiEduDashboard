@@ -66,8 +66,13 @@ export const fetchAllTrainingModules = () => (dispatch) => {
 
 export const fetchTrainingModule = (opts = {}) => (dispatch) => {
   return fetchTrainingModulePromise(opts)
-    .then(resp => dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.current_slide_id }) }))
-    .catch(resp => dispatch({ type: API_FAIL, data: resp }));
+    .then(resp => {
+      const valid = !!resp.training_module.slides.filter(o => o.slug === opts.slide_id).length;
+      dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.slide_id, valid }) });
+      if (valid) {
+        setSlideCompleted(opts);
+      }
+    }).catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
 export const setSlideCompleted = (opts) => (dispatch) => {

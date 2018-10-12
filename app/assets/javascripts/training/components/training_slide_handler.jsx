@@ -8,7 +8,6 @@ import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
-import slugs from './slugs.js';
 import Notifications from '../../components/common/notifications.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -22,24 +21,12 @@ const TrainingSlideHandler = createReactClass({
 
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
-    if (!slugs[slideId]) {
-       window.location = '/errors/file_not_found';
-       return;
-    }
-    this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
-    this.setSlideCompleted(slideId);
+    const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
+    this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
   },
 
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeyPress);
-  },
-
-  componentWillReceiveProps(newProps) {
-    const { slide_id } = newProps.params;
-    if (this.props.training.currentSlide.slug !== slide_id) {
-      this.props.setCurrentSlide(slide_id);
-      this.setSlideCompleted(slide_id);
-    }
   },
 
   componentWillUnmount() {
@@ -55,9 +42,20 @@ const TrainingSlideHandler = createReactClass({
       user_id: userId
     });
   },
+
+  next() {
+    this.props.setCurrentSlide(this.props.training.nextSlide.slug);
+    this.setSlideCompleted(this.props.training.nextSlide.slug);
+  },
+
+  prev() {
+    this.props.setCurrentSlide(this.props.training.previousSlide.slug);
+  },
+
   moduleId() {
     return __guard__(this.props.params, x => x.module_id);
   },
+
   toggleMenuOpen(e) {
     e.stopPropagation();
     return this.props.toggleMenuOpen({ currently: this.props.training.menuIsOpen });
@@ -69,6 +67,7 @@ const TrainingSlideHandler = createReactClass({
       return this.props.toggleMenuOpen({ currently: true });
     }
   },
+
   userLoggedIn() {
     return typeof __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id')) === 'string';
   },
@@ -91,11 +90,13 @@ const TrainingSlideHandler = createReactClass({
     const navParams = { library_id: this.props.params.library_id, module_id: this.props.params.module_id };
     if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
       const params = _.extend(navParams, { slide_id: this.props.training.previousSlide.slug });
+      this.prev();
       browserHistory.push(this.trainingUrl(params));
     }
     if (e.which === this.keys.rightKey && this.props.training.nextSlide) {
       if (this.disableNext()) { return; }
       const params = _.extend(navParams, { slide_id: this.props.training.nextSlide.slug });
+      this.next();
       return browserHistory.push(this.trainingUrl(params));
     }
   },
@@ -109,7 +110,15 @@ const TrainingSlideHandler = createReactClass({
         </div>
       );
     }
-
+    if (this.props.training.valid === false) {
+      return (
+        <div className="training__slide__notification" key="invalid">
+          <div className="container">
+            <p>{I18n.t('training.invalid')}</p>;
+          </div>
+        </div>
+      );
+    }
     let nextLink;
     let pendingWarning;
     if (__guard__(this.props.training.nextSlide, x1 => x1.slug)) {
@@ -120,6 +129,7 @@ const TrainingSlideHandler = createReactClass({
           disabled={this.disableNext()}
           button={true}
           params={this.props.params}
+          onClick={this.next}
         />
       );
     } else {
@@ -131,13 +141,13 @@ const TrainingSlideHandler = createReactClass({
         nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
       } else {
         pendingWarning = (
-          <div className="training__slide__notification" key="not_logged_in">
+          <div className="training__slide__notification" key="pending">
             <div className="container">
-              <p>Please stay on this page while we update your training progress.</p>;
+              <p>{I18n.t('training.wait')}</p>;
             </div>
           </div>
         );
-        nextLink = <div className="wait pull-right"> &nbsp; &nbsp; </div>;
+        nextLink = <a href={nextHref} className="btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
       }
     }
 
@@ -159,6 +169,7 @@ const TrainingSlideHandler = createReactClass({
           slideId={this.props.training.previousSlide.slug}
           buttonText={I18n.t('training.previous')}
           params={this.props.params}
+          onClick={this.prev}
         />
       );
     }
