@@ -2,7 +2,7 @@ import _ from 'lodash';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED, API_FAIL, MODULE_COMPLETED
+  SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
@@ -69,6 +69,7 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
     .then(resp => {
       const valid = !!resp.training_module.slides.filter(o => o.slug === opts.slide_id).length;
       dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.slide_id, valid }) });
+
       if (valid) {
         dispatch(setSlideCompleted(opts));
       }
@@ -80,12 +81,7 @@ export const setSlideCompleted = (opts) => (dispatch, getState) => {
   if (getState().training.completed) { return; }
 
   return setSlideCompletedPromise(opts)
-    .then(resp => {
-      dispatch({ type: SLIDE_COMPLETED, data: resp });
-      if (resp.completed) {
-        dispatch({ type: MODULE_COMPLETED, data: resp });
-      }
-    })
+    .then(resp => dispatch({ type: SLIDE_COMPLETED, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 

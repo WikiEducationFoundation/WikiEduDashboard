@@ -112,7 +112,7 @@ const TrainingSlideHandler = createReactClass({
       return (
         <div className="training__slide__notification" key="invalid">
           <div className="container">
-            <p>{I18n.t('training.invalid')}</p>;
+            <p>{I18n.t('training.invalid')}</p>
           </div>
         </div>
       );
@@ -138,14 +138,17 @@ const TrainingSlideHandler = createReactClass({
       if (this.props.training.completed) {
         nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
       } else {
+        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
+      }
+
+      if (this.props.training.completed === false) {
         pendingWarning = (
           <div className="training__slide__notification" key="pending">
             <div className="container">
-              <p>{I18n.t('training.wait')}</p>;
+              <p>{I18n.t('training.wait')}</p>
             </div>
           </div>
         );
-        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
       }
     }
 

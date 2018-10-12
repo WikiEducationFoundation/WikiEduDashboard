@@ -2,7 +2,7 @@ import _ from 'lodash';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
-  SLIDE_COMPLETED, MODULE_COMPLETED
+  SLIDE_COMPLETED
 } from '../constants';
 
 const setSelectedAnswer = function (state, answer) {
@@ -20,19 +20,8 @@ const setCurrentSlide = function (state, slideId) {
   return { ...state, currentSlide: { ...state.module.slides[slideIndex] }, loading: false };
 };
 
-const setEnabledSlides = function (state, slide) {
-  if (slide) {
-    return { ...state, enabledSlides: [...state.enabledSlides, slide.id] };
-  }
-  return state;
-};
-
 const getCurrentSlide = (state) => {
   return state.currentSlide;
-};
-
-const isFirstSlide = (state) => {
-  return (state.currentSlide && state.currentSlide.index === 1);
 };
 
 const getPreviousSlide = (state) => {
@@ -60,7 +49,6 @@ const update = (state) => {
     ...state,
     previousSlide: getPreviousSlide(state),
     nextSlide: getNextSlide(state),
-    isFirstSlide: isFirstSlide(state),
     slides: state.module.slides
   };
 };
@@ -79,8 +67,7 @@ const initialState = {
   menuIsOpen: false,
   enabledSlides: [],
   loading: true,
-  isFirstSlide: false,
-  completed: false,
+  completed: null,
   valid: false
 };
 
@@ -108,9 +95,11 @@ export default function training(state = initialState, action) {
     case RECEIVE_ALL_TRAINING_MODULES:
       return { ...state, modules: data.training_modules };
     case SLIDE_COMPLETED:
-      return setEnabledSlides(state, data.slide);
-    case MODULE_COMPLETED:
-      return { ...state, completed: true };
+      return {
+        ...state,
+        enabledSlides: [...state.enabledSlides, data.slide.id],
+        completed: data.completed
+      };
     default:
       return state;
   }
