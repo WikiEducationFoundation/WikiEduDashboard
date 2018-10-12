@@ -1,3 +1,5 @@
+@import './_notifications'
+
 .module
   background-color white
   border 1px solid zircon
@@ -78,34 +80,6 @@
 .module__controls .button
   float right
 
-
-.alert
-  padding 20px
-  text-align center
-  p
-    color warning
-  td
-    text-align left
-
-.notification
-  background-color sprout
-  padding 10px
-  color #fff
-  text-align center
-  font-weight bold
-  > .container
-    display flex
-    align-items center
-    p
-      flex 1
-      margin-bottom 0
-
-    .button
-      margin-left 20px
-
-    a:not(.button)
-      color #fff
-
 .notification--survey .container
   justify-content space-between
 
@@ -118,21 +92,6 @@
 .course-alerts .notification:nth-of-type(n+2)
   border-top 2px solid darken(sprout, 20%)
 
-.notice
-  @extends .notification
-  position relative
-  z-index 9999
-  width 100%
-  text-align left
-  background-color warning
-  color #fff
-  > .container
-   svg
-      &:focus,
-      &:hover
-        cursor pointer
-        color smoke
-        outline none
 @media only screen and (max-width: 920px)
   .course-alerts
     height 0px
