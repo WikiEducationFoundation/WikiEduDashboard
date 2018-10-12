@@ -70,7 +70,7 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
       const valid = !!resp.training_module.slides.filter(o => o.slug === opts.slide_id).length;
       dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.slide_id, valid }) });
       if (valid) {
-        setSlideCompleted(opts);
+        dispatch(setSlideCompleted(opts));
       }
     }).catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
