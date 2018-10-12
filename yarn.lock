@@ -10713,10 +10713,10 @@ react-addons-test-utils@^15.4.1:
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
   integrity sha1-wStu/cIkfBDae4dw0YUICnsEcVY=
 
-react-burger-menu@2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.5.3.tgz#ead41e1a9ded879ddc16f45a1fe39d55e42be71f"
-  integrity sha512-7mwg9n65fLP33ddGPXFB8AYb+OOK3FE5UqfdfCtb6Pmj7ajag6umTWDYtZh67SGabQni12qhAnvyW08gegftZw==
+react-burger-menu@2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.5.4.tgz#7ca5f5297491e748368fb99b9df12056b3f90b0b"
+  integrity sha512-illxa1UX8pRXd8CADA6wAquraaWcZ4Um0kCMyC0YmnnslWYSsA4sNJ35f/uKanLYgw3aD9uQL7XigEchHlgCiw==
   dependencies:
     browserify-optional "^1.0.0"
     classnames "^2.1.1"
