@@ -203,10 +203,10 @@ const AssignButton = createReactClass({
       ass.course_id = this.props.course.slug;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
       if (this.props.permitted) {
-        removeButton = <button className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button>;
+        removeButton = <span> <button aria-label="Remove" className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button></span>;
       }
       if (article.url) {
-        articleLink = <a href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
+        articleLink = <a href={article.url} target="_blank" className="inline" aria-label="View on Wikipedia">{article.formatted_title}</a>;
       } else {
         articleLink = <span>{article.formatted_title}</span>;
       }
