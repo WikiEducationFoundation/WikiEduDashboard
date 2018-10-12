@@ -60,13 +60,17 @@ export const fetchWizardPanels = (wizardId) => dispatch => {
   return fetchWizardPanelsPromise(wizardId)
     .then(data => {
       dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data });
+      // Using a 0 timeout here gives the browser a chance
+      // to re-render the new off-screen panels before the
+      // advance to the next slide and helps ensure a smooth
+      // panel transition.
+      setTimeout(dispatch, 0, { type: WIZARD_ADVANCE });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
 export const advanceWizard = () => (dispatch, getState) => {
   const state = getState();
-  dispatch({ type: WIZARD_ADVANCE });
   // If we're advancing from the Assignments panel,
   // we need to fetch the specific wizard panel for the selected
   // assignment option.
@@ -77,6 +81,9 @@ export const advanceWizard = () => (dispatch, getState) => {
   // enable summary mode.
   } else if (state.wizard.activeIndex === state.wizard.panels.length - 2) {
     dispatch({ type: WIZARD_ENABLE_SUMMARY_MODE });
+    dispatch({ type: WIZARD_ADVANCE });
+  } else {
+    dispatch({ type: WIZARD_ADVANCE });
   }
 };
 
