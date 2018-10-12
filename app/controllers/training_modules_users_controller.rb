@@ -6,19 +6,24 @@ class TrainingModulesUsersController < ApplicationController
   respond_to :json
 
   def create_or_update
-    set_and_render_slide
-    return if @slide.nil?
+    set_slide
     @training_module_user = find_or_create_tmu(params)
+    return if @slide.nil?
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
+    @completed = @training_module_user.completed_at.present?
+    render_slide
   end
 
   private
 
-  def set_and_render_slide
+  def set_slide
     @training_module = TrainingModule.find_by(slug: params[:module_id])
     @slide = TrainingSlide.find_by(slug: params[:slide_id])
-    render json: { slide: @slide }
+  end
+
+  def render_slide
+    render json: { slide: @slide, completed: @completed }
   end
 
   def find_or_create_tmu(params)

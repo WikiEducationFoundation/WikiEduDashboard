@@ -1,34 +1,24 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { fetchTrainingModule } from '../../actions/training_actions.js';
 
-import TrainingStore from '../stores/training_store.js';
-import ServerActions from '../../actions/server_actions.js';
-
-const getState = () => ({ training_module: TrainingStore.getTrainingModule() });
 
 const TrainingModuleHandler = createReactClass({
   displayName: 'TrainingModuleHandler',
-  mixins: [TrainingStore.mixin],
-  getInitialState() {
-    return getState();
-  },
 
   componentWillMount() {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
-    return ServerActions.fetchTrainingModule({ module_id: moduleId });
-  },
-
-  storeDidChange() {
-    return this.setState(getState());
+    return this.props.fetchTrainingModule({ module_id: moduleId });
   },
 
   render() {
     const locale = I18n.locale;
-    const slidesAry = _.compact(this.state.training_module.slides);
+    const slidesAry = _.compact(this.props.training.module.slides);
     const slides = slidesAry.map((slide, i) => {
       const disabled = !slide.enabled;
-      const slideLink = `${this.state.training_module.slug}/${slide.slug}`;
+      const slideLink = `${this.props.training.module.slug}/${slide.slug}`;
       let liClassName;
       if (disabled) { liClassName = 'disabled'; }
       let summary;
@@ -50,7 +40,7 @@ const TrainingModuleHandler = createReactClass({
     }
     );
     let moduleSource;
-    if (this.state.training_module.wiki_page) {
+    if (this.props.training.module.wiki_page) {
       moduleSource = (
         <div className="training-module-source">
           <a href={`https://meta.wikimedia.org/wiki/${this.state.training_module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
@@ -73,4 +63,12 @@ const TrainingModuleHandler = createReactClass({
   }
 });
 
-export default TrainingModuleHandler;
+const mapStateToProps = state => ({
+  training: state.training
+});
+
+const mapDispatchToProps = {
+  fetchTrainingModule
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainingModuleHandler);
