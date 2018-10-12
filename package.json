@@ -122,7 +122,7 @@
     "redux-mock-store": "^1.5.1",
     "redux-thunk": "^2.3.0",
     "require-dir": "1.1.0",
-    "reselect": "^3.0.1",
+    "reselect": "^4.0.0",
     "rev-del": "^1.0.5",
     "rewire": "^4.0.1",
     "run-sequence": "^2.2.1",
