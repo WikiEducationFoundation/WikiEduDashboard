@@ -136,7 +136,7 @@ const TrainingSlideHandler = createReactClass({
         nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
       }
       if (this.props.training.completed) {
-        nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
+        nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
       } else {
         pendingWarning = (
           <div className="training__slide__notification" key="pending">
@@ -145,7 +145,7 @@ const TrainingSlideHandler = createReactClass({
             </div>
           </div>
         );
-        nextLink = <a href={nextHref} className="btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
+        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
       }
     }
 
