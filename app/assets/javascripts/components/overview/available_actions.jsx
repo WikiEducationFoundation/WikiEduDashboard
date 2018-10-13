@@ -12,7 +12,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
 import { removeUser } from '../../actions/user_actions';
 
 const AvailableActions = createReactClass({
@@ -28,6 +28,7 @@ const AvailableActions = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     linkToSalesforce: PropTypes.func.isRequired,
     deleteCourse: PropTypes.func.isRequired,
+    greetStudents: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired
   },
 
@@ -202,7 +203,7 @@ const AvailableActions = createReactClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
-          <GreetStudentsButton course={course} current_user={this.props.current_user} />
+          <GreetStudentsButton course={course} current_user={this.props.current_user} greetStudents={this.props.greetStudents} />
           {controls}
           <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} updateSalesforceRecord={this.props.updateSalesforceRecord} />
         </div>
@@ -221,6 +222,7 @@ const mapDispatchToProps = {
   linkToSalesforce,
   updateSalesforceRecord,
   deleteCourse,
+  greetStudents,
   removeUser
 };
 

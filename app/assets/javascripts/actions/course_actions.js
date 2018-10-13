@@ -149,3 +149,9 @@ export const notifyOverdue = courseSlug => dispatch => {
     .then(data => dispatch({ type: 'NOTIFIED_OVERDUE', data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
+
+export const greetStudents = courseId => dispatch => {
+  return API.greetStudents(courseId)
+    .then(data => dispatch({ type: 'GREETED_STUDENTS', data }))
+    .catch(data => ({ type: API_FAIL, data }));
+};
