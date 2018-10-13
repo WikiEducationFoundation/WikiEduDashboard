@@ -1,14 +1,14 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ServerActions from '../../actions/server_actions.js';
 import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 
 const SalesforceLink = createReactClass({
   propTypes: {
     course: PropTypes.object,
     current_user: PropTypes.object,
-    linkToSalesforce: PropTypes.func.isRequired
+    linkToSalesforce: PropTypes.func.isRequired,
+    updateSalesforceRecord: PropTypes.func.isRequired
   },
 
   linkToSalesforce() {
@@ -23,7 +23,7 @@ const SalesforceLink = createReactClass({
   },
 
   updateSalesforceRecord() {
-    ServerActions.updateSalesforceRecord(this.props.course.id)
+    this.props.updateSalesforceRecord(this.props.course.id)
       .then(alert('updating!'));
   },
 

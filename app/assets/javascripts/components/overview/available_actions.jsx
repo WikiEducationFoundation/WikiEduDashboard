@@ -13,7 +13,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce, deleteCourse } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -202,7 +202,7 @@ const AvailableActions = createReactClass({
         <div className="module__data">
           <GreetStudentsButton course={course} current_user={this.props.current_user} />
           {controls}
-          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} />
+          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} updateSalesforceRecord={this.props.updateSalesforceRecord} />
         </div>
       </div>
     );
@@ -217,6 +217,7 @@ const mapDispatchToProps = {
   enableForCourse,
   needsUpdate,
   linkToSalesforce,
+  updateSalesforceRecord,
   deleteCourse
 };
 
