@@ -13,7 +13,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, deleteCourse } from '../../actions/course_actions';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -26,7 +26,8 @@ const AvailableActions = createReactClass({
     enableAccountRequests: PropTypes.func.isRequired,
     enableForCourse: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
-    linkToSalesforce: PropTypes.func.isRequired
+    linkToSalesforce: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired
   },
 
   join() {
@@ -75,7 +76,7 @@ const AvailableActions = createReactClass({
 
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
     if (enteredTitle.trim() === this.props.course.title.trim()) {
-      return ServerActions.deleteCourse(this.props.course.slug);
+      return this.props.deleteCourse(this.props.course.slug);
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
@@ -215,7 +216,8 @@ const mapDispatchToProps = {
   enableAccountRequests,
   enableForCourse,
   needsUpdate,
-  linkToSalesforce
+  linkToSalesforce,
+  deleteCourse
 };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

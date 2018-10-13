@@ -27,13 +27,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  deleteCourse(courseId) {
-    // The action simply redirects to the home page, so this actionType doesn't
-    // have any listeners. But there are errors if the payload is not handled.
-    return API.deleteCourse(courseId)
-      .then(resp => ({ actionType: 'DELETED_COURSE', data: resp }));
-  },
-
   // This action is not handled by any store.
   updateSalesforceRecord(courseId) {
     return API.updateSalesforceRecord(courseId)

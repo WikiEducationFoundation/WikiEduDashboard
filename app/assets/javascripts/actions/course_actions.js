@@ -129,3 +129,11 @@ export const linkToSalesforce = (courseId, salesforceId) => dispatch => {
     .then(data => dispatch({ type: LINKED_TO_SALESFORCE, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
+
+// Actions not handled by redux, except for failures
+
+export const deleteCourse = courseSlug => dispatch => {
+  return API.deleteCourse(courseSlug)
+    .then(data => dispatch({ type: 'DELETED_COURSE', data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
