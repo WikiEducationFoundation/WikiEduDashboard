@@ -80,10 +80,15 @@ const ArticleViewer = createReactClass({
     if (!this.state.whocolorFetched && this.isWhocolorLang()) {
       this.fetchWhocolorHtml();
     }
+    window.history.pushState({}, '', `?showArticle=${this.props.article.id}`);
   },
 
-  hideArticle() {
+  hideArticle(e) {
     this.setState({ showArticle: false });
+    const viewer = document.getElementsByClassName('article-viewer')[0];
+    if (viewer === undefined || e !== undefined) {
+      window.history.replaceState(null, null, window.location.pathname);
+    }
   },
 
   handleClickOutside() {
@@ -169,19 +174,19 @@ const ArticleViewer = createReactClass({
   showException(jqXHR, exception) {
     let msg = '';
     if (jqXHR.status === 0) {
-        msg = 'Not connect.\n Verify Network.';
+      msg = 'Not connect.\n Verify Network.';
     } else if (jqXHR.status.toString() === '404') {
-        msg = 'Requested page not found. [404]';
+      msg = 'Requested page not found. [404]';
     } else if (jqXHR.status.toString() === '500') {
-        msg = 'Internal Server Error [500].';
+      msg = 'Internal Server Error [500].';
     } else if (exception === 'parsererror') {
-        msg = 'Requested JSON parse failed.';
+      msg = 'Requested JSON parse failed.';
     } else if (exception === 'timeout') {
-        msg = 'Time out error.';
+      msg = 'Time out error.';
     } else if (exception === 'abort') {
-        msg = 'Ajax request aborted.';
+      msg = 'Ajax request aborted.';
     } else {
-        msg = `Uncaught Error.\n${jqXHR.responseText}`;
+      msg = `Uncaught Error.\n${jqXHR.responseText}`;
     }
     this.setState({
       whocolorFailed: true,
@@ -286,7 +291,7 @@ const ArticleViewer = createReactClass({
           status={legendStatus}
           failureMessage={this.state.failureMessage}
         />
-        );
+      );
     }
     return (
       <div>
