@@ -3,15 +3,6 @@ import API from '../utils/api.js';
 const Flux = new McFly();
 
 const ServerActions = Flux.createActions({
-
-  // General-purpose
-  remove(model, courseId, data) {
-    const actionType = `${model.toUpperCase()}_MODIFIED`;
-    return API.modify(model, courseId, data, false)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   checkCourse(key, courseId) {
     return API.fetch(courseId, 'check')
       .then(resp => {
