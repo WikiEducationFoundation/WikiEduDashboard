@@ -186,7 +186,6 @@ class CoursesController < ApplicationController
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
     raise NotPermittedError unless current_user&.can_edit?(@course)
-
   end
 
   def handle_course_announcement(instructor)
