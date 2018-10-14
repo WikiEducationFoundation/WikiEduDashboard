@@ -61,6 +61,7 @@ en:
     request_account_create: Create an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
+    no_results: "No results found for '%{query}'"
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
