@@ -9,9 +9,14 @@ class ExploreController < ApplicationController
     # Redirect to new campaign overview page if a parameter is given, for backwards compatibility
     campaign_param = params[:campaign] || params[:cohort]
     redirect_to campaign_path(campaign_param) if campaign_param
-
     @presenter = CoursesPresenter.new(current_user: current_user,
-                                      campaign_param: ENV['default_campaign'])
+      campaign_param: ENV['default_campaign'])
     @campaign = @presenter.campaign
+    set_search_presenter_and_query if params[:search].present?
+  end
+
+  def set_search_presenter_and_query
+    @search_presenter = CoursesPresenter.new(current_user: current_user, courses_list: Course.where(private: false))
+    @query = params[:search]
   end
 end
