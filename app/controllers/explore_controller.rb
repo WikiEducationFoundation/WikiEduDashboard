@@ -10,13 +10,16 @@ class ExploreController < ApplicationController
     campaign_param = params[:campaign] || params[:cohort]
     redirect_to campaign_path(campaign_param) if campaign_param
     @presenter = CoursesPresenter.new(current_user: current_user,
-      campaign_param: ENV['default_campaign'])
+                                      campaign_param: ENV['default_campaign'])
     @campaign = @presenter.campaign
     set_search if params[:search].present?
   end
 
   def set_search
-    search_presenter = CoursesPresenter.new(current_user: current_user, courses_list: Course.where(private: false))
+    search_presenter = CoursesPresenter.new(
+      current_user: current_user,
+      courses_list: Course.where(private: false)
+    )
     @query = params[:search]
     @results = search_presenter.search_courses(@query)
   end
