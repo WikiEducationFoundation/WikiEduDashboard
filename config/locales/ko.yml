@@ -472,6 +472,7 @@ ko:
     previous: < 이전
     table_of_contents: 목차
     done: 끝났습니다!
+    invalid: 해당 슬라이드는 존재하지 않습니다!
     included_modules: 포함된 모듈
     view_module_source: 모듈 원본 보기
     reload_from_source: 원본에서 다시 불러오기

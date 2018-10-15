@@ -734,6 +734,8 @@ zh-TW:
     training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！
+    invalid: 很抱歉，該投影片不存在！
+    wait: 請不要在您的培訓進度更新時離開頁面。
     check_answer: 檢查答案
     included_modules: 已包含模組
     view_library_source: 檢視圖書館來源

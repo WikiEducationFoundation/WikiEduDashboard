@@ -914,6 +914,9 @@ de:
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
       dieses Moduls, sofern du dich nicht anmeldest.
     done: Fertig!
+    invalid: Diese Folie ist leider nicht vorhanden!
+    wait: Bitte verlasse die Seite nicht, bis dein Ausbildungsfortschritt aktualisiert
+      wurde.
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
     view_library_source: Bibliotheksquelle ansehen
