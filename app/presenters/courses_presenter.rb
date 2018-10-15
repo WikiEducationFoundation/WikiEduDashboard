@@ -41,8 +41,11 @@ class CoursesPresenter
   end
 
   def search_courses(q)
-    courses.where('lower(title) like ? OR lower(school) like ? OR lower(term) like ?',
-                  "%#{q}%", "%#{q}%", "%#{q}%")
+    courses.joins(:instructors).where(
+      'lower(title) like ? OR lower(school) like ? ' \
+      'OR lower(term) like ? OR lower(username) like ?',
+      "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
+    )
   end
 
   def courses_by_recent_edits
