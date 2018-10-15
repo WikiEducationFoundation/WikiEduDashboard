@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 class Courses::SyllabusesController < ApplicationController
-  before_action :require_permissions, only: :update
+  before_action :validate, only: :update
 
   def update
-    @course = Course.find(params[:id])
     handle_syllabus_params
     if @course.save
       render json: { success: true, url: @course.syllabus.url }
@@ -14,6 +13,11 @@ class Courses::SyllabusesController < ApplicationController
   end
 
   private
+
+  def validate
+    @course = Course.find(params[:id])
+    raise NotPermittedError unless current_user&.can_edit?(@course)
+  end
 
   def handle_syllabus_params
     syllabus = params['syllabus']

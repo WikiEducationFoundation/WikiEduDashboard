@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/article_utils"
 
 class CategoriesController < ApplicationController
   respond_to :json
-  before_action :require_permissions, :set_course
+  before_action :set_course_and_validate
 
   def add_category
     set_wiki
@@ -25,8 +25,9 @@ class CategoriesController < ApplicationController
 
   private
 
-  def set_course
+  def set_course_and_validate
     @course = Course.find(params[:course_id])
+    raise NotPermittedError unless current_user&.can_edit?(@course)
   end
 
   def set_wiki

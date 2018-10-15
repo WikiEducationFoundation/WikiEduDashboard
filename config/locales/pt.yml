@@ -914,6 +914,9 @@ pt:
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
       a menos que entre com a sua conta.
     done: Concluído!
+    invalid: Desculpe, esse slide não existe!
+    wait: Não deixe a página, por favor, porque o progresso da sua formação está a
+      ser atualizado.
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
     view_library_source: ver a fonte da biblioteca
@@ -922,7 +925,7 @@ pt:
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro
-    header: Os ficheiros enviados ao Wikimedia Commons
+    header: Ficheiros carregados na wiki Wikimedia Commons
     image: Imagem
     label: Carregamentos
     loading: A carregar os envios...

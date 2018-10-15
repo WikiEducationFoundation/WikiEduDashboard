@@ -936,6 +936,9 @@ fr:
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
     done: Terminé !
+    invalid: Désolé, ce transparent n'existe pas !
+    wait: Veuillez ne pas quitter la page car la progression de votre formation est
+      en cours de mise à jour.
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
     view_library_source: afficher la source de la bibliothèque

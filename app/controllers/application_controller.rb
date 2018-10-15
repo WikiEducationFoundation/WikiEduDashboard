@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
 
   def require_permissions
     require_signed_in
-    course = Course.find_by(slug: params[:id])
+    course = Course.find_by!(slug: params[:id] || params[:slug] || params[:course_id])
     raise NotPermittedError unless current_user.can_edit? course
   end
 

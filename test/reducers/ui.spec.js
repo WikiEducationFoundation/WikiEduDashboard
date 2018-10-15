@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import '../testHelper';
 import ui from '../../app/assets/javascripts/reducers/ui.js';
 import * as actions from '../../app/assets/javascripts/actions/ui_actions_redux.js';
@@ -12,6 +13,9 @@ describe('ui reducer', () => {
   });
 
   it('toggles open key back to null', () => {
-    expect(ui({ openKey: '1234', articles: { articlesCurrent: 'articles-edited', scrollDebounce: false } }, actions.toggleUI('1234'))).to.deep.equal({ openKey: null, articles: { articlesCurrent: 'articles-edited', scrollDebounce: false } });
+    const initialState = { openKey: '1234', articles: { articlesCurrent: 'articles-edited', scrollDebounce: false } };
+    deepFreeze(initialState);
+
+    expect(ui(initialState, actions.toggleUI('1234'))).to.deep.equal({ openKey: null, articles: { articlesCurrent: 'articles-edited', scrollDebounce: false } });
   });
 });

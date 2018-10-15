@@ -1,9 +1,9 @@
 import React from 'react';
-import createClass from 'create-react-class';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
-const MultiSelectField = createClass({
+const MultiSelectField = createReactClass({
   displayName: 'MultiSelectField',
   propTypes: {
     label: PropTypes.string,

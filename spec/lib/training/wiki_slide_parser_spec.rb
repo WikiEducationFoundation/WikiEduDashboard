@@ -187,7 +187,7 @@ describe WikiSlideParser do
       output = described_class.new(source_wikitext.dup).title
       expect(output).to eq('E3: Situations you might encounter')
     end
-    it 'extracts title from translation-enabled source wikitext' do
+    it 'extracts title from translated source wikitext' do
       output = described_class.new(translated_wikitext.dup).title
       expect(output).to eq('E3: Situaciones que podrías enfrentar')
     end

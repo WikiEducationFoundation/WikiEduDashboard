@@ -21,6 +21,16 @@
 # Author: Watermelon juice
 ---
 tr:
+  number:
+    human:
+      decimal_units:
+        format: '%s%b'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Bu bir numara alanı. Çoğu tarayıcı tarafından oluşturulan butonlar,
       girişi artırır ve azaltır.
@@ -394,7 +404,7 @@ tr:
     end: Bitiş
     ended: Kurs bitti.
     enroll: Kaydol
-    enrollment: Kayıt
+    enrollment: Öğrenci Ekle/Kaldır
     courses_enrolled: Kaydolunan dersler
     error:
       exists: Bu kurs zaten var! Lütfen farklı bir başlık, okul veya dönemle tekrar
@@ -463,6 +473,7 @@ tr:
     nocourses: Herhangi bir kursa dahil değilsiniz.
     nocourse: herhangi bir kursa katılmamıştır.
     none: Hiçbiri
+    not_permitted: Bu kursu düzenleme yetkiniz yok.
     notify_untrained_confirmation: Bu, atanan eğitim modüllerini tamamlamak için geciken
       tüm öğrenciler için mesaj sayfalarında bir hatırlatma yayınlayacaktır. Bunu
       yapmak istediğinize emin misiniz?
@@ -478,6 +489,7 @@ tr:
       kayıt olabilirler:'
     rating_feedback: 'Makale için tahmini değerlendirme:'
     requested_accounts: İstenen hesaplar
+    revisions_doc: Son %{timeframe} gün içindeki düzenleme sayısı
     revisions_none: Bu dersin Vikipedi düzenleme faaliyeti bulunmamaktadır.
     school: Okul
     school_and_term: Kurum/Dönem
@@ -492,8 +504,8 @@ tr:
       Onaylamak için, Genel Bakış sayfasındaki bir kampanyaya ekleyin.
     submitted_and_pending_heading: Gönderilen ve Bekleyen Onay
     submitted_heading: Gönderilen Kurslar
-    submitted_note: Kursunuz gönderildi. Wiki Ed personeli bunu değerlendirecek ve
-      herhangi bir sorun olursa iletişime geçecektir.
+    submitted_note: Kursunuz gönderildi. Wiki Education personeli bunu değerlendirecek
+      ve herhangi bir sorun olursa iletişime geçecektir.
     suggestions_feedback: Bu özelliği geliştirmek için herhangi bir öneriniz var mı?
       Bilmemize izin ver!
     suggestions_sending: Geri Bildirim Gönderiliyor...
@@ -506,17 +518,29 @@ tr:
       türü ile ilgilidir.
     subject: Konu
     submitted: Gönderilen
+    tag_select: Bir etiket seç ya da oluştur
     tags: 'Etiketler:'
     term: Dönem
     timeline: Atama Detayları
     timeline_enabled: Zaman çizelgesi etkin
     timeline_link: Zaman çizelgesi
+    timeline_tooltip: Zaman Çizelgesini etkinleştirmek haftada bir haftalık aktiviteleri
+      belirlemenize ve eğitim modülleri atamanıza izin verir. Bu, Eğitim Programı
+      kursları ve diğer uzun, yüksek yapılandırılmış programlar için yararlıdır.
     time_zone_message: Başlangıç ve bitiş saatleri yerel saat diliminizde görüntülenir.
     title: Başlık
+    training_due: Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date} tarihine
+      kadar devam edecektir.
     training_nav: Eğitime git
+    training_overdue: Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date}
+      tarihine kadar devam etmiştir.
     unsubmitted: Gönderilmeyen Kurslar
     untrained: Eğitimsiz
     update_stats: İstatistikleri güncelle
+    uploads_none: Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek
+      Wikimedia Commons'a katkıda bulunmamıştır.
+    user_uploads_none: Bu kullanıcı, Wikimedia Commons'a herhangi bir görüntü veya
+      başka medya dosyası eklemedi.
     user_recent_uploads: Son Yüklenenler
     user_suggestions: 'Kullanıcı Önerileri:'
     user_suggestions_prompt: Makalenin editörleri için önerileriniz
@@ -634,7 +658,9 @@ tr:
     articles_edited: Makale Düzenlendi
     bytes_added: Bayt Eklendi
     characters: Karakter
+    char_added: Ekl. Krkter
     char_changed: Karakterler Değişti
+    char: Ekl. Krkter
     date_time: Tarih/Saat
     edit_count_description: Toplam Düzenleme
     per_user: '%{number}/kullanıcı'
@@ -676,6 +702,7 @@ tr:
     uploaded_by: Yükleyen
     usage_count: Kullanım Sayısı
   revisions:
+    chars_added: Ekl. Krkter
     class: Sınıf
     date_time: Tariq/Saat
     diff: fark
@@ -796,13 +823,19 @@ tr:
     next: Sonraki Sayfa
     page: Sayfa
     page_number: '%{total} sayfadan %{number}. sayfa'
+    previous: < Önceki
     table_of_contents: İçindekiler
     training_library: Eğitim Kütüphanesi
     logged_out: Çıkış yaptınız. Giriş yapmadığınız sürece bu modülü tamamlamak için
       kredi almayacaksınız.
     done: Yapıldı!
+    invalid: Üzgünüm, bu slayt mevcut değil!
+    wait: Eğitim ilerlemeniz güncellenirken lütfen sayfayı terk etmeyin.
     check_answer: Yanıtları Kontrol Et
     included_modules: Dahil Modüller
+    view_library_source: kütüphane kaynağını göster
+    view_module_source: modül kaynağını göster
+    reload_from_source: kaynaktan yeniden yükle
   uploads:
     credit: Katkılar
     file_name: Dosya Adı
@@ -812,6 +845,7 @@ tr:
     loading: Yüklemeler yükleniyor...
     none: Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek Wikimedia
       Commons'a katkıda bulunmamıştır.
+    select_label: Yükleyiciye göre filtrele
     time_doc: Yerel saatinizdeki her yükleme saati
     uploaded_at: Yükleme zamanı
     uploader: Yükleyen
@@ -847,7 +881,10 @@ tr:
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
+    characters_added_mainspace: Eklenen Karakter (makale)
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
+    characters_added_userspace: Eklenen Karakter (kullanıcı)
+    characters_added_draftspace: Eklenen Karakter (taslak)
     my_assigned: 'Atanan:'
     my_reviewing: 'İnceleme:'
     name: Ad
@@ -860,12 +897,17 @@ tr:
     recent_revisions: Son Düzenlemeler
     remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
+    revision_characters_and_views: 'Eklenen Karakter: %{characters}, Görüntüleme:
+      %{views}'
     revisions_doc: Bu editör tarafından son 7 günde yapılan düzenlemelerin sayısı
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
+    total_uploads: Toplam Yükleme
     training_incomplete: Eksik Eğitim
     training_module_name: Eğitim modülü
     training_module_status: Durum
+    user_training_status: Eğitim Durumu
+    user_no_training_status: Bu kullanıcı herhangi bir eğitim modülünü tamamlamadı.
     up_to_date_with_training: eğitim ile güncel
     uploads_doc: Wikimedia Commons'a yüklenen dosya sayısı
     username: Kullanıcı adı
@@ -879,7 +921,7 @@ tr:
       instructor: Eğitmen
       campus_volunteer: Kampüs Gönüllüsü
       online_volunteer: Çevrimiçi Gönüllü
-      wiki_ed_staff: Wiki Ed Ekibi
+      wiki_ed_staff: Wiki Eğitim Ekibi
   user_profiles:
     student_impact: '%{username} tarafından öğrenci olarak yapılan toplam etki'
     instructor_impact: '%{username} tarafından eğitmen olarak yapılan toplam etki'
@@ -905,6 +947,10 @@ tr:
       zaman çizelgesi oluşturur.
     assignment_type: Öğrenciler Vikipedi ödevi için ne tamamlayacak?
     course_dates: Kurs günleri
+    select_one_option: Lütfen 1 seçenek seçin.
+    minimum_options:
+      one: Lütfen, %{count} veya daha fazla seçenek seçin.
+      other: Lütfen, %{count} veya daha fazla seçenek seçin.
     read_less: Az oku
     read_more: Daha fazla oku
     review_selections: Lütfen aşağıdaki seçimlerinizi gözden geçirin. Bir seçimi düzenlemek
@@ -956,7 +1002,7 @@ tr:
       deneyin.
   survey:
     login_message: Zaman ayırdığın için teşekkürler. Ankete katılmak için lütfen Wiki
-      Ed gösterge paneline giriş yapın.
+      Eğitim gösterge paneline giriş yapın.
     notification_explanation: Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
       yanı sıra bildirim zamanlamasına göre de e-posta alırlar. Yapılmazsa yalnızca
       tarayıcı içi bildirimler gösterilecektir.
@@ -965,15 +1011,15 @@ tr:
     follow_up_explanation: Herhangi bir izleme e-postası istenmiyorsa boş bırakın.
     email:
       headline: Selam %{username},
-      message_line1: Umarız harika bir dönem geçirdiniz! Wiki Ed, kaynaklarımızı geliştirmek
-        ve Vikipedi ödevlerinize destek olmak için geri bildiriminizi bekliyor. Yanıtınız
-        mevcut tekliflerimizi iyileştirmek için çok önemli.
+      message_line1: Umarız harika bir dönem geçirdiniz! Wiki Eğitim, kaynaklarımızı
+        geliştirmek ve Vikipedi ödevlerinize destek olmak için geri bildiriminizi
+        bekliyor. Yanıtınız mevcut tekliflerimizi iyileştirmek için çok önemli.
       message_line2: Eğitmen anketimizi doldurmak için 15 dakikanızı harcamaya istekli
         misiniz? Vikipedi ile öğretimi daha da faydalı ve değerli bir deneyim haline
         getirmemize yardımcı olmak için aşağıdaki butona tıklayın.
       course: 'Kurs: %{course_info}'
       closing: İçtenlikle,
-      signed: '- Wiki Ed ekibi'
+      signed: '- Wiki Eğitim ekibi'
       link: Anketi Doldur
     follow_up:
       message: Bu, %{course_title} adlı kursunuzun anketi hakkında bir hatırlatmadır.
@@ -999,13 +1045,20 @@ tr:
     search_placeholder: Anahtar kelimenizi girin
     search: Arama
     tools: Araçlar
+    show_options: Seçenekleri Göster
+    hide_options: Seçenekleri Gizle
     keyword_search: Anahtar Kelime Arama
     category_search: Kategori Arama
     article_quality: Makale Kalitesi(0-100)
     more_results: Daha fazla sonuç
     fetched_articles: Getirilen Makaleler
     filtered_articles: Filtrelenen Makaleler
-    subheading_message: Haydi, ihtiyaçlarınıza uygun bir makale bulalım
+    searching_articles: Makaleleri Ara
+    subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
+      bulalım
     article_finder: Makale Bulucu
     submit: Gönder
+    relevanceIndex: İlgi İndeksi
+    assign_article_self: Kendini ata
+    unassign_article_self: Atanmamış Makaleler
 ...

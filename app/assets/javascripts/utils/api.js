@@ -297,56 +297,7 @@ const API = {
       });
   },
 
-  fetchAllTrainingModules() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/training_modules.json',
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
-  fetchTrainingModule(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/training_module.json?module_id=${opts.module_id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
-  setSlideCompleted(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/training_modules_users.json?\
-module_id=${opts.module_id}&\
-user_id=${opts.user_id}&\
-slide_id=${opts.slide_id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
+  
 
   // /////////
   // Setters #
@@ -495,11 +446,11 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  notifyOverdue(courseId) {
+  notifyOverdue(courseSlug) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',
-        url: `/courses/${courseId}/notify_untrained.json`,
+        url: `/courses/${courseSlug}/notify_untrained.json`,
         success(data) {
           alert('Students with overdue trainings notified!');
           return res(data);
@@ -529,12 +480,12 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  modify(model, courseId, data, add) {
+  modify(model, courseSlug, data, add) {
     const verb = add ? 'added' : 'removed';
     return new Promise((res, rej) =>
       $.ajax({
         type: (add ? 'POST' : 'DELETE'),
-        url: `/courses/${courseId}/${model}.json`,
+        url: `/courses/${courseSlug}/${model}.json`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         success(data) {

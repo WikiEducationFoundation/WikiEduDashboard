@@ -129,3 +129,29 @@ export const linkToSalesforce = (courseId, salesforceId) => dispatch => {
     .then(data => dispatch({ type: LINKED_TO_SALESFORCE, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
+
+// Actions not handled by redux, except for failures
+
+export const updateSalesforceRecord = courseId => dispatch => {
+  return API.updateSalesforceRecord(courseId)
+    .then(data => dispatch({ type: 'UPDATED_SALESFORCE_RECORD', data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const deleteCourse = courseSlug => dispatch => {
+  return API.deleteCourse(courseSlug)
+    .then(data => dispatch({ type: 'DELETED_COURSE', data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const notifyOverdue = courseSlug => dispatch => {
+  return API.notifyOverdue(courseSlug)
+    .then(data => dispatch({ type: 'NOTIFIED_OVERDUE', data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const greetStudents = courseId => dispatch => {
+  return API.greetStudents(courseId)
+    .then(data => dispatch({ type: 'GREETED_STUDENTS', data }))
+    .catch(data => ({ type: API_FAIL, data }));
+};

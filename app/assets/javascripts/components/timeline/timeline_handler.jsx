@@ -8,9 +8,8 @@ import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-import ServerActions from '../../actions/server_actions.js';
+import { fetchAllTrainingModules } from '../../actions/training_actions';
 
-import TrainingStore from '../../training/stores/training_store.js';
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
 import { getWeeksArray } from '../../selectors';
@@ -27,7 +26,8 @@ const TimelineHandler = createReactClass({
     weeks: PropTypes.array.isRequired,
     loading: PropTypes.bool,
     editableBlockIds: PropTypes.array,
-    all_training_modules: PropTypes.array
+    all_training_modules: PropTypes.array,
+    fetchAllTrainingModules: PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -35,7 +35,7 @@ const TimelineHandler = createReactClass({
   },
 
   componentDidMount() {
-    return ServerActions.fetchAllTrainingModules();
+    return this.props.fetchAllTrainingModules();
   },
 
   _cancelBlockEditable(blockId) {
@@ -119,7 +119,7 @@ const TimelineHandler = createReactClass({
           cancelGlobalChanges={this._cancelGlobalChanges}
           updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
-          all_training_modules={TrainingStore.getAllModules()}
+          all_training_modules={this.props.training.modules}
           addWeek={this.props.addWeek}
           addBlock={this.props.addBlock}
           deleteBlock={this.props.deleteBlock}
@@ -140,7 +140,8 @@ const TimelineHandler = createReactClass({
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading,
-  editableBlockIds: state.timeline.editableBlockIds
+  editableBlockIds: state.timeline.editableBlockIds,
+  training: state.training
 });
 
 const mapDispatchToProps = {
@@ -154,7 +155,8 @@ const mapDispatchToProps = {
   updateBlock,
   insertBlock,
   restoreTimeline,
-  deleteAllWeeks
+  deleteAllWeeks,
+  fetchAllTrainingModules
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);

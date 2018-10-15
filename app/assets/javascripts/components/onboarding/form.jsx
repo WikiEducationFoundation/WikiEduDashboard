@@ -7,6 +7,12 @@ import { connect } from 'react-redux';
 import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
+const isEnrollUrl = (returnToParam) => {
+  if (returnToParam.includes('/enroll')) { return true; }
+  if (returnToParam.includes('%2Fenroll')) { return true; }
+  return false;
+};
+
 const Form = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
@@ -61,6 +67,11 @@ const Form = createReactClass({
   render() {
     const submitText = this.state.sending ? 'Sending' : 'Submit';
     const disabled = this.state.sending;
+
+    // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
+    // That means they are trying to join a course as a student, so assume that they are one.
+    const instructorFormClass = isEnrollUrl(this.props.returnToParam) ? 'form-group hidden' : 'form-group';
+
     return (
       <div className="form">
         <h1>Let’s get some business out of the way.</h1>
@@ -79,7 +90,7 @@ const Form = createReactClass({
               Your email is only used for notifications and will not be shared.
             </p>
           </div>
-          <div className="form-group">
+          <div className={instructorFormClass}>
             <label>Are you an instructor? <span className="form-required-indicator">*</span></label>
             <div className="radio-group">
               <div className={`radio-wrapped ${this.state.instructor === 'true' ? 'checked' : ''}`}>

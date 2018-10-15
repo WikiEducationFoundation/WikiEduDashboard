@@ -1,7 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TrainingActions from '../actions/training_actions.js';
+import { connect } from 'react-redux';
+import { setSelectedAnswer } from '../../actions/training_actions.js';
 const md = require('../../utils/markdown_it.js').default();
 
 const Quiz = createReactClass({
@@ -24,7 +25,7 @@ const Quiz = createReactClass({
   },
 
   setSelectedAnswer(id) {
-    return TrainingActions.setSelectedAnswer(id);
+    return this.props.setSelectedAnswer(id);
   },
 
   setAnswer(e) {
@@ -94,4 +95,8 @@ const Quiz = createReactClass({
   }
 });
 
-export default Quiz;
+const mapDispatchToProps = {
+  setSelectedAnswer
+};
+
+export default connect(null, mapDispatchToProps)(Quiz);

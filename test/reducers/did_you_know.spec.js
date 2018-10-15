@@ -1,3 +1,5 @@
+
+import deepFreeze from 'deep-freeze';
 import '../testHelper';
 import reducer from '../../app/assets/javascripts/reducers/did_you_know.js';
 import { RECEIVE_DYK } from '../../app/assets/javascripts/constants';
@@ -22,6 +24,7 @@ describe('Did you know reducer menu reducer', () => {
       sortKey: null,
       loading: true
     };
+    deepFreeze(initialState);
 
     expect(
       reducer(initialState, {

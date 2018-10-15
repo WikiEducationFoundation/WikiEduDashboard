@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ServerActions from '../../actions/server_actions.js';
 import { enableForCourse } from '../../actions/chat_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -13,7 +12,8 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
+import { removeUser } from '../../actions/user_actions';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -26,7 +26,10 @@ const AvailableActions = createReactClass({
     enableAccountRequests: PropTypes.func.isRequired,
     enableForCourse: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
-    linkToSalesforce: PropTypes.func.isRequired
+    linkToSalesforce: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired,
+    greetStudents: PropTypes.func.isRequired,
+    removeUser: PropTypes.func.isRequired
   },
 
   join() {
@@ -58,10 +61,11 @@ const AvailableActions = createReactClass({
   },
 
   leave() {
-    const course = this.props.course.slug;
-    const currentUserId = this.props.current_user.id;
+    const courseSlug = this.props.course.slug;
+    const userRecord = { user: { user_id: this.props.current_user.id, role: 0 } };
+    const leaveCourse = this.props.removeUser;
     const onConfirm = function () {
-      return ServerActions.remove('user', course, { user: { user_id: currentUserId, role: 0 } });
+      return leaveCourse(courseSlug, userRecord);
     };
     const confirmMessage = I18n.t('courses.leave_confirmation');
     this.props.initiateConfirm(confirmMessage, onConfirm);
@@ -75,7 +79,7 @@ const AvailableActions = createReactClass({
 
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
     if (enteredTitle.trim() === this.props.course.title.trim()) {
-      return ServerActions.deleteCourse(this.props.course.slug);
+      return this.props.deleteCourse(this.props.course.slug);
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
@@ -199,9 +203,9 @@ const AvailableActions = createReactClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
-          <GreetStudentsButton course={course} current_user={this.props.current_user} />
+          <GreetStudentsButton course={course} current_user={this.props.current_user} greetStudents={this.props.greetStudents} />
           {controls}
-          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} />
+          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} updateSalesforceRecord={this.props.updateSalesforceRecord} />
         </div>
       </div>
     );
@@ -215,7 +219,11 @@ const mapDispatchToProps = {
   enableAccountRequests,
   enableForCourse,
   needsUpdate,
-  linkToSalesforce
+  linkToSalesforce,
+  updateSalesforceRecord,
+  deleteCourse,
+  greetStudents,
+  removeUser
 };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

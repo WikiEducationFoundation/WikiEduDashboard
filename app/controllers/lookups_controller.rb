@@ -4,7 +4,6 @@
 class LookupsController < ApplicationController
   include CourseHelper
 
-  before_action :require_permissions
   respond_to :json
 
   # Used to generate list of existing campaigns for pulldown
@@ -17,6 +16,7 @@ class LookupsController < ApplicationController
 
   # Used to generate list of existing tags for pulldown
   def tag
+    require_admin_permissions
     @model = 'tag'
     @key = 'tag'
     @values = Tag.all.pluck(:tag)

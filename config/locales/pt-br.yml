@@ -25,6 +25,16 @@
 # Author: Trigonometria87
 ---
 pt-br:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Isso é um campo numérico. Os botões mostrados pela maioria dos navegadores
       vão aumentar ou reduzir o resultado.
@@ -903,6 +913,7 @@ pt-br:
     logged_out: Sua sessão de usuário não está aberta. Você não receberá crédito ao
       completar este módulo, a não ser que inicie uma sessão.
     done: Concluído!
+    invalid: Desculpe que o slide não existe!
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
     view_library_source: ver fonte da biblioteca

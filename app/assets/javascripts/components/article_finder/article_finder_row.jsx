@@ -57,10 +57,10 @@ const ArticleFinderRow = createReactClass({
   render() {
     let pageviews;
     if (this.props.article.fetchState === 'REVISIONSCORE_RECEIVED') {
-     pageviews = (<div className="results-loading"> &nbsp; &nbsp; </div>);
+      pageviews = (<div className="results-loading"> &nbsp; &nbsp; </div>);
     }
     if (this.props.article.pageviews) {
-      pageviews = this.props.article.pageviews;
+      pageviews = Math.round(this.props.article.pageviews);
     } else if (this.props.article.fetchState === 'PAGEVIEWS_RECEIVED') {
       pageviews = (<div>Page Views not found!</div>);
     }
@@ -68,9 +68,9 @@ const ArticleFinderRow = createReactClass({
     let revScore;
     if (_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
       if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
-       revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
+        revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.revScore) {
-        revScore = (<td>{this.props.article.revScore}</td>);
+        revScore = (<td>{Math.round(this.props.article.revScore)}</td>);
       } else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
         revScore = (<td><div>Estimation Score not found!</div></td>);
       } else {
@@ -91,7 +91,7 @@ const ArticleFinderRow = createReactClass({
               <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
-          );
+        );
       } else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
         grade = (
           <td className="tooltip-trigger">
@@ -100,7 +100,7 @@ const ArticleFinderRow = createReactClass({
               <p>{I18n.t('articles.rating_docs.?')}</p>
             </div>
           </td>
-          );
+        );
       } else {
         grade = (<td />);
       }
@@ -120,7 +120,7 @@ const ArticleFinderRow = createReactClass({
           <td>
             <button className={className} onClick={() => this.assignArticle()}>{I18n.t('article_finder.add_available_article')}</button>
           </td>
-          );
+        );
       }
     } else if (this.props.courseSlug && this.props.current_user.role === STUDENT_ROLE) {
       if (this.props.assignment) {
@@ -136,7 +136,7 @@ const ArticleFinderRow = createReactClass({
           <td>
             <button className={className} onClick={() => this.assignArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
           </td>
-          );
+        );
       }
     }
 

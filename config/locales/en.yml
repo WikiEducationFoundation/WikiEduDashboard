@@ -61,6 +61,7 @@ en:
     request_account_create: Create an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
+    no_results: "No results found for '%{query}'"
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -524,6 +525,7 @@ en:
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     school_and_term: Institution/Term
+    search_courses: Search courses
     start: Start
     start_typing: Start typing
     students: Students
@@ -673,6 +675,7 @@ en:
     revisions_none: This project has no recent editing activity.
     school: Institution
     school_and_term: Institution/When
+    search_courses: Search programs
     start: Activity tracking start
     student_editors: Editors
     students: Editors
@@ -882,6 +885,8 @@ en:
     training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
     done: Done!
+    invalid: Sorry that slide does not exist!
+    wait: Please do not leave the page as your training progress is being updated.
     check_answer: Check Answer
     included_modules: Included Modules
     view_library_source: view library source

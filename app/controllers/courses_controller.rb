@@ -13,10 +13,7 @@ require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions, only: %i[create
-                                               update
-                                               destroy
-                                               notify_untrained
+  before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
 
   ################
@@ -24,6 +21,7 @@ class CoursesController < ApplicationController
   ################
 
   def create
+    require_signed_in
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user)
@@ -187,7 +185,7 @@ class CoursesController < ApplicationController
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    return unless user_signed_in? && current_user.instructor?(@course)
+    raise NotPermittedError unless current_user&.can_edit?(@course)
   end
 
   def handle_course_announcement(instructor)
@@ -253,13 +251,17 @@ class CoursesController < ApplicationController
   end
 
   def update_params
+    course_attributes = course_params.to_h
+
     if params[:course].key?(:home_wiki)
       home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
                                      project: params.dig(:course, :home_wiki, :project)
-      course_params.merge!(home_wiki_id: home_wiki[:id])
-    else
-      course_params
+      course_attributes[:home_wiki_id] = home_wiki[:id]
     end
+
+    course_attributes.delete(:passcode) if params[:course][:passcode] == '****'
+
+    course_attributes
   end
 
   def instructor_role_description
