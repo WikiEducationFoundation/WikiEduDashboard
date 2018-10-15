@@ -42,7 +42,7 @@ class CoursesPresenter
 
   def search_courses(q)
     courses.joins(:instructors).where(
-      'lower(title) like ? OR lower(school) like ?' \
+      'lower(title) like ? OR lower(school) like ? ' \
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
     )
