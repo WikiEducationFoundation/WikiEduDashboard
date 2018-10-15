@@ -91,8 +91,18 @@ describe CoursesPresenter do
     subject { described_class.new(current_user: nil, courses_list: Course.all) }
 
     let!(:course) do
-      create(:course, title: 'Math Foundations of Informatics',
+      create(:course, id: 3, title: 'Math Foundations of Informatics',
                       school: 'Indiana University', term: 'Fall 2017')
+    end
+
+    let!(:user) { create(:user, username: 'ragesoss', id: 666, trained: true) }
+
+    let!(:courses_user) do
+      create(:courses_user,
+             id: 1,
+             course_id: 3,
+             user_id: 666,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
 
     context 'find course based on title' do
@@ -112,6 +122,13 @@ describe CoursesPresenter do
     context 'find course based on term' do
       it 'returns courses when searching' do
         search = 'fall'
+        expect(subject.search_courses(search)).not_to be_empty
+      end
+    end
+
+    context 'find course based on instructor' do
+      it 'returns courses when searching' do
+        search = 'rage'
         expect(subject.search_courses(search)).not_to be_empty
       end
     end
