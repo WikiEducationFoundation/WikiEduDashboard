@@ -6,7 +6,7 @@
 
 .container
   = form_tag explore_path, class: 'explore-courses', method: :get do
-    = text_field_tag(:search, '', placeholder: "Search the courses")
+    = text_field_tag(:search, '', placeholder: t("#{@presenter.course_string_prefix}.search_courses"))
     %button{type: 'submit'}
       %i.icon.icon-search
   = render 'search', query: @query, results: @results  

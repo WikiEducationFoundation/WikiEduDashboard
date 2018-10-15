@@ -525,6 +525,7 @@ en:
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     school_and_term: Institution/Term
+    search_courses: Search courses
     start: Start
     start_typing: Start typing
     students: Students
@@ -674,6 +675,7 @@ en:
     revisions_none: This project has no recent editing activity.
     school: Institution
     school_and_term: Institution/When
+    search_courses: Search programs
     start: Activity tracking start
     student_editors: Editors
     students: Editors
