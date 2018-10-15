@@ -68,16 +68,17 @@ const ArticleViewer = createReactClass({
   // It takes the data sent as the parameter and appends to the current Url
   addParamToURL(urlParam) {
     if (!this.props.showArticleFinder) {
-      window.history.pushState({}, '', `?${urlParam}`);
+      window.history.pushState({}, '', `?showArticle=${urlParam}`);
     }
   },
 
-  // It takes a node to check if it doesn't exist
   // It takes a synthetic event to check if it exist
+  // It checks if the node(viewer) doesn't exist
   // if either case is true, it removes all parameters from the URL(starting from the ?)
-  removeParamFromURL(node, event) {
+  removeParamFromURL(event) {
+    const viewer = document.getElementsByClassName('article-viewer')[0];
     if (!this.props.showArticleFinder) {
-      if (node === undefined || event !== undefined) {
+      if (viewer === undefined || event !== undefined) {
         window.history.replaceState(null, null, window.location.pathname);
       }
     }
@@ -99,14 +100,13 @@ const ArticleViewer = createReactClass({
       this.fetchWhocolorHtml();
     }
     // Add article id in the URL
-    this.addParamToURL(`showArticle=${this.props.article.id}`);
+    this.addParamToURL(this.props.article.id);
   },
 
   hideArticle(e) {
     this.setState({ showArticle: false });
-    const viewer = document.getElementsByClassName('article-viewer')[0];
     // removes the article parameter from the URL
-    this.removeParamFromURL(viewer, e);
+    this.removeParamFromURL(e);
   },
 
   handleClickOutside() {
