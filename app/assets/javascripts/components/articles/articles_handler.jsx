@@ -43,7 +43,7 @@ const ArticlesHandler = createReactClass({
   },
 
   componentDidMount() {
-    return window.addEventListener('scroll', _.throttle(this.handleScroll, 150));
+    return window.addEventListener('scroll', _.throttle(this.handleScroll, 1500));
   },
 
   onChangeFilter(e) {
@@ -140,7 +140,13 @@ const ArticlesHandler = createReactClass({
                   </select>
                 </div>
               </div>
-              <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
+              <ArticleList
+                articles={this.props.articles}
+                sortBy={this.props.sortArticles}
+                course={this.props.course}
+                current_user={this.props.current_user}
+                wikidataLabels={this.props.wikidataLabels}
+              />
               {showMoreButton}
             </div>
             <div id="assignments" ref="articlesAssigned">
@@ -148,11 +154,22 @@ const ArticlesHandler = createReactClass({
               <div className="section-header">
                 <h3>{I18n.t('articles.assigned')}</h3>
               </div>
-              <AssignmentList {...this.props} />
+              <AssignmentList
+                articles={this.props.articles}
+                assignments={this.props.assignments}
+                course={this.props.course}
+                current_user={this.props.current_user}
+                wikidataLabels={this.props.wikidataLabels}
+              />
             </div>
             <div ref="availableArticles">
               <a id="available-articles" className="articles__anchor" />
-              <AvailableArticles {...this.props} />
+              <AvailableArticles
+                course_id={this.props.course_id}
+                course={this.props.course}
+                current_user={this.props.current_user}
+                assignments={this.props.assignments}
+              />
             </div>
             {categories}
           </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
@@ -17,6 +18,10 @@ const AssignmentList = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     wikidataLabels: PropTypes.object
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   },
 
   hasAssignedUser(group) {

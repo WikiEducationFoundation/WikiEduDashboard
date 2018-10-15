@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'react-router';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
@@ -17,6 +18,10 @@ const AvailableArticles = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     assignments: PropTypes.array
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   },
 
   render() {
