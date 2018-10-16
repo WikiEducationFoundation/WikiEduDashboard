@@ -84,7 +84,12 @@ const ArticlesHandler = createReactClass({
 
     let header;
     if (Features.wikiEd) {
-      header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+      header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
+      <span className="tooltip-indicator" />
+      <div className="tooltip dark">
+        <p>{I18n.t('articles.cross_wiki_tracking')}</p>
+      </div>
+    </h3>
     } else {
       header = (
         <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
@@ -116,8 +121,9 @@ const ArticlesHandler = createReactClass({
       );
     }
 
-    const filteredArticles = this.filterArticles();
+    
     const articles = this.props.articles;
+    let filteredArticles = articles;
     let filterArticlesSelect;
     if (articles.some(a => a.new_article) && articles.some(a => !a.new_article)) {
       filterArticlesSelect = (
@@ -127,6 +133,7 @@ const ArticlesHandler = createReactClass({
           <option value="both">New and existing</option>
         </select>
       );
+      filteredArticles = this.filterArticles();
     }
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect) {
