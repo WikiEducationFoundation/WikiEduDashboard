@@ -109,43 +109,50 @@ const ArticlesHandler = createReactClass({
       });
 
       filterWikis = (
-        <div className="filter-select">
-          <select className="filters" name="filters" onChange={this.onChangeFilter}>
-            <option value="all">All</option>
-            {wikiOptions}
-          </select>
-        </div>
+        <select onChange={this.onChangeFilter}>
+          <option value="all">All</option>
+          {wikiOptions}
+        </select>
       );
     }
 
-    const filterArticlesSelect = (
-      <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
-        <option value="new">New</option>
-        <option value="existing">Existing</option>
-        <option value="both">Both</option>
-      </select>
-    );
-
-    const articles = this.filterArticles();
-
+    const filteredArticles = this.filterArticles();
+    const articles = this.props.articles;
+    let filterArticlesSelect;
+    if (articles.some(a => a.new_article) && articles.some(a => !a.new_article)) {
+      filterArticlesSelect = (
+        <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
+          <option value="new">New</option>
+          <option value="existing">Existing</option>
+          <option value="both">New and existing</option>
+        </select>
+      );
+    }
+    let filterLabel;
+    if (!!filterWikis || !!filterArticlesSelect) {
+      filterLabel = <b>Filters:</b>;
+    }
     return (
       <div>
         <div id="articles">
           <div className="section-header">
             {header}
             <CourseOresPlot course={this.props.course} />
-            {filterWikis}
-            {filterArticlesSelect}
-            <div className="sort-select">
-              <select className="sorts" name="sorts" onChange={this.sortSelect}>
-                <option value="rating_num">{I18n.t('articles.rating')}</option>
-                <option value="title">{I18n.t('articles.title')}</option>
-                <option value="character_sum">{I18n.t('metrics.char_added')}</option>
-                <option value="view_count">{I18n.t('metrics.view')}</option>
-              </select>
+            <div className="wrap-filters">
+              {filterLabel}
+              {filterArticlesSelect}
+              {filterWikis}
+              <div className="article-sort">
+                <select className="sorts" name="sorts" onChange={this.sortSelect}>
+                  <option value="rating_num">{I18n.t('articles.rating')}</option>
+                  <option value="title">{I18n.t('articles.title')}</option>
+                  <option value="character_sum">{I18n.t('metrics.char_added')}</option>
+                  <option value="view_count">{I18n.t('metrics.view')}</option>
+                </select>
+              </div>
             </div>
           </div>
-          <ArticleList {...this.props} articles={articles} sortBy={this.props.sortArticles} />
+          <ArticleList {...this.props} articles={filteredArticles} sortBy={this.props.sortArticles} />
           {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
