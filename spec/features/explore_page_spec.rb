@@ -103,7 +103,7 @@ describe 'the explore page', type: :feature, js: true do
     end
   end
 
-  describe 'course search', focus: true do
+  describe 'course search' do
     let(:course2) do
       create(:course, title: 'Cool course', school: 'Here',
                       term: 'Now', slug: 'Here/Cool_course_(Now)')
