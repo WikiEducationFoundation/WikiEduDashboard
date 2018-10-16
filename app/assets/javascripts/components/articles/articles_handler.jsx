@@ -28,6 +28,10 @@ const ArticlesHandler = createReactClass({
     loadingAssignments: PropTypes.bool
   },
 
+  getInitialState() {
+    return { filter: 'both' };
+  },
+
   componentWillMount() {
     if (this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
@@ -51,6 +55,21 @@ const ArticlesHandler = createReactClass({
 
   sortSelect(e) {
     return this.props.sortArticles(e.target.value);
+  },
+
+  filterSelect(e) {
+    this.setState({ filter: e.target.value });
+  },
+
+  filterArticles() {
+    switch (this.state.filter) {
+      case 'new':
+        return this.props.articles.filter(a => a.new_article);
+      case 'existing':
+        return this.props.articles.filter(a => !a.new_article);
+      default:
+        return this.props.articles;
+    }
   },
 
   render() {
@@ -99,6 +118,16 @@ const ArticlesHandler = createReactClass({
       );
     }
 
+    const filterArticlesSelect = (
+      <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
+        <option value="new">New</option>
+        <option value="existing">Existing</option>
+        <option value="both">Both</option>
+      </select>
+    );
+
+    const articles = this.filterArticles();
+
     return (
       <div>
         <div id="articles">
@@ -106,6 +135,7 @@ const ArticlesHandler = createReactClass({
             {header}
             <CourseOresPlot course={this.props.course} />
             {filterWikis}
+            {filterArticlesSelect}
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="rating_num">{I18n.t('articles.rating')}</option>
@@ -115,7 +145,7 @@ const ArticlesHandler = createReactClass({
               </select>
             </div>
           </div>
-          <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
+          <ArticleList {...this.props} articles={articles} sortBy={this.props.sortArticles} />
           {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
