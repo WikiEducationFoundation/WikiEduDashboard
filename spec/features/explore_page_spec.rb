@@ -102,4 +102,23 @@ describe 'the explore page', type: :feature, js: true do
       expect(page.find('#courses .table tbody tr:first-child .revisions').text).to eq('1')
     end
   end
+
+  describe 'course search', focus: true do
+    let(:course2) do
+      create(:course, title: 'Cool course', school: 'Here',
+                      term: 'Now', slug: 'Here/Cool_course_(Now)')
+    end
+
+    before do
+      create(:courses_user, course: course2, user: user, role: 1)
+    end
+
+    it 'returns courses that match the search term' do
+      visit '/explore'
+      expect(page).not_to have_content('Cool course')
+      fill_in('search', with: 'cool')
+      find('input#search').send_keys(:enter)
+      expect(page).to have_content('Cool course')
+    end
+  end
 end
