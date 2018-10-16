@@ -44,7 +44,7 @@
     "gulp-css-flipper": "^1.0.2",
     "gulp-csslint": "^1.0.1",
     "gulp-eslint": "^5.0.0",
-    "gulp-htmlhint": "^1.0.0",
+    "gulp-htmlhint": "^2.2.1",
     "gulp-iconfont": "^10.0.2",
     "gulp-imagemin": "^4.1.0",
     "gulp-jshint": "^2.1.0",
