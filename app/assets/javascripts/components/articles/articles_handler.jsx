@@ -116,19 +116,15 @@ const ArticlesHandler = createReactClass({
       );
     }
 
-    const articles = this.props.articles;
-    let filteredArticles = articles;
-    let filterArticlesSelect;
-    if (articles.some(a => a.new_article) && articles.some(a => !a.new_article)) {
-      filterArticlesSelect = (
-        <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
-          <option value="new">New</option>
-          <option value="existing">Existing</option>
-          <option value="both">New and existing</option>
-        </select>
-      );
-      filteredArticles = this.filterArticles();
-    }
+    const filterArticlesSelect = (
+      <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
+        <option value="new">New</option>
+        <option value="existing">Existing</option>
+        <option value="both">New and existing</option>
+      </select>
+    );
+    const filteredArticles = this.filterArticles();
+
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect) {
       filterLabel = <b>Filters:</b>;
