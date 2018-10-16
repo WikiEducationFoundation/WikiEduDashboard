@@ -77,10 +77,8 @@ const ArticleViewer = createReactClass({
   // if either case is true, it removes all parameters from the URL(starting from the ?)
   removeParamFromURL(event) {
     const viewer = document.getElementsByClassName('article-viewer')[0];
-    if (!this.props.showArticleFinder) {
-      if (viewer === undefined || event !== undefined) {
-        window.history.replaceState(null, null, window.location.pathname);
-      }
+    if ((!this.props.showArticleFinder) && (!viewer || event)) {
+      window.history.replaceState(null, null, window.location.pathname);
     }
   },
 
