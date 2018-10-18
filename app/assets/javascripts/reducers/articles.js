@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { sortByKey } from '../utils/model_utils';
-import { RECEIVE_ARTICLES, SORT_ARTICLES, SET_PROJECT_FILTER } from '../constants';
+import { RECEIVE_ARTICLES, SORT_ARTICLES, SET_PROJECT_FILTER, SET_NEWNESS_FILTER } from '../constants';
 
 const initialState = {
   articles: [],
@@ -12,7 +12,9 @@ const initialState = {
   },
   wikis: [],
   wikiFilter: null,
-  loading: true
+  newnessFilter: null,
+  loading: true,
+  newnessFilterEnabled: false
 };
 
 const SORT_DESCENDING = {
@@ -35,14 +37,18 @@ export default function articles(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES: {
       const wikis = _.uniqWith(_.map(action.data.course.articles, mapWikis), _.isEqual);
+      const _articles = action.data.course.articles;
+      const newnessFilterEnabled = _articles.some(a => a.new_article) && _articles.some(a => !a.new_article);
       return {
         ...state,
-        articles: action.data.course.articles,
+        articles: _articles,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.articles, action.limit),
         wikis: wikis,
         wikiFilter: state.wikiFilter,
-        loading: false
+        newnessFilter: state.newnessFilter,
+        newnessFilterEnabled,
+        loading: false,
       };
     }
     case SORT_ARTICLES: {
@@ -60,6 +66,15 @@ export default function articles(state = initialState, action) {
         return { ...state, wikiFilter: null };
       }
       return { ...state, wikiFilter: action.wiki };
+    }
+    case SET_NEWNESS_FILTER: {
+      switch (action.newness) {
+        case 'new':
+        case 'existing':
+          return { ...state, newnessFilter: action.newness };
+        default:
+          return state;
+      }
     }
     default:
       return state;
