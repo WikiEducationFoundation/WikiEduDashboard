@@ -186,6 +186,7 @@ lv:
     private: Privāts
     revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
     school: Skola
+    search_courses: Meklēt kursus
     start: Sākums
     students: Studenti
     students_none: Šim kursam nav studentu.
@@ -238,6 +239,7 @@ lv:
     join_course: Pievienoties programmai
     request_accounts: Pieprasīt kontus
     school: Iestāde
+    search_courses: Meklēt programmas
     start: Darbību sekošanas sākums
     student_editors: Redaktori
     students: Redaktori

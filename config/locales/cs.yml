@@ -13,6 +13,7 @@
 # Author: Matěj Suchánek
 # Author: Meliganai
 # Author: Mormegil
+# Author: Patriccck
 # Author: Rosičák
 # Author: Urbanecm
 # Author: Utar
@@ -24,6 +25,12 @@ cs:
     human:
       decimal_units:
         format: '%n %u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Toto je číselné pole. Tlačítka možná zobrazená prohlížečem mohou
       zvýšit nebo snížit hodnotu.
@@ -54,6 +61,7 @@ cs:
     request_account_create: Vytvořit účet
     search: Zeptat se
     search_results: 'Výsledky pro: „%{search_terms}“'
+    no_results: Žádné výsledky pro '%{query}'
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_wikipedia: Nebo se přihlaste na Wikipedii
     sign_up_log_in_extended: s Wikipedií
@@ -481,6 +489,7 @@ cs:
     nocourses: Neúčastníte se žádných kurzů.
     nocourse: se neúčastnil(a) žádných kurzů.
     none: Nic
+    not_permitted: Nemáte oprávnění pro editaci tohoto kurzu.
     notify_untrained_confirmation: Toto přidá upozornění na diskusi všem studentům,
       kteří ještě nedokončili přiřazené trénovací moduly. Jste si jist, že toto chcete?
     no_available_actions: Žádné možnosti k dispozici
@@ -489,6 +498,7 @@ cs:
     passcode: Heslo
     passcode_none: Žádné heslo
     passcode_prompt: 'Zadejte heslo, abyste se mohli přidat:'
+    please_log_in: Přihlaste se prosím.
     private: Soukromý
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
@@ -527,6 +537,7 @@ cs:
       pouze pro kurzy typu ClassroomProgram.
     subject: Předmět
     submitted: Odevzdáno
+    tags: 'Štítky:'
     term: Semestr
     timeline: Detaily zadání
     timeline_enabled: Rozvrh je aktivován

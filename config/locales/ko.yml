@@ -46,6 +46,7 @@ ko:
     request_account_create: 계정 만들기
     search: 질문하기
     search_results: '다음 결과: ''%{search_terms}'''
+    no_results: '''%{query}''의 결과를 찾을 수 없습니다'
     sign_up_extended: 위키백과에 로그인하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다

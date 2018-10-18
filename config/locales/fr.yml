@@ -64,6 +64,7 @@ fr:
     request_account_create: Créer un compte
     search: poser une question
     search_results: 'Résultats pour : ''%{search_terms}'''
+    no_results: Aucun résultat trouvé pour '%{query}'
     sign_up_extended: S’inscrire avec Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -543,6 +544,7 @@ fr:
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
     school_and_term: Institution/Terme
+    search_courses: Chercher des cours
     start: Démarrer
     start_typing: Commencer à taper
     students: Étudiants
@@ -700,6 +702,7 @@ fr:
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
     school_and_term: Institution/Quand
+    search_courses: Chercher des programmes
     start: Début du suivi d’activité
     student_editors: Éditeurs
     students: Éditeurs

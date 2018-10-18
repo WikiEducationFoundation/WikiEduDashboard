@@ -9,6 +9,7 @@
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
+# Author: Ndecouck
 # Author: Optilete
 # Author: Patio
 # Author: Ragesoss
@@ -325,6 +326,7 @@ nl:
       een bezoek te brengen aan de volgende URL:'
     revisions_none: Dit project heeft geen recente Wikipediabewerkingen.
     school: Instelling
+    search_courses: Zoekprogramma
     student_editors: Bewerkers
     students: Bewerkers
     students_none: Dit project heeft geen ingeschreven bewerkers.

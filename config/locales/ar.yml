@@ -56,6 +56,7 @@ ar:
     request_account_create: إنشاء حساب
     search: طرح سؤال
     search_results: 'نتائج البحث عن: ''%{search_terms}'''
+    no_results: لم يتم العثور على نتائج لـ'%{query}'
     sign_up_extended: تسجيل الدخول عبر ويكيبيديا
     sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
     sign_up_log_in_extended: باستخدام ويكبيديا
@@ -488,6 +489,7 @@ ar:
     revisions_none: هذه الدورة ليس لها نشاط في تحرير ويكيبيديا مؤخرا.
     school: مدرسة
     school_and_term: مؤسسة/فصل دراسي
+    search_courses: البحث في الدورات
     start: البداية
     start_typing: ابدأ الكتابة
     students: الطلاب
@@ -633,6 +635,7 @@ ar:
     revisions_none: هذا المشروع ليس لديه نشاط تحريري مؤخرا.
     school: مؤسسة
     school_and_term: مؤسسة/عندما
+    search_courses: البحث عن البرامج
     start: بدء تعقب النشاط
     student_editors: المحررون
     students: المحررون

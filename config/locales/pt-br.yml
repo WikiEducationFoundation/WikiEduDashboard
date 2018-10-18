@@ -64,6 +64,7 @@ pt-br:
     request_account_create: Criar uma conta
     search: perguntar
     search_results: 'Resultados para: ''%{search_terms}'''
+    no_results: Nenhum resultado encontrado para '%{query}'
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_wikipedia: Ou registe-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
@@ -526,6 +527,7 @@ pt-br:
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
     school_and_term: Instituição/Quando
+    search_courses: Pesquisar cursos
     start: Iniciar
     start_typing: Começar a escrever
     students: Estudantes
@@ -681,6 +683,7 @@ pt-br:
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
+    search_courses: Pesquisar programas
     start: Início da atividade de monitorização
     student_editors: Editores
     students: Editores
@@ -914,6 +917,8 @@ pt-br:
       completar este módulo, a não ser que inicie uma sessão.
     done: Concluído!
     invalid: Desculpe que o slide não existe!
+    wait: Não deixe a página, por favor, porque o progresso da sua formação está a
+      ser atualizado.
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
     view_library_source: ver fonte da biblioteca

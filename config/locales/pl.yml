@@ -41,6 +41,7 @@ pl:
     report_problem: Zgłoś problem
     request_account_create: Utwórz konto
     search: zadaj pytanie
+    no_results: Nie znaleziono wyników dla '%{query}'
     sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
     sign_up: Zarejestruj się

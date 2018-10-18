@@ -154,6 +154,7 @@ bg:
       subject: Тема
     current: Текущи курсове
     delete_course: Изтриване на курс
+    delete_suggestion: Изтриване
     duration: Продължителност на курса
     edit_course_dates: Редактиране на датите на курса
     enable_chat: Разрешаване на чата
@@ -181,6 +182,7 @@ bg:
       редактори от тяхното първо редактиране на всяка статия
     yourcourses: Вашите курсове
   courses_generic:
+    cancel: Отказ
     courses: Програми
     campaigns: 'Кампании:'
     campaign_courses: Програми от %{title}

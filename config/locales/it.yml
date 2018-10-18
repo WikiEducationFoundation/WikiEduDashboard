@@ -42,6 +42,7 @@ it:
     report_problem: Segnala un problema
     search: chiedi una domanda
     search_results: 'Risultati per: ''%{search_terms}'''
+    no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati

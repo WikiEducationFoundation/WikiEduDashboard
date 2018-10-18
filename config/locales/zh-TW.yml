@@ -55,6 +55,7 @@ zh-TW:
     request_account_create: 建立帳號
     search: 提出問題
     search_results: 結果：「%{search_terms}」
+    no_results: 查無「%{query}」的結果
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
@@ -417,6 +418,7 @@ zh-TW:
     revisions_none: 此課程最近沒有編輯。
     school: 學校
     school_and_term: 機構/學期
+    search_courses: 搜尋課程
     start: 開始日
     start_typing: 開始輸入
     students: 學生
@@ -544,6 +546,7 @@ zh-TW:
     revisions_none: 此專案目前沒有編輯活動。
     school: 機構
     school_and_term: 機構/何時
+    search_courses: 搜尋方案
     start: 活動追蹤起始
     student_editors: 編輯者
     students: 編輯者

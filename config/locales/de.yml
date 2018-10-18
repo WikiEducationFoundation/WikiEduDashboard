@@ -45,6 +45,7 @@ de:
     request_account_create: Ein Benutzerkonto erstellen
     search: eine Frage stellen
     search_results: 'Ergebnisse für: „%{search_terms}“'
+    no_results: Keine Ergebnisse für „%{query}“ gefunden
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_wikipedia: Oder auf Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
@@ -521,6 +522,7 @@ de:
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
     school_and_term: Einrichtung/Dauer
+    search_courses: Kurse suchen
     start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
@@ -678,6 +680,7 @@ de:
     revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
     school_and_term: Einrichtung/Wann
+    search_courses: Programme suchen
     start: Beginn der Aktivitätsverfolgung
     student_editors: Autoren
     students: Autoren
