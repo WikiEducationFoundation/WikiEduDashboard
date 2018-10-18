@@ -8,9 +8,9 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles, filterArticles } from '../../actions/articles_actions.js';
+import { fetchArticles, sortArticles, filterArticles, filterNewness } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import { getWikiArticles } from '../../selectors';
+import { getArticlesByNewness } from '../../selectors';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -26,10 +26,6 @@ const ArticlesHandler = createReactClass({
     loadingArticles: PropTypes.bool,
     assignments: PropTypes.array,
     loadingAssignments: PropTypes.bool
-  },
-
-  getInitialState() {
-    return { filter: 'both' };
   },
 
   componentWillMount() {
@@ -49,27 +45,16 @@ const ArticlesHandler = createReactClass({
     return this.props.filterArticles({ language: null, project: value[0] });
   },
 
+  onNewnessChange(e) {
+    return this.props.filterNewness(e.target.value);
+  },
+
   showMore() {
     return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
 
   sortSelect(e) {
     return this.props.sortArticles(e.target.value);
-  },
-
-  filterSelect(e) {
-    this.setState({ filter: e.target.value });
-  },
-
-  filterArticles() {
-    switch (this.state.filter) {
-      case 'new':
-        return this.props.articles.filter(a => a.new_article);
-      case 'existing':
-        return this.props.articles.filter(a => !a.new_article);
-      default:
-        return this.props.articles;
-    }
   },
 
   render() {
@@ -116,14 +101,16 @@ const ArticlesHandler = createReactClass({
       );
     }
 
-    const filterArticlesSelect = (
-      <select className="filter-articles" defaultValue="both" onChange={this.filterSelect}>
-        <option value="new">New</option>
-        <option value="existing">Existing</option>
-        <option value="both">New and existing</option>
-      </select>
-    );
-    const filteredArticles = this.filterArticles();
+    let filterArticlesSelect;
+    if (this.props.newnessFilterEnabled) {
+      filterArticlesSelect = (
+        <select className="filter-articles" defaultValue="both" onChange={this.onNewnessChange}>
+          <option value="new">New</option>
+          <option value="existing">Existing</option>
+          <option value="both">New and existing</option>
+        </select>
+      );
+    }
 
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect) {
@@ -149,7 +136,7 @@ const ArticlesHandler = createReactClass({
               </div>
             </div>
           </div>
-          <ArticleList {...this.props} articles={filteredArticles} sortBy={this.props.sortArticles} />
+          <ArticleList {...this.props} articles={this.props.articles} sortBy={this.props.sortArticles} />
           {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
@@ -167,19 +154,21 @@ const ArticlesHandler = createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: getWikiArticles(state),
+  articles: getArticlesByNewness(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
   wikidataLabels: state.wikidataLabels.labels,
   loadingArticles: state.articles.loading,
   assignments: state.assignments.assignments,
-  loadingAssignments: state.assignments.loading
+  loadingAssignments: state.assignments.loading,
+  newnessFilterEnabled: state.articles.newnessFilterEnabled
 });
 
 const mapDispatchToProps = {
   fetchArticles,
   sortArticles,
   filterArticles,
+  filterNewness,
   fetchAssignments
 };
 

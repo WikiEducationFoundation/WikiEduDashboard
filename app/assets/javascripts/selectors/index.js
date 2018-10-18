@@ -12,6 +12,7 @@ const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
 const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
+const getNewnessFilter = state => state.articles.newnessFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
@@ -91,6 +92,19 @@ export const getWikiArticles = createSelector(
       return editedArticles;
     }
     return getFiltered(editedArticles, { ...wikiFilter });
+  }
+);
+
+export const getArticlesByNewness = createSelector(
+  [getWikiArticles, getNewnessFilter], (articles, newnessFilter) => {
+    switch (newnessFilter) {
+      case 'new':
+        return articles.filter(a => a.new_article);
+      case 'existing':
+        return articles.filter(a => !a.new_article);
+      default:
+        return articles;
+    }
   }
 );
 
