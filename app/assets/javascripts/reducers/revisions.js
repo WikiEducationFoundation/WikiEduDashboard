@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
+import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   revisions: [],
@@ -27,16 +27,16 @@ export default function revisions(state = initialState, action) {
         loading: false
       };
     case SORT_REVISIONS: {
-      const newState = { ...state };
-      if (action.key === state.sort.sortKey) {
-        newState.revisions = _.sortBy(state.revisions, action.key).reverse();
-        newState.sort.sortKey = null;
-      } else {
-        newState.revisions = _.sortBy(state.revisions, action.key);
-        newState.sort.sortKey = action.key;
-      }
-      newState.sort.key = action.key;
-      return newState;
+      const absolute = action.key === 'characters';
+      const desc = action.key === state.sort.sortKey;
+      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute);
+      return { ...state,
+        revisions: sortedRevisions.newModels,
+        sort: {
+          sortKey: desc ? null : action.key,
+          key: action.key
+        }
+      };
     }
     default:
       return state;
