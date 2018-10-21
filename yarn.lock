@@ -5941,13 +5941,13 @@ gulp-rename@^1.2.3:
   resolved "https://registry.yarnpkg.com/gulp-rename/-/gulp-rename-1.2.3.tgz#37b75298e9d3e6c0fe9ac4eac13ce3be5434646b"
   integrity sha512-CmdPM0BjJ105QCX1fk+j7NGhiN/1rCl9HLGss+KllBS/tdYadpjTxqdKyh/5fNV+M3yjT1MFz5z93bXdrTyzAw==
 
-gulp-rev@^8.1.1:
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/gulp-rev/-/gulp-rev-8.1.1.tgz#b1106bfaa5653106a11d1612eb0cffde540cb196"
-  integrity sha1-sRBr+qVlMQahHRYS6wz/3lQMsZY=
+gulp-rev@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-rev/-/gulp-rev-9.0.0.tgz#fe51b181c5fbbebfe740b64748d6980827e82878"
+  integrity sha512-Ytx/uzDA2xNxHlPG8GReS1ut00msd0HlKDk9Ai/0xF2yvg+DAeGRAviCFlQzQmdZtqAoXznYspwWoGEoxDvhyA==
   dependencies:
     modify-filename "^1.1.0"
-    plugin-error "^0.1.2"
+    plugin-error "^1.0.1"
     rev-hash "^2.0.0"
     rev-path "^2.0.0"
     sort-keys "^2.0.0"
