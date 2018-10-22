@@ -7,6 +7,10 @@
 # Author: Saederup92
 ---
 da:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
   application:
     cancel: Annullér
     create_accounts: Opret Wikipedia konti
@@ -169,8 +173,13 @@ da:
     alerts: Alarmer
     all_courses: Alle kurser
     already_enrolled: Du er allerede del af «%{title}»!
+    already_exists: Dette findes allerede for dette kursus!
+    archived: Arkiverede kurser
     actions: Handlinger
     articles: Artikler
+    articles_none: Dette kursus har ikke redigeret nogen artikler.
+    assignment_end: Opgaveslut
+    assignment_start: Opgavestart
     calendar:
       legend_class_meeting: Klassetræf
       legend_class_not_meeting: Ingen møder planlagt
@@ -180,6 +189,7 @@ da:
     campaign_articles: '%{title} artikler'
     campaign_courses: '%{title} Kurser'
     campaign_select: Vælg en kampagne
+    campaign_users: '%{title} Skribenter'
     course: Kursus
     course_description: Kurser
     courses: Kurser
@@ -211,16 +221,25 @@ da:
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
+    dismiss_survey: Luk
     edit_count: Antal redigeringer
     edit_course_dates: Rediger kursusdatoer
     enable_chat: Aktiver chat
     ended: Kurset er afsluttet.
     error:
       invalid_language_or_project: Ugyldigt sprog/projekt
+    expected_students: Forventede studenter
+    features_feedback: 'Automatiske forslag:'
+    feedback: Tilbagemelding
+    instructor:
+      one: Instruktør
+      other: Instruktører
     instructors: Undervisere
     join: Tilslut
     join_course: Tilslut kursus
     join_prompt: Tilslut '%{title}'?
+    join_no_passcode: Er du sikker på, du vil tilslutte dig dette kursus?
+    leave_confirmation: Er du sikker på, du vil forlade dette kursus?
     leave_course: Forlad kursus
     loading: Indlæser...
     my_articles: Mine artikler
@@ -230,9 +249,12 @@ da:
     new_account_submit: Anmod om konto
     nocourses: Du deltager ikke i nogen kurser.
     none: Ingen
+    no_available_actions: Ingen tilgængelige handlinger
     overview: Hjem
+    please_log_in: Venligst log på.
     private: Privat
     school: Skole
+    search_courses: Søg i kilder
     students: Studerende
     students_taught: Underviste studenter
     students_count: '# Studerende'
@@ -246,6 +268,7 @@ da:
     title: Titel
     training_nav: Gå til træning
     untrained: Utrænet
+    update_stats: Opdater statistik
     view: Vis kursus
     view_page: Vis kursusside
     view_wiki: Vis på Wikipedia
@@ -289,6 +312,7 @@ da:
     join_course: Tilslut program
     leave_course: Forlad program
     school: Institution
+    search_courses: Søg i programmer
     student_editors: Skribenter
     students: Skribenter
     students_short: Skribenter
@@ -315,6 +339,7 @@ da:
     char: Tegn tilføjet
     date_time: Dato/tid
     edit_count_description: Totalt antal ændringer
+    revisions: Seneste redigeringer
     view_count_description: Artikel visninger
     view: Visninger
     word_count: Ord tilføjet
@@ -328,6 +353,7 @@ da:
     image: Billede
     file_name: Filnavn
     possible_plagiarism: Muligt plagiat
+    recent_edits: Seneste redigeringer
     uploaded_by: Uploaded af
   revisions:
     chars_added: Tegn tilføjet
@@ -375,6 +401,7 @@ da:
     uploaded_by: Uploaded af
   users:
     assign_articles_done: Udført
+    contributions: Brugerbidrag
     editors: Skribenter
     edits_by: 'Redigeringer af:'
     enroll_confirmation: Er du sikker på du vil tilføje %{username}?
@@ -383,6 +410,7 @@ da:
     loading: Laster brugere ...
     name: Navn
     no_articles: Ingen artikler
+    recent_revisions: Seneste redigeringer
     training_incomplete: Træning ikke færdiggjord
     training_module_name: Træningsmodul
     training_module_status: Status
@@ -409,10 +437,15 @@ da:
     email:
       headline: Halløj, %{username}
       course: 'Kursus: %{course_info}'
+      closing: Med venlig hilsen,
+      link: Tag brugerundersøgelse
+  wiki_api:
+    create_account_reason: Denne bruger deltager i %{event}.
   onboarding:
     supplementary:
       header: Hvordan hørte du om os?
       where_did_you_hear: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
+      why_are_you_here: Hvad kunne du tænke dig at gøre?
   article_finder:
     page_assessment_class: Klasse
     remove_article: Fjern artikel
