@@ -55,7 +55,7 @@
     "gulp-newer": "^1.4.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.0",
-    "gulp-rename": "^1.2.3",
+    "gulp-rename": "^1.4.0",
     "gulp-rev": "^9.0.0",
     "gulp-shell": "^0.6.5",
     "gulp-sketch": "^1.0.5",
