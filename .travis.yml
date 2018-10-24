@@ -24,8 +24,6 @@ before_install:
 - export PATH=$PATH:`yarn global bin`
 - export DB=test
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
-- nvm install stable
-- nvm use stable
 - node --version
 - yarn --version
 install:
