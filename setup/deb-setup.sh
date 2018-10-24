@@ -52,7 +52,7 @@ if ! which curl >/dev/null; then
   printf '[*] Installing Curl... \n'
   output_line "sudo apt-get install -y curl" && print_success "${CLEAR_LINE}[+] Curl installed \n"
 else
-  print_error "${CLEAR_LINE}Curl Found\n"
+  printf "${CLEAR_LINE}Curl Found\n"
 fi
 
 printf '[*] Adding keys... \n'
@@ -68,7 +68,7 @@ output_line "sudo apt-get update" && print_success "${CLEAR_LINE}[+] Updated Pac
 
 printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
-  print "${CLEAR_LINE}Node already installed\n"
+  printf "${CLEAR_LINE}Node already installed\n"
 else
   output_line "curl -sL https://deb.nodesource.com/setup_8.x" "sudo -E bash -"
   sudo apt-get install -y nodejs &&\
