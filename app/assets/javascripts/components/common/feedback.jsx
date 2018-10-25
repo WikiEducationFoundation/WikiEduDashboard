@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
+
 const Feedback = createReactClass({
   displayName: 'Feedback',
 

@@ -1,5 +1,6 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
+
 const Flux = new McFly();
 
 const ServerActions = Flux.createActions({

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+
 const INITIAL_LIMIT = 3;
 
 export default class TextResults extends Component {

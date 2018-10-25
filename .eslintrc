@@ -38,7 +38,6 @@
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "jsx-a11y/label-has-associated-control": 0,
     "import/extensions": 0,
-    "import/newline-after-import": 0,
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
     "no-underscore-dangle": 0,

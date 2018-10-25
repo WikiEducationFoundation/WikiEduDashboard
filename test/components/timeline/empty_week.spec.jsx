@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 
 import '../../testHelper';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
+
 const makeSpacesUniform = (str) => { return str.replace(/\s{1,}/g, ' '); };
 
 describe('EmptyWeek', () => {

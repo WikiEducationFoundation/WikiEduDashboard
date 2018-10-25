@@ -5,6 +5,7 @@ import path from 'path';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../config.js';
+
 const plugins = loadPlugins();
 
 gulp.task('webpack', ['jquery-uls'], (cb) => {

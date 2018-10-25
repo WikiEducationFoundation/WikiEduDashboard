@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import merge from 'merge-stream';
 import config from '../config.js';
+
 const plugins = loadPlugins();
 
 gulp.task('minify', () => {

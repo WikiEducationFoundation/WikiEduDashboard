@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
 import CourseDateUtils from '../../utils/course_date_utils';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Milestones = createReactClass({

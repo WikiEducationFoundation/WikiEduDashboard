@@ -7,7 +7,9 @@
 // Polyfill
 import '@babel/polyfill';
 import Rails from 'rails-ujs';
+
 require('location-origin');
+
 Rails.start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 
 $(() => {
