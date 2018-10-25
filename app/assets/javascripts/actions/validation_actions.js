@@ -1,4 +1,5 @@
 import McFly from 'mcfly';
+
 const Flux = new McFly();
 
 const ValidationActions = Flux.createActions({

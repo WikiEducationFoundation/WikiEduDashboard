@@ -3,6 +3,7 @@
 
 import McFly from 'mcfly';
 import _ from 'lodash';
+
 const Flux = new McFly();
 
 

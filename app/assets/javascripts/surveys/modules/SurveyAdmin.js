@@ -3,9 +3,11 @@ import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
+
 require('chosen-js');
 
 const markdown = require('../../utils/markdown_it.js').default();
+
 const CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged';
 const CONDITIONAL_COMPARISON_OPERATORS = `\
 <option>></option>

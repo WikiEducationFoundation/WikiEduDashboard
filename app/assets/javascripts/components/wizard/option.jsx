@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Option = createReactClass({

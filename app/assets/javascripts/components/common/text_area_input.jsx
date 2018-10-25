@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import InputHOC from '../high_order/input_hoc.jsx';
+
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
 // This is a flexible text input box. It switches between edit and read mode,

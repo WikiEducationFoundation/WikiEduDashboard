@@ -2,6 +2,7 @@ import sinon from 'sinon';
 
 import '../testHelper';
 import { updateCourse, persistCourse } from '../../app/assets/javascripts/actions/course_actions.js';
+
 describe('CourseActions', () => {
   beforeEach(() => {
     sinon.stub($, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });

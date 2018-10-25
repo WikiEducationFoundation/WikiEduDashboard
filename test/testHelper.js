@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import reducer from '../app/assets/javascripts/reducers';
 
 const jsdom = require('jsdom');
+
 const { JSDOM } = jsdom;
 
 global.document = new JSDOM('<!doctype html><html><body><div data-current_user=\'{ "admin": false, "id": null }\' id=\'react_root\'></div></body></html>', {

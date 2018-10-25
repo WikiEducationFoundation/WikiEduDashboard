@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setSelectedAnswer } from '../../actions/training_actions.js';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Quiz = createReactClass({
