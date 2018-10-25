@@ -31,9 +31,9 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
 
   const qNumbers = _.map(wikidataEntities, 'title');
-  _.chunk(qNumbers, 30).forEach(someQNumbers => {
+  _.chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: types.RECEIVE_WIKIDATA_LABELS,
           data: resp,

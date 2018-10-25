@@ -23,35 +23,35 @@ const getWeeks = state => state.timeline.weeks;
 const getBlocks = state => state.timeline.blocks;
 
 export const getInstructorUsers = createSelector(
-  [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
+  [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
 );
 
 export const getStudentUsers = createSelector(
-  [getUsers], (users) => getFiltered(users, { role: STUDENT_ROLE })
+  [getUsers], users => getFiltered(users, { role: STUDENT_ROLE })
 );
 
 export const getStudentCount = createSelector(
-  [getStudentUsers], (users) => users.length
+  [getStudentUsers], users => users.length
 );
 
 export const getStaffUsers = createSelector(
-  [getUsers], (users) => _.sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
+  [getUsers], users => _.sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
 );
 
 export const getProgramManagers = createSelector(
-  [getStaffUsers], (users) => getFiltered(users, { program_manager: true })
+  [getStaffUsers], users => getFiltered(users, { program_manager: true })
 );
 
 export const getContentExperts = createSelector(
-  [getStaffUsers], (users) => getFiltered(users, { content_expert: true })
+  [getStaffUsers], users => getFiltered(users, { content_expert: true })
 );
 
 export const getOnlineVolunteerUsers = createSelector(
-  [getUsers], (users) => _.sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
+  [getUsers], users => _.sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
 export const getCampusVolunteerUsers = createSelector(
-  [getUsers], (users) => _.sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
+  [getUsers], users => _.sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
 export const getCurrentUser = createSelector(
@@ -97,7 +97,7 @@ export const getWikiArticles = createSelector(
 export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
-    return _.filter(alerts, (alert) => _.includes(alertFilters, alert.type));
+    return _.filter(alerts, alert => _.includes(alertFilters, alert.type));
   }
 );
 
@@ -132,7 +132,7 @@ export const getFilteredArticleFinder = createSelector(
 export const getFilteredUploads = createSelector(
   [getUploads, getUploadFilters], (uploads, uploadFilters) => {
     if (!uploadFilters.length) { return uploads; }
-    return _.filter(uploads, (upload) => _.includes(uploadFilters, upload.uploader));
+    return _.filter(uploads, upload => _.includes(uploadFilters, upload.uploader));
   }
 );
 
@@ -141,7 +141,7 @@ export const getWeeksArray = createSelector(
     const weeksArray = [];
     const weekIds = Object.keys(weeks);
     const blocksByWeek = {};
-    Object.keys(blocks).forEach(blockId => {
+    Object.keys(blocks).forEach((blockId) => {
       const block = blocks[blockId];
       if (blocksByWeek[block.week_id]) {
         blocksByWeek[block.week_id].push(block);
@@ -150,7 +150,7 @@ export const getWeeksArray = createSelector(
       }
     });
 
-    weekIds.forEach(weekId => {
+    weekIds.forEach((weekId) => {
       const newWeek = weeks[weekId];
       newWeek.blocks = blocksByWeek[weekId] || [];
       weeksArray.push(newWeek);

@@ -18,10 +18,10 @@ const fetchAssignmentsPromise = (courseSlug) => {
   });
 };
 
-export const fetchAssignments = (courseSlug) => (dispatch) => {
+export const fetchAssignments = courseSlug => (dispatch) => {
   return (
     fetchAssignmentsPromise(courseSlug)
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: types.RECEIVE_ASSIGNMENTS,
           data: resp
@@ -31,19 +31,19 @@ export const fetchAssignments = (courseSlug) => (dispatch) => {
   );
 };
 
-export const addAssignment = (assignment) => (dispatch) => {
+export const addAssignment = assignment => (dispatch) => {
   return API.createAssignment(assignment)
     .then(resp => dispatch({ type: types.ADD_ASSIGNMENT, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
-export const deleteAssignment = (assignment) => (dispatch) => {
+export const deleteAssignment = assignment => (dispatch) => {
   return API.deleteAssignment(assignment)
     .then(resp => dispatch({ type: types.DELETE_ASSIGNMENT, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
-export const updateAssignment = (assignment) => (dispatch) => {
+export const updateAssignment = assignment => (dispatch) => {
   return API.updateAssignment(assignment)
     .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));

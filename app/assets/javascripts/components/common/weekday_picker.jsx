@@ -183,15 +183,15 @@ const WeekdayPicker = createReactClass({
 
     let onClick = null;
     if (onWeekdayClick) {
-      onClick = (e) => this.handleWeekdayClick(e, weekday, modifiers);
+      onClick = e => this.handleWeekdayClick(e, weekday, modifiers);
     }
     let onMouseEnter = null;
     if (onWeekdayMouseEnter) {
-      onMouseEnter = (e) => this.handleWeekdayMouseEnter(e, weekday, modifiers);
+      onMouseEnter = e => this.handleWeekdayMouseEnter(e, weekday, modifiers);
     }
     let onMouseLeave = null;
     if (onWeekdayMouseLeave) {
-      onMouseLeave = (e) => this.handleWeekdayMouseLeave(e, weekday, modifiers);
+      onMouseLeave = e => this.handleWeekdayMouseLeave(e, weekday, modifiers);
     }
 
     return (
@@ -199,7 +199,7 @@ const WeekdayPicker = createReactClass({
         key={weekday} className={className} tabIndex={tabIndex}
         aria-pressed={ariaSelected}
         onClick= {onClick}
-        onKeyDown={(e) => this.handleDayKeyDown(e, weekday, modifiers)}
+        onKeyDown={e => this.handleDayKeyDown(e, weekday, modifiers)}
         onMouseEnter={onMouseEnter}
         onMouseLeave= {onMouseLeave}
       >

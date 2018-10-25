@@ -9,7 +9,7 @@ const CourseDetails = createReactClass({
   },
 
   render() {
-    const elements = this.props.courses.map(course => {
+    const elements = this.props.courses.map((course) => {
       return (
         <a className="course" key={`${course.course_slug}-${course.user_role}`} href={`/courses/${course.course_slug}`}>
           <div className="button border">{I18n.t('courses.view_page')}</div>

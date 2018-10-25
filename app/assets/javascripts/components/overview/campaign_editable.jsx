@@ -62,7 +62,7 @@ const CampaignEditable = createReactClass({
   render() {
     // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
 
-    const campaignList = this.props.campaigns.map(campaign => {
+    const campaignList = this.props.campaigns.map((campaign) => {
       const removeButton = (
         <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
       );
@@ -75,7 +75,7 @@ const CampaignEditable = createReactClass({
 
     let campaignSelect;
     if (this.props.availableCampaigns.length > 0) {
-      const campaignOptions = this.props.availableCampaigns.map(campaign => {
+      const campaignOptions = this.props.availableCampaigns.map((campaign) => {
         return { label: campaign, value: campaign };
       });
 

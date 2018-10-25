@@ -66,7 +66,7 @@ export const fetchAllTrainingModules = () => (dispatch) => {
 
 export const fetchTrainingModule = (opts = {}) => (dispatch) => {
   return fetchTrainingModulePromise(opts)
-    .then(resp => {
+    .then((resp) => {
       const valid = !!resp.training_module.slides.filter(o => o.slug === opts.slide_id).length;
       dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.slide_id, valid }) });
 
@@ -76,7 +76,7 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
     }).catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
-export const setSlideCompleted = (opts) => (dispatch, getState) => {
+export const setSlideCompleted = opts => (dispatch, getState) => {
   // No need to ping the server if the module is already complete.
   if (getState().training.completed) { return; }
 
@@ -85,7 +85,7 @@ export const setSlideCompleted = (opts) => (dispatch, getState) => {
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
-export const toggleMenuOpen = (opts) => (dispatch) => {
+export const toggleMenuOpen = opts => (dispatch) => {
   return dispatch({
     type: MENU_TOGGLE,
     data: {
@@ -94,7 +94,7 @@ export const toggleMenuOpen = (opts) => (dispatch) => {
   });
 };
 
-export const setSelectedAnswer = (answer) => (dispatch) => {
+export const setSelectedAnswer = answer => (dispatch) => {
   return dispatch({
     type: SET_SELECTED_ANSWER,
     data: {
@@ -103,7 +103,7 @@ export const setSelectedAnswer = (answer) => (dispatch) => {
   });
 };
 
-export const setCurrentSlide = (slideId) => (dispatch) => {
+export const setCurrentSlide = slideId => (dispatch) => {
   return dispatch({
     type: SET_CURRENT_SLIDE,
     data: {

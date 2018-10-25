@@ -152,7 +152,7 @@ const Timeline = createReactClass({
       const elTop = el.getBoundingClientRect().top - bodyTop;
       const topOffset = 90;
       if (scrollTop >= elTop - topOffset) {
-        Array.prototype.forEach.call(navItems, item => {
+        Array.prototype.forEach.call(navItems, (item) => {
           return item.classList.remove('is-current');
         }
         );

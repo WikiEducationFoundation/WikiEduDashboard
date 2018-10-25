@@ -64,7 +64,7 @@ const StudentList = createReactClass({
 
   render() {
     const toggleDrawer = this.props.toggleUI;
-    const students = this.props.students.map(student => {
+    const students = this.props.students.map((student) => {
       if (student.real_name) {
         const nameParts = student.real_name.trim().toLowerCase().split(' ');
         student.first_name = nameParts[0];
@@ -86,7 +86,7 @@ const StudentList = createReactClass({
       );
     });
 
-    const drawers = this.props.students.map(student => {
+    const drawers = this.props.students.map((student) => {
       const drawerKey = `drawer_${student.id}`;
       const isOpen = this.props.openKey === drawerKey;
       return (

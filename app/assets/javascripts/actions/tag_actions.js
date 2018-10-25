@@ -17,10 +17,10 @@ const fetchTagsPromise = (courseId) => {
   });
 };
 
-export const fetchTags = courseId => dispatch => {
+export const fetchTags = courseId => (dispatch) => {
   return (
     fetchTagsPromise(courseId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: RECEIVE_TAGS,
           data
@@ -46,7 +46,7 @@ const fetchAllTagsPromise = () => {
   });
 };
 
-export const fetchAllTags = () => dispatch => {
+export const fetchAllTags = () => (dispatch) => {
   return fetchAllTagsPromise()
     .then(data => dispatch({ type: RECEIVE_ALL_TAGS, data }))
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
@@ -69,10 +69,10 @@ const addTagPromise = (courseId, tag) => {
   });
 };
 
-export const addTag = (courseId, tag) => dispatch => {
+export const addTag = (courseId, tag) => (dispatch) => {
   return (
     addTagPromise(courseId, tag)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: ADD_TAG,
           data
@@ -99,10 +99,10 @@ const removeTagPromise = (courseId, tag) => {
   });
 };
 
-export const removeTag = (courseId, tag) => dispatch => {
+export const removeTag = (courseId, tag) => (dispatch) => {
   return (
     removeTagPromise(courseId, tag)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: REMOVE_TAG,
           data

@@ -43,21 +43,21 @@ const grantAdminPromise = (username, upgrade) => {
 };
 
 export function fetchAdminUsers() {
-  return dispatch => {
+  return (dispatch) => {
     return fetchAdminUsersPromise()
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: SET_ADMIN_USERS,
           data: resp,
         });
       })
-      .catch(response => {
+      .catch((response) => {
         dispatch({ type: API_FAIL, data: response });
       });
   };
 }
 
-export const upgradeAdmin = (username) => (dispatch) => {
+export const upgradeAdmin = username => (dispatch) => {
   // grant a user admin status
   // username: user's username
     dispatch({
@@ -106,7 +106,7 @@ export const upgradeAdmin = (username) => (dispatch) => {
       });
 };
 
-export const downgradeAdmin = username => dispatch => {
+export const downgradeAdmin = username => (dispatch) => {
   // remove a user's admin status
   // username: user's username
   dispatch({
@@ -129,7 +129,7 @@ export const downgradeAdmin = username => dispatch => {
       );
 
       fetchAdminUsersPromise()
-        .then(resp => {
+        .then((resp) => {
           dispatch({
             type: SET_ADMIN_USERS,
             data: resp,

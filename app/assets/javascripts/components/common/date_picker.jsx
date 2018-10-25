@@ -107,7 +107,7 @@ const DatePicker = createReactClass({
   },
 
   getTimeDropdownOptions(type) {
-    return _.range(0, type === 'hour' ? 24 : 60).map(value => {
+    return _.range(0, type === 'hour' ? 24 : 60).map((value) => {
       return (
         <option value={value} key={`timedropdown-${type}-${value}`}>
           {(`00${value}`).slice(-2)}

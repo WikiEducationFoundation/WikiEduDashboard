@@ -239,7 +239,7 @@ const SurveyAdmin = {
   comparisonConditional() {
     this.$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass('hidden');
     this.$conditional_value_number_field.removeClass('hidden');
-    return this.$conditional_value_number_field.on('blur', e => {
+    return this.$conditional_value_number_field.on('blur', (e) => {
       let conditionalString = '';
       conditionalString += `${this.$conditional_question_select.val()}|`;
       conditionalString += `${this.$conditional_operator_select.val()}|`;

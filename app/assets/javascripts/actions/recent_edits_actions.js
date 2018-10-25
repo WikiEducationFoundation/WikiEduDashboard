@@ -16,7 +16,7 @@ const _fetchRecentEdits = (opts = {}) => {
     );
   };
 
-export const fetchRecentEdits = (opts = {}) => dispatch => {
+export const fetchRecentEdits = (opts = {}) => (dispatch) => {
   return (
     _fetchRecentEdits(opts)
       .then(resp =>

@@ -1,7 +1,7 @@
 import { RECEIVE_DYK, SORT_DYK, API_FAIL } from '../constants';
 import API from '../utils/api.js';
 
-export const fetchDYKArticles = (opts = {}) => dispatch => {
+export const fetchDYKArticles = (opts = {}) => (dispatch) => {
   return (
     API.fetchDykArticles(opts)
       .then(resp =>

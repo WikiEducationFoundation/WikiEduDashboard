@@ -111,7 +111,7 @@ const GetHelpButton = createReactClass({
       const wikipediaHelpUser = this.wikipediaHelpUser();
       wikipediaHelpButton = (
         <span className="contact-wikipedia-help" key={`${wikipediaHelpUser.username}-wikipedia-help`}>
-          <a href="#" className="wikipedia-help-link button dark small stacked" onClick={(e) => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
+          <a href="#" className="wikipedia-help-link button dark small stacked" onClick={e => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
           <br />
         </span>
       );
@@ -121,7 +121,7 @@ const GetHelpButton = createReactClass({
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
-            <a href="#" className="program-help-link button dark stacked small" onClick={(e) => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
+            <a href="#" className="program-help-link button dark stacked small" onClick={e => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
             <br />
           </span>
         );
@@ -131,7 +131,7 @@ const GetHelpButton = createReactClass({
       const dashboardHelpUser = this.dashboardHelpUser();
       dashboardHelpButton = (
         <span className="contact-dashboard-help" key={`${dashboardHelpUser.username}-dashboard-help`}>
-          <a href="#" className="dashboard-help-link button dark stacked small" onClick={(e) => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
+          <a href="#" className="dashboard-help-link button dark stacked small" onClick={e => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
           <br />
         </span>
       );

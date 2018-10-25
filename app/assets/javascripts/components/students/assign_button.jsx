@@ -12,7 +12,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import AddAvailableArticles from '../articles/add_available_articles';
 import { ASSIGNED_ROLE } from '../../constants';
 
-const resetState = (component) => () => {
+const resetState = component => () => {
   component.setState(component.getInitialState());
 };
 
@@ -197,7 +197,7 @@ const AssignButton = createReactClass({
       );
     }
 
-    let assignments = this.props.assignments.map(ass => {
+    let assignments = this.props.assignments.map((ass) => {
       let removeButton;
       let articleLink;
       ass.course_id = this.props.course.slug;
@@ -225,11 +225,11 @@ const AssignButton = createReactClass({
     if (this.props.permitted) {
       let options;
       if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map(language => {
+        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
           return { label: language, value: language };
         });
 
-        const projectOptions = JSON.parse(WikiProjects).map(project => {
+        const projectOptions = JSON.parse(WikiProjects).map((project) => {
           return { label: project, value: project };
         });
 

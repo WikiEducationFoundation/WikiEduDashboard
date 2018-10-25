@@ -62,7 +62,7 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
-    const modules = this.props.block_modules.map(module => {
+    const modules = this.props.block_modules.map((module) => {
       const link = `/training/students/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;

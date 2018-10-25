@@ -4,7 +4,7 @@ import List from '../common/list.jsx';
 import Alert from './alert.jsx';
 
 const AlertsList = ({ alerts, sortBy }) => {
-  const elements = alerts.map(alert => {
+  const elements = alerts.map((alert) => {
     return <Alert alert={alert} key={alert.id} />;
   });
 

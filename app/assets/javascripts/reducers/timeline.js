@@ -31,7 +31,7 @@ const newWeek = (tempId, state) => ({
 const blocksInWeek = (blocks, weekId) => {
   let count = 0;
   const blockIds = Object.keys(blocks);
-  blockIds.forEach(blockId => {
+  blockIds.forEach((blockId) => {
     if (blocks[blockId].week_id === weekId) {
       count += 1;
     }
@@ -53,18 +53,18 @@ const newBlock = (tempId, weekId, state) => {
   };
 };
 
-const weeksFromTimeline = data => {
+const weeksFromTimeline = (data) => {
   const weeks = {};
-  data.course.weeks.forEach(week => {
+  data.course.weeks.forEach((week) => {
     weeks[week.id] = { ...week };
   });
   return weeks;
 };
 
-const blocksFromTimeline = data => {
+const blocksFromTimeline = (data) => {
   const blocks = {};
-  data.course.weeks.forEach(week => {
-    week.blocks.forEach(block => {
+  data.course.weeks.forEach((week) => {
+    week.blocks.forEach((block) => {
       blocks[block.id] = { ...block };
     });
   });
@@ -73,7 +73,7 @@ const blocksFromTimeline = data => {
 
 const removeBlockId = (blockIdsArray, blockId) => {
   const newArray = [];
-  blockIdsArray.forEach(id => {
+  blockIdsArray.forEach((id) => {
     if (id !== blockId) {
       newArray.push(id);
     }
@@ -101,7 +101,7 @@ const updateBlockPosition = (movingBlock, newWeekId, targetIndex, blocks) => {
   // The moved block in not included in updatedBlocks, only the
   // other blocks from the week that the moved block is going to be inserted
   // into or removed from.
-  Object.keys(updatedBlocks).forEach(blockId => {
+  Object.keys(updatedBlocks).forEach((blockId) => {
     const block = blocks[blockId];
     if (block.week_id === newWeekId) {
       blocksInNewWeek.push(block);

@@ -14,7 +14,7 @@ export function answerTotals(question) {
 
 export function answerFrequency(question) {
   const counts = {};
-  question.answers.forEach(answer => {
+  question.answers.forEach((answer) => {
     if (counts[answer] === undefined) {
       counts[answer] = 1;
     } else {

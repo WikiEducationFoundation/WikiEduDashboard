@@ -68,7 +68,7 @@ const TagEditable = createReactClass({
 
   render() {
     // In editable mode we'll show a list of tags and a remove button plus a selector to add new tags
-    const tagList = this.props.tags.map(tag => {
+    const tagList = this.props.tags.map((tag) => {
       const removeButton = (
         <button className="button border plus" onClick={this.removeTag.bind(this, tag.tag)}>-</button>
       );
@@ -79,7 +79,7 @@ const TagEditable = createReactClass({
       );
     });
 
-    const availableOptions = this.props.availableTags.map(tag => {
+    const availableOptions = this.props.availableTags.map((tag) => {
       return { label: tag, value: tag };
     });
     const tagOptions = [...this.state.createdTagOption, ...availableOptions];

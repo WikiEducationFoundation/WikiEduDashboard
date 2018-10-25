@@ -27,7 +27,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
 
   if (doHot) {
     // Wrap entries with hot hooks
-    Object.keys(entries).forEach(key => {
+    Object.keys(entries).forEach((key) => {
       entries[key] = ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server'].concat(entries[key]);
     });
 

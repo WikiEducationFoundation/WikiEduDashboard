@@ -116,11 +116,11 @@ const AddCategoryButton = createReactClass({
     if (permitted) {
       let options;
       if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map(language => {
+        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
           return { label: language, value: language };
         });
 
-        const projectOptions = JSON.parse(WikiProjects).map(project => {
+        const projectOptions = JSON.parse(WikiProjects).map((project) => {
           return { label: project, value: project };
         });
 

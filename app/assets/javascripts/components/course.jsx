@@ -194,7 +194,7 @@ const Course = createReactClass({
     // Survey notifications /
     // //////////////////////
     if (course.survey_notifications && course.survey_notifications.length) {
-      course.survey_notifications.map(notification => {
+      course.survey_notifications.map((notification) => {
         const dismissOnClick = () => this.dismissSurvey(notification.id);
         return alerts.push(
           <div className="notification notification--survey" key={'survey_notification_#{notification.id}'}>

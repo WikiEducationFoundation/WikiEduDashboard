@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import Panel from './panel.jsx';
 
-const answersFromPanels = panels => {
+const answersFromPanels = (panels) => {
   const answers = [];
   panels.forEach((panel, i) => {
     if (i === panels.length - 1) { return; }
