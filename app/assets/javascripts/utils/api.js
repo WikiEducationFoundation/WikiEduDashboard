@@ -10,7 +10,9 @@ const API = {
   // Getters /
   // /////////
   fetchRevisions(studentId, courseId) {
-    return fetch(`/revisions.json?user_id=${studentId}&course_id=${courseId}`)
+    return fetch(`/revisions.json?user_id=${studentId}&course_id=${courseId}`, {
+      credentials: "include"
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -26,7 +28,9 @@ const API = {
   },
 
   fetchCourseRevisions(courseId, limit) {
-    return fetch(`/courses/${courseId}/reviions.json?limit=${limit}`)
+    return fetch(`/courses/${courseId}/revisions.json?limit=${limit}`, {
+      credentials: "include"
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -282,7 +286,9 @@ const API = {
   },
 
   fetch(courseId, endpoint) {
-    return fetch(`/courses/${courseId}/${endpoint}.json`)
+    return fetch(`/courses/${courseId}/${endpoint}.json`, {
+      credentials: "include"
+    })
       .then(res => {
         if (res.ok) {
           return res.json();
