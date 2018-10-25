@@ -63,7 +63,7 @@ const Upload = createReactClass({
     let uploader;
     if (this.props.linkUsername) {
       const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
-      uploader = <a href={profileLink} target="_blank">{this.props.upload.uploader}</a>;
+      uploader = <a href={profileLink} onClick={event => event.stopPropagation()} target="_blank">{this.props.upload.uploader}</a>;
     } else {
       uploader = this.props.upload.uploader;
     }
