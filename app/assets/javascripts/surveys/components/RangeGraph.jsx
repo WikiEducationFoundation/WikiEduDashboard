@@ -29,7 +29,7 @@ export default class RangeGraph extends Component {
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%' }}>
           <span className="results__range-graph__min">{min}</span>
           <span className="results__range-graph__mid">{(max - min) / 2}</span>
-          {answerKeys.map(key => {
+          {answerKeys.map((key) => {
             const increment = (graphHeight / mostFrequent);
             const xPos = (key / max) * 100;
             const show = showValue === key;

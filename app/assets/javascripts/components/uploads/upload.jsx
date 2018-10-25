@@ -119,7 +119,7 @@ const Upload = createReactClass({
             {details}
           </td>
           <td className="desktop-only-tc">
-            <a onClick={(event) => event.stopPropagation()} href={this.props.upload.url} target="_blank">{fileName}</a>
+            <a onClick={event => event.stopPropagation()} href={this.props.upload.url} target="_blank">{fileName}</a>
           </td>
           <td className="desktop-only-tc">{uploader}</td>
           <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
@@ -133,7 +133,7 @@ const Upload = createReactClass({
           <img src={this.state.imageFile} alt={fileName} />
           <div className="info">
             <p className="usage"><b>{usage}</b></p>
-            <p><b><a href={this.props.upload.url} target="_blank" onClick={(event) => event.stopPropagation()}>{fileName}</a></b></p>
+            <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
             <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
           </div>
@@ -146,7 +146,7 @@ const Upload = createReactClass({
             <img src={this.state.imageFile} alt={fileName} />
             <div className="info">
               <p className="usage"><b>{usage}</b></p>
-              <p><b><a href={this.props.upload.url} target="_blank" onClick={(event) => event.stopPropagation()}>{fileName}</a></b></p>
+              <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
               <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
               <p>
                 <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}

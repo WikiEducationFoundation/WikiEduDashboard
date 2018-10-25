@@ -88,10 +88,10 @@ const Calendar = createReactClass({
   },
   render() {
     const modifiers = {
-      ['outrange']: day => {
+      ['outrange']: (day) => {
         return !this.inrange(day);
       },
-      ['selected']: day => {
+      ['selected']: (day) => {
         if ((this.props.course.weekdays !== undefined) && this.props.course.weekdays.charAt(day) === '1') {
           return true;
         } else if (day < 8) {
@@ -109,11 +109,11 @@ const Calendar = createReactClass({
         }
         return inrange && ((weekday && !exception) || (!weekday && exception));
       },
-      ['highlighted']: day => {
+      ['highlighted']: (day) => {
         if (day <= 7) { return false; }
         return this.inrange(day);
       },
-      ['bordered']: day => {
+      ['bordered']: (day) => {
         if (day <= 7) { return false; }
         if (!this.props.course.day_exceptions || !this.props.course.weekdays) { return false; }
         const formatted = moment(day).format('YYYYMMDD');

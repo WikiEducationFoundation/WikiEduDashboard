@@ -5,7 +5,7 @@ import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmen
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 
 const mediawikiApiBase = (language, project) => (`https://${language}.${project}.org/w/api.php?action=query&format=json`);
-const oresApiBase = (language) => (`https://ores.wikimedia.org/v3/scores/${language}wiki`);
+const oresApiBase = language => (`https://ores.wikimedia.org/v3/scores/${language}wiki`);
 
 const limit = promiseLimit(10);
 
@@ -84,7 +84,7 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
   const promises = _.chunk(articlesList, 5).map((articles) => {
     const query = pageviewQueryGenerator(_.map(articles, 'pageid'));
     return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
-    .then((data) => data.query.pages)
+    .then(data => data.query.pages)
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_PAGEVIEWS,
@@ -117,7 +117,7 @@ const fetchPageAssessment = (articlesList, course, dispatch, getState) => {
       const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
 
       return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
-      .then((data) => data.query.pages)
+      .then(data => data.query.pages)
       .then((data) => {
         dispatch({
           type: RECEIVE_ARTICLE_PAGEASSESSMENT,
@@ -141,7 +141,7 @@ const fetchPageRevision = (articlesList, course, dispatch, getState) => {
     const promises = _.chunk(articlesList, 20).map((articles) => {
       const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
       return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
-      .then((data) => data.query.pages)
+      .then(data => data.query.pages)
       .then((data) => {
         dispatch({
           type: RECEIVE_ARTICLE_REVISION,
@@ -168,7 +168,7 @@ const fetchPageRevisionScore = (revids, course, dispatch) => {
       return revid.revisions[0].revid;
     }));
     return promiseLimit(4)(() => queryUrl(oresApiBase(course.home_wiki.language), query))
-    .then((data) => data[`${course.home_wiki.language}wiki`].scores)
+    .then(data => data[`${course.home_wiki.language}wiki`].scores)
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_REVISIONSCORE,

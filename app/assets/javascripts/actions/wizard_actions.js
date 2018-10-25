@@ -31,9 +31,9 @@ const fetchWizardIndexPromise = () => {
   );
 };
 
-export const fetchWizardIndex = () => dispatch => {
+export const fetchWizardIndex = () => (dispatch) => {
   return fetchWizardIndexPromise()
-    .then(data => {
+    .then((data) => {
       dispatch({ type: RECEIVE_WIZARD_ASSIGNMENT_OPTIONS, assignmentOptions: data });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
@@ -56,9 +56,9 @@ const fetchWizardPanelsPromise = (wizardId) => {
   );
 };
 
-export const fetchWizardPanels = (wizardId) => dispatch => {
+export const fetchWizardPanels = wizardId => (dispatch) => {
   return fetchWizardPanelsPromise(wizardId)
-    .then(data => {
+    .then((data) => {
       dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data });
       // Using a 0 timeout here gives the browser a chance
       // to re-render the new off-screen panels before the
@@ -87,7 +87,7 @@ export const advanceWizard = () => (dispatch, getState) => {
   }
 };
 
-export const selectWizardOption = (panelIndex, optionIndex) => dispatch => {
+export const selectWizardOption = (panelIndex, optionIndex) => (dispatch) => {
   dispatch({ type: SELECT_WIZARD_OPTION, panelIndex, optionIndex });
   // If an assignment selection is made, disable summary mode.
   // Changing the selected assignment clears the wizard, so you can't
@@ -132,7 +132,7 @@ const submitWizardPromise = (courseSlug, wizardId, wizardOutput) => {
   );
 };
 
-const getWizardKey = state => {
+const getWizardKey = (state) => {
   const assignmentOptions = state.assignmentOptions;
   return _.find(assignmentOptions, option => option.selected).key;
 };
@@ -165,7 +165,7 @@ const getWizardOutput = (state) => {
   return { output, logic, tags };
 };
 
-export const submitWizard = (courseSlug) => (_dispatch, getState) => {
+export const submitWizard = courseSlug => (_dispatch, getState) => {
   const wizardState = getState().wizard;
   submitWizardPromise(courseSlug, getWizardKey(wizardState), getWizardOutput(wizardState))
     .then(() => {

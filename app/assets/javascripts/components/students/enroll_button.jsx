@@ -115,7 +115,7 @@ const EnrollButton = createReactClass({
   },
 
   render() {
-    const users = this.props.users.map(user => {
+    const users = this.props.users.map((user) => {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
         removeButton = (

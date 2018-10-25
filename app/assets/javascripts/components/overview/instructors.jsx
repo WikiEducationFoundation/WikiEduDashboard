@@ -5,7 +5,7 @@ import InlineUsers from './inline_users.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import { INSTRUCTOR_ROLE } from '../../constants';
 
-const Instructors = props => {
+const Instructors = (props) => {
   return (
     <InlineUsers {...props} users={props.instructors} role={INSTRUCTOR_ROLE} title={CourseUtils.i18n('instructors', props.course.string_prefix)} />
   );

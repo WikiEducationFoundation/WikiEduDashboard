@@ -19,7 +19,7 @@ const fetchUploads = (courseId) => {
   });
 };
 
-export const receiveUploads = (courseId) => dispatch => {
+export const receiveUploads = courseId => (dispatch) => {
   return (
     fetchUploads(courseId)
       .then(resp => dispatch({
@@ -35,7 +35,7 @@ export const receiveUploads = (courseId) => dispatch => {
 
 const fetchUploadMetadata = (uploads) => {
   let url = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&pageids=';
-  _.forEach(uploads, upload => {
+  _.forEach(uploads, (upload) => {
     url = `${url}${upload.id}|`;
   });
   url = url.slice(0, -1);
@@ -54,7 +54,7 @@ const fetchUploadMetadata = (uploads) => {
   });
 };
 
-export const setUploadMetadata = (uploadsList) => dispatch => {
+export const setUploadMetadata = uploadsList => (dispatch) => {
   const list = uploadsList.filter(upload => !upload.fetchState);
   if (list.length === 0) { return; }
   const promises = _.chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
@@ -96,7 +96,7 @@ const fetchUploadViewerMetadata = (upload) => {
   });
 };
 
-export const setUploadViewerMetadata = (upload) => dispatch => {
+export const setUploadViewerMetadata = upload => (dispatch) => {
   return (
     fetchUploadViewerMetadata(upload)
       .then(resp => dispatch({
@@ -121,7 +121,7 @@ const fetchUploadPageViews = (articleList) => {
   startDate.setDate(startDate.getDate() - 60);
   const formattedStartDate = pageViewDateString(startDate);
   const endDate = pageViewDateString(new Date());
-  articleList.map(article => {
+  articleList.map((article) => {
     const title = encodeURIComponent(article.title);
     const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${formattedStartDate}/${endDate}`;
     viewPerArticle.push(new Promise((res, rej) => {
@@ -148,7 +148,7 @@ const fetchUploadPageViews = (articleList) => {
   return viewPerArticle;
 };
 
-export const setUploadPageViews = (articleList) => dispatch => {
+export const setUploadPageViews = articleList => (dispatch) => {
   return (
     Promise.all(fetchUploadPageViews(articleList))
       .then(resp => dispatch({

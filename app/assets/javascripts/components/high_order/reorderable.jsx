@@ -62,7 +62,7 @@ export default function (Component, Type, MoveFunction) {
   };
 
   // Returns props to inject into the drag target component
-  const targetConnect = (connect) => ({ connectDropTarget: connect.dropTarget() });
+  const targetConnect = connect => ({ connectDropTarget: connect.dropTarget() });
 
   // Simple wrapper for rendering the passed Component as draggable or not
   const Reorderable = createReactClass({

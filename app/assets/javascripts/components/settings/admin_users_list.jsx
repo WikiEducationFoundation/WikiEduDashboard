@@ -4,7 +4,7 @@ import List from '../common/list.jsx';
 import AdminUser from './containers/admin_user_container.jsx';
 
 const AdminUserList = ({ adminUsers, sortBy }) => {
-  const elements = adminUsers.map(user => {
+  const elements = adminUsers.map((user) => {
     return <AdminUser user={user} key={user.id} />;
   });
 

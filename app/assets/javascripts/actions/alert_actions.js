@@ -35,10 +35,10 @@ const fetchAlertsPromise = (campaignSlug) => {
   });
 };
 
-export const fetchAlerts = (campaignSlug) => dispatch => {
+export const fetchAlerts = campaignSlug => (dispatch) => {
   return (
     fetchAlertsPromise(campaignSlug)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: types.RECEIVE_ALERTS,
           data

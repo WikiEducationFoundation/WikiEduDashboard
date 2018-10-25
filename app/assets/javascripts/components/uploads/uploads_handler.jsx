@@ -78,7 +78,7 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
-    const options = this.props.students.map(student => {
+    const options = this.props.students.map((student) => {
       return { label: student.username, value: student.username };
     });
 

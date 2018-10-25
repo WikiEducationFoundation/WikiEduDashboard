@@ -52,7 +52,7 @@ if (navBar) {
 }
 
 // Handle scroll position for back button, hashes, and normal links
-browserHistory.listen(location => {
+browserHistory.listen((location) => {
   setTimeout(() => {
     if (location.action === 'POP') {
       return;

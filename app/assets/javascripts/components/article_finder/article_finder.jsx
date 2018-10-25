@@ -108,13 +108,13 @@ const ArticleFinder = createReactClass({
         <div className="search-type">
           <div>
             <label>
-              <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={e => this.updateFields('search_type', e.target.value)} />
               {I18n.t('article_finder.keyword_search')}
             </label>
           </div>
           <div>
             <label>
-              <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={e => this.updateFields('search_type', e.target.value)} />
               {I18n.t('article_finder.category_search')}
             </label>
           </div>

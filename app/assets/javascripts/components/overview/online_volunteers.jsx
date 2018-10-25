@@ -4,7 +4,7 @@ import { getOnlineVolunteerUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
 import { ONLINE_VOLUNTEER_ROLE } from '../../constants';
 
-const OnlineVolunteers = props => {
+const OnlineVolunteers = (props) => {
   return (
     <InlineUsers {...props} users={props.onlineVolunteers} role={ONLINE_VOLUNTEER_ROLE} title="Online Volunteers" />
   );

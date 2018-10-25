@@ -22,7 +22,7 @@ const fetchArticlesPromise = (courseId, limit) => {
 export const fetchArticles = (courseId, limit) => (dispatch) => {
   return (
     fetchArticlesPromise(courseId, limit)
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: types.RECEIVE_ARTICLES,
           data: resp,

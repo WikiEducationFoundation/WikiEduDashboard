@@ -18,10 +18,10 @@ const fetchRevisionsPromise = (courseId, limit) => {
   });
 };
 
-export const fetchRevisions = (courseId, limit) => dispatch => {
+export const fetchRevisions = (courseId, limit) => (dispatch) => {
   return (
     fetchRevisionsPromise(courseId, limit)
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: RECEIVE_REVISIONS,
           data: resp,

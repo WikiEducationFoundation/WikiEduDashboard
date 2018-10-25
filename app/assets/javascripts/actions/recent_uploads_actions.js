@@ -1,7 +1,7 @@
 import { RECEIVE_RECENT_UPLOADS, SORT_RECENT_UPLOADS, API_FAIL } from '../constants';
 import API from '../utils/api.js';
 
-export const fetchRecentUploads = (opts = {}) => dispatch => {
+export const fetchRecentUploads = (opts = {}) => (dispatch) => {
   return (
     API.fetchRecentUploads(opts)
       .then(resp =>

@@ -18,7 +18,7 @@ import {
 import logErrorMessage from '../utils/log_error_message';
 import { fetchCourse } from './course_actions';
 
-const fetchTimelinePromise = courseSlug => {
+const fetchTimelinePromise = (courseSlug) => {
   return new Promise((res, rej) =>
     $.ajax({
       type: 'GET',
@@ -34,7 +34,7 @@ const fetchTimelinePromise = courseSlug => {
   );
 };
 
-export const fetchTimeline = courseSlug => dispatch => {
+export const fetchTimeline = courseSlug => (dispatch) => {
   return fetchTimelinePromise(courseSlug)
     .then(data => dispatch({ type: RECEIVE_TIMELINE, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
@@ -42,11 +42,11 @@ export const fetchTimeline = courseSlug => dispatch => {
 
 export const addWeek = () => ({ type: ADD_WEEK, tempId: Date.now() });
 
-const deleteWeekPromise = weekId => {
+const deleteWeekPromise = (weekId) => {
   return API.deleteWeek(weekId);
 };
 
-export const deleteWeek = weekId => dispatch => {
+export const deleteWeek = weekId => (dispatch) => {
   return deleteWeekPromise(weekId)
     .then(data => dispatch({
       type: DELETE_WEEK,
@@ -55,39 +55,39 @@ export const deleteWeek = weekId => dispatch => {
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
-const deleteBlockPromise = blockId => {
+const deleteBlockPromise = (blockId) => {
   return API.deleteBlock(blockId);
 };
 
-export const deleteBlock = blockId => dispatch => {
+export const deleteBlock = blockId => (dispatch) => {
   return deleteBlockPromise(blockId)
     .then(data => dispatch({ type: DELETE_BLOCK, blockId: data.block_id }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
-export const persistTimeline = (timelineData, courseSlug) => dispatch => {
+export const persistTimeline = (timelineData, courseSlug) => (dispatch) => {
   return API.saveTimeline(courseSlug, timelineData)
     .then(data => dispatch({ type: SAVED_TIMELINE, data }))
-    .catch(data => {
+    .catch((data) => {
       dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug });
       fetchCourse(courseSlug)(dispatch);
       fetchTimeline(courseSlug)(dispatch);
     });
 };
 
-export const setBlockEditable = blockId => {
+export const setBlockEditable = (blockId) => {
  return { type: SET_BLOCK_EDITABLE, blockId };
 };
 
-export const cancelBlockEditable = blockId => {
+export const cancelBlockEditable = (blockId) => {
   return { type: CANCEL_BLOCK_EDITABLE, blockId };
  };
 
-export const updateBlock = block => {
+export const updateBlock = (block) => {
   return { type: UPDATE_BLOCK, block };
 };
 
-export const addBlock = weekId => {
+export const addBlock = (weekId) => {
   return { type: ADD_BLOCK, weekId, tempId: Date.now() };
 };
 
@@ -99,7 +99,7 @@ export const restoreTimeline = () => {
   return { type: RESTORE_TIMELINE };
 };
 
-export const deleteAllWeeks = courseId => dispatch => {
+export const deleteAllWeeks = courseId => (dispatch) => {
   return API.deleteAllWeeks(courseId)
     .then(data => dispatch({ type: DELETE_ALL_WEEKS, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));

@@ -36,13 +36,13 @@ const fetchUserTrainingStatusPromise = (username) => {
 };
 
 
-export const fetchUserTrainingStatus = (username) => dispatch => {
+export const fetchUserTrainingStatus = username => (dispatch) => {
   return fetchUserTrainingStatusPromise(username)
     .then(resp => dispatch({ type: RECEIVE_USER_TRAINING_STATUS, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
-export const fetchTrainingStatus = (userId, courseId) => dispatch => {
+export const fetchTrainingStatus = (userId, courseId) => (dispatch) => {
   return fetchTrainingStatusPromise(userId, courseId)
     .then(resp => dispatch({ type: RECEIVE_TRAINING_STATUS, data: resp, userId }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));

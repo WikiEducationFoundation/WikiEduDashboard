@@ -17,10 +17,10 @@ const fetchCampaignsPromise = (courseId) => {
   });
 };
 
-export const fetchCampaigns = (courseId) => dispatch => {
+export const fetchCampaigns = courseId => (dispatch) => {
   return (
     fetchCampaignsPromise(courseId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: RECEIVE_CAMPAIGNS,
           data
@@ -49,10 +49,10 @@ const removeCampaignsPromise = (courseId, campaignId) => {
   });
 };
 
-export const removeCampaign = (courseId, campaignId) => dispatch => {
+export const removeCampaign = (courseId, campaignId) => (dispatch) => {
   return (
     removeCampaignsPromise(courseId, campaignId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: DELETE_CAMPAIGN,
           data
@@ -79,10 +79,10 @@ const addCampaignsPromise = (courseId, campaignId) => {
   });
 };
 
-export const addCampaign = (courseId, campaignId) => dispatch => {
+export const addCampaign = (courseId, campaignId) => (dispatch) => {
   return (
     addCampaignsPromise(courseId, campaignId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: ADD_CAMPAIGN,
           data
@@ -108,10 +108,10 @@ const fetchAllCampaignsPromise = () => {
   });
 };
 
-export const fetchAllCampaigns = () => dispatch => {
+export const fetchAllCampaigns = () => (dispatch) => {
   return (
     fetchAllCampaignsPromise()
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,
           data

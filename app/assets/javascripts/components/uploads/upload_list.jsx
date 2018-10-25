@@ -19,7 +19,7 @@ const UploadList = createReactClass({
     const uploads = this.props.uploads;
     let elements;
     if (uploads.length > 0) {
-      elements = uploads.map(upload => {
+      elements = uploads.map((upload) => {
         return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
       });
     } else if (!this.props.loadingUploads && this.props.totalUploadsCount > 0 && uploads.length === 0) {

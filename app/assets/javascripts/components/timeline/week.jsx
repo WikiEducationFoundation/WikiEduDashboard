@@ -86,7 +86,7 @@ const Week = createReactClass({
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {
-        const orderableBlock = value => {
+        const orderableBlock = (value) => {
           const rounded = Math.round(value.y);
           const animating = rounded !== i * 75;
           const willChange = animating ? 'top' : 'initial';

@@ -39,7 +39,7 @@ class LanguagePicker extends React.Component {
       { label: 'Help translate', value: 'help_translate' },
     ];
 
-    const allLocales = _.compact(I18n.availableLocales).map(code => {
+    const allLocales = _.compact(I18n.availableLocales).map((code) => {
       const nativeName = getNativeName(code);
       if (nativeName !== enN && nativeName !== esN && nativeName !== frN) {
         return { label: nativeName || code, value: code };

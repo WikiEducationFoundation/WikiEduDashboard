@@ -51,12 +51,12 @@ export default function uploads(state = initialState, action) {
     }
     case SET_UPLOAD_METADATA: {
       let fetchedData;
-      _.forEach(action.data, data => {
+      _.forEach(action.data, (data) => {
         if (data.query) {
           fetchedData = { ...fetchedData, ...data.query.pages };
         }
       });
-      const updatedUploads = state.uploads.map(upload => {
+      const updatedUploads = state.uploads.map((upload) => {
         if (fetchedData && fetchedData[upload.id]) {
           upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
           if (!upload.thumburl) {
@@ -91,9 +91,9 @@ export default function uploads(state = initialState, action) {
     }
     case SET_UPLOAD_PAGEVIEWS: {
       const views = [];
-      _.forEach(action.data, fileView => {
+      _.forEach(action.data, (fileView) => {
         let fileViews = 0;
-        _.forEach(fileView.items, article => {
+        _.forEach(fileView.items, (article) => {
           fileViews += _.get(article, 'views');
         });
         views.push(Math.round(fileViews / fileView.items.length));

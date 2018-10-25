@@ -17,10 +17,10 @@ const fetchUserRevisionsPromise = (courseId, userId) => {
   });
 };
 
-export const fetchUserRevisions = (courseId, userId) => dispatch => {
+export const fetchUserRevisions = (courseId, userId) => (dispatch) => {
   return (
     fetchUserRevisionsPromise(courseId, userId)
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: RECEIVE_USER_REVISIONS,
           data: resp,

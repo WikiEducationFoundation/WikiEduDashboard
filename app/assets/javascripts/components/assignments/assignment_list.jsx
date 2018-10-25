@@ -29,7 +29,7 @@ const AssignmentList = createReactClass({
     const allAssignments = this.props.assignments;
     const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
     const grouped = _.groupBy(sortedAssignments, ass => ass.article_title);
-    let elements = Object.keys(grouped).map(title => {
+    let elements = Object.keys(grouped).map((title) => {
       const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
       const article = getFiltered(this.props.articles, { title })[0];

@@ -1,7 +1,7 @@
 import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
-export const requestAuthToken = () => dispatch => {
+export const requestAuthToken = () => (dispatch) => {
   return (
       new Promise((res, rej) =>
         $.ajax({
@@ -30,7 +30,7 @@ export const requestAuthToken = () => dispatch => {
     );
 };
 
-export const enableForCourse = (opts = {}) => dispatch => {
+export const enableForCourse = (opts = {}) => (dispatch) => {
   return (
       new Promise((res, rej) =>
         $.ajax({
