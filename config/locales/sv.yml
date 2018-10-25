@@ -38,6 +38,7 @@ sv:
     request_account_create: Skapa ett konto
     search: ställ en fråga
     search_results: 'Resultat för: "%{search_terms}"'
+    no_results: Inga resultat hittades för "%{query}"
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_wikipedia: Eller registrera dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -302,6 +303,7 @@ sv:
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
     school: Skola
+    search_courses: Sök i kurser
     start: Starta
     start_typing: Börja skriva
     students: Studenter
@@ -383,6 +385,7 @@ sv:
     leave_course: Lämna program
     not_permitted: Du har inte behörighet att redigera detta program.
     request_accounts: Begär konton
+    search_courses: Sök i program
     student_editors: Redigerare
     students: Redigerare
     students_short: Redigerare

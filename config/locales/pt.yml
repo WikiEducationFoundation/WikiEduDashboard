@@ -56,6 +56,7 @@ pt:
     request_account_create: Criar uma conta
     search: faça uma pergunta
     search_results: 'Resultados para: ''%{search_terms}'''
+    no_results: Não foram encontrados resultados para '%{query}'
     sign_up_extended: Registar-se através da Wikipédia
     sign_up_wikipedia: Ou registar-se na Wikipédia
     sign_up_log_in_extended: através da Wikipédia
@@ -526,6 +527,7 @@ pt:
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
     school_and_term: Instituição/período
+    search_courses: Pesquisar cursos
     start: Início
     start_typing: Começar a escrever
     students: Estudantes
@@ -681,6 +683,7 @@ pt:
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
+    search_courses: Pesquisar programas
     start: Início da monitorização da atividade
     student_editors: Editores
     students: Editores
@@ -827,8 +830,8 @@ pt:
         de escrita e evite o uso de gírias.
       stub: Qualquer edição ou material adicional podem ser úteis. O fornecimento
         de conteúdo significativo deve ser uma prioridade. A melhor solução para transformar
-        um artigo com classificação baixa num artigo com boa classificação é acrescentar
-        os motivos referenciados de por que o tópico é significativo.
+        um artigo da classe Provisório num artigo da classe Iniciado é acrescentar
+        motivos devidamente referenciados pelos quais o tópico é importante.
       fl: Nenhuma adição de conteúdo é necessária, a menos que as novas informações
         estejam disponíveis.
       list: As listas devem ser de hiperligações ativas dos artigos da Wikipédia,
