@@ -89,14 +89,16 @@ const ActivityTable = createReactClass({
             <span />
             <table className="table">
               <tbody>
-                <tr><td>
-                  <span>
-                    <h5>{I18n.t('recent_activity.active_courses')}</h5>
-                    <ul className="activity-table__course-list">
-                      {courses}
-                    </ul>
-                  </span>
-                </td></tr>
+                <tr>
+                  <td>
+                    <span>
+                      <h5>{I18n.t('recent_activity.active_courses')}</h5>
+                      <ul className="activity-table__course-list">
+                        {courses}
+                      </ul>
+                    </span>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </td>

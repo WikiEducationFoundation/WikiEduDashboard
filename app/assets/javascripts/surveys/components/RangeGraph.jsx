@@ -34,15 +34,16 @@ export default class RangeGraph extends Component {
             const xPos = (key / max) * 100;
             const show = showValue === key;
             const value = <div className={`results__range-graph__value ${show ? 'show' : ''}`} style={{ position: 'absolute', left: 0 }}>{key}</div>;
-            return (<div key={key} style={{ display: 'inline-block', textAlign: 'center', position: 'absolute', left: `${xPos}%`, bottom: 0 }}>
-              {value}
-              <div
-                className="results__range-graph__bar"
-                onMouseEnter={() => { this.showValue(key); }}
-                onMouseLeave={() => { this.showValue(null); }}
-                style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) }}
-              />
-            </div>);
+            return (
+              <div key={key} style={{ display: 'inline-block', textAlign: 'center', position: 'absolute', left: `${xPos}%`, bottom: 0 }}>
+                {value}
+                <div
+                  className="results__range-graph__bar"
+                  onMouseEnter={() => { this.showValue(key); }}
+                  onMouseLeave={() => { this.showValue(null); }}
+                  style={{ position: 'absolute', display: 'block', width: 10, left: -10, bottom: 0, height: (increment * answers[key]) }}
+                />
+              </div>);
           })}
           <span className="results__range-graph__max">{max}</span>
         </div>
