@@ -45,12 +45,12 @@ echo CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';GRANT ALL PRIVILEGES
 echo [*] Installing Redis...
 msiexec /i https://github.com/MicrosoftArchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.msi
 
-echo [*] Migrating databases...
-call rake db:migrate
-call rake db:migrate RAILS_ENV=test
-
 echo [*] Installing Gulp...
 call yarn global add gulp
 SET "PATH=%PATH%;%LOCALAPPDATA%\Yarn\bin"
+
+echo [*] Migrating databases...
+call rake db:migrate
+call rake db:migrate RAILS_ENV=test
 
 echo Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.
