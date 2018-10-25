@@ -29,13 +29,14 @@ describe('AdminUser', () => {
         notifications: [],
       });
 
-      wrapper = mount(<Provider store={store} >
-        <table>
-          <tbody>
-            <AdminUserContainer user={expectedUser} key={1} />
-          </tbody>
-        </table>
-      </Provider>);
+      wrapper = mount(
+        <Provider store={store}>
+          <table>
+            <tbody>
+              <AdminUserContainer user={expectedUser} key={1} />
+            </tbody>
+          </table>
+        </Provider>);
     });
 
     it('renders user info', () => {
@@ -78,13 +79,14 @@ describe('AdminUser', () => {
         notifications: [],
       });
 
-      const wrapper = mount(<Provider store={store} >
-        <table>
-          <tbody>
-            <AdminUserContainer user={expectedUser} key={1} />
-          </tbody>
-        </table>
-      </Provider>);
+      const wrapper = mount(
+        <Provider store={store} >
+          <table>
+            <tbody>
+              <AdminUserContainer user={expectedUser} key={1} />
+            </tbody>
+          </table>
+        </Provider>);
 
       const button = wrapper.find('td p button').first();
       expect(button.text())

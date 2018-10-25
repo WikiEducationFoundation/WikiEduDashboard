@@ -61,14 +61,19 @@ const Student = createReactClass({
       <span>
         <strong>{trunc(this.props.student.real_name)}</strong>
         &nbsp;
-        (<a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+        (
+        <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
           {trunc(this.props.student.username)}
         </a>)
       </span>
-    ) : (
-      <span><a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
-        {trunc(this.props.student.username)}
-      </a></span>
+      )
+      :
+      (
+        <span>
+          <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+            {trunc(this.props.student.username)}
+          </a>
+        </span>
     );
 
     const trainingProgress = this.props.student.course_training_progress ? (

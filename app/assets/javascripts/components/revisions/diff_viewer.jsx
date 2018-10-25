@@ -216,10 +216,12 @@ const DiffViewer = createReactClass({
 
       diffComment = <p className="diff-comment">{this.state.comment}</p>;
 
-      editDate = (<p className="diff-comment">
-        ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
-        {this.props.revision.characters}&nbsp;
-        {I18n.t('revisions.chars_added')})</p>);
+      editDate = (
+        <p className="diff-comment">
+          ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
+          {this.props.revision.characters}&nbsp;
+          {I18n.t('revisions.chars_added')})
+        </p>);
     } else {
       firstRevTime = moment(this.state.firstRevDateTime).format('YYYY/MM/DD h:mm a');
       lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');

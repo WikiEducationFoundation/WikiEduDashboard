@@ -27,16 +27,17 @@ const BlockTypeSelect = createReactClass({
     });
 
     if (this.props.editable) {
-      return (<div className="form-group">
-        <label htmlFor={this.props.id} className={labelClass}>{label}{tooltip}</label>
-        <select
-          id={this.props.id}
-          value={this.props.value}
-          onChange={this.props.onChange}
-        >
-          {options}
-        </select>
-      </div>);
+      return (
+        <div className="form-group">
+          <label htmlFor={this.props.id} className={labelClass}>{label}{tooltip}</label>
+          <select
+            id={this.props.id}
+            value={this.props.value}
+            onChange={this.props.onChange}
+          >
+            {options}
+          </select>
+        </div>);
     }
     return <span>{this.props.options[this.props.value]}</span>;
   }
