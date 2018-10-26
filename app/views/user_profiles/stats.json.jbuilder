@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-json.user_recent_uploads @user_uploads
+json.user_recent_uploads @user_uploads.each do |upload|
+  json.call(upload, :id, :uploaded_at, :usage_count, :url, :thumburl)
+  json.file_name pretty_filename(upload)
+  json.uploader upload.user.username
+end
 json.courses_details @courses_users.reverse_each do |c|
   json.course_id c.id
   json.course_title c.course.title
