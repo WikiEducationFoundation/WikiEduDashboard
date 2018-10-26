@@ -5,7 +5,7 @@ import SpecialUser from './containers/special_user_container.jsx';
 
 const SpecialUserList = ({ specialUsers, sortBy }) => {
   const elements = Object.keys(specialUsers).map((position, index) => {
-    const username = specialUsers[position] && specialUsers[position].username;
+    const username = specialUsers[position];
     return <SpecialUser username={username} position={position} key={index} />;
   });
 
