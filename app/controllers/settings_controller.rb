@@ -23,14 +23,7 @@ class SettingsController < ApplicationController
     end
   end
 
-  def special_users
-    respond_to do |format|
-      format.json do
-        # display all special users
-        render json: { special_users: SpecialUsers.all_grouped }
-      end
-    end
-  end
+  def special_users; end
 
   def upgrade_admin
     update_admin do
