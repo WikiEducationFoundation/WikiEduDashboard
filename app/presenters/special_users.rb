@@ -6,6 +6,10 @@ class SpecialUsers
     Setting.find_or_create_by(key: 'special_users').value
   end
 
+  def self.set(role, username)
+    Setting.set_hash('special_users', role, username)
+  end
+
   def self.communications_manager
     User.find_by(username: special_users[:communications_manager])
   end

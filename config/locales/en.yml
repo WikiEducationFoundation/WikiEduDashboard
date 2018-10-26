@@ -793,8 +793,9 @@ en:
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
-
-
+    special_user:
+      update:
+        success: Special User has been updated.
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:
     editing: Editing Suggestions
