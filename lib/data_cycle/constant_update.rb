@@ -2,11 +2,11 @@
 
 # Adding these model dependencies explicitly is intended to avoid intermittent
 # NameError and ciruclar dependency errors
-require_dependency "#{Rails.root}/app/models/article"
-require_dependency "#{Rails.root}/app/models/revision"
+require_dependency "#{Rails.root}/app/models/wiki_content/article"
+require_dependency "#{Rails.root}/app/models/wiki_content/revision"
 require_dependency "#{Rails.root}/app/models/course"
-require_dependency "#{Rails.root}/app/models/week"
-require_dependency "#{Rails.root}/app/models/block"
+require_dependency "#{Rails.root}/app/models/course_data/week"
+require_dependency "#{Rails.root}/app/models/course_data/block"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/assignment_updater"
