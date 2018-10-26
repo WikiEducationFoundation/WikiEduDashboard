@@ -295,7 +295,7 @@ pl:
       end_date: Data zakończenia
       end_date_placeholder: Data zakończenia (RRRR-MM-DD)
       expected_number: Oczekiwana liczba uczestników
-      find: Zajdź swój kurs
+      find: Znajdź swój kurs
       intro: Nazwa, nazwa instytucji i semestr tworzą wspólnie unikatowy adres URL,
         nie można ich zmienić po stworzeniu kursu. Wszystkie pozostałe dane można
         później uzupełnić lub zmienić. Kliknij na „Stwórz mój kurs”, aby rozpocząć
