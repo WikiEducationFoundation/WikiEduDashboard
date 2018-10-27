@@ -50,7 +50,6 @@
     "class-methods-use-this": 0,
     "no-prototype-builtins": 0,
     "no-restricted-syntax": 0,
-    "space-unary-ops": 0,
     "global-require": 0,
     "no-restricted-globals": 0,
     "indent": 0,
