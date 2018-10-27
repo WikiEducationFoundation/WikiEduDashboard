@@ -113,9 +113,7 @@ const StyleguideExamples = {
 };
 
 $(() => {
-  for (const example in StyleguideExamples) {
-    if (StyleguideExamples.hasOwnProperty(example)) {
+  Object.keys(StyleguideExamples).forEach((example) => {
       StyleguideExamples[example]();
-    }
-  }
+  });
 });

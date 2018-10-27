@@ -51,14 +51,12 @@ const WeekdayPicker = createReactClass({
   getModifiersForDay(weekday, modifierFunctions) {
     const modifiers = [];
     if (modifierFunctions) {
-      for (const modifier in modifierFunctions) {
-        if (Object.prototype.hasOwnProperty.call(modifierFunctions, modifier)) {
-          const func = modifierFunctions[modifier];
-          if (func(weekday)) {
-            modifiers.push(modifier);
-          }
+      Object.keys(modifierFunctions).forEach((modifier) => {
+        const func = modifierFunctions[modifier];
+        if (func(weekday)) {
+          modifiers.push(modifier);
         }
-      }
+      });
     }
     return modifiers;
   },
