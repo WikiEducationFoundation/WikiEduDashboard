@@ -236,7 +236,8 @@ module RequestHelpers
       'www.wikidata.org',
       'en.wikinews.org',
       'pl.wikiquote.org',
-      'de.wikiversity.org'
+      'de.wikiversity.org',
+      'commons.wikimedia.org'
     ]
 
     wikis.each do |wiki|
