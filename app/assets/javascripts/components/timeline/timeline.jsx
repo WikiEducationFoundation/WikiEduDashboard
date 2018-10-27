@@ -163,8 +163,7 @@ const Timeline = createReactClass({
       }
     }
     );
-  }
-  , 150),
+  }, 150),
 
   tooManyWeeks() {
     const nonEmptyWeeks = this.props.week_meetings.filter(week => week !== '()');
