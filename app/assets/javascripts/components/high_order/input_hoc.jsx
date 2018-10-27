@@ -65,7 +65,7 @@ const InputHOC = (Component) => {
         let charcheck;
         if (this.props.validation instanceof RegExp) {
           charcheck = (new RegExp(this.props.validation)).test(this.state.value);
-        } else if (typeof(this.props.validation) === 'function') {
+        } else if (typeof (this.props.validation) === 'function') {
           charcheck = this.props.validation(this.state.value);
         }
         if (this.props.required && !filled) {
