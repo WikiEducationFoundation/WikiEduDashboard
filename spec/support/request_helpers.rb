@@ -214,16 +214,8 @@ module RequestHelpers
   def stub_wiki_validation
     wikis = [
       'incubator.wikimedia.org',
-      'en.wiktionary.org',
-      'es.wiktionary.org',
       'es.wikipedia.org',
       'pt.wikipedia.org',
-      'ta.wiktionary.org',
-      'es.wikibooks.org',
-      'ar.wikibooks.org',
-      'en.wikivoyage.org',
-      'wikisource.org',
-      'www.wikidata.org',
       'zh.wikipedia.org',
       'mr.wikipedia.org',
       'eu.wikipedia.org',
@@ -231,7 +223,20 @@ module RequestHelpers
       'fr.wikipedia.org',
       'ru.wikipedia.org',
       'simple.wikipedia.org',
-      'tr.wikipedia.org'
+      'tr.wikipedia.org',
+      'en.wiktionary.org',
+      'es.wiktionary.org',
+      'ta.wiktionary.org',
+      'es.wikibooks.org',
+      'en.wikibooks.org',
+      'ar.wikibooks.org',
+      'en.wikivoyage.org',
+      'wikisource.org',
+      'es.wikisource.org',
+      'www.wikidata.org',
+      'en.wikinews.org',
+      'pl.wikiquote.org',
+      'de.wikiversity.org'
     ]
 
     wikis.each do |wiki|

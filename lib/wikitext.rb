@@ -65,11 +65,51 @@ class Wikitext
     language = assignment.wiki.language
 
     # For other wikis a language prefix is required, except for wikidata where the language is nil
-    language_prefix = language ? ":#{language}:" : ''
+    language_prefix = language ? ":#{language}" : ''
     # If the project is different, a project prefix is also necessary.
-    project_prefix = project == home_wiki.project ? '' : "#{project}:"
+    project_prefix = project == home_wiki.project ? '' : ":#{project}"
 
-    language_prefix + project_prefix + title
+    # Interwiki shorthands, source: https://en.wikipedia.org/wiki/Help:Interwiki_linking#Project_titles_and_shortcuts
+
+    case project_prefix
+    when ':wikipedia'
+      project_prefix = ':w'
+    when ':wiktionary'
+      project_prefix = ':wikt'
+    when ':wikinews'
+      project_prefix = ':n'
+    when ':wikibooks'
+      project_prefix = ':b'
+    when ':wikiquote'
+      project_prefix = ':q'
+    when ':wikisource'
+      project_prefix = ':s'
+    when ':wikiversity'
+      project_prefix = ':v'
+    when ':wikivoyage'
+      project_prefix = ':voy'
+      # # Disabled due to Invalid Project:
+      # (`raise InvalidWikiError unless PROJECTS.include?(project)`) in app/models/wiki.rb
+      #
+      # when ':commons'
+      #   project_prefix = ':c'
+      # when ':metawikipedia'
+      #   project_prefix = ':m'
+      # when ':meta'
+      #   project_prefix = ':m'
+      # when ':wikispecies'
+      #   project_prefix = ':species'
+      # when ':wikimedia'
+      #   project_prefix = ':wmf'
+      # when ':foundation'
+      #   project_prefix = ':wmf'
+      # when ':mediawikiwiki'
+      #   project_prefix = ':mw'
+      # when ':phabricator'
+      #   project_prefix = ':phab'
+    end
+
+    project_prefix + language_prefix + ':' + title
   end
 
   # converts page title to a format suitable for on-wiki use
