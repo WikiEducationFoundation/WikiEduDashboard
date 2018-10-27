@@ -138,6 +138,11 @@ en:
     edited: Articles Edited
     edited_by: 'Edited by:'
     edited_mobile: Articles
+    filter:
+      wiki_all: All
+      new: New
+      existing: Existing
+      new_and_existing: New and Existing
     hide: Hide
     history: (history)
     label: Articles
