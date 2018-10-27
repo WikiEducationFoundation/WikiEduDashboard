@@ -159,8 +159,8 @@ const Week = createReactClass({
     ) : undefined;
 
     const weekContent = (
-      this.props.reorderable ?
-        (style = {
+      this.props.reorderable
+        ? (style = {
           position: 'relative',
           height: blocks.length * 75,
           transition: 'height 500ms ease-in-out'
@@ -169,8 +169,7 @@ const Week = createReactClass({
             {blocks}
           </ReactCSSTG>
         )
-        :
-        (
+        : (
           <ul className="week__block-list list-unstyled">
             {blocks}
           </ul>

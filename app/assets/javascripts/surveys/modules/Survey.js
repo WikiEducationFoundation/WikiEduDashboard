@@ -356,8 +356,8 @@ const Survey = {
     }
 
     // Validate Checkbox
-    if ($block.find('[data-required-checkbox]').length &&
-        $block.find('input[type="checkbox"]:checked').length === 0) {
+    if ($block.find('[data-required-checkbox]').length
+        && $block.find('input[type="checkbox"]:checked').length === 0) {
       validation = false;
     }
 
@@ -647,8 +647,8 @@ const Survey = {
       });
       // Check if value matches a conditional question
       value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined &&
-            currentAnswers.indexOf(v) === -1) {
+        if (conditionalGroup[v] !== undefined
+            && currentAnswers.indexOf(v) === -1) {
           conditional = conditionalGroup[v];
           currentAnswers.push(v);
           conditionalGroup.currentAnswers = currentAnswers;

@@ -12,8 +12,9 @@ const SurveyAssignmentAdmin = {
 
   sortableTables() {
     return $('[data-sortable-courses]').each((i, sortableCourses) => {
-      const options =
-        { valueNames: ['title', 'id'] };
+      const options = {
+        valueNames: ['title', 'id']
+      };
 
       return new List(sortableCourses, options);
     });

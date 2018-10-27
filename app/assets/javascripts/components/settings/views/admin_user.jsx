@@ -52,9 +52,9 @@ const AdminUser = createReactClass({
 
   render() {
     const { user } = this.props;
-    const adminLevel = user.permissions === 3 ?
-      'Super Admin' :
-      'Admin';
+    const adminLevel = user.permissions === 3
+      ? 'Super Admin'
+      : 'Admin';
 
     let buttonText;
     let buttonClass = 'button';
