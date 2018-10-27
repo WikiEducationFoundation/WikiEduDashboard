@@ -19,8 +19,7 @@ const Finished = createReactClass({
     return this.state.timeout = setTimeout(() => {
       const returnTo = this.props.returnToParam;
       return window.location = decodeURIComponent(returnTo);
-    }
-    , 750);
+    }, 750);
   },
 
   // clear the timeout just to be safe

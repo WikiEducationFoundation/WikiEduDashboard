@@ -57,8 +57,7 @@ const ValidationStore = Flux.createStore(
       _errorQueue = [];
       return ValidationStore.emitChange();
     }
-  }
-  , (payload) => {
+  }, (payload) => {
     const { data } = payload;
     switch (payload.actionType) {
       case 'INITIALIZE':
