@@ -88,8 +88,8 @@ export default class TextResults extends Component {
     const { limit, buttonText } = this.state;
     const answers = this.props.answers_data;
     const followUpAnswers = this.followUpAnswers;
-    if ((followUpOnly && followUpAnswers.length < limit) ||
-        (!followUpOnly && answers.length < limit)) {
+    if ((followUpOnly && followUpAnswers.length < limit)
+       || (!followUpOnly && answers.length < limit)) {
       return null;
     }
     const button = this.showButton ? <button type="button" className="link-button" onClick={this.toggleShowMore}>{`Show ${buttonText}`}</button> : null;

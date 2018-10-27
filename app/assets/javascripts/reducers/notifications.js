@@ -6,12 +6,12 @@ const initialState = [];
 const saveTimelineFailedNotification = {
   closable: true,
   type: 'error',
-  message: 'The changes you just submitted were not saved. ' +
-           'This may happen if the timeline has been changed — ' +
-           'by someone else, or by you in another browser ' +
-           'window — since the page was loaded. The latest ' +
-           'course data has been reloaded, and is ready for ' +
-           'you to edit further.'
+  message: 'The changes you just submitted were not saved. '
+           + 'This may happen if the timeline has been changed — '
+           + 'by someone else, or by you in another browser '
+           + 'window — since the page was loaded. The latest '
+           + 'course data has been reloaded, and is ready for '
+           + 'you to edit further.'
 };
 
 const handleErrorNotification = function (data) {

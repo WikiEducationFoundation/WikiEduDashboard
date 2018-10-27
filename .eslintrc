@@ -65,7 +65,6 @@
     "prefer-destructuring": 0,
     "react/prop-types": 0,
     "semi-style": 0,
-    "operator-linebreak": 0,
     "react/jsx-tag-spacing": 0,
     "implicit-arrow-linebreak": 0,
     "react/destructuring-assignment": 0,

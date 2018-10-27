@@ -45,9 +45,9 @@ describe('AdminUser', () => {
       const expectedCellValues = [
         expectedUser.username,
         expectedUser.real_name,
-        expectedUser.permissions === 3 ?
-          'Super Admin' :
-          'Admin',
+        expectedUser.permissions === 3
+          ? 'Super Admin'
+          : 'Admin',
       ];
 
       expectedCellValues.forEach((expectedValue, idx) => {
