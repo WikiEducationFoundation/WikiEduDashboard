@@ -89,200 +89,226 @@ const API = {
   },
 
   createCustomFeedback(assignmentId, text, userId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/assignments/${assignmentId}/assignment_suggestions`,
-        data: {feedback: {text: text, assignment_id: assignmentId, user_id: userId}},
-        success(data) {
-          return res(data);
+    return fetch(`/assignments/${assignmentId}/assignment_suggestions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({feedback: {text: text, assignment_id: assignmentId, user_id: userId}})
+    })
+      .then(res => {
+        if(res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   destroyCustomFeedback(assignmentId, id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/assignments/${assignmentId}/assignment_suggestions/${id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/assignments/${assignmentId}/assignment_suggestions/${id}`, {
+      method: 'DELETE'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetchUserProfileStats(username){
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/user_stats.json?username=${ username }`,
-        success(data) {
-          return res(data);
-        }
+    return fetch(`/user_stats.json?username=${ username }`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if (res.ok) {
+         return res.json();
+       }
+      else {
+        return Promise.reject( {statusText: res.statusText} );
+      }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
   },
 
   fetchArticleDetails(articleId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/articles/details.json?article_id=${articleId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+    return fetch(`/articles/details.json?article_id=${articleId}&course_id=${courseId}`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   fetchDykArticles(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/revison_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(err => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetchSuspectedPlagiarism(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetchRecentUploads(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   cloneCourse(id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/clone_course/${id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`clone_course/${id}`, {
+      method: 'POST'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject({statusText: res.statusText});
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetchUserCourses(userId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses_users.json?user_id=${userId}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/courses_users.json?user_id=${{userId}}`, {
+      method: 'GET'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   deleteAssignment(assignment) {
     const queryString = $.param(assignment);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/assignments/${assignment.id}?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/assignments/$(assignment.id)?${queryString}`, {
+      method: 'DELETE' 
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   createAssignment(opts) {
     const queryString = $.param(opts);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/assignments.json?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/assignments.json?${queryString}`, {
+      method: 'POST'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   updateAssignment(opts) {
     const queryString = $.param(opts);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: `/assignments/${opts.id}.json?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+    return fetch(`/assignments/${opts.id}.json?${queryString}`, {
+      method: 'PUT'
+    })
+     .then(res => {
+       if(res.ok) {
+         return res.json();
+       }
+       else {
+         return Promise.reject( {statusText: res.statusText} );
+       }
+     })
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetch(courseId, endpoint) {
