@@ -49,7 +49,6 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 16 # We should bring this down, ideally to the default of 10
   Exclude:
-    - 'lib/wikitext.rb'
     - 'spec/**/*' # not a big deal in spec helper methods
 Metrics/ModuleLength:
   Exclude:
@@ -96,10 +95,6 @@ Layout/EmptyLineAfterGuardClause:
 # or they should be moved to the 'Permanent' section
 # if we decide they shouldn't be fixed.
 
-Metrics/CyclomaticComplexity:
-  Enabled: true
-  Exclude:
-  - 'lib/wikitext.rb' # case for interwiki shorthands
 Style/FormatStringToken:
   Enabled: false
 Rails/FilePath:
