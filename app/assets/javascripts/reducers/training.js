@@ -82,9 +82,8 @@ export default function training(state = initialState, action) {
       };
       if (newState.valid) {
         return update(setCurrentSlide(newState, data.slide));
-      } else {
-        return { ...newState, loading: false };
       }
+      return { ...newState, loading: false };
     }
     case MENU_TOGGLE:
       return { ...state, menuIsOpen: !data.currently };

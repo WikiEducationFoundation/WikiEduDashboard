@@ -19,6 +19,7 @@
     "react/jsx-no-bind": 0,
     "no-alert": 0,
     "new-cap": [2, { "capIsNew": false }],
+    "no-else-return": [2, { "allowElseIf": true }],
     "no-use-before-define": 0,
     # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
     # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
@@ -72,7 +73,6 @@
     "react/destructuring-assignment": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/button-has-type": 0,
-    "no-else-return": 0,
     "no-multiple-empty-lines": 0,
     "lines-between-class-members": 0,
     "import/order": 0,
