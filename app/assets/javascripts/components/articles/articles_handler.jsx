@@ -95,7 +95,7 @@ const ArticlesHandler = createReactClass({
 
       filterWikis = (
         <select onChange={this.onChangeFilter}>
-          <option value="all">All</option>
+          <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
           {wikiOptions}
         </select>
       );
@@ -105,9 +105,9 @@ const ArticlesHandler = createReactClass({
     if (this.props.newnessFilterEnabled) {
       filterArticlesSelect = (
         <select className="filter-articles" defaultValue="both" onChange={this.onNewnessChange}>
-          <option value="new">New</option>
-          <option value="existing">Existing</option>
-          <option value="both">New and existing</option>
+          <option value="new">{I18n.t('articles.filter.new')}</option>
+          <option value="existing">{I18n.t('articles.filter.existing')}</option>
+          <option value="both">{I18n.t('articles.filter.new_and_existing')}</option>
         </select>
       );
     }
