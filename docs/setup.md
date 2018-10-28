@@ -1,6 +1,6 @@
 [Back to README](../README.md)
 # Script Setup
-We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.) and MacOS.
+We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.), Fedora and MacOS.
 
 **Warning**: If you run this python script on Windows system, it will run a still in Development script, which is **not** tested fully and might **not** work properly.
 
