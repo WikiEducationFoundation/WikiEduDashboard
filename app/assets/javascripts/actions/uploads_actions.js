@@ -10,7 +10,7 @@ const fetchUploads = (courseId) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-        return Promise.reject({ statusText: res.statusText });
+        return Promise.reject(res);
     })
     .catch((error) => {
       logErrorMessage(error);
@@ -43,7 +43,7 @@ const fetchUploadMetadata = (uploads) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-        return Promise.reject({ statusText: res.statusText });
+        return Promise.reject(res);
     })
     .catch((error) => {
       logErrorMessage(error);
@@ -74,7 +74,7 @@ const fetchUploadViewerMetadata = (upload) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-      return Promise.reject({ statusText: res.statusText });
+      return Promise.reject(res);
     })
     .catch((error) => {
       logErrorMessage(error);
@@ -117,7 +117,7 @@ const fetchUploadPageViews = (articleList) => {
         } else if (res.status === 404) {
           return zeroViewsResponse;
         }
-        return Promise.reject({ statusText: res.statusText });
+        return Promise.reject(res);
       })
       .catch((error) => {
         logErrorMessage(error);

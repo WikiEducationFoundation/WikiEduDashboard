@@ -9,7 +9,7 @@ const fetchArticlesPromise = (courseId, limit) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
-      return Promise.reject({ statusText: res.statusText });
+      return Promise.reject(res);
     })
     .catch((error) => {
       logErrorMessage(error);
