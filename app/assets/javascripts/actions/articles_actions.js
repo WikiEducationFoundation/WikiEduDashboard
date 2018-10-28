@@ -1,21 +1,20 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import { fetchWikidataLabelsForArticles } from './wikidata_actions';
+import fetch from 'isomorphic-fetch';
 
 const fetchArticlesPromise = (courseId, limit) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseId}/articles.json?limit=${limit}`,
-      success(data) {
-        return res(data);
+  return fetch(`/courses/${courseId}/articles.json?limit=${limit}`)
+    .then((res) => {
+      if (res.ok && res.status === 200) {
+        return res.json();
       }
+      return Promise.reject({ statusText: res.statusText });
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  });
 };
 
 
