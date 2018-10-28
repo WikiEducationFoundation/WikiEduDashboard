@@ -15,10 +15,11 @@ const ArticleViewer = createReactClass({
     article: PropTypes.object.isRequired,
     showButtonLabel: PropTypes.string,
     showButtonClass: PropTypes.string,
+    title: PropTypes.string,
     users: PropTypes.array,
     showOnMount: PropTypes.bool,
-    fetchArticleDetails: PropTypes.func,
     showArticleLegend: PropTypes.bool,
+    fetchArticleDetails: PropTypes.func,
   },
   getDefaultProps() {
     return {
@@ -263,6 +264,16 @@ const ArticleViewer = createReactClass({
 
   render() {
     if (!this.state.showArticle) {
+      if (this.props.title) {
+        return (
+          <div className={`tooltip-trigger ${this.props.showButtonClass || ''}`}>
+            <button onClick={this.showArticle}>{this.props.title}</button>
+            <div className="tooltip tooltip-title dark large">
+              <p>{this.showButtonLabel()}</p>
+            </div>
+          </div>
+        );
+      }
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showArticle} className="icon icon-article-viewer" />
