@@ -148,8 +148,8 @@ const ArticleFinderRow = createReactClass({
     };
     const articleViewer = (
       <ArticleViewer
+        title={this.props.article.title}
         article={article}
-        showButtonClass="pull-left"
         showArticleFinder={true}
       />
     );
@@ -161,10 +161,7 @@ const ArticleFinderRow = createReactClass({
         </td>
         <td>
           <div className="horizontal-flex">
-            <a href={`https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
-            <div>
-              {articleViewer}
-            </div>
+            {articleViewer}
           </div>
         </td>
         {grade}
