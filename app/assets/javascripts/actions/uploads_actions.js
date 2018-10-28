@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS, RESET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import pageViewDateString from '../utils/uploads_pageviews_utils';
+import fetch from 'isomorphic-fetch';
 
 const fetchUploads = (courseId) => {
   return fetch(`/courses/${courseId}/uploads.json`)
@@ -13,7 +14,6 @@ const fetchUploads = (courseId) => {
     })
     .catch((error) => {
       logErrorMessage(error);
-      return Promise.reject({ error });
     });
 };
 
@@ -47,7 +47,6 @@ const fetchUploadMetadata = (uploads) => {
     })
     .catch((error) => {
       logErrorMessage(error);
-      return Promise.reject({ error });
     });
 };
 
@@ -79,7 +78,6 @@ const fetchUploadViewerMetadata = (upload) => {
     })
     .catch((error) => {
       logErrorMessage(error);
-      return Promise.reject({ error });
     });
 };
 
@@ -123,7 +121,6 @@ const fetchUploadPageViews = (articleList) => {
       })
       .catch((error) => {
         logErrorMessage(error);
-        return Promise.reject({ error });
       }));
   });
   return viewPerArticle;

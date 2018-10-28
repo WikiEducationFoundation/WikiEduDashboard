@@ -1,6 +1,7 @@
 import * as types from '../constants';
 import API from '../utils/api.js';
 import logErrorMessage from '../utils/log_error_message';
+import fetch from 'isomorphic-fetch';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
 // action object, it returns a function that takes the store dispatch fucntion —
@@ -20,19 +21,17 @@ export function submitNeedHelpAlert(data) {
 export const resetNeedHelpAlert = () => ({ type: types.RESET_NEED_HELP_ALERT });
 
 const fetchAlertsPromise = (campaignSlug) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/campaigns/${campaignSlug}/alerts.json`,
-      success(data) {
-        return res(data);
+  return fetch(`/campaigns/${campaignSlug}/alerts.json`)
+    .then((res) => {
+      if (res.ok && res.status === 200) {
+        return res.json();
       }
+      return Promise.reject({ statusText: res.statusText });
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  });
 };
 
 export const fetchAlerts = campaignSlug => (dispatch) => {
