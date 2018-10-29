@@ -69,10 +69,10 @@ const ArticlesHandler = createReactClass({
 
     let header;
     if (Features.wikiEd) {
-      header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+      header = <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
     } else {
       header = (
-        <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
+        <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}
           <span className="tooltip-indicator" />
           <div className="tooltip dark">
             <p>{I18n.t('articles.cross_wiki_tracking')}</p>
