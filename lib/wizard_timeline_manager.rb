@@ -119,6 +119,7 @@ class WizardTimelineManager
   end
   # rubocop:disable Metrics/LineLength
   HANDOUTS = {
+    'art_history_handout' => ['Art History', 'https://wikiedu.org/art_history'],
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
     'books_handout' => ['Books', 'https://wikiedu.org/books'],
     'chemistry_handout' => ['Chemistry', 'https://wikiedu.org/chemistry'],

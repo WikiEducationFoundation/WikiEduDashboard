@@ -188,6 +188,11 @@
   minimum: 0
   options:
     -
+      title: Art History
+      tag: art_history
+      logic: art_history_handout
+      small: true
+    -
       title: Biographies
       tag: biographies
       logic: biographies_handout
