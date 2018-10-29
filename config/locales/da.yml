@@ -38,6 +38,7 @@ da:
     request_account_create: Opret en konto
     search: stil et spørgsmål
     search_results: 'Resultater for: ''%{search_terms}'''
+    no_results: Ingen resultater kunne findes for '%{query}'
     sign_up_extended: Registrer dig med Wikipedia
     sign_up_wikipedia: Eller tilmeld dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -210,6 +211,7 @@ da:
       create_short: Opret kursus
       end_date: Slutdato
       end_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
+      expected_number: Forventet antal studenter
       find: Find dit kursus
       role_description: Din rolle i kursuset
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
@@ -250,6 +252,7 @@ da:
     nocourses: Du deltager ikke i nogen kurser.
     none: Ingen
     no_available_actions: Ingen tilgængelige handlinger
+    ores_plot: ORES
     overview: Hjem
     please_log_in: Venligst log på.
     private: Privat
@@ -311,6 +314,7 @@ da:
     explore: Find programmer
     join_course: Tilslut program
     leave_course: Forlad program
+    request_accounts: Anmod om konti
     school: Institution
     search_courses: Søg i programmer
     student_editors: Skribenter
