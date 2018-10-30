@@ -43,11 +43,13 @@ describe 'Instructor users', type: :feature, js: true do
            id: 2,
            user_id: 101,
            course_id: 10001,
+           real_name: 'Really Real Name',
            role: 0)
     create(:courses_user,
            id: 3,
            user_id: 102,
            course_id: 10001,
+           real_name: 'Another Actual Name',
            role: 0)
     create(:campaign,
            id: 1,
@@ -67,6 +69,14 @@ describe 'Instructor users', type: :feature, js: true do
     logout
   end
 
+  describe 'visiting the home tab' do
+    it 'can see the passcode' do
+      visit "/courses/#{Course.first.slug}"
+      expect(page).to have_content('passcode')
+      expect(page).not_to have_content('****')
+    end
+  end
+
   describe 'visiting the students page' do
     let(:week) { create(:week, course_id: Course.first.id) }
     let(:tm) { TrainingModule.all.first }
@@ -81,6 +91,11 @@ describe 'Instructor users', type: :feature, js: true do
 
     after do
       Timecop.return
+    end
+
+    it 'can see real names of enrolled students' do
+      visit "/courses/#{Course.first.slug}/students"
+      expect(page).to have_content('Really Real Name')
     end
 
     it 'is able to add students' do
