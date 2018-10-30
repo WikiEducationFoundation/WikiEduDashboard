@@ -34,7 +34,7 @@ end
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-guard :rspec, cmd: 'echo "done"' do
+guard :rspec, cmd: 'bundle exec rspec' do
   require 'ostruct'
 
   # Generic Ruby apps

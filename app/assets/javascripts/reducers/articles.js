@@ -68,13 +68,7 @@ export default function articles(state = initialState, action) {
       return { ...state, wikiFilter: action.wiki };
     }
     case SET_NEWNESS_FILTER: {
-      switch (action.newness) {
-        case 'new':
-        case 'existing':
-          return { ...state, newnessFilter: action.newness };
-        default:
-          return state;
-      }
+      return { ...state, newnessFilter: action.newness };
     }
     default:
       return state;
