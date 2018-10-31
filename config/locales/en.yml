@@ -506,6 +506,7 @@ en:
     new_account_submitted_admin: >
       Your request for an account has been created. Please inform your students to check
       their email inbox to get their new password
+    no_campaign: To make this program active and allow users to join, it must be added to a campaign. If you're unsure of which campaign to add, use 'Miscellanea'.
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None
