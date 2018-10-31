@@ -24,7 +24,7 @@ describe TrainingStatusController do
     end
 
     context 'when the training is complete' do
-      let(:completion_date) { Time.now }
+      let(:completion_date) { Time.zone.now }
 
       before do
         create(:training_modules_users, training_module_id: 1,

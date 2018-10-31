@@ -8,7 +8,7 @@ class OverdueTrainingAlertMailer < ApplicationMailer
     return if alert.user.email.blank?
 
     email(alert).deliver_now
-    alert.update(email_sent_at: Time.now)
+    alert.update(email_sent_at: Time.zone.now)
   end
 
   def email(alert)

@@ -137,7 +137,7 @@ describe TrainingProgressManager do
     end
 
     context 'completed_at is present for tmu' do
-      let(:completed_at) { Time.now }
+      let(:completed_at) { Time.zone.now }
 
       it 'returns true' do
         expect(subject.module_completed?).to eq(true)
@@ -159,7 +159,7 @@ describe TrainingProgressManager do
     end
 
     context 'module is completed' do
-      let(:completed_at) { Time.now }
+      let(:completed_at) { Time.zone.now }
 
       before do
         allow_any_instance_of(TrainingModuleDueDateManager)
@@ -184,7 +184,7 @@ describe TrainingProgressManager do
     end
 
     context 'completed' do
-      let(:completed_at) { Time.now }
+      let(:completed_at) { Time.zone.now }
       let(:last_slide_completed) { slides.last.slug }
 
       it 'returns "completed"' do

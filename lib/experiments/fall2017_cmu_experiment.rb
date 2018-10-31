@@ -64,9 +64,9 @@ class Fall2017CmuExperiment
 
   def update_status(new_status, email_just_sent: false, email_code: nil, reminder_just_sent: false)
     @course.flags[STATUS_KEY] = new_status
-    @course.flags[EMAIL_SENT_AT] = Time.now.to_s if email_just_sent
+    @course.flags[EMAIL_SENT_AT] = Time.zone.now.to_s if email_just_sent
     @course.flags[EMAIL_CODE] = email_code if email_code.present?
-    @course.flags[REMINDER_SENT_AT] = Time.now.to_s if reminder_just_sent
+    @course.flags[REMINDER_SENT_AT] = Time.zone.now.to_s if reminder_just_sent
     @course.save
     @status = new_status
   end
@@ -80,7 +80,7 @@ class Fall2017CmuExperiment
   end
 
   def invited_over_a_week_ago?
-    invited_at = Time.parse(@course.flags[EMAIL_SENT_AT])
+    invited_at = Time.zone.parse(@course.flags[EMAIL_SENT_AT])
     invited_at < 1.week.ago
   end
 
