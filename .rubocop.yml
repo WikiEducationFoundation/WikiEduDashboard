@@ -152,8 +152,6 @@ RSpec/BeforeAfterAll:
   Enabled: false
 RSpec/EmptyExampleGroup:
   Enabled: false
-RSpec/FilePath:
-  Enabled: false
 RSpec/ScatteredLet:
   Enabled: false
 RSpec/LetSetup:
