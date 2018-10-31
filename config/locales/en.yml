@@ -295,6 +295,7 @@ en:
     accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
     active_courses: Active %{course_type}
+    add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed&apos;s best practices.
     alerts: Alerts
     all_courses: All Courses
     already_enrolled: You are already a part of '%{title}'!
@@ -370,6 +371,7 @@ en:
       create_label: Create New Course
       create_new: Create a New Course
       create_short: Create Course
+      create_timeline: Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed&apos;s best practices.
       end_date: End date
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
@@ -473,6 +475,7 @@ en:
       not_yet_approved: This course has not yet been approved for enrollment.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
+    launch_wizard: Launch the Wizard
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course
     loading: Loading…
@@ -563,6 +566,7 @@ en:
     timeline_enabled: Timeline enabled
     timeline_link: Timeline
     timeline_tooltip: Enabling the Timeline will let you specify week-by-week activities and assign training modules. It is useful for Education Program courses and other long, highly structured programs.
+    timeline_nav: Go to Timeline
     time_zone_message: Start and end times are displayed in your local time zone.
     title: Title
     training_due:
