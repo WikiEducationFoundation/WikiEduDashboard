@@ -55,7 +55,7 @@ describe VisitingScholarship, type: :model do
     vs = create(:visiting_scholarship,
                 id: 10001,
                 start: 1.year.ago,
-                end: Date.today + 1.year)
+                end: Time.zone.today + 1.year)
     scholar = create(:user)
     create(:courses_user,
            user_id: scholar.id,

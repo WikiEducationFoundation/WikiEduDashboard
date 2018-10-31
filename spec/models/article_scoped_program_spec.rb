@@ -55,7 +55,7 @@ describe ArticleScopedProgram, type: :model do
     asp = create(:article_scoped_program,
                  id: 10001,
                  start: 1.year.ago,
-                 end: Date.today + 1.year)
+                 end: Time.zone.today + 1.year)
     editor = create(:user)
     create(:courses_user,
            user_id: editor.id,

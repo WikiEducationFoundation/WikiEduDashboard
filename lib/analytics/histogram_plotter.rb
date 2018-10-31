@@ -35,7 +35,7 @@ class HistogramPlotter
   end
 
   def csv_filename
-    "#{slug_filename}-#{Date.today}.csv"
+    "#{slug_filename}-#{Time.zone.today}.csv"
   end
 
   def public_analytics_path
