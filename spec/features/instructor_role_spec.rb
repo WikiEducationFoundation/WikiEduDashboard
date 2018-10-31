@@ -81,7 +81,7 @@ describe 'Instructor users', type: :feature, js: true do
     let(:week) { create(:week, course_id: Course.first.id) }
     let(:tm) { TrainingModule.all.first }
     let!(:block) do
-      create(:block, week_id: week.id, training_module_ids: [tm.id], due_date: Date.today)
+      create(:block, week_id: week.id, training_module_ids: [tm.id], due_date: Time.zone.today)
     end
 
     before do

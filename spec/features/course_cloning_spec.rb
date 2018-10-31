@@ -11,7 +11,7 @@ describe 'cloning a course', js: true do
   # and bugginess in the Capybara drivers. We want to avoid setting a date the
   # same as today's date.
 
-  if (11..12).cover? Date.today.day
+  if (11..12).cover? Time.zone.today.day
     let(:course_start) { '13' }
     let(:timeline_start) { '14' }
   else
@@ -19,7 +19,7 @@ describe 'cloning a course', js: true do
     let(:timeline_start) { '12' }
   end
 
-  if (27..28).cover? Date.today.day
+  if (27..28).cover? Time.zone.today.day
     let(:course_end) { '26' }
     let(:timeline_end) { '25' }
   else
