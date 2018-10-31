@@ -127,7 +127,15 @@ const Course = createReactClass({
           ));
         }
       }
-
+      if (!(course.type === 'ClassroomProgramCourse')) {
+        alerts.push((
+          <div className="warning notification">
+            <div className="container">
+              <p>{I18n.t('courses.no_campaign')}</p>
+            </div>
+          </div>
+        ));
+      }
       // When the course has been submitted
       if (course.submitted) {
         // Show instructors the 'submitted' notice.
