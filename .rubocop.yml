@@ -100,8 +100,6 @@ Layout/EmptyLineAfterGuardClause:
 
 Rails/FilePath:
   Enabled: false
-Rails/TimeZone:
-  Enabled: false
 Rails/Date:
   Enabled: false
 Rails/SkipsModelValidations:

@@ -6,15 +6,17 @@ require "#{Rails.root}/lib/data_cycle/update_logger"
 describe UpdateLogger do
   describe '.update_settings_record' do
     it 'adds the time of the metrics last update as a value to the settings table' do
-      described_class.update_settings_record('start_time' => Time.now, 'end_time' => Time.now)
+      described_class.update_settings_record('start_time' => Time.zone.now,
+                                             'end_time' => Time.zone.now)
       record = Setting.find_or_create_by(key: 'metrics_update')
       expect(record.value['constant_update'].values.last['end_time'])
-        .to be_within(2.seconds).of(Time.now)
+        .to be_within(2.seconds).of(Time.zone.now)
     end
 
     it 'adds a maximum of 10 records' do
       15.times do
-        described_class.update_settings_record('start_time' => Time.now, 'end_time' => Time.now)
+        described_class.update_settings_record('start_time' => Time.zone.now,
+                                               'end_time' => Time.zone.now)
       end
       record = Setting.find_or_create_by(key: 'metrics_update')
       number_of_updates = record.value['constant_update'].size

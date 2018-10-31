@@ -47,7 +47,7 @@ class SurveyNotification < ApplicationRecord
     return if email_sent_at.present?
     return if user.email.nil?
     SurveyMailer.send_notification(self)
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   # This should return something falsey if no email was sent, and something
@@ -57,7 +57,7 @@ class SurveyNotification < ApplicationRecord
     return if user.email.nil?
     return unless ready_for_follow_up?
     SurveyMailer.send_follow_up(self)
-    update_attributes(last_follow_up_sent_at: Time.now,
+    update_attributes(last_follow_up_sent_at: Time.zone.now,
                       follow_up_count: follow_up_count + 1)
   end
 
@@ -82,7 +82,7 @@ class SurveyNotification < ApplicationRecord
   MAX_FOLLOW_UPS = 3
   def ready_for_follow_up?
     return false if email_sent_at.nil?
-    return false if Time.now < last_email_sent_at + time_before_another_email
+    return false if Time.zone.now < last_email_sent_at + time_before_another_email
     return false if follow_up_count >= MAX_FOLLOW_UPS
     true
   end

@@ -97,7 +97,7 @@ class Alert < ApplicationRecord
     content_expert = course.nonstudents.find_by(greeter: true)
     return if content_expert.nil?
     AlertMailer.alert(self, content_expert).deliver_now
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   def email_course_admins
@@ -106,14 +106,14 @@ class Alert < ApplicationRecord
     admins.each do |admin|
       AlertMailer.alert(self, admin).deliver_now
     end
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   def email_target_user
     return if emails_disabled?
     return if target_user.nil?
     AlertMailer.alert(self, target_user).deliver_now
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   # Disable emails for specific alert types in application.yml, like so:
