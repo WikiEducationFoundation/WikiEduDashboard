@@ -88,10 +88,12 @@ export const getCloneableCourses = createSelector(
 
 export const getWikiArticles = createSelector(
   [getAllEditedArticles, getWikiFilter], (editedArticles, wikiFilter) => {
-    if (wikiFilter === null) {
-      return editedArticles;
+    switch (wikiFilter.project) {
+      case 'all':
+        return editedArticles;
+      default:
+        return getFiltered(editedArticles, { ...wikiFilter });
     }
-    return getFiltered(editedArticles, { ...wikiFilter });
   }
 );
 

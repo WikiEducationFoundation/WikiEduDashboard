@@ -62,19 +62,10 @@ export default function articles(state = initialState, action) {
       return newState;
     }
     case SET_PROJECT_FILTER: {
-      if (action.wiki.project === 'all') {
-        return { ...state, wikiFilter: null };
-      }
       return { ...state, wikiFilter: action.wiki };
     }
     case SET_NEWNESS_FILTER: {
-      switch (action.newness) {
-        case 'new':
-        case 'existing':
-          return { ...state, newnessFilter: action.newness };
-        default:
-          return state;
-      }
+      return { ...state, newnessFilter: action.newness };
     }
     default:
       return state;
