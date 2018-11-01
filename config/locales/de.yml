@@ -110,6 +110,11 @@ de:
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
+    filter:
+      wiki_all: Alle
+      new: Neu
+      existing: Vorhandene
+      new_and_existing: Neue und vorhandene
     hide: Ausblenden
     history: (Versionsgeschichte)
     label: Artikel

@@ -66,6 +66,10 @@ el:
     edited: Άρθρα που επεξεργάστηκαν
     edited_by: Επεξεργάστηκε από
     edited_mobile: Λήμματα
+    filter:
+      wiki_all: Όλα
+      new: Νέο
+      existing: Υπάρχοντα
     hide: Απόκρυψη
     history: (ιστορικό)
     label: Λήμματα

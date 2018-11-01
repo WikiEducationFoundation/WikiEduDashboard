@@ -1,6 +1,7 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alacabe
 # Author: Appleuseryu
 # Author: Ash Crow
 # Author: Benoit Rochon
@@ -129,6 +130,11 @@ fr:
     edited: Articles modifiés
     edited_by: 'Modifié par :'
     edited_mobile: Articles
+    filter:
+      wiki_all: Tous
+      new: Nouveau
+      existing: Existant
+      new_and_existing: Nouveau et existant
     hide: Masquer
     history: (historique)
     label: Articles

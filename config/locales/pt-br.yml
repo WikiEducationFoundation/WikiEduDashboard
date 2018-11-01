@@ -128,6 +128,11 @@ pt-br:
     edited: Artigos editados
     edited_by: 'Editado por:'
     edited_mobile: Artigos
+    filter:
+      wiki_all: Todos
+      new: Novo
+      existing: Existentes
+      new_and_existing: Novos e existentes
     hide: Ocultar
     history: (histórico)
     label: Artigos

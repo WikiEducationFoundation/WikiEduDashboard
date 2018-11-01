@@ -83,6 +83,11 @@ da:
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
     edited_mobile: Artikler
+    filter:
+      wiki_all: Alle
+      new: Nye
+      existing: Eksisterende
+      new_and_existing: Nye og eksisterende
     hide: Skjul
     history: (historik)
     label: Artikler
