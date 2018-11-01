@@ -77,8 +77,6 @@ Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
 Style/SymbolArray:
   Enabled: false # Rare syntax that is potentially confusing to newcomers.
-Style/FormatStringToken:
-  Enabled: false # Not very helpful, string interpolation used instead of Kernel::Format
 Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
 Rails/Blank:
