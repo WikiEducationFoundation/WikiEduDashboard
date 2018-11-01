@@ -99,7 +99,7 @@ Style/FormatStringToken:
   Enabled: false
 Rails/FilePath:
   Enabled: false
-Rails/Date:
+Rails/TimeZone:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
