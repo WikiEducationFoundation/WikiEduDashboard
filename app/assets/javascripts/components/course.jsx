@@ -1,10 +1,9 @@
+// /* eslint no-undef: 2 */
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
-import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
@@ -15,7 +14,7 @@ import CourseUtils from '../utils/course_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
-import OptInNotification from './common/opt_in_notification';
+import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../selectors';
 
 const Course = createReactClass({
@@ -62,19 +61,6 @@ const Course = createReactClass({
     return false;
   },
 
-  submit(e) {
-    e.preventDefault();
-    if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    this.props.updateCourse({ submitted: true });
-    return this.props.persistCourse(this.props.course.slug);
-  },
-
-  dismissSurvey(surveyNotificationId) {
-    if (confirm(I18n.t('courses.dismiss_survey_confirm'))) {
-      return this.props.dismissNotification(surveyNotificationId);
-    }
-  },
-
   _courseLinkParams() {
     return `/courses/${this.props.params.course_school}/${this.props.params.course_title}`;
   },
@@ -84,145 +70,7 @@ const Course = createReactClass({
     const course = this.props.course;
     if (!courseId || !course || !course.home_wiki) { return <div />; }
 
-    const alerts = [];
     const userRoles = this.props.currentUser;
-    // //////////////////////////////////
-    // Admin / Instructor notifications /
-    // //////////////////////////////////
-
-    // For unpublished courses, when viewed by an instructor or admin
-    if (userRoles.isNonstudent && !course.legacy && !course.published) {
-      // If it's an unsubmitted ClassroomProgramCourse
-      const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse';
-      if (isUnsubmittedClassroomProgramCourse) {
-        // Show submit button if there is a timeline with trainings, or user is admin.
-        if (CourseUtils.hasTrainings(this.props.weeks) || userRoles.isAdmin) {
-          alerts.push((
-            <div className="notification" key="submit">
-              <div className="container">
-                <p>{I18n.t('courses.review_timeline')}</p>
-                <a href="#" onClick={this.submit} className="button">{I18n.t('application.submit')}</a>
-              </div>
-            </div>
-          ));
-        // Show 'add trainings' message if there is a timeline with no trainings
-        } else if (this.props.weeks.length) {
-          alerts.push((
-            <div className="notification" key="submit">
-              <div className="container">
-                <p>{I18n.t('courses.add_trainings')}</p>
-                <a href={`${this._courseLinkParams()}/timeline`} className="button">{I18n.t('courses.training_nav')}</a>
-              </div>
-            </div>
-          ));
-        // Show 'create a timeline' message if there is no timeline.
-        } else {
-          alerts.push((
-            <div className="notification" key="submit">
-              <div className="container">
-                <p>{I18n.t('courses.create_timeline')}</p>
-                <a href={`${this._courseLinkParams()}/timeline/wizard`} className="button">{I18n.t('courses.launch_wizard')}</a>
-              </div>
-            </div>
-          ));
-        }
-      }
-      if (!(course.type === 'ClassroomProgramCourse')) {
-        alerts.push((
-          <div className="warning notification">
-            <div className="container">
-              <p>{I18n.t('courses.no_campaign')}</p>
-            </div>
-          </div>
-        ));
-      }
-      // When the course has been submitted
-      if (course.submitted) {
-        // Show instructors the 'submitted' notice.
-        if (!userRoles.isAdmin) {
-          alerts.push((
-            <div className="notification" key="submit">
-              <div className="container">
-                <p>{I18n.t('courses.submitted_note')}</p>
-              </div>
-            </div>
-          ));
-        // Instruct admins to approve the course by adding a campaign.
-        } else {
-          const homeLink = `${this._courseLinkParams()}/home`;
-          alerts.push((
-            <div className="notification" key="publish">
-              <div className="container">
-                <p>{I18n.t('courses.submitted_admin')}</p>
-                <CourseLink to={homeLink} className="button">{I18n.t('courses.overview')}</CourseLink>
-              </div>
-            </div>
-          ));
-        }
-      }
-    }
-
-    // For published courses with no students, highlight the enroll link
-    const hasNoStudents = this.props.usersLoaded && this.props.studentCount === 0;
-    if (userRoles.isNonstudent && course.published && hasNoStudents && !course.legacy) {
-      const enrollEquals = '?enroll=';
-      const url = window.location.origin + this._courseLinkParams() + enrollEquals + course.passcode;
-      alerts.push((
-        <div className="notification" key="enroll">
-          <div className="container">
-            <div>
-              <p>{CourseUtils.i18n('published', course.string_prefix)}</p>
-              <a href={url}>{url}</a>
-            </div>
-          </div>
-        </div>
-      )
-      );
-    }
-
-    // ////////////////////////
-    // Training notifications /
-    // ////////////////////////
-    if (course.incomplete_assigned_modules && course.incomplete_assigned_modules.length) {
-      // `table` key is because it comes back as an openstruct
-      const module = course.incomplete_assigned_modules[0].table;
-      const messageKey = moment().isAfter(module.due_date, 'day') ? 'courses.training_overdue' : 'courses.training_due';
-
-      alerts.push(
-        <div className="notification" key="upcoming_module">
-          <div className="container">
-            <p>{I18n.t(messageKey, { title: module.title, date: module.due_date })}</p>
-            <a href={module.link} className="button pull-right">{I18n.t('courses.training_nav')}</a>
-          </div>
-        </div>
-      );
-    }
-
-    // //////////////////////
-    // Survey notifications /
-    // //////////////////////
-    if (course.survey_notifications && course.survey_notifications.length) {
-      course.survey_notifications.map((notification) => {
-        const dismissOnClick = () => this.dismissSurvey(notification.id);
-        return alerts.push(
-          <div className="notification notification--survey" key={'survey_notification_#{notification.id}'}>
-            <div className="container">
-              <p>{notification.message || CourseUtils.i18n('survey.notification_message', course.string_prefix)}</p>
-              <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', course.string_prefix)}</a>
-              <button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>
-            </div>
-          </div>
-        );
-      }
-      );
-    }
-
-    // //////////////////////////
-    // Experiment notifications /
-    // //////////////////////////
-    if (course.experiment_notification) {
-      alerts.push(<OptInNotification notification={course.experiment_notification} key="opt_in" />);
-    }
 
     // //////////////////
     // Enrollment modal /
@@ -255,9 +103,17 @@ const Course = createReactClass({
             <Notifications />
           </Affix>
         </div>
-        <div className="course-alerts">
-          {alerts}
-        </div>
+        <CourseAlerts
+          course={course}
+          userRoles={userRoles}
+          weeks={this.props.weeks}
+          courseLinkParams={this._courseLinkParams()}
+          usersLoaded={this.props.usersLoaded}
+          studentCount={this.props.studentCount}
+          updateCourse={this.props.updateCourse}
+          persistCourse={this.props.persistCourse}
+          dismissNotification={this.props.dismissNotification}
+        />
         <div className="course_main container">
           <Confirm />
           {enrollCard}
