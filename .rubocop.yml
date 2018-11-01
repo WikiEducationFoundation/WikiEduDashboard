@@ -87,6 +87,7 @@ Naming/UncommunicativeMethodParamName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
+
 ########################
 # Temporary exceptions #
 ########################
@@ -95,8 +96,6 @@ Layout/EmptyLineAfterGuardClause:
 # or they should be moved to the 'Permanent' section
 # if we decide they shouldn't be fixed.
 
-Style/FormatStringToken:
-  Enabled: false
 Rails/FilePath:
   Enabled: false
 Rails/TimeZone:
