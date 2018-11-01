@@ -39,7 +39,7 @@ describe 'dashboard', type: :feature, js: true do
         create(:training_modules_users,
                user_id: user.id,
                training_module_id: 3,
-               completed_at: Time.now)
+               completed_at: Time.zone.now)
         visit root_path
         expect(page).to have_content 'Click on Create Course to create your first course'
       end
@@ -134,8 +134,8 @@ describe 'dashboard', type: :feature, js: true do
              slug: 'University/Course2_(Term)',
              submitted: false,
              passcode: 'passcode',
-             start: Time.now,
-             end: Time.now + 100.days)
+             start: Time.zone.now,
+             end: Time.zone.now + 100.days)
       create(:courses_user,
              user_id: user.id,
              course_id: 10002,

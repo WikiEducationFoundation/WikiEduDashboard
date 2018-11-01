@@ -110,7 +110,7 @@ describe 'New course creation and editing', type: :feature do
                   permissions: User::Permissions::INSTRUCTOR)
     create(:training_modules_users, user_id: user.id,
                                     training_module_id: 3,
-                                    completed_at: Time.now)
+                                    completed_at: Time.zone.now)
     login_as(user, scope: :user)
 
     visit root_path
