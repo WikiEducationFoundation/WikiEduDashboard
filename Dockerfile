@@ -9,7 +9,7 @@ FROM ruby:2.5.0
 WORKDIR /usr/src/app
 
 # Setup repos
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
@@ -38,4 +38,3 @@ EXPOSE 3000
 
 # Setup and run
 CMD './entrypoint.sh'
-
