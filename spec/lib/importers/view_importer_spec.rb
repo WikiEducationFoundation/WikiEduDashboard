@@ -18,8 +18,8 @@ describe ViewImporter do
         # Course and article-course are also needed.
         create(:course,
                id: 10001,
-               start: Date.today - 1.week,
-               end: Date.today + 1.week)
+               start: Time.zone.today - 1.week,
+               end: Time.zone.today + 1.week)
         create(:articles_course,
                id: 1,
                course_id: 10001,
@@ -34,8 +34,8 @@ describe ViewImporter do
   describe '.update_all_views' do
     let!(:course) do
       create(:course, id: 10001,
-                      start: Date.today - 1.week,
-                      end: Date.today + 1.week)
+                      start: Time.zone.today - 1.week,
+                      end: Time.zone.today + 1.week)
     end
     let!(:articles_course) { create(:articles_course, id: 1, course_id: 10001, article_id: 1) }
     let!(:revision) { create(:revision, article_id: 1) }
@@ -50,7 +50,7 @@ describe ViewImporter do
         # Add an article (which has a revision and is part of the course)
         create(:article, id: 1, title: 'Wikipedia', namespace: 0,
                          wiki_id: en_wiki.id,
-                         views_updated_at: Date.today - 2.days)
+                         views_updated_at: Time.zone.today - 2.days)
 
         # Update again with this article.
         allow(WikiPageviews).to receive(:new).and_call_original
@@ -66,7 +66,7 @@ describe ViewImporter do
 
       create(:article, id: 1, title: 'Wikipedia', namespace: 0,
                        wiki_id: es_wiki.id,
-                       views_updated_at: Date.today - 2.days)
+                       views_updated_at: Time.zone.today - 2.days)
       stub_request(:get, %r{.*pageviews/per-article/es.wikipedia.*})
         .to_return(
           status: 200,
@@ -91,8 +91,8 @@ describe ViewImporter do
         # Course, article-course, and revision are also needed.
         create(:course,
                id: 10001,
-               start: Date.today - 1.month,
-               end: Date.today + 1.month)
+               start: Time.zone.today - 1.month,
+               end: Time.zone.today + 1.month)
         create(:articles_course,
                id: 1,
                course_id: 10001,

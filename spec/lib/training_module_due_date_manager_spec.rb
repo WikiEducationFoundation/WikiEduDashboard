@@ -211,7 +211,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context 'user belongs to two courses with the module assigned' do
-        let(:course2)   { create(:course, timeline_start: Date.today, slug: 'foo/2') }
+        let(:course2)   { create(:course, timeline_start: Time.zone.today, slug: 'foo/2') }
         let!(:cu2)      { create(:courses_user, user_id: user.id, course_id: course2.id) }
         let(:week2)     { create(:week, course_id: course2.id, order: 1) }
         let(:due_date2) { 1.week.ago.to_date }
@@ -224,7 +224,7 @@ describe TrainingModuleDueDateManager do
 
           it 'uses the earlier of the existent block due date '\
              'or the end of the week of the block without a date' do
-            expect(subject).to eq(Date.today.end_of_week(:sunday))
+            expect(subject).to eq(Time.zone.today.end_of_week(:sunday))
           end
         end
 

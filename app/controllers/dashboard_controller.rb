@@ -49,7 +49,7 @@ class DashboardController < ApplicationController
     # This makes sure the combination of displayed courses includes all courses,
     # without leaving some stuck in between being past and current.
     if current_user.admin?
-      current_user.courses.where('end <= ?', Date.today).order(end: :desc)
+      current_user.courses.where('end <= ?', Time.zone.today).order(end: :desc)
     else
       current_user.courses.archived.order(end: :desc)
     end
