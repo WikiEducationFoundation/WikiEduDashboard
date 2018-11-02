@@ -138,29 +138,29 @@ class WikiSlideParser
     image_filename = template_parameter_value(template, 'image')
     image_caption = template_parameter_value(template, 'caption')
     image_credit = template_parameter_value(template, 'credit')
-    <<-FIGURE
-<figure class="#{image_layout}"><img src="#{image_source}" />
-<figcaption class="#{'image-credit' if image_credit}">#{image_caption}
-<a href="https://commons.wikimedia.org/wiki/#{image_filename}">#{image_credit}</a>
-</figcaption>
-</figure>
+    <<~FIGURE
+      <figure class="#{image_layout}"><img src="#{image_source}" />
+      <figcaption class="#{'image-credit' if image_credit}">#{image_caption}
+      <a href="https://commons.wikimedia.org/wiki/#{image_filename}">#{image_credit}</a>
+      </figcaption>
+      </figure>
     FIGURE
   end
 
   def video_markup_from_template(template)
     video_source = template_parameter_value(template, 'source')
-    <<-VIDEO
-<iframe width="420" height="315" src="#{video_source}" frameborder="0" allowfullscreen></iframe>
+    <<~VIDEO
+      <iframe width="420" height="315" src="#{video_source}" frameborder="0" allowfullscreen></iframe>
     VIDEO
   end
 
   def button_markup_from_template(template)
     button_text = template_parameter_value(template, 'text')
     button_link = template_parameter_value(template, 'link')
-    <<-BUTTON
-<div class="training__button-container"><a target="_blank" class="btn btn-primary" href="#{button_link}">
-#{button_text}
-</a></div>
+    <<~BUTTON
+      <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="#{button_link}">
+      #{button_text}
+      </a></div>
     BUTTON
   end
 

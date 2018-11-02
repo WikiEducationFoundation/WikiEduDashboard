@@ -124,8 +124,6 @@ Rails/Validation:
   Enabled: false
 Rails/FindBy:
   Enabled: false
-Layout/IndentHeredoc:
-  Enabled: false
 Rails/Output:
   Enabled: false
 Lint/DuplicateMethods:
