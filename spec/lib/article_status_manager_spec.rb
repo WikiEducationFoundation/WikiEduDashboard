@@ -100,7 +100,7 @@ describe ArticleStatusManager do
     context 'when a title is a unicode dump' do
       let(:zh_wiki) { create(:wiki, language: 'zh', project: 'wikipedia') }
       # https://zh.wikipedia.org/wiki/%E9%BB%83%F0%A8%A5%88%E7%91%A9
-      let(:title) { URI.encode('黃𨥈瑩') }
+      let(:title) { CGI.escape('黃𨥈瑩') }
       let(:article) { create(:article, wiki: zh_wiki, title: title, mw_page_id: 420741) }
 
       it 'skips updates when the title is a unicode dumps' do

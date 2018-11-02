@@ -112,8 +112,6 @@ Rails/InverseOf:
   Enabled: false
 Rails/UnknownEnv:
   Enabled: false
-Lint/UriEscapeUnescape:
-  Enabled: false
 Performance/RegexpMatch:
   Enabled: false
 Rails/Delegate:
