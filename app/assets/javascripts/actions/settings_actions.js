@@ -46,7 +46,7 @@ const fetchSpecialUsersPromise = () => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'GET',
-      url: `settings/special_users`,
+      url: 'settings/special_users',
       success(data) {
         return accept(data);
       }
@@ -182,15 +182,15 @@ export const downgradeAdmin = username => (dispatch) => {
 };
 
 export function fetchSpecialUsers() {
-  return dispatch => {
+  return (dispatch) => {
     return fetchSpecialUsersPromise()
-      .then(resp => {
+      .then((resp) => {
         dispatch({
           type: SET_SPECIAL_USERS,
           data: resp,
         });
       })
-      .catch(response => {
+      .catch((response) => {
         dispatch({ type: API_FAIL, data: response });
       });
   };
