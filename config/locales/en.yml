@@ -295,7 +295,7 @@ en:
     accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
     active_courses: Active %{course_type}
-    add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed&apos;s best practices.
+    add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.
     alerts: Alerts
     all_courses: All Courses
     already_enrolled: You are already a part of '%{title}'!
@@ -371,7 +371,7 @@ en:
       create_label: Create New Course
       create_new: Create a New Course
       create_short: Create Course
-      create_timeline: Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed&apos;s best practices.
+      create_timeline: Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed's best practices.
       end_date: End date
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
