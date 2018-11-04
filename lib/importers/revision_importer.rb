@@ -117,7 +117,7 @@ class RevisionImporter
     Raven.capture_exception e
     # Use the RUI encoding instead of the unicode string, if
     # the unicode itself can't be saved.
-    article.update!(title: URI.encode(article_data['article']['title']),
+    article.update!(title: CGI.escape(article_data['article']['title']),
                     namespace: article_data['article']['namespace'])
     article
   end

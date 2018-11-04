@@ -104,6 +104,11 @@ zh-TW:
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 條目
+    filter:
+      wiki_all: 全部
+      new: 新的
+      existing: 存在
+      new_and_existing: 新的且存在
     hide: 隱藏
     history: （歷史）
     label: 條目

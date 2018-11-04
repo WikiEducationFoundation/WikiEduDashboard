@@ -50,9 +50,9 @@ describe RevisionImporter do
 
     it 'handles revisions with four-byte unicode characters' do
       VCR.use_cassette 'four-byte-unicode' do
-        expect(Article.exists?(title: URI.encode('黃𨥈瑩'))).to be(false)
+        expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(false)
         subject
-        expect(Article.exists?(title: URI.encode('黃𨥈瑩'))).to be(true)
+        expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(true)
       end
     end
   end

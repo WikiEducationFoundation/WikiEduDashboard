@@ -83,6 +83,11 @@ ko:
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
+    filter:
+      wiki_all: 모두
+      new: 새 항목
+      existing: 기존 항목
+      new_and_existing: 새 항목과 기존 항목
     hide: 숨기기
     history: (역사)
     label: 문서

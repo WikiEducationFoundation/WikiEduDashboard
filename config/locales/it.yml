@@ -82,6 +82,11 @@ it:
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
+    filter:
+      wiki_all: Tutto
+      new: Nuovo
+      existing: Esistente
+      new_and_existing: Nuovo ed esistente
     hide: Nascondi
     history: (cronologia)
     label: Voci

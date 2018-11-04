@@ -43,9 +43,9 @@ describe 'Admin users', type: :feature, js: true do
            role: 1)
 
     create(:campaign, id: 1, title: 'Fall 2015',
-                      created_at: Time.now + 2.minutes)
+                      created_at: Time.zone.now + 2.minutes)
     create(:campaign, id: 2, title: 'Spring 2016',
-                      created_at: Time.now + 4.minutes)
+                      created_at: Time.zone.now + 4.minutes)
 
     user = create(:admin,
                   id: 200,

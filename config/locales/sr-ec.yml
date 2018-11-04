@@ -118,6 +118,11 @@ sr-ec:
     edited: Уређени чланци
     edited_by: 'Изменио/ла:'
     edited_mobile: Чланци
+    filter:
+      wiki_all: Све
+      new: Ново
+      existing: Постојеће
+      new_and_existing: Ново и постојеће
     hide: Сакриј
     history: (историја)
     label: Чланци

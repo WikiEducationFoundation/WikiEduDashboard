@@ -15,15 +15,15 @@ describe Wikitext do
     end
 
     it 'renders a list without a blank line preceding it, a la GitHub-style markdown' do
-      list = <<-MARKDOWN
-My list:
-* first
-* second
+      list = <<~MARKDOWN
+        My list:
+        * first
+        * second
       MARKDOWN
-      expected = <<-MEDIAWIKI
-My list:
+      expected = <<~MEDIAWIKI
+        My list:
 
-* first
+        * first
       MEDIAWIKI
       output = subject.markdown_to_mediawiki(list)
       expect(output).to include(expected.chomp)

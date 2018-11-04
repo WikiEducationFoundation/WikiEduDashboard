@@ -115,7 +115,9 @@ class Campaign < ApplicationRecord
   # Intercept Rails typecasting and add error if given value cannot be parsed into a date.
   def validate_date_attribute(date_type)
     value = send("#{date_type}_before_type_cast")
+    # rubocop:disable Rails/TimeZone
     self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : Time.parse(value)
+    # rubocop:enable Rails/TimeZone
   rescue ArgumentError, TypeError
     errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
   end

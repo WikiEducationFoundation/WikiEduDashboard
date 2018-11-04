@@ -87,6 +87,7 @@ Naming/UncommunicativeMethodParamName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
+
 ########################
 # Temporary exceptions #
 ########################
@@ -95,13 +96,7 @@ Layout/EmptyLineAfterGuardClause:
 # or they should be moved to the 'Permanent' section
 # if we decide they shouldn't be fixed.
 
-Style/FormatStringToken:
-  Enabled: false
 Rails/FilePath:
-  Enabled: false
-Rails/TimeZone:
-  Enabled: false
-Rails/Date:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
@@ -117,8 +112,6 @@ Rails/InverseOf:
   Enabled: false
 Rails/UnknownEnv:
   Enabled: false
-Lint/UriEscapeUnescape:
-  Enabled: false
 Performance/RegexpMatch:
   Enabled: false
 Rails/Delegate:
@@ -128,8 +121,6 @@ Rails/HasAndBelongsToMany:
 Rails/Validation:
   Enabled: false
 Rails/FindBy:
-  Enabled: false
-Layout/IndentHeredoc:
   Enabled: false
 Rails/Output:
   Enabled: false
@@ -160,8 +151,6 @@ RSpec/MultipleExpectations:
 RSpec/BeforeAfterAll:
   Enabled: false
 RSpec/EmptyExampleGroup:
-  Enabled: false
-RSpec/FilePath:
   Enabled: false
 RSpec/ScatteredLet:
   Enabled: false

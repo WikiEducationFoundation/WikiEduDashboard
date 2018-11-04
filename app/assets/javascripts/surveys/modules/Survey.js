@@ -697,44 +697,50 @@ const Survey = {
     }
   },
 
-  resetConditionalGroupChildren(conditionalGroup) {
-    const { children, currentAnswers } = conditionalGroup;
+  // FIXME: This is supposed to remove a conditional question from
+  // the flow if the condition that it depends on has changed.
+  // However, when this happens it leaves the survey in a state
+  // with no visible questions and no way to proceed.
+  // Disabling this feature means that, once inserted, a conditional
+  // question will not be removed, but that's better than a broken survey.
+  resetConditionalGroupChildren(/* conditionalGroup */) {
+    // const { children, currentAnswers } = conditionalGroup;
 
-    if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
-      const excludeFromReset = [];
-      currentAnswers.forEach((a) => { excludeFromReset.push(a); });
-      children.forEach((question) => {
-        const $question = $(question);
-        let string;
-        if ($question.data('conditional-question')) {
-          string = $question.data('conditional-question');
-        } else {
-          string = $question.find('[data-conditional-question]').data('conditional-question');
-        }
-        const { value } = Utils.parseConditionalString(string);
-        if (excludeFromReset.indexOf(value) === -1) {
-          this.resetConditionalQuestion($question);
-        } else {
-          $question.removeClass('hidden');
-        }
-      });
-    } else {
-      children.forEach((question) => {
-        this.resetConditionalQuestion($(question));
-        if ($(question).hasClass('survey__question-row')) {
-          const $parentBlock = $(question).parents(BLOCK_CONTAINER_SELECTOR);
-          const blockIndex = $(question).data('block-index');
-          if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
-            this.resetConditionalQuestion($parentBlock);
-            if (this.detachedParentBlocks[blockIndex] === undefined) {
-              this.detachedParentBlocks[blockIndex] = $parentBlock;
-              this.removeSlide($parentBlock);
-              $parentBlock.detach();
-            }
-          }
-        }
-      });
-    }
+    // if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
+    //   const excludeFromReset = [];
+    //   currentAnswers.forEach((a) => { excludeFromReset.push(a); });
+    //   children.forEach((question) => {
+    //     const $question = $(question);
+    //     let string;
+    //     if ($question.data('conditional-question')) {
+    //       string = $question.data('conditional-question');
+    //     } else {
+    //       string = $question.find('[data-conditional-question]').data('conditional-question');
+    //     }
+    //     const { value } = Utils.parseConditionalString(string);
+    //     if (excludeFromReset.indexOf(value) === -1) {
+    //       this.resetConditionalQuestion($question);
+    //     } else {
+    //       $question.removeClass('hidden');
+    //     }
+    //   });
+    // } else {
+    //   children.forEach((question) => {
+    //     this.resetConditionalQuestion($(question));
+    //     if ($(question).hasClass('survey__question-row')) {
+    //       const $parentBlock = $(question).parents(BLOCK_CONTAINER_SELECTOR);
+    //       const blockIndex = $(question).data('block-index');
+    //       if (!($parentBlock.find('.survey__question-row:not([data-conditional-question])').length > 1)) {
+    //         this.resetConditionalQuestion($parentBlock);
+    //         if (this.detachedParentBlocks[blockIndex] === undefined) {
+    //           this.detachedParentBlocks[blockIndex] = $parentBlock;
+    //           this.removeSlide($parentBlock);
+    //           $parentBlock.detach();
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
   },
 
   removeSlide($block) {

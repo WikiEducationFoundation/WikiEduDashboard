@@ -52,6 +52,9 @@ hy:
     assigned_to: Հանձնարարված
     edited: Խմբագրված հոդվածներ
     edited_mobile: Հոդվածներ
+    filter:
+      wiki_all: Բոլորը
+      new: Նոր
     hide: Թաքցնել
     label: Հոդվածներ
     loading: Բեռնվում են հոդվածները
