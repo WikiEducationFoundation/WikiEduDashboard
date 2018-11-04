@@ -51,27 +51,27 @@ const CourseAlerts = createReactClass({
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.props.weeks) || userRoles.isAdmin) {
-          alerts.push(<CourseAlert key="submit" actionMessage="application.submit" buttonLink="#" onClick={this.submit}>courses.review_timeline</CourseAlert>);
+          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.review_timeline')} actionMessage={I18n.t('application.submit')} buttonLink="#" onClick={this.submit} />);
           // Show 'add trainings' message if there is a timeline with no trainings
         } else if (this.props.weeks.length) {
-          alerts.push(<CourseAlert key="submit" actionMessage="courses.training_nav" buttonLink={`${this.props.courseLinkParams}/timeline`}>courses.add_trainings</CourseAlert>);
+          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.add_trainings')} actionMessage={I18n.t('courses.timeline_nav')} buttonLink={`${this.props.courseLinkParams}/timeline`} />);
           // Show 'create a timeline' message if there is no timeline.
         } else {
-          alerts.push(<CourseAlert key="submit" actionMessage="courses.launch_wizard" buttonLink={`${this.props.courseLinkParams}/timeline/wizard`}>courses.create_timeline</CourseAlert>);
+          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.review_timeline')} actionMessage={I18n.t('courses.launch_wizard')} buttonLink={`${this.props.courseLinkParams}/timeline/wizard`} />);
         }
       }
       if (!(course.type === 'ClassroomProgramCourse')) {
-        alerts.push(<CourseAlert key="noCampaign">courses.no_campaign</CourseAlert>);
+        alerts.push(<CourseAlert key="noCampaign" message={I18n.t('courses.no_campaign')} />);
       }
       // When the course has been submitted
       if (course.submitted) {
         // Show instructors the 'submitted' notice.
         if (!userRoles.isAdmin) {
-          alerts.push(<CourseAlert key="submit">courses.submitted_note</CourseAlert>);
+          alerts.push(<CourseAlert key="submit" message={I18n.t('courses.submitted_note')} />);
           // Instruct admins to approve the course by adding a campaign.
         } else {
           const homeLink = `${this.props.courseLinkParams}/home`;
-          alerts.push(<CourseAlert key="publish" courseLink={homeLink} actionMessage="courses.overview">courses.submitted_admin</CourseAlert>);
+          alerts.push(<CourseAlert key="publish" message={I18n.t('courses.submitted_admin')} courseLink={homeLink} actionMessage={I18n.t('courses.overview')} />);
         }
       }
     }
@@ -81,7 +81,7 @@ const CourseAlerts = createReactClass({
     if (userRoles.isNonstudent && course.published && hasNoStudents && !course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this.props.courseLinkParams + enrollEquals + course.passcode;
-      alerts.push(<CourseAlert key="enroll" buttonLink={url} actionMessage={url}>{course.string_prefix}published</CourseAlert>);
+      alerts.push(<CourseAlert key="enroll" message={I18n.t(`${course.string_prefix}.published`)} buttonLink={url} actionMessage={url} actionClassName="NONE" />);
     }
 
     // ////////////////////////
@@ -92,7 +92,7 @@ const CourseAlerts = createReactClass({
       const module = course.incomplete_assigned_modules[0].table;
       const messageKey = moment().isAfter(module.due_date, 'day') ? 'courses.training_overdue' : 'courses.training_due';
 
-      alerts.push(<CourseAlert key="upcoming_module" buttonLink={module.link} actionClassName="pull-right" actionMessage="courses.training_nav">{I18n.t(messageKey, { title: module.title, date: module.due_date })}</CourseAlert>);
+      alerts.push(<CourseAlert key="upcoming_module" message={I18n.t(messageKey, { title: module.title, date: module.due_date })} buttonLink={module.link} actionClassName="pull-right" actionMessage={I18n.t('courses.training_nav')} />);
     }
 
     // //////////////////////
@@ -101,7 +101,7 @@ const CourseAlerts = createReactClass({
     if (course.survey_notifications && course.survey_notifications.length) {
       course.survey_notifications.forEach((notification) => {
         const dismissOnClick = () => this.dismissSurvey(notification.id);
-        return alerts.push(<CourseAlert key={`survey_notification_${notification.id}`} className="notification--survey" actionLink={notification.survey_url} actionClassName="pull-right" actionMessage="courses.survey.link" components={<button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>}>{notification.message || 'courses.survey.notification_message'}</CourseAlert>);
+        return alerts.push(<CourseAlert key={`survey_notification_${notification.id}`} message={notification.message || I18n.t('courses.survey.notification_message')} className="notification--survey" actionLink={notification.survey_url} actionClassName="pull-right" actionMessage={I18n.t('courses.survey.link')} components={<button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>} />);
       });
     }
 

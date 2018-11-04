@@ -13,28 +13,26 @@ const CourseAlert = createReactClass({
     components: PropTypes.node,
     className: PropTypes.string,
     courseLink: PropTypes.string,
+    message: PropTypes.string.isRequired,
     onClick: PropTypes.func
   },
   render() {
-    const message = I18n.t(this.props.children) === `[missing "${I18n.locale}.${this.props.children}" translation]` ? this.props.children : I18n.t(this.props.children);
-
     let components = null;
     let action = null;
 
     if (this.props.components) components = this.props.components;
 
     if (this.props.actionMessage) {
-      const actionMessage = I18n.t(this.props.actionMessage) === `[missing "${I18n.locale}.${this.props.actionMessage}" translation]` ? this.props.actionMessage : I18n.t(this.props.actionMessage);
+      action = <a className="button">{this.props.actionMessage}</a>;
 
-      action = <a className="button">{actionMessage}</a>;
       const props = {};
       // Changes type of link to CourseLink and adds link to course
-      if (this.props.courseLink) action = <CourseLink classname="button" to={this.props.courseLink}>{actionMessage}</CourseLink>;
+      if (this.props.courseLink) action = <CourseLink to={this.props.courseLink}>{this.props.actionMessage}</CourseLink>;
       // or adds regular button link
       else if (this.props.buttonLink) props.href = this.props.buttonLink;
 
       // Appends custom class names
-      if (this.props.actionClassName) props.className = `button ${this.props.actionClassName}`;
+      props.className = this.props.actionClassName === 'NONE' ? undefined : `button ${this.props.actionClassName}`.trim();
       // Appends onClick if present
       if (this.props.onClick) props.onClick = this.props.onClick;
       action = React.cloneElement(action, props);
@@ -42,7 +40,7 @@ const CourseAlert = createReactClass({
     return (
       <div className={this.props.className ? `${this.props.className} notification` : 'notification'}>
         <div className="container">
-          <p>{message}</p>
+          <p>{this.props.message}</p>
           {action}
           {components}
         </div>
