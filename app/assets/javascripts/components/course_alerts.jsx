@@ -85,7 +85,7 @@ const CourseAlerts = createReactClass({
         <div className="notification" key="enroll">
           <div className="container">
             <div>
-              <p>{I18n.t('courses.published')}</p>
+              <p>{CourseUtils.i18n('published', course.string_prefix)}</p>
               <a href={url}>{url}</a>
             </div>
           </div>
