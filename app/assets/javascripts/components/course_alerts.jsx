@@ -81,7 +81,16 @@ const CourseAlerts = createReactClass({
     if (userRoles.isNonstudent && course.published && hasNoStudents && !course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this.props.courseLinkParams + enrollEquals + course.passcode;
-      alerts.push(<CourseAlert key="enroll" message={I18n.t(`${course.string_prefix}.published`)} buttonLink={url} actionMessage={url} actionClassName="NONE" />);
+      alerts.push((
+        <div className="notification" key="enroll">
+          <div className="container">
+            <div>
+              <p>{I18n.t('courses.published')}</p>
+              <a href={url}>{url}</a>
+            </div>
+          </div>
+        </div>
+      ));
     }
 
     // ////////////////////////
