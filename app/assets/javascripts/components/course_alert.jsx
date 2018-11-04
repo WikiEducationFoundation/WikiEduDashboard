@@ -32,7 +32,7 @@ const CourseAlert = createReactClass({
       else if (this.props.buttonLink) props.href = this.props.buttonLink;
 
       // Appends custom class names
-      props.className = this.props.actionClassName === 'NONE' ? undefined : `button ${this.props.actionClassName}`.trim();
+      props.className = `button ${this.props.actionClassName}`.trim();
       // Appends onClick if present
       if (this.props.onClick) props.onClick = this.props.onClick;
       action = React.cloneElement(action, props);
