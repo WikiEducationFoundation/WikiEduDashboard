@@ -70,6 +70,9 @@ bn:
     deleted: (অপসারিত)
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
+    filter:
+      wiki_all: সব
+      new: নতুন
     hide: আড়াল করো
     history: (ইতিহাস)
     label: নিবন্ধসমূহ

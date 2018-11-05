@@ -291,6 +291,9 @@ pt-br:
       de contas?
     activity: Atividade
     active_courses: '%{course_type} ativo'
+    add_trainings: Por favor, adicione treinamentos de alunos ao seu cronograma de
+      tarefas. A atribuição de módulos de treinamento é uma parte essencial das melhores
+      práticas da Wiki Ed.
     alerts: Alertas
     all_courses: Todos os cursos
     already_enrolled: Você já é parte de '%{title}'!
@@ -369,6 +372,10 @@ pt-br:
       create_label: Criar Novo Curso
       create_new: Criar um Novo Curso
       create_short: Criar Curso
+      create_timeline: Por favor, crie uma linha do tempo para o seu curso. Você pode
+        criar um a partir do zero na guia Cronograma ou usar o Assistente de Atribuição
+        para criar uma linha de tempo personalizada com base nas práticas recomendadas
+        do Wiki Ed.
       end_date: Data Final
       end_date_placeholder: Data de término (AAAA-MM-DD)
       expected_number: Número experado de estudantes
@@ -477,6 +484,7 @@ pt-br:
       de inscrição que inclui a senha - do instrutor. Se ainda não recebeu isto, contate
       o seu instrutor.
     join_no_passcode: Você tem certeza de que deseja participar deste curso?
+    launch_wizard: Iniciar o assistente
     leave_confirmation: Tem certeza de que deseja sair deste curso?
     leave_course: Abandonar curso
     loading: Carregando…
@@ -504,6 +512,9 @@ pt-br:
       você receberá uma senha para a nova conta por e-mail.
     new_account_submitted_admin: Seu pedido de conta foi criado. Informe seus alunos
       para verificar sua caixa de entrada de e-mail para obter sua nova senha
+    no_campaign: Para tornar este programa ativo e permitir que os usuários participem,
+      ele deve ser adicionado a uma campanha. Se não tiver certeza de qual campanha
+      adicionar, use "Miscelânea".
     nocourses: Você não está participando em nenhum curso
     nocourse: Não participou de nenhum curso.
     none: Nenhum
@@ -569,6 +580,7 @@ pt-br:
     timeline_tooltip: Ativar o cronograma permite-lhe especificar atividades semana
       a semana e atribuir módulos de formação. É útil para cursos do Programa Educativo
       e para outros programas que sejam longos e altamente estruturados.
+    timeline_nav: Ir para Linha do Tempo
     time_zone_message: Horas de início e fim são apresentadas em seu fuso-horário
       local.
     title: Título

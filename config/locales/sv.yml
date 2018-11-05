@@ -9,12 +9,23 @@
 # Author: WikiPhoenix
 ---
 sv:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: k
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Detta är ett sifferfält. Knapparna renderas av de flesta webbläsare
       kommer att öka och minska inmatningen.
   application:
     cancel: Avbryt
     create_accounts: Skapa Wikipedia-konton
+    dashboard: Instrumentpanel för Wiki Ed
     documentation: Dokumentation
     error: 'Ett fel uppstod:'
     explore: Utforska
@@ -75,6 +86,11 @@ sv:
     edited: Redigerade artiklar
     edited_by: 'Redigerad av:'
     edited_mobile: Artiklar
+    filter:
+      wiki_all: Alla
+      new: Nya
+      existing: Befintliga
+      new_and_existing: Nya och befintliga
     hide: Dölj
     history: (historik)
     label: Artiklar
@@ -144,10 +160,12 @@ sv:
     course_removed: '"%{title}" har tagits bort från kampanjen "%{campaign_title}"'
     create_campaign: Skapa en ny kampanj
     create_my_campaign: Skapa min kampanj!
+    customize_passcode: ett standardlösenord
     description: Beskrivning
     delete_campaign: Radera denna kampanj
     disable_account_requests: Inaktivera kontobegäran
     enable_account_requests: Aktivera kontobegäran
+    no_passcode: inget lösenord
     none: Ingen
     organizers: Arrangörer
     organizer_added: '%{user} är nu en arrangör av kampanjen "%{title}"'
@@ -155,6 +173,7 @@ sv:
     program_template: Programmall
     program_template_tooltip: När en arrangör etablerar ett program i denna kampanj
       kopieras texten i detta fält över som beskrivning på programsidan
+    random_passcode: ett slumpartat lösenord
     requested_accounts: Begärda konton
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
@@ -202,8 +221,11 @@ sv:
     course: Kurs
     course_description: Kurser
     courses: Kurser
+    courses_taught: Lärda kurser
     creation_date: Datum skapad
     creator:
+      already_exists: Denna kurs finns redan. Överväg att ändra namnet, skolan eller
+        terminen för att göra den unik.
       choose_clone: Välj en kurs att klona.
       clone_previous: Klona tidigare kurs
       clone_this: Klona denna kurs
@@ -212,6 +234,7 @@ sv:
       course_project: Hemprojekt
       course_school: Kursskola
       course_subject: Kursämne
+      course_term: Kurstermin
       course_term_placeholder: Termin
       course_title: Kurs titel
       create_button: Skapa min Kurs!
@@ -251,6 +274,7 @@ sv:
     enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
+    enrollment: Lägg till/Ta bort studenter
     error:
       user_exists: Tyvärr, %{username} är inte en befintlig användare.
       invalid_language_or_project: Ogiltigt språk/projekt
@@ -297,6 +321,7 @@ sv:
     no_available_actions: Inga tillgängliga åtgärder
     ores_plot: ORES
     overview: Hem
+    passcode: Lösenord
     passcode_none: Inget lösenord
     please_log_in: Var god logga in.
     private: Privat
@@ -321,6 +346,8 @@ sv:
     course_details: Kursdetaljer
     subject: Ämne
     submitted: Inskickade
+    tag_select: Välj eller skapa en tagg
+    tags: 'Taggar:'
     term: Termin
     timeline_enabled: Tidslinjen är aktiverad
     timeline_link: Tidslinje

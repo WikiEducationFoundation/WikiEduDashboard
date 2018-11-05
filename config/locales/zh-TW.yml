@@ -240,6 +240,7 @@ zh-TW:
     accounts_generation_confirm_message: 您確定您要啟用帳號申請嗎？
     activity: 活躍度
     active_courses: 啟動%{course_type}
+    add_trainings: 請添加學生培訓至您分配到的時間軸。分配培訓模組是 Wiki 教育最佳實踐的重要部分。
     alerts: 提醒
     all_courses: 所有課程
     already_enrolled: 您已經成為「%{title}」課程的一份子！
@@ -301,6 +302,7 @@ zh-TW:
       create_label: 建立新的課程
       create_new: 建立一個新的課程
       create_short: 建立課程
+      create_timeline: 請為您的課程建立時間軸。您可以從時間軸分頁來從頭建置，或是使用分配作業精靈來建立基於 Wiki 教育最佳實踐的自定義時間軸。
       end_date: 結束日期
       end_date_placeholder: 結束日期 (YYYY-MM-DD)
       expected_number: 預計學生人數
@@ -378,6 +380,7 @@ zh-TW:
       not_yet_approved: 此課程尚未批准開放登記。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     join_no_passcode: 您確定要加入這個課程嗎？
+    launch_wizard: 啟動精靈
     leave_confirmation: 確定要離開這個課程嗎？
     leave_course: 離開課程
     loading: 載入中⋯⋯
@@ -397,6 +400,7 @@ zh-TW:
     new_account_submit: 申請帳號
     new_account_submitted: 您的帳號申請已提交。此方案的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
     new_account_submitted_admin: 您申請的帳戶已創建。請通知您的學生檢查其電子郵件收件箱以獲取密碼
+    no_campaign: 要讓此方案生效並允許使用者加入，需要添加一項競賽。若您不確定要添加何種競賽，請使用「雜集」。
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
     none: 無
@@ -454,6 +458,7 @@ zh-TW:
     timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
     timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育方案課程以及其它長時間、高度結構化方案很有用。
+    timeline_nav: 前往時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
     training_due: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。

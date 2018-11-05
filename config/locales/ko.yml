@@ -248,6 +248,7 @@ ko:
     join_course: 과정 가입
     join_prompt: '''%{title}''에 가입할까요?'
     join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    launch_wizard: 마법사 실행
     leave_course: 과정 나가기
     loading: 불러오는 중...
     my_articles: 내 문서
@@ -304,6 +305,7 @@ ko:
     timeline_link: 타임라인
     timeline_tooltip: 타임라인을 사용하면 매주 활동을 지정하고 트레이닝 모듈을 할당할 수 있습니다. 교육 프로그램 과정 및 그 밖의
       기간이 길고 매우 구조적인 프로그램에 유용합니다.
+    timeline_nav: 타임라인으로 이동
     title: 제목
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스

@@ -120,6 +120,11 @@ ru:
     edited: Статей отредактировано
     edited_by: 'Под редакцией:'
     edited_mobile: Статьи
+    filter:
+      wiki_all: Все
+      new: Новые
+      existing: Существующие
+      new_and_existing: Новые и существующие
     hide: Скрыть
     history: (история)
     label: Статьи

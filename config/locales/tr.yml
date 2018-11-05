@@ -61,6 +61,7 @@ tr:
     request_account_create: Bir hesap oluştur
     search: soru sor
     search_results: '%{search_terms} için sonuçlar'
+    no_results: N'%{query}' için sonuç bulunamadı
     sign_up_extended: Vikipedi'yle Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydolun
     sign_up_log_in_extended: Vikipedi ile
@@ -124,6 +125,11 @@ tr:
     edited: Düzenlenen Makaleler
     edited_by: 'Düzenleyen:'
     edited_mobile: Makaleler
+    filter:
+      wiki_all: Hepsi
+      new: Yeni
+      existing: Mevcut
+      new_and_existing: Yeni ve Mevcut
     hide: Gizle
     history: (geçmiş)
     label: Makaleler
@@ -493,6 +499,7 @@ tr:
     revisions_none: Bu dersin Vikipedi düzenleme faaliyeti bulunmamaktadır.
     school: Okul
     school_and_term: Kurum/Dönem
+    search_courses: Kursları ara
     start: Başlangıç
     start_typing: Yazmaya başla
     students: Öğrenciler

@@ -23,6 +23,9 @@ kjp:
     opt_out: မွာဲအေး
   articles:
     edited_mobile: လိက်သာထိင်ႋသယ်
+    filter:
+      wiki_all: လုက်ဆိင့်
+      new: အ်ုသင့်
     hide: အှ်သူး
     history: (မေင်ႋစိင်)
     label: လိက်သာထိင်ႋသယ်
