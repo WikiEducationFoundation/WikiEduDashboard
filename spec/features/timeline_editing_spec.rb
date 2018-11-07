@@ -35,7 +35,7 @@ describe 'timeline editing', type: :feature, js: true do
     return course
   end
 
-  let(:unassigned_module_name) { 'Peer review' }
+  let(:unassigned_module_name) { 'Translating articles' }
 
   before do
     include type: :feature
