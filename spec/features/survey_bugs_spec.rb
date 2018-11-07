@@ -22,6 +22,8 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
     let(:course) { create(:course) }
 
     before do
+      login_as(instructor, scope: :user)
+
       create(:articles_course, article_id: article.id, course: course)
 
       @courses_user = create(
@@ -75,7 +77,6 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
     end
 
     it 'handles changes in condition questions' do
-      login_as(instructor, scope: :user)
       visit survey_path(@survey)
 
       click_button('Start')
