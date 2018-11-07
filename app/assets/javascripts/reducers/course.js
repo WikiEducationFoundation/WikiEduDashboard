@@ -63,9 +63,6 @@ export default function course(state = initialState, action) {
     case RECEIVE_COURSE_CLONE:
       return { ...action.data.course };
     case DISMISS_SURVEY_NOTIFICATION: {
-      // const newState = { ...state };
-      // newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
-      // return newState;
       return {
         ...state,
         survey_notifications: _.reject(state.survey_notifications, { id: action.id })
