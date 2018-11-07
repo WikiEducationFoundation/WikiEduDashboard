@@ -40,7 +40,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq(expectedState);
   });
 
-  it('receives a course via RECEIVE_COURSE', () => {
+  it('should handle RECEIVE_COURSE', () => {
     const initialState = {};
     const mockedAction = {
       type: RECEIVE_COURSE,
@@ -52,23 +52,13 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq(mockedAction.data.course);
   });
 
-  it('receives a course update via RECEIVE_COURSE_UPDATE with newStats', () => {
+  it('should handle RECEIVE_COURSE_UPDATE with newStats', () => {
     const initialState = {};
     const mockedAction = {
       type: RECEIVE_COURSE_UPDATE,
       data: { course: { title: 'title' } }
     };
     deepFreeze(initialState);
-
-    /*    const newStats = [
-      'createdCount',
-      'editedCount',
-      'editCount',
-      'studentCount',
-      'wordCount',
-      'viewCount',
-      'uploadCount'
-    ]; */
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.deep.eq(mockedAction.data.course.title);
@@ -78,7 +68,7 @@ describe('course reducer', () => {
     });
   });
 
-  it('persists course via PERSISTED_COURSE', () => {
+  it('should handle PERSISTED_COURSE', () => {
     const initialState = { description: 'initial description' };
     const mockedAction = {
       type: PERSISTED_COURSE,
@@ -93,7 +83,7 @@ describe('course reducer', () => {
     });
   });
 
-  it('updates an attribute via UPDATE_COURSE', () => {
+  it('should handle UPDATE_COURSE', () => {
     const initialState = { title: 'old title', term: 'old term' };
     const mockedAction = {
       type: UPDATE_COURSE,
@@ -105,7 +95,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq({ title: 'new title', term: 'old term' });
   });
 
-  it('creates course via CREATED_COURSE', () => {
+  it('should handle CREATED_COURSE', () => {
     const initialState = {};
     const mockedAction = {
       type: CREATED_COURSE,
@@ -117,7 +107,7 @@ describe('course reducer', () => {
     expect(newState.title).to.eq('title');
   });
 
-  it('receives new state with initial campaign via RECEIVE_INITIAL_CAMPAIGN', () => {
+  it('should handle RECEIVE_INITIAL_CAMPAIGN', () => {
     const initialState = {};
     const campaign = {
       id: 2,
@@ -144,7 +134,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq(expectedState);
   });
 
-  it('should add and delete campaing via ADD_CAMPAIN and DELETE_CAMPAIGN', () => {
+  it('should handle ADD_CAMPAIN and DELETE_CAMPAIGN', () => {
     const initialState = { title: 'old title' };
     const mockedAction = {
       type: ADD_CAMPAIGN,
@@ -156,7 +146,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq({ title: 'old title', published: true });
   });
 
-  it('should receive a course clone via RECEIVE_COURSE_CLONE', () => {
+  it('should handle RECEIVE_COURSE_CLONE', () => {
     const initialState = { title: 'old title' };
     const mockedAction = {
       type: RECEIVE_COURSE_CLONE,
@@ -168,7 +158,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq({ title: 'clone course' });
   });
 
-  it('dismisses survey notification via DISMISS_SURVEY_NOTIFICATION', () => {
+  it('should handle DISMISS_SURVEY_NOTIFICATION', () => {
     const initialState = {
       survey_notifications: [{ id: 1 }, { id: 2 }, { id: 3 }]
     };
@@ -182,7 +172,7 @@ describe('course reducer', () => {
     expect(newState.survey_notifications).to.deep.eq([{ id: 1 }, { id: 2 }]);
   });
 
-  it('toggles editing syllabus via TOGGLE_EDITING_SYLLABUS', () => {
+  it('should handle TOGGLE_EDITING_SYLLABUS', () => {
     const initialState = { title: 'title', editingSyllabus: true };
     const mockedAction = {
       type: TOGGLE_EDITING_SYLLABUS
@@ -193,7 +183,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq({ title: 'title', editingSyllabus: false });
   });
 
-  it('starts syllabus upload via START_SYLLABUS_UPLOAD', () => {
+  it('should handle START_SYLLABUS_UPLOAD', () => {
     const initialState = { title: 'title' };
     const mockedAction = {
       type: START_SYLLABUS_UPLOAD
@@ -204,7 +194,7 @@ describe('course reducer', () => {
     expect(newState).to.deep.eq({ title: 'title', uploadingSyllabus: true });
   });
 
-  it('has an SYLLABUS UPLOAD SUCCESS ', () => {
+  it('should handle SYLLABUS UPLOAD SUCCESS ', () => {
     const initialState = { title: 'title' };
     const mockedAction = {
       type: SYLLABUS_UPLOAD_SUCCESS,
@@ -221,7 +211,7 @@ describe('course reducer', () => {
     });
   });
 
-  it('should return state and flags via LINKED_TO_SALESFORCE', () => {
+  it('should handle LINKED_TO_SALESFORCE', () => {
     const initialState = { title: 'title' };
     const mockedAction = {
       type: LINKED_TO_SALESFORCE,
