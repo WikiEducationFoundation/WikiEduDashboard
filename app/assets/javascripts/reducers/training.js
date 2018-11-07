@@ -54,6 +54,7 @@ const update = (state) => {
 };
 
 const initialState = {
+  libraries: [],
   modules: [],
   module: {},
   slides: [],
@@ -92,7 +93,7 @@ export default function training(state = initialState, action) {
     case SET_CURRENT_SLIDE:
       return update(setCurrentSlide(state, data.slide));
     case RECEIVE_ALL_TRAINING_MODULES:
-      return { ...state, modules: data.training_modules };
+      return { ...state, modules: data.training_modules, libraries: data.training_libraries };
     case SLIDE_COMPLETED:
       return {
         ...state,

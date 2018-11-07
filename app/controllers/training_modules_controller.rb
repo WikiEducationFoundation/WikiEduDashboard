@@ -7,6 +7,7 @@ class TrainingModulesController < ApplicationController
 
   def index
     @training_modules = TrainingModule.all.sort_by(&:id)
+    @training_libraries = TrainingLibrary.all
   end
 
   def show

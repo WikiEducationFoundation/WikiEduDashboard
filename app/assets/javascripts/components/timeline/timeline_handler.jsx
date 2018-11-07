@@ -12,7 +12,7 @@ import { fetchAllTrainingModules } from '../../actions/training_actions';
 
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
-import { getWeeksArray } from '../../selectors';
+import { getWeeksArray, getAvailableTrainingModules } from '../../selectors';
 
 const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
@@ -119,7 +119,7 @@ const TimelineHandler = createReactClass({
           cancelGlobalChanges={this._cancelGlobalChanges}
           updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
-          all_training_modules={this.props.training.modules}
+          all_training_modules={this.props.availableTrainingModules}
           addWeek={this.props.addWeek}
           addBlock={this.props.addBlock}
           deleteBlock={this.props.deleteBlock}
@@ -141,7 +141,7 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading,
   editableBlockIds: state.timeline.editableBlockIds,
-  training: state.training
+  availableTrainingModules: getAvailableTrainingModules(state)
 });
 
 const mapDispatchToProps = {

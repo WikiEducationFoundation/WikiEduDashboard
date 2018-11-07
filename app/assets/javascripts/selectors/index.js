@@ -22,6 +22,8 @@ const getTags = state => state.tags.tags;
 const getAllTags = state => state.tags.allTags;
 const getWeeks = state => state.timeline.weeks;
 const getBlocks = state => state.timeline.blocks;
+const getCourseType = state => state.course.type;
+const getTraining = state => state.training;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -171,5 +173,21 @@ export const getWeeksArray = createSelector(
     });
 
     return weeksArray;
+  }
+);
+
+export const getAvailableTrainingModules = createSelector(
+  [getCourseType, getTraining], (courseType, training) => {
+    // We only do filtering for ClassroomProgramCourse type.
+    if (courseType !== 'ClassroomProgramCourse') {
+      return training.modules;
+    }
+    // Find the Student library that we want to filter by.
+    const studentsLibrary = training.libraries.find(library => library.slug === 'students');
+    if (!studentsLibrary) { return training.modules; }
+
+    // Only include modules that are part of the Student library.
+    const studentModules = training.modules.filter(module => studentsLibrary.modules.includes(module.slug));
+    return studentModules;
   }
 );
