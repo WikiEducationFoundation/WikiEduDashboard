@@ -221,7 +221,7 @@ describe('course reducer', () => {
     });
   });
 
-  it('should LINKED_TO_SALESFORCE', () => {
+  it('should return state and flags via LINKED_TO_SALESFORCE', () => {
     const initialState = { title: 'title' };
     const mockedAction = {
       type: LINKED_TO_SALESFORCE,
