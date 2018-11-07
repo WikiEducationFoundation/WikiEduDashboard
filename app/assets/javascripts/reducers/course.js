@@ -34,7 +34,6 @@ const initialState = {
   editingSyllabus: false
 };
 
-
 export default function course(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_COURSE:
@@ -49,7 +48,7 @@ export default function course(state = initialState, action) {
       return { ...action.data.course };
     case RECEIVE_INITIAL_CAMPAIGN: {
       const campaign = action.data.campaign;
-      const newState = {
+      return {
         ...state,
         initial_campaign_id: campaign.id,
         initial_campaign_title: campaign.title,
@@ -57,7 +56,6 @@ export default function course(state = initialState, action) {
         type: campaign.default_course_type,
         passcode: campaign.default_passcode
       };
-      return newState;
     }
     case ADD_CAMPAIGN:
     case DELETE_CAMPAIGN:
@@ -65,9 +63,13 @@ export default function course(state = initialState, action) {
     case RECEIVE_COURSE_CLONE:
       return { ...action.data.course };
     case DISMISS_SURVEY_NOTIFICATION: {
-      const newState = { ...state };
-      newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
-      return newState;
+      // const newState = { ...state };
+      // newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
+      // return newState;
+      return {
+        ...state,
+        survey_notifications: _.reject(state.survey_notifications, { id: action.id })
+      };
     }
     case TOGGLE_EDITING_SYLLABUS:
       return { ...state, editingSyllabus: !state.editingSyllabus };
