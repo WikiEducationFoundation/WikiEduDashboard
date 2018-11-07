@@ -19,25 +19,10 @@ import '../testHelper';
 
 describe('course reducer', () => {
   it('should return initial state when no action nor state is provided', () => {
-    const expectedState = {
-      title: '',
-      description: '',
-      school: '',
-      term: '',
-      level: '',
-      subject: '',
-      expected_students: '0',
-      start: null,
-      end: null,
-      timeline_start: null,
-      timeline_end: null,
-      day_exceptions: '',
-      weekdays: '0000000',
-      editingSyllabus: false
-    };
-
     const newState = course(undefined, { type: null });
-    expect(newState).to.deep.eq(expectedState);
+    expect(newState.title).to.eq('');
+    expect(newState.description).to.eq('');
+    expect(newState.weekdays).to.eq('0000000');
   });
 
   it('should handle RECEIVE_COURSE', () => {
