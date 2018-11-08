@@ -160,6 +160,7 @@ da:
     delete_campaign: Slet denne kampagne
     none: Ingen
     program_template: Programskabelon
+    requested_accounts: Anmodede konti
     title: Titel
     use_start_end_dates: Brug start- og slutningdatoer
   categories:
@@ -209,6 +210,7 @@ da:
         lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
         en ide om konteksten for bidragene dine studenter udfører.
       course_language: Hjemsprog
+      course_project: Hjemmeprojekt
       course_title: Titel på kursus
       create_button: Opret mit kursus!
       create_label: Opret nyt kursus
@@ -273,6 +275,7 @@ da:
     submitted: Indsendt
     timeline_enabled: Tidslinje aktiveret
     timeline_link: Tidslinje
+    timeline_nav: Gå til tidslinje
     title: Titel
     training_nav: Gå til træning
     untrained: Utrænet

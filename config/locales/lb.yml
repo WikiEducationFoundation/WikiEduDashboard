@@ -62,6 +62,9 @@ lb:
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
+    filter:
+      wiki_all: All
+      new: Nei
     hide: Verstoppen
     history: (Versiounen)
     label: Artikelen
@@ -252,6 +255,7 @@ lb:
     subject: Sujet
     timeline_enabled: Zäitplang aktivéiert
     timeline_link: Chronologie
+    timeline_nav: Op den Zäitplang
     title: Titel
     update_stats: Statistiken aktualiséieren
     user_suggestions: 'Benotzervirschléi:'

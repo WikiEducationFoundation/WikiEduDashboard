@@ -14,6 +14,7 @@
 # Author: Irus
 # Author: Kaganer
 # Author: Kareyac
+# Author: Link2xt
 # Author: Lizalizaufa
 # Author: Lugimax
 # Author: Mailman
@@ -328,6 +329,7 @@ ru:
     private: Скрытый
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
+    search_courses: Искать курсы
     start: Начать
     students: Студенты
     students_count: '# Студенты'
@@ -395,6 +397,7 @@ ru:
     not_permitted: У вас нет разрешения на правку этой программы.
     request_accounts: Запрос учётных записей
     school: Учреждение
+    search_courses: Искать программы
     student_editors: Редакторы
     students: Редакторы
     students_short: Редакторы
@@ -477,6 +480,7 @@ ru:
     page: Страница
     previous: < Предыдущая
     done: Готово!
+    invalid: Извините, этого слайда не существует!
     check_answer: Проверить ответ
   uploads:
     credit: Создатели

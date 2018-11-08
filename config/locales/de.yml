@@ -277,6 +277,9 @@ de:
       aktivieren möchtest?
     activity: Aktivität
     active_courses: Aktive %{course_type}
+    add_trainings: Füge bitte Studentenausbildungen deiner Zuweisungs-Zeitleiste hinzu.
+      Die Zuweisung von Ausbildungsmodulen ist ein wesentlicher Bestandteil der besten
+      Praktiken von Wiki Ed.
     alerts: Benachrichtigungen
     all_courses: Alle Kurse
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
@@ -358,6 +361,10 @@ de:
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen
       create_short: Kurs erstellen
+      create_timeline: Erstelle bitte eine Zeitleiste für deinen Kurs. Du kannst eine
+        vom Zeitleisten-Reiter erstellen oder den Zuweisungsassistenten verwenden,
+        um eine benutzerdefinierte Zeitleiste basierend auf den besten Praktiken von
+        Wiki Ed zu erstellen.
       end_date: Enddatum
       end_date_placeholder: Enddatum (JJJJ-MM-TT)
       expected_number: Erwartete Anzahl der Studenten
@@ -469,6 +476,7 @@ de:
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
       erhalten hast, kontaktiere deinen Kursleiter.
     join_no_passcode: Bist du sicher, dass du diesem Kurs beitreten möchtest?
+    launch_wizard: Den Assistenten starten
     leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
     leave_course: Kurs verlassen
     loading: Lade …
@@ -498,6 +506,9 @@ de:
     new_account_submitted_admin: Dein Antrag für ein Benutzerkonto wurde erstellt.
       Bitte informiere deine Studenten zur Überprüfung ihres E-Mail-Eingangs, um ihr
       neues Passwort zu erhalten.
+    no_campaign: Um dieses Programm zu aktivieren und Benutzern den Beitritt zu ermöglichen,
+      muss er einer Kampagne hinzugefügt werden. Falls du dir nicht sicher bist, welche
+      Kampagne du hinzufügen sollst, verwende „Sonstiges“.
     nocourses: Du nimmst an keinen Kursen teil.
     nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
@@ -564,6 +575,7 @@ de:
     timeline_tooltip: Mit der Aktivierung der Zeitleiste kannst du Woche für Woche
       Aktivitäten angeben und Ausbildungsmodule zuweisen. Sie ist für Kurse des Bildungsprogramms
       und andere lange, hoch strukturierte Programme nützlich.
+    timeline_nav: Zur Zeitleiste gehen
     time_zone_message: Die Start- und Endzeiten werden in deiner lokalen Zeitzone
       angezeigt.
     title: Titel

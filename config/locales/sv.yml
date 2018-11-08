@@ -351,6 +351,7 @@ sv:
     term: Termin
     timeline_enabled: Tidslinjen är aktiverad
     timeline_link: Tidslinje
+    timeline_nav: Gå till tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
     training_nav: Gå till träning

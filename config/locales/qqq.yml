@@ -142,6 +142,8 @@ qqq:
     edited: Label for a list of articles edited.
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
+    filter:
+      new: '{{Identical|New}}'
     hide: '{{Identical|Hide}}'
     history: |-
       Label for the history url

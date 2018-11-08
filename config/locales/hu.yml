@@ -8,6 +8,7 @@
 # Author: Tacsipacsi
 # Author: Uno20001
 # Author: Wolf Rex
+# Author: Zizzerus
 ---
 hu:
   number:
@@ -51,6 +52,8 @@ hu:
     all: Tevékenység
   articles:
     edited_mobile: Szócikkek
+    filter:
+      existing: Meglévő
     label: Szócikkek
     loading: Szócikkek betöltése...
     title: Cím
@@ -63,6 +66,7 @@ hu:
   courses:
     delete_suggestion: Törlés
     join: Csatlakozás
+    launch_wizard: A varázsló indítása
     new_week: Új hét hozzáadása
     overview: Áttekintés
     passcode: Jelszó

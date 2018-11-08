@@ -297,6 +297,9 @@ fr:
       de compte ?
     activity: Activité
     active_courses: '%{course_type} actifs'
+    add_trainings: Veuillez ajouter des formations d’étudiant à votre planning d’affectation.
+      Affecter les modules de formation est une part essentielle des meilleurs pratiques
+      du wiki Ed.
     alerts: Alertes
     all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de '%{title}' !
@@ -379,6 +382,10 @@ fr:
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
       create_short: Créer un cours
+      create_timeline: Veuillez créer un planning pour votre cours. Vous pouvez en
+        construire un à partir de rien depuis l’onglet Planning, ou utiliser l’assistant
+        d’affectation pour créer un planning personnalisé basé sur les meilleures
+        pratiques du wiki Ed.
       end_date: Date de fin
       end_date_placeholder: Date de fin (AAAA-MM-JJ)
       expected_number: Nombre d’étudiants attendus
@@ -492,6 +499,7 @@ fr:
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
     join_no_passcode: Êtes-vous sûr de vouloir suivre ce cours ?
+    launch_wizard: Lancer l’assistant
     leave_confirmation: Êtes-vous sûr de vouloir abandonner ce cours ?
     leave_course: Quitter le cours
     loading: Chargement…
@@ -521,6 +529,9 @@ fr:
     new_account_submitted_admin: Votre demande de compte a été créée. Veuillez informer
       vos étudiants pour qu’ils vérifient leur boîte de réception pour obtenir leur
       nouveau mot de passe.
+    no_campaign: Pour rendre ce programme actif et permettre aux utilisateurs de le
+      rejoindre, il doit être ajouté à une campagne. Si vous ne savez pas bien quelle
+      campagne ajouter, utilisez 'Divers'.
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.
     none: Aucun
@@ -587,6 +598,7 @@ fr:
       activités hebdomadaires et d'affecter les modules de formation. Elle est utile
       pour les cours du programme d'éducation et d'autres programmes longs et très
       structurés.
+    timeline_nav: Aller au planning
     time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
     title: Titre

@@ -534,6 +534,7 @@ tr:
     timeline_tooltip: Zaman Çizelgesini etkinleştirmek haftada bir haftalık aktiviteleri
       belirlemenize ve eğitim modülleri atamanıza izin verir. Bu, Eğitim Programı
       kursları ve diğer uzun, yüksek yapılandırılmış programlar için yararlıdır.
+    timeline_nav: Zaman Çizelgesi'ne git
     time_zone_message: Başlangıç ve bitiş saatleri yerel saat diliminizde görüntülenir.
     title: Başlık
     training_due: Bu kurs için "%{title}" eğitim modülü atanmıştır ve %{date} tarihine
