@@ -91,7 +91,12 @@ describe('course reducer', () => {
   });
 
   it('returns state and initial campaign data with RECEIVE_INITIAL_CAMPAIGN', () => {
-    const initialState = { title: 'default title', description: 'desc', type: '', passcode: 'foobar' };
+    const initialState = {
+      title: 'default title',
+      description: 'desc',
+      type: '',
+      passcode: 'foobar'
+    };
     deepFreeze(initialState);
     const campaign = {
       id: 2,
@@ -183,7 +188,12 @@ describe('course reducer', () => {
   });
 
   it('reset state attributes and returns updated state with response via SYLLABUS UPLOAD SUCCESS ', () => {
-    const initialState = { title: 'title', uploadingSyllabus: true, editingSyllabus: true, syllabus: '' };
+    const initialState = {
+      title: 'title',
+      uploadingSyllabus: true,
+      editingSyllabus: true,
+      syllabus: ''
+    };
     deepFreeze(initialState);
     const mockedAction = {
       type: SYLLABUS_UPLOAD_SUCCESS,
