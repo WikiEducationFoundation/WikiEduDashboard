@@ -208,6 +208,7 @@ describe('course reducer', () => {
     deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
-    expect(newState).to.deep.eq({ title: 'title', flags: true });
+    expect(newState.title).to.eq('title');
+    expect(newState.flags).to.eq(true);
   });
 });
