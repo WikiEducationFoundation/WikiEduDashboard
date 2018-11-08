@@ -939,7 +939,7 @@ en:
     chars_added:
       Characters Added<br>(article | user | draft)
     contributions: User Contributions
-    contributions_history_full: View full contribution history on Wikipedia
+    contributions_history_full: View full contribution history
     contributions_more: View More Contributions
     contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
