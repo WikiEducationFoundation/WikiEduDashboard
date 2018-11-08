@@ -28,11 +28,11 @@ describe('course reducer', () => {
 
   it('should return data course with RECEIVE_COURSE', () => {
     const initialState = {};
+    deepFreeze(initialState);
     const mockedAction = {
       type: RECEIVE_COURSE,
       data: { course: { title: 'title' } }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState).to.deep.eq(mockedAction.data.course);
@@ -40,11 +40,11 @@ describe('course reducer', () => {
 
   it('keeps track of which stats have been updated with RECEIVE_COURSE_UPDATE', () => {
     const initialState = { title: 'title', created_count: 0, edited_count: 0 };
+    deepFreeze(initialState);
     const mockedAction = {
       type: RECEIVE_COURSE_UPDATE,
       data: { course: { created_count: 1, edited_count: 0 } }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.newStats.createdCount).to.eq(true);
@@ -53,11 +53,11 @@ describe('course reducer', () => {
 
   it('updates course with receive data via PERSITED_COURSE', () => {
     const initialState = { description: 'initial description' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: PERSISTED_COURSE,
       data: { course: { title: 'new title' } }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState).to.deep.eq({
@@ -68,11 +68,11 @@ describe('course reducer', () => {
 
   it('adds current action course to state with UPDATE_COURSE', () => {
     const initialState = { title: 'old title', term: 'old term' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: UPDATE_COURSE,
       course: { title: 'new title' }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState).to.deep.eq({ title: 'new title', term: 'old term' });
@@ -80,11 +80,11 @@ describe('course reducer', () => {
 
   it('returns created course as new state with CREATED_COURSE', () => {
     const initialState = {};
+    deepFreeze(initialState);
     const mockedAction = {
       type: CREATED_COURSE,
       data: { course: { title: 'title' } }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('title');
@@ -92,6 +92,7 @@ describe('course reducer', () => {
 
   it('returns state and initial campaign data with RECEIVE_INITIAL_CAMPAIGN', () => {
     const initialState = { title: 'default title', description: 'desc', type: '', passcode: 'foobar' };
+    deepFreeze(initialState);
     const campaign = {
       id: 2,
       title: 'title',
@@ -103,7 +104,6 @@ describe('course reducer', () => {
       type: RECEIVE_INITIAL_CAMPAIGN,
       data: { campaign: campaign }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('default title');
@@ -114,11 +114,11 @@ describe('course reducer', () => {
 
   it('updates state when a campaing is deleted or added with ADD_CAMAPAIGN and DELETE_CAMPAIGN', () => {
     const initialState = { title: 'title' };
+    deepFreeze(initialState);
     let mockedAction = {
       type: ADD_CAMPAIGN,
       data: { course: { published: true } }
     };
-    deepFreeze(initialState);
 
     let newState = course(initialState, mockedAction);
     expect(newState).to.deep.eq({ title: 'title', published: true });
@@ -134,11 +134,11 @@ describe('course reducer', () => {
 
   it('returns cloned course with RECEIVE_COURSE_CLONE', () => {
     const initialState = { title: 'old title' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: RECEIVE_COURSE_CLONE,
       data: { course: { title: 'clone course' } }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('clone course');
@@ -148,11 +148,11 @@ describe('course reducer', () => {
     const initialState = {
       survey_notifications: [{ id: 1 }, { id: 2 }, { id: 3 }]
     };
+    deepFreeze(initialState);
     const mockedAction = {
       type: DISMISS_SURVEY_NOTIFICATION,
       id: 3
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.survey_notifications).to.deep.eq([{ id: 1 }, { id: 2 }]);
@@ -160,10 +160,10 @@ describe('course reducer', () => {
 
   it('toggles boolean of state attribute with TOGGLE_EDITING_SYLLABUS', () => {
     const initialState = { title: 'title', editingSyllabus: true };
+    deepFreeze(initialState);
     const mockedAction = {
       type: TOGGLE_EDITING_SYLLABUS
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('title');
@@ -172,10 +172,10 @@ describe('course reducer', () => {
 
   it('sets state attribute with START_SYLLABUS_UPLOAD', () => {
     const initialState = { title: 'title' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: START_SYLLABUS_UPLOAD
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('title');
@@ -184,11 +184,11 @@ describe('course reducer', () => {
 
   it('reset state attributes and returns updated state with response via SYLLABUS UPLOAD SUCCESS ', () => {
     const initialState = { title: 'title', uploadingSyllabus: true, editingSyllabus: true, syllabus: '' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: SYLLABUS_UPLOAD_SUCCESS,
       syllabus: 'foobar'
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('title');
@@ -199,11 +199,11 @@ describe('course reducer', () => {
 
   it('returns state and salesforce attributes LINKED_TO_SALESFORCE', () => {
     const initialState = { title: 'title' };
+    deepFreeze(initialState);
     const mockedAction = {
       type: LINKED_TO_SALESFORCE,
       data: { flags: true }
     };
-    deepFreeze(initialState);
 
     const newState = course(initialState, mockedAction);
     expect(newState.title).to.eq('title');
