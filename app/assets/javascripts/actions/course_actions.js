@@ -16,7 +16,10 @@ export const fetchCourse = courseSlug => (dispatch) => {
 export const refetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
     .then(data => dispatch({ type: RECEIVE_COURSE_UPDATE, data }))
-    .catch(data => dispatch({ type: API_FAIL, data }));
+    // These periodic refetches will error if network connection is lost.
+    // Missing a refetch is benign. Using `silent`, we don't clutter the
+    // interface with error notifications.
+    .catch(data => dispatch({ type: API_FAIL, data, silent: true }));
 };
 
 export const updateCourse = course => ({ type: UPDATE_COURSE, course });
