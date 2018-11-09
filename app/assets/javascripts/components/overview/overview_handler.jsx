@@ -62,6 +62,7 @@ const Overview = createReactClass({
         <ThisWeek
           course={course}
           weeks={this.props.weeks}
+          trainingLibrarySlug={this.props.trainingLibrarySlug}
         />
       );
     }
@@ -134,7 +135,8 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   campaigns: state.campaigns.campaigns,
   weeks: getWeeksArray(state),
-  loading: state.timeline.loading
+  loading: state.timeline.loading,
+  trainingLibrarySlug: state.timeline.trainingLibrarySlug
  });
 
 const mapDispatchToProps = {

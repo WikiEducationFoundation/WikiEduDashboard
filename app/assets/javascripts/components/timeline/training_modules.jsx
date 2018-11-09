@@ -11,7 +11,8 @@ const TrainingModules = createReactClass({
     block_modules: PropTypes.array,
     editable: PropTypes.bool,
     all_modules: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    trainingLibrarySlug: PropTypes.string.isRequired
   },
 
   getInitialState() {
@@ -63,7 +64,7 @@ const TrainingModules = createReactClass({
     }
 
     const modules = this.props.block_modules.map((module) => {
-      const link = `/training/students/${module.slug}`;
+      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;

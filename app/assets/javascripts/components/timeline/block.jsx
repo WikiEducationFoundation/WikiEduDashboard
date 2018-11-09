@@ -23,7 +23,8 @@ const Block = createReactClass({
     toggleFocused: PropTypes.func,
     isDragging: PropTypes.bool,
     all_training_modules: PropTypes.array,
-    weekStart: PropTypes.object
+    weekStart: PropTypes.object,
+    trainingLibrarySlug: PropTypes.string.isRequired
   },
 
   updateBlock(valueKey, value) {
@@ -135,6 +136,7 @@ const Block = createReactClass({
           block_modules={this.props.block.training_modules}
           editable={isEditable}
           block={this.props.block}
+          trainingLibrarySlug={this.props.trainingLibrarySlug}
         />
       );
     }
