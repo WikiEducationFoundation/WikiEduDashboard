@@ -18,8 +18,7 @@ const initialState = {
   weeks: {},
   weeksPersisted: {},
   editableBlockIds: [],
-  loading: true,
-  trainingLibrarySlug: 'students'
+  loading: true
 };
 
 const newWeek = (tempId, state) => ({
@@ -146,8 +145,7 @@ export default function timeline(state = initialState, action) {
         blocks: blocksFromTimeline(action.data),
         blocksPersisted: blocksFromTimeline(action.data),
         loading: false,
-        editableBlockIds: [],
-        trainingLibrarySlug: action.data.course.training_library_slug || 'students'
+        editableBlockIds: []
       };
     }
     case ADD_WEEK: {

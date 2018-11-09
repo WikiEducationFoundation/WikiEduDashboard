@@ -27,8 +27,7 @@ const TimelineHandler = createReactClass({
     loading: PropTypes.bool,
     editableBlockIds: PropTypes.array,
     all_training_modules: PropTypes.array,
-    fetchAllTrainingModules: PropTypes.func.isRequired,
-    trainingLibrarySlug: PropTypes.string.isRequired
+    fetchAllTrainingModules: PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -131,7 +130,6 @@ const TimelineHandler = createReactClass({
           resetState={() => {}}
           nameHasChanged={() => false}
           edit_permissions={this.props.current_user.admin || this.props.current_user.role > 0}
-          trainingLibrarySlug={this.props.trainingLibrarySlug}
         />
         {grading}
       </div>
@@ -143,8 +141,7 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading,
   editableBlockIds: state.timeline.editableBlockIds,
-  availableTrainingModules: getAvailableTrainingModules(state),
-  trainingLibrarySlug: state.timeline.trainingLibrarySlug
+  availableTrainingModules: getAvailableTrainingModules(state)
 });
 
 const mapDispatchToProps = {
