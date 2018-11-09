@@ -1,9 +1,11 @@
 .container.training
   %h1 Training Libraries
   %ul.training-libraries.no-bullets.no-margin
+    - defocus_class = @focused_library_slug ? 'training-library-defocus' : ''
     - @libraries.each do |library|
       - next if library.exclude_from_index?
-      %li.training-libraries__individual-library.no-left-margin
+      - focus_class = @focused_library_slug == library.slug ? 'training-library-focus' : defocus_class
+      %li{class: "training-libraries__individual-library no-left-margin #{focus_class}"}
         %a.action-card.action-card-index{href: "/training/#{library.slug}"}
           %header.action-card-header
             %h3.action-card-title

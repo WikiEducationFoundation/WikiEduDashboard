@@ -73,6 +73,7 @@ const ThisWeek = ({ course, weeks }) => {
         showTitle={false}
         meetings={meetingsProp}
         weeksBeforeTimeline={weeksBeforeTimeline}
+        trainingLibrarySlug={course.training_library_slug}
       />
     );
   } else {

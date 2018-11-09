@@ -8,7 +8,7 @@ json.course do
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :character_sum, :upload_count, :uploads_in_use_count,
-            :upload_usages_count, :cloned_status, :flags, :level, :private)
+            :upload_usages_count, :cloned_status, :flags, :level, :private, :training_library_slug)
 
   json.timeline_enabled @course.timeline_enabled?
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?

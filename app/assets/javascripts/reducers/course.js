@@ -31,7 +31,8 @@ const initialState = {
   timeline_end: null,
   day_exceptions: '',
   weekdays: '0000000',
-  editingSyllabus: false
+  editingSyllabus: false,
+  training_library_slug: 'students'
 };
 
 

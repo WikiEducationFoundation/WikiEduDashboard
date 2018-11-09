@@ -40,7 +40,7 @@ const Timeline = createReactClass({
     all_training_modules: PropTypes.array,
     edit_permissions: PropTypes.bool,
     reorderable: PropTypes.bool,
-    enableReorderable: PropTypes.func,
+    enableReorderable: PropTypes.func
   },
 
   getInitialState() {
@@ -248,6 +248,7 @@ const Timeline = createReactClass({
             onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
             onBlockDrag={this._handleBlockDrag}
             weeksBeforeTimeline={weeksBeforeTimeline}
+            trainingLibrarySlug={this.props.course.training_library_slug}
           />
         </div>
       )
