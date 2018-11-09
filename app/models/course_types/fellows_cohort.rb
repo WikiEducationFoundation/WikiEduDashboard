@@ -72,4 +72,8 @@ class FellowsCohort < Course
   def passcode_required?
     false
   end
+
+  def training_library_slug
+    'professional-development'
+  end
 end

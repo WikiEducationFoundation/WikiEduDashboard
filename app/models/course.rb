@@ -323,6 +323,11 @@ class Course < ApplicationRecord
     !tag?('no_clone')
   end
 
+  # Overridden for some course types
+  def training_library_slug
+    nil
+  end
+
   def account_requests_enabled?
     return true if flags[:register_accounts].present?
     campaigns.exists?(register_accounts: true)

@@ -138,9 +138,21 @@
   margin 0 2% 3% 0
   display inline-block
 
+  &.training-library-focus
+    box-shadow 0px 4px 12px rgba(0, 0, 0, 0.5)
+    width 60%
+    clear both
+
 .training-libraries__individual-library:nth-child(odd)
   clear left
   float left
+  &.training-library-defocus
+    clear right
+
+.training-libraries__individual-library:nth-child(even)
+  &.training-library-defocus
+    clear left
+    float left
 
 .action-card
   .overdue, .completed

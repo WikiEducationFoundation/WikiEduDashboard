@@ -83,4 +83,8 @@ class ClassroomProgramCourse < Course
   def cloneable?
     tag?('cloneable')
   end
+
+  def training_library_slug
+    'students'
+  end
 end
