@@ -1,6 +1,6 @@
 import { RECEIVE_USER_TRAINING_STATUS } from '../constants';
 
-const initialState = [];
+const initialState = {};
 
 export default function userTrainingStatus(state = initialState, action) {
   switch (action.type) {

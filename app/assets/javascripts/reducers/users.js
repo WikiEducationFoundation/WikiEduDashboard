@@ -31,12 +31,15 @@ export default function users(state = initialState, action) {
       };
 
     case SORT_USERS: {
-      const newState = { ...state };
-      const sorted = sortByKey(newState.users, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
-      newState.users = sorted.newModels;
-      newState.sort.sortKey = sorted.newKey;
-      newState.sort.key = action.key;
-      return newState;
+      const sorted = sortByKey(state.users, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
+      return {
+        ...state,
+        users: sorted.newModels,
+        sort: {
+          sortKey: sorted.newKey,
+          key: action.key
+        }
+      };
     }
 
     default:
