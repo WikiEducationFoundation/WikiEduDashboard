@@ -8,9 +8,17 @@
 # Author: Pyscowicz
 # Author: Silvonen
 # Author: Surjection
+# Author: Susannaanas
 # Author: Valtlait
 ---
 fi:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: t.
+          million: milj.
+          billion: mrd.
   accessibility:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
@@ -38,7 +46,10 @@ fi:
     recent_activity: Tuoreet muutokset
     report_problem: Ilmoita ongelmasta
     request_account: Pyydä tiliä
+    request_account_create: Luo tili
     search: esitä kysymys
+    search_results: 'Hakutulokset: ''%{search_terms}'''
+    no_results: Ei tuloksia haulle '%{query}'
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
     sign_up_log_in_extended: Wikipedian kautta
@@ -69,6 +80,13 @@ fi:
     review_orientation: Tarkastele opastusta
     start_orientation: Aloita opastus
     blog_headline: Tuoreet uutiset Wiki Educationista
+    about_programs: Tämä sivusto seuraa toimintaa ohjelmien kautta. Ohjelmat ovat
+      tapahtumia, kuten editathonit tai koulun kurssit. Kukin ohjelma on osa yhtä
+      tai useampaa kampanjaa, joiden avulla voi seurata usean ohjelman koottuja tilastoja.
+    about_creating_programs: Jos järjestät yksittäisen, itsenäisen tapahtuman, voit
+      luoda ohjelman saman tien. Jos tapahtumasi on osa jotain suurempaa kokonaisuutta,
+      etsi tai luo sille sopiva kampanja. Sen jälkeen voit luoda kampanjaan liittyviä
+      ohjelmia kampanjan sivulta.
   home:
     explore: Tutustu
     log_in: Kirjaudu sisään Wikipedian kautta
@@ -81,6 +99,7 @@ fi:
     edited_by: Muokannut
     label: Toiminta
   articles:
+    article_development: (artikkelin kehittäminen)
     assigned: Tehtäväksi annetut artikkelit
     available: Käytettävissä olevat artikkelit
     assigned_to: Käsittelijä
@@ -90,6 +109,11 @@ fi:
     edited: Muokattuja artikkeleita
     edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
+    filter:
+      wiki_all: Kaikki
+      new: Uusi
+      existing: Olemassaoleva
+      new_and_existing: Uudet ja olemassaolevat
     hide: Piilota
     history: (historia)
     label: Artikkelit
@@ -100,25 +124,29 @@ fi:
     rating_doc: Artikkelin laatuluokitus Wikipediassa. Suomenkielisessä Wikipediassa
       vain tietyn laatutason artikkelit arvioidaan.
     rating_docs:
-      fa: Suositeltu artikkeli — Wikipedian korkein luokittelu, todennäköisesti liian
-        haastava uuden muokkaajan pääprojektin tavoitteeksi.
-      fl: Suositeltu luettelo — Wikipedian korkein luokitus luetteloille
-      a: A-luokka — erittäin kehittynyt artikkeli, joka voi olla liian haastava uuden
-        muokkaajan pääprojektiksi.
-      ga: Hyvä artikkeli — kehittynyt artikkeli, joka ei ole aivan suositellun tasoa.
-        Voi olla liian haastava tavoite uuden muokkaajan pääprojektiksi.
-      b: B-luokka — kohtalaisen kehittynyt artikkeli (ei käytössä suomenkielisessä
-        Wikipediassa)
-      c: CA-luokka — keskitason artikkeli, jota voi kehittää
-      start: Aloitus-luokka — aloitustason artikkeli, jossa on paljon kehitettävää
-      stub: Tynkä-luokka — lyhyt artikkelin aloitus, joka tarvitsee lisää sisältöä
-      list: Luettelo-luokka — luettelo eikä artikkeli
+      fa: '%{class} (Suositeltu artikkeli) — Wikipedian korkeimmin luokiteltu artikkeli,
+        joka voi olla liian haastava uuden muokkaajan pääprojektin tavoitteeksi.'
+      fl: '%{class} (Suositeltu luettelo) — Wikipedian korkein luokitus luetteloille'
+      a: '%{class}luokka — erittäin kehittynyt artikkeli, joka voi olla liian haastava
+        uuden muokkaajan pääprojektiksi.'
+      ga: '%{class} Hyvä artikkeli — kehittynyt artikkeli, joka ei ole aivan suositellun
+        artikkelin tasoa. Voi olla liian haastava tavoite uuden muokkaajan pääprojektiksi.'
+      b: '%{class}-luokka — kohtalaisen kehittynyt artikkeli (ei käytössä suomenkielisessä
+        Wikipediassa)'
+      c: '%{class}-luokka — keskitason artikkeli, jota voi kehittää'
+      start: '%{class}-luokka — aloitustason artikkeli, jossa on paljon kehitettävää'
+      stub: '%{class}-luokka — lyhyt artikkelin aloitus, joka tarvitsee lisää sisältöä'
+      list: '%{class}-luokka — luettelo eikä artikkeli'
       '?': Arvioimaton — artikkelia ei ole vielä arvioitu Wikipedian laatuasteikoilla.
       does_not_exist: Tätä artikkelia ei ole Wikipediassa
+    see_more: Lisätietoa
     show_cumulative_changes: Näyttä kumulatiiviset muutokset
     show_current_version: Näytä nykyinen versio
+    show_current_version_with_authorship_highlighting: Nykyinen versio, jossa tekijä
+      on korostettu
     title: Otsikko
     title_example: Artikkelin nimi
+    tools: Kurssityökalut
     view: Näytä artikkeli
     view_all: Näytä kaikki
     view_doc: Kaikkien artikkelien näyttökerrat projektin ajalta
@@ -141,8 +169,11 @@ fi:
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
     assign_other: Anna artikkeli tehtäväksi
-    add_available: Lisää saatavilla oleva artikkeli
+    add_available: Lisää saatavilla olevat artikkelit
+    add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
+    add_available_submit: Lisää artikkelit
     assign_self: Anna itsellesi artikkeli tehtäväksi
+    assign_tooltip: Tehtäväartikkeli on se, jonka olet valinnut tehtäväksi tai parannettavaksi.
     confirm_add_available: Haluatko varmasti lisätä artikkelin %{title}
     confirm_addition: Haluatko varmasti antaa artikkelin %{title} tehtäväksi muokkaajalle
       %{username}?
@@ -156,6 +187,8 @@ fi:
     reviewers: Arvioija(t)
     review_other: Anna tehtäväksi arvioiminen
     review_self: Arvioi artikkeli
+    review_tooltip: Tässä näytetään artikkelit, joita olet ottanut vertaisarvioitavaksi
+      tai joille aiot antaa palautetta.
     select: Valitse
   blocks:
     milestones:
@@ -163,6 +196,11 @@ fi:
   campaign:
     active_campaigns: Aktiiviset kampanjat
     add_organizer: Lisää järjestäjä
+    alert_article: Artikkelin otsikko
+    alert_label: Kampanjan hälytykset
+    alert_select_label: Suodata hälytyksen tyypin perusteella
+    alert_type: Tyyppi
+    alert_user_id: Käyttäjä
     all_campaigns: Kaikki kampanjat
     already_exists: Kampanja on jo olemassa. Yritä uudelleen eri nimellä tai slugilla.
     campaign: Kampanja
@@ -170,6 +208,7 @@ fi:
     campaign_deleted: Kampanja "%{title}" on poistettu
     campaign_not_updated: Kampanjaa ei voitu päivittää
     campaign_updated: Kampanja päivitetty
+    created_at: Päivämäärä
     confirm_campaign_deletion: Haluatko varmasti poistaa kurssin "%{title}"? Siinä
       tapauksessa kirjoita kurssin nimi jatkaaksesi.
     confirm_campaign_deletion_failed: '"%{title}" ei ole kurssin nimi. Kurssia ei
@@ -177,11 +216,18 @@ fi:
     confirm_course_removal: Oletko varma, että haluat poistaa "%{title}" "%{campaign_title}"
       -kampanjan?
     course_already_removed: '"%{title}" on jo poistettu "%{campaign_title}" -kapanjasta'
+    course: Kurssi
     course_removed: '"%{title}" on poistettu "%{campaign_title}" -kampanjasta'
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
+    default_course_type: Kurssityypin oletus
+    default_passcode: Pääsykoodin oletus
+    default_passcode_explanation: 'Oletusarvoisesti tämän kampanjan uusilla ohjelmilla
+      täytyy olla:'
     description: Kuvaus
     delete_campaign: Poista tämän kampanja
+    no_alerts: Tällä kampanjalla ei ole hälytyksiä
+    no_passcode: ei pääsykoodia
     none: Ei mitään
     organizers: Järjestäjät
     organizer_added: '%{user} on nyt järjestäjä kampanjassa "%{title}"'
@@ -189,6 +235,8 @@ fi:
     program_template: Ohjelmakaavio
     program_template_tooltip: Kun järjestäjä luo ohjelman tähän kampanjaan, tässä
       osiossa oleva teksti kopioidaan ohjelman kuvaukseen.
+    random_passcode: satunnainen pääsykoodi
+    requested_accounts: Pyydetyt käyttäjätunnukset
     title: Otsikko
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
   categories:
@@ -196,15 +244,20 @@ fi:
     add_template: Lisää malline
     add_this_category: Lisää tämä luokka
     add_this_template: Lisää tämä malline
+    confirm_category_addition: Haluatko varmasti seurata luokan "%{name}" muutoksia?
+    confirm_template_addition: Haluatko varmasti seurata mallineen "%{name}" muutoksia?
     name: Nimi
     category_name: Luokan nimi
     template_name: Mallineen nimi
+    none: Luokkia ei seurata.
     remove: Poista
+    tracked_categories: Seuratut luokat ja mallineet
   chat:
     label: Keskustelu
   courses:
     activity: Toiminta
     active_courses: Aktiivinen %{course_type}
+    alerts: Hälytykset
     all_courses: Kaikki kurssit
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
     already_exists: Tämä on jo olemassa kurssilla!
@@ -227,6 +280,7 @@ fi:
     campaigns: 'Joukot:'
     campaign_articles: '%{title} artikkelit'
     campaign_courses: '%{title} kurssit'
+    campaign_select: Valitse kampanja
     campaign_users: '%{title} muokkaajat'
     confirm_course_deletion: Haluatko varmasti poistaa kurssin %{title}? Jos, niin
       kirjoita kurssin nimi jatkaaksesi.
@@ -280,6 +334,9 @@ fi:
         ei voi vaihtaa. Kaikkea muuta voit muokata myöhemmin. Klikkaa "luo oma kurssi!"
         aloittaaksesi Wikipedia-tehtävän aikajanan luomisen.
       no_class_holidays: Ryhmälläni ei ole lomia.
+      role_description: Roolisi kurssilla
+      role_description_placeholder: Opettaja, ohjaaja, avustaja jne.
+      separate_event_dates: Määrittele erilliset aloitus- ja lopettamisajankohdat
       save_cloned_course: Tallenna uusi kurssi
       start_date: Alkamispäivä
       start_date_placeholder: Alkamispäivä (VVVV-KK-PP)
@@ -288,17 +345,36 @@ fi:
         olevien ohjelmien kanssa seuraavalla päivityskerralla. Siinä kestää useampi
         tunti.
     current: Meneillään olevat kurssit
+    data_articles: Tietoa artikkeleista
+    data_download_info: Lataa tiedot CSV-formaatissa
+    data_overview: Yleistiedot
+    data_overview_info: Yleistiedoissa näytetään kumulatiiviset tilastot koko projektille.
+    data_edits: Muokkausten tiedot
+    data_edits_info: Muokkausten tiedot näyttää jokaisen projektin aikana tehdyn muokkauksen
+      tiedot.
+    data_students: Muokkaajien tiedot
+    data_students_info: Muokkaajien tiedot näyttää osallistuvat muokkaajat, paljonko
+      he ovat muokanneet ja ovatko he rekisteröityneet projektin aikana.
+    data_uploads: Commons-latausten tiedot
+    data_uploads_info: Commons-latausten tiedot näyttää kunkin ladatun mediatiedoston
+      nimen ja käyttökerrat.
     delete_course: Poista kurssi
     delete_suggestion: Poista
+    delete_course_instructions: Voit poistaa tämän sivun, kun kaikki kampanjat on
+      ensin poistettu.
     dismiss_survey: Ohita
     dismiss_survey_confirm: Oletko varma, että haluat pysyvästi ohittaa tämän kyselyn?
+    download_stats_data: Lataustilastot
+    does_not_exist: Artikkelia ei ole. Luo sivu hiekkalaatikkoosi ja anna se itsellesi
+      tehtäväksi, niin saat muokkaussuosituksia.
     duration: Kurssin kesto
+    edit_count: Muokkausten määrä
     edit_course_dates: Muokkaa kurssin päivämääriä
     enable_chat: Aktivoi keskustelu
     end: Päättyy
     ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu
-    enrollment: Ilmoittautuminen
+    enrollment: Lisää/poista opiskelijoita
     courses_enrolled: Kaikki kurssit
     error:
       exists: Kurssi on jo olemassa! Yritä uudelleen eri nimellä, oppilaitoksella
@@ -308,19 +384,27 @@ fi:
       invalid_slug: Tyhjä koulu/otsikko kurssille.
       duplicate_slug: Ohjelma nimeltä %{slug} on jo olemassa.
     expected_students: Odotetut osallistujat
+    features_feedback: 'Automaattisia ehdotuksia:'
     feedback: Palaute
+    feedback_loading: Hetki, ehdotukset latautuvat...
     gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
+    home_wiki_language: Kotiwikin kieli
+    home_wiki_project: Kotiwikin projekti
     instructor:
       one: ohjaaja
       other: ohjaajat
     instructors: Ohjaajat
     invitation: Sinut on kutsuttu ilmoittautumaan kurssille %{title}. Ilmoittautuaksesi
-      kurssille sinun täytyy kirjautua sisään Wikipedia-tunnuksella. Jos sinulla ei
-      ole tunnusta, luo se nyt.
+      kurssille sinun täytyy kirjautua sisään Wikipedia-tunnuksella.
+    invitation_username_advice: Jos sinulla ei vielä ole Wikipedia-tunnusta, luo sellainen
+      nyt. Käyttäjänimesti voi olla yhtä anonyymi tai tunnistettava kuin itse haluat.
+      Yhteistunnusten luonti ei kuitenkaan ole sallittua.
     join: Ilmoittaudu
     join_course: Ilmoittaudu kurssille
     join_prompt: Ilmoittaudu kurssille '%{title}'?
-    join_successful: Ilmoittautumisesi kurssille %{title} onnistui.
+    join_successful: Ilmoittautumisesi kurssille %{title} onnistui. Hallintapaneeli
+      näyttää automaattisesti kaikki tekemäsi muutokset ja päivittää tiedot aika ajoin.
+      Palaa takaisin myöhemmin, niin näet millaisen muutoksen olet saanut aikaan!
     join_failed: Ilmoittautuminen epäonnistui
     join_failure_details:
       cannot_join_twice: Käyttäjät eivät voi ilmoittautua samalle kurssille kahdesti.
@@ -328,6 +412,7 @@ fi:
     join_details: Ilmoittautuaksesi kurssille tarvitset salasanan — tai ilmoittautumislinkin,
       joka sisältää salasanan — opettajalta. Jos et ole saanut kumpaakaan, ota yhteyttä
       opettajaasi.
+    join_no_passcode: Oletko varma, että haluat liittyä tälle kurssille?
     leave_confirmation: Haluatko varmasti keskeyttää kurssin?
     leave_course: Keskeytä kurssi
     loading: Ladataan…
@@ -335,23 +420,30 @@ fi:
     my_articles: Omat artikkelit
     needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
+    new_account_check_username: Tarkista, onko käyttäjätunnus saatavana
     new_account_email: Sähköpostiosoite
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
+    new_account_username_taken: Käyttäjätunnus on jo käytössä. Valitse ystävällisesti
+      toinen.
     new_account_submit: Pyydä tiliä
     nocourses: Et ole ilmoittautunut millekään kurssille.
     nocourse: ei ole osallistunut millekään kursseille.
     none: Ei mitään
+    not_permitted: Sinulla ei ole oikeutta muokata tätä kurssia.
     notify_untrained_confirmation: Tämä lähettää muistutusviestin niille osallistujille,
       jotka eivät ole vielä tehneet harjoitusta. Haluatko varmasti tehdä tämän?
     no_available_actions: Ei käytettävissä olevia toimintoja.
+    ores_plot: ORES
     overview: Koti
     passcode: Salasana
     passcode_none: Ei salasanaa
     passcode_prompt: 'Syötä pääsykoodi liittyäksesi:'
+    please_log_in: Kirjaudu sisään.
     private: Yksityinen
     published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
       linkin kautta:'
+    rating_feedback: 'Ennustettu arviointi tälle artikkelille on:'
     review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
       lähetä se hyväksyttäväksi Wiki Edin henkilökunnalle. Kun aikajana on hyväksytty,
       saat ilmoittausumislinkin, jota opiskelijat voivat käyttää ilmoittautumiseen.
@@ -360,9 +452,11 @@ fi:
     revisions_none: Tällä kurssilla ei ole viimeaikaisia muokkauksia Wikipediassa.
     school: Oppilaitos
     school_and_term: Instituutio/lukukausi
+    search_courses: Etsi kursseja
     start: Alkaa
     start_typing: Aloita kirjoittaminen
     students: Opiskelijat
+    students_taught: Opiskelijoita
     students_count: '# Opiskelijat'
     student_editors: Opiskelijamuokkaajat
     students_none: Tällä kurssilla ei ole opiskelijoita.
@@ -373,12 +467,20 @@ fi:
     submitted_heading: Lisätyt kurssit
     submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
       mikäli kysyttävää ilmenee.
+    suggestions_feedback: Haluatko ehdottaa parannuksia tähän ominaisuuteen? Kerro
+      siitä!
+    suggestions_sending: Lähetetään palautetta...
+    suggestions_sent: Palaute lähetetty. Kiitos avustasi.
+    suggestions_failed: Palautetta ei voitu lähettää. Kokeile myöhemmin uudelleen.
     user_role: Rooli
     course_details: Kurssin tiedot
     subject: Aihe
     submitted: Lähetetty
+    tag_select: Valitse tai luo tägi
+    tags: 'Tägit:'
     term: Lukukausi
     timeline: Tehtävän tiedot
+    timeline_enabled: AIkajana päällä
     timeline_link: Aikajana
     time_zone_message: Aloitus- ja lopetusajat näkyvät paikallisessa ajassa.
     title: Otsikko
@@ -389,8 +491,14 @@ fi:
       suorituspäivä oli %{date}.
     unsubmitted: Lisäämättömät kurssit
     untrained: Harjoittelematon
+    update_stats: Muokkaustilastot
     uploads_none: Ryhmä ei ole tallentanut kuvia tai muita mediatiedostoja Wikimedia
       Commonsiin.
+    user_uploads_none: Tämä käyttäjä ei ole tallentanut kuvia tai muita tiedostoja
+      Wikimedia Commonsiin.
+    user_recent_uploads: Tuoreet tallennukset
+    user_suggestions: 'Käyttäjien ehdotukset:'
+    user_suggestions_prompt: Ehdotuksesi artikkelin muokkaajille
     view_other: Selaa muita kampanjoita
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
@@ -404,7 +512,9 @@ fi:
     warn_mirrored: Kun lähetät kurssin, se tallennetaan automaattisesti Wikipediaan
       käyttäjätunnuksellasi. Sen jälkeen kaikki muokkaukset aikajanalle peilataan
       Wikipediaan. Haluatko varmasti tehdä tämän?
-    wiki_staff: Wiki Ed -henkilökunta
+    wiki_edits_enabled: Wikimuokkaukset päällä
+    wiki_staff: Wiki Education -henkilökunta
+    withdrawn: Tehtävä ei tehty
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
     yourcourses: Omat kurssisi
@@ -436,6 +546,10 @@ fi:
       clone_previous: Kopioi edellinen Ohjelma
       clone_this: Kopioi tämä ohjelma
       clone_successful: Ohjelman kloonaus onnistui
+      clone_successful_details: Ohjelmasi on kloonattu. Viimeistele se klikkaamalla
+        'Tallenna'.
+      course_when: Lisää jotain kenttään 'Milloin' (esimerkiksi kuukausi ja vuosi),
+        jotta se erottuu alkuperäisestä.
       course_description: Ohjelman kuvaus
       course_school: Instituutio
       course_term: Milloin
@@ -445,9 +559,13 @@ fi:
       create_label: Luo uusi ohjelma
       create_new: Luo itsenäinen ohjelma
       create_short: Luo ohjelma
+      end_date: Toiminnan seuraaminen päättyy
       find: Etsi ohjelma
       intro: Ohjelman nimi vaaditaan, kaiken muun voi täydentää myöhemmin. Klikkaa
         "Luo oma ohjelma" aloittaaksesi wikiohjelmasi sivun täydentämisen.
+      new_or_clone: Luo nyt uusi ohjelma tai 'kloonaa' toinen ohjelma, johon olet
+        osallistunut.
+      participate_in_campaign: Osallistu kampanjaan
       save_cloned_course: Tallenna
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
@@ -812,4 +930,18 @@ fi:
         meitä tehtävien kehittämisessä.
   feedback_form_responses:
     no_responses: Palautetta ei ole vieä annettu.
+  article_finder:
+    search_placeholder: Anna avainsana
+    search: Haku
+    show_options: Näytä asetukset
+    hide_options: Piilota asetukset
+    keyword_search: Avainsanahaku
+    category_search: Luokkahaku
+    article_quality: Artikkelin laatu (0–100)
+    more_results: Lisää tuloksia
+    fetched_articles: Löydetyt artikkelit
+    searching_articles: Etsitään artikkeleita
+    subheading_message: Etsitään artikkeli, jota voit muokata.
+    article_finder: Artikkelihaku
+    submit: Tallenna
 ...

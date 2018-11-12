@@ -935,7 +935,7 @@ sr-ec:
       је корисник допринео. Враћање уклоњеног садржаја ће такође повећати укупан број.
     chars_added: Знакова додато<br>(чланак | корисник | скица)
     contributions: Кориснички доприноси
-    contributions_history_full: Види целу историју доприноса на Википедији
+    contributions_history_full: Прикажи целу историју доприноса
     contributions_more: Види још доприноса
     contribution_statistics: Статистике доприноса
     course_passcode: 'Лозинка:'

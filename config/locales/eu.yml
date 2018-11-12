@@ -114,6 +114,11 @@ eu:
     edited: Editatutako artikuluak
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
+    filter:
+      wiki_all: Guztiak
+      new: Berria
+      existing: Existitzen direnak
+      new_and_existing: Berriak eta existitzen direnak
     hide: Ezkutatu
     history: (historia)
     label: Artikuluak
@@ -510,6 +515,7 @@ eu:
     revisions_none: Ikastaro honek ez du Wikipediako edizio jarduera berririk.
     school: Eskola
     school_and_term: Erakundea/Epealdia
+    search_courses: Kurtsoak bilatu
     start: Hasi
     start_typing: Hasi idazten
     students: Ikasleak
@@ -544,6 +550,7 @@ eu:
     timeline_tooltip: Denbora-lerroa gaitzeak aste-asteko jarduerak zehaztu eta entrenamendu
       moduluak esleitzea ahalbidetuko du. Oso baliagarria da hezkuntza Programarako
       ikastaroentzat eta beste programa luze eta oso egituratuentzat.
+    timeline_nav: Denbora lerrora joan
     time_zone_message: Hasiera eta bukaera datak zure tokiko ordutegian erakusten
       dira.
     title: Izenburua
@@ -1111,12 +1118,19 @@ eu:
     search_placeholder: Sartu zure bilaketa testua
     search: Bilatu
     tools: Tresnak
+    show_options: Erakutsi aukerak
+    hide_options: Ezkutatu aukerak
     keyword_search: Hitz gako Bilaketa
     category_search: Kategoria Bilaketa
     article_quality: Artikulu kalitatea (0-100)
     more_results: Emaitza gehiago
+    fetched_articles: Aurkitutako artikuluak
+    filtered_articles: Iragazitako artikuluak
+    searching_articles: Artikuluak bilatzen
+    subheading_message: Aurki dezagun Wikipedia artikulu bat lanean hasteko.
     article_finder: Artikulu bilatzailea
     submit: Bidali
+    relevanceIndex: Garrantzi indizea
     assign_article_self: Zure buruari esleitu
     unassign_article_self: Artikulua desesleitu
 ...

@@ -574,7 +574,7 @@ it:
     assigned: Voci assegnate
     chars_added: Caratteri aggiunti<br>(voce | utente | bozza)
     contributions: Contributi dell'utente
-    contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
+    contributions_history_full: Vedi la cronologia completa dei contributi
     contributions_more: Visualizza Ulteriori Contributi
     editors: Contributori
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?

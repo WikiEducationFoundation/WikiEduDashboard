@@ -999,8 +999,7 @@ fr:
       supprimé augmentera également ce total.
     chars_added: Caractères ajoutés<br>(article | utilisateur | brouillon)
     contributions: Contributions de l’utilisateur
-    contributions_history_full: Afficher l’historique complet des contributions sur
-      Wikipédia
+    contributions_history_full: Afficher l’historique complet des contributions
     contributions_more: Afficher plus de contributions
     contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
