@@ -6424,10 +6424,10 @@ hoist-non-react-statics@^2.5.0:
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
   integrity sha512-6Bl6XsDT1ntE0lHbIhr4Kp2PGcleGZ66qu5Jqk8lc0Xc/IeG6gVLmwUGs/K0Us+L8VWoKgj0uWdPMataOsm31w==
 
-hoist-non-react-statics@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.0.1.tgz#fba3e7df0210eb9447757ca1a7cb607162f0a364"
-  integrity sha512-1kXwPsOi0OGQIZNVMPvgWJ9tSnGMiMfJdihqEzrPEXlHOBh9AAHXX/QYmAJTXztnz/K+PQ8ryCb4eGaN6HlGbQ==
+hoist-non-react-statics@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.1.0.tgz#42414ccdfff019cd2168168be998c7b3bd5245c0"
+  integrity sha512-MYcYuROh7SBM69xHGqXEwQqDux34s9tz+sCnxJmN18kgWh6JFdTw/5YdZtqsOdZJXddE/wUpCzfEdDrJj8p0Iw==
   dependencies:
     react-is "^16.3.2"
 
@@ -11299,13 +11299,13 @@ react-paginate@^5.2.3:
   dependencies:
     prop-types "^15.6.1"
 
-react-redux@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.0.tgz#948b1e2686473d1999092bcfb32d0dc43d33f667"
-  integrity sha512-CRMpEx8+ccpoVxQrQDkG1obExNYpj6dZ1Ni7lUNFB9wcxOhy02tIqpFo4IUXc0kYvCGMu6ABj9A4imEX2VGZJQ==
+react-redux@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.1.tgz#88e368682c7fa80e34e055cd7ac56f5936b0f52f"
+  integrity sha512-LE7Ned+cv5qe7tMV5BPYkGQ5Lpg8gzgItK07c67yHvJ8t0iaD9kPFPAli/mYkiyJYrs2pJgExR2ZgsGqlrOApg==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    hoist-non-react-statics "^3.0.0"
+    hoist-non-react-statics "^3.1.0"
     invariant "^2.2.4"
     loose-envify "^1.1.0"
     prop-types "^15.6.1"
