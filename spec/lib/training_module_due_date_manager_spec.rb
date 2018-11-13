@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module_due_date_manager"
-require "#{Rails.root}/lib/training_module"
 
 describe TrainingModuleDueDateManager do
   let(:t_start)      { Date.new(2015, 8, 25) }

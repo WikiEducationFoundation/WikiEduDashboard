@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_library"
-require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
   before do
@@ -10,7 +9,6 @@ describe TrainingBase do
   end
 
   after(:all) do
-    TrainingModule.flush
     TrainingLibrary.flush
   end
 
@@ -107,7 +105,6 @@ describe TrainingBase do
     context 'when the cache is empty' do
       before do
         TrainingLibrary.flush
-        TrainingModule.flush
       end
 
       it 'loads from yaml files' do
