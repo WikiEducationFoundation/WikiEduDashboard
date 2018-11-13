@@ -22,7 +22,7 @@ class TrainingModule < ApplicationRecord
   validates_presence_of :id, :name, :slug
   serialize :slide_ids, Array
   has_many :training_slides
-  
+
   #################
   # Class methods #
   #################
@@ -31,19 +31,18 @@ class TrainingModule < ApplicationRecord
     TrainingBase.base_path
   end
 
-  
   def self.path_to_yaml
     "#{base_path}/modules/*.yml"
   end
-  
+
   def self.wiki_base_page
     ENV['training_modules_wiki_page']
   end
-  
+
   def self.trim_id_from_filename
     false
   end
-  
+
   def self.load(*)
     TrainingBase.load(content_class: self)
   end
@@ -70,9 +69,9 @@ class TrainingModule < ApplicationRecord
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.description = content['description']
     slugs = content['slides'].map { |slide| slide['slug'] }
-    ids = TrainingSlide.where(slug: slugs).pluck(:id, :slug).sort_by { |i, s| 
-      slugs.index s 
-    }.map(&:first)
+    ids = TrainingSlide.where(slug: slugs).pluck(:id, :slug).sort_by do |_i, s|
+      slugs.index s
+    end.map(&:first)
     training_module.slide_ids = ids
     training_module.save
     training_module
