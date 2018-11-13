@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe TrainingController do
+  before { TrainingModule.load_all }
+
   let(:user) { create(:user) }
   let(:library_id) { 'students' }
   let(:module_id)  { TrainingModule.all.first.slug }
@@ -70,7 +72,7 @@ describe TrainingController do
       end
 
       it 'displays an error message upon failure' do
-        allow(TrainingBase).to receive(:load_all)
+        allow(TrainingModule).to receive(:load_all)
           .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
         subject
         expect(response.body).to have_content 'oh noes!'

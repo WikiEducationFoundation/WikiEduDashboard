@@ -43,7 +43,7 @@ class TrainingModule < ApplicationRecord
     false
   end
 
-  def self.load(*)
+  def self.load
     TrainingBase.load(content_class: self)
   end
 

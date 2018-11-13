@@ -112,6 +112,7 @@ describe WikiTrainingLoader do
       let(:content_class) { TrainingModule }
 
       before do
+        TrainingModule.load_all
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/modules-test')
       end

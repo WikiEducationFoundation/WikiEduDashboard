@@ -52,30 +52,6 @@ describe TrainingBase do
       end
     end
 
-    context 'when there are duplicate slugs' do
-      before do
-        allow(TrainingModule).to receive(:trim_id_from_filename).and_return(true)
-        allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
-      end
-
-      it 'raises an error noting the duplicate slug name' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
-                                          /.*duplicate-yaml-slug.*/)
-      end
-    end
-
-    context 'when there are duplicate ids' do
-      before do
-        allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
-      end
-
-      it 'raises an error noting the duplicate id' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateIdError)
-      end
-    end
-
     context 'when training_path is set' do
       before do
         allow(ENV).to receive(:[]).and_call_original
