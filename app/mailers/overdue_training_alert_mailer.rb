@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_module"
-
 class OverdueTrainingAlertMailer < ApplicationMailer
   def self.send_email(alert)
     return unless Features.email?
