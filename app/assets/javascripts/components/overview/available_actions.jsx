@@ -167,7 +167,8 @@ const AvailableActions = createReactClass({
     }
 
     // Requested accounts
-    if (Features.enableAccountRequests && (user.role === 1 || user.admin)) {
+    // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
+    if ((user.role === 1 && !Features.wikiEd) || user.admin) {
       // show a link to the requested accounts creation page if there are any
       if (course.requestedAccounts && course.account_requests_enabled) {
         const requestedAccountsLink = `/requested_accounts/${course.slug}`;

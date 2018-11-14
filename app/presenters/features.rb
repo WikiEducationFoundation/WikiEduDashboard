@@ -25,10 +25,6 @@ class Features
     ENV['wiki_education'] != 'true'
   end
 
-  def self.enable_account_requests?
-    ENV['wiki_education'] != 'true'
-  end
-
   def self.disable_wiki_output?
     ENV['disable_wiki_output'] == 'true'
   end

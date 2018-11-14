@@ -4,7 +4,6 @@
 class RequestedAccountsCampaignsController < ApplicationController
   respond_to :html
   before_action :set_campaign
-  before_action :check_requested_account_permission
   before_action :check_creation_permissions,
                 only: %i[index create_accounts enable_account_requests]
 
@@ -56,10 +55,5 @@ class RequestedAccountsCampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.find_by(slug: params[:campaign_slug])
-  end
-
-  def check_requested_account_permission
-    return if Features.enable_account_requests?
-    raise_unauthorized_exception
   end
 end

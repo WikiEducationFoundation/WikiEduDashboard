@@ -4,8 +4,6 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
 describe RequestedAccountsController do
-  before { allow(Features).to receive(:enable_account_requests?).and_return(true) }
-
   describe '#request_account' do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:user) { create(:user) }
@@ -74,14 +72,6 @@ describe RequestedAccountsController do
                                          create_account_now: true }
         expect(response.status).to eq(200)
         expect(response.body).to have_content('Created account for MyUsername')
-      end
-
-      it 'raises an error if account requests are not enabled' do
-        allow(Features).to receive(:enable_account_requests?).and_return(false)
-        post :request_account, params: { passcode: course.passcode,
-                                         course_slug: course.slug,
-                                         username: 'username', email: 'email' }
-        expect(response.status).to eq(401)
       end
     end
 

@@ -4,8 +4,6 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
 describe RequestedAccountsCampaignsController do
-  before { allow(Features).to receive(:enable_account_requests?).and_return(true) }
-
   describe '#request_account' do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:campaign) { create(:campaign, register_accounts: true) }
@@ -40,14 +38,6 @@ describe RequestedAccountsCampaignsController do
         post :create_accounts, params: { campaign_slug: campaign.slug }
         expect(response.status).to eq(401)
         expect(course.flags[:register_accounts]).to be(nil)
-        expect(RequestedAccount.count).to eq(1)
-      end
-
-      it 'does not create the accounts if account requests are disabled' do
-        allow(controller).to receive(:current_user).and_return(admin)
-        allow(Features).to receive(:enable_account_requests?).and_return(false)
-        post :create_accounts, params: { campaign_slug: campaign.slug }
-        expect(response.status).to eq(401)
         expect(RequestedAccount.count).to eq(1)
       end
 
