@@ -14,10 +14,10 @@ describe('user training status reducer', () => {
     deepFreeze(initialState);
     const mockedAction = {
       type: RECEIVE_USER_TRAINING_STATUS,
-      data: { user: { training_modules: [] } }
+      data: { user: { training_modules: [{ id: 1 }, { id: 2 }] } }
     };
 
     const newState = userTrainingStatus(initialState, mockedAction);
-    expect(newState).to.be.an('array');
+    expect(newState).to.deep.eq([{ id: 1 }, { id: 2 }]);
   });
 });
