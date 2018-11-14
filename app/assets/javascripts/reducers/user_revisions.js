@@ -5,9 +5,10 @@ const initialState = {};
 export default function userRevisions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USER_REVISIONS: {
-      const newState = { ...state };
-      newState[action.userId] = action.data.course.revisions;
-      return newState;
+      return {
+        ...state,
+        [action.userId]: action.data.course.revisions
+      };
     }
     default:
       return state;
