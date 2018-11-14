@@ -17,27 +17,45 @@ describe('users reducer', () => {
   });
 
   it('returns the previous state and updates users array from action via RECEIVE_USERS, ADD_USER and REMOVE_USER', () => {
-    const initialState = { title: 'title', isLoaded: false };
+    const initialState = users(undefined, { type: null });
     deepFreeze(initialState);
-    const mockedAction = {
-      type: RECEIVE_USERS,
-      data: { course: { users: [1, 2] } }
-    };
 
-    let newState = users(initialState, mockedAction);
-    expect(newState.title).to.eq('title');
-    expect(newState.users).to.deep.eq([1, 2]);
-    expect(newState.isLoaded).to.eq(true);
+    const action = (type, users_array) => ({
+      type: type,
+      data: {
+        course: {
+          users: users_array
+        }
+      }
+    });
 
-    mockedAction.type = ADD_USER;
-    mockedAction.data.course.users = [1, 2, 3];
-    newState = users(initialState, mockedAction);
-    expect(newState.users).to.deep.eq([1, 2, 3]);
+    let users_array = [
+      { id: 1, username: 'foo', role: 'student' },
+      { id: 2, username: 'bar', role: 'admin' }
+    ];
+    const mockedReceivedAction = action(RECEIVE_USERS, users_array);
+    const receiveUserState = users(initialState, mockedReceivedAction);
+    expect(receiveUserState.users).to.deep.eq(users_array);
+    expect(receiveUserState.isLoaded).to.eq(true);
 
-    mockedAction.type = REMOVE_USER;
-    mockedAction.data.course.users = [1, 2];
-    newState = users(initialState, mockedAction);
-    expect(newState.users).to.deep.eq([1, 2]);
+    users_array = [
+      { id: 1, username: 'foo', role: 'student' },
+      { id: 2, username: 'bar', role: 'admin' },
+      { id: 3, username: 'buzz', role: 'student' }
+    ];
+    const mockedAddAction = action(ADD_USER, users_array);
+    const addUserState = users(receiveUserState, mockedAddAction);
+    expect(addUserState.users).to.deep.eq(users_array);
+    expect(addUserState.isLoaded).to.eq(true);
+
+    users_array = [
+      { id: 1, username: 'foo', role: 'student' },
+      { id: 2, username: 'bar', role: 'admin' }
+    ];
+    const mockedRemoveAction = action(REMOVE_USER, users_array);
+    const removeUserState = users(addUserState, mockedRemoveAction);
+    expect(removeUserState.users).to.deep.eq(users_array);
+    expect(removeUserState.isLoaded).to.eq(true);
   });
 
   it('sorts users given a key by action via SORT_USERS', () => {
