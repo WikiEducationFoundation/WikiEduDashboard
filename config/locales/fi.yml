@@ -567,6 +567,7 @@ fi:
         osallistunut.
       participate_in_campaign: Osallistu kampanjaan
       save_cloned_course: Tallenna
+      start_date: Toiminnan seurannan aloittaminen
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
     enroll: Lisää muokkaaja

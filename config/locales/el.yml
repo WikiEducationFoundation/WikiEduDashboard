@@ -295,6 +295,7 @@ el:
     usage_doc: Αριθμός λημμάτων Βικιπαίδειας στα οποία εμφανίζεται η φωτογραφία.
     usage_count_gallery_tile: Χρησιμοποιήθηκε σε %{usage_count} λήμματα
   users:
+    contributions_history_full: Προβολή πλήρους ιστορικού συνεισφορών
     total_uploads: Συνολικές μεταφορτώσεις
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)

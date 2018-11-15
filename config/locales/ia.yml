@@ -42,4 +42,6 @@ ia:
     table_of_contents: Tabula del contentos
   uploads:
     credit: Credito
+  users:
+    contributions_history_full: Vider le historia complete de contributiones
 ...
