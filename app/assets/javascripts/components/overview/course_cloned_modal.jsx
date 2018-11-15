@@ -68,7 +68,7 @@ const CourseClonedModal = createReactClass({
 
     // Term starts out blank and must be added.
     if (valueKey === 'term') {
-      ValidationActions.setValid('exists');
+      ValidationActions.setValid('exists'); // eslint-disable-line import/no-named-as-default-member
     }
   },
 
@@ -82,7 +82,7 @@ const CourseClonedModal = createReactClass({
 
   saveCourse() {
     if (ValidationStore.isValid()) {
-      ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
+      ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true); // eslint-disable-line import/no-named-as-default-member
       const { slug } = this.state.course;
       const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
       updatedCourse.cloned_status = this.cloneCompletedStatus;

@@ -96,7 +96,7 @@ const CourseCreator = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
-      ValidationActions.setInvalid(
+      ValidationActions.setInvalid( // eslint-disable-line import/no-named-as-default-member
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
@@ -141,7 +141,7 @@ const CourseCreator = createReactClass({
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
-      return ValidationActions.setValid('exists');
+      return ValidationActions.setValid('exists'); // eslint-disable-line import/no-named-as-default-member
     }
   },
 
@@ -158,7 +158,7 @@ const CourseCreator = createReactClass({
 
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
-      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required')); // eslint-disable-line import/no-named-as-default-member
       return false;
     }
     return true;
@@ -171,7 +171,7 @@ const CourseCreator = createReactClass({
     const endEventTime = new Date(this.props.timeline_end);
 
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
-      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
+      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time')); // eslint-disable-line import/no-named-as-default-member
       return false;
     }
     return true;

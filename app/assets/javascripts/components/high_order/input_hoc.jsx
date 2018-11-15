@@ -1,17 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import uuid from 'uuid';
 import _ from 'lodash';
 import shallowCompare from 'react-addons-shallow-compare';
 import ValidationStore from '../../stores/validation_store.js';
-import ValidationActions from '../../actions/validation_actions.js';
+import { addValidation, setValid, setInvalid } from '../../actions/validation_actions';
 
 // This needs to be implemented as a mixin for state reasons.
 // If there's a good way for high-order components to set state on
 // children like this then let's use it.
 
+const mapStateToProps = state => ({
+  validations: state.validations.validations,
+  errorQueue: state.validations.errorQueue
+});
+const mapDispatchToProps = {
+  addValidation,
+  setValid,
+  setInvalid,
+};
+
 const InputHOC = (Component) => {
-  return createReactClass({
+  const validatingComponent = createReactClass({
     displayName: `Input${Component.displayName}`,
 
     mixins: [ValidationStore.mixin],
@@ -28,7 +39,7 @@ const InputHOC = (Component) => {
         }, function () {
           const valid = ValidationStore.getValidation(this.props.value_key);
           if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
-            return ValidationActions.initialize(this.props.value_key, I18n.t('application.field_required'));
+            return this.props.addValidation(this.props.value_key, I18n.t('application.field_required'));
           }
         }
       );
@@ -72,12 +83,12 @@ const InputHOC = (Component) => {
           if (_.has(this.props, 'disableSave')) {
             this.props.disableSave(true);
           }
-          return ValidationActions.setInvalid(this.props.value_key, I18n.t('application.field_required'));
+          return this.props.setInvalid(this.props.value_key, I18n.t('application.field_required'));
         } else if (this.props.validation && !charcheck) {
           const invalidMessage = this.props.invalidMessage || I18n.t('application.field_invalid_characters');
-          return ValidationActions.setInvalid(this.props.value_key, invalidMessage);
+          return this.props.setInvalid(this.props.value_key, invalidMessage);
         }
-        return ValidationActions.setValid(this.props.value_key);
+        return this.props.setValid(this.props.value_key);
       }
     },
 
@@ -95,6 +106,7 @@ const InputHOC = (Component) => {
       return (<Component {...passThroughProps} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} />);
     }
   });
+  return connect(mapStateToProps, mapDispatchToProps)(validatingComponent);
 };
 
 export default InputHOC;
