@@ -119,7 +119,7 @@ GEM
     capistrano-sidekiq (1.0.2)
       capistrano (>= 3.9.0)
       sidekiq (>= 3.4)
-    capybara (3.10.1)
+    capybara (3.11.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -369,7 +369,7 @@ GEM
     rb-readline (0.5.5)
     redcarpet (3.4.0)
     redis (4.0.3)
-    regexp_parser (1.2.0)
+    regexp_parser (1.3.0)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.0)
