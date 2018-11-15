@@ -7,11 +7,11 @@ import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ValidationStore from '../../stores/validation_store.js';
-import ValidationActions from '../../actions/validation_actions.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
+import { setValid, setInvalid } from '../../actions/validation_actions';
 import { getCloneableCourses } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
@@ -22,7 +22,6 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseLevelSelector from './course_level_selector.jsx';
-
 
 const getState = () => {
   return {
@@ -42,7 +41,9 @@ const CourseCreator = createReactClass({
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
     cloneCourse: PropTypes.func.isRequired,
-    loadingUserCourses: PropTypes.bool.isRequired
+    loadingUserCourses: PropTypes.bool.isRequired,
+    setValid: PropTypes.func.isRequired,
+    setInvalid: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -96,7 +97,7 @@ const CourseCreator = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
-      ValidationActions.setInvalid( // eslint-disable-line import/no-named-as-default-member
+      this.props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
@@ -141,7 +142,7 @@ const CourseCreator = createReactClass({
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
-      return ValidationActions.setValid('exists'); // eslint-disable-line import/no-named-as-default-member
+      return this.props.setValid('exists');
     }
   },
 
@@ -158,7 +159,7 @@ const CourseCreator = createReactClass({
 
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
-      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required')); // eslint-disable-line import/no-named-as-default-member
+      this.props.setInvalid('expected_students', I18n.t('application.field_required'));
       return false;
     }
     return true;
@@ -171,7 +172,7 @@ const CourseCreator = createReactClass({
     const endEventTime = new Date(this.props.timeline_end);
 
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
-      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time')); // eslint-disable-line import/no-named-as-default-member
+      this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
     return true;
@@ -553,7 +554,9 @@ const mapDispatchToProps = ({
   fetchCoursesForUser,
   updateCourse,
   submitCourse,
-  cloneCourse
+  cloneCourse,
+  setValid,
+  setInvalid
 });
 
 // exporting two difference ways as a testing hack.

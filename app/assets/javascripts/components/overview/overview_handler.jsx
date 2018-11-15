@@ -16,6 +16,7 @@ import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchTags } from '../../actions/tag_actions';
+import { setValid, setInvalid } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray } from '../../selectors';
 
 const Overview = createReactClass({
@@ -31,7 +32,9 @@ const Overview = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     resetCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
-    weeks: PropTypes.array.isRequired
+    weeks: PropTypes.array.isRequired,
+    setValid: PropTypes.func.isRequired,
+    setInvalid: PropTypes.func.isRequired
   },
 
   componentDidMount() {
@@ -43,7 +46,14 @@ const Overview = createReactClass({
   render() {
     const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} currentUser={this.props.current_user} />;
+      return (
+        <CourseClonedModal
+          course={course}
+          updateCourse={this.props.updateCourse}
+          updateClonedCourse={this.props.updateClonedCourse}
+          currentUser={this.props.current_user}
+        />
+      );
     }
 
     let syllabusUpload;
@@ -144,7 +154,9 @@ const mapDispatchToProps = {
   nameHasChanged,
   updateClonedCourse,
   fetchTags,
-  refetchCourse
+  refetchCourse,
+  setValid,
+  setInvalid
 };
 
 
