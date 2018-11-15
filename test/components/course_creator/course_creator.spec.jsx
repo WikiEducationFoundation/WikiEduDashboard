@@ -71,16 +71,6 @@ describe('CourseCreator', () => {
         });
       });
     });
-    describe('formStyle', () => {
-      describe('submitting', () => {
-        it('includes pointerEvents and opacity', () => {
-          TestCourseCreator.setState({ isSubmitting: true });
-          const wizardPanel = TestCourseCreator.find('.wizard__panel').first();
-          expect(getStyle(wizardPanel)).to.eq('pointer-events:none;opacity:0.5;');
-          TestCourseCreator.setState({ isSubmitting: false });
-        });
-      });
-    });
     describe('text inputs', () => {
       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
       const setValidSpy = sinon.spy(ValidationActions, 'setValid');

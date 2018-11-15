@@ -8,6 +8,7 @@ describe('Checkbox', () => {
   it('renders a checkbox input', () => {
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
+        store={reduxStore}
         value={false}
       />
     );
@@ -18,6 +19,7 @@ describe('Checkbox', () => {
   it('sets proper input value through props', () => {
     let TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
+        store={reduxStore}
         value={true}
       />
     );
@@ -25,6 +27,7 @@ describe('Checkbox', () => {
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(true);
     TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
+        store={reduxStore}
         value={false}
       />
     );
@@ -36,6 +39,7 @@ describe('Checkbox', () => {
     const cb = sinon.spy();
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
+        store={reduxStore}
         onChange={cb}
         value={true}
       />
