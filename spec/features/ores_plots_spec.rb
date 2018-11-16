@@ -8,7 +8,7 @@ describe 'ORES plots', type: :feature do
     let(:course) { create(:course) }
 
     it 'returns a json array' do
-      visit "/courses/#{course.slug}/ores_plot.json"
+      visit "/courses/#{escaped_slug course.slug}/ores_plot.json"
       expect(JSON.parse(page.body)).to eq('ores_plot' => [])
     end
   end

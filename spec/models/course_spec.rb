@@ -601,8 +601,10 @@ describe Course, type: :model do
         expect(course.passcode_required?).to be_in([true, false])
         # #use_start_and_end_times
         expect(course.use_start_and_end_times).to be_in([true, false])
-        # wiki_title
+        # #wiki_title
         expect(course).to respond_to(:wiki_title)
+        # #training_library_slug
+        expect(course.training_library_slug).to be_a(String).or be_nil
       end
     end
   end

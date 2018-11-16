@@ -129,6 +129,12 @@ def omniclick(node)
   end
 end
 
+# This is a version of the slug with percent encoding of non-ascii characters.
+# It's equivalent to URI.escape(slug), since URI.escape is deprecated.
+def escaped_slug(slug)
+  URI::RFC2396_Parser.new.escape slug
+end
+
 def pass_pending_spec
   if RSpec.configuration.formatter_loader.formatters.first
           .is_a? RSpec::Core::Formatters::DocumentationFormatter

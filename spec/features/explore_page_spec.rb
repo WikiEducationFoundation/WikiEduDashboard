@@ -76,7 +76,7 @@ describe 'the explore page', type: :feature, js: true do
     it 'allows navigation to a course page' do
       visit '/explore'
       find('#courses .table tbody tr:first-child').click
-      expect(current_path).to eq("/courses/#{course.slug}")
+      expect(CGI.unescape(current_path)).to eq("/courses/#{course.slug}")
     end
 
     it 'shows the stats accurately' do
