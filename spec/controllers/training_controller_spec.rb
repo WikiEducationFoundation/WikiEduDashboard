@@ -9,8 +9,6 @@ describe TrainingController do
   let(:library_id) { 'students' }
   let(:module_id)  { TrainingModule.all.first.slug }
 
-  after(:all) { TrainingModule.load_all }
-
   describe 'show' do
     subject { get :show, params: request_params }
 

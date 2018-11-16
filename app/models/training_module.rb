@@ -7,7 +7,7 @@
 #  name           :string(255)
 #  wiki_page      :string(255)
 #  slug           :string(255)
-#  slide_ids      :string(255)
+#  slide_slugs    :text(65535)
 #  estimated_ttc  :string(255)
 #  description    :text(65535)
 #  created_at     :datetime         not null
@@ -19,9 +19,8 @@ require_dependency "#{Rails.root}/lib/training_library"
 
 #= Class representing an individual training slide
 class TrainingModule < ApplicationRecord
-  validates_presence_of :id, :name, :slug
-  serialize :slide_ids, Array
-  has_many :training_slides
+  validates_presence_of :id, :slug
+  serialize :slide_slugs, Array
 
   #################
   # Class methods #
@@ -53,19 +52,13 @@ class TrainingModule < ApplicationRecord
 
   def self.inflate(content, slug, wiki_page = nil)
     training_module = TrainingModule.find_or_initialize_by(id: content['id'])
-    if training_module.new_record?
-      training_module.name = content['name']
-      training_module.wiki_page = wiki_page
-      training_module.slug = slug
-      training_module.estimated_ttc = content['estimated_ttc']
-      training_module.description = content['description']
-      slugs = content['slides'].pluck('slug')
-      ids = TrainingSlide.where(slug: slugs).pluck(:id, :slug).sort_by do |_i, s|
-        slugs.index s
-      end.map(&:first)
-      training_module.slide_ids = ids
-      training_module.save
-    end
+    training_module.name = content['name']
+    training_module.wiki_page = wiki_page
+    training_module.slug = slug
+    training_module.estimated_ttc = content['estimated_ttc']
+    training_module.description = content['description']
+    training_module.slide_slugs = content['slides'].pluck('slug')
+    training_module.save
     training_module
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
@@ -80,16 +73,17 @@ class TrainingModule < ApplicationRecord
     TrainingLibrary.flush
     TrainingLibrary.load
     TrainingSlide.load
-    TrainingModule.load
     # Reload the requested module's slides
+    TrainingModule.destroy_all
+    TrainingModule.load
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
   end
 
   def slides
     return @sorted_slides if @sorted_slides.present?
-    selected_slides = TrainingSlide.where(id: slide_ids)
-    @sorted_slides = selected_slides.sort_by { |slide| slide_ids.index slide.id }
+    selected_slides = TrainingSlide.where(slug: slide_slugs)
+    @sorted_slides = selected_slides.sort_by { |slide| slide_slugs.index slide.slug }
   end
 
   class ModuleNotFound < StandardError; end

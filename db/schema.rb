@@ -410,6 +410,18 @@ ActiveRecord::Schema.define(version: 2018_11_12_100217) do
     t.index ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true
   end
 
+  create_table "training_modules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "estimated_ttc"
+    t.string "wiki_page"
+    t.string "slug"
+    t.text "slide_slugs"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_training_modules_on_slug", unique: true
+  end
+
   create_table "training_modules_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "training_module_id"
@@ -418,18 +430,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_100217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id"
-  end
-
-  create_table "training_modules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "estimated_ttc"
-    t.string "wiki_page"
-    t.string "slug"
-    t.string "slide_ids"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_training_modules_on_slug", unique: true
   end
 
   create_table "training_slides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -5,7 +5,7 @@ class CreateTrainingModule < ActiveRecord::Migration[5.2]
       t.string :estimated_ttc
       t.string :wiki_page
       t.string :slug, index: { unique: true }
-      t.string :slide_ids
+      t.text :slide_slugs, limit: 16_000
       t.text :description, limit: 16_000
       t.timestamps null: false
     end
