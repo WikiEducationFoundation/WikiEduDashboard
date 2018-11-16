@@ -5,7 +5,6 @@ import {
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
-import ValidationActions from './validation_actions';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -74,7 +73,8 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 
       // TODO: Convert this Flux action to Redux, once ValidationStore is ported
       // return dispatch({ type: COURSE_EXISTS, data: { key: 'exists', message } });
-      return ValidationActions.dispatchAction({ actionType: 'CHECK_SERVER', data: { key: 'exists', message } });
+
+      return dispatch({ actionType: COURSE_SLUG_EXISTS, message });
     })
     .catch(data => ({ type: API_FAIL, data }));
 };

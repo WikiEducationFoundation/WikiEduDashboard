@@ -1,4 +1,4 @@
-import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_EXISTS } from '../constants';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY } from '../constants';
 
 const initialState = {
   validations: {},
@@ -38,8 +38,11 @@ export default function validations(state = initialState, action) {
       case SET_INVALID: {
         return setValidation(action.key, false, action.message, true, state);
       }
-      case COURSE_EXISTS: {
-        return setValidation(action.key, !action.message, action.message, true, state);
+      case COURSE_SLUG_EXISTS: {
+        return setValidation('exists', false, action.message, true, state);
+      }
+      case COURSE_SLUG_OKAY: {
+        return setValidation('exists', true, null, true, state);
       }
       default:
         return state;

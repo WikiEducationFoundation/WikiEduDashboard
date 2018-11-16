@@ -1,5 +1,6 @@
 import McFly from 'mcfly';
-import { ADD_VALIDATION, SET_VALID, SET_INVALID } from '../constants';
+import API from '../utils/api.js';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY } from '../constants';
 
 const Flux = new McFly();
 
@@ -16,6 +17,18 @@ export const setValid = (key, quiet = false) => (dispatch) => {
 export const setInvalid = (key, message, quiet = false) => (dispatch) => {
   dispatch({ type: SET_INVALID, key, message, quiet });
   ValidationActions.setInvalid(key, message, quiet);
+};
+
+export const checkCourseSlug = slug => (dispatch) => {
+  // Ensure course name is unique
+  return API.fetch(slug, 'check')
+    .then((resp) => {
+      if (resp.course_exists) {
+        return dispatch({ type: COURSE_SLUG_EXISTS, message: I18n.t('courses.creator.already_exists') });
+      }
+      return dispatch({ type: COURSE_SLUG_OKAY });
+    })
+    .catch(data => ({ type: API_FAIL, data }));
 };
 
 const ValidationActions = Flux.createActions({

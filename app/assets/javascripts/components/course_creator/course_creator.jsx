@@ -9,10 +9,9 @@ import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import ValidationStore from '../../stores/validation_store.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
-import { setValid, setInvalid } from '../../actions/validation_actions';
-import { getCloneableCourses } from '../../selectors';
+import { setValid, setInvalid, checkCourseSlug } from '../../actions/validation_actions';
+import { getCloneableCourses, isValid } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -43,7 +42,10 @@ const CourseCreator = createReactClass({
     cloneCourse: PropTypes.func.isRequired,
     loadingUserCourses: PropTypes.bool.isRequired,
     setValid: PropTypes.func.isRequired,
-    setInvalid: PropTypes.func.isRequired
+    setInvalid: PropTypes.func.isRequired,
+    checkCourseSlug: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired,
+    validations: PropTypes.object.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -78,7 +80,7 @@ const CourseCreator = createReactClass({
     } else {
       this.state.tempCourseId = '';
     }
-    return this.handleCourse(nextProps.course);
+    return this.handleCourse(nextProps.course, nextProps.isValid);
   },
 
   campaignParam() {
@@ -91,29 +93,41 @@ const CourseCreator = createReactClass({
 
   storeDidChange() {
     this.setState(getState());
-    this.handleCourse(this.props.course);
+    this.handleCourse(this.props.course, this.props.isValid);
   },
 
   saveCourse() {
-    if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+    console.log('saveCourse')
+    if (this.props.isValid && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+      console.log('submitting')
       this.setState({ isSubmitting: true });
       this.props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
-      return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
+      console.log('checkCourseSlug')
+      return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
     }
   },
 
-  handleCourse(course) {
+  handleCourse(course, isValidProp) {
+    console.log('handleCourse')
+    console.log(isValidProp)
     if (this.state.shouldRedirect === true) {
+      console.log('shouldRedirect')
       window.location = `/courses/${course.slug}`;
       return this.setState({ shouldRedirect: false });
     }
-    if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
-    if (ValidationStore.isValid()) {
+
+    if (!this.state.isSubmitting && !this.state.justSubmitted) {
+      console.log('not submitted or just submitted')
+      return;
+    }
+    if (isValidProp) {
+      console.log('it is valid!')
       if (course.slug && this.state.justSubmitted) {
+        console.log('just submitted')
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
           window.location = `/courses/${course.slug}/timeline/wizard`;
@@ -121,6 +135,7 @@ const CourseCreator = createReactClass({
           window.location = `/courses/${course.slug}`;
         }
       } else if (!this.state.justSubmitted) {
+        console.log('not just submitted')
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(course) });
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
@@ -130,7 +145,10 @@ const CourseCreator = createReactClass({
         const onSaveFailure = () => this.setState({ justSubmitted: false });
         this.props.submitCourse({ course }, onSaveFailure);
       }
-    } else if (!ValidationStore.getValidation('exists').valid) {
+    } else if (!this.props.validations.exists.valid) {
+      console.log('exists validation not valid')
+      console.log(ValidationStore.getValidations())
+      console.log(isValidProp)
       this.setState({ isSubmitting: false });
     }
   },
@@ -546,7 +564,10 @@ const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
   cloneableCourses: getCloneableCourses(state),
-  loadingUserCourses: state.userCourses.loading
+  loadingUserCourses: state.userCourses.loading,
+  validations: state.validations.validations,
+  isValid: isValid(state),
+  validationErrors: state.validations.errorQueue
 });
 
 const mapDispatchToProps = ({
@@ -556,7 +577,8 @@ const mapDispatchToProps = ({
   submitCourse,
   cloneCourse,
   setValid,
-  setInvalid
+  setInvalid,
+  checkCourseSlug
 });
 
 // exporting two difference ways as a testing hack.
