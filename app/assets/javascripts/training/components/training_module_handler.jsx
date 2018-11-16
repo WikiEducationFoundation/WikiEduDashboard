@@ -43,9 +43,9 @@ const TrainingModuleHandler = createReactClass({
     if (this.props.training.module.wiki_page) {
       moduleSource = (
         <div className="training-module-source">
-          <a href={`https://meta.wikimedia.org/wiki/${this.state.training_module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
+          <a href={`https://meta.wikimedia.org/wiki/${this.props.training.module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>
           <br />
-          <a href={`/reload_trainings?module=${this.state.training_module.slug}`}>{I18n.t('training.reload_from_source')}</a>
+          <a href={`/reload_trainings?module=${this.props.training.module.slug}`}>{I18n.t('training.reload_from_source')}</a>
         </div>
       );
     }
