@@ -52,10 +52,10 @@ FactoryBot.define do
   factory :course, class: 'ClassroomProgramCourse' do
     start { Date.new(2015, 1, 1) }
     add_attribute(:end) { Date.new(2015, 6, 1) }
-    title { 'Underwater basket-weaving' }
-    school { 'WINTR' }
+    title { 'Ųnderwater básket-weaving' }
+    school { 'WÏNTR' }
     term { 'spring 2015' }
-    slug { 'WINTR/Underwater_basket-weaving_(spring_2015)' }
+    slug { 'WÏNTR/Ųnderwater_básket-weaving_(spring_2015)' }
     passcode { 'pizza' }
     home_wiki_id { 1 }
   end
