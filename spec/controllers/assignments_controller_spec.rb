@@ -116,14 +116,14 @@ describe AssignmentsController do
 
   describe 'POST #create' do
     context 'when the user has permission to create the assignment' do
-      let(:course) { create(:course) }
+      let(:course) { create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)') }
       let(:assignment_params) do
-        { user_id: user.id, course_id: course.slug, title: 'pizza', role: 0 }
+        { user_id: user.id, course_id: course.slug, title: 'jalapeño', role: 0 }
       end
 
       context 'when the article does not exist' do
         it 'imports the article and associates it with the assignment' do
-          expect(Article.find_by(title: 'Pizza')).to be_nil
+          expect(Article.find_by(title: 'Jalapeño')).to be_nil
 
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
@@ -131,7 +131,7 @@ describe AssignmentsController do
             put :create, params: assignment_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
-            expect(assignment.article.title).to eq('Pizza')
+            expect(assignment.article.title).to eq('Jalapeño')
             expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
             expect(assignment.article.rating).not_to be_nil
             expect(assignment.article.updated_at).not_to be_nil
