@@ -48,32 +48,24 @@ class TrainingModule < ApplicationRecord
   end
 
   def self.load_all
-    TrainingLibrary.flush
-    if Features.wiki_trainings?
-      TrainingModule.load
-      TrainingSlide.load
-      TrainingModule.load
-      TrainingLibrary.load
-    else
-      TrainingLibrary.load
-      TrainingModule.load
-      TrainingSlide.load
-    end
+    TrainingBase.load_all
   end
 
   def self.inflate(content, slug, wiki_page = nil)
     training_module = TrainingModule.find_or_initialize_by(id: content['id'])
-    training_module.name = content['name']
-    training_module.wiki_page = wiki_page
-    training_module.slug = slug
-    training_module.estimated_ttc = content['estimated_ttc']
-    training_module.description = content['description']
-    slugs = content['slides'].map { |slide| slide['slug'] }
-    ids = TrainingSlide.where(slug: slugs).pluck(:id, :slug).sort_by do |_i, s|
-      slugs.index s
-    end.map(&:first)
-    training_module.slide_ids = ids
-    training_module.save
+    if training_module.new_record?
+      training_module.name = content['name']
+      training_module.wiki_page = wiki_page
+      training_module.slug = slug
+      training_module.estimated_ttc = content['estimated_ttc']
+      training_module.description = content['description']
+      slugs = content['slides'].pluck('slug')
+      ids = TrainingSlide.where(slug: slugs).pluck(:id, :slug).sort_by do |_i, s|
+        slugs.index s
+      end.map(&:first)
+      training_module.slide_ids = ids
+      training_module.save
+    end
     training_module
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
@@ -87,11 +79,11 @@ class TrainingModule < ApplicationRecord
     # and can load slides for brand-new modules.
     TrainingLibrary.flush
     TrainingLibrary.load
+    TrainingSlide.load
     TrainingModule.load
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
-    TrainingSlide.load
   end
 
   def slides

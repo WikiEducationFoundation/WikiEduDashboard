@@ -40,7 +40,7 @@ class TrainingSlide < ApplicationRecord
     true
   end
 
-  def self.load(*)
+  def self.load
     TrainingBase.load(content_class: self)
   end
 
@@ -54,12 +54,14 @@ class TrainingSlide < ApplicationRecord
 
   def self.inflate(all_content, slug, wiki_page = nil)
     slide = TrainingSlide.find_or_initialize_by(id: all_content['id'])
-    slide.slug = slug
-    slide.wiki_page = wiki_page
-    all_content.each do |key, value|
-      slide.send("#{key}=", value)
+    if slide.new_record?
+      slide.slug = slug
+      slide.wiki_page = wiki_page
+      all_content.each do |key, value|
+        slide.send("#{key}=", value)
+      end
+      slide.save
     end
-    slide.save
     slide
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
