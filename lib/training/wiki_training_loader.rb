@@ -27,7 +27,7 @@ class WikiTrainingLoader
   # On-wiki trainings #
   #####################
 
-  CONCURRENCY = 10 # Maximum simultaneous requests to mediawiki
+  CONCURRENCY = 3 # Maximum simultaneous requests to mediawiki
   def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
