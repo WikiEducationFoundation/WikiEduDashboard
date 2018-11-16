@@ -97,37 +97,28 @@ const CourseCreator = createReactClass({
   },
 
   saveCourse() {
-    console.log('saveCourse')
     if (this.props.isValid && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
-      console.log('submitting')
       this.setState({ isSubmitting: true });
       this.props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
-      console.log('checkCourseSlug')
       return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
     }
   },
 
   handleCourse(course, isValidProp) {
-    console.log('handleCourse')
-    console.log(isValidProp)
     if (this.state.shouldRedirect === true) {
-      console.log('shouldRedirect')
       window.location = `/courses/${course.slug}`;
       return this.setState({ shouldRedirect: false });
     }
 
     if (!this.state.isSubmitting && !this.state.justSubmitted) {
-      console.log('not submitted or just submitted')
       return;
     }
     if (isValidProp) {
-      console.log('it is valid!')
       if (course.slug && this.state.justSubmitted) {
-        console.log('just submitted')
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
           window.location = `/courses/${course.slug}/timeline/wizard`;
@@ -135,7 +126,6 @@ const CourseCreator = createReactClass({
           window.location = `/courses/${course.slug}`;
         }
       } else if (!this.state.justSubmitted) {
-        console.log('not just submitted')
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(course) });
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
@@ -146,9 +136,6 @@ const CourseCreator = createReactClass({
         this.props.submitCourse({ course }, onSaveFailure);
       }
     } else if (!this.props.validations.exists.valid) {
-      console.log('exists validation not valid')
-      console.log(ValidationStore.getValidations())
-      console.log(isValidProp)
       this.setState({ isSubmitting: false });
     }
   },
