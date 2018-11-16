@@ -85,7 +85,6 @@ describe TrainingBase do
 
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
-        expect(TrainingModule.all).not_to be_empty
       end
     end
   end
