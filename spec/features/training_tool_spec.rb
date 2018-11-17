@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training_module"
 require "#{Rails.root}/lib/training_library"
 
 DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze

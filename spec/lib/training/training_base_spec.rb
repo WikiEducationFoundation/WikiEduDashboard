@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_library"
-require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
   before do
