@@ -76,7 +76,7 @@ class TrainingModule < ApplicationRecord
     training_module.description = content['description']
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.wiki_page = wiki_page
-    training_module.slug_slides = content['slides'].pluck('slug')
+    training_module.slide_slugs = content['slides'].pluck('slug')
     training_module.save
     training_module
   rescue StandardError => e
