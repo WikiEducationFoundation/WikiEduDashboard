@@ -33,17 +33,10 @@ class TrainingBase
   def self.load_all
     TrainingLibrary.flush
     TrainingModule.flush
-    if Features.wiki_trainings?
-      TrainingModule.load
-      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
-      TrainingModule.flush
-      TrainingModule.load
-      TrainingLibrary.load
-    else
-      TrainingLibrary.load
-      TrainingModule.load
-      TrainingSlide.load
-    end
+    TrainingSlide.delete_all
+    TrainingLibrary.load
+    TrainingSlide.load
+    TrainingModule.load
   end
 
   # Use class instance variable @all to store all training content in memory.

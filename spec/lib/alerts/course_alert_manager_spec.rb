@@ -8,6 +8,7 @@ def mock_mailer
 end
 
 describe CourseAlertManager do
+  before { TrainingModule.load_all }
   let(:subject) { described_class.new }
 
   let(:course) do
