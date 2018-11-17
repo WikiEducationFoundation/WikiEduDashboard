@@ -35,10 +35,9 @@ class WikiTrainingLoader
                           level: 'info', extra: { wiki_pages: source_pages }
 
     thread_count = [CONCURRENCY, source_pages.count].min
-    threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
-      Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
+    source_pages.in_groups(thread_count, false).each do |wiki_page_group|
+      add_trainings_to_collection(wiki_page_group)
     end
-    threads.each(&:join)
   rescue InvalidWikiContentError => e
     Raven.capture_exception e
   end

@@ -82,12 +82,10 @@ describe TrainingBase do
     context 'when the cache is empty' do
       before do
         TrainingLibrary.flush
-        TrainingModule.flush
       end
 
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
-        expect(TrainingModule.all).not_to be_empty
       end
     end
   end

@@ -28,11 +28,11 @@ class TrainingModule < ApplicationRecord
   def self.wiki_base_page
     ENV['training_modules_wiki_page']
   end
-  
+
   def self.trim_id_from_filename
     false
   end
-  
+
   def self.load(*)
     TrainingBase.load(content_class: self)
   end
@@ -62,7 +62,7 @@ class TrainingModule < ApplicationRecord
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
     TrainingSlide.load(slug_list: training_module.slide_slugs)
-    
+
     # After updating the module's slides, we must flush and update the module
     # cache again so that it includes the updated slides.
     TrainingModule.flush
@@ -95,4 +95,6 @@ class TrainingModule < ApplicationRecord
       slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
     end
   end
+
+  class ModuleNotFound < StandardError; end
 end

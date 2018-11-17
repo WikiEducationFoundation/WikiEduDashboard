@@ -51,6 +51,9 @@
 require 'rails_helper'
 
 describe Course, type: :model do
+
+  before { TrainingModule.load_all }
+
   describe '.update_all_caches_concurrently' do
     before do
       create(:course, needs_update: true)
