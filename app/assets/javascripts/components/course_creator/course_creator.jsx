@@ -10,8 +10,8 @@ import ValidationStore from '../../stores/validation_store.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
-import { setValid, setInvalid, checkCourseSlug } from '../../actions/validation_actions';
-import { getCloneableCourses, isValid } from '../../selectors';
+import { setValid, setInvalid, checkCourseSlug, activateValidations } from '../../actions/validation_actions';
+import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -45,7 +45,9 @@ const CourseCreator = createReactClass({
     setInvalid: PropTypes.func.isRequired,
     checkCourseSlug: PropTypes.func.isRequired,
     isValid: PropTypes.bool.isRequired,
-    validations: PropTypes.object.isRequired
+    validations: PropTypes.object.isRequired,
+    firstErrorMessage: PropTypes.string,
+    activateValidations: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -97,6 +99,7 @@ const CourseCreator = createReactClass({
   },
 
   saveCourse() {
+    this.props.activateValidations();
     if (this.props.isValid && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
       this.props.setInvalid(
@@ -534,7 +537,7 @@ const CourseCreator = createReactClass({
               <div className={controlClass}>
                 <div className="left"><p>{this.state.tempCourseId}</p></div>
                 <div className="right">
-                  <div><p className="red">{this.state.error_message}</p></div>
+                  <div><p className="red">{this.props.firstErrorMessage}</p></div>
                   <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
                   <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
                 </div>
@@ -554,7 +557,7 @@ const mapStateToProps = state => ({
   loadingUserCourses: state.userCourses.loading,
   validations: state.validations.validations,
   isValid: isValid(state),
-  validationErrors: state.validations.errorQueue
+  firstErrorMessage: firstValidationErrorMessage(state)
 });
 
 const mapDispatchToProps = ({
@@ -565,7 +568,8 @@ const mapDispatchToProps = ({
   cloneCourse,
   setValid,
   setInvalid,
-  checkCourseSlug
+  checkCourseSlug,
+  activateValidations
 });
 
 // exporting two difference ways as a testing hack.

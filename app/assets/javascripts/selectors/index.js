@@ -25,6 +25,7 @@ const getBlocks = state => state.timeline.blocks;
 const getCourseType = state => state.course.type;
 const getTraining = state => state.training;
 const getValidations = state => state.validations.validations;
+const getValidationErrors = state => state.validations.errorQueue;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -199,5 +200,14 @@ export const isValid = createSelector(
     const invalidValue = _.find(validations, (value) => { return value.valid === false; });
     if (invalidValue) { return false; }
     return true;
+  }
+);
+
+export const firstValidationErrorMessage = createSelector(
+  [getValidations, getValidationErrors], (validations, validationErrors) => {
+    if (validationErrors.length > 0) {
+      return validations[validationErrors[0]].message;
+    }
+    return null;
   }
 );

@@ -18,6 +18,7 @@ describe('CourseCreator', () => {
     const setValidSpy = sinon.spy();
     const setInvalidSpy = sinon.spy();
     const checkCourseSlugSpy = sinon.spy();
+    const activateValidationsSpy = sinon.spy();
 
     const TestCourseCreator = shallow(
       <CourseCreator
@@ -33,6 +34,7 @@ describe('CourseCreator', () => {
         setValid={setValidSpy}
         setInvalid={setInvalidSpy}
         checkCourseSlug={checkCourseSlugSpy}
+        activateValidations={activateValidationsSpy}
         isValid
       />
     );

@@ -1,6 +1,7 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
-import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY } from '../constants';
+import ValidationStore from '../stores/validation_store';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS } from '../constants';
 
 const Flux = new McFly();
 
@@ -29,6 +30,11 @@ export const checkCourseSlug = slug => (dispatch) => {
       return dispatch({ type: COURSE_SLUG_OKAY });
     })
     .catch(data => ({ type: API_FAIL, data }));
+};
+
+export const activateValidations = () => (dispatch) => {
+  ValidationStore.isValid();
+  return dispatch({ type: ACTIVATE_VALIDATIONS });
 };
 
 const ValidationActions = Flux.createActions({
