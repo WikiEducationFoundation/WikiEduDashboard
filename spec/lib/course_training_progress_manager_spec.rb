@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/course_training_progress_manager"
 
 describe CourseTrainingProgressManager do
   before { TrainingModule.load_all }
+
   let(:user)     { create(:user, trained: trained) }
   let(:trained)  { true }
   let(:start)    { Date.new(2016, 1, 1) }

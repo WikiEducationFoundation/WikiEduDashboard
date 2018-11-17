@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/trained_students_manager"
 
 describe TrainedStudentsManager do
   before { TrainingModule.load_all }
+
   let(:course)    { create(:course) }
   let(:week)      { create(:week, course_id: course.id) }
   let!(:block) do

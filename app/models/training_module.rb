@@ -61,6 +61,7 @@ class TrainingModule < ApplicationRecord
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
+    TrainingSlide.delete_all
     TrainingSlide.load(slug_list: training_module.slide_slugs)
 
     # After updating the module's slides, we must flush and update the module

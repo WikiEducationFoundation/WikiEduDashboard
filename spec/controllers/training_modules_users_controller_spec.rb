@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe TrainingModulesUsersController do
-
   before { TrainingModule.load_all }
 
   describe '#create_or_update' do

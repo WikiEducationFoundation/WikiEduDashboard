@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 describe OverdueTrainingAlertManager do
   before { TrainingModule.load_all }
+
   let(:subject) { described_class.new([course]).create_alerts }
   let(:course) { create(:course, start: start_date) }
   let(:start_date) { '2018-06-07'.to_date }
