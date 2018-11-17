@@ -70,7 +70,7 @@ describe TrainingController do
       end
 
       it 'displays an error message upon failure' do
-        allow(TrainingBase).to receive(:load_all)
+        allow(TrainingModule).to receive(:load_all)
           .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
         subject
         expect(response.body).to have_content 'oh noes!'
