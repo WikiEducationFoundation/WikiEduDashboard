@@ -144,5 +144,3 @@ def pass_pending_spec
   end
   raise 'this test passed — this time'
 end
-
-TrainingModule.load_all

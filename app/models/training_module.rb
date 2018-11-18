@@ -19,6 +19,7 @@ require_dependency "#{Rails.root}/lib/training_library"
 
 #= Class representing an individual training slide
 class TrainingModule < ApplicationRecord
+  attr_accessor :status
   serialize :slide_slugs, Array
 
   def self.path_to_yaml

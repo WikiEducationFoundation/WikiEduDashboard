@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'timeline editing', type: :feature, js: true do
+  before { TrainingModule.load_all }
+
   let(:start_date) { '2025-02-10'.to_date } # a Monday
   let(:submitted) { true }
 
