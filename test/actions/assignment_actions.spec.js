@@ -1,4 +1,5 @@
 import '../testHelper';
+import sinon from 'sinon';
 import { addAssignment, deleteAssignment } from '../../app/assets/javascripts/actions/assignment_actions.js';
 
 describe('AssignmentActions', () => {
@@ -15,6 +16,7 @@ describe('AssignmentActions', () => {
         expect(updatedAssignments.length).to.eq(1);
       })
       .then(() => {
+        const updatedAssignments = reduxStore.getState().assignments.assignments;
         deleteAssignment(updatedAssignments[0])(reduxStore.dispatch);
       })
       .then(() => {
