@@ -163,7 +163,6 @@ describe 'Training', type: :feature, js: true do
     describe "'#{module_slug[:slug]}' module" do
       before do
         TrainingSlide.load
-        TrainingModule.flush
       end
 
       it 'lets the user go from start to finish' do
