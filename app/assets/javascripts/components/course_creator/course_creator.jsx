@@ -68,7 +68,7 @@ const CourseCreator = createReactClass({
     if (campaignParam) {
       this.props.fetchCampaign(campaignParam);
     }
-    this.props.fetchCoursesForUser(currentUser.id);
+    this.props.fetchCoursesForUser(window.currentUser.id);
   },
 
   componentWillReceiveProps(nextProps) {
