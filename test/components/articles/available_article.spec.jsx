@@ -1,5 +1,6 @@
 import React from 'react';
-
+// import ReactTestUtils from 'react-dom/test-utils' To be enabled when react-addons-test-utils will be removed
+import ReactTestUtils from 'react-addons-test-utils';
 import '../../testHelper';
 import { AvailableArticle } from '../../../app/assets/javascripts/components/articles/available_article.jsx';
 
@@ -7,7 +8,7 @@ describe('AvailableArticle', () => {
   const props = {
     course: { home_wiki: { language: 'en', project: 'wikipedia' } },
     assignment: { article_title: 'two' },
-    current_user: { isStudent: true }, // student role
+    current_user: { isStudent: true } // student role
   };
 
   it('renders', () => {
