@@ -1,4 +1,5 @@
 import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS, API_FAIL } from '../constants';
+import logErrorMessage from '../utils/log_error_message';
 
 const _fetchRecentEdits = (opts = {}) => {
     return new Promise((res, rej) =>
