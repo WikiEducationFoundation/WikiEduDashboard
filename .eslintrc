@@ -86,8 +86,7 @@
     "SurveyDetails": true,
     "Features": true,
     "WikiLanguages": true,
-    "WikiProjects": true,
-    "reduxStore": true
+    "WikiProjects": true
   },
   "env": {
     "jquery": true,

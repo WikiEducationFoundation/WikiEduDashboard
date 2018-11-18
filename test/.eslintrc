@@ -7,7 +7,8 @@
     "describe": true,
     "it": true,
     "expect": true,
-    "sinon": true
+    "sinon": true,
+    "reduxStore": true
   },
   "env": {
     "jest": true
