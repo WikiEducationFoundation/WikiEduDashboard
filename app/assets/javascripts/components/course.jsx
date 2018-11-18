@@ -46,10 +46,6 @@ const Course = createReactClass({
     return `${params.course_school}/${params.course_title}`;
   },
 
-  storeDidChange() {
-    return this.setState(getState());
-  },
-
   showEnrollCard(course) {
     const location = this.props.location;
     // Only show it on the main url
