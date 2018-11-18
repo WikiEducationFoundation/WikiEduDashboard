@@ -1,4 +1,5 @@
 import configureMockStore from 'redux-mock-store';
+import sinon from 'sinon';
 import thunk from 'redux-thunk';
 
 import '../testHelper';
