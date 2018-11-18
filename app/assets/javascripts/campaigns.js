@@ -1,3 +1,5 @@
+const List = require('list.js');
+
 $(() => {
   $('.campaign-delete').on('submit', (e) => {
     const title = prompt(I18n.t('campaign.confirm_campaign_deletion', { title: e.target.dataset.title }));
@@ -95,7 +97,6 @@ $(() => {
     const list = (() => {
       switch ($(this).attr('rel')) {
         case 'campaigns': return campaignList;
-        case 'articles': return articlesList;
         default: break;
       }
 })();
