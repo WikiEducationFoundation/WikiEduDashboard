@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
 import '../../testHelper';
 import AvailableActions from '../../../app/assets/javascripts/components/overview/available_actions.jsx';
 

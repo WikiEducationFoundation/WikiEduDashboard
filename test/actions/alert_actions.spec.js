@@ -1,5 +1,4 @@
 import * as actions from 'actions/alert_actions';
-import sinon from 'sinon';
 import '../testHelper';
 
 describe('AlertActions', () => {

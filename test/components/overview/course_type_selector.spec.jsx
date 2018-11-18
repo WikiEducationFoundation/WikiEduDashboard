@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
-import sinon from 'sinon';
 
 import '../../testHelper';
 import CourseTypeSelector from '../../../app/assets/javascripts/components/overview/course_type_selector.jsx';

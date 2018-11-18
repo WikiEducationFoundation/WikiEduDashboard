@@ -1,5 +1,4 @@
 import '../testHelper';
-import sinon from 'sinon';
 import { addAssignment, deleteAssignment } from '../../app/assets/javascripts/actions/assignment_actions.js';
 
 describe('AssignmentActions', () => {

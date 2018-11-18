@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import React from 'react';
 

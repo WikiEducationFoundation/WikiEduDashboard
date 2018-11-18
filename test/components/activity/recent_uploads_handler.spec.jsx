@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
 import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
 import UploadList from '../../../app/assets/javascripts/components/uploads/upload_list.jsx';

@@ -6,7 +6,8 @@
   "globals": {
     "describe": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "sinon": true
   },
   "env": {
     "jest": true
