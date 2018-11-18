@@ -97,7 +97,8 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
       }
     ]
   };
-  // emded the visualization in the container with id vega-graph-article_id
+  // emded the visualization in the container with id vega-graph-article_id\
+  /* eslint no-undef:0 */ // This method is imported as <script> tag in _vega.html.haml
   vegaEmbed('#CoursesTaughtGraph', vegaSpec, { defaultStyle: true, actions: { source: false } });
 };
 
