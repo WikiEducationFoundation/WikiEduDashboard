@@ -19,14 +19,16 @@ const CourseClonedModal = createReactClass({
     updateClonedCourse: PropTypes.func.isRequired,
     currentUser: PropTypes.object.isRequired,
     setValid: PropTypes.func.isRequired,
-    setInvalid: PropTypes.func.isRequired
+    setInvalid: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired,
+    activateValidations: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string
   },
 
   mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return {
-      error_message: ValidationStore.firstMessage(),
       course: this.props.course
     };
   },
@@ -52,7 +54,6 @@ const CourseClonedModal = createReactClass({
     }
     return this.setState({
       isPersisting,
-      error_message: ValidationStore.firstMessage(),
       tempCourseId: CourseUtils.generateTempId(this.state.course)
     });
   },
@@ -82,7 +83,8 @@ const CourseClonedModal = createReactClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid()) {
+    this.props.activateValidations();
+    if (this.props.isValid) {
       this.props.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
       const { slug } = this.state.course;
       const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
@@ -123,8 +125,8 @@ const CourseClonedModal = createReactClass({
     buttonClass += this.state.isPersisting ? ' working' : '';
 
     let errorMessage;
-    if (this.state.error_message) {
-      errorMessage = <div className="warning">{this.state.error_message}</div>;
+    if (this.props.firstErrorMessage) {
+      errorMessage = <div className="warning">{this.props.firstErrorMessage}</div>;
     } else if (!this.props.currentUser.id) {
       errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
     } else if (!this.props.currentUser.isNonstudent) {
