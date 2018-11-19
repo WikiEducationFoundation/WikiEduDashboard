@@ -29,13 +29,13 @@ const SalesforceLink = createReactClass({
 
   render() {
     // Render nothing if user isn't an admin, or if Salesforce isn't configured
-    if (!this.props.current_user.admin || !SalesforceServer) {
+    if (!this.props.current_user.admin || !window.SalesforceServer) {
       return <div />;
     }
     // If Salesforce ID is present, show the admin a link to Salesforce
     // and a button to update the Salesforce record.
     if (this.props.course.flags.salesforce_id) {
-      const openLink = SalesforceServer + this.props.course.flags.salesforce_id;
+      const openLink = window.SalesforceServer + this.props.course.flags.salesforce_id;
       return (
         <div>
           <p key="link_salesforce"><button onClick={this.linkToSalesforce} className="button">Update Salesforce ID</button></p>

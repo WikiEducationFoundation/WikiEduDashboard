@@ -15,6 +15,7 @@ describe('AssignmentActions', () => {
         expect(updatedAssignments.length).to.eq(1);
       })
       .then(() => {
+        const updatedAssignments = reduxStore.getState().assignments.assignments;
         deleteAssignment(updatedAssignments[0])(reduxStore.dispatch);
       })
       .then(() => {

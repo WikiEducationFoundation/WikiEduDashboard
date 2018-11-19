@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
-import sinon from 'sinon';
 
 import '../../testHelper';
 import Checkbox from '../../../app/assets/javascripts/components/common/checkbox.jsx';

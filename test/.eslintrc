@@ -6,6 +6,11 @@
   "globals": {
     "describe": true,
     "it": true,
-    "expect": true
+    "expect": true,
+    "sinon": true,
+    "reduxStore": true
+  },
+  "env": {
+    "jest": true
   }
 }

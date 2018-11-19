@@ -42,7 +42,6 @@
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
     "no-underscore-dangle": 0,
-    "no-undef": 0,
     "no-empty-pattern": 0,
     "object-shorthand": 0,
     "no-useless-computed-key": 0,
@@ -80,8 +79,6 @@
     "react/jsx-props-no-multi-spaces": 0
   },
   "globals": {
-    "$": true,
-    "jQuery": true,
     "I18n": true,
     "_": true,
     "moment": true,
@@ -90,5 +87,9 @@
     "Features": true,
     "WikiLanguages": true,
     "WikiProjects": true
+  },
+  "env": {
+    "jquery": true,
+    "browser": true
   }
 }
