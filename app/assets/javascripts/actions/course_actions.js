@@ -70,10 +70,6 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
       }
       // Course name is taken, so show a warning.
       const message = 'This course already exists. Consider changing the name, school, or term to make it unique.';
-
-      // TODO: Convert this Flux action to Redux, once ValidationStore is ported
-      // return dispatch({ type: COURSE_EXISTS, data: { key: 'exists', message } });
-
       return dispatch({ type: COURSE_SLUG_EXISTS, message });
     })
     .catch(data => ({ type: API_FAIL, data }));
