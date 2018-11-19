@@ -1,12 +1,22 @@
 // Used by any component that requires "Edit", "Save", and "Cancel" buttons
 
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ValidationStore from '../../stores/validation_store.js';
+import { resetValidations } from '../../actions/validation_actions';
+import { isValid } from '../../selectors';
 
-const EditableRedux = (Component, Label) =>
-  createReactClass({
+const mapStateToProps = state => ({
+  isValid: isValid(state)
+});
+
+const mapDispatchToProps = {
+  resetValidations
+};
+
+const EditableRedux = (Component, Label) => {
+  const editableComponent = createReactClass({
     displayName: 'EditableRedux',
     propTypes: {
       course_id: PropTypes.any,
@@ -14,7 +24,9 @@ const EditableRedux = (Component, Label) =>
       editable: PropTypes.bool,
       resetState: PropTypes.func.isRequired,
       persistCourse: PropTypes.func.isRequired,
-      nameHasChanged: PropTypes.func.isRequired
+      nameHasChanged: PropTypes.func.isRequired,
+      isValid: PropTypes.bool.isRequired,
+      resetValidations: PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -23,13 +35,13 @@ const EditableRedux = (Component, Label) =>
 
     cancelChanges() {
       this.props.resetState();
-      ValidationStore.reset();
+      this.props.resetValidations();
       return this.toggleEditable();
     },
 
     saveChanges() {
       // If there are validation problems, show error message
-      if (!ValidationStore.isValid()) {
+      if (!this.props.isValid) {
         return alert(I18n.t('error.form_errors'));
       }
 
@@ -73,8 +85,9 @@ const EditableRedux = (Component, Label) =>
     render() {
       return <Component {...this.props} {...this.state} disableSave={this.disableSave} controls={this.controls} />;
     }
-  }
-  )
-;
+  });
+  return connect(mapStateToProps, mapDispatchToProps)(editableComponent);
+};
+
 
 export default EditableRedux;

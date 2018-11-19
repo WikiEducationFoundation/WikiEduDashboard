@@ -1,7 +1,6 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
-import ValidationStore from '../stores/validation_store';
-import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS, API_FAIL } from '../constants';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS, API_FAIL, RESET_VALIDATIONS } from '../constants';
 
 const Flux = new McFly();
 
@@ -32,10 +31,9 @@ export const checkCourseSlug = slug => (dispatch) => {
     .catch(data => ({ type: API_FAIL, data }));
 };
 
-export const activateValidations = () => (dispatch) => {
-  ValidationStore.isValid();
-  return dispatch({ type: ACTIVATE_VALIDATIONS });
-};
+export const activateValidations = () => dispatch => dispatch({ type: ACTIVATE_VALIDATIONS });
+
+export const resetValidations = () => dispatch => dispatch({ type: RESET_VALIDATIONS });
 
 const ValidationActions = Flux.createActions({
   // Workaround for dispatching a McFly action from a Redux action
