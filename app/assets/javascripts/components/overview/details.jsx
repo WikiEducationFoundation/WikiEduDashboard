@@ -28,15 +28,8 @@ import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
-import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-
-const getState = () =>
-  ({
-    error_message: ValidationStore.firstMessage()
-  })
-;
 
 const POLL_INTERVAL = 60000; // 1 minute
 
@@ -50,13 +43,8 @@ const Details = createReactClass({
     controls: PropTypes.func,
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired,
-    refetchCourse: PropTypes.func.isRequired
-  },
-
-  mixins: [ValidationStore.mixin],
-
-  getInitialState() {
-    return getState();
+    refetchCourse: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string
   },
 
   componentDidMount() {
@@ -84,10 +72,6 @@ const Details = createReactClass({
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
     return this.props.updateCourse(updatedCourse);
-  },
-
-  storeDidChange() {
-    return this.setState(getState());
   },
 
   canRename() {
@@ -368,7 +352,7 @@ const Details = createReactClass({
               {online}
               {campus}
               {staff}
-              <div><p className="red">{this.state.error_message}</p></div>
+              <div><p className="red">{this.props.firstErrorMessage}</p></div>
               {school}
               {title}
               {term}

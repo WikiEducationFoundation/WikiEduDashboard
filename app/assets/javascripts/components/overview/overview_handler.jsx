@@ -17,7 +17,7 @@ import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { setValid, setInvalid } from '../../actions/validation_actions';
-import { getStudentUsers, getWeeksArray } from '../../selectors';
+import { getStudentUsers, getWeeksArray, firstValidationErrorMessage } from '../../selectors';
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -34,7 +34,8 @@ const Overview = createReactClass({
     updateClonedCourse: PropTypes.func.isRequired,
     weeks: PropTypes.array.isRequired,
     setValid: PropTypes.func.isRequired,
-    setInvalid: PropTypes.func.isRequired
+    setInvalid: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string
   },
 
   componentDidMount() {
@@ -144,7 +145,8 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   campaigns: state.campaigns.campaigns,
   weeks: getWeeksArray(state),
-  loading: state.timeline.loading
+  loading: state.timeline.loading,
+  firstErrorMessage: firstValidationErrorMessage(state)
  });
 
 const mapDispatchToProps = {
