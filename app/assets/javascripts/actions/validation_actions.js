@@ -1,7 +1,7 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
 import ValidationStore from '../stores/validation_store';
-import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS } from '../constants';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS, API_FAIL } from '../constants';
 
 const Flux = new McFly();
 
