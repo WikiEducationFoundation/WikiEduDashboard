@@ -444,6 +444,7 @@ fi:
     published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
       linkin kautta:'
     rating_feedback: 'Ennustettu arviointi tälle artikkelille on:'
+    requested_accounts: Pyydetyt tilit
     review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
       lähetä se hyväksyttäväksi Wiki Edin henkilökunnalle. Kun aikajana on hyväksytty,
       saat ilmoittausumislinkin, jota opiskelijat voivat käyttää ilmoittautumiseen.

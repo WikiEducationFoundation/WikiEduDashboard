@@ -11,9 +11,19 @@
 # Author: Stojex
 # Author: Tar Lócesilion
 # Author: The Polish
+# Author: Warchlak
 # Author: Woytecr
 ---
 pl:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: To jest pole numeryczne. Przyciski renderowane przez większość przeglądarek
       zwiększają i zmniejszają wprowadzoną wartość.

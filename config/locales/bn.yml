@@ -293,7 +293,7 @@ bn:
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
-    contributions_history_full: উইকিপিডিয়ায় অবদানের পূর্ণ ইতিহাস দেখুন
+    contributions_history_full: অবদানের পূর্ণ ইতিহাস দেখুন
     contribution_statistics: অবদানের পরিসংখ্যান
     editors: সম্পাদকগণ
     first_name: প্রথম নাম
