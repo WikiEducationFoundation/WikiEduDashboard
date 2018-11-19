@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import ValidationStore from '../../stores/validation_store.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
@@ -21,12 +20,6 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseLevelSelector from './course_level_selector.jsx';
-
-const getState = () => {
-  return {
-    error_message: ValidationStore.firstMessage()
-  };
-};
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -50,10 +43,8 @@ const CourseCreator = createReactClass({
     activateValidations: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin],
-
   getInitialState() {
-    const inits = {
+    return {
       tempCourseId: '',
       isSubmitting: false,
       showCourseForm: false,
@@ -63,8 +54,6 @@ const CourseCreator = createReactClass({
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
     };
-
-    return { ...inits, ...getState() };
   },
 
   componentWillMount() {
@@ -91,11 +80,6 @@ const CourseCreator = createReactClass({
     if (campaignParam) {
       return campaignParam[1];
     }
-  },
-
-  storeDidChange() {
-    this.setState(getState());
-    this.handleCourse(this.props.course, this.props.isValid);
   },
 
   saveCourse() {

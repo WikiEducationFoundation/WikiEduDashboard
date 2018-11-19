@@ -1,7 +1,7 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
@@ -74,7 +74,7 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
       // TODO: Convert this Flux action to Redux, once ValidationStore is ported
       // return dispatch({ type: COURSE_EXISTS, data: { key: 'exists', message } });
 
-      return dispatch({ actionType: COURSE_SLUG_EXISTS, message });
+      return dispatch({ type: COURSE_SLUG_EXISTS, message });
     })
     .catch(data => ({ type: API_FAIL, data }));
 };
