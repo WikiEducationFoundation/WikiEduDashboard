@@ -17,10 +17,13 @@
 require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/training_library"
 
-#= Class representing an individual training slide
+#= Class representing an individual training module
 class TrainingModule < ApplicationRecord
   attr_accessor :status
   serialize :slide_slugs, Array
+
+  validates :id, uniqueness: true
+  validates :slug, uniqueness: true
 
   def self.path_to_yaml
     "#{base_path}/modules/*.yml"
@@ -72,14 +75,24 @@ class TrainingModule < ApplicationRecord
   end
 
   def self.inflate(content, slug, wiki_page = nil)
-    training_module = TrainingModule.find_or_initialize_by(id: content['id'])
+    training_module = TrainingModule.new
+    training_module.id = content['id']
     training_module.slug = slug
     training_module.name = content['name']
     training_module.description = content['description']
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
-    training_module.save
+    valid = training_module.valid?
+    if training_module.errors[:id].any?
+      raise TrainingBase::DuplicateIdError,
+      "Duplicate TrainingModule id detected: #{content['id']}. Slugs: #{training_module.slide_slugs}"
+    end
+    if training_module.errors[:slug].any?
+      raise TrainingBase::DuplicateSlugError,
+      "Duplicate TrainingModule slug detected: #{slug}"
+    end
+    training_module.save if valid
     training_module
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
