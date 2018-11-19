@@ -133,8 +133,6 @@ const CourseClonedModal = createReactClass({
     const dateProps = CourseDateUtils.dateProps(this.state.course);
     const saveDisabled = this.saveEnabled() ? '' : 'disabled';
 
-    const slugPartValidationRegex = /^[\w\-\s,']+$/;
-
     // Form components that are conditional on course type
     let expectedStudents;
     let courseSubject;
@@ -294,7 +292,7 @@ const CourseClonedModal = createReactClass({
           value={this.state.course.term}
           value_key="term"
           required={true}
-          validation={slugPartValidationRegex}
+          validation={CourseUtils.courseSlugRegex()}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
@@ -318,7 +316,7 @@ const CourseClonedModal = createReactClass({
                   value={this.state.course.title}
                   value_key="title"
                   required={true}
-                  validation={slugPartValidationRegex}
+                  validation={CourseUtils.courseSlugRegex()}
                   editable={true}
                   label={CourseUtils.i18n('creator.course_title', i18nPrefix)}
                   placeholder={CourseUtils.i18n('title', i18nPrefix)}
@@ -329,7 +327,7 @@ const CourseClonedModal = createReactClass({
                   value={this.state.course.school}
                   value_key="school"
                   required={true}
-                  validation={slugPartValidationRegex}
+                  validation={CourseUtils.courseSlugRegex()}
                   editable={true}
                   label={CourseUtils.i18n('creator.course_school', i18nPrefix)}
                   placeholder={CourseUtils.i18n('school', i18nPrefix)}
