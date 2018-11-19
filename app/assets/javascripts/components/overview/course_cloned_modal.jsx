@@ -2,7 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
-import ValidationStore from '../../stores/validation_store.js';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -25,12 +24,22 @@ const CourseClonedModal = createReactClass({
     firstErrorMessage: PropTypes.string
   },
 
-  mixins: [ValidationStore.mixin],
-
   getInitialState() {
     return {
       course: this.props.course
     };
+  },
+
+  componentWillReceiveProps(newProps) {
+    let isPersisting = this.state.isPersisting;
+    if (!newProps.isValid) {
+      $('html, body').animate({ scrollTop: 0 });
+      isPersisting = false;
+    }
+    return this.setState({
+      isPersisting,
+      tempCourseId: CourseUtils.generateTempId(this.state.course)
+    });
   },
 
   setAnyDatesSelected(bool) {
@@ -46,18 +55,6 @@ const CourseClonedModal = createReactClass({
     return this.updateCourse('no_day_exceptions', checked);
   },
 
-  storeDidChange() {
-    let isPersisting = this.state.isPersisting;
-    if (!ValidationStore.getValidation('exists').valid) {
-      $('html, body').animate({ scrollTop: 0 });
-      isPersisting = false;
-    }
-    return this.setState({
-      isPersisting,
-      tempCourseId: CourseUtils.generateTempId(this.state.course)
-    });
-  },
-
   cloneCompletedStatus: 2,
 
   updateCourse(valueKey, value) {
@@ -70,6 +67,10 @@ const CourseClonedModal = createReactClass({
 
     // Term starts out blank and must be added.
     if (valueKey === 'term') {
+      return this.props.setValid('exists');
+    }
+    // If term is already set and any slug components are changed, reset 'exists' to valid.
+    if (updatedCourse.term && ['title', 'school', 'term'].includes(valueKey)) {
       this.props.setValid('exists');
     }
   },
