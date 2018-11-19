@@ -74,7 +74,7 @@ class TrainingModule < ApplicationRecord
     TrainingModule.load
   end
 
-  def self.inflate(content, slug, wiki_page = nil)
+  def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
     training_module = TrainingModule.new
     training_module.id = content['id']
     training_module.slug = slug
@@ -86,11 +86,12 @@ class TrainingModule < ApplicationRecord
     valid = training_module.valid?
     if training_module.errors[:id].any?
       raise TrainingBase::DuplicateIdError,
-      "Duplicate TrainingModule id detected: #{content['id']}. Slugs: #{training_module.slide_slugs}"
+            "Duplicate TrainingModule id detected: #{content['id']}.\
+             Slugs: #{training_module.slide_slugs}"
     end
     if training_module.errors[:slug].any?
       raise TrainingBase::DuplicateSlugError,
-      "Duplicate TrainingModule slug detected: #{slug}"
+            "Duplicate TrainingModule slug detected: #{slug}"
     end
     training_module.save if valid
     training_module

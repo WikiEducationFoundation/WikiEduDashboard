@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe TrainingModule do
   describe '.load' do
-    let(:subject) { TrainingModule.load }
+    let(:subject) { described_class.load }
+
     context 'when there are duplicate slugs' do
       before do
         allow(described_class).to receive(:trim_id_from_filename).and_return(true)
@@ -17,6 +18,7 @@ describe TrainingModule do
                                           /.*duplicate-yaml-slug.*/)
       end
     end
+
     context 'when there are duplicate ids' do
       before do
         allow(described_class).to receive(:base_path)
