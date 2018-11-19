@@ -10,6 +10,7 @@ import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
 import { updateCourse, persistCourse } from '../../actions/course_actions';
 import { fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption, submitWizard } from '../../actions/wizard_actions';
+import { isValid } from '../../selectors';
 
 const persist = function (goToWizardFunc) {
   window.onbeforeunload = function () {
@@ -39,7 +40,8 @@ const Wizard = createReactClass({
     open_weeks: PropTypes.number,
     advanceWizard: PropTypes.func.isRequired,
     goToWizard: PropTypes.func.isRequired,
-    panels: PropTypes.array.isRequired
+    panels: PropTypes.array.isRequired,
+    isValid: PropTypes.bool.isRequired
   },
 
   componentDidMount() {
@@ -89,6 +91,7 @@ const Wizard = createReactClass({
             advance={this.props.advanceWizard}
             goToWizard={this.props.goToWizard}
             selectWizardOption={this.props.selectWizardOption}
+            isValid={this.props.isValid}
           />
         );
       } else if (i !== 0 && i < panelCount - 1) {
@@ -148,7 +151,8 @@ const Wizard = createReactClass({
 const mapStateToProps = state => ({
   summary: state.wizard.summary,
   panels: state.wizard.panels,
-  activePanelIndex: state.wizard.activeIndex
+  activePanelIndex: state.wizard.activeIndex,
+  isValid: isValid(state)
 });
 
 const mapDispatchToProps = {

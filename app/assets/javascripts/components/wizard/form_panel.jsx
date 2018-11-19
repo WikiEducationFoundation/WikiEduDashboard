@@ -5,7 +5,6 @@ import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import ValidationStore from '../../stores/validation_store.js';
 
 const FormPanel = createReactClass({
   displayName: 'FormPanel',
@@ -13,7 +12,8 @@ const FormPanel = createReactClass({
   propTypes: {
     course: PropTypes.object.isRequired,
     shouldShowSteps: PropTypes.bool,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired
   },
 
   setAnyDatesSelected(bool) {
@@ -36,7 +36,7 @@ const FormPanel = createReactClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid()) {
+    if (this.props.isValid) {
       this.props.persistCourse(this.props.course.slug);
       return true;
     }
