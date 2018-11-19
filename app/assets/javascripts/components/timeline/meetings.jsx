@@ -6,9 +6,9 @@ import CourseLink from '../common/course_link.jsx';
 import Calendar from '../common/calendar.jsx';
 import Modal from '../common/modal.jsx';
 import DatePicker from '../common/date_picker.jsx';
-import ValidationStore from '../../stores/validation_store.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions';
+import { isValid } from '../../selectors';
 
 const Meetings = createReactClass({
   displayName: 'Meetings',
@@ -17,7 +17,8 @@ const Meetings = createReactClass({
     weeks: PropTypes.array, // Comes indirectly from TimelineHandler
     course: PropTypes.object,
     updateCourse: PropTypes.func.isRequired,
-    persistCourse: PropTypes.func.isRequired
+    persistCourse: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired
   },
 
   disableSave(bool) {
@@ -36,7 +37,7 @@ const Meetings = createReactClass({
   },
 
   saveCourse(e) {
-    if (ValidationStore.isValid()) {
+    if (this.props.isValid) {
       return this.props.persistCourse(this.props.course.slug);
     }
     e.preventDefault();
@@ -155,9 +156,13 @@ const Meetings = createReactClass({
 }
 );
 
+const mapStateToProps = state => ({
+  isValid: isValid(state)
+});
+
 const mapDispatchToProps = {
   updateCourse,
   persistCourse
 };
 
-export default connect(null, mapDispatchToProps)(Meetings);
+export default connect(mapStateToProps, mapDispatchToProps)(Meetings);
