@@ -31,6 +31,7 @@ describe('CourseCreator', () => {
         checkCourseSlug={checkCourseSlugSpy}
         activateValidations={activateValidationsSpy}
         isValid
+        validations={{}}
       />
     );
 

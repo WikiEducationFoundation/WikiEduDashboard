@@ -18,6 +18,7 @@ describe('CourseClonedModal', () => {
     id: 123,
     isNonstudent: true
   };
+
   const TestModal = mount(
     <Provider store={reduxStore} >
       <CourseClonedModal
@@ -25,6 +26,10 @@ describe('CourseClonedModal', () => {
         updateCourse={jest.fn()}
         updateClonedCourse={jest.fn()}
         currentUser={currentUser}
+        setValid={jest.fn()}
+        setInvalid={jest.fn()}
+        activateValidations={jest.fn()}
+        isValid
       />
     </Provider>
   );
