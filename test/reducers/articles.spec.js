@@ -14,21 +14,21 @@ const articles_array = [
     title: 'articles_1',
     new_article: false,
     language: 'us',
-    project: 4
+    project: 'wikidata'
   },
   {
     id: 3,
     title: 'articles_3',
     new_article: true,
     language: 'es',
-    project: 2
+    project: 'wikipedia'
   },
   {
     id: 2,
     title: 'articles_2',
     new_article: false,
     language: 'es',
-    project: 2
+    project: 'wikipedia'
   }
 ];
 
@@ -90,7 +90,8 @@ describe('articles reducer', () => {
     const mockedAction = {
       type: SET_PROJECT_FILTER,
       wiki: {
-        project: 'all'
+        project: 'all',
+        language: 'us'
       }
     };
 
@@ -100,7 +101,8 @@ describe('articles reducer', () => {
     const newMockedAction = {
       type: SET_PROJECT_FILTER,
       wiki: {
-        project: ''
+        project: '',
+        language: 'us'
       }
     };
     const newState = articles(initialState, newMockedAction);
@@ -112,10 +114,10 @@ describe('articles reducer', () => {
     deepFreeze(initialState);
     const mockedAction = {
       type: SET_NEWNESS_FILTER,
-      newness: { action: 'value' }
+      newness: 'new'
     };
 
     const newState = articles(initialState, mockedAction);
-    expect(newState.newnessFilter).to.deep.eq({ action: 'value' });
+    expect(newState.newnessFilter).to.eq('new');
   });
 });
