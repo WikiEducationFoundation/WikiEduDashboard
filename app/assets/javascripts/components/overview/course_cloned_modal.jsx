@@ -32,8 +32,8 @@ const CourseClonedModal = createReactClass({
 
   componentWillReceiveProps(newProps) {
     let isPersisting = this.state.isPersisting;
-    if (!newProps.isValid) {
-      $('html, body').animate({ scrollTop: 0 });
+    if (newProps.firstErrorMessage && !this.props.firstErrorMessage) {
+      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
       isPersisting = false;
     }
     return this.setState({
