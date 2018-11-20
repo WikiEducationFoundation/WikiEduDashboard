@@ -2,7 +2,7 @@
 
 ## Front end Technology
 
-The dashboard front end is primary built using React.js, written in Javascript and JSX. What follows is an overview of how data moves through the app and some more general resources for understanding the stack. It was originally done with Flux (McFly), but as of May 2017, it is being gradually migrated to Redux.
+The dashboard front end is primary built using React.js, written in Javascript and JSX. What follows is an overview of how data moves through the app and some more general resources for understanding the stack.
 
 The stylesheet language used is Stylus along with its Rupture utility.
 ### Resources
@@ -14,23 +14,9 @@ The stylesheet language used is Stylus along with its Rupture utility.
 - [Rupture](https://jescalan.github.io/rupture/) - A utility for working with media queries in stylus.
 
 ### Actions
-Actions are exactly what they sound like: any impactful front end user action should trigger a Flux or Redux action that can be received and acted upon by a store. Think of a Flux action as being similar to an emitted event.
+Actions are exactly what they sound like: any impactful front end user action should trigger a Redux action that can be received and acted upon by a reducer.
 
-New features should rely on actions in the form of plain objects that are dispatched to the Redux store and handled via reducers, rather than the McFly/Flux actions that connect to one of many McFly stores. Redux actions may use Thunk middleware to handle async events like API requests.
-
-### McFly Stores
-These stores listen for Actions and are responsible for parsing, storing, and providing application data to all components. They can subscribe to any McFly action and they can also emit a change event that is received by all subscribed components.
-
-For new features and significant updates, Redux should be used instead.
-
-##### StockStore
-StockStore is store factory that returns a McFly Store implementing a set of features used by several different models in the Dashboard application. These include:
-
-- Object CRUD
-- Object filtering by key
-- Object sorting by key
-- Data persistence (user actions can be canceled and changes reverted)
-- Load state tracking (whether or not the store has received data from the server)
+New features should rely on actions in the form of plain objects that are dispatched to the Redux store and handled via reducers. Redux actions may use Thunk middleware to handle async events like API requests.
 
 ### Redux store
 Redux uses a single store, which is built up from many independent reducer functions that handle different actions. Container components — those that determine which child components to render based on application state ­— can then use `connect()` to subscribe to the store, typically with `mapStateToProps()` and `mapDispatchToProps()` functions used to filter out just the data and actions that the Component needs. Using this standard Redux pattern, we pass only the props needed by the immediate child components. This minimizes the amount of rendering, since a React component re-renders whenever its props change.
@@ -57,12 +43,12 @@ Common components are utilities used throughout the application. These include i
 Utils include several different helpers for our application and two of them are worth an explanation.
 
 #### Router
-The [router.jsx](/app/assets/javascripts/utils/router.jsx) file contains an implementation of [React Router](https://github.com/rackt/react-router). Here we define handlers for different URL paths and structure a hierarchy that allows components to optionally wrap other components based on the URL. As of this writing the React Router library is undergoing some big restructuring for a 1.0 push but documentation for the current version [can be found here](http://rackt.github.io/react-router/).
+The [router.jsx](/app/assets/javascripts/utils/router.jsx) file contains an implementation of [React Router](https://github.com/rackt/react-router). Here we define handlers for different URL paths and structure a hierarchy that allows components to optionally wrap other components based on the URL. We currently use the older v3 of React Router, which keeps all the nested routes in one file.
 
 The Router component is the root of the entire React component tree, and is where the Redux store is defined and injected into the app.
 
 #### API
-The [api.js](/app/assets/javascripts/utils/api.js) file contains all AJAX requests for the application that connect back to the app server. Many methods are named according to their  purpose excepting the `fetch` and `modify` methods. These are written to be widely reused by `ServerActions` and require some extra hand-holding to ensure that the proper endpoint is reached.
+The [api.js](/app/assets/javascripts/utils/api.js) file contains many of the AJAX requests for the application that connect back to the app server. These AJAX requests are gradually being moved to the actions files.
 
 ## Yarn dependency management
 When dependencies need to be added or updated, do so using Yarn — for example, `yarn add <package_name>`. This will automatically update the yarn.lock file.
