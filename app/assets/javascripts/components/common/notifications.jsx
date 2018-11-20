@@ -2,26 +2,13 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 
-import { removeNotification, NotificationActions } from '../../actions/notification_actions.js';
-import NotificationStore from '../../stores/notification_store.js';
+import { removeNotification } from '../../actions/notification_actions.js';
 
 const Notifications = createReactClass({
   displayName: 'Notifications',
 
-  mixins: [NotificationStore.mixin],
-
-  getInitialState() {
-    return { notifications: NotificationStore.getNotifications() };
-  },
-
-  storeDidChange() {
-    return this.setState({ notifications: NotificationStore.getNotifications() });
-  },
 
   _handleClose(notification) {
-    if (notification.store === 'flux') {
-      return NotificationActions.removeNotification(notification);
-    }
     return this.props.removeNotification(notification);
   },
 
@@ -63,8 +50,7 @@ const Notifications = createReactClass({
   },
 
   render() {
-    const allNotifications = this.props.notifications.concat(this.state.notifications);
-    const notifications = allNotifications.map((n, i) => this._renderNotification(n, i));
+    const notifications = this.props.notifications.map((n, i) => this._renderNotification(n, i));
 
     return (
       <div className="notifications">

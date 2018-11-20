@@ -4,11 +4,6 @@ import React from 'react';
 import '../../testHelper';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
-CourseCreator.__Rewire__('ValidationStore', {
-  isValid() { return true; },
-  firstMessage() { }
-});
-
 describe('CourseCreator', () => {
   describe('render', () => {
     const updateCourseSpy = sinon.spy();
