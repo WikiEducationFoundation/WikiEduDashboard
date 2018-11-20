@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import { sortByKey } from '../utils/model_utils';
-import { RECEIVE_ARTICLES, SORT_ARTICLES, SET_PROJECT_FILTER, SET_NEWNESS_FILTER } from '../constants';
+import {
+  RECEIVE_ARTICLES,
+  SORT_ARTICLES,
+  SET_PROJECT_FILTER,
+  SET_NEWNESS_FILTER
+} from '../constants';
 
 const initialState = {
   articles: [],
@@ -8,7 +13,7 @@ const initialState = {
   limitReached: false,
   sort: {
     key: null,
-    sortKey: null,
+    sortKey: null
   },
   wikis: [],
   wikiFilter: null,
@@ -23,7 +28,7 @@ const SORT_DESCENDING = {
 };
 
 const isLimitReached = (revs, limit) => {
-  return (revs.length < limit);
+  return revs.length < limit;
 };
 
 const mapWikis = (article) => {
@@ -35,9 +40,11 @@ const mapWikis = (article) => {
 
 export default function articles(state = initialState, action) {
   switch (action.type) {
-
     case RECEIVE_ARTICLES: {
-      const wikis = _.uniqWith(_.map(action.data.course.articles, mapWikis), _.isEqual);
+      const wikis = _.uniqWith(
+        _.map(action.data.course.articles, mapWikis),
+        _.isEqual
+      );
       const _articles = action.data.course.articles;
       const newnessFilterEnabled = _articles.some(a => a.new_article) && _articles.some(a => !a.new_article);
       return {
@@ -49,12 +56,17 @@ export default function articles(state = initialState, action) {
         wikiFilter: state.wikiFilter,
         newnessFilter: state.newnessFilter,
         newnessFilterEnabled,
-        loading: false,
+        loading: false
       };
     }
-  
+
     case SORT_ARTICLES: {
-      const sorted = sortByKey(state.articles, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
+      const sorted = sortByKey(
+        state.articles,
+        action.key,
+        state.sort.sortKey,
+        SORT_DESCENDING[action.key]
+      );
       return {
         ...state,
         articles: sorted.newModels,
@@ -73,11 +85,11 @@ export default function articles(state = initialState, action) {
       }
       return { ...state, wikiFilter: action.wiki };
     }
-  
+
     case SET_NEWNESS_FILTER: {
       return { ...state, newnessFilter: action.newness };
     }
-  
+
     default:
       return state;
   }
