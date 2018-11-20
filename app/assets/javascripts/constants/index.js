@@ -30,5 +30,6 @@ export * from './tags';
 export * from './timeline';
 export * from './training';
 export * from './training_status';
+export * from './validations';
 export * from './wikidata_labels';
 export * from './wizard';

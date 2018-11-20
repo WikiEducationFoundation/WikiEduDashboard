@@ -32,6 +32,7 @@ describe('SlideLink', () => {
           disabled={false}
           button={true}
           params={{ library_id: 'foo', module_id: 'bar' }}
+          onClick={jest.fn()}
         />
       </TrainingSlideHandler>
     </Provider>

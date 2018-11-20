@@ -16,7 +16,8 @@ import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchTags } from '../../actions/tag_actions';
-import { getStudentUsers, getWeeksArray } from '../../selectors';
+import { setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
+import { getStudentUsers, getWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -31,7 +32,12 @@ const Overview = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     resetCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
-    weeks: PropTypes.array.isRequired
+    weeks: PropTypes.array.isRequired,
+    setValid: PropTypes.func.isRequired,
+    setInvalid: PropTypes.func.isRequired,
+    activateValidations: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string,
+    isValid: PropTypes.bool.isRequired
   },
 
   componentDidMount() {
@@ -43,7 +49,19 @@ const Overview = createReactClass({
   render() {
     const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} currentUser={this.props.current_user} />;
+      return (
+        <CourseClonedModal
+          course={course}
+          updateCourse={this.props.updateCourse}
+          updateClonedCourse={this.props.updateClonedCourse}
+          currentUser={this.props.current_user}
+          firstErrorMessage={this.props.firstErrorMessage}
+          isValid={this.props.isValid}
+          setValid={this.props.setValid}
+          setInvalid={this.props.setInvalid}
+          activateValidations={this.props.activateValidations}
+        />
+      );
     }
 
     let syllabusUpload;
@@ -134,7 +152,9 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   campaigns: state.campaigns.campaigns,
   weeks: getWeeksArray(state),
-  loading: state.timeline.loading
+  loading: state.timeline.loading,
+  firstErrorMessage: firstValidationErrorMessage(state),
+  isValid: isValid(state)
  });
 
 const mapDispatchToProps = {
@@ -144,7 +164,10 @@ const mapDispatchToProps = {
   nameHasChanged,
   updateClonedCourse,
   fetchTags,
-  refetchCourse
+  refetchCourse,
+  setValid,
+  setInvalid,
+  activateValidations
 };
 
 

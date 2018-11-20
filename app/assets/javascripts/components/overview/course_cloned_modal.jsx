@@ -2,8 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
-import ValidationStore from '../../stores/validation_store.js';
-import ValidationActions from '../../actions/validation_actions.js';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -18,16 +16,30 @@ const CourseClonedModal = createReactClass({
     course: PropTypes.object.isRequired,
     updateCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
-    currentUser: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired,
+    setValid: PropTypes.func.isRequired,
+    setInvalid: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired,
+    activateValidations: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string
   },
-
-  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return {
-      error_message: ValidationStore.firstMessage(),
       course: this.props.course
     };
+  },
+
+  componentWillReceiveProps(newProps) {
+    let isPersisting = this.state.isPersisting;
+    if (newProps.firstErrorMessage && !this.props.firstErrorMessage) {
+      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+      isPersisting = false;
+    }
+    return this.setState({
+      isPersisting,
+      tempCourseId: CourseUtils.generateTempId(this.state.course)
+    });
   },
 
   setAnyDatesSelected(bool) {
@@ -43,19 +55,6 @@ const CourseClonedModal = createReactClass({
     return this.updateCourse('no_day_exceptions', checked);
   },
 
-  storeDidChange() {
-    let isPersisting = this.state.isPersisting;
-    if (!ValidationStore.getValidation('exists').valid) {
-      $('html, body').animate({ scrollTop: 0 });
-      isPersisting = false;
-    }
-    return this.setState({
-      isPersisting,
-      error_message: ValidationStore.firstMessage(),
-      tempCourseId: CourseUtils.generateTempId(this.state.course)
-    });
-  },
-
   cloneCompletedStatus: 2,
 
   updateCourse(valueKey, value) {
@@ -68,7 +67,11 @@ const CourseClonedModal = createReactClass({
 
     // Term starts out blank and must be added.
     if (valueKey === 'term') {
-      ValidationActions.setValid('exists');
+      return this.props.setValid('exists');
+    }
+    // If term is already set and any slug components are changed, reset 'exists' to valid.
+    if (updatedCourse.term && ['title', 'school', 'term'].includes(valueKey)) {
+      this.props.setValid('exists');
     }
   },
 
@@ -81,8 +84,9 @@ const CourseClonedModal = createReactClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid()) {
-      ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
+    this.props.activateValidations();
+    if (this.props.isValid) {
+      this.props.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
       const { slug } = this.state.course;
       const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
       updatedCourse.cloned_status = this.cloneCompletedStatus;
@@ -122,8 +126,8 @@ const CourseClonedModal = createReactClass({
     buttonClass += this.state.isPersisting ? ' working' : '';
 
     let errorMessage;
-    if (this.state.error_message) {
-      errorMessage = <div className="warning">{this.state.error_message}</div>;
+    if (this.props.firstErrorMessage) {
+      errorMessage = <div className="warning">{this.props.firstErrorMessage}</div>;
     } else if (!this.props.currentUser.id) {
       errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
     } else if (!this.props.currentUser.isNonstudent) {

@@ -1,6 +1,6 @@
 import React from 'react';
 // import ReactTestUtils from 'react-dom/test-utils' To be enabled when react-addons-test-utils will be removed
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
 import { AvailableArticle } from '../../../app/assets/javascripts/components/articles/available_article.jsx';
 

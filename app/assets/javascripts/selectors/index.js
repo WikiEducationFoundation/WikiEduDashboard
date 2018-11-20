@@ -24,6 +24,8 @@ const getWeeks = state => state.timeline.weeks;
 const getBlocks = state => state.timeline.blocks;
 const getCourseType = state => state.course.type;
 const getTraining = state => state.training;
+const getValidations = state => state.validations.validations;
+const getValidationErrors = state => state.validations.errorQueue;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -189,5 +191,23 @@ export const getAvailableTrainingModules = createSelector(
     // Only include modules that are part of the Student library.
     const studentModules = training.modules.filter(module => studentsLibrary.modules.includes(module.slug));
     return studentModules;
+  }
+);
+
+export const isValid = createSelector(
+  [getValidations], (validations) => {
+    // If any validation is not valid, return false.
+    const invalidValue = _.find(validations, (value) => { return value.valid === false; });
+    if (invalidValue) { return false; }
+    return true;
+  }
+);
+
+export const firstValidationErrorMessage = createSelector(
+  [getValidations, getValidationErrors], (validations, validationErrors) => {
+    if (validationErrors.length > 0) {
+      return validations[validationErrors[0]].message;
+    }
+    return null;
   }
 );

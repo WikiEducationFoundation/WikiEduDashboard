@@ -32,6 +32,7 @@ import userCourses from './user_courses';
 import userProfile from './user_profile';
 import userRevisions from './user_revisions';
 import users from './users';
+import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
 
@@ -70,6 +71,7 @@ const reducer = combineReducers({
   userRevisions,
   userTrainingStatus,
   users,
+  validations,
   wikidataLabels,
   wizard
 });

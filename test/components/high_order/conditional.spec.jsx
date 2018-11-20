@@ -11,12 +11,13 @@ describe('Conditional', () => {
     const renderer = ShallowTestUtils.createRenderer();
     renderer.render(
       <TextInput
+        store={reduxStore}
         show={true}
         value={'foo'}
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput.type.displayName).to.eq('InputTextInput');
+    expect(textInput.type.displayName).to.eq('Connect(InputTextInput)');
     expect(textInput.props.value).to.eq('foo');
   });
 
@@ -24,6 +25,7 @@ describe('Conditional', () => {
     const renderer = ShallowTestUtils.createRenderer();
     renderer.render(
       <TextInput
+        store={reduxStore}
         show={false}
         value={'foo'}
       />

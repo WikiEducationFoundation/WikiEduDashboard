@@ -6,13 +6,11 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import ValidationStore from '../../stores/validation_store.js';
-import ValidationActions from '../../actions/validation_actions.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
-import { getCloneableCourses } from '../../selectors';
+import { setValid, setInvalid, checkCourseSlug, activateValidations } from '../../actions/validation_actions';
+import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -22,13 +20,6 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseLevelSelector from './course_level_selector.jsx';
-
-
-const getState = () => {
-  return {
-    error_message: ValidationStore.firstMessage()
-  };
-};
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -42,13 +33,18 @@ const CourseCreator = createReactClass({
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
     cloneCourse: PropTypes.func.isRequired,
-    loadingUserCourses: PropTypes.bool.isRequired
+    loadingUserCourses: PropTypes.bool.isRequired,
+    setValid: PropTypes.func.isRequired,
+    setInvalid: PropTypes.func.isRequired,
+    checkCourseSlug: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired,
+    validations: PropTypes.object.isRequired,
+    firstErrorMessage: PropTypes.string,
+    activateValidations: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin],
-
   getInitialState() {
-    const inits = {
+    return {
       tempCourseId: '',
       isSubmitting: false,
       showCourseForm: false,
@@ -58,8 +54,6 @@ const CourseCreator = createReactClass({
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
     };
-
-    return { ...inits, ...getState() };
   },
 
   componentWillMount() {
@@ -77,7 +71,7 @@ const CourseCreator = createReactClass({
     } else {
       this.state.tempCourseId = '';
     }
-    return this.handleCourse(nextProps.course);
+    return this.handleCourse(nextProps.course, nextProps.isValid);
   },
 
   campaignParam() {
@@ -88,30 +82,29 @@ const CourseCreator = createReactClass({
     }
   },
 
-  storeDidChange() {
-    this.setState(getState());
-    this.handleCourse(this.props.course);
-  },
-
   saveCourse() {
-    if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+    this.props.activateValidations();
+    if (this.props.isValid && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
-      ValidationActions.setInvalid(
+      this.props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
-      return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
+      return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
     }
   },
 
-  handleCourse(course) {
+  handleCourse(course, isValidProp) {
     if (this.state.shouldRedirect === true) {
       window.location = `/courses/${course.slug}`;
       return this.setState({ shouldRedirect: false });
     }
-    if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
-    if (ValidationStore.isValid()) {
+
+    if (!this.state.isSubmitting && !this.state.justSubmitted) {
+      return;
+    }
+    if (isValidProp) {
       if (course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
@@ -129,7 +122,7 @@ const CourseCreator = createReactClass({
         const onSaveFailure = () => this.setState({ justSubmitted: false });
         this.props.submitCourse({ course }, onSaveFailure);
       }
-    } else if (!ValidationStore.getValidation('exists').valid) {
+    } else if (!this.props.validations.exists.valid) {
       this.setState({ isSubmitting: false });
     }
   },
@@ -141,7 +134,7 @@ const CourseCreator = createReactClass({
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
-      return ValidationActions.setValid('exists');
+      return this.props.setValid('exists');
     }
   },
 
@@ -158,7 +151,7 @@ const CourseCreator = createReactClass({
 
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
-      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      this.props.setInvalid('expected_students', I18n.t('application.field_required'));
       return false;
     }
     return true;
@@ -171,7 +164,7 @@ const CourseCreator = createReactClass({
     const endEventTime = new Date(this.props.timeline_end);
 
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
-      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
+      this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
     return true;
@@ -528,7 +521,7 @@ const CourseCreator = createReactClass({
               <div className={controlClass}>
                 <div className="left"><p>{this.state.tempCourseId}</p></div>
                 <div className="right">
-                  <div><p className="red">{this.state.error_message}</p></div>
+                  <div><p className="red">{this.props.firstErrorMessage}</p></div>
                   <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
                   <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
                 </div>
@@ -545,7 +538,10 @@ const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
   cloneableCourses: getCloneableCourses(state),
-  loadingUserCourses: state.userCourses.loading
+  loadingUserCourses: state.userCourses.loading,
+  validations: state.validations.validations,
+  isValid: isValid(state),
+  firstErrorMessage: firstValidationErrorMessage(state)
 });
 
 const mapDispatchToProps = ({
@@ -553,7 +549,11 @@ const mapDispatchToProps = ({
   fetchCoursesForUser,
   updateCourse,
   submitCourse,
-  cloneCourse
+  cloneCourse,
+  setValid,
+  setInvalid,
+  checkCourseSlug,
+  activateValidations
 });
 
 // exporting two difference ways as a testing hack.

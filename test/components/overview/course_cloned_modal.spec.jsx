@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
 import '../../testHelper';
 import CourseClonedModal from '../../../app/assets/javascripts/components/overview/course_cloned_modal.jsx';
@@ -17,13 +18,20 @@ describe('CourseClonedModal', () => {
     id: 123,
     isNonstudent: true
   };
+
   const TestModal = mount(
-    <CourseClonedModal
-      course={course}
-      updateCourse={jest.fn()}
-      updateClonedCourse={jest.fn()}
-      currentUser={currentUser}
-    />
+    <Provider store={reduxStore} >
+      <CourseClonedModal
+        course={course}
+        updateCourse={jest.fn()}
+        updateClonedCourse={jest.fn()}
+        currentUser={currentUser}
+        setValid={jest.fn()}
+        setInvalid={jest.fn()}
+        activateValidations={jest.fn()}
+        isValid
+      />
+    </Provider>
   );
 
   it('renders a Modal', () => {

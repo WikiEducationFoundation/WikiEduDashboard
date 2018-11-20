@@ -1,11 +1,10 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
-import ValidationActions from './validation_actions';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -71,10 +70,7 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
       }
       // Course name is taken, so show a warning.
       const message = 'This course already exists. Consider changing the name, school, or term to make it unique.';
-
-      // TODO: Convert this Flux action to Redux, once ValidationStore is ported
-      // return dispatch({ type: COURSE_EXISTS, data: { key: 'exists', message } });
-      return ValidationActions.dispatchAction({ actionType: 'CHECK_SERVER', data: { key: 'exists', message } });
+      return dispatch({ type: COURSE_SLUG_EXISTS, message });
     })
     .catch(data => ({ type: API_FAIL, data }));
 };
