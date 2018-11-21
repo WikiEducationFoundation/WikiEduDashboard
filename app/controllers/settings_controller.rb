@@ -1,5 +1,8 @@
 # frozen_string_literal: true
+<<<<<<< HEAD
 require_relative '../decorators/user_decorator.rb'
+=======
+>>>>>>> ffa28b0d909147f7dfc8ee83462c02b244e4ee2a
 ##
 # controller actions for super users to interact with app wide settings
 class SettingsController < ApplicationController
@@ -47,6 +50,7 @@ class SettingsController < ApplicationController
   def update_special_users
     respond_to do |format|
       format.json do
+<<<<<<< HEAD
         @user = UserDecorator.new(User.find_by(username: special_user_params[:username]))
         ensure_user_exists(params[:username]) { return }
         unless SpecialUsers::POSITIONS.include? special_users_params[:position]
@@ -54,6 +58,14 @@ class SettingsController < ApplicationController
                         status: :unprocessable_entity
         end
         @user.send(special_users_params[:position] + '!')
+=======
+        ensure_user_exists(params[:username]) { return }
+        unless SpecialUsers.respond_to? special_users_params[:position]
+          return render json: { message: 'position is invalid' },
+                        status: :unprocessable_entity
+        end
+        SpecialUsers.set(special_users_params[:position], special_user_params[:username]);
+>>>>>>> ffa28b0d909147f7dfc8ee83462c02b244e4ee2a
         message = I18n.t('settings.special_user.update.success')
         render json: { message: message }, status: :ok
       end
@@ -119,7 +131,7 @@ class SettingsController < ApplicationController
   ##
   # yield up an error message if no user is found.
   def ensure_user_exists(username)
-    return unless @user.nil?
+    return unless User.find_by(username: username).nil?
     render json: { message: I18n.t('courses.error.user_exists', username: username) },
            status: :not_found
     yield

@@ -33,6 +33,7 @@ const SettingsHandler = createReactClass({
       <div className="mt4 container">
         <Notifications />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>All Admin Users</h1>
 =======
         <h1 className="mx2" style={{ display: "inline-block", maring: 0 }}>Users</h1>
@@ -43,6 +44,15 @@ const SettingsHandler = createReactClass({
         <AdminUserList adminUsers={this.props.adminUsers} />
         <hr />
         <h2 className="mx2" style={{ display: "inline-block", maring: 0 }}>Special Users</h2>
+=======
+        <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Users</h1>
+        <hr />
+        <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Admin Users</h2>
+        <AddAdminButton />
+        <AdminUserList adminUsers={this.props.adminUsers} />
+        <hr />
+        <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Special Users</h2>
+>>>>>>> ffa28b0d909147f7dfc8ee83462c02b244e4ee2a
         <SpecialUserList specialUsers={this.props.specialUsers} />
       </div>
 
