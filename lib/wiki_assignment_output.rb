@@ -65,6 +65,8 @@ class WikiAssignmentOutput
     tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
     tag += " | assignments = #{tag_assigned}" if tag_assigned.present?
     tag += " | reviewers = #{tag_reviewing}" if tag_reviewing.present?
+    tag += " | start_date = #{@course.start}"
+    tag += " | end_date = #{@course.end}"
     tag += ' }}'
 
     tag
