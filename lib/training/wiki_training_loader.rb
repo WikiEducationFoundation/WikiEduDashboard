@@ -27,16 +27,15 @@ class WikiTrainingLoader
   # On-wiki trainings #
   #####################
 
-  CONCURRENCY = 1 # Maximum simultaneous requests to mediawiki
+
   def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
     Raven.capture_message "Loading #{@content_class}s from wiki",
                           level: 'info', extra: { wiki_pages: source_pages }
 
-    thread_count = [CONCURRENCY, source_pages.count].min
-    source_pages.in_groups(thread_count, false).each do |wiki_page_group|
-      add_trainings_to_collection(wiki_page_group)
+    source_pages.each do |wiki_page|
+      add_trainings_to_collection(wiki_page)
     end
   rescue InvalidWikiContentError => e
     Raven.capture_exception e

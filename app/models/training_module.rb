@@ -22,7 +22,6 @@ class TrainingModule < ApplicationRecord
   attr_accessor :status
   serialize :slide_slugs, Array
 
-  validates :id, uniqueness: true
   validates :slug, uniqueness: true
 
   def self.path_to_yaml
@@ -37,8 +36,8 @@ class TrainingModule < ApplicationRecord
     false
   end
 
-  def self.load
-    TrainingBase.load(content_class: self)
+  def self.load(slug: nil)
+    TrainingBase.load(content_class: self, slug_list: slug)
   end
 
   def self.base_path
@@ -49,33 +48,22 @@ class TrainingModule < ApplicationRecord
     TrainingBase.load_all
   end
 
-  def self.flush
-    delete_all
-  end
-
   # This reloads all the library and module content, but only updates the slides
   # for the module with the given slug.
   def self.reload_module(slug:)
     # First reload the libraries and modules so we have the new list of slugs
     # and can load slides for brand-new modules.
     TrainingLibrary.flush
-    TrainingModule.flush
     TrainingLibrary.load
-    TrainingModule.load
+    TrainingModule.load(slug: [slug])
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
     TrainingSlide.load(slug_list: training_module.slide_slugs)
-
-    # After updating the module's slides, we must flush and update the module
-    # cache again so that it includes the updated slides.
-    TrainingModule.flush
-    TrainingModule.load
   end
 
   def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
-    training_module = TrainingModule.new
-    training_module.id = content['id']
+    training_module = TrainingModule.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
     training_module.name = content['name']
     training_module.description = content['description']
@@ -83,11 +71,6 @@ class TrainingModule < ApplicationRecord
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
     valid = training_module.valid?
-    if training_module.errors[:id].any?
-      raise TrainingBase::DuplicateIdError,
-            "Duplicate TrainingModule id detected: #{content['id']}.\
-             Slugs: #{training_module.slide_slugs}"
-    end
     if training_module.errors[:slug].any?
       raise TrainingBase::DuplicateSlugError,
             "Duplicate TrainingModule slug detected: #{slug}"

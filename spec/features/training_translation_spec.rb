@@ -4,7 +4,6 @@ require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/training_update"
 
 def flush_training_caches
-  TrainingModule.flush
   TrainingLibrary.flush
 end
 
