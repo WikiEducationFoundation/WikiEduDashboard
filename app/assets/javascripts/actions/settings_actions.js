@@ -1,4 +1,7 @@
-import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../constants/settings';
+import {
+  SET_ADMIN_USERS, SET_SPECIAL_USERS,
+  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN
+} from '../constants/settings';
 import { API_FAIL } from '../constants/api';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
@@ -12,10 +15,26 @@ const fetchAdminUsersPromise = () => {
         return accept(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return reject(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+const fetchSpecialUsersPromise = () => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'GET',
+      url: `settings/special_users`,
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
   });
 };
 
@@ -35,12 +54,27 @@ const grantAdminPromise = (username, upgrade) => {
         return accept(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return reject(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
   });
 };
+
+export function fetchSpecialUsers() {
+  return dispatch => {
+    return fetchSpecialUsersPromise()
+      .then(resp => {
+        dispatch({
+          type: SET_SPECIAL_USERS,
+          data: resp,
+        });
+      })
+      .catch(response => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
 
 export function fetchAdminUsers() {
   return (dispatch) => {
@@ -60,50 +94,50 @@ export function fetchAdminUsers() {
 export const upgradeAdmin = username => (dispatch) => {
   // grant a user admin status
   // username: user's username
-    dispatch({
-      type: SUBMITTING_NEW_ADMIN,
-      data: {
-        submitting: true,
-      },
-    });
+  dispatch({
+    type: SUBMITTING_NEW_ADMIN,
+    data: {
+      submitting: true,
+    },
+  });
 
-    return grantAdminPromise(username, true)
-      .then(() => {
-        dispatch({
-          type: SUBMITTING_NEW_ADMIN,
-          data: {
+  return grantAdminPromise(username, true)
+    .then(() => {
+      dispatch({
+        type: SUBMITTING_NEW_ADMIN,
+        data: {
           submitting: false
-          },
-        });
-        dispatch(addNotification({
-          type: 'success',
-          message: `${username} was upgraded to administrator.`,
-          closable: true
-          })
-        );
-
-        fetchAdminUsersPromise()
-          .then(resp =>
-            dispatch({
-              type: SET_ADMIN_USERS,
-              data: resp,
-            }))
-          .catch(response => (dispatch({ type: API_FAIL, data: response })));
-      }).catch((response) => {
-        dispatch({
-          type: SUBMITTING_NEW_ADMIN,
-          data: {
-          submitting: false
-          },
-        });
-
-        dispatch(addNotification({
-          type: 'error',
-          message: response.responseJSON.message,
-          closable: true
-          })
-        );
+        },
       });
+      dispatch(addNotification({
+        type: 'success',
+        message: `${username} was upgraded to administrator.`,
+        closable: true
+      })
+      );
+
+      fetchAdminUsersPromise()
+        .then(resp =>
+          dispatch({
+            type: SET_ADMIN_USERS,
+            data: resp,
+          }))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    }).catch((response) => {
+      dispatch({
+        type: SUBMITTING_NEW_ADMIN,
+        data: {
+          submitting: false
+        },
+      });
+
+      dispatch(addNotification({
+        type: 'error',
+        message: response.responseJSON.message,
+        closable: true
+      })
+      );
+    });
 };
 
 export const downgradeAdmin = username => (dispatch) => {
