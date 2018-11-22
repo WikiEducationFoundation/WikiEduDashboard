@@ -42,10 +42,30 @@ class SettingsController < ApplicationController
     end
   end
 
+  def update_special_users
+    respond_to do |format|
+      format.json do
+        @user = User.find_by(username: special_user_params[:username])
+        ensure_user_exists(params[:username]) { return }
+        unless SpecialUsers.respond_to? special_users_params[:position]
+          return render json: { message: 'position is invalid' },
+                        status: :unprocessable_entity
+        end
+        SpecialUsers.set(special_users_params[:position], special_user_params[:username])
+        message = I18n.t('settings.special_user.update.success')
+        render json: { message: message }, status: :ok
+      end
+    end
+  end
+
   private
 
   def username_param
     params.require(:user).permit(:username)
+  end
+
+  def special_user_params
+    params.require(:special_user).permit(:username, :position)
   end
 
   ##
