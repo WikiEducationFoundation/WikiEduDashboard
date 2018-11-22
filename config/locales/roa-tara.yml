@@ -4,6 +4,16 @@
 # Author: Joetaras
 ---
 roa-tara:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Quiste jè 'nu cambe numereche. Le buttone 'ndrucate da 'a maggiore
       parte de le browser aumendane e diminuiscene 'u numere sckaffate.
@@ -17,6 +27,8 @@ roa-tara:
     field_required: Stu cambe jè richieste
     field_invalid_characters: Stu cambe tène carattere non valide
     field_invalid_date: Stu cambe vole 'na date cu 'u formate YYYY-MM-DD
+    field_invalid_date_time: '''A fine addà essere apprisse l''inizie. (Le ore vonne
+      da 0 a 23.)'
     greeting2: Bovègne!
     greeting_extended: Bovègne sus a Uicchipèdie
     greeting: Cià
@@ -25,6 +37,10 @@ roa-tara:
     log_in_extended: Tràse cu Uicchipèdie
     log_in: Tràse
     log_out: Isse
+    my_dashboard: '''U cruscotte mie'
+    recent_activity: Urteme attivitate
+    report_problem: Segnale 'nu probbleme
+    request_account: Richieste de cunde utende
     request_account_create: Ccreje 'nu cunde utende
     search: Fà 'na domande
     search_results: 'Resultate pe: ''%{search_terms}'''
