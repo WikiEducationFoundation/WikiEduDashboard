@@ -13,4 +13,21 @@
 #= Generic store of global settings, with a key mapping to a hash of associated data.
 class Setting < ApplicationRecord
   serialize :value, Hash
+  class << self
+    def set_hash(property, key, value)
+      setting = find_or_create_by(key: property)
+      setting.value = (setting.value || {}).merge(key => value)
+      setting.save
+    end
+
+    def set_special_user(role, username)
+      Setting.set_hash('special_users', role, username)
+    end
+
+    def remove_special_user(role)
+      users = Setting.find_or_create_by(key: 'special_users')
+      users.value.delete(role)
+      users.save
+    end
+  end
 end
