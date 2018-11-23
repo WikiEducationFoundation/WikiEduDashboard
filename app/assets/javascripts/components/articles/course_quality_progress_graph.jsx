@@ -2,6 +2,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import EmbedVega from './embed_vega.jsx';
 
 const CourseQualityProgressGraph = createReactClass({
   displayName: 'CourseQualityProgressGraph',
@@ -17,11 +18,7 @@ const CourseQualityProgressGraph = createReactClass({
     this.renderGraph();
   },
 
-  renderGraph() {
-    if (this.props.articleData.length === 0) {
-      return;
-    }
-
+  getSpec() {
     const max_bytes_added = Math.max(
       ...this.props.articleData.map(o => o.bytes_added),
       0
@@ -30,7 +27,7 @@ const CourseQualityProgressGraph = createReactClass({
       ...this.props.articleData.map(o => o.ores_after - o.ores_before),
       0
     );
-    const vegaSpec = {
+    return {
       width: this.props.graphWidth,
       height: this.props.graphHeight,
       padding: 5,
@@ -320,7 +317,14 @@ const CourseQualityProgressGraph = createReactClass({
         }
       ]
     };
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, {
+  },
+
+  renderGraph() {
+    if (this.props.articleData.length === 0) {
+      return;
+    }
+
+    vegaEmbed(`#${this.props.graphid}`, this.getSpec(), {
       defaultStyle: true,
       actions: { source: false }
     });
@@ -329,6 +333,7 @@ const CourseQualityProgressGraph = createReactClass({
   render() {
     return (
       <div>
+        <EmbedVega spec={this.getSpec()} />
         <div id={this.props.graphid} />
       </div>
     );
