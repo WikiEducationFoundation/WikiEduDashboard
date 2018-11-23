@@ -155,6 +155,11 @@ class User < ApplicationRecord
     @course_student ||= courses_users.exists?(role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
+  # Checks if the user is a Special User of the given position
+  def is?(position)
+    SpecialUsers.special_users[position] == username
+  end
+
   def role(course)
     # If this is a new course, grant permissions.
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if course.nil?

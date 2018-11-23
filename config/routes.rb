@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   post '/settings/downgrade_admin' => 'settings#downgrade_admin'
 
   get '/settings/special_users' => 'settings#special_users'
-  post '/settings/special_users/:position' => 'settings#update_special_users'
+  post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
+  post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
+
 
   #UserProfilesController
   controller :user_profiles do

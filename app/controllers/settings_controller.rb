@@ -42,18 +42,41 @@ class SettingsController < ApplicationController
     end
   end
 
-  def update_special_users
+  def upgrade_special_user
+    update_special_user do
+      attempt_special_user_upgrade do |resp|
+        render resp
+        return
+      end
+    end
+  end
+
+  def downgrade_special_user
+    update_special_user do
+      attempt_special_user_downgrade do |resp|
+        render resp
+        return
+      end
+    end
+  end
+
+  def special_users
+    @special_users = SpecialUsers.special_users.transform_values do |username|
+      User.find_by(username: username)
+    end
+  end
+
+  def update_special_user
     respond_to do |format|
       format.json do
         @user = User.find_by(username: special_user_params[:username])
+        @position = special_user_params[:position]
         ensure_user_exists(params[:username]) { return }
-        unless SpecialUsers.respond_to? special_users_params[:position]
+        unless SpecialUsers.respond_to? @position
           return render json: { message: 'position is invalid' },
                         status: :unprocessable_entity
         end
-        SpecialUsers.set(special_users_params[:position], special_user_params[:username])
-        message = I18n.t('settings.special_user.update.success')
-        render json: { message: message }, status: :ok
+        yield
       end
     end
   end
@@ -78,6 +101,32 @@ class SettingsController < ApplicationController
         yield
       end
     end
+  end
+
+  ##
+  # attempt to upgrade `user` to special_user unless they already are one.
+  def attempt_special_user_upgrade
+    # Check if the user already has the position
+    if @user.is?(@position)
+      message = I18n.t('settings.special_users.new.already_is', username: @user.username, position: @position)
+      yield json: { message: message }, status: 422
+    end
+    SpecialUsers.set(@position, @user.username)
+    message = I18n.t('settings.special_users.new.elevate_success', username: @user.username, position: @position)
+    yield json: { message: message }, status: 200
+  end
+
+  ##
+  # attempt to downgrade `special_user` to user unless they already are one.
+  def attempt_special_user_downgrade
+    # Check if the user already has the position
+    unless @user.is?(@position)
+      message = I18n.t('settings.special_users.new.already_is_not', username: @user.username, position: @position)
+      yield json: { message: message }, status: 422
+    end
+    SpecialUsers.remove(@position)
+    message = I18n.t('settings.special_users.remove.demote_success', username: @user.username, position: @position)
+    yield json: { message: message }, status: 200
   end
 
   ##
