@@ -7,7 +7,7 @@ const SpecialUserList = ({ specialUsers, sortBy }) => {
   const elements = Object.keys(specialUsers).map((position, index) => {
     const user = specialUsers[position];
     return <SpecialUser
-      realname={user.realname}
+      realname={user.real_name}
       username={user.username}
       position={position}
       key={index}
