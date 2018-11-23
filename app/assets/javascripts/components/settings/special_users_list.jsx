@@ -2,22 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
 import SpecialUser from './views/special_user.jsx';
- const SpecialUserList = ({ specialUsers, sortBy }) => {
+
+const SpecialUserList = ({ specialUsers, sortBy }) => {
   const elements = Object.keys(specialUsers).map((position, index) => {
-    const username = specialUsers[position] && specialUsers[position].username;
-    return <SpecialUser username={username} position={position} key={index} />;
+    const user = specialUsers[position];
+    return <SpecialUser
+      realname={user.realname}
+      username={user.username}
+      position={position}
+      key={index}
+    />;
   });
-   const keys = {
+  const keys = {
+    username: {
+      label: 'User Name',
+      desktop_only: false,
+    },
+    realname: {
+      label: 'Real Name',
+      desktop_only: true
+    },
     position: {
       label: 'Position',
       desktop_only: true
     },
-    username: {
-      label: 'User Name',
-      desktop_only: false,
-    }
   };
-   return (
+  return (
     <div>
       <List
         elements={elements}
@@ -26,10 +36,12 @@ import SpecialUser from './views/special_user.jsx';
         none_message={'No Special Users Defined!'}
         sortBy={sortBy}
       />
-     </div>
+    </div>
   );
 };
- SpecialUserList.propTypes = {
+
+SpecialUserList.propTypes = {
   specialUsers: PropTypes.object
 };
- export default SpecialUserList;
+
+export default SpecialUserList;
