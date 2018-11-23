@@ -41,16 +41,14 @@ class WikiTrainingLoader
     Raven.capture_exception e
   end
 
-  def add_trainings_to_collection(wiki_pages)
-    wiki_pages.each do |wiki_page|
-      content = new_from_wiki_page(wiki_page)
-      unless content&.valid?
-        Raven.capture_message 'Invalid wiki training content',
-                              level: 'warn', extra: { content: content, wiki_page: wiki_page }
-        next
-      end
-      @collection << content
+  def add_trainings_to_collection(wiki_page)
+    content = new_from_wiki_page(wiki_page)
+    unless content&.valid?
+      Raven.capture_message 'Invalid wiki training content',
+                            level: 'warn', extra: { content: content, wiki_page: wiki_page }
+      next
     end
+    @collection << content
   end
 
   def new_from_wiki_page(wiki_page)
