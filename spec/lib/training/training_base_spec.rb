@@ -9,7 +9,6 @@ describe TrainingBase do
   end
 
   after(:all) do
-    TrainingModule.flush
     TrainingLibrary.flush
   end
 
@@ -107,6 +106,7 @@ describe TrainingBase do
     context 'with wiki trainings enabled' do
       before do
         TrainingSlide.destroy_all
+        TrainingModule.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
 
