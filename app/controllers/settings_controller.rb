@@ -2,7 +2,7 @@
 
 ##
 # controller actions for super users to interact with app wide settings
-class SettingsController < ApplicationController
+class SettingsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :require_super_admin_permissions
 
   ##
