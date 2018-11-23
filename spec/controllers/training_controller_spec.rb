@@ -78,10 +78,10 @@ describe TrainingController do
     end
 
     context 'for a single module, from wiki' do
-      before {
+      before do
         TrainingModule.delete_all
         TrainingSlide.delete_all
-      }
+      end
 
       let(:subject) { get :reload, params: { module: 'plagiarism' } }
 
