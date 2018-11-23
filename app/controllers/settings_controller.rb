@@ -108,11 +108,19 @@ class SettingsController < ApplicationController
   def attempt_special_user_upgrade
     # Check if the user already has the position
     if @user.is?(@position)
-      message = I18n.t('settings.special_users.new.already_is', username: @user.username, position: @position)
+      message = I18n.t(
+        'settings.special_users.new.already_is',
+        username: @user.username,
+        position: @position
+      )
       yield json: { message: message }, status: 422
     end
     SpecialUsers.set(@position, @user.username)
-    message = I18n.t('settings.special_users.new.elevate_success', username: @user.username, position: @position)
+    message = I18n.t(
+      'settings.special_users.new.elevate_success',
+      username: @user.username,
+      position: @position
+    )
     yield json: { message: message }, status: 200
   end
 
@@ -121,11 +129,19 @@ class SettingsController < ApplicationController
   def attempt_special_user_downgrade
     # Check if the user already has the position
     unless @user.is?(@position)
-      message = I18n.t('settings.special_users.new.already_is_not', username: @user.username, position: @position)
+      message = I18n.t(
+        'settings.special_users.new.already_is_not',
+        username: @user.username,
+        position: @position
+      )
       yield json: { message: message }, status: 422
     end
     SpecialUsers.remove(@position)
-    message = I18n.t('settings.special_users.remove.demote_success', username: @user.username, position: @position)
+    message = I18n.t(
+      'settings.special_users.remove.demote_success',
+      username: @user.username,
+      position: @position
+    )
     yield json: { message: message }, status: 200
   end
 
