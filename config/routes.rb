@@ -128,6 +128,12 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/
         }
 
+    get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage))/stats' => 'courses#show',
+    constraints: {
+        school: /[^\/]*/,
+        titleterm: /[^\/]*/
+    }
+
     post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
