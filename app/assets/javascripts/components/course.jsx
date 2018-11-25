@@ -85,6 +85,13 @@ const Course = createReactClass({
         />
       );
     }
+    if (location.href.endsWith('/stats')) {
+      return (
+        <div>
+          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.props.currentUser, course })}
+        </div>
+      );
+    }
 
     return (
       <div>
