@@ -2,17 +2,15 @@
 
 require 'rails_helper'
 
-describe ActiveCoursesController do
-  render_views
-
+describe ActiveCoursesController, type: :request do
   describe '#index' do
     let!(:course) do
       create(:course, title: 'My awesome course', end: 1.day.from_now)
     end
 
     it 'lists a soon-ending course' do
-      get :index
-      expect(response.body).to have_content(course.title)
+      get '/active_courses'
+      expect(response.body).to include(course.title)
     end
   end
 end
