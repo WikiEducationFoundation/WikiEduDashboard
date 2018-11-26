@@ -128,7 +128,7 @@
     "rupture": "^0.7.1",
     "should": "^13.2.1",
     "sinon": "^7.1.1",
-    "sinon-chai": "^3.1.0",
+    "sinon-chai": "^3.3.0",
     "slick-carousel": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
     "striptags": "^3.1.1",
     "stylus": "0.54.5",
