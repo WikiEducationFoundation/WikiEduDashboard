@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrumps
+# Author: CiaPan
 # Author: DeRudySoulStorm
 # Author: Halibutt
 # Author: InternerowyGołąb
@@ -123,12 +124,13 @@ pl:
       fa: 'Artykuł na Medal: najwyższa ocena, jaką w Wikipedii może uzyskać artykuł.
         Prawdopodobnie napisanie takiego hasła przekracza możliwości nowego wikipedysty.'
       fl: 'Lista na medal: najwyższa ocena, jaką uzyskać może lista'
-      a: 'Klasa A: artykuł bardzo rozwinięty, być może zbyt trudny na główne zadanie
-        dla początkującego edytora'
+      a: 'Klasa %{class}: artykuł bardzo rozwinięty, być może zbyt trudny na główne
+        zadanie dla początkującego edytora'
       ga: 'Dobry Artykuł: dobrze rozwinięty artykuł; jego napisanie może przekraczać
         możliwości nowego twórcy Wikipedii'
-      b: 'Klasa B: średnio rozwinięty artykuł'
-      c: 'Klasa C: średnio rozwinięty artykuł, w którym jest jeszcze sporo do zrobienia'
+      b: 'Klasa %{class}: średnio rozwinięty artykuł'
+      c: 'Klasa %{class}: średnio rozwinięty artykuł, w którym jest jeszcze sporo
+        do zrobienia'
       start: 'Klasa początkowa: wczesny etap pracy nad artykułem, mnóstwo do zrobienia'
       stub: 'Zalążek artykułu: ledwie krótki wstęp, artykuł wymaga jeszcze wiele treści
         i przypisów'
