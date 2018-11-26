@@ -60,9 +60,9 @@ class CoursesController < ApplicationController
     verify_edit_credentials { return }
     set_enrollment_details_in_session
     if request.fullpath.ends_with? '/stats'
-      response.headers.delete "X-Frame-Options"
+      response.headers.delete 'X-Frame-Options'
       respond_to do |format|
-        format.html { render :layout => 'stats' }
+        format.html { render layout: 'stats' }
       end
       return
     end
