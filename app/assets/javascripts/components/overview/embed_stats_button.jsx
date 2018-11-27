@@ -27,7 +27,7 @@ const EmbedStatsButton = createReactClass({
   },
 
   render() {
-    const url = `${location.href}/stats`;
+    const url = `${location.hostname}/stats${location.pathname}`;
     const steps = (
       <tr>
         <td>
