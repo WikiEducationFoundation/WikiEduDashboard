@@ -134,6 +134,8 @@ with a few example events with editing activity.
 
 1. **Create courses with users**
   - $ `rake dev:populate`
+    - To populate your course with data, check [Populating a course with data.](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/master/docs/user_roles.md#populating-a-course-with-data)
+  
 
 2. **Import revision and upload data**
   - $ `rake batch:update_constantly`
