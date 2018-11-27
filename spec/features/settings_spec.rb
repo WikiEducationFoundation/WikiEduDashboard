@@ -26,8 +26,10 @@ describe 'settings', type: :feature, js: true do
 
     it 'removes a special user' do
       click_button 'Revoke Special User'
-      click_button I18n.t('settings.special_users.remove.revoke_button_confirm',
-        { username: special_user.username });
+      click_button I18n.t(
+        'settings.special_users.remove.revoke_button_confirm',
+        username: special_user.username
+      )
       sleep 1
       expect(SpecialUsers.is?(special_user, 'communications_manager')).to eq(false)
     end
