@@ -59,17 +59,18 @@ class CoursesController < ApplicationController
     protect_privacy
     verify_edit_credentials { return }
     set_enrollment_details_in_session
-    if request.fullpath.ends_with? '/stats'
-      response.headers.delete 'X-Frame-Options'
-      respond_to do |format|
-        format.html { render layout: 'stats' }
-      end
-      return
-    end
 
     # Only responds to HTML, so spiders fetching index.php will get a 404.
     respond_to do |format|
       format.html { render }
+    end
+  end
+
+  def stats
+    @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    response.headers.delete 'X-Frame-Options'
+    respond_to do |format|
+      format.html { render layout: 'stats' }
     end
   end
 

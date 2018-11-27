@@ -1,7 +1,7 @@
 - content_for :head do
   = dashboard_stylesheet_tag("main")
-- content_for :javascripts do
-  = hot_javascript_tag("main")
+  %script(src="https://unpkg.com/react@16.0.0/umd/react.production.min.js")
+  %script(src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js")
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }
@@ -12,5 +12,4 @@
       :css
         .tooltip-trigger { pointer-events: none }
         .stat-display { margin-top: 20px }
-        .tooltip.dark { display: none }
         body { height: 0; background: white; }

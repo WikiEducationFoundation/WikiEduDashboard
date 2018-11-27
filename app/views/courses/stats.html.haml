@@ -1,0 +1,4 @@
+:javascript
+  const course = (#{raw render(template: "courses/course.json.jbuilder")}).course
+#root
+= hot_javascript_tag('embed_course_stats')
