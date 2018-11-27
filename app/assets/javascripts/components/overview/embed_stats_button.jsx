@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 
-const EmbedCourseStats = createReactClass({
+const EmbedStatsButton = createReactClass({
   displayName: 'EmbedCourseStats',
 
   propTypes: {
@@ -59,4 +59,4 @@ const EmbedCourseStats = createReactClass({
   }
 });
 
-export default PopoverExpandable(EmbedCourseStats);
+export default PopoverExpandable(EmbedStatsButton);
