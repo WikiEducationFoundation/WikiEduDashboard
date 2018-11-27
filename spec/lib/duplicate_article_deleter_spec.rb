@@ -22,6 +22,14 @@ describe DuplicateArticleDeleter do
                        wiki: en_wiki,
                        deleted: false)
     end
+    let(:duplicate_deleted_article) do
+      create(:article, title: 'Columbian_exchange',
+                       namespace: 0,
+                       mw_page_id: 622746,
+                       created_at: '2017-12-08',
+                       wiki: en_wiki,
+                       deleted: true)
+    end
 
     it 'marks one deleted when there are two ids for one page' do
       first = create(:article,
@@ -60,6 +68,12 @@ describe DuplicateArticleDeleter do
       described_class.new.resolve_duplicates([deleted_article, extant_article])
       expect(deleted_article.reload.deleted).to eq(true)
       expect(extant_article.reload.deleted).to eq(false)
+    end
+
+    it 'does not error if all articles are already deleted' do
+      described_class.new.resolve_duplicates([deleted_article, duplicate_deleted_article])
+      expect(deleted_article.reload.deleted).to eq(true)
+      expect(duplicate_deleted_article.reload.deleted).to eq(true)
     end
   end
 end
