@@ -128,7 +128,7 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/
         }
 
-    get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage))/stats' => 'courses#show',
+    get 'stats/courses/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'courses#stats',
     constraints: {
         school: /[^\/]*/,
         titleterm: /[^\/]*/

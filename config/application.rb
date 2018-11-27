@@ -63,7 +63,7 @@ module WikiEduDashboard
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/courses/*/*/stats', :headers => :any, :methods => [:get, :options]
+        resource '/stats/courses/*/*', :headers => :any, :methods => [:get, :options]
       end
     end
   end
