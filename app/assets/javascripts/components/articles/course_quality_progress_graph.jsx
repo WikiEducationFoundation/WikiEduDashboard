@@ -99,10 +99,6 @@ const CourseQualityProgressGraph = createReactClass({
             {
               type: 'filter',
               expr: 'datum.bytes_added >= bytes_added'
-            },
-            {
-              type: 'filter',
-              expr: '(datum.ores_after - datum.ores_before) >= score'
             }
           ]
         },
