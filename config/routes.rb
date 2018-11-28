@@ -23,6 +23,12 @@ Rails.application.routes.draw do
   get '/settings/all_admins' => 'settings#all_admins'
   post '/settings/upgrade_admin' => 'settings#upgrade_admin'
   post '/settings/downgrade_admin' => 'settings#downgrade_admin'
+
+  get '/settings/special_users' => 'settings#special_users'
+  post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
+  post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
+
+
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
