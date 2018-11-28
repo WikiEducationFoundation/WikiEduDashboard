@@ -37,7 +37,7 @@ class TrainingModule < ApplicationRecord
   end
 
   def self.load(slug: nil)
-    TrainingBase.load(content_class: self, slug_list: slug)
+    TrainingBase.load(content_class: self, slug_list: slug.nil? ? nil : [slug])
   end
 
   def self.base_path
@@ -55,15 +55,15 @@ class TrainingModule < ApplicationRecord
     # and can load slides for brand-new modules.
     TrainingLibrary.flush
     TrainingLibrary.load
-    TrainingModule.load(slug: [slug])
+    self.load(slug: slug)
     # Reload the requested module's slides
-    training_module = TrainingModule.find_by(slug: slug)
+    training_module = self.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
     TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
   def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
-    training_module = TrainingModule.find_or_initialize_by(id: content['id'])
+    training_module = self.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
     training_module.name = content['name']
     training_module.description = content['description']
