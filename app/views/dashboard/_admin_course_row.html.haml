@@ -12,7 +12,7 @@
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.characters-human
-        = number_to_human course.character_sum
+        = number_to_human course.word_count
       %span.characters.hidden
         = course.character_sum
       %small.average-words-human

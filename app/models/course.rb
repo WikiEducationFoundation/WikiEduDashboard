@@ -294,7 +294,7 @@ class Course < ApplicationRecord
   end
 
   def word_count
-    WordCount.from_characters(character_sum)
+    @word_count ||= WordCount.from_characters(character_sum)
   end
 
   def average_word_count
