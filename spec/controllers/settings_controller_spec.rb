@@ -220,6 +220,11 @@ describe SettingsController do
       post @action, params: params, format: @format_type
     end
 
+    let(:post_invalid_position_params) do
+      params = { special_user: { username: @user.username, position: 'apositionhasnoname' } }
+      post @action, params: params, format: @format_type
+    end
+
     context 'user is not an communications_manager' do
       before do
         @position = 'communications_manager'
@@ -281,6 +286,17 @@ describe SettingsController do
 
       it 'returns a 404' do
         expect(response.status).to eq(404)
+      end
+    end
+
+    context 'when the position is invalid' do
+      before do
+        @user = create(:user)
+        post_invalid_position_params
+      end
+
+      it 'returns position is invalid' do
+        expect(response.body).to have_content('position is invalid')
       end
     end
   end
