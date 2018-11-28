@@ -236,11 +236,13 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(I18n.t(
-          'settings.special_users.new.elevate_success',
-          username: @user.username,
-          position: @position
-        ))
+        expect(response.body).to have_content(
+          I18n.t(
+            'settings.special_users.new.elevate_success',
+            username: @user.username,
+            position: @position
+          )
+        )
       end
     end
 
@@ -261,11 +263,13 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(I18n.t(
-          'settings.special_users.new.already_is',
-          username: @user.username,
-          position: @position
-        ))
+        expect(response.body).to have_content(
+          I18n.t(
+            'settings.special_users.new.already_is',
+            username: @user.username,
+            position: @position
+          )
+        )
       end
     end
 
@@ -280,7 +284,6 @@ describe SettingsController do
       end
     end
   end
-
 
   describe '#downgrade_special_user' do
     before do
@@ -312,11 +315,13 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(I18n.t(
-          'settings.special_users.remove.demote_success',
-          username: @user.username,
-          position: @position
-        ))
+        expect(response.body).to have_content(
+          I18n.t(
+            'settings.special_users.remove.demote_success',
+            username: @user.username,
+            position: @position
+          )
+        )
       end
     end
 
@@ -336,11 +341,13 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(I18n.t(
-          'settings.special_users.new.already_is_not',
-          username: @user.username,
-          position: @position
-        ))
+        expect(response.body).to have_content(
+          I18n.t(
+            'settings.special_users.new.already_is_not',
+            username: @user.username,
+            position: @position
+          )
+        )
       end
     end
   end
