@@ -19,13 +19,13 @@ const UploadsHandler = createReactClass({
   },
 
   getInitialState() {
-    const num = this.props.selectedUploads.length;
+    const length_selecteduploads = this.props.selectedUploads.length;
     return {
       offset: 0,
       data: this.props.selectedUploads.slice(0, UPLOADS_PER_PAGE),
       perPage: UPLOADS_PER_PAGE,
       currentPage: 0,
-      pageCount: Math.ceil(num / UPLOADS_PER_PAGE),
+      pageCount: Math.ceil(length_selecteduploads / UPLOADS_PER_PAGE),
     };
   },
 
