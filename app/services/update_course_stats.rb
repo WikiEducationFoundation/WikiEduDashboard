@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
+require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
@@ -46,6 +47,7 @@ class UpdateCourseStats
     CoursesUsers.update_all_caches(@course.courses_users)
     log_update_progress :courses_users_updated
     @course.update_cache
+    HistogramPlotter.delete_csv(course: @course) # clear cached structural completeness data
     log_update_progress :course_cache_updated
   end
 

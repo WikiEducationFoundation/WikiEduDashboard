@@ -7,6 +7,10 @@ class HistogramPlotter
     new(course: course, campaign: campaign).csv_path
   end
 
+  def self.delete_csv(course: nil, campaign: nil)
+    new(course: course, campaign: campaign, csv: true).delete_csv
+  end
+
   def initialize(campaign: nil, course: nil, csv: nil)
     @campaign_or_course = campaign || course
     @csv = csv || csv_path
@@ -15,6 +19,10 @@ class HistogramPlotter
 
   def csv_path
     "#{analytics_path}/#{csv_filename}"
+  end
+
+  def delete_csv
+    File.delete csv_path if File.exist? csv_path
   end
 
   private
