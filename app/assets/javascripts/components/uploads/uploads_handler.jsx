@@ -13,18 +13,19 @@ const UPLOADS_PER_PAGE = 100;
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
-
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object
   },
 
   getInitialState() {
+    const num = this.props.selectedUploads.length;
     return {
       offset: 0,
       data: this.props.selectedUploads.slice(0, UPLOADS_PER_PAGE),
       perPage: UPLOADS_PER_PAGE,
       currentPage: 0,
+      pageCount: Math.ceil(num / UPLOADS_PER_PAGE),
     };
   },
 
@@ -36,12 +37,10 @@ const UploadsHandler = createReactClass({
 
   componentWillReceiveProps(nextProps) {
     const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-
     this.setState({
       data: data,
       pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
      });
-
      if (this.state.currentPage === 0) {
        this.setUploadMetadata(data);
      }
