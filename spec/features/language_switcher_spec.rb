@@ -9,7 +9,7 @@ describe 'language_switcher', type: :feature, js: true do
       visit root_path
       expect(page).to have_css('.language-picker')
       within('.language-picker') do
-        expect(page).to have_css('.Select-placeholder', text: 'en')
+        expect(page).to have_css('.language-picker__placeholder', text: 'en')
       end
     end
 
@@ -17,10 +17,10 @@ describe 'language_switcher', type: :feature, js: true do
       visit root_path
       expect(page).to have_css('.language-picker')
       within('.language-picker') do
-        find('.Select').click
-        expect(page).to have_css('.Select-menu-outer')
+        find('.language-picker__control').click
+        expect(page).to have_css('.language-picker__menu')
         expect(page).to have_text('Français')
-        find('.Select-option', text: 'Français').click
+        find('.language-picker__option', text: 'Français').click
       end
       expect(page.current_path).to eq root_path
       uri = URI.parse(current_url)
@@ -41,7 +41,7 @@ describe 'language_switcher', type: :feature, js: true do
       visit root_path
       expect(page).to have_css('.language-picker')
       within('.language-picker') do
-        expect(page).to have_css('.Select-placeholder', text: 'en')
+        expect(page).to have_css('.language-picker__placeholder', text: 'en')
       end
     end
 
@@ -49,12 +49,11 @@ describe 'language_switcher', type: :feature, js: true do
       visit root_path
       expect(page).to have_css('.language-picker')
       within('.language-picker') do
-        expect(page).to have_css('.Select')
-        find('.Select').click
-        expect(page).to have_css('.Select-menu-outer')
+        find('.language-picker__control').click
+        expect(page).to have_css('.language-picker__menu')
         expect(page).to have_text('Help translate')
         expect(page).to have_text('Français')
-        find('.Select-option', text: 'Français').click
+        find('.language-picker__option', text: 'Français').click
       end
       expect(page.current_path).to eq root_path
       uri = URI.parse(current_url)
