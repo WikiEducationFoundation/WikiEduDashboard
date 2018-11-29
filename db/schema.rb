@@ -417,6 +417,7 @@ ActiveRecord::Schema.define(version: 2018_11_17_054036) do
     t.string "slug"
     t.text "slide_slugs"
     t.text "description"
+    t.text "translations", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_training_modules_on_slug", unique: true

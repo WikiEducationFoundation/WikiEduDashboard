@@ -7,6 +7,7 @@ class CreateTrainingModule < ActiveRecord::Migration[5.2]
       t.string :slug, index: { unique: true }
       t.text :slide_slugs, limit: 16_000
       t.text :description, limit: 16_000
+      t.text :translations, limit: 2_000_000
       t.timestamps null: false
     end
   end
