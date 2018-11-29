@@ -48,3 +48,5 @@ Session.vim
 1
 .byebug_history
 .ruby-gemset
+package-lock.json
+package.json
