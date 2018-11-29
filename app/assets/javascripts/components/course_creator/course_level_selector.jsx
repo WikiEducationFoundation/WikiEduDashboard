@@ -13,7 +13,7 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
       <select
         id="course_level"
         name="course_level"
-        value={level}
+        value={level || ''}
         onChange={handleChange}
       >
         <option disabled value=""> — select one —</option>
