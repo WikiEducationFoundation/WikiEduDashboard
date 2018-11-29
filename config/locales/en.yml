@@ -433,6 +433,9 @@ en:
     duration: Course Duration
     edit_count: Edit Count
     edit_course_dates: Edit Course Dates
+    embed_course_stats: Embed Course Stats
+    embed_course_stats_heading: To Embed Course Stats
+    embed_course_stats_description: Copy the following into
     enable_account_requests: Enable account requests
     enable_chat: Enable chat
     end: End
