@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Elroy
 # Author: Festina90
 # Author: Goefie
 # Author: KlaasZ4usV
@@ -393,6 +394,23 @@ nl:
     none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     time_doc: De tijd van iedere versie in je lokale tijd
     title: Naam
+  settings:
+    special_users:
+      new:
+        form_label: Bevoegdheden voor bijzondere gebruiker toekennen
+        form_placeholder: Gebruikersnaam
+        confirm_add_special_user: Bijzondere gebruiker toevoegen
+        confirm_remove_special_user: Bevoegdheid voor bijzondere gebruiker ontnemen
+          van
+        already_is: '%{username} is al een {position}!'
+        elevate_success: '%{username} naar {position} verhoogd.'
+      remove:
+        revoke_button: Bijzondere gebruiker intrekken
+        revoke_button_confirm: Bevoegdheden voor bijzondere gebruiker van %{username}
+          intrekken
+        revoking_button_working: Intrekken...
+        already_is_not: '%{username} is geen bijzondere gebruiker!'
+        demote_success: '%{username} is vanaf nu een gebruiker.'
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.

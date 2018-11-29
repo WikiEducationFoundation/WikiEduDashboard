@@ -437,6 +437,14 @@ ko:
         revoke_button_confirm: '%{username}님의 관리자 권한 철회'
         revoking_button_working: 철회 중...
         no_super_admin: 슈퍼 관리자로부터 관리자 상태를 철회할 수 없습니다
+    special_users:
+      new:
+        form_placeholder: 사용자 이름
+        confirm_add_special_user: 특수 사용자 추가
+        already_is: '%{username}님은 이미 {position}입니다!'
+        elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
+      remove:
+        already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.

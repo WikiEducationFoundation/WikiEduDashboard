@@ -74,6 +74,21 @@ roa-tara:
     user_recent_uploads: Urteme carecaminde
   editable:
     edit_template: Cange 'u template
+  settings:
+    special_users:
+      new:
+        form_label: Dà le privilegge de utende speciale
+        form_placeholder: Nome de l'utende
+        confirm_add_special_user: Aggiunge 'n'utende speciale
+        confirm_remove_special_user: Live le privilegge de utende speciale a
+        already_is: '%{username} jè ggià ''na {position}!'
+        elevate_success: '%{username} ''nghianate a {position}.'
+      remove:
+        revoke_button: Live l'utende speciale
+        revoke_button_confirm: Live le deritte de utende speciale da %{username}
+        revoking_button_working: Stoche a revoche...
+        already_is_not: '%{username} non g''è ''n''utende speciale!'
+        demote_success: '%{username} jè probbie ''n''utende.'
   article_finder:
     show_options: Fà 'ndrucà le opziune
     hide_options: Scunne le opziune

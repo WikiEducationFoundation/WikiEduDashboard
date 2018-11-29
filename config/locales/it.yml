@@ -505,6 +505,11 @@ it:
       new:
         form_placeholder: Nome utente
         already_admin: '%{username} è già un amministratore!'
+    special_users:
+      new:
+        form_placeholder: Nome utente
+      remove:
+        already_is_not: '%{username} non è un utente speciale!'
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
