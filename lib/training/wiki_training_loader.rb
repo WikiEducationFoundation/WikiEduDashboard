@@ -134,7 +134,7 @@ class WikiTrainingLoader
     when 'TrainingSlide'
       { title: parser.title, content: parser.content, assessment: parser.quiz }
     when 'TrainingModule'
-      { 'name' => parser.title, 'description' => parser.content }
+      { name: parser.title, description: parser.content }
     end
   end
 

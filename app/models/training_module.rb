@@ -59,16 +59,16 @@ class TrainingModule < ApplicationRecord
     TrainingLibrary.load
     TrainingModule.load
     # Reload the requested module's slides
-    training_module = find_by(slug: slug)
+    training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
     # TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
   def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
-    training_module = find_or_initialize_by(id: content['id'])
+    training_module = TrainingModule.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
-    training_module.name = content['name']
-    training_module.description = content['description']
+    training_module.name = content[:name]
+    training_module.description = content[:description]
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
