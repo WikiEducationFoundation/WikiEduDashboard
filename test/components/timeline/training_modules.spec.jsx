@@ -5,7 +5,7 @@ import '../../testHelper';
 import TrainingModules from '../../../app/assets/javascripts/components/timeline/training_modules.jsx';
 
 describe('TrainingModules', () => {
-  const fakeModules = [{ id: 1, name: 'test1' }, { id: 2, name: 'test2' }, { id: 3, name: 'test3' }];
+  const fakeModules = [{ id: 1, value: 'test1', label: 'test1' }, { id: 2, value: 'test2', label: 'test2' }, { id: 3, value: 'test3', label: 'test3' }];
   describe('render (machine tests)', () => {
     const TrainingModulesM = mount(<TrainingModules block_modules={fakeModules} all_modules={['module1', 'module2', 'module3']} trainingLibrarySlug="students" />);
 
@@ -192,7 +192,9 @@ describe('TrainingModules', () => {
         module_progress: 'Complete',
         name: 'Let it test',
         overdue: false,
-        slug: 'let-it-test'
+        slug: 'let-it-test',
+        value: 'test1',
+        label: 'test1'
       };
       const test2 = {
         deadline_status: 'complete',
@@ -201,7 +203,9 @@ describe('TrainingModules', () => {
         module_progress: 'Complete',
         name: 'Let it change',
         overdue: false,
-        slug: 'let-it-change'
+        slug: 'let-it-change',
+        value: 'test2',
+        label: 'test2'
       };
       const onChangeSpy = sinon.spy();
       const TrainingModulesEM = mount(<TrainingModules block_modules={[test1]} editable={true} all_modules={[test1, test2]} onChange={onChangeSpy} trainingLibrarySlug="students" />);
