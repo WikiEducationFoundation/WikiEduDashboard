@@ -80,7 +80,7 @@ class TrainingModule < ApplicationRecord
     end
     training_module.save if valid
     training_module
-  rescue TypeError, StandardError => e
+  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
     puts "There's a problem with file '#{slug}'"
     raise e
   end
