@@ -33,7 +33,7 @@ const AddAvailableArticles = createReactClass({
   },
 
   chainSubmissions(assignments, promise) {
-    const assignment = assignments.shift();
+    const assignment = assignments.move();
     if (assignment === undefined) { return promise; }
     let extendedPromise;
     if (promise) {
