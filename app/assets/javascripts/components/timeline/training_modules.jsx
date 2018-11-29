@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
 
+import selectStyles from '../../styles/select';
+
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
 
@@ -16,16 +18,16 @@ const TrainingModules = createReactClass({
   },
 
   getInitialState() {
-    let ids;
+    let selections;
     if (this.props.block_modules) {
-      ids = this.props.block_modules.map(module => module.id);
+      selections = this.props.block_modules.map(module => ({ value: module.id, label: module.name }));
     }
-    return { value: ids };
+    return { value: selections };
   },
 
   onChange(selections) {
     const trainingModuleIds = selections.map(trainingModule => trainingModule.value);
-    this.setState({ value: trainingModuleIds });
+    this.setState({ value: selections });
     return this.props.onChange(trainingModuleIds);
   },
 
@@ -45,13 +47,13 @@ const TrainingModules = createReactClass({
         <div>
           <h4>Training modules</h4>
           <Select
-            multi={true}
+            isMulti={true}
             name="block-training-modules"
             value={this.state.value}
             options={options}
             onChange={this.onChange}
-            allowCreate={true}
             placeholder="Add training module(s)…"
+            styles={selectStyles}
           />
         </div>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import _ from 'lodash';
 import languageNames from '../utils/language_names';
+import selectStyles from '../styles/select';
 
 const getNativeName = (code) => {
   const language = languageNames[code];
@@ -55,10 +56,12 @@ class LanguagePicker extends React.Component {
       <span className="language-picker">
         <Select
           name="language-picker"
+          classNamePrefix="language-picker"
           placeholder={curLocale}
           options={newLocales}
           onChange={this.selectLanguage}
           clearable={false}
+          styles={selectStyles}
         />
       </span>
     );

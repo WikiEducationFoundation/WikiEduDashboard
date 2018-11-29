@@ -10,6 +10,8 @@ import Popover from '../common/popover.jsx';
 import Expandable from '../high_order/expandable.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
+import selectStyles from '../../styles/select';
+
 const AddCategoryButton = createReactClass({
   displayName: 'AddCategoryButton',
 
@@ -23,10 +25,13 @@ const AddCategoryButton = createReactClass({
   },
 
   getInitialState() {
+    const language = this.props.course.home_wiki.language;
+    const project = this.props.course.home_wiki.project;
+
     return ({
       category: '',
-      language: this.props.course.home_wiki.language,
-      project: this.props.course.home_wiki.project,
+      language: { value: language, label: language },
+      project: { value: project, label: project },
       depth: '0',
       showOptions: false
     });
@@ -36,9 +41,9 @@ const AddCategoryButton = createReactClass({
     return `add_${this.props.source}_button`;
   },
 
-  reset(e) {
+  reset() {
     this.setState(this.getInitialState());
-    this.props.open(e);
+    this.props.open(null);
   },
 
   handleChangeCategory(e) {
@@ -65,20 +70,20 @@ const AddCategoryButton = createReactClass({
 
   handleChangeLanguage(val) {
     return this.setState(
-      { language: val.value });
+      { language: val });
   },
 
   handleChangeProject(val) {
     return this.setState(
-      { project: val.value });
+      { project: val });
   },
 
   addCategory(e) {
     e.preventDefault();
     const categoryCourse = {
       category: decodeURIComponent(this.state.category).trim(),
-      project: this.state.project,
-      language: this.state.language,
+      project: this.state.project.value,
+      language: this.state.language.value,
       depth: this.state.depth,
       course: this.props.course,
       source: this.props.source
@@ -97,7 +102,7 @@ const AddCategoryButton = createReactClass({
     const onConfirm = function () {
       // Post the new category to the server
       addCategory(categoryCourse);
-      reset(e);
+      reset();
     };
 
     const confirmMessage = I18n.t(`categories.confirm_${this.props.source}_addition`, { name: categoryCourse.category });
@@ -135,6 +140,7 @@ const AddCategoryButton = createReactClass({
               value={this.state.language}
               options={languageOptions}
               clearable={false}
+              styles={selectStyles}
             />
             <Select
               name="project"
@@ -145,13 +151,14 @@ const AddCategoryButton = createReactClass({
               value={this.state.project}
               options={projectOptions}
               clearable={false}
+              styles={selectStyles}
             />
           </fieldset>
         );
       } else {
         options = (
           <div className="small-block-link">
-            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
+            {this.state.language.value}.{this.state.project.value}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
           </div>
         );
       }
