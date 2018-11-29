@@ -31,13 +31,14 @@ const EmbedStatsButton = createReactClass({
     const steps = (
       <tr>
         <td>
-          <h3>To embed the Course Stats:</h3>
-          <p>Copy the following code into the <code>&lt;body&gt;</code> section.</p>
+          <h3>{I18n.t('courses.embed_course_stats_heading')}:</h3>
+          <p>{I18n.t('courses.embed_course_stats_description')} <code>&lt;body&gt;</code></p>
           <textarea
             id="embed"
             readOnly
             value={
-`<iframe src="${url}" style="width:100%;border:0px none transparent;"></iframe>`}
+`<a href=${location.href}>${this.props.title}</a><!-- This is optional -->
+<iframe src="${url}" style="width:100%;border:0px none transparent;"></iframe>`}
             onClick={this.copyToClipboard}
           />
           <small>{this.state.status}</small>
@@ -47,9 +48,9 @@ const EmbedStatsButton = createReactClass({
 
     return (
       <div className="pop__container embed_stats">
-        <button onClick={this.props.open} className="button small">
-          Embed&nbsp;&lt;/&gt;
-        </button>
+        <a onClick={this.props.open} className="button">
+          Embed Course Stats&nbsp;&lt;/&gt;
+        </a>
         <Popover
           is_open={this.props.is_open}
           rows={steps}

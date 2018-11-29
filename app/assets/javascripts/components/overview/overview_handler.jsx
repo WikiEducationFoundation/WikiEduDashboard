@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseStats from './course_stats.jsx';
-import EmbedStatsButton from './embed_stats_button';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
 import Milestones from './milestones.jsx';
@@ -135,7 +134,6 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         { syllabusUpload }
-        <EmbedStatsButton />
         <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
         </h3>
         <CourseStats course={course} />
