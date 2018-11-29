@@ -12,6 +12,7 @@ const ALERTS = [
   { label: 'Active Course', value: 'ActiveCourseAlert' },
   { label: 'Articles For Deletion', value: 'ArticlesForDeletionAlert' },
   { label: 'Blocked Edits', value: 'BlockedEditsAlert' },
+  { label: 'Blocked User', value: 'BlockedUserAlert' },
   { label: 'Continued Course Activity', value: 'ContinuedCourseActivityAlert' },
   { label: 'Deleted Uploads', value: 'DeletedUploadsAlert' },
   { label: 'Discretionary Sanctions Edit', value: 'DiscretionarySanctionsEditAlert' },

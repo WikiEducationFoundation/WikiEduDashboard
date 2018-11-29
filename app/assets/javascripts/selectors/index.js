@@ -115,7 +115,8 @@ export const getArticlesByNewness = createSelector(
 export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
-    return _.filter(alerts, alert => _.includes(alertFilters, alert.type));
+    const alertTypes = alertFilters.map(filter => filter.value);
+    return _.filter(alerts, alert => _.includes(alertTypes, alert.type));
   }
 );
 
@@ -150,7 +151,8 @@ export const getFilteredArticleFinder = createSelector(
 export const getFilteredUploads = createSelector(
   [getUploads, getUploadFilters], (uploads, uploadFilters) => {
     if (!uploadFilters.length) { return uploads; }
-    return _.filter(uploads, upload => _.includes(uploadFilters, upload.uploader));
+    const uploaders = uploadFilters.map(filter => filter.value);
+    return _.filter(uploads, upload => _.includes(uploaders, upload.uploader));
   }
 );
 

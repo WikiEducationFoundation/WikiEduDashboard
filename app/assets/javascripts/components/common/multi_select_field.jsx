@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import selectStyles from '../../styles/select';
 
 const MultiSelectField = createReactClass({
   displayName: 'MultiSelectField',
@@ -33,7 +34,7 @@ const MultiSelectField = createReactClass({
         <Select
           closeOnSelect={!stayOpen}
           disabled={disabled}
-          multi
+          isMulti
           onChange={this.handleSelectChange}
           options={options}
           placeholder={this.props.label}
@@ -41,6 +42,7 @@ const MultiSelectField = createReactClass({
           rtl={this.state.rtl}
           simpleValue
           value={value}
+          styles={selectStyles}
         />
       </div>
     );

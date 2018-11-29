@@ -25,13 +25,10 @@ const AddCategoryButton = createReactClass({
   },
 
   getInitialState() {
-    const language = this.props.course.home_wiki.language;
-    const project = this.props.course.home_wiki.project;
-
     return ({
       category: '',
-      language: { value: language, label: language },
-      project: { value: project, label: project },
+      language: this.props.course.home_wiki.language,
+      project: this.props.course.home_wiki.project,
       depth: '0',
       showOptions: false
     });
@@ -70,20 +67,20 @@ const AddCategoryButton = createReactClass({
 
   handleChangeLanguage(val) {
     return this.setState(
-      { language: val });
+      { language: val.value });
   },
 
   handleChangeProject(val) {
     return this.setState(
-      { project: val });
+      { project: val.value });
   },
 
   addCategory(e) {
     e.preventDefault();
     const categoryCourse = {
       category: decodeURIComponent(this.state.category).trim(),
-      project: this.state.project.value,
-      language: this.state.language.value,
+      project: this.state.project,
+      language: this.state.language,
       depth: this.state.depth,
       course: this.props.course,
       source: this.props.source
@@ -137,7 +134,7 @@ const AddCategoryButton = createReactClass({
               name="language"
               placeholder="Language"
               onChange={this.handleChangeLanguage}
-              value={this.state.language}
+              value={{ value: this.state.language, label: this.state.language }}
               options={languageOptions}
               clearable={false}
               styles={selectStyles}
@@ -148,7 +145,7 @@ const AddCategoryButton = createReactClass({
               className="half-width-select-right project-select"
               onChange={this.handleChangeProject}
               placeholder="Project"
-              value={this.state.project}
+              value={{ value: this.state.project, label: this.state.project }}
               options={projectOptions}
               clearable={false}
               styles={selectStyles}
@@ -158,7 +155,7 @@ const AddCategoryButton = createReactClass({
       } else {
         options = (
           <div className="small-block-link">
-            {this.state.language.value}.{this.state.project.value}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
+            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
           </div>
         );
       }
