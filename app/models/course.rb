@@ -325,7 +325,7 @@ class Course < ApplicationRecord
 
   # Overridden for some course types
   def training_library_slug
-    nil
+    'students'
   end
 
   def account_requests_enabled?
