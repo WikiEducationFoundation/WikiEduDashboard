@@ -34,7 +34,7 @@ describe TrainingBase do
 
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
-        expect { subject }.to raise_error(NoMethodError)
+        expect { subject }.to raise_error(TypeError)
       end
     end
 

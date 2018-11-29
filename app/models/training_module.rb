@@ -67,8 +67,8 @@ class TrainingModule < ApplicationRecord
   def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
     training_module = TrainingModule.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
-    training_module.name = content[:name]
-    training_module.description = content[:description]
+    training_module.name = content['name'] || content[:name]
+    training_module.description = content['description'] || content[:description]
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
@@ -80,7 +80,7 @@ class TrainingModule < ApplicationRecord
     end
     training_module.save if valid
     training_module
-  rescue StandardError => e
+  rescue TypeError, StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e
   end
