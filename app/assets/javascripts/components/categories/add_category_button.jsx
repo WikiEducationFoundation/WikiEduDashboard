@@ -137,7 +137,7 @@ const AddCategoryButton = createReactClass({
               value={{ value: this.state.language, label: this.state.language }}
               options={languageOptions}
               clearable={false}
-              styles={selectStyles}
+              styles={{ ...selectStyles, singleValue: null }}
             />
             <Select
               name="project"
@@ -148,7 +148,7 @@ const AddCategoryButton = createReactClass({
               value={{ value: this.state.project, label: this.state.project }}
               options={projectOptions}
               clearable={false}
-              styles={selectStyles}
+              styles={{ ...selectStyles, singleValue: null }}
             />
           </fieldset>
         );
