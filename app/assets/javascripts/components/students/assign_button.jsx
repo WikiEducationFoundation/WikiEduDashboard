@@ -274,6 +274,7 @@ const AssignButton = createReactClass({
         assignmentInput = (
           <td>
             <AddAvailableArticles {...this.props} {...this.state} />
+            <br />
             {options}
           </td>
         );
