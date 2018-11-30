@@ -95,6 +95,7 @@ const CampaignEditable = createReactClass({
                 onChange={this.handleChangeCampaign}
                 options={campaignOptions}
                 styles={selectStyles}
+                isClearable
               />
               <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
                 Add

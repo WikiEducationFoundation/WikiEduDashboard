@@ -100,6 +100,7 @@ const TagEditable = createReactClass({
               onChange={this.handleChangeTag}
               options={tagOptions}
               styles={selectStyles}
+              isClearable
             />
             <button type="submit" className="button dark" disabled={addTagButtonDisabled} onClick={this.addTag}>
               Add
