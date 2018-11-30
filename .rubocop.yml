@@ -176,3 +176,7 @@ RSpec/ExampleWording:
   Enabled: false
 RSpec/Be:
   Enabled: false
+Layout/AlignHash:
+  Enabled: false
+Style/DateTime:
+  Enabled: false
