@@ -102,6 +102,8 @@ RSpec.configure do |config|
       end
     end
   end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end
 
 Shoulda::Matchers.configure do |config|

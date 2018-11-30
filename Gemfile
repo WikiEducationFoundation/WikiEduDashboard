@@ -124,5 +124,4 @@ group :test do
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false
   gem 'shoulda-matchers'
-  gem 'rails-controller-testing'
 end
