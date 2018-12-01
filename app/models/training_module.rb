@@ -61,7 +61,7 @@ class TrainingModule < ApplicationRecord
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
-    # TrainingSlide.load(slug_list: training_module.slide_slugs)
+    TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
   def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
