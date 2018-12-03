@@ -131,7 +131,7 @@ const Student = createReactClass({
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>
         <td className="desktop-only-tc">
-          <Link to={uploadsLink} onClick={() => { this.setUploadFilters(this.props.student.username); }}>{this.props.student.total_uploads}</Link>
+          <Link to={uploadsLink} onClick={() => { this.setUploadFilters([{ value: this.props.student.username, label: this.props.student.username }]); }}>{this.props.student.total_uploads}</Link>
         </td>
         <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>

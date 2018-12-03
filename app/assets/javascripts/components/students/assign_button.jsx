@@ -11,6 +11,7 @@ import { addAssignment, deleteAssignment } from '../../actions/assignment_action
 import CourseUtils from '../../utils/course_utils.js';
 import AddAvailableArticles from '../articles/add_available_articles';
 import { ASSIGNED_ROLE } from '../../constants';
+import selectStyles from '../../styles/select';
 
 const resetState = component => () => {
   component.setState(component.getInitialState());
@@ -241,9 +242,10 @@ const AssignButton = createReactClass({
               name="language"
               placeholder="Language"
               onChange={this.handleChangeLanguage}
-              value={this.state.language}
+              value={{ value: this.state.language, label: this.state.language }}
               options={languageOptions}
               clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
             <Select
               name="project"
@@ -251,9 +253,10 @@ const AssignButton = createReactClass({
               className="half-width-select-right project-select"
               onChange={this.handleChangeProject}
               placeholder="Project"
-              value={this.state.project}
+              value={{ value: this.state.project, label: this.state.project }}
               options={projectOptions}
               clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
           </fieldset>
         );
@@ -271,6 +274,7 @@ const AssignButton = createReactClass({
         assignmentInput = (
           <td>
             <AddAvailableArticles {...this.props} {...this.state} />
+            <br />
             {options}
           </td>
         );

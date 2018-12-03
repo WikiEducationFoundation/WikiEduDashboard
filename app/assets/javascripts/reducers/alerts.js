@@ -5,8 +5,8 @@ const initialState = {
   alerts: [],
   sortKey: null,
   selectedFilters: [
-    'ArticlesForDeletionAlert',
-    'DiscretionarySanctionsEditAlert',
+    { value: 'ArticlesForDeletionAlert', label: 'Articles For Deletion' },
+    { value: 'DiscretionarySanctionsEditAlert', label: 'Discretionary Sactions' }
   ],
 };
 

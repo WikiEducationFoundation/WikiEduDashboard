@@ -294,6 +294,10 @@ lv:
     loading: Ielādē versijas...
     title: Nosaukums
     see_more: Skatīt vairāk
+  settings:
+    special_users:
+      new:
+        form_placeholder: Lietotājvārds
   timeline:
     add_week: Pievienot nedēļu
     course_end: Kursa beigas

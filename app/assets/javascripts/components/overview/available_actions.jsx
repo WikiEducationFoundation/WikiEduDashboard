@@ -185,7 +185,7 @@ const AvailableActions = createReactClass({
 
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
-    if ((user.role === 1 || user.admin || !Features.wikiEd) && course.published) {
+    if ((user.isNonstudent || user.admin || !Features.wikiEd) && course.published) {
       controls.push((
         <p key="download_course_stats"><CourseStatsDownloadModal course={course} /></p>
       ));

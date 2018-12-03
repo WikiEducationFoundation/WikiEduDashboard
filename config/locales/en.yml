@@ -803,7 +803,20 @@ en:
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
-
+    special_users:
+      new:
+        form_label: Grant Special User privileges
+        form_placeholder: User Name
+        confirm_add_special_user: "Add Special User"
+        confirm_remove_special_user: "Remove Special User privileges for"
+        already_is: "%{username} is already an {position}!"
+        elevate_success: "%{username} elevated to {position}."
+      remove:
+        revoke_button: 'Revoke Special User'
+        revoke_button_confirm: 'Revoke Special User rights from %{username}'
+        revoking_button_working: 'Revoking...'
+        already_is_not: "%{username} is not a Special User!"
+        demote_success: "%{username} is now just a user."
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:

@@ -35,7 +35,7 @@ def interact_with_clone_form
 end
 
 def go_through_course_dates_and_timeline_dates
-  find('attr[title="Wednesday"]', match: :first).click
+  find('span[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
     expect(page).to have_css('button.dark[disabled=""]')
   end
@@ -213,7 +213,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Edit course dates and save
       click_link 'Edit Course Dates'
-      find('attr[title="Thursday"]', match: :first).click
+      find('span[title="Thursday"]', match: :first).click
       click_link 'Done'
       sleep 1
       expect(Course.last.weekdays).to eq('0001100')

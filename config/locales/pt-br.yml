@@ -818,6 +818,20 @@ pt-br:
         demote_success: '%{username} mudou para instrutor.'
         no_super_admin: Não consigo revogar o status do administrador de um super
           admin
+    special_users:
+      new:
+        form_label: Conceder privilégios de usuário especial
+        form_placeholder: Nome de usuário
+        confirm_add_special_user: Adicionar usuário especial
+        confirm_remove_special_user: Remover privilégios de usuário especial para
+        already_is: '%{username} já é um {position}!'
+        elevate_success: '%{username} elevado a {position}.'
+      remove:
+        revoke_button: Revogar usuário especial
+        revoke_button_confirm: Revogar direitos especiais do usuário de %{username}
+        revoking_button_working: Revogando...
+        already_is_not: '%{username} não é um usuário especial!'
+        demote_success: '%{username} agora é apenas um usuário.'
   suggestions:
     editing: Editando sugestões
     suggestion_docs:

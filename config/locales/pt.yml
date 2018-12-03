@@ -509,9 +509,9 @@ pt:
     nocourse: não participou de nenhum curso.
     none: Nenhum
     not_permitted: Não lhe é permitido editar este curso.
-    notify_untrained_confirmation: Isto colocará um lembrete nas páginas de discussão
-      de todos os estudantes que não completaram os módulos indicados. Tem certeza
-      de que deseja prosseguir?
+    notify_untrained_confirmation: Isto colocará um aviso nas páginas de discussão
+      de todos os estudantes que já deviam ter concluído os módulos de formação atribuídos.
+      Tem a certeza de que deseja prosseguir?
     no_available_actions: Não há ações disponíveis
     ores_plot: ORES
     overview: Início
@@ -807,6 +807,9 @@ pt:
         demote_success: '%{username} foi alterado para professor.'
         no_super_admin: Não foi possível revogar o estatuto de administrador de um
           super administrador
+    special_users:
+      new:
+        form_placeholder: Nome de utilizador
   suggestions:
     editing: A editar sugestões
     suggestion_docs:

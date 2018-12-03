@@ -765,6 +765,20 @@ ar:
         already_instructor: '%{username} مدرب بالفعل!'
         demote_success: تم تغيير %{username} إلى مدرب.
         no_super_admin: لا يمكن إبطال حالة الإداري من إداري متميز
+    special_users:
+      new:
+        form_label: منح امتيازات المستخدم الخاصة
+        form_placeholder: اسم المستخدم
+        confirm_add_special_user: إضافة مستخدم خاص
+        confirm_remove_special_user: إزالة امتيازات المستخدم الخاصة لـ
+        already_is: '%{username} بالفعل {position}!'
+        elevate_success: '%{username} ارتقى إلى {position}.'
+      remove:
+        revoke_button: إبطال المستخدم الخاص
+        revoke_button_confirm: إبطال صلاحيات المستخدم الخاصة من %{username}
+        revoking_button_working: يجري الإبطال...
+        already_is_not: '%{username} ليس مستخدما خاصا!'
+        demote_success: '%{username} الآن مجرد مستخدم.'
   suggestions:
     editing: تحرير الاقتراحات
     suggestion_docs:

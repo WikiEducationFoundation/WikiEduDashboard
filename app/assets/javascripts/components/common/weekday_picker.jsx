@@ -41,13 +41,6 @@ const WeekdayPicker = createReactClass({
     onWeekdayMouseLeave: PropTypes.func,
   },
 
-  defaultProps: {
-    ariaModifier: 'selected',
-    locale: 'en',
-    tabIndex: 0,
-    localeUtils: localeUtils
-  },
-
   getModifiersForDay(weekday, modifierFunctions) {
     const modifiers = [];
     if (modifierFunctions) {
@@ -202,9 +195,9 @@ const WeekdayPicker = createReactClass({
         onMouseEnter={onMouseEnter}
         onMouseLeave= {onMouseLeave}
       >
-        <attr title={localeUtils.formatWeekdayLong(weekday, locale)}>
+        <span title={localeUtils.formatWeekdayLong(weekday, locale)}>
           {localeUtils.formatWeekdayShort(weekday, locale)}
-        </attr>
+        </span>
       </button>
     );
   },

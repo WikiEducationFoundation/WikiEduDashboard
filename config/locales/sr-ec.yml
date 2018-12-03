@@ -788,6 +788,20 @@ sr-ec:
         already_instructor: '%{username} је већ инструктор!'
         demote_success: '%{username} је сада инструктор.'
         no_super_admin: Не можете да опозовете администраторски статус супер администратору.
+    special_users:
+      new:
+        form_label: Додели привилегије „Посебан корисник”
+        form_placeholder: Корисничко име
+        confirm_add_special_user: Додај привилегије „Посебан корисник”
+        confirm_remove_special_user: Уклони привилегије „Посебан корисник” за
+        already_is: '%{username} је већ {position}!'
+        elevate_success: '%{username} је унапређен/а  у {position}.'
+      remove:
+        revoke_button: Опозови привилегије „Посебан корисник”
+        revoke_button_confirm: Уклони права „Посебан корисник” кориснику %{username}
+        revoking_button_working: Опозивање…
+        already_is_not: Корисник %{username} није посебан!
+        demote_success: '%{username} је сада само корисник.'
   suggestions:
     editing: Уређивање предлога
     suggestion_docs:

@@ -381,6 +381,13 @@ da:
     admin_users:
       new:
         form_placeholder: Brugernavn
+    special_users:
+      new:
+        form_placeholder: Brugernavn
+        confirm_add_special_user: Tilføj specialbruger
+        already_is: '%{username} er allerede en {position}!'
+      remove:
+        demote_success: '%{username} er nu bare en bruger.'
   timeline:
     add_week: Tilføj uge
     arrange_timeline: Organiser tidslinjen

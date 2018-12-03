@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-
 import { getAvailableCampaigns } from '../../selectors';
+import selectStyles from '../../styles/select';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -37,14 +37,14 @@ const CampaignEditable = createReactClass({
 
   handleChangeCampaign(val) {
     if (val) {
-      this.setState({ selectedCampaignId: val.value });
+      this.setState({ selectedCampaign: val });
     } else {
-      this.setState({ selectedCampaignId: null });
+      this.setState({ selectedCampaign: null });
     }
   },
 
   openPopover(e) {
-    if (!this.props.is_open) {
+    if (!this.props.is_open && this.refs.campaignSelect) {
       this.refs.campaignSelect.focus();
     }
     return this.props.open(e);
@@ -55,8 +55,8 @@ const CampaignEditable = createReactClass({
   },
 
   addCampaign() {
-    this.props.addCampaign(this.props.course_id, this.state.selectedCampaignId);
-    this.setState({ selectedCampaignId: null });
+    this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value);
+    this.setState({ selectedCampaign: null });
   },
 
   render() {
@@ -78,12 +78,10 @@ const CampaignEditable = createReactClass({
       const campaignOptions = this.props.availableCampaigns.map((campaign) => {
         return { label: campaign, value: campaign };
       });
-
       let addCampaignButtonDisabled = true;
-      if (this.state.selectedCampaignId) {
+      if (this.state.selectedCampaign) {
         addCampaignButtonDisabled = false;
       }
-
       campaignSelect = (
         <tr>
           <th>
@@ -92,10 +90,12 @@ const CampaignEditable = createReactClass({
                 className="fixed-width"
                 ref="campaignSelect"
                 name="campaign"
-                value={this.state.selectedCampaignId}
+                value={this.state.selectedCampaign}
                 placeholder={I18n.t('courses.campaign_select')}
                 onChange={this.handleChangeCampaign}
                 options={campaignOptions}
+                styles={selectStyles}
+                isClearable
               />
               <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
                 Add

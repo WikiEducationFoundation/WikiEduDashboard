@@ -1,10 +1,36 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/importers/article_importer"
+require "#{Rails.root}/lib/duplicate_article_deleter"
 
 describe DuplicateArticleDeleter do
   describe '.resolve_duplicates' do
+    let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:deleted_article) do
+      create(:article, title: 'Columbian_exchange',
+                       namespace: 0,
+                       mw_page_id: 5589352,
+                       created_at: '2017-08-23',
+                       wiki: en_wiki,
+                       deleted: true)
+    end
+    let(:extant_article) do
+      create(:article, title: 'Columbian_exchange',
+                       namespace: 0,
+                       mw_page_id: 622746,
+                       created_at: '2017-12-08',
+                       wiki: en_wiki,
+                       deleted: false)
+    end
+    let(:duplicate_deleted_article) do
+      create(:article, title: 'Columbian_exchange',
+                       namespace: 0,
+                       mw_page_id: 622746,
+                       created_at: '2017-12-08',
+                       wiki: en_wiki,
+                       deleted: true)
+    end
+
     it 'marks one deleted when there are two ids for one page' do
       first = create(:article,
                      id: 2262715,
@@ -36,6 +62,18 @@ describe DuplicateArticleDeleter do
       described_class.new.resolve_duplicates([first, second])
       expect(first.reload.deleted).to eq(false)
       expect(second.reload.deleted).to eq(false)
+    end
+
+    it 'marks does not end up leaving both articles deleted' do
+      described_class.new.resolve_duplicates([deleted_article, extant_article])
+      expect(deleted_article.reload.deleted).to eq(true)
+      expect(extant_article.reload.deleted).to eq(false)
+    end
+
+    it 'does not error if all articles are already deleted' do
+      described_class.new.resolve_duplicates([deleted_article, duplicate_deleted_article])
+      expect(deleted_article.reload.deleted).to eq(true)
+      expect(duplicate_deleted_article.reload.deleted).to eq(true)
     end
   end
 end

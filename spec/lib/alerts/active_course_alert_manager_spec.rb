@@ -14,7 +14,7 @@ describe ActiveCourseAlertManager do
 
   before do
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
-    create(:setting, key: 'special_users', value: { communications_manager: 'Eryk (Wiki Ed)' })
+    Setting.set_special_user('communications_manager', 'Eryk (Wiki Ed)')
     create(:courses_user, user: instructor, course: course,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end

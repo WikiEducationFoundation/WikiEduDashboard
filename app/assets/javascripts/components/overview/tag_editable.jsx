@@ -2,10 +2,10 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Select from 'react-select';
-
+import CreatableSelect from 'react-select/lib/Creatable';
 
 import { getAvailableTags } from '../../selectors';
+import selectStyles from '../../styles/select';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -37,17 +37,17 @@ const TagEditable = createReactClass({
   },
 
   handleChangeTag(val) {
-    if (val) {
-      const { value, className } = val;
-      // The value includes a className of Select-create-option-placeholder if it's a user-created option.
-      // In that case, we need to add it to the list of options, so that it shows up as selected.
-      if (className) {
-        this.setState({ createdTagOption: [{ value, label: value }] });
-      }
-      this.setState({ selectedTag: value });
-    } else {
-      this.setState({ selectedTag: null });
+    if (!val) {
+      return this.setState({ selectedTag: null });
     }
+
+    // The value includes `__isNew__: true` if it's a user-created option.
+    // In that case, we need to add it to the list of options, so that it shows up as selected.
+    const isNew = val.__isNew__;
+    if (isNew) {
+      this.setState({ createdTagOption: [val] });
+    }
+    this.setState({ selectedTag: val });
   },
 
   openPopover(e) {
@@ -62,7 +62,7 @@ const TagEditable = createReactClass({
   },
 
   addTag() {
-    this.props.addTag(this.props.course_id, this.state.selectedTag);
+    this.props.addTag(this.props.course_id, this.state.selectedTag.value);
     this.setState({ selectedTag: null });
   },
 
@@ -91,7 +91,7 @@ const TagEditable = createReactClass({
       <tr>
         <th>
           <div className="select-with-button">
-            <Select.Creatable
+            <CreatableSelect
               className="fixed-width"
               ref="tagSelect"
               name="tag"
@@ -99,6 +99,8 @@ const TagEditable = createReactClass({
               placeholder={I18n.t('courses.tag_select')}
               onChange={this.handleChangeTag}
               options={tagOptions}
+              styles={selectStyles}
+              isClearable
             />
             <button type="submit" className="button dark" disabled={addTagButtonDisabled} onClick={this.addTag}>
               Add

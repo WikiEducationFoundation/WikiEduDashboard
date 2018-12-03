@@ -32,15 +32,23 @@ describe HistogramPlotter do
       course.articles << article
     end
 
-    it 'returns a CSV with article data for a course' do
+    it 'returns a deletable CSV with article data for a course' do
       csv = described_class.csv(course: course)
       expect(File.readlines(csv).count).to eq(2)
+
+      expect(File.exist?(csv)).to eq(true)
+      described_class.delete_csv(course: course)
+      expect(File.exist?(csv)).to eq(false)
     end
 
-    it 'returns a CSV with article data for a campaign' do
+    it 'returns a deletable CSV with article data for a campaign' do
       course.campaigns << Campaign.first
       csv = described_class.csv(campaign: Campaign.first)
       expect(File.readlines(csv).count).to eq(2)
+
+      expect(File.exist?(csv)).to eq(true)
+      described_class.delete_csv(campaign: Campaign.first)
+      expect(File.exist?(csv)).to eq(false)
     end
   end
 end

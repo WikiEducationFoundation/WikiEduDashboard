@@ -135,7 +135,7 @@ describe UsersController do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
         allow(controller).to receive(:current_user).and_return(admin)
-        create(:setting, key: 'special_users', value: { classroom_program_manager: staff.username })
+        Setting.set_special_user('classroom_program_manager', staff.username)
       end
 
       let(:post_params) do

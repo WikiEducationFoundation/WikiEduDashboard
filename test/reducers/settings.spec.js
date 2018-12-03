@@ -7,9 +7,15 @@ describe('Settings reducer', () => {
   it('should return the initial state', () => {
     const initialState = {
       adminUsers: [],
+      specialUsers: {},
       fetchingUsers: false,
       submittingNewAdmin: false,
+      submittingNewSpecialUser: false,
       revokingAdmin: {
+        status: false,
+        username: null,
+      },
+      revokingSpecialUser: {
         status: false,
         username: null,
       }

@@ -31,6 +31,6 @@ describe('Conditional', () => {
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput).to.be.null;
+    expect(textInput).to.be.false;
   });
 });

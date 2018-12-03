@@ -679,6 +679,9 @@ fi:
     admin_users:
       new:
         form_placeholder: Käyttäjänimi
+    special_users:
+      new:
+        form_placeholder: Käyttäjänimi
   suggestions:
     suggestion_docs:
       does_not_exist: Tätä artikkelia ei ole Wikipediassa

@@ -91,18 +91,18 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'points',
           values: this.props.articleData,
           transform: [
-            {
+            { // Filter based on the [new / existing / both] selection
               type: 'filter',
               expr:
                 "(articles === 'both') ? true : (articles === 'new' ? (datum.ores_before === 0) : (datum.ores_before > 0))"
             },
-            {
+            { // Filter based on the 'Minimum bytes added' slider. The minimum bytes added is zero, so by default no articles are filtered out.
               type: 'filter',
               expr: 'datum.bytes_added >= bytes_added'
             },
-            {
+            { // Filter based on the 'Minimum change in score' slider. This can be negative, so we treat the default 0 position as no filter.
               type: 'filter',
-              expr: '(datum.ores_after - datum.ores_before) >= score'
+              expr: '(score === 0) ? true : (datum.ores_after - datum.ores_before) >= score'
             }
           ]
         },

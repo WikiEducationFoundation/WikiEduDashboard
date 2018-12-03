@@ -10,6 +10,8 @@ import Popover from '../common/popover.jsx';
 import Expandable from '../high_order/expandable.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
+import selectStyles from '../../styles/select';
+
 const AddCategoryButton = createReactClass({
   displayName: 'AddCategoryButton',
 
@@ -36,9 +38,9 @@ const AddCategoryButton = createReactClass({
     return `add_${this.props.source}_button`;
   },
 
-  reset(e) {
+  reset() {
     this.setState(this.getInitialState());
-    this.props.open(e);
+    this.props.open(null);
   },
 
   handleChangeCategory(e) {
@@ -97,7 +99,7 @@ const AddCategoryButton = createReactClass({
     const onConfirm = function () {
       // Post the new category to the server
       addCategory(categoryCourse);
-      reset(e);
+      reset();
     };
 
     const confirmMessage = I18n.t(`categories.confirm_${this.props.source}_addition`, { name: categoryCourse.category });
@@ -132,9 +134,10 @@ const AddCategoryButton = createReactClass({
               name="language"
               placeholder="Language"
               onChange={this.handleChangeLanguage}
-              value={this.state.language}
+              value={{ value: this.state.language, label: this.state.language }}
               options={languageOptions}
               clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
             <Select
               name="project"
@@ -142,9 +145,10 @@ const AddCategoryButton = createReactClass({
               className="half-width-select-right project-select"
               onChange={this.handleChangeProject}
               placeholder="Project"
-              value={this.state.project}
+              value={{ value: this.state.project, label: this.state.project }}
               options={projectOptions}
               clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
           </fieldset>
         );
