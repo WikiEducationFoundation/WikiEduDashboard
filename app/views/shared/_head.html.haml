@@ -43,6 +43,6 @@
     Raven.setExtraContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery-uls.js'
-%script{src: "//cdn.tinymce.com/4/tinymce.min.js"}
+= hot_javascript_tag("tinymce")
 = content_for :javascripts
 = csrf_meta_tags
