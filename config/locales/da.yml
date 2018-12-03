@@ -384,6 +384,8 @@ da:
     special_users:
       new:
         form_placeholder: Brugernavn
+        confirm_add_special_user: Tilføj specialbruger
+        already_is: '%{username} er allerede en {position}!'
       remove:
         demote_success: '%{username} er nu bare en bruger.'
   timeline:

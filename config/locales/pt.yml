@@ -807,6 +807,9 @@ pt:
         demote_success: '%{username} foi alterado para professor.'
         no_super_admin: Não foi possível revogar o estatuto de administrador de um
           super administrador
+    special_users:
+      new:
+        form_placeholder: Nome de utilizador
   suggestions:
     editing: A editar sugestões
     suggestion_docs:

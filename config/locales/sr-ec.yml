@@ -798,6 +798,7 @@ sr-ec:
         elevate_success: '%{username} је унапређен/а  у {position}.'
       remove:
         revoke_button: Опозови привилегије „Посебан корисник”
+        revoke_button_confirm: Уклони права „Посебан корисник” кориснику %{username}
         revoking_button_working: Опозивање…
         already_is_not: Корисник %{username} није посебан!
         demote_success: '%{username} је сада само корисник.'
