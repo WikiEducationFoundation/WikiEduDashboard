@@ -22,7 +22,7 @@ gulp.task('copy-fonts', () => {
 
 gulp.task('copy-tinymce-skins', () => {
   return gulp.src('./node_modules/tinymce/skins/**/*')
-    .pipe(gulp.dest(`${config.outputPath}/tinymce-skins`));
+    .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}/skins`));
 });
 
 gulp.task('copy-static', (cb) => {
