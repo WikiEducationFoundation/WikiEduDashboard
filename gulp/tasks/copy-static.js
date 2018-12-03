@@ -20,6 +20,11 @@ gulp.task('copy-fonts', () => {
     .pipe(gulp.dest(`${config.outputPath}/${config.fontsDirectory}`));
 });
 
+gulp.task('copy-tinymce-skins', () => {
+  return gulp.src('./node_modules/tinymce/skins/**/*')
+    .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}/skins`));
+});
+
 gulp.task('copy-static', (cb) => {
-  return runSequence(['copy-images', 'copy-fonts'], cb);
+  return runSequence(['copy-images', 'copy-fonts', 'copy-tinymce-skins'], cb);
 });

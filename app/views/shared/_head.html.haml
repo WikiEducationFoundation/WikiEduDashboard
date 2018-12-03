@@ -4,8 +4,9 @@
 %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
 = logo_favicon_tag
 %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
-= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
-= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+- if Features.wiki_ed?
+  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
+  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
 
 = content_for :head
 
@@ -43,6 +44,6 @@
     Raven.setExtraContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery-uls.js'
-%script{src: "//cdn.tinymce.com/4/tinymce.min.js"}
+= hot_javascript_tag("tinymce")
 = content_for :javascripts
 = csrf_meta_tags
