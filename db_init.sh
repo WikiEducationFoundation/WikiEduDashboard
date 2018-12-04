@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script initializes the DB by creating users, granting privileges
-# and migrating the dev and test DBs in order to persist the DB in the 
+# and migrating the dev and test DBs in order to persist the DB in the
 # container image itself
 
 set -e

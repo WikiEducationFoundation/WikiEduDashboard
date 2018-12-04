@@ -1,6 +1,6 @@
 # Docker Setup
 
-This document outlines how you can setup a containerized testing/development environment quickly using docker. Using a containerized dashboard image allows for a faster and reproducible test setup. We first have to build the Docker image and then run the container. 
+This document outlines how you can setup a containerized testing/development environment quickly using docker. Using a containerized dashboard image allows for a faster and reproducible test setup. We first have to build the Docker image and then run the container.
 
 ### TL;DR
 ```sh
@@ -14,7 +14,7 @@ Make sure the docker daemon is running. Else, `service docker status`. Then, fro
  ```sh
  $ docker build -t wiki-edu-dashboard .
  ```
- This builds the `wiki-edu-dashboard` container image using the Dockerfile. The dashboard container image is based on the official `ruby:2.5.0` [base image](https://hub.docker.com/_/ruby/). The container image contains all the necessary dependencies as well as an initialized MariaDB database as required by the Wiki Edu Dashboard. 
+ This builds the `wiki-edu-dashboard` container image using the Dockerfile. The dashboard container image is based on the official `ruby:2.5.0` [base image](https://hub.docker.com/_/ruby/). The container image contains all the necessary dependencies as well as an initialized MariaDB database as required by the Wiki Edu Dashboard.
 
 ## Run
 The current docker image can be used for testing, local deploys or development purposes. `docker run` initializes the setup and spawns a container which starts serving the dashboard on `http://localhost:3000`. Also, this requires port `3000` to be open on the host.
