@@ -11450,12 +11450,12 @@ react-confetti@^2.3.0:
   resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.3.0.tgz#04928400ade075abebf0a349902d1ffb4e75d453"
   integrity sha512-qi6Qh8zF3T80bgUK2/iZsYQum+2sLWyhjUpp4nO0uEvaUeIpSfVoj1FH9BLraPmkonn6sCQBK3pFKuS3zY1mJw==
 
-react-day-picker@7.1.9:
-  version "7.1.9"
-  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.1.9.tgz#04b0d956faf1bf85bb6ec6f9ca7966433be13f36"
-  integrity sha512-gQPlIykZ9y6AjkJ0kDp6k5q7bCXciIuHG40LExr2iTK6xa0pZTCadqwENwbq2jtmniPrk+cU4WYz74AJAgNlxw==
+react-day-picker@7.2.4:
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.2.4.tgz#3c3bea7aa1910bef7bad17f25ff15cd26a7d1848"
+  integrity sha512-LaePKijvAdXTrQhTyU7XfxxD5NQIFb4FH4vr1T862xNtmncoS8jZLliyHieMHNhZZ8RJU1pruqoQzkZQ05646w==
   dependencies:
-    prop-types "^15.6.1"
+    prop-types "^15.6.2"
 
 react-dnd-html5-backend@^5.0.1:
   version "5.0.1"
