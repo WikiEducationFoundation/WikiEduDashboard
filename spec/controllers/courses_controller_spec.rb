@@ -30,7 +30,7 @@ describe CoursesController do
   end
 
   describe '#destroy' do
-    let!(:course)           { create(:course) }
+    let!(:course)           { create(:course, submitted: true) }
     let!(:user)             { create(:test_user) }
     let!(:courses_users)    { create(:courses_user, course_id: course.id, user_id: user.id) }
     let!(:article)          { create(:article) }

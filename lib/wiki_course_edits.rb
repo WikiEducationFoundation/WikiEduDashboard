@@ -11,12 +11,10 @@ class WikiCourseEdits
   include WikiOutputTemplates
 
   def initialize(action:, course:, current_user:, **opts)
-    return unless course.wiki_edits_enabled?
-    return if course.private # Never make edits for private courses.
     @course = course
-    # Edits can only be made to the course's home wiki through WikiCourseEdits
     @home_wiki = course.home_wiki
-    return unless @home_wiki.edits_enabled?
+    validate(action) { return }
+
     @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
@@ -28,7 +26,6 @@ class WikiCourseEdits
   # set of participants, articles, timeline, and other details.
   # It simply overwrites the previous version.
   def update_course(delete: false)
-    return unless @course.wiki_course_page_enabled?
     wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 
     summary = "Updating course from #{@dashboard_url}"
@@ -88,7 +85,6 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    return unless @course.assignment_edits_enabled?
     homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
       article = Article.find(article_id)
       next unless article.namespace == Article::Namespaces::MAINSPACE
@@ -112,6 +108,27 @@ class WikiCourseEdits
   end
 
   private
+
+  def validate(action)
+    yield unless course_edits_allowed?
+
+    # action-specific checks
+    case action
+    when :update_course
+      yield unless @course.wiki_course_page_enabled?
+    when :update_assignments
+      yield unless @course.assignment_edits_enabled?
+    end
+  end
+
+  def course_edits_allowed?
+    return false unless @course.wiki_edits_enabled?
+    # Never make edits for private courses.
+    return false if @course.private
+    # Edits can only be made to the course's home wiki through WikiCourseEdits
+    return false unless @home_wiki.edits_enabled?
+    true
+  end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
     bad_links = spamlist.split('|')
