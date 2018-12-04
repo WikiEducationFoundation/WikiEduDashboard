@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ApplicationController, type: :request do
+describe ApplicationController do
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
   let(:super_admin) { create(:super_admin) }
