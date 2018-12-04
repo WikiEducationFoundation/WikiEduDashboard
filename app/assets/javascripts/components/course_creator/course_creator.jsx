@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
