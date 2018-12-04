@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
@@ -97,10 +97,9 @@ const TimelineHandler = createReactClass({
     return (
       <div>
         <TransitionGroup
-          transitionName="wizard"
+          classNames="wizard"
           component="div"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
+          timeout={500}
         >
           {outlet}
         </TransitionGroup>

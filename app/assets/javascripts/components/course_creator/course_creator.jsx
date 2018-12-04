@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
@@ -416,10 +416,9 @@ const CourseCreator = createReactClass({
 
     return (
       <TransitionGroup
-        transitionName="wizard"
+        classNames="wizard"
         component="div"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
+        timeout={500}
       >
         <Modal key="modal">
           <Notifications />

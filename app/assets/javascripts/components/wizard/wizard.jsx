@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
@@ -135,10 +135,9 @@ const Wizard = createReactClass({
     return (
       <Modal>
         <TransitionGroup
-          transitionName="wizard__panel"
+          classNames="wizard__panel"
           component="div"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
+          timeout={500}
         >
           {panels}
         </TransitionGroup>
