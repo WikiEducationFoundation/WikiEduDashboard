@@ -96,7 +96,7 @@ class Alert < ApplicationRecord
     return if course.nil?
     content_experts = course.nonstudents.where(greeter: true)
     return if content_experts.empty?
-    context_experts.each do |content_expert|
+    content_experts.each do |content_expert|
       AlertMailer.alert(self, content_expert).deliver_now
     end
     update_attribute(:email_sent_at, Time.zone.now)
