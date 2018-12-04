@@ -4,7 +4,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.1.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
