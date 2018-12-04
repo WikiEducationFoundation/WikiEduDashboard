@@ -10,7 +10,9 @@ describe AlertsListController, type: :request do
     let!(:alert) { create(:alert) }
 
     context 'for admins' do
-      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      end
 
       it 'renders the alerts list' do
         get '/alerts_list'
@@ -28,7 +30,9 @@ describe AlertsListController, type: :request do
     end
 
     context 'for non-admins' do
-      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
 
       it 'redirects to the home page' do
         get '/alerts_list'
@@ -50,7 +54,9 @@ describe AlertsListController, type: :request do
     end
 
     context 'for admins' do
-      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      end
 
       it 'renders the alert' do
         get "/alerts_list/#{alert.id}"
@@ -68,7 +74,9 @@ describe AlertsListController, type: :request do
     end
 
     context 'for non-admins' do
-      before { allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
 
       it 'redirects to the home page' do
         get "/alerts_list/#{alert.id}"
