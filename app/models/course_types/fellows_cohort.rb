@@ -66,7 +66,7 @@ class FellowsCohort < Course
   end
 
   def multiple_roles_allowed?
-    false
+    true
   end
 
   def passcode_required?
