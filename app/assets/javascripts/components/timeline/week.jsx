@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 
@@ -172,7 +172,8 @@ const Week = createReactClass({
             timeout={250}
             component="ul"
             className="week__block-list list-unstyled"
-            style={style}>
+            style={style}
+          >
             {blocks}
           </TransitionGroup>
         )

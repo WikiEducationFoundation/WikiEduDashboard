@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 
 import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
