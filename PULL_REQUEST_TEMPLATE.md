@@ -1,14 +1,14 @@
 ## Before the Pull Request ##
-* Test out your changes manually to confirm that it works and search for bugs.
+* Test out your changes manually to confirm that it all works and search for bugs.
 * Run the Javascript tests locally (`yarn test`) and confirm that they are passing.
-* Run the specs for any Ruby files you changes, along with the feature specs that are related to your changes. Optionally, you can run the entire test suite locally (`rake spec`). For feature specs, you will need to use the production build of the assets by running `gulp build` first.
+* Run the specs for any Ruby files you changed, along with the feature specs that are related to your changes. Optionally, you can run the entire test suite locally (`rake spec`).
 
 ## Opening the Pull Request ##
 
 * Describe the changes included in the PR.
 * Note the issue that the PR addresses. Include `Fixes #12345` if it will completely address the issue.
 * If there are UI elements to the change, include a screenshot or animation to illustrate it.
-* If the PR is not complete but you want feedback on it, include `[WIP]` in the title to indicate work-in-progress. Edit the title when it's ready.
+* If the PR is not complete but you want feedback on it or you just want to trigger a build, include `[WIP]` in the title to indicate work-in-progress, and add comments about anything you're stuck on. Edit the title when it's ready.
 
 ## After the PR ##
 * Check the continuous integration build, which usually takes about 20 minutes.
