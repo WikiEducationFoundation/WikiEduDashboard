@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe TrainingStatusController do
+  before { TrainingModule.load_all }
+
   render_views
   describe '#show' do
     let(:user) { create(:user) }

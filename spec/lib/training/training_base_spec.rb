@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_library"
-require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
   before do
@@ -10,7 +9,6 @@ describe TrainingBase do
   end
 
   after(:all) do
-    TrainingModule.flush
     TrainingLibrary.flush
   end
 
@@ -36,7 +34,7 @@ describe TrainingBase do
 
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
-        expect { subject }.to raise_error(NoMethodError)
+        expect { subject }.to raise_error(TypeError)
       end
     end
 
@@ -51,30 +49,6 @@ describe TrainingBase do
       it 'raises an error that includes the filename of the bad file' do
         expect { subject }.to raise_error(YamlTrainingLoader::InvalidYamlError,
                                           /.*bad_yaml_slide.*/)
-      end
-    end
-
-    context 'when there are duplicate slugs' do
-      before do
-        allow(TrainingModule).to receive(:trim_id_from_filename).and_return(true)
-        allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
-      end
-
-      it 'raises an error noting the duplicate slug name' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
-                                          /.*duplicate-yaml-slug.*/)
-      end
-    end
-
-    context 'when there are duplicate ids' do
-      before do
-        allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
-      end
-
-      it 'raises an error noting the duplicate id' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateIdError)
       end
     end
 
@@ -107,12 +81,10 @@ describe TrainingBase do
     context 'when the cache is empty' do
       before do
         TrainingLibrary.flush
-        TrainingModule.flush
       end
 
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
-        expect(TrainingModule.all).not_to be_empty
       end
     end
   end
@@ -134,6 +106,7 @@ describe TrainingBase do
     context 'with wiki trainings enabled' do
       before do
         TrainingSlide.destroy_all
+        TrainingModule.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
 

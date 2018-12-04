@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_module"
-
 # Controller for data on which trainings a user has completed
 class TrainingStatusController < ApplicationController
   def show

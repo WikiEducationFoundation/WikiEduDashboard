@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training_module"
 require "#{Rails.root}/lib/training_library"
 
 DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
 describe 'Training', type: :feature, js: true do
+  before { TrainingModule.load_all }
+
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
@@ -162,7 +163,6 @@ describe 'Training', type: :feature, js: true do
     describe "'#{module_slug[:slug]}' module" do
       before do
         TrainingSlide.load
-        TrainingModule.flush
       end
 
       it 'lets the user go from start to finish' do

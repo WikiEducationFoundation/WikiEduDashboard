@@ -2,10 +2,11 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_progress_manager"
-require "#{Rails.root}/lib/training_module"
 
 describe TrainingProgressManager do
   subject { described_class.new(user, t_module) }
+
+  before { TrainingModule.load_all }
 
   let(:user)     { create(:user) }
   # first and last slide

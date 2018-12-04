@@ -40,8 +40,8 @@ class TrainingSlide < ApplicationRecord
     true
   end
 
-  def self.load(*)
-    TrainingBase.load(content_class: self)
+  def self.load(slug_list: nil)
+    TrainingBase.load(content_class: self, slug_list: slug_list)
   end
 
   def self.base_path
