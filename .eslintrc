@@ -77,7 +77,7 @@
     "import/no-useless-path-segments": 0,
     "react/no-this-in-sfc": 0,
     "react/jsx-props-no-multi-spaces": 0,
-    "no-trailing-spaces": "error",
+    "no-trailing-spaces": 2,
   },
   "globals": {
     "I18n": true,

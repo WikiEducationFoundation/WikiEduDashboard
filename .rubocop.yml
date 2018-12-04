@@ -87,6 +87,8 @@ Naming/UncommunicativeMethodParamName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
+Layout/TrailingWhitespace: # To disallow trailing whitespaces
+  Enabled: true
 
 ########################
 # Temporary exceptions #
