@@ -2,20 +2,20 @@
 
 require 'rails_helper'
 
-describe SettingsController do
+describe SettingsController, type: :request do
   describe '#index' do
     it 'renders for super admins' do
       super_admin = create(:super_admin)
-      allow(controller).to receive(:current_user).and_return(super_admin)
-      get :index
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      get '/settings'
       expect(response.status).to eq(200)
     end
 
     %i[admin instructor user].each do |role|
       it "redirects for role of #{role}" do
         user = create(role)
-        allow(controller).to receive(:current_user).and_return(user)
-        get :index
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        get '/settings'
         expect(response.status).to eq(401)
       end
     end
@@ -31,8 +31,8 @@ describe SettingsController do
 
     context 'when request is json' do
       before do
-        allow(controller).to receive(:current_user).and_return(@super_admin)
-        get :all_admins, format: :json
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@super_admin)
+        get '/settings/all_admins', params: { format: :json }
       end
 
       it 'returns all admin users' do
@@ -46,8 +46,8 @@ describe SettingsController do
 
     context 'when request is not json' do
       before do
-        allow(controller).to receive(:current_user).and_return(@super_admin)
-        get :all_admins
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@super_admin)
+        get '/settings/all_admins'
       end
 
       it 'returns 404' do
@@ -57,8 +57,8 @@ describe SettingsController do
 
     context 'when the user is not permitted' do
       before do
-        allow(controller).to receive(:current_user).and_return(create(:user, username: 'reg_user'))
-        get :all_admins, format: :json
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user, username: 'reg_user'))
+        get '/settings/all_admins', params: { format: :json }
       end
 
       it 'denies access' do
@@ -70,14 +70,13 @@ describe SettingsController do
   describe '#upgrade_admin' do
     before do
       super_admin = create(:super_admin)
-      allow(controller).to receive(:current_user).and_return(super_admin)
-      @action = :upgrade_admin
-      @format_type = :json
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      @action = '/settings/upgrade_admin'
     end
 
     let(:post_params) do
-      params = { user: { username: @user.username } }
-      post @action, params: params, format: @format_type
+      params = { user: { username: @user.username }, format: :json }
+      post @action, params: params
     end
 
     context 'user is not an admin' do
@@ -95,7 +94,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content("#{@user.username} elevated to admin.")
+        expect(response.body).to include("#{@user.username} elevated to admin.")
       end
     end
 
@@ -114,7 +113,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content("#{@user.username} is already an admin!")
+        expect(response.body).to include("#{@user.username} is already an admin!")
       end
     end
 
@@ -132,15 +131,15 @@ describe SettingsController do
 
   describe '#downgrade_admin' do
     before do
-      @action = :downgrade_admin
+      @action = '/settings/downgrade_admin'
       @format_type = :json
       super_admin = create(:super_admin)
-      allow(controller).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
     end
 
     let(:post_params) do
-      params = { user: { username: @user.username } }
-      post @action, params: params, format: @format_type
+      params = { user: { username: @user.username }, format: @format_type }
+      post @action, params: params
     end
 
     context 'user is an admin' do
@@ -158,7 +157,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content("#{@user.username} changed to instructor.")
+        expect(response.body).to include("#{@user.username} changed to instructor.")
       end
     end
 
@@ -177,7 +176,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content("#{@user.username} is already an instructor!")
+        expect(response.body).to include("#{@user.username} is already an instructor!")
       end
     end
 
@@ -196,7 +195,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content("Can't revoke admin status from a super admin")
+        expect(response.body).to include("Can't revoke admin status from a super admin")
       end
     end
 
@@ -210,19 +209,19 @@ describe SettingsController do
   describe '#upgrade_special_user' do
     before do
       super_admin = create(:super_admin)
-      allow(controller).to receive(:current_user).and_return(super_admin)
-      @action = :upgrade_special_user
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      @action = '/settings/upgrade_special_user'
       @format_type = :json
     end
 
     let(:post_params) do
-      params = { special_user: { username: @user.username, position: 'communications_manager' } }
-      post @action, params: params, format: @format_type
+      params = { special_user: { username: @user.username, position: 'communications_manager' }, format: @format_type }
+      post @action, params: params
     end
 
     let(:post_invalid_position_params) do
-      params = { special_user: { username: @user.username, position: 'apositionhasnoname' } }
-      post @action, params: params, format: @format_type
+      params = { special_user: { username: @user.username, position: 'apositionhasnoname' }, format: @format_type }
+      post @action, params: params
     end
 
     context 'user is not an communications_manager' do
@@ -241,7 +240,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(
+        expect(response.body).to include(
           I18n.t(
             'settings.special_users.new.elevate_success',
             username: @user.username,
@@ -268,7 +267,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(
+        expect(response.body).to include(
           I18n.t(
             'settings.special_users.new.already_is',
             username: @user.username,
@@ -296,22 +295,22 @@ describe SettingsController do
       end
 
       it 'returns position is invalid' do
-        expect(response.body).to have_content('position is invalid')
+        expect(response.body).to include('position is invalid')
       end
     end
   end
 
   describe '#downgrade_special_user' do
     before do
-      @action = :downgrade_special_user
+      @action = '/settings/downgrade_special_user'
       @format_type = :json
       super_admin = create(:super_admin)
-      allow(controller).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
     end
 
     let(:post_params) do
-      params = { special_user: { username: @user.username, position: 'communications_manager' } }
-      post @action, params: params, format: @format_type
+      params = { special_user: { username: @user.username, position: 'communications_manager' }, format: @format_type }
+      post @action, params: params
     end
 
     context 'user is a communications_manager' do
@@ -331,7 +330,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(
+        expect(response.body).to include(
           I18n.t(
             'settings.special_users.remove.demote_success',
             username: @user.username,
@@ -357,7 +356,7 @@ describe SettingsController do
       end
 
       it 'returns the right message' do
-        expect(response.body).to have_content(
+        expect(response.body).to include(
           I18n.t(
             'settings.special_users.new.already_is_not',
             username: @user.username,
