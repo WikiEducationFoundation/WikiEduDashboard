@@ -99,12 +99,12 @@ class TrainingModule < ApplicationRecord
 
   def t_name
     return name if translations.empty?
-    translations["#{I18n.locale}"][:name]
+    translations[I18n.locale.to_s][:name]
   end
 
   def t_description
     return description if translations.empty?
-    translations["#{I18n.locale}"][:description]
+    translations[I18n.locale.to_s][:description]
   end
 
   class ModuleNotFound < StandardError; end
