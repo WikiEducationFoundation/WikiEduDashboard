@@ -35,6 +35,10 @@ class WikiUserpageOutput
     " }}\n"
   end
 
+  def sandbox_template(dashboard_url)
+    "{{#{dashboard_url} sandbox#{course_type_param}}}"
+  end
+
   private
 
   def course_page_param

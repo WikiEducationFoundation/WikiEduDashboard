@@ -71,7 +71,7 @@ class WikiCourseEdits
     # Pre-create the user's sandbox
     return unless Features.wiki_ed?
     sandbox = user_page + '/sandbox'
-    sandbox_template = "{{#{@dashboard_url} sandbox}}"
+    sandbox_template = generator.sandbox_template(@dashboard_url)
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
     @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
