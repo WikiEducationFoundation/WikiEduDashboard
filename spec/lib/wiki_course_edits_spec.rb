@@ -320,6 +320,22 @@ describe WikiCourseEdits do
     end
   end
 
+  context 'for course types that do not make assignment edits' do
+    let(:fellows_cohort) { create(:fellows_cohort) }
+
+    it 'returns immediately with assignment-related edit actions' do
+      expect_any_instance_of(described_class).not_to receive(:update_assignments)
+      expect_any_instance_of(described_class).not_to receive(:remove_assignment)
+      described_class.new(action: :update_assignments,
+                          course: fellows_cohort,
+                          current_user: user)
+      described_class.new(action: :remove_assignment,
+                          course: fellows_cohort,
+                          current_user: user,
+                          assignment: nil)
+    end
+  end
+
   context 'for course types that DO make edits' do
     let(:basic_course) { create(:basic_course, submitted: true) }
 
