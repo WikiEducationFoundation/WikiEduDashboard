@@ -97,18 +97,16 @@ class TrainingModule < ApplicationRecord
     end
   end
 
-  def tranlsated
-    translations[I18n.locale.to_s]
+  def translated(key)
+    translations.dig(I18n.locale.to_s, key)
   end
 
   def t_name
-    return name if translated.nil?
-    tranlsated[:name]
+    translated(:name) || name
   end
 
   def t_description
-    return description if translated.nil?
-    translated[:description]
+    translated(:description) || description
   end
 
   class ModuleNotFound < StandardError; end
