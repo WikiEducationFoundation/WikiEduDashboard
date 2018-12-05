@@ -66,14 +66,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  def stats
-    @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
-    response.headers.delete 'X-Frame-Options'
-    respond_to do |format|
-      format.html { render layout: 'stats' }
-    end
-  end
-
   ##############################
   # Course data json endpoints #
   ##############################
