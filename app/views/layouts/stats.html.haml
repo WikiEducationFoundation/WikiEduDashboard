@@ -6,8 +6,6 @@
   %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
   = logo_favicon_tag
   %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
-  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
-  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
 
   = dashboard_stylesheet_tag("main")
   %script(src="https://unpkg.com/react@16.0.0/umd/react.production.min.js")
