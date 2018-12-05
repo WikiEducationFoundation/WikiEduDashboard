@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
 import { notifyOverdue } from '../../actions/course_actions';
-import { getStudentUsers } from '../../selectors';
+import { getStudentUsers, editPermissions } from '../../selectors';
 
 import List from '../common/list.jsx';
 import Student from './student.jsx';
@@ -30,7 +30,8 @@ const StudentList = createReactClass({
     sortUsers: PropTypes.func,
     userRevisions: PropTypes.object.isRequired,
     trainingStatus: PropTypes.object.isRequired,
-    notifyOverdue: PropTypes.func.isRequired
+    notifyOverdue: PropTypes.func.isRequired,
+    editPermissions: PropTypes.bool.isRequired
   },
 
   getInitialState() {
@@ -103,7 +104,7 @@ const StudentList = createReactClass({
     });
     const elements = _.flatten(_.zip(students, drawers));
     let controls;
-    if (this.props.current_user.isNonstudent) {
+    if (this.props.editPermissions) {
       let assignArticlesButton;
       if (this.props.students.length > 0) {
         const assignLabel = this.state.editAssignments ? I18n.t('users.assign_articles_done') : I18n.t('users.assign_articles');
@@ -199,7 +200,8 @@ const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
   sort: state.users.sort,
   userRevisions: state.userRevisions,
-  trainingStatus: state.trainingStatus
+  trainingStatus: state.trainingStatus,
+  editPermissions: editPermissions(state)
 });
 
 const mapDispatchToProps = {

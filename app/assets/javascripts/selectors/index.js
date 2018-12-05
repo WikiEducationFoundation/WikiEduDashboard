@@ -26,6 +26,7 @@ const getCourseType = state => state.course.type;
 const getTraining = state => state.training;
 const getValidations = state => state.validations.validations;
 const getValidationErrors = state => state.validations.errorQueue;
+const getCourse = state => state.course;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -211,5 +212,12 @@ export const firstValidationErrorMessage = createSelector(
       return validations[validationErrors[0]].message;
     }
     return null;
+  }
+);
+
+export const editPermissions = createSelector(
+  [getCourse, getCurrentUser], (course, user) => {
+    if (!user.isNonstudent) { return false; }
+    return user.isAdmin || !course.closed;
   }
 );
