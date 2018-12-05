@@ -18,6 +18,12 @@ describe UpdateCourseFromSalesforce do
       subject
       expect(course.reload.flags[:closed_date]).to eq('2018-06-07')
     end
+
+    it 'handles Salesforce API downtime gracefully' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:find)
+        .and_raise(Faraday::ParsingError.new('Salesforce is down'))
+      subject
+    end
   end
 
   context 'when a course does not have a Salesforce record' do
