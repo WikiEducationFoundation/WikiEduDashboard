@@ -314,9 +314,15 @@ class Course < ApplicationRecord
     flags[:wiki_edits_enabled]
   end
 
-  # Overidden by ClassroomProgramCourse
+  # Overridden for some course types
   def assignment_edits_enabled?
     wiki_edits_enabled?
+  end
+
+  # An extra param added to some wiki output.
+  # Overridden by FellowsCohort.
+  def wiki_template_param
+    nil
   end
 
   # Overidden by ClassroomProgramCourse
