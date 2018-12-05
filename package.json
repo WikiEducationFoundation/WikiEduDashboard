@@ -23,7 +23,7 @@
     "chart.js": "^2.7.3",
     "chartkick": "^3.0.1",
     "chosen-js": "^1.8.5",
-    "core-js": "^2.5.7",
+    "core-js": "^2.6.0",
     "create-react-class": "^15.6.3",
     "deep-freeze": "^0.0.1",
     "del": "^3.0.0",
