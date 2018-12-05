@@ -97,14 +97,18 @@ class TrainingModule < ApplicationRecord
     end
   end
 
+  def tranlsated
+    translations[I18n.locale.to_s]
+  end
+
   def t_name
-    return name if translations.empty?
-    translations[I18n.locale.to_s][:name]
+    return name if translated.nil?
+    tranlsated[:name]
   end
 
   def t_description
-    return description if translations.empty?
-    translations[I18n.locale.to_s][:description]
+    return description if translated.nil?
+    translated[:description]
   end
 
   class ModuleNotFound < StandardError; end
