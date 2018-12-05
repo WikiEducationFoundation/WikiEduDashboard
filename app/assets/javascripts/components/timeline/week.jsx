@@ -170,11 +170,10 @@ const Week = createReactClass({
           <TransitionGroup
             classNames="shrink"
             timeout={250}
-            component="ul"
-            className="week__block-list list-unstyled"
-            style={style}
           >
-            {blocks}
+            <ul style={style} className="week__block-list list-unstyled">
+              {blocks}
+            </ul>
           </TransitionGroup>
         )
         : (
