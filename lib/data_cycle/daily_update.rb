@@ -92,6 +92,12 @@ class DailyUpdate
     Course.current.each do |course|
       next unless course.flags[:salesforce_id]
       PushCourseToSalesforce.new(course)
+    end
+    ClassroomProgramCourse
+      .archived
+      .where(withdrawn: false)
+      .reject(&:closed?)
+      .select(&:approved?).each do |course|
       UpdateCourseFromSalesforce.new(course)
     end
   end
