@@ -1,0 +1,7 @@
+id: 1
+title: Baz
+summary:
+content: Foo
+slides:
+  - slug: sluggo-one
+  - slug: sluggo-two
