@@ -40,6 +40,14 @@ class TrainingModulePresenter
     training_modules_user.nil? || @progress_manager.module_completed?
   end
 
+  def translated_name
+    translated(:name) || training_module.name
+  end
+
+  def translated_description
+    translated(:description) || training_module.description
+  end
+
   private
 
   def training_modules_user
@@ -53,5 +61,9 @@ class TrainingModulePresenter
   def last_slide_completed
     return unless @user
     training_modules_user.last_slide_completed
+  end
+
+  def translated(key)
+    training_module.translations.dig(I18n.locale.to_s, key)
   end
 end
