@@ -21,6 +21,7 @@
     "new-cap": [2, { "capIsNew": false }],
     "no-else-return": [2, { "allowElseIf": true }],
     "no-use-before-define": 0,
+    "no-trailing-spaces": 2,
     # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
     # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
     "react/no-danger": 0,
@@ -76,8 +77,7 @@
     "react/no-access-state-in-setstate": 0,
     "import/no-useless-path-segments": 0,
     "react/no-this-in-sfc": 0,
-    "react/jsx-props-no-multi-spaces": 0,
-    "no-trailing-spaces": 2,
+    "react/jsx-props-no-multi-spaces": 0
   },
   "globals": {
     "I18n": true,
