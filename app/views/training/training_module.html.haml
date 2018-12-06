@@ -3,9 +3,9 @@
 .container.training
   .training__intro
     .training-intro__header
-      %h1= @pres.training_module.t_name
+      %h1= @pres.translated_name
       - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-      - html = markdown.render(@pres.training_module.t_description)
+      - html = markdown.render(@pres.translated_description)
       = raw html
     .training-intro__cta-container
       %small.block-element.capitalize{ class: @pres.progress_manager.assignment_status_css_class }
