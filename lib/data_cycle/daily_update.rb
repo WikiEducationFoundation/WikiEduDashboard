@@ -90,7 +90,9 @@ class DailyUpdate
   def push_course_data_to_salesforce
     log_message 'Pushing course data to Salesforce'
     Course.current.each do |course|
-      PushCourseToSalesforce.new(course) if course.flags[:salesforce_id]
+      next unless course.flags[:salesforce_id]
+      PushCourseToSalesforce.new(course)
+      UpdateCourseFromSalesforce.new(course)
     end
   end
 end

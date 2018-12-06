@@ -20,6 +20,7 @@ describe DailyUpdate do
       expect(UploadImporter).to receive(:find_deleted_files)
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
+      expect(UpdateCourseFromSalesforce).to receive(:new)
       expect(Raven).to receive(:capture_message).and_call_original
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)

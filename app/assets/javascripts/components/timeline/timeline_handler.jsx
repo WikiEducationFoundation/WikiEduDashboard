@@ -12,7 +12,7 @@ import { fetchAllTrainingModules } from '../../actions/training_actions';
 
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
-import { getWeeksArray, getAvailableTrainingModules } from '../../selectors';
+import { getWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
 const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
@@ -27,7 +27,8 @@ const TimelineHandler = createReactClass({
     loading: PropTypes.bool,
     editableBlockIds: PropTypes.array,
     all_training_modules: PropTypes.array,
-    fetchAllTrainingModules: PropTypes.func.isRequired
+    fetchAllTrainingModules: PropTypes.func.isRequired,
+    editPermissions: PropTypes.bool.isRequired
   },
 
   getInitialState() {
@@ -129,7 +130,7 @@ const TimelineHandler = createReactClass({
           setBlockEditable={this.props.setBlockEditable}
           resetState={() => {}}
           nameHasChanged={() => false}
-          edit_permissions={this.props.current_user.admin || this.props.current_user.role > 0}
+          edit_permissions={this.props.editPermissions}
         />
         {grading}
       </div>
@@ -141,7 +142,8 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading,
   editableBlockIds: state.timeline.editableBlockIds,
-  availableTrainingModules: getAvailableTrainingModules(state)
+  availableTrainingModules: getAvailableTrainingModules(state),
+  editPermissions: editPermissions(state)
 });
 
 const mapDispatchToProps = {
