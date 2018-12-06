@@ -56,7 +56,7 @@ class TrainingController < ApplicationController
   private
 
   def add_training_root_breadcrumb
-    add_breadcrumb 'Training Library', :training_path
+    add_breadcrumb I18n.t('training.training_library'), :training_path
   end
 
   def add_library_breadcrumb
