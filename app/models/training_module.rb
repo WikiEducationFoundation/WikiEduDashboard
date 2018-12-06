@@ -97,5 +97,17 @@ class TrainingModule < ApplicationRecord
     end
   end
 
+  def translated_name
+    translated(:name) || name
+  end
+
+  def translated_description
+    translated(:description) || description
+  end
+
+  def translated(key)
+    translations.dig(I18n.locale.to_s, key)
+  end
+
   class ModuleNotFound < StandardError; end
 end

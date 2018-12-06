@@ -64,7 +64,7 @@ class TrainingController < ApplicationController
   end
 
   def add_module_breadcrumb(training_module)
-    add_breadcrumb training_module.name, :training_module_path
+    add_breadcrumb training_module.translated_name, :training_module_path
   end
 
   def fail_if_entity_not_found(entity, finder)
