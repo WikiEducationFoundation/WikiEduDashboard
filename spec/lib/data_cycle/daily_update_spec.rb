@@ -7,6 +7,9 @@ describe DailyUpdate do
   before do
     create(:course, start: '2015-03-20', end: 1.month.from_now,
                     flags: { salesforce_id: 'a0f1a9063a1Wyad' })
+    old_course = create(:course, slug: 'old', start: '2015-03-20', end: '2015-04-20',
+                                 flags: { salesforce_id: 'b0f1a9063a1Wyad' })
+    old_course.campaigns << Campaign.first
   end
 
   describe 'on initialization' do
