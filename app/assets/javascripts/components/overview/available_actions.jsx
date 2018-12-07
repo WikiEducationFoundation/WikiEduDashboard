@@ -191,7 +191,7 @@ const AvailableActions = createReactClass({
         <p key="download_course_stats"><CourseStatsDownloadModal course={course} /></p>
       ));
       controls.push((
-        <EmbedStatsButton title={course.title} key="embed_course_stats"/>
+        <p key="embed_course_stats"><EmbedStatsButton title={course.title} /></p>
       ));
     }
 
