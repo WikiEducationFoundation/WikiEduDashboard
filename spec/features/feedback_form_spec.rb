@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'feedback form' do
+  before { TrainingModule.load_all }
+
   let(:slide_with_feedback_link) do
     '/training/instructors/new-instructor-orientation/new-instructor-orientation-complete'
   end

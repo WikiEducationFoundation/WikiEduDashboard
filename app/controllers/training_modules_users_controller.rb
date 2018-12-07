@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require_dependency "#{Rails.root}/lib/training_module"
+# frozen_string_literal: trues
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json

@@ -89,6 +89,9 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
 Layout/AlignHash:
   Enabled: false # Hashes look uglier when corrected
+Layout/TrailingWhitespace: # To disallow trailing whitespaces
+  Enabled: true
+
 ########################
 # Temporary exceptions #
 ########################

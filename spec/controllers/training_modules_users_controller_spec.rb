@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe TrainingModulesUsersController do
+  before { TrainingModule.load_all }
+
   describe '#create_or_update' do
     let(:user) { create(:user) }
     let(:training_module) { TrainingModule.find_by(slug: 'editing-basics') }

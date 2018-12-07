@@ -5,11 +5,12 @@ require 'rails_helper'
 describe AssignmentsController do
   render_views
 
-  let!(:course) { create(:course, id: 1) }
+  let!(:course) { create(:course, id: 1, submitted: true) }
   let!(:user) { create(:user) }
 
   before do
     stub_wiki_validation
+    course.campaigns << Campaign.first
     allow(controller).to receive(:current_user).and_return(user)
   end
 
@@ -116,7 +117,9 @@ describe AssignmentsController do
 
   describe 'POST #create' do
     context 'when the user has permission to create the assignment' do
-      let(:course) { create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)') }
+      let(:course) do
+        create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)
+      end
       let(:assignment_params) do
         { user_id: user.id, course_id: course.slug, title: 'jalapeño', role: 0 }
       end

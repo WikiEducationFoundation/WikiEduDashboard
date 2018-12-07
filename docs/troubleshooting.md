@@ -12,7 +12,7 @@
 
 - **My sql setup should come before installing bundler.**
 
-- **"Sorry you can't use Pry without Readline or a compatible library". add  `rb-readline`** to the Gemfile in the development group.  
+- **"Sorry you can't use Pry without Readline or a compatible library". add  `rb-readline`** to the Gemfile in the development group.
 
 - **For Debian users, if you could not start the mysql command line using**`sudo mysql`. Your default password is blank. Go to database.yml and type in your password in the password field.
     - In database.yml: `password: "mypassword"`

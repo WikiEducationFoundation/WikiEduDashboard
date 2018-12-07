@@ -32,12 +32,9 @@ class TrainingBase
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
     TrainingLibrary.flush
-    TrainingModule.flush
     if Features.wiki_trainings?
       TrainingModule.load
       TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
-      TrainingModule.flush
-      TrainingModule.load
       TrainingLibrary.load
     else
       TrainingLibrary.load

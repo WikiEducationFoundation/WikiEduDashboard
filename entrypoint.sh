@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# This is the entrypoint for the container which starts the dashbaord. 
-# Use docker host networking (--net=host) and access the application from 
+# This is the entrypoint for the container which starts the dashbaord.
+# Use docker host networking (--net=host) and access the application from
 # host as http://localhost:3000
 
 set -e

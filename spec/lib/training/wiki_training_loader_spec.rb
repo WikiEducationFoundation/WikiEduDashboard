@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training/wiki_training_loader"
-require "#{Rails.root}/lib/training_module"
 require "#{Rails.root}/lib/training_library"
 
 describe WikiTrainingLoader do
