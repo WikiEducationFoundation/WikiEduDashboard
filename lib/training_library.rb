@@ -3,7 +3,8 @@
 require_dependency "#{Rails.root}/lib/training/training_base"
 
 class TrainingLibrary < TrainingBase
-  attr_accessor :name, :modules, :introduction, :categories, :id, :exclude_from_index, :wiki_page
+  attr_accessor :name, :modules, :introduction, :id, :exclude_from_index, :wiki_page
+  attr_writer :categories
   alias raw_modules modules
   alias raw_categories categories
 
