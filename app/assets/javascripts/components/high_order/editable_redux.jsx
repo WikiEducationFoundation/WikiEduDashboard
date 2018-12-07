@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { resetValidations } from '../../actions/validation_actions';
-import { isValid } from '../../selectors';
+import { isValid, editPermissions } from '../../selectors';
 
 const mapStateToProps = state => ({
+  editPermissions: editPermissions(state),
   isValid: isValid(state)
 });
 
@@ -63,8 +64,7 @@ const EditableRedux = (Component, Label) => {
     },
 
     controls() {
-      const permissions = this.props.current_user.isNonstudent;
-      if (!permissions) { return null; }
+      if (!this.props.editPermissions) { return null; }
 
       if (this.state.editable) {
         return (
@@ -73,7 +73,7 @@ const EditableRedux = (Component, Label) => {
             <button onClick={this.saveChanges} className="dark button">{I18n.t('editable.save')}</button>
           </div>
         );
-      } else if (permissions && (this.props.editable === undefined || this.props.editable)) {
+      } else if (this.props.editable === undefined || this.props.editable) {
         return (
           <div className="controls">
             <button onClick={this.toggleEditable} className="dark button">{Label}</button>

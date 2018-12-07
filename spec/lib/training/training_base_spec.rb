@@ -8,6 +8,7 @@ describe TrainingBase do
     allow(Features).to receive(:wiki_trainings?).and_return(false)
   end
 
+  # Make sure default trainings get reloaded
   after(:all) do
     TrainingLibrary.flush
   end
@@ -49,6 +50,47 @@ describe TrainingBase do
       it 'raises an error that includes the filename of the bad file' do
         expect { subject }.to raise_error(YamlTrainingLoader::InvalidYamlError,
                                           /.*bad_yaml_slide.*/)
+      end
+    end
+
+    context 'when libraries have id collisions' do
+      let(:subject) { TrainingLibrary.load }
+
+      before do
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
+      end
+
+      it 'raises an error that includes the slugs' do
+        expect { subject }.to raise_error(TrainingBase::DuplicateIdError, /1-yaml-id/)
+      end
+    end
+
+    context 'when libraries have slug collisions' do
+      let(:subject) { TrainingLibrary.load }
+
+      before do
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+      end
+
+      it 'raises an error that includes the duplicate slug' do
+        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
+                                          /a-slug-has-no-name/)
+      end
+    end
+
+    context 'when a library file is misformatted' do
+      let(:subject) { TrainingLibrary.load }
+
+      before do
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/bad_yaml")
+      end
+
+      it 'raises an error and outputs the filename the bad file' do
+        expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
+        expect { subject }.to raise_error(StandardError)
       end
     end
 
@@ -126,6 +168,4 @@ describe TrainingBase do
       end
     end
   end
-
-  # Make sure default trainings get reloaded
 end

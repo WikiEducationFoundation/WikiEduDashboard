@@ -236,6 +236,10 @@ class Course < ApplicationRecord
     campaigns.any? && !withdrawn
   end
 
+  def closed?
+    flags[:closed_date].present?
+  end
+
   def tag?(query_tag)
     tags.pluck(:tag).include? query_tag
   end

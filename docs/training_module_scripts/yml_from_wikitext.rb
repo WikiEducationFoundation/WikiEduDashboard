@@ -46,7 +46,7 @@ def write_module_file(slide_slugs, module_number, module_slug, name, ttc, descri
     file.puts(lines)
   end
 end
-  
+
 # Take a single page of wikitext, and break it into level 2 sections, one section per slide
 slide_wikitexts = input.split(/\n(?===)/);
 

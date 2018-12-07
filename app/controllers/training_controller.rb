@@ -56,7 +56,7 @@ class TrainingController < ApplicationController
   private
 
   def add_training_root_breadcrumb
-    add_breadcrumb 'Training Library', :training_path
+    add_breadcrumb I18n.t('training.training_library'), :training_path
   end
 
   def add_library_breadcrumb
@@ -64,7 +64,7 @@ class TrainingController < ApplicationController
   end
 
   def add_module_breadcrumb(training_module)
-    add_breadcrumb training_module.name, :training_module_path
+    add_breadcrumb training_module.translated_name, :training_module_path
   end
 
   def fail_if_entity_not_found(entity, finder)
