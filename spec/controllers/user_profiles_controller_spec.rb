@@ -101,34 +101,34 @@ describe UserProfilesController, type: :request do
 
       it 'updates the bio' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                bio: 'Howdy' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              bio: 'Howdy' } }
         expect(user.user_profile.bio).to eq('Howdy')
       end
 
       it 'updates the location' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                location: 'Seattle' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              location: 'Seattle' } }
         expect(user.user_profile.location).to eq('Seattle')
       end
 
       it 'updates the Institution' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                institution: 'Institution' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              institution: 'Institution' } }
         expect(user.user_profile.institution).to eq('Institution')
       end
 
       it 'updates the Image' do
         file = fixture_file_upload('wiki-logo.png', 'image/png')
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                image: file } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              image: file } }
         expect(response.status).to eq(302)
         expect(user.user_profile.image).not_to be_nil
       end
@@ -140,34 +140,34 @@ describe UserProfilesController, type: :request do
 
       it 'doesn\'t update the bio' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                bio: 'Howdy' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              bio: 'Howdy' } }
         expect(user.user_profile.bio).not_to eq('Howdy')
       end
 
       it ' doesn\'t update the location' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                location: 'Seattle' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              location: 'Seattle' } }
         expect(user.user_profile.location).not_to eq('Seattle')
       end
 
       it 'doesn\'t update the Institution' do
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                institution: 'Institution' } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              institution: 'Institution' } }
         expect(user.user_profile.institution).not_to eq('Institution')
       end
 
       it 'doesn\'t update the Image' do
         file = fixture_file_upload('wiki-logo.png', 'image/png')
         post route, params: { username: user.username,
-                                user_profile: { id: profile.id,
-                                                user_id: profile.user_id,
-                                                image: file } }
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              image: file } }
         expect(response.status).not_to eq(302)
       end
     end
