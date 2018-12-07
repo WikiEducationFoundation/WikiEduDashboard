@@ -4,8 +4,9 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/training_library"
 
 class TrainingModule < TrainingBase
-  attr_accessor :name, :slides, :description, :estimated_ttc, :id,
-                :wiki_page, :status
+  attr_accessor :name, :description, :estimated_ttc, :id,
+                :wiki_page, :statu
+  attr_writer :slides
   alias raw_slides slides
 
   #################
