@@ -6,7 +6,8 @@ describe SettingsController, type: :request do
   describe '#index' do
     it 'renders for super admins' do
       super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
       get '/settings'
       expect(response.status).to eq(200)
     end
@@ -14,7 +15,8 @@ describe SettingsController, type: :request do
     %i[admin instructor user].each do |role|
       it "redirects for role of #{role}" do
         user = create(role)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
         get '/settings'
         expect(response.status).to eq(401)
       end
@@ -31,7 +33,8 @@ describe SettingsController, type: :request do
 
     context 'when request is json' do
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@super_admin)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(@super_admin)
         get '/settings/all_admins', params: { format: :json }
       end
 
@@ -46,7 +49,8 @@ describe SettingsController, type: :request do
 
     context 'when request is not json' do
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@super_admin)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(@super_admin)
         get '/settings/all_admins'
       end
 
@@ -57,7 +61,8 @@ describe SettingsController, type: :request do
 
     context 'when the user is not permitted' do
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(create(:user, username: 'reg_user'))
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(create(:user, username: 'reg_user'))
         get '/settings/all_admins', params: { format: :json }
       end
 
@@ -70,7 +75,8 @@ describe SettingsController, type: :request do
   describe '#upgrade_admin' do
     before do
       super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
       @action = '/settings/upgrade_admin'
     end
 
@@ -134,11 +140,13 @@ describe SettingsController, type: :request do
       @action = '/settings/downgrade_admin'
       @format_type = :json
       super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
     end
 
     let(:post_params) do
-      params = { user: { username: @user.username }, format: @format_type }
+      params = { format: @format_type,
+                  user: { username: @user.username } }
       post @action, params: params
     end
 
@@ -209,18 +217,23 @@ describe SettingsController, type: :request do
   describe '#upgrade_special_user' do
     before do
       super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
       @action = '/settings/upgrade_special_user'
       @format_type = :json
     end
 
     let(:post_params) do
-      params = { special_user: { username: @user.username, position: 'communications_manager' }, format: @format_type }
+      params = { format: @format_type,
+                  special_user: { username: @user.username,
+                                  position: 'communications_manager' } }
       post @action, params: params
     end
 
     let(:post_invalid_position_params) do
-      params = { special_user: { username: @user.username, position: 'apositionhasnoname' }, format: @format_type }
+      params = { format: @format_type,
+                  special_user: { username: @user.username,
+                                  position: 'apositionhasnoname' } }
       post @action, params: params
     end
 
@@ -305,11 +318,14 @@ describe SettingsController, type: :request do
       @action = '/settings/downgrade_special_user'
       @format_type = :json
       super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
     end
 
     let(:post_params) do
-      params = { special_user: { username: @user.username, position: 'communications_manager' }, format: @format_type }
+      params = { format: @format_type,
+                  special_user: { username: @user.username,
+                                  position: 'communications_manager' } }
       post @action, params: params
     end
 
