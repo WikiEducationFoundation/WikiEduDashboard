@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'dashboard', type: :feature, js: true do
+  before { TrainingModule.load_all }
+
   let(:user) do
     create(:user,
            onboarded: true, real_name: 'test',

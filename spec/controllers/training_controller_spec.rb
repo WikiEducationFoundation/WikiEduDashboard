@@ -7,7 +7,7 @@ describe TrainingController do
   let(:library_id) { 'students' }
   let(:module_id)  { TrainingModule.all.first.slug }
 
-  after(:all) { TrainingModule.load_all }
+  before { TrainingModule.load_all }
 
   describe 'show' do
     subject { get :show, params: request_params }
@@ -70,7 +70,7 @@ describe TrainingController do
       end
 
       it 'displays an error message upon failure' do
-        allow(TrainingBase).to receive(:load_all)
+        allow(TrainingModule).to receive(:load_all)
           .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
         subject
         expect(response.body).to have_content 'oh noes!'
@@ -78,6 +78,11 @@ describe TrainingController do
     end
 
     context 'for a single module, from wiki' do
+      before do
+        TrainingModule.delete_all
+        TrainingSlide.delete_all
+      end
+
       let(:subject) { get :reload, params: { module: 'plagiarism' } }
 
       it 'returns the result upon success' do

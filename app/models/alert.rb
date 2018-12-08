@@ -94,9 +94,11 @@ class Alert < ApplicationRecord
   def email_content_expert
     return if emails_disabled?
     return if course.nil?
-    content_expert = course.nonstudents.find_by(greeter: true)
-    return if content_expert.nil?
-    AlertMailer.alert(self, content_expert).deliver_now
+    content_experts = course.nonstudents.where(greeter: true)
+    return if content_experts.empty?
+    content_experts.each do |content_expert|
+      AlertMailer.alert(self, content_expert).deliver_now
+    end
     update_attribute(:email_sent_at, Time.zone.now)
   end
 

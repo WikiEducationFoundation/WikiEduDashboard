@@ -23,7 +23,7 @@
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
 # Pages on meta.wikimedia.org that define training content.
-# Only 
+# Only
   training_slides_wiki_page: 'Training modules/dashboard/slides'
   training_modules_wiki_page: 'Training modules/dashboard/modules'
   training_libraries_wiki_page: 'Training modules/dashboard/libraries'

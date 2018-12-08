@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 
 import Notifications from '../common/notifications.jsx';
 
@@ -16,10 +16,9 @@ const Root = ({ children, location }) => (
   <div className="container">
     <Notifications />
     <TransitionGroup
-      transitionName="fade"
+      classNames="fade"
       component="div"
-      transitionEnterTimeout={250}
-      transitionLeaveTimeout={250}
+      timeout={250}
     >
       {React.cloneElement(children, {
         key: location.pathname,

@@ -18,7 +18,7 @@ describe AlertMailer do
         Alert.last
       end
 
-      it 'delivers an email with to the recipient' do
+      it 'delivers an email with relevant details to the recipient' do
         expect(Features).to receive(:email?).and_return(true)
         expect(mail.subject).to match(article.title)
         expect(mail.to).to eq([user.email])

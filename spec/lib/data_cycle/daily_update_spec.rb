@@ -7,6 +7,9 @@ describe DailyUpdate do
   before do
     create(:course, start: '2015-03-20', end: 1.month.from_now,
                     flags: { salesforce_id: 'a0f1a9063a1Wyad' })
+    old_course = create(:course, slug: 'old', start: '2015-03-20', end: '2015-04-20',
+                                 flags: { salesforce_id: 'b0f1a9063a1Wyad' })
+    old_course.campaigns << Campaign.first
   end
 
   describe 'on initialization' do
@@ -20,6 +23,7 @@ describe DailyUpdate do
       expect(UploadImporter).to receive(:find_deleted_files)
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
+      expect(UpdateCourseFromSalesforce).to receive(:new)
       expect(Raven).to receive(:capture_message).and_call_original
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)

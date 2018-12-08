@@ -4,6 +4,7 @@ require 'rails_helper'
 
 def set_up_suite
   page.current_window.resize_to(1920, 1080)
+  TrainingModule.load_all
   stub_oauth_edit
 end
 

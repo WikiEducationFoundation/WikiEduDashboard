@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 
@@ -167,9 +167,14 @@ const Week = createReactClass({
           height: blocks.length * 75,
           transition: 'height 500ms ease-in-out'
         },
-          <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
-            {blocks}
-          </ReactCSSTG>
+          <TransitionGroup
+            classNames="shrink"
+            timeout={250}
+          >
+            <ul style={style} className="week__block-list list-unstyled">
+              {blocks}
+            </ul>
+          </TransitionGroup>
         )
         : (
           <ul className="week__block-list list-unstyled">

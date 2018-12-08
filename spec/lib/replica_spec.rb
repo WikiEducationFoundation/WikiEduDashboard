@@ -156,8 +156,8 @@ describe Replica do
           build(:user, username: 'Daad Ikram')
         ]
 
-        rev_start = 2017_03_11_000000
-        rev_end = 2017_03_17_000000
+        rev_start = 2017_02_27_000000
+        rev_end = 2017_02_28_000000
 
         incubator = Wiki.new(language: 'incubator', project: 'wikimedia')
         response = described_class.new(incubator).get_revisions(all_users, rev_start, rev_end)

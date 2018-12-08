@@ -19,7 +19,7 @@ call bundle install
 echo [+] Gems installed!
 
 echo [*] Installing Yarn...
-choco install yarn -y 
+choco install yarn -y
 SET "PATH=%PATH%;%ProgramFiles(x86)%\Yarn\bin"
 echo [+] Yarn installed!
 
