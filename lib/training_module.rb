@@ -7,7 +7,6 @@ class TrainingModule < TrainingBase
   attr_accessor :name, :description, :estimated_ttc, :id,
                 :wiki_page, :statu
   attr_writer :slides
-  alias raw_slides slides
 
   #################
   # Class methods #
@@ -64,6 +63,8 @@ class TrainingModule < TrainingBase
       slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
     end
   end
+
+  alias raw_slides slides
 
   def valid?
     required_attributes = [id, name, slug, description, raw_slides]

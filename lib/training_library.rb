@@ -6,7 +6,6 @@ class TrainingLibrary < TrainingBase
   attr_accessor :name, :modules, :introduction, :id, :exclude_from_index, :wiki_page
   attr_writer :categories
   alias raw_modules modules
-  alias raw_categories categories
 
   #################
   # Class methods #
@@ -38,6 +37,8 @@ class TrainingLibrary < TrainingBase
   def categories
     raw_categories.to_hashugar
   end
+
+  alias raw_categories categories
 
   def valid?
     required_attributes = [id, name, slug, introduction, categories]
