@@ -29,7 +29,7 @@ describe SuspectedPlagiarismMailer do
   describe '.alert_content_expert' do
     let(:mail) { described_class.alert_content_expert(revision) }
 
-    it 'delivers an email with to the content expert' do
+    it 'delivers an email with course info to the content expert' do
       allow(Features).to receive(:email?).and_return(true)
       expect(mail.body.encoded).to match(course.title)
       expect(mail.to).to eq([instructor.email, ta.email])
