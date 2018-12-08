@@ -79,7 +79,8 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const e = { target: { value: this.getDate().format() } };
+    const value = this.props.showTime ? this.getDate() : this.getDate().add(1, 'd');
+    const e = { target: { value: value.format() } };
     this.props.onChange(e);
   },
 
