@@ -33,12 +33,14 @@ class TrainingLibrary < TrainingBase
     exclude_from_index
   end
 
-  # transform categories hash into nested objects for view simplicity
-  def categories
-    raw_categories.to_hashugar
+  def raw_categories
+    @categories
   end
 
-  alias raw_categories categories
+  # transform categories hash into nested objects for view simplicity
+  def categories
+    @categories.to_hashugar
+  end
 
   def valid?
     required_attributes = [id, name, slug, introduction, categories]

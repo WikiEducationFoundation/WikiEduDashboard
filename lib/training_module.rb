@@ -55,7 +55,13 @@ class TrainingModule < TrainingBase
   ####################
 
   # raw_slides can be called to access the string representation;
+
+  def raw_slides
+    @slides
+  end
+
   # #slides now returns the instances of TrainingSlide
+
   def slides
     return @sorted_slides if @sorted_slides.present?
     selected_slides = TrainingSlide.where(slug: slide_slugs)
@@ -63,8 +69,6 @@ class TrainingModule < TrainingBase
       slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
     end
   end
-
-  alias raw_slides slides
 
   def valid?
     required_attributes = [id, name, slug, description, raw_slides]
