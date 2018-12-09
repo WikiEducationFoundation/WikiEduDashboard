@@ -48,6 +48,7 @@ const DatePicker = createReactClass({
       const dateObj = this.moment(this.props.value);
       return {
         value: dateObj.format('YYYY-MM-DD'),
+        displayValue: dateObj.local().format('YYYY-MM-DD'),
         hour: dateObj.hour(),
         minute: dateObj.minute(),
         datePickerVisible: false
@@ -55,6 +56,7 @@ const DatePicker = createReactClass({
     }
     return {
       value: '',
+      displayValue: '',
       hour: 0,
       minute: 0,
       datePickerVisible: false
@@ -79,8 +81,7 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const value = this.props.showTime ? this.getDate() : this.getDate().add(1, 'd');
-    const e = { target: { value: value.format() } };
+    const e = { target: { value: this.getDate().format() } };
     this.props.onChange(e);
   },
 
@@ -125,6 +126,7 @@ const DatePicker = createReactClass({
     this.refs.datefield.focus();
     this.setState({
       value: date.format('YYYY-MM-DD'),
+      displayValue: moment(selectedDate).format('YYYY-MM-DD'),
       datePickerVisible: false
     }, this.onChangeHandler);
   },
@@ -292,7 +294,7 @@ const DatePicker = createReactClass({
           <input
             id={this.props.id}
             ref="datefield"
-            value={this.state.value || ''}
+            value={this.state.displayValue || ''}
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
