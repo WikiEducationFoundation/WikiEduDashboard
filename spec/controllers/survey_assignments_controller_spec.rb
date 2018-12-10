@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SurveyAssignmentsController do
+describe SurveyAssignmentsController, type: :request do
   let(:admin) { create(:admin) }
   let(:survey) { create(:survey) }
 
@@ -33,10 +33,12 @@ describe SurveyAssignmentsController do
       }
     end
 
-    before { allow(controller).to receive(:current_user).and_return(admin) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
 
     it 'allows create and sets appropriate params' do
-      post :create, params: post_params
+      post '/surveys/assignments', params: post_params
       expect(SurveyAssignment.last.follow_up_days_after_first_notification).to eq(follow_up)
       expect(SurveyAssignment.last.send_email).to eq(send_email)
       expect(SurveyAssignment.last.custom_email).to be_a(Hash)
@@ -56,12 +58,14 @@ describe SurveyAssignmentsController do
                                    courses_users_id: courses_user.id)
     end
 
-    before { allow(controller).to receive(:current_user).and_return(admin) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
 
     context 'send_email is not set' do
       it 'does not attempt to send' do
         expect(SurveyMailer).not_to receive(:send_notification)
-        post :send_notifications
+        post '/survey_notification/send'
       end
     end
 
@@ -70,7 +74,7 @@ describe SurveyAssignmentsController do
 
       it 'attempts to send email' do
         expect(SurveyMailer).to receive(:send_notification)
-        post :send_notifications
+        post '/survey_notification/send'
       end
     end
   end
@@ -81,11 +85,13 @@ describe SurveyAssignmentsController do
     end
     let(:params) { { id: survey_assignment.id } }
 
-    before { allow(controller).to receive(:current_user).and_return(admin) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
 
     it 'invokes SurveyTestEmailManager and redirects' do
       expect_any_instance_of(SurveyTestEmailManager).to receive(:send_email)
-      post :send_test_email, params: params
+      post "/survey_assignments/#{survey_assignment.id}/send_test_email", params: params
       expect(response.status).to eq(302)
     end
   end
