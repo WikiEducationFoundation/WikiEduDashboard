@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe TrainingModulesUsersController do
+describe TrainingModulesUsersController, type: :request do
   before { TrainingModule.load_all }
 
   describe '#create_or_update' do
@@ -20,8 +20,8 @@ describe TrainingModulesUsersController do
     context 'tmu record exists' do
       context 'current slide has an index higher than last slide completed' do
         before do
-          allow(controller).to receive(:current_user).and_return(user)
-          post 'create_or_update', params: request_params1
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+          post '/training_modules_users', params: request_params1
         end
 
         it 'sets last slide completed' do
@@ -41,9 +41,9 @@ describe TrainingModulesUsersController do
         end
 
         before do
-          allow(controller).to receive(:current_user).and_return(user)
-          post 'create_or_update', params: request_params1
-          post 'create_or_update', params: request_params2
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+          post '/training_modules_users', params: request_params1
+          post '/training_modules_users', params: request_params2
         end
 
         it 'maintains last_slide_completed' do
@@ -57,8 +57,8 @@ describe TrainingModulesUsersController do
       let(:tmu) { nil }
 
       before do
-        allow(controller).to receive(:current_user).and_return(user)
-        post 'create_or_update', params: request_params1
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        post '/training_modules_users', params: request_params1
       end
 
       it 'creates a TrainingModulesUser' do
