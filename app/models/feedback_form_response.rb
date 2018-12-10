@@ -13,7 +13,7 @@
 
 class FeedbackFormResponse < ApplicationRecord
   def topic
-    if subject =~ %r{/training/}
+    if %r{/training/}.match? subject
       path = URI.parse(subject).path
       parts = path.split('/')
       return parts[3]
