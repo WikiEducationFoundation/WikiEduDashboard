@@ -50,6 +50,7 @@ const CourseCreator = createReactClass({
       showCourseForm: false,
       showCloneChooser: false,
       showEventDates: false,
+      showWizardForm: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
@@ -171,7 +172,10 @@ const CourseCreator = createReactClass({
   },
 
   showCourseForm() {
-    return this.setState({ showCourseForm: true });
+    return this.setState({ 
+      showCourseForm: true,
+      showWizardForm: false
+    });
   },
 
   showCloneChooser() {
@@ -180,6 +184,10 @@ const CourseCreator = createReactClass({
 
   cancelClone() {
     return this.setState({ showCloneChooser: false });
+  },
+
+  showWizardForm() {
+    return this.setState({ showWizardForm: true });
   },
 
   useThisClass() {
@@ -193,18 +201,23 @@ const CourseCreator = createReactClass({
     if (this.props.loadingUserCourses) {
       return <div />;
     }
-    // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
+    // There are four fundamental states: NewOrClone, CourseForm, wizardForm and CloneChooser
     let showCourseForm;
     let showCloneChooser;
     let showNewOrClone;
+    let showWizardForm;
     // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
     if (this.props.cloneableCourses.length === 0) {
       showCourseForm = true;
-    // If the creator was launched from a campaign, do not offer the cloning option.
+      // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
-      showCourseForm = true;
+      // showCourseForm = true;
+      showWizardForm = true;
+    } else if (this.state.showWizardForm) {
+      showWizardForm = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
+      showWizardForm = false;
     } else if (this.state.showCloneChooser) {
       showCloneChooser = true;
     } else {
@@ -226,8 +239,10 @@ const CourseCreator = createReactClass({
     }
 
     let courseFormClass = 'wizard__form';
+    let courseWizard = 'wizard__program';
 
-    courseFormClass += showCourseForm ? '' : ' hidden';
+    courseFormClass += this.state.showCourseForm ? '' : ' hidden';
+    courseWizard += this.state.showWizardForm ? '' : ' hidden';
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
@@ -414,6 +429,21 @@ const CourseCreator = createReactClass({
       );
     }
 
+    const programs = [
+      {
+        name: 'Generic course',
+        description: 'Pastry danish fruitcake liquorice gingerbread. Liquorice pie wafer sesame snaps chupa chups sweet roll. Toffee marzipan sugar plum caramels.'
+      },
+      {
+        name: 'Thin-A-Thon',
+        description: 'Bonbon liquorice tiramisu wafer. Dragée pie caramels gummies muffin. Tart gingerbread biscuit tiramisu. Jelly-o lemon drops icing jujubes liquorice sugar plum jelly beans jelly dragée'
+      },
+      {
+        name: 'Another program',
+        description: 'Bonbon liquorice tiramisu wafer. Dragée pie caramels gummies muffin. Tart gingerbread biscuit tiramisu. Jelly-o lemon drops icing jujubes liquorice sugar plum jelly beans jelly dragée'
+      }
+    ];
+    
     return (
       <TransitionGroup
         classNames="wizard"
@@ -427,7 +457,7 @@ const CourseCreator = createReactClass({
               <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
               <p>{instructions}</p>
               <div className={cloneOptions}>
-                <button className="button dark" onClick={this.showCourseForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
+                <button className="button dark" onClick={this.showWizardForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
                 <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
               </div>
               <div className={selectClassName}>
@@ -435,6 +465,18 @@ const CourseCreator = createReactClass({
                 <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
                 <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
               </div>
+              {_.map(programs, (program) => {
+                return (
+                  <div key={program.name}onClick={this.showCourseForm} className={courseWizard}>
+                    <div className="program-description">
+                      <h4><strong>{program.name}</strong></h4>
+                      <p>
+                        {program.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
               <div className={courseFormClass}>
                 <div className="column">
 
