@@ -128,8 +128,6 @@ Rails/FindBy:
   Enabled: false
 Rails/Output:
   Enabled: false
-Lint/DuplicateMethods:
-  Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 Rails/ActiveRecordAliases:
