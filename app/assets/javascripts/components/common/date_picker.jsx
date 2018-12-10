@@ -68,6 +68,7 @@ const DatePicker = createReactClass({
     if (dateObj.isValid()) {
       this.setState({
         value: dateObj.format('YYYY-MM-DD'),
+        displayValue: dateObj.local().format('YYYY-MM-DD'),
         hour: dateObj.hour(),
         minute: dateObj.minute()
       });
@@ -140,7 +141,7 @@ const DatePicker = createReactClass({
   handleDateFieldChange(e) {
     const { value } = e.target;
     if (value !== this.state.value) {
-      this.setState({ value });
+      this.setState({ value, displayValue: value });
     }
   },
 
@@ -151,13 +152,15 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   handleDateFieldBlur(e) {
-    const { value } = e.target;
+    let { value } = e.target;
+    let displayValue = value;
     if (this.isValidDate(value) && !this.isDayDisabled(value)) {
-      this.setState({ value }, () => {
+      this.setState({ value, displayValue }, () => {
         this.onChangeHandler();
       });
     } else {
-      this.setState({ value: this.getInitialState().value });
+      ({ value, displayValue } = this.getInitialState());
+      this.setState({ value, displayValue });
     }
   },
 
