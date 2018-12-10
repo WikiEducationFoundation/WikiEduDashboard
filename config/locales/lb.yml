@@ -373,6 +373,12 @@ lb:
         already_admin: '%{username}ass schonn en Administrateur!'
       remove:
         revoking_button_working: Ewechhuelen...
+    special_users:
+      new:
+        form_placeholder: Benotzernumm
+        already_is: '%{username} ass schonn e(n) {position}!'
+      remove:
+        demote_success: '%{username} ass elo just e Benotzer.'
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:

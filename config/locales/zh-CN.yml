@@ -623,6 +623,17 @@ zh-CN:
         already_instructor: '%{username}已经是导师！'
         demote_success: '%{username}已更改为导师。'
         no_super_admin: 不能撤除超级管理员的管理员状态
+    special_users:
+      new:
+        form_label: 授予特殊用户权限
+        form_placeholder: 用户名
+        confirm_add_special_user: 添加特别用户
+        confirm_remove_special_user: 删除特殊用户权限
+      remove:
+        revoke_button: 撤销特殊用户
+        revoking_button_working: 正在移除……
+        already_is_not: '%{username}还不是特别用户！'
+        demote_success: '%{username}现在仅仅是普通用户。'
   suggestions:
     editing: 编辑建议
     suggestion_docs:

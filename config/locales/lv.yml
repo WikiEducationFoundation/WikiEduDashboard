@@ -21,6 +21,7 @@ lv:
     my_dashboard: Mans panelis
     recent_activity: Nesenās darbības
     report_problem: Ziņot par problēmu
+    request_account: Pieprasīt kontu
     request_account_create: Izveidot kontu
     search: uzdot jautājumu
     sign_up_extended: Reģistrēties ar Vikipēdijas kontu
@@ -52,6 +53,7 @@ lv:
     loading: Ielādē rakstus...
     new: (jauns)
     rating: Klase
+    see_more: Skatīt vairāk
     title: Nosaukums
     title_example: Raksta nosaukums
     view: Apskatīt rakstu
@@ -298,6 +300,7 @@ lv:
     special_users:
       new:
         form_placeholder: Lietotājvārds
+        confirm_add_special_user: Pievienot īpašo lietotāju
   timeline:
     add_week: Pievienot nedēļu
     course_end: Kursa beigas

@@ -203,6 +203,7 @@ da:
     courses_taught: Underviste kurser
     creation_date: Oprettelsesdato
     creator:
+      choose_clone: Vælg et kursus du vil klone.
       clone_previous: Klon tidligere kursus
       clone_this: Klon dette kursus
       course_description: Beskrivelse af kursus
@@ -235,11 +236,13 @@ da:
     edit_course_dates: Rediger kursusdatoer
     enable_chat: Aktiver chat
     ended: Kurset er afsluttet.
+    enrollment: Tilføj/Fjern studerende
     error:
       invalid_language_or_project: Ugyldigt sprog/projekt
     expected_students: Forventede studenter
     features_feedback: 'Automatiske forslag:'
     feedback: Tilbagemelding
+    home_wiki_language: Sprog for hjemwiki
     instructor:
       one: Instruktør
       other: Instruktører
@@ -253,10 +256,14 @@ da:
     loading: Indlæser...
     my_articles: Mine artikler
     new_week: Tilføj ny uge
+    new_account_check_username: Tjek tilgængelighed for brugernavn
     new_account_email: E-mailadresse
     new_account_username_invalid: Dette er ikke et gyldigt brugernavn.
+    new_account_username_taken: Dette brugernavn er allerede taget. Vælg venligst
+      et andet.
     new_account_submit: Anmod om konto
     nocourses: Du deltager ikke i nogen kurser.
+    nocourse: deltager ikke i nogen kurser.
     none: Ingen
     no_available_actions: Ingen tilgængelige handlinger
     ores_plot: ORES
@@ -280,6 +287,7 @@ da:
     training_nav: Gå til træning
     untrained: Utrænet
     update_stats: Opdater statistik
+    view_other: Vis andre kampagner
     view: Vis kursus
     view_page: Vis kursusside
     view_wiki: Vis på Wikipedia
@@ -331,6 +339,7 @@ da:
     students_count: Antal deltagere
     term: Hvornår
     view_other: Vis andre kampagner
+    view_page: Vis programside
     yourcourses: Dine programmer
   editable:
     edit: Rediger
@@ -340,6 +349,7 @@ da:
     edit_details: Redigér detaljer
     edit_template: Rediger skabelon
   metrics:
+    label: Kursusaktivitet
     activity: Seneste aktivitet
     are_trained: er ajour med træningen
     articles_created: Artikler oprettet
@@ -366,6 +376,7 @@ da:
     file_name: Filnavn
     possible_plagiarism: Muligt plagiat
     recent_edits: Seneste redigeringer
+    show_courses: Vis kun mine kurser
     uploaded_by: Uploaded af
   revisions:
     chars_added: Tegn tilføjet
@@ -387,11 +398,13 @@ da:
         confirm_add_special_user: Tilføj specialbruger
         already_is: '%{username} er allerede en {position}!'
       remove:
+        already_is_not: '%{username} er ikke en specialbruger!'
         demote_success: '%{username} er nu bare en bruger.'
   timeline:
     add_week: Tilføj uge
     arrange_timeline: Organiser tidslinjen
     block_milestone: Milepæl
+    course_dates: Kursusdatoer
     delete_timeline_and_start_over: Slet tidslinje
     empty_week_3: eller
     first_week_title: Første aktive uge
@@ -413,6 +426,7 @@ da:
     done: Færdig!
     check_answer: Kontrollér svar
     included_modules: Inkluderede moduler
+    view_library_source: vis bibliotekskilde
   uploads:
     file_name: Filnavn
     header: Filer uploadet til Wikimedia Commons
@@ -442,12 +456,18 @@ da:
       visitor: Besøgende
       student: Studerende
       instructor: Underviser
+  user_profiles:
+    bio_placeholder: Tilføj din biografi (valgfrit)
+    location_placeholder: Tilføj din placering (valgfrit)
   wizard:
     course_dates: Kursus datoer
+    select_one_option: Venligst vælg 1 mulighed.
     read_less: Læs mindre
     read_more: Læs mere
   error:
     invalid_date: Datoen %{key} er ugyldig
+    unsupported_browser:
+      header: Ikke understøttet browser. :_(
   error_404:
     header: Siden blev ikke fundet. :-(
   login_error:
@@ -468,8 +488,12 @@ da:
   article_finder:
     page_assessment_class: Klasse
     remove_article: Fjern artikel
+    no_article_found: Ingen artikler fundet i denne kategori
     search: Søg
     tools: Værktøjer
+    category_search: Kategori søgning
+    article_quality: Artikelkvalitet(0-100)
     more_results: Flere resultater
+    searching_articles: Søger artikler
     submit: Indsend
 ...
