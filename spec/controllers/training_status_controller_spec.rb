@@ -2,10 +2,9 @@
 
 require 'rails_helper'
 
-describe TrainingStatusController do
+describe TrainingStatusController, type: :request do
   before { TrainingModule.load_all }
 
-  render_views
   describe '#show' do
     let(:user) { create(:user) }
     let(:course) { create(:course) }
@@ -16,9 +15,13 @@ describe TrainingStatusController do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
+    let(:status_params) do
+      { user_id: user.id, course_id: course.id, format: :json }
+    end
+
     context 'when the training is incomplete' do
       it 'includes the not completed status for a user' do
-        get :show, params: { user_id: user.id, course_id: course.id }, format: :json
+        get '/training_status', params: status_params
         response_data = Oj.load(response.body)
         expect(response_data['course']['training_modules'][0]['status']).to eq('Not started')
         expect(response_data['course']['training_modules'][0]['completion_date']).to be_nil
@@ -34,7 +37,7 @@ describe TrainingStatusController do
       end
 
       it 'includes the completion date' do
-        get :show, params: { user_id: user.id, course_id: course.id }, format: :json
+        get '/training_status', params: status_params
         response_data = Oj.load(response.body)
         expect(response_data['course']['training_modules'][0]['completion_date']).not_to be_nil
       end
