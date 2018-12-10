@@ -116,8 +116,6 @@ Rails/InverseOf:
   Enabled: false
 Rails/UnknownEnv:
   Enabled: false
-Performance/RegexpMatch:
-  Enabled: false
 Rails/Delegate:
   Enabled: false
 Rails/HasAndBelongsToMany:
