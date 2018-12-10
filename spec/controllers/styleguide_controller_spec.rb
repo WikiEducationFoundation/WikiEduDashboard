@@ -2,11 +2,9 @@
 
 require 'rails_helper'
 
-describe StyleguideController do
-  render_views
-
+describe StyleguideController, type: :request do
   it 'renders without error' do
-    get :index
+    get '/styleguide'
     expect(response.status).to eq(200)
   end
 end
