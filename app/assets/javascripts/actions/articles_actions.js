@@ -4,8 +4,9 @@ import { fetchWikidataLabelsForArticles } from './wikidata_actions';
 import fetch from 'isomorphic-fetch';
 
 const fetchArticlesPromise = (courseId, limit) => {
-  return fetch(`/courses/${courseId}/articles.json?limit=${limit}`)
-    .then((res) => {
+  return fetch(`/courses/${courseId}/articles.json?limit=${limit}`, {
+    credentials: "include"
+  }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
