@@ -5,8 +5,9 @@ import pageViewDateString from '../utils/uploads_pageviews_utils';
 import fetch from 'isomorphic-fetch';
 
 const fetchUploads = (courseId) => {
-  return fetch(`/courses/${courseId}/uploads.json`)
-    .then((res) => {
+  return fetch(`/courses/${courseId}/uploads.json`, {
+    credentials: 'include'
+  }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
@@ -38,8 +39,9 @@ const fetchUploadMetadata = (uploads) => {
   });
   url = url.slice(0, -1);
 
-  return fetch(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`)
-    .then((res) => {
+  return fetch(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`, {
+    credentials: 'include'
+  }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
@@ -69,8 +71,9 @@ export const setUploadMetadata = uploadsList => (dispatch) => {
 
 const fetchUploadViewerMetadata = (upload) => {
   return fetch(`https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&
-    pageids=${upload.id}&prop=globalusage|categories|imageinfo&iiprop=size|extmetadata|url&clshow=!hidden`)
-    .then((res) => {
+    pageids=${upload.id}&prop=globalusage|categories|imageinfo&iiprop=size|extmetadata|url&clshow=!hidden`, {
+    credentials: 'include'
+  }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
@@ -110,11 +113,16 @@ const fetchUploadPageViews = (articleList) => {
   articleList.forEach((article) => {
     const title = encodeURIComponent(article.title);
     const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${formattedStartDate}/${endDate}`;
-    viewPerArticle.push(fetch(url)
-      .then((res) => {
+    viewPerArticle.push(fetch(url, {
+      credentials: 'include'
+    }).then((res) => {
         if (res.ok && res.status === 200) {
           return res.json();
         } else if (res.status === 404) {
+          // The Wikimedia pageviews API responds with a 404 if there are zero pageviews
+          // for the entire requested range.
+          // Here, we assume that any 404 is because there are no pageviews, and return
+          // a simple zero views mock response instead of throwing an error.
           return zeroViewsResponse;
         }
         return Promise.reject(res);

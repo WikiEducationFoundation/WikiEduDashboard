@@ -4,8 +4,9 @@ import logErrorMessage from '../utils/log_error_message';
 import fetch from 'isomorphic-fetch';
 
 const fetchAssignmentsPromise = (courseSlug) => {
-  return fetch(`/courses/${courseSlug}/assignments.json`)
-    .then((res) => {
+  return fetch(`/courses/${courseSlug}/assignments.json`, {
+    credentials: "include"
+  }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
