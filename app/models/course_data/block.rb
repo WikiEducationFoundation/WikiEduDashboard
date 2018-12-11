@@ -36,7 +36,7 @@ class Block < ApplicationRecord
   DEFAULT_POINTS = 10
 
   def training_modules
-    training_module_ids.collect { |id| TrainingModule.find(id) }
+    TrainingModule.where(id: training_module_ids)
   end
 
   def date_manager
