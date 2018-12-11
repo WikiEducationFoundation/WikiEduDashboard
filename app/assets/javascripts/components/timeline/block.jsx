@@ -5,7 +5,7 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
-import Checkbox from '../common/checkbox.jsx';
+// import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
 
 const DEFAULT_POINTS = 10;
@@ -108,23 +108,23 @@ const Block = createReactClass({
     }
 
     let deleteBlock;
-    let graded;
+    // let graded;
     if (isEditable) {
       if (!this.props.block.is_new) {
         deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={this.deleteBlock}>Delete Block</button></div>);
       }
       className += ' editable';
       if (this.props.isDragging) { className += ' dragging'; }
-      graded = (
-        <Checkbox
-          value={isGraded}
-          onChange={this.updateGradeable}
-          value_key={'gradeable'}
-          editable={isEditable}
-          label="Graded"
-          container_class="graded"
-        />
-      );
+      // graded = (
+      //   <Checkbox
+      //     value={isGraded}
+      //     onChange={this.updateGradeable}
+      //     value_key={'gradeable'}
+      //     editable={isEditable}
+      //     label="Graded"
+      //     container_class="graded"
+      //   />
+      // );
     }
 
     let modules;
@@ -236,7 +236,7 @@ const Block = createReactClass({
               onBlur={this.props.toggleFocused}
             />
           </div>
-          {graded}
+          {/* {graded} */}
         </div>
         {content}
         {deleteBlock}

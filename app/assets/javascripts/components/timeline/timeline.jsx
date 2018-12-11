@@ -379,7 +379,7 @@ const Timeline = createReactClass({
               {addWeekLink}
             </ol>
             {editCourseDates}
-            <a className="week-nav__action week-nav__link" href="#grading">Grading</a>
+            {/* <a className="week-nav__action week-nav__link" href="#grading">Grading</a> */}
           </div>
         </Affix>
       </div>

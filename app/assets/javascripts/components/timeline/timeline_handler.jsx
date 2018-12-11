@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
 
 import Timeline from './timeline.jsx';
-import Grading from './grading.jsx';
+// import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 import { fetchAllTrainingModules } from '../../actions/training_actions';
@@ -79,21 +79,21 @@ const TimelineHandler = createReactClass({
     }
 
     // Grading
-    let showGrading;
-    if (this.state.reorderable) {
-      showGrading = false;
-    } else {
-      showGrading = true;
-    }
-    const grading = showGrading ? (<Grading
-      weeks={this.props.weeks}
-      editable={this.props.editable}
-      current_user={this.props.current_user}
-      persistCourse={this.saveTimeline}
-      updateBlock={this.props.updateBlock}
-      resetState={() => {}}
-      nameHasChanged={() => false}
-    />) : null;
+    // let showGrading;
+    // if (this.state.reorderable) {
+    //   showGrading = false;
+    // } else {
+    //   showGrading = true;
+    // }
+    // const grading = showGrading ? (<Grading
+    //   weeks={this.props.weeks}
+    //   editable={this.props.editable}
+    //   current_user={this.props.current_user}
+    //   persistCourse={this.saveTimeline}
+    //   updateBlock={this.props.updateBlock}
+    //   resetState={() => {}}
+    //   nameHasChanged={() => false}
+    // />) : null;
 
     return (
       <div>
@@ -131,7 +131,7 @@ const TimelineHandler = createReactClass({
           nameHasChanged={() => false}
           edit_permissions={this.props.editPermissions}
         />
-        {grading}
+        {/* {grading} */}
       </div>
     );
   }
