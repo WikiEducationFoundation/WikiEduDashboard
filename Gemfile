@@ -72,7 +72,7 @@ gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQue
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 gem 'will_paginate' # Used for pagination for Campaign Articles
 gem 'chartkick' # Used for plots in Rails views
-
+gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 

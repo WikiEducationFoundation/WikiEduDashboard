@@ -11,6 +11,7 @@ import { addNotification } from '../../actions/notification_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
+import EmbedStatsButton from './embed_stats_button.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
 import { removeUser } from '../../actions/user_actions';
@@ -188,6 +189,9 @@ const AvailableActions = createReactClass({
     if ((user.isNonstudent || user.admin || !Features.wikiEd) && course.published) {
       controls.push((
         <p key="download_course_stats"><CourseStatsDownloadModal course={course} /></p>
+      ));
+      controls.push((
+        <p key="embed_course_stats"><EmbedStatsButton title={course.title} /></p>
       ));
     }
 

@@ -48,6 +48,7 @@ const Overview = createReactClass({
 
   render() {
     const course = this.props.course;
+
     if (course.cloned_status === 1) {
       return (
         <CourseClonedModal
