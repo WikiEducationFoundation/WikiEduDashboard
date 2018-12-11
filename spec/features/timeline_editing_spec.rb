@@ -138,23 +138,6 @@ describe 'timeline editing', type: :feature, js: true do
     pass_pending_spec
   end
 
-  it 'lets users remove grading from a block' do
-    visit "/courses/#{course_with_timeline.slug}/timeline"
-    expect(Block.find(1).points).to eq(50)
-    # Open edit mode for the first block
-    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
-    sleep 0.5
-    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
-      find('.block__edit-block', match: :first).click
-    end
-    within 'p.graded' do
-      find('input').click
-    end
-    click_button 'Save'
-    sleep 1
-    expect(Block.find(1).points).to eq(nil)
-  end
-
   it 'lets users add a block' do
     visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(course_with_timeline.blocks.count).to eq(3)

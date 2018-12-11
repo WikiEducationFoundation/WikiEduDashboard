@@ -228,28 +228,6 @@ describe 'New course creation and editing', type: :feature do
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
 
-      # Click edit, mark it graded and save it.
-      find('.week-1').hover
-      sleep 0.5
-      within('.week-1') do
-        omniclick all('.block__edit-block').first
-        find('p.graded input[type=checkbox]').set(true)
-        sleep 1
-        click_button 'Save'
-      end
-      sleep 1
-
-      # Edit the points.
-      within('.grading__grading-container') do
-        click_button 'Edit'
-        sleep 1
-        all('input').last.set('50')
-        sleep 1
-        click_button 'Save'
-        sleep 1
-        expect(page).to have_content 'Value: 50'
-      end
-
       # Navigate back to overview, check relevant data, then delete course
       visit "/courses/#{Course.first.slug}"
 
