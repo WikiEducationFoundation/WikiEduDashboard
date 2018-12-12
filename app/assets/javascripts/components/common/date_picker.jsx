@@ -48,7 +48,6 @@ const DatePicker = createReactClass({
       const dateObj = this.moment(this.props.value);
       return {
         value: dateObj.format('YYYY-MM-DD'),
-        displayValue: dateObj.local().format('YYYY-MM-DD'),
         hour: dateObj.hour(),
         minute: dateObj.minute(),
         datePickerVisible: false
@@ -56,23 +55,10 @@ const DatePicker = createReactClass({
     }
     return {
       value: '',
-      displayValue: '',
       hour: 0,
       minute: 0,
       datePickerVisible: false
     };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    const dateObj = this.moment(nextProps.value);
-    if (dateObj.isValid()) {
-      this.setState({
-        value: dateObj.format('YYYY-MM-DD'),
-        displayValue: dateObj.local().format('YYYY-MM-DD'),
-        hour: dateObj.hour(),
-        minute: dateObj.minute()
-      });
-    }
   },
 
   /**
@@ -127,7 +113,6 @@ const DatePicker = createReactClass({
     this.refs.datefield.focus();
     this.setState({
       value: date.format('YYYY-MM-DD'),
-      displayValue: moment(selectedDate).format('YYYY-MM-DD'),
       datePickerVisible: false
     }, this.onChangeHandler);
   },
@@ -141,7 +126,7 @@ const DatePicker = createReactClass({
   handleDateFieldChange(e) {
     const { value } = e.target;
     if (value !== this.state.value) {
-      this.setState({ value, displayValue: value });
+      this.setState({ value });
     }
   },
 
@@ -152,15 +137,13 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   handleDateFieldBlur(e) {
-    let { value } = e.target;
-    let displayValue = value;
+    const { value } = e.target;
     if (this.isValidDate(value) && !this.isDayDisabled(value)) {
-      this.setState({ value, displayValue }, () => {
+      this.setState({ value }, () => {
         this.onChangeHandler();
       });
     } else {
-      ({ value, displayValue } = this.getInitialState());
-      this.setState({ value, displayValue });
+      this.setState({ value: this.getInitialState().value });
     }
   },
 
@@ -297,7 +280,7 @@ const DatePicker = createReactClass({
           <input
             id={this.props.id}
             ref="datefield"
-            value={this.state.displayValue || ''}
+            value={this.state.value || ''}
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
