@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch';
 
 const fetchAssignmentsPromise = (courseSlug) => {
   return fetch(`/courses/${courseSlug}/assignments.json`, {
-    credentials: "include"
+    credentials: 'include'
   }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();

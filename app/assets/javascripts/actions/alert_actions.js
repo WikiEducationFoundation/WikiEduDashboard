@@ -22,7 +22,7 @@ export const resetNeedHelpAlert = () => ({ type: types.RESET_NEED_HELP_ALERT });
 
 const fetchAlertsPromise = (campaignSlug) => {
   return fetch(`/campaigns/${campaignSlug}/alerts.json`, {
-    credentials: "include"
+    credentials: 'include'
   }).then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
