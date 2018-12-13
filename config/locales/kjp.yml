@@ -47,6 +47,7 @@ kjp:
     created_at: မူႋၮီ
     description: ဆ်ုဏဲဖၠဟ်
   courses:
+    delete_suggestion: ထုဂ်ဆိင့်
     overview: ဗဟိုစာမျက်နှာ
     timeline_nav: မ်ုလေဝ်လူႋအ်ုခါ့ဖၠံင်
 ...

@@ -404,6 +404,9 @@ ar:
     duration: مدة الدورة
     edit_count: عدد التعديلات
     edit_course_dates: تواريخ دورة التحرير
+    embed_course_stats: تضمين إحصائيات الدورة
+    embed_course_stats_description: لتضمين إحصائيات هذا البرنامج في موقع ويب آخر;
+      انسخ والصق قصاصة الكود هذه إلى
     enable_account_requests: تمكين طلبات الحساب
     enable_chat: تفعيل الدردشة
     end: نهاية

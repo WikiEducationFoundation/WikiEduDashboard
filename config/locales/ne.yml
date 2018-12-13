@@ -492,6 +492,10 @@ ne:
         revoke_button: प्रबन्धक अधिकार हटाउनुहोस्
         revoke_button_confirm: '%{username} बाट प्रबन्धक अधिकार हटाइयो'
         revoking_button_working: हटाउँदै...
+    special_users:
+      new:
+        form_placeholder: प्रयोगकर्ता नाम
+        confirm_add_special_user: एक विशेष प्रयोगकर्ता थप्नुहोस्
   suggestions:
     editing: सम्पादन सुझावहरू
     suggestion_docs:

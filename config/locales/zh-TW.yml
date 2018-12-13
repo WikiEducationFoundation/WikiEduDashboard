@@ -343,6 +343,8 @@ zh-TW:
     duration: 開課期間
     edit_count: 編輯次數
     edit_course_dates: 編輯課程日期
+    embed_course_stats: 內嵌課程統計
+    embed_course_stats_description: 要替在其它網站的此方案內嵌統計內容，請複製貼上此代碼段落資訊
     enable_account_requests: 啟用帳號申請
     enable_chat: 啟用聊天
     end: 結束

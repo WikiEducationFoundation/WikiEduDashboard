@@ -430,6 +430,9 @@ de:
     duration: Kursdauer
     edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
+    embed_course_stats: Kursstatistiken einbetten
+    embed_course_stats_description: Um die Statistiken für dieses Programm auf einer
+      anderen Website einzubetten, kopiere diesen Codeschnipsel und füge ihn ein.
     enable_account_requests: Benutzerkontenanträge aktivieren
     enable_chat: Chat aktivieren
     end: Ende
