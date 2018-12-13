@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import jQuery from 'jquery';
 import moment from 'moment';
 import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
@@ -122,7 +121,7 @@ const DiffViewer = createReactClass({
     const wikiUrl = this.wikiUrl(props.revision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
     const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
-    jQuery.ajax(
+    $.ajax(
       {
         dataType: 'jsonp',
         url: diffUrl,
@@ -136,7 +135,7 @@ const DiffViewer = createReactClass({
   },
 
   fetchDiff(diffUrl) {
-    jQuery.ajax(
+    $.ajax(
       {
         dataType: 'jsonp',
         url: diffUrl,
