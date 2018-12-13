@@ -22,7 +22,8 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
     tinymce: [`${jsSource}/tinymce.js`],
-    embed_course_stats: [`${jsSource}/embed_course_stats.js`]
+    embed_course_stats: [`${jsSource}/embed_course_stats.js`],
+    jquery: [`${jsSource}/jquery.js`]
   };
 
   // Set up plugins based on dev/prod mode
