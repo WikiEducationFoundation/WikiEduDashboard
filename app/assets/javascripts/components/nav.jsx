@@ -123,14 +123,14 @@ const Nav = createReactClass({
         </li>
       );
     }
-    if (this.state.userSignedIn === true) {
+    if (this.state.userSignedIn) {
       myDashboard = (
         <li>
           <CustomLink to={this.state.rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
         </li>
       );
     }
-    if (this.state.ifAdmin === true) {
+    if (this.state.ifAdmin && this.state.wikiEd) {
       forAdmin = (
         <li>
           <CustomLink to="/admin" name="Admin" />
