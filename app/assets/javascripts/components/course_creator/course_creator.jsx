@@ -139,6 +139,10 @@ const CourseCreator = createReactClass({
     }
   },
 
+  updateCourseType(key, value) {
+    this.props.updateCourse({ [key]: value });
+  },
+
   updateCourseDates(key, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, key, value);
     this.props.updateCourse(updatedCourse);
@@ -171,8 +175,10 @@ const CourseCreator = createReactClass({
     return true;
   },
 
-  showCourseForm() {
-    return this.setState({ 
+  showCourseForm(programName) {
+    this.updateCourseType('type', programName);
+
+    return this.setState({
       showCourseForm: true,
       showWizardForm: false
     });
@@ -211,7 +217,6 @@ const CourseCreator = createReactClass({
       showCourseForm = true;
       // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
-      // showCourseForm = true;
       showWizardForm = true;
     } else if (this.state.showWizardForm) {
       showWizardForm = true;
@@ -241,8 +246,8 @@ const CourseCreator = createReactClass({
     let courseFormClass = 'wizard__form';
     let courseWizard = 'wizard__program';
 
-    courseFormClass += this.state.showCourseForm ? '' : ' hidden';
-    courseWizard += this.state.showWizardForm ? '' : ' hidden';
+    courseFormClass += showCourseForm ? '' : ' hidden';
+    courseWizard += showWizardForm ? '' : ' hidden';
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
@@ -432,18 +437,21 @@ const CourseCreator = createReactClass({
     const programs = [
       {
         name: 'Generic course',
+        type: 'BasicCourse',
         description: 'Pastry danish fruitcake liquorice gingerbread. Liquorice pie wafer sesame snaps chupa chups sweet roll. Toffee marzipan sugar plum caramels.'
       },
       {
-        name: 'Thin-A-Thon',
+        name: 'Edit-A-Thon',
+        type: 'Editathon',
         description: 'Bonbon liquorice tiramisu wafer. Dragée pie caramels gummies muffin. Tart gingerbread biscuit tiramisu. Jelly-o lemon drops icing jujubes liquorice sugar plum jelly beans jelly dragée'
       },
       {
-        name: 'Another program',
+        name: 'Article Scoped Program',
+        type: 'ArticleScopedProgram',
         description: 'Bonbon liquorice tiramisu wafer. Dragée pie caramels gummies muffin. Tart gingerbread biscuit tiramisu. Jelly-o lemon drops icing jujubes liquorice sugar plum jelly beans jelly dragée'
       }
     ];
-    
+
     return (
       <TransitionGroup
         classNames="wizard"
@@ -467,7 +475,7 @@ const CourseCreator = createReactClass({
               </div>
               {_.map(programs, (program) => {
                 return (
-                  <div key={program.name}onClick={this.showCourseForm} className={courseWizard}>
+                  <div key={program.name} onClick={this.showCourseForm.bind(null, program.type)} className={courseWizard}>
                     <div className="program-description">
                       <h4><strong>{program.name}</strong></h4>
                       <p>
