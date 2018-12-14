@@ -1,9 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import uuid from 'uuid';
-import selectStyles from '../../styles/select';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {
@@ -14,16 +12,14 @@ const CourseTypeSelector = createReactClass({
 
   componentWillMount() {
     this.setState({
-      id: uuid.v4(),
-      selectedOption: { value: this.props.course.type, label: this._getFormattedCourseType(this.props.course.type) },
+      id: uuid.v4()
     });
   },
 
-  _handleChange(selectedOption) {
+  _handleChange(e) {
     const course = this.props.course;
-    const courseType = selectedOption.value;
+    const courseType = e.target.value;
     course.type = courseType;
-    this.setState({ selectedOption });
     if (courseType === 'ClassroomProgramCourse' || course.timeline_enabled) {
       if (!course.timeline_start) {
         course.timeline_start = course.start;
@@ -42,8 +38,7 @@ const CourseTypeSelector = createReactClass({
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
       ArticleScopedProgram: 'Article Scoped Program',
-      FellowsCohort: 'Wikipedia Fellows Cohort',
-      TestCase: 'Test Case'
+      FellowsCohort: 'Wikipedia Fellows Cohort'
     }[type];
   },
 
@@ -56,32 +51,31 @@ const CourseTypeSelector = createReactClass({
     );
 
     if (this.props.editable && currentType !== 'LegacyCourse') {
+      let classroomProgramCourseOption;
+      let visitingScholarshipOption;
+      let fellowsCohortOption;
+      if (Features.wikiEd) {
+        classroomProgramCourseOption = <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>;
+        visitingScholarshipOption = <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>;
+        fellowsCohortOption = <option value="FellowsCohort">{this._getFormattedCourseType('FellowsCohort')}</option>;
+      }
+
       selector = (
         <div className="form-group">
           <label htmlFor={this.state.id}>Type:</label>
-          <Select
+          <select
             id={this.state.id}
-            value={this.state.selectedOption}
+            name="course_type"
+            value={this.props.course.type}
             onChange={this._handleChange}
-            options={
-              !Features.wikiEd
-              ? [
-                { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
-                { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
-                { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
-              ]
-              : [
-                { value: 'ClassroomProgramCourse', label: this._getFormattedCourseType('ClassroomProgramCourse') },
-                { value: 'VisitingScholarship', label: this._getFormattedCourseType('VisitingScholarship') },
-                { value: 'FellowsCohort', label: this._getFormattedCourseType('FellowsCohort') },
-                { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
-                { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
-                { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
-              ]
-            }
-            simpleValue
-            styles={selectStyles}
-          />
+          >
+            {classroomProgramCourseOption}
+            {visitingScholarshipOption}
+            {fellowsCohortOption}
+            <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
+            <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
+            <option value="ArticleScopedProgram">{this._getFormattedCourseType('ArticleScopedProgram')}</option>
+          </select>
         </div>
       );
     }
@@ -94,4 +88,3 @@ const CourseTypeSelector = createReactClass({
 });
 
 export default CourseTypeSelector;
-
