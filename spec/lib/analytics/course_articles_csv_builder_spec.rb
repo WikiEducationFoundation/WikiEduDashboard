@@ -26,7 +26,7 @@ describe CourseArticlesCsvBuilder do
   end
 
   it 'creates an edited CSV article with a rating column' do
-    article_headers = generated_csv.split('\n').first
+    article_headers = subject.split('\n').first
     expect(article_headers.include?('rating')).to be true
   end
 end
