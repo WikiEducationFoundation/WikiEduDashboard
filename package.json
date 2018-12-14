@@ -87,7 +87,7 @@
     "markdown-it-footnote": "^3.0.1",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
-    "moment": "2.22.2",
+    "moment": "2.23.0",
     "moment-recur": "^1.0.7",
     "nock": "^10.0.4",
     "nouislider": "^12.0.0",
