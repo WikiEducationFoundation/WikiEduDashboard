@@ -11463,10 +11463,10 @@ react-dom@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.11.2"
 
-react-dropzone@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-7.0.1.tgz#bc76bc1686fb47ed0c8301f968fffa6aecdff47b"
-  integrity sha512-J4rbzhFZPVW7k7K9CVb0OcwSOJGLWa0y+0rvtB4rBLVkvq0agH/o3kPJ0DCkd6ZVzL2K1NFqIOvtQkwQKpmJBA==
+react-dropzone@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-8.0.1.tgz#54b954bb4f53ec628a5e0cea894e3b8d87de1560"
+  integrity sha512-fp1dSXFTolvozwnHtSsTdM2WnCsUita2tDGnZtHVO3Fl0bR6h733SutEVQhoZPuvukN0NBmHEzcjIAE+/um4Hw==
   dependencies:
     attr-accept "^1.1.3"
     prop-types "^15.6.2"
