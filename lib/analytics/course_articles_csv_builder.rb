@@ -27,6 +27,7 @@ class CourseArticlesCsvBuilder
 
   CSV_HEADERS = %w[
     title
+    rating
     namespace
     wiki
     url
@@ -41,6 +42,7 @@ class CourseArticlesCsvBuilder
     article_stats = ArticleStats.new(@course, article)
 
     row = [article.title]
+    row << article.rating
     row << article.namespace
     row << article.wiki.domain
     row << article.url
