@@ -61,17 +61,6 @@ const DatePicker = createReactClass({
     };
   },
 
-  componentWillReceiveProps(nextProps) {
-    const dateObj = this.moment(nextProps.value);
-    if (dateObj.isValid()) {
-      this.setState({
-        value: dateObj.format('YYYY-MM-DD'),
-        hour: dateObj.hour(),
-        minute: dateObj.minute()
-      });
-    }
-  },
-
   /**
    * Update parent component with new date value.
    * Used instead of onChange() in InputMixin because we need to
