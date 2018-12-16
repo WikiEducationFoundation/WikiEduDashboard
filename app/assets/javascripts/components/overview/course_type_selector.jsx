@@ -56,6 +56,21 @@ const CourseTypeSelector = createReactClass({
     );
 
     if (this.props.editable && currentType !== 'LegacyCourse') {
+      let options = [
+        { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
+        { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
+        { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
+      ];
+      if (Features.wikiEd) {
+        options = [
+          { value: 'ClassroomProgramCourse', label: this._getFormattedCourseType('ClassroomProgramCourse') },
+          { value: 'VisitingScholarship', label: this._getFormattedCourseType('VisitingScholarship') },
+          { value: 'FellowsCohort', label: this._getFormattedCourseType('FellowsCohort') },
+          { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
+          { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
+          { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
+        ];
+      }
       selector = (
         <div className="form-group">
           <label htmlFor={this.state.id}>Type:</label>
@@ -63,22 +78,7 @@ const CourseTypeSelector = createReactClass({
             id={this.state.id}
             value={this.state.selectedOption}
             onChange={this._handleChange}
-            options={
-              !Features.wikiEd
-              ? [
-                { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
-                { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
-                { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
-              ]
-              : [
-                { value: 'ClassroomProgramCourse', label: this._getFormattedCourseType('ClassroomProgramCourse') },
-                { value: 'VisitingScholarship', label: this._getFormattedCourseType('VisitingScholarship') },
-                { value: 'FellowsCohort', label: this._getFormattedCourseType('FellowsCohort') },
-                { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
-                { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
-                { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
-              ]
-            }
+            options={options}
             simpleValue
             styles={selectStyles}
           />
