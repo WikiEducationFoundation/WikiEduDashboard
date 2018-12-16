@@ -42,8 +42,7 @@ const CourseTypeSelector = createReactClass({
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
       ArticleScopedProgram: 'Article Scoped Program',
-      FellowsCohort: 'Wikipedia Fellows Cohort',
-      TestCase: 'Test Case'
+      FellowsCohort: 'Wikipedia Fellows Cohort'
     }[type];
   },
 
