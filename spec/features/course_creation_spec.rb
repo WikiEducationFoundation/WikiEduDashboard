@@ -130,6 +130,14 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
+      within('.wizard__program') {
+        find('h4', text: 'Basic Program').click
+        sleep 1
+        find('h4', text: 'Edit-A-Thon').click
+        sleep 1
+        find('h4', text: 'Article Scoped Program').click
+        sleep 1
+      }
       find('#course_title').set('My awesome new course - Foo 101')
 
       # If we click before filling out all require fields, only the invalid
@@ -547,4 +555,6 @@ describe 'timeline editing', js: true do
     # still in week 1
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
   end
+
+  describe 'Course creation flow'
 end
