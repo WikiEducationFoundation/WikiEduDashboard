@@ -270,17 +270,20 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
-  # Overridden for LegacyCourse
+  def wiki_page?
+    wiki_course_page_enabled? && home_wiki.edits_enabled?
+  end
+
   def wiki_title
-    return nil unless wiki_course_page_enabled? && home_wiki.edits_enabled?
-    escaped_slug = slug.tr(' ', '_')
+    return nil unless wiki_page?
+    escaped_slug = slug.tr(' ', '_') # follow MediaWiki page name conventions: undescores for spaces
     "#{home_wiki.course_prefix}/#{escaped_slug}"
   end
 
   # The url for the on-wiki version of the course.
   def url
     # Some courses do not have corresponding on-wiki pages, so they have no wiki_title or url.
-    return unless wiki_title
+    return unless wiki_page?
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
