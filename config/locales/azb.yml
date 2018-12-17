@@ -103,6 +103,7 @@ azb:
     save: ذخیره ائت
     edit_description: آچیقلامانی دَییشدیر
   metrics:
+    activity: سوْن چالیشمالار
     tags: اِتیکتلر
   namespace:
     user_ns: ایشلدن

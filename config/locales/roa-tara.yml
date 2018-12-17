@@ -57,14 +57,26 @@ roa-tara:
     opt_out: None
   dashboard:
     review_orientation: Oriendamende d'a reviste
+  home:
+    explore: Esplore
   activity:
     all: Attività
     edited_by: Cangiate da
+    label: Attività
   articles:
     assigned: Vôsce assegnate
     assigned_to: Assegnate a
+    filter:
+      wiki_all: Tutte
+      new: Nuève
+      existing: Esistende
+    hide: Scunne
+    history: (cunde)
+    label: Vôsce
     loading: Stoche a careche le vôsce...
+    new: (nuève)
     none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
+    rating: Classe
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'

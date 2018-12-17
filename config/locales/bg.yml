@@ -83,6 +83,7 @@ bg:
   campaign:
     active_campaigns: Активни кампании
     add_organizer: Добавяне на организатор
+    alert_user_id: Потребител
     all_campaigns: Всички кампании
     campaign: Кампания
     campaigns: Кампании
@@ -195,6 +196,7 @@ bg:
     students: Редактори
     view_other: Преглед на други кампании
   editable:
+    edit: Редактиране
     cancel: Отказ
     save: Съхраняване
     edit_description: Редактиране на описанието

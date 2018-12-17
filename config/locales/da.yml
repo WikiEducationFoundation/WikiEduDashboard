@@ -127,6 +127,9 @@ da:
     add_available: Tilføj tilgængelige artikler
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
+    confirm_add_available: Er du sikker på du vil tilføje %{title}?
+    confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
+    label: Tildel
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt
     no_available: Dette kursus har ingen tilgængelige artikler.
@@ -299,6 +302,7 @@ da:
     add_campaign: Tilføj en kampagne
     all_courses: Alle programmer
     archived: Arkiverede programmer
+    assignments_none: Dette projekt har ingen tildelte artikler.
     cancel: Annullér
     course: Program
     courses: Programmer
@@ -366,6 +370,7 @@ da:
     view: Visninger
     word_count: Ord tilføjet
   namespace:
+    main: Hovedrum
     user: Brugerrum
     user_ns: Bruger
   recent_activity:
@@ -400,6 +405,9 @@ da:
       remove:
         already_is_not: '%{username} er ikke en specialbruger!'
         demote_success: '%{username} er nu bare en bruger.'
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Denne artikel findes ikke på Wikipedia.
   timeline:
     add_week: Tilføj uge
     arrange_timeline: Organiser tidslinjen
@@ -432,21 +440,29 @@ da:
     header: Filer uploadet til Wikimedia Commons
     image: Billede
     uploaded_by: Uploaded af
+    usage_doc: Antal Wikipediaartiklar som dette billede findes på.
+    usage_count_gallery_tile: Anvendes i %{usage_count} artikler
   users:
+    assign_articles: Tildel artikler
     assign_articles_done: Udført
+    assigned: Tildelte artikler
     contributions: Brugerbidrag
     editors: Skribenter
     edits_by: 'Redigeringer af:'
     enroll_confirmation: Er du sikker på du vil tilføje %{username}?
+    enrolled_success: '%{username} blev tilføjet!'
     first_name: Fornavn
     last_name: Efternavn
     loading: Laster brugere ...
     name: Navn
+    none: Der er ingen deltagere.
     no_articles: Ingen artikler
     recent_revisions: Seneste redigeringer
+    remove_confirmation: Er du sikker på du vil fjerne %{username}?
     training_incomplete: Træning ikke færdiggjord
     training_module_name: Træningsmodul
     training_module_status: Status
+    user_no_training_status: Denne bruger har ikke færdiggjort noget træningsmodul.
     up_to_date_with_training: ajour med træning
     username: Brugernavn
     username_placeholder: Brugernavn

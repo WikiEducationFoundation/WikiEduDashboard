@@ -440,6 +440,9 @@ pt-br:
     duration: Duração do curso
     edit_count: Editar conta
     edit_course_dates: Editar data do Curso
+    embed_course_stats: Estatísticas do curso incorporado
+    embed_course_stats_description: Para incorporar as estatísticas deste programa
+      em outro site, copie e cole este snippet de código em
     enable_account_requests: Ativar as solicitações de contas
     enable_chat: Ativar Bate Papo
     end: Fim

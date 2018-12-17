@@ -453,6 +453,7 @@ fr:
     duration: Durée du cours
     edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
+    embed_course_stats: Statistiques du cours incluses
     embed_course_stats_description: Pour inclure les statistiques pour ce programme
       dans une autre page web, copiez et collez cette partie de code dans
     enable_account_requests: Activer les demandes de compte
