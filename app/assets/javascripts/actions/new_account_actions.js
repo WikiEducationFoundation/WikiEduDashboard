@@ -2,6 +2,22 @@ import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
 
+const _checkAvailability = (newAccount) => {
+  return new Promise((res, rej) =>
+    $.ajax({
+      dataType: 'jsonp',
+      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`,
+      success: (data) => {
+        const result = data.query.users[0];
+        return res(result);
+      }
+    }).fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    })
+  );
+};
+
 export const setNewAccountUsername = (_, username) => ({
   type: types.SET_NEW_ACCOUNT_USERNAME, username
 });
@@ -10,27 +26,19 @@ export const setNewAccountEmail = (_, email) => ({
   type: types.SET_NEW_ACCOUNT_EMAIL, email
 });
 
-export function checkAvailability(newAccount) {
-  return function (dispatch) {
-    dispatch({ type: types.NEW_ACCOUNT_VALIDATING_USERNAME });
-    // validate username
-    $.ajax({
-      dataType: 'jsonp',
-      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`,
-      success: (data) => {
-        const result = data.query.users[0];
-        if (result.cancreate === '') {
-          dispatch({ type: types.NEW_ACCOUNT_USERNAME_VALID });
-        } else {
-          dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCancreateResponse(result) });
+export const checkAvailability = newAccount => (dispatch) => {
+  dispatch({ type: types.NEW_ACCOUNT_VALIDATING_USERNAME });
+  return (
+    _checkAvailability(newAccount)
+      .then((resp) => {
+        if (resp.cancreate === '') {
+          return dispatch({ type: types.NEW_ACCOUNT_USERNAME_VALID });
         }
-      }
-    }).fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  };
-}
+        return dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCancreateResponse(resp) });
+      }).catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+  );
+};
+
 
 const parseCancreateResponse = (response) => {
   if (response.cancreateerror) {

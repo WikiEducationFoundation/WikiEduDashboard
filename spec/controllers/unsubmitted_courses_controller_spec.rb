@@ -2,9 +2,7 @@
 
 require 'rails_helper'
 
-describe UnsubmittedCoursesController do
-  render_views
-
+describe UnsubmittedCoursesController, type: :request do
   describe '#index' do
     let!(:course) do
       create(:course, title: 'My awesome course',
@@ -16,18 +14,18 @@ describe UnsubmittedCoursesController do
                       start: Date.civil(2016, 1, 10), end: Date.civil(2016, 2, 10))
     end
 
-    it 'should list courses/programs that do not have a campaigns' do
+    it 'lists courses/programs that do not have a campaigns' do
       CampaignsCourses.create(course_id: course.id,
                               campaign_id: Campaign.default_campaign.id)
 
-      get :index
-      expect(response.body).to_not have_content(course.title)
-      expect(response.body).to have_content(course2.title)
+      get '/unsubmitted_courses'
+      expect(response.body).not_to include(course.title)
+      expect(response.body).to include(course2.title)
     end
 
-    it 'should show course creation date' do
-      get :index
-      expect(response.body).to have_content(course.created_at.strftime('%Y-%m-%d'))
+    it 'shows course creation date' do
+      get '/unsubmitted_courses'
+      expect(response.body).to include(course.created_at.strftime('%Y-%m-%d'))
     end
   end
 end

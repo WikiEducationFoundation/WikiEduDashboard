@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/chat/rocket_chat"
+require_dependency "#{Rails.root}/lib/chat/rocket_chat"
 
 class ChatController < ApplicationController
   respond_to :json

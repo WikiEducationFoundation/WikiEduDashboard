@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Fetches data about which wiki pages transclude a given page
 class TransclusionImporter
@@ -29,7 +29,7 @@ class TransclusionImporter
     until @continue == 'done'
       @query.merge! @continue unless @continue.nil?
       response = wiki_api.query @query
-      @transcluded_in += response.data['pages'].values.first['transcludedin']
+      @transcluded_in += response.data['pages'].values.first['transcludedin'] || []
       @continue = response['continue'] || 'done'
     end
 

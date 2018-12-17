@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
 
+import selectStyles from '../../styles/select';
+
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
 
@@ -11,20 +13,21 @@ const TrainingModules = createReactClass({
     block_modules: PropTypes.array,
     editable: PropTypes.bool,
     all_modules: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    trainingLibrarySlug: PropTypes.string.isRequired
   },
 
   getInitialState() {
-    let ids;
+    let selections;
     if (this.props.block_modules) {
-      ids = this.props.block_modules.map(module => module.id);
+      selections = this.props.block_modules.map(module => ({ value: module.id, label: module.name }));
     }
-    return { value: ids };
+    return { value: selections };
   },
 
   onChange(selections) {
     const trainingModuleIds = selections.map(trainingModule => trainingModule.value);
-    this.setState({ value: trainingModuleIds });
+    this.setState({ value: selections });
     return this.props.onChange(trainingModuleIds);
   },
 
@@ -37,19 +40,20 @@ const TrainingModules = createReactClass({
   },
 
   trainingSelector() {
-    const options = _.compact(this.props.all_modules).map(module => ({ value: module.id, label: module.name }));
+    const options = _.filter(_.compact(this.props.all_modules), module => module.status !== 'deprecated')
+                    .map(module => ({ value: module.id, label: module.name }));
     return (
       <div className="block__training-modules">
         <div>
           <h4>Training modules</h4>
           <Select
-            multi={true}
+            isMulti={true}
             name="block-training-modules"
             value={this.state.value}
             options={options}
             onChange={this.onChange}
-            allowCreate={true}
             placeholder="Add training module(s)…"
+            styles={selectStyles}
           />
         </div>
       </div>
@@ -61,8 +65,8 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
-    const modules = this.props.block_modules.map(module => {
-      const link = `/training/students/${module.slug}`;
+    const modules = this.props.block_modules.map((module) => {
+      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;

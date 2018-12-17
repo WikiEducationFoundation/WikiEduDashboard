@@ -27,7 +27,7 @@ module Errors
       # Stop index.php routes from causing the kinds of errors that get reported
       # to Sentry.
       base.rescue_from ActionController::UnknownFormat do
-        render plain: t('error_404.explanation'), status: 404
+        render plain: t('error_404.explanation'), status: :not_found
       end
     end
 

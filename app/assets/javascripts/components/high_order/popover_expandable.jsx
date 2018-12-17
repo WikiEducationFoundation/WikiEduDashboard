@@ -33,8 +33,7 @@ const PopoverExpandable = function (Component) {
       });
     },
 
-    open(e) {
-      if (e !== null) { e.stopPropagation(); }
+    open() {
       return this.props.toggleUI(this.refs.component.getKey());
     },
 

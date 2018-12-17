@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import CategoryList from "./category_list.jsx";
-import { fetchCategories, removeCategory, addCategory } from "../../actions/category_actions.js";
+import { connect } from 'react-redux';
+import CategoryList from './category_list.jsx';
+import { fetchCategories, removeCategory, addCategory } from '../../actions/category_actions.js';
 
 const CategoryHandler = createReactClass({
-  displayName: "CategoryHandler",
+  displayName: 'CategoryHandler',
 
   propTypes: {
     fetchCategories: PropTypes.func,

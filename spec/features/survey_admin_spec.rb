@@ -205,5 +205,22 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'Download Survey Results CSV'
       click_link 'Download Results CSV'
     end
+
+    it 'can delete a survey response' do
+      survey = create(:survey)
+      survey_assignment = create(:survey_assignment, survey_id: survey.id)
+      create(:survey_notification, survey_assignment_id: survey_assignment.id,
+                                   courses_users_id: CoursesUsers.last.id)
+      answer = create(:answer)
+      survey.rapidfire_question_groups << answer.question.question_group
+      answer.question.update(track_sentiment: true, answer_options: 'foo')
+      answer.answer_group.update(user_id: instructor.id)
+      visit '/survey/responses'
+      expect(page).to have_content instructor.username
+      accept_confirm do
+        click_link 'Delete'
+      end
+      expect(page).not_to have_content instructor.username
+    end
   end
 end

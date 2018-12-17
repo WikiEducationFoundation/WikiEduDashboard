@@ -79,42 +79,42 @@ describe 'campaign overview page', type: :feature, js: true do
       Course.update_all_caches
     end
 
-    it 'should display stats accurately' do
+    it 'displays stats accurately' do
       visit "/campaigns/#{campaign.slug}/overview"
 
       # Number of courses
       course_count = Campaign.find(campaign.id).courses.count
-      stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
+      stat_text = "#{course_count}\n#{I18n.t('courses.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Number of students
       # one non-instructor student per course and one instructor-student per course
       student_count = campaign_course_count * 2
-      stat_text = "#{student_count} #{I18n.t('courses.students')}"
+      stat_text = "#{student_count}\n#{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Words added
       word_count = WordCount.from_characters Course.all.sum(:character_sum)
-      stat_text = "#{word_count} #{I18n.t('metrics.word_count')}"
+      stat_text = "#{word_count}\n#{I18n.t('metrics.word_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Views
       view_count = Course.all.sum(:view_sum)
-      stat_text = "#{view_count} #{I18n.t('metrics.view_count_description')}"
+      stat_text = "#{view_count}\n#{I18n.t('metrics.view_count_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
     end
 
     describe 'non-default locales' do
       include ResetLocale
 
-      it 'should switch languages' do
+      it 'switches languages' do
         visit "/campaigns/#{campaign.slug}/overview?locale=qqq"
         expect(page.find('.stat-display')).to have_content 'Long label for the number'
       end
 
       it 'falls back when locale is not available' do
         visit "/campaigns/#{campaign.slug}/overview?locale=aa"
-        expect(page.find('.stat-display')).to have_content '20 Students'
+        expect(page.find('.stat-display')).to have_content "20\nStudents"
       end
 
       # TODO: Test somewhere that has access to the request.
@@ -127,7 +127,7 @@ describe 'campaign overview page', type: :feature, js: true do
   end
 
   context 'as an user' do
-    it 'should not show the edit buttons' do
+    it 'does not show the edit buttons' do
       login_as(user, scope: user)
       visit "/campaigns/#{campaign.slug}"
       expect(page).to have_no_css('.rails_editable-edit')
@@ -196,8 +196,8 @@ describe 'campaign overview page', type: :feature, js: true do
         it 'shows an error for invalid dates' do
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click
-          fill_in('campaign_start', with: '2016-01-10')
-          fill_in('campaign_end', with: 'Invalid date')
+          fill_in('campaign_start', with: '2016-01-10'.to_date)
+          # fill_in('campaign_end', with: 'Invalid date')
           find('.campaign-details .rails_editable-save').click
           expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
           find('#campaign_end', visible: true) # field with the error should be visible
@@ -206,8 +206,8 @@ describe 'campaign overview page', type: :feature, js: true do
         it 'updates the date fields properly, and unsets if #use_dates is unchecked' do
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click
-          fill_in('campaign_start', with: '2016-01-10')
-          fill_in('campaign_end', with: '2016-02-10')
+          fill_in('campaign_start', with: '2016-01-10'.to_date)
+          fill_in('campaign_end', with: '2016-02-10'.to_date)
           find('.campaign-details .rails_editable-save').click
           expect(campaign.reload.start).to eq(Time.new(2016, 1, 10, 0, 0, 0, 0))
           expect(campaign.end).to eq(Time.new(2016, 2, 10, 23, 59, 59, 0))
@@ -235,9 +235,7 @@ describe 'campaign overview page', type: :feature, js: true do
       it 'throws an error if you enter the wrong campaign title when trying to delete it' do
         wrong_title = 'Not the title of the campaign'
         accept_alert(with: /"#{wrong_title}"/) do
-          accept_prompt(with: wrong_title) do
-            find('.campaign-delete .button').click
-          end
+          find('.campaign-delete .button').click
         end
       end
     end

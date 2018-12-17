@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/importers/revision_score_importer"
-require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/average_views_importer"
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/importers/average_views_importer"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
 class CategoryImporter
@@ -99,7 +99,7 @@ class CategoryImporter
     import_latest_revision missing_revisions unless missing_revisions.empty?
 
     missing_revision_scores = Revision.where(mw_page_id: article_ids, wiki_id: @wiki.id, wp10: nil)
-    RevisionScoreImporter.new.update_revision_scores missing_revision_scores
+    RevisionScoreImporter.new(@wiki.language).update_revision_scores missing_revision_scores
   end
 
   def articles_with_outdated_views(article_ids)

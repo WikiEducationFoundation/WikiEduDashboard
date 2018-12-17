@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/student_greeting_checker"
+require_dependency "#{Rails.root}/lib/student_greeting_checker"
 
 class GreetUngreetedStudents
   def initialize(course, greeter)

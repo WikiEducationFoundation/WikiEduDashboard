@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
+
 class TrainedStudentsManager
   def initialize(course)
     @course = course

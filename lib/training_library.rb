@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_base"
+require_dependency "#{Rails.root}/lib/training/training_base"
 
 class TrainingLibrary < TrainingBase
-  attr_accessor :name, :modules, :introduction, :categories, :id
+  attr_accessor :name, :modules, :introduction, :id, :exclude_from_index, :wiki_page
+  attr_writer :categories
   alias raw_modules modules
-  alias raw_categories categories
 
   #################
   # Class methods #
@@ -28,6 +28,14 @@ class TrainingLibrary < TrainingBase
   ####################
   # Instance methods #
   ####################
+
+  def exclude_from_index?
+    exclude_from_index
+  end
+
+  def raw_categories
+    @categories
+  end
 
   # transform categories hash into nested objects for view simplicity
   def categories

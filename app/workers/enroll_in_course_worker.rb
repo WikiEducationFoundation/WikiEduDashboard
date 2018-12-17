@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_course_edits"
-require "#{Rails.root}/lib/wiki_preferences_manager"
+require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_preferences_manager"
 
 class EnrollInCourseWorker
   include Sidekiq::Worker

@@ -148,7 +148,6 @@ ksh:
     this_week_title_default: Dis Woch
     week_number: Woch %{number}
   uploads:
-    datetime: Dattum un Zigg
     file_name: Dä Dattei iehre Nahme
     image: Beld
     loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;

@@ -5,28 +5,30 @@ import '../../testHelper';
 import Milestones from '../../../app/assets/javascripts/components/overview/milestones.jsx';
 
 describe('Milestones', () => {
-  const course = { string_prefix: 'courses' };
   const block = { id: 1, kind: 2, content: 'Tacos are great' };
   const week = { order: 1, blocks: [block] };
   const week2 = { order: 2, blocks: [] };
 
-  const TestMilestones = ReactTestUtils.renderIntoDocument(
+  const TestMilestonesWithWeeks = ReactTestUtils.renderIntoDocument(
     <Milestones
-      course={course}
+      timelineStart={'2018-07-20T23:59:59.000Z'}
+      weeks={[week, week2]}
     />
   );
 
   it('renders block content in a <p> tag', () => {
-    TestMilestones.setState({ weeks: [week] });
-    const milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestones, 'milestones');
+    const milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestonesWithWeeks, 'milestones');
     expect(milestones.innerHTML).to.include('<p>Tacos are great</p>');
-  }
+  });
+
+  const TestMilestonesWithoutWeeks = ReactTestUtils.renderIntoDocument(
+    <Milestones
+      timelineStart={'2018-07-20T23:59:59.000Z'}
+      weeks={[]}
+    />
   );
 
   it('does not render block if empty', () => {
-    TestMilestones.setState({ weeks: [week2] });
-    expect(TestMilestones.render()).to.equal(null);
-  }
-  );
-}
-);
+    expect(TestMilestonesWithoutWeeks.render()).to.equal(null);
+  });
+});

@@ -1,19 +1,36 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
-%p.paragraph
-  Suspected plagiarism from
-  %a{href: "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}"}= "User:#{@user.username}"
-%p.paragraph
-  Course:
-  %a{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}= @course.title
-%p.paragraph
-  Article:
-  %a{href: @article_url}= @article.title
-%p.paragraph
-  %a{href: @revision.url} diff
-%p.paragraph
-  %a{href: @report_url} iThenticate report
-%table
-  %tr
-    %td.main-content.link-cell
-      %a.button_link{:href => @talk_page_new_section_url}
-        Warn user
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "Possible plagiarism detected on Wikipedia"
+              %p.paragraph
+                Wikipedia's plagiarism detection system picked up an edit from one
+                of the students enrolled in
+                #{link_to @course.title, "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}.
+              %p.paragraph
+                #{link_to @user.username, "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}"}
+                made
+                #{link_to 'this change', @revision.url}
+                to the article
+                "#{link_to @article.full_title, @article_url}", which Turnitin/iThenticate matched to published
+                text.
+              %p.paragraph
+                These reports are not 100% accurate. For example, a direct quote with proper attribution
+                may trigger a false positive plagiarism report. Please review the student's contributions
+                and the details of the report before taking any action. (If you find that the change — or
+                the entire article — is not accessible, the content may have been deleted for copyright reasons.)
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link{:href => @report_url}
+                      View iThenticate report
+                  %td.main-content.link-cell
+                    &nbsp; &nbsp;
+                  %td.main-content.link-cell
+                    %a.button_link{:href => @talk_page_new_section_url}
+                      Leave a message for #{@user.username}

@@ -113,8 +113,8 @@ translation_explore_to_find_articles:
           <hr />
           <p>Supplementary trainings:</p>
           <ul>
-            <li><a href="../../../training/students/sources">Sources and Citations</a></li>
-            <li><a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sources">Sources and Citations</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a></li>
           </ul>
 
 translation_choose_articles_from_list:
@@ -131,8 +131,8 @@ translation_choose_articles_from_list:
           <hr />
           <p>Supplementary trainings:</p>
           <ul>
-            <li><a href="../../../training/students/sources">Sources and Citations</a></li>
-            <li><a href="../../../training/students/sandboxes">Sandboxes and Mainspace</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sources">Sources and Citations</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a></li>
           </ul>
       -
         title: Begin translating

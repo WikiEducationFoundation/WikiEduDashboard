@@ -7,6 +7,7 @@ class CourseArticlesCsvBuilder
 
   def initialize(course)
     @course = course
+    set_articles_edited
   end
 
   def generate_csv
@@ -18,12 +19,39 @@ class CourseArticlesCsvBuilder
   end
 
   def article_rows
-    @course.pages_edited.includes(:wiki, :revisions).map do |article|
-      row(article)
+    @articles_edited.values.map do |article_data|
+      build_row(article_data)
     end
   end
 
   private
+
+  def set_articles_edited
+    @articles_edited = {}
+    @course.all_revisions.includes(article: :wiki).map do |edit|
+      article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
+      article_edits[:characters][edit.mw_rev_id] = edit.characters
+      article_edits[:new_article] = true if edit.new_article
+      # highest view count of all revisions for this article is the total for the article
+      article_edits[:views] = edit.views if edit.views > article_edits[:views]
+      @articles_edited[edit.article_id] = article_edits
+    end
+  end
+
+  def new_article_entry(edit)
+    article = edit.article
+    {
+      new_article: false,
+      views: 0,
+      characters: {},
+      title: article.title,
+      namespace: article.namespace,
+      url: article.url,
+      deleted: article.deleted,
+      pageview_url: pageview_url(article),
+      wiki_domain: article.wiki.domain
+    }
+  end
 
   CSV_HEADERS = %w[
     title
@@ -38,20 +66,25 @@ class CourseArticlesCsvBuilder
     pageviews
     pageviews_link
   ].freeze
-  def row(article)
-    article_stats = ArticleStats.new(@course, article)
 
-    row = [article.title]
-    row << article.rating
-    row << article.namespace
-    row << article.wiki.domain
-    row << article.url
-    row << article_stats.edit_count
-    row << article_stats.characters_added
-    row << article_stats.new?
-    row << article.deleted
-    row << article_stats.pageviews
-    row << pageview_url(article)
+  def build_row(article_data)
+    row = [article_data[:title]]
+    row << article_data[:rating]
+    row << article_data[:namespace]
+    row << article_data[:wiki_domain]
+    row << article_data[:url]
+    row << article_data[:characters].count
+    row << character_sum(article_data)
+    row << article_data[:new_article]
+    row << article_data[:deleted]
+    row << article_data[:views]
+    row << article_data[:pageview_url]
+  end
+
+  def character_sum(article_data)
+    article_data[:characters].values.inject(0) do |sum, characters|
+      characters&.positive? ? sum + characters : sum
+    end
   end
 
   # Example:
@@ -69,27 +102,5 @@ class CourseArticlesCsvBuilder
     # Pageviews tool expects YYYY-MM-DD date formats.
     # When a future end date is provided, the current date is used instead.
     @date_range ||= "&start=#{@course.start.strftime('%Y-%m-%d')}&end=2099-01-01"
-  end
-
-  class ArticleStats
-    def initialize(course, article)
-      @course_article_revisions = course.all_revisions.where(article: article)
-    end
-
-    def new?
-      @course_article_revisions.where(new_article: true).any?
-    end
-
-    def edit_count
-      @course_article_revisions.count
-    end
-
-    def pageviews
-      @course_article_revisions.maximum(:views)
-    end
-
-    def characters_added
-      @course_article_revisions.where('characters >= 0').sum(:characters)
-    end
   end
 end

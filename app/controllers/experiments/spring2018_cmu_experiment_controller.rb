@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
+require_dependency "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
 
 module Experiments
   class Spring2018CmuExperimentController < ApplicationController
@@ -12,13 +12,13 @@ module Experiments
       flash[:notice] = 'Thank you for opting in. We will add the video sessions'\
                        ' to the relevant assignments on the timeline for your'\
                        ' WikiEd dashboard and send you an email about next steps.'
-      redirect_to "/courses/#{@course.slug}"
+      redirect_to course_slug_path(@course.slug)
     end
 
     def opt_out
       Spring2018CmuExperiment.new(@course).opt_out
       flash[:notice] = 'Okay, you have opted out.'
-      redirect_to "/courses/#{@course.slug}"
+      redirect_to course_slug_path(@course.slug)
     end
 
     def course_list

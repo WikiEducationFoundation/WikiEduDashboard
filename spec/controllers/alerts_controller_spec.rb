@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AlertsController do
+describe AlertsController, type: :request do
   describe '#create' do
     let(:course) { create(:course) }
     let!(:user) { create(:user) }
@@ -12,17 +12,17 @@ describe AlertsController do
     end
 
     let(:alert_params) do
-      { message: 'hello?', target_user_id: target_user.id, course_id: course.id }
+      { message: 'hello?', target_user_id: target_user.id, course_id: course.id, format: :json }
     end
 
     before do
-      allow(controller).to receive(:current_user).and_return(user)
-      allow(controller).to receive(:user_signed_in?).and_return(true)
-      controller.instance_variable_set(:@course, course)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
+      described_class.instance_variable_set(:@course, course)
     end
 
-    it 'should create Need Help alert and send email' do
-      post :create, params: alert_params, format: :json
+    it 'creates Need Help alert and send email' do
+      post '/alerts', params: alert_params
 
       expect(response.status).to eq(200)
       expect(ActionMailer::Base.deliveries).not_to be_empty
@@ -36,16 +36,17 @@ describe AlertsController do
 
     it 'renders a 500 if alert creation fails' do
       allow_any_instance_of(Alert).to receive(:save).and_return(false)
-      post :create, params: alert_params, format: :json
+      post '/alerts', params: alert_params
       expect(response.status).to eq(500)
     end
 
     context 'when no target user is provided' do
       let(:alert_params) do
-        { message: 'hello?', course_id: course.id }
+        { message: 'hello?', course_id: course.id, format: :json }
       end
+
       it 'still works' do
-        post :create, params: alert_params, format: :json
+        post '/alerts', params: alert_params
         expect(response.status).to eq(200)
         expect(NeedHelpAlert.count).to eq(1)
       end
@@ -57,7 +58,7 @@ describe AlertsController do
       end
 
       it 'raises a 400' do
-        post :create, params: alert_params, format: :json
+        post '/alerts', params: alert_params
         expect(response.status).to eq(400)
       end
     end
@@ -66,22 +67,23 @@ describe AlertsController do
   describe '#resolve' do
     let(:alert) { create(:alert) }
     let(:admin) { create(:admin) }
+    let(:route) { "/alerts/#{alert.id}/resolve" }
 
     before do
-      allow(controller).to receive(:current_user).and_return(admin)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
     end
 
-    it 'should update Alert resolved column to true' do
-      put :resolve, params: { id: alert.id }, format: :json
+    it 'updates Alert resolved column to true' do
+      put route, params: { format: :json }
 
       expect(response.status).to eq(200)
       expect(alert.reload.resolved).to be(true)
     end
 
-    it 'should not update Alert unless its resolvable' do
+    it 'does not update Alert unless its resolvable' do
       alert.update resolved: true
 
-      put :resolve, params: { id: alert.id }, format: :json
+      put route, params: { format: :json }
 
       expect(response.status).to eq(422)
     end

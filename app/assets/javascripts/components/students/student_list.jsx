@@ -5,25 +5,15 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
-import { getStudentUsers } from '../../selectors';
+import { notifyOverdue } from '../../actions/course_actions';
+import { getStudentUsers, editPermissions } from '../../selectors';
 
-import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
 import NewAccountButton from '../enroll/new_account_button.jsx';
-
-import AssignmentStore from '../../stores/assignment_store.js';
-import ServerActions from '../../actions/server_actions.js';
-
 import CourseUtils from '../../utils/course_utils.js';
-
-const getState = () => ({ assignments: AssignmentStore.getModels() });
-// FIXME: Remove this save function
-const save = () => {
-  return null;
-};
 
 const StudentList = createReactClass({
   displayName: 'StudentList',
@@ -33,17 +23,21 @@ const StudentList = createReactClass({
     current_user: PropTypes.object,
     students: PropTypes.array,
     course: PropTypes.object,
-    controls: PropTypes.func,
     editable: PropTypes.bool,
     openKey: PropTypes.string,
     toggleUI: PropTypes.func,
     resetUI: PropTypes.func,
-    sortUsers: PropTypes.func
+    sortUsers: PropTypes.func,
+    userRevisions: PropTypes.object.isRequired,
+    trainingStatus: PropTypes.object.isRequired,
+    notifyOverdue: PropTypes.func.isRequired,
+    editPermissions: PropTypes.bool.isRequired
   },
 
   getInitialState() {
     return {
-      showModal: false
+      showModal: false,
+      editAssignments: false
     };
   },
 
@@ -59,17 +53,19 @@ const StudentList = createReactClass({
     this.setState({ showModal: false });
   },
 
+  toggleAssignmentEditingMode() {
+    this.setState({ editAssignments: !this.state.editAssignments });
+  },
+
   notify() {
     if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
-      return ServerActions.notifyOverdue(this.props.course_id);
+      return this.props.notifyOverdue(this.props.course.slug);
     }
   },
 
   render() {
     const toggleDrawer = this.props.toggleUI;
-    const students = this.props.students.map(student => {
-      const assignOptions = { user_id: student.id, role: 0 };
-      const reviewOptions = { user_id: student.id, role: 1 };
+    const students = this.props.students.map((student) => {
       if (student.real_name) {
         const nameParts = student.real_name.trim().toLowerCase().split(' ');
         student.first_name = nameParts[0];
@@ -79,21 +75,19 @@ const StudentList = createReactClass({
       const isOpen = this.props.openKey === `drawer_${student.id}`;
       return (
         <Student
-          {...this.props}
           student={student}
           course={this.props.course}
           current_user={this.props.current_user}
-          editable={this.props.editable}
+          editable={this.state.editAssignments}
           key={student.id}
-          assigned={AssignmentStore.getFiltered(assignOptions)}
-          reviewing={AssignmentStore.getFiltered(reviewOptions)}
+          assignments={this.props.assignments}
           isOpen={isOpen}
           toggleDrawer={toggleDrawer}
         />
       );
     });
 
-    const drawers = this.props.students.map(student => {
+    const drawers = this.props.students.map((student) => {
       const drawerKey = `drawer_${student.id}`;
       const isOpen = this.props.openKey === drawerKey;
       return (
@@ -103,31 +97,50 @@ const StudentList = createReactClass({
           key={drawerKey}
           ref={drawerKey}
           isOpen={isOpen}
+          revisions={this.props.userRevisions[student.id]}
+          trainingModules={this.props.trainingStatus[student.id]}
         />
       );
     });
     const elements = _.flatten(_.zip(students, drawers));
+    let controls;
+    if (this.props.editPermissions) {
+      let assignArticlesButton;
+      if (this.props.students.length > 0) {
+        const assignLabel = this.state.editAssignments ? I18n.t('users.assign_articles_done') : I18n.t('users.assign_articles');
+        assignArticlesButton = <button className="dark button" onClick={this.toggleAssignmentEditingMode} key="assign_articles">{assignLabel}</button>;
+      }
 
-    let addStudent;
+      let addStudent;
+      if (this.props.course.published) {
+        addStudent = <EnrollButton {...this.props} users={this.props.students} role={0} key="add_student" allowed={false} />;
+      }
 
-    if (this.props.course.published) {
-      addStudent = <EnrollButton {...this.props} users={this.props.students} role={0} key="add_student" allowed={false} />;
-    }
+      let requestAccountsButton;
+      if (this.props.course.account_requests_enabled && this.props.course.published) {
+        requestAccountsButton = <NewAccountButton key="request_accounts" course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} />;
+      }
 
-    let requestAccountsButton;
-    if (this.props.course.flags.register_accounts === true && this.props.course.published) {
-      requestAccountsButton = <NewAccountButton course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} key="request" />;
-    }
+      let notifyOverdueButton;
+      if (Features.wikiEd && this.props.students.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
+        notifyOverdueButton = <button className="notify_overdue" onClick={this.notify} key="notify" />;
+      }
 
-    let notifyOverdue;
-    if (Features.wikiEd && this.props.students.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
-      notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify" />;
+      controls = (
+        <div className="controls">
+          {assignArticlesButton}
+          {addStudent}
+          {requestAccountsButton}
+          {notifyOverdueButton}
+        </div>
+      );
     }
 
     const keys = {
       username: {
         label: I18n.t('users.name'),
-        desktop_only: false
+        desktop_only: false,
+        sortable: true,
       },
       assignment_title: {
         label: I18n.t('users.assigned'),
@@ -150,19 +163,31 @@ const StudentList = createReactClass({
         desktop_only: true,
         sortable: true,
         info_key: 'users.character_doc'
+      },
+      total_uploads: {
+        label: I18n.t('users.total_uploads'),
+        desktop_only: true,
+        sortable: true,
+        info_key: 'users.uploads_doc'
       }
     };
+    if (this.props.sort.key && keys[this.props.sort.key]) {
+      const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
+      keys[this.props.sort.key].order = order;
+    }
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, requestAccountsButton, notifyOverdue], this.props.students.length < 1)}
+        {controls}
         <List
           elements={elements}
           className="table--expandable table--hoverable"
           keys={keys}
           table_key="users"
           none_message={CourseUtils.i18n('students_none', this.props.course.string_prefix)}
-          editable={this.props.editable}
+          editable={this.state.editAssignments}
           sortBy={this.props.sortUsers}
+          stickyHeader={true}
+          sortable={true}
         />
       </div>
     );
@@ -171,15 +196,18 @@ const StudentList = createReactClass({
 
 const mapStateToProps = state => ({
   openKey: state.ui.openKey,
-  students: getStudentUsers(state)
+  students: getStudentUsers(state),
+  assignments: state.assignments.assignments,
+  sort: state.users.sort,
+  userRevisions: state.userRevisions,
+  trainingStatus: state.trainingStatus,
+  editPermissions: editPermissions(state)
 });
 
 const mapDispatchToProps = {
   toggleUI,
-  resetUI
+  resetUI,
+  notifyOverdue
 };
 
-export default Editable(
-  connect(mapStateToProps, mapDispatchToProps)(StudentList),
-  [AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true
-);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentList);

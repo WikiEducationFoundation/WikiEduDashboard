@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 
 import '../../testHelper';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
+
 const makeSpacesUniform = (str) => { return str.replace(/\s{1,}/g, ' '); };
 
 describe('EmptyWeek', () => {
@@ -10,7 +11,9 @@ describe('EmptyWeek', () => {
 
   describe('empty state', () => {
     const TestEmptyWeek = mount(
-      <EmptyWeek />
+      <EmptyWeek
+        addWeek={jest.fn()}
+      />
     );
     it('gives the empty text if timeline and edit permissions are empty', () => {
       const headline = TestEmptyWeek.find('h1');
@@ -24,6 +27,7 @@ describe('EmptyWeek', () => {
         emptyTimeline
         edit_permissions
         course={course}
+        addWeek={jest.fn()}
       />
     );
     it('suggests editing the week', () => {
@@ -38,6 +42,7 @@ describe('EmptyWeek', () => {
     const TestEmptyWeek = mount(
       <EmptyWeek
         emptyTimeline
+        addWeek={jest.fn()}
       />
     );
     it('says course has no timeline', () => {

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/modified_revisions_manager"
+require_dependency "#{Rails.root}/lib/modified_revisions_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -8,11 +8,11 @@ class ArticleStatusManager
     @wiki = wiki || Wiki.default_wiki
   end
 
-  ###############
-  # Entry point #
-  ###############
+  ################
+  # Entry points #
+  ################
 
-  # Queries deleted state and namespace for all articles
+  # Queries deleted state and namespace for all articles from current courses.
   def self.update_article_status
     threads = Course.current
                     .in_groups(Replica::CONCURRENCY_LIMIT, false)
@@ -26,15 +26,12 @@ class ArticleStatusManager
     threads.each(&:join)
   end
 
-  #################
-  # Class helpers #
-  #################
   def self.update_article_status_for_course(course)
-    course_articles = course.pages_edited
     Wiki.all.each do |wiki|
-      articles = course_articles.where(wiki_id: wiki.id)
-      next if articles.empty?
-      new(wiki).update_status(articles)
+      next unless course.pages_edited.exists?(wiki_id: wiki.id)
+      course.pages_edited.where(wiki_id: wiki.id).find_in_batches do |article_batch|
+        new(wiki).update_status(article_batch)
+      end
     end
   end
 
@@ -97,6 +94,13 @@ class ArticleStatusManager
     synced_articles.each do |article_data|
       article = Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
       next if data_matches_article?(article_data, article)
+
+      # FIXME: Workaround for four-byte unicode characters in article titles,
+      # until we fix the database to handle them.
+      # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+      # These titles are saved as their URL-encoded equivalents.
+      next if article.title[0] == '%'
+
       article.update!(title: article_data['page_title'],
                       namespace: article_data['page_namespace'],
                       deleted: false)
@@ -105,13 +109,18 @@ class ArticleStatusManager
 
   def update_deleted_articles(articles)
     return unless @failed_request_count.zero?
-    articles.where(mw_page_id: @deleted_page_ids).each do |article|
+    articles.each do |article|
+      next unless @deleted_page_ids.include? article.mw_page_id
+      # Reload to account for articles that have had their mw_page_id changed
+      # because the page was moved rather than deleted.
+      next unless @deleted_page_ids.include? article.reload.mw_page_id
       article.update_attribute(:deleted, true)
     end
   end
 
   def update_undeleted_articles(articles)
-    articles.where(mw_page_id: @synced_ids).each do |article|
+    articles.each do |article|
+      next unless @synced_ids.include? article.mw_page_id
       article.update_attribute(:deleted, false)
     end
   end
@@ -124,32 +133,16 @@ class ArticleStatusManager
     true
   end
 
-  # This is limited by the URI length of the combined titles. For most languages,
-  # 100 titles per query is no problem, but languages with unicode titles hit the
-  # URI length limit.
-  # TODO: move the chunking to Replica and set the size dynamically depending on the
-  # length of the URI.
-  LONG_URI_LANGUAGES = %w[he ar ml mk].freeze
-  HIGH_REPLICA_LIMIT = 80
-  LOW_REPLICA_LIMIT = 20
-  def articles_per_replica_query
-    LONG_URI_LANGUAGES.include?(@wiki.language) ? LOW_REPLICA_LIMIT : HIGH_REPLICA_LIMIT
-  end
-
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
   def update_article_ids(deleted_page_ids)
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
-
     # These pages have titles that match Articles in our DB with deleted ids
-    same_title_pages = Utils.chunk_requests(maybe_deleted, articles_per_replica_query) do |block|
-      request_results = Replica.new(@wiki).get_existing_articles_by_title block
-      @failed_request_count += 1 if request_results.nil?
-      request_results
-    end
+    request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
+    @failed_request_count += 1 if request_results.nil?
 
     # Update articles whose IDs have changed (keyed on title and namespace)
-    same_title_pages.each do |stp|
+    request_results&.each do |stp|
       resolve_page_id(stp, deleted_page_ids)
     end
   end

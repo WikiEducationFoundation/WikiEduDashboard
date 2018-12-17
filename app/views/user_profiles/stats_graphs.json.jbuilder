@@ -2,7 +2,9 @@
 
 if @user.course_instructor?
   json.instructor_stats do
-    json.array! @courses_presenter.courses.each do |course|
+    i = 0
+    json.array! @courses_presenter.courses.order(:start).each do |course|
+      json.index i
       json.course_id course.id
       json.course_title course.title
       json.course_start course.start
@@ -10,13 +12,14 @@ if @user.course_instructor?
       json.articles_edited course.article_count
       json.articles_created course.new_article_count
       json.by_students_common_uploads course.upload_count
+      i += 1
     end
   end
 
   json.student_count do
     i = 0
     json.array! CoursesUsers
-      .where(course: @courses_presenter.courses, role: 0).each do |course_user|
+      .where(course: @courses_presenter.courses, role: 0).order(:created_at).each do |course_user|
       i += 1
       json.index i
       json.created_at = course_user.created_at

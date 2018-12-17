@@ -152,6 +152,25 @@ rating(color)
   &.list
     rating(#656E92)
 
+.modal-course-details
+  display inline-block
+
+  .wizard
+    z-index 1
+
+  .course-details
+    width 50%
+    top 60px
+
+  .group-left,
+  .group-right
+    width 50%
+    margin 20px
+    text-align left
+
+  .details-form
+    display flex
+
 @media only screen and (max-width: 920px)
   .course_main,
   .campaign_main
@@ -174,3 +193,17 @@ rating(color)
         padding-right 5px
       .course-details_value
         font-size 15px
+
+  .modal-course-details
+    top 100px
+
+    .course-details
+      width 90%
+
+    .group-left,
+    .group-right
+      width 90%
+      margin 10px
+
+    .details-form
+      display block

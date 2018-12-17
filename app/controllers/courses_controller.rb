@@ -1,23 +1,19 @@
 # frozen_string_literal: true
 
 require 'oauth'
-require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/list_course_manager"
-require "#{Rails.root}/lib/tag_manager"
-require "#{Rails.root}/lib/course_creation_manager"
-require "#{Rails.root}/app/workers/update_course_worker"
-require "#{Rails.root}/app/workers/notify_untrained_users_worker"
-require "#{Rails.root}/app/workers/announce_course_worker"
+require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/list_course_manager"
+require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/course_creation_manager"
+require_dependency "#{Rails.root}/app/workers/update_course_worker"
+require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
+require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions, only: %i[create
-                                               update
-                                               destroy
-                                               notify_untrained
-                                               update_syllabus
+  before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
 
   ################
@@ -25,13 +21,14 @@ class CoursesController < ApplicationController
   ################
 
   def create
+    require_signed_in
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user)
 
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
-             status: 404
+             status: :not_found
       return
     end
     @course = course_creation_manager.create
@@ -41,8 +38,9 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update course_params
-    set_timeline_enabled
+    @course.update update_params
+    update_boolean_flag :timeline_enabled
+    update_boolean_flag :wiki_edits_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
@@ -54,37 +52,71 @@ class CoursesController < ApplicationController
     render json: { success: true }
   end
 
-  ########################
-  # View support methods #
-  ########################
-
+  # /courses/school/title_(term)
+  # /courses/school/title_(term)/subpage
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    protect_privacy
     verify_edit_credentials { return }
-    protect_privacy { return }
-    set_endpoint
-    set_limit
+    set_enrollment_details_in_session
 
+    # Only responds to HTML, so spiders fetching index.php will get a 404.
     respond_to do |format|
       format.html { render }
-      format.json { render @endpoint }
     end
   end
 
-  def update_syllabus
-    @course = Course.find(params[:id])
-    handle_syllabus_params
-    if @course.save
-      render json: { success: true, url: @course.syllabus.url }
-    else
-      render json: { message: I18n.t('error.invalid_file_format') },
-             status: :unprocessable_entity
-    end
+  ##############################
+  # Course data json endpoints #
+  ##############################
+
+  # /courses/school/title_(term)/course.json
+  def course
+    set_course
+    verify_edit_credentials { return }
   end
 
-  ##################
-  # Helper methods #
-  ##################
+  def articles
+    set_course
+    set_limit
+  end
+
+  def revisions
+    set_course
+    set_limit
+  end
+
+  def users
+    set_course
+  end
+
+  def assignments
+    set_course
+  end
+
+  def campaigns
+    set_course
+  end
+
+  def categories
+    set_course
+  end
+
+  def tags
+    set_course
+  end
+
+  def timeline
+    set_course
+  end
+
+  def uploads
+    set_course
+  end
+
+  ##########################
+  # User-initiated actions #
+  ##########################
 
   def check
     course_exists = Course.exists?(slug: params[:id])
@@ -98,7 +130,7 @@ class CoursesController < ApplicationController
     unless campaign
       render json: {
         message: "Sorry, #{campaign_params[:title]} is not a valid campaign."
-      }, status: 404
+      }, status: :not_found
       return
     end
     ListCourseManager.new(@course, campaign, request).manage
@@ -111,7 +143,7 @@ class CoursesController < ApplicationController
 
   def manual_update
     @course = find_course_by_slug(params[:id])
-    UpdateCourseRevisions.new(@course) if user_signed_in?
+    UpdateCourseStats.new(@course) if user_signed_in?
     redirect_to "/courses/#{@course.slug}"
   end
 
@@ -135,26 +167,25 @@ class CoursesController < ApplicationController
     render plain: '', status: :ok
   end
 
+  ##################
+  # Helper methods #
+  ##################
+
   private
+
+  def set_course
+    @course = find_course_by_slug(params[:slug])
+    protect_privacy
+  end
 
   def campaign_params
     params.require(:campaign).permit(:title)
   end
 
-  def handle_syllabus_params
-    syllabus = params['syllabus']
-    if syllabus == 'null'
-      @course.syllabus.destroy
-      @course.syllabus = nil
-    else
-      @course.syllabus = params['syllabus']
-    end
-  end
-
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    return unless user_signed_in? && current_user.instructor?(@course)
+    raise NotPermittedError unless current_user&.can_edit?(@course)
   end
 
   def handle_course_announcement(instructor)
@@ -163,6 +194,8 @@ class CoursesController < ApplicationController
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
+    # Needs to be switched to submitted before the announcement edits are made
+    @course.update(submitted: true)
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
@@ -182,7 +215,7 @@ class CoursesController < ApplicationController
 
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
-    @course.update_attribute(:passcode, Course.generate_passcode)
+    @course.update_attribute(:passcode, GeneratePasscode.call)
   end
 
   def initial_campaign_params
@@ -197,13 +230,13 @@ class CoursesController < ApplicationController
       .permit(:language, :project)
   end
 
-  def set_timeline_enabled
-    case params.dig(:course, :timeline_enabled)
+  def update_boolean_flag(flag)
+    case params.dig(:course, flag)
     when true
-      @course.flags[:timeline_enabled] = true
+      @course.flags[flag] = true
       @course.save
     when false
-      @course.flags[:timeline_enabled] = false
+      @course.flags[flag] = false
       @course.save
     end
   end
@@ -217,21 +250,26 @@ class CoursesController < ApplicationController
               :no_day_exceptions, :cloned_status, :type, :level, :private)
   end
 
+  def update_params
+    course_attributes = course_params.to_h
+
+    if params[:course].key?(:home_wiki)
+      home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
+                                     project: params.dig(:course, :home_wiki, :project)
+      course_attributes[:home_wiki_id] = home_wiki[:id]
+    end
+
+    course_attributes.delete(:passcode) if params[:course][:passcode] == '****'
+
+    course_attributes
+  end
+
   def instructor_role_description
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles assignments campaigns categories check course
-                      revisions tag tags timeline uploads users].freeze
-  # Show responds to multiple endpoints to provide different sets of json data
-  # about a course. Checking for a valid endpoint prevents an arbitrary render
-  # vulnerability.
-  def set_endpoint
-    @endpoint = params[:endpoint] if SHOW_ENDPOINTS.include?(params[:endpoint])
-  end
-
   def set_limit
-    @limit = params[:limit] if (params[:endpoint] = 'revisions')
+    @limit = params[:limit]
   end
 
   # If the user could make an edit to the course, this verifies that
@@ -252,5 +290,16 @@ class CoursesController < ApplicationController
     return unless @course.private
     return if current_user&.can_edit?(@course)
     raise ActionController::RoutingError, 'not found'
+  end
+
+  # If this is an enroll link, save the slug and enroll code
+  # in the session so that it can be used upon successful
+  # oauth login.
+  # The session data will be used in
+  # OmniauthCallbacksController.
+  def set_enrollment_details_in_session
+    return unless params.key? 'enroll'
+    session['course_slug'] = @course.slug
+    session['enroll_code'] = params['enroll'] || ''
   end
 end

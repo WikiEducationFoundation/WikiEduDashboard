@@ -1,17 +1,17 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
-import { fetchRecentEdits } from "../../actions/recent_edits_actions.js";
+import { fetchRecentEdits, sortRecentEdits } from '../../actions/recent_edits_actions.js';
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 
 const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 142 } },
+      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 180 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
+      { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
 ];
 
 const RecentEditsHandler = createReactClass({
@@ -19,6 +19,7 @@ const RecentEditsHandler = createReactClass({
 
   propTypes: {
     fetchRecentEdits: PropTypes.func,
+    sortRecentEdits: PropTypes.func,
     revisions: PropTypes.array,
     loading: PropTypes.bool
   },
@@ -44,6 +45,7 @@ const RecentEditsHandler = createReactClass({
           activity={this.props.revisions}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortRecentEdits}
         />
       </div>
     );
@@ -56,7 +58,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchRecentEdits: fetchRecentEdits
+  fetchRecentEdits: fetchRecentEdits,
+  sortRecentEdits: sortRecentEdits
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecentEditsHandler);

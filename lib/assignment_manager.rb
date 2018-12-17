@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # Tested via AssignmentsController
-require "#{Rails.root}/lib/article_utils"
-require "#{Rails.root}/lib/importers/rating_importer"
-require "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/article_utils"
+require_dependency "#{Rails.root}/lib/importers/rating_importer"
+require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 class AssignmentManager
   def initialize(course:, user_id:, wiki:, title:, role:)

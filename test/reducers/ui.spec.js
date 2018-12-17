@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import '../testHelper';
 import ui from '../../app/assets/javascripts/reducers/ui.js';
 import * as actions from '../../app/assets/javascripts/actions';
@@ -12,6 +13,9 @@ describe('ui reducer', () => {
   });
 
   it('toggles open key back to null', () => {
-    expect(ui({ openKey: '1234' }, actions.toggleUI('1234'))).to.deep.equal({ openKey: null });
+    const initialState = { openKey: '1234' };
+    deepFreeze(initialState);
+
+    expect(ui(initialState, actions.toggleUI('1234'))).to.deep.equal({ openKey: null });
   });
 });

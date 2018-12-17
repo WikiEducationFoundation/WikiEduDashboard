@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/importers/rating_importer"
 
 describe RatingImporter do
   describe '.update_ratings' do
-    it 'should handle MediaWiki API errors' do
+    it 'handles MediaWiki API errors' do
       error = MediawikiApi::ApiError.new
       stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*query.*})
         .to_raise(error)
@@ -17,13 +17,13 @@ describe RatingImporter do
              rating: 'fa')
 
       article = Article.all.find_in_batches(batch_size: 30)
-      RatingImporter.update_ratings(article)
+      described_class.update_ratings(article)
       expect(Article.first.rating).to eq('fa')
     end
   end
 
   describe '.update_all_ratings and .update_new_ratings' do
-    it 'should get latest ratings for articles' do
+    it 'gets latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
         course = create(:course,
                         id: 1,
@@ -41,7 +41,7 @@ describe RatingImporter do
 
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.
-        RatingImporter.update_new_ratings
+        described_class.update_new_ratings
 
         expect(possible_ratings).to include Article.find(1).rating
 
@@ -50,7 +50,7 @@ describe RatingImporter do
                           title: 'A Clash of Kings',
                           namespace: 0)
         course.articles << article2
-        RatingImporter.update_all_ratings
+        described_class.update_all_ratings
         expect(possible_ratings).to include Article.find(2).rating
       end
     end

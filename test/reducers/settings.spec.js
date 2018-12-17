@@ -1,14 +1,21 @@
-import "../testHelper";
-import reducer from "../../app/assets/javascripts/reducers/settings.js";
-import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
+import deepFreeze from 'deep-freeze';
+import '../testHelper';
+import reducer from '../../app/assets/javascripts/reducers/settings.js';
+import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../../app/assets/javascripts/constants';
 
-describe("Settings reducer", () => {
-  it("should return the initial state", () => {
+describe('Settings reducer', () => {
+  it('should return the initial state', () => {
     const initialState = {
       adminUsers: [],
+      specialUsers: {},
       fetchingUsers: false,
       submittingNewAdmin: false,
+      submittingNewSpecialUser: false,
       revokingAdmin: {
+        status: false,
+        username: null,
+      },
+      revokingSpecialUser: {
         status: false,
         username: null,
       }
@@ -16,13 +23,15 @@ describe("Settings reducer", () => {
     expect(reducer(undefined, {})).to.deep.eq(initialState);
   });
 
-  it("should update array with new admin users", () => {
-    const oldAdmins = [{ id: 1, username: "Admin1" }];
-    const newAdmins = [{ id: 1, username: "Admin1" }, { id: 2, username: 'Admin2' }];
+  it('should update array with new admin users', () => {
+    const oldAdmins = [{ id: 1, username: 'Admin1' }];
+    const newAdmins = [{ id: 1, username: 'Admin1' }, { id: 2, username: 'Admin2' }];
 
     const initialState = {
       adminUsers: oldAdmins
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: SET_ADMIN_USERS,
@@ -37,6 +46,8 @@ describe("Settings reducer", () => {
     const initialState = {
       submittingNewAdmin: false
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: SUBMITTING_NEW_ADMIN,
@@ -54,6 +65,8 @@ describe("Settings reducer", () => {
         username: null,
       }
     };
+    deepFreeze(initialState);
+
     expect(
       reducer(initialState, {
         type: REVOKING_ADMIN,

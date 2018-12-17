@@ -28,6 +28,7 @@ class CreateSalesforceMediaRecord
   def salesforce_media_fields
     {
       Title__c: @article.full_title,
+      RecordTypeId: ENV['SF_MEDIA_ENGAGEMENT_TYPE_ID'], # sets the 'Media' record type
       Engagement_Type__c: 'Wiki contribution',
       Author_Wiki_Username_Optional__c: @user.username,
       Primary_Course__c: @salesforce_course_id,

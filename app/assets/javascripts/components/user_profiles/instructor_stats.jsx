@@ -19,19 +19,22 @@ const InstructorStats = createReactClass({
 
   getInitialState() {
     return {
-      selectedGraph: 'courses_count'
+      selectedGraph: 'courses_count',
+      coursesGraph: true
     };
   },
 
   setCoursesCountGraph() {
     this.setState({
-      selectedGraph: 'courses_count'
+      selectedGraph: 'courses_count',
+      coursesGraph: true
     });
   },
 
   setStudentsCountGraph() {
     this.setState({
-      selectedGraph: 'students_count'
+      selectedGraph: 'students_count',
+      coursesGraph: false
     });
   },
 
@@ -44,8 +47,7 @@ const InstructorStats = createReactClass({
         stats = {this.props.stats.by_students}
       />
     );
-    if (this.state.selectedGraph === 'courses_count')
-    {
+    if (this.state.selectedGraph === 'courses_count') {
       if (this.props.statsGraphsData != null) {
         statsVisualizations = (
           <CoursesTaughtGraph
@@ -55,8 +57,7 @@ const InstructorStats = createReactClass({
             courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
           />
          );
-      }
-      else {
+      } else {
         statsVisualizations = <Loading />;
       }
     } else if (this.state.selectedGraph === 'students_count') {
@@ -84,7 +85,7 @@ const InstructorStats = createReactClass({
             {I18n.t('user_profiles.instructor_impact', { username: this.props.username })}
           </h5>
           <div className= "stat-display">
-            <div onClick={this.setCoursesCountGraph} className= "stat-display__stat button">
+            <div onClick={this.setCoursesCountGraph} className={`stat-display__stat button${this.state.coursesGraph ? ' active-button' : ''}`}>
               <div className="stat-display__value">
                 {this.props.stats.as_instructor.courses_count}
               </div>
@@ -92,7 +93,7 @@ const InstructorStats = createReactClass({
                 {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.courses_taught`)}
               </small>
             </div>
-            <div onClick={this.setStudentsCountGraph} className ="stat-display__stat tooltip-trigger button">
+            <div onClick={this.setStudentsCountGraph} className ={`stat-display__stat tooltip-trigger button${this.state.coursesGraph ? '' : ' active-button'}`}>
               <div className="stat-display__value">
                 {this.props.stats.as_instructor.user_count}
                 <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
@@ -106,7 +107,7 @@ const InstructorStats = createReactClass({
                   %
                 </h4>
                 <p>
-                  {I18n.t("users.up_to_date_with_training")}
+                  {I18n.t('users.up_to_date_with_training')}
                 </p>
               </div>
             </div>

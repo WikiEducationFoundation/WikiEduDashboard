@@ -2,14 +2,29 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrumps
+# Author: CiaPan
+# Author: DeRudySoulStorm
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: Railfail536
+# Author: Rzuwig
+# Author: Stojex
 # Author: Tar Lócesilion
 # Author: The Polish
+# Author: Warchlak
 # Author: Woytecr
 ---
 pl:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: To jest pole numeryczne. Przyciski renderowane przez większość przeglądarek
       zwiększają i zmniejszają wprowadzoną wartość.
@@ -35,7 +50,9 @@ pl:
     my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
     report_problem: Zgłoś problem
+    request_account_create: Utwórz konto
     search: zadaj pytanie
+    no_results: Nie znaleziono wyników dla '%{query}'
     sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
     sign_up: Zarejestruj się
@@ -107,18 +124,20 @@ pl:
       fa: 'Artykuł na Medal: najwyższa ocena, jaką w Wikipedii może uzyskać artykuł.
         Prawdopodobnie napisanie takiego hasła przekracza możliwości nowego wikipedysty.'
       fl: 'Lista na medal: najwyższa ocena, jaką uzyskać może lista'
-      a: 'Klasa A: artykuł bardzo rozwinięty, być może zbyt trudny na główne zadanie
-        dla początkującego edytora'
+      a: 'Klasa %{class}: artykuł bardzo rozwinięty, być może zbyt trudny na główne
+        zadanie dla początkującego edytora'
       ga: 'Dobry Artykuł: dobrze rozwinięty artykuł; jego napisanie może przekraczać
         możliwości nowego twórcy Wikipedii'
-      b: 'Klasa B: średnio rozwinięty artykuł'
-      c: 'Klasa C: średnio rozwinięty artykuł, w którym jest jeszcze sporo do zrobienia'
+      b: 'Klasa %{class}: średnio rozwinięty artykuł'
+      c: 'Klasa %{class}: średnio rozwinięty artykuł, w którym jest jeszcze sporo
+        do zrobienia'
       start: 'Klasa początkowa: wczesny etap pracy nad artykułem, mnóstwo do zrobienia'
       stub: 'Zalążek artykułu: ledwie krótki wstęp, artykuł wymaga jeszcze wiele treści
         i przypisów'
       list: Lista, czyli spis rzeczy lub tematów
       '?': Bez klasyfikacji, czyli artykuł (jeszcze) nie oceniony
       does_not_exist: Tego artykułu nie ma w Wikipedii
+    see_more: Zobacz więcej
     show_cumulative_changes: Pokaż zmiany skumulowane
     show_current_version: Pokaż aktualną wersję
     title: Tytuł
@@ -146,7 +165,9 @@ pl:
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
     assign_other: Zadaj artykuł
-    add_available: Dodaj dostępny artykuł
+    add_available: Dodaj dostępne artykuły
+    add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
+    add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
@@ -167,6 +188,10 @@ pl:
   campaign:
     active_campaigns: Aktywne kampanie
     add_organizer: Dodaj organizatora
+    alert_article: Tytuł artykułu
+    alert_select_label: Filtruj według typu alertu
+    alert_type: Typ
+    alert_user_id: Użytkownik
     all_campaigns: Wszystkie kampanie
     already_exists: Ta kampania już istnieje. Proszę spróbuj jeszcze raz z innym tytułem
       bądź opisem.
@@ -175,6 +200,7 @@ pl:
     campaign_deleted: Kampania „%{title}” została skasowana
     campaign_not_updated: Nie udało się zaktualizować kampanii
     campaign_updated: Kampania zaktualizowana
+    created_at: Data
     confirm_campaign_deletion: Czy na pewno chcesz usunąć kampanię „%{title}”? Jeśli
       tak, wpisz tytuł kampanii, aby kontynuować.
     confirm_campaign_deletion_failed: „%{title}” to nie jest tytuł tej kampanii. Nie
@@ -195,6 +221,15 @@ pl:
       treść z tego pola zostanie skopiowana jako opis na jego stronę
     title: Tytuł
     use_start_end_dates: Użyć dat rozpoczęcia i zakończenia?
+  categories:
+    add_category: Dodaj kategorię
+    add_template: Dodaj szablon
+    add_this_category: Dodaj tę kategorię
+    add_this_template: Dodaj ten szablon
+    depth: Głębokość podkategorii
+    category_name: Nazwa kategorii
+    template_name: Nazwa szablonu
+    remove: Usuń
   chat:
     label: Czat
   courses:
@@ -258,6 +293,7 @@ pl:
         Możesz to zaktualizować teraz.
       course_description: Opis kursu
       course_language: Wersja językowa
+      course_private: Program prywatny (widoczny tylko dla administratorów i moderatorów)
       course_project: Domowy projekt
       course_school: Instytucja prowadząca kurs
       course_subject: Temat kursu
@@ -271,7 +307,7 @@ pl:
       end_date: Data zakończenia
       end_date_placeholder: Data zakończenia (RRRR-MM-DD)
       expected_number: Oczekiwana liczba uczestników
-      find: Zajdź swój kurs
+      find: Znajdź swój kurs
       intro: Nazwa, nazwa instytucji i semestr tworzą wspólnie unikatowy adres URL,
         nie można ich zmienić po stworzeniu kursu. Wszystkie pozostałe dane można
         później uzupełnić lub zmienić. Kliknij na „Stwórz mój kurs”, aby rozpocząć
@@ -285,6 +321,7 @@ pl:
         programy zostaną zaktualizowane podczas najbliższego cyklu aktualizacji. Potrwa
         to kilka godzin.
     current: Aktualne kursy
+    data_download_info: Pobierz dane w formacie CSV.
     delete_course: Usuń kurs
     delete_suggestion: Usuń
     delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
@@ -328,6 +365,7 @@ pl:
       not_yet_approved: Kurs nie został jeszcze zaaprobowany.
     join_details: By zapisać się na ten kurs musisz mieć hasło lub zawierający je
       link. Jeśli jeszcze ich nie masz, poproś prowadzącego.
+    join_no_passcode: Czy na pewno chcesz dołączyć do tego kursu?
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
@@ -347,10 +385,12 @@ pl:
       wszystkim uczestnikom, którzy nie ukończyli na czas wymaganych modułów szkoleniowych.
       Czy chcesz wykonać tę operację?
     no_available_actions: Brak dostępnych akcji
+    ores_plot: ORES
     overview: Strona główna
     passcode: Kod dostępu
     passcode_none: Brak kodu dostępu
     passcode_prompt: 'Wprowadź kod dostępu/hasło by dołączyć:'
+    please_log_in: Zaloguj się.
     published: 'Twój kurs został opublikowany. Uczestnicy mogą się na niego zapisywać
       pod następującym adresem URL:'
     review_timeline: Skontroluj harmonogram i wprowadź poprawki. Gdy już będziesz
@@ -390,6 +430,9 @@ pl:
     unsubmitted: Niezgłoszone kursy
     untrained: Nieprzeszkoleni
     uploads_none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    user_uploads_none: Ten użytkownik nie dodał żadnych zdjęć ani innych plików multimedialnych
+      do Wikimedia Commons.
+    user_recent_uploads: Niedawno przesłane
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników
@@ -404,6 +447,7 @@ pl:
       jako edycja z Twojego konta użytkownika. Kolejne zmiany w harmonogramie zostaną
       również skopiowane do Wikipedii. \nCzy na pewno chcesz to zrobić?"
     wiki_staff: Pracownicy Wiki Ed
+    withdrawn: Nie wykonałem zadania
     word_count_doc: Przybliżona liczba słów dodanych do przestrzeni głównej (artykułów)
       przez uczestników w trakcie trwania kursu
     yourcourses: Twoje Kursy
@@ -424,6 +468,10 @@ pl:
     campaigns: 'Kampanie:'
     campaign_courses: Programy %{title}
     creator:
+      assignment_end: Koniec wydarzenia
+      assignment_end_placeholder: Koniec wydarzenia (RRRR-MM-DD)
+      assignment_start: Rozpoczęcie wydarzenia
+      assignment_start_placeholder: Rozpoczęcie wydarzenia (RRRR-MM-DD)
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
@@ -457,6 +505,7 @@ pl:
       hasło od prowadzącego lub współpracownika.
     leave_course: Opuść program
     milestones_none: Ten projekt aktualnie nie posiada ustalonych kamieni milowych.
+    not_permitted: Nie masz uprawnień do edytowania tego programu.
     published: 'Projekt został opublikowany. Uczestnicy mogą dopisać się za pomocą
       następującego adresu URL:'
     revisions_none: W tym projekcie nie było ostatnio aktywności.
@@ -505,8 +554,7 @@ pl:
       other: pliki użyte w artykułach
     upload_usages_count:
       one: wykorzystany we wszystkich wersjach językowych
-      few: wykorzystane we wszystkich wersjach językowych
-      many: wykorzystanych we wszystkich wersjach językowych
+      other: wykorzystane we wszystkich wersjach językowych
     view_count_description: Statystyka oglądalności stron
     view_data_unavailable: Nie są dostępne dane wizualne
     view: Odsłony
@@ -625,18 +673,22 @@ pl:
     next: Następna strona
     page: Strona
     table_of_contents: Spis treści
+    training_library: Biblioteka Treningowa
     logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
     done: Gotowe!
+    view_module_source: zobacz źródło modułu
+    reload_from_source: załaduj ponownie ze źródła
   uploads:
-    datetime: Data/Czas
     file_name: Nazwa pliku
     header: Pliki przesłane na Wikimedia Commons
     image: Obraz
     label: Przesłane pliki
     loading: Wczytuję przesłane pliki…
     none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    select_label: Filtruj według przesyłającego
     time_doc: Czas przesłania plików w Twoim czasie lokalnym
+    uploaded_at: Przesłane przez
     uploaded_by: Przesłane przez
     usage_count: Licznik wykorzystania
     usages: Wykorzystanie
@@ -652,7 +704,7 @@ pl:
       usuniętej treści też zwiększy wynik.
     chars_added: Znaki dodane<br>(artykuły | strony użytkownika | brudnopisy)
     contributions: Wkład użytkownika
-    contributions_history_full: Zobacz całą historię wkładu w Wikipedię
+    contributions_history_full: Zobacz całą historię wkładu
     contributions_more: Zobacz więcej wkładu
     contribution_statistics: Statystyki wkładu
     course_passcode: 'Kod dostępu:'
@@ -663,9 +715,9 @@ pl:
     first_name: Imię
     last_name: Nazwisko
     loading: Wczytywanie użytkowników...
-    characters_added_mainspace: Znaki dodane w PG
+    characters_added_mainspace: Znaki dodane (artykuł)
     characters_added_short: 'PG: %{mainspace}, PU: %{userspace}'
-    characters_added_userspace: Znaki dodane w PU
+    characters_added_userspace: Znaki dodane (użytkownik)
     my_assigned: 'Przypisane:'
     my_reviewing: 'Recenzuje:'
     name: Nazwa
@@ -819,4 +871,19 @@ pl:
     no_responses: Nie ma jeszcze żadnych odpowiedzi.
   wiki_api:
     create_account_reason: Ten użytkownik uczestniczy w %{event}.
+  onboarding:
+    supplementary:
+      header: Jak się o nas dowiedziałeś?
+      why_are_you_here: Co chciałbyś robić?
+  article_finder:
+    page_assessment_class: Klasa
+    average_views: Średnia dzienna liczba wyświetleń
+    remove_article: Usuń artykuł
+    no_article_found: Nie znaleziono artykułów w tej kategorii
+    search_placeholder: Wpisz słowo kluczowe
+    tools: Narzędzia
+    more_results: Więcej wyników
+    submit: Wyślij
+    assign_article_self: Przydziel się
+    unassign_article_self: Usuń przypisanie artykułu
 ...

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: requested_accounts
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  course_id  :integer
 #  username   :string(255)
 #  email      :string(255)
@@ -18,17 +17,18 @@ describe RequestedAccount do
   describe 'email validation' do
     context 'when email is valid' do
       it 'saves the email' do
-        account = RequestedAccount.new(username: 'foo', email: 'me@foo.com')
+        account = described_class.new(username: 'foo', email: 'me@foo.com')
         account.save
         expect(account.email).to eq('me@foo.com')
       end
     end
 
     context 'when email is not valid' do
-      it 'sets email to nil and saves' do
-        account = RequestedAccount.new(username: 'foo', email: 'me@foo')
+      it 'does not save the record and adds an error' do
+        account = described_class.new(username: 'foo', email: 'me@foo')
         account.save
-        expect(account.email).to be_nil
+        expect(account.errors).not_to be_empty
+        expect(account.persisted?).to eq(false)
       end
     end
   end

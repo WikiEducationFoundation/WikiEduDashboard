@@ -1,19 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'training_progress_manager'
+require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModuleDueDateManager
   def initialize(opts)
     @course = opts[:course]
     @training_module = opts[:training_module]
     @user = opts[:user]
-    if @user.present?
-      @tmu = TrainingModulesUsers.find_by(
-        user_id: @user.id,
-        training_module_id: @training_module.id
-      )
-    end
-    @meetings_manager = opts[:course_meetings_manager]
+    return unless @user.present?
+    @tmu = TrainingModulesUsers.find_by(user_id: @user.id,
+                                        training_module_id: @training_module.id)
   end
 
   DEADLINE_STATUSES = {
@@ -26,7 +22,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    !module_completed? && Date.today > computed_due_date
+    !module_completed? && Time.zone.now.to_date > computed_due_date
   end
 
   def deadline_status
@@ -38,13 +34,17 @@ class TrainingModuleDueDateManager
   # courses where module is assigned)
   def overall_due_date
     blocks = blocks_with_module_assigned(@training_module)
-    blocks.collect(&:calculated_due_date).sort.first
+    blocks.collect(&:calculated_due_date).min
   end
 
   def blocks_with_module_assigned(training_module)
     blocks_with_training_modules_for_user.select do |block|
       block.training_module_ids.include?(training_module.id)
     end
+  end
+
+  def module_progress
+    progress_manager.module_progress
   end
 
   private
@@ -62,13 +62,13 @@ class TrainingModuleDueDateManager
   end
 
   def progress_manager
-    @pm ||= TrainingProgressManager.new(@user, @training_module)
-    @pm
+    @pm ||= TrainingProgressManager.new(@user, @training_module,
+                                        training_module_user: @tmu || :none)
   end
 
   def course_block_for_module
-    @block ||= Block.joins(week: :course)
-                    .where(weeks: { course: @course })
-                    .find { |block| block.training_module_ids.include?(@training_module.id) }
+    @block ||= @course.blocks.find do |block|
+      block.training_module_ids.include?(@training_module.id)
+    end
   end
 end

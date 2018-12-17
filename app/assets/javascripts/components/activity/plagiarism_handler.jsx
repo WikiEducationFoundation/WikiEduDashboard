@@ -1,15 +1,15 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import ActivityTable from './activity_table.jsx';
-import { fetchSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
+import { fetchSuspectedPlagiarism, sortSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
 
 const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 165 } },
+      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 180 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
+      { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
     ];
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_plagiarism');
@@ -45,6 +45,7 @@ const PlagiarismHandler = createReactClass({
           activity={this.props.revisions}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortSuspectedPlagiarism}
         />
       </div>
     );
@@ -58,7 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchSuspectedPlagiarism: fetchSuspectedPlagiarism
+  fetchSuspectedPlagiarism: fetchSuspectedPlagiarism,
+  sortSuspectedPlagiarism: sortSuspectedPlagiarism
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlagiarismHandler);

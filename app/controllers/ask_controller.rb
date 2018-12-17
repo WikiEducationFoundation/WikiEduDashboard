@@ -12,7 +12,7 @@ class AskController < ApplicationController
       redirect_to "#{ASK_ROOT}tags:student/page:1/"
     else
       log_to_sentry
-      query = URI.encode(params[:q])
+      query = CGI.escape(params[:q])
       redirect_to "#{ASK_ROOT}page:1/query:#{query}/"
     end
   end

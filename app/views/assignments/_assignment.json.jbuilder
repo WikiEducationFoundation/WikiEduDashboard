@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.call(assignment, :id, :user_id, :article_id, :article_title, :role)
+json.call(assignment, :id, :user_id, :article_id, :article_title, :role, :article_url)
 json.assignment_id assignment.id
 json.article_title assignment.article_title.tr('_', ' ')
 
@@ -18,7 +18,5 @@ unless assignment.wiki_id == course.home_wiki.id
   json.language assignment.wiki.language
   json.project assignment.wiki.project
 end
-
-json.article_url assignment.page_url
 
 json.username assignment.user.username if assignment.user

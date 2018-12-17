@@ -2,14 +2,14 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import NewAccountModal from './new_account_modal.jsx';
-import { INSTRUCTOR_ROLE } from '../../constants';
 
 const NewAccountButton = createReactClass({
   displayName: 'NewAccountButton',
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    passcode: PropTypes.string
+    passcode: PropTypes.string,
+    currentUser: PropTypes.object.isRequired
   },
 
   getInitialState() {
@@ -28,9 +28,9 @@ const NewAccountButton = createReactClass({
 
   render() {
     const { course } = this.props;
-    // If register_accounts flag is set for the course, just link to the signup
+    // If account registration is not enabled for the course, just link to the signup
     // endpoint for the user to register an account on their own.
-    if (!course.flags || !course.flags.register_accounts) {
+    if (!course.account_requests_enabled) {
       return (
         <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
           <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
@@ -45,7 +45,7 @@ const NewAccountButton = createReactClass({
     } else {
       buttonOrModal = (
         <button onClick={this.openModal} key="request_account" className="button auth signup border margin request_accounts">
-          <i className="icon icon-wiki-logo" /> {currentUser.role === INSTRUCTOR_ROLE ? I18n.t('application.create_accounts') : I18n.t('application.request_account')}
+          <i className="icon icon-wiki-logo" /> {this.props.currentUser.isInstructor ? I18n.t('application.request_account_create') : I18n.t('application.request_account')}
         </button>
       );
     }

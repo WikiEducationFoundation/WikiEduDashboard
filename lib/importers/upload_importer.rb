@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/commons"
+require_dependency "#{Rails.root}/lib/commons"
 
 #= Importer for data about files uploaded to Wikimedia Commons
 class UploadImporter
@@ -33,8 +33,11 @@ class UploadImporter
     end
   end
 
-  def self.find_deleted_files(commons_uploads)
-    commons_uploads.in_groups_of(50, false) do |file_batch|
+  DAYS_TO_CHECK_FOR_DELETION = 100
+  def self.find_deleted_files
+    CommonsUpload.where(deleted: false)
+                 .where('created_at > ?', DAYS_TO_CHECK_FOR_DELETION.days.ago)
+                 .find_in_batches(batch_size: 50) do |file_batch|
       deleted_files = Commons.find_missing_files file_batch
       CommonsUpload.transaction do
         deleted_files.each { |file| file.update_attribute(:deleted, true) }

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
+
 const Feedback = createReactClass({
   displayName: 'Feedback',
 
@@ -132,17 +133,16 @@ const Feedback = createReactClass({
       rating = data.rating;
       customMessages = data.custom;
 
-      for (let i = 0; i < messages.length; i++) {
+      for (let i = 0; i < messages.length; i += 1) {
         feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
 
       if (!this.state.showFeedbackForm) {
         feedbackButton = <a onClick={this.showFeedbackInput} className="button dark">{I18n.t('courses.suggestions_feedback')}</a>;
-      }
-      else {
+      } else {
         feedbackForm = (
           <form onSubmit={this.handleSubmit}>
-            <textarea className="feedback-form" rows="1" cols="150" ref={(input) => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
+            <textarea className="feedback-form" rows="1" cols="150" ref={input => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
             {submitFeedback}
           </form>
         );
@@ -165,7 +165,7 @@ const Feedback = createReactClass({
         );
       }
 
-      for (let i = 0; i < customMessages.length; i++) {
+      for (let i = 0; i < customMessages.length; i += 1) {
         let deleteButton;
         if (customMessages[i].userId === this.props.current_user.id) {
           deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
@@ -188,7 +188,7 @@ const Feedback = createReactClass({
             <hr />
             <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
             <p className="rating-description">
-              {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`)}
+              {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`, { class: rating.toLowerCase() || '' })}
             </p>
             {automatedSuggestions}
             <h5>{I18n.t('courses.user_suggestions')}</h5>

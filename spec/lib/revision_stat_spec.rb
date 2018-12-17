@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/revision_stat"
 
 describe RevisionStat do
   let(:created_date)     { 1.day.ago }
@@ -17,7 +18,8 @@ describe RevisionStat do
   let(:date) { 7.days.ago.to_date }
 
   describe '#get_records' do
-    subject { RevisionStat.get_records(date: date, course: course) }
+    subject { described_class.get_records(date: date, course: course) }
+
     before do
       # Add user to course
       create(:courses_user, course: course, user: user)
@@ -26,6 +28,7 @@ describe RevisionStat do
     context 'date' do
       context 'older than 7 days' do
         let(:created_date) { 1.year.ago.to_date }
+
         it 'does not include in scope' do
           expect(subject).to eq(0)
         end
@@ -37,6 +40,7 @@ describe RevisionStat do
           # be counted
           create(:revision, article_id: article.id, date: created_date, user_id: user.id + 1)
         end
+
         it 'does include in scope' do
           expect(subject).to eq(1)
         end
@@ -46,6 +50,7 @@ describe RevisionStat do
     context 'course id' do
       context 'not for this course' do
         before { course.update_column(:id, 1000) }
+
         it 'does not include in scope' do
           expect(subject).to eq(0)
         end
@@ -60,17 +65,22 @@ describe RevisionStat do
   end
 
   describe '#recent_revisions_for_user_and_course' do
+    subject { described_class.recent_revisions_for_courses_user(courses_user) }
+
     let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
-    subject { RevisionStat.recent_revisions_for_courses_user(courses_user) }
+
     context 'date' do
       context 'older than 7 days' do
         let(:created_date) { 8.days.ago }
+
         it 'does not include' do
           expect(subject).not_to include(revision)
         end
       end
+
       context '2 days' do
         let(:created_date) { 2.days.ago }
+
         it 'does not include' do
           expect(subject).to include(revision)
         end
@@ -79,14 +89,18 @@ describe RevisionStat do
 
     context 'for user' do
       before { user.update_attribute(:id, user_id) }
+
       context 'user has courses users' do
         let(:user_id) { user.id }
+
         it 'does not include' do
           expect(subject).to include(revision)
         end
       end
+
       context 'user has no courses users' do
         let(:user_id) { 'potatoes' }
+
         it 'does not include' do
           expect(subject).not_to include(revision)
         end
@@ -99,8 +113,10 @@ describe RevisionStat do
           expect(subject.count).to be > 0
         end
       end
+
       context 'user has no revisions' do
         before { revision.update_attribute(:user_id, (user.id - 1)) }
+
         it 'is empty' do
           expect(subject.count).to eq(0)
         end

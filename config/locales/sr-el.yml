@@ -481,7 +481,7 @@ sr-el:
     image: Slika
     file_name: Naziv datoteke
     no_dyk_eligible: Trenutno nema potencijalnih „Da li ste znali” članaka.
-    no_plagiarism: Trenutno nema nijedne skorašnje revizije pod sumnjom da je plagijat.
+    no_plagiarism: Trenutno nema nijedne skorašnje izmene pod sumnjom da je plagijat.
     no_edits: Ne postoje skorašnje izmene.
     plagiarism_report: Prijavi plagijat
     possible_plagiarism: Moguć plagijat
@@ -489,7 +489,7 @@ sr-el:
     recent_uploads: Skorašnje otpreme
     revision_author: 'Autor izmene:'
     revision_datetime: Datum/vreme izmene
-    revision_score: Ocena revizije
+    revision_score: Ocena izmene
     show_courses: Prikaži samo moje kurseve
     uploaded_by: 'Otpremio:'
     usage_count: Broj upotreba
@@ -571,7 +571,6 @@ sr-el:
     logged_out: Odjavljeni ste. Nećete dobiti poene za završavanje ovog modula ukoliko
       se ne prijavite.
   uploads:
-    datetime: Datum/vreme
     file_name: Naziv datoteke
     header: Datoteke otpremljene na Ostavu
     image: Slika
@@ -648,7 +647,7 @@ sr-el:
       instructor: Nastavnik
       campus_volunteer: Univerzitetski volonter
       online_volunteer: Onlajn volonter
-      wiki_ed_staff: Osoblje Viki eda
+      wiki_ed_staff: Osoblje Viki Edukacije
   user_profiles:
     student_impact: Ukupni učinak koji je ostvario %{username} kao student
     instructor_impact: Ukupni učinak koji je ostvario %{username} kao nastavnik
@@ -738,7 +737,7 @@ sr-el:
       toga! Dešava se ponekad.) Pokušajte da se prijavite ponovo.
   survey:
     login_message: Hvala Vam na izdvojenom vremenu. Ulogujte se na kontrolnu tablu
-      Viki eda kako biste popunili anketu.
+      Viki Edukacije kako biste popunili anketu.
     notification_explanation: Ukoliko je polje ispod označeno, korisnici će primati
       imejlove prema rasporedu obaveštenja, uz obaveštenja koja vide u pretraživaču.
       Ako polje nije označeno, dobijaće obaveštenja samo u pretraživaču.
@@ -748,9 +747,10 @@ sr-el:
       putem imejla.
     email:
       headline: Zdravo, %{username}
-      message_line1: Nadamo se da ste imali uspešno polugodište! Viki ed traži povratne
-        informacije od Vas, kako bismo poboljšali naše resurse i podržali svoje zadatke
-        na Vikipediji. Vaši odgovori su ključni za popravljanje našeg rada.
+      message_line1: Nadamo se da ste imali uspešno polugodište! Viki Edukacija traži
+        povratne informacije od Vas, kako bismo poboljšali naše resurse i podržali
+        svoje zadatke na Vikipediji. Vaši odgovori su ključni za popravljanje našeg
+        rada.
       message_line2: Da li možete da izdvojite 15 minuta da popunite anketu? Kliknite
         na dugme ispod kako bismo učenje sa Vikipedijom učinili korisnijim i vrednijim
         iskustvom.

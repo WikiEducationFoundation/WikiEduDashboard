@@ -35,13 +35,17 @@ class Alert < ApplicationRecord
     ActiveCourseAlert
     ArticlesForDeletionAlert
     BlockedEditsAlert
+    BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
+    FirstEnrolledStudentAlert
     GANominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
+    OnboardingAlert
+    OverdueTrainingAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
@@ -57,6 +61,24 @@ class Alert < ApplicationRecord
     GANominationAlert
   ].freeze
 
+  PUBLIC_ALERT_TYPES = %w[
+    ActiveCourseAlert
+    ArticlesForDeletionAlert
+    BlockedEditsAlert
+    BlockedUserAlert
+    ContinuedCourseActivityAlert
+    DeletedUploadsAlert
+    DiscretionarySanctionsEditAlert
+    DYKNominationAlert
+    GANominationAlert
+    NoEnrolledStudentsAlert
+    ProductiveCourseAlert
+    UnsubmittedCourseAlert
+    UntrainedStudentsAlert
+  ].freeze
+
+  scope :nonprivate, -> { where(type: PUBLIC_ALERT_TYPES) }
+
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
   end
@@ -71,10 +93,13 @@ class Alert < ApplicationRecord
 
   def email_content_expert
     return if emails_disabled?
-    content_expert = course.nonstudents.find_by(greeter: true)
-    return if content_expert.nil?
-    AlertMailer.alert(self, content_expert).deliver_now
-    update_attribute(:email_sent_at, Time.now)
+    return if course.nil?
+    content_experts = course.nonstudents.where(greeter: true)
+    return if content_experts.empty?
+    content_experts.each do |content_expert|
+      AlertMailer.alert(self, content_expert).deliver_now
+    end
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   def email_course_admins
@@ -83,14 +108,14 @@ class Alert < ApplicationRecord
     admins.each do |admin|
       AlertMailer.alert(self, admin).deliver_now
     end
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   def email_target_user
     return if emails_disabled?
     return if target_user.nil?
     AlertMailer.alert(self, target_user).deliver_now
-    update_attribute(:email_sent_at, Time.now)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 
   # Disable emails for specific alert types in application.yml, like so:
@@ -122,6 +147,18 @@ class Alert < ApplicationRecord
 
   def resolvable?
     false
+  end
+
+  def opt_out_link
+    nil
+  end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolving the alert should be done if the situation that caused it is no
+      longer going on. The Dashboard will create a new alert if it detects the
+      same situation again.
+    EXPLANATION
   end
 
   def courses_user

@@ -26,6 +26,7 @@ describe SalesforceController do
 
     context 'when user is not an admin' do
       before { allow(controller).to receive(:current_user).and_return(user) }
+
       it 'does not allow the action' do
         put :link, params: { course_id: course.id, salesforce_id: 'a0f1a000001Wyar' }
         expect(response.code).to eq('401')
@@ -37,6 +38,7 @@ describe SalesforceController do
     before { allow(controller).to receive(:current_user).and_return(admin) }
 
     let(:course) { create(:course, flags: { salesforce_id: 'a0f1a000001Wyar' }) }
+
     it 'updates the Salesforce record for a course' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
       put :update, params: { course_id: course.id }
@@ -46,6 +48,7 @@ describe SalesforceController do
   describe '#create_media' do
     context 'when user is an admin' do
       before { allow(controller).to receive(:current_user).and_return(admin) }
+
       let(:subject) do
         put :create_media, params: {
           course_id: course.id,
@@ -55,6 +58,7 @@ describe SalesforceController do
           after_rev_id: 123456
         }
       end
+
       it 'creates a media record and redirects to Salesforce' do
         expect_any_instance_of(Restforce::Data::Client).to receive(:create!).and_return('12345')
 
@@ -64,6 +68,7 @@ describe SalesforceController do
 
     context 'when user it not an admin' do
       before { allow(controller).to receive(:current_user).and_return(user) }
+
       it 'does not allow the action' do
         get :create_media
         expect(response.code).to eq('401')

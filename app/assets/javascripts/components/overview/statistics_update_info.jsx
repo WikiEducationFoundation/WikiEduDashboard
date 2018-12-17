@@ -2,16 +2,17 @@ import React from 'react';
 import moment from 'moment';
 
 const StatisticsUpdateInfo = ({ course }) => {
-  if (course.ended || Features.wikiEd || !course.updates) {
+  if (course.ended || Features.wikiEd || !course.updates.last_update) {
     return <div />;
   }
-  const lastUpdate = course.updates.last_update;
+  const lastUpdate = course.updates.last_update.end_time;
+  const lastUpdateMoment = moment.utc(lastUpdate);
   const averageDelay = course.updates.average_delay;
   let lastUpdateMessage;
   if (lastUpdate) {
-    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${moment(lastUpdate).fromNow()}`;
+    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
   }
-  const nextUpdateExpectedTime = moment(lastUpdate).add(averageDelay, "seconds");
+  const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'seconds');
   let nextUpdateMessage;
   if (nextUpdateExpectedTime.isAfter()) {
     nextUpdateMessage = `. ${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;

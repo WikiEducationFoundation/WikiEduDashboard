@@ -29,13 +29,14 @@ describe('AdminUser', () => {
         notifications: [],
       });
 
-      wrapper = mount(<Provider store={store} >
-        <table>
-          <tbody>
-            <AdminUserContainer user={expectedUser} key={1} />
-          </tbody>
-        </table>
-      </Provider>);
+      wrapper = mount(
+        <Provider store={store}>
+          <table>
+            <tbody>
+              <AdminUserContainer user={expectedUser} key={1} />
+            </tbody>
+          </table>
+        </Provider>);
     });
 
     it('renders user info', () => {
@@ -44,9 +45,9 @@ describe('AdminUser', () => {
       const expectedCellValues = [
         expectedUser.username,
         expectedUser.real_name,
-        expectedUser.permissions === 3 ?
-          'Super Admin' :
-          'Admin',
+        expectedUser.permissions === 3
+          ? 'Super Admin'
+          : 'Admin',
       ];
 
       expectedCellValues.forEach((expectedValue, idx) => {
@@ -78,13 +79,14 @@ describe('AdminUser', () => {
         notifications: [],
       });
 
-      const wrapper = mount(<Provider store={store} >
-        <table>
-          <tbody>
-            <AdminUserContainer user={expectedUser} key={1} />
-          </tbody>
-        </table>
-      </Provider>);
+      const wrapper = mount(
+        <Provider store={store} >
+          <table>
+            <tbody>
+              <AdminUserContainer user={expectedUser} key={1} />
+            </tbody>
+          </table>
+        </Provider>);
 
       const button = wrapper.find('td p button').first();
       expect(button.text())

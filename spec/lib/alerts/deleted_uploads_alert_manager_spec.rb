@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
 
 describe DeletedUploadsAlertManager do
   let(:course) { create(:course) }
-  let(:subject) { DeletedUploadsAlertManager.new([course]) }
+  let(:subject) { described_class.new([course]) }
   let(:user) { create(:user) }
   let!(:courses_user) do
     create(:courses_user, course_id: course.id, user_id: user.id,
@@ -20,6 +20,7 @@ describe DeletedUploadsAlertManager do
 
   context 'when there are few deleted uploads' do
     let(:deleted_count) { 2 }
+
     it 'does not create an alert' do
       create_deleted_uploads
       subject.create_alerts
@@ -29,6 +30,7 @@ describe DeletedUploadsAlertManager do
 
   context 'when there are many deleted uploads' do
     let(:deleted_count) { 100 }
+
     it 'creates an alert' do
       create_deleted_uploads
       subject.create_alerts

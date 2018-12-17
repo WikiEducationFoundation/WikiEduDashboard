@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/analytics/course_statistics"
 
 describe CourseStatistics do
   let(:course_ids) { [1, 2, 3, 10001, 10002, 10003] }
+
   before do
     course_ids.each do |i|
       # Course
@@ -24,20 +25,20 @@ describe CourseStatistics do
       create(:revision, date: 2.years.ago, article_id: id2, user_id: id2)
       create(:article, id: id2, title: "Article_#{id2}")
       create(:commons_upload, id: id2, user_id: id2, uploaded_at: 2.years.ago, usage_count: 1)
-      CoursesUsers.update_all_caches
+      CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     end
   end
 
   describe '#report_statistics' do
-    it 'should work for empty campaigns' do
-      output = CourseStatistics.new([]).report_statistics
+    let(:subject) { described_class.new(course_ids).report_statistics }
+
+    it 'works for empty campaigns' do
+      output = described_class.new([]).report_statistics
       expect(output[:course_count]).to eq(0)
       expect(output[:students_excluding_instructors]).to eq(0)
     end
 
-    let(:subject) { CourseStatistics.new(course_ids).report_statistics }
-
-    it 'should count articles, revisions and uploads from during courses' do
+    it 'counts articles, revisions and uploads from during courses' do
       expect(subject[:course_count]).to eq(course_ids.count)
       expect(subject[:students_excluding_instructors]).to eq(course_ids.count)
       expect(subject[:file_uploads]).to eq(course_ids.count)
@@ -52,13 +53,13 @@ describe CourseStatistics do
   end
 
   describe '#articles_edited' do
-    it 'should work for empty campaigns' do
-      output = CourseStatistics.new([]).articles_edited
+    it 'works for empty campaigns' do
+      output = described_class.new([]).articles_edited
       expect(output).to be_empty
     end
 
-    it 'should return articles edited during courses' do
-      output = CourseStatistics.new(course_ids).articles_edited
+    it 'returns articles edited during courses' do
+      output = described_class.new(course_ids).articles_edited
       expect(output).to include(Article.find(1))
       expect(output).not_to include(Article.find(101))
     end

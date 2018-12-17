@@ -15,15 +15,16 @@
 #  template_description :text(65535)
 #  default_course_type  :string(255)
 #  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
 #
 
 FactoryBot.define do
   factory :campaign do
-    title 'Spring 2016'
+    title { 'Spring 2016' }
   end
 
   factory :campaign_two, class: Campaign do
-    title 'Fall 2014'
-    url 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids'
+    title { 'Fall 2014' }
+    url { 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids' }
   end
 end

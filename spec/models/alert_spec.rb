@@ -46,7 +46,7 @@ describe Alert do
 
   describe 'abstract parent class' do
     it 'raises errors for required template methods' do
-      alert = Alert.new
+      alert = described_class.new
       expect { alert.main_subject }.to raise_error(NotImplementedError)
       expect { alert.url }.to raise_error(NotImplementedError)
     end
@@ -55,28 +55,39 @@ describe Alert do
   describe 'types' do
     it 'all implement #main_subject' do
       Alert::ALERT_TYPES.each do |type|
-        Alert.create(type: type,
-                     article: article,
-                     course: course,
-                     revision: revision,
-                     user: user,
-                     subject_id: alert_subject(type)&.id)
-        expect(Alert.last.main_subject).to be_a(String)
+        described_class.create(type: type,
+                               article: article,
+                               course: course,
+                               revision: revision,
+                               user: user,
+                               subject_id: alert_subject(type)&.id)
+        expect(described_class.last.main_subject).to be_a(String)
       end
     end
 
     it 'all implement #url' do
       Alert::ALERT_TYPES.each do |type|
-        Alert.create(type: type,
-                     article_id: article.id,
-                     course_id: course.id,
-                     revision_id: revision.id,
-                     user_id: user.id)
-        expect(Alert.last.url).to be_a(String)
+        described_class.create(type: type,
+                               article_id: article.id,
+                               course_id: course.id,
+                               revision_id: revision.id,
+                               user_id: user.id)
+        expect(described_class.last.url).to be_a(String)
       end
     end
 
-    it 'should be resolvable for resolvable alert types' do
+    it 'all implement #resolve_explanation' do
+      Alert::ALERT_TYPES.each do |type|
+        described_class.create(type: type,
+                               article_id: article.id,
+                               course_id: course.id,
+                               revision_id: revision.id,
+                               user_id: user.id)
+        expect(described_class.last.resolve_explanation).to be_a(String)
+      end
+    end
+
+    it 'is resolvable for resolvable alert types' do
       Alert::RESOLVABLE_ALERT_TYPES.each do |type|
         # Equals to ArticlesForDeletionAlert.new
         alert = type.constantize.new
@@ -85,9 +96,8 @@ describe Alert do
       end
     end
 
-    it 'should not be resolvable for certain types' do
-      unresolvable_alert_types =
-        Alert::ALERT_TYPES - Alert::RESOLVABLE_ALERT_TYPES
+    it 'is not resolvable for certain types' do
+      unresolvable_alert_types = Alert::ALERT_TYPES - Alert::RESOLVABLE_ALERT_TYPES
 
       unresolvable_alert_types.each do |type|
         alert = type.constantize.new
@@ -96,7 +106,7 @@ describe Alert do
       end
     end
 
-    it 'should not be resolvable if already resolved' do
+    it 'is not resolvable if already resolved' do
       alert.update resolved: true
       expect(alert.resolvable?).to be(false)
     end
@@ -104,32 +114,33 @@ describe Alert do
 
   describe 'sending emails' do
     before { ENV['ProductiveCourseAlert_emails_disabled'] = 'true' }
+
     after { ENV['ProductiveCourseAlert_emails_disabled'] = 'false' }
 
     it 'can be disabled for a single alert type' do
       expect(AlertMailer).not_to receive(:alert)
-      Alert.create(type: 'ProductiveCourseAlert',
-                   article_id: article.id,
-                   course_id: course.id,
-                   revision_id: revision.id,
-                   user_id: user.id,
-                   target_user_id: user.id)
-      Alert.last.email_content_expert
-      Alert.last.email_course_admins
-      Alert.last.email_target_user
+      described_class.create(type: 'ProductiveCourseAlert',
+                             article_id: article.id,
+                             course_id: course.id,
+                             revision_id: revision.id,
+                             user_id: user.id,
+                             target_user_id: user.id)
+      described_class.last.email_content_expert
+      described_class.last.email_course_admins
+      described_class.last.email_target_user
     end
 
     it 'still sends emails for other alert types' do
       expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       create(:courses_user, course: course, user: admin,
                             role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
-      Alert.create(type: 'ActiveCourseAlert',
-                   article_id: article.id,
-                   course_id: course.id,
-                   revision_id: revision.id,
-                   user_id: user.id,
-                   target_user_id: user.id)
-      Alert.last.email_course_admins
+      described_class.create(type: 'ActiveCourseAlert',
+                             article_id: article.id,
+                             course_id: course.id,
+                             revision_id: revision.id,
+                             user_id: user.id,
+                             target_user_id: user.id)
+      described_class.last.email_course_admins
     end
   end
 end

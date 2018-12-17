@@ -12,7 +12,7 @@
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
-#  view_sum              :integer          default(0)
+#  view_sum              :bigint(8)        default(0)
 #  user_count            :integer          default(0)
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
@@ -48,11 +48,11 @@
 #  withdrawn             :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_training_progress_manager"
-require "#{Rails.root}/lib/trained_students_manager"
-require "#{Rails.root}/lib/word_count"
-require "#{Rails.root}/lib/training_module"
+require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency "#{Rails.root}/lib/course_training_progress_manager"
+require_dependency "#{Rails.root}/lib/trained_students_manager"
+require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
@@ -87,6 +87,11 @@ class Course < ApplicationRecord
     where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
+  # Same as revisions, but isn't bounded by the course end date
+  has_many(:recent_revisions, lambda do |course|
+    where('date >= ?', course.start)
+  end, through: :students, source: :revisions)
+
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
@@ -99,6 +104,9 @@ class Course < ApplicationRecord
 
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :categories, through: :categories_courses
+
+  has_many :alerts
+  has_many :public_alerts, -> { nonprivate }, class_name: 'Alert'
 
   ############
   # Metadata #
@@ -175,7 +183,6 @@ class Course < ApplicationRecord
   ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
-  has_many :gradeables, as: :gradeable_item, dependent: :destroy
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,
@@ -187,12 +194,13 @@ class Course < ApplicationRecord
   validates :home_wiki_id, presence: true
 
   COURSE_TYPES = %w[
-    LegacyCourse
-    ClassroomProgramCourse
-    VisitingScholarship
-    Editathon
-    BasicCourse
     ArticleScopedProgram
+    BasicCourse
+    ClassroomProgramCourse
+    Editathon
+    FellowsCohort
+    LegacyCourse
+    VisitingScholarship
   ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
@@ -200,7 +208,7 @@ class Course < ApplicationRecord
   # Callbacks #
   #############
   before_save :ensure_required_params
-  before_save :order_weeks
+  before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
 
@@ -224,12 +232,12 @@ class Course < ApplicationRecord
     true
   end
 
-  def current?
-    start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
-  end
-
   def approved?
     campaigns.any? && !withdrawn
+  end
+
+  def closed?
+    flags[:closed_date].present?
   end
 
   def tag?(query_tag)
@@ -247,7 +255,7 @@ class Course < ApplicationRecord
   end
 
   def wiki_ids
-    ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
+    ([home_wiki_id] + revisions.pluck(Arel.sql('DISTINCT wiki_id'))).uniq
   end
 
   def scoped_article_ids
@@ -262,11 +270,16 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  # Overridden for LegacyCourse
+  def wiki_title
+    return nil unless wiki_course_page_enabled? && home_wiki.edits_enabled?
+    escaped_slug = slug.tr(' ', '_')
+    "#{home_wiki.course_prefix}/#{escaped_slug}"
+  end
+
   # The url for the on-wiki version of the course.
   def url
-    # wiki_title is implemented by the specific course type.
-    # Some types do not have corresponding on-wiki pages, so they have no
-    # wiki_title or url.
+    # Some courses do not have corresponding on-wiki pages, so they have no wiki_title or url.
     return unless wiki_title
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
@@ -284,13 +297,18 @@ class Course < ApplicationRecord
   end
 
   def word_count
-    require "#{Rails.root}/lib/word_count"
-    WordCount.from_characters(character_sum)
+    @word_count ||= WordCount.from_characters(character_sum)
   end
 
   def average_word_count
     return 0 if user_count.zero?
     word_count / user_count
+  end
+
+  # Overridden for some course types
+  def wiki_edits_enabled?
+    return true unless flags.key?(:wiki_edits_enabled)
+    flags[:wiki_edits_enabled]
   end
 
   # Overidden by ClassroomProgramCourse
@@ -301,6 +319,29 @@ class Course < ApplicationRecord
   # Overidden by ClassroomProgramCourse
   def timeline_enabled?
     flags[:timeline_enabled].present?
+  end
+
+  # Overridden for some course types
+  def cloneable?
+    !tag?('no_clone')
+  end
+
+  # Overridden for some course types
+  def training_library_slug
+    'students'
+  end
+
+  def account_requests_enabled?
+    return true if flags[:register_accounts].present?
+    campaigns.exists?(register_accounts: true)
+  end
+
+  def meetings_manager
+    @meetings_manager ||= CourseMeetingsManager.new(self)
+  end
+
+  def training_progress_manager
+    @training_progress_manager ||= CourseTrainingProgressManager.new(self)
   end
 
   #################
@@ -327,30 +368,21 @@ class Course < ApplicationRecord
     threads.each(&:join)
   end
 
-  RANDOM_PASSCODE_LENGTH = 8
-  def self.generate_passcode
-    ('a'..'z').to_a.sample(RANDOM_PASSCODE_LENGTH).join
-  end
-
+  # Ensures weeks for a course have order 1..weeks.count
+  # This is dangerous if creating or reordering timeline content except via
+  # TimelineController, where every week is processed from the submitted params,
+  # and blocks get resorted to the appropriate week if necessary.
+  # Weeks are expected to have the same order as their ids.
   def reorder_weeks
-    order_weeks
+    weeks.each_with_index do |week, i|
+      week.update_attribute(:order, i + 1)
+    end
   end
 
   private
 
   def trained_students_manager
     TrainedStudentsManager.new(self)
-  end
-
-  # Ensures weeks for a course have order 1..weeks.count
-  # This is dangerous if creating or reordering timeline content except via
-  # TimelineController, where every week is processed from the submitted params,
-  # and blocks get resorted to the appropriate week if necessary.
-  # Weeks are expected to have the same order as their ids.
-  def order_weeks
-    weeks.each_with_index do |week, i|
-      week.update_attribute(:order, i + 1)
-    end
   end
 
   def ensure_required_params

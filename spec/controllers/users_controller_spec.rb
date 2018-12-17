@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe UsersController do
   describe '#enroll' do
+    subject { response.status }
+
     let(:course) { create(:course) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
@@ -22,15 +24,15 @@ describe UsersController do
       stub_add_user_to_channel_success
     end
 
-    subject { response.status }
-
     # Users who are not part of the course enroll via SelfEnrollmentController
     context 'POST, when the user is not part of the course' do
       let(:post_params) do
         { id: course.slug,
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
       end
+
       before { post 'enroll', params: post_params }
+
       it 'does not create a CoursesUsers' do
         expect(CoursesUsers.count).to eq(0)
       end
@@ -51,9 +53,11 @@ describe UsersController do
           { id: course.slug,
             user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
         end
+
         before do
           post 'enroll', params: post_params
         end
+
         it 'returns a 404' do
           expect(subject).to eq(404)
         end
@@ -67,10 +71,12 @@ describe UsersController do
           { id: course.slug,
             user: { username: another_user.username, role: CoursesUsers::Roles::STUDENT_ROLE } }
         end
+
         before do
           expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
           post 'enroll', params: post_params
         end
+
         it 'returns a 200' do
           expect(subject).to eq(200)
         end
@@ -90,9 +96,11 @@ describe UsersController do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
+
       before do
         post 'enroll', params: post_params
       end
+
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
@@ -110,9 +118,11 @@ describe UsersController do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE } }
       end
+
       before do
         post 'enroll', params: post_params
       end
+
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
@@ -125,17 +135,19 @@ describe UsersController do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
         allow(controller).to receive(:current_user).and_return(admin)
-        create(:setting, key: 'special_users', value: { classroom_program_manager: staff.username })
+        Setting.set_special_user('classroom_program_manager', staff.username)
       end
 
       let(:post_params) do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::INSTRUCTOR_ROLE } }
       end
+
       before do
         allow(NewInstructorEnrollmentMailer).to receive(:send_staff_alert).and_call_original
         post 'enroll', params: post_params
       end
+
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
@@ -150,6 +162,7 @@ describe UsersController do
         { id: course.slug,
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
       end
+
       before do
         create(:courses_user, user_id: user.id,
                               course_id: course.id,
@@ -161,6 +174,7 @@ describe UsersController do
                article_id: article.id)
         delete 'enroll', params: delete_params
       end
+
       it 'destroys the courses user' do
         expect(CoursesUsers.count).to eq(0)
       end
@@ -198,7 +212,7 @@ describe UsersController do
 
       before { allow(controller).to receive(:current_user).and_return(user) }
 
-      it 'should not authorize' do
+      it 'does not authorize' do
         get :index
         expect(response.body).to have_content('Only administrators may do that.')
       end
@@ -217,24 +231,24 @@ describe UsersController do
                       permissions: User::Permissions::INSTRUCTOR)
       end
 
-      it 'should list instructors by default' do
+      let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
+
+      it 'lists instructors by default' do
         get :index
 
         expect(response.body).to have_content instructor.username
         expect(response.body).to have_content instructor.real_name
         expect(response.body).to have_content instructor.email
 
-        expect(response.body).to_not have_content admin.email
+        expect(response.body).not_to have_content admin.email
       end
 
-      let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
-
-      it 'should accept email param and return associated user' do
+      it 'accepts email param and return associated user' do
         get :index, params: { email: search_user.email }
         expect(response.body).to have_content search_user.email
       end
 
-      it 'should accept real name param and return associated user' do
+      it 'accepts real name param and return associated user' do
         get :index, params: { real_name: search_user.real_name }
         expect(response.body).to have_content search_user.real_name
       end

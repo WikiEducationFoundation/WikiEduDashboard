@@ -1,5 +1,4 @@
 import * as actions from 'actions/alert_actions';
-import sinon from 'sinon';
 import '../testHelper';
 
 describe('AlertActions', () => {
@@ -7,7 +6,7 @@ describe('AlertActions', () => {
   const expectedState = { submitting: false, created: true };
   it('submits and creates an alert, then resets it', () => {
     expect(reduxStore.getState().needHelpAlert).to.deep.eq(initialState);
-    sinon.stub($, "ajax").yieldsTo("success", { success: true });
+    sinon.stub($, 'ajax').yieldsTo('success', { success: true });
     reduxStore.dispatch(actions.submitNeedHelpAlert({}))
       .then(() => {
         expect(reduxStore.getState().needHelpAlert).to.deep.eq(expectedState);

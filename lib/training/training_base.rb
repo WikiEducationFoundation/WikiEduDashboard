@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_loader"
+require_dependency "#{Rails.root}/lib/training/yaml_training_loader"
+require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
@@ -8,21 +9,17 @@ class TrainingBase
     attr_accessor :path_to_yaml
   end
 
-  attr_accessor :slug, :id
+  attr_accessor :slug, :id, :wiki_page
 
   #################
   # Class methods #
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(slug_whitelist: nil)
-    loader = TrainingLoader.new(content_class: self, slug_whitelist: slug_whitelist)
-
-    @all = if slug_whitelist
-             merge_content loader.load_content
-           else
-             loader.load_content
-           end
+  def self.load(slug_list: nil, content_class: self)
+    loader = training_loader_class.new(content_class: content_class, slug_list: slug_list)
+    @all = loader.load_content
+    return if content_class.superclass.name == 'ApplicationRecord'
 
     check_for_duplicate_slugs
     check_for_duplicate_ids
@@ -31,26 +28,13 @@ class TrainingBase
     @all
   end
 
-  def self.merge_content(updated_content)
-    new_slugs = updated_content.map(&:slug)
-    # @all may be nil or an array of training objects
-    old_without_new = Array(@all).reject do |training_unit|
-      new_slugs.include? training_unit.slug
-    end
-    old_without_new + updated_content
-  end
-
   # Called during manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
     TrainingLibrary.flush
-    TrainingModule.flush
-    TrainingSlide.flush
     if Features.wiki_trainings?
       TrainingModule.load
-      TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
-      TrainingModule.flush
-      TrainingModule.load
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
       TrainingLibrary.load
     else
       TrainingLibrary.load
@@ -66,14 +50,7 @@ class TrainingBase
   end
 
   def self.load_from_cache_or_rebuild
-    if Features.wiki_trainings?
-      # Only load explicitly, not on a cold cache, when loading from wiki.
-      # This prevents situations where many users are trying to load uncached
-      # trainings at once, causing major problems.
-      Rails.cache.read(cache_key) || []
-    else
-      Rails.cache.read(cache_key) || load
-    end
+    Rails.cache.read(cache_key) || load
   end
 
   # Clears both the class instance variable and the cache for the child class.
@@ -112,6 +89,15 @@ class TrainingBase
     end
   end
 
+  # called for each training unit in TrainingLoader
+  def self.inflate(content, slug, wiki_page = nil)
+    new(content.to_hashugar, slug, wiki_page)
+  end
+
+  def self.training_loader_class
+    Features.wiki_trainings? ? WikiTrainingLoader : YamlTrainingLoader
+  end
+
   class DuplicateSlugError < StandardError
   end
 
@@ -122,12 +108,12 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  # called for each training unit in TrainingLoader
-  def initialize(content, slug)
+  def initialize(content, slug, wiki_page)
     self.slug = slug
     content.each do |key, value|
       instance_variable_set("@#{key}", value)
     end
+    self.wiki_page = wiki_page
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e

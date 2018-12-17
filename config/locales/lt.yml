@@ -26,6 +26,7 @@ lt:
     log_out: Atsijungti
     my_dashboard: Mano prietaisų skydelis
     recent_activity: Pastaroji veikla
+    request_account: Prašyti paskyros
     search: užduoti klausimą
     search_results: 'Rezultatai: ''%{search_terms}'''
     sign_up_extended: Prisijungti su Vikipedija
@@ -399,7 +400,6 @@ lt:
     logged_out: Esate neprisijungę. Negausite kredito atlikdami šio modulio užduotys,
       jei neprisijungsite.
   uploads:
-    datetime: Data/Laikas
     file_name: Failo Pavadinimas
     header: Failai Įkelti į Vikimedija Commons
     image: Paveikslėlis

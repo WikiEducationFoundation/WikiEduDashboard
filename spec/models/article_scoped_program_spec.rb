@@ -12,7 +12,7 @@
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
-#  view_sum              :integer          default(0)
+#  view_sum              :bigint(8)        default(0)
 #  user_count            :integer          default(0)
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
@@ -55,7 +55,7 @@ describe ArticleScopedProgram, type: :model do
     asp = create(:article_scoped_program,
                  id: 10001,
                  start: 1.year.ago,
-                 end: Date.today + 1.year)
+                 end: Time.zone.today + 1.year)
     editor = create(:user)
     create(:courses_user,
            user_id: editor.id,
@@ -69,10 +69,9 @@ describe ArticleScopedProgram, type: :model do
                       article_id: random_article.id, date: 1.day.ago)
     create(:revision, id: 2, user_id: editor.id,
                       article_id: assigned_article.id, date: 1.day.ago)
-    Article.update_all_caches
     ArticlesCourses.update_from_course(asp)
-    ArticlesCourses.update_all_caches
-    CoursesUsers.update_all_caches
+    ArticlesCourses.update_all_caches(asp.articles_courses)
+    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
   end
 
@@ -80,16 +79,16 @@ describe ArticleScopedProgram, type: :model do
   let(:in_scope_rev) { Revision.find(2) }
   let(:asp) { Course.find(10001) }
 
-  it 'should only count assigned articles' do
+  it 'onlies count assigned articles' do
     expect(asp.article_count).to eq(1)
   end
-  it 'should only generate ArticlesCourses for assigned articles' do
+  it 'onlies generate ArticlesCourses for assigned articles' do
     expect(asp.articles_courses.count).to eq(1)
   end
-  it 'should only count revisions to assigned articles' do
+  it 'onlies count revisions to assigned articles' do
     expect(asp.revision_count).to eq(1)
   end
-  it 'should only count characters for assigned articles' do
+  it 'onlies count characters for assigned articles' do
     expect(asp.character_sum).to eq(in_scope_rev.characters)
   end
 end

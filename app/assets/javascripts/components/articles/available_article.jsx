@@ -1,11 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import CourseUtils from '../../utils/course_utils.js';
-import ServerActions from '../../actions/server_actions.js';
-import AssignmentActions from '../../actions/assignment_actions.js';
+import { deleteAssignment, updateAssignment } from '../../actions/assignment_actions.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
 export const AvailableArticle = createReactClass({
@@ -15,7 +14,9 @@ export const AvailableArticle = createReactClass({
     assignment: PropTypes.object,
     current_user: PropTypes.object,
     course: PropTypes.object,
-    addNotification: PropTypes.func
+    addNotification: PropTypes.func,
+    deleteAssignment: PropTypes.func,
+    updateAssignment: PropTypes.func
   },
 
   onSelectHandler() {
@@ -32,7 +33,7 @@ export const AvailableArticle = createReactClass({
       type: 'success'
     });
 
-    return ServerActions.updateAssignment(assignment);
+    return this.props.updateAssignment(assignment);
   },
 
   onRemoveHandler(e) {
@@ -48,8 +49,7 @@ export const AvailableArticle = createReactClass({
     };
 
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    AssignmentActions.deleteAssignment(assignment);
-    return ServerActions.deleteAssignment(assignment);
+    return this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -60,15 +60,16 @@ export const AvailableArticle = createReactClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
 
-    let actionButton;
-    // Show 'Select' button to students
-    if (this.props.current_user.role === 0) {
-      actionButton = (
+    let actionSelect;
+    let actionRemove;
+    if (this.props.current_user.isStudent) {
+      actionSelect = (
         <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
       );
-    // Show 'Remove' button to admins and facilitators
-    } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
-      actionButton = (
+    }
+
+    if (this.props.current_user.isNonstudent) {
+      actionRemove = (
         <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
       );
     }
@@ -79,7 +80,7 @@ export const AvailableArticle = createReactClass({
           <p className="rating_num hidden">{article.rating_num}</p>
           <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: assignment.article_rating || '' })}</p>
           </div>
         </td>
         <td>
@@ -89,7 +90,8 @@ export const AvailableArticle = createReactClass({
           </p>
         </td>
         <td className="table-action-cell">
-          {actionButton}
+          {actionSelect}
+          {actionRemove}
         </td>
       </tr>
     );
@@ -97,6 +99,10 @@ export const AvailableArticle = createReactClass({
 }
 );
 
-const mapDispatchToProps = { addNotification };
+const mapDispatchToProps = {
+  addNotification,
+  deleteAssignment,
+  updateAssignment
+};
 
 export default connect(null, mapDispatchToProps)(AvailableArticle);

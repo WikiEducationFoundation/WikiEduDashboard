@@ -15,6 +15,7 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
 )
 SimpleCov.start 'rails' do
   add_filter 'lib/tasks' # even though we test these, coverage doesn't work right.
+  add_filter 'setup'
 end
 
 require 'vcr'
@@ -132,7 +133,7 @@ VCR.configure do |c|
   c.default_cassette_options = { record: :new_episodes }
   c.configure_rspec_metadata!
   # Allows RSPEC to test the availability of the Wikimedia Tools
-  c.ignore_hosts 'tools.wmflabs.org', '127.0.0.1'
+  c.ignore_hosts '127.0.0.1'
   # c.allow_http_connections_when_no_cassette = true
   c.ignore_hosts 'codeclimate.com'
   # for controller test

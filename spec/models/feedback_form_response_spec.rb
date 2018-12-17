@@ -21,6 +21,7 @@ describe FeedbackFormResponse do
       let(:subject) do
         'https://dashboard.wikiedu.org/training/students/editing-basics/be-bold-tutorial'
       end
+
       it 'extracts the module from training url' do
         expect(response.topic).to eq('editing-basics')
       end
@@ -28,6 +29,7 @@ describe FeedbackFormResponse do
 
     context 'when subject is an arbitrary string' do
       let(:subject) { 'Diff Viewer' }
+
       it 'returns the subject' do
         expect(response.topic).to eq(subject)
       end

@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CoursesController do
   before { stub_wiki_validation }
+
   describe '#show' do
     let(:course) { create(:course) }
     let(:slug) { course.slug }
@@ -29,7 +30,7 @@ describe CoursesController do
   end
 
   describe '#destroy' do
-    let!(:course)           { create(:course) }
+    let!(:course)           { create(:course, submitted: true) }
     let!(:user)             { create(:test_user) }
     let!(:courses_users)    { create(:courses_user, course_id: course.id, user_id: user.id) }
     let!(:article)          { create(:article) }
@@ -40,10 +41,6 @@ describe CoursesController do
     let!(:assignment) { create(:assignment, course_id: course.id) }
     let!(:campaigns_courses) { create(:campaigns_course, course_id: course.id) }
     let!(:week) { create(:week, course_id: course.id) }
-
-    let!(:gradeable) do
-      create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id)
-    end
 
     let!(:admin) { create(:admin, id: 2) }
 
@@ -73,7 +70,7 @@ describe CoursesController do
           end.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
         end
 
-        %i[assignment week gradeable].each do |model|
+        %i[assignment week].each do |model|
           expect do
             # metaprogramming for: Assigment.find(assignment.id)
             model.to_s.classify.constantize.send(:find, send(model).id)
@@ -83,7 +80,7 @@ describe CoursesController do
 
       it 'returns success' do
         delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
-        expect(response).to be_success
+        expect(response.status).to eq(200)
       end
 
       it 'deletes the course' do
@@ -116,8 +113,10 @@ describe CoursesController do
         submitted: submitted_2,
         day_exceptions: '',
         weekdays: '0001000',
-        no_day_exceptions: true }
+        no_day_exceptions: true,
+        home_wiki_id: 1 }
     end
+
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
@@ -141,12 +140,25 @@ describe CoursesController do
 
     context 'setting passcode' do
       let(:course) { create(:course) }
+
       before { course.update_attribute(:passcode, nil) }
 
-      it 'sets if it is nil and not in params' do
+      it 'sets randomly if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
         put :update, params: params, as: :json
         expect(course.reload.passcode).to match(/[a-z]{8}/)
+      end
+
+      it 'does not update it if placeholder passcode is received' do
+        params = { id: course.slug, course: { title: 'foo', passcode: '****' } }
+        put :update, params: params, as: :json
+        expect(course.reload.passcode).to be_nil
+      end
+
+      it 'updates it if new passcode is received' do
+        params = { id: course.slug, course: { title: 'foo', passcode: 'newpasscode' } }
+        put :update, params: params, as: :json
+        expect(course.reload.passcode).to eq('newpasscode')
       end
     end
 
@@ -184,6 +196,7 @@ describe CoursesController do
     context 'course is not new' do
       let(:submitted_1) { true }
       let(:submitted_2) { true }
+
       it 'does not announce course' do
         expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         params = { id: course.slug, course: course_params }
@@ -193,6 +206,7 @@ describe CoursesController do
 
     context 'course is new' do
       let(:submitted_2) { true }
+
       it 'announces course and emails the instructor' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
@@ -226,6 +240,7 @@ describe CoursesController do
             role_description: role_description,
             passcode: 'passcode' }
         end
+
         it 'sets slug correctly' do
           post :create, params: { course: course_params }, as: :json
           expect(Course.last.slug).to eq(expected_slug)
@@ -264,6 +279,7 @@ describe CoursesController do
           { school: 'Wiki University',
             title: 'How to Wiki' }
         end
+
         it 'does not set slug (and does not create course)' do
           post :create, params: { course: course_params }, as: :json
           expect(Course.all).to be_empty
@@ -355,6 +371,7 @@ describe CoursesController do
             start: '2015-01-05',
             end: '2015-12-20' }
         end
+
         before do
           post :create, params: { course: course_params }, as: :json
         end
@@ -386,6 +403,7 @@ describe CoursesController do
             weekdays: '0001000',
             no_day_exceptions: true }
         end
+
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, params: { course: course_params }, as: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
@@ -398,11 +416,12 @@ describe CoursesController do
   describe '#list' do
     let(:course) { create(:course) }
     let(:campaign) { Campaign.last }
-    let(:user) { create(:admin) }
+    let(:user) { create(:admin, email: 'user@example.edu') }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
+      allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
     end
 
     context 'when campaign is not found' do
@@ -476,6 +495,7 @@ describe CoursesController do
 
     context 'post request' do
       let(:tag) { 'pizza' }
+
       it 'creates a tag' do
         params = { id: course.slug, tag: { tag: tag } }
         post :tag, params: params, as: :json
@@ -486,6 +506,7 @@ describe CoursesController do
 
     context 'delete request' do
       let(:tag) { Tag.create(tag: 'pizza', course_id: course.id) }
+
       it 'deletes the tag' do
         params = { id: course.slug, tag: { tag: tag.tag } }
         delete :tag, params: params, as: :json
@@ -497,9 +518,11 @@ describe CoursesController do
   describe '#needs_update' do
     render_views
     let(:course) { create(:course, needs_update: false) }
+
     before do
       allow(controller).to receive(:user_signed_in?).and_return(true)
     end
+
     it 'sets "needs_update" to true' do
       get :needs_update, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)
@@ -555,43 +578,6 @@ describe CoursesController do
         expect_any_instance_of(WikiEdits).not_to receive(:notify_untrained)
         expect(subject.status).to eq(401)
       end
-    end
-  end
-
-  describe '#update_syllabus' do
-    let(:course) { create(:course) }
-    let(:instructor) do
-      create(:user, id: 5)
-      create(:courses_user, user_id: 5,
-                            course_id: course.id,
-                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      User.find(5)
-    end
-
-    before do
-      allow(controller).to receive(:current_user).and_return(instructor)
-    end
-
-    it 'saves a pdf' do
-      file = fixture_file_upload('syllabus.pdf', 'application/pdf')
-      post :update_syllabus, params: { id: course.id, syllabus: file }
-      expect(response.status).to eq(200)
-      expect(course.syllabus).not_to be_nil
-    end
-
-    it 'deletes a saved file' do
-      file = fixture_file_upload('syllabus.pdf', 'application/pdf')
-      course.syllabus = file
-      course.save
-      expect(course.syllabus.exists?).to eq(true)
-      post :update_syllabus, params: { id: course.id, syllabus: 'null' }
-      expect(course.syllabus.exists?).to eq(false)
-    end
-
-    it 'renders an error for disallowed file types' do
-      file = fixture_file_upload('syllabus.torrent', 'application/x-bittorrent')
-      post :update_syllabus, params: { id: course.id, syllabus: file }
-      expect(response.status).to eq(422)
     end
   end
 

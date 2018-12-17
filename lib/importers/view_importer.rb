@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_pageviews"
+require_dependency "#{Rails.root}/lib/wiki_pageviews"
 
 #= Imports and updates views for articles, revisions, and join tables
 class ViewImporter
@@ -104,7 +104,7 @@ class ViewImporter
 
   def views_last_updated(since, views)
     last = since
-    last = views.sort_by { |(d)| d }.last.first.to_date unless views.empty?
+    last = views.max_by { |(d)| d }.first.to_date unless views.empty?
     last
   end
 

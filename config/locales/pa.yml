@@ -30,7 +30,6 @@ pa:
     gradeable_value: ਮੁੱਲ
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
   uploads:
-    datetime: ਮਿਤੀ/ਵੇਲਾ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     image: ਤਸਵੀਰ
   users:

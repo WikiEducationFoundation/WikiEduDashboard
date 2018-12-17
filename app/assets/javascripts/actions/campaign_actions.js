@@ -1,6 +1,5 @@
-import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from "../constants";
+import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import ServerActions from './server_actions.js';
 
 const fetchCampaignsPromise = (courseId) => {
   return new Promise((res, rej) => {
@@ -18,10 +17,10 @@ const fetchCampaignsPromise = (courseId) => {
   });
 };
 
-export const fetchCampaigns = (courseId) => dispatch => {
+export const fetchCampaigns = courseId => (dispatch) => {
   return (
     fetchCampaignsPromise(courseId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: RECEIVE_CAMPAIGNS,
           data
@@ -50,19 +49,16 @@ const removeCampaignsPromise = (courseId, campaignId) => {
   });
 };
 
-export const removeCampaign = (courseId, campaignId) => dispatch => {
+export const removeCampaign = (courseId, campaignId) => (dispatch) => {
   return (
     removeCampaignsPromise(courseId, campaignId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: DELETE_CAMPAIGN,
           data
         });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
-      // TODO: remove this and handle DELETE_CAMPAIGN in course reducer,
-      // once CourseStore has been replaced with redux.
-      .then(() => ServerActions.fetch('course', courseId))
   );
 };
 
@@ -83,19 +79,16 @@ const addCampaignsPromise = (courseId, campaignId) => {
   });
 };
 
-export const addCampaign = (courseId, campaignId) => dispatch => {
+export const addCampaign = (courseId, campaignId) => (dispatch) => {
   return (
     addCampaignsPromise(courseId, campaignId)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: ADD_CAMPAIGN,
           data
         });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
-      // TODO: remove this and handle ADD_CAMPAIGN in course reducer,
-      // once CourseStore has been replaced with redux.
-      .then(() => ServerActions.fetch('course', courseId))
   );
 };
 
@@ -103,7 +96,7 @@ const fetchAllCampaignsPromise = () => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/lookups/campaign.json`,
+      url: '/lookups/campaign.json',
       success(data) {
         return res(data);
       }
@@ -115,10 +108,10 @@ const fetchAllCampaignsPromise = () => {
   });
 };
 
-export const fetchAllCampaigns = () => dispatch => {
+export const fetchAllCampaigns = () => (dispatch) => {
   return (
     fetchAllCampaignsPromise()
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,
           data

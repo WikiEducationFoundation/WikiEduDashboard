@@ -8,11 +8,24 @@
 # Author: Tacsipacsi
 # Author: Uno20001
 # Author: Wolf Rex
+# Author: Zizzerus
 ---
 hu:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          thousand: e
+          million: M
+          billion: mrd
+          trillion: B
+          quadrillion: brd
   application:
     cancel: Mégse
     dashboard: Wiki Ed Műszerfal
+    documentation: Dokumentáció
+    explore: Felfedezés
     field_invalid_date_time: A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
       23-ig tartanak.)
     greeting2: Üdvözlünk!
@@ -24,18 +37,23 @@ hu:
     log_in: Bejelentkezés
     log_out: Kijelentkezés
     recent_activity: Legutóbbi tevékenységek
+    report_problem: Probléma jelentése
     search: kérdés feltevése
     sign_up_extended: Regisztráció Wikipédiával
     sign_up_log_in_extended: Wikipédiával
     sign_up: Regisztráció
     submit: Elküld
+    training: Gyakorlás
   home:
+    explore: Felfedezés
     log_in: Bejelentkezés Wikipédiával
     sign_up: Regisztráció Wikipédiával
   activity:
     all: Tevékenység
   articles:
     edited_mobile: Szócikkek
+    filter:
+      existing: Meglévő
     label: Szócikkek
     loading: Szócikkek betöltése...
     title: Cím
@@ -48,6 +66,7 @@ hu:
   courses:
     delete_suggestion: Törlés
     join: Csatlakozás
+    launch_wizard: A varázsló indítása
     new_week: Új hét hozzáadása
     overview: Áttekintés
     passcode: Jelszó
@@ -68,6 +87,8 @@ hu:
     term: Mikor
   namespace:
     user_ns: Felhasználó
+  recent_activity:
+    plagiarism_report: Plágiumjelentés
   revisions:
     date_time: Dátum/idő
     edited_by: Szerkesztette
@@ -92,10 +113,11 @@ hu:
   wizard:
     summary: Összefoglaló
   error:
+    invalid_file_format: A fájl mentése sikertelen. Tölts fel egy PDF vagy Word-fájlt.
     unsupported_browser:
       header: Nem támogatott böngésző. :-(
       explanation: A böngésződ nem kompatibilis a vezérlőpulttal. Az oldal az Internet
-        Explorer 11-es vagy újabb-, a Chrome és a Firefox új verzióival, és más modern
+        Explorer 11-es vagy újabb, a Chrome és a Firefox friss verzióival és más modern
         böngészőkkel működik jól.
   error_404:
     header: A lap nem található. :-(

@@ -13,10 +13,10 @@
               %p= t("courses.revisions_doc", timeframe: RevisionStat::REVISION_TIMEFRAME)
         %th.sort.sortable{"data-sort" => "characters", :style => "width: 172px;"}
           .tooltip-trigger
-            = t("metrics.char")
+            = t("metrics.word_count")
             %span.sortable-indicator
             .tooltip.dark
-              %p= t("courses.character_doc")
+              %p= t("courses.word_count_doc")
         %th.sort.sortable{"data-sort" => "views", :style => "width: 125px;"}
           .tooltip-trigger
             = t("metrics.view")

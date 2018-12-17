@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/word_count"
 
 #= Pushes course data to Salesforce, either by creating a new record or updating an existing one
 class PushCourseToSalesforce
@@ -43,6 +43,10 @@ class PushCourseToSalesforce
   def course_salesforce_fields
     salesforce_fields = base_salesforce_fields
     salesforce_fields[:Course_Level__c] = @course.level if @course.level.present?
+    if @course.withdrawn
+      salesforce_fields[:Did_not_do_assignment__c] = true
+      salesforce_fields[:Status__c] = 'Complete'
+    end
     salesforce_fields
   end
 
@@ -79,6 +83,8 @@ class PushCourseToSalesforce
       ENV['SF_CLASSROOM_PROGRAM_ID']
     when 'VisitingScholarship'
       ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']
+    when 'FellowsCohort'
+      ENV['SF_WIKIPEDIA_FELLOWS_PROGRAM_ID']
     end
   end
 
@@ -87,7 +93,7 @@ class PushCourseToSalesforce
   end
 
   def editing_in_sandbox_block
-    title_matcher = /Draft your article/
+    title_matcher = Regexp.union [/Draft your article/, /Start drafting your/]
     @sandbox_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
   end
 

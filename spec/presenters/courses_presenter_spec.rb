@@ -5,8 +5,10 @@ require_relative '../../app/presenters/courses_presenter'
 
 describe CoursesPresenter do
   describe 'initialization via courses_list' do
-    let!(:course) { create(:course, user_count: 2, trained_count: 1) }
     subject { described_class.new(current_user: nil, courses_list: Course.all) }
+
+    let!(:course) { create(:course, user_count: 2, trained_count: 1) }
+
     it 'works with #courses, #active_courses, #user_count, #trained_count, #trained_percent' do
       expect(subject.courses.first).to eq(course)
       expect(subject.active_courses).not_to be_nil
@@ -17,11 +19,14 @@ describe CoursesPresenter do
   end
 
   describe '#user_courses' do
+    subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
+
     let(:admin) { create(:admin) }
     let(:campaign) { nil }
-    subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
+
     context 'not signed in' do
       let(:user) { nil }
+
       it 'is nil' do
         expect(subject).to be_nil
       end
@@ -29,6 +34,7 @@ describe CoursesPresenter do
 
     context 'not admin' do
       let(:user) { create(:test_user) }
+
       it 'is empty' do
         expect(subject).to be_empty
       end
@@ -46,28 +52,34 @@ describe CoursesPresenter do
   end
 
   describe '#campaign' do
-    let(:user)         { create(:admin) }
-    let(:campaign_param) { campaign_param }
     subject { described_class.new(current_user: user, campaign_param: campaign_param).campaign }
+
+    let(:user) { create(:admin) }
+    let(:campaign_param) { campaign_param }
 
     context 'campaigns' do
       context 'default campaign' do
         let(:campaign) { Campaign.find_by(slug: ENV['default_campaign']) }
         let(:default) { ENV['default_campaign'] }
         let(:campaign_param) { default }
+
         it 'returns default campaign' do
           expect(subject).to eq(campaign)
         end
       end
+
       context 'valid campaign' do
         let!(:campaign) { create(:campaign, slug: 'foo') }
         let(:campaign_param) { campaign.slug }
+
         it 'returns that campaign' do
           expect(subject).to eq(campaign)
         end
       end
+
       context 'invalid campaign' do
         let(:campaign_param) { 'lolfakecampaign' }
+
         it 'returns nil' do
           expect(subject).to be_nil
         end
@@ -76,27 +88,48 @@ describe CoursesPresenter do
   end
 
   describe 'searching campaign' do
+    subject { described_class.new(current_user: nil, courses_list: Course.all) }
+
     let!(:course) do
-      create(:course, title: 'Math Foundations of Informatics',
+      create(:course, id: 3, title: 'Math Foundations of Informatics',
                       school: 'Indiana University', term: 'Fall 2017')
     end
-    subject { described_class.new(current_user: nil, courses_list: Course.all) }
+
+    let!(:user) { create(:user, username: 'ragesoss', id: 666, trained: true) }
+
+    let!(:courses_user) do
+      create(:courses_user,
+             id: 1,
+             course_id: 3,
+             user_id: 666,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
     context 'find course based on title' do
       it 'returns courses when searching' do
         search = 'informatics'
-        expect(subject.search_courses(search)).to_not be_empty
+        expect(subject.search_courses(search)).not_to be_empty
       end
     end
+
     context 'find course based on school' do
       it 'returns courses when searching' do
         search = 'indiana'
-        expect(subject.search_courses(search)).to_not be_empty
+        expect(subject.search_courses(search)).not_to be_empty
       end
     end
+
     context 'find course based on term' do
       it 'returns courses when searching' do
         search = 'fall'
-        expect(subject.search_courses(search)).to_not be_empty
+        expect(subject.search_courses(search)).not_to be_empty
+      end
+    end
+
+    context 'find course based on instructor' do
+      it 'returns courses when searching' do
+        search = 'rage'
+        expect(subject.search_courses(search)).not_to be_empty
       end
     end
   end

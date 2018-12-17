@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -10,32 +9,29 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
-import TagButton from './tag_button.jsx';
+import TagList from './tag_list.jsx';
+import TagEditable from './tag_editable';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
+import WikiEditsToggle from './wiki_edits_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
+import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
+import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
+import Modal from '../common/modal.jsx';
 
-import Editable from '../high_order/editable.jsx';
+import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
-import DatePicker from '../common/date_picker.jsx';
-import CourseActions from '../../actions/course_actions.js';
+import Notifications from '../common/notifications.jsx';
 
-import CourseStore from '../../stores/course_store.js';
-import TagStore from '../../stores/tag_store.js';
-import ValidationStore from '../../stores/validation_store.js';
+import DatePicker from '../common/date_picker.jsx';
+
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const getState = () =>
-  ({
-    course: CourseStore.getCourse(),
-    tags: TagStore.getModels(),
-    error_message: ValidationStore.firstMessage()
-  })
-;
+const POLL_INTERVAL = 60000; // 1 minute
 
 const Details = createReactClass({
   displayName: 'Details',
@@ -44,37 +40,38 @@ const Details = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     campaigns: PropTypes.array,
-    tags: PropTypes.array,
     controls: PropTypes.func,
     editable: PropTypes.bool,
-    allCampaigns: PropTypes.array
+    updateCourse: PropTypes.func.isRequired,
+    refetchCourse: PropTypes.func.isRequired,
+    firstErrorMessage: PropTypes.string
   },
 
-  mixins: [ValidationStore.mixin],
-  getInitialState() {
-    return getState();
+  componentDidMount() {
+    this.timeout = this.poll(); // Start polling
   },
 
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearInterval(this.timeout); // End it
+    }
+  },
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateSlugPart(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    return CourseActions.updateCourse(updatedCourse);
-  },
-
-  storeDidChange() {
-    return this.setState({ error_message: ValidationStore.firstMessage() });
+    return this.props.updateCourse(updatedCourse);
   },
 
   canRename() {
@@ -85,6 +82,16 @@ const Details = createReactClass({
     // On P&E Dashboard, anyone with edit rights for the course may rename it.
     return true;
   },
+
+  poll() {
+    return setInterval(() => {
+      if (!this.props.editable) {
+        this.props.refetchCourse(this.props.course.slug);
+      }
+    }, POLL_INTERVAL);
+  },
+
+  timeout: null,
 
   render() {
     const canRename = this.canRename();
@@ -164,7 +171,7 @@ const Details = createReactClass({
     }
 
     let expectedStudents;
-    if (this.props.course.expected_students || this.props.course.expected_students === 0) {
+    if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
         <TextInput
           onChange={this.updateDetails}
@@ -208,10 +215,14 @@ const Details = createReactClass({
         />
       );
     }
+    let campaignEditable;
+    if (canRename) {
+      campaignEditable = <CampaignEditable {...this.props} show={this.props.editable} />;
+    }
     const campaigns = (
       <span className="campaigns" id="course_campaigns">
         <CampaignList {...this.props} />
-        <CampaignEditable {...this.props} show={this.props.editable} />
+        {campaignEditable}
       </span>
     );
     let subject;
@@ -221,12 +232,11 @@ const Details = createReactClass({
     let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let wikiEditsToggle;
     let withdrawnSelector;
+    let projectSelector;
+    let languageSelector;
     if (this.props.current_user.admin) {
-      const tagsList = this.props.tags.length > 0 ?
-        _.map(this.props.tags, 'tag').join(', ')
-      : I18n.t('courses.none');
-
       subject = (
         <TextInput
           onChange={this.updateDetails}
@@ -239,30 +249,24 @@ const Details = createReactClass({
       );
       tags = (
         <div className="tags">
-          <span><strong>Tags:</strong> {tagsList}</span>
-          <TagButton {...this.props} show={this.props.editable} />
+          <TagList course={this.props.course} />
+          <TagEditable {...this.props} show={this.props.editable} />
         </div>
       );
       submittedSelector = (
         <SubmittedSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
       withdrawnSelector = (
         <WithdrawnSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
-    );
-      if (!Features.wikiEd && this.props.editable) {
-        privacySelector = (
-          <PrivacySelector
-            course={this.props.course}
-            editable={this.props.editable}
-          />
-        );
-      }
+      );
     }
 
     // Users who can rename a course are also allowed to change the type.
@@ -271,6 +275,18 @@ const Details = createReactClass({
         <CourseTypeSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
+    // Users who can rename a course are also allowed to make it private.
+    if (canRename) {
+      privacySelector = (
+        <PrivacySelector
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -291,11 +307,39 @@ const Details = createReactClass({
         <TimelineToggle
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
 
-    return (
+    // Users who can rename a course are also allowed to toggle the wiki edits on/off.
+    // But this toggle is only relevant if the home wiki has edits enabled.
+    if (canRename && !isClassroomProgramType && this.props.course.home_wiki_edits_enabled) {
+      wikiEditsToggle = (
+        <WikiEditsToggle
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
+    if (this.props.editable && !Features.wikiEd) {
+      projectSelector = (
+        <HomeWikiProjectSelector
+          course={this.props.course}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+      languageSelector = (
+        <HomeWikiLanguageSelector
+          course={this.props.course}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
+    const shared = (
       <div className="module course-details">
         <div className="section-header">
           <h3>{I18n.t('application.details')}</h3>
@@ -303,71 +347,81 @@ const Details = createReactClass({
         </div>
         <div className="module__data extra-line-height">
           <Instructors {...this.props} />
-          {online}
-          {campus}
-          {staff}
-          <div><p className="red">{this.state.error_message}</p></div>
-          {school}
-          {title}
-          {term}
-          <form>
-            {passcode}
-            {expectedStudents}
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.start}
-              value_key="start"
-              validation={CourseDateUtils.isDateValid}
-              editable={this.props.editable}
-              label={CourseUtils.i18n('start', this.props.course.string_prefix)}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.end}
-              value_key="end"
-              editable={this.props.editable}
-              validation={CourseDateUtils.isDateValid}
-              label={CourseUtils.i18n('end', this.props.course.string_prefix)}
-              date_props={dateProps.end}
-              enabled={Boolean(this.props.course.start)}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            {timelineStart}
-            {timelineEnd}
-          </form>
+          <div className="details-form">
+            <div className="group-left">
+              {online}
+              {campus}
+              {staff}
+              <div><p className="red">{this.props.firstErrorMessage}</p></div>
+              {school}
+              {title}
+              {term}
+              <form>
+                {passcode}
+                {expectedStudents}
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.start}
+                  value_key="start"
+                  validation={CourseDateUtils.isDateValid}
+                  editable={this.props.editable}
+                  label={CourseUtils.i18n('start', this.props.course.string_prefix)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.end}
+                  value_key="end"
+                  editable={this.props.editable}
+                  validation={CourseDateUtils.isDateValid}
+                  label={CourseUtils.i18n('end', this.props.course.string_prefix)}
+                  date_props={dateProps.end}
+                  enabled={Boolean(this.props.course.start)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+              </form>
+            </div>
+            <div className="group-right">
+              {timelineStart}
+              {timelineEnd}
+              {subject}
+              {courseLevelSelector}
+              {tags}
+              {courseTypeSelector}
+              {submittedSelector}
+              {privacySelector}
+              {timelineToggle}
+              {wikiEditsToggle}
+              {withdrawnSelector}
+              {projectSelector}
+              {languageSelector}
+            </div>
+          </div>
           {campaigns}
-          {subject}
-          {courseLevelSelector}
-          {tags}
-          {courseTypeSelector}
-          {submittedSelector}
-          {privacySelector}
-          {timelineToggle}
-          {withdrawnSelector}
         </div>
+      </div>
+    );
+
+    if (!this.props.editable) {
+      return (
+        <div>
+          {shared}
+        </div>
+      );
+    }
+
+    return (
+      <div className="modal-course-details">
+        <Modal>
+          <Notifications />
+          {shared}
+        </Modal>
       </div>
     );
   }
 }
 );
 
-const redirectToNewSlug = () => {
-  const newSlug = CourseUtils.generateTempId(CourseStore.getCourse());
-  window.location = `/courses/${newSlug}`;
-};
-
-// If the course has been renamed, we first warn the user that this is happening.
-const saveCourseDetails = (data, courseId = null) => {
-  if (!CourseStore.isRenamed()) {
-    return CourseActions.persistCourse(data, courseId);
-  }
-  if (confirm(I18n.t('editable.rename_confirmation'))) {
-    CourseUtils.cleanupCourseSlugComponents(data.course);
-    return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
-  }
-};
-
-export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default EditableRedux(Details, I18n.t('editable.edit_details'));

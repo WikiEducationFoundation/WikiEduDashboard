@@ -124,7 +124,7 @@ ca:
     title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
     assign_other: Assignar un article
-    add_available: Afegir un article disponible
+    add_available: Afegeix articles disponibles
     assign_self: Assignar-me un article
     assign_tooltip: Un article assignat és un que planeges crear o millorar.
     confirm_add_available: Esteu segurs que voleu afegir %{title}?
@@ -146,12 +146,17 @@ ca:
   campaign:
     active_campaigns: Campanyes actives
     add_organizer: Afegeix organitzador
+    alert_article: Títol de l’article
+    alert_type: Tipus
+    alert_user_id: Usuari
     all_campaigns: Totes les  Campanyes
     campaign: Campanya
     campaigns: Campanyes
     campaign_deleted: S’ha suprimit la campanya «%{title}»
     campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
+    created_at: Data
+    course: Curs
     create_campaign: Crea una campanya nova
     create_my_campaign: Crear la meva Campanya!
     default_course_type: Tipus de curs per defecte
@@ -178,6 +183,7 @@ ca:
     label: Xat
   courses:
     activity: Activitat
+    alerts: Alertes
     all_courses: Tots els cursos
     already_enrolled: Ja formeu part de la '%{title}'!
     already_exists: Això ja existeix per a aquest curs!
@@ -545,7 +551,6 @@ ca:
     check_answer: Comprova la resposta
     included_modules: Mòduls inclosos
   uploads:
-    datetime: Data/Hora
     file_name: Nom del fitxer
     header: Fitxers carregats a Wikimedia Commons
     image: Imatge
@@ -651,9 +656,8 @@ ca:
       pregunta al professor el codi correcte.
   error_404:
     header: Pàgina no trobada. :-(
-    explanation: Aquesta pàgina no existeix. Si estàs intentant accedir al panell
-      de control per al curs, potser aquest curs no ha estat registrat. Si ha estat
-      registrat recentment potser passa una mica de temps fins que el sistema l'afegeix.
+    explanation: Aquesta pàgina no existeix. Si esteu intentant accedir al panell
+      de control del curs, potser aquest curs no n’ha estat registrat.
   error_422:
     header: Error 422 — Entitat no processable
     explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que
@@ -690,4 +694,19 @@ ca:
       closing: Sincerament,
       signed: '- L''equip de Wiki Ed'
       link: Començeu l'enquesta
+  onboarding:
+    supplementary:
+      header: Com us heu enterat de nosaltres?
+      where_did_you_hear: On, o de quins, vau sentir parlar sobre Wiki Education per
+        primera vegada?
+      why_are_you_here: Què voleu fer?
+  article_finder:
+    search_placeholder: Introduïu la paraula clau
+    search: Cerca
+    tools: Eines
+    keyword_search: Cerca per paraules clau
+    category_search: Cerca per categories
+    more_results: Més resultats
+    filtered_articles: Articles filtrats
+    searching_articles: S’estan cercant els articles
 ...

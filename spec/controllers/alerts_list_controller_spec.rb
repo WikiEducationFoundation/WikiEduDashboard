@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AlertsListController do
+describe AlertsListController, type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
 
@@ -10,28 +10,32 @@ describe AlertsListController do
     let!(:alert) { create(:alert) }
 
     context 'for admins' do
-      render_views
-      before { allow(controller).to receive(:current_user).and_return(admin) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      end
 
       it 'renders the alerts list' do
-        get :index
+        get '/alerts_list'
 
         expect(response.status).to eq(200)
-        expect(response.body).to have_content(alert.type)
+        expect(response.body).to include(alert.type)
       end
 
       it 'renders resolve button for resolvable alerts' do
-        get :index
+        get '/alerts_list'
 
         expect(response.status).to eq(200)
-        expect(response.body).to have_content('Resolve')
+        expect(response.body).to include('Resolve')
       end
     end
 
     context 'for non-admins' do
-      before { allow(controller).to receive(:current_user).and_return(user) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
       it 'redirects to the home page' do
-        get :index
+        get '/alerts_list'
         expect(response).to redirect_to(root_path)
       end
     end
@@ -50,28 +54,32 @@ describe AlertsListController do
     end
 
     context 'for admins' do
-      render_views
-      before { allow(controller).to receive(:current_user).and_return(admin) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      end
 
       it 'renders the alert' do
-        get :show, params: { id: alert.id }
+        get "/alerts_list/#{alert.id}"
 
         expect(response.status).to eq(200)
-        expect(response.body).to have_content(alert.type)
+        expect(response.body).to include(alert.type)
       end
 
       it 'renders the alert with resolve button' do
-        get :show, params: { id: articles_for_deletion_alert.id }
+        get "/alerts_list/#{articles_for_deletion_alert.id}"
 
         expect(response.status).to eq(200)
-        expect(response.body).to have_content('Resolve')
+        expect(response.body).to include('Resolve')
       end
     end
 
     context 'for non-admins' do
-      before { allow(controller).to receive(:current_user).and_return(user) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
       it 'redirects to the home page' do
-        get :show, params: { id: alert.id }
+        get "/alerts_list/#{alert.id}"
         expect(response).to redirect_to(root_path)
       end
     end

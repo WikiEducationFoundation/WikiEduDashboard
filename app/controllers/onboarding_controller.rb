@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/alerts/onboarding_alert_manager"
+
 #= Controller for onboarding
 class OnboardingController < ApplicationController
   respond_to :html, :json
@@ -23,7 +25,28 @@ class OnboardingController < ApplicationController
     head :no_content
   end
 
+  def supplementary
+    head :no_content
+    return unless supplementary_response?
+    user_name = params[:user_name]
+    response = <<~RESPONSE
+      HEARD FROM:
+      #{params[:heardFrom]}
+
+      WHY HERE:
+      #{params[:whyHere]}
+
+      OTHER:
+      #{params[:otherReason]}
+    RESPONSE
+    OnboardingAlertManager.new.create_alert(user_name, response)
+  end
+
   private
+
+  def supplementary_response?
+    params[:heardFrom].present? || params[:whyHere].present? || params[:otherReason].present?
+  end
 
   def set_new_permissions
     @permissions = @user.permissions

@@ -51,7 +51,9 @@
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
 
-      - articles = @campaign.articles_courses.includes(article: :wiki).includes(:course).order(character_sum: :desc)
+      - articles = @campaign.articles_courses.includes(article: :wiki).includes(:course).order('articles.deleted', character_sum: :desc).paginate(page: params[:page]&.to_i, per_page: 1000)
+
+      = will_paginate articles
 
       %tbody.list
         - if articles.empty?
@@ -62,3 +64,5 @@
           - articles.each do |ac|
             - cache [ac, locale] do
               = render 'campaigns/article_row', article: ac.article, article_course: ac
+
+  = will_paginate articles

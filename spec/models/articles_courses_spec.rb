@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: articles_courses
@@ -9,7 +8,7 @@
 #  updated_at    :datetime
 #  article_id    :integer
 #  course_id     :integer
-#  view_count    :integer          default(0)
+#  view_count    :bigint(8)        default(0)
 #  character_sum :integer          default(0)
 #  new_article   :boolean          default(FALSE)
 #
@@ -24,14 +23,14 @@ describe ArticlesCourses, type: :model do
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
 
   describe '.update_all_caches' do
-    it 'should update data for article-course relationships' do
+    it 'updates data for article-course relationships' do
       # Make an ArticlesCourses record
-      article_course = create(:articles_course, article: article, course: course)
+      create(:articles_course, article: article, course: course)
       # Add user to course
       create(:courses_user, course: course, user: user)
 
       # Run a cache update without any revisions.
-      ArticlesCourses.update_all_caches(article_course)
+      ArticlesCourses.update_all_caches(ArticlesCourses.all)
 
       # Add a revision.
       create(:revision,
@@ -52,10 +51,10 @@ describe ArticlesCourses, type: :model do
              views: 2345)
 
       # Run the cache update again with an existing revision.
-      ArticlesCourses.update_all_caches
+      ArticlesCourses.update_all_caches(ArticlesCourses.all)
 
       # Fetch the created ArticlesCourses entry
-      article_course = ArticlesCourses.all.first
+      article_course = ArticlesCourses.first
 
       expect(article_course.view_count).to eq(1234)
       expect(article_course.new_article).to be true

@@ -1,58 +1,100 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Editable from '../high_order/editable.jsx';
-
-import List from '../common/list.jsx';
+import createReactClass from 'create-react-class';
 import Upload from './upload.jsx';
-import UploadStore from '../../stores/upload_store.js';
-import ServerActions from '../../actions/server_actions.js';
-import CourseUtils from '../../utils/course_utils.js';
+import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
+import List from '../common/list.jsx';
+import Loading from '../common/loading.jsx';
 
-const getState = () => ({ uploads: UploadStore.getModels() });
+const UploadList = createReactClass({
+  displayName: 'UploadList',
 
-const UploadList = ({ uploads, course }) => {
-  const elements = uploads.map(upload => {
-    return <Upload upload={upload} key={upload.id} />;
-  });
+  propTypes: {
+    uploads: PropTypes.array,
+    view: PropTypes.string,
+    sortBy: PropTypes.func,
+  },
 
-  const keys = {
-    image: {
-      label: I18n.t('uploads.image'),
-      desktop_only: false
-    },
-    file_name: {
-      label: I18n.t('uploads.file_name'),
-      desktop_only: true
-    },
-    uploaded_by: {
-      label: I18n.t('uploads.uploaded_by'),
-      desktop_only: true
-    },
-    usage_count: {
-      label: I18n.t('uploads.usage_count'),
-      desktop_only: true
-    },
-    date: {
-      label: I18n.t('uploads.datetime'),
-      desktop_only: true,
-      info_key: 'uploads.time_doc'
+  render() {
+    const uploads = this.props.uploads;
+    let elements;
+    if (uploads.length > 0) {
+      elements = uploads.map((upload) => {
+        return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
+      });
+    } else if (!this.props.loadingUploads && this.props.totalUploadsCount > 0 && uploads.length === 0) {
+      elements = (<div className="none"><p>{I18n.t('courses_generic.user_uploads_none')}</p></div>);
+    } else if (!this.props.loadingUploads && uploads.length === 0) {
+      elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
+    } else {
+      elements = (<div style={{ width: '100%' }}><Loading /></div>);
     }
-  };
 
-  return (
-    <List
-      elements={elements}
-      keys={keys}
-      table_key="uploads"
-      none_message={CourseUtils.i18n('uploads_none', course.string_prefix)}
-      store={UploadStore}
-    />
-  );
-};
+    const keys = {
+      image: {
+        label: I18n.t('uploads.image'),
+        desktop_only: false
+      },
+      file_name: {
+        label: I18n.t('uploads.file_name'),
+        desktop_only: true
+      },
+      uploaded_by: {
+        label: I18n.t('uploads.uploader'),
+        desktop_only: true
+      },
+      usage_count: {
+        label: I18n.t('uploads.usage_count'),
+        desktop_only: true,
+        info_key: 'uploads.usage_doc'
+      },
+      date: {
+        label: I18n.t('uploads.uploaded_at'),
+        desktop_only: true,
+        info_key: 'uploads.time_doc'
+      },
+      credit: {
+        label: I18n.t('uploads.credit'),
+        desktop_only: true,
+      }
+    };
 
-UploadList.propTypes = {
-  uploads: PropTypes.array,
-  course: PropTypes.object
-};
+    let uploadsView;
 
-export default Editable(UploadList, [UploadStore], ServerActions.saveUploads, getState);
+    if (this.props.view === GALLERY_VIEW) {
+      uploadsView = (
+        <div className="gallery">
+          {elements}
+        </div>
+      );
+    }
+
+    if (this.props.view === LIST_VIEW) {
+      uploadsView = (
+        <List
+          elements={elements}
+          keys={keys}
+          table_key="uploads"
+          sortBy={this.props.sortBy}
+          none_message={I18n.t('courses_generic.uploads_none')}
+        />
+      );
+    }
+
+    if (this.props.view === TILE_VIEW) {
+      uploadsView = (
+        <div className="tile-view">
+          {elements}
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        {uploadsView}
+      </div>
+    );
+  }
+});
+
+export default UploadList;

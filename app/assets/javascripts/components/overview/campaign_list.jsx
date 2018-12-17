@@ -6,8 +6,8 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const CampaignList = ({ campaigns, course }) => {
   const lastIndex = campaigns.length - 1;
-  campaigns = (campaigns.length > 0 ?
-    _.map(campaigns, (campaign, index) => {
+  campaigns = (campaigns.length > 0
+    ? _.map(campaigns, (campaign, index) => {
       let comma = '';
       const url = `/campaigns/${campaign.slug}/overview`;
       if (index !== lastIndex) { comma = ', '; }

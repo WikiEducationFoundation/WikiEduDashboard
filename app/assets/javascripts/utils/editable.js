@@ -27,7 +27,7 @@
  * To make an .rails_editable area be in "edit mode" when the script is loaded, append .rails_editable-editing
  */
 $(() => {
-  const readMode = $parent => {
+  const readMode = ($parent) => {
     $parent.trigger('editable:read');
     $parent.removeClass('rails_editable-editing');
     $parent.find('.rails_editable-cancel, .rails_editable-save').remove();
@@ -36,7 +36,7 @@ $(() => {
     $parent.find('.rails_editable-input').hide();
   };
 
-  const editMode = e => {
+  const editMode = (e) => {
     e.preventDefault();
     const $parent = $(e.target).parents('.rails_editable');
     $parent.addClass('rails_editable-editing');

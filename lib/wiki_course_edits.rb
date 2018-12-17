@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/wiki_course_output"
-require "#{Rails.root}/lib/wiki_assignment_output"
-require "#{Rails.root}/lib/wikitext"
-require "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_output"
+require_dependency "#{Rails.root}/lib/wiki_assignment_output"
+require_dependency "#{Rails.root}/lib/wikitext"
+require_dependency "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
   include WikiOutputTemplates
 
   def initialize(action:, course:, current_user:, **opts)
-    return unless course.wiki_edits_enabled?
-    return if course.private # Never make edits for private courses.
     @course = course
-    # Edits can only be made to the course's home wiki through WikiCourseEdits
     @home_wiki = course.home_wiki
-    return unless @home_wiki.edits_enabled?
+    validate(action) { return }
+
     @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
@@ -28,7 +26,6 @@ class WikiCourseEdits
   # set of participants, articles, timeline, and other details.
   # It simply overwrites the previous version.
   def update_course(delete: false)
-    return unless @course.wiki_course_page_enabled?
     wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 
     summary = "Updating course from #{@dashboard_url}"
@@ -37,10 +34,10 @@ class WikiCourseEdits
     response = @wiki_editor.post_whole_page(@current_user, @course.wiki_title, wiki_text, summary)
     return response unless response['edit']
 
-    # If it hit the spam blacklist, replace the offending links and try again.
-    blacklist = response['edit']['spamblacklist']
-    return response if blacklist.nil?
-    repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, blacklist)
+    # If it hit the spam blocklist, replace the offending links and try again.
+    spamlist = response['edit']['spamblacklist']
+    return response if spamlist.nil?
+    repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, spamlist)
   end
 
   # Posts to the instructor's userpage, and also makes a public
@@ -88,7 +85,6 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    return unless @course.assignment_edits_enabled?
     homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
       article = Article.find(article_id)
       next unless article.namespace == Article::Namespaces::MAINSPACE
@@ -113,8 +109,29 @@ class WikiCourseEdits
 
   private
 
-  def repost_with_sanitized_links(wiki_title, wiki_text, summary, blacklist)
-    bad_links = blacklist.split('|')
+  def validate(action)
+    yield unless course_edits_allowed?
+
+    # action-specific checks
+    case action
+    when :update_course
+      yield unless @course.wiki_course_page_enabled?
+    when :update_assignments
+      yield unless @course.assignment_edits_enabled?
+    end
+  end
+
+  def course_edits_allowed?
+    return false unless @course.wiki_edits_enabled?
+    # Never make edits for private courses.
+    return false if @course.private
+    # Edits can only be made to the course's home wiki through WikiCourseEdits
+    return false unless @home_wiki.edits_enabled?
+    true
+  end
+
+  def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
+    bad_links = spamlist.split('|')
     safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end

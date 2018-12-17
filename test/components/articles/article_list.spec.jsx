@@ -31,21 +31,9 @@ describe('ArticleList', () => {
       new_article: true
     }];
 
-    ArticleList.__Rewire__('ArticleStore', {
-      getModels() {
-        return articles;
-      },
-      getSorting() {
-        return {
-          sortKey: 'title',
-          sortAsc: true
-        };
-      }
-    });
-
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticleList articles={articles} course={{ home_wiki: {} }} store={reduxStore} />
+        <ArticleList articles={articles} course={{ home_wiki: {} }} store={reduxStore} wikidataLabels={{}} />
       </div>
     );
 

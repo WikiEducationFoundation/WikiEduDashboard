@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # This script backs up the DB_NAME database into the specified BACKUP_PATH
-#   and syncs it to REMOTE_USER_HOST under the same path
+#   and syncs it to REMOTE_USER_HOST under REMOTE_BACKUP_PATH
 
 ### configuration ###
 
-BACKUP_PATH=/var/outreach_backup/db/weekly/dashboard
+BACKUP_PATH=/srv/outreach_backup/db/weekly/dashboard
+REMOTE_BACKUP_PATH=/var/outreach_backup/db/weekly/dashboard
 BACKUP_EXPIRY=90 # backups older than this (number of days) will be deleted
 DB_NAME=dashboard
 DB_HOST=localhost
@@ -46,4 +47,4 @@ do
 done
 
 # sync to backup server, removing any files there that have been removed locally
-rsync -avz0 --delete $BACKUP_PATH $REMOTE_USER_HOST:$BACKUP_PATH/..
+rsync -avz0 --delete $BACKUP_PATH $REMOTE_USER_HOST:$REMOTE_BACKUP_PATH/..

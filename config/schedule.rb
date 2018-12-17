@@ -21,10 +21,23 @@
 
 set :output, 'log/cron.log'
 
+# Course updates will pull in revisions and articles for courses that are ongoing
+# or still within the update window. They are sorted into queues depending on how
+# long they run, with short courses having their own queue and very long ones their
+# own as well.
+every 5.minutes do
+  rake 'batch:schedule_course_updates'
+end
+
+# Constant updates are independent of the main course stats, pulling in revision
+# metadata, generating alerts, and doing other data and network-intensive tasks,
+# for all current courses.
 every 4.minutes do
   rake 'batch:update_constantly'
 end
 
+# This pulls in additional data and performs other tasks that do not need to be
+# done many times per day.
 every 1.day, at: '4:30 am' do
   rake 'batch:update_daily'
 end

@@ -1,3 +1,22 @@
+.persist-area
+  tbody
+    tr
+      td
+        width 20%
+
+  .floatingHeader
+    position fixed
+    top 50px
+    background-color white
+    z-index 2
+    border-bottom 1px solid lightgray
+
+    tr
+      width inherit
+
+      th
+        width 20%
+
 .table
   width 100%
   border-collapse separate
@@ -19,6 +38,10 @@
 
         &:last-child
           border-right 1px solid #ddd
+
+        @media only screen and (max-width: 919px)
+          &.alert-type
+            border-left 1px solid #ddd
 
       // Table cell with links
       .table-link-cell

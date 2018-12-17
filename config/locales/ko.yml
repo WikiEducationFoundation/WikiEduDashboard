@@ -43,8 +43,10 @@ ko:
     recent_activity: 최근 활동
     report_problem: 문제점 보고
     request_account: 계정 요청
+    request_account_create: 계정 만들기
     search: 질문하기
     search_results: '다음 결과: ''%{search_terms}'''
+    no_results: '''%{query}''의 결과를 찾을 수 없습니다'
     sign_up_extended: 위키백과에 로그인하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -57,9 +59,12 @@ ko:
     opt_in: 예
     opt_out: 아니오
   dashboard:
+    create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
+    explore_course_pages: 코스 문서 둘러보기
+    explore_examples: 예시 둘러보기
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
-    blog_headline: Wiki Ed의 최근 뉴스
+    blog_headline: Wiki Education의 최근 뉴스
   home:
     explore: 찾아보기
     log_in: 위키백과에 로그인하기
@@ -78,6 +83,11 @@ ko:
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
+    filter:
+      wiki_all: 모두
+      new: 새 항목
+      existing: 기존 항목
+      new_and_existing: 새 항목과 기존 항목
     hide: 숨기기
     history: (역사)
     label: 문서
@@ -86,17 +96,18 @@ ko:
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
     rating_docs:
-      fa: 알찬 글 &mdash; 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
-      fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
-      a: A급 문서 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
-      ga: 좋은 글 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
-      b: B 클래스 &mdash; 적절하게 쓰여진 글
-      c: C 클래스 &mdash; 발전의 여지가 있는 중간 정도의 글
-      start: 시작 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글
-      stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
-      list: 목록 &mdash; 일반 글이 아닌 목록
+      fa: '%{class} (알찬 글) — 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다'
+      fl: '%{class} (알찬 목록) — 위키백과의 최고 등급의 목록'
+      a: '%{class} 등급 — 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다'
+      ga: '%{class} (좋은 글) — 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다'
+      b: '%{class} 등급 — 적절하게 쓰여진 글'
+      c: '%{class} 등급 — 발전의 여지가 있는 중간 정도의 글'
+      start: '%{class} 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글'
+      stub: '%{class} 등급 — 더 많은 내용이 필요한 시작 단계의 짧은 글'
+      list: '%{class} 등급 — 일반 글이 아닌 목록'
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
       does_not_exist: 이 글은 위키백과에 존재하지 않습니다
+    see_more: 더 보기
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
@@ -110,7 +121,9 @@ ko:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
-    add_available: 이용 가능한 글 추가
+    add_available: 읽을 수 있는 글 추가
+    add_available_placeholder: 줄마다 문서 제목이나 URL을 추가합니다
+    add_available_submit: 문서 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
     none_short: 할당된 글이 없습니다
@@ -123,11 +136,20 @@ ko:
     milestones:
       title: 이정표
   campaign:
+    alert_article: 문서 제목
+    alert_select_label: 경고 유형별 필터
+    alert_type: 유형
+    alert_user_id: 사용자
+    created_at: 날짜
+    course: 과정
     default_passcode: 기본 비밀번호
     description: 설명
+    disable_account_requests: 계정 요청 비활성화
+    enable_account_requests: 계정 요청 활성화
     no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀
+    requested_accounts: 요청된 계정
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
   categories:
@@ -149,6 +171,7 @@ ko:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
     accounts_generation_confirm_message: 계정 요청을 사용하시겠습니까?
     activity: 활동
+    alerts: 경보
     already_enrolled: 이미 %{title}에 참여하고 계세요!
     actions: 행동
     articles: 문서
@@ -174,7 +197,7 @@ ko:
       assignment_start: 과제 시작
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
       choose_clone: 복제할 과정을 선택하십시오.
-      clone_successful: 과정이 성공적으로 복제되었습니다
+      clone_successful: 복제된 과정의 세부사항 업데이트하기
       course_language: 주 언어
       course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
       course_project: 주 프로젝트
@@ -204,6 +227,7 @@ ko:
     enable_account_requests: 계정 요청 활성화
     enable_chat: 채팅 사용하기
     end: 종료
+    enrollment: 학생 추가/제거
     error:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
@@ -212,6 +236,8 @@ ko:
     feedback: 피드백
     feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
+    home_wiki_language: 홈 위키 언어
+    home_wiki_project: 홈 위키 프로젝트
     instructor:
       other: 지도자
     instructors: 지침
@@ -222,6 +248,7 @@ ko:
     join_course: 과정 가입
     join_prompt: '''%{title}''에 가입할까요?'
     join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    launch_wizard: 마법사 실행
     leave_course: 과정 나가기
     loading: 불러오는 중...
     my_articles: 내 문서
@@ -243,15 +270,18 @@ ko:
       지시해 주십시오
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
+    not_permitted: 이 강의를 편집할 권한이 없습니다.
     no_available_actions: 취할 수 있는 행동 없음
     ores_plot: ORES
     overview: 홈
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    please_log_in: 로그인해 주십시오.
     private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
     school: 학교
+    search_courses: 강의 검색
     start: 시작
     start_typing: 입력 시작
     students: 학생
@@ -267,21 +297,30 @@ ko:
     user_role: 역할
     subject: 제목
     submitted: 제출됨
+    tag_select: 태그를 선택하거나 만듭니다
+    tags: '태그:'
     term: 기간
     timeline: 숙제 상세사항
     timeline_enabled: 타임라인 사용 중
     timeline_link: 타임라인
+    timeline_tooltip: 타임라인을 사용하면 매주 활동을 지정하고 트레이닝 모듈을 할당할 수 있습니다. 교육 프로그램 과정 및 그 밖의
+      기간이 길고 매우 구조적인 프로그램에 유용합니다.
+    timeline_nav: 타임라인으로 이동
     title: 제목
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스
     uploads_none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_uploads_none: 이 사용자는 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_recent_uploads: 최근 업로드
     user_suggestions: '사용자 제안:'
     view: 과정 보기
     view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기
     volunteer:
       other: 자원봉사자
-    wiki_staff: 위키 에듀 임원
+    wiki_edits_enabled: 위키 편집 사용
+    wiki_staff: 위키 교육 직원
+    withdrawn: 탈퇴
     yourcourses: 내 과정
     survey:
       link: 설문 조사 참가
@@ -318,15 +357,18 @@ ko:
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가
-    enrollment: 참여
+    enrollment: 편집자 추가/제거
     join_course: 프로그램 참가
+    not_permitted: 이 프로그램을 편집할 권한이 없습니다.
     request_accounts: 계정 요청
     revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
     school: 기관
+    search_courses: 프로그램 검색
     student_editors: 편집자
     students: 편집자
     students_short: 편집자
     term: 날짜
+    user_uploads_none: 선택된 사용자는 이 프로젝트에 어떠한 그림이나 그 밖의 미디어 파일을 기여하지 않았습니다.
   editable:
     edit: 편집
     cancel: 취소
@@ -395,6 +437,14 @@ ko:
         revoke_button_confirm: '%{username}님의 관리자 권한 철회'
         revoking_button_working: 철회 중...
         no_super_admin: 슈퍼 관리자로부터 관리자 상태를 철회할 수 없습니다
+    special_users:
+      new:
+        form_placeholder: 사용자 이름
+        confirm_add_special_user: 특수 사용자 추가
+        already_is: '%{username}님은 이미 {position}입니다!'
+        elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
+      remove:
+        already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
@@ -421,7 +471,7 @@ ko:
     empty_week_4: 미리 지정된 과제부터 시작하세요.
     first_week_title: 첫 활동적인 주
     gradeable_value: 값
-    grading_header: '점수 (총: %{total}%)'
+    grading_header: '점수 (총: %{total})'
     no_class_holidays: 휴일 수업이 없습니다
     no_timeline: 이 과정에는 타임라인이 없습니다.
     no_activity_this_week: 이 주에 예정된 미팅 없음
@@ -437,23 +487,34 @@ ko:
     view: 보기
     next: 다음 페이지
     page: 페이지
+    previous: < 이전
     table_of_contents: 목차
     done: 끝났습니다!
+    invalid: 해당 슬라이드는 존재하지 않습니다!
+    wait: 트레이닝 진행이 업데이트되고 있으니 페이지를 떠나지 마십시오.
     included_modules: 포함된 모듈
+    view_module_source: 모듈 원본 보기
+    reload_from_source: 원본에서 다시 불러오기
   uploads:
-    datetime: 날짜/시간
     file_name: 파일 이름
     header: 위키미디어 공용에 올린 파일
     image: 그림
     label: 파일 올리기
     loading: 업로드 불러오는 중
     none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    select_label: 올린이별 필터
+    uploaded_at: 올린 시간
+    uploader: 올린이
     uploaded_by: 올린이
+    uploaded_on: 올린 곳
     usage_count: 사용량 값
+    usage_doc: 이 그림이 표시되는 위키백과 문서의 수입니다.
+    usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
     usages: 사용
   users:
     assign_articles_done: 완료
     contributions: 사용자 기여
+    contributions_history_full: 전체 기여 역사 보기
     contributions_more: 기여 더 보기
     contribution_statistics: 기여 통계
     course_passcode: '패스코드:'
@@ -479,7 +540,9 @@ ko:
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     reviewing: 검토 중
+    total_uploads: 총 업로드
     training_module_status: 상태
+    uploads_doc: 위키미디어 공용에 올린 파일 수
     username: 사용자 이름
     username_placeholder: 사용자 이름
     useremail_placeholder: 이메일
@@ -490,7 +553,7 @@ ko:
       instructor: 강사
       campus_volunteer: 캠퍼스 지원자
       online_volunteer: 온라인 지원자
-      wiki_ed_staff: 위키 에듀 임원
+      wiki_ed_staff: 위키 교육 직원
   user_profiles:
     disclaimer: 입력한 정보는 공개됩니다.
     bio_placeholder: 자기소개 추가 (선택 사항)
@@ -524,6 +587,8 @@ ko:
     json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
   error_incorrect_passcode:
     header: 패스코드가 잘못되었습니다.
+  error_no_course:
+    explanation: 해당 %{slug} 과정은 존재하지 않습니다.
   error_404:
     header: 페이지를 찾을 수 없습니다. :-(
   error_422:
@@ -535,12 +600,38 @@ ko:
   login_error:
     header: 로그인 오류
   survey:
-    login_message: 시간을 내 주셔서 감사합니다. Wiki Ed 대시보드로 로그인하여 설문 조사에 응해 주세요.
+    login_message: 시간을 내 주셔서 감사합니다. Wiki 교육 대시보드로 로그인하여 설문 조사에 응해 주세요.
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
     email:
       headline: 안녕하세요, %{username}님
-      signed: '- Wiki Ed 팀'
+      signed: '- Wiki 교육 팀'
       link: 설문 조사 참가
   wiki_api:
     create_account_reason: 이 사용자는 %{event}에 참여하고 있습니다.
+  onboarding:
+    supplementary:
+      header: 어떻게 우리에 대해 들었습니까?
+      where_did_you_hear: 위키 교육에 관해 어디서, 누구에게 처음 들었습니까?
+      why_are_you_here: 무엇을 하시겠습니까?
+  article_finder:
+    average_views: 일일 평균 조회수
+    add_available_article: 읽을 수 있는 글로 추가
+    remove_article: 문서 제거
+    minimum_views_label: 최소 조회수
+    no_article_found: 이 분류에 문서가 없습니다
+    search_placeholder: 키워드를 입력하십시오
+    search: 검색
+    tools: 도구
+    show_options: 옵션 보기
+    hide_options: 옵션 숨기기
+    keyword_search: 키워드 검색
+    category_search: 분류 검색
+    article_quality: 문서 품질(0-100)
+    more_results: 더 많은 결과
+    filtered_articles: 필터링된 문서
+    searching_articles: 문서 검색 중
+    subheading_message: 작업할 위키백과 문서를 찾아봅시다.
+    article_finder: 문서 검색기
+    submit: 제출
+    unassign_article_self: 문서 할당 해제
 ...

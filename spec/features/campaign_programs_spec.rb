@@ -27,7 +27,7 @@ describe 'campaign programs page', type: :feature, js: true do
 
   # tests for whether Remove button should be shown live in CampaignsControllerSpec
   context 'remove program' do
-    it 'should remove a program from the campaign via the remove button' do
+    it 'removes a program from the campaign via the remove button' do
       admin = create(:admin)
       login_as(admin, scope: :user)
       visit "/campaigns/#{campaign.slug}/programs"
@@ -43,7 +43,7 @@ describe 'campaign programs page', type: :feature, js: true do
   end
 
   describe 'control bar' do
-    it 'should allow sorting using a dropdown' do
+    it 'allows sorting using a dropdown' do
       visit "/campaigns/#{campaign.slug}/programs"
 
       find('#courses select.sorts').find(:xpath, 'option[1]').select_option
@@ -63,7 +63,7 @@ describe 'campaign programs page', type: :feature, js: true do
   end
 
   describe 'course list' do
-    it 'should be sortable by the different selectors' do
+    it 'is sortable by the different selectors' do
       visit "/campaigns/#{campaign.slug}/programs"
 
       # Sortable by title
@@ -88,7 +88,7 @@ describe 'campaign programs page', type: :feature, js: true do
       expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Advanced basket-weaving'
     end
 
-    it 'should sort the contained courses' do
+    it 'sorts the contained courses' do
       visit "/campaigns/#{campaign.slug}/programs"
 
       expect_advanced_before_regular_basketweaving

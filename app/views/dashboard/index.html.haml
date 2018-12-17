@@ -64,7 +64,7 @@
         = render "course_row", course: course
 
     - # Archived/past courses
-    - if @pres.past.any?
+    - if !@pres.admin? && @pres.past.any?
       %h2
         = t("#{@pres.course_string_prefix}.archived")
       - @pres.past.each do |course|

@@ -1,26 +1,27 @@
-# frozen_string_literal: true
-
-require "#{Rails.root}/lib/training_module"
-require "#{Rails.root}/lib/training_slide"
+# frozen_string_literal: trues
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
 
   def create_or_update
-    set_and_render_slide
-    return if @slide.nil?
+    set_slide
     @training_module_user = find_or_create_tmu(params)
-    @progress_manager = TrainingProgressManager.new(current_user, @training_module, @slide)
+    return if @slide.nil?
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
+    @completed = @training_module_user.completed_at.present?
+    render_slide
   end
 
   private
 
-  def set_and_render_slide
+  def set_slide
     @training_module = TrainingModule.find_by(slug: params[:module_id])
     @slide = TrainingSlide.find_by(slug: params[:slide_id])
-    render json: { slide: @slide }
+  end
+
+  def render_slide
+    render json: { slide: @slide, completed: @completed }
   end
 
   def find_or_create_tmu(params)
@@ -44,8 +45,6 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def should_set_slide_completed?
-    return true if @training_module_user.last_slide_completed.nil?
-    last = @training_module_user.last_slide_completed
-    @progress_manager.current_slide_further_than_previous?(last)
+    @training_module_user.furthest_slide?(@slide.slug)
   end
 end

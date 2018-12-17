@@ -8,7 +8,7 @@ describe StudentGreetingChecker do
     subject { described_class.check_all_ungreeted_students }
 
     before do
-      create(:course, id: 1, start: 2.weeks.ago, end: Date.today + 2.weeks)
+      create(:course, id: 1, start: 2.weeks.ago, end: Time.zone.today + 2.weeks)
       create(:user, id: 1, username: 'Danny', greeter: true)
       create(:courses_user,
              id: 1,

@@ -15,7 +15,7 @@ describe ContinuedCourseActivityAlertManager do
     create(:revision, characters: character_count, date: revision_date,
                       article_id: article.id, user_id: user.id)
   end
-  let(:subject) { ContinuedCourseActivityAlertManager.new([course]) }
+  let(:subject) { described_class.new([course]) }
   # Only Wikipedia Expert, indicated by greeter: true, should get emails.
   let(:admin) { create(:admin, email: 'staff@wikiedu.org', greeter: true) }
 
@@ -31,6 +31,7 @@ describe ContinuedCourseActivityAlertManager do
   context 'when there are no revisions after the course ends' do
     let(:character_count) { 5000 }
     let(:revision_date) { course.end - 2.days }
+
     it 'does not create an alert' do
       revision
       subject.create_alerts
@@ -41,6 +42,7 @@ describe ContinuedCourseActivityAlertManager do
   context 'when there is only a small contribution after the course ends' do
     let(:character_count) { 5 }
     let(:revision_date) { course.end + 2.days }
+
     it 'does not create an alert' do
       revision
       subject.create_alerts
@@ -59,7 +61,7 @@ describe ContinuedCourseActivityAlertManager do
       expect(Alert.count).to eq(1)
     end
 
-    it 'should not create alert for the second time' do
+    it 'does not create alert for the second time' do
       expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       revision
       subject.create_alerts
@@ -70,7 +72,7 @@ describe ContinuedCourseActivityAlertManager do
       expect(Alert.count).to eq(1)
     end
 
-    it 'should create another alert if the first alert is resolved' do
+    it 'creates another alert if the first alert is resolved' do
       revision
       subject.create_alerts
 

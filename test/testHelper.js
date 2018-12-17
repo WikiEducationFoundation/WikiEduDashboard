@@ -1,16 +1,19 @@
 import { createStore, applyMiddleware } from 'redux';
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import thunk from 'redux-thunk';
 import reducer from '../app/assets/javascripts/reducers';
 
 const jsdom = require('jsdom');
 
-global.document = jsdom.jsdom("<!doctype html><html><body><div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div></body></html>", {
+const { JSDOM } = jsdom;
+
+global.document = new JSDOM('<!doctype html><html><body><div data-current_user=\'{ "admin": false, "id": null }\' id=\'react_root\'></div></body></html>', {
   url: 'http://localhost',
   skipWindowCheck: true
 });
 global.window = document.defaultView;
+global.window.scrollTo = jest.fn(); // scrollTo is not implemented by JSDOM, so we mock it.
 global.navigator = global.window.navigator;
 
 configure({ adapter: new Adapter() });

@@ -7,14 +7,15 @@ class CourseTrainingProgressManager
   # instead of the dashboard-based training modules.
   TRAINING_BOOLEAN_CUTOFF_DATE = Date.new(2015, 12, 1)
 
-  def initialize(user, course)
-    @user = user
+  def initialize(course)
     @course = course
   end
 
-  def course_training_progress
+  def course_training_progress(user)
+    @user = user
+
     # For old courses, on-wiki training completion is tracked with User#trained?
-    if @course.start < TRAINING_BOOLEAN_CUTOFF_DATE && @course.type != 'VisitingScholarship'
+    if in_dashboard_training?
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
     assigned_count = total_modules_for_course
@@ -24,7 +25,8 @@ class CourseTrainingProgressManager
                                                count: assigned_count)
   end
 
-  def incomplete_assigned_modules
+  def incomplete_assigned_modules(user)
+    @user = user
     modules = incomplete_module_ids.map do |module_id|
       build_open_struct_for_module(module_id)
     end
@@ -32,6 +34,11 @@ class CourseTrainingProgressManager
   end
 
   private
+
+  def in_dashboard_training?
+    @in_dashboard_training ||= @course.start < TRAINING_BOOLEAN_CUTOFF_DATE &&
+                               @course.type != 'VisitingScholarship'
+  end
 
   def build_open_struct_for_module(id)
     training_module = TrainingModule.find(id)
@@ -84,18 +91,17 @@ class CourseTrainingProgressManager
   end
 
   def modules_for_course
-    blocks_with_modules_for_course
-      .pluck(:training_module_ids)
-      .flatten
-      .uniq
+    @modules_for_course ||= blocks_with_modules_for_course
+                            .pluck(:training_module_ids)
+                            .flatten
+                            .uniq
   end
 
   def total_modules_for_course
-    modules_for_course.count
+    @total_modules_for_course ||= modules_for_course.count
   end
 
   def meetings_manager
-    @meetings_manager ||= CourseMeetingsManager.new(@course)
-    @meetings_manager
+    @meetings_manager ||= @course.meetings_manager
   end
 end

@@ -3,23 +3,20 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
-import AssignmentStore from '../../stores/assignment_store.js';
-import ArticleStore from '../../stores/article_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
-
-const getState = () => ({ assignments: AssignmentStore.getModels() });
+import { getFiltered } from '../../utils/model_utils.js';
 
 const AssignmentList = createReactClass({
   displayName: 'AssignmentList',
 
   propTypes: {
+    articles: PropTypes.array,
     assignments: PropTypes.array,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    wikidataLabels: PropTypes.object
   },
 
   hasAssignedUser(group) {
@@ -32,14 +29,15 @@ const AssignmentList = createReactClass({
     const allAssignments = this.props.assignments;
     const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
     const grouped = _.groupBy(sortedAssignments, ass => ass.article_title);
-    let elements = Object.keys(grouped).map(title => {
+    let elements = Object.keys(grouped).map((title) => {
       const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
-      const article = ArticleStore.getFiltered({ title })[0];
+      const article = getFiltered(this.props.articles, { title })[0];
       return (
         <Assignment
           assignmentGroup={group}
           article={article || null}
+          wikidataLabel={this.props.wikidataLabels[title]}
           course={this.props.course}
           key={group[0].id}
           current_user={this.props.current_user}
@@ -73,7 +71,6 @@ const AssignmentList = createReactClass({
         keys={keys}
         table_key={'assignments'}
         none_message={CourseUtils.i18n('assignments_none', this.props.course.string_prefix)}
-        store={AssignmentStore}
         sortable={false}
       />
     );
@@ -81,4 +78,4 @@ const AssignmentList = createReactClass({
 }
 );
 
-export default Editable(AssignmentList, [ArticleStore, AssignmentStore], ServerActions.saveStudents, getState);
+export default AssignmentList;

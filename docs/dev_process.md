@@ -23,7 +23,7 @@ Reason: All of your development should occur in feature branches - ideally, one 
 
         git checkout -b forgot-password#78
 
-    This both creates and checks out that branch in one command.  
+    This both creates and checks out that branch in one command.
     The feature name should provide a (short) description of the issue,
     and should include the story number.
 

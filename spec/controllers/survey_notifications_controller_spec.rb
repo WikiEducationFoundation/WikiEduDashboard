@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SurveyNotificationsController do
+describe SurveyNotificationsController, type: :request do
   describe '#update' do
     let(:survey_notification) { create(:survey_notification) }
     let(:params) do
@@ -10,14 +10,14 @@ describe SurveyNotificationsController do
     end
 
     it 'renders a success message if update succeeds' do
-      post :update, params: params
+      put '/survey_notification', params: params
       expect(response.body).to eq({ success: true }.to_json)
       expect(survey_notification.reload.dismissed).to eq(true)
     end
 
     it 'renders an error message if update fails' do
       expect_any_instance_of(SurveyNotification).to receive(:update)
-      post :update, params: params
+      put '/survey_notification', params: params
       expect(response.body).to eq({ error: {} }.to_json)
     end
   end

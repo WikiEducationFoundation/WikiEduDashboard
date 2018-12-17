@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import WizardActions from '../../actions/wizard_actions.js';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Option = createReactClass({
@@ -12,21 +12,25 @@ const Option = createReactClass({
     panel_index: PropTypes.number.isRequired,
     option: PropTypes.object.isRequired,
     open_weeks: PropTypes.number.isRequired,
-    multiple: PropTypes.bool
+    multiple: PropTypes.bool,
+    selectWizardOption: PropTypes.func.isRequired
   },
 
   select() {
-    return WizardActions.toggleOptionSelected(this.props.panel_index, this.props.index);
+    if (this.props.option.required) { return; }
+    return this.props.selectWizardOption(this.props.panel_index, this.props.index);
   },
 
   expand() {
     $(this.expandable).slideToggle();
-    return WizardActions.toggleOptionExpanded(this.props.panel_index, this.props.index);
   },
 
   render() {
     const disabled = this.props.option.min_weeks && this.props.option.min_weeks > this.props.open_weeks;
     let className = 'wizard__option section-header';
+    if (this.props.option.small) {
+      className += ' wizard__option__small';
+    }
     if (this.props.option.selected) { className += ' selected'; }
     if (disabled) { className += ' disabled'; }
 
@@ -45,7 +49,7 @@ const Option = createReactClass({
         moreClassName += ' open';
       }
       expand = (
-        <div className={expandClassName} ref={(div) => this.expandable = div}>
+        <div className={expandClassName} ref={div => this.expandable = div}>
           <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
         </div>
       );
@@ -70,8 +74,6 @@ const Option = createReactClass({
       );
     }
 
-    const title = `${this.props.option.title}${this.props.option.recommended ? ' (recommended)' : ''}`;
-
     let onClick;
     if (!disabled) { onClick = this.select; }
 
@@ -80,7 +82,7 @@ const Option = createReactClass({
         <button onClick={onClick} role="checkbox" aria-checked={this.props.option.selected || false}>
           {checkbox}
           {notice}
-          <h3>{title}</h3>
+          <h3>{this.props.option.title}</h3>
           {blurb}
           {expand}
         </button>

@@ -1,0 +1,7 @@
+id: 1
+title: Foo
+summary:
+content: Bar
+slides:
+  - slug: sluggo-one
+  - slug: sluggo-two

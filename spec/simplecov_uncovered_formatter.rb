@@ -8,10 +8,11 @@ class SimplecovUncoveredFormatter
       files.each do |file|
         next if file.covered_percent == 100
         output << "#{file.filename} (coverage: #{file.covered_percent.round(2)}%)\n"
+        output << "#{file.missed_lines.map(&:line_number).join(', ')}\n"
       end
     end
     # Only show this terminal output if there are no more than 20 files lacking
     # coverage. That way it won't annoy for partial spec runs.
-    puts output unless output.count > 20
+    puts output unless output.count > 40
   end
 end

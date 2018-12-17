@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UploadsHelper do
   describe '.pretty_filename' do
-    it 'should format a filename nicely for display' do
+    it 'formats a filename nicely for display' do
       upload = build(:commons_upload,
                      file_name: 'File:My file.jpg')
       result = pretty_filename(upload)

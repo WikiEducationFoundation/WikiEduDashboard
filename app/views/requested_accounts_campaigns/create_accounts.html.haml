@@ -1,0 +1,7 @@
+.container
+  %h1 Results
+  - @results.each do |result|
+    %li= result
+
+.container
+  %a.button{href: "/campaigns/#{@campaign.slug}"} Return to campaign page

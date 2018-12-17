@@ -1,9 +1,11 @@
-# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
+# Messages for Kurdish (Latin script) (kurdî (latînî)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bikarhêner
 # Author: Cûndûllah el-Kurdî
 # Author: George Animal
+# Author: Ghybu
+# Author: Kur
 ---
 ku-latn:
   application:
@@ -19,6 +21,8 @@ ku-latn:
     sign_up: Têkeve
     submit: Tomar bike
     change: Biguherîne
+    opt_in: Erê
+    opt_out: Na
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
@@ -40,12 +44,14 @@ ku-latn:
     activity: Çalakî
     actions: Çalakî
     articles: Gotar
+    cancel: Betal bike
     course_description: Qurs
     courses: Kurs
     creator:
       start_date: Dema destpêkê
       subject: Mijar
     current: Kursên Nûjen
+    delete_suggestion: Jê bibe
     duration: Maweya Kursê
     end: Dawî
     error:
@@ -65,10 +71,12 @@ ku-latn:
     view_wiki: Li ser Wîkîpediyayê bibîne
     yourcourses: Kursên Te
   courses_generic:
+    cancel: Betal bike
     courses: Bername
     creator:
       course_title: Sernavê bernameyê
       find: Bernameyekê bibîne
+      save_cloned_course: Tomar bike
     enrollment: Tevlîbûn
   editable:
     edit: Biguherîne
@@ -102,11 +110,14 @@ ku-latn:
     save_all_changes: Hemûyan Tomar Bike
     this_week_title_default: Ev Hefte
     title: Demname
+  training:
+    page: Rûpel
   uploads:
     image: Wêne
     label: Barkirin
     loading: Barkirin tên bar kirin...
-    none: Pel nehatiye barkirin
+    none: Ev sinif ti wêne an jî dosyeyek medyayên din li Wikimedia Commonsê zêde
+      nekiriye.
     usages: Bikaranîn
   users:
     assign_articles_done: Çêbû
@@ -134,4 +145,24 @@ ku-latn:
   survey:
     email:
       headline: Silav %{username}
+  article_finder:
+    page_assessment_class: Pol
+    average_views: Hejmara lênerîna rojane ya nîvekî
+    search_placeholder: Şîfreya xwe binivîse
+    search: Lêgerîn
+    tools: Alav
+    keyword_search: Lêgerîna Peyva Kilîd
+    category_search: Lêgerîna Kategorî
+    article_quality: Kalîteya Gotar(0-100)
+    more_results: Encamên zêdetir
+    fetched_articles: Gotarên Standî
+    filtered_articles: Fîltreyên Gotaran
+    searching_articles: Lêgerîna Gotaran
+    fetching_assessments: Nirxandinên Rûpelan Stendin
+    fetching_revisions: Sererastkirina Rûpelan Stendin
+    fetching_scores: Puana Temamkirinê Stendin
+    fetching_pageviews: Lênerîna Rûpelan Standin
+    subheading_message: Ka em gotareke ji bo pêwistiyên te bigerin
+    article_finder: Peydakera Gotar
+    submit: Tomar bike
 ...

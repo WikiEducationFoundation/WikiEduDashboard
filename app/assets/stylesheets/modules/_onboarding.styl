@@ -16,10 +16,10 @@ body.onboarding
     transition opacity 250ms ease-in-out
     &.fade-enter-active
       opacity 1
-  .fade-leave
+  .fade-exit
     opacity 1
     transition opacity 250ms ease-in-out
-    &.fade-leave-active
+    &.fade-exit-active
       opacity 0.01
 
   h1
@@ -79,66 +79,3 @@ body.onboarding
     li
       margin-bottom 10px
 
-  .form
-    padding-top 75px
-
-    > h1
-      color #fff
-      margin-bottom 40px
-
-    .panel
-      padding 25px
-      background #fff
-      box-shadow 0px 1px 2px rgba(0,0,0,.2)
-      border-radius 3px
-      width 100%
-      max-width 400px
-      display inline-block
-
-    .form-control
-      width 100%
-
-    .form-group
-      padding-bottom 25px
-      margin-bottom 25px
-      border-bottom 2px solid $border_lt
-
-      label
-        display block
-        margin-bottom 8px
-        font-weight 600
-        color #2c2c2c
-
-    .radio-group
-      display flex
-      justify-content space-between
-      margin 0 -10px
-
-
-    .radio-wrapped
-      border-radius 2px
-      border 1px solid $border_lt
-      flex 1
-      margin 0 10px
-
-      label
-        margin-bottom 0
-        padding 8px 10px
-        font-weight 400
-        line-height 1
-
-        > input
-          vertical-align middle
-          margin-right 16px
-          position relative
-          top -1px
-
-        > span
-          vertical-align middle
-
-      &.checked
-        background bayoux
-        border-color bayoux
-
-        > label
-          color #fff

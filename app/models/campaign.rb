@@ -17,6 +17,7 @@ require 'csv'
 #  template_description :text(65535)
 #  default_course_type  :string(255)
 #  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
 #
 
 #= Campaign model
@@ -24,6 +25,8 @@ class Campaign < ApplicationRecord
   has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :courses, through: :campaigns_courses
+  has_many :nonprivate_courses, -> { nonprivate },
+           through: :campaigns_courses, source: :course
   has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
   has_many :students, -> { distinct }, through: :courses
@@ -33,6 +36,9 @@ class Campaign < ApplicationRecord
   has_and_belongs_to_many :survey_assignments
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
+  has_many :requested_accounts, through: :courses
+  has_many :alerts, through: :courses
+  has_many :public_alerts, through: :nonprivate_courses
 
   before_validation :set_slug
 
@@ -83,6 +89,15 @@ class Campaign < ApplicationRecord
     find_by(slug: ENV['default_campaign']) || first
   end
 
+  ####################
+  # Instance methods #
+  ####################
+
+  def course_string_prefix
+    return Features.default_course_string_prefix if default_course_type.blank?
+    @course_string_prefix ||= default_course_type.constantize.new.string_prefix
+  end
+
   private
 
   def validate_dates
@@ -100,7 +115,9 @@ class Campaign < ApplicationRecord
   # Intercept Rails typecasting and add error if given value cannot be parsed into a date.
   def validate_date_attribute(date_type)
     value = send("#{date_type}_before_type_cast")
+    # rubocop:disable Rails/TimeZone
     self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : Time.parse(value)
+    # rubocop:enable Rails/TimeZone
   rescue ArgumentError, TypeError
     errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
   end

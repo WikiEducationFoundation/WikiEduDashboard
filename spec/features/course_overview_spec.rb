@@ -33,7 +33,7 @@ describe 'course overview page', type: :feature, js: true do
     stub_token_request
   end
 
-  before :each do
+  before do
     login_as(admin, scope: :user)
   end
 
@@ -42,6 +42,7 @@ describe 'course overview page', type: :feature, js: true do
       visit "/courses/#{course.slug}"
       sleep 1
     end
+
     it 'displays week activity for this week' do
       find '.course__this-week' do
         expect(page).to have_content 'This Week'
@@ -51,11 +52,13 @@ describe 'course overview page', type: :feature, js: true do
 
   context 'when course starts in future' do
     let(:timeline_start) { '2025-02-11'.to_date + 2.weeks } # a Tuesday
+
     before do
       course.update_attribute(:timeline_start, timeline_start)
       visit "/courses/#{course.slug}"
       sleep 1
     end
+
     it 'displays week activity for the first week' do
       within '.course__this-week' do
         expect(page).to have_content('First Active Week')

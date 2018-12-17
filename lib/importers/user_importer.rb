@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports and updates users from Wikipedia into the dashboard database
 class UserImporter
@@ -15,8 +15,6 @@ class UserImporter
   end
 
   def self.new_from_omniauth(auth)
-    require "#{Rails.root}/lib/wiki_api"
-
     user = User.create(
       username: auth.info.name,
       global_id: auth.uid,

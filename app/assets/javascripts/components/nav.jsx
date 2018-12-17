@@ -1,8 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
-import Uls from './uls_box.jsx';
+import LanguagePicker from './language_picker.jsx';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -52,10 +53,10 @@ const Nav = createReactClass({
   },
 
   componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener('resize', this.updateDimensions);
   },
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener('resize', this.updateDimensions);
   },
 
   updateDimensions() {
@@ -75,24 +76,20 @@ const Nav = createReactClass({
     let Sandbox;
     let wikiEd;
     let languageSwitcherEnabled;
-    let loggingLinks;
+    let loginLinks;
     let helpEnabled;
-    if (this.state.languageSwitcherEnabled)
-    {
+    if (this.state.languageSwitcherEnabled) {
       languageSwitcherEnabled = (
         <li>
-          <button className="uls-trigger">
-            {I18n.locale}
-          </button>
+          <LanguagePicker />
         </li>
       );
     }
-    if (this.state.userSignedIn)
-    {
-      loggingLinks = (
+    if (this.state.userSignedIn) {
+      loginLinks = (
         <span>
           <li>
-            <b><a href={this.state.rootUrl} className="current-user">{this.state.currentUser}</a></b>
+            <b><a href={`/users/${this.state.currentUser}`} className="current-user">{this.state.currentUser}</a></b>
           </li>
           <li>
             <a href={this.state.destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
@@ -114,7 +111,7 @@ const Nav = createReactClass({
       );
       }
     } else {
-      loggingLinks = (
+      loginLinks = (
         <li>
           <a href={this.state.omniauthUrl}>
             <i className="icon icon-wiki-logo" />
@@ -126,14 +123,14 @@ const Nav = createReactClass({
         </li>
       );
     }
-    if (this.state.userSignedIn === true) {
+    if (this.state.userSignedIn) {
       myDashboard = (
         <li>
           <CustomLink to={this.state.rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
         </li>
       );
     }
-    if (this.state.ifAdmin === true) {
+    if (this.state.ifAdmin && this.state.wikiEd) {
       forAdmin = (
         <li>
           <CustomLink to="/admin" name="Admin" />
@@ -161,22 +158,19 @@ const Nav = createReactClass({
             <CustomLink to="https://meta.wikimedia.org/wiki/Special:MyLanguage/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
           </li>
           <li>
-            <CustomLink to="/feedback" name={I18n.t('application.report_problem')} target="_blank" />
+            <CustomLink to="https://meta.wikimedia.org/w/index.php?title=Talk:Programs_%26_Events_Dashboard&action=edit&section=new" name={I18n.t('application.report_problem')} target="_blank" />
           </li>
         </span>
       );
     }
-    if (this.state.fluid)
-    {
-      navClass = "top-nav fluid";
+    if (this.state.fluid) {
+      navClass = 'top-nav fluid';
     } else {
-      navClass = "top-nav";
+      navClass = 'top-nav';
     }
-    if (this.state.width < 920)
-    {
+    if (this.state.width < 920) {
       navBar = (
         <div>
-          <Uls />
           <HamburgerMenu
             rootUrl = {this.state.rootUrl}
             logoPath = {this.state.logoPath}
@@ -199,7 +193,6 @@ const Nav = createReactClass({
     } else {
       navBar = (
         <div>
-          <Uls />
           <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
@@ -223,7 +216,7 @@ const Nav = createReactClass({
               {helpEnabled}
               <ul className="top-nav__login-links">
                 {languageSwitcherEnabled}
-                {loggingLinks}
+                {loginLinks}
               </ul>
             </div>
           </nav>
@@ -231,8 +224,14 @@ const Nav = createReactClass({
       );
     }
 
+    let confetti;
+    if (Features.celebrate) {
+      confetti = <Confetti width={this.state.width} height={this.state.height} recycle={false} />;
+    }
+
     return (
       <div>
+        {confetti}
         {navBar}
       </div>
     );

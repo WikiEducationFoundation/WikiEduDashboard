@@ -4,8 +4,9 @@
 %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
 = logo_favicon_tag
 %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
-= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
-= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+- if Features.wiki_ed?
+  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
+  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
 
 = content_for :head
 
@@ -15,6 +16,7 @@
 :javascript
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
+  I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
 
   currentUser = {
     id: "#{current_user&.id || ''}",
@@ -25,7 +27,7 @@
     wikiEd: #{Features.wiki_ed?},
     enableChat: #{Features.enable_chat? && user_signed_in?},
     enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
-    enableAccountRequests: #{Features.enable_account_requests?}
+    celebrate: #{Features.celebrate?(current_user)}
   }
 
   WikiProjects = document.getElementById("wikis").dataset.projects
@@ -42,5 +44,6 @@
     Raven.setExtraContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery-uls.js'
+= hot_javascript_tag("tinymce")
 = content_for :javascripts
 = csrf_meta_tags

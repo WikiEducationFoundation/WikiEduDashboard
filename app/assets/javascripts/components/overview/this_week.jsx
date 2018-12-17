@@ -7,7 +7,7 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;
-  for (let i = 0; i < weekMeetings.length; i++) {
+  for (let i = 0; i < weekMeetings.length; i += 1) {
     const week = weekMeetings[i];
     if (week !== '()') { return count; }
     count += 1;
@@ -17,14 +17,14 @@ const emptyWeeksAtBeginning = function (weekMeetings) {
 const emptyWeeksUntil = function (weekMeetings, weekIndex) {
   let count = 0;
   const iterable = weekMeetings.slice(0, weekIndex);
-  for (let i = 0; i < iterable.length; i++) {
+  for (let i = 0; i < iterable.length; i += 1) {
     const week = iterable[i];
     if (week === '()') { count += 1; }
   }
   return count;
 };
 
-const ThisWeek = ({ course, weeks, current }) => {
+const ThisWeek = ({ course, weeks }) => {
   let weekIndex;
   let thisWeekMeetings;
   let weekMeetings;
@@ -33,10 +33,11 @@ const ThisWeek = ({ course, weeks, current }) => {
   let weekComponent;
   let noWeeks;
 
+  const currentWeek = CourseDateUtils.currentWeekIndex(course.timeline_start);
   const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(course);
 
   if (weeks) {
-    weekIndex = current + 1;
+    weekIndex = currentWeek + 1;
 
     const meetings = CourseDateUtils.meetings(course);
     weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
@@ -50,9 +51,9 @@ const ThisWeek = ({ course, weeks, current }) => {
       week = weeks[0];
       title = I18n.t('timeline.first_week_title');
     } else {
-      thisWeekMeetings = weekMeetings[current];
-      const emptyWeeksSoFar = emptyWeeksUntil(weekMeetings, current);
-      week = weeks[current - emptyWeeksSoFar];
+      thisWeekMeetings = weekMeetings[currentWeek];
+      const emptyWeeksSoFar = emptyWeeksUntil(weekMeetings, currentWeek);
+      week = weeks[currentWeek - emptyWeeksSoFar];
     }
   }
 
@@ -72,6 +73,7 @@ const ThisWeek = ({ course, weeks, current }) => {
         showTitle={false}
         meetings={meetingsProp}
         weeksBeforeTimeline={weeksBeforeTimeline}
+        trainingLibrarySlug={course.training_library_slug}
       />
     );
   } else {
@@ -99,9 +101,8 @@ const ThisWeek = ({ course, weeks, current }) => {
 };
 
 ThisWeek.propTypes = {
-  course: PropTypes.object,
-  weeks: PropTypes.array,
-  current: PropTypes.number
+  course: PropTypes.object.isRequired,
+  weeks: PropTypes.array.isRequired
 };
 
 export default ThisWeek;

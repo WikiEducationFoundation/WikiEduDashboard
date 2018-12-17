@@ -1,21 +1,26 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_library"
 
-DESIRED_TRAINING_MODULE_IDS = [2].freeze
+DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
 describe 'Training', type: :feature, js: true do
+  before { TrainingModule.load_all }
+
   let(:user) { create(:user, id: 1) }
-  let(:module_2) { TrainingModule.find(2) } # Policies and Guidelines module
+  let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
   before do
     login_as(user, scope: :user)
-    page.driver.browser.url_blacklist = ['https://www.youtube.com', 'https://upload.wikimedia.org']
   end
 
   describe 'root library' do
-    library_names = TrainingLibrary.all.map(&:slug)
+    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:slug)
+    after do
+      login_as(user, scope: :user)
+    end
+
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
@@ -30,10 +35,6 @@ describe 'Training', type: :feature, js: true do
         expect(page).to have_content library_name.humanize.titleize
       end
     end
-
-    after do
-      login_as(user, scope: :user)
-    end
   end
 
   describe 'libraries' do
@@ -46,21 +47,26 @@ describe 'Training', type: :feature, js: true do
       end
     end
 
+    after do
+      login_as(user, scope: :user)
+    end
+
     it 'load for a logged out user' do
       logout(:user)
       first_library = TrainingLibrary.all[0]
       visit "/training/#{first_library.slug}"
       expect(page).to have_content first_library.name
     end
-
-    after do
-      login_as(user, scope: :user)
-    end
   end
 
   describe 'module index page' do
     before do
+      TrainingSlide.load
       visit "/training/students/#{module_2.slug}"
+    end
+
+    after do
+      login_as(user, scope: :user)
     end
 
     it 'describes the module' do
@@ -82,7 +88,7 @@ describe 'Training', type: :feature, js: true do
       expect(TrainingModulesUsers.find_by(
                user_id: user.id,
                training_module_id: module_2.id
-      )).not_to be_nil
+             )).not_to be_nil
     end
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
@@ -112,9 +118,9 @@ describe 'Training', type: :feature, js: true do
       expect(unseen_slide_link).not_to be_nil
     end
 
-    it 'shows a 404 page for non-existent slides' do
+    it 'shows slide does not exist for non-existent slides' do
       visit "/training/students/#{module_2.slug}/lol-not-a-real-slide"
-      expect(page).to have_content 'Page not found'
+      expect(page).to have_content 'slide does not exist'
     end
 
     it 'loads for a logged out user' do
@@ -122,10 +128,6 @@ describe 'Training', type: :feature, js: true do
       expect(page).to have_content 'TABLE OF CONTENTS'
       expect(page).to have_content module_2.slides[0].title
       expect(page).to have_content module_2.slides[-1].title
-    end
-
-    after do
-      login_as(user, scope: :user)
     end
   end
 
@@ -157,11 +159,14 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
-  DESIRED_TRAINING_MODULE_IDS.each do |module_id|
-    training_module = TrainingModule.find(module_id)
-    describe "'#{training_module.name}' module" do
-      training_module = TrainingModule.find(module_id)
+  DESIRED_TRAINING_MODULES.each do |module_slug|
+    describe "'#{module_slug[:slug]}' module" do
+      before do
+        TrainingSlide.load
+      end
+
       it 'lets the user go from start to finish' do
+        training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)
       end
     end
@@ -197,9 +202,9 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  button = page.first('button.ghost-button')
+  button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
-  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').trigger('click')
+  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
 end
 
 def find_correct_answer_by_trial_and_error

@@ -4,24 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ArticleActions from '../../actions/article_actions';
-
-import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
-import ArticleStore from '../../stores/article_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
-
-const getState = () => ({
-  articles: ArticleStore.getModels()
-});
 
 const ArticleList = ({
   articles,
   course,
   current_user,
   actions,
-  articleDetails
+  articleDetails,
+  sortBy,
+  wikidataLabels,
+  sort
 }) => {
   const keys = {
     rating_num: {
@@ -49,12 +44,21 @@ const ArticleList = ({
       sortable: false
     }
   };
-
+  if (sort.key) {
+    const order = (sort.sortKey) ? 'asc' : 'desc';
+    keys[sort.key].order = order;
+  }
+  // If a parameter like ?showArticle=123 is present,
+  // the ArticleViewer should go into show mode immediately.
+  // this allows for links to directly view a specific article.
+  const showArticleId = Number(location.search.split('showArticle=')[1]);
   const articleElements = articles.map(article => (
     <Article
       article={article}
+      showOnMount={showArticleId === article.id}
       course={course}
       key={article.id}
+      wikidataLabel={wikidataLabels[article.title]}
       // eslint-disable-next-line
       current_user={current_user}
       fetchArticleDetails={actions.fetchArticleDetails}
@@ -70,7 +74,7 @@ const ArticleList = ({
       table_key="articles"
       className="table--expandable table--hoverable"
       none_message={CourseUtils.i18n('articles_none', course.string_prefix)}
-      store={ArticleStore}
+      sortBy={sortBy}
     />
   );
 };
@@ -84,14 +88,13 @@ ArticleList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  articleDetails: state.articleDetails
+  articleDetails: state.articleDetails,
+  sort: state.articles.sort,
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...ArticleActions }, dispatch)
 });
 
-export default Editable(
-  connect(mapStateToProps, mapDispatchToProps)(ArticleList),
-  [ArticleStore], ServerActions.saveArticles, getState
-);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);

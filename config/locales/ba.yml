@@ -43,7 +43,6 @@ ba:
   timeline:
     empty_week_3: йәки
   uploads:
-    datetime: Көн/Ваҡыт
     file_name: Файл исеме
     image: Рәсем
   users:

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: requested_accounts
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  course_id  :integer
 #  username   :string(255)
 #  email      :string(255)
@@ -14,11 +13,17 @@
 
 class RequestedAccount < ApplicationRecord
   belongs_to :course
-  before_validation :ensure_valid_email
+  belongs_to :campaign
+  validate :email_format
+
+  def invalid_email_message
+    "'#{email}' is not a valid email address."
+  end
 
   private
 
-  def ensure_valid_email
-    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+  def email_format
+    return unless ValidatesEmailFormatOf::validate_email_format(email)
+    errors.add(:email, invalid_email_message)
   end
 end

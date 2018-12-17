@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import config from '../config.js';
+
 const plugins = loadPlugins();
 
 gulp.task('watch', () => {
@@ -18,6 +19,4 @@ gulp.task('watch', () => {
     return plugins.livereload.changed(e.path);
   });
   plugins.livereload.listen();
-
-  return;
 });

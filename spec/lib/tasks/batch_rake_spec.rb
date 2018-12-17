@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/data_cycle/constant_update"
+require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
+require "#{Rails.root}/lib/data_cycle/daily_update"
+require "#{Rails.root}/lib/data_cycle/survey_update"
+
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 
 describe 'batch:update_constantly' do
@@ -10,6 +15,13 @@ describe 'batch:update_constantly' do
     it 'initializes a ConstantUpdate' do
       expect(ConstantUpdate).to receive(:new)
       subject.invoke
+    end
+  end
+
+  describe 'schedule_course_updates' do
+    it 'initializes a ShortUpdate' do
+      expect(ScheduleCourseUpdates).to receive(:new)
+      rake['batch:schedule_course_updates'].invoke
     end
   end
 

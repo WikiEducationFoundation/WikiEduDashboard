@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'errors/login_error'
   get 'errors/internal_server_error'
   get 'errors/incorrect_passcode'
+  put 'errors/incorrect_passcode'
 
   # Sessions
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
@@ -22,12 +23,19 @@ Rails.application.routes.draw do
   get '/settings/all_admins' => 'settings#all_admins'
   post '/settings/upgrade_admin' => 'settings#upgrade_admin'
   post '/settings/downgrade_admin' => 'settings#downgrade_admin'
+
+  get '/settings/special_users' => 'settings#special_users'
+  post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
+  post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
+
+
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
-    post 'users/update/:username' => 'user_profiles#update'
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
   # Users
@@ -46,10 +54,19 @@ Rails.application.routes.draw do
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
       constraints: { course_id: /.*/ }
 
+  get '/requested_accounts_campaigns/*campaign_slug/create' => 'requested_accounts_campaigns#create_accounts',
+      constraints: { campaign_slug: /.*/ }
+  put '/requested_accounts_campaigns/*campaign_slug/enable_account_requests' => 'requested_accounts_campaigns#enable_account_requests',
+      constraints: { campaign_slug: /.*/ }
+  put '/requested_accounts_campaigns/*campaign_slug/disable_account_requests' => 'requested_accounts_campaigns#disable_account_requests',
+      constraints: { campaign_slug: /.*/ }
+  get '/requested_accounts_campaigns/*campaign_slug' => 'requested_accounts_campaigns#index',
+      constraints: { campaign_slug: /.*/ }
+
   put 'requested_accounts' => 'requested_accounts#request_account'
   delete 'requested_accounts/*course_slug/*id/delete' => 'requested_accounts#destroy',
       constraints: { course_slug: /.*/ }
-  get 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
+  post 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
@@ -82,14 +99,43 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
-    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
-        defaults: { endpoint: 'overview' }, :as => 'show',
+    # show-type actions: first all the specific json endpoints,
+    # then the catchall show endpoint
+    get 'courses/:slug/course.json' => 'courses#course',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/articles.json' => 'courses#articles',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/revisions.json' => 'courses#revisions',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/users.json' => 'courses#users',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignments.json' => 'courses#assignments',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/campaigns.json' => 'courses#campaigns',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/categories.json' => 'courses#categories',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/tags.json' => 'courses#tags',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/timeline.json' => 'courses#timeline',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/uploads.json' => 'courses#uploads',
+        constraints: { slug: /.*/ }
+    get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'courses#show',
+        :as => 'show',
         constraints: {
           school: /[^\/]*/,
           titleterm: /[^\/]*/
         }
+
+    get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
+    constraints: {
+        school: /[^\/]*/,
+        titleterm: /[^\/]*/
+    }
+
     post 'clone_course/:id' => 'course_clone#clone'
-    post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
+    post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
       constraints: {
         id: /.*/
@@ -102,7 +148,6 @@ Rails.application.routes.draw do
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'
   get 'lookups/tag(.:format)' => 'lookups#tag'
-  get 'lookups/article(.:format)' => 'lookups#article'
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
@@ -111,7 +156,6 @@ Rails.application.routes.draw do
   end
   resources :weeks, only: [:index, :show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
-  resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
@@ -135,10 +179,7 @@ Rails.application.routes.draw do
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
-  if Features.enable_article_finder?
-    get 'article_finder(/*any)' => 'article_finder#index'
-    post 'article_finder(/*any)' => 'article_finder#results'
-  end
+  get 'article_finder' => 'article_finder#index'
 
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
@@ -151,7 +192,7 @@ Rails.application.routes.draw do
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
-  
+
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do
@@ -164,6 +205,7 @@ Rails.application.routes.draw do
       get 'courses'
       get 'ores_plot'
       get 'articles_csv'
+      get 'alerts'
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'
@@ -178,6 +220,7 @@ Rails.application.routes.draw do
       controller: :campaigns,
       action: :programs,
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
+  get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
@@ -215,6 +258,7 @@ Rails.application.routes.draw do
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
+  get 'user_training_status' => 'training_status#user'
 
   # for React
   get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'
@@ -228,7 +272,8 @@ Rails.application.routes.draw do
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
-  # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
+  get 'active_courses' => 'active_courses#index'
+  get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
@@ -241,6 +286,7 @@ Rails.application.routes.draw do
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
+  # Surveys
   mount Rapidfire::Engine => "/surveys/rapidfire", :as => 'rapidfire'
   get '/surveys/results' => 'surveys#results_index', as: 'results'
   resources :survey_assignments, path: 'surveys/assignments'
@@ -259,10 +305,13 @@ Rails.application.routes.draw do
   put '/survey_notification' => 'survey_notifications#update'
   post '/survey_notification/create' => 'survey_assignments#create_notifications', as: 'create_notifications'
   post '/survey_notification/send' => 'survey_assignments#send_notifications', as: 'send_notifications'
+  get '/survey/responses' => 'survey_responses#index'
+  delete '/survey/responses/:id/delete' => 'survey_responses#delete'
 
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
   put 'onboarding/onboard' => 'onboarding#onboard', as: :onboard
+  put 'onboarding/supplementary' => 'onboarding#supplementary', as: :supplementary
 
   # Update Locale Preference
   post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
@@ -304,7 +353,7 @@ Rails.application.routes.draw do
   resources :alerts_list
   resources :settings, only: [:index]
 
-  require 'sidekiq/web'
+  require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end

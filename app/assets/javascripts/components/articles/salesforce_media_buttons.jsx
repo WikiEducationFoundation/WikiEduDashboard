@@ -15,7 +15,7 @@ const SalesforceMediaButtons = ({
   const diffParams = `&before_rev_id=${before_rev_id}&after_rev_id=${after_rev_id}`;
   const urlWithoutUsername = salesforceMediaUrlRoot + courseParam + articleParam + diffParams;
 
-  const salesforceButtons = editors.map(username => {
+  const salesforceButtons = editors.map((username) => {
     const usernameParam = `&username=${username}`;
     const completeUrl = urlWithoutUsername + usernameParam;
     return (

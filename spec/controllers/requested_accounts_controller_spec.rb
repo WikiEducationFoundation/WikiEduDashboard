@@ -8,27 +8,38 @@ describe RequestedAccountsController do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
+    let(:username) { 'username' }
+    let(:email) { 'valid@example.com' }
 
     describe '#request_account' do
       let(:requested_account) do
         create(
           :requested_account,
           course: course,
-          username: 'username',
-          email: 'email'
+          username: username,
+          email: email
         )
       end
 
       it 'returns an error if the passcode is invalid' do
-        post :request_account, params: { passcode: 'passcode', course_slug: course.slug }
+        post :request_account, params: { passcode: 'wrongpasscode', course_slug: course.slug }
         expect(response.status).to eq(302)
+      end
+
+      it 'returns an error if the email is invalid' do
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         username: username,
+                                         email: 'invalidemail' }
+        expect(response.status).to eq(422)
+        expect(response.body).to include('invalidemail')
       end
 
       it 'adds new requested accounts to the course' do
         expect(course.requested_accounts.count).to eq(0)
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
-                                         username: 'username', email: 'email' }
+                                         username: username, email: email }
         expect(course.requested_accounts.count).to eq(1)
       end
 
@@ -36,14 +47,16 @@ describe RequestedAccountsController do
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
                                          username: requested_account.username,
-                                         email: 'newemail' }
+                                         email: 'newemail@example.com' }
         expect(course.requested_accounts.count).to eq(1)
-        expect(course.requested_accounts.last.email).to eq('newemail')
+        expect(course.requested_accounts.last.email).to eq('newemail@example.com')
       end
 
       it 'returns a 500 if user is not authorized create accounts now' do
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
+                                         username: username,
+                                         email: 'newemail@example.com',
                                          create_account_now: true }
         expect(response.status).to eq(500)
       end
@@ -60,18 +73,10 @@ describe RequestedAccountsController do
         expect(response.status).to eq(200)
         expect(response.body).to have_content('Created account for MyUsername')
       end
-
-      it 'raises an error if account requests are not enabled' do
-        allow(Features).to receive(:enable_account_requests?).and_return(false)
-        post :request_account, params: { passcode: course.passcode,
-                                         course_slug: course.slug,
-                                         username: 'username', email: 'email' }
-        expect(response.status).to eq(401)
-      end
     end
 
     describe '#create_accounts' do
-      before { RequestedAccount.create(course_id: course.id, username: 'username', email: 'email') }
+      before { RequestedAccount.create(course_id: course.id, username: username, email: email) }
 
       it 'does not create the accounts if user is not authorized' do
         allow(controller).to receive(:current_user).and_return(user)
@@ -100,7 +105,9 @@ describe RequestedAccountsController do
     end
 
     describe '#destroy' do
-      let!(:requested_account) { create(:requested_account, course_id: course.id) }
+      let!(:requested_account) do
+        create(:requested_account, course_id: course.id, username: username, email: email)
+      end
 
       it 'deletes a request account if user is authorized' do
         allow(controller).to receive(:current_user).and_return(admin)

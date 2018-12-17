@@ -2,16 +2,20 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
-import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import ServerActions from '../../actions/server_actions.js';
-import AssignmentActions from '../../actions/assignment_actions.js';
-import AssignmentStore from '../../stores/assignment_store.js';
+import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
+import AddAvailableArticles from '../articles/add_available_articles';
+import { ASSIGNED_ROLE } from '../../constants';
+import selectStyles from '../../styles/select';
+
+const resetState = component => () => {
+  component.setState(component.getInitialState());
+};
 
 const AssignButton = createReactClass({
   displayName: 'AssignButton',
@@ -21,14 +25,15 @@ const AssignButton = createReactClass({
     role: PropTypes.number.isRequired,
     student: PropTypes.object,
     current_user: PropTypes.object,
-    course_id: PropTypes.string.isRequired,
     is_open: PropTypes.bool,
     permitted: PropTypes.bool,
-    add_available: PropTypes.bool,
+    addAvailable: PropTypes.bool,
     assignments: PropTypes.array,
     open: PropTypes.func.isRequired,
     tooltip_message: PropTypes.string,
-    initiateConfirm: PropTypes.func
+    initiateConfirm: PropTypes.func,
+    addAssignment: PropTypes.func,
+    deleteAssignment: PropTypes.func
   },
 
   getInitialState() {
@@ -41,15 +46,11 @@ const AssignButton = createReactClass({
   },
 
   getKey() {
-    const tag = this.props.role === 0 ? 'assign_' : 'review_';
+    const tag = this.props.role === ASSIGNED_ROLE ? 'assign_' : 'review_';
     if (this.props.student) {
       return tag + this.props.student.id;
     }
     return tag;
-  },
-
-  resetState() {
-    return this.setState(this.getInitialState());
   },
 
   stop(e) {
@@ -98,7 +99,7 @@ const AssignButton = createReactClass({
       title: decodeURIComponent(this.state.title).trim(),
       project: this.state.project,
       language: this.state.language,
-      course_id: this.props.course_id,
+      course_id: this.props.course.slug,
       user_id: student,
       role: this.props.role
     };
@@ -113,30 +114,15 @@ const AssignButton = createReactClass({
 
     const articleTitle = assignment.title;
 
-    // Check if the assignment exists
-    if (this.props.student && AssignmentStore.getFiltered({
-      articleTitle,
-      user_id: this.props.student.id,
-      role: this.props.role
-    }).length !== 0) {
-      alert(I18n.t('assignments.already_exists'));
-      return;
-    }
-
     // Close the popup after adding an available article
     const closePopup = this.props.open;
-    // While adding other assignments, popup can remain open to assign multiple assignments at once
-    const closeOnConfirm = this.props.add_available;
+    const addAssignmentAction = this.props.addAssignment;
 
+    const resetStateFunction = resetState(this);
     const onConfirm = function () {
-      // Close the popup after confirmation
-      if (closeOnConfirm) {
-        closePopup(e);
-      }
-      // Update the store
-      AssignmentActions.addAssignment(assignment);
-      // Post the new assignment to the server
-      ServerActions.addAssignment(assignment);
+      closePopup(e);
+      resetStateFunction();
+      addAssignmentAction(assignment);
     };
 
     let confirmMessage;
@@ -157,10 +143,7 @@ const AssignButton = createReactClass({
 
   unassign(assignment) {
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    // Update the store
-    AssignmentActions.deleteAssignment(assignment);
-    // Send the delete request to the server
-    return ServerActions.deleteAssignment(assignment);
+    this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -185,7 +168,7 @@ const AssignButton = createReactClass({
     } else if (this.props.permitted) {
       let assignText;
       let reviewText;
-      if (this.props.add_available) {
+      if (this.props.addAvailable) {
         assignText = I18n.t('assignments.add_available');
       } else if (this.props.student && this.props.current_user.id === this.props.student.id) {
         assignText = I18n.t('assignments.assign_self');
@@ -194,7 +177,7 @@ const AssignButton = createReactClass({
         assignText = I18n.t('assignments.assign_other');
         reviewText = I18n.t('assignments.review_other');
       }
-      const finalText = this.props.role === 0 ? assignText : reviewText;
+      const finalText = this.props.role === ASSIGNED_ROLE ? assignText : reviewText;
       if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
           <span className="tooltip-indicator" />
@@ -215,16 +198,16 @@ const AssignButton = createReactClass({
       );
     }
 
-    let assignments = this.props.assignments.map(ass => {
+    let assignments = this.props.assignments.map((ass) => {
       let removeButton;
       let articleLink;
-      ass.course_id = this.props.course_id;
+      ass.course_id = this.props.course.slug;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
       if (this.props.permitted) {
-        removeButton = <button className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button>;
+        removeButton = <span> <button aria-label="Remove" className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button></span>;
       }
       if (article.url) {
-        articleLink = <a href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
+        articleLink = <a href={article.url} target="_blank" className="inline" aria-label="View on Wikipedia">{article.formatted_title}</a>;
       } else {
         articleLink = <span>{article.formatted_title}</span>;
       }
@@ -243,11 +226,11 @@ const AssignButton = createReactClass({
     if (this.props.permitted) {
       let options;
       if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map(language => {
+        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
           return { label: language, value: language };
         });
 
-        const projectOptions = JSON.parse(WikiProjects).map(project => {
+        const projectOptions = JSON.parse(WikiProjects).map((project) => {
           return { label: project, value: project };
         });
 
@@ -259,8 +242,10 @@ const AssignButton = createReactClass({
               name="language"
               placeholder="Language"
               onChange={this.handleChangeLanguage}
-              value={this.state.language}
+              value={{ value: this.state.language, label: this.state.language }}
               options={languageOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
             <Select
               name="project"
@@ -268,8 +253,10 @@ const AssignButton = createReactClass({
               className="half-width-select-right project-select"
               onChange={this.handleChangeProject}
               placeholder="Project"
-              value={this.state.project}
+              value={{ value: this.state.project, label: this.state.project }}
               options={projectOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
             />
           </fieldset>
         );
@@ -281,23 +268,37 @@ const AssignButton = createReactClass({
         );
       }
 
-      editRow = (
-        <tr className="edit">
+      let assignmentInput;
+      // Add multiple at once via AddAvailableArticles
+      if (this.props.addAvailable) {
+        assignmentInput = (
+          <td>
+            <AddAvailableArticles {...this.props} {...this.state} />
+            <br />
+            {options}
+          </td>
+        );
+      // Add a single assignment
+      } else {
+        assignmentInput = (
           <td>
             <form onSubmit={this.assign}>
-              <Lookup
-                model="article"
+              <input
                 placeholder={I18n.t('articles.title_example')}
-                ref="lookup"
                 value={this.state.title}
                 onSubmit={this.assign}
                 onChange={this.handleChangeTitle}
-                disabled={true}
               />
               <button className="button border" type="submit">{I18n.t('assignments.label')}</button>
               {options}
             </form>
           </td>
+        );
+      }
+
+      editRow = (
+        <tr className="edit">
+          {assignmentInput}
         </tr>
       );
     }
@@ -317,7 +318,11 @@ const AssignButton = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm };
+const mapDispatchToProps = {
+  initiateConfirm,
+  addAssignment,
+  deleteAssignment
+};
 
 export default connect(null, mapDispatchToProps)(
   PopoverExpandable(AssignButton)

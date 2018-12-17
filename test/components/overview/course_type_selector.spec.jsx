@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
-import sinon from 'sinon';
 
 import '../../testHelper';
 import CourseTypeSelector from '../../../app/assets/javascripts/components/overview/course_type_selector.jsx';
@@ -15,6 +14,7 @@ describe('CourseTypeSelector', () => {
       <CourseTypeSelector
         course={course}
         editable={false}
+        updateCourse={sinon.spy()}
       />
     );
     const typeListing = ReactTestUtils.findRenderedDOMComponentWithTag(NonEditableCourseTypeSelector, 'div');
@@ -23,13 +23,11 @@ describe('CourseTypeSelector', () => {
 
   it('calls updateCourse when selection changes', () => {
     const spy = sinon.spy();
-    CourseTypeSelector.__Rewire__('CourseActions', {
-      updateCourse: spy
-    });
     const EditableCourseTypeSelector = ReactTestUtils.renderIntoDocument(
       <CourseTypeSelector
         course={course}
         editable={true}
+        updateCourse={spy}
       />
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');
@@ -48,6 +46,7 @@ describe('CourseTypeSelector', () => {
       <CourseTypeSelector
         course={basicCourse}
         editable={true}
+        updateCourse={sinon.spy()}
       />
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');

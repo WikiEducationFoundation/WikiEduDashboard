@@ -1,47 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
-import BlockStore from '../../stores/block_store.js';
-import WeekStore from '../../stores/week_store.js';
-import CourseStore from '../../stores/course_store.js';
-const md = require('../../utils/markdown_it.js').default();
+import CourseDateUtils from '../../utils/course_date_utils';
 
-const getState = () =>
-  ({
-    weeks: WeekStore.getWeeks(),
-    currentWeek: CourseStore.getCurrentWeek()
-  })
-;
+const md = require('../../utils/markdown_it.js').default();
 
 const Milestones = createReactClass({
   displayName: I18n.t('blocks.milestones.title'),
 
-  mixins: [BlockStore.mixin, WeekStore.mixin, CourseStore.mixin],
-
-  getInitialState() {
-    return getState();
-  },
-
-  storeDidChange() {
-    return this.setState(getState());
+  propTypes: {
+    timelineStart: PropTypes.string.isRequired,
+    weeks: PropTypes.array.isRequired
   },
 
   milestoneBlockType: 2,
 
-  weekIsCompleted(week) {
-    return week.order < this.state.currentWeek;
+  weekIsCompleted(week, currentWeek) {
+    return week.order < currentWeek;
   },
 
   render() {
+    const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const blocks = [];
-    this.state.weeks.map(week => {
+    this.props.weeks.map((week) => {
       const milestoneBlocks = _.filter(week.blocks, block => block.kind === this.milestoneBlockType);
-      return milestoneBlocks.map(block => {
+      return milestoneBlocks.map((block) => {
         let classNames = 'module__data';
-        if (this.weekIsCompleted(week)) { classNames += ' completed'; }
+        if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
         const rawHtml = md.render(block.content);
-        const completionNote = this.weekIsCompleted(week) ? '- Complete' : undefined;
+        const completionNote = this.weekIsCompleted(week, currentWeek) ? '- Complete' : undefined;
         return blocks.push(
           <div key={block.id} className="section-header">
             <div className={classNames}>

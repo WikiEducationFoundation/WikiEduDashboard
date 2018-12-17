@@ -1,16 +1,21 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 90-NS-FZ
 # Author: Omotecho
 # Author: Otokoume
 # Author: Sudachi
 # Author: Sujiniku
+# Author: Suyama
 # Author: Thibaut120094
 # Author: Yusuke1109
 ---
 ja:
+  accessibility:
+    number_field: これは数字フィールドです。ほとんどのブラウザは数字を増減できるボタンを表示します。
   application:
     cancel: 中止
+    create_accounts: Wikipediaアカウントを作成する
     dashboard: Wiki Ed ダッシュボード
     documentation: ドキュメント
     error: 'エラーが起きました:'
@@ -30,8 +35,11 @@ ja:
     my_dashboard: 私のダッシュボード
     recent_activity: 最近の活動
     report_problem: 問題を報告
+    request_account: アカウントをリクエストする
     search: 質問をしてみる
+    search_results: '''%{search_terms}'' の検索結果'
     sign_up_extended: ウィキペディアにユーザー登録
+    sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
     sign_up: ユーザー登録
     submit: 送信
@@ -39,16 +47,22 @@ ja:
     change: 変更内容
     details: 詳細
     confirm: OK
+    opt_in: はい
+    opt_out: いいえ
   dashboard:
     create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
+    create_preparation_note: はじめる前に、学校の行事予定を準備しておきましょう。課題計画ツールはあなたの予定が期間に収まるように、休校日や休日を含む会議の日付を使用します。予定はあなたの都合に合わせていつでも変更できます。
     explore_course_pages: コースページを見る
+    explore_examples: コースのサンプルを見る
     join_note: インストラクターからパスコードを受け取ったら、[自分のコースを検索]をクリックして検索し、参加します。
+    no_courses_instructor: コースはまだ設定されていないようです。
     no_courses_student: コースにまだ参加していないようです。
     opt_out: オリエンテーションのオプトアウトのリクエスト
     orientation_notice: コースを作成する前に、始めるのに役立つオリエンテーションに進みましょう。完了までに約30分かかります。
     review_orientation: オリエンテーションの復習
     start_orientation: オリエンテーションを開始する
     blog_headline: Wiki Education の最近のニュース
+    about_programs: このサイトはwiki上のアクティビティ - edit-a-thonや学校の課題などの個々のアクティビティ - を「プログラム」として追跡します。それぞれのプログラムは、それらを集計するひとつか複数の「キャンペーン」の一部です。
     about_creating_programs: 独立した単一のイベントを実行している場合、今すぐプログラムを作成することができます。あなたのイベントがより大きなものの一部であれば、そのキャンペーンを見つけるか作成してください。次に、[キャンペーン]ページから新しいプログラムを作成できます。
   home:
     explore: 探検してみよう
@@ -60,14 +74,18 @@ ja:
     edited_by: 編集担当
     label: 活動
   articles:
+    article_development: (記事の作成)
     assigned: 割り当てられた記事
     available: 掲載してある記事
     assigned_to: 担当する人
     character_doc: 開始日から終了日までの間に編集担当が書き加えた文字数の合計
+    cross_wiki_tracking: これらは最初と最後の日付の間に編集された記事です。ダッシュボードはこのプログラムの最初のwikiや、「課題」や「利用可能な記事」がある他のwikiから投稿を収集します。
+    deleted: (削除済み)
     edited: 編集した記事
     edited_by: '編集した人:'
     edited_mobile: 記事
     hide: 非表示にする
+    history: (履歴)
     label: 記事
     loading: 記事を読み込んでいます...
     new: (新)
@@ -75,6 +93,8 @@ ja:
     rating: クラス
     rating_doc: ウィキペディアの記事を評価する方式はウィキプロジェクトから始まったものです。かなり前の記事に与えられた評価もあるため、 記事がどのくらい編集されたか知る目安にしてください。
     rating_docs:
+      fa: 「秀逸な記事」- ウィキペディアでの最高ランクの記事。新人の執筆者が取り上げるには、完成度が高すぎるかも知れません。
+      fl: 「秀逸な一覧」- ウィキペディアで最高ランクに評価された一覧
       a: A クラス — これからの編集者の主なプロジェクトとなるであろう、非常に成長している記事
       b: B クラス — ある程度成長している記事
       c: C クラス — 改善の余地のある記事
@@ -93,7 +113,10 @@ ja:
     milestones:
       title: マイルストーン
   campaign:
+    disable_account_requests: アカウント開設を無効にする
+    enable_account_requests: アカウント開設を有効にする
     none: なし
+    requested_accounts: アカウント申請
   categories:
     add_category: カテゴリを追加
     add_this_category: このカテゴリに追加
@@ -124,6 +147,7 @@ ja:
     timeline_link: タイムライン
     title: タイトル
     update_stats: 使用統計
+    user_recent_uploads: 最近のアップロード
     view_page: コースのページを見る
   courses_generic:
     school: 施設
@@ -158,6 +182,7 @@ ja:
   training:
     start: 開始
     view: 表示
+    view_module_source: モジュールのソースを表示
   uploads:
     label: アップロード
     usages: 使用法

@@ -15,14 +15,28 @@ const ArticleViewer = createReactClass({
     article: PropTypes.object.isRequired,
     showButtonLabel: PropTypes.string,
     showButtonClass: PropTypes.string,
+    title: PropTypes.string,
     users: PropTypes.array,
-    fetchArticleDetails: PropTypes.func.isRequired
+    showOnMount: PropTypes.bool,
+    showArticleLegend: PropTypes.bool,
+    fetchArticleDetails: PropTypes.func,
+  },
+  getDefaultProps() {
+    return {
+      showArticleFinder: false,
+    };
   },
 
   getInitialState() {
     return {
       showArticle: false
     };
+  },
+
+  componentDidMount() {
+    if (this.props.showOnMount) {
+      this.showArticle();
+    }
   },
 
   // When 'show' is clicked, this component may or may not already have
@@ -40,6 +54,9 @@ const ArticleViewer = createReactClass({
   },
 
   showButtonLabel() {
+    if (this.props.showArticleFinder) {
+      return 'Brief preview of Article';
+    }
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
@@ -49,25 +66,46 @@ const ArticleViewer = createReactClass({
     return I18n.t('articles.show_current_version');
   },
 
+  // It takes the data sent as the parameter and appends to the current Url
+  addParamToURL(urlParam) {
+    if (this.props.showArticleFinder) { return; }
+    window.history.pushState({}, '', `?showArticle=${urlParam}`);
+  },
+
+  // It takes a synthetic event to check if it exist
+  // It checks if the node(viewer) doesn't exist
+  // if either case is true, it removes all parameters from the URL(starting from the ?)
+  removeParamFromURL(event) {
+    if (this.props.showArticleFinder) { return; }
+    const viewer = document.getElementsByClassName('article-viewer')[0];
+    if (!viewer || event) {
+      window.history.replaceState(null, null, window.location.pathname);
+    }
+  },
+
   showArticle() {
     this.setState({ showArticle: true });
     if (!this.state.fetched) {
       this.fetchParsedArticle();
     }
 
-    if (!this.props.users) {
+    if (!this.props.users && !this.props.showArticleFinder) {
       this.props.fetchArticleDetails();
-    } else if (!this.state.userIdsFetched) {
+    } else if (!this.state.userIdsFetched && !this.props.showArticleFinder) {
       this.fetchUserIds(this.props.users);
     }
     // WhoColor is only available for some languages
     if (!this.state.whocolorFetched && this.isWhocolorLang()) {
       this.fetchWhocolorHtml();
     }
+    // Add article id in the URL
+    this.addParamToURL(this.props.article.id);
   },
 
-  hideArticle() {
+  hideArticle(e) {
     this.setState({ showArticle: false });
+    // removes the article parameter from the URL
+    this.removeParamFromURL(e);
   },
 
   handleClickOutside() {
@@ -153,19 +191,19 @@ const ArticleViewer = createReactClass({
   showException(jqXHR, exception) {
     let msg = '';
     if (jqXHR.status === 0) {
-        msg = 'Not connect.\n Verify Network.';
+      msg = 'Not connect.\n Verify Network.';
     } else if (jqXHR.status.toString() === '404') {
-        msg = 'Requested page not found. [404]';
+      msg = 'Requested page not found. [404]';
     } else if (jqXHR.status.toString() === '500') {
-        msg = 'Internal Server Error [500].';
+      msg = 'Internal Server Error [500].';
     } else if (exception === 'parsererror') {
-        msg = 'Requested JSON parse failed.';
+      msg = 'Requested JSON parse failed.';
     } else if (exception === 'timeout') {
-        msg = 'Time out error.';
+      msg = 'Time out error.';
     } else if (exception === 'abort') {
-        msg = 'Ajax request aborted.';
+      msg = 'Ajax request aborted.';
     } else {
-        msg = `Uncaught Error.\n${jqXHR.responseText}`;
+      msg = `Uncaught Error.\n${jqXHR.responseText}`;
     }
     this.setState({
       whocolorFailed: true,
@@ -226,6 +264,16 @@ const ArticleViewer = createReactClass({
 
   render() {
     if (!this.state.showArticle) {
+      if (this.props.title) {
+        return (
+          <div className={`tooltip-trigger ${this.props.showButtonClass || ''}`}>
+            <button onClick={this.showArticle}>{this.props.title}</button>
+            <div className="tooltip tooltip-title dark large">
+              <p>{this.showButtonLabel()}</p>
+            </div>
+          </div>
+        );
+      }
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showArticle} className="icon icon-article-viewer" />
@@ -260,12 +308,25 @@ const ArticleViewer = createReactClass({
       legendStatus = 'loading';
     }
 
+    let articleViewerLegend;
+    if (!this.props.showArticleFinder) {
+      articleViewerLegend = (
+        <ArticleViewerLegend
+          article={this.props.article}
+          users={this.state.users}
+          colors={this.colors}
+          status={legendStatus}
+          failureMessage={this.state.failureMessage}
+        />
+      );
+    }
     return (
       <div>
         <div className={className}>
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
+              <span><a className="icon-link" href={`?showArticle=${this.props.article.id}`} /></span>
               {closeButton}
               <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
@@ -274,13 +335,7 @@ const ArticleViewer = createReactClass({
             {article}
           </div>
           <div className="article-footer">
-            <ArticleViewerLegend
-              article={this.props.article}
-              users={this.state.users}
-              colors={this.colors}
-              status={legendStatus}
-              failureMessage={this.state.failureMessage}
-            />
+            {articleViewerLegend}
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>

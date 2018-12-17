@@ -1,11 +1,15 @@
-import _ from 'lodash';
 import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
+import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   revisions: [],
   limit: 50,
   limitReached: false,
-  sortKey: null
+  sort: {
+    key: null,
+    sortKey: null,
+  },
+  loading: true
 };
 
 const isLimitReached = (revs, limit) => {
@@ -16,20 +20,23 @@ export default function revisions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_REVISIONS:
       return {
+        ...state,
         revisions: action.data.course.revisions,
         limit: action.limit,
-        limitReached: isLimitReached(action.data.course.revisions, action.limit)
+        limitReached: isLimitReached(action.data.course.revisions, action.limit),
+        loading: false
       };
     case SORT_REVISIONS: {
-      const newState = { ...state };
-      if (action.key === state.sortKey) {
-        newState.revisions = _.sortBy(state.revisions, action.key).reverse();
-        newState.sortKey = null;
-      } else {
-        newState.revisions = _.sortBy(state.revisions, action.key);
-        newState.sortKey = action.key;
-      }
-      return newState;
+      const absolute = action.key === 'characters';
+      const desc = action.key === state.sort.sortKey;
+      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute);
+      return { ...state,
+        revisions: sortedRevisions.newModels,
+        sort: {
+          sortKey: desc ? null : action.key,
+          key: action.key
+        }
+      };
     }
     default:
       return state;

@@ -3,9 +3,11 @@ import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
+
 require('chosen-js');
 
 const markdown = require('../../utils/markdown_it.js').default();
+
 const CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged';
 const CONDITIONAL_COMPARISON_OPERATORS = `\
 <option>></option>
@@ -239,7 +241,7 @@ const SurveyAdmin = {
   comparisonConditional() {
     this.$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass('hidden');
     this.$conditional_value_number_field.removeClass('hidden');
-    return this.$conditional_value_number_field.on('blur', e => {
+    return this.$conditional_value_number_field.on('blur', (e) => {
       let conditionalString = '';
       conditionalString += `${this.$conditional_question_select.val()}|`;
       conditionalString += `${this.$conditional_operator_select.val()}|`;

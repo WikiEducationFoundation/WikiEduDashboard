@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/word_count"
 
 #= Utilities for calcuating statistics for course activity
 class CourseStatistics
@@ -19,6 +19,7 @@ class CourseStatistics
 
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
+  # rubocop:disable Metrics/MethodLength
   def report_statistics
     report = {
       course_count: @course_ids.uniq.count,
@@ -32,12 +33,14 @@ class CourseStatistics
       articles_deleted: @deleted_article_ids.count,
       file_uploads: @upload_ids.count,
       files_in_use: @used_count,
-      global_usages: @usage_count
+      global_usages: @usage_count,
+      cumulative_page_views_estimate: Course.where(id: @course_ids).sum(:view_sum)
     }
 
     report = { @opts[:campaign].to_sym => report } if @opts[:campaign]
     report
   end
+  # rubocop:enable Metrics/MethodLength
 
   def articles_edited
     Article.where(namespace: 0, id: @page_ids)

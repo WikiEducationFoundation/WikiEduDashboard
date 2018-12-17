@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/word_count"
-require "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Presenter for courses / campaign view
 class CoursesPresenter
@@ -25,8 +25,7 @@ class CoursesPresenter
   end
 
   def can_remove_course?
-    current_user && (current_user.admin? || @campaign.organizers.collect(&:id)
-      .include?(current_user.id))
+    @can_remove ||= current_user&.admin? || @campaign.organizers.include?(current_user)
   end
 
   def campaigns
@@ -42,8 +41,11 @@ class CoursesPresenter
   end
 
   def search_courses(q)
-    courses.where('lower(title) like ? OR lower(school) like ? OR lower(term) like ?',
-                  "%#{q}%", "%#{q}%", "%#{q}%")
+    courses.joins(:instructors).where(
+      'lower(title) like ? OR lower(school) like ? ' \
+      'OR lower(term) like ? OR lower(username) like ?',
+      "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
+    )
   end
 
   def courses_by_recent_edits
@@ -69,7 +71,7 @@ class CoursesPresenter
   end
 
   def course_string_prefix
-    Features.default_course_string_prefix
+    @campaign&.course_string_prefix || Features.default_course_string_prefix
   end
 
   def uploads_in_use_count

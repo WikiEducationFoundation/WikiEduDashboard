@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/course_meetings_manager"
-
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
   ###############
@@ -54,7 +52,7 @@ class WizardTimelineManager
   private
 
   def build_timeline(content_groups)
-    available_weeks = CourseMeetingsManager.new(@course).open_weeks
+    available_weeks = @course.meetings_manager.open_weeks
     return if available_weeks.zero?
     @timeline = initial_weeks_and_weights(content_groups)
     shorten_timeline_by_one_week until @timeline.size <= available_weeks
@@ -99,7 +97,7 @@ class WizardTimelineManager
         next unless if_dependencies_met?(block)
         block['week_id'] = week_record.id
         block['order'] = block_index + 1
-        save_block_and_gradeable(block)
+        save_block(block)
       end
     end
   end
@@ -112,33 +110,31 @@ class WizardTimelineManager
     if_met
   end
 
-  def save_block_and_gradeable(block)
-    attr_keys_to_skip = %w[if graded points]
+  def save_block(block)
+    attr_keys_to_skip = %w[if graded]
     block_params = block.except(*attr_keys_to_skip)
+    block_params['points'] ||= Block::DEFAULT_POINTS if block['graded']
     block_record = Block.create(block_params)
     add_handouts(block_record) if block_record.kind == Block::KINDS['handouts']
-
-    return unless block['graded']
-
-    gradeable = Gradeable.create(gradeable_item_id: block_record.id,
-                                 points: block['points'] || 10,
-                                 gradeable_item_type: 'block')
-    block_record.update(gradeable_id: gradeable.id)
   end
   # rubocop:disable Metrics/LineLength
   HANDOUTS = {
+    'art_history_handout' => ['Art History', 'https://wikiedu.org/art_history'],
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
     'books_handout' => ['Books', 'https://wikiedu.org/books'],
     'chemistry_handout' => ['Chemistry', 'https://wikiedu.org/chemistry'],
+    'cultural_anthropology_handout' => ['Cultural Anthropology', 'http://wikiedu.org/cultural_anthropology'],
     'ecology_handout' => ['Ecology', 'https://wikiedu.org/ecology'],
     'environmental_sciences_handout' => ['Environmental Sciences', 'https://wikiedu.org/environmental_sciences'],
     'films_handout' => ['Films', 'https://wikiedu.org/films'],
     'genes_and_proteins_handout' => ['Genes and Proteins', 'https://wikiedu.org/genes_and_proteins'],
     'history_handout' => ['History', 'https://wikiedu.org/history'],
+    'LGBTplus_studies_handout' => ['LGBT+ Studies', 'http://wikiedu.org/lgbtplus_studies'],
     'linguistics_handout' => ['Linguistics', 'https://wikiedu.org/linguistics'],
     'medicine_handout' => ['Medicine', 'https://wikiedu.org/medicine'],
     'political_science_handout' => ['Political Science', 'https://wikiedu.org/political_science'],
     'psychology_handout' => ['Psychology', 'https://wikiedu.org/psychology'],
+    'science_communication_handout' => ['Science Communication', 'https://wikiedu.org/science_communication'],
     'sociology_handout' => ['Sociology', 'https://wikiedu.org/sociology'],
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
@@ -159,7 +155,7 @@ class WizardTimelineManager
     url = HANDOUTS[logic_key][1]
     <<~LINK
       <p>
-        <a href="#{url}">#{link_text}</a>
+        <a class="handout-link" href="#{url}" target="_blank">#{link_text}</a>
       </p>
     LINK
   end

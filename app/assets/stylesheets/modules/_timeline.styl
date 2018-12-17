@@ -120,11 +120,11 @@
   &.shrink-enter-active
     opacity 1
     transform scale(1, 1)
-.shrink-leave
+.shrink-exit
   transform scale(1, 1)
   opacity 1
   transition all 250ms ease-in-out
-  &.shrink-leave-active
+  &.shrink-exit-active
     opacity 0.01
     transform scale(.8, .5)
 
@@ -234,25 +234,26 @@ button.week__add-block
   overflow hidden
 
 .block__training-modules
-  margin-top 1.5em
-  padding-top 1em
+  margin-bottom 1.5em
 
 .block__training-modules .table
   table-layout fixed
 
-.block__training-modules h4
+.block__training-modules h4,
+h4.timeline-exercise
+  margin-bottom 8px
   font-weight 400
 
 .block__training-modules-table__module-name
-  width 42.5%
+  width 57%
   overflow hidden
   white-space nowrap
   text-overflow ellipsis
 
 .block__training-modules-table__module-progress
-  width 40%
+  width 25%
 .block__training-modules-table__module-link
-  width 13%
+  width 18%
   text-align right
   a
     text-decoration none
@@ -495,3 +496,32 @@ p.graded
 .timeline-warning
   padding 10px
   border solid $warning_text 3px
+
+a.timeline-exercise
+  padding 6px 12px
+  margin-bottom 12px
+  width 100%
+  color #6a6a6a
+  display table
+  border 1px solid #ddd
+  text-decoration none
+  &:hover
+    border solid 1px $brand_primary
+  &:after
+    font-family 'icons'
+    color $brand_primary
+    content " \EA0A"
+    float right
+
+a.handout-link
+  color #6a6a6a
+  border solid 1px #ddd
+  border-radius 3px
+  text-decoration none
+  padding 5px
+  content: "\EA10"
+  &:hover, &:focus
+    border solid 1px $brand_primary
+  &:after
+    font-family 'icons'
+    content " \EA10" // external link icon

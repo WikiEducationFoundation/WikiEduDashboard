@@ -2,29 +2,24 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
-import GradeableActions from '../../actions/gradeable_actions.js';
 
 const Gradeable = createReactClass({
   displayName: 'Gradeable',
 
   propTypes: {
     block: PropTypes.object,
-    gradeable: PropTypes.object,
-    total: PropTypes.number,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateBlock: PropTypes.func.isRequired
   },
 
   updateGradeable(valueKey, value) {
-    const toPass = $.extend(true, {}, this.props.gradeable);
-    toPass[valueKey] = value;
-    return GradeableActions.updateGradeable(toPass);
+    const toPass = { ...this.props.block };
+    toPass[valueKey] = parseInt(value);
+    return this.props.updateBlock(toPass);
   },
 
   render() {
     const { block } = this.props;
-    if (!block) {
-      return <div />;
-    }
     const title = block.title;
 
     let className = 'block-title';
@@ -39,16 +34,14 @@ const Gradeable = createReactClass({
         </h4>
         <TextInput
           onChange={this.updateGradeable}
-          value={this.props.gradeable.points.toString()}
+          value={(this.props.block.points || '').toString()}
           value_key={'points'}
           editable={this.props.editable}
           label={I18n.t('timeline.gradeable_value')}
-          append="%"
         />
       </li>
     );
   }
-}
-);
+});
 
 export default Gradeable;

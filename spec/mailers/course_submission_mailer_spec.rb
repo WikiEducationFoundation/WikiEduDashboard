@@ -8,6 +8,7 @@ describe CourseSubmissionMailer do
 
   describe '.send_submission_confirmation' do
     let(:mail) { described_class.send_submission_confirmation(course, instructor) }
+
     it 'delivers an email with course details' do
       allow(Features).to receive(:email?).and_return(true)
       expect(mail.body.encoded).to match(course.title)

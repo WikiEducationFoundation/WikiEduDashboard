@@ -11,7 +11,7 @@ const userLink = (wiki, assignment) => {
     return <div key={`assignment_${assignment.id}`}>{assignment.username}</div>;
   }
   const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${assignment.username}`;
-  return <a key={`assignment_${assignment.id}`} href={link}>{assignment.username}</a>;
+  return <a key={`assignment_${assignment.id}`} href={link} target="_blank">{assignment.username}</a>;
 };
 
 const Assignment = createReactClass({
@@ -20,13 +20,14 @@ const Assignment = createReactClass({
     article: PropTypes.object,
     assignmentGroup: PropTypes.array,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    wikidataLabel: PropTypes.string
   },
   render() {
     if (!this.props.course.home_wiki) { return <div />; }
     const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0], this.props.course.home_wiki);
     if (!article.formatted_title) {
-      article.formatted_title = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki);
+      article.formatted_title = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, this.props.wikidataLabel);
     }
     const className = 'assignment';
     const ratingClass = `rating ${article.rating}`;
@@ -35,7 +36,7 @@ const Assignment = createReactClass({
     const assignees = [];
     const reviewers = [];
     const iterable = _.sortBy(this.props.assignmentGroup, 'username');
-    for (let i = 0; i < iterable.length; i++) {
+    for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
         const usernameLink = userLink(this.props.course.home_wiki, assignment);
@@ -64,7 +65,7 @@ const Assignment = createReactClass({
           <p className="rating_num hidden">{article.rating_num}</p>
           <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
           </div>
         </td>
         <td>

@@ -2,49 +2,72 @@
 
 require 'rails_helper'
 
-describe TrainingModulesUsersController do
+describe TrainingModulesUsersController, type: :request do
+  before { TrainingModule.load_all }
+
   describe '#create_or_update' do
-    let(:user)  { create(:user) }
-    let(:t_mod) { TrainingModule.all.first }
-    let(:slide) { t_mod.slides.first }
-    let(:post_params) do
-      { module_id: t_mod.slug,
-        slide_id: slide.slug,
-        user_id: user.id }
+    let(:user) { create(:user) }
+    let(:training_module) { TrainingModule.find_by(slug: 'editing-basics') }
+    let(:slide) { TrainingModule.find(training_module.id).slides.first }
+    let!(:tmu) do
+      TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
     end
 
-    before { allow(controller).to receive(:current_user).and_return(user) }
-
-    it 'sets a slide complete' do
-      post :create_or_update, params: post_params, format: :json
-      expect(TrainingModulesUsers.last.last_slide_completed).to eq(slide.slug)
+    let(:request_params1) do
+      { user_id: user.id, module_id: training_module.slug, slide_id: slide.slug }
     end
 
-    context 'first slide' do
-      it 'does not set the module complete' do
-        post :create_or_update, params: post_params, format: :json
-        expect(TrainingModulesUsers.last.completed_at).to be_nil
+    context 'tmu record exists' do
+      context 'current slide has an index higher than last slide completed' do
+        before do
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+          post '/training_modules_users', params: request_params1
+        end
+
+        it 'sets last slide completed' do
+          expect(TrainingModulesUsers.last.last_slide_completed)
+            .to eq(slide.slug)
+        end
+      end
+
+      context 'current slide has an index higher than last slide completed' do
+        # Like, go to slide 5 and go back to 3. last_slide_completed
+        # should still be 5
+        let(:slide) { TrainingModule.find(training_module.id).slides.last }
+        let(:request_params2) do
+          { user_id: user.id,
+            module_id: training_module.slug,
+            slide_id: TrainingModule.find(training_module.id).slides.first.slug }
+        end
+
+        before do
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+          post '/training_modules_users', params: request_params1
+          post '/training_modules_users', params: request_params2
+        end
+
+        it 'maintains last_slide_completed' do
+          expect(TrainingModulesUsers.last.last_slide_completed)
+            .to eq(slide.slug)
+        end
       end
     end
 
-    context 'last slide' do
-      let(:slide) { t_mod.slides.last }
-      it 'does set the module complete' do
-        post :create_or_update, params: post_params, format: :json
-        expect(TrainingModulesUsers.last.completed_at)
-          .to be_between(1.minute.ago, 1.minute.from_now)
-      end
-    end
-    context 'nonexistent slide' do
-      let(:nonexistent_slide_params) do
-        { module_id: t_mod.slug,
-          slide_id: 'not-a-real-slide',
-          user_id: user.id }
+    context 'no tmu record exists' do
+      let(:tmu) { nil }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        post '/training_modules_users', params: request_params1
       end
 
-      it 'renders a response' do
-        post :create_or_update, params: nonexistent_slide_params, format: :json
-        expect(response.status).to eq(200)
+      it 'creates a TrainingModulesUser' do
+        expect(TrainingModulesUsers.count).to eq(1)
+      end
+
+      it 'sets the correct module_id' do
+        expect(TrainingModulesUsers.last.training_module_id)
+          .to eq(training_module.id)
       end
     end
   end

@@ -5,8 +5,8 @@
 Testing is very important to the health of the Wiki Ed Dashboard as a whole. As part of a holistic testing strategy, the project utilizes the following testing stack:
 
 * [RSpec](https://github.com/rspec/rspec) for unit tests (model and controller specs, and specs for plain old Ruby object)
-* [Poltergeist](https://github.com/teampoltergeist/poltergeist) for end-to-end integration testing.
-* [Jest](https://facebook.github.io/jest/) and [Enzyme](https://github.com/airbnb/enzyme) for testing front-end utilities and React.js components
+* [Capybara](https://github.com/teamcapybara/capybara) for end-to-end integration testing.
+* [Jest](https://facebook.github.io/jest/) for testing front-end utilities and React.js components
 
 The tests are run on Travis for continuous integration purposes. Upon a successful unit test run — excluding feature tests — on the `production` branch, Travis will deploy the `production` branch to the production environment.
 

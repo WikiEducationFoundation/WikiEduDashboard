@@ -1,11 +1,13 @@
-# Messages for سرائیکی (سرائیکی)
+# Messages for Saraiki (Arabic script) (سرائیکی)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Rachitrali
 # Author: Saraiki
 ---
 skr-arab:
   application:
     cancel: منسوخ
+    create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
     documentation: دستاویز
     error: 'اتھ غلطی ہائی:'
@@ -50,10 +52,16 @@ skr-arab:
     deleted: (مٹا ݙتے)
     edited_by: 'لکھݨ آلا:'
     edited_mobile: مقالے
+    filter:
+      wiki_all: یکے
+      new: نواں
+      existing: زیر ترمیم
     hide: لُکاؤ
+    history: (تاریخ)
     label: مقالے
     new: (نواں)
     rating: جماعت
+    see_more: ٻئے ݙیکھو
     title: عنوان
     title_example: مضمون دا عنوان
     view: مضمون ݙیکھو
@@ -69,9 +77,14 @@ skr-arab:
     milestones:
       title: سنگ میل
   campaign:
+    alert_article: مضمون دا عنوان
+    alert_type: قسم
+    alert_user_id: ورتݨ آلا
     all_campaigns: ساریاں مہماں
     campaign: مہم
     campaigns: مہم
+    created_at: تریخ
+    course: کورس
     description: تفصیل
     delete_campaign: ایݨ مہم کوں مٹاؤ
     no_passcode: پاس کوڈ کائنی
@@ -90,6 +103,7 @@ skr-arab:
     label: چیٹ
   courses:
     activity: سرگرمی
+    alerts: الرٹ
     all_courses: سارے کورس
     articles: مقالے
     cancel: منسوخ
@@ -101,7 +115,7 @@ skr-arab:
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
-    creation_date: بݨاوݨ دی تاریخ
+    creation_date: بݨاوݨ دی تریخ
     creator:
       course_language: گھر دی زبان
       course_subject: کورس مضمون
@@ -111,10 +125,10 @@ skr-arab:
       create_label: نواں کورس بݨاؤ
       create_new: نواں کورس بݨاؤ
       create_short: کورس بݨاؤ
-      end_date: ختم کرݨ دی تاریخ
+      end_date: ختم کرݨ دی تریخ
       find: آپݨاں کورس ڳولو
       save_cloned_course: نواں کورس محفوظ کرو
-      start_date: شروع کرݨ دی تاریخ
+      start_date: شروع کرݨ دی تریخ
       subject: موضوع
     current: حالیہ کورس
     delete_course: کورس مٹاؤ
@@ -124,7 +138,7 @@ skr-arab:
     end: چھیکڑ
     ended: کورس مُک ڳیا
     enroll: داخلہ گھنو
-    enrollment: داخلہ
+    enrollment: طالب علم شامل کرو/ ہٹاؤ
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
     join: شامل تھیوو
@@ -132,6 +146,7 @@ skr-arab:
     leave_course: کورس چھوڑو
     loading: لوڈ تھیدا پئے۔۔۔
     my_articles: میݙے مقالے
+    new_week: نواں ہفتہ شامل کرو
     new_account_email: ای میل پتہ
     none: کوئی وی کائنی
     ores_plot: اوآرای ایس
@@ -139,6 +154,7 @@ skr-arab:
     passcode: 'پاس کوڈ:'
     passcode_none: پاس کوڈ کائنی
     passcode_prompt: 'رلݨ کیتے پاس کوڈ لکھو:'
+    please_log_in: لاگ تھیوو مہربانی ہوسی۔
     private: ذاتی
     school: سکول
     start: شروع
@@ -151,6 +167,7 @@ skr-arab:
     submitted: جمع تھی ڳیا
     term: ٹرم
     timeline_link: ٹائم لائن
+    timeline_nav: ٹائم لائن تے ون٘ڄو
     title: عنوان
     view: کورس ݙیکھو
     view_page: کورس ورقہ ݙیکھو
@@ -237,10 +254,11 @@ skr-arab:
     page: ورقہ
     done: مکمل!
   uploads:
-    datetime: تریخ/ویلا
     file_name: فائل دا ناں
     image: تصویر
     label: اپلوڈ کردہ
+    uploaded_at: اپ لوڈ ویلا
+    uploader: اپلوڈ کرݨ آلا
   users:
     assign_articles_done: مکمل
     loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
@@ -258,4 +276,11 @@ skr-arab:
     userpasscode_placeholder: پاس کوڈ
   wizard:
     summary: خلاصہ
+  article_finder:
+    page_assessment_class: جماعت
+    search: ڳولو
+    tools: آوزار
+    show_options: اختیارات ݙکھاؤ
+    hide_options: اختیارات لُکاؤ
+    submit: جمع کرواؤ
 ...

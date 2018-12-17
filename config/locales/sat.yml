@@ -1,11 +1,13 @@
-# Messages for Santali (Santali)
+# Messages for Santali (ᱥᱟᱱᱛᱟᱲᱤ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Fagunkoyel Hansdah
 # Author: Manik Soren
 ---
 sat:
   application:
     cancel: ᱵᱟᱫᱽ
+    create_accounts: ᱣᱤᱠᱤᱯᱤᱰᱤᱭᱟ ᱮᱠᱟᱶᱩᱴ ᱛᱮᱭᱟᱨ ᱢᱮ
     greeting2: ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ!
     greeting_extended: ᱩᱭᱠᱤᱯᱤᱰᱤᱭᱟᱨᱮ ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ
     home: ᱚᱲᱟᱜ
@@ -69,7 +71,6 @@ sat:
     start: ᱮᱦᱚᱵ
     view: ᱩᱰᱩᱜᱽᱢᱮ
   uploads:
-    datetime: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
     file_name: ᱨᱮᱫ ᱧᱩᱛᱩᱢ
     image: ᱪᱤᱛᱟᱹᱨ
     label: ᱞᱟᱫᱮᱠᱩ

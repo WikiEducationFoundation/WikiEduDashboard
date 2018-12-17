@@ -4,6 +4,7 @@
 # Author: Adamw
 # Author: Base
 # Author: Beta16
+# Author: Hamilton Abreu
 # Author: Ixocactus
 # Author: Liuxinyu970226
 # Author: Macofe
@@ -14,8 +15,20 @@
 # Author: Robby
 # Author: Vojtěch Dostál
 # Author: Андрей
+# Author: Ата
 ---
 qqq:
+  number:
+    human:
+      decimal_units:
+        format: Format for abbreviating a large number. 'n' represents the number
+          and 'u' represents the units.
+        units:
+          thousand: short abbreviation for thousand
+          million: short abbreviation for million (1000000)
+          billion: short abbreviation for billion (1000000000)
+          trillion: short abbreviation for trillion (1000000000000)
+          quadrillion: short abbreviation for quadrillion (1000000000000000)
   accessibility:
     number_field: Descriptive text for screen readers to explain how the number field
       works
@@ -129,6 +142,8 @@ qqq:
     edited: Label for a list of articles edited.
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
+    filter:
+      new: '{{Identical|New}}'
     hide: '{{Identical|Hide}}'
     history: |-
       Label for the history url
@@ -159,6 +174,7 @@ qqq:
       '?': Explanation of what an unrated article is
       does_not_exist: Explanation of the Ø  symbol, which indicates than the article
         does not exist on Wikipedia
+    see_more: Message indicating that there are more articles to load
     title: |-
       Label for an article title.
       {{Identical|Title}}
@@ -178,7 +194,7 @@ qqq:
       prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
-    add_available: Button to add an article title to the list of articles available
+    add_available: Button to add article titles to the list of articles available
       for program participants to work on
     assign_self: Button to assign an article to self
     confirm_add_available: Confirmation message for adding an article as an assignment
@@ -268,6 +284,7 @@ qqq:
     active_courses: |-
       Heading for the list of active courses. 'course_type' is either the courses.courses or campaign.campaigns message.
       So in English, the message would say either 'Active Courses' or 'Active Campaigns'.
+      {{Identical|Active}}
     all_courses: Button to view the list of all courses
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
@@ -312,7 +329,6 @@ qqq:
     courses: |-
       Label for the number of courses in a campaign
       {{Identical|Course}}
-    creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
         exists
@@ -367,7 +383,6 @@ qqq:
       {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
-    edit_count: Ариашарақәа рхыҧхьаӡара
     end: |-
       Label for the end date of a course
       '{{Identical|End}}'
@@ -383,6 +398,8 @@ qqq:
     feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
+    home_wiki_language: Label for Home Wiki Language Selector
+    home_wiki_project: Lable for Home Wiki Project Selector
     instructor:
       one: |-
         Label for a single instructor of a course (Wiki Ed only)
@@ -402,7 +419,9 @@ qqq:
     join_prompt: |-
       Do you want to join this course?
       {{Identical|Join}}
-    join_successful: Message that join was successful
+    join_successful: |-
+      Message that joining a program was successful,
+      with an explanation of how the Dashboard will track contributions.
     leave_confirmation: Confirmation asking whether the user would like to unenroll
       from a course.
     leave_course: Button for a user to leave the course
@@ -454,6 +473,7 @@ qqq:
     user_role: '{{Identical|Role}}'
     term: '{{Identical|Term}}'
     timeline_link: '{{Identical|Timeline}}'
+    timeline_tooltip: Message that explains what timeline is good for
     time_zone_message: Message explaining that times are shown to the user in their
       local time zone
     title: |-
@@ -653,6 +673,9 @@ qqq:
       {{Identical|View}}
     page: '{{Identical|Page}}'
     done: '{{Identical|Done}}'
+    invalid: Alert stating the slide does not exist
+    wait: Alert to not leave the page as the training progress is being updated in
+      the background
   uploads:
     image: '{{Identical|Image}}'
     label: |-
@@ -718,6 +741,11 @@ qqq:
     training_modules_completed: Label indicating how many of the training modules
       assigned to the course that an editor has completed
     training_module_status: '{{Identical|Status}}'
+    user_training_status: |-
+      Link anchor for viewing training status of a user
+      '{{Identical|Training Status}}'
+    user_no_training_status: Explanation that the user hasn't started any training
+      module yet.
     username: '{{Identical|Username}}'
     username_placeholder: '{{Identical|Username}}'
     role:
@@ -771,6 +799,8 @@ qqq:
       for enrolling in a course.
     explanation: Message alerting the user that they've provided an incorrect passphrase
       for enrolling in a course.
+  error_no_course:
+    explanation: Explanation for a course that does not exist
   error_404:
     header: Message indicating that a page doesn't exist.
     explanation: Message explaining why a user may have reached a page that doesn't
@@ -796,4 +826,43 @@ qqq:
       link: Link to take survey from email
     follow_up:
       message: Survey invitation email text. (Wiki Ed only)
+  article_finder:
+    page_assessment_class: |-
+      Table header label for page assessment class of articles
+      {{Identical|Class}}
+    completeness_estimate: Table header label for ORES estimation scores of articles
+    average_views: Table header label for average page views of articles
+    add_available_article: Button label to add an article finder result to available
+      articles
+    remove_article: Button label for removing an article
+    minimum_views_label: Input label for minimum views filter
+    no_article_found: Message indicating no search results
+    search_placeholder: Article finder search bar placeholder
+    search: Label for search bar in Article Finder {{Identical|Search}}
+    tools: Label for tools table column {{Identical|Tools}}
+    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
+      Search}}
+    category_search: Radio Button label for selecting category based search {{Identical|Category
+      Search}}
+    article_quality: Slider lable for article quality filter
+    more_results: Button label for fetching more search results {{Identical|More Results}}
+    fetched_articles: Label indicating count of fetched results {{Identical|Fetched
+      Articles}}
+    filtered_articles: Label indicating count of filtered results {{Identical|Filtered
+      Articles}}
+    searching_articles: Loading spinner label indicating fetching of articles
+    fetching_assessments: Loading spinner label indicating fetching of Page Assessment
+      grades for found articles
+    fetching_revisions: Loading spinner label indicating fetching of Page revisions
+      for found articles
+    fetching_scores: Loading spinner label indicating fetching of ORES estimation
+      scores for found articles
+    fetching_pageviews: Loading spinner label indicating fetching of Pageviews for
+      found articles
+    subheading_message: Subheading message for the article finder tool
+    article_finder: Title heading for article finder {{Identical|Article Finder}}
+    submit: Submit button label {{Identical|Submit}}
+    relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
+    assign_article_self: Button label to assign an article to self
+    unassign_article_self: Button label to unassign an article to self
 ...

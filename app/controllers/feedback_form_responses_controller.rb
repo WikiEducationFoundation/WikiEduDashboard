@@ -7,9 +7,12 @@ class FeedbackFormResponsesController < ApplicationController
     @feedback_form_response = FeedbackFormResponse.new
   end
 
+  RESULTS_PER_PAGE = 100
   def index
     check_user_auth { return }
-    @responses = FeedbackFormResponse.order(id: :desc).where.not(body: '').first(100)
+    @page = params['page'].to_i
+    @responses = FeedbackFormResponse.order(id: :desc).where.not(body: '')
+                                     .limit(RESULTS_PER_PAGE).offset(@page * RESULTS_PER_PAGE)
     render layout: 'admin'
   end
 

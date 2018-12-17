@@ -3,15 +3,18 @@
 require 'rails_helper'
 
 describe TrainingModulePresenter do
+  before { TrainingModule.load_all }
+
   let!(:user)      { create(:user) }
-  let(:lib)        { TrainingLibrary.all.first }
+  let(:lib)        { TrainingLibrary.find_by(slug: 'students') }
   let(:library_id) { lib.slug }
-  let(:mod)        { TrainingModule.all.first }
+  let(:mod)        { TrainingModule.find_by(slug: 'editing-basics') }
   let(:module_id)  { mod.slug }
   let(:mod_params) { { library_id: library_id, module_id: module_id } }
 
   describe '#cta_button_text' do
     subject { described_class.new(user, mod_params).cta_button_text }
+
     context 'user has not started module' do
       it 'returns "Start"' do
         expect(subject).to eq('Start')
@@ -27,6 +30,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides.last.slug
         )
       end
+
       it 'returns "View"' do
         expect(subject).to eq('View')
       end
@@ -41,6 +45,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides[-2].slug
         )
       end
+
       it 'returns "Continue"' do
         expect(subject).to match(/\AContinue \(\d{1,2}% Complete\)\z/)
       end
@@ -49,6 +54,7 @@ describe TrainingModulePresenter do
 
   describe '#cta_button_link' do
     subject { described_class.new(user, mod_params).cta_button_link }
+
     context 'user has not started module' do
       it 'links to first slide' do
         expect(subject.to_s).to eq("/training/#{lib.slug}/#{mod.slug}/#{mod.slides.first.slug}")
@@ -64,6 +70,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides.last.slug
         )
       end
+
       it 'links to first slide' do
         expect(subject.to_s).to eq("/training/#{lib.slug}/#{mod.slug}/#{mod.slides.first.slug}")
       end
@@ -78,6 +85,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides[-2].slug
         )
       end
+
       it 'links to current slide' do
         expect(subject.to_s).to eq("/training/#{lib.slug}/#{mod.slug}/#{mod.slides[-2].slug}")
       end
@@ -86,6 +94,7 @@ describe TrainingModulePresenter do
 
   describe '#should_show_ttc?' do
     subject { described_class.new(user, mod_params).should_show_ttc? }
+
     context 'user has not started module' do
       it 'returns true' do
         expect(subject).to eq(true)
@@ -101,6 +110,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides.last.slug
         )
       end
+
       it 'returns true' do
         expect(subject).to eq(true)
       end
@@ -115,6 +125,7 @@ describe TrainingModulePresenter do
           last_slide_completed: mod.slides[-2].slug
         )
       end
+
       it 'returns false' do
         expect(subject).to eq(false)
       end

@@ -1,14 +1,21 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Elroy
 # Author: Festina90
+# Author: Goefie
+# Author: KlaasZ4usV
 # Author: Mainframe98
 # Author: Mar(c)
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
+# Author: Ndecouck
+# Author: Optilete
+# Author: Patio
 # Author: Ragesoss
 # Author: Romaine
+# Author: SPQRobin
 # Author: Siebrand
 # Author: Sjoerddebruin
 ---
@@ -261,6 +268,8 @@ nl:
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     submitted: Verzonden
+    tag_select: Een label selecteren of aanmaken
+    tags: 'Labels:'
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn
@@ -318,6 +327,7 @@ nl:
       een bezoek te brengen aan de volgende URL:'
     revisions_none: Dit project heeft geen recente Wikipediabewerkingen.
     school: Instelling
+    search_courses: Zoekprogramma
     student_editors: Bewerkers
     students: Bewerkers
     students_none: Dit project heeft geen ingeschreven bewerkers.
@@ -384,6 +394,23 @@ nl:
     none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     time_doc: De tijd van iedere versie in je lokale tijd
     title: Naam
+  settings:
+    special_users:
+      new:
+        form_label: Bevoegdheden voor bijzondere gebruiker toekennen
+        form_placeholder: Gebruikersnaam
+        confirm_add_special_user: Bijzondere gebruiker toevoegen
+        confirm_remove_special_user: Bevoegdheid voor bijzondere gebruiker ontnemen
+          van
+        already_is: '%{username} is al een {position}!'
+        elevate_success: '%{username} naar {position} verhoogd.'
+      remove:
+        revoke_button: Bijzondere gebruiker intrekken
+        revoke_button_confirm: Bevoegdheden voor bijzondere gebruiker van %{username}
+          intrekken
+        revoking_button_working: Intrekken...
+        already_is_not: '%{username} is geen bijzondere gebruiker!'
+        demote_success: '%{username} is vanaf nu een gebruiker.'
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
@@ -411,7 +438,13 @@ nl:
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
+    select_label: Filteren op uploader
     time_doc: De tijd van iedere upload in je lokale tijd
+    uploaded_at: Uploadtijd
+    uploader: Uploader
+    uploaded_on: Geüpload op
+    usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
+    usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
@@ -491,8 +524,8 @@ nl:
   error_incorrect_passcode:
     header: Onjuist wachtwoord. :-(
     explanation: De toegangscode voor het inschrijven in deze cursus is onjuist. Gelieve
-      de instructeur om de huidige toegangscode te vragen om in te schrijven in deze
-      cursus.
+      de instructeur om de huidige inschrijftoegangscode te vragen. U kunt een nieuwe
+      poging wagen door de juiste code hieronder te tikken.
   error_404:
     header: Pagina niet gevonden.
     explanation: Deze pagina bestaat niet. Als je probeerde het dashboard van een

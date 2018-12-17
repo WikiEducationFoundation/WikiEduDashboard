@@ -10,8 +10,8 @@ describe WikiPageviews do
       let(:start_date) { '2015-10-01'.to_date }
       let(:end_date) { '2015-11-01'.to_date }
       let(:subject) do
-        WikiPageviews.new(article).views_for_article(start_date: start_date,
-                                                     end_date: end_date)
+        described_class.new(article).views_for_article(start_date: start_date,
+                                                       end_date: end_date)
       end
 
       it 'returns a hash of daily views for all the requested dates' do
@@ -47,6 +47,7 @@ describe WikiPageviews do
 
       context 'beyond the allowed date range' do
         let(:start_date) { '2015-01-01'.to_date }
+
         it 'does not raise an error' do
           stub_request(:any, /.*wikimedia.org.*/)
             .to_return(
@@ -64,8 +65,8 @@ describe WikiPageviews do
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
       let(:start_date) { Date.new(2017, 4, 1) }
       let(:subject) do
-        WikiPageviews.new(article).views_for_article(start_date: start_date,
-                                                     end_date: start_date + 1.month)
+        described_class.new(article).views_for_article(start_date: start_date,
+                                                       end_date: start_date + 1.month)
       end
 
       it 'returns an empty hash' do
@@ -78,11 +79,12 @@ describe WikiPageviews do
   end
 
   describe '.average_views_for_article' do
-    let(:subject) { WikiPageviews.new(article).average_views }
+    let(:subject) { described_class.new(article).average_views }
     let(:article) { create(:article, title: title) }
 
     context 'for a popular article' do
       let(:title) { 'Selfie' }
+
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to be > 500
@@ -92,6 +94,7 @@ describe WikiPageviews do
 
     context 'for an article with a slash in the title' do
       let(:title) { 'HIV/AIDS' }
+
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to be > 500
@@ -101,6 +104,7 @@ describe WikiPageviews do
 
     context 'for an article with an apostrophe in the title' do
       let(:title) { "Broussard's" }
+
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to be > 1
@@ -110,6 +114,7 @@ describe WikiPageviews do
 
     context 'for an article with quote marks in the title' do
       let(:title) { '"Weird_Al"_Yankovic' }
+
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to be > 50
@@ -119,6 +124,7 @@ describe WikiPageviews do
 
     context 'for an article with unicode characters in the title' do
       let(:title) { 'André_the_Giant' }
+
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to be > 50
@@ -128,6 +134,7 @@ describe WikiPageviews do
 
     context 'for an article that does not exist' do
       let(:title) { 'THIS_IS_NOT_A_REAL_ARTICLE' }
+
       it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
           expect(subject).to eq(0)
@@ -139,7 +146,8 @@ describe WikiPageviews do
       let(:article) { create(:article, title: title, wiki: wiki) }
       let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
       let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
-      let(:subject) { WikiPageviews.new(article).average_views }
+      let(:subject) { described_class.new(article).average_views }
+
       it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/404_handling' do
           expect(subject).to eq(0)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/tag_manager"
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager
@@ -82,7 +82,7 @@ class CourseCreationManager
   def set_passcode
     @overrides[:passcode] = '' if @course_params[:passcode] == 'no-passcode'
     return if @course_params[:passcode].present?
-    @overrides[:passcode] = Course.generate_passcode
+    @overrides[:passcode] = GeneratePasscode.call
   end
 
   def set_course_type

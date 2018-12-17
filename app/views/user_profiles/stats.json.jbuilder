@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+json.user_recent_uploads @user_uploads.each do |upload|
+  json.call(upload, :id, :uploaded_at, :usage_count, :url, :thumburl)
+  json.file_name pretty_filename(upload)
+  json.uploader upload.user.username
+end
+json.courses_details @courses_users.reverse_each do |c|
+  json.course_id c.id
+  json.course_title c.course.title
+  json.course_school c.course.school
+  json.course_term c.course.term
+  json.user_count c.course.user_count
+  json.user_role course_role_name(c.role)
+  json.course_slug c.course.slug
+end
+
 if @user.course_instructor?
   json.as_instructor do
     json.course_string_prefix @courses_presenter.course_string_prefix

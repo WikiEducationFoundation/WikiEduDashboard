@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'dashboard', type: :feature, js: true do
+  before { TrainingModule.load_all }
+
   let(:user) do
     create(:user,
            onboarded: true, real_name: 'test',
@@ -13,7 +15,7 @@ describe 'dashboard', type: :feature, js: true do
     describe 'for students' do
       let(:permissions) { User::Permissions::NONE }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -26,7 +28,7 @@ describe 'dashboard', type: :feature, js: true do
     describe 'for instructors' do
       let(:permissions) { User::Permissions::INSTRUCTOR }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -39,7 +41,7 @@ describe 'dashboard', type: :feature, js: true do
         create(:training_modules_users,
                user_id: user.id,
                training_module_id: 3,
-               completed_at: Time.now)
+               completed_at: Time.zone.now)
         visit root_path
         expect(page).to have_content 'Click on Create Course to create your first course'
       end
@@ -50,7 +52,7 @@ describe 'dashboard', type: :feature, js: true do
     context 'for returning instructors' do
       let(:permissions) { User::Permissions::INSTRUCTOR }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -80,7 +82,7 @@ describe 'dashboard', type: :feature, js: true do
   context 'archived courses' do
     let(:permissions) { User::Permissions::INSTRUCTOR }
 
-    before :each do
+    before do
       login_as(user, scope: :user)
     end
 
@@ -134,8 +136,8 @@ describe 'dashboard', type: :feature, js: true do
              slug: 'University/Course2_(Term)',
              submitted: false,
              passcode: 'passcode',
-             start: Time.now,
-             end: Time.now + 100.days)
+             start: Time.zone.now,
+             end: Time.zone.now + 100.days)
       create(:courses_user,
              user_id: user.id,
              course_id: 10002,
@@ -156,12 +158,12 @@ describe 'dashboard', type: :feature, js: true do
       login_as(user, scope: :user)
     end
 
-    it "should not show a campaigns section if the user isn't organizing any campaigns" do
+    it "does not show a campaigns section if the user isn't organizing any campaigns" do
       visit root_path
-      expect(page).to_not have_content(I18n.t('campaign.campaigns'))
+      expect(page).not_to have_content(I18n.t('campaign.campaigns'))
     end
 
-    it 'should list campaigns the user organizes' do
+    it 'lists campaigns the user organizes' do
       campaign = create(:campaign, title: 'My awesome campaign')
       create(:campaigns_user, user_id: user.id,
                               campaign_id: campaign.id,

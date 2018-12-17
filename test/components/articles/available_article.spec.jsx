@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
 import { AvailableArticle } from '../../../app/assets/javascripts/components/articles/available_article.jsx';
 
@@ -7,7 +7,7 @@ describe('AvailableArticle', () => {
   const props = {
     course: { home_wiki: { language: 'en', project: 'wikipedia' } },
     assignment: { article_title: 'two' },
-    current_user: { role: 0 }, // student role
+    current_user: { isStudent: true } // student role
   };
 
   it('renders', () => {
@@ -25,13 +25,15 @@ describe('AvailableArticle', () => {
   });
 
   it('notify when an article is selected', () => {
-    const spy = jest.fn();
+    const notificationSpy = jest.fn();
+    const updateAssignmentSpy = jest.fn();
     const TestDom = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
           <AvailableArticle
             {...props}
-            addNotification={spy}
+            addNotification={notificationSpy}
+            updateAssignment={updateAssignmentSpy}
           />
         </tbody>
       </table>
@@ -40,6 +42,7 @@ describe('AvailableArticle', () => {
     const select = TestDom.querySelector('button');
     ReactTestUtils.Simulate.click(select);
 
-    expect(spy.mock.calls.length).to.eq(1);
+    expect(notificationSpy.mock.calls.length).to.eq(1);
+    expect(updateAssignmentSpy.mock.calls.length).to.eq(1);
   });
 });

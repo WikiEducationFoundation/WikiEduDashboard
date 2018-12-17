@@ -153,7 +153,6 @@ ps:
     start: پيلول
     view: کتل
   uploads:
-    datetime: نېټه/وخت
     file_name: د دوتنې نوم
     image: انځور
     label: پورته کېدنې

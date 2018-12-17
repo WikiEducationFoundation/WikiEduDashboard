@@ -441,7 +441,6 @@ fa:
     done: انجام شد
     check_answer: بررسی پاسخ
   uploads:
-    datetime: تاریخ/زمان
     file_name: نام پرونده
     header: پرونده‌های بارگذاری‌شده در ویکی‌انبار
     image: نگاره

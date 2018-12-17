@@ -12,6 +12,7 @@
 # Author: Nemo bis
 # Author: NumaPompilius3
 # Author: S4b1nuz E.656
+# Author: Sarah Bernabei
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -41,6 +42,7 @@ it:
     report_problem: Segnala un problema
     search: chiedi una domanda
     search_results: 'Risultati per: ''%{search_terms}'''
+    no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
@@ -80,6 +82,11 @@ it:
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
+    filter:
+      wiki_all: Tutto
+      new: Nuovo
+      existing: Esistente
+      new_and_existing: Nuovo ed esistente
     hide: Nascondi
     history: (cronologia)
     label: Voci
@@ -88,18 +95,19 @@ it:
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
-      fa: Voce in vetrina — la più alta valutazione di Wikipedia, probabilmente una
-        voce troppo matura per un nuovo editor del progetto principale
-      fl: Elenco in vetrina — la più alta valutazione di Wikipedia per le liste
-      a: Prima classe — una voce molto sviluppata che potrebbe essere  troppo matura
+      fa: '%{class} (Voce in vetrina) — la più alta valutazione di Wikipedia, probabilmente
+        una voce troppo matura per un nuovo editor del progetto principale'
+      fl: '%{class} (Elenco in vetrina) — la più alta valutazione di Wikipedia per
+        le liste'
+      a: Classe %{class} — una voce molto sviluppata che potrebbe essere  troppo matura
         per un nuovo editor del progetto principale
-      ga: Voce di qualità — una voce ben sviluppata che potrebbe essere  troppo matura
-        per un nuovo editor del progetto principale
-      b: Classe B — una voce moderatamente sviluppata
-      c: Classe C — una voce di livello intermedio con margini di miglioramento
-      start: Classe iniziale — una voce preliminare con un sacco di spazio per migliorare
-      stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
-      list: Elenco di classe — un elenco piuttosto che una voce tradizionale
+      ga: '%{class} (Voce di qualità) — una voce ben sviluppata che potrebbe essere  troppo
+        matura per un nuovo editor del progetto principale'
+      b: Classe %{class} — una voce moderatamente sviluppata
+      c: Classe %{class} — una voce di livello intermedio con margini di miglioramento
+      start: Classe %{class} — una voce preliminare con un sacco di spazio per migliorare
+      stub: Classe %{class} — un breve inizio di una voce che necessita di più contenuto
+      list: Classe %{class} — un elenco piuttosto che una voce tradizionale
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
       does_not_exist: Questa voce non esiste su Wikipedia
@@ -130,7 +138,9 @@ it:
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna una voce
-    add_available: Aggiungi una voce disponibile
+    add_available: Aggiungi voci disponibili
+    add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
+    add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
@@ -146,10 +156,14 @@ it:
   campaign:
     active_campaigns: Campagne attive
     add_organizer: Aggiungi organizzatore
+    alert_type: Tipo
+    alert_user_id: Utente
     all_campaigns: Tutte le campagne
     campaign: Campagna
     campaigns: Campagne
     campaign_updated: Campagna aggiornata
+    created_at: Data
+    course: Corso
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
     description: Descrizione
@@ -167,6 +181,7 @@ it:
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'
+    alerts: Avvisi
     all_courses: Tutti i corsi
     already_enrolled: Fai già parte di '%{title}'!
     already_exists: Quello che hai aggiunto esiste già per questo corso!
@@ -256,7 +271,7 @@ it:
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
-    enrollment: Iscrizione
+    enrollment: Aggiungi/rimuovi studenti
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -270,8 +285,11 @@ it:
     instructors: Insegnanti
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
-    join_successful: Hai aderito con successo a %{title}.
+    join_successful: Hai aderito con successo a %{title}. Il cruscotto terrà automaticamente
+      traccia dei tuoi contributi con aggiornamenti periodici. Torna più tardi per
+      vedere quale impatto hai fatto!
     join_no_passcode: Sei sicuro di voler entrare in questo corso?
+    launch_wizard: Avvia la procedura guidata
     leave_confirmation: Sei sicuro di voler lasciare questo corso?
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
@@ -284,6 +302,7 @@ it:
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
+    not_permitted: Non sei autorizzato a modificare questo corso.
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
@@ -307,8 +326,8 @@ it:
       suo creatore. Per approvarlo, aggiungerlo a una campagna nella pagina panoramica.
     submitted_and_pending_heading: Presentato e in attesa di approvazione
     submitted_heading: Corsi presentati
-    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
-      e si metterà in contatto per tutte le domande.
+    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Education
+      lo controllerà e si metterà in contatto per tutte le domande.
     suggestions_feedback: Hai suggerimenti per migliorare questa funzionalità? Facci
       sapere!
     user_role: Ruolo
@@ -339,7 +358,8 @@ it:
       one: Volontario
       other: Volontari
     weeks_none: Questo corso non ha ancora una linea temporale.
-    wiki_staff: Staff Wiki Ed
+    wiki_staff: Staff Wiki Education
+    withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
@@ -392,13 +412,14 @@ it:
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor
-    enrollment: Partecipazione
+    enrollment: Aggiungi/rimuovi editori
     explore: Trova programmi
     expected_students: Editori previsti
     instructors: Facilitatori
     join_course: Partecipa al programma
     leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
+    not_permitted: Non sei autorizzato a modificare questo programma.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
     revisions_none: Questo progetto non ha attività di modifica recenti.
@@ -426,6 +447,7 @@ it:
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate
+    bytes_added: Bytes aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
@@ -483,6 +505,11 @@ it:
       new:
         form_placeholder: Nome utente
         already_admin: '%{username} è già un amministratore!'
+    special_users:
+      new:
+        form_placeholder: Nome utente
+      remove:
+        already_is_not: '%{username} non è un utente speciale!'
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
@@ -525,12 +552,12 @@ it:
     next: Pagina successiva
     page: Pagina
     page_number: Pagina %{number} di %{total}
+    previous: < Precedente
     table_of_contents: Sommario
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
     done: Fatto!
   uploads:
-    datetime: Data/Ora
     file_name: Nome del file
     header: File caricati su Wikimedia Commons
     image: Immagine
@@ -538,8 +565,13 @@ it:
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
+    uploaded_at: Ora caricamento
+    uploader: Caricato da
     uploaded_by: Caricato da
+    uploaded_on: Caricato il
     usage_count: Numero di utilizzi
+    usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
+    usage_count_gallery_tile: Usata in %{usage_count} voci
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!
@@ -547,7 +579,7 @@ it:
     assigned: Voci assegnate
     chars_added: Caratteri aggiunti<br>(voce | utente | bozza)
     contributions: Contributi dell'utente
-    contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
+    contributions_history_full: Vedi la cronologia completa dei contributi
     contributions_more: Visualizza Ulteriori Contributi
     editors: Contributori
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
@@ -572,6 +604,7 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    total_uploads: Totale caricamenti
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione
@@ -586,6 +619,7 @@ it:
       other: '%{completed_count}/%{count} moduli formativi completati'
     training_module_status: Stato
     up_to_date_with_training: aggiornato con la formazione
+    uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
     username_placeholder: Nome utente
     useremail_placeholder: Email
@@ -597,7 +631,7 @@ it:
       instructor: Insegnante
       campus_volunteer: Volontario del campus
       online_volunteer: Volontario online
-      wiki_ed_staff: Staff Wiki Ed
+      wiki_ed_staff: Staff Wiki Education
   user_profiles:
     bio_placeholder: Aggiungi la tua biografia (opzionale)
     location_placeholder: Aggiungi la tua posizione (opzionale)
@@ -631,7 +665,8 @@ it:
   error_incorrect_passcode:
     header: Codice di accesso non corretto. :-(
     explanation: Il codice per iscriversi a questo corso non è corretto. Chiedi all'insegnate
-      il codice attuale per iscriversi a questo corso.
+      il codice attuale per iscriversi a questo corso. Puoi riprovare inserendo il
+      codice corretto sotto.
   error_404:
     header: Pagina non trovata. :-(
   error_422:
@@ -647,21 +682,35 @@ it:
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   survey:
-    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Ed per partecipare
-      al sondaggio.
+    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Education
+      per partecipare al sondaggio.
     email:
       headline: Ciao, %{username}
-      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Ed sta cercando
-        il tuo feedback per migliorare le nostre risorse e il supporto per le assegnazioni
-        di Wikipedia. La tua risposta è fondamentale per migliorare le nostre attuali
-        offerte.
+      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Education
+        sta cercando il tuo feedback per migliorare le nostre risorse e il supporto
+        per le assegnazioni di Wikipedia. La tua risposta è fondamentale per migliorare
+        le nostre attuali offerte.
       message_line2: Siete disposti a prendere 15 minuti per compilare il nostro sondaggio
         sull'istruttore? Clicca sul pulsante qui sotto per aiutarci a rendere la didattica
         con Wikipedia un'esperienza ancora più gratificante e preziosa.
       course: 'Corso: %{course_info}'
       closing: Cordiali saluti,
-      signed: '- il team Wiki Ed'
+      signed: '- il team Wiki Education'
       link: Rispondi sondaggio
   wiki_api:
     create_account_reason: Questo utente sta partecipando a %{event}.
+  onboarding:
+    supplementary:
+      why_are_you_here: Cosa ti piacerebbe fare?
+  article_finder:
+    page_assessment_class: Classe
+    remove_article: Rimuovi voce
+    search: Cerca
+    tools: Strumenti
+    show_options: Mostra opzioni
+    hide_options: Nascondi opzioni
+    keyword_search: Ricerca per parole chiave
+    category_search: Ricerca per categoria
+    subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
+    submit: Invia
 ...

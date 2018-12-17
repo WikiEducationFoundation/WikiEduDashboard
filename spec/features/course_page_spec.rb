@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/app/services/update_course_stats"
+require "#{Rails.root}/lib/assignment_manager"
 
 MILESTONE_BLOCK_KIND = 2
 
@@ -9,7 +11,7 @@ MILESTONE_BLOCK_KIND = 2
 # Remove this after implementing server-side rendering
 def js_visit(path, count=3)
   visit path
-  expect(page).to have_content 'Explore'
+  expect(page).to have_content('Explore').or have_content('Find Programs')
 
 # This is a workaround for some of the intermittent errors that occur when
 # running capybara with xvfb, which we do on travis-ci and in vagrant.
@@ -29,6 +31,9 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+  let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
+  let(:admin) { create(:admin) }
+
   before do
     stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
@@ -43,6 +48,7 @@ describe 'the course page', type: :feature, js: true do
                     timeline_end: course_end.to_date,
                     school: 'This university.foo',
                     term: 'term 2015',
+                    home_wiki_id: home_wiki.id,
                     description: 'This is a great course')
     campaign = create(:campaign)
     course.campaigns << campaign
@@ -52,6 +58,7 @@ describe 'the course page', type: :feature, js: true do
              id: i.to_s,
              username: "Student #{i}",
              trained: i % 2)
+
       create(:courses_user,
              id: i.to_s,
              course_id: 10001,
@@ -114,8 +121,8 @@ describe 'the course page', type: :feature, js: true do
            content: 'blocky block')
 
     ArticlesCourses.update_from_course(Course.last)
-    ArticlesCourses.update_all_caches
-    CoursesUsers.update_all_caches
+    ArticlesCourses.update_all_caches(Course.last.articles_courses)
+    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 
     stub_token_request
@@ -175,44 +182,8 @@ describe 'the course page', type: :feature, js: true do
     end
   end
 
-  # Something is broken here. Need to fully investigate testing React-driven UI
-  # describe 'control bar' do
-  # describe 'control bar' do
-  #   it 'should allow sorting via dropdown', js: true do
-  #     visit "/courses/#{slug}/students"
-  #     selector = 'table.students > thead > tr > th'
-  #     select 'Name', from: 'sorts'
-  #     expect(page.all(selector)[0][:class]).to have_content 'asc'
-  #     select 'Assigned Article', from: 'sorts'
-  #     expect(page.all(selector)[1][:class]).to have_content 'asc'
-  #     select 'Reviewer', from: 'sorts'
-  #     expect(page.all(selector)[2][:class]).to have_content 'asc'
-  #     select 'MS Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[3][:class]).to have_content 'desc'
-  #     select 'US Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[4][:class]).to expect 'desc'
-  #   end
-  # end
-
   describe 'overview details editing' do
-    it "doesn't allow null values for course start/end" do
-      admin = create(:admin, id: User.last.id + 1)
-      login_as(admin)
-      js_visit "/courses/#{slug}"
-      within '.sidebar' do
-        click_button 'Edit Details'
-      end
-      page.first('.date-input input').set('')
-      # fill_in 'Start:', with: ''
-      within 'input.start' do
-        # TODO: Capybara seems to be able to clear this field.
-        # expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
-      end
-      # expect(page).to have_css('button.dark[disabled="disabled"]')
-    end
-
     it "doesn't allow null values for passcode" do
-      admin = create(:admin, id: User.last.id + 1)
       previous_passcode = Course.last.passcode
       login_as(admin)
       sleep 5
@@ -223,6 +194,24 @@ describe 'the course page', type: :feature, js: true do
         click_button 'Save'
       end
       expect(Course.last.passcode).to eq(previous_passcode)
+    end
+
+    context 'when WikiEd Feature disabled' do
+      before { allow(Features).to receive(:wiki_ed?).and_return(false) }
+
+      it 'allow edits for home_wiki' do
+        login_as(admin)
+        js_visit "/courses/#{slug}"
+        within '.sidebar' do
+          click_button 'Edit Details'
+          select 'wiktionary', from: 'home_wiki_project'
+          select 'es', from: 'home_wiki_Language'
+          click_button 'Save'
+        end
+        sleep 2
+        home_wiki_id = Course.find_by(slug: slug).home_wiki_id
+        expect(home_wiki_id).to eq(es_wiktionary.id)
+      end
     end
   end
 
@@ -265,29 +254,27 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
-      expect(page).to_not have_content 'Add an available article'
+      expect(page).not_to have_content 'Add available articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
-      expect(assigned_articles_section).to have_content 'Add an available article'
+      expect(assigned_articles_section).to have_content 'Add available articles'
     end
 
     it 'allow instructor to add an available article' do
       stub_info_query
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
-      click_button 'Add an available article'
-      page.first(:css, '#available-articles .pop.open').first('input').set('Education')
-      click_button 'Assign'
-      click_button 'OK'
+      click_button 'Add available articles'
+      page.first(:css, '#available-articles .pop.open').first('textarea').set('Education')
+      click_button 'Add articles'
+      sleep 1
       assigned_articles_table = page.first(:css, '#available-articles table.articles')
       expect(assigned_articles_table).to have_content 'Education'
     end
@@ -296,8 +283,6 @@ describe 'the course page', type: :feature, js: true do
       stub_info_query
       stub_raw_action
       Assignment.destroy_all
-      sleep 1
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       stub_oauth_edit
       course = Course.first
@@ -312,11 +297,10 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Remove'
-      click_button 'Remove'
-      expect(assigned_articles_section).to_not have_content 'Education'
-      sleep 1
-      # FIXME: This is a common intermittent failure on travis-ci
-      # expect(Assignment.count).to eq(0)
+      accept_alert do
+        click_button 'Remove'
+      end
+      expect(assigned_articles_section).not_to have_content 'Education'
     end
 
     it 'allows student to select an available article' do
@@ -357,6 +341,7 @@ describe 'the course page', type: :feature, js: true do
       )
       CoursesUsers.update_all_caches CoursesUsers.all
     end
+
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
       sleep 1
@@ -372,28 +357,30 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'uploads view' do
-    it 'should display a list of uploads' do
+    it 'displays a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
-      expect(page).to have_content I18n.t('uploads.none')
+      expect(page).to have_content I18n.t('courses_generic.uploads_none')
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg',
-             uploaded_at: '2015-06-01')
-      js_visit "/courses/#{slug}/uploads"
-      expect(page).to have_content 'Example.jpg'
+             uploaded_at: '2015-06-01',
+             thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png')
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('div.upload')
+      expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
     end
   end
 
   describe 'activity view' do
-    it 'should display a list of edits' do
+    it 'displays a list of edits' do
       js_visit "/courses/#{slug}/activity"
       expect(page).to have_content 'Article 1'
     end
   end
 
   describe '/manual_update' do
-    it 'should update the course cache' do
+    it 'updates the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
       create(:courses_user,
@@ -403,12 +390,12 @@ describe 'the course page', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
 
-      allow(CourseRevisionUpdater).to receive(:import_new_revisions)
-
+      expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+      expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
-      expect(page).to have_content "#{updated_user_count} Student Editors"
+      expect(page).to have_content "#{updated_user_count}\nStudent Editors"
     end
   end
 

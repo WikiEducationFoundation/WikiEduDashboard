@@ -16,9 +16,11 @@ describe Fall2017CmuExperiment do
     end
   end
 
+  let(:course) { create(:course, flags: { Fall2017CmuExperiment::STATUS_KEY => 'email_sent' }) }
+
   describe '.process_courses' do
     it 'divides courses between experiment and control, and updates experiment setting' do
-      Fall2017CmuExperiment.process_courses
+      described_class.process_courses
       control_courses = Course.all.select do |c|
         c.flags[Fall2017CmuExperiment::STATUS_KEY] == 'control'
       end
@@ -33,10 +35,11 @@ describe Fall2017CmuExperiment do
 
     context 'when invitations get no response for a week' do
       after { Timecop.return }
+
       it 'sends reminders for courses that have not responded' do
-        Fall2017CmuExperiment.process_courses
+        described_class.process_courses
         Timecop.travel(8.days.from_now)
-        Fall2017CmuExperiment.process_courses
+        described_class.process_courses
         reminded_courses = Course.all.select do |c|
           c.flags[Fall2017CmuExperiment::STATUS_KEY] == 'reminder_sent'
         end
@@ -45,18 +48,16 @@ describe Fall2017CmuExperiment do
     end
   end
 
-  let(:course) { create(:course, flags: { Fall2017CmuExperiment::STATUS_KEY => 'email_sent' }) }
-
   describe '#opt_in and #opt_out' do
     it 'updates the experiment status of a course to opted_in' do
-      Fall2017CmuExperiment.new(course).opt_in
+      described_class.new(course).opt_in
       expect(course.flags[Fall2017CmuExperiment::STATUS_KEY]).to eq('opted_in')
     end
   end
 
   describe '#opt_out' do
     it 'updates the experiment status of a course to opted_out' do
-      Fall2017CmuExperiment.new(course).opt_out
+      described_class.new(course).opt_out
       expect(course.flags[Fall2017CmuExperiment::STATUS_KEY]).to eq('opted_out')
     end
   end

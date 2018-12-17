@@ -18,7 +18,7 @@ class UnsubmittedCourseAlertManager
 
   DAYS_AGO_LIMIT = 30
   def unsubmitted_recently_started_courses
-    ClassroomProgramCourse.unsubmitted.where(start: DAYS_AGO_LIMIT.days.ago..Date.today)
+    ClassroomProgramCourse.unsubmitted.where(start: DAYS_AGO_LIMIT.days.ago..Time.zone.today)
   end
 
   # First time instructors work with the Outreach Manager.

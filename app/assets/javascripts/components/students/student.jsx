@@ -1,12 +1,14 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ServerActions from '../../actions/server_actions.js';
+import { setUploadFilters } from '../../actions/uploads_actions';
+import { fetchUserRevisions } from '../../actions/user_revisions_actions';
+import { fetchTrainingStatus } from '../../actions/training_status_actions';
+import { getFiltered } from '../../utils/model_utils.js';
 
 import AssignCell from './assign_cell.jsx';
-
-import RevisionStore from '../../stores/revision_store.js';
-import TrainingStatusStore from '../../stores/training_status_store.js';
 import { trunc } from '../../utils/strings';
 
 const Student = createReactClass({
@@ -17,10 +19,15 @@ const Student = createReactClass({
     course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     editable: PropTypes.bool,
-    assigned: PropTypes.array,
-    reviewing: PropTypes.array,
+    assignments: PropTypes.array,
     isOpen: PropTypes.bool,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
+    fetchUserRevisions: PropTypes.func.isRequired,
+    fetchTrainingStatus: PropTypes.func.isRequired
+  },
+
+  setUploadFilters(selectedFilters) {
+    this.props.setUploadFilters(selectedFilters);
   },
 
   stop(e) {
@@ -28,10 +35,10 @@ const Student = createReactClass({
   },
 
   openDrawer() {
-    RevisionStore.clear();
-    TrainingStatusStore.clear();
-    ServerActions.fetchRevisions(this.props.student.id, this.props.course.id);
-    ServerActions.fetchTrainingStatus(this.props.student.id, this.props.course.id);
+    if (!this.props.isOpen) {
+      this.props.fetchUserRevisions(this.props.course.id, this.props.student.id);
+      this.props.fetchTrainingStatus(this.props.student.id, this.props.course.id);
+    }
     return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
   },
 
@@ -46,7 +53,6 @@ const Student = createReactClass({
     return this.props.current_user && (this.props.current_user.admin || this.props.current_user.role > studentRole);
   },
 
-
   render() {
     let className = 'students';
     className += this.props.isOpen ? ' open' : '';
@@ -55,14 +61,18 @@ const Student = createReactClass({
       <span>
         <strong>{trunc(this.props.student.real_name)}</strong>
         &nbsp;
-        (<a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+        (
+        <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
           {trunc(this.props.student.username)}
         </a>)
       </span>
-    ) : (
-      <span><a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
-        {trunc(this.props.student.username)}
-      </a></span>
+      )
+      : (
+        <span>
+          <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+            {trunc(this.props.student.username)}
+          </a>
+        </span>
     );
 
     const trainingProgress = this.props.student.course_training_progress ? (
@@ -72,24 +82,34 @@ const Student = createReactClass({
     let assignButton;
     let reviewButton;
     if (this.props.course.published) {
+      const assignOptions = { user_id: this.props.student.id, role: 0 };
+      const assigned = getFiltered(this.props.assignments, assignOptions);
       assignButton = (
         <AssignCell
-          {...this.props}
+          course={this.props.course}
+          current_user={this.props.current_user}
+          student={this.props.student}
           role={0}
           editable={this.props.editable}
-          assignments={this.props.assigned}
+          assignments={assigned}
         />
       );
 
+      const reviewOptions = { user_id: this.props.student.id, role: 1 };
+      const reviewing = getFiltered(this.props.assignments, reviewOptions);
       reviewButton = (
         <AssignCell
-          {...this.props}
+          course={this.props.course}
+          current_user={this.props.current_user}
+          student={this.props.student}
           role={1}
           editable={this.props.editable}
-          assignments={this.props.reviewing}
+          assignments={reviewing}
         />
       );
     }
+
+    const uploadsLink = `/courses/${this.props.course.slug}/uploads`;
 
     return (
       <tr onClick={this.openDrawer} className={className}>
@@ -110,6 +130,9 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>
+        <td className="desktop-only-tc">
+          <Link to={uploadsLink} onClick={() => { this.setUploadFilters([{ value: this.props.student.username, label: this.props.student.username }]); }}>{this.props.student.total_uploads}</Link>
+        </td>
         <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );
@@ -117,4 +140,10 @@ const Student = createReactClass({
 }
 );
 
-export default Student;
+const mapDispatchToProps = {
+  setUploadFilters,
+  fetchUserRevisions,
+  fetchTrainingStatus
+};
+
+export default connect(null, mapDispatchToProps)(Student);

@@ -12,6 +12,7 @@ describe CourseArticlesCsvBuilder do
   let(:article2) { create(:article, title: 'Second_Article') }
   let(:revision_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
+
   before do
     # multiple revisions for first article
     revision_count.times do |i|
@@ -19,6 +20,11 @@ describe CourseArticlesCsvBuilder do
     end
     # one revision for second article
     create(:revision, mw_rev_id: 123, user: user, date: course.start + 1.minute, article: article2)
+    # revisions with nil and characters, to make sure this does not cause problems
+    create(:revision, mw_rev_id: 124, user: user, date: course.start + 1.minute, article: article2,
+                      characters: nil)
+    create(:revision, mw_rev_id: 125, user: user, date: course.start + 1.minute, article: article2,
+                      characters: -500)
   end
 
   it 'creates a CSV with a header and a row of data for each article' do

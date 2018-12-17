@@ -4,9 +4,6 @@ import { Link } from 'react-router';
 import GetHelpButton from './get_help_button.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const onCourseIndex = (location) => {
-  return location.pathname.split('/').length === 4;
-};
 
 const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   // ///////////////
@@ -28,7 +25,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   // ////////////
 
   let homeLinkClassName;
-  if (onCourseIndex(location)) { homeLinkClassName = 'active'; }
+  if (CourseUtils.onCourseIndex(location)) { homeLinkClassName = 'active'; }
   const homeLink = `${courseLink}/home`;
 
   // ///////////////

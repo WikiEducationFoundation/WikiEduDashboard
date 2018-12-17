@@ -208,7 +208,7 @@ class SurveysController < ApplicationController
   def protect_confidentiality
     return unless @survey.confidential_results
     render plain: 'The results for this survey are confidential.',
-           status: 403
+           status: :forbidden
     yield
   end
 

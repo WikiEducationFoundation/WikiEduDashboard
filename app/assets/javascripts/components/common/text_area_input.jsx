@@ -1,8 +1,9 @@
-import { TrixEditor } from 'react-trix';
+import { Editor } from '@tinymce/tinymce-react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
+
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
 // This is a flexible text input box. It switches between edit and read mode,
@@ -22,22 +23,15 @@ const TextAreaInput = createReactClass({
     placeholder: PropTypes.string,
     autoExpand: PropTypes.bool, // start with one line and expand as needed — plain text only
     rows: PropTypes.string, // set the number of rows — plain text only
-    wysiwyg: PropTypes.bool, // use Trix editor instead of plain text
+    wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
     markdown: PropTypes.bool, // render value as Markdown when in read mode
     className: PropTypes.string
   },
 
-  mixins: [InputMixin],
-
-  getInitialState() {
-    return { value: this.props.value };
-  },
-
-  // react-trix passes html, text to the onChange handler.
-  _handleTrixChange(html) {
-    const e = { target: { value: html } };
-    this.onChange(e);
-    return this.setState({ value: html });
+  handleRichTextEditorChange(e) {
+    this.props.onChange(
+      { target: { value: e.target.getContent() } }
+    );
   },
 
   render() {
@@ -49,30 +43,38 @@ const TextAreaInput = createReactClass({
     // ////////////
     if (this.props.editable) {
       let inputClass;
-      if (this.state.invalid) {
+      if (this.props.invalid) {
         inputClass = 'invalid';
       }
 
-      // Use Trix if props.wysiwyg, otherwise, use a basic textarea.
+      // Use TinyMCE if props.wysiwyg, otherwise, use a basic textarea.
       if (this.props.wysiwyg) {
         inputElement = (
-          <TrixEditor
-            value={this.state.value}
-            onChange={this._handleTrixChange}
+          <Editor
+            initialValue={this.props.value}
+            onChange={this.handleRichTextEditorChange}
             className={inputClass}
+            init={{
+              height: 250,
+              plugins: 'code link lists',
+              branding: false,
+              inline: true,
+              default_link_target: '_blank',
+              relative_urls: false
+            }}
           />
         );
       } else {
         inputElement = (
           <textarea
             className={inputClass}
-            id={this.state.id}
+            id={this.props.id}
             rows={this.props.rows || '8'}
-            value={this.state.value || ''}
-            onChange={this.onChange}
+            value={this.props.value || ''}
+            onChange={this.props.onChange}
             autoFocus={this.props.focus}
-            onFocus={this.focus}
-            onBlur={this.blur}
+            onFocus={this.props.onFocus}
+            onBlur={this.props.onBlur}
             maxLength="30000"
             placeholder={this.props.placeholder}
           />
@@ -82,7 +84,7 @@ const TextAreaInput = createReactClass({
       if (this.props.autoExpand) {
         return (
           <div className="expandingArea active">
-            <pre><span>{this.state.value}</span><br /></pre>
+            <pre><span>{this.props.value}</span><br /></pre>
             {inputElement}
           </div>
         );
@@ -109,4 +111,4 @@ const TextAreaInput = createReactClass({
 }
 );
 
-export default TextAreaInput;
+export default InputHOC(TextAreaInput);

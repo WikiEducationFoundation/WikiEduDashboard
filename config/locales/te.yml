@@ -72,8 +72,6 @@ te:
     diff_hide: దాచు
   timeline:
     gradeable_value: విలువ
-  uploads:
-    datetime: తేదీ/సమయం
   users:
     name: పేరు
     training_module_status: స్థితి

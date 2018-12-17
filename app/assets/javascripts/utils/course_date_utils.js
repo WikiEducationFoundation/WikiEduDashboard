@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+
 require('moment-recur');
 
 const CourseDateUtils = {
@@ -96,7 +97,7 @@ const CourseDateUtils = {
   wouldCreateBlackoutWeek(course, day, exceptions) {
     const selectedDay = moment(day);
     let noMeetingsThisWeek = true;
-    [0, 1, 2, 3, 4, 5, 6].forEach(i => {
+    [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
       const wkDay = selectedDay.day(0).add(i, 'days').format('YYYYMMDD');
       if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) { return noMeetingsThisWeek = false; }
     });
@@ -125,7 +126,7 @@ const CourseDateUtils = {
 
     const meetings = [];
 
-    __range__(0, (courseWeeks - 1), true).forEach(week => {
+    __range__(0, (courseWeeks - 1), true).forEach((week) => {
       weekStart = moment(recurrence.startDate()).startOf('week').add(week, 'weeks');
 
       // Account for the first partial week, which may not have 7 days.
@@ -137,7 +138,7 @@ const CourseDateUtils = {
       }
 
       const ms = [];
-      __range__(firstDayOfWeek, 6, true).forEach(i => {
+      __range__(firstDayOfWeek, 6, true).forEach((i) => {
         const day = moment(weekStart).add(i, 'days');
         if (course && this.courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)) {
           return ms.push(day.format('ddd'));
@@ -188,6 +189,16 @@ const CourseDateUtils = {
 
   isEnded(course) {
     return moment(course.end, 'YYYY-MM-DD').isBefore();
+  },
+
+  currentWeekIndex(timelineStart) {
+    return Math.max(moment().startOf('week').diff(moment(timelineStart).startOf('week'), 'weeks'), 0);
+  },
+
+  currentWeekOrder(timelineStart) {
+    // Week order is indexed from 1, so we add 1 to the number of weeks that have
+    // passed since the start of the timeline to get the current week.
+    return this.currentWeekIndex(timelineStart) + 1;
   }
 };
 
@@ -204,7 +215,7 @@ function __range__(left, right, inclusive) {
     endOfRange = right - 1;
   }
 
-  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i++ : i--) {
+  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
     range.push(i);
   }
   return range;

@@ -12,18 +12,21 @@ import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
 import OnboardingIntro from '../components/onboarding/intro.jsx';
 import OnboardingForm from '../components/onboarding/form.jsx';
+import OnboardingSupplementary from '../components/onboarding/supplementary.jsx';
 import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
 import Meetings from '../components/timeline/meetings.jsx';
-import { ConnectedCourseCreator } from "../components/course_creator/course_creator.jsx";
+import { ConnectedCourseCreator } from '../components/course_creator/course_creator.jsx';
 import OverviewHandler from '../components/overview/overview_handler.jsx';
 import TimelineHandler from '../components/timeline/timeline_handler.jsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';
 import StudentsHandler from '../components/students/students_handler.jsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.jsx';
-
+import AlertsHandler from '../components/alerts/alerts_handler.jsx';
+import CampaignOresPlot from '../components/campaign/campaign_ores_plot.jsx';
+import ArticleFinder from '../components/article_finder/article_finder.jsx';
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
 import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
@@ -36,17 +39,20 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 
 import RocketChat from '../components/common/rocket_chat.jsx';
 
-import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+import UserProfile from '../components/user_profiles/user_profile.jsx';
 import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
+// The navbar is its own React element, independent of the
+// main React Router-based component tree.
+// `nav_root` is present throughout the app, via the Rails view layouts.
 const navBar = document.getElementById('nav_root');
 if (navBar) {
   ReactDOM.render((<Nav />), navBar);
 }
 
 // Handle scroll position for back button, hashes, and normal links
-browserHistory.listen(location => {
+browserHistory.listen((location) => {
   setTimeout(() => {
     if (location.action === 'POP') {
       return;
@@ -71,6 +77,7 @@ const routes = (
     <Route path="onboarding" component={Onboarding}>
       <IndexRoute component={OnboardingIntro} />
       <Route path="form" component={OnboardingForm} />
+      <Route path="supplementary" component={OnboardingSupplementary} />
       <Route path="permissions" component={OnboardingPermissions} />
       <Route path="finish" component={OnboardingFinished} />
     </Route>
@@ -96,6 +103,7 @@ const routes = (
         <Route path="articles" component={ArticlesHandler} />
         <Route path="uploads" component={UploadsHandler} />
         <Route path="chat" component={RocketChat} />
+        <Route path="article_finder" component={ArticleFinder} />
       </Route>
     </Route>
     <Route path="course_creator" component={ConnectedCourseCreator} />
@@ -103,13 +111,21 @@ const routes = (
       <Route path=":library_id/:module_id" component={TrainingModuleHandler} />
       <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
-    <Route path="users/:username" component={ContributionStats} />
+    <Route path="users/:username" component={UserProfile} />
+    <Route path="campaigns/:campaign_slug/alerts" component={AlertsHandler} />
+    <Route path="campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
     <Route path="settings" component={SettingsHandler} />
+    <Route path="article_finder" component={ArticleFinder} />
   </Route>
 );
 
+// The main `react_root` is only present in some Rails views, corresponding
+// to the routes above.
 const reactRoot = document.getElementById('react_root');
 if (reactRoot) {
+  // This is basic, minimal state info extracted from the HTML,
+  // used for initial rendering before React fetches all the specific
+  // data it needs via API calls.
   const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
   const preloadedState = {
     courseCreator: {

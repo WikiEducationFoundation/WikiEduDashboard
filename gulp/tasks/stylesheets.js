@@ -5,6 +5,7 @@ import revDel from 'rev-del';
 import loadPlugins from 'gulp-load-plugins';
 
 import config from '../config.js';
+
 const plugins = loadPlugins();
 
 gulp.task('stylesheets', () => {

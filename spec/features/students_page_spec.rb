@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/wiki_edits"
 
 # Wait one second after loading a path
 # Allows React to properly load the page
@@ -61,13 +62,13 @@ describe 'Students Page', type: :feature, js: true do
            new_article: false)
   end
 
-  it 'should display a list of students' do
+  it 'displays a list of students' do
     js_visit "/courses/#{@course.slug}/students"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).to have_content @user.username
   end
 
-  it 'should open a list of individual student revisions' do
+  it 'opens a list of individual student revisions' do
     js_visit "/courses/#{@course.slug}/students"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).not_to have_content 'Article Title'
@@ -81,6 +82,7 @@ describe 'Students Page', type: :feature, js: true do
 
   describe 'display of user name' do
     let(:user) { create(:user) }
+
     context 'logged out' do
       it 'does not display real name' do
         js_visit "/courses/#{@course.slug}/students"
@@ -90,15 +92,18 @@ describe 'Students Page', type: :feature, js: true do
         end
       end
     end
+
     context 'logged in' do
       before do
         login_as user
         js_visit "/courses/#{@course.slug}/students"
         sleep 1 # Try to avoid issue where this test fails with 0 rows found.
       end
+
       after do
         logout user
       end
+
       context 'non-admin' do
         it 'does not display real name' do
           within 'table.users' do
@@ -106,19 +111,23 @@ describe 'Students Page', type: :feature, js: true do
           end
         end
       end
+
       context 'admin' do
         let(:user) { create(:admin) }
+
         it 'displays real name' do
           within 'table.users' do
             expect(page).to have_content @user.real_name
           end
         end
       end
+
       context 'instructor' do
         let(:user) { create(:user, permissions: 1) }
         let!(:courses_user) do
           create(:courses_user, course_id: @course.id, user_id: user.id, role: 1)
         end
+
         it 'displays real name' do
           within 'table.users' do
             expect(page).to have_content @user.real_name

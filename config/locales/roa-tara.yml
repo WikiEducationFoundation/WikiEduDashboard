@@ -4,14 +4,31 @@
 # Author: Joetaras
 ---
 roa-tara:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Quiste jè 'nu cambe numereche. Le buttone 'ndrucate da 'a maggiore
+      parte de le browser aumendane e diminuiscene 'u numere sckaffate.
   application:
     cancel: Annulle
+    create_accounts: Ccreje le cunde de Uicchipèdie
     dashboard: Wiki Ed Dashboard
     documentation: Documendazione
     error: 'Ha assute ''n''errore:'
     explore: Esplore
     field_required: Stu cambe jè richieste
     field_invalid_characters: Stu cambe tène carattere non valide
+    field_invalid_date: Stu cambe vole 'na date cu 'u formate YYYY-MM-DD
+    field_invalid_date_time: '''A fine addà essere apprisse l''inizie. (Le ore vonne
+      da 0 a 23.)'
     greeting2: Bovègne!
     greeting_extended: Bovègne sus a Uicchipèdie
     greeting: Cià
@@ -20,8 +37,24 @@ roa-tara:
     log_in_extended: Tràse cu Uicchipèdie
     log_in: Tràse
     log_out: Isse
+    my_dashboard: '''U cruscotte mie'
+    recent_activity: Urteme attivitate
+    report_problem: Segnale 'nu probbleme
+    request_account: Richieste de cunde utende
+    request_account_create: Ccreje 'nu cunde utende
     search: Fà 'na domande
+    search_results: 'Resultate pe: ''%{search_terms}'''
+    sign_up_extended: Reggistrate jndr'à Uicchipèdie
+    sign_up_wikipedia: O reggistrate jndr'à Uicchipèdie
+    sign_up_log_in_extended: cu Uicchipèdie
+    sign_up: Reggistrate
+    submit: Conferme
+    training: Formazione
+    change: Cange
+    details: Dettaglie
     confirm: OK
+    opt_in: Sìne
+    opt_out: None
   dashboard:
     review_orientation: Oriendamende d'a reviste
   activity:
@@ -36,7 +69,29 @@ roa-tara:
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
   courses:
+    embed_course_stats: Statisteche d'u corse 'ngapsulate
+    please_log_in: Tràse.
     update_stats: Aggiorne le statisteche
+    user_recent_uploads: Urteme carecaminde
   editable:
     edit_template: Cange 'u template
+  settings:
+    special_users:
+      new:
+        form_label: Dà le privilegge de utende speciale
+        form_placeholder: Nome de l'utende
+        confirm_add_special_user: Aggiunge 'n'utende speciale
+        confirm_remove_special_user: Live le privilegge de utende speciale a
+        already_is: '%{username} jè ggià ''na {position}!'
+        elevate_success: '%{username} ''nghianate a {position}.'
+      remove:
+        revoke_button: Live l'utende speciale
+        revoke_button_confirm: Live le deritte de utende speciale da %{username}
+        revoking_button_working: Stoche a revoche...
+        already_is_not: '%{username} non g''è ''n''utende speciale!'
+        demote_success: '%{username} jè probbie ''n''utende.'
+  article_finder:
+    show_options: Fà 'ndrucà le opziune
+    hide_options: Scunne le opziune
+    subheading_message: Acchiame 'na vôsce de Uicchipèdie pe fatià.
 ...

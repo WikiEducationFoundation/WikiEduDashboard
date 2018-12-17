@@ -7,4 +7,8 @@ class TrainingStatusController < ApplicationController
     @assigned_training_modules = @course.training_modules
     @user = User.find(params[:user_id])
   end
+
+  def user
+    @user = User.find_by(username: params[:username])
+  end
 end

@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alebecerrasj
+# Author: Astroemi
+# Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Dgstranz
@@ -15,6 +17,7 @@
 # Author: Macofe
 # Author: MarcoAurelio
 # Author: Themasterriot
+# Author: Tiberius1701
 # Author: Tusca
 # Author: Yllelder
 # Author: YoViajo
@@ -47,6 +50,7 @@ es:
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
     request_account: Solicitar una cuenta
+    request_account_create: Crear una cuenta
     search: preguntar
     search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
@@ -85,7 +89,7 @@ es:
       página de Campaña.
   home:
     explore: Explorar
-    log_in: Iniciar sesión con Wikipedia
+    log_in: Acceder con Wikipedia
     sign_up: Regístrate con Wikipedia
     sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
       través de Wikipedia y darle permiso para acceder a tu cuenta. Puedes iniciar
@@ -132,6 +136,7 @@ es:
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
       does_not_exist: Este artículo no existe en Wikipedia
+    see_more: Ver más
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
     show_current_version_with_authorship_highlighting: Versión actual con resalte
@@ -162,7 +167,9 @@ es:
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
-    add_available: Añadir un artículo disponible
+    add_available: Añadir artículos disponibles
+    add_available_placeholder: Añade un título de artículo o un URL por renglón
+    add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
@@ -184,12 +191,16 @@ es:
   campaign:
     active_campaigns: Campañas activas
     add_organizer: Añadir organizador
+    alert_article: Título del artículo
+    alert_type: Tipo
+    alert_user_id: Usuario
     all_campaigns: Todas las campañas
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: Se eliminó la campaña «%{title}»
     campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
+    created_at: Fecha
     confirm_campaign_deletion: ¿Confirmas que quieres eliminar la campaña titulada
       «%{title}»? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
@@ -197,6 +208,7 @@ es:
     confirm_course_removal: ¿Confirmas que quieres quitar «%{title}» de la campaña
       «%{campaign_title}»?
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
+    course: Curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
@@ -207,6 +219,8 @@ es:
       de esta campaña deben tener:'
     description: Descripción
     delete_campaign: Eliminar esta campaña
+    disable_account_requests: Desactivar solicitudes de cuentas
+    enable_account_requests: Activar solicitudes de cuentas
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
@@ -216,6 +230,7 @@ es:
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
     random_passcode: un código de acceso al azar
+    requested_accounts: Cuentas solicitadas
     title: Título
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
@@ -242,6 +257,7 @@ es:
       de cuentas?
     activity: Actividad
     active_courses: '%{course_type} activos'
+    alerts: Alertas
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
@@ -367,6 +383,8 @@ es:
     feedback: Comentarios
     feedback_loading: Espera mientras se cargan las sugerencias…
     gradeables_none: Este curso no tiene tareas calificables.
+    home_wiki_language: Idioma del wiki de origen
+    home_wiki_project: Proyecto del wiki de origen
     instructor:
       one: Docente
       other: Docentes
@@ -446,6 +464,7 @@ es:
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
+    tag_select: Selecciona o crea una etiqueta
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma
@@ -478,6 +497,7 @@ es:
       Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
       ¿Estás seguro de que quieres hacer esto?
     wiki_staff: Personal de Wiki Ed
+    withdrawn: No hizo los deberes
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
@@ -554,6 +574,8 @@ es:
     unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    user_uploads_none: Los usuarios seleccionados no han contribuido con ninguna imagen
+      u otro archivo multimedia a este proyecto.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
@@ -574,6 +596,7 @@ es:
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
     articles_edited: Artículos editados
+    bytes_added: Bytes añadidos
     characters: Caracteres
     char_added: Caracteres añadidos
     char_changed: Caracteres cambiados
@@ -727,7 +750,7 @@ es:
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
   uploads:
-    datetime: Fecha/hora
+    credit: Crédito
     file_name: Nombre del archivo
     header: Archivos subidos a Wikimedia Commons
     image: Imagen
@@ -736,8 +759,10 @@ es:
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
     time_doc: El tiempo de cada subida en tu hora local
+    uploaded_at: Cargado el
     uploaded_by: Subido por
     usage_count: Total de usos
+    usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
@@ -766,9 +791,10 @@ es:
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
-    characters_added_mainspace: Caracteres añadidos en el espacio principal
+    characters_added_mainspace: Caracteres añadidos (artículo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caracteres añadidos en el espacio de usuario
+    characters_added_userspace: Caracteres añadidos (usuario)
+    characters_added_draftspace: Caracteres añadidos (borrador)
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre
@@ -884,8 +910,7 @@ es:
   error_404:
     header: No se encontró la página. :-(
     explanation: Esta página no existe. Si estás intentando acceder al panel de un
-      curso, puede que ese curso no esté registrado para este panel. Si se ha registrado
-      recientemente, puede tomar un poco de tiempo hasta que el sistema lo añada.
+      curso, puede que ese curso no esté registrado en este panel.
   error_422:
     header: 422 — entidad no procesable.  :-(
     explanation: Algo salió mal. Ponte en contacto con los responsables del mantenimiento
@@ -927,4 +952,23 @@ es:
         nuestro apoyo a tareas en la Wikipedia, como las tuyas.
   feedback_form_responses:
     no_responses: Todavía no hay respuestas/comentarios.
+  onboarding:
+    supplementary:
+      header: ¿Cómo te enteraste de nosotros?
+      where_did_you_hear: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre
+        Wiki Education?
+      why_are_you_here: ¿Qué quieres hacer?
+  article_finder:
+    no_article_found: No se encontró ningún artículo en esta categoría
+    search_placeholder: Escribe una palabra clave
+    search: Buscar
+    tools: Herramientas
+    keyword_search: Búsqueda por palabras clave
+    category_search: Búsqueda por categorías
+    article_quality: Calidad de artículo (0-100)
+    more_results: Más resultados
+    fetched_articles: Artículos recuperados
+    filtered_articles: Artículos filtrados
+    searching_articles: Buscando artículos
+    submit: Enviar
 ...

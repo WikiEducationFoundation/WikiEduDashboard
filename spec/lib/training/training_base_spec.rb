@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/training_base"
-require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_library"
 
 describe TrainingBase do
   before do
     allow(Features).to receive(:wiki_trainings?).and_return(false)
   end
 
+  # Make sure default trainings get reloaded
+  after(:all) do
+    TrainingLibrary.flush
+  end
+
   describe 'abstract parent class' do
     it 'raises errors for required template instance methods' do
-      subject = TrainingBase.new({}, 'foo')
+      subject = described_class.inflate({}, 'foo')
       expect { subject.valid? }.to raise_error(NotImplementedError)
     end
 
@@ -21,40 +25,72 @@ describe TrainingBase do
   end
 
   describe '.load' do
-    let(:subject) { TrainingSlide.load }
+    let(:subject) { TrainingModule.load }
 
-    context 'when a file is misformatted' do
+    context 'when a module file is misformatted' do
       before do
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/bad_yaml")
       end
 
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
-        expect { subject }.to raise_error(NoMethodError)
+        expect { subject }.to raise_error(TypeError)
       end
     end
 
-    context 'when there are duplicate slugs' do
+    context 'when a slide file is misformatted' do
+      let(:subject) { TrainingSlide.load }
+
       before do
-        allow(TrainingBase).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/bad_yaml_slide")
       end
 
-      it 'raises an error noting the duplicate slug name' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
-                                          /.*duplicate-yaml-slug.*/)
+      it 'raises an error that includes the filename of the bad file' do
+        expect { subject }.to raise_error(YamlTrainingLoader::InvalidYamlError,
+                                          /.*bad_yaml_slide.*/)
       end
     end
 
-    context 'when there are duplicate ids' do
+    context 'when libraries have id collisions' do
+      let(:subject) { TrainingLibrary.load }
+
       before do
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
       end
 
-      it 'raises an error noting the duplicate id' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateIdError)
+      it 'raises an error that includes the slugs' do
+        expect { subject }.to raise_error(TrainingBase::DuplicateIdError, /1-yaml-id/)
+      end
+    end
+
+    context 'when libraries have slug collisions' do
+      let(:subject) { TrainingLibrary.load }
+
+      before do
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+      end
+
+      it 'raises an error that includes the duplicate slug' do
+        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
+                                          /a-slug-has-no-name/)
+      end
+    end
+
+    context 'when a library file is misformatted' do
+      let(:subject) { TrainingLibrary.load }
+
+      before do
+        allow(described_class).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/bad_yaml")
+      end
+
+      it 'raises an error and outputs the filename the bad file' do
+        expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
+        expect { subject }.to raise_error(StandardError)
       end
     end
 
@@ -63,6 +99,7 @@ describe TrainingBase do
         allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return('training_content/wiki_ed')
       end
+
       it 'loads trainings from that path' do
         TrainingSlide.load
         expect(TrainingSlide.all).not_to be_empty
@@ -74,6 +111,7 @@ describe TrainingBase do
         allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return(nil)
       end
+
       it 'loads trainings from the default path' do
         TrainingSlide.load
         expect(TrainingSlide.all).not_to be_empty
@@ -83,22 +121,12 @@ describe TrainingBase do
 
   describe '.all' do
     context 'when the cache is empty' do
-      before(:each) do
+      before do
         TrainingLibrary.flush
-        TrainingModule.flush
-        TrainingSlide.flush
       end
 
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
-        expect(TrainingModule.all).not_to be_empty
-        expect(TrainingSlide.all).not_to be_empty
-      end
-      it 'returns an empty array instead of fetching from wiki' do
-        allow(Features).to receive(:wiki_trainings?).and_return(true)
-        expect(TrainingLibrary.all).to eq([])
-        expect(TrainingModule.all).to eq([])
-        expect(TrainingSlide.all).to eq([])
       end
     end
   end
@@ -108,23 +136,36 @@ describe TrainingBase do
       before do
         allow(Features).to receive(:wiki_trainings?).and_return(false)
       end
-      it 'runs without error with wiki' do
-        TrainingBase.load_all
+
+      it 'sets wiki_slide to nil for training content' do
+        described_class.load_all
+        expect(TrainingLibrary.all.last.wiki_page).to be_nil
+        expect(TrainingModule.all.last.wiki_page).to be_nil
+        expect(TrainingSlide.last.wiki_page).to be_nil
       end
     end
 
     context 'with wiki trainings enabled' do
       before do
+        TrainingSlide.destroy_all
+        TrainingModule.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
-      it 'runs without error with wiki' do
+
+      it 'loads libraries, modules and slides that include the source wiki_page' do
         VCR.use_cassette 'wiki_trainings' do
-          TrainingBase.load_all
+          described_class.load_all
+        end
+        TrainingLibrary.all.each do |library|
+          expect(library.wiki_page).to match(%r{/dashboard libraries/.*json})
+        end
+        TrainingModule.all.each do |training_module|
+          expect(training_module.wiki_page).to match(%r{User:.*/.*.json})
+        end
+        TrainingSlide.all.each do |slide|
+          expect(slide.wiki_page).to match(%r{Training modules/dashboard/slides/.+})
         end
       end
     end
   end
-
-  # Make sure default trainings get reloaded
-  after(:all) { TrainingModule.load_all }
 end

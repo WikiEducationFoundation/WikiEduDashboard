@@ -16,7 +16,7 @@ describe SurveyResponseAlertManager do
     create(:q_long, validation_rules: { presence: '0' }, alert_conditions: { present: true })
   end
 
-  let(:subject) { SurveyResponseAlertManager.new }
+  let(:subject) { described_class.new }
 
   let(:create_answer) do
     answer_group = create(:answer_group, user_id: user.id)
@@ -26,12 +26,13 @@ describe SurveyResponseAlertManager do
 
   before do
     create(:user, username: 'Samantha (Wiki Ed)', email: 'samantha@wikiedu.org')
-    create(:setting, key: 'special_users', value: { survey_alerts_recipient: 'Samantha (Wiki Ed)' })
+    Setting.set_special_user('survey_alerts_recipient', 'Samantha (Wiki Ed)')
   end
 
   context 'when an "equals" condition is met in an answer' do
     let(:question) { equals_question }
     let(:answer_text) { 'yes' }
+
     it 'creates an alert and sends an email' do
       create_answer
       subject.create_alerts
@@ -44,6 +45,7 @@ describe SurveyResponseAlertManager do
   context 'when an "equals" condition is not met in an answer' do
     let(:question) { equals_question }
     let(:answer_text) { 'no' }
+
     it 'does not create an alert' do
       create_answer
       subject.create_alerts
@@ -54,6 +56,7 @@ describe SurveyResponseAlertManager do
   context 'when a "present" condition question has an answer' do
     let(:question) { present_question }
     let(:answer_text) { 'some answer' }
+
     it 'creates an alert and sends an email' do
       create_answer
       subject.create_alerts
@@ -66,6 +69,7 @@ describe SurveyResponseAlertManager do
   context 'when a "present" condition question has an blank answer' do
     let(:question) { present_question }
     let(:answer_text) { '' }
+
     it 'does not create an alert' do
       create_answer
       subject.create_alerts
@@ -76,6 +80,7 @@ describe SurveyResponseAlertManager do
   context 'when a condition is met but there is already an alert' do
     let(:question) { equals_question }
     let(:answer_text) { 'yes' }
+
     before do
       create(:alert, type: 'SurveyResponseAlert', user_id: user.id, subject_id: question.id)
     end

@@ -3,33 +3,32 @@ env:
 # Run all tests in job 2
 - TEST_SUITE='~type:foo' AFTER_SUCCESS='' CC_TEST_REPORTER_ID=f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
 language: ruby
-rvm: 2.5
+rvm: 2.5.0
 sudo: required
 dist: trusty
+node_js: 10
 cache:
   apt: true
   directories:
   - vendor
   - node_modules
 addons:
+  chrome: stable
   apt:
     packages:
     - pandoc
-    - r-base
+services:
+  - redis-server
 before_install:
 - rvm --default use 2.5.0
 - export PATH=$PATH:`yarn global bin`
 - export DB=test
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
-- nvm install stable
-- nvm use stable
 - node --version
 - yarn --version
 install:
-- yarn global add gulp
-- yarn global add phantomjs-prebuilt@latest
 - yarn global add codeclimate-test-reporter
-- yarn install
+- yarn install --ignore-engines
 - gem install bundler
 - gem install rubocop
 - gem install rubocop-rspec-focused
@@ -45,9 +44,11 @@ before_script:
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
 script:
-  - gulp build && yarn test && bundle exec rspec --color --profile --format documentation
+  - yarn gulp build
+  - yarn test
+  - bundle exec rspec --color --profile --format documentation
     --tag $TEST_SUITE
-  - rubocop --rails
+  - bundle exec rubocop --rails
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_success:

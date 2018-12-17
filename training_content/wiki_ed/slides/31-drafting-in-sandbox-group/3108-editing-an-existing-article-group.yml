@@ -1,0 +1,26 @@
+---
+title: Editing an existing article?
+content: |+
+  If your group is editing an existing article, a sandbox can be a good
+  place to prepare your first updates by copying a *small portion* of the
+  article that you want to change or extend. Do not try to overhaul an
+  entire article from the sandbox.
+
+  First identify as a group what's missing from the current article. Keep
+  reading your sources, too, as you prepare to write the body of the
+  article.
+
+  When you're ready to make edits:
+
+  1.  Open your group's chosen article in **Edit** mode. (References and
+      other templates will break if you copy from **Read** mode.)
+  2.  Select the portion you want to work on — a few paragraphs at most —
+      and copy it.
+  3.  Open the sandbox your group has decided to work in, and open the
+      Edit mode. Now paste the copied article content.
+  4.  Add an edit summary that says copied from `[[article]]` with the
+      name of the original article, then save it.
+  5.  Re-enter Edit mode in the sandbox, make your changes, and publish
+      them.
+
+id: 3108

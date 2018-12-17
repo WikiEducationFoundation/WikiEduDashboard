@@ -6,10 +6,10 @@ wizard-width = 860px
   transition opacity .2s ease-in-out
   &.wizard-enter-active
     opacity 1
-.wizard-leave
+.wizard-exit
   opacity 1
   transition opacity .2s ease-in-out
-  &.wizard-leave-active
+  &.wizard-exit-active
     opacity 0.01
 
 .wizard__panel-enter
@@ -45,8 +45,8 @@ wizard-width = 860px
     width 100%
     visibility hidden
     &.active
-      /*@noflip*/ left 40.5%
-      top 60px
+      /*@noflip*/ left 50%
+      top 90px
       opacity 1
       transition left panel_speed ease-in-out, opacity .01s
       visibility visible
@@ -133,6 +133,10 @@ wizard-width = 860px
       > button
         padding 20px 20px 55px 20px
         width 100%
+      &.wizard__option__small
+        > button
+          padding-top 10px
+          padding-bottom 10px
       &.summary
         border-top-width 0
         margin-bottom 0

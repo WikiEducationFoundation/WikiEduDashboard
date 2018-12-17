@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/analytics/monthly_report"
-require "#{Rails.root}/lib/analytics/course_statistics"
-require "#{Rails.root}/lib/analytics/course_csv_builder"
-require "#{Rails.root}/lib/analytics/course_edits_csv_builder"
-require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require "#{Rails.root}/lib/analytics/campaign_csv_builder"
-require "#{Rails.root}/lib/analytics/ungreeted_list"
-require "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/lib/analytics/monthly_report"
+require_dependency "#{Rails.root}/lib/analytics/course_statistics"
+require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_edits_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
@@ -31,8 +30,6 @@ class AnalyticsController < ApplicationController
       campaign_stats
     elsif params[:campaign_intersection]
       campaign_intersection
-    elsif params[:ores_changes]
-      ores_changes
     end
     render 'index'
   end
@@ -108,18 +105,6 @@ class AnalyticsController < ApplicationController
     stats = CourseStatistics.new(course_ids, campaign: campaign_name)
     @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
-  end
-
-  def ores_changes
-    @campaign = Campaign.find(params[:campaign][:id])
-    @minimum_bytes = params[:minimum_bytes].to_i
-    @minimum_improvement = params[:minimum_improvement].to_f if params[:minimum_improvement]
-                                                                .present?
-    @ores_changes_plot = HistogramPlotter.plot(campaign: @campaign, opts:
-      { minimum_bytes: @minimum_bytes,
-        existing_only: params[:existing_only],
-        minimum_improvement: @minimum_improvement,
-        type: params[:graph_type] })
   end
 
   private

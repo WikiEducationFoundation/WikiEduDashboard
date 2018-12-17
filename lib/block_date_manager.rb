@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 class BlockDateManager
   def initialize(block, meetings_manager = nil)
@@ -36,6 +36,6 @@ class BlockDateManager
   end
 
   def meetings_manager
-    @meetings_manager ||= CourseMeetingsManager.new(@block.course)
+    @meetings_manager ||= @course.meetings_manager
   end
 end

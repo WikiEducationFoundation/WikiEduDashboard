@@ -77,10 +77,11 @@ describe SurveyNotification do
   end
 
   describe '.active' do
-    let(:subject) { SurveyNotification.active }
+    let(:subject) { described_class.active }
 
     context 'when the survey is not closed' do
       before { survey_notification }
+
       it 'includes the active survey notification' do
         expect(subject).to include(survey_notification)
       end
@@ -88,7 +89,9 @@ describe SurveyNotification do
 
     context 'when the notification is dismissed' do
       let(:dismissed) { true }
+
       before { survey_notification }
+
       it 'returns no survey notifications' do
         expect(subject.count).to eq(0)
       end
@@ -96,7 +99,9 @@ describe SurveyNotification do
 
     context 'when the notification is completed' do
       let(:completed) { true }
+
       before { survey_notification }
+
       it 'returns no survey notifications' do
         expect(subject.count).to eq(0)
       end
@@ -104,7 +109,9 @@ describe SurveyNotification do
 
     context 'when the survey is closed' do
       let(:survey_closed?) { true }
+
       before { survey_notification }
+
       it 'returns no survey notifications' do
         expect(subject.count).to eq(0)
       end
@@ -114,6 +121,7 @@ describe SurveyNotification do
   describe '#send_email' do
     context 'when email has not been sent' do
       let(:email_sent_at) { nil }
+
       it 'sends the email' do
         expect(SurveyMailer).to receive(:instructor_survey_notification).and_return(mock_mailer)
         subject.send_email
@@ -124,6 +132,7 @@ describe SurveyNotification do
     context 'when the user has no email address' do
       let(:email_sent_at) { nil }
       let(:email) { nil }
+
       it 'returns without error' do
         expect(SurveyMailer).not_to receive(:instructor_survey_notification)
         subject.send_email
@@ -154,6 +163,7 @@ describe SurveyNotification do
 
     context 'follow up was just sent' do
       let(:last_follow_up_sent_at) { 1.hour.ago }
+
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
         subject.send_follow_up
@@ -164,14 +174,17 @@ describe SurveyNotification do
 
     context 'follow ups set on assignment, but it is not yet time to send' do
       let(:email_sent_at) { 1.minute.ago }
+
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
         subject.send_follow_up
         expect(subject.last_follow_up_sent_at).to be_nil
       end
     end
+
     context 'follow ups set on assignment, it is time to send' do
       let(:email_sent_at) { 8.days.ago }
+
       it 'sends the follow up' do
         expect(SurveyMailer).to receive(:instructor_survey_follow_up).and_return(mock_mailer)
         subject.send_follow_up
@@ -183,6 +196,7 @@ describe SurveyNotification do
       let(:email) { nil }
       let(:email_sent_at) { nil }
       let(:last_follow_up_sent_at) { nil }
+
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
         subject.send_follow_up
@@ -194,6 +208,7 @@ describe SurveyNotification do
       let(:email) { 'pizza@tacos.com' }
       let(:email_sent_at) { nil }
       let(:last_follow_up_sent_at) { nil }
+
       it 'does not send the follow up' do
         expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
         subject.send_follow_up
@@ -208,6 +223,7 @@ describe SurveyNotification do
       context 'and first follow up was sent just now' do
         let(:follow_up_count) { 1 }
         let(:last_follow_up_sent_at) { 1.day.ago }
+
         it 'does not send another follow up' do
           expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
           subject.send_follow_up
@@ -220,6 +236,7 @@ describe SurveyNotification do
       context 'and first follow up was sent longer ago' do
         let(:follow_up_count) { 1 }
         let(:last_follow_up_sent_at) { 8.days.ago }
+
         it 'sends another follow up' do
           expect(SurveyMailer).to receive(:instructor_survey_follow_up).and_return(mock_mailer)
           subject.send_follow_up
@@ -232,6 +249,7 @@ describe SurveyNotification do
       context 'and third follow up was sent longer ago' do
         let(:follow_up_count) { 3 }
         let(:last_follow_up_sent_at) { 8.days.ago }
+
         it 'does not send another follow up' do
           expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
           subject.send_follow_up

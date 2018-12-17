@@ -1,32 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from '../common/css_transition_group';
 
 import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
-import Editable from '../high_order/editable.jsx';
-
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-import ServerActions from '../../actions/server_actions.js';
-import TimelineActions from '../../actions/timeline_actions.js';
+import { fetchAllTrainingModules } from '../../actions/training_actions';
 
-import WeekStore from '../../stores/week_store.js';
-import BlockStore from '../../stores/block_store.js';
-import GradeableStore from '../../stores/gradeable_store.js';
-import TrainingStore from '../../training/stores/training_store.js';
-
-const getState = () =>
-  ({
-    loading: WeekStore.getLoadingStatus(),
-    weeks: WeekStore.getWeeks(),
-    blocks: BlockStore.getBlocks(),
-    gradeables: GradeableStore.getGradeables(),
-    all_training_modules: TrainingStore.getAllModules(),
-    editable_block_ids: BlockStore.getEditableBlockIds()
-  })
-;
+import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
+  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
+import { getWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
 const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
@@ -37,45 +23,40 @@ const TimelineHandler = createReactClass({
     current_user: PropTypes.object,
     children: PropTypes.node,
     controls: PropTypes.func,
-    weeks: PropTypes.array,
-    gradeables: PropTypes.array,
+    weeks: PropTypes.array.isRequired,
     loading: PropTypes.bool,
-    editable_block_ids: PropTypes.array,
-    all_training_modules: PropTypes.array
+    editableBlockIds: PropTypes.array,
+    all_training_modules: PropTypes.array,
+    fetchAllTrainingModules: PropTypes.func.isRequired,
+    editPermissions: PropTypes.bool.isRequired
   },
 
   getInitialState() {
     return { reorderable: false };
   },
 
-  componentWillMount() {
-    ServerActions.fetch('timeline', this.props.course_id);
-    return ServerActions.fetchAllTrainingModules();
+  componentDidMount() {
+    return this.props.fetchAllTrainingModules();
   },
 
   _cancelBlockEditable(blockId) {
-    BlockStore.restore();
-    return BlockStore.cancelBlockEditable(blockId);
+    // TODO: Restore to persisted state for this block only
+    return this.props.cancelBlockEditable(blockId);
   },
 
   _cancelGlobalChanges() {
     this.setState({ reorderable: false });
-    BlockStore.restore();
-    return BlockStore.clearEditableBlockIds();
+    this.props.restoreTimeline();
   },
 
   _enableReorderable() {
     return this.setState({ reorderable: true });
   },
 
-  saveTimeline(editableBlockId = 0) {
+  saveTimeline() {
     this.setState({ reorderable: false });
-    const toSave = $.extend(true, {}, this.props);
-    TimelineActions.persistTimeline(toSave, this.props.course_id);
-    if (editableBlockId > 0) {
-      return BlockStore.cancelBlockEditable(editableBlockId);
-    }
-    return BlockStore.clearEditableBlockIds();
+    const toSave = { weeks: this.props.weeks };
+    this.props.persistTimeline(toSave, this.props.course_id);
   },
 
   render() {
@@ -101,22 +82,25 @@ const TimelineHandler = createReactClass({
     let showGrading;
     if (this.state.reorderable) {
       showGrading = false;
-    } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
-      showGrading = true;
-    } else if (this.props.gradeables.length === 0) {
-      showGrading = false;
     } else {
       showGrading = true;
     }
-    const grading = showGrading ? <Grading {...this.props} /> : null;
+    const grading = showGrading ? (<Grading
+      weeks={this.props.weeks}
+      editable={this.props.editable}
+      current_user={this.props.current_user}
+      persistCourse={this.saveTimeline}
+      updateBlock={this.props.updateBlock}
+      resetState={() => {}}
+      nameHasChanged={() => false}
+    />) : null;
 
     return (
       <div>
         <TransitionGroup
-          transitionName="wizard"
+          classNames="wizard"
           component="div"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
+          timeout={500}
         >
           {outlet}
         </TransitionGroup>
@@ -125,16 +109,27 @@ const TimelineHandler = createReactClass({
           course={this.props.course}
           weeks={this.props.weeks}
           week_meetings={weekMeetings}
-          editable_block_ids={this.props.editable_block_ids}
+          editableBlockIds={this.props.editableBlockIds}
           reorderable={this.state.reorderable}
           controls={this.props.controls}
+          persistCourse={this.props.persistTimeline}
           saveGlobalChanges={this.saveTimeline}
           saveBlockChanges={this.saveTimeline}
           cancelBlockEditable={this._cancelBlockEditable}
           cancelGlobalChanges={this._cancelGlobalChanges}
+          updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
-          all_training_modules={this.props.all_training_modules}
-          edit_permissions={this.props.current_user.admin || this.props.current_user.role > 0}
+          all_training_modules={this.props.availableTrainingModules}
+          addWeek={this.props.addWeek}
+          addBlock={this.props.addBlock}
+          deleteBlock={this.props.deleteBlock}
+          insertBlock={this.props.insertBlock}
+          deleteWeek={this.props.deleteWeek}
+          deleteAllWeeks={this.props.deleteAllWeeks}
+          setBlockEditable={this.props.setBlockEditable}
+          resetState={() => {}}
+          nameHasChanged={() => false}
+          edit_permissions={this.props.editPermissions}
         />
         {grading}
       </div>
@@ -142,4 +137,27 @@ const TimelineHandler = createReactClass({
   }
 });
 
-export default Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);
+const mapStateToProps = state => ({
+  weeks: getWeeksArray(state),
+  loading: state.timeline.loading,
+  editableBlockIds: state.timeline.editableBlockIds,
+  availableTrainingModules: getAvailableTrainingModules(state),
+  editPermissions: editPermissions(state)
+});
+
+const mapDispatchToProps = {
+  addWeek,
+  deleteWeek,
+  addBlock,
+  deleteBlock,
+  persistTimeline,
+  setBlockEditable,
+  cancelBlockEditable,
+  updateBlock,
+  insertBlock,
+  restoreTimeline,
+  deleteAllWeeks,
+  fetchAllTrainingModules
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);

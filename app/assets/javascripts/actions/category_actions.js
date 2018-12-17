@@ -1,4 +1,4 @@
-import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from "../constants";
+import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCategoriesPromise = (courseSlug) => {
@@ -18,7 +18,7 @@ const fetchCategoriesPromise = (courseSlug) => {
   );
 };
 
-export const fetchCategories = (courseSlug) => dispatch => {
+export const fetchCategories = courseSlug => (dispatch) => {
   return (
     fetchCategoriesPromise(courseSlug)
       .then(resp =>
@@ -47,7 +47,7 @@ const addCategoryPromise = ({ category, source, project, language, depth, course
   );
 };
 
-export const addCategory = (categoryCourse) => dispatch => {
+export const addCategory = categoryCourse => (dispatch) => {
   return (
     addCategoryPromise(categoryCourse)
       .then(resp =>
@@ -76,7 +76,7 @@ const removeCategoryPromise = (courseId, categoryId) => {
   );
 };
 
-export const removeCategory = (courseId, categoryId) => dispatch => {
+export const removeCategory = (courseId, categoryId) => (dispatch) => {
   return (
     removeCategoryPromise(courseId, categoryId)
       .then(resp =>

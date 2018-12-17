@@ -3,6 +3,10 @@
 # The application controller is the parent for all other controllers.
 # It includes methods are relevant across the application, such as permissions
 # and login.
+require_dependency "#{Rails.root}/lib/errors/authentication_errors"
+require_dependency "#{Rails.root}/lib/errors/rescue_development_errors"
+require_dependency "#{Rails.root}/lib/errors/rescue_errors"
+
 class ApplicationController < ActionController::Base
   include Errors::RescueDevelopmentErrors if Rails.env.development? || Rails.env.test?
   include Errors::RescueErrors
@@ -45,7 +49,7 @@ class ApplicationController < ActionController::Base
 
   def require_permissions
     require_signed_in
-    course = Course.find_by(slug: params[:id])
+    course = Course.find_by!(slug: params[:id] || params[:slug] || params[:course_id])
     raise NotPermittedError unless current_user.can_edit? course
   end
 

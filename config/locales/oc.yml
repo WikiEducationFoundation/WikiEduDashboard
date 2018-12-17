@@ -237,7 +237,6 @@ oc:
     start: Aviar
     view: Afichar
   uploads:
-    datetime: Data/Ora
     file_name: Nom de fichièr
     image: Imatge
     label: Telecargaments

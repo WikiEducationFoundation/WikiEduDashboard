@@ -144,15 +144,13 @@ const DiffViewer = createReactClass({
           let firstRevisionData;
           try {
             firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
-          }
-          catch (_err) {
+          } catch (_err) {
             firstRevisionData = {};
           }
           let lastRevisionData;
           try {
             lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
-          }
-          catch (_err) { /*noop*/ }
+          } catch (_err) { /* noop */ }
 
           // Data may or may not include the diff.
           let diff;
@@ -218,10 +216,12 @@ const DiffViewer = createReactClass({
 
       diffComment = <p className="diff-comment">{this.state.comment}</p>;
 
-      editDate = <p className="diff-comment">
-        ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
-        {this.props.revision.characters}&nbsp;
-        {I18n.t('revisions.chars_added')})</p>;
+      editDate = (
+        <p className="diff-comment">
+          ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
+          {this.props.revision.characters}&nbsp;
+          {I18n.t('revisions.chars_added')})
+        </p>);
     } else {
       firstRevTime = moment(this.state.firstRevDateTime).format('YYYY/MM/DD h:mm a');
       lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');

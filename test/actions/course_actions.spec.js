@@ -1,36 +1,29 @@
-import sinon from 'sinon';
-
 import '../testHelper';
-import CourseActions from '../../app/assets/javascripts/actions/course_actions.js';
-import CourseStore from '../../app/assets/javascripts/stores/course_store.js';
+import { updateCourse, persistCourse } from '../../app/assets/javascripts/actions/course_actions.js';
 
 describe('CourseActions', () => {
   beforeEach(() => {
-    sinon.stub($, "ajax").yieldsTo("success", { course: { title: 'Bar' } });
+    sinon.stub($, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });
   });
   afterEach(() => {
     $.ajax.restore();
   });
 
-  it('.addCourse initializes a minimal course in the store', (done) => {
-    CourseActions.addCourse().then(() => {
-      expect(CourseStore.getCourse().weekdays).to.eq('0000000');
-      done();
-    });
-  });
-
-  it('.updateCourse sets course data in the store but not the persisted version', (done) => {
+  it('.updateCourse sets course data in the store', () => {
     const course = { title: 'Foo' };
-    CourseActions.updateCourse(course).then(() => {
-      expect(CourseStore.getCourse().title).to.eq('Foo');
-      done();
-    });
+    expect(reduxStore.getState().course.title).to.eq('');
+    reduxStore.dispatch(updateCourse(course));
+    const updatedCourse = reduxStore.getState().course;
+    const persistedCourse = reduxStore.getState().persistedCourse;
+    expect(updatedCourse.title).to.eq('Foo');
+    expect(persistedCourse.title).not.to.eq('Foo');
   });
 
   it('.persistCourse pushes course data to server via ajax then updates with returned data', (done) => {
     const course = { title: 'Foo' };
-    CourseActions.persistCourse(course).then(() => {
-      expect(CourseStore.getCourse().title).to.eq('Bar');
+    persistCourse(course)(reduxStore.dispatch, reduxStore.getState).then(() => {
+      expect(reduxStore.getState().course.title).to.eq('Bar');
+      expect(reduxStore.getState().persistedCourse.title).to.eq('Bar');
       done();
     });
   });

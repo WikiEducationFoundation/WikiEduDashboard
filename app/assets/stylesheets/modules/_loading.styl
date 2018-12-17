@@ -28,3 +28,22 @@
     transform rotate(360deg)
   }
 }
+
+.loading__spinner__small
+  margin 5px
+  font-size 10px
+  position relative
+  // text-indent -9999em
+  border-top 2px solid #fff
+  border-right 2px solid #fff
+  border-bottom 2px solid #fff
+  border-left 2px solid $brand_primary
+  transform translate3d(0,0,0)
+  animation load 0.5s infinite linear
+  margin auto
+
+.loading__spinner__small,
+.loading__spinner__small:after
+  border-radius 50%
+  width 30px
+  height 30px

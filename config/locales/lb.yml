@@ -1,6 +1,7 @@
 # Messages for Luxembourgish (Lëtzebuergesch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Les Meloures
 # Author: Robby
 ---
 lb:
@@ -26,6 +27,7 @@ lb:
     recent_activity: Rezent Aktivitéit
     report_problem: E Problem mellen
     request_account: E Benotzerkont ufroen
+    request_account_create: E Benotzerkont opmaachen
     search: eng Fro stellen
     search_results: 'Resultater fir: %{search_terms}'
     sign_up_extended: Mat Wikipedia umellen
@@ -60,6 +62,9 @@ lb:
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
+    filter:
+      wiki_all: All
+      new: Nei
     hide: Verstoppen
     history: (Versiounen)
     label: Artikelen
@@ -75,13 +80,15 @@ lb:
       ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
         säin Haaptprojet eventuell ze räif ass.
       b: B-Klass - e moderat entwéckelten Artikel
-      c: C-Klass - En duerchschnëttlechen Artikel mat Méiglechkeete fir en ze verbesseren
+      c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
+        ze verbesseren'
       start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
         ginn
-      list: Klass Lëscht - éischter eng Lëscht wéi e konventionellen Artikel
+      list: '%{class}-Klass - éischter eng Lëscht wéi e konventionellen Artikel'
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia
+    see_more: Méi gesinn
     show_cumulative_changes: Kumulativ Ännerunge weisen
     show_current_version: Aktuell Versioun weisen
     title: Titel
@@ -93,7 +100,8 @@ lb:
     wiki: Wiki
   assignments:
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
-    add_available: En disponibelen Artikel dobäisetzen
+    add_available: Disponibel Artikelen derbäisetzen
+    add_available_submit: Artikelen derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
@@ -102,11 +110,16 @@ lb:
     milestones:
       title: Kilometersténg
   campaign:
-    add_organizer: Organisateur dobäisetzen
+    add_organizer: Organisateur derbäisetzen
+    alert_article: Titel vum Artikel
+    alert_type: Typ
+    alert_user_id: Benotzer
     campaign: Campagne
     campaigns: Campagnen
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
+    created_at: Datum
+    course: Cours
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
@@ -117,10 +130,10 @@ lb:
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
   categories:
-    add_category: Kategorie dobäisetzen
-    add_template: Schabloun dobäisetzen
-    add_this_category: Dës Kategorie dobäisetzen
-    add_this_template: Dës Schabloun dobäisetzen
+    add_category: Kategorie derbäisetzen
+    add_template: Schabloun derbäisetzen
+    add_this_category: Dës Kategorie derbäisetzen
+    add_this_template: Dës Schabloun derbäisetzen
     name: Numm
     category_name: Numm vun der Kategorie
     template_name: Numm vun der Schabloun
@@ -132,6 +145,7 @@ lb:
       aktivéiere wëllt?
     activity: Aktivitéit
     active_courses: Aktiv %{course_type}
+    alerts: Meldungen
     all_courses: All Coursen
     archived: Archivéiert Coursen
     actions: Aktiounen
@@ -191,6 +205,7 @@ lb:
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
     features_feedback: 'Automatiséiert Virschléi:'
     feedback: Feedback
+    home_wiki_language: Sprooch vun der Heemechtswiki
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -240,6 +255,7 @@ lb:
     subject: Sujet
     timeline_enabled: Zäitplang aktivéiert
     timeline_link: Chronologie
+    timeline_nav: Op den Zäitplang
     title: Titel
     update_stats: Statistiken aktualiséieren
     user_suggestions: 'Benotzervirschléi:'
@@ -251,6 +267,7 @@ lb:
       one: Fräiwëllegen
       other: Fräiwëlleger
     weeks_none: Dëse Cours huet nach keen Zäitplang.
+    withdrawn: Zréckgezunn
     yourcourses: Är Coursen
     survey:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
@@ -281,13 +298,15 @@ lb:
       participate_in_campaign: Bei enger Campagne matmaachen
       save_cloned_course: Späicheren
     delete_course: Programm läschen
-    enroll: Auteur dobäisetzen
+    enroll: Auteur derbäisetzen
     enrollment: Participatioun
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
     request_accounts: Benotzerkonten ufroen
     school: Institutioun
     school_and_term: Institiutioun/Wéini
+    student_editors: Editeuren
+    students: Editeuren
     students_short: Auteuren
     students_count: Zuel vu Participanten
     term: Wéini
@@ -302,10 +321,11 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
-    last_update: Lescht Aktualisatioun vun de Statistiken
+    last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
+    bytes_added: Byten derbäigesat
     characters: Buschtawen
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
@@ -351,12 +371,20 @@ lb:
         form_placeholder: Benotzernumm
         confirm_remove_admin: Administrateur-Rechter ewechhuele fir
         already_admin: '%{username}ass schonn en Administrateur!'
+      remove:
+        revoking_button_working: Ewechhuelen...
+    special_users:
+      new:
+        form_placeholder: Benotzernumm
+        already_is: '%{username} ass schonn e(n) {position}!'
+      remove:
+        demote_success: '%{username} ass elo just e Benotzer.'
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia.
   timeline:
-    add_week: Woch dobäisetzen
+    add_week: Woch derbäisetzen
     block_custom: Personaliséiert
     block_milestone: Kilometersteen
     course_dates: Datume vum Cours
@@ -383,12 +411,13 @@ lb:
     next: Nächst Säit
     page: Säit
     page_number: Säit %{number} vu(n) %{total}
+    previous: < Vireg
     table_of_contents: Inhaltsverzeechnes
     training_library: Formatiouns-Bibliothéik
     done: Fäerdeg!
+    invalid: Pardon dee Slide gëtt et net!
     check_answer: Äntwert nokucken
   uploads:
-    datetime: Datum/Zäit
     file_name: Numm vum Fichier
     image: Bild
     label: Eropgeluede Fichieren
@@ -396,6 +425,9 @@ lb:
       bäigedroe.
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit
     uploaded_by: Eropgeluede vum
+    uploaded_on: Eropgelueden de(n)
+    usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
+    usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg
@@ -445,8 +477,8 @@ lb:
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
     instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
     disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
-    bio_placeholder: Är Biographie dobäisetzen (fakultativ)
-    location_placeholder: Setzt Är Plaz dobäi (fakultativ)
+    bio_placeholder: Är Biographie derbäisetzen (fakultativ)
+    location_placeholder: Setzt d'Plaz wou Dir sidd, derbäi (fakultativ)
     institution_placeholder: Numm vun der Institutioun (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
@@ -468,6 +500,8 @@ lb:
     header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
       w.e.g., loggt Iech an a probéiert nach eng Kéier.
+  error_no_course:
+    explanation: Et gëtt kee Cours %{slug}.
   error_404:
     header: Säit net fonnt. :-(
   error_500:
@@ -480,4 +514,26 @@ lb:
       course: 'Cours: %{course_info}'
       closing: Mat beschte Gréiss
       link: Bei der Ëmfro matmaachen
+  onboarding:
+    supplementary:
+      header: Wéi hutt Dir vun eis héieren?
+      where_did_you_hear: Wou oder vu wiem hutt Dir fir d'éischt vu WikiEducation
+        héieren?
+      why_are_you_here: Wat wëllt Dir maachen?
+  article_finder:
+    page_assessment_class: Klass
+    average_views: Duerchschnëttlech gekuckt pro Dag
+    add_available_article: Als disponibelen Artikel derbäisetzen
+    remove_article: Artikel ewechhuelen
+    no_article_found: Keng Artikelen an dëser Kategorie fonnt
+    search: Sichen
+    tools: Geschirkëscht
+    show_options: Optioune weisen
+    hide_options: Optioune verstoppen
+    category_search: Kategorie Sichen
+    more_results: Méi Resultater
+    filtered_articles: Gefiltert Artikelen
+    searching_articles: Artikele sichen
+    submit: Schécken
+    relevanceIndex: Relevanzindex
 ...

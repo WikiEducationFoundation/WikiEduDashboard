@@ -8,6 +8,7 @@ describe AssignmentSuggestionsController do
     let(:user) { create(:user) }
 
     before { allow(controller).to receive(:current_user).and_return(user) }
+
     it 'creates a record' do
       expect(AssignmentSuggestion.count).to eq(0)
       put :create, params: { assignment_id: assignment.id,
@@ -33,6 +34,7 @@ describe AssignmentSuggestionsController do
 
     context 'when the user is an admin' do
       before { allow(controller).to receive(:current_user).and_return(admin) }
+
       it 'destroys the suggestion' do
         expect(subject.code).to eq('200')
         expect(AssignmentSuggestion.exists?(assignment_suggestion.id)).to eq(false)
@@ -41,6 +43,7 @@ describe AssignmentSuggestionsController do
 
     context 'when the user owns the suggestion' do
       before { allow(controller).to receive(:current_user).and_return(owner) }
+
       it 'destroys the suggestion' do
         expect(subject.code).to eq('200')
         expect(AssignmentSuggestion.exists?(assignment_suggestion.id)).to eq(false)
@@ -49,6 +52,7 @@ describe AssignmentSuggestionsController do
 
     context 'when a non-admin user does not own the suggestion' do
       before { allow(controller).to receive(:current_user).and_return(nonowner) }
+
       it 'return a 401 not authorized' do
         expect(subject.code).to eq('401')
         expect(AssignmentSuggestion.exists?(assignment_suggestion.id)).to eq(true)

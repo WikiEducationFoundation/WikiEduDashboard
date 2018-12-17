@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '5.1.5'
-gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
+gem 'rails', '5.2.2'
+gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
@@ -13,7 +13,7 @@ gem 'mysql2' # MySQL integration for ActiveRecord
 gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # convenient cloning of ActiveRecord objects along with child records
 # Used for cloning surveys and courses.
-gem 'deep_cloneable', '~> 2.3.0'
+gem 'deep_cloneable'
 gem 'paper_trail' # Save histories of record changes related to surveys
 gem "paperclip" # used by Course and UserProfile for file attachments
 gem 'sidekiq' # Framework for running background worker jobs
@@ -47,7 +47,7 @@ end
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
-gem 'restforce', git: 'https://github.com/ejholmes/restforce.git' # Salesforce API access
+gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 
 ### Internationalization
@@ -70,10 +70,11 @@ gem 'hashugar' # Users to make yaml/json based training objects easy to access
 gem 'simple_form' # Alternative to basic rails form helpers
 gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQuestionGroups
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
-
+gem 'will_paginate' # Used for pagination for Campaign Articles
+gem 'chartkick' # Used for plots in Rails views
+gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
-gem 'rinruby' # R plots!
 
 ### Platform-specific fixes
 # TZ information is not available on Windows, needs to be installed separately
@@ -97,7 +98,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'rails-erd'
-  gem 'annotate', '~> 2.7.1' # Generates automatic schema notations on model files
+  gem 'annotate' # Generates automatic schema notations on model files
 end
 
 group :development, :test do
@@ -106,19 +107,22 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rspec-focused', require: false
+  gem 'rubocop-rspec', require: false
   gem 'timecop' # Test utility for setting the time
-  gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
 
 group :test do
+  gem 'puma'
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
+  gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
+  gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers'
   gem 'rails-controller-testing'
 end

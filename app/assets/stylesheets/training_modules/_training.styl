@@ -1,3 +1,6 @@
+@import './_variables'
+@import './modules/_notifications'
+
 .wiki_training
 
 .container.training
@@ -106,6 +109,9 @@
     font-size 15px
     line-height 1.5
 
+.training__category__source
+  a
+    font-size 10px
 
 .training__categories__modules
   col(8/12)
@@ -129,16 +135,31 @@
 .training-libraries__individual-library
   col(6/12)
   width 48%
-  margin 0% 1%
+  margin 0 2% 3% 0
   display inline-block
+
+  &.training-library-focus
+    box-shadow 0px 4px 12px rgba(0, 0, 0, 0.5)
+    width 60%
+    clear both
 
 .training-libraries__individual-library:nth-child(odd)
   clear left
   float left
+  &.training-library-defocus
+    clear right
+
+.training-libraries__individual-library:nth-child(even)
+  &.training-library-defocus
+    clear left
+    float left
 
 .action-card
   .overdue, .completed
     font-weight bold
+
+.action-card-index
+  outline none !important
 
 .overdue
   color $warning_text
@@ -148,3 +169,13 @@
 .training__button-container
   text-align center
   margin-bottom 35px
+
+.training-module-source
+  font-size 10px
+  float right
+  a
+    text-decoration underline
+
+.wait
+  padding 2px 5px 2px 5px
+  background url('../images/loader.gif') no-repeat 50% transparent

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'uri'
-require "#{Rails.root}/lib/assignment_manager"
-require "#{Rails.root}/lib/wiki_course_edits"
-require "#{Rails.root}/app/workers/update_assignments_worker"
-require "#{Rails.root}/app/workers/update_course_worker"
+require_dependency "#{Rails.root}/lib/assignment_manager"
+require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/app/workers/update_assignments_worker"
+require_dependency "#{Rails.root}/app/workers/update_course_worker"
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController
@@ -25,7 +25,7 @@ class AssignmentsController < ApplicationController
     remove_assignment_template
     @assignment.destroy
     update_onwiki_course_and_assignments
-    render json: { article: @id }
+    render json: { assignmentId: @assignment.id }
   end
 
   def create
@@ -33,9 +33,10 @@ class AssignmentsController < ApplicationController
     set_wiki { return }
     set_new_assignment
     update_onwiki_course_and_assignments
-    render json: @assignment
+    render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DuplicateAssignmentError => e
-    render json: { errors: e }, status: 500
+    render json: { errors: e, message: I18n.t('assignments.already_exists') },
+           status: :internal_server_error
   end
 
   def update
@@ -45,7 +46,7 @@ class AssignmentsController < ApplicationController
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
-             status: 500
+             status: :internal_server_error
     end
   end
 
@@ -63,7 +64,7 @@ class AssignmentsController < ApplicationController
   end
 
   def set_course
-    @course = Course.find_by(slug: URI.unescape(params[:course_id]))
+    @course = Course.find_by(slug: CGI.unescape(params[:course_id]))
   end
 
   def set_assignment
@@ -72,7 +73,7 @@ class AssignmentsController < ApplicationController
     set_wiki { yield }
     find_assignment_by_params
     return unless @assignment.nil?
-    render json: { message: t('error.invalid_assignment') }, status: 404
+    render json: { message: t('error.invalid_assignment') }, status: :not_found
     yield
   end
 
@@ -93,7 +94,7 @@ class AssignmentsController < ApplicationController
   def set_wiki
     find_or_create_wiki
   rescue Wiki::InvalidWikiError
-    render json: { message: t('error.invalid_assignment') }, status: 404
+    render json: { message: t('error.invalid_assignment') }, status: :not_found
     yield
   end
 

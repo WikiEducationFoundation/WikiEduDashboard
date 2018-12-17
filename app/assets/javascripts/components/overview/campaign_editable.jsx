@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 
-
 import { getAvailableCampaigns } from '../../selectors';
+import selectStyles from '../../styles/select';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -17,12 +17,16 @@ import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/ca
 const CampaignEditable = createReactClass({
   displayName: 'CampaignEditable',
 
+  getInitialState() {
+    return {};
+  },
+
   componentDidMount() {
     return this.props.fetchAllCampaigns();
   },
 
   getKey() {
-    return `add_campaign`;
+    return 'add_campaign';
   },
 
   PropTypes: {
@@ -32,21 +36,33 @@ const CampaignEditable = createReactClass({
   },
 
   handleChangeCampaign(val) {
-    return this.props.addCampaign(this.props.course_id, val.value);
+    if (val) {
+      this.setState({ selectedCampaign: val });
+    } else {
+      this.setState({ selectedCampaign: null });
+    }
+  },
+
+  openPopover(e) {
+    if (!this.props.is_open && this.refs.campaignSelect) {
+      this.refs.campaignSelect.focus();
+    }
+    return this.props.open(e);
   },
 
   removeCampaign(campaignId) {
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
 
-  addCampaign(campaignId) {
-    this.props.addCampaign(this.props.course_id, campaignId);
+  addCampaign() {
+    this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value);
+    this.setState({ selectedCampaign: null });
   },
 
   render() {
     // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
 
-    const campaignList = this.props.campaigns.map(campaign => {
+    const campaignList = this.props.campaigns.map((campaign) => {
       const removeButton = (
         <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
       );
@@ -59,24 +75,40 @@ const CampaignEditable = createReactClass({
 
     let campaignSelect;
     if (this.props.availableCampaigns.length > 0) {
-      const campaignOptions = this.props.availableCampaigns.map(campaign => {
+      const campaignOptions = this.props.availableCampaigns.map((campaign) => {
         return { label: campaign, value: campaign };
       });
+      let addCampaignButtonDisabled = true;
+      if (this.state.selectedCampaign) {
+        addCampaignButtonDisabled = false;
+      }
       campaignSelect = (
-        <Select
-          className="fixed-width"
-          ref="campaignSelect"
-          name="campaign"
-          placeholder={I18n.t('courses.campaign_select')}
-          onChange={this.handleChangeCampaign}
-          options={campaignOptions}
-        />
+        <tr>
+          <th>
+            <div className="select-with-button">
+              <Select
+                className="fixed-width"
+                ref="campaignSelect"
+                name="campaign"
+                value={this.state.selectedCampaign}
+                placeholder={I18n.t('courses.campaign_select')}
+                onChange={this.handleChangeCampaign}
+                options={campaignOptions}
+                styles={selectStyles}
+                isClearable
+              />
+              <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
+                Add
+              </button>
+            </div>
+          </th>
+        </tr>
       );
     }
 
     return (
       <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
-        <button className="button border plus open" onClick={this.props.open}>+</button>
+        <button className="button border plus open" onClick={this.openPopover}>+</button>
         <Popover
           is_open={this.props.is_open}
           edit_row={campaignSelect}

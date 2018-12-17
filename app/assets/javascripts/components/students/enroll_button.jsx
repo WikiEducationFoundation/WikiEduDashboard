@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -115,7 +115,7 @@ const EnrollButton = createReactClass({
   },
 
   render() {
-    const users = this.props.users.map(user => {
+    const users = this.props.users.map((user) => {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
         removeButton = (

@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
+import fetch from 'isomorphic-fetch';
 
 const RavenLogger = {};
 
@@ -9,106 +9,83 @@ const API = {
   // /////////
   // Getters /
   // /////////
-  fetchLookups(model) {
-    return new Promise((res, rej) => {
-      return $.ajax({
-        type: 'GET',
-        url: `/lookups/${model}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-    }
-    );
-  },
-
-  fetchWizardIndex() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/wizards.json',
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchRevisions(studentId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/revisions.json?user_id=${studentId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
+    return fetch(`/revisions.json?user_id=${studentId}&course_id=${courseId}`, {
+      credentials: "include"
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   fetchCourseRevisions(courseId, limit) {
-    return new Promise((res, rej) => {
-      const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
+    return fetch(`/courses/${courseId}/revisions.json?limit=${limit}`, {
+      credentials: "include"
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   fetchFeedback(articleTitle, assignmentId) {
-    return new Promise((res, rej) => {
-      const url = `/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        dataType: 'json',
-        success(data) {
-          return res(data);
+    return fetch(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`, {
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   postFeedbackFormResponse(subject, body) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/feedback_form_responses`,
-        data: {feedback_form_response: {subject: subject, body: body}},
-        success(data) {
-          return res(data);
+    return fetch(`/feedback_form_responses`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({feedback_form_response: {subject: subject, body: body}}),
+
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   createCustomFeedback(assignmentId, text, userId) {
@@ -142,23 +119,6 @@ const API = {
         return rej(obj);
       })
     );
-  },
-
-  fetchTrainingStatus(studentId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-    });
   },
 
   fetchUserProfileStats(username){
@@ -258,22 +218,6 @@ const API = {
     );
   },
 
-  fetchWizardPanels(wizardId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/wizards/${wizardId}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchUserCourses(userId) {
     return new Promise((res, rej) =>
       $.ajax({
@@ -295,7 +239,7 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'DELETE',
-        url: `/assignments/${assignment.assignment_id}?${queryString}`,
+        url: `/assignments/${assignment.id}?${queryString}`,
         success(data) {
           return res(data);
         }
@@ -342,110 +286,49 @@ const API = {
   },
 
   fetch(courseId, endpoint) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${courseId}/${endpoint}.json`,
-        success(data) {
-          return res(data);
+    return fetch(`/courses/${courseId}/${endpoint}.json`, {
+      credentials: "include"
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
-  fetchAllTrainingModules() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/training_modules.json',
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
 
-  fetchTrainingModule(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/training_module.json?module_id=${opts.module_id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
-  setSlideCompleted(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/training_modules_users.json?\
-module_id=${opts.module_id}&\
-user_id=${opts.user_id}&\
-slide_id=${opts.slide_id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
 
   // /////////
   // Setters #
   // /////////
   saveTimeline(courseId, data) {
-    const promise = new Promise((res, rej) => {
-      const cleanup = function (array) {
-        const result = [];
-        _.forEach(array, (obj) => {
-          let item;
-          if (obj.is_new) {
-            delete obj.id;
-            item = delete obj.is_new;
-          }
-          result.push(item);
-        });
-        return result;
+    const cleanObject = object => {
+      if (object.is_new) {
+        delete object.id;
+        delete object.is_new;
       }
-
-      const { weeks } = data;
-      const { blocks } = data;
-      const { gradeables } = data;
-
-      _.forEach(weeks, (week) => {
-        week.blocks = [];
-        _.forEach(blocks, (block) => {
-          if (block.week_id === week.id) { week.blocks.push(block); }
-          _.forEach(gradeables, (gradeable) => {
-            if (gradeable.gradeable_item_id === block.id) {
-              block.gradeable = gradeable;
-              if (block.is_new) { delete gradeable.gradeable_item_id; }
-            }
-          });
+    };
+    const promise = new Promise((res, rej) => {
+      const weeks = []
+      data.weeks.forEach(week => {
+        const cleanWeek = { ...week };
+        const cleanBlocks = [];
+        cleanWeek.blocks.forEach(block => {
+          const cleanBlock = { ...block }
+          cleanObject(cleanBlock);
+          cleanBlocks.push(cleanBlock);
         });
+        cleanWeek.blocks = cleanBlocks;
+        cleanObject(cleanWeek);
+        weeks.push(cleanWeek);
       });
-
-      cleanup(weeks);
-      cleanup(blocks);
-      cleanup(gradeables);
 
       const req_data = { weeks };
       RavenLogger.type = 'POST';
@@ -477,7 +360,7 @@ slide_id=${opts.slide_id}`,
 
   saveCourse(data, courseId = null) {
     const append = (courseId != null) ? `/${courseId}` : '';
-    // append += '.json'
+    // append = '.json'
     const type = (courseId != null) ? 'PUT' : 'POST';
     RavenLogger.type = type;
     let req_data = { course: data.course };
@@ -497,7 +380,6 @@ slide_id=${opts.slide_id}`,
       .fail(function (obj, status) {
         this.obj = obj;
         this.status = status;
-        console.error('Couldn\'t save course!');
         RavenLogger.obj = this.obj;
         RavenLogger.status = this.status;
         Raven.captureMessage('saveCourse failed', {
@@ -570,27 +452,11 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  needsUpdate(courseId) {
+  notifyOverdue(courseSlug) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',
-        url: `/courses/${courseId}/needs_update.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        console.error('Couldn\'t request update');
-        rej(obj);
-      })
-    );
-  },
-
-  notifyOverdue(courseId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${courseId}/notify_untrained.json`,
+        url: `/courses/${courseSlug}/notify_untrained.json`,
         success(data) {
           alert('Students with overdue trainings notified!');
           return res(data);
@@ -620,30 +486,12 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  submitWizard(courseId, wizardId, data) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/courses/${courseId}/wizard/${wizardId}.json`,
-        contentType: 'application/json',
-        data: JSON.stringify({ wizard_output: data }),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
-        return rej(obj);
-      })
-    );
-  },
-
-  modify(model, courseId, data, add) {
+  modify(model, courseSlug, data, add) {
     const verb = add ? 'added' : 'removed';
     return new Promise((res, rej) =>
       $.ajax({
         type: (add ? 'POST' : 'DELETE'),
-        url: `/courses/${courseId}/${model}.json`,
+        url: `/courses/${courseSlug}/${model}.json`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         success(data) {
@@ -652,24 +500,6 @@ slide_id=${opts.slide_id}`,
       })
       .fail((obj) => {
         logErrorMessage(obj, `${capitalize(model)} not ${verb}: `);
-        return rej(obj);
-      })
-    );
-  },
-
-  onboard(data) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: '/onboarding/onboard',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
         return rej(obj);
       })
     );

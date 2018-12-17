@@ -10,3 +10,4 @@ default:
   start_of_week: start of course week
   end_of_week: "end of course week"
   user_talk: "dashboard.wikiedu.org talk course link"
+course_prefix: 'Wikipedia:Wiki_Ed'

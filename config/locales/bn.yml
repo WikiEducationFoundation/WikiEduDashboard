@@ -7,7 +7,9 @@
 # Author: Kayser Ahmad
 # Author: Mohammed Galib Hasan
 # Author: Rasal Lia
+# Author: Sandipan
 # Author: আজিজ
+# Author: আফতাবুজ্জামান
 ---
 bn:
   application:
@@ -31,6 +33,7 @@ bn:
     my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
     report_problem: সমস্যার কথা জানান
+    request_account_create: অ্যাকাউন্ট তৈরি করুন
     search: প্রশ্ন থাকলে জিজ্ঞাস করুন
     sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
     sign_up_log_in_extended: উইকিপিডিয়া দিয়ে
@@ -67,12 +70,18 @@ bn:
     deleted: (অপসারিত)
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
+    filter:
+      wiki_all: সব
+      new: নতুন
     hide: আড়াল করো
     history: (ইতিহাস)
     label: নিবন্ধসমূহ
     loading: নিবন্ধ লোড হচ্ছে...
     new: (নতুন)
     rating: শ্রেণী
+    rating_docs:
+      does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই
+    see_more: আরো দেখুন
     show_current_version: বর্তমান সংস্করণ দেখান
     title: শিরোনাম
     title_example: নিবন্ধের শিরোনাম
@@ -102,9 +111,15 @@ bn:
     milestones:
       title: মাইলফলক
   campaign:
+    alert_article: নিবন্ধের শিরোনাম
+    alert_type: ধরন
+    alert_user_id: ব্যবহারকারী
     campaign: প্রচারাভিযান
+    created_at: তারিখ
+    course: কোর্স
     no_passcode: কোন পাসকোড নেই
     none: কোনটিই নয়
+    requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
   categories:
     add_template: টেমপ্লেট যোগ করুন
     add_this_template: এই টেমপ্লেট যোগ করুন
@@ -115,6 +130,7 @@ bn:
     label: চ্যাট
   courses:
     activity: কর্মকাণ্ড
+    alerts: অবহিতি
     actions: কার্যসমূহ
     articles: নিবন্ধসমূহ
     calendar:
@@ -164,6 +180,7 @@ bn:
     nocourse: কোন কোর্সে অংশগ্রহণ করেননি।
     none: কোনটিই নয়
     overview: প্রধান পাতা
+    private: ব্যক্তিগত
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
     school: বিদ্যালয়
     school_and_term: প্রতিষ্ঠান/মেয়াদ
@@ -246,6 +263,10 @@ bn:
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
     see_more: আরো দেখুন
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ব্যবহারকারী নাম
   suggestions:
     suggestion_docs:
       does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।
@@ -256,18 +277,23 @@ bn:
     start: শুরু করুন
     view: দেখুন
     page: পাতা
+    previous: < পূর্ববর্তী
     done: সম্পন্ন!
     check_answer: উত্তর যাচাই করুন
   uploads:
-    datetime: তারিখ/সময়
+    credit: কৃতিত্ব
     file_name: ফাইলের নাম
     header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
     image: চিত্র
     label: আপলোডসমূহ
+    uploaded_at: আপলোডের সময়
+    uploader: আপলোডকারী
+    uploaded_on: আপলোডের তারিখ
+    usage_count_gallery_tile: '%{usage_count}টি নিবন্ধে ব্যবহৃত হয়েছে'
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
-    contributions_history_full: উইকিপিডিয়ায় অবদানের পূর্ণ ইতিহাস দেখুন
+    contributions_history_full: অবদানের পূর্ণ ইতিহাস দেখুন
     contribution_statistics: অবদানের পরিসংখ্যান
     editors: সম্পাদকগণ
     first_name: প্রথম নাম
@@ -276,6 +302,7 @@ bn:
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)
     reviewing: নিরীক্ষণ চলছে
+    total_uploads: মোট আপলোড
     training_module_status: অবস্থা
     username: ব্যবহারকারী নাম
     username_placeholder: ব্যবহারকারী নাম
@@ -302,4 +329,13 @@ bn:
   survey:
     email:
       headline: প্রিয়, %{username}
+  onboarding:
+    supplementary:
+      why_are_you_here: আপনি কী করতে চান?
+  article_finder:
+    page_assessment_class: শ্রেণী
+    search: অনুসন্ধান
+    tools: সরঞ্জাম
+    more_results: আরও ফলাফল
+    submit: জমা দিন
 ...

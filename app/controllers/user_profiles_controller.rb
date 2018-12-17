@@ -4,12 +4,13 @@ class UserProfilesController < ApplicationController
   respond_to :html, :json
 
   before_action :set_user
-  before_action :set_user_profile, only: [:update]
+  before_action :set_user_profile, only: [:update, :update_email_preferences]
   before_action :require_write_permissions, only: [:update]
 
   def show
     if @user
-      @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
+      @last_courses_user = @user.courses_users.includes(:course)
+                                .where(courses: { private: false }).last
       @user_profile = UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
@@ -25,19 +26,27 @@ class UserProfilesController < ApplicationController
   end
 
   def stats
+    @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
+    @courses_list = public_courses.where('courses_users.role = ?',
+                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    @courses_presenter = CoursesPresenter.new(current_user: current_user,
+                                              courses_list: @courses_list)
+    @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
+  end
+
+  def stats_graphs
     @courses_list = public_courses.where('courses_users.role = ?',
                                          CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
   end
 
-  def stats_graphs
-    @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
-    @courses_list = public_courses.where('courses_users.role = ?',
-                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    @courses_presenter = CoursesPresenter.new(current_user: current_user,
-                                              courses_list: @courses_list)
+  def update_email_preferences
+    require_email_preferences_token
+    @user_profile.email_opt_out(params[:type])
+    flash[:notice] = 'Email Preferences Updated'
+    redirect_to '/'
   end
 
   private
@@ -48,9 +57,12 @@ class UserProfilesController < ApplicationController
 
   def require_write_permissions
     return if current_user == @user
+    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
+  end
 
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+  def require_email_preferences_token
+    return if @user_profile.email_preferences_token == params[:token]
+    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
   end
 
   def user_profile_params

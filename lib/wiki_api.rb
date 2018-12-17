@@ -2,7 +2,7 @@
 
 require 'mediawiki_api'
 require 'json'
-require "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
@@ -24,7 +24,12 @@ class WikiApi
   # empty string if it's a 404 because the page is a redlink.
   def get_page_content(page_title)
     response = mediawiki('get_wikitext', page_title)
-    [200, 404].include?(response&.status) ? response.body : nil
+    case response&.status
+    when 200
+      response.body
+    when 404
+      ''
+    end
   end
 
   def get_user_id(username)
@@ -93,9 +98,10 @@ class WikiApi
     @mediawiki = api_client
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
-    handle_api_error e, action, query
+    log_error e, action, query
   rescue StandardError => e
     tries -= 1
+    log_error e, action, query
     handle_non_api_error(e)
     retry if tries >= 0
     Raven.capture_exception e, level: 'warning'
@@ -106,7 +112,7 @@ class WikiApi
     MediawikiApi::Client.new @api_url
   end
 
-  def handle_api_error(e, action, query)
+  def log_error(e, action, query)
     Rails.logger.info "Caught #{e}"
     Raven.capture_exception e, level: 'warning',
                                extra: { action: action,

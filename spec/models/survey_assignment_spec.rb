@@ -24,7 +24,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe SurveyAssignment, type: :model do
-  before(:each) do
+  before do
     @survey = create(:survey)
     @campaign = create(:campaign, title: 'Test', slug: 'test')
     @survey_assignment = create(:survey_assignment, survey_id: @survey.id, published: true)
@@ -81,6 +81,7 @@ RSpec.describe SurveyAssignment, type: :model do
 
     context 'when it is not published' do
       let(:published) { false }
+
       it 'returns `Draft`' do
         expect(subject).to eq('Draft')
       end
@@ -88,6 +89,7 @@ RSpec.describe SurveyAssignment, type: :model do
 
     context 'when it is published but has no applicable users' do
       let(:published) { true }
+
       it 'returns `Pending`' do
         expect(subject).to eq('Pending')
       end
@@ -170,6 +172,7 @@ RSpec.describe SurveyAssignment, type: :model do
         expect(@survey_assignment.custom_email_subject).to be_nil
       end
     end
+
     context 'when set with a hash' do
       it 'serializes, saves, and returns the hash' do
         @survey_assignment.custom_email = { subject: 'foo' }

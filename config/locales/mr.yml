@@ -1,6 +1,8 @@
 # Messages for Marathi (मराठी)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Sureshkhole
+# Author: Susheelkasab
 # Author: Suyog
 # Author: V.narsikar
 # Author: अभय नातू
@@ -39,6 +41,10 @@ mr:
   blocks:
     milestones:
       title: मैलाचे दगड
+  campaign:
+    disable_account_requests: खात्याच्या विनंत्या बंद करा
+    enable_account_requests: खाते उघडण्याच्या विनंतीची परवानगी द्या
+    requested_accounts: खात्यासाठी विनंती करा
   courses:
     activity: क्रिया
     articles: लेख
@@ -75,6 +81,10 @@ mr:
     edited_by: ने संपादित केले
     loading: आवृत्त्यांचे भारण करीत आहे...
     title: शीर्षक
+  settings:
+    admin_users:
+      new:
+        form_placeholder: सदस्य नाव
   uploads:
     loading: अपभारणांचे भारण करीत आहे...
     usages: वापर

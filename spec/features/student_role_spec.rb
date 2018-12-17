@@ -36,7 +36,7 @@ describe 'Student users', type: :feature, js: true do
            end: '2020-01-01'.to_date)
   end
 
-  before :each do
+  before do
     create(:courses_user,
            user: instructor,
            course: course,
@@ -54,10 +54,12 @@ describe 'Student users', type: :feature, js: true do
     stub_add_user_to_channel_success
   end
 
+  after do
+    logout
+  end
+
   describe 'clicking log out' do
     it 'logs them out' do
-      pending 'This sometimes fails on travis.'
-
       login_as(user, scope: :user)
 
       visit "/courses/#{Course.first.slug}"
@@ -66,8 +68,6 @@ describe 'Student users', type: :feature, js: true do
       click_link 'Log out'
       expect(page).to have_content 'Log in'
       expect(page).not_to have_content 'Log out'
-
-      pass_pending_spec
     end
 
     it 'does not cause problems if done twice' do
@@ -116,17 +116,24 @@ describe 'Student users', type: :feature, js: true do
       expect(find('tbody', match: :first)).not_to have_content User.last.username
     end
 
-    it 'redirects to an error page if passcode is incorrect' do
+    it 'redirects to an error page if passcode is incorrect, with retry option' do
       login_as(user, scope: :user)
-      visit "/courses/#{Course.first.slug}"
-      sleep 1
+      visit "/courses/#{course.slug}"
       click_button 'Join course'
       within('.confirm-modal') do
         find('input').set('wrong_passcode')
         click_button 'OK'
       end
       expect(page).to have_content 'Incorrect passcode'
-      sleep 5
+      within '.section-header' do
+        find('input').set('passcode')
+        click_button 'Enroll'
+      end
+      stub_oauth_edit
+      click_link 'Join'
+      expect(page).to have_content 'successfully joined'
+      click_link 'Students'
+      expect(find('tbody', match: :first)).to have_content user.username
     end
 
     it 'joins an Editathon without a passcode' do
@@ -182,8 +189,8 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       find(:link, 'Log in with Wikipedia', match: :first).click
       expect(page).to have_content 'Ragesock'
-      click_link 'Join'
-      sleep 1
+      # User should be automatically redirected to the enroll link
+      # upon login.
       click_link 'Students'
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
     end
@@ -211,8 +218,8 @@ describe 'Student users', type: :feature, js: true do
       fill_in 'email', with: 'sage@example.com'
       click_button 'Submit'
       click_link 'Finish'
-      click_link 'Join'
-      sleep 1
+      # User should be redirected to enroll URL upon completion of
+      # onboarding form.
       click_link 'Students'
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
     end
@@ -260,16 +267,12 @@ describe 'Student users', type: :feature, js: true do
              user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 2
-
       # Add an assigned article
-      find('button.border', match: :first).click
+      click_button 'Assign myself an article'
       within('#users') { find('input', match: :first).set('Selfie') }
-      page.all('button.border')[1].click
+      click_button 'Assign'
       click_button 'OK'
-      sleep 1
-      page.all('button.border')[0].click
-      sleep 1
+      click_button 'Done'
       expect(page.all('tr.students')[1]).to have_content 'Selfie'
       expect(find('tr.students', match: :first)).not_to have_content 'Selfie'
     end
@@ -286,21 +289,17 @@ describe 'Student users', type: :feature, js: true do
              user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 3
-
-      page.all('button.border')[1].click
+      click_button 'Review an article'
       within('#users') { find('input', match: :first).set('Self-portrait') }
-      page.all('button.border')[2].click
+      click_button 'Assign'
       click_button 'OK'
-      page.all('button.border')[1].click
+      click_button 'Done'
       expect(page).to have_content 'Self-portrait'
     end
   end
 
   describe 'clicking remove for an assigned article' do
     it 'removes the assignment' do
-      pending 'This sometimes fails on travis.'
-
       login_as(user, scope: :user)
       stub_raw_action
       stub_oauth_edit
@@ -316,19 +315,15 @@ describe 'Student users', type: :feature, js: true do
              article_id: nil,
              role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 3
-
       # Remove the assignment
-      page.all('button.border')[0].click
+      click_button '+/-'
       accept_confirm do
-        page.all('button.border')[2].click
+        click_button '-'
       end
-      page.all('button.border')[0].click
+      sleep 0.5
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(page).not_to have_content 'Selfie'
-
-      pass_pending_spec
     end
   end
 
@@ -345,9 +340,5 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'My Dashboard'
       expect(page).to have_content 'An Example Course'
     end
-  end
-
-  after do
-    logout
   end
 end

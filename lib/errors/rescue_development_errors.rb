@@ -20,19 +20,15 @@ module Errors
         explanation << REV_MANIFEST_EXPLANATION
 
         render plain: explanation,
-               status: 500
+               status: :internal_server_error
         raise StandardError, explanation if Rails.env.test?
       end
     end
 
-    NO_CAMPAIGNS_EXPLANATION =
-      'Error: There are no campaigns.' \
-      "\n\n" \
-      'Go to "/campaigns" to create one.'
     def self.rescue_from_no_campaigns(base)
       base.rescue_from CoursesPresenter::NoCampaignError do
-        render plain: NO_CAMPAIGNS_EXPLANATION,
-               status: 500
+        Campaign.create(title: 'Default Campaign', slug: ENV['default_campaign'])
+        redirect_to '/'
       end
     end
   end

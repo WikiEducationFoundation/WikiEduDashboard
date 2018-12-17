@@ -6,10 +6,11 @@ describe 'Instructor users', type: :feature, js: true do
   before do
     include type: :feature
     include Devise::TestHelpers
+    TrainingModule.load_all
     page.current_window.resize_to(1920, 1080)
   end
 
-  before :each do
+  before do
     instructor = create(:user,
                         id: 100,
                         username: 'Professor Sage',
@@ -43,11 +44,13 @@ describe 'Instructor users', type: :feature, js: true do
            id: 2,
            user_id: 101,
            course_id: 10001,
+           real_name: 'Really Real Name',
            role: 0)
     create(:courses_user,
            id: 3,
            user_id: 102,
            course_id: 10001,
+           real_name: 'Another Actual Name',
            role: 0)
     create(:campaign,
            id: 1,
@@ -63,11 +66,23 @@ describe 'Instructor users', type: :feature, js: true do
     stub_add_user_to_channel_success
   end
 
+  after do
+    logout
+  end
+
+  describe 'visiting the home tab' do
+    it 'can see the passcode' do
+      visit "/courses/#{Course.first.slug}"
+      expect(page).to have_content('passcode')
+      expect(page).not_to have_content('****')
+    end
+  end
+
   describe 'visiting the students page' do
     let(:week) { create(:week, course_id: Course.first.id) }
     let(:tm) { TrainingModule.all.first }
     let!(:block) do
-      create(:block, week_id: week.id, training_module_ids: [tm.id], due_date: Date.today)
+      create(:block, week_id: week.id, training_module_ids: [tm.id], due_date: Time.zone.today)
     end
 
     before do
@@ -79,13 +94,17 @@ describe 'Instructor users', type: :feature, js: true do
       Timecop.return
     end
 
-    it 'should be able to add students' do
+    it 'can see real names of enrolled students' do
+      visit "/courses/#{Course.first.slug}/students"
+      expect(page).to have_content('Really Real Name')
+    end
+
+    it 'is able to add students' do
       allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(
         'name' => 'Risker', 'userid' => 123, 'centralids' => { 'CentralAuth' => 456 }
       )
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('Risker') }
       click_button 'Enroll'
       click_button 'OK'
@@ -93,23 +112,19 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).to have_content 'Risker was added successfully'
     end
 
-    it 'should not be able to add nonexistent users as students' do
+    it 'is not able to add nonexistent users as students' do
       allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(nil)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('NotARealUser') }
       click_button 'Enroll'
       click_button 'OK'
       expect(page).to have_content 'NotARealUser is not an existing user.'
     end
 
-    it 'should be able to remove students' do
+    it 'is able to remove students' do
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-
-      # Click the Enrollment button
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       sleep 1
       # Remove a user
       page.all('button.border.plus')[1].click
@@ -120,7 +135,7 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).not_to have_content 'Student B'
     end
 
-    it 'should be able to assign articles' do
+    it 'is able to assign articles' do
       pending 'This sometimes fails on travis.'
 
       visit "/courses/#{Course.first.slug}/students"
@@ -165,12 +180,12 @@ describe 'Instructor users', type: :feature, js: true do
       pass_pending_spec
     end
 
-    it 'should be able to remove students from the course' do
+    it 'is able to remove students from the course' do
       pending 'This sometimes fails on travis.'
 
       visit "/courses/#{Course.first.slug}/students"
 
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       find('button.border.plus', text: '-', match: :first).click
       click_button 'OK'
       sleep 1
@@ -179,7 +194,7 @@ describe 'Instructor users', type: :feature, js: true do
       pass_pending_spec
     end
 
-    it 'should be able to notify users with overdue training' do
+    it 'is able to notify users with overdue training' do
       visit "/courses/#{Course.first.slug}/students"
 
       sleep 1
@@ -189,9 +204,5 @@ describe 'Instructor users', type: :feature, js: true do
       end
       sleep 1
     end
-  end
-
-  after do
-    logout
   end
 end

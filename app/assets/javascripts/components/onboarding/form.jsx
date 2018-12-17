@@ -2,10 +2,16 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import API from '../../utils/api.js';
+import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
+
+const isEnrollUrl = (returnToParam) => {
+  if (returnToParam.includes('/enroll')) { return true; }
+  if (returnToParam.includes('%2Fenroll')) { return true; }
+  return false;
+};
 
 const Form = createReactClass({
   propTypes: {
@@ -38,13 +44,14 @@ const Form = createReactClass({
     this.state.user.instructor = this.state.instructor === 'true';
     $('#react_root').data('current_user', this.state.user);
 
-    return API.onboard({
+    return OnboardAPI.onboard({
       real_name: this.state.name,
       email: this.state.email,
       instructor: this.state.instructor === 'true'
     })
     .then(() => {
-      return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
+      const destination = this.state.instructor === 'true' ? 'supplementary' : 'permissions';
+      return browserHistory.push(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
     }
     )
     .catch(() => {
@@ -60,6 +67,11 @@ const Form = createReactClass({
   render() {
     const submitText = this.state.sending ? 'Sending' : 'Submit';
     const disabled = this.state.sending;
+
+    // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
+    // That means they are trying to join a course as a student, so assume that they are one.
+    const instructorFormClass = isEnrollUrl(this.props.returnToParam) ? 'form-group hidden' : 'form-group';
+
     return (
       <div className="form">
         <h1>Let’s get some business out of the way.</h1>
@@ -78,7 +90,7 @@ const Form = createReactClass({
               Your email is only used for notifications and will not be shared.
             </p>
           </div>
-          <div className="form-group">
+          <div className={instructorFormClass}>
             <label>Are you an instructor? <span className="form-required-indicator">*</span></label>
             <div className="radio-group">
               <div className={`radio-wrapped ${this.state.instructor === 'true' ? 'checked' : ''}`}>

@@ -13,7 +13,9 @@ const Article = createReactClass({
     article: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
-    articleDetails: PropTypes.object
+    articleDetails: PropTypes.object,
+    wikidataLabel: PropTypes.string,
+    showOnMount: PropTypes.bool
   },
 
   fetchArticleDetails() {
@@ -27,7 +29,7 @@ const Article = createReactClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
 
     // Uses Course Utils Helper
-    const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki);
+    const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
@@ -36,7 +38,7 @@ const Article = createReactClass({
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
           </div>
         </td>
         <td>
@@ -57,6 +59,7 @@ const Article = createReactClass({
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
             showButtonClass="pull-left"
+            showOnMount={this.props.showOnMount}
           />
           <DiffViewer
             fetchArticleDetails={this.fetchArticleDetails}

@@ -1,13 +1,11 @@
+@import './_notifications'
+
 .module
   background-color white
   border 1px solid zircon
   margin 20px auto
   padding 20px
-  position relative
-  &:first-child
-    +above(desktop)
-      margin-top 20px
-      margin-bottom 0
+
   .section-header
     min-height 40px
     padding 0
@@ -44,19 +42,21 @@
     top 20px
     right 20px
 
+.module.actions
+  z-index 0
+
 .module.course-details
   p
     margin 0
 
-  .submitted_selector
-    .tooltip-trigger
-      display inline-block
-      position relative
-      img
-        height 20px
-        width 20px
-        margin-left 5px !important
-        margin-bottom -4px
+  .tooltip-trigger
+    display inline-block
+    position relative
+    img
+      height 20px
+      width 20px
+      margin-left 5px !important
+      margin-bottom -4px
 
 .module.course-description,
 .module.campaign-description
@@ -80,32 +80,6 @@
 .module__controls .button
   float right
 
-
-.alert
-  padding 20px
-  text-align center
-  p
-    color warning
-
-.notification
-  background-color sprout
-  padding 10px
-  color #fff
-  text-align center
-  font-weight bold
-  > .container
-    display flex
-    align-items center
-    p
-      flex 1
-      margin-bottom 0
-
-    .button
-      margin-left 20px
-
-    a:not(.button)
-      color #fff
-
 .notification--survey .container
   justify-content space-between
 
@@ -118,22 +92,10 @@
 .course-alerts .notification:nth-of-type(n+2)
   border-top 2px solid darken(sprout, 20%)
 
-.notice
-  @extends .notification
-  position relative
-  z-index 9999
-  width 100%
-  text-align left
-  background-color warning
-  color #fff
-  > .container
-   svg
-      &:focus,
-      &:hover
-        cursor pointer
-        color smoke
-        outline none
 @media only screen and (max-width: 920px)
   .course-alerts
     height 0px
     margin-top -30px
+    +below(desktop)
+      margin-top: 0px
+

@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.10.1'
+lock '3.11.0'
 
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
@@ -24,11 +24,20 @@ set :ssh_options, forward_agent: true
 # Default value for :pty is false
 set :pty, false
 
+# Sidekiq settings
+set :sidekiq_processes, 4
+set :sidekiq_options_per_process, ["--queue default --concurrency 2",
+                                   "--queue short_update --queue medium_update --concurrency 1",
+                                   "--queue medium_update --queue short_update --concurrency 1",
+                                   "--queue long_update --queue medium_update --concurrency 1"]
+
+
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/database.yml',
                                                  'config/secrets.yml',
-                                                 'config/newrelic.yml')
+                                                 'config/newrelic.yml',
+                                                 'config/skylight.yml')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system')

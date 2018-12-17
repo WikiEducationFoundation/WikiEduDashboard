@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/app/workers/update_course_worker"
-require "#{Rails.root}/app/workers/enroll_in_course_worker"
-
 #= Controller for students enrolling in courses
 class SelfEnrollmentController < ApplicationController
   respond_to :html, :json
@@ -73,7 +70,7 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_passcode_invalid
     return if passcode_valid?
-    redirect_to '/errors/incorrect_passcode'
+    redirect_to "/errors/incorrect_passcode?retry=#{course_slug_path(@course.slug)}"
     yield
   end
 

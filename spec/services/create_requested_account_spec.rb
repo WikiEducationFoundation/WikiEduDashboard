@@ -11,7 +11,7 @@ describe CreateRequestedAccount do
       :requested_account,
       course_id: course.id,
       username: user.username,
-      email: user.email
+      email: 'email@example.com'
     )
   end
 

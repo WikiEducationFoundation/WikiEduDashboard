@@ -8,7 +8,7 @@ describe UploadImporter do
     it 'finds and saves files uploaded to Commons' do
       create(:user, username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
-        UploadImporter.import_all_uploads(User.all)
+        described_class.import_all_uploads(User.all)
         expect(CommonsUpload.all.count).to be > 50
       end
     end
@@ -36,10 +36,10 @@ describe UploadImporter do
 
     it 'counts and saves how many times files are used' do
       VCR.use_cassette 'commons/import_all_uploads' do
-        UploadImporter.import_uploads_for_current_users
+        described_class.import_uploads_for_current_users
       end
       VCR.use_cassette 'commons/update_usage_count' do
-        UploadImporter.update_usage_count_by_course(Course.all)
+        described_class.update_usage_count_by_course(Course.current)
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.usage_count).to be > 1
       end
@@ -51,7 +51,7 @@ describe UploadImporter do
       create(:commons_upload, id: 4)
       create(:commons_upload, id: 20523186)
       VCR.use_cassette 'commons/find_deleted_files' do
-        UploadImporter.find_deleted_files(CommonsUpload.all)
+        described_class.find_deleted_files
       end
     end
 
@@ -71,7 +71,7 @@ describe UploadImporter do
       create(:commons_upload, id: 174, file_name: 'File:Magnolia × soulangeana blossom.jpg')
       expect(CommonsUpload.last.thumburl).to be_nil
       VCR.use_cassette 'commons/import_all_missing_urls' do
-        UploadImporter.import_all_missing_urls
+        described_class.import_all_missing_urls
       end
       expect(CommonsUpload.last.thumburl).not_to be_nil
     end
@@ -82,10 +82,10 @@ describe UploadImporter do
       create(:user,
              username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
-        UploadImporter.import_all_uploads(User.all)
+        described_class.import_all_uploads(User.all)
       end
       VCR.use_cassette 'commons/import_urls_in_batches' do
-        UploadImporter.import_urls_in_batches([CommonsUpload.find(543972)])
+        described_class.import_urls_in_batches([CommonsUpload.find(543972)])
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.thumburl[0...24]).to eq('https://upload.wikimedia')
       end

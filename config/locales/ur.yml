@@ -61,6 +61,8 @@ ur:
     user_suggestions: 'صارف کے سجھاؤ:'
   metrics:
     label: دستہ سرگرمی
+  revisions:
+    diff_hide: چھپائیں
   uploads:
     label: اپلوڈ کردہ
   users:

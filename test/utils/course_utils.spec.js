@@ -62,10 +62,10 @@ describe('courseUtils.cleanupCourseSlugComponents', () =>
       school: '   University          of       Wikipedia ',
       title: '   Introduction      to      Editing     '
     };
-    courseUtils.cleanupCourseSlugComponents(course);
-    expect(course.term).to.eq('Fall 2015');
-    expect(course.school).to.eq('University of Wikipedia');
-    expect(course.title).to.eq('Introduction to Editing');
+    const cleanedCourse = courseUtils.cleanupCourseSlugComponents(course);
+    expect(cleanedCourse.term).to.eq('Fall 2015');
+    expect(cleanedCourse.school).to.eq('University of Wikipedia');
+    expect(cleanedCourse.title).to.eq('Introduction to Editing');
   })
 );
 
@@ -122,7 +122,7 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.article_url).to.eq(input);
   });
 
-  it("correctly parses the wikimedia incubator url", () => {
+  it('correctly parses the wikimedia incubator url', () => {
     const input = 'https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa';
     const output = courseUtils.articleFromTitleInput(input);
     expect(output.title).to.eq('Wp/kiu/Heyder Cansa');

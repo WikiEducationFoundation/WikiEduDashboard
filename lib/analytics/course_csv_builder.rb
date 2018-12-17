@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-require "#{Rails.root}/lib/analytics/per_wiki_course_stats"
+require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 
 class CourseCsvBuilder
   def initialize(course, per_wiki: false)
@@ -98,7 +98,7 @@ class CourseCsvBuilder
   def retained_new_editors
     # An editor counts as retained if they make at least one revision 7 or more
     # days after_the end of the course.
-    new_editors.joins(:revisions).where('revisions.date > ?', @course.end + 7.days)
+    new_editors.joins(:revisions).where('revisions.date > ?', @course.end + 7.days).distinct
   end
 
   def revisions_by_namespace(namespace)

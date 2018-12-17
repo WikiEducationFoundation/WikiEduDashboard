@@ -22,9 +22,7 @@ const AssignCell = createReactClass({
   stop(e) {
     return e.stopPropagation();
   },
-  open(e) {
-    return this.refs.button.open(e);
-  },
+
   render() {
     let link;
     if (this.props.assignments.length > 0) {
@@ -32,7 +30,7 @@ const AssignCell = createReactClass({
       if (this.props.assignments.length > 1) {
         const articleCount = I18n.t('users.number_of_articles', { count: this.props.assignments.length });
         link = (
-          <span onClick={this.open}>
+          <span>
             {this.props.prefix}
             {articleCount}
           </span>
@@ -56,7 +54,7 @@ const AssignCell = createReactClass({
 
     let isCurrentUser;
     if (this.props.student) { isCurrentUser = this.props.current_user.id === this.props.student.id; }
-    const instructorOrAdmin = this.props.current_user.role > 0 || this.props.current_user.admin;
+    const instructorOrAdmin = this.props.current_user.isInstructor || this.props.current_user.admin;
     const permitted = isCurrentUser || (instructorOrAdmin && this.props.editable);
 
     return (

@@ -1,8 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
-import CourseActions from '../../actions/course_actions.js';
 
 const YesNoSelector = createReactClass({
   propTypes: {
@@ -10,13 +8,8 @@ const YesNoSelector = createReactClass({
     label: PropTypes.string.isRequired,
     tooltip: PropTypes.string,
     course: PropTypes.object.isRequired,
-    editable: PropTypes.bool
-  },
-
-  componentWillMount() {
-    this.setState({
-      id: uuid.v4()
-    });
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   _handleChange(e) {
@@ -27,7 +20,7 @@ const YesNoSelector = createReactClass({
     } else if (value === 'no') {
       course[this.props.courseProperty] = false;
     }
-    CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
 
   render() {
@@ -54,12 +47,12 @@ const YesNoSelector = createReactClass({
 
       selector = (
         <div className="form-group">
-          <span htmlFor={this.state.id}>
+          <span htmlFor={`${this.props.courseProperty}Toggle`}>
             <strong>{this.props.label}:</strong>
           </span>
           {tooltip}
           <select
-            id={this.state.id}
+            id={`${this.props.courseProperty}Toggle`}
             name={this.props.courseProperty}
             value={currentValue ? 'yes' : 'no'}
             onChange={this._handleChange}

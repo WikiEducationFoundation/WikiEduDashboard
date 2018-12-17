@@ -1,4 +1,5 @@
-import { RECEIVE_RECENT_EDITS, API_FAIL } from "../constants";
+import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS, API_FAIL } from '../constants';
+import logErrorMessage from '../utils/log_error_message';
 
 const _fetchRecentEdits = (opts = {}) => {
     return new Promise((res, rej) =>
@@ -16,7 +17,7 @@ const _fetchRecentEdits = (opts = {}) => {
     );
   };
 
-export const fetchRecentEdits = (opts = {}) => dispatch => {
+export const fetchRecentEdits = (opts = {}) => (dispatch) => {
   return (
     _fetchRecentEdits(opts)
       .then(resp =>
@@ -29,3 +30,5 @@ export const fetchRecentEdits = (opts = {}) => dispatch => {
         .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
+
+export const sortRecentEdits = key => ({ type: SORT_RECENT_EDITS, key: key });

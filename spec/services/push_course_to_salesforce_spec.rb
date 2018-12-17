@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe PushCourseToSalesforce do
-  let(:course) { create(:course, flags: flags, expected_students: 51) }
+  let(:course) { create(:course, flags: flags, expected_students: 51, withdrawn: true) }
   let(:content_expert) { create(:admin) }
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
@@ -18,6 +18,7 @@ describe PushCourseToSalesforce do
 
   context 'when a course has a Salesforce record already' do
     let(:flags) { { salesforce_id: salesforce_id } }
+
     it 'updates the record' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
       expect(subject.result).to eq(true)
@@ -30,6 +31,13 @@ describe PushCourseToSalesforce do
       expect(subject.result).to eq(true)
     end
 
+    it 'works for a FellowsCohort' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+      fellows_cohort = create(:fellows_cohort, flags: flags)
+      subject = described_class.new(fellows_cohort)
+      expect(subject.result).to eq(true)
+    end
+
     it 'handles Salesforce API downtime gracefully' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!)
         .and_raise(Faraday::ParsingError.new('Salesforce is down'))
@@ -39,7 +47,7 @@ describe PushCourseToSalesforce do
     context 'when the course has sandbox and mainspace blocks' do
       before do
         # These are used for generate date for some optional fields.
-        create(:block, week: week, title: 'Draft your article')
+        create(:block, week: week, title: 'Start drafting your contributions')
         create(:block, week: week, title: 'Begin moving your work to Wikipedia')
       end
 
@@ -61,6 +69,7 @@ describe PushCourseToSalesforce do
 
   context 'when a course does not have a Salesforce record' do
     let(:flags) { {} }
+
     it 'creates the record and saves the ID as a course flag' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:create!).and_return(salesforce_id)
       expect(subject.result).to eq(salesforce_id)

@@ -23,9 +23,11 @@ describe('SettingsHandler', () => {
       },
       notifications: [],
     });
-    const wrapper = shallow(<Provider store={store} >
-      <SettingsHandler />
-    </Provider>);
+    const wrapper = shallow(
+      <Provider store={store}>
+        <SettingsHandler />
+      </Provider>
+    );
 
     const container = wrapper.dive({ context: { store } }).dive();
 

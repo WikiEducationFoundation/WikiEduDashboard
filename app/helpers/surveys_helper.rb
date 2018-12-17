@@ -179,7 +179,7 @@ module SurveysHelper
 
   def course_article_choices(course)
     course.articles.collect do |a|
-      [a.id, a.title, "<a href='#{a.url}' target='_blank'>#{a.title}</a>"]
+      [a.url, a.title, "<a href='#{a.url}' target='_blank'>#{a.title}</a>"]
     end
   end
 

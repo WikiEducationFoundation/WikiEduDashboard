@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wikitext"
-require "#{Rails.root}/lib/course_meetings_manager"
-require "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wikitext"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for generating wikitext from course information.
 class WikiCourseOutput
@@ -10,9 +10,12 @@ class WikiCourseOutput
 
   def initialize(course)
     @course = course
-    @course_meetings_manager = CourseMeetingsManager.new(@course)
+    @course_meetings_manager = @course.meetings_manager
     @dashboard_url = ENV['dashboard_url']
-    @first_instructor = @course.instructors.first
+    @first_instructor_course_user = @course
+                                    .courses_users
+                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).first
+    @first_instructor = @first_instructor_course_user&.user
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
     @templates = @course.home_wiki.edit_templates
@@ -60,7 +63,7 @@ class WikiCourseOutput
      | end_date = #{@course.end}
      | institution = #{@course.school}
      | expected_students = #{@course.expected_students}
-     | assignment_page = #{course_prefix}/#{@course.slug}
+     | assignment_page = #{@course.wiki_title}
      | #{@dashboard_url} = yes
     }}"
   end
@@ -70,15 +73,11 @@ class WikiCourseOutput
   end
 
   def instructor_realname
-    @first_instructor&.real_name
+    @first_instructor_course_user&.real_name
   end
 
   def support_staff_username
     @first_support_staff&.username
-  end
-
-  def course_prefix
-    ENV['course_prefix']
   end
 
   def course_timeline
@@ -137,10 +136,8 @@ class WikiCourseOutput
   def student_row(student)
     username = student.username
     assignments = student.assignments.where(course_id: @course.id)
-    assigned_titles = assignments.assigned.pluck(:article_title)
-    assigned = Wikitext.titles_to_wikilinks(assigned_titles)
-    reviewing_titles = assignments.reviewing.pluck(:article_title)
-    reviewing = Wikitext.titles_to_wikilinks(reviewing_titles)
+    assigned = Wikitext.assignments_to_wikilinks(assignments.assigned, @course.home_wiki)
+    reviewing = Wikitext.assignments_to_wikilinks(assignments.reviewing, @course.home_wiki)
 
     "{{#{template_name(@templates, 'table_row')}|#{username}|#{assigned}|#{reviewing}}}\r"
   end

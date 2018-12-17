@@ -4,13 +4,14 @@ require 'rails_helper'
 
 describe OnboardingController do
   before { stub_list_users_query }
+
   let(:user) { create(:user, onboarded: onboarded) }
 
   describe 'onboarding route' do
     describe 'when not authenticated' do
       let(:onboarded) { false }
 
-      it 'should redirect to root_path' do
+      it 'redirects to root_path' do
         allow(controller).to receive(:current_user).and_return(nil)
         allow(controller).to receive(:user_signed_in?).and_return(false)
         get 'index'
@@ -21,7 +22,7 @@ describe OnboardingController do
     describe 'when not onboarded' do
       let(:onboarded) { false }
 
-      it 'should not redirect' do
+      it 'does not redirect' do
         allow(controller).to receive(:current_user).and_return(user)
         allow(controller).to receive(:user_signed_in?).and_return(true)
         get 'index'
@@ -38,7 +39,7 @@ describe OnboardingController do
       allow(controller).to receive(:current_user).and_return(user)
     end
 
-    it 'should onboard with valid params' do
+    it 'onboards with valid params' do
       params = { real_name: 'Name', email: 'email@email.org', instructor: false }
       put 'onboard', params: params
       expect(response.status).to eq(204)
@@ -47,12 +48,12 @@ describe OnboardingController do
       expect(user.email).to eq('email@email.org')
     end
 
-    it 'should not onboard with invalid params' do
+    it 'does not onboard with invalid params' do
       expect { put 'onboard', params: { real_name: 'Name', email: 'email@email.org' } }
         .to raise_error ActionController::ParameterMissing
     end
 
-    it 'should remain an admin regardless of instructor param' do
+    it 'remains an admin regardless of instructor param' do
       user.update_attributes(permissions: User::Permissions::ADMIN, onboarded: false)
       put 'onboard', params: { real_name: 'Name', email: 'email@email.org', instructor: true }
       expect(response.status).to eq(204)
@@ -60,10 +61,21 @@ describe OnboardingController do
       expect(user.permissions).to eq(User::Permissions::ADMIN)
     end
 
-    it 'should strip name field of excessive whitespace' do
+    it 'strips name field of excessive whitespace' do
       params = { real_name: " Name  \n Surname ", email: 'email@email.org', instructor: false }
       put 'onboard', params: params
       expect(user.real_name).to eq('Name Surname')
+    end
+  end
+
+  describe '#supplementary' do
+    let(:user) { create(:user, onboarded: false, username: 'JonSnow') }
+
+    it 'creates an alert for instructor' do
+      params = { user_name: user.username, heardFrom: 'From Nights Watch' }
+      put 'supplementary', params: params
+      expect(response.status).to eq(204)
+      expect(Alert.exists?(user_id: user.id, type: 'OnboardingAlert')).to eq(true)
     end
   end
 end

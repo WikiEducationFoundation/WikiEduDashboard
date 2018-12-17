@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/revision_data_parser"
+require_dependency "#{Rails.root}/lib/revision_data_parser"
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
 #=   https://tools.wmflabs.org/wikiedudashboard
@@ -52,9 +52,9 @@ class Replica
 
   # Given a list of articles *or* hashes of the form { 'title' => 'Something' },
   # see which ones have not been deleted.
-  def get_existing_articles_by_title(articles)
-    article_list = compile_article_titles_query(articles)
-    api_get('articles.php', article_list)
+  def post_existing_articles_by_title(articles)
+    article_list = articles.map { |article| article['title'] }
+    api_post('articles.php', 'post_article_titles[]', article_list)
   end
 
   # Given a list of revisions, see which ones have not been deleted
@@ -128,9 +128,33 @@ class Replica
     report_exception e, endpoint, query
   end
 
+  def api_post(endpoint, key, data)
+    tries ||= 3
+    response = do_post(endpoint, key, data)
+    return if response.body.empty?
+    parsed = Oj.load(response.body)
+    return unless parsed['success']
+    parsed['data']
+  rescue StandardError => e
+    tries -= 1
+    sleep 2 && retry unless tries.zero?
+
+    report_exception e, endpoint, data
+  end
+
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
     Net::HTTP::get(URI.parse(url))
+  end
+
+  def do_post(endpoint, key, data)
+    url = "https://tools.wmflabs.org/wikiedudashboard/#{endpoint}"
+    database_params = project_database_params_post
+    Net::HTTP::post_form(URI.parse(url),
+                         'db' => database_params['db'],
+                         'lang' => database_params['lang'],
+                         'project' => database_params['project'],
+                         key => data)
   end
 
   # Query URL for the WikiEduDashboardTools repository
@@ -141,13 +165,20 @@ class Replica
 
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
                        'wikisource.org' => 'sourceswiki',
-                       'incubator.wikimedia.org' => 'incubatorwiki' }.freeze
+                       'incubator.wikimedia.org' => 'incubatorwiki',
+                       'commons.wikimedia.org' => 'commonswiki' }.freeze
   def project_database_params
     # Returns special Labs database names as parameters for databases not meeting
     # project/language naming conventions
     return "db=#{SPECIAL_DB_NAMES[@wiki.domain]}" if SPECIAL_DB_NAMES[@wiki.domain]
     # Otherwise, uses the language and project, and replica API infers the standard db name.
     "lang=#{@wiki.language}&project=#{@wiki.project}"
+  end
+
+  def project_database_params_post
+    db = ''
+    db = SPECIAL_DB_NAMES[@wiki.domain] if SPECIAL_DB_NAMES[@wiki.domain]
+    { 'db' => db, 'lang' => @wiki.language, 'project' => @wiki.project }
   end
 
   def compile_usernames_query(users)
@@ -159,14 +190,6 @@ class Replica
     return '' if oauth_ids.nil?
     oauth_id_tags = oauth_ids.split(',').map { |id| "OAuth CID: #{id}" }
     { oauth_tags: oauth_id_tags }.to_query
-  end
-
-  # Compile an article list to send to the replica endpoint, which might look
-  # something like this:
-  # "article_ids[]='Artist'&article_ids[]='Microsoft_Research'"
-  def compile_article_titles_query(articles)
-    quoted_titles = articles.map { |article| "'#{CGI.escape(article['title'])}'" }
-    { article_titles: quoted_titles }.to_query
   end
 
   # Compile an article list to send to the replica endpoint, which might look

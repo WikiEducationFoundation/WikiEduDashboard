@@ -1,3 +1,15 @@
+@keyframes STAT-CHANGE
+  0% {
+    opacity 0
+    transform scale(1.4)
+  }
+  50% {
+    opacity 1
+  }
+  100% {
+    opacity 1
+  }
+
 .main-page
   h1
     font-weight 300
@@ -26,6 +38,9 @@
       font-size 38px
       margin 0
       font-weight 300
+
+      &.stat-change
+        animation STAT-CHANGE 3s;
 
       img
         max-width 13%
@@ -61,6 +76,10 @@
     .stat-display
       justify-content initial
       margin 0 0 50px 0
+
+      .active-button
+        background-color #fff
+        border-color $brand_primary
 
       .stat-display__stat
         margin 0 20px 0 20px

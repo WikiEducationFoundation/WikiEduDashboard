@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/duplicate_article_deleter"
-require "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
+require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
@@ -108,6 +108,16 @@ class RevisionImporter
     article = Article.find_by(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
     article ||= Article.new(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
     article.update!(title: article_data['article']['title'],
+                    namespace: article_data['article']['namespace'])
+    article
+  # FIXME: Workaround for four-byte unicode characters in article titles,
+  # until we fix the database to handle them.
+  # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+  rescue ActiveRecord::StatementInvalid => e
+    Raven.capture_exception e
+    # Use the RUI encoding instead of the unicode string, if
+    # the unicode itself can't be saved.
+    article.update!(title: CGI.escape(article_data['article']['title']),
                     namespace: article_data['article']['namespace'])
     article
   end

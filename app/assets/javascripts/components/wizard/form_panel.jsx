@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
-import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import ValidationStore from '../../stores/validation_store.js';
 
 const FormPanel = createReactClass({
   displayName: 'FormPanel',
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    shouldShowSteps: PropTypes.bool
+    shouldShowSteps: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired,
+    isValid: PropTypes.bool.isRequired
   },
 
   setAnyDatesSelected(bool) {
@@ -27,17 +27,17 @@ const FormPanel = createReactClass({
     const { checked } = this.noDates;
     const toPass = this.props.course;
     toPass.no_day_exceptions = checked;
-    return CourseActions.updateCourse(toPass);
+    return this.props.updateCourse(toPass);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   saveCourse() {
-    if (ValidationStore.isValid()) {
-      CourseActions.persistCourse(this.props, this.props.course.slug);
+    if (this.props.isValid) {
+      this.props.persistCourse(this.props.course.slug);
       return true;
     }
     alert(I18n.t('error.form_errors'));
@@ -53,10 +53,9 @@ const FormPanel = createReactClass({
   render() {
     const dateProps = CourseDateUtils.dateProps(this.props.course);
 
-    const step1 = this.props.shouldShowSteps ?
-      <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
-    :
-      <p>Confirm the course’s start and end dates.</p>;
+    const step1 = this.props.shouldShowSteps
+      ? <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+      : <p>Confirm the course’s start and end dates.</p>;
 
     const rawOptions = (
       <div>
@@ -116,10 +115,11 @@ const FormPanel = createReactClass({
             save={true}
             setAnyDatesSelected={this.setAnyDatesSelected}
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
-            calendarInstructions= {I18n.t('wizard.calendar_instructions')}
+            calendarInstructions={I18n.t('wizard.calendar_instructions')}
+            updateCourse={this.props.updateCourse}
           />
           <label> I have no class holidays
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
+            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />
           </label>
         </div>
       </div>
