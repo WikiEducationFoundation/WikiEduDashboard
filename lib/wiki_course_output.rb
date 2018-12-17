@@ -64,6 +64,7 @@ class WikiCourseOutput
        | institution = #{@course.school}
        | expected_students = #{@course.expected_students}
        | assignment_page = #{@course.wiki_title}
+       | slug = #{@course.slug}
        | #{@dashboard_url} = yes
       }}
     COURSE_DETAILS
