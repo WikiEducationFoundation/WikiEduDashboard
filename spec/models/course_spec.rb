@@ -165,9 +165,7 @@ describe Course, type: :model do
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)',
                      submitted: true)
       url = course.url
-      # rubocop:disable Metrics/LineLength
-      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
-      # rubocop:enable Metrics/LineLength
+      expect(url).to be_nil
 
       # A new course
       new_course = build(:course,
