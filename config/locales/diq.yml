@@ -185,6 +185,10 @@ diq:
     diff_show: Bımocne
     diff_hide: Bınımne
     title: Sername
+  settings:
+    special_users:
+      new:
+        form_placeholder: Nameyê Karberi
   timeline:
     empty_week_3: ya zi
     week_number: Hefte %{number}

@@ -71,10 +71,10 @@ pt:
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
     create_preparation_note: Verifique que tem o seu calendário académico à mão antes
-      de começar; a ferramenta de atribuição de tarefas usará as datas de encontros
-      com a sua turma — incluindo férias e feriados escolares — para ajustar o seu
-      cronograma no intervalo de datas da sua preferência. Lembre-se que pode sempre
-      editar o cronograma de acordo com as suas necessidades.
+      de começar; a ferramenta de criação de trabalhos usará as datas de encontros
+      da sua turma — incluindo férias e feriados escolares — para ajustar o seu calendário
+      no intervalo de datas da sua preferência. Lembre-se que pode sempre editar o
+      calendário de acordo com as suas necessidades.
     explore_course_pages: Explorar as páginas do curso
     explore_examples: Explorar exemplos
     join_note: Quando receber um código de acesso do seu instrutor, clique em "Localizar
@@ -287,6 +287,8 @@ pt:
       de contas?
     activity: Atividade
     active_courses: '%{course_type} ativos'
+    add_trainings: Adicione formações ao seu calendário de trabalhos. Atribuir módulos
+      de formação é uma parte essencial das boas práticas da Wiki Educação.
     alerts: Alertas
     all_courses: Todos os cursos
     already_enrolled: Já faz parte de '%{title}'!
@@ -340,15 +342,15 @@ pt:
       clone_previous: Clonar curso anterior
       clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecione datas para adicioná-las ou removê-las
-        da agenda (por exemplo, férias, sem aulas). Clique na data para escolher entre
-        não selecionada, selecionada e período de férias. Se não há férias, selecione
-        "Não há férias". O cronograma clonado ajustará automaticamente as datas para
-        dar conta das semanas em que não há encontros agendados.
+        do calendário (por exemplo, férias, dias sem aulas). Clique na data para escolher
+        entre não selecionada, selecionada e período de férias. Se não tem férias,
+        selecione "Não tenho férias escolares". O calendário clonado ajustará automaticamente
+        as datas para refletir as semanas em que não há encontros agendados.
       clone_successful: Atualizar detalhes do curso clonado
-      clone_successful_details: O seu curso foi clonado, incluindo os elementos do
-        cronograma (semanas e blocos). Certifique-se de adicionar as datas, que não
-        foram transferidas. Alguma coisa sobre o seu curso mudou? Fique à vontade
-        para atualizá-lo agora.
+      clone_successful_details: O seu curso foi clonado, incluindo os elementos de
+        calendarização (semanas e blocos). Certifique-se de que adiciona as datas,
+        que não são transferidas. Alterou-se mais alguma coisa no seu curso? Atualize-a
+        agora.
       course_description: Descrição do curso
       course_description_placeholder: O que está a ser abordado no seu curso, e o
         que os alunos estão a elaborar na Wikipédia? Por favor, inclua todos os detalhes
@@ -366,22 +368,24 @@ pt:
       create_label: Criar novo curso
       create_new: Criar um novo curso
       create_short: Criar curso
-      end_date: Data de término
-      end_date_placeholder: Data de término (AAAA-MM-DD)
+      create_timeline: Crie um calendário para o seu curso, por favor. Pode criar
+        um de raiz no separador Calendário, ou usar o assistente de criação de trabalhos
+        para criar um calendário personalizado baseado nas boas práticas da Wiki Educação.
+      end_date: Data de fim
+      end_date_placeholder: Data de fim (AAAA-MM-DD)
       expected_number: Número estimado de estudantes
       find: Localizar o seu curso
-      intro: O título, a escola e o semestre criam o endereço eletrónico (URL) da
-        página do seu curso; isto não pode ser alterado. Pode editar tudo o resto
-        depois. Clique em "Criar o meu curso!" para começar a construir o cronograma
-        da sua tarefa na Wikipédia.
+      intro: O título, a escola e o semestre criam o URL da página do seu curso e
+        não podem ser alterados. Tudo o resto pode ser editado depois. Clique em "Criar
+        o meu curso!" para começar a calendarizar o seu trabalho na Wikipédia.
       new_or_clone: Pode criar um curso novo agora, usando o assistente de atribuição
-        de tarefas. Se pretende reutilizar um cronograma fortemente personalizado
-        de um curso anterior, pode duplicá-lo e atribuir novas datas (se não personalizou
-        significativamente o seu cronograma, recomendamos que inicie um novo curso
-        para que tenha as versões mais atualizadas das opções de tarefas). Também
-        pode usar a opção de duplicação para criar secções adicionais para um curso
-        que já tenha definido.
-      no_class_holidays: Não há férias
+        de trabalhos. Se pretende reutilizar um calendário altamente personalizado
+        de um curso anterior, pode criar um clone com novas datas (se não personalizou
+        significativamente o seu calendário, recomendamos que inicie um novo curso
+        para ter as versões mais atualizadas das opções dos trabalhos). Também pode
+        usar a opção de clonagem para criar secções adicionais num curso que já tenha
+        definido.
+      no_class_holidays: Não tenho férias escolares
       role_description: A sua função no curso
       role_description_placeholder: Professor, professor assistente, etc
       separate_event_dates: Especifique separadamente os horários iniciais e finais
@@ -431,6 +435,9 @@ pt:
     duration: Duração do curso
     edit_count: Contador de edições
     edit_course_dates: Editar datas do curso
+    embed_course_stats: Incorporar estatísticas do curso
+    embed_course_stats_description: Para incorporar as estatísticas deste programa
+      noutro ''site'', copie e insira este trecho de código em
     enable_account_requests: Ativar as solicitações de contas
     enable_chat: Ativar conversação
     end: Fim
@@ -505,6 +512,9 @@ pt:
     new_account_submitted_admin: O seu pedido de conta foi criado. Solicite aos seus
       alunos que verifiquem a caixa de entrada do correio para obterem a palavra-passe
       nova
+    no_campaign: Para tornar este programa ativo e permitir que os utilizadores se
+      inscrevam, ele tem de ser adicionado a uma campanha. Se não tem a certeza da
+      campanha a que adicioná-lo, use 'Diversos'.
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
@@ -524,11 +534,11 @@ pt:
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
-    review_timeline: 'Agora, reveja o seu calendário de tarefas e faça as alterações
-      necessárias. Quando estiver satisfeito, pode enviá-lo para aprovação da equipa
+    review_timeline: 'Agora, reveja o seu calendário de trabalhos e faça as alterações
+      necessárias. Quando estiver satisfeito, pode submetê-lo para aprovação da equipa
       da Wiki Educação. Após a aprovação, receberá um URL de inscrição que os alunos
-      podem usar para participar no curso e aceder aos materiais (nota: poderá editar
-      o calendário mais tarde.)'
+      podem usar para participar no curso e aceder às formações (nota: será possível
+      editar o calendário mais tarde).'
     revisions_doc: O número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
@@ -565,19 +575,20 @@ pt:
     tags: 'Etiquetas:'
     term: Período
     timeline: Detalhes da tarefa
-    timeline_enabled: Cronograma ativado
-    timeline_link: Cronograma
-    timeline_tooltip: Ativar o cronograma permite-lhe especificar atividades semana
+    timeline_enabled: Calendário ativado
+    timeline_link: Calendário
+    timeline_tooltip: Ativar o calendário permite-lhe especificar atividades semana
       a semana e atribuir módulos de formação. É útil para cursos do Programa Educativo
       e para outros programas que sejam longos e altamente estruturados.
-    time_zone_message: Os horários de início e fim são mostrados no seu fuso horário
+    timeline_nav: Ir para o calendário
+    time_zone_message: As horas de início e fim são apresentadas no seu fuso horário
       local.
     title: Título
     training_due: O módulo de formação "%{title}" foi indicado para este curso e deve
       ser realizado até %{date}.
-    training_nav: Ir à formação
-    training_overdue: O módulo de formação %{title} foi indicado para este curso e
-      devia ter sido realizado até %{date}
+    training_nav: Ir para a formação
+    training_overdue: O módulo de formação "%{title}" é indicado para este curso e
+      devia ter sido realizado até %{date}.
     unsubmitted: Cursos Não Enviados
     untrained: Sem formação
     update_stats: Atualizar as estatísticas
@@ -597,9 +608,9 @@ pt:
     volunteer:
       one: Voluntário
       other: Voluntários
-    weeks_none: Este curso não tem um cronograma ainda.
+    weeks_none: Este curso ainda não está calendarizado.
     warn_mirrored: |-
-      Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
+      Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições do calendário serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
     wiki_edits_enabled: Edições da wiki ativadas
     wiki_edits_enabled_tooltip: Se as edições da wiki estiverem ativadas, serão feitas
@@ -809,7 +820,19 @@ pt:
           super administrador
     special_users:
       new:
+        form_label: Conceder privilégios de utilizador especial
         form_placeholder: Nome de utilizador
+        confirm_add_special_user: Adicionar utilizador especial
+        confirm_remove_special_user: Remover os privilégios de utilizador especial
+          de
+        already_is: '%{username} já é {position}!'
+        elevate_success: '%{username} promovido a {position}.'
+      remove:
+        revoke_button: Revogar utilizador especial
+        revoke_button_confirm: Revogar os privilégios de utilizador especial de %{username}
+        revoking_button_working: A revogar...
+        already_is_not: '%{username} não é um utilizador especial!'
+        demote_success: '%{username} é doravante um utilizador simples.'
   suggestions:
     editing: A editar sugestões
     suggestion_docs:
@@ -862,21 +885,21 @@ pt:
       foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
   timeline:
     add_week: Adicionar Semana
-    arrange_timeline: Organizar Cronograma
-    arrange_timeline_instructions: Organizar cronograma "arrastando e soltando" blocos
+    arrange_timeline: Organizar Calendário
+    arrange_timeline_instructions: Organizar calendário "arrastando e largando" blocos
       nos locais/semanas desejados ou recolocar os blocos usando as setas no cartão.
-    assignment_dates_instructions: Selecione as datas de início e fim para o cronograma
-      da tarefa na Wikipédia. Ao mudar a data de início, as datas de todo o cronograma
-      serão deslocadas.
+    assignment_dates_instructions: Selecione as datas de início e fim para o calendário
+      do trabalho na Wikipédia. Mudar a data de início desloca correspondentemente
+      todas as datas do calendário.
     blackout_week_created: Há blocos agendados para esta semana. Por favor, mova-os
-      para outra semana antes de apagar o último encontro de sala desta semana.
-    block_assignment: Tarefa
+      para outra semana antes de apagar o último encontro da turma desta semana.
+    block_assignment: Trabalho
     block_custom: Personalizar
     block_in_class: Na classe
     block_milestone: Marco
-    block_type: O tipo de bloco é utilizado para comunicar a seus alunos sobre este
-      elemento no seu cronograma e para programar ferramentas úteis para si (tais
-      como o marco descrito na página do resumo)
+    block_type: O tipo de bloco é utilizado para comunicar com os seus alunos sobre
+      este elemento nos respetivos calendários e para criar ferramentas úteis para
+      si (tais como o marco descrito na página do resumo)
     course_dates: Datas do curso
     course_dates_instructions: Selecionar as datas de início e fim do curso inteiro
       (não só da tarefa na Wikipédia)
@@ -886,32 +909,32 @@ pt:
       Tem a certeza de que deseja apagar esta semana? Isto vai apagar a semana e todos os seus blocos associados.
 
       Esta operação não pode ser desfeita.
-    delete_weeks_confirmation: "Tem a certeza de que deseja eliminar o cronograma
+    delete_weeks_confirmation: "Tem a certeza de que deseja eliminar este calendário
       por completo e recomeçar? \n\nEsta operação é irreversível."
     discard_all_changes: Descartar todas as mudanças
-    delete_timeline_and_start_over: Apagar cronograma
+    delete_timeline_and_start_over: Apagar calendário
     due_default: Previsto para a próxima semana
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
-    empty_week_4: utilize o assistente de tarefas para criar um cronograma.
+    empty_week_4: utilize o assistente de atribuição de trabalhos para criar um calendário.
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
-    gradeables_none: Este cronograma não tem tarefas marcadas com nota.
+    gradeables_none: Este calendário não tem trabalhos marcados com uma nota.
     grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover o bloco para baixo
     move_block_up: Mover o bloco para cima
-    no_class_holidays: Não tenho férias
-    no_timeline: Este curso não tem cronograma.
+    no_class_holidays: Não tenho férias escolares
+    no_timeline: Este curso não tem calendarização.
     no_activity_this_week: Nenhuma reunião programada para esta semana
     nothing_this_week: Não há nada agendado para esta semana.
     save_all_changes: Gravar tudo
     this_week_title_default: Esta semana
-    title: Linha do tempo
-    unable_to_add_week: Não pode acrescentar novas semanas quando o seu cronograma
-      está completo. Elimine pelo menos uma semana ou mude as datas das suas tarefas
-      para ter espaço para mais uma.
-    view_full_timeline: Ver cronologia completa
+    title: Calendário
+    unable_to_add_week: Não pode acrescentar semanas novas quando o seu calendário
+      está cheio. Elimine pelo menos uma semana ou mude as datas dos seus trabalhos
+      para ter espaço para mais um.
+    view_full_timeline: Ver calendário completo
     week_number: Semana %{number}
   training:
     continue: Continuar (%{progress})
@@ -922,7 +945,7 @@ pt:
     page_number: Página %{number} de %{total}
     previous: < Anterior
     table_of_contents: Tabela de conteúdos
-    training_library: Biblioteca de formação
+    training_library: Biblioteca de formações
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
       a menos que entre com a sua conta.
     done: Concluído!
@@ -1003,17 +1026,17 @@ pt:
     reviewing: A revisar
     total_uploads: Total de carregamentos
     training_complete:
-      one: está em dia com a capacitação
-      other: estão em dia com a capacitação
+      one: está em dia com a formação
+      other: estão em dia com a formação
     training_complete_count:
-      one: '%{count} capacitação em dia'
-      other: '%{count} capacitações em dia'
-    training_doc: Os editores quem tenham completado todos os módulos de capacitação
-      atribuídos, são considerados como em dia com a sua capacitação.
+      one: '%{count} formação em dia'
+      other: '%{count} formações em dia'
+    training_doc: Os editores quem tenham completado todos os módulos de formação
+      atribuídos, são considerados como estando em dia com a sua formação.
     training_incomplete: Formação incompleta
     training_modules_completed:
-      one: '%{completed_count}/%{count} módulo de capacitação concluído'
-      other: '%{completed_count}/%{count} módulos de capacitações concluídos'
+      one: '%{completed_count}/%{count} módulo de formação concluído'
+      other: '%{completed_count}/%{count} módulos de formação concluídos'
     training_module_name: Módulo de formação
     training_module_status: Estado
     user_training_status: Estado de formação
@@ -1045,22 +1068,22 @@ pt:
       confirm: Isto irá postar uma anotação nas páginas de discussão de todos os alunos
         que não completaram a tempo os módulos de treino. Tem a certeza de que deseja
         prosseguir?
-      header: Tem uma tarefa de treino atrasada.
-      message: Por favor, complete os [%{link} módulos de capacitação] atribuídos.
-      summary: atraso no treino do aluno
+      header: Tem um trabalho de formação em atraso.
+      message: Conclua os [%{link} módulos de formação] atribuídos, por favor.
+      summary: atraso na formação do aluno
   wizard:
-    assignment_dates: Datas da tarefa
-    assignment_description: Selecione as datas de início e fim do cronograma da sua
-      tarefa. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
-      semana de aulas, marque a data de início da tarefa para uma semana após a data
-      de início do curso. A ferramenta de atribuição de tarefas criará um cronograma
-      provisório que encaixe nas datas que escolher.
+    assignment_dates: Datas do trabalho
+    assignment_description: Selecione as datas de início e fim para o seu calendário
+      de tarefas. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
+      semana de aulas, marque a data de início do trabalho para uma semana após a
+      data de início do curso. Esta ferramenta de criação de trabalhos criará uma
+      calendarização provisória que encaixe nas datas que escolher.
     assignment_type: O que conduziu os alunos para a sua tarefa da Wikipédia?
-    calendar_instructions: Selecione as datas para adicioná-las ou removê-las do cronograma
-      (por exemplo, as férias, quando não houver aulas). Isto ajudará a ferramenta
-      de criação de cursos a organizar adequadamente as suas tarefas. Clique na data
-      para mudar as opções de não selecionada, selecionada, e férias. Se não tiver
-      férias, marque abaixo a opção de "Não tenho férias".
+    calendar_instructions: Selecione as datas para adicioná-las ou removê-las do calendário
+      (por exemplo, férias, dias sem aulas). Isto ajudará a ferramenta de criação
+      de cursos a calendarizar adequadamente os seus trabalhos. Clique na data para
+      escolher entre não selecionada, selecionada e férias. Se não tiver férias, marque
+      abaixo a opção de "Não tenho férias escolares".
     confirm_dates: Selecione as datas do curso, reuniões semanais e as férias para
       o seu curso.
     course_dates: Datas do curso
@@ -1073,10 +1096,11 @@ pt:
       other: Por favor, selecione %{count} ou mais opções.
     read_less: Ler menos
     read_more: Ler mais
-    review_selections: Por favor, revise as suas opções abaixo. Clique para editar
+    review_selections: Reveja as suas opções abaixo, por favor. Clique para editar
       uma opção. Quando terminar, clique em 'Enviar' para encerrar o assistente e
-      criar o seu cronograma.
-    select_assignment: Selecione o tipo de tarefa que pretende adicionar ao seu cronograma.
+      criar o seu calendário.
+    select_assignment: Selecione o tipo de trabalho que pretende adicionar ao seu
+      calendário.
     summary: Resumo
   error:
     form_errors: Por favor, verifique o formulário de erros.
