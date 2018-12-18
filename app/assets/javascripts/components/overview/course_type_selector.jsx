@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import uuid from 'uuid';
-import selectStyles from '../../styles/select';
+import selectStyles from '../../styles/single_select';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {
