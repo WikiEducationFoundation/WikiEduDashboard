@@ -373,7 +373,7 @@ const CourseCreator = createReactClass({
     }
 
     const dateProps = CourseDateUtils.dateProps(this.props.course);
-
+    console.log(I18n.t('courses.creator'));
     const timeZoneMessage = (
       <p className="form-help-text">
         {I18n.t('courses.time_zone_message')}
@@ -452,7 +452,7 @@ const CourseCreator = createReactClass({
               <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
             </div>
             <div className={courseWizard}>
-              {_.map(CourseUtils.i18n('courseType'), (program) => {
+              {_.map(I18n.t('courses.creator.course_types'), (program) => {
                 return (
                   <div key={program.name} onClick={this.showCourseForm.bind(null, program.type)} className="program-description">
                     <h4><strong>{program.name}</strong></h4>

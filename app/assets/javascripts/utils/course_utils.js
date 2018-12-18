@@ -22,11 +22,11 @@ const CourseUtils = class {
 
   // Regex of allowed characters for a course slug.
   courseSlugRegex() {
-    // This regex is intended to match ascii word characters, dash,
-    // whitespace, comma, apostrophe, and any unicode "letter".
-    // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
-    // from the allowed characters, to be followed by zero or more of all allowed characters(including blank characters).
-    // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
+  // This regex is intended to match ascii word characters, dash,
+  // whitespace, comma, apostrophe, and any unicode "letter".
+  // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
+  // from the allowed characters, to be followed by zero or more of all allowed characters(including blank characters).
+  // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
     return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
   }
 
@@ -43,32 +43,10 @@ const CourseUtils = class {
 
   // This builds i18n interface strings that vary based on state/props.
   i18n(messageKey, prefix, defaultPrefix = 'courses') {
-    const courseTypes = [
-      {
-        name: 'Basic Program',
-        type: 'BasicCourse',
-        description: 'This program type will track edits to any articles or mainspace pages by any participants. If automated wiki edits are enabled on the program\'s home wiki, then an on-wiki version of this program will be automatically created and updated.'
-      },
-      {
-        name: 'Edit-A-Thon',
-        type: 'Editathon',
-        description: 'An Edit-A-Thon program will track edits to any articles or mainspace pages. No automated edits will be made for this program.'
-      },
-      {
-        name: 'Article Scoped Program',
-        type: 'ArticleScopedProgram',
-        description: 'This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas.'
-      }
-    ];
-
-    if (messageKey === 'courseType') {
-      return courseTypes;
-    }
     return I18n.t(`${prefix}.${messageKey}`, {
       defaults: [{ scope: `${defaultPrefix}.${messageKey}` }]
     });
   }
-
 
   // Takes user input — either a URL or the title of an article —
   // and returns an article object, including the project and language
@@ -209,13 +187,6 @@ const CourseUtils = class {
       uploadCount: oldCourse.upload_count !== newCourse.upload_count
     };
   }
-
-  // Course types and description
-  courseTypeList() {
-
-    return courseTypes;
-  }
-
 };
 
 export default new CourseUtils();
