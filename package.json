@@ -130,7 +130,7 @@
     "slick-carousel": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
     "striptags": "^3.1.1",
     "stylus": "0.54.5",
-    "tinymce": "^4.9.1",
+    "tinymce": "^4.9.2",
     "uuid": "^3.3.2",
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",

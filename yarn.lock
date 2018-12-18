@@ -13936,10 +13936,10 @@ tiny-lr@^1.1.1:
     object-assign "^4.1.0"
     qs "^6.4.0"
 
-tinymce@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.1.tgz#821cecb103982ec8e37aae44a8f732849e3660d0"
-  integrity sha512-lGk6QFI2KYWnIkti0TvtN30GIgJAfWWl8LBqUYdnHuywrNvgl92fqrQHhUP7YChHNhiYZj6JAy8M5cwVlbO7iQ==
+tinymce@^4.9.2:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.2.tgz#c20ba7aa082125f16e0372fbc2f844c83236b75e"
+  integrity sha512-ZRoTGG4GAsOI73QPSNkabO7nkoYw9H6cglRB44W2mMkxSiqxYi8WJlgkUphk0fDqo6ZD6r3E+NSP4UHxF2lySg==
 
 tmp@0.0.33, tmp@^0.0.33:
   version "0.0.33"
