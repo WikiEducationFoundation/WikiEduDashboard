@@ -8,7 +8,7 @@
             %td.main-content
               %p.paragraph
                 = "Hi #{@instructor.real_name || @instructor.username},"
-              - if @is_returning_instructor
+              - if !@is_returning_instructor
                 %p.paragraph
                   Thanks for submitting your
                   %a{href: @course_link}course page
@@ -32,7 +32,7 @@
                   %a{href: 'https://ask.wikiedu.org/question/784/what-do-i-need-to-know-now-that-my-course-page-is-live/?answer=785#post-id-785'}here
                   are some additional tips for making the most of your Wiki Education support.
                   I look forward to working with you this term. 
-              -if !@is_returning_instructor
+              -if @is_returning_instructor
                 %p.paragraph
                   Your
                   %a{href: @course_link}course page
