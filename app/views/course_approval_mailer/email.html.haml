@@ -7,26 +7,45 @@
           %tr
             %td.main-content
               %p.paragraph
-                = "Dear #{@instructor.username},"
-              %p.paragraph
-                Your students can now begin enrolling on your course page. The
-                following is your enrollment link.
-              %p.paragraph
-                %a{href: @enroll_link}= @enroll_link
-              %p.paragraph
-                Students should click on this link to both create their Wikipedia
-                usernames and enroll on the course page. This is a critical step
-                of your Wikipedia assignment, so please distribute the above link
-                to your class.
-              %p.paragraph
-                To avoid hitting Wikipedia's account creation limit of 6 new accounts
-                per day from the same IP address, it's best to have students create
-                accounts outside of class.
-              %p.paragraph
-                Thank you again for creating your course page on dashboard.wikiedu.org.
-                We look forward to working with you this term!
+                = "Hi #{@instructor.real_name || @instructor.username},"
+              - if @is_returning_instructor
+                %p.paragraph
+                  Thanks for submitting your
+                  %a{href: @course_link}course page
+                  at dashboard.wikiedu.org.
+                %p.paragraph
+                  Your course page is now live! That means that when you're ready to begin
+                  the assignment, your students can both create their Wikipedia accounts
+                  and enroll on the page with the following link:
+                %p.paragraph
+                  %a{href: @enroll_link}= @enroll_link
+                %p.paragraph
+                  Please be sure to distribute this link to them early on so they
+                  can get a head start on learning the ins and outs of Wikipedia,
+                  and so you can begin tracking their progress.
+                %p.paragraph
+                  In addition to myself, you'll be working with one of our Wikipedia Experts.
+                  You can reach out to either of us using the "Get Help" button on your course
+                  page.
+                %p.paragraph
+                  Finally,
+                  %a{href: 'https://ask.wikiedu.org/question/784/what-do-i-need-to-know-now-that-my-course-page-is-live/?answer=785#post-id-785'}here
+                  are some additional tips for making the most of your Wiki Education support.
+                  I look forward to working with you this term. 
+              -if !@is_returning_instructor
+                %p.paragraph
+                  Your
+                  %a{href: @course_link}course page
+                  is now live!
+                %p.paragraph
+                  Please remember to distribute the following enrollment link
+                  to your students so they can get a head start on their
+                  Wikipedia assignment.
+                %p.paragraph
+                  %a{href: @enroll_link}= @enroll_link
+                %p.paragraph
+                  Looking forward to another successful term! 
               %p.paragraph
                 Best,
                 %br
-                %em
-                  The Wiki Ed team
+                %em= @signed
