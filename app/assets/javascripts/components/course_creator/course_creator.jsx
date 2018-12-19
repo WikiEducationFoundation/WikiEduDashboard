@@ -19,6 +19,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseLevelSelector from './course_level_selector.jsx';
+import CourseType from './course_type.jsx';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -373,7 +374,6 @@ const CourseCreator = createReactClass({
     }
 
     const dateProps = CourseDateUtils.dateProps(this.props.course);
-    console.log(I18n.t('courses.creator'));
     const timeZoneMessage = (
       <p className="form-help-text">
         {I18n.t('courses.time_zone_message')}
@@ -433,8 +433,6 @@ const CourseCreator = createReactClass({
       );
     }
 
-    
-
     return (
       <Modal key="modal">
         <Notifications />
@@ -446,22 +444,14 @@ const CourseCreator = createReactClass({
               <button className="button dark" onClick={this.showWizardForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
               <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
             </div>
+            <CourseType
+              wizardClass={courseWizard}
+              wizardAction={this.showCourseForm}
+            />
             <div className={selectClassName}>
               <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }}>{options}</select>
               <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
               <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
-            </div>
-            <div className={courseWizard}>
-              {_.map(I18n.t('courses.creator.course_types'), (program) => {
-                return (
-                  <div key={program.name} onClick={this.showCourseForm.bind(null, program.type)} className="program-description">
-                    <h4><strong>{program.name}</strong></h4>
-                    <p>
-                      {program.description}
-                    </p>
-                  </div>
-                );
-              })}
             </div>
             <div className={courseFormClass}>
               <div className="column">
