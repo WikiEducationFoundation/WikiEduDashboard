@@ -192,8 +192,12 @@ const CourseCreator = createReactClass({
     return this.setState({ showCloneChooser: false });
   },
 
-  showWizardForm() {
-    return this.setState({ showWizardForm: true });
+  chooseNewCourse() {
+    if (Features.wikiEd) {
+      return this.setState({ showCourseForm: true });
+    } else {
+      return this.setState({ showWizardForm: true });
+    }
   },
 
   useThisClass() {
@@ -217,7 +221,7 @@ const CourseCreator = createReactClass({
       showCourseForm = true;
       // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
-      showWizardForm = true;
+      showCourseForm = true;
     } else if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseForm) {
@@ -441,7 +445,7 @@ const CourseCreator = createReactClass({
             <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
             <p>{instructions}</p>
             <div className={cloneOptions}>
-              <button className="button dark" onClick={this.showWizardForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
+              <button className="button dark" onClick={this.chooseNewCourse}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
               <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
             </div>
             <CourseType
