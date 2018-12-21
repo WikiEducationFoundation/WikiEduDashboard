@@ -153,8 +153,8 @@
     ],
     "moduleDirectories": [
       "test",
-      "app/assets/javascripts",
-      "node_modules"
+      "node_modules",
+      "app/assets/javascripts"
     ]
   },
   "engines": {
