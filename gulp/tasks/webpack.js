@@ -8,11 +8,12 @@ import config from '../config.js';
 
 const plugins = loadPlugins();
 
-gulp.task('webpack', ['jquery-uls'], (cb) => {
+gulp.task('webpack', (cb) => {
   const doHot = config.development && !config.watch_js;
   const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const appRoot = path.resolve('../../');
   const entries = {
+    jquery: [`${jsSource}/jquery.js`],
     main: [`${jsSource}/main.js`],
     raven: [`${jsSource}/raven.js`],
     styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
@@ -80,7 +81,6 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
       ]
     },
     externals: {
-      jquery: 'jQuery',
       'i18n-js': 'I18n'
     },
     watch: config.watch_js,

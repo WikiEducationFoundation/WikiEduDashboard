@@ -1,2 +1,4 @@
-window.$ = require('jquery');
-window.jquery = require('jquery');
+import jquery from 'jquery';
+
+window.$ = jquery;
+window.jQuery = jquery;
