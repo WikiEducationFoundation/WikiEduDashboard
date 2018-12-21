@@ -204,7 +204,9 @@ describe 'the course page', type: :feature, js: true do
         js_visit "/courses/#{slug}"
         within '.sidebar' do
           click_button 'Edit Details'
-          select 'wiktionary', from: 'home_wiki_project'
+          within '.home_wiki_project' do    
+            find('input').set"wiktionary\n"
+          end
           select 'es', from: 'home_wiki_Language'
           click_button 'Save'
         end

@@ -33,14 +33,16 @@ const HomeWikiProjectSelector = createReactClass({
     const selector = (
       <div className="form-group">
         <label htmlFor={this.state.id}>{I18n.t('courses.home_wiki_project')}:</label>
-        <Select
-          id={this.state.id}
-          value={this.state.selectedOption}
-          onChange={this._handleChange}
-          options={options}
-          simpleValue
-          styles={selectStyles}
-        />
+        <div className="home_wiki_project">
+          <Select
+            id={this.state.id}
+            value={this.state.selectedOption}
+            onChange={this._handleChange}
+            options={options}
+            simpleValue
+            styles={selectStyles}
+          />
+        </div>
       </div>
     );
 
