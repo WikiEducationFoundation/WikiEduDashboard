@@ -3,16 +3,16 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 
-describe RecentActivityController do
+describe RecentActivityController, type: :request do
   let(:user) { create(:user) }
 
   describe '.plagiarism_report' do
     context 'when the user is logged in' do
       before do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
-      let(:subject) { get :plagiarism_report, params: { ithenticate_id: 123 } }
+      let(:subject) { get '/recent-activity/plagiarism/report', params: { ithenticate_id: 123 } }
 
       it 'fetches an iThenticate url and redirects' do
         expect(PlagiabotImporter).to receive(:api_get_url)
@@ -23,10 +23,10 @@ describe RecentActivityController do
 
     context 'when the user is logged out' do
       before do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
       end
 
-      let(:subject) { get :plagiarism_report, params: { ithenticate_id: 123 } }
+      let(:subject) { get '/recent-activity/plagiarism/report', params: { ithenticate_id: 123 } }
 
       it 'redirects to login' do
         expect(subject).to redirect_to %r{/users/auth/mediawiki}
