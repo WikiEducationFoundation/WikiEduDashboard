@@ -1,6 +1,7 @@
-import { capitalize } from './strings';
+jQueryimport { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import fetch from 'isomorphic-fetch';
+import jQuery from 'jquery';
 
 const RavenLogger = {};
 
@@ -90,7 +91,7 @@ const API = {
 
   createCustomFeedback(assignmentId, text, userId) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'POST',
         url: `/assignments/${assignmentId}/assignment_suggestions`,
         data: {feedback: {text: text, assignment_id: assignmentId, user_id: userId}},
@@ -107,7 +108,7 @@ const API = {
 
   destroyCustomFeedback(assignmentId, id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'DELETE',
         url: `/assignments/${assignmentId}/assignment_suggestions/${id}`,
         success(data) {
@@ -123,7 +124,7 @@ const API = {
 
   fetchUserProfileStats(username){
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/user_stats.json?username=${ username }`,
         success(data) {
@@ -140,7 +141,7 @@ const API = {
   fetchArticleDetails(articleId, courseId) {
     return new Promise((res, rej) => {
       const url = `/articles/details.json?article_id=${articleId}&course_id=${courseId}`;
-      return $.ajax({
+      return jQuery.ajax({
         type: 'GET',
         url,
         success(data) {
@@ -156,7 +157,7 @@ const API = {
 
   fetchDykArticles(opts = {}) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`,
         success(data) {
@@ -172,7 +173,7 @@ const API = {
 
   fetchSuspectedPlagiarism(opts = {}) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`,
         success(data) {
@@ -188,7 +189,7 @@ const API = {
 
   fetchRecentUploads(opts = {}) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`,
         success(data) {
@@ -204,7 +205,7 @@ const API = {
 
   cloneCourse(id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'POST',
         url: `/clone_course/${id}`,
         success(data) {
@@ -220,7 +221,7 @@ const API = {
 
   fetchUserCourses(userId) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/courses_users.json?user_id=${userId}`,
         success(data) {
@@ -235,9 +236,9 @@ const API = {
   },
 
   deleteAssignment(assignment) {
-    const queryString = $.param(assignment);
+    const queryString = jQuery.param(assignment);
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'DELETE',
         url: `/assignments/${assignment.id}?${queryString}`,
         success(data) {
@@ -252,9 +253,9 @@ const API = {
   },
 
   createAssignment(opts) {
-    const queryString = $.param(opts);
+    const queryString = jQuery.param(opts);
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'POST',
         url: `/assignments.json?${queryString}`,
         success(data) {
@@ -269,9 +270,9 @@ const API = {
   },
 
   updateAssignment(opts) {
-    const queryString = $.param(opts);
+    const queryString = jQuery.param(opts);
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: `/assignments/${opts.id}.json?${queryString}`,
         success(data) {
@@ -333,7 +334,7 @@ const API = {
       const req_data = { weeks };
       RavenLogger.type = 'POST';
 
-      return $.ajax({
+      return jQuery.ajax({
         type: 'POST',
         url: `/courses/${courseId}/timeline.json`,
         contentType: 'application/json',
@@ -368,7 +369,7 @@ const API = {
     this.obj = null;
     this.status = null;
     const promise = new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type,
         url: `/courses${append}.json`,
         contentType: 'application/json',
@@ -394,7 +395,7 @@ const API = {
   },
 
   deleteCourse(courseId) {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'DELETE',
       url: `/courses/${courseId}.json`,
       success(data) {
@@ -406,7 +407,7 @@ const API = {
 
   deleteBlock(block_id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'DELETE',
         url: `/blocks/${block_id}.json`,
         success(data) {
@@ -422,7 +423,7 @@ const API = {
 
   deleteWeek(week_id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'DELETE',
         url: `/weeks/${week_id}.json`,
         success(data) {
@@ -438,7 +439,7 @@ const API = {
 
   deleteAllWeeks(course_id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'DELETE',
         url: `/courses/${course_id}/delete_all_weeks.json`,
         success(data) {
@@ -454,7 +455,7 @@ const API = {
 
   notifyOverdue(courseSlug) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/courses/${courseSlug}/notify_untrained.json`,
         success(data) {
@@ -471,7 +472,7 @@ const API = {
 
   greetStudents(courseId) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: `/greeting?course_id=${courseId}`,
         success(data) {
@@ -489,7 +490,7 @@ const API = {
   modify(model, courseSlug, data, add) {
     const verb = add ? 'added' : 'removed';
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: (add ? 'POST' : 'DELETE'),
         url: `/courses/${courseSlug}/${model}.json`,
         contentType: 'application/json',
@@ -507,7 +508,7 @@ const API = {
 
   dismissNotification(id) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: '/survey_notification',
         dataType: 'json',
@@ -527,7 +528,7 @@ const API = {
     return new Promise((res, rej) => {
       const data = new FormData();
       data.append('syllabus', file);
-      return $.ajax({
+      return jQuery.ajax({
         type: 'POST',
         cache: false,
         url: `/courses/${courseId}/update_syllabus`,
@@ -547,7 +548,7 @@ const API = {
 
   createNeedHelpAlert(opts) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'POST',
         url: '/alerts',
         data: opts,
@@ -564,7 +565,7 @@ const API = {
 
   requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
     return new Promise((res, rej) => {
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: '/requested_accounts',
         data: { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow },
@@ -581,7 +582,7 @@ const API = {
 
   enableAccountRequests(courseSlug) {
     return new Promise((res, rej) => {
-      $.ajax({
+      jQuery.ajax({
         type: 'GET',
         url: `/requested_accounts/${courseSlug}/enable_account_requests`,
         success(data) {
@@ -597,7 +598,7 @@ const API = {
 
   linkToSalesforce(courseId, salesforceId) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: `/salesforce/link/${courseId}.json?salesforce_id=${salesforceId}`,
         success(data) {
@@ -613,7 +614,7 @@ const API = {
 
   updateSalesforceRecord(courseId) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: `/salesforce/update/${courseId}.json`,
         success(data) {

@@ -17,10 +17,11 @@ import {
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import { fetchCourse } from './course_actions';
+import jQuery from 'jquery';
 
 const fetchTimelinePromise = (courseSlug) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: `/courses/${courseSlug}/timeline.json`,
       success(data) {

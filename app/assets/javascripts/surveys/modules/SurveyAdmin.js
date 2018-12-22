@@ -3,6 +3,7 @@ import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
+window.$ = require('jquery');
 
 require('chosen-js');
 

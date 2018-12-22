@@ -9,6 +9,7 @@ import _assign from 'lodash.assign';
 //--------------------------------------------------------
 
 import Utils from './SurveyUtils.js';
+window.$ = require('jquery');
 
 //--------------------------------------------------------
 // Vendor Requirements [requires]

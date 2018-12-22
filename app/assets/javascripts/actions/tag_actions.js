@@ -1,9 +1,10 @@
 import { RECEIVE_TAGS, RECEIVE_ALL_TAGS, ADD_TAG, REMOVE_TAG, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchTagsPromise = (courseId) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: `/courses/${courseId}/tags.json`,
       success(data) {
@@ -32,7 +33,7 @@ export const fetchTags = courseId => (dispatch) => {
 
 const fetchAllTagsPromise = () => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: '/lookups/tag.json',
       success(data) {
@@ -54,7 +55,7 @@ export const fetchAllTags = () => (dispatch) => {
 
 const addTagPromise = (courseId, tag) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'POST',
       url: `/courses/${courseId}/tag.json`,
       data: { tag: { tag } },
@@ -84,7 +85,7 @@ export const addTag = (courseId, tag) => (dispatch) => {
 
 const removeTagPromise = (courseId, tag) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'DELETE',
       url: `/courses/${courseId}/tag.json`,
       data: { tag: { tag } },

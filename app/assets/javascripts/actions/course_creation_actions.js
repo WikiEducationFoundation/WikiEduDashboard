@@ -1,9 +1,10 @@
 import API from '../utils/api.js';
 import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
+import jQuery from 'jquery';
 
 const fetchCampaignPromise = (slug) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: `/campaigns/${slug}.json`,
       success(data) {

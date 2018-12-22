@@ -1,9 +1,10 @@
 import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchCampaignsPromise = (courseId) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: `/courses/${courseId}/campaigns.json`,
       success(data) {
@@ -34,7 +35,7 @@ export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS, key: key });
 
 const removeCampaignsPromise = (courseId, campaignId) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'DELETE',
       url: `/courses/${courseId}/campaign.json`,
       data: { campaign: { title: campaignId } },
@@ -64,7 +65,7 @@ export const removeCampaign = (courseId, campaignId) => (dispatch) => {
 
 const addCampaignsPromise = (courseId, campaignId) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'POST',
       url: `/courses/${courseId}/campaign.json`,
       data: { campaign: { title: campaignId } },
@@ -94,7 +95,7 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
 
 const fetchAllCampaignsPromise = () => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: '/lookups/campaign.json',
       success(data) {

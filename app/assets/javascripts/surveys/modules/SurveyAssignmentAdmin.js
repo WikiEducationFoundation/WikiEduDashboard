@@ -1,3 +1,4 @@
+window.$ = require('jquery');
 const { List } = window;
 
 const SurveyAssignmentAdmin = {

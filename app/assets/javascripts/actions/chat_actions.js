@@ -1,10 +1,11 @@
 import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 export const requestAuthToken = () => (dispatch) => {
   return (
       new Promise((res, rej) =>
-        $.ajax({
+        jQuery.ajax({
           type: 'GET',
           url: '/chat/login.json',
           success(data) {
@@ -33,7 +34,7 @@ export const requestAuthToken = () => (dispatch) => {
 export const enableForCourse = (opts = {}) => (dispatch) => {
   return (
       new Promise((res, rej) =>
-        $.ajax({
+        jQuery.ajax({
           type: 'PUT',
           url: `/chat/enable_for_course/${opts.courseId}.json`,
           success(data) {

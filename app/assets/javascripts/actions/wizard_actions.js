@@ -14,10 +14,11 @@ import {
 } from '../constants';
 
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchWizardIndexPromise = () => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: '/wizards.json',
       success(data) {
@@ -42,7 +43,7 @@ export const fetchWizardIndex = () => (dispatch) => {
 
 const fetchWizardPanelsPromise = (wizardId) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: `/wizards/${wizardId}.json`,
       success(data) {
@@ -116,7 +117,7 @@ export const disableSummaryMode = () => {
 
 const submitWizardPromise = (courseSlug, wizardId, wizardOutput) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'POST',
       url: `/courses/${courseSlug}/wizard/${wizardId}.json`,
       contentType: 'application/json',

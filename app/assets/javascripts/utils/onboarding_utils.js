@@ -1,11 +1,12 @@
 import logErrorMessage from './log_error_message';
+import jQuery from 'jquery';
 
 const OnboardAPI = {
   // /  GETTERS
 
   onboard(args) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: '/onboarding/onboard',
         contentType: 'application/json',
@@ -23,7 +24,7 @@ const OnboardAPI = {
 
   supplement(args) {
     return new Promise((res, rej) =>
-      $.ajax({
+      jQuery.ajax({
         type: 'PUT',
         url: '/onboarding/supplementary',
         contentType: 'application/json',

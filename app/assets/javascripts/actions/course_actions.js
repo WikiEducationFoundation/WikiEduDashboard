@@ -5,6 +5,7 @@ import {
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
+import jQuery from 'jquery';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -77,7 +78,7 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 
 const needsUpdatePromise = (courseSlug) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: `/courses/${courseSlug}/needs_update.json`,
       success(data) {

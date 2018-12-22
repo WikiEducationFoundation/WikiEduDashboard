@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import logErrorMessage from './log_error_message';
+import jQuery from 'jquery';
 
 export const queryUrl = (url, query = {}, dataType = 'jsonp') => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       dataType: dataType,
       url: url,
       data: query,

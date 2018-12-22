@@ -26,7 +26,9 @@
  *
  * To make an .rails_editable area be in "edit mode" when the script is loaded, append .rails_editable-editing
  */
-$(() => {
+import jQuery from 'jquery';
+
+jQuery(() => {
   const readMode = ($parent) => {
     $parent.trigger('editable:read');
     $parent.removeClass('rails_editable-editing');
@@ -38,19 +40,19 @@ $(() => {
 
   const editMode = (e) => {
     e.preventDefault();
-    const $parent = $(e.target).parents('.rails_editable');
+    const $parent = jqUe(e.target).parents('.rails_editable');
     $parent.addClass('rails_editable-editing');
-    $(e.target).hide();
+    jQuery(e.target).hide();
     $parent.find('#disclaimer').css({ display: 'unset' });
     $parent.find('#profile_left #user_image').css({ height: '150px' });
-    $(e.target).parent().append(`
+    jQuery(e.target).parent().append(`
       <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>
       <button class='rails_editable rails_editable-save button dark'>${I18n.t('editable.save')}</button>
     `);
 
-    $.each($parent.find('.rails_editable-field'), (_i, field) => {
-      const $content = $(field).find('.rails_editable-content');
-      const $input = $(field).find('.rails_editable-input');
+    jQuery.each($parent.find('.rails_editable-field'), (_i, field) => {
+      const $content = jQuery(field).find('.rails_editable-content');
+      const $input = jQuery(field).find('.rails_editable-input');
       const text = $content.text().trim();
       $content.hide();
       $input.val(text);
@@ -74,10 +76,10 @@ $(() => {
     $parent.trigger('editable:edit');
   };
 
-  $('.rails_editable-edit').on('click', editMode);
+  jQuery('.rails_editable-edit').on('click', editMode);
 
   // if rails_editable-editing is present, enable edit mode on that element
-  $.each($('.rails_editable-editing'), (_i, field) => {
-    $(field).find('.rails_editable-edit').trigger('click');
+  jQuery.each(jQuery('.rails_editable-editing'), (_i, field) => {
+    jQuery(field).find('.rails_editable-edit').trigger('click');
   });
 });

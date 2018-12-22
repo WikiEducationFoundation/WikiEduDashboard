@@ -1,10 +1,11 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
+import jQuery from 'jquery';
 
 const _checkAvailability = (newAccount) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       dataType: 'jsonp',
       url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`,
       success: (data) => {

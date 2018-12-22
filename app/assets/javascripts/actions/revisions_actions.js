@@ -1,10 +1,11 @@
 import { RECEIVE_REVISIONS, SORT_REVISIONS, API_FAIL } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchRevisionsPromise = (courseId, limit) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: `/courses/${courseId}/revisions.json?limit=${limit}`,
       success(data) {

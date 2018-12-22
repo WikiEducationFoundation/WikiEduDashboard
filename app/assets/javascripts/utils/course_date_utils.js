@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+import jQuery from 'jquery';
 
 require('moment-recur');
 
@@ -56,7 +57,7 @@ const CourseDateUtils = {
   // for changing one of the date fields and returns a course where all the dates
   // are consistent with each other.
   updateCourseDates(prevCourse, valueKey, value) {
-    const updatedCourse = $.extend({}, prevCourse);
+    const updatedCourse = jQuery.extend({}, prevCourse);
     updatedCourse[valueKey] = value;
     // Just return with the new value if it doesn't pass validation
     // or if it it lacks timeline dates

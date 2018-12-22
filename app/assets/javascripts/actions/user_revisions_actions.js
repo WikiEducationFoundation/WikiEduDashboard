@@ -1,9 +1,10 @@
 import { RECEIVE_USER_REVISIONS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchUserRevisionsPromise = (courseId, userId) => {
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: `/revisions.json?user_id=${userId}&course_id=${courseId}`,
       success(data) {
@@ -30,4 +31,3 @@ export const fetchUserRevisions = (courseId, userId) => (dispatch) => {
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
-

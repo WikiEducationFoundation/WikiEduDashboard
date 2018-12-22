@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json';
 
 const fetchWikidataLabelsPromise = (qNumbers) => {
   const idsParam = _.join(qNumbers, '|');
   return new Promise((res, rej) => {
-    return $.ajax({
+    return jQuery.ajax({
       dataType: 'jsonp',
       url: wikidataApiBase,
       data: {

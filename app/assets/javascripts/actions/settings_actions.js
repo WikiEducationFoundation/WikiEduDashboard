@@ -6,10 +6,11 @@ import {
 import { API_FAIL } from '../constants/api';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchAdminUsersPromise = () => {
   return new Promise((accept, reject) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: 'settings/all_admins',
       success(data) {
@@ -25,7 +26,7 @@ const fetchAdminUsersPromise = () => {
 
 const fetchSpecialUsersPromise = () => {
   return new Promise((accept, reject) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'GET',
       url: 'settings/special_users',
       success(data) {
@@ -47,7 +48,7 @@ const fetchSpecialUsersPromise = () => {
 const grantAdminPromise = (username, upgrade) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
   return new Promise((accept, reject) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'POST',
       url: url,
       data: { user: { username: username } },
@@ -65,7 +66,7 @@ const grantAdminPromise = (username, upgrade) => {
 const grantSpecialUserPromise = (username, upgrade, position) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_special_user`;
   return new Promise((accept, reject) => {
-    return $.ajax({
+    return jQuery.ajax({
       type: 'POST',
       url: url,
       data: { special_user: { username, position } },

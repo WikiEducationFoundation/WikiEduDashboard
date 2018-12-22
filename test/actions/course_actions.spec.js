@@ -1,12 +1,13 @@
 import '../testHelper';
 import { updateCourse, persistCourse } from '../../app/assets/javascripts/actions/course_actions.js';
+import jQuery from 'jquery';
 
 describe('CourseActions', () => {
   beforeEach(() => {
-    sinon.stub($, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });
+    sinon.stub(jQuery, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });
   });
   afterEach(() => {
-    $.ajax.restore();
+    jQuery.ajax.restore();
   });
 
   it('.updateCourse sets course data in the store', () => {

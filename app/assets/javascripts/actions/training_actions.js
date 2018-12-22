@@ -5,10 +5,11 @@ import {
   SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import jQuery from 'jquery';
 
 const fetchAllTrainingModulesPromise = () => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: '/training_modules.json',
       success(data) {
@@ -24,7 +25,7 @@ const fetchAllTrainingModulesPromise = () => {
 
 const fetchTrainingModulePromise = (opts) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'GET',
       url: `/training_module.json?module_id=${opts.module_id}`,
       success(data) {
@@ -40,7 +41,7 @@ const fetchTrainingModulePromise = (opts) => {
 
 const setSlideCompletedPromise = (opts) => {
   return new Promise((res, rej) =>
-    $.ajax({
+    jQuery.ajax({
       type: 'POST',
       url: `/training_modules_users.json?\
 module_id=${opts.module_id}&\

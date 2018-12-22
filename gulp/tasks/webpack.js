@@ -81,7 +81,6 @@ gulp.task('webpack', (cb) => {
       ]
     },
     externals: {
-      // jquery: '$',
       'i18n-js': 'I18n'
     },
     watch: config.watch_js,

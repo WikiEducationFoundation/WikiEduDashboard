@@ -1,7 +1,8 @@
+import jQuery from 'jquery';
 const { List } = window;
-$(() => {
+jQuery(() => {
   // Find tables with rows with data-link attribute, then make them clickable
-  $('tr[data-link]').on('click', (e) => {
+  jQuery('tr[data-link]').on('click', (e) => {
     // skip if a button was clicked (used for other actions)
     if (e.target.tagName === 'BUTTON') return;
 
@@ -17,7 +18,7 @@ $(() => {
   // Course sorting
   // only sort if there are tables to sort
   let courseList;
-  if ($('#courses table').length) {
+  if (jQuery('#courses table').length) {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
@@ -29,7 +30,7 @@ $(() => {
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
-  if ($('#campaigns table').length) {
+  if (jQuery('#campaigns table').length) {
     campaignList = new List('campaigns', {
       page: 500,
       valueNames: [
@@ -41,7 +42,7 @@ $(() => {
   // Article sorting
   // only sort if there are tables to sort
   let articlesList;
-  if ($('#campaign-articles table').length) {
+  if (jQuery('#campaign-articles table').length) {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
@@ -53,7 +54,7 @@ $(() => {
   // Student sorting
   // only sort if there are tables to sort
   let studentsList;
-  if ($('#users table').length) {
+  if (jQuery('#users table').length) {
     studentsList = new List('users', {
       page: 10000,
       valueNames: [
@@ -63,7 +64,7 @@ $(() => {
   }
 
   // for use on campaign/programs page
-  $('.remove-course').on('click', (e) => {
+  jQuery('.remove-course').on('click', (e) => {
     const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
       title: e.target.dataset.title,
       campaign_title: e.target.dataset.campaignTitle
@@ -73,9 +74,9 @@ $(() => {
     }
   });
 
-  return $('select.sorts').on('change', function () {
+  return jQuery('select.sorts').on('change', function () {
     const list = (() => {
-      switch ($(this).attr('rel')) {
+      switch (jQuery(this).attr('rel')) {
         case 'courses': return courseList;
         case 'campaigns': return campaignList;
         case 'campaign-articles': return articlesList;
@@ -84,8 +85,8 @@ $(() => {
       }
 })();
     if (list) {
-      return list.sort($(this).val(), {
-        order: $(this).children('option:selected').attr('rel')
+      return list.sort(jQuery(this).val(), {
+        order: jQuery(this).children('option:selected').attr('rel')
       });
     }
   });
