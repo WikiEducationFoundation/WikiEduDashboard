@@ -17,7 +17,7 @@ jQuery(() => {
   window.I18n = require('i18n-js');
   window.List = require('list.js'); // List is used for sorting tables outside of React
   require('./utils/course.js'); // This adds jquery features for some views outside of React
-  require('campaigns.js')
+  require('./campaigns.js');
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
   require('./utils/router.jsx');

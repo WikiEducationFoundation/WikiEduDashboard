@@ -1,5 +1,5 @@
-const List = require('list.js');
 import jQuery from 'jquery';
+const List = require('list.js');
 
 jQuery(() => {
   jQuery('.campaign-delete').on('submit', (e) => {
