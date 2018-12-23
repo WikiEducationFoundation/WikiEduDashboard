@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-describe ArticleFinderController do
+describe ArticleFinderController, type: :request do
   describe 'index' do
     it 'renders' do
-      get :index
+      get '/article_finder'
       expect(response.status).to eq(200)
     end
   end
