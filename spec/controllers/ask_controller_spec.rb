@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe AskController do
+describe AskController, type: :request do
   before do
-    allow(controller).to receive(:current_user).and_return(nil)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
   end
 
   describe '#search' do
-    let(:subject) { get 'search', params: query }
+    let(:subject) { get '/ask', params: query }
 
     context 'when query is not blank' do
       let(:query) { { q: 'Help! I cannot enroll!' } }
