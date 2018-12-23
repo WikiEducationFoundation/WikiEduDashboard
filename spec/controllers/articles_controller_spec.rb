@@ -2,9 +2,7 @@
 
 require 'rails_helper'
 
-describe ArticlesController do
-  render_views
-
+describe ArticlesController, type: :request do
   let(:article) { create(:article) }
   let(:user) { create(:user) }
   let(:second_user) { create(:user, username: 'SecondUser') }
@@ -25,20 +23,22 @@ describe ArticlesController do
 
   describe '#article_data' do
     it 'sets the article from the id' do
-      get :article_data, params: { article_id: article.id }, format: :json
+      get '/articles/article_data', params: { article_id: article.id, format: :json }
       expect(assigns(:article)).to eq(article)
     end
   end
 
   describe '#details' do
+    let(:request_params) { { article_id: article.id, course_id: course.id, format: :json } }
+    
     it 'sets the article and coursefrom the ids' do
-      get :details, params: { article_id: article.id, course_id: course.id }, format: :json
+      get '/articles/details', params: request_params
       expect(assigns(:article)).to eq(article)
       expect(assigns(:course)).to eq(course)
     end
 
     it 'sets the first revision, last revision, and list of editors' do
-      get :details, params: { article_id: article.id, course_id: course.id }, format: :json
+      get '/articles/details', params: request_params
       expect(assigns(:article)).to eq(article)
       expect(assigns(:course)).to eq(course)
       json_response = Oj.load(response.body)
