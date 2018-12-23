@@ -1,4 +1,4 @@
-jQueryimport { capitalize } from './strings';
+import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import fetch from 'isomorphic-fetch';
 import jQuery from 'jquery';
