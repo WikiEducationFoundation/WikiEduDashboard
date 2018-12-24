@@ -2,11 +2,13 @@
 
 require 'rails_helper'
 
-describe UsersController do
+describe UsersController, type: :request do
+
   describe '#enroll' do
     subject { response.status }
 
-    let(:course) { create(:course) }
+    let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }
+    let(:course) { create(:course, slug: slug_params) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
     end
@@ -19,7 +21,7 @@ describe UsersController do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
-      allow(controller).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       course.campaigns << Campaign.first
       stub_add_user_to_channel_success
     end
@@ -31,7 +33,9 @@ describe UsersController do
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
       end
 
-      before { post 'enroll', params: post_params }
+      before do
+        post "/courses/#{course.slug}/user", params: post_params
+      end
 
       it 'does not create a CoursesUsers' do
         expect(CoursesUsers.count).to eq(0)
@@ -55,7 +59,7 @@ describe UsersController do
         end
 
         before do
-          post 'enroll', params: post_params
+          post "/courses/#{course.slug}/user", params: post_params
         end
 
         it 'returns a 404' do
@@ -74,7 +78,7 @@ describe UsersController do
 
         before do
           expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
-          post 'enroll', params: post_params
+          post "/courses/#{course.slug}/user", params: post_params
         end
 
         it 'returns a 200' do
@@ -88,7 +92,7 @@ describe UsersController do
 
     context 'POST with student role, when the user is an admin' do
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         stub_oauth_edit
       end
 
@@ -98,7 +102,7 @@ describe UsersController do
       end
 
       before do
-        post 'enroll', params: post_params
+        post "/courses/#{course.slug}/user", params: post_params
       end
 
       it 'returns a 200' do
@@ -111,7 +115,7 @@ describe UsersController do
 
     context 'POST with Wiki Ed staff role, when the user is an admin' do
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       end
 
       let(:post_params) do
@@ -120,7 +124,7 @@ describe UsersController do
       end
 
       before do
-        post 'enroll', params: post_params
+        post "/courses/#{course.slug}/user", params: post_params
       end
 
       it 'returns a 200' do
@@ -134,7 +138,7 @@ describe UsersController do
     context 'POST with instructor role, when the user is is allowed' do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         Setting.set_special_user('classroom_program_manager', staff.username)
       end
 
@@ -145,7 +149,7 @@ describe UsersController do
 
       before do
         allow(NewInstructorEnrollmentMailer).to receive(:send_staff_alert).and_call_original
-        post 'enroll', params: post_params
+        post "/courses/#{course.slug}/user", params: post_params
       end
 
       it 'returns a 200' do
@@ -172,7 +176,7 @@ describe UsersController do
                course_id: course.id,
                user_id: user.id,
                article_id: article.id)
-        delete 'enroll', params: delete_params
+        delete "/courses/#{course.slug}/user", params: delete_params
       end
 
       it 'destroys the courses user' do
@@ -186,35 +190,37 @@ describe UsersController do
 
   describe '#update_locale' do
     let(:user) { create(:user, locale: 'fr') }
+    let(:invalid_locale) { 'bad-locale' }
+    let(:valid_locale) { 'es' }
 
     before do
-      allow(controller).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
 
     it 'returns a 422 if locale is invalid' do
-      put 'update_locale', params: { locale: 'bad-locale' }
+      post "/update_locale/#{invalid_locale}"
       expect(response.status).to eq(422)
       expect(user.locale).to eq('fr')
     end
 
     it 'updates user locale and returns a 200 if locale is valid' do
-      put 'update_locale', params: { locale: 'es' }
+      post "/update_locale/#{valid_locale}"
       expect(response.status).to eq(200)
       expect(user.locale).to eq('es')
     end
   end
 
   describe '#index' do
-    render_views
-
     context 'when user is NOT admin' do
       let(:user) { create(:user) }
 
-      before { allow(controller).to receive(:current_user).and_return(user) }
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
 
       it 'does not authorize' do
-        get :index
-        expect(response.body).to have_content('Only administrators may do that.')
+        get '/users'
+        expect(response.body).to include('Only administrators may do that.')
       end
     end
 
@@ -222,7 +228,7 @@ describe UsersController do
       let(:admin) { create(:admin, email: 'admin@email.com') }
 
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       end
 
       let!(:instructor) do
@@ -234,23 +240,21 @@ describe UsersController do
       let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
 
       it 'lists instructors by default' do
-        get :index
-
-        expect(response.body).to have_content instructor.username
-        expect(response.body).to have_content instructor.real_name
-        expect(response.body).to have_content instructor.email
-
-        expect(response.body).not_to have_content admin.email
+        get '/users'
+        expect(response.body).to include(instructor.username)
+        expect(response.body).to include(instructor.real_name)
+        expect(response.body).to include(instructor.email)
+        expect(response.body).not_to include(admin.email)
       end
 
       it 'accepts email param and return associated user' do
-        get :index, params: { email: search_user.email }
-        expect(response.body).to have_content search_user.email
+        get '/users', params: { email: search_user.email }
+        expect(response.body).to include(search_user.email)
       end
 
       it 'accepts real name param and return associated user' do
-        get :index, params: { real_name: search_user.real_name }
-        expect(response.body).to have_content search_user.real_name
+        get '/users', params: { real_name: search_user.real_name }
+        expect(response.body).to include(search_user.real_name)
       end
     end
   end
