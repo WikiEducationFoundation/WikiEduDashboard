@@ -42,6 +42,7 @@ describe 'open course creation', type: :feature, js: true do
   it 'lets a user create a course immediately', js: true do
     visit root_path
     click_link 'Create an Independent Program'
+    all('.program-description').each &:click
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'

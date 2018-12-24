@@ -194,9 +194,9 @@ const CourseCreator = createReactClass({
 
   chooseNewCourse() {
     if (Features.wikiEd) {
-      return this.setState({ showCourseForm: true });
+      this.setState({ showCourseForm: true });
     } else {
-      return this.setState({ showWizardForm: true });
+      this.setState({ showWizardForm: true });
     }
   },
 
