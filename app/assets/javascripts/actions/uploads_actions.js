@@ -2,20 +2,22 @@ import _ from 'lodash';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS, RESET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import pageViewDateString from '../utils/uploads_pageviews_utils';
-import fetch from 'isomorphic-fetch';
+import jQuery from 'jquery';
 
 const fetchUploads = (courseId) => {
-  return fetch(`/courses/${courseId}/uploads.json`, {
-    credentials: 'include'
-  }).then((res) => {
-      if (res.ok && res.status === 200) {
-        return res.json();
+  return new Promise((res, rej) => {
+    return jQuery.ajax({
+      type: 'GET',
+      url: `/courses/${courseId}/uploads.json`,
+      success(data) {
+        return res(data);
       }
-        return Promise.reject(res);
     })
-    .catch((error) => {
-      logErrorMessage(error);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+  });
 };
 
 export const receiveUploads = courseId => (dispatch) => {
@@ -38,17 +40,19 @@ const fetchUploadMetadata = (uploads) => {
     url = `${url}${upload.id}|`;
   });
   url = url.slice(0, -1);
-
-  return fetch(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`)
-    .then((res) => {
-      if (res.ok && res.status === 200) {
-        return res.json();
+  return new Promise((res, rej) => {
+    return jQuery.ajax({
+      type: 'GET',
+      url: `${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`,
+      success(data) {
+        return res(data);
       }
-        return Promise.reject(res);
     })
-    .catch((error) => {
-      logErrorMessage(error);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+  });
 };
 
 export const setUploadMetadata = uploadsList => (dispatch) => {
@@ -69,17 +73,28 @@ export const setUploadMetadata = uploadsList => (dispatch) => {
 };
 
 const fetchUploadViewerMetadata = (upload) => {
-  return fetch(`https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&
-    pageids=${upload.id}&prop=globalusage|categories|imageinfo&iiprop=size|extmetadata|url&clshow=!hidden`)
-    .then((res) => {
-      if (res.ok && res.status === 200) {
-        return res.json();
+  return new Promise((res, rej) => {
+    return jQuery.ajax({
+      type: 'GET',
+      url: 'https://commons.wikimedia.org/w/api.php?',
+      data: {
+        action: 'query',
+        origin: '*',
+        format: 'json',
+        pageids: upload.id,
+        prop: 'globalusage|categories|imageinfo',
+        iiprop: 'size|extmetadata|url',
+        clshow: '!hidden',
+      },
+      success(data) {
+        return res(data);
       }
-      return Promise.reject(res);
     })
-    .catch((error) => {
-      logErrorMessage(error);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+  });
 };
 
 export const setUploadViewerMetadata = upload => (dispatch) => {
@@ -107,26 +122,29 @@ const fetchUploadPageViews = (articleList) => {
   startDate.setDate(startDate.getDate() - 60);
   const formattedStartDate = pageViewDateString(startDate);
   const endDate = pageViewDateString(new Date());
-
-  articleList.forEach((article) => {
+  articleList.map((article) => {
     const title = encodeURIComponent(article.title);
     const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${formattedStartDate}/${endDate}`;
-    viewPerArticle.push(fetch(url)
-      .then((res) => {
-        if (res.ok && res.status === 200) {
-          return res.json();
-        } else if (res.status === 404) {
+    viewPerArticle.push(new Promise((res, rej) => {
+      return jQuery.ajax({
+        type: 'GET',
+        url: url,
+        Accept: 'application/json; charset=utf-8',
+        success(data) {
+          return res(data);
+        }
+      })
+        .fail((obj) => {
           // The Wikimedia pageviews API responds with a 404 if there are zero pageviews
           // for the entire requested range.
           // Here, we assume that any 404 is because there are no pageviews, and return
           // a simple zero views mock response instead of throwing an error.
-          return zeroViewsResponse;
-        }
-        return Promise.reject(res);
-      })
-      .catch((error) => {
-        logErrorMessage(error);
-      }));
+          if (obj.status === 404) { return res(zeroViewsResponse); }
+          logErrorMessage(obj);
+          return rej(obj);
+        });
+    }));
+    return null;
   });
   return viewPerArticle;
 };
