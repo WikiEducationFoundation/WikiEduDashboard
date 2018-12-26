@@ -547,6 +547,4 @@ describe 'timeline editing', js: true do
     # still in week 1
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
   end
-
-  describe 'Course creation flow'
 end
