@@ -40,7 +40,7 @@ it:
     my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
     report_problem: Segnala un problema
-    search: chiedi una domanda
+    search: fai una domanda
     search_results: 'Risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia

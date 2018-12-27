@@ -195,13 +195,15 @@ diq:
   training:
     continue: Dewam keno %{progress}
     start: Suru bık
-    view: Asayış
+    view: Bıvêne
+    done: Temam!
   uploads:
     file_name: Namey dosya
     image: Resım
     label: Barkerdışi
     usages: Karidayışi
   users:
+    assign_articles_done: Temam
     first_name: Nameyo sıfteyên
     last_name: Nameyo peyên
     loading: Karbero brno bar...

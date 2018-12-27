@@ -4,6 +4,16 @@
 # Author: Rul1902
 ---
 kjp:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   application:
     cancel: မာလိုင်အေး
     greeting2: အင်းၯးလင်ဖဝ့်!
@@ -18,6 +28,7 @@ kjp:
     recent_activity: လ်ုယိက်လ်ုမဝ်ခါ့ဆ်ုအင်းမာ
     report_problem: မ်ုသုံႋ ဆ်ုကးဆ်ုၯယ်
     search: မ်ုအင်းကိင်ဆ်ုအင်းစာ
+    sign_up: မ်ုပ္တိင့်ဏင့်ဆာႋဏါင်း
     change: အင်းလယ်
     confirm: အိုဝ်ကေ
     opt_in: မွာဲ
@@ -50,4 +61,7 @@ kjp:
     delete_suggestion: ထုဂ်ဆိင့်
     overview: ဗဟိုစာမျက်နှာ
     timeline_nav: မ်ုလေဝ်လူႋအ်ုခါ့ဖၠံင်
+    volunteer:
+      one: သုဂ်ထျာႋဆ်ုၜုံးဆါႋ
+      other: သုဂ်ထျာႋဆ်ုၜုံးဆါႋလ်ုဖး
 ...

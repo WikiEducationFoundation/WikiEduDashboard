@@ -76,14 +76,14 @@ lb:
       Dës Bewäertunge kënne sech op vill méi al Versioune bezéien, dofir si si just
       e graffen Indikator fir d'Maturitéit vun engem Artikel.
     rating_docs:
-      fl: Exzellent Lëscht - Déi bescht Bewäertung op Wikipedia fir Lëschten
+      fl: '%{class} (Exzellent Lëscht) - Déi bescht Bewäertung op Wikipedia fir Lëschten'
       ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
         säin Haaptprojet eventuell ze räif ass.
-      b: B-Klass - e moderat entwéckelten Artikel
+      b: '%{class}-Klass - e moderat entwéckelten Artikel'
       c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
         ze verbesseren'
-      start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
-        ginn
+      start: '%{class}-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
+        ginn'
       list: '%{class}-Klass - éischter eng Lëscht wéi e konventionellen Artikel'
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
@@ -195,7 +195,7 @@ lb:
     end: Schluss
     ended: De Cours ass eriwwer.
     enroll: Aschreiwen
-    enrollment: Aschreiwung
+    enrollment: Studenten derbäisetzen/ewechhuelen
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
@@ -299,7 +299,7 @@ lb:
       save_cloned_course: Späicheren
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
-    enrollment: Participatioun
+    enrollment: Auteuren derbäisetzen/ewechhuelen
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
     request_accounts: Benotzerkonten ufroen
@@ -433,8 +433,7 @@ lb:
     assign_articles_done: Fäerdeg
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
-    contributions_history_full: Déi komplett Lëscht vun de Versiounen op Wikipedia
-      weisen
+    contributions_history_full: Déi komplett Lëscht vun de Versiounen weisen
     contributions_more: Méi Kontributioune weisen
     contribution_statistics: Statistik vun de Kontributiounen
     course_passcode: 'Passcode:'
@@ -471,7 +470,7 @@ lb:
       instructor: Instrukter
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
-      wiki_ed_staff: Mataarbechter vu Wiki Ed
+      wiki_ed_staff: Mataarbechter vu Wiki Education
   user_profiles:
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter

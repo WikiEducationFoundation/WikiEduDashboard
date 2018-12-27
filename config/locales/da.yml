@@ -189,6 +189,7 @@ da:
     articles: Artikler
     articles_none: Dette kursus har ikke redigeret nogen artikler.
     assignment_end: Opgaveslut
+    assignments_none: Dette kursus har ingen tildelte artikler.
     assignment_start: Opgavestart
     calendar:
       legend_class_meeting: Klassetræf
@@ -334,6 +335,8 @@ da:
     explore: Find programmer
     join_course: Tilslut program
     leave_course: Forlad program
+    milestones_none: Dette projekt har lige nu ingen milepæle.
+    not_permitted: Du har ikke tilladelse til at redigere dette program.
     request_accounts: Anmod om konti
     school: Institution
     search_courses: Søg i programmer
@@ -379,6 +382,7 @@ da:
     datetime: Dato/tid
     image: Billede
     file_name: Filnavn
+    no_edits: Der er ingen seneste reedigeringer.
     possible_plagiarism: Muligt plagiat
     recent_edits: Seneste redigeringer
     show_courses: Vis kun mine kurser
@@ -486,6 +490,8 @@ da:
       header: Ikke understøttet browser. :_(
   error_404:
     header: Siden blev ikke fundet. :-(
+  error_500:
+    header: 500 — intern serverfejl.  :-(
   login_error:
     header: Loginfejl
   survey:
