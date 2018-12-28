@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CoursesController, type: :request do
   let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }
+
   before { stub_wiki_validation }
 
   describe '#show' do
@@ -211,7 +212,7 @@ describe CoursesController, type: :request do
       it 'announces course and emails the instructor' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
-        headers = { 'HTTP_ACCEPT' => 'application/json'}
+        headers = { 'HTTP_ACCEPT' => 'application/json' }
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
@@ -518,7 +519,7 @@ describe CoursesController, type: :request do
   end
 
   describe '#needs_update' do
-      let(:course) { create(:course, needs_update: false, slug: slug_params) }
+    let(:course) { create(:course, needs_update: false, slug: slug_params) }
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
@@ -562,7 +563,8 @@ describe CoursesController, type: :request do
 
     context 'user is instructor' do
       before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(instructor)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(instructor)
       end
 
       it 'triggers WikiEdits.notify_untrained' do

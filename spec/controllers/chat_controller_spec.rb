@@ -16,7 +16,7 @@ describe ChatController, type: :request do
       end
 
       it 'ensures the user has a chat account' do
-      expect(user.chat_password).to be_nil
+        expect(user.chat_password).to be_nil
         subject
         expect(user.chat_password).not_to be_nil
       end
@@ -79,7 +79,7 @@ describe ChatController, type: :request do
       end
 
       it 'raises Unauthorized' do
-      put "/chat/enable_for_course/#{course.id}", params: { course_id: course.id }
+        put "/chat/enable_for_course/#{course.id}", params: { course_id: course.id }
         expect(response.status).to eq(401)
       end
     end

@@ -4,13 +4,13 @@ require 'rails_helper'
 
 describe TimelineController, type: :request do
   describe '#update_timeline' do
-    let(:admin)     { create(:admin) }
+    let(:admin)       { create(:admin) }
     let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }
-    let(:course)    { create(:course, slug: slug_params) }
-    let(:week)      { create(:week) }
-    let(:block)     { create(:block, week_id: week.id, training_module_ids: first_ids) }
-    let(:first_ids) { [1] }
-    let(:ids)       { [1] }
+    let(:course)      { create(:course, slug: slug_params) }
+    let(:week)        { create(:week) }
+    let(:block)       { create(:block, week_id: week.id, training_module_ids: first_ids) }
+    let(:first_ids)   { [1] }
+    let(:ids)         { [1] }
     let(:prams) do
       {
       }

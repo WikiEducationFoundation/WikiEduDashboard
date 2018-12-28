@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe UsersController, type: :request do
-
   describe '#enroll' do
     subject { response.status }
 
