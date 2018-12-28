@@ -137,7 +137,7 @@ describe CampaignsController, type: :request do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       user2 = create(:user, username: 'MusikAnimal')
-      request_params =  { slug: campaign.slug, username: user2.username }
+      request_params = { slug: campaign.slug, username: user2.username }
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       put "/campaigns/#{campaign.slug}/add_organizer", params: request_params
       expect(response.status).to eq(302) # redirect to /overview

@@ -26,6 +26,8 @@ describe MassEnrollmentController, type: :request do
   end
 
   describe '#add_users' do
+    let(:request_params) { { course_id: course.slug, usernames: usernames } }
+
     context 'when user has permission to edit course' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -36,7 +38,7 @@ describe MassEnrollmentController, type: :request do
 
       it 'adds only real users to a course' do
         expect(UserImporter).to receive(:new_from_username)
-        post "/mass_enrollment/#{course.slug}", params: { course_id: course.slug, usernames: usernames }
+        post "/mass_enrollment/#{course.slug}", params: request_params
         expect(course.users).to include(user)
         expect(course.users).to include(user2)
         expect(course.users.count).to eq(2)
@@ -49,7 +51,7 @@ describe MassEnrollmentController, type: :request do
       end
 
       it 'returns a 401' do
-        post "/mass_enrollment/#{course.slug}", params: { course_id: course.slug, usernames: usernames }
+        post "/mass_enrollment/#{course.slug}", params: request_params
         expect(response.status).to eq(401)
       end
     end

@@ -78,6 +78,7 @@ describe RequestedAccountsController, type: :request do
 
     describe '#create_accounts' do
       let(:route) { "/requested_accounts/#{course.slug}/create" }
+
       before { RequestedAccount.create(course_id: course.id, username: username, email: email) }
 
       it 'does not create the accounts if user is not authorized' do

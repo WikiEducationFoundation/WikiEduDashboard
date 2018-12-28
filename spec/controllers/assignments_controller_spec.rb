@@ -351,12 +351,11 @@ describe AssignmentsController, type: :request do
   describe 'PATCH #update' do
     let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id, role: 0) }
     let(:update_params) { { role: 1 } }
+    let(:request_params) { { course_id: course.id, id: assignment, format: :json } }
 
     context 'when the update succeeds' do
       it 'renders a 200' do
-        put "/assignments/#{assignment.id}",
-             params: { course_id: course.id, id: assignment, format: :json }
-              .merge(update_params)
+        put "/assignments/#{assignment.id}", params: request_params.merge(update_params)
         expect(response.status).to eq(200)
       end
     end
@@ -364,9 +363,7 @@ describe AssignmentsController, type: :request do
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        put "/assignments/#{assignment.id}",
-             params: { course_id: course.id, id: assignment, format: :json }
-              .merge(update_params)
+        put "/assignments/#{assignment.id}", params: request_params.merge(update_params)
         expect(response.status).to eq(500)
       end
     end

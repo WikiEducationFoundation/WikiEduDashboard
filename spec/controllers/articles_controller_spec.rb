@@ -30,7 +30,7 @@ describe ArticlesController, type: :request do
 
   describe '#details' do
     let(:request_params) { { article_id: article.id, course_id: course.id, format: :json } }
-    
+
     it 'sets the article and coursefrom the ids' do
       get '/articles/details', params: request_params
       expect(assigns(:article)).to eq(article)
