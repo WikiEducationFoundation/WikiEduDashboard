@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe RevisionFeedbackController do
+describe RevisionFeedbackController, type: :request do
   describe '#index' do
     let!(:course) { create(:course, id: 1) }
     let(:assignment) { create(:assignment, id: 1, course_id: course.id) }
@@ -11,7 +11,7 @@ describe RevisionFeedbackController do
     context 'When the article exists' do
       before do
         VCR.use_cassette 'ores_features' do
-          get :index, params: params
+          get '/revision_feedback', params: params
         end
       end
 
@@ -24,7 +24,7 @@ describe RevisionFeedbackController do
           # Checks if a valid feedback is received from RevisionFeedbackService
           expect_any_instance_of(RevisionFeedbackService).to receive(:feedback)
             .and_return(have_at_least(1))
-          get :index, params: params
+          get '/revision_feedback', params: params
         end
       end
 
