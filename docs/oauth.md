@@ -27,6 +27,18 @@ Clicking on the 'Propose consumer' button should return a token and secret, whic
 
 A development consumer, used only by the proposer, will work immediately. For production or shared testing environments, consumers must be approved before anyone but the proposer can authorize the application. You can [post a request for approval here](https://meta.wikimedia.org/wiki/Steward_requests/Miscellaneous) ([see example](https://meta.wikimedia.org/w/index.php?title=Steward_requests/Miscellaneous&diff=prev&oldid=15398770)).
 
+#### Updating the production consumer
+When you request a new consumer, add the tokens to the production server's `application.yml`, commented out, so they are ready for the switchover.
+
+0. Ideally, schedule the consumer update for a time when few users will be active.
+1. Add a site notice informing users that they will be logged out, 30 mintues or more before the consumer is updated.
+2. Initiate a snapshot of the Linode server and wait for it to finish (just in case).
+3. Update `application.yml`, commenting out the old tokens and uncommenting the new, and removing the sitenotice.
+4. In a rails console on production, remove all oauth tokens from users: `User.update_all(wiki_token: nil, wiki_secret: nil)`.
+5. Restart both the main server process (`touch tmp/restart.txt`) and the sidekiq processes (`cap production sidekiq:restart`).
+6. Once an edit has been made with the new consumer, find the CID of that consumer via `Special:Tags` on Wikipedia, and add it to the list of CIDs in `application.yml`.
+7. Restart the server and sidekiq processes again.
+
 ## Admin permissions
 
 Give users admin privileges in the app, e.g. to approve submitted courses, by setting the users.permissions field to "1".  For example, if your wiki username is "RageSock",
