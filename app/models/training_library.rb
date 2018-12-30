@@ -24,6 +24,8 @@ class TrainingLibrary < ApplicationRecord
 
   validates :slug, uniqueness: true
 
+  validates_presence_of [:id, :name, :slug, :introduction, :categories]
+
   def self.path_to_yaml
     "#{base_path}/libraries/*.yml"
   end
@@ -44,16 +46,29 @@ class TrainingLibrary < ApplicationRecord
     TrainingBase.base_path
   end
 
-  def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
+  def self.save_if_valid(training_library, slug)
+    valid = training_library.valid?
+    if training_library.errors[:slug].any? && slug
+      raise TrainingBase::DuplicateSlugError,
+            "Duplicate TrainingLibrary slug detected: #{slug}"
+    end
+    training_library.save if valid
+    training_library
+  end
+
+  def self.inflate(content, slug, wiki_page = nil)
     training_library = TrainingLibrary.find_or_initialize_by(id: content['id'])
     training_library.slug = slug
     training_library.name = content['name'] || content[:name]
-    training_library.description = content['description'] || content[:description]
+    training_library.introduction = content['introduction'] || content[:introduction]
     training_library.translations = content['translations']
     training_library.wiki_page = wiki_page
     training_library.categories = content['categories']
     training_library.exclude_from_index = content['exclude_from_index']
-    training_library
+    TrainingLibrary.save_if_valid(training_library, slug)
+  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
+    puts "There's a problem with file '#{slug}'"
+    raise e
   end
 
   ####################

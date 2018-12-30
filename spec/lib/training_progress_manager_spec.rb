@@ -169,8 +169,8 @@ describe TrainingProgressManager do
           .to receive(:computed_due_date).and_return(Date.yesterday)
       end
 
-      it 'returns "Training Assignment (completed)"' do
-        expect(subject).to eq('Training Assignment (completed)')
+      it 'returns "Training Assignment (Completed)"' do
+        expect(subject).to eq('Training Assignment (Completed)')
       end
     end
   end
@@ -189,7 +189,7 @@ describe TrainingProgressManager do
       let(:last_slide_completed) { slides.last.slug }
 
       it 'returns "completed"' do
-        expect(subject.module_progress).to eq('Complete')
+        expect(subject.module_progress).to eq('Completed')
       end
     end
 

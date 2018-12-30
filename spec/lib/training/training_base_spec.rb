@@ -47,30 +47,18 @@ describe TrainingBase do
       end
     end
 
-    context 'when libraries have id collisions' do
-      let(:subject) { TrainingLibrary.load }
-
-      before do
-        allow(described_class).to receive(:base_path)
-          .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
-      end
-
-      it 'raises an error that includes the slugs' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateIdError, /1-yaml-id/)
-      end
-    end
-
     context 'when libraries have slug collisions' do
-      let(:subject) { TrainingLibrary.load }
-
       before do
         allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
+        allow(TrainingLibrary).to receive(:trim_id_from_filename).and_return(true)
       end
 
       it 'raises an error that includes the duplicate slug' do
-        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError,
-                                          /a-slug-has-no-name/)
+        expect { TrainingLibrary.load }.to raise_error(
+          TrainingBase::DuplicateSlugError,
+          /duplicate-yaml-slug/
+        )
       end
     end
 
@@ -109,14 +97,6 @@ describe TrainingBase do
       it 'loads trainings from the default path' do
         TrainingSlide.load
         expect(TrainingSlide.all).not_to be_empty
-      end
-    end
-  end
-
-  describe '.all' do
-    context 'when the cache is empty' do
-      it 'loads from yaml files' do
-        expect(TrainingLibrary.all).not_to be_empty
       end
     end
   end

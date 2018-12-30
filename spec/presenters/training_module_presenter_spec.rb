@@ -47,7 +47,7 @@ describe TrainingModulePresenter do
       end
 
       it 'returns "Continue"' do
-        expect(subject).to match(/\AContinue \(\d{1,2}% Complete\)\z/)
+        expect(subject).to match(/\AContinue \(\d{1,2}% Completed\)\z/)
       end
     end
   end
