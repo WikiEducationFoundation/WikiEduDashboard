@@ -44,18 +44,18 @@ class TrainingProgressManager
 
   # This is shown in the StudentDrawer
   def status
-    return 'Completed' if module_completed?
-    return 'Started' if module_started?
-    return 'Not started'
+    return I18n.t("training_status.completed") if module_completed?
+    return I18n.t("training_status.started") if module_started?
+    return I18n.t("training_status.not_started")
   end
 
   # This is shown for the logged in user where the module is listed
   def assignment_status
     if due_date_manager.blocks_with_module_assigned(@training_module).any?
-      parenthetical = "due #{overall_due_date}"
-      return "Training Assignment (#{module_completed? ? 'completed' : parenthetical})"
+      parenthetical = I18n.t("training_status.due", due_date: overall_due_date)
+      return I18n.t("training_status.assignment_status", status: module_completed? ? I18n.t("training_status.completed") : parenthetical)
     end
-    return 'Completed' if module_completed?
+    return I18n.t("training_status.completed") if module_completed?
   end
 
   def slide_further_than_previous?(slide_slug, previous_slug)
@@ -68,7 +68,7 @@ class TrainingProgressManager
     return if last_completed_index.zero?
     quotient = (last_completed_index + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
-    module_completed? ? 'Complete' : "#{percentage}% Complete"
+    module_completed? ? I18n.t("training_status.completed") : "#{percentage}% #{I18n.t("training_status.completed")}"
   end
 
   private

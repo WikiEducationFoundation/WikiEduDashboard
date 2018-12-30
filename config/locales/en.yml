@@ -1189,3 +1189,10 @@ en:
     relevanceIndex: "Relevance Index"
     assign_article_self: "Assign yourself"
     unassign_article_self: "Unassign Article"
+
+  training_status:
+    completed: "Completed"
+    started: "Started"
+    not_started: "Not started"
+    due: "due %{due_date}"
+    assignment_status: "Training Assignment (%{status})"
