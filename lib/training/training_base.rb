@@ -31,7 +31,6 @@ class TrainingBase
   # Called during manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
-    TrainingLibrary.flush
     if Features.wiki_trainings?
       TrainingModule.load
       TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
