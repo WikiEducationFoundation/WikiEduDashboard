@@ -135,6 +135,8 @@ class WikiTrainingLoader
       { title: parser.title, content: parser.content, assessment: parser.quiz }
     when 'TrainingModule'
       { name: parser.title, description: parser.content }
+    when 'TrainingLibrary'
+      { name: parser.title, introduction: parser.content }
     end
   end
 
