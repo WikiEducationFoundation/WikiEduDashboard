@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_17_054036) do
+ActiveRecord::Schema.define(version: 2018_12_30_061337) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -408,6 +408,19 @@ ActiveRecord::Schema.define(version: 2018_11_17_054036) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true
+  end
+
+  create_table "training_libraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "wiki_page"
+    t.string "slug"
+    t.text "introduction"
+    t.text "categories", limit: 16777215
+    t.text "translations", limit: 16777215
+    t.boolean "exclude_from_index", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_training_libraries_on_slug", unique: true
   end
 
   create_table "training_modules", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
