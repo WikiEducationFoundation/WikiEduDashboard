@@ -16,7 +16,6 @@
 #
 
 require_dependency "#{Rails.root}/lib/training/training_base"
-require_dependency "#{Rails.root}/lib/training_library"
 
 #= Class representing an individual training module
 class TrainingModule < ApplicationRecord

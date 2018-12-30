@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_progress_manager"
-require_dependency "#{Rails.root}/lib/training_library"
 require_dependency "#{Rails.root}/lib/data_cycle/training_update"
 
 class TrainingController < ApplicationController
