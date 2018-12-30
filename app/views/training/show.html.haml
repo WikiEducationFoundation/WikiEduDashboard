@@ -3,9 +3,9 @@
 .training__section-overview.container
   %section.training__header
     %h1
-      #{@library.name}
+      #{@library.translated_name}
     %p
-      = @library.introduction
+      = @library.translated_introduction
   %ul.training__categories
     - @library.categories.each do |lib_category|
       %li
