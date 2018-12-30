@@ -55,7 +55,6 @@ class TrainingModule < ApplicationRecord
   def self.reload_module(slug:)
     # First reload the libraries and modules so we have the new list of slugs
     # and can load slides for brand-new modules.
-    TrainingLibrary.flush
     TrainingLibrary.load
     TrainingModule.load
     # Reload the requested module's slides

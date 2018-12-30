@@ -3,23 +3,16 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/training_update"
 
-def flush_training_caches
-  TrainingLibrary.flush
-end
-
 describe 'Training Translations', type: :feature, js: true do
   let(:basque_user) { create(:user, id: 2, username: 'ibarra', locale: 'eu') }
 
   before do
     allow(Features).to receive(:wiki_trainings?).and_return(true)
-    flush_training_caches
     VCR.use_cassette 'training/slide_translations' do
       TrainingUpdate.new(module_slug: 'all')
     end
     login_as(basque_user, scope: :user)
   end
-
-  after { flush_training_caches }
 
   after(:all) { TrainingModule.load_all }
 

@@ -8,11 +8,6 @@ describe TrainingBase do
     allow(Features).to receive(:wiki_trainings?).and_return(false)
   end
 
-  # Make sure default trainings get reloaded
-  after(:all) do
-    TrainingLibrary.flush
-  end
-
   describe 'abstract parent class' do
     it 'raises errors for required template instance methods' do
       subject = described_class.inflate({}, 'foo')
@@ -121,10 +116,6 @@ describe TrainingBase do
 
   describe '.all' do
     context 'when the cache is empty' do
-      before do
-        TrainingLibrary.flush
-      end
-
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
       end
