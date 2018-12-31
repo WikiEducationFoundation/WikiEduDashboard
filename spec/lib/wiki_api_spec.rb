@@ -94,7 +94,7 @@ describe WikiApi do
           'A_Clash_of_Kings', # c
           'Ecology', # ga
           'Fast_inverse_square_root', # ga
-          'Nansenflua', # unassessed
+          'Latericaecum', # unassessed
           'List_of_Oregon_ballot_measures', # list
           'The_American_Monomyth', # stub
           'Drug_Trafficking_Safe_Harbor_Elimination_Act', # start
@@ -116,7 +116,7 @@ describe WikiApi do
         expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
         expect(response['American_Civil_War_prison_camps']).to eq('cl')
         expect(response['Bell_number']).to eq('b')
-        expect(response['Nansenflua']).to eq(nil)
+        expect(response['Latericaecum']).to eq(nil)
       end
     end
   end
