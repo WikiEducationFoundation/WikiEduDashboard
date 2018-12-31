@@ -218,6 +218,9 @@ const CourseCreator = createReactClass({
     let showWizardForm;
     // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
     if (this.props.cloneableCourses.length === 0) {
+      if (this.state.showWizardForm) {
+        showWizardForm = true;
+      }
       showCourseForm = true;
       // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
