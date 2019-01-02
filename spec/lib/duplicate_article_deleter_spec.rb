@@ -35,17 +35,20 @@ describe DuplicateArticleDeleter do
       first = create(:article,
                      id: 2262715,
                      title: 'Kostanay',
-                     namespace: 0)
+                     namespace: 0,
+                     created_at: 1.day.from_now)
       second = create(:article,
                       id: 46349871,
                       title: 'Kostanay',
-                      namespace: 0)
+                      namespace: 0,
+                      created_at: 1.day.ago)
       described_class.new.resolve_duplicates([first])
       undeleted = Article.where(
         title: 'Kostanay',
         namespace: 0,
         deleted: false
       )
+
       expect(undeleted.count).to eq(1)
       expect(undeleted.first.id).to eq(second.id)
     end
