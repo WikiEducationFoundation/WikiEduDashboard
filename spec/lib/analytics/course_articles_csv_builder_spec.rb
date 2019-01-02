@@ -30,4 +30,9 @@ describe CourseArticlesCsvBuilder do
   it 'creates a CSV with a header and a row of data for each article' do
     expect(subject.split("\n").count).to eq(3)
   end
+
+  it 'creates an edited CSV article with a rating column' do
+    article_headers = subject.split('\n').first
+    expect(article_headers.include?('rating')).to be true
+  end
 end
