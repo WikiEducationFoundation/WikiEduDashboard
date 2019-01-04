@@ -12,6 +12,7 @@ There are some basic requirements for the script to work:
 - python 3
 - ruby-2.5.0
 - apt(debian)/homebrew(MacOS)
+- node v10 or lower.
 
 ## Instructions
 - Clone the repository
@@ -38,6 +39,8 @@ You can also contact us on slack for any further queries.
 - If you face the error that `Sorry! Your operating is not supported by this script`
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
+- After running 'gulp', if you face the error `Failed to load external module @babel/register`
+  - Try running `yarn --ignore-engines` to solve the problem.
 
 # Manual Setup
 ## TL;DR bare minimum version
