@@ -114,14 +114,15 @@ const CourseCreator = createReactClass({
           window.location = `/courses/${course.slug}`;
         }
       } else if (!this.state.justSubmitted) {
-        this.setState({ course: CourseUtils.cleanupCourseSlugComponents(course) });
+        const cleanedCourse = CourseUtils.cleanupCourseSlugComponents(course);
+        this.setState({ course: cleanedCourse });
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
         // If the save callback fails, which will happen if an invalid wiki is submitted,
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
         const onSaveFailure = () => this.setState({ justSubmitted: false });
-        this.props.submitCourse({ course }, onSaveFailure);
+        this.props.submitCourse({ course: cleanedCourse }, onSaveFailure);
       }
     } else if (!this.props.validations.exists.valid) {
       this.setState({ isSubmitting: false });
