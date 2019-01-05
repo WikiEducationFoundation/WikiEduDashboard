@@ -39,8 +39,6 @@ You can also contact us on slack for any further queries.
 - If you face the error that `Sorry! Your operating is not supported by this script`
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
-- After running 'gulp', if you face the error `Failed to load external module @babel/register`
-  - Try running `yarn --ignore-engines` to solve the problem.
 
 # Manual Setup
 ## TL;DR bare minimum version
@@ -53,7 +51,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * `bundle install`
 * `rake db:migrate`
 * install yarn
-* `yarn` for more javascript requirements
+* `yarn --ignore-engines` for more javascript requirements
 * `gulp` to build assets
 * `guard` or `rails s` to start a server
 * localhost:3000 should load the home page

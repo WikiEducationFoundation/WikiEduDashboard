@@ -32,7 +32,4 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 - **Make sure that the CLI
 gulp version is same as the Local version** `gulp -v`.
 
-- After running 'gulp', if you face the error `Failed to load external module @babel/register`
-  - Try running `yarn --ignore-engines` to solve the problem.
-
 - Use node v10 or lower to avoid any errors.
