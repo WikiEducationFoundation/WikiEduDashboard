@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { parse } from 'query-string';
+import { withRouter } from 'react-router';
 import CourseStats from './course_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
@@ -66,7 +68,8 @@ const Overview = createReactClass({
     }
 
     let syllabusUpload;
-    if (this.props.location.query.syllabus_upload === 'true' && this.props.current_user.admin) {
+    const query = parse(this.props.location.search);
+    if (query.syllabus_upload === 'true' && this.props.current_user.admin) {
       syllabusUpload = (
         <Modal modalClass="course__syllabus-upload">
           <SyllabusUpload {...this.props} />
@@ -172,4 +175,4 @@ const mapDispatchToProps = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Overview);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Overview));

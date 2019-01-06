@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const SlideLink = createReactClass({
   displayName: 'SlideLink',

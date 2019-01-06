@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
-
+import { withRouter } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import Timeline from './timeline.jsx';
 // import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import Wizard from '../wizard/wizard.jsx';
+import Meetings from './meetings.jsx';
 
 import { fetchAllTrainingModules } from '../../actions/training_actions';
 
@@ -64,19 +67,14 @@ const TimelineHandler = createReactClass({
     const weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
-    let outlet;
-    // This passes props to Meetings and Wizard, which are children specified in
-    // router.jsx.
-    if (this.props.children) {
-      outlet = React.cloneElement(this.props.children, {
-        key: 'wizard_handler',
-        course: this.props.course,
-        weeks: this.props.weeks,
-        week_meetings: weekMeetings,
-        meetings,
-        open_weeks: openWeeks
-      });
-    }
+    const courseProps = {
+      key: 'wizard_handler',
+      course: this.props.course,
+      weeks: this.props.weeks,
+      week_meetings: weekMeetings,
+      meetings,
+      open_weeks: openWeeks
+    };
 
     // Grading
     // let showGrading;
@@ -102,8 +100,12 @@ const TimelineHandler = createReactClass({
           component="div"
           timeout={500}
         >
-          {outlet}
+          <Switch>
+            <Route exact path="/courses/:course_school/:course_title/timeline/wizard" render={() => <Wizard {...courseProps} />} />
+            <Route exact path="/courses/:course_school/:course_title/timeline/dates" render={() => <Meetings {...courseProps} />} />
+          </Switch>
         </TransitionGroup>
+
         <Timeline
           loading={this.props.loading}
           course={this.props.course}
@@ -160,4 +162,4 @@ const mapDispatchToProps = {
   fetchAllTrainingModules
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TimelineHandler));

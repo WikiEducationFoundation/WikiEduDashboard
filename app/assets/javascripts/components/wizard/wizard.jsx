@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
+import { withRouter } from 'react-router';
 
 import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
@@ -164,4 +165,4 @@ const mapDispatchToProps = {
   submitWizard
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wizard);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wizard));

@@ -31,15 +31,19 @@ describe('SlideMenu', () => {
   });
   const TestMenu = mount(
     <Provider store={store}>
-      <MemoryRouter initialEntries={["/training/foo/bar/kittens"]}>
-        <Route exact path="/training/:library_id/:module_id/:slide_id" render={() => (
-          <TrainingSlideHandler loading={false}>
-            <SlideMenu
-              closeMenu={emptyFunction}
-              onClick={emptyFunction}
-            />
-          </TrainingSlideHandler>
-        )}/>
+      <MemoryRouter initialEntries={['/training/foo/bar/kittens']}>
+        <Route
+          exact
+          path="/training/:library_id/:module_id/:slide_id"
+          render={() => (
+            <TrainingSlideHandler loading={false}>
+              <SlideMenu
+                closeMenu={emptyFunction}
+                onClick={emptyFunction}
+              />
+            </TrainingSlideHandler>
+          )}
+        />
       </MemoryRouter>
     </Provider>
   );

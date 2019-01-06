@@ -3,9 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import CourseUtils from '../utils/course_utils';
+import CourseUtils from '../../utils/course_utils';
 import CourseAlert from './course_alert';
-import OptInNotification from './common/opt_in_notification';
+import OptInNotification from '../common/opt_in_notification';
 
 const CourseAlerts = createReactClass({
   displayName: 'CourseAlerts',

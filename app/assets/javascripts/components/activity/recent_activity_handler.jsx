@@ -1,47 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
-const RecentActivityHandler = ({ children }) => (
+import DidYouKnowHandler from './did_you_know_handler.jsx';
+import PlagiarismHandler from './plagiarism_handler.jsx';
+import RecentEditsHandler from './recent_edits_handler.jsx';
+import RecentUploadsHandler from './recent_uploads_handler.jsx';
+
+const RecentActivityHandler = () => (
   <div className="recent-activity__container">
     <nav>
       <div className="container">
         <div className="nav__item" id="dyk-link">
           <p>
-            <Link to="/recent-activity/dyk" activeClassName="active">
+            <NavLink to="/recent-activity/dyk" activeClassName="active">
               {I18n.t('recent_activity.did_you_know_eligible')}
-            </Link>
+            </NavLink>
           </p>
         </div>
 
         <div className="nav__item" id="plagiarism-link">
           <p>
-            <Link to="/recent-activity/plagiarism" activeClassName="active">
+            <NavLink to="/recent-activity/plagiarism" activeClassName="active">
               {I18n.t('recent_activity.possible_plagiarism')}
-            </Link>
+            </NavLink>
           </p>
         </div>
 
         <div className="nav__item" id="recent-edits-link">
           <p>
-            <Link to="/recent-activity/recent-edits" activeClassName="active">
+            <NavLink to="/recent-activity/recent-edits" activeClassName="active">
               {I18n.t('recent_activity.recent_edits')}
-            </Link>
+            </NavLink>
           </p>
         </div>
 
         <div className="nav__item" id="recent-uploads-link">
           <p>
-            <Link to="/recent-activity/recent-uploads" activeClassName="active">
+            <NavLink to="/recent-activity/recent-uploads" activeClassName="active">
               {I18n.t('recent_activity.recent_uploads')}
-            </Link>
+            </NavLink>
           </p>
         </div>
       </div>
     </nav>
 
     <div className="container">
-      {children}
+      <Switch>
+        <Route exact path="/recent-activity/dyk" component={DidYouKnowHandler} />
+        <Route exact path="/recent-activity/plagiarism" component={PlagiarismHandler} />
+        <Route exact path="/recent-activity/recent-edits" component={RecentEditsHandler} />
+        <Route exact path="/recent-activity/recent-uploads" component={RecentUploadsHandler} />
+        <Redirect to="/recent-activity/dyk" />
+      </Switch>
     </div>
   </div>
 );

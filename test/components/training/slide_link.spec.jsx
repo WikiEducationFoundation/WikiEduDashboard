@@ -23,20 +23,24 @@ describe('SlideLink', () => {
   });
   const TestLink = mount(
     <Provider store={store}>
-      <MemoryRouter initialEntries={["/training/foo/bar/kittens"]}>
-        <Route exact path="/training/:library_id/:module_id/:slide_id" render={() => (
-          <TrainingSlideHandler
-            loading={false}
-          >
-            <SlideLink
-              slideId="foobar"
-              buttonText="Next Page"
-              disabled={false}
-              button={true}
-              onClick={jest.fn()}
-            />
-          </TrainingSlideHandler>
-        )}/>
+      <MemoryRouter initialEntries={['/training/foo/bar/kittens']}>
+        <Route
+          exact
+          path="/training/:library_id/:module_id/:slide_id"
+          render={() => (
+            <TrainingSlideHandler
+              loading={false}
+            >
+              <SlideLink
+                slideId="foobar"
+                buttonText="Next Page"
+                disabled={false}
+                button={true}
+                onClick={jest.fn()}
+              />
+            </TrainingSlideHandler>
+          )}
+        />
       </MemoryRouter>
     </Provider>
   );

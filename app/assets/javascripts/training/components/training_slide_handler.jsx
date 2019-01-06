@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
@@ -16,11 +16,11 @@ const TrainingSlideHandler = createReactClass({
   displayName: 'TrainingSlideHandler',
 
   propTypes: {
-    params: PropTypes.object
+    match: PropTypes.object
   },
 
   componentDidMount() {
-    const slideId = __guard__(this.props.params, x => x.slide_id);
+    const slideId = __guard__(this.props.match.params, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
     window.addEventListener('keyup', this.handleKeyPress);
@@ -51,7 +51,7 @@ const TrainingSlideHandler = createReactClass({
   },
 
   moduleId() {
-    return __guard__(this.props.params, x => x.module_id);
+    return __guard__(this.props.match.params, x => x.module_id);
   },
 
   toggleMenuOpen(e) {
@@ -89,13 +89,13 @@ const TrainingSlideHandler = createReactClass({
     if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
       const params = _.extend(navParams, { slide_id: this.props.training.previousSlide.slug });
       this.prev();
-      browserHistory.push(this.trainingUrl(params));
+      this.props.history.push(this.trainingUrl(params));
     }
     if (e.which === this.keys.rightKey && this.props.training.nextSlide) {
       if (this.disableNext()) { return; }
       const params = _.extend(navParams, { slide_id: this.props.training.nextSlide.slug });
       this.next();
-      return browserHistory.push(this.trainingUrl(params));
+      return this.props.history.push(this.trainingUrl(params));
     }
   },
 
@@ -126,14 +126,14 @@ const TrainingSlideHandler = createReactClass({
           buttonText={this.props.training.currentSlide.buttonText || I18n.t('training.next')}
           disabled={this.disableNext()}
           button={true}
-          params={this.props.params}
+          params={this.props.match.params}
           onClick={this.next}
         />
       );
     } else {
       let nextHref = this.returnToLink();
       if (!nextHref) {
-        nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+        nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.match.params.library_id}`;
       }
       if (this.props.training.completed) {
         nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
@@ -169,7 +169,7 @@ const TrainingSlideHandler = createReactClass({
         <SlideLink
           slideId={this.props.training.previousSlide.slug}
           buttonText={I18n.t('training.previous')}
-          params={this.props.params}
+          params={this.props.match.params}
           onClick={this.prev}
         />
       );
@@ -240,7 +240,7 @@ const TrainingSlideHandler = createReactClass({
             onClick={this.toggleMenuOpen}
             menuClass={menuClass}
             currentSlide={this.props.training.currentSlide}
-            params={this.props.params}
+            params={this.props.match.params}
             enabledSlides={this.props.training.enabledSlides}
             slides={this.props.training.slides}
           />
@@ -278,4 +278,4 @@ const mapDispatchToProps = {
   toggleMenuOpen
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrainingSlideHandler);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingSlideHandler));

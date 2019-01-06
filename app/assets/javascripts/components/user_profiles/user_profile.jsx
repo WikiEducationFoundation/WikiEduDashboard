@@ -12,7 +12,7 @@ import UserTrainingStatus from './user_training_status.jsx';
 
 const UserProfile = createReactClass({
   propTypes: {
-    params: PropTypes.object,
+    match: PropTypes.object,
     fetchStats: PropTypes.func.isRequired,
     stats: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -24,14 +24,14 @@ const UserProfile = createReactClass({
   },
 
   componentDidMount() {
-    const username = encodeURIComponent(this.props.params.username);
+    const username = encodeURIComponent(this.props.match.params.username);
     this.props.fetchUserTrainingStatus(username);
     this.props.fetchStats(username);
     this.getData();
   },
 
   getData() {
-    const username = encodeURIComponent(this.props.params.username);
+    const username = encodeURIComponent(this.props.match.params.username);
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
     $.ajax(
       {
@@ -52,7 +52,7 @@ const UserProfile = createReactClass({
 
     return (
       <div>
-        <ContributionStats params={this.props.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
+        <ContributionStats params={this.props.match.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
         <CourseDetails courses={this.props.stats.courses_details} />
         <UserUploads uploads={this.props.stats.user_recent_uploads} />
         <UserTrainingStatus trainingModules={this.props.trainingStatus} />
