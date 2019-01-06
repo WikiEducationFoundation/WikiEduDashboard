@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { MemoryRouter, Route } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -13,7 +14,6 @@ const mockStore = configureMockStore(middlewares);
 
 describe('SlideMenu', () => {
   const emptyFunction = function () {};
-  const params = { library_id: 'foo', module_id: 'bar', slide_id: 'kittens' };
   const slide = {
     id: 1,
     enabled: true,
@@ -31,13 +31,16 @@ describe('SlideMenu', () => {
   });
   const TestMenu = mount(
     <Provider store={store}>
-      <TrainingSlideHandler loading={false} params={params}>
-        <SlideMenu
-          params={params}
-          closeMenu={emptyFunction}
-          onClick={emptyFunction}
-        />
-      </TrainingSlideHandler>
+      <MemoryRouter initialEntries={["/training/foo/bar/kittens"]}>
+        <Route exact path="/training/:library_id/:module_id/:slide_id" render={() => (
+          <TrainingSlideHandler loading={false}>
+            <SlideMenu
+              closeMenu={emptyFunction}
+              onClick={emptyFunction}
+            />
+          </TrainingSlideHandler>
+        )}/>
+      </MemoryRouter>
     </Provider>
   );
 

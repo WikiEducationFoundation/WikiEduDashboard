@@ -1,9 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import '../testHelper';
 
-import Course from '../../app/assets/javascripts/components/course.jsx';
+import Course from '../../app/assets/javascripts/components/course/course.jsx';
 import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
 
 describe('top-level course component', () => {
@@ -25,9 +26,11 @@ describe('top-level course component', () => {
     global.Features = { enableGetHelpButton: true };
     const testCourse = ReactTestUtils.renderIntoDocument(
       <Provider store={reduxStore}>
-        <Course {...courseProps}>
-          <OverviewHandler {...courseProps} current_user={currentUser} />
-        </Course>
+        <MemoryRouter>
+          <Course {...courseProps}>
+            <OverviewHandler {...courseProps} current_user={currentUser} />
+          </Course>
+        </MemoryRouter>
       </Provider>
     );
     expect(testCourse).to.exist;
