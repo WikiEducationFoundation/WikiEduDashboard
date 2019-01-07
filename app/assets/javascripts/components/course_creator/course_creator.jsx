@@ -216,23 +216,22 @@ const CourseCreator = createReactClass({
     let showCloneChooser;
     let showNewOrClone;
     let showWizardForm;
-    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
-    if (this.props.cloneableCourses.length === 0) {
-      if (this.state.showWizardForm) {
-        showWizardForm = true;
-      } else {
-        showCourseForm = true;
-      }
-      // If the creator was launched from a campaign, do not offer the cloning option.
-    } else if (this.campaignParam()) {
+    // If the creator was launched from a campaign, do not offer the cloning option.
+    if (this.campaignParam()) {
       showCourseForm = true;
     } else if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
-      showWizardForm = false;
     } else if (this.state.showCloneChooser) {
       showCloneChooser = true;
+    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
+    } else if (this.props.cloneableCourses.length === 0) {
+      if (this.state.showCourseForm || Features.wikiEd) {
+        showCourseForm = true;
+      } else {
+        showWizardForm = true;
+      }
     } else {
       showNewOrClone = true;
     }

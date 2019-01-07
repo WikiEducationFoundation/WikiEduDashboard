@@ -10,10 +10,8 @@ def fill_out_open_course_creator_form
   page.find('body').click
 end
 
-def check_course_type_selection
-  expect(page).to have_css('.wizard__program', visible: false)
-  find('.program-description', match: :first, visible: true).click
-  expect(Course.last.type).to eq('BasicCourse')
+def choose_course_type
+  find('.program-description', text: /Edit-A-Thon/).click
 end
 
 describe 'open course creation', type: :feature, js: true do
@@ -38,6 +36,7 @@ describe 'open course creation', type: :feature, js: true do
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
     allow(Features).to receive(:default_course_type).and_return('BasicCourse')
     allow(Features).to receive(:default_course_string_prefix).and_return('courses_generic')
+    allow(Features).to receive(:wiki_ed?).and_return(false)
     login_as(user)
   end
 
@@ -48,23 +47,26 @@ describe 'open course creation', type: :feature, js: true do
   it 'lets a user create a course immediately', js: true do
     visit root_path
     click_link 'Create an Independent Program'
-    check_course_type_selection
+    choose_course_type
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
     all('.time-input__hour')[0].find('option[value="15"]').select_option
     all('.time-input__minute')[0].find('option[value="35"]').select_option
     click_button 'Create my Program!'
+    sleep 1
     expect(page).to have_content 'This project has been published!'
     expect(Course.last.campaigns.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
     expect(Course.last.start).to eq(Time.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
+    expect(Course.last.type).to eq('Editathon')
   end
 
   it 'defaults to English Wikipedia' do
     visit root_path
     click_link 'Create an Independent Program'
+    choose_course_type
     fill_out_open_course_creator_form
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
