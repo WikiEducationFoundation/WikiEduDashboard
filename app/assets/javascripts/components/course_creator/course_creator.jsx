@@ -220,8 +220,9 @@ const CourseCreator = createReactClass({
     if (this.props.cloneableCourses.length === 0) {
       if (this.state.showWizardForm) {
         showWizardForm = true;
+      } else {
+        showCourseForm = true;
       }
-      showCourseForm = true;
       // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
       showCourseForm = true;
