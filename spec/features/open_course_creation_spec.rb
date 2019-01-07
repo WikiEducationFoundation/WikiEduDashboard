@@ -10,6 +10,12 @@ def fill_out_open_course_creator_form
   page.find('body').click
 end
 
+def check_course_type_selection
+  expect(page).to have_css('.wizard__program', visible: false)
+  find('.program-description', match: :first, visible: true).click
+  expect(Course.last.type).to eq('BasicCourse')
+end
+
 describe 'open course creation', type: :feature, js: true do
   let(:user) { create(:user) }
   let(:campaign) do
@@ -42,6 +48,7 @@ describe 'open course creation', type: :feature, js: true do
   it 'lets a user create a course immediately', js: true do
     visit root_path
     click_link 'Create an Independent Program'
+    check_course_type_selection
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
