@@ -15,10 +15,13 @@ fi:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: t.
           million: milj.
           billion: mrd.
+          trillion: T
+          quadrillion: K
   accessibility:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
@@ -422,6 +425,7 @@ fi:
     new_week: Lisää uusi viikko
     new_account_check_username: Tarkista, onko käyttäjätunnus saatavana
     new_account_email: Sähköpostiosoite
+    new_account_email_placeholder: nimi@esimerkki.org
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
     new_account_username_taken: Käyttäjätunnus on jo käytössä. Valitse ystävällisesti
@@ -675,6 +679,7 @@ fi:
     time_doc: Jokaisen version ajankohta paikallisessa ajassa
     title: Nimi
     view_on_wiki: Näytä ero wikissä
+    see_more: Lisätietoja
   settings:
     admin_users:
       new:
@@ -746,6 +751,7 @@ fi:
     view: Näytä
     next: Seuraava sivu
     page: Sivu
+    page_number: Sivu %{number}/%{total}
     previous: < Edellinen
     training_library: Koulutuskirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
@@ -775,7 +781,7 @@ fi:
       vastaa käyttäjän lisäämän uuden sisällön määrää.
     chars_added: Lisättyjä merkkejä<br>(artikkeli | käyttäjä | luonnos)
     contributions: Käyttäjän muokkaukset
-    contributions_history_full: Näytä koko muokkaushistoria Wikipediassa
+    contributions_history_full: Näytä koko muokkaushistoria
     contributions_more: Näytä lisää muokkauksia
     contribution_statistics: Muokkaustilastot
     course_passcode: 'Salasana:'
@@ -921,14 +927,14 @@ fi:
     follow_up_explanation: Jätä tyhjäksi, jos ilmoituksia ei haluta sähköpostiin.
     email:
       headline: Hei, %{username}
-      message_line1: Toivottavasti lukukautesi on mainio! Wiki Ed kaipaa palautettasi,
+      message_line1: Toivottavasti lukukautesi on mainio! Wiki Education kaipaa palautettasi,
         jotta voimme kehittää resurssejamme ja tukea Wikipedia-tehtäviä.
       message_line2: Oletko valmis käyttämään 15 minuuttia vastataksesi ohjaajasi
         tekemään kyselyyn? Klikkaa alla olevaa painiketta, ja autat meitä tekemään
         Wikipedian soveltamisesta opintoihin vieläkin palkitsevamman kokemuksen.
       course: 'Kurssi: %{course_info}'
       closing: Ystävällisin terveisin,
-      signed: '- Wiki Ed -tiimi'
+      signed: '- Wiki Education -tiimi'
       link: Vastaa kyselyyn
     follow_up:
       message: Tämä on muistutus kurssisi %{course_title} kyselystä. Palautteesi auttaa
