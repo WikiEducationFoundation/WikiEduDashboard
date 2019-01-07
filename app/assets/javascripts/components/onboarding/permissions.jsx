@@ -27,7 +27,7 @@ const Permissions = createReactClass({
             <li>you send public messages to students</li>
           </ul>
           <p>All course content you contribute to to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
-          <Link to={{ pathname: '/onboarding/finish', query: { return_to: this.props.returnToParam } }} className="button border inverse-border">
+          <Link to={{ pathname: '/onboarding/finish', search: `?return_to=${this.props.returnToParam}` }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow" />
           </Link>
         </div>
@@ -47,7 +47,7 @@ const Permissions = createReactClass({
             <li>update your course´s wiki page when you join the course or choose an assignment topic</li>
           </ul>
           <p>All course content you contribute to to this website will be freely available under the <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-ShareAlike license</a> (the same one used by Wikipedia).</p>
-          <Link to={{ pathname: '/onboarding/finish', query: { return_to: this.props.returnToParam } }} className="button border inverse-border">
+          <Link to={{ pathname: '/onboarding/finish', search: `?return_to=${this.props.returnToParam}` }} className="button border inverse-border">
             Finish <i className="icon icon-rt_arrow" />
           </Link>
         </div>

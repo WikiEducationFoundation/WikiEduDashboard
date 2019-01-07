@@ -22,9 +22,7 @@ const Intro = createReactClass({
         <Link
           to={{
             pathname: '/onboarding/form',
-            query: {
-              return_to: decodeURIComponent(this.props.returnToParam)
-            }
+            search: `?return_to=${this.props.returnToParam}`
           }}
           className="button border inverse-border"
         >

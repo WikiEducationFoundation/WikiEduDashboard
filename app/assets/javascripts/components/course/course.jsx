@@ -85,7 +85,7 @@ const Course = createReactClass({
     // //////////////////
     let enrollCard;
     if (this.showEnrollCard(course)) {
-      const query = parse(this.props.location.query);
+      const query = parse(this.props.location.search);
       enrollCard = (
         <EnrollCard
           user={this.props.currentUser}
