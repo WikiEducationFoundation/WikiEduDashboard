@@ -1,8 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import _ from 'lodash';
-import languageNames from '../utils/language_names';
-import selectStyles from '../styles/select';
+import languageNames from '../../utils/language_names';
+import selectStyles from '../../styles/select';
 
 const getNativeName = (code) => {
   const language = languageNames[code];

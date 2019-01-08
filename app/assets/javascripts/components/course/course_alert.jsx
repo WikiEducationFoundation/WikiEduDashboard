@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import CourseLink from './common/course_link';
+import CourseLink from '../common/course_link';
 
 const CourseAlert = createReactClass({
   displayName: 'CourseAlert',

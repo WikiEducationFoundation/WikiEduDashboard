@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -18,7 +19,7 @@ const EnrollButton = createReactClass({
   propTypes: {
     role: PropTypes.number,
     course_id: PropTypes.string,
-    params: PropTypes.object,
+    match: PropTypes.object,
     users: PropTypes.array,
     course: PropTypes.object,
     allowed: PropTypes.bool,
@@ -111,7 +112,7 @@ const EnrollButton = createReactClass({
   },
 
   _courseLinkParams() {
-    return `/courses/${this.props.params.course_school}/${this.props.params.course_title}`;
+    return `/courses/${this.props.match.params.course_school}/${this.props.match.params.course_title}`;
   },
 
   render() {
@@ -209,6 +210,6 @@ const EnrollButton = createReactClass({
 
 const mapDispatchToProps = { initiateConfirm, addNotification, addUser, removeUser };
 
-export default connect(null, mapDispatchToProps)(
+export default withRouter(connect(null, mapDispatchToProps)(
   Conditional(PopoverExpandable(EnrollButton))
-);
+));

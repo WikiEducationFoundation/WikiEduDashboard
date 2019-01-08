@@ -8,7 +8,7 @@ const CampaignOresPlot = createReactClass({
   displayName: 'CampaignOresPlot',
 
   propTypes: {
-    params: PropTypes.object
+    match: PropTypes.object
   },
 
   getInitialState() {
@@ -37,7 +37,7 @@ const CampaignOresPlot = createReactClass({
 
   fetchFilePath() {
     $.ajax({
-      url: `/campaigns/${this.props.params.campaign_slug}/ores_data.json`,
+      url: `/campaigns/${this.props.match.params.campaign_slug}/ores_data.json`,
       success: (data) => {
         this.setState({ articleData: data.ores_plot, loading: false });
       }

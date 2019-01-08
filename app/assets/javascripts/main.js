@@ -18,7 +18,7 @@ $(() => {
   require('./utils/course.js'); // This adds jquery features for some views outside of React
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
-  require('./utils/router.jsx');
+  require('./components/app.jsx');
   require('events').EventEmitter.defaultMaxListeners = 30;
   require('./utils/editable.js');
   require('./utils/users_profile.js');

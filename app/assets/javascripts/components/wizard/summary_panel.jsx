@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router';
 import Panel from './panel.jsx';
 
 const answersFromPanels = (panels) => {
@@ -33,7 +33,7 @@ const SummaryPanel = createReactClass({
   submit() {
     this.props.submitWizard(this.props.courseId);
     window.onbeforeunload = null;
-    return browserHistory.push(`/courses/${this.props.courseId}/timeline`);
+    return this.props.history.push(`/courses/${this.props.courseId}/timeline`);
   },
   rewind(toIndex) {
     this.props.goToWizard(toIndex);
@@ -81,4 +81,4 @@ const SummaryPanel = createReactClass({
   }
 });
 
-export default SummaryPanel;
+export default withRouter(SummaryPanel);

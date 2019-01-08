@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import AssignCell from '../students/assign_cell.jsx';
 import MyAssignment from './my_assignment.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
