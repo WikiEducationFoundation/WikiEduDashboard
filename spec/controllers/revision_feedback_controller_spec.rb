@@ -23,8 +23,9 @@ describe RevisionFeedbackController, type: :request do
         VCR.use_cassette 'ores_features' do
           # Checks if a valid feedback is received from RevisionFeedbackService
           expect_any_instance_of(RevisionFeedbackService).to receive(:feedback)
-            .and_return(have_at_least(1))
+            .and_call_original
           get '/revision_feedback', params: params
+          expect(response.body).to include('Cite your sources!')
         end
       end
 
