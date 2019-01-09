@@ -7,17 +7,6 @@ describe TrainingBase do
     allow(Features).to receive(:wiki_trainings?).and_return(false)
   end
 
-  describe 'abstract parent class' do
-    it 'raises errors for required template instance methods' do
-      subject = described_class.inflate({}, 'foo')
-      expect { subject.valid? }.to raise_error(NotImplementedError)
-    end
-
-    it 'raises errors for required template class methods' do
-      expect { described_class.cache_key }.to raise_error(NotImplementedError)
-    end
-  end
-
   describe '.load' do
     let(:subject) { TrainingModule.load }
 
