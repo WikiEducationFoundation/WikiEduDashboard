@@ -267,8 +267,8 @@ describe 'New course creation and editing', type: :feature do
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'
-      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set(end_date)
+      find('#course_start').set(start_date)
+      find('#course_end').set(end_date)
       find('div.wizard__panel').click # click to escape the calendar popup
 
       # This click should not successfully create a course.
