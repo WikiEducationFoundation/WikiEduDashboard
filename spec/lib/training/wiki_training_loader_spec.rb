@@ -139,7 +139,7 @@ describe WikiTrainingLoader do
       end
     end
 
-    describe 'for libraries', focus: true do
+    describe 'for libraries' do
       let(:content_class) { TrainingLibrary }
       before do
         allow(content_class).to receive(:wiki_base_page)
