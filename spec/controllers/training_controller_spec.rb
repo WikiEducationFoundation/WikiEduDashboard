@@ -75,7 +75,7 @@ describe TrainingController, type: :request do
 
       it 'displays an error message upon failure' do
         allow(TrainingModule).to receive(:load_all)
-          .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
+          .and_raise(TrainingBase::DuplicateSlugError, 'oh noes!')
         subject
         expect(response.body).to include('oh noes!')
       end
