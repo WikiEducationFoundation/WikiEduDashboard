@@ -202,9 +202,9 @@ describe UsersController, type: :request do
       expect(user.locale).to eq('fr')
     end
 
-    it 'updates user locale and returns a 200 if locale is valid' do
+    it 'updates user locale and returns a 200 or 302 if locale is valid' do
       post "/update_locale/#{valid_locale}"
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(200).or eq(302)
       expect(user.locale).to eq('es')
     end
   end
