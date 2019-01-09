@@ -138,5 +138,20 @@ describe WikiTrainingLoader do
         end
       end
     end
+
+    describe 'for libraries', focus: true do
+      let(:content_class) { TrainingLibrary }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+        .and_return('Training modules/dashboard/libraries-dev')
+      end
+
+      it 'loads translated content' do
+        VCR.use_cassette 'training/load_from_wiki' do
+          content_class.load
+          expect(content_class.last.translations.key?('de')).to eq(true)
+        end
+      end
+    end
   end
 end
