@@ -119,6 +119,7 @@ describe TrainingBase do
       before do
         TrainingSlide.destroy_all
         TrainingModule.destroy_all
+        TrainingLibrary.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
 
