@@ -78,5 +78,17 @@ describe OnboardingController, type: :request do
       expect(response.status).to eq(204)
       expect(Alert.exists?(user_id: user.id, type: 'OnboardingAlert')).to eq(true)
     end
+
+    it 'includes referral information if sent' do
+      params = {
+        user_name: user.username,
+        heardFrom: 'From Nights Watch',
+        referralDetails: 'Jeor Mormont'
+      }
+      put '/onboarding/supplementary', params: params
+      expect(response.status).to eq(204)
+      alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
+      expect(alert.message).to include('Jeor Mormont')
+    end
   end
 end
