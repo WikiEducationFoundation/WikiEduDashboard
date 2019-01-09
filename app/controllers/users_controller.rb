@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
     current_user.locale = locale
     current_user.save!
-    if request.path_parameters[:format] == :json
+    if request.method == 'POST'
       render json: { success: true }
     else
       redirect_to '/'
