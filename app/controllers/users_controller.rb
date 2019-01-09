@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   before_action :require_participating_user, only: [:enroll]
-  before_action :require_signed_in, only: [:update_locale]
   before_action :require_admin_permissions, only: [:index]
 
   layout 'admin', only: [:index]
@@ -21,23 +20,6 @@ class UsersController < ApplicationController
     else
       current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
       redirect_to true_destroy_user_session_path
-    end
-  end
-
-  def update_locale
-    locale = params[:locale]
-
-    unless I18n.available_locales.include?(locale.to_sym)
-      render json: { message: 'Invalid locale' }, status: :unprocessable_entity
-      return
-    end
-
-    current_user.locale = locale
-    current_user.save!
-    if request.method == 'POST'
-      render json: { success: true }
-    else
-      redirect_to '/'
     end
   end
 
