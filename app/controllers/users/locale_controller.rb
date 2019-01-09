@@ -11,6 +11,7 @@ class Users::LocaleController < ApplicationController
     if request.method == 'POST'
       render json: { success: true }
     else
+      flash[:notice] = 'Locale preference updated!'
       redirect_to '/'
     end
   end
