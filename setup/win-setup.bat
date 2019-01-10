@@ -24,7 +24,7 @@ SET "PATH=%PATH%;%ProgramFiles(x86)%\Yarn\bin"
 echo [+] Yarn installed!
 
 echo [*] Installing node modules...
-call yarn --ignore-engines
+call yarn
 echo [+] Node modules installed!
 
 echo [*] Installing PhantomJs...
