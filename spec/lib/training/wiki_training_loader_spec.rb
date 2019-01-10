@@ -141,9 +141,10 @@ describe WikiTrainingLoader do
 
     describe 'for libraries' do
       let(:content_class) { TrainingLibrary }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
-        .and_return('Training modules/dashboard/libraries-dev')
+          .and_return('Training modules/dashboard/libraries-dev')
       end
 
       it 'loads translated content' do
