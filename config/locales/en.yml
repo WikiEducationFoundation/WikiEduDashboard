@@ -336,9 +336,9 @@ en:
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
-      assignment_end_placeholder: Assignment end (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Assignment start
-      assignment_start_placeholder: Assignment start (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: This course is being checked for uniqueness.
       choose_clone: Choose a course to clone.
       clone_previous: Clone Previous Course
@@ -380,7 +380,7 @@ en:
       create_short: Create Course
       create_timeline: Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed's best practices.
       end_date: End date
-      end_date_placeholder: End date (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
       find: Find Your Course
       intro: >
@@ -406,7 +406,7 @@ en:
         when to show up or when the venue closes).
       save_cloned_course: Save New Course
       start_date: Start date
-      start_date_placeholder: Start date (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: Subject
       update_scheduled: >
         Update scheduled. The data will be updated along with all current
@@ -635,9 +635,9 @@ en:
     campaign_courses: '%{title} Programs'
     creator:
       assignment_end: Event end
-      assignment_end_placeholder: Event end (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Event start
-      assignment_start_placeholder: Event start (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: This program is being checked for uniqueness.
       choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
