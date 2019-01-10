@@ -298,6 +298,14 @@ zh-TW:
       course_term: 課程學期
       course_term_placeholder: 學期
       course_title: 課程名稱
+      course_types:
+        basic_course_name: 基本方案
+        basic_course_description: 此方案類型會追蹤透過任何參與者對任何條目或主空間頁面所做的編輯。若在方案的主要 wiki 啟用了自動化
+          wiki 編輯，將會自動創建並更新此方案 wiki 版本。
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Edit-A-Thon 方案將會追蹤任何條目或主空間頁面的編輯，並且不會對此方案做出自動化編輯。
+        article_scoped_program_name: 條目範圍方案
+        article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程

@@ -8,6 +8,7 @@
 # Author: Mohammed Galib Hasan
 # Author: Rasal Lia
 # Author: Sandipan
+# Author: Tahmid02016
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
 ---
@@ -146,6 +147,8 @@ bn:
       course_school: কোর্স বিদ্যালয়
       course_subject: কোর্সের বিষয়
       course_title: কোর্স শিরোনাম
+      course_types:
+        edit_a_thon_name: এডিটাথন
       create_button: আমার কোর্স তৈরি করুন
       create_label: নতুন কোর্স তৈরি করুন
       create_new: একটি নতুন কোর্স তৈরি করুন

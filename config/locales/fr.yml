@@ -378,6 +378,22 @@ fr:
       course_term: Période du cours
       course_term_placeholder: Période
       course_title: Titre du cours
+      course_types:
+        basic_course_name: Programme de base
+        basic_course_description: Ce type de programme tracera les modifications à
+          tout article ou page de l’espace de noms principal par tout participant.
+          Si les modifications de wiki automatiques sont activées sur le wiki hôte
+          du programme, alors une version dans le wiki de ce programme sera automatiquement
+          créée et mise à jour.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Un programme Edit-A-Thon tracera les modifications
+          à tout article ou page de l’espace principal. Aucune modification automatique
+          ne sera faite pour ce programme.
+        article_scoped_program_name: Programme ciblé sur les articles
+        article_scoped_program_description: Ce type de programme ne suit que les modifications  des
+          articles assignés ainsi que des catégories. Utilisez ce type si vous voulez
+          restreindre les statistiques à une collection d'articles connue ou de domaines
+          du sujet.
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
