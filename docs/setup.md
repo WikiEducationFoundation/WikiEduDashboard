@@ -51,7 +51,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * `bundle install`
 * `rake db:migrate`
 * install yarn
-* `yarn --ignore-engines` for more javascript requirements
+* `yarn` for more javascript requirements
 * `gulp` to build assets
 * `guard` or `rails s` to start a server
 * localhost:3000 should load the home page
