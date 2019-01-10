@@ -5,6 +5,7 @@ env:
 language: ruby
 rvm: 2.5.0
 sudo: required
+node_js: 11
 dist: trusty
 cache:
   apt: true
