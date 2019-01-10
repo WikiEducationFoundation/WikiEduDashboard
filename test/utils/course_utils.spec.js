@@ -306,4 +306,33 @@ describe('courseUtils.formattedArticleTitle', () => {
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('wikidata:Judith Butler');
   });
+
+  describe('courseUtils.courseStatsToUpdate', () => {
+    const course = {
+      title: 'My Course',
+      description: 'My Description',
+      student_count: 0,
+      upload_count: 0
+    };
+
+    const stats = {
+      student_count: false,
+      upload_count: false
+    };
+
+    it('should return an empty object if no stats should be updated', () => {
+      const actual = courseUtils.courseStatsToUpdate(course, stats);
+      const expected = {};
+      expect(actual).to.deep.equal(expected);
+    });
+
+    it('should return key-value pairs of what stats to update in a course', () => {
+      const courseData = { ...course, student_count: 99 };
+      const newStats = { ...stats, student_count: true };
+
+      const actual = courseUtils.courseStatsToUpdate(courseData, newStats);
+      const expected = { student_count: 99 };
+      expect(actual).to.deep.equal(expected);
+    });
+  });
 });

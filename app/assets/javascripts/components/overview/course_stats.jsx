@@ -16,14 +16,14 @@ const CourseStats = ({ course }) => {
   if (course.home_wiki.language === 'en') {
     contentCount = (
       <div className="stat-display__stat" id="word-count">
-        <div className={valueClass('wordCount')}>{course.word_count}</div>
+        <div className={valueClass('word_count')}>{course.word_count}</div>
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
     );
   } else {
     contentCount = (
       <div className="stat-display__stat" id="bytes-added">
-        <div className={valueClass('wordCount')}>{course.character_sum_human}</div>
+        <div className={valueClass('word_count')}>{course.character_sum_human}</div>
         <small>{I18n.t('metrics.bytes_added')}</small>
       </div>
     );
@@ -40,7 +40,7 @@ const CourseStats = ({ course }) => {
     );
   } else {
     viewData = (
-      <div className={valueClass('viewCount')}>
+      <div className={valueClass('view_count')}>
         {course.view_count}
       </div>
     );
@@ -60,19 +60,19 @@ const CourseStats = ({ course }) => {
   return (
     <div className="stat-display">
       <div className="stat-display__stat" id="articles-created">
-        <div className={valueClass('createdCount')}>{course.created_count}</div>
+        <div className={valueClass('created_count')}>{course.created_count}</div>
         <small>{I18n.t('metrics.articles_created')}</small>
       </div>
       <div className="stat-display__stat" id="articles-edited">
-        <div className={valueClass('editedCount')}>{course.edited_count}</div>
+        <div className={valueClass('edited_count')}>{course.edited_count}</div>
         <small>{I18n.t('metrics.articles_edited')}</small>
       </div>
       <div className="stat-display__stat" id="total-edits">
-        <div className={valueClass('editCount')}>{course.edit_count}</div>
+        <div className={valueClass('edit_count')}>{course.edit_count}</div>
         <small>{I18n.t('metrics.edit_count_description')}</small>
       </div>
       <div className="stat-display__stat tooltip-trigger" id="student-editors">
-        <div className={valueClass('studentCount')}>
+        <div className={valueClass('student_count')}>
           {course.student_count}
           {infoImg}
         </div>
@@ -85,7 +85,7 @@ const CourseStats = ({ course }) => {
         <small>{I18n.t('metrics.view_count_description')}</small>
       </div>
       <div className="stat-display__stat tooltip-trigger" id="upload-count">
-        <div className={valueClass('uploadCount')}>
+        <div className={valueClass('upload_count')}>
           {course.upload_count}
           <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
         </div>

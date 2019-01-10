@@ -40,8 +40,12 @@ export default function course(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_COURSE:
       return { ...action.data.course };
-    case RECEIVE_COURSE_UPDATE:
-      return { ...action.data.course, newStats: CourseUtils.newCourseStats(state, action.data.course) };
+    case RECEIVE_COURSE_UPDATE: {
+      const courseData = action.data.course;
+      const newStats = CourseUtils.newCourseStats(state, courseData);
+      const newKeys = CourseUtils.courseStatsToUpdate(courseData, newStats);
+      return { ...state, ...newKeys, newStats };
+    }
     case PERSISTED_COURSE:
       return { ...state, ...action.data.course };
     case UPDATE_COURSE:

@@ -39,16 +39,45 @@ describe('course reducer', () => {
   });
 
   it('keeps track of which stats have been updated with RECEIVE_COURSE_UPDATE', () => {
-    const initialState = { title: 'title', created_count: 0, edited_count: 0 };
+    const initialState = {
+      title: 'title',
+      created_count: 0,
+      edited_count: 0,
+      student_count: 3
+    };
     deepFreeze(initialState);
+
     const mockedAction = {
       type: RECEIVE_COURSE_UPDATE,
-      data: { course: { created_count: 1, edited_count: 0 } }
+      data: { course: { ...initialState, created_count: 1, student_count: 5 } }
     };
 
     const newState = course(initialState, mockedAction);
-    expect(newState.newStats.createdCount).to.eq(true);
-    expect(newState.newStats.editedCount).to.eq(false);
+    expect(newState.newStats.created_count).to.eq(true);
+    expect(newState.newStats.student_count).to.eq(true);
+    expect(newState.newStats.edited_count).to.eq(false);
+    expect(newState.created_count).to.eq(1);
+    expect(newState.student_count).to.eq(5);
+    expect(newState.edited_count).to.eq(0);
+  });
+
+  it('only updates stat information with RECEIVE_COURSE_UPDATE', () => {
+    const initialState = {
+      title: 'new title',
+      description: 'initial description',
+    };
+    deepFreeze(initialState);
+
+    const newState = course(initialState, {
+      type: UPDATE_COURSE,
+      course: { description: 'a new description' }
+    });
+
+    const finalState = course(newState, {
+      type: RECEIVE_COURSE_UPDATE,
+      data: { course: { ...initialState } }
+    });
+    expect(finalState.description).to.eq('a new description');
   });
 
   it('updates course with receive data via PERSITED_COURSE', () => {

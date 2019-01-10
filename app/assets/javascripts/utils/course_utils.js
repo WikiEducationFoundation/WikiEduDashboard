@@ -178,14 +178,23 @@ const CourseUtils = class {
 
   newCourseStats(oldCourse, newCourse) {
     return {
-      createdCount: oldCourse.created_count !== newCourse.created_count,
-      editedCount: oldCourse.edited_count !== newCourse.edited_count,
-      editCount: oldCourse.edit_count !== newCourse.edit_count,
-      studentCount: oldCourse.student_count !== newCourse.student_count,
-      wordCount: oldCourse.character_sum_human !== newCourse.character_sum_human,
-      viewCount: oldCourse.view_count !== newCourse.view_count,
-      uploadCount: oldCourse.upload_count !== newCourse.upload_count
+      created_count: oldCourse.created_count !== newCourse.created_count,
+      edited_count: oldCourse.edited_count !== newCourse.edited_count,
+      edit_count: oldCourse.edit_count !== newCourse.edit_count,
+      student_count: oldCourse.student_count !== newCourse.student_count,
+      word_count: oldCourse.character_sum_human !== newCourse.character_sum_human,
+      view_count: oldCourse.view_count !== newCourse.view_count,
+      upload_count: oldCourse.upload_count !== newCourse.upload_count
     };
+  }
+
+  // Given a course and camelized stats from the above `newCourseStats`
+  // function, return only the key-value pairs of what needs to be updated
+  // in the course.
+  courseStatsToUpdate(course, newStats) {
+    return Object.entries(newStats)
+      .filter(([, val]) => val)
+      .reduce((acc, [key]) => ({ ...acc, [key]: course[key] }), {});
   }
 };
 
