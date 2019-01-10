@@ -29,9 +29,10 @@ class OnboardingController < ApplicationController
     head :no_content
     return unless supplementary_response?
     user_name = params[:user_name]
+    details = params[:referralDetails]
     response = <<~RESPONSE
       HEARD FROM:
-      #{params[:heardFrom]}
+      #{params[:heardFrom]} #{"(#{details})" if details}
 
       WHY HERE:
       #{params[:whyHere]}

@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-describe FeedbackFormResponsesController do
+describe FeedbackFormResponsesController, type: :request do
   describe '#new' do
     it 'renders new' do
-      get :new
+      get '/feedback'
       expect(controller).to render_template :new
     end
 
@@ -15,7 +15,7 @@ describe FeedbackFormResponsesController do
           let(:referer) { 'wikipedia.org' }
 
           it 'sets referer from params' do
-            get :new, params: { referer: referer }
+            get '/feedback', params: { referer: referer }
             expect(assigns(:subject)).to eq(referer)
           end
         end
@@ -24,10 +24,8 @@ describe FeedbackFormResponsesController do
           let(:referer) { 'bananas.com' }
           # workaround for https://github.com/rspec/rspec-rails/issues/1655
 
-          before { request.env['HTTP_REFERER'] = referer }
-
           it 'sets referer from request object' do
-            get :new
+            get '/feedback', headers: { 'HTTP_REFERER' => referer }
             expect(assigns(:subject)).to eq(referer)
           end
         end
@@ -35,7 +33,7 @@ describe FeedbackFormResponsesController do
 
       describe 'feedback_form_response' do
         it 'sets ivar to a new FeedbackFormResponse' do
-          get :new
+          get '/feedback'
           expect(assigns(:feedback_form_response)).to be_a FeedbackFormResponse
         end
       end
@@ -45,18 +43,20 @@ describe FeedbackFormResponsesController do
   describe '#index' do
     let(:user) { create(:admin) }
 
-    before { allow(controller).to receive(:current_user).and_return(user) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
 
     describe 'ivars' do
       it 'sets responses' do
-        get :index
+        get '/feedback_form_responses'
         expect(assigns(:responses)).to match_array FeedbackFormResponse.all
       end
     end
 
     describe 'template' do
       it 'renders index' do
-        get :index
+        get '/feedback_form_responses'
         expect(controller).to render_template :index
       end
 
@@ -64,7 +64,7 @@ describe FeedbackFormResponsesController do
         let(:user) { create(:user) }
 
         it "doesn't allow" do
-          get :index
+          get '/feedback_form_responses'
           expect(response.status).to eq(302)
           expect(flash[:notice]).to eq("You don't have access to that page.")
         end
@@ -76,18 +76,20 @@ describe FeedbackFormResponsesController do
     let!(:form) { FeedbackFormResponse.create(body: 'bananas') }
     let(:user)  { create(:admin) }
 
-    before { allow(controller).to receive(:current_user).and_return(user) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
 
     describe 'ivars' do
       it 'sets responses' do
-        get :show, params: { id: form.id }
+        get "/feedback_form_responses/#{form.id}", params: { id: form.id }
         expect(assigns(:response)).to be_a FeedbackFormResponse
       end
     end
 
     describe 'template' do
       it 'renders index' do
-        get :index
+        get '/feedback_form_responses'
         expect(controller).to render_template :index
       end
 
@@ -95,7 +97,7 @@ describe FeedbackFormResponsesController do
         let(:user) { create(:user) }
 
         it "doesn't allow" do
-          get :index
+          get '/feedback_form_responses'
           expect(response.status).to eq(302)
           expect(flash[:notice]).to eq("You don't have access to that page.")
         end
@@ -106,13 +108,15 @@ describe FeedbackFormResponsesController do
   describe '#create' do
     let(:user) { create(:user) }
 
-    before { allow(controller).to receive(:current_user).and_return(user) }
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
 
     context 'non-admin' do
       let(:body) { 'bananas' }
 
       it 'creates successfully' do
-        post :create, params: { feedback_form_response: { body: body } }
+        post '/feedback_form_responses', params: { feedback_form_response: { body: body } }
         expect(FeedbackFormResponse.last.body).to eq(body)
         expect(response.status).to eq(302)
       end
@@ -122,7 +126,7 @@ describe FeedbackFormResponsesController do
   describe '#confirmation' do
     describe 'rendering' do
       it 'renders template' do
-        get :confirmation
+        get '/feedback/confirmation'
         expect(controller).to render_template :confirmation
       end
     end

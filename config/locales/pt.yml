@@ -364,6 +364,21 @@ pt:
       course_term: Semestre do curso
       course_term_placeholder: Semestre
       course_title: Título do curso
+      course_types:
+        basic_course_name: Programa básico
+        basic_course_description: Este tipo de programa regista todas as edições de
+          artigos ou páginas do espaço nominal principal feitas por todos os participantes.
+          Se as edições automáticas da wiki estiverem ativadas na wiki de acolhimento
+          do programa, então será automaticamente criada e atualizada uma versão deste
+          programa na wiki.
+        edit_a_thon_name: Maratona de edições
+        edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
+          edições de artigos ou páginas do espaço nominal principal. Não serão feitas
+          edições automatizadas neste programa.
+        article_scoped_program_name: Artigos delimitados
+        article_scoped_program_description: Este tipo de programa só regista as edições
+          dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
+          a um determinado conjunto de artigos ou assuntos.
       create_button: Criar o meu curso!
       create_label: Criar novo curso
       create_new: Criar um novo curso

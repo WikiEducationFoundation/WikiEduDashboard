@@ -357,6 +357,21 @@ de:
       course_term: Kursdauer
       course_term_placeholder: Dauer
       course_title: Kurstitel
+      course_types:
+        basic_course_name: Basisprogramm
+        basic_course_description: Dieser Programmtyp verfolgt nur Bearbeitungen aller
+          Artikel oder Hauptnamensraumseiten von allen Teilnehmern. Falls automatische
+          Wikibearbeitungen auf dem Heimatwiki des Programms aktiviert sind, wird
+          eine On-Wiki-Version dieses Programms automatisch erstellt und aktualisiert.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Ein Edit-A-Thon-Programm verfolgt Bearbeitungen aller
+          Artikel oder Hauptnamensraumseiten. Es werden keine automatischen Bearbeitungen
+          für dieses Programm erstellt.
+        article_scoped_program_name: Artikelfeldprogramm
+        article_scoped_program_description: Dieser Programmtyp verfolgt nur Bearbeitungen
+          für zugewiesene Artikel oder Kategorien. Verwende diesen Typ, falls du die
+          Statistiken auf eine bekannte Artikelsammlung oder Themenbereiche beschränken
+          möchtest.
       create_button: Meinen Kurs erstellen!
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen

@@ -79,7 +79,18 @@ describe 'onboarding', type: :feature, js: true do
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       page.assert_selector('form#supplementary')
-      fill_in 'heardFrom', with: 'twitter'
+      find('input[type="radio"][value="web"]').click
+      click_button 'Submit'
+    end
+
+    it 'is able to provide additional referral details' do
+      visit onboarding_path
+      find('.intro .button').click
+      find('input[type=radio][value=true]').click
+      find('form button[type=submit]').click
+      page.assert_selector('form#supplementary')
+      find('input[type="radio"][value="conference"]').click
+      fill_in 'referralDetails', with: 'Conference Name'
       click_button 'Submit'
     end
   end

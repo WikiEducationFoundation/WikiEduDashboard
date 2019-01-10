@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe RevisionsController do
+describe RevisionsController, type: :request do
   # This spec involves multiple course types to check the behaviour of course start/end times
   #   and how they interact with the Course.revisions scope
   describe '#index' do
@@ -45,28 +45,28 @@ describe RevisionsController do
     let(:params2) { { course_id: basic_course.id, user_id: user.id, format: 'json' } }
 
     it 'returns revisions that happened during the course' do
-      get :index, params: params
+      get '/revisions', params: params
       course_revisions.each do |revision|
         expect(assigns(:revisions)).to include(revision)
       end
     end
 
     it 'does not return revisions that happened after the last day of the course' do
-      get :index, params: params
+      get '/revisions', params: params
       non_course_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end
     end
 
     it 'does return revisions from the final day of the basic course but not after it ended' do
-      get :index, params: params2
+      get '/revisions', params: params2
       non_basic_course_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end
     end
 
     it 'does not return course revisions by other users' do
-      get :index, params: params
+      get '/revisions', params: params
       non_user_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end

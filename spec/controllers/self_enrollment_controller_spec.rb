@@ -4,11 +4,13 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/wiki_preferences_manager"
 
-describe SelfEnrollmentController do
+describe SelfEnrollmentController, type: :request do
+  let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }
+
   describe '#enroll_self' do
     subject { response.status }
 
-    let(:course) { create(:course, end: Time.zone.today + 1.week) }
+    let(:course) { create(:course, end: Time.zone.today + 1.week, slug: slug_params) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
     end
@@ -17,7 +19,7 @@ describe SelfEnrollmentController do
     before do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
-      allow(controller).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
 
     context 'GET' do
@@ -25,7 +27,7 @@ describe SelfEnrollmentController do
         # Course is not in any campaigns, so enrollment will fail.
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get 'enroll_self', params: request_params
+          get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(0)
         end
@@ -42,7 +44,7 @@ describe SelfEnrollmentController do
             expect(course.user_count).to eq(0)
             expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
             expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
-            get 'enroll_self', params: request_params
+            get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
             expect(subject).to eq(302)
             expect(course.students.count).to eq(1)
             expect(course.reload.user_count).to eq(1)
@@ -60,7 +62,7 @@ describe SelfEnrollmentController do
 
             it 'redirects without enrolling the user' do
               expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-              get 'enroll_self', params: request_params
+              get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
               expect(subject).to eq(302)
               expect(course.students.count).to eq(0)
             end
@@ -68,7 +70,7 @@ describe SelfEnrollmentController do
         end
 
         context 'when type is Editathon' do
-          let(:course) { create(:editathon, end: Time.zone.today + 1.week) }
+          let(:course) { create(:editathon, end: Time.zone.today + 1.week, slug: slug_params) }
 
           context 'when the user is enrolled as a facilitator' do
             before do
@@ -80,7 +82,7 @@ describe SelfEnrollmentController do
 
             it 'enrolls user (and redirects) and updates the user count' do
               stub_oauth_edit
-              get 'enroll_self', params: request_params
+              get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
               expect(subject).to eq(302)
               expect(course.students.count).to eq(1)
             end
@@ -88,11 +90,11 @@ describe SelfEnrollmentController do
         end
 
         context 'when the course has already ended' do
-          let(:course) { create(:course, end: 1.day.ago) }
+          let(:course) { create(:course, end: 1.day.ago, slug: slug_params) }
 
           it 'redirects without enrolling the user' do
             expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-            get 'enroll_self', params: request_params
+            get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
             expect(subject).to eq(302)
             expect(course.students.count).to eq(0)
           end
@@ -103,18 +105,19 @@ describe SelfEnrollmentController do
     # This is the HTTP verb that MS Word links use (for some reason)
     context 'HEAD' do
       it "doesn't error" do
-        head 'enroll_self', params: request_params
+        head "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
         expect(subject).to eq(200)
       end
     end
 
     context 'when a user is not logged in' do
       before do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
       end
 
       it 'redirects to mediawiki for OAuth' do
-        expect(get('enroll_self', params: request_params)).to redirect_to(/.*mediawiki.*/)
+        expect(get("/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params))
+          .to redirect_to(/.*mediawiki.*/)
       end
     end
   end

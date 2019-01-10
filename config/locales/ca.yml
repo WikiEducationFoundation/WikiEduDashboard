@@ -245,6 +245,8 @@ ca:
       course_term: Termini del curs
       course_term_placeholder: Termini
       course_title: Títol de curs
+      course_types:
+        basic_course_name: Programa bàsic
       create_button: Crear el meu curs!
       create_label: Crear nou curs
       create_new: Crea un curs nou

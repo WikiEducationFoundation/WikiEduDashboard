@@ -237,6 +237,12 @@ sv:
       course_term: Kurstermin
       course_term_placeholder: Termin
       course_title: Kurs titel
+      course_types:
+        basic_course_name: Grundläggande program
+        edit_a_thon_name: Redigeringsmaraton
+        edit_a_thon_description: Programmet redigeringsmaraton kommer spåra redigeringar
+          på alla artiklar eller namnrymdssidor. Inga automatiserade redigeringar
+          kommer att göras för detta program.
       create_button: Skapa min Kurs!
       create_label: Skapa ny kurs
       create_new: Skapa en ny kurs

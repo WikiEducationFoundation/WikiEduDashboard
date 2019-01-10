@@ -20,8 +20,8 @@ fi:
           thousand: t.
           million: milj.
           billion: mrd.
-          trillion: T
-          quadrillion: K
+          trillion: .t
+          quadrillion: .k
   accessibility:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
@@ -42,7 +42,7 @@ fi:
     greeting: Terve!
     help: Ohje
     home: Etusivu
-    log_in_extended: Kirjaudu sisään Wikipedian kautta
+    log_in_extended: Kirjaudu sisään Wikipedialla
     log_in: Kirjaudu sisään
     log_out: Kirjaudu ulos
     my_dashboard: Oma ohjausnäkymä
@@ -55,7 +55,7 @@ fi:
     no_results: Ei tuloksia haulle '%{query}'
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
-    sign_up_log_in_extended: Wikipedian kautta
+    sign_up_log_in_extended: Wikipedialla
     sign_up: Luo tunnus
     submit: Lähetä
     training: Harjoittelu
@@ -259,7 +259,7 @@ fi:
     label: Keskustelu
   courses:
     activity: Toiminta
-    active_courses: Aktiivinen %{course_type}
+    active_courses: Aktiiviset %{course_type}
     alerts: Hälytykset
     all_courses: Kaikki kurssit
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
@@ -462,7 +462,7 @@ fi:
     start_typing: Aloita kirjoittaminen
     students: Opiskelijat
     students_taught: Opiskelijoita
-    students_count: '# Opiskelijat'
+    students_count: '# opiskelijaa'
     student_editors: Opiskelijamuokkaajat
     students_none: Tällä kurssilla ei ole opiskelijoita.
     students_short: Opiskelijat
@@ -617,7 +617,7 @@ fi:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
     articles_created: Luotuja artikkeleita
-    articles_edited: Muokatut artikkelit
+    articles_edited: Muokattua artikkelia
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
@@ -627,16 +627,16 @@ fi:
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
     tags: Merkkaukset
-    upload_count: Tallennukset Commonsiin
+    upload_count: Tallennusta Commonsiin
     uploads_in_use_count:
       one: tiedosto käytössä artikkelissa
       other: tiedostoa käytössä artikkeleissa
     upload_usages_count:
       one: kokonaiskäyttö eri kieliversioissa
       other: kokonaiskäytöt eri kieliversioissa
-    view_count_description: Artikkelin näyttökerrat
+    view_count_description: Artikkelin näyttökertaa
     view: Näyttökerrat
-    word_count: Lisätyt sanat
+    word_count: Lisättyä sanaa
     word_count_average: Keskimääräinen sanamäärä
   namespace:
     main: Päänimiavaruus
@@ -753,11 +753,12 @@ fi:
     page: Sivu
     page_number: Sivu %{number}/%{total}
     previous: < Edellinen
-    training_library: Koulutuskirjasto
+    training_library: Harjoittelukirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
     done: Tehty!
     check_answer: Tarkista vastaus
+    included_modules: Sisällytetyt moduulit
   uploads:
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
@@ -767,6 +768,7 @@ fi:
     none: Tämä luokka ei ole tallentanut kuvia tai muita tiedostoja Wikimedia Commonsiin.
     time_doc: Tallennusten ajankohdat paikallisessa ajassa
     uploaded_by: Tallentanut
+    uploaded_on: Talennettu
     usage_count: Käyttömäärä
     usages: Käyttöjä
   users:
@@ -838,7 +840,7 @@ fi:
       instructor: Ohjaaja
       campus_volunteer: Vapaaehtoinen kampuksella
       online_volunteer: Vapaaehtoinen verkossa
-      wiki_ed_staff: Wiki Ed -henkilökunta
+      wiki_ed_staff: Wiki Education -henkilökunta
   user_profiles:
     student_impact: Opiskelijan %{username} tekemä kokonaisvaikutus
     instructor_impact: Opettajan %{username} tekemä kokonaisvaikutus
@@ -942,6 +944,7 @@ fi:
   feedback_form_responses:
     no_responses: Palautetta ei ole vieä annettu.
   article_finder:
+    remove_article: Poista artikkeli
     search_placeholder: Anna avainsana
     search: Haku
     show_options: Näytä asetukset

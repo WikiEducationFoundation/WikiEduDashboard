@@ -314,8 +314,8 @@ Rails.application.routes.draw do
   put 'onboarding/supplementary' => 'onboarding#supplementary', as: :supplementary
 
   # Update Locale Preference
-  post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
-  get '/update_locale/:locale' => 'users#update_locale'
+  post '/update_locale/:locale' => 'users/locale#update_locale', as: :update_locale
+  get '/update_locale/:locale' => 'users/locale#update_locale'
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator

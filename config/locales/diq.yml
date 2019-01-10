@@ -104,6 +104,8 @@ diq:
       course_term: Kursa qewremi
       course_term_placeholder: Qewremi
       course_title: Sernamey kursi
+      course_types:
+        basic_course_name: Programo bıngeyın
       create_button: Kursa xo vıraz
       create_label: Kursa Newi vıraz
       create_new: Kursa Newi vıraz
