@@ -21,7 +21,7 @@ services:
 before_install:
 - rvm --default use 2.5.0
 - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-- nvm use 11.6.0
+- nvm install
 - export PATH=$PATH:`yarn global bin`
 - export DB=test
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
