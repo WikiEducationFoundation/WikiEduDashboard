@@ -433,7 +433,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
     sentimental (1.4.1)
-    sentry-raven (2.7.4)
+    sentry-raven (2.8.0)
       faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.11.0)
     shellany (0.0.1)
