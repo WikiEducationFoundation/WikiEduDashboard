@@ -85,7 +85,7 @@ const TrainingSlideHandler = createReactClass({
   },
 
   handleKeyPress(e) {
-    const navParams = { library_id: this.props.params.library_id, module_id: this.props.params.module_id };
+    const navParams = { library_id: this.props.match.params.library_id, module_id: this.props.match.params.module_id };
     if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
       const params = _.extend(navParams, { slide_id: this.props.training.previousSlide.slug });
       this.prev();

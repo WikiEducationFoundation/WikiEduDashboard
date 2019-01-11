@@ -101,6 +101,15 @@ describe 'Training', type: :feature, js: true do
       expect(tmu.reload.last_slide_completed).to eq(module_2.slides.second.slug)
     end
 
+    it 'allows for navigation with the left and right buttons' do
+      click_link 'Start'
+      expect(page).to have_content('Page 1 of')
+      find('html').native.send_keys :right
+      expect(page).to have_content('Page 2 of')
+      find('html').native.send_keys :left
+      expect(page).to have_content('Page 1 of')
+    end
+
     it 'sets the module completed on viewing the last slide' do
       login_as(user, scope: :user)
       sleep 1
