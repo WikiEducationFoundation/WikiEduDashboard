@@ -12,7 +12,7 @@ import { fetchArticles, sortArticles, filterArticles, filterNewness } from '../.
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByNewness } from '../../selectors';
 
-const ArticlesHandler = createReactClass({
+export const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {

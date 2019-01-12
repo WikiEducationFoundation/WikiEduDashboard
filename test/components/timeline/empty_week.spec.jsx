@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { MemoryRouter } from 'react-router';
-import history from '../../../app/assets/javascripts/components/util/history';
 
 import '../../testHelper';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
@@ -26,7 +25,7 @@ describe('EmptyWeek', () => {
 
   describe('timeline is empty, edit permissions', () => {
     const TestEmptyWeek = mount(
-      <MemoryRouter history={history}>
+      <MemoryRouter>
         <EmptyWeek
           emptyTimeline
           edit_permissions
@@ -45,7 +44,7 @@ describe('EmptyWeek', () => {
 
   describe('timeline is empty, no edit permissions', () => {
     const TestEmptyWeek = mount(
-      <MemoryRouter history={history}>
+      <MemoryRouter>
         <EmptyWeek
           emptyTimeline
           addWeek={jest.fn()}

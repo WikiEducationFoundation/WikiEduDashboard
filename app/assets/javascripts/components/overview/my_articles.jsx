@@ -8,7 +8,7 @@ import MyAssignment from './my_assignment.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getFiltered } from '../../utils/model_utils';
 
-const MyArticles = createReactClass({
+export const MyArticles = createReactClass({
   displayName: 'MyArticles',
 
   propTypes: {

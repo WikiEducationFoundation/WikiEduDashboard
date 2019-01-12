@@ -28,7 +28,7 @@ import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 
-const Course = createReactClass({
+export const Course = createReactClass({
   displayName: 'Course',
 
   propTypes: {

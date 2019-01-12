@@ -8,7 +8,11 @@ import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 
-jest.mock('../../../app/assets/javascripts/components/common/notifications.jsx', () => 'Notifications');
+jest.mock('../../../app/assets/javascripts/components/common/notifications.jsx', () => {
+  return function Notifications() {
+    return 'Notifications';
+  };
+});
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 describe('SlideLink', () => {
@@ -27,7 +31,7 @@ describe('SlideLink', () => {
         <Route
           exact
           path="/training/:library_id/:module_id/:slide_id"
-          render={() => (
+          render={({ match }) => (
             <TrainingSlideHandler
               loading={false}
             >
@@ -37,6 +41,7 @@ describe('SlideLink', () => {
                 disabled={false}
                 button={true}
                 onClick={jest.fn()}
+                params={match.params}
               />
             </TrainingSlideHandler>
           )}
