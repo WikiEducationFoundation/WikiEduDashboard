@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import uuid from 'uuid';
 
 const HomeWikiLanguageSelector = createReactClass({
@@ -30,14 +31,13 @@ const HomeWikiLanguageSelector = createReactClass({
     const selector = (
       <div className="form-group">
         <label htmlFor={this.state.id}>{I18n.t('courses.home_wiki_language')}:</label>
-        <select
+        <Select
           id={this.state.id}
           name="home_wiki_Language"
           value={this.props.course.home_wiki.language}
           onChange={this._handleChange}
-        >
-          {options}
-        </select>
+          options={options}
+        />
       </div>
     );
 
