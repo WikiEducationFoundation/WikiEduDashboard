@@ -1,17 +1,27 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
 
+import { ArticlesHandler } from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
 import '../../testHelper';
-
-import ArticlesHandler from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
 
 describe('ArticlesHandler', () => {
   it('renders', () => {
-    const TestDom = ReactTestUtils.renderIntoDocument(
-      <div>
-        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} current_user={{}} />
-      </div>
+    const props = {
+      course: {
+        school: 'My School',
+        home_wiki: {
+          id: 1,
+          language: 'en',
+          project: 'wikipedia'
+        }
+      },
+      wikis: []
+    };
+    const component = shallow(
+      <ArticlesHandler {...props} />
     );
-    expect(TestDom.querySelector('h3')).to.exist;
+
+    expect(component.find('h3')).to.exist;
+    expect(component.text()).to.contain('Articles Edited');
   });
 });
