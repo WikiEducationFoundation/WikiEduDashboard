@@ -64,6 +64,43 @@ describe TrainingController, type: :request do
     end
   end
 
+  describe 'add_library_breadcrumbs' do
+    let(:content_class) { TrainingLibrary }
+
+    before do
+      allow(content_class).to receive(:wiki_base_page)
+        .and_return('Training modules/dashboard/libraries-dev')
+      allow(I18n).to receive(:locale).and_return(:de)
+      allow(Features).to receive(:wiki_trainings?).and_return(true)
+      content_class.destroy_all
+      VCR.use_cassette 'training/load_from_wiki' do
+        content_class.load
+      end
+    end
+
+    context 'for wiki eduction' do
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(true)
+      end
+
+      it 'uses library id to make the breadcrumb' do
+        get '/training/editing-wikipedia'
+        expect(response.body).to include('Editing Wikipedia')
+      end
+    end
+
+    context 'for non-wiki' do
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+      end
+
+      it 'uses translated name to make the breadcrumb' do
+        get '/training/editing-wikipedia'
+        expect(response.body).to include('Zweck dieses Moduls')
+      end
+    end
+  end
+
   describe '#reload' do
     context 'for all modules' do
       let(:subject) { get '/reload_trainings', params: { module: 'all' } }
@@ -103,6 +140,4 @@ describe TrainingController, type: :request do
       end
     end
   end
-
-  # Make sure default trainings get reloaded
 end
