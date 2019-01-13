@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
+import selectStyles from '../../styles/single_select';
 
 const YesNoSelector = createReactClass({
   propTypes: {
@@ -11,10 +13,15 @@ const YesNoSelector = createReactClass({
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired
   },
-
-  _handleChange(e) {
+  componentWillMount() {
+    this.setState({
+      selectedOption: { value: this.props.course[this.props.courseProperty] ? 'yes' : 'no', label: this.props.course[this.props.courseProperty] ? 'yes' : 'no' },
+    });
+  },
+  _handleChange(selectedOption) {
     const course = this.props.course;
-    const value = e.target.value;
+    const value = selectedOption.value;
+    this.setState({ selectedOption });
     if (value === 'yes') {
       course[this.props.courseProperty] = true;
     } else if (value === 'no') {
@@ -44,22 +51,24 @@ const YesNoSelector = createReactClass({
           </div>
         );
       }
-
+      const options = [
+        { value: 'yes', label: 'yes' },
+        { value: 'no', label: 'no' }
+      ];
       selector = (
         <div className="form-group">
           <span htmlFor={`${this.props.courseProperty}Toggle`}>
             <strong>{this.props.label}:</strong>
           </span>
           {tooltip}
-          <select
+          <Select
             id={`${this.props.courseProperty}Toggle`}
             name={this.props.courseProperty}
-            value={currentValue ? 'yes' : 'no'}
+            value={this.state.selectedOption}
             onChange={this._handleChange}
-          >
-            <option value="yes">yes</option>
-            <option value="no">no</option>
-          </select>
+            options={options}
+            styles={selectStyles}
+          />
         </div>
       );
     }
