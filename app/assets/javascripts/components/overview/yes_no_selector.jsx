@@ -13,11 +13,12 @@ const YesNoSelector = createReactClass({
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired
   },
-  componentWillMount() {
-    this.setState({
-      selectedOption: { value: this.props.course[this.props.courseProperty] ? 'yes' : 'no', label: this.props.course[this.props.courseProperty] ? 'yes' : 'no' },
-    });
+
+  getInitialState() {
+    const initialState = this.props.course[this.props.courseProperty] ? 'yes' : 'no';
+    return { selectedOption: { value: initialState, label: initialState } };
   },
+
   _handleChange(selectedOption) {
     const course = this.props.course;
     const value = selectedOption.value;
@@ -52,8 +53,8 @@ const YesNoSelector = createReactClass({
         );
       }
       const options = [
-        { value: 'yes', label: 'yes' },
-        { value: 'no', label: 'no' }
+        { value: I18n.t('yes'), label: I18n.t('yes') },
+        { value: I18n.t('no'), label: I18n.t('no') }
       ];
       selector = (
         <div className="form-group">
@@ -78,6 +79,7 @@ const YesNoSelector = createReactClass({
       </div>
     );
   }
+
 });
 
 export default YesNoSelector;
