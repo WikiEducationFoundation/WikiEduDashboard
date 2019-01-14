@@ -53,8 +53,8 @@ const YesNoSelector = createReactClass({
         );
       }
       const options = [
-        { value: I18n.t('yes'), label: I18n.t('yes') },
-        { value: I18n.t('no'), label: I18n.t('no') }
+        { value: 'yes', label: 'yes' },
+        { value: 'no', label: 'no' }
       ];
       selector = (
         <div className="form-group">
