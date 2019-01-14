@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CloneCourse = ({ cloneClasss, chooseNewCourseAction, showCloneChooserAction, createLabel, cloneLabel }) => {
+const NewOrClone = ({ cloneClasss, chooseNewCourseAction, showCloneChooserAction, createLabel, cloneLabel }) => {
   return (
     <div className={cloneClasss}>
       <button className="button dark" onClick={chooseNewCourseAction}>{createLabel}</button>
@@ -9,4 +9,4 @@ const CloneCourse = ({ cloneClasss, chooseNewCourseAction, showCloneChooserActio
   );
 };
 
-export default CloneCourse;
+export default NewOrClone;

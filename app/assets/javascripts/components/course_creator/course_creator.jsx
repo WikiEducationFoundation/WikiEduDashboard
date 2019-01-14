@@ -16,7 +16,7 @@ import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
-import CloneCourse from './clone_course.jsx';
+import NewOrClone from './new_or_clone.jsx';
 import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
 
@@ -273,7 +273,7 @@ const CourseCreator = createReactClass({
           <div className="wizard__panel active" style={formStyle}>
             <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
             <p>{instructions}</p>
-            <CloneCourse
+            <NewOrClone
               cloneClasss={cloneOptions}
               chooseNewCourseAction={this.chooseNewCourse}
               showCloneChooserAction={this.showCloneChooser}
