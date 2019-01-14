@@ -339,9 +339,9 @@ pt-br:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
       assignment_end: Término da tarefa
-      assignment_end_placeholder: Término da tarefa (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início da tarefa
-      assignment_start_placeholder: Início da tarefa (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um curso para duplicar
       clone_previous: Clonar curso anterior
@@ -368,6 +368,21 @@ pt-br:
       course_term: Prazo do curso
       course_term_placeholder: Semestre
       course_title: Título do curso
+      course_types:
+        basic_course_name: Programa básico
+        basic_course_description: Este tipo de programa regista todas as edições de
+          artigos ou páginas do espaço nominal principal feitas por todos os participantes.
+          Se as edições automáticas da wiki estiverem ativadas na wiki de acolhimento
+          do programa, então será automaticamente criada e atualizada uma versão deste
+          programa na wiki.
+        edit_a_thon_name: Maratona de edições
+        edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
+          edições de artigos ou páginas do espaço nominal principal. Não serão feitas
+          edições automatizadas neste programa.
+        article_scoped_program_name: Programa de escopo de artigos
+        article_scoped_program_description: Este tipo de programa só regista as edições
+          dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
+          a um determinado conjunto de artigos ou assuntos.
       create_button: Criar meu curso!
       create_label: Criar Novo Curso
       create_new: Criar um Novo Curso
@@ -377,7 +392,7 @@ pt-br:
         para criar uma linha de tempo personalizada com base nas práticas recomendadas
         do Wiki Ed.
       end_date: Data Final
-      end_date_placeholder: Data de término (AAAA-MM-DD)
+      end_date_placeholder: AAAA-MM-DD
       expected_number: Número experado de estudantes
       find: Encontre seu curso
       intro: O título, a escola e o prazo criam a URL da página de seu curso e não
@@ -403,7 +418,7 @@ pt-br:
         local for fechado).
       save_cloned_course: Salvar Curso Novo
       start_date: Data de início
-      start_date_placeholder: Data de início (AAAA-MM-DD)
+      start_date_placeholder: AAAA-MM-DD
       subject: Tema
       update_scheduled: Atualização agendada. Os dados serão atualizados juntos com
         todos os outros programas no próximo ciclo de atualização. Isso geralmente
@@ -644,9 +659,9 @@ pt-br:
     campaign_courses: '%{title} Programas'
     creator:
       assignment_end: Fim do evento
-      assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do evento
-      assignment_start_placeholder: Início do evento (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior

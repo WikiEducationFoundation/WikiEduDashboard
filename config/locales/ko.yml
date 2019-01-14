@@ -193,9 +193,9 @@ ko:
     creation_date: 만든 날짜
     creator:
       assignment_end: 과제 종료
-      assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 과제 시작
-      assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 복제된 과정의 세부사항 업데이트하기
       course_language: 주 언어
@@ -203,12 +203,12 @@ ko:
       course_project: 주 프로젝트
       course_term_placeholder: 학기
       end_date: 종료일
-      end_date_placeholder: 종료 날짜 (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
       role_description_placeholder: 강사, 조교 등
       save_cloned_course: 새 코스 저장
       start_date: 시작일
-      start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: 제목
     current: 현재 과정
     data_articles: 문서 데이터
@@ -335,9 +335,9 @@ ko:
     courses: 프로그램
     creator:
       assignment_end: 이벤트 끝
-      assignment_end_placeholder: 이벤트 끝 (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 이벤트 시작
-      assignment_start_placeholder: 이벤트 시작 (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.

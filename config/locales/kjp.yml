@@ -58,10 +58,18 @@ kjp:
     created_at: မူႋၮီ
     description: ဆ်ုဏဲဖၠဟ်
   courses:
+    creator:
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start_placeholder: YYYY-MM-DD
+      end_date_placeholder: YYYY-MM-DD
+      start_date_placeholder: YYYY-MM-DD
     delete_suggestion: ထုဂ်ဆိင့်
     overview: ဗဟိုစာမျက်နှာ
     timeline_nav: မ်ုလေဝ်လူႋအ်ုခါ့ဖၠံင်
     volunteer:
       one: သုဂ်ထျာႋဆ်ုၜုံးဆါႋ
       other: သုဂ်ထျာႋဆ်ုၜုံးဆါႋလ်ုဖး
+  courses_generic:
+    creator:
+      assignment_start_placeholder: YYYY-MM-DD
 ...

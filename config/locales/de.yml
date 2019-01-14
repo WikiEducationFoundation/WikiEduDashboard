@@ -326,9 +326,9 @@ de:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
         die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
       assignment_end: Zuweisungsende
-      assignment_end_placeholder: Zuweisungsende (JJJJ-MM-TT)
+      assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Zuweisungsbeginn
-      assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
+      assignment_start_placeholder: JJJJ-MM-TT
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle einen zu klonenden Kurs aus.
       clone_previous: Vorherigen Kurs klonen
@@ -381,7 +381,7 @@ de:
         um eine benutzerdefinierte Zeitleiste basierend auf den besten Praktiken von
         Wiki Ed zu erstellen.
       end_date: Enddatum
-      end_date_placeholder: Enddatum (JJJJ-MM-TT)
+      end_date_placeholder: JJJJ-MM-TT
       expected_number: Erwartete Anzahl der Studenten
       find: Finde deinen Kurs
       intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
@@ -407,7 +407,7 @@ de:
         erscheinen sollen oder wann der Veranstaltungsort schließt).
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
-      start_date_placeholder: Startdatum (JJJJ-MM-TT)
+      start_date_placeholder: JJJJ-MM-TT
       subject: Thema
       update_scheduled: Aktualisierung geplant. Die Daten werden zusammen mit allen
         aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
@@ -655,9 +655,9 @@ de:
     campaign_courses: '%{title} Programme'
     creator:
       assignment_end: Ereignisende
-      assignment_end_placeholder: Ereignisende (JJJJ-MM-TT)
+      assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Ereignisbeginn
-      assignment_start_placeholder: Ereignisbeginn (JJJJ-MM-TT)
+      assignment_start_placeholder: JJJJ-MM-TT
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen

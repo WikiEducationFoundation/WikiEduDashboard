@@ -346,9 +346,9 @@ fr:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
         pour le rendre unique.
       assignment_end: Fin de l’affectation
-      assignment_end_placeholder: Fin de l’affectation (AAAA-MM-JJ)
+      assignment_end_placeholder: AAAA-MM-JJ
       assignment_start: Début de l’affectation
-      assignment_start_placeholder: Début de l’affectation (AAAA-MM-JJ)
+      assignment_start_placeholder: AAAA-MM-JJ
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
       choose_clone: Choisir un cours à dupliquer.
       clone_previous: Dupliquer le cours précédent
@@ -403,7 +403,7 @@ fr:
         d’affectation pour créer un planning personnalisé basé sur les meilleures
         pratiques du wiki Ed.
       end_date: Date de fin
-      end_date_placeholder: Date de fin (AAAA-MM-JJ)
+      end_date_placeholder: AAAA-MM-JJ
       expected_number: Nombre d’étudiants attendus
       find: Trouver votre cours
       intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
@@ -430,7 +430,7 @@ fr:
         ou quand la salle se ferme).
       save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
-      start_date_placeholder: Date de début (AAAA-MM-JJ)
+      start_date_placeholder: AAAA-MM-JJ
       subject: Sujet
       update_scheduled: Mise à jour programmée. La donnée sera mise à jour avec tous
         les programmes actuels lors du prochain cycle de mise à jour. Cela prend en
@@ -679,9 +679,9 @@ fr:
     campaign_courses: '%{title} Programmes'
     creator:
       assignment_end: Fin de l’événement
-      assignment_end_placeholder: Fin de l’événement (AAAA-MM-JJ)
+      assignment_end_placeholder: AAAA-MM-JJ
       assignment_start: Début de l’événement
-      assignment_start_placeholder: Début de l’événement (AAAA-MM-JJ)
+      assignment_start_placeholder: AAAA-MM-JJ
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       choose_clone: Choisir un programme à dupliquer.
       clone_previous: Dupliquer le programme précédent

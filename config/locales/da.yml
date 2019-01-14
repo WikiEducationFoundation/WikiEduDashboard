@@ -207,6 +207,8 @@ da:
     courses_taught: Underviste kurser
     creation_date: Oprettelsesdato
     creator:
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Vælg et kursus du vil klone.
       clone_previous: Klon tidligere kursus
       clone_this: Klon dette kursus
@@ -222,14 +224,14 @@ da:
       create_new: Opret et nyt kursus
       create_short: Opret kursus
       end_date: Slutdato
-      end_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
+      end_date_placeholder: ÅÅÅÅ-MM-DD
       expected_number: Forventet antal studenter
       find: Find dit kursus
       role_description: Din rolle i kursuset
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
       save_cloned_course: Gem nyt kursus
       start_date: Startdato
-      start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
+      start_date_placeholder: ÅÅÅÅ-MM-DD
     current: Nuværende kurser
     delete_course: Slet kursus
     delete_suggestion: Slet
@@ -310,6 +312,8 @@ da:
     campaigns: 'Kampagner:'
     campaign_courses: '%{title}-programmer'
     creator:
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Vælg et program der skal klones.
       clone_previous: Klon forrige program
       clone_this: Klon dette program

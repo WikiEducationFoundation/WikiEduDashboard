@@ -97,6 +97,8 @@ diq:
     course_description: Kursi
     courses: Qursi
     creator:
+      assignment_end_placeholder: SSSS-AA-RR
+      assignment_start_placeholder: SSSS-AA-RR
       course_language: Zıwanê Keyi
       course_project: Proceya keyi
       course_school: Kursa mektebi
@@ -111,10 +113,10 @@ diq:
       create_new: Kursa Newi vıraz
       create_short: Kurs vıraz
       end_date: tarixê qediyayişi
-      end_date_placeholder: Qedyayış (SSSS-MM-RR)
+      end_date_placeholder: SSSS-AA-RR
       save_cloned_course: Kursa newi qeyd kı
       start_date: Sergendiya demi
-      start_date_placeholder: Dema Sergendi (SSSS-MM-RR)
+      start_date_placeholder: SSSS-AA-RR
       subject: Mewzu
     current: Kursê newki
     delete_course: Kursi bestere
@@ -154,6 +156,8 @@ diq:
     course: Program
     courses: Programi
     creator:
+      assignment_end_placeholder: SSSS-AA-RR
+      assignment_start_placeholder: SSSS-AA-RR
       course_term: Key
       course_term_placeholder: Key
       save_cloned_course: Qeyd ke

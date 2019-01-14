@@ -162,6 +162,8 @@ lb:
     courses: Coursen
     creation_date: Datum vun der Kreatioun
     creator:
+      assignment_end_placeholder: JJJJ-MM-DD
+      assignment_start_placeholder: JJJJ-MM-DD
       clone_previous: Virege Cours klonen
       clone_this: Dëse Cours klonen
       clone_successful: Detailer fir gekloonte Cours aktualiséieren
@@ -171,14 +173,14 @@ lb:
       course_title: Titel vum Cours
       create_label: Neie Cours uleeën
       end_date: Schlussdatum
-      end_date_placeholder: Schlussdatum (JJJJ-MM-DD)
+      end_date_placeholder: JJJJ-MM-DD
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
       no_class_holidays: Ech hu keng Schoulvakanzen
       role_description: Är Roll am Cours
       save_cloned_course: Neie Cours späicheren
       start_date: Ufanksdatum
-      start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
+      start_date_placeholder: JJJJ-MM-DD
       subject: Sujet
     current: Aktuell Coursen
     data_download_info: Donnéeën am CSV-Format eroflueden.
@@ -284,9 +286,9 @@ lb:
     campaign_courses: '%{title} Programmer'
     creator:
       assignment_end: Enn vum Evenement
-      assignment_end_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
+      assignment_end_placeholder: JJJJ-MM-DD
       assignment_start: Ufank vum Evenement
-      assignment_start_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
+      assignment_start_placeholder: JJJJ-MM-DD
       clone_previous: Virege Programm klonen
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
