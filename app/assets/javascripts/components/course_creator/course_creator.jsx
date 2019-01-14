@@ -13,11 +13,8 @@ import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../..
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
-import TextInput from '../common/text_input.jsx';
-import DatePicker from '../common/date_picker.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import CourseLevelSelector from './course_level_selector.jsx';
 import CourseType from './course_type.jsx';
 import CloneCourse from './clone_course.jsx';
 import ReuseExistingCourse from './reuse_existing_course.jsx';
@@ -267,181 +264,7 @@ const CourseCreator = createReactClass({
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
 
-
-    let term;
-    let subject;
-    let expectedStudents;
-    let courseLevel;
-    let roleDescription;
-
-    let descriptionRequired = false;
-    if (this.state.default_course_type === 'ClassroomProgramCourse') {
-      descriptionRequired = true;
-      term = (
-        <TextInput
-          id="course_term"
-          onChange={this.updateCourse}
-          value={this.props.course.term}
-          value_key="term"
-          required
-          validation={CourseUtils.courseSlugRegex()}
-          editable
-          label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
-          placeholder={CourseUtils.i18n('creator.course_term_placeholder', this.state.course_string_prefix)}
-        />
-      );
-      courseLevel = (
-        <CourseLevelSelector
-          level={this.props.course.level}
-          updateCourse={this.updateCourse}
-        />
-      );
-      subject = (
-        <TextInput
-          id="course_subject"
-          onChange={this.updateCourse}
-          value={this.props.course.subject}
-          value_key="subject"
-          editable
-          label={CourseUtils.i18n('creator.course_subject', this.state.course_string_prefix)}
-          placeholder={I18n.t('courses.creator.subject')}
-        />
-      );
-      expectedStudents = (
-        <TextInput
-          id="course_expected_students"
-          onChange={this.updateCourse}
-          value={String(this.props.course.expected_students)}
-          value_key="expected_students"
-          editable
-          required
-          type="number"
-          max="999"
-          label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
-          placeholder={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
-        />
-      );
-      roleDescription = (
-        <TextInput
-          id="role_description"
-          onChange={this.updateCourse}
-          value={this.props.course.role_description}
-          value_key="role_description"
-          editable
-          label={I18n.t('courses.creator.role_description')}
-          placeholder={I18n.t('courses.creator.role_description_placeholder')}
-        />
-      );
-    }
-
-    let language;
-    let project;
-    let privacyCheckbox;
-    let campaign;
-    if (this.state.default_course_type !== 'ClassroomProgramCourse') {
-      language = (
-        <TextInput
-          id="course_language"
-          onChange={this.updateCourse}
-          value={this.props.course.language}
-          value_key="language"
-          editable
-          label={I18n.t('courses.creator.course_language')}
-          placeholder="en"
-        />
-      );
-      project = (
-        <TextInput
-          id="course_project"
-          onChange={this.updateCourse}
-          value={this.props.course.project}
-          value_key="project"
-          editable
-          label={I18n.t('courses.creator.course_project')}
-          placeholder="wikipedia"
-        />
-      );
-      privacyCheckbox = (
-        <div className="form-group">
-          <label htmlFor="course_private">{I18n.t('courses.creator.course_private')}:</label>
-          <input
-            id="course_private"
-            type="checkbox"
-            value={true}
-            onChange={this.updateCoursePrivacy}
-            checked={!!this.props.course.private}
-          />
-        </div>
-      );
-    }
-    if (this.props.course.initial_campaign_title) {
-      campaign = (
-        <TextInput
-          value={this.props.course.initial_campaign_title}
-          label={I18n.t('campaign.campaign')}
-        />
-      );
-    }
-
     const dateProps = CourseDateUtils.dateProps(this.props.course);
-    const timeZoneMessage = (
-      <p className="form-help-text">
-        {I18n.t('courses.time_zone_message')}
-      </p>
-    );
-    let eventCheckbox;
-    let timelineStart;
-    let timelineEnd;
-    if (this.state.default_course_type !== 'ClassroomProgramCourse') {
-      eventCheckbox = (
-        <div className="form-group tooltip-trigger">
-          <label htmlFor="course_event">
-            {I18n.t('courses.creator.separate_event_dates')}
-            <span className="tooltip-indicator" />
-          </label>
-          <div className="tooltip dark">
-            <p>{I18n.t('courses.creator.separate_event_dates_info')}</p>
-          </div>
-          <input
-            id="course_event"
-            type="checkbox"
-            value={true}
-            onChange={this.showEventDates}
-            checked={!!this.state.showEventDates}
-          />
-        </div>
-      );
-      timelineStart = (
-        <DatePicker
-          id="course_timeline_start"
-          onChange={this.updateCourseDates}
-          value={this.props.course.timeline_start}
-          value_key="timeline_start"
-          editable
-          label={CourseUtils.i18n('creator.assignment_start', this.state.course_string_prefix)}
-          placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
-          blank
-          isClearable={true}
-          showTime={this.state.use_start_and_end_times}
-        />
-      );
-      timelineEnd = (
-        <DatePicker
-          id="course_timeline_end"
-          onChange={this.updateCourseDates}
-          value={this.props.course.timeline_end}
-          value_key="timeline_end"
-          editable
-          label={CourseUtils.i18n('creator.assignment_end', this.state.course_string_prefix)}
-          placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
-          blank
-          date_props={dateProps.timeline_end}
-          enabled={!!this.props.course.timeline_start}
-          isClearable={true}
-          showTime={this.state.use_start_and_end_times}
-        />
-      );
-    }
 
     return (
       <Modal key="modal">
@@ -472,28 +295,18 @@ const CourseCreator = createReactClass({
             />
             <CourseForm
               courseFormClass={courseFormClass}
-              campaign={campaign}
               course_utils={CourseUtils}
               string_prefix={this.state.course_string_prefix}
               updateCourseAction={this.updateCourse}
               course={this.props.course}
-              term={term}
-              courseLevel={courseLevel}
-              subject={subject}
-              expectedStudents={expectedStudents}
-              language={language}
-              project={project}
-              privacyCheckbox={privacyCheckbox}
+              updateCoursePrivacy={this.updateCoursePrivacy}
               showTimeValues={this.state.use_start_and_end_times}
               updateCourseDateAction={this.updateCourseDates}
-              eventCheckbox={eventCheckbox}
+              showEventDates={this.showEventDates}
+              showEventDatesState={this.state.showEventDates}
               eventClass={eventClass}
-              timelineStart={timelineStart}
-              timelineEnd={timelineEnd}
-              timeZoneMessage={timeZoneMessage}
-              descriptionRequired={descriptionRequired}
-              roleDescription={roleDescription}
               dateProps={dateProps}
+              defaultCourse={this.state.default_course_type}
             />
             <div className={controlClass}>
               <div className="left"><p>{this.state.tempCourseId}</p></div>
