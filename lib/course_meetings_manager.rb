@@ -97,7 +97,8 @@ class CourseMeetingsManager
     meetings = []
     @timeline_week_count.times do |wk|
       week_start = @beginning_of_first_week + wk.weeks
-      week_end = week_start.end_of_week(:saturday)
+      # This excludes Sunday, putting the end of the week at Saturday.
+      week_end = week_start.end_of_week(:sunday)
       week_mtgs = []
       @meeting_dates.each do |meeting|
         next if (meeting < @course.timeline_start) || (@course.timeline_end < meeting)
