@@ -118,7 +118,7 @@ describe Wikitext do
         create(:assignment, article_title: 'Previous Featured travel topics', wiki: en_wikivoyage),
         create(:assignment,
                article_title: 'File:Black-headed lapwing (Vanellus tectus tectus).jpg',
-               wiki: commons),
+               wiki: commons)
         # Disabled due to Invalid Project:
         # (`raise InvalidWikiError unless PROJECTS.include?(project)`) in app/models/wiki.rb
         # create(:assignment, article_title: 'Hardware donation program', wiki: meta)
