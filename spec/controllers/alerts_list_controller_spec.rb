@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'json'
 require 'rails_helper'
+require 'factory_bot_rails'
 
 describe AlertsListController, type: :request do
   let(:admin) { create(:admin) }
@@ -26,6 +28,49 @@ describe AlertsListController, type: :request do
 
         expect(response.status).to eq(200)
         expect(response.body).to include('Resolve')
+      end
+
+      context 'filtering' do
+        let!(:new_user) { create(:user, username: 'username', id: 10001) }
+        let!(:onboarding_alert) { create(:onboarding_alert, user_id: new_user.id) }
+
+        it 'filters the alerts by user id' do
+          get "/alerts_list?user_id=#{new_user.id}"
+
+          expect(response.status).to eq(200)
+          expect(response.body).to include(onboarding_alert.type)
+          expect(response.body).not_to include(alert.type)
+        end
+
+        it 'filters the alerts by type' do
+          get "/alerts_list?type=#{onboarding_alert.type}"
+
+          expect(response.status).to eq(200)
+          expect(response.body).to include(onboarding_alert.type)
+          expect(response.body).not_to include(alert.type)
+        end
+
+        it 'filters by multiple properties' do
+          FactoryBot.build(:onboarding_alert, user_id: user.id)
+          get "/alerts_list?user_id=#{new_user.id}&type=#{onboarding_alert.type}"
+
+          expect(response.status).to eq(200)
+          expect(response.body).to include(new_user.username)
+          expect(response.body).to include(onboarding_alert.type)
+          expect(response.body).not_to include(user.username)
+          expect(response.body).not_to include(alert.type)
+        end
+
+        it 'can return information as json' do
+          get "/alerts_list?user_id=#{new_user.id}", as: :json
+
+          expect(response.status).to eq(200)
+          expect(response.headers['Content-Type']).to include('application/json')
+
+          json = JSON.parse(response.body)
+          expect(json['alerts'].length).to eq(1)
+          expect(json['alerts'][0]['user_id']).to eq(new_user.id)
+        end
       end
     end
 

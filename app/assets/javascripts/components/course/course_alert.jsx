@@ -13,7 +13,7 @@ const CourseAlert = createReactClass({
     components: PropTypes.node,
     className: PropTypes.string,
     courseLink: PropTypes.string,
-    message: PropTypes.string.isRequired,
+    message: PropTypes.any,
     onClick: PropTypes.func
   },
   render() {
@@ -37,10 +37,11 @@ const CourseAlert = createReactClass({
       if (this.props.onClick) props.onClick = this.props.onClick;
       action = React.cloneElement(action, props);
     }
+    const messages = [].concat(this.props.message);
     return (
       <div className={this.props.className ? `${this.props.className} notification` : 'notification'}>
         <div className="container">
-          <p>{this.props.message}</p>
+          { messages.map((message, i) => <p key={i}>{ message }</p>) }
           {action}
           {components}
         </div>

@@ -17,6 +17,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
+import { fetchOnboardingAlert } from '../../actions/alert_actions.js';
 import { fetchTags } from '../../actions/tag_actions';
 import { setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
@@ -31,6 +32,7 @@ const Overview = createReactClass({
     location: PropTypes.object,
     students: PropTypes.array,
     fetchTags: PropTypes.func.isRequired,
+    fetchOnboardingAlert: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
     resetCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
@@ -44,6 +46,7 @@ const Overview = createReactClass({
 
   componentDidMount() {
     if (this.props.current_user.admin) {
+      this.props.fetchOnboardingAlert(this.props.current_user);
       this.props.fetchTags(this.props.course_id);
     }
   },
@@ -171,7 +174,8 @@ const mapDispatchToProps = {
   refetchCourse,
   setValid,
   setInvalid,
-  activateValidations
+  activateValidations,
+  fetchOnboardingAlert
 };
 
 
