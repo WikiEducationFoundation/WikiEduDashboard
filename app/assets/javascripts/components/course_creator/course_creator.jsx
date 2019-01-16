@@ -264,8 +264,6 @@ const CourseCreator = createReactClass({
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
 
-    const dateProps = CourseDateUtils.dateProps(this.props.course);
-
     return (
       <Modal key="modal">
         <Notifications />
@@ -305,7 +303,7 @@ const CourseCreator = createReactClass({
               showEventDates={this.showEventDates}
               showEventDatesState={this.state.showEventDates}
               eventClass={eventClass}
-              dateProps={dateProps}
+              courseDateUtils={CourseDateUtils}
               defaultCourse={this.state.default_course_type}
             />
             <div className={controlClass}>
