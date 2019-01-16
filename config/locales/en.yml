@@ -75,6 +75,8 @@ en:
     confirm: OK
     opt_in: 'Yes'
     opt_out: 'No'
+    opt_yes: 'yes'
+    opt_no: 'no'
 
   dashboard:
     create_note:
