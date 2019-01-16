@@ -4,7 +4,8 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 
-const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourseAction, course, showEventDates, showEventDatesState, updateCoursePrivacy, showTimeValues, updateCourseDateAction, dateProps, eventClass, roleDescription, defaultCourse }) => {
+const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourseAction, course, showEventDates, showEventDatesState, updateCoursePrivacy, showTimeValues, updateCourseDateAction, courseDateUtils, eventClass, roleDescription, defaultCourse }) => {
+  const dateProps = courseDateUtils.dateProps(course);
   let term;
   let subject;
   let expectedStudents;
