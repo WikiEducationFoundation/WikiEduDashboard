@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReuseExistingCourse = ({ selectClassName, chooseNewCourseAction, useThisClassAction, options, cloneThisLabel, cancelCloneAction, cancelLabel }) => {
+const ReuseExistingCourse = ({ selectClassName, chooseNewCourseAction, useThisClassAction, options, cloneThisLabel, cancelCloneAction, cancelLabel }) => { // eslint-disable-line no-unused-vars
   return (
     <div className={selectClassName}>
       <select id="reuse-existing-course-select" ref={(dropdown) => { chooseNewCourseAction = dropdown; }}>{options}</select>
