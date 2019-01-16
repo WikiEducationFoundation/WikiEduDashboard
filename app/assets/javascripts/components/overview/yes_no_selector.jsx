@@ -15,7 +15,7 @@ const YesNoSelector = createReactClass({
   },
 
   getInitialState() {
-    const initialState = this.props.course[this.props.courseProperty] ? 'yes' : 'no';
+    const initialState = this.props.course[this.props.courseProperty] ? I18n.t('application.opt_yes') : I18n.t('application.opt_no');
     return { selectedOption: { value: initialState, label: initialState } };
   },
 
@@ -23,9 +23,9 @@ const YesNoSelector = createReactClass({
     const course = this.props.course;
     const value = selectedOption.value;
     this.setState({ selectedOption });
-    if (value === 'yes') {
+    if (value === I18n.t('application.opt_yes')) {
       course[this.props.courseProperty] = true;
-    } else if (value === 'no') {
+    } else if (value === I18n.t('application.opt_no')) {
       course[this.props.courseProperty] = false;
     }
     return this.props.updateCourse(course);
@@ -35,7 +35,7 @@ const YesNoSelector = createReactClass({
     const currentValue = this.props.course[this.props.courseProperty];
     let selector = (
       <span>
-        <strong>{this.props.label}:</strong> {currentValue ? 'yes' : 'no'}
+        <strong>{this.props.label}:</strong> {currentValue ? I18n.t('application.opt_yes') : I18n.t('application.opt_no')}
       </span>
     );
     if (this.props.editable) {
@@ -53,8 +53,8 @@ const YesNoSelector = createReactClass({
         );
       }
       const options = [
-        { value: 'yes', label: 'yes' },
-        { value: 'no', label: 'no' }
+        { value: I18n.t('application.opt_yes'), label: I18n.t('application.opt_yes') },
+        { value: I18n.t('application.opt_no'), label: I18n.t('application.opt_no') }
       ];
       selector = (
         <div className="form-group">
