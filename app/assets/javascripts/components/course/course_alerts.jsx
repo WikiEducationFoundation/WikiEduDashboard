@@ -63,6 +63,13 @@ const CourseAlerts = createReactClass({
       if (!(course.type === 'ClassroomProgramCourse')) {
         alerts.push(<CourseAlert key="noCampaign" message={I18n.t('courses.no_campaign')} />);
       }
+      // Show supplementary information if the user is an admin
+      if (userRoles.isAdmin && this.props.alerts.alerts && this.props.alerts.alerts.length) {
+        const alert = this.props.alerts.alerts[0];
+        const message = CourseUtils.formatOnboardingAlertMessage(alert.message);
+        const url = `/alerts_list/${alert.id}`;
+        alerts.push(<CourseAlert key="supplementary" message={message} buttonLink={url} actionMessage={'Go to Alert'} />);
+      }
       // When the course has been submitted
       if (course.submitted) {
         // Show instructors the 'submitted' notice.
