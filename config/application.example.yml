@@ -33,15 +33,17 @@
 # No one but the user who registers the consumer will be able to log in until
 # the consumer gets approved by Wikimedia Foundation staff.
 # The example keys are for an auth-only consumer that can be used for development.
+# Details about the example consumer can be found here: https://meta.wikimedia.org/w/index.php?title=Special:OAuthListConsumers/view/3f9cb511cf7d0d23f10bbf6fbdc77b26
+# Use that url with the wikipedia_token from another consumer to look up the edit rights
+# available to it.
   wikipedia_token: 6e171fe7c5fc549ecce52471d22a6b0a
   wikipedia_secret: 7f345a52566194a19d2adba5fcbb802e8c79f7ef
 
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki, and other on-wiki edits will not be attempted.
-# The default OAuth token does allow edits anyway, but if you replace it with
-# OAuth credentials that do allow editing, use this to control whether live
-# edits should be attempted.
-# If enabled in generally, edits must also be enabled explicitly on a per-wiki
+# The default OAuth token does allow edits, so take care with this setting even
+# in a development environment.
+# If enabled here, edits must also be enabled explicitly on a per-wiki
 # basis. See below.
   disable_wiki_output: 'true'
 
