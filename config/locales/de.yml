@@ -1235,4 +1235,10 @@ de:
     relevanceIndex: Relevanzindex
     assign_article_self: Dir selbst zuweisen
     unassign_article_self: Zuweisung des Artikels entfernen
+  training_status:
+    completed: Abgeschlossen
+    started: Gestartet
+    not_started: Nicht gestartet
+    due: fällig %{due_date}
+    assignment_status: Ausbildungszuweisung (%{status})
 ...

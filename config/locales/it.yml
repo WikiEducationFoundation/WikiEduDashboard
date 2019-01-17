@@ -216,9 +216,9 @@ it:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
       assignment_end: Fine assegnazione
-      assignment_end_placeholder: Fine assegnazione (YYYY-MM-DD)
+      assignment_end_placeholder: AAAA-MM-GG
       assignment_start: Inizio assegnazione
-      assignment_start_placeholder: Inizio assegnazione (YYYY-MM-DD)
+      assignment_start_placeholder: AAAA-MM-GG
       checking_for_uniqueness: Controllo dell'unicità di questo corso in esecuzione.
       choose_clone: Scegli un corso da clonare.
       clone_previous: Clona corso precedente
@@ -246,7 +246,7 @@ it:
       create_new: Crea un nuovo corso
       create_short: Crea corso
       end_date: Data di fine
-      end_date_placeholder: Data di fine (YYYY-MM-DD)
+      end_date_placeholder: AAAA-MM-GG
       expected_number: Numero previsto di studenti
       find: Trova il tuo corso
       intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
@@ -257,7 +257,7 @@ it:
       role_description_placeholder: Istruttore, assistente didattico, ecc
       save_cloned_course: Salva nuovo corso
       start_date: Data di inizio
-      start_date_placeholder: Data di inizio (YYYY-MM-DD)
+      start_date_placeholder: AAAA-MM-GG
       subject: Oggetto
     current: Corsi attuali
     delete_course: Cancella corso
@@ -379,9 +379,9 @@ it:
     campaigns: 'Campagne:'
     creator:
       assignment_end: Fine evento
-      assignment_end_placeholder: Fine evento (YYYY-MM-DD)
+      assignment_end_placeholder: AAAA-MM-GG
       assignment_start: Inizio evento
-      assignment_start_placeholder: Inizio evento (YYYY-MM-DD)
+      assignment_start_placeholder: AAAA-MM-GG
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       choose_clone: Scegli un programma da clonare.
       clone_previous: Clona programma precedente
@@ -713,4 +713,8 @@ it:
     category_search: Ricerca per categoria
     subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
+  training_status:
+    completed: Completato
+    started: Iniziato
+    not_started: Non iniziato
 ...

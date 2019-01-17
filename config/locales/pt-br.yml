@@ -1227,4 +1227,10 @@ pt-br:
     relevanceIndex: Índice de Relevância
     assign_article_self: Atribuir a si
     unassign_article_self: Remover atribuição de artigo
+  training_status:
+    completed: Completado
+    started: Iniciado
+    not_started: Não foi iniciado
+    due: vencimento %{due_date}
+    assignment_status: Atribuição de treinamento (%{status})
 ...

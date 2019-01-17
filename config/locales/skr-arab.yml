@@ -283,4 +283,6 @@ skr-arab:
     show_options: اختیارات ݙکھاؤ
     hide_options: اختیارات لُکاؤ
     submit: جمع کرواؤ
+  training_status:
+    started: شروع تھیا
 ...

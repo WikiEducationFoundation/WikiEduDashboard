@@ -315,9 +315,9 @@ ar:
       already_exists: هذه الدورة موجودة بالفعل؛ جرب تغيير الاسم، أوالمدرسة، أو المصطلح
         لجعله فريدًا من نوعه.
       assignment_end: نهاية التعيين
-      assignment_end_placeholder: نهاية التعيين (سسسس-شش-يي)
+      assignment_end_placeholder: سسسس-شش-يي
       assignment_start: بداية التعيين
-      assignment_start_placeholder: بداية التعيين (سسسس-شش-يي)
+      assignment_start_placeholder: سسسس-شش-يي
       checking_for_uniqueness: يتم التحقق من هذه الدورة من حيث التفرد.
       choose_clone: اختر مقررا لاستنساخه.
       clone_previous: استنساخ دورة سابقة
@@ -364,7 +364,7 @@ ar:
         من لسان الخط الزمني، أو استخدم ساحر المهام لإنشاء خط زمني مخصص بناء على أفضل
         الممارسات في ويكي التعليم.
       end_date: تاريخ الانتهاء
-      end_date_placeholder: تاريخ النهاية (سسسس-شش-يي)
+      end_date_placeholder: سسسس-شش-يي
       expected_number: عدد الطلاب المتوقع
       find: البحث عن مقررك
       intro: ينشئ العنوان والمدرسة والفصل مسار صفحة دورتك التدريبية ولا يمكن تغييره،
@@ -386,7 +386,7 @@ ar:
         أو متى يغلق المكان).
       save_cloned_course: حفظ دورة جديدة
       start_date: تاريخ البدء
-      start_date_placeholder: تاريخ البداية (سسسس-شش-يي)
+      start_date_placeholder: سسسس-شش-يي
       subject: الموضوع
       update_scheduled: تحديث المقرر، سيتم تحديث البيانات جنبا إلى جنب مع جميع البرامج
         الحالية خلال دورة التحديث القادمة، هذا عادةً ما يستغرق عدة ساعات.
@@ -609,9 +609,9 @@ ar:
     campaign_courses: برامج %{title}
     creator:
       assignment_end: نهاية الحدث
-      assignment_end_placeholder: نهاية الحدث (سسسس-شش-يي)
+      assignment_end_placeholder: سسسس-شش-يي
       assignment_start: بداية الحدث
-      assignment_start_placeholder: بداية الحدث (سسسس-شش-يي)
+      assignment_start_placeholder: سسسس-شش-يي
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
       choose_clone: اختر برنامجا لاستنساخه.
       clone_previous: استنساخ برنامج سابق
@@ -1147,4 +1147,10 @@ ar:
     relevanceIndex: مؤشر الصلة
     assign_article_self: عيِّن نفسك
     unassign_article_self: إلغاء تعيين المقالة
+  training_status:
+    completed: مكتمل
+    started: بدأ
+    not_started: لم يبدأ
+    due: تاريخ الانتهاء %{due_date}
+    assignment_status: مهمة التدريب (%{status})
 ...

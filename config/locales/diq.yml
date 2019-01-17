@@ -232,4 +232,7 @@ diq:
       closing: Samimiyeta,
       signed: '- Wiki Ed team'
       link: Anket bıgi
+  training_status:
+    completed: Temam
+    started: Dest pêkerd
 ...

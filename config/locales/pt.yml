@@ -334,9 +334,9 @@ pt:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
       assignment_end: Término da tarefa
-      assignment_end_placeholder: Término da tarefa (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início da tarefa
-      assignment_start_placeholder: Início da tarefa (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Está a ser verificado se este curso é único.
       choose_clone: Escolha um curso para duplicar.
       clone_previous: Clonar curso anterior
@@ -387,7 +387,7 @@ pt:
         um de raiz no separador Calendário, ou usar o assistente de criação de trabalhos
         para criar um calendário personalizado baseado nas boas práticas da Wiki Educação.
       end_date: Data de fim
-      end_date_placeholder: Data de fim (AAAA-MM-DD)
+      end_date_placeholder: AAAA-MM-DD
       expected_number: Número estimado de estudantes
       find: Localizar o seu curso
       intro: O título, a escola e o semestre criam o URL da página do seu curso e
@@ -412,7 +412,7 @@ pt:
         local for fechado).
       save_cloned_course: Criar novo curso
       start_date: Data de início
-      start_date_placeholder: Data de início (AAAA-MM-DD)
+      start_date_placeholder: AAAA-MM-DD
       subject: Tema
       update_scheduled: A atualização foi agendada. Os dados serão atualizados juntamente
         com todos os programas atuais durante o próximo ciclo de atualizações. Isto
@@ -656,9 +656,9 @@ pt:
     campaign_courses: Programas de %{title}
     creator:
       assignment_end: Fim do evento
-      assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do evento
-      assignment_start_placeholder: Início do evento (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: A verificar se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
@@ -1230,4 +1230,10 @@ pt:
     relevanceIndex: Índice de relevância
     assign_article_self: Atribuir a si
     unassign_article_self: Remover atribuição de artigo
+  training_status:
+    completed: Concluída
+    started: Começada
+    not_started: Não começada
+    due: esperada %{due_date}
+    assignment_status: Formação (%{status})
 ...

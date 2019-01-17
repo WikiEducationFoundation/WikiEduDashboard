@@ -1256,4 +1256,10 @@ fr:
     relevanceIndex: Indice de pertinence
     assign_article_self: Auto-assignation
     unassign_article_self: Désassigner un article
+  training_status:
+    completed: Terminé
+    started: Démarré
+    not_started: Non démarré
+    due: pour le %{due_date}
+    assignment_status: Affectation de formation (%{status})
 ...

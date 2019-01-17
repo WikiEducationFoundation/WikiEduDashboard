@@ -106,4 +106,8 @@ roa-tara:
     show_options: Fà 'ndrucà le opziune
     hide_options: Scunne le opziune
     subheading_message: Acchiame 'na vôsce de Uicchipèdie pe fatià.
+  training_status:
+    completed: Combletate
+    started: Accumenzate
+    not_started: Non accumenzate
 ...

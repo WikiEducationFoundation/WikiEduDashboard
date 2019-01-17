@@ -247,9 +247,9 @@ ru:
     creation_date: Дата создания
     creator:
       assignment_end: Конец задания
-      assignment_end_placeholder: Конец задания (ГГГГ-ММ-ДД)
+      assignment_end_placeholder: ГГГГ-ММ-ДД
       assignment_start: Начало задания
-      assignment_start_placeholder: Начало задания (ГГГГ-ММ-ДД)
+      assignment_start_placeholder: ГГГГ-ММ-ДД
       checking_for_uniqueness: Этот курс проверяется на уникальность.
       choose_clone: Выберите курс для клонирования.
       clone_previous: Клонировать предыдущий курс
@@ -271,11 +271,11 @@ ru:
       create_new: Создать новый курс
       create_short: Создать курс
       end_date: Дата окончания
-      end_date_placeholder: Дата окончания (ГГГГ-ММ-ДД)
+      end_date_placeholder: ГГГГ-ММ-ДД
       expected_number: Ожидаемое количество студентов
       find: Найти свой курс
       start_date: Дата начала
-      start_date_placeholder: Дата начала (ГГГГ-ММ-ДД)
+      start_date_placeholder: ГГГГ-ММ-ДД
     current: Текущие курсы
     data_uploads: Данные загрузок на Викисклад
     delete_course: Удалить курс

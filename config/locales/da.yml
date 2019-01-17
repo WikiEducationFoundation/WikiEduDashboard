@@ -522,4 +522,8 @@ da:
     more_results: Flere resultater
     searching_articles: Søger artikler
     submit: Indsend
+  training_status:
+    completed: Fuldført
+    started: Startet
+    not_started: Ikke startet
 ...

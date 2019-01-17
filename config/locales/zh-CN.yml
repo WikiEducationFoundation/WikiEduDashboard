@@ -922,4 +922,8 @@ zh-CN:
     relevanceIndex: 相关性索引
     assign_article_self: 分配您自己
     unassign_article_self: 取消分配条目
+  training_status:
+    completed: 完成于
+    started: 开始
+    not_started: 入门
 ...

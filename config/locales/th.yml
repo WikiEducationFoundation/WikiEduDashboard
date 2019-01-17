@@ -229,4 +229,9 @@ th:
       headline: สวัสดี %{username}
       closing: ด้วยความนับถือ
       link: ทำแบบสำรวจ
+  training_status:
+    completed: เสร็จ
+    started: เริ่มต้น
+    not_started: ยังไม่เริ่ม
+    due: เนื่องจาก %{due_date}
 ...

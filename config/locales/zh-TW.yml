@@ -277,9 +277,9 @@ zh-TW:
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
       assignment_end: 分配作業截止
-      assignment_end_placeholder: 作業截止日 (年-月-日，格式 YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 分配作業開始繳交
-      assignment_start_placeholder: 作業繳交開始日 (年-月-日，格式 YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: 正在確認是否有重複的課程。
       choose_clone: 選擇一個課程來複製。
       clone_previous: 複製前一個課程
@@ -312,7 +312,7 @@ zh-TW:
       create_short: 建立課程
       create_timeline: 請為您的課程建立時間軸。您可以從時間軸分頁來從頭建置，或是使用分配作業精靈來建立基於 Wiki 教育最佳實踐的自定義時間軸。
       end_date: 結束日期
-      end_date_placeholder: 結束日期 (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
       find: 找到您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
@@ -325,7 +325,7 @@ zh-TW:
       separate_event_dates_info: 此方案的活動統計將會基於以上的日期與時間來追蹤，而您也可以指定分別的事項或方案之起始與結束時間（例如：讓參與者能夠知道何時露面或何時聚會結束）。
       save_cloned_course: 儲存新的課程
       start_date: 開始日期
-      start_date_placeholder: 開始日期 (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: 領域主題
       update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
     current: 目前的課程
@@ -519,9 +519,9 @@ zh-TW:
     campaign_courses: '%{title}方案'
     creator:
       assignment_end: 事項結束
-      assignment_end_placeholder: 事項結束（年-月-日）
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 事項起始
-      assignment_start_placeholder: 事項起始（年-月-日）
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: 正在確認是否有重複的方案。
       choose_clone: 選擇一個方案來複製。
       clone_previous: 複製前一個方案
@@ -986,4 +986,10 @@ zh-TW:
     relevanceIndex: 關聯索引
     assign_article_self: 分配給您自己
     unassign_article_self: 取消分配條目
+  training_status:
+    completed: 已完成
+    started: 已開始
+    not_started: 尚未開始
+    due: 截止 %{due_date}
+    assignment_status: 培訓分配（%{status}）
 ...
