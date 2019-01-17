@@ -56,6 +56,7 @@ class ArticleScopedProgram < Course
   end, through: :students)
 
   def wiki_course_page_enabled?
+    return super if edit_settings_present?
     true
   end
 

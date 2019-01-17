@@ -54,6 +54,7 @@ class Editathon < Course
   end
 
   def wiki_course_page_enabled?
+    return super if edit_settings_present?
     false
   end
 
