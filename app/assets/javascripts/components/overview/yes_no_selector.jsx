@@ -65,7 +65,7 @@ const YesNoSelector = createReactClass({
           <Select
             id={`${this.props.courseProperty}Toggle`}
             name={this.props.courseProperty}
-            value={this.state.selectedOption}
+            value={options.find(option => option.value === this.state.selectedOption.value)}
             onChange={this._handleChange}
             options={options}
             styles={selectStyles}
