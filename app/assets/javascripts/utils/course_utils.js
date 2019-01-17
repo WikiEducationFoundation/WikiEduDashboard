@@ -1,27 +1,28 @@
 import _ from 'lodash';
 
-const CourseUtils = class {
+export default class CourseUtils {
   // Given a course object with title, school and term properties,
   // generate the standard 'slug' that is used as the course URL.
-  generateTempId(course) {
-    const title = this.slugify(course.title.trim());
-    const school = this.slugify(course.school.trim());
+  static generateTempId(course) {
+    const title = CourseUtils.slugify(course.title.trim());
+    const school = CourseUtils.slugify(course.school.trim());
     let term = '';
     let slug = `${school}/${title}`;
     if (course.term) {
-      term = this.slugify(course.term.trim());
+      term = CourseUtils.slugify(course.term.trim());
       slug = `${slug}_(${term})`;
     }
     return slug;
   }
-  slugify(text) {
+
+  static slugify(text) {
     if (typeof text !== 'undefined' && text !== null) {
       return text.split(/\s+/).join('_');
     }
   }
 
   // Regex of allowed characters for a course slug.
-  courseSlugRegex() {
+  static courseSlugRegex() {
   // This regex is intended to match ascii word characters, dash,
   // whitespace, comma, apostrophe, and any unicode "letter".
   // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
@@ -33,7 +34,7 @@ const CourseUtils = class {
   // Given a course object with title, school and term properties,
   // return a new course object with sanitized versions of those properties,
   // in particular by removing excess whitespace.
-  cleanupCourseSlugComponents(course) {
+  static cleanupCourseSlugComponents(course) {
     const cleanedCourse = { ...course };
     cleanedCourse.title = course.title.trim().split(/\s+/).join(' ');
     cleanedCourse.school = course.school.trim().split(/\s+/).join(' ');
@@ -42,7 +43,7 @@ const CourseUtils = class {
   }
 
   // This builds i18n interface strings that vary based on state/props.
-  i18n(messageKey, prefix, defaultPrefix = 'courses') {
+  static i18n(messageKey, prefix, defaultPrefix = 'courses') {
     return I18n.t(`${prefix}.${messageKey}`, {
       defaults: [{ scope: `${defaultPrefix}.${messageKey}` }]
     });
@@ -51,7 +52,7 @@ const CourseUtils = class {
   // Takes user input — either a URL or the title of an article —
   // and returns an article object, including the project and language
   // if that can be pattern matched from URL input.
-  articleFromTitleInput(articleTitleInput) {
+  static articleFromTitleInput(articleTitleInput) {
     const articleTitle = articleTitleInput;
     if (!/http/.test(articleTitle)) {
       const title = articleTitle.replace(/_/g, ' ');
@@ -99,7 +100,7 @@ const CourseUtils = class {
 
   // Given an assignment object and a wiki object,
   // return a corresponding article object
-  articleFromAssignment(assignment, defaultWiki) {
+  static articleFromAssignment(assignment, defaultWiki) {
     const language = assignment.language || defaultWiki.language || 'en';
     const project = assignment.project || defaultWiki.project || 'wikipedia';
     const articleUrl = assignment.article_url || this.urlFromTitleAndWiki(assignment.article_title, language, project);
@@ -119,7 +120,7 @@ const CourseUtils = class {
   }
 
   // Return the MediaWiki page URL, given title, language, and project.
-  urlFromTitleAndWiki(title, language, project) {
+  static urlFromTitleAndWiki(title, language, project) {
     const underscoredTitle = title.replace(/ /g, '_');
     return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
@@ -127,7 +128,7 @@ const CourseUtils = class {
   // Construct the best possible human-readable title for an article.
   // This means showing the language and/or project if it's not the
   // default one.
-  formattedArticleTitle(article, defaultWiki, wikidataLabel) {
+  static formattedArticleTitle(article, defaultWiki, wikidataLabel) {
     let languagePrefix = '';
     if (!defaultWiki || !article.language || article.language === defaultWiki.language) {
       languagePrefix = '';
@@ -149,7 +150,7 @@ const CourseUtils = class {
     return `${languagePrefix}${projectPrefix}${title}`;
   }
 
-  formattedCategoryName(category, defaultWiki) {
+  static formattedCategoryName(category, defaultWiki) {
     category.title = category.name;
     category.language = category.wiki.language;
     category.project = category.wiki.project;
@@ -158,7 +159,7 @@ const CourseUtils = class {
 
   // Given an array of weeks (ie, a timeline), return true if the timeline
   // includes any training modules.
-  hasTrainings(weeks) {
+  static hasTrainings(weeks) {
     function blockHasTrainings(block) {
       return Boolean(block.training_module_ids && block.training_module_ids.length);
     }
@@ -172,11 +173,11 @@ const CourseUtils = class {
 
   // Is the location the main index of a course page, rather than one of the
   // tabs?
-  onCourseIndex(location) {
+  static onCourseIndex(location) {
     return location.pathname.split('/').length === 4;
   }
 
-  newCourseStats(oldCourse, newCourse) {
+  static newCourseStats(oldCourse, newCourse) {
     return {
       created_count: oldCourse.created_count !== newCourse.created_count,
       edited_count: oldCourse.edited_count !== newCourse.edited_count,
@@ -191,11 +192,9 @@ const CourseUtils = class {
   // Given a course and camelized stats from the above `newCourseStats`
   // function, return only the key-value pairs of what needs to be updated
   // in the course.
-  courseStatsToUpdate(course, newStats) {
+  static courseStatsToUpdate(course, newStats) {
     return Object.entries(newStats)
       .filter(([, val]) => val)
       .reduce((acc, [key]) => ({ ...acc, [key]: course[key] }), {});
   }
-};
-
-export default new CourseUtils();
+}
