@@ -14,6 +14,8 @@ json.course do
   json.timeline_enabled @course.timeline_enabled?
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
   json.wiki_edits_enabled @course.wiki_edits_enabled?
+  json.assignment_edits_enabled @course.assignment_edits_enabled?
+  json.wiki_course_page_enabled @course.wiki_course_page_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
