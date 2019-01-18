@@ -595,6 +595,10 @@ describe Course, type: :model do
         expect(course.wiki_edits_enabled?).to be_in([true, false])
         # #wiki_course_page_enabled?
         expect(course.wiki_course_page_enabled?).to be_in([true, false])
+        # #enrollment_edits_enabled?
+        expect(course.enrollment_edits_enabled?).to be_in([true, false])
+        # #assignment_edits_enabled?
+        expect(course.assignment_edits_enabled?).to be_in([true, false])
         # #multiple_roles_allowed?
         expect(course.multiple_roles_allowed?).to be_in([true, false])
         # #passcode_required?
@@ -613,7 +617,8 @@ describe Course, type: :model do
         {
           'edit_settings' => {
             'assignment_edits_enabled' => true,
-            'wiki_course_page_enabled' => true
+            'wiki_course_page_enabled' => true,
+            'enrollment_edits_enabled' => true
           }
         }
       end
@@ -623,22 +628,14 @@ describe Course, type: :model do
           create(:course, type: type, flags: flags, slug: "foo/#{type}")
           course = Course.last
           expect(course.type).to eq(type)
-          # #string_prefix
-          expect(course.string_prefix).to be_a(String)
           # #wiki_edits_enabled?
           expect(course.wiki_edits_enabled?).to be_in([true, false])
           # #wiki_course_page_enabled?
           expect(course.wiki_course_page_enabled?).to be_in([true, false])
-          # #multiple_roles_allowed?
-          expect(course.multiple_roles_allowed?).to be_in([true, false])
-          # #passcode_required?
-          expect(course.passcode_required?).to be_in([true, false])
-          # #use_start_and_end_times
-          expect(course.use_start_and_end_times).to be_in([true, false])
-          # #wiki_title
-          expect(course).to respond_to(:wiki_title)
-          # #training_library_slug
-          expect(course.training_library_slug).to be_a(String).or be_nil
+          # #enrollment_edits_enabled?
+          expect(course.enrollment_edits_enabled?).to be_in([true, false])
+          # #assignment_edits_enabled?
+          expect(course.assignment_edits_enabled?).to be_in([true, false])
         end
       end
     end

@@ -66,7 +66,7 @@ FactoryBot.define do
     title { 'Black life matters' }
     school { 'none' }
     term { 'none' }
-    slug { 'Black_life_matters' }
+    slug { 'none/Black_life_matters_(none)' }
     type { 'BasicCourse' }
     passcode { 'pizzå' }
     home_wiki_id { 1 }

@@ -16,6 +16,7 @@ json.course do
   json.wiki_edits_enabled @course.wiki_edits_enabled?
   json.assignment_edits_enabled @course.assignment_edits_enabled?
   json.wiki_course_page_enabled @course.wiki_course_page_enabled?
+  json.enrollment_edits_enabled @course.enrollment_edits_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?

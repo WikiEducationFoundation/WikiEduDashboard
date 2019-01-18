@@ -270,14 +270,6 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
-  def edit_settings_present?
-    flags.key?('edit_settings')
-  end
-
-  def wiki_course_page_enabled?
-    flags.dig('edit_settings', 'wiki_course_page_enabled')
-  end
-
   def wiki_page?
     wiki_course_page_enabled? && home_wiki.edits_enabled?
   end
@@ -322,11 +314,29 @@ class Course < ApplicationRecord
     flags[:wiki_edits_enabled]
   end
 
+  def edit_settings
+    flags['edit_settings']
+  end
+
+  def edit_settings_present?
+    flags.key?('edit_settings')
+  end
+
+  def wiki_course_page_enabled?
+    edit_settings['wiki_course_page_enabled']
+  end
+
   # Overridden for some course types
   def assignment_edits_enabled?
     return false unless wiki_edits_enabled?
     return true unless edit_settings_present?
-    flags.dig('edit_settings', 'assignment_edits_enabled')
+    edit_settings['assignment_edits_enabled']
+  end
+
+  def enrollment_edits_enabled?
+    return false unless wiki_edits_enabled?
+    return true unless edit_settings_present?
+    edit_settings['enrollment_edits_enabled']
   end
 
   # An extra param added to some wiki output.

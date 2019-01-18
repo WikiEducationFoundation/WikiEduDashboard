@@ -247,7 +247,7 @@ class CoursesController < ApplicationController
   end
 
   EDIT_SETTING_KEYS = %w[
-    wiki_course_page_enabled assignment_edits_enabled
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
   ].freeze
   def update_edit_settings
     update_flags = {}

@@ -20,6 +20,14 @@ const EditSettingsToggle = ({ course, editable, updateCourse }) => {
         editable={editable}
         updateCourse={updateCourse}
       />
+      <YesNoSelector
+        courseProperty="enrollment_edits_enabled"
+        label={I18n.t('courses.enrollment_edits_enabled')}
+        tooltip={I18n.t('courses.enrollment_edits_enabled_tooltip')}
+        course={course}
+        editable={editable}
+        updateCourse={updateCourse}
+      />
     </div>
   );
 };

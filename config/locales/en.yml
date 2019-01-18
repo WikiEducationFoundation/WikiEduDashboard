@@ -452,6 +452,10 @@ en:
     ended: The course has ended.
     enroll: Enroll
     enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrollment edits enabled
+    enrollment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the userpage and talk page of
+      each editor who joins the program.
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.

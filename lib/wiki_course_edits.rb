@@ -109,6 +109,7 @@ class WikiCourseEdits
 
   private
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def validate(action)
     yield unless course_edits_allowed?
 
@@ -118,8 +119,11 @@ class WikiCourseEdits
       yield unless @course.wiki_course_page_enabled?
     when :update_assignments, :remove_assignment
       yield unless @course.assignment_edits_enabled?
+    when :enroll_in_course
+      yield unless @course.enrollment_edits_enabled?
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def course_edits_allowed?
     return false unless @course.wiki_edits_enabled?
