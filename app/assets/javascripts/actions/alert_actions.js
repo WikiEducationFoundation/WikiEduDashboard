@@ -53,12 +53,3 @@ export const fetchAlerts = campaignSlug => (dispatch) => {
 export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
 
 export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters: selectedFilters });
-
-export const fetchOnboardingAlert = ({ id = null }) => (dispatch) => {
-  const idQuery = id ? `user_id=${id}` : '';
-  return fetch(`/alerts_list.json?type=OnboardingAlert&${idQuery}`, {
-    credentials: 'include'
-  }).then(fetchResponseToJSON)
-    .then(data => dispatch({ type: types.RECEIVE_ALERTS, data }))
-    .catch(data => dispatch({ type: types.API_FAIL, data, silent: true }));
-};
