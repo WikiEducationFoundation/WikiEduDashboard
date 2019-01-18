@@ -5,6 +5,7 @@ require 'rails_helper'
 describe 'course-specific edit settings', type: :feature, js: true do
   let(:user) { create(:admin) }
   let(:course) { create(:basic_course) }
+
   before do
     login_as(user)
     stub_oauth_edit
