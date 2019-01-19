@@ -90,5 +90,18 @@ describe OnboardingController, type: :request do
       alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
       expect(alert.message).to include('Jeor Mormont')
     end
+
+    it 'stores information in the details field' do
+      params = {
+        user_name: user.username,
+        heardFrom: 'From Nights Watch',
+        referralDetails: 'Jeor Mormont'
+      }
+      put '/onboarding/supplementary', params: params
+      expect(response.status).to eq(204)
+      alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
+      expect(alert.reload.details['heard_from']['answer']).to eq('From Nights Watch')
+      expect(alert.reload.details['heard_from']['additional']).to eq('Jeor Mormont')
+    end
   end
 end
