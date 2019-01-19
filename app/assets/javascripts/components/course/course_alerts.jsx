@@ -13,6 +13,7 @@ const CourseAlerts = createReactClass({
   propTypes: {
     userRoles: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
+    courseAlerts: PropTypes.object.isRequired,
     weeks: PropTypes.any.isRequired,
     courseLinkParams: PropTypes.string.isRequired,
     usersLoaded: PropTypes.bool.isRequired,
@@ -64,10 +65,10 @@ const CourseAlerts = createReactClass({
         alerts.push(<CourseAlert key="noCampaign" message={I18n.t('courses.no_campaign')} />);
       }
       // Show supplementary information if the user is an admin
-      if (userRoles.isAdmin && this.props.alerts.alerts && this.props.alerts.alerts.length) {
-        const alert = this.props.alerts.alerts[0];
-        const message = CourseUtils.formatOnboardingAlertMessage(alert.message);
-        const url = `/alerts_list/${alert.id}`;
+      const { onboardingAlert } = this.props.courseAlerts;
+      if (userRoles.isAdmin && onboardingAlert) {
+        const message = CourseUtils.formatOnboardingAlertMessage(onboardingAlert.message);
+        const url = `/alerts_list/${onboardingAlert.id}`;
         alerts.push(<CourseAlert key="supplementary" message={message} buttonLink={url} actionMessage={'Go to Alert'} />);
       }
       // When the course has been submitted

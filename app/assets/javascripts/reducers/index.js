@@ -9,6 +9,7 @@ import categories from './categories';
 import chat from './chat';
 import confirm from './confirm';
 import course from './course';
+import courseAlerts from './course_alerts';
 import courseCreator from './course_creator';
 import didYouKnow from './did_you_know';
 import feedback from './feedback';
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   chat,
   confirm,
   course,
+  courseAlerts,
   courseCreator,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
