@@ -537,4 +537,7 @@ lb:
     searching_articles: Artikele sichen
     submit: Schécken
     relevanceIndex: Relevanzindex
+  training_status:
+    completed: Fäerdeg
+    started: Ugefaangen
 ...

@@ -6,6 +6,7 @@
 # Author: Jopparn
 # Author: Josve05a
 # Author: Rockyfelle
+# Author: Umeaboy
 # Author: WikiPhoenix
 ---
 sv:
@@ -226,6 +227,8 @@ sv:
     creator:
       already_exists: Denna kurs finns redan. Överväg att ändra namnet, skolan eller
         terminen för att göra den unik.
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Välj en kurs att klona.
       clone_previous: Klona tidigare kurs
       clone_this: Klona denna kurs
@@ -248,7 +251,7 @@ sv:
       create_new: Skapa en ny kurs
       create_short: Skapa Kurs
       end_date: Slutdatum
-      end_date_placeholder: Slutdatum (ÅÅÅÅ-MM-DD)
+      end_date_placeholder: ÅÅÅÅ-MM-DD
       expected_number: Förväntat antal elever
       find: Hitta din kurs
       intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
@@ -387,6 +390,8 @@ sv:
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
     creator:
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Välj ett program att klona.
       clone_previous: Klona tidigare program
       clone_this: Klona detta program

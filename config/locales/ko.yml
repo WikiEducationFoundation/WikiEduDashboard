@@ -634,4 +634,8 @@ ko:
     article_finder: 문서 검색기
     submit: 제출
     unassign_article_self: 문서 할당 해제
+  training_status:
+    completed: 완료
+    started: 시작됨
+    not_started: 시작되지 않음
 ...

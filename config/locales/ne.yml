@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Nirajan pant
 # Author: जनक राज भट्ट
+# Author: पर्वत सुबेदी
 # Author: सरोज कुमार ढकाल
 ---
 ne:
@@ -646,4 +647,8 @@ ne:
         सुधार गर्न सहयोग गर्छ।
   feedback_form_responses:
     no_responses: कुनै पनि प्रतिक्रिया या सुझावहरू छैनन्।
+  training_status:
+    completed: पूर्ण भयो
+    started: सुरुवात
+    not_started: सुरु भएको छैन
 ...
