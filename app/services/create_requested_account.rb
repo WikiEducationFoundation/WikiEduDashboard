@@ -19,8 +19,8 @@ class CreateRequestedAccount
     @email = requested_account.email.strip
 
     course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
-    creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
-    process_request(@creator, creation_reason)
+    @creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
+    process_request(@creator, @creation_reason)
   end
 
   private
@@ -42,13 +42,7 @@ class CreateRequestedAccount
                                                       'message',
                                                       'messagecode')
 
-    if status == 'PASS'
-      create_account
-    elsif status == 'FAIL' && messagecode == 'userexists'
-      destroy_request_if_user_exists(message, messagecode)
-    else
-      retry_request_with_backup_account
-    end
+    status == 'PASS' ? create_account : handle_failed_account_creation(message, messagecode)
   end
 
   def create_account
@@ -63,6 +57,16 @@ class CreateRequestedAccount
     @requested_account.destroy
   end
 
+  def handle_failed_account_creation(message, messagecode)
+    if messagecode == 'userexists'
+      destroy_request_if_user_exists(message, messagecode)
+    elsif messagecode == 'acct_creation_throttle_hit'
+      retry_request_with_backup_account
+    else
+      log_unexpected_response
+    end
+  end
+
   def destroy_request_if_user_exists(message, messagecode)
     @result = { failure: "Could not create account for #{@username} / #{@email}.
                             #{@wiki.base_url} message:
@@ -73,12 +77,11 @@ class CreateRequestedAccount
   end
 
   def retry_request_with_backup_account
-    backup_account_id = ENV['account_creation_backup_creator_id']
-    backup_account = User.find_by(id: backup_account_id)
+    backup_account = SpecialUsers.backup_account_creator
     return log_unexpected_response if !backup_account.is_a?(User) || backup_account == @creator
 
     @creator = backup_account
-    creation_reason = "Created #{@username} at the request of #{@creator}."
+    creation_reason = "#{@creation_reason} Account created by #{@creator.username}."
     process_request(backup_account, creation_reason)
   end
 
