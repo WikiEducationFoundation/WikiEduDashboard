@@ -2720,7 +2720,7 @@ classnames@^1.2.0:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-1.2.2.tgz#e96a2a0222d84925dd8fadb205d66e12f888edf9"
   integrity sha1-6WoqAiLYSSXdj62yBdZuEviI7fk=
 
-classnames@^2.1.1, classnames@^2.2.5:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -11276,15 +11276,15 @@ rcloader@^0.2.1, rcloader@^0.2.2:
     lodash.merge "^4.6.0"
     rcfinder "^0.1.6"
 
-react-burger-menu@2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.5.4.tgz#7ca5f5297491e748368fb99b9df12056b3f90b0b"
-  integrity sha512-illxa1UX8pRXd8CADA6wAquraaWcZ4Um0kCMyC0YmnnslWYSsA4sNJ35f/uKanLYgw3aD9uQL7XigEchHlgCiw==
+react-burger-menu@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.6.1.tgz#bd23aa62baa084feb0506e7fda8397d62ae2268f"
+  integrity sha512-BPwCExEzTz5pvMaptfrVrQcOGyPc0EYklPTwkDNig0uh70nQAGvWy+eYcV3Fa7B2HfUUbxvYXBzeGGf9tqNL+w==
   dependencies:
     browserify-optional "^1.0.0"
-    classnames "^2.1.1"
+    classnames "^2.2.6"
     eve "~0.5.1"
-    prop-types "^15.6.1"
+    prop-types "^15.6.2"
     snapsvg-cjs "0.0.6"
 
 react-confetti@^2.3.0:
