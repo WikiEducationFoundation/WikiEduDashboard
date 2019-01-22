@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CreateRequestedAccount do
   let(:creator) { create(:admin) }
+  let(:super_admin) { create(:super_admin) }
   let(:course) { create(:course) }
   let(:user) { create(:user) }
   let(:requested_account) do
@@ -36,6 +37,13 @@ describe CreateRequestedAccount do
     expect(Raven).to receive(:capture_exception)
     stub_account_creation_failure_unexpected
     expect(subject.result[:failure]).not_to be_nil
+    expect(RequestedAccount.count).to eq(1)
+  end
+
+  it 'retries the account creation at least once if request fails' do
+    ENV['account_creation_backup_creator_id'] = super_admin.id.to_s
+    stub_account_creation_failure_unexpected
+    expect(subject.creator).to eq(super_admin)
     expect(RequestedAccount.count).to eq(1)
   end
 end

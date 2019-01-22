@@ -6,7 +6,7 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 # Processes a RequestedAccount by creating a new mediawiki account, and
 # creating the User record upon success.
 class CreateRequestedAccount
-  attr_reader :result, :user
+  attr_reader :result, :user, :creator
 
   def initialize(requested_account, creator)
     @creator = creator
@@ -17,15 +17,16 @@ class CreateRequestedAccount
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     @username = requested_account.username
     @email = requested_account.email.strip
-    process_request
+
+    course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
+    creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
+    process_request(@creator, creation_reason)
   end
 
   private
 
-  def process_request
-    course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
-    creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
-    @response = WikiEdits.new(@wiki).create_account(creator: @creator,
+  def process_request(creator, creation_reason)
+    @response = WikiEdits.new(@wiki).create_account(creator: creator,
                                                     username: @username,
                                                     email: @email,
                                                     reason: creation_reason)
@@ -36,38 +37,55 @@ class CreateRequestedAccount
   # such as an intermediate CAPTCHA step, we just fail immediately; users are expected
   # to have account creator rights on the target wiki, so that CAPTCHA is not required.
   def handle_mediawiki_response
-    response_status = @response.dig('createaccount', 'status')
-    if response_status == 'PASS'
-      @result = { success: "Created account for #{@username} on #{@wiki.base_url}.
-                            A password will be emailed to #{@email}." }
+    response = @response['createaccount'] || {}
+    status, message, messagecode = response.values_at('status',
+                                                      'message',
+                                                      'messagecode')
+
+    if status == 'PASS'
       create_account
-      @requested_account.destroy
-    elsif response_status == 'FAIL'
-      @result = { failure: "Could not create account for #{@username} / #{@email}.
-                            #{@wiki.base_url} message:
-                            #{@response.dig('createaccount', 'messagecode')}
-                            — #{@response.dig('createaccount', 'message')}" }
-      destroy_request_if_invalid
+    elsif status == 'FAIL' && messagecode == 'userexists'
+      destroy_request_if_user_exists(message, messagecode)
     else
-      @result = { failure: "Could not create account for #{@username} /
-                            #{@email}. #{@wiki.base_url} response: #{@response}" }
-      log_unexpected_response
+      retry_request_with_backup_account
     end
   end
 
   def create_account
+    @result = { success: "Created account for #{@username} on #{@wiki.base_url}.
+                            A password will be emailed to #{@email}." }
+
     returned_username = @response.dig('createaccount', 'username')
     raise AccountCreationError, 'no username returned' if returned_username.blank?
     @user = UserImporter.new_from_username(returned_username, @wiki)
     raise AccountCreationError, "could not create user #{returned_username}" if @user.blank?
+
+    @requested_account.destroy
   end
 
-  def destroy_request_if_invalid
+  def destroy_request_if_user_exists(message, messagecode)
+    @result = { failure: "Could not create account for #{@username} / #{@email}.
+                            #{@wiki.base_url} message:
+                            #{messagecode} — #{message}" }
+
     code = @response.dig('createaccount', 'messagecode')
     @requested_account.destroy if code == 'userexists'
   end
 
+  def retry_request_with_backup_account
+    backup_account_id = ENV['account_creation_backup_creator_id']
+    backup_account = User.find_by(id: backup_account_id)
+    return log_unexpected_response if !backup_account.is_a?(User) || backup_account == @creator
+
+    @creator = backup_account
+    creation_reason = "Created #{@username} at the request of #{@creator}."
+    process_request(backup_account, creation_reason)
+  end
+
   def log_unexpected_response
+    @result = { failure: "Could not create account for #{@username} /
+                      #{@email}. #{@wiki.base_url} response: #{@response}" }
+
     raise AccountCreationError, 'unexpected account creation response'
   rescue AccountCreationError => e
     Raven.capture_exception(e, extra: { response: @response })
