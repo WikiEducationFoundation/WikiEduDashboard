@@ -113,6 +113,7 @@ export const Course = createReactClass({
           </Affix>
         </div>
         <CourseAlerts
+          courseAlerts={this.props.courseAlerts}
           course={course}
           userRoles={userRoles}
           weeks={this.props.weeks}
@@ -146,6 +147,7 @@ export const Course = createReactClass({
 });
 
 const mapStateToProps = state => ({
+  courseAlerts: state.courseAlerts,
   course: state.course,
   users: state.users.users,
   weeks: getWeeksArray(state),

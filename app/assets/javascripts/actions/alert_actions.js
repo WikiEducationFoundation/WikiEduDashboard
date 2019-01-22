@@ -20,15 +20,17 @@ export function submitNeedHelpAlert(data) {
 
 export const resetNeedHelpAlert = () => ({ type: types.RESET_NEED_HELP_ALERT });
 
+const fetchResponseToJSON = (res) => {
+  if (res.ok && res.status === 200) {
+    return res.json();
+  }
+  return Promise.reject(res);
+};
+
 const fetchAlertsPromise = (campaignSlug) => {
   return fetch(`/campaigns/${campaignSlug}/alerts.json`, {
     credentials: 'include'
-  }).then((res) => {
-      if (res.ok && res.status === 200) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    })
+  }).then(fetchResponseToJSON)
     .catch((error) => {
       logErrorMessage(error);
       return error;

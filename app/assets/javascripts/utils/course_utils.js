@@ -197,4 +197,22 @@ export default class CourseUtils {
       .filter(([, val]) => val)
       .reduce((acc, [key]) => ({ ...acc, [key]: course[key] }), {});
   }
+
+  // This method is used to format the onboarding alert message which
+  // starts as a block of text that could look like the following:
+  // 'HEARD FROM:\nassociation (name)\n\nWHY HERE:\nteach this term\n\nOTHER:\n\n'
+  // By the end of 2019, we should hopefully be able to remove this method
+  // assuming messages are now serialized as a hash in the DB.
+  static formatOnboardingAlertMessage(message) {
+    // Split on main categories and remove an empy array position that will
+    // appear at the very end.
+    // e.g. [ 'HEARD FROM:\nassociation (name)', 'WHY HERE:\nteach', ... ]
+    const categories = message.split('\n\n').slice(0, -1);
+    return categories.map((category) => {
+      // Grab the content after the category heading
+      const [, content] = category.split(':');
+      // If there is content, return it, otherwise return N/A
+      return content.trim() ? category : `${category.trim()}\nN/A`;
+    });
+  }
 }
