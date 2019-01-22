@@ -263,6 +263,7 @@ const CourseCreator = createReactClass({
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
+    const reuseCourseSelect = <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }}>{options}</select>;
 
     return (
       <Modal key="modal">
@@ -284,7 +285,7 @@ const CourseCreator = createReactClass({
             />
             <ReuseExistingCourse
               selectClassName={selectClassName}
-              chooseNewCourseAction={this.chooseNewCourse}
+              courseSelect={reuseCourseSelect}
               options={options}
               useThisClassAction={this.useThisClass}
               cloneThisLabel={CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}
