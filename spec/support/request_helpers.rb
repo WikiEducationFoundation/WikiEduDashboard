@@ -98,6 +98,21 @@ module RequestHelpers
     stub_list_users_query
   end
 
+  def stub_account_creation_failure_throttle
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request
+
+    # Then the account creation request itself
+    failure = '{"createaccount":{"status":"FAIL",
+                                 "messagecode":"acct_creation_throttle_hit"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
+  end
+
   def stub_oauth_edit_failure
     stub_token_request
     # Then the edit request itself

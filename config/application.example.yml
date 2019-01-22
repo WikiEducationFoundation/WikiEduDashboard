@@ -126,9 +126,3 @@
   chat_server: 'https://your.rocket.chat'
   chat_admin_username: 'admin'
   chat_admin_password: 'passwiord'
-
-# If a course or program is set to allow for accounts to be requested from the
-# organizer, the following account will be used as a backup in case the
-# requested accounts fails upon creation. This is to help in cases where too
-# many account requests are coming from one user.
-  account_creation_backup_creator_id: "1"

@@ -76,6 +76,7 @@ const AddSpecialUserForm = createReactClass({
               <option>outreach_manager</option>
               <option>technical_help_staff</option>
               <option>survey_alerts_recipient</option>
+              <option>backup_account_creator</option>
             </select>
             <button className={buttonClass} type="submit" value="Submit">{I18n.t('application.submit')}</button>
           </form>

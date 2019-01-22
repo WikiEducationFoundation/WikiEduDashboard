@@ -40,10 +40,19 @@ describe CreateRequestedAccount do
     expect(RequestedAccount.count).to eq(1)
   end
 
-  it 'retries the account creation at least once if request fails' do
-    ENV['account_creation_backup_creator_id'] = super_admin.id.to_s
-    stub_account_creation_failure_unexpected
+  it 'retries account creation when the main creator account is being throttled' do
+    Setting.set_special_user(:backup_account_creator, super_admin.username)
+    # This will stub the request so that it fails with the appropriate
+    # error message, which in turn will change the creator to the super admin
+    stub_account_creation_failure_throttle
     expect(subject.creator).to eq(super_admin)
+    expect(RequestedAccount.count).to eq(1)
+  end
+
+  it 'only retries account creation if the request fails because of account throttling' do
+    Setting.set_special_user(:backup_account_creator, super_admin.username)
+    stub_account_creation_failure_unexpected
+    expect(subject.creator).to eq(creator)
     expect(RequestedAccount.count).to eq(1)
   end
 end

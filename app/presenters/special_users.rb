@@ -30,4 +30,8 @@ class SpecialUsers
   def self.survey_alerts_recipient
     User.find_by(username: special_users[:survey_alerts_recipient])
   end
+
+  def self.backup_account_creator
+    User.find_by(username: special_users[:backup_account_creator])
+  end
 end
