@@ -39,8 +39,7 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
-    update_boolean_flag :timeline_enabled
-    update_boolean_flag :wiki_edits_enabled
+    update_flags
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
@@ -230,6 +229,12 @@ class CoursesController < ApplicationController
       .permit(:language, :project)
   end
 
+  def update_flags
+    update_boolean_flag :timeline_enabled
+    update_boolean_flag :wiki_edits_enabled
+    update_edit_settings
+  end
+
   def update_boolean_flag(flag)
     case params.dig(:course, flag)
     when true
@@ -239,6 +244,18 @@ class CoursesController < ApplicationController
       @course.flags[flag] = false
       @course.save
     end
+  end
+
+  EDIT_SETTING_KEYS = %w[
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
+  ].freeze
+  def update_edit_settings
+    update_flags = {}
+    EDIT_SETTING_KEYS.each do |key|
+      update_flags[key] = params.dig(:course, key)
+    end
+    @course.flags['edit_settings'] = update_flags
+    @course.save
   end
 
   def course_params

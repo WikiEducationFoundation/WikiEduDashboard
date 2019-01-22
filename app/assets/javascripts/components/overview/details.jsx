@@ -17,6 +17,7 @@ import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import WikiEditsToggle from './wiki_edits_toggle';
+import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
 import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
@@ -233,6 +234,7 @@ const Details = createReactClass({
     let courseLevelSelector;
     let timelineToggle;
     let wikiEditsToggle;
+    let editSettingsToggle;
     let withdrawnSelector;
     let projectSelector;
     let languageSelector;
@@ -322,6 +324,16 @@ const Details = createReactClass({
           updateCourse={this.props.updateCourse}
         />
       );
+
+      if (this.props.course.wiki_edits_enabled) {
+        editSettingsToggle = (
+          <EditSettingsToggle
+            course={this.props.course}
+            editable={this.props.editable}
+            updateCourse={this.props.updateCourse}
+          />
+        );
+      }
     }
 
     if (this.props.editable && !Features.wikiEd) {
@@ -394,6 +406,7 @@ const Details = createReactClass({
               {privacySelector}
               {timelineToggle}
               {wikiEditsToggle}
+              {editSettingsToggle}
               {withdrawnSelector}
               {projectSelector}
               {languageSelector}

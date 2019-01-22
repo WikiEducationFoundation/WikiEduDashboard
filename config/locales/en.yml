@@ -287,6 +287,10 @@ en:
     label: Chat
 
   courses:
+    assignment_edits_enabled: Assignment edits enabled
+    assignment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the talk page 
+      for each assigned article.
     accounts_generation_enabled: Accounts request generation enabled
     accounts_generation_explanation: >
       This will allow participants to enter their email address and desired
@@ -373,9 +377,9 @@ en:
         basic_course_name: Basic Program
         basic_course_description: This program type will track edits to any articles or mainspace pages by any participants. If automated wiki edits are enabled on the program's home wiki, then an on-wiki version of this program will be automatically created and updated.
         edit_a_thon_name: Edit-A-Thon
-        edit_a_thon_description: An Edit-A-Thon program will track edits to any articles or mainspace pages. No automated edits will be made for this program.
+        edit_a_thon_description: An Edit-A-Thon program will track edits to any articles or mainspace pages. By default, no automated edits will be made for this program.
         article_scoped_program_name: Article Scoped Program
-        article_scoped_program_description: This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas.
+        article_scoped_program_description: This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas. By default, automated wiki edits are turned on.
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
@@ -450,6 +454,10 @@ en:
     ended: The course has ended.
     enroll: Enroll
     enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrollment edits enabled
+    enrollment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the userpage and talk page of
+      each editor who joins the program.
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -608,6 +616,10 @@ en:
       After that, new edits to the timeline will be mirrored to Wikipedia.
 
       Are you sure you want to do this?
+    wiki_course_page_enabled: Wiki course page enabled
+    wiki_course_page_enabled_tooltip: >
+      If enabled, an on-wiki mirror of the page will be updated whenever the
+      program or its users and assignments are changed.
     wiki_edits_enabled: Wiki edits enabled
     wiki_edits_enabled_tooltip: >
       If wiki edits are enabled, then automated on-wiki edits will be made for this program. Disable wiki edits
