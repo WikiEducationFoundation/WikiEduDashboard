@@ -165,7 +165,7 @@
     "yarn": ">= 1.0.0"
   },
   "devDependencies": {
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.2.1"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
