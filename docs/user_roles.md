@@ -18,6 +18,12 @@ are working on features related to making Wikipedia edits, you won't need to wor
 about this. If you are working on Wikipedia edits, be aware that live public edits
 can be made on Wikipedia, and you are responsible for the content of them.
 
+### Blocked users
+
+A user who is blocked from editing Wikipedia may still log in to the Dashboard,
+and the system can still attempt to make edits on their behalf; the edits that
+fail due to a block are logged to Sentry.
+
 ## Admin permissions
 
 You probably want to give your main account admin permissions for the dashboard.
