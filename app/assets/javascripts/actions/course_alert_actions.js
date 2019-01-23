@@ -2,7 +2,7 @@ import * as types from '../constants';
 import fetch from 'cross-fetch';
 
 export const fetchOnboardingAlert = ({ id = null }) => (dispatch) => {
-  const idQuery = id ? `user_id=${id}` : '';
+  const idQuery = id ? `course_id=${id}` : '';
   return fetch(`/alerts_list.json?type=OnboardingAlert&${idQuery}`, {
     credentials: 'include'
   }).then((res) => {

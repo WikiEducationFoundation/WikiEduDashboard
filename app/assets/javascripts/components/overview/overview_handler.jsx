@@ -46,7 +46,7 @@ const Overview = createReactClass({
 
   componentDidMount() {
     if (this.props.current_user.admin) {
-      this.props.fetchOnboardingAlert(this.props.current_user);
+      this.props.fetchOnboardingAlert(this.props.course);
       this.props.fetchTags(this.props.course_id);
     }
   },
