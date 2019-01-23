@@ -140,8 +140,6 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         { syllabusUpload }
-        <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
-        </h3>
         <CourseStats course={course} />
         <StatisticsUpdateInfo course={course} />
         {userArticles}
