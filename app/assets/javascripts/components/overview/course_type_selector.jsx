@@ -75,7 +75,7 @@ const CourseTypeSelector = createReactClass({
           <label htmlFor={this.state.id}>Type:</label>
           <Select
             id={this.state.id}
-            value={this.state.selectedOption}
+            value={options.find(option => option.value === this.state.selectedOption.value)}
             onChange={this._handleChange}
             options={options}
             simpleValue

@@ -36,7 +36,7 @@ const HomeWikiProjectSelector = createReactClass({
         <div className="home_wiki_project">
           <Select
             id={this.state.id}
-            value={this.state.selectedOption}
+            value={options.find(option => option.value === this.state.selectedOption.value)}
             onChange={this._handleChange}
             options={options}
             simpleValue
