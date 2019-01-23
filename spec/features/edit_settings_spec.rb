@@ -17,7 +17,10 @@ describe 'course-specific edit settings', type: :feature, js: true do
     visit "/courses/#{course.slug}"
     click_button 'Edit Details'
     expect(page).to have_content 'Enrollment edits enabled'
-    select('no', from: 'assignment_edits_enabledToggle')
+
+    within '#assignment_edits_enabledToggle' do
+      find('input').set('no').send_keys :enter
+    end
     click_button 'Save'
     sleep 1
 
