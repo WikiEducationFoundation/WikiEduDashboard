@@ -207,7 +207,9 @@ describe 'the course page', type: :feature, js: true do
           within '.home_wiki_project' do
             find('input').set "wiktionary\n"
           end
-          select 'es', from: 'home_wiki_Language'
+          within '.home_wiki_language_selector' do
+            find('input').set "es\n"
+          end
           click_button 'Save'
         end
         sleep 2
