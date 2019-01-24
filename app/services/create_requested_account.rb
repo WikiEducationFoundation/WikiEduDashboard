@@ -17,6 +17,9 @@ class CreateRequestedAccount
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     @username = requested_account.username
     @email = requested_account.email.strip
+    # This instance variable is used to determine whether or not to retry
+    # the account creation with a backup account
+    @use_backup_creator = false
 
     course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
@@ -26,10 +29,11 @@ class CreateRequestedAccount
   private
 
   def process_request(creator, creation_reason)
-    @response = WikiEdits.new(@wiki).create_account(creator: creator,
-                                                    username: @username,
-                                                    email: @email,
-                                                    reason: creation_reason)
+    @wiki_edits ||= WikiEdits.new(@wiki)
+    @response = @wiki_edits.create_account(creator: creator,
+                                           username: @username,
+                                           email: @email,
+                                           reason: creation_reason)
     handle_mediawiki_response
   end
 
@@ -60,7 +64,7 @@ class CreateRequestedAccount
   def handle_failed_account_creation(message, messagecode)
     if messagecode == 'userexists'
       destroy_request_if_user_exists(message, messagecode)
-    elsif messagecode == 'acct_creation_throttle_hit'
+    elsif messagecode == 'acct_creation_throttle_hit' && !@use_backup_creator
       retry_request_with_backup_account
     else
       log_unexpected_response
@@ -77,10 +81,9 @@ class CreateRequestedAccount
   end
 
   def retry_request_with_backup_account
+    @use_backup_creator = true
     backup_account = SpecialUsers.backup_account_creator
-    return log_unexpected_response if !backup_account.is_a?(User) || backup_account == @creator
 
-    @creator = backup_account
     creation_reason = "#{@creation_reason} Account created by #{@creator.username}."
     process_request(backup_account, creation_reason)
   end
