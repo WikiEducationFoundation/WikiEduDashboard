@@ -65,6 +65,7 @@ class WikiCourseOutput
        | expected_students = #{@course.expected_students}
        | assignment_page = #{@course.wiki_title}
        | slug = #{@course.slug}
+       | campaigns = #{@course.campaigns.pluck(:title).join(", ")} 
        | #{@dashboard_url} = yes
       }}
     COURSE_DETAILS
