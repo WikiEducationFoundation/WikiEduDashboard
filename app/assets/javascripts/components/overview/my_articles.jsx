@@ -48,13 +48,19 @@ export const MyArticles = createReactClass({
 
     let findYourArticleTraining;
     if (Features.wikiEd && !assignmentCount) {
+      course={this.props.course}
+      if (course.type === 'FellowsCohort'){
+        findYourArticleTraining = (
+        <a href="/training/professional-development/finding-your-article-professional" target="_blank" className="button ghost-button small">
+          How to find an article
+        </a>);}
+      if (course.type !== 'FellowsCohort'){
       findYourArticleTraining = (
         <a href="/training/students/finding-your-article" target="_blank" className="button ghost-button small">
           How to find an article
-        </a>
-      );
+        </a>);}
     }
-
+    
     return (
       <div className="module my-articles">
         <div className="section-header my-articles-header">
