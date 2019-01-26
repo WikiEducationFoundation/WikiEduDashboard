@@ -41,7 +41,11 @@ const Block = createReactClass({
   },
 
   deleteBlock() {
-    if (confirm('Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.')) {
+    if (
+      confirm(
+        'Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.'
+      )
+    ) {
       return this.props.deleteBlock(this.props.block.id);
     }
   },
@@ -80,8 +84,26 @@ const Block = createReactClass({
     if (isEditable) {
       blockActions = (
         <div className="float-container block__block-actions">
-          <button onClick={this.props.saveBlockChanges.bind(null, this.props.block.id)} className="button dark pull-right no-clear">Save</button>
-          <span role="button" tabIndex={0} onClick={this.props.cancelBlockEditable.bind(null, this.props.block.id)} className="span-link pull-right no-clear">Cancel</span>
+          <button
+            onClick={this.props.saveBlockChanges.bind(
+              null,
+              this.props.block.id
+            )}
+            className="button dark pull-right no-clear"
+          >
+            Save
+          </button>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={this.props.cancelBlockEditable.bind(
+              null,
+              this.props.block.id
+            )}
+            className="span-link pull-right no-clear"
+          >
+            Cancel
+          </span>
         </div>
       );
     }
@@ -104,17 +126,31 @@ const Block = createReactClass({
     }
 
     if (!dueDateRead) {
-      dueDateRead = isGraded ? (<span className="block__default-due-date">{I18n.t('timeline.due_default')}</span>) : '';
+      dueDateRead = isGraded ? (
+        <span className="block__default-due-date">
+          {I18n.t('timeline.due_default')}
+        </span>
+      ) : (
+          ''
+        );
     }
 
     let deleteBlock;
     // let graded;
     if (isEditable) {
       if (!this.props.block.is_new) {
-        deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={this.deleteBlock}>Delete Block</button></div>);
+        deleteBlock = (
+          <div className="delete-block-container">
+            <button className="danger" onClick={this.deleteBlock}>
+              Delete Block
+            </button>
+          </div>
+        );
       }
       className += ' editable';
-      if (this.props.isDragging) { className += ' dragging'; }
+      if (this.props.isDragging) {
+        className += ' dragging';
+      }
       // graded = (
       //   <Checkbox
       //     value={isGraded}
@@ -155,19 +191,27 @@ const Block = createReactClass({
           wysiwyg={true}
           className="block__block-content"
         />
-
       </div>
     );
 
     const dueDateSpacer = this.props.block.due_date ? (
       <span className="block__due-date-spacer"> - </span>
-    ) : undefined;
+    ) : (
+        undefined
+      );
 
     const editButton = this.props.editPermissions ? (
       <div className="block__edit-button-container">
-        <button className="pull-right button ghost-button block__edit-block" onClick={this._setEditable}>Edit</button>
+        <button
+          className="pull-right button ghost-button block__edit-block"
+          onClick={this._setEditable}
+        >
+          Edit
+        </button>
       </div>
-    ) : undefined;
+    ) : (
+        undefined
+      );
 
     let headerClass = 'block-title';
     if (isEditable) {
@@ -243,8 +287,6 @@ const Block = createReactClass({
       </li>
     );
   }
-}
-);
-
+});
 
 export default Block;

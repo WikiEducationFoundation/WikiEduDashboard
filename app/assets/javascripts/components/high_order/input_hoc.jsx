@@ -55,9 +55,9 @@ const InputHOC = (Component) => {
 
     shouldComponentUpdate(nextProps, nextState) {
       if (this.state.value === nextState.value
-            && this.state.id === nextState.id
-            && this.state.invalid === nextState.invalid
-            && this.props.editable === nextProps.editable) {
+        && this.state.id === nextState.id
+        && this.state.invalid === nextState.invalid
+        && this.props.editable === nextProps.editable) {
         return false;
       }
       return true;
