@@ -51,12 +51,12 @@ const Details = createReactClass({
   componentDidMount() {
     this.timeout = this.poll(); // Start polling
   },
-
   componentWillUnmount() {
     if (this.timeout) {
       clearInterval(this.timeout); // End it
     }
   },
+
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
@@ -84,6 +84,22 @@ const Details = createReactClass({
     return true;
   },
 
+   showAlert() {
+    const programEndDate = this.props.course.timeline_end;
+    const shortenDate = programEndDate.slice(0, 10);
+    const date = new Date();
+    const currentTime = date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate();
+     if(currentTime >= shortenDate) {
+      const alerted = localStorage.getItem('alerted') || '';
+      if (alerted !== 'yes') {
+      alert(' You can create a new Program rather than modifying this program ');
+      localStorage.setItem('alerted', 'yes');
+     }
+     $(window.onload = function () {
+      localStorage.setItem('alerted', 'no');
+    });
+    }
+  },
   poll() {
     return setInterval(() => {
       if (!this.props.editable) {
@@ -213,6 +229,7 @@ const Details = createReactClass({
           date_props={dateProps.timeline_end}
           showTime={this.props.course.use_start_and_end_times}
           required={true}
+          onFocus={this.showAlert()}
         />
       );
     }
@@ -411,6 +428,7 @@ const Details = createReactClass({
               {projectSelector}
               {languageSelector}
             </div>
+
           </div>
           {campaigns}
         </div>
