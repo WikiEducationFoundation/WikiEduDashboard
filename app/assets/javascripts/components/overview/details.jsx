@@ -100,10 +100,7 @@ const Details = createReactClass({
     });
     }
   },
-<<<<<<< HEAD
 
-=======
->>>>>>> 16d0168f0... alert added
   poll() {
     return setInterval(() => {
       if (!this.props.editable) {
