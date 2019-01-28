@@ -56,6 +56,7 @@ const Details = createReactClass({
       clearInterval(this.timeout); // End it
     }
   },
+
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
@@ -99,7 +100,10 @@ const Details = createReactClass({
     });
     }
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> 16d0168f0... alert added
   poll() {
     return setInterval(() => {
       if (!this.props.editable) {
@@ -428,6 +432,7 @@ const Details = createReactClass({
               {projectSelector}
               {languageSelector}
             </div>
+
           </div>
           {campaigns}
         </div>
