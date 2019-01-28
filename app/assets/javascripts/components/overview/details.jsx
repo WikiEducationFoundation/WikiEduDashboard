@@ -56,7 +56,6 @@ const Details = createReactClass({
       clearInterval(this.timeout); // End it
     }
   },
-
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
@@ -429,7 +428,6 @@ const Details = createReactClass({
               {projectSelector}
               {languageSelector}
             </div>
-
           </div>
           {campaigns}
         </div>
