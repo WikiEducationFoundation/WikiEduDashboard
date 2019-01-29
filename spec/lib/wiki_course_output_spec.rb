@@ -45,19 +45,15 @@ describe WikiCourseOutput do
                       timeline_end: '2016-04-24',
                       weeks: [week1, week2])
       campaign1 = create(:campaign,
-                         id: 1,
                          title: 'Campaign Title 1',
                          slug: 'Campaign Slug 1')
       campaign2 = create(:campaign,
-                         id: 2,
                          title: 'Campaign Title 2',
                          slug: 'Campaign Slug 2')
       create(:campaigns_course,
-             id: 1,
              campaign: campaign1,
              course: course)
       create(:campaigns_course,
-             id: 2,
              campaign: campaign2,
              course: course)
       create(:courses_user,
