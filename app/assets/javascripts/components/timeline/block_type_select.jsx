@@ -12,7 +12,7 @@ const BlockTypeSelect = createReactClass({
   propTypes: {
     value: PropTypes.any,
     options: PropTypes.array,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
 
   handleClick(selectedOption) {
@@ -35,18 +35,20 @@ const BlockTypeSelect = createReactClass({
 
     if (this.props.editable) {
       return (
-        <div className="form-group">
-          <label htmlFor={this.props.id} className={labelClass}>
-            {label}
-            {tooltip}
-          </label>
-          <Select
-            id={this.props.id}
-            value={options.find(option => option.value === this.props.value)}
-            onChange={this.handleClick}
-            options={options}
-            styles={selectStyles}
-          />
+        <div className="react-select_dropdown">
+          <div className="form-group">
+            <label htmlFor={this.props.id} className={labelClass}>
+              {label}
+              {tooltip}
+            </label>
+            <Select
+              id={this.props.id}
+              value={options.find(option => option.value === this.props.value)}
+              onChange={this.handleClick}
+              options={options}
+              styles={selectStyles}
+            />
+          </div>
         </div>
       );
     }
