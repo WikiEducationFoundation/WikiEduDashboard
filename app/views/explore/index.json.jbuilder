@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.courses @presenter.courses
+json.courses @presenter.active_courses

@@ -6,11 +6,25 @@ describe DashboardController, type: :request do
   describe '#index' do
     let(:course) { create(:course, end: 2.days.ago) }
     let(:admin) { create(:admin) }
+    let(:user) { create(:user) }
 
-    context 'when the user is not logged it' do
+    context 'when the user is not logged in' do
       it 'redirects to landing page' do
         get '/course_creator'
         expect(response.status).to eq(302)
+      end
+    end
+
+    context 'when the user is logged in' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        create(:courses_user, user_id: user.id, course_id: course.id)
+      end
+
+      it 'returns user and course data as json' do
+        get '/dashboard', as: :json
+        expect(response.body).to include(course.title)
+        expect(response.body).to include(user.username)
       end
     end
 
