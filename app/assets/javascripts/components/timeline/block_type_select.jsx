@@ -15,13 +15,7 @@ const BlockTypeSelect = createReactClass({
     editable: PropTypes.bool
   },
 
-  getInitialState() {
-    const initialState = this.props.options[this.props.value];
-    return { selectedOption: { value: this.props.value, label: initialState } };
-  },
-
   handleClick(selectedOption) {
-    this.setState({ selectedOption });
     const e = { target: selectedOption };
     this.props.onChange(e);
   },
@@ -48,7 +42,7 @@ const BlockTypeSelect = createReactClass({
           </label>
           <Select
             id={this.props.id}
-            value={options.find(option => option.value === this.state.selectedOption.value)}
+            value={options.find(option => option.value === this.props.value)}
             onChange={this.handleClick}
             options={options}
             styles={selectStyles}
