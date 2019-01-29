@@ -87,8 +87,8 @@ const Details = createReactClass({
     const programEndDate = this.props.course.timeline_end;
     const shortenDate = programEndDate.slice(0, 10);
     const date = new Date();
-    const currentTime = date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate();
-     if(currentTime >= shortenDate) {
+    const currentTime = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+     if (currentTime >= shortenDate) {
       const alerted = localStorage.getItem('alerted') || '';
       if (alerted !== 'yes') {
       alert(' You can create a new Program rather than modifying this program ');
