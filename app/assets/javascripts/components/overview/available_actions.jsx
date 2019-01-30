@@ -123,9 +123,9 @@ const AvailableActions = createReactClass({
     const controls = [];
     const user = this.props.current_user;
     // If user has a role in the course or is an admin
-    if ((user.role !== undefined) || user.admin) {
+    if ((user.isEnrolled) || user.admin) {
       // If user is a student, show the 'leave' button.
-      if (user.role === 0) {
+      if (user.isStudent) {
         controls.push((
           <p key="leave"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></p>
         ));
@@ -133,7 +133,7 @@ const AvailableActions = createReactClass({
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
       // so that users can see the instructions for how to enable deletion.
-      if ((user.role === 1 || user.admin) && (!course.published || !Features.wikiEd)) {
+      if ((user.isNonstudent || user.admin) && (!course.published || !Features.wikiEd)) {
         controls.push((
           <p title={I18n.t('courses.delete_course_instructions')} key="delete">
             <button className="button danger" onClick={this.delete}>
@@ -169,7 +169,7 @@ const AvailableActions = createReactClass({
 
     // Requested accounts
     // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
-    if ((user.role === 1 && !Features.wikiEd) || user.admin) {
+    if ((user.isNonstudent && !Features.wikiEd) || user.admin) {
       // show a link to the requested accounts creation page if there are any
       if (course.requestedAccounts && course.account_requests_enabled) {
         const requestedAccountsLink = `/requested_accounts/${course.slug}`;
