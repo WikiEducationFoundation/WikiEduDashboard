@@ -8,26 +8,17 @@ class UnsubmittedCourseAlertManager
 
       alert = Alert.create(type: 'UnsubmittedCourseAlert',
                            course: course,
-                           user: course.instructors.first,
-                           target_user: alert_recipient(course))
+                           user: course.instructors.first)
       alert.email_target_user
     end
   end
 
   private
 
-  DAYS_AGO_LIMIT = 30
+  TIME_WINDOW = 3
   def unsubmitted_recently_started_courses
-    ClassroomProgramCourse.unsubmitted.where(start: DAYS_AGO_LIMIT.days.ago..Time.zone.today)
-  end
-
-  # First time instructors work with the Outreach Manager.
-  # Returning instructors work with the Classroom Program Manager.
-  def alert_recipient(course)
-    if course.tag? 'first_time_instructor'
-      SpecialUsers.outreach_manager
-    else # 'returning_instructor', and fallback just in case a course has neither tag.
-      SpecialUsers.classroom_program_manager
-    end
+    ClassroomProgramCourse.unsubmitted
+                          .where('courses.created_at <= ?', TIME_WINDOW.days.ago)
+                          .where('courses.start <= ?', TIME_WINDOW.days.from_now)
   end
 end
