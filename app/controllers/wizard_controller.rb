@@ -14,11 +14,8 @@ class WizardController < ApplicationController
   def wizard_index
     content_path = "#{Rails.root}/config/wizard/wizard_index.yml"
     all_content = YAML.safe_load(File.read(File.expand_path(content_path, __FILE__)))
-    if current_user&.returning_instructor?
-      extra_content_path = "#{Rails.root}/config/wizard/extra_timeline_options.yml"
-      extra_options = YAML.safe_load(File.read(File.expand_path(extra_content_path, __FILE__)))
-      all_content += extra_options
-    end
+    # Additional wizard options can be added conditionally to all_content, such as
+    # a 'from scratch' option that was previously enabled for returning instructors.
     respond_to do |format|
       format.json { render json: all_content.to_json }
     end
