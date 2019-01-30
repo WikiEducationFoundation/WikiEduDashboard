@@ -37,6 +37,8 @@ skr-arab:
     confirm: ٹھیک ہے
     opt_in: جیا
     opt_out: کو
+    opt_yes: جیا
+    opt_no: کو
   dashboard:
     create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
     explore_examples: مثالاں لبھو

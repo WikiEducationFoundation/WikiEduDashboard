@@ -46,6 +46,8 @@ bn:
     confirm: ঠিক আছে
     opt_in: হ্যাঁ
     opt_out: না
+    opt_yes: হ্যাঁ
+    opt_no: না
   dashboard:
     create_note: অাপনার প্রথম কোর্স তৈরি করতে কোর্স তৈরী করুনে চাপ দিন।
     create_preparation_note: শুরুর পূর্বে একাডেমিক পঞ্জিকা হাতে প্রাপ্তির বিষয় নিশ্চিত

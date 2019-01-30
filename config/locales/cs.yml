@@ -40,7 +40,7 @@ cs:
     dashboard: Nástěnka programů
     documentation: Dokumentace
     error: 'Došlo k chybě:'
-    explore: Prozkoumat
+    explore: Objevit
     field_required: Toto pole je povinné
     field_invalid_characters: Toto pole obsahuje neplatné znaky
     field_invalid_date: Toto pole vyžaduje datum ve formátu RRRR-MM-DD
@@ -73,6 +73,8 @@ cs:
     confirm: OK
     opt_in: Ano
     opt_out: Ne
+    opt_yes: ano
+    opt_no: ne
   dashboard:
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
     create_preparation_note: Dříve než začnete, se ujistěte, že máte po ruce akademický
@@ -93,13 +95,13 @@ cs:
     start_orientation: Spustit průvodce
     blog_headline: Nedávné zprávy z Wiki Education
     about_programs: Tento web sleduje aktivity wiki prostřednictvím Programů — individuálních
-      událostí, např. editačních a školních kurzů. Každý program je součástí jedné
-      nebo více kampaní, které poskytují souhrnné statistiky napříč Programy.
+      událostí, např. editačních maratonů a školních kurzů. Každý program je součástí
+      jedné nebo více kampaní, které poskytují souhrnné statistiky napříč Programy.
     about_creating_programs: Pokud provozujete jednu, nezávislou událost, můžete nyní
       vytvořit Program. Pokud je vaše událost součástí větší akce, najděte ji nebo
       pro ni vytvořte Kampaň. Poté můžete na stránce Kampaně vytvořit nový Program.
   home:
-    explore: Prozkoumat
+    explore: Objevit
     log_in: Přihlásit se účtem na Wikipedii
     sign_up: Zaregistrovat se skrze Wikipedii
     sign_up_help: Chcete-li nástěnku používat, přihlaste se prosím se svým účtem na
@@ -124,6 +126,11 @@ cs:
     edited: Editované články
     edited_by: 'Editoval:'
     edited_mobile: Články
+    filter:
+      wiki_all: Vše
+      new: Nové
+      existing: Existující
+      new_and_existing: Nové a Existující
     hide: Skrýt
     history: (historie)
     label: Články
@@ -324,9 +331,9 @@ cs:
       already_exists: Tento kurz nyní existuje. Zkuste změnit jeho jméno, školu anebo
         termín, aby byl jedinečný.
       assignment_end: Konec zápisu
-      assignment_end_placeholder: Konec zápisu (RRRR-MM-DD)
+      assignment_end_placeholder: RRRR-MM-DD
       assignment_start: Začátek zápisu
-      assignment_start_placeholder: Začátek zápisu (RRRR-MM-DD)
+      assignment_start_placeholder: RRRR-MM-DD
       checking_for_uniqueness: Pro tento kurz je kontrolována jedinečnost.
       choose_clone: Vyberte kurz ke zkopírování.
       clone_previous: Kopírovat předchozí kurz
@@ -353,12 +360,14 @@ cs:
       course_term: Termín kurzu
       course_term_placeholder: Semestr
       course_title: Název kurzu
+      course_types:
+        edit_a_thon_name: Editační maraton
       create_button: Vytvořit vlastní kurzǃ
       create_label: Vytvořit nový kurz
       create_new: Vytvořit nějaký nový kurz
       create_short: Vytvořit kurz
       end_date: Konečné datum
-      end_date_placeholder: Datum ukončení (RRRR-MM-DD)
+      end_date_placeholder: RRRR-MM-DD
       expected_number: Předpokládaný počet studentů
       find: Najít váš kurz
       intro: Název, instituce a termín kurzu mění URL stránky, a proto nemohou být
@@ -381,7 +390,7 @@ cs:
         mají ukázat nebo kdy se místo konání zavírá).
       save_cloned_course: Uložit nový kurz
       start_date: Datum zahájení
-      start_date_placeholder: Datum zahájení (RRRR-MM-DD)
+      start_date_placeholder: RRRR-MM-DD
       subject: Předmět
       update_scheduled: Aktualizace byla naplánována. Data budou aktualizována společně
         se všemi současnými programy během dalšího aktualizačního cyklu. To běžně
@@ -512,6 +521,7 @@ cs:
     revisions_none: V tomto kurzu v poslední době neprobíhala žádná editační aktivita.
     school: Škola
     school_and_term: Instituce/termín
+    search_courses: Vyhledat kurzy
     start: Začátek
     start_typing: Začněte psát
     students: Studenti
@@ -537,6 +547,7 @@ cs:
       pouze pro kurzy typu ClassroomProgram.
     subject: Předmět
     submitted: Odevzdáno
+    tag_select: Vybrat nebo vytvořit tag
     tags: 'Štítky:'
     term: Semestr
     timeline: Detaily zadání
@@ -600,9 +611,9 @@ cs:
     campaign_courses: '%{title} programy'
     creator:
       assignment_end: Konec události
-      assignment_end_placeholder: Konec události (YYYY-MM-DD)
+      assignment_end_placeholder: RRRR-MM-DD
       assignment_start: Začátek události
-      assignment_start_placeholder: Začátek události (YYYY-MM-DD)
+      assignment_start_placeholder: RRRR-MM-DD
       checking_for_uniqueness: Pro tento projekt je kontrolována jeho jedinečnost.
       choose_clone: Vyberte program ke zkopírování.
       clone_previous: Kopírovat předchozí projekt
@@ -651,6 +662,7 @@ cs:
       který heslo obsahuje) od zprostředkovatele.
     leave_course: Opustit projekt
     milestones_none: Tento kurz v současné době nemá žádné milníky.
+    not_permitted: Nemáte oprávnění pro editaci tohoto programu.
     published: 'Tento kurz byl publikován. Studenti se mohou zapsat navštívením následující
       URL:'
     request_accounts: Požádat o účty
@@ -771,6 +783,10 @@ cs:
         already_instructor: '%{username} je již instruktor!'
         demote_success: '%{username} byl povýšen na instruktora.'
         no_super_admin: Není možné zrušit status správce ze super správce
+    special_users:
+      new:
+        form_placeholder: Uživatelské jméno
+        confirm_add_special_user: Přidat speciálního uživatele
   suggestions:
     editing: Návrhy k editaci
     suggestion_docs:
@@ -850,6 +866,7 @@ cs:
     next: Další stránka
     page: Stránka
     page_number: Strana %{number} z %{total}
+    previous: < Předchozí
     table_of_contents: Obsah
     training_library: Cvičná knihovna
     logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,
@@ -1078,4 +1095,7 @@ cs:
     relevanceIndex: Shoda
     assign_article_self: Přiřaďte se
     unassign_article_self: Nepřiřazený článek
+  training_status:
+    started: Zahájeno
+    not_started: Nezahájeno
 ...

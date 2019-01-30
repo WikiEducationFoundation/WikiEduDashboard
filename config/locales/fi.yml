@@ -64,6 +64,8 @@ fi:
     confirm: OK
     opt_in: Kyllä
     opt_out: Ei
+    opt_yes: kyllä
+    opt_no: ei
   dashboard:
     create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
     create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
@@ -465,7 +467,7 @@ fi:
     students_count: '# opiskelijaa'
     student_editors: Opiskelijamuokkaajat
     students_none: Tällä kurssilla ei ole opiskelijoita.
-    students_short: Opiskelijat
+    students_short: opiskelijaa
     submitted_admin: Projektin luoja on lähettänyt tämän kurssin hyväksyttäväksi.
       Hyväksyäsi sen, lisää se johonkin kampanjaan yleiskatsaussivulla.
     submitted_and_pending_heading: Lähetetty & odottaa hyväksyntää
@@ -616,8 +618,8 @@ fi:
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
-    articles_created: Luotuja artikkeleita
-    articles_edited: Muokattua artikkelia
+    articles_created: luotua artikkelia
+    articles_edited: muokattua artikkelia
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
@@ -627,7 +629,7 @@ fi:
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
     tags: Merkkaukset
-    upload_count: Tallennusta Commonsiin
+    upload_count: tallennusta Commonsiin
     uploads_in_use_count:
       one: tiedosto käytössä artikkelissa
       other: tiedostoa käytössä artikkeleissa
@@ -636,7 +638,7 @@ fi:
       other: kokonaiskäytöt eri kieliversioissa
     view_count_description: Artikkelin näyttökertaa
     view: Näyttökerrat
-    word_count: Lisättyä sanaa
+    word_count: lisättyä sanaa
     word_count_average: Keskimääräinen sanamäärä
   namespace:
     main: Päänimiavaruus

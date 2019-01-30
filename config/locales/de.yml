@@ -57,6 +57,8 @@ de:
     confirm: Okay
     opt_in: Ja
     opt_out: Nein
+    opt_yes: ja
+    opt_no: nein
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -266,6 +268,9 @@ de:
   chat:
     label: Chat
   courses:
+    assignment_edits_enabled: Zuweisungsbearbeitungen aktiviert
+    assignment_edits_enabled_tooltip: Falls aktiviert, wird das Dashboard eine Vorlage
+      auf die Diskussionsseite für jeden zugewiesenen Artikel einfügen.
     accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
     accounts_generation_explanation: Dies erlaubt Teilnehmern, ihre E-Mail-Adresse
       und den gewünschten Benutzernamen einzugeben anstatt sich selbst neue Benutzerkonten
@@ -365,13 +370,13 @@ de:
           eine On-Wiki-Version dieses Programms automatisch erstellt und aktualisiert.
         edit_a_thon_name: Edit-A-Thon
         edit_a_thon_description: Ein Edit-A-Thon-Programm verfolgt Bearbeitungen aller
-          Artikel oder Hauptnamensraumseiten. Es werden keine automatischen Bearbeitungen
-          für dieses Programm erstellt.
+          Artikel oder Hauptnamensraumseiten. Standardmäßig werden keine automatischen
+          Bearbeitungen für dieses Programm erstellt.
         article_scoped_program_name: Artikelfeldprogramm
         article_scoped_program_description: Dieser Programmtyp verfolgt nur Bearbeitungen
           für zugewiesene Artikel oder Kategorien. Verwende diesen Typ, falls du die
           Statistiken auf eine bekannte Artikelsammlung oder Themenbereiche beschränken
-          möchtest.
+          möchtest. Standardmäßig sind automatische Wikibearbeitungen angeschaltet.
       create_button: Meinen Kurs erstellen!
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen
@@ -454,6 +459,10 @@ de:
     ended: Der Kurs ist beendet.
     enroll: Einschreiben
     enrollment: Studenten hinzufügen/entfernen
+    enrollment_edits_enabled: Einschreibungsbearbeitungen aktiviert
+    enrollment_edits_enabled_tooltip: Falls aktiviert, wird das Dashboard eine Vorlage
+      in die Benutzer- und Diskussionsseite eines jeden am Programm beteiligten Autors
+      einfügen.
     courses_enrolled: Eingeschriebene Kurse
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
@@ -626,6 +635,10 @@ de:
     warn_mirrored: |-
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
+    wiki_course_page_enabled: Wiki-Kursseite aktiviert
+    wiki_course_page_enabled_tooltip: Falls aktiviert, wird ein Wikimirror der Seite
+      immer dann aktualisiert, wenn das Programm oder seine Benutzer und Zuweisungen
+      geändert werden.
     wiki_edits_enabled: Wikibearbeitungen aktiviert
     wiki_edits_enabled_tooltip: Falls Wikibearbeitungen aktiviert sind, werden automatisierte
       In-Wiki-Bearbeitungen für dieses Programm erzeugt. Deaktiviere Wikibearbeitungen,

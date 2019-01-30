@@ -76,6 +76,8 @@ pt-br:
     confirm: OK
     opt_in: Sim
     opt_out: Não
+    opt_yes: sim
+    opt_no: não
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
@@ -281,6 +283,9 @@ pt-br:
   chat:
     label: Bate-papo
   courses:
+    assignment_edits_enabled: Edições de atribuição ativadas
+    assignment_edits_enabled_tooltip: Se ativado, o painel irá postar um modelo para
+      a página de discussão de cada artigo atribuído.
     accounts_generation_enabled: Geração de solicitação de contas ativada
     accounts_generation_explanation: Isso permitirá que os participantes digitem seu
       endereço de e-mail e nome de usuário desejado, em vez de criar novas contas.
@@ -377,12 +382,13 @@ pt-br:
           programa na wiki.
         edit_a_thon_name: Maratona de edições
         edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
-          edições de artigos ou páginas do espaço nominal principal. Não serão feitas
-          edições automatizadas neste programa.
+          edições de artigos ou páginas do espaço nominal principal. Por padrão, nenhuma
+          edição automatizada será feita para este programa.
         article_scoped_program_name: Programa de escopo de artigos
         article_scoped_program_description: Este tipo de programa só regista as edições
           dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
-          a um determinado conjunto de artigos ou assuntos.
+          a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
+          automatizadas do wiki estão ativadas.
       create_button: Criar meu curso!
       create_label: Criar Novo Curso
       create_new: Criar um Novo Curso
@@ -464,6 +470,10 @@ pt-br:
     ended: O curso terminou.
     enroll: Inscrever-se
     enrollment: Adicionar/Remover Alunos
+    enrollment_edits_enabled: Edições de inscrição ativadas
+    enrollment_edits_enabled_tooltip: Se ativado, o painel de controle postará um
+      modelo na página do usuário e na página de discussão de cada editor que ingressar
+      no programa.
     courses_enrolled: Cursos inscritos
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -630,6 +640,9 @@ pt-br:
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    wiki_course_page_enabled: Página do curso do Wiki ativada
+    wiki_course_page_enabled_tooltip: Se ativado, um espelho wiki da página será atualizado
+      sempre que o programa ou seus usuários e atribuições forem alterados.
     wiki_edits_enabled: Edições do Wiki ativadas
     wiki_edits_enabled_tooltip: Se as edições do wiki estiverem ativadas, as edições
       automatizadas on-wiki serão feitas para este programa. Desative as edições do

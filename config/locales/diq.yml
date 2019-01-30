@@ -37,6 +37,8 @@ diq:
     confirm: TEMAM
     opt_in: Eya
     opt_out: Nê
+    opt_yes: eya
+    opt_no: nê
   dashboard:
     explore_examples: Nımuneyan cı geyre
     review_orientation: Çımdariya istiqameti
@@ -83,6 +85,8 @@ diq:
     delete_campaign: Ena kampanya bestere
     none: Çıniyo
     title: Sername
+  categories:
+    name: Name
   chat:
     label: Mıhebet
   courses:
@@ -188,6 +192,7 @@ diq:
     image: Resim
     file_name: Namey dosya
   revisions:
+    diff: ferq
     diff_show: Bımocne
     diff_hide: Bınımne
     title: Sername

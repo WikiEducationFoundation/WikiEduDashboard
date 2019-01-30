@@ -12,6 +12,7 @@
 # Author: Mikey641
 # Author: MojoMann
 # Author: Or
+# Author: Strayblues
 # Author: Uziel302
 # Author: YaronSh
 # Author: המקיסט
@@ -52,6 +53,8 @@ he:
     confirm: אישור
     opt_in: כן
     opt_out: לא
+    opt_yes: כן
+    opt_no: לא
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.

@@ -41,6 +41,8 @@ lb:
     confirm: OK
     opt_in: Jo
     opt_out: Neen
+    opt_yes: jo
+    opt_no: neen
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -540,4 +542,5 @@ lb:
   training_status:
     completed: Fäerdeg
     started: Ugefaangen
+    not_started: Net ugefaangen
 ...

@@ -7,6 +7,7 @@
 # Author: KlaasZ4usV
 # Author: Mainframe98
 # Author: Mar(c)
+# Author: Marcelhospers
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
@@ -20,14 +21,22 @@
 # Author: Sjoerddebruin
 ---
 nl:
+  number:
+    human:
+      decimal_units:
+        units:
+          million: M
+          billion: B
   accessibility:
     number_field: Dit is een numeriek veld. De knoppen die door de meeste browsers
       weergegeven worden zullen de invoer verhogen en verlagen.
   application:
     cancel: Annuleren
     dashboard: Wiki Ed Dashboard
+    documentation: Documentatie
     error: 'Er is een fout opgetreden:'
     explore: Verkennen
+    field_required: Dit is een verplicht veld
     greeting2: Welkom!
     greeting_extended: Welkom op Wikipedia
     greeting: Hallo!
@@ -38,12 +47,22 @@ nl:
     log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
+    report_problem: Probleem melden
+    request_account: Account aanvragen
+    request_account_create: Een nieuw account aanmaken
     search: stel een vraag
     sign_up_extended: Registreren via Wikipedia
     sign_up_log_in_extended: met Wikipedia
     sign_up: Registreren
     submit: Verzenden
     training: Training
+    change: Wijzigen
+    details: Details
+    confirm: OK
+    opt_in: Ja
+    opt_out: Nee
+    opt_yes: ja
+    opt_no: nee
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     explore_course_pages: Verken de cursuspagina's
@@ -166,9 +185,9 @@ nl:
     courses: Cursussen
     creator:
       assignment_end: Einde opdracht
-      assignment_end_placeholder: Einde opdracht (JJJJ-MM-DD)
+      assignment_end_placeholder: JJJJ-MM-DD
       assignment_start: Begin opdracht
-      assignment_start_placeholder: Begin opdracht (JJJJ-MM-DD)
+      assignment_start_placeholder: JJJJ-MM-DD
       checking_for_uniqueness: Deze cursus wordt gecontroleerd op uniciteit.
       cloned_course_calendar_instructions: Selecteer data om deze van het schema te
         verwijderen (feestdagen, vakantie, etc.). Klik op de datum om de status van
@@ -191,7 +210,7 @@ nl:
       create_new: Maak een nieuwe cursus aan
       create_short: Maak cursus aan
       end_date: Einddatum
-      end_date_placeholder: Einddatum (JJJJ-MM-DD)
+      end_date_placeholder: JJJJ-MM-DD
       expected_number: Het verwachte aantal studenten
       find: Vind je cursus
       intro: De titel, school en periode zijn onderdeel van de URL van de cursuspagina
@@ -200,7 +219,7 @@ nl:
       no_class_holidays: Ik heb geen vakantie met de klas
       save_cloned_course: Nieuwe cursus opslaan
       start_date: Startdatum
-      start_date_placeholder: Startdatum (JJJJ-MM-DD)
+      start_date_placeholder: JJJJ-MM-DD
       subject: Onderwerp
     current: Huidige cursussen
     delete_course: Cursus verwijderen
@@ -571,4 +590,9 @@ nl:
       message: Dit is een herinnering over de enquête over je cursus %{course_title}.
         De feedback van deze enquête helpt ons bij het verbeteren van onze steun aan
         Wikipedia-opdrachten zoals de jouwe.
+  training_status:
+    completed: Voltooid
+    started: Begonnen
+    not_started: Niet begonnen
+    due: vervalt %{due_date}
 ...

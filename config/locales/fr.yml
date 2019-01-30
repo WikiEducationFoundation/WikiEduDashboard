@@ -77,6 +77,8 @@ fr:
     confirm: Ok
     opt_in: Oui
     opt_out: Non
+    opt_yes: oui
+    opt_no: non
   dashboard:
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
@@ -286,6 +288,9 @@ fr:
   chat:
     label: Clavardage
   courses:
+    assignment_edits_enabled: Modifications des affectations activées
+    assignment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
+      sur la page de discussion pour chaque article affecté.
     accounts_generation_enabled: Génération de demande de comptes activée
     accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
@@ -387,13 +392,13 @@ fr:
           créée et mise à jour.
         edit_a_thon_name: Edit-A-Thon
         edit_a_thon_description: Un programme Edit-A-Thon tracera les modifications
-          à tout article ou page de l’espace principal. Aucune modification automatique
-          ne sera faite pour ce programme.
+          à tout article ou page de l’espace principal. Par défaut, aucune modification
+          automatique ne sera faite pour ce programme.
         article_scoped_program_name: Programme ciblé sur les articles
         article_scoped_program_description: Ce type de programme ne suit que les modifications  des
           articles assignés ainsi que des catégories. Utilisez ce type si vous voulez
           restreindre les statistiques à une collection d'articles connue ou de domaines
-          du sujet.
+          du sujet. Par défaut, les modifications de wiki automatisées sont activées.
       create_button: Créer mon cours !
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
@@ -478,6 +483,10 @@ fr:
     ended: Le cours est terminé.
     enroll: S’inscrire
     enrollment: Ajouter/Supprimer des étudiants
+    enrollment_edits_enabled: Modifications des inscriptions activées
+    enrollment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
+      sur la page de l’utilisateur et la page de discussion de chaque éditeur qui
+      a rejoint le programme.
     courses_enrolled: Inscrit aux cours
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
@@ -649,6 +658,10 @@ fr:
     warn_mirrored: |-
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
+    wiki_course_page_enabled: Page de cours du wiki activée
+    wiki_course_page_enabled_tooltip: Si activé, un miroir de la page sur le wiki
+      sera mis à jour dès que le programme ou ses utilisateurs ou ses affectations
+      sont modifiés.
     wiki_edits_enabled: Modifications du wiki activées
     wiki_edits_enabled_tooltip: Si les modifications du wiki sont activées, alors
       les modifications automatisées dans le wiki seront faites pour ce programme.

@@ -68,6 +68,8 @@ pt:
     confirm: Aceitar
     opt_in: Sim
     opt_out: Não
+    opt_yes: sim
+    opt_no: não
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
     create_preparation_note: Verifique que tem o seu calendário académico à mão antes
@@ -113,10 +115,10 @@ pt:
     assigned_to: Atribuído a
     character_doc: A soma do número de carateres adicionados a artigos por editores
       inscritos, entre as datas de começo e fim
-    cross_wiki_tracking: As páginas do domínio principal editadas entre as datas de
-      início e fim são listadas abaixo. O painel analisa as contribuições da wiki
-      principal deste programa, assim como as outras wiki para as quais houver um
-      artigo atribuído ou disponível.
+    cross_wiki_tracking: São listadas abaixo as páginas do espaço nominal principal
+      editadas entre as datas de início e fim. O painel de controlo analisa as contribuições
+      na wiki principal deste programa, assim como nas outras wiki para as quais houver
+      um artigo atribuído ou disponível.
     deleted: (apagado)
     edited: Artigos editados
     edited_by: 'Editado por:'
@@ -276,6 +278,9 @@ pt:
   chat:
     label: Conversação
   courses:
+    assignment_edits_enabled: Edições relativas a trabalhos ativadas
+    assignment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
+      uma predefinição na página de discussão por cada artigo atribuído.
     accounts_generation_enabled: Geração de pedidos de contas ativada
     accounts_generation_explanation: Isto vai permitir que os participantes introduzam
       o seu endereço de correio eletrónico e o nome de utilizador desejado, em vez
@@ -283,7 +288,7 @@ pt:
       Controlo e, ao mesmo tempo, adicioná-las como participantes do programa. Para
       utilizar esta funcionalidade, deve ter o privilégio de 'criador de contas' na
       wiki de origem deste programa.
-    accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
+    accounts_generation_confirm_message: Tem a certeza de que deseja ativar pedidos
       de contas?
     activity: Atividade
     active_courses: '%{course_type} ativos'
@@ -297,9 +302,9 @@ pt:
     actions: Ações
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
-    assignment_end: Fim da tarefa
+    assignment_end: Fim do trabalho
     assignments_none: Este curso não tem artigos atribuídos.
-    assignment_start: Início da tarefa
+    assignment_start: Início do trabalho
     calendar:
       legend: Legenda
       legend_class_canceled: Férias/Cancelado
@@ -333,9 +338,9 @@ pt:
     creator:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
-      assignment_end: Término da tarefa
+      assignment_end: Fim do trabalho
       assignment_end_placeholder: AAAA-MM-DD
-      assignment_start: Início da tarefa
+      assignment_start: Início do trabalho
       assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Está a ser verificado se este curso é único.
       choose_clone: Escolha um curso para duplicar.
@@ -373,12 +378,13 @@ pt:
           programa na wiki.
         edit_a_thon_name: Maratona de edições
         edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
-          edições de artigos ou páginas do espaço nominal principal. Não serão feitas
-          edições automatizadas neste programa.
+          edições de artigos ou páginas do espaço nominal principal. Por padrão, não
+          serão feitas edições automatizadas neste programa.
         article_scoped_program_name: Artigos delimitados
         article_scoped_program_description: Este tipo de programa só regista as edições
           dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
-          a um determinado conjunto de artigos ou assuntos.
+          a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
+          automatizadas da wiki estarão ativadas.
       create_button: Criar o meu curso!
       create_label: Criar novo curso
       create_new: Criar um novo curso
@@ -453,25 +459,29 @@ pt:
     embed_course_stats: Incorporar estatísticas do curso
     embed_course_stats_description: Para incorporar as estatísticas deste programa
       noutro ''site'', copie e insira este trecho de código em
-    enable_account_requests: Ativar as solicitações de contas
+    enable_account_requests: Ativar pedidos de contas
     enable_chat: Ativar conversação
     end: Fim
     ended: O curso terminou.
     enroll: Inscreva-se
     enrollment: Adicionar ou remover alunos
-    courses_enrolled: Cursos matriculados
+    enrollment_edits_enabled: Edições relativas a inscrições ativadas
+    enrollment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
+      uma predefinição nas páginas de utilizador e de discussão de cada editor que
+      ingressar no programa.
+    courses_enrolled: Cursos ingressados
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
         ou semestre diferentes.
-      user_exists: Desculpe, o(a) utilizador(a) %{username} não existe.
-      invalid_language_or_project: Idioma/projeto inválido
+      user_exists: Desculpe, o utilizador %{username} não existe.
+      invalid_language_or_project: Língua ou projeto inválido
       invalid_slug: Escola ou título em branco para o curso.
       duplicate_slug: Já existe outro programa chamado %{slug}.
     expected_students: Estudantes esperados
     features_feedback: 'Sugestões automáticas:'
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão a ser carregadas...
-    gradeables_none: Este curso não tem tarefas com classificação.
+    gradeables_none: Este curso não tem trabalhos com classificação.
     home_wiki_language: Língua da wiki de acolhimento
     home_wiki_project: Projeto da wiki de acolhimento
     instructor:
@@ -484,8 +494,8 @@ pt:
       agora. Pode utilizar um nome de utilizador anónimo — ou um que seja da sua identificação
       pessoal — como desejar. (As contas partilhadas não são permitidas.)
     join: Participar
-    join_course: Participar no curso
-    join_prompt: Participar em '%{title}'?
+    join_course: Ingressar no curso
+    join_prompt: Ingressar em '%{title}'?
     join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
       automático das suas contribuições, com atualizações periódicas. Regresse futuramente
       para verificar o impacto que teve.
@@ -589,7 +599,7 @@ pt:
     tag_select: Selecionar ou criar uma etiqueta
     tags: 'Etiquetas:'
     term: Período
-    timeline: Detalhes da tarefa
+    timeline: Detalhes do trabalho
     timeline_enabled: Calendário ativado
     timeline_link: Calendário
     timeline_tooltip: Ativar o calendário permite-lhe especificar atividades semana
@@ -627,19 +637,23 @@ pt:
     warn_mirrored: |-
       Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições do calendário serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
+    wiki_course_page_enabled: Página de curso da wiki ativada
+    wiki_course_page_enabled_tooltip: Se ativada, sempre que o programa ou os seus
+      utilizadores e trabalhos forem alterados será atualizada uma cópia-espelho da
+      página, que é mantida na wiki.
     wiki_edits_enabled: Edições da wiki ativadas
     wiki_edits_enabled_tooltip: Se as edições da wiki estiverem ativadas, serão feitas
       edições automatizadas para este programa. Desative as edições da wiki se não
       quiser que sejam adicionadas predefinições às páginas de utilizador, às páginas
       de discussão dos artigos atribuídos, etc.
     wiki_staff: Equipa da Wiki Educação
-    withdrawn: Não realizou a tarefa
+    withdrawn: Não realizou o trabalho
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Os seus cursos
     survey:
-      notification_message: Responda a nossa sondagem sobre este curso.
-      link: Responder o Questionário
+      notification_message: Responda ao nosso inquérito sobre este curso.
+      link: Participar no inquérito
   courses_generic:
     add_campaign: Adicionar campanha
     all_courses: Todos os programas
@@ -684,11 +698,12 @@ pt:
       end_date: Fim da monitorização da atividade
       find: Encontrar um programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
-        inicial é a principal wiki onde os participantes estão a trabalhar, e as edições
-        nesta serão registadas por omissão. Se o seu programa abrange várias línguas
-        ou projetos, as contribuições serão registadas em qualquer wiki que tenha
-        um 'Artigo Disponível' ou uma 'Tarefa' para aquela wiki. Clique em "Criar
-        o meu Programa!" para começar a construir a página do seu programa na wiki.
+        inicial é a principal wiki onde os participantes estão a trabalhar e as edições
+        nesta wiki serão registadas por omissão. Se o seu programa abrange várias
+        línguas ou projetos, as contribuições serão registadas em qualquer wiki que
+        tenha um 'Artigo Disponível' ou um 'Trabalho' para aquela wiki. Clique em
+        "Criar o meu Programa!" para começar a construir a página do seu programa
+        na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
         copiar outro programa em que tenha participado.
       participate_in_campaign: Participar numa campanha
@@ -917,7 +932,7 @@ pt:
       si (tais como o marco descrito na página do resumo)
     course_dates: Datas do curso
     course_dates_instructions: Selecionar as datas de início e fim do curso inteiro
-      (não só da tarefa na Wikipédia)
+      (não só do trabalho na Wikipédia)
     course_end: Fim do curso
     course_start: Início do curso
     delete_week_confirmation: |-
@@ -1089,11 +1104,11 @@ pt:
   wizard:
     assignment_dates: Datas do trabalho
     assignment_description: Selecione as datas de início e fim para o seu calendário
-      de tarefas. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
+      de trabalhos. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
       semana de aulas, marque a data de início do trabalho para uma semana após a
       data de início do curso. Esta ferramenta de criação de trabalhos criará uma
       calendarização provisória que encaixe nas datas que escolher.
-    assignment_type: O que conduziu os alunos para a sua tarefa da Wikipédia?
+    assignment_type: Que farão os estudantes para o seu trabalho da Wikipédia?
     calendar_instructions: Selecione as datas para adicioná-las ou removê-las do calendário
       (por exemplo, férias, dias sem aulas). Isto ajudará a ferramenta de criação
       de cursos a calendarizar adequadamente os seus trabalhos. Clique na data para
@@ -1102,9 +1117,9 @@ pt:
     confirm_dates: Selecione as datas do curso, reuniões semanais e as férias para
       o seu curso.
     course_dates: Datas do curso
-    min_weeks: Esta tarefa necessita de pelo menos %{min_weeks} semanas disponíveis.
-      Por favor, ajuste as suas datas de início e fim da tarefa, se quiser utilizar
-      este tipo de tarefa.
+    min_weeks: Este trabalho necessita pelo menos de %{min_weeks} semanas disponíveis.
+      Ajuste as datas de início e fim do trabalho, se quiser utilizar este tipo de
+      tarefa.
     select_one_option: Por favor, escolha uma opção.
     minimum_options:
       one: Por favor, selecione %{count} ou mais opções.
@@ -1119,7 +1134,7 @@ pt:
     summary: Resumo
   error:
     form_errors: Por favor, verifique o formulário de erros.
-    invalid_assignment: Tarefa inválida
+    invalid_assignment: Trabalho inválido
     invalid_date: A data de %{key} é inválida
     invalid_file_format: O ficheiro não pôde ser gravado. Por favor, envie um documento
       PDF ou Word.
@@ -1164,7 +1179,7 @@ pt:
       ou matricular-se.
   survey:
     login_message: Obrigado pelo seu tempo. Entre no seu painel da Wiki Educação para
-      participar do inquérito, por favor.
+      participar no inquérito, por favor.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de
       poder ver as notificações no navegador. Se não a ativar, apenas serão mostradas
@@ -1177,23 +1192,23 @@ pt:
       headline: Olá, %{username}
       message_line1: Esperamos que tenha tido um ótimo semestre! A Wiki Educação aguarda
         os seus comentários para aperfeiçoar as funcionalidades e o apoio que prestamos
-        às suas tarefas na Wikipédia. A sua resposta é crucial para aperfeiçoarmos
+        ao seus trabalhos na Wikipédia. A sua resposta é crucial para aperfeiçoarmos
         os nossos serviços atuais.
-      message_line2: Tem 15 minutos para completar o nosso inquérito de professor?
-        Clique no botão abaixo para ajudar-nos a fazer o ensino com a Wikipédia uma
+      message_line2: Tem 15 minutos para completar o nosso inquérito aos professores?
+        Clique no botão abaixo para ajudar-nos a tornar o ensino com a Wikipédia numa
         experiência ainda mais gratificante e valiosa.
       course: 'Curso: %{course_info}'
       closing: Cordialmente,
       signed: '- a equipa da Wiki Educação'
-      link: Responder o inquérito
+      link: Participar no inquérito
     follow_up:
-      message: Isto é uma anotação sobre o inquérito do seu curso, %{course_title}.
-        Os comentários recebidos neste inquérito nos ajudam a aperfeiçoar o nosso
-        suporte a tarefas na Wikipédia como as suas.
+      message: Esta notificação é sobre o inquérito do seu curso, %{course_title}.
+        Os comentários recebidos neste inquérito ajudam-nos a aperfeiçoar o apoio
+        a trabalhos na Wikipédia como os seus.
   feedback_form_responses:
-    no_responses: Não há comentários/repostas ainda.
+    no_responses: Ainda não há comentários.
   wiki_api:
-    create_account_reason: Este utilizador está a participar de %{event}.
+    create_account_reason: Este utilizador está a participar no evento %{event}.
   onboarding:
     supplementary:
       header: Como soube de nós?

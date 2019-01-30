@@ -47,6 +47,8 @@ fa:
     change: تغییر
     details: جزئیات
     confirm: تأیید
+    opt_yes: بله
+    opt_no: خیر
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحات دوره‌ها کاوش کنید
@@ -183,7 +185,7 @@ fa:
       already_exists: این دوره از پیش وجود دارد. با تغییر دادن نام، مدرسه/دانشگاه
         یا ترم تحصیلی، آن را منحصربفرد کنید.
       assignment_end: پایانِ تکلیف
-      assignment_end_placeholder: تاریخ پایانِ تکلیف (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: آغازِ تکلیف
       assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: این دوره در حال بررسی منحصربه‌فرد است.
@@ -210,7 +212,7 @@ fa:
       no_class_holidays: هیچ کلاسِ تعطیلی ندارم
       save_cloned_course: ذخیرهٔ دورهٔ تازه
       start_date: تاریخِ آغاز
-      start_date_placeholder: تاریخ آغاز (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: موضوع
     current: دوره‌های کنونی
     delete_course: حذف دوره

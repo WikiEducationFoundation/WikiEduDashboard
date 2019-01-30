@@ -55,6 +55,8 @@ roa-tara:
     confirm: OK
     opt_in: Sìne
     opt_out: None
+    opt_yes: sìne
+    opt_no: none
   dashboard:
     review_orientation: Oriendamende d'a reviste
   home:
