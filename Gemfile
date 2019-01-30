@@ -4,7 +4,7 @@ ruby '2.5.0'
 ### Basic Framework
 gem 'rails', '~> 6.0.0.beta1'
 gem 'jbuilder' # DSL for building JSON view template
-gem 'haml-rails' # HTML template language, used instead of ERB
+gem 'haml-rails', '~> 1.0' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
 
