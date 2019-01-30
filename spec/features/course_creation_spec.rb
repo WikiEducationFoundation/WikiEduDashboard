@@ -350,65 +350,6 @@ describe 'New course creation and editing', type: :feature do
       end
     end
   end
-
-  describe 'returning instructor creating a new course', js: true do
-    before do
-      create(:course, id: 1)
-      create(:courses_user,
-             course_id: 1,
-             user_id: 1,
-             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      create(:campaigns_course, course_id: 1, campaign_id: Campaign.first.id)
-      create(:tag, tag: 'cloneable', course_id: 1)
-    end
-
-    it 'has the option of starting with no timeline' do
-      visit root_path
-
-      click_link 'Create Course'
-      click_button 'Create New Course'
-      fill_out_course_creator_form
-      sleep 1
-      go_through_course_dates_and_timeline_dates
-
-      # Last option for returning instructor is 'build your own'
-      find('button', text: 'Build your own timeline').click
-      click_button 'Next'
-      sleep 1
-
-      # Proceed to the summary
-      click_button 'Next'
-      sleep 1
-
-      # Finish the wizard
-      click_button 'Generate Timeline'
-      expect(page).to have_content 'Launch the Wizard' # 'no timeline' banner above the Timeline
-      expect(page).to have_content 'Add Assignment' # Button in the Timeline
-      sleep 1
-
-      # Add a week
-      within '.timeline__week-nav .panel' do
-        find('.week-nav__add-week').click
-      end
-      sleep 1
-      within '.timeline__weeks' do
-        expect(page).to have_content 'Week 1'
-        find('.week__add-block').click
-        find('input.title').set('block title')
-        within('.block__block-actions') do
-          click_button 'Save'
-        end
-        sleep 1
-      end
-      # is it still there after reloading?
-      visit current_path
-      expect(page).to have_content 'Week 1'
-      expect(page).to have_content 'block title'
-
-      # Add Assignment button should not appear once there is timeline content.
-      expect(page).not_to have_content 'Add Assignment'
-    end
-  end
 end
 
 describe 'timeline editing', js: true do
