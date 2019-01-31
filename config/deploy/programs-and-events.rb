@@ -14,6 +14,7 @@ role :db,  %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
 set :address, 'programs-and-events-dashboard.globaleducation.eqiad.wmflabs'
 
 set :deploy_to, '/var/www/dashboard'
+set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
 
 # Extended Server Syntax
 # ======================
