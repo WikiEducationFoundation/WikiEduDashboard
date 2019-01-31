@@ -79,7 +79,9 @@ const ArticleViewer = createReactClass({
     if (this.props.showArticleFinder) { return; }
     const viewer = document.getElementsByClassName('article-viewer')[0];
     if (!viewer || event) {
-      window.history.replaceState(null, null, window.location.pathname);
+      if (window.location.search) {
+        window.history.replaceState(null, null, window.location.pathname);
+      }
     }
   },
 
