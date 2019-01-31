@@ -4,8 +4,11 @@ ON WIKITECH
 - On wikitech, join or create a project. Create a web security group, with ports 80 and 443 open.
 
 - Create an instance on wikitech:
-  - ubuntu or debian should work fine
   - Security groups: default, web
+  - For Programs & Events Dashboard production:
+    - use an extra large instance
+    - enable the full storage allocation by following these instructions: https://wikitech.wikimedia.org/wiki/Help:Adding_Disk_Space
+    
 
 - Create a web proxy for this new instance. This will determine the url of your dashboard (something like educationdashboard.wmflabs.org)
 
@@ -15,9 +18,22 @@ ON THE SERVER
 - ssh into this new instance from your machine
 
 - install some additional packages needed by the app and web server
-  - $ `sudo apt-get install libmysqlclient-dev build-essential apache2 apache2-threaded-dev libapr1-dev libaprutil1-dev mysql-server libssl-dev libyaml-dev libreadline-dev openssl curl git-core zlib1g-dev bison libxml2-dev libxslt1-dev libcurl4-openssl-dev libsqlite3-dev sqlite3 pandoc nodejs redis-server imagemagick`
-  - Set the memcached maximum file size to at least 4M. (Required for Dalli cache of large volumes of training content.)
-  - Set the mysql server password and record this password. (You'll need it shortly.)
+  - $ `sudo apt-get install pandoc redis-server mariadb-server libmariadb-dev imagemagick gnupg2 apache2 apache2-dev apache2-mpm-worker libcurl4-openssl-dev libapr1-dev libaprutil1-dev`
+
+- configure mariaDB to use /srv as the location of database files:
+  - `sudo systemctl stop mysql`
+  - `mv /var/lib/msyql /srv/mysql`
+  - edit `/etc/mysql/my.conf` and add the following directives:
+    ```
+    [mysqld]
+    datadir=/srv/mysql
+    socket=/srv/mysql/mysql.sock
+
+    [client]
+    port=3306
+    socket=/srv/mysql/mysql.sock
+    ```
+  - verify that the new data directory is set, by logging into mysql and doing `select @@datadir;`
 
 - Create a database for the app
   - $ `sudo mysql -p`
@@ -30,14 +46,15 @@ ON THE SERVER
 - Assign ownership to yourself for the web directory /var/www
   - $ `sudo chown <username> /var/www`
 
-- Install RVM (Ruby Version Manager) and configure Ruby 2.1.5
-  - $ `gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3`
-  - $ `curl -sSL https://get.rvm.io | sudo bash -s stable`
+- Install RVM (Ruby Version Manager) and configure Ruby 2.1.5, as the `deploy` user
+  - $ `gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB`
+  - $ `\curl -sSL https://get.rvm.io | bash -s stable`
+  - $ `source /home/deploy/.rvm/scripts/rvm`
   - $ `sudo usermod -a -G rvm <username>`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 2.1.5`
-    - This will probably report that ruby-2.1.5 is already installed, but we do this just in case.
-  - $ `rvm --default use 2.1.5`
+  - $ `rvm install 2.5.0`
+    - This will probably report that ruby is already installed, but we do this just in case.
+  - $ `rvm --default use 2.5.0`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
@@ -54,13 +71,18 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4
    </IfModule>
 ```
 
+  - within that passenter block, add an additional rule to configure the PIDs directory:
+```
+  PassengerInstanceRegistryDir /var/www/dashboard/shared/tmp/pids
+```
+
 - Create a VirtualHost for the app
   - $ `sudo nano /etc/apache2/sites-available/dashboard.conf`
   - Add something like this:
 
 ```
 <VirtualHost *:80>
-  ServerAdmin sage@ragesoss.com
+  ServerAdmin sage@wikiedu.org
   DocumentRoot /var/www/dashboard/current/public
   RackEnv production
   <Directory /var/www/dashboard/current/public>
@@ -106,6 +128,7 @@ ON THE SERVER
   - Paste the standard file, then save.
   - $ `touch /var/www/dashboard/shared/config/newrelic.yml`
   - (No file content is necessary unless you're using New Relic monitoring.)
+  - Add a `skylight.yml` file with Skylight keys
 - Create the tmp directory for pid files
   - $ `mkdir /var/www/dashboard/shared/tmp/pids`
   - (Sidekiq will create a pid file in this directory upon deployment. If it is unable to do so, background jobs will not be performed.)
@@ -129,6 +152,7 @@ ON THE SERVER
     - Paste the key in as the value of "secret_key_base:"
 
 - Enable the site
+  - $ `sudo a2dissite 000-default`
   - $ `sudo a2ensite dashboard`
   - $ `sudo service apache2 restart`
 
@@ -139,3 +163,10 @@ ON YOUR MACHINE
 - Run the capistrano deployment one last time from the app's directory:
   - $ `cap production deploy`
 - Visit your new dashboard!
+
+ON THE SERVER
+-------------
+
+- To allow multiple users to deploy, change the permissions for everything in the dashboard directory to allow group write access:
+  - $ `cd /var/www`
+  - $ `sudo chmod g+w -R dashboard`
