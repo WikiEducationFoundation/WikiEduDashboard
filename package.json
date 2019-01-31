@@ -89,7 +89,7 @@
     "markdown-it-footnote": "^3.0.1",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
-    "moment": "2.23.0",
+    "moment": "2.24.0",
     "moment-recur": "^1.0.7",
     "nouislider": "^12.1.0",
     "parsleyjs": "^2.8.1",
