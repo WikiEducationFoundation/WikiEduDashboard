@@ -18,6 +18,17 @@ GIT
       rails (>= 3.0.0)
 
 GIT
+  remote: https://github.com/indirect/haml-rails.git
+  revision: bb1dfcac3a7af3a818d8c4b89e65ebeb2aeaf548
+  specs:
+    haml-rails (1.0.0)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 4.0.6, < 6.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
+
+GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
   revision: 0fc5c35ad94546ff00e9b6fb28740bce06d44e67
   specs:
@@ -217,12 +228,6 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
-    haml-rails (1.0.0)
-      actionpack (>= 4.0.1)
-      activesupport (>= 4.0.1)
-      haml (>= 4.0.6, < 6.0)
-      html2haml (>= 1.0.1)
-      railties (>= 4.0.1)
     hashdiff (0.3.8)
     hashie (3.6.0)
     hashugar (1.0.1)
@@ -552,7 +557,7 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
-  haml-rails
+  haml-rails!
   hashugar
   http_accept_language
   i18n-js
