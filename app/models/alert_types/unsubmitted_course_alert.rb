@@ -34,4 +34,9 @@ class UnsubmittedCourseAlert < Alert
   def reply_to
     user&.email
   end
+
+  def send_email
+    return if emails_disabled?
+    UnsubmittedCourseAlertMailer.send_email(self)
+  end
 end

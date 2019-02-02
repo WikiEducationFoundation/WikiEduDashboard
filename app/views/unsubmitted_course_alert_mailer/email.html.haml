@@ -1,0 +1,25 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@name},"
+              %p.paragraph
+                Just a quick reminder that you still need to hit "submit"
+                on your Wiki Education
+                %a{ href: @course_url } course page.
+              %p.paragraph
+                After you hit submit, we'll review your Wikipedia assignment 
+                and make it live on our system. Your students cannot begin their 
+                Wikipedia projects until you've submitted your page for review.
+              %p.paragraph
+                Thank you, and we look forward to working with you!
+              %p.paragraph
+                Best,
+                %br
+                %em
+                  =@classroom_program_manager.username
