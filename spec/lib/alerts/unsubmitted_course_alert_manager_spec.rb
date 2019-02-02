@@ -7,6 +7,11 @@ describe UnsubmittedCourseAlertManager do
   let(:subject) { described_class.new }
 
   before do
+    # CPM must be created for email to be sent
+    classroom_program_manager = create(:user, username: 'CPM', email: 'cpm@wikiedu.org')
+    users = Setting.find_or_create_by(key: 'special_users')
+    users.update value: { classroom_program_manager: classroom_program_manager.username }
+
     new_instructor = create(:instructor,
                             id: 99,
                             username: 'new',
@@ -45,7 +50,6 @@ describe UnsubmittedCourseAlertManager do
     it 'sends the alert to the instructor on the course' do
       subject.create_alerts
       expect([Alert.first.user_id, Alert.last.user_id]).to include(99, 88)
-      expect([Alert.first.target_user, Alert.last.target_user]).to include(nil)
     end
     it 'does not create alerts for courses that were created too recently' do
       create(:course,

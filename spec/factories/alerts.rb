@@ -30,4 +30,6 @@ FactoryBot.define do
   factory :overdue_training_alert, class: 'OverdueTrainingAlert'
 
   factory :onboarding_alert, class: 'OnboardingAlert'
+
+  factory :unsubmitted_course_alert, class: 'UnsubmittedCourseAlert'
 end
