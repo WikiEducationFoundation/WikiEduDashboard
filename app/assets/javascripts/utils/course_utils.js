@@ -177,6 +177,11 @@ export default class CourseUtils {
     return location.pathname.split('/').length === 4;
   }
 
+  static onHomeTab(location) {
+    if (this.onCourseIndex(location)) { return true; }
+    return location.pathname.substr(-5) === '/home';
+  }
+
   static newCourseStats(oldCourse, newCourse) {
     return {
       created_count: oldCourse.created_count !== newCourse.created_count,
