@@ -315,7 +315,7 @@ fi:
         tilojen välillä (valitsematon, valittu ja loma). Jos kurssilla ei ole lomia,
         valitse "kurssilla ei ole lomia". Kopioitu aikajana muuntaa automaattisesti
         päivämäärät viikoille, joilla ei ole suunniteltuja tapaamisia.
-      clone_successful: Kurssin kopiointi onnistui
+      clone_successful: Päivitä tiedot kloonatulle kurssille
       clone_successful_details: Kurssisi on kopioitu, mukaan lukien aikajanan elementit
         (viikot ja lohkot). Muista lisätä päivämäärät, jotka eivät siirtyneet. Onko
         mitään muuta muuttunut kurssistasi? Voit päivittää kurssia nyt vapaasti.
@@ -472,8 +472,8 @@ fi:
       Hyväksyäsi sen, lisää se johonkin kampanjaan yleiskatsaussivulla.
     submitted_and_pending_heading: Lähetetty & odottaa hyväksyntää
     submitted_heading: Lisätyt kurssit
-    submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
-      mikäli kysyttävää ilmenee.
+    submitted_note: Kurssisi on lisätty. Wiki Educationin henkilökunta arvioi sen
+      ja ottaa yhteyttä, mikäli kysyttävää ilmenee.
     suggestions_feedback: Haluatko ehdottaa parannuksia tähän ominaisuuteen? Kerro
       siitä!
     suggestions_sending: Lähetetään palautetta...
@@ -524,7 +524,7 @@ fi:
     withdrawn: Tehtävä ei tehty
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
-    yourcourses: Omat kurssisi
+    yourcourses: Omat kurssit
     survey:
       notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
@@ -607,7 +607,7 @@ fi:
     view_page: Näytä ohjelmasivu
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
-    yourcourses: Ohjelmasi
+    yourcourses: Omat ohjelmat
   editable:
     edit: Muokkaa
     cancel: Peruuta
@@ -689,6 +689,8 @@ fi:
     special_users:
       new:
         form_placeholder: Käyttäjänimi
+      remove:
+        demote_success: '%{username} on nyt vain käyttäjä.'
   suggestions:
     suggestion_docs:
       does_not_exist: Tätä artikkelia ei ole Wikipediassa
@@ -769,9 +771,12 @@ fi:
     loading: Ladataan tallennuksia...
     none: Tämä luokka ei ole tallentanut kuvia tai muita tiedostoja Wikimedia Commonsiin.
     time_doc: Tallennusten ajankohdat paikallisessa ajassa
+    uploaded_at: Tallennusaika
+    uploader: Tallentaja
     uploaded_by: Tallentanut
     uploaded_on: Talennettu
     usage_count: Käyttömäärä
+    usage_count_gallery_tile: Käytetty %{usage_count} artikkelissa
     usages: Käyttöjä
   users:
     already_enrolled: Tämä käyttäjä on jo rekisteröitynyt!
@@ -790,6 +795,7 @@ fi:
     contribution_statistics: Muokkaustilastot
     course_passcode: 'Salasana:'
     editors: Muokkaajat
+    edits_by: 'Muokkaukset käyttäjältä:'
     enroll_confirmation: Oletko varma, että haluat lisätä muokkaajan %{username}?
     enroll_url: 'Muokkaajat voivat ilmoittautua tämän linkin kautta:'
     enrolled_success: Muokkaajan %{username} lisäys onnistui!
@@ -945,7 +951,11 @@ fi:
         meitä tehtävien kehittämisessä.
   feedback_form_responses:
     no_responses: Palautetta ei ole vieä annettu.
+  onboarding:
+    supplementary:
+      why_are_you_here: Mitä haluaisit tehdä?
   article_finder:
+    page_assessment_class: Luokka
     remove_article: Poista artikkeli
     search_placeholder: Anna avainsana
     search: Haku

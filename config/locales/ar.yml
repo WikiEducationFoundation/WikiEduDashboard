@@ -655,7 +655,7 @@ ar:
       new_or_clone: قم بإنشاء برنامج جديد الآن، أو استخدم الخيار 'استنساخ' لنسخ برنامج
         آخر شاركت فيه.
       participate_in_campaign: شارك في حملة
-      save_cloned_course: احفظ
+      save_cloned_course: حفظ
       start_date: بداية تتبع النشاط
     delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
@@ -889,7 +889,7 @@ ar:
     no_timeline: هذه الدورة ليس لها جدول زمني.
     no_activity_this_week: ليست هناك أية جلسات مجدولة هذا الأسبوع
     nothing_this_week: لا يوجد شيء على الجدول الزمني لهذا الأسبوع.
-    save_all_changes: احفظ الكل
+    save_all_changes: حفظ الكل
     this_week_title_default: هذا الأسبوع
     title: خط زمني
     unable_to_add_week: لا يمكنك إضافة أسابيع الجديدة عندما يكون الجدول الزمني الخاص

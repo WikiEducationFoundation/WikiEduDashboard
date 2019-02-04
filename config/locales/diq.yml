@@ -189,7 +189,7 @@ diq:
     active_courses: Wesiqe de aktiv o
     article_title: Sernamey wesiqe
     datetime: Tarix/Zeman
-    image: Resim
+    image: Resım
     file_name: Namey dosya
   revisions:
     diff: ferq
@@ -207,6 +207,7 @@ diq:
     continue: Dewam keno %{progress}
     start: Suru bık
     view: Bıvêne
+    page: Pele
     done: Temam!
   uploads:
     file_name: Namey dosya
