@@ -13,6 +13,7 @@ const CourseAlert = createReactClass({
     components: PropTypes.node,
     className: PropTypes.string,
     courseLink: PropTypes.string,
+    href: PropTypes.string,
     message: PropTypes.any,
     onClick: PropTypes.func
   },
@@ -23,7 +24,7 @@ const CourseAlert = createReactClass({
     if (this.props.components) components = this.props.components;
 
     if (this.props.actionMessage) {
-      action = <a className="button">{this.props.actionMessage}</a>;
+      action = <a href={this.props.href || '#'} className="button">{this.props.actionMessage}</a>;
 
       const props = {};
       // Changes type of link to CourseLink and adds link to course
