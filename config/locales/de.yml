@@ -555,6 +555,10 @@ de:
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     requested_accounts: Beantragte Benutzerkonten
+    requested_accounts_alert:
+      one: Ein angefordertes Benutzerkonto ist ausstehend.
+      other: '%{count} angeforderte Benutzerkonten sind ausstehend.'
+    requested_accounts_alert_view: Ansehen
     review_timeline: 'Überprüfe jetzt deine Zuweisungs-Zeitleiste und passe sie deinen
       Bedürfnissen an. Sobald du zufrieden bist, kannst du sie zur Bestätigung durch
       die Mitarbeiter von Wiki Education einreichen. Sobald sie bestätigt ist, erhältst

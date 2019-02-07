@@ -580,6 +580,10 @@ fr:
       via l’URL suivante :'
     rating_feedback: 'La note prévue pour cet article est :'
     requested_accounts: Comptes demandés
+    requested_accounts_alert:
+      one: '%{count} compte demandé en attente.'
+      other: '%{count} comptes demandés en attente.'
+    requested_accounts_alert_view: Afficher
     review_timeline: 'Veuillez consulter maintenant votre calendrier et faire les
       adaptations qui conviennent. Une fois satisfait, soumettez-le pour approbation
       par l’équipe Wiki Education. Dès qu''il aura été approuvé, une URL d’inscription

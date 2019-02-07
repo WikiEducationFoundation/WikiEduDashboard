@@ -436,6 +436,10 @@ zh-TW:
       學生可透過此 URL 登記課程：
     rating_feedback: 該條目的預估評級為：
     requested_accounts: 申請的帳號
+    requested_accounts_alert:
+      one: '%{count} 個請求帳號待定中。'
+      other: '%{count} 個請求帳號待定中。'
+    requested_accounts_alert_view: 檢視
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。

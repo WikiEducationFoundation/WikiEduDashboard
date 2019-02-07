@@ -284,6 +284,7 @@ ko:
     please_log_in: 로그인해 주십시오.
     private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
+    requested_accounts_alert_view: 보기
     school: 학교
     search_courses: 강의 검색
     start: 시작

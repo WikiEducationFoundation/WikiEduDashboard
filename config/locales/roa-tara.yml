@@ -85,6 +85,7 @@ roa-tara:
   courses:
     embed_course_stats: Statisteche d'u corse 'ngapsulate
     please_log_in: Tràse.
+    requested_accounts_alert_view: '''Ndruche'
     update_stats: Aggiorne le statisteche
     user_recent_uploads: Urteme carecaminde
   editable:

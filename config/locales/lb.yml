@@ -239,6 +239,7 @@ lb:
     overview: Haaptsäit
     private: Privat
     requested_accounts: Ugefrot Benotzerkonten
+    requested_accounts_alert_view: Weisen
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     school_and_term: Institutioun/Dauer
