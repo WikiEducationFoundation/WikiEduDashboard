@@ -116,7 +116,6 @@ describe WikiApi do
         expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
         expect(response['American_Civil_War_prison_camps']).to eq('cl')
         expect(response['Bell_number']).to eq('b')
-        expect(response['Latericaecum']).to eq(nil)
       end
     end
   end
