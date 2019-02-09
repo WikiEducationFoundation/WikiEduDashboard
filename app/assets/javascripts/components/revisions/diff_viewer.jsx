@@ -213,16 +213,20 @@ const DiffViewer = createReactClass({
 
   fetchRevisionDetailsIfOpened() {
     if (this.shouldShowDiff() && !this.state.isArticleOpened) {
-      this.setState({
-        isArticleOpened: true
-      });
-      this.fetchRevisionDetails();
+        this.setState({
+          isArticleOpened: true
+        });
+        this.fetchRevisionDetails();
+    } else if (!this.shouldShowDiff() && this.state.isArticleOpened){
+        this.setState({
+          isArticleOpened: false
+        });
     }
   },
 
   render() {
     this.fetchRevisionDetailsIfOpened();
-    if (!this.shouldShowDiff() || !this.props.revision) {
+    if (!this.state.isArticleOpened || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showDiff} className="icon icon-diff-viewer"/>
@@ -312,7 +316,10 @@ const DiffViewer = createReactClass({
             </a>
           </div>
           <div className="diff-viewer-article-wrapper">
-            {this.previousArticle()}
+            <div className="diff-viewer-header">
+              {this.previousArticle()}
+              {this.nextArticle()}
+            </div>
             <div className="diff-viewer-article">
               {salesforceButtons}
               <table>
@@ -327,7 +334,6 @@ const DiffViewer = createReactClass({
                 {diff}
               </table>
             </div>
-            {this.nextArticle()}
           </div>
         </div>
       </div>
