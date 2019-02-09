@@ -18,10 +18,34 @@ const Article = createReactClass({
     showOnMount: PropTypes.bool
   },
 
+  getInitialState() {
+    return {
+      isArticleOpened: false
+    };
+  },
+
   fetchArticleDetails() {
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
     }
+  },
+
+  showDiff() {
+    this.setState({
+      isArticleOpened: true
+    });
+  },
+
+  shouldShowDiff() {
+    return this.state.isArticleOpened;
+  },
+
+  isFirstArticle() {
+    return true;
+  },
+
+  isLastArticle() {
+    return true;
   },
 
   render() {
@@ -71,6 +95,10 @@ const Article = createReactClass({
             showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
             course={this.props.course}
             article={this.props.article}
+            showDiff={this.showDiff}
+            shouldShowDiff={this.shouldShowDiff}
+            isFirstArticle={this.isFirstArticle}
+            isLastArticle={this.isLastArticle}
           />
         </td>
       </tr>
