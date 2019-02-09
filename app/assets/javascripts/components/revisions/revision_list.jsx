@@ -35,14 +35,12 @@ const RevisionList = createReactClass({
   },
 
   showPreviousArticle(index) {
-    console.log('showPreviousArticle', index);
     this.setState({
       selectedIndex: index - 1
     });
   },
 
   showNextArticle(index) {
-    console.log('showNextArticle', index);
     this.setState({
       selectedIndex: index + 1
     });

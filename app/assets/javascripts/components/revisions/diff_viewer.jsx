@@ -49,7 +49,6 @@ const DiffViewer = createReactClass({
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
     if (!this.props.editors && nextProps.editors && this.state.isArticleOpened) {
-      console.log(this.state.showDiff);
       this.initiateDiffFetch(nextProps);
     }
   },
@@ -193,9 +192,13 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <div className="diff-viewer-btn pull-left">
-        <button onClick={() => this.props.showPreviousArticle(this.props.index)}
-                className="previous button dark small">Previous</button>
+      <div className="pull-left">
+        <button
+          onClick={() => this.props.showPreviousArticle(this.props.index)}
+          className="previous button dark small"
+        >
+          Previous
+        </button>
       </div>
     );
   },
@@ -205,7 +208,7 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <div className="diff-viewer-btn pull-right">
+      <div className="pull-right">
         <button onClick={() => this.props.showNextArticle(this.props.index)} className="next button dark small">Next</button>
       </div>
     );
@@ -217,7 +220,7 @@ const DiffViewer = createReactClass({
           isArticleOpened: true
         });
         this.fetchRevisionDetails();
-    } else if (!this.shouldShowDiff() && this.state.isArticleOpened){
+    } else if (!this.shouldShowDiff() && this.state.isArticleOpened) {
         this.setState({
           isArticleOpened: false
         });
@@ -247,9 +250,7 @@ const DiffViewer = createReactClass({
     if (!this.state.fetched) {
       diff = <tbody><Loading/></tbody>;
     } else if (this.state.diff === '') {
-      diff = <tbody>
-      <div> —</div>
-      </tbody>;
+      diff = <tbody><div> —</div></tbody>;
     } else {
       diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
     }
@@ -315,12 +316,12 @@ const DiffViewer = createReactClass({
               How did the diff viewer work for you?
             </a>
           </div>
-          <div className="diff-viewer-article-wrapper">
+          <div>
             <div className="diff-viewer-header">
               {this.previousArticle()}
               {this.nextArticle()}
             </div>
-            <div className="diff-viewer-article">
+            <div>
               {salesforceButtons}
               <table>
                 <thead>
@@ -328,8 +329,8 @@ const DiffViewer = createReactClass({
                     <th colSpan="4" className="diff-header">{diffComment}</th>
                   </tr>
                   <tr>
-                  <th colSpan="4" className="diff-header">{editDate}</th>
-                </tr>
+                    <th colSpan="4" className="diff-header">{editDate}</th>
+                  </tr>
                 </thead>
                 {diff}
               </table>
