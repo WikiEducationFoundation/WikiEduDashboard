@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import $ from 'jquery';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -51,6 +53,11 @@ const Details = createReactClass({
   componentDidMount() {
     this.timeout = this.poll(); // Start polling
   },
+
+  componentDidUpdate() {
+      $('#show-message').text('Create a new course').fadeIn('fast');
+  },
+
   componentWillUnmount() {
     if (this.timeout) {
       clearInterval(this.timeout); // End it
@@ -81,23 +88,6 @@ const Details = createReactClass({
     if (Features.wikiEd) { return false; }
     // On P&E Dashboard, anyone with edit rights for the course may rename it.
     return true;
-  },
-
-   showAlert() {
-    const programEndDate = this.props.course.timeline_end;
-    const shortenDate = programEndDate.slice(0, 10);
-    const date = new Date();
-    const currentTime = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-     if (currentTime >= shortenDate) {
-      const alerted = localStorage.getItem('alerted') || '';
-      if (alerted !== 'yes') {
-      alert(' You can create a new Program rather than modifying this program ');
-      localStorage.setItem('alerted', 'yes');
-     }
-     $(window.onload = function () {
-      localStorage.setItem('alerted', 'no');
-    });
-    }
   },
 
   poll() {
@@ -229,7 +219,6 @@ const Details = createReactClass({
           date_props={dateProps.timeline_end}
           showTime={this.props.course.use_start_and_end_times}
           required={true}
-          onFocus={this.showAlert()}
         />
       );
     }
@@ -374,6 +363,7 @@ const Details = createReactClass({
           <h3>{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
+        <Link to="/course_creator" style={{ textDecoration: 'none' }}><h5><b id="show-message"/></h5></Link>
         <div className="module__data extra-line-height">
           <Instructors {...this.props} />
           <div className="details-form">
