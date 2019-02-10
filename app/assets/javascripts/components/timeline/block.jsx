@@ -87,7 +87,7 @@ const Block = createReactClass({
     }
 
     let dueDateRead;
-    if (this.props.block.due_date !== null) {
+    if (this.props.block.due_date !== null && this.props.block.kind === 1) {
       dueDateRead = (
         <TextInput
           onChange={this.updateBlock}
@@ -159,7 +159,7 @@ const Block = createReactClass({
       </div>
     );
 
-    const dueDateSpacer = this.props.block.due_date ? (
+    const dueDateSpacer = this.props.block.due_date && this.props.block.kind === 1 ? (
       <span className="block__due-date-spacer"> - </span>
     ) : undefined;
 
