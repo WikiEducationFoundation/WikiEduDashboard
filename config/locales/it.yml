@@ -53,6 +53,8 @@ it:
     confirm: OK
     opt_in: Sì
     opt_out: "No"
+    opt_yes: sì
+    opt_no: "no"
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso

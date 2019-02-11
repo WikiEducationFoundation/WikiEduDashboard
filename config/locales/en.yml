@@ -544,6 +544,11 @@ en:
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
     requested_accounts: Requested accounts
+    requested_accounts_alert:
+      one: '%{count} requested account pending.'
+      other: '%{count} requested accounts pending.'
+    requested_accounts_alert_view: 'View'
+      
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.

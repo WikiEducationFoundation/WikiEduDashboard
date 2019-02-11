@@ -113,8 +113,8 @@ const updateBlockPosition = (movingBlock, newWeekId, targetIndex, blocks) => {
   });
 
   // Sort the unmoved blocks in the affected weeks by block order.
-  blocksInOldWeek.sort((a, b) => a.order > b.order);
-  blocksInNewWeek.sort((a, b) => a.order > b.order);
+  blocksInOldWeek.sort((a, b) => a.order - b.order);
+  blocksInNewWeek.sort((a, b) => a.order - b.order);
 
   // Insert the moved block into the desired position in the target week.
   blocksInNewWeek.splice(targetIndex, 0, movedBlock);

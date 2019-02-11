@@ -83,6 +83,15 @@ const CourseAlerts = createReactClass({
         }
       }
     }
+    // Shows an alert for how many accounts have been requested
+    if (course.requestedAccounts) {
+      if ((!Features.wikiEd && userRoles.isNonstudent) || userRoles.isAdmin) {
+        const message = I18n.t('courses.requested_accounts_alert', { count: course.requestedAccounts });
+        const actionMessage = I18n.t('courses.requested_accounts_alert_view');
+        const url = `/requested_accounts/${course.slug}`;
+        alerts.push(<CourseAlert key="requested_accounts" message={message} href={url} actionMessage={actionMessage} />);
+      }
+    }
 
     // For published courses with no students, highlight the enroll link
     const hasNoStudents = this.props.usersLoaded && this.props.studentCount === 0;

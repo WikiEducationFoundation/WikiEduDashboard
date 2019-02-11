@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alexandr Efremov
 # Author: Aram1985
+# Author: Athena Atterdag
 # Author: Av6
 # Author: Edible Melon
 # Author: Evs
@@ -73,6 +74,8 @@ ru:
     confirm: OK
     opt_in: Да
     opt_out: Нет
+    opt_yes: да
+    opt_no: нет
   dashboard:
     create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
     create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть

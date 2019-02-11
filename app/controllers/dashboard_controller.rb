@@ -4,7 +4,7 @@ require 'rss'
 
 #= Controller for dashboard functionality
 class DashboardController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
 
   def index
     unless current_user

@@ -177,6 +177,11 @@ export default class CourseUtils {
     return location.pathname.split('/').length === 4;
   }
 
+  static onHomeTab(location) {
+    if (this.onCourseIndex(location)) { return true; }
+    return location.pathname.substr(-5) === '/home';
+  }
+
   static newCourseStats(oldCourse, newCourse) {
     return {
       created_count: oldCourse.created_count !== newCourse.created_count,
@@ -185,7 +190,8 @@ export default class CourseUtils {
       student_count: oldCourse.student_count !== newCourse.student_count,
       word_count: oldCourse.character_sum_human !== newCourse.character_sum_human,
       view_count: oldCourse.view_count !== newCourse.view_count,
-      upload_count: oldCourse.upload_count !== newCourse.upload_count
+      upload_count: oldCourse.upload_count !== newCourse.upload_count,
+      requestedAccounts: oldCourse.requestedAccounts !== newCourse.requestedAccounts
     };
   }
 

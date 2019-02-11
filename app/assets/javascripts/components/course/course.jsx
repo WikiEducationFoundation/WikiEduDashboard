@@ -60,7 +60,7 @@ export const Course = createReactClass({
     const location = this.props.location;
     const query = parse(location.search);
     // Only show it on the main url
-    if (!CourseUtils.onCourseIndex(location)) { return false; }
+    if (!CourseUtils.onHomeTab(location)) { return false; }
     // Show the enroll card if either the `enroll` or `enrolled` param is present.
     // The enroll param may be blank if the course has no passcode.
     if (query.enroll !== undefined || query.enrolled) { return true; }

@@ -283,6 +283,8 @@ Rails.application.routes.draw do
     root to: "dashboard#index", as: :courses_dashboard
   end
 
+  get 'dashboard' => 'dashboard#index'
+
   # Unauthenticated users root to the home page
   root to: 'home#index'
 

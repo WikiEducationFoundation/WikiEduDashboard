@@ -61,10 +61,14 @@ class CreateRequestedAccount
     @requested_account.destroy
   end
 
+  MESSAGE_CODES_TO_RETRY = [
+    'acct_creation_throttle_hit',
+    'captcha-createaccount-fail'
+  ].freeze
   def handle_failed_account_creation(message, messagecode)
     if messagecode == 'userexists'
       destroy_request_if_user_exists(message, messagecode)
-    elsif messagecode == 'acct_creation_throttle_hit' && !@use_backup_creator
+    elsif MESSAGE_CODES_TO_RETRY.include?(messagecode) && !@use_backup_creator
       retry_request_with_backup_account
     else
       log_unexpected_response

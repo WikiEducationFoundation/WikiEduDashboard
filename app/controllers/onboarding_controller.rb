@@ -29,10 +29,31 @@ class OnboardingController < ApplicationController
     head :no_content
     return unless supplementary_response?
     user_name = params[:user_name]
-    details = params[:referralDetails]
-    response = <<~RESPONSE
+    details = format_details_hash(params)
+    response = format_message_response(params)
+    OnboardingAlertManager.new.create_alert(user_name, response, details)
+  end
+
+  private
+
+  def format_details_hash(params)
+    {
+      'heard_from' => {
+        'answer' => params[:heardFrom],
+        'additional' => params[:referralDetails]
+      },
+      'why_here' => {
+        'answer' => params[:whyHere],
+        'additional' => params[:otherReason]
+      }
+    }
+  end
+
+  def format_message_response(params)
+    referral_details = params[:referralDetails]
+    <<~RESPONSE
       HEARD FROM:
-      #{params[:heardFrom]} #{"(#{details})" if details}
+      #{params[:heardFrom]} #{"(#{referral_details})" if referral_details}
 
       WHY HERE:
       #{params[:whyHere]}
@@ -40,10 +61,7 @@ class OnboardingController < ApplicationController
       OTHER:
       #{params[:otherReason]}
     RESPONSE
-    OnboardingAlertManager.new.create_alert(user_name, response)
   end
-
-  private
 
   def supplementary_response?
     params[:heardFrom].present? || params[:whyHere].present? || params[:otherReason].present?

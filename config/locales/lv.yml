@@ -34,6 +34,8 @@ lv:
     confirm: Labi
     opt_in: Jā
     opt_out: Nē
+    opt_yes: jā
+    opt_no: nē
   activity:
     all: Aktivitāte
     edited_by: Labotājs
