@@ -15,9 +15,33 @@ const StudentDrawer = createReactClass({
     trainingModules: PropTypes.array
   },
 
+  getInitialState() {
+    return {
+      isArticleOpened: false
+    };
+  },
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.isOpen || this.props.isOpen) { return true; }
     return false;
+  },
+
+  showDiff() {
+    this.setState({
+      isArticleOpened: true
+    });
+  },
+
+  shouldShowDiff() {
+    return this.state.isArticleOpened;
+  },
+
+  isFirstArticle() {
+    return true;
+  },
+
+  isLastArticle() {
+    return true;
   },
 
   render() {
@@ -38,7 +62,14 @@ const StudentDrawer = createReactClass({
           <td className="desktop-only-tc">{rev.characters}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
-            <DiffViewer revision={rev} editors={[this.props.student]} />
+            <DiffViewer
+              revision={rev}
+              editors={[this.props.student]}
+              showDiff={this.showDiff}
+              shouldShowDiff={this.shouldShowDiff}
+              isFirstArticle={this.isFirstArticle}
+              isLastArticle={this.isLastArticle}
+            />
           </td>
         </tr>
       );
