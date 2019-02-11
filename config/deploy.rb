@@ -67,7 +67,9 @@ namespace :deploy do
   desc 'Upload compiled assets'
   task :upload_compiled_assets do
     run_locally do
-      execute "rsync -r -u -v public/assets/ #{fetch(:user)}@#{fetch(:address)}:#{release_path}/public/assets"
+      user = fetch(:user)
+      user = user ? "#{user}@" : user
+      execute "rsync -r -u -v public/assets/ #{user}#{fetch(:address)}:#{release_path}/public/assets"
     end
   end
 

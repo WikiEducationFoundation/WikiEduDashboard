@@ -7,14 +7,14 @@
 set :branch, 'wmflabs'
 set :rails_env, 'production'
 
-role :app, %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
-role :web, %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
-role :db,  %w(ragesoss@outreachdashboard.globaleducation.eqiad.wmflabs)
+role :app, %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
+role :web, %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
+role :db,  %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
 
-set :user, 'ragesoss'
-set :address, 'outreachdashboard.globaleducation.eqiad.wmflabs'
+set :address, 'programs-and-events-dashboard.globaleducation.eqiad.wmflabs'
 
 set :deploy_to, '/var/www/dashboard'
+set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
 
 # Extended Server Syntax
 # ======================
