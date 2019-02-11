@@ -170,3 +170,19 @@ ON THE SERVER
 - To allow multiple users to deploy, change the permissions for everything in the dashboard directory to allow group write access:
   - $ `cd /var/www`
   - $ `sudo chmod g+w -R dashboard`
+
+## Copying from one production server to another
+
+COPYING USER PROFILES
+-------------
+
+- Copy user profiles from the old server to your new server.
+  - $ `scp -r3 <old>:/var/www/dashboard/current/public/system/user_profiles <new>:/var/www/dashboard/current/public/system`
+
+UPLOADING DATABASE
+-------------
+
+- Download the most recent database backup and/or version
+  - $ `mysqldump --user=wiki --password=$DB_PASSWORD --host=<hostname> dashboard > /path/to/your/backup.sql`
+- Upload the database to the new server
+  - $ `mysql -u wiki -p dashboard < <your-file>.sql`
