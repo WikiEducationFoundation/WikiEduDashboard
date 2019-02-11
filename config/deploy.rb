@@ -80,6 +80,7 @@ namespace :deploy do
       # continues deployment. This reduces the breakage when there are
       # permissions problems with the tmp directory.
       execute "chmod -R 777 #{current_path}/tmp/cache || :"
+      execute "chmod -R g+w #{release_path}"
     end
   end
 
