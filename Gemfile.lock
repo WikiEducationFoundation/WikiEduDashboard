@@ -444,7 +444,7 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
-    sidekiq-unique-jobs (6.0.8)
+    sidekiq-unique-jobs (6.0.9)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 4.0, < 6.0)
       thor (~> 0)
