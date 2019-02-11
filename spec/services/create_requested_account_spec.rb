@@ -57,7 +57,22 @@ describe CreateRequestedAccount do
     subject
   end
 
-  it 'only retries account creation if the request fails because of account throttling' do
+  it 'retries account creation when the main creator account gets a CAPTCHA' do
+    Setting.set_special_user(:backup_account_creator, super_admin.username)
+    # This will stub the request so that it fails with the appropriate
+    # error message, which in turn will change the creator to the super admin
+    stub_account_creation_failure_captcha
+    expect(WikiEdits).to receive(:new).and_return(wiki_edits)
+    expect(wiki_edits).to receive(:create_account)
+      .with(creator: creator, username: anything, email: anything, reason: anything)
+      .ordered.and_call_original
+    expect(wiki_edits).to receive(:create_account)
+      .with(creator: super_admin, username: anything, email: anything, reason: anything)
+      .ordered.and_call_original
+    subject
+  end
+
+  it 'only retries account creation if the request fails because of expected failure messages' do
     Setting.set_special_user(:backup_account_creator, super_admin.username)
     stub_account_creation_failure_unexpected
     expect(WikiEdits).to receive(:new).and_return(wiki_edits)

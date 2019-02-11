@@ -37,6 +37,8 @@ diq:
     confirm: TEMAM
     opt_in: Eya
     opt_out: Nê
+    opt_yes: eya
+    opt_no: nê
   dashboard:
     explore_examples: Nımuneyan cı geyre
     review_orientation: Çımdariya istiqameti
@@ -83,6 +85,8 @@ diq:
     delete_campaign: Ena kampanya bestere
     none: Çıniyo
     title: Sername
+  categories:
+    name: Name
   chat:
     label: Mıhebet
   courses:
@@ -142,6 +146,7 @@ diq:
     overview: Keye
     passcode: Passcode
     passcode_none: passcode çıni yo
+    requested_accounts_alert_view: Bıvêne
     school: Wendxane
     start: Suru bık
     students: Telebey
@@ -185,9 +190,10 @@ diq:
     active_courses: Wesiqe de aktiv o
     article_title: Sernamey wesiqe
     datetime: Tarix/Zeman
-    image: Resim
+    image: Resım
     file_name: Namey dosya
   revisions:
+    diff: ferq
     diff_show: Bımocne
     diff_hide: Bınımne
     title: Sername
@@ -202,6 +208,7 @@ diq:
     continue: Dewam keno %{progress}
     start: Suru bık
     view: Bıvêne
+    page: Pele
     done: Temam!
   uploads:
     file_name: Namey dosya

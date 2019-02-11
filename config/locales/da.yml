@@ -50,6 +50,8 @@ da:
     confirm: O.k.
     opt_in: Ja
     opt_out: Nej
+    opt_yes: ja
+    opt_no: nej
   dashboard:
     create_note: Klik på Opret kursus for at oprette dit første kursus.
     create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig

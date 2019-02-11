@@ -13,13 +13,14 @@ gom-latn:
   courses:
     articles: Lekh
     my_articles: Mhoje lekh
+    private: Khasgi
     students: Vidyarthi
     students_short: Vidyarthi
     title: Mathallo
     view_wiki: Wikipidiacher polloi
   courses_generic:
     enroll: Sompadok zod
-    enrollment: Sahbhag
+    enrollment: Sampadokank Zodd/Kadd
   metrics:
     articles_created: Rochlele lekh
     articles_edited: Sompadit Lekh

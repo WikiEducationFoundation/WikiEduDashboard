@@ -67,6 +67,8 @@ zh-TW:
     confirm: 好
     opt_in: 是
     opt_out: 否
+    opt_yes: 是
+    opt_no: 否
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
@@ -234,6 +236,8 @@ zh-TW:
   chat:
     label: 聊天
   courses:
+    assignment_edits_enabled: 分配編輯已啟用
+    assignment_edits_enabled_tooltip: 若有啟用，面板會對各分配條目發佈討論頁模板。
     accounts_generation_enabled: 帳號申請產生已啟用
     accounts_generation_explanation: 這將允許參與者輸入他們的電子郵件地址，以及想要的使用者名稱，而不是讓他們自行建立新的帳號。您之後可從此份資訊看板來建立帳號，並同時將他們新增為方案參與者。要使用此功能，您得在用於此方案的主
       wiki 上擁有「帳號建立者」的權限。
@@ -303,9 +307,10 @@ zh-TW:
         basic_course_description: 此方案類型會追蹤透過任何參與者對任何條目或主空間頁面所做的編輯。若在方案的主要 wiki 啟用了自動化
           wiki 編輯，將會自動創建並更新此方案 wiki 版本。
         edit_a_thon_name: Edit-A-Thon
-        edit_a_thon_description: Edit-A-Thon 方案將會追蹤任何條目或主空間頁面的編輯，並且不會對此方案做出自動化編輯。
+        edit_a_thon_description: Edit-A-Thon 方案將會追蹤任何條目或主空間頁面的編輯，按預設不會對此方案做出自動化編輯。
         article_scoped_program_name: 條目範圍方案
-        article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。
+        article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
+          wiki 編輯。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程
@@ -359,6 +364,8 @@ zh-TW:
     ended: 課程已結束。
     enroll: 登記
     enrollment: 添加/移除學生
+    enrollment_edits_enabled: 登記編輯已啟用
+    enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入方案的各編者發佈使用者頁面與討論頁模板。
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
@@ -429,6 +436,10 @@ zh-TW:
       學生可透過此 URL 登記課程：
     rating_feedback: 該條目的預估評級為：
     requested_accounts: 申請的帳號
+    requested_accounts_alert:
+      one: '%{count} 個請求帳號待定中。'
+      other: '%{count} 個請求帳號待定中。'
+    requested_accounts_alert_view: 檢視
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
@@ -493,6 +504,8 @@ zh-TW:
     warn_mirrored: |-
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
+    wiki_course_page_enabled: Wiki 課程頁面已啟用
+    wiki_course_page_enabled_tooltip: 若有啟用，無論方案或使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
     wiki_edits_enabled: 已啟用 wiki 編輯
     wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
       wiki 編輯。

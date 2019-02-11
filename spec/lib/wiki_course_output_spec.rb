@@ -44,6 +44,18 @@ describe WikiCourseOutput do
                       timeline_start: '2016-01-11',
                       timeline_end: '2016-04-24',
                       weeks: [week1, week2])
+      campaign1 = create(:campaign,
+                         title: 'Campaign Title 1',
+                         slug: 'Campaign Slug 1')
+      campaign2 = create(:campaign,
+                         title: 'Campaign Title 2',
+                         slug: 'Campaign Slug 2')
+      create(:campaigns_course,
+             campaign: campaign1,
+             course: course)
+      create(:campaigns_course,
+             campaign: campaign2,
+             course: course)
       create(:courses_user,
              user: student,
              course: course,
@@ -71,6 +83,7 @@ describe WikiCourseOutput do
       expect(response).to include('[[Your article]]')
       expect(response).to include('{{start of course week|2016-01-11|2016-01-13|2016-01-15}}')
       expect(response).to include('Jacque')
+      expect(response).to include('Campaign Title 1, Campaign Title 2')
     end
 
     context 'when the course has no weeks or users or anything' do

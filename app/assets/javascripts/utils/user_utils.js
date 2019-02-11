@@ -1,30 +1,31 @@
 import { getFiltered } from './model_utils';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, CAMPUS_VOLUNTEER_ROLE, ONLINE_VOLUNTEER_ROLE, STAFF_ROLE } from '../constants/user_roles';
 
 const UserUtils = class {
   userRoles(currentUser, users) {
     // Role values correspond to the CoursesUsers roles defined
     const roles = {};
     if (!currentUser) { return roles; }
-    if (getFiltered(users, { id: currentUser.id, role: 0 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: STUDENT_ROLE })[0]) {
       roles.isStudent = true;
       roles.isEnrolled = true;
     }
-    if (getFiltered(users, { id: currentUser.id, role: 1 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: INSTRUCTOR_ROLE })[0]) {
       roles.isInstructor = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (getFiltered(users, { id: currentUser.id, role: 2 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: CAMPUS_VOLUNTEER_ROLE })[0]) {
       roles.isCampusVolunteer = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (getFiltered(users, { id: currentUser.id, role: 3 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: ONLINE_VOLUNTEER_ROLE })[0]) {
       roles.isOnlineVolunteer = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (getFiltered(users, { id: currentUser.id, role: 4 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: STAFF_ROLE })[0]) {
       roles.isStaff = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;

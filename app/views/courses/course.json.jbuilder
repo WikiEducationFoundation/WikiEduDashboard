@@ -55,7 +55,7 @@ json.course do
     json.passcode_required @course.passcode_required?
     json.passcode @course.passcode
     json.canUploadSyllabus true
-    json.requestedAccounts @course.requested_accounts.count if @course.flags[:register_accounts]
+    json.requestedAccounts @course.requested_accounts.count if @course.account_requests_enabled?
   elsif @course.passcode
     # If there is a passcode, send a placeholder value. If not, send empty string.
     json.passcode @course.passcode.blank? ? '' : '****'

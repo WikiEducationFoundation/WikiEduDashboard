@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Carlosmg.dg
 # Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
@@ -64,6 +65,8 @@ es:
     confirm: Aceptar
     opt_in: Sí
     opt_out: "No"
+    opt_yes: sí
+    opt_no: "no"
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes

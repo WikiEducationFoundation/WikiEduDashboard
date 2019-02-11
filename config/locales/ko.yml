@@ -58,6 +58,8 @@ ko:
     confirm: 확인
     opt_in: 예
     opt_out: 아니오
+    opt_yes: 예
+    opt_no: 아니오
   dashboard:
     create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
     explore_course_pages: 코스 문서 둘러보기
@@ -202,6 +204,8 @@ ko:
       course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
       course_project: 주 프로젝트
       course_term_placeholder: 학기
+      course_types:
+        edit_a_thon_name: 에디터톤
       end_date: 종료일
       end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
@@ -280,6 +284,7 @@ ko:
     please_log_in: 로그인해 주십시오.
     private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
+    requested_accounts_alert_view: 보기
     school: 학교
     search_courses: 강의 검색
     start: 시작
