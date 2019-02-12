@@ -11,6 +11,7 @@ const Article = createReactClass({
 
   propTypes: {
     article: PropTypes.object.isRequired,
+    index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object,
@@ -76,6 +77,7 @@ const Article = createReactClass({
           />
           <DiffViewer
             fetchArticleDetails={this.fetchArticleDetails}
+            index={this.props.index}
             revision={this.props.articleDetails && this.props.articleDetails.last_revision}
             first_revision={this.props.articleDetails && this.props.articleDetails.first_revision}
             showButtonLabel={I18n.t('articles.show_cumulative_changes')}
@@ -84,6 +86,7 @@ const Article = createReactClass({
             showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
             course={this.props.course}
             article={this.props.article}
+            shouldShowDiff={this.props.shouldShowDiff}
             showDiff={this.props.showDiff}
             hideDiff={this.props.hideDiff}
             isFirstArticle={this.props.isFirstArticle}

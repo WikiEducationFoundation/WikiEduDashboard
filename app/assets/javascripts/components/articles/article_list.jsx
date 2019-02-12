@@ -103,9 +103,10 @@ const ArticleList = createReactClass({
     // the ArticleViewer should go into show mode immediately.
     // this allows for links to directly view a specific article.
     const showArticleId = Number(location.search.split('showArticle=')[1]);
-    const articleElements = this.props.articles.map(article => (
+    const articleElements = this.props.articles.map((article, index) => (
       <Article
         article={article}
+        index={index}
         showOnMount={showArticleId === article.id}
         course={this.props.course}
         key={article.id}
