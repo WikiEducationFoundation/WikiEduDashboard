@@ -31,7 +31,7 @@ const RevisionList = createReactClass({
   },
 
   isLastArticle(index) {
-    return index === this.props.revisions.length;
+    return index === (this.props.revisions.length - 1);
   },
 
   showPreviousArticle(index) {

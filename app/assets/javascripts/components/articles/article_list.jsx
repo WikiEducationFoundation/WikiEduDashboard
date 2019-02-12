@@ -38,7 +38,7 @@ const ArticleList = createReactClass({
   },
 
   isLastArticle(index) {
-    return index === this.props.articles.length;
+    return index === (this.props.articles.length - 1);
   },
 
   showPreviousArticle(index) {
