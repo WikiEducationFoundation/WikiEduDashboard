@@ -15,7 +15,14 @@ const Article = createReactClass({
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
-    showOnMount: PropTypes.bool
+    showOnMount: PropTypes.bool,
+    shouldShowDiff: PropTypes.func,
+    showDiff: PropTypes.func,
+    hideDiff: PropTypes.func,
+    isFirstArticle: PropTypes.func,
+    isLastArticle: PropTypes.func,
+    showPreviousArticle: PropTypes.func,
+    showNextArticle: PropTypes.func
   },
 
   getInitialState() {
@@ -28,24 +35,6 @@ const Article = createReactClass({
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
     }
-  },
-
-  showDiff() {
-    this.setState({
-      isArticleOpened: true
-    });
-  },
-
-  shouldShowDiff() {
-    return this.state.isArticleOpened;
-  },
-
-  isFirstArticle() {
-    return true;
-  },
-
-  isLastArticle() {
-    return true;
   },
 
   render() {
@@ -95,10 +84,12 @@ const Article = createReactClass({
             showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
             course={this.props.course}
             article={this.props.article}
-            showDiff={this.showDiff}
-            shouldShowDiff={this.shouldShowDiff}
-            isFirstArticle={this.isFirstArticle}
-            isLastArticle={this.isLastArticle}
+            showDiff={this.props.showDiff}
+            hideDiff={this.props.hideDiff}
+            isFirstArticle={this.props.isFirstArticle}
+            isLastArticle={this.props.isLastArticle}
+            showPreviousArticle={this.props.showPreviousArticle}
+            showNextArticle={this.props.showNextArticle}
           />
         </td>
       </tr>

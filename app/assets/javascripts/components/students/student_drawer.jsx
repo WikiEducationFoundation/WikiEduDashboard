@@ -17,7 +17,7 @@ const StudentDrawer = createReactClass({
 
   getInitialState() {
     return {
-      isArticleOpened: false
+      selectedIndex: -1,
     };
   },
 
@@ -26,28 +26,46 @@ const StudentDrawer = createReactClass({
     return false;
   },
 
-  showDiff() {
+  shouldShowDiff(index) {
+    return this.state.selectedIndex === index;
+  },
+
+  isFirstArticle(index) {
+    return index === 0;
+  },
+
+  isLastArticle(index) {
+    return index === (this.props.revisions.length - 1);
+  },
+
+  showPreviousArticle(index) {
     this.setState({
-      isArticleOpened: true
+      selectedIndex: index - 1
     });
   },
 
-  shouldShowDiff() {
-    return this.state.isArticleOpened;
+  showNextArticle(index) {
+    this.setState({
+      selectedIndex: index + 1
+    });
   },
 
-  isFirstArticle() {
-    return true;
+  showDiff(index) {
+    this.setState({
+      selectedIndex: index
+    });
   },
 
-  isLastArticle() {
-    return true;
+  hideDiff() {
+    this.setState({
+      selectedIndex: -1
+    });
   },
 
   render() {
     if (!this.props.isOpen) { return <tr />; }
 
-    const revisionsRows = (this.props.revisions || []).map((rev) => {
+    const revisionsRows = (this.props.revisions || []).map((rev, index) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
@@ -64,11 +82,15 @@ const StudentDrawer = createReactClass({
           <td className="desktop-only-tc">
             <DiffViewer
               revision={rev}
+              index={index}
               editors={[this.props.student]}
-              showDiff={this.showDiff}
               shouldShowDiff={this.shouldShowDiff}
+              showDiff={this.showDiff}
+              hideDiff={this.hideDiff}
               isFirstArticle={this.isFirstArticle}
               isLastArticle={this.isLastArticle}
+              showPreviousArticle={this.showPreviousArticle}
+              showNextArticle={this.showNextArticle}
             />
           </td>
         </tr>
