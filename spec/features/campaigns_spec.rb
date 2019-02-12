@@ -74,8 +74,8 @@ describe 'campaigns page', type: :feature, js: true do
       find('.wizard__form .button__submit').click
       expect(Campaign.last.title).to eq(title)
       expect(Campaign.last.description).to eq(description)
-      expect(Campaign.last.start).to eq(Time.new(2016, 1, 10, 0, 0, 0, '+00:00'))
-      expect(Campaign.last.end).to eq(Time.new(2016, 2, 10, 23, 59, 59, '+00:00'))
+      expect(Campaign.last.start).to eq(Time.zone.parse('2016-1-10 00:00:00'))
+      expect(Campaign.last.end).to eq(Time.zone.parse('2016-02-10 23:59:59'))
     end
 
     it 'can be reached from the explore page' do
