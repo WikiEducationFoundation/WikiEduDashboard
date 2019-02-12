@@ -32,7 +32,9 @@ const DiffViewer = createReactClass({
     isFirstArticle: PropTypes.func,
     isLastArticle: PropTypes.func,
     showNextArticle: PropTypes.func,
-    showPreviousArticle: PropTypes.func
+    showPreviousArticle: PropTypes.func,
+    revisionName: PropTypes.string,
+    revisionAuthor: PropTypes.string
   },
 
   getInitialState() {
@@ -196,7 +198,7 @@ const DiffViewer = createReactClass({
         onClick={() => this.props.showPreviousArticle(this.props.index)}
         className="button dark small"
       >
-          Previous
+        {I18n.t('articles.previous')}
       </button>
     );
   },
@@ -206,15 +208,15 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <button onClick={() => this.props.showNextArticle(this.props.index)} className="pull-right button dark small">Next</button>
+      <button onClick={() => this.props.showNextArticle(this.props.index)} className="pull-right button dark small">{I18n.t('articles.next')}</button>
     );
   },
 
   articleDetails() {
     return (
       <div className="diff-viewer-header">
-        <p>Article Name: {this.props.revision.title}</p>
-        <p>Article Author: {this.props.revision.revisor}</p>
+        <p>{I18n.t('articles.article_name')}: {this.props.revisionName}</p>
+        <p>{I18n.t('articles.article_author')}: {this.props.revisionAuthor}</p>
       </div>
     );
   },
@@ -257,7 +259,7 @@ const DiffViewer = createReactClass({
     } else if (this.state.diff === '') {
       diff = <div> —</div>;
     } else {
-      diff = <div dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
@@ -338,8 +340,8 @@ const DiffViewer = createReactClass({
                     <th colSpan="4" className="diff-header">{editDate}</th>
                   </tr>
                 </thead>
+                {diff}
               </table>
-              {diff}
             </div>
           </div>
         </div>

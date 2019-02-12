@@ -63,6 +63,8 @@ const Revision = createReactClass({
             isLastArticle={this.props.isLastArticle}
             showPreviousArticle={this.props.showPreviousArticle}
             showNextArticle={this.props.showNextArticle}
+            revisionAuthor={this.props.revision.revisor}
+            revisionName={this.props.revision.title}
           />
         </td>
       </tr>

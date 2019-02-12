@@ -91,6 +91,8 @@ const StudentDrawer = createReactClass({
               isLastArticle={this.isLastArticle}
               showPreviousArticle={this.showPreviousArticle}
               showNextArticle={this.showNextArticle}
+              revisionAuthor={this.props.student.username}
+              revisionName={rev.article.title}
             />
           </td>
         </tr>

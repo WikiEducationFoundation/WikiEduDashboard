@@ -130,6 +130,10 @@ en:
     article_development: (article development)
     assigned: Assigned Articles
     available: Available Articles
+    next: Next
+    previous: Previous
+    article_name: Article Name
+    article_author: Article Author
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     cross_wiki_tracking: >
