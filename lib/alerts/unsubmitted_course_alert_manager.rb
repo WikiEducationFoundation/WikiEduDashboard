@@ -15,10 +15,10 @@ class UnsubmittedCourseAlertManager
 
   private
 
-  TIME_WINDOW = 3
+  TIME_WINDOW = 3.days
   def unsubmitted_recently_started_courses
     ClassroomProgramCourse.unsubmitted
-                          .where('courses.created_at <= ?', TIME_WINDOW.days.ago)
-                          .where('courses.start <= ?', TIME_WINDOW.days.from_now)
+                          .where('courses.created_at <= ?', TIME_WINDOW.ago)
+                          .where(start: TIME_WINDOW.ago...TIME_WINDOW.from_now)
   end
 end
