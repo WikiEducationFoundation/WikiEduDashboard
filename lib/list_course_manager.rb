@@ -27,6 +27,7 @@ class ListCourseManager
     # Tasks for when a course is initially approved
     add_instructor_real_names if Features.wiki_ed?
     send_approval_notification_emails
+    add_classroom_program_manager_if_exists if Features.wiki_ed?
     RocketChat.new(course: @course).create_channel_for_course if Features.enable_chat?
   end
 
@@ -36,6 +37,17 @@ class ListCourseManager
   def add_instructor_real_names
     @course.courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).each do |cu|
       cu.update(real_name: cu.user.real_name) if cu.real_name.nil?
+    end
+  end
+
+  def add_classroom_program_manager_if_exists
+    cpm = SpecialUsers.classroom_program_manager
+    if cpm
+      CoursesUsers.create(user: cpm,
+                          course: @course,
+                          role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
+                          real_name: cpm.real_name,
+                          role_description: 'Wiki Ed Staff')
     end
   end
 

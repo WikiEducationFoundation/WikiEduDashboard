@@ -470,6 +470,13 @@ describe CoursesController, type: :request do
           params = { id: course.slug, campaign: { title: campaign.title } }
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
+
+        it 'sets the CPM as a Wiki Ed staff member if that role exists' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
+          post "/courses/#{course.slug}/campaign", params: params, as: :json
+          expect(CoursesUsers.all.length).to eq(2)
+          expect(CoursesUsers.find_by(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE).role_description).to eq('Wiki Ed Staff')
+        end
       end
 
       context 'delete request' do
