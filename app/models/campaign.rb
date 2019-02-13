@@ -118,13 +118,12 @@ class Campaign < ApplicationRecord
     # rubocop:disable Rails/TimeZone
     self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : Time.zone.parse(value)
     # rubocop:enable Rails/TimeZone
-  rescue ArgumentError, TypeError
-    errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
+    errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize)) if self[date_type].nil?
   end
 
   # Start must not be after end.
   def valid_start_and_end_dates?
-    return false unless start && self.end
+    return false unless start.present? && self.end.present?
     start <= self.end
   end
 
