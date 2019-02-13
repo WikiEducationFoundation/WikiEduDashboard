@@ -132,8 +132,6 @@ en:
     available: Available Articles
     next: Next
     previous: Previous
-    article_name: Article Name
-    article_author: Article Author
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     cross_wiki_tracking: >
@@ -293,7 +291,7 @@ en:
   courses:
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
-      If enabled, the dashboard will post a template to the talk page 
+      If enabled, the dashboard will post a template to the talk page
       for each assigned article.
     accounts_generation_enabled: Accounts request generation enabled
     accounts_generation_explanation: >
@@ -552,7 +550,7 @@ en:
       one: '%{count} requested account pending.'
       other: '%{count} requested accounts pending.'
     requested_accounts_alert_view: 'View'
-      
+
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.

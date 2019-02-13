@@ -83,7 +83,7 @@ const StudentDrawer = createReactClass({
             <DiffViewer
               revision={rev}
               index={index}
-              editors={[this.props.student]}
+              editors={[this.props.student.username]}
               shouldShowDiff={this.shouldShowDiff}
               showDiff={this.showDiff}
               hideDiff={this.hideDiff}
@@ -91,8 +91,6 @@ const StudentDrawer = createReactClass({
               isLastArticle={this.isLastArticle}
               showPreviousArticle={this.showPreviousArticle}
               showNextArticle={this.showNextArticle}
-              revisionAuthor={this.props.student.username}
-              revisionName={rev.article.title}
             />
           </td>
         </tr>

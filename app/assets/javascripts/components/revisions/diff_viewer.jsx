@@ -33,13 +33,11 @@ const DiffViewer = createReactClass({
     isLastArticle: PropTypes.func,
     showNextArticle: PropTypes.func,
     showPreviousArticle: PropTypes.func,
-    revisionName: PropTypes.string,
-    revisionAuthor: PropTypes.string
   },
 
   getInitialState() {
     return {
-      isArticleOpened: this.shouldShowDiff(),
+      isArticleOpened: false,
     };
   },
 
@@ -50,7 +48,16 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if (!this.props.editors && nextProps.editors && this.state.isArticleOpened) {
+    if (this.shouldShowDiff() && !this.state.isArticleOpened) {
+      this.fetchRevisionDetails();
+      this.setState({
+        isArticleOpened: true
+      });
+    } else if (!this.shouldShowDiff() && this.state.isArticleOpened) {
+      this.setState({
+        isArticleOpened: false
+      });
+    } else if (!this.props.editors && nextProps.editors) {
       this.initiateDiffFetch(nextProps);
     }
   },
@@ -64,7 +71,6 @@ const DiffViewer = createReactClass({
 
   showDiff() {
     this.props.showDiff(this.props.index);
-    this.fetchRevisionDetails();
     this.setState({
       isArticleOpened: true
     });
@@ -80,6 +86,13 @@ const DiffViewer = createReactClass({
 
   shouldShowDiff() {
     return this.props.shouldShowDiff(this.props.index);
+  },
+
+  hideDiff() {
+    this.props.hideDiff();
+    this.setState({
+      isArticleOpened: false
+    });
   },
 
   handleClickOutside() {
@@ -215,27 +228,21 @@ const DiffViewer = createReactClass({
   articleDetails() {
     return (
       <div className="diff-viewer-header">
-        <p>{I18n.t('articles.article_name')}: {this.props.revisionName}</p>
         <p>{I18n.t('articles.article_author')}: {this.props.revisionAuthor}</p>
       </div>
     );
   },
 
-  fetchRevisionDetailsIfOpened() {
-    if (this.shouldShowDiff() && !this.state.isArticleOpened) {
-        this.setState({
-          isArticleOpened: true
-        });
-        this.fetchRevisionDetails();
-    } else if (!this.shouldShowDiff() && this.state.isArticleOpened) {
-        this.setState({
-          isArticleOpened: false
-        });
-    }
+  authorsHTML() {
+    return (
+      <div className="user-legend-wrap">
+        <div className="user-legend">Edits by:</div>
+        <div className="user-legend">{this.props.editors.join()}</div>
+      </div>
+    );
   },
 
   render() {
-    this.fetchRevisionDetailsIfOpened();
     if (!this.state.isArticleOpened || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
@@ -314,7 +321,7 @@ const DiffViewer = createReactClass({
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.props.hideDiff} className="pull-right icon-close"/>
+            <button onClick={this.hideDiff} className="pull-right icon-close"/>
             <a
               className="pull-right button small diff-viewer-feedback"
               href="/feedback?subject=Diff Viewer"
@@ -327,9 +334,8 @@ const DiffViewer = createReactClass({
             {this.previousArticle()}
             {this.nextArticle()}
           </div>
-          {this.articleDetails()}
           <div>
-            <div>
+            <div className="diff-viewer-scrollbox">
               {salesforceButtons}
               <table>
                 <thead>
@@ -342,6 +348,9 @@ const DiffViewer = createReactClass({
                 </thead>
                 {diff}
               </table>
+            </div>
+            <div className="diff-viewer-footer">
+              {this.authorsHTML()}
             </div>
           </div>
         </div>

@@ -93,8 +93,6 @@ const Article = createReactClass({
             isLastArticle={this.props.isLastArticle}
             showPreviousArticle={this.props.showPreviousArticle}
             showNextArticle={this.props.showNextArticle}
-            revisionAuthor={this.props.articleDetails && this.props.articleDetails.editors[0]}
-            revisionName={this.props.article.title}
           />
         </td>
       </tr>
