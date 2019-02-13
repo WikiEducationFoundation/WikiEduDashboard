@@ -93,6 +93,7 @@ const Article = createReactClass({
             isLastArticle={this.props.isLastArticle}
             showPreviousArticle={this.props.showPreviousArticle}
             showNextArticle={this.props.showNextArticle}
+            articleTitle={this.props.article.title}
           />
         </td>
       </tr>

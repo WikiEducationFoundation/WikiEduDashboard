@@ -33,6 +33,7 @@ const DiffViewer = createReactClass({
     isLastArticle: PropTypes.func,
     showNextArticle: PropTypes.func,
     showPreviousArticle: PropTypes.func,
+    articleTitle: PropTypes.string
   },
 
   getInitialState() {
@@ -228,7 +229,7 @@ const DiffViewer = createReactClass({
   articleDetails() {
     return (
       <div className="diff-viewer-header">
-        <p>{I18n.t('articles.article_author')}: {this.props.revisionAuthor}</p>
+        <p>{I18n.t('articles.article_title')}: {this.props.articleTitle}</p>
       </div>
     );
   },
@@ -334,6 +335,7 @@ const DiffViewer = createReactClass({
             {this.previousArticle()}
             {this.nextArticle()}
           </div>
+          {this.articleDetails()}
           <div>
             <div className="diff-viewer-scrollbox">
               {salesforceButtons}
