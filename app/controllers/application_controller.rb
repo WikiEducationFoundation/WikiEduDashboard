@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  force_ssl if: :ssl_configured?
 
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
@@ -108,10 +107,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def ssl_configured?
-    Rails.env.staging? || Rails.env.production?
-  end
 
   def set_locale
     # Saved user locale takes precedence over language preferences from HTTP headers.
