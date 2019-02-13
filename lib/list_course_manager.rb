@@ -4,19 +4,12 @@ require_dependency "#{Rails.root}/lib/chat/rocket_chat"
 
 #= Routines for adding or removing a course to/from a campaign
 class ListCourseManager
-  def initialize(course, campaign, request)
+  def initialize(course, campaign)
     @course = course
     @already_approved = course.approved?
     @campaign = campaign
-    @request = request
     @campaigns_courses_attrs = { course_id: @course.id, campaign_id: @campaign.id }
   end
-
-  def manage
-    send("handle_#{@request.request_method.downcase}")
-  end
-
-  private
 
   def handle_post
     return if CampaignsCourses.find_by(@campaigns_courses_attrs).present?
@@ -30,6 +23,13 @@ class ListCourseManager
     add_classroom_program_manager_if_exists if Features.wiki_ed?
     RocketChat.new(course: @course).create_channel_for_course if Features.enable_chat?
   end
+
+  def handle_delete
+    return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
+    CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
+  end
+
+  private
 
   # Additional instructors may have been added before the course was approved.
   # They will not have their names associated with the CoursesUsers, so we must
@@ -60,10 +60,5 @@ class ListCourseManager
     @course.instructors.each do |user|
       CourseApprovalFollowupWorker.schedule_followup_email(course: @course, instructor: user)
     end
-  end
-
-  def handle_delete
-    return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
-    CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
   end
 end
