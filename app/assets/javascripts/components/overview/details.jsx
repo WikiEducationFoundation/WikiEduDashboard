@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 import Instructors from './instructors';
@@ -52,10 +51,14 @@ const Details = createReactClass({
 
   componentDidMount() {
     this.timeout = this.poll(); // Start polling
-  },
-
-  componentDidUpdate() {
-      $('#show-message').text('Create a new course').fadeIn('fast');
+    const current = new Date().toJSON();
+    const end = this.props.course.end;
+    const courseMessage = 'This course is expired now, you can create a new course.';
+    if (current > end) {
+      $('#time-warning').html('<img src="/assets/images/expired.png" width="20" height="20" />');
+      $('.warn-them').css('background-color', '#d9534f');
+      $('#warn-message').text(courseMessage).css('color', 'white').fadeIn();
+    }
   },
 
   componentWillUnmount() {
@@ -360,10 +363,11 @@ const Details = createReactClass({
     const shared = (
       <div className="module course-details">
         <div className="section-header">
+          <span id="time-warning" />
           <h3>{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
-        <Link to="/course_creator" style={{ textDecoration: 'none' }}><h5><b id="show-message"/></h5></Link>
+        <div className="warn-them"><b id="warn-message"/></div>
         <div className="module__data extra-line-height">
           <Instructors {...this.props} />
           <div className="details-form">
