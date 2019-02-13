@@ -132,7 +132,15 @@ class CoursesController < ApplicationController
       }, status: :not_found
       return
     end
-    ListCourseManager.new(@course, campaign, request).manage
+    method = request.request_method.downcase
+
+    manager = ListCourseManager.new(@course, campaign)
+    case method
+    when 'post'
+      manager.handle_post
+    when 'delete'
+      manager.handle_delete
+    end
   end
 
   def tag
