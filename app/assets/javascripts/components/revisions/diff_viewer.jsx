@@ -351,9 +351,9 @@ const DiffViewer = createReactClass({
                 {diff}
               </table>
             </div>
-            <div className="diff-viewer-footer">
-              {this.authorsHTML()}
-            </div>
+          </div>
+          <div className="diff-viewer-footer">
+            {this.authorsHTML()}
           </div>
         </div>
       </div>
