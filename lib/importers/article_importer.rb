@@ -43,7 +43,7 @@ class ArticleImporter
                               namespace: article_data['page_namespace'],
                               wiki_id: @wiki.id)
     end
-    Article.import articles
+    Article.import articles, on_duplicate_key_ignore: true
   end
 
   def import_articles_from_title_query(results)
@@ -55,6 +55,6 @@ class ArticleImporter
                               wiki_id: @wiki.id,
                               namespace: page_data['ns'].to_i)
     end
-    Article.import articles
+    Article.import articles, on_duplicate_key_ignore: true
   end
 end

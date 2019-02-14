@@ -174,7 +174,7 @@ class CategoryImporter
       new_article = (rev_data['parentid']).zero?
       revisions_to_import << new_revision_from_rev_data(rev_data, mw_page_id, new_article)
     end
-    Revision.import revisions_to_import
+    Revision.import revisions_to_import, on_duplicate_key_ignore: true
   end
 
   def new_revision_from_rev_data(rev_data, mw_page_id, new_article)
