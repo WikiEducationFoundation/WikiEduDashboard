@@ -477,7 +477,7 @@ describe CoursesController, type: :request do
           expect(CoursesUsers.all.length).to eq(2)
 
           role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
-          expect(CoursesUsers.find_by(role: role).role_description).to eq('Wiki Ed Staff')
+          expect(CoursesUsers.where(role: role).length).to eq(1)
         end
       end
 

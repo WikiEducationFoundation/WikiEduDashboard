@@ -57,7 +57,7 @@ const CampaignEditable = createReactClass({
 
   addCampaign() {
     // After adding the campaign, request users so that any defaults are
-    // immediately propogated.
+    // immediately propagated.
     this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value)
     .then(() => this.props.fetchUsers(this.props.course_id));
 
