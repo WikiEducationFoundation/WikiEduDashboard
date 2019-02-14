@@ -92,7 +92,7 @@ class RevisionImporter
     end
 
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
-    Revision.import @revisions
+    Revision.import @revisions, on_duplicate_key_ignore: true
   end
 
   def process_article_and_revisions(article_data)
