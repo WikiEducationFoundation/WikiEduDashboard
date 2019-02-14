@@ -49,6 +49,8 @@ ca:
     confirm: D’acord
     opt_in: Sí
     opt_out: "No"
+    opt_yes: sí
+    opt_no: "no"
   dashboard:
     create_note: Feu clic a Crea Curs per crear el vostre primer curs.
     create_preparation_note: Assegura't que tens el teu calendari acadèmic a mà abans

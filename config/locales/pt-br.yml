@@ -562,6 +562,10 @@ pt-br:
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
+    requested_accounts_alert:
+      one: '%{count} conta solicitada pendente.'
+      other: '%{count} contas solicitadas pendentes.'
+    requested_accounts_alert_view: Ver
     review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o
       para atender às suas necessidades. Quando estiver satisfeito, você pode enviá-lo
       para aprovação pela equipe da Wiki Education. Depois de aprovado, você receberá

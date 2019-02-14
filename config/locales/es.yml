@@ -441,6 +441,7 @@ es:
     published: 'Se ha publicado tu curso. Los estudiantes podrán matricularse al visitar
       el URL siguiente:'
     requested_accounts: Cuentas solicitadas
+    requested_accounts_alert_view: Ver
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
       con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
       vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar

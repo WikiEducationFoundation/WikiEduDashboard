@@ -13,6 +13,7 @@
 # Author: Katpatuka
 # Author: KorkmazO
 # Author: Mavrikant
+# Author: Mirzali
 # Author: Rapsar
 # Author: Sayginer
 # Author: TmY e12
@@ -495,6 +496,7 @@ tr:
       kayıt olabilirler:'
     rating_feedback: 'Makale için tahmini değerlendirme:'
     requested_accounts: İstenen hesaplar
+    requested_accounts_alert_view: Görüntüle
     revisions_doc: Son %{timeframe} gün içindeki düzenleme sayısı
     revisions_none: Bu dersin Vikipedi düzenleme faaliyeti bulunmamaktadır.
     school: Okul

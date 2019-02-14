@@ -166,12 +166,12 @@ diq:
       course_term: Key
       course_term_placeholder: Key
       save_cloned_course: Qeyd ke
-    student_editors: Editori
-    students: Editori
-    students_short: Editori
+    student_editors: Vurnayoği
+    students: Vurnayoği
+    students_short: Vurnayoği
     term: Key
   editable:
-    edit: Bıvırne
+    edit: Bıvurne
     cancel: Bıtexelne
     save: Qeyd ke
   metrics:
@@ -227,6 +227,7 @@ diq:
     name: Name
     no_articles: Maqaley çıni yê
     training_incomplete: Musnayış nêqediya
+    training_module_status: Weziyet
     username: Namey karberi
     username_placeholder: Namey karberi
   wizard:

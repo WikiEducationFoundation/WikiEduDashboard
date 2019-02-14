@@ -559,6 +559,10 @@ pt:
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
+    requested_accounts_alert:
+      one: '%{count} conta solicitada pendente.'
+      other: '%{count} contas solicitadas pendentes.'
+    requested_accounts_alert_view: Ver
     review_timeline: 'Agora, reveja o seu calendário de trabalhos e faça as alterações
       necessárias. Quando estiver satisfeito, pode submetê-lo para aprovação da equipa
       da Wiki Educação. Após a aprovação, receberá um URL de inscrição que os alunos
