@@ -416,7 +416,8 @@ describe CoursesController, type: :request do
   end
 
   describe '#list' do
-    let(:course) { create(:course, slug: slug_params) }
+    let(:course) { create(:course, slug: slug_params, type: course_type) }
+    let(:course_type) { 'ClassroomProgramCourse' }
     let(:campaign) { Campaign.last }
     let(:user) { create(:admin, email: 'user@example.edu') }
 
@@ -471,13 +472,28 @@ describe CoursesController, type: :request do
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
-        it 'sets the CPM as a Wiki Ed staff member if that role exists' do
-          params = { id: course.slug, campaign: { title: campaign.title } }
-          post "/courses/#{course.slug}/campaign", params: params, as: :json
-          expect(CoursesUsers.all.length).to eq(2)
+        context 'for a ClassroomProgramCourse' do
+          it 'sets the CPM as a Wiki Ed staff member if that role exists' do
+            params = { id: course.slug, campaign: { title: campaign.title } }
+            post "/courses/#{course.slug}/campaign", params: params, as: :json
+            expect(CoursesUsers.all.length).to eq(2)
 
-          role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
-          expect(CoursesUsers.where(role: role).length).to eq(1)
+            role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
+            expect(CoursesUsers.where(role: role).length).to eq(1)
+          end
+        end
+
+        context 'for a FellowsCohort' do
+          let(:course_type) { 'FellowsCohort' }
+
+          it 'does not set the CPM as a Wiki Ed staff member' do
+            params = { id: course.slug, campaign: { title: campaign.title } }
+            post "/courses/#{course.slug}/campaign", params: params, as: :json
+            expect(CoursesUsers.all.length).to eq(1)
+
+            role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
+            expect(CoursesUsers.where(role: role).length).to eq(0)
+          end
         end
       end
 

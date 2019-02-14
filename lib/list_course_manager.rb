@@ -42,7 +42,7 @@ class ListCourseManager
 
   def add_classroom_program_manager_if_exists
     cpm = SpecialUsers.classroom_program_manager
-    if cpm
+    if cpm && @course.type == 'ClassroomProgramCourse'
       CoursesUsers.create(user: cpm,
                           course: @course,
                           role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
