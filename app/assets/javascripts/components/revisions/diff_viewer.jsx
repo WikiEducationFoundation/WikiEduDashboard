@@ -238,7 +238,7 @@ const DiffViewer = createReactClass({
     return (
       <div className="user-legend-wrap">
         <div className="user-legend">{I18n.t('users.edits_by')}</div>
-        <div className="user-legend">{this.props.editors.join()}</div>
+        <div className="user-legend">{this.props.editors.join(', ')}</div>
       </div>
     );
   },
