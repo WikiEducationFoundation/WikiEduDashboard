@@ -46,8 +46,7 @@ class ListCourseManager
       CoursesUsers.create(user: cpm,
                           course: @course,
                           role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
-                          real_name: cpm.real_name,
-                          role_description: 'Wiki Ed Staff')
+                          real_name: cpm.real_name)
     end
   end
 
