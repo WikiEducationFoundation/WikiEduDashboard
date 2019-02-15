@@ -32,12 +32,6 @@ const DiffViewer = createReactClass({
     articleTitle: PropTypes.string
   },
 
-  getInitialState() {
-    return {
-      isArticleOpened: false,
-    };
-  },
-
   // When 'show' is clicked, this component may or may not already have
   // users data (a list of usernames) in its props. If it does, then 'show' will
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
