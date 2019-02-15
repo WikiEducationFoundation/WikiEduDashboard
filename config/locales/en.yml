@@ -292,7 +292,7 @@ en:
   courses:
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
-      If enabled, the dashboard will post a template to the talk page
+      If enabled, the dashboard will post a template to the talk page 
       for each assigned article.
     accounts_generation_enabled: Accounts request generation enabled
     accounts_generation_explanation: >
@@ -551,7 +551,7 @@ en:
       one: '%{count} requested account pending.'
       other: '%{count} requested accounts pending.'
     requested_accounts_alert_view: 'View'
-
+      
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
