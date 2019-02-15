@@ -22,39 +22,9 @@ const RevisionList = createReactClass({
     };
   },
 
-  shouldShowDiff(index) {
-    return this.state.selectedIndex === index;
-  },
-
-  isFirstArticle(index) {
-    return index === 0;
-  },
-
-  isLastArticle(index) {
-    return index === (this.props.revisions.length - 1);
-  },
-
-  showPreviousArticle(index) {
-    this.setState({
-      selectedIndex: index - 1
-    });
-  },
-
-  showNextArticle(index) {
-    this.setState({
-      selectedIndex: index + 1
-    });
-  },
-
   showDiff(index) {
     this.setState({
       selectedIndex: index
-    });
-  },
-
-  hideDiff() {
-    this.setState({
-      selectedIndex: -1
     });
   },
 
@@ -66,13 +36,9 @@ const RevisionList = createReactClass({
         index={index}
         wikidataLabel={this.props.wikidataLabels[revision.title]}
         course={this.props.course}
-        shouldShowDiff={this.shouldShowDiff}
-        showDiff={this.showDiff}
-        hideDiff={this.hideDiff}
-        isFirstArticle={this.isFirstArticle}
-        isLastArticle={this.isLastArticle}
-        showPreviousArticle={this.showPreviousArticle}
-        showNextArticle={this.showNextArticle}
+        setSelectedIndex={this.showDiff}
+        lastIndex={this.props.revisions.length}
+        selectedIndex={this.state.selectedIndex}
       />;
     });
 

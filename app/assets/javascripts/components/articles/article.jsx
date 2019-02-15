@@ -17,13 +17,9 @@ const Article = createReactClass({
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
     showOnMount: PropTypes.bool,
-    shouldShowDiff: PropTypes.func,
-    showDiff: PropTypes.func,
-    hideDiff: PropTypes.func,
-    isFirstArticle: PropTypes.func,
-    isLastArticle: PropTypes.func,
-    showPreviousArticle: PropTypes.func,
-    showNextArticle: PropTypes.func
+    setSelectedIndex: PropTypes.func,
+    lastIndex: PropTypes.number,
+    selectedIndex: PropTypes.number
   },
 
   getInitialState() {
@@ -86,14 +82,10 @@ const Article = createReactClass({
             showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
             course={this.props.course}
             article={this.props.article}
-            shouldShowDiff={this.props.shouldShowDiff}
-            showDiff={this.props.showDiff}
-            hideDiff={this.props.hideDiff}
-            isFirstArticle={this.props.isFirstArticle}
-            isLastArticle={this.props.isLastArticle}
-            showPreviousArticle={this.props.showPreviousArticle}
-            showNextArticle={this.props.showNextArticle}
             articleTitle={this.props.article.title}
+            setSelectedIndex={this.props.setSelectedIndex}
+            lastIndex={this.props.lastIndex}
+            selectedIndex={this.props.selectedIndex}
           />
         </td>
       </tr>

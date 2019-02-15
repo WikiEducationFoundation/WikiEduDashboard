@@ -26,46 +26,17 @@ const StudentDrawer = createReactClass({
     return false;
   },
 
-  shouldShowDiff(index) {
-    return this.state.selectedIndex === index;
-  },
-
-  isFirstArticle(index) {
-    return index === 0;
-  },
-
-  isLastArticle(index) {
-    return index === (this.props.revisions.length - 1);
-  },
-
-  showPreviousArticle(index) {
-    this.setState({
-      selectedIndex: index - 1
-    });
-  },
-
-  showNextArticle(index) {
-    this.setState({
-      selectedIndex: index + 1
-    });
-  },
-
   showDiff(index) {
     this.setState({
       selectedIndex: index
     });
   },
 
-  hideDiff() {
-    this.setState({
-      selectedIndex: -1
-    });
-  },
-
   render() {
     if (!this.props.isOpen) { return <tr />; }
 
-    const revisionsRows = (this.props.revisions || []).map((rev, index) => {
+    const revisions = this.props.revisions || [];
+    const revisionsRows = revisions.map((rev, index) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
@@ -84,14 +55,10 @@ const StudentDrawer = createReactClass({
               revision={rev}
               index={index}
               editors={[this.props.student.username]}
-              shouldShowDiff={this.shouldShowDiff}
-              showDiff={this.showDiff}
-              hideDiff={this.hideDiff}
-              isFirstArticle={this.isFirstArticle}
-              isLastArticle={this.isLastArticle}
-              showPreviousArticle={this.showPreviousArticle}
-              showNextArticle={this.showNextArticle}
               articleTitle={rev.article.title}
+              setSelectedIndex={this.showDiff}
+              lastIndex={this.props.revisions.length}
+              selectedIndex={this.state.selectedIndex}
             />
           </td>
         </tr>

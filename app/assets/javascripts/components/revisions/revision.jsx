@@ -13,13 +13,9 @@ const Revision = createReactClass({
     index: PropTypes.number,
     wikidataLabel: PropTypes.string,
     course: PropTypes.object,
-    shouldShowDiff: PropTypes.func,
-    showDiff: PropTypes.func,
-    hideDiff: PropTypes.func,
-    isFirstArticle: PropTypes.func,
-    isLastArticle: PropTypes.func,
-    showPreviousArticle: PropTypes.func,
-    showNextArticle: PropTypes.func
+    setSelectedIndex: PropTypes.func,
+    lastIndex: PropTypes.number,
+    selectedIndex: PropTypes.number
   },
 
   render() {
@@ -56,14 +52,10 @@ const Revision = createReactClass({
             index={this.props.index}
             revision={this.props.revision}
             editors={[this.props.revision.revisor]}
-            shouldShowDiff={this.props.shouldShowDiff}
-            showDiff={this.props.showDiff}
-            hideDiff={this.props.hideDiff}
-            isFirstArticle={this.props.isFirstArticle}
-            isLastArticle={this.props.isLastArticle}
-            showPreviousArticle={this.props.showPreviousArticle}
-            showNextArticle={this.props.showNextArticle}
             articleTitle={this.props.revision.title}
+            setSelectedIndex={this.props.setSelectedIndex}
+            lastIndex={this.props.lastIndex}
+            selectedIndex={this.props.selectedIndex}
           />
         </td>
       </tr>

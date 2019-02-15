@@ -29,39 +29,9 @@ const ArticleList = createReactClass({
     };
   },
 
-  shouldShowDiff(index) {
-    return this.state.selectedIndex === index;
-  },
-
-  isFirstArticle(index) {
-    return index === 0;
-  },
-
-  isLastArticle(index) {
-    return index === (this.props.articles.length - 1);
-  },
-
-  showPreviousArticle(index) {
-    this.setState({
-      selectedIndex: index - 1
-    });
-  },
-
-  showNextArticle(index) {
-    this.setState({
-      selectedIndex: index + 1
-    });
-  },
-
   showDiff(index) {
     this.setState({
       selectedIndex: index
-    });
-  },
-
-  hideDiff() {
-    this.setState({
-      selectedIndex: -1
     });
   },
 
@@ -115,13 +85,9 @@ const ArticleList = createReactClass({
         current_user={this.props.current_user}
         fetchArticleDetails={this.props.actions.fetchArticleDetails}
         articleDetails={this.props.articleDetails[article.id] || null}
-        shouldShowDiff={this.shouldShowDiff}
-        showDiff={this.showDiff}
-        hideDiff={this.hideDiff}
-        isFirstArticle={this.isFirstArticle}
-        isLastArticle={this.isLastArticle}
-        showPreviousArticle={this.showPreviousArticle}
-        showNextArticle={this.showNextArticle}
+        setSelectedIndex={this.showDiff}
+        lastIndex={this.props.articles.length}
+        selectedIndex={this.state.selectedIndex}
       />
     ));
 

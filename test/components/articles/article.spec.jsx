@@ -33,13 +33,6 @@ describe('Article', () => {
             toggleDrawer={() => {}}
             fetchArticleDetails={() => {}}
             articleDetails={null}
-            showDiff={() => {}}
-            shouldShowDiff={() => false}
-            hideDiff={() => {}}
-            isFirstArticle={() => true}
-            isLastArticle={() => true}
-            showPreviousArticle={() => false}
-            showNextArticle={() => false}
           />
         </tbody>
       </table>

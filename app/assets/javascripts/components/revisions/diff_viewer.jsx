@@ -26,13 +26,9 @@ const DiffViewer = createReactClass({
     course: PropTypes.object,
     showButtonClass: PropTypes.string,
     fetchArticleDetails: PropTypes.func,
-    shouldShowDiff: PropTypes.func,
-    showDiff: PropTypes.func,
-    hideDiff: PropTypes.func,
-    isFirstArticle: PropTypes.func,
-    isLastArticle: PropTypes.func,
-    showNextArticle: PropTypes.func,
-    showPreviousArticle: PropTypes.func,
+    setSelectedIndex: PropTypes.func,
+    lastIndex: PropTypes.number,
+    selectedIndex: PropTypes.number,
     articleTitle: PropTypes.string
   },
 
@@ -49,18 +45,13 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if (this.shouldShowDiff() && !this.state.isArticleOpened) {
+    if (this.shouldShowDiff(nextProps) && !this.state.fetched) {
       this.fetchRevisionDetails();
-      this.setState({
-        isArticleOpened: true
-      });
-    } else if (!this.shouldShowDiff() && this.state.isArticleOpened) {
-      this.setState({
-        isArticleOpened: false
-      });
-    } else if (!this.props.editors && nextProps.editors) {
-      this.initiateDiffFetch(nextProps);
     }
+  },
+
+  setSelectedIndex(index) {
+    this.props.setSelectedIndex(index);
   },
 
   showButtonLabel() {
@@ -71,10 +62,8 @@ const DiffViewer = createReactClass({
   },
 
   showDiff() {
-    this.props.showDiff(this.props.index);
-    this.setState({
-      isArticleOpened: true
-    });
+    this.setSelectedIndex(this.props.index);
+    this.fetchRevisionDetails();
   },
 
   fetchRevisionDetails() {
@@ -85,15 +74,28 @@ const DiffViewer = createReactClass({
     }
   },
 
-  shouldShowDiff() {
-    return this.props.shouldShowDiff(this.props.index);
+  shouldShowDiff(props) {
+    return props.selectedIndex === this.props.index;
   },
 
   hideDiff() {
-    this.props.hideDiff();
-    this.setState({
-      isArticleOpened: false
-    });
+    this.setSelectedIndex(-1);
+  },
+
+  showPreviousArticle() {
+    this.setSelectedIndex(this.props.index - 1);
+  },
+
+  showNextArticle() {
+    this.setSelectedIndex(this.props.index + 1);
+  },
+
+  isFirstArticle() {
+    return this.props.index === 0;
+  },
+
+  isLastArticle() {
+    return this.props.index === this.props.lastIndex - 1;
   },
 
   handleClickOutside() {
@@ -204,12 +206,12 @@ const DiffViewer = createReactClass({
   },
 
   previousArticle() {
-    if (this.props.isFirstArticle(this.props.index)) {
+    if (this.isFirstArticle()) {
       return null;
     }
     return (
       <button
-        onClick={() => this.props.showPreviousArticle(this.props.index)}
+        onClick={this.showPreviousArticle}
         className="button dark small"
       >
         {I18n.t('articles.previous')}
@@ -218,11 +220,11 @@ const DiffViewer = createReactClass({
   },
 
   nextArticle() {
-    if (this.props.isLastArticle(this.props.index)) {
+    if (this.isLastArticle()) {
       return null;
     }
     return (
-      <button onClick={() => this.props.showNextArticle(this.props.index)} className="pull-right button dark small">{I18n.t('articles.next')}</button>
+      <button onClick={this.showNextArticle} className="pull-right button dark small">{I18n.t('articles.next')}</button>
     );
   },
 
@@ -244,7 +246,7 @@ const DiffViewer = createReactClass({
   },
 
   render() {
-    if (!this.state.isArticleOpened || !this.props.revision) {
+    if (!this.shouldShowDiff(this.props) || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showDiff} className="icon icon-diff-viewer"/>
@@ -256,7 +258,7 @@ const DiffViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.shouldShowDiff()) {
+    if (this.shouldShowDiff(this.props)) {
       style = '';
     }
     const className = `diff-viewer ${style}`;
