@@ -77,6 +77,41 @@ describe 'dashboard', type: :feature, js: true do
         expect(page).to have_content 'Create Course'
       end
     end
+
+    context 'as a Wiki Education Foundation admin' do
+      let(:permissions) { User::Permissions::SUPER_ADMIN }
+
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(true)
+        login_as(user, scope: :user)
+      end
+
+      it 'displays overview information for upcoming courses' do
+        create(:course,
+               id: 10001,
+               title: 'Title',
+               school: 'University',
+               term: 'Term',
+               slug: 'University/Course_(Term)',
+               submitted: false,
+               passcode: 'passcode',
+               start: 1.day.from_now,
+               end: 60.days.from_now,
+               timeline_start: 20.days.from_now,
+               timeline_end: 60.days.from_now)
+        create(:courses_user,
+               user_id: user.id,
+               course_id: 10001,
+               role: 4)
+        visit root_path
+        expect(page).to have_content 'Courses'
+        expect(page).to have_content 'Recent Edits'
+        expect(page).to have_content 'Words Added'
+        expect(page).to have_content 'Views'
+        expect(page).to have_content 'Editors'
+        expect(page).to have_content 'Ungreeted'
+      end
+    end
   end
 
   context 'archived courses' do

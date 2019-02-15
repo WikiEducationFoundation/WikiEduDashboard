@@ -21,7 +21,8 @@ $(() => {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
-        'title', 'school', 'revisions', 'characters', 'average-words', 'views', 'students', 'creation-date', 'untrained'
+        'title', 'school', 'revisions', 'characters', 'average-words', 'views',
+        'students', 'creation-date', 'ungreeted', 'untrained'
       ]
     });
   }

@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
   end
 
   def current_courses
-    current_user.courses.current_and_future
+    current_user.courses.current_and_future.includes(:students)
   end
 
   def past_courses
