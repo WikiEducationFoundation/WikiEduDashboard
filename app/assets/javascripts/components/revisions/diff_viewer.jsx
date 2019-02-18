@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import jQuery from 'jquery';
 import moment from 'moment';
-import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 import Loading from '../common/loading.jsx';
 
@@ -90,10 +89,6 @@ const DiffViewer = createReactClass({
 
   isLastArticle() {
     return this.props.index === this.props.lastIndex - 1;
-  },
-
-  handleClickOutside() {
-    // this.props.hideDiff();
   },
 
   // If a first and current revision are provided, find the parent of the first revision
@@ -357,4 +352,4 @@ const DiffViewer = createReactClass({
   }
 });
 
-export default OnClickOutside(DiffViewer);
+export default DiffViewer;

@@ -22,12 +22,6 @@ const Article = createReactClass({
     selectedIndex: PropTypes.number
   },
 
-  getInitialState() {
-    return {
-      isArticleOpened: false
-    };
-  },
-
   fetchArticleDetails() {
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
