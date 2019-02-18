@@ -47,6 +47,8 @@ fa:
     change: تغییر
     details: جزئیات
     confirm: تأیید
+    opt_in: بله
+    opt_out: خیر
     opt_yes: بله
     opt_no: خیر
   dashboard:
@@ -82,6 +84,9 @@ fa:
       در بین تاریخ آغاز و پایان
     edited: مقالات ویرایش‌شده
     edited_mobile: مقاله‌ها
+    filter:
+      wiki_all: همه
+      new: تازه
     hide: نهفتن
     label: مقاله‌ها
     loading: در حال بارگذاری مقاله‌ها ...
@@ -115,6 +120,7 @@ fa:
     view_on_wiki: نمایش در ویکی
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
     edit_size: اندازهٔ‌ویرایش
+    wiki: ویکی
   assignments:
     already_exists: این تکلیف از پیش وجود دارد!
     title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
@@ -139,6 +145,7 @@ fa:
     milestones:
       title: نقاط عطف
   campaign:
+    alert_user_id: کاربر
     campaign: کمپین
     campaigns: کمپین‌ها
     description: توضیحات

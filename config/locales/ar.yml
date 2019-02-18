@@ -225,7 +225,7 @@ ar:
     course_removed: تمت إزالة %{title} بالفعل من حملة "%{campaign_title}"
     create_campaign: إنشاء حملة جديدة
     create_my_campaign: أنشئ حملتي!
-    customize_passcode: كلمة مرور افتراضية
+    customize_passcode: كلمة سر افتراضية
     default_course_type: نوع مقرر افتراضي
     default_passcode: رمز مرور افتراضي
     default_passcode_explanation: 'افتراضيا، البرامج الجديدة في هذه الحملة يجب أن
@@ -235,7 +235,7 @@ ar:
     disable_account_requests: تعطيل طلبات الحسابات
     enable_account_requests: تمكين طلبات الحسابات
     no_alerts: هذه الحملة لا تحتوي على إشعارات
-    no_passcode: لا توجد كلمة مرور
+    no_passcode: لا توجد كلمة سر
     none: لا شيء
     organizers: المنظمون
     organizer_added: '%{user} الآن منظم لحملة "%{title}"'
@@ -243,7 +243,7 @@ ar:
     program_template: قالب البرامج
     program_template_tooltip: حينما ينشئ منظم برنامج في هذه الحملة، سوف ينسخ النص
       الموجود في هذه المساحة ليكون وصفا على صفحة البرنامج
-    random_passcode: كلمة مرور عشوائية
+    random_passcode: كلمة سر عشوائية
     requested_accounts: الحسابات المطلوبة
     title: العنوان
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
@@ -494,7 +494,7 @@ ar:
       آخر.
     new_account_submit: طلب حساب
     new_account_submitted: تم إرسال طلبك للحصول على حساب، يمكن لمسير هذا البرنامج
-      وضع اللمسات الأخيرة على إنشاء حسابك الآن، بعد إنشائه، ستحصل على كلمة مرور للحساب
+      وضع اللمسات الأخيرة على إنشاء حسابك الآن، بعد إنشائه، ستحصل على كلمة سر للحساب
       الجديد عن طريق البريد الإلكتروني.
     new_account_submitted_admin: تم إنشاء طلبك لإنشاء حساب، يُرجى إبلاغ الطلاب للتحقق
       من البريد الوارد للبريد الإلكتروني للحصول على كلمة المرور الجديدة

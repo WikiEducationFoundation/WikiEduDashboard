@@ -37,8 +37,11 @@ ca:
     my_dashboard: Tauler de control
     recent_activity: Activitat recent
     report_problem: Informeu sobre un problema
+    request_account: Sol·licita un compte
+    request_account_create: Crea un compte
     search: feu una pregunta
     search_results: 'Resultats per a: «%{search_terms}»'
+    no_results: No s’ha trobat cap resultat per a «%{query}»
     sign_up_extended: Inicia la sessió a la Viquipèdia
     sign_up_log_in_extended: amb la Viquipèdia
     sign_up: Registreu-vos
@@ -107,6 +110,7 @@ ca:
       fl: Llistes de qualitat
       ga: Article bo
       does_not_exist: Aquest article no existeix a la Viquipèdia
+    see_more: Mostra’n més
     show_cumulative_changes: Mostra els canvis acumulats
     show_current_version: Veure la versió actual
     title: Títol
@@ -127,6 +131,7 @@ ca:
     assignees: Alumne(s)
     assign_other: Assignar un article
     add_available: Afegeix articles disponibles
+    add_available_submit: Afegeix articles
     assign_self: Assignar-me un article
     assign_tooltip: Un article assignat és un que planeges crear o millorar.
     confirm_add_available: Esteu segurs que voleu afegir %{title}?
@@ -149,6 +154,8 @@ ca:
     active_campaigns: Campanyes actives
     add_organizer: Afegeix organitzador
     alert_article: Títol de l’article
+    alert_label: Alertes de la campanya
+    alert_select_label: Filtra per tipus d’alerta
     alert_type: Tipus
     alert_user_id: Usuari
     all_campaigns: Totes les  Campanyes
@@ -158,6 +165,8 @@ ca:
     campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
     created_at: Data
+    confirm_campaign_deletion_failed: «%{title}» no és el títol d’aquesta campanya.
+      No s’ha suprimit la campanya.
     course: Curs
     create_campaign: Crea una campanya nova
     create_my_campaign: Crear la meva Campanya!
@@ -224,18 +233,20 @@ ca:
       already_exists: Aquest curs ja existeix. Considera canviar el nom, escola o
         terme per tal de fer-lo únic.
       assignment_end: Fi de la tasca
-      assignment_end_placeholder: Final de la tasca (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Inici de la tasca
-      assignment_start_placeholder: Inici de la tasca (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Estem mirant si aquest curs és únic.
       choose_clone: Trieu un curs per a clonar-lo.
+      clone_previous: Clona el curs anterior
+      clone_this: Clona aquest curs
       cloned_course_calendar_instructions: Selecciona les dates per afegir o treure-les
         de la planificació (per ex., vacances, dies de lliure disposició). Clica a
         la data per canviar entre de-seleccionat, seleccionat i vacances. Si no teniu
         vacances selecciona "No tinc vacances". La línia del temps clonada ajustarà
         automàticament les dates per comptar les setmanes en que no hi ha reunions
         programades.
-      clone_successful: S'ha clonat el curs de forma exitosa
+      clone_successful: Actualització de les dades del curs clonat
       clone_successful_details: El vostre curs ha estat clonat, inclosos elements
         de la línia de temps (setmanes i blocs). Ha canviat alguna cosa del curs?
         El pots actualitzar ara mateix si vols.
