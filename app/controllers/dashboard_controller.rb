@@ -35,11 +35,11 @@ class DashboardController < ApplicationController
 
     return unless current_user.admin?
     @submitted = Course.submitted_but_unapproved
-    @strictly_current = current_user.courses.strictly_current
+    @strictly_current = current_user.courses.strictly_current.includes(:students)
   end
 
   def current_courses
-    current_user.courses.current_and_future.includes(:students)
+    current_user.courses.current_and_future
   end
 
   def past_courses
