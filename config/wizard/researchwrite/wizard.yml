@@ -46,7 +46,7 @@
     -
       title: Evaluate an article (required)
       required: true # cannot be unselected
-      blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
+      blurb: Students critically evaluate a Wikipedia article related to their class.
       # description:
       logic: critique
       selected: true # selected by default
