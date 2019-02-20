@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import jQuery from 'jquery';
 import moment from 'moment';
-import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 import Loading from '../common/loading.jsx';
 
@@ -17,6 +16,7 @@ const DiffViewer = createReactClass({
   // of a new article — then it uses the first revision as the starting point.
   propTypes: {
     revision: PropTypes.object,
+    index: PropTypes.number,
     first_revision: PropTypes.object,
     showButtonLabel: PropTypes.string,
     editors: PropTypes.array,
@@ -24,12 +24,16 @@ const DiffViewer = createReactClass({
     article: PropTypes.object,
     course: PropTypes.object,
     showButtonClass: PropTypes.string,
-    fetchArticleDetails: PropTypes.func
+    fetchArticleDetails: PropTypes.func,
+    setSelectedIndex: PropTypes.func,
+    lastIndex: PropTypes.number,
+    selectedIndex: PropTypes.number,
+    articleTitle: PropTypes.string
   },
 
   getInitialState() {
     return {
-      showDiff: false,
+      fetched: false,
     };
   },
 
@@ -40,9 +44,13 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if (!this.props.editors && nextProps.editors && this.state.showDiff) {
-      this.initiateDiffFetch(nextProps);
+    if (this.shouldShowDiff(nextProps) && !this.state.fetched) {
+      this.fetchRevisionDetails(nextProps);
     }
+  },
+
+  setSelectedIndex(index) {
+    this.props.setSelectedIndex(index);
   },
 
   showButtonLabel() {
@@ -53,20 +61,40 @@ const DiffViewer = createReactClass({
   },
 
   showDiff() {
-    this.setState({ showDiff: true });
-    if (!this.props.editors) {
-      this.props.fetchArticleDetails();
+    this.setSelectedIndex(this.props.index);
+    this.fetchRevisionDetails(this.props);
+  },
+
+  fetchRevisionDetails(props) {
+    if (!props.editors) {
+      props.fetchArticleDetails();
     } else if (!this.state.fetched) {
-      this.initiateDiffFetch(this.props);
+      this.initiateDiffFetch(props);
     }
   },
 
-  hideDiff() {
-    this.setState({ showDiff: false });
+  shouldShowDiff(props) {
+    return props.selectedIndex === this.props.index;
   },
 
-  handleClickOutside() {
-    this.hideDiff();
+  hideDiff() {
+    this.setSelectedIndex(-1);
+  },
+
+  showPreviousArticle() {
+    this.setSelectedIndex(this.props.index - 1);
+  },
+
+  showNextArticle() {
+    this.setSelectedIndex(this.props.index + 1);
+  },
+
+  isFirstArticle() {
+    return this.props.index === 0;
+  },
+
+  isLastArticle() {
+    return this.props.index === this.props.lastIndex - 1;
   },
 
   // If a first and current revision are provided, find the parent of the first revision
@@ -171,11 +199,51 @@ const DiffViewer = createReactClass({
       });
   },
 
+  previousArticle() {
+    if (this.isFirstArticle()) {
+      return null;
+    }
+    return (
+      <button
+        onClick={this.showPreviousArticle}
+        className="button dark small"
+      >
+        {I18n.t('articles.previous')}
+      </button>
+    );
+  },
+
+  nextArticle() {
+    if (this.isLastArticle()) {
+      return null;
+    }
+    return (
+      <button onClick={this.showNextArticle} className="pull-right button dark small">{I18n.t('articles.next')}</button>
+    );
+  },
+
+  articleDetails() {
+    return (
+      <div className="diff-viewer-header">
+        <p>{I18n.t('articles.article_title')}: {this.props.articleTitle}</p>
+      </div>
+    );
+  },
+
+  authorsHTML() {
+    return (
+      <div className="user-legend-wrap">
+        <div className="user-legend">{I18n.t('users.edits_by')}</div>
+        <div className="user-legend">{this.props.editors.join(', ')}</div>
+      </div>
+    );
+  },
+
   render() {
-    if (!this.state.showDiff || !this.props.revision) {
+    if (!this.shouldShowDiff(this.props) || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
-          <button onClick={this.showDiff} className="icon icon-diff-viewer" />
+          <button onClick={this.showDiff} className="icon icon-diff-viewer"/>
           <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
@@ -184,18 +252,18 @@ const DiffViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.state.showDiff) {
+    if (this.shouldShowDiff(this.props)) {
       style = '';
     }
     const className = `diff-viewer ${style}`;
 
     let diff;
     if (!this.state.fetched) {
-      diff = <tbody><Loading /></tbody>;
+      diff = <Loading/>;
     } else if (this.state.diff === '') {
-      diff = <tbody><div> — </div></tbody>;
+      diff = <div> —</div>;
     } else {
-      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} />;
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
@@ -227,7 +295,7 @@ const DiffViewer = createReactClass({
       lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');
 
       timeSpan = I18n.t('revisions.edit_time_span',
-                        { first_time: firstRevTime, last_time: lastRevTime });
+        { first_time: firstRevTime, last_time: lastRevTime });
 
       editDate = <p className="diff-comment">({timeSpan})</p>;
     }
@@ -250,25 +318,43 @@ const DiffViewer = createReactClass({
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.hideDiff} className="pull-right icon-close" />
-            <a className="pull-right button small diff-viewer-feedback" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
+            <button onClick={this.hideDiff} className="pull-right icon-close"/>
+            <a
+              className="pull-right button small diff-viewer-feedback"
+              href="/feedback?subject=Diff Viewer"
+              target="_blank"
+            >
+              How did the diff viewer work for you?
+            </a>
           </div>
-          {salesforceButtons}
-          <table>
-            <thead>
-              <tr>
-                <th colSpan="4" className="diff-header">{diffComment}</th>
-              </tr>
-              <tr>
-                <th colSpan="4" className="diff-header">{editDate}</th>
-              </tr>
-            </thead>
-            {diff}
-          </table>
+          <div className="diff-viewer-header">
+            {this.previousArticle()}
+            {this.nextArticle()}
+          </div>
+          {this.articleDetails()}
+          <div>
+            <div className="diff-viewer-scrollbox">
+              {salesforceButtons}
+              <table>
+                <thead>
+                  <tr>
+                    <th colSpan="4" className="diff-header">{diffComment}</th>
+                  </tr>
+                  <tr>
+                    <th colSpan="4" className="diff-header">{editDate}</th>
+                  </tr>
+                </thead>
+                {diff}
+              </table>
+            </div>
+          </div>
+          <div className="diff-viewer-footer">
+            {this.authorsHTML()}
+          </div>
         </div>
       </div>
     );
   }
 });
 
-export default OnClickOutside(DiffViewer);
+export default DiffViewer;

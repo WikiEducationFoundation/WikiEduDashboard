@@ -15,15 +15,28 @@ const StudentDrawer = createReactClass({
     trainingModules: PropTypes.array
   },
 
+  getInitialState() {
+    return {
+      selectedIndex: -1,
+    };
+  },
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.isOpen || this.props.isOpen) { return true; }
     return false;
   },
 
+  showDiff(index) {
+    this.setState({
+      selectedIndex: index
+    });
+  },
+
   render() {
     if (!this.props.isOpen) { return <tr />; }
 
-    const revisionsRows = (this.props.revisions || []).map((rev) => {
+    const revisions = this.props.revisions || [];
+    const revisionsRows = revisions.map((rev, index) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
@@ -38,7 +51,15 @@ const StudentDrawer = createReactClass({
           <td className="desktop-only-tc">{rev.characters}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
-            <DiffViewer revision={rev} editors={[this.props.student]} />
+            <DiffViewer
+              revision={rev}
+              index={index}
+              editors={[this.props.student.username]}
+              articleTitle={rev.article.title}
+              setSelectedIndex={this.showDiff}
+              lastIndex={this.props.revisions.length}
+              selectedIndex={this.state.selectedIndex}
+            />
           </td>
         </tr>
       );

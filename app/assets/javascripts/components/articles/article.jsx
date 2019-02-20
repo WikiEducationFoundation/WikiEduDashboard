@@ -11,11 +11,15 @@ const Article = createReactClass({
 
   propTypes: {
     article: PropTypes.object.isRequired,
+    index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
-    showOnMount: PropTypes.bool
+    showOnMount: PropTypes.bool,
+    setSelectedIndex: PropTypes.func,
+    lastIndex: PropTypes.number,
+    selectedIndex: PropTypes.number
   },
 
   fetchArticleDetails() {
@@ -63,6 +67,7 @@ const Article = createReactClass({
           />
           <DiffViewer
             fetchArticleDetails={this.fetchArticleDetails}
+            index={this.props.index}
             revision={this.props.articleDetails && this.props.articleDetails.last_revision}
             first_revision={this.props.articleDetails && this.props.articleDetails.first_revision}
             showButtonLabel={I18n.t('articles.show_cumulative_changes')}
@@ -71,6 +76,10 @@ const Article = createReactClass({
             showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
             course={this.props.course}
             article={this.props.article}
+            articleTitle={this.props.article.title}
+            setSelectedIndex={this.props.setSelectedIndex}
+            lastIndex={this.props.lastIndex}
+            selectedIndex={this.props.selectedIndex}
           />
         </td>
       </tr>
