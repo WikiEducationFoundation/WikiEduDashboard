@@ -31,6 +31,12 @@ const DiffViewer = createReactClass({
     articleTitle: PropTypes.string
   },
 
+  getInitialState() {
+    return {
+      fetched: false,
+    };
+  },
+
   // When 'show' is clicked, this component may or may not already have
   // users data (a list of usernames) in its props. If it does, then 'show' will
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
@@ -39,7 +45,7 @@ const DiffViewer = createReactClass({
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
     if (this.shouldShowDiff(nextProps) && !this.state.fetched) {
-      this.fetchRevisionDetails();
+      this.fetchRevisionDetails(nextProps);
     }
   },
 
@@ -56,14 +62,14 @@ const DiffViewer = createReactClass({
 
   showDiff() {
     this.setSelectedIndex(this.props.index);
-    this.fetchRevisionDetails();
+    this.fetchRevisionDetails(this.props);
   },
 
-  fetchRevisionDetails() {
-    if (!this.props.editors) {
-      this.props.fetchArticleDetails();
+  fetchRevisionDetails(props) {
+    if (!props.editors) {
+      props.fetchArticleDetails();
     } else if (!this.state.fetched) {
-      this.initiateDiffFetch(this.props);
+      this.initiateDiffFetch(props);
     }
   },
 
