@@ -4,7 +4,7 @@ import moment from 'moment';
 import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const Revision = ({ revision, wikidataLabel, course }) => {
+const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
   const ratingClass = `rating ${revision.rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
@@ -27,13 +27,13 @@ const Revision = ({ revision, wikidataLabel, course }) => {
       <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
         <DiffViewer
-          index={this.props.index}
-          revision={this.props.revision}
-          editors={[this.props.revision.revisor]}
-          articleTitle={this.props.revision.title}
-          setSelectedIndex={this.props.setSelectedIndex}
-          lastIndex={this.props.lastIndex}
-          selectedIndex={this.props.selectedIndex}
+          index={index}
+          revision={revision}
+          editors={[revision.revisor]}
+          articleTitle={revision.title}
+          setSelectedIndex={setSelectedIndex}
+          lastIndex={lastIndex}
+          selectedIndex={selectedIndex}
         />
       </td>
     </tr>
