@@ -29,7 +29,7 @@ const CampaignEditable = createReactClass({
     return 'add_campaign';
   },
 
-  PropTypes: {
+  propTypes: {
     campaigns: PropTypes.array,
     availableCampaigns: PropTypes.array,
     fetchAllCampaigns: PropTypes.func

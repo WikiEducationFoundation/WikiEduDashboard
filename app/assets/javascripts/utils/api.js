@@ -1,6 +1,6 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 
 const RavenLogger = {};
 

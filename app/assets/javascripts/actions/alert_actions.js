@@ -1,7 +1,7 @@
 import * as types from '../constants';
 import API from '../utils/api.js';
 import logErrorMessage from '../utils/log_error_message';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
 // action object, it returns a function that takes the store dispatch fucntion —

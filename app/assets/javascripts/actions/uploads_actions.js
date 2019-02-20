@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS, RESET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import pageViewDateString from '../utils/uploads_pageviews_utils';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 
 const fetchUploads = (courseId) => {
   return fetch(`/courses/${courseId}/uploads.json`, {

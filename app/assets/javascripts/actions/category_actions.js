@@ -1,21 +1,20 @@
 import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import fetch from 'cross-fetch';
 
 const fetchCategoriesPromise = (courseSlug) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/categories.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+  return fetch(`/courses/${courseSlug}/categories.json`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  }
-  );
 };
 
 export const fetchCategories = courseSlug => (dispatch) => {
@@ -31,20 +30,18 @@ export const fetchCategories = courseSlug => (dispatch) => {
 };
 
 const addCategoryPromise = ({ category, source, project, language, depth, course }) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'POST',
-      url: `/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}&source=${source}`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+  return fetch(`/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}&source=${source}`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  }
-  );
 };
 
 export const addCategory = categoryCourse => (dispatch) => {
@@ -60,20 +57,18 @@ export const addCategory = categoryCourse => (dispatch) => {
 };
 
 const removeCategoryPromise = (courseId, categoryId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'DELETE',
-      url: `/categories.json?category_id=${categoryId}&course_id=${courseId}`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+  return fetch(`/categories.json?category_id=${categoryId}&course_id=${courseId}`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  }
-  );
 };
 
 export const removeCategory = (courseId, categoryId) => (dispatch) => {

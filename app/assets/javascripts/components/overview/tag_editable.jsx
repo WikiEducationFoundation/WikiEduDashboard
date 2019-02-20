@@ -29,7 +29,7 @@ const TagEditable = createReactClass({
     return 'add_tag';
   },
 
-  PropTypes: {
+  propTypes: {
     tags: PropTypes.array.isRequired,
     availableTags: PropTypes.array.isRequired,
     fetchAllTags: PropTypes.func.isRequired,

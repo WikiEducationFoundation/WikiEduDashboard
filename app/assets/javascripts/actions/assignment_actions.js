@@ -1,7 +1,7 @@
 import API from '../utils/api.js';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import fetch from 'isomorphic-fetch';
+import fetch from 'cross-fetch';
 
 const fetchAssignmentsPromise = (courseSlug) => {
   return fetch(`/courses/${courseSlug}/assignments.json`, {
