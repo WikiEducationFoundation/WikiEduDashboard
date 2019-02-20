@@ -12,6 +12,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import EmbedStatsButton from './embed_stats_button.jsx';
+import CloneCourseButton from './clone_course_button.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
 import { removeUser } from '../../actions/user_actions';
@@ -186,6 +187,13 @@ const AvailableActions = createReactClass({
       ));
       controls.push((
         <p key="embed_course_stats"><EmbedStatsButton title={course.title} /></p>
+      ));
+    }
+
+    // If the user is an admin and the course is both published and a Wiki-Ed course.
+    if (user.admin && Features.wikiEd && course.published) {
+      controls.push((
+        <p key="clone_course"><CloneCourseButton courseId={course.id}/></p>
       ));
     }
 
