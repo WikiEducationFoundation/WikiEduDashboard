@@ -4,7 +4,6 @@ require 'rails_helper'
 
 describe BlocksController, type: :request do
   describe '#destroy' do
-    let!(:block) { create(:block) }
     let(:admin) { create(:admin, id: 2) }
 
     before do
@@ -12,9 +11,17 @@ describe BlocksController, type: :request do
     end
 
     it 'destroys the block' do
+      id = create(:block).id
       expect(Block.count).to eq(1)
-      delete "/blocks/#{block.id}", params: { id: block.id, format: :json }
+      delete "/blocks/#{id}", params: { id: id, format: :json }
       expect(Block.count).to eq(0)
+    end
+
+    it 'does not destroy the block if it cannot be deleted' do
+      id = create(:block, is_deletable: false).id
+      expect(Block.count).to eq(1)
+      delete "/blocks/#{id}", params: { id: id, format: :json }
+      expect(Block.count).to eq(1)
     end
   end
 end

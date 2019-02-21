@@ -14,6 +14,8 @@
 #  due_date            :date
 #  training_module_ids :text(65535)
 #  points              :integer
+#  is_deletable        :boolean          default(TRUE)
+#  is_editable         :boolean          default(TRUE)
 #
 
 FactoryBot.define do

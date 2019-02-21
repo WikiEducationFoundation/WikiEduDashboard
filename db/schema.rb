@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_30_061337) do
+ActiveRecord::Schema.define(version: 2019_02_21_212222) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 2018_12_30_061337) do
     t.date "due_date"
     t.text "training_module_ids"
     t.integer "points"
+    t.boolean "is_deletable", default: true
+    t.boolean "is_editable", default: true
     t.index ["week_id"], name: "index_blocks_on_week_id"
   end
 
