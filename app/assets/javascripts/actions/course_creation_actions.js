@@ -1,17 +1,21 @@
 import API from '../utils/api.js';
 import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
+import fetch from 'cross-fetch';
+import logErrorMessage from '../utils/log_error_message';
 
 const fetchCampaignPromise = (slug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/campaigns/${slug}.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail(obj => rej(obj))
-  );
+  return fetch(`/campaigns/${slug}.json`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
+    });
 };
 
 export const fetchCampaign = slug => (dispatch) => {

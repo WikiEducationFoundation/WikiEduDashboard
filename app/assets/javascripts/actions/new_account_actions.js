@@ -1,21 +1,23 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
+import fetch from 'cross-fetch';
 
 const _checkAvailability = (newAccount) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      dataType: 'jsonp',
-      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`,
-      success: (data) => {
-        const result = data.query.users[0];
-        return res(result);
-      }
-    }).fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
-  );
+  return fetch(`https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      res = res.json();
+      const result = data.query.users[0];
+      return result;
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
+    });
 };
 
 export const setNewAccountUsername = (_, username) => ({

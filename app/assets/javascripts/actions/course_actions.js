@@ -5,6 +5,8 @@ import {
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
+import fetch from 'cross-fetch';
+import logErrorMessage from '../utils/log_error_message';
 
 export const fetchCourse = courseSlug => (dispatch) => {
   return API.fetch(courseSlug, 'course')
@@ -76,18 +78,18 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 };
 
 const needsUpdatePromise = (courseSlug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/needs_update.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      rej(obj);
-    })
-  );
+  return fetch(`/courses/${courseSlug}/needs_update.json`, {
+    credentials: 'include'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
+    });
 };
 
 const needsUpdateNotification = (response) => {
