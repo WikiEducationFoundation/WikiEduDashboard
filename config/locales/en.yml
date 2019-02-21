@@ -406,6 +406,9 @@ en:
         to create additional sections for a course you already set up.
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
+      role_description_options:
+        - Instructor
+        - Teaching Assistant
       role_description_placeholder: Instructor, teaching assistant, etc
       separate_event_dates: Specify separate event start/end times
       separate_event_dates_info: >
