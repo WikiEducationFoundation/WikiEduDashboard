@@ -119,6 +119,8 @@ class Campaign < ApplicationRecord
     if self[date_type].nil?
       errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
     end
+  rescue ArgumentError, TypeError
+    errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
   end
 
   # Start must not be after end.
