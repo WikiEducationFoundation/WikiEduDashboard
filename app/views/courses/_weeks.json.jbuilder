@@ -13,7 +13,8 @@ json.weeks course.weeks.eager_load(:blocks) do |week|
   json.end_date start_date.present? ? start_date.end_of_week(:sunday).strftime('%m/%d') : nil
   json.blocks week.blocks do |block|
     json.call(block, :id, :kind, :content, :week_id, :title,
-              :order, :due_date, :training_module_ids, :points)
+              :order, :due_date, :training_module_ids, :points,
+              :is_editable, :is_deletable)
     if block.training_modules.any?
       json.training_modules block.training_modules do |tm|
         # The available training modules may change over time, especially on

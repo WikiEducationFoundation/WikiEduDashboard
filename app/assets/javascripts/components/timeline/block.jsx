@@ -111,7 +111,13 @@ const Block = createReactClass({
     // let graded;
     if (isEditable) {
       if (!this.props.block.is_new) {
-        deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={this.deleteBlock}>Delete Block</button></div>);
+        const button = this.props.block.is_deletable ? (
+          <button className="danger" onClick={this.deleteBlock}>Delete Block</button>
+        ) : (
+          <button disabled={true}>You may not delete this block</button>
+        );
+
+        deleteBlock = (<div className="delete-block-container">{ button }</div>);
       }
       className += ' editable';
       if (this.props.isDragging) { className += ' dragging'; }
@@ -163,7 +169,7 @@ const Block = createReactClass({
       <span className="block__due-date-spacer"> - </span>
     ) : undefined;
 
-    const editButton = this.props.editPermissions ? (
+    const editButton = this.props.editPermissions && this.props.block.is_editable ? (
       <div className="block__edit-button-container">
         <button className="pull-right button ghost-button block__edit-block" onClick={this._setEditable}>Edit</button>
       </div>
