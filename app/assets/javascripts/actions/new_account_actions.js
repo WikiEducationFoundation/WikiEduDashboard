@@ -8,7 +8,7 @@ const _checkAvailability = (newAccount) => {
     credentials: 'include'
   }).then((res) => {
     if (res.ok && res.status === 200) {
-      res = res.json();
+      const data = res.json();
       const result = data.query.users[0];
       return result;
     }
