@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.0'
+ruby '2.5.3'
 
 ### Basic Framework
 gem 'rails', '5.2.2'
@@ -117,7 +117,7 @@ group :test do
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
+  gem 'chromedriver-helper','1.2.0' # Capypara feature specs driven by headless Chrome
   gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
   gem 'database_cleaner'
   gem 'webmock'
