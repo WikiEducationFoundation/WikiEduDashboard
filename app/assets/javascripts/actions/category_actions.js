@@ -31,7 +31,8 @@ export const fetchCategories = courseSlug => (dispatch) => {
 
 const addCategoryPromise = ({ category, source, project, language, depth, course }) => {
   return fetch(`/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}&source=${source}`, {
-    credentials: 'include'
+    credentials: 'include',
+    method: 'POST'
   }).then((res) => {
     if (res.ok && res.status === 200) {
       return res.json();
@@ -58,7 +59,8 @@ export const addCategory = categoryCourse => (dispatch) => {
 
 const removeCategoryPromise = (courseId, categoryId) => {
   return fetch(`/categories.json?category_id=${categoryId}&course_id=${courseId}`, {
-    credentials: 'include'
+    credentials: 'include',
+    method: 'DELETE'
   }).then((res) => {
     if (res.ok && res.status === 200) {
       return res.json();
