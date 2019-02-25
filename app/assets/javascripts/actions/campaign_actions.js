@@ -35,6 +35,7 @@ export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS, key: key });
 const removeCampaignsPromise = (courseId, campaignId) => {
   return fetch(`/courses/${courseId}/campaigns.json`, {
     credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
     method: 'DELETE',
     body: JSON.stringify({ campaign: { title: campaignId } })
   }).then((res) => {
@@ -66,6 +67,7 @@ const addCampaignsPromise = (courseId, campaignId) => {
   return fetch(`/courses/${courseId}/campaigns.json`, {
     credentials: 'include',
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ campaign: { title: campaignId } })
   }).then((res) => {
     if (res.ok && res.status === 200) {
