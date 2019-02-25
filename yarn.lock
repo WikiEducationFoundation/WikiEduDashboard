@@ -7712,10 +7712,10 @@ jade@0.26.3:
     commander "0.6.1"
     mkdirp "0.3.0"
 
-jeet@^6.1.2:
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/jeet/-/jeet-6.1.5.tgz#47646fe3e1d084c8d8b77482d79fe85d5fe3c910"
-  integrity sha1-R2Rv4+HQhMjYt3SC15/oXV/jyRA=
+jeet@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/jeet/-/jeet-7.2.0.tgz#2aa562a2dc1d74cc99527113f16a821e974e30ee"
+  integrity sha512-TcUBVeb/PlBmiZRgqx/rHewXkyhnBzRANjPi99frE7FQcbXvnzH74IelKhdPlP94eBh/rI0T67B04yGaldWzTw==
 
 jest-changed-files@^23.4.2:
   version "23.4.2"

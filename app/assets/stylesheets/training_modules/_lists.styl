@@ -64,7 +64,7 @@
   h4
     color dove
   .row__wrapper
-    cf()
+    clearfix()
     flex-wrap wrap
     padding 15px
     position relative
@@ -132,21 +132,21 @@
 
 .course-list__row
   .course-list__row__title
-    col(1)
+    column(1)
     +above(desktop)
-      col(2/6)
+      column(2/6)
   .course-list__row__long_title
-    col(1)
+    column(1)
   .course-list__row__revisions,
     float left
     +above(desktop)
-      col(1/4)
+      column(1/4)
     span
       display inline
   .course-list__row__views, .course-list__row__characters
     float left
     +above(desktop)
-      col(1/6)
+      column(1/6)
     span
       display inline
   .course-list__row__students
@@ -155,21 +155,21 @@
       border-right none
       padding-right 0
   .course-list__row__revisions
-    col(1)
+    column(1)
     +above(desktop)
-      col(1/6)
+      column(1/6)
   .course-list__row__link
     +above(desktop)
-      col(1/6)
+      column(1/6)
       position static
   div:not(.drawer)
     min-height 40px
 
 .user-list__row
   .user-list__row__name
-    col(1)
+    column(1)
     +above(desktop)
-      col(5/20)
+      column(5/20)
     p.name
       line-height 1
       margin-top 13px
@@ -185,12 +185,12 @@
     +above(desktop)
       display none !important
   .user-list__row__characters-ms
-    col(5/40)
+    column(5/40)
     display none !important
     +above(desktop)
       display flex !important
   .user-list__row__characters-us
-    col(5/40)
+    column(5/40)
     display none !important
     +above(desktop)
       display flex !important
@@ -200,7 +200,7 @@
   .user-list__row__reviewer
     display none !important
     +above(desktop)
-      col(5/20)
+      column(5/20)
       display flex !important
     span.article_rating
       font-size 11px
@@ -216,29 +216,29 @@
       font-size 16px
       font-weight 100
     +above(desktop)
-      col(2/20)
+      column(2/20)
       position static
       margin-top 0
       .icon:before
         font-weight normal
   .user-list__row__spacer
-    col(0/20)
+    column(0/20)
 
 .article-list__row
   .article-list__row__rating
-    col(1/10)
+    column(1/10)
   .article-list__row__title
-    col(1)
+    column(1)
     +above(desktop)
-      col(6/20)
+      column(6/20)
   .article-list__row__characters, .article-list__row__views
     font-size 14px
     +above(desktop)
-      col(6/40)
+      column(6/40)
     span
       display inline
   .article-list__row__link
-    col(6/40)
+    column(6/40)
 
 .revision-list__row
   &.list__header
@@ -246,23 +246,23 @@
       font-size 14px
     max-height 40px
   .revision-list__row__title
-    col(1)
+    column(1)
     +above(desktop)
-      col(9/40)
+      column(9/40)
   .revision-list__row__date
-    col(9/40)
+    column(9/40)
   .revision-list__row__characters
     +above(desktop)
-      col(9/40)
+      column(9/40)
     span
       display inline-block
   .revision-list__row__views
     +above(desktop)
-      col(5/40)
+      column(5/40)
     span
       display inline-block
   .revision-list__row__link
-    col(8/40)
+    column(8/40)
 
 
 .avatar, .rating
