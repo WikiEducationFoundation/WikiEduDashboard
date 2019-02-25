@@ -26,6 +26,11 @@
         %th.sort.sortable{"data-sort" => "students", :style => "width: 200px;"}
           = t("users.editors")
           %span.sortable-indicator
+        - if Features.wiki_ed?
+          %th.sort.sortable{"data-sort" => "ungreeted", :style => "width: 150px;"}
+            = t("users.ungreeted")
+            %span.sortable-indicator
+
     %tbody.list
       - if @pres.strictly_current.empty?
         %tr

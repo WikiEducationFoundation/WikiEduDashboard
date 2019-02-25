@@ -32,3 +32,8 @@
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
       %span.students.hidden
         = course.user_count
+  - if Features.wiki_ed?
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.ungreeted
+          = @pres.ungreeted_students(course)
