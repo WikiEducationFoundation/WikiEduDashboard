@@ -230,13 +230,13 @@ describe 'the course page', type: :feature, js: true do
       # Sorting
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
-      first_rating = page.first(:css, 'table.articles').first('td .rating p')
+      first_rating = page.find(:css, 'table.articles', match: :first).first('td .rating p')
       expect(first_rating).to have_content 'FA'
       # second click should sort from low to high
       find('th.sortable', text: 'Class').click
-      new_first_rating = page.first(:css, 'table.articles').first('td .rating p')
+      new_first_rating = page.find(:css, 'table.articles', match: :first).first('td .rating p')
       expect(new_first_rating).to have_content '-'
-      title = page.first(:css, 'table.articles').first('td .title')
+      title = page.find(:css, 'table.articles', match: :first).first('td .title')
       expect(title).to have_content 'es:wiktionary:Article'
     end
 
@@ -265,7 +265,7 @@ describe 'the course page', type: :feature, js: true do
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
-      assigned_articles_section = page.first(:css, '#available-articles')
+      assigned_articles_section = page.find(:css, '#available-articles', match: :first)
       expect(assigned_articles_section).to have_content 'Add available articles'
     end
 
@@ -276,10 +276,10 @@ describe 'the course page', type: :feature, js: true do
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
       click_button 'Add available articles'
-      page.first(:css, '#available-articles .pop.open').first('textarea').set('Education')
+      page.find(:css, '#available-articles .pop.open', match: :first).first('textarea').set('Education')
       click_button 'Add articles'
       sleep 1
-      assigned_articles_table = page.first(:css, '#available-articles table.articles')
+      assigned_articles_table = page.find(:css, '#available-articles table.articles', match: :first)
       expect(assigned_articles_table).to have_content 'Education'
     end
 
@@ -297,7 +297,7 @@ describe 'the course page', type: :feature, js: true do
                             title: 'Education',
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
-      assigned_articles_section = page.first(:css, '#available-articles')
+      assigned_articles_section = page.find(:css, '#available-articles', match: :first)
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Remove'
@@ -324,7 +324,7 @@ describe 'the course page', type: :feature, js: true do
         login_as(user, scope: :user)
         js_visit "/courses/#{slug}/articles"
         expect(page).to have_content 'Available Articles'
-        assigned_articles_section = page.first(:css, '#available-articles')
+        assigned_articles_section = page.find(:css, '#available-articles', match: :first)
         expect(assigned_articles_section).to have_content 'Education'
         expect(Assignment.count).to eq(1)
         expect(assigned_articles_section).to have_content 'Select'
