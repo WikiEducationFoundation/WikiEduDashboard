@@ -101,6 +101,9 @@ de:
     article_development: (Artikelentwicklung)
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
+    next: Nächste
+    previous: Vorherige
+    article_title: Artikeltitel
     assigned_to: Zuordnung zu
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.

@@ -137,6 +137,7 @@ qqq:
     article_development: Label for article development link
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
+    previous: '{{Identical|Previous}}'
     assigned_to: Table header for the user who is assigned to work on an article
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.

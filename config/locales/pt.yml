@@ -112,6 +112,9 @@ pt:
     article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos disponíveis
+    next: Seguinte
+    previous: Anterior
+    article_title: Título do artigo
     assigned_to: Atribuído a
     character_doc: A soma do número de carateres adicionados a artigos por editores
       inscritos, entre as datas de começo e fim

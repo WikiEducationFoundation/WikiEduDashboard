@@ -6,8 +6,19 @@
 # Author: Gorizon
 # Author: Kumkumuk
 # Author: Mirzali
+# Author: Orbot707
 ---
 diq:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   application:
     cancel: Bıtexelne
     dashboard: Texteyê cerrebnayışê Wiki Edi
@@ -20,7 +31,7 @@ diq:
     greeting: Merheba!
     help: Peşti
     home: Keye
-    log_in_extended: Ebe Wikipediya ra cıkewe
+    log_in_extended: Ebe Wikipediya ra cı kewe
     log_in: Cı kewe
     log_out: Bıveciye
     my_dashboard: Texteyê mıno cerrebnayışi
@@ -55,10 +66,16 @@ diq:
   articles:
     assigned: Çebyaye wesiqey
     available: Est bıyaye wesiqey
+    next: Bahdoyên
+    previous: Verên
+    article_title: Sernameyê meqaleyi
     assigned_to: Çebye no
     edited: Wesiqa ya vuriyena
     edited_by: 'Vurnayoğ:'
     edited_mobile: Meqaleyi
+    filter:
+      wiki_all: Pêro
+      new: Newe
     hide: Bınımne
     label: Wesiqey
     loading: Meqaleyi bar benê...
@@ -74,7 +91,7 @@ diq:
     assign_other: Wesiqa cı ke
     add_available: Mewcud yu wesiqa dek
     loading: Çebyayena bena bar....
-    remove: Hewad
+    remove: Wedare
     select: Weçine
   blocks:
     milestones:
@@ -87,6 +104,7 @@ diq:
     title: Sername
   categories:
     name: Name
+    remove: Wedare
   chat:
     label: Mıhebet
   courses:
@@ -188,7 +206,7 @@ diq:
     user_ns: Karber
   recent_activity:
     active_courses: Wesiqe de aktiv o
-    article_title: Sernamey wesiqe
+    article_title: Sernameyê meqaleyi
     datetime: Tarix/Zeman
     image: Resım
     file_name: Namey dosya

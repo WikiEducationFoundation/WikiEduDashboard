@@ -7,6 +7,7 @@
 # Author: Green Zero
 # Author: Macofe
 # Author: Movses
+# Author: Olghinabella
 # Author: Piramidion
 # Author: Vlad5250
 # Author: Ата
@@ -105,6 +106,8 @@ uk:
     article_development: (розвиток статті)
     assigned: Задані статті…
     available: Доступні статті
+    next: наступний
+    previous: попереднє
     assigned_to: Задано
     character_doc: Це сума символів, доданих до статей записаними редакторами між
       початковою та кінцевою датами

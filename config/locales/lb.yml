@@ -60,6 +60,9 @@ lb:
     article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
+    next: Nächst
+    previous: Vireg
+    article_title: Titel vum Artikel
     deleted: (geläscht)
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'

@@ -119,6 +119,9 @@ pt-br:
     article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos Disponíveis
+    next: Próximo
+    previous: Anterior
+    article_title: Título do artigo
     assigned_to: Atribuído a
     character_doc: A soma de caracteres adicionados a artigos por editores inscritos
       durante as datas de começo e fim

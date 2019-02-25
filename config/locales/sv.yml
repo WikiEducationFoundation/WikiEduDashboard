@@ -6,6 +6,7 @@
 # Author: Jopparn
 # Author: Josve05a
 # Author: Rockyfelle
+# Author: Sturban
 # Author: Umeaboy
 # Author: WikiPhoenix
 ---
@@ -80,6 +81,9 @@ sv:
     article_development: (artikelutveckling)
     assigned: Tilldelade artiklar
     available: Tillgängliga artiklar
+    next: Nästa
+    previous: Föregående
+    article_title: Artikeltitel
     assigned_to: Tilldelad till
     character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
       under kursen

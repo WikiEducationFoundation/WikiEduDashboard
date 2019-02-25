@@ -10,6 +10,7 @@
 # Author: Dgstranz
 # Author: Fitoschido
 # Author: Fortega
+# Author: Ihojose
 # Author: Irus
 # Author: Javiersanp
 # Author: KATRINE1992
@@ -105,6 +106,9 @@ es:
     article_development: (desarrollo de artículo)
     assigned: Artículos asignados
     available: Artículos disponibles
+    next: Siguiente
+    previous: Anterior
+    article_title: Título del artículo
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin

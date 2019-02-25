@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: GR
 # Author: Geraki
+# Author: Giorgos456
 # Author: Glavkos
 # Author: KATRINE1992
 # Author: Nikosgranturismogt
@@ -61,6 +62,9 @@ el:
     article_development: (ανάπτυξη άρθρου)
     assigned: Ανατεθειμένα άρθρα
     available: Διαθέσιμα άρθρα
+    next: Επόμενο
+    previous: Προηγούμενο
+    article_title: Τίτλος άρθρου
     assigned_to: Ανατεθέν σε
     deleted: (διαγράφηκε)
     edited: Άρθρα που επεξεργάστηκαν

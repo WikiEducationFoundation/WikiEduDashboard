@@ -74,6 +74,9 @@ da:
   articles:
     assigned: Tildelte artikler
     available: Tilgængelige artikler
+    next: Næste
+    previous: Forrige
+    article_title: Artikeltitel
     assigned_to: Tildelt til
     character_doc: Summen af antal tegn som er lagt til i artikler af indmeldte brugere
       mellem start- og slutningdatoerne.
@@ -234,6 +237,7 @@ da:
       save_cloned_course: Gem nyt kursus
       start_date: Startdato
       start_date_placeholder: ÅÅÅÅ-MM-DD
+      subject: Emne
     current: Nuværende kurser
     delete_course: Slet kursus
     delete_suggestion: Slet
@@ -246,6 +250,7 @@ da:
     ended: Kurset er afsluttet.
     enrollment: Tilføj/Fjern studerende
     error:
+      user_exists: Beklager, %{username} er ikke en eksisterende bruger.
       invalid_language_or_project: Ugyldigt sprog/projekt
     expected_students: Forventede studenter
     features_feedback: 'Automatiske forslag:'
@@ -331,6 +336,7 @@ da:
       course_title: Programtitel
       create_button: Opret mit program!
       create_label: Opret et nyt program
+      create_new: Opret et uafhængigt program
       create_short: Opret program
       find: Find et program
       participate_in_campaign: Deltag i en kampagne
@@ -408,6 +414,9 @@ da:
     admin_users:
       new:
         form_placeholder: Brugernavn
+      remove:
+        already_instructor: '%{username} er allerede en instruktør!'
+        demote_success: '%{username} ændret til instruktør.'
     special_users:
       new:
         form_placeholder: Brugernavn
@@ -419,6 +428,8 @@ da:
   suggestions:
     suggestion_docs:
       does_not_exist: Denne artikel findes ikke på Wikipedia.
+  tasks:
+    conseq: Opgaven %{task} kører allerede!
   timeline:
     add_week: Tilføj uge
     arrange_timeline: Organiser tidslinjen
@@ -446,6 +457,7 @@ da:
     check_answer: Kontrollér svar
     included_modules: Inkluderede moduler
     view_library_source: vis bibliotekskilde
+    view_module_source: vis modulkilde
   uploads:
     file_name: Filnavn
     header: Filer uploadet til Wikimedia Commons
@@ -465,6 +477,8 @@ da:
     first_name: Fornavn
     last_name: Efternavn
     loading: Laster brugere ...
+    characters_added_mainspace: Tegn tilføjet (artikel)
+    characters_added_userspace: Tegn tilføjet (bruger)
     name: Navn
     none: Der er ingen deltagere.
     no_articles: Ingen artikler

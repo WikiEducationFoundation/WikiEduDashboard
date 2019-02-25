@@ -121,6 +121,9 @@ fr:
     article_development: (développement d’article)
     assigned: Articles affectés
     available: Articles disponibles
+    next: Suivant
+    previous: Précédent
+    article_title: Titre de l’article
     assigned_to: Assigné à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
       inscrits entre les dates de début et de fin

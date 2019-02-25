@@ -80,6 +80,9 @@ ko:
   articles:
     assigned: 할당된 문서
     available: 이용 가능한 글
+    next: 다음
+    previous: 이전
+    article_title: 문서 제목
     assigned_to: 할당됨
     deleted: (삭제됨)
     edited: 문서 편집됨

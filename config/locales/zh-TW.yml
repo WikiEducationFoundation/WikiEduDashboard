@@ -98,6 +98,9 @@ zh-TW:
     article_development: （條目發展）
     assigned: 分配的條目
     available: 尚待分配的條目
+    next: 下一個
+    previous: 上一個
+    article_title: 條目標題
     assigned_to: 分配給
     character_doc: 從開始到結束日，由登記編輯在條目中增加的位元組總和。 (1 中文字=3 位元組)
     cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用條目的
@@ -641,7 +644,7 @@ zh-TW:
     user_ns: 使用者
   recent_activity:
     active_courses: 條目使用於
-    article_title: 文章標題
+    article_title: 條目標題
     datetime: 日期/時間
     did_you_know_eligible: 符合 "您知道嗎" 資格
     image: 圖片

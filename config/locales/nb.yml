@@ -75,6 +75,9 @@ nb:
   articles:
     assigned: Tildelte artikler
     available: Tilgjengelige artikler
+    next: Neste
+    previous: Forrige
+    article_title: Artikkeltittel
     assigned_to: Tildelt til
     character_doc: Summen av antall tegn som er lagt til i artikler av innmeldte brukere
       mellom start- og sluttdatoene.
@@ -355,6 +358,7 @@ nb:
     passcode_prompt: 'Skriv inn påmeldingskoden for å melde deg på:'
     published: 'Kurset ditt har blitt publisert! Studenter kan føre seg inn i kurset
       ved å besøke følgende URL:'
+    requested_accounts_alert_view: Vis
     review_timeline: Gå gjennom denne tidslinja og gjør forandringer. Når du er fornøyd,
       send den inn for godkjenning av Wiki Ed-ansatte. Når den er godkjent vil du
       få en påmeldings-URL som studentene kan bruke for å bli med i kurset. (Du kan
