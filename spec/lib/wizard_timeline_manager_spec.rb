@@ -45,6 +45,32 @@ describe WizardTimelineManager do
       subject
       expect(course.weeks.count).to eq(expected_week_count)
     end
+
+    it 'assigns correct default values to the blocks' do
+      subject
+      expect(course.blocks.first.is_deletable).to be(true)
+      expect(course.blocks.first.is_editable).to be(true)
+    end
+
+    it 'makes the block undeletable if specified' do
+      content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
+      content = YAML.load_file(content_path)
+      content['essentials'].first['blocks'].first['is_deletable'] = false
+      allow(YAML).to receive(:load_file).and_return(content)
+
+      subject
+      expect(course.blocks.first.is_deletable).to be(false)
+    end
+
+    it 'makes the block uneditable if specified' do
+      content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
+      content = YAML.load_file(content_path)
+      content['essentials'].first['blocks'].first['is_editable'] = false
+      allow(YAML).to receive(:load_file).and_return(content)
+
+      subject
+      expect(course.blocks.first.is_editable).to be(false)
+    end
   end
 
   describe '#add_tags' do
