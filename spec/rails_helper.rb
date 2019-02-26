@@ -78,8 +78,21 @@ RSpec.configure do |config|
       .to_return(status: 200, body: +'@font-face {}', headers: {})
   end
 
+  config.before(:each, type: :feature, js: true) do
+    # Make sure any logs from the previous test get
+    errors = page.driver.browser.manage.logs.get(:browser)
+    STDERR.puts errors
+  end
+
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
+    # `Capybara.reset_sessions!` here would ensure that any error
+    # logs from this session can be captured now, by closing any open connections.
+    # Otherwise, if they show up after the `manage.logs.get` step, they
+    # will cause the next spec to fail instead of the one that generated
+    # them.
+    # Instead, we clear and print any after-success error
+    # logs in the `before` block above.
     errors = page.driver.browser.manage.logs.get(:browser)
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
