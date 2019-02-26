@@ -7,14 +7,15 @@ describe 'Training Translations', type: :feature, js: true do
   let(:basque_user) { create(:user, id: 2, username: 'ibarra', locale: 'eu') }
 
   before do
+    TrainingModule.destroy_all
+    TrainingSlide.destroy_all
+    TrainingLibrary.destroy_all
     allow(Features).to receive(:wiki_trainings?).and_return(true)
     VCR.use_cassette 'training/slide_translations' do
       TrainingUpdate.new(module_slug: 'all')
     end
     login_as(basque_user, scope: :user)
   end
-
-  after(:all) { TrainingModule.load_all }
 
   it 'shows the translated text of a quiz' do
     visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
