@@ -17,6 +17,13 @@ import { removeTag, fetchAllTags, addTag } from '../../actions/tag_actions';
 const TagEditable = createReactClass({
   displayName: 'TagEditable',
 
+  propTypes: {
+    tags: PropTypes.array.isRequired,
+    availableTags: PropTypes.array.isRequired,
+    fetchAllTags: PropTypes.func.isRequired,
+    addTag: PropTypes.func.isRequired
+  },
+
   getInitialState() {
     return { createdTagOption: [] };
   },
@@ -27,13 +34,6 @@ const TagEditable = createReactClass({
 
   getKey() {
     return 'add_tag';
-  },
-
-  PropTypes: {
-    tags: PropTypes.array.isRequired,
-    availableTags: PropTypes.array.isRequired,
-    fetchAllTags: PropTypes.func.isRequired,
-    addTag: PropTypes.func.isRequired
   },
 
   handleChangeTag(val) {
