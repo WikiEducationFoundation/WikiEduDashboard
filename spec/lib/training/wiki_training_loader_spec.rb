@@ -4,6 +4,12 @@ require 'rails_helper'
 require "#{Rails.root}/lib/training/wiki_training_loader"
 
 describe WikiTrainingLoader do
+  before do
+    TrainingModule.destroy_all
+    TrainingSlide.destroy_all
+    TrainingLibrary.destroy_all
+  end
+
   describe '#load_content' do
     before do
       allow(Features).to receive(:wiki_trainings?).and_return(true)

@@ -29,7 +29,7 @@ describe 'open course creation', type: :feature, js: true do
   before do
     stub_wiki_validation
     @system_time_zone = Time.zone
-    Time.zone = 'Eastern Time (US & Canada)'
+    Time.zone = 'UTC'
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:open_course_creation?).and_return(true)
@@ -59,7 +59,7 @@ describe 'open course creation', type: :feature, js: true do
     expect(Course.last.campaigns.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
-    expect(Course.last.start).to eq(Time.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
+    expect(Course.last.start).to eq(Time.zone.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
     expect(Course.last.type).to eq('Editathon')
   end
 

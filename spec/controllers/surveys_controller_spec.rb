@@ -75,8 +75,8 @@ describe SurveysController, type: :request do
     before do
       create(:question_group, id: 1)
       create(:question_group, id: 2)
-      SurveysQuestionGroup.create(survey_id: survey.id, rapidfire_question_group_id: 1)
-      SurveysQuestionGroup.create(survey_id: survey.id, rapidfire_question_group_id: 2)
+      SurveysQuestionGroup.create(id: 1, survey_id: survey.id, rapidfire_question_group_id: 1)
+      SurveysQuestionGroup.create(id: 2, survey_id: survey.id, rapidfire_question_group_id: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
     end
 
