@@ -119,7 +119,6 @@ group :test do
   gem 'capybara-screenshot'
   gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
   gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
-  gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false

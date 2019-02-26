@@ -147,7 +147,6 @@ GEM
     css_parser (1.7.0)
       addressable
     dalli (2.7.9)
-    database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     deep_cloneable (2.4.0)
       activerecord (>= 3.1.0, < 6)
@@ -533,7 +532,6 @@ DEPENDENCIES
   chromedriver-helper
   connection_pool
   dalli
-  database_cleaner
   deep_cloneable
   devise
   factory_bot_rails
