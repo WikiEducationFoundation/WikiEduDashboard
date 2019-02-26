@@ -68,6 +68,7 @@ describe 'the course page', type: :feature, js: true do
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1..article_count).each do |i|
       create(:article,
+             id: i,
              title: "Article #{i}",
              namespace: 0,
              wiki_id: es_wiktionary.id,
@@ -91,9 +92,11 @@ describe 'the course page', type: :feature, js: true do
 
     # Add articles / revisions before the course starts and after it ends.
     create(:article,
+           id: article_count + 1,
            title: 'Before',
            namespace: 0)
     create(:article,
+           id: article_count + 2,
            title: 'After',
            namespace: 0)
     create(:revision,
@@ -120,8 +123,8 @@ describe 'the course page', type: :feature, js: true do
            week_id: week.id,
            content: 'blocky block')
 
-    ArticlesCourses.update_from_course(Course.last)
-    ArticlesCourses.update_all_caches(Course.last.articles_courses)
+    ArticlesCourses.update_from_course(course)
+    ArticlesCourses.update_all_caches(course.articles_courses)
     CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 
