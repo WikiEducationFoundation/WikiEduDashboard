@@ -9,14 +9,16 @@ def set_up_suite
 end
 
 def fill_out_course_creator_form
+  find('.course_start-datetime-control input').set('2015-01-04')
+  find('.course_end-datetime-control input').set('2015-02-01')
+  find('div.wizard__panel').click
+  sleep 3
+  click to escape the calendar popup
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('#course_expected_students').set('20')
   find('#course_description').set('My course at OU')
-  find('.course_start-datetime-control input').set('2015-01-04')
-  find('.course_end-datetime-control input').set('2015-02-01')
-  find('div.wizard__panel').click # click to escape the calendar popup
   click_button 'Create my Course!'
 end
 
@@ -130,10 +132,20 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('.course_start-datetime-control input').set(start_date)
+      find('div.DayPicker-Day--selected', text: '1').click
+      find('.course_end-datetime-control input').set('2015-12-01')
+      find('div.DayPicker-Day', text: '15').click
+      sleep 3
+
       find('#course_title').set('My awesome new course - Foo 101')
 
-      # If we click before filling out all require fields, only the invalid
-      # fields get restyled to indicate the problem.
+      click_button 'Create my Course!'
+
+      If we click before filling out all require fields, only the invalid
+      fields get restyled to indicate the problem.
       click_button 'Create my Course!'
       expect(find('#course_title')['class']).not_to include('invalid title')
       expect(find('#course_school')['class']).to include('invalid school')
@@ -146,16 +158,16 @@ describe 'New course creation and editing', type: :feature do
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
 
-      sleep 1
+      # sleep 1
 
-      start_date = '2015-01-01'
-      end_date = '2015-12-15'
-      find('.course_start-datetime-control input').set(start_date)
-      find('div.DayPicker-Day--selected', text: '1').click
-      find('.course_end-datetime-control input').set('2015-12-01')
-      find('div.DayPicker-Day', text: '15').click
+      # start_date = '2015-01-01'
+      # end_date = '2015-12-15'
+      # find('.course_start-datetime-control input').set(start_date)
+      # find('div.DayPicker-Day--selected', text: '1').click
+      # find('.course_end-datetime-control input').set('2015-12-01')
+      # find('div.DayPicker-Day', text: '15').click
 
-      sleep 1
+      # sleep 1
 
       # This click should create the course and start the wizard
       click_button 'Create my Course!'
