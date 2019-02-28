@@ -35,6 +35,65 @@ nav.top-nav
     align-items center
     justify-content space-around
 
+  .notifications
+    a
+      display inline-block
+      opacity 0.6
+      width 35px
+      &:hover
+        animation ring 2s ease-in-out
+        border none
+    .bubble
+      display inline-block
+      position relative
+      padding 4px
+      height 4px
+      width 4px
+      border-radius 50%
+      top -20px
+      left -10px
+      &.red
+        background warning
+        &:after
+          animation pulse 3s ease-in-out infinite
+          content ''
+          position relative
+          top -5px
+          left 5px
+          width 10px
+          height 10px
+          border-radius 50%
+          background warning
+          float right
+
+@keyframes pulse
+  20%
+    transform: scale(1.8)
+    opacity: 0
+  100%
+    transform: scale(1.8)
+    opacity: 0
+
+@keyframes ring
+  0%
+    transform rotate(0deg)
+  10%
+    transform rotate(35deg)
+  20%
+    transform rotate(-30deg)
+  30%
+    transform rotate(25deg)
+  40%
+    transform rotate(-20deg)
+  50%
+    transform rotate(15deg)
+  60%
+    transform rotate(-10deg)
+  70%
+    transform rotate(5deg)
+  80%
+    transform rotate(0deg)
+
 .top-nav__faq-search ~ .top-nav__login-links
   margin-left 0
 
@@ -79,6 +138,7 @@ nav.top-nav
 
   span
     display inherit
+    align-items center
 
 .top-nav__main-links
   display flex
