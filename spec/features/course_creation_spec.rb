@@ -132,21 +132,12 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
-      start_date = '2015-01-01'
-      end_date = '2015-12-15'
-      find('.course_start-datetime-control input').set(start_date)
-      find('div.DayPicker-Day--selected', text: '1').click
-      find('.course_end-datetime-control input').set('2015-12-01')
-      find('div.DayPicker-Day', text: '15').click
-      sleep 3
-
       find('#course_title').set('My awesome new course - Foo 101')
 
-      click_button 'Create my Course!'
+      click_button 'Next'
 
-      If we click before filling out all require fields, only the invalid
-      fields get restyled to indicate the problem.
-      click_button 'Create my Course!'
+      # If we click before filling out all require fields, only the invalid
+      # fields get restyled to indicate the problem.
       expect(find('#course_title')['class']).not_to include('invalid title')
       expect(find('#course_school')['class']).to include('invalid school')
       expect(find('#course_term')['class']).to include('invalid term')
@@ -157,17 +148,18 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
+      click_button 'Next'
 
-      # sleep 1
+      sleep 1
 
-      # start_date = '2015-01-01'
-      # end_date = '2015-12-15'
-      # find('.course_start-datetime-control input').set(start_date)
-      # find('div.DayPicker-Day--selected', text: '1').click
-      # find('.course_end-datetime-control input').set('2015-12-01')
-      # find('div.DayPicker-Day', text: '15').click
+      start_date = '2015-01-01'
+      end_date = '2015-12-15'
+      find('.course_start-datetime-control input').set(start_date)
+      find('div.DayPicker-Day--selected', text: '1').click
+      find('.course_end-datetime-control input').set('2015-12-01')
+      find('div.DayPicker-Day', text: '15').click
 
-      # sleep 1
+      sleep 1
 
       # This click should create the course and start the wizard
       click_button 'Create my Course!'
@@ -276,6 +268,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('15')
       find('#course_description').set('My course')
+      click_button 'Next'
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'

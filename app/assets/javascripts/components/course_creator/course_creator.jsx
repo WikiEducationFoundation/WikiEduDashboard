@@ -210,7 +210,7 @@ const CourseCreator = createReactClass({
 
   chooseNewCourse() {
     if (Features.wikiEd) {
-      this.setState({ showCourseDates: true });
+      this.setState({ showCourseForm: true });
     } else {
       this.setState({ showWizardForm: true });
     }
@@ -249,10 +249,10 @@ const CourseCreator = createReactClass({
       showCourseForm = true;
     } else if (this.state.showCloneChooser) {
       showCloneChooser = true;
-      // If user has no courses, just open the CourseDates immediately because there are no cloneable courses.
+      // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
     } else if (this.props.cloneableCourses.length === 0) {
-      if (this.state.showCourseDates || Features.wikiEd) {
-        showCourseDates = true;
+      if (this.state.showCourseForm || Features.wikiEd) {
+        showCourseForm = true;
       } else {
         showWizardForm = true;
       }
