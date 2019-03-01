@@ -338,12 +338,9 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to have_content 'Available Articles'
         assigned_articles_section = page.find(:css, '#available-articles', match: :first)
         expect(assigned_articles_section).to have_content 'Education'
-        expect(Assignment.count).to eq(1)
         expect(assigned_articles_section).to have_content 'Select'
         click_button 'Select'
-        sleep 1
-        expect(Assignment.first.user_id).to eq(user.id)
-        expect(Assignment.first.role).to eq(0)
+        expect(page).not_to have_content 'Available Articles'
       end
     end
   end
