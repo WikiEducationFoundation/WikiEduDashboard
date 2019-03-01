@@ -4,6 +4,7 @@
 #= Creates a new Media record in Salesforce, returning the URL of the new record
 class CreateSalesforceMediaRecord
   include ArticleHelper
+  include SalesforceHelper
 
   def initialize(article:, course:, user:, before_rev_id:, after_rev_id:)
     return unless Features.wiki_ed?
@@ -34,6 +35,7 @@ class CreateSalesforceMediaRecord
       Engagement_Type__c: 'Wiki contribution',
       Author_Wiki_Username_Optional__c: @user.username,
       Primary_Course__c: @salesforce_course_id,
+      Program__c: program_id(@course),
       Link__c: @article.url,
       Before_link__c: diff_link(@before_rev_id),
       After_link__c: diff_link(@after_rev_id)
