@@ -35,6 +35,9 @@ const ArticleFinder = createReactClass({
   },
 
   componentWillMount() {
+    if (window.location.href.split('?').length !== 1) {
+      window.location.href = window.location.href.split('?')[0];
+    }
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
@@ -52,8 +55,9 @@ const ArticleFinder = createReactClass({
     }
   },
 
-  updateFields(key, value) {
-    return this.props.updateFields(key, value);
+  async updateFields(key, value) {
+    await this.props.updateFields(key, value);
+    if (this.props.search_term.length !== 0) { this.buildURL(); }
   },
 
   toggleFilter() {
@@ -61,11 +65,20 @@ const ArticleFinder = createReactClass({
       showFilters: !this.state.showFilters
     });
   },
-
+  buildURL() {
+    let queryStringUrl = window.location.href.split('?')[0];
+    const search_term = encodeURIComponent(this.props.search_term);
+    const search_type = encodeURIComponent(this.props.search_type);
+    const article_quality = encodeURIComponent(this.props.article_quality);
+    const min_views = encodeURIComponent(this.props.min_views);
+    queryStringUrl += `?search_term=${search_term}&search_type=${search_type}&article_quality=${article_quality}&min_views=${min_views}`;
+    history.pushState(window.location.href, 'query_string', queryStringUrl);
+  },
   searchArticles() {
     this.setState({
       isSubmitted: true,
     });
+    this.buildURL();
     if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
     }
