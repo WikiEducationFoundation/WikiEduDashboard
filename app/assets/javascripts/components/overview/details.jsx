@@ -173,7 +173,7 @@ const Details = createReactClass({
 
    if (!this.props.editable) {
    const enrollEquals = '?enroll=';
-   const url = window.location.origin + this.props.courseLinkParams + enrollEquals + this.props.course.passcode;
+   const url = window.location.origin + this.props.course.slug + enrollEquals + this.props.course.passcode;
    passcode = (
      <TextInput
        onChange={this.updateDetails}
