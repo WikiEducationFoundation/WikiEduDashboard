@@ -3,14 +3,22 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
+import MultiSelectField from '../common/multi_select_field.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 
 const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourseAction, course, showEventDates, showEventDatesState, updateCoursePrivacy, showTimeValues, updateCourseDateAction, courseDateUtils, eventClass, roleDescription, defaultCourse }) => {
   const dateProps = courseDateUtils.dateProps(course);
   let term;
   let subject;
+  let newsubject;
   let expectedStudents;
   let courseLevel;
+  const subjects = [
+    { value: 'General Composition', label: 'General Composition' },
+    { value: 'Psychology', label: 'Psychology' },
+    { value: 'Life Sciences', label: 'Life Sciences' },
+    { value: 'Chemistry', label: 'Chemistry' }
+  ];
 
   let descriptionRequired = false;
   if (defaultCourse === 'ClassroomProgramCourse') {
@@ -29,14 +37,21 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
       />
     );
     subject = (
+      <MultiSelectField
+        label="Subject"
+        options={subjects}
+        value={course.subject}
+      />
+    );
+    newsubject = (
       <TextInput
-        id="course_subject"
+        id="newsubject"
         onChange={updateCourseAction}
         value={course.subject}
-        value_key="subject"
+        value_key="newsubject"
         editable
-        label={course_utils.i18n('creator.course_subject', string_prefix)}
-        placeholder={I18n.t('courses.creator.subject')}
+        enabled
+        label={'Other'}
       />
     );
     courseLevel = (
@@ -72,7 +87,6 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
       />
     );
   }
-
   let language;
   let project;
   let privacyCheckbox;
@@ -209,7 +223,9 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
         />
         {term}
         {courseLevel}
+        <label htmlFor="subject">Subject:</label>
         {subject}
+        {newsubject}
         {expectedStudents}
         {language}
         {project}
