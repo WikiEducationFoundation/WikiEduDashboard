@@ -17,6 +17,11 @@ import { fetchUsers } from '../../actions/user_actions';
 
 const CampaignEditable = createReactClass({
   displayName: 'CampaignEditable',
+  propTypes: {
+    campaigns: PropTypes.array,
+    availableCampaigns: PropTypes.array,
+    fetchAllCampaigns: PropTypes.func
+  },
 
   propTypes: {
     campaigns: PropTypes.array,
