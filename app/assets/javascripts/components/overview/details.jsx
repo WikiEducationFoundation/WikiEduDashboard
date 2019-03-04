@@ -171,6 +171,23 @@ const Details = createReactClass({
       );
     }
 
+   if (!this.props.editable) {
+   const enrollEquals = '?enroll=';
+   const url = window.location.origin + this.props.courseLinkParams + enrollEquals + this.props.course.passcode;
+   passcode = (
+     <TextInput
+       onChange={this.updateDetails}
+       value= <a href={url}>{url}</a>
+       value_key="passcode"
+       editable={this.props.editable}
+       type="text"
+       label={I18n.t('courses.passcode')}
+       placeholder={I18n.t('courses.passcode_none')}
+       required={!!this.props.course.passcode_required}
+     />
+      );
+    }
+
     let expectedStudents;
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
