@@ -22,7 +22,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   ####################################################
   # User listing page for Admins                     #
   ####################################################
@@ -36,5 +35,4 @@ class UsersController < ApplicationController
                    .order(created_at: :desc)
              end
   end
-
 end

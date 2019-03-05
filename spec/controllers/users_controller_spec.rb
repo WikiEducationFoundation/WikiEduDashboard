@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe UsersController, type: :request do
-
   describe '#index' do
     context 'when user is NOT admin' do
       let(:user) { create(:user) }

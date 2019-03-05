@@ -186,7 +186,4 @@ describe EnrollCourseController, type: :request do
       end
     end
   end
-
-
-
 end

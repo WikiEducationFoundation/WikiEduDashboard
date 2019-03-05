@@ -5,12 +5,10 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 require_dependency "#{Rails.root}/app/workers/remove_assignment_worker"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 
-
 class EnrollCourseController < ApplicationController
   respond_to :html, :json
 
   before_action :require_participating_user, only: [:enroll]
-
 
   #########################
   # Enrollment management #
@@ -164,5 +162,4 @@ class EnrollCourseController < ApplicationController
   def update_course_page_and_assignment_talk_templates
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
-
 end
