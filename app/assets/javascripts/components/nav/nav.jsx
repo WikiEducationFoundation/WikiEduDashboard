@@ -54,7 +54,7 @@ const Nav = createReactClass({
   },
 
   componentDidMount() {
-    if (Features.wikiEd && this.state.ifAdmin) {
+    if (this.state.ifAdmin) {
       fetch('/requested_accounts.json')
         .then(res => res.json())
         .then(({ requested_accounts }) => this.setState({ requested_accounts }))
