@@ -34,7 +34,7 @@ class Features
   end
 
   def self.default_course_type
-    ENV['default_course_type'] || 'ClassroomProgramCourse'
+    wiki_ed? ? 'ClassroomProgramCourse' : 'BasicCourse'
   end
 
   def self.default_course_string_prefix

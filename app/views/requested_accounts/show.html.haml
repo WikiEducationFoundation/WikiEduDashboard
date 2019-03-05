@@ -1,0 +1,11 @@
+.container.form-container
+  %h1 Requested accounts #{@course.slug}
+
+  - @course.requested_accounts.each do |request|
+    %li
+      "#{request.username} — #{request.email}"&nbsp
+      %a{href: "/requested_accounts/#{@course.slug}/#{request.id}/delete", 'data-method': :delete}> Delete this request
+
+
+.container
+  %a.button{href: "/requested_accounts/#{@course.slug}/create", 'data-method': :post} Create these accounts

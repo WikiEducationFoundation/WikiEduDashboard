@@ -70,8 +70,10 @@ Rails.application.routes.draw do
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
-  get 'requested_accounts/:course_slug' => 'requested_accounts#index',
+  get 'requested_accounts/:course_slug' => 'requested_accounts#show',
       constraints: { course_slug: /.*/ }
+  get '/requested_accounts' => 'requested_accounts#index'
+  post '/requested_accounts' => 'requested_accounts#create_all_accounts'
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
