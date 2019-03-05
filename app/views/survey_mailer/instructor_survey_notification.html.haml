@@ -7,7 +7,7 @@
           %tr
             %td.main-content
               %h1.headline
-                = t('survey.email.headline', username: @user.username)
+                = t('survey.email.headline', username: @user.real_name || @user.username)
               %p.paragraph
                 = t('survey.email.message_line1')
               %p.paragraph

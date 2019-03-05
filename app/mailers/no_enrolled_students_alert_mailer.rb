@@ -22,6 +22,6 @@ class NoEnrolledStudentsAlertMailer < ApplicationMailer
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
     # eg, "Full Name, User2, and Other Fullname"
-    @greeted_users = @instructors.map {|user| user.real_name || user.username }.to_sentence
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
   end
 end
