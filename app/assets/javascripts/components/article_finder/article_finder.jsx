@@ -63,11 +63,10 @@ const ArticleFinder = createReactClass({
         this.updateFields(pair[0], pair[1]);
     }
     },
-
   async updateFields(key, value) {
     await this.props.updateFields(key, value);
     if (this.props.search_term.length !== 0) { this.buildURL(); }
-    },
+  },
 
   toggleFilter() {
     return this.setState({
@@ -83,7 +82,6 @@ const ArticleFinder = createReactClass({
     queryStringUrl += `?search_term=${search_term}&search_type=${search_type}&article_quality=${article_quality}&min_views=${min_views}`;
     history.pushState(window.location.href, 'query_string', queryStringUrl);
   },
-
   searchArticles() {
     this.setState({
       isSubmitted: true,
