@@ -18,12 +18,14 @@
         %thead
           %th.w25 Username
           %th Email
+          %th Timestamp
           %th.w25 Actions
         %tbody
           - requested_accounts.each do |account|
             %tr
               %td= account.username
               %td= account.email
+              %td= account.created_at
               %td
                 %a{href: "/requested_accounts/#{course_slug}/#{account.id}/delete", 'data-method': :delete}> Delete this request
       .container.mt2.mb2
