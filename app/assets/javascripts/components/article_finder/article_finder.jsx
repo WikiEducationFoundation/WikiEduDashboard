@@ -36,7 +36,7 @@ const ArticleFinder = createReactClass({
 
   componentWillMount() {
     if (window.location.href.split('?').length !== 1) {
-      window.location.href = window.location.href.split('?')[0];
+      this.getQueryVariable();
     }
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
@@ -55,10 +55,19 @@ const ArticleFinder = createReactClass({
     }
   },
 
+  getQueryVariable() {
+    const query = window.location.search.substring(1);
+    const vars = query.split('&');
+    for (let i = 0; i < vars.length; i += 1) {
+        const pair = vars[i].split('=');
+        this.updateFields(pair[0], pair[1]);
+    }
+    },
+
   async updateFields(key, value) {
     await this.props.updateFields(key, value);
     if (this.props.search_term.length !== 0) { this.buildURL(); }
-  },
+    },
 
   toggleFilter() {
     return this.setState({
@@ -74,6 +83,7 @@ const ArticleFinder = createReactClass({
     queryStringUrl += `?search_term=${search_term}&search_type=${search_type}&article_quality=${article_quality}&min_views=${min_views}`;
     history.pushState(window.location.href, 'query_string', queryStringUrl);
   },
+
   searchArticles() {
     this.setState({
       isSubmitted: true,
