@@ -9,8 +9,6 @@
 .idea/
 .vscode/
 /dump.rdb
-yarn.lock
-Gemfile.lock
 yarn-error.log
 
 *.rbc
