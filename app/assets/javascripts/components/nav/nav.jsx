@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import LanguagePicker from './language_picker.jsx';
+import fetch from 'cross-fetch';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -53,6 +54,12 @@ const Nav = createReactClass({
   },
 
   componentDidMount() {
+    if (this.state.ifAdmin) {
+      fetch('/requested_accounts.json')
+        .then(res => res.json())
+        .then(({ requested_accounts }) => this.setState({ requested_accounts }))
+        .catch(err => err); // If this errors, we're going to ignore it
+    }
     window.addEventListener('resize', this.updateDimensions);
   },
   componentWillUnmount() {
@@ -72,6 +79,7 @@ const Nav = createReactClass({
     let navClass;
     let myDashboard;
     let forAdmin;
+    let notifications;
     let help;
     let Sandbox;
     let wikiEd;
@@ -86,11 +94,30 @@ const Nav = createReactClass({
       );
     }
     if (this.state.userSignedIn) {
+      if (this.state.ifAdmin) {
+        notifications = (
+          <li aria-describedby="notification-message" className="notifications">
+            <a href="/requested_accounts" className="icon icon-notifications_bell"/>
+            {
+              this.state.requested_accounts
+                ? (
+                  <span className="bubble red">
+                    <span id="notification-message" className="screen-reader">You have new notifications.</span>
+                  </span>
+                )
+                : (
+                  <span id="notification-message" className="screen-reader">You have no new notifications.</span>
+                )
+            }
+          </li>
+        );
+      }
       loginLinks = (
         <span>
           <li>
             <b><a href={`/users/${this.state.currentUser}`} className="current-user">{this.state.currentUser}</a></b>
           </li>
+          { notifications }
           <li>
             <a href={this.state.destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
           </li>

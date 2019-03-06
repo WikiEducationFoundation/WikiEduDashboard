@@ -1,11 +1,35 @@
+- if @results.present?
+  .container.form-container
+    %h1 Results
+    - @results.each do |result|
+      %li= result
+
 .container.form-container
-  %h1 Requested accounts #{@course.slug}
+  %h1 Requested accounts for your courses
 
-  - @course.requested_accounts.each do |request|
-    %li
-      "#{request.username} — #{request.email}"&nbsp
-      %a{href: "/requested_accounts/#{@course.slug}/#{request.id}/delete", 'data-method': :delete}> Delete this request
-
-
-.container
-  %a.button{href: "/requested_accounts/#{@course.slug}/create", 'data-method': :post} Create these accounts
+  - if @courses.empty?
+    %p No requested accounts
+  - else
+    - @courses.each do |title, requested_accounts|
+      - course_slug = requested_accounts.first.course.slug
+      %h2
+        %a{href: "/courses/#{course_slug}"}= title
+      %table.table.w100
+        %thead
+          %th.w25 Username
+          %th Email
+          %th Timestamp
+          %th.w25 Actions
+        %tbody
+          - requested_accounts.each do |account|
+            %tr
+              %td= account.username
+              %td= account.email
+              %td= account.created_at
+              %td
+                %a{href: "/requested_accounts/#{course_slug}/#{account.id}/delete", 'data-method': :delete}> Delete this request
+      .container.mt2.mb2
+        %a.button{href: "/requested_accounts/#{course_slug}/create", 'data-method': :post} Create these accounts
+    %hr
+    .container.mt2.mb2
+      %a.button.danger{href: "/requested_accounts", 'data-method': :post} Create all accounts

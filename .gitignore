@@ -9,6 +9,7 @@
 .idea/
 .vscode/
 /dump.rdb
+yarn.lock
 
 *.rbc
 capybara-*.html

@@ -9,7 +9,7 @@
               %h1.headline
                 = "#{@course.title}: Students active on live Wikipedia articles!"
               %p.paragraph
-                = "Hi #{@instructor.username},"
+                = "Hi #{@instructor.real_name || @instructor.username},"
               %p.paragraph
                 The Wiki Education Dashboard has been keeping track of your students'
                 activity on Wikipedia, and they've started editing live Wikipedia articles!
