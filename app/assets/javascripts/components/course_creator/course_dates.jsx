@@ -14,8 +14,10 @@ const CourseDates = (props) => {
       {I18n.t('courses.time_zone_message')}
     </p>
   );
-
+  console.log(props.enableTimeline);
   let timelineStart;
+  let timelineEnd;
+  let timelineText;
   if (props.enableTimeline) {
     timelineStart = (
       <DatePicker
@@ -30,6 +32,31 @@ const CourseDates = (props) => {
         isClearable={true}
         showTime={props.showTimeValues}
       />
+    );
+
+    timelineEnd = (
+      <DatePicker
+        id="course_timeline_end"
+        onChange={updateCourseDates}
+        value={props.course.timeline_end}
+        value_key="timeline_end"
+        editable
+        label={CourseUtils.i18n('creator.assignment_end', props.stringPrefix)}
+        placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
+        blank
+        date_props={dateProps.timeline_end}
+        enabled={!!props.course.timeline_start}
+        isClearable={true}
+        showTime={props.showTimeValues}
+      />
+    );
+
+    timelineText = (
+      <div>
+        <hr />
+        <p><strong>{CourseUtils.i18n('creator.separate_event_dates')}</strong></p>
+        <p>{CourseUtils.i18n('creator.separate_event_dates_info')}</p>
+      </div>
     );
   }
   return (
@@ -63,24 +90,9 @@ const CourseDates = (props) => {
         isClearable={false}
         showTime={props.showTimeValues}
       />
-      <hr />
-      <p><strong>{CourseUtils.i18n('creator.separate_event_dates')}</strong></p>
-      <p>{CourseUtils.i18n('creator.separate_event_dates_info')}</p>
+      {timelineText}
       {timelineStart}
-      <DatePicker
-        id="course_timeline_end"
-        onChange={updateCourseDates}
-        value={props.course.timeline_end}
-        value_key="timeline_end"
-        editable
-        label={CourseUtils.i18n('creator.assignment_end', props.stringPrefix)}
-        placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
-        blank
-        date_props={dateProps.timeline_end}
-        enabled={!!props.course.timeline_start}
-        isClearable={true}
-        showTime={props.showTimeValues}
-      />
+      {timelineEnd}
       {props.showTimeValues ? timeZoneMessage : null}
     </div>
   );
