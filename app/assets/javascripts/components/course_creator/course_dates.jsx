@@ -14,7 +14,7 @@ const CourseDates = (props) => {
       {I18n.t('courses.time_zone_message')}
     </p>
   );
-  console.log(props.enableTimeline);
+  
   let timelineStart;
   let timelineEnd;
   let timelineText;
