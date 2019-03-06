@@ -10,6 +10,7 @@
 .vscode/
 /dump.rdb
 yarn-error.log
+Windows.eslintrc
 
 *.rbc
 capybara-*.html
