@@ -18,6 +18,12 @@ import { fetchUsers } from '../../actions/user_actions';
 const CampaignEditable = createReactClass({
   displayName: 'CampaignEditable',
 
+  propTypes: {
+    campaigns: PropTypes.array,
+    availableCampaigns: PropTypes.array,
+    fetchAllCampaigns: PropTypes.func
+  },
+
   getInitialState() {
     return {};
   },
@@ -28,12 +34,6 @@ const CampaignEditable = createReactClass({
 
   getKey() {
     return 'add_campaign';
-  },
-
-  PropTypes: {
-    campaigns: PropTypes.array,
-    availableCampaigns: PropTypes.array,
-    fetchAllCampaigns: PropTypes.func
   },
 
   handleChangeCampaign(val) {

@@ -48,12 +48,12 @@ describe 'Survey Administration', type: :feature, js: true do
       #   find('input').native.send_keys(:return)
       # end
       page.find('input.button[value="Save Question Group"]').click
-      sleep 1
-      expect(Rapidfire::QuestionGroup.count).to eq(1)
 
       # Create a question
-      expect(Rapidfire::Question.count).to eq(0)
       click_link 'Edit'
+      expect(Rapidfire::QuestionGroup.count).to eq(1)
+      expect(Rapidfire::Question.count).to eq(0)
+
       omniclick(find('a.button', text: 'Add New Question'))
       find('textarea#question_text').set('Who is awesome?')
       find('textarea#question_answer_options').set('Me!')
@@ -63,11 +63,10 @@ describe 'Survey Administration', type: :feature, js: true do
 
       # Clone a question and make it conditional
       click_link 'Clone'
-      sleep 1
-      expect(Rapidfire::Question.count).to eq(2)
-      within 'tr[data-item-id="2"]' do
+      within "tr[data-item-id=\"#{Rapidfire::Question.last.id}\"]" do
         click_link 'Edit'
       end
+      expect(Rapidfire::Question.count).to eq(2)
 
       page.find('label', text: 'Conditionally show this question').click
       # FIXME: fails to find the div with Poltergeist
@@ -93,9 +92,9 @@ describe 'Survey Administration', type: :feature, js: true do
       visit '/surveys'
       click_link 'Edit'
       omniclick(find('a', text: 'Edit Question Groups'))
-      check 'survey_rapidfire_question_group_ids_1'
-      check 'survey_rapidfire_question_group_ids_2'
-      check 'survey_rapidfire_question_group_ids_3'
+      Rapidfire::QuestionGroup.last(3).pluck(:id).each do |id|
+        check "survey_rapidfire_question_group_ids_#{id}"
+      end
       page.find('input.button').click
 
       # Reorder the question groups
@@ -103,19 +102,21 @@ describe 'Survey Administration', type: :feature, js: true do
       # too fast for the javascript to treat it as a completed move.
       visit '/surveys'
       click_link 'Edit'
-      drag_source = find('tr.question-group-row[data-item-id="1"]')
+
+      group_id = Rapidfire::QuestionGroup.first.id
+      drag_source = find("tr.question-group-row[data-item-id=\"#{group_id}\"]")
       drag_target = find('#survey_intro')
       drag_source.drag_to(drag_target)
 
       # Clone a Question Group
       visit '/surveys'
       click_link 'Question Groups'
-      within 'li#question_group_1' do
+      within "li#question_group_#{group_id}" do
         click_link 'Clone'
       end
 
       # Delete a Question Group
-      within 'li#question_group_1' do
+      within "li#question_group_#{group_id}" do
         click_link 'Edit'
       end
       page.accept_confirm do
@@ -141,10 +142,8 @@ describe 'Survey Administration', type: :feature, js: true do
       fill_in('survey_assignment_custom_banner_message', with: 'My Custom Banner!')
 
       page.find('input.button').click
-      sleep 1
-      expect(SurveyAssignment.count).to eq(1)
-
       click_link 'Create Notifications'
+      expect(SurveyAssignment.count).to eq(1)
       click_link 'Send Emails'
 
       # Update the SurveyAssignment
@@ -178,11 +177,11 @@ describe 'Survey Administration', type: :feature, js: true do
       page.accept_confirm do
         click_link 'Delete Survey Assignment'
       end
-      sleep 1
-      expect(SurveyAssignment.count).to eq(0)
 
       # Destroy a survey
-      visit '/surveys/1/edit'
+      visit "/surveys/#{Survey.last.id}/edit"
+      expect(SurveyAssignment.count).to eq(0)
+
       page.accept_confirm do
         click_link 'Delete this survey'
       end
@@ -200,7 +199,7 @@ describe 'Survey Administration', type: :feature, js: true do
       answer.question.update(track_sentiment: true, answer_options: 'foo')
       answer.answer_group.update(user_id: instructor.id)
       visit '/surveys/results'
-      visit '/survey/results/1'
+      visit "/survey/results/#{Survey.last.id}"
       expect(page).to have_content 'Average Sentiment'
       click_link 'Download Survey Results CSV'
       click_link 'Download Results CSV'

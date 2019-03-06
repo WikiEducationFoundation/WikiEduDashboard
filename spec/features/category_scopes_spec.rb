@@ -12,13 +12,9 @@ describe 'Tracked categories and template', js: true do
     stub_oauth_edit
   end
 
-  it 'show up for ArticleScopedPrograms' do
-    visit "/courses/#{course.slug}/articles"
-    expect(page).to have_content 'Tracked Categories'
-  end
-
   it 'lets a facilitator add and remove a category' do
     visit "/courses/#{course.slug}/articles"
+    expect(page).to have_content 'Tracked Categories'
     click_button 'Add category'
     find('#category_name').set('Photography')
     click_button 'Add this category'

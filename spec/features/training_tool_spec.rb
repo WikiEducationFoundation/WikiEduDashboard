@@ -15,7 +15,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   describe 'root library' do
-    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:slug)
+    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:name)
     after do
       login_as(user, scope: :user)
     end
@@ -23,7 +23,7 @@ describe 'Training', type: :feature, js: true do
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
-        expect(page).to have_content library_name.humanize.titleize
+        expect(page).to have_content library_name
       end
     end
 
@@ -31,7 +31,7 @@ describe 'Training', type: :feature, js: true do
       logout(:user)
       visit '/training'
       library_names.each do |library_name|
-        expect(page).to have_content library_name.humanize.titleize
+        expect(page).to have_content library_name
       end
     end
   end

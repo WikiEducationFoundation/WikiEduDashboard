@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/word_count"
 
 #= Pushes course data to Salesforce, either by creating a new record or updating an existing one
 class PushCourseToSalesforce
+  include SalesforceHelper
   attr_reader :result
 
   def initialize(course)
@@ -57,7 +58,7 @@ class PushCourseToSalesforce
       Course_Page__c: @course.url,
       Course_End_Date__c: @course.end.strftime('%Y-%m-%d'),
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",
-      Program__c: program_id,
+      Program__c: program_id(@course),
       Estimated_No_of_Participants__c: @course.expected_students,
       Articles_edited__c: @course.article_count,
       Total_edits__c: @course.revision_count,
@@ -76,17 +77,6 @@ class PushCourseToSalesforce
     }
   end
   # rubocop:enable Metrics/MethodLength
-
-  def program_id
-    case @course.type
-    when 'ClassroomProgramCourse', 'LegacyCourse'
-      ENV['SF_CLASSROOM_PROGRAM_ID']
-    when 'VisitingScholarship'
-      ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']
-    when 'FellowsCohort'
-      ENV['SF_WIKIPEDIA_FELLOWS_PROGRAM_ID']
-    end
-  end
 
   def words_added_in_thousands
     WordCount.from_characters(@course.character_sum).to_f / 1000
