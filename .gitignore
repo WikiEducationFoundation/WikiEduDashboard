@@ -10,6 +10,7 @@
 .vscode/
 /dump.rdb
 yarn.lock
+Gemfile.lock
 
 *.rbc
 capybara-*.html
