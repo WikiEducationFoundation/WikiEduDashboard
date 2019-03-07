@@ -1,5 +1,6 @@
 import React from 'react';
 import TextAreaInput from '../common/text_area_input.jsx';
+import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
@@ -64,15 +65,17 @@ const CourseForm = (props) => {
         placeholder={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
       />
     );
+    const options = I18n.t('courses.creator.role_description_options').map((value) => {
+      return { label: value, value };
+    });
+
     roleDescription = (
-      <TextInput
+      <CreatableInput
         id="role_description"
-        onChange={props.updateCourseAction}
-        value={props.course.role_description}
-        value_key="role_description"
-        editable
+        onChange={({ value }) => props.updateCourseAction('role_description', value)}
         label={I18n.t('courses.creator.role_description')}
         placeholder={I18n.t('courses.creator.role_description_placeholder')}
+        options={options}
       />
     );
   }
