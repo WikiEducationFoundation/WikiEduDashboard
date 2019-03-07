@@ -10,18 +10,24 @@ The application period has two important roles: it lets us get to know you, the 
 
 For your early contributions, it may take more time to explain and review your work than it would take us to do the work ourselves. This is okay; these are learning opportunities for you, and that balance will shift over time if you continue contributing. 
 
+Once you've finished a few issues, start thinking about the project idea for your application. Read whatever you can find that relates to it — both the technology involved and the Wikimedia community processes and programs. Ask questions and talk with us about what you've learned. Then create an issue on Phabricator for your proposal, and begin writing up your understanding of the project, along with the issues you've completed. You can flesh this out gradually, as you continue working on issues.
+
 Advice for Outreachy & GSoC hopefuls:
 * The earlier you start contributing, the better chance you'll have. Learning the project takes time.
 * Please ask questions and seek help when you're stuck!
-* Before opening a pull request, rebase and fix any merge conflicts, and check that only the relevant files are being changed. There should be no unintended changes to the schema or dependency files, or other "git noise".  If you have a messy git history, squash your commits to clean it up. See [here](./git.md) for common git techniques and best practices.
-* When you're ready to submit code, read and follow the instructions for pull requests. To make code review easier on us, you should provide a detailed explanation of your changes, along with before-and-after screenshots or animations of what you worked on if there is a UI component to it. 
-* After you submit code, check the continuous integration build, which runs all the tests against your code. If there are failing tests, identify what went wrong and fix it if you can. (If you can't, ask for help.)
+* Review the [pull request process](../CONTRIBUTING.md#pull-request-process) before opening your first PR.
 * If you're trying to judge how to spend your time — whether to put in more work on this project, or start making contributions somewhere else to improve your chances — feel free to talk with us about it. We don't make any decisions before the final applications are complete, but we can give you a frank assessment of your chances.
 
 ### What makes for a competitive application
 A competitive applicant will have completed a series of code contributions, starting from small and simple things, and moving to more complex and varied issues. The volume of your contributions is not the important part; we're not trying to pit applicants against each other to extract as much free work as possible, we're trying to understand what it would be like to work with you on a big project. We're looking for evidence of your technical and communication skills. Can you work effectively with JavaScript, Ruby, and CSS? Do you write efficient and understandable code? Do you ask good questions? Do you communicate clearly in your commit messages and your GitHub interactions? Do you follow the conventions of the codebase? We're also looking for evidence that you're becoming comfortable with the codebase. Do your later contributions show that you understand how different parts of the system work together, and how changes will affect user? Depending on the specific project, do you have additional skills that will be needed, such as visual design or user research? 
 
 A competitive applicant will also put together a project plan demonstrates an clear understanding of both project concept — what is it that the project aims to accomplish and why — and how to translate that project into technical tasks in the context of the Wiki Education Dashboard codebase. The project idea that we provide as a starting point may be very vague, and part of the process of preparing the application is to get as much of an understanding of that project idea as you can, and turn that understanding into a plan. (User research to learn more about exactly what Dashboard users need out of a particular project or feature, is often a good thing to incorporate into your project timeline; if the details of exactly what to build aren't clear from the project idea, that probably means there are many open questions that we don't yet have answers to.) We also welcome applicants to come up with their own project ideas — which is an especially good way to show your understanding of the big picture of the Dashboard and its role in the Wikimedia ecosystem.
+
+Here are some examples of strong applications that we accepted:
+* https://phabricator.wikimedia.org/T177507
+* https://phabricator.wikimedia.org/T189873
+* https://phabricator.wikimedia.org/T189991
+* https://phabricator.wikimedia.org/T147727
 
 ### What to expect during and after the internship
 During the internship period, we try to establish a cadence of frequent communication and steady, small contributions. We usually have a short video check-in meeting each day Monday through Thursday — including all active interns and at least one mentor — for you to share what you've done since the last check-in, what you're working on now, and anything you're stuck on. Ideally, you'll be pushing up new code at least daily, and your contributions will be merged and deployed as often as possible once they are ready.

@@ -55,8 +55,24 @@ If your changes modify the model schema, please regenerate `erd.pdf` and regener
 
 Also, ensure that the corresponding schema.rb changes only reflect the new migrations.
 
-## Pull request checklist
-- Rebase your branch on master if it is behind.
-- Optionally, squash your work into a single commit.
-- If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`package.json`, or `Gemfile`).
-- After opening a PR, verify that the continuous integration tests pass; if not, add more commits to fix them.
+## Pull request process
+
+### Before opening a PR
+- Create a git branch for the issue you are working on, rather than working directly on `master`.
+- Rebase your work onto the latest version from master and fix any merge conflicts. (See [git.md](docs/git.md) for common Git procedures.)
+- Check that only the relevant files are being changed. There should be no unintended changes to the schema or dependency files, or other "git noise".
+- If you have a messy git history, squash your commits to clean it up.
+- If you have added any external libraries via a package manager, ensure that you have updated the proper dependency list (`package.json`, or `Gemfile`) and corresponding lock file.
+
+### PR format
+- Title your pull request to indicate its purpose. (This will likely be similar to the title of the issue it addresses.)
+- Include a reference to the issue(s).
+- If it is a work-in-progress, include `[WIP]` in the title. Remove this once the PR is complete and ready for review.
+- Include before-and-after screenshots (or animations) for user interface changes.
+
+### After opening a PR
+- Check the travis-ci continuous integration build once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the build log.
+- If the build failed:
+  - Fix whatever caused it to fail if you can.
+  - Ask for help if you cannot fix it. If a pull request build is failing but you have not asked for help, we will assume that you have seen the errors and are still working on them.
+- If you don't get reviewer feedback within a day or two, or you're waiting for followup, ping someone.
