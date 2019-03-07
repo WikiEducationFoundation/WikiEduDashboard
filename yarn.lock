@@ -11185,10 +11185,10 @@ react-burger-menu@2.6.5:
     prop-types "^15.6.2"
     snapsvg-cjs "0.0.6"
 
-react-confetti@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.3.0.tgz#04928400ade075abebf0a349902d1ffb4e75d453"
-  integrity sha512-qi6Qh8zF3T80bgUK2/iZsYQum+2sLWyhjUpp4nO0uEvaUeIpSfVoj1FH9BLraPmkonn6sCQBK3pFKuS3zY1mJw==
+react-confetti@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.4.1.tgz#605194830529e212d5562271680ce5a14ec65fbf"
+  integrity sha512-K6R3TSeVN7T8dC9fYaxo9+w4eD1+51Wa1IfjC74KntSLyAVc83+dBvS7cKuFMGw91WZ5taAZTCnAxcGWgSc2Jw==
 
 react-day-picker@7.2.4:
   version "7.2.4"
