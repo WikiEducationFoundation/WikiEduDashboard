@@ -8,6 +8,7 @@
 # Author: Sator
 # Author: Subi
 # Author: Theklan
+# Author: Xabier Armendaritz
 ---
 eu:
   number:
@@ -730,7 +731,7 @@ eu:
     did_you_know_eligible: Bazenekien... izateko aukera
     image: Irudia
     file_name: Fitxategiaren izena
-    no_dyk_eligible: Ez dago artikulurik une honetan Bazenekien? izateko aukerarekin.
+    no_dyk_eligible: Oraintxe ez dago artikulurik «Bazenekien?» atalekoa izateko aukerarekin.
     no_plagiarism: Ez dago une honetan batere plagioa izateko susmorik duen berrikuspen
       berririk.
     no_edits: Ez dago aldaketa berririk.

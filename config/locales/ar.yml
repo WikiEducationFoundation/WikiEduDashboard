@@ -387,6 +387,9 @@ ar:
         إضافية لدورة قمت بإعدادها بالفعل.
       no_class_holidays: ليست لدي عطل
       role_description: دورك في المساق
+      role_description_options:
+      - المدرب
+      - المعيد
       role_description_placeholder: مدرس، ومعيد، وما إلى ذلك
       separate_event_dates: حدد أوقات بداية/نهاية حدث منفصل
       separate_event_dates_info: سيتم تتبع إحصائيات النشاط لهذا البرنامج بناءً على
@@ -1007,6 +1010,7 @@ ar:
     user_no_training_status: هذا المستخدم لم يكمل أية وحدات تدريب.
     up_to_date_with_training: التدريب حتى الآن
     uploads_doc: عدد عمليات رفع الملفات إلى ويكيميديا ​​كومنز
+    ungreeted: غير مرحب به
     username: اسم المستخدم
     username_placeholder: اسم المستخدم
     useremail_placeholder: البريد الإلكتروني

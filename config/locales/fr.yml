@@ -428,6 +428,9 @@ fr:
         pour un cours que vous avez déjà défini.
       no_class_holidays: Je n’ai pas de congés scolaires
       role_description: Votre rôle dans le cours
+      role_description_options:
+      - Formateur
+      - Assistant éducatif
       role_description_placeholder: Instructeur, assistant enseignant, etc.
       separate_event_dates: Spécifier des heures distinctes de début et de fin de
         l’événement
@@ -1105,6 +1108,7 @@ fr:
     user_no_training_status: Cet utilisateur n'a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
     uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
+    ungreeted: Pas le bienvenu
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
     useremail_placeholder: Courriel

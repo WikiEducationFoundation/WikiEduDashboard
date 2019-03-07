@@ -205,8 +205,7 @@ pt:
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
     review_self: Rever um artigo
-    review_tooltip: Isto é para manter o registo de quais artigos planeia revisar
-      ou opinar.
+    review_tooltip: Isto é para controlar que artigos planeia rever ou comentar.
     select: Selecionar
   blocks:
     milestones:
@@ -411,6 +410,9 @@ pt:
         definido.
       no_class_holidays: Não tenho férias escolares
       role_description: A sua função no curso
+      role_description_options:
+      - Professor
+      - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
       separate_event_dates: Especifique separadamente os horários iniciais e finais
         do evento
@@ -882,11 +884,11 @@ pt:
       ga: Algumas edições realizadas pelos especialistas do tema ou estilo são úteis;
         A comparação com um artigo destacado existente num tópico semelhante pode
         destacar as áreas onde o conteúdo é fraco ou ausente.
-      bplus: Pode haver melhorias através das contribuições de especialistas para
-        avaliar onde a cobertura ainda está ausente, e também pelas ilustrações, antecedentes
-        históricos e outras referências. Considere revisar por pares ou indicar a
-        nomeação do artigo para bom. Se o artigo ainda não estiver completo, agora
-        pode ser a hora.
+      bplus: Pode ser melhorado com a opinião de especialistas sobre as áreas que
+        ainda não estão cobertas, e também com ilustrações, antecedentes históricos
+        e outras referências. Considere usar a revisão por pares ou nomear o artigo
+        para o estado bom. Se o artigo ainda não estiver devidamente formatado, faça-o
+        agora.
       b: Alguns aspetos do conteúdo e estilo precisam ser abordados. Pode ser necessário
         ter conhecimentos especializados. A inclusão de materiais de suporte deve
         ser considerada, na prática, e o artigo deve ser verificado, em conformidade
@@ -1045,7 +1047,7 @@ pt:
     characters_added_userspace: Caracteres acrescentados (utilizador)
     characters_added_draftspace: Caracteres acrescentados (rascunho)
     my_assigned: 'Atribuição:'
-    my_reviewing: 'A revisar:'
+    my_reviewing: 'A rever:'
     name: Nome
     none: Não há participantes.
     no_articles: Não há artigos
@@ -1060,7 +1062,7 @@ pt:
       Visitas: %{views}'
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
     reviewers: Revisor(es)
-    reviewing: A revisar
+    reviewing: Em revisão
     total_uploads: Total de carregamentos
     training_complete:
       one: está em dia com a formação
@@ -1080,6 +1082,7 @@ pt:
     user_no_training_status: Este utilizador não completou nenhum módulo de formação.
     up_to_date_with_training: em dia com a formação
     uploads_doc: Número de carregamentos de ficheiros na wiki Wikimedia Commons
+    ungreeted: Não saudados
     username: Nome de utilizador
     username_placeholder: Nome de utilizador
     useremail_placeholder: Correio eletrónico

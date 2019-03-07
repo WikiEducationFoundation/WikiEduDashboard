@@ -417,6 +417,9 @@ pt-br:
         um curso que já definiu.
       no_class_holidays: Não há férias
       role_description: A sua função no curso
+      role_description_options:
+      - Instrutor
+      - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
       separate_event_dates: Especifique separadamente os horários iniciais e finais
         do evento
@@ -1079,6 +1082,7 @@ pt-br:
     user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
     uploads_doc: Número de pastas enviadas para Wikimedia Commons
+    ungreeted: Não saudados
     username: Nome de usuário
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail

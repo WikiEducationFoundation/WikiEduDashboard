@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alex Khimich
+# Author: Andrew J.Kurbiko
 # Author: Andriykopanytsia
 # Author: Base
 # Author: Green Zero
@@ -108,6 +109,7 @@ uk:
     available: Доступні статті
     next: наступний
     previous: попереднє
+    article_title: Назва статті
     assigned_to: Задано
     character_doc: Це сума символів, доданих до статей записаними редакторами між
       початковою та кінцевою датами
@@ -372,6 +374,8 @@ uk:
         ви вже налаштували.
       no_class_holidays: У мене немає класних канікул
       role_description: Ваша роль у курсі
+      role_description_options:
+      - Інструктор
       role_description_placeholder: Інструктор, вчитель, тощо
       separate_event_dates: Вкажіть різні дати початку і кінця
       separate_event_dates_info: Статистика активності для цієї програми буде збиратися
@@ -509,6 +513,7 @@ uk:
       за таким URL:'
     rating_feedback: 'Передбачена оцінка статті:'
     requested_accounts: Запити на облікові записи
+    requested_accounts_alert_view: Переглянути
     review_timeline: 'Тепер, перевірте графік вашого завдання, вносячи зміни відповідно
       до власних потреб. Коли Ви станете задоволеними своїм графіком, ви можете надіслати
       його на схвалення штатним працівникам Wiki Education. Після затвердження Ви
