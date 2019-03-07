@@ -10,7 +10,7 @@ The application period has two important roles: it lets us get to know you, the 
 
 For your early contributions, it may take more time to explain and review your work than it would take us to do the work ourselves. This is okay; these are learning opportunities for you, and that balance will shift over time if you continue contributing. 
 
-Once you've finished a few issues, start thinking about the project idea for your application. Read whatever you can find that relates to it — both the technology involved and the Wikimedia community processes and programs. Ask questions and talk with us about what you've learned. Then create an issue on Phabricator for your proposal, and begin writing up your understanding of the project, along with the issues you've completed. You can flesh this out gradually, as you continue working on issues.
+Once you've finished a few issues, start thinking about the project idea for your application. Read whatever you can find that relates to it — both the technology involved and the Wikimedia community processes and programs. Ask questions and talk with us about what you've learned. Then create an issue on Phabricator for your proposal, and begin writing up your understanding of the project, along with the issues you've completed. You can flesh this out gradually, as you continue working on issues. Ask for feedback and keep improving it, and then add a project timeline that reflects your understanding of the technical and other tasks involved, in broad strokes.
 
 Advice for Outreachy & GSoC hopefuls:
 * The earlier you start contributing, the better chance you'll have. Learning the project takes time.
