@@ -66,7 +66,7 @@ const ArticleFinder = createReactClass({
   updateFields(key, value) {
     const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
-    if (this.props.search_term.length !== 0) { this.buildURL(); }
+      if (this.props.search_term.length !== 0) { this.buildURL(); }
     });
   },
 
@@ -79,7 +79,7 @@ const ArticleFinder = createReactClass({
     let queryStringUrl = window.location.href.split('?')[0];
     const params_array = ['search_type', 'article_quality', 'min_views'];
     queryStringUrl += `?search_term=${this.props.search_term}`;
-    params_array.map((param) => {
+    params_array.forEach((param) => {
       return queryStringUrl += `&${param}=${this.props[param]}`;
     });
     history.replaceState(window.location.href, 'query_string', queryStringUrl);
