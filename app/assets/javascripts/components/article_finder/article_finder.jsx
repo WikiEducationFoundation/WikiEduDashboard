@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
-
+import qs from 'query-string';
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
@@ -35,8 +35,8 @@ const ArticleFinder = createReactClass({
   },
 
   componentWillMount() {
-    if (window.location.href.split('?').length !== 1) {
-      this.getQueryVariable();
+    if (window.location.search.substring(1)) {
+      this.getParamsURL();
     }
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
@@ -55,17 +55,19 @@ const ArticleFinder = createReactClass({
     }
   },
 
-  getQueryVariable() {
-    const query = window.location.search.substring(1);
-    const vars = query.split('&');
-    for (let i = 0; i < vars.length; i += 1) {
-        const pair = vars[i].split('=');
-        this.updateFields(pair[0], pair[1]);
-    }
-    },
-  async updateFields(key, value) {
-    await this.props.updateFields(key, value);
+  getParamsURL() {
+    const query = qs.parse(window.location.search);
+    const entries = Object.entries(query);
+    entries.map(([key, val]) => {
+      val = (key === 'article_quality') ? parseInt(val) : val;
+      return this.updateFields(key, val);
+    });
+  },
+  updateFields(key, value) {
+    const update_field = this.props.updateFields(key, value);
+    Promise.resolve(update_field).then(() => {
     if (this.props.search_term.length !== 0) { this.buildURL(); }
+    });
   },
 
   toggleFilter() {
@@ -75,12 +77,12 @@ const ArticleFinder = createReactClass({
   },
   buildURL() {
     let queryStringUrl = window.location.href.split('?')[0];
-    const search_term = encodeURIComponent(this.props.search_term);
-    const search_type = encodeURIComponent(this.props.search_type);
-    const article_quality = encodeURIComponent(this.props.article_quality);
-    const min_views = encodeURIComponent(this.props.min_views);
-    queryStringUrl += `?search_term=${search_term}&search_type=${search_type}&article_quality=${article_quality}&min_views=${min_views}`;
-    history.pushState(window.location.href, 'query_string', queryStringUrl);
+    const params_array = ['search_type', 'article_quality', 'min_views'];
+    queryStringUrl += `?search_term=${this.props.search_term}`;
+    params_array.map((param) => {
+      return queryStringUrl += `&${param}=${this.props[param]}`;
+    });
+    history.replaceState(window.location.href, 'query_string', queryStringUrl);
   },
   searchArticles() {
     this.setState({
