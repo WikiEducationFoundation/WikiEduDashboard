@@ -134,7 +134,7 @@ export const Course = createReactClass({
             <Route exact path="/courses/:course_school/:course_title/overview" render={() => <OverviewHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/activity" render={() => <RevisionsHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/students" render={() => <StudentsHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
+            <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/chat" render={() => <RocketChat {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/article_finder" render={() => <ArticleFinder {...courseProps} />} />
