@@ -25,8 +25,6 @@ class Block < ApplicationRecord
   belongs_to :week
   has_one :course, through: :week
   serialize :training_module_ids, Array
-  before_update :editable?, if: :content_fields_changed?
-  before_destroy :deletable?
   default_scope { includes(:week, :course) }
 
   KINDS = {
@@ -53,19 +51,5 @@ class Block < ApplicationRecord
 
   def calculated_due_date
     date_manager.due_date
-  end
-
-  private
-
-  def editable?
-    throw :abort unless is_editable
-  end
-
-  def content_fields_changed?
-    content_changed? || title_changed? || training_module_ids_changed?
-  end
-
-  def deletable?
-    throw :abort unless is_deletable
   end
 end
