@@ -26,7 +26,7 @@ We have a script to automate the process of setting up your developmental enviro
 ## Prerequisite
 There are some basic requirements for the script to work:
 - git (to clone the repository)
-- python 3
+- python 3.5 or newer
 - ruby 2.5.0
 - apt (debian) or homebrew (MacOS)
 - node v10 or lower
