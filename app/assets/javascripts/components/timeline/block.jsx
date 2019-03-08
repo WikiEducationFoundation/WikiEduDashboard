@@ -112,9 +112,9 @@ const Block = createReactClass({
     if (isEditable) {
       if (!this.props.block.is_new) {
         const button = this.props.block.is_deletable ? (
-          <button className="danger" onClick={this.deleteBlock}>Delete Block</button>
+          <button className="danger" onClick={this.deleteBlock}>{I18n.t('timeline.delete_block')}</button>
         ) : (
-          <button disabled={true}>You may not delete this block</button>
+          <button disabled={true}>{I18n.t('timeline.delete_block_not_allowed')}</button>
         );
 
         deleteBlock = (<div className="delete-block-container">{ button }</div>);

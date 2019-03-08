@@ -909,6 +909,8 @@ en:
     delete_weeks_confirmation: "Are you sure you want to delete this entire timeline and start over? \n\nThis cannot be undone."
     discard_all_changes: Discard All Changes
     delete_timeline_and_start_over: Delete Timeline
+    delete_block: Delete Block
+    delete_block_not_allowed: You may not delete this block
     due_default: Due next week
     # FIXME: lego message. This one is hard to work around because it has inline components.
     empty_week_1: 'To get started, '
