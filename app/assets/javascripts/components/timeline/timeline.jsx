@@ -74,9 +74,16 @@ const Timeline = createReactClass({
   },
 
   deleteWeek(weekId) {
+    const isDeletable = this._isDeletableWeek(weekId);
+    if (!isDeletable) return confirm('You are not allowed to delete this week.');
     if (confirm(I18n.t('timeline.delete_week_confirmation'))) {
       return this.props.deleteWeek(weekId);
     }
+  },
+
+  _isDeletableWeek(weekId) {
+    const week = this.props.weeks.find(({ id }) => id === weekId);
+    return week.blocks.every(block => block.is_deletable);
   },
 
   deleteAllWeeks() {
