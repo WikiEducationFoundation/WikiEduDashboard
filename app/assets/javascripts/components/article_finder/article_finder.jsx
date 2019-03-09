@@ -66,7 +66,9 @@ const ArticleFinder = createReactClass({
   updateFields(key, value) {
     const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
-      if (this.props.search_term.length !== 0) { this.buildURL(); }
+      if (this.props.search_term.length !== 0) {
+        this.buildURL();
+      }
     });
   },
 
