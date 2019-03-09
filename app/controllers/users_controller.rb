@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 class UsersController < ApplicationController
   respond_to :html, :json
 
-    before_action :require_admin_permissions, only: [:index]
+  before_action :require_admin_permissions, only: [:index]
 
   layout 'admin', only: [:index]
 
@@ -21,7 +21,6 @@ class UsersController < ApplicationController
       redirect_to true_destroy_user_session_path
     end
   end
-
 
   ####################################################
   # User listing page for Admins                     #
