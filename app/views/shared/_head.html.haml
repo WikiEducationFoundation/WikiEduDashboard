@@ -10,6 +10,7 @@
 
 = content_for :head
 
+= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.min.js'
 = javascript_include_tag '/assets/javascripts/i18n'
 = javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
 #wikis{:'data-projects' => Wiki::PROJECTS.to_json, :'data-languages' => Wiki::LANGUAGES.to_json}
@@ -43,7 +44,7 @@
     Raven.config(SentryDsn).install();
     Raven.setExtraContext(currentUser);
 
-= javascript_include_tag '/assets/javascripts/jquery-uls.js'
+= hot_javascript_tag("jqueryInclude")
 = hot_javascript_tag("tinymce")
 = content_for :javascripts
 = csrf_meta_tags
