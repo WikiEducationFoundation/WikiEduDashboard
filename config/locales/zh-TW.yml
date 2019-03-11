@@ -287,6 +287,8 @@ zh-TW:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 分配作業開始繳交
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: 取消課程複製
+      cancel_course_clone_confirm: 您確定要停止複製這個課程嗎？
       checking_for_uniqueness: 正在確認是否有重複的課程。
       choose_clone: 選擇一個課程來複製。
       clone_previous: 複製前一個課程
@@ -541,6 +543,8 @@ zh-TW:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 事項起始
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: 取消方案複製
+      cancel_course_clone_confirm: 您確定要停止複製這個方案嗎？
       checking_for_uniqueness: 正在確認是否有重複的方案。
       choose_clone: 選擇一個方案來複製。
       clone_previous: 複製前一個方案

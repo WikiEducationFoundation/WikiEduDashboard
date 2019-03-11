@@ -326,6 +326,8 @@ ar:
       assignment_end_placeholder: سسسس-شش-يي
       assignment_start: بداية التعيين
       assignment_start_placeholder: سسسس-شش-يي
+      cancel_course_clone: إلغاء استنساخ الدورة
+      cancel_course_clone_confirm: هل أنت متأكد من أنك تريد إيقاف استنساخ هذه الدورة؟
       checking_for_uniqueness: يتم التحقق من هذه الدورة من حيث التفرد.
       choose_clone: اختر مقررا لاستنساخه.
       clone_previous: استنساخ دورة سابقة
@@ -634,6 +636,8 @@ ar:
       assignment_end_placeholder: سسسس-شش-يي
       assignment_start: بداية الحدث
       assignment_start_placeholder: سسسس-شش-يي
+      cancel_course_clone: إلغاء استنساخ البرنامج
+      cancel_course_clone_confirm: هل أنت متأكد من أنك تريد إيقاف استنساخ هذا البرنامج؟
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
       choose_clone: اختر برنامجا لاستنساخه.
       clone_previous: استنساخ برنامج سابق

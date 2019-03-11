@@ -357,6 +357,9 @@ fr:
       assignment_end_placeholder: AAAA-MM-JJ
       assignment_start: Début de l’affectation
       assignment_start_placeholder: AAAA-MM-JJ
+      cancel_course_clone: Annuler le clonage du cours
+      cancel_course_clone_confirm: Êtes-vous sûr de vouloir arrêter le clonage de
+        ce cours ?
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
       choose_clone: Choisir un cours à dupliquer.
       clone_previous: Dupliquer le cours précédent
@@ -705,6 +708,9 @@ fr:
       assignment_end_placeholder: AAAA-MM-JJ
       assignment_start: Début de l’événement
       assignment_start_placeholder: AAAA-MM-JJ
+      cancel_course_clone: Annuler le clonage du programme
+      cancel_course_clone_confirm: Êtes-vous sûr de vouloir arrêter le clonage de
+        ce programme ?
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       choose_clone: Choisir un programme à dupliquer.
       clone_previous: Dupliquer le programme précédent

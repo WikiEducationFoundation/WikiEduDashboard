@@ -6,6 +6,7 @@
 # Author: Arifin.wijaya
 # Author: Hidayatsrf
 # Author: Mirws
+# Author: Pebaryan
 # Author: Presidenvolksraad
 # Author: Rachmat.Wahidi
 # Author: Rachmat04
@@ -45,12 +46,19 @@ id:
     reviewers: Peninjau
   courses:
     course_description: Kursus
+    creator:
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah Anda yakin mau menghentikan penggandaan
+        kursus ini
     needs_update: Jadwal Pembaruan Data
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
   courses_generic:
     courses: Program
     creator:
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah anda yakin ingin menghentikan penggandaan
+        program ini?
       checking_for_uniqueness: Keunikan program akan diperiksa.
     view_other: Lihat kampanye lain
   metrics:

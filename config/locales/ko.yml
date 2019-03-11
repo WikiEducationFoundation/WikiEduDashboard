@@ -349,6 +349,7 @@ ko:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 이벤트 시작
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone_confirm: 이 프로그램의 복제를 중지하시겠습니까?
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.
