@@ -98,6 +98,9 @@ nl:
     label: Activiteit
   articles:
     assigned: Toegewezen pagina's
+    next: Volgende
+    previous: Vorige
+    article_title: Artikelnaam
     assigned_to: Toegewezen aan
     character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
       ingeschreven studenten tussen de begin- en einddatum
@@ -240,6 +243,8 @@ nl:
         en kan niet gewijzigd worden. Al het andere kan later aangepast worden. Klik
         "Maak mijn cursus aan!" om te beginnen met de tijdlijn voor de Wikipedia-opdracht.
       no_class_holidays: Ik heb geen vakantie met de klas
+      role_description_options:
+      - Instructeur
       save_cloned_course: Nieuwe cursus opslaan
       start_date: Startdatum
       start_date_placeholder: JJJJ-MM-DD

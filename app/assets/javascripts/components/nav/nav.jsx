@@ -54,7 +54,7 @@ const Nav = createReactClass({
   },
 
   componentDidMount() {
-    if (Features.wikiEd && this.state.ifAdmin) {
+    if (this.state.ifAdmin) {
       fetch('/requested_accounts.json')
         .then(res => res.json())
         .then(({ requested_accounts }) => this.setState({ requested_accounts }))
@@ -94,7 +94,7 @@ const Nav = createReactClass({
       );
     }
     if (this.state.userSignedIn) {
-      if (this.state.ifAdmin && this.state.wikiEd) {
+      if (this.state.ifAdmin) {
         notifications = (
           <li aria-describedby="notification-message" className="notifications">
             <a href="/requested_accounts" className="icon icon-notifications_bell"/>

@@ -182,7 +182,7 @@ class Course < ApplicationRecord
   # Course content #
   ##################
   has_many :weeks, dependent: :destroy
-  has_many :blocks, through: :weeks, dependent: :destroy
+  has_many :blocks, through: :weeks
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,

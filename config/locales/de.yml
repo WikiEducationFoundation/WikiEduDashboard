@@ -337,6 +337,9 @@ de:
       assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Zuweisungsbeginn
       assignment_start_placeholder: JJJJ-MM-TT
+      cancel_course_clone: Klonen des Kurses abbrechen
+      cancel_course_clone_confirm: Bist du sicher, dass du das Klonen dieses Kurses
+        beenden möchtest?
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle einen zu klonenden Kurs aus.
       clone_previous: Vorherigen Kurs klonen
@@ -406,6 +409,9 @@ de:
         aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
       role_description: Deine Rolle im Kurs
+      role_description_options:
+      - Kursleiter
+      - Lehrassistent
       role_description_placeholder: Kursleiter, Lehrassistent etc.
       separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an
       separate_event_dates_info: Aktivitätsstatistiken für dieses Programm werden
@@ -678,6 +684,9 @@ de:
       assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Ereignisbeginn
       assignment_start_placeholder: JJJJ-MM-TT
+      cancel_course_clone: Klonen des Programms abbrechen
+      cancel_course_clone_confirm: Bist du sicher, dass du das Klonen dieses Programms
+        beenden möchtest?
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen
@@ -1083,6 +1092,7 @@ de:
     user_no_training_status: Dieser Benutzer hat keine Ausbildungsmodule vervollständigt.
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
+    ungreeted: Nicht begrüßt
     username: Benutzername
     username_placeholder: Benutzername
     useremail_placeholder: E-Mail-Adresse

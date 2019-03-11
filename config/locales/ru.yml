@@ -27,6 +27,7 @@
 # Author: Pplex.vhs
 # Author: Putnik
 # Author: Redredsonia
+# Author: Romanko Mikhail
 # Author: Shaleych
 # Author: SmartNart12
 # Author: Vlad5250
@@ -277,6 +278,8 @@ ru:
       end_date_placeholder: ГГГГ-ММ-ДД
       expected_number: Ожидаемое количество студентов
       find: Найти свой курс
+      role_description_options:
+      - Инструктор
       start_date: Дата начала
       start_date_placeholder: ГГГГ-ММ-ДД
     current: Текущие курсы

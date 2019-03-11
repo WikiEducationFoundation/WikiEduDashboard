@@ -233,6 +233,8 @@ da:
       expected_number: Forventet antal studenter
       find: Find dit kursus
       role_description: Din rolle i kursuset
+      role_description_options:
+      - Instruktør
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
       save_cloned_course: Gem nyt kursus
       start_date: Startdato

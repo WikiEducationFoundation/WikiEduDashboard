@@ -14,6 +14,8 @@ const CourseClonedModal = createReactClass({
 
   propTypes: {
     course: PropTypes.object.isRequired,
+    initiateConfirm: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
     currentUser: PropTypes.object.isRequired,
@@ -56,6 +58,14 @@ const CourseClonedModal = createReactClass({
   },
 
   cloneCompletedStatus: 2,
+
+  cancelCloneCourse() {
+    const i18nPrefix = this.props.course.string_prefix;
+    const confirm = CourseUtils.i18n('creator.cancel_course_clone_confirm', i18nPrefix);
+    this.props.initiateConfirm(confirm, () => {
+      this.props.deleteCourse(this.state.course.slug);
+    });
+  },
 
   updateCourse(valueKey, value) {
     const updatedCourse = $.extend(true, {}, this.state.course);
@@ -350,6 +360,7 @@ const CourseClonedModal = createReactClass({
                 />
               </div>
               {rightColumn}
+              <button onClick={this.cancelCloneCourse} className="button light">{CourseUtils.i18n('creator.cancel_course_clone', i18nPrefix)}</button>
               <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
             </div>
           </div>

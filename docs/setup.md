@@ -1,5 +1,22 @@
+##### Contents
+- [Script setup](#script-setup)
+  - [Prerequisite](#prerequisite)
+  - [Instructions](#instructions)
+  - [Troubleshooting](#troubleshooting)
+- [Manual setup](#manual-setup)
+  - [TL;DR bare minimum version](#tldr-bare-minimum-version)
+  - [Detailed instructions](#detailed-instructions)
+  - [Initialize](#initialize)
+- [Importing data and using the development environment](#importing-data-and-using-the-development-environment)
+  - [Set up OAuth integration (optional — skip unless you are working on WikiEdits features)](#set-up-oauth-integration-optional--skip-unless-you-are-working-on-wikiedits-features)
+  - [Populate example data](#populate-example-data)
+  - [Develop](#develop)
+  - [Design](#design)
+  - [Maintain](#maintain)
+
 [Back to README](../README.md)
-# Script Setup
+
+# Script setup
 We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.), Fedora and MacOS.
 
 **Warning**: If you run this python script on Windows system, it will run a still in Development script, which is **not** tested fully and might **not** work properly.
@@ -8,11 +25,11 @@ We have a script to automate the process of setting up your developmental enviro
 
 ## Prerequisite
 There are some basic requirements for the script to work:
-- git(to clone the repository)
-- python 3
-- ruby-2.5.0
-- apt(debian)/homebrew(MacOS)
-- node v10 or lower.
+- git (to clone the repository)
+- python 3.5 or newer
+- ruby 2.5.0
+- apt (debian) or homebrew (MacOS)
+- node v10 or lower
 
 ## Instructions
 - Clone the repository
@@ -40,7 +57,7 @@ You can also contact us on slack for any further queries.
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
 
-# Manual Setup
+# Manual setup
 ## TL;DR bare minimum version
 If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
 
@@ -56,7 +73,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * `guard` or `rails s` to start a server
 * localhost:3000 should load the home page
 
-## Project Setup
+## Detailed instructions
 
 - Pre-requisites for setup on OSX (Mac)
     - You will need to have xcode installed in order to have `git` on your machine.  If you run `git` and it is not there, you will be prompted to install xcode.
@@ -126,6 +143,7 @@ If you know your way around Rails, here's the very short version. Some additiona
   - $ `rake db:migrate`
   - $ `rake db:migrate RAILS_ENV=test`
 
+# Importing data and using the development environment
 ## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
 
 ## Populate example data

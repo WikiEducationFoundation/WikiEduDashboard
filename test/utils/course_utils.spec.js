@@ -55,7 +55,7 @@ describe('CourseUtils.courseSlugRegex', () => {
   });
 });
 
-describe('courseUtils.cleanupCourseSlugComponents', () =>
+describe('courseUtils.cleanupCourseSlugComponents', () => {
   it('trims whitespace and collapses multispaces from the slug-related fields of a course object', () => {
     const course = {
       term: ' Fall      2015',
@@ -66,8 +66,8 @@ describe('courseUtils.cleanupCourseSlugComponents', () =>
     expect(cleanedCourse.term).to.eq('Fall 2015');
     expect(cleanedCourse.school).to.eq('University of Wikipedia');
     expect(cleanedCourse.title).to.eq('Introduction to Editing');
-  })
-);
+  });
+});
 
 describe('courseUtils.i18n', () => {
   it('outputs an interface message based on a message key and prefix', () => {

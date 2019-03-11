@@ -91,6 +91,9 @@ ja:
     article_development: (記事の作成)
     assigned: 割り当てられた記事
     available: 掲載してある記事
+    next: 次へ
+    previous: 前へ
+    article_title: 記事名
     assigned_to: 担当する人
     character_doc: 開始日から終了日までの間に編集担当が書き加えた文字数の合計
     cross_wiki_tracking: これらは最初と最後の日付の間に編集された記事です。ダッシュボードはこのプログラムの最初のwikiや、「課題」や「利用可能な記事」がある他のwikiから投稿を収集します。
@@ -124,6 +127,7 @@ ja:
       '?': クラスなし — ウィキペディアで品質基準の評価がされていない記事
       does_not_exist: この記事はウィキペディアにはありません
     see_more: 表示を増やす
+    show_cumulative_changes: これまで累積した変更を表示する
     show_current_version: 現在の版を表示
     show_current_version_with_authorship_highlighting: 作者名を明示した現在の版
     title: 記事名
@@ -147,26 +151,45 @@ ja:
     add_available_submit: 記事を追加
     assign_self: 自分に課題を割り当てる
     assign_tooltip: 割り当ての記事とは、編集者が新規作成または改良に取り組もうと計画したものです。
+    confirm_add_available: ほんとうに%{title}を追加しますか？
     confirm_addition: 課題%{title}を%{username}さんに割り当ててよろしいですか？
     confirm_deletion: この記事を課題から除去してよろしいですか？
+    label: 出題する
     loading: 課題の読み込み中…
     none_short: 割り当てられた記事はありません
     none: このコースには課題の記事がありません。
     no_available: このコースには課題の記事がありません。
     remove: 除去
+    reviewers: 査読者
     review_other: 査読を割り当て
     review_self: 記事を査読する
     review_tooltip: これは仲間の査読を受けたりフィードバックを求めたりしようとする記事を追跡するための機能です。
+    select: 選択してください
   blocks:
     milestones:
       title: マイルストーン
   campaign:
+    add_organizer: 主催者を追加
     alert_article: 記事名
+    alert_type: 種類
+    alert_user_id: 利用者
+    all_campaigns: すべての告知
+    campaign: 告知
+    campaigns: 告知
+    campaign_deleted: 「%{title}」という告知を除去しました。
+    campaign_not_updated: 告知を更新できませんでした
+    campaign_updated: 告知を更新しました
+    created_at: 日付
     course: コース
     default_course_type: コースの既定のタイプ
+    description: 説明
     disable_account_requests: アカウント開設を無効にする
     enable_account_requests: アカウント開設を有効にする
     none: なし
+    organizers: 主催者
+    organizer_added: '%{user}さんは現在、「%{title}」キャンペーンの主催者です'
+    organizer_removed: '%{user}さんは「%{title}」キャンペーンの主催者を退任しました'
+    program_template_tooltip: 主催者がこの告知にプログラムを作成すると、この欄の文は説明としてプログラムページに転写されます
     requested_accounts: アカウント申請
   categories:
     add_category: カテゴリを追加
@@ -176,6 +199,7 @@ ja:
   courses:
     assignment_edits_enabled: 課題の編集が有効になりました
     assignment_edits_enabled_tooltip: ダッシュボードを有効にすると、割り当てられた記事のトークページにテンプレートが投稿されます。
+    accounts_generation_explanation: これにより参加者はEメールアドレスや希望する利用者名を入力でき、新規アカウントを自分で作成する手間を省けます。主催者はこのダッシュボードを使ってアカウントを作成し、同時にプログラム参加者として登録ができます。この機能を利用するには、このプログラムのホームウィキで「アカウント作成者」権限を得る必要があります。
     activity: 活動
     active_courses: 実行中の%{course_type}
     add_trainings: 課題の日程表に受講者のトレーニングを組み込んでください。ウィキ教育において、トレーニング・モジュールの割り当ては重要です。
@@ -208,6 +232,7 @@ ja:
       clone_successful: 複製したコースの詳細を更新
       clone_successful_details: コースは日程表の要素 (週や期間を含む) ごと複製が完了しました。もし転写されない日付があれば、追加してください。コースでほかに変更点はありませんか？
         ここで更新しておきましょう。
+      course_description: コースの説明
       course_description_placeholder: コースでどんな分野を扱い、ウィキペディアで受講者はどんなことを行うでしょうか。受講者がウィキペディアにどのように貢献するか、ウィキペディアの他の編集者に伝わるように、具体的な記述をお願いします。
       course_school: コース学校
       course_subject: コースの科目
@@ -229,6 +254,8 @@ ja:
       new_or_clone: コース作成にはAssignment Design ウィザードというツールが使えます。前回のコースで細かくカスタマイズした日程表を使っていて、それを再利用するにはクローン機能で複製し、日程を新規に設定することができます
         (前回、もしカスタム設定していないなら、最新のオプションを活用できるので、新規に日程を作成するようお奨めしています。) またクローン機能を使うと、すでに設定した日程表にセクションを追加することもできます。
       role_description: コースにおける役割
+      separate_event_dates_info: このプログラムに対する活動統計は上記の時間帯と日付の期間に基づいて記録されますが、主催者はイベントとプログラムが実際に開始し終了する日付を個別に指定できます
+        (たとえば参加者は出席する日付や、場所が閉鎖される日付を確認できます。)
       save_cloned_course: 新規コースを保存
       start_date: 開始日
     current: 現在のコース
@@ -312,15 +339,19 @@ ja:
   courses_generic:
     assignments_none: このプロジェクトには課題の記事がありません。
     creator:
+      course_description: プログラムの説明
+      course_description_placeholder: これはどんなプログラムで、ウィキ上で参加者はどんな活動をしますか？ 詳しい情報を加え、他の編集者から見て参加者がどんなことを成し遂げるのか背景が伝わるようにします。
       intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語や複数プロジェクトのあるプログラムの場合は、それぞれのウィキで「提供される記事」や「課題」ごとに投稿を記録します。ウィキプログラムのページ作成は、「プログラムを作成する！」ボタンを押して開始します。
     school: 施設
     student_editors: 編集者
     students: 編集者
     students_short: 編集者
+    students_count: 参加者数
   editable:
     edit: 編集
     cancel: 中止
     save: 保存
+    edit_description: 編集の説明
     rename_confirmation: URLを構成するコースの分野が変更されました。この結果、URLの文字列が変更されるため、外部からのリンクはすべて切れてしまいます。この処理を本当に行ってよろしいですか？
   metrics:
     activity: 最近の活動
@@ -391,6 +422,7 @@ ja:
     characters_added_mainspace: 追加した文字数 (記事の件数)
     my_assigned: '割り当て済み:'
     name: 名前
+    none: 参加者はいません。
     no_articles: 記事はありません
     number_of_articles:
       other: '%{count}件の記事'
