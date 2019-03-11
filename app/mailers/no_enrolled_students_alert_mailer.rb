@@ -21,6 +21,7 @@ class NoEnrolledStudentsAlertMailer < ApplicationMailer
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
-    @greeted_users = @instructors.pluck(:username).to_sentence # eg, "User, User2, and User3"
+    # eg, "Full Name, User2, and Other Fullname"
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
   end
 end

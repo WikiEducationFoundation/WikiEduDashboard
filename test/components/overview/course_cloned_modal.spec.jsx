@@ -23,6 +23,8 @@ describe('CourseClonedModal', () => {
     <Provider store={reduxStore} >
       <CourseClonedModal
         course={course}
+        initiateConfirm={jest.fn()}
+        deleteCourse={jest.fn()}
         updateCourse={jest.fn()}
         updateClonedCourse={jest.fn()}
         currentUser={currentUser}
@@ -40,5 +42,18 @@ describe('CourseClonedModal', () => {
     TestModal.setState({ error_message: null });
     const warnings = TestModal.find('.warning');
     expect(warnings).to.have.length(0);
+  });
+
+  it('includes a Cancel and Save New Course button', () => {
+    const renderedModal = TestModal.find('.cloned-course');
+    expect(renderedModal).to.have.length(1);
+
+    const cancel = renderedModal.find('.button.light');
+    expect(cancel).to.have.length(1);
+    expect(cancel.prop('disabled')).to.be.undefined;
+
+    const create = renderedModal.find('.button.dark');
+    expect(create).to.have.length(1);
+    expect(create.prop('disabled')).to.equal('disabled');
   });
 });

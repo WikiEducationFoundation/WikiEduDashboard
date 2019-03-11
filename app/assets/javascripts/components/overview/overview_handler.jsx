@@ -16,7 +16,8 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
-import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
+import { initiateConfirm } from '../../actions/confirm_actions.js';
+import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
@@ -31,6 +32,8 @@ const Overview = createReactClass({
     course_id: PropTypes.string,
     location: PropTypes.object,
     students: PropTypes.array,
+    initiateConfirm: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired,
     fetchTags: PropTypes.func.isRequired,
     fetchOnboardingAlert: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
@@ -58,6 +61,8 @@ const Overview = createReactClass({
       return (
         <CourseClonedModal
           course={course}
+          initiateConfirm={this.props.initiateConfirm}
+          deleteCourse={this.props.deleteCourse}
           updateCourse={this.props.updateCourse}
           updateClonedCourse={this.props.updateClonedCourse}
           currentUser={this.props.current_user}
@@ -163,6 +168,8 @@ const mapStateToProps = state => ({
  });
 
 const mapDispatchToProps = {
+  initiateConfirm,
+  deleteCourse,
   updateCourse,
   resetCourse,
   persistCourse,

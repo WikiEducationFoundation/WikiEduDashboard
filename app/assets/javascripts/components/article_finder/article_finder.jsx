@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
-
+import qs from 'query-string';
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
@@ -35,6 +35,9 @@ const ArticleFinder = createReactClass({
   },
 
   componentWillMount() {
+    if (window.location.search.substring(1)) {
+      this.getParamsURL();
+    }
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
@@ -52,8 +55,21 @@ const ArticleFinder = createReactClass({
     }
   },
 
+  getParamsURL() {
+    const query = qs.parse(window.location.search);
+    const entries = Object.entries(query);
+    entries.map(([key, val]) => {
+      val = (key === 'article_quality') ? parseInt(val) : val;
+      return this.updateFields(key, val);
+    });
+  },
   updateFields(key, value) {
-    return this.props.updateFields(key, value);
+    const update_field = this.props.updateFields(key, value);
+    Promise.resolve(update_field).then(() => {
+      if (this.props.search_term.length !== 0) {
+        this.buildURL();
+      }
+    });
   },
 
   toggleFilter() {
@@ -61,11 +77,20 @@ const ArticleFinder = createReactClass({
       showFilters: !this.state.showFilters
     });
   },
-
+  buildURL() {
+    let queryStringUrl = window.location.href.split('?')[0];
+    const params_array = ['search_type', 'article_quality', 'min_views'];
+    queryStringUrl += `?search_term=${this.props.search_term}`;
+    params_array.forEach((param) => {
+      return queryStringUrl += `&${param}=${this.props[param]}`;
+    });
+    history.replaceState(window.location.href, 'query_string', queryStringUrl);
+  },
   searchArticles() {
     this.setState({
       isSubmitted: true,
     });
+    this.buildURL();
     if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
     }

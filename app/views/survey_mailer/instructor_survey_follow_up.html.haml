@@ -6,7 +6,7 @@
         %table
           %tr
             %td.main-content
-              %h1.headline= t('survey.email.headline', username: @user.username)
+              %h1.headline= t('survey.email.headline', username: @user.real_name || @user.username)
               %p.paragraph= t('survey.follow_up.message', course_title: @course.title)
             %td.expander
         %table

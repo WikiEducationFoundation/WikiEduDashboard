@@ -4,7 +4,7 @@ import React from 'react';
 import '../../testHelper';
 import TagEditable from '../../../app/assets/javascripts/components/overview/tag_editable.jsx';
 
-describe('TagEditable', () =>
+describe('TagEditable', () => {
   it('renders a plus button', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
       <TagEditable
@@ -17,5 +17,5 @@ describe('TagEditable', () =>
     expect(renderedButton.className).to.eq('button border plus open');
     expect(renderedButton.innerHTML).to.eq('+');
     expect(renderedButton.tagName.toLowerCase()).to.eq('button');
-  })
-);
+  });
+});

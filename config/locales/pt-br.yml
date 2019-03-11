@@ -350,6 +350,9 @@ pt-br:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início da tarefa
       assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do curso
+      cancel_course_clone_confirm: Tem certeza de que deseja interromper a clonagem
+        deste curso?
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um curso para duplicar
       clone_previous: Clonar curso anterior
@@ -417,6 +420,9 @@ pt-br:
         um curso que já definiu.
       no_class_holidays: Não há férias
       role_description: A sua função no curso
+      role_description_options:
+      - Instrutor
+      - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
       separate_event_dates: Especifique separadamente os horários iniciais e finais
         do evento
@@ -682,6 +688,9 @@ pt-br:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do evento
       assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do programa
+      cancel_course_clone_confirm: Tem certeza de que deseja interromper a clonagem
+        deste programa?
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
@@ -1079,6 +1088,7 @@ pt-br:
     user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
     uploads_doc: Número de pastas enviadas para Wikimedia Commons
+    ungreeted: Não saudados
     username: Nome de usuário
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail

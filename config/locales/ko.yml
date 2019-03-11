@@ -212,6 +212,9 @@ ko:
       end_date: 종료일
       end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
+      role_description_options:
+      - 강사
+      - 보조 교사
       role_description_placeholder: 강사, 조교 등
       save_cloned_course: 새 코스 저장
       start_date: 시작일
@@ -346,6 +349,7 @@ ko:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 이벤트 시작
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone_confirm: 이 프로그램의 복제를 중지하시겠습니까?
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.

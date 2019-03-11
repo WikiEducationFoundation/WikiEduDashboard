@@ -80,7 +80,7 @@ const Form = createReactClass({
             <label>First and last name <span className="form-required-indicator">*</span></label>
             <input required className="form-control" type="text" name="name" defaultValue={this.state.name} onChange={this._handleFieldChange.bind(this, 'name')} />
             <p className="form-help-text">
-              Your real name is not public. It is only seen by you, your instructor, and Wiki Ed admins.
+              Your real name is not public. It is only seen by you, your instructor, and Wiki Education admins.
             </p>
           </div>
           <div className="form-group">

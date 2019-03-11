@@ -348,6 +348,8 @@ en:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Assignment start
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel course clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this course?
       checking_for_uniqueness: This course is being checked for uniqueness.
       choose_clone: Choose a course to clone.
       clone_previous: Clone Previous Course
@@ -663,6 +665,8 @@ en:
       assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Event start
       assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel program clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this program?
       checking_for_uniqueness: This program is being checked for uniqueness.
       choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
