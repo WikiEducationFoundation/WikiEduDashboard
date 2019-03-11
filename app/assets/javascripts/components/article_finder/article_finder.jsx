@@ -66,7 +66,12 @@ const ArticleFinder = createReactClass({
     this.setState({
       isSubmitted: true,
     });
-    if (this.props.search_type === 'keyword') {
+    if (this.props.search_term === '') {
+      return this.setState({
+        isSubmitted: false,
+      });
+    }
+    else if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
     }
     return this.props.fetchCategoryResults(this.props.search_term, this.props.course);
