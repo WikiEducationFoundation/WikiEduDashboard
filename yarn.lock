@@ -11186,10 +11186,12 @@ react-burger-menu@2.6.5:
     prop-types "^15.6.2"
     snapsvg-cjs "0.0.6"
 
-react-confetti@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.4.1.tgz#605194830529e212d5562271680ce5a14ec65fbf"
-  integrity sha512-K6R3TSeVN7T8dC9fYaxo9+w4eD1+51Wa1IfjC74KntSLyAVc83+dBvS7cKuFMGw91WZ5taAZTCnAxcGWgSc2Jw==
+react-confetti@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.6.0.tgz#242ac1b83b124c33b10c81f694241a0ac2b94998"
+  integrity sha512-ztrnGSvpzSQ56WDOdA7Gk74wVeDZMwJa4voRo70r3HMwoyh4ynUxc+Xg/K0L/ot4lcv4nqF2Ds8u5VG6N6UbbA==
+  dependencies:
+    tween-functions "^1.2.0"
 
 react-day-picker@7.2.4:
   version "7.2.4"
@@ -13934,6 +13936,11 @@ tunnel-agent@^0.6.0:
   integrity sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=
   dependencies:
     safe-buffer "^5.0.1"
+
+tween-functions@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tween-functions/-/tween-functions-1.2.0.tgz#1ae3a50e7c60bb3def774eac707acbca73bbc3ff"
+  integrity sha1-GuOlDnxguz3vd06scHrLynO7w/8=
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
