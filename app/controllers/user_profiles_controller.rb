@@ -19,6 +19,10 @@ class UserProfilesController < ApplicationController
   end
 
   def update
+    if params[:user_profile][:image] || params[:user_profile][:image_file_link]
+      @user_profile.image.destroy
+      @user_profile.image_file_link = nil
+    end
     @user_profile.update! user_profile_params
 
     flash[:notice] = 'Profile Updated'
@@ -49,6 +53,17 @@ class UserProfilesController < ApplicationController
     redirect_to '/'
   end
 
+  def delete_profile_image
+    if @user.user_profile.image.present?
+      @user.user_profile.image.destroy
+    end
+    if @user.user_profile.image_file_link.present?
+      @user.user_profile.image_file_link = nil
+    end
+    @user.user_profile.save
+    redirect_to controller: 'user_profiles', action: 'show', username: @user.username
+  end
+
   private
 
   def public_courses
@@ -66,7 +81,7 @@ class UserProfilesController < ApplicationController
   end
 
   def user_profile_params
-    params.require(:user_profile).permit(:bio, :image, :location, :institution)
+    params.require(:user_profile).permit(:bio, :image, :location, :institution, :image_file_link)
   end
 
   def set_user
@@ -80,4 +95,5 @@ class UserProfilesController < ApplicationController
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
   end
+
 end
