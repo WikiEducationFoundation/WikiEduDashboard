@@ -23,7 +23,7 @@ describe Replica do
         # edited by the users, not the number of revisions. Revisions are child
         # elements of the page ids. Value may change slightly if old revisions
         # get deleted on Wikipedia.
-        expect(response.count).to eq(221)
+        expect(response.count).to eq(220)
 
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_05_05
