@@ -46,7 +46,7 @@
 #  level                 :string(255)
 #  private               :boolean          default(FALSE)
 #  withdrawn             :boolean          default(FALSE)
-#
+#  duration              :string(255)
 
 require_dependency "#{Rails.root}/lib/course_cache_manager"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
