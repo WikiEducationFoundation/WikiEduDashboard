@@ -16,12 +16,5 @@ describe BlocksController, type: :request do
       delete "/blocks/#{id}", params: { id: id, format: :json }
       expect(Block.count).to eq(0)
     end
-
-    it 'does not destroy the block if it cannot be deleted' do
-      id = create(:block, is_deletable: false).id
-      expect(Block.count).to eq(1)
-      delete "/blocks/#{id}", params: { id: id, format: :json }
-      expect(Block.count).to eq(1)
-    end
   end
 end
