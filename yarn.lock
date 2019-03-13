@@ -9870,10 +9870,10 @@ normalize-space-x@^3.0.0:
     trim-x "^3.0.0"
     white-space-x "^3.0.0"
 
-nouislider@^13.1.1:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-13.1.1.tgz#fc6b38de65385579774887468bee00b138447854"
-  integrity sha512-PYXfMYYZA2F7QzMSEANocyIr8OgeMBrQBCre5wHsZiyha0DSrt9i5weEV2oWaJDYnG2qDKb6GwmKAkczqTzvAQ==
+nouislider@^13.1.2:
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-13.1.2.tgz#2186b9e5fbcf2f3d8f62c2412ccebb3c5ffbd482"
+  integrity sha512-0IqFYJYRl8hpTsLsTIJF8ePVG8p0uHwPPRNOjyRCeF3Z4/KdMqlukKlj1pkvK13Ge5CsDi9i/UTx1Sv5+nzi9w==
 
 npm-bundled@^1.0.1:
   version "1.0.3"
