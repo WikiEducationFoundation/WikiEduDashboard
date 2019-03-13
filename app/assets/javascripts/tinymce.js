@@ -2,7 +2,7 @@
 import 'tinymce/tinymce';
 
 // A theme is also required
-import 'tinymce/themes/modern/theme';
+import 'tinymce/themes/mobile/theme';
 
 // Any plugins you want to use has to be imported
 import 'tinymce/plugins/code';
