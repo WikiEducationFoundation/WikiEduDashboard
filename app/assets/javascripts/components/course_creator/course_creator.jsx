@@ -194,6 +194,13 @@ const CourseCreator = createReactClass({
     }
   },
 
+  backToCourseForm() {
+    return this.setState({
+      showCourseForm: true,
+      showCourseDates: false
+    });
+  },
+
   showCourseTypes() {
     return this.setState({
       showWizardForm: true,
@@ -340,7 +347,10 @@ const CourseCreator = createReactClass({
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
             />
             <div className={controlClass}>
-              <div className="left"><p>{this.state.tempCourseId}</p></div>
+              <div className="left">
+                <button onClick={this.backToCourseForm} className="dark button">Back</button>
+                <p className="tempCourseIdText">{this.state.tempCourseId}</p>
+              </div>
               <div className="right">
                 <div><p className="red">{this.props.firstErrorMessage}</p></div>
                 <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
