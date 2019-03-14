@@ -14,7 +14,7 @@ describe CourseRevisionUpdater do
 
     let(:revision_import) do
       course && user && courses_user
-      Course.all.each { |course| described_class.import_new_revisions(course) }
+      Course.all.each { |course| described_class.import_revisions(course) }
     end
 
     it 'includes the correct article and revision data' do
@@ -47,7 +47,7 @@ describe CourseRevisionUpdater do
     end
   end
 
-  describe '.import_new_revisions' do
+  describe '.import_revisions' do
     it 'includes revisions on the final day of a course up to the end time' do
       VCR.use_cassette 'course_revision_updater' do
         course = create(:course, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
@@ -56,7 +56,7 @@ describe CourseRevisionUpdater do
                               user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_new_revisions(course)
+        described_class.import_revisions(course)
 
         expect(course.reload.revisions.count).to eq(3)
         expect(course.reload.revisions.count).to eq(3)
@@ -70,7 +70,7 @@ describe CourseRevisionUpdater do
         create(:courses_user, course: course, user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_new_revisions(course)
+        described_class.import_revisions(course)
 
         expect(user.reload.revisions.count).to eq(3)
         expect(course.reload.revisions.count).to eq(0)
@@ -102,7 +102,7 @@ describe CourseRevisionUpdater do
                user_id: 5,
                role: 0)
         CoursesUsers.update_all_caches(CoursesUsers.all)
-        described_class.import_new_revisions(Course.find(1))
+        described_class.import_revisions(Course.find(1))
         expect(Revision.all.count > 1).to be true
       end
     end

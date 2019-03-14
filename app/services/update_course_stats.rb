@@ -25,7 +25,7 @@ class UpdateCourseStats
 
   def fetch_data
     log_update_progress :start
-    CourseRevisionUpdater.import_new_revisions(@course)
+    CourseRevisionUpdater.import_revisions(@course)
     log_update_progress :revisions_imported
     CourseUploadImporter.new(@course).run
     log_update_progress :uploads_imported

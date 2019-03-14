@@ -7,7 +7,7 @@ class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
-  def self.import_new_revisions(course)
+  def self.import_revisions(course)
     return if course.students.empty?
     new(course).update_revisions_for_relevant_wikis
     ArticlesCourses.update_from_course(course)
