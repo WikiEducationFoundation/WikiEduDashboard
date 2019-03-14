@@ -54,12 +54,8 @@ class UserProfilesController < ApplicationController
   end
 
   def delete_profile_image
-    if @user.user_profile.image.present?
-      @user.user_profile.image.destroy
-    end
-    if @user.user_profile.image_file_link.present?
-      @user.user_profile.image_file_link = nil
-    end
+    @user.user_profile.image.destroy if @user.user_profile.image.present?
+    @user.user_profile.image_file_link = nil if @user.user_profile.image_file_link.present?
     @user.user_profile.save
     redirect_to controller: 'user_profiles', action: 'show', username: @user.username
   end
@@ -95,5 +91,4 @@ class UserProfilesController < ApplicationController
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
   end
-
 end
