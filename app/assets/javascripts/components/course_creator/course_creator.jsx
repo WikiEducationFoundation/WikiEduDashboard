@@ -153,9 +153,10 @@ const CourseCreator = createReactClass({
   },
 
   titleSubjectAndDescriptionAreValid() {
-    if (this.props.course.title === '' || this.props.course.school === '') {
+    if (this.props.course.title === '' || this.props.course.school === '' || this.props.course.description === '') {
       this.props.setInvalid('course_title', I18n.t('application.field_required'));
       this.props.setInvalid('course_school', I18n.t('application.field_required'));
+      this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
     return true;

@@ -11,7 +11,7 @@ const CourseForm = (props) => {
     props.updateCourseProps({ private: isPrivate });
     props.updateCourseAction('private', isPrivate);
   };
-  const backClass = `dark button button__submit ${props.backCondition ? 'hidden' : ''}`;
+  const backClass = `dark button ${props.backCondition ? 'hidden' : ''}`;
   let term;
   let subject;
   let expectedStudents;
@@ -164,7 +164,6 @@ const CourseForm = (props) => {
       </div>
       <div className="column">
         {courseLevel}
-        {roleDescription}
         <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', props.stringPrefix)}:</strong></span>
         <TextAreaInput
           id="course_description"
@@ -175,6 +174,7 @@ const CourseForm = (props) => {
           editable
           placeholder={CourseUtils.i18n('creator.course_description_placeholder', props.stringPrefix)}
         />
+        {roleDescription}
         {privacyCheckbox}
         <button onClick={props.next} id="next" className="dark button button__submit pull-right">Next</button>
       </div>
