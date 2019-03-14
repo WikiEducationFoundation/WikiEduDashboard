@@ -7,12 +7,10 @@ class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
-  def self.import_new_revisions(courses)
-    courses.each do |course|
-      next if course.students.empty?
-      new(course).update_revisions_for_relevant_wikis
-      ArticlesCourses.update_from_course(course)
-    end
+  def self.import_new_revisions(course)
+    return if course.students.empty?
+    new(course).update_revisions_for_relevant_wikis
+    ArticlesCourses.update_from_course(course)
   end
 
   def initialize(course)
