@@ -108,18 +108,6 @@ describe CourseRevisionUpdater do
     end
   end
 
-  describe '.import_new_revisions_concurrently' do
-    let!(:course) { create(:course) }
-
-    it 'calls import_new_revisions multiple times' do
-      VCR.use_cassette 'course_revision_updater' do
-        expect(described_class).to receive(:import_new_revisions)
-          .exactly(Replica::CONCURRENCY_LIMIT).times
-        described_class.import_new_revisions_concurrently(Course.all)
-      end
-    end
-  end
-
   describe '#default_wiki_ids' do
     it 'includes wikidata for Programs & Events Dashboard' do
       stub_wiki_validation
