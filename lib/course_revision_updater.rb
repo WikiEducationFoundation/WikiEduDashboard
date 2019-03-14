@@ -7,9 +7,9 @@ class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
-  def self.import_revisions(course)
+  def self.import_revisions(course, all_time:)
     return if course.students.empty?
-    new(course).update_revisions_for_relevant_wikis
+    new(course).update_revisions_for_relevant_wikis(all_time)
     ArticlesCourses.update_from_course(course)
   end
 
@@ -25,10 +25,11 @@ class CourseRevisionUpdater
     wiki_ids
   end
 
-  def update_revisions_for_relevant_wikis
+  def update_revisions_for_relevant_wikis(all_time)
     wiki_ids = @course.assignments.pluck(:wiki_id) + default_wiki_ids
     wiki_ids.uniq.each do |wiki_id|
-      RevisionImporter.new(Wiki.find(wiki_id), @course).import_new_revisions_for_course
+      RevisionImporter.new(Wiki.find(wiki_id), @course)
+                      .import_revisions_for_course(all_time: all_time)
     end
   end
 end

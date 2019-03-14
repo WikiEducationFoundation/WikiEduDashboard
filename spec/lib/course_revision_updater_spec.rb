@@ -14,7 +14,7 @@ describe CourseRevisionUpdater do
 
     let(:revision_import) do
       course && user && courses_user
-      Course.all.each { |course| described_class.import_revisions(course) }
+      Course.all.each { |course| described_class.import_revisions(course, all_time: true) }
     end
 
     it 'includes the correct article and revision data' do
@@ -56,7 +56,7 @@ describe CourseRevisionUpdater do
                               user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_revisions(course)
+        described_class.import_revisions(course, all_time: true)
 
         expect(course.reload.revisions.count).to eq(3)
         expect(course.reload.revisions.count).to eq(3)
@@ -70,7 +70,7 @@ describe CourseRevisionUpdater do
         create(:courses_user, course: course, user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_revisions(course)
+        described_class.import_revisions(course, all_time: false)
 
         expect(user.reload.revisions.count).to eq(3)
         expect(course.reload.revisions.count).to eq(0)
@@ -102,7 +102,7 @@ describe CourseRevisionUpdater do
                user_id: 5,
                role: 0)
         CoursesUsers.update_all_caches(CoursesUsers.all)
-        described_class.import_revisions(Course.find(1))
+        described_class.import_revisions(Course.find(1), all_time: true)
         expect(Revision.all.count > 1).to be true
       end
     end
