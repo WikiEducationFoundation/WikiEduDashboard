@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-> Thanks for suggesting a feature! Please delete any line that begins with a '>' (including this one) and replace with your own content.
+> Thanks for reporting a problem! Please delete any line that begins with a '>' (including this one) and replace with your own content.
 
 ### What is happening?
 > A clear and concise description of what the bug is.
