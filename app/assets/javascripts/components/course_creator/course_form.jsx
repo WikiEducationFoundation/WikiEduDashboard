@@ -176,7 +176,7 @@ const CourseForm = (props) => {
         />
         {roleDescription}
         {privacyCheckbox}
-        <button onClick={props.next} id="next" className="dark button button__submit pull-right">Next</button>
+        <button onClick={props.next} id="next" className="dark button button__submit next">Next</button>
       </div>
     </div>
   );
