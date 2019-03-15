@@ -134,10 +134,10 @@ diq:
       create_label: Kursa Newi vıraz
       create_new: Kursa Newi vıraz
       create_short: Kurs vıraz
-      end_date: tarixê qediyayişi
+      end_date: Tarixê qediyayışi
       end_date_placeholder: SSSS-AA-RR
       save_cloned_course: Kursa newi qeyd kı
-      start_date: Sergendiya demi
+      start_date: Tarixê destpêkerdışi
       start_date_placeholder: SSSS-AA-RR
       subject: Mewzu
     current: Kursê newki

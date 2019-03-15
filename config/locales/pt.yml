@@ -344,8 +344,11 @@ pt:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do trabalho
       assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do curso
+      cancel_course_clone_confirm: Tem a certeza de que deseja interromper a clonagem
+        deste curso?
       checking_for_uniqueness: Está a ser verificado se este curso é único.
-      choose_clone: Escolha um curso para duplicar.
+      choose_clone: Escolha um curso para clonar.
       clone_previous: Clonar curso anterior
       clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecione datas para adicioná-las ou removê-las
@@ -682,6 +685,9 @@ pt:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do evento
       assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do programa
+      cancel_course_clone_confirm: Tem a certeza de que deseja interromper a clonagem
+        deste programa?
       checking_for_uniqueness: A verificar se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
