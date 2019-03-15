@@ -14,7 +14,7 @@ describe CourseRevisionUpdater do
 
     let(:revision_import) do
       course && user && courses_user
-      described_class.import_new_revisions(Course.all)
+      Course.all.each { |course| described_class.import_revisions(course, all_time: true) }
     end
 
     it 'includes the correct article and revision data' do
@@ -47,33 +47,33 @@ describe CourseRevisionUpdater do
     end
   end
 
-  describe '.import_new_revisions' do
+  describe '.import_revisions' do
     it 'includes revisions on the final day of a course up to the end time' do
       VCR.use_cassette 'course_revision_updater' do
-        create(:course, id: 1, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
-        create(:user, id: 1, username: 'Tedholtby')
-        create(:courses_user, course_id: 1,
-                              user_id: 1,
+        course = create(:course, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
+        user = create(:user, username: 'Tedholtby')
+        create(:courses_user, course: course,
+                              user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_new_revisions(Course.all)
+        described_class.import_revisions(course, all_time: true)
 
-        expect(User.find(1).revisions.count).to eq(3)
-        expect(Course.find(1).revisions.count).to eq(3)
+        expect(course.reload.revisions.count).to eq(3)
+        expect(course.reload.revisions.count).to eq(3)
       end
     end
 
     it 'imports revisions soon after the final day of the course, but excludes them from metrics' do
       VCR.use_cassette 'course_revision_updater' do
-        create(:course, id: 1, start: '2016-03-20', end: '2016-03-30')
-        create(:user, id: 15, username: 'Tedholtby')
-        create(:courses_user, course_id: 1, user_id: 15,
+        course = create(:course, start: '2016-03-20', end: '2016-03-30')
+        user = create(:user, id: 15, username: 'Tedholtby')
+        create(:courses_user, course: course, user: user,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
 
-        described_class.import_new_revisions(Course.all)
+        described_class.import_revisions(course, all_time: false)
 
-        expect(User.find(15).revisions.count).to eq(3)
-        expect(Course.find(1).revisions.count).to eq(0)
+        expect(user.reload.revisions.count).to eq(3)
+        expect(course.reload.revisions.count).to eq(0)
       end
     end
 
@@ -102,20 +102,8 @@ describe CourseRevisionUpdater do
                user_id: 5,
                role: 0)
         CoursesUsers.update_all_caches(CoursesUsers.all)
-        described_class.import_new_revisions(Course.all)
+        described_class.import_revisions(Course.find(1), all_time: true)
         expect(Revision.all.count > 1).to be true
-      end
-    end
-  end
-
-  describe '.import_new_revisions_concurrently' do
-    let!(:course) { create(:course) }
-
-    it 'calls import_new_revisions multiple times' do
-      VCR.use_cassette 'course_revision_updater' do
-        expect(described_class).to receive(:import_new_revisions)
-          .exactly(Replica::CONCURRENCY_LIMIT).times
-        described_class.import_new_revisions_concurrently(Course.all)
       end
     end
   end

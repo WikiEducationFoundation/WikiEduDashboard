@@ -211,6 +211,7 @@ class Course < ApplicationRecord
   before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
+  before_save :set_needs_update
 
   ####################
   # Instance methods #
@@ -436,5 +437,12 @@ class Course < ApplicationRecord
   # as that of the start time
   def check_course_times
     self.end = start if start > self.end
+  end
+
+  # If the start date changed, set needs_update to `true` so that
+  # the stats will be updated to reflect the new start date
+  # and the earlier revisions will be fetched.
+  def set_needs_update
+    self.needs_update = true if start_changed?
   end
 end

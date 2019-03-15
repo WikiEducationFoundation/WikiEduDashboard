@@ -23,9 +23,9 @@ describe ScheduleCourseUpdates do
     end
 
     it 'clears the needs_update flag from courses' do
-      expect(Course.where(needs_update: true).count).to eq(1)
+      expect(Course.where(needs_update: true).any?).to be(true)
       described_class.new
-      expect(Course.where(needs_update: true).count).to eq(0)
+      expect(Course.where(needs_update: true).any?).to be(false)
     end
 
     it 'reports logs to sentry even when it errors out' do

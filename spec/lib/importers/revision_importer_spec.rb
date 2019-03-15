@@ -37,10 +37,12 @@ describe RevisionImporter do
     end
   end
 
-  describe '#import_new_revisions_for_course' do
+  describe '#import_revisions_for_course' do
     let(:zh_wiki) { Wiki.new(language: 'zh', project: 'wikipedia', id: 999) }
     let(:course) { create(:course, start: '2018-05-26', end: '2018-05-27') }
-    let(:subject) { described_class.new(zh_wiki, course).import_new_revisions_for_course }
+    let(:subject) do
+      described_class.new(zh_wiki, course).import_revisions_for_course(all_time: false)
+    end
     let(:user) { create(:user, username: '-Zest') }
 
     before do

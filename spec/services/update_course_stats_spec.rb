@@ -28,7 +28,7 @@ describe UpdateCourseStats do
     let(:flags) { { debug_updates: true } }
 
     it 'posts debug info to Sentry' do
-      expect(Raven).to receive(:capture_message).exactly(6).times.and_call_original
+      expect(Raven).to receive(:capture_message).at_least(6).times.and_call_original
       subject
     end
   end

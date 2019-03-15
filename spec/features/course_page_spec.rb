@@ -403,7 +403,7 @@ describe 'the course page', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
 
-      expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+      expect(CourseRevisionUpdater).to receive(:import_revisions)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
       js_visit "/courses/#{slug}"
