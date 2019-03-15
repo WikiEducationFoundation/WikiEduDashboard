@@ -39,7 +39,7 @@ This project welcomes contributions, and we try to be as newbie-friendly as poss
 
 ### Other
 - [Contributing](CONTRIBUTING.md)
-- [Outreachy & Google Summer of Code](students_and_interns.md)
+- [Outreachy & Google Summer of Code](docs/students_and_interns.md)
 - [Development Process outline](docs/dev_process.md)
 - [Interface strings & Internationalization](docs/i18n.md)
 - [OAuth setup](docs/oauth.md)
