@@ -1,11 +1,24 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { shallow } from 'enzyme';
+//  importing shallow as toBeModifiedShallow as shallow(<Provider><Component /><Provider> causes issues)
+import { shallow as toBeModifiedShallow } from 'enzyme';
 import thunk from 'redux-thunk';
 
 import '../../testHelper';
 import AddAdminForm from '../../../app/assets/javascripts/components/settings/views/add_admin_form.jsx';
 
+//  new shallow defined for accepting props
+const createDecoratedEnzyme = (injectProps = {}) => {
+  function nodeWithAddedProps(node) {
+    return React.cloneElement(node, injectProps);
+  }
+  function shallow(node, { context } = {}) {
+    return toBeModifiedShallow(nodeWithAddedProps(node), {
+      context: { ...injectProps, ...context }
+    });
+  }
+  return shallow;
+};
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 describe('AddAdminForm', () => {
@@ -21,11 +34,13 @@ describe('AddAdminForm', () => {
     },
     notifications: [],
   });
+  //  decorated shallow allows store to be passed , current react-redux v6 bug
+  const decoratedShallow = createDecoratedEnzyme({ store });
   beforeEach(() => {
     expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
 
-    wrapper = shallow(
-      <AddAdminForm store={store} />
+    wrapper = decoratedShallow(
+      <AddAdminForm />
     );
   });
 
@@ -90,8 +105,8 @@ describe('AddAdminForm', () => {
 
   describe('submitting', () => {
     beforeEach(() => {
-      wrapper = shallow(
-        <AddAdminForm submittingNewAdmin store={store} />
+      wrapper = decoratedShallow(
+        <AddAdminForm submittingNewAdmin />
       );
       wrapper.setState({ confirming: true, username: 'someuser' });
     });
@@ -103,3 +118,4 @@ describe('AddAdminForm', () => {
     });
   });
 });
+

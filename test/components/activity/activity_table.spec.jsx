@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-
+import { Provider } from 'react-redux';
 import '../../testHelper';
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
 
@@ -42,10 +42,11 @@ describe('ActivityTable', () => {
   it('shows loading when loading attribute is true', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
-        <ActivityTable
-          store={reduxStore}
-          loading={true}
-        />
+        <Provider store={reduxStore}>
+          <ActivityTable
+            loading={true}
+          />
+        </Provider>
       </div>
     );
 
@@ -56,12 +57,13 @@ describe('ActivityTable', () => {
   it('renders headers', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
-        <ActivityTable
-          store={reduxStore}
-          loading={false}
-          activity={activities}
-          headers={headers}
-        />
+        <Provider store={reduxStore}>
+          <ActivityTable
+            loading={false}
+            activity={activities}
+            headers={headers}
+          />
+        </Provider>
       </div>
     );
 
@@ -72,12 +74,13 @@ describe('ActivityTable', () => {
   it('renders activities', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
-        <ActivityTable
-          store={reduxStore}
-          loading={false}
-          activity={activities}
-          headers={headers}
-        />
+        <Provider store={reduxStore}>
+          <ActivityTable
+            loading={false}
+            activity={activities}
+            headers={headers}
+          />
+        </Provider>
       </div>
     );
 
@@ -88,13 +91,14 @@ describe('ActivityTable', () => {
   it('renders no-activity message when no activities exist', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
-        <ActivityTable
-          store={reduxStore}
-          loading={false}
-          activity={[]}
-          headers={headers}
-          noActivityMessage={'No activity'}
-        />
+        <Provider store={reduxStore}>
+          <ActivityTable
+            loading={false}
+            activity={[]}
+            headers={headers}
+            noActivityMessage={'No activity'}
+          />
+        </Provider>
       </div>
     );
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
@@ -18,12 +19,13 @@ describe('CampaignList', () => {
 
   it('it keeps the component closed when editable is false', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
-      <CampaignList
-        store={reduxStoreWithCampaigns}
-        campaigns={campaigns}
-        course={course}
-        editable={false}
-      />
+      <Provider store={reduxStoreWithCampaigns}>
+        <CampaignList
+          campaigns={campaigns}
+          course={course}
+          editable={false}
+        />
+      </Provider>
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns');
   });

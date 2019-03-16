@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 
 import '../../testHelper';
 import Notifications from '../../../app/assets/javascripts/components/common/notifications.jsx';
@@ -8,7 +9,9 @@ import Notifications from '../../../app/assets/javascripts/components/common/not
 describe('Notifications', () => {
   it('renders', () => {
     const rendered = ReactTestUtils.renderIntoDocument(
-      <Notifications store={reduxStore} />
+      <Provider store={reduxStore}>
+        <Notifications />
+      </Provider>
     );
     expect(rendered).to.exist;
   });
@@ -16,7 +19,9 @@ describe('Notifications', () => {
   it('updates via API_FAIL action and removes via close', (done) => {
     const rendered = ReactTestUtils.renderIntoDocument(
       <div>
-        <Notifications store={reduxStore} />
+        <Provider store={reduxStore}>
+          <Notifications />
+        </Provider>
       </div>
     );
 

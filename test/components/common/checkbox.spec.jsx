@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 
 import '../../testHelper';
 import Checkbox from '../../../app/assets/javascripts/components/common/checkbox.jsx';
@@ -7,10 +8,11 @@ import Checkbox from '../../../app/assets/javascripts/components/common/checkbox
 describe('Checkbox', () => {
   it('renders a checkbox input', () => {
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
-      <Checkbox
-        store={reduxStore}
-        value={false}
-      />
+      <Provider store={reduxStore}>
+        <Checkbox
+          value={false}
+        />
+      </Provider>
     );
     const checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelectorAll('input[type=checkbox]').length).to.eq(1);
@@ -18,18 +20,20 @@ describe('Checkbox', () => {
 
   it('sets proper input value through props', () => {
     let TestCheckbox = ReactTestUtils.renderIntoDocument(
-      <Checkbox
-        store={reduxStore}
-        value={true}
-      />
+      <Provider store={reduxStore}>
+        <Checkbox
+          value={true}
+        />
+      </Provider>
     );
     let checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(true);
     TestCheckbox = ReactTestUtils.renderIntoDocument(
-      <Checkbox
-        store={reduxStore}
-        value={false}
-      />
+      <Provider store={reduxStore}>
+        <Checkbox
+          value={false}
+        />
+      </Provider>
     );
     checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(false);
@@ -38,11 +42,12 @@ describe('Checkbox', () => {
   it('calls onChange when input is changed', (done) => {
     const cb = sinon.spy();
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
-      <Checkbox
-        store={reduxStore}
-        onChange={cb}
-        value={true}
-      />
+      <Provider store={reduxStore}>
+        <Checkbox
+          onChange={cb}
+          value={true}
+        />
+      </Provider>
     );
     const checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'input');
     Simulate.change(checkbox, { target: { checked: false } });

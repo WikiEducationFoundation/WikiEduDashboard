@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 
 import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
@@ -20,7 +21,9 @@ describe('GetHelpButton', () => {
     const currentUser = { isNonstudent: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} course={course} />
+      <Provider store={reduxStoreWithUsers}>
+        <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
+      </Provider>
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -42,7 +45,9 @@ describe('GetHelpButton', () => {
     const currentUser = { isNonstudent: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} course={course} />
+      <Provider store={reduxStoreWithUsers}>
+        <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
+      </Provider>
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -79,7 +84,9 @@ describe('GetHelpButton', () => {
     const currentUser = { isNonstudent: true };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} course={course} />
+      <Provider store={reduxStoreWithUsers}>
+        <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
+      </Provider>
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -96,7 +103,9 @@ describe('GetHelpButton', () => {
     const currentUser = { isStudent: true };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} course={course} />
+      <Provider store={reduxStoreWithUsers}>
+        <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
+      </Provider>
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
