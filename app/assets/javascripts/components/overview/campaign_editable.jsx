@@ -69,7 +69,7 @@ const CampaignEditable = createReactClass({
 
     const campaignList = this.props.campaigns.map((campaign) => {
       const removeButton = (
-        <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>Remove</button>
+        <button aria-label="Remove" className="button border plus remove"  onClick={this.removeCampaign.bind(this, campaign.title)}>Remove</button>
       );
       return (
         <tr key={`${campaign.id}_campaign`}>
