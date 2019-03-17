@@ -24,7 +24,6 @@ class UserProfilesController < ApplicationController
       @user_profile.image_file_link = nil
     end
     @user_profile.update! user_profile_params
-
     flash[:notice] = 'Profile Updated'
     redirect_to controller: 'user_profiles', action: 'show'
   end
@@ -54,8 +53,8 @@ class UserProfilesController < ApplicationController
   end
 
   def delete_profile_image
-    @user.user_profile.image.destroy if @user.user_profile.image.present?
-    @user.user_profile.image_file_link = nil if @user.user_profile.image_file_link.present?
+    @user.user_profile.image.destroy
+    @user.user_profile.update_attribute(:image_file_link, nil)
     @user.user_profile.save
     redirect_to controller: 'user_profiles', action: 'show', username: @user.username
   end
