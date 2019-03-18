@@ -10,9 +10,13 @@
         #user_image
           - if @user&.user_profile&.image.present?
             = image_tag @user.user_profile.image.url(:thumb)
+          - elsif @user&.user_profile&.image_file_link.present?
+            = image_tag @user.user_profile.image_file_link, height: 150, width: 150
           - else
             %img{:src => "/assets/images/user.svg", :alt => "user default logo"}
+        = link_to "Remove profile image", delete_profile_image_path(username: @user.username), method: :delete, class: 'rails_editable-input button small', id: "remove_link"
         = file_field(:user_profile, :image, class: 'rails_editable-input')
+        = text_field(:user_profile, :image_file_link, class: 'rails_editable-input', placeholder: t("user_profiles.image_link_placeholder"), size: "30")
 
     #profile_right
       .header

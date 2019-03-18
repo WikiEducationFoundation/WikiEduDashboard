@@ -1065,6 +1065,7 @@ en:
     bio_placeholder: Add your Bio (optional)
     location_placeholder: Add your location (optional)
     institution_placeholder: Institution name (optional)
+    image_link_placeholder: Add link to image (optional)
 
   wiki_edits:
     notify_overdue:

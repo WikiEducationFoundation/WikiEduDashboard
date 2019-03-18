@@ -91,6 +91,53 @@ describe UserProfilesController, type: :request do
     end
   end
 
+  describe '#delete_profile_image' do
+    let(:route) { '/profile_image' }
+
+    context 'user profile is of the current user' do
+      let(:user) { create(:user) }
+      let(:file) { fixture_file_upload('wiki-logo.png', 'image/png') }
+
+      before do
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+      end
+
+      it 'deletes profile image file' do
+        user.user_profile = create(:user_profile, user_id: user.id, image: file)
+        delete route, params: { username: user.username }
+        expect(user.user_profile.image).not_to exist
+      end
+
+      it 'deletes profile image link' do
+        file_link = 'https://fake_link.com/fake_picture.jpg'
+        user.user_profile = create(:user_profile, user_id: user.id,
+                                                  image_file_link: file_link)
+        delete route, params: { username: user.username }
+        expect(user.user_profile.reload.image_file_link).to be_nil
+      end
+    end
+
+    context 'user profile is not of the current user' do
+      let(:user) { create(:user) }
+      let(:file) { fixture_file_upload('wiki-logo.png', 'image/png') }
+
+      it 'doesn\'t delete profile image file' do
+        user.user_profile = create(:user_profile, user_id: user.id, image: file)
+        delete route, params: { username: user.username }
+        expect(user.user_profile.image).to be_present
+      end
+
+      it 'doesn\'t delete profile image file link' do
+        file_link = 'https://fake_link.com/fake_picture.jpg'
+        user.user_profile = create(:user_profile, user_id: user.id,
+                                                  image_file_link: file_link)
+        delete route, params: { username: user.username }
+        expect(user.user_profile.image_file_link).not_to be_nil
+      end
+    end
+  end
+
   describe '#update' do
     let(:route) { "/users/update/#{user.username}" }
 
@@ -136,6 +183,15 @@ describe UserProfilesController, type: :request do
         expect(response.status).to eq(302)
         expect(user.user_profile.image).not_to be_nil
       end
+
+      it 'updates the Image Link' do
+        file_link = 'https://fake_link.com/fake_picture.jpg'
+        post route, params: { username: user.username,
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              image_file_link: file_link } }
+        expect(user.user_profile.image_file_link).to eq(file_link)
+      end
     end
 
     context 'user profile is not of the current user' do
@@ -173,6 +229,15 @@ describe UserProfilesController, type: :request do
                                               user_id: profile.user_id,
                                               image: file } }
         expect(response.status).not_to eq(302)
+      end
+
+      it 'doesn\'t update the Image Link' do
+        file_link = 'https://fake_link.com/fake_picture.jpg'
+        post route, params: { username: user.username,
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              image_file_link: file_link } }
+        expect(user.user_profile.image_file_link).not_to eq(file_link)
       end
     end
   end
