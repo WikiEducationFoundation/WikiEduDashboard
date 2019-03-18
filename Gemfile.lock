@@ -99,7 +99,7 @@ GEM
     breadcrumbs_on_rails (3.0.1)
     browser (2.5.3)
     builder (3.2.3)
-    byebug (11.0.0)
+    byebug (11.0.1)
     capistrano (3.11.0)
       airbrussh (>= 1.0.0)
       i18n
@@ -146,7 +146,7 @@ GEM
     crass (1.0.4)
     css_parser (1.7.0)
       addressable
-    dalli (2.7.9)
+    dalli (2.7.10)
     debug_inspector (0.0.3)
     deep_cloneable (2.4.0)
       activerecord (>= 3.1.0, < 6)
@@ -304,7 +304,6 @@ GEM
     parallel (1.14.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
-    powerpack (0.1.2)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -411,15 +410,14 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    rubocop (0.65.0)
+    rubocop (0.66.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
-      powerpack (~> 0.1)
       psych (>= 3.1.0)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.4.0)
+      unicode-display_width (>= 1.4.0, < 1.6)
     rubocop-rspec (1.32.0)
       rubocop (>= 0.60.0)
     rubocop-rspec-focused (1.0.0)
@@ -487,7 +485,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.5)
     unf_ext (0.0.7.5-x64-mingw32)
-    unicode-display_width (1.4.1)
+    unicode-display_width (1.5.0)
     validates_email_format_of (1.6.3)
       i18n
     vcr (4.0.0)

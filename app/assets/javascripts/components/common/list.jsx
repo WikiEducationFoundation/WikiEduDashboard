@@ -146,7 +146,6 @@ const List = createReactClass({
           <thead className={fixedHeader}>
             <tr>
               {headers}
-              <th />
             </tr>
           </thead>
           <tbody>
