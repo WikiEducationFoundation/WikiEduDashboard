@@ -146,7 +146,7 @@ GEM
     crass (1.0.4)
     css_parser (1.7.0)
       addressable
-    dalli (2.7.9)
+    dalli (2.7.10)
     debug_inspector (0.0.3)
     deep_cloneable (2.4.0)
       activerecord (>= 3.1.0, < 6)
