@@ -82,6 +82,27 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 1
   end
 
+  it 'lets users rename and reset week titles' do
+    visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(page).not_to have_content 'Intro and Icebreaker'
+    expect(page).to have_content 'Week 1'
+    # Add new title
+    click_button 'Edit Titles'
+    find('input.week-title-input').native.clear
+    find('input.week-title-input').set 'Intro and Icebreaker'
+    # Save new title
+    click_button 'Save All'
+    expect(page).to have_content 'Intro and Icebreaker'
+    expect(page).not_to have_content 'Week 1'
+    # Reset to default titles
+    click_button 'Edit Titles'
+    accept_confirm { click_button 'Reset to Default' }
+
+    expect(page).not_to have_content 'Intro and Icebreaker'
+    expect(page).to have_content 'Week 1'
+    sleep 1
+  end
+
   it 'lets users delete a block' do
     visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(page).to have_content 'Block Title'
