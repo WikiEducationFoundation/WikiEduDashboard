@@ -191,7 +191,7 @@ button.week__add-block
 
 .week__week-dates
   position relative
-  top 16px
+  top -12px
   color $text_med
 
 .week__no-activity
@@ -224,6 +224,8 @@ button.week__add-block
   font-size 34px
   font-weight 300
   -webkit-font-smoothing auto
+  &.week-title-input
+    margin-bottom 12px
 
 .week__week-header .text-input-component__value:hover
   background url("../images/pencil.svg") right center no-repeat
@@ -359,6 +361,8 @@ h4.timeline-exercise
     white-space nowrap
     text-overflow ellipsis
     display inline-block
+    &.no-nav-dates
+      width 200px
   span
     color $text_med
 

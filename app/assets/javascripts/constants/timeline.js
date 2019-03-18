@@ -8,5 +8,7 @@ export const UPDATE_BLOCK = 'UPDATE_BLOCK';
 export const ADD_BLOCK = 'ADD_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const INSERT_BLOCK = 'INSERT_BLOCK';
+export const UPDATE_TITLE = 'UPDATE_TITLE';
+export const RESET_TITLES = 'RESET_TITLES';
 export const RESTORE_TIMELINE = 'RESTORE_TIMELINE';
 export const DELETE_ALL_WEEKS = 'DELETE_ALL_WEEKS';

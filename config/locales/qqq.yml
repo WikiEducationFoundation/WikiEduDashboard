@@ -658,10 +658,14 @@ qqq:
     block_assignment: '{{Identical|Assignment}}'
     block_custom: '{{Identical|Custom}}'
     block_milestone: '{{Identical|Milestone}}'
+    edit_titles: Edit Titles button label
+    edit_titles_info: Information message about editing titles
     empty_week_3: '{{Identical|Or}}'
     gradeable_value: '{{Identical|Value}}'
     grading_header: Header for Grading section of course timeline. 'total' is a number,
       the sum of all the values for graded assignments.
+    reset_titles: Reset Titles button label
+    reset_titles_confirmation: Confirmation message upon clicking reset button
     title: '{{Identical|Timeline}}'
     week_number: '{{Identical|Week}}'
   training:

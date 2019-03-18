@@ -14,7 +14,7 @@ import Meetings from './meetings.jsx';
 import { fetchAllTrainingModules } from '../../actions/training_actions';
 
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
-  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
+  updateBlock, addBlock, deleteBlock, insertBlock, updateTitle, resetTitles, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
 import { getWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
 const TimelineHandler = createReactClass({
@@ -35,7 +35,10 @@ const TimelineHandler = createReactClass({
   },
 
   getInitialState() {
-    return { reorderable: false };
+    return {
+      reorderable: false,
+      editableTitles: false
+    };
   },
 
   componentDidMount() {
@@ -49,6 +52,7 @@ const TimelineHandler = createReactClass({
 
   _cancelGlobalChanges() {
     this.setState({ reorderable: false });
+    this.setState({ editableTitles: false });
     this.props.restoreTimeline();
   },
 
@@ -56,8 +60,20 @@ const TimelineHandler = createReactClass({
     return this.setState({ reorderable: true });
   },
 
+  _enableEditTitles() {
+    return this.setState({ editableTitles: true });
+  },
+
+  _resetTitles() {
+    if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
+      this.props.resetTitles();
+      this.saveTimeline();
+    }
+  },
+
   saveTimeline() {
     this.setState({ reorderable: false });
+    this.setState({ editableTitles: false });
     const toSave = { weeks: this.props.weeks };
     this.props.persistTimeline(toSave, this.props.course_id);
   },
@@ -113,14 +129,18 @@ const TimelineHandler = createReactClass({
           week_meetings={weekMeetings}
           editableBlockIds={this.props.editableBlockIds}
           reorderable={this.state.reorderable}
+          editableTitles={this.state.editableTitles}
           controls={this.props.controls}
           persistCourse={this.props.persistTimeline}
           saveGlobalChanges={this.saveTimeline}
           saveBlockChanges={this.saveTimeline}
           cancelBlockEditable={this._cancelBlockEditable}
           cancelGlobalChanges={this._cancelGlobalChanges}
+          updateTitle={this.props.updateTitle}
+          resetTitles={this._resetTitles}
           updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
+          enableEditTitles={this._enableEditTitles}
           all_training_modules={this.props.availableTrainingModules}
           addWeek={this.props.addWeek}
           addBlock={this.props.addBlock}
@@ -157,6 +177,8 @@ const mapDispatchToProps = {
   cancelBlockEditable,
   updateBlock,
   insertBlock,
+  updateTitle,
+  resetTitles,
   restoreTimeline,
   deleteAllWeeks,
   fetchAllTrainingModules

@@ -20,9 +20,12 @@ const Week = createReactClass({
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
     reorderable: PropTypes.bool,
+    editableTitles: PropTypes.bool,
     onBlockDrag: PropTypes.func,
     onMoveBlockUp: PropTypes.func,
     onMoveBlockDown: PropTypes.func,
+    usingCustomTitles: PropTypes.bool,
+    updateTitle: PropTypes.func,
     canBlockMoveUp: PropTypes.func,
     canBlockMoveDown: PropTypes.func,
     saveBlockChanges: PropTypes.func,
@@ -68,21 +71,35 @@ const Week = createReactClass({
     let style;
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
 
-    let weekDates;
+    let weekDatesContent;
     if (this.props.meetings) {
-      weekDates = (
-        <span className="week__week-dates pull-right">
-          {dateCalc.start()} - {dateCalc.end()} {this.props.meetings}
-        </span>
-      );
+      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()} ${this.props.meetings}`;
     } else {
-      weekDates = (
-        <span className="week__week-dates pull-right">
-          Week of {dateCalc.start()} — AFTER TIMELINE END DATE!
-        </span>
-      );
+      weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
     }
+    const weekDates = (
+      <div className="week__week-dates">
+        {weekDatesContent}
+      </div>
+    );
 
+    let weekTitleContent;
+    if (this.props.week.title) {
+      weekTitleContent = this.props.week.title;
+    } else {
+      weekTitleContent = I18n.t('timeline.week_number', { number: this.weekNumber() });
+    }
+    const weekId = this.props.week.id;
+    const weekTitle = this.props.editableTitles ? (
+      <input
+        className="week-index week-title-input"
+        defaultValue={weekTitleContent}
+        maxLength={20}
+        onChange={text => this.props.updateTitle(weekId, event.target.value, text)}
+      />
+    ) : (
+      <p className="week-index">{weekTitleContent}</p>
+    );
 
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
@@ -192,8 +209,8 @@ const Week = createReactClass({
       <li className={weekClassName}>
         <div className="week__week-header">
           {weekAddDelete}
+          {weekTitle}
           {weekDates}
-          <p className="week-index">{I18n.t('timeline.week_number', { number: this.weekNumber() })}</p>
         </div>
         {weekContent}
       </li>
