@@ -92,7 +92,7 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#delete_profile_image' do
-    let(:route) { '/delete_profile_image' }
+    let(:route) { '/profile_image' }
 
     context 'user profile is of the current user' do
       let(:user) { create(:user) }
@@ -105,7 +105,7 @@ describe UserProfilesController, type: :request do
 
       it 'deletes profile image file' do
         user.user_profile = create(:user_profile, user_id: user.id, image: file)
-        get route, params: { username: user.username }
+        delete route, params: { username: user.username }
         expect(user.user_profile.image).not_to exist
       end
 
@@ -113,7 +113,7 @@ describe UserProfilesController, type: :request do
         file_link = 'https://fake_link.com/fake_picture.jpg'
         user.user_profile = create(:user_profile, user_id: user.id,
                                                   image_file_link: file_link)
-        get route, params: { username: user.username }
+        delete route, params: { username: user.username }
         expect(user.user_profile.reload.image_file_link).to be_nil
       end
     end
@@ -124,7 +124,7 @@ describe UserProfilesController, type: :request do
 
       it 'doesn\'t delete profile image file' do
         user.user_profile = create(:user_profile, user_id: user.id, image: file)
-        get route, params: { username: user.username }
+        delete route, params: { username: user.username }
         expect(user.user_profile.image).to be_present
       end
 
@@ -132,7 +132,7 @@ describe UserProfilesController, type: :request do
         file_link = 'https://fake_link.com/fake_picture.jpg'
         user.user_profile = create(:user_profile, user_id: user.id,
                                                   image_file_link: file_link)
-        get route, params: { username: user.username }
+        delete route, params: { username: user.username }
         expect(user.user_profile.image_file_link).not_to be_nil
       end
     end
