@@ -5,6 +5,7 @@ require 'rails_helper'
 def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
+  find('#course_description').set('This is the template description')
 end
 
 def fill_out_open_course_creator_dates_form
