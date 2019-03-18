@@ -99,7 +99,7 @@ GEM
     breadcrumbs_on_rails (3.0.1)
     browser (2.5.3)
     builder (3.2.3)
-    byebug (11.0.0)
+    byebug (11.0.1)
     capistrano (3.11.0)
       airbrussh (>= 1.0.0)
       i18n
