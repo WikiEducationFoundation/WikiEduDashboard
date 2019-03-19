@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_011949) do
+ActiveRecord::Schema.define(version: 2019_03_19_231044) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -249,6 +249,20 @@ ActiveRecord::Schema.define(version: 2019_03_07_011949) do
     t.datetime "created_at"
   end
 
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "kind", limit: 1, default: 0
+    t.bigint "user_id"
+    t.bigint "sender_id"
+    t.bigint "ticket_id"
+    t.boolean "read", default: false, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["ticket_id"], name: "index_messages_on_ticket_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "question_group_conditionals", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "rapidfire_question_group_id"
     t.integer "campaign_id"
@@ -408,6 +422,20 @@ ActiveRecord::Schema.define(version: 2019_03_07_011949) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true
+  end
+
+  create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "course_id"
+    t.bigint "alert_id"
+    t.bigint "user_id"
+    t.bigint "owner_id"
+    t.integer "status", limit: 1, default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alert_id"], name: "index_tickets_on_alert_id"
+    t.index ["course_id"], name: "index_tickets_on_course_id"
+    t.index ["owner_id"], name: "index_tickets_on_owner_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
   create_table "training_libraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
