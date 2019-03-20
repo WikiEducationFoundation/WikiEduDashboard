@@ -18,8 +18,7 @@ RSpec.describe Ticket, type: :model do
       expect(ticket).not_to allow_value(higher_val).for(:status)
     }
 
-    it { expect(ticket).to belong_to(:alert) }
     it { expect(ticket).to belong_to(:course) }
-    it { expect(ticket).to belong_to(:user) }
+    it { expect(ticket).to belong_to(:owner) }
   end
 end

@@ -2,8 +2,9 @@
 
 class Ticket < ApplicationRecord
   belongs_to :course
-  belongs_to :alert
-  belongs_to :user
+  belongs_to :owner, class_name: :User
+
+  has_many :messages, dependent: :destroy
 
   module Statuses
     OPEN             = 0
