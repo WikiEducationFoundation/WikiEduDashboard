@@ -73,6 +73,7 @@ class Course < ApplicationRecord
            through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
   has_many :requested_accounts
+  has_many :tickets, dependent: :destroy
 
   #########################
   # Activity by the users #
