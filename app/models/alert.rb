@@ -118,6 +118,17 @@ class Alert < ApplicationRecord
     update_attribute(:email_sent_at, Time.zone.now)
   end
 
+  def email_course_instructor
+    return if emails_disabled?
+    return if course.nil?
+    course_creators = course.instructors
+    return if course_creators.empty?
+    course_creators.each do |course_creator|
+      AlertMailer.alert(self, course_creator).deliver_now
+    end
+    update_attribute(:email_sent_at, Time.zone.now)
+  end
+
   # Disable emails for specific alert types in application.yml, like so:
   #   ProductiveCourseAlert_email_disabled: 'true'
   def emails_disabled?

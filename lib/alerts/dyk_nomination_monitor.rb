@@ -58,6 +58,7 @@ class DYKNominationMonitor
                           course_id: articles_course.course_id,
                           revision_id: first_revision&.id)
     alert.email_content_expert
+    alert.email_course_instructor
   end
 
   def alert_already_exists?(articles_course)
