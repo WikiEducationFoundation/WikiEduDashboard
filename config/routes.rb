@@ -357,6 +357,7 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
+  resources :tickets
 
   require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do
