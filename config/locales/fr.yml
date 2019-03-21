@@ -1135,6 +1135,7 @@ fr:
     bio_placeholder: Ajouter votre biographie (facultatif)
     location_placeholder: Ajouter votre emplacement (facultatif)
     institution_placeholder: Nom de l’établissement (facultatif)
+    image_link_placeholder: Ajouter le lien vers l’image (facultatif)
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

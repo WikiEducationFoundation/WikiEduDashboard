@@ -643,6 +643,7 @@ it:
     bio_placeholder: Aggiungi la tua biografia (opzionale)
     location_placeholder: Aggiungi la tua posizione (opzionale)
     institution_placeholder: Nome dell'istituto (opzionale)
+    image_link_placeholder: Aggiungi collegamento all'immagine (opzionale)
   wiki_edits:
     notify_overdue:
       confirm: Questo posterà un promemoria sulle pagine di discussione di tutti gli

@@ -1035,6 +1035,7 @@ ar:
     bio_placeholder: أضف سيرتك الذاتية (اختياري)
     location_placeholder: أضف موقعك (اختياري)
     institution_placeholder: اسم المؤسسة (اختياري)
+    image_link_placeholder: إضافة وصلة للصورة (اختياري)
   wiki_edits:
     notify_overdue:
       confirm: هذا سوف ينشر رسالة تذكير على صفحات نقاش جميع الطلاب الذين لديهم تدريب

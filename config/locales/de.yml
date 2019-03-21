@@ -1113,6 +1113,7 @@ de:
     bio_placeholder: Ergänze deine Biografie (optional)
     location_placeholder: Ergänze deinen Standort (optional)
     institution_placeholder: Name der Einrichtung (optional)
+    image_link_placeholder: Link zum Bild hinzufügen (optional)
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

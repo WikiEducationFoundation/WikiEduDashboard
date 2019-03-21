@@ -901,6 +901,7 @@ zh-TW:
     bio_placeholder: 添加您的個人自傳（可選）
     location_placeholder: 添加您的位置（可選）
     institution_placeholder: 機構名稱（可選）
+    image_link_placeholder: 添加連結到圖片（可選）
   wiki_edits:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
