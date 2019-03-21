@@ -7,7 +7,7 @@
 # Set this to 'true' to enable Wiki Education-only features,
 # or set it to 'false' to enable the features used for the global community
 # instance of the Dashboard.
-  wiki_education: 'false'
+  wiki_education: 'true'
 
 # The name of the dashboard
   dashboard_title: Programs and Events Dashboard
@@ -62,6 +62,9 @@
 
 # This is the community discussion page where new courses should be announced.
   course_announcement_page: 'User:Ragesock'
+
+# Set the default course type for newly created courses.
+  #default_course_type: BasicCourse
 
 # Comma-separated list of OAuth client IDs used by the system for Wiki edits
   oauth_ids: '252,212'

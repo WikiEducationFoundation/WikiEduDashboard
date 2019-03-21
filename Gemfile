@@ -117,7 +117,7 @@ group :test do
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
+  gem 'chromedriver-helper','1.2.0' # Capypara feature specs driven by headless Chrome
   gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests

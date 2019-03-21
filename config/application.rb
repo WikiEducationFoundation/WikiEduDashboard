@@ -58,7 +58,7 @@ module WikiEduDashboard
 
     # Skylight performance monitoring
     config.skylight.environments += ['staging']
-
+    config.middleware.use I18n::JS::Middleware
     # Allows for embedding course stats
     config.middleware.insert_before 0, Rack::Cors do
       allow do

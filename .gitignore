@@ -9,6 +9,9 @@
 .idea/
 .vscode/
 /dump.rdb
+yarn-error.log
+Windows.eslintrc
+Gemfile.lock
 
 *.rbc
 capybara-*.html
