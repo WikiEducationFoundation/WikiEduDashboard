@@ -23,6 +23,7 @@ import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import tags from './tags';
+import tickets from './tickets';
 import timeline from './timeline';
 import training from './training';
 import trainingStatus from './training_status';
@@ -63,6 +64,7 @@ const reducer = combineReducers({
   suspectedPlagiarism,
   settings,
   tags,
+  tickets,
   timeline,
   training,
   trainingStatus,

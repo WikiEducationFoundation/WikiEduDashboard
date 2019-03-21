@@ -3,10 +3,11 @@
 class TicketsController < ApplicationController
   before_action :require_admin_permissions
 
+  # Load React App
+  def dashboard; end
+
   def index
-    render json: {
-      tickets: Ticket.all.as_json(include: :messages)
-    }, status: :ok
+    render json: Ticket.all, status: :ok
   end
 
   private
