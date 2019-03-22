@@ -65,7 +65,7 @@ const Timeline = createReactClass({
   },
 
   usingCustomTitles() {
-    return this.props.weeks.find(week => week.title) !== undefined;
+    return this.props.weeks.some(week => week.title);
   },
 
   hasTimeline() {
@@ -316,14 +316,14 @@ const Timeline = createReactClass({
         {saveChangesButton}
         {cancelChangesButton}
       </div>
-    ) : undefined;
+    ) : null;
     const titlesActionButtons = this.props.editableTitles ? (
       <div>
         {saveChangesButton}
         {cancelChangesButton}
         {resetTitlesButton}
       </div>
-    ) : undefined;
+    ) : null;
 
     let reorderableControls;
     let editWeekTitles;

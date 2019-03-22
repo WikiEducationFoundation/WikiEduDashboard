@@ -42,10 +42,16 @@ const blocksInWeek = (blocks, weekId) => {
 };
 
 const validateTitle = (title) => {
-  if ((typeof title === 'string' || title instanceof String) && title.length <= 20) {
-    return true;
-  }
-  return false;
+  return title.length <= 20;
+};
+
+const deepCopyWeeks = (weeks) => {
+  const weeksCopy = {};
+  const weekIds = Object.keys(weeks);
+  weekIds.forEach((id) => {
+    weeksCopy[id] = { ...weeks[id] };
+  });
+  return weeksCopy;
 };
 
 const newBlock = (tempId, weekId, state) => {
@@ -214,7 +220,7 @@ export default function timeline(state = initialState, action) {
       return { ...state, weeks };
     }
     case RESTORE_TIMELINE: {
-      return { ...state, blocks: { ...state.blocksPersisted }, weeks: { ...state.weeksPersisted }, editableBlockIds: [] };
+      return { ...state, blocks: { ...state.blocksPersisted }, weeks: deepCopyWeeks(state.weeksPersisted), editableBlockIds: [] };
     }
     default:
       return state;
