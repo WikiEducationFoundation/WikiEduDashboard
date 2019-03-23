@@ -328,7 +328,7 @@ const ArticleViewer = createReactClass({
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
-              {!this.props.article.id && (
+              {this.props.article.id && (
                 <span><a className="icon-link" href={`?showArticle=${this.props.article.id}`} /></span>
               ) }
               {closeButton}
