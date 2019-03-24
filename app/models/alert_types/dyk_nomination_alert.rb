@@ -40,4 +40,10 @@ class DYKNominationAlert < Alert
       nomination. A new alert will be generated if it is nominated again.
     EXPLANATION
   end
+
+  def email_course_instructor
+    return if emails_disabled?
+    InstructorAlertMailer.email(self).deliver_now
+    update_attribute(:email_sent_at, Time.zone.now)
+  end
 end
