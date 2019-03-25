@@ -262,7 +262,7 @@ describe 'the course page', type: :feature, js: true do
 
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
-      expect(page).to have_content 'No Available Articles'
+      expect(page).not_to have_content 'Available Articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
@@ -343,7 +343,7 @@ describe 'the course page', type: :feature, js: true do
         expect(assigned_articles_section).to have_content 'Education'
         expect(assigned_articles_section).to have_content 'Select'
         click_button 'Select'
-        expect(page).to have_content 'No Available Articles'
+        expect(page).not_to have_content 'Available Articles'
       end
     end
   end
