@@ -320,7 +320,6 @@ zh-TW:
       create_label: 建立新的課程
       create_new: 建立一個新的課程
       create_short: 建立課程
-      create_timeline: 請為您的課程建立時間軸。您可以從時間軸分頁來從頭建置，或是使用分配作業精靈來建立基於 Wiki 教育最佳實踐的自定義時間軸。
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數

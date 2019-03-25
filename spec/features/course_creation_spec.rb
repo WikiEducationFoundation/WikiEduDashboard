@@ -9,14 +9,16 @@ def set_up_suite
 end
 
 def fill_out_course_creator_form
+  find('.course_start-datetime-control input').set('2015-01-04')
+  find('.course_end-datetime-control input').set('2015-02-01')
+  find('div.wizard__panel').click
+  sleep 3
+  click to escape the calendar popup
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('#course_expected_students').set('20')
   find('#course_description').set('My course at OU')
-  find('.course_start-datetime-control input').set('2015-01-04')
-  find('.course_end-datetime-control input').set('2015-02-01')
-  find('div.wizard__panel').click # click to escape the calendar popup
   click_button 'Create my Course!'
 end
 
@@ -132,9 +134,10 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('My awesome new course - Foo 101')
 
+      click_button 'Next'
+
       # If we click before filling out all require fields, only the invalid
       # fields get restyled to indicate the problem.
-      click_button 'Create my Course!'
       expect(find('#course_title')['class']).not_to include('invalid title')
       expect(find('#course_school')['class']).to include('invalid school')
       expect(find('#course_term')['class']).to include('invalid term')
@@ -145,6 +148,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('500')
       find('textarea').set('In this course, we study things.')
+      click_button 'Next'
 
       sleep 1
 
@@ -264,6 +268,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('15')
       find('#course_description').set('My course')
+      click_button 'Next'
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'

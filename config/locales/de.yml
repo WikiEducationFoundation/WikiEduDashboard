@@ -387,10 +387,6 @@ de:
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen
       create_short: Kurs erstellen
-      create_timeline: Erstelle bitte eine Zeitleiste für deinen Kurs. Du kannst eine
-        vom Zeitleisten-Reiter erstellen oder den Zuweisungsassistenten verwenden,
-        um eine benutzerdefinierte Zeitleiste basierend auf den besten Praktiken von
-        Wiki Ed zu erstellen.
       end_date: Enddatum
       end_date_placeholder: JJJJ-MM-TT
       expected_number: Erwartete Anzahl der Studenten

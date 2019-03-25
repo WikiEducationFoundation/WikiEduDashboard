@@ -399,10 +399,6 @@ pt-br:
       create_label: Criar Novo Curso
       create_new: Criar um Novo Curso
       create_short: Criar Curso
-      create_timeline: Por favor, crie uma linha do tempo para o seu curso. Você pode
-        criar um a partir do zero na guia Cronograma ou usar o Assistente de Atribuição
-        para criar uma linha de tempo personalizada com base nas práticas recomendadas
-        do Wiki Ed.
       end_date: Data Final
       end_date_placeholder: AAAA-MM-DD
       expected_number: Número experado de estudantes
