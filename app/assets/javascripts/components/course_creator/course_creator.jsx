@@ -8,17 +8,17 @@ import _ from 'lodash';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
-import { setValid, setInvalid, checkCourseSlug, activateValidations } from '../../actions/validation_actions';
+import { setValid, setInvalid, checkCourseSlug, activateValidations, resetValidations } from '../../actions/validation_actions';
 import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
-import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
 import NewOrClone from './new_or_clone.jsx';
 import ReuseExistingCourse from './reuse_existing_course.jsx';
 import CourseForm from './course_form.jsx';
+import CourseDates from './course_dates.jsx';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -50,6 +50,7 @@ const CourseCreator = createReactClass({
       showCloneChooser: false,
       showEventDates: false,
       showWizardForm: false,
+      showCourseDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
@@ -84,7 +85,7 @@ const CourseCreator = createReactClass({
 
   saveCourse() {
     this.props.activateValidations();
-    if (this.props.isValid && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+    if (this.props.isValid && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
       this.props.setInvalid(
         'exists',
@@ -143,20 +144,19 @@ const CourseCreator = createReactClass({
     this.props.updateCourse({ [key]: value });
   },
 
-  updateCourseDates(key, value) {
-    const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, key, value);
-    this.props.updateCourse(updatedCourse);
-  },
-
-  updateCoursePrivacy(e) {
-    const isPrivate = e.target.checked;
-    this.props.updateCourse({ private: isPrivate });
-    this.updateCourse('private', isPrivate);
-  },
-
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
       this.props.setInvalid('expected_students', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  },
+
+  titleSubjectAndDescriptionAreValid() {
+    if (this.props.course.title === '' || this.props.course.school === '' || this.props.course.description === '') {
+      this.props.setInvalid('course_title', I18n.t('application.field_required'));
+      this.props.setInvalid('course_school', I18n.t('application.field_required'));
+      this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
     return true;
@@ -167,7 +167,6 @@ const CourseCreator = createReactClass({
     const endDateTime = new Date(this.props.course.end);
     const startEventTime = new Date(this.props.timeline_start);
     const endEventTime = new Date(this.props.timeline_end);
-
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
       this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
@@ -181,6 +180,31 @@ const CourseCreator = createReactClass({
     return this.setState({
       showCourseForm: true,
       showWizardForm: false
+    });
+  },
+
+  showCourseDates() {
+    this.props.activateValidations();
+    if (this.expectedStudentsIsValid() && this.titleSubjectAndDescriptionAreValid()) {
+      this.props.resetValidations();
+      return this.setState({
+        showCourseDates: true,
+        showCourseForm: false
+      });
+    }
+  },
+
+  backToCourseForm() {
+    return this.setState({
+      showCourseForm: true,
+      showCourseDates: false
+    });
+  },
+
+  showCourseTypes() {
+    return this.setState({
+      showWizardForm: true,
+      showCourseForm: false
     });
   },
 
@@ -216,11 +240,19 @@ const CourseCreator = createReactClass({
     let showCloneChooser;
     let showNewOrClone;
     let showWizardForm;
+    let showCourseDates;
     // If the creator was launched from a campaign, do not offer the cloning option.
     if (this.campaignParam()) {
-      showCourseForm = true;
+      if (this.state.showCourseDates) {
+        showCourseDates = true;
+        showCourseForm = false;
+      } else {
+        showCourseForm = true;
+      }
     } else if (this.state.showWizardForm) {
       showWizardForm = true;
+    } else if (this.state.showCourseDates) {
+      showCourseDates = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
     } else if (this.state.showCloneChooser) {
@@ -252,12 +284,14 @@ const CourseCreator = createReactClass({
 
     let courseFormClass = 'wizard__form';
     let courseWizard = 'wizard__program';
+    let courseDates = 'wizard__dates';
 
     courseFormClass += showCourseForm ? '' : ' hidden';
     courseWizard += showWizardForm ? '' : ' hidden';
+    courseDates += showCourseDates ? '' : ' hidden';
 
     const cloneOptions = showNewOrClone ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${courseFormClass}`;
+    const controlClass = `wizard__panel__controls ${courseDates}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
@@ -276,8 +310,7 @@ const CourseCreator = createReactClass({
               cloneClasss={cloneOptions}
               chooseNewCourseAction={this.chooseNewCourse}
               showCloneChooserAction={this.showCloneChooser}
-              createLabel={CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}
-              cloneLabel={CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}
+              stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
               wizardClass={courseWizard}
@@ -288,27 +321,36 @@ const CourseCreator = createReactClass({
               courseSelect={reuseCourseSelect}
               options={options}
               useThisClassAction={this.useThisClass}
-              cloneThisLabel={CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}
+              stringPrefix={this.state.course_string_prefix}
               cancelCloneAction={this.cancelClone}
-              cancelLabel={CourseUtils.i18n('cancel', this.state.course_string_prefix)}
             />
             <CourseForm
               courseFormClass={courseFormClass}
-              course_utils={CourseUtils}
-              string_prefix={this.state.course_string_prefix}
+              stringPrefix={this.state.course_string_prefix}
               updateCourseAction={this.updateCourse}
               course={this.props.course}
-              updateCoursePrivacy={this.updateCoursePrivacy}
+              eventClass={eventClass}
+              defaultCourse={this.state.default_course_type}
+              updateCourseProps={this.props.updateCourse}
+              next={this.showCourseDates}
+              previous={this.showCourseTypes}
+              backCondition={this.campaignParam()}
+            />
+            <CourseDates
+              courseDateClass={courseDates}
+              course={this.props.course}
               showTimeValues={this.state.use_start_and_end_times}
-              updateCourseDateAction={this.updateCourseDates}
               showEventDates={this.showEventDates}
               showEventDatesState={this.state.showEventDates}
-              eventClass={eventClass}
-              courseDateUtils={CourseDateUtils}
-              defaultCourse={this.state.default_course_type}
+              stringPrefix={this.state.course_string_prefix}
+              updateCourseProps={this.props.updateCourse}
+              enableTimeline={this.props.courseCreator.useStartAndEndTimes}
             />
             <div className={controlClass}>
-              <div className="left"><p>{this.state.tempCourseId}</p></div>
+              <div className="left">
+                <button onClick={this.backToCourseForm} className="dark button">Back</button>
+                <p className="tempCourseIdText">{this.state.tempCourseId}</p>
+              </div>
               <div className="right">
                 <div><p className="red">{this.props.firstErrorMessage}</p></div>
                 <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
@@ -341,7 +383,8 @@ const mapDispatchToProps = ({
   setValid,
   setInvalid,
   checkCourseSlug,
-  activateValidations
+  activateValidations,
+  resetValidations
 });
 
 // exporting two difference ways as a testing hack.

@@ -5,6 +5,10 @@ require 'rails_helper'
 def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
+  find('#course_description').set('This is the template description')
+end
+
+def fill_out_open_course_creator_dates_form
   find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
   find('.course_end-datetime-control input').set(Date.new(2017, 2, 1))
   page.find('body').click
@@ -51,6 +55,8 @@ describe 'open course creation', type: :feature, js: true do
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
+    click_button 'Next'
+    fill_out_open_course_creator_dates_form
     all('.time-input__hour')[0].find('option[value="15"]').select_option
     all('.time-input__minute')[0].find('option[value="35"]').select_option
     click_button 'Create my Program!'
@@ -68,6 +74,8 @@ describe 'open course creation', type: :feature, js: true do
     click_link 'Create an Independent Program'
     choose_course_type
     fill_out_open_course_creator_form
+    click_button 'Next'
+    fill_out_open_course_creator_dates_form
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
     expect(Course.last.campaigns.count).to eq(1)
@@ -85,6 +93,8 @@ describe 'open course creation', type: :feature, js: true do
     visit course_creator_path(campaign_slug: campaign.slug)
     expect(page).to have_content campaign.title
     fill_out_open_course_creator_form
+    click_button 'Next'
+    fill_out_open_course_creator_dates_form
     click_button 'Create my Program!'
     sleep 1
     expect(CampaignsCourses.last.campaign_id).to eq(campaign.id)
