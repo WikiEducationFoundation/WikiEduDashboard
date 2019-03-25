@@ -97,7 +97,7 @@ def create_course
 end
 
 def create_ticket_and_replies(course, sender, owner)
-  ticket = Ticket.create({
+  ticket = TicketDispenser::Ticket.create({
     course: course,
     owner: owner
   })
@@ -106,7 +106,7 @@ def create_ticket_and_replies(course, sender, owner)
     acc + Faker::Lorem.sentence(3,true, 10) + " "
   end
   
-  ticket.messages << Message.create({
+  ticket.messages << TicketDispenser::Message.create({
     content: content.strip,
     sender: sender
   })

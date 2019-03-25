@@ -1,6 +1,7 @@
-class CreateMessages < ActiveRecord::Migration[5.2]
+# This migration comes from ticket_dispenser (originally 20190322210241)
+class CreateMessage < ActiveRecord::Migration[5.2]
   def change
-    create_table :messages do |t|
+    create_table :ticket_dispenser_messages do |t|
       t.integer :kind, default: 0, limit: 1
       t.integer :sender_id
       t.references :ticket
@@ -9,7 +10,5 @@ class CreateMessages < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-
-    add_foreign_key :messages, :users, column: :sender_id
   end
 end

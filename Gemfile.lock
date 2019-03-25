@@ -25,6 +25,14 @@ GIT
       jwt (~> 2.0)
       omniauth-oauth (~> 1.0)
 
+PATH
+  remote: ../TicketingEngine
+  specs:
+    ticket_dispenser (0.1.0)
+      active_model_serializers
+      mysql2
+      rails (~> 5.2.2, >= 5.2.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -585,6 +593,7 @@ DEPENDENCIES
   simple_form
   simplecov
   skylight
+  ticket_dispenser!
   timecop
   tzinfo-data
   validates_email_format_of

@@ -13,7 +13,6 @@ export class TicketsHandler extends React.Component {
   }
 
   render() {
-    console.log(this.props.tickets.all);
     if (this.props.tickets.loading) return <Loading />;
 
     return (

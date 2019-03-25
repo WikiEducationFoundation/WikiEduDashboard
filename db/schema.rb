@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_19_231044) do
+ActiveRecord::Schema.define(version: 2019_03_25_190750) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -420,6 +420,27 @@ ActiveRecord::Schema.define(version: 2019_03_19_231044) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["course_id", "key"], name: "index_tags_on_course_id_and_key", unique: true
+  end
+
+  create_table "ticket_dispenser_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "kind", limit: 1, default: 0
+    t.integer "sender_id"
+    t.bigint "ticket_id"
+    t.boolean "read", default: false, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_ticket_dispenser_messages_on_ticket_id"
+  end
+
+  create_table "ticket_dispenser_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "course_id"
+    t.integer "owner_id"
+    t.integer "status", limit: 1, default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_ticket_dispenser_tickets_on_course_id"
+    t.index ["owner_id"], name: "index_ticket_dispenser_tickets_on_owner_id"
   end
 
   create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

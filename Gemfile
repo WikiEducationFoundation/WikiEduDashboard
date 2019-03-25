@@ -21,6 +21,8 @@ gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queu
 gem 'dalli' # Caching
 gem 'connection_pool'
 
+gem 'ticket_dispenser', path: '../TicketingEngine'
+
 ### Login, authentication, browser support
 gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
