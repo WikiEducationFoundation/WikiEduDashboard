@@ -5,6 +5,7 @@
 # Author: Aram1985
 # Author: Athena Atterdag
 # Author: Av6
+# Author: Diralik
 # Author: Edible Melon
 # Author: Evs
 # Author: Facenapalm
@@ -200,7 +201,7 @@ ru:
       "%{campaign_title}"?
     course_already_removed: '"%{title}" уже удалена из кампании "%{campaign_title}"'
     course: Курс
-    course_removed: '"%{title}" был удален из кампании "%{campaign_title}"'
+    course_removed: '"%{title}" был удалён из кампании "%{campaign_title}"'
     create_campaign: Создать новую кампанию
     description: Описание
     delete_campaign: Удалить эту кампанию
@@ -210,7 +211,7 @@ ru:
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
-    organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
+    organizer_removed: '%{user} был удалён как организатор "%{title}" кампании'
     program_template: Шаблон программы
     random_passcode: Случайный код доступа
     title: Название
@@ -315,7 +316,7 @@ ru:
       автоматически обновляться на панели. Чтобы его просмотреть, проверьте панель
       чуть позже.
     join_failure_details:
-      not_yet_approved: Этот курс еще не был одобрен для регистрации.
+      not_yet_approved: Этот курс ещё не был одобрен для регистрации.
     loading: Загрузка…
     my_articles: Мои статьи
     new_week: Добавить новую неделю
@@ -521,7 +522,7 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
-    request_confirmation: Вы уверены, что хотите запросить эту учетную запись?
+    request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка
