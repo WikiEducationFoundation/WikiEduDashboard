@@ -1,16 +1,15 @@
 import React from 'react';
+import CreatableSelect from 'react-select/lib/Creatable';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
-import MultiSelectField from '../common/multi_select_field.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 
 const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourseAction, course, showEventDates, showEventDatesState, updateCoursePrivacy, showTimeValues, updateCourseDateAction, courseDateUtils, eventClass, roleDescription, defaultCourse }) => {
   const dateProps = courseDateUtils.dateProps(course);
   let term;
   let subject;
-  let newsubject;
   let expectedStudents;
   let courseLevel;
   const subjects = [
@@ -36,21 +35,12 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
       />
     );
     subject = (
-      <MultiSelectField
-        label="Subject"
+      <CreatableSelect
         options={subjects}
-        value={course.subject}
-      />
-    );
-    newsubject = (
-      <TextInput
-        id="newsubject"
         onChange={updateCourseAction}
-        value={course.subject}
-        value_key="newsubject"
-        editable
-        enabled
-        label={'Other'}
+        isMulti
+        id="course_subject"
+        label={'Subject'}
       />
     );
     courseLevel = (
@@ -222,9 +212,10 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
         />
         {term}
         {courseLevel}
-        <label htmlFor="subject">Subject:</label>
-        {subject}
-        {newsubject}
+        <div className="form-group">
+          <label htmlFor="course_subject">Course Subject:</label>
+          {subject}
+        </div>
         {expectedStudents}
         {language}
         {project}
