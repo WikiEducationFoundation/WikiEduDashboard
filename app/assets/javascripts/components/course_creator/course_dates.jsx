@@ -19,6 +19,13 @@ const CourseDates = (props) => {
   let timelineEnd;
   let timelineText;
   if (props.enableTimeline) {
+    timelineText = (
+      <div>
+        <hr />
+        <p><strong>{CourseUtils.i18n('creator.separate_event_dates')}</strong></p>
+        <p>{CourseUtils.i18n('creator.separate_event_dates_info')}</p>
+      </div>
+    );
     timelineStart = (
       <DatePicker
         id="course_timeline_start"
@@ -33,7 +40,6 @@ const CourseDates = (props) => {
         showTime={props.showTimeValues}
       />
     );
-
     timelineEnd = (
       <DatePicker
         id="course_timeline_end"
@@ -50,18 +56,10 @@ const CourseDates = (props) => {
         showTime={props.showTimeValues}
       />
     );
-
-    timelineText = (
-      <div>
-        <hr />
-        <p><strong>{CourseUtils.i18n('creator.separate_event_dates')}</strong></p>
-        <p>{CourseUtils.i18n('creator.separate_event_dates_info')}</p>
-      </div>
-    );
   }
   return (
     <div className={props.courseDateClass}>
-      <p>{CourseUtils.i18n('creator.create_timeline')}</p>
+      <p>{CourseUtils.i18n('creator.course_dates_info', props.stringPrefix)}</p>
       <DatePicker
         id="course_start"
         onChange={updateCourseDates}
