@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
-require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/app/workers/remove_assignment_worker"
 require_dependency "#{Rails.root}/app/workers/update_course_worker"
 
 class EnrollCoursesController < ApplicationController
