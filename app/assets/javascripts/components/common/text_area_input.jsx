@@ -56,7 +56,7 @@ const TextAreaInput = createReactClass({
             className={inputClass}
             init={{
                inline: true,
-               plugins: 'lists link',
+               plugins: 'lists link code',
                toolbar: [
                  'undo redo | styleselect | bold italic',
                  'alignleft aligncenter alignright alignleft',
