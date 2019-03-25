@@ -31,6 +31,8 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
       showFilters: false,
+      showAutocomplete: false,
+      data: false,
     };
   },
 
@@ -49,6 +51,11 @@ const ArticleFinder = createReactClass({
   },
 
   onKeyDown(keyCode, ref) {
+    if (!this.state.showAutocomplete) {
+    this.setState({
+      showAutocomplete: true
+    });
+  }
     if (keyCode === 13) {
       ref.blur();
       this.searchArticles();
@@ -63,12 +70,32 @@ const ArticleFinder = createReactClass({
       return this.updateFields(key, val);
     });
   },
+  
   updateFields(key, value) {
     const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
       if (this.props.search_term.length !== 0) {
         this.buildURL();
+        console.log(this.state)
+        if (this.state.showAutocomplete) {
+          this.fetchParsedArticle();
+        }
       }
+    });
+  },
+
+  fetchParsedArticle() {
+    const URL_to_fetch = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=${encodeURIComponent(this.props.search_term)}`;
+    $.ajax({
+      dataType: 'jsonp',
+      url: URL_to_fetch,
+      success: (data) => {
+        this.setState({
+          data: data,
+          showAutocomplete: true,
+        });
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
   },
 
@@ -89,6 +116,7 @@ const ArticleFinder = createReactClass({
   searchArticles() {
     this.setState({
       isSubmitted: true,
+      showAutocomplete: false,
     });
     if (this.props.search_term === '') {
       return this.setState({
@@ -131,7 +159,19 @@ const ArticleFinder = createReactClass({
         onKeyDown={this.onKeyDown}
         ref="searchbox"
       />);
-
+      const Suggestions = (props) => {
+        console.log(this.state) 
+        const options = props.results.data.query.search.map(r => (
+          <input
+            className="search-suggestions"
+            key={r.pageid}
+            label={r.title}
+            placeholder={r.title}
+            readOnly={true}
+          />
+        ));
+        return <div>{options}</div>;
+      };
     const searchType = (
       <div>
         <div className="search-type">
@@ -369,6 +409,7 @@ const ArticleFinder = createReactClass({
           <div className="search-bar">
             <div>
               {searchTerm}
+              {this.state.data ? <Suggestions results={this.state} /> : null}
             </div>
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
