@@ -20,7 +20,7 @@ const TicketsTableRow = ({ ticket }) => (
       { ticket.owner.real_name }
     </td>
     <td>
-      <button className="button">Read</button>
+      <button className="button">Reply</button>
       <button className="button">Resolve</button>
     </td>
   </tr>

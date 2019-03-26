@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'cross-fetch';
 import { connect } from 'react-redux';
 
 import Loading from '../common/loading';
