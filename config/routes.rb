@@ -357,13 +357,11 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
-  get '/tickets/dashboard' => 'tickets#dashboard'
-  # resources :tickets do
-  #   collection do
-  #   end
-  # end
-
-  mount TicketDispenser::Engine, at: "/tickets"
+  
+  authenticate :user, lambda { |u| u.admin? } do
+    get '/tickets/dashboard' => 'tickets#dashboard'
+    mount TicketDispenser::Engine, at: "/tickets"
+  end
 
   require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do
