@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
+
 import '../../testHelper';
 
 import ArticleList from '../../../app/assets/javascripts/components/articles/article_list.jsx';
@@ -34,7 +35,12 @@ describe('ArticleList', () => {
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
         <Provider store={reduxStore}>
-          <ArticleList articles={articles} course={{ home_wiki: {} }} wikidataLabels={{}} />
+          <ArticleList
+            wikis={[]}
+            articles={articles}
+            course={{ home_wiki: {} }}
+            wikidataLabels={{}}
+          />
         </Provider>
       </div>
     );
