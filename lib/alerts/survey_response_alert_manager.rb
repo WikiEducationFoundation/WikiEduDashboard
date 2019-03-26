@@ -33,6 +33,8 @@ class SurveyResponseAlertManager
       return true if answer.answer_text == conditions[:equals]
     elsif conditions[:present]
       return true if answer.answer_text.present?
+    elsif conditions[:include]
+      return true if answer.answer_text.include?(conditions[:include])
     end
 
     false
