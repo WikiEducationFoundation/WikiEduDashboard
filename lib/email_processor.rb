@@ -6,7 +6,12 @@ class EmailProcessor
   end
 
   def process
-    owner = SpecialUsers.wikipedia_experts.first
+    recipient_email = @email.from.email
+    recipient = User.find_by(email: recipient_email)
+
+    experts = SpecialUsers.wikipedia_experts
+    owner = recipient && experts.include?(recipient.username) ? recipient : experts.first
+
     sender = User.find_by(email: @email.from[:email])
     content = @email.body
 
