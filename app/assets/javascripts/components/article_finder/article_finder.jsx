@@ -31,6 +31,8 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
       showFilters: false,
+      showAutocomplete: false,
+      data: false,
     };
   },
 
@@ -49,6 +51,11 @@ const ArticleFinder = createReactClass({
   },
 
   onKeyDown(keyCode, ref) {
+    if (!this.state.showAutocomplete) {
+    this.setState({
+      showAutocomplete: true
+    });
+  }
     if (keyCode === 13) {
       ref.blur();
       this.searchArticles();
@@ -63,12 +70,38 @@ const ArticleFinder = createReactClass({
       return this.updateFields(key, val);
     });
   },
+
+  fetchSuggestedArticle(e) {
+    const suggested_article = e.target.value;
+    Promise.resolve(this.props.updateFields('search_term', suggested_article)).then(() => {
+      return this.searchArticles();
+    });
+  },
+
   updateFields(key, value) {
     const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
       if (this.props.search_term.length !== 0) {
         this.buildURL();
+        if (this.state.showAutocomplete) {
+          Promise.resolve(this.fetchSuggestionsForArticle());
+        }
       }
+    });
+  },
+
+  fetchSuggestionsForArticle() {
+    const URL_to_fetch = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=${encodeURIComponent(this.props.search_term)}`;
+    $.ajax({
+      dataType: 'jsonp',
+      url: URL_to_fetch,
+      success: (data) => {
+        this.setState({
+          data: data,
+          showAutocomplete: true,
+        });
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
   },
 
@@ -77,6 +110,7 @@ const ArticleFinder = createReactClass({
       showFilters: !this.state.showFilters
     });
   },
+
   buildURL() {
     let queryStringUrl = window.location.href.split('?')[0];
     const params_array = ['search_type', 'article_quality', 'min_views'];
@@ -86,9 +120,12 @@ const ArticleFinder = createReactClass({
     });
     history.replaceState(window.location.href, 'query_string', queryStringUrl);
   },
+
   searchArticles() {
     this.setState({
       isSubmitted: true,
+      showAutocomplete: false,
+      data: false,
     });
     if (this.props.search_term === '') {
       return this.setState({
@@ -131,6 +168,21 @@ const ArticleFinder = createReactClass({
         onKeyDown={this.onKeyDown}
         ref="searchbox"
       />);
+
+      const Suggestions = (props) => {
+        const options = props.results.data.query.search.map(r => (
+          <input
+            className="search-suggestions"
+            key={r.pageid}
+            label={r.title}
+            value={r.title}
+            placeholder={r.title}
+            readOnly={true}
+            onClick={this.fetchSuggestedArticle}
+          />
+        ));
+        return <div>{options}</div>;
+      };
 
     const searchType = (
       <div>
@@ -180,6 +232,7 @@ const ArticleFinder = createReactClass({
         </div>
       </div>
       );
+
     let filters;
     if (this.state.showFilters) {
       filters = (
@@ -287,6 +340,7 @@ const ArticleFinder = createReactClass({
           />
           );
       });
+
       list = (
         <List
           elements={elements}
@@ -367,10 +421,12 @@ const ArticleFinder = createReactClass({
         </header>
         <div className="article-finder-form">
           <div className="search-bar">
-            <div>
-              {searchTerm}
-            </div>
+            {searchTerm}
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
+
+          </div>
+          <div>
+            {this.state.data ? <Suggestions results={this.state} /> : null}
           </div>
         </div>
         <div className="feedback-button">
