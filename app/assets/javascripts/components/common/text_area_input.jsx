@@ -55,12 +55,14 @@ const TextAreaInput = createReactClass({
             onChange={this.handleRichTextEditorChange}
             className={inputClass}
             init={{
-              height: 250,
-              plugins: 'code link lists',
-              branding: false,
-              inline: true,
-              default_link_target: '_blank',
-              relative_urls: false
+               inline: true,
+               plugins: 'lists link code',
+               toolbar: [
+                 'undo redo | styleselect | bold italic',
+                 'alignleft aligncenter alignright alignleft',
+                 'bullist numlist outdent indent',
+                 'link'
+               ],
             }}
           />
         );

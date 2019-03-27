@@ -394,9 +394,6 @@ pt:
       create_label: Criar novo curso
       create_new: Criar um novo curso
       create_short: Criar curso
-      create_timeline: Crie um calendário para o seu curso, por favor. Pode criar
-        um de raiz no separador Calendário, ou usar o assistente de criação de trabalhos
-        para criar um calendário personalizado baseado nas boas práticas da Wiki Educação.
       end_date: Data de fim
       end_date_placeholder: AAAA-MM-DD
       expected_number: Número estimado de estudantes
@@ -1109,6 +1106,7 @@ pt:
     bio_placeholder: Adicione a sua biografia (opcional)
     location_placeholder: Adicione a sua localização (opcional)
     institution_placeholder: Nome da instituição (opcional)
+    image_link_placeholder: Adicionar hiperligação à imagem (opcional)
   wiki_edits:
     notify_overdue:
       confirm: Isto irá postar uma anotação nas páginas de discussão de todos os alunos

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
+import CourseOresPlot from './course_ores_plot.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
 const ArticleList = createReactClass({
@@ -18,7 +19,7 @@ const ArticleList = createReactClass({
     current_user: PropTypes.object,
     actions: PropTypes.object,
     articleDetails: PropTypes.object,
-    sortBy: PropTypes.func,
+    sortArticles: PropTypes.func,
     wikidataLabels: PropTypes.object,
     sort: PropTypes.object
   },
@@ -29,10 +30,30 @@ const ArticleList = createReactClass({
     };
   },
 
+  onChangeFilter(e) {
+    const value = e.target.value.split('.');
+    if (value.length > 1) {
+      return this.props.filterArticles({ language: value[0], project: value[1] });
+    }
+    return this.props.filterArticles({ language: null, project: value[0] });
+  },
+
+  onNewnessChange(e) {
+    return this.props.filterNewness(e.target.value);
+  },
+
   showDiff(index) {
     this.setState({
       selectedIndex: index
     });
+  },
+
+  showMore() {
+    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
+  },
+
+  sortSelect(e) {
+    return this.props.sortArticles(e.target.value);
   },
 
   render() {
@@ -91,16 +112,94 @@ const ArticleList = createReactClass({
       />
     ));
 
+    let header;
+    if (Features.wikiEd) {
+      header = <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+    } else {
+      header = (
+        <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}
+          <span className="tooltip-indicator" />
+          <div className="tooltip dark">
+            <p>{I18n.t('articles.cross_wiki_tracking')}</p>
+          </div>
+        </h3>
+      );
+    }
+
+    let filterWikis;
+    if (this.props.wikis.length > 1) {
+      const wikiOptions = this.props.wikis.map((wiki) => {
+        const wikiString = `${wiki.language ? `${wiki.language}.` : ''}${wiki.project}`;
+        return (<option value={wikiString} key={wikiString}>{wikiString}</option>);
+      });
+
+      filterWikis = (
+        <select onChange={this.onChangeFilter}>
+          <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
+          {wikiOptions}
+        </select>
+      );
+    }
+
+    let filterArticlesSelect;
+    if (this.props.newnessFilterEnabled) {
+      filterArticlesSelect = (
+        <select className="filter-articles" defaultValue="both" onChange={this.onNewnessChange}>
+          <option value="new">{I18n.t('articles.filter.new')}</option>
+          <option value="existing">{I18n.t('articles.filter.existing')}</option>
+          <option value="both">{I18n.t('articles.filter.new_and_existing')}</option>
+        </select>
+      );
+    }
+
+    let filterLabel;
+    if (!!filterWikis || !!filterArticlesSelect) {
+      filterLabel = <b>Filters:</b>;
+    }
+
+    const articleSort = (
+      <div className="article-sort">
+        <select className="sorts" name="sorts" onChange={this.sortSelect}>
+          <option value="rating_num">{I18n.t('articles.rating')}</option>
+          <option value="title">{I18n.t('articles.title')}</option>
+          <option value="character_sum">{I18n.t('metrics.char_added')}</option>
+          <option value="view_count">{I18n.t('metrics.view')}</option>
+        </select>
+      </div>
+    );
+
+    const sectionHeader = (
+      <div className="section-header">
+        {header}
+        <CourseOresPlot course={this.props.course} />
+        <div className="wrap-filters">
+          {filterLabel}
+          {filterArticlesSelect}
+          {filterWikis}
+          {articleSort}
+        </div>
+      </div>
+    );
+
+    let showMoreButton;
+    if (!this.props.limitReached) {
+      showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('articles.see_more')}</button></div>;
+    }
+
     return (
-      <List
-        elements={articleElements}
-        keys={keys}
-        sortable={true}
-        table_key="articles"
-        className="table--expandable table--hoverable"
-        none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
-        sortBy={this.props.sortBy}
-      />
+      <div id="articles" className="mt4">
+        {sectionHeader}
+        <List
+          elements={articleElements}
+          keys={keys}
+          sortable={true}
+          table_key="articles"
+          className="table--expandable table--hoverable"
+          none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
+          sortBy={this.props.sortArticles}
+        />
+        {showMoreButton}
+      </div>
     );
   }
 });

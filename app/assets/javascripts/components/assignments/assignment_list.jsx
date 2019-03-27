@@ -27,8 +27,8 @@ const AssignmentList = createReactClass({
 
   render() {
     const allAssignments = this.props.assignments;
-    const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
-    const grouped = _.groupBy(sortedAssignments, ass => ass.article_title);
+    const sortedAssignments = _.sortBy(allAssignments, assignment => assignment.article_title);
+    const grouped = _.groupBy(sortedAssignments, assignment => assignment.article_title);
     let elements = Object.keys(grouped).map((title) => {
       const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
@@ -66,13 +66,18 @@ const AssignmentList = createReactClass({
     };
 
     return (
-      <List
-        elements={elements}
-        keys={keys}
-        table_key={'assignments'}
-        none_message={CourseUtils.i18n('assignments_none', this.props.course.string_prefix)}
-        sortable={false}
-      />
+      <div id="assignments" className="mt4">
+        <div className="section-header">
+          <h3>{I18n.t('articles.assigned')}</h3>
+        </div>
+        <List
+          elements={elements}
+          keys={keys}
+          table_key={'assignments'}
+          none_message={CourseUtils.i18n('assignments_none', this.props.course.string_prefix)}
+          sortable={false}
+        />
+      </div>
     );
   }
 }

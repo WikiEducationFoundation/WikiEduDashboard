@@ -2,71 +2,78 @@ import React from 'react';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
-import DatePicker from '../common/date_picker.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
+import CourseUtils from '../../utils/course_utils.js';
 
-const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourseAction, course, showEventDates, showEventDatesState, updateCoursePrivacy, showTimeValues, updateCourseDateAction, courseDateUtils, eventClass, roleDescription, defaultCourse }) => {
-  const dateProps = courseDateUtils.dateProps(course);
+const CourseForm = (props) => {
+  const updateCoursePrivacy = (e) => {
+    const isPrivate = e.target.checked;
+    props.updateCourseProps({ private: isPrivate });
+    props.updateCourseAction('private', isPrivate);
+  };
+  const backClass = `dark button ${props.backCondition ? 'hidden' : ''}`;
   let term;
   let subject;
   let expectedStudents;
   let courseLevel;
+  let roleDescription;
 
   let descriptionRequired = false;
-  if (defaultCourse === 'ClassroomProgramCourse') {
+  if (props.defaultCourse === 'ClassroomProgramCourse') {
     descriptionRequired = true;
     term = (
       <TextInput
         id="course_term"
-        onChange={updateCourseAction}
-        value={course.term}
+        onChange={props.updateCourseAction}
+        value={props.course.term}
         value_key="term"
         required
-        validation={course_utils.courseSlugRegex()}
+        validation={CourseUtils.courseSlugRegex()}
         editable
-        label={course_utils.i18n('creator.course_term', string_prefix)}
-        placeholder={course_utils.i18n('creator.course_term_placeholder', string_prefix)}
+        label={CourseUtils.i18n('creator.course_term', props.stringPrefix)}
+        placeholder={CourseUtils.i18n('creator.course_term_placeholder', props.stringPrefix)}
       />
     );
     subject = (
       <TextInput
         id="course_subject"
-        onChange={updateCourseAction}
-        value={course.subject}
+        onChange={props.updateCourseAction}
+        value={props.course.subject}
         value_key="subject"
         editable
-        label={course_utils.i18n('creator.course_subject', string_prefix)}
+        label={CourseUtils.i18n('creator.course_subject', props.stringPrefix)}
         placeholder={I18n.t('courses.creator.subject')}
       />
     );
     courseLevel = (
       <CourseLevelSelector
-        level={course.level}
-        updateCourse={updateCourseAction}
+        level={props.course.level}
+        updateCourse={props.updateCourseAction}
       />
     );
     expectedStudents = (
       <TextInput
         id="course_expected_students"
-        onChange={updateCourseAction}
-        value={String(course.expected_students)}
+        onChange={props.updateCourseAction}
+        value={String(props.course.expected_students)}
         value_key="expected_students"
         editable
         required
         type="number"
         max="999"
-        label={course_utils.i18n('creator.expected_number', string_prefix)}
-        placeholder={course_utils.i18n('creator.expected_number', string_prefix)}
+        label={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
+        placeholder={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
       />
     );
     const options = I18n.t('courses.creator.role_description_options').map((value) => {
       return { label: value, value };
     });
+
     roleDescription = (
       <CreatableInput
         id="role_description"
+        onChange={({ value }) => props.updateCourseAction('role_description', value)}
         label={I18n.t('courses.creator.role_description')}
-        onChange={({ value }) => updateCourseAction('role_description', value)}
         placeholder={I18n.t('courses.creator.role_description_placeholder')}
         options={options}
       />
@@ -77,12 +84,12 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
   let project;
   let privacyCheckbox;
   let campaign;
-  if (defaultCourse !== 'ClassroomProgramCourse') {
+  if (props.defaultCourse !== 'ClassroomProgramCourse') {
     language = (
       <TextInput
         id="course_language"
-        onChange={updateCourseAction}
-        value={course.language}
+        onChange={props.updateCourseAction}
+        value={props.course.language}
         value_key="language"
         editable
         label={I18n.t('courses.creator.course_language')}
@@ -92,8 +99,8 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
     project = (
       <TextInput
         id="course_project"
-        onChange={updateCourseAction}
-        value={course.project}
+        onChange={props.updateCourseAction}
+        value={props.course.project}
         value_key="project"
         editable
         label={I18n.t('courses.creator.course_project')}
@@ -108,159 +115,68 @@ const CourseForm = ({ courseFormClass, course_utils, string_prefix, updateCourse
           type="checkbox"
           value={true}
           onChange={updateCoursePrivacy}
-          checked={!!course.private}
+          checked={!!props.course.private}
         />
       </div>
     );
   }
-  if (course.initial_campaign_title) {
+  if (props.course.initial_campaign_title) {
     campaign = (
       <TextInput
-        value={course.initial_campaign_title}
+        value={props.course.initial_campaign_title}
         label={I18n.t('campaign.campaign')}
       />
     );
   }
-  const timeZoneMessage = (
-    <p className="form-help-text">
-      {I18n.t('courses.time_zone_message')}
-    </p>
-  );
-
-  let eventCheckbox;
-  let timelineStart;
-  let timelineEnd;
-  if (defaultCourse !== 'ClassroomProgramCourse') {
-    eventCheckbox = (
-      <div className="form-group tooltip-trigger">
-        <label htmlFor="course_event">
-          {I18n.t('courses.creator.separate_event_dates')}
-          <span className="tooltip-indicator" />
-        </label>
-        <div className="tooltip dark">
-          <p>{I18n.t('courses.creator.separate_event_dates_info')}</p>
-        </div>
-        <input
-          id="course_event"
-          type="checkbox"
-          value={true}
-          onChange={showEventDates}
-          checked={!!showEventDatesState}
-        />
-      </div>
-    );
-    timelineStart = (
-      <DatePicker
-        id="course_timeline_start"
-        onChange={updateCourseDateAction}
-        value={course.timeline_start}
-        value_key="timeline_start"
-        editable
-        label={course_utils.i18n('creator.assignment_start', string_prefix)}
-        placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
-        blank
-        isClearable={true}
-        showTime={showTimeValues}
-      />
-    );
-    timelineEnd = (
-      <DatePicker
-        id="course_timeline_end"
-        onChange={updateCourseDateAction}
-        value={course.timeline_end}
-        value_key="timeline_end"
-        editable
-        label={course_utils.i18n('creator.assignment_end', string_prefix)}
-        placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
-        blank
-        date_props={dateProps.timeline_end}
-        enabled={!!course.timeline_start}
-        isClearable={true}
-        showTime={showTimeValues}
-      />
-    );
-  }
   return (
-    <div className={courseFormClass}>
+    <div className={props.courseFormClass}>
       <div className="column">
 
         {campaign}
         <TextInput
           id="course_title"
-          onChange={updateCourseAction}
-          value={course.title}
+          onChange={props.updateCourseAction}
+          value={props.course.title}
           value_key="title"
           required
-          validation={course_utils.courseSlugRegex()}
+          validation={CourseUtils.courseSlugRegex()}
           editable
-          label={course_utils.i18n('creator.course_title', string_prefix)}
-          placeholder={course_utils.i18n('creator.course_title', string_prefix)}
+          label={CourseUtils.i18n('creator.course_title', props.stringPrefix)}
+          placeholder={CourseUtils.i18n('creator.course_title', props.stringPrefix)}
         />
         <TextInput
           id="course_school"
-          onChange={updateCourseAction}
-          value={course.school}
+          onChange={props.updateCourseAction}
+          value={props.course.school}
           value_key="school"
           required
-          validation={course_utils.courseSlugRegex()}
+          validation={CourseUtils.courseSlugRegex()}
           editable
-          label={course_utils.i18n('creator.course_school', string_prefix)}
-          placeholder={course_utils.i18n('creator.course_school', string_prefix)}
+          label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
+          placeholder={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
         />
         {term}
-        {courseLevel}
         {subject}
         {expectedStudents}
         {language}
         {project}
-        {privacyCheckbox}
+        <button onClick={props.previous} className={backClass}>Back</button>
       </div>
       <div className="column">
-        <DatePicker
-          id="course_start"
-          onChange={updateCourseDateAction}
-          value={course.start}
-          value_key="start"
-          required
-          editable
-          label={course_utils.i18n('creator.start_date', string_prefix)}
-          placeholder={I18n.t('courses.creator.start_date_placeholder')}
-          blank
-          isClearable={false}
-          showTime={showTimeValues}
-        />
-        <DatePicker
-          id="course_end"
-          onChange={updateCourseDateAction}
-          value={course.end}
-          value_key="end"
-          required
-          editable
-          label={course_utils.i18n('creator.end_date', string_prefix)}
-          placeholder={I18n.t('courses.creator.end_date_placeholder')}
-          blank
-          date_props={dateProps.end}
-          enabled={!!course.start}
-          isClearable={false}
-          showTime={showTimeValues}
-        />
-        {eventCheckbox}
-        <span className={eventClass}>
-          {timelineStart}
-          {timelineEnd}
-        </span>
-        {showTimeValues ? timeZoneMessage : null}
-        <span className="text-input-component__label"><strong>{course_utils.i18n('creator.course_description', string_prefix)}:</strong></span>
+        {courseLevel}
+        <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', props.stringPrefix)}:</strong></span>
         <TextAreaInput
           id="course_description"
-          onChange={updateCourseAction}
-          value={course.description}
+          onChange={props.updateCourseAction}
+          value={props.course.description}
           value_key="description"
           required={descriptionRequired}
           editable
-          placeholder={course_utils.i18n('creator.course_description_placeholder', string_prefix)}
+          placeholder={CourseUtils.i18n('creator.course_description_placeholder', props.stringPrefix)}
         />
         {roleDescription}
+        {privacyCheckbox}
+        <button onClick={props.next} id="next" className="dark button button__submit next">Next</button>
       </div>
     </div>
   );

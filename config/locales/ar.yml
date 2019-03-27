@@ -371,9 +371,6 @@ ar:
       create_label: إنشاء مساق جديد
       create_new: أنشئ مساقًا جديدًا
       create_short: أنشئ المساق
-      create_timeline: من فضلك أنشىء خطا زمنيا لكورسك. يمكنك بناء واحد من البداية
-        من لسان الخط الزمني، أو استخدم ساحر المهام لإنشاء خط زمني مخصص بناء على أفضل
-        الممارسات في ويكي التعليم.
       end_date: تاريخ الانتهاء
       end_date_placeholder: سسسس-شش-يي
       expected_number: عدد الطلاب المتوقع
@@ -1035,6 +1032,7 @@ ar:
     bio_placeholder: أضف سيرتك الذاتية (اختياري)
     location_placeholder: أضف موقعك (اختياري)
     institution_placeholder: اسم المؤسسة (اختياري)
+    image_link_placeholder: إضافة وصلة للصورة (اختياري)
   wiki_edits:
     notify_overdue:
       confirm: هذا سوف ينشر رسالة تذكير على صفحات نقاش جميع الطلاب الذين لديهم تدريب

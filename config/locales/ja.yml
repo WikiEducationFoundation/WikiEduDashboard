@@ -4,6 +4,7 @@
 # Author: 90-NS-FZ
 # Author: Omotecho
 # Author: Otokoume
+# Author: Shirayuki
 # Author: Sudachi
 # Author: Sujiniku
 # Author: Suyama
@@ -169,6 +170,7 @@ ja:
     milestones:
       title: マイルストーン
   campaign:
+    active_campaigns: 実施中のキャンペーン
     add_organizer: 主催者を追加
     alert_article: 記事名
     alert_type: 種類
@@ -181,7 +183,9 @@ ja:
     campaign_updated: 告知を更新しました
     created_at: 日付
     course: コース
+    customize_passcode: 既定のパスコード
     default_course_type: コースの既定のタイプ
+    default_passcode: 既定のパスコード
     description: 説明
     disable_account_requests: アカウント開設を無効にする
     enable_account_requests: アカウント開設を有効にする
@@ -245,8 +249,6 @@ ja:
       create_button: 自分のコースを作成
       create_label: 新規コースの作成
       create_new: 新規コースの作成
-      create_timeline: コースの日程表を作成してください。タイムラインのタブを開いて作業するか、Assignment Wizard を使ってウィキ教育（Wiki
-        Ed）の最善の慣行に従って独自の日程表を作成します。
       end_date: 終了日
       end_date_placeholder: YYYY-MM-DD
       find: コースを検索
@@ -297,6 +299,7 @@ ja:
     notify_untrained_confirmation: この操作は受講者全員を対象に、それぞれのトークページに割り当てのトレーニングモジュールを期限内に完了しなかったというお知らせを表示させます。ほんとうに実行してよろしいですか？
     overview: ホーム
     passcode: パスコード
+    passcode_prompt: パスコード
     published: コースを公開しました！ 以下のURLを開くと、受講者はコースに登録できます。
     rating_feedback: この記事の推定評価：
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
@@ -360,8 +363,7 @@ ja:
     edit_count_description: 総編集回数
     revisions: 最近の編集
     uploads_in_use_count:
-      one: 記事内で使ったファイル数
-      other: files used in articles
+      other: 件のファイルを記事内で使用
     view_count_description: 記事の閲覧数
   namespace:
     user: ユーザー空間

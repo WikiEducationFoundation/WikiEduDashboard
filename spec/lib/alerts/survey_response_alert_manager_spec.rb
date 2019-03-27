@@ -21,7 +21,13 @@ describe SurveyResponseAlertManager do
   let(:create_answer) do
     answer_group = create(:answer_group, user_id: user.id)
     create(:answer, answer_group_id: answer_group.id, question_id: question.id,
-                    answer_text: answer_text)
+      answer_text: answer_text)
+  end
+
+  let(:include_question) do
+    create(:q_checkbox,
+           answer_options: "some answer\r\nexpected answer\r\nlast answer",
+           alert_conditions: { include: 'expected answer' })
   end
 
   before do
@@ -69,6 +75,30 @@ describe SurveyResponseAlertManager do
   context 'when a "present" condition question has an blank answer' do
     let(:question) { present_question }
     let(:answer_text) { '' }
+
+    it 'does not create an alert' do
+      create_answer
+      subject.create_alerts
+      expect(Alert.count).to eq(0)
+    end
+  end
+
+  context 'when a "include" condition question has the expected answer' do
+    let(:question) { include_question }
+    let(:answer_text) { "some answer\r\nexpected answer" }
+
+    it 'creates an alert and sends an email' do
+      create_answer
+      subject.create_alerts
+      expect(Alert.count).to eq(1)
+      expect(Alert.last.type).to eq('SurveyResponseAlert')
+      expect(Alert.last.email_sent_at).not_to be_nil
+    end
+  end
+
+  context 'when a "include" condition question has a different answer' do
+    let(:question) { include_question }
+    let(:answer_text) { 'last answer' }
 
     it 'does not create an alert' do
       create_answer

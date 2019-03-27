@@ -49,3 +49,4 @@ describe('ArticleList', () => {
     expect(TestArticle.textContent).to.contain('articleTitle2');
   });
 });
+

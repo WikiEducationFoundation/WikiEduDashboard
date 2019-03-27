@@ -409,10 +409,6 @@ fr:
       create_label: Créer un nouveau cours
       create_new: Créer un nouveau cours
       create_short: Créer un cours
-      create_timeline: Veuillez créer un planning pour votre cours. Vous pouvez en
-        construire un à partir de rien depuis l’onglet Planning, ou utiliser l’assistant
-        d’affectation pour créer un planning personnalisé basé sur les meilleures
-        pratiques du wiki Ed.
       end_date: Date de fin
       end_date_placeholder: AAAA-MM-JJ
       expected_number: Nombre d’étudiants attendus
@@ -1135,6 +1131,7 @@ fr:
     bio_placeholder: Ajouter votre biographie (facultatif)
     location_placeholder: Ajouter votre emplacement (facultatif)
     institution_placeholder: Nom de l’établissement (facultatif)
+    image_link_placeholder: Ajouter le lien vers l’image (facultatif)
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

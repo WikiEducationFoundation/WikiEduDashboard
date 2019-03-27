@@ -254,6 +254,8 @@ describe 'the course page', type: :feature, js: true do
                             role: 0).create_assignment
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
+      click_link 'Available Articles'
+
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Education'
     end
@@ -261,13 +263,13 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
-      expect(page).not_to have_content 'Add available articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
+      click_link 'Available Articles'
       assigned_articles_section = page.find(:css, '#available-articles', match: :first)
       expect(assigned_articles_section).to have_content 'Add available articles'
     end
@@ -336,6 +338,7 @@ describe 'the course page', type: :feature, js: true do
         login_as(user, scope: :user)
         js_visit "/courses/#{slug}/articles"
         expect(page).to have_content 'Available Articles'
+        click_link 'Available Articles'
         assigned_articles_section = page.find(:css, '#available-articles', match: :first)
         expect(assigned_articles_section).to have_content 'Education'
         expect(assigned_articles_section).to have_content 'Select'

@@ -26,6 +26,7 @@ class SurveyResponseAlertManager
 
   private
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def answer_meets_alert_conditions?(answer)
     conditions = answer.question.alert_conditions
 
@@ -33,10 +34,13 @@ class SurveyResponseAlertManager
       return true if answer.answer_text == conditions[:equals]
     elsif conditions[:present]
       return true if answer.answer_text.present?
+    elsif conditions[:include]
+      return true if answer.answer_text.include?(conditions[:include])
     end
 
     false
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   RECENT_DAYS = 7
   def recent_answers_to_alert_questions
