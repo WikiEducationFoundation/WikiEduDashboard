@@ -6,21 +6,19 @@ class EmailProcessor
   end
 
   def process
-    recipient_email = @email.from.email
-    recipient = User.find_by(email: recipient_email)
+    recipient_emails = @email.to.pluck(:email)
+    recipients = User.where(email: recipient_emails)
 
-    experts = SpecialUsers.wikipedia_experts
-    owner = recipient && experts.include?(recipient.username) ? recipient : experts.first
+    owner = recipients.find do |recipient|
+      SpecialUsers.wikipedia_experts.include?(recipient.username)
+    end
+    owner ||= SpecialUsers.wikipedia_experts.first
 
     sender = User.find_by(email: @email.from[:email])
-    content = @email.body
+    course = sender.courses.last if sender
 
-    course = nil
-    if sender.blank?
-      content += " #{from_signature(@email.from)}"
-    else
-      course = sender.courses.last
-    end
+    content = @email.body
+    content += " #{from_signature(@email.from)}" if sender.blank?
 
     ticket = TicketDispenser::Ticket.create(owner: owner, course: course)
     TicketDispenser::Message.create(
