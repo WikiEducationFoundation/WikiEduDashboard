@@ -1,4 +1,4 @@
-import { FETCH_TICKETS, RECEIVE_TICKETS } from '../constants/tickets';
+import { FETCH_TICKETS, RECEIVE_TICKETS, SORT_TICKETS } from '../constants/tickets';
 import fetch from 'cross-fetch';
 
 export const fetchTickets = () => async (dispatch) => {
@@ -9,3 +9,5 @@ export const fetchTickets = () => async (dispatch) => {
 
   dispatch({ type: RECEIVE_TICKETS, data: json.tickets });
 };
+
+export const sortTickets = key => ({ type: SORT_TICKETS, key });

@@ -1,2 +1,3 @@
 export const FETCH_TICKETS = 'FETCH_TICKETS';
 export const RECEIVE_TICKETS = 'RECEIVE_TICKETS';
+export const SORT_TICKETS = 'SORT_TICKETS';
