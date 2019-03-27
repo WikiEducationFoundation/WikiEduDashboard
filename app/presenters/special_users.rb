@@ -23,6 +23,10 @@ class SpecialUsers
     User.find_by(username: special_users[:outreach_manager])
   end
 
+  def self.wikipedia_experts
+    User.where(username: special_users[:wikipedia_experts])
+  end
+
   def self.technical_help_staff
     User.find_by(username: special_users[:technical_help_staff])
   end

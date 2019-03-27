@@ -10,10 +10,14 @@ const STATUSES = [
 const TicketsTableRow = ({ ticket }) => (
   <tr>
     <td>
-      { ticket.sender }
+      { ticket.sender || 'Unknown User Record' }
     </td>
     <td>
-      <Link to={`/courses/${ticket.course.slug}`}>{ ticket.course.title }</Link>
+      {
+        ticket.course.id
+        ? <Link to={`/courses/${ticket.course.slug}`}>{ ticket.course.title }</Link>
+        : 'Course Unknown'
+      }
     </td>
     <td>{ STATUSES[ticket.status] }</td>
     <td>

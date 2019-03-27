@@ -74,6 +74,7 @@ const AddSpecialUserForm = createReactClass({
               <option>communications_manager</option>
               <option>classroom_program_manager</option>
               <option>outreach_manager</option>
+              <option>wikipedia_experts</option>
               <option>technical_help_staff</option>
               <option>survey_alerts_recipient</option>
               <option>backup_account_creator</option>

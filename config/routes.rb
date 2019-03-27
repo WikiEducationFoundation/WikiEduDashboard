@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
+  # Griddler allows us to receive incoming emails. By default,
+  # the path for incoming emails is /email_processor
+  mount_griddler
 
   #UserProfilesController
   controller :user_profiles do

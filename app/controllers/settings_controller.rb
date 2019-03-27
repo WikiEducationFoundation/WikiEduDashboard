@@ -62,7 +62,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
 
   def special_users
     @special_users = SpecialUsers.special_users.transform_values do |username|
-      User.find_by(username: username)
+      User.where(username: username)
     end
   end
 
