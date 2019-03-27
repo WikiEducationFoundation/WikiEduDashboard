@@ -98,7 +98,7 @@
     "query-string": "6.4.0",
     "rails-ujs": "^5.2.2",
     "raven-js": "^3.27.0",
-    "react": "^16.8.4",
+    "react": "^16.8.5",
     "react-burger-menu": "2.6.5",
     "react-confetti": "^2.7.0",
     "react-day-picker": "7.3.0",
