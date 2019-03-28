@@ -111,7 +111,7 @@
     "react-motion": "^0.5.2",
     "react-onclickoutside": "^6.8.0",
     "react-paginate": "^6.3.0",
-    "react-redux": "^6.0.0",
+    "react-redux": "^6.0.1",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
     "react-select": "^2.4.2",
