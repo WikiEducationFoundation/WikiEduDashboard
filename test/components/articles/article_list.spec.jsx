@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 
 import '../../testHelper';
 
@@ -33,13 +34,14 @@ describe('ArticleList', () => {
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticleList
-          wikis={[]}
-          articles={articles}
-          course={{ home_wiki: {} }}
-          store={reduxStore}
-          wikidataLabels={{}}
-        />
+        <Provider store={reduxStore}>
+          <ArticleList
+            wikis={[]}
+            articles={articles}
+            course={{ home_wiki: {} }}
+            wikidataLabels={{}}
+          />
+        </Provider>
       </div>
     );
 
@@ -47,3 +49,4 @@ describe('ArticleList', () => {
     expect(TestArticle.textContent).to.contain('articleTitle2');
   });
 });
+

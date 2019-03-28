@@ -10,7 +10,7 @@ import Notifications from '../common/notifications';
 import { fetchAdminUsers, fetchSpecialUsers } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 
-const SettingsHandler = createReactClass({
+export const SettingsHandler = createReactClass({
   propTypes: {
     fetchAdminUsers: PropTypes.func,
     fetchSpecialUsers: PropTypes.func,
