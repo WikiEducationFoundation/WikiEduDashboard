@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const STATUSES = [
-  'Open',
-  'Waiting Response',
-  'Resolved'
-];
+import { STATUSES } from './util';
 
 const TicketsTableRow = ({ ticket }) => (
   <tr>
@@ -24,7 +20,7 @@ const TicketsTableRow = ({ ticket }) => (
       { ticket.owner.real_name }
     </td>
     <td>
-      <button className="button">Reply</button>
+      <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Reply</Link>
       <button className="button">Resolve</button>
     </td>
   </tr>

@@ -12,6 +12,7 @@ import TrainingApp from '../../training/components/training_app.jsx';
 import UserProfile from '../user_profiles/user_profile.jsx';
 import SettingsHandler from '../settings/settings_handler.jsx';
 import TicketsHandler from '../tickets/tickets_handler.jsx';
+import TicketShowHandler from '../tickets/ticket_show_handler.jsx';
 
 const routes = (
   <Switch>
@@ -25,7 +26,8 @@ const routes = (
     <Route path="/settings" component={SettingsHandler} />
     <Route path="/article_finder" component={ArticleFinder} />
     <Route path="/training" component={TrainingApp} />
-    <Route path="/tickets/dashboard" component={TicketsHandler} />
+    <Route exact path="/tickets/dashboard" component={TicketsHandler} />
+    <Route exact path="/tickets/dashboard/:id" component={TicketShowHandler} />
   </Switch>
 );
 

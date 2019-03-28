@@ -9,7 +9,9 @@ import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
 
 export class TicketsHandler extends React.Component {
   componentDidMount() {
-    this.props.fetchTickets();
+    if (this.props.tickets.loading) {
+      this.props.fetchTickets();
+    }
   }
 
   render() {
@@ -60,7 +62,7 @@ export class TicketsHandler extends React.Component {
     }
 
     return (
-      <main className="container">
+      <main className="container ticket-dashboard">
         <h1 className="mt4">Ticketing Dashboard</h1>
         <hr/>
         <List

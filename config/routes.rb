@@ -362,7 +362,7 @@ Rails.application.routes.draw do
   resources :settings, only: [:index]
   
   authenticate :user, lambda { |u| u.admin? } do
-    get '/tickets/dashboard' => 'tickets#dashboard'
+    get '/tickets/*dashboard' => 'tickets#dashboard', format: false
     mount TicketDispenser::Engine, at: "/tickets"
   end
 
