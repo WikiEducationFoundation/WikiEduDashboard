@@ -41,7 +41,8 @@ const AssignButton = createReactClass({
       showOptions: false,
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
-      title: ''
+      title: '',
+      data: false
     });
   },
 
@@ -57,7 +58,6 @@ const AssignButton = createReactClass({
     return e.stopPropagation();
   },
 
-
   handleShowOptions(e) {
     e.preventDefault();
     return this.setState(
@@ -70,12 +70,35 @@ const AssignButton = createReactClass({
     const assignment = CourseUtils.articleFromTitleInput(title);
     const language = assignment.language ? assignment.language : this.state.language;
     const project = assignment.project ? assignment.project : this.state.project;
+    this.fetchSuggestionsForArticle(title);
     return this.setState({
       title: assignment.title,
       project,
       language
     });
   },
+
+  fetchSuggestionsForArticle(search_term) {
+    const URL_to_fetch = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=${encodeURIComponent(search_term)}`;
+    $.ajax({
+      dataType: 'jsonp',
+      url: URL_to_fetch,
+      success: (data) => {
+        this.setState({
+          data: data,
+        });
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
+    });
+  },
+  TitleChangeSuggestionInput(e) {
+    this.setState({
+      title: e.target.value,
+      data: false
+    }
+    );
+  },
+
   handleChangeLanguage(val) {
     return this.setState(
       { language: val.value });
@@ -222,6 +245,21 @@ const AssignButton = createReactClass({
       assignments = <tr><td>{I18n.t('assignments.none_short')}</td></tr>;
     }
 
+    const Suggestions = (props) => {
+      const options = props.results.data.query.search.map(r => (
+        <input
+          className="search-suggestions"
+          key={r.pageid}
+          label={r.title}
+          value={r.title}
+          placeholder={r.title}
+          readOnly={true}
+          onClick={this.TitleChangeSuggestionInput}
+        />
+      ));
+      return <div>{options}</div>;
+    };
+
     let editRow;
     if (this.props.permitted) {
       let options;
@@ -289,6 +327,7 @@ const AssignButton = createReactClass({
                 onSubmit={this.assign}
                 onChange={this.handleChangeTitle}
               />
+              {this.state.data && this.state.title ? <Suggestions results={this.state} /> : null}
               <button className="button border" type="submit">{I18n.t('assignments.label')}</button>
               {options}
             </form>
