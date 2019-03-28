@@ -101,6 +101,7 @@ de:
     article_development: (Artikelentwicklung)
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
+    no_available: Keine verfügbaren Artikel
     next: Nächste
     previous: Vorherige
     article_title: Artikeltitel
@@ -355,6 +356,9 @@ de:
         (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
         nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
         keinen Zwang an, ihn jetzt zu aktualisieren.
+      course_dates_info: Gib die Beginn- und Enddaten für deinen Kurs ein. Im nächsten
+        Schritt kannst du auswählen, wann die Wikipedia-Zuweisung innerhalb dieses
+        Zeitfensters beginnen soll.
       course_description: Kursbeschreibung
       course_description_placeholder: Was ist in deinem Kurs abgedeckt und was werden
         die Studenten auf Wikipedia tun? Bitte gib genügend Einzelheiten an, um anderen
@@ -409,7 +413,7 @@ de:
       - Kursleiter
       - Lehrassistent
       role_description_placeholder: Kursleiter, Lehrassistent etc.
-      separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an
+      separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an (optional)
       separate_event_dates_info: Aktivitätsstatistiken für dieses Programm werden
         basierend auf den oben stehenden Daten und Zeitpunkten erstellt, du kannst
         jedoch getrennte Zeiten für den Beginn und das Ende des Ereignisses oder Programms
@@ -692,6 +696,10 @@ de:
         unten auf „Speichern“.
       course_when: Gib etwas in das „Wann“-Feld ein (zum Beispiel den Monat und das
         Jahr), um den Kurs vom Original zu unterscheiden.
+      course_dates_info: Gib die Beginn- und Enddaten für dein Programm ein. Du kannst
+        das Ende auf mehrere Stunden oder Tage hinter das Ende der Hauptaktivitäten
+        erweitern, um ähnliche Bearbeitungen einzuschließen, die bald nach dem Ereignis
+        geschehen.
       course_description: Programmbeschreibung
       course_description_placeholder: Was ist dieses Programm und was werden die Teilnehmer
         auf dem oder den Wikis tun? Bitte gib genügend Einzelheiten an, um anderen

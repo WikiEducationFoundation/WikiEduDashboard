@@ -121,6 +121,7 @@ fr:
     article_development: (développement d’article)
     assigned: Articles affectés
     available: Articles disponibles
+    no_available: Aucun article disponible
     next: Suivant
     previous: Précédent
     article_title: Titre de l’article
@@ -375,6 +376,9 @@ fr:
         du planning (semaines et blocages). Assurez-vous d’ajouter les dates qui e
         sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
         N’hésitez pas à le mettre à jour maintenant.
+      course_dates_info: Saisir les dates de début et de fin de votre cours. Dans
+        la prochaine étape, vous pourrez choisir quand commencer l’affectation Wikipédia
+        dans ce planning.
       course_description: Description du cours
       course_description_placeholder: Qu’est-ce qui est couvert par votre cours, et
         que feront les étudiants sur Wikipédia ? Veuillez inclure suffisamment de
@@ -432,7 +436,7 @@ fr:
       - Assistant éducatif
       role_description_placeholder: Instructeur, assistant enseignant, etc.
       separate_event_dates: Spécifier des heures distinctes de début et de fin de
-        l’événement
+        l’événement (facultatif)
       separate_event_dates_info: Les statistiques d’activité pour ce programme seront
         tracées d’après les dates et heures ci-dessus, mais vous pouvez spécifier
         des heures distinctes pour le démarrage et la fin de l’événement ou du programme
@@ -716,6 +720,10 @@ fr:
         » pour valider la modification.
       course_when: Ajoutez quelque chose dans le champ 'Quand' (par exemple, le mois
         et l'année) pour le différencier de l'original.
+      course_dates_info: Saisir les dates de début et de fin pour votre programme.
+        Vous pouvez vouloir étendre la fin à plusieurs heures ou jours au-delà de
+        la fin des activités principales, pour inclure les modifications associées
+        qui auront lieu peu après l’événement.
       course_description: Description du programme
       course_description_placeholder: Qu’est-ce que ce programme, et que feront les
         participants sur le(s) wiki(s) ? Veuillez inclure suffisamment de détails

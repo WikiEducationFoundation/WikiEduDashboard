@@ -119,6 +119,7 @@ pt-br:
     article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos Disponíveis
+    no_available: Nenhum artigo disponível
     next: Próximo
     previous: Anterior
     article_title: Título do artigo
@@ -366,6 +367,9 @@ pt-br:
       clone_successful_details: Seu curso foi clonado, incluindo os elementos do cronograma
         (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à vontade para
         atualizá-lo agora.
+      course_dates_info: Digite as datas inicial e final do seu curso. Na próxima
+        etapa, você pode escolher quando começar a atribuição da Wikipédia dentro
+        desse período de tempo.
       course_description: Descrição do curso
       course_description_placeholder: O que está sendo abordado no seu curso, e o
         que os alunos estão elaborando na Wikipédia? Por favor, inclua todos os detalhes
@@ -420,8 +424,8 @@ pt-br:
       - Instrutor
       - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
-      separate_event_dates: Especifique separadamente os horários iniciais e finais
-        do evento
+      separate_event_dates: Especifique horários de início/término de eventos separados
+        (opcional)
       separate_event_dates_info: As estatísticas de atividade deste programa serão
         monitorizadas com base nas datas e horários acima, mas pode especificar separadamente
         os horários para quando for começar ou terminar o evento ou programa em si
@@ -696,6 +700,9 @@ pt-br:
         para finalizar.
       course_when: Adicione qualquer coisa no campo 'Quando' (por exemplo, o mês e
         o ano) para diferenciá-lo do original.
+      course_dates_info: Digite as datas inicial e final do seu programa. Você pode
+        desejar estender o final para várias horas ou dias além do fim das atividades
+        principais, para incluir edição relacionada que acontece logo após o evento.
       course_description: Descrição do programa
       course_description_placeholder: Que tipo de programa é este, e o que os participantes
         estarão fazendo na(s) wiki(s)? Por favor, inclua todos os detalhes para atribuir

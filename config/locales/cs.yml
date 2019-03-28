@@ -383,7 +383,7 @@ cs:
       no_class_holidays: Třída nemá prázdniny
       role_description: Vaše role v kurzu
       role_description_placeholder: Instruktor, asistent vyučujícího, atd.
-      separate_event_dates: Specifikujte čas začátku a konce události
+      separate_event_dates: Specifikujte čas začátku a konce události (nepovinné)
       separate_event_dates_info: Statistika aktivit pro tento program bude sledována
         na základě výše uvedených dat a časů, ale můžete zadat oddělené časy začátku
         a konce události nebo programu (například tak, aby účastníci věděli, kdy se

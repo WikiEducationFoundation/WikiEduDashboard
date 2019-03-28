@@ -81,6 +81,7 @@ sv:
     article_development: (artikelutveckling)
     assigned: Tilldelade artiklar
     available: Tillgängliga artiklar
+    no_available: Inga tillgängliga artiklar
     next: Nästa
     previous: Föregående
     article_title: Artikeltitel

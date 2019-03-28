@@ -4,6 +4,7 @@
 # Author: Fitoschido
 # Author: KuboF
 # Author: Lucas
+# Author: Luis Miguel Obando
 # Author: Ochilov
 # Author: Rafaneta
 # Author: Robin van der Vliet
@@ -20,6 +21,7 @@ eo:
     opt_in: Jes
     opt_out: Ne
   articles:
+    no_available: Ne Eblaj Artikoloj
     edited_mobile: Artikoloj
     hide: Kaŝi
     new: (nova)
