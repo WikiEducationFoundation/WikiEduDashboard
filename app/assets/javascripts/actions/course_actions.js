@@ -4,6 +4,7 @@ import {
   START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
 } from '../constants';
 import API from '../utils/api.js';
+import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
 
 export const fetchCourse = courseSlug => (dispatch) => {
@@ -76,18 +77,14 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 };
 
 const needsUpdatePromise = (courseSlug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/needs_update.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      rej(obj);
-    })
-  );
+  return fetch(`/courses/${courseSlug}/needs_update.json`)
+     .then((response) => {
+       return response.json();
+     })
+     .catch((err) => {
+       logErrorMessage(err);
+       return err;
+     });
 };
 
 const needsUpdateNotification = (response) => {
