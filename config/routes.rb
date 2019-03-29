@@ -363,7 +363,7 @@ Rails.application.routes.draw do
   
   authenticate :user, lambda { |u| u.admin? } do
     get '/tickets/*dashboard' => 'tickets#dashboard', format: false
-    mount TicketDispenser::Engine, at: "/tickets"
+    mount TicketDispenser::Engine, at: "/td"
   end
 
   require 'sidekiq_unique_jobs/web'

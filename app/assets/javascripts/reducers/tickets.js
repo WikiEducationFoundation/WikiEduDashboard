@@ -1,10 +1,16 @@
-import { FETCH_TICKETS, RECEIVE_TICKETS, SORT_TICKETS } from '../constants/tickets';
+import {
+  CREATE_REPLY,
+  FETCH_TICKETS,
+  RECEIVE_TICKETS,
+  SELECT_TICKET,
+  SORT_TICKETS } from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   all: [],
   byId: {},
   loading: true,
+  selected: {},
   sort: {
     sortKey: null,
     key: null
@@ -34,6 +40,12 @@ export default function (state = initialState, action) {
         byId
       };
     }
+    case SELECT_TICKET:
+      return {
+        ...state,
+        selected: action.ticket,
+        loading: false
+      };
     case SORT_TICKETS: {
       const sorted = sortByKey(state.all, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
 

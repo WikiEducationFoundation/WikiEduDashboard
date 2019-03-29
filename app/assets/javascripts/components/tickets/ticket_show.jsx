@@ -5,7 +5,7 @@ import Reply from './reply';
 import Sidebar from './sidebar';
 import NewReplyForm from './new_reply_form';
 
-export const TicketShow = ({ ticket, currentUser }) => {
+export const TicketShow = ({ ticket, createReply, currentUser, fetchTicket }) => {
   const createdAt = ticket.messages[0].created_at;
   const dateTime = moment(createdAt).format('MMMM DD, hh:mm a');
 
@@ -18,7 +18,12 @@ export const TicketShow = ({ ticket, currentUser }) => {
       <p>Course: <span className="bold">{ticket.course.title}</span></p>
       <section className="messages">
         {replies}
-        <NewReplyForm />
+        <NewReplyForm
+          ticket={ticket}
+          createReply={createReply}
+          currentUser={currentUser}
+          fetchTicket={fetchTicket}
+        />
       </section>
       <Sidebar ticket={ticket} currentUser={currentUser} createdAt={createdAt} />
     </main>

@@ -4,38 +4,32 @@ import { connect } from 'react-redux';
 import Loading from '../common/loading';
 import Show from './ticket_show';
 
-import { fetchTickets } from '../../actions/tickets_actions';
+import {
+  createReply,
+  fetchTicket,
+  fetchTickets,
+  selectTicket } from '../../actions/tickets_actions';
 
 export class TicketShow extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      ticket: null,
-      loading: true
-    };
-  }
-
   componentDidMount() {
     const { match, tickets } = this.props;
     const id = match.params.id;
-    if (!tickets.loading) return this._setTicketOnFetch(id);
+    const ticket = tickets.byId[id];
+    if (ticket) return this.props.selectTicket(ticket);
 
-    this.props.fetchTickets().then(() => {
-      setTimeout(() => this._setTicketOnFetch(id), 400);
-    });
-  }
-
-  _setTicketOnFetch(id) {
-    const ticket = this.props.tickets.byId[id];
-    this.setState({ ticket, loading: false });
+    this.props.fetchTicket(id);
   }
 
   render() {
-    if (this.state.loading) return <Loading />;
+    if (this.props.tickets.loading) return <Loading />;
 
     return (
-      <Show currentUser={this.props.currentUserFromHtml} ticket={this.state.ticket} />
+      <Show
+        createReply={this.props.createReply}
+        currentUser={this.props.currentUserFromHtml}
+        fetchTicket={this.props.fetchTicket}
+        ticket={this.props.tickets.selected}
+      />
     );
   }
 }
@@ -46,7 +40,10 @@ const mapStateToProps = ({ currentUserFromHtml, tickets }) => ({
 });
 
 const mapDispatchToProps = {
-  fetchTickets
+  createReply,
+  fetchTicket,
+  fetchTickets,
+  selectTicket
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
