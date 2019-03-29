@@ -225,7 +225,7 @@ const DiffViewer = createReactClass({
   articleDetails() {
     return (
       <div className="diff-viewer-header">
-        <p>{I18n.t('articles.article_title')}: {this.props.articleTitle}</p>
+        <p>{this.props.articleTitle}</p>
       </div>
     );
   },
