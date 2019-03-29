@@ -95,7 +95,7 @@
     "parsleyjs": "^2.8.2",
     "promise-limit": "^2.7.0",
     "prop-types": "^15.7.2",
-    "query-string": "6.4.0",
+    "query-string": "6.4.2",
     "rails-ujs": "^5.2.2",
     "raven-js": "^3.27.0",
     "react": "^16.8.4",
