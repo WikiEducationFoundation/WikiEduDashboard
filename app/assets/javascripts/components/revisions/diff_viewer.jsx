@@ -206,7 +206,7 @@ const DiffViewer = createReactClass({
     return (
       <button
         onClick={this.showPreviousArticle}
-        className="button dark small"
+        className="button pull-right dark small"
       >
         {I18n.t('articles.previous')}
       </button>
@@ -218,14 +218,14 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <button onClick={this.showNextArticle} className="pull-right button dark small">{I18n.t('articles.next')}</button>
+      <button onClick={this.showNextArticle} className="pull-right margin button dark small">{I18n.t('articles.next')}</button>
     );
   },
 
   articleDetails() {
     return (
       <div className="diff-viewer-header">
-        <p>{I18n.t('articles.article_title')}: {this.props.articleTitle}</p>
+        <p>{this.props.articleTitle}</p>
       </div>
     );
   },
@@ -328,13 +328,13 @@ const DiffViewer = createReactClass({
             </a>
           </div>
           <div className="diff-viewer-header">
-            {this.previousArticle()}
             {this.nextArticle()}
+            {this.previousArticle()}
           </div>
-          {this.articleDetails()}
+          <h4>{this.articleDetails()}</h4>
           <div>
             <div className="diff-viewer-scrollbox">
-              {salesforceButtons}
+              <strong>{salesforceButtons}</strong>
               <table>
                 <thead>
                   <tr>
