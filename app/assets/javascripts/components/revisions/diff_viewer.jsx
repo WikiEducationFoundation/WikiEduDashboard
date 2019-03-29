@@ -207,7 +207,6 @@ const DiffViewer = createReactClass({
       <button
         onClick={this.showPreviousArticle}
         className="button pull-right dark small"
-        style={{ marginRight: '1%' }}
       >
         {I18n.t('articles.previous')}
       </button>
@@ -219,7 +218,7 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <button onClick={this.showNextArticle} className="pull-right button dark small">{I18n.t('articles.next')}</button>
+      <button onClick={this.showNextArticle} className="pull-right margin button dark small">{I18n.t('articles.next')}</button>
     );
   },
 
