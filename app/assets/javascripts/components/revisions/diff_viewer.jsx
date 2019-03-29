@@ -206,7 +206,8 @@ const DiffViewer = createReactClass({
     return (
       <button
         onClick={this.showPreviousArticle}
-        className="button shift-previous dark small"
+        className="button pull-right dark small"
+        style={{ marginRight: '1%' }}
       >
         {I18n.t('articles.previous')}
       </button>
