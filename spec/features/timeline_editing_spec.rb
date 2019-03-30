@@ -87,7 +87,7 @@ describe 'timeline editing', type: :feature, js: true do
     expect(page).not_to have_content 'Intro and Icebreaker'
     expect(page).to have_content 'Week 1'
     # Add new title
-    click_button 'Edit Titles'
+    click_button 'Edit Week Titles'
     find('input.week-title-input').native.clear
     find('input.week-title-input').set 'Intro and Icebreaker'
     # Save new title
@@ -95,7 +95,7 @@ describe 'timeline editing', type: :feature, js: true do
     expect(page).to have_content 'Intro and Icebreaker'
     expect(page).not_to have_content 'Week 1'
     # Reset to default titles
-    click_button 'Edit Titles'
+    click_button 'Edit Week Titles'
     accept_confirm { click_button 'Reset to Default' }
 
     expect(page).not_to have_content 'Intro and Icebreaker'

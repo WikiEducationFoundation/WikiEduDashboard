@@ -658,8 +658,8 @@ qqq:
     block_assignment: '{{Identical|Assignment}}'
     block_custom: '{{Identical|Custom}}'
     block_milestone: '{{Identical|Milestone}}'
-    edit_titles: Edit Titles button label
-    edit_titles_info: Information message about editing titles
+    edit_titles: Edit Week Titles button label
+    edit_titles_info: Information message about editing week titles
     empty_week_3: '{{Identical|Or}}'
     gradeable_value: '{{Identical|Value}}'
     grading_header: Header for Grading section of course timeline. 'total' is a number,

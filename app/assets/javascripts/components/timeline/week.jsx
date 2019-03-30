@@ -95,7 +95,7 @@ const Week = createReactClass({
         className="week-index week-title-input"
         defaultValue={weekTitleContent}
         maxLength={20}
-        onChange={text => this.props.updateTitle(weekId, event.target.value, text)}
+        onChange={event => this.props.updateTitle(weekId, event.target.value)}
       />
     ) : (
       <p className="week-index">{weekTitleContent}</p>
