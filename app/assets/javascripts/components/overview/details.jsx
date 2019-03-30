@@ -202,9 +202,11 @@ const Details = createReactClass({
           required={true}
         />
       );
+
       timelineEnd = (
         <DatePicker
           onChange={this.updateCourseDates}
+          timelineBegin={new Date().toString()}
           value={this.props.course.timeline_end}
           value_key="timeline_end"
           editable={this.props.editable}

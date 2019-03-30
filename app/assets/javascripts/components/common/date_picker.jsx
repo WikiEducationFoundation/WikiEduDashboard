@@ -28,6 +28,7 @@ const DatePicker = createReactClass({
     isClearable: PropTypes.bool,
     placeholder: PropTypes.string,
     p_tag_classname: PropTypes.string,
+    timelineBegin: PropTypes.string,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     onChange: PropTypes.func,
@@ -166,6 +167,14 @@ const DatePicker = createReactClass({
   },
 
   handleDateFieldClick() {
+    if (this.props.timelineBegin) {
+      const courseMessage = 'This course is expired now, you can create a new course.';
+      const current = new Date().toJSON();
+      const end = this.props.value;
+      if (current > end) {
+        alert(courseMessage);
+      }
+    }
     if (!this.state.datePickerVisible) {
       this.setState({ datePickerVisible: true });
     }
