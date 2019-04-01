@@ -4,7 +4,6 @@ import {
   START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS
 } from '../constants';
 import API from '../utils/api.js';
-import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
 
 export const fetchCourse = courseSlug => (dispatch) => {
@@ -76,16 +75,11 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
     .catch(data => ({ type: API_FAIL, data }));
 };
 
-const needsUpdatePromise = (courseSlug) => {
-  return fetch(`/courses/${courseSlug}/needs_update.json`)
-     .then((response) => {
-       return response.json();
-     })
-     .catch((err) => {
-       logErrorMessage(err);
-       return err;
-     });
-};
+const needsUpdatePromise = (courseSlug,dispatch) => {
+  return API.fetch(courseSlug,'needs_update')
+  .then(data => dispatch({ type: RECEIVE_COURSE_UPDATE, data }))
+  .catch(data => dispatch({ type: API_FAIL, data, silent: true }))
+}
 
 const needsUpdateNotification = (response) => {
   return {
