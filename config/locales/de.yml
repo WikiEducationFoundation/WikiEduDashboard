@@ -963,6 +963,10 @@ de:
     discard_all_changes: Alle Änderungen verwerfen
     delete_timeline_and_start_over: Zeitleiste löschen
     due_default: Während nächster Woche
+    edit_titles: Wochentitel bearbeiten
+    edit_titles_info: Wochentitel in der Zeitleiste bearbeiten. Nur Wochen mit eingeplanten
+      Treffen können mit benutzerdefinierten Titeln versehen werden. Falls benutzerdefinierte
+      Titel verwendet werden, werden Wochen ohne Treffen datiert anstatt nummeriert.
     empty_week_1: Um anzufangen,
     empty_week_2: beginne mit dem Bearbeiten in dieser Woche
     empty_week_3: ' oder&nbsp;'
@@ -978,6 +982,9 @@ de:
     no_timeline: Dieser Kurs hat keine Zeitleiste.
     no_activity_this_week: Keine geplanten Treffen in dieser Woche
     nothing_this_week: Für diese Woche ist nichts auf dem Plan.
+    reset_titles: Auf den Standard zurücksetzen
+    reset_titles_confirmation: Bist du dir sicher, dass du alle Wochentitel zurücksetzen
+      möchtest? Dies kann nicht rückgängig gemacht werden.
     save_all_changes: Alle speichern
     this_week_title_default: Diese Woche
     title: Zeitleiste

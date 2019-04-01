@@ -962,6 +962,10 @@ pt-br:
     discard_all_changes: Descartar Todas as Mudanças
     delete_timeline_and_start_over: Apagar cronograma
     due_default: Previsto para a próxima semana
+    edit_titles: Editar títulos da semana
+    edit_titles_info: Edite títulos da semana na linha do tempo. Apenas semanas com
+      reuniões agendadas podem receber títulos personalizados. Se algum título personalizado
+      for usado, semanas sem reuniões serão datadas em vez de numeradas.
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
@@ -976,6 +980,9 @@ pt-br:
     no_timeline: Este curso não tem cronograma.
     no_activity_this_week: Não há reuniões agendadas esta semana
     nothing_this_week: Não há nada agendado para esta semana.
+    reset_titles: Restaurar ao padrão
+    reset_titles_confirmation: Tem certeza de que deseja redefinir todos os títulos
+      da semana? Isto não pode ser desfeito.
     save_all_changes: Salvar Tudo
     this_week_title_default: Esta Semana
     title: Linha do tempo

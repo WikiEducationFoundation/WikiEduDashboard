@@ -112,6 +112,7 @@ pt:
     article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos disponíveis
+    no_available: Não há nenhum artigo disponível
     next: Seguinte
     previous: Anterior
     article_title: Título do artigo
@@ -361,6 +362,9 @@ pt:
         calendarização (semanas e blocos). Certifique-se de que adiciona as datas,
         que não são transferidas. Alterou-se mais alguma coisa no seu curso? Atualize-a
         agora.
+      course_dates_info: Introduza as datas de início e fim do seu curso. No próximo
+        passo, poderá escolher quando iniciará o seu trabalho na Wikipédia, dentro
+        do período especificado.
       course_description: Descrição do curso
       course_description_placeholder: O que está a ser abordado no seu curso, e o
         que os alunos estão a elaborar na Wikipédia? Por favor, inclua todos os detalhes
@@ -415,7 +419,7 @@ pt:
       - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
       separate_event_dates: Especifique separadamente os horários iniciais e finais
-        do evento
+        do evento (opcional)
       separate_event_dates_info: As estatísticas de atividade deste programa serão
         monitorizadas com base nas datas e horários acima, mas pode especificar separadamente
         os horários para quando for começar ou terminar o evento ou programa em si
@@ -694,6 +698,10 @@ pt:
         para finalizar.
       course_when: Acrescente qualquer coisa no campo 'Quando' (por exemplo, o mês
         e o ano) para diferenciá-lo do original.
+      course_dates_info: Introduza as datas de início e fim do seu programa. Talvez
+        seja desejável atrasar o fim para várias horas ou dias após o a conclusão
+        das atividades principais, de forma a incluir as edições relacionadas que
+        acontecem logo após o evento.
       course_description: Descrição do programa
       course_description_placeholder: Que tipo de programa é este e que estarão os
         participantes a fazer na(s) wiki(s)? Inclua todos os detalhes, por favor,
@@ -991,7 +999,7 @@ pt:
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
       a menos que entre com a sua conta.
     done: Concluído!
-    invalid: Desculpe, esse slide não existe!
+    invalid: Desculpe, esse diapositivo não existe!
     wait: Não deixe a página, por favor, porque o progresso da sua formação está a
       ser atualizado.
     check_answer: Verificar resposta

@@ -486,7 +486,7 @@ cs:
       ihned po založení účtu.
     new_account_username: Požadované uživatelské jméno
     new_account_username_invalid: Toto není platné uživatelské jméno.
-    new_account_username_placeholder: Wikieditor 123
+    new_account_username_placeholder: Wiki editor 123
     new_account_username_taken: Toto uživatelské jméno se již používá. Zvolte si prosím
       jiné.
     new_account_submit: Požádat o účet
