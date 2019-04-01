@@ -319,13 +319,6 @@ const DiffViewer = createReactClass({
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
             <button onClick={this.hideDiff} className="pull-right icon-close"/>
-            <a
-              className="pull-right button small diff-viewer-feedback"
-              href="/feedback?subject=Diff Viewer"
-              target="_blank"
-            >
-              How did the diff viewer work for you?
-            </a>
           </div>
           <div className="diff-viewer-header">
             {this.nextArticle()}
