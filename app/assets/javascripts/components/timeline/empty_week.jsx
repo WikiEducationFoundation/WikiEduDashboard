@@ -10,6 +10,7 @@ const EmptyWeek = createReactClass({
   propTypes: {
     emptyTimeline: PropTypes.bool,
     edit_permissions: PropTypes.bool,
+    usingCustomTitles: PropTypes.bool,
     course: PropTypes.object,
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
@@ -56,14 +57,32 @@ const EmptyWeek = createReactClass({
 
     const weekNumber = this.props.index + this.props.weeksBeforeTimeline;
 
+    let header;
+    const datesStr = `${dateCalc.start()} - ${dateCalc.end()}`;
+    if (this.props.usingCustomTitles) {
+      header = (
+        <div className="week__week-header">
+          <p className="week-index">
+            {I18n.t('timeline.week_number', { number: datesStr })}
+          </p>
+        </div>
+      );
+    } else {
+      header = (
+        <div className="week__week-header">
+          <p className="week-index">
+            {I18n.t('timeline.week_number', { number: weekNumber || 1 })}
+          </p>
+          <span className="week__week-dates">
+            {datesStr}
+          </span>
+        </div>
+      );
+    }
+
     return (
       <li className={`week week-${this.props.index}`}>
-        <div className="week__week-header">
-          <span className="week__week-dates pull-right">
-            {dateCalc.start()} - {dateCalc.end()}
-          </span>
-          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber || 1 })}</p>
-        </div>
+        {header}
         <div className="week__no-activity">
           {week}
         </div>

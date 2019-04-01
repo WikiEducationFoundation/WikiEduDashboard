@@ -7,6 +7,8 @@ import {
   ADD_BLOCK,
   DELETE_BLOCK,
   INSERT_BLOCK,
+  UPDATE_TITLE,
+  RESET_TITLES,
   ADD_WEEK,
   DELETE_WEEK,
   API_FAIL,
@@ -93,6 +95,14 @@ export const addBlock = (weekId) => {
 
 export const insertBlock = (block, newWeekId, afterBlock) => {
   return { type: INSERT_BLOCK, block, newWeekId, afterBlock };
+};
+
+export const updateTitle = (weekId, title) => {
+  return { type: UPDATE_TITLE, weekId, title };
+};
+
+export const resetTitles = () => {
+  return { type: RESET_TITLES };
 };
 
 export const restoreTimeline = () => {

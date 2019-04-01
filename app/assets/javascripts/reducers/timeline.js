@@ -9,6 +9,8 @@ import {
   ADD_BLOCK,
   DELETE_BLOCK,
   INSERT_BLOCK,
+  UPDATE_TITLE,
+  RESET_TITLES,
   RESTORE_TIMELINE
 } from '../constants';
 
@@ -37,6 +39,19 @@ const blocksInWeek = (blocks, weekId) => {
     }
   });
   return count;
+};
+
+const validateTitle = (title) => {
+  return title.length <= 20;
+};
+
+const deepCopyWeeks = (weeks) => {
+  const weeksCopy = {};
+  const weekIds = Object.keys(weeks);
+  weekIds.forEach((id) => {
+    weeksCopy[id] = { ...weeks[id] };
+  });
+  return weeksCopy;
 };
 
 const newBlock = (tempId, weekId, state) => {
@@ -190,8 +205,22 @@ export default function timeline(state = initialState, action) {
       const blocks = updateBlockPosition(action.block, action.newWeekId, action.afterBlock, state.blocks);
       return { ...state, blocks };
     }
+    case UPDATE_TITLE: {
+      const weeks = { ...state.weeks };
+      if (validateTitle(action.title)) {
+        weeks[action.weekId].title = action.title;
+      }
+      return { ...state, weeks };
+    }
+    case RESET_TITLES: {
+      const weeks = { ...state.weeks };
+      Object.keys(weeks).forEach((weekId) => {
+        weeks[weekId].title = '';
+      });
+      return { ...state, weeks };
+    }
     case RESTORE_TIMELINE: {
-      return { ...state, blocks: { ...state.blocksPersisted }, weeks: { ...state.weeksPersisted }, editableBlockIds: [] };
+      return { ...state, blocks: { ...state.blocksPersisted }, weeks: deepCopyWeeks(state.weeksPersisted), editableBlockIds: [] };
     }
     default:
       return state;

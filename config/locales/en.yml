@@ -914,6 +914,8 @@ en:
     discard_all_changes: Discard All Changes
     delete_timeline_and_start_over: Delete Timeline
     due_default: Due next week
+    edit_titles: Edit Week Titles
+    edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
     # FIXME: lego message. This one is hard to work around because it has inline components.
     empty_week_1: 'To get started, '
     empty_week_2: start editing this week
@@ -929,6 +931,8 @@ en:
     no_timeline: This course has no timeline.
     no_activity_this_week: No scheduled meetings this week
     nothing_this_week: There is nothing on the schedule for this week.
+    reset_titles: Reset to Default
+    reset_titles_confirmation: Are you sure you want to reset all week titles? This cannot be undone.
     save_all_changes: Save All
     this_week_title_default: This Week
     title: Timeline

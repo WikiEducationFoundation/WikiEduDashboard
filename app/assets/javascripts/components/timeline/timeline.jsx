@@ -35,12 +35,16 @@ const Timeline = createReactClass({
     deleteAllWeeks: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
+    updateTitle: PropTypes.func,
+    resetTitles: PropTypes.func,
     saveBlockChanges: PropTypes.func,
     cancelBlockEditable: PropTypes.func,
     all_training_modules: PropTypes.array,
     edit_permissions: PropTypes.bool,
     reorderable: PropTypes.bool,
-    enableReorderable: PropTypes.func
+    editableTitles: PropTypes.bool,
+    enableReorderable: PropTypes.func,
+    enableEditTitles: PropTypes.func
   },
 
   getInitialState() {
@@ -58,6 +62,10 @@ const Timeline = createReactClass({
   getBlocksInWeek(weekId) {
     const week = this.props.weeks.find(thisWeek => thisWeek.id === weekId);
     return week.blocks;
+  },
+
+  usingCustomTitles() {
+    return this.props.weeks.some(week => week.title);
   },
 
   hasTimeline() {
@@ -177,6 +185,8 @@ const Timeline = createReactClass({
 
     const weekComponents = [];
     const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(this.props.course);
+    const usingCustomTitles = this.usingCustomTitles();
+    const weekNavInfo = [];
     let i = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
@@ -201,6 +211,7 @@ const Timeline = createReactClass({
       while (this.props.week_meetings[i] === '()') {
         const emptyWeekKey = `empty-week-${i}`;
         const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
+        weekNavInfo.push({ emptyWeek: true, title: undefined });
         weekComponents.push((
           <div key={emptyWeekKey}>
             <a className="timeline__anchor" name={weekAnchorName} />
@@ -208,6 +219,7 @@ const Timeline = createReactClass({
               course={this.props.course}
               edit_permissions={this.props.edit_permissions}
               index={i + 1}
+              usingCustomTitles={usingCustomTitles}
               timeline_start={this.props.course.timeline_start}
               timeline_end={this.props.course.timeline_end}
               weeksBeforeTimeline={weeksBeforeTimeline}
@@ -220,6 +232,7 @@ const Timeline = createReactClass({
       }
 
       const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
+      weekNavInfo.push({ emptyWeek: false, title: week.title });
       weekComponents.push((
         <div key={week.id}>
           <a className="timeline__anchor" name={weekAnchorName} />
@@ -227,6 +240,9 @@ const Timeline = createReactClass({
             week={week}
             index={i + 1}
             reorderable={this.props.reorderable}
+            editableTitles={this.props.editableTitles}
+            usingCustomTitles={usingCustomTitles}
+            updateTitle={this.props.updateTitle}
             blocks={week.blocks}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
             meetings={this.props.week_meetings[i]}
@@ -280,18 +296,37 @@ const Timeline = createReactClass({
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }
 
-    const controls = this.props.reorderable || __guard__(this.props, x => x.editableBlockIds.length) > 1 ? (
+    const saveChangesButton = (
+      <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
+        {I18n.t('timeline.save_all_changes')}
+      </button>
+    );
+    const cancelChangesButton = (
+      <button className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
+        {I18n.t('timeline.discard_all_changes')}
+      </button>
+    );
+    const resetTitlesButton = (
+      <button className="button button--clear button--block" onClick={this.props.resetTitles}>
+        {I18n.t('timeline.reset_titles')}
+      </button>
+    );
+    const reorderActionButtons = this.props.reorderable || __guard__(this.props, x => x.editableBlockIds.length) > 1 ? (
       <div>
-        <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
-          {I18n.t('timeline.save_all_changes')}
-        </button>
-        <button className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
-          {I18n.t('timeline.discard_all_changes')}
-        </button>
+        {saveChangesButton}
+        {cancelChangesButton}
       </div>
-    ) : undefined;
+    ) : null;
+    const titlesActionButtons = this.props.editableTitles ? (
+      <div>
+        {saveChangesButton}
+        {cancelChangesButton}
+        {resetTitlesButton}
+      </div>
+    ) : null;
 
     let reorderableControls;
+    let editWeekTitles;
     let editCourseDates;
     let addWeekLink;
     if (this.props.edit_permissions) {
@@ -305,7 +340,23 @@ const Timeline = createReactClass({
       } else if (this.props.editableBlockIds.length === 0) {
         reorderableControls = (
           <div className="reorderable-controls">
-            <button className="button border button--block" onClick={this.props.enableReorderable}>Arrange Timeline</button>
+            <button className="button border button--block" onClick={this.props.enableReorderable}>{I18n.t('timeline.arrange_timeline')}</button>
+          </div>
+        );
+      }
+
+      // if currently editing titles show info, otherwise show button
+      if (this.props.editableTitles) {
+        editWeekTitles = (
+          <div className="edit-week-titles">
+            <h5>{I18n.t('timeline.edit_titles')}</h5>
+            <p className="muted">{I18n.t('timeline.edit_titles_info')}</p>
+          </div>
+        );
+      } else {
+        editWeekTitles = (
+          <div className="edit-week-titles">
+            <button className="button border button--block" onClick={this.props.enableEditTitles}>{I18n.t('timeline.edit_titles')}</button>
           </div>
         );
       }
@@ -334,7 +385,7 @@ const Timeline = createReactClass({
       );
     }
 
-    const weekNav = weekComponents.map((week, navIndex) => {
+    const weekNav = weekNavInfo.map((weekInfo, navIndex) => {
       let navClassName = 'week-nav__item';
       if (navIndex === 0) {
         navClassName += ' is-current';
@@ -343,12 +394,32 @@ const Timeline = createReactClass({
       const dateCalc = new DateCalculator(this.props.course.timeline_start, this.props.course.timeline_end, navIndex, { zeroIndexed: true });
       const navWeekKey = `week-${navIndex}`;
       const navWeekLink = `#week-${navIndex + 1 + weeksBeforeTimeline}`;
-      return (
-        <li className={navClassName} key={navWeekKey}>
-          <a href={navWeekLink}>{week.title || I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline })}</a>
-          <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
-        </li>
-      );
+
+      // if using custom titles, show only titles, otherwise, show default titles and dates
+      let navItem;
+      if (usingCustomTitles) {
+        let navTitle = '';
+        if (weekInfo.emptyWeek) {
+          const datesStr = `${dateCalc.start()} - ${dateCalc.end()}`;
+          navTitle = I18n.t('timeline.week_number', { number: datesStr });
+        } else {
+          navTitle = weekInfo.title ? weekInfo.title : I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline });
+        }
+        navItem = (
+          <li className={navClassName} key={navWeekKey}>
+            <a className="no-nav-dates" href={navWeekLink}>{navTitle}</a>
+          </li>
+        );
+      } else {
+        navItem = (
+          <li className={navClassName} key={navWeekKey}>
+            <a href={navWeekLink}>{I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline })}</a>
+            <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
+          </li>
+        );
+      }
+
+      return navItem;
     });
 
     let restartTimeline;
@@ -368,7 +439,11 @@ const Timeline = createReactClass({
           <section className="timeline-ctas float-container">
             <span>{wizardLink}</span>
             {reorderableControls}
-            {controls}
+            {reorderActionButtons}
+          </section>
+          <section className="timeline-ctas float-container">
+            {editWeekTitles}
+            {titlesActionButtons}
           </section>
           <section className="timeline-ctas float-container">
             {restartTimeline}
