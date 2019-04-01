@@ -75,11 +75,11 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
     .catch(data => ({ type: API_FAIL, data }));
 };
 
-const needsUpdatePromise = (courseSlug,dispatch) => {
-  return API.fetch(courseSlug,'needs_update')
-  .then(data => dispatch({ type: RECEIVE_COURSE_UPDATE, data }))
-  .catch(data => dispatch({ type: API_FAIL, data, silent: true }))
-}
+const needsUpdatePromise = (courseSlug, dispatch) => {
+  return API.fetch(courseSlug, 'needs_update')
+  .then(data => dispatch({ type: UPDATE_COURSE, data }))
+  .catch(data => dispatch({ type: API_FAIL, data, silent: true }));
+};
 
 const needsUpdateNotification = (response) => {
   return {
