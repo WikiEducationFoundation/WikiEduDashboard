@@ -91,7 +91,7 @@
     "mkdirp": "^0.5.1",
     "moment": "2.24.0",
     "moment-recur": "^1.0.7",
-    "nouislider": "^13.1.2",
+    "nouislider": "^13.1.4",
     "parsleyjs": "^2.8.2",
     "promise-limit": "^2.7.0",
     "prop-types": "^15.7.2",

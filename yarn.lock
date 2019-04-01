@@ -9839,10 +9839,10 @@ normalize-space-x@^3.0.0:
     trim-x "^3.0.0"
     white-space-x "^3.0.0"
 
-nouislider@^13.1.2:
-  version "13.1.2"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-13.1.2.tgz#2186b9e5fbcf2f3d8f62c2412ccebb3c5ffbd482"
-  integrity sha512-0IqFYJYRl8hpTsLsTIJF8ePVG8p0uHwPPRNOjyRCeF3Z4/KdMqlukKlj1pkvK13Ge5CsDi9i/UTx1Sv5+nzi9w==
+nouislider@^13.1.4:
+  version "13.1.4"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-13.1.4.tgz#1927e8787b3f8876d7b942999e9968b234e8bc8f"
+  integrity sha512-XcGdAkjDNjaciL4rBdf6/0Yfj7cVCPD9lUjFfOJnUdku4XaJUFa3Im3w8NnCuJFZ3NraRATREjpqDfbQIRRU0w==
 
 npm-bundled@^1.0.1:
   version "1.0.3"
@@ -12100,7 +12100,7 @@ saxes@^3.1.5:
   dependencies:
     xmlchars "^1.3.1"
 
-scheduler@^0.13.4, scheduler@^0.13.5, scheduler@^0.13.6:
+scheduler@^0.13.5, scheduler@^0.13.6:
   version "0.13.6"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
   integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
