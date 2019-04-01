@@ -48,6 +48,7 @@ export class NewReplyForm extends React.Component {
             value={this.state.content}
             value_key="content"
             wysiwyg={true}
+            clearOnSubmit={true}
           />
         </div>
         <button className="button dark right mt2">Send Reply</button>

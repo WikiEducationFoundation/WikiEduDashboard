@@ -21,7 +21,7 @@ export class TicketShow extends React.Component {
   }
 
   render() {
-    if (this.props.tickets.loading) return <Loading />;
+    if (!this.props.tickets.selected.id) return <Loading />;
 
     return (
       <Show

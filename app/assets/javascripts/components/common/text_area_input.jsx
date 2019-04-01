@@ -25,13 +25,20 @@ const TextAreaInput = createReactClass({
     rows: PropTypes.string, // set the number of rows — plain text only
     wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
     markdown: PropTypes.bool, // render value as Markdown when in read mode
-    className: PropTypes.string
+    className: PropTypes.string,
+    clearOnSubmit: PropTypes.bool
   },
 
   handleRichTextEditorChange(e) {
     this.props.onChange(
       { target: { value: e.target.getContent() } }
     );
+  },
+
+  handleSubmit() {
+    if (this.props.clearOnSubmit) {
+      this.state.activeEditor.setContent('');
+    }
   },
 
   render() {
@@ -53,8 +60,10 @@ const TextAreaInput = createReactClass({
           <Editor
             initialValue={this.props.value}
             onChange={this.handleRichTextEditorChange}
+            onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
+               setup: (editor) => { this.setState({ activeEditor: editor }); },
                inline: true,
                plugins: 'lists link code',
                toolbar: [
