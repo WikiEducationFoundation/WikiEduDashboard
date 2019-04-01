@@ -1,0 +1,32 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+.hidden
+  %span -- REPLY ABOVE THIS LINE --
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline.preserve-whitespace
+                You received a message from
+                %span= @sender_name
+              %p.paragraph.preserve-whitespace
+                You received the following message from the Wiki Edu Dashboard in relation to
+                %strong= @course.title
+              %div.blockquote
+                = raw(@message.content)
+
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link{:href => @course_link}
+                      Go to Course
+                  %td.main-content.link-cell
+                    &nbsp; &nbsp;
+                  - if @recipient.admin?
+                    %td.main-content.link-cell
+                      %a.button_link{:href => @ticket_dashboard_link}
+                        Go to Ticket Dashboard
+              .hidden
+                = @reference_code

@@ -7,8 +7,24 @@ import {
 import fetch from 'cross-fetch';
 
 export const createReply = ({ csrf, ...body }) => async (dispatch) => {
-  await fetch('/td/messages', {
+  const response = await fetch('/td/messages', {
     body: JSON.stringify(body),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrf
+    },
+    method: 'POST'
+  });
+
+  const message = await response.json();
+  const notificationBody = {
+    sender_id: body.sender_id,
+    message_id: message.id
+  };
+
+  await fetch('/tickets/notify', {
+    body: JSON.stringify(notificationBody),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
