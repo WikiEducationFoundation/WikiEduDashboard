@@ -7,14 +7,10 @@ class EmailProcessor
 
   def process
     recipient_emails = @email.to.pluck(:email)
-    recipients = User.where(email: recipient_emails)
+    owner = User.find_by(greeter: true, email: recipient_emails).first
 
-    owner = recipients.find do |recipient|
-      SpecialUsers.wikipedia_experts.include?(recipient.username)
-    end
-    owner ||= SpecialUsers.wikipedia_experts.first
-
-    sender = User.find_by(email: @email.from[:email])
+    email = @email.from[:email]
+    sender = User.find_by(email: email) if email
     course = sender.courses.last if sender
 
     content = @email.body

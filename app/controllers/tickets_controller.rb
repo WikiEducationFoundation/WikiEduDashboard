@@ -12,7 +12,7 @@ class TicketsController < ApplicationController
 
     ticket = message.ticket
     course = ticket.course
-    recipient = ticket.other_recipient(sender)
+    recipient = ticket.reply_to
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
     render json: { success: :ok }

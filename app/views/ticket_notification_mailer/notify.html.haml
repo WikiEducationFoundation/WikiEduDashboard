@@ -8,15 +8,21 @@
         %table
           %tr
             %td.main-content
-              %h1.headline.preserve-whitespace
-                You received a message from
-                %span= @sender_name
-              %p.paragraph.preserve-whitespace
-                You received the following message from the Wiki Edu Dashboard in relation to
-                %strong= @course.title
-              %div.blockquote
+              %section.message
                 = raw(@message.content)
+                \-
+                =@sender_name
 
+              - @ticket.messages.reverse[1..-1].each do |message|
+                %div.blockquote
+                  %p= raw(message.content)
+                  %p
+                    Sent By:
+                    =message.sender.real_name || message.sender.username
+                    on
+                    =message.created_at.in_time_zone('US/Pacific').strftime('%b %e, %l:%M %p %Z')
+
+              %hr
               %table
                 %tr
                   %td.main-content.link-cell

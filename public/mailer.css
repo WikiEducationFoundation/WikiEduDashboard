@@ -6,7 +6,7 @@
   text-align:left;
 }
 
-.paragraph {
+section.message, section.message p, .paragraph {
   font-family: "Open Sans", sans-serif;
   color: #666666;
   font-size: 18px;

@@ -30,6 +30,12 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
       <p>Hello there,</p>
       <p>I have a question about using the dashboard...</p>
     )
-    TicketDispenser::Message.new(content: content)
+    ticket = TicketDispenser::Ticket.first || TicketDispenser::Dispenser.call(
+      content: content,
+      course: course,
+      owner: recipient(:admin),
+      sender: sender
+    )
+    ticket.messages.last
   end
 end

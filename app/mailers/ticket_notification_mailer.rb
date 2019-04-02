@@ -9,6 +9,7 @@ class TicketNotificationMailer < ApplicationMailer
   def notify(course, message, recipient, sender)
     @course = course
     @message = message
+    @ticket = message.ticket
     @recipient = recipient
     @sender = sender
     @sender_name = @sender.real_name || @sender.username
@@ -16,8 +17,8 @@ class TicketNotificationMailer < ApplicationMailer
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @ticket_dashboard_link = "https://#{ENV['dashboard_url']}/tickets/dashboard"
     @reference_code = "ref_m#{@message.id}_ref"
-    mail(to: @recipient || recipient_email,
+    mail(to: @recipient.email,
          from: @sender.email,
-         subject: 'You received a response from your Wikipedia Expert')
+         subject: "#{course.title}: Response to your help request")
   end
 end

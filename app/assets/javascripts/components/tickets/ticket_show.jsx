@@ -10,7 +10,6 @@ export const TicketShow = ({ ticket, createReply, currentUser, fetchTicket }) =>
   const dateTime = moment(createdAt).format('MMMM DD, hh:mm a');
 
   const replies = ticket.messages.map(message => <Reply key={message.id} message={message} />);
-
   return (
     <main className="container ticket-dashboard">
       <h1 className="mt4">Ticket from {ticket.sender}</h1>
