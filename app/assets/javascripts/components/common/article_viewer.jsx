@@ -122,6 +122,10 @@ const ArticleViewer = createReactClass({
     return `https://api.wikiwho.net/${this.props.article.language}/whocolor/v1.0.0-beta/${this.props.article.title}/`;
   },
 
+  whocolorRevUrl() {
+    return `https://api.wikiwho.net/${this.props.article.language}/api/v1.0.0-beta/rev_content/${this.props.article.title}/?o_rev_id=true&editor=true&token_id=true&out=true&in=true`;
+  },
+
   parsedArticleUrl() {
     const wikiUrl = this.wikiUrl();
     const queryBase = `${wikiUrl}/w/api.php?action=parse&disableeditsection=true&format=json`;
@@ -228,15 +232,35 @@ const ArticleViewer = createReactClass({
     });
   },
 
-  fetchWhocolorHtml() {
+  fetchWhocolorHtml(firstTry = true) {
     $.ajax({
       url: this.whocolorUrl(),
       crossDomain: true,
       success: (json) => {
+        // If the data isn't already available on the wikiwho server,
+        // it may return a 200 response with `success: false`.
+        // In this case, requesting the `rev_content` for the article
+        // usually causes a subsequent request for the extented html to
+        // succeed.
+        if (!json.success && firstTry) {
+          this.generateWhocolorHtml();
+        } else {
         this.setState({
           whocolorHtml: this.processHtml(json.extended_html, true)
         });
         this.highlightAuthors();
+        }
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
+    });
+  },
+
+  generateWhocolorHtml() {
+    $.ajax({
+      url: this.whocolorRevUrl(),
+      crossDomain: true,
+      success: () => {
+        this.fetchWhocolorHtml(false);
       },
       error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
@@ -328,9 +352,7 @@ const ArticleViewer = createReactClass({
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
-              {this.props.article.id && (
-                <span><a className="icon-link" href={`?showArticle=${this.props.article.id}`} /></span>
-              ) }
+              <span><a className="icon-link" href={`?showArticle=${this.props.article.id}`} /></span>
               {closeButton}
               <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
