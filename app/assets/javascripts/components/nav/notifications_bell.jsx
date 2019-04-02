@@ -8,10 +8,12 @@ export default class NotificationsBell extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/td/open_tickets')
-      .then(res => res.json())
-      .then(({ open_tickets }) => this.setState({ open_tickets }))
-      .catch(err => err);
+    if (Features.wikiEd) {
+      fetch('/td/open_tickets')
+        .then(res => res.json())
+        .then(({ open_tickets }) => this.setState({ open_tickets }))
+        .catch(err => err);
+    }
     fetch('/requested_accounts.json')
       .then(res => res.json())
       .then(({ requested_accounts }) => this.setState({ requested_accounts }))
@@ -19,9 +21,10 @@ export default class NotificationsBell extends React.Component {
   }
 
   render() {
+    const path = Features.wikiEd ? '/admin' : '/requested_accounts';
     return (
       <li aria-describedby="notification-message" className="notifications">
-        <a href="/admin" className="icon icon-notifications_bell"/>
+        <a href={path} className="icon icon-notifications_bell"/>
         {
           (this.state.requested_accounts || this.state.open_tickets)
           ? (
