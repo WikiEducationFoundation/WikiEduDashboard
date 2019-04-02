@@ -27,7 +27,7 @@
     "create-react-class": "^15.6.3",
     "cross-fetch": "^3.0.2",
     "deep-freeze": "^0.0.1",
-    "del": "^4.0.0",
+    "del": "^4.1.0",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^5.16.0",
