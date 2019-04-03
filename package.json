@@ -100,7 +100,7 @@
     "raven-js": "^3.27.0",
     "react": "^16.8.6",
     "react-burger-menu": "2.6.8",
-    "react-confetti": "^2.7.0",
+    "react-confetti": "^2.7.2",
     "react-day-picker": "7.3.0",
     "react-dnd": "^3.0.2",
     "react-dnd-html5-backend": "^5.0.1",
