@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { STATUSES } from './util';
 
 const TicketsTableRow = ({ ticket }) => (
-  <tr className={ticket.read ? 'table-row--faded' : ''}>
+  <tr className={ticket.read ? 'table-row--faded' : 'read'}>
     <td>
       { ticket.sender || 'Unknown User Record' }
     </td>

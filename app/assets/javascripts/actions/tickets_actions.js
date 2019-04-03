@@ -52,7 +52,7 @@ export const readAllMessages = (csrf, ticket) => async (dispatch) => {
   });
   await response.json();
 
-  dispatch({ type: SET_MESSAGES_TO_READ });
+  dispatch({ type: SET_MESSAGES_TO_READ, data: ticket.id });
 };
 
 export const fetchTickets = () => async (dispatch) => {

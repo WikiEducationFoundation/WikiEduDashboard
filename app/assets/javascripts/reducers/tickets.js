@@ -2,6 +2,7 @@ import {
   FETCH_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
+  SET_MESSAGES_TO_READ,
   SORT_TICKETS } from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
@@ -42,6 +43,18 @@ export default function (state = initialState, action) {
         ...state,
         selected: action.ticket
       };
+    case SET_MESSAGES_TO_READ: {
+      state.selected.read = true;
+
+      const id = action.data;
+      const ticket = state.all.find(tick => tick.id === id);
+      ticket.read = true;
+
+      return {
+        ...state,
+        selected: { ...state.selected }
+      };
+    }
     case SORT_TICKETS: {
       const sorted = sortByKey(state.all, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
 
