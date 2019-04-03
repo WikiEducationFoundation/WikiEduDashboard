@@ -3,12 +3,13 @@ import {
   FETCH_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
+  SET_MESSAGES_TO_READ,
   SORT_TICKETS } from '../constants/tickets';
 import fetch from 'cross-fetch';
 
 export const createReply = ({ csrf, ...body }) => async (dispatch) => {
   const response = await fetch('/td/messages', {
-    body: JSON.stringify(body),
+    body: JSON.stringify({ ...body, read: true }),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -34,6 +35,24 @@ export const createReply = ({ csrf, ...body }) => async (dispatch) => {
   });
 
   dispatch({ type: CREATE_REPLY });
+};
+
+export const readAllMessages = (csrf, ticket) => async (dispatch) => {
+  const unreadMessages = ticket.messages.some(message => !message.read);
+  if (!unreadMessages) return false;
+
+  const response = await fetch('/td/read_all_messages', {
+    body: JSON.stringify({ ticket_id: ticket.id }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrf
+    },
+    method: 'PUT'
+  });
+  await response.json();
+
+  dispatch({ type: SET_MESSAGES_TO_READ });
 };
 
 export const fetchTickets = () => async (dispatch) => {

@@ -8,16 +8,23 @@ import {
   createReply,
   fetchTicket,
   fetchTickets,
+  readAllMessages,
   selectTicket } from '../../actions/tickets_actions';
 
 export class TicketShow extends React.Component {
   componentDidMount() {
-    const { match, tickets } = this.props;
-    const id = match.params.id;
-    const ticket = tickets.byId[id];
-    if (ticket) return this.props.selectTicket(ticket);
+    const id = this.props.match.params.id;
+    const ticket = this.props.tickets.byId[id];
 
-    this.props.fetchTicket(id);
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+    if (ticket) {
+      this.props.readAllMessages(csrf, ticket);
+      return this.props.selectTicket(ticket);
+    }
+
+    this.props.fetchTicket(id).then(() => {
+      this.props.readAllMessages(csrf, this.props.tickets.selected);
+    });
   }
 
   render() {
@@ -43,6 +50,7 @@ const mapDispatchToProps = {
   createReply,
   fetchTicket,
   fetchTickets,
+  readAllMessages,
   selectTicket
 };
 
