@@ -26,7 +26,7 @@ GIT
       omniauth-oauth (~> 1.0)
 
 PATH
-  remote: ../TicketingEngine
+  remote: ../TicketDispenser
   specs:
     ticket_dispenser (0.1.0)
       active_model_serializers

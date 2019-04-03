@@ -21,7 +21,7 @@ gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queu
 gem 'dalli' # Caching
 gem 'connection_pool'
 
-gem 'ticket_dispenser', path: '../TicketingEngine'
+gem 'ticket_dispenser', path: '../TicketDispenser'
 
 ### Login, authentication, browser support
 gem 'devise' # user session management
