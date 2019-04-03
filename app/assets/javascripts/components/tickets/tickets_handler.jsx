@@ -9,13 +9,13 @@ import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
 
 export class TicketsHandler extends React.Component {
   componentDidMount() {
-    if (this.props.tickets.loading) {
+    if (!this.props.tickets.all.length) {
       this.props.fetchTickets();
     }
   }
 
   render() {
-    if (this.props.tickets.loading) return <Loading />;
+    if (!this.props.tickets.all.length) return <Loading />;
 
     const keys = {
       sender: {

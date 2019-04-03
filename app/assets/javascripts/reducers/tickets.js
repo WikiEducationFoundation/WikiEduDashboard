@@ -8,7 +8,6 @@ import { sortByKey } from '../utils/model_utils';
 const initialState = {
   all: [],
   byId: {},
-  loading: true,
   selected: {},
   sort: {
     sortKey: null,
@@ -35,15 +34,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         all: action.data,
-        loading: false,
         byId
       };
     }
     case SELECT_TICKET:
       return {
         ...state,
-        selected: action.ticket,
-        loading: false
+        selected: action.ticket
       };
     case SORT_TICKETS: {
       const sorted = sortByKey(state.all, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
