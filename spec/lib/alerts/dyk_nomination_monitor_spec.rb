@@ -61,7 +61,7 @@ describe DYKNominationMonitor do
     it 'emails course creator' do
       create(:courses_user, user: instructor, course: course,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      allow_any_instance_of(InstructorAlertMailer).to receive(:email).and_return(mock_mailer)
+      allow_any_instance_of(DidYouKnowAlertMailer).to receive(:email).and_return(mock_mailer)
       described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end
