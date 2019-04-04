@@ -10,6 +10,7 @@ const initialState = {
   all: [],
   byId: {},
   selected: {},
+  loading: true,
   sort: {
     sortKey: null,
     key: null
@@ -35,6 +36,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         all: action.data,
+        loading: false,
         byId
       };
     }

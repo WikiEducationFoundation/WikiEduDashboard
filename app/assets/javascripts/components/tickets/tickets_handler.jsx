@@ -15,7 +15,7 @@ export class TicketsHandler extends React.Component {
   }
 
   render() {
-    if (!this.props.tickets.all.length) return <Loading />;
+    if (this.props.tickets.loading) return <Loading />;
 
     const keys = {
       sender: {
@@ -66,6 +66,7 @@ export class TicketsHandler extends React.Component {
           keys={keys}
           sortBy={this.props.sortTickets}
           sortable={true}
+          table_key="tickets"
         />
       </main>
     );
