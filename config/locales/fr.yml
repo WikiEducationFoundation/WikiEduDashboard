@@ -989,6 +989,11 @@ fr:
     discard_all_changes: Annuler toutes les modifications
     delete_timeline_and_start_over: Supprimer le planning
     due_default: Attendu de la semaine prochaine
+    edit_titles: Modifier les titres de semaine
+    edit_titles_info: Modifier les titres de semaine dans le planning. Seules les
+      semaines avec des réunions prévues peuvent recevoir des titres personnalisés.
+      Si des titres personnalisés sont utilisés, les semaines sans réunion seront
+      datées au lieu d’être numérotées.
     empty_week_1: Pour commencer,
     empty_week_2: commencer à modifier cette semaine
     empty_week_3: ou
@@ -1003,6 +1008,9 @@ fr:
     no_timeline: Ce cours n’a pas de planning.
     no_activity_this_week: pas de réunions prévues cette semaine
     nothing_this_week: Il n’y a rien au planning pour cette semaine.
+    reset_titles: Réinitialiser à la valeur par défaut
+    reset_titles_confirmation: Êtes-vous sûr de vouloir réinitialiser tous les titres
+      de semaine ? Cela ne pourra pas être annulé.
     save_all_changes: Enregistrer tout
     this_week_title_default: Cette semaine
     title: Planning

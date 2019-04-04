@@ -964,6 +964,10 @@ pt:
     discard_all_changes: Descartar todas as mudanças
     delete_timeline_and_start_over: Apagar calendário
     due_default: Previsto para a próxima semana
+    edit_titles: Editar títulos das semanas
+    edit_titles_info: Edite títulos das semanas no calendário. Só as semanas com reuniões
+      agendadas podem receber títulos personalizados. Se for usado algum título personalizado,
+      as semanas sem reuniões serão datadas em vez de numeradas.
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
@@ -978,6 +982,9 @@ pt:
     no_timeline: Este curso não tem calendarização.
     no_activity_this_week: Nenhuma reunião programada para esta semana
     nothing_this_week: Não há nada agendado para esta semana.
+    reset_titles: Reiniciar para valor padrão
+    reset_titles_confirmation: Tem a certeza de que deseja reiniciar todos os títulos
+      das semanas? Esta operação não pode ser desfeita.
     save_all_changes: Gravar tudo
     this_week_title_default: Esta semana
     title: Calendário

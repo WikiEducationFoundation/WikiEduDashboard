@@ -764,6 +764,8 @@ zh-TW:
     discard_all_changes: 放棄所有更改
     delete_timeline_and_start_over: 刪除時間軸
     due_default: 下週到期
+    edit_titles: 編輯週標題
+    edit_titles_info: 在時間軸上編輯週標題。自訂標題僅可提供給帶有預定會議的週。如果使用了任何自訂標題，會以日期取代編號來標註沒有會議的週。
     empty_week_1: 要開始，
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
@@ -778,6 +780,8 @@ zh-TW:
     no_timeline: 此課程沒有時間軸。
     no_activity_this_week: 本週沒有預訂的會議
     nothing_this_week: 這星期的行事曆沒有任何活動。
+    reset_titles: 重設成預設值
+    reset_titles_confirmation: 您確定您要重新設定所有週標題嗎？此操作為不可回復。
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸

@@ -488,6 +488,7 @@ ko:
     no_timeline: 이 과정에는 타임라인이 없습니다.
     no_activity_this_week: 이 주에 예정된 미팅 없음
     nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
+    reset_titles: 기본값으로 재설정
     save_all_changes: 모두 저장
     this_week_title_default: 이번 주
     title: 타임라인
