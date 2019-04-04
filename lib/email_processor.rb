@@ -7,7 +7,7 @@ class EmailProcessor
 
   def process
     recipient_emails = @email.to.pluck(:email)
-    owner = User.find_by(greeter: true, email: recipient_emails).first
+    owner = User.find_by(greeter: true, email: recipient_emails)
 
     email = @email.from[:email]
     sender = User.find_by(email: email) if email

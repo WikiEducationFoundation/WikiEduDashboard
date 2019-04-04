@@ -10,13 +10,9 @@ describe EmailProcessor do
     let(:student) { create(:user, username: 'student', email: 'student@email.com') }
     let(:student_courses_user) { create(:courses_user, user: student, course: course) }
 
-    let(:expert) { create(:admin, username: 'expert', email: 'expert@wikiedu.org') }
+    let(:expert) { create(:admin, greeter: true, username: 'expert', email: 'expert@wikiedu.org') }
     let(:expert_courses_user) do
       create(:courses_user, user: expert, course: course, role: 4)
-    end
-
-    before do
-      allow(SpecialUsers).to receive(:wikipedia_experts).and_return([expert])
     end
 
     it 'creates an associated Ticket and Message' do
@@ -57,10 +53,10 @@ describe EmailProcessor do
       expect(message.content).to include('From other@email.com')
     end
 
-    it 'sets the owner to be a Wikipedia Expert even if it is not addressed to one' do
+    it 'does not set an owner if it is not addressed to a Wikipedia Expert' do
       email = create(:email,
                      to: [{ email: 'unknown@wikiedu.org' }],
-      from: { email: student.email })
+                     from: { email: student.email })
       processor = described_class.new(email)
       processor.process
 
@@ -68,7 +64,7 @@ describe EmailProcessor do
       expect(TicketDispenser::Message.all.count).to eq(1)
 
       ticket = TicketDispenser::Ticket.first
-      expect(ticket.owner).to eq(expert)
+      expect(ticket.owner).to eq(nil)
     end
   end
 end
