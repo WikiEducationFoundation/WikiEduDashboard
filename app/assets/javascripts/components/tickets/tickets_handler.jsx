@@ -21,32 +21,27 @@ export class TicketsHandler extends React.Component {
       sender: {
         label: 'Sender',
         desktop_only: false,
-        sortable: true,
-        order: 'asc'
+        sortable: true
       },
       course_title: {
         label: 'Course',
         desktop_only: false,
-        sortable: true,
-        order: 'asc'
+        sortable: true
       },
       status: {
         label: 'Status',
         desktop_only: false,
-        sortable: true,
-        order: 'asc'
+        sortable: true
       },
       owner: {
         label: 'Ticket Owner',
         desktop_only: true,
-        sortable: true,
-        order: 'asc'
+        sortable: true
       },
       actions: {
         label: 'Actions',
         desktop_only: false,
-        sortable: false,
-        order: 'asc'
+        sortable: false
       }
     };
 
