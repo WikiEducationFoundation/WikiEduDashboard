@@ -8,9 +8,4 @@ namespace :dev do
   task populate: :environment do
     populate_dashboard
   end
-
-  desc 'Set up example course with associated ticketing'
-  task ticketing: :environment do
-    populate_tickets_demo
-  end
 end
