@@ -16,7 +16,7 @@ class EmailProcessor
     content = @email.body
     content += " #{from_signature(@email.from)}" if sender.blank?
 
-    ticket = TicketDispenser::Ticket.create(owner: owner, course: course)
+    ticket = TicketDispenser::Ticket.create(owner: owner, project: course)
     TicketDispenser::Message.create(
       content: content,
       sender: sender,

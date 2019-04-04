@@ -22,8 +22,8 @@ export const Sidebar = ({ createdAt, currentUser, ticket }) => {
       <p>Assigned to <span className="bold">{assignedTo}</span></p>
       <p>
         {
-          ticket.course.id
-            ? <Link className="button" to={`/courses/${ticket.course.slug}`}>Go to Course</Link>
+          ticket.project.id
+            ? <Link className="button" to={`/courses/${ticket.project.slug}`}>Go to Course</Link>
             : 'Course Unknown'
         }
       </p>

@@ -10,8 +10,8 @@ const TicketsTableRow = ({ ticket }) => (
     </td>
     <td>
       {
-        ticket.course.id
-        ? <Link to={`/courses/${ticket.course.slug}`}>{ ticket.course.title }</Link>
+        ticket.project.id
+        ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
         : 'Course Unknown'
       }
     </td>

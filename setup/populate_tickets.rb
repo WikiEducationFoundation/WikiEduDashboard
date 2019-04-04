@@ -41,7 +41,7 @@ def populate_tickets_demo
   if instructor.blank?
     puts "No instructor found! Creating instructor..."
     user = UserImporter.new_from_username(instructor_username)
-    CoursesUsers.find_or_create_by(user: user, course: course, role: 2)
+    CoursesUsers.find_or_create_by(user: user, project: course, role: 2)
     puts "Default instructor created!\n\n"
   else
     puts "Instructor already exists!\n\n"
@@ -98,7 +98,7 @@ end
 
 def create_ticket_and_replies(course, sender, owner)
   ticket = TicketDispenser::Ticket.create({
-    course: course,
+    project: course,
     owner: owner
   })
   
@@ -107,7 +107,7 @@ def create_ticket_and_replies(course, sender, owner)
   end
   
   ticket.messages << TicketDispenser::Message.create({
-    content: content.strip,
+    content: "<p>#{content.strip}</p>",
     sender: sender
   })
 end

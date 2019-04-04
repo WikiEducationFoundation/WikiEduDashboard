@@ -1,4 +1,6 @@
+# frozen_string_literal: true
 # This migration comes from ticket_dispenser (originally 20190322210241)
+
 class CreateMessage < ActiveRecord::Migration[5.2]
   def change
     create_table :ticket_dispenser_messages do |t|

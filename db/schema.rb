@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_25_190750) do
+ActiveRecord::Schema.define(version: 2019_04_04_171638) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -249,18 +249,6 @@ ActiveRecord::Schema.define(version: 2019_03_25_190750) do
     t.datetime "created_at"
   end
 
-  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "kind", limit: 1, default: 0
-    t.integer "sender_id"
-    t.bigint "ticket_id"
-    t.boolean "read", default: false, null: false
-    t.text "content", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sender_id"], name: "fk_rails_b8f26a382d"
-    t.index ["ticket_id"], name: "index_messages_on_ticket_id"
-  end
-
   create_table "question_group_conditionals", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "rapidfire_question_group_id"
     t.integer "campaign_id"
@@ -434,23 +422,13 @@ ActiveRecord::Schema.define(version: 2019_03_25_190750) do
   end
 
   create_table "ticket_dispenser_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "course_id"
+    t.bigint "project_id"
     t.integer "owner_id"
     t.integer "status", limit: 1, default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_ticket_dispenser_tickets_on_course_id"
     t.index ["owner_id"], name: "index_ticket_dispenser_tickets_on_owner_id"
-  end
-
-  create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "course_id"
-    t.integer "owner_id"
-    t.integer "status", limit: 1, default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_tickets_on_course_id"
-    t.index ["owner_id"], name: "index_tickets_on_owner_id"
+    t.index ["project_id"], name: "index_ticket_dispenser_tickets_on_project_id"
   end
 
   create_table "training_libraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -566,6 +544,4 @@ ActiveRecord::Schema.define(version: 2019_03_25_190750) do
     t.index ["language", "project"], name: "index_wikis_on_language_and_project", unique: true
   end
 
-  add_foreign_key "messages", "users", column: "sender_id"
-  add_foreign_key "tickets", "users", column: "owner_id"
 end

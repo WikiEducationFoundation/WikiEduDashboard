@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
     sender = User.find(notification_params[:sender_id])
 
     ticket = message.ticket
-    course = ticket.course
+    course = ticket.project
     recipient = ticket.reply_to
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
@@ -21,6 +21,6 @@ class TicketsController < ApplicationController
   private
 
   def notification_params
-    params.permit(:course_id, :message_id, :recipient_id, :sender_id)
+    params.permit(:message_id, :sender_id)
   end
 end
