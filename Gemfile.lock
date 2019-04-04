@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/WikiEducationFoundation/TicketDispenser.git
+  revision: 7b4c0f747c9a2a289775e1ca279e7aaf59ad8220
+  specs:
+    ticket_dispenser (0.1.0)
+      active_model_serializers
+      mysql2
+      rails (~> 5.2.2, >= 5.2.2.1)
+
+GIT
   remote: https://github.com/WikiEducationFoundation/rapidfire
   revision: 71b0aa1982d24119774f7cb702727d3efcb3becc
   branch: master
@@ -24,14 +33,6 @@ GIT
     omniauth-mediawiki (0.0.2)
       jwt (~> 2.0)
       omniauth-oauth (~> 1.0)
-
-PATH
-  remote: ../TicketDispenser
-  specs:
-    ticket_dispenser (0.1.0)
-      active_model_serializers
-      mysql2
-      rails (~> 5.2.2, >= 5.2.2.1)
 
 GEM
   remote: https://rubygems.org/
