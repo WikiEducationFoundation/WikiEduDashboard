@@ -191,11 +191,13 @@ class SurveysController < ApplicationController
   end
 
   def ensure_logged_in
+    return if params.include?('preview') # allow preview even by logged out users
     return true if current_user
     render 'login'
   end
 
   def check_if_closed
+    return if params.include?('preview') # allow preview of a closed survey
     return unless @survey.closed
     redirect_to(main_app.root_path, flash: { notice: 'Sorry, this survey has been closed.' })
   end
