@@ -77,10 +77,10 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 
 const needsUpdatePromise = (courseSlug) => {
   return API.fetch(courseSlug, 'needs_update')
-  .then(data => {
+  .then((data) => {
       return data;
   })
-  .catch(err => {
+  .catch((err) => {
       return err;
   });
 };
