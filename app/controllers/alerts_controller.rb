@@ -45,9 +45,9 @@ class AlertsController < ApplicationController
   def generate_ticket
     TicketDispenser::Dispenser.call(
       content: @alert.message,
-      course_id: @alert.course.id,
+      project_id: @alert.course_id,
       owner_id: @alert.target_user_id,
-      sender_id: @alert.user.id
+      sender_id: @alert.user_id
     )
   end
 
