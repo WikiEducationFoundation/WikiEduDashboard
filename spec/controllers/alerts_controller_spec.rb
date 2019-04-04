@@ -37,7 +37,7 @@ describe AlertsController, type: :request do
 
       ticket = TicketDispenser::Ticket.first
       expect(ticket.messages.count).to eq(1)
-      expect(ticket.course).to eq(course)
+      expect(ticket.project).to eq(course)
       expect(ticket.owner).to eq(target_user)
 
       message = ticket.messages.first
