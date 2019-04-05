@@ -7,7 +7,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
     "@babel/plugin-transform-modules-commonjs": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.0",
     "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
