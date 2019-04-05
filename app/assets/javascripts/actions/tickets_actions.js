@@ -2,23 +2,24 @@ import {
   CREATE_REPLY,
   FETCH_TICKETS,
   RECEIVE_TICKETS,
+  RESOLVE_TICKET,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
-  SORT_TICKETS } from '../constants/tickets';
+  SORT_TICKETS,
+  TICKET_STATUS_RESOLVED } from '../constants/tickets';
 import fetch from 'cross-fetch';
 
-export const createReply = (body, csrf, status) => async (dispatch) => {
-  console.log(body);
-  console.log(csrf);
-  console.log(status);
-  const response = await fetch(`/td/tickets/${body.ticket_id}`, {
+const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
+
+export const createReply = (body, status) => async (dispatch) => {
+  const response = await fetch('/td/tickets/replies', {
     body: JSON.stringify({ ...body, read: true, status }),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-Token': csrf
+      'X-CSRF-Token': getCsrf()
     },
-    method: 'PATCH'
+    method: 'POST'
   });
 
   const message = await response.json();
@@ -32,7 +33,7 @@ export const createReply = (body, csrf, status) => async (dispatch) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-Token': csrf
+      'X-CSRF-Token': getCsrf()
     },
     method: 'POST'
   });
@@ -40,7 +41,7 @@ export const createReply = (body, csrf, status) => async (dispatch) => {
   dispatch({ type: CREATE_REPLY });
 };
 
-export const readAllMessages = (csrf, ticket) => async (dispatch) => {
+export const readAllMessages = ticket => async (dispatch) => {
   const unreadMessages = ticket.messages.some(message => !message.read);
   if (!unreadMessages) return false;
 
@@ -49,7 +50,7 @@ export const readAllMessages = (csrf, ticket) => async (dispatch) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-Token': csrf
+      'X-CSRF-Token': getCsrf()
     },
     method: 'PUT'
   });
@@ -76,3 +77,19 @@ export const fetchTicket = id => async (dispatch) => {
 };
 
 export const sortTickets = key => ({ type: SORT_TICKETS, key });
+
+export const resolveTicket = id => async (dispatch) => {
+  const status = TICKET_STATUS_RESOLVED;
+
+  const response = await fetch(`/td/tickets/${id}`, {
+    body: JSON.stringify({ status }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': getCsrf()
+    },
+    method: 'PATCH'
+  });
+
+  dispatch({ type: RESOLVE_TICKET, id, data: response });
+};

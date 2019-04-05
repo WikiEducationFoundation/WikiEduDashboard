@@ -1,9 +1,11 @@
 import {
   FETCH_TICKETS,
   RECEIVE_TICKETS,
+  RESOLVE_TICKET,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
-  SORT_TICKETS } from '../constants/tickets';
+  SORT_TICKETS,
+  TICKET_STATUS_RESOLVED } from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -25,18 +27,29 @@ const SORT_DESCENDING = {
   actions: true
 };
 
+const byIdFromAll = tickets => tickets.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_TICKETS:
       return { ...state, loading: true };
     case RECEIVE_TICKETS: {
       const tickets = action.data;
-      const byId = tickets.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+      const byId = byIdFromAll(tickets);
 
       return {
         ...state,
         all: action.data,
         loading: false,
+        byId
+      };
+    }
+    case RESOLVE_TICKET: {
+      const ticket = state.all.find(tick => tick.id === action.id);
+      ticket.status = TICKET_STATUS_RESOLVED;
+      const byId = byIdFromAll(state.all);
+      return {
+        ...state,
         byId
       };
     }

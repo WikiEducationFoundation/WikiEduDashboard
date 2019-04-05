@@ -5,7 +5,7 @@ import Row from './tickets_table_row';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
 
-import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
+import { fetchTickets, resolveTicket, sortTickets } from '../../actions/tickets_actions';
 
 export class TicketsHandler extends React.Component {
   componentDidMount() {
@@ -46,7 +46,7 @@ export class TicketsHandler extends React.Component {
     };
 
     const elements = this.props.tickets.all.map(ticket => (
-      <Row key={ticket.id} ticket={ticket} />
+      <Row key={ticket.id} ticket={ticket} resolveTicket={this.props.resolveTicket} />
     ));
 
     // Since this is used multiple places (student_list.jsx), we should
@@ -79,6 +79,7 @@ const mapStateToProps = ({ tickets }) => ({
 
 const mapDispatchToProps = {
   fetchTickets,
+  resolveTicket,
   sortTickets
 };
 

@@ -40,16 +40,15 @@ export class NewReplyForm extends React.Component {
 
     const content = this.state.content;
     const { currentUser, ticket } = this.props;
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
     const body = {
       content,
       kind: 0,
       ticket_id: ticket.id,
       sender_id: currentUser.id,
-      read: true,
+      read: true
     };
 
-    this.props.createReply(body, csrf, status)
+    this.props.createReply(body, status)
       .then(() => this.props.fetchTicket(ticket.id))
       .then(() => this.setState({ content: '' }));
   }

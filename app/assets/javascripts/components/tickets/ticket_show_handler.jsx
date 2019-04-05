@@ -16,14 +16,13 @@ export class TicketShow extends React.Component {
     const id = this.props.match.params.id;
     const ticket = this.props.tickets.byId[id];
 
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
     if (ticket) {
-      this.props.readAllMessages(csrf, ticket);
+      this.props.readAllMessages(ticket);
       return this.props.selectTicket(ticket);
     }
 
     this.props.fetchTicket(id).then(() => {
-      this.props.readAllMessages(csrf, this.props.tickets.selected);
+      this.props.readAllMessages(this.props.tickets.selected);
     });
   }
 
