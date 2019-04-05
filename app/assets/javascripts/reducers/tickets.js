@@ -27,6 +27,16 @@ const SORT_DESCENDING = {
 };
 
 const byIdFromAll = tickets => tickets.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+const replaceTicket = (tickets, newTicket) => {
+  const ticket = tickets.find(tick => tick.id === newTicket.id);
+  const index = tickets.indexOf(ticket);
+
+  return [
+    ...tickets.slice(0, index),
+    newTicket,
+    ...tickets.slice(index + 1)
+  ];
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -44,11 +54,12 @@ export default function (state = initialState, action) {
       };
     }
     case RESOLVE_TICKET: {
-      const ticket = state.all.find(tick => tick.id === action.id);
-      ticket.status = TICKET_STATUS_RESOLVED;
-      const byId = byIdFromAll(state.all);
+      const all = replaceTicket(state.all, action.data.ticket);
+      const byId = byIdFromAll(all);
+
       return {
         ...state,
+        all,
         byId
       };
     }
@@ -58,15 +69,14 @@ export default function (state = initialState, action) {
         selected: action.ticket
       };
     case SET_MESSAGES_TO_READ: {
-      state.selected.read = true;
-
-      const id = action.data;
-      const ticket = state.all.find(tick => tick.id === id);
-      ticket.read = true;
+      const all = replaceTicket(state.all, action.data.ticket);
+      const byId = byIdFromAll(all);
 
       return {
         ...state,
-        selected: { ...state.selected }
+        all,
+        byId,
+        selected: { ...action.data.ticket }
       };
     }
     case SORT_TICKETS: {

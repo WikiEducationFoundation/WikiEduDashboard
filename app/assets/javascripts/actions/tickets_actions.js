@@ -54,9 +54,8 @@ export const readAllMessages = ticket => async (dispatch) => {
     },
     method: 'PUT'
   });
-  await response.json();
-
-  dispatch({ type: SET_MESSAGES_TO_READ, data: ticket.id });
+  const json = await response.json();
+  dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
 export const fetchTickets = () => async (dispatch) => {
@@ -90,6 +89,6 @@ export const resolveTicket = id => async (dispatch) => {
     },
     method: 'PATCH'
   });
-
-  dispatch({ type: RESOLVE_TICKET, id, data: response });
+  const json = await response.json();
+  dispatch({ type: RESOLVE_TICKET, id, data: json });
 };
