@@ -4,8 +4,7 @@ import {
   RESOLVE_TICKET,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
-  SORT_TICKETS,
-  TICKET_STATUS_RESOLVED } from '../constants/tickets';
+  SORT_TICKETS } from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
