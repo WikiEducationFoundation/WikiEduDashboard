@@ -7,15 +7,18 @@ import {
   SORT_TICKETS } from '../constants/tickets';
 import fetch from 'cross-fetch';
 
-export const createReply = ({ csrf, ...body }) => async (dispatch) => {
-  const response = await fetch('/td/messages', {
-    body: JSON.stringify({ ...body, read: true }),
+export const createReply = (body, csrf, status) => async (dispatch) => {
+  console.log(body);
+  console.log(csrf);
+  console.log(status);
+  const response = await fetch(`/td/tickets/${body.ticket_id}`, {
+    body: JSON.stringify({ ...body, read: true, status }),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       'X-CSRF-Token': csrf
     },
-    method: 'POST'
+    method: 'PATCH'
   });
 
   const message = await response.json();

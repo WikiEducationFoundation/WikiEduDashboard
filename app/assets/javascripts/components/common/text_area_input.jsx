@@ -31,7 +31,8 @@ const TextAreaInput = createReactClass({
 
   handleRichTextEditorChange(e) {
     this.props.onChange(
-      { target: { value: e.target.getContent() } }
+      { target: { value: e.target.getContent() } },
+      e
     );
   },
 

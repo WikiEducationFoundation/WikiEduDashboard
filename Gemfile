@@ -21,8 +21,6 @@ gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queu
 gem 'dalli' # Caching
 gem 'connection_pool'
 
-gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
-
 ### Login, authentication, browser support
 gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
@@ -37,12 +35,14 @@ gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
-### Survey features, implemented as a rails engine
-# If you want to be able to hack locally on rapidfire,
-# run `export RAPIDFIREHACKINGMODE=true` in your terminal.
-if ENV['RAPIDFIREHACKINGMODE'] == 'true'
+### Survey and Ticketing features, implemented as a rails engines
+# If you want to be able to hack locally on rapidfire or ticket_dispenser,
+# run `export ENGINEHACKINGMODE=true` in your terminal.
+if ENV['ENGINEHACKINGMODE'] == 'true'
   gem 'rapidfire', path: './vendor/rapidfire'
+  gem 'ticket_dispenser', path: '../TicketDispenser'
 else
+  gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
   gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 end
 
