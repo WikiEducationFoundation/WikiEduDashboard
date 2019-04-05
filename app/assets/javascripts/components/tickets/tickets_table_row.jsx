@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { STATUSES } from './util';
+import TicketStatusHandler from './ticket_status_handler';
 
-const TicketsTableRow = ({ ticket, resolveTicket }) => {
+const TicketsTableRow = ({ ticket }) => {
   return (
     <tr className={ticket.read ? 'table-row--faded' : 'read'}>
       <td>
@@ -22,7 +22,7 @@ const TicketsTableRow = ({ ticket, resolveTicket }) => {
       </td>
       <td>
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
-        <button className="button" onClick={() => resolveTicket(ticket.id)} >Resolve</button>
+        <TicketStatusHandler ticket={ticket} />
       </td>
     </tr>
   );

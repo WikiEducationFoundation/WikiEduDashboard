@@ -2,11 +2,11 @@ import {
   CREATE_REPLY,
   FETCH_TICKETS,
   RECEIVE_TICKETS,
-  RESOLVE_TICKET,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
-  TICKET_STATUS_RESOLVED } from '../constants/tickets';
+  UPDATE_TICKET
+} from '../constants/tickets';
 import fetch from 'cross-fetch';
 
 const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
@@ -77,9 +77,7 @@ export const fetchTicket = id => async (dispatch) => {
 
 export const sortTickets = key => ({ type: SORT_TICKETS, key });
 
-export const resolveTicket = id => async (dispatch) => {
-  const status = TICKET_STATUS_RESOLVED;
-
+export const updateTicketStatus = (id, status) => async (dispatch) => {
   const response = await fetch(`/td/tickets/${id}`, {
     body: JSON.stringify({ status }),
     credentials: 'include',
@@ -90,5 +88,5 @@ export const resolveTicket = id => async (dispatch) => {
     method: 'PATCH'
   });
   const json = await response.json();
-  dispatch({ type: RESOLVE_TICKET, id, data: json });
+  dispatch({ type: UPDATE_TICKET, id, data: json });
 };

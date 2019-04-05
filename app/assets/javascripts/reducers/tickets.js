@@ -1,10 +1,11 @@
 import {
   FETCH_TICKETS,
   RECEIVE_TICKETS,
-  RESOLVE_TICKET,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
-  SORT_TICKETS } from '../constants/tickets';
+  SORT_TICKETS,
+  UPDATE_TICKET
+} from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -53,16 +54,6 @@ export default function (state = initialState, action) {
         byId
       };
     }
-    case RESOLVE_TICKET: {
-      const all = replaceTicket(state.all, action.data.ticket);
-      const byId = byIdFromAll(all);
-
-      return {
-        ...state,
-        all,
-        byId
-      };
-    }
     case SELECT_TICKET:
       return {
         ...state,
@@ -89,6 +80,19 @@ export default function (state = initialState, action) {
           sortKey: sorted.newKey,
           key: action.key
         }
+      };
+    }
+    case UPDATE_TICKET: {
+      const selectedId = state.selected.id;
+      const all = replaceTicket(state.all, action.data.ticket);
+      const byId = byIdFromAll(all);
+      const selected = byId[selectedId];
+
+      return {
+        ...state,
+        all,
+        byId,
+        selected
       };
     }
     default:
