@@ -23,7 +23,7 @@
     "chart.js": "^2.8.0",
     "chartkick": "^3.0.2",
     "chosen-js": "^1.8.5",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.0",
     "create-react-class": "^15.6.3",
     "cross-fetch": "^3.0.2",
     "deep-freeze": "^0.0.1",
