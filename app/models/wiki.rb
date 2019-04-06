@@ -33,6 +33,7 @@ class Wiki < ApplicationRecord
     wikiversity
     wikivoyage
     wiktionary
+    vikidia
   ].freeze
   validates_inclusion_of :project, in: PROJECTS
 
