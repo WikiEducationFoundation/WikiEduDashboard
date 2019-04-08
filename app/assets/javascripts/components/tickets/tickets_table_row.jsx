@@ -18,7 +18,7 @@ const TicketsTableRow = ({ ticket }) => {
       </td>
       <td>{ STATUSES[ticket.status] }</td>
       <td>
-        { ticket.owner.real_name || ticket.owner.username }
+        { ticket.owner.username }
       </td>
       <td>
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
