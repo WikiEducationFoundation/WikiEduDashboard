@@ -36,15 +36,12 @@ gem 'nokogiri' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
 ### Survey and Ticketing features, implemented as a rails engines
-# If you want to be able to hack locally on rapidfire or ticket_dispenser,
-# run `export ENGINEHACKINGMODE=true` in your terminal.
-if ENV['ENGINEHACKINGMODE'] == 'true'
-  gem 'rapidfire', path: './vendor/rapidfire'
-  gem 'ticket_dispenser', path: '../TicketDispenser'
-else
-  gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
-  gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
-end
+# If you want to be able to hack locally on rapidfire or ticket_dispenser:
+
+# gem 'ticket_dispenser', path: '../TicketDispenser'
+gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
+# gem 'rapidfire', path: './vendor/rapidfire'
+gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
