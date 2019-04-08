@@ -1,6 +1,7 @@
 # Messages for Ukrainian (українська)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aced
 # Author: Alex Khimich
 # Author: Andrew J.Kurbiko
 # Author: Andriykopanytsia
@@ -66,6 +67,8 @@ uk:
     confirm: Гаразд
     opt_in: Так
     opt_out: Ні
+    opt_yes: так
+    opt_no: ні
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Починаючи роботу, тримайте свій навчальний план під рукою;
@@ -107,6 +110,7 @@ uk:
     article_development: (розвиток статті)
     assigned: Задані статті…
     available: Доступні статті
+    no_available: Доступних статей немає
     next: наступний
     previous: попереднє
     article_title: Назва статті
@@ -120,6 +124,8 @@ uk:
     edited: Редаговані статті
     edited_by: 'Відредаговано:'
     edited_mobile: Статті
+    filter:
+      wiki_all: Всі
     hide: Приховати
     history: (історія)
     label: Статті

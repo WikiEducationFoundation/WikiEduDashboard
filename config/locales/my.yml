@@ -133,6 +133,8 @@ my:
     not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
   editable:
     cancel: မလုပ်တော့ပါ
+  timeline:
+    reset_titles: နဂိုအတိုင်း ပြန်သွားရန်
   training:
     page: စာမျက်နှာ
     previous: « ယခင်က

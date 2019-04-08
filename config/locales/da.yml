@@ -74,6 +74,7 @@ da:
   articles:
     assigned: Tildelte artikler
     available: Tilgængelige artikler
+    no_available: Ingen tilgængelige artikler
     next: Næste
     previous: Forrige
     article_title: Artikeltitel

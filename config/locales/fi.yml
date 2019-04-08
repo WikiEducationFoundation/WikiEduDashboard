@@ -342,6 +342,7 @@ fi:
       role_description: Roolisi kurssilla
       role_description_placeholder: Opettaja, ohjaaja, avustaja jne.
       separate_event_dates: Määrittele erilliset aloitus- ja lopettamisajankohdat
+        (valinnainen)
       save_cloned_course: Tallenna uusi kurssi
       start_date: Alkamispäivä
       start_date_placeholder: VVVV-KK-PP
@@ -360,7 +361,7 @@ fi:
     data_students: Muokkaajien tiedot
     data_students_info: Muokkaajien tiedot näyttää osallistuvat muokkaajat, paljonko
       he ovat muokanneet ja ovatko he rekisteröityneet projektin aikana.
-    data_uploads: Commons-latausten tiedot
+    data_uploads: Commons-tallennusten tiedot
     data_uploads_info: Commons-latausten tiedot näyttää kunkin ladatun mediatiedoston
       nimen ja käyttökerrat.
     delete_course: Poista kurssi
