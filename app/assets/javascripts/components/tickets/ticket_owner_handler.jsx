@@ -7,12 +7,14 @@ import { updateTicketOwner } from '../../actions/tickets_actions';
 
 export const TicketOwnerHandler = ({ updateOwner, ticket, admins }) => {
   const options = admins.map(([username, id]) => ({ label: username, value: id }));
+  options.push({ label: '— none — ', value: null });
+
   return (
     <Select
       onChange={({ value: ownerId }) => updateOwner(ticket.id, ownerId)}
       options={options}
       styles={{ ...selectStyles, singleValue: null }}
-      value={{ label: ticket.owner && ticket.owner.username, value: ticket.owner && ticket.owner.id }}
+      value={{ label: (ticket.owner && ticket.owner.username) || '— none — ', value: ticket.owner && ticket.owner.id }}
     />
   );
 };
