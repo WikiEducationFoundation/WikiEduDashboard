@@ -9,7 +9,7 @@ describe 'settings', type: :feature, js: true do
 
   before do
     login_as(super_admin, scope: :user)
-    Setting.set_special_user('communications_manager', special_user.username)
+    SpecialUsers.set_user('communications_manager', special_user.username)
     visit '/settings'
   end
 
