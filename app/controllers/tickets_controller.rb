@@ -4,7 +4,9 @@ class TicketsController < ApplicationController
   before_action :require_admin_permissions
 
   # Load React App
-  def dashboard; end
+  def dashboard
+    @admins = User.admin.map { |user| [user.username, user.id] }
+  end
 
   def notify
     message = TicketDispenser::Message.find(notification_params[:message_id])

@@ -27,13 +27,15 @@ if (reactRoot) {
   // used for initial rendering before React fetches all the specific
   // data it needs via API calls.
   const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
+  const admins = JSON.parse(reactRoot.getAttribute('data-admins'));
   const preloadedState = {
     courseCreator: {
       defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
       courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
       useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
     },
-    currentUserFromHtml
+    currentUserFromHtml,
+    admins
   };
 
   // This is the Redux store.

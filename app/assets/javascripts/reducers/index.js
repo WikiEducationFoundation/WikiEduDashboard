@@ -39,6 +39,7 @@ import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
 
 const reducer = combineReducers({
+  admins: (state = {}) => state, // only set from preloaded state
   alerts,
   articleDetails,
   articleFinder,

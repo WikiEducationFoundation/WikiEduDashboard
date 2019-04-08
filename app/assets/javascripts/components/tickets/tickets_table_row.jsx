@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { STATUSES } from './util';
 import TicketStatusHandler from './ticket_status_handler';
+import TicketOwnerHandler from './ticket_owner_handler';
 
 const TicketsTableRow = ({ ticket }) => {
   return (
@@ -23,6 +24,7 @@ const TicketsTableRow = ({ ticket }) => {
       <td>
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
         <TicketStatusHandler ticket={ticket} />
+        <TicketOwnerHandler ticket={ticket} />
       </td>
     </tr>
   );

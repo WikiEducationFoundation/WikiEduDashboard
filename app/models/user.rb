@@ -73,7 +73,7 @@ class User < ApplicationRecord
 
   has_many :assignment_suggestions
 
-  scope :admin, -> { where(permissions: Permissions::ADMIN) }
+  scope :admin, -> { where(permissions: [Permissions::ADMIN, Permissions::SUPER_ADMIN]) }
   scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :ungreeted, -> { where(greeted: false) }

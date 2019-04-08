@@ -23,5 +23,4 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(null, mapDispatchToProps);
-export default connector(TicketStatusHandler)
-;
+export default connector(TicketStatusHandler);

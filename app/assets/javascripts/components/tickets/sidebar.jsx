@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import TicketStatusHandler from './ticket_status_handler';
+import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
 
 // This is required because the User Profile is not a React page
@@ -35,6 +36,7 @@ export const Sidebar = ({ createdAt, currentUser, ticket }) => {
         }
       </p>
       <TicketStatusHandler ticket={ticket} />
+      <TicketOwnerHandler ticket={ticket} />
     </section>
   );
 };

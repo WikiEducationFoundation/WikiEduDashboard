@@ -77,9 +77,9 @@ export const fetchTicket = id => async (dispatch) => {
 
 export const sortTickets = key => ({ type: SORT_TICKETS, key });
 
-export const updateTicketStatus = (id, status) => async (dispatch) => {
+const updateTicket = async (id, ticket, dispatch) => {
   const response = await fetch(`/td/tickets/${id}`, {
-    body: JSON.stringify({ status }),
+    body: JSON.stringify(ticket),
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -89,4 +89,12 @@ export const updateTicketStatus = (id, status) => async (dispatch) => {
   });
   const json = await response.json();
   dispatch({ type: UPDATE_TICKET, id, data: json });
+};
+
+export const updateTicketStatus = (id, status) => (dispatch) => {
+  updateTicket(id, { status }, dispatch);
+};
+
+export const updateTicketOwner = (id, owner_id) => (dispatch) => {
+  updateTicket(id, { owner_id }, dispatch);
 };

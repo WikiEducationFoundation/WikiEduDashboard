@@ -86,7 +86,7 @@ export default function (state = initialState, action) {
       const selectedId = state.selected.id;
       const all = replaceTicket(state.all, action.data.ticket);
       const byId = byIdFromAll(all);
-      const selected = byId[selectedId];
+      const selected = selectedId ? byId[selectedId] : {};
 
       return {
         ...state,
