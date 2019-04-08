@@ -115,7 +115,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       )
       yield json: { message: message }, status: 422
     end
-    Setting.set_special_user(@position, @user.username)
+    SpecialUsers.set_user(@position, @user.username)
     message = I18n.t(
       'settings.special_users.new.elevate_success',
       username: @user.username,
@@ -136,7 +136,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       )
       yield json: { message: message }, status: 422
     end
-    Setting.remove_special_user(@position)
+    SpecialUsers.remove_user(@position, username: @user.username)
     message = I18n.t(
       'settings.special_users.remove.demote_success',
       username: @user.username,

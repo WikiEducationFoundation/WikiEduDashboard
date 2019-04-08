@@ -227,7 +227,7 @@ describe SettingsController, type: :request do
     let(:post_params) do
       params = { format: @format_type,
                   special_user: { username: @user.username,
-                                  position: 'communications_manager' } }
+                                  position: position } }
       post @action, params: params
     end
 
@@ -238,15 +238,18 @@ describe SettingsController, type: :request do
       post @action, params: params
     end
 
+    let(:position) { 'classroom_program_manager' }
+
     context 'user is not an communications_manager' do
+      let(:position) { 'communications_manager' }
+
       before do
-        @position = 'communications_manager'
         @user = create(:user)
         post_params
       end
 
-      it 'turns user into admin' do
-        expect(SpecialUsers.is?(@user, @position)).to be(true)
+      it 'turns user into commications manager' do
+        expect(SpecialUsers.is?(@user, position)).to be(true)
       end
 
       it 'returns http 200' do
@@ -258,22 +261,23 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.elevate_success',
             username: @user.username,
-            position: @position
+            position: position
           )
         )
       end
     end
 
     context 'user is already communications_manager' do
+      let(:position) { 'communications_manager' }
+
       before do
         @user = create(:user)
-        @position = 'communications_manager'
-        Setting.set_special_user(@position, @user.username)
+        SpecialUsers.set_user(position, @user.username)
         post_params
       end
 
       it 'user remains communications_manager' do
-        expect(SpecialUsers.is?(@user, @position)).to be(true)
+        expect(SpecialUsers.is?(@user, position)).to be(true)
       end
 
       it 'returns http 422' do
@@ -285,7 +289,62 @@ describe SettingsController, type: :request do
           I18n.t(
             'settings.special_users.new.already_is',
             username: @user.username,
-            position: @position
+            position: position
+          )
+        )
+      end
+    end
+
+    context 'user is not a wikipedia expert' do
+      let(:position) { 'wikipedia_experts' }
+
+      before do
+        @user = create(:user)
+        post_params
+      end
+
+      it 'adds user to wikipedia_experts set' do
+        expect(SpecialUsers.is?(@user, position)).to be(true)
+      end
+
+      it 'returns http 200' do
+        expect(response.status).to be(200)
+      end
+
+      it 'returns the right message' do
+        expect(response.body).to include(
+          I18n.t(
+            'settings.special_users.new.elevate_success',
+            username: @user.username,
+            position: position
+          )
+        )
+      end
+    end
+
+    context 'user is already a wikipedia expert' do
+      let(:position) { 'wikipedia_experts' }
+
+      before do
+        @user = create(:user)
+        SpecialUsers.set_user(position, @user.username)
+        post_params
+      end
+
+      it 'user remains a wikipedia expert' do
+        expect(SpecialUsers.is?(@user, position)).to be(true)
+      end
+
+      it 'returns http 422' do
+        expect(response.status).to be(422)
+      end
+
+      it 'returns the right message' do
+        expect(response.body).to include(
+          I18n.t(
+            'settings.special_users.new.already_is',
+            username: @user.username,
+            position: position
           )
         )
       end
@@ -334,7 +393,7 @@ describe SettingsController, type: :request do
       before do
         @user = create(:user)
         @position = 'communications_manager'
-        Setting.set_special_user(@position, @user.username)
+        SpecialUsers.set_user(@position, @user.username)
         post_params
       end
 

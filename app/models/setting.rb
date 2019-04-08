@@ -18,19 +18,4 @@ class Setting < ApplicationRecord
     setting.value = (setting.value || {}).merge(key => value)
     setting.save
   end
-
-  def self.set_special_user(role, username)
-    if role == 'wikipedia_experts'
-      experts = SpecialUsers.special_users[:wikipedia_experts] || []
-      Setting.set_hash('special_users', role.to_sym, experts + [username])
-    else
-      Setting.set_hash('special_users', role.to_sym, username)
-    end
-  end
-
-  def self.remove_special_user(role)
-    users = Setting.find_or_create_by(key: 'special_users')
-    users.value.delete(role.to_sym)
-    users.save
-  end
 end
