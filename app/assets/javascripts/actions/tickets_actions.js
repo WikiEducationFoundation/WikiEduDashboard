@@ -7,36 +7,48 @@ import {
   SORT_TICKETS,
   UPDATE_TICKET
 } from '../constants/tickets';
+import { API_FAIL } from '../constants/api';
 import fetch from 'cross-fetch';
 
 const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
 export const createReply = (body, status) => async (dispatch) => {
-  const response = await fetch('/td/tickets/replies', {
-    body: JSON.stringify({ ...body, read: true, status }),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
-    method: 'POST'
-  });
+  let notificationBody;
+  try {
+    const response = await fetch('/td/tickets/replies', {
+      body: JSON.stringify({ ...body, read: true, status }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': getCsrf()
+      },
+      method: 'POST'
+    });
 
-  const message = await response.json();
-  const notificationBody = {
-    sender_id: body.sender_id,
-    message_id: message.id
-  };
+    const message = await response.json();
+    notificationBody = {
+      sender_id: body.sender_id,
+      message_id: message.id
+    };
+  } catch (error) {
+    const message = 'Creation of message failed. Please try again.';
+    dispatch({ type: API_FAIL, data: { statusText: message } });
+  }
 
-  await fetch('/tickets/notify', {
-    body: JSON.stringify(notificationBody),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
-    method: 'POST'
-  });
+  try {
+    await fetch('/tickets/notify', {
+      body: JSON.stringify(notificationBody),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': getCsrf()
+      },
+      method: 'POST'
+    });
+  } catch (error) {
+    const message = 'Message was created but email could not be sent.';
+    dispatch({ type: API_FAIL, data: { statusText: message } });
+  }
 
   dispatch({ type: CREATE_REPLY });
 };
