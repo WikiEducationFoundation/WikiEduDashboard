@@ -16,29 +16,29 @@ export const Sidebar = ({ createdAt, currentUser, ticket }) => {
 
   return (
     <section className="sidebar">
-      <p>Created <time className="bold">{moment(createdAt).fromNow()}</time></p>
-      <p>
+      <section>Created <time className="bold">{moment(createdAt).fromNow()}</time></section>
+      <section>
         Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
         <TicketStatusHandler ticket={ticket} />
-      </p>
-      <p>
+      </section>
+      <section>
         Assigned to <span className="bold">{assignedTo}</span>
         <TicketOwnerHandler ticket={ticket} />
-      </p>
-      <p>
+      </section>
+      <section>
         {
           ticket.project.id
             ? <Link className="button" to={`/courses/${ticket.project.slug}`}>Go to Course</Link>
             : 'Course Unknown'
         }
-      </p>
-      <p>
+      </section>
+      <section>
         {
           ticket.sender
             ? <a className="button" onClick={() => goTo(ticket)}>Go to User Account</a>
             : 'Unknown User Record'
         }
-      </p>
+      </section>
     </section>
   );
 };
