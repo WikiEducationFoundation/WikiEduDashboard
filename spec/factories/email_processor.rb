@@ -26,6 +26,7 @@ FactoryBot.define do
     subject { 'email subject' }
 
     body { 'Hello!' }
+    raw_body { 'Hello!' }
     attachments { '0' }
 
     trait :with_attachment do

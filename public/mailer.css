@@ -110,7 +110,7 @@ a.training {
   font-weight: bolder;
 }
 
-.hidden {
+.hidden p {
   color: white;
   visibility: hidden;
 }

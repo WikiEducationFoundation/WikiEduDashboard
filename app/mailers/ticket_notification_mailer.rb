@@ -16,9 +16,9 @@ class TicketNotificationMailer < ApplicationMailer
 
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @ticket_dashboard_link = "https://#{ENV['dashboard_url']}/tickets/dashboard"
-    @reference_code = "ref_m#{@message.id}_ref"
     mail(to: @recipient.email,
          from: @sender.email,
-         subject: "#{course.title}: Response to your help request")
+         subject: "#{course.title}: Response to your help request",
+         reply_to: @sender.email)
   end
 end

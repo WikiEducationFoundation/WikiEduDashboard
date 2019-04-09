@@ -66,5 +66,29 @@ describe EmailProcessor do
       ticket = TicketDispenser::Ticket.first
       expect(ticket.owner).to eq(nil)
     end
+
+    it 'can thread a message with the right ticket' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'Message content',
+        owner_id: expert.id,
+        sender_id: student.id
+      )
+      email_body = ''"Hi there,
+      Thanks for responding! ...
+
+      -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+      **ref_#{ticket.reference_id}_ref**
+      -- REPLY ABOVE THIS LINE --
+      "''
+      email = create(:email,
+                     to: [{ email: expert.email }],
+      from: { email: student.email },
+      body: email_body,
+      raw_body: email_body)
+      processor = described_class.new(email)
+      processor.process
+
+      expect(ticket.messages.length).to eq(2)
+    end
   end
 end
