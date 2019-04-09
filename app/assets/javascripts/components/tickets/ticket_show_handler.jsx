@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Loading from '../common/loading';
+import Notifications from '../common/notifications';
 import Show from './ticket_show';
 
 import {
@@ -30,12 +31,15 @@ export class TicketShow extends React.Component {
     if (!this.props.tickets.selected.id) return <Loading />;
 
     return (
-      <Show
-        createReply={this.props.createReply}
-        currentUser={this.props.currentUserFromHtml}
-        fetchTicket={this.props.fetchTicket}
-        ticket={this.props.tickets.selected}
-      />
+      <div>
+        <Notifications />
+        <Show
+          createReply={this.props.createReply}
+          currentUser={this.props.currentUserFromHtml}
+          fetchTicket={this.props.fetchTicket}
+          ticket={this.props.tickets.selected}
+        />
+      </div>
     );
   }
 }
