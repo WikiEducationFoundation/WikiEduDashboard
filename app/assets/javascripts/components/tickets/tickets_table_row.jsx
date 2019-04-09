@@ -17,14 +17,16 @@ const TicketsTableRow = ({ ticket }) => {
           : 'Course Unknown'
         }
       </td>
-      <td>{ STATUSES[ticket.status] }</td>
+      <td>
+        { STATUSES[ticket.status] }
+        <TicketStatusHandler ticket={ticket} />
+      </td>
       <td>
         { ticket.owner.username }
+        <TicketOwnerHandler ticket={ticket} />
       </td>
       <td>
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
-        <TicketStatusHandler ticket={ticket} />
-        <TicketOwnerHandler ticket={ticket} />
       </td>
     </tr>
   );

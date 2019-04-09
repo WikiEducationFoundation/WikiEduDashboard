@@ -16,11 +16,15 @@ export const Sidebar = ({ createdAt, currentUser, ticket }) => {
 
   return (
     <section className="sidebar">
+      <p>Created <time className="bold">{moment(createdAt).fromNow()}</time></p>
       <p>
         Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
+        <TicketStatusHandler ticket={ticket} />
       </p>
-      <p>Created <time className="bold">{moment(createdAt).fromNow()}</time></p>
-      <p>Assigned to <span className="bold">{assignedTo}</span></p>
+      <p>
+        Assigned to <span className="bold">{assignedTo}</span>
+        <TicketOwnerHandler ticket={ticket} />
+      </p>
       <p>
         {
           ticket.project.id
@@ -35,8 +39,6 @@ export const Sidebar = ({ createdAt, currentUser, ticket }) => {
             : 'Unknown User Record'
         }
       </p>
-      <TicketStatusHandler ticket={ticket} />
-      <TicketOwnerHandler ticket={ticket} />
     </section>
   );
 };

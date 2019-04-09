@@ -3,6 +3,6 @@
 // should change them there.
 export const STATUSES = {
   0: 'Open',
-  1: 'Waiting Response',
+  1: 'Awaiting Response',
   2: 'Resolved'
 };
