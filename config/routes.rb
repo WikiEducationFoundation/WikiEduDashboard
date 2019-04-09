@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
+  # Griddler allows us to receive incoming emails. By default,
+  # the path for incoming emails is /email_processor
+  mount_griddler
 
   #UserProfilesController
   controller :user_profiles do
@@ -357,6 +360,12 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
+  
+  authenticate :user, lambda { |u| u.admin? } do
+    post '/tickets/notify' => 'tickets#notify', format: false
+    get '/tickets/*dashboard' => 'tickets#dashboard', format: false
+    mount TicketDispenser::Engine, at: "/td"
+  end
 
   require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do

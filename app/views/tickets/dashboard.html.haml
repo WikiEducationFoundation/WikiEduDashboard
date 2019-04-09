@@ -1,0 +1,3 @@
+- content_for :before_title, "Ticketing — "
+
+#react_root{"data-current_user" => user_signed_in? && current_user.admin? ? "{ \"admin\": true, \"id\": #{current_user.id} }" : '{ "admin": false, "id": null }', "data-admins" => @admins }

@@ -32,6 +32,17 @@ describe AlertsController, type: :request do
       expect(ActionMailer::Base.deliveries.last.parts[0].body).to include(alert_params[:message])
       expect(NeedHelpAlert.count).to eq(1)
       expect(NeedHelpAlert.last.email_sent_at).not_to be_nil
+
+      expect(TicketDispenser::Ticket.count).to eq(1)
+
+      ticket = TicketDispenser::Ticket.first
+      expect(ticket.messages.count).to eq(1)
+      expect(ticket.project).to eq(course)
+      expect(ticket.owner).to eq(target_user)
+
+      message = ticket.messages.first
+      expect(message.sender).to eq(user)
+      expect(message.content).to eq('hello?')
     end
 
     it 'renders a 500 if alert creation fails' do

@@ -138,7 +138,7 @@ describe UsersController, type: :request do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        Setting.set_special_user('classroom_program_manager', staff.username)
+        SpecialUsers.set_user('classroom_program_manager', staff.username)
       end
 
       let(:post_params) do

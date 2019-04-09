@@ -1,0 +1,8 @@
+.container
+  %h2
+    Requested Accounts:
+    = RequestedAccount.count
+.container
+  %h2
+    Open Tickets:
+    = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count

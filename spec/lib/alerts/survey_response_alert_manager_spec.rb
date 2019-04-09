@@ -32,7 +32,7 @@ describe SurveyResponseAlertManager do
 
   before do
     create(:user, username: 'Samantha (Wiki Ed)', email: 'samantha@wikiedu.org')
-    Setting.set_special_user('survey_alerts_recipient', 'Samantha (Wiki Ed)')
+    SpecialUsers.set_user('survey_alerts_recipient', 'Samantha (Wiki Ed)')
   end
 
   context 'when an "equals" condition is met in an answer' do

@@ -1,0 +1,34 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+.hidden
+  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+  %p= "ref_#{@ticket.reference_id}_ref"
+  %p -- REPLY ABOVE THIS LINE --
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %section.message
+                = raw(@message.content)
+                \-
+                =@sender_name
+
+              - @ticket.messages.reverse[1..-1].each do |message|
+                %div.blockquote
+                  %p.sender=message.sender.real_name || message.sender.username
+                  %p.date=message.created_at.in_time_zone('US/Pacific').strftime('%b %e, %l:%M %p %Z')
+                  %p= raw(message.content)
+
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link.small{:href => @course_link}
+                      Go to Course
+                  %td.main-content.link-cell
+                    &nbsp; &nbsp;
+                  - if @recipient.admin?
+                    %td.main-content.link-cell
+                      %a.button_link.small{:href => @ticket_dashboard_link}
+                        Go to Ticket Dashboard
