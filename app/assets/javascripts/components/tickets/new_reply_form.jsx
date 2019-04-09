@@ -15,7 +15,8 @@ export class NewReplyForm extends React.Component {
     super();
     this.state = {
       content: '',
-      plainText: ''
+      plainText: '',
+      sending: false
     };
   }
 
@@ -27,10 +28,12 @@ export class NewReplyForm extends React.Component {
   }
 
   onReply(e) {
+    this.setState({ sending: true });
     this.onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE);
   }
 
   onResolve(e) {
+    this.setState({ sending: true });
     this.onSubmit(e, TICKET_STATUS_RESOLVED);
   }
 
@@ -50,7 +53,7 @@ export class NewReplyForm extends React.Component {
 
     this.props.createReply(body, status)
       .then(() => this.props.fetchTicket(ticket.id))
-      .then(() => this.setState({ content: '' }));
+      .then(() => this.setState({ content: '', sending: false }));
   }
 
   render() {
@@ -74,8 +77,8 @@ export class NewReplyForm extends React.Component {
             wysiwyg={true}
           />
         </div>
-        <button className="button dark margin right mt2" type="submit" onClick={this.onResolve.bind(this)}>Send Reply and Resolve Ticket</button>
-        <button className="button dark right mt2" type="submit" onClick={this.onReply.bind(this)}>Send Reply</button>
+        <button disabled={this.state.sending} className="button dark margin right mt2" type="submit" onClick={this.onResolve.bind(this)}>Send Reply and Resolve Ticket</button>
+        <button disabled={this.state.sending} className="button dark right mt2" type="submit" onClick={this.onReply.bind(this)}>Send Reply</button>
       </form>
     );
   }
