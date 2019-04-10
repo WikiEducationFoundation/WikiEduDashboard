@@ -1,8 +1,10 @@
 .container
-  %h2
-    Requested Accounts:
-    = RequestedAccount.count
+  %h1
+    %a{href: '/requested_accounts'}
+      Requested Accounts:
+      = RequestedAccount.count
 .container
-  %h2
-    Open Tickets:
-    = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count
+  %h1
+    %a{href: '/tickets/dashboard'}
+      Open Tickets:
+      = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count
