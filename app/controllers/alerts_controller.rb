@@ -16,7 +16,6 @@ class AlertsController < ApplicationController
     set_default_target_user unless alert_params[:target_user_id]
 
     if @alert.save
-      email_target_user
       generate_ticket
       render json: {}, status: :ok
     else
@@ -37,10 +36,6 @@ class AlertsController < ApplicationController
   end
 
   private
-
-  def email_target_user
-    AlertMailerWorker.schedule_email(alert_id: @alert.id) if @alert.target_user&.email.present?
-  end
 
   def generate_ticket
     TicketDispenser::Dispenser.call(
