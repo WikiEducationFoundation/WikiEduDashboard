@@ -738,6 +738,8 @@ zh-TW:
     conseq: 課題 %{task}已在進行！
     constant: 當 update_daily 執行時課題 %{task}無法進行。
     paused: 因為排程更新已被暫停，使得課題 %{task}無法執行。執行 "rake batch:resume" 來還原更新。
+  tickets:
+    none: 無許可
   timeline:
     add_week: 增加週
     arrange_timeline: 安排時間軸

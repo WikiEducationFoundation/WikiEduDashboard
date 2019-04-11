@@ -10,6 +10,7 @@
 # Author: Unapersona
 # Author: Unapersoneta
 # Author: Vriullop
+# Author: Xavier Dengra
 ---
 ca:
   number:
@@ -292,6 +293,9 @@ ca:
       comptes?
     activity: Activitat
     active_courses: '%{course_type} en actiu'
+    add_trainings: Si us plau, afegiu formacions del vostre alumnat al calendari de
+      treball. L'assignació de mòduls de formació perquè aprenguin l'entorn wiki i
+      l'edició és una part essencial dels projectes Eduwiki.
     alerts: Alertes
     all_courses: Tots els cursos
     already_enrolled: Ja formeu part de la '%{title}'!
@@ -359,7 +363,14 @@ ca:
       clone_successful_details: El vostre curs ha estat duplicat, incloent elements
         de la línia de temps (setmanes i blocs). Ha canviat alguna cosa del curs?
         El podeu actualitzar ara mateix si voleu.
+      course_dates_info: Introduïu les dates d'inici i final d'aquest curs acadèmic.
+        En el proper pas podreu escollir quan voleu començar el projecte Eduwiki dins
+        d'aquest marc temporal.
       course_description: Descripció del curs
+      course_description_placeholder: Quina temàtica cobreix aquesta assignatura,
+        i quin rol desenvoluparà l'alumnat a la Viquipèdia? Si us plau, introduïu
+        la informació necessària perquè la resta de la comunitat viquipedista pugui
+        contextualitzar les contribucions de l'alumnat i interactuar-hi en conseqüència.
       course_language: Idioma de la pàgina d'inici
       course_private: Programa privat (visible només per administradors i facilitadors)
       course_project: Pàgina d'inici del projecte
@@ -452,11 +463,13 @@ ca:
     ended: El curs ha finalitzat.
     enroll: Inscriure's
     enrollment: Afegeix/Eliminat alumnes
+    courses_enrolled: Les meves assignatures
     error:
       exists: Aquest curs ja existeix! Torneu-ho a provar amb un altre títol, escola
         o terme.
       user_exists: Ho sentim, %{username} no és un usuari existent.
       invalid_language_or_project: Idioma o projecte invàlid
+      invalid_slug: Títol de l'assignatura
       duplicate_slug: Ja hi ha un altre programa anomenat %{slug}.
     expected_students: Estudiants esperats
     features_feedback: 'Suggeriments automatitzats:'
@@ -485,11 +498,13 @@ ca:
       cannot_join_twice: Els usuarios no poden inscriure's al mateix curs dues vegades.
       not_yet_approved: Aquest curs encara no accepta inscripcions.
     join_no_passcode: Esteu segur que voleu inscribir-vos a aquest curs?
+    launch_wizard: Publica el giny Wizard de càrrega d'imatges
     leave_confirmation: N'estàs segur què vols abandonar el curs?
     leave_course: Abandonar el curs
     loading: S'està carregant...
     milestones_none: Aquest curs actualment no té cap fita.
     my_articles: Els Meus Articles
+    needs_update: Actualització del calendari
     new_week: Afegeix una setmana nova
     new_account_check_username: Comprova la disponibilitat dels noms d’usuari
     new_account_email: Adreça electrònica
@@ -508,6 +523,9 @@ ca:
     new_account_submitted: S'ha entregat la vostra sol·licitud de compte. El facilitador
       d'aquest programa finalitzarà el procés de creació de compte. Quan es creï el
       compte, rebreu una contrasenya per correu.
+    new_account_submitted_admin: La vostra petició per un compte ha estat creada.
+      Si us plau, informeu a l'alumnat perquè accedeixi al correu electrònic i aconseguixi
+      la seva nova contrasenya.
     nocourses: No fas cap curs.
     nocourse: no ha participat a cap curs.
     none: Cap
@@ -538,10 +556,12 @@ ca:
     revisions_doc: Nombre d'edicions en els últims %{timeframe} dies
     revisions_none: Aquest curs no ha tingut canvis d'edició recents a la Viquipèdia.
     school: Escola
+    school_and_term: Institució
     search_courses: Cerca cursos
     start: Començar
     start_typing: Comença a escriure
     students: Estudiants
+    students_taught: Alumnat
     students_count: '# Estudiants'
     student_editors: Estudiants editors
     students_none: Aquest curs no té estudiants.
@@ -560,11 +580,20 @@ ca:
       tard.
     user_role: Paper
     course_details: Detalls del curs
+    subject: Assumpte
+    submitted: Enviat
     tag_select: Seleccioneu o creeu una etiqueta
     tags: 'Etiquetes:'
     term: Període
     timeline: Detalls de la tasca
+    timeline_enabled: Cronologia activada
     timeline_link: Línia temporal
+    timeline_tooltip: L'activació de la Cronologia us permetrà especificar les activitats
+      setmanalment i assignar també mòduls de pràctica. És útil per a cursos educatius
+      de llarga durada i molt estructurats.
+    timeline_nav: Vés a la Cronologia
+    time_zone_message: Els horaris d'inici i de finalització es mostren en la vostra
+      zona horària local.
     title: Títol
     training_nav: Anar a la formació
     unsubmitted: Cursos no enviats
@@ -598,6 +627,7 @@ ca:
       notification_message: Responeu a una enquesta per aquest curs.
       link: Comença l'enquesta
   courses_generic:
+    add_campaign: Afegiu un curs
     all_courses: Tots els programes
     archived: Programes arxivats
     articles_none: Encara no hi han articles editats en aquest projecte.
@@ -607,14 +637,24 @@ ca:
     cancel: Cancel·la
     course: Programa
     courses: Programes
+    courses_taught: Programes realitzats
     campaigns: Campanyes
     campaign_courses: Programes de %{title}
     creator:
       assignment_end: Fi de l'esdeveniment
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Inici de l’esdeveniment
+      assignment_start_placeholder: AAAA-MM-DD
       cancel_course_clone: Cancel·la la duplicació del programa
+      cancel_course_clone_confirm: Segur que voleu cancel·lar la duplicació d'aquest
+        curs?
       checking_for_uniqueness: Estem revisant si aquest programa és únic.
+      choose_clone: Escolliu un programa per clonar.
+      clone_previous: Clona el curs anterior
+      clone_this: Clona aquest programa
+      clone_successful: El programa ha estat clonat amb èxit.
+      clone_successful_details: El programa ha estat clonat. Cliqueu el botó "Desa"
+        a continuació per finalitzar el procés.
       course_when: Afegiu alguna cosa al camp "Quan" (per exemple, el mes i l'any)
         per diferenciar-lo de l'original.
       course_description: Descripció del programa

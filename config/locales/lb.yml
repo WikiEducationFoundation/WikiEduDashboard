@@ -392,6 +392,8 @@ lb:
     editing: Virschléi änneren
     suggestion_docs:
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia.
+  tickets:
+    none: Keng Ticketen
   timeline:
     add_week: Woch derbäisetzen
     block_custom: Personaliséiert

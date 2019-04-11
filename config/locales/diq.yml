@@ -220,6 +220,8 @@ diq:
     special_users:
       new:
         form_placeholder: Nameyê Karberi
+  tickets:
+    none: Bıleti çıniyê
   timeline:
     empty_week_3: ya zi
     week_number: Hefte %{number}

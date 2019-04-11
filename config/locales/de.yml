@@ -929,6 +929,8 @@ de:
       update_daily läuft.
     paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
+  tickets:
+    none: Keine Tickets
   timeline:
     add_week: Woche hinzufügen
     arrange_timeline: Zeitleiste erstellen

@@ -105,6 +105,8 @@ roa-tara:
         revoking_button_working: Stoche a revoche...
         already_is_not: '%{username} non g''è ''n''utende speciale!'
         demote_success: '%{username} jè probbie ''n''utende.'
+  tickets:
+    none: Nisciune ticket
   article_finder:
     show_options: Fà 'ndrucà le opziune
     hide_options: Scunne le opziune

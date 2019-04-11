@@ -861,6 +861,8 @@ ar:
     constant: لا يمكن تشغيل المهمة %{task} أثناء تشغيل المهمة update_daily.
     paused: المهمة %{task} لا يمكن تشغيلها لأنه قد تم إيقاف التحديثات المجدولة. شغِّل
       'rake batch:resume' لاستئناف التحديثات.
+  tickets:
+    none: لا تذاكر
   timeline:
     add_week: إضافة أسبوع
     arrange_timeline: ترتيب الجدول الزمني

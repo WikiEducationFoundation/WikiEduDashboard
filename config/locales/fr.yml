@@ -954,6 +954,8 @@ fr:
       fonctionne.
     paused: La tâche %{task} ne peut pas tourner car les mises à jour de l’ordonnanceur
       ont été suspendues. Lancez 'rake batch:resume' pour reprendre les mises à jour.
+  tickets:
+    none: Aucun ticket
   timeline:
     add_week: Ajouter une semaine
     arrange_timeline: Organiser le planning

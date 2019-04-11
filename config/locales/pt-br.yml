@@ -932,6 +932,8 @@ pt-br:
       está sendo executada.
     paused: A tarefa %{task} não pode ser executada porque atualizações programadas
       foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
+  tickets:
+    none: Sem ingressos
   timeline:
     add_week: Adicionar Semana
     arrange_timeline: Organizar Cronograma
