@@ -92,7 +92,7 @@
     "moment": "2.24.0",
     "moment-recur": "^1.0.7",
     "nouislider": "^13.1.4",
-    "parsleyjs": "^2.8.2",
+    "parsleyjs": "^2.9.0",
     "promise-limit": "^2.7.0",
     "prop-types": "^15.7.2",
     "query-string": "6.4.2",
