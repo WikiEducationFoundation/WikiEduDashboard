@@ -11,7 +11,7 @@ class PushCourseToSalesforce
     return unless Features.wiki_ed?
     @course = course
     @salesforce_id = @course.flags[:salesforce_id]
-    @client = Restforce.new
+    @client = Restforce.new(SalesforceCredentials.get)
     push
   end
 

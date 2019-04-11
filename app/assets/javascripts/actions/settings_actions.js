@@ -1,9 +1,11 @@
+
 import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
 } from '../constants/settings';
 import { API_FAIL } from '../constants/api';
+import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
 
@@ -323,4 +325,28 @@ export const downgradeAdmin = username => (dispatch) => {
       })
       );
     });
+};
+
+
+const updateSalesforceCredentialsPromise = (password, token) => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'POST',
+      url: '/settings/update_salesforce_credentials',
+      data: { password, token },
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+export const updateSalesforceCredentials = (password, token) => (dispatch) => {
+  return updateSalesforceCredentialsPromise(password, token)
+    .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closeable: true } }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };

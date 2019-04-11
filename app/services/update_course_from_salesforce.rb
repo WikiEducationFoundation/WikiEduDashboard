@@ -9,7 +9,7 @@ class UpdateCourseFromSalesforce
     @course = course
     @salesforce_id = @course.flags[:salesforce_id]
     return unless @salesforce_id
-    @client = Restforce.new
+    @client = Restforce.new(SalesforceCredentials.get)
     update
   rescue StandardError => e
     Raven.capture_exception e

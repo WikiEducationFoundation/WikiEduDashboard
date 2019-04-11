@@ -11,7 +11,7 @@ class CreateSalesforceMediaRecord
     @article, @course, @user = article, course, user
     @before_rev_id, @after_rev_id = before_rev_id, after_rev_id
     @salesforce_course_id = @course.flags[:salesforce_id]
-    @client = Restforce.new
+    @client = Restforce.new(SalesforceCredentials.get)
     create_salesforce_record
   end
 

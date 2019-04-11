@@ -81,6 +81,11 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     end
   end
 
+  def update_salesforce_credentials
+    SalesforceCredentials.update(params[:password], params[:token])
+    render json: { message: 'Salesforce credentials updated.' }, status: :ok
+  end
+
   private
 
   def username_param
