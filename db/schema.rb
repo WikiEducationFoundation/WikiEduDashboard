@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_171638) do
+ActiveRecord::Schema.define(version: 2019_04_10_204650) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -418,6 +418,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_171638) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "details"
     t.index ["ticket_id"], name: "index_ticket_dispenser_messages_on_ticket_id"
   end
 
