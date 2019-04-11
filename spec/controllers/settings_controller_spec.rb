@@ -442,4 +442,21 @@ describe SettingsController, type: :request do
       end
     end
   end
+
+  describe '#update_salesforce_credentials' do
+    before do
+      @action = '/settings/update_salesforce_credentials'
+      @format_type = :json
+      super_admin = create(:super_admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(super_admin)
+    end
+
+    it 'sets the Salesforce password and security token' do
+      expect(SalesforceCredentials.get).to eq({})
+      post @action, params: { password: 'new_pass', token: 'new_token' }
+      expect(SalesforceCredentials.get[:password]).to eq('new_pass')
+      expect(SalesforceCredentials.get[:security_token]).to eq('new_token')
+    end
+  end
 end
