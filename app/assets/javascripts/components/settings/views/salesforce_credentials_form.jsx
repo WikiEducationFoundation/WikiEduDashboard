@@ -34,7 +34,7 @@ const SalesforceCredentialsForm = createReactClass({
               onChange={this.handleChange}
               value={this.state.salesforce_password}
               value_key="salesforce_password"
-              type="text"
+              type="password"
               label="Password"
             />
             <TextInput
@@ -43,7 +43,7 @@ const SalesforceCredentialsForm = createReactClass({
               onChange={this.handleChange}
               value={this.state.salesforce_token}
               value_key="salesforce_token"
-              type="text"
+              type="password"
               label="Security Token"
             />
             <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
