@@ -17,7 +17,14 @@ class TicketsController < ApplicationController
     recipient = ticket.reply_to
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
+    message.details[:delivered] = Time.zone.now
+    message.save
     render json: { success: :ok }
+  rescue StandardError
+    message.details[:delivery_failed] = Time.zone.now
+    message.save
+    render json: { message: 'Email could not be sent. :(' },
+          status: :unprocessable_entity
   end
 
   private
