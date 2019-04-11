@@ -36,22 +36,22 @@ export const SettingsHandler = createReactClass({
     if (Features.wikiEd) {
       salesforce = (
         <React.Fragment>
-          <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Other Settings</h1>
+          <h1 className="mx2">Other Settings</h1>
           <hr />
-          <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Salesforce</h2>
+          <h2 className="mx2">Salesforce</h2>
           <UpdateSalesforceCredentials />
         </React.Fragment>
       );
     }
     return (
-      <div className="mt4 container">
+      <div id="settings" className="mt4 container">
         <Notifications />
-        <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Users</h1>
+        <h1 className="mx2">Users</h1>
         <hr />
-        <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Admin Users</h2>
+        <h2 className="mx2">Admin Users</h2>
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
-        <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Special Users</h2>
+        <h2 className="mx2">Special Users</h2>
         <AddSpecialUserButton />
         <SpecialUserList specialUsers={this.props.specialUsers} />
         {salesforce}
