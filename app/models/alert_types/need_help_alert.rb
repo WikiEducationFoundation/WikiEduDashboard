@@ -29,8 +29,4 @@ class NeedHelpAlert < Alert
   def url
     course_url
   end
-
-  def reply_to
-    user.email
-  end
 end
