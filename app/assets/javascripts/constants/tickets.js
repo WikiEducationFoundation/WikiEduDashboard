@@ -6,6 +6,7 @@ export const SELECT_TICKET = 'SELECT_TICKET';
 export const SET_MESSAGES_TO_READ = 'SET_MESSAGES_TO_READ';
 export const SORT_TICKETS = 'SORT_TICKETS';
 export const UPDATE_TICKET = 'UPDATE_TICKET';
+export const FILTER_TICKETS = 'FILTER_TICKETS';
 
 // These statuses are connected to the statuses that are set
 // in TicketDispenser::Ticket. If you change them here, you

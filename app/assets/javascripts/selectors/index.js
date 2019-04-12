@@ -27,6 +27,8 @@ const getTraining = state => state.training;
 const getValidations = state => state.validations.validations;
 const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
+const getTickets = state => state.tickets;
+
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -219,5 +221,13 @@ export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
     if (!user.isNonstudent) { return false; }
     return user.isAdmin || !course.closed;
+  }
+);
+
+export const getFilteredTickets = createSelector(
+  [getTickets], (tickets) => {
+    const ownerIds = tickets.filters.map(filter => filter.value);
+    if (ownerIds.length === 0) { return tickets.all; }
+    return _.filter(tickets.all, ticket => ownerIds.includes(ticket.owner.id));
   }
 );

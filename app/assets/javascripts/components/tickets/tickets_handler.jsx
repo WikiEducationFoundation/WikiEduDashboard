@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import Row from './tickets_table_row';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
+import TicketFilters from './ticket_filters';
 
 import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
+import { getFilteredTickets } from '../../selectors';
 
 export class TicketsHandler extends React.Component {
   componentDidMount() {
@@ -45,7 +47,7 @@ export class TicketsHandler extends React.Component {
       }
     };
 
-    const elements = this.props.tickets.all.map(ticket => (
+    const elements = this.props.filteredTickets.map(ticket => (
       <Row key={ticket.id} ticket={ticket} />
     ));
 
@@ -60,6 +62,7 @@ export class TicketsHandler extends React.Component {
       <main className="container ticket-dashboard">
         <h1 className="mt4">Ticketing Dashboard</h1>
         <hr/>
+        <TicketFilters />
         <List
           className="table--expandable table--hoverable"
           elements={elements}
@@ -73,8 +76,9 @@ export class TicketsHandler extends React.Component {
   }
 }
 
-const mapStateToProps = ({ tickets }) => ({
-  tickets
+const mapStateToProps = state => ({
+  tickets: state.tickets,
+  filteredTickets: getFilteredTickets(state)
 });
 
 const mapDispatchToProps = {
