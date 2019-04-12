@@ -10,7 +10,7 @@ import { STATUSES } from './util';
 export class Sidebar extends React.Component {
   // This is required because the User Profile is not a React page
   goTo() {
-    window.location.pathname = `/users/${this.props.ticket.sender}`;
+    window.location.pathname = `/users/${this.props.ticket.sender.username}`;
   }
 
   deleteTicket() {
@@ -39,14 +39,14 @@ export class Sidebar extends React.Component {
         <section>
           {
             ticket.project.id
-              ? <Link className="button" to={`/courses/${ticket.project.slug}`}>Go to Course</Link>
+              ? <Link to={`/courses/${ticket.project.slug}`}>Go to the {ticket.project.title} Course</Link>
               : 'Course Unknown'
           }
         </section>
         <section>
           {
-            ticket.sender
-              ? <a className="button" onClick={() => this.goTo()}>Go to User Account</a>
+            ticket.sender.username
+              ? <a onClick={() => this.goTo()}>Go to {`${ticket.sender.real_name || ticket.sender.username}'s`} Account</a>
               : 'Unknown User Record'
           }
         </section>

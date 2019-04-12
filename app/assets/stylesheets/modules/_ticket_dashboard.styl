@@ -6,20 +6,35 @@
     span(1/4)
     section
       padding 0.5rem 0
+      &:first-child
+        padding-top 0
   .bold
     font-weight 600
   .open
     color sprout
   .bg-white
     background white
-  .status-icon
-    border-radius 50%
-    float right
-    height 30px
-    padding 8px
-    text-align center
-    width 30px
-    &.check
-      background blue-violet
-    &.minus
-      background warning
+  .reply-details
+    background athens
+    border 1px solid zircon
+    border-top none
+    display flex
+    margin-bottom 1rem
+    padding 0.5rem 20px
+    span
+      align-items center
+      display flex
+      flex 1
+      font-size 0.9rem
+      p
+        width 100%
+    .status-icon
+      border-radius 50%
+      height 25px
+      margin-left auto
+      padding 8px
+      width 25px
+      &.check
+        background blue-violet
+      &.minus
+        background warning

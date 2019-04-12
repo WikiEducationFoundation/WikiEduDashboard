@@ -58,7 +58,8 @@ export class NewReplyForm extends React.Component {
 
   render() {
     const ticket = this.props.ticket;
-    const toAddress = ticket.sender ? ` to ${ticket.sender}` : null;
+    const name = ticket.sender.real_name || ticket.sender.username;
+    const toAddress = name ? ` to ${name}` : null;
     // Using the lastTicketId for the input key means that a new, blank
     // input will be created after a new message is successfully added.
     const lastTicketId = ticket.messages[ticket.messages.length - 1].id;

@@ -8,7 +8,7 @@ const TicketsTableRow = ({ ticket }) => {
   return (
     <tr className={ticket.read ? 'table-row--faded' : 'read'}>
       <td>
-        { ticket.sender || 'Unknown User Record' }
+        {ticket.sender.real_name || ticket.sender.username || 'Unknown User Record' }
       </td>
       <td>
         {
