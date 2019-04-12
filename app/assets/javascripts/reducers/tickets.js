@@ -12,7 +12,6 @@ import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   all: [],
-  byId: {},
   selected: {},
   filters: [],
   loading: true,
@@ -30,7 +29,6 @@ const SORT_DESCENDING = {
   actions: true
 };
 
-const byIdFromAll = tickets => tickets.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
 const replaceTicket = (tickets, newTicket) => {
   const ticket = tickets.find(tick => tick.id === newTicket.id);
   const index = tickets.indexOf(ticket);
@@ -55,11 +53,9 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case DELETE_TICKET: {
       const all = removeTicket(state.all, action.id);
-      const byId = byIdFromAll(all);
       return {
         ...state,
         all,
-        byId,
         loading: false
       };
     }
@@ -68,14 +64,10 @@ export default function (state = initialState, action) {
     case FILTER_TICKETS:
       return { ...state, filters: action.filters };
     case RECEIVE_TICKETS: {
-      const tickets = action.data;
-      const byId = byIdFromAll(tickets);
-
       return {
         ...state,
         all: action.data,
-        loading: false,
-        byId
+        loading: false
       };
     }
     case SELECT_TICKET:
@@ -85,12 +77,9 @@ export default function (state = initialState, action) {
       };
     case SET_MESSAGES_TO_READ: {
       const all = replaceTicket(state.all, action.data.ticket);
-      const byId = byIdFromAll(all);
-
       return {
         ...state,
         all,
-        byId,
         selected: { ...action.data.ticket }
       };
     }
@@ -109,13 +98,11 @@ export default function (state = initialState, action) {
     case UPDATE_TICKET: {
       const selectedId = state.selected.id;
       const all = replaceTicket(state.all, action.data.ticket);
-      const byId = byIdFromAll(all);
-      const selected = selectedId ? byId[selectedId] : {};
+      const selected = selectedId ? all.find(ticket => ticket.id === selectedId) : {};
 
       return {
         ...state,
         all,
-        byId,
         selected
       };
     }
