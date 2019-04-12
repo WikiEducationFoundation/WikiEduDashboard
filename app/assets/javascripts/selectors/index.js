@@ -227,8 +227,8 @@ export const editPermissions = createSelector(
 export const getFilteredTickets = createSelector(
   [getTickets], (tickets) => {
     const ownerIds = tickets.filters.map(filter => filter.value);
-    if (ownerIds.length === 0) { return tickets.all; }
-    return _.filter(tickets.all, ticket => ownerIds.includes(ticket.owner.id));
+    if (!ownerIds.length) { return tickets.all; }
+    return tickets.all.filter(ticket => ownerIds.includes(ticket.owner.id));
   }
 );
 
