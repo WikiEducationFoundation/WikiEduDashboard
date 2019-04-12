@@ -1,6 +1,7 @@
 import {
   DELETE_TICKET,
   FETCH_TICKETS,
+  FILTER_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -13,6 +14,7 @@ const initialState = {
   all: [],
   byId: {},
   selected: {},
+  filters: [],
   loading: true,
   sort: {
     sortKey: null,
@@ -63,6 +65,8 @@ export default function (state = initialState, action) {
     }
     case FETCH_TICKETS:
       return { ...state, loading: true };
+    case FILTER_TICKETS:
+      return { ...state, filters: action.filters };
     case RECEIVE_TICKETS: {
       const tickets = action.data;
       const byId = byIdFromAll(tickets);

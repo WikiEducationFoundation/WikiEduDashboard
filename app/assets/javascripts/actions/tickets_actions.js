@@ -2,6 +2,7 @@ import {
   CREATE_REPLY,
   DELETE_TICKET,
   FETCH_TICKETS,
+  FILTER_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -128,3 +129,5 @@ export const deleteTicket = id => async (dispatch) => {
 
   dispatch({ type: DELETE_TICKET, id });
 };
+
+export const setTicketFilters = filters => ({ type: FILTER_TICKETS, filters });
