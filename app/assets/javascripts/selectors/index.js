@@ -231,3 +231,9 @@ export const getFilteredTickets = createSelector(
     return _.filter(tickets.all, ticket => ownerIds.includes(ticket.owner.id));
   }
 );
+
+export const getTicketsById = createSelector(
+  [getTickets], (tickets) => {
+    return tickets.all.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+  }
+);

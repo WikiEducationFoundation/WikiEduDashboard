@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Loading from '../common/loading';
 import Notifications from '../common/notifications';
 import Show from './ticket_show';
+import { getTicketsById } from '../../selectors';
 
 import {
   createReply,
@@ -16,7 +17,7 @@ import {
 export class TicketShow extends React.Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    const ticket = this.props.tickets.byId[id];
+    const ticket = this.props.ticketsById[id];
 
     if (ticket) {
       this.props.readAllMessages(ticket);
@@ -24,12 +25,12 @@ export class TicketShow extends React.Component {
     }
 
     this.props.fetchTicket(id).then(() => {
-      this.props.readAllMessages(this.props.tickets.selected);
+      this.props.readAllMessages(this.props.selectedTicket);
     });
   }
 
   render() {
-    if (!this.props.tickets.selected.id) return <Loading />;
+    if (!this.props.selectedTicket.id) return <Loading />;
 
     return (
       <div>
@@ -39,16 +40,17 @@ export class TicketShow extends React.Component {
           createReply={this.props.createReply}
           currentUser={this.props.currentUserFromHtml}
           fetchTicket={this.props.fetchTicket}
-          ticket={this.props.tickets.selected}
+          ticket={this.props.selectedTicket}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ currentUserFromHtml, tickets }) => ({
-  currentUserFromHtml,
-  tickets
+const mapStateToProps = state => ({
+  currentUserFromHtml: state.currentUserFromHtml,
+  ticketsById: getTicketsById(state),
+  selectedTicket: state.tickets.selected
 });
 
 const mapDispatchToProps = {
