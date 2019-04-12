@@ -7,6 +7,7 @@ import Show from './ticket_show';
 
 import {
   createReply,
+  deleteTicket,
   fetchTicket,
   fetchTickets,
   readAllMessages,
@@ -34,6 +35,7 @@ export class TicketShow extends React.Component {
       <div>
         <Notifications />
         <Show
+          deleteTicket={this.props.deleteTicket}
           createReply={this.props.createReply}
           currentUser={this.props.currentUserFromHtml}
           fetchTicket={this.props.fetchTicket}
@@ -51,6 +53,7 @@ const mapStateToProps = ({ currentUserFromHtml, tickets }) => ({
 
 const mapDispatchToProps = {
   createReply,
+  deleteTicket,
   fetchTicket,
   fetchTickets,
   readAllMessages,

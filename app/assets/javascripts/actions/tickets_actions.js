@@ -1,5 +1,6 @@
 import {
   CREATE_REPLY,
+  DELETE_TICKET,
   FETCH_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
@@ -113,4 +114,17 @@ export const updateTicketStatus = (id, status) => (dispatch) => {
 
 export const updateTicketOwner = (id, owner_id) => (dispatch) => {
   updateTicket(id, { owner_id }, dispatch);
+};
+
+export const deleteTicket = id => async (dispatch) => {
+  await fetch(`/td/tickets/${id}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': getCsrf()
+    },
+    method: 'DELETE'
+  });
+
+  dispatch({ type: DELETE_TICKET, id });
 };
