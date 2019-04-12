@@ -51,7 +51,7 @@ export class Sidebar extends React.Component {
           }
         </section>
         <section>
-          <button className="button" onClick={() => this.deleteTicket()}>Delete Ticket</button>
+          <button className="button danger" onClick={() => this.deleteTicket()}>Delete Ticket</button>
         </section>
       </section>
     );
