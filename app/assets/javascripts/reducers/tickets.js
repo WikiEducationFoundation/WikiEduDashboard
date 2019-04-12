@@ -1,4 +1,5 @@
 import {
+  DELETE_TICKET,
   FETCH_TICKETS,
   RECEIVE_TICKETS,
   SELECT_TICKET,
@@ -38,9 +39,28 @@ const replaceTicket = (tickets, newTicket) => {
     ...tickets.slice(index + 1)
   ];
 };
+const removeTicket = (tickets, id) => {
+  const ticket = tickets.find(tick => tick.id === id);
+  const index = tickets.indexOf(ticket);
+
+  return [
+    ...tickets.slice(0, index),
+    ...tickets.slice(index + 1)
+  ];
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case DELETE_TICKET: {
+      const all = removeTicket(state.all, action.id);
+      const byId = byIdFromAll(all);
+      return {
+        ...state,
+        all,
+        byId,
+        loading: false
+      };
+    }
     case FETCH_TICKETS:
       return { ...state, loading: true };
     case RECEIVE_TICKETS: {

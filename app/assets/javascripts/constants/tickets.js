@@ -1,4 +1,5 @@
 export const CREATE_REPLY = 'CREATE_REPLY';
+export const DELETE_TICKET = 'DELETE_TICKET';
 export const FETCH_TICKETS = 'FETCH_TICKETS';
 export const RECEIVE_TICKETS = 'RECEIVE_TICKETS';
 export const SELECT_TICKET = 'SELECT_TICKET';

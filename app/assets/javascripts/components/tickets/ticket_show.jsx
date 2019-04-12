@@ -5,7 +5,13 @@ import Reply from './reply';
 import Sidebar from './sidebar';
 import NewReplyForm from './new_reply_form';
 
-export const TicketShow = ({ ticket, createReply, currentUser, fetchTicket }) => {
+export const TicketShow = ({
+  createReply,
+  deleteTicket,
+  currentUser,
+  fetchTicket,
+  ticket,
+}) => {
   const createdAt = ticket.messages[0].created_at;
   const dateTime = moment(createdAt).format('MMMM DD, hh:mm a');
 
@@ -24,7 +30,12 @@ export const TicketShow = ({ ticket, createReply, currentUser, fetchTicket }) =>
           fetchTicket={fetchTicket}
         />
       </section>
-      <Sidebar ticket={ticket} currentUser={currentUser} createdAt={createdAt} />
+      <Sidebar
+        createdAt={createdAt}
+        currentUser={currentUser}
+        deleteTicket={deleteTicket}
+        ticket={ticket}
+      />
     </main>
   );
 };
