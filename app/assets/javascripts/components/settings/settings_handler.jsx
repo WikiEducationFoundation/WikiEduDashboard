@@ -29,12 +29,20 @@ const SettingsHandler = createReactClass({
     this.props.fetchAdminUsers();
     this.props.fetchSpecialUsers();
   },
+  changeDefaultCampaign(e) {
+    const isChecked = e.target.checked;
+    console.log(this.props);
+  },
 
   render() {
     return (
       <div className="mt4 container">
         <Notifications />
         <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Users</h1>
+        <div className="campaign-checkbox">
+          <label>Enable default campaign </label>
+          <input type="checkbox" onChange={this.changeDefaultCampaign} />
+        </div>
         <hr />
         <h2 className="mx2" style={{ display: 'inline-block', maring: 0 }}>Admin Users</h2>
         <AddAdminButton />
