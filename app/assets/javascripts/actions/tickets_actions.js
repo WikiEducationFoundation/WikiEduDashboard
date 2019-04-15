@@ -7,8 +7,10 @@ import {
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
+  TICKET_STATUS_OPEN,
   UPDATE_TICKET
 } from '../constants/tickets';
+import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import fetch from 'cross-fetch';
 
@@ -132,3 +134,17 @@ export const deleteTicket = id => async (dispatch) => {
 
 export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });
 export const setTicketStatusesFilter = filters => ({ type: FILTER_TICKETS, filters: { statuses: filters } });
+
+export const setInitialTicketFilters = () => (dispatch, getState) => {
+  // Open tickets only
+  dispatch(setTicketStatusesFilter([{ value: TICKET_STATUS_OPEN, label: STATUSES[TICKET_STATUS_OPEN] }]));
+
+  // Owned by current user, or no one
+  const state = getState();
+  const currentUserId = state.currentUserFromHtml.id;
+  const currentUser = state.admins.find(admin => admin[1] === currentUserId);
+  const currentUserOption = { label: currentUser[0], value: currentUser[1] };
+  const unassignedOption = { label: 'unassigned', value: null };
+  dispatch(setTicketOwnersFilter([currentUserOption, unassignedOption]));
+};
+
