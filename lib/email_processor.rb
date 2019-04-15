@@ -7,17 +7,17 @@ class EmailProcessor
 
   def process
     recipient_emails = @email.to.pluck(:email)
-    owner = User.find_by(greeter: true, email: recipient_emails)
+    @owner = User.find_by(greeter: true, email: recipient_emails)
 
     @from_address = @email.from[:email]
     @sender = User.find_by(email: @from_address) if @from_address
-    course = @sender.courses.last if @sender
+    @course = @sender.courses.last if @sender
 
-    body, reference_id = parse_body_and_reference_id
-    content = body
-    content += " #{from_signature(@email.from)}" if @sender.blank?
+    body, @reference_id = parse_body_and_reference_id
+    @content = body
+    @content += " #{from_signature(@email.from)}" if @sender.blank?
 
-    dispense_or_thread_ticket(content, course, owner, reference_id)
+    dispense_or_thread_ticket
   end
 
   private
@@ -36,24 +36,34 @@ class EmailProcessor
     return [@email.body, reference_id]
   end
 
-  def dispense_or_thread_ticket(content, course, owner, reference_id)
-    raise unless reference_id
-
-    TicketDispenser::Dispenser.thread(
-      content: content,
-      reference_id: reference_id,
-      sender_id: @sender&.id,
-      sender_email: @from_address,
-      subject: @email.subject
-    )
+  def dispense_or_thread_ticket
+    if @reference_id
+      thread_ticket
+    else
+      create_ticket
+    end
   rescue StandardError
+    create_ticket
+  end
+
+  def create_ticket
     TicketDispenser::Dispenser.call(
-      content: content,
-      owner_id: owner&.id,
-      project_id: course&.id,
+      content: @content,
+      owner_id: @owner&.id,
+      project_id: @course&.id,
       sender_id: @sender&.id,
       subject: @email.subject,
       sender_email: @from_address
+    )
+  end
+
+  def thread_ticket
+    TicketDispenser::Dispenser.thread(
+      content: @content,
+      reference_id: @reference_id,
+      sender_id: @sender&.id,
+      sender_email: @from_address,
+      subject: @email.subject
     )
   end
 end
