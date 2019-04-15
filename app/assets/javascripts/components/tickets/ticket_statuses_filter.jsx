@@ -20,7 +20,7 @@ export const TicketStatusesFilter = ({ setStatusesFilter, statusesFilter }) => {
 
 const mapStateToProps = ({ admins, tickets }) => ({
   admins,
-  statusesFilter: tickets.filters.owners
+  statusesFilter: tickets.filters.statuses
 });
 
 const mapDispatchToProps = {
