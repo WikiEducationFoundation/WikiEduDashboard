@@ -11,9 +11,20 @@ export const Reply = ({ message }) => {
   const failedTime = moment(message.details.delivery_failed).format('YYYY/MM/DD h:mm a');
   const failed = `Failed on ${failedTime}`;
 
+  let subject;
+  if (message.details.subject) {
+    subject = (
+      <React.Fragment>
+        <h4 className=".message-subject">{ message.details.subject }</h4>
+        <hr />
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <section className="module mb0 mt0">
+        {subject}
         <div className="plaintext" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
       </section>
       <aside className="reply-details">
