@@ -701,6 +701,8 @@ fi:
       on käynnissä.
     paused: Toimea %{task} ei voi suorittaa, koska ajastetut päivitykset on pysäytetty.
       Suorita 'rake batch:resume' päivitysten jatkamiseksi.
+  tickets:
+    none: Ei tikettejä
   timeline:
     add_week: Lisää viikko
     arrange_timeline: Järjestä aikajanaa

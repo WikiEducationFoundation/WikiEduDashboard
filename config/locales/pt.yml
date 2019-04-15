@@ -928,11 +928,11 @@ pt:
         as sugestões não estão disponíveis para a avaliação.
       does_not_exist: Este artigo não existe na Wikipédia.
   tasks:
-    conseq: A tarefa %{task} está sendo executada!
+    conseq: A tarefa %{task} já está a correr!
     constant: A tarefa %{task} não pode ser executada enquanto a tarefa update_daily
       está sendo executada.
-    paused: A tarefa %{task} não pode ser executada porque atualizações programadas
-      foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
+    paused: A tarefa %{task} não pode ser executada porque algumas atualizações programadas
+      foram colocadas em pausa. Execute 'rake batch:resume' para retomar as atualizações.
   timeline:
     add_week: Adicionar Semana
     arrange_timeline: Organizar Calendário
