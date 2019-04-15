@@ -6,26 +6,26 @@ import TicketOwnerHandler from './ticket_owner_handler';
 
 const TicketsTableRow = ({ ticket }) => {
   return (
-    <tr className={ticket.read ? 'table-row--faded' : 'read'}>
-      <td>
+    <tr className={ticket.status === 0 ? 'table-row--faded' : ''}>
+      <td className="w15">
         {ticket.sender.real_name || ticket.sender.username || 'Unknown User Record' }
       </td>
-      <td>
+      <td className="w30">
         {
           ticket.project.id
           ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
           : 'Course Unknown'
         }
       </td>
-      <td>
+      <td className="w20">
         { STATUSES[ticket.status] }
         <TicketStatusHandler ticket={ticket} />
       </td>
-      <td>
+      <td className="w20">
         { ticket.owner.username }
         <TicketOwnerHandler ticket={ticket} />
       </td>
-      <td>
+      <td className="w10">
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
       </td>
     </tr>
