@@ -6,8 +6,10 @@ import {
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
+  TICKET_STATUS_OPEN,
   UPDATE_TICKET
 } from '../constants/tickets';
+import { STATUSES } from '../components/tickets/util';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -15,7 +17,7 @@ const initialState = {
   selected: {},
   filters: {
     owners: [],
-    statuses: []
+    statuses: [{ value: TICKET_STATUS_OPEN, label: STATUSES[TICKET_STATUS_OPEN] }]
   },
   loading: true,
   sort: {
