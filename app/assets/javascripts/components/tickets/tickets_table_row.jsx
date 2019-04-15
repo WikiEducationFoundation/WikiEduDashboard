@@ -8,7 +8,7 @@ const TicketsTableRow = ({ ticket }) => {
   return (
     <tr className={ticket.status === 0 ? 'table-row--faded' : ''}>
       <td className="w15">
-        {(ticket.sender && (ticket.sender.real_name || ticket.sender.username)) || 'Unknown User Record' }
+        {ticket.sender.real_name || ticket.sender.username || 'Unknown User Record' }
       </td>
       <td className="w30">
         {

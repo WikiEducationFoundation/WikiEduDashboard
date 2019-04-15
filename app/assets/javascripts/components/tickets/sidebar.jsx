@@ -45,7 +45,7 @@ export class Sidebar extends React.Component {
         </section>
         <section>
           {
-            ticket.sender
+            ticket.sender.username
               ? <a onClick={() => this.goTo()}>Go to {`${ticket.sender.real_name || ticket.sender.username}'s`} Account</a>
               : 'Unknown User Record'
           }
