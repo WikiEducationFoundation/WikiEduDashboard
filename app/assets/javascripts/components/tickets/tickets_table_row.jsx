@@ -7,10 +7,13 @@ import TicketOwnerHandler from './ticket_owner_handler';
 const TicketsTableRow = ({ ticket }) => {
   return (
     <tr className={ticket.status === 0 ? 'table-row--faded' : ''}>
-      <td className="w15">
-        {ticket.sender.real_name || ticket.sender.username || 'Unknown User Record' }
+      <td className="w10">
+        {ticket.sender.real_name || ticket.sender.username || ticket.sender_email || 'Unknown User Record' }
       </td>
-      <td className="w30">
+      <td className="w15">
+        {ticket.subject}
+      </td>
+      <td className="w25">
         {
           ticket.project.id
           ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>

@@ -42,7 +42,9 @@ class AlertsController < ApplicationController
       content: @alert.message,
       project_id: @alert.course_id,
       owner_id: @alert.target_user_id,
-      sender_id: @alert.user_id
+      sender_id: @alert.user_id,
+      subject: 'Need Help Alert',
+      sender_email: @alert.user.email
     )
   end
 
