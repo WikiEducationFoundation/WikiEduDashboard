@@ -26,6 +26,11 @@ export class TicketsHandler extends React.Component {
         desktop_only: false,
         sortable: true
       },
+      subject: {
+        label: 'Subject',
+        desktop_only: false,
+        sortable: true
+      },
       course_title: {
         label: 'Course',
         desktop_only: false,
