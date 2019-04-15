@@ -6,7 +6,7 @@ import Loading from '../common/loading';
 import List from '../common/list.jsx';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
-import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
+import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
 export class TicketsHandler extends React.Component {
@@ -14,6 +14,7 @@ export class TicketsHandler extends React.Component {
     if (!this.props.tickets.all.length) {
       this.props.fetchTickets();
     }
+    this.props.setInitialTicketFilters();
   }
 
   render() {
@@ -88,7 +89,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchTickets,
-  sortTickets
+  sortTickets,
+  setInitialTicketFilters
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
