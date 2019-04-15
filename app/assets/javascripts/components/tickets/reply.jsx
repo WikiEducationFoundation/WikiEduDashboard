@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import linkifyHtml from 'linkifyjs/html';
 
 import HelperIcon from './helper_icon';
 
@@ -9,15 +10,16 @@ export const Reply = ({ message }) => {
 
   const failedTime = moment(message.details.delivery_failed).format('YYYY/MM/DD h:mm a');
   const failed = `Failed on ${failedTime}`;
+  console.log(message.content);
 
   return (
     <React.Fragment>
       <section className="module mb0 mt0">
-        <p dangerouslySetInnerHTML={{ __html: message.content }} />
+        <div className="plaintext" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
       </section>
       <aside className="reply-details">
         <span>
-          <p>From: {message.sender.real_name || message.sender.username}</p>
+          <p>From: {message.sender && (message.sender.real_name || message.sender.username)}</p>
         </span>
         <span>
           <p>Created: {moment(message.created_at).format('MMM DD, YYYY h:mm a')}</p>

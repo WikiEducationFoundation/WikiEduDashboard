@@ -16,7 +16,7 @@ export const TicketShow = ({
 
   return (
     <main className="container ticket-dashboard">
-      <h1 className="mt4">Ticket from {ticket.sender.real_name || ticket.sender.username}</h1>
+      <h1 className="mt4">Ticket from {ticket.sender && (ticket.sender.real_name || ticket.sender.username)}</h1>
       <hr/>
       <section className="messages">
         {replies}
