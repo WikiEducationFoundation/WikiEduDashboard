@@ -10,7 +10,6 @@ export const Reply = ({ message }) => {
 
   const failedTime = moment(message.details.delivery_failed).format('YYYY/MM/DD h:mm a');
   const failed = `Failed on ${failedTime}`;
-  console.log(message.content);
 
   return (
     <React.Fragment>
