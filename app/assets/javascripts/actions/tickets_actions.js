@@ -142,8 +142,8 @@ export const setInitialTicketFilters = () => (dispatch, getState) => {
   // Owned by current user, or no one
   const state = getState();
   const currentUserId = state.currentUserFromHtml.id;
-  const currentUser = state.admins.find(admin => admin[1] === currentUserId);
-  const currentUserOption = { label: currentUser[0], value: currentUser[1] };
+  const [label, value] = state.admins.find(([_username, id]) => id === currentUserId);
+  const currentUserOption = { label, value };
   const unassignedOption = { label: 'unassigned', value: null };
   dispatch(setTicketOwnersFilter([currentUserOption, unassignedOption]));
 };

@@ -22,6 +22,7 @@
     "no-else-return": [2, { "allowElseIf": true }],
     "no-use-before-define": 0,
     "no-trailing-spaces": 2,
+    "no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
     # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
     # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
     "react/no-danger": 0,
