@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MultiSelectField from '../common/multi_select_field.jsx';
 
-import { setTicketFilters } from '../../actions/tickets_actions';
+import { setTicketOwnersFilter } from '../../actions/tickets_actions';
 
-export const TicketFilters = ({ admins, setFilters, filters }) => {
+export const TicketOwnersFilter = ({ admins, setOwnersFilter, ownerFilters }) => {
   const options = admins.map(([username, id]) => ({ label: username, value: id }));
   options.push({ label: 'unassigned', value: null });
 
@@ -12,20 +12,20 @@ export const TicketFilters = ({ admins, setFilters, filters }) => {
     <MultiSelectField
       options={options}
       label="Filter by owner"
-      selected={filters}
-      setSelectedFilters={setFilters}
+      selected={ownerFilters}
+      setSelectedFilters={setOwnersFilter}
     />
   );
 };
 
 const mapStateToProps = ({ admins, tickets }) => ({
   admins,
-  filters: tickets.filters
+  ownerFilters: tickets.filters.owners
 });
 
 const mapDispatchToProps = {
-  setFilters: setTicketFilters
+  setOwnersFilter: setTicketOwnersFilter
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(TicketFilters);
+export default connector(TicketOwnersFilter);

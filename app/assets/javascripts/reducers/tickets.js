@@ -13,7 +13,10 @@ import { sortByKey } from '../utils/model_utils';
 const initialState = {
   all: [],
   selected: {},
-  filters: [],
+  filters: {
+    owners: [],
+    statuses: []
+  },
   loading: true,
   sort: {
     sortKey: null,
@@ -61,8 +64,10 @@ export default function (state = initialState, action) {
     }
     case FETCH_TICKETS:
       return { ...state, loading: true };
-    case FILTER_TICKETS:
-      return { ...state, filters: action.filters };
+    case FILTER_TICKETS: {
+      const newFilters = { ...state.filters, ...action.filters };
+      return { ...state, filters: newFilters };
+    }
     case RECEIVE_TICKETS: {
       return {
         ...state,
