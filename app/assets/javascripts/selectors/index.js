@@ -226,9 +226,21 @@ export const editPermissions = createSelector(
 
 export const getFilteredTickets = createSelector(
   [getTickets], (tickets) => {
-    const ownerIds = tickets.filters.map(filter => filter.value);
-    if (!ownerIds.length) { return tickets.all; }
-    return tickets.all.filter(ticket => ownerIds.includes(ticket.owner.id));
+    const ownerIds = tickets.filters.owners.map(filter => filter.value);
+    const statuses = tickets.filters.statuses.map(filter => parseInt(filter.value));
+
+    let ownerFilter = ticket => ticket;
+    let statusFilter = ticket => ticket;
+    if (ownerIds.length) {
+      ownerFilter = ticket => ownerIds.includes(ticket.owner.id);
+    }
+    if (statuses.length) {
+      statusFilter = ticket => statuses.includes(ticket.status);
+    }
+
+    return tickets.all
+      .filter(ownerFilter)
+      .filter(statusFilter);
   }
 );
 

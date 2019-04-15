@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Row from './tickets_table_row';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
-import TicketFilters from './ticket_filters';
-
+import TicketOwnersFilter from './ticket_owners_filter';
+import TicketStatusesFilter from './ticket_statuses_filter';
 import { fetchTickets, sortTickets } from '../../actions/tickets_actions';
 import { getFilteredTickets } from '../../selectors';
 
@@ -61,8 +61,13 @@ export class TicketsHandler extends React.Component {
     return (
       <main className="container ticket-dashboard">
         <h1 className="mt4">Ticketing Dashboard</h1>
+        <div>
+          <span className="pull-left w10">Status: </span>
+          <TicketStatusesFilter />
+          <span className="pull-left w10">Owner: </span>
+          <TicketOwnersFilter />
+        </div>
         <hr/>
-        <TicketFilters />
         <List
           className="table--expandable table--hoverable"
           elements={elements}

@@ -130,4 +130,5 @@ export const deleteTicket = id => async (dispatch) => {
   dispatch({ type: DELETE_TICKET, id });
 };
 
-export const setTicketFilters = filters => ({ type: FILTER_TICKETS, filters });
+export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });
+export const setTicketStatusesFilter = filters => ({ type: FILTER_TICKETS, filters: { statuses: filters } });
