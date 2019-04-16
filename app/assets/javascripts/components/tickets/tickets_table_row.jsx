@@ -13,10 +13,10 @@ const TicketsTableRow = ({ ticket }) => {
       <td className="w10">
         {senderName || 'Unknown User Record' }
       </td>
-      <td className="w15">
+      <td className="w20">
         {ticket.subject && ticket.subject.replace(/_/g, ' ')}
       </td>
-      <td className="w25">
+      <td className="w20">
         {
           ticket.project.id
           ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
