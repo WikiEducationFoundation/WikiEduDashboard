@@ -15,7 +15,7 @@ export const Reply = ({ message }) => {
   if (message.details.subject) {
     subject = (
       <React.Fragment>
-        <h4 className=".message-subject">{ message.details.subject }</h4>
+        <h4>{ message.details.subject }</h4>
         <hr />
       </React.Fragment>
     );
