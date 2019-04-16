@@ -106,6 +106,9 @@
 # Default sender for emails
   SENDER_EMAIL_ADDRESS: 'test@example.com'
 
+# Email at which to receive forwarded ticket emails
+  TICKET_FORWARDING_EMAIL_ADDRESS: 'assign@dashboard.wikiedu.org'
+
 # Whitelisted test emails for staging and development
 # Except in production, the system will only send mail to these addresses.
   survey_test_email: 'developmer@yourdomain.me'
