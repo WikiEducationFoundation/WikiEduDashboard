@@ -14,7 +14,7 @@ const TicketsTableRow = ({ ticket }) => {
         {senderName || 'Unknown User Record' }
       </td>
       <td className="w15">
-        {ticket.subject}
+        {ticket.subject && ticket.subject.replace(/_/g, ' ')}
       </td>
       <td className="w25">
         {
