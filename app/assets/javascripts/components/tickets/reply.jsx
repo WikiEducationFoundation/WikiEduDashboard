@@ -25,7 +25,7 @@ export const Reply = ({ message }) => {
     <React.Fragment>
       <section className="module mb0 mt0">
         {subject}
-        <div className="plaintext" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
+        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
       </section>
       <aside className="reply-details">
         <span>
