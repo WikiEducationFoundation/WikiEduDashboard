@@ -5,10 +5,13 @@ import TicketStatusHandler from './ticket_status_handler';
 import TicketOwnerHandler from './ticket_owner_handler';
 
 const TicketsTableRow = ({ ticket }) => {
+  const { sender, sender_email } = ticket;
+  const senderName = sender.real_name || sender.username || sender_email;
+
   return (
     <tr className={ticket.status === 0 ? 'table-row--faded' : ''}>
       <td className="w10">
-        {ticket.sender.real_name || ticket.sender.username || ticket.sender_email || 'Unknown User Record' }
+        {senderName || 'Unknown User Record' }
       </td>
       <td className="w15">
         {ticket.subject}
