@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Reply from './reply';
 import Sidebar from './sidebar';
 import NewReplyForm from './new_reply_form';
@@ -16,7 +16,10 @@ export const TicketShow = ({
 
   return (
     <main className="container ticket-dashboard">
-      <h1 className="mt4">Ticket from {ticket.sender.real_name || ticket.sender.username || ticket.sender_email }</h1>
+      <h4 className="mt1"><Link to="/tickets/dashboard">← Ticketing Dashboard</Link></h4>
+      <h2>
+        Ticket from {ticket.sender.real_name || ticket.sender.username || ticket.sender_email }
+      </h2>
       <hr/>
       <section className="messages">
         {replies}

@@ -13,8 +13,8 @@ export class TicketsHandler extends React.Component {
   componentDidMount() {
     if (!this.props.tickets.all.length) {
       this.props.fetchTickets();
+      this.props.setInitialTicketFilters();
     }
-    this.props.setInitialTicketFilters();
   }
 
   render() {
