@@ -15,8 +15,8 @@ class EmailProcessor
 
   def retrieve_forwarder_email
     raw_body = @email.raw_body
-    expression = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{0,63}\b/i
-    raw_body.scan(expression).first
+    expression = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i
+    raw_body[expression]
   end
 
   private
