@@ -13,10 +13,10 @@ class EmailProcessor
     dispense_or_thread_ticket
   end
 
-  def email_addresses_from_email
+  def retrieve_forwarder_email
     raw_body = @email.raw_body
     expression = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{0,63}\b/i
-    raw_body.scan(expression)
+    raw_body.scan(expression).first
   end
 
   private
@@ -24,13 +24,12 @@ class EmailProcessor
   def define_owner
     recipient_emails = @email.to.pluck(:email)
     @owner = User.find_by(greeter: true, email: recipient_emails)
-    @from_address = @email.from[:email]
   end
 
   def define_sender
-    recipient_emails = @email.cc ? @email.cc.pluck(:email) : []
-    if recipient_emails.include?(ENV['TICKET_FORWARDING_EMAIL_ADDRESS'])
-      addresses = email_addresses_from_email
+    @from_address = @email.from[:email]
+    if @from_address.end_with?(ENV['TICKET_FORWARDING_DOMAIN'])
+      addresses = retrieve_forwarder_email
       @sender = User.find_by(greeter: false, email: addresses)
     elsif @from_address
       @sender = User.find_by(email: @from_address)

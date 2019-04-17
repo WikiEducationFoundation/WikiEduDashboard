@@ -97,10 +97,10 @@ describe EmailProcessor do
         Student <student@email.com>\r\nDate: Mon, Apr 8, 2019 at 3:42 PM\r\n
         Subject: Help!\r\nTo: <staff@email.com>\r\n\r\n\r\nHelp message\r\n
       EXAMPLE
+      domain = ENV['TICKET_FORWARDING_DOMAIN']
       email = create(:email,
                      to: [{ email: expert.email }],
-                     cc: [{ email: ENV['TICKET_FORWARDING_EMAIL_ADDRESS'] }],
-                     from: { email: 'other@email.com' },
+                     from: { email: "other-staff@#{domain}" },
                      raw_body: body)
       processor = described_class.new(email)
       processor.process
@@ -115,17 +115,17 @@ describe EmailProcessor do
     end
   end
 
-  describe '#email_addresses_from_email' do
-    it 'should return a list of all emails that appear in the email body' do
+  describe '#retrieve_forwarder_email' do
+    it 'should return the first email from a forwarded message' do
       body = <<~EXAMPLE
         Example email test\r\n\r\n---------- Forwarded message ---------\r\nFrom:
         Person A <aaa@email.com>\r\nDate: Mon, Apr 8, 2019 at 3:42 PM\r\n
         Subject: Help!\r\nTo: <bbb@email.com>\r\n\r\n\r\nHelp message\r\n
       EXAMPLE
       email = build(:email, raw_body: body)
-      expected_result = ['aaa@email.com', 'bbb@email.com']
+      expected_result = 'aaa@email.com'
 
-      expect(described_class.new(email).email_addresses_from_email).to match_array(expected_result)
+      expect(described_class.new(email).retrieve_forwarder_email).to eq(expected_result)
     end
   end
 end
