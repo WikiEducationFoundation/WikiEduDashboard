@@ -112,5 +112,5 @@ a.training {
 
 .hidden p {
   color: white;
-  visibility: hidden;
+  font-size: 10px;
 }
