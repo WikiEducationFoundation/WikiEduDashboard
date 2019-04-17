@@ -27,6 +27,7 @@ ENV['chat_server'] = 'https://dashboardchat.wmflabs.org'
 ENV['SF_SERVER'] = 'https://cs54.salesforce.com/'
 ENV['edit_en.wikipedia.org'] = 'true'
 ENV['dashboard_url'] = 'dashboard.wikiedu.org'
+ENV['TICKET_FORWARDING_DOMAIN'] = 'wikiedu.org'
 
 Rails.application.configure do
   # Settings specified here will take
