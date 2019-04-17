@@ -1,7 +1,5 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
 .hidden
-  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
-  %p= "ref_#{@ticket.reference_id}_ref"
   %p -- REPLY ABOVE THIS LINE --
 %table.row
   %tbody
@@ -32,3 +30,6 @@
                     %td.main-content.link-cell
                       %a.button_link.small{:href => @ticket_dashboard_link}
                         Go to Ticket Dashboard
+.hidden
+  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+  %p= "ref_#{@ticket.reference_id}_ref"
