@@ -21,10 +21,23 @@ export const Reply = ({ message }) => {
     );
   }
 
+  let cc;
+  if (message.details.cc) {
+    cc = (
+      <React.Fragment>
+        <h6 className="cc">
+          <span>CC: </span>
+          {message.details.cc.map(({ email }) => email)}
+        </h6>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <section className="module mb0 mt0">
         {subject}
+        { cc }
         <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
       </section>
       <aside className="reply-details">
