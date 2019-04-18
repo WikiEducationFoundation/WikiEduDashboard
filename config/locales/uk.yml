@@ -7,6 +7,7 @@
 # Author: Andriykopanytsia
 # Author: Base
 # Author: Green Zero
+# Author: Ihor.Zinchenko
 # Author: Macofe
 # Author: Movses
 # Author: Olghinabella
@@ -78,8 +79,8 @@ uk:
       графік і підлаштувати його під свої потреби.
     explore_course_pages: Оглянути сторінки курсів
     explore_examples: Оглянути приклади
-    join_note: Як тільки ви отримали пароль від вашого інструктора, натисніть «Знайти
-      свій курс» та приєднайтеся до нього.
+    join_note: Після отримання пароля від вашого інструктора, натисніть «Знайти свій
+      курс» та приєднайтеся до нього.
     no_courses_instructor: Схоже, що ви не маєте жодного курсу.
     no_courses_student: Схоже, що ви ще не приєдналися до курсу.
     opt_out: Прохання відмовитися від орієнтації
