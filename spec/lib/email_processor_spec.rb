@@ -113,6 +113,21 @@ describe EmailProcessor do
       expect(ticket.owner).to eq(expert)
       expect(message.sender).to eq(student)
     end
+
+    it 'includes the subject, sender email, and carbon copied emails by default' do
+      email = create(:email,
+                     to: [{ email: expert.email }],
+                     cc: [{ email: 'carbon-coby@email.com' }],
+                     from: { email: student.email },
+                     subject: 'Subject')
+      processor = described_class.new(email)
+      processor.process
+
+      message = TicketDispenser::Message.first
+      expect(message.details[:subject]).to eq('Subject')
+      expect(message.details[:sender_email]).to eq(student.email)
+      expect(message.details[:cc]).to eq([{ email: 'carbon-coby@email.com' }])
+    end
   end
 
   describe '#retrieve_forwarder_email' do

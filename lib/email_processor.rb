@@ -64,23 +64,31 @@ class EmailProcessor
   end
 
   def create_ticket
+    details = {
+      subject: @email.subject,
+      sender_email: @from_address
+    }
+    details = { cc: @email.cc, **details } unless @email.cc.blank?
     TicketDispenser::Dispenser.call(
       content: @content,
       owner_id: @owner&.id,
       project_id: @course&.id,
       sender_id: @sender&.id,
-      subject: @email.subject,
-      sender_email: @from_address
+      details: details
     )
   end
 
   def thread_ticket
+    details = {
+      subject: @email.subject,
+      sender_email: @from_address
+    }
+    details = { cc: @email.cc, **details } unless @email.cc.blank?
     TicketDispenser::Dispenser.thread(
       content: @content,
       reference_id: @reference_id,
       sender_id: @sender&.id,
-      sender_email: @from_address,
-      subject: @email.subject
+      details: details
     )
   end
 end
