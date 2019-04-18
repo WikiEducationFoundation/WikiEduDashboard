@@ -14,9 +14,9 @@ CloneCourseButton.propTypes = {
 
 export function CloneCourseButton(props) {
   return (
-    <a onClick={onClickConfirmation(props)} className="button">
+    <button onClick={onClickConfirmation(props)} className="button">
       {I18n.t('courses.creator.clone_this')}
-    </a>
+    </button>
   );
 }
 
