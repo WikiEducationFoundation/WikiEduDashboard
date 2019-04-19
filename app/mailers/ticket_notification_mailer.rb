@@ -13,13 +13,26 @@ class TicketNotificationMailer < ApplicationMailer
     @recipient = recipient
     @sender = sender
     @sender_name = @sender.real_name || @sender.username
-    subject_prefix = @course ? "#{course.title}: " : ''
 
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}" if @course
     @ticket_dashboard_link = "https://#{ENV['dashboard_url']}/tickets/dashboard"
+
     mail(to: @recipient.email,
+         cc: carbon_copy,
          from: @sender.email,
-         subject: subject_prefix + 'Response to your help request',
+         subject: email_subject,
          reply_to: @sender.email)
+  end
+
+  private
+
+  def carbon_copy
+    cc = @message.details[:cc]
+    cc&.map(&:email)
+  end
+
+  def email_subject
+    subject_prefix = @course ? "#{@course.title}: " : ''
+    subject_prefix + 'Response to your help request'
   end
 end

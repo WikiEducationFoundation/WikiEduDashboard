@@ -11,12 +11,12 @@ class TicketsController < ApplicationController
   def notify
     message = TicketDispenser::Message.find(notification_params[:message_id])
     sender = User.find(notification_params[:sender_id])
-
     ticket = message.ticket
     course = ticket.project
     recipient = ticket.reply_to
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
+
     message.details[:delivered] = Time.zone.now
     message.save
     render json: { success: :ok }
@@ -30,6 +30,6 @@ class TicketsController < ApplicationController
   private
 
   def notification_params
-    params.permit(:message_id, :sender_id)
+    params.permit(:cc, :message_id, :sender_id)
   end
 end
