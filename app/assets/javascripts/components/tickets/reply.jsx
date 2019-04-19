@@ -14,30 +14,26 @@ export const Reply = ({ message }) => {
   let subject;
   if (message.details.subject) {
     subject = (
-      <React.Fragment>
-        <h4>{ message.details.subject }</h4>
-        <hr />
-      </React.Fragment>
+      <h4>{ message.details.subject }</h4>
     );
   }
 
   let cc;
   if (message.details.cc) {
     cc = (
-      <React.Fragment>
-        <h6 className="cc">
-          <span>CC: </span>
-          {message.details.cc.map(({ email }) => email)}
-        </h6>
-      </React.Fragment>
+      <h6 className="cc">
+        <span>CC: </span>
+        {message.details.cc.map(({ email }) => email)}
+      </h6>
     );
   }
 
   return (
     <React.Fragment>
-      <section className="module mb0 mt0">
+      <section className="reply-header module mb0 mt0">
         {subject}
         { cc }
+        { (subject || cc) && <hr /> }
         <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content) }} />
       </section>
       <aside className="reply-details">

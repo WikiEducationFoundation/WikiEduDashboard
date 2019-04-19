@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TextAreaInput from '../common/text_area_input.jsx';
+import TextInput from '../common/text_input.jsx';
 import { TICKET_STATUS_AWAITING_RESPONSE, TICKET_STATUS_RESOLVED } from '../../constants/tickets';
 
 const isBlank = (string) => {
@@ -14,16 +15,31 @@ export class NewReplyForm extends React.Component {
   constructor() {
     super();
     this.state = {
+      cc: '',
       content: '',
       plainText: '',
-      sending: false
+      sending: false,
+      showCC: false
     };
   }
 
-  onChange(_key, content, e) {
+  onChange(_key, content) {
+    this.setState({
+      [_key]: content
+    });
+  }
+
+  onTextAreaChange(_key, content, e) {
     this.setState({
       content,
       plainText: e.target.getContent({ format: 'text' })
+    });
+  }
+
+  onCCClick(e) {
+    e.preventDefault();
+    this.setState({
+      showCC: !this.state.showCC
     });
   }
 
@@ -39,11 +55,14 @@ export class NewReplyForm extends React.Component {
 
   onSubmit(e, status) {
     e.preventDefault();
-    if (isBlank(this.state.plainText)) { return; }
+    if (isBlank(this.state.plainText)) return this.setState({ sending: false });
 
-    const content = this.state.content;
+    const { cc, content } = this.state;
+    const ccEmails = this._ccEmailsSplit(cc);
+    if (!this._ccEmailsAreValid(ccEmails)) return this.setState({ sending: false });
+
     const { currentUser, ticket } = this.props;
-    const body = {
+    let body = {
       content,
       kind: 0,
       ticket_id: ticket.id,
@@ -51,9 +70,26 @@ export class NewReplyForm extends React.Component {
       read: true
     };
 
+    if (this.state.cc) {
+      const details = { cc: ccEmails.map(email => ({ email })) };
+      body = { ...body, details };
+    }
+
     this.props.createReply(body, status)
       .then(() => this.props.fetchTicket(ticket.id))
-      .then(() => this.setState({ content: '', sending: false }));
+      .then(() => this.setState({ cc: '', content: '', sending: false }));
+  }
+
+  _ccEmailsSplit(emailString = '') {
+    return emailString.split(',')
+      .map(email => email.trim())
+      .filter(email => email);
+  }
+
+  _ccEmailsAreValid(emails) {
+    if (!emails.length) return true;
+    const regexp = RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
+    return emails.every(email => regexp.test(email));
   }
 
   render() {
@@ -64,15 +100,39 @@ export class NewReplyForm extends React.Component {
     // input will be created after a new message is successfully added.
     const lastTicketId = ticket.messages[ticket.messages.length - 1].id;
     return (
-      <form>
-        <h3>Send a Reply{toAddress}</h3>
+      <form className="tickets-reply">
+        <h3>
+          Send a Reply{toAddress}
+          <button
+            className="button border plus"
+            onClick={this.onCCClick.bind(this)}
+          >
+            +
+          </button>
+        </h3>
+        {
+          this.state.showCC
+          && (
+            <div className="cc-fields">
+              <label>CC:</label>
+              <TextInput
+                id="cc"
+                onChange={this.onChange.bind(this)}
+                value={this.state.cc}
+                value_key="cc"
+                editable
+                placeholder={'Place emails here, separated by commas'}
+              />
+            </div>
+          )
+        }
         <div className="bg-white">
           <TextAreaInput
             key={`reply-to-${lastTicketId}`}
             id="content"
             editable
             label="Enter your reply"
-            onChange={this.onChange.bind(this)}
+            onChange={this.onTextAreaChange.bind(this)}
             value={this.state.content}
             value_key="content"
             wysiwyg={true}
