@@ -92,7 +92,7 @@ namespace :deploy do
 
   before 'deploy:rollback', 'deploy:do_not_update_assets'
   before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp'] || skip_assets
-  before 'deploy:restart', 'deploy:upload_compiled_assets' unless skip_assets
+  before 'deploy:symlink:release', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 
 end
