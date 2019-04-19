@@ -40,11 +40,13 @@ class AlertsController < ApplicationController
   def generate_ticket
     TicketDispenser::Dispenser.call(
       content: @alert.message,
+      details: {
+        sender_email: @alert.user.email,
+        subject: 'Need Help Alert'
+      },
       project_id: @alert.course_id,
       owner_id: @alert.target_user_id,
-      sender_id: @alert.user_id,
-      subject: 'Need Help Alert',
-      sender_email: @alert.user.email
+      sender_id: @alert.user_id
     )
   end
 
