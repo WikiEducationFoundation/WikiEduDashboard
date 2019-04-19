@@ -178,6 +178,7 @@ class CampaignsController < ApplicationController
   private
 
   def require_create_permissions
+    require_signed_in
     require_admin_permissions unless Features.open_course_creation?
   end
 
