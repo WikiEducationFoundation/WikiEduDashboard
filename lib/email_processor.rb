@@ -68,7 +68,7 @@ class EmailProcessor
       subject: @email.subject,
       sender_email: @from_address
     }
-    details = { cc: @email.cc, **details } unless @email.cc.blank?
+    details = { cc: @email.cc, **details } if @email.cc.present?
     TicketDispenser::Dispenser.call(
       content: @content,
       owner_id: @owner&.id,
@@ -83,7 +83,7 @@ class EmailProcessor
       subject: @email.subject,
       sender_email: @from_address
     }
-    details = { cc: @email.cc, **details } unless @email.cc.blank?
+    details = { cc: @email.cc, **details } if @email.cc.present?
     TicketDispenser::Dispenser.thread(
       content: @content,
       reference_id: @reference_id,
