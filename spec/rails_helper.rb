@@ -81,7 +81,7 @@ RSpec.configure do |config|
   config.before(:each, type: :feature, js: true) do
     # Make sure any logs from the previous test get
     errors = page.driver.browser.manage.logs.get(:browser)
-    STDERR.puts errors
+    warn errors
   end
 
   # fail on javascript errors in feature specs
@@ -106,8 +106,8 @@ RSpec.configure do |config|
 
           expect(error.level).not_to eq('SEVERE'), error.message
           next unless error.level == 'WARNING'
-          STDERR.puts 'WARN: javascript warning'
-          STDERR.puts error.message
+          warn 'WARN: javascript warning'
+          warn error.message
         end
       end
     end
