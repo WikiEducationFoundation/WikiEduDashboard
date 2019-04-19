@@ -30,7 +30,7 @@ const EmbedStatsButton = createReactClass({
 
   render() {
     if (!this.state.show) {
-      return (<a onClick={this.show} className="button">{I18n.t('courses.embed_course_stats')}</a>);
+      return (<button onClick={this.show} className="button">{I18n.t('courses.embed_course_stats')}</button>);
     }
 
     const url = location.href.replace('courses', 'embed/course_stats');

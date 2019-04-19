@@ -20,7 +20,7 @@ const GreetStudentsButton = createReactClass({
     }
 
     return (
-      <p key="greet_students"><button onClick={this.greetStudents} className="button">Greet students</button></p>
+      <div key="greet_students" className="available-action"><button onClick={this.greetStudents} className="button">Greet students</button></div>
     );
   }
 });

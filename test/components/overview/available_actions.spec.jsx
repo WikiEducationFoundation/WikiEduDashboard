@@ -23,7 +23,7 @@ describe('AvailableActions', () => {
       </Provider>
     );
 
-    const text = TestAvailableActions.find('p').text();
+    const text = TestAvailableActions.find('.available-action').text();
     expect(text).to.eq('No available actions');
   });
 
@@ -48,7 +48,7 @@ describe('AvailableActions', () => {
       </Provider>
     );
 
-    const actions = TestAvailableActions.find('p');
+    const actions = TestAvailableActions.find('.available-action');
     expect(actions.length).to.eq(4);
 
     const deleteButton = actions.at(0);
@@ -86,7 +86,7 @@ describe('AvailableActions', () => {
       </Provider>
     );
 
-    const actions = TestAvailableActions.find('p');
+    const actions = TestAvailableActions.find('.available-action');
     expect(actions.length).to.eq(5);
 
     const deleteButton = actions.at(0);

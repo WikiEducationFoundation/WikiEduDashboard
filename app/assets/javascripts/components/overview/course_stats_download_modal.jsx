@@ -23,7 +23,7 @@ const CourseStatsDownloadModal = createReactClass({
 
   render() {
     if (!this.state.show) {
-      return (<a onClick={this.show} className="button">{I18n.t('courses.download_stats_data')}</a>);
+      return (<button onClick={this.show} className="button">{I18n.t('courses.download_stats_data')}</button>);
     }
 
     const overviewCsvLink = `/course_csv?course=${this.props.course.slug}`;
