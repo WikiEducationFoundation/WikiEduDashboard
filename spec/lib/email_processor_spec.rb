@@ -204,9 +204,19 @@ describe EmailProcessor do
   end
 
   describe '#retrieve_course_by_url' do
-    it 'should return the first slug from a message' do
+    it 'should return a course slug from a URL' do
       body = <<~EXAMPLE
         Example email test\r\n\r\nhttps://example.org/courses/example/slug
+      EXAMPLE
+      email = build(:email, raw_body: body)
+      expected_result = 'example/slug'
+
+      expect(described_class.new(email).retrieve_course_slug_by_url).to eq(expected_result)
+    end
+
+    it 'should return a course slug from a complex URL' do
+      body = <<~EXAMPLE
+        Example email test\r\n\r\nhttps://example.org/courses/example/slug/articles/edited?showArticle=1
       EXAMPLE
       email = build(:email, raw_body: body)
       expected_result = 'example/slug'
