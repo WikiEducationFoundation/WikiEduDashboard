@@ -30,7 +30,7 @@ class EmailProcessor
     @from_address = @email.from[:email]
     if @from_address.end_with?(ENV['TICKET_FORWARDING_DOMAIN'])
       addresses = retrieve_forwarder_email
-      @sender = User.find_by(greeter: false, email: addresses)
+      @sender = User.find_by(greeter: false, email: addresses) unless addresses.nil?
     elsif @from_address
       @sender = User.find_by(email: @from_address)
     end
