@@ -522,6 +522,8 @@ sv:
     constant: Uppgiften %{task} kan inte köras medan uppgiften update_daily körs.
     paused: Uppgiften %{task} kan inte köras eftersom schemalagda uppdateringar har
       pausats. Kör "rake batch:resume" för att återuppta uppdateringar.
+  tickets:
+    none: Inga ärenden
   timeline:
     add_week: Lägg till vecka
     arrange_timeline: Organisera tidslinje
