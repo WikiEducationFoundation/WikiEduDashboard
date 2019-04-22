@@ -17,7 +17,7 @@ describe EmailProcessor do
 
     it 'will ignore emails with the specified code' do
       body = <<~EXAMPLE
-        This is an automated email\r\n\r\n#{ENV['TICKET_IGNORE_CODE']}
+        This is an automated email\r\n\r\nignore_creating_dashboard_ticket
       EXAMPLE
       email = create(:email,
                      to: [{ email: expert.email }],
