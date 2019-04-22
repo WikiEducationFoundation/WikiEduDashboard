@@ -114,6 +114,29 @@ describe EmailProcessor do
       expect(message.sender).to eq(student)
     end
 
+    it 'does not assign forwarded emails to a sender if one cannot be found' do
+      student
+      create(:user, username: 'noemail', email: nil)
+      body = <<~EXAMPLE
+        Example email test\r\n\r\n
+      EXAMPLE
+      domain = ENV['TICKET_FORWARDING_DOMAIN']
+      email = create(:email,
+                     to: [{ email: expert.email }],
+                     from: { email: "dashboard@#{domain}" },
+                     raw_body: body)
+      processor = described_class.new(email)
+      processor.process
+
+      expect(TicketDispenser::Ticket.all.count).to eq(1)
+      expect(TicketDispenser::Message.all.count).to eq(1)
+
+      ticket = TicketDispenser::Ticket.first
+      message = TicketDispenser::Message.first
+      expect(ticket.owner).to eq(expert)
+      expect(message.sender).to eq(nil)
+    end
+
     it 'includes the subject, sender email, and carbon copied emails by default' do
       email = create(:email,
                      to: [{ email: expert.email }],
