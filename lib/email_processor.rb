@@ -23,7 +23,7 @@ class EmailProcessor
   private
 
   def email_can_be_ignored?
-    @email.body.include?(ENV['TICKET_IGNORE_CODE'])
+    @email.body.include?('ignore_creating_dashboard_ticket')
   end
 
   def define_owner
