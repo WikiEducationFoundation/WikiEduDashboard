@@ -100,7 +100,7 @@
     "rails-ujs": "^5.2.3",
     "raven-js": "^3.27.0",
     "react": "^16.8.6",
-    "react-burger-menu": "2.6.8",
+    "react-burger-menu": "2.6.9",
     "react-confetti": "^2.8.0",
     "react-day-picker": "7.3.0",
     "react-dnd": "^3.0.2",
