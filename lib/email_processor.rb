@@ -23,15 +23,23 @@ class EmailProcessor
 
   def retrieve_course_slug_by_url
     raw_body = @email.raw_body
-    expression = %r{/courses/.*/\S*}i
-    match = raw_body[expression]
-    match ? match.gsub('/courses/', '') : nil
+    expression = course_slug_pattern
+    raw_body[expression]
   end
 
   private
 
   def email_can_be_ignored?
     @email.body.include?('ignore_creating_dashboard_ticket')
+  end
+  
+  # This regex helps look for a course slug inside of text
+  # (?<=\/courses\/) - Starts with `/courses/`
+  # [^?\/\s] - Any non-whitespace character excluding a slash
+  # \/ - A slash
+  # [^?\/\s] - Any non-whitespace character excluding a slash
+  def course_slug_pattern
+    %r{(?<=/courses/)[^?/\s]+/[^?/\s]+}i
   end
 
   def define_owner
