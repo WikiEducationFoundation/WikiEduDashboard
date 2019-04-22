@@ -8,10 +8,10 @@ describe EmailProcessor do
     let(:course) { create(:course) }
 
     let(:student) { create(:user, username: 'student', email: 'student@email.com') }
-    let(:student_courses_user) { create(:courses_user, user: student, course: course) }
+    let!(:student_courses_user) { create(:courses_user, user: student, course: course) }
 
     let(:expert) { create(:admin, greeter: true, username: 'expert', email: 'expert@wikiedu.org') }
-    let(:expert_courses_user) do
+    let!(:expert_courses_user) do
       create(:courses_user, user: expert, course: course, role: 4)
     end
 
@@ -45,6 +45,7 @@ describe EmailProcessor do
 
       ticket = TicketDispenser::Ticket.first
       expect(ticket.owner).to eq(expert)
+      expect(ticket.project).to eq(course)
 
       message = ticket.messages.first
       expect(message.sender).to eq(student)
@@ -79,6 +80,26 @@ describe EmailProcessor do
 
       ticket = TicketDispenser::Ticket.first
       expect(ticket.owner).to eq(nil)
+    end
+
+    it 'sets the course based off of an email link if there is none' do
+      student_courses_user.destroy
+      slug = course.slug
+      body = "Example email test\r\n\r\nhttps://example.org/courses/#{slug}"
+
+      email = create(:email,
+                     to: [{ email: expert.email }],
+                     from: { email: student.email },
+                     body: body,
+                     raw_body: body)
+      processor = described_class.new(email)
+      processor.process
+
+      expect(TicketDispenser::Ticket.all.count).to eq(1)
+      expect(TicketDispenser::Message.all.count).to eq(1)
+
+      ticket = TicketDispenser::Ticket.first
+      expect(ticket.project).to eq(course)
     end
 
     it 'can thread a message with the right ticket' do
@@ -179,6 +200,27 @@ describe EmailProcessor do
       expected_result = 'aaa@email.com'
 
       expect(described_class.new(email).retrieve_forwarder_email).to eq(expected_result)
+    end
+  end
+
+  describe '#retrieve_course_by_url' do
+    it 'should return the first slug from a message' do
+      body = <<~EXAMPLE
+        Example email test\r\n\r\nhttps://example.org/courses/example/slug
+      EXAMPLE
+      email = build(:email, raw_body: body)
+      expected_result = 'example/slug'
+
+      expect(described_class.new(email).retrieve_course_slug_by_url).to eq(expected_result)
+    end
+
+    it 'should return nil if a matching slug cannot be found' do
+      body = <<~EXAMPLE
+        Example email test\r\n\r\nhttps://example.org/courses/incorrect
+      EXAMPLE
+      email = build(:email, raw_body: body)
+
+      expect(described_class.new(email).retrieve_course_slug_by_url).to eq(nil)
     end
   end
 end

@@ -10,6 +10,7 @@ class EmailProcessor
     return false if email_can_be_ignored?
     define_owner
     define_sender
+    define_course
     define_content_and_reference_id
     dispense_or_thread_ticket
   end
@@ -18,6 +19,13 @@ class EmailProcessor
     raw_body = @email.raw_body
     expression = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i
     raw_body[expression]
+  end
+
+  def retrieve_course_slug_by_url
+    raw_body = @email.raw_body
+    expression = %r{/courses/.*/\S*}i
+    match = raw_body[expression]
+    match ? match.gsub('/courses/', '') : nil
   end
 
   private
@@ -43,6 +51,10 @@ class EmailProcessor
 
   def define_course
     @course = @sender.courses.last if @sender
+    if @course.nil?
+      slug = retrieve_course_slug_by_url
+      @course = Course.find_by(slug: slug) if slug
+    end
   end
 
   def from_signature(from)
