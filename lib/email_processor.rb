@@ -7,6 +7,7 @@ class EmailProcessor
   end
 
   def process
+    return false if email_can_be_ignored?
     define_owner
     define_sender
     define_content_and_reference_id
@@ -20,6 +21,10 @@ class EmailProcessor
   end
 
   private
+
+  def email_can_be_ignored?
+    @email.body.include?(ENV['TICKET_IGNORE_CODE'])
+  end
 
   def define_owner
     recipient_emails = @email.to.pluck(:email)

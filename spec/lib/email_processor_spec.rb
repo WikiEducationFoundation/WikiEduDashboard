@@ -15,6 +15,21 @@ describe EmailProcessor do
       create(:courses_user, user: expert, course: course, role: 4)
     end
 
+    it 'will ignore emails with the specified code' do
+      body = <<~EXAMPLE
+        This is an automated email\r\n\r\n#{ENV['TICKET_IGNORE_CODE']}
+      EXAMPLE
+      email = create(:email,
+                     to: [{ email: expert.email }],
+      from: { email: student.email },
+      body: body)
+      processor = described_class.new(email)
+      processor.process
+
+      expect(TicketDispenser::Ticket.all.count).to eq(0)
+      expect(TicketDispenser::Message.all.count).to eq(0)
+    end
+
     it 'creates an associated Ticket and Message' do
       expect(TicketDispenser::Ticket.all.count).to eq(0)
       expect(TicketDispenser::Message.all.count).to eq(0)
