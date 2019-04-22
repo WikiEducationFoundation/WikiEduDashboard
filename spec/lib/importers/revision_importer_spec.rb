@@ -38,23 +38,59 @@ describe RevisionImporter do
   end
 
   describe '#import_revisions_for_course' do
-    let(:zh_wiki) { Wiki.new(language: 'zh', project: 'wikipedia', id: 999) }
-    let(:course) { create(:course, start: '2018-05-26', end: '2018-05-27') }
+    let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:user) { create(:user, username: 'Ragesoss') }
+    let(:article) { create(:article, title: 'Stray_Cats', mw_page_id: 164007, wiki: home_wiki) }
+    let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:subject) do
-      described_class.new(zh_wiki, course).import_revisions_for_course(all_time: false)
+      described_class.new(home_wiki, course).import_revisions_for_course(all_time: false)
     end
-    let(:user) { create(:user, username: '-Zest') }
+    let(:revision_count) { 0 }
 
     before do
-      create(:courses_user, course: course, user: user)
+      create(:courses_user, course: course, user: user, revision_count: revision_count)
     end
-    # Workaround for # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
 
-    it 'handles revisions with four-byte unicode characters' do
-      VCR.use_cassette 'four-byte-unicode' do
-        expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(false)
-        subject
-        expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(true)
+    context 'when there are no edits' do
+      it 'imports all edits' do
+        expect(Revision.count).to eq(0)
+        VCR.use_cassette 'revision_importer/all' do
+          subject
+        end
+        expect(Revision.count).to eq(75)
+      end
+    end
+
+    context 'when there already some edits' do
+      let(:revision_count) { 1 }
+
+      before do
+        Revision.create(user: user, date: 'Fri, 27 Jul 2018 05:09:32 UTC +00:00', wiki: home_wiki,
+                        article: article, mw_page_id: 164007, mw_rev_id: 852177599)
+      end
+
+      it 'only imports newer edits' do
+        expect(Revision.count).to eq(1)
+        VCR.use_cassette 'revision_importer/newer' do
+          subject
+        end
+        expect(Revision.count).to eq(52)
+      end
+    end
+
+    context 'when there are edits to articles with four-byte unicode characters in the title' do
+      # Workaround for # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+      let(:home_wiki) { Wiki.new(language: 'zh', project: 'wikipedia', id: 999) }
+      let(:course) { create(:course, start: '2018-05-26', end: '2018-05-27') }
+
+      let(:user) { create(:user, username: '-Zest') }
+
+      it 'handles revisions with four-byte unicode characters' do
+        VCR.use_cassette 'four-byte-unicode' do
+          expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(false)
+          subject
+          expect(Article.exists?(title: CGI.escape('黃𨥈瑩'))).to be(true)
+        end
       end
     end
   end
