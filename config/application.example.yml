@@ -106,8 +106,11 @@
 # Default sender for emails
   SENDER_EMAIL_ADDRESS: 'test@example.com'
 
+# ==== Ticketing System Environment Variables
 # Email at which to receive forwarded ticket emails
   TICKET_FORWARDING_DOMAIN: 'wikiedu.org'
+# Code to include if emails should be ignored
+  TICKET_IGNORE_CODE: 'ticket_ignore_code'
 
 # Whitelisted test emails for staging and development
 # Except in production, the system will only send mail to these addresses.
