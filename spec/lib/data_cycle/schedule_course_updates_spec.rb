@@ -30,7 +30,7 @@ describe ScheduleCourseUpdates do
 
     it 'reports logs to sentry even when it errors out' do
       allow(Raven).to receive(:capture_message)
-      expect(UpdateCourseStats).to receive(:new)
+      expect(CourseDataUpdateWorker).to receive(:update_course)
         .and_raise(StandardError)
       expect { described_class.new }.to raise_error(StandardError)
       expect(Raven).to have_received(:capture_message)
