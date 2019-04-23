@@ -20,7 +20,7 @@ services:
   - redis-server
 before_install:
 - rvm --default use 2.5.0
-- nvm install
+- nvm install # use Node version specified in .nvmrc
 - export PATH=$PATH:`yarn global bin`
 - export DB=test
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
