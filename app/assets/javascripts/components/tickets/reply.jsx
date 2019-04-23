@@ -11,23 +11,25 @@ export const Reply = ({ message }) => {
   const failedTime = moment(message.details.delivery_failed).format('YYYY/MM/DD h:mm a');
   const failed = `Failed on ${failedTime}`;
 
+  const { sender, details } = message;
   let subject;
-  if (message.details.subject) {
+  if (details.subject) {
     subject = (
-      <h4>{ message.details.subject }</h4>
+      <h4>{ details.subject }</h4>
     );
   }
 
   let cc;
-  if (message.details.cc) {
+  if (details.cc) {
     cc = (
       <h6 className="cc">
         <span>CC: </span>
-        {message.details.cc.map(({ email }) => email)}
+        {details.cc.map(({ email }) => email)}
       </h6>
     );
   }
 
+  const from = sender.real_name || sender.username || details.sender_email;
   return (
     <React.Fragment>
       <section className="reply-header module mb0 mt0">
@@ -38,7 +40,7 @@ export const Reply = ({ message }) => {
       </section>
       <aside className="reply-details">
         <span>
-          <p>From: {message.sender.real_name || message.sender.username}</p>
+          <p>From: {from}</p>
         </span>
         <span>
           <p>Created: {moment(message.created_at).format('MMM DD, YYYY h:mm a')}</p>

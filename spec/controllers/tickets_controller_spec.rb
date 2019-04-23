@@ -39,5 +39,12 @@ describe TicketsController, type: :request do
       post '/tickets/notify', params: { message_id: message.id, sender_id: admin.id }
       expect(response.status).to eq(200)
     end
+
+    it 'triggers an email reply even if there is no sender' do
+      message.update(sender: nil, details: { sender_email: user.email })
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      post '/tickets/notify', params: { message_id: message.id, sender_id: admin.id }
+      expect(response.status).to eq(200)
+    end
   end
 end
