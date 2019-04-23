@@ -37,7 +37,7 @@ class EmailProcessor
   # (?<=\/courses\/) - Starts with `/courses/`
   # [^?\/\s] - Any non-whitespace character excluding a slash or question mark
   # \/ - A slash
-  # [^?\/\s] - Any non-whitespace character excluding a slash
+  # [^?\/\s] - Any non-whitespace character excluding a slash or question mark
   def course_slug_pattern
     %r{(?<=/courses/)[^?/\s]+/[^?/\s]+}i
   end
