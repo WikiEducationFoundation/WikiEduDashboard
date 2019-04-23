@@ -32,7 +32,7 @@ class EmailProcessor
   def email_can_be_ignored?
     @email.body.include?('ignore_creating_dashboard_ticket')
   end
-  
+
   # This regex helps look for a course slug inside of text
   # (?<=\/courses\/) - Starts with `/courses/`
   # [^?\/\s] - Any non-whitespace character excluding a slash or question mark
@@ -58,11 +58,8 @@ class EmailProcessor
   end
 
   def define_course
-    @course = @sender.courses.last if @sender
-    if @course.nil?
-      slug = retrieve_course_slug_by_url
-      @course = Course.find_by(slug: slug) if slug
-    end
+    @course = Course.find_by(slug: retrieve_course_slug_by_url)
+    @course ||= @sender.courses.last if @sender
   end
 
   def from_signature(from)
