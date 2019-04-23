@@ -10,10 +10,11 @@ class TicketsController < ApplicationController
 
   def notify
     message = TicketDispenser::Message.find(notification_params[:message_id])
-    sender = User.find(notification_params[:sender_id])
+    sender_email = message.details[:sender_email]
+    sender = User.find(notification_params[:sender_id]) || sender_email
     ticket = message.ticket
     course = ticket.project
-    recipient = ticket.reply_to
+    recipient = ticket.reply_to || User.new(email: sender_email)
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
 
