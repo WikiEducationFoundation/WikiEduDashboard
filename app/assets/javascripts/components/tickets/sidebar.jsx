@@ -13,6 +13,14 @@ export class Sidebar extends React.Component {
     window.location.pathname = `/users/${this.props.ticket.sender.username}`;
   }
 
+  notifyOwner() {
+    const { currentUser, ticket } = this.props;
+    this.props.notifyOfMessage({
+      message_id: ticket.messages[ticket.messages.length - 1].id,
+      sender_id: currentUser.id
+    });
+  }
+
   deleteTicket() {
     if (!confirm('Are you sure you want to delete this ticket?')) return;
 
@@ -49,6 +57,9 @@ export class Sidebar extends React.Component {
               ? <a onClick={() => this.goTo()}>Go to {`${ticket.sender.real_name || ticket.sender.username}'s`} Account</a>
               : 'Unknown User Record'
           }
+        </section>
+        <section>
+          <button className="button info" onClick={() => this.notifyOwner()}>Email Ticket Owner</button>
         </section>
         <section>
           <button className="button danger" onClick={() => this.deleteTicket()}>Delete Ticket</button>

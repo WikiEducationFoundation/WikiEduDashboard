@@ -9,6 +9,7 @@ export const TicketShow = ({
   deleteTicket,
   currentUser,
   fetchTicket,
+  notifyOfMessage,
   ticket,
 }) => {
   const createdAt = ticket.messages[0].created_at;
@@ -34,6 +35,7 @@ export const TicketShow = ({
         createdAt={createdAt}
         currentUser={currentUser}
         deleteTicket={deleteTicket}
+        notifyOfMessage={notifyOfMessage}
         ticket={ticket}
       />
     </main>
