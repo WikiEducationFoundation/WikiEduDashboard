@@ -8,17 +8,17 @@ class TicketsController < ApplicationController
     @admins = User.admin.map { |user| [user.username, user.id] }
   end
 
-  def notify
-    notify_of_message
+  def reply
+    send_ticket_notification
   end
 
   def notify_owner
-    notify_of_message(true)
+    send_ticket_notification(true)
   end
 
   private
 
-  def notify_of_message(owner=false)
+  def send_ticket_notification(owner=false)
     message = TicketDispenser::Message.find(notification_params[:message_id])
     sender_email = message.details[:sender_email]
     sender = User.find(notification_params[:sender_id]) || sender_email
@@ -31,11 +31,10 @@ class TicketsController < ApplicationController
     message.details[:delivered] = Time.zone.now
     message.save
     render json: { success: :ok }
-  rescue StandardError
+  rescue StandardError => e
     message.details[:delivery_failed] = Time.zone.now
     message.save
-    render json: { message: 'Email could not be sent. :(' },
-          status: :unprocessable_entity
+    raise e
   end
 
   def notification_params

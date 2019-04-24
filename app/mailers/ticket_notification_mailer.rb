@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TicketNotificationMailer < ApplicationMailer
+  add_template_helper(TicketsHelper)
+
   def self.notify_of_message(course, message, recipient, sender)
     return unless Features.email?
     notify(course, message, recipient, sender).deliver_now
