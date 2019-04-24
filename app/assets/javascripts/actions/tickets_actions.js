@@ -36,7 +36,8 @@ export const notifyOfMessage = body => async (dispatch) => {
         type: ADD_NOTIFICATION,
         notification: {
           message: 'Email was sent to the owner.',
-          status: 'success'
+          type: 'success',
+          closable: true
         }
       });
     }
