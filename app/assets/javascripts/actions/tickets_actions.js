@@ -3,6 +3,7 @@ import {
   DELETE_TICKET,
   FETCH_TICKETS,
   FILTER_TICKETS,
+  MESSAGE_KIND_REPLY,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -47,29 +48,7 @@ export const notifyOfMessage = body => async (dispatch) => {
   }
 };
 
-export const createReply = (body, status) => async (dispatch) => {
-  let notificationBody;
-  try {
-    const response = await fetch('/td/tickets/replies', {
-      body: JSON.stringify({ ...body, read: true, status }),
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': getCsrf()
-      },
-      method: 'POST'
-    });
-
-    const message = await response.json();
-    notificationBody = {
-      sender_id: body.sender_id,
-      message_id: message.id
-    };
-  } catch (error) {
-    const message = 'Creation of message failed. Please try again.';
-    dispatch({ type: API_FAIL, data: { statusText: message } });
-  }
-
+const sendReplyEmail = async (notificationBody, dispatch) => {
   try {
     const response = await fetch('/tickets/reply', {
       body: JSON.stringify(notificationBody),
@@ -85,9 +64,43 @@ export const createReply = (body, status) => async (dispatch) => {
     const message = 'Message was created but email could not be sent.';
     dispatch({ type: API_FAIL, data: { statusText: message } });
   }
+};
 
+const createReplyRecord = (body, status) => {
+  return fetch('/td/tickets/replies', {
+    body: JSON.stringify({ ...body, read: true, status }),
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': getCsrf()
+    },
+    method: 'POST'
+  })
+  .then(response => response.json());
+};
+
+export const createReply = (body, status) => async (dispatch) => {
+  let notificationBody;
+  // Create the new reply record
+  try {
+    const message = await createReplyRecord(body, status);
+
+    notificationBody = {
+      sender_id: body.sender_id,
+      message_id: message.id
+    };
+  } catch (error) {
+    const message = 'Creation of message failed. Please try again.';
+    dispatch({ type: API_FAIL, data: { statusText: message } });
+  }
+
+  // Send the reply by email
+  if (body.kind === MESSAGE_KIND_REPLY) {
+    await sendReplyEmail(notificationBody, dispatch);
+  }
   dispatch({ type: CREATE_REPLY });
 };
+
 
 export const readAllMessages = ticket => async (dispatch) => {
   const unreadMessages = ticket.messages.some(message => !message.read);

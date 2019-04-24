@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import linkifyHtml from 'linkifyjs/html';
 
+import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
 import HelperIcon from './helper_icon';
 
 export const Reply = ({ message }) => {
@@ -13,9 +14,15 @@ export const Reply = ({ message }) => {
 
   const { sender, details } = message;
   let subject;
+  let messageClass;
   if (details.subject) {
     subject = (
       <h4>{ details.subject }</h4>
+    );
+  } else if (message.kind === MESSAGE_KIND_NOTE) {
+    messageClass = 'tickets-note';
+    subject = (
+      <h4>NOTE</h4>
     );
   }
 
@@ -31,7 +38,7 @@ export const Reply = ({ message }) => {
 
   const from = sender.real_name || sender.username || details.sender_email;
   return (
-    <React.Fragment>
+    <div className={messageClass} >
       <section className="reply-header module mb0 mt0">
         {subject}
         { cc }
@@ -56,7 +63,7 @@ export const Reply = ({ message }) => {
           }
         </span>
       </aside>
-    </React.Fragment>
+    </div>
   );
 };
 
