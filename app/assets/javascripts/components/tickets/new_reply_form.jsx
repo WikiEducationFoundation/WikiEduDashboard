@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextAreaInput from '../common/text_area_input.jsx';
 import TextInput from '../common/text_input.jsx';
-import { TICKET_STATUS_AWAITING_RESPONSE, TICKET_STATUS_RESOLVED } from '../../constants/tickets';
+import { MESSAGE_KIND_NOTE, MESSAGE_KIND_REPLY, TICKET_STATUS_AWAITING_RESPONSE, TICKET_STATUS_RESOLVED } from '../../constants/tickets';
 
 const isBlank = (string) => {
   if (/\S/.test(string)) {
@@ -45,15 +45,20 @@ export class NewReplyForm extends React.Component {
 
   onReply(e) {
     this.setState({ sending: true });
-    this.onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE);
+    this.onSubmit(e, TICKET_STATUS_AWAITING_RESPONSE, MESSAGE_KIND_REPLY);
+  }
+
+  onCreateNote(e) {
+    this.setState({ sending: true });
+    this.onSubmit(e, this.props.ticket.status, MESSAGE_KIND_NOTE); // Leave status unchanged
   }
 
   onResolve(e) {
     this.setState({ sending: true });
-    this.onSubmit(e, TICKET_STATUS_RESOLVED);
+    this.onSubmit(e, TICKET_STATUS_RESOLVED, MESSAGE_KIND_REPLY);
   }
 
-  onSubmit(e, status) {
+  onSubmit(e, status, kind) {
     e.preventDefault();
     if (isBlank(this.state.plainText)) return this.setState({ sending: false });
 
@@ -64,7 +69,7 @@ export class NewReplyForm extends React.Component {
     const { currentUser, ticket } = this.props;
     let body = {
       content,
-      kind: 0,
+      kind,
       ticket_id: ticket.id,
       sender_id: currentUser.id,
       read: true
@@ -140,6 +145,7 @@ export class NewReplyForm extends React.Component {
         </div>
         <button disabled={this.state.sending} className="button dark margin right mt2" type="submit" onClick={this.onResolve.bind(this)}>Send Reply and Resolve Ticket</button>
         <button disabled={this.state.sending} className="button dark right mt2" type="submit" onClick={this.onReply.bind(this)}>Send Reply</button>
+        <button disabled={this.state.sending} className="button left mt2" type="submit" onClick={this.onCreateNote.bind(this)}>Create Note</button>
       </form>
     );
   }

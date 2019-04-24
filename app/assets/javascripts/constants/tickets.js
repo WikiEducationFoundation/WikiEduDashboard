@@ -14,3 +14,6 @@ export const FILTER_TICKETS = 'FILTER_TICKETS';
 export const TICKET_STATUS_OPEN = 0;
 export const TICKET_STATUS_AWAITING_RESPONSE = 1;
 export const TICKET_STATUS_RESOLVED = 2;
+
+export const MESSAGE_KIND_REPLY = 0;
+export const MESSAGE_KIND_NOTE = 1;
