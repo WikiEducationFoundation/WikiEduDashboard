@@ -71,7 +71,7 @@ export const createReply = (body, status) => async (dispatch) => {
   }
 
   try {
-    const response = await fetch('/tickets/notify', {
+    const response = await fetch('/tickets/reply', {
       body: JSON.stringify(notificationBody),
       credentials: 'include',
       headers: {
@@ -80,10 +80,7 @@ export const createReply = (body, status) => async (dispatch) => {
       },
       method: 'POST'
     });
-    if (!response.ok) {
-      const json = await response.json();
-      dispatch({ type: API_FAIL, data: { statusText: json.message } });
-    }
+    if (!response.ok) throw new Error();
   } catch (error) {
     const message = 'Message was created but email could not be sent.';
     dispatch({ type: API_FAIL, data: { statusText: message } });

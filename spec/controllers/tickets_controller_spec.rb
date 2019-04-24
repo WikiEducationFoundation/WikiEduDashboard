@@ -33,17 +33,17 @@ describe TicketsController, type: :request do
     end
   end
 
-  describe '#notify' do
+  describe '#reply' do
     it 'triggers an email reply' do
       expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
-      post '/tickets/notify', params: { message_id: message.id, sender_id: admin.id }
+      post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
       expect(response.status).to eq(200)
     end
 
     it 'triggers an email reply even if there is no sender' do
       message.update(sender: nil, details: { sender_email: user.email })
       expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
-      post '/tickets/notify', params: { message_id: message.id, sender_id: admin.id }
+      post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
       expect(response.status).to eq(200)
     end
   end

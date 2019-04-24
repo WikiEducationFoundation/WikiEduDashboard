@@ -35,7 +35,9 @@ export class TicketShow extends React.Component {
 
     return (
       <div>
-        <Notifications />
+        <div className="ticket-notifications">
+          <Notifications />
+        </div>
         <Show
           deleteTicket={this.props.deleteTicket}
           createReply={this.props.createReply}

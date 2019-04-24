@@ -15,8 +15,8 @@
 
               - @ticket.messages.reverse[1..-1].each do |message|
                 %div.blockquote
-                  %p.sender=message.sender.real_name || message.sender.username
-                  %p.date=message.created_at.in_time_zone('US/Pacific').strftime('%b %e, %l:%M %p %Z')
+                  %p.sender= sender_for_message(message)
+                  %p.date= message.created_at.in_time_zone('US/Pacific').strftime('%b %e, %l:%M %p %Z')
                   %p= raw(message.content)
 
               %table
