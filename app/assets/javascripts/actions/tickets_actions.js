@@ -12,9 +12,39 @@ import {
 } from '../constants/tickets';
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
+import { ADD_NOTIFICATION } from '../constants';
 import fetch from 'cross-fetch';
 
 const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
+
+export const notifyOfMessage = body => async (dispatch) => {
+  try {
+    const response = await fetch('/tickets/notify_owner', {
+      body: JSON.stringify(body),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': getCsrf()
+      },
+      method: 'POST'
+    });
+    if (!response.ok) {
+      const json = await response.json();
+      dispatch({ type: API_FAIL, data: { statusText: json.message } });
+    } else {
+      dispatch({
+        type: ADD_NOTIFICATION,
+        notification: {
+          message: 'Email was sent to the owner.',
+          status: 'success'
+        }
+      });
+    }
+  } catch (error) {
+    const message = 'Email could not be sent.';
+    dispatch({ type: API_FAIL, data: { statusText: message } });
+  }
+};
 
 export const createReply = (body, status) => async (dispatch) => {
   let notificationBody;

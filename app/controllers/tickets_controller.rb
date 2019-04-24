@@ -9,12 +9,22 @@ class TicketsController < ApplicationController
   end
 
   def notify
+    notify_of_message
+  end
+
+  def notify_owner
+    notify_of_message(true)
+  end
+
+  private
+
+  def notify_of_message(owner=false)
     message = TicketDispenser::Message.find(notification_params[:message_id])
     sender_email = message.details[:sender_email]
     sender = User.find(notification_params[:sender_id]) || sender_email
     ticket = message.ticket
     course = ticket.project
-    recipient = ticket.reply_to || User.new(email: sender_email)
+    recipient = owner ? ticket.owner : ticket.reply_to || User.new(email: sender_email)
 
     TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
 
@@ -27,8 +37,6 @@ class TicketsController < ApplicationController
     render json: { message: 'Email could not be sent. :(' },
           status: :unprocessable_entity
   end
-
-  private
 
   def notification_params
     params.permit(:cc, :message_id, :sender_id)

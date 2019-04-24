@@ -364,6 +364,7 @@ Rails.application.routes.draw do
   
   authenticate :user, lambda { |u| u.admin? } do
     post '/tickets/notify' => 'tickets#notify', format: false
+    post '/tickets/notify_owner' => 'tickets#notify_owner', format: false
     get '/tickets/*dashboard' => 'tickets#dashboard', format: false
     mount TicketDispenser::Engine, at: "/td"
   end

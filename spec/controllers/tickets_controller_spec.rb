@@ -47,4 +47,19 @@ describe TicketsController, type: :request do
       expect(response.status).to eq(200)
     end
   end
+
+  describe '#notify_owner' do
+    it 'triggers an email reply' do
+      new_owner = create(:admin, username: 'otheradmin', email: 'otheradmin@email.com')
+      ticket.update(owner: new_owner)
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      params = { message_id: message.id, sender_id: admin.id }
+      post '/tickets/notify_owner', params: params
+      expect(response.status).to eq(200)
+
+      delivery = ActionMailer::Base.deliveries.first
+      expect(delivery.to).to include(new_owner.email)
+      expect(delivery.from).to include(admin.email)
+    end
+  end
 end
