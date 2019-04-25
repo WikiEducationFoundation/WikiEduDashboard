@@ -60,7 +60,7 @@ const AssignCell = createReactClass({
     return (
       <div className="inline-button-peer">
         {link}
-        <AssignButton {...this.props} role={this.props.role} permitted={permitted} ref="button" />
+        <AssignButton {...this.props} role={this.props.role} permitted={permitted} />
       </div>
     );
   }
