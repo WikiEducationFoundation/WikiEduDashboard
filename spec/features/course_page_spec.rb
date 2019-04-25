@@ -281,7 +281,7 @@ describe 'the course page', type: :feature, js: true do
       login_as(admin)
       stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
-      expect(page).to have_content 'Available Articles'
+      click_link 'Available Articles'
       click_button 'Add available articles'
       page.find(:css, '#available-articles .pop.open', match: :first).first('textarea')
           .set('Education')
@@ -308,7 +308,7 @@ describe 'the course page', type: :feature, js: true do
                             wiki: wiki,
                             title: 'Education',
                             role: 0).create_assignment
-      js_visit "/courses/#{slug}/articles"
+      js_visit "/courses/#{slug}/articles/available"
       assigned_articles_section = page.find(:css, '#available-articles', match: :first)
       expect(assigned_articles_section).to have_content 'Education'
       expect(Assignment.count).to eq(1)
@@ -397,21 +397,21 @@ describe 'the course page', type: :feature, js: true do
 
   describe '/manual_update' do
     it 'updates the course cache' do
-      user = create(:user, id: user_count + 100)
+      user = create(:user)
       course = Course.find(10001)
       create(:courses_user,
-             course_id: course.id,
-             user_id: user.id,
+             course: course,
+             user: user,
              role: 0)
-      login_as(user, scope: :user)
+      login_as(admin)
       stub_oauth_edit
 
       expect(CourseRevisionUpdater).to receive(:import_revisions)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
-      js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
+      expect(page).to have_content 'This Week'
     end
   end
 
