@@ -59,6 +59,16 @@ describe TicketsController, type: :request do
       post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
       expect(response.status).to eq(200)
     end
+
+    it 'updates the message record when email delivery fails' do
+      allow(TicketNotificationMailer).to receive(:notify_of_message).and_raise('failed')
+
+      expect do
+        post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
+      end.to raise_error('failed')
+
+      expect(message.reload.details[:delivery_failed]).not_to be_nil
+    end
   end
 
   describe '#notify_owner' do
