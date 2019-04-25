@@ -115,15 +115,40 @@ describe EmailProcessor do
       **ref_#{ticket.reference_id}_ref**
       -- REPLY ABOVE THIS LINE --
       "''
-      email = create(:email,
-                     to: [{ email: expert.email }],
-      from: { email: student.email },
-      body: email_body,
-      raw_body: email_body)
+      email = create(:email, to: [{ email: expert.email }],
+                             from: { email: student.email },
+                             body: email_body,
+                             raw_body: email_body)
       processor = described_class.new(email)
       processor.process
 
       expect(ticket.messages.length).to eq(2)
+    end
+
+    it 'creates a new thread if the original thread is not found' do
+      ticket = TicketDispenser::Dispenser.call(
+        content: 'Message content',
+        owner_id: expert.id,
+        sender_id: student.id
+      )
+      email_body = ''"Hi there,
+      Thanks for responding! ...
+
+      -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+      **ref_#{ticket.reference_id}_ref**
+      -- REPLY ABOVE THIS LINE --
+      "''
+      email = create(:email, to: [{ email: expert.email }],
+                             from: { email: student.email },
+                             body: email_body,
+                             raw_body: email_body)
+      ticket.destroy
+      expect(TicketDispenser::Ticket.count).to eq(0)
+      processor = described_class.new(email)
+      processor.process
+
+      expect(TicketDispenser::Ticket.count).to eq(1)
+      expect(TicketDispenser::Ticket.last.messages.last.content).to include('Hi there,')
     end
 
     it 'should assign forwarded emails to the original sender' do

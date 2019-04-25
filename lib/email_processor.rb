@@ -62,13 +62,6 @@ class EmailProcessor
     @course ||= @sender.courses.last if @sender
   end
 
-  def from_signature(from)
-    ''"
-
-    From #{from[:full]}
-    "''
-  end
-
   def define_content_and_reference_id
     @content = @email.body
     reference = @email.raw_body.match('ref_(.*)_ref')
