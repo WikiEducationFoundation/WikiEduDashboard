@@ -3,30 +3,31 @@
 # Export driver: phpyaml
 # Author: Balajijagadesh
 # Author: ElangoRamanujam
+# Author: Info-farmer
 # Author: Nisha
 # Author: Rakeshonwiki
 ---
 ta:
   application:
-    cancel: ரத்து செய்
+    cancel: நீக்குக
     create_accounts: விக்கிப்பீடியா கணக்குகளை உருவாக்கு
     documentation: ஆவணமுறைமை
-    error: 'அங்கே ஒரு  பிழை ஏற்பட்டுள்ளது:'
-    explore: சுற்றிப்பார்
+    error: 'அங்கே பிழை ஏற்பட்டுள்ளது:'
+    explore: கண்டறிக
     field_required: இப்புலம் கட்டாயமானது
     greeting2: வருக!
     greeting_extended: விக்கிப்பீடியாவிற்கு வருக
     greeting: வணக்கம்!
     help: உதவி
     home: முகப்பு
-    log_in_extended: விக்கிப்பீடியாவில் புகுபதிகை செய்
+    log_in_extended: விக்கிப்பீடியாவில் புகுபதிகைச் செய்
     log_in: புகுபதிகை
     log_out: விடுபதிகை
-    recent_activity: அண்மைய செயல்கள்
-    request_account_create: கணக்கு ஒன்றை உருவாக்கவும்
-    search: கேள்வி கேள்
-    sign_up: பதிவுசெய்
-    submit: சமர்ப்பி
+    recent_activity: அண்மையச் செயல்கள்
+    request_account_create: புதுகணக்கை உருவாக்குக
+    search: கேள்வியைக் கேள்
+    sign_up: கணக்குத் தொடங்கு
+    submit: பணிந்தனுப்புக
     training: பயிற்சி
     change: மாற்றுக
     details: விவரங்கள்
@@ -36,74 +37,74 @@ ta:
     opt_yes: ஆம்
     opt_no: இல்லை
   home:
-    explore: சுற்றிப்பார்
-    log_in: விக்கிப்பீடியா மூலம் புகுபதிகை செய்யவும்
+    explore: கண்டறிக
+    log_in: விக்கிப்பீடியா வழி புகுபதிகை செய்யவும்
   activity:
-    all: செயல்பாடு
-    label: செயல்பாடு
+    all: செயற்பாடு
+    label: செயற்பாடு
   articles:
     next: அடுத்து
     previous: முந்தைய
-    article_title: கட்டுரை தலைப்பு
+    article_title: கட்டுரைத் தலைப்பு
     edited_mobile: கட்டுரைகள்
     filter:
       wiki_all: அனைத்தும்
-      new: புதிய
+      new: புதிது
     hide: மறைக்கவும்
     history: (வரலாறு)
     label: கட்டுரைகள்
     new: (புதிது)
-    see_more: மேலும் பார்க்க
+    see_more: மேலும் காண்க
     title: தலைப்பு
-    title_example: கட்டுரை தலைப்பு
-    view: கட்டுரையை பார்க்கவும்
+    title_example: கட்டுரைத் தலைப்பு
+    view: கட்டுரையைக் காண்க
     view_all: அனைத்தையும் பார்
     view_on_wiki: விக்கியில் பார்க்கவும்
-    edit_size: தொகுப்பு அளவு
+    edit_size: தொகுப்பளவு
     wiki: விக்கி
   assignments:
-    add_available_submit: கட்டுரையை சேர்
+    add_available_submit: கட்டுரைகளைச் சேர்
     remove: நீக்குக
     select: தேர்ந்தெடு
   blocks:
     milestones:
-      title: மைல் கல்
+      title: தொலைக்கல்
   campaign:
     add_organizer: ஒழுங்கமைப்பாளரைச் சேர்க்கவும்
-    alert_article: கட்டுரை தலைப்பு
+    alert_article: கட்டுரைத் தலைப்பு
     alert_type: வகை
     alert_user_id: பயனர்
-    campaign: பிரச்சாரம்
-    campaigns: பிரச்சாரங்கள்
+    campaign: பரப்புரை
+    campaigns: பரப்புரைகள்
     created_at: தேதி
     course: பாடத்திட்டம்
-    create_campaign: புதிய பிரசாரத்தை உருவாக்கவும்
-    create_my_campaign: எனது பிரசாரத்தை உருவாக்கவும்!
-    description: விவரணை
-    delete_campaign: இந்த பிரசாரத்தை அழிக்கவும்
+    create_campaign: புதிய பரப்புரையை உருவாக்குக
+    create_my_campaign: எனது பரப்புரையை உருவாக்குக!
+    description: விவரம்
+    delete_campaign: இப்பரப்புரையை நீக்கு
     none: எதுவுமில்லை
     organizers: ஒழுங்கமைப்பாளர்கள்
     title: தலைப்பு
   categories:
-    add_category: ' பகுப்பைச் சேர்க்கவும்'
+    add_category: ' பகுப்பைச் சேர்'
     add_template: வார்ப்புருவைச் சேர்
-    add_this_category: இந்த பகுப்பைச் சேர்
+    add_this_category: இப்பகுப்பைச் சேர்
     name: பெயர்
     category_name: பகுப்புப் பெயர்
-    template_name: வார்ப்புரு பெயர்
+    template_name: வார்ப்புருப் பெயர்
     remove: நீக்குக
   chat:
     label: அரட்டை
   courses:
-    activity: செயல்பாடு
-    all_courses: அனைத்து பாடங்கள்
+    activity: செயற்பாடு
+    all_courses: அனைத்துப் பாடங்கள்
     actions: செயல்கள்
     articles: கட்டுரைகள்
     cancel: கைவிடுக
     course: பாடத்திட்டம்
     course_description: பாடத்திட்டங்கள்
     courses: பாடத்திட்டங்கள்
-    creation_date: உருவாக்கப்பட்ட தேதி
+    creation_date: தோற்றத் தேதி
     creator:
       clone_successful_details: காலவரிசையின்  கூற்றுக்களுடன் (வாரங்கள் மற்றும் தொகுதிகள்)
         உங்களின் சேவை நகலாக்கப்பட்டது. இதுவரை கையாடாத தேதிகளை சேர்க்க வேண்டும். உங்களின்
@@ -117,7 +118,7 @@ ta:
       start_date: தொடக்கத் தேதி
       start_date_placeholder: வவவவ-மாமா-தேதே
       subject: பொருள்
-    edit_count: தொகுப்புக்களின் எண்ணிக்கை
+    edit_count: மொத்தத் தொகுப்பு
     end: முடிவு
     feedback: பின்னூட்டம்
     join: சேர்க்க
@@ -127,13 +128,13 @@ ta:
     none: எதுவுமில்லை
     overview: முகப்பு
     private: தனிப்பட்ட
-    requested_accounts_alert_view: பார்வையிடுக
+    requested_accounts_alert_view: காண்க
     school: பள்ளி
     start: தொடங்கு
     students: மாணவர்கள்
     students_short: மாணவர்கள்
     subject: பொருள்
-    submitted: சமர்ப்பிக்கப்பட்டது
+    submitted: பணிந்தனுப்பப்பட்டது
     timeline_link: காலவரிசை
     title: தலைப்பு
   courses_generic:
@@ -151,11 +152,11 @@ ta:
       create_short: நிகழ்ச்சியை உருவாக்குக
       save_cloned_course: சேமிக்கவும்
     instructors: வழிநடத்துபவர்
-    join_course: நிகழ்ச்சியில் சேர்க
+    join_course: நிகழ்ச்சியில் இணைக
     leave_course: நிகழ்ச்சியிலிருந்து விலகுக
-    request_accounts: கணக்குக்களை கோருக.
+    request_accounts: கணக்குக்களைக் கோருக
     school: நிறுவனம்
-    search_courses: நிகழ்ச்சியில் தேடுக
+    search_courses: நிகழ்ச்சிகளில் தேடுக
     student_editors: தொகுப்பாளர்கள்
     students: தொகுப்பாளர்கள்
     students_taught: மொத்தத் தொகுப்பாளர்கள்
@@ -165,19 +166,19 @@ ta:
     edit: தொகு
     cancel: கைவிடுக
     save: சேமி
-    edit_description: குறிப்பை தொகுக்க
+    edit_description: விவரத்தைத் தொகு
   metrics:
     activity: அண்மைய செயல்கள்
-    articles_created: உருவாக்கப்பட்ட கட்டுரைகள்
-    articles_edited: தொகுப்பப்பட்ட கட்டுரைகள்
-    bytes_added: சேர்க்கப்பட்ட இருமித்தொகுதி
+    articles_created: உருவாக்கியக் கட்டுரைகள்
+    articles_edited: தொகுத்தக் கட்டுரைகள்
+    bytes_added: சேர்க்கப்பட்ட எண்ணுண்மிகள்
     characters: உருக்கள்
     date_time: நாள்/நேரம்
     edit_count_description: மொத்தத் தொகுப்புக்கள்
-    revisions: அண்மைய தொகுப்புகள்
+    revisions: அண்மையத் தொகுப்புகள்
     tags: குறிச்சொற்கள்
-    upload_count: பொதுவக பதிவேற்றங்கள்
-    view_count_description: கட்டுரை பார்வைகள்
+    upload_count: பொதுவகப் பதிவேற்றங்கள்
+    view_count_description: கட்டுரைப் பார்வைகள்
     view: பார்வைகள்
     word_count: சேர்க்கப்பட்ட வார்த்தைகள்
   namespace:
@@ -185,14 +186,14 @@ ta:
     user: பயனர்வெளி
     user_ns: பயனர்
   recent_activity:
-    article_title: கட்டுரை தலைப்பு
+    article_title: கட்டுரைத் தலைப்பு
     datetime: நாள்/நேரம்
     image: படம்
   revisions:
     diff_show: காட்டுக
     diff_hide: மறை
     title: தலைப்பு
-    see_more: மேலும் பார்க்க
+    see_more: மேலும் காண்க
   settings:
     admin_users:
       new:
@@ -203,7 +204,7 @@ ta:
   training:
     start: தொடங்குக
     view: பார்வையிடு
-    next: அடுத்த பக்கம்
+    next: அடுத்தப் பக்கம்
     page: பக்கம்
     done: முடிந்தது !
   uploads:
@@ -213,10 +214,10 @@ ta:
   users:
     assign_articles_done: முடிந்தது
     editors: தொகுப்பாளர்கள்
-    first_name: முதற் பெயர்
+    first_name: முதற்பெயர்
     last_name: கடைசிப் பெயர்
     name: பெயர்
-    recent_revisions: அண்மைய தொகுப்புகள்
+    recent_revisions: அண்மையத் தொகுப்புகள்
     ungreeted: வரவேற்பு மறுக்கப்பட்டோர்
     username: பயனர் பெயர்
     username_placeholder: பயனர் பெயர்
