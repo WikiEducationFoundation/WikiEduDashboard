@@ -79,7 +79,7 @@ const createReplyRecord = (body, status) => {
   .then(response => response.json());
 };
 
-export const createReply = (body, status) => async (dispatch) => {
+export const createReply = (body, status, bcc_to_salesforce) => async (dispatch) => {
   let notificationBody;
   // Create the new reply record
   try {
@@ -87,7 +87,8 @@ export const createReply = (body, status) => async (dispatch) => {
 
     notificationBody = {
       sender_id: body.sender_id,
-      message_id: message.id
+      message_id: message.id,
+      bcc_to_salesforce
     };
   } catch (error) {
     const message = 'Creation of message failed. Please try again.';
