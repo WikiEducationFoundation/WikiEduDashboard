@@ -197,6 +197,7 @@ describe EmailProcessor do
         message = TicketDispenser::Message.first
         expect(ticket.owner).to eq(expert)
         expect(message.details[:sender_email]).to eq('jprof@edu.edu')
+        expect(message.content).to include('What went wrong with these pages?')
       end
     end
 

@@ -49,12 +49,16 @@ class EmailProcessor
 
   def define_sender
     @from_address = @email.from[:email]
-    if @from_address.end_with?(ENV['TICKET_FORWARDING_DOMAIN'])
+    if forwarded_from_staff?
       @original_from_address = retrieve_original_sender_email
       @sender = User.find_by(email: @original_from_address) unless @original_from_address.nil?
     elsif @from_address
       @sender = User.find_by(email: @from_address)
     end
+  end
+
+  def forwarded_from_staff?
+    @from_address.end_with?(ENV['TICKET_FORWARDING_DOMAIN'])
   end
 
   def define_course
@@ -63,7 +67,11 @@ class EmailProcessor
   end
 
   def define_content_and_reference_id
-    @content = @email.body
+    @content = if forwarded_from_staff?
+                 @email.raw_body
+               else
+                 @email.body
+               end
     reference = @email.raw_body.match('ref_(.*)_ref')
     @reference_id = reference[1] if reference
   end
