@@ -62,7 +62,7 @@ export class NewReplyForm extends React.Component {
     e.preventDefault();
     if (isBlank(this.state.plainText)) return this.setState({ sending: false });
 
-    const { cc, content } = this.state;
+    const { cc, content, bccToSalesforce } = this.state;
     const ccEmails = this._ccEmailsSplit(cc);
     if (!this._ccEmailsAreValid(ccEmails)) return this.setState({ sending: false });
 
@@ -80,9 +80,13 @@ export class NewReplyForm extends React.Component {
       body = { ...body, details };
     }
 
-    this.props.createReply(body, status)
+    this.props.createReply(body, status, bccToSalesforce)
       .then(() => this.props.fetchTicket(ticket.id))
       .then(() => this.setState({ cc: '', content: '', sending: false }));
+  }
+
+  toggleBcc(e) {
+    this.setState({ bccToSalesforce: e.target.checked });
   }
 
   _ccEmailsSplit(emailString = '') {
@@ -114,6 +118,12 @@ export class NewReplyForm extends React.Component {
           >
             +
           </button>
+          <div className="pull-right">
+            <small>
+              BCC to Salesforce
+              <input className="ml1 top2" type="checkbox" onChange={this.toggleBcc.bind(this)} />
+            </small>
+          </div>
         </h3>
         {
           this.state.showCC
