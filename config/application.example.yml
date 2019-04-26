@@ -109,6 +109,7 @@
 # ==== Ticketing System Environment Variables
 # Email at which to receive forwarded ticket emails
   TICKET_FORWARDING_DOMAIN: 'wikiedu.org'
+  SALESFORCE_BCC_EMAIL: 'salesforce@salesforce.com'
 
 # Whitelisted test emails for staging and development
 # Except in production, the system will only send mail to these addresses.

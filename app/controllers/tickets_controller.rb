@@ -19,25 +19,40 @@ class TicketsController < ApplicationController
   private
 
   def send_ticket_notification(owner=false)
-    message = TicketDispenser::Message.find(notification_params[:message_id])
-    sender_email = message.ticket.messages.first.details[:sender_email]
-    sender = User.find(notification_params[:sender_id]) || sender_email
-    ticket = message.ticket
-    course = ticket.project
-    recipient = owner ? ticket.owner : (ticket.reply_to || User.new(email: sender_email))
+    set_ticket_details
+    TicketNotificationMailer.notify_of_message(
+      course: @course,
+      message: @message,
+      recipient: recipient(owner),
+      sender: @sender,
+      bcc_to_salesforce: notification_params[:bcc_to_salesforce]
+    )
 
-    TicketNotificationMailer.notify_of_message(course, message, recipient, sender)
-
-    message.details[:delivered] = Time.zone.now
-    message.save
+    @message.details[:delivered] = Time.zone.now
+    @message.save
     render json: { success: :ok }
   rescue StandardError => e
-    message.details[:delivery_failed] = Time.zone.now
-    message.save
+    @message.details[:delivery_failed] = Time.zone.now
+    @message.save
     raise e
   end
 
+  def set_ticket_details
+    @message = TicketDispenser::Message.find(notification_params[:message_id])
+    @sender = User.find(notification_params[:sender_id]) || sender_email
+    @ticket = @message.ticket
+    @course = @ticket.project
+  end
+
+  def sender_email
+    @sender_email ||= @message.ticket.messages.first.details[:sender_email]
+  end
+
+  def recipient(owner)
+    owner ? @ticket.owner : (@ticket.reply_to || User.new(email: sender_email))
+  end
+
   def notification_params
-    params.permit(:cc, :message_id, :sender_id)
+    params.permit(:bcc_to_salesforce, :cc, :message_id, :sender_id)
   end
 end
