@@ -69,6 +69,24 @@ describe TicketsController, type: :request do
 
       expect(message.reload.details[:delivery_failed]).not_to be_nil
     end
+
+    it 'optionally BCC\'s Salesforce' do
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      params = { message_id: message.id, sender_id: admin.id, bcc_to_salesforce: true }
+      post '/tickets/reply', params: params
+
+      delivery = ActionMailer::Base.deliveries.first
+      expect(delivery.bcc).to include(ENV['SALESFORCE_BCC_EMAIL'])
+    end
+
+    it 'does not set BCC if bcc_to_salesforce param is not included' do
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      params = { message_id: message.id, sender_id: admin.id }
+      post '/tickets/reply', params: params
+
+      delivery = ActionMailer::Base.deliveries.first
+      expect(delivery.bcc).not_to include(ENV['SALESFORCE_BCC_EMAIL'])
+    end
   end
 
   describe '#notify_owner' do
