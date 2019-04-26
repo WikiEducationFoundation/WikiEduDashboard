@@ -31,7 +31,7 @@ export const Reply = ({ message }) => {
     cc = (
       <h6 className="cc">
         <span>CC: </span>
-        {details.cc.map(({ email }) => email)}
+        {details.cc.map(({ email }) => email).join(', ')}
       </h6>
     );
   }
