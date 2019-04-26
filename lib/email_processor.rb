@@ -15,7 +15,7 @@ class EmailProcessor
     dispense_or_thread_ticket
   end
 
-  def retrieve_forwarder_email
+  def retrieve_original_sender_email
     raw_body = @email.raw_body
     expression = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i
     raw_body[expression]
@@ -50,8 +50,8 @@ class EmailProcessor
   def define_sender
     @from_address = @email.from[:email]
     if @from_address.end_with?(ENV['TICKET_FORWARDING_DOMAIN'])
-      addresses = retrieve_forwarder_email
-      @sender = User.find_by(greeter: false, email: addresses) unless addresses.nil?
+      @original_from_address = retrieve_original_sender_email
+      @sender = User.find_by(email: @original_from_address) unless @original_from_address.nil?
     elsif @from_address
       @sender = User.find_by(email: @from_address)
     end
@@ -81,7 +81,7 @@ class EmailProcessor
   def create_ticket
     details = {
       subject: @email.subject,
-      sender_email: @from_address
+      sender_email: @original_from_address || @from_address
     }
     details = { cc: @email.cc, **details } if @email.cc.present?
     TicketDispenser::Dispenser.call(

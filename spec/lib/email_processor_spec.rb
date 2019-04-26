@@ -4,6 +4,34 @@ require 'rails_helper'
 require "#{Rails.root}/lib/email_processor"
 
 describe EmailProcessor do
+  let(:forwarded_email) do
+    <<~FORWARDED
+      -------- Forwarded Message --------
+      Subject: question about editing
+      Date:	Thu, 25 Apr 2019 16:20:51 -0700
+      From:	Jess Profess <jprof@edu.edu>
+      To:	helaine@wikiedu.org
+
+      Hi Helaine. What went wrong with these pages?
+
+      Breastfeeding - fine
+      https://en.wikipedia.org/wiki/Breastfeeding
+
+      Michał Wołodyjowski - draft
+      https://en.wikipedia.org/wiki/Draft:Micha%C5%82_Wo%C5%82odyjowski
+
+
+      Jess
+
+      --
+      Jess Profess
+      Professor
+      Education University, Department of Studies
+      jprof@edu.edu
+      Pronouns: she/they
+    FORWARDED
+  end
+
   describe '#process' do
     let(:course) { create(:course) }
 
@@ -151,28 +179,46 @@ describe EmailProcessor do
       expect(TicketDispenser::Ticket.last.messages.last.content).to include('Hi there,')
     end
 
-    it 'should assign forwarded emails to the original sender' do
-      student
-      body = <<~EXAMPLE
-        Example email test\r\n\r\n---------- Forwarded message ---------\r\nFrom:
-        Student <student@email.com>\r\nDate: Mon, Apr 8, 2019 at 3:42 PM\r\n
-        Subject: Help!\r\nTo: <staff@email.com>\r\n\r\n\r\nHelp message\r\n
-      EXAMPLE
-      domain = ENV['TICKET_FORWARDING_DOMAIN']
-      email = create(:email,
-                     to: [{ email: expert.email }],
-                     from: { email: "other-staff@#{domain}" },
-                     raw_body: body)
-      processor = described_class.new(email)
-      processor.process
+    context 'forwarded emails when the sender uses an email that is not in the Users table' do
+      let!(:sender) { create(:user, username: 'Jprof', email: 'jprof-alternative@edu.edu') }
 
-      expect(TicketDispenser::Ticket.all.count).to eq(1)
-      expect(TicketDispenser::Message.all.count).to eq(1)
+      it 'should assign the owner and the sender_email appropriately' do
+        email = create(:email,
+                       to: [{ email: expert.email }],
+                       from: { email: 'helaine@wikiedu.org' },
+                       raw_body: forwarded_email)
+        processor = described_class.new(email)
+        processor.process
 
-      ticket = TicketDispenser::Ticket.first
-      message = TicketDispenser::Message.first
-      expect(ticket.owner).to eq(expert)
-      expect(message.sender).to eq(student)
+        expect(TicketDispenser::Ticket.all.count).to eq(1)
+        expect(TicketDispenser::Message.all.count).to eq(1)
+
+        ticket = TicketDispenser::Ticket.first
+        message = TicketDispenser::Message.first
+        expect(ticket.owner).to eq(expert)
+        expect(message.details[:sender_email]).to eq('jprof@edu.edu')
+      end
+    end
+
+    context 'forwarded emails from a known email address' do
+      let!(:sender) { create(:user, username: 'Jprof', email: 'jprof@edu.edu') }
+
+      it 'should assign the owner and the sender_email appropriately' do
+        email = create(:email,
+                       to: [{ email: expert.email }],
+                       from: { email: 'helaine@wikiedu.org' },
+                       raw_body: forwarded_email)
+        processor = described_class.new(email)
+        processor.process
+
+        expect(TicketDispenser::Ticket.all.count).to eq(1)
+        expect(TicketDispenser::Message.all.count).to eq(1)
+
+        ticket = TicketDispenser::Ticket.first
+        message = TicketDispenser::Message.first
+        expect(ticket.owner).to eq(expert)
+        expect(message.sender).to eq(sender)
+      end
     end
 
     it 'does not assign forwarded emails to a sender if one cannot be found' do
@@ -224,7 +270,7 @@ describe EmailProcessor do
       email = build(:email, raw_body: body)
       expected_result = 'aaa@email.com'
 
-      expect(described_class.new(email).retrieve_forwarder_email).to eq(expected_result)
+      expect(described_class.new(email).retrieve_original_sender_email).to eq(expected_result)
     end
   end
 
