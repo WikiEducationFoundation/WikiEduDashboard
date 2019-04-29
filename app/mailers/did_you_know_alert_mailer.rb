@@ -8,9 +8,9 @@ class DidYouKnowAlertMailer < ApplicationMailer
 
   def email(alert)
     @alert = alert
-    set_course_and_creators
-    return if @instructors.empty?
-    params = { to: @instructors.pluck(:email),
+    set_course_and_recipients
+    return if @recipients.empty?
+    params = { to: @recipients,
              subject: @alert.main_subject }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?
     mail(params)
@@ -18,8 +18,9 @@ class DidYouKnowAlertMailer < ApplicationMailer
 
   private
 
-  def set_course_and_creators
+  def set_course_and_recipients
     @course = @alert.course
-    @instructors = @course.instructors
+    @recipients = @course.instructors.pluck(:email) +
+                  @course.nonstudents.where(greeter: true).pluck(:email)
   end
 end
