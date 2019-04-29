@@ -3,6 +3,7 @@ import React from 'react';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import { MESSAGE_KIND_NOTE, MESSAGE_KIND_REPLY, TICKET_STATUS_AWAITING_RESPONSE, TICKET_STATUS_RESOLVED } from '../../constants/tickets';
+import { INSTRUCTOR_ROLE } from '../../constants/user_roles';
 
 const isBlank = (string) => {
   if (/\S/.test(string)) {
@@ -19,8 +20,15 @@ export class NewReplyForm extends React.Component {
       content: '',
       plainText: '',
       sending: false,
-      showCC: false
+      showCC: false,
+      bccToSalesforce: false
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      bccToSalesforce: this.props.ticket.sender.role === INSTRUCTOR_ROLE
+    });
   }
 
   onChange(_key, content) {
@@ -121,7 +129,7 @@ export class NewReplyForm extends React.Component {
           <div className="pull-right">
             <small>
               BCC to Salesforce
-              <input className="ml1 top2" type="checkbox" onChange={this.toggleBcc.bind(this)} />
+              <input className="ml1 top2" type="checkbox" onChange={this.toggleBcc.bind(this)} checked={this.state.bccToSalesforce} />
             </small>
           </div>
         </h3>
