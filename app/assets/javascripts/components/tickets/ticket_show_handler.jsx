@@ -31,7 +31,8 @@ export class TicketShow extends React.Component {
   }
 
   render() {
-    if (!this.props.selectedTicket.id) return <Loading />;
+    const id = this.props.match.params.id;
+    if (!this.props.selectedTicket.id || this.props.selectedTicket.id !== parseInt(id)) return <Loading />;
 
     return (
       <div>
