@@ -6,7 +6,10 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
                       real_name: 'Delano (Wiki Edu)',
                       permissions: User::Permissions::ADMIN)
     recipient = User.new(username: 'flanagan.hyder')
-    TicketNotificationMailer.notify(course, message, recipient, sender)
+    TicketNotificationMailer.notify(
+      course: course, message: message, recipient: recipient,
+      sender: sender, bcc_to_salesforce: false
+    )
   end
 
   def message_to_instructor
@@ -14,7 +17,10 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
     recipient = User.new(username: 'admin',
                          real_name: 'Delano (Wiki Edu)',
                          permissions: User::Permissions::ADMIN)
-    TicketNotificationMailer.notify(course, message, recipient, sender)
+    TicketNotificationMailer.notify(
+      course: course, message: message, recipient: recipient,
+      sender: sender, bcc_to_salesforce: false
+    )
   end
 
   private
