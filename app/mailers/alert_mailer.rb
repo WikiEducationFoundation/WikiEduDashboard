@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class AlertMailer < ApplicationMailer
+  def self.send_alert_email(alert, recipient)
+    return unless Features.email?
+    alert(alert, recipient).deliver_now
+  end
+
   def alert(alert, recipient)
     return unless Features.email?
     @recipient = recipient
