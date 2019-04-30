@@ -63,7 +63,7 @@ export default function (state = initialState, action) {
       };
     }
     case FETCH_TICKETS:
-      return { ...state, loading: true };
+      return { ...state, all: [], loading: true };
     case FILTER_TICKETS: {
       const newFilters = { ...state.filters, ...action.filters };
       return { ...state, filters: newFilters };
@@ -71,7 +71,7 @@ export default function (state = initialState, action) {
     case RECEIVE_TICKETS: {
       return {
         ...state,
-        all: action.data,
+        all: state.all.concat(action.data),
         loading: false
       };
     }
