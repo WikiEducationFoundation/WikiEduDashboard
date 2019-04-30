@@ -14,7 +14,9 @@ import {
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
+
 import fetch from 'cross-fetch';
+import moment from 'moment';
 
 const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
@@ -102,7 +104,6 @@ export const createReply = (body, status, bcc_to_salesforce) => async (dispatch)
   dispatch({ type: CREATE_REPLY });
 };
 
-
 export const readAllMessages = ticket => async (dispatch) => {
   const unreadMessages = ticket.messages.some(message => !message.read);
   if (!unreadMessages) return false;
@@ -120,13 +121,40 @@ export const readAllMessages = ticket => async (dispatch) => {
   dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
+export const dateSegments = (
+  tomorrow = moment().add(1, 'day'),
+  length = 5, // Number of dates to retrieve
+  segement = 15 // Number of days between requests
+) => {
+  return Array.from({ length }).map((_el, index) => {
+    const days = index * segement;
+    return moment(tomorrow).subtract(days, 'days').format('YYYY-MM-DD');
+  });
+};
+
+const fetchSomeTickets = async (dispatch, before, after) => {
+  let query = `created_before=${before}`;
+  if (after) query += `&created_after=${after}`;
+
+  const response = await fetch(`/td/tickets?${query}`);
+  return response.json().then(({ tickets }) => {
+    dispatch({ type: RECEIVE_TICKETS, data: tickets });
+  });
+};
+
+// Fetch as many tickets as possible
 export const fetchTickets = () => async (dispatch) => {
   dispatch({ type: FETCH_TICKETS });
 
-  const response = await fetch('/td/tickets');
-  const json = await response.json();
+  const segments = dateSegments();
+  // Ensures that each promise will run sequentially
+  return segments.reduce(async (previousPromise, segment, index, collection) => {
+    await previousPromise;
 
-  dispatch({ type: RECEIVE_TICKETS, data: json.tickets });
+    const next = collection[index + 1];
+    if (!next) return Promise.resolve();
+    return fetchSomeTickets(dispatch, segment, next);
+  }, Promise.resolve());
 };
 
 export const selectTicket = ticket => ({ type: SELECT_TICKET, ticket });
