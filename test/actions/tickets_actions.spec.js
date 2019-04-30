@@ -7,7 +7,7 @@ describe('Ticket Actions', () => {
     it('creates four dates evenly spaced apart', () => {
       const date = moment('06-30-2000', 'MM-DD-YYYY');
       const actual = dateSegments(date);
-      const expected = ['06-30-2000', '06-15-2000', '05-31-2000', '05-16-2000'];
+      const expected = ['2000-06-30', '2000-06-15', '2000-05-31', '2000-05-16', '2000-05-01'];
       expect(actual).to.deep.eq(expected);
     });
   });
