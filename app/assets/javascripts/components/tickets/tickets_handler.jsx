@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Row from './tickets_table_row';
+import Pagination from './pagination';
 import Loading from '../common/loading';
 import List from '../common/list.jsx';
 import TicketOwnersFilter from './ticket_owners_filter';
@@ -10,11 +11,22 @@ import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../action
 import { getFilteredTickets } from '../../selectors';
 
 export class TicketsHandler extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 0
+    };
+  }
+
   componentDidMount() {
     if (!this.props.tickets.all.length) {
       this.props.fetchTickets();
       this.props.setInitialTicketFilters();
     }
+  }
+
+  goToPage(page) {
+    this.setState({ page });
   }
 
   render() {
@@ -53,9 +65,12 @@ export class TicketsHandler extends React.Component {
       }
     };
 
+    const TICKETS_PER_PAGE = 10;
+
     const elements = this.props.filteredTickets.map(ticket => (
       <Row key={ticket.id} ticket={ticket} />
-    ));
+    )).slice(this.state.page, this.state.page + TICKETS_PER_PAGE);
+    const pagesLength = Math.floor(elements.length / TICKETS_PER_PAGE) + 1;
 
     // Since this is used multiple places (student_list.jsx), we should
     // refactor this a bit.
@@ -81,6 +96,11 @@ export class TicketsHandler extends React.Component {
           sortBy={this.props.sortTickets}
           sortable={true}
           table_key="tickets"
+        />
+        <Pagination
+          currentPage={this.state.page}
+          goToPage={this.goToPage.bind(this)}
+          length={pagesLength}
         />
       </main>
     );
