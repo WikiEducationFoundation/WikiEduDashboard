@@ -737,9 +737,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bower_components/jquery@jquery/jquery-dist#3.4.0":
-  version "3.4.0"
-  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/180c5c33e477463ed93a9d5f7ac7cad7c9809f1c"
+"@bower_components/jquery@jquery/jquery-dist#3.4.1":
+  version "3.4.1"
+  uid "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
