@@ -5,12 +5,12 @@ class SuspectedPlagiarismMailer < ApplicationMailer
 
   def self.alert_content_expert(revision)
     return unless Features.email?
-    content_expert = content_expert_for(revision)
-    return if content_expert.nil?
-    content_expert_email(revision, content_expert).deliver_now
+    content_experts = content_experts_for(revision)
+    return if content_experts.empty?
+    content_expert_email(revision, content_experts).deliver_now
   end
 
-  def content_expert_email(revision, content_expert)
+  def content_expert_email(revision, content_experts)
     @revision = revision
     @user = revision.user
     @article = revision.article
@@ -20,16 +20,16 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @talk_page_new_section_url = @courses_user.talk_page_url + '?action=edit&section=new'
     @report_url = 'https://dashboard.wikiedu.org' + @revision.plagiarism_report_link
     mail(to: @course.instructors.pluck(:email),
-         cc: content_expert.email,
-         reply_to: content_expert.email,
+         cc: content_experts.pluck(:email),
+         reply_to: content_experts.first.email,
          subject: "Possible plagiarism from #{@course.title}")
   end
 
-  def self.content_expert_for(revision)
+  def self.content_experts_for(revision)
     user = revision.user
-    return if user.nil?
+    return [] if user.nil?
     course = user.courses.last
-    return if course.nil?
-    course.nonstudents.where(greeter: true).last
+    return [] if course.nil?
+    course.nonstudents.where(id: SpecialUsers.wikipedia_experts.pluck(:id))
   end
 end

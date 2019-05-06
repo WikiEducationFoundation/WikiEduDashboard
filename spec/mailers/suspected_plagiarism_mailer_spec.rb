@@ -17,6 +17,7 @@ describe SuspectedPlagiarismMailer do
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:courses_user, course_id: course.id, user_id: content_expert.id,
                           role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+    SpecialUsers.set_user('wikipedia_experts', content_expert.username)
   end
 
   let(:article) { create(:article) }
