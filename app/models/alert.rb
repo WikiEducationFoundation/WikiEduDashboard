@@ -97,7 +97,7 @@ class Alert < ApplicationRecord
     content_experts = course.nonstudents.where(greeter: true)
     return if content_experts.empty?
     content_experts.each do |content_expert|
-      AlertMailer.alert(self, content_expert).deliver_now
+      AlertMailer.send_alert_email(self, content_expert)
     end
     update_attribute(:email_sent_at, Time.zone.now)
   end
@@ -106,7 +106,7 @@ class Alert < ApplicationRecord
     return if emails_disabled?
     admins = course.nonstudents.where(permissions: 1)
     admins.each do |admin|
-      AlertMailer.alert(self, admin).deliver_now
+      AlertMailer.send_alert_email(self, admin)
     end
     update_attribute(:email_sent_at, Time.zone.now)
   end
@@ -114,7 +114,7 @@ class Alert < ApplicationRecord
   def email_target_user
     return if emails_disabled?
     return if target_user.nil?
-    AlertMailer.alert(self, target_user).deliver_now
+    AlertMailer.send_alert_email(self, target_user)
     update_attribute(:email_sent_at, Time.zone.now)
   end
 

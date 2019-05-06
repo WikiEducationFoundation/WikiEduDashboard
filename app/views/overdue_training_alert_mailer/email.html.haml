@@ -21,6 +21,7 @@
                   %th.trainings-table Due Date
                 - @alert.details.each do |slug, module_details|
                   - training = TrainingModule.find_by(slug: slug)
+                  - next unless training
                   %tr
                     %td.trainings-table-cell
                       %a.link.training{href: "https://#{ENV['dashboard_url']}/training/students/#{slug}"}
