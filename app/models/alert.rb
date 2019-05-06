@@ -42,6 +42,7 @@ class Alert < ApplicationRecord
     DYKNominationAlert
     FirstEnrolledStudentAlert
     GANominationAlert
+    HighQualityArticleEditAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
     OnboardingAlert
@@ -59,6 +60,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
+    HighQualityArticleEditAlert
   ].freeze
 
   PUBLIC_ALERT_TYPES = %w[
@@ -71,6 +73,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
+    HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
     UnsubmittedCourseAlert
