@@ -3,7 +3,7 @@
 class DidYouKnowAlertMailer < ApplicationMailer
   def self.send_dyk_email(alert)
     return unless Features.email?
-    email(alert)
+    email(alert).deliver_now
   end
 
   def email(alert)
