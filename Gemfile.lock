@@ -34,6 +34,15 @@ GIT
       jwt (~> 2.0)
       omniauth-oauth (~> 1.0)
 
+GIT
+  remote: https://github.com/ragesoss/premailer.git
+  revision: 9b4e1ec78a84605816dc90b0cd4e943650646658
+  specs:
+    premailer (1.11.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -320,10 +329,6 @@ GEM
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
-    premailer (1.11.1)
-      addressable
-      css_parser (>= 1.6.0)
-      htmlentities (>= 4.0.0)
     premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
@@ -570,6 +575,7 @@ DEPENDENCIES
   paper_trail
   paperclip
   piwik_analytics!
+  premailer!
   premailer-rails
   pry-rails
   puma

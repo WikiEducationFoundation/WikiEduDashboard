@@ -19,12 +19,25 @@ class AlertPreview < ActionMailer::Preview
   end
 
   def generic_alert
-    AlertMailer.alert(Alert.last, example_user)
+    AlertMailer.alert(example_alert, example_user)
   end
 
   private
 
   def example_user
     User.new(email: 'sage@example.com', username: 'Ragesoss', permissions: 1)
+  end
+
+  def example_course
+    Course.new(title: "Apostrophe's Folly", slug: "School/Apostrophe's_Folly_(Spring_2019)")
+  end
+
+  def example_article
+    Article.new(title: "King's_Gambit", wiki: Wiki.first)
+  end
+
+  def example_alert
+    Alert.new(type: 'HighQualityArticleEditAlert', article: example_article,
+              course: example_course, id: 9)
   end
 end

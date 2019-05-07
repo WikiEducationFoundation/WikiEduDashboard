@@ -32,6 +32,8 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
+# forked temporarily, pending https://github.com/premailer/premailer/pull/376
+gem 'premailer', git: 'https://github.com/ragesoss/premailer.git'
 gem 'nokogiri' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
