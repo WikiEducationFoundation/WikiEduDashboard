@@ -15,4 +15,14 @@ Rails.application.config.to_prepare do
       }
     end
   end
+
+  TicketDispenser::Message.class_eval do
+    def serialized_sender
+      return {} if sender.nil?
+      {
+        sender_id: sender_id,
+        real_name: sender.real_name
+      }
+    end
+  end
 end
