@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { Sidebar } from '../../../app/assets/javascripts/components/tickets/sidebar.jsx';
 import '../../testHelper';
 
-describe('Tickets:Sidebar', () => {
-  describe('rendering', () => {
+describe('Tickets', () => {
+  describe('Sidebar', () => {
     const ticket = {
       project: {},
       owner: {},

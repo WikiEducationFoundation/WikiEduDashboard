@@ -5,8 +5,8 @@ import { MESSAGE_KIND_REPLY, MESSAGE_KIND_NOTE } from '../../../app/assets/javas
 import { Reply } from '../../../app/assets/javascripts/components/tickets/reply.jsx';
 import '../../testHelper';
 
-describe('Tickets:Reply', () => {
-  describe('rendering', () => {
+describe('Tickets', () => {
+  describe('Reply', () => {
     const message = {
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
       details: {

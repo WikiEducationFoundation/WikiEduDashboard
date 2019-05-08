@@ -12,8 +12,8 @@ import {
 import { NewReplyForm } from '../../../app/assets/javascripts/components/tickets/new_reply_form';
 import '../../testHelper';
 
-describe('Tickets:NewReplyForm', () => {
-  describe('rendering', () => {
+describe('Tickets', () => {
+  describe('NewReplyForm', () => {
     const message = {};
     const ticket = {
       id: 1,
