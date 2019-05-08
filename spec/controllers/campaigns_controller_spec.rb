@@ -200,6 +200,31 @@ describe CampaignsController, type: :request do
     end
   end
 
+  describe '#users.json' do
+    let(:course) { create(:course) }
+    let(:campaign) { create(:campaign) }
+    let(:student) { create(:user) }
+    let(:instructor) { create(:user, username: 'Dr. Instructor') }
+
+    before do
+      campaign.courses << course
+      create(:courses_user, course_id: course.id, user_id: student.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'returns list of students and instructors' do
+      get "/campaigns/#{campaign.slug}/users", params: { format: :json }
+      expect(response.body).to include(student.username)
+      expect(response.body).to include('Editor')
+      expect(response.body).to include(instructor.username)
+      expect(response.body).to include('Facilitator')
+      expect(response.body).to include(course.slug)
+      expect(response.body).to include(campaign.slug)
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
