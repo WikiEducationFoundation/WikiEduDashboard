@@ -73,6 +73,11 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def assignments
+    set_campaign
+    render json: { campaign: @campaign.slug, assignments: @campaign.assignments_to_json }
+  end
+
   def alerts
     respond_to do |format|
       format.html { render }

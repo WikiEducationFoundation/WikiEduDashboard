@@ -207,6 +207,7 @@ Rails.application.routes.draw do
       get 'programs'
       get 'articles'
       get 'users'
+      get 'assignments'
       get 'students'
       get 'instructors'
       get 'courses'

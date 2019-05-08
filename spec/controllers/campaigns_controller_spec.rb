@@ -225,6 +225,32 @@ describe CampaignsController, type: :request do
     end
   end
 
+  describe '#assignments.json' do
+    let(:course) { create(:course) }
+    let(:campaign) { create(:campaign) }
+    let(:student) { create(:user) }
+    let(:article) { create(:article, title: 'Selfie') }
+
+    before do
+      campaign.courses << course
+      create(:assignment, course: course, user: student, article_title: 'Music',
+             role: Assignment::Roles::ASSIGNED_ROLE)
+      create(:assignment, course: course, user: student, article_title: 'Selfie',
+             article: article, role: Assignment::Roles::REVIEWING_ROLE)
+    end
+
+    it 'returns list of students and instructors' do
+      get "/campaigns/#{campaign.slug}/assignments", params: { format: :json }
+      expect(response.body).to include(student.username)
+      expect(response.body).to include('Editing')
+      expect(response.body).to include('Reviewing')
+      expect(response.body).to include(course.slug)
+      expect(response.body).to include(campaign.slug)
+      expect(response.body).to include(article.title)
+      expect(response.body).to include('Music')
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
