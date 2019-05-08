@@ -16,7 +16,6 @@ import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
 
 import fetch from 'cross-fetch';
-import moment from 'moment';
 
 const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
