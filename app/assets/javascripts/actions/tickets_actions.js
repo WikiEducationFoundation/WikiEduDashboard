@@ -121,22 +121,9 @@ export const readAllMessages = ticket => async (dispatch) => {
   dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
-export const dateSegments = (
-  tomorrow = moment().add(1, 'day'),
-  length = 5, // Number of dates to retrieve
-  segement = 15 // Number of days between requests
-) => {
-  return Array.from({ length }).map((_el, index) => {
-    const days = index * segement;
-    return moment(tomorrow).subtract(days, 'days').format('YYYY-MM-DD');
-  });
-};
-
-const fetchSomeTickets = async (dispatch, before, after) => {
-  let query = `created_before=${before}`;
-  if (after) query += `&created_after=${after}`;
-
-  const response = await fetch(`/td/tickets?${query}`);
+const fetchSomeTickets = async (dispatch, page, batchSize = 100) => {
+  const offset = batchSize * page;
+  const response = await fetch(`/td/tickets?limit=${batchSize}&offset=${offset}`);
   return response.json().then(({ tickets }) => {
     dispatch({ type: RECEIVE_TICKETS, data: tickets });
   });
@@ -146,14 +133,11 @@ const fetchSomeTickets = async (dispatch, before, after) => {
 export const fetchTickets = () => async (dispatch) => {
   dispatch({ type: FETCH_TICKETS });
 
-  const segments = dateSegments();
+  const batches = Array.from({ length: 10 }, (_el, index) => index);
   // Ensures that each promise will run sequentially
-  return segments.reduce(async (previousPromise, segment, index, collection) => {
+  return batches.reduce(async (previousPromise, batch) => {
     await previousPromise;
-
-    const next = collection[index + 1];
-    if (!next) return Promise.resolve();
-    return fetchSomeTickets(dispatch, segment, next);
+    return fetchSomeTickets(dispatch, batch);
   }, Promise.resolve());
 };
 

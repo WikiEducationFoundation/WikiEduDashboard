@@ -68,9 +68,9 @@ export class TicketsHandler extends React.Component {
     const TICKETS_PER_PAGE = 10;
 
     const pagesLength = Math.floor((this.props.filteredTickets.length - 1) / TICKETS_PER_PAGE) + 1;
-    const elements = this.props.filteredTickets.map(ticket => (
-      <Row key={ticket.id} ticket={ticket} />
-    )).slice(this.state.page * TICKETS_PER_PAGE, this.state.page * TICKETS_PER_PAGE + TICKETS_PER_PAGE);
+    const elements = this.props.filteredTickets
+      .slice(this.state.page * TICKETS_PER_PAGE, this.state.page * TICKETS_PER_PAGE + TICKETS_PER_PAGE)
+      .map(ticket => <Row key={ticket.id} ticket={ticket} />);
 
     // Since this is used multiple places (student_list.jsx), we should
     // refactor this a bit.
