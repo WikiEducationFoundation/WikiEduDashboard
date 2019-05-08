@@ -52,6 +52,14 @@ class CoursesUsers < ApplicationRecord
     WIKI_ED_STAFF_ROLE    = 4
   end
 
+  ROLE_NAMES = {
+    Roles::STUDENT_ROLE => 'Editor',
+    Roles::INSTRUCTOR_ROLE => 'Facilitator',
+    Roles::CAMPUS_VOLUNTEER_ROLE => 'Campus Volunteer',
+    Roles::ONLINE_VOLUNTEER_ROLE => 'Online Volunteer',
+    Roles::WIKI_ED_STAFF_ROLE => 'Wiki Education Staff'
+  }.freeze
+
   ####################
   # Instance methods #
   ####################

@@ -81,6 +81,19 @@ class Campaign < ApplicationRecord
     CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
 
+  def users_to_json
+    CoursesUsers.where(course: nonprivate_courses)
+                .includes(:user, :course)
+                .order(revision_count: :desc)
+                .map do |course_user|
+      {
+        course: course_user.course.slug,
+        role: CoursesUsers::ROLE_NAMES[course_user.role],
+        username: course_user.user.username
+      }
+    end
+  end
+
   #################
   # Class methods #
   #################
