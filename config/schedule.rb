@@ -53,3 +53,7 @@ end
 every [:monday, :tuesday, :wednesday, :thursday], at: '10:30 am' do
   rake 'experiments:spring_2018_cmu_experiment'
 end
+
+every [:monday, :tuesday, :wednesday, :thursday, :friday], at: ['6:00 pm', '1:00 pm'] do
+  rake 'batch:ticket_notifications'
+end
