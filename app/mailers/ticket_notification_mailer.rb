@@ -38,7 +38,7 @@ class TicketNotificationMailer < ApplicationMailer
     @owner = owner
     @open_count = tickets.count
     subject = if @open_count == 1
-                "Dashboard Tickets: there is 1 open ticket"
+                'Dashboard Tickets: there is 1 open ticket'
               else
                 "Dashboard Tickets: there are #{@open_count} open tickets"
               end

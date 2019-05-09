@@ -114,3 +114,37 @@ a.training {
   color: white;
   font-size: 10px;
 }
+
+.ticket {
+  background: rgba(200, 200, 200, 0.3);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.ticket h2 { font-size: 16px; }
+
+.ticket h2.heading {
+  color: #222222;
+  font-weight: bold;
+}
+
+.ticket ul {
+  display: flex;
+  padding-left: 0;
+  text-align: left;
+}
+
+.ticket ul li {
+  display: inline-block;
+  flex: 1;
+}
+
+.ticket ul li.center { text-align: center; }
+.ticket ul li.right { text-align: right; }
+
+.ticket time {
+  clear: both;
+  color: #666666;
+  display: block;
+  text-align: left;
+}
