@@ -8,6 +8,11 @@ class TicketNotificationMailer < ApplicationMailer
     notify(opts).deliver_now
   end
 
+  def self.notify_of_open_tickets(opts)
+    return unless Features.email?
+    open_tickets_notify(opts).deliver_now
+  end
+
   def notify(course:, message:, recipient:, sender:, bcc_to_salesforce:)
     @course = course
     @message = message
@@ -26,6 +31,20 @@ class TicketNotificationMailer < ApplicationMailer
          from: @sender.email,
          subject: email_subject,
          reply_to: @sender.email)
+  end
+
+  def open_tickets_notify(tickets:, owner:)
+    @tickets = tickets
+    @owner = owner
+    @open_count = tickets.count
+    subject = if @open_count == 1
+                "Dashboard Tickets: there is 1 open ticket"
+              else
+                "Dashboard Tickets: there are #{@open_count} open tickets"
+              end
+
+    mail(to: owner.email,
+         subject: subject)
   end
 
   private

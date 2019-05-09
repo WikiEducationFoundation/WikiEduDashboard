@@ -27,6 +27,12 @@ namespace :batch do
     SurveyUpdate.new
   end
 
+  desc 'Ticket notifications'
+  task ticket_notifications: :environment do
+    require "#{Rails.root}/lib/tickets/ticket_notification_emails"
+    TicketNotificationEmails.notify
+  end
+
   desc 'View import updates'
   task update_views: :environment do
     require "#{Rails.root}/lib/data_cycle/views_update"

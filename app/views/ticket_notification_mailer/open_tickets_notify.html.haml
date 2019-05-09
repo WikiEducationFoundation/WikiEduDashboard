@@ -1,0 +1,23 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %td.main-content.link-cell
+            %a{:href => "https://#{ENV['dashboard_url']}/tickets/dashboard"}
+              Go to Ticket Dashboard
+          - @tickets.each do |ticket|
+            - course = ticket.project
+            %tr
+              %td.main-content
+                %section.message
+                  = ticket.subject
+                %table
+                  %tr
+                    %td.main-content.link-cell
+                      %a.button_link.small{:href => "https://#{ENV['dashboard_url']}/courses/#{course.slug}"}
+                        Course
+
+.hidden
+  %p ignore_creating_dashboard_ticket

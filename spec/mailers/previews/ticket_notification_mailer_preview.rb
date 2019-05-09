@@ -23,6 +23,15 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
     )
   end
 
+  def open_tickets_notification
+    owner = User.admin.first
+    tickets = TicketDispenser::Ticket.first(20)
+    TicketNotificationMailer.open_tickets_notify(
+      owner: owner,
+      tickets: tickets
+    )
+  end
+
   private
 
   def course
