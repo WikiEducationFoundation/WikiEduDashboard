@@ -5,6 +5,7 @@
 # Author: KuboF
 # Author: Lucas
 # Author: Luis Miguel Obando
+# Author: Mirin
 # Author: Ochilov
 # Author: Rafaneta
 # Author: Robin van der Vliet
@@ -13,27 +14,86 @@
 eo:
   application:
     cancel: Nuligi
+    documentation: Dokumentaro
+    error: 'Eraro okazis:'
+    explore: Esplori
+    greeting2: Bonvenon!
+    greeting_extended: Bonvenon al Vikipedio
     greeting: Saluton!
     help: Helpo
     home: Hejmo
+    log_in_extended: Ensaluti per Vikipedio
+    log_in: Ensaluti
     log_out: Elsaluti
+    report_problem: Raporti problemon
+    request_account: Peti konton
+    request_account_create: Krei konton
+    search: demandi
     change: Ŝanĝi
+    details: Detaloj
+    confirm: Bone
     opt_in: Jes
     opt_out: Ne
+    opt_yes: jes
+    opt_no: ne
+  dashboard:
+    explore_examples: Esplori Ekzemplojn
+  home:
+    explore: Esplori
+    log_in: Ensaluti per Vikipedio
+    sign_up: Registriĝi per Vikipedio
+  activity:
+    all: Aktiveco
+    label: Aktiveco
   articles:
     no_available: Ne Eblaj Artikoloj
     edited_mobile: Artikoloj
+    filter:
+      wiki_all: Ĉiuj
+      new: Nova
     hide: Kaŝi
+    history: (historio)
+    label: Artikoloj
     new: (nova)
     rating: Klaso
     rating_docs:
       does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
     show_current_version: Montri nunan version
     title: Titolo
+    title_example: Titolo de artikolo
+    view: Vidi Artikolon
+    view_all: Vidi Ĉiujn
+    view_on_wiki: Vidi ĉe vikio
+    wiki: Vikio
+  assignments:
+    add_available_submit: Aldoni artikolojn
+    remove: Forigi
+    select: Elekti
+  blocks:
+    milestones:
+      title: Mejloŝtonoj
   campaign:
+    alert_article: Titolo de artikolo
+    alert_type: Tipo
+    alert_user_id: Uzanto
+    campaign: Kampanjo
+    campaigns: Kampanjoj
+    created_at: Dato
+    course: Kurso
     description: Priskribo
+    none: Nenio
+    title: Titolo
+  categories:
+    name: Nomo
+    category_name: Nomo de kategorio
+    template_name: Nomo de ŝablono
+    remove: Forigi
+  chat:
+    label: Babili
   courses:
     activity: Aktiveco
+    all_courses: Ĉiuj Kursoj
+    archived: Enarkivigitaj Kursoj
     actions: Agoj
     articles: Artikoloj
     creator:

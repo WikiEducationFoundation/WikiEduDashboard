@@ -193,13 +193,18 @@ ja:
     organizers: 主催者
     organizer_added: '%{user}さんは現在、「%{title}」キャンペーンの主催者です'
     organizer_removed: '%{user}さんは「%{title}」キャンペーンの主催者を退任しました'
+    program_template: プログラムのテンプレート
     program_template_tooltip: 主催者がこの告知にプログラムを作成すると、この欄の文は説明としてプログラムページに転写されます
     requested_accounts: アカウント申請
   categories:
     add_category: カテゴリを追加
+    add_template: テンプレートを追加
     add_this_category: このカテゴリに追加
+    confirm_template_addition: ほんとうにテンプレート「%{name}」をウォッチリストに入れますか?
     name: 項目名
+    template_name: テンプレート名
     remove: 削除
+    tracked_categories: 追跡するカテゴリとテンプレート
   courses:
     assignment_edits_enabled: 課題の編集が有効になりました
     assignment_edits_enabled_tooltip: ダッシュボードを有効にすると、割り当てられた記事のトークページにテンプレートが投稿されます。
@@ -270,6 +275,7 @@ ja:
     edit_course_dates: コース日程を編集
     embed_course_stats: コースの統計を埋め込む
     ended: コースは終了済みです。
+    enrollment_edits_enabled_tooltip: 有効にすると、プログラムに新規参加した編集者の利用者ページとトークページにテンプレートを投稿します。
     courses_enrolled: 登録済みのコース
     error:
       exists: そのコースは既に出されています！ コース名、学校、規約を変更してやり直してください。
@@ -344,7 +350,9 @@ ja:
     creator:
       course_description: プログラムの説明
       course_description_placeholder: これはどんなプログラムで、ウィキ上で参加者はどんな活動をしますか？ 詳しい情報を加え、他の編集者から見て参加者がどんなことを成し遂げるのか背景が伝わるようにします。
+      find: プログラムを見つける
       intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語や複数プロジェクトのあるプログラムの場合は、それぞれのウィキで「提供される記事」や「課題」ごとに投稿を記録します。ウィキプログラムのページ作成は、「プログラムを作成する！」ボタンを押して開始します。
+    explore: プログラムを見つける
     school: 施設
     student_editors: 編集者
     students: 編集者
@@ -355,6 +363,7 @@ ja:
     cancel: 中止
     save: 保存
     edit_description: 編集の説明
+    edit_template: テンプレートの編集
     rename_confirmation: URLを構成するコースの分野が変更されました。この結果、URLの文字列が変更されるため、外部からのリンクはすべて切れてしまいます。この処理を本当に行ってよろしいですか？
   metrics:
     activity: 最近の活動
@@ -478,6 +487,7 @@ ja:
     fetched_articles: 獲得した記事
     searching_articles: 記事の検索
     subheading_message: 作業対象のウィキペディア記事を探しましょう。
+    article_finder: 記事を見つける
     assign_article_self: 担当に立候補する
   training_status:
     due: '%{due_date} 〆切'
