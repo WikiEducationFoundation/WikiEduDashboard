@@ -35,23 +35,23 @@ export class Sidebar extends React.Component {
 
     return (
       <section className="sidebar">
-        <section>Created <time className="bold">{moment(createdAt).fromNow()}</time></section>
-        <section>
+        <section className="created-at">Created <time className="bold">{moment(createdAt).fromNow()}</time></section>
+        <section className="status">
           Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
           <TicketStatusHandler ticket={ticket} />
         </section>
-        <section>
+        <section className="owner">
           Assigned to <span className="bold">{assignedTo}</span>
           <TicketOwnerHandler ticket={ticket} />
         </section>
-        <section>
+        <section className="course-name">
           {
             ticket.project.id
               ? <Link to={`/courses/${ticket.project.slug}`}>Go to the {ticket.project.title} Course</Link>
               : 'Course Unknown'
           }
         </section>
-        <section>
+        <section className="user-record">
           {
             ticket.sender.username
               ? <a onClick={() => this.goTo()}>Go to {`${ticket.sender.real_name || ticket.sender.username}'s`} Account</a>

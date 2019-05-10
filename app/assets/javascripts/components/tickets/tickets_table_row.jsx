@@ -4,34 +4,34 @@ import { STATUSES } from './util';
 import TicketStatusHandler from './ticket_status_handler';
 import TicketOwnerHandler from './ticket_owner_handler';
 
-const TicketsTableRow = ({ ticket }) => {
+export const TicketsTableRow = ({ ticket }) => {
   const { sender, sender_email } = ticket;
   const senderName = sender.real_name || sender.username || sender_email;
 
   return (
     <tr className={ticket.status === 0 ? 'table-row--faded' : ''}>
-      <td className="w10">
+      <td className="sender w10">
         {senderName || 'Unknown User Record' }
       </td>
-      <td className="w20">
+      <td className="subject w20">
         {ticket.subject && ticket.subject.replace(/_/g, ' ')}
       </td>
-      <td className="w20">
+      <td className="course w20">
         {
           ticket.project.id
           ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
           : 'Course Unknown'
         }
       </td>
-      <td className="w20">
+      <td className="status w20">
         { STATUSES[ticket.status] }
         <TicketStatusHandler ticket={ticket} />
       </td>
-      <td className="w20">
+      <td className="owner w20">
         { ticket.owner.username }
         <TicketOwnerHandler ticket={ticket} />
       </td>
-      <td className="w10">
+      <td className="actions w10">
         <Link className="button" to={`/tickets/dashboard/${ticket.id}`}>Show</Link>
       </td>
     </tr>

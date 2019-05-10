@@ -73,7 +73,6 @@ export class NewReplyForm extends React.Component {
     const { cc, content, bccToSalesforce } = this.state;
     const ccEmails = this._ccEmailsSplit(cc);
     if (!this._ccEmailsAreValid(ccEmails)) return this.setState({ sending: false });
-
     const { currentUser, ticket } = this.props;
     let body = {
       content,
@@ -121,6 +120,8 @@ export class NewReplyForm extends React.Component {
         <h3>
           Send a Reply{toAddress}
           <button
+            alt="Show BCC"
+            title="Show BCC"
             className="button border plus"
             onClick={this.onCCClick.bind(this)}
           >
@@ -129,7 +130,14 @@ export class NewReplyForm extends React.Component {
           <div className="pull-right">
             <small>
               BCC to Salesforce
-              <input className="ml1 top2" type="checkbox" onChange={this.toggleBcc.bind(this)} checked={this.state.bccToSalesforce} />
+              <input
+                checked={this.state.bccToSalesforce}
+                className="ml1 top2"
+                id="bcc"
+                name="bcc"
+                onChange={this.toggleBcc.bind(this)}
+                type="checkbox"
+              />
             </small>
           </div>
         </h3>
@@ -161,9 +169,33 @@ export class NewReplyForm extends React.Component {
             wysiwyg={true}
           />
         </div>
-        <button disabled={this.state.sending} className="button dark margin right mt2" type="submit" onClick={this.onResolve.bind(this)}>Send Reply and Resolve Ticket</button>
-        <button disabled={this.state.sending} className="button dark right mt2" type="submit" onClick={this.onReply.bind(this)}>Send Reply</button>
-        <button disabled={this.state.sending} className="button left mt2" type="submit" onClick={this.onCreateNote.bind(this)}>Create Note</button>
+        <button
+          className="button dark margin right mt2"
+          disabled={this.state.sending}
+          id="reply-resolve"
+          onClick={this.onResolve.bind(this)}
+          type="submit"
+        >
+          Send Reply and Resolve Ticket
+        </button>
+        <button
+          className="button dark right mt2"
+          disabled={this.state.sending}
+          id="reply"
+          onClick={this.onReply.bind(this)}
+          type="submit"
+        >
+          Send Reply
+        </button>
+        <button
+          className="button left mt2"
+          disabled={this.state.sending}
+          id="create-note"
+          onClick={this.onCreateNote.bind(this)}
+          type="submit"
+        >
+          Create Note
+        </button>
       </form>
     );
   }
