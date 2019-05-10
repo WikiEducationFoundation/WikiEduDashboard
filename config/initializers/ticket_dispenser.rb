@@ -6,8 +6,11 @@ Rails.application.config.to_prepare do
   TicketDispenser::Ticket.class_eval do
     def sender
       message = messages.first
+      return {} unless message
+      
       user = message.sender if message
       return { email: message.details[:sender_email] } if user.nil?
+      
       {
         username: user.username,
         real_name: user.real_name,
