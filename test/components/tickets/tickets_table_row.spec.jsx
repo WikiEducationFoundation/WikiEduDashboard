@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { MemoryRouter } from 'react-router';
 import { TICKET_STATUS_OPEN } from '../../../app/assets/javascripts/constants/tickets';
 import { TicketsTableRow } from '../../../app/assets/javascripts/components/tickets/tickets_table_row';
 import '../../testHelper';
