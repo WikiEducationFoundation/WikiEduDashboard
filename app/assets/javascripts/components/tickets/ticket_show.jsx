@@ -18,7 +18,7 @@ export const TicketShow = ({
   return (
     <main className="container ticket-dashboard">
       <h4 className="mt1"><Link to="/tickets/dashboard">← Ticketing Dashboard</Link></h4>
-      <h2>
+      <h2 className="title">
         Ticket from {ticket.sender.real_name || ticket.sender.username || ticket.sender_email }
       </h2>
       <hr/>
