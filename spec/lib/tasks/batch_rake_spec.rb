@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/data_cycle/constant_update"
 require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
 require "#{Rails.root}/lib/data_cycle/daily_update"
 require "#{Rails.root}/lib/data_cycle/survey_update"
+require "#{Rails.root}/lib/tickets/ticket_notification_emails"
 
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 
@@ -36,6 +37,13 @@ describe 'batch:update_constantly' do
     it 'initializes a SurveyUpdate' do
       expect(SurveyUpdate).to receive(:new)
       rake['batch:survey_update'].invoke
+    end
+  end
+
+  describe 'ticket_notifications' do
+    it 'calls TicketNotificationEmails.notify' do
+      expect(TicketNotificationEmails).to receive(:notify)
+      rake['batch:ticket_notifications'].invoke
     end
   end
 
