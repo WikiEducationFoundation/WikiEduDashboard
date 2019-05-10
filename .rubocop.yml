@@ -1,6 +1,7 @@
 require:
   - rubocop/rspec/focused
   - rubocop-rspec
+  - rubocop-performance
 Documentation:
   Enabled: false
 AllCops:

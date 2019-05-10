@@ -114,6 +114,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec-focused', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-performance', require: false
   gem 'timecop' # Test utility for setting the time
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
