@@ -30,13 +30,16 @@ el:
     log_in_extended: Σύνδεση στη Βικιπαίδεια
     log_in: Σύνδεση
     log_out: Αποσύνδεση
+    my_dashboard: Πίνακας εργασίας
     recent_activity: Πρόσφατη δραστηριότητα
     report_problem: Αναφορά προβλήματος
     request_account: Κάντε αίτηση για ένα λογαριασμό
+    request_account_create: Δημιουργία λογαριασμού
     search: Κάντε μια ερώτηση
     search_results: 'Αποτελέσματα για: ''%{search_terms}'''
-    sign_up_extended: Εγγραφή στη Βικιπαίδεια
-    sign_up_wikipedia: ή συνδεθείτε με την Βικιπαίδεια
+    no_results: Δεν βρέθηκαν αποτελέσματα για «%{query}»
+    sign_up_extended: Εγγραφή με Βικιπαίδεια
+    sign_up_wikipedia: ή συνδεθείτε στη Βικιπαίδεια
     sign_up_log_in_extended: με τη Βικιπαίδεια
     sign_up: Εγγραφή
     submit: Υποβολή
@@ -46,14 +49,16 @@ el:
     confirm: Εντάξει
     opt_in: Ναι
     opt_out: Όχι
+    opt_yes: ναι
+    opt_no: όχι
   dashboard:
     explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
     explore_examples: Εξερεύνηση παραδειγμάτων
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
   home:
     explore: Εξερεύνηση
-    log_in: Σύνδεση στη Βικιπαίδεια
-    sign_up: Εγγραφή στη Βικιπαίδεια
+    log_in: Σύνδεση μέσω Βικιπαίδειας
+    sign_up: Εγγραφή μέσω Βικιπαίδειας
   activity:
     all: Δραστηριότητα
     edited_by: Επεξεργάστηκε από
@@ -62,6 +67,7 @@ el:
     article_development: (ανάπτυξη άρθρου)
     assigned: Ανατεθειμένα άρθρα
     available: Διαθέσιμα άρθρα
+    no_available: Δεν υπάρχουν διαθέσιμα άρθρα
     next: Επόμενο
     previous: Προηγούμενο
     article_title: Τίτλος άρθρου
@@ -74,6 +80,7 @@ el:
       wiki_all: Όλα
       new: Νέο
       existing: Υπάρχοντα
+      new_and_existing: Νέα και υπάρχοντα
     hide: Απόκρυψη
     history: (ιστορικό)
     label: Λήμματα
@@ -81,7 +88,7 @@ el:
     new: (Νέο)
     rating: Κλάση
     rating_docs:
-      b: Τάξη Β — ένα μέτρια ανεπτυγμένο άρθρο
+      b: '%{class} — ένα μέτρια ανεπτυγμένο άρθρο'
     see_more: Δείτε περισσότερα
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
     title: Τίτλος
@@ -208,7 +215,7 @@ el:
     dismiss_survey: Απόρριψη
     download_stats_data: Στατιστικά λήψης
     duration: Διάρκεια μαθήματος
-    edit_count: Εκδώσετε τον Αριθμό
+    edit_count: Αριθμός επεξεργασιών
     edit_course_dates: Επεξεργασία ημερομηνιών μαθήματος
     enable_account_requests: Ενεργοποίηση αιτήσεων λογαριασμών
     enable_chat: Ενεργοποίηση συνομιλίας

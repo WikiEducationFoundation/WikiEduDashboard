@@ -12,6 +12,15 @@
 # Author: 1490493253
 ---
 eo:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   application:
     cancel: Nuligi
     documentation: Dokumentaro
@@ -29,6 +38,9 @@ eo:
     request_account: Peti konton
     request_account_create: Krei konton
     search: demandi
+    sign_up_log_in_extended: kun Vikipedio
+    submit: Sendi
+    training: Trejnado
     change: Ŝanĝi
     details: Detaloj
     confirm: Bone
@@ -47,6 +59,7 @@ eo:
     label: Aktiveco
   articles:
     no_available: Ne Eblaj Artikoloj
+    deleted: (forigita)
     edited_mobile: Artikoloj
     filter:
       wiki_all: Ĉiuj
@@ -58,6 +71,7 @@ eo:
     rating: Klaso
     rating_docs:
       does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
+    see_more: Vidi plu
     show_current_version: Montri nunan version
     title: Titolo
     title_example: Titolo de artikolo
@@ -66,7 +80,9 @@ eo:
     view_on_wiki: Vidi ĉe vikio
     wiki: Vikio
   assignments:
+    assign_other: Asigni artikolon
     add_available_submit: Aldoni artikolojn
+    label: Asigni
     remove: Forigi
     select: Elekti
   blocks:
@@ -80,10 +96,16 @@ eo:
     campaigns: Kampanjoj
     created_at: Dato
     course: Kurso
+    create_campaign: Krei Novan Kampanjon
+    create_my_campaign: Krei mian Kampanjon!
     description: Priskribo
     none: Nenio
     title: Titolo
   categories:
+    add_category: Aldoni kategorion
+    add_template: Aldoni ŝablonon
+    add_this_category: Aldoni ĉi tiun kategorion
+    add_this_template: Aldoni ĉi tiun ŝablonon
     name: Nomo
     category_name: Nomo de kategorio
     template_name: Nomo de ŝablono
