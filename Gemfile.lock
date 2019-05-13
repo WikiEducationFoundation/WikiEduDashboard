@@ -206,8 +206,6 @@ GEM
       rails (>= 3.2.0)
     griddler-mailgun (1.1.1)
       griddler
-    groupdate (4.1.1)
-      activesupport (>= 4.2)
     guard (2.15.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -560,7 +558,6 @@ DEPENDENCIES
   figaro
   griddler
   griddler-mailgun
-  groupdate
   guard-bundler
   guard-rails
   guard-rspec

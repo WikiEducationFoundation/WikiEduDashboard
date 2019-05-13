@@ -16,7 +16,7 @@ export const TicketsTableRow = ({ ticket }) => {
       <td className="subject w20">
         {ticket.subject && ticket.subject.replace(/_/g, ' ')}
       </td>
-      <td className="course-page w20">
+      <td className="course w20">
         {
           ticket.project.id
           ? <Link to={`/courses/${ticket.project.slug}`}>{ ticket.project.title }</Link>
