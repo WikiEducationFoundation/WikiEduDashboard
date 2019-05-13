@@ -99,7 +99,6 @@ describe Replica do
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
         response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        pp response
         expect(response.size).to eq(17)
       end
     end
