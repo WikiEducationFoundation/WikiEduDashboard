@@ -25,7 +25,7 @@ describe('Tickets', () => {
       expect(subject.length).to.be.ok;
       expect(subject.text()).to.eq('');
 
-      const course = row.find('.course');
+      const course = row.find('.course-page');
       expect(course.length).to.be.ok;
       expect(course.text()).to.eq('Course Unknown');
 
@@ -67,7 +67,7 @@ describe('Tickets', () => {
       expect(subject.length).to.be.ok;
       expect(subject.text()).to.eq(ticket.subject);
 
-      const course = row.find('.course');
+      const course = row.find('.course-page');
       expect(course.length).to.be.ok;
 
       const status = row.find('.status');

@@ -20,6 +20,7 @@ gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'dalli' # Caching
 gem 'connection_pool'
+gem 'groupdate' # ActiveRecord query methods for date-based sorting
 
 ### Login, authentication, browser support
 gem 'devise' # user session management

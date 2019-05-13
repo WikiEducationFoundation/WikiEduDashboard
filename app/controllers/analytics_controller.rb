@@ -40,6 +40,17 @@ class AnalyticsController < ApplicationController
     @course_instructor_count = CoursesUsers.with_instructor_role.pluck(:user_id).uniq.count
     @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
     @total_wikis_touched = Wiki.count
+    @active_editors_by_month = [["2019-05-01", 1070], ["2019-04-01", 3444], ["2019-03-01", 2608], ["2019-02-01", 3030], ["2019-01-01", 1522], ["2018-12-01", 2040], ["2018-11-01", 3474], ["2018-10-01", 3510], ["2018-09-01", 2634], ["2018-08-01", 479], ["2018-07-01", 312], ["2018-06-01", 401], ["2018-05-01", 1259], ["2018-04-01", 3462], ["2018-03-01", 3456], ["2018-02-01", 3028], ["2018-01-01", 2297], ["2017-12-01", 1553], ["2017-11-01", 3190], ["2017-10-01", 3164], ["2017-09-01", 2347], ["2017-08-01", 416], ["2017-07-01", 232], ["2017-06-01", 403], ["2017-05-01", 1369], ["2017-04-01", 2921], ["2017-03-01", 2693], ["2017-02-01", 2538], ["2017-01-01", 1727], ["2016-12-01", 1287], ["2016-11-01", 2618], ["2016-10-01", 2658], ["2016-09-01", 1928], ["2016-08-01", 305], ["2016-07-01", 96], ["2016-06-01", 211]]
+  end
+
+  def active_editors
+    @active_editors_by_month = []
+    36.times do |i|
+      month = i.months.ago.month
+      year = i.months.ago.year
+      active_editor_count = Revision.where('extract(month from date) = ?', month).where('extract(year from date) = ?', year).group('user_id').having('count(*) > 4').count.count
+      @active_editors_by_month << ["#{year}-#{month}-01".to_date, active_editor_count]
+    end
   end
 
   def ungreeted
