@@ -10,6 +10,6 @@ class SuspectedPlagiarismMailerPreview < ActionMailer::Preview
   private
 
   def example_user
-    User.new(email: 'sage@example.com', username: 'Ragesoss')
+    User.where(permissions: 1)
   end
 end
