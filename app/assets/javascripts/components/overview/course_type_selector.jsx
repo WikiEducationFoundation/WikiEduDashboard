@@ -37,7 +37,7 @@ const CourseTypeSelector = createReactClass({
 
   _getFormattedCourseType(type) {
     return {
-      ClassroomProgramCourse: 'Classroom Program',
+      ClassroomProgramCourse: 'Wikipedia Student Program',
       VisitingScholarship: 'Visiting Scholarship',
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',

@@ -94,7 +94,7 @@ To reproduce a working course with active editors, complete the following:
 The dashboard has two production deployments, which are configured differently.
 
 The Wiki Education Dashboard (dashboard.wikiedu.org) is for Wiki Education,
-and is built around the "Classroom Program" involving college students and instructors.
+and is built around the "Wikipedia Student Program" involving college students and instructors.
 It is more locked down, required approval from an admin before a course can proceed.
 
 The Wikimedia Programs & Events Dashboard (outreachdashboard.wmflabs.org) is for
