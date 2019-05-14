@@ -78,6 +78,7 @@ const Nav = createReactClass({
     let explore;
     let myDashboard;
     let forAdmin;
+    let training;
     let notifications;
     let help;
     let Sandbox;
@@ -140,6 +141,11 @@ const Nav = createReactClass({
       explore = (
         <li>
           <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
+        </li>
+      );
+      training = (
+        <li>
+          <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
         </li>
       );
     }
@@ -224,9 +230,7 @@ const Nav = createReactClass({
                 {explore}
                 {myDashboard}
                 {forAdmin}
-                <li>
-                  <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
-                </li>
+                {training}
                 {Sandbox}
                 {help}
                 {wikiEd}

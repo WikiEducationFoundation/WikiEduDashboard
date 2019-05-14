@@ -829,6 +829,10 @@ en:
     view_on_wiki: View diff on wiki
     see_more: See more
 
+  resources:
+    label: Resources
+    header: Resources and Training
+
   settings:
     admin_users:
       new:
