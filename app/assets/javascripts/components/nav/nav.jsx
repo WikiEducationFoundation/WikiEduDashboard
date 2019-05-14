@@ -143,6 +143,8 @@ const Nav = createReactClass({
           <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
         </li>
       );
+    }
+    if (!this.isCoursePage() || !Features.wikiEd) {
       training = (
         <li>
           <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
