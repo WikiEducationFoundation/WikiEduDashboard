@@ -68,9 +68,14 @@ const Nav = createReactClass({
     event.preventDefault();
   },
 
+  isCoursePage() {
+    return !!this.props.history.location.pathname.match(/courses/);
+  },
+
   render() {
     let navBar;
     let navClass;
+    let explore;
     let myDashboard;
     let forAdmin;
     let notifications;
@@ -128,6 +133,13 @@ const Nav = createReactClass({
               &nbsp;{I18n.t('application.sign_up_log_in_extended')}
             </span>
           </a>
+        </li>
+      );
+    }
+    if (!this.isCoursePage()) {
+      explore = (
+        <li>
+          <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
         </li>
       );
     }
@@ -209,9 +221,7 @@ const Nav = createReactClass({
                 </a>
               </div>
               <ul className="top-nav__main-links">
-                <li>
-                  <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
-                </li>
+                {explore}
                 {myDashboard}
                 {forAdmin}
                 <li>
