@@ -8,8 +8,6 @@ const handouts = [
 ];
 
 const Handouts = ({ blocks, trainingLibrarySlug }) => {
-  if (!Features.wikiEd) { return; }
-
   let topicGuides;
   const topicGuidesBlock = blocks.find(block => block.title.match(/writing articles in your topic area/));
   if (topicGuidesBlock) {
