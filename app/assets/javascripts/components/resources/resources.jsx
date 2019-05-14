@@ -9,6 +9,8 @@ import Block from '../timeline/block';
 import TrainingModules from '../timeline/training_modules';
 import Handouts from './handouts';
 
+const flattenAndCompact = _.flow([_.flatten, _.compact]);
+
 const Resources = ({ weeks, current_user, course }) => {
   const trainingLibrarySlug = course.training_library_slug;
   let instructorModulesLink;
@@ -16,7 +18,7 @@ const Resources = ({ weeks, current_user, course }) => {
     instructorModulesLink = <CourseLink to={'/training/instructors'} className="button pull-right">Instructor orientation modules</CourseLink>;
   }
   const blocks = _.flatten(weeks.map(week => week.blocks));
-  const modules = _.compact(_.flatten(blocks.map(block => block.training_modules)));
+  const modules = flattenAndCompact(blocks.map(block => block.training_modules));
 
   let additionalResources;
   const additionalResourcesBlock = blocks.find(block => block.title.match(/Additional Resources/));
