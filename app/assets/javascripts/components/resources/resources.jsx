@@ -13,7 +13,7 @@ const Resources = ({ weeks, current_user, course }) => {
   const trainingLibrarySlug = course.training_library_slug;
   let instructorModulesLink;
   if (current_user.isInstructor && Features.wikiEd) {
-    instructorModulesLink = <CourseLink to={'/training/instructors'} className="button pull-right ml1">Instructor orientation modules</CourseLink>;
+    instructorModulesLink = <CourseLink to={'/training/instructors'} className="button pull-right">Instructor orientation modules</CourseLink>;
   }
   const blocks = _.flatten(weeks.map(week => week.blocks));
   const modules = _.compact(_.flatten(blocks.map(block => block.training_modules)));
@@ -27,19 +27,35 @@ const Resources = ({ weeks, current_user, course }) => {
       </div>
     );
   }
+  let assignedModules;
+  if (modules.length) {
+    assignedModules = (
+      <TrainingModules
+        block_modules={modules}
+        trainingLibrarySlug={trainingLibrarySlug}
+        header="Assigned trainings"
+      />
+    );
+  }
+  let additionalModules;
+  if (Features.wikiEd) {
+     additionalModules = (
+       <CourseLink to={`/training/${trainingLibrarySlug}`} className="button pull-right ml1">Additional training modules</CourseLink>
+    );
+  } else {
+    additionalModules = (
+      <CourseLink to={'/training'} className="button dark mb1">{I18n.t('training.training_library')}</CourseLink>
+    );
+  }
 
   return (
     <div id="resources" className="w75">
       <div className="section-header">
         <h3>{I18n.t('resources.header')}</h3>
         <div id="training-modules" className="container">
-          <TrainingModules
-            block_modules={modules}
-            trainingLibrarySlug={trainingLibrarySlug}
-            header="Assigned trainings"
-          />
+          {assignedModules}
+          {additionalModules}
           {instructorModulesLink}
-          <CourseLink to={`/training/${trainingLibrarySlug}`} className="button pull-right">Additional training modules</CourseLink>
         </div>
         {additionalResources}
         <Handouts trainingLibrarySlug={trainingLibrarySlug} blocks={blocks} />
