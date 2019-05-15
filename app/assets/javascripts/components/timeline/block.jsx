@@ -5,7 +5,6 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
-// import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
@@ -125,16 +124,6 @@ const Block = createReactClass({
       }
       className += ' editable';
       if (this.props.isDragging) { className += ' dragging'; }
-      // graded = (
-      //   <Checkbox
-      //     value={isGraded}
-      //     onChange={this.updateGradeable}
-      //     value_key={'gradeable'}
-      //     editable={isEditable}
-      //     label="Graded"
-      //     container_class="graded"
-      //   />
-      // );
     }
 
     let modules;
@@ -245,7 +234,6 @@ const Block = createReactClass({
               onBlur={this.props.toggleFocused}
             />
           </div>
-          {/* {graded} */}
         </div>
         {content}
         {deleteBlock}
