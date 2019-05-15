@@ -116,6 +116,11 @@ const Block = createReactClass({
       dueDateRead = isGraded ? (<span className="block__default-due-date">{I18n.t('timeline.due_default')}</span>) : '';
     }
 
+    let blockKindNote;
+    if (block.kind === BLOCK_KIND_RESOURCES && isEditable) {
+      blockKindNote = <small>This block will be included on the Resources tab. It will not appear on the Timeline for students.</small>;
+    }
+
     let deleteBlock;
     // let graded;
     if (isEditable) {
@@ -234,6 +239,7 @@ const Block = createReactClass({
               onBlur={this.props.toggleFocused}
             />
           </div>
+          {blockKindNote}
         </div>
         {content}
         {deleteBlock}
