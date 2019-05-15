@@ -12,3 +12,5 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const RESET_TITLES = 'RESET_TITLES';
 export const RESTORE_TIMELINE = 'RESTORE_TIMELINE';
 export const DELETE_ALL_WEEKS = 'DELETE_ALL_WEEKS';
+
+export const BLOCK_KIND_RESOURCES = 5;
