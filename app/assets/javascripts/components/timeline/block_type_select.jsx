@@ -6,12 +6,13 @@ import InputHOC from '../high_order/input_hoc.jsx';
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
+const KINDS = ['In Class', 'Assignment', 'Milestone', 'Custom', 'Handouts', 'Resources'];
+
 const BlockTypeSelect = createReactClass({
   displayName: 'BlockTypeSelect',
 
   propTypes: {
     value: PropTypes.any,
-    options: PropTypes.array,
     editable: PropTypes.bool,
   },
 
@@ -29,7 +30,7 @@ const BlockTypeSelect = createReactClass({
       </div>
     );
 
-    const options = this.props.options.map((option, i) => {
+    const options = KINDS.map((option, i) => {
       return { value: i, label: option };
     });
 
@@ -52,7 +53,7 @@ const BlockTypeSelect = createReactClass({
         </div>
       );
     }
-    return <span>{this.props.options[this.props.value]}</span>;
+    return <span>{KINDS[this.props.value]}</span>;
   }
 });
 

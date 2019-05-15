@@ -30,7 +30,8 @@ class Block < ApplicationRecord
     'assignment' => 1,
     'milestone'  => 2,
     'custom'     => 3,
-    'handouts'   => 4
+    'handouts'   => 4,
+    'resources'  => 5
   }.freeze
 
   DEFAULT_POINTS = 10

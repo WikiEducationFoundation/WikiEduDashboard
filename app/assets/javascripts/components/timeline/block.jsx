@@ -7,6 +7,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
 // import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
+import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
 const DEFAULT_POINTS = 10;
 
@@ -57,6 +58,12 @@ const Block = createReactClass({
     return false;
   },
 
+  _hidden() {
+    // Resources blocks are hidden on the timeline, except for instructors and admins.
+    // They show up in the Resources tab instead, where there is no Week and so no weekStart.
+    return this.props.weekStart && !this.props.editPermissions && this.props.block.kind === BLOCK_KIND_RESOURCES;
+  },
+
   updateGradeable(_valueKey, value) {
     if (value) {
       this.updateBlock('points', DEFAULT_POINTS);
@@ -67,6 +74,8 @@ const Block = createReactClass({
 
   render() {
     const isEditable = this._isEditable();
+    if (this._hidden()) { return null; }
+
     const isGraded = !!this.props.block.points;
     let className = 'block';
     className += ` block-kind-${this.props.block.kind}`;
@@ -212,7 +221,6 @@ const Block = createReactClass({
               value={this.props.block.kind}
               value_key={'kind'}
               editable={isEditable}
-              options={['In Class', 'Assignment', 'Milestone', 'Custom']}
               show={this.props.block.kind < 3 || isEditable}
             />
             {dueDateSpacer}

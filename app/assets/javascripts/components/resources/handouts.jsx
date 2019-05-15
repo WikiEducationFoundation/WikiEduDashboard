@@ -7,13 +7,16 @@ const handouts = [
   { name: 'Illustrating Wikipedia', link: 'https://wikiedu.org/illustratingwikipedia' }
 ];
 
+const HANDOUTS_BLOCK_KIND = 4;
+
+
 const Handouts = ({ blocks, trainingLibrarySlug }) => {
   let topicGuides;
-  const topicGuidesBlock = blocks.find(block => block.title.match(/writing articles in your topic area/));
-  if (topicGuidesBlock) {
+  const topicGuidesBlocks = blocks.filter(block => block.kind === HANDOUTS_BLOCK_KIND);
+  if (topicGuidesBlocks) {
     topicGuides = (
       <>
-        <Block block={topicGuidesBlock} trainingLibrarySlug={trainingLibrarySlug} />
+        {topicGuidesBlocks.map(block => <Block key={block.id} block={block} trainingLibrarySlug={trainingLibrarySlug} />)}
         <a href="https://wikiedu.org/for-instructors/#subject-specific" className="button pull-right" target="_blank">Additional subject-specific guides</a>
       </>
     );
