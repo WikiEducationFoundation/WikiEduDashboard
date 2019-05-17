@@ -63,8 +63,13 @@
                 %strong
                   = succeed ':' do
                     = t('campaign.organizers')
-                %span
-                  = @campaign.organizers.collect(&:username).join(', ')
+                - @campaign.organizers.each_with_index do |organizer, i|
+                  - if i == @campaign.organizers.count - 1
+                    %a{href: "/users/#{organizer.username}"}= organizer.username
+                  - else
+                    = succeed ', ' do
+                      %a{href: "/users/#{organizer.username}"}= organizer.username
+              
                 %span.pop__container
                   %button.button.border.plus +
                   .pop
