@@ -31,10 +31,13 @@ gulp.task('cached-lintjs', () => {
     }));
 });
 
-gulp.task('cached-lintjs-watch', ['cached-lintjs'], () => {
-  return gulp.watch(jsPath, ['cached-lintjs'], (event) => {
+function watchCachedLintJS(done) {
+  gulp.watch(jsPath, gulp.series('cached-lintjs'), (event) => {
     if (event.type === 'deleted' && plugins.cached.caches.eslint) {
       delete plugins.cached.caches.eslint[event.path];
     }
   });
-});
+  done();
+}
+
+gulp.task('cached-lintjs-watch', gulp.series('cached-lintjs', watchCachedLintJS));
