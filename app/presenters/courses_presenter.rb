@@ -45,7 +45,7 @@ class CoursesPresenter
       'lower(title) like ? OR lower(school) like ? ' \
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-    )
+    ).distinct
   end
 
   def courses_by_recent_edits
