@@ -6,11 +6,11 @@ const plugins = loadPlugins();
 
 gulp.task('watch', () => {
   plugins.watch(`${config.sourcePath}/${config.cssDirectory}/**/*.{styl,sass,scss,css}`, () => {
-    return gulp.start('stylesheets');
+    return gulp.series('stylesheets');
   });
 
   plugins.watch(`${config.sourcePath}/${config.imagesDirectory}/**/*`, () => {
-    return gulp.start('copy-images');
+    return gulp.series('copy-images');
   });
 
   plugins.livereload.listen();

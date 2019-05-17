@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-import runSequence from 'run-sequence';
 import config from '../config.js';
 
 const plugins = loadPlugins();
@@ -25,6 +24,5 @@ gulp.task('copy-tinymce-skins', () => {
     .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}/skins`));
 });
 
-gulp.task('copy-static', (cb) => {
-  return runSequence(['copy-images', 'copy-fonts', 'copy-tinymce-skins'], cb);
-});
+gulp.task('copy-static',
+  gulp.parallel('copy-images', 'copy-fonts', 'copy-tinymce-skins'));
