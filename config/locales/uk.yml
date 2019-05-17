@@ -56,7 +56,7 @@ uk:
     request_account_create: Створити обліковий запис
     search: поставити запитання
     search_results: 'Результати для: «%{search_terms}»'
-    no_results: Не знайдено резульатів, що відповідають '%{query}'
+    no_results: Не знайдено результатів, що відповідають '%{query}'
     sign_up_extended: Зареєструватися через Вікіпедію
     sign_up_wikipedia: або зареєструватися у Вікіпедії
     sign_up_log_in_extended: з Вікіпедії
@@ -203,7 +203,7 @@ uk:
     remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити рецензію
-    review_self: Передивитись статтю
+    review_self: Перевірити статтю
     review_tooltip: Це щоб слідкувати, яку(-і) статтю(-і) ви плануєте рецензувати
       чи робити відгук.
     select: Обрати

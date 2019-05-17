@@ -5,6 +5,16 @@
 # Author: Xuacu
 ---
 ast:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: mil millones
+          trillion: billones
+          quadrillion: trillones
   accessibility:
     number_field: Esti ye un campu numbéricu. Los botones representaos pola mayoría
       de los navegadores van amontar y decrementar la entrada.
@@ -35,6 +45,7 @@ ast:
     request_account_create: Crear una cuenta
     search: facer una entruga
     search_results: 'Resultancies de: ''%{search_terms}'''
+    no_results: Nun s’alcontró nengún resultáu pa «%{query}»
     sign_up_extended: Rexístrate con Wikipedia
     sign_up_wikipedia: O rexístrate'n Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -46,6 +57,8 @@ ast:
     confirm: Aceutar
     opt_in: Sí
     opt_out: Non
+    opt_yes: sí
+    opt_no: non
   dashboard:
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
     create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
@@ -65,6 +78,10 @@ ast:
     review_orientation: Ver la orientación
     start_orientation: Principiar la orientación
     blog_headline: Noticies recién de Wiki Educación
+    about_programs: Esti sitiu fai el siguimientu d'actividaes wiki mediante Programes,
+      acividaes individuales como una wiquimaratón o un taller nuna escuela. Cada
+      programa forma parte d'una o más Campañes, que proporcionen estadístiques entre
+      los Programes.
     about_creating_programs: Si tas xestionando una única actividá independiente,
       puedes  crear un Programa agora. Si l'actividá ye parte de daqué más grande,
       atopa o crea la Campaña pa ello. Entós puedes crear un Programa nuevu dende
@@ -84,13 +101,26 @@ ast:
     article_development: (desendolcu d'artículu)
     assigned: Artículos axudicaos
     available: Artículos disponibles
+    no_available: Nun hai nengún artículu disponible
+    next: Siguiente
+    previous: Anterior
+    article_title: Títulu del artículu
     assigned_to: Axudicáu a
     character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
       ente la data de principiu y la final
+    cross_wiki_tracking: De siguío ta la llista de páxines del espaciu principal editaes
+      entre les dates de principiu y final. El tableru recueye les contribuciones
+      d'esti programa a la wiki principal, xunto con cualquier otra wiki que tenga
+      un artículu disponible o designáu.
     deleted: (desaniciáu)
     edited: Artículos editaos
     edited_by: 'Editáu por:'
     edited_mobile: Artículos
+    filter:
+      wiki_all: Toes
+      new: Nuevos
+      existing: Esistentes
+      new_and_existing: Nuevos y esistentes
     hide: Anubrir
     history: (historial)
     label: Artículos
@@ -282,9 +312,9 @@ ast:
       already_exists: Esti cursu yá esiste. Considera camudar el nome, la escuela
         o'l plazu pa faelu únicu.
       assignment_end: Fin de la xera
-      assignment_end_placeholder: Fin de la xera (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Entamu de la xera
-      assignment_start_placeholder: Entamu de la xera (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Ta comprobándose qu'esti cursu sía únicu.
       choose_clone: Escueyi un cursu pa clonar.
       clone_previous: Clonar el cursu anterior
@@ -311,7 +341,7 @@ ast:
       create_new: Crear un cursu nuevu
       create_short: Crear cursu
       end_date: Data final
-      end_date_placeholder: Data de fin (AAAA-MM-DD)
+      end_date_placeholder: AAAA-MM-DD
       expected_number: Númberu d'estudiantes esperáu
       find: Atopa'l to cursu
       intro: El títulu, la escuela y el plazu creen la dirección URL de la páxina
@@ -323,7 +353,7 @@ ast:
       role_description_placeholder: Monitor, ayudante d'enseñu, etc.
       save_cloned_course: Guardar cursu nuevu
       start_date: Data d'entamu
-      start_date_placeholder: Data d'entamu (AAAA-MM-DD)
+      start_date_placeholder: AAAA-MM-DD
       subject: Asuntu
     current: Cursos actuales
     data_articles: Datos de los artículos
@@ -480,9 +510,9 @@ ast:
     campaign_courses: Programación de «%{title}»
     creator:
       assignment_end: Fin d'actividá
-      assignment_end_placeholder: Fin d'actividá (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Principiu d'actividá
-      assignment_start_placeholder: Principiu d'actividá (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Ta comprobándose qu'esti programa sía únicu.
       choose_clone: Escueyi un programa pa clonar.
       clone_previous: Clonar el programa anterior
@@ -722,7 +752,7 @@ ast:
       esti total.
     chars_added: Caráuteres añadíos<br>(artículu | usuariu | borrador)
     contributions: Contribuciones del usuariu
-    contributions_history_full: Ver l'historial completu de contribuciones a Wikipedia
+    contributions_history_full: Ver l'historial completu de contribuciones
     contributions_more: Ver más contribuciones
     contribution_statistics: Estadístiques de contribución
     course_passcode: 'Códigu d''accesu:'
@@ -737,6 +767,7 @@ ast:
     characters_added_mainspace: Caráuteres añadíos (artículu)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caráuteres añadíos (usuariu)
+    characters_added_draftspace: Caráuteres añadíos (borrador)
     my_assigned: 'Axudicaos:'
     my_reviewing: 'En revisión:'
     name: Nome

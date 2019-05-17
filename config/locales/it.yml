@@ -352,6 +352,7 @@ it:
       assignment_end_placeholder: AAAA-MM-GG
       assignment_start: Inizio assegnazione
       assignment_start_placeholder: AAAA-MM-GG
+      cancel_course_clone: Cancella il corso clone
       cancel_course_clone_confirm: Sei sicuro di voler fermare la clonazione di questo
         corso?
       checking_for_uniqueness: Controllo dell'unicità di questo corso in esecuzione.
@@ -474,22 +475,42 @@ it:
     duration: Durata del corso
     edit_count: Contatore di modifiche
     edit_course_dates: Modifica date del corso
+    embed_course_stats: Includi statistiche corso
+    embed_course_stats_description: Per includere le statistiche di questo programma
+      in un altro sito web, copia e incolla questo codice
+    enable_account_requests: Attiva richieste di account
     enable_chat: Attiva chat
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
     enrollment: Aggiungi/rimuovi studenti
+    enrollment_edits_enabled: Abilitata assegnazione dei contributi
+    enrollment_edits_enabled_tooltip: Se abilitato, la dashboard pubblicherà un template
+      nella pagina utente e nella pagina di discussione di ciascun contributore che
+      partecipa al programma.
+    courses_enrolled: Corsi abilitati
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
       invalid_language_or_project: Lingua/progetto non valido
+      invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
     expected_students: Studenti previsti
+    features_feedback: 'Suggerimenti automatizzati:'
     feedback: Feedback
+    feedback_loading: Attendi mentre si caricano i suggerimenti…
+    gradeables_none: Questo corso non ha compiti qualificabili.
+    home_wiki_language: Lingua wiki di origine
+    home_wiki_project: Progetto wiki di origine
     instructor:
       one: Insegnante
       other: Insegnanti
     instructors: Insegnanti
+    invitation: Ti hanno invitato ad unirti a %{title}. Per partecipare al corso,
+      devi accedere con un nome utente di Wikipedia.
+    invitation_username_advice: Se ancora non hai un'utenza su Wikipedia, registrane
+      una nuova adesso. Il tuo nome utente può essere anonimo o identificarti personalmente
+      a seconda di come preferisci (non sono ammessi account condivisi).
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
     join_successful: Hai aderito con successo a %{title}. Il cruscotto terrà automaticamente
