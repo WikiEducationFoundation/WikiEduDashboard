@@ -162,7 +162,7 @@ const AvailableActions = createReactClass({
         <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
       );
       // On P&E Dashboard, offer option to join as online volunteer
-      if (!Features.wikiEd) {
+      if (!Features.wikiEd && course.online_volunteers_enabled) {
         controls.push(
           <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
         );

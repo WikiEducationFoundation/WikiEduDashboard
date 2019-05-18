@@ -355,6 +355,10 @@ class Course < ApplicationRecord
     flags[:timeline_enabled].present?
   end
 
+  def online_volunteers_enabled?
+    flags[:online_volunteers_enabled].present?
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')

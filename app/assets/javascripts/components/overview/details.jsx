@@ -16,6 +16,8 @@ import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
+import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
+
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
@@ -105,7 +107,10 @@ const Details = createReactClass({
       staff = <WikiEdStaff {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
     }
-    const online = <OnlineVolunteers {...this.props} />;
+    let online;
+    if (Features.wikiEd || this.props.course.online_volunteers_enabled) {
+      online = <OnlineVolunteers {...this.props} />;
+    }
 
     if (this.props.course.school || canRename) {
       school = (
@@ -232,6 +237,7 @@ const Details = createReactClass({
     let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let onlineVolunteersToggle;
     let wikiEditsToggle;
     let editSettingsToggle;
     let withdrawnSelector;
@@ -306,6 +312,17 @@ const Details = createReactClass({
     if (canRename && !isClassroomProgramType) {
       timelineToggle = (
         <TimelineToggle
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
+    // Users who can rename a course can enable Online Volunteers to join
+    if (canRename && !Features.wikiEd) {
+      onlineVolunteersToggle = (
+        <OnlineVolunteersToggle
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
@@ -404,6 +421,7 @@ const Details = createReactClass({
               {submittedSelector}
               {privacySelector}
               {timelineToggle}
+              {onlineVolunteersToggle}
               {wikiEditsToggle}
               {editSettingsToggle}
               {withdrawnSelector}
