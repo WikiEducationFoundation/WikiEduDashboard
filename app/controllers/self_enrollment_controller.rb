@@ -81,9 +81,14 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def add_student_to_course
+    role = if params[:role] == 'online_volunteer'
+             CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
+           else
+             CoursesUsers::Roles::STUDENT_ROLE
+           end
     @result = JoinCourse.new(course: @course,
                              user: current_user,
-                             role: CoursesUsers::Roles::STUDENT_ROLE,
+                             role: role,
                              real_name: current_user.real_name).result
   end
 

@@ -34,18 +34,17 @@ const AvailableActions = createReactClass({
     removeUser: PropTypes.func.isRequired
   },
 
-  join() {
+  join(role = null) {
+    const enrollURL = this.props.course.enroll_url;
     if (this.props.course.passcode === '') {
-      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function () {
-        return window.location = EnrollURL;
+        return window.location = `${enrollURL}?role=${role}`;
       };
       const confirmMessage = CourseUtils.i18n('join_no_passcode');
       this.props.initiateConfirm(confirmMessage, onConfirm);
     } else {
-      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function (passcode) {
-      return window.location = EnrollURL + passcode;
+        return window.location = `${enrollURL}${passcode}?role=${role}`;
       };
       const confirmMessage = I18n.t('courses.passcode_prompt');
       const joinDescription = CourseUtils.i18n('join_details', this.props.course.string_prefix);
@@ -157,9 +156,15 @@ const AvailableActions = createReactClass({
       }
     // If user has no role or is logged out
     } else if (!course.ended) {
-      controls.push((
+      controls.push(
         <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
-      ));
+      );
+      // On P&E Dashboard, offer option to join as online volunteer
+      if (!Features.wikiEd) {
+        controls.push(
+          <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+        );
+      }
     }
     // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
     if ((user.isEnrolled || user.isAdmin) && (course.type === 'Editathon' && !course.ended)) {

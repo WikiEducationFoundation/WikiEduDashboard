@@ -98,15 +98,14 @@ const Details = createReactClass({
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
-    let online;
     let campus;
     let staff;
     let school;
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
-      online = <OnlineVolunteers {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
     }
+    const online = <OnlineVolunteers {...this.props} />;
 
     if (this.props.course.school || canRename) {
       school = (
