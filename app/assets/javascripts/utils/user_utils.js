@@ -17,12 +17,10 @@ const UserUtils = class {
     }
     if (getFiltered(users, { id: currentUser.id, role: CAMPUS_VOLUNTEER_ROLE })[0]) {
       roles.isCampusVolunteer = true;
-      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: ONLINE_VOLUNTEER_ROLE })[0]) {
       roles.isOnlineVolunteer = true;
-      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: STAFF_ROLE })[0]) {
