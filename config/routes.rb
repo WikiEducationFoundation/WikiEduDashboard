@@ -141,7 +141,7 @@ Rails.application.routes.draw do
         titleterm: /[^\/]*/
     }
 
-    post 'clone_course/:id' => 'course_clone#clone'
+    post 'clone_course/:id' => 'course_clone#clone', as: 'course_clone'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
       constraints: {

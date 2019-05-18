@@ -17,16 +17,25 @@ describe CourseCloneController, type: :request do
                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       end
 
-      it 'clones the course' do
-        expect_any_instance_of(CourseCloneManager).to receive(:clone!)
-        post "/clone_course/#{course.id}", params: { id: course.id }
+      context 'json' do
+        it 'clones the course' do
+          expect_any_instance_of(CourseCloneManager).to receive(:clone!)
+          post "/clone_course/#{course.id}", params: { format: :json, id: course.id }
+        end
+      end
+
+      context 'html' do
+        it 'clones the course' do
+          expect_any_instance_of(CourseCloneManager).to receive(:clone!).and_return(course)
+          post "/clone_course/#{course.id}", params: { format: :html, id: course.id }
+        end
       end
     end
 
     context 'when the user is not the original instructor' do
       it 'returns a 401 error' do
         expect(CourseCloneManager).not_to receive(:new)
-        post "/clone_course/#{course.id}", params: { id: course.id }
+        post "/clone_course/#{course.id}", params: { format: :json, id: course.id }
         expect(response.status).to eq(401)
       end
     end
