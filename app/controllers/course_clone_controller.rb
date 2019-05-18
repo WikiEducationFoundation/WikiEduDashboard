@@ -8,7 +8,9 @@ class CourseCloneController < ApplicationController
   def clone
     @course = Course.find(params[:id])
     check_permission
-    new_course = CourseCloneManager.new(@course, current_user).clone!
+
+    campaign_slug = clone_params[:campaign_slug]
+    new_course = CourseCloneManager.new(@course, current_user, campaign_slug).clone!
 
     respond_to do |format|
       format.json { render json: { course: new_course.as_json } }
@@ -22,5 +24,9 @@ class CourseCloneController < ApplicationController
     return if current_user.can_edit?(@course)
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
     raise exception
+  end
+
+  def clone_params
+    params.permit(:campaign_slug)
   end
 end

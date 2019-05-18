@@ -202,11 +202,12 @@ const API = {
     );
   },
 
-  cloneCourse(id) {
+  cloneCourse(id, campaign) {
+    const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
     return new Promise((res, rej) =>
       $.ajax({
         type: 'POST',
-        url: `/clone_course/${id}`,
+        url: `/clone_course/${id}${campaignQueryParam}`,
         success(data) {
           return res(data);
         }
