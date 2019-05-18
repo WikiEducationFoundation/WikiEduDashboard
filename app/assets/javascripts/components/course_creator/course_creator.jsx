@@ -227,7 +227,7 @@ const CourseCreator = createReactClass({
   useThisClass() {
     const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
-    this.props.cloneCourse(courseId);
+    this.props.cloneCourse(courseId, this.campaignParam());
     return this.setState({ isSubmitting: true, shouldRedirect: true });
   },
 
@@ -241,15 +241,8 @@ const CourseCreator = createReactClass({
     let showNewOrClone;
     let showWizardForm;
     let showCourseDates;
-    // If the creator was launched from a campaign, do not offer the cloning option.
-    if (this.campaignParam()) {
-      if (this.state.showCourseDates) {
-        showCourseDates = true;
-        showCourseForm = false;
-      } else {
-        showCourseForm = true;
-      }
-    } else if (this.state.showWizardForm) {
+
+    if (this.state.showWizardForm) {
       showWizardForm = true;
     } else if (this.state.showCourseDates) {
       showCourseDates = true;
