@@ -62,7 +62,7 @@ const Student = createReactClass({
         <strong>{trunc(this.props.student.real_name)}</strong>
         &nbsp;
         (
-        <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+        <a href={`/users/${this.props.student.username}`}>
           {trunc(this.props.student.username)}
         </a>)
       </span>
@@ -118,7 +118,11 @@ const Student = createReactClass({
             {userName}
           </div>
           {trainingProgress}
-          <div className="sandbox-link"><a onClick={this.stop} href={this.props.student.sandbox_url} target="_blank">(sandboxes)</a></div>
+          <div className="sandbox-link">
+            <a onClick={this.stop} href={this.props.student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
+            &nbsp;
+            <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
+          </div>
         </td>
         <td className="desktop-only-tc">
           {assignButton}
