@@ -37,6 +37,9 @@ const UserUtils = class {
       roles.isAdmin = true;
       roles.isNonstudent = true;
     }
+    if (currentUser.campaign_organizer) {
+      roles.isNonstudent = true;
+    }
     return roles;
   }
 
