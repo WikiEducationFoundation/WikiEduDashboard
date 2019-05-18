@@ -91,6 +91,7 @@ describe 'open course creation', type: :feature, js: true do
 
   it 'creates a course belonging to a given campaign' do
     visit course_creator_path(campaign_slug: campaign.slug)
+    choose_course_type
     expect(page).to have_content campaign.title
     fill_out_open_course_creator_form
     click_button 'Next'
