@@ -123,7 +123,7 @@ const fetchPageViews = (articlesList, home_wiki, dispatch, getState) => {
 };
 
 const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState) => {
-  if (_.includes(PageAssessmentSupportedWiki.languages, home_wiki.language) && _.includes(PageAssessmentSupportedWiki.projects, home_wiki.project)) {
+  if (PageAssessmentSupportedWiki[home_wiki.project] && _.includes(PageAssessmentSupportedWiki[home_wiki.project], home_wiki.language)) {
     const promises = _.chunk(articlesList, 20).map((articles) => {
       const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
 
