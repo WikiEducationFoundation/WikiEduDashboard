@@ -23,7 +23,7 @@ describe('CourseAlerts', () => {
     const requestedAccountProps = {
       ...props,
       userRoles: {
-        isNonstudent: true
+        isAdvancedRole: true
       },
       course: { requestedAccounts: 1 }
     };

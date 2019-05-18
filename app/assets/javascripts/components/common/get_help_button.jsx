@@ -117,7 +117,7 @@ const GetHelpButton = createReactClass({
       );
 
       // Show the program help button only to instructors and other non-students.
-      if (this.props.currentUser.isNonstudent) {
+      if (this.props.currentUser.isAdvancedRole) {
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
@@ -187,7 +187,7 @@ const GetHelpButton = createReactClass({
         </div>
       );
     } else {
-      if (this.props.currentUser.isNonstudent) {
+      if (this.props.currentUser.isAdvancedRole) {
         faqLink = (
           <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
         );

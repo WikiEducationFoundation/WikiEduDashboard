@@ -68,7 +68,7 @@ export const AvailableArticle = createReactClass({
       );
     }
 
-    if (this.props.current_user.isNonstudent) {
+    if (this.props.current_user.isAdvancedRole) {
       actionRemove = (
         <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
       );

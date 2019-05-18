@@ -133,7 +133,7 @@ const AvailableActions = createReactClass({
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
       // so that users can see the instructions for how to enable deletion.
-      if ((user.isNonstudent || user.admin) && (!course.published || !Features.wikiEd)) {
+      if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
         controls.push((
           <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
             <button className="button danger" onClick={this.delete}>
@@ -175,7 +175,7 @@ const AvailableActions = createReactClass({
 
     // Requested accounts
     // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
-    if ((user.isNonstudent && !Features.wikiEd) || user.admin) {
+    if ((user.isAdvancedRole && !Features.wikiEd) || user.admin) {
       // Enable account requests if allowed
       if (!course.account_requests_enabled) {
         controls.push((
@@ -186,7 +186,7 @@ const AvailableActions = createReactClass({
 
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
-    if ((user.isNonstudent || user.admin || !Features.wikiEd) && course.published) {
+    if ((user.isAdvancedRole || user.admin || !Features.wikiEd) && course.published) {
       controls.push((
         <div key="download_course_stats" className="available-action"><CourseStatsDownloadModal course={course} /></div>
       ));

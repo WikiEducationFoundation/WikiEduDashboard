@@ -267,7 +267,7 @@ const ArticleFinder = createReactClass({
       const elements = _.map(this.props.articles, (article, title) => {
         let assignment;
         if (this.props.course_id) {
-          if (this.props.current_user.isNonstudent) {
+          if (this.props.current_user.isAdvancedRole) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });

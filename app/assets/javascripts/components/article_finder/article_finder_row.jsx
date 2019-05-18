@@ -106,7 +106,7 @@ const ArticleFinderRow = createReactClass({
       }
     }
     let button;
-    if (this.props.courseSlug && this.props.current_user.isNonstudent) {
+    if (this.props.courseSlug && this.props.current_user.isAdvancedRole) {
       if (this.props.assignment) {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
