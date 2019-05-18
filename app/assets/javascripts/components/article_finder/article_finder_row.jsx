@@ -25,8 +25,8 @@ const ArticleFinderRow = createReactClass({
   assignArticle(userId = null) {
     const assignment = {
       title: decodeURIComponent(this.props.title).trim(),
-      project: this.props.course.home_wiki.project,
-      language: this.props.course.home_wiki.language,
+      project: this.props.home_wiki.project,
+      language: this.props.home_wiki.language,
       course_id: this.props.courseSlug,
       user_id: userId,
       role: ASSIGNED_ROLE,
@@ -66,7 +66,7 @@ const ArticleFinderRow = createReactClass({
     }
 
     let revScore;
-    if (_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
+    if (_.includes(ORESSupportedWiki.languages, this.props.home_wiki.language) && _.includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
       if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
         revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.revScore) {
@@ -79,16 +79,16 @@ const ArticleFinderRow = createReactClass({
     }
 
     let grade;
-    if (_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
+    if (_.includes(PageAssessmentSupportedWiki.languages, this.props.home_wiki.language) && _.includes(PageAssessmentSupportedWiki.projects, this.props.home_wiki.project)) {
       if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.grade) {
-        const gradeClass = `rating ${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class}`;
+        const gradeClass = `rating ${PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].class}`;
         grade = (
           <td className="tooltip-trigger">
-            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
+            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
         );
@@ -140,12 +140,18 @@ const ArticleFinderRow = createReactClass({
       }
     }
 
+
     const article = {
       ...this.props.article,
-      language: this.props.course.home_wiki.language,
-      project: this.props.course.home_wiki.project,
-      url: `https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+      language: this.props.home_wiki.language,
+      project: this.props.home_wiki.project,
+      url: `https://${this.props.home_wiki.language}.${this.props.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
     };
+    if (this.props.home_wiki.project === 'wikidata') {
+      delete article.language;
+      article.url = `https://${this.props.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`;
+    }
+
     const articleViewer = (
       <ArticleViewer
         title={this.props.article.title}

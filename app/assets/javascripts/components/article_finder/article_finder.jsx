@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
 import qs from 'query-string';
+import Select from 'react-select';
+
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
@@ -14,6 +16,7 @@ import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/arti
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
+import selectStyles from '../../styles/select';
 
 const ArticleFinder = createReactClass({
   getDefaultProps() {
@@ -31,6 +34,7 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
       showFilters: false,
+      showLanguageAndWikiSelectors: false,
     };
   },
 
@@ -96,21 +100,34 @@ const ArticleFinder = createReactClass({
       });
     } else if (this.props.search_type === 'keyword') {
       this.buildURL();
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.course);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.course, this.props.offset, true);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.course, this.props.cmcontinue, true);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
     const grade = e.target.value;
     return this.props.updateFields('grade', grade);
+  },
+
+  handleChangeLanguage(language) {
+    return this.updateFields('home_wiki', { language: language.value, project: this.props.home_wiki.project });
+  },
+  handleChangeProject(project) {
+    return this.updateFields('home_wiki', { language: this.props.home_wiki.language, project: project.value });
+  },
+
+  toggleLanguageAndWikiSelector(e) {
+    e.preventDefault();
+    return this.setState(
+      { showLanguageAndWikiSelectors: !this.state.showLanguageAndWikiSelectors });
   },
 
   sortSelect(e) {
@@ -250,11 +267,11 @@ const ArticleFinder = createReactClass({
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
-    if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+    if (!_.includes(ORESSupportedWiki.languages, this.props.home_wiki.language) || !_.includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
       delete keys.revScore;
     }
 
-    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.home_wiki.language) || !_.includes(PageAssessmentSupportedWiki.projects, this.props.home_wiki.project)) {
       delete keys.grade;
     }
 
@@ -280,6 +297,7 @@ const ArticleFinder = createReactClass({
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
+            home_wiki={this.props.home_wiki}
             assignment={assignment}
             addAssignment={this.props.addAssignment}
             deleteAssignment={this.props.deleteAssignment}
@@ -357,6 +375,52 @@ const ArticleFinder = createReactClass({
       );
     }
 
+    const languageOptions = JSON.parse(WikiLanguages).map((language) => {
+      return { label: language, value: language };
+    });
+
+    const projectOptions = JSON.parse(WikiProjects).map((project) => {
+      return { label: project, value: project };
+    });
+    let options = (
+      <div className="small-block-link pull-right">
+        {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+      </div>
+    );
+    if (this.state.showLanguageAndWikiSelectors) {
+      options = (
+        <div>
+          <div className="options">
+            <Select
+              ref="languageSelect"
+              className="language-select"
+              name="language"
+              placeholder="Language"
+              onChange={this.handleChangeLanguage}
+              value={{ value: this.props.home_wiki.language, label: this.props.home_wiki.language }}
+              options={languageOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+            <Select
+              name="project"
+              ref="projectSelect"
+              className="project-select"
+              onChange={this.handleChangeProject}
+              placeholder="Project"
+              value={{ value: this.props.home_wiki.project, label: this.props.home_wiki.project }}
+              options={projectOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+          </div>
+          <div className="small-block-link pull-right">
+            {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="container">
         <header>
@@ -376,6 +440,7 @@ const ArticleFinder = createReactClass({
         <div className="feedback-button">
           {feedbackButton}
         </div>
+        {options}
         {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
@@ -412,6 +477,7 @@ const mapStateToProps = state => ({
   loadingAssignments: state.assignments.loading,
   fetchState: state.articleFinder.fetchState,
   sort: state.articleFinder.sort,
+  home_wiki: state.articleFinder.home_wiki,
 });
 
 const mapDispatchToProps = {
