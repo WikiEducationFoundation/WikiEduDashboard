@@ -16,7 +16,7 @@ describe('CourseClonedModal', () => {
   const currentUser = {
     admin: false,
     id: 123,
-    isNonstudent: true
+    isAdvancedRole: true
   };
 
   const TestModal = mount(

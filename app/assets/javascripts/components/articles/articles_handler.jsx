@@ -56,7 +56,7 @@ export const ArticlesHandler = createReactClass({
     const user = this.props.current_user;
     const assignments = this.props.assignments;
     const noAssignments = !assignments.filter(assignment => !assignment.user_id).length;
-    const isAdminOrInstructor = user.admin || user.isNonstudent;
+    const isAdminOrInstructor = user.admin || user.isAdvancedRole;
 
     return noAssignments && !isAdminOrInstructor;
   },

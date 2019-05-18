@@ -18,7 +18,7 @@ const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMidd
 
 describe('GetHelpButton', () => {
   describe('Content', () => {
-    const currentUser = { isNonstudent: 1 };
+    const currentUser = { isAdvancedRole: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <Provider store={reduxStoreWithUsers}>
@@ -42,7 +42,7 @@ describe('GetHelpButton', () => {
   });
 
   describe('Interactions', () => {
-    const currentUser = { isNonstudent: 1 };
+    const currentUser = { isAdvancedRole: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <Provider store={reduxStoreWithUsers}>
@@ -81,7 +81,7 @@ describe('GetHelpButton', () => {
   });
 
   describe('As an instructor', () => {
-    const currentUser = { isNonstudent: true };
+    const currentUser = { isAdvancedRole: true };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <Provider store={reduxStoreWithUsers}>

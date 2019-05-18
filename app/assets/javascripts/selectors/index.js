@@ -219,7 +219,7 @@ export const firstValidationErrorMessage = createSelector(
 
 export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isNonstudent) { return false; }
+    if (!user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
   }
 );

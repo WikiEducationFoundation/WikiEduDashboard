@@ -12,22 +12,22 @@ const UserUtils = class {
     }
     if (getFiltered(users, { id: currentUser.id, role: INSTRUCTOR_ROLE })[0]) {
       roles.isInstructor = true;
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: CAMPUS_VOLUNTEER_ROLE })[0]) {
       roles.isCampusVolunteer = true;
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: ONLINE_VOLUNTEER_ROLE })[0]) {
       roles.isOnlineVolunteer = true;
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: STAFF_ROLE })[0]) {
       roles.isStaff = true;
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
       roles.isEnrolled = true;
     }
     if (!roles.isEnrolled) {
@@ -35,10 +35,10 @@ const UserUtils = class {
     }
     if (currentUser.admin) {
       roles.isAdmin = true;
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
     }
     if (currentUser.campaign_organizer) {
-      roles.isNonstudent = true;
+      roles.isAdvancedRole = true;
     }
     return roles;
   }

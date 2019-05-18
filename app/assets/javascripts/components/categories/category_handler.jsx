@@ -20,7 +20,7 @@ const CategoryHandler = createReactClass({
   },
 
   render() {
-    const editable = this.props.current_user.isNonstudent;
+    const editable = this.props.current_user.isAdvancedRole;
     return (
       <CategoryList
         course={this.props.course}

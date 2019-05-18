@@ -46,7 +46,7 @@ const CourseAlerts = createReactClass({
     // Admin / Instructor notifications /
     // //////////////////////////////////
     // For unpublished courses, when viewed by an instructor or admin
-    if (userRoles.isNonstudent && !course.legacy && !course.published) {
+    if (userRoles.isAdvancedRole && !course.legacy && !course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
       const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
@@ -85,7 +85,7 @@ const CourseAlerts = createReactClass({
     }
     // Shows an alert for how many accounts have been requested
     if (course.requestedAccounts) {
-      if ((!Features.wikiEd && userRoles.isNonstudent) || userRoles.isAdmin) {
+      if ((!Features.wikiEd && userRoles.isAdvancedRole) || userRoles.isAdmin) {
         const message = I18n.t('courses.requested_accounts_alert', { count: course.requestedAccounts });
         const actionMessage = I18n.t('courses.requested_accounts_alert_view');
         const url = `/requested_accounts/${course.slug}`;
@@ -95,7 +95,7 @@ const CourseAlerts = createReactClass({
 
     // For published courses with no students, highlight the enroll link
     const hasNoStudents = this.props.usersLoaded && this.props.studentCount === 0;
-    if (userRoles.isNonstudent && course.published && hasNoStudents && !course.legacy) {
+    if (userRoles.isAdvancedRole && course.published && hasNoStudents && !course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this.props.courseLinkParams + enrollEquals + course.passcode;
       alerts.push((
