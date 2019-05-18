@@ -126,8 +126,8 @@ export const getFilteredAlerts = createSelector(
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      const language = articleFinder.home_wiki.language
-      const project = articleFinder.home_wiki.project
+      const language = articleFinder.home_wiki.language;
+      const project = articleFinder.home_wiki.project;
       if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
         return false;
       }

@@ -4,7 +4,7 @@ import { sortByKey } from '../utils/model_utils';
 import { ORESWeights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH } from '../constants';
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
 
 const initialState = {
   articles: {},
@@ -195,6 +195,22 @@ export default function articleFinder(state = initialState, action) {
         ...state,
         articles: newStateArticles,
         fetchState: 'REVISIONSCORE_RECEIVED',
+      };
+    }
+    case CLEAR_RESULTS: {
+      return {
+        ...state,
+        articles: {},
+        loading: false,
+        fetchState: 'PAGEVIEWS_RECEIVED',
+        sort: {
+          sortKey: null,
+          key: null,
+        },
+        continue_results: false,
+        offset: 0,
+        cmcontinue: '',
+        lastRelevanceIndex: 0,
       };
     }
     default:

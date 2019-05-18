@@ -13,7 +13,7 @@ import Loading from '../common/loading.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 import selectStyles from '../../styles/select';
@@ -118,9 +118,13 @@ const ArticleFinder = createReactClass({
   },
 
   handleChangeLanguage(language) {
+    this.setState({ isSubmitted: false });
+    this.props.clearResults();
     return this.updateFields('home_wiki', { language: language.value, project: this.props.home_wiki.project });
   },
   handleChangeProject(project) {
+    this.setState({ isSubmitted: false });
+    this.props.clearResults();
     return this.updateFields('home_wiki', { language: this.props.home_wiki.language, project: project.value });
   },
 
@@ -383,7 +387,7 @@ const ArticleFinder = createReactClass({
       return { label: project, value: project };
     });
     let options = (
-      <div className="small-block-link pull-right">
+      <div className="small-block-link">
         {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
       </div>
     );
@@ -414,8 +418,8 @@ const ArticleFinder = createReactClass({
               styles={{ ...selectStyles, singleValue: null }}
             />
           </div>
-          <div className="small-block-link pull-right">
-            {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+          <div className="small-block-link">
+            {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
           </div>
         </div>
       );
@@ -489,6 +493,7 @@ const mapDispatchToProps = {
   fetchKeywordResults: fetchKeywordResults,
   deleteAssignment: deleteAssignment,
   resetArticleFinder: resetArticleFinder,
+  clearResults: clearResults,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);
