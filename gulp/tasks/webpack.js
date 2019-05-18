@@ -1,4 +1,4 @@
-import gulp from 'gulp';
+import { task, series } from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import path from 'path';
@@ -114,4 +114,4 @@ function startWebpack(cb) {
     });
   }
 }
-gulp.task('webpack', gulp.series('jquery-uls', startWebpack));
+task('webpack', series('jquery-uls', startWebpack));

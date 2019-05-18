@@ -1,10 +1,10 @@
-import gulp from 'gulp';
+import { task, src, dest } from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import config from '../config.js';
 
 const plugins = loadPlugins();
 
-gulp.task('icon-font', () => {
+task('icon-font', () => {
   const cssTemplateFilename = 'icon-font-template.css';
   const cssOutputFilename = '_icons.styl';
   const fontName = 'icons';
@@ -12,7 +12,7 @@ gulp.task('icon-font', () => {
   const className = 'icon';
 
   // Grab SVGs from 'svg' directory
-  const fileSvgStream = gulp.src(`${config.sourcePath}/${config.svgDirectory}/*.svg`);
+  const fileSvgStream = src(`${config.sourcePath}/${config.svgDirectory}/*.svg`);
 
   // Generate Font and CSS from all SVGs
   return fileSvgStream
@@ -27,7 +27,7 @@ gulp.task('icon-font', () => {
         };
       });
 
-      return gulp.src(`${config.sourcePath}/${config.svgDirectory}/${cssTemplateFilename}`)
+      return src(`${config.sourcePath}/${config.svgDirectory}/${cssTemplateFilename}`)
         .pipe(plugins.consolidate('lodash', {
           glyphs: mapped,
           fontName,
@@ -35,6 +35,6 @@ gulp.task('icon-font', () => {
           className
         }))
         .pipe(plugins.rename(cssOutputFilename))
-        .pipe(gulp.dest(`${config.sourcePath}/${config.cssDirectory}`));
-    })).pipe(gulp.dest(`${config.sourcePath}/${config.fontsDirectory}`));
+        .pipe(dest(`${config.sourcePath}/${config.cssDirectory}`));
+    })).pipe(dest(`${config.sourcePath}/${config.fontsDirectory}`));
 });
