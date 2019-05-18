@@ -191,7 +191,7 @@ const AvailableActions = createReactClass({
     }
 
     // If the user is an admin and the course is both published and a Wiki-Ed course.
-    if (user.admin && Features.wikiEd && course.published) {
+    if (user.admin && course.published) {
       controls.push((
         <div key="clone_course" className="available-action"><CloneCourseButton courseId={course.id}/></div>
       ));
