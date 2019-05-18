@@ -493,6 +493,7 @@ en:
       (Shared accounts are not allowed.)
     join: Join
     join_course: Join course
+    join_course_as_volunteer: Volunteer to help
     join_prompt: Join '%{title}'?
     join_successful: >
       You’ve successfully joined %{title}.
