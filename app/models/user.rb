@@ -169,8 +169,6 @@ class User < ApplicationRecord
   end
 
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
-                   CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
-                   CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
