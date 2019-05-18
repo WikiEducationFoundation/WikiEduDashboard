@@ -8,7 +8,7 @@ import AvailableActions from '../../../app/assets/javascripts/components/overvie
 const mockStore = configureMockStore()({});
 
 describe('AvailableActions', () => {
-  it('Displays no actions for ended course', () => {
+  it('displays no actions for ended course', () => {
     const endedCourse = {
       ended: true
     };
@@ -27,7 +27,7 @@ describe('AvailableActions', () => {
     expect(text).to.eq('No available actions');
   });
 
-  it('Displays administrative P&E actions if the user is an admin', () => {
+  it('displays administrative P&E actions if the user is an admin', () => {
     const course = {
       id: 999,
       ended: false,
@@ -49,7 +49,7 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).to.eq(4);
+    expect(actions.length).to.eq(5);
 
     const deleteButton = actions.at(0);
     expect(deleteButton.text()).to.eq('Delete course');
@@ -62,9 +62,12 @@ describe('AvailableActions', () => {
 
     const embedStatsButton = actions.at(3);
     expect(embedStatsButton.text()).to.eq('Embed Course Stats');
+
+    const cloneCourseButton = actions.at(4);
+    expect(cloneCourseButton.text()).to.eq('Clone This Course');
   });
 
-  it('Displays administrative WikiEd actions if the user is an admin', () => {
+  it('displays administrative WikiEd actions if the user is an admin', () => {
     global.Features.wikiEd = true;
     const course = {
       id: 999,
