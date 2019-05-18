@@ -59,11 +59,13 @@ module WikiEduDashboard
     # Skylight performance monitoring
     config.skylight.environments += ['staging']
 
-    # Allows for embedding course stats
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
+        # Allows for embedding course stats
         resource '/embed/course_stats/*/*', :headers => :any, :methods => [:get, :options]
+        # For use by on-wiki gadgets
+        resource '/campaigns/*/*', :headers => :any, methods: [:get, :options]
       end
     end
   end
