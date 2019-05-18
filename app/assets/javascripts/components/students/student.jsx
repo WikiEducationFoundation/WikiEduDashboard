@@ -92,6 +92,7 @@ const Student = createReactClass({
           role={0}
           editable={this.props.editable}
           assignments={assigned}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
 
@@ -105,6 +106,7 @@ const Student = createReactClass({
           role={1}
           editable={this.props.editable}
           assignments={reviewing}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
     }
@@ -144,10 +146,14 @@ const Student = createReactClass({
 }
 );
 
+const mapStateToProps = state => ({
+  wikidataLabels: state.wikidataLabels.labels,
+});
+
 const mapDispatchToProps = {
   setUploadFilters,
   fetchUserRevisions,
   fetchTrainingStatus
 };
 
-export default connect(null, mapDispatchToProps)(Student);
+export default connect(mapStateToProps, mapDispatchToProps)(Student);

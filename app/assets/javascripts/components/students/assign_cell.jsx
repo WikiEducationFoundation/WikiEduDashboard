@@ -17,6 +17,7 @@ const AssignCell = createReactClass({
     role: PropTypes.number,
     tooltip_message: PropTypes.string,
     course: PropTypes.object.isRequired,
+    wikidataLabels: PropTypes.object
   },
 
   stop(e) {

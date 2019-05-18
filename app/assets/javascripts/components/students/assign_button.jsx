@@ -33,7 +33,8 @@ const AssignButton = createReactClass({
     tooltip_message: PropTypes.string,
     initiateConfirm: PropTypes.func,
     addAssignment: PropTypes.func,
-    deleteAssignment: PropTypes.func
+    deleteAssignment: PropTypes.func,
+    wikidataLabels: PropTypes.object
   },
 
   getInitialState() {
@@ -201,15 +202,19 @@ const AssignButton = createReactClass({
     let assignments = this.props.assignments.map((ass) => {
       let removeButton;
       let articleLink;
+
       ass.course_id = this.props.course.slug;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
+      const label = this.props.wikidataLabels[article.title];
+      const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
+
       if (this.props.permitted) {
         removeButton = <span> <button aria-label="Remove" className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button></span>;
       }
       if (article.url) {
-        articleLink = <a href={article.url} target="_blank" className="inline" aria-label="View on Wikipedia">{article.formatted_title}</a>;
+        articleLink = <a href={article.url} target="_blank" className="inline" aria-label="View on Wikipedia">{formattedTitle}</a>;
       } else {
-        articleLink = <span>{article.formatted_title}</span>;
+        articleLink = <span>{formattedTitle}</span>;
       }
       return (
         <tr key={ass.id}>
