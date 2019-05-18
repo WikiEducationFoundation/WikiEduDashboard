@@ -46,7 +46,7 @@ before_script:
 script:
   - yarn gulp build
   - yarn test
-  - bundle exec rspec --color --profile --format documentation
+  - bundle exec rspec --color --profile
     --tag $TEST_SUITE
   - bundle exec rubocop --rails
 after_script:
