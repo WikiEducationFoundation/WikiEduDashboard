@@ -240,6 +240,7 @@ class CoursesController < ApplicationController
   def update_flags
     update_boolean_flag :timeline_enabled
     update_boolean_flag :wiki_edits_enabled
+    update_boolean_flag :online_volunteers_enabled
     update_edit_settings
   end
 

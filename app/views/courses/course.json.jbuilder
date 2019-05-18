@@ -18,6 +18,7 @@ json.course do
   json.wiki_course_page_enabled @course.wiki_course_page_enabled?
   json.enrollment_edits_enabled @course.enrollment_edits_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
+  json.online_volunteers_enabled @course.online_volunteers_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended @course.end < Time.zone.now

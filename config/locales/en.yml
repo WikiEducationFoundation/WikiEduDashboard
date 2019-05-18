@@ -545,6 +545,8 @@ en:
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
+    online_volunteers_enabled: Online Volunteers enabled
+    online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
     overview: Home
     passcode: Passcode
