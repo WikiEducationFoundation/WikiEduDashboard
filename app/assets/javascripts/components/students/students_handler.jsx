@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 
 import { sortUsers } from '../../actions/user_actions';
 import { fetchAssignments } from '../../actions/assignment_actions';
+import { fetchArticles } from '../../actions/articles_actions.js';
+import Loading from '../common/loading';
 import StudentList from './student_list.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import { getArticlesByNewness } from '../../selectors';
+import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 
 const StudentsHandler = createReactClass({
   displayName: 'StudentsHandler',
@@ -20,10 +24,12 @@ const StudentsHandler = createReactClass({
     loadingAssignments: PropTypes.bool
   },
 
+  getInitialState() {
+    return { loading: true };
+  },
+
   componentWillMount() {
-    if (this.props.loadingAssignments) {
-      this.props.fetchAssignments(this.props.course_id);
-    }
+    delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 
   sortSelect(e) {
@@ -31,6 +37,8 @@ const StudentsHandler = createReactClass({
   },
 
   render() {
+    if (this.state.loading) return <Loading />;
+
     let firstNameSorting;
     let lastNameSorting;
     if (this.props.current_user && (this.props.current_user.admin || this.props.current_user.role > 0)) {
@@ -65,12 +73,16 @@ const StudentsHandler = createReactClass({
 );
 
 const mapStateToProps = state => ({
-  loadingAssignments: state.assignments.loading
+  articles: getArticlesByNewness(state),
+  limit: state.articles.limit,
+  loadingAssignments: state.assignments.loading,
+  loadingArticles: state.articles.loading
 });
 
 const mapDispatchToProps = {
   sortUsers,
-  fetchAssignments
+  fetchAssignments,
+  fetchArticles
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsHandler);

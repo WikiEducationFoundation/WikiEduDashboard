@@ -13,6 +13,7 @@ import CategoryHandler from '../categories/category_handler.jsx';
 import { fetchArticles, sortArticles, filterArticles, filterNewness } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByNewness } from '../../selectors';
+import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 
 export const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -37,19 +38,7 @@ export const ArticlesHandler = createReactClass({
   },
 
   componentWillMount() {
-    const requests = [];
-    if (this.props.loadingAssignments) {
-      requests.push(this.props.fetchAssignments(this.props.course_id));
-    }
-    if (this.props.loadingArticles) {
-      requests.push(this.props.fetchArticles(this.props.course_id, this.props.limit));
-    }
-
-    Promise.all(requests).then(() => {
-      setTimeout(() => {
-        this.setState({ loading: false });
-      }, 750);
-    });
+    delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 
   hideAssignments() {
