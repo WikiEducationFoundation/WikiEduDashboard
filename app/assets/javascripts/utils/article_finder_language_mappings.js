@@ -171,7 +171,7 @@ const EnWikiWeights = {
   Stub: 0
 };
 
-export const WP10Weights = {
+export const ORESWeights = {
   en: EnWikiWeights,
   eu: EnWikiWeights,
   fa: EnWikiWeights,
@@ -200,14 +200,23 @@ export const WP10Weights = {
     II: 40,
     III: 20,
     IV: 0
+  },
+  wikidata: {
+    A: 100,
+    B: 80,
+    C: 60,
+    D: 40,
+    E: 20,
   }
 };
 
+// Update the server side mapping in sync.
 export const ORESSupportedWiki = {
-  projects: 'wikipedia',
-  languages: ['en', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa']
+  projects: ['wikipedia', 'wikidata'],
+  languages: ['en', 'gl', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa', 'sv']
 };
-
+// Refer: https://xtools.wmflabs.org/api/project/assessments
 export const PageAssessmentSupportedWiki = {
+  projects: ['wikipedia', 'wikivoyage'],
   languages: ['ar', 'en', 'hu', 'fr', 'tr'],
 };

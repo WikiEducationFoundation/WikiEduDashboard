@@ -53,9 +53,9 @@ export const pageRevisionQueryGenerator = (titles) => {
   };
 };
 
-export const pageRevisionScoreQueryGenerator = (revids) => {
+export const pageRevisionScoreQueryGenerator = (revids, project) => {
   return {
-    models: 'wp10',
+    models: `${project === 'wikidata' ? 'itemquality' : 'wp10'}`,
     revids: multipleQueryGenerator(revids)
   };
 };
