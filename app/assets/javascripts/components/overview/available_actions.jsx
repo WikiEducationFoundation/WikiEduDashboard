@@ -15,6 +15,7 @@ import EmbedStatsButton from './embed_stats_button.jsx';
 import CloneCourseButton from './clone_course_button.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
+import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
 
 const AvailableActions = createReactClass({
@@ -63,7 +64,8 @@ const AvailableActions = createReactClass({
 
   leave() {
     const courseSlug = this.props.course.slug;
-    const userRecord = { user: { user_id: this.props.current_user.id, role: 0 } };
+    const role = this.props.current_user.isOnlineVolunteer ? ONLINE_VOLUNTEER_ROLE : STUDENT_ROLE;
+    const userRecord = { user: { user_id: this.props.current_user.id, role: role } };
     const leaveCourse = this.props.removeUser;
     const onConfirm = function () {
       return leaveCourse(courseSlug, userRecord);
@@ -125,7 +127,7 @@ const AvailableActions = createReactClass({
     // If user has a role in the course or is an admin
     if ((user.isEnrolled) || user.admin) {
       // If user is a student, show the 'leave' button.
-      if (user.isStudent) {
+      if (user.isStudent || user.isOnlineVolunteer) {
         controls.push((
           <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
         ));
