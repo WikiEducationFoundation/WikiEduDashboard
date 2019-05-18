@@ -1006,6 +1006,7 @@ en:
     contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
+    edits: edits
     edits_by: 'Edits by: '
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
@@ -1033,6 +1034,7 @@ en:
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    sandboxes: sandboxes
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
