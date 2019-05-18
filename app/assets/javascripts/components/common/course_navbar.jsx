@@ -41,6 +41,16 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     );
   }
 
+  let resources;
+  if (course.timeline_enabled) {
+    const resourcesLink = `${courseLink}/resources`;
+    resources = (
+      <div className="nav__item" id="resources-link">
+        <p><NavLink to={resourcesLink} activeClassName="active">{I18n.t('resources.label')}</NavLink></p>
+      </div>
+    );
+  }
+
   // //////////////
   // Common tabs //
   // //////////////
@@ -48,7 +58,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   const articlesLink = `${courseLink}/articles`;
   const uploadsLink = `${courseLink}/uploads`;
   const activityLink = `${courseLink}/activity`;
-  const resourcesLink = `${courseLink}/resources`;
 
   // ////////////
   // Chat link //
@@ -95,9 +104,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
         <div className="nav__item" id="activity-link">
           <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
         </div>
-        <div className="nav__item" id="resources-link">
-          <p><NavLink to={resourcesLink} activeClassName="active">{I18n.t('resources.label')}</NavLink></p>
-        </div>
+        {resources}
         {chatNav}
         {getHelp}
       </nav>
