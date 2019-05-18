@@ -126,14 +126,16 @@ export const getFilteredAlerts = createSelector(
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[articleFinder.home_wiki.language]), article.grade)) {
+      const language = articleFinder.home_wiki.language
+      const project = articleFinder.home_wiki.project
+      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
         return false;
       }
       let quality;
       if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score);
+        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
       } else if (article.grade) {
-        quality = PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score;
+        quality = PageAssessmentGrades[project][language][article.grade].score;
       } else if (article.revScore) {
         quality = article.revScore;
       } else {

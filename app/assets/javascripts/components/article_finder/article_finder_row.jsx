@@ -83,12 +83,12 @@ const ArticleFinderRow = createReactClass({
       if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.grade) {
-        const gradeClass = `rating ${PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].class}`;
+        const gradeClass = `rating ${PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].class}`;
         grade = (
           <td className="tooltip-trigger">
-            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
+            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.home_wiki.project][this.props.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
         );
