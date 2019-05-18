@@ -215,8 +215,9 @@ export const ORESSupportedWiki = {
   projects: ['wikipedia', 'wikidata'],
   languages: ['en', 'gl', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa', 'sv']
 };
+
 // Refer: https://xtools.wmflabs.org/api/project/assessments
 export const PageAssessmentSupportedWiki = {
-  projects: ['wikipedia', 'wikivoyage'],
-  languages: ['ar', 'en', 'hu', 'fr', 'tr'],
+  wikipedia: ['ar', 'en', 'hu', 'fr', 'tr'],
+  wikivoyage: ['en'],
 };

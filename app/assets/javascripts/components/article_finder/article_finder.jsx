@@ -271,7 +271,7 @@ const ArticleFinder = createReactClass({
       delete keys.revScore;
     }
 
-    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.home_wiki.language) || !_.includes(PageAssessmentSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (!PageAssessmentSupportedWiki[this.props.home_wiki.project] || !_.includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
       delete keys.grade;
     }
 

@@ -79,7 +79,7 @@ const ArticleFinderRow = createReactClass({
     }
 
     let grade;
-    if (_.includes(PageAssessmentSupportedWiki.languages, this.props.home_wiki.language) && _.includes(PageAssessmentSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (PageAssessmentSupportedWiki[this.props.home_wiki.project] && _.includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
       if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.grade) {
