@@ -23,7 +23,8 @@ const Student = createReactClass({
     isOpen: PropTypes.bool,
     toggleDrawer: PropTypes.func,
     fetchUserRevisions: PropTypes.func.isRequired,
-    fetchTrainingStatus: PropTypes.func.isRequired
+    fetchTrainingStatus: PropTypes.func.isRequired,
+    wikidataLabels: PropTypes.object
   },
 
   setUploadFilters(selectedFilters) {
@@ -146,14 +147,10 @@ const Student = createReactClass({
 }
 );
 
-const mapStateToProps = state => ({
-  wikidataLabels: state.wikidataLabels.labels,
-});
-
 const mapDispatchToProps = {
   setUploadFilters,
   fetchUserRevisions,
   fetchTrainingStatus
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Student);
+export default connect(null, mapDispatchToProps)(Student);
