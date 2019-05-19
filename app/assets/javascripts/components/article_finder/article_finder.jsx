@@ -372,13 +372,6 @@ const ArticleFinder = createReactClass({
         );
     }
 
-    let feedbackButton;
-    if (this.state.isSubmitted && !this.props.loading) {
-      feedbackButton = (
-        <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
-      );
-    }
-
     const languageOptions = JSON.parse(WikiLanguages).map((language) => {
       return { label: language, value: language };
     });
@@ -387,13 +380,15 @@ const ArticleFinder = createReactClass({
       return { label: project, value: project };
     });
     let options = (
-      <div className="small-block-link">
-        {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+      <div className="selector-block">
+        <div className="small-block-link pull-right">
+          {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+        </div>
       </div>
     );
     if (this.state.showLanguageAndWikiSelectors) {
       options = (
-        <div>
+        <div className="selector-block">
           <div className="options">
             <Select
               ref="languageSelect"
@@ -418,7 +413,7 @@ const ArticleFinder = createReactClass({
               styles={{ ...selectStyles, singleValue: null }}
             />
           </div>
-          <div className="small-block-link">
+          <div className="small-block-link pull-right">
             {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
           </div>
         </div>
@@ -440,9 +435,6 @@ const ArticleFinder = createReactClass({
             </div>
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
-        </div>
-        <div className="feedback-button">
-          {feedbackButton}
         </div>
         {options}
         {filterBlock}
