@@ -83,6 +83,7 @@ const StudentList = createReactClass({
           assignments={this.props.assignments}
           isOpen={isOpen}
           toggleDrawer={toggleDrawer}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
     });
@@ -93,12 +94,13 @@ const StudentList = createReactClass({
       return (
         <StudentDrawer
           student={student}
-          course_id={this.props.course.id}
+          course={this.props.course}
           key={drawerKey}
           ref={drawerKey}
           isOpen={isOpen}
           revisions={this.props.userRevisions[student.id]}
           trainingModules={this.props.trainingStatus[student.id]}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
     });
@@ -201,7 +203,8 @@ const mapStateToProps = state => ({
   sort: state.users.sort,
   userRevisions: state.userRevisions,
   trainingStatus: state.trainingStatus,
-  editPermissions: editPermissions(state)
+  editPermissions: editPermissions(state),
+  wikidataLabels: state.wikidataLabels.labels
 });
 
 const mapDispatchToProps = {
