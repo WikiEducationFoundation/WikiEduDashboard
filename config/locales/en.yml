@@ -251,6 +251,17 @@ en:
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
+    data_download_info: Download campaign data as CSVs
+    data_courses: Course overview data
+    data_courses_info: Basic metrics for each course/program
+    data_articles: Pages edited
+    data_articles_info: Details about each tracked page edited by the campaign
+    data_instructors: Instructors
+    data_instructors_info: List of instructors/facilitators and their courses/programs
+    data_editors_by_course: Editors by course
+    data_editors_by_course_info: List of enrolled editors and their courses/programs
+    data_editor_usernames: Editor usernames
+    data_editor_usernames_info: List of editor usernames, one per line
     default_course_type: Default Course Type
     default_passcode: Default Passcode
     default_passcode_explanation: "By default, new programs in this campaign should have:"
