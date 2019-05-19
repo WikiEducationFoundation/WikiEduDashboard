@@ -3,8 +3,6 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.title
         = course.title
-      %span.creation-date.hidden
-        = course.created_at
   %td{:class => "table-link-cell school"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
@@ -40,7 +38,7 @@
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      %span.created_at
+      %span.creation-date
         = I18n.localize course.created_at.to_date
   %td{:class => "table-link-cell"}
     - if @presenter&.campaign_organizer?
