@@ -67,6 +67,10 @@
           %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
             = t('users.editors')
             %span.sortable-indicator
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
+            = t('courses.creation_date')
+            %span.sortable-indicator
+
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}
               = t('courses.actions')

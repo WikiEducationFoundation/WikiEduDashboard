@@ -3,8 +3,6 @@
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.title
         = campaign.title
-      %span.creation-date.hidden
-        = campaign.created_at
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.num-courses-human
@@ -33,3 +31,7 @@
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.students
         = presenter.user_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
+      %span.creation-date
+        = presenter.creation_date

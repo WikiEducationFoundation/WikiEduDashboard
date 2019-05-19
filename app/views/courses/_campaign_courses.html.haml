@@ -42,6 +42,9 @@
         %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", :style => "width: 200px;"}
           = t("users.editors")
           %span.sortable-indicator
+        %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation_date", :style => "width: 160px;"}
+          = t("courses.creation_date")
+          %span.sortable-indicator
     %tbody.list
       - presenter.active_courses_by_recent_edits.each do |course|
         - cache [course, locale] do

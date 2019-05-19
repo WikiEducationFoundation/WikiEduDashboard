@@ -101,5 +101,9 @@ class CoursesPresenter
     courses.sum(:user_count)
   end
 
+  def creation_date
+    I18n.localize @campaign.created_at.to_date
+  end
+
   class NoCampaignError < StandardError; end
 end

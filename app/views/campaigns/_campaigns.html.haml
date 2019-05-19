@@ -43,6 +43,9 @@
         %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", style: "width: 150px;"}
           = t("users.editors")
           %span.sortable-indicator
+        %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation-date", style: "width: 160px"}
+          = t("courses.creation_date")
+          %span.sortable-indicator
     %tbody.list
       - presenter.campaigns_by_num_courses.each do |campaign|
         - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
