@@ -201,6 +201,7 @@ pt-br:
     add_available_submit: Adicionar artigos
     assign_self: Atribuir um artigo a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
+    clone: Fechar
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
@@ -509,6 +510,7 @@ pt-br:
       identificação pessoal — como desejar. (As contas compartilhadas não são permitidas.)
     join: Participar
     join_course: Participar do curso
+    join_course_as_volunteer: Voluntário para ajudar
     join_prompt: Participar de '%{title}'?
     join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
       automático das suas contribuições, com atualizações periódicas. Regresse futuramente
@@ -560,6 +562,9 @@ pt-br:
       de todos estudantes que não completaram os módulos de treinamento. Você está
       certo que deseja fazer isso?
     no_available_actions: Não há ações disponíveis
+    online_volunteers_enabled: Voluntários on-line ativados
+    online_volunteers_tooltip: Ativar Voluntários On-line permite que editores de
+      usuários participem como voluntários. Suas edições não serão rastreadas.
     ores_plot: ORES
     overview: Início
     passcode: Código de acesso
@@ -851,6 +856,9 @@ pt-br:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Veja mais
+  resources:
+    label: Recursos
+    header: Recursos e Treinamento
   settings:
     admin_users:
       new:
@@ -1053,6 +1061,7 @@ pt-br:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores estudantes
+    edits: edições
     edits_by: 'Edições de:'
     enroll_confirmation: Tem certeza de que deseja adicionar %{username}?
     enroll_url: 'Os usuários podem inscrever-se ao entrar nesta URL:'
@@ -1081,6 +1090,7 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
+    sandboxes: páginas de teste
     total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento

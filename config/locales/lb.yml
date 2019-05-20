@@ -126,6 +126,7 @@ lb:
     campaign_updated: Campagne aktualiséiert
     created_at: Datum
     course: Cours
+    data_articles: Geännert Säiten
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen

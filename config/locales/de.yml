@@ -184,6 +184,7 @@ de:
     assign_self: Einen Artikel selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
       oder zu verbessern.
+    clone: Klonen
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
@@ -233,6 +234,18 @@ de:
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
     customize_passcode: ein Standard-Passcode
+    data_download_info: Daten zur Kampagne als CSV-Dateien herunterladen
+    data_courses: Übersichtsdaten zum Kurs
+    data_courses_info: Basismetriken für jeden Kurs/jedes Programm
+    data_articles: Bearbeitete Seiten
+    data_articles_info: Einzelheiten über jede verfolgte Seite, die von der Kampagne
+      bearbeitet wurde.
+    data_instructors: Kursleiter
+    data_instructors_info: Liste der Kursleiter/Vermittler und ihrer Kurse/Programme
+    data_editors_by_course: Autoren nach Kurs
+    data_editors_by_course_info: Liste der eingeschriebenen Autoren und ihrer Kurse/Programme
+    data_editor_usernames: Benutzernamen der Autoren
+    data_editor_usernames_info: Liste der Benutzernamen der Autoren, einen pro Zeile
     default_course_type: Standard-Kurstyp
     default_passcode: Standard-Passcode
     default_passcode_explanation: 'Standardmäßig haben neue Programme in dieser Kampagne:'
@@ -500,6 +513,7 @@ de:
       – wenn du möchtest. Gemeinsame Benutzerkonten sind nicht erlaubt.
     join: Beitreten
     join_course: Dem Kurs beitreten
+    join_course_as_volunteer: Helfender Freiwilliger
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten. Die Übersichtsseite
       verfolgt automatisch deine Beiträge mit regelmäßigen Aktualisierungen. Gehe
@@ -554,6 +568,9 @@ de:
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
       überfällig sind. Bist du sicher, dass du dies tun möchtest?
     no_available_actions: Keine verfügbaren Aktionen
+    online_volunteers_enabled: Online-Freiwillige aktiviert
+    online_volunteers_tooltip: Die Aktivierung von Online-Freiwilligen ermöglicht
+      es Autoren, als Freiwillige mitzumachen. Ihre Bearbeitungen werden nicht verfolgt.
     ores_plot: ORES
     overview: Start
     passcode: Passcode
@@ -851,6 +868,9 @@ de:
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
     see_more: Mehr sehen
+  resources:
+    label: Quellen
+    header: Quellen und Ausbildung
   settings:
     admin_users:
       new:
@@ -1057,6 +1077,7 @@ de:
     contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
+    edits: Bearbeitungen
     edits_by: 'Bearbeitet von:'
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
     enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
@@ -1087,6 +1108,7 @@ de:
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
+    sandboxes: Spielwiesen
     total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden

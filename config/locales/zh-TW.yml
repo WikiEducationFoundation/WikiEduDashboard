@@ -687,6 +687,9 @@ zh-TW:
     title: 標題
     view_on_wiki: 在 Wiki 檢視差異
     see_more: 查看更多
+  resources:
+    label: 資源
+    header: 資源與培訓
   settings:
     admin_users:
       new:
@@ -843,6 +846,7 @@ zh-TW:
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
+    edits: 編輯次數
     edits_by: 編輯由：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
@@ -870,6 +874,7 @@ zh-TW:
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     reviewers: 審查者
     reviewing: 審查中
+    sandboxes: 沙盒
     total_uploads: 上傳總數
     training_complete:
       one: 最新培訓

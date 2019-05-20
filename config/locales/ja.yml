@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 90-NS-FZ
+# Author: Aefgh39622
 # Author: Omotecho
 # Author: Otokoume
 # Author: Shirayuki
@@ -92,6 +93,7 @@ ja:
     article_development: (記事の作成)
     assigned: 割り当てられた記事
     available: 掲載してある記事
+    no_available: 掲載してある記事はありません
     next: 次へ
     previous: 前へ
     article_title: 記事名
@@ -141,6 +143,7 @@ ja:
     views_added: '%{title}の新規閲覧が%{count}件増加'
     edit_size: 長さを編集
     wiki: ウィキ
+    wp10: 構造の完成度
   assignments:
     article: '%{title}の記事はあなたに割り当てられました。'
     already_exists: この課題は既に出されています！
@@ -152,6 +155,7 @@ ja:
     add_available_submit: 記事を追加
     assign_self: 自分に課題を割り当てる
     assign_tooltip: 割り当ての記事とは、編集者が新規作成または改良に取り組もうと計画したものです。
+    clone: 複製
     confirm_add_available: ほんとうに%{title}を追加しますか？
     confirm_addition: 課題%{title}を%{username}さんに割り当ててよろしいですか？
     confirm_deletion: この記事を課題から除去してよろしいですか？
@@ -173,6 +177,7 @@ ja:
     active_campaigns: 実施中のキャンペーン
     add_organizer: 主催者を追加
     alert_article: 記事名
+    alert_select_label: 通知の書類で絞り込む
     alert_type: 種類
     alert_user_id: 利用者
     all_campaigns: すべての告知
@@ -183,28 +188,46 @@ ja:
     campaign_updated: 告知を更新しました
     created_at: 日付
     course: コース
+    create_campaign: 新しい告知の作成
+    create_my_campaign: 新しい告知の作成！
     customize_passcode: 既定のパスコード
+    data_download_info: 告知データをCSVとしてダウンロード
+    data_courses: コースの概要データ
+    data_articles: 編集したページ
+    data_instructors: 講師
+    data_editors_by_course: コース別編集者
+    data_editor_usernames: 編集者ユーザ名
+    data_editor_usernames_info: 1行に1つの編集者ユーザー名の一覧
     default_course_type: コースの既定のタイプ
     default_passcode: 既定のパスコード
     description: 説明
+    delete_campaign: この告知を削除
     disable_account_requests: アカウント開設を無効にする
     enable_account_requests: アカウント開設を有効にする
+    no_passcode: パスコードなし
     none: なし
     organizers: 主催者
     organizer_added: '%{user}さんは現在、「%{title}」キャンペーンの主催者です'
     organizer_removed: '%{user}さんは「%{title}」キャンペーンの主催者を退任しました'
     program_template: プログラムのテンプレート
     program_template_tooltip: 主催者がこの告知にプログラムを作成すると、この欄の文は説明としてプログラムページに転写されます
+    random_passcode: ランダムパスコード
     requested_accounts: アカウント申請
+    title: 告知名
+    use_start_end_dates: 開始日と終了日を使用
   categories:
     add_category: カテゴリを追加
     add_template: テンプレートを追加
     add_this_category: このカテゴリに追加
+    add_this_template: このテンプレートを追加
     confirm_template_addition: ほんとうにテンプレート「%{name}」をウォッチリストに入れますか?
     name: 項目名
+    category_name: カテゴリ名
     template_name: テンプレート名
     remove: 削除
     tracked_categories: 追跡するカテゴリとテンプレート
+  chat:
+    label: チャット
   courses:
     assignment_edits_enabled: 課題の編集が有効になりました
     assignment_edits_enabled_tooltip: ダッシュボードを有効にすると、割り当てられた記事のトークページにテンプレートが投稿されます。
@@ -212,28 +235,41 @@ ja:
     activity: 活動
     active_courses: 実行中の%{course_type}
     add_trainings: 課題の日程表に受講者のトレーニングを組み込んでください。ウィキ教育において、トレーニング・モジュールの割り当ては重要です。
+    alerts: 通知
     all_courses: 全コースの一覧
     already_exists: このコースに設定済みです。
     archived: アーカイブ済みコース
+    actions: 操作
     articles: 記事
     articles_none: このコースで編集された記事はありません。
     assignment_end: 課題の終了
     assignments_none: このコースには課題の記事がありません。
     assignment_start: 課題の開始
+    calendar:
+      legend: 凡例
+      legend_class_meeting: クラス会議
+    cancel: キャンセル
     character_doc: コース期間中に受講者がメインスペースの記事に追加した文字数の合計
+    campaigns: '告知:'
     campaign_articles: '%{title}件の記事'
     campaign_courses: '%{title}コース'
+    campaign_select: 告知を選択
+    campaign_users: '%{title}人の編集者'
     confirm_course_deletion: '%{title}という題名のコースを本当に削除しよろしいですか？ よろしければコース名を入力します。'
     confirm_course_deletion_failed: 「%{title}」はこのコースの題名ではありません。コースはまだ削除されていません。
     confirm_manual_update: 手動アップデートを実行してもよろしいですか? 最新の版がインポートされ、ページがリロードされます。 このプロセスには時間がかかることがあります。
     course: コース
     course_dates_calendar_instructions: 日程表で削除もしくは追加する日付を選択 (例：休日、休校日)。日付をクリック、未選択、選択済み、休日の設定を変更します。コース活動の日付は、ミーティング予定がない週に合わせて変更されます。
+    course_description: コース
     courses: コース
     courses_taught: 授業を行ったコース
+    creation_date: 作成日
     creator:
       already_exists: このコースは既に出されています。重複しないよう、コース名、学校名もしくは規約の変更をご検討ください。
       assignment_end: 課題の終了
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 課題の開始
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: このコースは重複していないか判定中です。
       choose_clone: 複製するコースを選択します。
       clone_previous: 既存のコースを複製する
@@ -243,9 +279,12 @@ ja:
         ここで更新しておきましょう。
       course_description: コースの説明
       course_description_placeholder: コースでどんな分野を扱い、ウィキペディアで受講者はどんなことを行うでしょうか。受講者がウィキペディアにどのように貢献するか、ウィキペディアの他の編集者に伝わるように、具体的な記述をお願いします。
+      course_language: ホームの言語
+      course_project: ホーム プロジェクト
       course_school: コース学校
       course_subject: コースの科目
       course_term: コース期間
+      course_term_placeholder: 規約
       course_title: コース名
       course_types:
         basic_course_description: このプログラムタイプは、だれか参加者が記事もしくはメインスペースのページを編集したとき、追跡するためにあります。プログラムのホームウィキで自動ウィキ編集を有効にすると、このプログラムのオンウィキ版が自動作成され、更新されます。
@@ -261,26 +300,46 @@ ja:
       new_or_clone: コース作成にはAssignment Design ウィザードというツールが使えます。前回のコースで細かくカスタマイズした日程表を使っていて、それを再利用するにはクローン機能で複製し、日程を新規に設定することができます
         (前回、もしカスタム設定していないなら、最新のオプションを活用できるので、新規に日程を作成するようお奨めしています。) またクローン機能を使うと、すでに設定した日程表にセクションを追加することもできます。
       role_description: コースにおける役割
+      role_description_options:
+      - 講師
+      - 教育助手
       separate_event_dates_info: このプログラムに対する活動統計は上記の時間帯と日付の期間に基づいて記録されますが、主催者はイベントとプログラムが実際に開始し終了する日付を個別に指定できます
         (たとえば参加者は出席する日付や、場所が閉鎖される日付を確認できます。)
       save_cloned_course: 新規コースを保存
       start_date: 開始日
+      start_date_placeholder: YYYY-MM-DD
+      subject: 件名
     current: 現在のコース
     data_articles: 項目の資料
     data_articles_info: 記事のデータにはページ単位の編集回数、新規ページ名およびページ閲覧数の合計が含まれます。既に終了したコースの場合、ページ閲覧数はデータが古くなっている場合があるため、ウィキメディア財団が提供するツールラボのページ閲覧ツールのURLを加えてあります。
+    data_overview: 概要データ
+    data_edits: 編集データ
+    data_students: 編集者データ
     delete_course: コースを削除
+    delete_suggestion: 削除
     dismiss_survey: 閉じる
     does_not_exist: この記事は存在しません。下書きページを作成し、アドバイスを受ける係に立候補します。
     duration: コース開講期間
+    edit_count: 編集回数
     edit_course_dates: コース日程を編集
     embed_course_stats: コースの統計を埋め込む
+    enable_account_requests: アカウント開設を有効にする
+    enable_chat: チャットを有効にする
+    end: 終了
     ended: コースは終了済みです。
+    enroll: 入会
+    enrollment: 学生を追加/削除
+    enrollment_edits_enabled: 入会の編集が有効になりました
     enrollment_edits_enabled_tooltip: 有効にすると、プログラムに新規参加した編集者の利用者ページとトークページにテンプレートを投稿します。
     courses_enrolled: 登録済みのコース
     error:
       exists: そのコースは既に出されています！ コース名、学校、規約を変更してやり直してください。
+      invalid_language_or_project: 言語/プロジェクトが無効です
       invalid_slug: コースの学校名もしくはコース名を白紙化
+    feedback: フィードバック
     gradeables_none: このコースには採点できる課題が指定されていません。
+    home_wiki_language: ホーム ウィキ言語
+    home_wiki_project: ホーム ウィキ プロジェクト
     instructors: 講師
     invitation: '%{title}に参加するようお奨めされています。登録するには、ウィキペディアの利用者アカウントでログインしてください。'
     join: 参加
@@ -292,12 +351,19 @@ ja:
       not_yet_approved: このコースの登録はまだ始まっていません。
     join_details: このコースに参加するには講師から、パスコードを入手してください — あるいは登録用リンクを入手するとパスコードが付いてきます。もしまだ受信していない場合は、講師にご連絡するようお願いします。
     join_no_passcode: ほんとうにこのコースに参加しますか？
+    launch_wizard: ウィザードを起動
     leave_confirmation: このプロジェクトを退会して本当によろしいですか？
     leave_course: コースをやめる
     loading: 読み込み中…
     milestones_none: このコースには、現在、マイルストーンがありません。
     my_articles: 自分の記事
+    needs_update: 統計データ更新
     new_week: 新しい週の追加
+    new_account_check_username: ユーザー名の使用可能状況を確認する
+    new_account_email: メールアドレス
+    new_account_username: 希望利用者名
+    new_account_username_invalid: これは有効な利用者名ではありません。
+    new_account_submit: アカウント申請
     nocourses: まだどのコースにも登録していません。
     nocourse: まだどのコースにも登録していません。
     none: なし
@@ -306,13 +372,18 @@ ja:
     overview: ホーム
     passcode: パスコード
     passcode_prompt: パスコード
+    please_log_in: ログインしてください。
+    private: 非公開
     published: コースを公開しました！ 以下のURLを開くと、受講者はコースに登録できます。
     rating_feedback: この記事の推定評価：
+    requested_accounts: アカウント申請
+    requested_accounts_alert_view: 表示
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
       (注記： 公開した後でも編集ができます。)
     revisions_none: このコースでは最近、ウィキペディアを編集していません。
     school: 学校
     search_courses: コースの検索
+    start: 開始
     students: 学生
     student_editors: 学生の編集者
     students_none: このコースには受講者がいません。
@@ -392,6 +463,10 @@ ja:
     loading: 版を読み込み中...
     none: このコースでは最近、何も編集していません。
     see_more: 表示を増やす
+  settings:
+    special_users:
+      new:
+        form_placeholder: ユーザー名
   suggestions:
     suggestion_docs:
       a: 記事を微調整するには専門知識が必要で、書式の問題解決が必要な場合があります。査読が役に立つかもしれません。

@@ -98,6 +98,7 @@ diq:
       title: Siyê kilometri
   campaign:
     campaign: Kampanya
+    data_instructors: Musnayoği
     description: Şınasnayış
     delete_campaign: Ena kampanya bestere
     none: Çıniyo
@@ -216,6 +217,8 @@ diq:
     diff_show: Bımocne
     diff_hide: Bınımne
     title: Sername
+  resources:
+    label: Çımeyi
   settings:
     special_users:
       new:
@@ -238,6 +241,7 @@ diq:
     usages: Gurenayışi
   users:
     assign_articles_done: Temam
+    edits: vurnayışi
     first_name: Nameyo sıfteyên
     last_name: Nameyo peyên
     loading: Karbero brno bar...

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: BanKris
 # Author: Bencemac
+# Author: Misibacsi
 # Author: Notramo
 # Author: R-Joe
 # Author: Tacsipacsi
@@ -94,6 +95,8 @@ hu:
     edited_by: Szerkesztette
     loading: Változatok betöltése...
     title: Cím
+  resources:
+    label: Erőforrások
   timeline:
     no_activity_this_week: Nincsenek ütemezett találkozók ezen a héten
     title: Idővonal
@@ -105,6 +108,7 @@ hu:
   users:
     assigned: Hozzárendelt szócikkek
     editors: Szerkesztők
+    edits: szerkesztések
     loading: Felhasználók betöltése...
     name: Név
   user_profiles:

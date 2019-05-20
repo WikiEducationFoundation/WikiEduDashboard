@@ -205,6 +205,7 @@ fr:
     assign_self: M’affecter un article
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
+    clone: Cloner
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
@@ -252,6 +253,18 @@ fr:
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
     customize_passcode: un mot de passe par défaut
+    data_download_info: Télécharger les données de campagne en CSV
+    data_courses: Données d'aperçu des cours
+    data_courses_info: Métriques de base pour chaque cours/programme
+    data_articles: Pages modifiées
+    data_articles_info: Détail concernant chaque page suivie modifiée durant la campagne
+    data_instructors: Formateurs
+    data_instructors_info: Liste des formateurs/facilitateurs avec leur cours/programmes
+    data_editors_by_course: Editeurs par cours
+    data_editors_by_course_info: Liste des éditeurs inscrits avec leurs cours/programmes
+    data_editor_usernames: Noms d'utilisateur des éditeurs
+    data_editor_usernames_info: Liste des noms d'utilisateur des éditeurs, un par
+      ligne
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut
     default_passcode_explanation: 'Par défaut, les nouveaux programmes dans cette
@@ -523,6 +536,7 @@ fr:
       ne sont pas autorisés).
     join: Rejoindre
     join_course: Rejoindre le cours
+    join_course_as_volunteer: Volontaire pour aider
     join_prompt: Rejoindre '%{title}' ?
     join_successful: Vous avez bien rejoint %{title}. Le tableau de bord gardera automatiquement
       la trace de vos contributions avec des mises à jour périodiques. Revenez vérifier
@@ -577,6 +591,9 @@ fr:
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
       affectés. Êtes-vous sûr de vouloir faire cela ?
     no_available_actions: Aucune action disponible
+    online_volunteers_enabled: Bénévoles en ligne activés
+    online_volunteers_tooltip: Activer les bénévoles en ligne permet aux éditeurs
+      utilisateur de rejoindre comme bénévole. Leurs modifications ne seront pas tracées.
     ores_plot: ORES
     overview: Accueil
     passcode: Mot de passe
@@ -873,6 +890,9 @@ fr:
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
     see_more: Voir plus
+  resources:
+    label: Ressources
+    header: Ressources et formation
   settings:
     admin_users:
       new:
@@ -1081,6 +1101,7 @@ fr:
     contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
+    edits: modifications
     edits_by: 'Modifié par :'
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
     enroll_url: 'Les utilisateurs peuvent s’inscrire en allant à cette URL :'
@@ -1109,6 +1130,7 @@ fr:
       derniers jours
     reviewers: Relecteur(s)
     reviewing: Relecture
+    sandboxes: bacs à sable
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation

@@ -185,6 +185,7 @@ ar:
     add_available_submit: إضافة مقالات
     assign_self: تعيين مقالة لنفسي
     assign_tooltip: المقالة المخصصة هي مقالة تعتزم إنشاءها أو تحسين مستواها.
+    clone: استنساخ
     confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
@@ -230,6 +231,17 @@ ar:
     create_campaign: إنشاء حملة جديدة
     create_my_campaign: أنشئ حملتي!
     customize_passcode: كلمة سر افتراضية
+    data_download_info: تنزيل بيانات الحملة كملفات CSV
+    data_courses: بيانات نظرة عامة على الدورة
+    data_courses_info: المقاييس الأساسية لكل دورة/برنامج
+    data_articles: الصفحات المعدلة
+    data_articles_info: تفاصيل حول كل صفحة متعقبة تم تعديلها بواسطة الحملة
+    data_instructors: المدربون
+    data_instructors_info: قائمة المدربين/الميسرين ودوراتهم/برامجهم
+    data_editors_by_course: المحررون حسب الدورة
+    data_editors_by_course_info: قائمة المحررين المسجلين ودوراتهم/برامجهم
+    data_editor_usernames: أسماء المستخدمين المحررين
+    data_editor_usernames_info: قائمة أسماء المستخدمين المحررين، واحد لكل سطر
     default_course_type: نوع مقرر افتراضي
     default_passcode: رمز مرور افتراضي
     default_passcode_explanation: 'افتراضيا، البرامج الجديدة في هذه الحملة يجب أن
@@ -469,6 +481,7 @@ ar:
       يُسمَح بالحسابات المشتركة.)
     join: انضم
     join_course: انضم للدورة
+    join_course_as_volunteer: تطوع للمساعدة
     join_prompt: الانضمام إلى '%{title}'؟
     join_successful: لقد انضممت بنجاح إلى %{title}، ستتابع لوحة التحكم تلقائيا مساهماتك
       مع تحديثات دورية، عاود التحقق لاحقا لمعرفة التأثير الذي أحدثته!
@@ -516,6 +529,9 @@ ar:
       الذين تأخروا عن إكمال وحدات التدريب المخصصة، هل أنت متأكد من أنك تريد أن تفعل
       هذا؟
     no_available_actions: لا توجد إجراءات متاحة
+    online_volunteers_enabled: تم تمكين المتطوعين عبر الإنترنت
+    online_volunteers_tooltip: يتيح تمكين المتطوعين عبر الإنترنت لمحرري المستخدم الانضمام
+      كمتطوع، لن يتم تتبع تعديلاتهم.
     ores_plot: أوريس
     overview: الرئيسية
     passcode: رمز المرور
@@ -794,6 +810,9 @@ ar:
     title: عنوان
     view_on_wiki: عرض الفرق على الويكي
     see_more: طالع المزيد
+  resources:
+    label: مصادر
+    header: الموارد والتدريب
   settings:
     admin_users:
       new:
@@ -980,6 +999,7 @@ ar:
     contribution_statistics: إحصاءات المساهمة
     course_passcode: 'رمز العبور:'
     editors: محررون
+    edits: التعديلات
     edits_by: 'التعديلات بواسطة:'
     enroll_confirmation: هل أنت متأكد أنك تريد إضافة %{username}
     enroll_url: 'يمكن للمستخدمين الانضمام من خلال زيارة هذا المسار:'
@@ -1007,6 +1027,7 @@ ar:
     revisions_doc: عدد التعديلات التي أجراها هذا المحرر في السبعة أيام الماضية
     reviewers: المراجع(ون)
     reviewing: مراجعة
+    sandboxes: ملاعب
     total_uploads: إجمالي المرفوعات
     training_complete:
       one: أنهى التدريب حتى الآن

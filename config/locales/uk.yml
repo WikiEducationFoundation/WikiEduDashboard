@@ -192,6 +192,7 @@ uk:
     add_available_submit: Додати статті
     assign_self: Призначити собі статтю
     assign_tooltip: Задана стаття — це та, яку ви плануєте створити чи покращити.
+    clone: Клонувати
     confirm_add_available: Ви дійсно хочете додати %{title}?
     confirm_addition: Ви дійсно хочете задати %{title} користувачу %{username}?
     confirm_deletion: Ви дійсно хочете вилучити це призначення статті?
@@ -239,6 +240,18 @@ uk:
     create_campaign: Створити нову кампанію
     create_my_campaign: Створити свою кампанію!
     customize_passcode: стандартний код доступу
+    data_download_info: Завантажити дані кампанії у форматі CSV
+    data_courses: Дані огляду курсу
+    data_courses_info: Базові метрики кожного курсу/програми
+    data_articles: Редаговані сторінки
+    data_articles_info: Деталі про кожну відслідковувану сторінку, яка редагувалася
+      кампанією
+    data_instructors: Інструктори
+    data_instructors_info: Список інструкторів/фасилітаторів та їхніх курсів/програм
+    data_editors_by_course: Редактори за курсом
+    data_editors_by_course_info: Список записаних редактоів та їхніх курсів/програм
+    data_editor_usernames: Імена користувачів редакторів
+    data_editor_usernames_info: Список імен користувачів редакторів, по одному в рядку
     default_course_type: Тип курсу за замовчуванням
     default_passcode: Стандартний код доступу
     default_passcode_explanation: 'За замовчуванням, нові програми у цій кампанії
@@ -498,6 +511,7 @@ uk:
       — ім'я, наскільки хочете. (Спільні облікові записи не дозволяються).
     join: Приєднатись
     join_course: Приєднатися до курсу
+    join_course_as_volunteer: Допомогти як волонтер
     join_prompt: Приєднатися до «%{title}»?
     join_successful: Ви успішно приєдналися до «%{title}». Ваш внесок буде автоматично
       оновлено на панелі. Щоб його передивитись, перевірте панель пізніше.
@@ -551,6 +565,9 @@ uk:
       всіх студентів, які запізнились з виконанням заданих навчальних модулів. Ви
       дійсно хочете це зробити?
     no_available_actions: Немає доступних дій
+    online_volunteers_enabled: Онлайн-волонтери увімкнені
+    online_volunteers_tooltip: Увімкнення онлайн-волонтерів дозволяє редакторам долучатися
+      як волонтерам. Їхні редагування не відслідковуються.
     ores_plot: ORES
     overview: Головна
     passcode: Код доступу
@@ -838,6 +855,9 @@ uk:
     title: Заголовок
     view_on_wiki: Переглянути різницю версій у вікі
     see_more: Див. більше
+  resources:
+    label: Ресурси
+    header: Ресурси та тренування
   settings:
     admin_users:
       new:
@@ -1029,6 +1049,7 @@ uk:
     contribution_statistics: Статистика внеску
     course_passcode: 'Код доступу:'
     editors: Студентів-редакторів
+    edits: редагування
     edits_by: 'Редаговано:'
     enroll_confirmation: Ви дійсно хочете додати %{username}?
     enroll_url: 'Користувачі можуть приєднатися, перейшовши за цим URL:'
@@ -1056,6 +1077,7 @@ uk:
     revisions_doc: Кількість змін, зроблених цим учасником в останні 7 днів
     reviewers: Оцінювач(і)
     reviewing: Оцінює
+    sandboxes: чернетки
     total_uploads: Усього завантажень
     training_complete:
       one: завершив навчання на сьогодні

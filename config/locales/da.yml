@@ -165,6 +165,7 @@ da:
     course: Kursus
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
+    data_instructors: Instruktører
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
     none: Ingen
@@ -413,6 +414,8 @@ da:
     edited_on: Blev redigeret den %{edit_date}
     title: Titel
     see_more: Se mere
+  resources:
+    label: Ressourcer
   settings:
     admin_users:
       new:
@@ -474,6 +477,7 @@ da:
     assigned: Tildelte artikler
     contributions: Brugerbidrag
     editors: Skribenter
+    edits: redigeringer
     edits_by: 'Redigeringer af:'
     enroll_confirmation: Er du sikker på du vil tilføje %{username}?
     enrolled_success: '%{username} blev tilføjet!'
@@ -487,6 +491,7 @@ da:
     no_articles: Ingen artikler
     recent_revisions: Seneste redigeringer
     remove_confirmation: Er du sikker på du vil fjerne %{username}?
+    sandboxes: sandkasser
     training_incomplete: Træning ikke færdiggjord
     training_module_name: Træningsmodul
     training_module_status: Status
