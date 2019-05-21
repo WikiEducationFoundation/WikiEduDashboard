@@ -71,14 +71,14 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
-    validate_and_save(training_module)
+    validate_and_save(training_module, slug)
     training_module
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
     puts "There's a problem with file '#{slug}'" if Rails.env.development?
     raise e
   end
 
-  def self.validate_and_save(training_module)
+  def self.validate_and_save(training_module, slug)
     valid = training_module.valid?
     if training_module.errors[:slug].any?
       raise TrainingBase::DuplicateSlugError,
