@@ -67,7 +67,7 @@ class TrainingLibrary < ApplicationRecord
     training_library.exclude_from_index = content['exclude_from_index']
     TrainingLibrary.save_if_valid(training_library, slug)
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
-    puts "There's a problem with file '#{slug}'"
+    puts "There's a problem with file '#{slug}'" if Rails.env.development?
     raise e
   end
 

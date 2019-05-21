@@ -62,7 +62,7 @@ class TrainingModule < ApplicationRecord
     TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
-  def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
+  def self.inflate(content, slug, wiki_page = nil)
     training_module = TrainingModule.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
     training_module.name = content['name'] || content[:name]
@@ -71,16 +71,20 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
+    validate_and_save(training_module)
+    training_module
+  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
+    puts "There's a problem with file '#{slug}'" if Rails.env.development?
+    raise e
+  end
+
+  def self.validate_and_save(training_module)
     valid = training_module.valid?
     if training_module.errors[:slug].any?
       raise TrainingBase::DuplicateSlugError,
             "Duplicate TrainingModule slug detected: #{slug}"
     end
     training_module.save if valid
-    training_module
-  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
-    puts "There's a problem with file '#{slug}'"
-    raise e
   end
 
   ####################

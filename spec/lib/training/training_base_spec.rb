@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/training/training_base"
 
 describe TrainingBase do
   before do
@@ -16,8 +17,7 @@ describe TrainingBase do
           .and_return("#{Rails.root}/spec/support/bad_yaml")
       end
 
-      it 'raises an error and outputs the filename the bad file' do
-        expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
+      it 'raises an error' do
         expect { subject }.to raise_error(TypeError)
       end
     end
@@ -59,8 +59,7 @@ describe TrainingBase do
           .and_return("#{Rails.root}/spec/support/bad_yaml")
       end
 
-      it 'raises an error and outputs the filename the bad file' do
-        expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
+      it 'raises an error' do
         expect { subject }.to raise_error(StandardError)
       end
     end
