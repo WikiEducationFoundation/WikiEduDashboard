@@ -42,6 +42,7 @@ export const MyArticles = createReactClass({
           username={this.props.current_user.username}
           last={i === assignmentCount - 1}
           current_user={this.props.current_user}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
     });
@@ -71,6 +72,7 @@ export const MyArticles = createReactClass({
               assignments={assigned}
               prefix={I18n.t('users.my_assigned')}
               tooltip_message={I18n.t('assignments.assign_tooltip')}
+              wikidataLabels={this.props.wikidataLabels}
             />
             <AssignCell
               id="user_reviewing"
@@ -82,6 +84,7 @@ export const MyArticles = createReactClass({
               assignments={reviewing}
               prefix={I18n.t('users.my_reviewing')}
               tooltip_message={I18n.t('assignments.review_tooltip')}
+              wikidataLabels={this.props.wikidataLabels}
             />
             <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
           </div>
@@ -94,7 +97,8 @@ export const MyArticles = createReactClass({
 
 const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
-  loadingAssignments: state.assignments.loading
+  loadingAssignments: state.assignments.loading,
+  wikidataLabels: state.wikidataLabels.labels
 });
 
 const mapDispatchToProps = {

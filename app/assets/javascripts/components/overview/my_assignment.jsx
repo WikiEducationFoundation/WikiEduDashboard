@@ -15,7 +15,8 @@ const MyAssignment = createReactClass({
     current_user: PropTypes.object,
     course: PropTypes.object.isRequired,
     username: PropTypes.string,
-    last: PropTypes.bool
+    last: PropTypes.bool,
+    wikidataLabels: PropTypes.object.isRequired
   },
 
   isEnglishWikipedia() {
@@ -32,6 +33,7 @@ const MyAssignment = createReactClass({
 
   render() {
     const isEnglishWikipedia = this.isEnglishWikipedia();
+    let articleTitle = this.props.assignment.article_title;
     let assignmentType;
     let checklist;
     let sandbox;
@@ -40,6 +42,8 @@ const MyAssignment = createReactClass({
     let feedback;
     if (this.props.assignment.article_id) {
       const article = CourseUtils.articleFromTitleInput(this.props.assignment.article_url);
+      const label = this.props.wikidataLabels[article.title.replace('www:wikidata', '')];
+      articleTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
       const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
       pageviews = <a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a>;
     }
@@ -74,7 +78,7 @@ const MyAssignment = createReactClass({
     }
     return (
       <div className="my-assignment">
-        {assignmentType}<a className="my-assignment-title" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>
+        {assignmentType}<a className="my-assignment-title" href={this.props.assignment.article_url}>{articleTitle}</a>
         <div className="my-assignment-button">
           {feedback}
           {pageviews}

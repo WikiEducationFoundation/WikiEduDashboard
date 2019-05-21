@@ -199,13 +199,14 @@ const AssignButton = createReactClass({
       );
     }
 
+    const wikidataLabels = this.props.wikidataLabels || {};
     let assignments = this.props.assignments.map((ass) => {
       let removeButton;
       let articleLink;
 
       ass.course_id = this.props.course.slug;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
-      const label = this.props.wikidataLabels[article.title];
+      const label = wikidataLabels[article.title];
       const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
 
       if (this.props.permitted) {
