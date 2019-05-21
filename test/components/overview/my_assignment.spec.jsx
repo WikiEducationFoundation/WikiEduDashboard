@@ -10,7 +10,7 @@ describe('<MyAssignment />', () => {
   const course = { home_wiki: { language: 'en', project: 'wikipedia' } };
 
   it('feedback button is displayed on sandbox and improving articles', () => {
-    const props = { course: course, assignment: assignment, last: false };
+    const props = { course: course, assignment: assignment, last: false, wikidataLabels: {} };
     // Sandbox articles
     let wrapper = shallow(<MyAssignment {...props} />);
     expect(wrapper.find(Feedback)).to.have.length(1);
@@ -22,7 +22,7 @@ describe('<MyAssignment />', () => {
   });
 
   it('feedback button not present for non English Wikipedia', () => {
-    const props = { course: course, assignment: assignment, last: false };
+    const props = { course: course, assignment: assignment, last: false, wikidataLabels: {} };
     props.course = { home_wiki: { language: 'en', project: 'wikivoyage' } };
 
     let wrapper = shallow(<MyAssignment {...props} />);
