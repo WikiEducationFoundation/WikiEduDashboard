@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import moment from 'moment';
 
 import { toggleUI, resetUI } from '../../actions';
 import { notifyOverdue } from '../../actions/course_actions';
@@ -63,7 +64,17 @@ const StudentList = createReactClass({
     }
   },
 
+  // If the last update was not more than 7 days ago, show the 'recent edits'
+  // count. Otherwise, it's out of date because the course is no longer being
+  // updated.
+  showRecent() {
+    const lastUpdate = this.props.course.updates.last_update;
+    if (!lastUpdate) { return false; }
+    return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
+  },
+
   render() {
+    const showRecent = this.showRecent();
     const toggleDrawer = this.props.toggleUI;
     const students = this.props.students.map((student) => {
       if (student.real_name) {
@@ -84,6 +95,7 @@ const StudentList = createReactClass({
           isOpen={isOpen}
           toggleDrawer={toggleDrawer}
           wikidataLabels={this.props.wikidataLabels}
+          showRecent={showRecent}
         />
       );
     });
@@ -173,6 +185,9 @@ const StudentList = createReactClass({
         info_key: 'users.uploads_doc'
       }
     };
+    if (!showRecent) {
+      delete keys.recent_revisions;
+    }
     if (this.props.sort.key && keys[this.props.sort.key]) {
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;

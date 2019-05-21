@@ -11,7 +11,7 @@ MILESTONE_BLOCK_KIND = 2
 # Remove this after implementing server-side rendering
 def js_visit(path, count=3)
   visit path
-  expect(page).to have_content('Explore').or have_content('Find Programs')
+  expect(page).to have_content('Help').or have_content('My Dashboard')
 
 # This is a workaround for some of the intermittent errors that occur when
 # running capybara with xvfb, which we do on travis-ci and in vagrant.
@@ -33,6 +33,9 @@ describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:admin) { create(:admin) }
+  let(:update_logs) do
+    { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } } }
+  end
 
   before do
     stub_wiki_validation
@@ -49,7 +52,8 @@ describe 'the course page', type: :feature, js: true do
                     school: 'This university.foo',
                     term: 'term 2015',
                     home_wiki_id: home_wiki.id,
-                    description: 'This is a great course')
+                    description: 'This is a great course',
+                    flags: update_logs)
     campaign = create(:campaign)
     course.campaigns << campaign
 

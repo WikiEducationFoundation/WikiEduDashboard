@@ -80,6 +80,11 @@ const Student = createReactClass({
       <small className="red">{this.props.student.course_training_progress}</small>
     ) : undefined;
 
+    let recentRevisions;
+    if (this.props.showRecent) {
+      recentRevisions = <td className="desktop-only-tc">{this.props.student.recent_revisions}</td>;
+    }
+
     let assignButton;
     let reviewButton;
     if (this.props.course.published) {
@@ -133,7 +138,7 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {reviewButton}
         </td>
-        <td className="desktop-only-tc">{this.props.student.recent_revisions}</td>
+        {recentRevisions}
         <td className="desktop-only-tc">
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>
