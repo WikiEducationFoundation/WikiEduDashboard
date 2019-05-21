@@ -70,7 +70,7 @@ const Student = createReactClass({
       )
       : (
         <span>
-          <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+          <a href={`/users/${this.props.student.username}`}>
             {trunc(this.props.student.username)}
           </a>
         </span>
