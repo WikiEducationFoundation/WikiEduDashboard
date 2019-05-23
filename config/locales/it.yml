@@ -244,6 +244,8 @@ it:
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
     customize_passcode: un codice di accesso di default
+    data_articles: Pagine modificate
+    data_instructors: Insegnanti
     default_course_type: Tipo di corso di default
     default_passcode: Codice di accesso di default
     default_passcode_explanation: 'Di default, i nuovi programma di questa campagna
@@ -810,6 +812,7 @@ it:
     contributions_history_full: Vedi la cronologia completa dei contributi
     contributions_more: Visualizza Ulteriori Contributi
     editors: Contributori
+    edits: modifiche
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
     enroll_url: 'Gli utenti possono partecipare visitando questo URL:'
     enrolled_success: '%{username} è stato aggiunto con successo!'

@@ -391,60 +391,134 @@ ja:
     submitted_admin: このコースの作成者が承認を依頼しています。承認するには、Overviewページのキャンペーン項目にこのコース名を追加してください。
     submitted_heading: 提供したコース
     submitted_note: コースの提出が完了しました。ウィキ教育財団の職員が査読し、もし不明点があればご連絡をします。
+    suggestions_sending: フィードバックを送信中...
+    suggestions_sent: フィードバックが送信されました。ご意見ありがとうございます。
+    suggestions_failed: フィードバックを送信できませんでした。後でもう一度やり直してください。
+    user_role: 役割
     course_details: コースの詳細
     course_submitted: 提出された状況報告は、プロジェクト開始前にコース計画を承認する必要がある教育プログラムで使用されます。対象は、コースのタイプが
       ClassroomProgram の場合のみに限定されます。
+    subject: 件名
+    submitted: 提供済
+    tag_select: タグを選択または作成してください
+    tags: 'タグ:'
+    term: 規約
     timeline: 課題の詳細
-    timeline_link: タイムライン
+    timeline_enabled: 日程表が有効になりました
+    timeline_link: 日程表
     timeline_tooltip: 日程表を有効にすると、週単位の活動を特定してトレーニングモジュールの割り当てが可能になります。教育プログラム・コースなど、期間が長くプログラム構成が複雑な場合に適しています。
+    timeline_nav: 日程表に行く
+    time_zone_message: 開始時刻と終了時刻は、ローカルタイムゾーンに表示されます。
     title: タイトル
     training_due: このコースに指定されたトレーニングモジュール「%{title}」は、期限が%{date}までです。
+    training_nav: トレーニングに行く
     training_overdue: このコースに指定されたトレーニングモジュール「%{title}」は、期限が%{date}まででした。
     unsubmitted: 提供してないコース
     update_stats: 使用統計
     user_recent_uploads: 最近のアップロード
+    user_suggestions: 'ユーザーの提案:'
     user_suggestions_prompt: 記事の編集者に対するアドバイス
-    view: コースを表示
+    view_other: 他の告知を見る
+    view: コースを見る
     view_doc: 特定の編集者が個別の記事に初めて編集を加えて以降の、参加編集者が編集した記事の閲覧総数
     view_page: コースのページを見る
+    view_wiki: ウィキペディアで見る
+    volunteer: ボランティア
     weeks_none: このコースにはまだ日程表がありません。
     warn_mirrored: このコースを提出すると、提出者の利用者アカウントを付けて自動的にウィキペディアに投稿されます。その後、日程表に新しい編集を加えると、ウィキペディアにもミラー
       (反映) されます。この処理を本当に実行してよろしいですか？
+    wiki_course_page_enabled: ウィキ コース ページを有効にする
     wiki_course_page_enabled_tooltip: 有効にすると、プログラムやその利用者、課題が変更されるたび、オンウィキのミラーというページに反映されます。
+    wiki_edits_enabled: ウィキ編集を有効にする
     wiki_edits_enabled_tooltip: ウィキ編集機能を有効にすると、このプログラムについてオンウィキの自動編集が有効になります。無効に設定しないと、さまざまなテンプレートが、利用者ページあるいは割り当ての記事のトークページその他に自動で追加されます。
     withdrawn: 課題を提出していません
     word_count_doc: コース期間中に受講者がメインスペースの記事に追加すると予測される文字数の合計
+    yourcourses: 自分のコース
     survey:
       notification_message: このコースに関する調査にご協力ください。
+      link: 調査の実施
   courses_generic:
+    add_campaign: 告知の追加
+    all_courses: すべてのプログラム
+    archived: アーカイブされたプログラム
+    articles_none: このプロジェクトの編集記事はまだありません。
+    assignment_end: イベント終了
     assignments_none: このプロジェクトには課題の記事がありません。
+    assignment_start: イベント開始
+    cancel: キャンセル
+    course: プログラム
+    courses: プログラム
+    campaigns: '告知:'
+    campaign_courses: '%{title} プログラム'
     creator:
+      assignment_end: イベント終了
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: イベント開始
+      assignment_start_placeholder: YYYY-MM-DD
       course_description: プログラムの説明
       course_description_placeholder: これはどんなプログラムで、ウィキ上で参加者はどんな活動をしますか？ 詳しい情報を加え、他の編集者から見て参加者がどんなことを成し遂げるのか背景が伝わるようにします。
+      course_school: 施設
+      course_term: 日時
+      course_term_placeholder: 日時
+      course_title: プログラム名
+      create_button: プログラムを作成！
+      create_label: 新しいプログラムを作成
+      create_new: 独立したプログラムを作成
+      create_short: プログラムを作成
+      end_date: 活動追跡の終了
       find: プログラムを見つける
       intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語や複数プロジェクトのあるプログラムの場合は、それぞれのウィキで「提供される記事」や「課題」ごとに投稿を記録します。ウィキプログラムのページ作成は、「プログラムを作成する！」ボタンを押して開始します。
+      participate_in_campaign: 告知に参加する
+      save_cloned_course: 保存
+      start_date: 活動追跡の開始
+    delete_course: プログラムを削除
+    edit_course_dates: プロジェクトの日付を編集
+    enroll: 編集者を追加
+    enrollment: 編集者を追加/削除
     explore: プログラムを見つける
+    courses_enrolled: 参加したプログラム
+    expected_students: 予想編集者数
+    instructors: 促進者
+    join_course: プログラムに参加
+    leave_course: プログラムを終了
+    not_permitted: このプログラムを編集する権限がありません。
+    request_accounts: アカウント申請
+    revisions_none: このプロジェクトでは最近、何も編集していません。
     school: 施設
+    school_and_term: 施設/日時
+    search_courses: プログラムを検索
     student_editors: 編集者
     students: 編集者
+    students_taught: 総編集者数
+    students_none: このプロジェクトには登録した編集者はいません。
     students_short: 編集者
     students_count: 参加者数
+    term: 日時
+    view_other: 他の告知を見る
+    view_page: プログラム ページを見る
+    yourcourses: 自分のプログラム
   editable:
     edit: 編集
     cancel: 中止
     save: 保存
     edit_description: 編集の説明
+    edit_details: 詳細を編集
     edit_template: テンプレートの編集
     rename_confirmation: URLを構成するコースの分野が変更されました。この結果、URLの文字列が変更されるため、外部からのリンクはすべて切れてしまいます。この処理を本当に行ってよろしいですか？
   metrics:
+    label: コース活動
     activity: 最近の活動
     articles_created: 作製した記事
+    articles_edited: 編集した記事
+    characters: 文字
     date_time: 日付/時刻
     edit_count_description: 総編集回数
     revisions: 最近の編集
+    tags: タグ
     uploads_in_use_count:
       other: 件のファイルを記事内で使用
     view_count_description: 記事の閲覧数
+    view: 閲覧回数
   namespace:
     user: ユーザー空間
     user_ns: ユーザー
@@ -457,13 +531,25 @@ ja:
     no_dyk_eligible: 現在、月間新記事賞に当該する記事はありません。
     recent_edits: 最近の編集
     recent_uploads: 最近のアップロード
+    revision_author: 指定版の投稿者
     show_courses: 自分のコースのみ表示
+    uploaded_by: アップロードしたユーザー
   revisions:
+    class: クラス
+    date_time: 日付/時刻
     diff: 差分
+    diff_show: 表示
+    diff_hide: 非表示
+    edited_by: 編集担当
     loading: 版を読み込み中...
     none: このコースでは最近、何も編集していません。
     see_more: 表示を増やす
+  resources:
+    label: リソース
   settings:
+    admin_users:
+      new:
+        form_placeholder: ユーザー名
     special_users:
       new:
         form_placeholder: ユーザー名
@@ -492,16 +578,37 @@ ja:
   training:
     start: 開始
     view: 表示
+    next: 次のページ
+    page: ページ
+    previous: < 前へ
+    table_of_contents: 目次
     view_module_source: モジュールのソースを表示
   uploads:
+    credit: クレジット
+    file_name: ファイル名
+    image: 画像
     label: アップロード
     usage_doc: この画像を使用するウィキペディアの記事の件数
     usages: 使用法
   users:
+    already_enrolled: そのユーザーはすでに登録済みです！
     assign_articles: 記事を課題に指定
+    assign_articles_done: 完了
     assigned: 課題の記事
     assignees: 譲り受け人
+    loading_authorship_data: 作成者データの読み込み中
+    authorship_data_not_fetched: 作成者データを取得できませんでした
     chars_added: 追加した文字数<br>(記事 | 利用者 | 下書き)
+    contributions: ユーザーの投稿
+    contributions_history_full: 完全な投稿履歴を見る
+    contributions_more: 他の投稿を表示
+    contribution_statistics: 投稿統計
+    course_passcode: 'パスコード:'
+    editors: 編集者
+    edits: 編集
+    enroll_confirmation: ほんとうに%{username}を追加しますか？
+    enroll_url: 'ユーザーはこのURLにアクセスして参加できます:'
+    enrolled_success: '%{username}は正常に追加されました！'
     first_name: 名
     last_name: 姓
     loading: 利用者を読み込み中...
@@ -513,11 +620,21 @@ ja:
     number_of_articles:
       other: '%{count}件の記事'
     recent_revisions: 最近の編集
+    sandboxes: サンドボックス
     training_doc: 指定されたトレーニングモジュールをすべて期限までに完了した編集者は、トレーニングのコース継続中として認められます。
+    training_module_status: 状態
     username: 利用者名
     username_placeholder: 利用者名
+    useremail_placeholder: メール
+    userpasscode_placeholder: パスコード
     role:
       description: コースでの役割
+      visitor: 訪問者
+      student: 学生
+      instructor: 講師
+      campus_volunteer: キャンパスボランティア
+      online_volunteer: オンラインボランティア
+      wiki_ed_staff: ウィキ教育スタッフ
   wiki_edits:
     notify_overdue:
       header: 期限が超過したトレーニングの課題があります。
@@ -553,12 +670,22 @@ ja:
     email:
       message_line1: 学期が有意義であったことをお祈りしています。ウィキ・エデュケーションではぜひ皆さんからご意見ご感想を寄せていただき、リソースの改善やウィキペディアを課題に指定された皆さんへのサポート向上につなげたいと望んでいます。現状の改善には、皆さんの声が大変重視しています。
       course: コース： %{course_info}
+      link: 調査の実施
     follow_up:
       message: ご利用の%{course_title}コースに関する調査について、お知らせします。この調査にお答えいただき、ウィキペディアを課題に指定された皆さんへのサポート改善にご協力くだされば幸いです。
   article_finder:
     add_available_article: 存在する記事として追加
+    remove_article: 記事を除去
     no_article_found: このカテゴリには記事がありませんでした
+    search_placeholder: キーワードを入力
+    search: 検索
+    tools: ツール
+    show_options: オプションを表示
+    hide_options: オプションを隠す
+    keyword_search: キーワード検索
+    category_search: カテゴリ検索
     article_quality: 記事の品質（0-100）
+    more_results: その他の結果
     fetched_articles: 獲得した記事
     searching_articles: 記事の検索
     subheading_message: 作業対象のウィキペディア記事を探しましょう。

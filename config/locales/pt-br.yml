@@ -248,6 +248,17 @@ pt-br:
     create_campaign: Criar uma nova Campanha
     create_my_campaign: Criar a minha Campanha!
     customize_passcode: um código de acesso padrão
+    data_download_info: Baixar os dados da campanha como CSVs
+    data_courses: Dados da visão geral do curso
+    data_courses_info: Métricas básicas para cada curso/programa
+    data_articles: Páginas editadas
+    data_articles_info: Detalhes sobre cada página monitorizada editada pela campanha
+    data_instructors: Instrutores
+    data_instructors_info: Lista de professores/facilitadores e dos seus cursos/programas
+    data_editors_by_course: Editores por curso
+    data_editors_by_course_info: Lista dos editores inscritos e dos seus cursos/programas
+    data_editor_usernames: Nomes de usuários dos editores
+    data_editor_usernames_info: Lista de nomes de usuários do editor, um por linha
     default_course_type: Tipo do curso predeterminado
     default_passcode: Código de acesso padrão
     default_passcode_explanation: 'Por padrão, os novos programas nesta campanha devem

@@ -147,6 +147,7 @@ ko:
     alert_user_id: 사용자
     created_at: 날짜
     course: 과정
+    data_download_info: CSV로 캠페인 데이터 다운로드
     default_passcode: 기본 비밀번호
     description: 설명
     disable_account_requests: 계정 요청 비활성화
@@ -532,6 +533,7 @@ ko:
     contribution_statistics: 기여 통계
     course_passcode: '패스코드:'
     editors: 편집자
+    edits: 편집
     edits_by: '편집자:'
     enroll_confirmation: '%{username}님을 추가하시겠습니까?'
     enroll_url: '사용자는 다음 URL을 방문하여 참여할 수 있습니다:'

@@ -194,6 +194,7 @@ pt:
     add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.
+    clone: Clonar
     confirm_add_available: Tem a certeza de que deseja adicionar %{title}?
     confirm_addition: Tem a certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Tem certeza de que deseja eliminar esta atribuição a um artigo?
@@ -240,6 +241,18 @@ pt:
     create_campaign: Criar uma nova campanha
     create_my_campaign: Criar a minha campanha!
     customize_passcode: um código de acesso padrão
+    data_download_info: Descarregar os dados da campanha em CSV
+    data_courses: Dados de resumo dos cursos
+    data_courses_info: Métricas básicas para cada curso/programa
+    data_articles: Páginas editadas
+    data_articles_info: Detalhes sobre cada página monitorizada editada pela campanha
+    data_instructors: Professores
+    data_instructors_info: Lista de professores/facilitadores e dos seus cursos/programas
+    data_editors_by_course: Editores por curso
+    data_editors_by_course_info: Lista dos editores inscritos e dos seus cursos/programas
+    data_editor_usernames: Nomes de utilizador dos editores
+    data_editor_usernames_info: Lista de nomes de utilizador dos editores, um por
+      linha
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acesso padrão
     default_passcode_explanation: 'Por omissão, os novos programas desta campanha
@@ -275,7 +288,7 @@ pt:
     name: Nome
     category_name: Nome da categoria
     template_name: Nome da predefinição
-    none: Não há nenhuma categoria sendo acompanhada.
+    none: Não há nenhuma categoria a ser monitorizada.
     remove: Remover
     tracked_categories: Categorias e predefinições monitorizadas
   chat:
@@ -504,6 +517,7 @@ pt:
       pessoal — como desejar. (As contas partilhadas não são permitidas.)
     join: Participar
     join_course: Ingressar no curso
+    join_course_as_volunteer: Voluntário para ajudar
     join_prompt: Ingressar em '%{title}'?
     join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
       automático das suas contribuições, com atualizações periódicas. Regresse futuramente
@@ -557,6 +571,9 @@ pt:
       de todos os estudantes que já deviam ter concluído os módulos de formação atribuídos.
       Tem a certeza de que deseja prosseguir?
     no_available_actions: Não há ações disponíveis
+    online_volunteers_enabled: Voluntários ''On-line'' ativados
+    online_volunteers_tooltip: Ativar Voluntários ''On-line'' permite que os editores
+      participem como voluntários. As suas edições não serão monitorizadas.
     ores_plot: ORES
     overview: Início
     passcode: Código de acesso
@@ -719,10 +736,10 @@ pt:
       find: Encontrar um programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão a trabalhar e as edições
-        nesta wiki serão registadas por omissão. Se o seu programa abrange várias
-        línguas ou projetos, as contribuições serão registadas em qualquer wiki que
-        tenha um 'Artigo Disponível' ou um 'Trabalho' para aquela wiki. Clique em
-        "Criar o meu Programa!" para começar a construir a página do seu programa
+        nesta wiki serão monitorizadas por omissão. Se o seu programa abrange várias
+        línguas ou projetos, as contribuições serão monitorizadas em todas as wikis
+        que tenham um 'Artigo Disponível' ou um 'Trabalho' para aquela wiki. Clique
+        em "Criar o meu Programa!" para começar a construir a página do seu programa
         na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
         copiar outro programa em que tenha participado.
@@ -851,6 +868,9 @@ pt:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Ver mais
+  resources:
+    label: Recursos
+    header: Recursos e formação
   settings:
     admin_users:
       new:
@@ -1055,6 +1075,7 @@ pt:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores
+    edits: edições
     edits_by: 'Edições de:'
     enroll_confirmation: Tem a certeza de que deseja adicionar %{username}?
     enroll_url: 'Os utilizadores podem se juntar ao entrar neste URL:'
@@ -1083,6 +1104,7 @@ pt:
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Em revisão
+    sandboxes: páginas de testes
     total_uploads: Total de carregamentos
     training_complete:
       one: está em dia com a formação

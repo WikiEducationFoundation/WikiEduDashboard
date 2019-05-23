@@ -162,6 +162,7 @@ zh-TW:
     add_available_submit: 添加條目
     assign_self: 指定自己一個條目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
+    clone: 複製
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除此條目分配作業嗎？
@@ -204,6 +205,17 @@ zh-TW:
     create_campaign: 創建新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
+    data_download_info: 下載競賽資料成 CSV
+    data_courses: 課程概要資料
+    data_courses_info: 各課程/方案的基本指標
+    data_articles: 頁面已編輯
+    data_articles_info: 由競賽所編輯的各追蹤頁面詳情
+    data_instructors: 導師
+    data_instructors_info: 導師/主持者與他們的課程/方案清單
+    data_editors_by_course: 按課程的編輯者
+    data_editors_by_course_info: 已登記編輯者與他們的課程/方案清單
+    data_editor_usernames: 編輯者使用者名稱
+    data_editor_usernames_info: 編輯者使用者名稱清單，一行一個
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
@@ -398,6 +410,7 @@ zh-TW:
     invitation_username_advice: 若您尚未有維基百科帳號，可以現在註冊。您的使用者名稱可以是匿名、或是可作為個人識別，一切都依您個人意願決定（注意請不要將帳號分享給別人使用。）
     join: 加入
     join_course: 加入課程
+    join_course_as_volunteer: 協助的志工
     join_prompt: 加入'%{title}'嗎？
     join_successful: 您已成功加入 %{title}。控制面板將會週期更新來自動追蹤您的貢獻，可讓您日後查看您做出了哪些重要影響！
     join_failed: 登記失敗。
@@ -433,6 +446,8 @@ zh-TW:
     not_permitted: 您不被允許編輯此課程。
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派培訓模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
+    online_volunteers_enabled: 線上志工已啟用
+    online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
     overview: 首頁
     passcode: 選課代碼

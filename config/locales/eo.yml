@@ -15,6 +15,7 @@ eo:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: K
           million: M
@@ -23,9 +24,14 @@ eo:
           quadrillion: P
   application:
     cancel: Nuligi
+    create_accounts: Krei Vikipediajn kontojn
+    dashboard: Stirpanelo de Viki-Eduko
     documentation: Dokumentaro
     error: 'Eraro okazis:'
     explore: Esplori
+    field_required: Ĉi tiu kampo estas deviga
+    field_invalid_characters: Ĉi tiu kampo enhavan ne validajn skribsignojn
+    field_invalid_date: Ĉi tiu kampo postulas daton laŭ la aranĝo JJJJ-MM-TT
     greeting2: Bonvenon!
     greeting_extended: Bonvenon al Vikipedio
     greeting: Saluton!
@@ -34,11 +40,18 @@ eo:
     log_in_extended: Ensaluti per Vikipedio
     log_in: Ensaluti
     log_out: Elsaluti
+    my_dashboard: Mia Stirpanelo
+    recent_activity: Ĵusa Aktiveco
     report_problem: Raporti problemon
     request_account: Peti konton
     request_account_create: Krei konton
     search: demandi
+    search_results: 'Rezultoj pri: ''%{search_terms}'''
+    no_results: Neniu rezulto troviĝis pri '%{query}'
+    sign_up_extended: Registriĝi per Vikipedio
+    sign_up_wikipedia: Aŭ registriĝi per Vikipedio
     sign_up_log_in_extended: kun Vikipedio
+    sign_up: Registriĝi
     submit: Sendi
     training: Trejnado
     change: Ŝanĝi
@@ -49,6 +62,8 @@ eo:
     opt_yes: jes
     opt_no: ne
   dashboard:
+    create_note: Premu la butonon Krei Kurson por krei vian unua kurson.
+    explore_course_pages: Esplori Kursajn Paĝojn
     explore_examples: Esplori Ekzemplojn
   home:
     explore: Esplori
@@ -56,18 +71,32 @@ eo:
     sign_up: Registriĝi per Vikipedio
   activity:
     all: Aktiveco
+    edited_by: Redaktita De
     label: Aktiveco
   articles:
-    no_available: Ne Eblaj Artikoloj
+    article_development: (disvolvado de artikolo)
+    assigned: Asignitaj Artikoloj
+    available: Haveblaj Artikoloj
+    no_available: Neniu Havebla Artikolo
+    next: Sekven
+    previous: Antaŭen
+    article_title: Titolo de Artikolo
+    assigned_to: Asignita Al
     deleted: (forigita)
+    edited: Redaktitaj Artikoloj
+    edited_by: 'Redaktita De:'
     edited_mobile: Artikoloj
     filter:
       wiki_all: Ĉiuj
       new: Nova
+      existing: Ekzistanta
+      new_and_existing: Nova aŭ Ekzistanta
     hide: Kaŝi
     history: (historio)
     label: Artikoloj
+    loading: Ŝargante artikolojn...
     new: (nova)
+    none: Ĉi tiu kurso redaktis neniun artikolon.
     rating: Klaso
     rating_docs:
       does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
@@ -75,25 +104,42 @@ eo:
     show_current_version: Montri nunan version
     title: Titolo
     title_example: Titolo de artikolo
+    tools: Taksiloj
     view: Vidi Artikolon
     view_all: Vidi Ĉiujn
     view_on_wiki: Vidi ĉe vikio
+    views_added: Aldonis %{count} novajn vidojn por %{title}
+    edit_size: Grando de Revizio
     wiki: Vikio
+    wp10: Struktura Kompleteco
   assignments:
+    already_exists: Ĉi tiu asigno jam ekzistas!
     assign_other: Asigni artikolon
+    add_available: Aldoni haveblajn artikolojn
     add_available_submit: Aldoni artikolojn
+    assign_self: Asigni artikolon al mi
+    clone: Kloni
     label: Asigni
+    none_short: Neniu artikolo asignita
     remove: Forigi
+    reviewers: Revizianto(j)
+    review_other: Asigni revizion
+    review_self: Revizii artikolon
     select: Elekti
   blocks:
     milestones:
       title: Mejloŝtonoj
   campaign:
     alert_article: Titolo de artikolo
+    alert_label: Atentigoj pri Kampanjo
     alert_type: Tipo
     alert_user_id: Uzanto
+    all_campaigns: Ĉiuj Kampanjoj
     campaign: Kampanjo
     campaigns: Kampanjoj
+    campaign_deleted: Kampanjo "%{title}" foriĝis
+    campaign_not_updated: Ne povis ĝisdatigi kampanjon
+    campaign_updated: Ĝisdatigis kampanjon
     created_at: Dato
     course: Kurso
     create_campaign: Krei Novan Kampanjon
