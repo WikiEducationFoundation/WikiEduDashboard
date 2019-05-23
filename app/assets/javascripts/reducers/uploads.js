@@ -52,7 +52,7 @@ export default function uploads(state = initialState, action) {
     case SET_UPLOAD_METADATA: {
       let fetchedData;
       _.forEach(action.data, (data) => {
-        if (data.query) {
+        if (data && data.query) {
           fetchedData = { ...fetchedData, ...data.query.pages };
         }
       });
