@@ -59,7 +59,7 @@ function startWebpack(cb) {
     entry: entries,
     output: {
       path: outputPath,
-      filename: doHot ? '[name].js' : '[name].[hash].js',
+      filename: doHot ? '[name].js' : '[name].[chunkhash].js',
       publicPath: '/'
     },
     resolve: {
