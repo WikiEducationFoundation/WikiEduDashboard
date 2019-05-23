@@ -50,6 +50,7 @@ describe 'the course page', type: :feature, js: true do
                     timeline_start: course_start.to_date,
                     timeline_end: course_end.to_date,
                     school: 'This university.foo',
+                    expected_students: 1,
                     term: 'term 2015',
                     home_wiki_id: home_wiki.id,
                     description: 'This is a great course',
@@ -193,7 +194,6 @@ describe 'the course page', type: :feature, js: true do
     it "doesn't allow null values for passcode" do
       previous_passcode = Course.last.passcode
       login_as(admin)
-      sleep 5
       js_visit "/courses/#{slug}"
       within '.sidebar' do
         click_button 'Edit Details'
