@@ -76,6 +76,7 @@ my:
   assignments:
     add_available_submit: ဆောင်းပါး ပေါင်းထည့်ရန်
     remove: ဖယ်ရှားရန်
+    reviewers: ပြန်လည်ဆန်းစစ်သူများ
     select: ရွေးချယ်
   blocks:
     milestones:
@@ -133,6 +134,8 @@ my:
     not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
   editable:
     cancel: မလုပ်တော့ပါ
+  resources:
+    label: အရင်းအမြစ်များ
   timeline:
     reset_titles: နဂိုအတိုင်း ပြန်သွားရန်
   training:
