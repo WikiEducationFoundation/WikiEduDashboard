@@ -16,7 +16,7 @@ const Resources = ({ weeks, current_user, course }) => {
   const trainingLibrarySlug = course.training_library_slug;
   let instructorModulesLink;
   if (current_user.isInstructor && Features.wikiEd) {
-    instructorModulesLink = <CourseLink to={'/training/instructors'} className="button pull-right">Instructor orientation modules</CourseLink>;
+    instructorModulesLink = <a href={'/training/instructors'} className="button pull-right">Instructor orientation modules</a>;
   }
   const blocks = _.flatten(weeks.map(week => week.blocks));
   const modules = flattenAndCompact(blocks.map(block => block.training_modules));
@@ -43,11 +43,11 @@ const Resources = ({ weeks, current_user, course }) => {
   let additionalModules;
   if (Features.wikiEd) {
      additionalModules = (
-       <CourseLink to={`/training/${trainingLibrarySlug}`} className="button pull-right ml1">Additional training modules</CourseLink>
+       <a href={`/training/${trainingLibrarySlug}`} className="button pull-right ml1">Additional training modules</a>
     );
   } else {
     additionalModules = (
-      <CourseLink to={'/training'} className="button dark mb1">{I18n.t('training.training_library')}</CourseLink>
+      <a href={'/training'} className="button dark mb1">{I18n.t('training.training_library')}</a>
     );
   }
 
