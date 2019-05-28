@@ -8,3 +8,13 @@
     %a{href: '/tickets/dashboard'}
       Open Tickets:
       = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count
+
+.container
+  %h2 Useful links
+  %ul
+    %li
+      %a{href: '/article_finder'} Article Finder
+    %li
+      %a{href: '/usage'} Usage
+    %li
+      %a{href: '/sidekiq'} Job queue
