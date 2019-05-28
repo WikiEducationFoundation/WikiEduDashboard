@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import CourseLink from '../common/course_link.jsx';
 import { getWeeksArray } from '../../selectors';
 import Block from '../timeline/block';
 import TrainingModules from '../timeline/training_modules';
