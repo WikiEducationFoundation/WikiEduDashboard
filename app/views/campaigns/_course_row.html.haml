@@ -36,10 +36,11 @@
       %span.students
         = course.user_count
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
-  %td{:class => "table-link-cell"}
-    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      %span.creation-date
-        = I18n.localize course.created_at.to_date
+  - unless Features.wiki_ed?
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.creation-date
+          = I18n.localize course.created_at.to_date
   %td{:class => "table-link-cell"}
     - if @presenter&.campaign_organizer?
       %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-bottom: 0;"}

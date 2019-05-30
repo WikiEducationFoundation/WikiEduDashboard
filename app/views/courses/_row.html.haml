@@ -21,6 +21,7 @@
     %span.students
       = course.user_count
     %small.untrained= t("users.training_complete_count", count: course.trained_count)
-  %td
-    %span.creation-date
-      = I18n.localize course.created_at.to_date
+  - unless Features.wiki_ed?
+    %td
+      %span.creation-date
+        = I18n.localize course.created_at.to_date

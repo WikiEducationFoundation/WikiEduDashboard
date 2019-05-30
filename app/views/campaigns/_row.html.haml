@@ -31,7 +31,8 @@
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.students
         = presenter.user_count
-  %td{:class => "table-link-cell"}
-    %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
-      %span.creation-date
-        = presenter.creation_date
+  - unless Features.wiki_ed?
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
+        %span.creation-date
+          = presenter.creation_date

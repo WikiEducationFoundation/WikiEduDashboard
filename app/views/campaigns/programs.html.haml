@@ -27,10 +27,11 @@
             = t("metrics.view")
           %option{rel: 'desc', value: 'students'}
             = t("users.editors")
-          %option{rel: 'desc', value: 'creation-date'}
-            = t("courses.creation_date")
           %option{rel: 'desc', value: 'untrained'}
             = t("courses.untrained")
+          - unless Features.wiki_ed?
+            %option{rel: 'desc', value: 'creation-date'}
+              = t("courses.creation_date")
 
     %table.table.table--hoverable.table--sortable
       %thead
@@ -67,9 +68,10 @@
           %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
             = t('users.editors')
             %span.sortable-indicator
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
-            = t('courses.creation_date')
-            %span.sortable-indicator
+          - unless Features.wiki_ed?
+            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
+              = t('courses.creation_date')
+              %span.sortable-indicator
 
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}

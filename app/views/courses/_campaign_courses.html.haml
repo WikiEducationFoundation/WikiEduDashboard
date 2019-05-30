@@ -10,8 +10,9 @@
         %option{:rel => "desc", :value => "average-words"}= t("metrics.word_count_average")
         %option{:rel => "desc", :value => "views"}= t("metrics.view")
         %option{:rel => "desc", :value => "students"}= t("users.editors")
-        %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
         %option{:rel => "desc", :value => "untrained"}= t("courses.untrained")
+        - unless Features.wiki_ed?
+          %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
   %table.table.table--hoverable.table--sortable
     %thead
       %tr
@@ -42,9 +43,10 @@
         %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", :style => "width: 200px;"}
           = t("users.editors")
           %span.sortable-indicator
-        %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation_date", :style => "width: 160px;"}
-          = t("courses.creation_date")
-          %span.sortable-indicator
+        - unless Features.wiki_ed?
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation_date", :style => "width: 160px;"}
+            = t("courses.creation_date")
+            %span.sortable-indicator
     %tbody.list
       - presenter.active_courses_by_recent_edits.each do |course|
         - cache [course, locale] do
