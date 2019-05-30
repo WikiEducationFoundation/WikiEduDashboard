@@ -125,7 +125,7 @@ const AvailableActions = createReactClass({
     const controls = [];
     const user = this.props.current_user;
     // If user has a role in the course or is an admin
-    if ((user.isEnrolled) || user.admin) {
+    if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
       // If user is a student, show the 'leave' button.
       if (user.isStudent || user.isOnlineVolunteer) {
         controls.push((
