@@ -57,7 +57,7 @@ describe RevisionImporter do
         VCR.use_cassette 'revision_importer/all' do
           subject
         end
-        expect(Revision.count).to eq(75)
+        expect(Revision.count).to eq(76)
       end
     end
 
@@ -74,7 +74,7 @@ describe RevisionImporter do
         VCR.use_cassette 'revision_importer/newer' do
           subject
         end
-        expect(Revision.count).to eq(52)
+        expect(Revision.count).to eq(53)
       end
     end
 
