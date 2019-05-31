@@ -17,6 +17,12 @@
         = presenter.courses.sum(:new_article_count)
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
+      %span.articles-edited-human
+        = number_to_human(presenter.courses.sum(:article_count))
+      %span.articles-edited.hidden
+        = presenter.courses.sum(:article_count)
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.characters-human
         = number_to_human(presenter.word_count)
       %span.characters.hidden
