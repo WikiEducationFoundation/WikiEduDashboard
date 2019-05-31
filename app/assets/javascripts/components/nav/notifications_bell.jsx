@@ -8,13 +8,16 @@ export default class NotificationsBell extends React.Component {
   }
 
   componentDidMount() {
-    const userId = document.getElementById('main').dataset.userId;
-    if (Features.wikiEd) {
+    const main = document.getElementById('main');
+    const userId = main ? main.dataset.userId : null;
+
+    if (Features.wikiEd && userId) {
       fetch(`/td/open_tickets?owner_id=${userId}`)
         .then(res => res.json())
         .then(({ open_tickets }) => this.setState({ open_tickets }))
         .catch(err => err);
     }
+
     fetch('/requested_accounts.json')
       .then(res => res.json())
       .then(({ requested_accounts }) => this.setState({ requested_accounts }))
