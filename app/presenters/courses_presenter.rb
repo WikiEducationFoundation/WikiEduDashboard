@@ -40,6 +40,10 @@ class CoursesPresenter
     @courses_list
   end
 
+  def course_count
+    @course_count ||= courses.count
+  end
+
   def active_courses
     courses.current_and_future
   end
@@ -70,8 +74,33 @@ class CoursesPresenter
     current_user && (current_user.admin? || Features.open_course_creation?)
   end
 
+  COURSE_SUMS_SQL = 'SUM(character_sum), ' \
+                    'SUM(article_count), ' \
+                    'SUM(new_article_count), ' \
+                    'SUM(view_sum), ' \
+                    'SUM(user_count)'
+  def course_sums
+    @course_sums ||= courses.pluck(Arel.sql(COURSE_SUMS_SQL)).first
+  end
+
   def word_count
-    WordCount.from_characters courses.sum(:character_sum)
+    @word_count ||= WordCount.from_characters course_sums[0]
+  end
+
+  def article_count
+    course_sums[1]
+  end
+
+  def new_article_count
+    course_sums[2]
+  end
+
+  def view_sum
+    course_sums[3]
+  end
+
+  def user_count
+    course_sums[4]
   end
 
   def course_string_prefix
@@ -80,12 +109,10 @@ class CoursesPresenter
 
   def uploads_in_use_count
     @uploads_in_use_count ||= courses.sum(:uploads_in_use_count)
-    @uploads_in_use_count
   end
 
   def upload_usage_count
     @upload_usage_count ||= courses.sum(:upload_usages_count)
-    @upload_usage_count
   end
 
   def trained_count
@@ -95,10 +122,6 @@ class CoursesPresenter
   def trained_percent
     return 100 if user_count.zero?
     100 * trained_count.to_f / user_count
-  end
-
-  def user_count
-    courses.sum(:user_count)
   end
 
   def creation_date
