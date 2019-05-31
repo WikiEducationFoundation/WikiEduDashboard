@@ -21,7 +21,7 @@
     "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.2.0",
     "chart.js": "^2.8.0",
-    "chartkick": "^3.0.2",
+    "chartkick": "^3.1.0",
     "chosen-js": "^1.8.5",
     "core-js": "^3.0.1",
     "create-react-class": "^15.6.3",
