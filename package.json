@@ -115,7 +115,7 @@
     "react-redux": "^7.0.3",
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
-    "react-select": "^2.4.3",
+    "react-select": "^3.0.3",
     "react-test-renderer": "^16.8.6",
     "react-transition-group": "4.1.0",
     "react-typeahead": "^2.0.0-alpha.8",
