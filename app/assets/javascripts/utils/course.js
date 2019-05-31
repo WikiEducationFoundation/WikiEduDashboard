@@ -34,7 +34,7 @@ $(() => {
     campaignList = new List('campaigns', {
       page: 500,
       valueNames: [
-        'title', 'num-courses', 'articles-created', 'characters', 'views', 'students', 'creation-date'
+        'title', 'num-courses', 'articles-created', 'articles-edited', 'characters', 'views', 'students', 'creation-date'
       ]
     });
   }
