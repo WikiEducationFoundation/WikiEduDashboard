@@ -11509,10 +11509,10 @@ react-burger-menu@2.6.10:
     prop-types "^15.7.2"
     snapsvg-cjs "0.0.6"
 
-react-confetti@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.8.0.tgz#8810a43d721e7e94f754f073a24fa8c2fd465976"
-  integrity sha512-gw6olJQESNlEISnQVdXbYeFGcBfsuZARypWv9IlK90OE0mMgMmu3Kv7lMfB46A3u4mZKEJMXkzSuBrkxbPLWQQ==
+react-confetti@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-3.1.0.tgz#b7584e8d23a3e021354f0ad6ef092ef5f7962698"
+  integrity sha512-T1DKt09C9rrf2BJ0OxFu8saPohFalOJfOgci11/ePz6DxbY+0cd/3CMimxj/ZITl7jQWnmC/bNWBgGheke3WZQ==
   dependencies:
     tween-functions "^1.2.0"
 
