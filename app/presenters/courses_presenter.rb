@@ -84,23 +84,23 @@ class CoursesPresenter
   end
 
   def word_count
-    @word_count ||= WordCount.from_characters course_sums[0]
+    @word_count ||= WordCount.from_characters(course_sums[0] || 0)
   end
 
   def article_count
-    course_sums[1]
+    course_sums[1] || 0
   end
 
   def new_article_count
-    course_sums[2]
+    course_sums[2] || 0
   end
 
   def view_sum
-    course_sums[3]
+    course_sums[3] || 0
   end
 
   def user_count
-    course_sums[4]
+    course_sums[4] || 0
   end
 
   def course_string_prefix
