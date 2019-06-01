@@ -232,10 +232,8 @@ const AssignButton = createReactClass({
       if (this.state.showOptions) {
         options = (
           <div className="wiki-select">
-            <br />
             <WikiSelect
-              defaultLanguage={this.state.language}
-              defaultProject={this.state.project}
+              wikis={[{ language: this.state.language, project: this.state.project }]}
               onChange={this.handleWikiChange}
               multi={false}
               styles={{ ...selectStyles, singleValue: null }}

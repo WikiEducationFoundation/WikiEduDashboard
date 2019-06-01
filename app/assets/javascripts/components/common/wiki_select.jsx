@@ -1,47 +1,78 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Select, { createFilter } from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
 import PropTypes from 'prop-types';
 
+const options = [];
+const languages = JSON.parse(WikiLanguages);
+const projects = JSON.parse(WikiProjects);
+
+for (let i = 0; i < languages.length; i += 1) {
+  for (let j = 0; j < projects.length; j += 1) {
+    const language = languages[i];
+    const project = projects[j];
+    options.push({ value: { language, project }, label: `${language}.${project}.org` });
+  }
+}
+
+/**
+ *  A Wiki selector component that has both single and multi mode with searchable wikis.
+ */
 const WikiSelect = createReactClass({
   propTypes: {
+    /**
+     *  If true multiple wiki can be selected.
+     */
     multi: PropTypes.bool,
+    /**
+     *  callback(wiki); where wiki is { language, project } if multi = false else Array of { language, project }
+     */
     onChange: PropTypes.func,
+    /**
+     *  Custom styles for the Select Widget.
+     */
     styles: PropTypes.object,
-    defaultLanguage: PropTypes.string,
-    defaultValue: PropTypes.string
+    /**
+     *  An array of { language, project }. Only used if multi = true
+     */
+    wikis: PropTypes.array
   },
 
   render() {
-    const options = [];
-    const languages = JSON.parse(WikiLanguages);
-    const projects = JSON.parse(WikiProjects);
-    const defaultValue = {
-      value: {
-        language: this.props.defaultLanguage,
-        project: this.props.defaultProject
-      },
-      label: `${this.props.defaultLanguage}.${this.props.defaultProject}.org`
-    };
-
-    for (let i = 0; i < languages.length; i += 1) {
-      for (let j = 0; j < projects.length; j += 1) {
-        const language = languages[i];
-        const project = projects[j];
-        options.push({ value: { language, project }, label: `${language}.${project}.org` });
-      }
+    let wikis = [];
+    if (this.props.wikis) {
+      wikis = this.props.wikis.map((wiki) => {
+        return {
+          value: wiki,
+          label: `${wiki.language}.${wiki.project}.org`
+        };
+      });
     }
 
-    return <Select
+    const filterOptions = function (val) {
+      return options.filter(wiki =>
+        wiki.label.toLowerCase().includes(val.toLowerCase())
+      );
+    };
+
+    const loadOptions = function (inputValue, callback) {
+      if (inputValue.trim().length > 1) {
+        callback(filterOptions(inputValue));
+      } else {
+        callback([]);
+      }
+    };
+
+    return <AsyncSelect
       isMulti={this.props.multi}
-      defaultValue={defaultValue}
-      options={options}
+      placeholder={I18n.t('multi_wiki.selector_placeholder')}
+      defaultValue={wikis}
+      noOptionsMessage={val => I18n.t('multi_wiki.selector_suggestion', { remaining: 2 - val.inputValue.length })}
+      loadOptions={loadOptions}
       isSearchable={true}
-      filterOption={createFilter({ ignoreAccents: true, ignoreCase: true, trim: false })}
       onChange={this.props.onChange}
       styles={this.props.styles}
       isClearable={false}
-      captureMenuScroll={false}
     />;
   }
 }
