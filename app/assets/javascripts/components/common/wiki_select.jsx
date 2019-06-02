@@ -28,7 +28,7 @@ const WikiSelect = createReactClass({
   },
 
   render() {
-    if (options.length == 0) {
+    if (options.length === 0) {
       // cache the options so it doesn't run on every render
       const languages = JSON.parse(WikiLanguages);
       const projects = JSON.parse(WikiProjects);
