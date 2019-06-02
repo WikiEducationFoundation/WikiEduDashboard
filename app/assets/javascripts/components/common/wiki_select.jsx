@@ -4,17 +4,6 @@ import AsyncSelect from 'react-select/lib/Async';
 import PropTypes from 'prop-types';
 
 const options = [];
-const languages = JSON.parse(WikiLanguages);
-const projects = JSON.parse(WikiProjects);
-
-for (let i = 0; i < languages.length; i += 1) {
-  for (let j = 0; j < projects.length; j += 1) {
-    const language = languages[i];
-    const project = projects[j];
-    options.push({ value: { language, project }, label: `${language}.${project}.org` });
-  }
-}
-
 /**
  *  A Wiki selector component that has both single and multi mode with searchable wikis.
  */
@@ -39,6 +28,19 @@ const WikiSelect = createReactClass({
   },
 
   render() {
+    if (options.length == 0) {
+      // cache the options so it doesn't run on every render
+      const languages = JSON.parse(WikiLanguages);
+      const projects = JSON.parse(WikiProjects);
+      for (let i = 0; i < languages.length; i += 1) {
+        for (let j = 0; j < projects.length; j += 1) {
+          const language = languages[i];
+          const project = projects[j];
+          options.push({ value: { language, project }, label: `${language}.${project}.org` });
+        }
+      }
+    }
+
     let wikis = [];
     if (this.props.wikis) {
       wikis = this.props.wikis.map((wiki) => {
