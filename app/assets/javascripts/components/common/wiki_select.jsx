@@ -22,7 +22,7 @@ const WikiSelect = createReactClass({
      */
     styles: PropTypes.object,
     /**
-     *  An array of { language, project }. Only used if multi = true
+     *  An array of { language, project }
      */
     wikis: PropTypes.array
   },
