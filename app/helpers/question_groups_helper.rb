@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# Rubocop now wants us to remove instance methods from helpers. This is a good idea
+# but will require a bit of refactoring. Find other instances of this disabling
+# and fix all at once.
+# rubocop:disable Rails/HelperInstanceVariable
+
 module QuestionGroupsHelper
   def course_meets_conditions_for_question_group?(question_group)
     ConditionChecker.new(question_group, @course).meets_conditions?
@@ -41,3 +46,5 @@ module QuestionGroupsHelper
     end
   end
 end
+
+# rubocop:enable Rails/HelperInstanceVariable

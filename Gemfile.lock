@@ -436,6 +436,9 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.2.0)
       rubocop (>= 0.68.0)
+    rubocop-rails (2.0.0)
+      rack (>= 2.0)
+      rubocop (>= 0.70.0)
     rubocop-rspec (1.32.0)
       rubocop (>= 0.60.0)
     rubocop-rspec-focused (1.0.0)
@@ -594,6 +597,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-performance
+  rubocop-rails
   rubocop-rspec
   rubocop-rspec-focused
   selenium-webdriver
