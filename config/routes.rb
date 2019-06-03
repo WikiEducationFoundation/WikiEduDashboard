@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
+  get '/settings/default_campaign_status' => 'settings#default_campaign_status'
+  get '/settings/switch_default_campaign' => 'settings#switch_default_campaign'
+
 
   #UserProfilesController
   controller :user_profiles do

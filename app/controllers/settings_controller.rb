@@ -81,6 +81,25 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     end
   end
 
+  def default_campaign_status
+    respond_to do |format|
+      format.json do
+        render json: { default_campaign_enable: JSON.parse(ENV['wiki_education']) }, status: 200
+      end
+    end
+  end
+
+  def switch_default_campaign
+    respond_to do |format|
+      format.json do
+        application_file = YAML.load_file 'config/application.yml'
+        application_file['wiki_education'] = !JSON.parse(ENV['wiki_education'])
+        File.write('config/application.yml', application_file.to_yaml)
+        render json: { switch_campaign: JSON.parse(ENV['wiki_education']) }, status: 200
+      end
+    end
+  end
+
   private
 
   def username_param

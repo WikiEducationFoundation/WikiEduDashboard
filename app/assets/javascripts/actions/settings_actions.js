@@ -1,7 +1,7 @@
 import {
-  SET_ADMIN_USERS, SET_SPECIAL_USERS,
-  SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
+  SET_ADMIN_USERS, SET_SPECIAL_USERS, SET_DEFAULT_CAMPAIGN,
+  SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER, SWITCH_DEFAULT_CAMPAIGN,
+  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN
 } from '../constants/settings';
 import { API_FAIL } from '../constants/api';
 import { addNotification } from '../actions/notification_actions';
@@ -28,6 +28,38 @@ const fetchSpecialUsersPromise = () => {
     return $.ajax({
       type: 'GET',
       url: 'settings/special_users',
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+const fetchDefaultCampaignPromise = () => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'GET',
+      url: 'settings/default_campaign_status',
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+const switchDefaultCampaignPromise = () => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'GET',
+      url: 'settings/switch_default_campaign',
       success(data) {
         return accept(data);
       }
@@ -101,6 +133,36 @@ export function fetchAdminUsers() {
       .then((resp) => {
         dispatch({
           type: SET_ADMIN_USERS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+export function fetchDefaultCampaign() {
+  return (dispatch) => {
+    return fetchDefaultCampaignPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_DEFAULT_CAMPAIGN,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+export function switchDefaultCampaign() {
+  return (dispatch) => {
+    return switchDefaultCampaignPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_DEFAULT_CAMPAIGN,
           data: resp,
         });
       })
