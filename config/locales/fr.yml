@@ -584,7 +584,7 @@ fr:
       rejoindre, il doit être ajouté à une campagne. Si vous ne savez pas bien quelle
       campagne ajouter, utilisez 'Divers'.
     nocourses: Vous ne participez à aucun cours.
-    nocourse: a participé à aucun cours.
+    nocourse: n’a participé à aucun cours.
     none: Aucun
     not_permitted: Vous n'êtes pas autorisé à modifier ce cours.
     notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
@@ -668,8 +668,8 @@ fr:
     unsubmitted: Cours non soumis
     untrained: Sans formation
     update_stats: Mettre à jour les statistiques
-    uploads_none: Cette classe n'a importé aucune image ni aucun fichier media sur
-      Wikimedia Commons.
+    uploads_none: Cette classe n’a importé aucune image ni fichier media sur Wikimedia
+      Commons.
     user_uploads_none: Cet utilisateur n’a contribué à aucune image ni autre fichier
       de média de Wikimédia Communs.
     user_recent_uploads: Téléversements récents
@@ -799,7 +799,7 @@ fr:
     students_count: Nombre de participants
     term: Quand
     unsubmitted: Programmes non soumis
-    uploads_none: Ce projet n'a importé aucune image ni aucun fichier media sur Wikimedia
+    uploads_none: Ce projet n’a importé aucune image ni fichier media sur Wikimedia
       Commons.
     user_uploads_none: Les utilisateurs sélectionnés non apporté aucune image ni autre
       fichier média pour ce projet.
@@ -1147,7 +1147,7 @@ fr:
     training_module_name: Module de formation
     training_module_status: État
     user_training_status: Etat de la formation
-    user_no_training_status: Cet utilisateur n'a terminé aucun des modules de formation.
+    user_no_training_status: Cet utilisateur n’a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
     uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
     ungreeted: Pas le bienvenu

@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Antsa
 # Author: Mikahama
 # Author: Nike
 # Author: Olimar
@@ -225,6 +226,7 @@ fi:
     course_removed: '"%{title}" on poistettu "%{campaign_title}" -kampanjasta'
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
+    data_articles: Sivuja muokattu
     default_course_type: Kurssityypin oletus
     default_passcode: Pääsykoodin oletus
     default_passcode_explanation: 'Oletusarvoisesti tämän kampanjan uusilla ohjelmilla
