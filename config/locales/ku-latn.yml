@@ -6,6 +6,7 @@
 # Author: George Animal
 # Author: Ghybu
 # Author: Kur
+# Author: Mirzali
 ---
 ku-latn:
   application:
@@ -62,6 +63,7 @@ ku-latn:
     new_week: Hefteyeke nû lê zêde bike
     nocourses: Te beşdarî ti kursekê ne bû.
     none: Tune
+    requested_accounts_alert_view: Bibîne
     school: Dibistan
     students: Xwendekar
     students_count: '# Xwendekar'

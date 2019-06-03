@@ -46,7 +46,7 @@
     -
       title: Evaluate an article (required)
       required: true # cannot be unselected
-      blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
+      blurb: Students critically evaluate a Wikipedia article related to their class.
       # description:
       logic: critique
       selected: true # selected by default
@@ -162,20 +162,22 @@
 
     Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
 
-    **Will your students work in these areas?**
+    **Does your course fall into any of the following subject areas?** (If so, we'll include the training module that covers these special rules.)
+
+    * Medicine/Health
+    * Psychology
+    * Life sciences
+    * General composition
+    * Other subjects that could involve medical information
   type: 1 # single choice
   minimum: 1
   options:
     -
-      title: Yes. We will work on medicine or psychology articles.
-      tag: yes_medical_topics
-      logic: medical_topics
-    -
-      title: Maybe. Students might choose a medicine or psychology topic.
+      title: Yes. Students might choose a topic related to medicine or psychology.
       tag: maybe_medical_topics
       logic: medical_topics
     -
-      title: No. No one will work on medicine or psychology topics.
+      title: No. No one will work on medicine- or psychology-related content.
       tag: no_medical_topics
 
 - key: topics # This key is special-cased as non-exclusive in WizardTimelineManager

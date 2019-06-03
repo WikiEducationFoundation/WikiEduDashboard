@@ -50,6 +50,7 @@
 
 class BasicCourse < Course
   def wiki_course_page_enabled?
+    return super if edit_settings_present?
     true
   end
 

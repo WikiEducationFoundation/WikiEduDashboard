@@ -38,7 +38,7 @@ const AlertsHandler = createReactClass({
   },
 
   getCampaignSlug() {
-    return `${this.props.params.campaign_slug}`;
+    return `${this.props.match.params.campaign_slug}`;
   },
 
   fetchAlerts(campaignSlug) {

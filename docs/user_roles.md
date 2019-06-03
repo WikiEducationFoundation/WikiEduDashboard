@@ -18,13 +18,19 @@ are working on features related to making Wikipedia edits, you won't need to wor
 about this. If you are working on Wikipedia edits, be aware that live public edits
 can be made on Wikipedia, and you are responsible for the content of them.
 
+### Blocked users
+
+A user who is blocked from editing Wikipedia may still log in to the Dashboard,
+and the system can still attempt to make edits on their behalf; the edits that
+fail due to a block are logged to Sentry.
+
 ## Admin permissions
 
 You probably want to give your main account admin permissions for the dashboard.
 You can do so from the rails console:
 
 - $ `rails c`
-- > `User.find_by(username: '<your username').update_attribute(:permissions, 1)`
+- > `User.find_by(username: '<your username>').update_attribute(:permissions, 1)`
 
 ## Instructor role
 
@@ -56,15 +62,28 @@ to the course:
 
 ... or you can visit the enroll URL (visible to the instructor) using the student account.
 
+## Populating initial courses
+
+You can set up a few standard courses by running the following rake task:
+
+```
+rake dev:populate
+```
+
+Go to the **Explore** or **Find Programs** page to see the created campaigns and courses.
+
 ## Populating a course with data
 
 The data for Articles, Activity, Uploads and so on for a course comes from activity
 on Wikipedia by the participants. You can add active users on Wikipedia to pull in
 arbitrary activity data.
 
-1. Go to Wikipedia and find a recently-active editors, for example by picking some usernames from https://en.wikipedia.org/wiki/Special:RecentChanges
-2. For populating the Uploads, find users who have recently uploaded files by picking some usernames from https://en.wikipedia.org/wiki/Special:Log/upload
-3. As an instructor or admin, go the Students tab, click Participation, and add them.
+To reproduce a working course with active editors, complete the following:
+
+1. Go to Wikipedia and find the usernames of [recently active editors](https://en.wikipedia.org/wiki/Special:RecentChanges).
+1. For populating the Uploads, find users [who have recently uploaded files](https://en.wikipedia.org/wiki/Special:Log/upload).
+1. As an instructor or admin, create a course with dates _that encompass the dates of the changes_. For example, if the editor you're looking to add made changes on February 1st, 2019. Start your course in January and end it after February.
+1. Then, go to the "Students" tab of the course and add those students. (Note: If you do not see the students tab, you may need to approve the course. You can do so by clicking "Edit Details" on the course's home page and adding it to a campaign.)
 4. Import course data by triggering a manual update. Either add `/manual_update` to the end of the base course URL, or use a console to load the Course record (e.g., `course = Course.last`) and then run `UpdateCourseStats.new(course)`.
 5. Optionally, load additional metadata by running a `ConstantUpdate` in a console:
     * `require "#{Rails.root}/lib/data_cycle/constant_update`
@@ -75,7 +94,7 @@ arbitrary activity data.
 The dashboard has two production deployments, which are configured differently.
 
 The Wiki Education Dashboard (dashboard.wikiedu.org) is for Wiki Education,
-and is built around the "Classroom Program" involving college students and instructors.
+and is built around the "Wikipedia Student Program" involving college students and instructors.
 It is more locked down, required approval from an admin before a course can proceed.
 
 The Wikimedia Programs & Events Dashboard (outreachdashboard.wmflabs.org) is for

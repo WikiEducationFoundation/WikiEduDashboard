@@ -9,6 +9,7 @@ export * from './categories';
 export * from './chat';
 export * from './confirm';
 export * from './course';
+export * from './course_alerts';
 export * from './did_you_know';
 export * from './feedback';
 export * from './need_help_alert';

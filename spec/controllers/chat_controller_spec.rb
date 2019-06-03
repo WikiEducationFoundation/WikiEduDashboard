@@ -2,15 +2,15 @@
 
 require 'rails_helper'
 
-describe ChatController do
+describe ChatController, type: :request do
   describe 'login' do
-    let(:subject) { get 'login' }
+    let(:subject) { get '/chat/login' }
 
     context 'when the user is signed in' do
       let(:user) { create(:user) }
 
       before do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         stub_chat_login_success
         stub_chat_user_create_success
       end
@@ -22,9 +22,10 @@ describe ChatController do
       end
 
       it 'returns an auth_token and user_id' do
-        response = Oj.load(subject.body)
-        expect(response['auth_token']).to be
-        expect(response['user_id']).to be
+        subject
+        response_data = Oj.load(response.body)
+        expect(response_data['auth_token']).to be
+        expect(response_data['user_id']).to be
       end
 
       it 'raises an error if chat is not enabled' do
@@ -36,11 +37,12 @@ describe ChatController do
 
     context 'when the user is signed out' do
       before do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
       end
 
       it 'raises Unauthorized' do
-        expect(subject.status).to eq(401)
+        subject
+        expect(response.status).to eq(401)
       end
     end
   end
@@ -57,7 +59,7 @@ describe ChatController do
       let(:admin) { create(:admin) }
 
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         stub_chat_login_success
         stub_chat_user_create_success
         stub_chat_channel_create_success
@@ -65,7 +67,7 @@ describe ChatController do
       end
 
       it 'sets the chat flag and creates accounts for users' do
-        put :enable_for_course, params: { course_id: course.id }
+        put "/chat/enable_for_course/#{course.id}", params: { course_id: course.id }
         expect(course.reload.flags[:enable_chat]).to eq(true)
         expect(user.reload.chat_id).not_to be_nil
       end
@@ -73,11 +75,11 @@ describe ChatController do
 
     context 'when the user is not an admin' do
       before do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
       it 'raises Unauthorized' do
-        put :enable_for_course, params: { course_id: course.id }
+        put "/chat/enable_for_course/#{course.id}", params: { course_id: course.id }
         expect(response.status).to eq(401)
       end
     end

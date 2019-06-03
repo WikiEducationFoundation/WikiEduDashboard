@@ -12,10 +12,17 @@ import Popover from '../common/popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
 
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
+import { fetchUsers } from '../../actions/user_actions';
 
 
 const CampaignEditable = createReactClass({
   displayName: 'CampaignEditable',
+
+  propTypes: {
+    campaigns: PropTypes.array,
+    availableCampaigns: PropTypes.array,
+    fetchAllCampaigns: PropTypes.func
+  },
 
   getInitialState() {
     return {};
@@ -27,12 +34,6 @@ const CampaignEditable = createReactClass({
 
   getKey() {
     return 'add_campaign';
-  },
-
-  PropTypes: {
-    campaigns: PropTypes.array,
-    availableCampaigns: PropTypes.array,
-    fetchAllCampaigns: PropTypes.func
   },
 
   handleChangeCampaign(val) {
@@ -55,7 +56,11 @@ const CampaignEditable = createReactClass({
   },
 
   addCampaign() {
-    this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value);
+    // After adding the campaign, request users so that any defaults are
+    // immediately propagated.
+    this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value)
+    .then(() => this.props.fetchUsers(this.props.course_id));
+
     this.setState({ selectedCampaign: null });
   },
 
@@ -128,7 +133,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   removeCampaign,
   addCampaign,
-  fetchAllCampaigns
+  fetchAllCampaigns,
+  fetchUsers
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

@@ -43,9 +43,9 @@ Common components are utilities used throughout the application. These include i
 Utils include several different helpers for our application and two of them are worth an explanation.
 
 #### Router
-The [router.jsx](/app/assets/javascripts/utils/router.jsx) file contains an implementation of [React Router](https://github.com/rackt/react-router). Here we define handlers for different URL paths and structure a hierarchy that allows components to optionally wrap other components based on the URL. We currently use the older v3 of React Router, which keeps all the nested routes in one file.
+The [routes.jsx](/app/assets/javascripts/components/util/routes.jsx) file contains an implementation of [React Router](https://github.com/rackt/react-router). Here we define handlers for different URL paths and structure a hierarchy that allows components to optionally wrap other components based on the URL. As of January 2019 we have updated to React Router v4, which allows for routes to be present across the entire application. The `routes.jsx` file is just the entrypoint for routing.
 
-The Router component is the root of the entire React component tree, and is where the Redux store is defined and injected into the app.
+The `routes.jsx` file is used within [app.jsx](/app/assets/javascripts/components/app.jsx) component, which is the root of the entire React component tree, and is where the Redux store is defined and injected into the app.
 
 #### API
 The [api.js](/app/assets/javascripts/utils/api.js) file contains many of the AJAX requests for the application that connect back to the app server. These AJAX requests are gradually being moved to the actions files.

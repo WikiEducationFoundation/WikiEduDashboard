@@ -3,11 +3,12 @@
 .training__section-overview.container
   %section.training__header
     %h1
-      #{@library.name}
+      #{@library.translated_name}
     %p
-      = @library.introduction
+      = @library.translated_introduction
   %ul.training__categories
     - @library.categories.each do |lib_category|
+      - lib_category = lib_category.to_hashugar
       %li
         .training__category__header
           %h1.h3= lib_category.title

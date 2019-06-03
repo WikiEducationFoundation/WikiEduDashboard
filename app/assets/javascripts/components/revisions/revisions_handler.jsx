@@ -41,7 +41,7 @@ const RevisionHandler = createReactClass({
     return (
       <div id="revisions">
         <div className="section-header">
-          <h3>{I18n.t('activity.label')}</h3>
+          <h3>{I18n.t('application.recent_activity')}</h3>
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>

@@ -9,7 +9,7 @@ const CampaignList = ({ campaigns, course }) => {
   campaigns = (campaigns.length > 0
     ? _.map(campaigns, (campaign, index) => {
       let comma = '';
-      const url = `/campaigns/${campaign.slug}/overview`;
+      const url = `/campaigns/${campaign.slug}`;
       if (index !== lastIndex) { comma = ', '; }
       return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
     })

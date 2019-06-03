@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
@@ -24,7 +24,7 @@ const AvailableArticles = createReactClass({
     let availableArticles;
     let elements = [];
     let findingArticlesTraining;
-    if (Features.wikiEd && this.props.current_user.isNonstudent) {
+    if (Features.wikiEd && this.props.current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
           How to find articles
@@ -63,7 +63,7 @@ const AvailableArticles = createReactClass({
       );
     }
 
-    const showAvailableArticles = elements.length > 0 || this.props.current_user.isNonstudent;
+    const showAvailableArticles = elements.length > 0 || this.props.current_user.isAdvancedRole;
 
     if (showAvailableArticles) {
       availableArticles = (

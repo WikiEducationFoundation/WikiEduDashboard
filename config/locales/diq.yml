@@ -6,8 +6,19 @@
 # Author: Gorizon
 # Author: Kumkumuk
 # Author: Mirzali
+# Author: Orbot707
 ---
 diq:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   application:
     cancel: Bıtexelne
     dashboard: Texteyê cerrebnayışê Wiki Edi
@@ -20,7 +31,7 @@ diq:
     greeting: Merheba!
     help: Peşti
     home: Keye
-    log_in_extended: Ebe Wikipediya ra cıkewe
+    log_in_extended: Ebe Wikipediya ra cı kewe
     log_in: Cı kewe
     log_out: Bıveciye
     my_dashboard: Texteyê mıno cerrebnayışi
@@ -37,6 +48,8 @@ diq:
     confirm: TEMAM
     opt_in: Eya
     opt_out: Nê
+    opt_yes: eya
+    opt_no: nê
   dashboard:
     explore_examples: Nımuneyan cı geyre
     review_orientation: Çımdariya istiqameti
@@ -53,10 +66,16 @@ diq:
   articles:
     assigned: Çebyaye wesiqey
     available: Est bıyaye wesiqey
+    next: Bahdoyên
+    previous: Verên
+    article_title: Sernameyê meqaleyi
     assigned_to: Çebye no
     edited: Wesiqa ya vuriyena
     edited_by: 'Vurnayoğ:'
     edited_mobile: Meqaleyi
+    filter:
+      wiki_all: Pêro
+      new: Newe
     hide: Bınımne
     label: Wesiqey
     loading: Meqaleyi bar benê...
@@ -72,17 +91,21 @@ diq:
     assign_other: Wesiqa cı ke
     add_available: Mewcud yu wesiqa dek
     loading: Çebyayena bena bar....
-    remove: Hewad
+    remove: Wedare
     select: Weçine
   blocks:
     milestones:
       title: Siyê kilometri
   campaign:
     campaign: Kampanya
+    data_instructors: Musnayoği
     description: Şınasnayış
     delete_campaign: Ena kampanya bestere
     none: Çıniyo
     title: Sername
+  categories:
+    name: Name
+    remove: Wedare
   chat:
     label: Mıhebet
   courses:
@@ -97,6 +120,8 @@ diq:
     course_description: Kursi
     courses: Qursi
     creator:
+      assignment_end_placeholder: SSSS-AA-RR
+      assignment_start_placeholder: SSSS-AA-RR
       course_language: Zıwanê Keyi
       course_project: Proceya keyi
       course_school: Kursa mektebi
@@ -104,15 +129,17 @@ diq:
       course_term: Kursa qewremi
       course_term_placeholder: Qewremi
       course_title: Sernamey kursi
+      course_types:
+        basic_course_name: Programo bıngeyın
       create_button: Kursa xo vıraz
       create_label: Kursa Newi vıraz
       create_new: Kursa Newi vıraz
       create_short: Kurs vıraz
-      end_date: tarixê qediyayişi
-      end_date_placeholder: Qedyayış (SSSS-MM-RR)
+      end_date: Tarixê qediyayışi
+      end_date_placeholder: SSSS-AA-RR
       save_cloned_course: Kursa newi qeyd kı
-      start_date: Sergendiya demi
-      start_date_placeholder: Dema Sergendi (SSSS-MM-RR)
+      start_date: Tarixê destpêkerdışi
+      start_date_placeholder: SSSS-AA-RR
       subject: Mewzu
     current: Kursê newki
     delete_course: Kursi bestere
@@ -123,6 +150,7 @@ diq:
     end: Qedyayen
     enroll: Bıloğne
     enrollment: Loğnayış
+    feedback: Peyderıştış
     instructor:
       one: Musnayoğ
       other: Musnayoğ
@@ -138,6 +166,7 @@ diq:
     overview: Keye
     passcode: Passcode
     passcode_none: passcode çıni yo
+    requested_accounts_alert_view: Bıvêne
     school: Wendxane
     start: Suru bık
     students: Telebey
@@ -152,15 +181,17 @@ diq:
     course: Program
     courses: Programi
     creator:
+      assignment_end_placeholder: SSSS-AA-RR
+      assignment_start_placeholder: SSSS-AA-RR
       course_term: Key
       course_term_placeholder: Key
       save_cloned_course: Qeyd ke
-    student_editors: Editori
-    students: Editori
-    students_short: Editori
+    student_editors: Vurnayoği
+    students: Vurnayoği
+    students_short: Vurnayoği
     term: Key
   editable:
-    edit: Bıvırne
+    edit: Bıvurne
     cancel: Bıtexelne
     save: Qeyd ke
   metrics:
@@ -177,27 +208,40 @@ diq:
     user_ns: Karber
   recent_activity:
     active_courses: Wesiqe de aktiv o
-    article_title: Sernamey wesiqe
+    article_title: Sernameyê meqaleyi
     datetime: Tarix/Zeman
-    image: Resim
+    image: Resım
     file_name: Namey dosya
   revisions:
+    diff: ferq
     diff_show: Bımocne
     diff_hide: Bınımne
     title: Sername
+  resources:
+    label: Çımeyi
+  settings:
+    special_users:
+      new:
+        form_placeholder: Nameyê Karberi
+  tickets:
+    none: Bıleti çıniyê
   timeline:
     empty_week_3: ya zi
     week_number: Hefte %{number}
   training:
     continue: Dewam keno %{progress}
     start: Suru bık
-    view: Asayış
+    view: Bıvêne
+    page: Pele
+    done: Temam!
   uploads:
     file_name: Namey dosya
     image: Resım
     label: Barkerdışi
-    usages: Karidayışi
+    usages: Gurenayışi
   users:
+    assign_articles_done: Temam
+    edits: vurnayışi
     first_name: Nameyo sıfteyên
     last_name: Nameyo peyên
     loading: Karbero brno bar...
@@ -208,6 +252,7 @@ diq:
     name: Name
     no_articles: Maqaley çıni yê
     training_incomplete: Musnayış nêqediya
+    training_module_status: Weziyet
     username: Namey karberi
     username_placeholder: Namey karberi
   wizard:
@@ -220,4 +265,7 @@ diq:
       closing: Samimiyeta,
       signed: '- Wiki Ed team'
       link: Anket bıgi
+  training_status:
+    completed: Temam
+    started: Dest pêkerd
 ...

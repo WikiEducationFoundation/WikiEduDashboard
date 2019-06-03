@@ -1,7 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import uuid from 'uuid';
+import selectStyles from '../../styles/single_select';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {
@@ -12,14 +14,16 @@ const CourseTypeSelector = createReactClass({
 
   componentWillMount() {
     this.setState({
-      id: uuid.v4()
+      id: uuid.v4(),
+      selectedOption: { value: this.props.course.type, label: this._getFormattedCourseType(this.props.course.type) },
     });
   },
 
-  _handleChange(e) {
+  _handleChange(selectedOption) {
     const course = this.props.course;
-    const courseType = e.target.value;
+    const courseType = selectedOption.value;
     course.type = courseType;
+    this.setState({ selectedOption });
     if (courseType === 'ClassroomProgramCourse' || course.timeline_enabled) {
       if (!course.timeline_start) {
         course.timeline_start = course.start;
@@ -33,7 +37,7 @@ const CourseTypeSelector = createReactClass({
 
   _getFormattedCourseType(type) {
     return {
-      ClassroomProgramCourse: 'Classroom Program',
+      ClassroomProgramCourse: 'Wikipedia Student Program',
       VisitingScholarship: 'Visiting Scholarship',
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
@@ -51,31 +55,32 @@ const CourseTypeSelector = createReactClass({
     );
 
     if (this.props.editable && currentType !== 'LegacyCourse') {
-      let classroomProgramCourseOption;
-      let visitingScholarshipOption;
-      let fellowsCohortOption;
+      let options = [
+        { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
+        { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
+        { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
+      ];
       if (Features.wikiEd) {
-        classroomProgramCourseOption = <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>;
-        visitingScholarshipOption = <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>;
-        fellowsCohortOption = <option value="FellowsCohort">{this._getFormattedCourseType('FellowsCohort')}</option>;
+        options = [
+          { value: 'ClassroomProgramCourse', label: this._getFormattedCourseType('ClassroomProgramCourse') },
+          { value: 'VisitingScholarship', label: this._getFormattedCourseType('VisitingScholarship') },
+          { value: 'FellowsCohort', label: this._getFormattedCourseType('FellowsCohort') },
+          { value: 'BasicCourse', label: this._getFormattedCourseType('BasicCourse') },
+          { value: 'Editathon', label: this._getFormattedCourseType('Editathon') },
+          { value: 'ArticleScopedProgram', label: this._getFormattedCourseType('ArticleScopedProgram') },
+        ];
       }
-
       selector = (
         <div className="form-group">
           <label htmlFor={this.state.id}>Type:</label>
-          <select
+          <Select
             id={this.state.id}
-            name="course_type"
-            value={this.props.course.type}
+            value={options.find(option => option.value === this.state.selectedOption.value)}
             onChange={this._handleChange}
-          >
-            {classroomProgramCourseOption}
-            {visitingScholarshipOption}
-            {fellowsCohortOption}
-            <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
-            <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
-            <option value="ArticleScopedProgram">{this._getFormattedCourseType('ArticleScopedProgram')}</option>
-          </select>
+            options={options}
+            simpleValue
+            styles={selectStyles}
+          />
         </div>
       );
     }
@@ -88,3 +93,4 @@ const CourseTypeSelector = createReactClass({
 });
 
 export default CourseTypeSelector;
+

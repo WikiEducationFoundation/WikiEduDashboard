@@ -6,5 +6,5 @@ end
 
 json.training_libraries @training_libraries do |library|
   json.slug library.slug
-  json.modules library.categories.collect(&:modules).flatten.map(&:slug)
+  json.modules library.categories.pluck('modules').flatten.pluck('slug')
 end

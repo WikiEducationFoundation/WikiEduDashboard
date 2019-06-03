@@ -6,26 +6,44 @@
 # Author: Arifin.wijaya
 # Author: Hidayatsrf
 # Author: Mirws
+# Author: Pebaryan
 # Author: Presidenvolksraad
 # Author: Rachmat.Wahidi
 # Author: Rachmat04
+# Author: RaymondSutanto94
 ---
 id:
+  number:
+    human:
+      decimal_units:
+        units:
+          trillion: T
   application:
     cancel: Batal
     dashboard: Papan Utama Wiki Ed
+    documentation: Dokumentasi
     error: 'Terjadi kesalahan:'
     explore: Jelajah
     field_required: Bidang ini perlu diisi
     field_invalid_characters: Ada karakter tidak sah di bidang ini
+    greeting2: Selamat datang!
     help: Bantuan
     log_in: Masuk
     log_out: Keluar
     my_dashboard: Papan instrumen saya
+    recent_activity: Aktivitas Terkini
+    report_problem: Laporkan masalah
+    request_account_create: Buat akun baru
+    search: Ajukan pertanyaan
     sign_up_log_in_extended: dengan Wikipedia
     sign_up: Daftar
     training: latihan
     change: Ubah
+    confirm: OK
+    opt_in: Ya
+    opt_out: Tidak
+    opt_yes: ya
+    opt_no: tidak
   dashboard:
     explore_course_pages: Jelajahi Course Pages
     explore_examples: Contoh penjelajahan
@@ -35,22 +53,56 @@ id:
     log_in: Masuk dengan Wikipedia
     sign_up: Masuk dengan Wikipedia
   articles:
+    next: Selanjutnya
+    previous: Sebelumnya
+    article_title: Judul artikel
+    assigned_to: Ditugaskan Kepada
+    edited: Artikel yang disunting
     edited_by: 'Disunting oleh:'
+    filter:
+      wiki_all: Semua
+      new: Baru
+    hide: Sembunyikan
     loading: Memuat artikel...
     rating_docs:
       start: Mulai kelas - artikel awal dengan banyak ruang untuk perbaikan
+    view: Lihat Artikel
+    view_all: Tampilkan semua
+    wiki: Wiki
   assignments:
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
     loading: Memuat tugas...
     reviewers: Peninjau
+  campaign:
+    data_articles: Halaman yang disunting
+    description: Keterangan
+    none: Tak satupun
+    organizers: Penyelenggara
+  categories:
+    add_template: Tambahkan templat
   courses:
+    accounts_generation_confirm_message: Apakah Anda yakin ingin mengaktifkan permintaan
+      pembuatan akun?
+    activity: Aktivitas
+    alerts: Peringatan
     course_description: Kursus
+    creator:
+      assignment_start: Penugasan dimulai
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah Anda yakin mau menghentikan penggandaan
+        kursus ini
+      course_types:
+        basic_course_name: Program Dasar
+      expected_number: Jumlah perkiraan siswa
     needs_update: Jadwal Pembaruan Data
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
   courses_generic:
     courses: Program
     creator:
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah anda yakin ingin menghentikan penggandaan
+        program ini?
       checking_for_uniqueness: Keunikan program akan diperiksa.
     view_other: Lihat kampanye lain
   metrics:

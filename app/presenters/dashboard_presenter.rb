@@ -32,6 +32,10 @@ class DashboardPresenter
     current_user.campaigns
   end
 
+  def ungreeted_students(course)
+    course.students.to_a.reject(&:greeted).length
+  end
+
   # Show the 'Your Courses' label if there are current, submitted courses
   # OR you're an instructor with existing courses but you still haven't completed orientation
   def show_your_courses_label?

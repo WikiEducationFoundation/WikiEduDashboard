@@ -114,6 +114,14 @@ describe WikiCourseEdits do
   end
 
   describe '#enroll_in_course' do
+    it 'respects the enrollment_edits_enabled edit_settings flag' do
+      course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
+      expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
+      described_class.new(action: :enroll_in_course,
+                          course: course,
+                          current_user: user,
+                          enrolling_user: enrolling_user)
+    end
     # Posts to the Wiki Education dashboard by default in tests
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
@@ -317,6 +325,22 @@ describe WikiCourseEdits do
       described_class.new(action: :update_course,
                           course: legacy_course,
                           current_user: user)
+    end
+  end
+
+  context 'for course types that do not make assignment edits' do
+    let(:fellows_cohort) { create(:fellows_cohort) }
+
+    it 'returns immediately with assignment-related edit actions' do
+      expect_any_instance_of(described_class).not_to receive(:update_assignments)
+      expect_any_instance_of(described_class).not_to receive(:remove_assignment)
+      described_class.new(action: :update_assignments,
+                          course: fellows_cohort,
+                          current_user: user)
+      described_class.new(action: :remove_assignment,
+                          course: fellows_cohort,
+                          current_user: user,
+                          assignment: nil)
     end
   end
 

@@ -14,7 +14,8 @@ const TrainingModules = createReactClass({
     editable: PropTypes.bool,
     all_modules: PropTypes.array,
     onChange: PropTypes.func,
-    trainingLibrarySlug: PropTypes.string.isRequired
+    trainingLibrarySlug: PropTypes.string.isRequired,
+    header: PropTypes.string
   },
 
   getInitialState() {
@@ -120,7 +121,7 @@ const TrainingModules = createReactClass({
     return (
       <div className="block__training-modules">
         <div>
-          <h4>Training</h4>
+          <h4>{this.props.header || 'Training'}</h4>
           <table className="table table--small">
             <tbody>
               {modules}

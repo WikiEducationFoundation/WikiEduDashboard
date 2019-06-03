@@ -73,7 +73,7 @@ class User < ApplicationRecord
 
   has_many :assignment_suggestions
 
-  scope :admin, -> { where(permissions: Permissions::ADMIN) }
+  scope :admin, -> { where(permissions: [Permissions::ADMIN, Permissions::SUPER_ADMIN]) }
   scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :ungreeted, -> { where(greeted: false) }
@@ -106,8 +106,8 @@ class User < ApplicationRecord
   ####################
   # Instance methods #
   ####################
-  def roles(_course)
-    { id: id, admin: admin? }
+  def roles(course)
+    { id: id, admin: admin?, campaign_organizer: campaign_organizer?(course) }
   end
 
   def talk_page
@@ -169,12 +169,17 @@ class User < ApplicationRecord
   end
 
   EDITING_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
-                   CoursesUsers::Roles::CAMPUS_VOLUNTEER_ROLE,
-                   CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE,
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
-    EDITING_ROLES.include? role(course)
+    return true if EDITING_ROLES.include? role(course)
+    return true if campaign_organizer?(course)
+    false
+  end
+
+  def campaign_organizer?(course)
+    CampaignsUsers.exists?(user: self, campaign: course.campaigns,
+                           role: CampaignsUsers::Roles::ORGANIZER_ROLE)
   end
 
   REAL_NAME_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,

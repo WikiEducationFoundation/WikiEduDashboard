@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Metalhead64
 # Author: Taresi
+# Author: ToBeFree
 ---
 de:
   number:
@@ -57,6 +58,8 @@ de:
     confirm: Okay
     opt_in: Ja
     opt_out: Nein
+    opt_yes: ja
+    opt_no: nein
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -99,6 +102,10 @@ de:
     article_development: (Artikelentwicklung)
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
+    no_available: Keine verfügbaren Artikel
+    next: Nächste
+    previous: Vorherige
+    article_title: Artikeltitel
     assigned_to: Zuordnung zu
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.
@@ -177,6 +184,7 @@ de:
     assign_self: Einen Artikel selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
       oder zu verbessern.
+    clone: Klonen
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
@@ -226,6 +234,18 @@ de:
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
     customize_passcode: ein Standard-Passcode
+    data_download_info: Daten zur Kampagne als CSV-Dateien herunterladen
+    data_courses: Übersichtsdaten zum Kurs
+    data_courses_info: Basismetriken für jeden Kurs/jedes Programm
+    data_articles: Bearbeitete Seiten
+    data_articles_info: Einzelheiten über jede verfolgte Seite, die von der Kampagne
+      bearbeitet wurde.
+    data_instructors: Kursleiter
+    data_instructors_info: Liste der Kursleiter/Vermittler und ihrer Kurse/Programme
+    data_editors_by_course: Autoren nach Kurs
+    data_editors_by_course_info: Liste der eingeschriebenen Autoren und ihrer Kurse/Programme
+    data_editor_usernames: Benutzernamen der Autoren
+    data_editor_usernames_info: Liste der Benutzernamen der Autoren, einen pro Zeile
     default_course_type: Standard-Kurstyp
     default_passcode: Standard-Passcode
     default_passcode_explanation: 'Standardmäßig haben neue Programme in dieser Kampagne:'
@@ -266,6 +286,9 @@ de:
   chat:
     label: Chat
   courses:
+    assignment_edits_enabled: Zuweisungsbearbeitungen aktiviert
+    assignment_edits_enabled_tooltip: Falls aktiviert, wird das Dashboard eine Vorlage
+      auf die Diskussionsseite für jeden zugewiesenen Artikel einfügen.
     accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
     accounts_generation_explanation: Dies erlaubt Teilnehmern, ihre E-Mail-Adresse
       und den gewünschten Benutzernamen einzugeben anstatt sich selbst neue Benutzerkonten
@@ -326,9 +349,12 @@ de:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
         die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
       assignment_end: Zuweisungsende
-      assignment_end_placeholder: Zuweisungsende (JJJJ-MM-TT)
+      assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Zuweisungsbeginn
-      assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
+      assignment_start_placeholder: JJJJ-MM-TT
+      cancel_course_clone: Klonen des Kurses abbrechen
+      cancel_course_clone_confirm: Bist du sicher, dass du das Klonen dieses Kurses
+        beenden möchtest?
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle einen zu klonenden Kurs aus.
       clone_previous: Vorherigen Kurs klonen
@@ -344,6 +370,9 @@ de:
         (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
         nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
         keinen Zwang an, ihn jetzt zu aktualisieren.
+      course_dates_info: Gib die Beginn- und Enddaten für deinen Kurs ein. Im nächsten
+        Schritt kannst du auswählen, wann die Wikipedia-Zuweisung innerhalb dieses
+        Zeitfensters beginnen soll.
       course_description: Kursbeschreibung
       course_description_placeholder: Was ist in deinem Kurs abgedeckt und was werden
         die Studenten auf Wikipedia tun? Bitte gib genügend Einzelheiten an, um anderen
@@ -357,16 +386,27 @@ de:
       course_term: Kursdauer
       course_term_placeholder: Dauer
       course_title: Kurstitel
+      course_types:
+        basic_course_name: Basisprogramm
+        basic_course_description: Dieser Programmtyp verfolgt nur Bearbeitungen aller
+          Artikel oder Hauptnamensraumseiten von allen Teilnehmern. Falls automatische
+          Wikibearbeitungen auf dem Heimatwiki des Programms aktiviert sind, wird
+          eine On-Wiki-Version dieses Programms automatisch erstellt und aktualisiert.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Ein Edit-A-Thon-Programm verfolgt Bearbeitungen aller
+          Artikel oder Hauptnamensraumseiten. Standardmäßig werden keine automatischen
+          Bearbeitungen für dieses Programm erstellt.
+        article_scoped_program_name: Artikelfeldprogramm
+        article_scoped_program_description: Dieser Programmtyp verfolgt nur Bearbeitungen
+          für zugewiesene Artikel oder Kategorien. Verwende diesen Typ, falls du die
+          Statistiken auf eine bekannte Artikelsammlung oder Themenbereiche beschränken
+          möchtest. Standardmäßig sind automatische Wikibearbeitungen angeschaltet.
       create_button: Meinen Kurs erstellen!
       create_label: Neuen Kurs erstellen
       create_new: Einen neuen Kurs erstellen
       create_short: Kurs erstellen
-      create_timeline: Erstelle bitte eine Zeitleiste für deinen Kurs. Du kannst eine
-        vom Zeitleisten-Reiter erstellen oder den Zuweisungsassistenten verwenden,
-        um eine benutzerdefinierte Zeitleiste basierend auf den besten Praktiken von
-        Wiki Ed zu erstellen.
       end_date: Enddatum
-      end_date_placeholder: Enddatum (JJJJ-MM-TT)
+      end_date_placeholder: JJJJ-MM-TT
       expected_number: Erwartete Anzahl der Studenten
       find: Finde deinen Kurs
       intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
@@ -383,8 +423,11 @@ de:
         aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
       role_description: Deine Rolle im Kurs
+      role_description_options:
+      - Kursleiter
+      - Lehrassistent
       role_description_placeholder: Kursleiter, Lehrassistent etc.
-      separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an
+      separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an (optional)
       separate_event_dates_info: Aktivitätsstatistiken für dieses Programm werden
         basierend auf den oben stehenden Daten und Zeitpunkten erstellt, du kannst
         jedoch getrennte Zeiten für den Beginn und das Ende des Ereignisses oder Programms
@@ -392,7 +435,7 @@ de:
         erscheinen sollen oder wann der Veranstaltungsort schließt).
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
-      start_date_placeholder: Startdatum (JJJJ-MM-TT)
+      start_date_placeholder: JJJJ-MM-TT
       subject: Thema
       update_scheduled: Aktualisierung geplant. Die Daten werden zusammen mit allen
         aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
@@ -430,12 +473,19 @@ de:
     duration: Kursdauer
     edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
+    embed_course_stats: Kursstatistiken einbetten
+    embed_course_stats_description: Um die Statistiken für dieses Programm auf einer
+      anderen Website einzubetten, kopiere diesen Codeschnipsel und füge ihn ein.
     enable_account_requests: Benutzerkontenanträge aktivieren
     enable_chat: Chat aktivieren
     end: Ende
     ended: Der Kurs ist beendet.
     enroll: Einschreiben
     enrollment: Studenten hinzufügen/entfernen
+    enrollment_edits_enabled: Einschreibungsbearbeitungen aktiviert
+    enrollment_edits_enabled_tooltip: Falls aktiviert, wird das Dashboard eine Vorlage
+      in die Benutzer- und Diskussionsseite eines jeden am Programm beteiligten Autors
+      einfügen.
     courses_enrolled: Eingeschriebene Kurse
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
@@ -463,6 +513,7 @@ de:
       – wenn du möchtest. Gemeinsame Benutzerkonten sind nicht erlaubt.
     join: Beitreten
     join_course: Dem Kurs beitreten
+    join_course_as_volunteer: Helfender Freiwilliger
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten. Die Übersichtsseite
       verfolgt automatisch deine Beiträge mit regelmäßigen Aktualisierungen. Gehe
@@ -470,7 +521,7 @@ de:
       haben!
     join_failed: Einschreiben fehlgeschlagen.
     join_failure_details:
-      cannot_join_twice: Benutzer können sich nicht zweimal in den gleichen Kurs einschreiben.
+      cannot_join_twice: Benutzer können sich nicht zweimal in denselben Kurs einschreiben.
       not_yet_approved: Dieser Kurs wurde noch nicht zur Einschreibung freigegeben.
     join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
@@ -517,6 +568,9 @@ de:
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
       überfällig sind. Bist du sicher, dass du dies tun möchtest?
     no_available_actions: Keine verfügbaren Aktionen
+    online_volunteers_enabled: Online-Freiwillige aktiviert
+    online_volunteers_tooltip: Die Aktivierung von Online-Freiwilligen ermöglicht
+      es Autoren, als Freiwillige mitzumachen. Ihre Bearbeitungen werden nicht verfolgt.
     ores_plot: ORES
     overview: Start
     passcode: Passcode
@@ -528,6 +582,10 @@ de:
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     requested_accounts: Beantragte Benutzerkonten
+    requested_accounts_alert:
+      one: Ein angefordertes Benutzerkonto ist ausstehend.
+      other: '%{count} angeforderte Benutzerkonten sind ausstehend.'
+    requested_accounts_alert_view: Ansehen
     review_timeline: 'Überprüfe jetzt deine Zuweisungs-Zeitleiste und passe sie deinen
       Bedürfnissen an. Sobald du zufrieden bist, kannst du sie zur Bestätigung durch
       die Mitarbeiter von Wiki Education einreichen. Sobald sie bestätigt ist, erhältst
@@ -608,6 +666,10 @@ de:
     warn_mirrored: |-
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
+    wiki_course_page_enabled: Wiki-Kursseite aktiviert
+    wiki_course_page_enabled_tooltip: Falls aktiviert, wird ein Wikimirror der Seite
+      immer dann aktualisiert, wenn das Programm oder seine Benutzer und Zuweisungen
+      geändert werden.
     wiki_edits_enabled: Wikibearbeitungen aktiviert
     wiki_edits_enabled_tooltip: Falls Wikibearbeitungen aktiviert sind, werden automatisierte
       In-Wiki-Bearbeitungen für dieses Programm erzeugt. Deaktiviere Wikibearbeitungen,
@@ -637,9 +699,12 @@ de:
     campaign_courses: '%{title} Programme'
     creator:
       assignment_end: Ereignisende
-      assignment_end_placeholder: Ereignisende (JJJJ-MM-TT)
+      assignment_end_placeholder: JJJJ-MM-TT
       assignment_start: Ereignisbeginn
-      assignment_start_placeholder: Ereignisbeginn (JJJJ-MM-TT)
+      assignment_start_placeholder: JJJJ-MM-TT
+      cancel_course_clone: Klonen des Programms abbrechen
+      cancel_course_clone_confirm: Bist du sicher, dass du das Klonen dieses Programms
+        beenden möchtest?
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen
@@ -649,6 +714,10 @@ de:
         unten auf „Speichern“.
       course_when: Gib etwas in das „Wann“-Feld ein (zum Beispiel den Monat und das
         Jahr), um den Kurs vom Original zu unterscheiden.
+      course_dates_info: Gib die Beginn- und Enddaten für dein Programm ein. Du kannst
+        das Ende auf mehrere Stunden oder Tage hinter das Ende der Hauptaktivitäten
+        erweitern, um ähnliche Bearbeitungen einzuschließen, die bald nach dem Ereignis
+        geschehen.
       course_description: Programmbeschreibung
       course_description_placeholder: Was ist dieses Programm und was werden die Teilnehmer
         auf dem oder den Wikis tun? Bitte gib genügend Einzelheiten an, um anderen
@@ -799,6 +868,9 @@ de:
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
     see_more: Mehr sehen
+  resources:
+    label: Quellen
+    header: Quellen und Ausbildung
   settings:
     admin_users:
       new:
@@ -878,6 +950,8 @@ de:
       update_daily läuft.
     paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
       angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
+  tickets:
+    none: Keine Tickets
   timeline:
     add_week: Woche hinzufügen
     arrange_timeline: Zeitleiste erstellen
@@ -912,6 +986,10 @@ de:
     discard_all_changes: Alle Änderungen verwerfen
     delete_timeline_and_start_over: Zeitleiste löschen
     due_default: Während nächster Woche
+    edit_titles: Wochentitel bearbeiten
+    edit_titles_info: Wochentitel in der Zeitleiste bearbeiten. Nur Wochen mit eingeplanten
+      Treffen können mit benutzerdefinierten Titeln versehen werden. Falls benutzerdefinierte
+      Titel verwendet werden, werden Wochen ohne Treffen datiert anstatt nummeriert.
     empty_week_1: Um anzufangen,
     empty_week_2: beginne mit dem Bearbeiten in dieser Woche
     empty_week_3: ' oder&nbsp;'
@@ -927,6 +1005,9 @@ de:
     no_timeline: Dieser Kurs hat keine Zeitleiste.
     no_activity_this_week: Keine geplanten Treffen in dieser Woche
     nothing_this_week: Für diese Woche ist nichts auf dem Plan.
+    reset_titles: Auf den Standard zurücksetzen
+    reset_titles_confirmation: Bist du dir sicher, dass du alle Wochentitel zurücksetzen
+      möchtest? Dies kann nicht rückgängig gemacht werden.
     save_all_changes: Alle speichern
     this_week_title_default: Diese Woche
     title: Zeitleiste
@@ -996,6 +1077,7 @@ de:
     contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
+    edits: Bearbeitungen
     edits_by: 'Bearbeitet von:'
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
     enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
@@ -1026,6 +1108,7 @@ de:
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
+    sandboxes: Spielwiesen
     total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
@@ -1045,6 +1128,7 @@ de:
     user_no_training_status: Dieser Benutzer hat keine Ausbildungsmodule vervollständigt.
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
+    ungreeted: Nicht begrüßt
     username: Benutzername
     username_placeholder: Benutzername
     useremail_placeholder: E-Mail-Adresse
@@ -1065,6 +1149,7 @@ de:
     bio_placeholder: Ergänze deine Biografie (optional)
     location_placeholder: Ergänze deinen Standort (optional)
     institution_placeholder: Name der Einrichtung (optional)
+    image_link_placeholder: Link zum Bild hinzufügen (optional)
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
@@ -1217,4 +1302,10 @@ de:
     relevanceIndex: Relevanzindex
     assign_article_self: Dir selbst zuweisen
     unassign_article_self: Zuweisung des Artikels entfernen
+  training_status:
+    completed: Abgeschlossen
+    started: Gestartet
+    not_started: Nicht gestartet
+    due: fällig %{due_date}
+    assignment_status: Ausbildungszuweisung (%{status})
 ...

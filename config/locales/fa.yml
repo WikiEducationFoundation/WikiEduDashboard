@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alifakoor
+# Author: Amirsara
 # Author: Arash.pt
 # Author: Arian Ar
 # Author: AzorAhai
@@ -46,6 +47,10 @@ fa:
     change: تغییر
     details: جزئیات
     confirm: تأیید
+    opt_in: بله
+    opt_out: خیر
+    opt_yes: بله
+    opt_no: خیر
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحات دوره‌ها کاوش کنید
@@ -79,6 +84,9 @@ fa:
       در بین تاریخ آغاز و پایان
     edited: مقالات ویرایش‌شده
     edited_mobile: مقاله‌ها
+    filter:
+      wiki_all: همه
+      new: تازه
     hide: نهفتن
     label: مقاله‌ها
     loading: در حال بارگذاری مقاله‌ها ...
@@ -112,6 +120,7 @@ fa:
     view_on_wiki: نمایش در ویکی
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
     edit_size: اندازهٔ‌ویرایش
+    wiki: ویکی
   assignments:
     already_exists: این تکلیف از پیش وجود دارد!
     title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
@@ -136,6 +145,7 @@ fa:
     milestones:
       title: نقاط عطف
   campaign:
+    alert_user_id: کاربر
     campaign: کمپین
     campaigns: کمپین‌ها
     description: توضیحات
@@ -182,9 +192,9 @@ fa:
       already_exists: این دوره از پیش وجود دارد. با تغییر دادن نام، مدرسه/دانشگاه
         یا ترم تحصیلی، آن را منحصربفرد کنید.
       assignment_end: پایانِ تکلیف
-      assignment_end_placeholder: تاریخ پایانِ تکلیف (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: آغازِ تکلیف
-      assignment_start_placeholder: تاریخ آغازِ تکلیف (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: این دوره در حال بررسی منحصربه‌فرد است.
       clone_successful: دوره با موفقیت شبیه‌سازی شد
       clone_successful_details: دورهٔ شما شبیه‌سازی شد، که شامل عناصر جدول زمانی است.
@@ -203,13 +213,13 @@ fa:
       create_new: ساختِ دوره‌ای تازه
       create_short: ساختِ دوره
       end_date: تاریخِ پایان
-      end_date_placeholder: تاریخ پایان (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: محدودیت تعداد دانش‌آموزان/دانشجویان
       find: دورهٔ خود را پیدا کنید
       no_class_holidays: هیچ کلاسِ تعطیلی ندارم
       save_cloned_course: ذخیرهٔ دورهٔ تازه
       start_date: تاریخِ آغاز
-      start_date_placeholder: تاریخ آغاز (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: موضوع
     current: دوره‌های کنونی
     delete_course: حذف دوره
@@ -301,6 +311,7 @@ fa:
     courses: برنامه‌ها
     campaigns: 'کمپین‌ها:'
     creator:
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: این برنامه برای آزمایش منحصر به فرد بودن در حال بررسی
         است.
       course_description: توضیحات برنامه

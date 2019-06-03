@@ -58,12 +58,6 @@ class LegacyCourse < Course
     false
   end
 
-  def wiki_title
-    prefix = 'Education_Program:'
-    escaped_slug = slug.tr(' ', '_')
-    "#{prefix}#{escaped_slug}"
-  end
-
   def string_prefix
     'courses'
   end

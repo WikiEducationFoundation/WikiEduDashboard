@@ -7,7 +7,7 @@
           %tr
             %td.main-content
               %p.paragraph
-                = "Dear #{@instructor.username},"
+                = "Dear #{@instructor.real_name || @instructor.username},"
               %p.paragraph
                 I'd like to share some resources as you begin your Wikipedia assignment:
               %ol

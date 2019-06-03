@@ -36,7 +36,7 @@ When there have been changes in the main repo that you want to get, the cleanest
   * `git push -f`
 
 ## Resetting a branch after you've messed it up
-1. Make sure the isn't any work that you care about losing
+1. Make sure there isn't any work that you care about losing
 2. Do a hard reset to the branch you want to restart from.
   * `git checkout MyMessedUpBranch`
   * `git reset --hard upstream/master`

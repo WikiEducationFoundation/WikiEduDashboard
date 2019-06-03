@@ -12,12 +12,10 @@ by default.
 
 #### Wiki Ed-only features
 
-As of June 2016:
+As of January 2019:
 * Surveys
-* Training
 * Wizard for creating new assignment timelines
 * ClassroomProgramCourse & VisitingScholarship course types
-* Course timelines, which are disabled for other course types
 * "Get Help" button
 * ask.wikiedu.org integration
 * Wiki Education blog integration

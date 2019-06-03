@@ -25,10 +25,10 @@ const OrderableBlock = createReactClass({
       <div className="block block--orderable" style={{ opacity }}>
         <h4 className="block-title">{this.props.title}</h4>
         <p>{this.props.kind}</p>
-        <button onClick={this.props.onMoveDown} className="button border" aria-label={I18n.t('timeline.move_block_up')} disabled={this.props.disableDown}>
+        <button onClick={this.props.onMoveDown} className="button border" aria-label={I18n.t('timeline.move_block_down')} disabled={this.props.disableDown}>
           <i className="icon icon-arrow-down" />
         </button>
-        <button onClick={this.props.onMoveUp} className="button border" aria-label={I18n.t('timeline.move_block_down')} disabled={this.props.disableUp}>
+        <button onClick={this.props.onMoveUp} className="button border" aria-label={I18n.t('timeline.move_block_up')} disabled={this.props.disableUp}>
           <i className="icon icon-arrow-up" />
         </button>
       </div>);

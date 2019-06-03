@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class UntrainedStudentsAlertMailer < ApplicationMailer
-  def email(alert)
+  def self.send_email(alert)
     return unless Features.email?
+    email(alert).deliver_now
+  end
+
+  def email(alert)
     @alert = alert
     set_course_and_users
     params = { to: @instructors.pluck(:email),
@@ -19,6 +23,7 @@ class UntrainedStudentsAlertMailer < ApplicationMailer
     @course = @alert.course
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
-    @greeted_users = @instructors.pluck(:username).to_sentence # eg, "User, User2, and User3"
+    # eg, "Full Name, User2, and Other Fullname"
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
   end
 end

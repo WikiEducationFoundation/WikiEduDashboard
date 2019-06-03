@@ -14,7 +14,7 @@ require 'capybara-screenshot/rspec'
 
 Capybara.register_driver :selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
-    args: %w[headless no-sandbox disable-gpu --window-size=1024,1024]
+    args: %w[headless no-sandbox disable-gpu --window-size=1200,1200]
   )
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
@@ -47,10 +47,7 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true # This enables transactions for all tests
   config.global_fixtures = :all
 
   config.include Devise::Test::ControllerHelpers, type: :controller
@@ -81,8 +78,21 @@ RSpec.configure do |config|
       .to_return(status: 200, body: +'@font-face {}', headers: {})
   end
 
+  config.before(:each, type: :feature, js: true) do
+    # Make sure any logs from the previous test get
+    errors = page.driver.browser.manage.logs.get(:browser)
+    warn errors
+  end
+
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
+    # `Capybara.reset_sessions!` here would ensure that any error
+    # logs from this session can be captured now, by closing any open connections.
+    # Otherwise, if they show up after the `manage.logs.get` step, they
+    # will cause the next spec to fail instead of the one that generated
+    # them.
+    # Instead, we clear and print any after-success error
+    # logs in the `before` block above.
     errors = page.driver.browser.manage.logs.get(:browser)
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
@@ -96,8 +106,8 @@ RSpec.configure do |config|
 
           expect(error.level).not_to eq('SEVERE'), error.message
           next unless error.level == 'WARNING'
-          STDERR.puts 'WARN: javascript warning'
-          STDERR.puts error.message
+          warn 'WARN: javascript warning'
+          warn error.message
         end
       end
     end

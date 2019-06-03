@@ -111,6 +111,7 @@ lt:
       Kampanija nebuvo ištrinta.
     create_campaign: Kurti Naują Kampaniją
     create_my_campaign: Sukurti mano Kampaniją!
+    data_instructors: Instruktoriai
     description: Aprašymas
     delete_campaign: Ištrinti šią kampaniją
     none: Nėra
@@ -201,6 +202,7 @@ lt:
     instructors: Instruktoriai
     join: Prisijungti
     join_course: Prisijungti prie kurso
+    join_course_as_volunteer: Savanoriškai padėti
     join_prompt: Prisijungti prie '%{title}'?
     join_successful: Sėkmingai prisijungėte prie %{title}.
     join_details: Kad prisijungtumėte prie šio kurso jums reikia gauti slaptažodį
@@ -366,6 +368,8 @@ lt:
     none: Šis kursas neturi naujos keitimų veiklos.
     title: Pavadinimas
     see_more: Žiūrėti daugiau
+  resources:
+    label: Ištekliai
   timeline:
     add_week: Pridėti Savaitę
     arrange_timeline: Organizuoti Laiko Juostą
@@ -420,6 +424,7 @@ lt:
     contributions_history_full: Peržiūrėti visą indėlio istoriją Vikipedijoje
     contributions_more: Žiūrėti Daugiau Įnašų
     editors: Redaktoriai
+    edits: pakeitimai
     edits_by: 'Pakeitimai:'
     enroll_confirmation: Ar tikrai norite pridėti %{username}?
     enroll_url: 'Vartotojai gali prisijungti apsilankę šiuo URL:'
@@ -433,6 +438,7 @@ lt:
     no_articles: Nėra straipsnių
     recent_revisions: Naujausi keitimai
     request_confirmation: Ar tikrai norite prašyti šios paskyros?
+    sandboxes: smėlio dėžės
     training_module_name: Mokymo modulis
     training_module_status: Būsena
     username: Vartotojo vardas

@@ -9,13 +9,15 @@
               %h1.headline
                 = "#{@course.title}: submitted!"
               %p.paragraph
-                = "Hi #{@instructor.username}! Thank you for joining Wiki Ed's Classroom Program. Your course page has been submitted successfully."
+                = "Hi #{@instructor.real_name || @instructor.username}! Thank you for joining Wiki Education's Student Program. Your course page has been submitted successfully."
               %p.paragraph
-                Helaine Blumenthal, Classroom Program Manager at Wiki Ed, will
+                Helaine Blumenthal, Wikipedia Student Program Manager at Wiki Education, will
                 be in touch with you soon and will work to support your assignment
                 throughout the term. In the meantime, if you have any questions, check out
-                <a href="https://ask.wikiedu.org">ask.wikiedu.org</a>, where you can
-                find answers to commonly asked questions about teaching with Wikipedia.
+                = succeed ',' do
+                  %a.link{href: 'https://ask.wikiedu.org'} ask.wikiedu.org
+                where you can find answers to commonly asked questions about
+                teaching with Wikipedia.
               %p.paragraph
                 You can access — and continue to edit — your course page here:
             %td.expander

@@ -74,8 +74,10 @@ const AddSpecialUserForm = createReactClass({
               <option>communications_manager</option>
               <option>classroom_program_manager</option>
               <option>outreach_manager</option>
+              <option>wikipedia_experts</option>
               <option>technical_help_staff</option>
               <option>survey_alerts_recipient</option>
+              <option>backup_account_creator</option>
             </select>
             <button className={buttonClass} type="submit" value="Submit">{I18n.t('application.submit')}</button>
           </form>
@@ -90,16 +92,13 @@ const AddSpecialUserForm = createReactClass({
       buttonContent = (<div className="loading__spinner" />);
     } else {
       buttonContent = (
-        <form onSubmit={this.handleConfirm}>
-          <button
-            className="button border"
-            value="confirm"
-          >
-            {I18n.t('settings.special_users.new.confirm_add_special_user')}
-          </button>
-        </form>
-
-
+        <button
+          onClick={this.handleConfirm}
+          className="button border"
+          value="confirm"
+        >
+          {I18n.t('settings.special_users.new.confirm_add_special_user')}
+        </button>
       );
     }
     return (

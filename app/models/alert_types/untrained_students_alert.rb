@@ -32,7 +32,7 @@ class UntrainedStudentsAlert < Alert
 
   def send_email
     return if emails_disabled?
-    UntrainedStudentsAlertMailer.email(self).deliver_now
+    UntrainedStudentsAlertMailer.send_email(self)
     update_attribute(:email_sent_at, Time.zone.now)
   end
 

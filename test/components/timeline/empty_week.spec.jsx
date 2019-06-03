@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import { MemoryRouter } from 'react-router';
+
 import '../../testHelper';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
 
@@ -23,12 +25,14 @@ describe('EmptyWeek', () => {
 
   describe('timeline is empty, edit permissions', () => {
     const TestEmptyWeek = mount(
-      <EmptyWeek
-        emptyTimeline
-        edit_permissions
-        course={course}
-        addWeek={jest.fn()}
-      />
+      <MemoryRouter>
+        <EmptyWeek
+          emptyTimeline
+          edit_permissions
+          course={course}
+          addWeek={jest.fn()}
+        />
+      </MemoryRouter>
     );
     it('suggests editing the week', () => {
       const pTag = TestEmptyWeek.find('.week__no-activity__get-started');
@@ -40,10 +44,12 @@ describe('EmptyWeek', () => {
 
   describe('timeline is empty, no edit permissions', () => {
     const TestEmptyWeek = mount(
-      <EmptyWeek
-        emptyTimeline
-        addWeek={jest.fn()}
-      />
+      <MemoryRouter>
+        <EmptyWeek
+          emptyTimeline
+          addWeek={jest.fn()}
+        />
+      </MemoryRouter>
     );
     it('says course has no timeline', () => {
       const pTag = TestEmptyWeek.find('.week__no-activity__get-started');

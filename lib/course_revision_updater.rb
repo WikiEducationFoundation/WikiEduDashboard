@@ -7,26 +7,10 @@ class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
-
-  def self.import_new_revisions_concurrently(courses)
-    # Revision data is imported via Replica, and its capacity may be the
-    # bottleneck in this process.
-    concurrency = Replica::CONCURRENCY_LIMIT
-    course_groups = courses.to_a.in_groups(concurrency, false)
-    threads = course_groups.map.with_index do |course_group, i|
-      Thread.new(i) do
-        import_new_revisions(course_group)
-      end
-    end
-    threads.each(&:join)
-  end
-
-  def self.import_new_revisions(courses)
-    courses.each do |course|
-      next if course.students.empty?
-      new(course).update_revisions_for_relevant_wikis
-      ArticlesCourses.update_from_course(course)
-    end
+  def self.import_revisions(course, all_time:)
+    return if course.students.empty?
+    new(course).update_revisions_for_relevant_wikis(all_time)
+    ArticlesCourses.update_from_course(course)
   end
 
   def initialize(course)
@@ -41,10 +25,11 @@ class CourseRevisionUpdater
     wiki_ids
   end
 
-  def update_revisions_for_relevant_wikis
+  def update_revisions_for_relevant_wikis(all_time)
     wiki_ids = @course.assignments.pluck(:wiki_id) + default_wiki_ids
     wiki_ids.uniq.each do |wiki_id|
-      RevisionImporter.new(Wiki.find(wiki_id), @course).import_new_revisions_for_course
+      RevisionImporter.new(Wiki.find(wiki_id), @course)
+                      .import_revisions_for_course(all_time: all_time)
     end
   end
 end

@@ -15,10 +15,13 @@ fi:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: t.
           million: milj.
           billion: mrd.
+          trillion: .t
+          quadrillion: .k
   accessibility:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
@@ -39,7 +42,7 @@ fi:
     greeting: Terve!
     help: Ohje
     home: Etusivu
-    log_in_extended: Kirjaudu sisään Wikipedian kautta
+    log_in_extended: Kirjaudu sisään Wikipedialla
     log_in: Kirjaudu sisään
     log_out: Kirjaudu ulos
     my_dashboard: Oma ohjausnäkymä
@@ -52,7 +55,7 @@ fi:
     no_results: Ei tuloksia haulle '%{query}'
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
-    sign_up_log_in_extended: Wikipedian kautta
+    sign_up_log_in_extended: Wikipedialla
     sign_up: Luo tunnus
     submit: Lähetä
     training: Harjoittelu
@@ -61,6 +64,8 @@ fi:
     confirm: OK
     opt_in: Kyllä
     opt_out: Ei
+    opt_yes: kyllä
+    opt_no: ei
   dashboard:
     create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
     create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
@@ -256,7 +261,7 @@ fi:
     label: Keskustelu
   courses:
     activity: Toiminta
-    active_courses: Aktiivinen %{course_type}
+    active_courses: Aktiiviset %{course_type}
     alerts: Hälytykset
     all_courses: Kaikki kurssit
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
@@ -298,9 +303,9 @@ fi:
       already_exists: Tämä kurssi on jo olemassa. Kannattaa vaihtaa nimi, oppilaitos
         tai lukukausi, jotta siitä tulee ainutkertainen.
       assignment_end: Tehtävä loppuu
-      assignment_end_placeholder: Tehtävän lopetus (VVVV-KK-PP)
+      assignment_end_placeholder: (VVVV-KK-PP)
       assignment_start: Tehtävä alkaa
-      assignment_start_placeholder: Tehtävän aloitus (VVVV-KK-PP)
+      assignment_start_placeholder: (VVVV-KK-PP)
       checking_for_uniqueness: Kurssin ainutkertaisuutta tarkistetaan.
       choose_clone: Valitse kopioitava kurssi
       clone_previous: Kopioi edellinen projekti
@@ -310,7 +315,7 @@ fi:
         tilojen välillä (valitsematon, valittu ja loma). Jos kurssilla ei ole lomia,
         valitse "kurssilla ei ole lomia". Kopioitu aikajana muuntaa automaattisesti
         päivämäärät viikoille, joilla ei ole suunniteltuja tapaamisia.
-      clone_successful: Kurssin kopiointi onnistui
+      clone_successful: Päivitä tiedot kloonatulle kurssille
       clone_successful_details: Kurssisi on kopioitu, mukaan lukien aikajanan elementit
         (viikot ja lohkot). Muista lisätä päivämäärät, jotka eivät siirtyneet. Onko
         mitään muuta muuttunut kurssistasi? Voit päivittää kurssia nyt vapaasti.
@@ -322,12 +327,12 @@ fi:
       course_term: Kurssin lukukausi
       course_term_placeholder: Lukukausi
       course_title: Kurssin nimi
-      create_button: Luo oma Kurssi!
+      create_button: Luo oma kurssi!
       create_label: Luo uusi kurssi
       create_new: Luo uusi kurssi
       create_short: Luo kurssi
       end_date: Päättymispäivä
-      end_date_placeholder: Päättymispäivä (VVVV-KK-PP)
+      end_date_placeholder: VVVV-KK-PP
       expected_number: Opiskelijoiden odotettu lukumäärä
       find: Etsi kurssi
       intro: Nimi, oppilaitos ja lukukausi muodostavat kurssin url-linkin, joten niitä
@@ -337,9 +342,10 @@ fi:
       role_description: Roolisi kurssilla
       role_description_placeholder: Opettaja, ohjaaja, avustaja jne.
       separate_event_dates: Määrittele erilliset aloitus- ja lopettamisajankohdat
+        (valinnainen)
       save_cloned_course: Tallenna uusi kurssi
       start_date: Alkamispäivä
-      start_date_placeholder: Alkamispäivä (VVVV-KK-PP)
+      start_date_placeholder: VVVV-KK-PP
       subject: Aihe
       update_scheduled: Päivitys on ajastettu. Tiedot päivitetään muiden käynnissä
         olevien ohjelmien kanssa seuraavalla päivityskerralla. Siinä kestää useampi
@@ -355,7 +361,7 @@ fi:
     data_students: Muokkaajien tiedot
     data_students_info: Muokkaajien tiedot näyttää osallistuvat muokkaajat, paljonko
       he ovat muokanneet ja ovatko he rekisteröityneet projektin aikana.
-    data_uploads: Commons-latausten tiedot
+    data_uploads: Commons-tallennusten tiedot
     data_uploads_info: Commons-latausten tiedot näyttää kunkin ladatun mediatiedoston
       nimen ja käyttökerrat.
     delete_course: Poista kurssi
@@ -422,6 +428,7 @@ fi:
     new_week: Lisää uusi viikko
     new_account_check_username: Tarkista, onko käyttäjätunnus saatavana
     new_account_email: Sähköpostiosoite
+    new_account_email_placeholder: nimi@esimerkki.org
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
     new_account_username_taken: Käyttäjätunnus on jo käytössä. Valitse ystävällisesti
@@ -458,16 +465,16 @@ fi:
     start_typing: Aloita kirjoittaminen
     students: Opiskelijat
     students_taught: Opiskelijoita
-    students_count: '# Opiskelijat'
+    students_count: '# opiskelijaa'
     student_editors: Opiskelijamuokkaajat
     students_none: Tällä kurssilla ei ole opiskelijoita.
-    students_short: Opiskelijat
+    students_short: opiskelijaa
     submitted_admin: Projektin luoja on lähettänyt tämän kurssin hyväksyttäväksi.
       Hyväksyäsi sen, lisää se johonkin kampanjaan yleiskatsaussivulla.
     submitted_and_pending_heading: Lähetetty & odottaa hyväksyntää
     submitted_heading: Lisätyt kurssit
-    submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
-      mikäli kysyttävää ilmenee.
+    submitted_note: Kurssisi on lisätty. Wiki Educationin henkilökunta arvioi sen
+      ja ottaa yhteyttä, mikäli kysyttävää ilmenee.
     suggestions_feedback: Haluatko ehdottaa parannuksia tähän ominaisuuteen? Kerro
       siitä!
     suggestions_sending: Lähetetään palautetta...
@@ -518,7 +525,7 @@ fi:
     withdrawn: Tehtävä ei tehty
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
-    yourcourses: Omat kurssisi
+    yourcourses: Omat kurssit
     survey:
       notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
@@ -539,9 +546,9 @@ fi:
     campaign_courses: '%{title} Ohjelmat'
     creator:
       assignment_end: Tapahtuma loppuu
-      assignment_end_placeholder: Tapahtuma loppuu (DD-MM-YYYY)
+      assignment_end_placeholder: DD-MM-YYYY
       assignment_start: Tapahtuma alkaa
-      assignment_start_placeholder: Tapahtuma alkaa (DD-MM-YYYY)
+      assignment_start_placeholder: DD-MM-YYYY
       checking_for_uniqueness: Ohjelman ainutkertaisuutta tarkistetaan.
       choose_clone: Valitse kloonattava ohjelma.
       clone_previous: Kopioi edellinen Ohjelma
@@ -601,7 +608,7 @@ fi:
     view_page: Näytä ohjelmasivu
     word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
       artikkeleihin lukukauden ajalta.
-    yourcourses: Ohjelmasi
+    yourcourses: Omat ohjelmat
   editable:
     edit: Muokkaa
     cancel: Peruuta
@@ -612,8 +619,8 @@ fi:
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
-    articles_created: Luotuja artikkeleita
-    articles_edited: Muokatut artikkelit
+    articles_created: luotua artikkelia
+    articles_edited: muokattua artikkelia
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
@@ -623,16 +630,16 @@ fi:
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
     tags: Merkkaukset
-    upload_count: Tallennukset Commonsiin
+    upload_count: tallennusta Commonsiin
     uploads_in_use_count:
       one: tiedosto käytössä artikkelissa
       other: tiedostoa käytössä artikkeleissa
     upload_usages_count:
       one: kokonaiskäyttö eri kieliversioissa
       other: kokonaiskäytöt eri kieliversioissa
-    view_count_description: Artikkelin näyttökerrat
+    view_count_description: Artikkelin näyttökertaa
     view: Näyttökerrat
-    word_count: Lisätyt sanat
+    word_count: lisättyä sanaa
     word_count_average: Keskimääräinen sanamäärä
   namespace:
     main: Päänimiavaruus
@@ -675,6 +682,7 @@ fi:
     time_doc: Jokaisen version ajankohta paikallisessa ajassa
     title: Nimi
     view_on_wiki: Näytä ero wikissä
+    see_more: Lisätietoja
   settings:
     admin_users:
       new:
@@ -682,6 +690,8 @@ fi:
     special_users:
       new:
         form_placeholder: Käyttäjänimi
+      remove:
+        demote_success: '%{username} on nyt vain käyttäjä.'
   suggestions:
     suggestion_docs:
       does_not_exist: Tätä artikkelia ei ole Wikipediassa
@@ -691,6 +701,8 @@ fi:
       on käynnissä.
     paused: Toimea %{task} ei voi suorittaa, koska ajastetut päivitykset on pysäytetty.
       Suorita 'rake batch:resume' päivitysten jatkamiseksi.
+  tickets:
+    none: Ei tikettejä
   timeline:
     add_week: Lisää viikko
     arrange_timeline: Järjestä aikajanaa
@@ -746,12 +758,14 @@ fi:
     view: Näytä
     next: Seuraava sivu
     page: Sivu
+    page_number: Sivu %{number}/%{total}
     previous: < Edellinen
-    training_library: Koulutuskirjasto
+    training_library: Harjoittelukirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
     done: Tehty!
     check_answer: Tarkista vastaus
+    included_modules: Sisällytetyt moduulit
   uploads:
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
@@ -760,8 +774,12 @@ fi:
     loading: Ladataan tallennuksia...
     none: Tämä luokka ei ole tallentanut kuvia tai muita tiedostoja Wikimedia Commonsiin.
     time_doc: Tallennusten ajankohdat paikallisessa ajassa
+    uploaded_at: Tallennusaika
+    uploader: Tallentaja
     uploaded_by: Tallentanut
+    uploaded_on: Talennettu
     usage_count: Käyttömäärä
+    usage_count_gallery_tile: Käytetty %{usage_count} artikkelissa
     usages: Käyttöjä
   users:
     already_enrolled: Tämä käyttäjä on jo rekisteröitynyt!
@@ -775,11 +793,12 @@ fi:
       vastaa käyttäjän lisäämän uuden sisällön määrää.
     chars_added: Lisättyjä merkkejä<br>(artikkeli | käyttäjä | luonnos)
     contributions: Käyttäjän muokkaukset
-    contributions_history_full: Näytä koko muokkaushistoria Wikipediassa
+    contributions_history_full: Näytä koko muokkaushistoria
     contributions_more: Näytä lisää muokkauksia
     contribution_statistics: Muokkaustilastot
     course_passcode: 'Salasana:'
     editors: Muokkaajat
+    edits_by: 'Muokkaukset käyttäjältä:'
     enroll_confirmation: Oletko varma, että haluat lisätä muokkaajan %{username}?
     enroll_url: 'Muokkaajat voivat ilmoittautua tämän linkin kautta:'
     enrolled_success: Muokkaajan %{username} lisäys onnistui!
@@ -832,7 +851,7 @@ fi:
       instructor: Ohjaaja
       campus_volunteer: Vapaaehtoinen kampuksella
       online_volunteer: Vapaaehtoinen verkossa
-      wiki_ed_staff: Wiki Ed -henkilökunta
+      wiki_ed_staff: Wiki Education -henkilökunta
   user_profiles:
     student_impact: Opiskelijan %{username} tekemä kokonaisvaikutus
     instructor_impact: Opettajan %{username} tekemä kokonaisvaikutus
@@ -921,21 +940,26 @@ fi:
     follow_up_explanation: Jätä tyhjäksi, jos ilmoituksia ei haluta sähköpostiin.
     email:
       headline: Hei, %{username}
-      message_line1: Toivottavasti lukukautesi on mainio! Wiki Ed kaipaa palautettasi,
+      message_line1: Toivottavasti lukukautesi on mainio! Wiki Education kaipaa palautettasi,
         jotta voimme kehittää resurssejamme ja tukea Wikipedia-tehtäviä.
       message_line2: Oletko valmis käyttämään 15 minuuttia vastataksesi ohjaajasi
         tekemään kyselyyn? Klikkaa alla olevaa painiketta, ja autat meitä tekemään
         Wikipedian soveltamisesta opintoihin vieläkin palkitsevamman kokemuksen.
       course: 'Kurssi: %{course_info}'
       closing: Ystävällisin terveisin,
-      signed: '- Wiki Ed -tiimi'
+      signed: '- Wiki Education -tiimi'
       link: Vastaa kyselyyn
     follow_up:
       message: Tämä on muistutus kurssisi %{course_title} kyselystä. Palautteesi auttaa
         meitä tehtävien kehittämisessä.
   feedback_form_responses:
     no_responses: Palautetta ei ole vieä annettu.
+  onboarding:
+    supplementary:
+      why_are_you_here: Mitä haluaisit tehdä?
   article_finder:
+    page_assessment_class: Luokka
+    remove_article: Poista artikkeli
     search_placeholder: Anna avainsana
     search: Haku
     show_options: Näytä asetukset

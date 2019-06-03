@@ -12,6 +12,7 @@
 # Author: Mikey641
 # Author: MojoMann
 # Author: Or
+# Author: Strayblues
 # Author: Uziel302
 # Author: YaronSh
 # Author: המקיסט
@@ -52,6 +53,8 @@ he:
     confirm: אישור
     opt_in: כן
     opt_out: לא
+    opt_yes: כן
+    opt_no: לא
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.
@@ -328,6 +331,7 @@ he:
     please_log_in: אנא התחברו
     published: 'התוכנית \ הקורס \ המיזם שלך פורסם ופעיל! כעת משתתפים יכולים להירשם
       אליו ע"י ביקור בכתובת האינטרנט הבאה:'
+    requested_accounts_alert_view: הצגה
     review_timeline: יש לעבור על לוח הזמנים הזה ולבצע בו שינויים על פי הצורך. בסיום,
       יש להגיש אותו לאישור. לאחר האישור, ניתו יהיה לקבל כתובת להרשמה לקורס שניתן יהיה
       למסור למשתתפים כדי שייצטרפו. עדיין ניתן יהיה לבצע עריכות מאוחר יותר.

@@ -14,7 +14,11 @@ json.course do
   json.timeline_enabled @course.timeline_enabled?
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
   json.wiki_edits_enabled @course.wiki_edits_enabled?
+  json.assignment_edits_enabled @course.assignment_edits_enabled?
+  json.wiki_course_page_enabled @course.wiki_course_page_enabled?
+  json.enrollment_edits_enabled @course.enrollment_edits_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
+  json.online_volunteers_enabled @course.online_volunteers_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended @course.end < Time.zone.now
@@ -52,7 +56,7 @@ json.course do
     json.passcode_required @course.passcode_required?
     json.passcode @course.passcode
     json.canUploadSyllabus true
-    json.requestedAccounts @course.requested_accounts.count if @course.flags[:register_accounts]
+    json.requestedAccounts @course.requested_accounts.count if @course.account_requests_enabled?
   elsif @course.passcode
     # If there is a passcode, send a placeholder value. If not, send empty string.
     json.passcode @course.passcode.blank? ? '' : '****'

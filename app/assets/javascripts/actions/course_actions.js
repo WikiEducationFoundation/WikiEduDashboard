@@ -76,18 +76,13 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 };
 
 const needsUpdatePromise = (courseSlug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/needs_update.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      rej(obj);
-    })
-  );
+  return API.fetch(courseSlug, 'needs_update')
+  .then((data) => {
+      return data;
+  })
+  .catch((err) => {
+      return err;
+  });
 };
 
 const needsUpdateNotification = (response) => {

@@ -16,6 +16,9 @@ tcy:
       new_and_existing: ಪೊಸ ಬೊಕ ಇತ್ತಿನ
   courses:
     enrollment: ಜೋಕ್ಲೆನ್ ಸೇರಲೆ / ದೆತ್ತ್‌ಪಾಡ್ಲೆ
+    requested_accounts_alert:
+      other: ಒಂಜಿ=%{count}ಕೇಣಿನ ಖಾತೆ ಬಾಕಿ ಉಂಡು.
+    requested_accounts_alert_view: ನೋಟ
   courses_generic:
     enrollment: ಸಂಪೊಲಿಪುನಕ್ಲೆನ್ ಸೇರಲೆ/ದೆತ್ತ್‌ಪಾಡ್ಲೆ
   recent_activity:

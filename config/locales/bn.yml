@@ -8,6 +8,7 @@
 # Author: Mohammed Galib Hasan
 # Author: Rasal Lia
 # Author: Sandipan
+# Author: Tahmid02016
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
 ---
@@ -45,6 +46,8 @@ bn:
     confirm: ঠিক আছে
     opt_in: হ্যাঁ
     opt_out: না
+    opt_yes: হ্যাঁ
+    opt_no: না
   dashboard:
     create_note: অাপনার প্রথম কোর্স তৈরি করতে কোর্স তৈরী করুনে চাপ দিন।
     create_preparation_note: শুরুর পূর্বে একাডেমিক পঞ্জিকা হাতে প্রাপ্তির বিষয় নিশ্চিত
@@ -142,18 +145,24 @@ bn:
     course: পথ
     courses_taught: কোর্সের ধারণা
     creator:
+      assignment_end_placeholder: বববব-মম-দদ
+      assignment_start_placeholder: বববব-মম-দদ
       course_project: মূল প্রকল্প
       course_school: কোর্স বিদ্যালয়
       course_subject: কোর্সের বিষয়
       course_title: কোর্স শিরোনাম
+      course_types:
+        edit_a_thon_name: এডিটাথন
       create_button: আমার কোর্স তৈরি করুন
       create_label: নতুন কোর্স তৈরি করুন
       create_new: একটি নতুন কোর্স তৈরি করুন
       create_short: কোর্স তৈরি
       end_date: শেষের তারিখ
+      end_date_placeholder: বববব-মম-দদ
       expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
       find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
+      start_date_placeholder: বববব-মম-দদ
       subject: বিষয়
     delete_suggestion: অপসারণ
     dismiss_survey: খারিজ
@@ -182,6 +191,7 @@ bn:
     overview: প্রধান পাতা
     private: ব্যক্তিগত
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
+    requested_accounts_alert_view: দেখুন
     school: বিদ্যালয়
     school_and_term: প্রতিষ্ঠান/মেয়াদ
     start: শুরু করুন
@@ -210,6 +220,8 @@ bn:
     courses_taught: প্রোগ্রামের ধারণা
     campaign_courses: '%{title} প্রোগ্রাম'
     creator:
+      assignment_end_placeholder: বববব-মম-দদ
+      assignment_start_placeholder: বববব-মম-দদ
       course_description: প্রকল্পের বর্ণনা
       course_school: প্রতিষ্ঠান
       course_term: কখন

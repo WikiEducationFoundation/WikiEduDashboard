@@ -81,6 +81,32 @@ class Campaign < ApplicationRecord
     CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
 
+  def users_to_json
+    CoursesUsers.where(course: nonprivate_courses)
+                .includes(:user, :course)
+                .map do |course_user|
+      {
+        course: course_user.course.slug,
+        role: CoursesUsers::ROLE_NAMES[course_user.role],
+        username: course_user.user.username
+      }
+    end
+  end
+
+  def assignments_to_json
+    Assignment.where(course: nonprivate_courses)
+              .includes(:user, :course, article: :wiki)
+              .map do |assignment|
+      {
+        title: assignment.article_title,
+        url: assignment.article&.url,
+        user: assignment.user&.username,
+        course: assignment.course.slug,
+        role: Assignment::ROLE_NAMES[assignment.role]
+      }
+    end
+  end
+
   #################
   # Class methods #
   #################
@@ -115,16 +141,17 @@ class Campaign < ApplicationRecord
   # Intercept Rails typecasting and add error if given value cannot be parsed into a date.
   def validate_date_attribute(date_type)
     value = send("#{date_type}_before_type_cast")
-    # rubocop:disable Rails/TimeZone
-    self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : Time.parse(value)
-    # rubocop:enable Rails/TimeZone
+    self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : Time.zone.parse(value)
+    if self[date_type].nil?
+      errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
+    end
   rescue ArgumentError, TypeError
     errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
   end
 
   # Start must not be after end.
   def valid_start_and_end_dates?
-    return false unless start && self.end
+    return false unless start.present? && self.end.present?
     start <= self.end
   end
 

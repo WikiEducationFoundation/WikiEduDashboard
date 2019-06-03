@@ -8,8 +8,14 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
-  def initialize(course)
+  def initialize(course, full: false)
     @course = course
+    # If the upate was explicitly requested by a user,
+    # it could be because the dates or other paramters were just changed.
+    # In that case, do a full update rather than just fetching the most
+    # recent revisions.
+    @full_update = full || @course.needs_update
+
     @start_time = Time.zone.now
     fetch_data
     update_categories if @course.needs_update
@@ -25,7 +31,7 @@ class UpdateCourseStats
 
   def fetch_data
     log_update_progress :start
-    CourseRevisionUpdater.import_new_revisions([@course])
+    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update)
     log_update_progress :revisions_imported
     CourseUploadImporter.new(@course).run
     log_update_progress :uploads_imported

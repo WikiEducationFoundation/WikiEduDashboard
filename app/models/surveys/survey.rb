@@ -65,9 +65,13 @@ class Survey < ApplicationRecord
 
   def csv_header
     question_headers = questions_with_separate_followups.map do |question_hash|
-      question_id = question_hash[:question].id
+      question = question_hash[:question]
+      question_id = question.id
+      question_text = question.question_text
+
       column_name = "Q#{question_id}"
       column_name += '_followup' if question_hash[:followup]
+      column_name += ": #{question_text}" unless question_text.empty?
       column_name
     end
     %w[username course] + question_headers

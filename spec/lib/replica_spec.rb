@@ -23,7 +23,7 @@ describe Replica do
         # edited by the users, not the number of revisions. Revisions are child
         # elements of the page ids. Value may change slightly if old revisions
         # get deleted on Wikipedia.
-        expect(response.count).to eq(222)
+        expect(response.count).to eq(220)
 
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_05_05
@@ -88,7 +88,7 @@ describe Replica do
     it 'returns a list of existing articles' do
       VCR.use_cassette 'replica/articles' do
         article_titles = [
-          { 'title' => 'Autism' }, # exists in namespace 0, 1
+          { 'title' => 'Autism' }, # exists in namespace 0, 1, 10, 11
           { 'title' => 'Allegiance' }, # exists in namespace 0, 1
           # Test with URI reserved characters
           { 'title' => "Broussard's" }, # exists in namespace 0, 1
@@ -99,7 +99,7 @@ describe Replica do
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
         response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        expect(response.size).to eq(15)
+        expect(response.size).to eq(17)
       end
     end
 

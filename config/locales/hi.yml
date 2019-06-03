@@ -4,6 +4,7 @@
 # Author: Anamdas
 # Author: Bhatakati aatma
 # Author: Nitin1485
+# Author: Prong$31
 # Author: Rajat11
 # Author: Rajatkatiyar10
 # Author: Sachinkatiyar
@@ -51,6 +52,8 @@ hi:
     change: बदलाव
     details: विवरण
     confirm: ठीक है
+    opt_yes: हाँ
+    opt_no: नहीं
   dashboard:
     create_note: अपना पहला पाठ्यक्रम बनाने के लिए पाठ्यक्रम बनाएँ पर क्लिक करें।
     create_preparation_note: शुरू करने से पहले अपने अकादमिक कैलेंडर को अपने पास रखें;
@@ -278,6 +281,9 @@ hi:
         निर्धारित बैठक नहीं है।
       clone_successful: पाठ्यक्रम का सफलतापूर्वक क्लोन बनाया गया
       course_term_placeholder: अवधि
+      course_types:
+        edit_a_thon_name: एडिट-अ-थॉन
+      start_date_placeholder: YYYY-MM-DD
       subject: विषय
     expected_students: अपेक्षित छात्र
     feedback: आपके सुझाव
@@ -297,6 +303,8 @@ hi:
     add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम
     course: प्रोग्राम
+    creator:
+      assignment_end_placeholder: YYYY-MM-DD
     school: संस्थान
     student_editors: सम्पादक
     students_short: संपादक
@@ -332,4 +340,7 @@ hi:
     loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
     authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
     edits_by: 'संपादनकर्ता:'
+  training_status:
+    completed: पूर्ण
+    not_started: प्रारम्भ नहीं हुआ
 ...

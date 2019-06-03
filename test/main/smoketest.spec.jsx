@@ -1,34 +1,48 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import ReactTestUtils from 'react-dom/test-utils';
+import { mount } from 'enzyme';
+import { MemoryRouter, Route } from 'react-router-dom';
 import '../testHelper';
 
-import Course from '../../app/assets/javascripts/components/course.jsx';
-import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
+import { Course } from '../../app/assets/javascripts/components/course/course.jsx';
 
 describe('top-level course component', () => {
-  document.body.innerHTML = "<div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div>";
-
   it('loads without an error', () => {
-    const courseProps = {
-      location: {
-        query: { enroll: 'passcode' },
-        pathname: '/courses/this_school/this_course'
-      },
-      params: { course_school: 'this_school', course_title: 'this_course' }
+    global.Features = { enableGetHelpButton: true };
+    const course = {
+      title: 'this_course',
+      description: '',
+      school: 'this_school'
     };
-    const currentUser = {
+    const user = {
       role: 0,
       username: 'Ragesoss',
       admin: true
     };
-    global.Features = { enableGetHelpButton: true };
-    const testCourse = ReactTestUtils.renderIntoDocument(
-      <Provider store={reduxStore}>
-        <Course {...courseProps}>
-          <OverviewHandler {...courseProps} current_user={currentUser} />
-        </Course>
-      </Provider>
+    const props = {
+      course, current_user: user
+    };
+    const fns = {
+      fetchCourse: sinon.stub(),
+      fetchUsers: sinon.stub(),
+      fetchTimeline: sinon.stub(),
+      fetchCampaigns: sinon.stub(),
+      persistCourse: sinon.stub(),
+      updateCourse: sinon.stub()
+    };
+    const testCourse = mount(
+      <MemoryRouter initialEntries={['/courses/this_school/this_course']}>
+        <Route
+          exact
+          path="/courses/:course_school/:course_title"
+          render={location => (
+            <Course
+              {...location}
+              {...props}
+              {...fns}
+            />
+          )}
+        />
+      </MemoryRouter>
     );
     expect(testCourse).to.exist;
   });

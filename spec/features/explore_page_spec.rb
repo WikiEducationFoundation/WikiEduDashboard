@@ -70,7 +70,7 @@ describe 'the explore page', type: :feature, js: true do
     it 'allows navigation to a campaign page' do
       visit '/explore'
       find('#campaigns .table tbody tr:first-child').click
-      expect(current_path).to eq("/campaigns/#{Campaign.first.slug}/programs")
+      expect(current_path).to eq("/campaigns/#{campaign.slug}/programs")
     end
 
     it 'allows navigation to a course page' do
@@ -84,11 +84,10 @@ describe 'the explore page', type: :feature, js: true do
                        title: 'Selfie',
                        namespace: 0)
       create(:articles_course,
-             course_id: 1,
+             course: course,
              article_id: 1)
       create(:revision,
-             id: 1,
-             user_id: 1,
+             user: user,
              article_id: 1,
              date: 6.days.ago,
              characters: 9000)

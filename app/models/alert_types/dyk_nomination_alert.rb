@@ -40,4 +40,10 @@ class DYKNominationAlert < Alert
       nomination. A new alert will be generated if it is nominated again.
     EXPLANATION
   end
+
+  def email_instructors_and_wikipedia_experts
+    return if emails_disabled?
+    DidYouKnowAlertMailer.send_dyk_email(self)
+    update_attribute(:email_sent_at, Time.zone.now)
+  end
 end

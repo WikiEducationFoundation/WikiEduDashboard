@@ -63,8 +63,13 @@
                 %strong
                   = succeed ':' do
                     = t('campaign.organizers')
-                %span
-                  = @campaign.organizers.collect(&:username).join(', ')
+                - @campaign.organizers.each_with_index do |organizer, i|
+                  - if i == @campaign.organizers.count - 1
+                    %a{href: "/users/#{organizer.username}"}= organizer.username
+                  - else
+                    = succeed ', ' do
+                      %a{href: "/users/#{organizer.username}"}= organizer.username
+              
                 %span.pop__container
                   %button.button.border.plus +
                   .pop
@@ -129,7 +134,8 @@
                     = t('campaign.default_passcode')
                 %span.rails_editable-content
                   = @campaign.default_passcode
-
+      %section#campaign_stats
+        #react_root{data: {slug: @campaign.slug}}
       - if @campaign.template_description.present?
         = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
           .section-header

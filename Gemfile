@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '5.2.2'
+gem 'rails', '5.2.3'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -32,17 +32,18 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
+# forked temporarily, pending https://github.com/premailer/premailer/pull/376
+gem 'premailer', git: 'https://github.com/ragesoss/premailer.git'
 gem 'nokogiri' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
-### Survey features, implemented as a rails engine
-# If you want to be able to hack locally on rapidfire,
-# run `export RAPIDFIREHACKINGMODE=true` in your terminal.
-if ENV['RAPIDFIREHACKINGMODE'] == 'true'
-  gem 'rapidfire', path: './vendor/rapidfire'
-else
-  gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
-end
+### Survey and Ticketing features, implemented as a rails engines
+# If you want to be able to hack locally on rapidfire or ticket_dispenser:
+
+# gem 'ticket_dispenser', path: '../TicketDispenser'
+gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
+# gem 'rapidfire', path: './vendor/rapidfire'
+gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
@@ -72,7 +73,7 @@ gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQue
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 gem 'will_paginate' # Used for pagination for Campaign Articles
 gem 'chartkick' # Used for plots in Rails views
-
+gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 
@@ -81,6 +82,10 @@ gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # for those who don't have a native readline utility installed
 gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
+
+### Incoming Mail
+gem 'griddler'
+gem 'griddler-mailgun'
 
 group :development do
   gem 'better_errors'
@@ -99,6 +104,7 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'rails-erd'
   gem 'annotate' # Generates automatic schema notations on model files
+  gem 'faker', require: false # Generates random data for example records
 end
 
 group :development, :test do
@@ -108,6 +114,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec-focused', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-performance', require: false
   gem 'timecop' # Test utility for setting the time
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
@@ -119,7 +126,6 @@ group :test do
   gem 'capybara-screenshot'
   gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
   gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
-  gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false

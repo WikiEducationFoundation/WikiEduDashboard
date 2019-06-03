@@ -21,17 +21,22 @@ describe AlertsController, type: :request do
       described_class.instance_variable_set(:@course, course)
     end
 
-    it 'creates Need Help alert and send email' do
+    it 'creates Need Help alert' do
       post '/alerts', params: alert_params
 
       expect(response.status).to eq(200)
-      expect(ActionMailer::Base.deliveries).not_to be_empty
-      expect(ActionMailer::Base.deliveries.last.to).to include(target_user.email)
-      expect(ActionMailer::Base.deliveries.last.subject)
-        .to include("#{user.username} / #{course.slug}")
-      expect(ActionMailer::Base.deliveries.last.parts[0].body).to include(alert_params[:message])
       expect(NeedHelpAlert.count).to eq(1)
-      expect(NeedHelpAlert.last.email_sent_at).not_to be_nil
+
+      expect(TicketDispenser::Ticket.count).to eq(1)
+
+      ticket = TicketDispenser::Ticket.first
+      expect(ticket.messages.count).to eq(1)
+      expect(ticket.project).to eq(course)
+      expect(ticket.owner).to eq(target_user)
+
+      message = ticket.messages.first
+      expect(message.sender).to eq(user)
+      expect(message.content).to eq('hello?')
     end
 
     it 'renders a 500 if alert creation fails' do

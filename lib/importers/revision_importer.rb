@@ -11,8 +11,12 @@ class RevisionImporter
     @course = course
   end
 
-  def import_new_revisions_for_course
-    import_revisions(new_revisions_for_course)
+  def import_revisions_for_course(all_time:)
+    if all_time
+      import_revisions(all_revisions_for_course)
+    else
+      import_revisions(new_revisions_for_course)
+    end
   end
 
   ###########
@@ -20,7 +24,10 @@ class RevisionImporter
   ###########
   private
 
-  # Given a Course, get new revisions for the users in that course.
+  def all_revisions_for_course
+    get_revisions(@course.students, course_start_date, end_of_update_period)
+  end
+
   def new_revisions_for_course
     results = []
 
@@ -92,7 +99,7 @@ class RevisionImporter
     end
 
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
-    Revision.import @revisions
+    Revision.import @revisions, on_duplicate_key_ignore: true
   end
 
   def process_article_and_revisions(article_data)

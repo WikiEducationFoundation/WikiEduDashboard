@@ -125,6 +125,10 @@ describe WikiAssignmentOutput do
           {{WikiProject Record Production|class=GA|importance=High}}
           }}
           {{findnotice}}
+          {{copied multi|list=
+          * {{Copied multi/Merged-from|Education of the deaf|22 January 2013}}
+          * {{Copied multi/Merged-from|Education for the deaf|22 January 2013}}
+          }}
           {{high traffic|date=17 February 2016|url=/news/article-3450364/Loser-com-redirects-Kanye-s-Wikipedia-page-recent-string-Twitter-rants.html|notlinked=yes|site=Mail Online}}
         KANYEWESTTALK
         output = wiki_assignment_output

@@ -55,6 +55,7 @@ class CourseArticlesCsvBuilder
 
   CSV_HEADERS = %w[
     title
+    rating
     namespace
     wiki
     url
@@ -68,6 +69,7 @@ class CourseArticlesCsvBuilder
 
   def build_row(article_data)
     row = [article_data[:title]]
+    row << article_data[:rating]
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
     row << article_data[:url]

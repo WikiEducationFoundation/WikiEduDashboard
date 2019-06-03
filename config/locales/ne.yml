@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Nirajan pant
 # Author: जनक राज भट्ट
+# Author: पर्वत सुबेदी
 # Author: सरोज कुमार ढकाल
 ---
 ne:
@@ -46,6 +47,8 @@ ne:
     confirm: ठीक छ
     opt_in: हो
     opt_out: होइन
+    opt_yes: छ
+    opt_no: छैन
   dashboard:
     create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
       गर्नुहोस्।
@@ -218,9 +221,9 @@ ne:
     creation_date: सिर्जना गरेको मिति
     creator:
       assignment_end: असाइन्मेन्ट अन्त
-      assignment_end_placeholder: असाइन्मेन्ट अन्त (YYYY-MM-DD)
+      assignment_end_placeholder: (वर्ष-महिना-दिन)
       assignment_start: असाइन्मेन्ट सुरु
-      assignment_start_placeholder: असाइन्मेन्ट सुरु (YYYY-MM-DD)
+      assignment_start_placeholder: (वर्ष-महिना-दिन)
       checking_for_uniqueness: यो पाठ्यक्रम नौलोपनाको लागि जाँच गरिदै छ।
       choose_clone: प्रतिलिपि बनाउनको लगि कुनै पाठ्यक्रम छान्नुहोस्।
       clone_previous: यो भन्दा अगिको पाठ्यक्रम प्रतिलिपी गर्नुहोस्
@@ -239,7 +242,7 @@ ne:
       create_new: नयाँ पाठ्यक्रम सिर्जना गर्नुहोस्
       create_short: पाठ्यक्रम सिर्जना गर्नुहोस्
       end_date: अन्त्य मिति
-      end_date_placeholder: समाप्ति मिति (YYYY-MM-DD)
+      end_date_placeholder: (वर्ष-महिना-दिन)
       expected_number: अपेक्षित विद्यार्थी संख्या
       find: तपाईँको पाठ्यक्रम भेटाउनुहोस्
       no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
@@ -247,7 +250,7 @@ ne:
       role_description_placeholder: प्रशिक्षक, अध्यापन सहायक आदि
       save_cloned_course: नयाँ पाठ्यक्रम सङ्ग्रह गर्नुहोस्
       start_date: सुरु मिति
-      start_date_placeholder: सुरुहुने मिति (YYYY-MM-DD)
+      start_date_placeholder: (वर्ष-महिना-दिन)
       subject: विषय
       update_scheduled: समय तालिका अद्यावधिक भयो। The data will be updated along with
         all current programs during the next update cycle. यसको लागि केही घन्टा लाग्नेछ।
@@ -364,9 +367,9 @@ ne:
     campaign_courses: '%{title} कार्यक्रमहरू'
     creator:
       assignment_end: कार्यक्रम अन्त
-      assignment_end_placeholder: कार्यक्रम अन्त (YYYY-MM-DD)
+      assignment_end_placeholder: (वर्ष-महिना-दिन)
       assignment_start: कार्यक्रम सुरु
-      assignment_start_placeholder: कार्यक्रम सुरु (YYYY-MM-DD)
+      assignment_start_placeholder: (वर्ष-महिना-दिन)
       checking_for_uniqueness: यो कार्यक्रम नौलोपनको लागि जाँच गरिँदै छ।
       choose_clone: प्रतिलिपि बनाउनको लगि कुनै कार्यक्रम छान्नुहोस्।
       clone_previous: यो भन्दा अगिको कार्यक्रम प्रतिलिपी गर्नुहोस्
@@ -492,6 +495,10 @@ ne:
         revoke_button: प्रबन्धक अधिकार हटाउनुहोस्
         revoke_button_confirm: '%{username} बाट प्रबन्धक अधिकार हटाइयो'
         revoking_button_working: हटाउँदै...
+    special_users:
+      new:
+        form_placeholder: प्रयोगकर्ता नाम
+        confirm_add_special_user: एक विशेष प्रयोगकर्ता थप्नुहोस्
   suggestions:
     editing: सम्पादन सुझावहरू
     suggestion_docs:
@@ -625,8 +632,8 @@ ne:
       लागि माफी चाहन्छौँ! यदि यस्तो भइरहे।) लग इन गर्न पुनः प्रयास गर्नुहोस् या फेरि
       समावेश हुनुहोस्।
   survey:
-    login_message: तपाईँको समयको निम्ति धन्यवाद! Please log in to your Wiki Ed dashboard
-      to take the survey.
+    login_message: तपाईको समयको निम्ति धन्यवाद! सर्वेक्षण लिन तपाईको विकि शिक्षा सूचकाङ्क
+      पृष्ठमा प्रवेश गर्नुहोस्।
     email:
       headline: नमस्ते, %{username}
       message_line1: हामी आशा गर्छौँ तपाईँको सत्र राम्रो भयो होला! Wiki Ed is seeking
@@ -642,4 +649,8 @@ ne:
         सुधार गर्न सहयोग गर्छ।
   feedback_form_responses:
     no_responses: कुनै पनि प्रतिक्रिया या सुझावहरू छैनन्।
+  training_status:
+    completed: पूर्ण भयो
+    started: सुरुवात
+    not_started: सुरु भएको छैन
 ...

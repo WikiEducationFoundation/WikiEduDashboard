@@ -1,20 +1,20 @@
-import gulp from 'gulp';
+import { task, dest, src } from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import merge from 'merge-stream';
 import config from '../config.js';
 
 const plugins = loadPlugins();
 
-gulp.task('minify', () => {
+task('minify', () => {
   // Compress Vendor JavaScript
-  const vendor = gulp.src(`${config.outputPath}/${config.jsDirectory}/jquery-uls.js`)
+  const vendor = src(`${config.outputPath}/${config.jsDirectory}/jquery-uls.js`)
     .pipe(plugins.uglify())
-    .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}/`));
+    .pipe(dest(`${config.outputPath}/${config.jsDirectory}/`));
 
   // Minify CSS
-  const css = gulp.src(`${config.outputPath}/${config.cssDirectory}/*.css`)
+  const css = src(`${config.outputPath}/${config.cssDirectory}/*.css`)
     .pipe(plugins.minifyCss())
-    .pipe(gulp.dest(`${config.outputPath}/${config.cssDirectory}`));
+    .pipe(dest(`${config.outputPath}/${config.cssDirectory}`));
 
   return merge(vendor, css);
 });

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_progress_manager"
-require_dependency "#{Rails.root}/lib/training_library"
 require_dependency "#{Rails.root}/lib/data_cycle/training_update"
 
 class TrainingController < ApplicationController
@@ -47,7 +46,7 @@ class TrainingController < ApplicationController
 
   def reload
     render plain: TrainingUpdate.new(module_slug: params[:module]).result
-  rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
+  rescue TrainingBase::DuplicateSlugError,
          TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
          YamlTrainingLoader::InvalidYamlError => e
     render plain: e.message
@@ -60,7 +59,15 @@ class TrainingController < ApplicationController
   end
 
   def add_library_breadcrumb
-    add_breadcrumb params[:library_id].titleize, :training_library_path
+    lib_id = params[:library_id]
+    if Features.wiki_ed?
+      add_breadcrumb lib_id.titleize, :training_library_path
+    else
+      add_breadcrumb(
+        TrainingLibrary.find_by(slug: lib_id)&.translated_name || lib_id.titleize,
+        :training_library_path
+      )
+    end
   end
 
   def add_module_breadcrumb(training_module)

@@ -125,7 +125,9 @@ class WikiAssignmentOutput
       \}\}       # End of a template
       \n         # then a newline
       (?!        # that does not start with
-        \s*      # optional whitespace and
+        \s*      # optional whitespace
+        \*?      # an optional bullet (used in some shell templates)
+        \s*      # optional whitespace, then
         [\{\|\}] # any of these characters: {|}
       )
     /x

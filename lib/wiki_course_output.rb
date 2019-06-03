@@ -52,20 +52,23 @@ class WikiCourseOutput
   def course_details
     # TODO: add support for multiple instructors, multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
-
-    "{{#{template_name(@templates, 'course')}
-     | course_name = #{@course.title}
-     | instructor_username = #{instructor_username}
-     | instructor_realname = #{instructor_realname}
-     | support_staff = #{support_staff_username}
-     | subject = #{@course.subject}
-     | start_date = #{@course.start}
-     | end_date = #{@course.end}
-     | institution = #{@course.school}
-     | expected_students = #{@course.expected_students}
-     | assignment_page = #{@course.wiki_title}
-     | #{@dashboard_url} = yes
-    }}"
+    <<~COURSE_DETAILS
+      {{#{template_name(@templates, 'course')}
+       | course_name = #{@course.title}
+       | instructor_username = #{instructor_username}
+       | instructor_realname = #{instructor_realname}
+       | support_staff = #{support_staff_username}
+       | subject = #{@course.subject}
+       | start_date = #{@course.start}
+       | end_date = #{@course.end}
+       | institution = #{@course.school}
+       | expected_students = #{@course.expected_students}
+       | assignment_page = #{@course.wiki_title}
+       | slug = #{@course.slug}
+       | campaigns = #{@course.campaigns.pluck(:title).join(', ')}
+       | #{@dashboard_url} = yes
+      }}
+    COURSE_DETAILS
   end
 
   def instructor_username

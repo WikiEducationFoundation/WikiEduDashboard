@@ -27,6 +27,8 @@ const getTraining = state => state.training;
 const getValidations = state => state.validations.validations;
 const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
+const getTickets = state => state.tickets;
+
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -124,14 +126,16 @@ export const getFilteredAlerts = createSelector(
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[articleFinder.home_wiki.language]), article.grade)) {
+      const language = articleFinder.home_wiki.language;
+      const project = articleFinder.home_wiki.project;
+      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
         return false;
       }
       let quality;
       if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score);
+        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
       } else if (article.grade) {
-        quality = PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score;
+        quality = PageAssessmentGrades[project][language][article.grade].score;
       } else if (article.revScore) {
         quality = article.revScore;
       } else {
@@ -217,7 +221,33 @@ export const firstValidationErrorMessage = createSelector(
 
 export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isNonstudent) { return false; }
+    if (!user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
+  }
+);
+
+export const getFilteredTickets = createSelector(
+  [getTickets], (tickets) => {
+    const ownerIds = tickets.filters.owners.map(filter => filter.value);
+    const statuses = tickets.filters.statuses.map(filter => parseInt(filter.value));
+
+    let ownerFilter = ticket => ticket;
+    let statusFilter = ticket => ticket;
+    if (ownerIds.length) {
+      ownerFilter = ticket => ownerIds.includes(ticket.owner.id);
+    }
+    if (statuses.length) {
+      statusFilter = ticket => statuses.includes(ticket.status);
+    }
+
+    return tickets.all
+      .filter(ownerFilter)
+      .filter(statusFilter);
+  }
+);
+
+export const getTicketsById = createSelector(
+  [getTickets], (tickets) => {
+    return tickets.all.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
   }
 );

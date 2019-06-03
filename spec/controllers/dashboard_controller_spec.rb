@@ -2,40 +2,54 @@
 
 require 'rails_helper'
 
-describe DashboardController do
+describe DashboardController, type: :request do
   describe '#index' do
     let(:course) { create(:course, end: 2.days.ago) }
     let(:admin) { create(:admin) }
+    let(:user) { create(:user) }
 
-    context 'when the user is not logged it' do
+    context 'when the user is not logged in' do
       it 'redirects to landing page' do
-        get 'index'
+        get '/course_creator'
         expect(response.status).to eq(302)
+      end
+    end
+
+    context 'when the user is logged in' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        create(:courses_user, user_id: user.id, course_id: course.id)
+      end
+
+      it 'returns user and course data as json' do
+        get '/dashboard', as: :json
+        expect(response.body).to include(course.title)
+        expect(response.body).to include(user.username)
       end
     end
 
     context 'when user is an admin' do
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         create(:courses_user, user_id: admin.id, course_id: course.id)
       end
 
       it 'sets past courses to include just-ended ones' do
-        get 'index'
+        get '/course_creator'
         expect(assigns(:pres).past.count).to eq(1)
       end
     end
 
     context 'when the blog is down' do
       before do
-        allow(controller).to receive(:current_user).and_return(admin)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         Rails.cache.clear
       end
 
       it 'sets @blog_posts to empty array' do
         stub_const('DashboardController::BLOG_FEED_URL', 'https://wikiedu.org/not_a_feed')
         VCR.use_cassette 'wikiedu.org/feed' do
-          get 'index'
+          get '/course_creator'
         end
         expect(assigns(:blog_posts)).to eq([])
       end

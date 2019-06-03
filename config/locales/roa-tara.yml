@@ -55,21 +55,37 @@ roa-tara:
     confirm: OK
     opt_in: Sìne
     opt_out: None
+    opt_yes: sìne
+    opt_no: none
   dashboard:
     review_orientation: Oriendamende d'a reviste
+  home:
+    explore: Esplore
   activity:
     all: Attività
     edited_by: Cangiate da
+    label: Attività
   articles:
     assigned: Vôsce assegnate
     assigned_to: Assegnate a
+    filter:
+      wiki_all: Tutte
+      new: Nuève
+      existing: Esistende
+    hide: Scunne
+    history: (cunde)
+    label: Vôsce
     loading: Stoche a careche le vôsce...
+    new: (nuève)
     none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
+    rating: Classe
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
   courses:
+    embed_course_stats: Statisteche d'u corse 'ngapsulate
     please_log_in: Tràse.
+    requested_accounts_alert_view: '''Ndruche'
     update_stats: Aggiorne le statisteche
     user_recent_uploads: Urteme carecaminde
   editable:
@@ -89,8 +105,14 @@ roa-tara:
         revoking_button_working: Stoche a revoche...
         already_is_not: '%{username} non g''è ''n''utende speciale!'
         demote_success: '%{username} jè probbie ''n''utende.'
+  tickets:
+    none: Nisciune ticket
   article_finder:
     show_options: Fà 'ndrucà le opziune
     hide_options: Scunne le opziune
     subheading_message: Acchiame 'na vôsce de Uicchipèdie pe fatià.
+  training_status:
+    completed: Combletate
+    started: Accumenzate
+    not_started: Non accumenzate
 ...

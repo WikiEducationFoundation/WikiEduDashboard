@@ -1,13 +1,18 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { MemoryRouter, Route } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 
-jest.mock('../../../app/assets/javascripts/components/common/notifications.jsx', () => 'Notifications');
+jest.mock('../../../app/assets/javascripts/components/common/notifications.jsx', () => {
+  return function Notifications() {
+    return 'Notifications';
+  };
+});
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 describe('SlideLink', () => {
@@ -22,19 +27,26 @@ describe('SlideLink', () => {
   });
   const TestLink = mount(
     <Provider store={store}>
-      <TrainingSlideHandler
-        loading={false}
-        params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
-      >
-        <SlideLink
-          slideId="foobar"
-          buttonText="Next Page"
-          disabled={false}
-          button={true}
-          params={{ library_id: 'foo', module_id: 'bar' }}
-          onClick={jest.fn()}
+      <MemoryRouter initialEntries={['/training/foo/bar/kittens']}>
+        <Route
+          exact
+          path="/training/:library_id/:module_id/:slide_id"
+          render={({ match }) => (
+            <TrainingSlideHandler
+              loading={false}
+            >
+              <SlideLink
+                slideId="foobar"
+                buttonText="Next Page"
+                disabled={false}
+                button={true}
+                onClick={jest.fn()}
+                params={match.params}
+              />
+            </TrainingSlideHandler>
+          )}
         />
-      </TrainingSlideHandler>
+      </MemoryRouter>
     </Provider>
   );
 

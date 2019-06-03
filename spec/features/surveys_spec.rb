@@ -49,22 +49,22 @@ describe 'Surveys', type: :feature, js: true do
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
 
       # Q2
-      create(:q_checkbox, question_group_id: question_group.id, conditionals: '')
+      q_checkbox = create(:q_checkbox, question_group_id: question_group.id, conditionals: '')
 
       # Q3
       q_radio = create(:q_radio, question_group_id: question_group.id,
-                                 conditionals: '4|=|hindi|multi')
+                                 conditionals: "#{q_checkbox.id}|=|hindi|multi")
       q_radio.rules[:presence] = '0'
       q_radio.save!
 
       # Q4
-      create(:q_long, question_group_id: question_group.id)
+      @q_long = create(:q_long, question_group_id: question_group.id)
 
       # Q5
-      q_select = create(:q_select, question_group_id: question_group.id)
-      q_select.rules[:presence] = '0'
-      q_select.follow_up_question_text = 'Anything else?'
-      q_select.save!
+      @q_select = create(:q_select, question_group_id: question_group.id)
+      @q_select.rules[:presence] = '0'
+      @q_select.follow_up_question_text = 'Anything else?'
+      @q_select.save!
 
       # Q6
       q_select2 = create(:q_select, question_group_id: question_group.id)
@@ -73,14 +73,14 @@ describe 'Surveys', type: :feature, js: true do
       q_select2.save!
 
       # Q7
-      q_short = create(:q_short, question_group_id: question_group.id)
-      q_short.rules[:presence] = '0'
-      q_short.save!
+      @q_short = create(:q_short, question_group_id: question_group.id)
+      @q_short.rules[:presence] = '0'
+      @q_short.save!
       # Q8
-      q_numeric = create(:q_numeric, question_group_id: question_group.id)
-      q_numeric.rules[:maximum] = '500'
-      q_numeric.rules[:minimum] = '1'
-      q_numeric.save!
+      @q_numeric = create(:q_numeric, question_group_id: question_group.id)
+      @q_numeric.rules[:maximum] = '500'
+      @q_numeric.rules[:minimum] = '1'
+      @q_numeric.save!
 
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '',
                           course_data_type: 'Students')
@@ -165,14 +165,14 @@ describe 'Surveys', type: :feature, js: true do
 
       sleep 1
 
-      fill_in('answer_group_6_answer_text', with: 'testing')
+      fill_in("answer_group_#{@q_long.id}_answer_text", with: 'testing')
       within('div[data-progress-index="5"]') do
         click_button('Next', visible: true) # Q4
       end
 
       sleep 1
 
-      select('mac', from: 'answer_group_7_answer_text')
+      select('mac', from: "answer_group_#{@q_select.id}_answer_text")
       within('div[data-progress-index="6"]') do
         click_button('Next', visible: true) # Q5
       end
@@ -185,14 +185,14 @@ describe 'Surveys', type: :feature, js: true do
 
       sleep 1
 
-      fill_in('answer_group_9_answer_text', with: 'testing')
+      fill_in("answer_group_#{@q_short.id}_answer_text", with: 'testing')
       within('div[data-progress-index="8"]') do
         click_button('Next', visible: true) # Q7
       end
 
       sleep 1
 
-      fill_in('answer_group_10_answer_text', with: '50')
+      fill_in("answer_group_#{@q_numeric.id}_answer_text", with: '50')
       within('div[data-progress-index="9"]') do
         click_button('Next', visible: true) # Q8
       end

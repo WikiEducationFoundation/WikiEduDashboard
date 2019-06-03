@@ -73,6 +73,10 @@ class Course < ApplicationRecord
            through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
   has_many :requested_accounts
+  has_many :tickets,
+           class_name: 'TicketDispenser::Ticket',
+           foreign_key: 'project_id',
+           dependent: :destroy
 
   #########################
   # Activity by the users #
@@ -182,7 +186,7 @@ class Course < ApplicationRecord
   # Course content #
   ##################
   has_many :weeks, dependent: :destroy
-  has_many :blocks, through: :weeks, dependent: :destroy
+  has_many :blocks, through: :weeks
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,
@@ -211,6 +215,7 @@ class Course < ApplicationRecord
   before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
+  before_save :set_needs_update
 
   ####################
   # Instance methods #
@@ -270,17 +275,20 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
-  # Overridden for LegacyCourse
+  def wiki_page?
+    wiki_course_page_enabled? && home_wiki.edits_enabled?
+  end
+
   def wiki_title
-    return nil unless wiki_course_page_enabled? && home_wiki.edits_enabled?
-    escaped_slug = slug.tr(' ', '_')
+    return nil unless wiki_page?
+    escaped_slug = slug.tr(' ', '_') # follow MediaWiki page name conventions: undescores for spaces
     "#{home_wiki.course_prefix}/#{escaped_slug}"
   end
 
   # The url for the on-wiki version of the course.
   def url
     # Some courses do not have corresponding on-wiki pages, so they have no wiki_title or url.
-    return unless wiki_title
+    return unless wiki_page?
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
@@ -311,14 +319,44 @@ class Course < ApplicationRecord
     flags[:wiki_edits_enabled]
   end
 
-  # Overidden by ClassroomProgramCourse
+  def edit_settings
+    flags['edit_settings']
+  end
+
+  def edit_settings_present?
+    flags.key?('edit_settings')
+  end
+
+  def wiki_course_page_enabled?
+    edit_settings['wiki_course_page_enabled']
+  end
+
+  # Overridden for some course types
   def assignment_edits_enabled?
-    wiki_edits_enabled?
+    return false unless wiki_edits_enabled?
+    return true unless edit_settings_present?
+    edit_settings['assignment_edits_enabled']
+  end
+
+  def enrollment_edits_enabled?
+    return false unless wiki_edits_enabled?
+    return true unless edit_settings_present?
+    edit_settings['enrollment_edits_enabled']
+  end
+
+  # An extra param added to some wiki output.
+  # Overridden by FellowsCohort.
+  def wiki_template_param
+    nil
   end
 
   # Overidden by ClassroomProgramCourse
   def timeline_enabled?
     flags[:timeline_enabled].present?
+  end
+
+  def online_volunteers_enabled?
+    flags[:online_volunteers_enabled].present?
   end
 
   # Overridden for some course types
@@ -407,5 +445,12 @@ class Course < ApplicationRecord
   # as that of the start time
   def check_course_times
     self.end = start if start > self.end
+  end
+
+  # If the start date changed, set needs_update to `true` so that
+  # the stats will be updated to reflect the new start date
+  # and the earlier revisions will be fetched.
+  def set_needs_update
+    self.needs_update = true if start_changed?
   end
 end

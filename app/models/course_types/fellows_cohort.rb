@@ -50,11 +50,19 @@
 
 class FellowsCohort < Course
   def wiki_edits_enabled?
-    false
+    true
   end
 
   def wiki_course_page_enabled?
     false
+  end
+
+  def assignment_edits_enabled?
+    false
+  end
+
+  def wiki_template_param
+    'scholars-and-scientists'
   end
 
   def string_prefix

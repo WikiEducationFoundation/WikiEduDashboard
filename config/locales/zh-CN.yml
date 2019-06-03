@@ -13,6 +13,7 @@
 # Author: NeverBehave
 # Author: Phenolla
 # Author: Shizhao
+# Author: WDLJT
 # Author: Yanjiazhang
 # Author: Yfdyh000
 ---
@@ -56,6 +57,8 @@ zh-CN:
     confirm: 确定
     opt_in: 是
     opt_out: 否
+    opt_yes: 是
+    opt_no: 否
   dashboard:
     create_note: 点击“创建课程”以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
@@ -922,4 +925,8 @@ zh-CN:
     relevanceIndex: 相关性索引
     assign_article_self: 分配您自己
     unassign_article_self: 取消分配条目
+  training_status:
+    completed: 完成于
+    started: 开始
+    not_started: 入门
 ...

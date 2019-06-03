@@ -25,7 +25,11 @@ class CoursesPresenter
   end
 
   def can_remove_course?
-    @can_remove ||= current_user&.admin? || @campaign.organizers.include?(current_user)
+    @can_remove ||= current_user&.admin? || campaign_organizer?
+  end
+
+  def campaign_organizer?
+    @campaign.organizers.include?(current_user)
   end
 
   def campaigns
@@ -34,6 +38,10 @@ class CoursesPresenter
 
   def courses
     @courses_list
+  end
+
+  def course_count
+    @course_count ||= courses.count
   end
 
   def active_courses
@@ -45,7 +53,7 @@ class CoursesPresenter
       'lower(title) like ? OR lower(school) like ? ' \
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-    )
+    ).distinct
   end
 
   def courses_by_recent_edits
@@ -66,8 +74,33 @@ class CoursesPresenter
     current_user && (current_user.admin? || Features.open_course_creation?)
   end
 
+  COURSE_SUMS_SQL = 'SUM(character_sum), ' \
+                    'SUM(article_count), ' \
+                    'SUM(new_article_count), ' \
+                    'SUM(view_sum), ' \
+                    'SUM(user_count)'
+  def course_sums
+    @course_sums ||= courses.pluck(Arel.sql(COURSE_SUMS_SQL)).first
+  end
+
   def word_count
-    WordCount.from_characters courses.sum(:character_sum)
+    @word_count ||= WordCount.from_characters(course_sums[0] || 0)
+  end
+
+  def article_count
+    course_sums[1] || 0
+  end
+
+  def new_article_count
+    course_sums[2] || 0
+  end
+
+  def view_sum
+    course_sums[3] || 0
+  end
+
+  def user_count
+    course_sums[4] || 0
   end
 
   def course_string_prefix
@@ -76,12 +109,10 @@ class CoursesPresenter
 
   def uploads_in_use_count
     @uploads_in_use_count ||= courses.sum(:uploads_in_use_count)
-    @uploads_in_use_count
   end
 
   def upload_usage_count
     @upload_usage_count ||= courses.sum(:upload_usages_count)
-    @upload_usage_count
   end
 
   def trained_count
@@ -93,8 +124,8 @@ class CoursesPresenter
     100 * trained_count.to_f / user_count
   end
 
-  def user_count
-    courses.sum(:user_count)
+  def creation_date
+    I18n.localize @campaign.created_at.to_date
   end
 
   class NoCampaignError < StandardError; end

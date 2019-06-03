@@ -4,15 +4,20 @@ import List from '../common/list.jsx';
 import SpecialUser from './views/special_user.jsx';
 
 const SpecialUserList = ({ specialUsers, sortBy }) => {
-  const elements = Object.keys(specialUsers).map((position, index) => {
-    const user = specialUsers[position];
+  const users = Object.keys(specialUsers).reduce((acc, position) => {
+    const usersByPosition = specialUsers[position].map(user => ({ ...user, position }));
+    return acc.concat(usersByPosition);
+  }, []);
+
+  const elements = users.map((user, index) => {
     return <SpecialUser
       realname={user.real_name}
       username={user.username}
-      position={position}
+      position={user.position}
       key={index}
     />;
   });
+
   const keys = {
     username: {
       label: 'User Name',

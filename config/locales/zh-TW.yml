@@ -67,6 +67,8 @@ zh-TW:
     confirm: 好
     opt_in: 是
     opt_out: 否
+    opt_yes: 是
+    opt_no: 否
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
@@ -96,6 +98,10 @@ zh-TW:
     article_development: （條目發展）
     assigned: 分配的條目
     available: 尚待分配的條目
+    no_available: 沒有可用的條目
+    next: 下一個
+    previous: 上一個
+    article_title: 條目標題
     assigned_to: 分配給
     character_doc: 從開始到結束日，由登記編輯在條目中增加的位元組總和。 (1 中文字=3 位元組)
     cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用條目的
@@ -156,6 +162,7 @@ zh-TW:
     add_available_submit: 添加條目
     assign_self: 指定自己一個條目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
+    clone: 複製
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除此條目分配作業嗎？
@@ -198,6 +205,17 @@ zh-TW:
     create_campaign: 創建新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
+    data_download_info: 下載競賽資料成 CSV
+    data_courses: 課程概要資料
+    data_courses_info: 各課程/方案的基本指標
+    data_articles: 頁面已編輯
+    data_articles_info: 由競賽所編輯的各追蹤頁面詳情
+    data_instructors: 導師
+    data_instructors_info: 導師/主持者與他們的課程/方案清單
+    data_editors_by_course: 按課程的編輯者
+    data_editors_by_course_info: 已登記編輯者與他們的課程/方案清單
+    data_editor_usernames: 編輯者使用者名稱
+    data_editor_usernames_info: 編輯者使用者名稱清單，一行一個
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
@@ -234,6 +252,8 @@ zh-TW:
   chat:
     label: 聊天
   courses:
+    assignment_edits_enabled: 分配編輯已啟用
+    assignment_edits_enabled_tooltip: 若有啟用，面板會對各分配條目發佈討論頁模板。
     accounts_generation_enabled: 帳號申請產生已啟用
     accounts_generation_explanation: 這將允許參與者輸入他們的電子郵件地址，以及想要的使用者名稱，而不是讓他們自行建立新的帳號。您之後可從此份資訊看板來建立帳號，並同時將他們新增為方案參與者。要使用此功能，您得在用於此方案的主
       wiki 上擁有「帳號建立者」的權限。
@@ -277,9 +297,11 @@ zh-TW:
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
       assignment_end: 分配作業截止
-      assignment_end_placeholder: 作業截止日 (年-月-日，格式 YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 分配作業開始繳交
-      assignment_start_placeholder: 作業繳交開始日 (年-月-日，格式 YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: 取消課程複製
+      cancel_course_clone_confirm: 您確定要停止複製這個課程嗎？
       checking_for_uniqueness: 正在確認是否有重複的課程。
       choose_clone: 選擇一個課程來複製。
       clone_previous: 複製前一個課程
@@ -288,6 +310,7 @@ zh-TW:
         "我的課程沒有休假時段" 。複製完成的時間軸將會隨著不上課時段的星期自動坐相對應的調整。
       clone_successful: 替複製課程更新詳情
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
+      course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_language: 主要使用語言
@@ -298,13 +321,21 @@ zh-TW:
       course_term: 課程學期
       course_term_placeholder: 學期
       course_title: 課程名稱
+      course_types:
+        basic_course_name: 基本方案
+        basic_course_description: 此方案類型會追蹤透過任何參與者對任何條目或主空間頁面所做的編輯。若在方案的主要 wiki 啟用了自動化
+          wiki 編輯，將會自動創建並更新此方案 wiki 版本。
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Edit-A-Thon 方案將會追蹤任何條目或主空間頁面的編輯，按預設不會對此方案做出自動化編輯。
+        article_scoped_program_name: 條目範圍方案
+        article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
+          wiki 編輯。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程
       create_short: 建立課程
-      create_timeline: 請為您的課程建立時間軸。您可以從時間軸分頁來從頭建置，或是使用分配作業精靈來建立基於 Wiki 教育最佳實踐的自定義時間軸。
       end_date: 結束日期
-      end_date_placeholder: 結束日期 (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
       find: 找到您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
@@ -312,12 +343,15 @@ zh-TW:
       new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配作業選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
       no_class_holidays: 我的開課時段沒有遭遇假日
       role_description: 您在課程裡的身份
+      role_description_options:
+      - 導師
+      - 教學助理
       role_description_placeholder: 導師、教學助理、其它
-      separate_event_dates: 指定分別的事項起始/結束時間
+      separate_event_dates: 指定分別的事項起始/結束時間（可選）
       separate_event_dates_info: 此方案的活動統計將會基於以上的日期與時間來追蹤，而您也可以指定分別的事項或方案之起始與結束時間（例如：讓參與者能夠知道何時露面或何時聚會結束）。
       save_cloned_course: 儲存新的課程
       start_date: 開始日期
-      start_date_placeholder: 開始日期 (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: 領域主題
       update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
     current: 目前的課程
@@ -343,12 +377,16 @@ zh-TW:
     duration: 開課期間
     edit_count: 編輯次數
     edit_course_dates: 編輯課程日期
+    embed_course_stats: 內嵌課程統計
+    embed_course_stats_description: 要替在其它網站的此方案內嵌統計內容，請複製貼上此代碼段落資訊
     enable_account_requests: 啟用帳號申請
     enable_chat: 啟用聊天
     end: 結束
     ended: 課程已結束。
     enroll: 登記
     enrollment: 添加/移除學生
+    enrollment_edits_enabled: 登記編輯已啟用
+    enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入方案的各編者發佈使用者頁面與討論頁模板。
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
@@ -372,6 +410,7 @@ zh-TW:
     invitation_username_advice: 若您尚未有維基百科帳號，可以現在註冊。您的使用者名稱可以是匿名、或是可作為個人識別，一切都依您個人意願決定（注意請不要將帳號分享給別人使用。）
     join: 加入
     join_course: 加入課程
+    join_course_as_volunteer: 協助的志工
     join_prompt: 加入'%{title}'嗎？
     join_successful: 您已成功加入 %{title}。控制面板將會週期更新來自動追蹤您的貢獻，可讓您日後查看您做出了哪些重要影響！
     join_failed: 登記失敗。
@@ -407,6 +446,8 @@ zh-TW:
     not_permitted: 您不被允許編輯此課程。
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派培訓模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
+    online_volunteers_enabled: 線上志工已啟用
+    online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
     overview: 首頁
     passcode: 選課代碼
@@ -419,6 +460,10 @@ zh-TW:
       學生可透過此 URL 登記課程：
     rating_feedback: 該條目的預估評級為：
     requested_accounts: 申請的帳號
+    requested_accounts_alert:
+      one: '%{count} 個請求帳號待定中。'
+      other: '%{count} 個請求帳號待定中。'
+    requested_accounts_alert_view: 檢視
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
@@ -483,6 +528,8 @@ zh-TW:
     warn_mirrored: |-
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
+    wiki_course_page_enabled: Wiki 課程頁面已啟用
+    wiki_course_page_enabled_tooltip: 若有啟用，無論方案或使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
     wiki_edits_enabled: 已啟用 wiki 編輯
     wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
       wiki 編輯。
@@ -509,9 +556,11 @@ zh-TW:
     campaign_courses: '%{title}方案'
     creator:
       assignment_end: 事項結束
-      assignment_end_placeholder: 事項結束（年-月-日）
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 事項起始
-      assignment_start_placeholder: 事項起始（年-月-日）
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: 取消方案複製
+      cancel_course_clone_confirm: 您確定要停止複製這個方案嗎？
       checking_for_uniqueness: 正在確認是否有重複的方案。
       choose_clone: 選擇一個方案來複製。
       clone_previous: 複製前一個方案
@@ -519,6 +568,7 @@ zh-TW:
       clone_successful: 方案成功複製
       clone_successful_details: 您的方案已複製。請點擊下方的「儲存」來結束流程。
       course_when: 添加一些內容在「何時」欄位（例如：年份和月份）來和初始項目做區分。
+      course_dates_info: 輸入您方案的起始和結束日期。您可能會想在主要活動結束後延長數小時或數天，來包含到出現在事項後不久的相關編輯。
       course_description: 方案描述
       course_description_placeholder: 此方案是什麼？另外參與者會在 wiki 上做些什麼？請包含足夠的詳細內容，讓其他編者能有充分理解的感覺，來方便參與者做出貢獻。
       course_school: 機構
@@ -618,7 +668,7 @@ zh-TW:
     user_ns: 使用者
   recent_activity:
     active_courses: 條目使用於
-    article_title: 文章標題
+    article_title: 條目標題
     datetime: 日期/時間
     did_you_know_eligible: 符合 "您知道嗎" 資格
     image: 圖片
@@ -652,6 +702,9 @@ zh-TW:
     title: 標題
     view_on_wiki: 在 Wiki 檢視差異
     see_more: 查看更多
+  resources:
+    label: 資源
+    header: 資源與培訓
   settings:
     admin_users:
       new:
@@ -703,6 +756,8 @@ zh-TW:
     conseq: 課題 %{task}已在進行！
     constant: 當 update_daily 執行時課題 %{task}無法進行。
     paused: 因為排程更新已被暫停，使得課題 %{task}無法執行。執行 "rake batch:resume" 來還原更新。
+  tickets:
+    none: 無許可
   timeline:
     add_week: 增加週
     arrange_timeline: 安排時間軸
@@ -729,6 +784,8 @@ zh-TW:
     discard_all_changes: 放棄所有更改
     delete_timeline_and_start_over: 刪除時間軸
     due_default: 下週到期
+    edit_titles: 編輯週標題
+    edit_titles_info: 在時間軸上編輯週標題。自訂標題僅可提供給帶有預定會議的週。如果使用了任何自訂標題，會以日期取代編號來標註沒有會議的週。
     empty_week_1: 要開始，
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
@@ -743,6 +800,8 @@ zh-TW:
     no_timeline: 此課程沒有時間軸。
     no_activity_this_week: 本週沒有預訂的會議
     nothing_this_week: 這星期的行事曆沒有任何活動。
+    reset_titles: 重設成預設值
+    reset_titles_confirmation: 您確定您要重新設定所有週標題嗎？此操作為不可回復。
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸
@@ -802,6 +861,7 @@ zh-TW:
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
+    edits: 編輯次數
     edits_by: 編輯由：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
@@ -829,6 +889,7 @@ zh-TW:
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     reviewers: 審查者
     reviewing: 審查中
+    sandboxes: 沙盒
     total_uploads: 上傳總數
     training_complete:
       one: 最新培訓
@@ -847,6 +908,7 @@ zh-TW:
     user_no_training_status: 此使用者尚未完成任何培訓模組
     up_to_date_with_training: 最近培訓
     uploads_doc: 上傳到維基共享資源的檔案數量
+    ungreeted: 不歡迎
     username: 使用者名稱
     username_placeholder: 使用者名稱
     useremail_placeholder: 電子郵件
@@ -867,6 +929,7 @@ zh-TW:
     bio_placeholder: 添加您的個人自傳（可選）
     location_placeholder: 添加您的位置（可選）
     institution_placeholder: 機構名稱（可選）
+    image_link_placeholder: 添加連結到圖片（可選）
   wiki_edits:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
@@ -976,4 +1039,10 @@ zh-TW:
     relevanceIndex: 關聯索引
     assign_article_self: 分配給您自己
     unassign_article_self: 取消分配條目
+  training_status:
+    completed: 已完成
+    started: 已開始
+    not_started: 尚未開始
+    due: 截止 %{due_date}
+    assignment_status: 培訓分配（%{status}）
 ...

@@ -7,6 +7,7 @@
 # Author: Einreiher
 # Author: Greis
 # Author: Macofe
+# Author: Marcok
 # Author: Martinligabue
 # Author: Matteocng
 # Author: Nemo bis
@@ -17,11 +18,22 @@
 # Author: Wikitoni
 ---
 it:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Questo è un campo numerico. I bottoni visualizzati dalla maggior
       parte dei browser aumentano e diminuiscono il numero inserito.
   application:
     cancel: Annulla
+    create_accounts: Crea utenze di Wikipedia
     dashboard: Cruscotto Wiki Ed
     documentation: Documentazione
     error: 'Si è verificato un errore:'
@@ -29,6 +41,8 @@ it:
     field_required: Questo campo è obbligatorio
     field_invalid_characters: Questo campo contiene caratteri non validi
     field_invalid_date: Questo campo richiede una data nel formato YYYY-MM-DD
+    field_invalid_date_time: La fine deve essere dopo l'inizio (le ore vanno di 0
+      a 23.)
     greeting2: Benvenuto/a!
     greeting_extended: Benvenuto su Wikipedia
     greeting: Ciao!
@@ -40,10 +54,13 @@ it:
     my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
     report_problem: Segnala un problema
-    search: chiedi una domanda
+    request_account: Richiedi utenza
+    request_account_create: Crea una nuova utenza
+    search: fai una domanda
     search_results: 'Risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
+    sign_up_wikipedia: Oppure fai login su Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
     submit: Invia
@@ -53,31 +70,62 @@ it:
     confirm: OK
     opt_in: Sì
     opt_out: "No"
+    opt_yes: sì
+    opt_no: "no"
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
+    create_preparation_note: Assicurati di avere il tuo calendario accademico a portata
+      di mano prima di iniziare; lo strumento di progettazione dell'assegnazione utilizzerà
+      le date della incontro della tua classe, comprese eventuali interruzioni della
+      scuola e festività, per adattare la tua cronologia all'intervallo di date che
+      scegli. Ricorda, puoi sempre modificare la sequenza temporale in base alle tue
+      esigenze.
     explore_course_pages: Esplora le pagine del corso
     explore_examples: Esplora esempi
     join_note: Una volta che ricevi il codice di accesso dal tuo insegnante, clicca
       su "Trova il tuo corso" per trovarlo e unirti ad esso.
     no_courses_instructor: Sembra che tu non abbia alcun corso.
     no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
+    opt_out: Richiedi di essere escluso dall'orientamento
+    orientation_notice: Prima che tu crei un corso, passiamo per l'orientamento per
+      aiutarti ad iniziare (richiede circa 30 minuti per essere completato).
     review_orientation: Esamina orientamento
     start_orientation: Inizia orientamento
     blog_headline: Notizie recenti da Wiki Education
+    about_programs: 'Questo sito tiene traccia delle attività wiki attraverso i Programmi:
+      singoli eventi come un edit-a-thon o un corso scolastico. Ogni programma fa
+      parte di una o più Campagne, che forniscono statistiche aggregate su tutti i
+      programmi.'
+    about_creating_programs: Se stai eseguendo un unico evento indipendente, puoi
+      creare ora un Programma. Se il tuo evento è parte di qualcosa più grande, trova
+      o crea la Campagna per esso; puoi quindi creare un Programma nuovo dalla pagina
+      della Campagna.
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
     sign_up: Registrati con Wikipedia
+    sign_up_help: Per utilizzare il pannello di controllo, dovrai fare login tramite
+      Wikipedia e fornire autorizzazione per accedere alla tua utenza. Puoi accedere
+      con una utenza esistente di Wikipedia o crearne una nuova.
   activity:
     all: Attività
     edited_by: Modificato da
     label: Attività
   articles:
+    article_development: (sviluppo della voce)
     assigned: Voci assegnate
     available: Voci disponibili
+    no_available: Non ci sono voci disponibili
+    next: Successivo
+    previous: Precedente
+    article_title: Titolo della voce
     assigned_to: Assegnato a
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
+    cross_wiki_tracking: Di seguito sono elencate le pagine del namespace principale
+      modificate tra le date di inizio e fine. Il pannello fornisce contributi dalla
+      home wiki di questo programma, insieme a qualsiasi altra wiki per la quale c'è
+      un'Assegnazione o una voce disponibile.
     deleted: (cancellato)
     edited: Voci modificate
     edited_by: 'Modificato da:'
@@ -94,6 +142,10 @@ it:
     new: (nuovo)
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
+    rating_doc: La valutazione che è stata assegnata a una voce dai wiki-Progetti
+      su Wikipedia. Queste valutazioni possono corrispondere a versioni molto più
+      vecchie, pertanto sono solo un indicatore approssimato della maturità della
+      voce.
     rating_docs:
       fa: '%{class} (Voce in vetrina) — la più alta valutazione di Wikipedia, probabilmente
         una voce troppo matura per un nuovo editor del progetto principale'
@@ -111,11 +163,14 @@ it:
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
       does_not_exist: Questa voce non esiste su Wikipedia
+    see_more: Vedi di più
+    show_cumulative_changes: Mostra cambiamenti cumulativi
     show_current_version: Mostra versione attuale
     show_current_version_with_authorship_highlighting: Versione attuale con evidenziazione
       degli autori
     title: Titolo
     title_example: Titolo della voce
+    tools: Strumenti di valutazione
     view: Visualizza voce
     view_all: Mostra tutto
     view_doc: La somma di tutte le visite ad ogni voce durante il progetto
@@ -142,8 +197,10 @@ it:
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
+    assign_tooltip: Una voce assegnata è quella che pianifichi di creare o migliorare.
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
+    confirm_deletion: Sei sicuro di volere cancellare la valutazione di questa voce?
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
@@ -151,36 +208,102 @@ it:
     no_available: Questo corso non ha voci disponibili.
     remove: Rimuovi
     reviewers: Revisori
+    review_other: Assegna una revisione
     review_self: Revisiona una voce
+    review_tooltip: Serve per tenere traccia di quale voce/i pianifichi di far revisionare
+      tra pari o fornire riscontri.
     select: Seleziona
+  blocks:
+    milestones:
+      title: Traguardi
   campaign:
     active_campaigns: Campagne attive
     add_organizer: Aggiungi organizzatore
+    alert_article: Titolo della voce
+    alert_label: Avvisi della Campagna
+    alert_select_label: Filtra per tipo di avviso
     alert_type: Tipo
     alert_user_id: Utente
     all_campaigns: Tutte le campagne
+    already_exists: Questa campagna esiste già! Riprova con un titolo o termine differente.
     campaign: Campagna
     campaigns: Campagne
+    campaign_deleted: La Campagna "%{title}" è stata cancellata
+    campaign_not_updated: Non è stato possibile aggiornare la campagna
     campaign_updated: Campagna aggiornata
     created_at: Data
+    confirm_campaign_deletion: Sei sicura/o di voler cancellare la campagna chiamata
+      %{title}? Se è così, scrivi il titolo della campagna per procedere.
+    confirm_campaign_deletion_failed: '"%{title}" non è il titolo di questa campagna.
+      La campagna non è stata cancellata.'
+    confirm_course_removal: Sei sicura/o di volere rimuovere "%{title}" dalla campagna
+      "%{campaign_title}" ?
+    course_already_removed: '"%{title}" è già stato rimosso della campagna "%{campaign_title}"'
     course: Corso
+    course_removed: '"%{title}" è stato rimosso dalla campagna "%{campaign_title}"'
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
+    customize_passcode: un codice di accesso di default
+    data_articles: Pagine modificate
+    data_instructors: Insegnanti
+    default_course_type: Tipo di corso di default
+    default_passcode: Codice di accesso di default
+    default_passcode_explanation: 'Di default, i nuovi programma di questa campagna
+      devono avere:'
     description: Descrizione
     delete_campaign: Cancella questa campagna
+    disable_account_requests: Disattiva richieste di account
+    enable_account_requests: Attiva richieste di account
+    no_alerts: Questa campagna non ha avvisi
+    no_passcode: nessun codice di accesso
     none: Nessuno
+    organizers: Organizzatori
+    organizer_added: Adesso %{user} è un organizzatore della campagna "%{title}"
+    organizer_removed: '%{user} è stato rimosso dagli organizzatori della campagna
+      "%{title}"'
+    program_template: Template del programma
+    program_template_tooltip: Quando un organizzatore crea un programma in questa
+      campagna, il testo di quest'area verrà copiato come descrizione nella pagina
+      del programma
+    random_passcode: un codice di accesso a caso
+    requested_accounts: Richiedi utenza
     title: Titolo
+    use_start_end_dates: Usa date di inizio e fine
   categories:
+    add_category: Aggiungi categoria
     add_template: Aggiungi template
+    add_this_category: Aggiungi questa categoria
     add_this_template: Aggiungi questo template
+    confirm_category_addition: Confermi che vuoi monitorare i contributi relativi
+      alla categoria "%{name}"?
+    confirm_template_addition: Confermi che vuoi monitorare i contributi relativi
+      al template "%{name}"?
+    depth: Profondità delle sottocategorie
     name: Nome
     category_name: Nome della categoria
     template_name: Nome template
+    none: Non c'è alcuna categoria monitorata.
+    remove: Rimuovi
+    tracked_categories: Categorie e template monitorati
   chat:
     label: Chat
   courses:
+    assignment_edits_enabled: Abilitata assegnazione dei contributori
+    assignment_edits_enabled_tooltip: Se abilitato, il pannello pubblicherà un template
+      nella pagina di discussione per ciascuna voce assegnata.
+    accounts_generation_enabled: Generazione di account attivata
+    accounts_generation_explanation: Ciò consentirà ai partecipanti di inserire il
+      loro indirizzo email e il nome utente desiderato, invece di creare nuovi account.
+      Sarai quindi in grado di creare gli account da questa Dashboard e aggiungerli
+      simultaneamente come partecipanti al programma. Per usare questa funzione, dovresti
+      avere il permesso di 'creatore di account' sulla home wiki per questo programma.
+    accounts_generation_confirm_message: Confermi che vuoi attivare le richieste di
+      account?
     activity: Attività
     active_courses: '%{course_type} attivo/a'
+    add_trainings: Si prega di aggiungere formazione per gli studenti alla tempistica
+      dell'assegnazione. L'assegnazione di moduli di formazione è una parte essenziale
+      delle migliori pratiche di contribuzione su Wikipedia.
     alerts: Avvisi
     all_courses: Tutti i corsi
     already_enrolled: Fai già parte di '%{title}'!
@@ -203,22 +326,37 @@ it:
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
     campaigns: 'Campagne:'
+    campaign_articles: '%{title} voci'
+    campaign_courses: '%{title} corsi'
     campaign_select: Seleziona una campagna
+    campaign_users: '%{title} contributori'
     confirm_course_deletion: Cancellare il corso intitolato %{title}? Scrivi il titolo
       del corso per procedere.
     confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
       corso non è stato cancellato.'
+    confirm_manual_update: Confermi di voler eseguire un aggiornamento manuale? Le
+      revisioni più recenti verranno importate e quindi la pagina verrà ricaricata.
+      Questo processo potrebbe richiedere tempo.
     course: Corso
+    course_dates_calendar_instructions: Seleziona date per aggiungerle o toglierle
+      del calendario (per esempio, vacanze, niente scuola). Fai clic nella data per
+      cambiare tra gli stati «non selezionati», «selezionato» e «vacanze». Le date
+      delle attività del corso cambieranno per dare conto delle settimane che non
+      hanno incontri programmati.
     course_description: Corsi
     courses: Corsi
+    courses_taught: Corsi impartiti
     creation_date: Data di creazione
     creator:
       already_exists: Questo corso già esiste. Prova a cambiare il nome, la scuola
         o il termine per renderlo unico.
       assignment_end: Fine assegnazione
-      assignment_end_placeholder: Fine assegnazione (YYYY-MM-DD)
+      assignment_end_placeholder: AAAA-MM-GG
       assignment_start: Inizio assegnazione
-      assignment_start_placeholder: Inizio assegnazione (YYYY-MM-DD)
+      assignment_start_placeholder: AAAA-MM-GG
+      cancel_course_clone: Cancella il corso clone
+      cancel_course_clone_confirm: Sei sicuro di voler fermare la clonazione di questo
+        corso?
       checking_for_uniqueness: Controllo dell'unicità di questo corso in esecuzione.
       choose_clone: Scegli un corso da clonare.
       clone_previous: Clona corso precedente
@@ -233,56 +371,148 @@ it:
         cronologia degli eventi (settimane e blocchi). Assicurati di aggiungere le
         date, che non sono riportate. È stato cambiato altro del tuo corso? Non esitare  ad
         aggiornarlo.
+      course_dates_info: Inserisci le date di inizio e di fine del corso. Nella fase
+        successiva, puoi scegliere quando iniziare l'assegnazione di Wikipedia entro
+        quel periodo di tempo.
       course_description: Descrizione del corso
+      course_description_placeholder: Cosa è trattato nel tuo corso e che faranno
+        gli studenti su Wikipedia? Per favore includi abbastanza dettagli per fornire
+        agli altri contributori di Wikipedia un contesto per i contributi che faranno
+        i tuoi studenti.
       course_language: Lingua principale
+      course_private: Programma privato (visibile solo da amministratori e facilitatori)
       course_project: Progetto pricipale
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
       course_term_placeholder: Termine
       course_title: Titolo del corso
+      course_types:
+        basic_course_name: Programma di base
+        basic_course_description: Questo tipo di programma tiene traccia delle modifiche
+          apportate a qualsiasi voce (o pagina nel namespace principale) da parte
+          di qualsiasi partecipante. Se le modifiche automatiche del wiki sono abilitate
+          sulla home wiki del programma, allora verrà creata e aggiornata automaticamente
+          una versione su wiki di questo programma.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Un programma Edit-A-Thon terrà traccia delle modifiche
+          su qualsiasi voce o pagina nel namespace principale. Per impostazione predefinita,
+          per questo programma non verranno apportate modifiche automatiche.
+        article_scoped_program_name: Programma per creare/modificare voci
+        article_scoped_program_description: Questo tipo di programma monitora solo
+          le modifiche per voci o categorie assegnate. Utilizza questo tipo se desideri
+          limitare le statistiche a una raccolta nota di voci o aree tematiche. Per
+          impostazione predefinita, le modifiche wiki automatiche sono attive.
       create_button: Crea il mio corso!
       create_label: Crea nuovo corso
       create_new: Crea un nuovo corso
       create_short: Crea corso
       end_date: Data di fine
-      end_date_placeholder: Data di fine (YYYY-MM-DD)
+      end_date_placeholder: AAAA-MM-GG
       expected_number: Numero previsto di studenti
       find: Trova il tuo corso
       intro: Il titolo, la scuola, e la durata creano l'URL della pagina del tuo corso,
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
         per la tua assegnazione Wikipedia.
+      new_or_clone: ÈOra è possibile creare un nuovo corso utilizzando la procedura
+        guidata di progettazione del compito. Se si dispone di un calendario altamente
+        personalizzato da un corso precedente che si desidera riutilizzare, è possibile
+        clonarne una copia con nuove date (se non hai personalizzato in modo significativo
+        il tuo calendario in precedenza, ti consigliamo di iniziare un nuovo corso
+        in modo da avere le versioni più aggiornate delle opzioni di assegnazione.)
+        Puoi anche usare l'opzione clone per creare sezioni aggiuntive per un corso
+        che hai già impostato.
+      no_class_holidays: Non ho vacanze di classe
       role_description: Il tuo ruolo nel corso
+      role_description_options:
+      - Insegnante
+      - Assistente all'insegnamento
       role_description_placeholder: Istruttore, assistente didattico, ecc
+      separate_event_dates: Specifica delle date separate di inizio/fine dell'evento
+        (opzionale)
+      separate_event_dates_info: Le statistiche delle attività di questo programma
+        verranno monitorate in base alle date e alle ore precedenti, ma è possibile
+        specificare orari separati per quando l'evento o il programma stesso inizia
+        e termina (ad esempio, in modo che i partecipanti sappiano quando farsi vedere
+        o quando la sede chiude).
       save_cloned_course: Salva nuovo corso
       start_date: Data di inizio
-      start_date_placeholder: Data di inizio (YYYY-MM-DD)
+      start_date_placeholder: AAAA-MM-GG
       subject: Oggetto
+      update_scheduled: Aggiornamento programmato. I dati verranno aggiornati insieme
+        a tutti i programmi correnti durante il prossimo ciclo di aggiornamento. Questo
+        in genere richiede diverse ore.
     current: Corsi attuali
+    data_articles: Dati delle voci
+    data_articles_info: I dati delle voci comprendono il numero di modifiche a ciascuna
+      pagina, quali pagine sono nuove e i totali di pagine visualizzate. Questi valori
+      di visualizzazione di pagina potrebbero non essere aggiornati per i corsi che
+      sono già terminati, pertanto è incluso un URL dello strumento Visualizzazione
+      di pagina di WMF Tool Labs.
+    data_download_info: Scarica dati in formato CSV.
+    data_overview: Dati generali
+    data_overview_info: I dati generali comprendono le statistiche cumulative di tutto
+      il progetto.
+    data_edits: Dati dei contributi
+    data_edits_info: I dati dei contributo mostrano dettagli per ciascun contributo
+      eseguito durante il progetto.
+    data_students: Dati dei contributori
+    data_students_info: I dati dei contributori elencano tutti i partecipanti abilitati,
+      quanto hanno contribuito e se hanno registrato il proprio account durante il
+      progetto.
+    data_uploads: Dati dei caricamenti su Commons
+    data_uploads_info: I dati dei caricamenti su Commons mostrano il nome e il totale
+      dell'uso del caricamento di ogni file multimediale.
     delete_course: Cancella corso
     delete_suggestion: Cancella
+    delete_course_instructions: Puoi eliminare questa pagina se tutte le campagne
+      vengono prima eliminate.
     dismiss_survey: Nascondi
     dismiss_survey_confirm: Sei sicuro di voler nascondere definitivamente questo
       sondaggio?
+    download_stats_data: Scarica statistiche
+    does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
+      per ricevere suggerimenti.
     duration: Durata del corso
+    edit_count: Contatore di modifiche
     edit_course_dates: Modifica date del corso
+    embed_course_stats: Includi statistiche corso
+    embed_course_stats_description: Per includere le statistiche di questo programma
+      in un altro sito web, copia e incolla questo codice
+    enable_account_requests: Attiva richieste di account
     enable_chat: Attiva chat
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
     enrollment: Aggiungi/rimuovi studenti
+    enrollment_edits_enabled: Abilitata assegnazione dei contributi
+    enrollment_edits_enabled_tooltip: Se abilitato, la dashboard pubblicherà un template
+      nella pagina utente e nella pagina di discussione di ciascun contributore che
+      partecipa al programma.
+    courses_enrolled: Corsi abilitati
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
       invalid_language_or_project: Lingua/progetto non valido
+      invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
     expected_students: Studenti previsti
+    features_feedback: 'Suggerimenti automatizzati:'
     feedback: Feedback
+    feedback_loading: Attendi mentre si caricano i suggerimenti…
+    gradeables_none: Questo corso non ha compiti qualificabili.
+    home_wiki_language: Lingua wiki di origine
+    home_wiki_project: Progetto wiki di origine
     instructor:
       one: Insegnante
       other: Insegnanti
     instructors: Insegnanti
+    invitation: Ti hanno invitato ad unirti a %{title}. Per partecipare al corso,
+      devi accedere con un nome utente di Wikipedia.
+    invitation_username_advice: Se ancora non hai un'utenza su Wikipedia, registrane
+      una nuova adesso. Il tuo nome utente può essere anonimo o identificarti personalmente
+      a seconda di come preferisci (non sono ammessi account condivisi).
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
     join_successful: Hai aderito con successo a %{title}. Il cruscotto terrà automaticamente
@@ -379,9 +609,9 @@ it:
     campaigns: 'Campagne:'
     creator:
       assignment_end: Fine evento
-      assignment_end_placeholder: Fine evento (YYYY-MM-DD)
+      assignment_end_placeholder: AAAA-MM-GG
       assignment_start: Inizio evento
-      assignment_start_placeholder: Inizio evento (YYYY-MM-DD)
+      assignment_start_placeholder: AAAA-MM-GG
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       choose_clone: Scegli un programma da clonare.
       clone_previous: Clona programma precedente
@@ -582,6 +812,7 @@ it:
     contributions_history_full: Vedi la cronologia completa dei contributi
     contributions_more: Visualizza Ulteriori Contributi
     editors: Contributori
+    edits: modifiche
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
     enroll_url: 'Gli utenti possono partecipare visitando questo URL:'
     enrolled_success: '%{username} è stato aggiunto con successo!'
@@ -636,6 +867,7 @@ it:
     bio_placeholder: Aggiungi la tua biografia (opzionale)
     location_placeholder: Aggiungi la tua posizione (opzionale)
     institution_placeholder: Nome dell'istituto (opzionale)
+    image_link_placeholder: Aggiungi collegamento all'immagine (opzionale)
   wiki_edits:
     notify_overdue:
       confirm: Questo posterà un promemoria sulle pagine di discussione di tutti gli
@@ -713,4 +945,8 @@ it:
     category_search: Ricerca per categoria
     subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
+  training_status:
+    completed: Completato
+    started: Iniziato
+    not_started: Non iniziato
 ...

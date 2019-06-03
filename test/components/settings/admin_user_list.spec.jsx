@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from 'enzyme';
+import { mount } from 'enzyme';
 
 import '../../testHelper';
 import AdminUserList from '../../../app/assets/javascripts/components/settings/admin_users_list.jsx';
@@ -8,7 +8,7 @@ import AdminUserList from '../../../app/assets/javascripts/components/settings/a
 describe('AdminUserList', () => {
   it('renders a List component with correct elements', () => {
     const expectedAdminUsers = [{ id: 1, username: 'testUser', real_name: 'real name', permissions: 3 }];
-    const renderedList = render(
+    const renderedList = mount(
       <Provider store={reduxStore}>
         <AdminUserList adminUsers={expectedAdminUsers} />
       </Provider>

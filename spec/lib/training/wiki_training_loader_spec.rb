@@ -2,9 +2,14 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training/wiki_training_loader"
-require "#{Rails.root}/lib/training_library"
 
 describe WikiTrainingLoader do
+  before do
+    TrainingModule.destroy_all
+    TrainingSlide.destroy_all
+    TrainingLibrary.destroy_all
+  end
+
   describe '#load_content' do
     before do
       allow(Features).to receive(:wiki_trainings?).and_return(true)
@@ -136,6 +141,22 @@ describe WikiTrainingLoader do
         VCR.use_cassette 'training/load_from_wiki' do
           libraries = subject.load_content
           expect(libraries.first.slug).not_to be_empty
+        end
+      end
+    end
+
+    describe 'for libraries' do
+      let(:content_class) { TrainingLibrary }
+
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/libraries-dev')
+      end
+
+      it 'loads translated content' do
+        VCR.use_cassette 'training/load_from_wiki' do
+          content_class.load
+          expect(content_class.last.translations.key?('de')).to eq(true)
         end
       end
     end

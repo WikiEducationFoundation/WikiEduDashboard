@@ -3,9 +3,9 @@
 #= Controller for requesting new wiki accounts and processing those requests
 class RequestedAccountsController < ApplicationController
   respond_to :html
-  before_action :set_course
+  before_action :set_course, except: [:index, :create_all_accounts]
   before_action :check_creation_permissions,
-                only: %i[index create_accounts enable_account_requests destroy]
+                only: %i[show create_accounts enable_account_requests destroy]
 
   # This creates (or updates) a RequestedAccount, which is a username and email
   # for a user who wants to create a wiki account (but may not be able to do so
@@ -42,8 +42,20 @@ class RequestedAccountsController < ApplicationController
     @course.save
   end
 
+  # List of requested accounts for a user's courses. @courses set in before action
+  def index
+    raise_unauthorized_exception unless user_signed_in? && current_user.admin?
+    respond_to do |format|
+      format.html do
+        @courses = all_requested_accounts
+        render
+      end
+      format.json { render json: { requested_accounts: RequestedAccount.any? } }
+    end
+  end
+
   # List of requested accounts for a course.
-  def index; end
+  def show; end
 
   def destroy
     # raise exception unless requestedaccount belongs to course
@@ -62,7 +74,19 @@ class RequestedAccountsController < ApplicationController
     end
   end
 
+  def create_all_accounts
+    raise_unauthorized_exception unless user_signed_in? && current_user.admin?
+    @courses = all_requested_accounts
+    @results = RequestedAccount.all.map { |account| create_account(account) }
+
+    render :index
+  end
+
   private
+
+  def all_requested_accounts
+    RequestedAccount.all.includes(:course).group_by { |account| account.course.title }
+  end
 
   def create_account(requested_account)
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
@@ -70,7 +94,9 @@ class RequestedAccountsController < ApplicationController
     return result unless result[:success]
     # If it was successful, enroll the user in the course
     user = creation_attempt.user
-    JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+    JoinCourse.new(course: requested_account.course,
+                   user: user,
+                   role: CoursesUsers::Roles::STUDENT_ROLE)
     result
   end
 

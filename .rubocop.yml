@@ -1,6 +1,7 @@
 require:
   - rubocop/rspec/focused
   - rubocop-rspec
+  - rubocop-performance
 Documentation:
   Enabled: false
 AllCops:
@@ -89,7 +90,9 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
 Layout/TrailingWhitespace: # To disallow trailing whitespaces
   Enabled: true
-
+Layout/AlignHash:
+  Enabled: false # Hashes look uglier when corrected
+  
 ########################
 # Temporary exceptions #
 ########################
@@ -114,8 +117,6 @@ Rails/InverseOf:
   Enabled: false
 Rails/UnknownEnv:
   Enabled: false
-Performance/RegexpMatch:
-  Enabled: false
 Rails/Delegate:
   Enabled: false
 Rails/HasAndBelongsToMany:
@@ -125,8 +126,6 @@ Rails/Validation:
 Rails/FindBy:
   Enabled: false
 Rails/Output:
-  Enabled: false
-Lint/DuplicateMethods:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
@@ -177,8 +176,6 @@ RSpec/MultipleDescribes:
 RSpec/ExampleWording:
   Enabled: false
 RSpec/Be:
-  Enabled: false
-Layout/AlignHash:
   Enabled: false
 Style/DateTime:
   Enabled: false

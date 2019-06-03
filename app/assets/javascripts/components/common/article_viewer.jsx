@@ -79,7 +79,9 @@ const ArticleViewer = createReactClass({
     if (this.props.showArticleFinder) { return; }
     const viewer = document.getElementsByClassName('article-viewer')[0];
     if (!viewer || event) {
-      window.history.replaceState(null, null, window.location.pathname);
+      if (window.location.search) {
+        window.history.replaceState(null, null, window.location.pathname);
+      }
     }
   },
 
@@ -118,6 +120,10 @@ const ArticleViewer = createReactClass({
 
   whocolorUrl() {
     return `https://api.wikiwho.net/${this.props.article.language}/whocolor/v1.0.0-beta/${this.props.article.title}/`;
+  },
+
+  whocolorRevUrl() {
+    return `https://api.wikiwho.net/${this.props.article.language}/api/v1.0.0-beta/rev_content/${this.props.article.title}/?o_rev_id=true&editor=true&token_id=true&out=true&in=true`;
   },
 
   parsedArticleUrl() {
@@ -226,15 +232,35 @@ const ArticleViewer = createReactClass({
     });
   },
 
-  fetchWhocolorHtml() {
+  fetchWhocolorHtml(firstTry = true) {
     $.ajax({
       url: this.whocolorUrl(),
       crossDomain: true,
       success: (json) => {
+        // If the data isn't already available on the wikiwho server,
+        // it may return a 200 response with `success: false`.
+        // In this case, requesting the `rev_content` for the article
+        // usually causes a subsequent request for the extented html to
+        // succeed.
+        if (!json.success && firstTry) {
+          this.generateWhocolorHtml();
+        } else {
         this.setState({
           whocolorHtml: this.processHtml(json.extended_html, true)
         });
         this.highlightAuthors();
+        }
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
+    });
+  },
+
+  generateWhocolorHtml() {
+    $.ajax({
+      url: this.whocolorRevUrl(),
+      crossDomain: true,
+      success: () => {
+        this.fetchWhocolorHtml(false);
       },
       error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });

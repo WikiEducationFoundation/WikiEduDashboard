@@ -67,7 +67,9 @@ namespace :deploy do
   desc 'Upload compiled assets'
   task :upload_compiled_assets do
     run_locally do
-      execute "rsync -r -u -v public/assets/ #{fetch(:user)}@#{fetch(:address)}:#{release_path}/public/assets"
+      user = fetch(:user)
+      user = user ? "#{user}@" : user
+      execute "rsync -r -u -v public/assets/ #{user}#{fetch(:address)}:#{release_path}/public/assets"
     end
   end
 
@@ -78,6 +80,7 @@ namespace :deploy do
       # continues deployment. This reduces the breakage when there are
       # permissions problems with the tmp directory.
       execute "chmod -R 777 #{current_path}/tmp/cache || :"
+      execute "chmod -R g+w #{release_path}"
     end
   end
 
@@ -89,7 +92,7 @@ namespace :deploy do
 
   before 'deploy:rollback', 'deploy:do_not_update_assets'
   before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp'] || skip_assets
-  before 'deploy:restart', 'deploy:upload_compiled_assets' unless skip_assets
+  before 'deploy:symlink:release', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 
 end

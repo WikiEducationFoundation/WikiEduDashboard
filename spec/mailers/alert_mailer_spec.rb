@@ -8,13 +8,14 @@ describe AlertMailer do
   let(:course) { create(:course) }
   let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
 
-  describe '.alert' do
-    let(:mail) { described_class.alert(alert, user) }
-    let(:admin_mail) { described_class.alert(alert, admin) }
+  describe '.send_alert_email' do
+    let(:mail) { described_class.send_alert_email(alert, user) }
+    let(:admin_mail) { described_class.send_alert_email(alert, admin) }
 
     context 'for an ArticlesForDeletionAlert' do
       let(:alert) do
-        create(:alert, type: 'ArticlesForDeletionAlert', article_id: article.id)
+        create(:alert, type: 'ArticlesForDeletionAlert',
+                       article: article, user: user, course: course)
         Alert.last
       end
 

@@ -1,19 +1,17 @@
-import gulp from 'gulp';
-import loadPlugins from 'gulp-load-plugins';
+import { task, dest, src } from 'gulp';
+// import loadPlugins from 'gulp-load-plugins';
 import config from '../config.js';
+import concat from 'gulp-concat';
 
-const plugins = loadPlugins();
-
+// const plugins = loadPlugins();
 
 //--------------------------------------------------------
 // Concatenate jquery-uls libraries
 //--------------------------------------------------------
-const jqueryUlsPath = [
-  'node_modules/@bower_components/jquery/dist/jquery.js'
-  ];
+const jqueryUlsPath = 'node_modules/@bower_components/jquery/dist/jquery.js';
 
-gulp.task('jquery-uls', () => {
-  return gulp.src(jqueryUlsPath)
-    .pipe(plugins.concat('jquery-uls.js'))
-    .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}`));
+task('jquery-uls', () => {
+  return src(jqueryUlsPath)
+    .pipe(concat('jquery-uls.js'))
+    .pipe(dest(`${config.outputPath}/${config.jsDirectory}`));
 });

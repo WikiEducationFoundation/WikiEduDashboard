@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/wiki_edits"
 require_dependency "#{Rails.root}/lib/wiki_course_output"
 require_dependency "#{Rails.root}/lib/wiki_assignment_output"
+require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 require_dependency "#{Rails.root}/lib/wikitext"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
 
@@ -53,17 +54,16 @@ class WikiCourseEdits
   # adds a template to their /sandbox page — creating it if it does not
   # already exist.
   def enroll_in_course(enrolling_user:)
+    generator = WikiUserpageOutput.new(@course)
+
     # Add a template to the user page
-    template = "{{#{template_name(@templates, 'editor')} | course = [[#{@course.wiki_title}]]"\
-               " | slug = #{@course.slug} }}\n"
+    template = generator.enrollment_template
     user_page = "User:#{enrolling_user.username}"
-    summary = "User has enrolled in [[#{@course.wiki_title}]]."
+    summary = generator.enrollment_summary
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Add a template to the user's talk page
-    talk_template = "{{#{template_name(@templates, 'user_talk')}"\
-                    " | course = [[#{@course.wiki_title}]]"\
-                    " | slug = #{@course.slug} }}\n"
+    talk_template = generator.enrollment_talk_template
     talk_page = "User_talk:#{enrolling_user.username}"
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
     @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
@@ -71,7 +71,7 @@ class WikiCourseEdits
     # Pre-create the user's sandbox
     return unless Features.wiki_ed?
     sandbox = user_page + '/sandbox'
-    sandbox_template = "{{#{@dashboard_url} sandbox}}"
+    sandbox_template = generator.sandbox_template(@dashboard_url)
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
     @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
@@ -109,6 +109,7 @@ class WikiCourseEdits
 
   private
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def validate(action)
     yield unless course_edits_allowed?
 
@@ -116,10 +117,13 @@ class WikiCourseEdits
     case action
     when :update_course
       yield unless @course.wiki_course_page_enabled?
-    when :update_assignments
+    when :update_assignments, :remove_assignment
       yield unless @course.assignment_edits_enabled?
+    when :enroll_in_course
+      yield unless @course.enrollment_edits_enabled?
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def course_edits_allowed?
     return false unless @course.wiki_edits_enabled?

@@ -6,13 +6,31 @@
   text-align:left;
 }
 
-.paragraph {
+section.message, section.message p, .paragraph {
   font-family: "Open Sans", sans-serif;
   color: #666666;
   font-size: 18px;
   line-height: 1.5;
   font-weight: 300;
   text-align:left;
+}
+
+.date {
+  text-align: right;
+}
+
+.sender {
+  float: left;
+}
+
+.blockquote {
+  border-left: 3px solid #CCC;
+  padding-left: 1rem;
+  margin: 2rem 0;
+}
+
+.blockquote p {
+  color: grey;
 }
 
 .preserve-whitespace {
@@ -52,6 +70,11 @@
   line-height:17px;
 }
 
+.button_link.small {
+  padding: 7px 14px;
+  font-size: 14px;
+}
+
 .info {
   font-family: "Open Sans", sans-serif;
   color: #666666;
@@ -85,4 +108,43 @@ td.trainings-table {
 
 a.training {
   font-weight: bolder;
+}
+
+.hidden p {
+  color: white;
+  font-size: 10px;
+}
+
+.ticket {
+  background: rgba(200, 200, 200, 0.3);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.ticket h2 { font-size: 16px; }
+
+.ticket h2.heading {
+  color: #222222;
+  font-weight: bold;
+}
+
+.ticket ul {
+  display: flex;
+  padding-left: 0;
+  text-align: left;
+}
+
+.ticket ul li {
+  display: inline-block;
+  flex: 1;
+}
+
+.ticket ul li.center { text-align: center; }
+.ticket ul li.right { text-align: right; }
+
+.ticket time {
+  clear: both;
+  color: #666666;
+  display: block;
+  text-align: left;
 }

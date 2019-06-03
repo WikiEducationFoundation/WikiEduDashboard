@@ -27,25 +27,25 @@ Overview:
 
 This project welcomes contributions, and we try to be as newbie-friendly as possible. Checkout out [the CONTRIBUTING file](CONTRIBUTING.md) for more details.
 
-## Documentation
 ### Setup
-- [Dashboard Setup](docs/setup.md)
-- [Using the Dashboard in development](docs/user_roles.md)
-- [Using Docker for development](docs/docker.md)
-- [OAuth Setup](docs/oauth.md)
+- [Setting up a development environment](docs/setup.md)
+- [Getting data and switching configurations](docs/user_roles.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
-### Technology
+### Technology overview
 - [Front end](docs/frontend.md)
 - [Analytics Pipeline](docs/importers.md)
 - [Testing](docs/testing.md)
 
 ### Other
 - [Contributing](CONTRIBUTING.md)
+- [Outreachy & Google Summer of Code](docs/students_and_interns.md)
 - [Development Process outline](docs/dev_process.md)
 - [Interface strings & Internationalization](docs/i18n.md)
+- [OAuth setup](docs/oauth.md)
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
+- [Using Docker for development](docs/docker.md)
 - [Model diagram](erd.pdf)
 
 ### Translation

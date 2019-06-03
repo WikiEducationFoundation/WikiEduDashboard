@@ -1,21 +1,21 @@
 import API from '../utils/api.js';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import fetch from 'isomorphic-fetch';
 
 const fetchAssignmentsPromise = (courseSlug) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/assignments.json`,
-      success(data) {
-        return res(data);
+  return fetch(`/courses/${courseSlug}/assignments.json`, {
+    credentials: 'include'
+  }).then((res) => {
+      if (res.ok && res.status === 200) {
+        return res.json();
       }
+      return Promise.reject(res);
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
     });
-  });
 };
 
 export const fetchAssignments = courseSlug => (dispatch) => {

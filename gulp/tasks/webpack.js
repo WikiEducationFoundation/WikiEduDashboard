@@ -1,4 +1,4 @@
-import gulp from 'gulp';
+import { task, series } from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import path from 'path';
@@ -8,7 +8,7 @@ import config from '../config.js';
 
 const plugins = loadPlugins();
 
-gulp.task('webpack', ['jquery-uls'], (cb) => {
+function startWebpack(cb) {
   const doHot = config.development && !config.watch_js;
   const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const appRoot = path.resolve('../../');
@@ -22,6 +22,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
     tinymce: [`${jsSource}/tinymce.js`],
+    embed_course_stats: [`${jsSource}/embed_course_stats.js`]
   };
 
   // Set up plugins based on dev/prod mode
@@ -58,7 +59,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
     entry: entries,
     output: {
       path: outputPath,
-      filename: doHot ? '[name].js' : '[name].[hash].js',
+      filename: doHot ? '[name].js' : '[name].[chunkhash].js',
       publicPath: '/'
     },
     resolve: {
@@ -96,20 +97,21 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
       return plugins.util.log('[webpack-dev-server] Running');
     });
   } else if (config.watch_js) {
-      // Start webpack in watch mode
-      wp.watch({
-        ignored: /node_modules/,
-        poll: true
-      }, (err, stats) => {
-        if (err) throw new plugins.util.PluginError('webpack-watch', err);
-        plugins.util.log('[webpack-watch]', stats.toString({ chunks: false }));
-      });
-    } else {
-      // Run webpack once
-      wp.run((err, stats) => {
-        if (err) throw new plugins.util.PluginError('webpack', err);
-        plugins.util.log('[webpack]', stats.toString({ chunks: false }));
-        cb();
-      });
-    }
-});
+    // Start webpack in watch mode
+    wp.watch({
+      ignored: /node_modules/,
+      poll: true
+    }, (err, stats) => {
+      if (err) throw new plugins.util.PluginError('webpack-watch', err);
+      plugins.util.log('[webpack-watch]', stats.toString({ chunks: false }));
+    });
+  } else {
+    // Run webpack once
+    wp.run((err, stats) => {
+      if (err) throw new plugins.util.PluginError('webpack', err);
+      plugins.util.log('[webpack]', stats.toString({ chunks: false }));
+      cb();
+    });
+  }
+}
+task('webpack', series('jquery-uls', startWebpack));

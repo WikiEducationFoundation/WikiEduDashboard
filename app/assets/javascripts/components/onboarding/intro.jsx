@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Intro = createReactClass({
   propTypes: {
@@ -22,9 +22,7 @@ const Intro = createReactClass({
         <Link
           to={{
             pathname: '/onboarding/form',
-            query: {
-              return_to: decodeURIComponent(this.props.returnToParam)
-            }
+            search: `?return_to=${this.props.returnToParam}`
           }}
           className="button border inverse-border"
         >

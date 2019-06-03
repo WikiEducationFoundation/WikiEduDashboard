@@ -21,7 +21,10 @@ module ApplicationHelper
   end
 
   def language_switcher_enabled
-    Features.enable_language_switcher?.to_s
+    # If the language switcher is not enabled site-wide, show it anyway for users
+    # with a non-English browser-based locale and for users with an explicit locale set.
+    (Features.enable_language_switcher? || I18n.locale != :en || current_user&.locale&.present?)
+      .to_s
   end
 
   def logo_favicon_tag

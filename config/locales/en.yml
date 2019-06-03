@@ -75,6 +75,8 @@ en:
     confirm: OK
     opt_in: 'Yes'
     opt_out: 'No'
+    opt_yes: 'yes'
+    opt_no: 'no'
 
   dashboard:
     create_note:
@@ -128,6 +130,10 @@ en:
     article_development: (article development)
     assigned: Assigned Articles
     available: Available Articles
+    no_available: No Available Articles
+    next: Next
+    previous: Previous
+    article_title: Article Title
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     cross_wiki_tracking: >
@@ -200,6 +206,7 @@ en:
     add_available_submit: Add articles
     assign_self: Assign myself an article
     assign_tooltip: An assigned article is one that you plan to create or improve.
+    clone: Clone
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this article assignment?
@@ -244,6 +251,17 @@ en:
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
+    data_download_info: Download campaign data as CSVs
+    data_courses: Course overview data
+    data_courses_info: Basic metrics for each course/program
+    data_articles: Pages edited
+    data_articles_info: Details about each tracked page edited by the campaign
+    data_instructors: Instructors
+    data_instructors_info: List of instructors/facilitators and their courses/programs
+    data_editors_by_course: Editors by course
+    data_editors_by_course_info: List of enrolled editors and their courses/programs
+    data_editor_usernames: Editor usernames
+    data_editor_usernames_info: List of editor usernames, one per line
     default_course_type: Default Course Type
     default_passcode: Default Passcode
     default_passcode_explanation: "By default, new programs in this campaign should have:"
@@ -285,6 +303,10 @@ en:
     label: Chat
 
   courses:
+    assignment_edits_enabled: Assignment edits enabled
+    assignment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the talk page 
+      for each assigned article.
     accounts_generation_enabled: Accounts request generation enabled
     accounts_generation_explanation: >
       This will allow participants to enter their email address and desired
@@ -336,9 +358,11 @@ en:
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
       assignment_end: Assignment end
-      assignment_end_placeholder: Assignment end (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Assignment start
-      assignment_start_placeholder: Assignment start (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel course clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this course?
       checking_for_uniqueness: This course is being checked for uniqueness.
       choose_clone: Choose a course to clone.
       clone_previous: Clone Previous Course
@@ -354,6 +378,7 @@ en:
         Your course has been cloned, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
         Has anything else about your course changed? Feel free to update it now.
+      course_dates_info: Enter the starting and ending dates for your course. In the next step, you can choose when to begin the Wikipedia assignment within that timeframe.
       course_description: Course description
       course_description_placeholder: >
         What is covered in your course, and what will students be doing on Wikipedia?
@@ -367,13 +392,19 @@ en:
       course_term: Course term
       course_term_placeholder: Term
       course_title: Course title
+      course_types:
+        basic_course_name: Basic Program
+        basic_course_description: This program type will track edits to any articles or mainspace pages by any participants. If automated wiki edits are enabled on the program's home wiki, then an on-wiki version of this program will be automatically created and updated.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: An Edit-A-Thon program will track edits to any articles or mainspace pages. By default, no automated edits will be made for this program.
+        article_scoped_program_name: Article Scoped Program
+        article_scoped_program_description: This program type only tracks edits for assigned articles or categories. Use this type if you want to limit the statistics to a known collection of articles or topic areas. By default, automated wiki edits are turned on.
       create_button: Create my Course!
       create_label: Create New Course
       create_new: Create a New Course
       create_short: Create Course
-      create_timeline: Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed's best practices.
       end_date: End date
-      end_date_placeholder: End date (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
       find: Find Your Course
       intro: >
@@ -390,8 +421,11 @@ en:
         to create additional sections for a course you already set up.
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
+      role_description_options:
+        - Instructor
+        - Teaching Assistant
       role_description_placeholder: Instructor, teaching assistant, etc
-      separate_event_dates: Specify separate event start/end times
+      separate_event_dates: Specify separate event start/end times (optional)
       separate_event_dates_info: >
         Activity statistics for this program will be tracked based on the dates
         and times above, but you can specify separate times for when the event
@@ -399,7 +433,7 @@ en:
         when to show up or when the venue closes).
       save_cloned_course: Save New Course
       start_date: Start date
-      start_date_placeholder: Start date (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: Subject
       update_scheduled: >
         Update scheduled. The data will be updated along with all current
@@ -433,12 +467,18 @@ en:
     duration: Course Duration
     edit_count: Edit Count
     edit_course_dates: Edit Course Dates
+    embed_course_stats: Embed Course Stats
+    embed_course_stats_description: To embed the stats for this program in another website, copy and paste this code snippet into
     enable_account_requests: Enable account requests
     enable_chat: Enable chat
     end: End
     ended: The course has ended.
     enroll: Enroll
     enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrollment edits enabled
+    enrollment_edits_enabled_tooltip: >
+      If enabled, the dashboard will post a template to the userpage and talk page of
+      each editor who joins the program.
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -465,6 +505,7 @@ en:
       (Shared accounts are not allowed.)
     join: Join
     join_course: Join course
+    join_course_as_volunteer: Volunteer to help
     join_prompt: Join '%{title}'?
     join_successful: >
       You’ve successfully joined %{title}.
@@ -515,6 +556,8 @@ en:
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
+    online_volunteers_enabled: Online Volunteers enabled
+    online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
     overview: Home
     passcode: Passcode
@@ -525,6 +568,11 @@ en:
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
     requested_accounts: Requested accounts
+    requested_accounts_alert:
+      one: '%{count} requested account pending.'
+      other: '%{count} requested accounts pending.'
+    requested_accounts_alert_view: 'View'
+      
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
@@ -597,6 +645,10 @@ en:
       After that, new edits to the timeline will be mirrored to Wikipedia.
 
       Are you sure you want to do this?
+    wiki_course_page_enabled: Wiki course page enabled
+    wiki_course_page_enabled_tooltip: >
+      If enabled, an on-wiki mirror of the page will be updated whenever the
+      program or its users and assignments are changed.
     wiki_edits_enabled: Wiki edits enabled
     wiki_edits_enabled_tooltip: >
       If wiki edits are enabled, then automated on-wiki edits will be made for this program. Disable wiki edits
@@ -626,9 +678,11 @@ en:
     campaign_courses: '%{title} Programs'
     creator:
       assignment_end: Event end
-      assignment_end_placeholder: Event end (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Event start
-      assignment_start_placeholder: Event start (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: Cancel program clone
+      cancel_course_clone_confirm: Are you sure you want to stop cloning this program?
       checking_for_uniqueness: This program is being checked for uniqueness.
       choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
@@ -638,6 +692,9 @@ en:
         Your program has been cloned.
         Click 'Save' below to finalize it.
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
+      course_dates_info: >
+        Enter the starting and ending dates for your program. You may wish to extend the end to several hours or days beyond
+        the end of the main activities, to include related editing that happens soon after the event.
       course_description: Program description
       course_description_placeholder: >
         What is this program, and what will participants be doing on the wiki(s)?
@@ -787,6 +844,10 @@ en:
     view_on_wiki: View diff on wiki
     see_more: See more
 
+  resources:
+    label: Resources
+    header: Resources and Training
+
   settings:
     admin_users:
       new:
@@ -843,6 +904,9 @@ en:
     constant: "Task %{task} can not run while task update_daily is running."
     paused: "Task %{task} cannot run because scheduled updates have been paused. Run 'rake batch:resume' to resume updates."
 
+  tickets:
+    none: "No tickets"
+
   timeline:
     add_week: Add Week
     arrange_timeline: Arrange Timeline
@@ -872,6 +936,8 @@ en:
     discard_all_changes: Discard All Changes
     delete_timeline_and_start_over: Delete Timeline
     due_default: Due next week
+    edit_titles: Edit Week Titles
+    edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
     # FIXME: lego message. This one is hard to work around because it has inline components.
     empty_week_1: 'To get started, '
     empty_week_2: start editing this week
@@ -887,6 +953,8 @@ en:
     no_timeline: This course has no timeline.
     no_activity_this_week: No scheduled meetings this week
     nothing_this_week: There is nothing on the schedule for this week.
+    reset_titles: Reset to Default
+    reset_titles_confirmation: Are you sure you want to reset all week titles? This cannot be undone.
     save_all_changes: Save All
     this_week_title_default: This Week
     title: Timeline
@@ -957,6 +1025,7 @@ en:
     contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
+    edits: edits
     edits_by: 'Edits by: '
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
@@ -984,6 +1053,7 @@ en:
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    sandboxes: sandboxes
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
@@ -1004,6 +1074,7 @@ en:
     user_no_training_status: This user has not completed any training modules.
     up_to_date_with_training: 'up-to-date with training'
     uploads_doc: 'Number of file uploads to Wikimedia Commons'
+    ungreeted: Ungreeted
     username: Username
     username_placeholder: Username
     useremail_placeholder: Email
@@ -1026,6 +1097,7 @@ en:
     bio_placeholder: Add your Bio (optional)
     location_placeholder: Add your location (optional)
     institution_placeholder: Institution name (optional)
+    image_link_placeholder: Add link to image (optional)
 
   wiki_edits:
     notify_overdue:
@@ -1187,3 +1259,10 @@ en:
     relevanceIndex: "Relevance Index"
     assign_article_self: "Assign yourself"
     unassign_article_self: "Unassign Article"
+
+  training_status:
+    completed: "Completed"
+    started: "Started"
+    not_started: "Not started"
+    due: "due %{due_date}"
+    assignment_status: "Training Assignment (%{status})"

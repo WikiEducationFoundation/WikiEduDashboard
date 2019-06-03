@@ -73,16 +73,13 @@ const AddAdminForm = createReactClass({
       buttonContent = (<div className="loading__spinner" />);
     } else {
       buttonContent = (
-        <form onSubmit={this.handleConfirm}>
-          <button
-            className="button border"
-            value="confirm"
-          >
-            {I18n.t('settings.admin_users.new.confirm_add_admin')}
-          </button>
-        </form>
-
-
+        <button
+          onClick={this.handleConfirm}
+          className="button border"
+          value="confirm"
+        >
+          {I18n.t('settings.admin_users.new.confirm_add_admin')}
+        </button>
       );
     }
     return (

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/course_meetings_manager"
 
 describe CourseMeetingsManager do
   # starts with a comma to mimic real data. will fix data later
@@ -83,6 +84,30 @@ describe CourseMeetingsManager do
     context 'course with timeline start and end' do
       it 'returns an array of day meetings for each week, factoring in blackout dates' do
         expect(subject).to eq(expected_week_meetings)
+      end
+    end
+
+    context 'course with saturday exception' do
+      it 'should exclude the specified saturday' do
+        saturday_course = create(:course,
+                                 id: 10001,
+                                 title: 'Saturday',
+                                 school: 'University',
+                                 term: 'Term',
+                                 slug: 'University/Saturday_(Term)',
+                                 submitted: false,
+                                 passcode: 'passcode',
+                                 start: '2019-06-29'.to_date,
+                                 end: '2019-11-16'.to_date,
+                                 timeline_start: '2019-06-29'.to_date,
+                                 timeline_end: '2019-11-16'.to_date,
+                                 day_exceptions: '20190706',
+                                 weekdays: '0000001',
+                                 type: course_type)
+
+        dates = described_class.new(saturday_course).week_meetings
+        second_week = dates[1]
+        expect(second_week).to eq('()')
       end
     end
 
@@ -185,6 +210,71 @@ describe CourseMeetingsManager do
 
       it 'returns an empty array' do
         expect(subject).to eq([])
+      end
+    end
+
+    context 'for a course that only meets on saturdays' do
+      let(:week) { Week.find_by(order: 1) }
+
+      it 'returns the class date as saturday' do
+        saturday_course = create(:course,
+                                 id: 10001,
+                                 title: 'Saturday',
+                                 school: 'University',
+                                 term: 'Term',
+                                 slug: 'University/Saturday_(Term)',
+                                 submitted: false,
+                                 passcode: 'passcode',
+                                 start: '2019-06-26'.to_date,
+                                 end: '2019-11-18'.to_date,
+                                 timeline_start: '2019-06-26'.to_date,
+                                 timeline_end: '2019-11-18'.to_date,
+                                 weekdays: '0000001',
+                                 type: course_type)
+
+        dates = described_class.new(saturday_course).meeting_dates_of(week)
+        expect(dates).to eq(['2019-06-29'.to_date])
+      end
+
+      it 'allows for saturday to be set as the first day' do
+        saturday_course = create(:course,
+                                 id: 10001,
+                                 title: 'Saturday',
+                                 school: 'University',
+                                 term: 'Term',
+                                 slug: 'University/Saturday_(Term)',
+                                 submitted: false,
+                                 passcode: 'passcode',
+                                 start: '2019-06-29'.to_date,
+                                 end: '2019-11-18'.to_date,
+                                 timeline_start: '2019-06-29'.to_date,
+                                 timeline_end: '2019-11-18'.to_date,
+                                 weekdays: '0000001',
+                                 type: course_type)
+
+        dates = described_class.new(saturday_course).meeting_dates_of(week)
+        expect(dates).to eq(['2019-06-29'.to_date])
+      end
+
+      it 'allows for saturday to be set as the last day' do
+        saturday_course = create(:course,
+                                 id: 10001,
+                                 title: 'Saturday',
+                                 school: 'University',
+                                 term: 'Term',
+                                 slug: 'University/Saturday_(Term)',
+                                 submitted: false,
+                                 passcode: 'passcode',
+                                 start: '2019-06-29'.to_date,
+                                 end: '2019-11-16'.to_date,
+                                 timeline_start: '2019-06-29'.to_date,
+                                 timeline_end: '2019-11-16'.to_date,
+                                 weekdays: '0000001',
+                                 type: course_type)
+
+        last_week = Week.find_by(order: 21)
+        dates = described_class.new(saturday_course).meeting_dates_of(last_week)
+        expect(dates).to eq(['2019-11-16'.to_date])
       end
     end
   end

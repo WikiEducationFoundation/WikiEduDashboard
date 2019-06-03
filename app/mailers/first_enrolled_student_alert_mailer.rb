@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class FirstEnrolledStudentAlertMailer < ApplicationMailer
-  def email(alert)
+  def self.send_email(alert)
     return unless Features.email?
+    email(alert).deliver_now
+  end
+
+  def email(alert)
     @alert = alert
     set_course_and_users
     params = { to: @instructors.pluck(:email),
@@ -17,7 +21,8 @@ class FirstEnrolledStudentAlertMailer < ApplicationMailer
   def set_course_and_users
     @course = @alert.course
     @instructors = @course.instructors
-    @greeted_users = @instructors.pluck(:username).to_sentence # eg, "User, User2, and User3"
+    # eg, "Full Name, User2, and Other Fullname"
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @students_link = "#{@course_link}/students"
     @timeline_link = "#{@course_link}/timeline"

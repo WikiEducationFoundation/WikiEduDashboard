@@ -1,12 +1,14 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bouman4
 # Author: Elroy
 # Author: Festina90
 # Author: Goefie
 # Author: KlaasZ4usV
 # Author: Mainframe98
 # Author: Mar(c)
+# Author: Marcelhospers
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
@@ -18,16 +20,31 @@
 # Author: SPQRobin
 # Author: Siebrand
 # Author: Sjoerddebruin
+# Author: Xbaked potatox
 ---
 nl:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          million: M
+          billion: B
   accessibility:
     number_field: Dit is een numeriek veld. De knoppen die door de meeste browsers
       weergegeven worden zullen de invoer verhogen en verlagen.
   application:
     cancel: Annuleren
+    create_accounts: Maak Wikipedia accounts
     dashboard: Wiki Ed Dashboard
+    documentation: Documentatie
     error: 'Er is een fout opgetreden:'
     explore: Verkennen
+    field_required: Dit is een verplicht veld
+    field_invalid_characters: Dit veld heeft ongeldige tekens
+    field_invalid_date: Dit veld vereist een datum in JJJJ-MM-DD-indeling
+    field_invalid_date_time: Het einde moet na de start zijn. (Uren gaan van 0 tot
+      23.)
     greeting2: Welkom!
     greeting_extended: Welkom op Wikipedia
     greeting: Hallo!
@@ -38,12 +55,23 @@ nl:
     log_out: Afmelden
     my_dashboard: Mijn dashboard
     recent_activity: Recente activiteit
+    report_problem: Probleem melden
+    request_account: Account aanvragen
+    request_account_create: Een nieuw account aanmaken
     search: stel een vraag
+    search_results: 'Resultaten voor: ''%{search_terms}'''
     sign_up_extended: Registreren via Wikipedia
     sign_up_log_in_extended: met Wikipedia
-    sign_up: Registreren
+    sign_up: Inschrijven
     submit: Verzenden
     training: Training
+    change: Wijzigen
+    details: Details
+    confirm: OK
+    opt_in: Ja
+    opt_out: Nee
+    opt_yes: ja
+    opt_no: nee
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     explore_course_pages: Verken de cursuspagina's
@@ -70,11 +98,24 @@ nl:
     label: Activiteit
   articles:
     assigned: Toegewezen pagina's
+    next: Volgende
+    previous: Vorige
+    article_title: Artikelnaam
     assigned_to: Toegewezen aan
     character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
       ingeschreven studenten tussen de begin- en einddatum
+    cross_wiki_tracking: De hoofdruimtepagina's die tussen de begin- en einddatum
+      zijn bewerkt, worden hieronder weergegeven. Het dashboard haalt bijdragen van
+      de home-wiki van dit programma, samen met andere wiki's waarvoor een opdracht
+      of een beschikbaar artikel beschikbaar is.
+    deleted: (verwijderd)
     edited: Pagina's bewerkt
+    edited_by: 'Bewerkt door:'
     edited_mobile: Pagina's
+    filter:
+      wiki_all: Allemaal
+      new: Nieuw
+      existing: bestaand
     hide: Verbergen
     label: Pagina's
     loading: Bezig met pagina's laden...
@@ -132,6 +173,10 @@ nl:
     none: Geen
     organizers: Organisatoren
     title: Titel
+  categories:
+    depth: subcategorie diepte
+    name: Naam
+    category_name: Categorie naam
   courses:
     activity: Activiteit
     already_enrolled: Je bent onderdeel van "%{title}"!
@@ -166,9 +211,9 @@ nl:
     courses: Cursussen
     creator:
       assignment_end: Einde opdracht
-      assignment_end_placeholder: Einde opdracht (JJJJ-MM-DD)
+      assignment_end_placeholder: JJJJ-MM-DD
       assignment_start: Begin opdracht
-      assignment_start_placeholder: Begin opdracht (JJJJ-MM-DD)
+      assignment_start_placeholder: JJJJ-MM-DD
       checking_for_uniqueness: Deze cursus wordt gecontroleerd op uniciteit.
       cloned_course_calendar_instructions: Selecteer data om deze van het schema te
         verwijderen (feestdagen, vakantie, etc.). Klik op de datum om de status van
@@ -191,16 +236,18 @@ nl:
       create_new: Maak een nieuwe cursus aan
       create_short: Maak cursus aan
       end_date: Einddatum
-      end_date_placeholder: Einddatum (JJJJ-MM-DD)
+      end_date_placeholder: JJJJ-MM-DD
       expected_number: Het verwachte aantal studenten
       find: Vind je cursus
       intro: De titel, school en periode zijn onderdeel van de URL van de cursuspagina
         en kan niet gewijzigd worden. Al het andere kan later aangepast worden. Klik
         "Maak mijn cursus aan!" om te beginnen met de tijdlijn voor de Wikipedia-opdracht.
       no_class_holidays: Ik heb geen vakantie met de klas
+      role_description_options:
+      - Instructeur
       save_cloned_course: Nieuwe cursus opslaan
       start_date: Startdatum
-      start_date_placeholder: Startdatum (JJJJ-MM-DD)
+      start_date_placeholder: JJJJ-MM-DD
       subject: Onderwerp
     current: Huidige cursussen
     delete_course: Cursus verwijderen
@@ -208,6 +255,8 @@ nl:
     duration: Duur van de cursus
     edit_course_dates: Cursusdatums bewerken
     end: Einde
+    enroll: Inschrijven
+    enrollment: Studenten toevoegen / verwijderen
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
         of termijn.
@@ -231,6 +280,16 @@ nl:
     milestones_none: Deze cursus heeft nog geen mijlpalen.
     my_articles: Mijn pagina's
     new_week: Nieuwe week toevoegen
+    new_account_email: E-mailadres
+    new_account_email_placeholder: name@example.org
+    new_account_info: Om een ​​account aan te vragen, voert u uw e-mailadres en uw
+      gewenste gebruikersnaam in. U ontvangt een wachtwoord per e-mail zodra het account
+      door een van de facilitators is aangemaakt.
+    new_account_info_admin: Als u een account voor een nieuwe editor wilt maken, voert
+      u hun e-mailadres en de gewenste gebruikersnaam in. Een wachtwoord zal naar
+      hen worden gemaild zodra het account is aangemaakt.
+    new_account_username: Gevraagde gebruikersnaam
+    new_account_username_invalid: Dit is geen geldige gebruikersnaam.
     nocourses: Je neemt niet deel aan een cursus.
     none: Geen
     no_available_actions: Geen acties beschikbaar
@@ -241,6 +300,7 @@ nl:
       hebt ontvangen
     published: 'Je cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
       de cursus door een bezoek aan de volgende URL:'
+    requested_accounts_alert_view: Weergeven
     review_timeline: Controleer deze tijdlijn en maak wijzigingen. Zodra je tevreden
       bent met je tijdlijn, dien deze dan in voor goedkeuring door medewerkers van
       Wiki Ed. Eenmaal goedgekeurd, krijg je een inschrijvings-URL die studenten kunnen
@@ -273,6 +333,11 @@ nl:
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn
+    timeline_tooltip: Als u de tijdlijn inschakelt, kunt u activiteiten van week tot
+      week opgeven en trainingsmodules toewijzen. Het is nuttig voor cursussen in
+      het onderwijsprogramma en andere lange, goed gestructureerde programma's.
+    timeline_nav: Ga naar Tijdlijn
+    time_zone_message: Begin- en eindtijden worden weergegeven in uw lokale tijdzone.
     title: Naam
     training_due: De trainingsmodule "%{title}" is toegekend voor deze cursus en vervalt
       op %{date}.
@@ -281,8 +346,12 @@ nl:
       en verviel op %{date}.
     unsubmitted: Niet-ingediende cursussen
     untrained: Ongetraind
+    update_stats: Statistieken bijwerken
     uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
+    user_uploads_none: Deze gebruiker heeft geen afbeeldingen of andere mediabestanden
+      bijgedragen aan Wikimedia Commons.
+    user_recent_uploads: Recente uploads
     view: Cursus weergeven
     view_doc: Het aantal weergaven van artikelen die door deelnemende bewerkers zijn
       bewerkt sinds de bewerkers hun eerste bewerking hebben gemaakt aan elk artikel
@@ -308,6 +377,9 @@ nl:
     assignments_none: Dit project heeft geen toegewezen Wikipediapagina's.
     assignment_start: Begin tijdlijn
     creator:
+      assignment_start_placeholder: YYYY-MM-DD
+      checking_for_uniqueness: Dit programma wordt gecontroleerd op uniciteit.
+      choose_clone: Kies een programma om te klonen.
       course_description: Beschrijving van programma
       course_school: Instelling
       course_title: Programmatitel
@@ -325,9 +397,11 @@ nl:
     milestones_none: Dit project heeft momenteel geen mijlpalen.
     published: 'Dit project is gepubliceerd! Bewerkers kunnen zich inschrijven door
       een bezoek te brengen aan de volgende URL:'
-    revisions_none: Dit project heeft geen recente Wikipediabewerkingen.
+    revisions_none: Dit project heeft geen recente bewerkingsactiviteit.
     school: Instelling
+    school_and_term: Instelling / Als
     search_courses: Zoekprogramma
+    start: Activiteit volgen start
     student_editors: Bewerkers
     students: Bewerkers
     students_none: Dit project heeft geen ingeschreven bewerkers.
@@ -411,6 +485,17 @@ nl:
         revoking_button_working: Intrekken...
         already_is_not: '%{username} is geen bijzondere gebruiker!'
         demote_success: '%{username} is vanaf nu een gebruiker.'
+  suggestions:
+    suggestion_docs:
+      a: Deskundige kennis kan nodig zijn om het artikel te tweaken en stijlproblemen
+        moeten mogelijk worden opgelost. Peer review kan helpen.
+      ga: Sommige bewerkingen door vak- en stijlexperts zijn nuttig; Vergelijking
+        met een bestaand aanbevolen artikel over een soortgelijk onderwerp kan de
+        aandacht vestigen op gebieden waar de inhoud zwak is of ontbreekt.
+      bplus: Kan verbeterd worden door input van experts om te beoordelen waar de
+        dekking nog steeds ontbreekt, en ook door illustraties, historische achtergrond
+        en verdere referenties. Overweeg peer-review of nomineren voor een goede artikelstatus.
+        Als het artikel nog niet volledig is geverifieerd, is dit het moment.
   tasks:
     conseq: Taak %{task} is al actief!
     constant: Taak %{task} kan niet actief zijn terwijl update_daily wordt uitgevoerd.
@@ -571,4 +656,9 @@ nl:
       message: Dit is een herinnering over de enquête over je cursus %{course_title}.
         De feedback van deze enquête helpt ons bij het verbeteren van onze steun aan
         Wikipedia-opdrachten zoals de jouwe.
+  training_status:
+    completed: Voltooid
+    started: Begonnen
+    not_started: Niet begonnen
+    due: vervalt %{due_date}
 ...

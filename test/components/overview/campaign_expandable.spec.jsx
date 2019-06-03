@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-
+import { Provider } from 'react-redux';
 import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
 import CampaignEditable from '../../../app/assets/javascripts/components/overview/campaign_editable.jsx';
@@ -19,26 +19,28 @@ describe('CampaignEditable', () => {
 
   it('it opens the component when editable is true', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
-      <CampaignEditable
-        store={reduxStoreWithCampaigns}
-        campaigns={campaigns}
-        allCampaigns={allCampaigns}
-        course={course}
-        editable={true}
-      />
+      <Provider store={reduxStoreWithCampaigns}>
+        <CampaignEditable
+          campaigns={campaigns}
+          allCampaigns={allCampaigns}
+          course={course}
+          editable={true}
+        />
+      </Provider>
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'pop__container campaigns open');
   });
 
   it('it includes a plus button when is closed to open the expandable', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
-      <CampaignEditable
-        store={reduxStoreWithCampaigns}
-        campaigns={campaigns}
-        allCampaigns={allCampaigns}
-        course={course}
-        editable={false}
-      />
+      <Provider store={reduxStoreWithCampaigns}>
+        <CampaignEditable
+          campaigns={campaigns}
+          allCampaigns={allCampaigns}
+          course={course}
+          editable={false}
+        />
+      </Provider>
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'button border plus open');
   });

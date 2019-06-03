@@ -140,4 +140,15 @@ describe CourseCloneManager do
       expect(clone.type).to eq('ClassroomProgramCourse')
     end
   end
+
+  context 'with a preset campaign' do
+    it 'allows for the campaign to be set' do
+      slug = 'new_campaign_slug'
+      new_campaign = create(:campaign, id: 2, title: 'New Campaign', slug: slug)
+      campaign_clone = described_class.new(Course.find(1), User.find(1), slug).clone!
+
+      expect(campaign_clone.campaigns.length).to eq(1)
+      expect(campaign_clone.campaigns).to include(new_campaign)
+    end
+  end
 end

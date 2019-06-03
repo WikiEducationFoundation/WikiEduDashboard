@@ -165,9 +165,7 @@ describe Course, type: :model do
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)',
                      submitted: true)
       url = course.url
-      # rubocop:disable Metrics/LineLength
-      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
-      # rubocop:enable Metrics/LineLength
+      expect(url).to be_nil
 
       # A new course
       new_course = build(:course,
@@ -597,6 +595,10 @@ describe Course, type: :model do
         expect(course.wiki_edits_enabled?).to be_in([true, false])
         # #wiki_course_page_enabled?
         expect(course.wiki_course_page_enabled?).to be_in([true, false])
+        # #enrollment_edits_enabled?
+        expect(course.enrollment_edits_enabled?).to be_in([true, false])
+        # #assignment_edits_enabled?
+        expect(course.assignment_edits_enabled?).to be_in([true, false])
         # #multiple_roles_allowed?
         expect(course.multiple_roles_allowed?).to be_in([true, false])
         # #passcode_required?
@@ -607,6 +609,34 @@ describe Course, type: :model do
         expect(course).to respond_to(:wiki_title)
         # #training_library_slug
         expect(course.training_library_slug).to be_a(String).or be_nil
+      end
+    end
+
+    context 'with edit_settings flag' do
+      let(:flags) do
+        {
+          'edit_settings' => {
+            'assignment_edits_enabled' => true,
+            'wiki_course_page_enabled' => true,
+            'enrollment_edits_enabled' => true
+          }
+        }
+      end
+
+      it 'implements required methods for every course type that has edit_settings' do
+        Course::COURSE_TYPES.each do |type|
+          create(:course, type: type, flags: flags, slug: "foo/#{type}")
+          course = Course.last
+          expect(course.type).to eq(type)
+          # #wiki_edits_enabled?
+          expect(course.wiki_edits_enabled?).to be_in([true, false])
+          # #wiki_course_page_enabled?
+          expect(course.wiki_course_page_enabled?).to be_in([true, false])
+          # #enrollment_edits_enabled?
+          expect(course.enrollment_edits_enabled?).to be_in([true, false])
+          # #assignment_edits_enabled?
+          expect(course.assignment_edits_enabled?).to be_in([true, false])
+        end
       end
     end
   end

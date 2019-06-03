@@ -77,6 +77,7 @@ class SurveyMailer < ApplicationMailer
     @user = notification.user
     @survey = notification.survey
     @course = notification.course
+    @signed_by = SpecialUsers.classroom_program_manager&.real_name
   end
 
   def customize(notification)

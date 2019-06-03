@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
-
+import { withRouter } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import Timeline from './timeline.jsx';
-import Grading from './grading.jsx';
+// import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import Wizard from '../wizard/wizard.jsx';
+import Meetings from './meetings.jsx';
 
 import { fetchAllTrainingModules } from '../../actions/training_actions';
 
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
-  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
+  updateBlock, addBlock, deleteBlock, insertBlock, updateTitle, resetTitles, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
 import { getWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
 const TimelineHandler = createReactClass({
@@ -32,7 +35,10 @@ const TimelineHandler = createReactClass({
   },
 
   getInitialState() {
-    return { reorderable: false };
+    return {
+      reorderable: false,
+      editableTitles: false
+    };
   },
 
   componentDidMount() {
@@ -46,6 +52,7 @@ const TimelineHandler = createReactClass({
 
   _cancelGlobalChanges() {
     this.setState({ reorderable: false });
+    this.setState({ editableTitles: false });
     this.props.restoreTimeline();
   },
 
@@ -53,8 +60,20 @@ const TimelineHandler = createReactClass({
     return this.setState({ reorderable: true });
   },
 
+  _enableEditTitles() {
+    return this.setState({ editableTitles: true });
+  },
+
+  _resetTitles() {
+    if (confirm(I18n.t('timeline.reset_titles_confirmation'))) {
+      this.props.resetTitles();
+      this.saveTimeline();
+    }
+  },
+
   saveTimeline() {
     this.setState({ reorderable: false });
+    this.setState({ editableTitles: false });
     const toSave = { weeks: this.props.weeks };
     this.props.persistTimeline(toSave, this.props.course_id);
   },
@@ -64,36 +83,31 @@ const TimelineHandler = createReactClass({
     const weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
-    let outlet;
-    // This passes props to Meetings and Wizard, which are children specified in
-    // router.jsx.
-    if (this.props.children) {
-      outlet = React.cloneElement(this.props.children, {
-        key: 'wizard_handler',
-        course: this.props.course,
-        weeks: this.props.weeks,
-        week_meetings: weekMeetings,
-        meetings,
-        open_weeks: openWeeks
-      });
-    }
+    const courseProps = {
+      key: 'wizard_handler',
+      course: this.props.course,
+      weeks: this.props.weeks,
+      week_meetings: weekMeetings,
+      meetings,
+      open_weeks: openWeeks
+    };
 
     // Grading
-    let showGrading;
-    if (this.state.reorderable) {
-      showGrading = false;
-    } else {
-      showGrading = true;
-    }
-    const grading = showGrading ? (<Grading
-      weeks={this.props.weeks}
-      editable={this.props.editable}
-      current_user={this.props.current_user}
-      persistCourse={this.saveTimeline}
-      updateBlock={this.props.updateBlock}
-      resetState={() => {}}
-      nameHasChanged={() => false}
-    />) : null;
+    // let showGrading;
+    // if (this.state.reorderable) {
+    //   showGrading = false;
+    // } else {
+    //   showGrading = true;
+    // }
+    // const grading = showGrading ? (<Grading
+    //   weeks={this.props.weeks}
+    //   editable={this.props.editable}
+    //   current_user={this.props.current_user}
+    //   persistCourse={this.saveTimeline}
+    //   updateBlock={this.props.updateBlock}
+    //   resetState={() => {}}
+    //   nameHasChanged={() => false}
+    // />) : null;
 
     return (
       <div>
@@ -102,8 +116,12 @@ const TimelineHandler = createReactClass({
           component="div"
           timeout={500}
         >
-          {outlet}
+          <Switch>
+            <Route exact path="/courses/:course_school/:course_title/timeline/wizard" render={() => <Wizard {...courseProps} />} />
+            <Route exact path="/courses/:course_school/:course_title/timeline/dates" render={() => <Meetings {...courseProps} />} />
+          </Switch>
         </TransitionGroup>
+
         <Timeline
           loading={this.props.loading}
           course={this.props.course}
@@ -111,14 +129,18 @@ const TimelineHandler = createReactClass({
           week_meetings={weekMeetings}
           editableBlockIds={this.props.editableBlockIds}
           reorderable={this.state.reorderable}
+          editableTitles={this.state.editableTitles}
           controls={this.props.controls}
           persistCourse={this.props.persistTimeline}
           saveGlobalChanges={this.saveTimeline}
           saveBlockChanges={this.saveTimeline}
           cancelBlockEditable={this._cancelBlockEditable}
           cancelGlobalChanges={this._cancelGlobalChanges}
+          updateTitle={this.props.updateTitle}
+          resetTitles={this._resetTitles}
           updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
+          enableEditTitles={this._enableEditTitles}
           all_training_modules={this.props.availableTrainingModules}
           addWeek={this.props.addWeek}
           addBlock={this.props.addBlock}
@@ -131,7 +153,7 @@ const TimelineHandler = createReactClass({
           nameHasChanged={() => false}
           edit_permissions={this.props.editPermissions}
         />
-        {grading}
+        {/* {grading} */}
       </div>
     );
   }
@@ -155,9 +177,11 @@ const mapDispatchToProps = {
   cancelBlockEditable,
   updateBlock,
   insertBlock,
+  updateTitle,
+  resetTitles,
   restoreTimeline,
   deleteAllWeeks,
   fetchAllTrainingModules
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TimelineHandler));

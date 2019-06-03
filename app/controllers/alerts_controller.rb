@@ -16,7 +16,7 @@ class AlertsController < ApplicationController
     set_default_target_user unless alert_params[:target_user_id]
 
     if @alert.save
-      email_target_user
+      generate_ticket
       render json: {}, status: :ok
     else
       render json: { errors: @alert.errors, message: 'unable to create alert' },
@@ -37,8 +37,17 @@ class AlertsController < ApplicationController
 
   private
 
-  def email_target_user
-    AlertMailerWorker.schedule_email(alert_id: @alert.id) if @alert.target_user&.email.present?
+  def generate_ticket
+    TicketDispenser::Dispenser.call(
+      content: @alert.message,
+      details: {
+        sender_email: @alert.user.email,
+        subject: 'Need Help Alert'
+      },
+      project_id: @alert.course_id,
+      owner_id: @alert.target_user_id,
+      sender_id: @alert.user_id
+    )
   end
 
   def ensure_alerts_are_enabled

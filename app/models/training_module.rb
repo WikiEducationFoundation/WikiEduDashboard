@@ -16,7 +16,6 @@
 #
 
 require_dependency "#{Rails.root}/lib/training/training_base"
-require_dependency "#{Rails.root}/lib/training_library"
 
 #= Class representing an individual training module
 class TrainingModule < ApplicationRecord
@@ -55,7 +54,6 @@ class TrainingModule < ApplicationRecord
   def self.reload_module(slug:)
     # First reload the libraries and modules so we have the new list of slugs
     # and can load slides for brand-new modules.
-    TrainingLibrary.flush
     TrainingLibrary.load
     TrainingModule.load
     # Reload the requested module's slides
@@ -64,7 +62,7 @@ class TrainingModule < ApplicationRecord
     TrainingSlide.load(slug_list: training_module.slide_slugs)
   end
 
-  def self.inflate(content, slug, wiki_page = nil) # rubocop:disable Metrics/MethodLength
+  def self.inflate(content, slug, wiki_page = nil)
     training_module = TrainingModule.find_or_initialize_by(id: content['id'])
     training_module.slug = slug
     training_module.name = content['name'] || content[:name]
@@ -73,16 +71,20 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
+    validate_and_save(training_module, slug)
+    training_module
+  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
+    puts "There's a problem with file '#{slug}'" if Rails.env.development?
+    raise e
+  end
+
+  def self.validate_and_save(training_module, slug)
     valid = training_module.valid?
     if training_module.errors[:slug].any?
       raise TrainingBase::DuplicateSlugError,
             "Duplicate TrainingModule slug detected: #{slug}"
     end
     training_module.save if valid
-    training_module
-  rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
-    puts "There's a problem with file '#{slug}'"
-    raise e
   end
 
   ####################

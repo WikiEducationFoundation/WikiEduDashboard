@@ -9,6 +9,7 @@ import categories from './categories';
 import chat from './chat';
 import confirm from './confirm';
 import course from './course';
+import courseAlerts from './course_alerts';
 import courseCreator from './course_creator';
 import didYouKnow from './did_you_know';
 import feedback from './feedback';
@@ -22,6 +23,7 @@ import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import tags from './tags';
+import tickets from './tickets';
 import timeline from './timeline';
 import training from './training';
 import trainingStatus from './training_status';
@@ -37,6 +39,7 @@ import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
 
 const reducer = combineReducers({
+  admins: (state = {}) => state, // only set from preloaded state
   alerts,
   articleDetails,
   articleFinder,
@@ -47,6 +50,7 @@ const reducer = combineReducers({
   chat,
   confirm,
   course,
+  courseAlerts,
   courseCreator,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
@@ -61,6 +65,7 @@ const reducer = combineReducers({
   suspectedPlagiarism,
   settings,
   tags,
+  tickets,
   timeline,
   training,
   trainingStatus,

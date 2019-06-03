@@ -58,10 +58,24 @@ class CampaignsController < ApplicationController
   end
 
   def users
-    set_presenter
-    @courses_users = CoursesUsers.where(
-      course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
-    ).includes(:user, :course).order(revision_count: :desc)
+    respond_to do |format|
+      format.html do
+        set_presenter
+        @courses_users = CoursesUsers.where(
+          course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
+        ).includes(:user, :course).order(revision_count: :desc)
+      end
+
+      format.json do
+        set_campaign
+        render json: { campaign: @campaign.slug, users: @campaign.users_to_json }
+      end
+    end
+  end
+
+  def assignments
+    set_campaign
+    render json: { campaign: @campaign.slug, assignments: @campaign.assignments_to_json }
   end
 
   def alerts
@@ -178,6 +192,7 @@ class CampaignsController < ApplicationController
   private
 
   def require_create_permissions
+    require_signed_in
     require_admin_permissions unless Features.open_course_creation?
   end
 

@@ -3,12 +3,14 @@
 # Export driver: phpyaml
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Carlosmg.dg
 # Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Dgstranz
 # Author: Fitoschido
 # Author: Fortega
+# Author: Ihojose
 # Author: Irus
 # Author: Javiersanp
 # Author: KATRINE1992
@@ -64,6 +66,8 @@ es:
     confirm: Aceptar
     opt_in: Sí
     opt_out: "No"
+    opt_yes: sí
+    opt_no: "no"
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -102,6 +106,9 @@ es:
     article_development: (desarrollo de artículo)
     assigned: Artículos asignados
     available: Artículos disponibles
+    next: Siguiente
+    previous: Anterior
+    article_title: Título del artículo
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin
@@ -329,6 +336,9 @@ es:
       course_term: Curso de plazo
       course_term_placeholder: Trimestre
       course_title: Título del curso
+      course_types:
+        basic_course_name: Programa básico
+        edit_a_thon_name: Editatón
       create_button: ¡Crear mi curso!
       create_label: Crear curso nuevo
       create_new: Crear un curso nuevo
@@ -435,6 +445,7 @@ es:
     published: 'Se ha publicado tu curso. Los estudiantes podrán matricularse al visitar
       el URL siguiente:'
     requested_accounts: Cuentas solicitadas
+    requested_accounts_alert_view: Ver
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
       con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
       vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar

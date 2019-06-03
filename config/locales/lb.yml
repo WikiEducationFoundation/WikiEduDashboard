@@ -41,6 +41,8 @@ lb:
     confirm: OK
     opt_in: Jo
     opt_out: Neen
+    opt_yes: jo
+    opt_no: neen
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -58,6 +60,10 @@ lb:
     article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
+    no_available: Keng Artikelen disponibel
+    next: Nächst
+    previous: Vireg
+    article_title: Titel vum Artikel
     deleted: (geläscht)
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
@@ -76,14 +82,14 @@ lb:
       Dës Bewäertunge kënne sech op vill méi al Versioune bezéien, dofir si si just
       e graffen Indikator fir d'Maturitéit vun engem Artikel.
     rating_docs:
-      fl: Exzellent Lëscht - Déi bescht Bewäertung op Wikipedia fir Lëschten
+      fl: '%{class} (Exzellent Lëscht) - Déi bescht Bewäertung op Wikipedia fir Lëschten'
       ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
         säin Haaptprojet eventuell ze räif ass.
-      b: B-Klass - e moderat entwéckelten Artikel
+      b: '%{class}-Klass - e moderat entwéckelten Artikel'
       c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
         ze verbesseren'
-      start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
-        ginn
+      start: '%{class}-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
+        ginn'
       list: '%{class}-Klass - éischter eng Lëscht wéi e konventionellen Artikel'
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
@@ -120,6 +126,7 @@ lb:
     campaign_updated: Campagne aktualiséiert
     created_at: Datum
     course: Cours
+    data_articles: Geännert Säiten
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
@@ -162,6 +169,8 @@ lb:
     courses: Coursen
     creation_date: Datum vun der Kreatioun
     creator:
+      assignment_end_placeholder: JJJJ-MM-DD
+      assignment_start_placeholder: JJJJ-MM-DD
       clone_previous: Virege Cours klonen
       clone_this: Dëse Cours klonen
       clone_successful: Detailer fir gekloonte Cours aktualiséieren
@@ -171,14 +180,14 @@ lb:
       course_title: Titel vum Cours
       create_label: Neie Cours uleeën
       end_date: Schlussdatum
-      end_date_placeholder: Schlussdatum (JJJJ-MM-DD)
+      end_date_placeholder: JJJJ-MM-DD
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
       no_class_holidays: Ech hu keng Schoulvakanzen
       role_description: Är Roll am Cours
       save_cloned_course: Neie Cours späicheren
       start_date: Ufanksdatum
-      start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
+      start_date_placeholder: JJJJ-MM-DD
       subject: Sujet
     current: Aktuell Coursen
     data_download_info: Donnéeën am CSV-Format eroflueden.
@@ -195,7 +204,7 @@ lb:
     end: Schluss
     ended: De Cours ass eriwwer.
     enroll: Aschreiwen
-    enrollment: Aschreiwung
+    enrollment: Studenten derbäisetzen/ewechhuelen
     error:
       exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
@@ -235,6 +244,7 @@ lb:
     overview: Haaptsäit
     private: Privat
     requested_accounts: Ugefrot Benotzerkonten
+    requested_accounts_alert_view: Weisen
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     school_and_term: Institutioun/Dauer
@@ -284,9 +294,9 @@ lb:
     campaign_courses: '%{title} Programmer'
     creator:
       assignment_end: Enn vum Evenement
-      assignment_end_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
+      assignment_end_placeholder: JJJJ-MM-DD
       assignment_start: Ufank vum Evenement
-      assignment_start_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
+      assignment_start_placeholder: JJJJ-MM-DD
       clone_previous: Virege Programm klonen
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
@@ -299,7 +309,7 @@ lb:
       save_cloned_course: Späicheren
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
-    enrollment: Participatioun
+    enrollment: Auteuren derbäisetzen/ewechhuelen
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
     request_accounts: Benotzerkonten ufroen
@@ -383,6 +393,8 @@ lb:
     editing: Virschléi änneren
     suggestion_docs:
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia.
+  tickets:
+    none: Keng Ticketen
   timeline:
     add_week: Woch derbäisetzen
     block_custom: Personaliséiert
@@ -433,8 +445,7 @@ lb:
     assign_articles_done: Fäerdeg
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
-    contributions_history_full: Déi komplett Lëscht vun de Versiounen op Wikipedia
-      weisen
+    contributions_history_full: Déi komplett Lëscht vun de Versiounen weisen
     contributions_more: Méi Kontributioune weisen
     contribution_statistics: Statistik vun de Kontributiounen
     course_passcode: 'Passcode:'
@@ -471,7 +482,7 @@ lb:
       instructor: Instrukter
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
-      wiki_ed_staff: Mataarbechter vu Wiki Ed
+      wiki_ed_staff: Mataarbechter vu Wiki Education
   user_profiles:
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
@@ -480,6 +491,7 @@ lb:
     bio_placeholder: Är Biographie derbäisetzen (fakultativ)
     location_placeholder: Setzt d'Plaz wou Dir sidd, derbäi (fakultativ)
     institution_placeholder: Numm vun der Institutioun (fakultativ)
+    image_link_placeholder: Link op d'Bild derbäisetzen (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
     select_one_option: Wielt w.e.g. eng Optioun eraus.
@@ -536,4 +548,8 @@ lb:
     searching_articles: Artikele sichen
     submit: Schécken
     relevanceIndex: Relevanzindex
+  training_status:
+    completed: Fäerdeg
+    started: Ugefaangen
+    not_started: Net ugefaangen
 ...

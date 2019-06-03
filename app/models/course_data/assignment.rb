@@ -42,6 +42,11 @@ class Assignment < ApplicationRecord
     REVIEWING_ROLE = 1
   end
 
+  ROLE_NAMES = {
+    Roles::ASSIGNED_ROLE => 'Editing',
+    Roles::REVIEWING_ROLE => 'Reviewing'
+  }.freeze
+
   ####################
   # Instance methods #
   ####################

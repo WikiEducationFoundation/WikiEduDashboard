@@ -3,7 +3,9 @@
 # Export driver: phpyaml
 # Author: Alexandr Efremov
 # Author: Aram1985
+# Author: Athena Atterdag
 # Author: Av6
+# Author: Diralik
 # Author: Edible Melon
 # Author: Evs
 # Author: Facenapalm
@@ -26,6 +28,7 @@
 # Author: Pplex.vhs
 # Author: Putnik
 # Author: Redredsonia
+# Author: Romanko Mikhail
 # Author: Shaleych
 # Author: SmartNart12
 # Author: Vlad5250
@@ -73,6 +76,8 @@ ru:
     confirm: OK
     opt_in: Да
     opt_out: Нет
+    opt_yes: да
+    opt_no: нет
   dashboard:
     create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
     create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть
@@ -196,7 +201,7 @@ ru:
       "%{campaign_title}"?
     course_already_removed: '"%{title}" уже удалена из кампании "%{campaign_title}"'
     course: Курс
-    course_removed: '"%{title}" был удален из кампании "%{campaign_title}"'
+    course_removed: '"%{title}" был удалён из кампании "%{campaign_title}"'
     create_campaign: Создать новую кампанию
     description: Описание
     delete_campaign: Удалить эту кампанию
@@ -206,7 +211,7 @@ ru:
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
-    organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
+    organizer_removed: '%{user} был удалён как организатор "%{title}" кампании'
     program_template: Шаблон программы
     random_passcode: Случайный код доступа
     title: Название
@@ -247,9 +252,9 @@ ru:
     creation_date: Дата создания
     creator:
       assignment_end: Конец задания
-      assignment_end_placeholder: Конец задания (ГГГГ-ММ-ДД)
+      assignment_end_placeholder: ГГГГ-ММ-ДД
       assignment_start: Начало задания
-      assignment_start_placeholder: Начало задания (ГГГГ-ММ-ДД)
+      assignment_start_placeholder: ГГГГ-ММ-ДД
       checking_for_uniqueness: Этот курс проверяется на уникальность.
       choose_clone: Выберите курс для клонирования.
       clone_previous: Клонировать предыдущий курс
@@ -271,11 +276,13 @@ ru:
       create_new: Создать новый курс
       create_short: Создать курс
       end_date: Дата окончания
-      end_date_placeholder: Дата окончания (ГГГГ-ММ-ДД)
+      end_date_placeholder: ГГГГ-ММ-ДД
       expected_number: Ожидаемое количество студентов
       find: Найти свой курс
+      role_description_options:
+      - Инструктор
       start_date: Дата начала
-      start_date_placeholder: Дата начала (ГГГГ-ММ-ДД)
+      start_date_placeholder: ГГГГ-ММ-ДД
     current: Текущие курсы
     data_uploads: Данные загрузок на Викисклад
     delete_course: Удалить курс
@@ -309,7 +316,7 @@ ru:
       автоматически обновляться на панели. Чтобы его просмотреть, проверьте панель
       чуть позже.
     join_failure_details:
-      not_yet_approved: Этот курс еще не был одобрен для регистрации.
+      not_yet_approved: Этот курс ещё не был одобрен для регистрации.
     loading: Загрузка…
     my_articles: Мои статьи
     new_week: Добавить новую неделю
@@ -515,7 +522,7 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
-    request_confirmation: Вы уверены, что хотите запросить эту учетную запись?
+    request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка

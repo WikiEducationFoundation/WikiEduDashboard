@@ -17,6 +17,7 @@ const AssignCell = createReactClass({
     role: PropTypes.number,
     tooltip_message: PropTypes.string,
     course: PropTypes.object.isRequired,
+    wikidataLabels: PropTypes.object
   },
 
   stop(e) {
@@ -60,7 +61,7 @@ const AssignCell = createReactClass({
     return (
       <div className="inline-button-peer">
         {link}
-        <AssignButton {...this.props} role={this.props.role} permitted={permitted} ref="button" />
+        <AssignButton {...this.props} role={this.props.role} permitted={permitted} />
       </div>
     );
   }

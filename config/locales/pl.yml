@@ -10,6 +10,7 @@
 # Author: Railfail536
 # Author: Rzuwig
 # Author: Stojex
+# Author: Takidelfin
 # Author: Tar Lócesilion
 # Author: The Polish
 # Author: Warchlak
@@ -19,6 +20,7 @@ pl:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: K
           million: M
@@ -30,6 +32,7 @@ pl:
       zwiększają i zmniejszają wprowadzoną wartość.
   application:
     cancel: Anuluj
+    create_accounts: Stwórz konta Wikipedia
     dashboard: Centrum programów i wydarzeń
     documentation: Dokumentacja
     error: 'Wystąpił błąd:'
@@ -50,10 +53,13 @@ pl:
     my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
     report_problem: Zgłoś problem
+    request_account: Złóż wniosek o założenie konta
     request_account_create: Utwórz konto
     search: zadaj pytanie
+    search_results: 'Wyniki dla zapytania: ''%{search_terms}'''
     no_results: Nie znaleziono wyników dla '%{query}'
     sign_up_extended: Zarejestruj się w Wikipedii
+    sign_up_wikipedia: Lub zarejestruj się z użyciem konta Wikipedia
     sign_up_log_in_extended: z Wikipedią
     sign_up: Zarejestruj się
     submit: Wyślij
@@ -63,6 +69,8 @@ pl:
     confirm: Ok
     opt_in: Tak
     opt_out: Nie
+    opt_yes: Tak
+    opt_no: Nie
   dashboard:
     create_note: Kliknij w Stwórz kurs by utworzyć swój pierwszy kurs.
     create_preparation_note: Zanim zaczniesz, miej pod ręką swój kalendarz roku akademickiego.
@@ -81,7 +89,7 @@ pl:
       szkolenia.
     review_orientation: Wróć do szkolenia
     start_orientation: Zacznij szkolenie
-    blog_headline: Najświeższe wiadomości od Wiki Ed
+    blog_headline: Najświeższe wiadomości od Wiki Education
     about_programs: Niniejsza strona śledzi postępy grup użytkowników w ramach Programów,
       czyli wydarzeń takich, jak maratony edycyjne czy projekty szkolne i akademickie.
       Każdy program można przypisać do jednej lub więcej kampanii, dzięki czemu można
@@ -104,6 +112,10 @@ pl:
   articles:
     assigned: Przypisane artykuły
     available: Dostępne artykuły
+    no_available: Brak dostępnych artykułów
+    next: Dalej
+    previous: W tył
+    article_title: Tytuł artykułu
     assigned_to: Przypisany do
     character_doc: Liczba znaków dodanych do artykułów przez uczestników kursu w czasie
       jego trwania
@@ -169,6 +181,7 @@ pl:
     add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
     add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
+    clone: Sklonuj
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
     confirm_deletion: Czy na pewno chcesz usunąć to zadanie?
@@ -189,6 +202,7 @@ pl:
     active_campaigns: Aktywne kampanie
     add_organizer: Dodaj organizatora
     alert_article: Tytuł artykułu
+    alert_label: Powiadomienia kampanii
     alert_select_label: Filtruj według typu alertu
     alert_type: Typ
     alert_user_id: Użytkownik
@@ -207,11 +221,21 @@ pl:
       usunięto.
     confirm_course_removal: Czy na pewno chcesz usunąć "%{title}" z kampanii "%{campaign_title}"?
     course_already_removed: „%{title}” już wcześniej został usunięty z kampanii „%{campaign_title}”
+    course: Kurs
     course_removed: „%{title}” został usunięty z kampanii „%{campaign_title}”
     create_campaign: Stwórz nową kampanię
     create_my_campaign: Stwórz moją kampanię
+    customize_passcode: Domyślny kod bezpieczeństwa
+    default_course_type: Domyślny typ kursu
+    default_passcode: Domyślny kod bezpieczeństwa
+    default_passcode_explanation: 'Domyślnie, nowe programy w tej kampanii powinny
+      mieć:'
     description: Opis
     delete_campaign: Usuń tę kampanię
+    disable_account_requests: Wyłącz prośby o utworzenie konta
+    enable_account_requests: Włącz prośby o stworzenie konta
+    no_alerts: Ta kampania nie ma powiadomień
+    no_passcode: brak kodu bezpieczeństwa
     none: Brak
     organizers: Organizatorzy
     organizer_added: '%{user} został organizatorem kampanii „%{title}”'
@@ -219,6 +243,8 @@ pl:
     program_template: Szablon programu
     program_template_tooltip: Gdy organizator stworzy program w ramach tej kampanii,
       treść z tego pola zostanie skopiowana jako opis na jego stronę
+    random_passcode: Losowy kod bezpieczeństwa
+    requested_accounts: Wnioski o stworzenie konta
     title: Tytuł
     use_start_end_dates: Użyć dat rozpoczęcia i zakończenia?
   categories:
@@ -226,15 +252,29 @@ pl:
     add_template: Dodaj szablon
     add_this_category: Dodaj tę kategorię
     add_this_template: Dodaj ten szablon
+    confirm_category_addition: Czy jesteś pewien, że chcesz śledzić wkład w tworzeniu
+      kategorii "%{name}"?
+    confirm_template_addition: Czy jesteś pewien, że chcesz śledzić wkład w tworzenie
+      szablonu "%{name}"?
     depth: Głębokość podkategorii
+    name: Nazwa
     category_name: Nazwa kategorii
     template_name: Nazwa szablonu
+    none: Brak śledzonych kategorii
     remove: Usuń
+    tracked_categories: Śledzone kategorie i szablony
   chat:
     label: Czat
   courses:
+    assignment_edits_enabled: Edycja wniosków włączona
+    assignment_edits_enabled_tooltip: Jeżeli włączone, Panel Edukacyjny będzie edytował
+      dyskusje dla każdego przydzielonego artykułu
+    accounts_generation_enabled: Tworzenie wniosków o utworzenie konta włączone
+    accounts_generation_confirm_message: Czy jesteś pewien, że chcesz włączyć składanie
+      wniosków o stworzenie konta?
     activity: Aktywność
     active_courses: Aktywne %{course_type}
+    alerts: Powiadomienia
     all_courses: Wszystkie kursy
     already_enrolled: Już jesteś uczestnikiem kursu „%{title}”!
     already_exists: To już wcześniej zostało dodane do kursu.
@@ -257,11 +297,15 @@ pl:
     campaigns: 'Kampanie:'
     campaign_articles: '%{title} Artykułów'
     campaign_courses: '%{title} kursy'
+    campaign_select: Wybierz kampanie
     campaign_users: '%{title} Edytorów'
     confirm_course_deletion: Czy na pewno chcesz usunąć kurs „%{title}”? Jeśli tak,
       wpisz tytuł kursu, aby kontynuować.
     confirm_course_deletion_failed: „%{title}” to nie jest nazwa kursu. Kurs pozostał
       nieusunięty.
+    confirm_manual_update: Czy na pewno chcesz uruchomić ręczną aktualizację? Najnowsza
+      wersja zostanie zaimportowana i strona się przeładuje. Ta operacja może zająć
+      trochę czasu.
     course: Kurs
     course_dates_calendar_instructions: Wybierz daty do dodania lub usunięcia z harmonogramu
       (dni wolne, wakacje itd). Kliknij w datę by zmienić jej stan (wybrana, niewybrana,
@@ -275,10 +319,13 @@ pl:
       already_exists: Ten kurs już istnieje. Rozważ zmianę nazwy, szkoły lub semestru
         by uczynić go wyjątkowym.
       assignment_end: Koniec kursu
-      assignment_end_placeholder: Koniec kursu (RRRR-MM-DD)
+      assignment_end_placeholder: Data końca kursu (RRRR-MM-DD)
       assignment_start: Początek kursu
-      assignment_start_placeholder: Początek kursu (RRRR-MM-DD)
+      assignment_start_placeholder: Data rozpoczęcia kursu (RRRR-MM-DD)
+      cancel_course_clone: Anuluj duplikację kursu
+      cancel_course_clone_confirm: Czy na pewno chcesz zatrzymać klonowanie kursu?
       checking_for_uniqueness: Sprawdzam kurs pod kątem wyjątkowości.
+      choose_clone: Wybierz kurs do zduplikowania.
       clone_previous: Sklonuj poprzedni kurs
       clone_this: Sklonuj ten kurs
       cloned_course_calendar_instructions: Wybierz daty by dodać je lub usunąć z harmonogramu
@@ -286,7 +333,7 @@ pl:
         niewybrana, dzień wolny). Jeśli zakres nie obejmuje wakacji wybierz "nie mam
         wakacji". Sklonowany harmonogram automatycznie dostosuje daty by wziąć pod
         uwagę tygodnie, podczas których nie ma zajęć ani spotkań.
-      clone_successful: Kurs został sklonowany
+      clone_successful: Kurs został sklonowany pomyślnie
       clone_successful_details: Twój kurs został sklonowany, czyli skopiowany wraz
         ze wszystkimi elementami harmonogramu (tygodniami i blokami). Pamiętaj by
         podać nowe daty. Czy coś jeszcze zmieniło się względem poprzednich edycji?
@@ -300,6 +347,8 @@ pl:
       course_term: Semestr/trymestr
       course_term_placeholder: Semestr/trymestr
       course_title: Nazwa kursu
+      course_types:
+        edit_a_thon_name: Maraton edycyjny (Edycjaton)
       create_button: Stwórz mój program
       create_label: Stwórz nowy kurs
       create_new: Stwórz nowy kurs
@@ -378,6 +427,7 @@ pl:
     new_account_email_placeholder: nazwa@przyklad.org
     new_account_username_invalid: To nie jest poprawna nazwa użytkownika.
     new_account_username_taken: Ta nazwa użytkownika jest już zajęta. Wybierz inną.
+    new_account_submit: Wniosek o założenie konta
     nocourses: Nie bierzesz udziału w żadnych kursach.
     nocourse: nie brał udziału w żadnym kursie.
     none: Brak
@@ -404,6 +454,7 @@ pl:
     start: Początek
     start_typing: Pisz tutaj
     students: Studenci
+    students_taught: Studenci przeszkoleni
     students_count: Liczba studentów
     student_editors: Studenci-wikipedyści
     students_none: Na kurs nie zapisał się żaden student.
@@ -412,14 +463,23 @@ pl:
       By go zatwierdzić, dodaj go do kampanii na stronie Overview
     submitted_and_pending_heading: Zgłoszone i oczekujące na zatwierdzenie
     submitted_heading: Zgłoszone kursy
-    submitted_note: Twój kurs został zgłoszony. Rzucimy na niego okiem i zgłosimy
-      się z ewentualnymi pytaniami.
+    submitted_note: Twój kurs został wysłany. Rzucimy na niego okiem i zgłosimy się
+      z ewentualnymi pytaniami.
     suggestions_feedback: Czy masz uwagi co do poprawy tego narzędzia? Daj nam znać!
+    suggestions_sending: Wysyłanie opinii...
+    suggestions_sent: Opinia została przekazana. Dziekujemy za twój poświęcony czas.
+    suggestions_failed: Wystąpił problem z wysyłaniem opinii. Spróbuj ponownie później.
     user_role: Rola
     course_details: Szczegóły kursu
+    subject: Temat
+    submitted: Wysłano
+    tag_select: Wybierz lub stwórz znacznik
+    tags: 'Znaczniki:'
     term: Semestr
     timeline: Szczegóły zadania
+    timeline_enabled: Oś czasu włączona
     timeline_link: Harmonogram
+    timeline_nav: Przejdź to osi czasu
     time_zone_message: Początek i koniec wyświetlają się w Twoim czasie lokalnym.
     title: Tytuł
     training_due: 'Moduł szkoleniowy „%{title}” został przyporządkowany do tego kursu,
@@ -433,6 +493,8 @@ pl:
     user_uploads_none: Ten użytkownik nie dodał żadnych zdjęć ani innych plików multimedialnych
       do Wikimedia Commons.
     user_recent_uploads: Niedawno przesłane
+    user_suggestions: 'Sugestie użytkowników:'
+    user_suggestions_prompt: Twoje sugestie do edytorów tego artykułu
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników
@@ -455,12 +517,13 @@ pl:
       notification_message: Wypełnij naszą ankietę dotyczącą tego kursu.
       link: Wypełnij ankietę
   courses_generic:
+    add_campaign: Dodaj kampanię
     all_courses: Wszystkie programy
     archived: Zarchiwizowane programy
     articles_none: W ramach tego projektu nikt jeszcze nie edytował artykułów.
-    assignment_end: Koniec harmonogramu
+    assignment_end: Koniec wydarzenia
     assignments_none: Ten projekt nie ma przypisanych artykułów.
-    assignment_start: Początek harmonogramu
+    assignment_start: Rozpoczęcie wydarzenia
     cancel: Anuluj
     course: Program
     courses: Programy
@@ -472,7 +535,10 @@ pl:
       assignment_end_placeholder: Koniec wydarzenia (RRRR-MM-DD)
       assignment_start: Rozpoczęcie wydarzenia
       assignment_start_placeholder: Rozpoczęcie wydarzenia (RRRR-MM-DD)
+      cancel_course_clone: Anuluj duplikację programu
+      cancel_course_clone_confirm: Czy na pewno chcesz zatrzymać klonowanie tego programu?
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
+      choose_clone: Wybierz program do sklonowania.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
       clone_successful: Program został sklonowany
@@ -487,6 +553,7 @@ pl:
       create_label: Stwórz nowy program
       create_new: Stwórz niezależny program
       create_short: Utwórz program
+      end_date: Koniec śledzenia aktywności
       find: Znajdź program
       intro: Wymagany tytuł programu, pozostałe dane można uzupełnić później. Kliknij
         w "Stwórz mój program!" by rozpocząć budowanie strony wiki swojego programu.
@@ -495,7 +562,7 @@ pl:
     delete_course: Skasuj program
     edit_course_dates: Edytuj daty projektu
     enroll: Dodaj edytora
-    enrollment: Uczestnictwo
+    enrollment: Dodaj/Usuń uczestników
     explore: Znajdź programy
     courses_enrolled: Ukończone programy
     expected_students: Oczekiwani edytorzy
@@ -508,17 +575,23 @@ pl:
     not_permitted: Nie masz uprawnień do edytowania tego programu.
     published: 'Projekt został opublikowany. Uczestnicy mogą dopisać się za pomocą
       następującego adresu URL:'
+    request_accounts: Złóż wniosek o założenie konta
     revisions_none: W tym projekcie nie było ostatnio aktywności.
     school: Instytucja
     school_and_term: Instytucja/Kiedy
+    search_courses: Przeszukaj programy
+    start: Rozpoczęcie śledzenia aktywności
     student_editors: Edytorzy
     students: Edytorzy
+    students_taught: Łączna liczba edytorów
     students_none: Do tego projektu nie dopisał się żaden edytor.
     students_short: Edytorzy
     students_count: Liczba uczestników
     term: Kiedy
     unsubmitted: Niezgłoszone programy
     uploads_none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    user_uploads_none: Wybrani użytkownicy nie posiadają wkładu pod postacią zdjęć
+      lub innych plików multimedialnych w tym projekcie.
     view_other: Zobacz inne kampanie
     view_page: Zobacz stronę programu
     word_count_doc: Przybliżona liczba słów dodanych do przestrzeni głównej (artykułów)
@@ -530,15 +603,19 @@ pl:
     save: Zapisz
     edit_description: Edytuj opis
     edit_details: Edytuj szczegóły
+    edit_template: Edytuj szablon
     rename_confirmation: Pola opisu tworzące adres URL zostały zmienione. To zmieni
       również sam adres URL niniejszej strony, co może mieć wpływ na już rozesłane
       linki. Czy na pewno chcesz kontynuować?
   metrics:
+    label: Aktywność kursu
     last_update: Ostatnia aktualizacja statystyk
+    next_update: Następna przewidywana aktualizacja
     activity: Ostatnia aktywność
     are_trained: uczestników ukończyło wymagane etapy szkolenia
     articles_created: Utworzone artykuły
     articles_edited: Edytowane artykuły
+    bytes_added: Dodane bajty
     characters: Znaki
     char_added: Dodano znaków
     char_changed: Zmieniono znaków
@@ -602,6 +679,23 @@ pl:
     title: Tytuł
     view_on_wiki: Zobacz porównanie wersji na wiki
     see_more: Zobacz więcej
+  resources:
+    label: Zasoby
+    header: Zasoby i ćwiczenia
+  settings:
+    admin_users:
+      new:
+        form_label: Nadaj uprawnienia administratora
+        form_placeholder: Nazwa użytkownika
+        confirm_add_admin: Nadaj administratora
+        confirm_remove_admin: Odbierz uprawnienia administratora dla
+        already_admin: '%{username} jest już administratorem!'
+        elevate_success: Użytkownik %{username} otrzymał uprawnienia administratora.
+      remove:
+        revoke_button: Odbierz administratora
+        revoke_button_confirm: Odbierz uprawnienia administratora od %{username}
+        revoking_button_working: Trwa odbieranie praw...
+        already_instructor: '%{username} jest już instruktorem!'
   suggestions:
     editing: Sugestie edycyjne
     suggestion_docs:

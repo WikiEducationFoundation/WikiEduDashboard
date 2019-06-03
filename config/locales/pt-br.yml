@@ -76,6 +76,8 @@ pt-br:
     confirm: OK
     opt_in: Sim
     opt_out: Não
+    opt_yes: sim
+    opt_no: não
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
@@ -117,6 +119,10 @@ pt-br:
     article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos Disponíveis
+    no_available: Nenhum artigo disponível
+    next: Próximo
+    previous: Anterior
+    article_title: Título do artigo
     assigned_to: Atribuído a
     character_doc: A soma de caracteres adicionados a artigos por editores inscritos
       durante as datas de começo e fim
@@ -195,6 +201,7 @@ pt-br:
     add_available_submit: Adicionar artigos
     assign_self: Atribuir um artigo a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
+    clone: Fechar
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
@@ -241,6 +248,17 @@ pt-br:
     create_campaign: Criar uma nova Campanha
     create_my_campaign: Criar a minha Campanha!
     customize_passcode: um código de acesso padrão
+    data_download_info: Baixar os dados da campanha como CSVs
+    data_courses: Dados da visão geral do curso
+    data_courses_info: Métricas básicas para cada curso/programa
+    data_articles: Páginas editadas
+    data_articles_info: Detalhes sobre cada página monitorizada editada pela campanha
+    data_instructors: Instrutores
+    data_instructors_info: Lista de professores/facilitadores e dos seus cursos/programas
+    data_editors_by_course: Editores por curso
+    data_editors_by_course_info: Lista dos editores inscritos e dos seus cursos/programas
+    data_editor_usernames: Nomes de usuários dos editores
+    data_editor_usernames_info: Lista de nomes de usuários do editor, um por linha
     default_course_type: Tipo do curso predeterminado
     default_passcode: Código de acesso padrão
     default_passcode_explanation: 'Por padrão, os novos programas nesta campanha devem
@@ -281,6 +299,9 @@ pt-br:
   chat:
     label: Bate-papo
   courses:
+    assignment_edits_enabled: Edições de atribuição ativadas
+    assignment_edits_enabled_tooltip: Se ativado, o painel irá postar um modelo para
+      a página de discussão de cada artigo atribuído.
     accounts_generation_enabled: Geração de solicitação de contas ativada
     accounts_generation_explanation: Isso permitirá que os participantes digitem seu
       endereço de e-mail e nome de usuário desejado, em vez de criar novas contas.
@@ -339,9 +360,12 @@ pt-br:
       already_exists: Este curso já existe. Considere mudar o nome, instituição de
         ensino ou semestre para torná-lo único.
       assignment_end: Término da tarefa
-      assignment_end_placeholder: Término da tarefa (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início da tarefa
-      assignment_start_placeholder: Início da tarefa (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do curso
+      cancel_course_clone_confirm: Tem certeza de que deseja interromper a clonagem
+        deste curso?
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um curso para duplicar
       clone_previous: Clonar curso anterior
@@ -355,6 +379,9 @@ pt-br:
       clone_successful_details: Seu curso foi clonado, incluindo os elementos do cronograma
         (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à vontade para
         atualizá-lo agora.
+      course_dates_info: Digite as datas inicial e final do seu curso. Na próxima
+        etapa, você pode escolher quando começar a atribuição da Wikipédia dentro
+        desse período de tempo.
       course_description: Descrição do curso
       course_description_placeholder: O que está sendo abordado no seu curso, e o
         que os alunos estão elaborando na Wikipédia? Por favor, inclua todos os detalhes
@@ -368,16 +395,28 @@ pt-br:
       course_term: Prazo do curso
       course_term_placeholder: Semestre
       course_title: Título do curso
+      course_types:
+        basic_course_name: Programa básico
+        basic_course_description: Este tipo de programa regista todas as edições de
+          artigos ou páginas do espaço nominal principal feitas por todos os participantes.
+          Se as edições automáticas da wiki estiverem ativadas na wiki de acolhimento
+          do programa, então será automaticamente criada e atualizada uma versão deste
+          programa na wiki.
+        edit_a_thon_name: Maratona de edições
+        edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
+          edições de artigos ou páginas do espaço nominal principal. Por padrão, nenhuma
+          edição automatizada será feita para este programa.
+        article_scoped_program_name: Programa de escopo de artigos
+        article_scoped_program_description: Este tipo de programa só regista as edições
+          dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
+          a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
+          automatizadas do wiki estão ativadas.
       create_button: Criar meu curso!
       create_label: Criar Novo Curso
       create_new: Criar um Novo Curso
       create_short: Criar Curso
-      create_timeline: Por favor, crie uma linha do tempo para o seu curso. Você pode
-        criar um a partir do zero na guia Cronograma ou usar o Assistente de Atribuição
-        para criar uma linha de tempo personalizada com base nas práticas recomendadas
-        do Wiki Ed.
       end_date: Data Final
-      end_date_placeholder: Data de término (AAAA-MM-DD)
+      end_date_placeholder: AAAA-MM-DD
       expected_number: Número experado de estudantes
       find: Encontre seu curso
       intro: O título, a escola e o prazo criam a URL da página de seu curso e não
@@ -393,9 +432,12 @@ pt-br:
         um curso que já definiu.
       no_class_holidays: Não há férias
       role_description: A sua função no curso
+      role_description_options:
+      - Instrutor
+      - Professor assistente
       role_description_placeholder: Professor, professor assistente, etc
-      separate_event_dates: Especifique separadamente os horários iniciais e finais
-        do evento
+      separate_event_dates: Especifique horários de início/término de eventos separados
+        (opcional)
       separate_event_dates_info: As estatísticas de atividade deste programa serão
         monitorizadas com base nas datas e horários acima, mas pode especificar separadamente
         os horários para quando for começar ou terminar o evento ou programa em si
@@ -403,7 +445,7 @@ pt-br:
         local for fechado).
       save_cloned_course: Salvar Curso Novo
       start_date: Data de início
-      start_date_placeholder: Data de início (AAAA-MM-DD)
+      start_date_placeholder: AAAA-MM-DD
       subject: Tema
       update_scheduled: Atualização agendada. Os dados serão atualizados juntos com
         todos os outros programas no próximo ciclo de atualização. Isso geralmente
@@ -440,12 +482,19 @@ pt-br:
     duration: Duração do curso
     edit_count: Editar conta
     edit_course_dates: Editar data do Curso
+    embed_course_stats: Estatísticas do curso incorporado
+    embed_course_stats_description: Para incorporar as estatísticas deste programa
+      em outro site, copie e cole este snippet de código em
     enable_account_requests: Ativar as solicitações de contas
     enable_chat: Ativar Bate Papo
     end: Fim
     ended: O curso terminou.
     enroll: Inscrever-se
     enrollment: Adicionar/Remover Alunos
+    enrollment_edits_enabled: Edições de inscrição ativadas
+    enrollment_edits_enabled_tooltip: Se ativado, o painel de controle postará um
+      modelo na página do usuário e na página de discussão de cada editor que ingressar
+      no programa.
     courses_enrolled: Cursos inscritos
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -472,6 +521,7 @@ pt-br:
       identificação pessoal — como desejar. (As contas compartilhadas não são permitidas.)
     join: Participar
     join_course: Participar do curso
+    join_course_as_volunteer: Voluntário para ajudar
     join_prompt: Participar de '%{title}'?
     join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
       automático das suas contribuições, com atualizações periódicas. Regresse futuramente
@@ -523,6 +573,9 @@ pt-br:
       de todos estudantes que não completaram os módulos de treinamento. Você está
       certo que deseja fazer isso?
     no_available_actions: Não há ações disponíveis
+    online_volunteers_enabled: Voluntários on-line ativados
+    online_volunteers_tooltip: Ativar Voluntários On-line permite que editores de
+      usuários participem como voluntários. Suas edições não serão rastreadas.
     ores_plot: ORES
     overview: Início
     passcode: Código de acesso
@@ -534,6 +587,10 @@ pt-br:
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
+    requested_accounts_alert:
+      one: '%{count} conta solicitada pendente.'
+      other: '%{count} contas solicitadas pendentes.'
+    requested_accounts_alert_view: Ver
     review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o
       para atender às suas necessidades. Quando estiver satisfeito, você pode enviá-lo
       para aprovação pela equipe da Wiki Education. Depois de aprovado, você receberá
@@ -612,6 +669,9 @@ pt-br:
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    wiki_course_page_enabled: Página do curso do Wiki ativada
+    wiki_course_page_enabled_tooltip: Se ativado, um espelho wiki da página será atualizado
+      sempre que o programa ou seus usuários e atribuições forem alterados.
     wiki_edits_enabled: Edições do Wiki ativadas
     wiki_edits_enabled_tooltip: Se as edições do wiki estiverem ativadas, as edições
       automatizadas on-wiki serão feitas para este programa. Desative as edições do
@@ -641,9 +701,12 @@ pt-br:
     campaign_courses: '%{title} Programas'
     creator:
       assignment_end: Fim do evento
-      assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início do evento
-      assignment_start_placeholder: Início do evento (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clone do programa
+      cancel_course_clone_confirm: Tem certeza de que deseja interromper a clonagem
+        deste programa?
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
@@ -653,6 +716,9 @@ pt-br:
         para finalizar.
       course_when: Adicione qualquer coisa no campo 'Quando' (por exemplo, o mês e
         o ano) para diferenciá-lo do original.
+      course_dates_info: Digite as datas inicial e final do seu programa. Você pode
+        desejar estender o final para várias horas ou dias além do fim das atividades
+        principais, para incluir edição relacionada que acontece logo após o evento.
       course_description: Descrição do programa
       course_description_placeholder: Que tipo de programa é este, e o que os participantes
         estarão fazendo na(s) wiki(s)? Por favor, inclua todos os detalhes para atribuir
@@ -801,6 +867,9 @@ pt-br:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Veja mais
+  resources:
+    label: Recursos
+    header: Recursos e Treinamento
   settings:
     admin_users:
       new:
@@ -882,6 +951,8 @@ pt-br:
       está sendo executada.
     paused: A tarefa %{task} não pode ser executada porque atualizações programadas
       foram pausadas. Execute 'rake batch:resume' para retomar atualizações.
+  tickets:
+    none: Sem ingressos
   timeline:
     add_week: Adicionar Semana
     arrange_timeline: Organizar Cronograma
@@ -912,6 +983,10 @@ pt-br:
     discard_all_changes: Descartar Todas as Mudanças
     delete_timeline_and_start_over: Apagar cronograma
     due_default: Previsto para a próxima semana
+    edit_titles: Editar títulos da semana
+    edit_titles_info: Edite títulos da semana na linha do tempo. Apenas semanas com
+      reuniões agendadas podem receber títulos personalizados. Se algum título personalizado
+      for usado, semanas sem reuniões serão datadas em vez de numeradas.
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
@@ -926,6 +1001,9 @@ pt-br:
     no_timeline: Este curso não tem cronograma.
     no_activity_this_week: Não há reuniões agendadas esta semana
     nothing_this_week: Não há nada agendado para esta semana.
+    reset_titles: Restaurar ao padrão
+    reset_titles_confirmation: Tem certeza de que deseja redefinir todos os títulos
+      da semana? Isto não pode ser desfeito.
     save_all_changes: Salvar Tudo
     this_week_title_default: Esta Semana
     title: Linha do tempo
@@ -994,6 +1072,7 @@ pt-br:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores estudantes
+    edits: edições
     edits_by: 'Edições de:'
     enroll_confirmation: Tem certeza de que deseja adicionar %{username}?
     enroll_url: 'Os usuários podem inscrever-se ao entrar nesta URL:'
@@ -1022,6 +1101,7 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
+    sandboxes: páginas de teste
     total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento
@@ -1041,6 +1121,7 @@ pt-br:
     user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
     uploads_doc: Número de pastas enviadas para Wikimedia Commons
+    ungreeted: Não saudados
     username: Nome de usuário
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail
@@ -1061,6 +1142,7 @@ pt-br:
     bio_placeholder: Adicione sua Biografia (opcional)
     location_placeholder: Adicione a sua localização (opcional)
     institution_placeholder: Nome da instituição (opcional)
+    image_link_placeholder: Adicionar hiperligação à imagem (opcional)
   wiki_edits:
     notify_overdue:
       confirm: Isto irá postar um lembrete nas páginas de discussão de todos os estudantes
@@ -1209,4 +1291,10 @@ pt-br:
     relevanceIndex: Índice de Relevância
     assign_article_self: Atribuir a si
     unassign_article_self: Remover atribuição de artigo
+  training_status:
+    completed: Completado
+    started: Iniciado
+    not_started: Não foi iniciado
+    due: vencimento %{due_date}
+    assignment_status: Atribuição de treinamento (%{status})
 ...

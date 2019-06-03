@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import GetHelpButton from './get_help_button.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
@@ -36,7 +36,17 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     const timelineLink = `${courseLink}/timeline`;
     timeline = (
       <div className="nav__item" id="timeline-link">
-        <p><Link to={timelineLink} activeClassName="active">{I18n.t('courses.timeline_link')}</Link></p>
+        <p><NavLink to={timelineLink} activeClassName="active">{I18n.t('courses.timeline_link')}</NavLink></p>
+      </div>
+    );
+  }
+
+  let resources;
+  if (course.timeline_enabled) {
+    const resourcesLink = `${courseLink}/resources`;
+    resources = (
+      <div className="nav__item" id="resources-link">
+        <p><NavLink to={resourcesLink} activeClassName="active">{I18n.t('resources.label')}</NavLink></p>
       </div>
     );
   }
@@ -57,7 +67,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     const chatLink = `${courseLink}/chat`;
     chatNav = (
       <div className="nav__item" id="activity-link">
-        <p><Link to={chatLink} activeClassName="active">{I18n.t('chat.label')}</Link></p>
+        <p><NavLink to={chatLink} activeClassName="active">{I18n.t('chat.label')}</NavLink></p>
       </div>
     );
   }
@@ -79,21 +89,22 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
       {courseLinkElement}
       <nav>
         <div className="nav__item" id="overview-link">
-          <p><Link to={homeLink} className={homeLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
+          <p><NavLink to={homeLink} className={homeLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</NavLink></p>
         </div>
         {timeline}
         <div className="nav__item" id="students-link">
-          <p><Link to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', course.string_prefix)}</Link></p>
+          <p><NavLink to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="articles-link">
-          <p><Link to={articlesLink} activeClassName="active">{I18n.t('articles.label')}</Link></p>
+          <p><NavLink to={articlesLink} activeClassName="active">{I18n.t('articles.label')}</NavLink></p>
         </div>
         <div className="nav__item" id="uploads-link">
-          <p><Link to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</Link></p>
+          <p><NavLink to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</NavLink></p>
         </div>
         <div className="nav__item" id="activity-link">
-          <p><Link to={activityLink} activeClassName="active">{I18n.t('activity.label')}</Link></p>
+          <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
         </div>
+        {resources}
         {chatNav}
         {getHelp}
       </nav>

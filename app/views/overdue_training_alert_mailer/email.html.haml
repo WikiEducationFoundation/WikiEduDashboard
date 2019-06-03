@@ -21,6 +21,7 @@
                   %th.trainings-table Due Date
                 - @alert.details.each do |slug, module_details|
                   - training = TrainingModule.find_by(slug: slug)
+                  - next unless training
                   %tr
                     %td.trainings-table-cell
                       %a.link.training{href: "https://#{ENV['dashboard_url']}/training/students/#{slug}"}
@@ -37,5 +38,8 @@
                 = @days_until_next_alert
                 days if you still have overdue training modules.
                 If you don't want to receive any more training reminders,
-                %a{href: @alert.opt_out_link} click here
+                %a.link{href: @alert.opt_out_link} click here
                 to opt out.
+.hidden
+  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+  %p ignore_creating_dashboard_ticket

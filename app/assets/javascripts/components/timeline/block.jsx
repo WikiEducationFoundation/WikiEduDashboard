@@ -5,8 +5,8 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
-import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
+import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
 const DEFAULT_POINTS = 10;
 
@@ -57,6 +57,12 @@ const Block = createReactClass({
     return false;
   },
 
+  _hidden() {
+    // Resources blocks are hidden on the timeline, except for instructors and admins.
+    // They show up in the Resources tab instead, where there is no Week and so no weekStart.
+    return this.props.weekStart && !this.props.editPermissions && this.props.block.kind === BLOCK_KIND_RESOURCES;
+  },
+
   updateGradeable(_valueKey, value) {
     if (value) {
       this.updateBlock('points', DEFAULT_POINTS);
@@ -66,10 +72,13 @@ const Block = createReactClass({
   },
 
   render() {
+    const block = this.props.block;
     const isEditable = this._isEditable();
-    const isGraded = !!this.props.block.points;
+    if (this._hidden()) { return null; }
+
+    const isGraded = !!block.points;
     let className = 'block';
-    className += ` block-kind-${this.props.block.kind}`;
+    className += ` block-kind-${block.kind}`;
 
     let blockTypeClassName = 'block__block-type';
     if (this.props.editPermissions) {
@@ -80,22 +89,22 @@ const Block = createReactClass({
     if (isEditable) {
       blockActions = (
         <div className="float-container block__block-actions">
-          <button onClick={this.props.saveBlockChanges.bind(null, this.props.block.id)} className="button dark pull-right no-clear">Save</button>
-          <span role="button" tabIndex={0} onClick={this.props.cancelBlockEditable.bind(null, this.props.block.id)} className="span-link pull-right no-clear">Cancel</span>
+          <button onClick={this.props.saveBlockChanges.bind(null, block.id)} className="button dark pull-right no-clear">Save</button>
+          <span role="button" tabIndex={0} onClick={this.props.cancelBlockEditable.bind(null, block.id)} className="span-link pull-right no-clear">Cancel</span>
         </div>
       );
     }
 
     let dueDateRead;
-    if (this.props.block.due_date !== null) {
+    if (block.due_date !== null && block.kind === 1) {
       dueDateRead = (
         <TextInput
           onChange={this.updateBlock}
-          value={this.props.block.due_date}
+          value={block.due_date}
           value_key={'due_date'}
           editable={false}
           label="Due"
-          show={Boolean(this.props.block.due_date)}
+          show={Boolean(block.due_date)}
           onFocus={this.props.toggleFocused}
           onBlur={this.props.toggleFocused}
           p_tag_classname="block__read__due-date"
@@ -107,35 +116,30 @@ const Block = createReactClass({
       dueDateRead = isGraded ? (<span className="block__default-due-date">{I18n.t('timeline.due_default')}</span>) : '';
     }
 
+    let blockKindNote;
+    if (block.kind === BLOCK_KIND_RESOURCES && isEditable) {
+      blockKindNote = <small>This block will be included on the Resources tab. It will not appear on the Timeline for students.</small>;
+    }
+
     let deleteBlock;
-    let graded;
+    // let graded;
     if (isEditable) {
-      if (!this.props.block.is_new) {
+      if (!block.is_new) {
         deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={this.deleteBlock}>Delete Block</button></div>);
       }
       className += ' editable';
       if (this.props.isDragging) { className += ' dragging'; }
-      graded = (
-        <Checkbox
-          value={isGraded}
-          onChange={this.updateGradeable}
-          value_key={'gradeable'}
-          editable={isEditable}
-          label="Graded"
-          container_class="graded"
-        />
-      );
     }
 
     let modules;
-    if (this.props.block.training_modules || isEditable) {
+    if (block.training_modules || isEditable) {
       modules = (
         <TrainingModules
           onChange={this.passedUpdateBlock}
           all_modules={this.props.all_training_modules}
-          block_modules={this.props.block.training_modules}
+          block_modules={block.training_modules}
           editable={isEditable}
-          block={this.props.block}
+          block={block}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
         />
       );
@@ -146,7 +150,7 @@ const Block = createReactClass({
         {modules}
         <TextAreaInput
           onChange={this.updateBlock}
-          value={this.props.block.content}
+          value={block.content}
           value_key="content"
           editable={isEditable}
           rows="4"
@@ -159,7 +163,7 @@ const Block = createReactClass({
       </div>
     );
 
-    const dueDateSpacer = this.props.block.due_date ? (
+    const dueDateSpacer = block.due_date && block.kind === 1 ? (
       <span className="block__due-date-spacer"> - </span>
     ) : undefined;
 
@@ -182,11 +186,11 @@ const Block = createReactClass({
           <h3 className={headerClass}>
             <TextInput
               onChange={this.updateBlock}
-              value={this.props.block.title}
+              value={block.title}
               value_key="title"
               editable={isEditable}
               placeholder="Block title"
-              show={Boolean(this.props.block.title) && !isEditable}
+              show={Boolean(block.title) && !isEditable}
               className="title pull-left"
               spacer=""
               onFocus={this.props.toggleFocused}
@@ -194,7 +198,7 @@ const Block = createReactClass({
             />
             <TextInput
               onChange={this.updateBlock}
-              value={this.props.block.title}
+              value={block.title}
               value_key={'title'}
               editable={isEditable}
               placeholder="Block title"
@@ -209,11 +213,10 @@ const Block = createReactClass({
           <div className={blockTypeClassName}>
             <BlockTypeSelect
               onChange={this.updateBlock}
-              value={this.props.block.kind}
+              value={block.kind}
               value_key={'kind'}
               editable={isEditable}
-              options={['In Class', 'Assignment', 'Milestone', 'Custom']}
-              show={this.props.block.kind < 3 || isEditable}
+              show={block.kind < 3 || isEditable}
             />
             {dueDateSpacer}
             {dueDateRead}
@@ -223,20 +226,20 @@ const Block = createReactClass({
           <div className="block__block-due-date">
             <DatePicker
               onChange={this.updateBlock}
-              value={this.props.block.due_date}
+              value={block.due_date}
               value_key="due_date"
               editable={isEditable}
               label="Due date"
               spacer=""
               placeholder="Due date"
               isClearable={true}
-              show={isEditable && parseInt(this.props.block.kind) === 1}
+              show={isEditable && parseInt(block.kind) === 1}
               date_props={{ minDate: this.props.weekStart }}
               onFocus={this.props.toggleFocused}
               onBlur={this.props.toggleFocused}
             />
           </div>
-          {graded}
+          {blockKindNote}
         </div>
         {content}
         {deleteBlock}

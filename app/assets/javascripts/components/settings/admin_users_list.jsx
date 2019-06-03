@@ -33,7 +33,6 @@ const AdminUserList = ({ adminUsers, sortBy }) => {
         none_message={'no admin users'}
         sortBy={sortBy}
       />
-
     </div>
   );
 };

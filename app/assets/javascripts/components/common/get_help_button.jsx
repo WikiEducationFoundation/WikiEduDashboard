@@ -117,7 +117,7 @@ const GetHelpButton = createReactClass({
       );
 
       // Show the program help button only to instructors and other non-students.
-      if (this.props.currentUser.isNonstudent) {
+      if (this.props.currentUser.isAdvancedRole) {
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
@@ -143,7 +143,7 @@ const GetHelpButton = createReactClass({
         <div>
           <hr />
           <p className="target-users">
-            Still need help? Get in touch with Wiki Ed staff if you have a:
+            Still need help? Get in touch with Wiki Education staff if you have a:
             <br />
             {wikipediaHelpButton}
             {programHelpButton}
@@ -174,7 +174,7 @@ const GetHelpButton = createReactClass({
         <div className="get-help-form">
           <p><strong>To: {this.state.selectedTargetUser.username}</strong></p>
           <form onSubmit={this.submitNeedHelpMessage} className="mb0">
-            <input name="targetUser" type="hidden" defaultValue="" value={this.state.selectedTargetUser.id} />
+            <input name="targetUser" type="hidden" value={this.state.selectedTargetUser.id} />
             <fieldset>
               <label htmlFor="message" className="input-wrapper">
                 <span>Your Message:</span>
@@ -187,25 +187,19 @@ const GetHelpButton = createReactClass({
         </div>
       );
     } else {
-      if (this.props.currentUser.role > 0) {
+      if (this.props.currentUser.isAdvancedRole) {
         faqLink = (
           <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
         );
-      } else {
+      } else if (this.props.course.type === 'ClassroomProgramCourse') {
         faqLink = (
           <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">Student FAQ</a>
         );
       }
 
-      content = (
-        <div className="get-help-info">
-          <p>
-            <strong>
-              Hi! if you need help with your Wikipedia assignment, you&apos;ve come
-              to the right place!
-            </strong>
-          </p>
-
+      let searchHelpForum;
+      if (this.props.course.type === 'ClassroomProgramCourse') {
+        searchHelpForum = (
           <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
             <input name="utf8" type="hidden" defaultValue="✓" />
             <input name="source" type="hidden" defaultValue="get_help_button" />
@@ -214,10 +208,22 @@ const GetHelpButton = createReactClass({
               <i className="icon icon-search" />
             </button>
           </form>
+        );
+      }
 
+
+      content = (
+        <div className="get-help-info">
           <p>
-            You may also refer to our interactive training modules and
-            external resources for help with your assignment.
+            <strong>
+              Hi! if you need help with your Wikipedia project, you&apos;ve come
+              to the right place!
+            </strong>
+          </p>
+          {searchHelpForum}
+          <p>
+            Refer to our interactive training modules and
+            external resources for help with your project.
           </p>
 
           <p>

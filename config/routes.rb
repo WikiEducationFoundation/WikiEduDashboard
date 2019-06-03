@@ -31,12 +31,17 @@ Rails.application.routes.draw do
   get '/settings/default_campaign_status' => 'settings#default_campaign_status'
   get '/settings/switch_default_campaign' => 'settings#switch_default_campaign'
 
+  post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'
+  # Griddler allows us to receive incoming emails. By default,
+  # the path for incoming emails is /email_processor
+  mount_griddler
 
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
+    delete 'profile_image' => 'user_profiles#delete_profile_image', as: 'delete_profile_image', constraints: { username: /.*/ }
     get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
     post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
@@ -73,8 +78,10 @@ Rails.application.routes.draw do
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
-  get 'requested_accounts/:course_slug' => 'requested_accounts#index',
+  get 'requested_accounts/:course_slug' => 'requested_accounts#show',
       constraints: { course_slug: /.*/ }
+  get '/requested_accounts' => 'requested_accounts#index'
+  post '/requested_accounts' => 'requested_accounts#create_all_accounts'
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
@@ -131,7 +138,13 @@ Rails.application.routes.draw do
           titleterm: /[^\/]*/
         }
 
-    post 'clone_course/:id' => 'course_clone#clone'
+    get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
+    constraints: {
+        school: /[^\/]*/,
+        titleterm: /[^\/]*/
+    }
+
+    post 'clone_course/:id' => 'course_clone#clone', as: 'course_clone'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
       constraints: {
@@ -197,6 +210,7 @@ Rails.application.routes.draw do
       get 'programs'
       get 'articles'
       get 'users'
+      get 'assignments'
       get 'students'
       get 'instructors'
       get 'courses'
@@ -280,6 +294,8 @@ Rails.application.routes.draw do
     root to: "dashboard#index", as: :courses_dashboard
   end
 
+  get 'dashboard' => 'dashboard#index'
+
   # Unauthenticated users root to the home page
   root to: 'home#index'
 
@@ -311,8 +327,8 @@ Rails.application.routes.draw do
   put 'onboarding/supplementary' => 'onboarding#supplementary', as: :supplementary
 
   # Update Locale Preference
-  post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
-  get '/update_locale/:locale' => 'users#update_locale'
+  post '/update_locale/:locale' => 'users/locale#update_locale', as: :update_locale
+  get '/update_locale/:locale' => 'users/locale#update_locale'
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
@@ -349,6 +365,13 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
+  
+  authenticate :user, lambda { |u| u.admin? } do
+    post '/tickets/reply' => 'tickets#reply', format: false
+    post '/tickets/notify_owner' => 'tickets#notify_owner', format: false
+    get '/tickets/*dashboard' => 'tickets#dashboard', format: false
+    mount TicketDispenser::Engine, at: "/td"
+  end
 
   require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do

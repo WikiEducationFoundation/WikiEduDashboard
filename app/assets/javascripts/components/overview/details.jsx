@@ -16,7 +16,10 @@ import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
+import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
+
 import WikiEditsToggle from './wiki_edits_toggle';
+import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
 import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
@@ -97,14 +100,16 @@ const Details = createReactClass({
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
-    let online;
     let campus;
     let staff;
     let school;
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
-      online = <OnlineVolunteers {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
+    }
+    let online;
+    if (Features.wikiEd || this.props.course.online_volunteers_enabled) {
+      online = <OnlineVolunteers {...this.props} />;
     }
 
     if (this.props.course.school || canRename) {
@@ -232,7 +237,9 @@ const Details = createReactClass({
     let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let onlineVolunteersToggle;
     let wikiEditsToggle;
+    let editSettingsToggle;
     let withdrawnSelector;
     let projectSelector;
     let languageSelector;
@@ -312,6 +319,17 @@ const Details = createReactClass({
       );
     }
 
+    // Users who can rename a course can enable Online Volunteers to join
+    if (canRename && !Features.wikiEd) {
+      onlineVolunteersToggle = (
+        <OnlineVolunteersToggle
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+    }
+
     // Users who can rename a course are also allowed to toggle the wiki edits on/off.
     // But this toggle is only relevant if the home wiki has edits enabled.
     if (canRename && !isClassroomProgramType && this.props.course.home_wiki_edits_enabled) {
@@ -322,6 +340,16 @@ const Details = createReactClass({
           updateCourse={this.props.updateCourse}
         />
       );
+
+      if (this.props.course.wiki_edits_enabled) {
+        editSettingsToggle = (
+          <EditSettingsToggle
+            course={this.props.course}
+            editable={this.props.editable}
+            updateCourse={this.props.updateCourse}
+          />
+        );
+      }
     }
 
     if (this.props.editable && !Features.wikiEd) {
@@ -393,7 +421,9 @@ const Details = createReactClass({
               {submittedSelector}
               {privacySelector}
               {timelineToggle}
+              {onlineVolunteersToggle}
               {wikiEditsToggle}
+              {editSettingsToggle}
               {withdrawnSelector}
               {projectSelector}
               {languageSelector}

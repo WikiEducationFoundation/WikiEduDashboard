@@ -6,6 +6,8 @@
 # Author: Jopparn
 # Author: Josve05a
 # Author: Rockyfelle
+# Author: Sturban
+# Author: Umeaboy
 # Author: WikiPhoenix
 ---
 sv:
@@ -79,6 +81,10 @@ sv:
     article_development: (artikelutveckling)
     assigned: Tilldelade artiklar
     available: Tillgängliga artiklar
+    no_available: Inga tillgängliga artiklar
+    next: Nästa
+    previous: Föregående
+    article_title: Artikeltitel
     assigned_to: Tilldelad till
     character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
       under kursen
@@ -226,6 +232,8 @@ sv:
     creator:
       already_exists: Denna kurs finns redan. Överväg att ändra namnet, skolan eller
         terminen för att göra den unik.
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Välj en kurs att klona.
       clone_previous: Klona tidigare kurs
       clone_this: Klona denna kurs
@@ -237,12 +245,18 @@ sv:
       course_term: Kurstermin
       course_term_placeholder: Termin
       course_title: Kurs titel
+      course_types:
+        basic_course_name: Grundläggande program
+        edit_a_thon_name: Redigeringsmaraton
+        edit_a_thon_description: Programmet redigeringsmaraton kommer spåra redigeringar
+          på alla artiklar eller namnrymdssidor. Inga automatiserade redigeringar
+          kommer att göras för detta program.
       create_button: Skapa min Kurs!
       create_label: Skapa ny kurs
       create_new: Skapa en ny kurs
       create_short: Skapa Kurs
       end_date: Slutdatum
-      end_date_placeholder: Slutdatum (ÅÅÅÅ-MM-DD)
+      end_date_placeholder: ÅÅÅÅ-MM-DD
       expected_number: Förväntat antal elever
       find: Hitta din kurs
       intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
@@ -381,6 +395,8 @@ sv:
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
     creator:
+      assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start_placeholder: ÅÅÅÅ-MM-DD
       choose_clone: Välj ett program att klona.
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
@@ -506,6 +522,8 @@ sv:
     constant: Uppgiften %{task} kan inte köras medan uppgiften update_daily körs.
     paused: Uppgiften %{task} kan inte köras eftersom schemalagda uppdateringar har
       pausats. Kör "rake batch:resume" för att återuppta uppdateringar.
+  tickets:
+    none: Inga ärenden
   timeline:
     add_week: Lägg till vecka
     arrange_timeline: Organisera tidslinje
@@ -524,6 +542,7 @@ sv:
     move_block_down: Flytta upp block
     move_block_up: Flytta ned block
     no_activity_this_week: Ingen schemalagda möten denna vecka
+    reset_titles: Standardvärden
     save_all_changes: Spara alla
     this_week_title_default: Denna vecka
     title: Tidslinje

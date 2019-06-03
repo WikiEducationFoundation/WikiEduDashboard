@@ -20,8 +20,8 @@ class OresApi
     response = ores_server.get query_url(rev_ids)
     ores_data = Oj.load(response.body)
     ores_data
-  rescue StandardError => error
-    raise error unless TYPICAL_ERRORS.include?(error.class)
+  rescue StandardError => e
+    raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
 

@@ -1,26 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
+import selectStyles from '../../styles/single_select';
 
 const CourseLevelSelector = ({ level, updateCourse }) => {
-  const handleChange = (e) => {
-    const courseLevel = e.target.value;
+  let selectedOption = { value: level, label: level };
+  const handleChange = (option) => {
+    const courseLevel = option.value;
+    selectedOption = option;
     updateCourse('level', courseLevel);
   };
-
+  const options = [
+    { value: '', label: '— select one —' },
+    { value: 'Introductory', label: 'Introductory' },
+    { value: 'Advanced Undergrad', label: 'Advanced undergraduate' },
+    { value: 'Graduate', label: 'Graduate' },
+  ];
   return (
     <div className="form-group">
       <label htmlFor="course_level">Course level:</label>
-      <select
+      <Select
         id="course_level"
-        name="course_level"
-        value={level || ''}
+        value={options.find(option => option.value === selectedOption.value)}
         onChange={handleChange}
-      >
-        <option disabled value=""> — select one —</option>
-        <option value="Introductory">Introductory</option>
-        <option value="Advanced Undergrad">Advanced undergraduate</option>
-        <option value="Graduate">Graduate</option>
-      </select>
+        options={options}
+        simpleValue
+        styles={selectStyles}
+      />
     </div>
   );
 };

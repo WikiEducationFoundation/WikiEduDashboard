@@ -37,6 +37,8 @@ skr-arab:
     confirm: ٹھیک ہے
     opt_in: جیا
     opt_out: کو
+    opt_yes: جیا
+    opt_no: کو
   dashboard:
     create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
     explore_examples: مثالاں لبھو
@@ -69,6 +71,7 @@ skr-arab:
     view_on_wiki: وکی تے ݙکھالا
     wiki: وکی
   assignments:
+    clone: کلون
     label: سپرد کرو
     remove: ہٹاؤ
     review_self: مضمون تے نظرثانی کرو
@@ -91,12 +94,12 @@ skr-arab:
     none: کوئی وی کائنی
     title: عنوان
   categories:
-    add_category: ون٘کی شامل کرو
+    add_category: ونکی شامل کرو
     add_template: سانچہ شامل کرو
-    add_this_category: ایہ ون٘کی شامل کرو
+    add_this_category: ایہ ونکی شامل کرو
     add_this_template: ایہ سانچہ شامل کرو
     name: ناں
-    category_name: ون٘کی دا ناں
+    category_name: ونکی دا ناں
     template_name: سان٘چے دا ناں
     remove: ہٹاؤ
   chat:
@@ -283,4 +286,6 @@ skr-arab:
     show_options: اختیارات ݙکھاؤ
     hide_options: اختیارات لُکاؤ
     submit: جمع کرواؤ
+  training_status:
+    started: شروع تھیا
 ...

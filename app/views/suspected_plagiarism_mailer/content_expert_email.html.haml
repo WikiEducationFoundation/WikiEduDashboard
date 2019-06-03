@@ -11,13 +11,13 @@
               %p.paragraph
                 Wikipedia's plagiarism detection system picked up an edit from one
                 of the students enrolled in
-                #{link_to @course.title, "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}.
+                #{link_to @course.title, "https://#{ENV['dashboard_url']}/courses/#{@course.slug}", class: 'link'}.
               %p.paragraph
-                #{link_to @user.username, "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}"}
+                #{link_to @user.username, "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}", class: 'link'}
                 made
-                #{link_to 'this change', @revision.url}
+                #{link_to 'this change', @revision.url, class: 'link'}
                 to the article
-                "#{link_to @article.full_title, @article_url}", which Turnitin/iThenticate matched to published
+                "#{link_to @article.full_title, @article_url, class: 'link'}", which Turnitin/iThenticate matched to published
                 text.
               %p.paragraph
                 These reports are not 100% accurate. For example, a direct quote with proper attribution

@@ -3,8 +3,6 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.title
         = course.title
-      %span.creation-date.hidden
-        = course.created_at
   %td{:class => "table-link-cell school"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
@@ -38,8 +36,18 @@
       %span.students
         = course.user_count
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
-  - if @presenter&.can_remove_course?
+  - unless Features.wiki_ed?
     %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.creation-date
+          = I18n.localize course.created_at.to_date
+  %td{:class => "table-link-cell"}
+    - if @presenter&.campaign_organizer?
+      %a.course-link{:href => "#{course_slug_path(course.slug)}", style: "padding-bottom: 0;"}
+        = form_for(@campaign, url: course_clone_path(course.id), method: :post, html: { class: 'remove-program-form' }) do
+          %button.button.info
+            = t('assignments.clone')
+    - if @presenter&.can_remove_course?
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         = form_for(@campaign, url: remove_course_campaign_path(@campaign.slug, course_id: course.id), method: :put, html: { class: 'remove-program-form' }) do
           = hidden_field_tag('course_title', course.title)

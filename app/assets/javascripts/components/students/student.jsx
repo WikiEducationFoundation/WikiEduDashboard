@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setUploadFilters } from '../../actions/uploads_actions';
@@ -23,7 +23,8 @@ const Student = createReactClass({
     isOpen: PropTypes.bool,
     toggleDrawer: PropTypes.func,
     fetchUserRevisions: PropTypes.func.isRequired,
-    fetchTrainingStatus: PropTypes.func.isRequired
+    fetchTrainingStatus: PropTypes.func.isRequired,
+    wikidataLabels: PropTypes.object
   },
 
   setUploadFilters(selectedFilters) {
@@ -62,14 +63,14 @@ const Student = createReactClass({
         <strong>{trunc(this.props.student.real_name)}</strong>
         &nbsp;
         (
-        <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+        <a href={`/users/${this.props.student.username}`}>
           {trunc(this.props.student.username)}
         </a>)
       </span>
       )
       : (
         <span>
-          <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">
+          <a href={`/users/${this.props.student.username}`}>
             {trunc(this.props.student.username)}
           </a>
         </span>
@@ -78,6 +79,11 @@ const Student = createReactClass({
     const trainingProgress = this.props.student.course_training_progress ? (
       <small className="red">{this.props.student.course_training_progress}</small>
     ) : undefined;
+
+    let recentRevisions;
+    if (this.props.showRecent) {
+      recentRevisions = <td className="desktop-only-tc">{this.props.student.recent_revisions}</td>;
+    }
 
     let assignButton;
     let reviewButton;
@@ -92,6 +98,7 @@ const Student = createReactClass({
           role={0}
           editable={this.props.editable}
           assignments={assigned}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
 
@@ -105,6 +112,7 @@ const Student = createReactClass({
           role={1}
           editable={this.props.editable}
           assignments={reviewing}
+          wikidataLabels={this.props.wikidataLabels}
         />
       );
     }
@@ -118,7 +126,11 @@ const Student = createReactClass({
             {userName}
           </div>
           {trainingProgress}
-          <div className="sandbox-link"><a onClick={this.stop} href={this.props.student.sandbox_url} target="_blank">(sandboxes)</a></div>
+          <div className="sandbox-link">
+            <a onClick={this.stop} href={this.props.student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
+            &nbsp;
+            <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
+          </div>
         </td>
         <td className="desktop-only-tc">
           {assignButton}
@@ -126,7 +138,7 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {reviewButton}
         </td>
-        <td className="desktop-only-tc">{this.props.student.recent_revisions}</td>
+        {recentRevisions}
         <td className="desktop-only-tc">
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>

@@ -3,10 +3,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/dyk_nomination_monitor"
 
-def mock_mailer
-  OpenStruct.new(deliver_now: true)
-end
-
 describe DYKNominationMonitor do
   describe '.create_alerts_for_course_articles' do
     let(:course) { create(:course) }
@@ -16,7 +12,8 @@ describe DYKNominationMonitor do
                             course_id: course.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
-    let(:content_expert) { create(:user, greeter: true) }
+    let(:content_expert) { create(:user, greeter: true, email: 'staff@wikiedu.org') }
+    let(:instructor) { create(:user, email: 'teach@wiki.edu') }
 
     # Article that hasn't been edited by students
     let!(:article2) { create(:article, title: '17776', namespace: 0) }
@@ -52,7 +49,13 @@ describe DYKNominationMonitor do
 
     it 'emails a greeter' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
-      allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
+      described_class.create_alerts_for_course_articles
+      expect(Alert.last.email_sent_at).not_to be_nil
+    end
+
+    it 'emails course creator' do
+      create(:courses_user, user: instructor, course: course,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end

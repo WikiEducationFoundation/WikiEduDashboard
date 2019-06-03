@@ -58,6 +58,8 @@ ko:
     confirm: 확인
     opt_in: 예
     opt_out: 아니오
+    opt_yes: 예
+    opt_no: 아니오
   dashboard:
     create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
     explore_course_pages: 코스 문서 둘러보기
@@ -78,6 +80,9 @@ ko:
   articles:
     assigned: 할당된 문서
     available: 이용 가능한 글
+    next: 다음
+    previous: 이전
+    article_title: 문서 제목
     assigned_to: 할당됨
     deleted: (삭제됨)
     edited: 문서 편집됨
@@ -142,6 +147,7 @@ ko:
     alert_user_id: 사용자
     created_at: 날짜
     course: 과정
+    data_download_info: CSV로 캠페인 데이터 다운로드
     default_passcode: 기본 비밀번호
     description: 설명
     disable_account_requests: 계정 요청 비활성화
@@ -193,22 +199,27 @@ ko:
     creation_date: 만든 날짜
     creator:
       assignment_end: 과제 종료
-      assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 과제 시작
-      assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 복제된 과정의 세부사항 업데이트하기
       course_language: 주 언어
       course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
       course_project: 주 프로젝트
       course_term_placeholder: 학기
+      course_types:
+        edit_a_thon_name: 에디터톤
       end_date: 종료일
-      end_date_placeholder: 종료 날짜 (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
+      role_description_options:
+      - 강사
+      - 보조 교사
       role_description_placeholder: 강사, 조교 등
       save_cloned_course: 새 코스 저장
       start_date: 시작일
-      start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: 제목
     current: 현재 과정
     data_articles: 문서 데이터
@@ -280,6 +291,7 @@ ko:
     please_log_in: 로그인해 주십시오.
     private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
+    requested_accounts_alert_view: 보기
     school: 학교
     search_courses: 강의 검색
     start: 시작
@@ -335,9 +347,10 @@ ko:
     courses: 프로그램
     creator:
       assignment_end: 이벤트 끝
-      assignment_end_placeholder: 이벤트 끝 (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 이벤트 시작
-      assignment_start_placeholder: 이벤트 시작 (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone_confirm: 이 프로그램의 복제를 중지하시겠습니까?
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.
@@ -476,6 +489,7 @@ ko:
     no_timeline: 이 과정에는 타임라인이 없습니다.
     no_activity_this_week: 이 주에 예정된 미팅 없음
     nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
+    reset_titles: 기본값으로 재설정
     save_all_changes: 모두 저장
     this_week_title_default: 이번 주
     title: 타임라인
@@ -519,6 +533,7 @@ ko:
     contribution_statistics: 기여 통계
     course_passcode: '패스코드:'
     editors: 편집자
+    edits: 편집
     edits_by: '편집자:'
     enroll_confirmation: '%{username}님을 추가하시겠습니까?'
     enroll_url: '사용자는 다음 URL을 방문하여 참여할 수 있습니다:'
@@ -634,4 +649,8 @@ ko:
     article_finder: 문서 검색기
     submit: 제출
     unassign_article_self: 문서 할당 해제
+  training_status:
+    completed: 완료
+    started: 시작됨
+    not_started: 시작되지 않음
 ...

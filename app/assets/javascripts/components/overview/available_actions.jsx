@@ -11,8 +11,11 @@ import { addNotification } from '../../actions/notification_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
+import EmbedStatsButton from './embed_stats_button.jsx';
+import CloneCourseButton from './clone_course_button.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, greetStudents } from '../../actions/course_actions';
+import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
 
 const AvailableActions = createReactClass({
@@ -32,18 +35,17 @@ const AvailableActions = createReactClass({
     removeUser: PropTypes.func.isRequired
   },
 
-  join() {
+  join(role = null) {
+    const enrollURL = this.props.course.enroll_url;
     if (this.props.course.passcode === '') {
-      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function () {
-        return window.location = EnrollURL;
+        return window.location = `${enrollURL}?role=${role}`;
       };
       const confirmMessage = CourseUtils.i18n('join_no_passcode');
       this.props.initiateConfirm(confirmMessage, onConfirm);
     } else {
-      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function (passcode) {
-      return window.location = EnrollURL + passcode;
+        return window.location = `${enrollURL}${passcode}?role=${role}`;
       };
       const confirmMessage = I18n.t('courses.passcode_prompt');
       const joinDescription = CourseUtils.i18n('join_details', this.props.course.string_prefix);
@@ -62,7 +64,8 @@ const AvailableActions = createReactClass({
 
   leave() {
     const courseSlug = this.props.course.slug;
-    const userRecord = { user: { user_id: this.props.current_user.id, role: 0 } };
+    const role = this.props.current_user.isOnlineVolunteer ? ONLINE_VOLUNTEER_ROLE : STUDENT_ROLE;
+    const userRecord = { user: { user_id: this.props.current_user.id, role: role } };
     const leaveCourse = this.props.removeUser;
     const onConfirm = function () {
       return leaveCourse(courseSlug, userRecord);
@@ -122,79 +125,89 @@ const AvailableActions = createReactClass({
     const controls = [];
     const user = this.props.current_user;
     // If user has a role in the course or is an admin
-    if ((user.role !== undefined) || user.admin) {
+    if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
       // If user is a student, show the 'leave' button.
-      if (user.role === 0) {
+      if (user.isStudent || user.isOnlineVolunteer) {
         controls.push((
-          <p key="leave"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></p>
+          <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
         ));
       }
       // If course is not published, show the 'delete' button to instructors and admins.
       // Show a disabled version of it on P&E Dashboard even if a course is published,
       // so that users can see the instructions for how to enable deletion.
-      if ((user.role === 1 || user.admin) && (!course.published || !Features.wikiEd)) {
+      if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
         controls.push((
-          <p title={I18n.t('courses.delete_course_instructions')} key="delete">
+          <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
             <button className="button danger" onClick={this.delete}>
               {CourseUtils.i18n('delete_course', course.string_prefix)}
             </button>
-          </p>
+          </div>
         ));
       }
       // If the course is ended, show the 'needs update' button.
       if (CourseDateUtils.isEnded(course)) {
         controls.push((
-          <p key="needs_update"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></p>
+          <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
         ));
       }
       // If chat is available but not enabled for course, show the 'enable chat' button.
       if (Features.enableChat && !course.flags.enable_chat && user.admin) {
         controls.push((
-          <p key="enable_chat"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></p>
+          <div key="enable_chat" className="available-action"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></div>
         ));
       }
     // If user has no role or is logged out
     } else if (!course.ended) {
-      controls.push((
-        <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></p>
-      ));
+      controls.push(
+        <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
+      );
+      // On P&E Dashboard, offer option to join as online volunteer
+      if (!Features.wikiEd && course.online_volunteers_enabled) {
+        controls.push(
+          <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+        );
+      }
     }
     // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
     if ((user.isEnrolled || user.isAdmin) && (course.type === 'Editathon' && !course.ended)) {
       controls.push((
-        <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
+        <div key="updateStats" className="available-action"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></div>
       ));
     }
 
     // Requested accounts
     // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
-    if ((user.role === 1 && !Features.wikiEd) || user.admin) {
-      // show a link to the requested accounts creation page if there are any
-      if (course.requestedAccounts && course.account_requests_enabled) {
-        const requestedAccountsLink = `/requested_accounts/${course.slug}`;
+    if ((user.isAdvancedRole && !Features.wikiEd) || user.admin) {
+      // Enable account requests if allowed
+      if (!course.account_requests_enabled) {
         controls.push((
-          <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
-        ));
-      // show a button to enable new account requests, if it's not enabled already
-    } else if (!course.account_requests_enabled) {
-        controls.push((
-          <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
+          <div key="enable_account_requests" className="available-action"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></div>
         ));
       }
     }
 
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
-    if ((user.isNonstudent || user.admin || !Features.wikiEd) && course.published) {
+    if ((user.isAdvancedRole || user.admin || !Features.wikiEd) && course.published) {
       controls.push((
-        <p key="download_course_stats"><CourseStatsDownloadModal course={course} /></p>
+        <div key="download_course_stats" className="available-action"><CourseStatsDownloadModal course={course} /></div>
+      ));
+      controls.push((
+        <div key="embed_course_stats" className="available-action"><EmbedStatsButton title={course.title} /></div>
+      ));
+    }
+
+    // If the user is an admin and the course is both published and a Wiki-Ed course.
+    if (user.admin && course.published) {
+      controls.push((
+        <div key="clone_course" className="available-action"><CloneCourseButton courseId={course.id}/></div>
       ));
     }
 
     // If no controls are available
     if (controls.length === 0) {
       controls.push(
-        <p key="none">{I18n.t('courses.no_available_actions')}</p>
+        <div key="none" className="available-action">{I18n.t('courses.no_available_actions')}</div>
       );
     }
 

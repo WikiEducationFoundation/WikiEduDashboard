@@ -59,3 +59,50 @@ categories:
       - slug: plagiarism
         name: Plagiarism and copyright violation
         description: A detailed review of plagiarism and how to avoid it
+  - title: Exercises
+    description: |
+      Individual exercises that comprise a Wikipedia writing assignment
+    modules:
+      - slug: evaluate-wikipedia-exercise
+        name: 'Exercise: Evaluate Wikipedia'
+        description: Get to know Wikipedia's standards by evaluating a Wikipedia article.
+      - slug: 'choose-topic-exercise'
+        name: 'Exercise: Choose your article'
+        description: Find possibile topics to work on by exploring Wikipedia.
+      - slug: finalize-topic-exercise
+        name: 'Exercise: Finalizing your topic and finding sources'
+        description: Decide which topic to work on, and begin finding sources.
+      - slug: 'choose-topic-from-list-exercise'
+        name: 'Exercise: Choose your article (from a list)'
+        description: Select an article to work on from your class's list, and begin finding sources.
+      - slug: add-to-article-exercise
+        name: 'Exercise: Add to an article'
+        description: Practice editing by adding a missing citation to an article.
+      - slug: copyedit-exercise
+        name: 'Exercise: Copyedit an article'
+        description: Practice editing by improving an existing article through small copyedits.
+      - slug: peer-review
+        name: 'Exercise: Peer review'
+        description: Review articles drafted by classmates and suggest improvements.
+      - slug: did-you-know-exercise
+        name: 'Exercise: Did You Know'
+        description: Nominate your article for the "Did You Know" section of Wikipedia's main page.
+      - slug: continue-improving-exercise
+        name: 'Exercise: Continue improving your article'
+        description: Polish your article by adding links and images.
+      - slug: in-class-presentation-exercise
+        name: 'Exercise: In-class presentation'
+        description: Present about your Wikipedia editing experience.
+      - slug: reflective-essay-exercise
+        name: 'Exercise: Reflective essay'
+        description: Write a reflective essay about your Wikipedia contributions.
+  - title: Discussions
+    description: |
+      Prompts for in-class discussions
+    modules:
+      - slug: sources-and-plagiarism-discussion
+        name: 'Discussion: Thinking about sources and plagiarism'
+      - slug: content-gap-discussion
+        name: "Discussion: What's a content gap?"
+      - slug: thinking-about-wikipedia-discussion
+        name: 'Discussion: Thinking about Wikipedia'

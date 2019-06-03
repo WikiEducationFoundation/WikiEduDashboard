@@ -16,6 +16,8 @@ describe CreateSalesforceMediaRecord do
     )
   end
 
+  before { create(:articles_course, course: course, article: article) }
+
   it 'calls #create! on the Restforce client and returns a url' do
     expect_any_instance_of(Restforce::Data::Client).to receive(:create!)
       .and_return('a2qQQ101015h4GG')

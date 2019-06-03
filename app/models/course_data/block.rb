@@ -30,13 +30,14 @@ class Block < ApplicationRecord
     'assignment' => 1,
     'milestone'  => 2,
     'custom'     => 3,
-    'handouts'   => 4
+    'handouts'   => 4,
+    'resources'  => 5
   }.freeze
 
   DEFAULT_POINTS = 10
 
   def training_modules
-    training_module_ids.collect { |id| TrainingModule.find(id) }
+    TrainingModule.where(id: training_module_ids)
   end
 
   def date_manager

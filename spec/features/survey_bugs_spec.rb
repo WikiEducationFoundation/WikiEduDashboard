@@ -139,7 +139,7 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
 
       # Now we can actually submit the survey
       # and finish.
-      fill_in('answer_group_4_answer_text', with: 'Done!')
+      fill_in("answer_group_#{Rapidfire::Question.last.id}_answer_text", with: 'Done!')
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'
 

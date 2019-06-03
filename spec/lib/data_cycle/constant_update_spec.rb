@@ -17,6 +17,7 @@ describe ConstantUpdate do
       expect(StudentGreetingChecker).to receive(:check_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
       expect(DiscretionarySanctionsMonitor).to receive(:create_alerts_for_course_articles)
+      expect(HighQualityArticleMonitor).to receive(:create_alerts_for_course_articles)
       expect(DYKNominationMonitor).to receive(:create_alerts_for_course_articles)
       expect(GANominationMonitor).to receive(:create_alerts_for_course_articles)
       expect(BlockedUserMonitor).to receive(:create_alerts_for_recently_blocked_users)

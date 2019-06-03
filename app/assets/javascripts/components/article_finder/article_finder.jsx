@@ -3,6 +3,8 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
+import qs from 'query-string';
+import Select from 'react-select';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -11,9 +13,10 @@ import Loading from '../common/loading.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
+import selectStyles from '../../styles/select';
 
 const ArticleFinder = createReactClass({
   getDefaultProps() {
@@ -31,10 +34,14 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
       showFilters: false,
+      showLanguageAndWikiSelectors: false,
     };
   },
 
   componentWillMount() {
+    if (window.location.search.substring(1)) {
+      this.getParamsURL();
+    }
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
@@ -52,8 +59,21 @@ const ArticleFinder = createReactClass({
     }
   },
 
+  getParamsURL() {
+    const query = qs.parse(window.location.search);
+    const entries = Object.entries(query);
+    entries.map(([key, val]) => {
+      val = (key === 'article_quality') ? parseInt(val) : val;
+      return this.updateFields(key, val);
+    });
+  },
   updateFields(key, value) {
-    return this.props.updateFields(key, value);
+    const update_field = this.props.updateFields(key, value);
+    Promise.resolve(update_field).then(() => {
+      if (this.props.search_term.length !== 0) {
+        this.buildURL();
+      }
+    });
   },
 
   toggleFilter() {
@@ -61,27 +81,57 @@ const ArticleFinder = createReactClass({
       showFilters: !this.state.showFilters
     });
   },
-
+  buildURL() {
+    let queryStringUrl = window.location.href.split('?')[0];
+    const params_array = ['search_type', 'article_quality', 'min_views'];
+    queryStringUrl += `?search_term=${this.props.search_term}`;
+    params_array.forEach((param) => {
+      return queryStringUrl += `&${param}=${this.props[param]}`;
+    });
+    history.replaceState(window.location.href, 'query_string', queryStringUrl);
+  },
   searchArticles() {
     this.setState({
       isSubmitted: true,
     });
-    if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
+    if (this.props.search_term === '') {
+      return this.setState({
+        isSubmitted: false,
+      });
+    } else if (this.props.search_type === 'keyword') {
+      this.buildURL();
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.course);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.course, this.props.offset, true);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.course, this.props.cmcontinue, true);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
     const grade = e.target.value;
     return this.props.updateFields('grade', grade);
+  },
+
+  handleChangeLanguage(language) {
+    this.setState({ isSubmitted: false });
+    this.props.clearResults();
+    return this.updateFields('home_wiki', { language: language.value, project: this.props.home_wiki.project });
+  },
+  handleChangeProject(project) {
+    this.setState({ isSubmitted: false });
+    this.props.clearResults();
+    return this.updateFields('home_wiki', { language: this.props.home_wiki.language, project: project.value });
+  },
+
+  toggleLanguageAndWikiSelector(e) {
+    e.preventDefault();
+    return this.setState(
+      { showLanguageAndWikiSelectors: !this.state.showLanguageAndWikiSelectors });
   },
 
   sortSelect(e) {
@@ -221,11 +271,11 @@ const ArticleFinder = createReactClass({
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
-    if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+    if (!_.includes(ORESSupportedWiki.languages, this.props.home_wiki.language) || !_.includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
       delete keys.revScore;
     }
 
-    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+    if (!PageAssessmentSupportedWiki[this.props.home_wiki.project] || !_.includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
       delete keys.grade;
     }
 
@@ -239,9 +289,9 @@ const ArticleFinder = createReactClass({
         let assignment;
         if (this.props.course_id) {
           if (this.props.current_user.isNonstudent) {
-            assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
+            assignment = _.find(this.props.assignments, { article_title: title, user_id: null, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
-            assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
+            assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
           }
         }
         return (
@@ -251,6 +301,7 @@ const ArticleFinder = createReactClass({
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
+            home_wiki={this.props.home_wiki}
             assignment={assignment}
             addAssignment={this.props.addAssignment}
             deleteAssignment={this.props.deleteAssignment}
@@ -321,10 +372,51 @@ const ArticleFinder = createReactClass({
         );
     }
 
-    let feedbackButton;
-    if (this.state.isSubmitted && !this.props.loading) {
-      feedbackButton = (
-        <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
+    const languageOptions = JSON.parse(WikiLanguages).map((language) => {
+      return { label: language, value: language };
+    });
+
+    const projectOptions = JSON.parse(WikiProjects).map((project) => {
+      return { label: project, value: project };
+    });
+    let options = (
+      <div className="selector-block">
+        <div className="small-block-link pull-right">
+          {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
+        </div>
+      </div>
+    );
+    if (this.state.showLanguageAndWikiSelectors) {
+      options = (
+        <div className="selector-block">
+          <div className="options">
+            <Select
+              ref="languageSelect"
+              className="language-select"
+              name="language"
+              placeholder="Language"
+              onChange={this.handleChangeLanguage}
+              value={{ value: this.props.home_wiki.language, label: this.props.home_wiki.language }}
+              options={languageOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+            <Select
+              name="project"
+              ref="projectSelect"
+              className="project-select"
+              onChange={this.handleChangeProject}
+              placeholder="Project"
+              value={{ value: this.props.home_wiki.project, label: this.props.home_wiki.project }}
+              options={projectOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+          </div>
+          <div className="small-block-link pull-right">
+            {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
+          </div>
+        </div>
       );
     }
 
@@ -344,9 +436,7 @@ const ArticleFinder = createReactClass({
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
-        <div className="feedback-button">
-          {feedbackButton}
-        </div>
+        {options}
         {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
@@ -383,6 +473,7 @@ const mapStateToProps = state => ({
   loadingAssignments: state.assignments.loading,
   fetchState: state.articleFinder.fetchState,
   sort: state.articleFinder.sort,
+  home_wiki: state.articleFinder.home_wiki,
 });
 
 const mapDispatchToProps = {
@@ -394,6 +485,7 @@ const mapDispatchToProps = {
   fetchKeywordResults: fetchKeywordResults,
   deleteAssignment: deleteAssignment,
   resetArticleFinder: resetArticleFinder,
+  clearResults: clearResults,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);

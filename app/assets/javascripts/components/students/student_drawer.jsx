@@ -4,15 +4,24 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import TrainingStatus from './training_status.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
+import CourseUtils from '../../utils/course_utils.js';
 
 const StudentDrawer = createReactClass({
   displayName: 'StudentDrawer',
 
   propTypes: {
+    course: PropTypes.object,
     student: PropTypes.object,
     isOpen: PropTypes.bool,
     revisions: PropTypes.array,
-    trainingModules: PropTypes.array
+    trainingModules: PropTypes.array,
+    wikidataLabels: PropTypes.object
+  },
+
+  getInitialState() {
+    return {
+      selectedIndex: -1,
+    };
   },
 
   shouldComponentUpdate(nextProps) {
@@ -20,16 +29,26 @@ const StudentDrawer = createReactClass({
     return false;
   },
 
+  showDiff(index) {
+    this.setState({
+      selectedIndex: index
+    });
+  },
+
   render() {
     if (!this.props.isOpen) { return <tr />; }
 
-    const revisionsRows = (this.props.revisions || []).map((rev) => {
+    const revisions = this.props.revisions || [];
+    const revisionsRows = revisions.map((rev, index) => {
+      const article = rev.article;
+      const label = this.props.wikidataLabels[article.title];
+      const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
           <td>
             <p className="name">
-              <a href={rev.article.url} target="_blank">{rev.article.title}</a>
+              <a href={rev.article.url} target="_blank">{formattedTitle}</a>
               <br />
               <small className="tablet-only-ib">{details}</small>
             </p>
@@ -38,7 +57,15 @@ const StudentDrawer = createReactClass({
           <td className="desktop-only-tc">{rev.characters}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
-            <DiffViewer revision={rev} editors={[this.props.student]} />
+            <DiffViewer
+              revision={rev}
+              index={index}
+              editors={[this.props.student.username]}
+              articleTitle={formattedTitle}
+              setSelectedIndex={this.showDiff}
+              lastIndex={this.props.revisions.length}
+              selectedIndex={this.state.selectedIndex}
+            />
           </td>
         </tr>
       );

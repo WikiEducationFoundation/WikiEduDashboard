@@ -6,7 +6,7 @@
         %table
           %tr
             %td.main-content
-              %h1.headline= t('survey.email.headline', username: @user.username)
+              %h1.headline= t('survey.email.headline', username: @user.real_name || @user.username)
               %p.paragraph= t('survey.follow_up.message', course_title: @course.title)
             %td.expander
         %table
@@ -19,11 +19,12 @@
             %td.main-content.info-cell
               %div.info= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
             %td.expander
+        %br
         %table
           %tr
             %td.main-content
-              %em.paragraph= t('survey.email.closing')
+              .paragraph= t('survey.email.closing')
           %tr
             %td.main-content
-              %em.paragraph= t('survey.email.signed')
+              .paragraph= @signed_by || t('survey.email.signed')
             %td.expander

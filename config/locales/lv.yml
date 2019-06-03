@@ -34,6 +34,8 @@ lv:
     confirm: Labi
     opt_in: Jā
     opt_out: Nē
+    opt_yes: jā
+    opt_no: nē
   activity:
     all: Aktivitāte
     edited_by: Labotājs
@@ -364,4 +366,6 @@ lv:
   article_finder:
     submit: Iesniegt
     assign_article_self: Piešķirt sev
+  training_status:
+    completed: Pabeigts
 ...

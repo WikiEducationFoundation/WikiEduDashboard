@@ -9,7 +9,7 @@ describe 'settings', type: :feature, js: true do
 
   before do
     login_as(super_admin, scope: :user)
-    Setting.set_special_user('communications_manager', special_user.username)
+    SpecialUsers.set_user('communications_manager', special_user.username)
     visit '/settings'
   end
 
@@ -18,9 +18,9 @@ describe 'settings', type: :feature, js: true do
       click_button 'Add Special User'
       fill_in('new_special_user', with: user.username)
       select 'communications_manager'
-      find('form .button').click
+      click_button 'Submit'
       find('[value=confirm]').click
-      sleep 1
+      expect(page).to have_content('was upgraded')
       expect(SpecialUsers.is?(user, 'communications_manager')).to eq(true)
     end
 
@@ -30,7 +30,7 @@ describe 'settings', type: :feature, js: true do
         'settings.special_users.remove.revoke_button_confirm',
         username: special_user.username
       )
-      sleep 1
+      expect(page).to have_content('was removed')
       expect(SpecialUsers.is?(special_user, 'communications_manager')).to eq(false)
     end
 
@@ -38,9 +38,8 @@ describe 'settings', type: :feature, js: true do
       click_button 'Add Special User'
       fill_in('new_special_user', with: 'loliamnouser')
       select 'communications_manager'
-      find('form .button').click
+      click_button 'Submit'
       find('[value=confirm]').click
-      sleep 1
       expect(page).to have_content('not an existing user.')
     end
   end
