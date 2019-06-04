@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# Rubocop now wants us to remove instance methods from helpers. This is a good idea
+# but will require a bit of refactoring. Find other instances of this disabling
+# and fix all at once.
+# rubocop:disable Rails/HelperInstanceVariable
+
 require 'sentimental'
 
 module QuestionResultsHelper
@@ -69,3 +74,5 @@ module QuestionResultsHelper
     question.type.to_s.split('::').last.downcase
   end
 end
+
+# rubocop:enable Rails/HelperInstanceVariable
