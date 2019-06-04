@@ -32,7 +32,7 @@ const WikiSelect = createReactClass({
     if (options.length === 0) {
       // cache the options so it doesn't run on every render
       const languages = JSON.parse(WikiLanguages);
-      const projects = JSON.parse(WikiProjects).filter(proj => !['wikisource', 'wikidata'].includes(proj));
+      const projects = JSON.parse(WikiProjects).filter(proj => proj !== 'wikidata');
       for (let i = 0; i < languages.length; i += 1) {
         for (let j = 0; j < projects.length; j += 1) {
           const language = languages[i];
@@ -40,11 +40,13 @@ const WikiSelect = createReactClass({
           options.push({ value: { language, project }, label: `${language}.${project}.org` });
         }
       }
-      // Wikisource and Wikidata are multilingual. Will default to English.
-      options.push({ value: { language: 'en', project: 'wikisource' }, label: 'wikisource.org' });
+      // Wikidata is multilingual with English as the default language and therefore has
+      // a custom label so it is more intuitive.
       options.push({ value: { language: 'en', project: 'wikidata' }, label: 'www.wikidata.org' });
     }
 
+
+    // Used to set the already available wikis
     let wikis = [];
     if (this.props.wikis) {
       wikis = this.props.wikis.map((wiki) => {
@@ -58,7 +60,7 @@ const WikiSelect = createReactClass({
     const filterOptions = function (val) {
       return options.filter(wiki =>
         wiki.label.toLowerCase().includes(val.toLowerCase())
-      ).splice(0, 10); // limit the options for better performance
+      ).slice(0, 10); // limit the options for better performance
     };
 
     const loadOptions = function (inputValue, callback) {
