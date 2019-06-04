@@ -38,6 +38,7 @@ class CoursesUsers < ApplicationRecord
   scope :current, -> { joins(:course).merge(Course.current).distinct }
   scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
   scope :with_instructor_role, -> { where(role: Roles::INSTRUCTOR_ROLE) }
+  scope :with_student_role, -> { where(role: Roles::STUDENT_ROLE) }
 
   ####################
   # CONSTANTS        #

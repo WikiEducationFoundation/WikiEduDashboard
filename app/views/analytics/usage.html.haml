@@ -23,6 +23,17 @@
         - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
         = line_chart([{ name: 'count', data: data }], legend: false)
 
+      %div.section-header
+        Yearly usage (by program creation date)
+        - years = 2015..Time.now.year
+        - courses_data, editors_data, leaders_data = [], [], []
+        - data = years.map do |year|
+          - courses = Course.where("year(created_at) = #{year}")
+          - courses_data << [year, courses.count]
+          - editors_data << [year, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
+          - leaders_data << [year, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
+        = column_chart([{ name: 'Program leaders', data: leaders_data }, { name: 'Programs', data: courses_data }, { name: 'Editors', data: editors_data } ])
+
   %section
     .section-header
       Courses / Programs per wiki:
