@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 const options = [];
 /**
- *  A Wiki selector component that has both single and multi mode with searchable wikis.
+ *  A Wiki Selector Component that combines both language and project into a singular searchable
+ *  component that works for both single-wiki and multi-wiki.
  */
 const WikiSelect = createReactClass({
   propTypes: {
@@ -31,7 +32,7 @@ const WikiSelect = createReactClass({
     if (options.length === 0) {
       // cache the options so it doesn't run on every render
       const languages = JSON.parse(WikiLanguages);
-      const projects = JSON.parse(WikiProjects);
+      const projects = JSON.parse(WikiProjects).filter(proj => !['wikisource', 'wikidata'].includes(proj));
       for (let i = 0; i < languages.length; i += 1) {
         for (let j = 0; j < projects.length; j += 1) {
           const language = languages[i];
@@ -39,6 +40,9 @@ const WikiSelect = createReactClass({
           options.push({ value: { language, project }, label: `${language}.${project}.org` });
         }
       }
+      // Wikisource and Wikidata are multilingual. Will default to English.
+      options.push({ value: { language: 'en', project: 'wikisource' }, label: 'wikisource.org' });
+      options.push({ value: { language: 'en', project: 'wikidata' }, label: 'www.wikidata.org' });
     }
 
     let wikis = [];
@@ -54,7 +58,7 @@ const WikiSelect = createReactClass({
     const filterOptions = function (val) {
       return options.filter(wiki =>
         wiki.label.toLowerCase().includes(val.toLowerCase())
-      );
+      ).splice(0, 10); // limit the options for better performance
     };
 
     const loadOptions = function (inputValue, callback) {
