@@ -71,11 +71,19 @@ const WikiSelect = createReactClass({
       }
     };
 
+    const getNoOptionsMessage = (val) => {
+      const rem = 2 - val.inputValue.length;
+      if (rem > 0) {
+        return I18n.t('multi_wiki.selector_suggestion', { remaining: rem });
+      }
+      return I18n.t('application.no_results', { query: val.inputValue });
+    };
+
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
       defaultValue={wikis}
-      noOptionsMessage={val => I18n.t('multi_wiki.selector_suggestion', { remaining: 2 - val.inputValue.length })}
+      noOptionsMessage={getNoOptionsMessage}
       loadOptions={loadOptions}
       isSearchable={true}
       onChange={this.props.onChange}
