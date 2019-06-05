@@ -39,6 +39,7 @@ class Revision < ApplicationRecord
   validates :wiki_id, presence: true
 
   serialize :features, Hash
+  serialize :features_previous, Hash
 
   include ArticleHelper
 
