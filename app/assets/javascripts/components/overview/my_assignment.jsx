@@ -11,7 +11,7 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
-const MyAssignment = createReactClass({
+export const MyAssignment = createReactClass({
   displayName: 'MyAssignment',
 
   propTypes: {
