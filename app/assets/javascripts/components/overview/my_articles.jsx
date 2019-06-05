@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AssignCell from '../students/assign_cell.jsx';
-import MyAssignment from './my_assignment.jsx';
+import MyAssignmentsList from './my_assignments_list.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getFiltered } from '../../utils/model_utils';
 
@@ -26,26 +26,37 @@ export const MyArticles = createReactClass({
   },
 
   render() {
-    const assignOptions = { user_id: this.props.current_user.id, role: 0 };
-    const reviewOptions = { user_id: this.props.current_user.id, role: 1 };
+    const { assignments, current_user } = this.props;
+    const user_id = current_user.id;
+    const assignOptions = { user_id, role: 0 };
+    const reviewOptions = { user_id, role: 1 };
 
-    const assigned = getFiltered(this.props.assignments, assignOptions);
-    const reviewing = getFiltered(this.props.assignments, reviewOptions);
-    const allAssignments = assigned.concat(reviewing);
-    const assignmentCount = allAssignments.length;
-    const assignments = allAssignments.map((assignment, i) => {
-      return (
-        <MyAssignment
-          key={assignment.id}
-          assignment={assignment}
-          course={this.props.course}
-          username={this.props.current_user.username}
-          last={i === assignmentCount - 1}
-          current_user={this.props.current_user}
-          wikidataLabels={this.props.wikidataLabels}
-        />
-      );
+    const assignmentsWithSandboxes = assignments.map((article) => {
+      if (article.role === 0) return article;
+      const related = assignments.find((assignment) => {
+        return assignment.article_id === article.article_id
+          && assignment.user_id
+          && assignment.user_id !== user_id;
+      });
+      return {
+        ...article,
+        sandbox_url: `https://en.wikipedia.org/wiki/User:${related.username}/sandbox`
+      };
     });
+
+    const assigned = getFiltered(assignmentsWithSandboxes, assignOptions);
+    const reviewing = getFiltered(assignmentsWithSandboxes, reviewOptions);
+    const all = assigned.concat(reviewing);
+    const assignmentCount = all.length;
+
+    const { course, wikidataLabels } = this.props;
+    const assignmentElements = <MyAssignmentsList
+      assignments={all}
+      count={assignmentCount}
+      course={course}
+      current_user={current_user}
+      wikidataLabels={wikidataLabels}
+    />;
 
     let findYourArticleTraining;
     if (Features.wikiEd && !assignmentCount) {
@@ -67,8 +78,8 @@ export const MyArticles = createReactClass({
               course={this.props.course}
               role={0}
               editable
-              current_user={this.props.current_user}
-              student={this.props.current_user}
+              current_user={current_user}
+              student={current_user}
               assignments={assigned}
               prefix={I18n.t('users.my_assigned')}
               tooltip_message={I18n.t('assignments.assign_tooltip')}
@@ -79,8 +90,8 @@ export const MyArticles = createReactClass({
               course={this.props.course}
               role={1}
               editable
-              current_user={this.props.current_user}
-              student={this.props.current_user}
+              current_user={current_user}
+              student={current_user}
               assignments={reviewing}
               prefix={I18n.t('users.my_reviewing')}
               tooltip_message={I18n.t('assignments.review_tooltip')}
@@ -89,7 +100,7 @@ export const MyArticles = createReactClass({
             <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
           </div>
         </div>
-        {assignments}
+        {assignmentElements}
       </div>
     );
   }
