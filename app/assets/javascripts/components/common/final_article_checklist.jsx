@@ -42,7 +42,7 @@ const FinalArticleChecklist = createReactClass({
             As you polish up your completed article, review each of these items and fix any problems you find.
           </p>
           <dl>
-            <dd><input type="checkbox" /> The title short and simple. It doesn’t look like an essay, or ask a question.</dd>
+          <dd><input type="checkbox" /> The title is short and simple. It doesn’t look like an essay, or ask a question.</dd>
             <dd><input type="checkbox" /> The first sentence is direct and useful; it clearly defines the subject, with the topic of the article in bold.</dd>
             <dd><input type="checkbox" /> The lead section is a clear summary, not an introduction or argument. A reader could stop at the end of the lead and have a good overview of the most important aspects of the topic.</dd>
             <dd><input type="checkbox" /> It doesn’t contain excessive quotations, or copy any sources (even if you’ve given them credit).</dd>
