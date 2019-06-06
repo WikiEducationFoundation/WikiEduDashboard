@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_141515) do
     t.string "real_name"
     t.string "role_description"
     t.integer "total_uploads"
+    t.integer "refs_sum_ms"
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
