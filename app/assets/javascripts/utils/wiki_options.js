@@ -1,4 +1,5 @@
-// cache the options so it doesn't run on every render
+import '../../../../test/testHelper'
+
 const languages = JSON.parse(WikiLanguages);
 const projects = JSON.parse(WikiProjects).filter(proj => proj !== 'wikidata');
 const WIKI_OPTIONS = languages.map(language =>
