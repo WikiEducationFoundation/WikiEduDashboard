@@ -101,7 +101,6 @@ class CoursesUsers < ApplicationRecord
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
-    self.refs_sum_ms = refs_sum_ms(revisions)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
     assignments = user.assignments.where(course_id: course_id)
@@ -117,13 +116,6 @@ class CoursesUsers < ApplicationRecord
       .where(articles: { namespace: namespace, deleted: false })
       .where('characters >= 0')
       .sum(:characters) || 0
-  end
-
-  def refs_sum_ms(revisions)
-    revisions
-      .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
-      .to_a
-      .sum(&:ref_tags_added) || 0
   end
 
   def cleanup
