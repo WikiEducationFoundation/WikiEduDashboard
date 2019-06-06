@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { MyArticles } from '../../../app/assets/javascripts/components/overview/my_articles.jsx';
 import '../../testHelper';
+import { MyArticles } from '../../../app/assets/javascripts/components/overview/my_articles.jsx';
 
 describe('MyArticles', () => {
   it('renders the My Articles header', () => {
