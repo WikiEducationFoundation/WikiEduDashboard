@@ -25,7 +25,90 @@
 
 require 'rails_helper'
 
-describe Revision do
+describe Revision, type: :model do
+  describe '#references_added' do
+    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+
+    context 'new article' do
+      let(:mw_rev_id) { 95249249 }
+
+      before do
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 45010238,
+               mw_page_id: 45010238)
+      end
+
+      it 'should return zero' do
+        val = Revision.find_by(mw_rev_id: 95249249).references_added
+        expect(val).to eq(0)
+      end
+    end
+
+    context 'First revision' do
+      let(:mw_rev_id) { 857571904 }
+
+      before do
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 90010238,
+               mw_page_id: 90010238,
+               features: {
+                 refs_tags_key => 10
+               })
+      end
+
+      it 'should return no. of references added' do
+        val = Revision.find_by(mw_rev_id: 857571904)
+        ref = val.features[refs_tags_key]
+        expect(val.references_added).to eq(ref)
+      end
+    end
+
+    context 'Deleted some references' do
+      let(:mw_rev_id) { 852178130 }
+
+      before do
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 79010238,
+               mw_page_id: 79010238,
+               features_previous: {
+                 refs_tags_key => 6
+               })
+      end
+
+      it 'should return zero' do
+        val = Revision.find_by(mw_rev_id: 852178130).references_added
+        expect(val).to eq(0)
+      end
+    end
+
+    context 'New refernces are added and not a new article' do
+      let(:mw_rev_id) { 870348507 }
+
+      before do
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 55010239,
+               mw_page_id: 55010239,
+               features: {
+                 refs_tags_key => 22
+               },
+               features_previous: {
+                 refs_tags_key => 17
+               })
+      end
+
+      it 'should return positive value' do
+        val = Revision.find_by(mw_rev_id: 870348507)
+        ref = val.features[refs_tags_key]
+        ref_previous = val.features_previous[refs_tags_key]
+        expect(val.references_added).to eq(ref - ref_previous)
+      end
+    end
+  end
+
   describe '#update' do
     it 'updates a revision with new data' do
       revision = build(:revision,

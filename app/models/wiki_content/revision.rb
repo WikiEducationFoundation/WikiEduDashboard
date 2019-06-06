@@ -39,6 +39,7 @@ class Revision < ApplicationRecord
   validates :wiki_id, presence: true
 
   serialize :features, Hash
+  serialize :features_previous, Hash
 
   include ArticleHelper
 
@@ -65,5 +66,12 @@ class Revision < ApplicationRecord
   def plagiarism_report_link
     return unless ithenticate_id
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
+  end
+
+  def references_added
+    current_refs = features['feature.wikitext.revision.ref_tags']
+    prev_refs = features_previous['feature.wikitext.revision.ref_tags'] || 0
+    return 0 if current_refs.nil? || current_refs < prev_refs
+    current_refs - prev_refs
   end
 end
