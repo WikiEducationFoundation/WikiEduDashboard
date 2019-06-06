@@ -60,8 +60,7 @@ describe Revision, type: :model do
 
       it 'should return no. of references added' do
         val = Revision.find_by(mw_rev_id: 857571904)
-        ref = val.features[refs_tags_key]
-        expect(val.references_added).to eq(ref)
+        expect(val.references_added).to eq(10)
       end
     end
 
@@ -78,9 +77,9 @@ describe Revision, type: :model do
                })
       end
 
-      it 'should return zero' do
+      it 'Would be negative' do
         val = Revision.find_by(mw_rev_id: 852178130).references_added
-        expect(val).to eq(0)
+        expect(val).to eq(-6)
       end
     end
 
@@ -102,9 +101,7 @@ describe Revision, type: :model do
 
       it 'should return positive value' do
         val = Revision.find_by(mw_rev_id: 870348507)
-        ref = val.features[refs_tags_key]
-        ref_previous = val.features_previous[refs_tags_key]
-        expect(val.references_added).to eq(ref - ref_previous)
+        expect(val.references_added).to eq(5)
       end
     end
   end
