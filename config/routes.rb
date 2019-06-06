@@ -1,6 +1,7 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
+  resources :course_wikis
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'

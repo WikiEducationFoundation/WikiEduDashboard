@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_204650) do
+ActiveRecord::Schema.define(version: 2019_06_06_142634) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -174,6 +174,13 @@ ActiveRecord::Schema.define(version: 2019_04_10_204650) do
     t.string "thumbheight"
     t.boolean "deleted", default: false
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
+  end
+
+  create_table "course_wikis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "course_id"
+    t.integer "wiki_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "courses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

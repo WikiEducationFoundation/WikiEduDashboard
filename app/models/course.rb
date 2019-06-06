@@ -122,6 +122,8 @@ class Course < ApplicationRecord
 
   has_many :tags, dependent: :destroy
 
+  has_many :course_wikis
+
   serialize :flags, Hash
 
   module ClonedStatus
