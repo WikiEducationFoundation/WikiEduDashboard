@@ -68,9 +68,10 @@ class Revision < ApplicationRecord
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
 
-  def ref_tags_added
-    current_refs = self.features && self.features["feature.wikitext.revision.ref_tags"] || 0
-    prev_refs = self.features_previous && self.features_previous["feature.wikitext.revision.ref_tags"] || 0
+  def references_added
+    current_refs = features['feature.wikitext.revision.ref_tags']
+    prev_refs = features_previous['feature.wikitext.revision.ref_tags'] || 0
+    return 0 if current_refs.nil? || current_refs < prev_refs
     current_refs - prev_refs
   end
 end
