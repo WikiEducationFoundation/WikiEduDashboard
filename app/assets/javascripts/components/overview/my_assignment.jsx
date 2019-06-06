@@ -19,7 +19,6 @@ export const MyAssignment = createReactClass({
     current_user: PropTypes.object,
     course: PropTypes.object.isRequired,
     username: PropTypes.string,
-    last: PropTypes.bool,
     wikidataLabels: PropTypes.object.isRequired
   },
 
@@ -71,7 +70,7 @@ export const MyAssignment = createReactClass({
       <div className="my-assignment mb1">
         <span className="my-assignment-title" >
           {articleTitle} •&nbsp;
-          <a href={assignment.sandbox_url || `https://en.wikipedia.org/wiki/User:${username}/sandbox`} target="_blank">Sandbox</a> •&nbsp;
+          <a href={assignment.sandboxUrl} target="_blank">Sandbox</a> •&nbsp;
           <a href={assignment.article_url}>Article</a>
         </span>
         <div className="my-assignment-button">

@@ -7,6 +7,10 @@ import AssignCell from '../students/assign_cell.jsx';
 import MyAssignmentsList from './my_assignments_list.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getFiltered } from '../../utils/model_utils';
+import {
+  ASSIGNED_ROLE, REVIEWING_ROLE,
+  IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
+} from '../../constants/assignments';
 
 export const MyArticles = createReactClass({
   displayName: 'MyArticles',
@@ -25,38 +29,59 @@ export const MyArticles = createReactClass({
     }
   },
 
-  render() {
-    const { assignments, current_user } = this.props;
-    const user_id = current_user.id;
-    const assignOptions = { user_id, role: 0 };
-    const reviewOptions = { user_id, role: 1 };
+  sandboxUrl(course, username) {
+    const { language, project } = course.home_wiki;
+    return `https://${language}.${project}.org/wiki/User:${username}/sandbox`;
+  },
 
-    const assignmentsWithSandboxes = assignments.map((article) => {
-      if (article.role === 0) return article;
-      const related = assignments.find((assignment) => {
-        return assignment.article_id === article.article_id
-          && assignment.user_id
-          && assignment.user_id !== user_id;
-      });
-      return {
-        ...article,
-        sandbox_url: `https://en.wikipedia.org/wiki/User:${related.username}/sandbox`
+  addAssignmentCategory(assignment) {
+    const result = { ...assignment };
+
+    if (assignment.role === ASSIGNED_ROLE) {
+      if (!assignment.article_id) {
+        result.status = NEW_ARTICLE;
+      } else {
+        result.status = IMPROVING_ARTICLE;
+      }
+    } else {
+      result.status = REVIEWING_ARTICLE;
+    }
+
+    return result;
+  },
+
+  addSandboxUrl(assignments, course, user_id) {
+    return (assignment) => {
+      const result = {
+        ...assignment,
+        sandboxUrl: this.sandboxUrl(course, assignment.username)
       };
-    });
 
-    const assigned = getFiltered(assignmentsWithSandboxes, assignOptions);
-    const reviewing = getFiltered(assignmentsWithSandboxes, reviewOptions);
-    const all = assigned.concat(reviewing);
+      if (assignment.role === REVIEWING_ROLE) {
+        const related = assignments.find(({ article_id, user_id: id }) => {
+          return id && article_id === assignment.article_id && id !== user_id;
+        });
+
+        result.sandboxUrl = this.sandboxUrl(course, related.username);
+      }
+
+      return result;
+    };
+  },
+
+  render() {
+    const { assignments, course, current_user, wikidataLabels } = this.props;
+    const user_id = current_user.id;
+    const assignOptions = { user_id, role: ASSIGNED_ROLE };
+    const reviewOptions = { user_id, role: REVIEWING_ROLE };
+
+    const addSandboxUrl = this.addSandboxUrl(assignments, course, user_id);
+    const updatedAssignments = assignments.map(addSandboxUrl);
+
+    const assigned = getFiltered(updatedAssignments, assignOptions);
+    const reviewing = getFiltered(updatedAssignments, reviewOptions);
+    const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;
-
-    const { course, wikidataLabels } = this.props;
-    const assignmentElements = <MyAssignmentsList
-      assignments={all}
-      count={assignmentCount}
-      course={course}
-      current_user={current_user}
-      wikidataLabels={wikidataLabels}
-    />;
 
     let findYourArticleTraining;
     if (Features.wikiEd && !assignmentCount) {
@@ -100,7 +125,12 @@ export const MyArticles = createReactClass({
             <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
           </div>
         </div>
-        {assignmentElements}
+        <MyAssignmentsList
+          assignments={all}
+          course={course}
+          current_user={current_user}
+          wikidataLabels={wikidataLabels}
+        />
       </div>
     );
   }
