@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ArticlesHandler } from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
 import '../../testHelper';
+import { ArticlesHandler } from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
 
 describe('ArticlesHandler', () => {
   it('renders', () => {

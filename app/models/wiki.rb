@@ -23,11 +23,11 @@ class Wiki < ApplicationRecord
   validates_uniqueness_of :project, scope: :language
 
   PROJECTS = %w[
+    wikipedia
     wikibooks
     wikidata
     wikimedia
     wikinews
-    wikipedia
     wikiquote
     wikisource
     wikiversity
