@@ -99,8 +99,9 @@ class RevisionScoreImporter
     parent_revisions.each do |mw_rev_id, parent_id|
       next unless scores.key? parent_id
       article_completeness = weighted_mean_score(scores[parent_id])
+      features_previous = scores[parent_id]&.dig('articlequality', 'features')
       Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
-              .update(wp10_previous: article_completeness)
+              .update(wp10_previous: article_completeness, features_previous: features_previous)
     end
   end
 
