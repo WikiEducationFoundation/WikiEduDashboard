@@ -2,7 +2,10 @@ id: 4703
 title: "What's the Dashboard?"
 summary:
 content: |
-  Your course page on our Dashboard is an all-purpose syllabus. It's not
+  Great! Now, if you haven't done so already, click "Log in" in the upper right
+  corner of *this* page. That will connect you to Wiki Education's Dashboard.
+
+  The Dashboard is home to your *course page*, which is an all-purpose syllabus. The Dashboard is not
   Wikipedia itself, but rather a tool that keeps track of all the work you do
   within Wikipedia. It's also where you'll access online trainings, homework
   assignments, and meeting recordings.
@@ -15,8 +18,8 @@ content: |
   <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Generic_screenshot_of_Wiki_Education_Dashboard_menu.png" />
   </figure>
 
-  From the **Home** tab, you will only see the current week's activities. Click
-  the Timeline tab to see the full schedule.
+  From the **Home** tab, you will see the *current week's* activities. Click
+  the **Timeline** tab to see the *full* course schedule.
 
   For each week in the Timeline you'll see the meeting agenda, milestones, tasks
   to focus on for the next week, and helpful resources.
