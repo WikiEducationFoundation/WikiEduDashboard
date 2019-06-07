@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import { connect } from 'react-redux';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
@@ -9,6 +8,7 @@ import Popover from '../common/popover.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
+import WikiSelect from '../common/wiki_select.jsx';
 import AddAvailableArticles from '../articles/add_available_articles';
 import { ASSIGNED_ROLE } from '../../constants';
 import selectStyles from '../../styles/select';
@@ -77,13 +77,11 @@ const AssignButton = createReactClass({
       language
     });
   },
-  handleChangeLanguage(val) {
-    return this.setState(
-      { language: val.value });
-  },
-  handleChangeProject(val) {
-    return this.setState(
-      { project: val.value });
+
+  handleWikiChange(val) {
+    return this.setState({
+      ...val.value
+    });
   },
 
   assign(e) {
@@ -133,7 +131,7 @@ const AssignButton = createReactClass({
         title: articleTitle,
         username: this.props.student.username
       });
-    // Confirm for adding an unassigned available article
+      // Confirm for adding an unassigned available article
     } else {
       confirmMessage = I18n.t('assignments.confirm_add_available', {
         title: articleTitle
@@ -182,14 +180,14 @@ const AssignButton = createReactClass({
       if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
           <span className="tooltip-indicator" />
-          );
+        );
         tooltip = (
           <div className="tooltip">
             <p>
               {this.props.tooltip_message}
             </p>
           </div>
-      );
+        );
       }
       editButton = (
         <div className="tooltip-trigger">
@@ -232,39 +230,15 @@ const AssignButton = createReactClass({
     if (this.props.permitted) {
       let options;
       if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
-          return { label: language, value: language };
-        });
-
-        const projectOptions = JSON.parse(WikiProjects).map((project) => {
-          return { label: project, value: project };
-        });
-
         options = (
-          <fieldset className="mt1">
-            <Select
-              ref="languageSelect"
-              className="half-width-select-left language-select"
-              name="language"
-              placeholder="Language"
-              onChange={this.handleChangeLanguage}
-              value={{ value: this.state.language, label: this.state.language }}
-              options={languageOptions}
-              clearable={false}
+          <div className="wiki-select">
+            <WikiSelect
+              wikis={[{ language: this.state.language, project: this.state.project }]}
+              onChange={this.handleWikiChange}
+              multi={false}
               styles={{ ...selectStyles, singleValue: null }}
             />
-            <Select
-              name="project"
-              ref="projectSelect"
-              className="half-width-select-right project-select"
-              onChange={this.handleChangeProject}
-              placeholder="Project"
-              value={{ value: this.state.project, label: this.state.project }}
-              options={projectOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-          </fieldset>
+          </div>
         );
       } else {
         options = (
@@ -284,7 +258,7 @@ const AssignButton = createReactClass({
             {options}
           </td>
         );
-      // Add a single assignment
+        // Add a single assignment
       } else {
         assignmentInput = (
           <td>
