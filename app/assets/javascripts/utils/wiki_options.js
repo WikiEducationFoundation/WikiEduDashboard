@@ -14,7 +14,7 @@ const WIKI_OPTIONS = languages.map(language =>
 WIKI_OPTIONS.unshift({ value: { language: 'en', project: 'wikidata' }, label: 'www.wikidata.org' });
 
 // Wikisource has a standalone www.wikisource.org in addition to language based sites like es.wikisource.org
-WIKI_OPTIONS.unshift({ value: { language: 'en', project: 'wikisource' }, label: 'www.wikisource.org' });
+WIKI_OPTIONS.unshift({ value: { language: 'www', project: 'wikisource' }, label: 'www.wikisource.org' });
 
 // We are inserting the above at first so users are aware of this option and it doesn't disappear
 // among the limited results
