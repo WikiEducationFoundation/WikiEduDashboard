@@ -11,7 +11,7 @@ const WIKI_OPTIONS = languages.map(language =>
 
 // Wikidata is multilingual with English as the default language and therefore has
 // a custom label so it is more intuitive.
-WIKI_OPTIONS.unshift({ value: { language: 'en', project: 'wikidata' }, label: 'www.wikidata.org' });
+WIKI_OPTIONS.unshift({ value: { language: 'www', project: 'wikidata' }, label: 'www.wikidata.org' });
 
 // Wikisource has a standalone www.wikisource.org in addition to language based sites like es.wikisource.org
 WIKI_OPTIONS.unshift({ value: { language: 'www', project: 'wikisource' }, label: 'www.wikisource.org' });
