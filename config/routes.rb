@@ -1,7 +1,6 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
-  resources :course_wikis
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'
@@ -54,6 +53,9 @@ Rails.application.routes.draw do
   resources :assignments do
     resources :assignment_suggestions
   end
+
+  get '/course_wikis/:course_id/wikis' => 'course_wikis#wikis'
+  post '/course_wikis/:course_id/update' => 'course_wikis#update'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }
@@ -363,7 +365,7 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
-  
+
   authenticate :user, lambda { |u| u.admin? } do
     post '/tickets/reply' => 'tickets#reply', format: false
     post '/tickets/notify_owner' => 'tickets#notify_owner', format: false
