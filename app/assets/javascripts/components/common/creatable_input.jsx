@@ -1,5 +1,5 @@
 import React from 'react';
-import CreatableSelect from 'react-select/lib/Creatable';
+import CreatableSelect from 'react-select/creatable';
 import selectStyles from '../../styles/select';
 
 class CreatableInput extends React.Component {

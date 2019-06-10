@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
