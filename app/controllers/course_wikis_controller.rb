@@ -23,6 +23,6 @@ class CourseWikisController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def course_wiki_params
-    params.fetch(:course_wiki, {}).permit(wikis: [:language, :project])
+    params.require(:course_wiki).permit(wikis: [:language, :project])
   end
 end
