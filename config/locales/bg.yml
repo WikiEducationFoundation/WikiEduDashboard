@@ -266,4 +266,6 @@ bg:
   survey:
     email:
       headline: Здравейте, %{username}
+  article_finder:
+    submit: Изпращане
 ...
