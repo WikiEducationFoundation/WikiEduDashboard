@@ -13,10 +13,15 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
 Capybara.register_driver :selenium do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities
+                 .chrome(chromeOptions: { w3c: false })
   options = Selenium::WebDriver::Chrome::Options.new(
     args: %w[headless no-sandbox disable-gpu --window-size=1200,1200]
   )
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Selenium::Driver.new(app,
+                                 browser: :chrome,
+                                 options: options,
+                                 desired_capabilities: capabilities)
 end
 
 Rails.cache.clear
