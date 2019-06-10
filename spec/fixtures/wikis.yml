@@ -13,6 +13,6 @@ default:
   project: wikipedia
 
 fr:
-  id: 2
+  id: 3
   language: fr
   project: wikipedia
