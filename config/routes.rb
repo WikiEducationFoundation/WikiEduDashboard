@@ -54,8 +54,8 @@ Rails.application.routes.draw do
     resources :assignment_suggestions
   end
 
-  get '/course_wikis/:course_id/wikis' => 'course_wikis#wikis'
-  post '/course_wikis/:course_id/update' => 'course_wikis#update'
+  get '/courses_wikis/:course_id/wikis' => 'courses_wikis#wikis'
+  post '/courses_wikis/:course_id/update' => 'courses_wikis#update'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }

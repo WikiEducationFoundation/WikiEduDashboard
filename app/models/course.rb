@@ -122,7 +122,8 @@ class Course < ApplicationRecord
 
   has_many :tags, dependent: :destroy
 
-  has_many :course_wikis
+  has_many :courses_wikis, class_name: 'CoursesWikis', dependent: :destroy
+  has_many :wikis, through: :courses_wikis
 
   serialize :flags, Hash
 

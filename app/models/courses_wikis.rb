@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CourseWiki < ApplicationRecord
+class CoursesWikis < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
 end
