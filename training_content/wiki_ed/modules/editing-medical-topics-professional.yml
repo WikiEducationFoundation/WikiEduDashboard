@@ -1,8 +1,8 @@
 name: 'Editing health and psychology topics (Professional)'
 id: 48
 description: |
-  This tutorial will take you through the requirements for writing, and
-  sourcing, medical and psychology articles on Wikipedia.
+  This tutorial will take you through the requirements for writing and
+  sourcing medical and psychology articles on Wikipedia.
 estimated_ttc: 10 minutes
 slides:
   - slug: the-challenge-of-medical-topics-professional # 4801
