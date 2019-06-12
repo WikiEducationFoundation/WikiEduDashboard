@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
       return
     end
     @course = course_creation_manager.create
+    update_courses_wikis
   end
 
   def update
@@ -39,6 +40,7 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
+    update_courses_wikis
     update_flags
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -72,6 +74,7 @@ class CoursesController < ApplicationController
   # /courses/school/title_(term)/course.json
   def course
     set_course
+    set_courses_wikis
     verify_edit_credentials { return }
   end
 
@@ -185,6 +188,11 @@ class CoursesController < ApplicationController
     protect_privacy
   end
 
+  def set_courses_wikis
+    wiki_ids = @course.wikis.pluck(:id)
+    @wikis = Wiki.find(wiki_ids)
+  end
+
   def campaign_params
     params.require(:campaign).permit(:title)
   end
@@ -235,6 +243,31 @@ class CoursesController < ApplicationController
     params
       .require(:course)
       .permit(:language, :project)
+  end
+
+  def courses_wikis_params
+    params
+      .require(:course)
+      .permit(wikis: [:language, :project])
+  end
+
+  def update_courses_wikis
+    new_wikis = courses_wikis_params[:wikis]
+
+    # Used to differentiate deleted wikis
+    old_wiki_ids = @course.wikis.pluck(:id)
+    new_wiki_ids = []
+
+    # Create an association for each new wiki
+    new_wikis.each do |wiki|
+      wiki_id = Wiki.get_or_create(language: wiki[:language], project: wiki[:project]).id
+      new_wiki_ids.push(wiki_id)
+      CoursesWikis.create(course_id: @course.id, wiki_id: wiki_id)
+    end
+
+    # Delete removed wikis
+    wikis_to_be_deleted = old_wiki_ids - new_wiki_ids
+    CoursesWikis.where(course_id: @course.id, wiki_id: wikis_to_be_deleted).delete_all
   end
 
   def update_flags
