@@ -253,6 +253,7 @@ class CoursesController < ApplicationController
 
   def update_courses_wikis
     new_wikis = courses_wikis_params[:wikis]
+    return if new_wikis.nil? # return if there's nothing to update
 
     # Used to differentiate deleted wikis
     old_wiki_ids = @course.wikis.pluck(:id)
