@@ -11,7 +11,7 @@ json.course do
             :upload_usages_count, :cloned_status, :flags, :level, :private, :closed?,
             :training_library_slug)
 
-  json.wikis @wikis, :language, :project
+  json.wikis @wikis, :language, :project unless @wikis.nil?
   json.timeline_enabled @course.timeline_enabled?
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
   json.wiki_edits_enabled @course.wiki_edits_enabled?
