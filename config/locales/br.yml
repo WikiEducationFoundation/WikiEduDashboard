@@ -5,6 +5,7 @@
 # Author: Fulup
 # Author: Gwenn-Ael
 # Author: Macofe
+# Author: VIGNERON
 ---
 br:
   application:
@@ -396,7 +397,7 @@ br:
     check_answer: Gwiriañ ar respont
   uploads:
     file_name: Anv ar restr
-    header: Restroù pellgarget e Wikimédia Communs
+    header: Restroù pellgarget e Wikimedia Commons
     image: Skeudenn
     none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe gant restr
       vedia ebet e Wikipedia Commons

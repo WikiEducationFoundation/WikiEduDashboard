@@ -7,6 +7,7 @@
 # Author: Arian Ar
 # Author: AzorAhai
 # Author: Ebraminio
+# Author: FarsiNevis
 # Author: GMozafarian
 # Author: Ladsgroup
 # Author: Mardetanha
@@ -348,7 +349,7 @@ fa:
     edit_description: ویرایش توضیحات
     edit_details: ویرایش جزئیات
   metrics:
-    last_update: آخرین به‌روزرسانی
+    last_update: آخرین روزامدسازی
     activity: فعالیت‌های اخیر
     articles_created: مقاله‌های ایجادشده
     articles_edited: مقاله‌های ویرایش‌شده

@@ -671,7 +671,7 @@ fr:
     uploads_none: Cette classe n’a importé aucune image ni fichier media sur Wikimedia
       Commons.
     user_uploads_none: Cet utilisateur n’a contribué à aucune image ni autre fichier
-      de média de Wikimédia Communs.
+      de média de Wikimédia Commons.
     user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
@@ -1149,7 +1149,7 @@ fr:
     user_training_status: Etat de la formation
     user_no_training_status: Cet utilisateur n’a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
-    uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
+    uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Commons
     ungreeted: Pas le bienvenu
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur

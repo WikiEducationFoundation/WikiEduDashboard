@@ -1,0 +1,128 @@
+# Messages for Estonian (eesti)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Daniel charms
+---
+et:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: t
+          million: mln
+          billion: mld
+          trillion: trln
+          quadrillion: kvdr
+  accessibility:
+    number_field: See on arvuväli. Arvu suurendamiseks või vähendamiseks võib kasutada
+      enamikus brauserites kuvatavaid nuppe.
+  application:
+    cancel: Loobu
+    create_accounts: Loo Vikipeedia kontod
+    dashboard: Wiki Ed töölaud
+    documentation: Dokumentatsioon
+    error: 'Tuvastati viga:'
+    explore: Avasta
+    field_required: See väli on kohustuslik
+    field_invalid_characters: See väli sisaldab mittelubatud tähemärke
+    field_invalid_date: See väli nõuab AAAA-KK-PP vormis kuupäeva
+    field_invalid_date_time: Lõpuaeg peab olema algusajast hilisem. (tunnid on vahemikus
+      0–23 tundi.)
+    greeting2: Tere tulemast!
+    greeting_extended: Tere tulemast Vikipeediasse!
+    greeting: Tere!
+    help: Abi
+    home: Kodu
+    log_in_extended: Logi sisse Vikipeedia kontoga
+    log_in: Logi sisse
+    log_out: Logi välja
+    my_dashboard: Minu töölaud
+    recent_activity: Viimased muudatused
+    report_problem: Teata probleemist
+    request_account: Taotle kontot
+    request_account_create: Loo konto
+    search: Esita küsimus
+    search_results: 'Otsingutulemused: "%{search_terms}"'
+    no_results: Päringule %{query} vasteid ei leitud
+    sign_up_extended: Registreeru Vikipeedia kontoga
+    sign_up_wikipedia: Või registreeru Vikipeedias
+    sign_up_log_in_extended: Vikipeedia kontoga
+    sign_up: Registreeru
+    submit: Saada
+    training: Harjutamine
+    change: Muuda
+    details: Üksikasjad
+    confirm: Sobib
+    opt_in: Jah
+    opt_out: Ei
+    opt_yes: jah
+    opt_no: ei
+  dashboard:
+    create_note: Oma esimese kursuse loomiseks vajuta lingile "Loo uus kursus".
+    create_preparation_note: 'Kursuse loomisega alustades tasub hoida käepärast akadeemiline
+      kalender. Õppetöö planeerimise tööriist paigutab õppetöö toimumiskuupäevade
+      (sh vaheaegade ja pühade) alusel kursuse ajakava valitud ajavahemikku. Märkus:
+      tööriista loodud ajakava on võimalik igal hetkel käsitsi muuta.'
+    explore_course_pages: Tutvu kursuse lehtedega
+    explore_examples: Tutvu näidetega
+    join_note: Kui oled saanud kursuse juhendajalt salasõna, vajuta kursuse leidmiseks
+      ja sellega liitumiseks "Otsi kursust".
+    no_courses_instructor: Näib, et Sa pole ühegi kursusega liitunud.
+    no_courses_student: Näib, et Sa pole veel ühegi kursusega liitunud.
+    opt_out: Jäta ettevalmistuskursus vahele
+    orientation_notice: Enne kursuse loomist tutvu töö lihtsustamiseks ettevalmistusmaterjalidega.
+      (Selleks kulub umbes pool tundi.)
+    review_orientation: Sirvi ettevalmistusmaterjale
+    start_orientation: Alusta ettevalmistuskursusega
+    blog_headline: Wiki Educationi uudised
+    about_programs: See lehekülg jälgib programmide, st iseseisvate ürituste, nagu
+      sisutalgute või koolikursustega seotud vikiaktiivsust. Iga programm on osa ühest
+      või mitmest kampaaniast, mis võimaldavad vaadata koondstatistikat erinevate
+      programmide kohta.
+    about_creating_programs: Juhul kui korraldatav üritus on ühekordne ja iseseisev
+      sündmus, võid luua kohe uue programmi. Juhul kui see on osa suuremast ettevõtmisest,
+      loo või leia esmalt sellega seotud kampaania ning loo seejärel uus programm
+      vastava kampaania lehel.
+  home:
+    explore: Avasta
+    log_in: Logi sisse Vikipeedia kontoga
+    sign_up: Registreeru Vikipeedia kontoga
+    sign_up_help: Töölaua kasutamiseks pead logima sellesse sisse Vikipeedia kaudu
+      ning andma töölauale õiguse Sinu konto andmete kasutamiseks. Sisse logimiseks
+      võid kasutada kas olemasolevat Vikipeedia kontot või luua uue konto.
+  activity:
+    all: Täiendused
+    edited_by: Muutnud
+    label: Täiendused
+  articles:
+    article_development: (artikli loomine)
+    assigned: Tegemisel artiklid
+    available: Vabad artiklid
+    no_available: Vabad artiklid puuduvad
+    next: Edasi
+    previous: Tagasi
+    article_title: Artikli pealkiri
+    assigned_to: Kasutaja nimi
+    character_doc: Algus- ja lõpukuupäeva vahel kursusel osalejate poolt artiklitele
+      lisatud tähemärgid, summaarne
+    cross_wiki_tracking: Allpool on nimekiri algus- ja lõpukuupäeva vahel muudetud
+      põhinimeruumi artiklitest. Töölaud koondab kaastöid programmi koduvikist ning
+      kõigist teistest vikidest, millega on seotud mõni ülesanne või vaba artikkel.
+    deleted: (kustutatud)
+    edited: Muudetud artiklid
+    edited_by: 'Muutnud:'
+    edited_mobile: Artiklid
+    filter:
+      wiki_all: Kõik
+      new: Uued
+      existing: Olemasolevad
+      new_and_existing: Uued ja olemasolevad
+    hide: Peida
+    history: (ajalugu)
+    label: Artiklid
+    loading: Laen artikleid...
+    new: (uus)
+    none: Kursusel osalejad ei ole muutnud ühtegi artiklit.
+    rating: Klass
+...
