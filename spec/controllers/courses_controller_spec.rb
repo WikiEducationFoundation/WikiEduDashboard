@@ -116,8 +116,7 @@ describe CoursesController, type: :request do
         day_exceptions: '',
         weekdays: '0001000',
         no_day_exceptions: true,
-        home_wiki_id: 1,
-        wikis: [{ language: 'en', project: 'wikipedia' }] }
+        home_wiki_id: 1 }
     end
 
     before do
@@ -142,6 +141,7 @@ describe CoursesController, type: :request do
     end
 
     it 'updates the wikis' do
+      course_params[:wikis] = [{ language: 'en', project: 'wikipedia' }]
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(1)
