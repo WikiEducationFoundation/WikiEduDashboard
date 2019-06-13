@@ -116,7 +116,8 @@ describe CoursesController, type: :request do
         day_exceptions: '',
         weekdays: '0001000',
         no_day_exceptions: true,
-        home_wiki_id: 1 }
+        home_wiki_id: 1,
+        wikis: [{ language: 'en', project: 'wikipedia' }] }
     end
 
     before do
@@ -138,6 +139,26 @@ describe CoursesController, type: :request do
           expect(course.reload.send(key)).to eq(value)
         end
       end
+    end
+
+    it 'updates the wikis' do
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(1)
+
+      course_params[:wikis].push(language: 'fr', project: 'wikipedia')
+      put "/courses/#{course_params[:slug]}", params: params, as: :json
+      expect(course.wikis.count).to eq(2)
+
+      course_params[:wikis].pop
+      put "/courses/#{course_params[:slug]}", params: params, as: :json
+      expect(course.wikis.count).to eq(1)
+      expect(course.wikis.first.language).to eq('en')
+
+      course_params[:wikis][0][:language] = 'fr'
+      put "/courses/#{course_params[:slug]}", params: params, as: :json
+      expect(course.wikis.count).to eq(1)
+      expect(course.wikis.first.language).to eq('fr')
     end
 
     context 'setting passcode' do

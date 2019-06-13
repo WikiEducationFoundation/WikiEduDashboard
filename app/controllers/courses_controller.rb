@@ -263,7 +263,9 @@ class CoursesController < ApplicationController
     new_wikis.each do |wiki|
       wiki_id = Wiki.get_or_create(language: wiki[:language], project: wiki[:project]).id
       new_wiki_ids.push(wiki_id)
-      CoursesWikis.create(course_id: @course.id, wiki_id: wiki_id)
+      unless old_wiki_ids.include? wiki_id
+        CoursesWikis.create(course_id: @course.id, wiki_id: wiki_id)
+      end
     end
 
     # Delete removed wikis
