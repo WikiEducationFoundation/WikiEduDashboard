@@ -1,0 +1,18 @@
+.container
+  %h2 Private Information
+  %p This site retains the following private information:
+  %ul
+    %li Wikimedia usernames
+    %li For logged in users: OAuth credentials that allow partial access to to your Wikimedia account, including making edits on your behalf
+    - if Features.wiki_ed?
+      %li Names of instructors, which are publicly associated with their courses
+      %li Email addresses of instructors, which are used for course-related information, surveys, and related communication
+      %li Names of students, which are shown only to their instructors and to Wiki Education staff
+      %li Email addresses of students, which are used sparingly for course-related information and related communication
+      %li In error logs to help us diagnose problems: the username, IP address, and browser for each error
+    %li The email address and requested username for Requested Accounts; the email address is used to create a Wikimedia account, and removed from this site upon creation.
+
+  - if Features.wiki_ed?
+    %p For additional details, see our Terms of Use and Privacy Policy links below.
+  - else
+    %p Data use and retention is governed by the Wikimedia Cloud Services terms of use. For more details on this, see the link below.
