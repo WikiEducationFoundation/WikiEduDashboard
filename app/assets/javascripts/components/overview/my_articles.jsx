@@ -62,7 +62,9 @@ export const MyArticles = createReactClass({
           return id && article_id === assignment.article_id && id !== user_id;
         });
 
-        result.sandboxUrl = this.sandboxUrl(course, related.username);
+        if (related) {
+          result.sandboxUrl = this.sandboxUrl(course, related.username);
+        }
       }
 
       return result;
