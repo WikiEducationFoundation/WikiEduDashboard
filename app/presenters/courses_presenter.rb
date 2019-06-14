@@ -10,7 +10,7 @@ class CoursesPresenter
   def initialize(current_user:, campaign_param: nil, courses_list: nil)
     @current_user = current_user
     @campaign_param = campaign_param
-    @courses_list = courses_list || campaign&.courses
+    @courses_list = courses_list || campaign&.courses&.nonprivate
   end
 
   def user_courses
