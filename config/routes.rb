@@ -375,6 +375,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
 
   # Errors
