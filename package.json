@@ -114,7 +114,7 @@
     "react-paginate": "^6.3.0",
     "react-redux": "^7.0.3",
     "react-router": "5.0.0",
-    "react-router-dom": "5.0.0",
+    "react-router-dom": "5.0.1",
     "react-select": "^3.0.4",
     "react-test-renderer": "^16.8.6",
     "react-transition-group": "4.1.1",
