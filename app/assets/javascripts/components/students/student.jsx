@@ -127,7 +127,7 @@ const Student = createReactClass({
           </div>
           {trainingProgress}
           <div className="sandbox-link">
-            <a onClick={this.stop} href={this.props.student.sandboxUrl} target="_blank">{I18n.t('users.sandboxes')}</a>
+            <a onClick={this.stop} href={this.props.student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
             &nbsp;
             <a onClick={this.stop} href={this.props.student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
           </div>
