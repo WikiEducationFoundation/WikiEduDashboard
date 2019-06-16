@@ -4,6 +4,8 @@ import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import selectStyles from '../../styles/select';
+import WikiSelect from '../common/wiki_select.jsx';
 
 const CourseForm = (props) => {
   const updateCoursePrivacy = (e) => {
@@ -11,6 +13,17 @@ const CourseForm = (props) => {
     props.updateCourseProps({ private: isPrivate });
     props.updateCourseAction('private', isPrivate);
   };
+
+  const handleWikiChange = (wiki) => {
+    wiki = wiki.value;
+    props.updateCourseProps({ ...wiki });
+  };
+
+  const handleMultiWikiChange = (wikis) => {
+    wikis = wikis.map(wiki => wiki.value);
+    props.updateCourseProps({ wikis });
+  };
+
   const backClass = `dark button ${props.backCondition ? 'hidden' : ''}`;
   let term;
   let subject;
@@ -80,33 +93,42 @@ const CourseForm = (props) => {
     );
   }
 
-  let language;
-  let project;
   let privacyCheckbox;
   let campaign;
   let backButton;
+  let home_wiki;
+  let multi_wiki;
+
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
-    language = (
-      <TextInput
-        id="course_language"
-        onChange={props.updateCourseAction}
-        value={props.course.language}
-        value_key="language"
-        editable
-        label={I18n.t('courses.creator.course_language')}
-        placeholder="en"
-      />
+    home_wiki = (
+      <div className="form-group">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses.home_wiki')}:
+          </strong>
+        </span>
+        <WikiSelect
+          wikis={[{ language: 'en', project: 'wikipedia' }]}
+          onChange={handleWikiChange}
+          multi={false}
+          styles={{ ...selectStyles, singleValue: null }}
+        />
+      </div>
     );
-    project = (
-      <TextInput
-        id="course_project"
-        onChange={props.updateCourseAction}
-        value={props.course.project}
-        value_key="project"
-        editable
-        label={I18n.t('courses.creator.course_project')}
-        placeholder="wikipedia"
-      />
+    multi_wiki = (
+      <div className="form-group">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses.multi_wiki')}:
+          </strong>
+        </span>
+        <WikiSelect
+          wikis={props.course.wikis}
+          onChange={handleMultiWikiChange}
+          multi={true}
+          styles={{ ...selectStyles, singleValue: null }}
+        />
+      </div>
     );
     privacyCheckbox = (
       <div className="form-group">
@@ -162,8 +184,8 @@ const CourseForm = (props) => {
         {term}
         {subject}
         {expectedStudents}
-        {language}
-        {project}
+        {home_wiki}
+        {multi_wiki}
         {backButton}
         <p className="tempCourseIdText">{props.tempCourseId}</p>
       </div>

@@ -21,8 +21,8 @@ import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
-import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
-import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
+import selectStyles from '../../styles/select';
+import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
@@ -84,6 +84,19 @@ const Details = createReactClass({
     if (Features.wikiEd) { return false; }
     // On P&E Dashboard, anyone with edit rights for the course may rename it.
     return true;
+  },
+
+  handleWikiChange(wiki) {
+    wiki = wiki.value;
+    const updatedCourse = this.props.course;
+    updatedCourse.home_wiki.language = wiki.language;
+    updatedCourse.home_wiki.project = wiki.project;
+    this.props.updateCourse(updatedCourse);
+  },
+
+  handleMultiWikiChange(wikis) {
+    wikis = wikis.map(wiki => wiki.value);
+    this.props.updateCourse({ ...this.props.course, wikis });
   },
 
   poll() {
@@ -241,8 +254,9 @@ const Details = createReactClass({
     let wikiEditsToggle;
     let editSettingsToggle;
     let withdrawnSelector;
-    let projectSelector;
-    let languageSelector;
+    let wikiSelector;
+    let multiWikiSelector;
+
     if (this.props.current_user.admin) {
       subject = (
         <TextInput
@@ -353,17 +367,37 @@ const Details = createReactClass({
     }
 
     if (this.props.editable && !Features.wikiEd) {
-      projectSelector = (
-        <HomeWikiProjectSelector
-          course={this.props.course}
-          updateCourse={this.props.updateCourse}
-        />
+      wikiSelector = (
+        <div className="form-group">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.home_wiki')}:
+            </strong>
+          </span>
+          <WikiSelect
+            wikis={
+              [{ language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project }]
+            }
+            onChange={this.handleWikiChange}
+            multi={false}
+            styles={{ ...selectStyles, singleValue: null }}
+          />
+        </div>
       );
-      languageSelector = (
-        <HomeWikiLanguageSelector
-          course={this.props.course}
-          updateCourse={this.props.updateCourse}
-        />
+      multiWikiSelector = (
+        <div className="form-group">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.multi_wiki')}:
+            </strong>
+          </span>
+          <WikiSelect
+            wikis={this.props.course.wikis}
+            onChange={this.handleMultiWikiChange}
+            multi={true}
+            styles={{ ...selectStyles, singleValue: null }}
+          />
+        </div>
       );
     }
 
@@ -384,6 +418,8 @@ const Details = createReactClass({
               {school}
               {title}
               {term}
+              {wikiSelector}
+              {multiWikiSelector}
               <form>
                 {passcode}
                 {expectedStudents}
@@ -425,8 +461,6 @@ const Details = createReactClass({
               {wikiEditsToggle}
               {editSettingsToggle}
               {withdrawnSelector}
-              {projectSelector}
-              {languageSelector}
             </div>
           </div>
           {campaigns}

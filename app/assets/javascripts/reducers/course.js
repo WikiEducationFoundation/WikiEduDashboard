@@ -33,7 +33,8 @@ const initialState = {
   weekdays: '0000000',
   editingSyllabus: false,
   training_library_slug: 'students',
-  loading: true
+  loading: true,
+  wikis: []
 };
 
 
