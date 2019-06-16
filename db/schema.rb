@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_142634) do
+ActiveRecord::Schema.define(version: 2019_06_16_022424) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -176,13 +176,6 @@ ActiveRecord::Schema.define(version: 2019_06_11_142634) do
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
   end
 
-  create_table "course_wikis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "course_id"
-    t.integer "wiki_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "courses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at"
@@ -254,6 +247,9 @@ ActiveRecord::Schema.define(version: 2019_06_11_142634) do
     t.integer "wiki_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id", "wiki_id"], name: "index_courses_wikis_on_course_id_and_wiki_id", unique: true
+    t.index ["course_id"], name: "index_courses_wikis_on_course_id"
+    t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
   end
 
   create_table "feedback_form_responses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
