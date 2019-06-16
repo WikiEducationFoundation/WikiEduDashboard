@@ -251,6 +251,7 @@ class CoursesController < ApplicationController
 
     # Used to differentiate deleted wikis
     old_wikis = @course.wikis.to_a
+    old_wikis.push(@course.home_wiki) # Home Wiki shouldn't be tracked again
     new_wikis = []
 
     # Create an association for each new wiki
