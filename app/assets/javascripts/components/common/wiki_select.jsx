@@ -33,12 +33,27 @@ const WikiSelect = createReactClass({
     let wikis = [];
     if (this.props.wikis) {
       wikis = this.props.wikis.map((wiki) => {
+        wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
         return {
-          value: wiki,
+          value: JSON.stringify(wiki),
           label: `${wiki.language}.${wiki.project}.org`
         };
       });
     }
+
+    const formatValue = (wiki) => {
+      if (wiki) {
+        if (this.props.multi) {
+          wiki = wiki.map((w) => { return { value: JSON.parse(w.value), label: w.label }; });
+        } else {
+          const value = JSON.parse(wiki.value);
+          wiki = { label: wiki.label, value };
+        }
+        this.props.onChange(wiki);
+      } else {
+        this.props.onChange(this.props.multi ? [] : {});
+      }
+    };
 
     const filterOptions = function (val) {
       return WIKI_OPTIONS.filter(wiki =>
@@ -47,7 +62,7 @@ const WikiSelect = createReactClass({
     };
 
     const loadOptions = function (inputValue, callback) {
-        callback(filterOptions(inputValue));
+      callback(filterOptions(inputValue));
     };
 
     return <AsyncSelect
@@ -57,7 +72,7 @@ const WikiSelect = createReactClass({
       loadOptions={loadOptions}
       defaultOptions={WIKI_OPTIONS.slice(0, 10)}
       isSearchable={true}
-      onChange={this.props.onChange}
+      onChange={formatValue}
       styles={this.props.styles}
       isClearable={false}
     />;
