@@ -16,3 +16,8 @@ fr:
   id: 3
   language: fr
   project: wikipedia
+
+de:
+  id: 4
+  language: de
+  project: wikipedia

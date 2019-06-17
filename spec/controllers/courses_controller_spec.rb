@@ -141,7 +141,7 @@ describe CoursesController, type: :request do
     end
 
     it 'updates the wikis' do
-      course_params[:wikis] = [{ language: 'en', project: 'wikipedia' }]
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(1)
@@ -153,7 +153,7 @@ describe CoursesController, type: :request do
       course_params[:wikis].pop
       put "/courses/#{course_params[:slug]}", params: params, as: :json
       expect(course.wikis.count).to eq(1)
-      expect(course.wikis.first.language).to eq('en')
+      expect(course.wikis.first.language).to eq('de')
 
       course_params[:wikis][0][:language] = 'fr'
       put "/courses/#{course_params[:slug]}", params: params, as: :json

@@ -101,7 +101,7 @@ const CourseForm = (props) => {
 
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
-      <div className="form-group">
+      <div className="form-group home-wiki">
         <span className="text-input-component__label">
           <strong>
             {I18n.t('courses.home_wiki')}:
