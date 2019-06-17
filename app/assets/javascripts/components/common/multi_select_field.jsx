@@ -23,7 +23,7 @@ const MultiSelectField = createReactClass({
 
   handleSelectChange(value) {
     this.setState({ value });
-    this.props.setSelectedFilters(value);
+    this.props.setSelectedFilters(value || []);
   },
 
   render() {
