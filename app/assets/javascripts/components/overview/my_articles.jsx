@@ -74,13 +74,17 @@ export const MyArticles = createReactClass({
   render() {
     const { assignments, course, current_user, wikidataLabels } = this.props;
     const user_id = current_user.id;
-    const assignOptions = { user_id, role: ASSIGNED_ROLE };
-    const reviewOptions = { user_id, role: REVIEWING_ROLE };
 
     const addSandboxUrl = this.addSandboxUrl(assignments, course, user_id);
     const updatedAssignments = assignments.map(addSandboxUrl);
 
+    const unassignedOptions = { user_id: null, role: ASSIGNED_ROLE };
+    const unassigned = getFiltered(updatedAssignments, unassignedOptions);
+
+    const assignOptions = { user_id, role: ASSIGNED_ROLE };
     const assigned = getFiltered(updatedAssignments, assignOptions);
+
+    const reviewOptions = { user_id, role: REVIEWING_ROLE };
     const reviewing = getFiltered(updatedAssignments, reviewOptions);
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;
@@ -101,27 +105,29 @@ export const MyArticles = createReactClass({
           <div className="controls">
             {findYourArticleTraining}
             <AssignCell
-              id="user_assigned"
-              course={this.props.course}
-              role={0}
-              editable
-              current_user={current_user}
-              student={current_user}
               assignments={assigned}
+              editable
+              course={this.props.course}
+              current_user={current_user}
+              id="user_assigned"
               prefix={I18n.t('users.my_assigned')}
+              role={0}
+              student={current_user}
               tooltip_message={I18n.t('assignments.assign_tooltip')}
+              unassigned={unassigned}
               wikidataLabels={this.props.wikidataLabels}
             />
             <AssignCell
-              id="user_reviewing"
-              course={this.props.course}
-              role={1}
-              editable
-              current_user={current_user}
-              student={current_user}
               assignments={reviewing}
+              course={this.props.course}
+              current_user={current_user}
+              editable
+              id="user_reviewing"
               prefix={I18n.t('users.my_reviewing')}
+              role={1}
+              student={current_user}
               tooltip_message={I18n.t('assignments.review_tooltip')}
+              unassigned={unassigned}
               wikidataLabels={this.props.wikidataLabels}
             />
             <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>

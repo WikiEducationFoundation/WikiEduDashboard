@@ -54,7 +54,7 @@ const AvailableArticles = createReactClass({
           course={this.props.course}
           role={ASSIGNED_ROLE}
           editable
-          addAvailable={true}
+          allowMultipleArticles={true}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
           assignments={[]}
