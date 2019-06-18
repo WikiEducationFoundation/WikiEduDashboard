@@ -104,7 +104,7 @@
     "react-confetti": "^3.1.0",
     "react-day-picker": "7.3.0",
     "react-dnd": "^3.0.2",
-    "react-dnd-html5-backend": "^5.0.1",
+    "react-dnd-html5-backend": "^8.0.2",
     "react-dnd-touch-backend": "^0.3.15",
     "react-dom": "^16.8.6",
     "react-dropzone": "^7.0.1",
