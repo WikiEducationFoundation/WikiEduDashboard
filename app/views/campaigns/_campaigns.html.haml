@@ -9,6 +9,7 @@
         %option{rel: "desc", value: "articles-created"}= t('metrics.articles_created')
         %option{rel: "desc", value: "articles-edited"}= t('metrics.articles_edited')
         %option{rel: "desc", value: "characters"}= t("metrics.word_count")
+        %option{rel: "desc", value: "references"}= t("metrics.references_count")
         %option{rel: "desc", value: "views"}= t("metrics.view")
         %option{rel: "desc", value: "students"}= t("users.editors")
         - unless Features.wiki_ed?
@@ -38,6 +39,13 @@
             %span.tooltip-indicator
             .tooltip.dark
               %p= course_i18n("word_count_doc")
+        %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "references", style: "width: 172px;"}
+          .tooltip-trigger
+            = t("metrics.references_count")
+            %span.sortable-indicator
+            %span.tooltip-indicator
+            .tooltip.dark
+              %p= course_i18n("references_doc")
         %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "views", style: "width: 125px;"}
           .tooltip-trigger
             = t("metrics.view")

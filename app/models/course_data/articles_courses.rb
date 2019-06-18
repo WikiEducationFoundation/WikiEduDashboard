@@ -38,6 +38,11 @@ class ArticlesCourses < ApplicationRecord
     self[:character_sum]
   end
 
+  def ref_count
+    update_cache unless self[:references_count]
+    self[:references_count]
+  end
+
   def new_article
     self[:new_article]
   end
@@ -54,6 +59,7 @@ class ArticlesCourses < ApplicationRecord
     revisions = live_manual_revisions
 
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
+    self.references_count = revisions.sum(&:references_added)
     self.view_count = revisions.order('date ASC').first.views unless revisions.empty?
 
     # We use the 'all_revisions' scope so that the dashboard system edits that
