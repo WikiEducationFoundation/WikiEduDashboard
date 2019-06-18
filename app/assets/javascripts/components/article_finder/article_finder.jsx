@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
 import qs from 'query-string';
-import Select from 'react-select';
+import selectStyles from '../../styles/select';
+import WikiSelect from '../common/wiki_select.jsx';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -16,7 +17,6 @@ import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/arti
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
-import selectStyles from '../../styles/select';
 
 const ArticleFinder = createReactClass({
   getDefaultProps() {
@@ -117,15 +117,11 @@ const ArticleFinder = createReactClass({
     return this.props.updateFields('grade', grade);
   },
 
-  handleChangeLanguage(language) {
+  handleWikiChange(wiki) {
+    wiki = wiki.value;
     this.setState({ isSubmitted: false });
     this.props.clearResults();
-    return this.updateFields('home_wiki', { language: language.value, project: this.props.home_wiki.project });
-  },
-  handleChangeProject(project) {
-    this.setState({ isSubmitted: false });
-    this.props.clearResults();
-    return this.updateFields('home_wiki', { language: this.props.home_wiki.language, project: project.value });
+    return this.updateFields('home_wiki', { language: wiki.language, project: wiki.project });
   },
 
   toggleLanguageAndWikiSelector(e) {
@@ -170,7 +166,7 @@ const ArticleFinder = createReactClass({
           </div>
         </div>
       </div>
-      );
+    );
 
     const minimumViews = (
       <div>
@@ -185,7 +181,7 @@ const ArticleFinder = createReactClass({
           placeholder={I18n.t('article_finder.minimum_views_label')}
         />
       </div>
-      );
+    );
 
     const articleQuality = (
       <div>
@@ -200,7 +196,7 @@ const ArticleFinder = createReactClass({
           />
         </div>
       </div>
-      );
+    );
     let filters;
     if (this.state.showFilters) {
       filters = (
@@ -307,7 +303,7 @@ const ArticleFinder = createReactClass({
             deleteAssignment={this.props.deleteAssignment}
             current_user={this.props.current_user}
           />
-          );
+        );
       });
       list = (
         <List
@@ -319,7 +315,7 @@ const ArticleFinder = createReactClass({
           none_message={I18n.t('article_finder.no_article_found')}
           sortBy={this.props.sortArticleFinder}
         />
-        );
+      );
     }
 
     let loader;
@@ -351,7 +347,7 @@ const ArticleFinder = createReactClass({
             </div>
           </div>
         </div>
-        );
+      );
     }
 
     const loaderMessage = {
@@ -369,16 +365,9 @@ const ArticleFinder = createReactClass({
           <div className="loading__spinner__small" />
           {loaderMessage[this.props.fetchState]}
         </div>
-        );
+      );
     }
 
-    const languageOptions = JSON.parse(WikiLanguages).map((language) => {
-      return { label: language, value: language };
-    });
-
-    const projectOptions = JSON.parse(WikiProjects).map((project) => {
-      return { label: project, value: project };
-    });
     let options = (
       <div className="selector-block">
         <div className="small-block-link pull-right">
@@ -388,33 +377,21 @@ const ArticleFinder = createReactClass({
     );
     if (this.state.showLanguageAndWikiSelectors) {
       options = (
-        <div className="selector-block">
-          <div className="options">
-            <Select
-              ref="languageSelect"
-              className="language-select"
-              name="language"
-              placeholder="Language"
-              onChange={this.handleChangeLanguage}
-              value={{ value: this.props.home_wiki.language, label: this.props.home_wiki.language }}
-              options={languageOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-            <Select
-              name="project"
-              ref="projectSelect"
-              className="project-select"
-              onChange={this.handleChangeProject}
-              placeholder="Project"
-              value={{ value: this.props.home_wiki.project, label: this.props.home_wiki.project }}
-              options={projectOptions}
-              clearable={false}
+        <div>
+          <div className="article-wiki-selector-block">
+            <WikiSelect
+              wikis={
+                [{ language: this.props.home_wiki.language, project: this.props.home_wiki.project }]
+              }
+              onChange={this.handleWikiChange}
+              multi={false}
               styles={{ ...selectStyles, singleValue: null }}
             />
           </div>
-          <div className="small-block-link pull-right">
-            {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
+          <div className="selector-block">
+            <div className="small-block-link pull-right">
+              {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
+            </div>
           </div>
         </div>
       );
@@ -453,7 +430,7 @@ const ArticleFinder = createReactClass({
           {fetchMoreButton}
         </div>
       </div>
-      );
+    );
   }
 });
 
