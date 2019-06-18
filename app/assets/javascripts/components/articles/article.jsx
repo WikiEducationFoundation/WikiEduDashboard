@@ -56,6 +56,7 @@ const Article = createReactClass({
           </div>
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
+        <td className="desktop-only-tc">{this.props.article.references_count}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
         <td>
           <ArticleViewer

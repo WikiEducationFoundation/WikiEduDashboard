@@ -38,7 +38,7 @@ class ArticlesCourses < ApplicationRecord
     self[:character_sum]
   end
 
-  def ref_count
+  def references_count
     update_cache unless self[:references_count]
     self[:references_count]
   end

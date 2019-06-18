@@ -72,6 +72,11 @@ const ArticleList = createReactClass({
         desktop_only: true,
         info_key: 'articles.character_doc'
       },
+      references_count: {
+        label: I18n.t('metrics.references_count'),
+        desktop_only: true,
+        info_key: 'articles.references_doc'
+      },
       view_count: {
         label: I18n.t('metrics.view'),
         desktop_only: true,
@@ -163,6 +168,7 @@ const ArticleList = createReactClass({
           <option value="rating_num">{I18n.t('articles.rating')}</option>
           <option value="title">{I18n.t('articles.title')}</option>
           <option value="character_sum">{I18n.t('metrics.char_added')}</option>
+          <option value="references_count">{I18n.t('metrics.references_count')}</option>
           <option value="view_count">{I18n.t('metrics.view')}</option>
         </select>
       </div>
