@@ -178,6 +178,12 @@ const StudentList = createReactClass({
         sortable: true,
         info_key: 'users.character_doc'
       },
+      references_count: {
+        label: I18n.t('users.references_count'),
+        desktop_only: true,
+        sortable: true,
+        info_key: 'users.references_doc'
+      },
       total_uploads: {
         label: I18n.t('users.total_uploads'),
         desktop_only: true,

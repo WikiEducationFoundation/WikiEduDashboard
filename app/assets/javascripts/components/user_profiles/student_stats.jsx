@@ -24,6 +24,14 @@ const StudentStats = ({ username, stats }) => {
         </div>
         <div className= "stat-display__stat">
           <div className="stat-display__value">
+            {stats.individual_references_count}
+          </div>
+          <small>
+            {I18n.t('metrics.references_count')}
+          </small>
+        </div>
+        <div className= "stat-display__stat">
+          <div className="stat-display__value">
             {stats.individual_article_views}
           </div>
           <small>

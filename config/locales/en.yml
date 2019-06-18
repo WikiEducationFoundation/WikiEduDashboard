@@ -1040,6 +1040,7 @@ en:
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: Characters Added (user)
     characters_added_draftspace: Characters Added (draft)
+    references_count: References Added
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name
@@ -1054,6 +1055,7 @@ en:
     request_confirmation: Are you sure you want to request this account?
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
+    references_doc: The sum of all references added by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
     sandboxes: sandboxes

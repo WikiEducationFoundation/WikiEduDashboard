@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_16_142604) do
+ActiveRecord::Schema.define(version: 2019_06_18_115735) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2019_06_16_142604) do
     t.bigint "view_count", default: 0
     t.integer "character_sum", default: 0
     t.boolean "new_article", default: false
-    t.integer "references_count", default: 0
+    t.integer "references_count"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end
@@ -220,7 +220,7 @@ ActiveRecord::Schema.define(version: 2019_06_16_142604) do
     t.string "level"
     t.boolean "private", default: false
     t.boolean "withdrawn", default: false
-    t.integer "references_count", default: 0
+    t.integer "references_count"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 2019_06_16_142604) do
     t.string "real_name"
     t.string "role_description"
     t.integer "total_uploads"
+    t.integer "references_count"
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
