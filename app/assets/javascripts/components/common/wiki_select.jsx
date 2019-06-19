@@ -68,9 +68,9 @@ const WikiSelect = createReactClass({
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
-      defaultValue={wikis}
+      noOptionsMessage={() => null}
+      value={wikis}
       loadOptions={loadOptions}
-      defaultOptions={WIKI_OPTIONS.slice(0, 10)}
       isSearchable={true}
       onChange={formatValue}
       styles={this.props.styles}

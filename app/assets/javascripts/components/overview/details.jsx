@@ -88,9 +88,16 @@ const Details = createReactClass({
 
   handleWikiChange(wiki) {
     wiki = wiki.value;
+    const prev_wiki = { ...this.props.course.home_wiki };
     const updatedCourse = this.props.course;
     updatedCourse.home_wiki.language = wiki.language;
     updatedCourse.home_wiki.project = wiki.project;
+    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
+    if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
+      updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
+    } else {
+      updatedCourse.wikis = [...updatedCourse.wikis];
+    }
     this.props.updateCourse(updatedCourse);
   },
 

@@ -16,7 +16,15 @@ const CourseForm = (props) => {
 
   const handleWikiChange = (wiki) => {
     wiki = wiki.value;
-    props.updateCourseProps({ ...wiki });
+    const prev_wiki = { language: props.course.language, project: props.course.project };
+    const updatedCourse = props.course;
+    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
+    if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
+      updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
+    } else {
+      updatedCourse.wikis = [...updatedCourse.wikis];
+    }
+    props.updateCourseProps({ ...wiki, wikis: updatedCourse.wikis });
   };
 
   const handleMultiWikiChange = (wikis) => {
@@ -108,7 +116,7 @@ const CourseForm = (props) => {
           </strong>
         </span>
         <WikiSelect
-          wikis={[{ language: 'en', project: 'wikipedia' }]}
+          wikis={[{ language: props.course.language || 'en', project: props.course.project || 'wikipedia' }]}
           onChange={handleWikiChange}
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}

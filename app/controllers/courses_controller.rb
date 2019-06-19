@@ -251,7 +251,6 @@ class CoursesController < ApplicationController
 
     # Used to differentiate deleted wikis
     old_wikis = @course.wikis.to_a
-    old_wikis.push(@course.home_wiki) # Home Wiki shouldn't be tracked again
     new_wikis = []
 
     # Create an association for each new wiki
@@ -261,8 +260,8 @@ class CoursesController < ApplicationController
       @course.wikis.push(new_wiki) unless old_wikis.include? new_wiki
     end
 
-    # Delete removed wikis
-    @course.wikis.delete(old_wikis - new_wikis)
+    # Delete removed wikis except home wiki
+    @course.wikis.delete(old_wikis - new_wikis - [@course.home_wiki.id])
   end
 
   def update_flags

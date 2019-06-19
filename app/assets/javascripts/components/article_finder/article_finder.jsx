@@ -378,7 +378,7 @@ const ArticleFinder = createReactClass({
     if (this.state.showLanguageAndWikiSelectors) {
       options = (
         <div>
-          <div className="article-wiki-selector-block">
+          <div className="article-wiki-selector-block selector-block">
             <WikiSelect
               wikis={
                 [{ language: this.props.home_wiki.language, project: this.props.home_wiki.project }]
