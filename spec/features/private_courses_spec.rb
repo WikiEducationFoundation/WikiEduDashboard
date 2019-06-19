@@ -9,12 +9,22 @@ describe 'Private courses' do
   before do
     login_as user
     stub_oauth_edit
+    course.campaigns << Campaign.first
   end
 
-  context 'when the can edit the course the course' do
+  context 'when the user is enrolled in the course' do
     before do
-      JoinCourse.new(course: course, user: user, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      JoinCourse.new(course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
+
+    it 'renders the course normally' do
+      visit "/courses/#{escaped_slug course.slug}"
+      expect(page.status_code).to eq(200)
+    end
+  end
+
+  context 'when the user is an admin' do
+    let(:user) { create(:admin) }
 
     it 'renders the course normally' do
       visit "/courses/#{escaped_slug course.slug}"
