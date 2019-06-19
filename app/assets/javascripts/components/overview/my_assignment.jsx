@@ -34,6 +34,12 @@ export const MyAssignment = createReactClass({
     return false;
   },
 
+  unassign(assignment) {
+    this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
+      this.props.deleteAssignment({ course_id: this.props.course.id, ...assignment });
+    });
+  },
+
   render() {
     const { assignment, username } = this.props;
     const isEnglishWikipedia = this.isEnglishWikipedia();
@@ -74,6 +80,7 @@ export const MyAssignment = createReactClass({
           <a href={assignment.article_url}>Article</a>
         </span>
         <div className="my-assignment-button">
+          <div><button onClick={() => this.unassign(assignment)} className="button danger small">Remove</button></div>
           {feedback}
           {pageviews}
           {checklist}

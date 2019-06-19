@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import { addAssignment, deleteAssignment, updateAssignment } from '../../actions/assignment_actions';
+import { addAssignment, updateAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
 import WikiSelect from '../common/wiki_select.jsx';
 import AddAvailableArticles from '../articles/add_available_articles';
@@ -36,18 +36,6 @@ const AddAssignmentButton = ({ assignment, assign }) => (
       onClick={e => assign(e, assignment)}
     >
         +
-    </button>
-  </span>
-);
-
-const RemoveAssignmentButton = ({ assignment, unassign }) => (
-  <span>
-    <button
-      aria-label="Remove"
-      className="button border plus"
-      onClick={() => unassign(assignment)}
-    >
-        -
     </button>
   </span>
 );
@@ -284,12 +272,6 @@ export class AssignButton extends React.Component {
     });
   }
 
-  unassign(assignment) {
-    this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
-      this.props.deleteAssignment(assignment);
-    });
-  }
-
   render() {
     const {
       allowMultipleArticles, assignments, course, current_user,
@@ -417,7 +399,6 @@ AssignButton.propTypes = {
 
 const mapDispatchToProps = {
   addAssignment,
-  deleteAssignment,
   initiateConfirm,
   updateAssignment
 };
