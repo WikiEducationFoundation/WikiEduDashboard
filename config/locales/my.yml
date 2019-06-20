@@ -57,6 +57,8 @@ my:
     sign_up: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
   articles:
     available: ရရှိနိုင်သော ဆောင်းပါးများ
+    next: ရှေ့
+    previous: ယခင်
     deleted: (ဖျက်ထားသော)
     edited_mobile: ဆောင်းပါးများ
     hide: ဝှက်
@@ -102,6 +104,7 @@ my:
     remove: ဖယ်ရှားရန်
   courses:
     alerts: အသိပေးချက်များ
+    actions: ဆောင်ရွက်ချက်များ
     articles: ဆောင်းပါးများ
     calendar:
       legend: အညွှန်း
@@ -118,26 +121,46 @@ my:
       course_project: ပင်မ ပရောဂျက်
       course_title: သင်တန်းခေါင်းစဉ်
       end_date: ပြီးဆုံးရက်
+      start_date: စတင်သည့်ရက်စွဲ
       subject: အကြောင်းအရာ
     delete_suggestion: ဖျက်ရန်
     features_feedback: 'အလိုအလျောက် အကြံပေးချက်များ:'
     feedback: အကြံပေးရန်
     home_wiki_language: ပင်မဝီကီ ဘာသာစကား
     home_wiki_project: ပင်မဝီကီ ပရောဂျက်
+    join: ပါဝင်ပူးပေါင်းရန်
+    loading: ဝန်ဆွဲတင်နေသည်...
     new_account_email: အီးမေးလ် လိပ်စာ
     new_account_email_placeholder: name@example.org
     new_account_submit: အကောင့် တောင်းဆိုရန်
     overview: ပင်မ
     please_log_in: ကျေးဇူးပြု၍ အကောင့်ထဲဝင်ပါ။
+    requested_accounts_alert_view: ကြည့်ရန်
+    school: ကျောင်း
+    students_short: ကျောင်းသားများ
+    view_wiki: ဝီကီပီးဒီးယားတွင်ကြည့်ရန်
   courses_generic:
     cancel: မလုပ်တော့ပါ
+    course: ပရိုဂရမ်
+    courses: ပရိုဂရမ်များ
+    creator:
+      save_cloned_course: သိမ်းရန်
     not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
+    student_editors: တည်းဖြတ်သူများ
+    students: တည်းဖြတ်သူများ
   editable:
     cancel: မလုပ်တော့ပါ
+    edit_description: ဖော်ပြချက် တည်းဖြတ်ရန်
+  namespace:
+    user_ns: အသုံးပြုသူ
+  revisions:
+    title: ခေါင်းစဉ်
+    see_more: ပို၍ ကြည့်ရန်
   resources:
     label: အရင်းအမြစ်များ
   timeline:
     reset_titles: နဂိုအတိုင်း ပြန်သွားရန်
+    this_week_title_default: ဤအပတ်
   training:
     page: စာမျက်နှာ
     previous: « ယခင်က

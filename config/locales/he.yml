@@ -12,6 +12,7 @@
 # Author: Mikey641
 # Author: MojoMann
 # Author: Or
+# Author: Steeve815
 # Author: Strayblues
 # Author: Uziel302
 # Author: YaronSh
@@ -20,6 +21,16 @@
 # Author: תומר ט
 ---
 he:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: א'
+          million: מ'
+          billion: ב'
+          trillion: ט'
+          quadrillion: ק'
   application:
     cancel: ביטול
     create_accounts: יצירת חשבונות בוויקיפדיה
@@ -43,6 +54,8 @@ he:
     report_problem: דיווח על תקלה
     request_account_create: יצירת חשבון
     search: יש לך שאלות?
+    search_results: 'תוצאות עבור: ''%{search_terms}'''
+    no_results: לא נמצאו תוצאות עבור '%{query}'
     sign_up_extended: הרשמה עם חשבון ויקיפדיה
     sign_up_log_in_extended: עם ויקיפדיה
     sign_up: הרשמה
@@ -87,6 +100,9 @@ he:
   articles:
     assigned: ערכים מוקצים
     available: ערכים זמינים
+    next: הבא
+    previous: הקודם
+    article_title: כותרת הערך
     assigned_to: 'מוקצה ל:'
     character_doc: 'סך התווים שנוספו לערכים על־ידי עורכים הרשומים לתוכנית בין תאריכי
       ההתחלה והסיום:'
@@ -352,6 +368,7 @@ he:
     submitted_heading: תוכניות \ קורסים \ מיזמים שהוגשו
     submitted_note: התוכנית \ הקורס \ המיזם שלך הוגש. יצרו איתך קשר במידה ויעלו שאלות
       כלשהן.
+    suggestions_sending: שליחת המשוב מתבצעת...
     user_role: תפקיד
     course_details: פרטים עבור תוכנית \ קורס \ מיזם
     term: מועד
@@ -367,6 +384,7 @@ he:
     unsubmitted: תוכניות \ קורסים \ מיזמים שלא הוגשו
     untrained: לא עבר הדרכה
     uploads_none: הקבוצה הזו לא תרמה תמונות או קבצי מדיה אחרים לויקישיתוף (WikiCommons).
+    user_recent_uploads: העלאות אחרונות
     user_suggestions: 'הצעות משתמש:'
     view_other: עיון בקמפיינים אחרים
     view: הצגת התוכנית \ הקורס \ המיזם
