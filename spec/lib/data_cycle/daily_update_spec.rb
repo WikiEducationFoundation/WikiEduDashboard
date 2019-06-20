@@ -14,20 +14,39 @@ describe DailyUpdate do
 
   describe 'on initialization' do
     it 'calls lots of update routines' do
-      expect(UserImporter).to receive(:update_users)
-      expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
-      expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
-      expect(RatingImporter).to receive(:update_all_ratings)
-      expect(ArticleStatusManager).to receive(:update_article_status)
-      expect(OresScoresBeforeAndAfterImporter).to receive(:import_all)
-      expect(UploadImporter).to receive(:find_deleted_files)
-      expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
-      expect(PushCourseToSalesforce).to receive(:new)
-      expect(UpdateCourseFromSalesforce).to receive(:new)
-      expect(Raven).to receive(:capture_message).and_call_original
-      update = described_class.new
-      sentry_logs = update.instance_variable_get(:@sentry_logs)
-      expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
+      VCR.use_cassette 'revision_scores/deleted_revision' do
+        expect(UserImporter).to receive(:update_users)
+        expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
+        expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
+        expect(RatingImporter).to receive(:update_all_ratings)
+        expect(ArticleStatusManager).to receive(:update_article_status)
+        create(:article,
+           id: 1538038,
+           mw_page_id: 1538038,
+           title: 'Performativity',
+           namespace: 0)
+        create(:revision,
+              mw_rev_id: 662106477,
+              article_id: 1538038,
+              mw_page_id: 1538038)
+        create(:revision,
+              mw_rev_id: 46745264, 
+              article_id: 1538038,
+              mw_page_id: 1538038)
+        RevisionScoreImporter.new.update_all_revision_scores_for_articles (Article.all)
+        expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_between(0, 100)
+        expect(Revision.find_by(mw_rev_id: 46745264).wp10).to be_between(0, 100)
+        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
+        expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_between(0, 100)
+        expect(UploadImporter).to receive(:find_deleted_files)
+        expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
+        expect(PushCourseToSalesforce).to receive(:new)
+        expect(UpdateCourseFromSalesforce).to receive(:new)
+        expect(Raven).to receive(:capture_message).and_call_original
+        update = described_class.new
+        sentry_logs = update.instance_variable_get(:@sentry_logs)
+        expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
+      end
     end
 
     it 'reports logs to sentry even when it errors out' do
