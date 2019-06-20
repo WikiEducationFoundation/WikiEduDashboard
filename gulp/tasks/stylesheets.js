@@ -8,7 +8,7 @@ import config from '../config.js';
 
 const plugins = loadPlugins();
 
-task('stylesheets', () => {
+function stylesheets() {
   const styleDir = `${config.outputPath}/${config.cssDirectory}`;
 
   const stream = src([`${config.sourcePath}/${config.cssDirectory}/${config.cssMainFiles}.styl`])
@@ -44,7 +44,7 @@ task('stylesheets', () => {
         .pipe(dest(styleDir)); // save in the same directory
     });
   });
-});
+}
 
 task('stylesheets-livereload', () => {
   const styleDir = `${config.outputPath}/${config.cssDirectory}`;
@@ -64,3 +64,5 @@ task('stylesheets-livereload', () => {
     .pipe(plugins.sourcemaps.write())
     .pipe(dest(styleDir));
 });
+
+export default stylesheets;

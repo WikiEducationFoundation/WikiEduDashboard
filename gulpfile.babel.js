@@ -1,5 +1,6 @@
 import { series, parallel, task } from 'gulp';
 import requireDir from 'require-dir';
+import stylesheets from './gulp/tasks/stylesheets';
 
 // Require individual tasks
 requireDir('./gulp/tasks', { recurse: true });
@@ -9,7 +10,7 @@ task('dev',
         'clean',
         'set-development',
         'set-watch-js',
-        parallel('i18n', 'copy-static', 'jquery-uls', 'stylesheets', 'cached-lintjs-watch'),
+        parallel('i18n', 'copy-static', 'jquery-uls', stylesheets, 'cached-lintjs-watch'),
         parallel('webpack', 'watch')
     )
 );
@@ -27,6 +28,6 @@ task('hot-dev',
 task('build',
     series(
         'clean',
-        parallel('i18n', 'copy-static', 'jquery-uls', 'stylesheets', 'lintjs'),
+        parallel('i18n', 'copy-static', 'jquery-uls', stylesheets, 'lintjs'),
         parallel('webpack', 'minify'))
 );
