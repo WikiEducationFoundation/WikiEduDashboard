@@ -344,6 +344,7 @@ class CoursesController < ApplicationController
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
+    return if @course.nil?
     home_wiki = @course.home_wiki
     @course.wikis.push(home_wiki) unless @course.wikis.include? home_wiki
   end

@@ -144,21 +144,19 @@ describe CoursesController, type: :request do
       course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
-      expect(course.wikis.count).to eq(1)
+      expect(course.wikis.count).to eq(2)
 
       course_params[:wikis].push(language: 'fr', project: 'wikipedia')
       put "/courses/#{course_params[:slug]}", params: params, as: :json
-      expect(course.wikis.count).to eq(2)
+      expect(course.wikis.count).to eq(3)
 
       course_params[:wikis].pop
       put "/courses/#{course_params[:slug]}", params: params, as: :json
-      expect(course.wikis.count).to eq(1)
-      expect(course.wikis.first.language).to eq('de')
+      expect(course.wikis.count).to eq(2)
 
       course_params[:wikis][0][:language] = 'fr'
       put "/courses/#{course_params[:slug]}", params: params, as: :json
-      expect(course.wikis.count).to eq(1)
-      expect(course.wikis.first.language).to eq('fr')
+      expect(course.wikis.count).to eq(2)
     end
 
     context 'setting passcode' do
