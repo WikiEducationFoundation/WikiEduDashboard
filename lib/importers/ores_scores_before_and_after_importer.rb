@@ -20,15 +20,15 @@ class OresScoresBeforeAndAfterImporter
   private
 
   def import_scores(wiki)
-    first_revs = []
+    all_revs = []
     last_revs = []
     @articles_courses.each do |ac|
-      first_revs << ac.all_revisions.where(wiki: wiki).order('date ASC').first
+      all_revs << ac.all_revisions.where(wiki: wiki)
       last_revs << ac.all_revisions.where(wiki: wiki).order('date ASC').last
     end
 
-    first_revs.select! { |rev| rev.present? && rev.wp10_previous.nil? }
-    RevisionScoreImporter.new(wiki.language).update_previous_wp10_scores first_revs
+    all_revs.select! { |rev| rev.present? && rev.wp10_previous.nil? }
+    RevisionScoreImporter.new(wiki.language).update_previous_wp10_scores all_revs
 
     last_revs.select! { |rev| rev.present? && rev.wp10.nil? }
     RevisionScoreImporter.new(wiki.language).update_revision_scores last_revs
