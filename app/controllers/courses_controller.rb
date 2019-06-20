@@ -341,10 +341,10 @@ class CoursesController < ApplicationController
     yield
   end
 
-  # Makes sure that the home wiki 
+  # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    home_wiki =  @course.home_wiki
+    home_wiki = @course.home_wiki
     @course.wikis.push(home_wiki) unless @course.wikis.include? home_wiki
   end
 
