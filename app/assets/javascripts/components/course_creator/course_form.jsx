@@ -18,17 +18,22 @@ const CourseForm = (props) => {
     wiki = wiki.value;
     const prev_wiki = { language: props.course.language, project: props.course.project };
     const updatedCourse = props.course;
-    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
     if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
       updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
     } else {
       updatedCourse.wikis = [...updatedCourse.wikis];
     }
+    // Remove automatically added previous wiki
+    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
     props.updateCourseProps({ ...wiki, wikis: updatedCourse.wikis });
   };
 
   const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
+    const home_wiki = { language: props.course.language, project: props.course.project };
+    if (!wikis.filter(w => w.language === home_wiki.language && w.project === home_wiki.project).length) {
+      wikis.push(home_wiki);
+    }
     props.updateCourseProps({ wikis });
   };
 
@@ -106,7 +111,7 @@ const CourseForm = (props) => {
   let backButton;
   let home_wiki;
   let multi_wiki;
-
+  if (!props.course.wikis.length) props.course.wikis.push({ language: 'en', project: 'wikipedia' });
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
       <div className="form-group home-wiki">
@@ -116,7 +121,7 @@ const CourseForm = (props) => {
           </strong>
         </span>
         <WikiSelect
-          wikis={[{ language: props.course.language || 'en', project: props.course.project || 'wikipedia' }]}
+          wikis={[{ language: props.course.language, project: props.course.project }]}
           onChange={handleWikiChange}
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}

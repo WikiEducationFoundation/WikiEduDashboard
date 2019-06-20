@@ -92,17 +92,22 @@ const Details = createReactClass({
     const updatedCourse = this.props.course;
     updatedCourse.home_wiki.language = wiki.language;
     updatedCourse.home_wiki.project = wiki.project;
-    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
     if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
       updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
     } else {
       updatedCourse.wikis = [...updatedCourse.wikis];
     }
+    // Remove automatically added previous wiki
+    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
     this.props.updateCourse(updatedCourse);
   },
 
   handleMultiWikiChange(wikis) {
     wikis = wikis.map(wiki => wiki.value);
+    const home_wiki = { ...this.props.course.home_wiki };
+    if (!wikis.filter(w => w.language === home_wiki.language && w.project === home_wiki.project).length) {
+      wikis.push(home_wiki);
+    }
     this.props.updateCourse({ ...this.props.course, wikis });
   },
 
