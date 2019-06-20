@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import { addAssignment, updateAssignment } from '../../actions/assignment_actions';
+import { addAssignment, deleteAssignment, updateAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
 import WikiSelect from '../common/wiki_select.jsx';
 import AddAvailableArticles from '../articles/add_available_articles';
+import NewAssignmentInput from '../assignments/new_assignment_input';
 import { ASSIGNED_ROLE } from '../../constants';
 import selectStyles from '../../styles/select';
 
@@ -40,6 +41,18 @@ const AddAssignmentButton = ({ assignment, assign }) => (
   </span>
 );
 
+const RemoveAssignmentButton = ({ assignment, unassign }) => (
+  <span>
+    <button
+      aria-label="Remove"
+      className="button border plus"
+      onClick={() => unassign(assignment)}
+    >
+      -
+    </button>
+  </span>
+);
+
 const ArticleLink = ({ articleUrl, title }) => {
   if (!articleUrl) return (<span>{ title }</span>);
   return (
@@ -53,6 +66,27 @@ const getArticle = (assignment, course, labels) => {
   article.title = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
 
   return article;
+};
+
+const AssignedAssignmentRows = ({
+  assignments = [], course, permitted, wikidataLabels,
+  unassign // functions
+}) => {
+  return assignments.map((assignment) => {
+    const article = getArticle(assignment, course, wikidataLabels);
+
+    return (
+      <tr key={assignment.id}>
+        <td>
+          <ArticleLink articleUrl={article.url} title={article.title} />
+          {
+            permitted
+            && <RemoveAssignmentButton assignment={assignment} unassign={unassign} />
+          }
+        </td>
+      </tr>
+    );
+  });
 };
 
 const PotentialAssignmentRows = ({
@@ -173,12 +207,6 @@ export class AssignButton extends React.Component {
     return e.stopPropagation();
   }
 
-  handleShowOptions(e) {
-    e.preventDefault();
-    return this.setState(
-      { showOptions: true });
-  }
-
   handleChangeTitle(e) {
     e.preventDefault();
 
@@ -272,6 +300,12 @@ export class AssignButton extends React.Component {
     });
   }
 
+  unassign(assignment) {
+    this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
+      this.props.deleteAssignment({ course_id: this.props.course.id, ...assignment });
+    });
+  }
+
   render() {
     const {
       allowMultipleArticles, assignments, course, current_user,
@@ -311,38 +345,33 @@ export class AssignButton extends React.Component {
     let editRow;
     if (permitted) {
       let assignmentInput;
-      const options = (
-        <Options
-          language={this.state.language}
-          project={this.state.project}
-          showOptions={showOptions}
-          handleShowOptions={this.props.handleShowOptions}
-          handleWikiChange={this.props.handleWikiChange}
-        />
-      );
       // Add multiple at once via AddAvailableArticles
       if (allowMultipleArticles) {
         assignmentInput = (
           <td>
             <AddAvailableArticles {...this.props} {...this.state} />
             <br />
-            { options }
+            <Options
+              language={this.state.language}
+              project={this.state.project}
+              showOptions={showOptions}
+              handleShowOptions={this.handleShowOptions.bind(this)}
+              handleWikiChange={this.handleWikiChange.bind(this)}
+            />
           </td>
         );
         // Add a single assignment
       } else {
         assignmentInput = (
           <td>
-            <form onSubmit={this.assign.bind(this)}>
-              <input
-                placeholder={I18n.t('articles.title_example')}
-                value={this.state.title}
-                onSubmit={this.assign.bind(this)}
-                onChange={this.handleChangeTitle.bind(this)}
-              />
-              <button className="button border" type="submit">{I18n.t('assignments.label')}</button>
-              { options }
-            </form>
+            <NewAssignmentInput
+              language={this.state.language}
+              project={this.state.project}
+              title={this.state.title}
+              assign={this.assign.bind(this)}
+              handleChangeTitle={this.handleChangeTitle.bind(this)}
+              handleWikiChange={this.handleWikiChange.bind(this)}
+            />
           </td>
         );
       }
@@ -355,15 +384,37 @@ export class AssignButton extends React.Component {
     }
 
     const wikidataLabels = this.props.wikidataLabels || {};
-    const potentialAssignmentsElements = (
-      <PotentialAssignmentRows
-        assignments={this.props.unassigned}
-        assign={this.update.bind(this)}
-        course={course}
-        permitted={permitted}
-        wikidataLabels={wikidataLabels}
-      />
-    );
+
+    const assignmentRows = [];
+    // hideAssignedArticles will always be false except in the case
+    // of the my_articles.jsx view
+    if (!this.props.hideAssignedArticles) {
+      assignmentRows.push(
+        <AssignedAssignmentRows
+          assignments={this.props.assignments}
+          key="assigned"
+          unassign={this.unassign.bind(this)}
+          course={course}
+          permitted={permitted}
+          wikidataLabels={wikidataLabels}
+        />
+      );
+    }
+
+    // If you are allowed to edit the assignments generally,
+    // either as an instructor or student
+    if (permitted) {
+      assignmentRows.push(
+        <PotentialAssignmentRows
+          assignments={this.props.unassigned}
+          assign={this.update.bind(this)}
+          course={course}
+          key="potential"
+          permitted={permitted}
+          wikidataLabels={wikidataLabels}
+        />
+      );
+    }
 
     return (
       <div className="pop__container" onClick={this.stop}>
@@ -372,7 +423,7 @@ export class AssignButton extends React.Component {
         <Popover
           is_open={this.props.is_open}
           edit_row={editRow}
-          rows={potentialAssignmentsElements}
+          rows={assignmentRows}
         />
       </div>
     );
@@ -399,6 +450,7 @@ AssignButton.propTypes = {
 
 const mapDispatchToProps = {
   addAssignment,
+  deleteAssignment,
   initiateConfirm,
   updateAssignment
 };
