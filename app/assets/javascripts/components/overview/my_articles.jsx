@@ -109,6 +109,7 @@ export const MyArticles = createReactClass({
               editable
               course={this.props.course}
               current_user={current_user}
+              hideAssignedArticles
               id="user_assigned"
               prefix={I18n.t('users.my_assigned')}
               role={0}

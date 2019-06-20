@@ -7,6 +7,7 @@ import { setUploadFilters } from '../../actions/uploads_actions';
 import { fetchUserRevisions } from '../../actions/user_revisions_actions';
 import { fetchTrainingStatus } from '../../actions/training_status_actions';
 import { getFiltered } from '../../utils/model_utils.js';
+import { ASSIGNED_ROLE } from '../../constants/assignments';
 
 import AssignCell from './assign_cell.jsx';
 import { trunc } from '../../utils/strings';
@@ -88,17 +89,21 @@ const Student = createReactClass({
     let assignButton;
     let reviewButton;
     if (this.props.course.published) {
-      const assignOptions = { user_id: this.props.student.id, role: 0 };
+      const assignOptions = { user_id: this.props.student.id, role: ASSIGNED_ROLE };
       const assigned = getFiltered(this.props.assignments, assignOptions);
+
+      const unassignedOptions = { user_id: null, role: ASSIGNED_ROLE };
+      const unassigned = getFiltered(this.props.assignments, unassignedOptions);
       assignButton = (
         <AssignCell
+          assignments={assigned}
           course={this.props.course}
           current_user={this.props.current_user}
+          editable={this.props.editable}
           student={this.props.student}
           role={0}
-          editable={this.props.editable}
-          assignments={assigned}
           wikidataLabels={this.props.wikidataLabels}
+          unassigned={unassigned}
         />
       );
 
