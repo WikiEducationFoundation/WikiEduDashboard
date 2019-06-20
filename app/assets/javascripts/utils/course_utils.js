@@ -189,6 +189,7 @@ export default class CourseUtils {
       edit_count: oldCourse.edit_count !== newCourse.edit_count,
       student_count: oldCourse.student_count !== newCourse.student_count,
       word_count: oldCourse.character_sum_human !== newCourse.character_sum_human,
+      references_count: oldCourse.references_count !== newCourse.references_count,
       view_count: oldCourse.view_count !== newCourse.view_count,
       upload_count: oldCourse.upload_count !== newCourse.upload_count,
       requestedAccounts: oldCourse.requestedAccounts !== newCourse.requestedAccounts

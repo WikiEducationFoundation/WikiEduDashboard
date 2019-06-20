@@ -16,6 +16,9 @@
     .stat-display__value= number_to_human presenter.word_count
     %small= t("metrics.word_count")
   .stat-display__stat
+    .stat-display__value= number_to_human presenter.references_count
+    %small= t("metrics.references_count")
+  .stat-display__stat
     .stat-display__value= number_to_human presenter.courses.sum(:view_sum)
     %small= t("metrics.view_count_description")
   .stat-display__stat

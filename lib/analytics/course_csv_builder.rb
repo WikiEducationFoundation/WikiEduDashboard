@@ -51,6 +51,7 @@ class CourseCsvBuilder
     row << @course.article_count
     row << @course.new_article_count
     row << @course.character_sum
+    row << @course.references_count
     row << @course.revision_count
     row << revisions_by_namespace(Article::Namespaces::MAINSPACE)
     row << revisions_by_namespace(Article::Namespaces::TALK)
