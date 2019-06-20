@@ -328,6 +328,7 @@ const CourseCreator = createReactClass({
               next={this.showCourseDates}
               previous={this.showCourseTypes}
               backCondition={this.campaignParam()}
+              tempCourseId={this.state.tempCourseId}
             />
             <CourseDates
               courseDateClass={courseDates}

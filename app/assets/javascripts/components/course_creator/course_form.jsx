@@ -84,6 +84,7 @@ const CourseForm = (props) => {
   let project;
   let privacyCheckbox;
   let campaign;
+  let backButton;
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     language = (
       <TextInput
@@ -118,6 +119,9 @@ const CourseForm = (props) => {
           checked={!!props.course.private}
         />
       </div>
+    );
+    backButton = (
+      <button onClick={props.previous} className={backClass}>Back</button>
     );
   }
   if (props.course.initial_campaign_title) {
@@ -160,7 +164,8 @@ const CourseForm = (props) => {
         {expectedStudents}
         {language}
         {project}
-        <button onClick={props.previous} className={backClass}>Back</button>
+        {backButton}
+        <p className="tempCourseIdText">{props.tempCourseId}</p>
       </div>
       <div className="column">
         {courseLevel}
