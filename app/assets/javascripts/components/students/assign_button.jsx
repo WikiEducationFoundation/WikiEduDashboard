@@ -72,11 +72,11 @@ const AssignedAssignmentRows = ({
   assignments = [], course, permitted, wikidataLabels,
   unassign // functions
 }) => {
-  return assignments.map((assignment) => {
+  const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
 
     return (
-      <tr key={assignment.id}>
+      <tr key={assignment.id} className="assignment">
         <td>
           <ArticleLink articleUrl={article.url} title={article.title} />
           {
@@ -87,17 +87,26 @@ const AssignedAssignmentRows = ({
       </tr>
     );
   });
+
+  const title = (
+    <tr className="assignment-section-header">
+      <td>
+        <h3>Assigned Articles</h3>
+      </td>
+    </tr>
+  );
+  return [title].concat(elements);
 };
 
 const PotentialAssignmentRows = ({
   assignments = [], course, permitted, wikidataLabels,
   assign // functions
 }) => {
-  return assignments.map((assignment) => {
+  const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
 
     return (
-      <tr key={assignment.id}>
+      <tr key={assignment.id} className="assignment">
         <td>
           <ArticleLink articleUrl={article.url} title={article.title} />
           {
@@ -108,6 +117,15 @@ const PotentialAssignmentRows = ({
       </tr>
     );
   });
+
+  const title = (
+    <tr className="assignment-section-header">
+      <td>
+        <h3>Available Articles</h3>
+      </td>
+    </tr>
+  );
+  return [title].concat(elements);
 };
 
 const Tooltip = ({ message }) => {
