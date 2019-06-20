@@ -12,7 +12,7 @@ require('location-origin');
 
 Rails.start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
   window.I18n = require('i18n-js');
   window.List = require('list.js'); // List is used for sorting tables outside of React
   require('./utils/course.js'); // This adds jquery features for some views outside of React
