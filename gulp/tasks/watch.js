@@ -10,8 +10,9 @@ task('watch', () => {
     return plugins.livereload.changed(path);
   });
 
-  plugins.watch(`${config.sourcePath}/${config.imagesDirectory}/**/*`, () => {
-    return series('copy-images');
+  watch(`${config.sourcePath}/${config.imagesDirectory}/**/*`, series('copy-static')).on('change', (path) => {
+    return plugins.livereload.changed(path);
   });
+
   plugins.livereload.listen();
 });
