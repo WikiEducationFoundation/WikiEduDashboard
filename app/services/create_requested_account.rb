@@ -22,7 +22,8 @@ class CreateRequestedAccount
     @use_backup_creator = false
 
     course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
-    @creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link)
+    @creation_reason = I18n.t('wiki_api.create_account_reason', event: course_link,
+                                                                locale: @wiki.language)
     process_request(@creator, @creation_reason)
   end
 
