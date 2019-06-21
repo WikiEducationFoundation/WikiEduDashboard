@@ -13,9 +13,9 @@ module RequestHelpers
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
 
-  def stub_account_creation_token_request
+  def stub_account_creation_token_request(wiki: nil)
     fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
-    lang = ENV['wiki_language']
+    lang = wiki&.language || ENV['wiki_language']
     params_url = 'action=query&meta=tokens&format=json&type=createaccount'
     url = "https://#{lang}.wikipedia.org/w/api.php?#{params_url}"
     stub_request(:get, url)
@@ -55,24 +55,25 @@ module RequestHelpers
       .to_return(status: 200, body: success, headers: {})
   end
 
-  def stub_account_creation
+  def stub_account_creation(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request
+    stub_account_creation_token_request(wiki: wiki)
 
     # Then the account creation request itself
-    success = '{"createaccount":{"status":"PASS", "username":"Ragetest 99"}}'
-    stub_request(:post, /.*wikipedia.*/)
+    success = '{"createaccount":{"status":"PASS", "username":"Ragesock"}}'
+    lang = wiki&.language || ENV['wiki_language']
+    stub_request(:post, /.*#{lang}.wikipedia.*/)
       .to_return(status: 200, body: success, headers: {})
 
     # After account creation, stub the query for user info for UserImporter
     stub_list_users_query
   end
 
-  def stub_account_creation_failure_userexists
+  def stub_account_creation_failure_userexists(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request
+    stub_account_creation_token_request(wiki: wiki)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",
@@ -84,10 +85,10 @@ module RequestHelpers
     stub_list_users_query
   end
 
-  def stub_account_creation_failure_unexpected
+  def stub_account_creation_failure_unexpected(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request
+    stub_account_creation_token_request(wiki: wiki)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"username":"Ragetest 99"}}'
@@ -98,10 +99,10 @@ module RequestHelpers
     stub_list_users_query
   end
 
-  def stub_account_creation_failure_throttle
+  def stub_account_creation_failure_throttle(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request
+    stub_account_creation_token_request(wiki: wiki)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",
@@ -113,10 +114,10 @@ module RequestHelpers
     stub_list_users_query
   end
 
-  def stub_account_creation_failure_captcha
+  def stub_account_creation_failure_captcha(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user
-    stub_account_creation_token_request
+    stub_account_creation_token_request(wiki: wiki)
 
     # Then the account creation request itself
     failure = '{"createaccount":{"status":"FAIL",

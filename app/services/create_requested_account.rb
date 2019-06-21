@@ -12,13 +12,12 @@ class CreateRequestedAccount
     @creator = creator
     @requested_account = requested_account
     @course = requested_account.course
-    # FIXME: Temporary workaround for A+F 2018, where organizers have account creator
-    # rights on en.wiki, no matter what the home wiki of the project.
-    @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
+    @wiki = @course.home_wiki.edits_enabled? ? @course.home_wiki : en_wiki
+
     @username = requested_account.username
     @email = requested_account.email.strip
     # This instance variable is used to determine whether or not to retry
-    # the account creation with a backup account
+    # the account creation with a backup account and/or en.wiki
     @use_backup_creator = false
 
     course_link = "#{ENV['dashboard_url']}/courses/#{@course.slug}"
@@ -29,8 +28,12 @@ class CreateRequestedAccount
 
   private
 
+  def en_wiki
+    @en_wiki ||= Wiki.find_by(language: 'en', project: 'wikipedia')
+  end
+
   def process_request(creator, creation_reason)
-    @wiki_edits ||= WikiEdits.new(@wiki)
+    @wiki_edits = WikiEdits.new(@wiki)
     @response = @wiki_edits.create_account(creator: creator,
                                            username: @username,
                                            email: @email,
@@ -70,7 +73,7 @@ class CreateRequestedAccount
     if messagecode == 'userexists'
       destroy_request_if_user_exists(message, messagecode)
     elsif MESSAGE_CODES_TO_RETRY.include?(messagecode) && !@use_backup_creator
-      retry_request_with_backup_account
+      retry_request_with_backup_account_on_en_wiki
     else
       log_unexpected_response
     end
@@ -85,8 +88,10 @@ class CreateRequestedAccount
     @requested_account.destroy if code == 'userexists'
   end
 
-  def retry_request_with_backup_account
+  def retry_request_with_backup_account_on_en_wiki
     @use_backup_creator = true
+    @wiki = en_wiki
+
     backup_account = SpecialUsers.backup_account_creator
 
     creation_reason = "#{@creation_reason} Account created by #{@creator.username}."
