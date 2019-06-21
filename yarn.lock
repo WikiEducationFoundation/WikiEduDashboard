@@ -9925,10 +9925,10 @@ normalize-url@2.0.1:
     query-string "^5.0.1"
     sort-keys "^2.0.0"
 
-nouislider@^13.1.5:
-  version "13.1.5"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-13.1.5.tgz#3a0f3004159b9a77ebc07c3bedc26c97327d3522"
-  integrity sha512-RZMuNW1Z4PcxC5q7wUKbr5EweCEnEUii3f2XtjS38VWcG5QjN11zvveRld+lrUwHIOKgfRWeIddZm5Xxfr7zCQ==
+nouislider@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-14.0.1.tgz#b3d6d06f35393d69a363240f72806007452d1f80"
+  integrity sha512-YNLKuABWYxmC5WXJ9TUj3N7+iyL/xT3+jm1mgOMXoqBhAL0Pj9BMgyKmLgwRnrxNN+C/fe7sFmpQDDPsxbMT2w==
 
 now-and-later@^2.0.0:
   version "2.0.1"
