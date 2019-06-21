@@ -11,13 +11,8 @@ class CourseCloneManager
 
   def clone!
     @clone = @course.dup
-    set_placeholder_start_and_end_dates
-    sanitize_clone_info
-    update_title_and_slug
-    duplicate_timeline
-    clear_meeting_days_and_due_dates
-    set_instructor
-    tag_course
+
+    clone_relevant_information
 
     if @campaign
       @clone.campaigns << @campaign
@@ -33,6 +28,21 @@ class CourseCloneManager
   end
 
   private
+
+  def clone_relevant_information
+    set_courses_wikis
+    set_placeholder_start_and_end_dates
+    sanitize_clone_info
+    update_title_and_slug
+    duplicate_timeline
+    clear_meeting_days_and_due_dates
+    set_instructor
+    tag_course
+  end
+
+  def set_courses_wikis
+    @clone.wikis.push(@course.wikis)
+  end
 
   def set_placeholder_start_and_end_dates
     # The datepickers require an initial date, so we set these to today's date

@@ -111,7 +111,8 @@ const CourseForm = (props) => {
   let backButton;
   let home_wiki;
   let multi_wiki;
-  if (!props.course.wikis.length) props.course.wikis.push({ language: 'en', project: 'wikipedia' });
+
+  if (props.course.wikis && !props.course.wikis.length) props.course.wikis.push({ language: 'en', project: 'wikipedia' });
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
       <div className="form-group home-wiki">
