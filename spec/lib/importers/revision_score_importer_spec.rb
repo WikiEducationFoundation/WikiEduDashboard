@@ -61,10 +61,14 @@ describe RevisionScoreImporter do
       articles = Article.all
       described_class.new
                      .update_all_revision_scores_for_articles(articles)
-      early_score = Revision.find_by(mw_rev_id: 46745264).wp10.to_f
-      later_score = Revision.find_by(mw_rev_id: 662106477).wp10.to_f
-      expect(early_score).to be_between(0, 100)
-      expect(later_score).to be_between(early_score, 100)
+      all_score = Revision.all.map(&:wp10)
+      all_previous_score = Revision.all.map(&:wp10_previous)
+      all_score.each do |sc|
+        expect(sc || 0).to be_between(0, 100)
+      end
+      all_previous_score.each do |sc|
+        expect(sc || 0).to be_between(0, 100)
+      end
     end
   end
 
