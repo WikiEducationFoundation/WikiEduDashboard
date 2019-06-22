@@ -4,6 +4,10 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_output"
 
 describe WikiCourseOutput do
+  before do
+    stub_wiki_validation
+  end
+
   describe '.translate_course_to_wikitext' do
     let(:student) { create(:user, username: 'StudentUser') }
     let(:instructor) { create(:user, username: 'InstructorUser') }

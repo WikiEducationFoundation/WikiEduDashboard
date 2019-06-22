@@ -267,7 +267,8 @@ module RequestHelpers
       'en.wikinews.org',
       'pl.wikiquote.org',
       'de.wikiversity.org',
-      'commons.wikimedia.org'
+      'commons.wikimedia.org',
+      'en.wikipedia.org'
     ]
 
     wikis.each do |wiki|

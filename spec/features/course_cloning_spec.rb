@@ -39,9 +39,6 @@ describe 'cloning a course', js: true do
                     expected_students: 0,
                     home_wiki_id: 3)
   end
-  let!(:courses_wikis) do
-    create(:courses_wikis, course_id: course.id, wiki_id: course.home_wiki_id)
-  end
   let!(:week) { create(:week, course_id: course.id) }
   let!(:block) { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
   let!(:user) { create(:user, permissions: User::Permissions::ADMIN) }

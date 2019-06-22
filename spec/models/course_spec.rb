@@ -51,7 +51,10 @@
 require 'rails_helper'
 
 describe Course, type: :model do
-  before { TrainingModule.load_all }
+  before do
+    stub_wiki_validation
+    TrainingModule.load_all
+  end
 
   describe '.update_all_caches_concurrently' do
     before do
