@@ -20,24 +20,7 @@ describe DailyUpdate do
         expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
         expect(RatingImporter).to receive(:update_all_ratings)
         expect(ArticleStatusManager).to receive(:update_article_status)
-        create(:article,
-              id: 1538038,
-              mw_page_id: 1538038,
-              title: 'Performativity',
-              namespace: 0)
-        create(:revision,
-              mw_rev_id: 662106477,
-              article_id: 1538038,
-              mw_page_id: 1538038)
-        create(:revision,
-              mw_rev_id: 46745264,
-              article_id: 1538038,
-              mw_page_id: 1538038)
-        RevisionScoreImporter.new.update_all_revision_scores_for_articles Article.all
-        expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_between(0, 100)
-        expect(Revision.find_by(mw_rev_id: 46745264).wp10).to be_between(0, 100)
-        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
-        expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_between(0, 100)
+        expect_any_instance_of(RevisionScoreImporter).to receive(:update_all_revision_scores_for_articles)
         expect(UploadImporter).to receive(:find_deleted_files)
         expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
         expect(PushCourseToSalesforce).to receive(:new)

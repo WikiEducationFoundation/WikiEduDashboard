@@ -63,7 +63,9 @@ describe RevisionScoreImporter do
                      .update_all_revision_scores_for_articles(articles)
       all_score = Revision.all.map(&:wp10)
       all_previous_score = Revision.all.map(&:wp10_previous)
-      expect(all_score.all) to be_between(0, 100)
+      all_score.each do |sc|
+        expect(sc || 0).to be_between(0, 100)
+      end
       all_previous_score.each do |sc|
         expect(sc || 0).to be_between(0, 100)
       end
