@@ -32,7 +32,8 @@ const initialState = {
   day_exceptions: '',
   weekdays: '0000000',
   editingSyllabus: false,
-  training_library_slug: 'students'
+  training_library_slug: 'students',
+  loading: true
 };
 
 
