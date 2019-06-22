@@ -248,6 +248,7 @@ class CoursesController < ApplicationController
   def update_courses_wikis
     @course.ensure_home_wiki_in_courses_wikis
     multi_wikis = courses_wikis_params[:wikis]
+    return if multi_wikis.nil?
 
     # Used to differentiate deleted wikis
     old_wikis = @course.wikis.to_a
