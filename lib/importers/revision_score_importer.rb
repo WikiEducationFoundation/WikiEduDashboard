@@ -42,17 +42,12 @@ class RevisionScoreImporter
     end
   end
 
-  def update_all_revision_scores_for_articles(articles)
+  def update_all_revision_scores_for_articles(articles=nil)
     page_ids = articles.map(&:mw_page_id)
     revisions = Revision.where(wiki_id: @wiki.id, mw_page_id: page_ids)
     update_revision_scores revisions
 
-    first_revisions = []
-    page_ids.each do |id|
-      first_revisions << Revision.where(mw_page_id: id, wiki_id: @wiki.id).first
-    end
-
-    update_previous_wp10_scores(first_revisions)
+    update_previous_wp10_scores(revisions)
   end
 
   def update_previous_wp10_scores(revisions)
