@@ -56,6 +56,8 @@ require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
+  before_save { ensure_home_wiki_in_courses_wikis }
+
   ######################
   # Users for a course #
   ######################
@@ -418,6 +420,13 @@ class Course < ApplicationRecord
     weeks.each_with_index do |week, i|
       week.update_attribute(:order, i + 1)
     end
+  end
+
+  # Makes sure that the home wiki
+  # is always a part of courses wikis.
+  def ensure_home_wiki_in_courses_wikis
+    return if nil?
+    wikis.push(home_wiki) unless wikis.include? home_wiki
   end
 
   private

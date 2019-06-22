@@ -11,7 +11,11 @@ json.course do
             :upload_usages_count, :cloned_status, :flags, :level, :private, :closed?,
             :training_library_slug)
 
-  json.wikis @course.wikis, :language, :project
+  # If Home Wiki is not at the start it blocks other Wikis
+  # from being deleted via backspace, pressing on X
+  # still works but is bad UI.
+  json.wikis [@course.home_wiki] + (@course.wikis - [@course.home_wiki]), :language, :project
+
   json.timeline_enabled @course.timeline_enabled?
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
   json.wiki_edits_enabled @course.wiki_edits_enabled?

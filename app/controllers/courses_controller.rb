@@ -16,8 +16,6 @@ class CoursesController < ApplicationController
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
 
-  after_action :ensure_home_wiki_in_courses_wikis, only: %i[create update]
-
   ################
   # CRUD methods #
   ################
@@ -248,6 +246,7 @@ class CoursesController < ApplicationController
   end
 
   def update_courses_wikis
+    @course.ensure_home_wiki_in_courses_wikis
     multi_wikis = courses_wikis_params[:wikis]
     return if multi_wikis.nil? # return if there's nothing to update
 
@@ -263,7 +262,7 @@ class CoursesController < ApplicationController
     end
 
     # Delete removed wikis except home wiki
-    @course.wikis.delete(old_wikis - new_wikis - [@course.home_wiki.id])
+    @course.wikis.delete(old_wikis - new_wikis - [@course.home_wiki])
   end
 
   def update_flags
@@ -339,14 +338,6 @@ class CoursesController < ApplicationController
     return if WikiEdits.new.oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield
-  end
-
-  # Makes sure that the home wiki
-  # is always a part of courses wikis.
-  def ensure_home_wiki_in_courses_wikis
-    return if @course.nil?
-    home_wiki = @course.home_wiki
-    @course.wikis.push(home_wiki) unless @course.wikis.include? home_wiki
   end
 
   def protect_privacy

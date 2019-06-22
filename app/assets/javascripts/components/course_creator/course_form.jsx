@@ -20,8 +20,6 @@ const CourseForm = (props) => {
     const updatedCourse = props.course;
     if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
       updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
-    } else {
-      updatedCourse.wikis = [...updatedCourse.wikis];
     }
     // Remove automatically added previous wiki
     updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));

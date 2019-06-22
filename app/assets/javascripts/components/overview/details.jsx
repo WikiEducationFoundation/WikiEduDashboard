@@ -94,8 +94,6 @@ const Details = createReactClass({
     updatedCourse.home_wiki.project = wiki.project;
     if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
       updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
-    } else {
-      updatedCourse.wikis = [...updatedCourse.wikis];
     }
     // Remove automatically added previous wiki
     updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
