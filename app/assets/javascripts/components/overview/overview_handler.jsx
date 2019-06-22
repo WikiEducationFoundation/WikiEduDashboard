@@ -162,7 +162,7 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   campaigns: state.campaigns.campaigns,
   weeks: getWeeksArray(state),
-  loading: state.timeline.loading,
+  loading: state.timeline.loading || state.course.loading,
   firstErrorMessage: firstValidationErrorMessage(state),
   isValid: isValid(state)
  });
