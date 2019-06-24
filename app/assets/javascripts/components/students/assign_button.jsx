@@ -10,7 +10,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import WikiSelect from '../common/wiki_select.jsx';
 import AddAvailableArticles from '../articles/add_available_articles';
 import NewAssignmentInput from '../assignments/new_assignment_input';
-import { ASSIGNED_ROLE } from '../../constants';
+import { ASSIGNED_ROLE, REVIEWING_ARTICLE, REVIEWING_ROLE } from '../../constants';
 import selectStyles from '../../styles/select';
 
 // Helper Components
@@ -95,7 +95,7 @@ const AssignedAssignmentRows = ({
       </td>
     </tr>
   );
-  return [title].concat(elements);
+  return elements.length ? [title].concat(elements) : [];
 };
 
 const PotentialAssignmentRows = ({
@@ -125,7 +125,7 @@ const PotentialAssignmentRows = ({
       </td>
     </tr>
   );
-  return [title].concat(elements);
+  return elements.length ? [title].concat(elements) : [];
 };
 
 const Tooltip = ({ message }) => {
@@ -305,6 +305,23 @@ export class AssignButton extends React.Component {
     });
   }
 
+  review(e, assignment) {
+    e.preventDefault();
+    const { course, role } = this.props;
+
+    const reviewing = {
+      title: assignment.article_title,
+      course_id: course.slug,
+      role
+    };
+
+    return this._onConfirmHandler({
+      action: this.props.addAssignment,
+      assignment: reviewing,
+      title: reviewing.title
+    });
+  }
+
   update(e, assignment) {
     e.preventDefault();
 
@@ -422,10 +439,11 @@ export class AssignButton extends React.Component {
     // If you are allowed to edit the assignments generally,
     // either as an instructor or student
     if (permitted) {
+      const action = this.props.role === REVIEWING_ROLE ? this.review : this.update;
       assignmentRows.push(
         <PotentialAssignmentRows
           assignments={this.props.unassigned}
-          assign={this.update.bind(this)}
+          assign={action.bind(this)}
           course={course}
           key="potential"
           permitted={permitted}
