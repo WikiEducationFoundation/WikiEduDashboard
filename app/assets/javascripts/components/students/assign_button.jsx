@@ -12,6 +12,7 @@ import AddAvailableArticles from '../articles/add_available_articles';
 import NewAssignmentInput from '../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ARTICLE, REVIEWING_ROLE } from '../../constants';
 import selectStyles from '../../styles/select';
+import SelectedWikiOption from '../common/selected_wiki_option';
 
 // Helper Components
 const ShowButton = ({ is_open, open, permitted }) => {
@@ -386,11 +387,9 @@ export class AssignButton extends React.Component {
           <td>
             <AddAvailableArticles {...this.props} {...this.state} />
             <br />
-            <Options
+            <SelectedWikiOption
               language={this.state.language}
               project={this.state.project}
-              showOptions={showOptions}
-              handleShowOptions={this.handleShowOptions.bind(this)}
               handleWikiChange={this.handleWikiChange.bind(this)}
             />
           </td>
