@@ -89,7 +89,7 @@ const AssignedAssignmentRows = ({
   });
 
   const title = (
-    <tr className="assignment-section-header">
+    <tr key="assigned" className="assignment-section-header">
       <td>
         <h3>Assigned Articles</h3>
       </td>
@@ -119,7 +119,7 @@ const PotentialAssignmentRows = ({
   });
 
   const title = (
-    <tr className="assignment-section-header">
+    <tr key="available" className="assignment-section-header">
       <td>
         <h3>Available Articles</h3>
       </td>
