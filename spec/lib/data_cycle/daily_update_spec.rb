@@ -14,23 +14,21 @@ describe DailyUpdate do
 
   describe 'on initialization' do
     it 'calls lots of update routines' do
-      VCR.use_cassette 'revision_scores/deleted_revision' do
-        expect(UserImporter).to receive(:update_users)
-        expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
-        expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
-        expect(RatingImporter).to receive(:update_all_ratings)
-        expect(ArticleStatusManager).to receive(:update_article_status)
-        expect_any_instance_of(RevisionScoreImporter)
-          .to receive(:update_all_revision_scores_for_articles)
-        expect(UploadImporter).to receive(:find_deleted_files)
-        expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
-        expect(PushCourseToSalesforce).to receive(:new)
-        expect(UpdateCourseFromSalesforce).to receive(:new)
-        expect(Raven).to receive(:capture_message).and_call_original
-        update = described_class.new
-        sentry_logs = update.instance_variable_get(:@sentry_logs)
-        expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
-      end
+      expect(UserImporter).to receive(:update_users)
+      expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
+      expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
+      expect(RatingImporter).to receive(:update_all_ratings)
+      expect(ArticleStatusManager).to receive(:update_article_status)
+      expect_any_instance_of(RevisionScoreImporter)
+        .to receive(:update_all_revision_scores_for_articles)
+      expect(UploadImporter).to receive(:find_deleted_files)
+      expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
+      expect(PushCourseToSalesforce).to receive(:new)
+      expect(UpdateCourseFromSalesforce).to receive(:new)
+      expect(Raven).to receive(:capture_message).and_call_original
+      update = described_class.new
+      sentry_logs = update.instance_variable_get(:@sentry_logs)
+      expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
     end
 
     it 'reports logs to sentry even when it errors out' do
