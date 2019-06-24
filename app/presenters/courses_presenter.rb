@@ -79,7 +79,7 @@ class CoursesPresenter
                     'SUM(new_article_count), ' \
                     'SUM(view_sum), ' \
                     'SUM(user_count), ' \
-                    'SUM(references_count)'
+                    'SUM(courses.references_count)'
   def course_sums
     @course_sums ||= courses.pluck(Arel.sql(COURSE_SUMS_SQL)).first
   end
