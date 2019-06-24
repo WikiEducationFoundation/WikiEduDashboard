@@ -169,6 +169,7 @@ en:
       list: "%{class}-class — a list rather than a conventional article"
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
+    references_doc: The sum of all references to each article during the project
     see_more: See more
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
@@ -632,6 +633,7 @@ en:
     user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
     view_other: View other campaigns
+    references_doc: The sum of all references to articles edited by enrolled editors since the editor made their first edit to each article
     view: View Course
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
@@ -785,6 +787,7 @@ en:
     edit_count_description: Total Edits
     per_user: '%{number}/user'
     revisions: Recent Edits
+    references_count: References Added
     tags: Tags
     upload_count: Commons Uploads
     uploads_in_use_count:
@@ -1037,6 +1040,7 @@ en:
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: Characters Added (user)
     characters_added_draftspace: Characters Added (draft)
+    references_count: References Added
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name
@@ -1051,6 +1055,7 @@ en:
     request_confirmation: Are you sure you want to request this account?
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
+    references_doc: The sum of all references added by this editor
     reviewers: Reviewer(s)
     reviewing: Reviewing
     sandboxes: sandboxes

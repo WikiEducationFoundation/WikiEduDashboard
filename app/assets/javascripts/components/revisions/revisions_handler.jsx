@@ -48,6 +48,7 @@ const RevisionHandler = createReactClass({
               <option value="title">{I18n.t('revisions.title')}</option>
               <option value="revisor">{I18n.t('revisions.edited_by')}</option>
               <option value="characters">{I18n.t('revisions.chars_added')}</option>
+              <option value="references">{I18n.t('revisions.references')}</option>
               <option value="date">{I18n.t('revisions.date_time')}</option>
             </select>
           </div>

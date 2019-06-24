@@ -62,6 +62,7 @@ const StudentsHandler = createReactClass({
               <option value="character_sum_ms">{I18n.t('users.characters_added_mainspace')}</option>
               <option value="character_sum_us">{I18n.t('users.characters_added_userspace')}</option>
               <option value="character_sum_draft">{I18n.t('users.characters_added_draftspace')}</option>
+              <option value="references_count">{I18n.t('users.references_count')}</option>
             </select>
           </div>
         </div>

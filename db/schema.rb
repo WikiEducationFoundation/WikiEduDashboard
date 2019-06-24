@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_035515) do
+ActiveRecord::Schema.define(version: 2019_06_24_123708) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_035515) do
     t.bigint "view_count", default: 0
     t.integer "character_sum", default: 0
     t.boolean "new_article", default: false
+    t.integer "references_count", default: 0
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end
@@ -219,6 +220,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_035515) do
     t.string "level"
     t.boolean "private", default: false
     t.boolean "withdrawn", default: false
+    t.integer "references_count", default: 0
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 
@@ -237,6 +239,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_035515) do
     t.string "real_name"
     t.string "role_description"
     t.integer "total_uploads"
+    t.integer "references_count", default: 0
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
@@ -333,6 +336,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_035515) do
     t.integer "mw_page_id"
     t.text "features"
     t.text "features_previous"
+    t.integer "references", default: 0
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
     t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["user_id"], name: "index_revisions_on_user_id"

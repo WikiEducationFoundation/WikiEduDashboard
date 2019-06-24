@@ -18,6 +18,14 @@ const ByStudentsStats = ({ username, stats }) => {
         </div>
         <div className= "stat-display__stat">
           <div className="stat-display__value">
+            {stats.references_count}
+          </div>
+          <small>
+            {I18n.t('metrics.references_count')}
+          </small>
+        </div>
+        <div className= "stat-display__stat">
+          <div className="stat-display__value">
             {stats.view_sum}
           </div>
           <small>
