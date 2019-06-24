@@ -58,17 +58,17 @@ describe RevisionScoreImporter do
 
   it 'saves wp10 scores by article' do
     VCR.use_cassette 'revision_scores/by_article' do
-      articles = Article.all
-      described_class.new
-                     .update_all_revision_scores_for_articles(articles)
-      all_score = Revision.all.map(&:wp10)
-      all_previous_score = Revision.all.map(&:wp10_previous)
-      all_score.each do |sc|
-        expect(sc || 0).to be_between(0, 100)
-      end
-      all_previous_score.each do |sc|
-        expect(sc || 0).to be_between(0, 100)
-      end
+      described_class.update_revision_scores_for_all_wikis
+    end
+
+    all_score = Revision.all.map(&:wp10)
+    expect(all_score.count).to be_positive
+    all_previous_score = Revision.all.map(&:wp10_previous)
+    all_score.each do |sc|
+      expect(sc || 0).to be_between(0, 100)
+    end
+    all_previous_score.each do |sc|
+      expect(sc || 0).to be_between(0, 100)
     end
   end
 
@@ -84,7 +84,7 @@ describe RevisionScoreImporter do
              mw_rev_id: 708326238,
              article_id: article.id,
              mw_page_id: 49505160)
-      described_class.new.update_all_revision_scores_for_articles([article])
+      described_class.new.update_revision_scores
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
@@ -103,7 +103,7 @@ describe RevisionScoreImporter do
              mw_rev_id: 753277075,
              article_id: article.id,
              mw_page_id: 123456)
-      described_class.new.update_all_revision_scores_for_articles([article])
+      described_class.new.update_revision_scores
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil

@@ -66,9 +66,6 @@ class DailyUpdate
 
     log_message 'Updating article namespace and deleted status'
     ArticleStatusManager.update_article_status
-
-    log_message 'Updating wp10 scores for before and after edits'
-    RevisionScoreImporter.new.update_all_revision_scores_for_articles Article.all
   end
 
   def update_category_data
