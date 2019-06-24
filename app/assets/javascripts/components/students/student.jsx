@@ -109,15 +109,26 @@ const Student = createReactClass({
 
       const reviewOptions = { user_id: this.props.student.id, role: 1 };
       const reviewing = getFiltered(this.props.assignments, reviewOptions);
+
+      // To find articles that are able to be reviewed...
+      const reviewingArticleIds = reviewing.map(({ article_id: id }) => id);
+      const reviewable = this.props.assignments.filter((assignment) => {
+        return assignment.user_id // ...the article must have a user_id
+          // which shouldn't match the current user's id
+          && assignment.user_id !== this.props.student.id
+          // and should not be an article they are already reviewing
+          && !reviewingArticleIds.includes(assignment.article_id);
+      });
       reviewButton = (
         <AssignCell
+          assignments={reviewing}
           course={this.props.course}
           current_user={this.props.current_user}
+          editable={this.props.editable}
           student={this.props.student}
           role={1}
-          editable={this.props.editable}
-          assignments={reviewing}
           wikidataLabels={this.props.wikidataLabels}
+          unassigned={reviewable}
         />
       );
     }

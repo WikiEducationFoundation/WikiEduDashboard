@@ -86,6 +86,16 @@ export const MyArticles = createReactClass({
 
     const reviewOptions = { user_id, role: REVIEWING_ROLE };
     const reviewing = getFiltered(updatedAssignments, reviewOptions);
+
+    // To find articles that are able to be reviewed...
+    const reviewingArticleIds = reviewing.map(({ article_id: id }) => id);
+    const reviewable = updatedAssignments.filter((assignment) => {
+      return assignment.user_id // ...the article must have a user_id
+             // which shouldn't match the current user's id
+             && assignment.user_id !== user_id
+             // and should not be an article they are already reviewing
+             && !reviewingArticleIds.includes(assignment.article_id);
+    });
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;
 
@@ -123,12 +133,13 @@ export const MyArticles = createReactClass({
               course={this.props.course}
               current_user={current_user}
               editable
+              hideAssignedArticles
               id="user_reviewing"
               prefix={I18n.t('users.my_reviewing')}
               role={1}
               student={current_user}
               tooltip_message={I18n.t('assignments.review_tooltip')}
-              unassigned={unassigned}
+              unassigned={reviewable}
               wikidataLabels={this.props.wikidataLabels}
             />
             <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
