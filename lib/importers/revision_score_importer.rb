@@ -100,10 +100,14 @@ class RevisionScoreImporter
     end
   end
 
-  def unscored_mainspace_userspace_and_draft_revisions
+  def mainspace_userspace_and_draft_revisions
     Revision.joins(:article)
-            .where(wp10: nil, wiki_id: @wiki.id, deleted: false)
+            .where(wiki_id: @wiki.id, deleted: false)
             .where(articles: { namespace: [0, 2, 118] })
+  end
+
+  def unscored_mainspace_userspace_and_draft_revisions
+    mainspace_userspace_and_draft_revisions.where(wp10: nil)
   end
 
   def save_scores(scores)
