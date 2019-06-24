@@ -34,7 +34,7 @@ Metrics/ClassLength:
     - 'lib/importers/revision_score_importer.rb'
 
 Metrics/AbcSize:
-  Max: 44 # We should bring this down, ideally to the default of 15
+  Max: 23 # We should bring this down, ideally to the default of 15
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
 
