@@ -17,7 +17,8 @@ describe RevisionScoreImporter do
     create(:revision,
            mw_rev_id: 641962088, # first revision, barely a stub
            article_id: 45010238,
-           mw_page_id: 45010238)
+           mw_page_id: 45010238,
+           new_article: true)
     create(:revision,
            mw_rev_id: 1, # arbitrary deleted revision
            deleted: true,
@@ -112,14 +113,19 @@ describe RevisionScoreImporter do
   end
 
   it 'does not try to query deleted revisions' do
-    revisions = described_class.new.send(:unscored_mainspace_userspace_and_draft_revisions)
+    revisions = described_class.new.send(:unscored_revisions)
     expect(revisions.where(mw_rev_id: 1).count).to eq(0)
+  end
+
+  it 'does not try to query previous revisions for first revision' do
+    revisions = described_class.new.send(:unscored_previous_revisions)
+    expect(revisions.where(mw_rev_id: 641962088).count).to eq(0)
   end
 
   it 'handles network errors gracefully' do
     stub_request(:any, %r{https://ores.wikimedia.org/.*})
       .to_raise(Errno::ECONNREFUSED)
-    described_class.new.update_revision_scores(Revision.all)
+    described_class.new.update_revision_scores
     expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_nil
   end
 
@@ -142,7 +148,9 @@ describe RevisionScoreImporter do
   describe '#update_previous_revision_scores' do
     it 'saves the wp10_previous score for a set of revisions' do
       VCR.use_cassette 'revision_scores/wp10_previous' do
-        described_class.new.update_previous_revision_scores Revision.where(article_id: 1538038)
+        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_nil
+        expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_nil
+        described_class.new.update_previous_revision_scores
         expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
         expect(Revision.find_by(mw_rev_id: 46745264).wp10_previous).to be_between(0, 100)
       end

@@ -32,22 +32,19 @@ class RevisionScoreImporter
     return { features: features, rating: rating }
   end
 
-  def update_revision_scores(revisions=nil)
-    revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
-    revisions ||= unscored_mainspace_userspace_and_draft_revisions
-
-    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
-    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
+  def update_revision_scores
+    batches = unscored_revisions.count / OresApi::REVS_PER_REQUEST + 1
+    unscored_revisions.in_batches(of: OresApi::REVS_PER_REQUEST).each.with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
   end
 
-  def update_previous_revision_scores(revisions = nil)
-    revisions ||= unscored_previous_mainspace_userspace_and_draft_revisions
-
-    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
-    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
+  def update_previous_revision_scores
+    batches = unscored_previous_revisions.count / OresApi::REVS_PER_REQUEST + 1
+    unscored_previous_revisions
+      .in_batches(of: OresApi::REVS_PER_REQUEST)
+      .each.with_index do |rev_batch, i|
       Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
       get_and_save_previous_scores rev_batch
     end
@@ -101,11 +98,11 @@ class RevisionScoreImporter
             .where(articles: { namespace: [0, 2, 118] })
   end
 
-  def unscored_mainspace_userspace_and_draft_revisions
+  def unscored_revisions
     mainspace_userspace_and_draft_revisions.where(wp10: nil)
   end
 
-  def unscored_previous_mainspace_userspace_and_draft_revisions
+  def unscored_previous_revisions
     mainspace_userspace_and_draft_revisions.where(wp10_previous: nil, new_article: false)
   end
 
