@@ -87,25 +87,16 @@ const Details = createReactClass({
   },
 
   handleWikiChange(wiki) {
-    wiki = wiki.value;
-    const prev_wiki = { ...this.props.course.home_wiki };
-    const updatedCourse = this.props.course;
-    updatedCourse.home_wiki.language = wiki.language;
-    updatedCourse.home_wiki.project = wiki.project;
-    if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
-      updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
-    }
-    // Remove automatically added previous wiki
-    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
-    this.props.updateCourse(updatedCourse);
+    const home_wiki = wiki.value;
+    const prev_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
+    const wikis = CourseUtils.normalizeWikis([...this.props.course.wikis], home_wiki, prev_wiki);
+    this.props.updateCourse({ ...this.props.course, wikis, home_wiki });
   },
 
   handleMultiWikiChange(wikis) {
     wikis = wikis.map(wiki => wiki.value);
-    const home_wiki = { ...this.props.course.home_wiki };
-    if (!wikis.filter(w => w.language === home_wiki.language && w.project === home_wiki.project).length) {
-      wikis.push(home_wiki);
-    }
+    const home_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
+    wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     this.props.updateCourse({ ...this.props.course, wikis });
   },
 
@@ -375,7 +366,7 @@ const Details = createReactClass({
         );
       }
     }
-
+    const home_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
     if (this.props.editable && !Features.wikiEd) {
       wikiSelector = (
         <div className="form-group home-wiki">
@@ -386,7 +377,7 @@ const Details = createReactClass({
           </span>
           <WikiSelect
             wikis={
-              [{ language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project }]
+              [home_wiki]
             }
             onChange={this.handleWikiChange}
             multi={false}
@@ -403,6 +394,7 @@ const Details = createReactClass({
           </span>
           <WikiSelect
             wikis={this.props.course.wikis}
+            homeWiki={home_wiki}
             onChange={this.handleMultiWikiChange}
             multi={true}
             styles={{ ...selectStyles, singleValue: null }}

@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
+import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
 /**
@@ -25,7 +26,18 @@ const WikiSelect = createReactClass({
     /**
      *  An array of { language, project }
      */
-    wikis: PropTypes.array
+    wikis: PropTypes.array,
+    /**
+     *  Home Wiki, a object { language, project }. Required if multi=true
+     */
+    homeWiki: PropTypes.object
+  },
+
+  formatOption(wiki) {
+    return {
+      value: JSON.stringify(wiki),
+      label: `${wiki.language}.${wiki.project}.org`
+    };
   },
 
   render() {
@@ -34,14 +46,21 @@ const WikiSelect = createReactClass({
     if (this.props.wikis) {
       wikis = this.props.wikis.map((wiki) => {
         wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
-        return {
-          value: JSON.stringify(wiki),
-          label: `${wiki.language}.${wiki.project}.org`
-        };
+        return this.formatOption(wiki);
       });
     }
 
-    const formatValue = (wiki) => {
+    // Home Wiki should appear first in the list of tracked wikis as in any other place it blocks
+    // the removal of a wiki via backspace. Removing a wiki by pressing 'X' still works
+    // but is bad UI and home wiki appearing first makes more sense anyway.
+    let home_wiki = this.props.homeWiki;
+    if (this.props.multi) {
+      home_wiki = this.formatOption(home_wiki);
+      wikis = ArrayUtils.removeObject(wikis, home_wiki);
+      wikis.unshift(home_wiki);
+    }
+
+    const preprocess = (wiki) => {
       if (wiki) {
         if (this.props.multi) {
           wiki = wiki.map((w) => { return { value: JSON.parse(w.value), label: w.label }; });
@@ -72,7 +91,7 @@ const WikiSelect = createReactClass({
       value={wikis}
       loadOptions={loadOptions}
       isSearchable={true}
-      onChange={formatValue}
+      onChange={preprocess}
       styles={this.props.styles}
       isClearable={false}
     />;

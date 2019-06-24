@@ -15,23 +15,16 @@ const CourseForm = (props) => {
   };
 
   const handleWikiChange = (wiki) => {
-    wiki = wiki.value;
+    const home_wiki = wiki.value;
     const prev_wiki = { language: props.course.language, project: props.course.project };
-    const updatedCourse = props.course;
-    if (!updatedCourse.wikis.filter(w => w.language === wiki.language && w.project === wiki.project).length) {
-      updatedCourse.wikis = [wiki, ...updatedCourse.wikis];
-    }
-    // Remove automatically added previous wiki
-    updatedCourse.wikis = updatedCourse.wikis.filter(w => !(w.language === prev_wiki.language && w.project === prev_wiki.project));
-    props.updateCourseProps({ ...wiki, wikis: updatedCourse.wikis });
+    const wikis = CourseUtils.normalizeWikis([...props.course.wikis], home_wiki, prev_wiki);
+    props.updateCourseProps({ ...home_wiki, wikis });
   };
 
   const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
     const home_wiki = { language: props.course.language, project: props.course.project };
-    if (!wikis.filter(w => w.language === home_wiki.language && w.project === home_wiki.project).length) {
-      wikis.push(home_wiki);
-    }
+    wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     props.updateCourseProps({ wikis });
   };
 
@@ -141,6 +134,7 @@ const CourseForm = (props) => {
           wikis={props.course.wikis}
           onChange={handleMultiWikiChange}
           multi={true}
+          homeWiki={{ language: props.course.language, project: props.course.project }}
           styles={{ ...selectStyles, singleValue: null }}
         />
       </div>
