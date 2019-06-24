@@ -4,7 +4,8 @@ json.course do
   json.revisions(@course.recent_revisions
                         .eager_load(:user, :wiki).includes(article: :wiki)
                         .order(date: :desc).limit(@limit)) do |rev|
-    json.call(rev, :id, :url, :characters, :date, :user_id, :mw_rev_id, :mw_page_id, :wiki)
+    json.call(rev, :id, :url, :characters, :references, :date, :user_id, :mw_rev_id, :mw_page_id,
+              :wiki)
     json.call(rev.article, :rating)
     json.article_url rev.article.url
     json.title rev.article.full_title

@@ -29,8 +29,10 @@ describe 'the explore page', type: :feature, js: true do
       find('#courses select.sorts').find(:xpath, 'option[3]').select_option
       expect(page).to have_selector('[data-sort="characters"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[5]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      expect(page).to have_selector('[data-sort="references"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[6]').select_option
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
       expect(page).to have_selector('[data-sort="students"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('[data-sort="title"].sort.asc')
