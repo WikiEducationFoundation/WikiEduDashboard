@@ -25,7 +25,7 @@ describe CategoryImporter do
       let(:article_in_subcat) { 'Crocodile Dundee in Los Angeles' }
       let(:depth) { 1 }
 
-      it 'works recursively for subcategories' do  
+      it 'works recursively for subcategories' do
         VCR.use_cassette 'category_importer/page_titles' do
           expect(subject).to include(article_in_cat)
           expect(subject).to include(article_in_subcat)

@@ -25,14 +25,12 @@ Metrics/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 134 # We should bring this down, ideally to the default of 100
+  Max: 127 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
-    - 'lib/importers/category_importer.rb'
     - 'app/models/course.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
-    - 'lib/analytics/histogram_plotter.rb'
     - 'lib/importers/revision_score_importer.rb'
 
 Metrics/AbcSize:
