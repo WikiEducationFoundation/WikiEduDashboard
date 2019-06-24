@@ -14,6 +14,7 @@ class RevisionScoreImporter
   def self.update_revision_scores_for_all_wikis
     AVAILABLE_WIKIPEDIAS.each do |language|
       new(language).update_revision_scores
+      new(language).update_previous_wp10_scores
     end
   end
 
@@ -50,7 +51,9 @@ class RevisionScoreImporter
     update_previous_wp10_scores(revisions)
   end
 
-  def update_previous_wp10_scores(revisions)
+  def update_previous_wp10_scores(revisions = nil)
+    revisions ||= unscored_previous_mainspace_userspace_and_draft_revisions
+
     batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
     revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
       Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
@@ -108,6 +111,10 @@ class RevisionScoreImporter
 
   def unscored_mainspace_userspace_and_draft_revisions
     mainspace_userspace_and_draft_revisions.where(wp10: nil)
+  end
+
+  def unscored_previous_mainspace_userspace_and_draft_revisions
+    mainspace_userspace_and_draft_revisions.where(wp10_previous: nil)
   end
 
   def save_scores(scores)
