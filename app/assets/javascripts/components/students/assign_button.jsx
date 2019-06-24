@@ -7,11 +7,9 @@ import Popover from '../common/popover.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment, updateAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
-import WikiSelect from '../common/wiki_select.jsx';
 import AddAvailableArticles from '../articles/add_available_articles';
 import NewAssignmentInput from '../assignments/new_assignment_input';
-import { ASSIGNED_ROLE, REVIEWING_ARTICLE, REVIEWING_ROLE } from '../../constants';
-import selectStyles from '../../styles/select';
+import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants';
 import SelectedWikiOption from '../common/selected_wiki_option';
 
 // Helper Components
@@ -170,37 +168,11 @@ const EditButton = ({
   );
 };
 
-const Options = ({
-  language, project, showOptions,
-  handleShowOptions, handleWikiChange
-}) => {
-  if (showOptions) {
-    return (
-      <div className="wiki-select">
-        <WikiSelect
-          wikis={[{ language: language, project: project }]}
-          onChange={handleWikiChange}
-          multi={false}
-          styles={{ ...selectStyles, singleValue: null }}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="small-block-link">
-      {language}.{project}.org
-      <a href="#" onClick={handleShowOptions}>({I18n.t('application.change')})</a>
-    </div>
-  );
-};
-
 // Main Component
 export class AssignButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showOptions: false,
       language: '',
       project: '',
       title: ''
@@ -253,10 +225,7 @@ export class AssignButton extends React.Component {
 
     const onConfirm = (e) => {
       open(e);
-      this.setState({
-        showOptions: false,
-        title: ''
-      });
+      this.setState({ title: '' });
 
       action({
         ...assignment,
@@ -345,7 +314,7 @@ export class AssignButton extends React.Component {
   render() {
     const {
       allowMultipleArticles, assignments, course, current_user,
-      is_open, open, permitted, role, showOptions, student, tooltip_message
+      is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
     let showButton;
