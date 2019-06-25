@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#= Controller for students enrolling in courses
+#= Controller for editors enrolling in courses
 class SelfEnrollmentController < ApplicationController
   respond_to :html, :json
 
@@ -18,7 +18,7 @@ class SelfEnrollmentController < ApplicationController
     redirect_if_passcode_invalid { return }
 
     # Creates the CoursesUsers record
-    add_student_to_course
+    add_user_to_course
 
     # Make sure the user isn't already enrolled.
     redirect_if_enrollment_failed { return }
@@ -69,6 +69,8 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def redirect_if_passcode_invalid
+    # Passcode is not required for the Online Volunteer role
+    return if role == CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
     return if passcode_valid?
     redirect_to "/errors/incorrect_passcode?retry=#{course_slug_path(@course.slug)}"
     yield
@@ -80,12 +82,15 @@ class SelfEnrollmentController < ApplicationController
     params[:passcode] == @course.passcode
   end
 
-  def add_student_to_course
-    role = if params[:role] == 'online_volunteer'
-             CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
-           else
-             CoursesUsers::Roles::STUDENT_ROLE
-           end
+  def role
+    if params[:role] == 'online_volunteer'
+      CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
+    else
+      CoursesUsers::Roles::STUDENT_ROLE
+    end
+  end
+
+  def add_user_to_course
     @result = JoinCourse.new(course: @course,
                              user: current_user,
                              role: role,
