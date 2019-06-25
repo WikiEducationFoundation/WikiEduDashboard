@@ -272,7 +272,6 @@ describe 'Student users', type: :feature, js: true do
       within('#users') { find('input', match: :first).set('Selfie') }
       click_button 'Assign'
       click_button 'OK'
-      click_button 'Done'
       expect(page.all('tr.students')[1]).to have_content 'Selfie'
       expect(find('tr.students', match: :first)).not_to have_content 'Selfie'
     end
@@ -293,7 +292,6 @@ describe 'Student users', type: :feature, js: true do
       within('#users') { find('input', match: :first).set('Self-portrait') }
       click_button 'Assign'
       click_button 'OK'
-      click_button 'Done'
       expect(page).to have_content 'Self-portrait'
     end
   end
@@ -317,9 +315,8 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
       # Remove the assignment
       click_button '+/-'
-      accept_confirm do
-        click_button '-'
-      end
+      click_button '-'
+      click_button 'OK'
       sleep 0.5
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
