@@ -336,7 +336,6 @@ ActiveRecord::Schema.define(version: 2019_06_24_123708) do
     t.integer "mw_page_id"
     t.text "features"
     t.text "features_previous"
-    t.integer "references", default: 0
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
     t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["user_id"], name: "index_revisions_on_user_id"

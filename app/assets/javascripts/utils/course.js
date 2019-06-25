@@ -21,7 +21,7 @@ $(() => {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
-        'title', 'school', 'revisions', 'characters', 'average-words', 'views',
+        'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
         'students', 'creation-date', 'ungreeted', 'untrained'
       ]
     });
@@ -34,7 +34,7 @@ $(() => {
     campaignList = new List('campaigns', {
       page: 500,
       valueNames: [
-        'title', 'num-courses', 'articles-created', 'articles-edited', 'characters', 'views', 'students', 'creation-date'
+        'title', 'num-courses', 'articles-created', 'articles-edited', 'characters', 'references', 'views', 'students', 'creation-date'
       ]
     });
   }
@@ -46,7 +46,7 @@ $(() => {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
-        'title', 'views', 'char_added', 'lang_project', 'course_title'
+        'title', 'views', 'char_added', 'references', 'lang_project', 'course_title'
       ]
     });
   }

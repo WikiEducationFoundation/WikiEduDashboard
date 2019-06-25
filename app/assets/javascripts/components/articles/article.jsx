@@ -35,6 +35,10 @@ const Article = createReactClass({
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
+    let refCount;
+    if (this.props.article.references_count !== 0) {
+      refCount = this.props.article.references_count;
+    }
 
     return (
       <tr className="article">
@@ -56,7 +60,7 @@ const Article = createReactClass({
           </div>
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
-        <td className="desktop-only-tc">{this.props.article.references_count}</td>
+        <td className="desktop-only-tc">{refCount}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
         <td>
           <ArticleViewer

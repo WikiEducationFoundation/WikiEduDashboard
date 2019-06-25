@@ -26,12 +26,15 @@ const EmbedCourseStats = () => {
     );
   }
 
-  const refCount = (
-    <div className="stat-display__stat" id="references-added">
-      <div className="stat-display__value">{course.references_count}</div>
-      <small>{I18n.t('metrics.references_count')}</small>
-    </div>
-  );
+  let refCount;
+  if (course.references_count !== 0) {
+    refCount = (
+      <div className="stat-display__stat" id="references-added">
+        <div className={valueClass('references_count')}>{course.references_count}</div>
+        <small>{I18n.t('metrics.references_count')}</small>
+      </div>
+    );
+  }
 
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display" />;
@@ -71,9 +74,7 @@ const EmbedCourseStats = () => {
         <small>{i18n('student_editors', course.string_prefix)}</small>
       </div>
       {contentCount}
-      <div className="stat-display__stat" id="references-count">
-        {refCount}
-      </div>
+      {refCount}
       <div className="stat-display__stat" id="view-count">
         {viewData}
         <small>{I18n.t('metrics.view_count_description')}</small>

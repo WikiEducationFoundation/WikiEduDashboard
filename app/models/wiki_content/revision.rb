@@ -71,6 +71,6 @@ class Revision < ApplicationRecord
   def references_added
     current_refs = features['feature.wikitext.revision.ref_tags'] || 0
     prev_refs = features_previous['feature.wikitext.revision.ref_tags'] || 0
-    self.references = current_refs - prev_refs
+    current_refs - prev_refs
   end
 end

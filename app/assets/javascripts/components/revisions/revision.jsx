@@ -24,7 +24,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
-      <td className="desktop-only-tc">{revision.references}</td>
+      <td className="desktop-only-tc">{revision.features['feature.wikitext.revision.ref_tags'] || 0 - revision.features_previous['feature.wikitext.revision.ref_tags'] || 0}</td>
       <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
         <DiffViewer
