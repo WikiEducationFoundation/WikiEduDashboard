@@ -19,7 +19,6 @@ describe DailyUpdate do
       expect(ArticlesCoursesCleaner).to receive(:rebuild_articles_courses)
       expect(RatingImporter).to receive(:update_all_ratings)
       expect(ArticleStatusManager).to receive(:update_article_status)
-      expect(OresScoresBeforeAndAfterImporter).to receive(:import_all)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)

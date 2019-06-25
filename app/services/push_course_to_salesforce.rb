@@ -52,6 +52,7 @@ class PushCourseToSalesforce
   end
 
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def base_salesforce_fields
     {
       Name: @course.title,
@@ -77,6 +78,7 @@ class PushCourseToSalesforce
     }
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def words_added_in_thousands
     WordCount.from_characters(@course.character_sum).to_f / 1000

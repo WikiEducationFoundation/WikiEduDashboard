@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/upload_importer"
-require_dependency "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 # Executes all the steps of 'update_constantly' data import task
@@ -66,9 +66,6 @@ class DailyUpdate
 
     log_message 'Updating article namespace and deleted status'
     ArticleStatusManager.update_article_status
-
-    log_message 'Updating wp10 scores for before and after edits'
-    OresScoresBeforeAndAfterImporter.import_all
   end
 
   def update_category_data
