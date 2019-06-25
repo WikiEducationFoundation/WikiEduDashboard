@@ -246,23 +246,12 @@ class CoursesController < ApplicationController
   end
 
   def update_courses_wikis
-    @course.ensure_home_wiki_in_courses_wikis
     multi_wikis = courses_wikis_params[:wikis]
     return if multi_wikis.nil?
-
-    # Used to differentiate deleted wikis
-    old_wikis = @course.wikis.to_a
-    new_wikis = []
-
-    # Create an association for each new wiki
-    multi_wikis.each do |wiki|
-      new_wiki = Wiki.get_or_create(language: wiki[:language], project: wiki[:project])
-      new_wikis.push(new_wiki)
-      @course.wikis.push(new_wiki) unless old_wikis.include? new_wiki
+    new_wikis = multi_wikis.map do |wiki|
+      Wiki.get_or_create(language: wiki[:language], project: wiki[:project])
     end
-
-    # Delete removed wikis except home wiki
-    @course.wikis.delete(old_wikis - new_wikis - [@course.home_wiki])
+    @course.update_wikis(new_wikis)
   end
 
   def update_flags

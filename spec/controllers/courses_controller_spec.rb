@@ -140,23 +140,41 @@ describe CoursesController, type: :request do
       end
     end
 
-    it 'updates the wikis' do
+    it 'includes the home wiki in courses wikis' do
       course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
+    end
 
+    it 'adds more than one wikis' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
       course_params[:wikis].push(language: 'fr', project: 'wikipedia')
-      put "/courses/#{course_params[:slug]}", params: params, as: :json
+      put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(3)
+    end
 
+    it 'removes a wiki' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(2)
+      course.reload
       course_params[:wikis].pop
-      put "/courses/#{course_params[:slug]}", params: params, as: :json
-      expect(course.wikis.count).to eq(2)
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(1)
+    end
 
-      course_params[:wikis][0][:language] = 'fr'
-      put "/courses/#{course_params[:slug]}", params: params, as: :json
+    it 'adds the incoming wiki and removes the deleted wiki' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
       expect(course.wikis.count).to eq(2)
+      course.reload
+      course_params[:wikis][0][:language] = 'fr'
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.last.language).to eq('fr')
     end
 
     context 'setting passcode' do

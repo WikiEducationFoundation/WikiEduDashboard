@@ -268,6 +268,7 @@ module RequestHelpers
       'pl.wikiquote.org',
       'de.wikiversity.org',
       'commons.wikimedia.org',
+      'de.wikipedia.org',
       'en.wikipedia.org'
     ]
 

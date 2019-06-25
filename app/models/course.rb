@@ -56,8 +56,6 @@ require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
-  before_save { ensure_home_wiki_in_courses_wikis }
-
   ######################
   # Users for a course #
   ######################
@@ -221,6 +219,7 @@ class Course < ApplicationRecord
   before_save :set_default_times
   before_save :check_course_times
   before_save :set_needs_update
+  before_create :ensure_home_wiki_in_courses_wikis
 
   ####################
   # Instance methods #
@@ -288,6 +287,11 @@ class Course < ApplicationRecord
     return nil unless wiki_page?
     escaped_slug = slug.tr(' ', '_') # follow MediaWiki page name conventions: undescores for spaces
     "#{home_wiki.course_prefix}/#{escaped_slug}"
+  end
+
+  def update_wikis(updated_wikis)
+    update(wikis: updated_wikis)
+    ensure_home_wiki_in_courses_wikis
   end
 
   # The url for the on-wiki version of the course.
@@ -425,7 +429,7 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    return if nil?
+    return if home_wiki.nil?
     wikis.push(home_wiki) unless wikis.include? home_wiki
   end
 

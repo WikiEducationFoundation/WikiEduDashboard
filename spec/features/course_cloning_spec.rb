@@ -52,6 +52,7 @@ describe 'cloning a course', js: true do
   end
 
   it 'copies relevant attributes of an existing course' do
+    course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
     login_as user, scope: :user, run_callbacks: false
     visit root_path
     click_link 'Create Course'
@@ -105,6 +106,6 @@ describe 'cloning a course', js: true do
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
-    expect(new_course.wikis.count).to eq(1)
+    expect(new_course.wikis.count).to eq(3) # Check if the tracked wikis are cloned.
   end
 end
