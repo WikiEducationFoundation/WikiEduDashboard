@@ -5,7 +5,7 @@ namespace :courses_wikis do
   task migrate: :environment do
     Rails.logger.debug 'Creating CoursesWikis associations'
     Course.all.each do |course|
-      course.wikis.push(Wiki.find(course.wiki_ids))
+      course.update(wikis: Wiki.find(course.wiki_ids))
     end
   end
 end
