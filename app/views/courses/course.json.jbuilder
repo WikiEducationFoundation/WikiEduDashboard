@@ -32,7 +32,6 @@ json.course do
   json.student_count @course.user_count
   json.trained_count @course.trained_count
   json.word_count number_to_human @course.word_count
-  json.references_count number_to_human @course.references_count
   json.view_count number_to_human @course.view_sum
   json.character_sum_human number_to_human @course.character_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?

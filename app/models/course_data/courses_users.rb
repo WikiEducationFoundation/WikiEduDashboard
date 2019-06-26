@@ -95,12 +95,16 @@ class CoursesUsers < ApplicationRecord
     course.revisions.joins(:article).where(user_id: user_id).live
   end
 
-  def update_cache
-    revisions = live_revisions
-    self.total_uploads = course.uploads.where(user_id: user_id).count
+  def update_character_sum(revisions)
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
+  end
+
+  def update_cache
+    revisions = live_revisions
+    self.total_uploads = course.uploads.where(user_id: user_id).count
+    update_character_sum(revisions)
     self.references_count = references_sum(revisions)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count

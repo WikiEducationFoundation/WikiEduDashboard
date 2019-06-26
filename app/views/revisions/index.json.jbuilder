@@ -2,8 +2,9 @@
 
 json.course do
   json.revisions @revisions do |revision|
-    json.call(revision, :id, :characters, :features, :features_previous, :views, :date, :url,
+    json.call(revision, :id, :characters, :views, :date, :url,
               :user_id, :mw_rev_id, :mw_page_id, :wiki)
+    json.references_added revision.references_added
     json.article do
       if revision.article.nil?
         json.title 'Deleted article'

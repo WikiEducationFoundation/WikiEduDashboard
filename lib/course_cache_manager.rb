@@ -11,6 +11,7 @@ class CourseCacheManager
 
   def update_cache
     update_character_sum
+    update_references_count
     update_view_sum
     update_user_count
     update_trained_count
@@ -39,6 +40,12 @@ class CourseCacheManager
     @course.character_sum = @course.courses_users
                                    .where(role: CoursesUsers::Roles::STUDENT_ROLE)
                                    .sum(:character_sum_ms)
+  end
+
+  def update_references_count
+    @course.references_count = @course.courses_users
+                                      .where(role: CoursesUsers::Roles::STUDENT_ROLE)
+                                      .sum(:references_count)
   end
 
   def update_view_sum

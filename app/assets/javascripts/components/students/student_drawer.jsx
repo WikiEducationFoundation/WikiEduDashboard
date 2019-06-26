@@ -55,7 +55,7 @@ const StudentDrawer = createReactClass({
           </td>
           <td className="desktop-only-tc date"><a href={rev.url} target="_blank">{moment(rev.date).format('YYYY-MM-DD   h:mm A')}</a></td>
           <td className="desktop-only-tc">{rev.characters}</td>
-          <td className="desktop-only-tc">{rev.features['feature.wikitext.revision.ref_tags'] || 0 - rev.features_previous['feature.wikitext.revision.ref_tags'] || 0}</td>
+          <td className="desktop-only-tc">{rev.references_added}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
             <DiffViewer

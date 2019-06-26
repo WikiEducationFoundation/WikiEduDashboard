@@ -308,10 +308,6 @@ class Course < ApplicationRecord
     @word_count ||= WordCount.from_characters(character_sum)
   end
 
-  def references_count
-    @references_count ||= revisions.sum(&:references_added)
-  end
-
   def average_word_count
     return 0 if user_count.zero?
     word_count / user_count
