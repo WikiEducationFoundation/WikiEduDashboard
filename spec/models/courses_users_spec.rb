@@ -26,6 +26,8 @@ describe CoursesUsers, type: :model do
   before { stub_wiki_validation }
 
   describe '.update_all_caches' do
+    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+
     it 'updates data for course-user relationships' do
       # Add a user, a course, an article, and a revision.
       create(:user,
@@ -48,7 +50,13 @@ describe CoursesUsers, type: :model do
              user_id: 1,
              article_id: 1,
              date: '2015-03-01'.to_date,
-             characters: 9000)
+             characters: 9000,
+             features: {
+               refs_tags_key => 22
+             },
+             features_previous: {
+               refs_tags_key => 17
+             })
 
       # Assign the article to the user.
       create(:assignment,
@@ -82,6 +90,7 @@ describe CoursesUsers, type: :model do
       expect(course_user.assigned_article_title).to eq('Selfie')
       expect(course_user.character_sum_ms).to eq(9000)
       expect(course_user.character_sum_us).to eq(0)
+      expect(course_user.references_count).to eq(5)
       expect(course_user.real_name).to eq('John Smith')
     end
   end

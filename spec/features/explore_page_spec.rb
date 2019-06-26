@@ -48,11 +48,11 @@ describe 'the explore page', type: :feature, js: true do
       find('#courses [data-sort="title"].sort').click
       expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
 
-      # Sortable by character count
-      find('#courses [data-sort="characters"].sort').click
-      expect(page).to have_selector('#courses [data-sort="characters"].sort.desc')
-      find('#courses [data-sort="characters"].sort').click
-      expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
+      # Sortable by references count
+      find('#courses [data-sort="references"].sort').click
+      expect(page).to have_selector('#courses [data-sort="references"].sort.desc')
+      find('#courses [data-sort="references"].sort').click
+      expect(page).to have_selector('#courses [data-sort="references"].sort.asc')
 
       # Sortable by view count
       find('#courses [data-sort="views"].sort').click
@@ -69,6 +69,8 @@ describe 'the explore page', type: :feature, js: true do
   end
 
   describe 'rows' do
+    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+
     it 'allows navigation to a campaign page' do
       visit '/explore'
       find('#campaigns .table tbody tr:first-child').click
@@ -92,7 +94,13 @@ describe 'the explore page', type: :feature, js: true do
              user: user,
              article_id: 1,
              date: 6.days.ago,
-             characters: 9000)
+             characters: 9000,
+             features: {
+               refs_tags_key => 22
+             },
+             features_previous: {
+               refs_tags_key => 17
+             })
       Course.update_all_caches
       visit '/explore'
 
