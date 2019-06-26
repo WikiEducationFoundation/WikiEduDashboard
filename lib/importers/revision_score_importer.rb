@@ -14,6 +14,7 @@ class RevisionScoreImporter
   def self.update_revision_scores_for_all_wikis
     AVAILABLE_WIKIPEDIAS.each do |language|
       new(language).update_revision_scores
+      new(language).update_previous_revision_scores
     end
   end
 
@@ -31,35 +32,21 @@ class RevisionScoreImporter
     return { features: features, rating: rating }
   end
 
-  def update_revision_scores(revisions=nil)
-    revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
-    revisions ||= unscored_mainspace_userspace_and_draft_revisions
-
-    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
-    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
+  def update_revision_scores
+    batches = unscored_revisions.count / OresApi::REVS_PER_REQUEST + 1
+    unscored_revisions.in_batches(of: OresApi::REVS_PER_REQUEST).each.with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
   end
 
-  def update_all_revision_scores_for_articles(articles)
-    page_ids = articles.map(&:mw_page_id)
-    revisions = Revision.where(wiki_id: @wiki.id, mw_page_id: page_ids)
-    update_revision_scores revisions
-
-    first_revisions = []
-    page_ids.each do |id|
-      first_revisions << Revision.where(mw_page_id: id, wiki_id: @wiki.id).first
-    end
-
-    update_previous_wp10_scores(first_revisions)
-  end
-
-  def update_previous_wp10_scores(revisions)
-    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
-    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
+  def update_previous_revision_scores
+    batches = unscored_previous_revisions.count / OresApi::REVS_PER_REQUEST + 1
+    unscored_previous_revisions
+      .in_batches(of: OresApi::REVS_PER_REQUEST)
+      .each.with_index do |rev_batch, i|
       Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
-      update_wp10_previous_batch rev_batch
+      get_and_save_previous_scores rev_batch
     end
   end
 
@@ -87,7 +74,7 @@ class RevisionScoreImporter
     save_scores(scores)
   end
 
-  def update_wp10_previous_batch(rev_batch)
+  def get_and_save_previous_scores(rev_batch)
     parent_revisions = get_parent_revisions(rev_batch)
     return unless parent_revisions&.any?
     parent_quality_data = @ores_api.get_revision_data parent_revisions.values
@@ -105,10 +92,18 @@ class RevisionScoreImporter
     end
   end
 
-  def unscored_mainspace_userspace_and_draft_revisions
+  def mainspace_userspace_and_draft_revisions
     Revision.joins(:article)
-            .where(wp10: nil, wiki_id: @wiki.id, deleted: false)
+            .where(wiki_id: @wiki.id, deleted: false)
             .where(articles: { namespace: [0, 2, 118] })
+  end
+
+  def unscored_revisions
+    mainspace_userspace_and_draft_revisions.where(wp10: nil)
+  end
+
+  def unscored_previous_revisions
+    mainspace_userspace_and_draft_revisions.where(wp10_previous: nil, new_article: false)
   end
 
   def save_scores(scores)

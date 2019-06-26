@@ -37,7 +37,7 @@ const AvailableActions = createReactClass({
 
   join(role = null) {
     const enrollURL = this.props.course.enroll_url;
-    if (this.props.course.passcode === '') {
+    if (this.props.course.passcode === '' || role === 'online_volunteer') {
       const onConfirm = function () {
         return window.location = `${enrollURL}?role=${role}`;
       };

@@ -32,14 +32,15 @@ const initialState = {
   day_exceptions: '',
   weekdays: '0000000',
   editingSyllabus: false,
-  training_library_slug: 'students'
+  training_library_slug: 'students',
+  loading: true
 };
 
 
 export default function course(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_COURSE:
-      return { ...action.data.course };
+      return { loading: false, ...action.data.course };
     case RECEIVE_COURSE_UPDATE: {
       const courseData = action.data.course;
       const newStats = CourseUtils.newCourseStats(state, courseData);
@@ -51,7 +52,7 @@ export default function course(state = initialState, action) {
     case UPDATE_COURSE:
       return { ...state, ...action.course };
     case CREATED_COURSE:
-      return { ...action.data.course };
+      return { loading: false, ...action.data.course };
     case RECEIVE_INITIAL_CAMPAIGN: {
       const campaign = action.data.campaign;
       return {
@@ -67,7 +68,7 @@ export default function course(state = initialState, action) {
     case DELETE_CAMPAIGN:
       return { ...state, published: action.data.course.published };
     case RECEIVE_COURSE_CLONE:
-      return { ...action.data.course };
+      return { loading: false, ...action.data.course };
     case DISMISS_SURVEY_NOTIFICATION: {
       return {
         ...state,

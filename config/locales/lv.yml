@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Papuass
+# Author: Silraks
 ---
 lv:
   application:
@@ -188,6 +189,7 @@ lv:
     passcode_none: Nav piekļuves koda
     passcode_prompt: 'Ievadi piekļuves kodu, lai pievienotos:'
     private: Privāts
+    requested_accounts_alert_view: Skatīt
     revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
     school: Skola
     search_courses: Meklēt kursus
@@ -208,6 +210,7 @@ lv:
     view_other: Skatīt citas kampaņas
     view: Apskatīt kursu
     view_page: Skatīt kursa lapu
+    view_wiki: Skatīt Vikipēdijā
     volunteer:
       other: Brīvprātīgie
   courses_generic:
@@ -307,6 +310,7 @@ lv:
     add_week: Pievienot nedēļu
     course_end: Kursa beigas
     course_start: Kursa sākums
+    empty_week_3: vai
     save_all_changes: Saglabāt visu
     this_week_title_default: Šonedēļ
     week_number: '%{number}. nedēļa'

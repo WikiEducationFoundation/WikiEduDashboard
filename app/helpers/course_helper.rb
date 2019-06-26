@@ -18,6 +18,11 @@ module CourseHelper
     return ''
   end
 
+  def private_highlight_class(course)
+    return 'table-row--danger' if course.private
+    return ''
+  end
+
   def course_i18n(message_key, course = nil)
     string_prefix = course&.string_prefix
     string_prefix ||= Features.default_course_string_prefix

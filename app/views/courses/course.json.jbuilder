@@ -38,6 +38,7 @@ json.course do
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
+
   if user_role.zero? # student role
     json.incomplete_assigned_modules @course.training_progress_manager
                                             .incomplete_assigned_modules(current_user)

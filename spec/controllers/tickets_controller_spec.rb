@@ -13,6 +13,16 @@ describe TicketsController, type: :request do
       sender_id: user.id
     )
   end
+  let(:unknown_sender_ticket) do
+    TicketDispenser::Dispenser.call(
+      content: 'hello',
+      owner_id: admin.id,
+      details: {
+        subject: 'cool story',
+        sender_email: 'hello@coolstory.com'
+      }
+    )
+  end
   let(:message) { ticket.messages.last }
 
   before do
@@ -21,6 +31,11 @@ describe TicketsController, type: :request do
       content: 'this is a note')
     TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::REPLY,
       content: 'this is a reply')
+    TicketDispenser::Message.create(
+      ticket: unknown_sender_ticket,
+      kind: TicketDispenser::Message::Kinds::REPLY,
+      content: 'this is also a reply'
+    )
   end
 
   describe '#dashboard' do
@@ -31,7 +46,7 @@ describe TicketsController, type: :request do
     end
 
     it 'renders a ticket show path' do
-      get '/tickets/dashboard/1'
+      get "/tickets/dashboard/#{ticket.id}"
       expect(response.status).to eq(200)
       expect(response.body).to include("id='react_root'")
     end
@@ -86,6 +101,15 @@ describe TicketsController, type: :request do
 
       delivery = ActionMailer::Base.deliveries.first
       expect(delivery.bcc).not_to include(ENV['SALESFORCE_BCC_EMAIL'])
+    end
+
+    it 'works even when user is not known' do
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      params = { message_id: unknown_sender_ticket.messages.first.id, sender_id: admin.id }
+      post '/tickets/reply', params: params
+
+      delivery = ActionMailer::Base.deliveries.first
+      expect(delivery.to).to include('hello@coolstory.com')
     end
   end
 
