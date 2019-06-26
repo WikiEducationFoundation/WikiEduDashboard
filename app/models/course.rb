@@ -263,10 +263,6 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def wiki_ids
-    ([home_wiki_id] + revisions.pluck(Arel.sql('DISTINCT wiki_id'))).uniq
-  end
-
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
