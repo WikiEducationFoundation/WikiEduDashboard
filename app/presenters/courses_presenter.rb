@@ -10,7 +10,13 @@ class CoursesPresenter
   def initialize(current_user:, campaign_param: nil, courses_list: nil)
     @current_user = current_user
     @campaign_param = campaign_param
-    @courses_list = courses_list || campaign&.courses&.nonprivate
+    @courses_list = courses_list || campaign_courses
+  end
+
+  def campaign_courses
+    return unless campaign
+    # Those with campaign editing rights can see the private courses
+    can_remove_course? ? campaign.courses : campaign.courses.nonprivate
   end
 
   def user_courses
@@ -29,7 +35,8 @@ class CoursesPresenter
   end
 
   def campaign_organizer?
-    @campaign.organizers.include?(current_user)
+    return false unless campaign
+    campaign.organizers.include?(current_user)
   end
 
   def campaigns
@@ -104,7 +111,7 @@ class CoursesPresenter
   end
 
   def course_string_prefix
-    @campaign&.course_string_prefix || Features.default_course_string_prefix
+    campaign&.course_string_prefix || Features.default_course_string_prefix
   end
 
   def uploads_in_use_count
@@ -125,7 +132,7 @@ class CoursesPresenter
   end
 
   def creation_date
-    I18n.localize @campaign.created_at.to_date
+    I18n.localize campaign.created_at.to_date
   end
 
   class NoCampaignError < StandardError; end

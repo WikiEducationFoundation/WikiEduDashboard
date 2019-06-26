@@ -26,7 +26,7 @@ describe('course reducer', () => {
     expect(newState.weekdays).to.eq('0000000');
   });
 
-  it('should return data course with RECEIVE_COURSE', () => {
+  it('should return data course with RECEIVE_COURSE and set loading to false', () => {
     const initialState = {};
     deepFreeze(initialState);
     const mockedAction = {
@@ -35,7 +35,8 @@ describe('course reducer', () => {
     };
 
     const newState = course(initialState, mockedAction);
-    expect(newState).to.deep.eq(mockedAction.data.course);
+    const expectedState = { title: 'title', loading: false };
+    expect(newState).to.deep.eq(expectedState);
   });
 
   it('keeps track of which stats have been updated with RECEIVE_COURSE_UPDATE', () => {
