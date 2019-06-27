@@ -25,6 +25,7 @@ if @user.course_instructor?
 
   json.by_students do
     json.word_count number_to_human @courses_presenter.word_count
+    json.references_count number_to_human @courses_presenter.courses_users.sum(:references_sum)
     json.view_sum number_to_human @courses_presenter.courses.sum(:view_sum)
     json.article_count number_to_human @courses_presenter.courses.sum(:article_count)
     json.new_article_count number_to_human @courses_presenter.courses.sum(:new_article_count)
@@ -39,6 +40,8 @@ if @user.course_student?
     json.course_string_prefix @individual_stats_presenter.course_string_prefix
     json.individual_courses_count @individual_stats_presenter.individual_courses.count
     json.individual_word_count number_to_human @individual_stats_presenter.individual_word_count
+    json.individual_references_count number_to_human @individual_stats_presenter
+      .individual_references_count
     json.individual_article_views number_to_human @individual_stats_presenter
       .individual_article_views
     json.individual_article_count number_to_human @individual_stats_presenter
