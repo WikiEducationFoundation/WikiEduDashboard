@@ -332,8 +332,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'ar',
-            project: 'wikibooks' }
+            home_wiki: {
+              language: 'ar',
+              project: 'wikibooks'
+            } }
         end
 
         it 'sets the non-default home_wiki' do
@@ -355,8 +357,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'arrr',
-            project: 'wikipirates' }
+            home_wiki: {
+              language: 'arrr',
+              project: 'wikipirates'
+            } }
         end
 
         it 'renders a 404 and does not create the course' do
@@ -374,8 +378,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'en',
-            project: 'wikipedia' }
+            home_wiki: {
+              language: 'en',
+              project: 'wikipedia'
+            } }
         end
 
         it 'renders a 404 and does not create the course when school is blank' do

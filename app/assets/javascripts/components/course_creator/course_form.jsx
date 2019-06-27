@@ -16,14 +16,14 @@ const CourseForm = (props) => {
 
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
-    const prev_wiki = { language: props.course.language, project: props.course.project };
+    const prev_wiki = { ...props.course.home_wiki };
     const wikis = CourseUtils.normalizeWikis([...props.course.wikis], home_wiki, prev_wiki);
-    props.updateCourseProps({ ...home_wiki, wikis });
+    props.updateCourseProps({ home_wiki, wikis });
   };
 
   const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
-    const home_wiki = { language: props.course.language, project: props.course.project };
+    const home_wiki = { ...props.course.home_wiki };
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     props.updateCourseProps({ wikis });
   };
@@ -116,7 +116,7 @@ const CourseForm = (props) => {
           </strong>
         </span>
         <WikiSelect
-          wikis={[{ language: props.course.language, project: props.course.project }]}
+          wikis={[{ ...props.course.home_wiki }]}
           onChange={handleWikiChange}
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
@@ -124,7 +124,7 @@ const CourseForm = (props) => {
       </div>
     );
     multi_wiki = (
-      <div className="form-group">
+      <div className="form-group multi-wiki">
         <span className="text-input-component__label">
           <strong>
             {I18n.t('courses.multi_wiki')}:
@@ -134,7 +134,7 @@ const CourseForm = (props) => {
           wikis={props.course.wikis}
           onChange={handleMultiWikiChange}
           multi={true}
-          homeWiki={{ language: props.course.language, project: props.course.project }}
+          homeWiki={{ ...props.course.home_wiki }}
           styles={{ ...selectStyles, singleValue: null }}
         />
       </div>

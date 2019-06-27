@@ -88,14 +88,16 @@ const Details = createReactClass({
 
   handleWikiChange(wiki) {
     const home_wiki = wiki.value;
-    const prev_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
+    // Wiki object needs to be only { language, project }
+    // By the following line we omit the id attribute.
+    const { id, ...prev_wiki } = this.props.course.home_wiki;
     const wikis = CourseUtils.normalizeWikis([...this.props.course.wikis], home_wiki, prev_wiki);
     this.props.updateCourse({ ...this.props.course, wikis, home_wiki });
   },
 
   handleMultiWikiChange(wikis) {
     wikis = wikis.map(wiki => wiki.value);
-    const home_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
+    const { id, ...home_wiki } = this.props.course.home_wiki;
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     this.props.updateCourse({ ...this.props.course, wikis });
   },
@@ -367,7 +369,11 @@ const Details = createReactClass({
       }
     }
     const home_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
-    if (this.props.editable && !Features.wikiEd) {
+
+    // It is always visible if you're an admin.
+    // It is always visible if it is P&E Dashboard.
+    // It is visible if it is Wiki Education and is in Edit Mode
+    if (this.props.current_user.admin || !Features.wikiEd || (this.props.editable && Features.wikiEd)) {
       wikiSelector = (
         <div className="form-group home-wiki">
           <span className="text-input-component__label">
@@ -379,6 +385,7 @@ const Details = createReactClass({
             wikis={
               [home_wiki]
             }
+            readOnly={!this.props.editable}
             onChange={this.handleWikiChange}
             multi={false}
             styles={{ ...selectStyles, singleValue: null }}
@@ -386,7 +393,7 @@ const Details = createReactClass({
         </div>
       );
       multiWikiSelector = (
-        <div className="form-group">
+        <div className="form-group multi-wiki">
           <span className="text-input-component__label">
             <strong>
               {I18n.t('courses.multi_wiki')}:
@@ -395,6 +402,7 @@ const Details = createReactClass({
           <WikiSelect
             wikis={this.props.course.wikis}
             homeWiki={home_wiki}
+            readOnly={!this.props.editable}
             onChange={this.handleMultiWikiChange}
             multi={true}
             styles={{ ...selectStyles, singleValue: null }}

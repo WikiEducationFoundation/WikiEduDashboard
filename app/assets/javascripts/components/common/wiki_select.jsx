@@ -30,7 +30,11 @@ const WikiSelect = createReactClass({
     /**
      *  Home Wiki, a object { language, project }. Required if multi=true
      */
-    homeWiki: PropTypes.object
+    homeWiki: PropTypes.object,
+    /**
+     *  Should the Wikis be read-only
+     */
+    readOnly: PropTypes.bool,
   },
 
   formatOption(wiki) {
@@ -84,16 +88,22 @@ const WikiSelect = createReactClass({
       callback(filterOptions(inputValue));
     };
 
+    const components = this.props.readOnly ? {
+      DropdownIndicator: () => null,
+      IndicatorSeparator: () => null
+    } : {}; // We don't want the users to be confused by these when it is read-only
+
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
       noOptionsMessage={() => null}
       value={wikis}
       loadOptions={loadOptions}
-      isSearchable={true}
+      isSearchable={!this.props.readOnly}
       onChange={preprocess}
       styles={this.props.styles}
       isClearable={false}
+      components={components}
     />;
   }
 }
