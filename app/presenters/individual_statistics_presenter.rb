@@ -35,7 +35,6 @@ class IndividualStatisticsPresenter
     @articles_edited.values.sum { |article| article[:references] }
   end
 
-
   def individual_upload_count
     @upload_usage_counts.length
   end
@@ -78,7 +77,7 @@ class IndividualStatisticsPresenter
   def references_update(article_edits, edit)
     current_refs = edit.features['feature.wikitext.revision.ref_tags'] || 0
     prev_refs = edit.features_previous['feature.wikitext.revision.ref_tags'] || 0
-    article_edits[:references]= current_refs - prev_refs
+    article_edits[:references] = current_refs - prev_refs
   end
 
   def set_upload_usage_counts

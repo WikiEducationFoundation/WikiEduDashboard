@@ -25,7 +25,7 @@ if @user.course_instructor?
 
   json.by_students do
     json.word_count number_to_human @courses_presenter.word_count
-    json.references_count number_to_human @courses_presenter.courses_users.sum(:references_sum)
+    json.references_count number_to_human @courses_presenter.references_count
     json.view_sum number_to_human @courses_presenter.courses.sum(:view_sum)
     json.article_count number_to_human @courses_presenter.courses.sum(:article_count)
     json.new_article_count number_to_human @courses_presenter.courses.sum(:new_article_count)
