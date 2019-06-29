@@ -68,10 +68,5 @@ module WikiEduDashboard
         resource '/campaigns/*/*', :headers => :any, methods: [:get, :options]
       end
     end
-
-    config.after_initialize do
-      Rails.application.load_tasks
-      Rake::Task['courses_wikis:migrate'].invoke
-    end
   end
 end
