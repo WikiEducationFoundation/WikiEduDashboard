@@ -29,6 +29,7 @@ class CourseStudentsCsvBuilder
     mainspace_bytes_added
     userpace_bytes_added
     draft_space_bytes_added
+    references_added
     registered_during_project
   ].freeze
   def row(courses_user)
@@ -39,6 +40,7 @@ class CourseStudentsCsvBuilder
     row << courses_user.character_sum_ms
     row << courses_user.character_sum_us
     row << courses_user.character_sum_draft
+    row << courses_user.references_count
     row << newbie?(courses_user.user)
   end
 

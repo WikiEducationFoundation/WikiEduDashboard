@@ -27,6 +27,7 @@ class CourseEditsCsvBuilder
     diff
     username
     bytes_added
+    references_added
     new_article
     dashboard_edit
   ].freeze
@@ -37,8 +38,14 @@ class CourseEditsCsvBuilder
     row << revision.article.full_title
     row << revision.url
     row << revision.user.username
-    row << revision.characters
+    add_character_references(revision, row)
     row << revision.new_article
     row << revision.system
   end
+end
+
+def add_character_references(revision, row)
+  row << revision.characters
+  row << revision.features['feature.wikitext.revision.ref_tags'] || 0 -
+    revision.features_previous['feature.wikitext.revision.ref_tags'] || 0
 end

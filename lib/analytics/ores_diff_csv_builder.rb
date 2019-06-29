@@ -16,6 +16,7 @@ class OresDiffCsvBuilder
     ores_before
     ores_after
     bytes_added
+    references_added
     article_url
     course
   ].freeze
@@ -42,6 +43,7 @@ class OresDiffCsvBuilder
       first_revision&.wp10_previous || 0.0,
       last_revision&.wp10 || 0.0,
       articles_course.character_sum,
+      articles_course.references_count,
       article.url,
       course.slug
     ]

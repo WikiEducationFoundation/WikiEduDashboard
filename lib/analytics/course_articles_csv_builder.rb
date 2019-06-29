@@ -31,11 +31,18 @@ class CourseArticlesCsvBuilder
     @course.all_revisions.includes(article: :wiki).map do |edit|
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
+      references_update(article_edits, edit)
       article_edits[:new_article] = true if edit.new_article
       # highest view count of all revisions for this article is the total for the article
       article_edits[:views] = edit.views if edit.views > article_edits[:views]
       @articles_edited[edit.article_id] = article_edits
     end
+  end
+
+  def references_update(article_edits, edit)
+    current_refs = edit.features['feature.wikitext.revision.ref_tags'] || 0
+    prev_refs = edit.features_previous['feature.wikitext.revision.ref_tags'] || 0
+    article_edits[:references] = current_refs - prev_refs
   end
 
   def new_article_entry(edit)
@@ -44,6 +51,8 @@ class CourseArticlesCsvBuilder
       new_article: false,
       views: 0,
       characters: {},
+      features: {},
+      features_previous: {},
       title: article.title,
       namespace: article.namespace,
       url: article.url,
@@ -73,8 +82,8 @@ class CourseArticlesCsvBuilder
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
     row << article_data[:url]
-    row << article_data[:characters].count
     row << character_sum(article_data)
+    row << references_count(article_data)
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:views]
@@ -84,6 +93,12 @@ class CourseArticlesCsvBuilder
   def character_sum(article_data)
     article_data[:characters].values.inject(0) do |sum, characters|
       characters&.positive? ? sum + characters : sum
+    end
+  end
+
+  def references_count(article_data)
+    article_data[:references] do |sum, references|
+      references ? sum + references : sum
     end
   end
 
