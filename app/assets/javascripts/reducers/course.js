@@ -17,8 +17,6 @@ import {
 } from '../constants';
 import CourseUtils from '../utils/course_utils';
 
-const defaultWiki = { language: 'en', project: 'wikipedia' };
-
 const initialState = {
   title: '',
   description: '',
@@ -31,15 +29,14 @@ const initialState = {
   end: null,
   timeline_start: null,
   timeline_end: null,
-  home_wiki: defaultWiki,
+  home_wiki: { language: 'en', project: 'wikipedia' },
   day_exceptions: '',
   weekdays: '0000000',
   editingSyllabus: false,
   training_library_slug: 'students',
   loading: true,
   updates: {},
-  wikis: [],
-  ...defaultWiki
+  wikis: []
 };
 
 

@@ -236,6 +236,7 @@ class CoursesController < ApplicationController
   def wiki_params
     params
       .require(:course)
+      .fetch(:home_wiki, {})
       .permit(:language, :project)
   end
 

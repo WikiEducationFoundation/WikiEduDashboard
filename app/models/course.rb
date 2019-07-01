@@ -219,7 +219,7 @@ class Course < ApplicationRecord
   before_save :set_default_times
   before_save :check_course_times
   before_save :set_needs_update
-  before_create :ensure_home_wiki_in_courses_wikis
+  after_create :ensure_home_wiki_in_courses_wikis
 
   ####################
   # Instance methods #
@@ -425,7 +425,6 @@ class Course < ApplicationRecord
   # Makes sure that the home wiki
   # is always a part of courses wikis.
   def ensure_home_wiki_in_courses_wikis
-    return if home_wiki.nil?
     wikis.push(home_wiki) unless wikis.include? home_wiki
   end
 
