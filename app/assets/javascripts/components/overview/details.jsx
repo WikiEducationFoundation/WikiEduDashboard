@@ -373,12 +373,12 @@ const Details = createReactClass({
     // It is always visible if you're an admin.
     // It is always visible if it is P&E Dashboard.
     // It is visible if it is Wiki Education and is in Edit Mode
-    if (this.props.current_user.admin || !Features.wikiEd || (this.props.editable && Features.wikiEd)) {
+    if (this.props.current_user.admin || !Features.wikiEd || (this.props.editable && Features.wikiEd && !isClassroomProgramType)) {
       wikiSelector = (
         <div className="form-group home-wiki">
           <span className="text-input-component__label">
             <strong>
-              {I18n.t('courses.home_wiki')}:
+              {I18n.t('courses.home_wiki')}:&nbsp;
             </strong>
           </span>
           <WikiSelect
@@ -396,7 +396,7 @@ const Details = createReactClass({
         <div className="form-group multi-wiki">
           <span className="text-input-component__label">
             <strong>
-              {I18n.t('courses.multi_wiki')}:
+              {I18n.t('courses.multi_wiki')}:&nbsp;
             </strong>
           </span>
           <WikiSelect

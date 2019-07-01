@@ -2,8 +2,10 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
+
 
 /**
  *  A Wiki Selector Component that combines both language and project into a singular searchable
@@ -40,11 +42,31 @@ const WikiSelect = createReactClass({
   formatOption(wiki) {
     return {
       value: JSON.stringify(wiki),
-      label: `${wiki.language}.${wiki.project}.org`
+      label: this.url(wiki)
     };
   },
 
+  url(wiki) {
+    const subdomain = wiki.language || 'www';
+    return `${subdomain}.${wiki.project}.org`;
+  },
+
   render() {
+    if (this.props.readOnly) {
+      const lastIndex = this.props.wikis.length - 1;
+
+      const wikiList = _.map(this.props.wikis, (wiki, index) => {
+        const comma = (index !== lastIndex) ? ', ' : '';
+        const wikiUrl = this.url(wiki);
+        return <span key={wikiUrl}>{wikiUrl}{comma}</span>;
+      });
+      return (
+        <>
+          {wikiList}
+        </>
+      );
+    }
+
     // Used to set the already available wikis
     let wikis = [];
     if (this.props.wikis) {
@@ -88,22 +110,15 @@ const WikiSelect = createReactClass({
       callback(filterOptions(inputValue));
     };
 
-    const components = this.props.readOnly ? {
-      DropdownIndicator: () => null,
-      IndicatorSeparator: () => null
-    } : {}; // We don't want the users to be confused by these when it is read-only
-
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
       noOptionsMessage={() => null}
       value={wikis}
       loadOptions={loadOptions}
-      isSearchable={!this.props.readOnly}
       onChange={preprocess}
       styles={this.props.styles}
       isClearable={false}
-      components={components}
     />;
   }
 }
