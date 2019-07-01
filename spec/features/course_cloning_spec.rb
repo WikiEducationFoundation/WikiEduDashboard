@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe 'cloning a course', js: true do
   before do
+    stub_wiki_validation
     page.current_window.resize_to(1920, 1920)
     stub_oauth_edit
   end
@@ -35,7 +36,8 @@ describe 'cloning a course', js: true do
                     slug: 'OriginalSchool/CourseToClone_(OriginalTerm)',
                     subject: 'OrginalSubject',
                     end: 2.years.from_now.to_date, submitted: true,
-                    expected_students: 0)
+                    expected_students: 0,
+                    home_wiki_id: 3)
   end
   let!(:week) { create(:week, course_id: course.id) }
   let!(:block) { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
@@ -50,9 +52,9 @@ describe 'cloning a course', js: true do
   end
 
   it 'copies relevant attributes of an existing course' do
+    course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
     login_as user, scope: :user, run_callbacks: false
     visit root_path
-
     click_link 'Create Course'
     click_button 'Clone Previous Course'
     select course.title, from: 'reuse-existing-course-select'
@@ -104,5 +106,6 @@ describe 'cloning a course', js: true do
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
+    expect(new_course.wikis.count).to eq(3) # Check if the tracked wikis are cloned.
   end
 end

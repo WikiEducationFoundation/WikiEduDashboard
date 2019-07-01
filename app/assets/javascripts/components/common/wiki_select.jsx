@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
+import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
 /**
@@ -25,7 +26,18 @@ const WikiSelect = createReactClass({
     /**
      *  An array of { language, project }
      */
-    wikis: PropTypes.array
+    wikis: PropTypes.array,
+    /**
+     *  Home Wiki, a object { language, project }. Required if multi=true
+     */
+    homeWiki: PropTypes.object
+  },
+
+  formatOption(wiki) {
+    return {
+      value: JSON.stringify(wiki),
+      label: `${wiki.language}.${wiki.project}.org`
+    };
   },
 
   render() {
@@ -33,12 +45,34 @@ const WikiSelect = createReactClass({
     let wikis = [];
     if (this.props.wikis) {
       wikis = this.props.wikis.map((wiki) => {
-        return {
-          value: wiki,
-          label: `${wiki.language}.${wiki.project}.org`
-        };
+        wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
+        return this.formatOption(wiki);
       });
     }
+
+    // Home Wiki should appear first in the list of tracked wikis as in any other place it blocks
+    // the removal of a wiki via backspace. Removing a wiki by pressing 'X' still works
+    // but is bad UI and home wiki appearing first makes more sense anyway.
+    let home_wiki = this.props.homeWiki;
+    if (this.props.multi) {
+      home_wiki = this.formatOption(home_wiki);
+      wikis = ArrayUtils.removeObject(wikis, home_wiki);
+      wikis.unshift(home_wiki);
+    }
+
+    const preprocess = (wiki) => {
+      if (wiki) {
+        if (this.props.multi) {
+          wiki = wiki.map((w) => { return { value: JSON.parse(w.value), label: w.label }; });
+        } else {
+          const value = JSON.parse(wiki.value);
+          wiki = { label: wiki.label, value };
+        }
+        this.props.onChange(wiki);
+      } else {
+        this.props.onChange(this.props.multi ? [] : {});
+      }
+    };
 
     const filterOptions = function (val) {
       return WIKI_OPTIONS.filter(wiki =>
@@ -47,17 +81,17 @@ const WikiSelect = createReactClass({
     };
 
     const loadOptions = function (inputValue, callback) {
-        callback(filterOptions(inputValue));
+      callback(filterOptions(inputValue));
     };
 
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
-      defaultValue={wikis}
+      noOptionsMessage={() => null}
+      value={wikis}
       loadOptions={loadOptions}
-      defaultOptions={WIKI_OPTIONS.slice(0, 10)}
       isSearchable={true}
-      onChange={this.props.onChange}
+      onChange={preprocess}
       styles={this.props.styles}
       isClearable={false}
     />;

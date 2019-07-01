@@ -13,8 +13,10 @@ import Meetings from './meetings.jsx';
 
 import { fetchAllTrainingModules } from '../../actions/training_actions';
 
-import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
-  updateBlock, addBlock, deleteBlock, insertBlock, updateTitle, resetTitles, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
+import {
+  addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
+  updateBlock, addBlock, deleteBlock, insertBlock, updateTitle, resetTitles, restoreTimeline, deleteAllWeeks
+} from '../../actions/timeline_actions';
 import { getWeeksArray, getAvailableTrainingModules, editPermissions } from '../../selectors';
 
 const TimelineHandler = createReactClass({
@@ -79,6 +81,9 @@ const TimelineHandler = createReactClass({
   },
 
   render() {
+    if (this.props.course.loading) {
+      return <div />;
+    }
     const meetings = CourseDateUtils.meetings(this.props.course);
     const weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
@@ -149,7 +154,7 @@ const TimelineHandler = createReactClass({
           deleteWeek={this.props.deleteWeek}
           deleteAllWeeks={this.props.deleteAllWeeks}
           setBlockEditable={this.props.setBlockEditable}
-          resetState={() => {}}
+          resetState={() => { }}
           nameHasChanged={() => false}
           edit_permissions={this.props.editPermissions}
         />
@@ -161,7 +166,7 @@ const TimelineHandler = createReactClass({
 
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
-  loading: state.timeline.loading,
+  loading: state.timeline.loading || state.course.loading,
   editableBlockIds: state.timeline.editableBlockIds,
   availableTrainingModules: getAvailableTrainingModules(state),
   editPermissions: editPermissions(state)

@@ -384,9 +384,7 @@ en:
         What is covered in your course, and what will students be doing on Wikipedia?
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
-      course_language: Home language
       course_private: Private program (viewable only by admins and facilitators)
-      course_project: Home project
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
@@ -491,8 +489,8 @@ en:
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
-    home_wiki_language: Home Wiki Language
-    home_wiki_project: Home Wiki Project
+    home_wiki: Home Wiki
+    multi_wiki: Tracked Wikis
     instructor:
       one: Instructor
       other: Instructors
@@ -714,8 +712,8 @@ en:
         The program title and institution form the URL of the program. The home wiki
         is the main wiki where participants will be working, and edits on this wiki
         will tracked by default. If your program spans multiple languages or projects,
-        contributions will also be tracked for any wiki that has an 'Available Article'
-        or 'Assignment' for that wiki.
+        contributions will also be tracked for any wiki that has been explicitly added
+        to the "Tracked Wikis".
         Click "Create my Program!" to start building the page for your wiki program.
       new_or_clone: >
         Create a new program now, or use the 'clone' option to copy another program
@@ -1266,3 +1264,6 @@ en:
     not_started: "Not started"
     due: "due %{due_date}"
     assignment_status: "Training Assignment (%{status})"
+
+  multi_wiki:
+    selector_placeholder: "Select wiki"

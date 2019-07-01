@@ -32,6 +32,7 @@ class CoursesController < ApplicationController
       return
     end
     @course = course_creation_manager.create
+    update_courses_wikis
   end
 
   def update
@@ -39,6 +40,7 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
+    update_courses_wikis
     update_flags
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -235,6 +237,21 @@ class CoursesController < ApplicationController
     params
       .require(:course)
       .permit(:language, :project)
+  end
+
+  def courses_wikis_params
+    params
+      .require(:course)
+      .permit(wikis: [:language, :project])
+  end
+
+  def update_courses_wikis
+    multi_wikis = courses_wikis_params[:wikis]
+    return if multi_wikis.nil?
+    new_wikis = multi_wikis.map do |wiki|
+      Wiki.get_or_create(language: wiki[:language], project: wiki[:project])
+    end
+    @course.update_wikis(new_wikis)
   end
 
   def update_flags

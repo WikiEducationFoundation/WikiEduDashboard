@@ -122,6 +122,9 @@ class Course < ApplicationRecord
 
   has_many :tags, dependent: :destroy
 
+  has_many :courses_wikis, class_name: 'CoursesWikis', dependent: :destroy
+  has_many :wikis, through: :courses_wikis
+
   serialize :flags, Hash
 
   module ClonedStatus
@@ -216,6 +219,7 @@ class Course < ApplicationRecord
   before_save :set_default_times
   before_save :check_course_times
   before_save :set_needs_update
+  before_create :ensure_home_wiki_in_courses_wikis
 
   ####################
   # Instance methods #
@@ -259,10 +263,6 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def wiki_ids
-    ([home_wiki_id] + revisions.pluck(Arel.sql('DISTINCT wiki_id'))).uniq
-  end
-
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
@@ -283,6 +283,11 @@ class Course < ApplicationRecord
     return nil unless wiki_page?
     escaped_slug = slug.tr(' ', '_') # follow MediaWiki page name conventions: undescores for spaces
     "#{home_wiki.course_prefix}/#{escaped_slug}"
+  end
+
+  def update_wikis(updated_wikis)
+    update(wikis: updated_wikis)
+    ensure_home_wiki_in_courses_wikis
   end
 
   # The url for the on-wiki version of the course.
@@ -415,6 +420,13 @@ class Course < ApplicationRecord
     weeks.each_with_index do |week, i|
       week.update_attribute(:order, i + 1)
     end
+  end
+
+  # Makes sure that the home wiki
+  # is always a part of courses wikis.
+  def ensure_home_wiki_in_courses_wikis
+    return if home_wiki.nil?
+    wikis.push(home_wiki) unless wikis.include? home_wiki
   end
 
   private

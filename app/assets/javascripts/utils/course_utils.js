@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import ArrayUtils from './array_utils';
 
 export default class CourseUtils {
   // Given a course object with title, school and term properties,
@@ -23,11 +24,11 @@ export default class CourseUtils {
 
   // Regex of allowed characters for a course slug.
   static courseSlugRegex() {
-  // This regex is intended to match ascii word characters, dash,
-  // whitespace, comma, apostrophe, and any unicode "letter".
-  // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
-  // from the allowed characters, to be followed by zero or more of all allowed characters(including blank characters).
-  // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
+    // This regex is intended to match ascii word characters, dash,
+    // whitespace, comma, apostrophe, and any unicode "letter".
+    // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
+    // from the allowed characters, to be followed by zero or more of all allowed characters(including blank characters).
+    // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
     return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
   }
 
@@ -220,5 +221,18 @@ export default class CourseUtils {
       // If there is content, return it, otherwise return N/A
       return content.trim() ? category : `${category.trim()}\nN/A`;
     });
+  }
+
+
+  // Adds the home wiki if not present
+  // and removes the obsolete prev_wiki.
+  // wikis = [{ language, project }]
+  // home_wiki and prev_wiki = { language, project }
+  static normalizeWikis(wikis, home_wiki, prev_wiki = {}) {
+    if (!ArrayUtils.hasObject(wikis, home_wiki)) {
+      wikis.unshift(home_wiki);
+    }
+    wikis = ArrayUtils.removeObject(wikis, prev_wiki);
+    return wikis;
   }
 }

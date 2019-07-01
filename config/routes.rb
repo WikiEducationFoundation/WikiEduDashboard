@@ -362,7 +362,7 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
   resources :settings, only: [:index]
-  
+
   authenticate :user, lambda { |u| u.admin? } do
     post '/tickets/reply' => 'tickets#reply', format: false
     post '/tickets/notify_owner' => 'tickets#notify_owner', format: false
