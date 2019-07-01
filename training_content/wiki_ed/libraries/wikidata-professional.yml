@@ -1,0 +1,15 @@
+name: Wikidata Professional Development Training Modules
+id: 4
+exclude_from_index: false
+introduction: |
+  This set of modules covers the basics of contributing to Wikidata.
+categories:
+  - title: ''
+    description: ''
+    modules:
+      - slug: orientation-wikidata-professional
+        name: Orientation
+        description: An introduction to Wiki Education's Wikidata course
+      - slug: introduction-wikidata-professional
+        name: Introduction to Wikidata
+        description: An overview of Wikidata
