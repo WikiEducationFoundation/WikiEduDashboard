@@ -7,7 +7,7 @@
 # Set this to 'true' to enable Wiki Education-only features,
 # or set it to 'false' to enable the features used for the global community
 # instance of the Dashboard.
-  wiki_education: 'false'
+  wiki_education: 'true'
 
 # The name of the dashboard
   dashboard_title: Programs and Events Dashboard
