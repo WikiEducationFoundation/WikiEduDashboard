@@ -48,6 +48,12 @@ describe 'the explore page', type: :feature, js: true do
       find('#courses [data-sort="title"].sort').click
       expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
 
+      # Sortable by character count
+      find('#courses [data-sort="characters"].sort').click
+      expect(page).to have_selector('#courses [data-sort="characters"].sort.desc')
+      find('#courses [data-sort="characters"].sort').click
+      expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
+
       # Sortable by references count
       find('#courses [data-sort="references"].sort').click
       expect(page).to have_selector('#courses [data-sort="references"].sort.desc')
