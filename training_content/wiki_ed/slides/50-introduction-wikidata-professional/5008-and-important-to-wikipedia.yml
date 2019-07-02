@@ -1,0 +1,31 @@
+id: 5008
+title: "...and important to Wikipedia"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Screenshot_of_University_of_South_Africa_article_across_languages.png" />
+    <figcaption class="image-credit">
+      This image shows different enrollment values from different language Wikipedia articles for the same university.
+    </figcaption>
+  </figure>
+
+  Wikipedia exists in more than 300 languages, each with its own unique articles.
+  There are countless articles that exist in one language, but not another.
+  Wikidata, on the other hand, is language-agnostic.
+
+  For example the University of South Africa has individual Wikipedia articles
+  in more than 20 languages. As enrollment changes from year to year, information
+  needs to be updated on each Wikipedia language version or it will quickly go
+  out of date. If each Wikipedia language version pulls information from a
+  single Wikidata item, the data needs to be updated only once, and the person
+  updating it doesn't need to be comfortable with all — or any — of the languages
+  used in the various Wikipedia language versions where the article appears. If
+  all the versions pulled enrollment data from the same place, then all the
+  versions would be up-to-date (as long as Wikidata's values are up-to-date).
+
+  The structure of Wikidata also makes it easier to identify gaps in certain
+  language Wikipedias and allows the article-creation process to happen faster
+  by calling data from a central location.
+
+  Since data on Wikidata is centralized, users from any language can add to and
+  access it. This has implications for equity, collaboration, and access on a global scale.

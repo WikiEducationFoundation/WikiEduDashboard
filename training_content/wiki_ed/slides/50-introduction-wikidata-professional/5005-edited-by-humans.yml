@@ -1,0 +1,18 @@
+id: 5005
+title: "Read and edited by humans..."
+summary:
+content: |
+  Unlike some databases, everything on Wikidata is stored in a way that can be
+  read and understood by humans.
+
+  It's also editable - you can click the “edit” button to make changes to the database!
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Member_of_example_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      You can read information on Wikidata.
+    </figcaption>
+  </figure>
+
+  Behind the scenes, there's a community of people who make contributions to
+  Wikidata. We'll talk more about this community later on.

@@ -11,6 +11,13 @@ description: |
 
 estimated_ttc: 20 minutes
 slides:
-  - slug: what-is-wikidata # 5001
+  - slug: wikidata-definition # 5001
   - slug: open-wikidata # 5002
   - slug: multilingual-wikidata # 5003
+  - slug: structured-knowledge-base # 5004
+  - slug: edited-by-humans # 5005
+  - slug: and-by-machines # 5006
+  - slug: makes-wikidata-important # 5007
+  - slug: and-important-to-wikipedia # 5008
+  - slug: data-structure-wikidata #5009
+  - slug: presenting-facts-not-context #5010
