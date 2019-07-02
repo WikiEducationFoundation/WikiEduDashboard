@@ -9,7 +9,7 @@ description: |
   * be able to ask questions about linked data
   * be able to answer why Wikidata is important
 
-estimated_ttc: 20 minutes
+estimated_ttc: 25 minutes
 slides:
   - slug: wikidata-definition # 5001
   - slug: open-wikidata # 5002
@@ -21,3 +21,24 @@ slides:
   - slug: and-important-to-wikipedia # 5008
   - slug: data-structure-wikidata #5009
   - slug: presenting-facts-not-context #5010
+  - slug: wikidata-community #5011
+  - slug: introduction-review #5012
+  - slug: wikidata-language-quiz #5013
+  - slug: how-wikidata-works #5014
+  - slug: what-are-items #5015
+  - slug: what-are-properties #5016
+  - slug: what-are-statements #5017
+  - slug: what-are-identifiers #5018
+  - slug: what-are-qualifiers #5019
+  - slug: references-on-wikidata #5020
+  - slug: rank-on-wikidata #5021
+  - slug: how-parts-work-together #5022
+  - slug: how-parts-work-cont #5023
+  - slug: what-belongs-in-wikidata #5024
+  - slug: notability-wikidata #5025
+  - slug: data-ethics #5026
+  - slug: wikidata-introduction-activities #5027
+  - slug: wikidata-introduction-review #5028
+  - slug: wikidata-statements-quiz #5029
+  - slug: wikidata-values-quiz #5030
+  - slug: wikidata-introduction-done #5031

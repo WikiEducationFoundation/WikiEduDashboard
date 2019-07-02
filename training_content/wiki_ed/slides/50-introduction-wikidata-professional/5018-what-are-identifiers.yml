@@ -1,0 +1,23 @@
+id: 5018
+title: "Identifiers"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Identifiers_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      Identifiers are located at the bottom of a page. They link out to other databases that refer to the same concept, organization or person.
+    </figcaption>
+  </figure>
+
+  A very common kind of property is an **identifier**. Identifiers are unique,
+  standardized ways of referring to specific items from other databases that
+  explicitly represent specific items: names, organizations, concepts, etc. You
+  may be familiar with Virtual International Authority File (VIAF), Library of
+  Congress Authority ID, or Freebase ID as common identifiers. These are important
+  because you can link several IDs to the same Wikidata item to associate people,
+  concepts, and things across different databases or catalogs. (Wikidata has
+  more than 700 authority control identifiers as of 2019.)
+
+  Identifiers can also include accession numbers, stable URIs (Uniform Resource
+  Identifier encompass URLs and refer to a specific things instead of just web
+  addresses), authority control, and catalog identifiers.

@@ -1,0 +1,8 @@
+id: 5019
+title: "Qualifiers"
+summary:
+content:
+  Another kind of element in Wikidata is a **qualifier**. Qualifiers provide
+  more detail about a certain statement (for example, if you wanted to specify
+  the population of Montevideo at a certain point in time, the qualifier would
+  fall under the "population" property and take the value of a year).

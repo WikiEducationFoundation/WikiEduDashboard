@@ -1,0 +1,16 @@
+id: 5016
+title: "Properties"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Uruguay_property_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      An example of a property on Wikidata. It says that Uruguay is an instance of a sovereign state.
+    </figcaption>
+  </figure>
+
+  A **property** is a specific relationship that connects an item with a value. In
+  Wikidata properties are represented by the letter P followed by a number. The
+  "instance of" property, for example, is <code>P31</code>. A property always takes a **value**,
+  which in this case is sovereign state. A value can be text, a number or even
+  another item itself; sovereign state is the item <code>Q3624078</code>.

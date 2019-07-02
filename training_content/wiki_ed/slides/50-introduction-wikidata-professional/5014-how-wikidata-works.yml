@@ -1,0 +1,7 @@
+id: 5014
+title: "Part II: How does Wikidata work?"
+summary:
+content:
+  Wikidata is made up of many different elements, mainly **items**, **properties**,
+  **statements**, **identifiers**, **qualifiers**, **references**, and **rank**.
+  Let's break these down and talk about how they all work together.

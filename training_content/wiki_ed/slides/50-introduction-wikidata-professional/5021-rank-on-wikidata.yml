@@ -1,0 +1,19 @@
+id: 5021
+title: "Rank"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Uruguay_Wikidata_item_-_life_expectancy_-_preferred_rank.png" />
+    <figcaption class="image-credit">
+      Preferred rank for life expectancy in Uruguay
+    </figcaption>
+  </figure>
+
+  The final element in Wikidata is **rank**. Ranks allow for setting a preference
+  among multiple values that apply to the same property. You would use ranks for
+  changes in population, updated statistics about an item, or if there is
+  conflicting data about an item. Wikidata expresses *preferred rank* with the up
+  arrow, as you can see in the image above. The middle circle indicates *normal rank*
+  and the down arrow means *deprecated rank*. The preferred rank for life
+  expectancy of Uruguay is from 2016, the most recent data, although Wikidata
+  has values for life expectancy from as far back as 1999.
