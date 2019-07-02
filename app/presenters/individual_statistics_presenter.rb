@@ -31,6 +31,10 @@ class IndividualStatisticsPresenter
     end
   end
 
+  def individual_references_count
+    @articles_edited.values.sum { |article| article[:references] }
+  end
+
   def individual_upload_count
     @upload_usage_counts.length
   end
@@ -58,14 +62,22 @@ class IndividualStatisticsPresenter
     individual_courses.each do |course|
       individual_mainspace_edits(course).each do |edit|
         article_edits = @articles_edited[edit.article_id] || { new_article: false,
-                                                               views: 0, characters: {} }
+                                                               views: 0, characters: {},
+                                                               features: {}, features_previous: {} }
         article_edits[:characters][edit.mw_rev_id] = edit.characters
+        references_update(article_edits, edit)
         article_edits[:new_article] = true if edit.new_article
         # highest view count of all revisions for this article is the total for the article
         article_edits[:views] = edit.views if edit.views > article_edits[:views]
         @articles_edited[edit.article_id] = article_edits
       end
     end
+  end
+
+  def references_update(article_edits, edit)
+    current_refs = edit.features['feature.wikitext.revision.ref_tags'] || 0
+    prev_refs = edit.features_previous['feature.wikitext.revision.ref_tags'] || 0
+    article_edits[:references] = current_refs - prev_refs
   end
 
   def set_upload_usage_counts

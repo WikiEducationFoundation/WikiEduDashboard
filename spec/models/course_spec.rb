@@ -51,6 +51,8 @@
 require 'rails_helper'
 
 describe Course, type: :model do
+  let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+
   before do
     stub_wiki_validation
     TrainingModule.load_all
@@ -90,6 +92,12 @@ describe Course, type: :model do
           article_id: 1,
           date: Time.zone.today,
           characters: 9000,
+          features: {
+            refs_tags_key => 22
+          },
+          features_previous: {
+            refs_tags_key => 17
+          },
           views: 1234).save
 
     # Assign the article to the user.
@@ -121,6 +129,7 @@ describe Course, type: :model do
     course = Course.all.first
 
     expect(course.character_sum).to eq(9000)
+    expect(course.references_count).to eq(5)
     expect(course.view_sum).to eq(1234)
     expect(course.revision_count).to eq(1)
     expect(course.article_count).to eq(1)

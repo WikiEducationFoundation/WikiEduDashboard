@@ -43,7 +43,7 @@ const StudentDrawer = createReactClass({
       const article = rev.article;
       const label = this.props.wikidataLabels[article.title];
       const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
-      const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
+      const details = I18n.t('users.revision_characters_references_and_views', { characters: rev.characters, references: rev.references, views: rev.views });
       return (
         <tr key={rev.id}>
           <td>
@@ -55,6 +55,7 @@ const StudentDrawer = createReactClass({
           </td>
           <td className="desktop-only-tc date"><a href={rev.url} target="_blank">{moment(rev.date).format('YYYY-MM-DD   h:mm A')}</a></td>
           <td className="desktop-only-tc">{rev.characters}</td>
+          <td className="desktop-only-tc">{rev.references_added}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
             <DiffViewer
@@ -99,6 +100,7 @@ const StudentDrawer = createReactClass({
                 <th>{I18n.t('users.contributions')}</th>
                 <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
                 <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
+                <th className="desktop-only-tc">{I18n.t('metrics.references_count')}</th>
                 <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
                 <th className="desktop-only-tc" />
               </tr>

@@ -29,6 +29,12 @@
         = presenter.word_count
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
+      %span.references-human
+        = number_to_human(presenter.references_count)
+      %span.references.hidden
+        = presenter.references_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{campaign_path(campaign.slug)}"}
       %span.views-human
         = number_to_human(presenter.view_sum)
       %span.views.hidden

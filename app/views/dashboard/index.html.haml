@@ -104,6 +104,13 @@
                 %span.tooltip-indicator
                 .tooltip.dark
                   %p= course_i18n("word_count_doc")
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "references", style: "width: 172px;"}
+              .tooltip-trigger
+                = t("metrics.references_count")
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t("courses.references_doc")
             %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "views", style: "width: 125px;"}
               .tooltip-trigger
                 = t("metrics.view")

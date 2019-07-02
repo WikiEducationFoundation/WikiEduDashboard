@@ -17,6 +17,8 @@
             = t("articles.title")
           %option{rel: 'desc', value: 'char_added'}
             = t("metrics.char_added")
+          %option{rel: 'desc', value: 'references'}
+            = t("metrics.references_count")
           %option{rel: 'desc', value: 'views'}
             = t("metrics.view")
           %option{rel: 'asc', value: 'lang_project'}
@@ -37,6 +39,13 @@
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('articles.character_doc')
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
+            .tooltip-trigger
+              = t('metrics.references_count')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('articles.references_doc')
           %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views'}
             .tooltip-trigger
               = t('metrics.view')

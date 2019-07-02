@@ -21,6 +21,12 @@
         = course.average_word_count
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.references-human
+        = number_to_human course.references_count
+      %span.views.hidden
+        = course.references_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.views-human
         = number_to_human course.view_sum
       %span.views.hidden

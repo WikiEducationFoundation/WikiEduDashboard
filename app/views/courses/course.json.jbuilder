@@ -7,7 +7,7 @@ json.course do
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
-            :home_wiki, :character_sum, :upload_count, :uploads_in_use_count,
+            :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :private, :closed?,
             :training_library_slug)
 
@@ -33,6 +33,7 @@ json.course do
   json.student_count @course.user_count
   json.trained_count @course.trained_count
   json.word_count number_to_human @course.word_count
+  json.references_count number_to_human @course.references_count
   json.view_count number_to_human @course.view_sum
   json.character_sum_human number_to_human @course.character_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?

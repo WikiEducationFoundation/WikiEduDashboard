@@ -56,8 +56,10 @@ describe 'campaign programs page', type: :feature, js: true do
       expect(page).to have_selector('[data-sort="characters"].sort.desc')
 
       find('#courses select.sorts').find(:xpath, 'option[6]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      expect(page).to have_selector('[data-sort="references"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[7]').select_option
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      find('#courses select.sorts').find(:xpath, 'option[8]').select_option
       expect(page).to have_selector('[data-sort="students"].sort.desc')
     end
   end

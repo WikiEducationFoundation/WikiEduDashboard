@@ -13,6 +13,7 @@ describe 'course stats', type: :feature, js: true do
   let(:views)      { 10 }
   let(:chars)      { 10 }
   let(:student)    { 0 }
+  let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
   let(:article)    { create(:article, namespace: 0) }
   let!(:ac)        do
     create(:articles_course, course_id: course.id, article_id: article.id,
@@ -20,7 +21,12 @@ describe 'course stats', type: :feature, js: true do
   end
   let(:revision) do
     create(:revision, article_id: article.id, characters: chars,
-                      date: course.start + 1.day, user_id: user.id)
+                      features: {
+                        refs_tags_key => 22
+                      },
+                      features_previous: {
+                        refs_tags_key => 17
+                      }, date: course.start + 1.day, user_id: user.id)
   end
   let(:revision2) do
     create(:revision, article_id: article.id, new_article: true,
@@ -46,7 +52,9 @@ describe 'course stats', type: :feature, js: true do
     find('#student-editors').click
     expect(page.find('#trained-count')).to have_content trained
     word_count = WordCount.from_characters(chars * revisions.count)
+    references_count = revisions.sum(&:references_added)
     expect(page.find('#word-count')).to have_content word_count
+    expect(page.find('#references-added')).to have_content references_count
     expect(page.find('#view-count')).to have_content views.to_s
   end
 end

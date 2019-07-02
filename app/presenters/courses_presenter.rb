@@ -85,13 +85,18 @@ class CoursesPresenter
                     'SUM(article_count), ' \
                     'SUM(new_article_count), ' \
                     'SUM(view_sum), ' \
-                    'SUM(user_count)'
+                    'SUM(user_count), ' \
+                    'SUM(courses.references_count)'
   def course_sums
     @course_sums ||= courses.pluck(Arel.sql(COURSE_SUMS_SQL)).first
   end
 
   def word_count
     @word_count ||= WordCount.from_characters(course_sums[0] || 0)
+  end
+
+  def references_count
+    course_sums[5] || 0
   end
 
   def article_count

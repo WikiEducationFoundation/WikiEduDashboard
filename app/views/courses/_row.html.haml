@@ -13,6 +13,11 @@
     %span.average-words.hidden
       = course.average_word_count
   %td
+    %span.references-human
+      = number_to_human course.references_count
+    %span.references.hidden
+      = course.references_count
+  %td
     %span.views-human
       = number_to_human course.view_sum
     %span.views.hidden

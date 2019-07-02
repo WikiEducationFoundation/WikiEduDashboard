@@ -24,6 +24,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
+      <td className="desktop-only-tc">{revision.references_added}</td>
       <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
         <DiffViewer

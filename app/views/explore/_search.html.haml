@@ -14,6 +14,8 @@
               = t("metrics.word_count")
             %option{rel: 'desc', value: 'average-words'}
               = t("metrics.word_count_average")
+            %option{rel: 'desc', value: 'references'}
+              = t("metrics.references_count")
             %option{rel: 'desc', value: 'views'}
               = t("metrics.view")
             %option{rel: 'desc', value: 'students'}
@@ -47,6 +49,13 @@
                 %span.tooltip-indicator
                 .tooltip.dark
                   %p= course_i18n('word_count_doc')
+            %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references'}
+              .tooltip-trigger
+                = t('metrics.references_count')
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t('courses.references_doc')
             %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
               .tooltip-trigger
                 = t('metrics.view')

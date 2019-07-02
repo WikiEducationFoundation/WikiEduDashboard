@@ -59,6 +59,10 @@ const RevisionList = createReactClass({
         label: I18n.t('revisions.chars_added'),
         desktop_only: true
       },
+      references: {
+        label: I18n.t('revisions.references'),
+        desktop_only: true
+      },
       date: {
         label: I18n.t('revisions.date_time'),
         desktop_only: true,

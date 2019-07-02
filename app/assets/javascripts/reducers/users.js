@@ -15,6 +15,7 @@ const SORT_DESCENDING = {
   character_sum_us: true,
   character_sum_draft: true,
   recent_revisions: true,
+  references_count: true,
   total_uploads: true,
 
 };

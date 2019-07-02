@@ -29,8 +29,10 @@ describe 'the explore page', type: :feature, js: true do
       find('#courses select.sorts').find(:xpath, 'option[3]').select_option
       expect(page).to have_selector('[data-sort="characters"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[5]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      expect(page).to have_selector('[data-sort="references"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[6]').select_option
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
       expect(page).to have_selector('[data-sort="students"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('[data-sort="title"].sort.asc')
@@ -52,6 +54,12 @@ describe 'the explore page', type: :feature, js: true do
       find('#courses [data-sort="characters"].sort').click
       expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
 
+      # Sortable by references count
+      find('#courses [data-sort="references"].sort').click
+      expect(page).to have_selector('#courses [data-sort="references"].sort.desc')
+      find('#courses [data-sort="references"].sort').click
+      expect(page).to have_selector('#courses [data-sort="references"].sort.asc')
+
       # Sortable by view count
       find('#courses [data-sort="views"].sort').click
       expect(page).to have_selector('#courses [data-sort="views"].sort.desc')
@@ -67,6 +75,8 @@ describe 'the explore page', type: :feature, js: true do
   end
 
   describe 'rows' do
+    let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+
     it 'allows navigation to a campaign page' do
       visit '/explore'
       find('#campaigns .table tbody tr:first-child').click
@@ -90,7 +100,13 @@ describe 'the explore page', type: :feature, js: true do
              user: user,
              article_id: 1,
              date: 6.days.ago,
-             characters: 9000)
+             characters: 9000,
+             features: {
+               refs_tags_key => 22
+             },
+             features_previous: {
+               refs_tags_key => 17
+             })
       Course.update_all_caches
       visit '/explore'
 

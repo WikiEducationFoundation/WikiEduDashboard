@@ -24,6 +24,7 @@ const initialState = {
 
 const SORT_DESCENDING = {
   character_sum: true,
+  references_count: true,
   view_count: true
 };
 

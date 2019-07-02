@@ -21,6 +21,7 @@ describe ArticlesCourses, type: :model do
   let(:article) { create(:article) }
   let(:user) { create(:user) }
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
+  let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
   describe '.update_all_caches' do
     it 'updates data for article-course relationships' do
@@ -38,6 +39,12 @@ describe ArticlesCourses, type: :model do
              article: article,
              date: Time.zone.today,
              characters: 9000,
+             features: {
+               refs_tags_key => 22
+             },
+             features_previous: {
+               refs_tags_key => 17
+             },
              new_article: 1,
              views: 1234)
 
@@ -58,6 +65,7 @@ describe ArticlesCourses, type: :model do
 
       expect(article_course.view_count).to eq(1234)
       expect(article_course.new_article).to be true
+      expect(article_course.references_count).to eq(5)
       expect(article_course.character_sum).to eq(9000)
     end
   end
