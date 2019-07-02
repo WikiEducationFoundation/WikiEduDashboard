@@ -72,4 +72,23 @@ old-ie ?= false
 @import "_training_base"
 @import "modules/_nav"
 @import "modules/_language_picker"
+@import "modules/_tables"
 @import "training_modules/*"
+
+// Overwriting some table styles
+.training .training__slide
+  table
+    margin-bottom 20px
+  table td, table th
+    font-size 16px
+  table th
+    background $border_med
+    border 1px solid #ddd
+    border-bottom none
+    color $type_dark
+
+    &:first-child
+      border-left 1px solid #ddd
+    &:last-child
+      border-right 1px solid #ddd
+
