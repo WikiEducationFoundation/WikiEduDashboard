@@ -98,7 +98,7 @@ describe 'campaign overview page', type: :feature, js: true do
       stat_text = "#{word_count}\n#{I18n.t('metrics.word_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
-      # Words added
+      # References added
       references_count = Course.all.sum(:references_count)
       stat_text = "#{references_count}\n#{I18n.t('metrics.references_count')}"
       expect(page.find('.stat-display')).to have_content stat_text
