@@ -69,8 +69,19 @@ class Revision < ApplicationRecord
   end
 
   def references_added
-    current_refs = features['feature.wikitext.revision.ref_tags'] || 0
-    prev_refs = features_previous['feature.wikitext.revision.ref_tags'] || 0
-    current_refs - prev_refs
+  end
+
+  def ref_tags
+    features_previous['feature.wikitext.revision.ref_tags'] || 0
+  end
+
+  def ref_tags_previous
+    return 0 if new_article
+    features['feature.wikitext.revision.ref_tags']
+  end
+
+  def references_added
+    return 0 unless ref_tags_previous
+    ref_tags - ref_tags_previous
   end
 end
