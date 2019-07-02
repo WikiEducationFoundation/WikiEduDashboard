@@ -30,7 +30,7 @@ const CourseStats = ({ course }) => {
   }
 
   let refCount;
-  if (course.references_count !== 0) {
+  if (course.references_count !== '0') {
     refCount = (
       <div className="stat-display__stat" id="references-added">
         <div className={valueClass('references_count')}>{course.references_count}</div>
