@@ -21,8 +21,8 @@ import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
-import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
-import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
+import selectStyles from '../../styles/select';
+import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
@@ -84,6 +84,22 @@ const Details = createReactClass({
     if (Features.wikiEd) { return false; }
     // On P&E Dashboard, anyone with edit rights for the course may rename it.
     return true;
+  },
+
+  handleWikiChange(wiki) {
+    const home_wiki = wiki.value;
+    // Wiki object needs to be only { language, project }
+    // By the following line we omit the id attribute.
+    const { id, ...prev_wiki } = this.props.course.home_wiki;
+    const wikis = CourseUtils.normalizeWikis([...this.props.course.wikis], home_wiki, prev_wiki);
+    this.props.updateCourse({ ...this.props.course, wikis, home_wiki });
+  },
+
+  handleMultiWikiChange(wikis) {
+    wikis = wikis.map(wiki => wiki.value);
+    const { id, ...home_wiki } = this.props.course.home_wiki;
+    wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
+    this.props.updateCourse({ ...this.props.course, wikis });
   },
 
   poll() {
@@ -241,8 +257,9 @@ const Details = createReactClass({
     let wikiEditsToggle;
     let editSettingsToggle;
     let withdrawnSelector;
-    let projectSelector;
-    let languageSelector;
+    let wikiSelector;
+    let multiWikiSelector;
+
     if (this.props.current_user.admin) {
       subject = (
         <TextInput
@@ -351,19 +368,46 @@ const Details = createReactClass({
         );
       }
     }
+    const home_wiki = { language: this.props.course.home_wiki.language, project: this.props.course.home_wiki.project };
 
-    if (this.props.editable && !Features.wikiEd) {
-      projectSelector = (
-        <HomeWikiProjectSelector
-          course={this.props.course}
-          updateCourse={this.props.updateCourse}
-        />
+    // It is always visible if you're an admin.
+    // It is always visible if it is P&E Dashboard.
+    // It is visible if it is Wiki Education and is in Edit Mode
+    if (this.props.current_user.admin || !Features.wikiEd || (this.props.editable && Features.wikiEd && !isClassroomProgramType)) {
+      wikiSelector = (
+        <div className="form-group home-wiki">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.home_wiki')}:&nbsp;
+            </strong>
+          </span>
+          <WikiSelect
+            wikis={
+              [home_wiki]
+            }
+            readOnly={!this.props.editable}
+            onChange={this.handleWikiChange}
+            multi={false}
+            styles={{ ...selectStyles, singleValue: null }}
+          />
+        </div>
       );
-      languageSelector = (
-        <HomeWikiLanguageSelector
-          course={this.props.course}
-          updateCourse={this.props.updateCourse}
-        />
+      multiWikiSelector = (
+        <div className="form-group multi-wiki">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.multi_wiki')}:&nbsp;
+            </strong>
+          </span>
+          <WikiSelect
+            wikis={this.props.course.wikis}
+            homeWiki={home_wiki}
+            readOnly={!this.props.editable}
+            onChange={this.handleMultiWikiChange}
+            multi={true}
+            styles={{ ...selectStyles, singleValue: null }}
+          />
+        </div>
       );
     }
 
@@ -384,6 +428,8 @@ const Details = createReactClass({
               {school}
               {title}
               {term}
+              {wikiSelector}
+              {multiWikiSelector}
               <form>
                 {passcode}
                 {expectedStudents}
@@ -425,8 +471,6 @@ const Details = createReactClass({
               {wikiEditsToggle}
               {editSettingsToggle}
               {withdrawnSelector}
-              {projectSelector}
-              {languageSelector}
             </div>
           </div>
           {campaigns}

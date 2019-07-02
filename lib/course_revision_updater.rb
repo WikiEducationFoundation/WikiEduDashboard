@@ -17,19 +17,9 @@ class CourseRevisionUpdater
     @course = course
   end
 
-  def default_wiki_ids
-    wiki_ids = [@course.home_wiki.id]
-    # For Programs & Events Dashboard, pull in Wikidata edits by default for all
-    # courses.
-    wiki_ids << Wiki.get_or_create(language: nil, project: 'wikidata').id unless Features.wiki_ed?
-    wiki_ids
-  end
-
   def update_revisions_for_relevant_wikis(all_time)
-    wiki_ids = @course.assignments.pluck(:wiki_id) + default_wiki_ids
-    wiki_ids.uniq.each do |wiki_id|
-      RevisionImporter.new(Wiki.find(wiki_id), @course)
-                      .import_revisions_for_course(all_time: all_time)
+    @course.wikis.each do |wiki|
+      RevisionImporter.new(wiki, @course).import_revisions_for_course(all_time: all_time)
     end
   end
 end

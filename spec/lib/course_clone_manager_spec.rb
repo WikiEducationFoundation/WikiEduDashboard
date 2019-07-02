@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/course_clone_manager"
 
 describe CourseCloneManager do
   before do
+    stub_wiki_validation
     create(:course,
            id: 1,
            school: 'School',

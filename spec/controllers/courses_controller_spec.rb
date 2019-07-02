@@ -140,6 +140,43 @@ describe CoursesController, type: :request do
       end
     end
 
+    it 'includes the home wiki in courses wikis' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(2)
+    end
+
+    it 'adds more than one wikis' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      course_params[:wikis].push(language: 'fr', project: 'wikipedia')
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(3)
+    end
+
+    it 'removes a wiki' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(2)
+      course.reload
+      course_params[:wikis].pop
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(1)
+    end
+
+    it 'adds the incoming wiki and removes the deleted wiki' do
+      course_params[:wikis] = [{ language: 'de', project: 'wikipedia' }]
+      params = { id: course.slug, course: course_params }
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.count).to eq(2)
+      course.reload
+      course_params[:wikis][0][:language] = 'fr'
+      put "/courses/#{course.slug}", params: params, as: :json
+      expect(course.wikis.last.language).to eq('fr')
+    end
+
     context 'setting passcode' do
       let(:course) { create(:course, slug: slug_params) }
 
@@ -295,8 +332,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'ar',
-            project: 'wikibooks' }
+            home_wiki: {
+              language: 'ar',
+              project: 'wikibooks'
+            } }
         end
 
         it 'sets the non-default home_wiki' do
@@ -318,8 +357,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'arrr',
-            project: 'wikipirates' }
+            home_wiki: {
+              language: 'arrr',
+              project: 'wikipirates'
+            } }
         end
 
         it 'renders a 404 and does not create the course' do
@@ -337,8 +378,10 @@ describe CoursesController, type: :request do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            language: 'en',
-            project: 'wikipedia' }
+            home_wiki: {
+              language: 'en',
+              project: 'wikipedia'
+            } }
         end
 
         it 'renders a 404 and does not create the course when school is blank' do

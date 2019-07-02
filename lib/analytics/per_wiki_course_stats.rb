@@ -3,7 +3,7 @@
 class PerWikiCourseStats
   def initialize(course)
     @course = course
-    @wikis = Wiki.where(id: course.wiki_ids)
+    @wikis = @course.wikis
   end
 
   def stats

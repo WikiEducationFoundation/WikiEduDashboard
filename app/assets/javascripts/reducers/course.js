@@ -29,11 +29,14 @@ const initialState = {
   end: null,
   timeline_start: null,
   timeline_end: null,
+  home_wiki: { language: 'en', project: 'wikipedia' },
   day_exceptions: '',
   weekdays: '0000000',
   editingSyllabus: false,
   training_library_slug: 'students',
-  loading: true
+  loading: true,
+  updates: {},
+  wikis: []
 };
 
 

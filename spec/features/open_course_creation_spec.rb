@@ -53,8 +53,9 @@ describe 'open course creation', type: :feature, js: true do
     click_link 'Create an Independent Program'
     choose_course_type
     fill_out_open_course_creator_form
-    fill_in 'Home language:', with: 'ta'
-    fill_in 'Home project', with: 'wiktionary'
+    within '.home-wiki' do
+      find('input').send_keys('ta.wiktionary', :enter)
+    end
     click_button 'Next'
     fill_out_open_course_creator_dates_form
     all('.time-input__hour')[0].find('option[value="15"]').select_option

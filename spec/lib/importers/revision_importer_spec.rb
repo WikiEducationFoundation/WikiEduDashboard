@@ -57,7 +57,7 @@ describe RevisionImporter do
         VCR.use_cassette 'revision_importer/all' do
           subject
         end
-        expect(Revision.count).to be_within(3).of(77)
+        expect(Revision.count).to be > 77
       end
     end
 
@@ -74,7 +74,7 @@ describe RevisionImporter do
         VCR.use_cassette 'revision_importer/newer' do
           subject
         end
-        expect(Revision.count).to be_within(3).of(54)
+        expect(Revision.count).to be > 54
       end
     end
 
