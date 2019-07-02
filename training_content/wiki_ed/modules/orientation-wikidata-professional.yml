@@ -5,11 +5,11 @@ description: |
 
 estimated_ttc: 10 minutes
 slides:
-  - slug: welcome # 4901
-  - slug: sign-up # 4902
-  - slug: whats-the-dashboard # 4903
-  - slug: peruse-trainings # 4904
-  - slug: talk-to-each-other # 4905
-  - slug: using-slack # 4906
-  - slug: using-zoom # 4907
-  - slug: what-now # 4908
+  - slug: welcome-wikidata # 4901
+  - slug: sign-up-wikidata # 4902
+  - slug: whats-the-dashboard-wikidata # 4903
+  - slug: peruse-trainings-wikidata # 4904
+  - slug: talk-to-each-other-wikidata # 4905
+  - slug: using-slack-wikidata # 4906
+  - slug: using-zoom-wikidata # 4907
+  - slug: what-now-wikidata # 4908

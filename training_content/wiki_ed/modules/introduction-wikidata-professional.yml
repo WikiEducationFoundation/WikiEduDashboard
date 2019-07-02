@@ -3,11 +3,14 @@ id: 50
 description: |
   Welcome to Wikidata! In this module you will...
 
-    *learn what Wikidata is
-    *explore key concepts and vocabulary
-    *understand how Wikidata relates to other Wikimedia projects
-    *be able to ask questions about linked data
-    *be able to answer why Wikidata is important
+  * learn what Wikidata is
+  * explore key concepts and vocabulary
+  * understand how Wikidata relates to other Wikimedia projects
+  * be able to ask questions about linked data
+  * be able to answer why Wikidata is important
+
 estimated_ttc: 20 minutes
 slides:
-  - slug: part-I #5001
+  - slug: what-is-wikidata # 5001
+  - slug: open-wikidata # 5002
+  - slug: multilingual-wikidata # 5003
