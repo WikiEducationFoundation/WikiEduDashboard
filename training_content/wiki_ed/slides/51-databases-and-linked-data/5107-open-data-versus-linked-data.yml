@@ -1,0 +1,14 @@
+id: 5107
+title: "Open Data vs Linked Data"
+summary:
+content: |
+  **Remember**: "Open data" is not synonymous with "linked data." Open data
+  refers to data published without restrictions or control mechanisms. Documents
+  (like PDFs or DOCs) can be published as open data, but that doesn't mean that
+  they follow linked data standards. Documents can be published with closed
+  standards like copyright or a form of encryption. Similarly, linked data
+  does not have to be open. Linked data can exist in a password-protected system
+  or exist on a local server, but still follow linked data formatting. Although
+  these phrases refer to different concepts, combining them is very powerful.
+  Wikidata happens to both follow open data standards (CC0) and contain linked
+  data.

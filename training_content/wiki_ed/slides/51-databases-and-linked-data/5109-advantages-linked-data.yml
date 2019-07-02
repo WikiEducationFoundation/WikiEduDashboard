@@ -1,0 +1,12 @@
+id: 5109
+title: "Advantages of linked data"
+summary:
+content: |
+  * Linked data formats (like RDF) work well for mass editing.
+  * Multiple ways of describing items (data models, ontologies, hierarchies)
+  can exist within the same system (even conflicting values!).
+  * Linked data can be edited, queried, and updated quickly.
+  * By virtue of linking, more relevant resources will be more visible/easily
+  discoverable to users.
+  * The more information there is associated with an item, the easier it is for
+  users to pivot to related concepts, associated images, or similar items in a click.
