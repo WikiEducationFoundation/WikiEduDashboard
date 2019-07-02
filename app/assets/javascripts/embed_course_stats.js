@@ -30,10 +30,10 @@ const EmbedCourseStats = () => {
   if (course.references_count !== 0) {
     refCount = (
       <div className="stat-display__stat" id="references-added">
-        <div className={valueClass('references_count')}>{course.references_count}</div>
-        <small>{I18n.t('metrics.references_count')}</small>
-      </div>
-    );
+      <div className="stat-display__value">{course.references_count}</div>
+      <small>{I18n.t('metrics.references_count')}</small>
+    </div>
+  );
   }
 
   if (course.upload_usages_count === undefined) {
