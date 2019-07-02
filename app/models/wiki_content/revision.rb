@@ -68,9 +68,6 @@ class Revision < ApplicationRecord
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
 
-  def references_added
-  end
-
   def ref_tags
     features_previous['feature.wikitext.revision.ref_tags'] || 0
   end
