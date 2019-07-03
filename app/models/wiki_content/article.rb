@@ -76,7 +76,7 @@ class Article < ApplicationRecord
     Namespaces::TEMPLATE_TALK => 'Template_talk:',
     Namespaces::DRAFT => 'Draft:',
     Namespaces::DRAFT_TALK => 'Draft_talk:',
-    Namespaces::PROPERTY => 'Propery:',
+    Namespaces::PROPERTY => 'Property:',
     Namespaces::QUERY => 'Query:',
     Namespaces::LEXEME => 'Lexeme:'
   }.freeze
