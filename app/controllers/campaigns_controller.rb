@@ -189,6 +189,16 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def revisions_csv
+    filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
+    respond_to do |format|
+      format.csv do
+        send_data CampaignCsvBuilder.new(@campaign).revisions_to_csv,
+                  filename: filename
+      end
+    end
+  end
+
   private
 
   def require_create_permissions
