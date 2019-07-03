@@ -66,13 +66,14 @@ describe Revision, type: :model do
     end
 
     context 'Not the first revision, but previous revision data is not available' do
-      let(:revision) {
+      let(:revision) do
         create(:revision,
                new_article: false,
                features: {
                  refs_tags_key => 10
                })
-      }
+      end
+
       it 'should return 0 references added' do
         expect(revision.references_added).to eq(0)
       end
