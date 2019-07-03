@@ -1,0 +1,18 @@
+id: 5006
+title: "...and machines"
+summary:
+content: |
+  Every item is known by its **Q-number** as a unique identifier, and labeled in
+  different languages and variations. Wikidata records 220 variations of the
+  former Libyan leader's name, but because they're all tied to a single Q number,
+  there's no confusion.
+
+  Machine-readability also allows bots to edit Wikidata.
+
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Muammar_al-Gaddafi_Wikidata_items.png" />
+    <figcaption class="image-credit">
+      Because of its data structure, Wikidata is machine readable too.
+    </figcaption>
+  </figure>

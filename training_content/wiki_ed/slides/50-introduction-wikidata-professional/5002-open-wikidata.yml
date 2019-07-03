@@ -1,0 +1,17 @@
+id: 5002
+title: "Open"
+summary:
+content: |
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Screenshot_of_CC0_public_domain_dedication.png" />
+    <figcaption class="image-credit">
+      CC0 license means this data is free and open.
+    </figcaption>
+  </figure>
+
+  All content on Wikidata is available under a CC0 license. This means both the
+  information and the data structures are in the public domain. You may freely
+  use, share, and remix data that is CC0 license. The combination of open data
+  and an open data structure are free and open, this encourages people to combine
+  their own data with Wikidata, and allows for the use of tools to manipulate
+  and interpret the data in a variety of ways.

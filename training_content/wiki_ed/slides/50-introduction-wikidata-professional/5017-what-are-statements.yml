@@ -1,0 +1,16 @@
+id: 5017
+title: "Statements"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Uruguay_statement_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      A statement is an item-property-value. In this image, Uruguay (item) is an instance of (property) a sovereign state (value).
+    </figcaption>
+  </figure>
+
+  The item-property-value is a triple that constitutes a **statement**. Multiple
+  statements are stored within a single item.
+
+  Understanding that statements on Wikidata consist of an item-property-value is
+  the core to understanding how Wikidata works.

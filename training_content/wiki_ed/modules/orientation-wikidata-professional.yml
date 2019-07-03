@@ -1,0 +1,15 @@
+name: Wikidata course orientation (Professional)
+id: 49
+description: |
+  Welcome to your Wikidata course! Here's some context for what we'll be doing.
+
+estimated_ttc: 10 minutes
+slides:
+  - slug: welcome-wikidata # 4901
+  - slug: sign-up-wikidata # 4902
+  - slug: whats-the-dashboard-wikidata # 4903
+  - slug: peruse-trainings-wikidata # 4904
+  - slug: talk-to-each-other-wikidata # 4905
+  - slug: using-slack-wikidata # 4906
+  - slug: using-zoom-wikidata # 4907
+  - slug: what-now-wikidata # 4908

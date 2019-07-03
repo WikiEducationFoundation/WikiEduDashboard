@@ -1,0 +1,16 @@
+id: 5004
+title: "Structured knowledge base"
+summary:
+content: |
+  Wikidata records not just statements, but also the relationships between those
+  statements. This makes it possible to search for information in a structured way.
+
+  <figure class="alt-layout-50">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Knowledge_base_Wikidata.png" />
+    <figcaption class="image-credit">
+      This is how things relate to each other on Wikidata.
+    </figcaption>
+  </figure>
+
+  These relationships between things make Wikidata a powerful resource for the
+  entire internet, illustrating how millions of pieces of data relate to each other.
