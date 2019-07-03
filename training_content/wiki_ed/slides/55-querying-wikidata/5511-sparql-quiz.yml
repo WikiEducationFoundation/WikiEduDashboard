@@ -1,0 +1,33 @@
+id: 5511
+title: "Quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    What does the syntax of the statement ?item wdt:P31 wd:Q146 reflect?
+  answers:
+    - id: 1
+      text: |
+        The item - property - value triple.
+      explanation: |
+        INCORRECT! This is picky, but this statement asks for items that satisfy
+        having the property P31 and the item number Q146. It's not quite a
+        item-property-value triple, but the answers you get will be.
+    - id: 2
+      text: |
+        Complex and inscrutable code used by computer programmers.
+      explanation: |
+        INCORRECT! Although it looks complicated there is meaning behind this statement.
+    - id: 3
+      text: |
+        Please give me an item that is an instance of a house cat.
+      explanation: |
+        CORRECT! In SPARQL that is how you write show me items that are a house cat.
+    - id: 4
+      text: |
+        It's alphabet soup to me.
+      explanation: |
+        It may seem complicated at the beginning, but the more you practice, the
+        sooner you will get used to what all of the SPARQL syntax is and what it
+        means.
