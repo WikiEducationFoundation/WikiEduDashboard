@@ -1,0 +1,31 @@
+id: 5423
+title: "References quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 2
+  question: |
+    When should you add references?
+  answers:
+    - id: 1
+      text: |
+        Only add references to controversial statements.
+      explanation: |
+        INCORRECT! All statements should have a reference - regardless of whether
+        or not they are controversial.
+    - id: 2
+      text: |
+        Only add references if the statement isn't common knowledge.
+      explanation: |
+        INCORRECT! Even if it's common knowledge, it doesn't hurt to have a reference.
+    - id: 3
+      text: |
+        Only add references if the source exists as a Wikidata item already.
+      explanation: |
+        INCORRECT! You can add references that are external to Wikidata.
+    - id: 4
+      text: |
+        Only add references to statements that aren't "imported from Wikipedia".
+      explanation: |
+        INCORRECT! Imported from Wikipedia is a valid reference since all
+        Wikipedia articles contain references themselves.

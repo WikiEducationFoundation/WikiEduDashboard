@@ -1,0 +1,20 @@
+id: 5405
+title: "References"
+summary:
+content: |
+  <figure class="alt-layout-80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Datamodel_in_Wikidata.svg" />
+    <figcaption class="image-credit">
+      Every statement requires a reference so readers can see where that information came from.
+    </figcaption>
+  </figure>
+
+  Finally, there are references. References are a key part of creating reliable
+  information on Wikidata. Without references, it's impossible to evaluate the
+  quality or accuracy of the information on Wikidata.
+
+  You may notice that the value has a Q number of its own. That isn't always the
+  case; many values are simply numbers or text. But when the value is a thing
+  (in this case, a college at Cambridge), it needs to be a Wikidata item itself.
+
+  What happens if the item doesn't exist? In that case, you'll need to create it.

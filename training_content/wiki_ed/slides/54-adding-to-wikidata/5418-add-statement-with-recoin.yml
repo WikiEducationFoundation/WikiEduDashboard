@@ -1,0 +1,18 @@
+id: 5418
+title: "Add a statement with Recoin"
+summary:
+content: |
+  If you have information for one of the missing properties, and there's a +
+  symbol next to the property, you can click on it to enter the missing value.
+
+  When you click on the symbol, a box pops up. Start typing and suggestions will
+  pop up. Pick one (or keep typing until the right one pops up) and then click
+  Publish. If no option pops up, and you get a pink box that says "No match was
+  found", you may need to create a new item for that value.
+
+  Once you have clicked publish, you are not done. Scroll down to the statement
+  you just created and see if there's a ! or ? next to it, indicating there's a
+  constraint issue. Fix it if you can (clicking on the symbol will give you some
+  more information).
+
+  Now you're a Wikidata editor!
