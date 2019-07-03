@@ -830,6 +830,7 @@ en:
 
   revisions:
     chars_added: Chars Added
+    references: References Added
     class: Class
     date_time: Date/Time
     diff: diff
