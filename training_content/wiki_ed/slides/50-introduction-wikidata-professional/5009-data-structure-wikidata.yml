@@ -8,4 +8,4 @@ content: |
   allows for detailed, expressive querying, and makes the data machine-readable.
 
   At the heart of each document is the **statement**, a three-part structure
-  that connects an **item*, a **property** and a **value**.
+  that connects an **item**, a **property** and a **value**.
