@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/wiki_preferences_manager"
 
 describe SelfEnrollmentController, type: :request do
   let(:slug_params) { 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)' }
+  let(:enroll_url) { "/courses/#{course.slug}/enroll/#{course.passcode}" }
 
   describe '#enroll_self' do
     subject { response.status }
@@ -27,7 +28,7 @@ describe SelfEnrollmentController, type: :request do
         # Course is not in any campaigns, so enrollment will fail.
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+          get enroll_url, params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(0)
         end
@@ -44,10 +45,28 @@ describe SelfEnrollmentController, type: :request do
             expect(course.user_count).to eq(0)
             expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
             expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
-            get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+            get enroll_url, params: request_params
             expect(subject).to eq(302)
             expect(course.students.count).to eq(1)
             expect(course.reload.user_count).to eq(1)
+          end
+
+          it 'returns a JSON success message' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+            expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
+            get enroll_url, params: request_params.merge(format: :json)
+            expect(subject).to eq(200)
+            expect(course.students.count).to eq(1)
+          end
+        end
+
+        context 'when the passcode is wrong' do
+          let(:enroll_url) { "/courses/#{course.slug}/enroll/wrong_passcode" }
+
+          it 'redirects a JSON request' do
+            get enroll_url, params: request_params.merge(format: :json)
+            expect(request).to redirect_to errors_incorrect_passcode_path(format: :json)
+            expect(course.students.count).to eq(0)
           end
         end
 
@@ -62,8 +81,14 @@ describe SelfEnrollmentController, type: :request do
 
             it 'redirects without enrolling the user' do
               expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-              get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+              get enroll_url, params: request_params
               expect(subject).to eq(302)
+              expect(course.students.count).to eq(0)
+            end
+
+            it 'returns an JSON failure code and message' do
+              get enroll_url, params: request_params.merge(format: :json)
+              expect(subject).to eq(400)
               expect(course.students.count).to eq(0)
             end
           end
@@ -82,7 +107,7 @@ describe SelfEnrollmentController, type: :request do
 
             it 'enrolls user (and redirects) and updates the user count' do
               stub_oauth_edit
-              get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+              get enroll_url, params: request_params
               expect(subject).to eq(302)
               expect(course.students.count).to eq(1)
             end
@@ -94,8 +119,14 @@ describe SelfEnrollmentController, type: :request do
 
           it 'redirects without enrolling the user' do
             expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-            get "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+            get enroll_url, params: request_params
             expect(subject).to eq(302)
+            expect(course.students.count).to eq(0)
+          end
+
+          it 'returns an JSON failure code and message' do
+            get enroll_url, params: request_params.merge(format: :json)
+            expect(subject).to eq(400)
             expect(course.students.count).to eq(0)
           end
         end
@@ -105,7 +136,7 @@ describe SelfEnrollmentController, type: :request do
     # This is the HTTP verb that MS Word links use (for some reason)
     context 'HEAD' do
       it "doesn't error" do
-        head "/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params
+        head enroll_url, params: request_params
         expect(subject).to eq(200)
       end
     end
@@ -116,7 +147,7 @@ describe SelfEnrollmentController, type: :request do
       end
 
       it 'redirects to mediawiki for OAuth' do
-        expect(get("/courses/#{course.slug}/enroll/#{course.passcode}", params: request_params))
+        expect(get(enroll_url, params: request_params))
           .to redirect_to(/.*mediawiki.*/)
       end
     end
