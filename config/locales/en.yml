@@ -255,7 +255,9 @@ en:
     data_courses: Course overview data
     data_courses_info: Basic metrics for each course/program
     data_articles: Pages edited
+    data_revisions: Revisions
     data_articles_info: Details about each tracked page edited by the campaign
+    data_revisions_info: Details about each revisions of this campaign
     data_instructors: Instructors
     data_instructors_info: List of instructors/facilitators and their courses/programs
     data_editors_by_course: Editors by course

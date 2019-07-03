@@ -30,6 +30,17 @@ class CampaignCsvBuilder
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
+  def revisions_to_csv
+    csv_data = [CourseCsvBuilder::CSV_HEADERS]
+    @campaign.courses.each do |course|
+      CourseCsvBuilder.new(course).revisions_rows.each do |row|
+        csv_data << row
+      end
+    end
+
+    CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
   class AllCourses
     def self.courses
       Course.all
