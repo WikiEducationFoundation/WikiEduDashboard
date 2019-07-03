@@ -6,36 +6,7 @@ import CourseLevelSelector from './course_level_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
-
-const createReactClass = require('create-react-class');
-
-const Application = createReactClass({
-
-  getInitialState: function () {
-    return {
-      selectedOption: 'Semester'
-    };
-  },
-
-  handleChange: function () {
-    this.props.onChange(this.props.myValue);
-  },
-
-  render: function () {
-    return (
-      <div>
-        <label>
-          <input type = "radio" name="khyati" defaultChecked={this.state.selectedOption === 'Semester'} onChange={this.handleOptionChange}/>
-          Semester
-        </label>
-        <label>
-          <input type = "radio" name="khyati" defaultChecked={this.state.selectedOption === 'Quarter'} onChange={this.handleOptionChange}/>
-          Quarter
-        </label>
-      </div>
-    );
-  }
-});
+import AcademicSystem from '../common/academic_system.jsx';
 
 const CourseForm = (props) => {
   const updateCoursePrivacy = (e) => {
@@ -160,7 +131,7 @@ const CourseForm = (props) => {
           <strong>
             {I18n.t('courses_generic.school_system')}:
           </strong>
-          <Application/>
+          <AcademicSystem/>
         </span>
       </div>
     );
