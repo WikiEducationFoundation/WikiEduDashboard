@@ -320,6 +320,7 @@ en:
     label: Chat
 
   courses:
+    school_system: Academic System
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
       If enabled, the dashboard will post a template to the talk page
@@ -685,6 +686,7 @@ en:
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
+    school_system: Academic System
     add_campaign: Add campaign
     all_courses: All Programs
     archived: Archived Programs

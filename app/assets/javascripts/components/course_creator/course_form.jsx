@@ -7,6 +7,36 @@ import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 
+const createReactClass = require('create-react-class');
+
+const Application = createReactClass({
+
+  getInitialState: function () {
+    return {
+      selectedOption: 'Semester'
+    };
+  },
+
+  handleChange: function () {
+    this.props.onChange(this.props.myValue);
+  },
+
+  render: function () {
+    return (
+      <div>
+        <label>
+          <input type = "radio" name="khyati" defaultChecked={this.state.selectedOption === 'Semester'} onChange={this.handleOptionChange}/>
+          Semester
+        </label>
+        <label>
+          <input type = "radio" name="khyati" defaultChecked={this.state.selectedOption === 'Quarter'} onChange={this.handleOptionChange}/>
+          Quarter
+        </label>
+      </div>
+    );
+  }
+});
+
 const CourseForm = (props) => {
   const updateCoursePrivacy = (e) => {
     const isPrivate = e.target.checked;
@@ -102,6 +132,7 @@ const CourseForm = (props) => {
   let backButton;
   let home_wiki;
   let multi_wiki;
+  let school_system;
 
   if (props.course.wikis && !props.course.wikis.length) {
     props.course.wikis.push({ language: 'en', project: 'wikipedia' });
@@ -121,6 +152,16 @@ const CourseForm = (props) => {
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
         />
+      </div>
+    );
+    school_system = (
+      <div className="form-group academic_system">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses_generic.school_system')}:
+          </strong>
+          <Application/>
+        </span>
       </div>
     );
     multi_wiki = (
@@ -190,6 +231,7 @@ const CourseForm = (props) => {
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
           placeholder={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
         />
+        {school_system}
         {term}
         {subject}
         {expectedStudents}
