@@ -34,7 +34,7 @@ const CampaignStatsDownloadModal = ({ match }) => {
       </p>
       <hr />
       <p>
-        <a href={articlesEditedLink} className="button right">{I18n.t('campaign.data_revisions')}</a>
+        <a href={RevisionsLink} className="button right">{I18n.t('campaign.data_revisions')}</a>
         {I18n.t('campaign.data_revisions_info')}
       </p>
       <hr />
