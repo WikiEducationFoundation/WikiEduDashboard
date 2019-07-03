@@ -42,10 +42,7 @@ describe ArticlesCourses, type: :model do
              features: {
                refs_tags_key => 22
              },
-             features_previous: {
-               refs_tags_key => 17
-             },
-             new_article: 1,
+             new_article: true,
              views: 1234)
 
       # Deleted revision, which should not count towards stats.
@@ -65,7 +62,7 @@ describe ArticlesCourses, type: :model do
 
       expect(article_course.view_count).to eq(1234)
       expect(article_course.new_article).to be true
-      expect(article_course.references_count).to eq(5)
+      expect(article_course.references_count).to eq(22)
       expect(article_course.character_sum).to eq(9000)
     end
   end

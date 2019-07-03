@@ -53,6 +53,7 @@ describe Revision, type: :model do
                mw_rev_id: mw_rev_id,
                article_id: 90010238,
                mw_page_id: 90010238,
+               new_article: true,
                features: {
                  refs_tags_key => 10
                })
@@ -61,6 +62,19 @@ describe Revision, type: :model do
       it 'should return no. of references added' do
         val = Revision.find_by(mw_rev_id: 857571904)
         expect(val.references_added).to eq(10)
+      end
+    end
+
+    context 'Not the first revision, but previous revision data is not available' do
+      let(:revision) {
+        create(:revision,
+               new_article: false,
+               features: {
+                 refs_tags_key => 10
+               })
+      }
+      it 'should return 0 references added' do
+        expect(revision.references_added).to eq(0)
       end
     end
 
