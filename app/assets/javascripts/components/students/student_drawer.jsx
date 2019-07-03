@@ -43,7 +43,7 @@ const StudentDrawer = createReactClass({
       const article = rev.article;
       const label = this.props.wikidataLabels[article.title];
       const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
-      const details = I18n.t('users.revision_characters_references_and_views', { characters: rev.characters, references: rev.references, views: rev.views });
+      const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
           <td>
