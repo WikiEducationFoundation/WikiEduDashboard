@@ -70,6 +70,7 @@ class CourseArticlesCsvBuilder
     url
     edit_count
     characters_added
+    references_added
     new
     deleted
     pageviews
