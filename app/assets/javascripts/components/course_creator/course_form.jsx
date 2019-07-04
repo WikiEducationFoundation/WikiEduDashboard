@@ -129,7 +129,7 @@ const CourseForm = (props) => {
       <div className="form-group academic_system">
         <span className="text-input-component__label">
           <strong>
-            {I18n.t('courses_generic.school_system')}:
+            {I18n.t('courses.school_system')}:
           </strong>
           <AcademicSystem/>
         </span>
