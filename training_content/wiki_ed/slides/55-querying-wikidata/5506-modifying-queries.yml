@@ -1,0 +1,25 @@
+id: 5506
+title: "Modifying queries"
+summary:
+content: |
+  The SPARQL code at the top of the query is pretty intimidating for most people.
+  Fortunately, there's a simple way to modify queries. Click on the i icon in
+  the blue circle near the top left of the page to open the Query Helper.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Wikidata_query_service_-_helper.png" />
+    <figcaption class="image-credit">
+      There is a "query helper" which will help you make queries without having to learn SPARQL.
+    </figcaption>
+  </figure>
+
+  Let's use this to change the query from cats, to dogs.
+
+  On the Query Helper pane, click the down arrow next to where it says "house cat".
+  Type "dog" into the search box, at which point the menu will suggest several
+  options: dog (<code>Q144</code>), the domestic animal; Canis lupus familiaris (<code>Q26972265</code>),
+  the subspecies of mammal; and Dog (<code>Q755126</code>), the Chinese zodiac sign. Pick the 
+  first dog and the list of results (at the bottom of the page) will change from
+  all the cats Wikidata knows to all the dogs.
+
+  You've done it!

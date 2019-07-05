@@ -1,0 +1,29 @@
+id: 5508
+title: "The structure of the query"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Query_example_-_cats.png" />
+    <figcaption class="image-credit">
+      How SPARQL works.
+    </figcaption>
+  </figure>
+
+  Let's take a look at the query line by line to understand what it's about.
+
+  <code>#Cats</code>
+
+  Anything starting with # is a comment in SPARQL that the query service will ignore.
+
+  <code>SELECT ?item ?itemLabel</code>
+
+  A query "selects" something based on certain rules specified in the query.
+  In this case, it's a variable we've chosen to name <code>?item</code>. The <code>?</code> indicates
+  that this is a variable. The name is just something you pick for convenience.
+  In this case, since we're looking for items, calling the variable <code>?item</code> makes
+  sense, and makes it easier for other people to interpret your query (or for
+  you to interpret it when you come back later and have forgotten why you did
+  what you did).
+
+  <code>?itemLabel</code> is a special kind of variable. It applies a modifier,
+  or a <code>Label</code>, to the variable.

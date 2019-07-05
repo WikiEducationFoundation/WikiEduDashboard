@@ -1,0 +1,12 @@
+id: 5507
+title: "More queries"
+summary:
+content: |
+  Want to find zoos in Germany instead? Follow the steps in the gif below.
+
+  <figure class="alt-layout-70">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Wikidata_Query_-_Query_Helper_-_Edit_cats_to_zoo.gif" />
+    <figcaption class="image-credit">
+      This GIF shows how to ask Wikidata for a list of zoos located in Germany. Image by <a href="https://commons.wikimedia.org/wiki/File:Wikidata_Query_-_Query_Helper_-_Edit_cats_to_zoo.gif">Jonas Kress</a>, CC BY-SA 4.0.
+    </figcaption>
+  </figure>
