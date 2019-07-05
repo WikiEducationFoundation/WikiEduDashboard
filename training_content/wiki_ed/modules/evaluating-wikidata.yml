@@ -1,0 +1,24 @@
+name: Evaluating Data on Wikidata
+id: 53
+description: |
+  In this tutorial, we'll explore:
+
+  * how to evaluate the quality of data within an item
+  * where to go to see examples of items with high-quality data
+  * where to find tools to help you evaluate data
+
+estimated_ttc: 15 minutes
+slides:
+  - slug: evaluate-an-item #5301
+  - slug: emerging-ontology #5302
+  - slug: join-ontology-process #5303
+  - slug: using-showcase-items #5304
+  - slug: evaluating-a-property #5305
+  - slug: sources-citations-wikidata #5306
+  - slug: good-source-wikidata #5307
+  - slug: not-good-source-wikidata #5308
+  - slug: checking-item-history #5309
+  - slug: comparing-revisions-wikidata #5310
+  - slug: wikidata-sourcing-quiz #5311
+  - slug: other-evaluations-wikidata #5312
+  - slug: wikidata-evaluating-done #5313
