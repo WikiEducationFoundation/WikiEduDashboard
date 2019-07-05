@@ -15,9 +15,13 @@
   .stat-display__stat
     .stat-display__value= number_to_human presenter.word_count
     %small= t("metrics.word_count")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.references_count
+  .stat-display__stat.tooltip-trigger
+    .stat-display__value
+      = number_to_human presenter.references_count
+      %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.references_count")
+    .tooltip.dark
+      %p= t("metrics.references_doc")
   .stat-display__stat
     .stat-display__value= number_to_human presenter.courses.sum(:view_sum)
     %small= t("metrics.view_count_description")
