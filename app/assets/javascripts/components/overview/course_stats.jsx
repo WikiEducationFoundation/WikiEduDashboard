@@ -39,7 +39,7 @@ const CourseStats = ({ course }) => {
         </div>
         <small>{I18n.t('metrics.references_count')}</small>
         <div className="tooltip dark" id="upload-usage">
-          <p>{I18n.t('metrics.references_count_doc')}</p>
+          <p>{I18n.t('metrics.references_doc')}</p>
         </div>
       </div>
     );
