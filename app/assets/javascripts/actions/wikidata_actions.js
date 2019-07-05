@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import CourseUtils from '../utils/course_utils';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json';
 
@@ -19,18 +20,16 @@ const fetchWikidataLabelsPromise = (qNumbers) => {
         return res(data);
       },
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
   });
 };
 
-
 const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
-
-  const qNumbers = _.map(wikidataEntities, 'title');
+  const qNumbers = _.map(wikidataEntities, 'title').map(CourseUtils.removeNamespace);
   _.chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
       .then((resp) => {

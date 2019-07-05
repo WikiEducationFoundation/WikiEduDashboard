@@ -236,4 +236,11 @@ export default class CourseUtils {
     wikis = ArrayUtils.removeObject(wikis, prev_wiki);
     return wikis;
   }
+
+  static removeNamespace(title) {
+    if (title.indexOf(':') !== -1) {
+      return title.split(':')[1];
+    }
+    return title;
+  }
 }

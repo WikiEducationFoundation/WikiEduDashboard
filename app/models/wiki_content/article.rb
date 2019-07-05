@@ -60,6 +60,9 @@ class Article < ApplicationRecord
     TEMPLATE_TALK  = 11
     DRAFT          = 118
     DRAFT_TALK     = 119
+    PROPERTY       = 120
+    QUERY          = 122
+    LEXEME         = 146
   end
 
   NS_PREFIX = {
@@ -72,7 +75,10 @@ class Article < ApplicationRecord
     Namespaces::TEMPLATE => 'Template:',
     Namespaces::TEMPLATE_TALK => 'Template_talk:',
     Namespaces::DRAFT => 'Draft:',
-    Namespaces::DRAFT_TALK => 'Draft_talk:'
+    Namespaces::DRAFT_TALK => 'Draft_talk:',
+    Namespaces::PROPERTY => 'Property:',
+    Namespaces::QUERY => 'Query:',
+    Namespaces::LEXEME => 'Lexeme:'
   }.freeze
 
   ####################
