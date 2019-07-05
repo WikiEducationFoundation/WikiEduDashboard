@@ -26,7 +26,13 @@ class SelfEnrollmentController < ApplicationController
     # Automatic edits for newly enrolled user
     make_enrollment_edits
 
-    redirect_to course_slug_path(@course.slug, enrolled: true)
+    respond_to do |format|
+      format.html { redirect_to course_slug_path(@course.slug, enrolled: true) }
+      format.json do
+        message = I18n.t('courses.join_successful', title: @course.title)
+        render json: { message: message }, status: :ok
+      end
+    end
   end
 
   private
@@ -45,8 +51,17 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_course_ended
     return unless course_ended?
-    flash[:notice] = 'You cannot join this course. It has already ended.'
-    redirect_to course_slug_path(@course.slug)
+    message = 'You cannot join this course. It has already ended.'
+    respond_to do |format|
+      format.html do
+        flash[:notice] = message
+        redirect_to course_slug_path(@course.slug)
+      end
+      format.json do
+        render json: { message: message }, status: :bad_request
+      end
+    end
+
     yield
   end
 
@@ -64,7 +79,19 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_enrollment_failed
     return unless @result[:failure]
-    redirect_to course_slug_path(@course.slug, enrolled: false, failure_reason: @result[:failure])
+    respond_to do |format|
+      format.html do
+        redirect_to course_slug_path(@course.slug,
+                                     enrolled: false,
+                                     failure_reason: @result[:failure])
+      end
+      format.json do
+        render json: {
+          message: I18n.t("courses.join_failure_details.#{@result[:failure]}")
+        },
+        status: :bad_request
+      end
+    end
     yield
   end
 
@@ -72,7 +99,14 @@ class SelfEnrollmentController < ApplicationController
     # Passcode is not required for the Online Volunteer role
     return if role == CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
     return if passcode_valid?
-    redirect_to "/errors/incorrect_passcode?retry=#{course_slug_path(@course.slug)}"
+    respond_to do |format|
+      format.html do
+        path = course_slug_path(@course.slug)
+        redirect_to "/errors/incorrect_passcode?retry=#{path}"
+      end
+      format.json { redirect_to '/errors/incorrect_passcode.json' }
+    end
+
     yield
   end
 
