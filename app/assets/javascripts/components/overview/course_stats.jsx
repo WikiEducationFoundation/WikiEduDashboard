@@ -32,9 +32,15 @@ const CourseStats = ({ course }) => {
   let refCount;
   if (course.references_count !== '0') {
     refCount = (
-      <div className="stat-display__stat" id="references-added">
-        <div className={valueClass('references_count')}>{course.references_count}</div>
+      <div className="stat-display__stat tooltip-trigger" id="references-added">
+        <div className={valueClass('references_count')}>
+          {course.references_count}
+          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        </div>
         <small>{I18n.t('metrics.references_count')}</small>
+        <div className="tooltip dark" id="upload-usage">
+          <p>{I18n.t('metrics.references_count_doc')}</p>
+        </div>
       </div>
     );
   }

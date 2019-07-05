@@ -786,6 +786,8 @@ en:
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
+    references_doc: This is the number of reference tags added to campaign and can include multiple references to the same source.
+    references_count_doc: is is the number of reference tags added to course and can include multiple references to the same source.
     tags: Tags
     upload_count: Commons Uploads
     uploads_in_use_count:
