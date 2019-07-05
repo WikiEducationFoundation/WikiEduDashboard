@@ -1,0 +1,16 @@
+id: 5413
+title: "Adding properties and values"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adding_value_on_Wikidata_item.png" />
+    <figcaption class="image-credit">
+      Once you have selected a property, then you need to add a value.
+    </figcaption>
+  </figure>
+
+  Once you start typing, Wikidata makes suggestions — in this case, "member of
+  a legislative assembly" is the second one. Select it from the drop-down,
+  click "publish", and you're done.
+
+  Except for that it says "0 references"...
