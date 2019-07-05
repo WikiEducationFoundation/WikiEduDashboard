@@ -7,7 +7,7 @@ content: |
   six easy questions to ask to evaluate the quality of a Wikidata item.
 
   1. Is this statement accurate? (Follow this link if you need a refresher on
-  what a **<a href="https://wikiedu.org/wiki/index.php/Wikidata_Program/Training/Introduction_to_Wikidata#Parts_of_Wikidata">statement</a>** is)
+  what a **<a href="https://dashboard.wikiedu.org/training/wikidata-professional/introduction-wikidata-professional/what-are-statements">statement</a>** is)
   2. Does this statement contain at least one reference? Although every statement
   should have a references, Wikidata allows editors to add statements without
   references.
@@ -19,6 +19,6 @@ content: |
   change or be out of date. As an editor, you can determine properties that may
   be missing from an item.
   5. Should this statement contain qualifiers or ranks? Is the value up to date?
-  (<a href="https://wikiedu.org/wiki/index.php/Wikidata_Program/Training/Introduction_to_Wikidata#Other_kinds_of_Wikidata_elements">**Qualifier** and **Rank** refresher</a>)
+  (<a href="https://dashboard.wikiedu.org/training/wikidata-professional/introduction-wikidata-professional/what-are-qualifiers">**Qualifier** and **Rank** refresher</a>)
   6. Is the item represented across languages? Make sure the item has labels,
   descriptions, aliases, and site links for multiple languages.

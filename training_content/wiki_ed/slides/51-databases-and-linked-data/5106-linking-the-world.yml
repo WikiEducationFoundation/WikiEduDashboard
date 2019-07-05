@@ -2,10 +2,11 @@ id: 5106
 title: "Linking the world"
 summary:
 content: |
-  <figure class="alt-layout-40-right">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Amazon_Echo_2_2017-02-23.jpg" />
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Amazon_Echo_2_2017-02-23.jpg/768px-Amazon_Echo_2_2017-02-23.jpg" />
     <figcaption class="image-credit">
-      Alexa, Siri, and other personal digital assistants use Wikidata as one of the databases that supplies answers. <a href="https://commons.wikimedia.org/wiki/File:Amazon_Echo_2_2017-02-23.jpg">Photo by Fastily</a>, CC BY-SA 4.0.
+      Alexa, Siri, and other personal digital assistants use Wikidata as one of
+      the databases that supplies answers. <a href="https://commons.wikimedia.org/wiki/File:Amazon_Echo_2_2017-02-23.jpg">Photo by Fastily</a>, CC BY-SA 4.0.
     </figcaption>
   </figure>
 
