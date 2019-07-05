@@ -30,7 +30,7 @@ export const AssignCell = (props) => {
   const { assignments, course, current_user, editable, prefix, student } = props;
 
   let link;
-  if (assignments.length) {
+  if (current_user.admin && assignments.length) {
     const article = CourseUtils.articleFromAssignment(assignments[0], course.home_wiki);
     if (assignments.length > 1) {
       const count = I18n.t('users.number_of_articles', { count: assignments.length });
