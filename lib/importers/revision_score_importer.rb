@@ -99,11 +99,11 @@ class RevisionScoreImporter
   end
 
   def unscored_revisions
-    mainspace_userspace_and_draft_revisions.where(wp10: nil)
+    mainspace_userspace_and_draft_revisions.where(features: nil)
   end
 
   def unscored_previous_revisions
-    mainspace_userspace_and_draft_revisions.where(wp10_previous: nil, new_article: false)
+    mainspace_userspace_and_draft_revisions.where(features_previous: nil, new_article: false)
   end
 
   def save_scores(scores)
