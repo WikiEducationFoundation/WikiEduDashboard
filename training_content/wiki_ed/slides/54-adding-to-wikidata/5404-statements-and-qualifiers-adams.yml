@@ -16,6 +16,6 @@ content: |
 
   Below the property and value, you'll see **qualifiers**. Many statements support
   qualifiers — when did Adams attend St John's College? What degree did he earn?
-  What did he major in? Some of these qualifiers are **constraints** — they're 
+  What did he major in? Some of these qualifiers are **constraints** — they're
   required values — while others are entirely optional. (We'll get back to
   constraints in another training.)

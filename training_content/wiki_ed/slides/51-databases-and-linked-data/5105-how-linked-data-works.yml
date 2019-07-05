@@ -9,9 +9,10 @@ content: |
   "semantic web" before. Linked data is the key to making these connections happen.
 
   <figure class="alt-layout-70">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tim_Berners-Lee_5-star_Open_Data_plan.png" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tim_Berners-Lee_5-star_Open_Data_plan.png"/>
     <figcaption class="image-credit">
-      <a href="https://5stardata.info/en/">Tim Berners-Lee</a> describes five start data as linked and open for the rest of the web to use.
+      <a href="https://5stardata.info/en/">Tim Berners-Lee</a> describes five
+      start data as linked and open for the rest of the web to use.
     </figcaption>
   </figure>
 
