@@ -46,6 +46,5 @@ end
 
 def add_character_references(revision, row)
   row << revision.characters
-  row << revision.features['feature.wikitext.revision.ref_tags'] || 0 -
-    revision.features_previous['feature.wikitext.revision.ref_tags'] || 0
+  row << revision.references_added
 end
