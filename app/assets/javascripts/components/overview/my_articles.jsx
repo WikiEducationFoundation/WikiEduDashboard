@@ -146,7 +146,9 @@ export const MyArticles = createReactClass({
               unassigned={reviewable}
               wikidataLabels={this.props.wikidataLabels}
             />
-            <Link to={`/courses/${this.props.course.slug}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
+            <Link to={`/courses/${this.props.course.slug}/article_finder`}>
+              <button className="button border small assign-button link">Find Articles</button>
+            </Link>
           </div>
         </div>
         <MyAssignmentsList
