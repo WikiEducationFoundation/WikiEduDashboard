@@ -1,0 +1,34 @@
+id: 5215
+title: "Let's review"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    Who is considered an editor on Wikidata?
+  answers:
+    - id: 1
+      text: |
+        Only employees of the Wikimedia Foundation
+      explanation: |
+        INCORRECT! Wikimedia Foundation employees can be volunteer editors, but
+        only if they want to. They also have to declare their association with
+        the Wikimedia Foundation to avoid any conflict of interest.
+    - id: 2
+      text: |
+        A trained expert
+      explanation: |
+        INCORRECT! A trained expert can be an editor, but volunteers who are not
+        experts are editors as well.
+    - id: 3
+      text: |
+        Anyone who decides to edit a Wikimedia project
+      explanation: |
+        CORRECT! Wikimedia projects strive to be open and inclusive. Anyone who
+        edits a Wikimedia project, like Wikidata, is considered an editor.
+    - id: 4
+      text: |
+        Only someone who has taken a course in editing a Wikimedia project
+      explanation: |
+        INCORRECT! You do not have to take a course in order to be considered an
+        editor. (Although knowing how edit correctly is always a good idea!)
