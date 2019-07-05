@@ -1,0 +1,23 @@
+name: 'Databases and Linked Data'
+id: 51
+description: |
+  In this module, you'll explore...
+
+  * what linked data is
+  * examples of linked data
+  * what makes linked data useful
+estimated_ttc: 20 minutes
+slides:
+  - slug: part-i-databases-wikidata #5101
+  - slug: what-are-databases-wikidata #5102
+  - slug: identifier-examples #5103
+  - slug: identifiers-and-databses-together #5104
+  - slug: how-linked-data-works #5105
+  - slug: linking-the-world #5106
+  - slug: open-data-versus-linked-data #5107
+  - slug: part-ii-what-linked-data-changes #5108
+  - slug: advantages-linked-data #5109
+  - slug: disadvantages-linked-data #5110
+  - slug: database-activities #5111
+  - slug: databases-data-quiz #5112
+  - slug: databases-thats-all #5113

@@ -1,0 +1,19 @@
+id: 5102
+title: "What are databases?"
+summary:
+content: |
+  For our purposes, databases organize, represent, store, and make-searchable
+  information.
+
+  There are many kinds of databases. You might have heard about "relational
+  databases" because they are very common and display information in tables (rows
+  and columns), like a spreadsheet.
+
+  As databases have advanced, programmers have been able to associate data with
+  specific entities like people (ex. "Person A" has an address, age, occupation, etc.)
+
+  This is possible by using **unique identifiers** (and **identifiers** in general)
+  to describe relationships.
+
+  Document-oriented databases are designed to structure data this way. Wikidata
+  is a document-oriented database.

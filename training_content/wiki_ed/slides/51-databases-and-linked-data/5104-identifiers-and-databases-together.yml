@@ -1,0 +1,22 @@
+id: 5104
+title: "How do identifiers and databases work together?"
+summary:
+content: |
+  Spoken language doesn't require unique identifiers. Items, concepts, and people are explicit thanks to context in conversation.
+
+  Databases, however, do not have the luxury of context. Identifiers must be standardized in order for database systems to understand the relationship between individual pieces of data.
+
+  Consider the amount of context that goes into giving this sentence meaning:
+
+  *"Montevideo is the capital of Uruguay."*
+
+  First you need to know that Uruguay is a **country** and that Montevideo is a
+  **city**. Then you need to know that countries have this special kind of city
+  which is called a **capital**. Montevideo is a capital, which makes it
+  significant to Uruguay. (You'll also notice the sentence is in a language,
+  specifically English, which linked data can handle elegantly.)
+
+  Having unique identifiers for all things is powerful, but when the relationships
+  between identifiers or the things that describe identifiers can have their
+  *own* unique identifier as well then a database can "understand" how things
+  relate to other things.
