@@ -88,14 +88,18 @@ export const MyArticles = createReactClass({
     const reviewing = getFiltered(updatedAssignments, reviewOptions);
 
     // To find articles that are able to be reviewed...
+    const assignedArticleIds = assigned.map(({ article_id: id }) => id);
     const reviewingArticleIds = reviewing.map(({ article_id: id }) => id);
     const reviewable = updatedAssignments.filter((assignment) => {
       return assignment.user_id // ...the article must have a user_id
              // which shouldn't match the current user's id
              && assignment.user_id !== user_id
+             // and should not be an article that is assigned to them
+             && !assignedArticleIds.includes(assignment.article_id)
              // and should not be an article they are already reviewing
              && !reviewingArticleIds.includes(assignment.article_id);
     });
+
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;
 
