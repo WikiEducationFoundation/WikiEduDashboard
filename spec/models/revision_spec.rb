@@ -87,6 +87,9 @@ describe Revision, type: :model do
                mw_rev_id: mw_rev_id,
                article_id: 79010238,
                mw_page_id: 79010238,
+               features: {
+                 refs_tags_key => 0
+               },
                features_previous: {
                  refs_tags_key => 6
                })
