@@ -342,10 +342,8 @@ eu:
       course_description_placeholder: Zer sartuko da zure ikastaroan, eta zer egingo
         dute ikasleek Wikipedian? Mesedez eman behar beste detaile Wikipediako beste
         lankideei zure ikasleek egingo dituzten ekarpenen nondik norakoen berri adierazteko.
-      course_language: Hizkuntza nagusia
       course_private: Programa pribatua (administratzaile eta bideratzaileentzat soilik
         ikusgai)
-      course_project: Proiektu nagusia
       course_school: Ikastaroaren eskola
       course_subject: Ikastaroaren gaia
       course_term: Ikastaroaren epealdia
@@ -435,8 +433,6 @@ eu:
     feedback: Iruzkina
     feedback_loading: Mesedez itxaron iradokizunak kargatu bitartean...
     gradeables_none: Ikastaro honek ez du nota jartzeko lanik.
-    home_wiki_language: Wiki Language orri nagusia
-    home_wiki_project: Wiki Project orri nagusia
     instructor:
       one: Irakaslea
       other: Irakasleak

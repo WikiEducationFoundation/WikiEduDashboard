@@ -373,9 +373,7 @@ ca:
         i quin rol desenvoluparà l'alumnat a la Viquipèdia? Si us plau, introduïu
         la informació necessària perquè la resta de la comunitat viquipedista pugui
         contextualitzar les contribucions de l'alumnat i interactuar-hi en conseqüència.
-      course_language: Idioma de la pàgina d'inici
       course_private: Programa privat (visible només per administradors i facilitadors)
-      course_project: Pàgina d'inici del projecte
       course_school: Escola del curs
       course_subject: Assignatura del curs
       course_term: Trimestre del curs
@@ -479,8 +477,6 @@ ca:
     feedback: Comentaris
     feedback_loading: Espereu mentre es carreguen els suggeriments...
     gradeables_none: Aquest curs no té tasques avaluables.
-    home_wiki_language: Llengua del wiki principal
-    home_wiki_project: Projecte wiki principal
     instructor:
       one: Instructor
       other: Instructors

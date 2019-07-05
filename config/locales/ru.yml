@@ -264,8 +264,6 @@ ru:
         переносятся. Если что-нибудь изменилось в вашем курсе, то теперь вы можете
         его обновить.
       course_description: Описание курса
-      course_language: Основной язык
-      course_project: Домашний проект
       course_school: Школьный курс
       course_subject: Предмет курса
       course_term: Семестр курса

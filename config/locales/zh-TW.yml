@@ -103,7 +103,7 @@ zh-TW:
     previous: 上一個
     article_title: 條目標題
     assigned_to: 分配給
-    character_doc: 從開始到結束日，由登記編輯在條目中增加的位元組總和。 (1 中文字=3 位元組)
+    character_doc: 開始到結束日之間由登記編輯者在條目中增加的字元總和。
     cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用條目的
       wiki。
     deleted: (已刪除)
@@ -135,6 +135,7 @@ zh-TW:
       list: '%{class}級 — 非一般條目的列表內容'
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
+    references_doc: 此為添加到條目的參考來源標籤，並且能把多個參考對應到同一來源。資料是來自於 ORES 條目品質模組，並且儘可用於某些語言。
     see_more: 查看更多
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
@@ -313,9 +314,7 @@ zh-TW:
       course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
-      course_language: 主要使用語言
       course_private: 非公開方案（僅可被管理員和主持者檢視）
-      course_project: 主專案
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
@@ -399,8 +398,8 @@ zh-TW:
     feedback: 意見回饋
     feedback_loading: 建議載入中請等待...
     gradeables_none: 此項課程沒有可批閱的分配作業。
-    home_wiki_language: 主維基語言
-    home_wiki_project: 主維基專案
+    home_wiki: 主 wiki
+    multi_wiki: 追蹤的 wiki
     instructor:
       other: 導師
     instructors: 導師
@@ -518,6 +517,7 @@ zh-TW:
     user_suggestions: 使用者建議：
     user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
+    references_doc: 由登記編輯者所添加到條目或從條目裡移除的參考來源數量
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
@@ -581,8 +581,8 @@ zh-TW:
       create_short: 建立方案
       end_date: 活動追蹤結束
       find: 找尋一個方案
-      intro: 方案標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的方案橫跨多個語系或專案，貢獻內容可由有囊括且擁有「可用條目」或「分配作業」的任一
-        wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基專案頁面吧。
+      intro: 方案標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的方案橫跨多個語系或專案，貢獻內容可由有明確地添加到「追蹤的
+        wiki」的任一 wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基專案頁面吧。
       new_or_clone: 現在就創建一個新方案，或使用「複製」選項來將您參與的其它方案給複製。
       participate_in_campaign: 參與競賽
       save_cloned_course: 儲存
@@ -647,6 +647,7 @@ zh-TW:
     edit_count_description: 總編輯數
     per_user: '%{number}/使用者'
     revisions: 近期編輯
+    references_count: 參考來源已添加
     tags: 標籤
     upload_count: 維基共享資源上傳
     uploads_in_use_count:
@@ -873,6 +874,7 @@ zh-TW:
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
     characters_added_userspace: 新增的字元（使用者）
     characters_added_draftspace: 新增的字元（草稿）
+    references_count: 參考來源已添加
     my_assigned: 已分配：
     my_reviewing: 審查中：
     name: 名稱
@@ -887,6 +889,7 @@ zh-TW:
     request_confirmation: 你確定要申請此帳號嗎？
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
     revisions_doc: 此編輯者在過去 7 天的編輯次數
+    references_doc: 由此編輯者所添加或移除的參考來源數量
     reviewers: 審查者
     reviewing: 審查中
     sandboxes: 沙盒
@@ -1045,4 +1048,6 @@ zh-TW:
     not_started: 尚未開始
     due: 截止 %{due_date}
     assignment_status: 培訓分配（%{status}）
+  multi_wiki:
+    selector_placeholder: 選擇 wiki
 ...

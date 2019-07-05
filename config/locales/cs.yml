@@ -351,10 +351,8 @@ cs:
       course_description_placeholder: Co je obsahem vašeho kurzu a co budou studenti
         dělat na Wikipedii? Vložte, prosím, dostatek detailů, aby ostatní redaktoři
         viděli souvislost s příspěvky vašich studentů.
-      course_language: Domovský jazyk
       course_private: Soukromý program (prohlížet ho mohou jen administrátoři nebo
         instruktoři)
-      course_project: Domácí projekt
       course_school: Kurzová instituce
       course_subject: Předmět kurzu
       course_term: Termín kurzu
@@ -444,8 +442,6 @@ cs:
     feedback: Zpětná vazba
     feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
-    home_wiki_language: Jazyk domovské wiki
-    home_wiki_project: Projekt domovské wiki
     instructor:
       one: instruktur
       other: instruktoři

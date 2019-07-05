@@ -55,8 +55,6 @@ ps:
     courses: کورسونه
     creator:
       course_description: د کورس څرگندونه
-      course_language: کور ژبه
-      course_project: کورنۍ پروژه
       course_school: د کورس ښوونځی
       course_subject: د کورس موضوع
       course_term: د کورس موده

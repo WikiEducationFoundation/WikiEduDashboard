@@ -338,6 +338,7 @@ lv:
     first_name: Vārds
     last_name: Uzvārds
     loading: Ielādē lietotājus...
+    references_count: Pievienotās atsauces
     name: Nosaukums
     none: Dalībnieku nav.
     recent_revisions: Neseni labojumi

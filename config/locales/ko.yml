@@ -204,9 +204,7 @@ ko:
       assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 복제된 과정의 세부사항 업데이트하기
-      course_language: 주 언어
       course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
-      course_project: 주 프로젝트
       course_term_placeholder: 학기
       course_types:
         edit_a_thon_name: 에디터톤
@@ -247,8 +245,7 @@ ko:
     feedback: 피드백
     feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
-    home_wiki_language: 홈 위키 언어
-    home_wiki_project: 홈 위키 프로젝트
+    home_wiki: 홈 위키
     instructor:
       other: 지도자
     instructors: 지침
@@ -653,4 +650,6 @@ ko:
     completed: 완료
     started: 시작됨
     not_started: 시작되지 않음
+  multi_wiki:
+    selector_placeholder: 위키 선택
 ...

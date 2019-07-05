@@ -75,8 +75,6 @@ azb:
     cancel: وازگئچ
     campaigns: 'کمپینلر:'
     creator:
-      course_language: آنا دیل
-      course_project: آنا پروژه
       course_term_placeholder: ترم
       subject: موضوع
     end: سوْن

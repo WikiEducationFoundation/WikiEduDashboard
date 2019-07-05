@@ -109,8 +109,6 @@ bs:
     creation_date: Datum stvaranja
     creator:
       course_description: Opis kursa
-      course_language: Matični jezik
-      course_project: Matični projekt
     delete_course_instructions: Ovu stranicu možete obrisati ako se prije toga uklone
       sve kampanje.
     dismiss_survey: Odbaci

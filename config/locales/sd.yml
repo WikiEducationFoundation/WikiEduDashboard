@@ -164,8 +164,6 @@ sd:
     creation_date: ٺاهڻ جي تاريخ
     creator:
       course_description: ڪورس جو تفصيل
-      course_language: مکيه ٻولي
-      course_project: مکيه رٿا
       course_subject: ڪورس جو سبجيڪٽ
       course_title: ڪورس جو عنوان
       create_button: منهنجو ڪورس ٺاهيو!
@@ -193,8 +191,6 @@ sd:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
       user_exists: معاف ڪندا، %{username} نالي واپرائيندڙ وجود نٿو رکي.
     feedback: اوهان جي راءِ
-    home_wiki_language: وڪي ٻوليءَ جو مکيه صفحو
-    home_wiki_project: وڪي پراجيڪٽ جو مکيه صفحو
     instructor:
       one: استادُ
       other: استادَ

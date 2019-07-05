@@ -348,10 +348,6 @@ qqq:
       clone_successful_details: Message explaining the next steps after a course is
         cloned (Wiki Ed only)
       course_description: Label for description field (Wiki Ed only)
-      course_language: The Wikimedia project language code for the course or program's
-        home wiki
-      course_project: The Wikimedia project name for the course or program's home
-        wiki
       course_school: Label for the school input field of a course (Wiki Ed only)
       course_subject: Label for the subject of a course (Wiki Ed only)
       course_term: Label for the academic term when a course takes place (Wiki Ed
@@ -399,8 +395,6 @@ qqq:
     feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
-    home_wiki_language: Label for Home Wiki Language Selector
-    home_wiki_project: Lable for Home Wiki Project Selector
     instructor:
       one: |-
         Label for a single instructor of a course (Wiki Ed only)

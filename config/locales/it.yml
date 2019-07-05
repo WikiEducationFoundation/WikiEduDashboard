@@ -379,9 +379,7 @@ it:
         gli studenti su Wikipedia? Per favore includi abbastanza dettagli per fornire
         agli altri contributori di Wikipedia un contesto per i contributi che faranno
         i tuoi studenti.
-      course_language: Lingua principale
       course_private: Programma privato (visibile solo da amministratori e facilitatori)
-      course_project: Progetto pricipale
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
@@ -502,8 +500,8 @@ it:
     feedback: Feedback
     feedback_loading: Attendi mentre si caricano i suggerimenti…
     gradeables_none: Questo corso non ha compiti qualificabili.
-    home_wiki_language: Lingua wiki di origine
-    home_wiki_project: Progetto wiki di origine
+    home_wiki: Wiki principale
+    multi_wiki: Wiki tracciati
     instructor:
       one: Insegnante
       other: Insegnanti
@@ -635,9 +633,9 @@ it:
         Il wiki principale è dove i partecipanti lavoreranno, e le modifiche su questo
         wiki verranno tracciate per impostazione predefinita. Se il tuo programma
         prevede più lingue o progetti, i contributi verranno inoltre monitorati per
-        qualsiasi wiki che abbia una 'voce disponibile' o 'assegnazione' per quel
-        wiki. Clicca su "Crea il mio programma!" Per iniziare a costruire la pagina
-        per il tuo programma wiki.
+        qualsiasi wiki che sia stato esplicitamente aggiunto ai "wiki tracciati".
+        Clicca su "Crea il mio programma!" Per iniziare a costruire la pagina per
+        il tuo programma wiki.
       save_cloned_course: Salva
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
@@ -949,4 +947,6 @@ it:
     completed: Completato
     started: Iniziato
     not_started: Non iniziato
+  multi_wiki:
+    selector_placeholder: Seleziona wiki
 ...

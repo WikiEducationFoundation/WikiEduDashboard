@@ -16,6 +16,7 @@
 # Author: WDLJT
 # Author: Yanjiazhang
 # Author: Yfdyh000
+# Author: 神樂坂秀吉
 ---
 zh-CN:
   accessibility:
@@ -272,9 +273,7 @@ zh-CN:
       clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。请确保添加日期，这没有延续。您的课程有什么别的东西更改么？请现在随意地更新它吧。
       course_description: 课程描述
       course_description_placeholder: 您的课程涵盖什么，以及学生在维基百科上做什么？请包括足够的细节，这样可以给其他维基百科编辑者背景信息，方便您的学生做出贡献。
-      course_language: 主语言
       course_private: 私有计划（只有管理员和辅助商可见）
-      course_project: 主项目
       course_school: 课程学校
       course_subject: 课程科目
       course_term: 课程学期
@@ -340,8 +339,6 @@ zh-CN:
     feedback: 反馈
     feedback_loading: 请等待，建议正在加载...
     gradeables_none: 此课程没有可批改作业。
-    home_wiki_language: 主维基语言
-    home_wiki_project: 主维基项目
     instructor:
       one: 导师
       other: 导师
@@ -844,7 +841,7 @@ zh-CN:
     form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
     invalid_date: '%{key}日期无效'
-    invalid_file_format: 文件不能被保存。请上传PDF或Word文档。
+    invalid_file_format: 文件不能保存。请上传PDF或Word文档。
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
     start_date_before_end_date: 开始日期必须在结束日期之前
     unsupported_browser:

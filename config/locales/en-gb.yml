@@ -174,8 +174,6 @@ en-gb:
         of the timeline (weeks and blocks). Has anything else about your course changed?
         Feel free to update it now.
       course_description: Course description
-      course_language: Home language
-      course_project: Home project
       course_school: Course school
       course_subject: Course subject
       course_term: Course term

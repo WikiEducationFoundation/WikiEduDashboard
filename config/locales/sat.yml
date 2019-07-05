@@ -20,8 +20,6 @@ sat:
   courses:
     cancel: ᱵᱟᱫᱽ
     creator:
-      course_language: ᱟᱲᱟᱜ ᱯᱟᱹᱨᱥᱤ
-      course_project: ᱟᱲᱟᱜ ᱯᱨᱚᱡᱮᱠᱴ
       start_date: ᱮᱦᱚᱵ ᱛᱟᱹᱨᱤᱠᱷ
       start_date_placeholder: ᱮᱦᱚᱵ ᱛᱟᱹᱨᱤᱠᱷ (YYYY-MM-DD)
       subject: ᱥᱟᱛᱚᱢ

@@ -152,8 +152,6 @@ mk:
       choose_clone: Изберете кој курс да се клонира.
       clone_previous: Клонирај претходен курс
       clone_this: Клонирај го курсов
-      course_language: Матичен јазик
-      course_project: Матичен проект
       course_school: Училиште на курсот
       course_subject: Предмет на курсот
       course_term: Траење на курсот

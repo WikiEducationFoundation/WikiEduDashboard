@@ -223,8 +223,6 @@ da:
       course_description_placeholder: Hvad er dækket i dit kursus, og hvad vil studenterne
         lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
         en ide om konteksten for bidragene dine studenter udfører.
-      course_language: Hjemsprog
-      course_project: Hjemmeprojekt
       course_title: Titel på kursus
       create_button: Opret mit kursus!
       create_label: Opret nyt kursus
@@ -259,7 +257,6 @@ da:
     expected_students: Forventede studenter
     features_feedback: 'Automatiske forslag:'
     feedback: Tilbagemelding
-    home_wiki_language: Sprog for hjemwiki
     instructor:
       one: Instruktør
       other: Instruktører

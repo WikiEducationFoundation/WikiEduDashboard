@@ -186,8 +186,6 @@ el:
     creation_date: Ημερομηνία δημιουργίας
     creator:
       course_description: Περιγραφή μαθήματος
-      course_language: Γλώσσα
-      course_project: Αρχικό εγχείρημα
       course_term_placeholder: Όρος
       course_title: Τίτλος μαθήματος
       create_button: Δημιουργία του μαθήματός μου!

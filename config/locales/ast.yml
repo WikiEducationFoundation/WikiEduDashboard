@@ -329,8 +329,6 @@ ast:
         cronograma (selmanes y bloques). Asegúrate d'añadir les feches, porque nun
         se treslladen. ¿Camudó daqué más nel to cursu? Actualizalo agora si quies.
       course_description: Descripción del cursu
-      course_language: Idioma principal
-      course_project: Proyectu principal
       course_school: Escuela del cursu
       course_subject: Tema del cursu
       course_term: Periodu del cursu
@@ -399,8 +397,6 @@ ast:
     feedback: La to opinión
     feedback_loading: Espera mientres se carguen les suxerencies...
     gradeables_none: Esti cursu nun tien xeres calificables.
-    home_wiki_language: Idioma de la wiki d'orixe
-    home_wiki_project: Proyectu de la wiki d'orixe
     instructor:
       one: Profesor
       other: Profesores

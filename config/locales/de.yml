@@ -378,9 +378,7 @@ de:
         die Studenten auf Wikipedia tun? Bitte gib genügend Einzelheiten an, um anderen
         Wikipedia-Autoren einen Sinn des Kontexts für die Beiträge zu geben, die deine
         Studenten machen werden.
-      course_language: Heimatsprache
       course_private: Privates Programm (nur für Administratoren und Vermittler sichtbar)
-      course_project: Heimatprojekt
       course_school: Kursschule
       course_subject: Kursthema
       course_term: Kursdauer
@@ -500,8 +498,6 @@ de:
     feedback: Rückmeldung
     feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
-    home_wiki_language: Sprache des Heimatwikis
-    home_wiki_project: Projekt des Heimatwikis
     instructor:
       one: Leiter
       other: Leiter

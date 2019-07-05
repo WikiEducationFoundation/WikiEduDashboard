@@ -7,6 +7,7 @@
 # Author: Benoit Rochon
 # Author: C13m3n7
 # Author: Dcausse
+# Author: Derugon
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
@@ -169,6 +170,10 @@ fr:
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
       does_not_exist: Cet article n'existe pas sur Wikipédia
+    references_doc: Ceci est le nombre d’étiquettes de référence ajoutées aux articles
+      et il peut inclure plusieurs références à la même source. Les données viennent
+      du modèle ORES pour l’évaluation de la qualité des articles, lequel n’est disponible
+      que pour certaines langues.
     see_more: Voir plus
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -397,10 +402,8 @@ fr:
         que feront les étudiants sur Wikipédia ? Veuillez inclure suffisamment de
         détails pour donner aux autres éditeurs de Wikipédia une idée du contexte
         des contributions que feront vos étudiants.
-      course_language: Langue principale
       course_private: Programme privé (visible uniquement par les administrateurs
         et les facilitateurs)
-      course_project: Projet principal
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
@@ -522,8 +525,8 @@ fr:
     feedback: Commentaire
     feedback_loading: Veuillez attendre pendant le chargement des suggestions…
     gradeables_none: Ce cours n’a aucune affectation notable.
-    home_wiki_language: Langue d’accueil du wiki
-    home_wiki_project: Projet d’accueil du wiki
+    home_wiki: Wiki principal
+    multi_wiki: Wikis tracés
     instructor:
       one: Instructeur
       other: Instructeurs
@@ -676,6 +679,8 @@ fr:
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
+    references_doc: Le nombre de références ajoutées ou retirées dans un article par
+      les rédacteurs engagés.
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
       depuis que ces derniers ont édité pour la première fois chacun des articles.
@@ -760,9 +765,9 @@ fr:
         wiki d’accueil est le wiki principal où travailleront les participants, et
         les modifications sur ce wiki seront tracées par défaut. Si votre programme
         couvre plusieurs langues ou projets, les contributions seront aussi tracées
-        pour tout wiki qui a un 'Article disponible' ou une 'Affectation' pour ce
-        wiki. Cliquez sur « Créer mon programme ! » pour commencer à construire la
-        page de votre programme wiki.
+        pour tout wiki qui a été explicitement ajouté aux « Wikis suivis ». Cliquez
+        sur « Créer mon programme ! » pour commencer à construire la page de votre
+        programme wiki.
       new_or_clone: Créer un nouveau programme maintenant, ou utiliser l’option 'duplication'
         pour copier un autre programme auquel vous participez.
       participate_in_campaign: Participer à une campagne
@@ -835,6 +840,7 @@ fr:
     edit_count_description: Total des modifications
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
+    references_count: Références ajoutées
     tags: Balises
     upload_count: Téléversement de Commons
     uploads_in_use_count:
@@ -1113,6 +1119,7 @@ fr:
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caractères ajoutés (utilisateur)
     characters_added_draftspace: Caractères ajoutés (brouillon)
+    references_count: Références ajoutées
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom
@@ -1128,6 +1135,7 @@ fr:
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
+    references_doc: Le nombre de références ajoutées ou retirées par cet éditeur
     reviewers: Relecteur(s)
     reviewing: Relecture
     sandboxes: bacs à sable
@@ -1329,4 +1337,6 @@ fr:
     not_started: Non démarré
     due: pour le %{due_date}
     assignment_status: Affectation de formation (%{status})
+  multi_wiki:
+    selector_placeholder: Sélectionner un wiki
 ...

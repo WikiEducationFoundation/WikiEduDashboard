@@ -255,8 +255,6 @@ nb:
         i tidslinjen (uker og blokker). Sørg for å legge til datoer som ikke skal
         overføres. Har noe annet ved kurset endret seg? Oppdater gjerne det nå.
       course_description: Kursbeskrivelse
-      course_language: Hjemspråk
-      course_project: Hjemprosjekt
       course_school: Kursskole
       course_subject: Kursemne
       course_term: Kurstermin

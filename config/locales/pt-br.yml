@@ -166,6 +166,9 @@ pt-br:
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
+    references_doc: Esse é o número de etiquetas de referência adicionadas aos artigos
+      e pode incluir várias referências à mesma fonte. Os dados vêm do modelo de qualidade
+      do artigo ORES e estão disponíveis apenas para alguns idiomas.
     see_more: Veja mais
     show_cumulative_changes: Mostrar Mudanças acumuladas
     show_current_version: Ver versão atual
@@ -387,9 +390,7 @@ pt-br:
         que os alunos estão elaborando na Wikipédia? Por favor, inclua todos os detalhes
         para atribuir aos outros editores da Wikipédia uma ideia do contexto das contribuições
         feitas pelos os seus alunos.
-      course_language: Idioma do projeto
       course_private: Programa privado (visível apenas para os administradores e facilitadores)
-      course_project: Projeto principal
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Prazo do curso
@@ -508,8 +509,8 @@ pt-br:
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão sendo carregadas...
     gradeables_none: Este curso não tem atribuições graduáveis.
-    home_wiki_language: Idioma da wiki de acolhimento
-    home_wiki_project: Projeto da wiki de acolhimento
+    home_wiki: Wiki principal
+    multi_wiki: Wikis rastreadas
     instructor:
       one: Instructor
       other: Instrutores
@@ -657,6 +658,8 @@ pt-br:
     user_suggestions: 'Sugestões do usuário:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
+    references_doc: O número de referências incluídas ou removidas de um artigo pelos
+      editores inscritos.
     view: Ver curso
     view_doc: A soma de todas as visitas a artigos editados por editores inscritos
       desde que o editor fez sua primeira edição em cada artigo
@@ -737,9 +740,9 @@ pt-br:
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão trabalhando, e as edições
         nesta serão registradas por omissão. Se o seu programa abrange várias línguas
-        ou projetos, as contribuições serão registradas em qualquer wiki que tenha
-        um 'Artigo Disponível' ou uma 'Atribuição' para aquela wiki. Clique em "Criar
-        o meu Programa!" para começar a construir a página do seu programa na wiki.
+        ou projetos, as contribuições serão registradas em qualquer wiki foi explicitamente
+        adicionado a "Wikis rastreadas".. Clique em "Criar o meu Programa!" para começar
+        a construir a página do seu programa na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
         copiar outro programa que você tenha participado.
       participate_in_campaign: Participar numa campanha
@@ -812,6 +815,7 @@ pt-br:
     edit_count_description: Total de edições
     per_user: '%{number}/usuário'
     revisions: Edições recentes
+    references_count: Referências adicionadas
     tags: Etiquetas
     upload_count: Envios ao Commons
     uploads_in_use_count:
@@ -1084,6 +1088,7 @@ pt-br:
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres adicionados (usuário)
     characters_added_draftspace: Os caracteres foram acrescentados (rascunho)
+    references_count: Referências adicionadas
     my_assigned: 'Atribuído:'
     my_reviewing: 'Revisando:'
     name: Nome
@@ -1099,6 +1104,7 @@ pt-br:
     revision_characters_and_views: 'Caracteres adicionados: %{characters}, Visitas:
       %{views}'
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
+    references_doc: O número de referências incluídas ou removidas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
     sandboxes: páginas de teste
@@ -1297,4 +1303,6 @@ pt-br:
     not_started: Não foi iniciado
     due: vencimento %{due_date}
     assignment_status: Atribuição de treinamento (%{status})
+  multi_wiki:
+    selector_placeholder: Selecionar wiki
 ...

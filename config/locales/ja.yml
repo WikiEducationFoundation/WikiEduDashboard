@@ -279,8 +279,6 @@ ja:
         ここで更新しておきましょう。
       course_description: コースの説明
       course_description_placeholder: コースでどんな分野を扱い、ウィキペディアで受講者はどんなことを行うでしょうか。受講者がウィキペディアにどのように貢献するか、ウィキペディアの他の編集者に伝わるように、具体的な記述をお願いします。
-      course_language: ホームの言語
-      course_project: ホーム プロジェクト
       course_school: コース学校
       course_subject: コースの科目
       course_term: コース期間
@@ -338,8 +336,6 @@ ja:
       invalid_slug: コースの学校名もしくはコース名を白紙化
     feedback: フィードバック
     gradeables_none: このコースには採点できる課題が指定されていません。
-    home_wiki_language: ホーム ウィキ言語
-    home_wiki_project: ホーム ウィキ プロジェクト
     instructors: 講師
     invitation: '%{title}に参加するようお奨めされています。登録するには、ウィキペディアの利用者アカウントでログインしてください。'
     join: 参加

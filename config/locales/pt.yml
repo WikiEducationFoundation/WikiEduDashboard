@@ -383,9 +383,7 @@ pt:
         que os alunos estão a elaborar na Wikipédia? Por favor, inclua todos os detalhes
         para atribuir aos outros editores da Wikipédia uma ideia do contexto das contribuições
         feitas pelos os seus alunos.
-      course_language: Idioma do projeto
       course_private: Programa privado (visível apenas para os administradores e facilitadores)
-      course_project: Projeto principal
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Semestre do curso
@@ -504,8 +502,6 @@ pt:
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão a ser carregadas...
     gradeables_none: Este curso não tem trabalhos com classificação.
-    home_wiki_language: Língua da wiki de acolhimento
-    home_wiki_project: Projeto da wiki de acolhimento
     instructor:
       one: Professor
       other: Professores

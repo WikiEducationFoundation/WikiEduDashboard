@@ -339,9 +339,7 @@ pl:
         podać nowe daty. Czy coś jeszcze zmieniło się względem poprzednich edycji?
         Możesz to zaktualizować teraz.
       course_description: Opis kursu
-      course_language: Wersja językowa
       course_private: Program prywatny (widoczny tylko dla administratorów i moderatorów)
-      course_project: Domowy projekt
       course_school: Instytucja prowadząca kurs
       course_subject: Temat kursu
       course_term: Semestr/trymestr

@@ -233,8 +233,6 @@ sr-el:
         linije (nedelje i blokovi). Ne zaboravite da dodate datume koji nisu preneti.
         Da li se još nešto promenilo oko Vašeg kursa? Slobodno ažurirajte to sada.
       course_description: Opis kursa
-      course_language: Matični jezik
-      course_project: Matični projekat
       course_school: Škola kursa
       course_subject: Predmet kursa
       course_term: Polugodište kursa

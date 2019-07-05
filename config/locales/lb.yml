@@ -175,7 +175,6 @@ lb:
       clone_this: Dëse Cours klonen
       clone_successful: Detailer fir gekloonte Cours aktualiséieren
       course_description: Beschreiwung vum Cours
-      course_language: Originalsprooch
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
       create_label: Neie Cours uleeën
@@ -214,7 +213,6 @@ lb:
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
     features_feedback: 'Automatiséiert Virschléi:'
     feedback: Feedback
-    home_wiki_language: Sprooch vun der Heemechtswiki
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -456,6 +454,7 @@ lb:
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
+    references_count: Referenzen Derbäigesat
     my_reviewing: 'Nokucken:'
     name: Numm
     none: Dëse Cours huet keng Participanten.

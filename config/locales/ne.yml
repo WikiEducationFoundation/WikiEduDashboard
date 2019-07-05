@@ -230,8 +230,6 @@ ne:
       clone_this: यो पाठ्यक्रमको प्रतिलिपि गर्नुहोस्
       clone_successful: पाठ्यक्रम सफलतापूर्वक प्रतिलिपी गरियो
       course_description: पाठ्यक्रम विवरण
-      course_language: गृह भाषा
-      course_project: गृह आयोजना
       course_school: पाठ्यक्रम विद्यालय
       course_subject: पाठ्यक्रम विषय
       course_term: पाठ्यक्रम सत्र

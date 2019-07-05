@@ -106,8 +106,6 @@ oc:
       assignment_start: Començament de l’afectacion
       assignment_start_placeholder: Debuta de l’afectacion (AAAA-MM-JJ)
       course_description: Descripcion del cors
-      course_language: Lenga del site
-      course_project: Projècte personal
       course_school: Escòla del cors
       course_subject: Subjècte del cors
       course_term: Periòde del cors

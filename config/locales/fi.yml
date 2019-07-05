@@ -322,8 +322,6 @@ fi:
         (viikot ja lohkot). Muista lisätä päivämäärät, jotka eivät siirtyneet. Onko
         mitään muuta muuttunut kurssistasi? Voit päivittää kurssia nyt vapaasti.
       course_description: Kurssin kuvaus
-      course_language: Kotikieli
-      course_project: Projektin kotisivu
       course_school: Kurssin oppilaitos
       course_subject: Kurssin aihe
       course_term: Kurssin lukukausi
@@ -396,8 +394,6 @@ fi:
     feedback: Palaute
     feedback_loading: Hetki, ehdotukset latautuvat...
     gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
-    home_wiki_language: Kotiwikin kieli
-    home_wiki_project: Kotiwikin projekti
     instructor:
       one: ohjaaja
       other: ohjaajat

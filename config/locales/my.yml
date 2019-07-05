@@ -117,8 +117,6 @@ my:
     courses: သင်တန်းများ
     creator:
       course_description: သင်တန်း ဖော်ပြချက်
-      course_language: ပင်မ ဘာသာစကား
-      course_project: ပင်မ ပရောဂျက်
       course_title: သင်တန်းခေါင်းစဉ်
       end_date: ပြီးဆုံးရက်
       start_date: စတင်သည့်ရက်စွဲ
@@ -126,8 +124,6 @@ my:
     delete_suggestion: ဖျက်ရန်
     features_feedback: 'အလိုအလျောက် အကြံပေးချက်များ:'
     feedback: အကြံပေးရန်
-    home_wiki_language: ပင်မဝီကီ ဘာသာစကား
-    home_wiki_project: ပင်မဝီကီ ပရောဂျက်
     join: ပါဝင်ပူးပေါင်းရန်
     loading: ဝန်ဆွဲတင်နေသည်...
     new_account_email: အီးမေးလ် လိပ်စာ

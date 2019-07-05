@@ -53,7 +53,6 @@ ur:
     actions: اقدامات
     articles: مضامین
     creator:
-      course_project: مرکزی منصوبہ
       create_short: نصاب بنائیں
     delete_suggestion: حذف کریں
     features_feedback: 'خودکار سجھاؤ:'

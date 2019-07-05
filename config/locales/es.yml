@@ -21,6 +21,7 @@
 # Author: Themasterriot
 # Author: Tiberius1701
 # Author: Tusca
+# Author: Wizardeck
 # Author: Yllelder
 # Author: YoViajo
 ---
@@ -329,8 +330,6 @@ es:
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
         actualizarlo ahora.
       course_description: Descripción del curso
-      course_language: Idioma principal
-      course_project: Proyecto principal
       course_school: Escuela del curso
       course_subject: Tema del curso
       course_term: Curso de plazo
@@ -393,8 +392,6 @@ es:
     feedback: Comentarios
     feedback_loading: Espera mientras se cargan las sugerencias…
     gradeables_none: Este curso no tiene tareas calificables.
-    home_wiki_language: Idioma del wiki de origen
-    home_wiki_project: Proyecto del wiki de origen
     instructor:
       one: Docente
       other: Docentes
@@ -616,6 +613,7 @@ es:
     edit_count_description: Ediciones totales
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
+    references_count: Referencias añadidas
     tags: Etiquetas
     upload_count: Subidas a Commons
     uploads_in_use_count:
@@ -806,6 +804,7 @@ es:
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres añadidos (usuario)
     characters_added_draftspace: Caracteres añadidos (borrador)
+    references_count: Referencias añadidas
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre
@@ -821,6 +820,7 @@ es:
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
+    references_doc: El número de referencias añadidas o eliminadas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
     training_complete:

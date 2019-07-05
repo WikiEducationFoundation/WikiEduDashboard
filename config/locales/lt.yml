@@ -159,8 +159,6 @@ lt:
       clone_this: Klonuoti Šį Kursą
       clone_successful: Kursas Sėkmingai Klonuotas
       course_description: Kurso aprašymas
-      course_language: Pagrindinė kalba
-      course_project: Pagrindinis projektas
       course_subject: Kurso tema
       course_term: Kurso terminas
       course_term_placeholder: Terminas

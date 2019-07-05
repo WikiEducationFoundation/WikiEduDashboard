@@ -350,10 +350,8 @@ tr:
       course_description_placeholder: Kursunuzda neler var ve Vikipedi'de öğrenciler
         ne yapacak? Lütfen diğer Vikipedi editörlerine öğrencilerinizin yapacağı katkılar
         için bir bağlam hissi vermek için yeterli ayrıntı ekleyin.
-      course_language: Anadil
       course_private: Özel program (sadece yöneticiler ve kolaylaştırıcılar tarafından
         görülebilir)
-      course_project: Ana proje
       course_school: Kurs okulu
       course_subject: Kurs konusu
       course_term: Kurs dönemi
@@ -425,8 +423,6 @@ tr:
     feedback: Geri bildirim
     feedback_loading: Öneriler yükleniyorken lütfen bekleyin...
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
-    home_wiki_language: Ana Viki Dili
-    home_wiki_project: Ana Viki Projesi
     instructor:
       one: Eğitmen
       other: Eğitmen
