@@ -8,10 +8,11 @@ import {
 const setSelectedAnswer = function (state, answer) {
   const answerId = parseInt(answer);
   const temp = { ...state, currentSlide: { ...state.currentSlide, selectedAnswer: answerId } };
-  if (state.currentSlide.assessment.correct_answer_id === answerId) {
-    return { ...temp, currentSlide: { ...temp.currentSlide, answeredCorrectly: true } };
-  }
-  return { ...temp, currentSlide: { ...temp.currentSlide, answeredCorrectly: false } };
+  const quiz = state.currentSlide.assessment;
+  // Count answer as correct if it matches correct_answer_id, or if specific answer is marked correct.
+  // This allows for quizzes with multiple correct answers.
+  const answeredCorrectly = quiz.correct_answer_id === answerId || quiz.answers.find(a => a.id === answerId).correct;
+  return { ...temp, currentSlide: { ...temp.currentSlide, answeredCorrectly } };
 };
 
 const setCurrentSlide = function (state, slideId) {

@@ -39,8 +39,13 @@ const Quiz = createReactClass({
     return this.setSelectedAnswer(this.state.selectedAnswerId);
   },
 
+  answerIsCorrect(answer) {
+    if (this.props.correctAnswer === answer) { return true; }
+    return this.props.answers.find(a => a.id === answer).correct;
+  },
+
   correctStatus(answer) {
-    if (this.props.correctAnswer === answer) {
+    if (this.answerIsCorrect(answer)) {
       return ' correct';
     }
     return ' incorrect';
