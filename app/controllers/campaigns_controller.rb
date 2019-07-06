@@ -8,7 +8,7 @@ class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
-                                        remove_course courses ores_plot articles_csv alerts]
+                                        remove_course courses ores_plot articles_csv revisions_csv alerts]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -190,7 +190,7 @@ class CampaignsController < ApplicationController
   end
 
   def revisions_csv
-    filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
+    filename = "#{@campaign.slug}-revisions-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
         send_data CampaignCsvBuilder.new(@campaign).revisions_to_csv,

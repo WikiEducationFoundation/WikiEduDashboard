@@ -256,9 +256,9 @@ en:
     data_courses: Course overview data
     data_courses_info: Basic metrics for each course/program
     data_articles: Pages edited
-    data_revisions: Revisions
+    data_revisions: Revisions data
     data_articles_info: Details about each tracked page edited by the campaign
-    data_revisions_info: Details about each revisions of this campaign
+    data_revisions_info: Details about each tracked revisions of the campaign
     data_instructors: Instructors
     data_instructors_info: List of instructors/facilitators and their courses/programs
     data_editors_by_course: Editors by course
@@ -447,6 +447,7 @@ en:
       and pageview totals. These pageview values may be out of date for courses
       that have already ended, so a url to the WMF Tool Labs pageview tool is
       included.
+    data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
     data_download_info: Download data in CSV format.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
@@ -457,6 +458,7 @@ en:
       Editors data lists all the enrolled editors, how much they edited, and
       whether they registered their accounts during the project.
     data_uploads: Commons uploads data
+    data_revisions: Revisions data
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     delete_course: Delete course
     delete_suggestion: Delete

@@ -31,6 +31,7 @@ const CourseStatsDownloadModal = createReactClass({
     const uploadsCsvLink = `/course_uploads_csv?course=${this.props.course.slug}`;
     const studentsCsvLink = `/course_students_csv?course=${this.props.course.slug}`;
     const articlesCsvLink = `/course_articles_csv?course=${this.props.course.slug}`;
+    const revisionsCsvLink = `/course_revisions_csv?course=${this.props.course.slug}`;
 
     return (
       <div className="basic-modal course-stats-download-modal">
@@ -60,6 +61,11 @@ const CourseStatsDownloadModal = createReactClass({
         <p>
           <a href={articlesCsvLink} className="button right">{I18n.t('courses.data_articles')}</a>
           {I18n.t('courses.data_articles_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={revisionsCsvLink} className="button right">{I18n.t('courses.data_revisions')}</a>
+          {I18n.t('courses.data_revisions_info')}
         </p>
       </div>
     );
