@@ -76,7 +76,7 @@ class CourseRevisionsCsvBuilder
     row << revision_data[:page_id]
     row << revision_data[:wiki_id]
     row << revision_data[:wiki_domain]
-    add_characters_references(revision_data,row)
+    add_characters_references(revision_data, row)
     row << revision_data[:new_article]
     row << revision_data[:article_id]
     row << revision_data[:deleted]
