@@ -29,5 +29,4 @@ describe CourseRevisionsCsvBuilder do
   it 'creates a CSV with a header and a row of data for each revision' do
     expect(subject.split("\n").count).to eq(3)
   end
-
 end
