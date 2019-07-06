@@ -25,7 +25,6 @@ class CourseCsvBuilder
     articles_created
     bytes_added
     total_edits
-    revision_id
     mainspace_edits
     article_talk_edits
     userspace_edits
@@ -52,7 +51,10 @@ class CourseCsvBuilder
     row << @course.article_count
     row << @course.new_article_count
     row << @course.character_sum
-    revisions_rows(row)
+    row << @course.revision_count
+    row << revisions_by_namespace(Article::Namespaces::MAINSPACE)
+    row << revisions_by_namespace(Article::Namespaces::TALK)
+    row << revisions_by_namespace(Article::Namespaces::USER)
     row << @course.view_sum
     row << @course.upload_count
     row << @course.uploads_in_use_count
@@ -71,14 +73,6 @@ class CourseCsvBuilder
     else
       CSV_HEADERS
     end
-  end
-
-  def revisions_rows(row)
-    row << @course.revision_count
-    row << revisions_id
-    row << revisions_by_namespace(Article::Namespaces::MAINSPACE)
-    row << revisions_by_namespace(Article::Namespaces::TALK)
-    row << revisions_by_namespace(Article::Namespaces::USER)
   end
 
   def generate_csv
@@ -105,10 +99,6 @@ class CourseCsvBuilder
     # An editor counts as retained if they make at least one revision 7 or more
     # days after_the end of the course.
     new_editors.joins(:revisions).where('revisions.date > ?', @course.end + 7.days).distinct
-  end
-
-  def revisions_id
-    @course.revisions.map(&:mw_rev_id)
   end
 
   def revisions_by_namespace(namespace)
