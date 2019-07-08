@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Daniel charms
+# Author: Pikne
 ---
 et:
   number:
@@ -20,15 +21,15 @@ et:
   application:
     cancel: Loobu
     create_accounts: Loo Vikipeedia kontod
-    dashboard: Wiki Ed töölaud
+    dashboard: Wiki Edi töölaud
     documentation: Dokumentatsioon
     error: 'Tuvastati viga:'
     explore: Avasta
     field_required: See väli on kohustuslik
     field_invalid_characters: See väli sisaldab mittelubatud tähemärke
-    field_invalid_date: See väli nõuab AAAA-KK-PP vormis kuupäeva
-    field_invalid_date_time: Lõpuaeg peab olema algusajast hilisem. (tunnid on vahemikus
-      0–23 tundi.)
+    field_invalid_date: See väli nõuab kuupäeva vormingus AAAA-KK-PP
+    field_invalid_date_time: Lõppaeg peab olema algusajast hilisem. (Tunnid on vahemikus
+      0–23.)
     greeting2: Tere tulemast!
     greeting_extended: Tere tulemast Vikipeediasse!
     greeting: Tere!
@@ -104,9 +105,9 @@ et:
     previous: Tagasi
     article_title: Artikli pealkiri
     assigned_to: Kasutaja nimi
-    character_doc: Algus- ja lõpukuupäeva vahel kursusel osalejate poolt artiklitele
+    character_doc: Algus- ja lõppkuupäeva vahel kursusel osalejate poolt artiklitele
       lisatud tähemärgid, summaarne
-    cross_wiki_tracking: Allpool on nimekiri algus- ja lõpukuupäeva vahel muudetud
+    cross_wiki_tracking: Allpool on nimekiri algus- ja lõppkuupäeva vahel muudetud
       põhinimeruumi artiklitest. Töölaud koondab kaastöid programmi koduvikist ning
       kõigist teistest vikidest, millega on seotud mõni ülesanne või vaba artikkel.
     deleted: (kustutatud)
@@ -121,7 +122,7 @@ et:
     hide: Peida
     history: (ajalugu)
     label: Artiklid
-    loading: Laen artikleid...
+    loading: Laadin artikleid...
     new: (uus)
     none: Kursusel osalejad ei ole muutnud ühtegi artiklit.
     rating: Klass

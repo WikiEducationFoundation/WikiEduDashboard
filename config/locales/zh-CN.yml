@@ -95,6 +95,8 @@ zh-CN:
     edited: 编辑的条目
     edited_by: 编辑者：
     edited_mobile: 条目
+    filter:
+      new: 新的
     hide: 隐藏
     history: （历史）
     label: 条目
@@ -389,6 +391,7 @@ zh-CN:
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
     requested_accounts: 请求的账户
+    requested_accounts_alert_view: 查看
     review_timeline: 现在请检查您的分配时间表，自定义它以符合您的需求。一旦您感到满意，您可以将其提交给维基教育职员以待批准。一旦获得批准，您将收到一个登记URL，学生可以使用它加入课程并访问培训。（注意：您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
