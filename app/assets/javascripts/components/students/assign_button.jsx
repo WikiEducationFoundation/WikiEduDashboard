@@ -13,10 +13,11 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants';
 import SelectedWikiOption from '../common/selected_wiki_option';
 
 // Helper Components
-const ShowButton = ({ is_open, open, permitted }) => {
+const ShowButton = ({ assignmentsLength, is_open, open, permitted }) => {
+  console.log(permitted);
   let buttonText = '…';
   if (is_open) buttonText = I18n.t('users.assign_articles_done');
-  if (permitted) buttonText = '+/-';
+  if (permitted) buttonText = assignmentsLength ? '+/-' : I18n.t('assignments.add_available');
 
   return (
     <button
@@ -334,7 +335,12 @@ export class AssignButton extends React.Component {
     let showButton;
     if (current_user.admin) {
       showButton = (
-        <ShowButton is_open={is_open} open={open} permitted={permitted} />
+        <ShowButton
+          assignmentsLength={this.props.assignments.length}
+          is_open={is_open}
+          open={open}
+          permitted={permitted}
+        />
       );
     }
 
