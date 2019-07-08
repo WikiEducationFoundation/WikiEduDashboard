@@ -37,7 +37,8 @@ describe OresApi do
     it 'fetches json from ores.wikimedia.org for wikidata' do
       VCR.use_cassette 'ores_api' do
         expect(subject2).to be_a(Hash)
-        expect(subject2.dig('wikidatawiki', 'scores', '12345', 'itemquality', 'features')).to be_a(Hash)
+        expect(subject2.dig('wikidatawiki', 'scores', '12345', 'itemquality', 'features'))
+          .to be_a(Hash)
         expect(subject2.dig('wikidatawiki', 'scores', '641962088')).to be_a(Hash)
       end
     end
