@@ -28,29 +28,35 @@ const ShowButton = ({ is_open, open, permitted }) => {
   );
 };
 
-const AddAssignmentButton = ({ assignment, assign }) => (
-  <span>
-    <button
-      aria-label="Add"
-      className="button border plus"
-      onClick={e => assign(e, assignment)}
-    >
-        +
-    </button>
-  </span>
-);
+const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
+  const text = reviewing ? 'Review' : 'Select';
+  return (
+    <span>
+      <button
+        aria-label="Add"
+        className="button border assign-selection-button"
+        onClick={e => assign(e, assignment)}
+      >
+        { text }
+      </button>
+    </span>
+  );
+};
 
-const RemoveAssignmentButton = ({ assignment, unassign }) => (
-  <span>
-    <button
-      aria-label="Remove"
-      className="button border plus"
-      onClick={() => unassign(assignment)}
-    >
-      -
-    </button>
-  </span>
-);
+const RemoveAssignmentButton = ({ assignment, reviewing = false, unassign }) => {
+  const text = reviewing ? 'Stop Reviewing' : 'Remove';
+  return (
+    <span>
+      <button
+        aria-label="Remove"
+        className="button border assign-selection-button"
+        onClick={() => unassign(assignment)}
+      >
+        { text }
+      </button>
+    </span>
+  );
+};
 
 const ArticleLink = ({ articleUrl, title }) => {
   if (!articleUrl) return (<span>{ title }</span>);
@@ -68,7 +74,7 @@ const getArticle = (assignment, course, labels) => {
 };
 
 const AssignedAssignmentRows = ({
-  assignments = [], course, permitted, wikidataLabels,
+  assignments = [], course, permitted, role, wikidataLabels,
   unassign // functions
 }) => {
   const elements = assignments.map((assignment) => {
@@ -80,7 +86,11 @@ const AssignedAssignmentRows = ({
           <ArticleLink articleUrl={article.url} title={article.title} />
           {
             permitted
-            && <RemoveAssignmentButton assignment={assignment} unassign={unassign} />
+            && <RemoveAssignmentButton
+              assignment={assignment}
+              reviewing={role === REVIEWING_ROLE}
+              unassign={unassign}
+            />
           }
         </td>
       </tr>
@@ -98,7 +108,7 @@ const AssignedAssignmentRows = ({
 };
 
 const PotentialAssignmentRows = ({
-  assignments = [], course, permitted, wikidataLabels,
+  assignments = [], course, permitted, role, wikidataLabels,
   assign // functions
 }) => {
   const elements = assignments.map((assignment) => {
@@ -110,7 +120,11 @@ const PotentialAssignmentRows = ({
           <ArticleLink articleUrl={article.url} title={article.title} />
           {
             permitted
-            && <AddAssignmentButton assignment={assignment} assign={assign} />
+            && <AddAssignmentButton
+              assignment={assignment}
+              assign={assign}
+              reviewing={role === REVIEWING_ROLE}
+            />
           }
         </td>
       </tr>
@@ -399,6 +413,7 @@ export class AssignButton extends React.Component {
           unassign={this.unassign.bind(this)}
           course={course}
           permitted={permitted}
+          role={this.props.role}
           wikidataLabels={wikidataLabels}
         />
       );
@@ -415,6 +430,7 @@ export class AssignButton extends React.Component {
           course={course}
           key="potential"
           permitted={permitted}
+          role={this.props.role}
           wikidataLabels={wikidataLabels}
         />
       );

@@ -46,17 +46,17 @@ const MyAssignmentsList = ({ assignments, course, current_user, wikidataLabels }
     <>
       {
         articles.new.length
-        ? <List {...listProps} assignments={articles.new} title="New Articles" />
+        ? <List {...listProps} assignments={articles.new} title="Articles I will create" />
         : null
       }
       {
         articles.improving.length
-        ? <List {...listProps} assignments={articles.improving} title="Articles I'm Improving" />
+        ? <List {...listProps} assignments={articles.improving} title="Articles I'm updating" />
         : null
       }
       {
         articles.reviewing.length
-        ? <List {...listProps} assignments={articles.reviewing} title="Articles I'm Reviewing" />
+        ? <List {...listProps} assignments={articles.reviewing} title="Articles I'm peer reviewing" />
         : null
       }
     </>

@@ -24,12 +24,10 @@ describe 'My Articles', type: :feature, js: true do
     expect(page).to have_content 'My Articles'
 
     click_button 'Assign myself an article'
-    click_button '+' # FIXME: clearer button label like "Select"
+    click_button 'Select'
     click_button 'OK'
 
-    # FIXME: better label that won't confuse people who created a new article,
-    # like "Articles I will create"
-    expect(page).to have_content "Articles I'm Improving"
+    expect(page).to have_content "Articles I'm updating"
     expect(student.assignments.where(role: ASSIGNED).count).to eq(1)
   end
 
@@ -38,15 +36,12 @@ describe 'My Articles', type: :feature, js: true do
 
     visit "/courses/#{course.slug}"
     expect(page).to have_content 'My Articles'
-    expect(page).to have_content "Articles I'm Improving"
+    expect(page).to have_content "Articles I'm updating"
 
-    # FIXME: This should not be the +/- label, it should still be 'Assign myself an article'
-    click_button '+/-'
-    click_button '+' # FIXME: clearer button label like "Select"
+    click_button 'Assign myself an article'
+    click_button 'Select'
     click_button 'OK'
 
-    # FIXME: better label that won't confuse people who created a new article,
-    # like "Articles I will create"
     expect(page).to have_content 'Shiba Inu'
     expect(student.assignments.where(role: ASSIGNED).count).to eq(2)
   end
@@ -56,10 +51,10 @@ describe 'My Articles', type: :feature, js: true do
     expect(page).to have_content 'My Articles'
 
     click_button 'Review an article'
-    click_button '+' # FIXME: clearer button label like "Review"
+    click_button 'Review'
     click_button 'OK'
-    # FIXME: update label to "Articles I'm peer reviewing"
-    expect(page).to have_content "Articles I'm Reviewing"
+
+    expect(page).to have_content "Articles I'm peer reviewing"
     expect(student.assignments.where(role: REVIEWING).count).to eq(1)
   end
 end
