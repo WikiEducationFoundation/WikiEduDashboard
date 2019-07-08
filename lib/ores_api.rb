@@ -12,8 +12,8 @@ class OresApi
   REVS_PER_REQUEST = 50
 
   def initialize(wiki)
-    raise InvalidProjectError unless wiki.project == 'wikipedia'
-    @project_code = wiki.language + 'wiki'
+    raise InvalidProjectError unless wiki.project == 'wikipedia' || wiki.project == 'wikidata'
+    @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
   end
 
   def get_revision_data(rev_ids)
@@ -41,7 +41,12 @@ class OresApi
   private
 
   def query_url(rev_ids)
-    base_url = "/v3/scores/#{@project_code}/?models=articlequality&features&revids="
+    base_url =
+      if @project_code == 'wikidatawiki'
+        "/v3/scores/#{@project_code}/?models=itemquality&features&revids="
+      else
+        "/v3/scores/#{@project_code}/?models=articlequality&features&revids="
+      end
     url = base_url + rev_ids.join('|')
     url
   end
