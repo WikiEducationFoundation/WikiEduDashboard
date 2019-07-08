@@ -10,3 +10,13 @@ content: |
   * Look out for that invitation to join our Slack channel.
 
   See you soon!
+
+  We would also appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+  </div>
