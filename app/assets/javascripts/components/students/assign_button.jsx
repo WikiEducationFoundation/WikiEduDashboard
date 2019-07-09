@@ -327,15 +327,17 @@ export class AssignButton extends React.Component {
 
   render() {
     const {
-      allowMultipleArticles, course, current_user,
-      is_open, open, permitted, role, student, tooltip_message
+      assignments, allowMultipleArticles, course, current_user,
+      isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
     let showButton;
-    if (current_user.admin) {
+    const studentView = isStudentsPage && !current_user.admin;
+    const adminView = current_user.admin && assignments.length > 1;
+    if ((studentView || adminView)) {
       showButton = (
         <ShowButton
-          assignmentsLength={this.props.assignments.length}
+          assignmentsLength={assignments.length}
           is_open={is_open}
           open={open}
           permitted={permitted}
