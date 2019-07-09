@@ -34,6 +34,7 @@ class TrainingController < ApplicationController
 
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
+    raise ActionController::RoutingError, 'not found' if training_module.nil?
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
