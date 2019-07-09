@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import AssignCell from '../students/assign_cell.jsx';
 import MyAssignmentsList from './my_assignments_list.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import { getFiltered } from '../../utils/model_utils';
 import {
   ASSIGNED_ROLE, REVIEWING_ROLE,
   IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
 } from '../../constants/assignments';
+import { groupByAssignmentType } from '../util/helpers';
 
 export const MyArticles = createReactClass({
   displayName: 'MyArticles',
@@ -78,27 +78,10 @@ export const MyArticles = createReactClass({
     const addSandboxUrl = this.addSandboxUrl(assignments, course, user_id);
     const updatedAssignments = assignments.map(addSandboxUrl);
 
-    const unassignedOptions = { user_id: null, role: ASSIGNED_ROLE };
-    const unassigned = getFiltered(updatedAssignments, unassignedOptions);
-
-    const assignOptions = { user_id, role: ASSIGNED_ROLE };
-    const assigned = getFiltered(updatedAssignments, assignOptions);
-
-    const reviewOptions = { user_id, role: REVIEWING_ROLE };
-    const reviewing = getFiltered(updatedAssignments, reviewOptions);
-
-    // To find articles that are able to be reviewed...
-    const assignedArticleIds = assigned.map(({ article_id: id }) => id);
-    const reviewingArticleIds = reviewing.map(({ article_id: id }) => id);
-    const reviewable = updatedAssignments.filter((assignment) => {
-      return assignment.user_id // ...the article must have a user_id
-             // which shouldn't match the current user's id
-             && assignment.user_id !== user_id
-             // and should not be an article that is assigned to them
-             && !assignedArticleIds.includes(assignment.article_id)
-             // and should not be an article they are already reviewing
-             && !reviewingArticleIds.includes(assignment.article_id);
-    });
+    const {
+      assigned, reviewing,
+      unassigned, reviewable
+    } = groupByAssignmentType(updatedAssignments, user_id);
 
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;

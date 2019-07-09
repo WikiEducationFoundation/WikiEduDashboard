@@ -6,9 +6,7 @@ import PropTypes from 'prop-types';
 import { setUploadFilters } from '../../actions/uploads_actions';
 import { fetchUserRevisions } from '../../actions/user_revisions_actions';
 import { fetchTrainingStatus } from '../../actions/training_status_actions';
-import { getFiltered } from '../../utils/model_utils.js';
-import { ASSIGNED_ROLE } from '../../constants/assignments';
-
+import { groupByAssignmentType } from '../util/helpers';
 import AssignCell from './assign_cell.jsx';
 import { trunc } from '../../utils/strings';
 
@@ -89,17 +87,19 @@ const Student = createReactClass({
     let assignButton;
     let reviewButton;
     if (this.props.course.published) {
-      const assignOptions = { user_id: this.props.student.id, role: ASSIGNED_ROLE };
-      const assigned = getFiltered(this.props.assignments, assignOptions);
+      const {
+        assigned, reviewing,
+        unassigned, reviewable
+      } = groupByAssignmentType(this.props.assignments, this.props.student.id);
 
-      const unassignedOptions = { user_id: null, role: ASSIGNED_ROLE };
-      const unassigned = getFiltered(this.props.assignments, unassignedOptions);
       assignButton = (
         <AssignCell
           assignments={assigned}
+          assignmentsLength={assigned.length}
           course={this.props.course}
           current_user={this.props.current_user}
           editable={this.props.editable}
+          isStudentsPage
           student={this.props.student}
           role={0}
           wikidataLabels={this.props.wikidataLabels}
@@ -107,24 +107,14 @@ const Student = createReactClass({
         />
       );
 
-      const reviewOptions = { user_id: this.props.student.id, role: 1 };
-      const reviewing = getFiltered(this.props.assignments, reviewOptions);
-
-      // To find articles that are able to be reviewed...
-      const reviewingArticleIds = reviewing.map(({ article_id: id }) => id);
-      const reviewable = this.props.assignments.filter((assignment) => {
-        return assignment.user_id // ...the article must have a user_id
-          // which shouldn't match the current user's id
-          && assignment.user_id !== this.props.student.id
-          // and should not be an article they are already reviewing
-          && !reviewingArticleIds.includes(assignment.article_id);
-      });
       reviewButton = (
         <AssignCell
           assignments={reviewing}
+          assignmentsLength={reviewing.length}
           course={this.props.course}
           current_user={this.props.current_user}
           editable={this.props.editable}
+          isStudentsPage
           student={this.props.student}
           role={1}
           wikidataLabels={this.props.wikidataLabels}
