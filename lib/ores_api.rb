@@ -14,6 +14,7 @@ class OresApi
   def initialize(wiki)
     raise InvalidProjectError unless wiki.project == 'wikipedia' || wiki.project == 'wikidata'
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
+    @project_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
   end
 
   def get_revision_data(rev_ids)
@@ -41,12 +42,7 @@ class OresApi
   private
 
   def query_url(rev_ids)
-    base_url =
-      if @project_code == 'wikidatawiki'
-        "/v3/scores/#{@project_code}/?models=itemquality&features&revids="
-      else
-        "/v3/scores/#{@project_code}/?models=articlequality&features&revids="
-      end
+    base_url = "/v3/scores/#{@project_code}/?models=#{@project_model}&features&revids="
     url = base_url + rev_ids.join('|')
     url
   end
