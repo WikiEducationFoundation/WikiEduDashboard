@@ -165,7 +165,7 @@ describe Replica do
       end
     end
 
-    it 'functions identically on Wikimedia Commons' do
+    it 'includes "File" namespace edits on Wikimedia Commons' do
       VCR.use_cassette 'replica/wikimedia_commons_revisions' do
         all_users = [
           build(:user, username: 'Oursana')
@@ -176,7 +176,7 @@ describe Replica do
 
         commons = Wiki.new(language: 'commons', project: 'wikimedia')
         response = described_class.new(commons).get_revisions(all_users, rev_start, rev_end)
-        expect(response.count).to eq(1)
+        expect(response.count).to eq(16)
       end
     end
   end
