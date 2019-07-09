@@ -332,9 +332,8 @@ export class AssignButton extends React.Component {
     } = this.props;
 
     let showButton;
-    const studentView = isStudentsPage && !current_user.admin;
-    const adminView = current_user.admin && assignments.length > 1;
-    if ((studentView || adminView)) {
+    const studentView = isStudentsPage && !current_user.isAdvancedRole;
+    if ((studentView || current_user.isAdvancedRole) && assignments.length > 1) {
       showButton = (
         <ShowButton
           assignmentsLength={assignments.length}
