@@ -24,11 +24,11 @@ class CourseRevisionsCsvBuilder
 
   def set_revisions
     @new_revisions = {}
-    @course.all_revisions.includes(article: :wiki).map do |edit|
+    @course.all_revisions.includes(:wiki, :article).map do |edit|
       revision_edits = @new_revisions[edit.article_id] || new_revision(edit)
       revision_edits[:mw_rev_id] = edit.mw_rev_id
       revision_edits[:mw_page_id] = edit.mw_page_id
-      revision_edits[:wiki_id] = edit.wiki_id
+      revision_edits[:wiki_id] = edit.wiki.domain
       update_characters_references_views(revision_edits, edit)
       revision_edits[:new_article] = true if edit.new_article
       revision_edits[:deleted] = true if edit.deleted
@@ -75,7 +75,6 @@ class CourseRevisionsCsvBuilder
     row = [revision_data[:mw_rev_id]]
     row << revision_data[:page_id]
     row << revision_data[:wiki_id]
-    row << revision_data[:wiki_domain]
     add_characters_references(revision_data, row)
     row << revision_data[:new_article]
     row << revision_data[:article_id]
