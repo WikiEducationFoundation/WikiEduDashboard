@@ -15,16 +15,19 @@ const AcademicSystem = createReactClass({
   },
 
   render: function () {
+    const options = ['Semester', 'Quarter'];
+    let i;
+    const academic_system = [];
+    for (i = 0; i < options.length; i += 1) {
+      academic_system.push(
+        <label>
+          <input type = "radio" name="academic_system" defaultChecked={this.state.selectedOption === options[i]} onChange={this.handleOptionChange}/>
+          {options[i]}
+        </label>);
+    }
     return (
       <div>
-        <label>
-          <input type = "radio" name="academic_system" defaultChecked={this.state.selectedOption === 'Semester'} onChange={this.handleOptionChange}/>
-          Semester
-        </label>
-        <label>
-          <input type = "radio" name="academic_system" defaultChecked={this.state.selectedOption === 'Quarter'} onChange={this.handleOptionChange}/>
-          Quarter
-        </label>
+        {academic_system}
       </div>
     );
   }
