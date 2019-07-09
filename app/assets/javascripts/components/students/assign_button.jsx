@@ -14,7 +14,6 @@ import SelectedWikiOption from '../common/selected_wiki_option';
 
 // Helper Components
 const ShowButton = ({ assignmentsLength, is_open, open, permitted }) => {
-  console.log(permitted);
   let buttonText = '…';
   if (is_open) buttonText = I18n.t('users.assign_articles_done');
   if (permitted) buttonText = assignmentsLength ? '+/-' : I18n.t('assignments.add_available');
