@@ -8,7 +8,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
   const ratingClass = `rating ${revision.rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
-
+  const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">
@@ -20,7 +20,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
       </td>
       <td>
         <div className={ratingMobileClass}><p>{revision.pretty_rating || '-'}</p></div>
-        <a href={revision.article_url} target="_blank" className="inline"><p className="title">{formattedTitle}</p></a>
+        <a href={revision.article_url} target="_blank" className="inline"><p className="title">{formattedTitle}</p><small>{subtitle}</small></a>
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
