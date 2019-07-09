@@ -314,8 +314,8 @@ describe 'Student users', type: :feature, js: true do
              role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       # Remove the assignment
-      click_button '+/-'
-      click_button '-'
+      click_button 'Assign myself an article'
+      click_button 'Remove'
       click_button 'OK'
       sleep 0.5
       visit "/courses/#{Course.first.slug}/students"
