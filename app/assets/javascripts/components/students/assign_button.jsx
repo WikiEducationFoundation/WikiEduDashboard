@@ -43,8 +43,7 @@ const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
   );
 };
 
-const RemoveAssignmentButton = ({ assignment, reviewing = false, unassign }) => {
-  const text = reviewing ? 'Stop Reviewing' : 'Remove';
+const RemoveAssignmentButton = ({ assignment, unassign }) => {
   return (
     <span>
       <button
@@ -52,7 +51,7 @@ const RemoveAssignmentButton = ({ assignment, reviewing = false, unassign }) => 
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        { text }
+        Remove
       </button>
     </span>
   );
@@ -88,7 +87,6 @@ const AssignedAssignmentRows = ({
             permitted
             && <RemoveAssignmentButton
               assignment={assignment}
-              reviewing={role === REVIEWING_ROLE}
               unassign={unassign}
             />
           }
@@ -97,10 +95,13 @@ const AssignedAssignmentRows = ({
     );
   });
 
+  const text = role === ASSIGNED_ROLE
+    ? I18n.t('courses.assignment_headings.assigned_articles')
+    : I18n.t('courses.assignment_headings.assigned_reviews');
   const title = (
     <tr key="assigned" className="assignment-section-header">
       <td>
-        <h3>Assigned Articles</h3>
+        <h3>{ text }</h3>
       </td>
     </tr>
   );
@@ -131,10 +132,14 @@ const PotentialAssignmentRows = ({
     );
   });
 
+  // CourseUtils.i18n('articles_none', this.props.course.string_prefix)
+  const text = role === ASSIGNED_ROLE
+    ? I18n.t('courses.assignment_headings.available_articles')
+    : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>
-        <h3>Available Articles</h3>
+        <h3>{ text }</h3>
       </td>
     </tr>
   );

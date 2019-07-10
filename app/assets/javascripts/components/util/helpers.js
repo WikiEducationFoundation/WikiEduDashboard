@@ -1,5 +1,6 @@
 import { getFiltered } from '../../utils/model_utils';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants/assignments';
+import * as _ from 'lodash';
 
 export const delayFetchAssignmentsAndArticles = (props, cb) => {
   const { loadingArticles, loadingAssignments } = props;
@@ -19,12 +20,15 @@ export const delayFetchAssignmentsAndArticles = (props, cb) => {
 const pluck = key => ({ [key]: val }) => val;
 
 export const groupByAssignmentType = (assignments, user_id) => {
+  // Unassigned to anyone
   const unassignedOptions = { user_id: null, role: ASSIGNED_ROLE };
   const unassigned = getFiltered(assignments, unassignedOptions);
 
+  // Assigned to the current user
   const assignOptions = { user_id, role: ASSIGNED_ROLE };
   const assigned = getFiltered(assignments, assignOptions);
 
+  // The current user is reviewing
   const reviewOptions = { user_id, role: REVIEWING_ROLE };
   const reviewing = getFiltered(assignments, reviewOptions);
 
@@ -34,7 +38,11 @@ export const groupByAssignmentType = (assignments, user_id) => {
   const assignedArticleIds = assigned.map(pluckArticleId);
   const reviewingArticleIds = reviewing.map(pluckArticleId);
 
-  const reviewable = assignments.filter((assignment) => {
+  const allAssigned = getFiltered(assignments, { role: ASSIGNED_ROLE });
+  const reviewableDuplicates = allAssigned.filter((assignment) => {
+    // If the article doesn't have an article id, that means it's a new article,
+    // so we want to allow for new articles to be reviewable as well as long as
+    // it isn't the current user's new article.
     const articleId = assignment.article_id;
     if (!articleId && assignment.user_id !== user_id) {
       return !assignedAndReviewingTitles.includes(assignment.article_title);
@@ -49,6 +57,7 @@ export const groupByAssignmentType = (assignments, user_id) => {
       && !reviewingArticleIds.includes(articleId);
   });
 
+  const reviewable = _.uniqBy(reviewableDuplicates, 'article_url');
   return { assigned, reviewing, unassigned, reviewable };
 }
 ;
