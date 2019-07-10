@@ -144,7 +144,7 @@ export default class CourseUtils {
       projectPrefix = `${article.project}:`;
     }
 
-    let title = article.title;
+    let title = this.removeNamespace(article.title); // Remove unwanted namespace in labels.
     if (article.project === 'wikidata' && wikidataLabel) {
       title = wikidataLabel;
     }
