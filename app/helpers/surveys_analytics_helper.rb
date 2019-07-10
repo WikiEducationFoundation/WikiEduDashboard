@@ -64,7 +64,7 @@ module SurveysAnalyticsHelper
 
   def response_summary_string(action_taken, notified)
     percent = 0
-    percent = (action_taken.to_f / notified.to_f) * 100 if action_taken.positive?
+    percent = (action_taken / notified.to_f) * 100 if action_taken.positive?
     "#{percent.round(2)}% (#{action_taken}/#{notified})"
   end
 end

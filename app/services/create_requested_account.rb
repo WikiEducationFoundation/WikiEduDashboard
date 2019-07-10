@@ -65,9 +65,9 @@ class CreateRequestedAccount
     @requested_account.destroy
   end
 
-  MESSAGE_CODES_TO_RETRY = [
-    'acct_creation_throttle_hit',
-    'captcha-createaccount-fail'
+  MESSAGE_CODES_TO_RETRY = %w[
+    acct_creation_throttle_hit
+    captcha-createaccount-fail
   ].freeze
   def handle_failed_account_creation(message, messagecode)
     if messagecode == 'userexists'
