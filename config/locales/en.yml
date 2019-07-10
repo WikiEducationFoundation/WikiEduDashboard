@@ -327,6 +327,11 @@ en:
     actions: Actions
     articles: Articles
     articles_none: This course has not edited any articles.
+    assignment_headings:
+        assigned_articles: Assigned Articles
+        assigned_reviews: Assigned Reviews
+        available_articles: Available Articles
+        available_reviews: Classmates' Articles
     assignment_end: Assignment End
     assignments_none: This course has no assigned articles.
     assignment_start: Assignment Start
@@ -667,6 +672,8 @@ en:
     all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.
+    assignment_headings:
+      available_reviews: Available to Review
     assignment_end: Event End
     assignments_none: This project has no assigned articles.
     assignment_start: Event Start

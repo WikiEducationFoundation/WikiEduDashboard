@@ -95,7 +95,9 @@ const AssignedAssignmentRows = ({
     );
   });
 
-  const text = role === ASSIGNED_ROLE ? 'Assigned Articles' : 'Assigned Reviews';
+  const text = role === ASSIGNED_ROLE
+    ? I18n.t('courses.assignment_headings.assigned_articles')
+    : I18n.t('courses.assignment_headings.assigned_reviews');
   const title = (
     <tr key="assigned" className="assignment-section-header">
       <td>
@@ -130,7 +132,10 @@ const PotentialAssignmentRows = ({
     );
   });
 
-  const text = role === ASSIGNED_ROLE ? 'Available Articles' : 'Classmates\' Articles';
+  // CourseUtils.i18n('articles_none', this.props.course.string_prefix)
+  const text = role === ASSIGNED_ROLE
+    ? I18n.t('courses.assignment_headings.available_articles')
+    : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>
