@@ -13,10 +13,10 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants';
 import SelectedWikiOption from '../common/selected_wiki_option';
 
 // Helper Components
-const ShowButton = ({ assignmentsLength, is_open, open, permitted }) => {
+// Button to show the static list
+const ShowButton = ({ is_open, open }) => {
   let buttonText = '…';
   if (is_open) buttonText = I18n.t('users.assign_articles_done');
-  if (permitted) buttonText = assignmentsLength ? '+/-' : I18n.t('assignments.add_available');
 
   return (
     <button
@@ -151,14 +151,18 @@ const Tooltip = ({ message }) => {
   );
 };
 
+// Button to add new assignments
 const EditButton = ({
   allowMultipleArticles, current_user, is_open, open, role, student,
-  tooltip, tooltipIndicator
+  tooltip, tooltipIndicator, assignmentLength
 }) => {
   let assignText;
   let reviewText;
   if (allowMultipleArticles) {
     assignText = I18n.t('assignments.add_available');
+  } else if (assignmentLength) {
+    assignText = '+/-';
+    reviewText = '+/-';
   } else if (student && current_user.id === student.id) {
     assignText = I18n.t('assignments.assign_self');
     reviewText = I18n.t('assignments.review_self');
@@ -167,7 +171,8 @@ const EditButton = ({
     reviewText = I18n.t('assignments.review_other');
   }
 
-  const finalText = role === ASSIGNED_ROLE ? assignText : reviewText;
+  let finalText = role === ASSIGNED_ROLE ? assignText : reviewText;
+  if (is_open) finalText = I18n.t('users.assign_articles_done');
 
   return (
     <div className="tooltip-trigger">
@@ -332,14 +337,11 @@ export class AssignButton extends React.Component {
     } = this.props;
 
     let showButton;
-    const studentView = isStudentsPage && !current_user.isAdvancedRole;
-    if ((studentView || current_user.isAdvancedRole) && assignments.length > 1) {
+    if (!permitted && assignments.length > 1) {
       showButton = (
         <ShowButton
-          assignmentsLength={assignments.length}
           is_open={is_open}
           open={open}
-          permitted={permitted}
         />
       );
     }
@@ -363,6 +365,7 @@ export class AssignButton extends React.Component {
           student={student}
           tooltip={tooltip}
           tooltipIndicator={tooltipIndicator}
+          assignmentLength={isStudentsPage && assignments.length}
         />
       );
     }
