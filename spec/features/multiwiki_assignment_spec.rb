@@ -21,7 +21,11 @@ describe 'multiwiki assignments', type: :feature, js: true do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
-      click_button 'Assign an article'
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign an article'
+      button.click
+
       within('#users') do
         first('input').set('https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D')
       end
@@ -39,7 +43,10 @@ describe 'multiwiki assignments', type: :feature, js: true do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
-      click_button 'Assign an article'
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign an article'
+      button.click
 
       within('#users') do
         find('input', visible: true).set('No le des prisa, dolor')
@@ -65,7 +72,10 @@ describe 'multiwiki assignments', type: :feature, js: true do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
-      click_button 'Assign an article'
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign an article'
+      button.click
       within('#users') do
         first('input').set('https://wikisource.org/wiki/Heyder_Cansa')
       end
@@ -83,7 +93,10 @@ describe 'multiwiki assignments', type: :feature, js: true do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
-      click_button 'Assign an article'
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign an article'
+      button.click
       within('#users') do
         first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
       end
