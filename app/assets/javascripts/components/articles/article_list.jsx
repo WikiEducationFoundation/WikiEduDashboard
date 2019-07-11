@@ -75,7 +75,7 @@ const ArticleList = createReactClass({
       references_count: {
         label: I18n.t('metrics.references_count'),
         desktop_only: true,
-        info_key: 'articles.references_doc'
+        info_key: 'metrics.references_doc'
       },
       view_count: {
         label: I18n.t('metrics.view'),
