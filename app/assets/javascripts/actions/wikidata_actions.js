@@ -33,9 +33,9 @@ const fetchWikidataLabelsPromise = (qNumbers) => {
 // Requesting the labels for an entitiy that doesn't exist will result in an API error,
 // so this is used to filter out edits to (for example) WikiProject pages.
 const isEntityTitle = (title) => {
-  if (!title.match(/:/)) { return true; } // mainspace, aka Q item
-  if (title.match(/(Property|Lexeme):/)) { return true; } // Property or Lexeme namespace, aka P or L
-  return false;
+  const isQItem = !/:/.test(title); // no colon means mainspace, aka Q item
+  const isPropertyOrLexeme = /(Property|Lexeme):/.test(title);// Property or Lexeme namespace, aka P or L
+  return isQItem || isPropertyOrLexeme;
 };
 
 const fetchWikidataLabels = (wikidataEntities, dispatch) => {
