@@ -27,9 +27,22 @@ const fetchWikidataLabelsPromise = (qNumbers) => {
   });
 };
 
+// This takes a Wikidata page title and checks whether it looks like
+// an *entity*, which could be in the Property (P), Lexeme (L), or main (Q) namespace.
+// Entities have labels, while other pages are conventional wiki pages.
+// Requesting the labels for an entitiy that doesn't exist will result in an API error,
+// so this is used to filter out edits to (for example) WikiProject pages.
+const isEntityTitle = (title) => {
+  const isQItem = !/:/.test(title); // no colon means mainspace, aka Q item
+  const isPropertyOrLexeme = /(Property|Lexeme):/.test(title);// Property or Lexeme namespace, aka P or L
+  return isQItem || isPropertyOrLexeme;
+};
+
 const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
-  const qNumbers = _.map(wikidataEntities, 'title').map(CourseUtils.removeNamespace);
+  const qNumbers = _.map(wikidataEntities, 'title')
+                     .filter(isEntityTitle)
+                     .map(CourseUtils.removeNamespace);
   _.chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
       .then((resp) => {
@@ -41,6 +54,8 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
       });
   });
 };
+
+
 
 export const fetchWikidataLabelsForArticles = (articles, dispatch) => {
   const wikidataEntities = _.filter(articles, { project: 'wikidata' });

@@ -10,7 +10,7 @@ const userLink = (wiki, assignment) => {
   if (!wiki) {
     return <div key={`assignment_${assignment.id}`}>{assignment.username}</div>;
   }
-  const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${assignment.username}`;
+  const link = `https://${wiki.language || 'www'}.${wiki.project}.org/wiki/User:${assignment.username}`;
   return <a key={`assignment_${assignment.id}`} href={link} target="_blank">{assignment.username}</a>;
 };
 
