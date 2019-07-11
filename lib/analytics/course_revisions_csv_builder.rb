@@ -26,6 +26,7 @@ class CourseRevisionsCsvBuilder
     @new_revisions = {}
     @course.all_revisions.includes(:wiki, :article).map do |edit|
       revision_edits = @new_revisions[edit.article_id] || new_revision(edit)
+      update_title_username(revision_edits, edit)
       revision_edits[:mw_rev_id] = edit.mw_rev_id
       revision_edits[:mw_page_id] = edit.mw_page_id
       revision_edits[:wiki] = edit.wiki.domain
@@ -51,6 +52,13 @@ class CourseRevisionsCsvBuilder
     }
   end
 
+  def update_title_username(revision_edits, edit)
+    user = User.find(edit.user_id)
+    article = edit.article
+    revision_edits[:title] = article.title
+    revision_edits[:username] = user.username
+  end
+
   def update_characters_references_views(revision_edits, edit)
     revision_edits[:characters] = edit.characters
     revision_edits[:references] = edit.references_added
@@ -58,6 +66,8 @@ class CourseRevisionsCsvBuilder
   end
 
   CSV_HEADERS = %w[
+    Article_title
+    User
     revision_id
     page_id
     wiki
@@ -72,14 +82,16 @@ class CourseRevisionsCsvBuilder
   ].freeze
 
   def build_row(revision_data)
-    row = [revision_data[:mw_rev_id]]
-    row << revision_data[:page_id]
+    row = [revision_data[:title]]
+    row << revision_data[:username]
+    row << revision_data[:mw_rev_id]
+    row << revision_data[:mw_page_id]
     row << revision_data[:wiki]
     add_characters_references(revision_data, row)
     row << revision_data[:new_article]
     row << revision_data[:article_id]
-    row << revision_data[:deleted]
     row << revision_data[:views]
+    row << revision_data[:deleted]
     row << revision_data[:wp10]
     row << revision_data[:wp10_previous]
   end
