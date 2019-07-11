@@ -24,7 +24,7 @@ class CourseRevisionsCsvBuilder
 
   def set_revisions
     @new_revisions = {}
-    @course.all_revisions.includes(:wiki, :article).map do |edit|
+    @course.all_revisions.includes(:wiki, :article, :user).map do |edit|
       revision_edits = @new_revisions[edit.article_id] || new_revision(edit)
       update_title_username(revision_edits, edit)
       revision_edits[:mw_rev_id] = edit.mw_rev_id
@@ -49,8 +49,7 @@ class CourseRevisionsCsvBuilder
       references: {},
       deleted: edit.deleted,
       wp10: {},
-      wp10_previous: {},
-      article_id: edit.article_id
+      wp10_previous: {}
     }
   end
 
@@ -74,7 +73,6 @@ class CourseRevisionsCsvBuilder
     characters_added
     references_added
     new
-    article_id
     pageviews
     deleted
     wp10
@@ -89,7 +87,6 @@ class CourseRevisionsCsvBuilder
     row << revision_data[:wiki]
     add_characters_references(revision_data, row)
     row << revision_data[:new_article]
-    row << revision_data[:article_id]
     row << revision_data[:views]
     row << revision_data[:deleted]
     row << revision_data[:wp10]
