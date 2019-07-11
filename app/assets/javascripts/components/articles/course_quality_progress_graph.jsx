@@ -27,7 +27,6 @@ const CourseQualityProgressGraph = createReactClass({
       0
     );
     const max_references_added = Math.max(
-      console.log(this.props.articleData),
       ...this.props.articleData.map(o => o.references_added),
       0
     );
