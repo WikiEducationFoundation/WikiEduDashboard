@@ -29,7 +29,9 @@ const fetchWikidataLabelsPromise = (qNumbers) => {
 
 const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
-  const qNumbers = _.map(wikidataEntities, 'title').map(CourseUtils.removeNamespace);
+  const qNumbers = _.map(wikidataEntities, 'title')
+                     .filter(title => (!title.match(/:/) || title.match(/(Property|Lexeme|Talk):/))) // Only Q, P, and L are entity namespaces.
+                     .map(CourseUtils.removeNamespace);
   _.chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
       .then((resp) => {
