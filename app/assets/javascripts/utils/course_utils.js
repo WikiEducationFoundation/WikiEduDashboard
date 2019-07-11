@@ -131,7 +131,7 @@ export default class CourseUtils {
   // default one.
   static formattedArticleTitle(article, defaultWiki, wikidataLabel) {
     let languagePrefix = '';
-    if (!defaultWiki || !article.language || article.language === defaultWiki.language) {
+    if (!defaultWiki || !defaultWiki.language || !article.language || article.language === defaultWiki.language) {
       languagePrefix = '';
     } else {
       languagePrefix = `${article.language}:`;

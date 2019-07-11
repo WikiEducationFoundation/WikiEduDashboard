@@ -56,8 +56,12 @@ class Article < ApplicationRecord
     USER_TALK      = 3
     WIKIPEDIA      = 4
     WIKIPEDIA_TALK = 5
+    FILE           = 6
     TEMPLATE       = 10
     TEMPLATE_TALK  = 11
+    PAGE           = 104
+    WIKIJUNIOR     = 110
+    TRANSLATION    = 114
     DRAFT          = 118
     DRAFT_TALK     = 119
     PROPERTY       = 120
@@ -78,7 +82,29 @@ class Article < ApplicationRecord
     Namespaces::DRAFT_TALK => 'Draft_talk:',
     Namespaces::PROPERTY => 'Property:',
     Namespaces::QUERY => 'Query:',
-    Namespaces::LEXEME => 'Lexeme:'
+    Namespaces::LEXEME => 'Lexeme:',
+    Namespaces::FILE => 'File:',
+    Namespaces::PAGE => 'Page:',
+    Namespaces::WIKIJUNIOR => 'Wikijunior:',
+    Namespaces::TRANSLATION => 'Translation:',
+    # The following namespace index are spread over
+    # several wikis and needs to be additionally
+    # namespaced via project
+    100 => {
+      'wiktionary' => 'Appendix:',
+      'wikisource' => 'Portal:',
+      'wikiversity' => 'School:'
+    },
+    102 => {
+      'wikisource' => 'Author:',
+      'wikibooks' => 'Cookbook:',
+      'wikiversity' => 'Portal:'
+    },
+    106 => {
+      'wiktionary' => 'Rhymes:',
+      'wikisource' => 'Index:',
+      'wikiversity' => 'Collection:'
+    }
   }.freeze
 
   ####################
@@ -98,7 +124,9 @@ class Article < ApplicationRecord
   end
 
   def namespace_prefix
-    NS_PREFIX[namespace]
+    prefix = NS_PREFIX[namespace]
+    return prefix if prefix.is_a?(String)
+    prefix[wiki.project]
   end
 
   private
