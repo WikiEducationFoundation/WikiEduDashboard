@@ -40,7 +40,9 @@ class CourseRevisionsCsvBuilder
   end
 
   def new_revision(edit)
+    article = edit.article
     {
+      title: article.title,
       new_article: false,
       views: 0,
       characters: {},
