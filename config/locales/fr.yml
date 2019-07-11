@@ -23,6 +23,7 @@
 # Author: Verdy p
 # Author: Wladek92
 # Author: Yasten
+# Author: Zarisi
 # Author: Zetud
 ---
 fr:
@@ -335,6 +336,11 @@ fr:
     actions: Actions
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
+    assignment_headings:
+      assigned_articles: Articles affectés
+      assigned_reviews: Relectures affectées
+      available_articles: Articles disponibles
+      available_reviews: Articles de camarades
     assignment_end: Fin d’affectation
     assignments_none: Ce cours n’a aucun article affecté.
     assignment_start: Début d’affectation
@@ -716,6 +722,8 @@ fr:
     all_courses: Tous les programmes
     archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
+    assignment_headings:
+      available_reviews: Disponible pour relecture
     assignment_end: Fin de l’événement
     assignments_none: Ce projet n’a pas d’article affecté.
     assignment_start: Début de l’événement
@@ -841,6 +849,8 @@ fr:
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
     references_count: Références ajoutées
+    references_doc: C’est le nombre de balises de référence ajoutées aux articles
+      et qui peut comprendre plusieurs références à la même source.
     tags: Balises
     upload_count: Téléversement de Commons
     uploads_in_use_count:
@@ -882,6 +892,7 @@ fr:
     usage_count: Compteur d’utilisations
   revisions:
     chars_added: Caractères ajoutés
+    references: Références ajoutées
     class: Classe
     date_time: Date/Heure
     diff: Différence

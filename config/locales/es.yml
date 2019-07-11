@@ -13,6 +13,7 @@
 # Author: Ihojose
 # Author: Irus
 # Author: Javiersanp
+# Author: Johny Weissmuller Jr
 # Author: KATRINE1992
 # Author: Koavf
 # Author: Lemondoge
@@ -614,6 +615,8 @@ es:
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
     references_count: Referencias añadidas
+    references_doc: Este es el número de etiquetas de referencia añadidas a los artículos
+      y puede incluir múltiples referencias a la misma fuente.
     tags: Etiquetas
     upload_count: Subidas a Commons
     uploads_in_use_count:
@@ -654,6 +657,7 @@ es:
     usage_count: Total de usos
   revisions:
     chars_added: Caracteres añadidos
+    references: Referencias añadidas
     class: Clase
     date_time: Fecha/hora
     diff: dif

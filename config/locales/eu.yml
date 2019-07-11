@@ -62,6 +62,8 @@ eu:
     confirm: OK
     opt_in: Bai
     opt_out: Ez
+    opt_yes: bai
+    opt_no: ez
   dashboard:
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;
@@ -104,6 +106,8 @@ eu:
     article_development: (artikuluaren garapena)
     assigned: Esleitutako artikuluak
     available: Artikulu erabilgarriak
+    next: Hurrengoa
+    previous: Aurrekoa
     assigned_to: 'Nori esleitua:'
     character_doc: Hasiera eta amaiera daten artean, atxikitako editoreek artikuluetan
       gehitutako karaktere kopurua.
@@ -180,6 +184,7 @@ eu:
     add_available_submit: Artikuluak gehitu
     assign_self: Neure buruari artikulu bat esleitu
     assign_tooltip: Esleitutako artikulua da zuk sortu edo hobetzeko asmoa duzun bat.
+    clone: Klonatu
     confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
     confirm_addition: Ziur zaude %{title} %{username} lankideari esleitu nahi diozula?
     confirm_deletion: Ziur zaude artikulu lan hau ezabatu nahi duzula?
@@ -322,9 +327,9 @@ eu:
       already_exists: Ikastaro hau existitu egiten da dagoeneko. Aldatu izena, ikastetxea,
         edo epealdi bakarra egiteko.
       assignment_end: Lana amaitu
-      assignment_end_placeholder: Lana amaitu (UUUU-HH-EE)
+      assignment_end_placeholder: UUUU-HH-EE
       assignment_start: Lana hasi
-      assignment_start_placeholder: Lana hasi (UUUU-HH-EE)
+      assignment_start_placeholder: UUUU-HH-EE
       checking_for_uniqueness: Ikastaro hau bakarra dela egiaztatzen ari gara.
       choose_clone: Klonatzeko ikastaro bat aukeratu.
       clone_previous: Aurreko ikastaroa klonatu
@@ -354,7 +359,7 @@ eu:
       create_new: Ikastaro berri bat sortu
       create_short: Ikastaroa sortu
       end_date: Amaiera data
-      end_date_placeholder: Amaiera data (UUUU-HH-EE)
+      end_date_placeholder: UUUU-HH-EE
       expected_number: Espero den ikasle kopurua
       find: Bilatu zure Ikastaroa
       intro: Izenburuak, ikastetxeak eta epealdiak zure orriaren URLa sortuko dute,
@@ -368,8 +373,11 @@ eu:
         dagoeneko ezarri duzun ikastaro baterako atal gehigarriak sortzeko.
       no_class_holidays: Ez dut klase oporrik
       role_description: Ikastaroko zure rola
+      role_description_options:
+      - Irakaslea
       role_description_placeholder: Irakaslea, irakasle-laguntzailea, etab.
       separate_event_dates: Zehaztu ekitalde banatuen hasiera/amaierako ordutegiak
+        (hautazkoa)
       separate_event_dates_info: Programa honen estatistiken estatistikak jarraian
         zehaztutako datak eta orduetan oinarrituko dira, baina gertaera edo programa
         bera hasten eta amaitzen denean (adibidez, parte-hartzaileek noiz agertuko
@@ -377,7 +385,7 @@ eu:
         dituzu.
       save_cloned_course: Gorde ikastaro berria
       start_date: Hasiera data
-      start_date_placeholder: Hasiera data (UUUU-HH-EE)
+      start_date_placeholder: UUUU-HH-EE
       subject: Gaia
       update_scheduled: Eguneratzea programatuta. Datuak uneko programa guztiekin
         batera eguneratuko dira hurrengo eguneratze zikloan. Horretarako, hainbat
@@ -503,6 +511,7 @@ eu:
       dezakete izena ikastaroan:'
     rating_feedback: 'Aurreikusten den artikuluaren ebaluazioa:'
     requested_accounts: Eskatu kontua
+    requested_accounts_alert_view: Ikusi
     review_timeline: 'Orain, berrikusi kronograma hau eta zure beharretara egokitu.
       Behin zure kronogramarekin eroso zaudenean, bidali Wiki Hezkuntzako lantaldeak
       onar dezan. Behin onartutakoan, ikasleek ikastaroan izena emateko erabil dezaketen
@@ -604,9 +613,9 @@ eu:
     campaign_courses: '%{title} Programak'
     creator:
       assignment_end: Ekitaldia amaitu da
-      assignment_end_placeholder: Ekitaldiaren amaiera (UUUU-HH-EE)
+      assignment_end_placeholder: UUUU-HH-EE
       assignment_start: Ekitaldi hasiera
-      assignment_start_placeholder: Ekitaldi hasiera (UUUU-HH-EE)
+      assignment_start_placeholder: UUUU-HH-EE
       checking_for_uniqueness: Programa honen esklusibotasuna egiaztatzen ari gara
       choose_clone: Klonatzeko programa bat aukeratu
       clone_previous: Aurreko programa klonatu
@@ -921,7 +930,7 @@ eu:
       kopurua.
     chars_added: Gehitutako karaktereak<br>(artikulua | lankidea | zirriborroa)
     contributions: Lankidearen ekarpenak
-    contributions_history_full: Ikus Wikipedian egindako ekarpenen historia osoa
+    contributions_history_full: Ikus egindako ekarpenen historia osoa
     contributions_more: Ekarpen gehiago ikusi
     contribution_statistics: Ekarpenen estatistikak
     course_passcode: 'Pasahitza:'

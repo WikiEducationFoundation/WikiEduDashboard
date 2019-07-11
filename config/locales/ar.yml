@@ -304,6 +304,11 @@ ar:
     actions: الإجراءات
     articles: المقالات
     articles_none: هذه الدورة لم تحرر أية مقالات.
+    assignment_headings:
+      assigned_articles: المقالات المخصصة
+      assigned_reviews: المراجعات المخصصة
+      available_articles: المقالات المتاحة
+      available_reviews: مقالات زملاء الدراسة
     assignment_end: نهاية التخصيص
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بدء التعيين
@@ -641,6 +646,8 @@ ar:
     all_courses: كل البرامج
     archived: البرامج المؤرشفة
     articles_none: لا توجد مقالات محررة لهذا المشروع حتى الآن.
+    assignment_headings:
+      available_reviews: متاحة للمراجعة
     assignment_end: نهاية الحدث
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بداية الحدث
@@ -759,6 +766,8 @@ ar:
     per_user: '%{number}/مستخدم'
     revisions: تعديلات حديثة
     references_count: المراجع المضافة
+    references_doc: هذا هو عدد وسوم المرجع التي تمت إضافتها إلى المقالات ويمكن أن
+      يتضمن مراجع متعددة لنفس المصدر.
     tags: الوسوم
     upload_count: مرفوعات كومنز
     uploads_in_use_count:
@@ -800,6 +809,7 @@ ar:
     usage_count: عدد الاستخدامات
   revisions:
     chars_added: الحروف المضافة
+    references: المراجع المضافة
     class: رتبة
     date_time: تاريخ/وقت
     diff: فرق

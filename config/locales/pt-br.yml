@@ -326,6 +326,11 @@ pt-br:
     actions: Ações
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
+    assignment_headings:
+      assigned_articles: Artigos atribuídos
+      assigned_reviews: Comentários atribuídos
+      available_articles: Artigos disponíveis
+      available_reviews: Artigos dos colegas
     assignment_end: Fim da atribuição
     assignments_none: Este curso não possui artigos atribuídos.
     assignment_start: Início da atribuição
@@ -693,6 +698,8 @@ pt-br:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.
+    assignment_headings:
+      available_reviews: Disponível para revisão
     assignment_end: Fim do evento
     assignments_none: Este projeto não tem artigos indicados.
     assignment_start: Início do evento
@@ -816,6 +823,8 @@ pt-br:
     per_user: '%{number}/usuário'
     revisions: Edições recentes
     references_count: Referências adicionadas
+    references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
+      e pode incluir várias referências à mesma fonte.
     tags: Etiquetas
     upload_count: Envios ao Commons
     uploads_in_use_count:
@@ -857,6 +866,7 @@ pt-br:
     usage_count: Total de Uso
   revisions:
     chars_added: Caracteres adicionados
+    references: Referências adicionadas
     class: Classe
     date_time: Data/Horário
     diff: dif

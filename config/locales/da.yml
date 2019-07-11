@@ -133,6 +133,7 @@ da:
     add_available: Tilføj tilgængelige artikler
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
+    clone: Klon
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
     label: Tildel
@@ -165,6 +166,7 @@ da:
     course: Kursus
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
+    data_articles: Sider redigeret
     data_instructors: Instruktører
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
@@ -195,6 +197,9 @@ da:
     actions: Handlinger
     articles: Artikler
     articles_none: Dette kursus har ikke redigeret nogen artikler.
+    assignment_headings:
+      available_articles: Tilgængelige artikler
+      available_reviews: Klassekammeraters artikler
     assignment_end: Opgaveslut
     assignments_none: Dette kursus har ingen tildelte artikler.
     assignment_start: Opgavestart
@@ -383,6 +388,7 @@ da:
     date_time: Dato/tid
     edit_count_description: Totalt antal ændringer
     revisions: Seneste redigeringer
+    references_count: Referencer tilføjet
     view_count_description: Artikel visninger
     view: Visninger
     word_count: Ord tilføjet
@@ -403,6 +409,7 @@ da:
     uploaded_by: Uploaded af
   revisions:
     chars_added: Tegn tilføjet
+    references: Referencer tilføjet
     class: Klasse
     date_time: Dato/tid
     diff_show: Vis
@@ -439,9 +446,11 @@ da:
     block_milestone: Milepæl
     course_dates: Kursusdatoer
     delete_timeline_and_start_over: Slet tidslinje
+    empty_week_2: begynd at redigere denne uge
     empty_week_3: eller
     first_week_title: Første aktive uge
     gradeable_value: Værdi
+    no_timeline: Dette kursus har ingen tidslinje.
     save_all_changes: Gem alle
     this_week_title_default: Denne uge
     title: Tidslinje
@@ -483,6 +492,7 @@ da:
     loading: Laster brugere ...
     characters_added_mainspace: Tegn tilføjet (artikel)
     characters_added_userspace: Tegn tilføjet (bruger)
+    references_count: Referencer tilføjet
     name: Navn
     none: Der er ingen deltagere.
     no_articles: Ingen artikler

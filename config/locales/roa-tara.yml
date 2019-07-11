@@ -83,6 +83,9 @@ roa-tara:
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
   courses:
+    assignment_headings:
+      assigned_reviews: Revisiune assegnate
+      available_articles: Vôsce disponibbele
     embed_course_stats: Statisteche d'u corse 'ngapsulate
     please_log_in: Tràse.
     requested_accounts_alert_view: '''Ndruche'

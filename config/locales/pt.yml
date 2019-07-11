@@ -121,8 +121,8 @@ pt:
       inscritos, entre as datas de começo e fim
     cross_wiki_tracking: São listadas abaixo as páginas do espaço nominal principal
       editadas entre as datas de início e fim. O painel de controlo analisa as contribuições
-      na wiki principal deste programa, assim como nas outras wiki para as quais houver
-      um artigo atribuído ou disponível.
+      na wiki de acolhimento deste programa, assim como nas outras wikis para as quais
+      houver um artigo atribuído ou disponível.
     deleted: (apagado)
     edited: Artigos editados
     edited_by: 'Editado por:'
@@ -159,6 +159,9 @@ pt:
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade de Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
+    references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
+      e pode incluir várias referências à mesma fonte. Os dados vêm do modelo de qualidade
+      de artigos ORES e só estão disponíveis para algumas línguas.
     see_more: Ver mais
     show_cumulative_changes: Mostrar mudanças acumuladas
     show_current_version: Mostrar a versão atual
@@ -303,7 +306,7 @@ pt:
       de criarem contas novas. Poderá então criar as contas a partir do Painel de
       Controlo e, ao mesmo tempo, adicioná-las como participantes do programa. Para
       utilizar esta funcionalidade, deve ter o privilégio de 'criador de contas' na
-      wiki de origem deste programa.
+      wiki de acolhimento deste programa.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar pedidos
       de contas?
     activity: Atividade
@@ -502,6 +505,8 @@ pt:
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão a ser carregadas...
     gradeables_none: Este curso não tem trabalhos com classificação.
+    home_wiki: Wiki de acolhimento
+    multi_wiki: Wikis monitorizadas
     instructor:
       one: Professor
       other: Professores
@@ -587,7 +592,7 @@ pt:
     requested_accounts_alert_view: Ver
     review_timeline: 'Agora, reveja o seu calendário de trabalhos e faça as alterações
       necessárias. Quando estiver satisfeito, pode submetê-lo para aprovação da equipa
-      da Wiki Educação. Após a aprovação, receberá um URL de inscrição que os alunos
+      da Wiki Educação. Após a aprovação, receberá um URL de matrícula que os alunos
       podem usar para participar no curso e aceder às formações (nota: será possível
       editar o calendário mais tarde).'
     revisions_doc: O número de edições nos últimos %{timeframe} dias
@@ -651,6 +656,8 @@ pt:
     user_suggestions: 'Sugestões do utilizador:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
+    references_doc: O número de referências adicionadas ou removidas de um artigo
+      pelos editores inscritos.
     view: Ver Curso
     view_doc: A soma de todas as visitas a artigos editados por editores inscritos
       desde que o editor fez sua primeira edição em cada artigo
@@ -731,12 +738,12 @@ pt:
       end_date: Fim da monitorização da atividade
       find: Encontrar um programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
-        inicial é a principal wiki onde os participantes estão a trabalhar e as edições
-        nesta wiki serão monitorizadas por omissão. Se o seu programa abrange várias
-        línguas ou projetos, as contribuições serão monitorizadas em todas as wikis
-        que tenham um 'Artigo Disponível' ou um 'Trabalho' para aquela wiki. Clique
-        em "Criar o meu Programa!" para começar a construir a página do seu programa
-        na wiki.
+        de acolhimento é a wiki principal onde os participantes estão a trabalhar
+        e as edições nesta wiki serão monitorizadas por omissão. Se o seu programa
+        abrange várias línguas ou projetos, as contribuições serão monitorizadas em
+        todas as wikis que tenham sido explicitamente adicionadas às "Wikis monitorizadas".
+        Clique em "Criar o meu programa!" para começar a construir a página do seu
+        programa na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
         copiar outro programa em que tenha participado.
       participate_in_campaign: Participar numa campanha
@@ -809,6 +816,9 @@ pt:
     edit_count_description: Total de edições
     per_user: '%{number}/utilizador'
     revisions: Edições Recentes
+    references_count: Referências adicionadas
+    references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
+      e pode incluir várias referências à mesma fonte.
     tags: Etiquetas
     upload_count: Carregamentos na wiki Commons
     uploads_in_use_count:
@@ -850,6 +860,7 @@ pt:
     usage_count: Total de Uso
   revisions:
     chars_added: Caracteres Adicionados
+    references: Referências Adicionadas
     class: Classe
     date_time: Data/Hora
     diff: dif
@@ -1083,6 +1094,7 @@ pt:
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres acrescentados (utilizador)
     characters_added_draftspace: Caracteres acrescentados (rascunho)
+    references_count: Referências adicionadas
     my_assigned: 'Atribuição:'
     my_reviewing: 'A rever:'
     name: Nome
@@ -1098,6 +1110,7 @@ pt:
     revision_characters_and_views: 'Os caracteres foram acrescentados: %{characters},
       Visitas: %{views}'
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
+    references_doc: O número de referências adicionadas ou removidas por este editor
     reviewers: Revisor(es)
     reviewing: Em revisão
     sandboxes: páginas de testes
@@ -1300,4 +1313,6 @@ pt:
     not_started: Não começada
     due: esperada %{due_date}
     assignment_status: Formação (%{status})
+  multi_wiki:
+    selector_placeholder: Selecionar wiki
 ...
