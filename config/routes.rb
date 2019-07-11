@@ -198,6 +198,7 @@ Rails.application.routes.draw do
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
+  get 'course_revisions_csv' => 'analytics#course_revisions_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
 
   # Campaigns
@@ -213,6 +214,7 @@ Rails.application.routes.draw do
       get 'courses'
       get 'ores_plot'
       get 'articles_csv'
+      get 'revisions_csv'
       get 'alerts'
       put 'add_organizer'
       put 'remove_organizer'

@@ -7,6 +7,7 @@ const CampaignStatsDownloadModal = ({ match }) => {
 
   const courseDataLink = `/campaigns/${campaignSlug}/courses.csv`;
   const articlesEditedLink = `/campaigns/${campaignSlug}/articles_csv.csv`;
+  const RevisionsLink = `/campaigns/${campaignSlug}/revisions_csv.csv`;
   const editorsLink = `/campaigns/${campaignSlug}/students.csv`;
   const editorsByCourseLink = `/campaigns/${campaignSlug}/students.csv?course=true`;
   const instructorsLink = `/campaigns/${campaignSlug}/instructors.csv?course=true`;
@@ -30,6 +31,11 @@ const CampaignStatsDownloadModal = ({ match }) => {
       <p>
         <a href={articlesEditedLink} className="button right">{I18n.t('campaign.data_articles')}</a>
         {I18n.t('campaign.data_articles_info')}
+      </p>
+      <hr />
+      <p>
+        <a href={RevisionsLink} className="button right">{I18n.t('campaign.data_revisions')}</a>
+        {I18n.t('campaign.data_revisions_info')}
       </p>
       <hr />
       <p>
