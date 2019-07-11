@@ -55,10 +55,8 @@ class CourseRevisionsCsvBuilder
   end
 
   def update_title_username(revision_edits, edit)
-    user = User.find(edit.user_id)
-    article = edit.article
-    revision_edits[:title] = article.title
-    revision_edits[:username] = user.username
+    revision_edits[:title] = edit.article.title
+    revision_edits[:username] = edit.user.username
   end
 
   def update_characters_references_views(revision_edits, edit)
