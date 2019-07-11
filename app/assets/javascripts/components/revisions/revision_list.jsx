@@ -61,7 +61,8 @@ const RevisionList = createReactClass({
       },
       references: {
         label: I18n.t('revisions.references'),
-        desktop_only: true
+        desktop_only: true,
+        info_key: 'metrics.references_doc'
       },
       date: {
         label: I18n.t('revisions.date_time'),
