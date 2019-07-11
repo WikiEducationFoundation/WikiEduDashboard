@@ -26,6 +26,11 @@ const CourseQualityProgressGraph = createReactClass({
       ...this.props.articleData.map(o => o.bytes_added),
       0
     );
+    const max_references_added = Math.max(
+      console.log(this.props.articleData),
+      ...this.props.articleData.map(o => o.references_added),
+      0
+    );
     const max_score = Math.max(
       ...this.props.articleData.map(o => o.ores_after - o.ores_before),
       0
@@ -55,6 +60,16 @@ const CourseQualityProgressGraph = createReactClass({
             min: 0,
             max: max_bytes_added,
             name: 'Minimum bytes added:'
+          }
+        },
+        {
+          name: 'references_added',
+          value: 0,
+          bind: {
+            input: 'range',
+            min: 0,
+            max: max_references_added,
+            name: 'Minimum references added:'
           }
         },
         {
@@ -99,6 +114,10 @@ const CourseQualityProgressGraph = createReactClass({
             { // Filter based on the 'Minimum bytes added' slider. The minimum bytes added is zero, so by default no articles are filtered out.
               type: 'filter',
               expr: 'datum.bytes_added >= bytes_added'
+            },
+            { // Filter based on the 'Minimum references added' slider. The minimum references added is zero, so by default no articles are filtered out.
+              type: 'filter',
+              expr: 'datum.references_added >= references_added'
             },
             { // Filter based on the 'Minimum change in score' slider. This can be negative, so we treat the default 0 position as no filter.
               type: 'filter',

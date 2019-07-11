@@ -26,6 +26,7 @@ dev.off()
 # major edits 1000
 
 major_edits_1000 <- campaign_data[campaign_data$bytes_added >= 1000, ]
+major_edits_1000 <- campaign_data[campaign_data$references_added >= 50, ]
 # major_edits_existing <- major_edits
 major_edits_existing_1000 <- major_edits_1000[major_edits_1000$ores_before > 0.0, ]
 
@@ -54,6 +55,7 @@ dev.off()
 
 # major edits 6000
 major_edits_6000 <- campaign_data[campaign_data$bytes_added >= 6000, ]
+major_edits_6000 <- campaign_data[campaign_data$references_added >= 95, ]
 # major_edits_existing <- major_edits
 major_edits_existing_6000 <- major_edits_6000[major_edits_6000$ores_before > 0.0, ]
 
