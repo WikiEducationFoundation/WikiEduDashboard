@@ -29,8 +29,14 @@ export const MyArticles = createReactClass({
     }
   },
 
-  sandboxUrl(course, username) {
-    const { language, project } = course.home_wiki;
+  sandboxUrl(course, assignment) {
+    const { username } = assignment;
+    let { language, project } = assignment;
+    if (!language || !project) {
+      language = course.home_wiki.language || 'www';
+      project = course.home_wiki.project || 'wikipedia';
+    }
+
     return `https://${language}.${project}.org/wiki/User:${username}/sandbox`;
   },
 
@@ -54,7 +60,7 @@ export const MyArticles = createReactClass({
     return (assignment) => {
       const result = {
         ...assignment,
-        sandboxUrl: this.sandboxUrl(course, assignment.username)
+        sandboxUrl: this.sandboxUrl(course, assignment)
       };
 
       if (assignment.role === REVIEWING_ROLE) {
@@ -63,7 +69,7 @@ export const MyArticles = createReactClass({
         });
 
         if (related) {
-          result.sandboxUrl = this.sandboxUrl(course, related.username);
+          result.sandboxUrl = this.sandboxUrl(course, related);
         }
       }
 
