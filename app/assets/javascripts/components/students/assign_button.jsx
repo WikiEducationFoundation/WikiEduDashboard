@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -189,6 +190,20 @@ const EditButton = ({
       </button>
       {tooltip}
     </div>
+  );
+};
+
+const FindArticles = ({ course }) => {
+  return (
+    <tr className="assignment find-articles-section">
+      <td>
+        <Link to={`/courses/${course.slug}/article_finder`}>
+          <button className="button border small link">
+            Search Wikipedia for an Article
+          </button>
+        </Link>
+      </td>
+    </tr>
   );
 };
 
@@ -427,7 +442,7 @@ export class AssignButton extends React.Component {
           unassign={this.unassign.bind(this)}
           course={course}
           permitted={permitted}
-          role={this.props.role}
+          role={role}
           wikidataLabels={wikidataLabels}
         />
       );
@@ -436,7 +451,7 @@ export class AssignButton extends React.Component {
     // If you are allowed to edit the assignments generally,
     // either as an instructor or student
     if (permitted) {
-      const action = this.props.role === REVIEWING_ROLE ? this.review : this.update;
+      const action = role === REVIEWING_ROLE ? this.review : this.update;
       assignmentRows.push(
         <PotentialAssignmentRows
           assignments={this.props.unassigned}
@@ -444,10 +459,15 @@ export class AssignButton extends React.Component {
           course={course}
           key="potential"
           permitted={permitted}
-          role={this.props.role}
+          role={role}
           wikidataLabels={wikidataLabels}
         />
       );
+    }
+
+    // Add the FindArticles button
+    if (role === ASSIGNED_ROLE && !isStudentsPage) {
+      assignmentRows.push(<FindArticles course={course} key="find-articles-link" />);
     }
 
     return (
@@ -455,8 +475,8 @@ export class AssignButton extends React.Component {
         {showButton}
         {editButton}
         <Popover
-          is_open={this.props.is_open}
           edit_row={editRow}
+          is_open={is_open}
           rows={assignmentRows}
         />
       </div>
