@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import Wp10Graph from './wp10_graph.jsx';
+import ReferencesGraph from './references_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 
@@ -93,6 +94,16 @@ const ArticleGraphs = createReactClass({
             <div className="input-row">
               <input
                 type="radio"
+                name="references_added"
+                value="references_added"
+                checked={this.state.selectedRadio === 'references_added'}
+                onChange={this.handleRadioChange}
+              />
+              <label htmlFor="references_added">{I18n.t('articles.references')}</label>
+            </div>
+            <div className="input-row">
+              <input
+                type="radio"
                 name="edit_size"
                 value="edit_size"
                 checked={this.state.selectedRadio === 'edit_size'}
@@ -105,6 +116,15 @@ const ArticleGraphs = createReactClass({
         if (this.state.selectedRadio === 'wp10_score') {
           graph = (
             <Wp10Graph
+              graphid = {this.graphId()}
+              graphWidth = {graphWidth}
+              graphHeight = {graphHeight}
+              articleData = {this.state.articleData}
+            />
+          );
+        } else if (this.state.selectedRadio === 'references_added') {
+          graph = (
+            <ReferencesGraph
               graphid = {this.graphId()}
               graphWidth = {graphWidth}
               graphHeight = {graphHeight}

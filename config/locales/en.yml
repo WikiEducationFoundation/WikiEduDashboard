@@ -190,6 +190,7 @@ en:
     edit_size: Edit Size
     wiki: Wiki
     wp10: Structural Completeness
+    references: References Graph
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
       the mold of a mature Wikipedia article, based on the machine learning-based

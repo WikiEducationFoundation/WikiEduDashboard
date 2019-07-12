@@ -6,6 +6,7 @@ json.array! @article.revisions.each do |revision|
   json.index i
   json.rev_id revision.mw_rev_id
   json.wp10 revision.wp10
+  json.refs revision.ref_tags
   json.date revision.date
   json.username revision.user&.username
   json.characters revision.characters
