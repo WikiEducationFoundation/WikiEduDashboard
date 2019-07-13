@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2019_07_15_195734) do
-
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -47,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_195734) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
+    t.boolean "tracked", default: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
