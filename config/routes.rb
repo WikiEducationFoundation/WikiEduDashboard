@@ -174,6 +174,7 @@ Rails.application.routes.draw do
 
   get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
+  post 'articles/status' => 'articles#update_tracked_status'
 
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create] do

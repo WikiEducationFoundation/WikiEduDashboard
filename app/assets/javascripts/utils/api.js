@@ -18,12 +18,12 @@ const API = {
           return res.json();
         }
         else {
-          return Promise.reject({statusText: res.statusText});
+          return Promise.reject({ statusText: res.statusText });
         }
       })
       .catch(error => {
         logErrorMessage(error);
-        return Promise.reject({error});
+        return Promise.reject({ error });
       });
   },
 
@@ -36,12 +36,12 @@ const API = {
           return res.json();
         }
         else {
-          return Promise.reject({statusText: res.statusText});
+          return Promise.reject({ statusText: res.statusText });
         }
       })
       .catch(error => {
         logErrorMessage(error);
-        return Promise.reject({error});
+        return Promise.reject({ error });
       });
   },
 
@@ -56,12 +56,12 @@ const API = {
           return res.json();
         }
         else {
-          return Promise.reject({statusText: res.statusText});
+          return Promise.reject({ statusText: res.statusText });
         }
       })
       .catch(error => {
         logErrorMessage(error);
-        return Promise.reject({error});
+        return Promise.reject({ error });
       });
   },
 
@@ -71,7 +71,7 @@ const API = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({feedback_form_response: {subject: subject, body: body}}),
+      body: JSON.stringify({ feedback_form_response: { subject: subject, body: body } }),
 
     })
       .then(res => {
@@ -79,12 +79,12 @@ const API = {
           return res.json();
         }
         else {
-          return Promise.reject({statusText: res.statusText});
+          return Promise.reject({ statusText: res.statusText });
         }
       })
       .catch(error => {
         logErrorMessage(error);
-        return Promise.reject({error});
+        return Promise.reject({ error });
       });
   },
 
@@ -93,15 +93,15 @@ const API = {
       $.ajax({
         type: 'POST',
         url: `/assignments/${assignmentId}/assignment_suggestions`,
-        data: {feedback: {text: text, assignment_id: assignmentId, user_id: userId}},
+        data: { feedback: { text: text, assignment_id: assignmentId, user_id: userId } },
         success(data) {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -114,27 +114,43 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
-  fetchUserProfileStats(username){
+  fetchUserProfileStats(username) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',
-        url: `/user_stats.json?username=${ username }`,
+        url: `/user_stats.json?username=${username}`,
         success(data) {
           return res(data);
         }
       })
-      .fail((obj) => {
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+    );
+  },
+
+  updateArticleTrackedStatus(articleId, tracked) {
+    return new Promise((res, rej) => {
+      const url = `/articles/status.json?article_id=${articleId}&tracked=${tracked}`;
+      return $.ajax({
+        type: 'POST',
+        url,
+        success(data) {
+          return res(data);
+        }
+      }).fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
-      })
-    );
+      });
+    });
   },
 
   fetchArticleDetails(articleId, courseId) {
@@ -147,10 +163,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        });
     });
   },
 
@@ -163,10 +179,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -179,10 +195,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -195,10 +211,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -212,10 +228,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -228,10 +244,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -245,10 +261,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -262,10 +278,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -279,10 +295,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -295,12 +311,12 @@ const API = {
           return res.json();
         }
         else {
-          return Promise.reject({statusText: res.statusText});
+          return Promise.reject({ statusText: res.statusText });
         }
       })
       .catch(error => {
         logErrorMessage(error);
-        return Promise.reject({error});
+        return Promise.reject({ error });
       });
   },
 
@@ -343,18 +359,18 @@ const API = {
           return res(data);
         }
       })
-      .fail(function (obj, status) {
-        this.obj = obj;
-        this.status = status;
-        console.error('Couldn\'t save timeline!');
-        RavenLogger.obj = this.obj;
-        RavenLogger.status = this.status;
-        Raven.captureMessage('saveTimeline failed', {
-          level: 'error',
-          extra: RavenLogger
+        .fail(function (obj, status) {
+          this.obj = obj;
+          this.status = status;
+          console.error('Couldn\'t save timeline!');
+          RavenLogger.obj = this.obj;
+          RavenLogger.status = this.status;
+          Raven.captureMessage('saveTimeline failed', {
+            level: 'error',
+            extra: RavenLogger
+          });
+          return rej(obj);
         });
-        return rej(obj);
-      });
     });
     return promise;
   },
@@ -378,17 +394,17 @@ const API = {
           return res(data);
         }
       })
-      .fail(function (obj, status) {
-        this.obj = obj;
-        this.status = status;
-        RavenLogger.obj = this.obj;
-        RavenLogger.status = this.status;
-        Raven.captureMessage('saveCourse failed', {
-          level: 'error',
-          extra: RavenLogger
-        });
-        return rej(obj);
-      })
+        .fail(function (obj, status) {
+          this.obj = obj;
+          this.status = status;
+          RavenLogger.obj = this.obj;
+          RavenLogger.status = this.status;
+          Raven.captureMessage('saveCourse failed', {
+            level: 'error',
+            extra: RavenLogger
+          });
+          return rej(obj);
+        })
     );
 
     return promise;
@@ -402,7 +418,7 @@ const API = {
         return window.location = '/';
       }
     })
-    .fail(() => console.error('Couldn\'t delete course'));
+      .fail(() => console.error('Couldn\'t delete course'));
   },
 
   deleteBlock(block_id) {
@@ -414,10 +430,10 @@ const API = {
           return res({ block_id });
         }
       })
-      .fail((obj) => {
-        console.error('Couldn\'t delete block');
-        return rej(obj);
-      })
+        .fail((obj) => {
+          console.error('Couldn\'t delete block');
+          return rej(obj);
+        })
     );
   },
 
@@ -430,10 +446,10 @@ const API = {
           return res({ week_id });
         }
       })
-      .fail((obj) => {
-        console.error('Couldn\'t delete week');
-        return rej(obj);
-      })
+        .fail((obj) => {
+          console.error('Couldn\'t delete week');
+          return rej(obj);
+        })
     );
   },
 
@@ -446,10 +462,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        console.error('Couldn\'t delete all weeks');
-        return rej(obj);
-      })
+        .fail((obj) => {
+          console.error('Couldn\'t delete all weeks');
+          return rej(obj);
+        })
     );
   },
 
@@ -463,10 +479,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj, 'Couldn\'t notify students! ');
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj, 'Couldn\'t notify students! ');
+          return rej(obj);
+        })
     );
   },
 
@@ -480,10 +496,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj, 'There was an error with the greetings! ');
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj, 'There was an error with the greetings! ');
+          return rej(obj);
+        })
     );
   },
 
@@ -499,10 +515,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj, `${capitalize(model)} not ${verb}: `);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj, `${capitalize(model)} not ${verb}: `);
+          return rej(obj);
+        })
     );
   },
 
@@ -517,10 +533,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -539,10 +555,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        });
     });
   },
 
@@ -556,10 +572,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -573,10 +589,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     });
   },
 
@@ -589,10 +605,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     });
   },
 
@@ -605,10 +621,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   },
 
@@ -621,10 +637,10 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
     );
   }
 };
