@@ -19,6 +19,13 @@ class ArticlesController < ApplicationController
     @editors = User.where(id: editor_ids)
   end
 
+  # updates the tracked status of an article
+  def update_tracked_status
+    @article = Article.find(params[:article_id])
+    @article.update(tracked: params[:tracked])
+    render json: {}, status: :ok
+  end
+
   private
 
   def set_course
