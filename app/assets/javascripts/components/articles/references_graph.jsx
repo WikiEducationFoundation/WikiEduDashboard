@@ -26,6 +26,26 @@ const ReferencesGraph = createReactClass({
       width: this.props.graphWidth,
       height: this.props.graphHeight,
       padding: 5,
+      signals: [
+        {
+          name: 'interpolate',
+          value: 'linear',
+          bind: {
+            input: 'select',
+            options: [
+              'basis',
+              'cardinal',
+              'catmull-rom',
+              'linear',
+              'monotone',
+              'natural',
+              'step',
+              'step-after',
+              'step-before'
+            ]
+          }
+        }
+      ],
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -44,11 +64,16 @@ const ReferencesGraph = createReactClass({
         {
           name: 'y',
           type: 'linear',
-          domain: [0, max_refs, 0, max_refs],
           range: 'height',
-          round: true,
           nice: true,
-          zero: false
+          zero: true,
+          domain: [0, max_refs, 0, max_refs]
+        },
+        {
+          name: 'color',
+          type: 'ordinal',
+          range: 'category',
+          domain: { data: 'references_added', field: 'c' }
         }
       ],
       axes: [
@@ -86,54 +111,44 @@ const ReferencesGraph = createReactClass({
       // Mark layers //
       // //////////////
       marks: [
-        // Step graph fill area below scores
         {
-          name: 'area_marks',
-          type: 'area',
+          type: 'group',
           from: {
-            data: 'references_added'
-          },
-          encode: { enter: {
-            orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'date' },
-            y: { scale: 'y', field: 'refs' },
-            y2: { scale: 'y', value: 0 },
-            fill: { value: '#676EB4' },
-            opacity: { value: 0.7 },
-            interpolate: { value: 'step-after' }
-          } }
-        },
-        // Revision point marks
-        {
-          name: 'circle_marks',
-          type: 'symbol',
-          from: {
-            data: 'references_added'
-          },
-          encode: {
-            enter: {
-              x: { scale: 'x', field: 'date' },
-              y: { scale: 'y', field: 'refs' },
-              size: { value: 100 },
-              shape: { value: 'circle' },
-              fill: { value: '#359178' },
-              opacity: { value: 0.7 },
-              tooltip: { field: 'username' }
-            },
-            hover: { fill: { value: '#333' }, opacity: { value: 1 } },
-            update: {
-              fill: { value: '#359178' },
-              opacity: { value: 0.7 }
+            facet: {
+              name: 'series',
+              data: 'references_added',
+              groupby: 'c'
             }
-          }
-        },
-
-      ],
-
+          },
+          marks: [
+            {
+              type: 'line',
+              from: { data: 'references_added' },
+              encode: {
+                enter: {
+                  x: { scale: 'x', field: 'date' },
+                  y: { scale: 'y', field: 'refs' },
+                  stroke: { scale: 'color', field: 'c' },
+                  strokeWidth: { value: 4 }
+                },
+                update: {
+                  interpolate: { signal: 'interpolate' },
+                  fillOpacity: { value: 1 }
+                },
+                hover: {
+                  fillOpacity: { value: 0.5 }
+                }
+              }
+            }
+          ]
+        }
+      ]
     };
 
+    // emded the visualization in the container with id vega-graph-article_id
     vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   },
+
 
   render() {
     return (
