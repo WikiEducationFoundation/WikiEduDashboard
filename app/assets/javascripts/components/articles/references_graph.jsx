@@ -18,10 +18,16 @@ const ReferencesGraph = createReactClass({
   },
 
   renderGraph() {
-    const max_refs = Math.max(
+    const value = Math.max(
       ...this.props.articleData.map(o => o.refs),
-      0
+    0
     );
+    let max_refs = value;
+
+    if (value < 8) {
+      max_refs = 8;
+    }
+
     const vegaSpec = {
       width: this.props.graphWidth,
       height: this.props.graphHeight,
