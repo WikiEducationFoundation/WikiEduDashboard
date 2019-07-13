@@ -5,6 +5,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '../common/article_viewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
+import Switch from 'react-switch';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -14,6 +15,7 @@ const Article = createReactClass({
     index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
+    updateArticleTrackedStatus: PropTypes.func.isRequired,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
     showOnMount: PropTypes.bool,
@@ -22,10 +24,21 @@ const Article = createReactClass({
     selectedIndex: PropTypes.number
   },
 
+  getInitialState() {
+    return {
+      tracked: this.props.article.tracked
+    };
+  },
+
   fetchArticleDetails() {
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
     }
+  },
+
+  handleTrackedChange(tracked) {
+    this.props.updateArticleTrackedStatus(this.props.article.id, tracked);
+    this.setState({ tracked });
   },
 
   render() {
@@ -82,6 +95,9 @@ const Article = createReactClass({
             lastIndex={this.props.lastIndex}
             selectedIndex={this.props.selectedIndex}
           />
+        </td>
+        <td>
+          <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
         </td>
       </tr>
     );
