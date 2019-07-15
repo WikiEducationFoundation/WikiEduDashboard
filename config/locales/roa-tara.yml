@@ -82,10 +82,13 @@ roa-tara:
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
+  campaign:
+    data_revisions: Date de le revisiune
   courses:
     assignment_headings:
       assigned_reviews: Revisiune assegnate
       available_articles: Vôsce disponibbele
+    data_revisions: Date de le revisiune
     embed_course_stats: Statisteche d'u corse 'ngapsulate
     please_log_in: Tràse.
     requested_accounts_alert_view: '''Ndruche'

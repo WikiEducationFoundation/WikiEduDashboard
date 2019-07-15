@@ -159,9 +159,6 @@ pt:
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade de Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
-    references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
-      e pode incluir várias referências à mesma fonte. Os dados vêm do modelo de qualidade
-      de artigos ORES e só estão disponíveis para algumas línguas.
     see_more: Ver mais
     show_cumulative_changes: Mostrar mudanças acumuladas
     show_current_version: Mostrar a versão atual
@@ -248,7 +245,9 @@ pt:
     data_courses: Dados de resumo dos cursos
     data_courses_info: Métricas básicas para cada curso/programa
     data_articles: Páginas editadas
+    data_revisions: Dados de revisões
     data_articles_info: Detalhes sobre cada página monitorizada editada pela campanha
+    data_revisions_info: Detalhes sobre cada revisão monitorizada da campanha
     data_instructors: Professores
     data_instructors_info: Lista de professores/facilitadores e dos seus cursos/programas
     data_editors_by_course: Editores por curso
@@ -321,6 +320,11 @@ pt:
     actions: Ações
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
+    assignment_headings:
+      assigned_articles: Artigos atribuídos
+      assigned_reviews: Revisões atribuídas
+      available_articles: Artigos disponíveis
+      available_reviews: Artigos de colegas
     assignment_end: Fim do trabalho
     assignments_none: Este curso não tem artigos atribuídos.
     assignment_start: Início do trabalho
@@ -453,6 +457,9 @@ pt:
       Estes valores de visitas de páginas podem estar desatualizados para os cursos
       que já terminaram, portanto um url para o número das visitas de páginas da WMF
       Tool Labs é incluído.
+    data_revisions_info: Os dados de revisões incluem a contagem de revisões do curso,
+      o identificador da revisão, o identificador do artigo, que páginas são novas
+      e os totais de visitas às páginas.
     data_download_info: Descarregar os dados no formato CSV.
     data_overview: Dados do resumo
     data_overview_info: Os dados do resumo fornecem as estatísticas acumuladas para
@@ -464,6 +471,7 @@ pt:
     data_students_info: Os dados dos editores listam todos os editores matriculados,
       o número das suas edições, e se registaram as suas contas durante o projeto.
     data_uploads: Dados dos carregamentos na wiki Commons
+    data_revisions: Dados de revisões
     data_uploads_info: Os dados dos carregamentos na wiki Commons mostram o nome e
       a contagem da utilização de cada ficheiro multimédia carregado.
     delete_course: Eliminar curso
@@ -656,8 +664,6 @@ pt:
     user_suggestions: 'Sugestões do utilizador:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
-    references_doc: O número de referências adicionadas ou removidas de um artigo
-      pelos editores inscritos.
     view: Ver Curso
     view_doc: A soma de todas as visitas a artigos editados por editores inscritos
       desde que o editor fez sua primeira edição em cada artigo
@@ -692,6 +698,8 @@ pt:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.
+    assignment_headings:
+      available_reviews: Disponível para revisão
     assignment_end: Fim do evento
     assignments_none: Este projeto não tem artigos indicados.
     assignment_start: Início do evento
@@ -818,7 +826,8 @@ pt:
     revisions: Edições Recentes
     references_count: Referências adicionadas
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
-      e pode incluir várias referências à mesma fonte.
+      e pode incluir várias referências à mesma fonte. Os dados provêm do modelo de
+      qualidade de artigos ORES e só estão disponíveis para algumas línguas.
     tags: Etiquetas
     upload_count: Carregamentos na wiki Commons
     uploads_in_use_count:

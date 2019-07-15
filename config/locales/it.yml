@@ -315,9 +315,9 @@ it:
     articles_none: Questo corso non ha modificato alcuna voce.
     assignment_headings:
       assigned_articles: Voci assegnate
-      assigned_reviews: revisioni assegnate
+      assigned_reviews: Revisioni assegnate
       available_articles: Voci disponibili
-      available_reviews: articoli del compagno di classe
+      available_reviews: Voci dei compagni di classe
     assignment_end: Fine assegnazione
     assignments_none: Questo corso non ha voci assegnate.
     assignment_start: Inizio assegnazione
@@ -605,7 +605,7 @@ it:
     all_courses: Tutti i programmi
     articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_headings:
-      available_reviews: disponibile per revisione
+      available_reviews: Disponibile per revisione
     assignment_end: Fine evento
     assignments_none: Questo progetto non ha voci assegnate.
     assignment_start: Inizio evento
@@ -692,8 +692,9 @@ it:
     edit_count_description: Modifiche totali
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
-    references_doc: Questo è il numero di tags di riferimento aggiunti agli articoli
-      e possono avere più riferimenti nella medesima sorgente.
+    references_doc: Questo è il numero di tag di note aggiunti alle voci e possono
+      includere più riferimenti alla stessa fonte. I dati provengono dal modello di
+      qualità ORES della voce ed è disponibile solo per alcune lingue.
     upload_count: Caricamenti Commons
     uploads_in_use_count:
       one: file usato in una voce
@@ -727,7 +728,7 @@ it:
     usage_count: Numero di utilizzi
   revisions:
     chars_added: Caratteri aggiunti
-    references: riferimenti aggiunti
+    references: Riferimenti aggiunti
     class: Classe
     date_time: Data/Ora
     diff: confronto tra versioni

@@ -317,6 +317,10 @@ uk:
     actions: Дії
     articles: Статті
     articles_none: Цей курс ще не редагував жодні статті.
+    assignment_headings:
+      assigned_articles: Задані статті
+      assigned_reviews: Призначені рецензії
+      available_articles: Доступні статті
     assignment_end: Кінець завдання
     assignments_none: Цей курс не має заданих статей.
     assignment_start: Початок завдання
@@ -677,6 +681,8 @@ uk:
     all_courses: Усі програми
     archived: Архівовані програми
     articles_none: У цьому проекті ще немає редагованих статей
+    assignment_headings:
+      available_reviews: Доступно для рецензії
     assignment_end: Кінець події
     assignments_none: У цьому проекті немає заданих статей.
     assignment_start: Початок події

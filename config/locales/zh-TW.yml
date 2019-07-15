@@ -135,7 +135,6 @@ zh-TW:
       list: '%{class}級 — 非一般條目的列表內容'
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
-    references_doc: 此為添加到條目的參考來源標籤，並且能把多個參考對應到同一來源。資料是來自於 ORES 條目品質模組，並且儘可用於某些語言。
     see_more: 查看更多
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
@@ -210,7 +209,9 @@ zh-TW:
     data_courses: 課程概要資料
     data_courses_info: 各課程/方案的基本指標
     data_articles: 頁面已編輯
+    data_revisions: 修訂資料
     data_articles_info: 由競賽所編輯的各追蹤頁面詳情
+    data_revisions_info: 有關各競賽的追蹤修訂詳情
     data_instructors: 導師
     data_instructors_info: 導師/主持者與他們的課程/方案清單
     data_editors_by_course: 按課程的編輯者
@@ -362,6 +363,7 @@ zh-TW:
     data_articles: 條目資料
     data_articles_info: 條目資料包含著任一頁面的編輯次數、那些為新的頁面、以及頁面瀏覽次數。對於已結束的課程來說頁面瀏覽次數可能為過期，因此包含著維基媒體基金會頁面瀏覽工具的
       URL。
+    data_revisions_info: 修訂資料包含課程修訂次數、修訂 ID、條目 ID，該頁面為新的頁面和頁面瀏覽次數總計。
     data_download_info: 以 CVS 格式下載資料。
     data_overview: 概要資料
     data_overview_info: 概要資料提供出整體專案的累計統計。
@@ -370,6 +372,7 @@ zh-TW:
     data_students: 編輯者資料
     data_students_info: 編輯者資料列出所有已登記的編輯者、以及他們的編輯次數，和他們是否在專案期間註冊了他們的帳號。
     data_uploads: 共享資源上傳資料
+    data_revisions: 修訂資料
     data_uploads_info: 共享資源上傳資料顯示出任一媒體上傳的名稱和使用率次數。
     delete_course: 刪除課程
     delete_suggestion: 刪除
@@ -522,7 +525,6 @@ zh-TW:
     user_suggestions: 使用者建議：
     user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
-    references_doc: 由登記編輯者所添加到條目或從條目裡移除的參考來源數量
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
@@ -655,7 +657,7 @@ zh-TW:
     per_user: '%{number}/使用者'
     revisions: 近期編輯
     references_count: 參考來源已添加
-    references_doc: 此為添加到條目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。
+    references_doc: 此為添加到條目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。資料來自於 ORES 條目品質模組，並僅對於某些語言可用。
     tags: 標籤
     upload_count: 維基共享資源上傳
     uploads_in_use_count:

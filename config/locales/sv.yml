@@ -167,6 +167,8 @@ sv:
     create_campaign: Skapa en ny kampanj
     create_my_campaign: Skapa min kampanj!
     customize_passcode: ett standardlösenord
+    data_revisions: Sidversionsdata
+    data_revisions_info: Detaljer om varje spårad sidversion av kampanjen
     description: Beskrivning
     delete_campaign: Radera denna kampanj
     disable_account_requests: Inaktivera kontobegäran
@@ -211,6 +213,11 @@ sv:
     actions: Åtgärder
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
+    assignment_headings:
+      assigned_articles: Tilldelade artiklar
+      assigned_reviews: Tilldelade granskningar
+      available_articles: Tillgängliga artiklar
+      available_reviews: Klasskamraters artiklar
     calendar:
       legend_class_meeting: Klassmöte
       legend_class_not_meeting: Inget schemalagt möte
@@ -273,6 +280,7 @@ sv:
       projekt.
     data_edits: Redigeringsdata
     data_uploads: Commons-uppladdningsdata
+    data_revisions: Sidversionsdata
     delete_course: Radera kurs
     delete_suggestion: Radera
     delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort
@@ -387,6 +395,8 @@ sv:
     add_campaign: Lägg till kampanj
     all_courses: Alla program
     archived: Arkiverade program
+    assignment_headings:
+      available_reviews: Tillgänglig att granska
     cancel: Avbryt
     course: Program
     courses: Program
@@ -480,6 +490,7 @@ sv:
     usage_count: Antal användningar
   revisions:
     chars_added: Tillagda tecken
+    references: Lade till referenser
     class: Klass
     date_time: Datum/Tid
     diff: skillnad

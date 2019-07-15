@@ -171,10 +171,6 @@ fr:
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
       does_not_exist: Cet article n'existe pas sur Wikipédia
-    references_doc: Ceci est le nombre d’étiquettes de référence ajoutées aux articles
-      et il peut inclure plusieurs références à la même source. Les données viennent
-      du modèle ORES pour l’évaluation de la qualité des articles, lequel n’est disponible
-      que pour certaines langues.
     see_more: Voir plus
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -263,7 +259,9 @@ fr:
     data_courses: Données d'aperçu des cours
     data_courses_info: Métriques de base pour chaque cours/programme
     data_articles: Pages modifiées
+    data_revisions: Données de révision
     data_articles_info: Détail concernant chaque page suivie modifiée durant la campagne
+    data_revisions_info: Détails concernant chaque révisions suivie de la campagne
     data_instructors: Formateurs
     data_instructors_info: Liste des formateurs/facilitateurs avec leur cours/programmes
     data_editors_by_course: Editeurs par cours
@@ -478,6 +476,9 @@ fr:
       page. Ces valeurs de vues par page peuvent être obsolètes pour des cours déjà
       terminés, donc une URL vers l’outil de nombre de vues de page de WMF Tools Labs
       est inclus.
+    data_revisions_info: Les données de révision incluent le compteur de révisions
+      du cours, l'ID de révision, l'ID de l'article, les nouvelles pages et les nombres
+      totaux de visites de pages.
     data_download_info: Télécharger les données au format CSV.
     data_overview: Données de vue d’ensemble
     data_overview_info: Les données de vue d’ensemble fournissent des statistiques
@@ -490,6 +491,7 @@ fr:
       combien ils ont fait de modifications, et s’ils ont inscrit leur compte lors
       du projet.
     data_uploads: Données de téléversements de Commons
+    data_revisions: Données de révision
     data_uploads_info: Les données de téléversements sur Commons affichent le nom
       et le nombre d’utilisations de chaque média téléversé.
     delete_course: Supprimer le cours
@@ -685,8 +687,6 @@ fr:
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
-    references_doc: Le nombre de références ajoutées ou retirées dans un article par
-      les rédacteurs engagés.
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
       depuis que ces derniers ont édité pour la première fois chacun des articles.
@@ -850,7 +850,9 @@ fr:
     revisions: Modifications récentes
     references_count: Références ajoutées
     references_doc: C’est le nombre de balises de référence ajoutées aux articles
-      et qui peut comprendre plusieurs références à la même source.
+      et qui peut comprendre plusieurs références à la même source. Les données viennent
+      du modèle ORES de qualité d'article et ne sont disponibles que pour certaines
+      pages.
     tags: Balises
     upload_count: Téléversement de Commons
     uploads_in_use_count:

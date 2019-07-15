@@ -222,6 +222,9 @@ es:
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
+    data_revisions: Datos de revisiones
+    data_revisions_info: Detalles sobre cada una de las revisiones seguidas de la
+      campaña
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acceso predeterminado
     default_passcode_explanation: 'De manera predeterminada, los programas nuevos
@@ -274,6 +277,9 @@ es:
     actions: Acciones
     articles: Artículos
     articles_none: En este curso no se ha editado ningún artículo.
+    assignment_headings:
+      available_articles: Artículos disponibles
+      available_reviews: Artículos de compañeros
     assignment_end: Fin de la tarea
     assignments_none: Este curso no tiene artículos asignados.
     assignment_start: Inicio de la tarea
@@ -359,10 +365,14 @@ es:
       subject: Asunto
     current: Cursos actuales
     data_articles: Datos de artículos
+    data_revisions_info: Los datos de revisión incluyen el recuento de revisiones
+      del curso, el id de revisión, el id de artículo, qué páginas son nuevas y los
+      totales de las vistas de página.
     data_download_info: Descargar datos en formato CSV.
     data_edits: Datos de ediciones
     data_students: Datos de editores
     data_uploads: Datos de cargas a Commons
+    data_revisions: Datos de revisiones
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Puedes eliminar esta página si todas las campañas
@@ -393,6 +403,7 @@ es:
     feedback: Comentarios
     feedback_loading: Espera mientras se cargan las sugerencias…
     gradeables_none: Este curso no tiene tareas calificables.
+    home_wiki: Wiki de origen
     instructor:
       one: Docente
       other: Docentes
@@ -518,6 +529,8 @@ es:
     all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
+    assignment_headings:
+      available_reviews: Disponibles para revisión
     assignment_end: Final del evento
     assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Comienzo del evento
@@ -615,8 +628,10 @@ es:
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
     references_count: Referencias añadidas
-    references_doc: Este es el número de etiquetas de referencia añadidas a los artículos
-      y puede incluir múltiples referencias a la misma fuente.
+    references_doc: Este es el número de etiquetas de referencia añadidas a los artículos,
+      y puede incluir múltiples referencias a la misma fuente. Los datos proceden
+      del modelo de calidad de artículo de ORES y sólo están disponibles para algunos
+      idiomas.
     tags: Etiquetas
     upload_count: Subidas a Commons
     uploads_in_use_count:
@@ -986,4 +1001,6 @@ es:
     filtered_articles: Artículos filtrados
     searching_articles: Buscando artículos
     submit: Enviar
+  multi_wiki:
+    selector_placeholder: Seleccionar wiki
 ...
