@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from './course_quality_progress_graph';
 import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
+import { Redirect } from 'react-router-dom';
 
 const CourseOresPlot = createReactClass({
   displayName: 'CourseOresPlot',
@@ -27,6 +28,17 @@ const CourseOresPlot = createReactClass({
     return this.setState({ show: true });
   },
 
+  delete() {
+    window.location.href = `/courses/${this.props.course.slug}/delete_ores_data`;
+    return <Redirect to={`/courses/${this.props.course.slug}/articles/assigned`} />;
+  },
+
+  refresh() {
+    this.setState.show = false;
+    this.fetchFile();
+    return this.setState({ show: true });
+  },
+
   hide() {
     return this.setState({ show: false });
   },
@@ -40,6 +52,15 @@ const CourseOresPlot = createReactClass({
   shouldShowButton() {
     // Do not show it if there are zero articles edited, or it's not an en-wiki course.
     return this.isSupportedWiki() && this.props.course.edited_count !== '0';
+  },
+
+  fetchFile() {
+    $.ajax({
+      url: `/courses/${this.props.course.slug}/refresh_ores_data.json`,
+      success: (data) => {
+        this.setState({ articleData: data.ores_plot, loading: false });
+      }
+    });
   },
 
   fetchFilePath() {
@@ -59,6 +80,10 @@ const CourseOresPlot = createReactClass({
         return (
           <div className="ores-plot">
             <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={this.state.articleData} />
+            <div>
+              <button className="button ghost stacked right" onClick={this.delete}>Delete Cached Data</button>
+              <button className="button ghost stacked right" style = {{ marginRight: 20 }} onClick={this.refresh}>Refresh Cached Data</button>
+            </div>
             <p>
               This graph visualizes, in aggregate, how much articles developed from
               when students first edited them until now. The <em>Structural Completeness </em>

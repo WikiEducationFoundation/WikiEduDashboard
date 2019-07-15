@@ -10,6 +10,20 @@ class OresPlotController < ApplicationController
     render json: json_data
   end
 
+  def delete_ores_data
+    @course = Course.find_by slug: params[:id]
+    HistogramPlotter.delete_csv(course: @course)
+    redirect_to "/courses/#{@course.slug}/articles/edited"
+  end
+
+  def refresh_ores_data
+    @course = Course.find_by slug: params[:id]
+    HistogramPlotter.delete_csv(course: @course)
+    @ores_changes_csv = HistogramPlotter.csv(course: @course)
+    json_data = CSV.table(@ores_changes_csv).map(&:to_hash)
+    render json: json_data
+  end
+
   def campaign_plot
     @campaign = Campaign.find_by slug: params[:slug]
     @ores_changes_csv = HistogramPlotter.csv(campaign: @campaign)

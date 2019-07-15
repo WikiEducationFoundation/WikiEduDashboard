@@ -97,6 +97,10 @@ Rails.application.routes.draw do
         :as => :needs_update, constraints: { id: /.*/ }
     get 'courses/*id/ores_plot' =>  'ores_plot#course_plot',
         constraints: { id: /.*/ }
+    get 'courses/*id/delete_ores_data' => 'ores_plot#delete_ores_data',
+        :as => :delete_ores_data, constraints: { id: /.*/ }
+    get 'courses/*id/refresh_ores_data' =>  'ores_plot#refresh_ores_data',
+        :as => :refresh_ores_data, constraints: { id: /.*/ }
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
     match 'courses/*id/campaign' => 'courses#list',
