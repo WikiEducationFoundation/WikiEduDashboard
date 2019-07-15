@@ -13,6 +13,7 @@
 #  article_title :string(255)
 #  role          :integer
 #  wiki_id       :integer
+#  sandbox_url   :text(65535)
 #
 
 require 'rails_helper'
@@ -29,6 +30,32 @@ describe Assignment do
 
         expect(assignment.id).to be_kind_of(Integer)
         expect(assignment2.article_id).to be_nil
+      end
+
+      it 'generates a sandbox_url by default' do
+        course = create(:course)
+        user = create(:user)
+        article = create(:article)
+        article_title = article.title
+        assignment = create(:assignment, course: course, user: user,
+                             article: article, article_title: article.title,
+                             wiki_id: 1)
+
+        base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
+        expected = "#{base_url}/User:#{user.username}/#{article_title}"
+        expect(assignment.sandbox_url).to eq(expected)
+      end
+
+      it 'generates a sandbox_url for new articles' do
+        course = create(:course)
+        user = create(:user)
+        article_title = 'New_Article'
+        assignment = create(:assignment, course: course, user: user,
+                             article_title: article_title, wiki_id: 1)
+
+        base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
+        expected = "#{base_url}/User:#{user.username}/#{article_title}"
+        expect(assignment.sandbox_url).to eq(expected)
       end
     end
 
