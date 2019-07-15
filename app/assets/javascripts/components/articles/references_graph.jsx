@@ -32,26 +32,6 @@ const ReferencesGraph = createReactClass({
       width: this.props.graphWidth,
       height: this.props.graphHeight,
       padding: 5,
-      signals: [
-        {
-          name: 'interpolate',
-          value: 'linear',
-          bind: {
-            input: 'select',
-            options: [
-              'basis',
-              'cardinal',
-              'catmull-rom',
-              'linear',
-              'monotone',
-              'natural',
-              'step',
-              'step-after',
-              'step-before'
-            ]
-          }
-        }
-      ],
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -138,7 +118,6 @@ const ReferencesGraph = createReactClass({
                   strokeWidth: { value: 4 }
                 },
                 update: {
-                  interpolate: { signal: 'interpolate' },
                   fillOpacity: { value: 1 }
                 },
                 hover: {
