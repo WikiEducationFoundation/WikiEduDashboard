@@ -28,6 +28,7 @@ require 'rails_helper'
 describe Revision, type: :model do
   describe '#references_added' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
+    let(:wiki_refs_tags_key) { 'feature.len(<datasource.wikidatawiki.revision.references>)' }
 
     context 'new article' do
       let(:mw_rev_id) { 95249249 }
@@ -45,7 +46,7 @@ describe Revision, type: :model do
       end
     end
 
-    context 'First revision' do
+    context 'First revision for wikipedia' do
       let(:mw_rev_id) { 857571904 }
 
       before do
@@ -57,11 +58,21 @@ describe Revision, type: :model do
                features: {
                  refs_tags_key => 10
                })
+        create(:revision,
+               mw_rev_id: mw_rev_id + 1,
+               article_id: 90010260,
+               mw_page_id: 90010260,
+               new_article: true,
+               features: {
+                 wiki_refs_tags_key => 10
+               })
       end
 
       it 'should return no. of references added' do
         val = Revision.find_by(mw_rev_id: 857571904)
+        wiki_val = Revision.find_by(mw_rev_id: 857571905)
         expect(val.references_added).to eq(10)
+        expect(wiki_val.references_added).to eq(10)
       end
     end
 
@@ -74,8 +85,17 @@ describe Revision, type: :model do
                })
       end
 
+      let(:revision2) do
+        create(:revision,
+               new_article: false,
+               features: {
+                 wiki_refs_tags_key => 10
+               })
+      end
+
       it 'should return 0 references added' do
         expect(revision.references_added).to eq(0)
+        expect(revision2.references_added).to eq(0)
       end
     end
 
@@ -93,11 +113,23 @@ describe Revision, type: :model do
                features_previous: {
                  refs_tags_key => 6
                })
+        create(:revision,
+               mw_rev_id: mw_rev_id + 1,
+               article_id: 79010260,
+               mw_page_id: 79010260,
+               features: {
+                 refs_tags_key => 0
+               },
+               features_previous: {
+                 refs_tags_key => 6
+               })
       end
 
       it 'Would be negative' do
         val = Revision.find_by(mw_rev_id: 852178130).references_added
+        wiki_val = Revision.find_by(mw_rev_id: 852178131).references_added
         expect(val).to eq(-6)
+        expect(wiki_val).to eq(-6)
       end
     end
 
@@ -115,11 +147,23 @@ describe Revision, type: :model do
                features_previous: {
                  refs_tags_key => 17
                })
+        create(:revision,
+               mw_rev_id: mw_rev_id + 1,
+               article_id: 55010250,
+               mw_page_id: 55010250,
+               features: {
+                 wiki_refs_tags_key => 22
+               },
+               features_previous: {
+                 wiki_refs_tags_key => 17
+               })
       end
 
       it 'should return positive value' do
         val = Revision.find_by(mw_rev_id: 870348507)
+        wiki_val = Revision.find_by(mw_rev_id: 870348508)
         expect(val.references_added).to eq(5)
+        expect(wiki_val.references_added).to eq(5)
       end
     end
   end
