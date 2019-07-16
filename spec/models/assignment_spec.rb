@@ -46,6 +46,26 @@ describe Assignment do
         expect(assignment.sandbox_url).to eq(expected)
       end
 
+      it 'uses an already existing sandbox URL for assignments with the same article' do
+        course = create(:course)
+        user = create(:user)
+        article = create(:article)
+        article_title = article.title
+
+        # Another classmate is assigned that article first
+        classmate = create(:user, username: 'ClassmateUsername')
+        create(:assignment, course: course, user: classmate,
+                article: article, article_title: article_title, wiki_id: 1)
+
+        assignment = create(:assignment, course: course, user: user,
+                             article: article, article_title: article_title,
+                             wiki_id: 1)
+
+        base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
+        expected = "#{base_url}/User:#{classmate.username}/#{article_title}"
+        expect(assignment.sandbox_url).to eq(expected)
+      end
+
       it 'generates a sandbox_url for new articles' do
         course = create(:course)
         user = create(:user)

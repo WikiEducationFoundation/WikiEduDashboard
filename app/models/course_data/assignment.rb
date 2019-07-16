@@ -75,7 +75,15 @@ class Assignment < ApplicationRecord
 
   def set_sandbox_url
     return unless wiki && user
-    base_url = "https://#{wiki.language}.#{wiki.project}.org/wiki"
-    self.sandbox_url = "#{base_url}/User:#{user.username}/#{article_title}"
+    # If the sandbox already exists, use that URL instead
+    existing = Assignment.where(course: course, article: article,
+                                wiki: wiki)
+                         .where.not(user: user).first
+    if existing
+      self.sandbox_url = existing.sandbox_url
+    else
+      base_url = "https://#{wiki.language}.#{wiki.project}.org/wiki"
+      self.sandbox_url = "#{base_url}/User:#{user.username}/#{article_title}"
+    end
   end
 end
