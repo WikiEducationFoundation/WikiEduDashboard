@@ -14,6 +14,7 @@ const Article = createReactClass({
     index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
+    updateArticleTrackedStatus: PropTypes.func,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
     showOnMount: PropTypes.bool,
@@ -28,6 +29,11 @@ const Article = createReactClass({
     }
   },
 
+  handleTrackedChange(tracked) {
+    this.props.updateArticleTrackedStatus(this.props.article.id, this.props.course.id, tracked);
+    this.setState({ tracked });
+  },
+
   render() {
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
@@ -35,6 +41,15 @@ const Article = createReactClass({
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
+
+    let tracked;
+    if (this.props.current_user && this.props.current_user.isAdvancedRole) {
+      tracked = (
+        <td>
+          <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
+        </td>
+      );
+    }
 
     return (
       <tr className="article">
