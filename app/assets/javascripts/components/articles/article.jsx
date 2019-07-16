@@ -15,7 +15,7 @@ const Article = createReactClass({
     index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
-    updateArticleTrackedStatus: PropTypes.func.isRequired,
+    updateArticleTrackedStatus: PropTypes.func,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
     showOnMount: PropTypes.bool,
@@ -37,7 +37,7 @@ const Article = createReactClass({
   },
 
   handleTrackedChange(tracked) {
-    this.props.updateArticleTrackedStatus(this.props.article.id, tracked);
+    this.props.updateArticleTrackedStatus(this.props.article.id, this.props.course.id, tracked);
     this.setState({ tracked });
   },
 
@@ -50,7 +50,7 @@ const Article = createReactClass({
     const historyUrl = `${this.props.article.url}?action=history`;
 
     let tracked;
-    if (this.props.current_user.isInstructor || this.props.current_user.admin) {
+    if (this.props.current_user && this.props.current_user.isAdvancedRole) {
       tracked = (
         <td>
           <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
