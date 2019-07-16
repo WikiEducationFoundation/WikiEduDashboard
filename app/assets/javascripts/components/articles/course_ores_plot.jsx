@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from './course_quality_progress_graph';
 import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
-import { Redirect } from 'react-router-dom';
 
 const CourseOresPlot = createReactClass({
   displayName: 'CourseOresPlot',
@@ -28,13 +27,7 @@ const CourseOresPlot = createReactClass({
     return this.setState({ show: true });
   },
 
-  delete() {
-    window.location.href = `/courses/${this.props.course.slug}/delete_ores_data`;
-    return <Redirect to={`/courses/${this.props.course.slug}/articles/assigned`} />;
-  },
-
   refresh() {
-    this.setState.show = false;
     this.fetchFile();
     return this.setState({ show: true });
   },
@@ -80,10 +73,6 @@ const CourseOresPlot = createReactClass({
         return (
           <div className="ores-plot">
             <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={this.state.articleData} />
-            <div>
-              <button className="button ghost stacked right" onClick={this.delete}>Delete Cached Data</button>
-              <button className="button ghost stacked right" style = {{ marginRight: 20 }} onClick={this.refresh}>Refresh Cached Data</button>
-            </div>
             <p>
               This graph visualizes, in aggregate, how much articles developed from
               when students first edited them until now. The <em>Structural Completeness </em>
@@ -99,7 +88,12 @@ const CourseOresPlot = createReactClass({
       }
       return <div>No Structural Completeness data available</div>;
     }
-    return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
+    return (
+      <div>
+        <button className="button small" onClick={this.show}>Change in Structural Completeness</button>
+         <button className="button small" style = {{ marginRight: 20 }} onClick={this.refresh}>Refresh Cached Data</button>
+      </div>
+    );
   }
 });
 
