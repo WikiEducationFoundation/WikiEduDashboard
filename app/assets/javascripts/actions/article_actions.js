@@ -19,9 +19,9 @@ export function fetchArticleDetails(articleId, courseId) {
   };
 }
 
-export function updateArticleTrackedStatus(articleId, tracked) {
+export function updateArticleTrackedStatus(articleId, courseId, tracked) {
   return function (dispatch) {
-    return API.updateArticleTrackedStatus(articleId, tracked).then(response => (dispatch({
+    return API.updateArticleTrackedStatus(articleId, courseId, tracked).then(response => (dispatch({
       type: types.UPDATE_ARTICLE_TRACKED_STATUS,
       articleId: articleId,
       tracked: tracked,

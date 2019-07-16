@@ -89,7 +89,7 @@ const ArticleList = createReactClass({
       }
     };
 
-    if (this.props.current_user.isInstructor || this.props.current_user.admin) {
+    if (this.props.current_user && this.props.current_user.isAdvancedRole) {
       keys.tracked = {
         label: I18n.t('articles.tracked'),
         desktop_only: true,

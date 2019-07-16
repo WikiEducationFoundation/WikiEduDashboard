@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   respond_to :json
-  before_action :set_course, only: [:details]
+  before_action :set_course, except: :article_data
 
   # returns revision score data for vega graphs
   def article_data
@@ -21,8 +21,8 @@ class ArticlesController < ApplicationController
 
   # updates the tracked status of an article
   def update_tracked_status
-    @article = Article.find(params[:article_id])
-    @article.update(tracked: params[:tracked])
+    article_course = @course.articles_courses.find_by(article_id: params[:article_id])
+    article_course.update(tracked: params[:tracked])
     render json: {}, status: :ok
   end
 

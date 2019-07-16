@@ -137,9 +137,9 @@ const API = {
     );
   },
 
-  updateArticleTrackedStatus(articleId, tracked) {
+  updateArticleTrackedStatus(articleId, courseId, tracked) {
     return new Promise((res, rej) => {
-      const url = `/articles/status.json?article_id=${articleId}&tracked=${tracked}`;
+      const url = `/articles/status.json?article_id=${articleId}&tracked=${tracked}&course_id=${courseId}`;
       return $.ajax({
         type: 'POST',
         url,

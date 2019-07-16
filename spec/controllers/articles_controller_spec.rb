@@ -19,6 +19,7 @@ describe ArticlesController, type: :request do
   before do
     create(:courses_user, user_id: user.id, course_id: course.id)
     create(:courses_user, user_id: second_user.id, course_id: course.id)
+    create(:articles_course, course_id: course.id, article_id: article.id)
   end
 
   describe '#article_data' do
@@ -53,12 +54,13 @@ describe ArticlesController, type: :request do
 
   describe '#update_tracked_status' do
     it 'updates the tracked status' do
-      request_params = { article_id: article.id, tracked: false }
+      request_params = { article_id: article.id, course_id: course.id, tracked: false }
+      article_course = course.articles_courses.find_by(article_id: article.id)
       post '/articles/status', params: request_params, as: :json
-      expect(article.reload.tracked).to eq(false)
+      expect(article_course.reload.tracked).to eq(false)
       request_params[:tracked] = true
       post '/articles/status', params: request_params, as: :json
-      expect(article.reload.tracked).to eq(true)
+      expect(article_course.reload.tracked).to eq(true)
     end
   end
 end
