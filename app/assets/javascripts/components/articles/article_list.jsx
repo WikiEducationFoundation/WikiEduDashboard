@@ -86,13 +86,16 @@ const ArticleList = createReactClass({
         label: I18n.t('articles.tools'),
         desktop_only: false,
         sortable: false
-      },
-      tracked: {
+      }
+    };
+
+    if (this.props.current_user.isInstructor || this.props.current_user.admin) {
+      keys.tracked = {
         label: I18n.t('articles.tracked'),
         desktop_only: true,
         sortable: false
-      }
-    };
+      };
+    }
 
     const sort = this.props.sort;
     if (sort.key) {
