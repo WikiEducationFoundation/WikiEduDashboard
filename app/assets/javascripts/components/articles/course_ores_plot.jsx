@@ -91,7 +91,7 @@ const CourseOresPlot = createReactClass({
     return (
       <div>
         <button className="button small" onClick={this.show}>Change in Structural Completeness</button>
-         <button className="button small" style = {{ marginRight: 20 }} onClick={this.refresh}>Refresh Cached Data</button>
+        <button className="button small" style = {{ marginRight: 20 }} onClick={this.refresh}>Refresh Cached Data</button>
       </div>
     );
   }
