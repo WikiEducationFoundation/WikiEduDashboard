@@ -38,13 +38,9 @@ class CourseEditsCsvBuilder
     row << revision.article.full_title
     row << revision.url
     row << revision.user.username
-    add_character_references(revision, row)
+    row << revision.characters
+    row << revision.references_added
     row << revision.new_article
     row << revision.system
   end
-end
-
-def add_character_references(revision, row)
-  row << revision.characters
-  row << revision.references_added
 end
