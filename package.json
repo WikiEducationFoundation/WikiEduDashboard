@@ -162,7 +162,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.5.0",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.6"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
