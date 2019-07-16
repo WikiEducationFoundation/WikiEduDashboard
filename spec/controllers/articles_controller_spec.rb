@@ -52,10 +52,13 @@ describe ArticlesController, type: :request do
   end
 
   describe '#update_tracked_status' do
-    it 'sets tracked to false' do
-      request_params =  { article_id: article.id, tracked: false }
+    it 'updates the tracked status' do
+      request_params = { article_id: article.id, tracked: false }
       post '/articles/status', params: request_params, as: :json
       expect(article.reload.tracked).to eq(false)
+      request_params[:tracked] = true
+      post '/articles/status', params: request_params, as: :json
+      expect(article.reload.tracked).to eq(true)
     end
   end
 end
