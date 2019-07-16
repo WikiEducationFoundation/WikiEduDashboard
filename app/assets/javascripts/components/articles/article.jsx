@@ -49,6 +49,15 @@ const Article = createReactClass({
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
 
+    let tracked;
+    if (this.props.current_user.isInstructor || this.props.current_user.admin) {
+      tracked = (
+        <td>
+          <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
+        </td>
+      );
+    }
+
     return (
       <tr className="article">
         <td className="tooltip-trigger desktop-only-tc">
@@ -96,9 +105,7 @@ const Article = createReactClass({
             selectedIndex={this.props.selectedIndex}
           />
         </td>
-        <td>
-          <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
-        </td>
+        {tracked}
       </tr>
     );
   }
