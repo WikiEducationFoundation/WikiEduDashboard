@@ -199,6 +199,11 @@ class User < ApplicationRecord
     super(options)
   end
 
+  def profile_image
+    return unless user_profile
+    user_profile.image&.present? ? user_profile.image.url(:thumb) : user_profile.image_file_link
+  end
+
   private
 
   def ensure_valid_email
