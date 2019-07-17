@@ -49,7 +49,7 @@
     "gulp-imagemin": "^6.0.0",
     "gulp-jsx-coverage": "^0.4.0",
     "gulp-livereload": "^4.0.1",
-    "gulp-load-plugins": "^1.6.0",
+    "gulp-load-plugins": "^2.0.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-newer": "^1.4.0",
     "gulp-notify": "^3.2.0",
