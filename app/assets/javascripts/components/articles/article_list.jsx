@@ -89,14 +89,6 @@ const ArticleList = createReactClass({
       }
     };
 
-    if (this.props.current_user && this.props.current_user.isAdvancedRole) {
-      keys.tracked = {
-        label: I18n.t('articles.tracked'),
-        desktop_only: true,
-        sortable: false
-      };
-    }
-
     const sort = this.props.sort;
     if (sort.key) {
       const order = (sort.sortKey) ? 'asc' : 'desc';
@@ -118,7 +110,6 @@ const ArticleList = createReactClass({
         // eslint-disable-next-line
         current_user={this.props.current_user}
         fetchArticleDetails={this.props.actions.fetchArticleDetails}
-        updateArticleTrackedStatus={this.props.actions.updateArticleTrackedStatus}
         articleDetails={this.props.articleDetails[article.id] || null}
         setSelectedIndex={this.showDiff}
         lastIndex={this.props.articles.length}
