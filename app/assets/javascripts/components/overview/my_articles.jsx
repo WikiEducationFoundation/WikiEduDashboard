@@ -30,6 +30,8 @@ export const MyArticles = createReactClass({
   },
 
   sandboxUrl(course, assignment) {
+    if (assignment.sandbox_url) return assignment.sandbox_url;
+
     const { username } = assignment;
     let { language, project } = assignment;
     if (!language || !project) {
