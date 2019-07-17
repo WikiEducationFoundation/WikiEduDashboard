@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_24_123708) do
+ActiveRecord::Schema.define(version: 2019_07_15_195734) do
+
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 2019_06_24_123708) do
     t.string "article_title"
     t.integer "role"
     t.integer "wiki_id"
+    t.text "sandbox_url"
     t.index ["course_id", "user_id"], name: "index_assignments_on_course_id_and_user_id"
     t.index ["course_id"], name: "index_assignments_on_course_id"
   end

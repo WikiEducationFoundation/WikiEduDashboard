@@ -13,6 +13,7 @@
 #  article_title :string(255)
 #  role          :integer
 #  wiki_id       :integer
+#  sandbox_url   :text(65535)
 #
 
 require_dependency "#{Rails.root}/lib/article_utils"
@@ -33,6 +34,7 @@ class Assignment < ApplicationRecord
   scope :reviewing, -> { where(role: 1) }
 
   before_validation :set_defaults_and_normalize
+  before_save :set_sandbox_url
 
   #############
   # CONSTANTS #
@@ -69,5 +71,18 @@ class Assignment < ApplicationRecord
     self.wiki_id ||= course.home_wiki.id
     return if article_title.nil?
     self.article_title = ArticleUtils.format_article_title(article_title, wiki)
+  end
+
+  def set_sandbox_url
+    return unless user
+    # If the sandbox already exists, use that URL instead
+    existing = Assignment.where(course: course, article_title: article_title, wiki: wiki)
+                         .where.not(user: user).first
+    if existing
+      self.sandbox_url = existing.sandbox_url
+    else
+      base_url = "https://#{wiki.language}.#{wiki.project}.org/wiki"
+      self.sandbox_url = "#{base_url}/User:#{user.username}/#{article_title}"
+    end
   end
 end
