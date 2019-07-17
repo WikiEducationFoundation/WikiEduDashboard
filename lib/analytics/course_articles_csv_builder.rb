@@ -77,7 +77,7 @@ class CourseArticlesCsvBuilder
     row << article_data[:wiki_domain]
     row << article_data[:url]
     row << character_sum(article_data)
-    row << references_count(article_data)
+    row << article_data[:references]
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:views]
@@ -87,12 +87,6 @@ class CourseArticlesCsvBuilder
   def character_sum(article_data)
     article_data[:characters].values.inject(0) do |sum, characters|
       characters&.positive? ? sum + characters : sum
-    end
-  end
-
-  def references_count(article_data)
-    article_data[:references] do |sum, references|
-      references ? sum + references : sum
     end
   end
 
