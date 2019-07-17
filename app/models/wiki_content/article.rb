@@ -39,7 +39,6 @@ class Article < ApplicationRecord
   scope :ready_for_update, -> { joins(:courses).merge(Course.ready_for_update).distinct }
   scope :namespace, ->(ns) { where(namespace: ns) }
   scope :assigned, -> { joins(:assignments).distinct }
-  scope :tracked, -> { where(tracked: true).distinct }
 
   validates :title, presence: true
   validates :wiki_id, presence: true
