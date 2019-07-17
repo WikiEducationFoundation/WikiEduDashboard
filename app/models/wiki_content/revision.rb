@@ -43,6 +43,9 @@ class Revision < ApplicationRecord
 
   include ArticleHelper
 
+  WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
+  WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
+
   ####################
   # Instance methods #
   ####################
@@ -69,18 +72,12 @@ class Revision < ApplicationRecord
   end
 
   def ref_tags
-    return features['feature.wikitext.revision.ref_tags'] if
-      features['feature.wikitext.revision.ref_tags']
-    return features['feature.len(<datasource.wikidatawiki.revision.references>)'] if
-      features['feature.len(<datasource.wikidatawiki.revision.references>)']
+    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES]
   end
 
   def ref_tags_previous
     return 0 if new_article
-    return features_previous['feature.wikitext.revision.ref_tags'] if
-      features_previous['feature.wikitext.revision.ref_tags']
-    return features_previous['feature.len(<datasource.wikidatawiki.revision.references>)'] if
-      features_previous['feature.len(<datasource.wikidatawiki.revision.references>)']
+    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES]
   end
 
   def references_added
