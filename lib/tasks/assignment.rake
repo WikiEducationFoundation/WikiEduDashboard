@@ -21,7 +21,7 @@ namespace :assignment do
   desc 'Give assignments default sandbox_url'
   task set_sandbox_url: :environment do
     Rails.logger.debug 'Setting sandbox_url for all assignments'
-    Assignment.where('created_at < ?', '2019-08-01'.to_date).each do |assignment|
+    Assignment.where('created_at < ?', '2019-08-01'.to_date).find_each do |assignment|
       url = generate_generic_sandbox_url(assignment)
       # update_columns will skip the callbacks on assignment
       assignment.update_columns(sandbox_url: url) if url
