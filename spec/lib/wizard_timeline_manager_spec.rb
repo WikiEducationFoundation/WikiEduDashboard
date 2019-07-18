@@ -45,6 +45,11 @@ describe WizardTimelineManager do
       subject
       expect(course.weeks.count).to eq(expected_week_count)
     end
+
+    it 'adds a flag for peer review count' do
+      subject
+      expect(course.flags[:peer_review_count]).to eq(2)
+    end
   end
 
   describe '#add_tags' do

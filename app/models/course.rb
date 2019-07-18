@@ -349,6 +349,10 @@ class Course < ApplicationRecord
     edit_settings['enrollment_edits_enabled']
   end
 
+  def peer_review_count
+    flags[:peer_review_count]
+  end
+
   # An extra param added to some wiki output.
   # Overridden by FellowsCohort.
   def wiki_template_param
