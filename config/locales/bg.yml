@@ -58,6 +58,7 @@ bg:
     edited_by: Редактирано от
     label: Дейност
   articles:
+    next: Следваща
     deleted: (изтрито)
     edited: Редактирани статии
     edited_by: 'Редактирано от:'
@@ -267,5 +268,6 @@ bg:
     email:
       headline: Здравейте, %{username}
   article_finder:
+    search: Търсене
     submit: Изпращане
 ...

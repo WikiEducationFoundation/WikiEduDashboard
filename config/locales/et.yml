@@ -126,4 +126,117 @@ et:
     new: (uus)
     none: Kursusel osalejad ei ole muutnud ühtegi artiklit.
     rating: Klass
+    rating_doc: Artikli hinne Vikipeedias. Näidatud hinded võivad kajastada artiklite
+      palju vanemaid versioone ning kujutavad endast vaid umbkaudset hinnangut artikli
+      valmidusastmele.
+    rating_docs:
+      fa: '%{class} (Hea artikkel) — Vikipeedias kõrgeim artikli kvaliteediklassile
+        antav hinne, mis antakse artiklitele, mis vastavad kõigile esitatud nõuetele
+        ja milles ei leidu ühtegi ilmselget puudust; võib olla uue kaastöölise esimeseks
+        põhiprojektiks liialt suur tükk tööd.'
+      fl: '%{class} (Hea loend) — Vikipeedia kõrgeim hinne loenditele.'
+      a: '%{class}-klass — põhjalikult läbi kirjutatud artikkel, milles leidub vaid
+        pisemaid puudusi, mille leidmine eeldab üldiselt süvenemist teemasse; võib
+        olla uue kaastöölise põhiprojektiks liialt suur tükk tööd.'
+      ga: '%{class} (Põhjalik artikkel) — põhjalikult läbi kirjutatud, potentsiaalselt
+        hea artikli kriteeriumitele vastav artikkel; eesti Vikipeedias vastab A-klassi
+        artiklile. Võib olla uue kaastöölise põhiprojektiks liialt suur tükk tööd.'
+      b: '%{class}-klass — põhjalik, kuid mitmete väiksemate puudustega artikkel,
+        mille mõned osad võivad vajada üle kirjutamist.'
+      c: '%{class}-klass — korralik artikkel, mida on siiski võimalik oluliselt parandada.'
+      start: '%{class}-klass — alustatud artikkel, milles on palju ruumi parandusteks
+        ja täiendusteks.'
+      stub: '%{class}-klass — lühike alustatud artikkel, mis vajab oluliselt rohkem
+        sisu.'
+      list: '%{class}-klass — pigem loend kui tavamõistes artikkel.'
+      '?': Hindamata — artikkel, mida ei ole Vikipeedia kvaliteedikriteeriumite skaalal
+        hinnatud.
+      does_not_exist: Sellist artiklit Vikipeedias ei leidu.
+    see_more: Laadi veel
+    show_cumulative_changes: Näita kõiki muudatusi
+    show_current_version: Näita praegust versiooni
+    show_current_version_with_authorship_highlighting: Praegune versioon, kus on märgistatud
+      muudatuste autor
+    title: Pealkiri
+    title_example: Artikli pealkiri
+    tools: Hindamistööriistad
+    view: Vaata artiklit
+    view_all: Vaata kõiki
+    view_doc: Kõigi artiklite summaarne vaatamiskordade arv projekti kestel
+    view_on_wiki: Vaata vikis
+    views_added: Lisatud %{count} uut vaatamiskorda artiklile %{title}
+    edit_size: Muudatuse maht
+    wiki: Viki
+    wp10: Struktuurne valmidus
+    wp10_doc: Struktuurse valmiduse hinne näitab, mil määral vastab artikkel masinõppepõhise
+      Objective Revision Evaluation Service algoritmi (https://ores.wikimedia.org/)
+      järgi valmis vikiartikli nõuetele. Hinde arvutamise aluseks on artikli suurus,
+      viidete ja siselinkide ning muude teksti põhielementide hulk. Kõrge hinne näitab
+      tavaliselt, et artikkel vastab Vikipeedia hea artikli struktuuri nõuetele, kuid
+      ei kajasta mingilgi määral artikli sisu. (Kasutatakse ainult ingliskeelses Vikipeedias.)
+  assignments:
+    article: Artikkel %{title} on nüüd seotud sinu kasutajakontoga.
+    already_exists: Artikkel on juba seotud selle kasutajakontoga!
+    title_too_large: Pealkiri ei tohi olla pikem kui 255 tähemärki
+    assignees: Seotud kasutajakonto(d)
+    assign_other: Seo artikkel kasutajakontoga
+    add_available: Lisa valitavaid artikleid
+    add_available_placeholder: Lisa üks artikli pealkiri või URL rea kohta
+    add_available_submit: Lisa artikleid
+    assign_self: Seo artikkel oma kontoga
+    assign_tooltip: Kontoga seotav artikkel on artikkel, mida kavatsed luua või täiendada.
+    clone: Klooni
+    confirm_add_available: Kas oled kindel, et soovid lisata artikli %{title}?
+    confirm_addition: Kas oled kindel, et soovid siduda artikli %{title} kasutajaga
+      %{username}?
+    confirm_deletion: Kas oled kindel, et tahad artikli sidumise tühistada?
+    label: Seo
+    loading: Laadin seotud artikleid...
+    none_short: Seotud artiklid puuduvad
+    none: Kursusel osalejate kontodega ei ole seotud ühtegi artiklit.
+    no_available: Valitavad artiklid puuduvad.
+    remove: Eemalda
+    reviewers: Retsensendid
+    review_other: Määra retsensent
+    review_self: Retsenseeri artiklit
+    review_tooltip: Siin kuvatakse artikleid, mida kavatsed retsenseerida või mille
+      kohta tagasisidet anda.
+    select: Vali
+  blocks:
+    milestones:
+      title: Verstapostid
+  campaign:
+    active_campaigns: Aktiivsed kampaaniad
+    add_organizer: Lisa korraldaja
+    alert_article: Artikli pealkiri
+    alert_label: Kampaania märguanded
+    alert_select_label: Filtreeri märguande tüübi järgi
+    alert_type: Tüüp
+    alert_user_id: Kasutaja
+    all_campaigns: Kõik kampaaniad
+    already_exists: Sellise nime või koodiga kampaania on juba olemas! Proovi uuesti
+      teise nime või koodiga.
+    campaign: Kampaania
+    campaigns: Kampaaniad
+    campaign_deleted: Kampaania %{title} on kustutatud
+    campaign_not_updated: Kampaaniat ei olnud võimalik uuendada
+    campaign_updated: Kampaania uuendatud
+    created_at: Kuupäev
+    confirm_campaign_deletion: Kas sa oled kindel, et soovid kampaania "%{title}"
+      kustutada? Jätkamiseks kirjuta kampaania nimi.
+    confirm_campaign_deletion_failed: '%{title} ei ole selle kampaania nimi. Kampaaniat
+      ei kustutatud.'
+    confirm_course_removal: Kas sa oled kindel, et soovid kursuse "%{title}" kampaaniast
+      "%{campaign_title}" eemaldada?
+    course_already_removed: '"%{title}" on juba kampaaniast "%{campaign_title}" eemaldatud'
+    course: Kursus
+    course_removed: '"%{title}" on kampaaniast "%{campaign_title}" eemaldatud'
+    create_campaign: Loo uus kampaania
+    create_my_campaign: Loo kampaania
+    customize_passcode: vaikeparool
+    data_download_info: Laadi alla kampaania andmed CSV-vormingus
+    data_courses: Kursuse ülevaade
+    data_courses_info: Iga kursuse/programmi peamised mõõdikud
+    data_articles: Muudetud leheküljed
+    data_revisions: Muudatuste andmed
 ...

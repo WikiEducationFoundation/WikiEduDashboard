@@ -223,8 +223,8 @@ es:
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
     data_revisions: Datos de revisiones
-    data_revisions_info: Detalles sobre cada una de las revisiones seguidas de la
-      campaña
+    data_revisions_info: Detalles sobre cada una de las revisiones monitorizadas de
+      la campaña
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acceso predeterminado
     default_passcode_explanation: 'De manera predeterminada, los programas nuevos
@@ -365,9 +365,9 @@ es:
       subject: Asunto
     current: Cursos actuales
     data_articles: Datos de artículos
-    data_revisions_info: Los datos de revisión incluyen el recuento de revisiones
-      del curso, el id de revisión, el id de artículo, qué páginas son nuevas y los
-      totales de las vistas de página.
+    data_revisions_info: Entre los datos de revisión se incluyen el recuento de revisiones
+      del curso, el identificador de revisión, el identificador de artículo, qué páginas
+      son nuevas y las visitas totales de cada página.
     data_download_info: Descargar datos en formato CSV.
     data_edits: Datos de ediciones
     data_students: Datos de editores
