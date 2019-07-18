@@ -32,149 +32,163 @@ describe Revision, type: :model do
     let(:wiki) { create(:wiki, project: 'wikidata', language: 'en') }
 
     context 'new article' do
+      let(:mw_rev_id) { 95249249 }
+
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 45010238,
+               mw_page_id: 45010238)
+        create(:revision,
+               mw_rev_id: 95249256,
+               article_id: 36612,
+               mw_page_id: 36612,
+               wiki_id: wiki.id)
+      end
+
       it 'should return zero' do
-        VCR.use_cassette 'ores_api' do
-          create(:revision,
-                 mw_rev_id: 95249249,
-                 article_id: 45010238,
-                 mw_page_id: 45010238)
-
-          create(:revision,
-                 mw_rev_id: 95249256,
-                 article_id: 36612,
-                 mw_page_id: 36612,
-                 wiki_id: wiki.id)
-
-          val = Revision.find_by(mw_rev_id: 95249249).references_added
-          wikidata_val = Revision.find_by(mw_rev_id: 95249256).references_added
-          expect(val).to eq(0)
-          expect(wikidata_val).to eq(0)
-        end
+        val = Revision.find_by(mw_rev_id: 95249249).references_added
+        wikidata_val = Revision.find_by(mw_rev_id: 95249256).references_added
+        expect(val).to eq(0)
+        expect(wikidata_val).to eq(0)
       end
     end
 
     context 'First revision' do
-      it 'should return no. of references added' do
-        VCR.use_cassette 'ores_api' do
-          create(:revision,
-                 mw_rev_id: 79213489,
-                 article_id: 90010238,
-                 mw_page_id: 90010238,
-                 new_article: true,
-                 features: {
-                   refs_tags_key => 10
-                 })
-          create(:revision,
-                 mw_rev_id: 840608564,
-                 article_id: 41155,
-                 mw_page_id: 41155,
-                 wiki_id: wiki.id,
-                 new_article: true,
-                 features: {
-                   wikidata_refs_tags_key => 10
-                 })
+      let(:mw_rev_id) { 857571904 }
 
-          val = Revision.find_by(mw_rev_id: 79213489).references_added
-          wikidata_val = Revision.find_by(mw_rev_id: 840608564).references_added
-          expect(val).to eq(10)
-          expect(wikidata_val).to eq(10)
-        end
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 90010238,
+               mw_page_id: 90010238,
+               new_article: true,
+               features: {
+                 refs_tags_key => 10
+               })
+        create(:revision,
+               mw_rev_id: 840608564,
+               article_id: 41155,
+               mw_page_id: 41155,
+               wiki_id: wiki.id,
+               new_article: true,
+               features: {
+                 wikidata_refs_tags_key => 10
+               })
+      end
+
+      it 'should return no. of references added' do
+        val = Revision.find_by(mw_rev_id: 857571904).references_added
+        wikidata_val = Revision.find_by(mw_rev_id: 840608564).references_added
+        expect(val).to eq(10)
+        expect(wikidata_val).to eq(10)
       end
     end
 
     context 'Not the first revision, but previous revision data is not available' do
+      let(:mw_rev_id) { 89023457 }
+
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               mw_page_id: 78240014,
+               article_id: 78240014,
+               new_article: false,
+               features: {
+                 refs_tags_key => 10
+               })
+
+        create(:revision,
+               mw_page_id: 328439,
+               article_id: 328439,
+               mw_rev_id: 89023158,
+               wiki_id: wiki.id,
+               new_article: false,
+               features: {
+                 wikidata_refs_tags_key => 10
+               })
+      end
+
       it 'should return 0 references added' do
-        VCR.use_cassette 'ores_api' do
-          create(:revision,
-                 mw_rev_id: 89023457,
-                 mw_page_id: 78240014,
-                 article_id: 78240014,
-                 new_article: false,
-                 features: {
-                   refs_tags_key => 10
-                 })
-
-          create(:revision,
-                 mw_page_id: 328439,
-                 article_id: 328439,
-                 mw_rev_id: 89023158,
-                 wiki_id: wiki.id,
-                 new_article: false,
-                 features: {
-                   wikidata_refs_tags_key => 10
-                 })
-
-          val = Revision.find_by(mw_rev_id: 89023457).references_added
-          wikidata_val = Revision.find_by(mw_rev_id: 89023158).references_added
-          expect(val).to eq(0)
-          expect(wikidata_val).to eq(0)
-        end
+        val = Revision.find_by(mw_rev_id: 89023457).references_added
+        wikidata_val = Revision.find_by(mw_rev_id: 89023158).references_added
+        expect(val).to eq(0)
+        expect(wikidata_val).to eq(0)
       end
     end
 
     context 'Deleted some references' do
-      it 'Would be negative' do
-        VCR.use_cassette 'ores_api' do
-          create(:revision,
-                 mw_rev_id: 852178130,
-                 article_id: 79010238,
-                 mw_page_id: 79010238,
-                 features: {
-                   refs_tags_key => 0
-                 },
-                 features_previous: {
-                   refs_tags_key => 6
-                 })
-          create(:revision,
-                 mw_rev_id: 852178131,
-                 article_id: 320317,
-                 mw_page_id: 320317,
-                 wiki_id: wiki.id,
-                 features: {
-                   wikidata_refs_tags_key => 0
-                 },
-                 features_previous: {
-                   wikidata_refs_tags_key => 6
-                 })
+      let(:mw_rev_id) { 852178130 }
 
-          val = Revision.find_by(mw_rev_id: 852178130).references_added
-          wikidata_val = Revision.find_by(mw_rev_id: 852178131).references_added
-          expect(val).to eq(-6)
-          expect(wikidata_val).to eq(-6)
-        end
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 79010238,
+               mw_page_id: 79010238,
+               features: {
+                 refs_tags_key => 0
+               },
+               features_previous: {
+                 refs_tags_key => 6
+               })
+        create(:revision,
+               mw_rev_id: 852178131,
+               article_id: 320317,
+               mw_page_id: 320317,
+               wiki_id: wiki.id,
+               features: {
+                 wikidata_refs_tags_key => 0
+               },
+               features_previous: {
+                 wikidata_refs_tags_key => 6
+               })
+      end
+
+      it 'Would be negative' do
+        val = Revision.find_by(mw_rev_id: 852178130).references_added
+        wikidata_val = Revision.find_by(mw_rev_id: 852178131).references_added
+        expect(val).to eq(-6)
+        expect(wikidata_val).to eq(-6)
       end
     end
 
     context 'New refernces are added and not a new article' do
-      it 'should return positive value' do
-        VCR.use_cassette 'ores_api' do
-          create(:revision,
-                 mw_rev_id: 870348507,
-                 article_id: 55010239,
-                 mw_page_id: 55010239,
-                 features: {
-                   refs_tags_key => 22
-                 },
-                 features_previous: {
-                   refs_tags_key => 17
-                 })
-          create(:revision,
-                 mw_rev_id: 870348508,
-                 article_id: 320328,
-                 mw_page_id: 320328,
-                 wiki_id: wiki.id,
-                 features: {
-                   wikidata_refs_tags_key => 22
-                 },
-                 features_previous: {
-                   wikidata_refs_tags_key => 17
-                 })
+      let(:mw_rev_id) { 870348507 }
 
-          val = Revision.find_by(mw_rev_id: 870348507).references_added
-          wikidata_val = Revision.find_by(mw_rev_id: 870348508).references_added
-          expect(val).to eq(5)
-          expect(wikidata_val).to eq(5)
-        end
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 55010239,
+               mw_page_id: 55010239,
+               features: {
+                 refs_tags_key => 22
+               },
+               features_previous: {
+                 refs_tags_key => 17
+               })
+        create(:revision,
+               mw_rev_id: 870348508,
+               article_id: 55010239,
+               mw_page_id: 55010239,
+               wiki_id: wiki.id,
+               features: {
+                 wikidata_refs_tags_key => 22
+               },
+               features_previous: {
+                 wikidata_refs_tags_key => 17
+               })
+      end
+
+      it 'should return positive value' do
+        val = Revision.find_by(mw_rev_id: 870348507).references_added
+        wikidata_val = Revision.find_by(mw_rev_id: 870348508).references_added
+        expect(val).to eq(5)
+        expect(wikidata_val).to eq(5)
       end
     end
   end
