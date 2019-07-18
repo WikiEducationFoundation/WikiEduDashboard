@@ -215,11 +215,12 @@ en:
     none_short: No articles assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
+    peer_review_count_tooltip: You should select %{total} articles to peer review.
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article
-    review_tooltip: This is for keeping track of which article(s) you plan to peer review or provide feedback on.
+    review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     select: Select
 
   blocks:
