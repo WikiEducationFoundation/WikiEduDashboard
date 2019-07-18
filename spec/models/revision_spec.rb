@@ -87,14 +87,18 @@ describe Revision, type: :model do
         VCR.use_cassette 'ores_api' do
           create(:revision,
                  mw_rev_id: 89023457,
+                 mw_page_id: 78240014,
+                 article_id: 78240014,
                  new_article: false,
                  features: {
                    refs_tags_key => 10
                  })
 
           create(:revision,
-                 wiki_id: wiki.id,
+                 mw_page_id: 328439,
+                 article_id: 328439,
                  mw_rev_id: 89023158,
+                 wiki_id: wiki.id,
                  new_article: false,
                  features: {
                    wikidata_refs_tags_key => 10
