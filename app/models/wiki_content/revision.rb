@@ -43,9 +43,6 @@ class Revision < ApplicationRecord
 
   include ArticleHelper
 
-  WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
-  WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
-
   ####################
   # Instance methods #
   ####################
@@ -70,6 +67,9 @@ class Revision < ApplicationRecord
     return unless ithenticate_id
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
+
+  WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
+  WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
 
   def ref_tags
     features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES]
