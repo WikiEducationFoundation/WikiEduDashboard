@@ -102,9 +102,9 @@ describe Revision, type: :model do
                })
 
         create(:revision,
+               mw_rev_id: 89023158,
                mw_page_id: 328439,
                article_id: 328439,
-               mw_rev_id: 89023158,
                wiki_id: wiki.id,
                new_article: false,
                features: {
