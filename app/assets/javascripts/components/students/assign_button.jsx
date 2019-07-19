@@ -297,7 +297,7 @@ export class AssignButton extends React.Component {
       title: decodeURIComponent(this.state.title).trim(),
       project: this.state.project,
       language: this.state.language,
-      course_id: course.slug,
+      course_slug: course.slug,
       role: role
     };
 
@@ -320,7 +320,7 @@ export class AssignButton extends React.Component {
 
     const reviewing = {
       title: assignment.article_title,
-      course_id: course.slug,
+      course_slug: course.slug,
       role
     };
 
@@ -346,7 +346,7 @@ export class AssignButton extends React.Component {
 
   unassign(assignment) {
     this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
-      this.props.deleteAssignment({ course_id: this.props.course.slug, ...assignment });
+      this.props.deleteAssignment({ course_slug: this.props.course.slug, ...assignment });
     });
   }
 

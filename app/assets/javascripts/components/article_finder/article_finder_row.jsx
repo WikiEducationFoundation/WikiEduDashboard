@@ -27,7 +27,7 @@ const ArticleFinderRow = createReactClass({
       title: decodeURIComponent(this.props.title).trim(),
       project: this.props.home_wiki.project,
       language: this.props.home_wiki.language,
-      course_id: this.props.courseSlug,
+      course_slug: this.props.courseSlug,
       user_id: userId,
       role: ASSIGNED_ROLE,
     };
@@ -42,7 +42,7 @@ const ArticleFinderRow = createReactClass({
       article_title: decodeURIComponent(this.props.title).trim(),
       project: this.props.assignment.project,
       language: this.props.assignment.language,
-      course_id: this.props.courseSlug,
+      course_slug: this.props.courseSlug,
       role: ASSIGNED_ROLE,
       id: this.props.assignment.id,
       assignment_id: this.props.assignment.assignment_id,

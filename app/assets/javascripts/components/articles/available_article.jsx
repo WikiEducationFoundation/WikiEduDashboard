@@ -41,7 +41,7 @@ export const AvailableArticle = createReactClass({
 
     const assignment = {
       id: this.props.assignment.id,
-      course_id: this.props.course.slug,
+      course_slug: this.props.course.slug,
       language: this.props.assignment.language,
       project: this.props.assignment.project,
       article_title: this.props.assignment.article_title,
