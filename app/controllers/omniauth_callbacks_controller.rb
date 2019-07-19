@@ -59,6 +59,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def returning_from_enroll_link?
     return false unless session_course_slug
     origin = request.env['omniauth.origin']
+    return false unless origin
     # the origin URL will include the course slug and the enroll code
     # if the user logged in from the 'enroll' view.
     origin[session_course_slug] && origin[session_enroll_code]
