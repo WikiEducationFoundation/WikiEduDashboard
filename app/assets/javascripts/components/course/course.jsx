@@ -45,14 +45,14 @@ export const Course = createReactClass({
 
   // Fetch all the data needed to render a course page
   componentDidMount() {
-    const courseID = this.getCourseID();
-    this.props.fetchCourse(courseID);
-    this.props.fetchUsers(courseID);
-    this.props.fetchTimeline(courseID);
-    return this.props.fetchCampaigns(courseID);
+    const courseSlug = this.getCourseSlug();
+    this.props.fetchCourse(courseSlug);
+    this.props.fetchUsers(courseSlug);
+    this.props.fetchTimeline(courseSlug);
+    return this.props.fetchCampaigns(courseSlug);
   },
 
-  getCourseID() {
+  getCourseSlug() {
     const { course_school, course_title } = this.props.match.params;
     return `${course_school}/${course_title}`;
   },
@@ -75,12 +75,12 @@ export const Course = createReactClass({
   },
 
   render() {
-    const courseId = this.getCourseID();
+    const courseSlug = this.getCourseSlug();
     const course = this.props.course;
-    if (!courseId || !course || !course.home_wiki) { return <div />; }
+    if (!courseSlug || !course || !course.home_wiki) { return <div />; }
 
     const userRoles = this.props.currentUser;
-    const courseProps = { course_id: courseId, current_user: userRoles, course };
+    const courseProps = { course_id: courseSlug, current_user: userRoles, course };
     // //////////////////
     // Enrollment modal /
     // //////////////////
