@@ -13,22 +13,6 @@ describe AssignmentsController, type: :request do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
   end
 
-  describe 'GET #index' do
-    let!(:assignment) { create(:assignment, course_id: 1) }
-
-    before do
-      allow(Assignment).to receive(:where).and_return(assignment)
-      get '/assignments', params: { course_id: course.slug }
-    end
-
-    it 'sets assignments ivar' do
-      expect(assigns(:assignments)).to eq(assignment)
-    end
-    it 'renders a json response' do
-      expect(response.body).to eq(assignment.to_json)
-    end
-  end
-
   describe 'DELETE #destroy' do
     context 'when the user owns the assignment' do
       let(:assignment) do

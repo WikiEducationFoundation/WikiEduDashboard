@@ -11,13 +11,6 @@ class AssignmentsController < ApplicationController
   respond_to :json
   before_action :set_course, except: [:update]
 
-  def index
-    @assignments = Assignment.where(user_id: params[:user_id],
-                                    role: params[:role],
-                                    course_id: @course.id)
-    render json: @assignments
-  end
-
   def destroy
     set_assignment { return }
     @course = @assignment.course
