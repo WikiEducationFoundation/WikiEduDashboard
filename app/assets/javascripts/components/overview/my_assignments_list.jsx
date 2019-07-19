@@ -1,11 +1,29 @@
 import React from 'react';
 import MyAssignment from './my_assignment.jsx';
-import { IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../constants/assignments';
+import { REVIEWING_ROLE, IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../constants/assignments';
 
 // Helper Components
-const Heading = ({ title }) => (
-  <h4 className="mb1 mt2">{title}</h4>
-);
+const Tooltip = ({ message, text }) => {
+  return (
+    <div className="tooltip-trigger">
+      <small className="peer-review-count">{text}</small>
+      <div className="tooltip dark">
+        <p>
+          {message}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const Heading = ({ message, sub, title }) => {
+  const smallText = (
+    <Tooltip message={message} text={sub} />
+  );
+  return (
+    <h4 className="mb1 mt2">{title} { sub && smallText }</h4>
+  );
+};
 
 const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
   const elements = assignments.map((assignment) => {
@@ -21,9 +39,15 @@ const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
     );
   });
 
+  const { peer_review_count: total } = course;
+  const currentCount = assignments.length;
+  const isReviewing = assignments[0].role === REVIEWING_ROLE;
+  const sub = total && isReviewing ? `(${currentCount}/${total})` : null;
+
+  const message = I18n.t('assignments.peer_review_count_tooltip', { total });
   return (
     <section>
-      <Heading key={title} title={title} />
+      <Heading key={title} message={message} title={title} sub={sub} />
       { elements }
     </section>
   );

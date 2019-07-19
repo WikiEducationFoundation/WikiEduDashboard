@@ -43,6 +43,9 @@ class WizardTimelineManager
 
     # Save any tags that have been generated from this Wizard output
     add_tags
+
+    # Save any flags that correspond to specific wizard choices
+    add_flags
   end
 
   ###################
@@ -179,5 +182,18 @@ class WizardTimelineManager
         Tag.create(course_id: @course.id, tag: tag_value, key: tag_key)
       end
     end
+  end
+
+  FLAG_LOGIC = {
+    '1_peer_reviewers' => { peer_review_count: 1 },
+    '2_peer_reviewers' => { peer_review_count: 2 },
+    '3_peer_reviewers' => { peer_review_count: 3 }
+  }.freeze
+  def add_flags
+    FLAG_LOGIC.keys.each do |logic_key|
+      next unless @logic.include?(logic_key)
+      @course.flags.merge!(FLAG_LOGIC[logic_key])
+    end
+    @course.save
   end
 end
