@@ -43,7 +43,7 @@ class WizardTimelineManager
 
     # Save any tags that have been generated from this Wizard output
     add_tags
-  
+
     # Save any flags that correspond to specific wizard choices
     add_flags
   end
