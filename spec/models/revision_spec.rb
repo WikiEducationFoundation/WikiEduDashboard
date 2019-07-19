@@ -29,7 +29,7 @@ describe Revision, type: :model do
   describe '#references_added' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
     let(:wikidata_refs_tags_key) { 'feature.len(<datasource.wikidatawiki.revision.references>)' }
-    let(:wiki) { create(:wiki, project: 'wikidata', language: 'en') }
+    let(:enwikidata) { create(:wiki, project: 'wikidata', language: 'en') }
 
     context 'new article' do
       let(:mw_rev_id) { 95249249 }
@@ -44,7 +44,7 @@ describe Revision, type: :model do
                mw_rev_id: 95249256,
                article_id: 36612,
                mw_page_id: 36612,
-               wiki_id: wiki.id)
+               wiki_id: enwikidata.id)
       end
 
       it 'should return zero' do
@@ -72,7 +72,7 @@ describe Revision, type: :model do
                mw_rev_id: 840608564,
                article_id: 41155,
                mw_page_id: 41155,
-               wiki_id: wiki.id,
+               wiki_id: enwikidata.id,
                new_article: true,
                features: {
                  wikidata_refs_tags_key => 10
@@ -105,7 +105,7 @@ describe Revision, type: :model do
                mw_rev_id: 89023158,
                mw_page_id: 328439,
                article_id: 328439,
-               wiki_id: wiki.id,
+               wiki_id: enwikidata.id,
                new_article: false,
                features: {
                  wikidata_refs_tags_key => 10
@@ -139,7 +139,7 @@ describe Revision, type: :model do
                mw_rev_id: 852178131,
                article_id: 320317,
                mw_page_id: 320317,
-               wiki_id: wiki.id,
+               wiki_id: enwikidata.id,
                features: {
                  wikidata_refs_tags_key => 0
                },
@@ -175,7 +175,7 @@ describe Revision, type: :model do
                mw_rev_id: 870348508,
                article_id: 55010239,
                mw_page_id: 55010239,
-               wiki_id: wiki.id,
+               wiki_id: enwikidata.id,
                features: {
                  wikidata_refs_tags_key => 22
                },
