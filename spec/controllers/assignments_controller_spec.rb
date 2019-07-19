@@ -27,7 +27,7 @@ describe AssignmentsController, type: :request do
       end
 
       context 'when the assignment_id is provided' do
-        let(:params) { { course_id: course.slug } }
+        let(:params) { { course_slug: course.slug } }
 
         before do
           delete "/assignments/#{assignment.id}", params: { id: assignment.id }.merge(params)
@@ -44,7 +44,7 @@ describe AssignmentsController, type: :request do
 
       context 'when the assignment_id is not provided' do
         let(:params) do
-          { course_id: course.slug, user_id: user.id,
+          { course_slug: course.slug, user_id: user.id,
             article_title: assignment.article_title, role: assignment.role }
         end
 
@@ -63,7 +63,7 @@ describe AssignmentsController, type: :request do
 
     context 'when the user does not have permission do destroy the assignment' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
-      let(:params) { { course_id: course.slug } }
+      let(:params) { { course_slug: course.slug } }
 
       before do
         delete "/assignments/#{assignment.id}", params: { id: assignment }.merge(params)
@@ -81,7 +81,7 @@ describe AssignmentsController, type: :request do
     context 'when parameters for a non-existent assignment are provided' do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id) }
       let(:params) do
-        { course_id: course.slug, user_id: user.id + 1,
+        { course_slug: course.slug, user_id: user.id + 1,
           article_title: assignment.article_title, role: assignment.role }
       end
 
@@ -104,7 +104,7 @@ describe AssignmentsController, type: :request do
         create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)
       end
       let(:assignment_params) do
-        { user_id: user.id, course_id: course.slug, title: 'jalapeño', role: 0, format: :json }
+        { user_id: user.id, course_slug: course.slug, title: 'jalapeño', role: 0, format: :json }
       end
 
       context 'when the article does not exist' do
@@ -128,7 +128,7 @@ describe AssignmentsController, type: :request do
       context 'when the assignment is for Wiktionary' do
         let!(:en_wiktionary) { create(:wiki, language: 'en', project: 'wiktionary') }
         let(:wiktionary_params) do
-          { user_id: user.id, course_id: course.slug, title: 'selfie', role: 0,
+          { user_id: user.id, course_slug: course.slug, title: 'selfie', role: 0,
             language: 'en', project: 'wiktionary', format: :json }
         end
 
@@ -150,7 +150,7 @@ describe AssignmentsController, type: :request do
       context 'when the assignment is for Wikisource' do
         let!(:www_wikisource) { create(:wiki, language: 'www', project: 'wikisource') }
         let(:wikisource_params) do
-          { user_id: user.id, course_id: course.slug, title: 'Heyder Cansa', role: 0,
+          { user_id: user.id, course_slug: course.slug, title: 'Heyder Cansa', role: 0,
             language: 'www', project: 'wikisource', format: :json }
         end
 
@@ -174,7 +174,7 @@ describe AssignmentsController, type: :request do
       context 'when the assignment is for Wikimedia incubator' do
         let!(:wikimedia_incubator) { create(:wiki, language: 'incubator', project: 'wikimedia') }
         let(:wikimedia_params) do
-          { user_id: user.id, course_id: course.slug, title: 'Wp/kiu/Heyder Cansa', role: 0,
+          { user_id: user.id, course_slug: course.slug, title: 'Wp/kiu/Heyder Cansa', role: 0,
             language: 'incubator', project: 'wikimedia', format: :json }
         end
 
@@ -201,7 +201,7 @@ describe AssignmentsController, type: :request do
         end
 
         let(:assignment_params_with_language_and_project) do
-          { user_id: user.id, course_id: course.slug, title: 'pizza',
+          { user_id: user.id, course_slug: course.slug, title: 'pizza',
             role: 0, language: 'es', project: 'wikibooks', format: :json }
         end
         before do
@@ -253,7 +253,7 @@ describe AssignmentsController, type: :request do
     context 'when the user does not have permission to create the assignment' do
       let(:course) { create(:course) }
       let(:assignment_params) do
-        { user_id: user.id + 1, course_id: course.slug, title: 'pizza', role: 0 }
+        { user_id: user.id + 1, course_slug: course.slug, title: 'pizza', role: 0 }
       end
 
       before do
@@ -272,7 +272,7 @@ describe AssignmentsController, type: :request do
     context 'when the wiki params are not valid' do
       let(:course) { create(:course) }
       let(:invalid_wiki_params) do
-        { user_id: user.id, course_id: course.slug, title: 'Pikachu', role: 0,
+        { user_id: user.id, course_slug: course.slug, title: 'Pikachu', role: 0,
           language: 'en', project: 'bulbapedia', format: :json }
       end
       let(:subject) do
@@ -292,7 +292,7 @@ describe AssignmentsController, type: :request do
         create(:assignment, course_id: course.id, user_id: user.id, role: 0, article_title: title)
       end
       let(:duplicate_assignment_params) do
-        { user_id: user.id, course_id: course.slug, title: title, role: 0, format: :json }
+        { user_id: user.id, course_slug: course.slug, title: title, role: 0, format: :json }
       end
 
       before do
@@ -314,7 +314,7 @@ describe AssignmentsController, type: :request do
         create(:assignment, course_id: course.id, user_id: user.id, role: 0, article_title: title)
       end
       let(:case_variant_assignment_params) do
-        { user_id: user.id, course_id: course.slug, title: variant_title, role: 0, format: :json }
+        { user_id: user.id, course_slug: course.slug, title: variant_title, role: 0, format: :json }
       end
 
       before do

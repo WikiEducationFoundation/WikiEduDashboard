@@ -55,7 +55,7 @@ const AddAvailableArticles = createReactClass({
         title: assignment.title,
         project,
         language,
-        course_id: this.props.course_id,
+        course_slug: this.props.course_id,
         role: this.props.role
       };
     });

@@ -36,7 +36,7 @@ export const MyAssignment = createReactClass({
 
   unassign(assignment) {
     this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
-      this.props.deleteAssignment({ course_id: this.props.course.id, ...assignment });
+      this.props.deleteAssignment({ course_slug: this.props.course.id, ...assignment });
     });
   },
 
