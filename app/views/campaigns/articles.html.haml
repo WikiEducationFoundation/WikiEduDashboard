@@ -60,7 +60,7 @@
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
 
-      - articles = @campaign.articles_courses.includes(article: :wiki).includes(:course).where(courses: { private: false }).order('articles.deleted', character_sum: :desc).paginate(page: params[:page]&.to_i, per_page: 1000)
+      - articles = @campaign.articles_courses.includes(article: :wiki).includes(:course).where(courses: { private: false }).order('articles.deleted', character_sum: :desc).paginate(page: @page, per_page: 1000)
 
       = will_paginate articles
 
