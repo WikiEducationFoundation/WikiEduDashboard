@@ -4,9 +4,11 @@ class OverdueTrainingAlertMailer < ApplicationMailer
   def self.send_email(alert)
     return unless Features.email?
     return if alert.user.email.blank?
-
     email(alert).deliver_now
     alert.update(email_sent_at: Time.zone.now)
+  rescue Mailgun::CommunicationError => e
+    Raven.capture_exception e, extra: { username: alert.user.username,
+                                        email: alert.user.email }
   end
 
   def email(alert)

@@ -16,6 +16,7 @@ describe OverdueTrainingAlertManager do
 
   before do
     create(:courses_user, user: user, course: course)
+    allow(Features).to receive(:email?).and_return(true)
     course.weeks << week
     week.blocks << block
   end
@@ -27,6 +28,13 @@ describe OverdueTrainingAlertManager do
       expect(OverdueTrainingAlert.count).to eq(0)
       subject
       expect(OverdueTrainingAlert.count).to eq(1)
+    end
+
+    it 'handles invalid email errors gracefully' do
+      expect_any_instance_of(ActionMailer::MessageDelivery)
+        .to receive(:deliver_now).and_raise(Mailgun::CommunicationError)
+      expect(Raven).to receive(:capture_exception)
+      subject
     end
   end
 
