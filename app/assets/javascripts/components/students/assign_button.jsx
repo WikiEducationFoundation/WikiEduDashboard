@@ -346,7 +346,7 @@ export class AssignButton extends React.Component {
 
   unassign(assignment) {
     this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
-      this.props.deleteAssignment({ course_id: this.props.course.id, ...assignment });
+      this.props.deleteAssignment({ course_id: this.props.course.slug, ...assignment });
     });
   }
 
