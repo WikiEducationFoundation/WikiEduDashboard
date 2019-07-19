@@ -56,6 +56,8 @@ class CampaignsController < ApplicationController
 
   def articles
     set_presenter
+    @page = params[:page]&.to_i
+    @page = nil unless @page&.positive?
   end
 
   def users
