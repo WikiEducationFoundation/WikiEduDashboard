@@ -68,13 +68,16 @@ class Revision < ApplicationRecord
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
   end
 
+  WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
+  WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
+
   def ref_tags
-    features['feature.wikitext.revision.ref_tags']
+    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES]
   end
 
   def ref_tags_previous
     return 0 if new_article
-    features_previous['feature.wikitext.revision.ref_tags']
+    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES]
   end
 
   def references_added
