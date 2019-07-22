@@ -11,6 +11,24 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
+const CollaboratorLinks = ({ collaborators }) => {
+  return collaborators.map(username => (
+    <a className="collaborator-profile-link" href={`/users/${username}`}>{username}</a>
+  ));
+};
+
+const Collaborators = ({ assignment }) => {
+  if (!assignment.collaborators) return null;
+  return (
+    <section className="collaborators">
+      <p>
+        <strong>Collaborators:</strong>
+        <CollaboratorLinks collaborators={assignment.collaborators} />
+      </p>
+    </section>
+  );
+};
+
 export const MyAssignment = createReactClass({
   displayName: 'MyAssignment',
 
@@ -52,7 +70,7 @@ export const MyAssignment = createReactClass({
       const label = this.props.wikidataLabels[article.title.replace('www:wikidata', '')];
       articleTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
       const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
-      pageviews = <a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a>;
+      pageviews = <div><a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a></div>;
     }
 
     // Assigned article that does not yet exist in mainspace
@@ -74,17 +92,20 @@ export const MyAssignment = createReactClass({
 
     return (
       <div className="my-assignment mb1">
-        <span className="my-assignment-title" >
-          {articleTitle} •&nbsp;
-          <a href={assignment.sandboxUrl} target="_blank">Sandbox</a> •&nbsp;
-          <a href={assignment.article_url}>Article</a>
-        </span>
         <div className="my-assignment-button">
           <div><button onClick={() => this.unassign(assignment)} className="button danger small">Remove</button></div>
           {feedback}
           {pageviews}
           {checklist}
         </div>
+        <section className="my-assignment-header">
+          <section className="title">
+            {articleTitle} •&nbsp;
+            <a href={assignment.sandboxUrl} target="_blank">Sandbox</a> •&nbsp;
+            <a href={assignment.article_url}>Article</a>
+          </section>
+          <Collaborators assignment={assignment} />
+        </section>
       </div>
     );
   }
