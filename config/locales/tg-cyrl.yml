@@ -8,8 +8,12 @@
 tg-cyrl:
   articles:
     wiki: вики
+  campaign:
+    data_revisions: Маълумот оиди тағйирот
   courses:
+    data_revisions: Маълумот оиди тағйирот
     enroll: Ба рӯйхат даровардан
+    home_wiki: Викии худ
   courses_generic:
     courses: Барномаҳо
     enroll: Иловаи муҳаррир
@@ -20,4 +24,6 @@ tg-cyrl:
       URL:'
     username: Номи корбар
     username_placeholder: Номи корбарӣ
+  multi_wiki:
+    selector_placeholder: Викиро интихоб намед
 ...

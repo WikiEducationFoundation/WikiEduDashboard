@@ -210,12 +210,13 @@ pt-br:
     none_short: Nenhum artigo atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
+    peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
+      por pares.
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
     review_self: Revisar um artigo
-    review_tooltip: Isto é para manter registro de quais artigos planeja revisar ou
-      prover comentários.
+    review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
     select: Selecionar
   blocks:
     milestones:

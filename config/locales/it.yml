@@ -211,8 +211,8 @@ it:
     reviewers: Revisori
     review_other: Assegna una revisione
     review_self: Revisiona una voce
-    review_tooltip: Serve per tenere traccia di quale voce/i pianifichi di far revisionare
-      tra pari o fornire riscontri.
+    review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
+      o fornire riscontri.
     select: Seleziona
   blocks:
     milestones:

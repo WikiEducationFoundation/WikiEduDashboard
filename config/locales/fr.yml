@@ -216,12 +216,14 @@ fr:
     none_short: Aucun article affecté
     none: Ce cours n’a aucun article affecté.
     no_available: Ce cours n’a pas d’article disponible.
+    peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
+      relecture par des pairs.
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
     review_self: Relire un article
-    review_tooltip: Cela sert à garder la trace des articles que vous prévoyez de
-      relire ou de commenter.
+    review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
+      de commenter.
     select: Sélectionner
   blocks:
     milestones:

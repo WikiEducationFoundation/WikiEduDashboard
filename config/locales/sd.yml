@@ -327,7 +327,7 @@ sd:
     read_less: گھٽ پڙهو
     read_more: وڌيڪ پڙهو
     select_assignment: پنهنجي اوقاتي خط ۾ شامل ڪرڻ لاءِ مشقن جو قسم چونڊيو.
-    summary: خلاصو
+    summary: تَتُ
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
     unsupported_browser:
