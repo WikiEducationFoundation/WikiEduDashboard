@@ -170,6 +170,8 @@ describe RevisionScoreImporter do
   end
 
   context '.update_revision_scores_for_all_wikis' do
+    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
     before do
       stub_wiki_validation
       RevisionScoreImporter::AVAILABLE_WIKIPEDIAS.each do |lang|
@@ -177,6 +179,8 @@ describe RevisionScoreImporter do
         article = create(:article, wiki: wiki)
         create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
       end
+      wikidata_item = create(:article, wiki: wikidata)
+      create(:revision, article: wikidata_item, wiki: wikidata, mw_rev_id: 12345)
     end
 
     it 'imports data and calcuates an article completeness score for available wikis' do
@@ -189,6 +193,8 @@ describe RevisionScoreImporter do
           # revision 12345. But it works so far.
           expect(wiki.revisions.first.wp10).to be_between(0, 100)
         end
+
+        expect(wikidata.revisions.first.features).not_to be_empty
       end
     end
   end
