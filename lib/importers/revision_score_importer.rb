@@ -16,19 +16,22 @@ class RevisionScoreImporter
       new(language).update_revision_scores
       new(language).update_previous_revision_scores
     end
+
+    new(nil, 'wikidata').update_revision_scores
+    new(nil, 'wikidata').update_previous_revision_scores
   end
 
-  def initialize(language = 'en')
-    validate_wiki(language)
-    @wiki = Wiki.get_or_create(language: language, project: 'wikipedia')
+  def initialize(language = 'en', project = 'wikipedia')
+    validate_wiki(language, project)
+    @wiki = Wiki.get_or_create(language: language, project: project)
     @ores_api = OresApi.new(@wiki)
   end
 
   # assumes a mediawiki rev_id from the correct Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data([rev_id])
-    features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'features')
-    rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'score', 'prediction')
+    features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'features')
+    rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, model_key, 'score', 'prediction')
     return { features: features, rating: rating }
   end
 
@@ -55,16 +58,21 @@ class RevisionScoreImporter
   ##################
   private
 
-  def validate_wiki(language)
+  def validate_wiki(language, project)
     return if AVAILABLE_WIKIPEDIAS.include?(language)
+    return if project == 'wikidata'
     raise InvalidWikiError, language
   end
 
   # The top-level key representing the wiki in ORES data
   def wiki_key
     # This assumes the project is Wikipedia, which is true for all wikis with the articlequality
-    # model as of 2018-09.
-    @wiki_key ||= "#{@wiki.language}wiki"
+    # or the language is nil, which is the case for Wikidata.
+    @wiki_key ||= "#{@wiki.language || @wiki.project}wiki"
+  end
+
+  def model_key
+    @model_key ||= @wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
   end
 
   # This should take up to OresApi::CONCURRENCY rev_ids per batch
@@ -86,7 +94,7 @@ class RevisionScoreImporter
     parent_revisions.each do |mw_rev_id, parent_id|
       next unless scores.key? parent_id
       article_completeness = weighted_mean_score(scores[parent_id])
-      features_previous = scores[parent_id]&.dig('articlequality', 'features')
+      features_previous = scores[parent_id]&.dig(model_key, 'features')
       Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
               .update(wp10_previous: article_completeness, features_previous: features_previous)
     end
@@ -110,7 +118,7 @@ class RevisionScoreImporter
     scores.each do |mw_rev_id, score|
       revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = weighted_mean_score(score)
-      revision.features = score.dig('articlequality', 'features')
+      revision.features = score.dig(model_key, 'features')
       revision.deleted = true if deleted?(score)
       revision.save
     end
@@ -194,7 +202,7 @@ class RevisionScoreImporter
 
   DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
   def deleted?(score)
-    DELETED_REVISION_ERRORS.include? score.dig('articlequality', 'error', 'type')
+    DELETED_REVISION_ERRORS.include? score.dig(model_key, 'error', 'type')
   end
 
   class InvalidWikiError < StandardError; end
