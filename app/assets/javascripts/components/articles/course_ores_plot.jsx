@@ -30,6 +30,7 @@ const CourseOresPlot = createReactClass({
   },
 
   refresh() {
+    this.setState({ refreshedData: null });
     this.fetchFile();
     return this.setState({ show: false, refresh: true });
   },
