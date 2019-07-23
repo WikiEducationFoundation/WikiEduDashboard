@@ -80,7 +80,7 @@ class ArticlesCourses < ApplicationRecord
 
   def self.update_from_course(course)
     mainspace_revisions = get_mainspace_revisions(course.revisions)
-    course_article_ids = course.articles_courses.tracked.pluck(:article_id)
+    course_article_ids = course.articles.pluck(:id)
     revision_article_ids = mainspace_revisions.pluck(:article_id).uniq
 
     # Remove all the ArticlesCourses that do not correspond to course revisions.

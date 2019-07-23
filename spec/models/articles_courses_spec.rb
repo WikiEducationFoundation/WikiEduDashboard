@@ -84,9 +84,6 @@ describe ArticlesCourses, type: :model do
       # old revision before course
       create(:revision, article: article2, user: user, date: 2.years.ago)
       create(:revision, article: talk_page, user: user, date: 1.week.ago)
-      create(:articles_course, course: course, article: article)
-      create(:articles_course, course: course, article: article2)
-      create(:articles_course, course: course, article: talk_page)
     end
 
     it 'creates new ArticlesCourses records from course revisions' do

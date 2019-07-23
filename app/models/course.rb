@@ -84,15 +84,11 @@ class Course < ApplicationRecord
   # :revisions and :all_revisions have the same default implementation,
   # but a course type may override :revisions.
   has_many(:revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end).where(
-      article_id: course.articles_courses.tracked.pluck(:article_id)
-    )
+    where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
   has_many(:all_revisions, lambda do |course|
-    where('date >= ?', course.start).where('date <= ?', course.end).where(
-      article_id: course.articles_courses.tracked.pluck(:article_id)
-    )
+    where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
   # Same as revisions, but isn't bounded by the course end date
@@ -103,6 +99,10 @@ class Course < ApplicationRecord
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
+
+  has_many(:tracked_revisions, lambda do |course|
+    where(article_id: course.articles_courses.tracked.pluck(:article_id))
+  end, through: :students, source: :revisions)
 
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
