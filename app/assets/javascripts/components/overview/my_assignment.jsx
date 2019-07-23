@@ -22,7 +22,7 @@ const Collaborators = ({ assignment }) => {
   return (
     <section className="collaborators">
       <p>
-        <strong>Collaborators:</strong>
+        <strong>{I18n.t('assignments.collaborators')}:</strong>
         <CollaboratorLinks collaborators={assignment.collaborators} />
       </p>
     </section>
