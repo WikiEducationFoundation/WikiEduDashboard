@@ -16,11 +16,11 @@ const BibliographyLink = ({ assignment }) => {
   return <a href={link}>{I18n.t('assignments.citations')}</a>;
 };
 
-const CollaboratorLinks = ({ collaborators }) => {
-  if (!collaborators) return null;
+const EditorLink = ({ editors }) => {
+  if (!editors) return null;
 
   const label = <span>{I18n.t('assignments.assigned_to')} </span>;
-  const links = collaborators.map((username, index, collection) => {
+  const links = editors.map((username, index, collection) => {
     return (
       <>
         <a href={`/users/${username}`}>
@@ -35,7 +35,7 @@ const CollaboratorLinks = ({ collaborators }) => {
 };
 
 const Actions = ({ assignment }) => {
-  const { article_url, collaborators, id, sandboxUrl } = assignment;
+  const { article_url, editors, id, sandboxUrl } = assignment;
   const separator = <span> •&nbsp;</span>;
   const actions = [
     <BibliographyLink key={`citation-link-${id}`} assignment={assignment} />,
@@ -48,11 +48,11 @@ const Actions = ({ assignment }) => {
     return index < limit ? prefix.concat(separator) : prefix;
   }, []);
 
-  const assignedTo = collaborators
-    ? <><CollaboratorLinks collaborators={collaborators} />{ separator }</>
+  const assignedTo = editors
+    ? <><EditorLink editors={editors} />{ separator }</>
     : null;
   return (
-    <section className="collaborators">
+    <section className="editors">
       <p>{ [assignedTo].concat(actions) }</p>
     </section>
   );

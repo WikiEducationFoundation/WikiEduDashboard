@@ -29,7 +29,7 @@ export const MyArticles = createReactClass({
     }
   },
 
-  getCollaborationList(assignments, currentUserId) {
+  getEditorList(assignments, currentUserId) {
     return assignments.reduce((acc, { article_title, role, user_id, username }) => {
       if (role === REVIEWING_ROLE || user_id === currentUserId) return acc;
       if (acc[article_title]) {
@@ -101,10 +101,10 @@ export const MyArticles = createReactClass({
     const addSandboxUrl = this.addSandboxUrl(assignments, course, user_id);
     assignments = assignments.map(addSandboxUrl);
 
-    // Add collaborators
-    const collaborationList = this.getCollaborationList(assignments, user_id);
+    // Add editors
+    const editorList = this.getEditorList(assignments, user_id);
     assignments = assignments.map((assignment) => {
-      assignment.collaborators = collaborationList[assignment.article_title] || null;
+      assignment.editors = editorList[assignment.article_title] || null;
       return assignment;
     });
 
