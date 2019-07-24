@@ -72,13 +72,12 @@ const CourseOresPlot = createReactClass({
     return (
       <div className="ores-plot">
         <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={data} />
-        <button className="button small" onClick={this.refresh}>Refresh Cached Data</button>
         <p>
           This graph visualizes, in aggregate, how much articles developed from
           when students first edited them until now. The <em>Structural Completeness </em>
           rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
           that estimates an article&apos;s quality rating based on the amount of
-          prose, the number of wikilinks, images and section headers, and other features.
+          prose, the number of wikilinks, images and section headers, and other features. (<a href="#" onClick={this.refresh}>Refresh Cached Data</a>)
         </p>
       </div>
     );
