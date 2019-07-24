@@ -16,7 +16,9 @@ const CourseOresPlot = createReactClass({
     return {
       show: false,
       articleData: null,
-      loading: true
+      refreshedData: null,
+      loading: true,
+      refresh: false
     };
   },
 
@@ -25,6 +27,12 @@ const CourseOresPlot = createReactClass({
       this.fetchFilePath();
     }
     return this.setState({ show: true });
+  },
+
+  refresh() {
+    this.setState({ refreshedData: null });
+    this.fetchFile();
+    return this.setState({ show: false, refresh: true });
   },
 
   hide() {
@@ -42,6 +50,15 @@ const CourseOresPlot = createReactClass({
     return this.isSupportedWiki() && this.props.course.edited_count !== '0';
   },
 
+  fetchFile() {
+    $.ajax({
+      url: `/courses/${this.props.course.slug}/refresh_ores_data.json`,
+      success: (data) => {
+        this.setState({ refreshedData: data.ores_plot, loading: false });
+      }
+    });
+  },
+
   fetchFilePath() {
     $.ajax({
       url: `/courses/${this.props.course.slug}/ores_plot.json`,
@@ -51,28 +68,47 @@ const CourseOresPlot = createReactClass({
     });
   },
 
+  displayGraph(data) {
+    return (
+      <div className="ores-plot">
+        <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={data} />
+        <p>
+          This graph visualizes, in aggregate, how much articles developed from
+          when students first edited them until now. The <em>Structural Completeness </em>
+          rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+          that estimates an article&apos;s quality rating based on the amount of
+          prose, the number of wikilinks, images and section headers, and other features. (<a href="#" onClick={this.refresh}>Refresh Cached Data</a>)
+        </p>
+      </div>
+    );
+  },
+
+  loadgraph() {
+    if (this.state.loading) {
+      return <div onClick={this.hide}><Loading /></div>;
+    }
+    return <div>No Structural Completeness data available</div>;
+  },
+
   render() {
     if (!this.shouldShowButton()) { return <div />; }
+
+    if (this.state.refresh) {
+      if (this.state.refreshedData) {
+        return (
+          this.displayGraph(this.state.refreshedData)
+        );
+      }
+      this.loadgraph();
+    }
 
     if (this.state.show) {
       if (this.state.articleData) {
         return (
-          <div className="ores-plot">
-            <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={this.state.articleData} />
-            <p>
-              This graph visualizes, in aggregate, how much articles developed from
-              when students first edited them until now. The <em>Structural Completeness </em>
-              rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
-              that estimates an article&apos;s quality rating based on the amount of
-              prose, the number of wikilinks, images and section headers, and other features.
-            </p>
-          </div>
+          this.displayGraph(this.state.articleData)
         );
       }
-      if (this.state.loading) {
-        return <div onClick={this.hide}><Loading /></div>;
-      }
-      return <div>No Structural Completeness data available</div>;
+      this.loadgraph();
     }
     return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
   }
