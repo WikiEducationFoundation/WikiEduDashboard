@@ -162,7 +162,7 @@ describe RevisionScoreImporter do
     # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
     # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
     let(:language) { 'en' }
-    let(:project) { 'wikipedia'}
+    let(:project) { 'wikipedia' }
     let(:subject) { described_class.new(language, project).fetch_ores_data_for_revision_id(rev_id) }
 
     it 'returns a hash with a predicted rating and features' do
