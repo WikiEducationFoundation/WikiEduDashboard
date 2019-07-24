@@ -23,7 +23,7 @@ const EditableRedux = (Component, Label) => {
       course_id: PropTypes.any,
       current_user: PropTypes.object,
       editable: PropTypes.bool,
-      resetState: PropTypes.func.isRequired,
+      resetState: PropTypes.func,
       persistCourse: PropTypes.func.isRequired,
       nameHasChanged: PropTypes.func.isRequired,
       isValid: PropTypes.bool.isRequired,
@@ -35,7 +35,9 @@ const EditableRedux = (Component, Label) => {
     },
 
     cancelChanges() {
-      this.props.resetState();
+      if (this.props.resetState && typeof (this.props.resetState) === 'function') {
+        this.props.resetState();
+      }
       this.props.resetValidations();
       return this.toggleEditable();
     },
