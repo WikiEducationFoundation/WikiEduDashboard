@@ -35,7 +35,7 @@ const EditableRedux = (Component, Label) => {
     },
 
     cancelChanges() {
-      if (this.props.resetState && typeof (this.props.resetState) === 'function') {
+      if (typeof (this.props.resetState) === 'function') {
         this.props.resetState();
       }
       this.props.resetValidations();
