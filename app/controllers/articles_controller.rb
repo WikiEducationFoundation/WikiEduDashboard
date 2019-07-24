@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
   # returns details about how an article changed during a course
   def details
     @article = Article.find(params[:article_id])
-    revisions = @course.revisions.where(article_id: @article.id).order(:date)
+    revisions = @course.tracked_revisions.where(article_id: @article.id).order(:date)
     @first_revision = revisions.first
     @last_revision = revisions.last
     editor_ids = revisions.pluck(:user_id).uniq
