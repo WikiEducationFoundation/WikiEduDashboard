@@ -197,6 +197,8 @@ en:
 
   assignments:
     article: The article %{title} is now assigned to you.
+    article_link: Article
+    assigned_to: Assigned to
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
@@ -206,8 +208,8 @@ en:
     add_available_submit: Add articles
     assign_self: Assign myself an article
     assign_tooltip: An assigned article is one that you plan to create or improve.
+    citations: Citations
     clone: Clone
-    collaborators: Collaborators
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this article assignment?
@@ -222,6 +224,7 @@ en:
     review_other: Assign a review
     review_self: Review an article
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
+    sandbox_draft_link: Sandbox Draft
     select: Select
 
   blocks:

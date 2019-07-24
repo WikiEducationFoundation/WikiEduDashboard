@@ -11,20 +11,49 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
-const CollaboratorLinks = ({ collaborators }) => {
-  return collaborators.map(username => (
-    <a className="collaborator-profile-link" href={`/users/${username}`}>{username}</a>
-  ));
+const BibliographyLink = ({ assignment }) => {
+  const link = `${assignment.sandboxUrl}/citations`;
+  return <a href={link}>{I18n.t('assignments.citations')}</a>;
 };
 
-const Collaborators = ({ assignment }) => {
-  if (!assignment.collaborators) return null;
+const CollaboratorLinks = ({ collaborators }) => {
+  if (!collaborators) return null;
+
+  const label = <span>{I18n.t('assignments.assigned_to')} </span>;
+  const links = collaborators.map((username, index, collection) => {
+    return (
+      <>
+        <a href={`/users/${username}`}>
+          {username}
+        </a>
+        { index < collection.length - 1 ? ', ' : null }
+      </>
+    );
+  });
+
+  return [label].concat(links);
+};
+
+const Actions = ({ assignment }) => {
+  const { article_url, collaborators, id, sandboxUrl } = assignment;
+  const separator = <span> •&nbsp;</span>;
+  const actions = [
+    <BibliographyLink key={`citation-link-${id}`} assignment={assignment} />,
+    <a href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>,
+    <a href={article_url}>{I18n.t('assignments.article_link')}</a>
+  ].reduce((acc, link, index, collection) => {
+    const limit = collection.length - 1;
+    const prefix = [...acc, link];
+
+    return index < limit ? prefix.concat(separator) : prefix;
+  }, []);
+
+  const assignedTo = collaborators
+    ? <><CollaboratorLinks collaborators={collaborators} />{ separator }</>
+    : null;
   return (
     <section className="collaborators">
-      <p>
-        <strong>{I18n.t('assignments.collaborators')}:</strong>
-        <CollaboratorLinks collaborators={assignment.collaborators} />
-      </p>
+      <p>{ [assignedTo].concat(actions) }</p>
     </section>
   );
 };
@@ -100,11 +129,9 @@ export const MyAssignment = createReactClass({
         </div>
         <section className="my-assignment-header">
           <section className="title">
-            {articleTitle} •&nbsp;
-            <a href={assignment.sandboxUrl} target="_blank">Sandbox</a> •&nbsp;
-            <a href={assignment.article_url}>Article</a>
+            <h4>{articleTitle}</h4>
           </section>
-          <Collaborators assignment={assignment} />
+          <Actions assignment={assignment} />
         </section>
       </div>
     );
