@@ -5,6 +5,7 @@
 # Author: Jorn Ari
 # Author: Palnatoke
 # Author: Saederup92
+# Author: Tinamalmgren
 ---
 da:
   number:
@@ -446,11 +447,11 @@ da:
     block_milestone: Milepæl
     course_dates: Kursusdatoer
     delete_timeline_and_start_over: Slet tidslinje
-    empty_week_2: begynd at redigere denne uge
+    empty_week_2: begynd at redigér i denne uge
     empty_week_3: eller
     first_week_title: Første aktive uge
     gradeable_value: Værdi
-    no_timeline: Dette kursus har ingen tidslinje.
+    no_timeline: Dette forløb har ingen tidslinje.
     save_all_changes: Gem alle
     this_week_title_default: Denne uge
     title: Tidslinje

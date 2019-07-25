@@ -169,7 +169,7 @@ et:
     wiki: Viki
     wp10: Struktuurne valmidus
     wp10_doc: Struktuurse valmiduse hinne näitab, mil määral vastab artikkel masinõppepõhise
-      Objective Revision Evaluation Service algoritmi (https://ores.wikimedia.org/)
+      algoritmi Objective Revision Evaluation Service (https://ores.wikimedia.org/)
       järgi valmis vikiartikli nõuetele. Hinde arvutamise aluseks on artikli suurus,
       viidete ja siselinkide ning muude teksti põhielementide hulk. Kõrge hinne näitab
       tavaliselt, et artikkel vastab Vikipeedia hea artikli struktuuri nõuetele, kuid
@@ -186,7 +186,7 @@ et:
     assign_self: Seo artikkel oma kontoga
     assign_tooltip: Kontoga seotav artikkel on artikkel, mida kavatsed luua või täiendada.
     clone: Klooni
-    confirm_add_available: Kas oled kindel, et soovid lisata artikli %{title}?
+    confirm_add_available: Kas oled kindel, et soovid lisada artikli %{title}?
     confirm_addition: Kas oled kindel, et soovid siduda artikli %{title} kasutajaga
       %{username}?
     confirm_deletion: Kas oled kindel, et tahad artikli sidumise tühistada?
