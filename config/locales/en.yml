@@ -207,7 +207,7 @@ en:
     add_available_submit: Add articles
     assign_self: Assign myself an article
     assign_tooltip: An assigned article is one that you plan to create or improve.
-    citations: Citations
+    bibliography: Bibliography
     clone: Clone
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?

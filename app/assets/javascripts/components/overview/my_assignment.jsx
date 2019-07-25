@@ -11,23 +11,83 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
+// Helper Components
+// Actions Components
+const RemoveButton = ({ assignment, unassign }) => (
+  <div>
+    <button
+      onClick={() => unassign(assignment)}
+      className="button danger small"
+    >
+        Remove
+    </button>
+  </div>
+);
+
+const PageViews = ({ article }) => {
+  const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
+  return (
+    <div>
+      <a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a>
+    </div>
+  );
+};
+
+const Actions = ({
+  article, assignment, current_user, username,
+  isEnglishWikipedia, unassign
+}) => {
+  const actions = [];
+
+  if (assignment.article_id) {
+    actions.push(<PageViews key="pageviews-button" article={article} />);
+  }
+
+  // Assigned article that does not yet exist in mainspace
+  if (isEnglishWikipedia()) {
+    const feedback = (
+      <Feedback
+        assignment={assignment}
+        current_user={current_user}
+        key="feedback-button"
+        username={username}
+      />
+    );
+    if (assignment.role === 0 && !assignment.article_id) {
+      actions.push(<MainspaceChecklist key="mainspace-button" />, feedback);
+    } else if (assignment.role === 0) {
+      actions.push(<FinalArticleChecklist key="final-article-button" />, feedback);
+    } else {
+      actions.push(<PeerReviewChecklist key="peer-review-button" />);
+    }
+  }
+
+  return (
+    <section className="actions">
+      { actions }
+      <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />
+    </section>
+  );
+};
+
+// Links Components
 const BibliographyLink = ({ assignment }) => {
-  const link = `${assignment.sandboxUrl}/citations`;
-  return <a href={link}>{I18n.t('assignments.citations')}</a>;
+  const link = `${assignment.sandboxUrl}/bibliography`;
+  return <a href={link}>{I18n.t('assignments.bibliography')}</a>;
 };
 
 const AssignedToLink = ({ name, members }) => {
   if (!members) return null;
 
-  const label = <span>{I18n.t(`assignments.${name}`)}: </span>;
+  const label = <span key="label">{I18n.t(`assignments.${name}`)}: </span>;
   const links = members.map((username, index, collection) => {
     return (
-      <>
+      <span key={username}>
         <a href={`/users/${username}`}>
           {username}
         </a>
         {index < collection.length - 1 ? ', ' : null}
-      </>
+      </span>
     );
   });
 
@@ -42,37 +102,44 @@ const ReviewerLink = ({ reviewers }) => {
   return <AssignedToLink members={reviewers} name="reviewers" />;
 };
 
-const Actions = ({ assignment }) => {
+const Separator = () => <span> •&nbsp;</span>;
+
+const Links = ({ articleTitle, assignment }) => {
   const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
-  const separator = <span> •&nbsp;</span>;
   const actions = [
-    <BibliographyLink key={`citation-link-${id}`} assignment={assignment} />,
-    <a href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>,
-    <a href={article_url}>{I18n.t('assignments.article_link')}</a>
+    <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />,
+    <a key={`sandbox-${id}`} href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>,
+    <a key={`article-${id}`} href={article_url}>{I18n.t('assignments.article_link')}</a>
   ].reduce((acc, link, index, collection) => {
     const limit = collection.length - 1;
     const prefix = [...acc, link];
 
-    return index < limit ? prefix.concat(separator) : prefix;
+    return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
   }, []);
 
   const assignedTo = (editors || reviewers)
     ? (
       <>
-        <EditorLink editors={editors} />
-        { (editors && reviewers) ? separator : null }
-        <ReviewerLink reviewers={reviewers} />
+        <EditorLink key={`editor-${id}`} editors={editors} />
+        { (editors && reviewers) ? <Separator key="member-links" /> : null }
+        <ReviewerLink key={`reviewer-${id}`} reviewers={reviewers} />
       </>
     )
     : null;
   return (
-    <section className="editors">
-      { assignedTo && <p className="mb0">{ assignedTo }</p> }
-      <p>{ actions }</p>
+    <section className="header">
+      <section className="title">
+        <h4>{articleTitle}</h4>
+      </section>
+      <section className="editors">
+        {assignedTo && <p className="mb0">{assignedTo}</p>}
+        <p>{actions}</p>
+      </section>
     </section>
   );
 };
 
+// Main Component
 export const MyAssignment = createReactClass({
   displayName: 'MyAssignment',
 
@@ -103,51 +170,24 @@ export const MyAssignment = createReactClass({
   },
 
   render() {
-    const { assignment, username } = this.props;
-    const isEnglishWikipedia = this.isEnglishWikipedia();
-    let articleTitle = assignment.article_title;
-    let checklist;
-    let pageviews;
-    let feedback;
-    if (assignment.article_id) {
-      const article = CourseUtils.articleFromTitleInput(assignment.article_url);
-      const label = this.props.wikidataLabels[article.title.replace('www:wikidata', '')];
-      articleTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
-      const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
-      pageviews = <div><a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a></div>;
-    }
+    const { assignment, course, current_user, username, wikidataLabels } = this.props;
 
-    // Assigned article that does not yet exist in mainspace
-    if (assignment.role === 0 && !assignment.article_id) {
-      if (isEnglishWikipedia) {
-        checklist = <MainspaceChecklist />;
-        feedback = <Feedback assignment={assignment} username={username} current_user={this.props.current_user} />;
-      }
-    // Assigned article that already exists
-    } else if (assignment.role === 0) {
-      if (isEnglishWikipedia) {
-        checklist = <FinalArticleChecklist />;
-        feedback = <Feedback assignment={assignment} username={username} current_user={this.props.current_user} />;
-      }
-    // Review assignment
-    } else if (isEnglishWikipedia) {
-      checklist = <PeerReviewChecklist />;
-    }
+    const article = CourseUtils.articleFromTitleInput(assignment.article_url);
+    const label = wikidataLabels[article.title.replace('www:wikidata', '')];
+    let articleTitle = assignment.article_title;
+    articleTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
 
     return (
       <div className="my-assignment mb1">
-        <div className="my-assignment-button">
-          <div><button onClick={() => this.unassign(assignment)} className="button danger small">Remove</button></div>
-          {feedback}
-          {pageviews}
-          {checklist}
-        </div>
-        <section className="my-assignment-header">
-          <section className="title">
-            <h4>{articleTitle}</h4>
-          </section>
-          <Actions assignment={assignment} />
-        </section>
+        <Links articleTitle={articleTitle} assignment={assignment} />
+        <Actions
+          article={article}
+          assignment={assignment}
+          current_user={current_user}
+          username={username}
+          isEnglishWikipedia={this.isEnglishWikipedia}
+          unassign={this.unassign}
+        />
       </div>
     );
   }
