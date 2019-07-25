@@ -100,10 +100,6 @@ class Course < ApplicationRecord
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
 
-  has_many(:tracked_revisions, lambda do |course|
-    where(article_id: course.articles_courses.tracked.pluck(:article_id))
-  end, through: :students, source: :revisions)
-
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
   has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
@@ -265,6 +261,10 @@ class Course < ApplicationRecord
     @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
                                   .where.not('training_module_ids = ?', [].to_yaml)
                                   .collect(&:training_module_ids).flatten
+  end
+
+  def tracked_revisions
+    revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
   end
 
   def scoped_article_ids

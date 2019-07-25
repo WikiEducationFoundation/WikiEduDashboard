@@ -25,6 +25,7 @@ class ArticlesCourses < ApplicationRecord
   scope :current, -> { joins(:course).merge(Course.current).distinct }
   scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
   scope :tracked, -> { where(tracked: true).distinct }
+  scope :not_tracked, -> { where(tracked: false).distinct }
 
   ####################
   # Instance methods #
@@ -49,7 +50,7 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def live_manual_revisions
-    course.tracked_revisions.live.where(article_id: article_id)
+    course.revisions.live.where(article_id: article_id)
   end
 
   def all_revisions
