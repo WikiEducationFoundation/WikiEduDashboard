@@ -154,7 +154,6 @@ const TimelineHandler = createReactClass({
           deleteWeek={this.props.deleteWeek}
           deleteAllWeeks={this.props.deleteAllWeeks}
           setBlockEditable={this.props.setBlockEditable}
-          resetState={() => { }}
           nameHasChanged={() => false}
           edit_permissions={this.props.editPermissions}
         />
