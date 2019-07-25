@@ -29,9 +29,9 @@ export const MyArticles = createReactClass({
     }
   },
 
-  getEditorsList(assignments, currentUserId) {
+  getList(assignments, currentUserId, ROLE) {
     return assignments.reduce((acc, { article_title, role, user_id, username }) => {
-      if (role === REVIEWING_ROLE || user_id === currentUserId) return acc;
+      if (role === ROLE || user_id === currentUserId) return acc;
       if (acc[article_title]) {
         acc[article_title].push(username);
       } else {
@@ -42,17 +42,12 @@ export const MyArticles = createReactClass({
     }, {});
   },
 
-  getReviewersList(assignments, currentUserId) {
-    return assignments.reduce((acc, { article_title, role, user_id, username }) => {
-      if (role === ASSIGNED_ROLE || user_id === currentUserId) return acc;
-      if (acc[article_title]) {
-        acc[article_title].push(username);
-      } else {
-        acc[article_title] = [username];
-      }
+  getEditorsList(assignments, currentUserId) {
+    return this.getList(assignments, currentUserId, REVIEWING_ROLE);
+  },
 
-      return acc;
-    }, {});
+  getReviewersList(assignments, currentUserId) {
+    return this.getList(assignments, currentUserId, ASSIGNED_ROLE);
   },
 
   sandboxUrl(course, assignment) {
