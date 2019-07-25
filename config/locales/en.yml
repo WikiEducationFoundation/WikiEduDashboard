@@ -198,7 +198,6 @@ en:
   assignments:
     article: The article %{title} is now assigned to you.
     article_link: Article
-    assigned_to: Assigned to
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
@@ -213,6 +212,7 @@ en:
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this article assignment?
+    editors: Assigned to
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned

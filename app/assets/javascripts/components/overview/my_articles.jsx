@@ -29,9 +29,22 @@ export const MyArticles = createReactClass({
     }
   },
 
-  getEditorList(assignments, currentUserId) {
+  getEditorsList(assignments, currentUserId) {
     return assignments.reduce((acc, { article_title, role, user_id, username }) => {
       if (role === REVIEWING_ROLE || user_id === currentUserId) return acc;
+      if (acc[article_title]) {
+        acc[article_title].push(username);
+      } else {
+        acc[article_title] = [username];
+      }
+
+      return acc;
+    }, {});
+  },
+
+  getReviewersList(assignments, currentUserId) {
+    return assignments.reduce((acc, { article_title, role, user_id, username }) => {
+      if (role === ASSIGNED_ROLE || user_id === currentUserId) return acc;
       if (acc[article_title]) {
         acc[article_title].push(username);
       } else {
@@ -102,9 +115,16 @@ export const MyArticles = createReactClass({
     assignments = assignments.map(addSandboxUrl);
 
     // Add editors
-    const editorList = this.getEditorList(assignments, user_id);
+    const editorsList = this.getEditorsList(assignments, user_id);
     assignments = assignments.map((assignment) => {
-      assignment.editors = editorList[assignment.article_title] || null;
+      assignment.editors = editorsList[assignment.article_title] || null;
+      return assignment;
+    });
+
+    // Add reviewers
+    const reviewersList = this.getReviewersList(assignments, user_id);
+    assignments = assignments.map((assignment) => {
+      assignment.reviewers = reviewersList[assignment.article_title] || null;
       return assignment;
     });
 

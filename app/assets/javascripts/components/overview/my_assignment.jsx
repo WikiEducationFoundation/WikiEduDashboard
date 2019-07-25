@@ -16,17 +16,17 @@ const BibliographyLink = ({ assignment }) => {
   return <a href={link}>{I18n.t('assignments.citations')}</a>;
 };
 
-const EditorLink = ({ editors }) => {
-  if (!editors) return null;
+const AssignedToLink = ({ name, members }) => {
+  if (!members) return null;
 
-  const label = <span>{I18n.t('assignments.assigned_to')} </span>;
-  const links = editors.map((username, index, collection) => {
+  const label = <span>{I18n.t(`assignments.${name}`)}: </span>;
+  const links = members.map((username, index, collection) => {
     return (
       <>
         <a href={`/users/${username}`}>
           {username}
         </a>
-        { index < collection.length - 1 ? ', ' : null }
+        {index < collection.length - 1 ? ', ' : null}
       </>
     );
   });
@@ -34,8 +34,16 @@ const EditorLink = ({ editors }) => {
   return [label].concat(links);
 };
 
+const EditorLink = ({ editors }) => {
+  return <AssignedToLink members={editors} name="editors" />;
+};
+
+const ReviewerLink = ({ reviewers }) => {
+  return <AssignedToLink members={reviewers} name="reviewers" />;
+};
+
 const Actions = ({ assignment }) => {
-  const { article_url, editors, id, sandboxUrl } = assignment;
+  const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
   const separator = <span> •&nbsp;</span>;
   const actions = [
     <BibliographyLink key={`citation-link-${id}`} assignment={assignment} />,
@@ -48,12 +56,19 @@ const Actions = ({ assignment }) => {
     return index < limit ? prefix.concat(separator) : prefix;
   }, []);
 
-  const assignedTo = editors
-    ? <><EditorLink editors={editors} />{ separator }</>
+  const assignedTo = (editors || reviewers)
+    ? (
+      <>
+        <EditorLink editors={editors} />
+        { (editors && reviewers) ? separator : null }
+        <ReviewerLink reviewers={reviewers} />
+      </>
+    )
     : null;
   return (
     <section className="editors">
-      <p>{ [assignedTo].concat(actions) }</p>
+      { assignedTo && <p className="mb0">{ assignedTo }</p> }
+      <p>{ actions }</p>
     </section>
   );
 };
