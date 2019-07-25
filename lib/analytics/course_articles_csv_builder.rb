@@ -31,7 +31,7 @@ class CourseArticlesCsvBuilder
     @course.all_revisions.includes(article: :wiki).map do |edit|
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
-      article_edits[:references] = edit.references_added
+      article_edits[:references][edit.mw_rev_id] = edit.references_added
       article_edits[:new_article] = true if edit.new_article
       # highest view count of all revisions for this article is the total for the article
       article_edits[:views] = edit.views if edit.views > article_edits[:views]
@@ -70,24 +70,31 @@ class CourseArticlesCsvBuilder
     pageviews_link
   ].freeze
 
+  # rubocop:disable Metrics/AbcSize
   def build_row(article_data)
     row = [article_data[:title]]
     row << article_data[:rating]
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
     row << article_data[:url]
+    row << article_data[:characters].count
     row << character_sum(article_data)
-    row << article_data[:references]
+    row << references_sum(article_data)
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:views]
     row << article_data[:pageview_url]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def character_sum(article_data)
     article_data[:characters].values.inject(0) do |sum, characters|
       characters&.positive? ? sum + characters : sum
     end
+  end
+
+  def references_sum(article_data)
+    article_data[:characters].values.sum(&:to_i)
   end
 
   # Example:
