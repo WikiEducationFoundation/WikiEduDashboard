@@ -24,6 +24,7 @@ class CourseCsvBuilder
     articles_edited
     articles_created
     bytes_added
+    references_added
     total_edits
     mainspace_edits
     article_talk_edits
@@ -51,6 +52,7 @@ class CourseCsvBuilder
     row << @course.article_count
     row << @course.new_article_count
     row << @course.character_sum
+    row << @course.references_count
     row << @course.revision_count
     row << revisions_by_namespace(Article::Namespaces::MAINSPACE)
     row << revisions_by_namespace(Article::Namespaces::TALK)

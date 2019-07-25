@@ -31,6 +31,7 @@ class CourseArticlesCsvBuilder
     @course.all_revisions.includes(article: :wiki).map do |edit|
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
+      article_edits[:references] = edit.references_added
       article_edits[:new_article] = true if edit.new_article
       # highest view count of all revisions for this article is the total for the article
       article_edits[:views] = edit.views if edit.views > article_edits[:views]
@@ -44,6 +45,7 @@ class CourseArticlesCsvBuilder
       new_article: false,
       views: 0,
       characters: {},
+      references: {},
       title: article.title,
       namespace: article.namespace,
       url: article.url,
@@ -61,6 +63,7 @@ class CourseArticlesCsvBuilder
     url
     edit_count
     characters_added
+    references_added
     new
     deleted
     pageviews
@@ -73,8 +76,8 @@ class CourseArticlesCsvBuilder
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
     row << article_data[:url]
-    row << article_data[:characters].count
     row << character_sum(article_data)
+    row << article_data[:references]
     row << article_data[:new_article]
     row << article_data[:deleted]
     row << article_data[:views]

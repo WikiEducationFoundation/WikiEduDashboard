@@ -27,6 +27,7 @@ class CourseEditsCsvBuilder
     diff
     username
     bytes_added
+    references_added
     new_article
     dashboard_edit
   ].freeze
@@ -38,6 +39,7 @@ class CourseEditsCsvBuilder
     row << revision.url
     row << revision.user.username
     row << revision.characters
+    row << revision.references_added
     row << revision.new_article
     row << revision.system
   end
