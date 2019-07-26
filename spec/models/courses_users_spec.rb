@@ -80,10 +80,10 @@ describe CoursesUsers, type: :model do
              course_id: 1)
 
       # Update caches for all CoursesUsers
-      CoursesUsers.update_all_caches(CoursesUsers.where(id: 1))
+      described_class.update_all_caches(described_class.where(id: 1))
 
       # Fetch the created CoursesUsers entry
-      course_user = CoursesUsers.all.first
+      course_user = described_class.all.first
 
       # Check to see if the expected data got cached
       expect(course_user.revision_count).to eq(1)
@@ -165,9 +165,9 @@ describe CoursesUsers, type: :model do
   describe '.update_all_caches_concurrently' do
     it 'calls .update_all_caches multiple times' do
       concurrency = 6
-      expect(CoursesUsers).to receive(:update_all_caches)
+      expect(described_class).to receive(:update_all_caches)
         .exactly(concurrency).times
-      CoursesUsers.update_all_caches_concurrently(concurrency)
+      described_class.update_all_caches_concurrently(concurrency)
     end
   end
 end

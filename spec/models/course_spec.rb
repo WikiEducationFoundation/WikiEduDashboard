@@ -65,7 +65,7 @@ describe Course, type: :model do
     end
 
     it 'runs without error for multiple courses' do
-      Course.update_all_caches_concurrently
+      described_class.update_all_caches_concurrently
     end
   end
 
@@ -123,10 +123,10 @@ describe Course, type: :model do
     # Update caches
     ArticlesCourses.update_all_caches(ArticlesCourses.all)
     CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
-    Course.update_all_caches
+    described_class.update_all_caches
 
     # Fetch the created CoursesUsers entry
-    course = Course.all.first
+    course = described_class.all.first
 
     expect(course.character_sum).to eq(9000)
     expect(course.references_count).to eq(5)
@@ -203,7 +203,7 @@ describe Course, type: :model do
     subject { course.valid? }
 
     let(:course) do
-      Course.new(passcode: passcode,
+      described_class.new(passcode: passcode,
                  type: type,
                  start: '2013-01-01',
                  end: '2013-07-01',
@@ -402,11 +402,11 @@ describe Course, type: :model do
     end
 
     it 'includes uploads by students during the course' do
-      course = Course.find(1)
+      course = described_class.find(1)
       expect(course.uploads).to include(CommonsUpload.find(1))
     end
     it 'excludes uploads from before or after the course' do
-      course = Course.find(1)
+      course = described_class.find(1)
       expect(course.uploads).not_to include(CommonsUpload.find(2))
       expect(course.uploads).not_to include(CommonsUpload.find(3))
     end
@@ -568,22 +568,22 @@ describe Course, type: :model do
 
     it 'allows BasicCourse type' do
       course.update_attributes(type: 'BasicCourse')
-      expect(Course.last.class).to eq(BasicCourse)
+      expect(described_class.last.class).to eq(BasicCourse)
     end
 
     it 'allows VisitingScholarship type' do
       course.update_attributes(type: 'VisitingScholarship')
-      expect(Course.last.class).to eq(VisitingScholarship)
+      expect(described_class.last.class).to eq(VisitingScholarship)
     end
 
     it 'allows Editathon type' do
       course.update_attributes(type: 'Editathon')
-      expect(Course.last.class).to eq(Editathon)
+      expect(described_class.last.class).to eq(Editathon)
     end
 
     it 'allows FellowsCohort type' do
       course.update_attributes(type: 'FellowsCohort')
-      expect(Course.last.class).to eq(FellowsCohort)
+      expect(described_class.last.class).to eq(FellowsCohort)
     end
 
     it 'does not allow creation of arbitrary types' do
@@ -593,13 +593,13 @@ describe Course, type: :model do
     it 'does not allow updating to arbitrary types' do
       invalid_update = course.update_attributes(type: 'Bar')
       expect(invalid_update).to eq(false)
-      expect(Course.last.class).to eq(ClassroomProgramCourse)
+      expect(described_class.last.class).to eq(ClassroomProgramCourse)
     end
 
     it 'implements required methods for every course type' do
       Course::COURSE_TYPES.each do |type|
         create(:course, type: type, slug: "foo/#{type}")
-        course = Course.last
+        course = described_class.last
         expect(course.type).to eq(type)
         # #string_prefix
         expect(course.string_prefix).to be_a(String)
@@ -638,7 +638,7 @@ describe Course, type: :model do
       it 'implements required methods for every course type that has edit_settings' do
         Course::COURSE_TYPES.each do |type|
           create(:course, type: type, flags: flags, slug: "foo/#{type}")
-          course = Course.last
+          course = described_class.last
           expect(course.type).to eq(type)
           # #wiki_edits_enabled?
           expect(course.wiki_edits_enabled?).to be_in([true, false])

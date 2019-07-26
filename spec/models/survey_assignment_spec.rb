@@ -148,7 +148,7 @@ RSpec.describe SurveyAssignment, type: :model do
       notification = create(:survey_notification, courses_users_id: 1)
       @survey_assignment.survey_notifications << notification
       @survey_assignment.save
-      expect(SurveyAssignment.by_courses_user_and_survey(
+      expect(described_class.by_courses_user_and_survey(
         courses_users_id: 1,
         survey_id: @survey.id
       ).length).to eq(1)
@@ -158,7 +158,7 @@ RSpec.describe SurveyAssignment, type: :model do
       notification = create(:survey_notification, courses_users_id: 1)
       @survey_assignment.survey_notifications << notification
       @survey_assignment.save
-      expect(SurveyAssignment.by_courses_user_and_survey(
+      expect(described_class.by_courses_user_and_survey(
         courses_users_id: 99,
         survey_id: @survey.id
       ).length).to eq(0)

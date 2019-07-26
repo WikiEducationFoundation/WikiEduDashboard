@@ -6,8 +6,6 @@ require "#{Rails.root}/lib/errors/rescue_development_errors"
 describe Errors::RescueDevelopmentErrors, type: :controller do
   describe 'when ActionView::Template::Error is raised' do
     controller(ApplicationController) do
-      include Errors::RescueDevelopmentErrors
-
       def index
         error_message = 'No such file or directory @ rb_sysopen - '\
                         '/home/me/WikiEduDashboard/public/assets/stylesheets/rev-manifest.json'
@@ -30,8 +28,6 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
 
   describe 'when CoursesPresenter::NoCampaignError is raised' do
     controller(ApplicationController) do
-      include Errors::RescueDevelopmentErrors
-
       def index
         raise CoursesPresenter::NoCampaignError
       end
