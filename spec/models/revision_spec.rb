@@ -48,8 +48,8 @@ describe Revision, type: :model do
       end
 
       it 'should return zero' do
-        val = Revision.find_by(mw_rev_id: 95249249).references_added
-        wikidata_val = Revision.find_by(mw_rev_id: 95249256).references_added
+        val = described_class.find_by(mw_rev_id: 95249249).references_added
+        wikidata_val = described_class.find_by(mw_rev_id: 95249256).references_added
         expect(val).to eq(0)
         expect(wikidata_val).to eq(0)
       end
@@ -80,8 +80,8 @@ describe Revision, type: :model do
       end
 
       it 'should return no. of references added' do
-        val = Revision.find_by(mw_rev_id: 857571904).references_added
-        wikidata_val = Revision.find_by(mw_rev_id: 840608564).references_added
+        val = described_class.find_by(mw_rev_id: 857571904).references_added
+        wikidata_val = described_class.find_by(mw_rev_id: 840608564).references_added
         expect(val).to eq(10)
         expect(wikidata_val).to eq(10)
       end
@@ -113,8 +113,8 @@ describe Revision, type: :model do
       end
 
       it 'should return 0 references added' do
-        val = Revision.find_by(mw_rev_id: 89023457).references_added
-        wikidata_val = Revision.find_by(mw_rev_id: 89023158).references_added
+        val = described_class.find_by(mw_rev_id: 89023457).references_added
+        wikidata_val = described_class.find_by(mw_rev_id: 89023158).references_added
         expect(val).to eq(0)
         expect(wikidata_val).to eq(0)
       end
@@ -149,8 +149,8 @@ describe Revision, type: :model do
       end
 
       it 'Would be negative' do
-        val = Revision.find_by(mw_rev_id: 852178130).references_added
-        wikidata_val = Revision.find_by(mw_rev_id: 852178131).references_added
+        val = described_class.find_by(mw_rev_id: 852178130).references_added
+        wikidata_val = described_class.find_by(mw_rev_id: 852178131).references_added
         expect(val).to eq(-6)
         expect(wikidata_val).to eq(-6)
       end
@@ -185,8 +185,8 @@ describe Revision, type: :model do
       end
 
       it 'should return positive value' do
-        val = Revision.find_by(mw_rev_id: 870348507).references_added
-        wikidata_val = Revision.find_by(mw_rev_id: 870348508).references_added
+        val = described_class.find_by(mw_rev_id: 870348507).references_added
+        wikidata_val = described_class.find_by(mw_rev_id: 870348508).references_added
         expect(val).to eq(5)
         expect(wikidata_val).to eq(5)
       end

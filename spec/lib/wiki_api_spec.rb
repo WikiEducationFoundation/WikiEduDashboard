@@ -3,6 +3,8 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_api"
 
+class UnexpectedError < StandardError; end
+
 describe WikiApi do
   describe 'error handling' do
     let(:subject) { described_class.new.get_page_content('Ragesoss') }
@@ -31,7 +33,6 @@ describe WikiApi do
     end
 
     it 're-raises unexpected errors' do
-      class UnexpectedError < StandardError; end
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(UnexpectedError)
       expect { subject }.to raise_error(UnexpectedError)

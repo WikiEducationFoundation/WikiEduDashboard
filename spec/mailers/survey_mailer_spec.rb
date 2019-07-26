@@ -25,7 +25,7 @@ describe SurveyMailer, type: :mailer do
   end
 
   describe '#notification' do
-    let(:mail) { SurveyMailer.send_notification(survey_notification) }
+    let(:mail) { described_class.send_notification(survey_notification) }
 
     context 'when it is an instructor survey' do
       let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }
@@ -61,7 +61,7 @@ describe SurveyMailer, type: :mailer do
   end
 
   describe '#follow_up' do
-    let(:mail) { SurveyMailer.send_follow_up(survey_notification) }
+    let(:mail) { described_class.send_follow_up(survey_notification) }
 
     context 'when it is an instructor survey' do
       let(:role) { CoursesUsers::Roles::INSTRUCTOR_ROLE }

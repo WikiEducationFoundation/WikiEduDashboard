@@ -31,7 +31,7 @@ describe ArticlesCourses, type: :model do
       create(:courses_user, course: course, user: user)
 
       # Run a cache update without any revisions.
-      ArticlesCourses.update_all_caches(ArticlesCourses.all)
+      described_class.update_all_caches(described_class.all)
 
       # Add a revision.
       create(:revision,
@@ -55,10 +55,10 @@ describe ArticlesCourses, type: :model do
              views: 2345)
 
       # Run the cache update again with an existing revision.
-      ArticlesCourses.update_all_caches(ArticlesCourses.all)
+      described_class.update_all_caches(described_class.all)
 
       # Fetch the created ArticlesCourses entry
-      article_course = ArticlesCourses.first
+      article_course = described_class.first
 
       expect(article_course.view_count).to eq(1234)
       expect(article_course.new_article).to be true
@@ -87,23 +87,23 @@ describe ArticlesCourses, type: :model do
     end
 
     it 'creates new ArticlesCourses records from course revisions' do
-      ArticlesCourses.update_from_course(Course.last)
-      expect(ArticlesCourses.count).to eq(1)
+      described_class.update_from_course(Course.last)
+      expect(described_class.count).to eq(1)
       # Should be counted as new even though the first edit was a system edit.
-      ArticlesCourses.last.update_cache
-      expect(ArticlesCourses.last.new_article).to eq(true)
+      described_class.last.update_cache
+      expect(described_class.last.new_article).to eq(true)
     end
 
     it 'destroys ArticlesCourses that do not correspond to course revisions' do
       create(:articles_course, id: 500, article: article2, course: course)
       create(:articles_course, id: 501, article: article2, course: another_course)
-      ArticlesCourses.update_from_course(course)
-      expect(ArticlesCourses.exists?(500)).to eq(false)
+      described_class.update_from_course(course)
+      expect(described_class.exists?(500)).to eq(false)
       # only destroys for the course specified, not other recoreds that also
       # don't correspond to their own course.
-      expect(ArticlesCourses.exists?(501)).to eq(true)
-      ArticlesCourses.update_from_course(another_course)
-      expect(ArticlesCourses.exists?(501)).to eq(false)
+      expect(described_class.exists?(501)).to eq(true)
+      described_class.update_from_course(another_course)
+      expect(described_class.exists?(501)).to eq(false)
     end
   end
 end

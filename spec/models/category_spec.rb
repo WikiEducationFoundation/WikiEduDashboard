@@ -27,12 +27,12 @@ RSpec.describe Category, type: :model do
       let!(:article) { create(:article, title: 'Manot_1') }
 
       it 'updates article titles for categories associated with courses' do
-        expect(Category.last.article_titles).to be_empty
+        expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          Category.refresh_categories_for(Course.all)
-          expect(Category.last.article_titles).not_to be_empty
-          expect(Category.last.article_ids).to include(article.id)
+          described_class.refresh_categories_for(Course.all)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
         end
       end
     end
@@ -43,12 +43,12 @@ RSpec.describe Category, type: :model do
       let!(:article) { create(:article, title: 'Nur_Shazrin_Mohd_Latif') }
 
       it 'updates article titles for categories associated with courses' do
-        expect(Category.last.article_titles).to be_empty
+        expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          Category.refresh_categories_for(Course.all)
-          expect(Category.last.article_titles).not_to be_empty
-          expect(Category.last.article_ids).to include(article.id)
+          described_class.refresh_categories_for(Course.all)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
         end
       end
     end
