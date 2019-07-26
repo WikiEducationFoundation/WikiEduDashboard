@@ -29,6 +29,27 @@ export const MyArticles = createReactClass({
     }
   },
 
+  getList(assignments, currentUserId, ROLE) {
+    return assignments.reduce((acc, { article_title, role, user_id, username }) => {
+      if (role === ROLE || user_id === currentUserId) return acc;
+      if (acc[article_title]) {
+        acc[article_title].push(username);
+      } else {
+        acc[article_title] = [username];
+      }
+
+      return acc;
+    }, {});
+  },
+
+  getEditorsList(assignments, currentUserId) {
+    return this.getList(assignments, currentUserId, REVIEWING_ROLE);
+  },
+
+  getReviewersList(assignments, currentUserId) {
+    return this.getList(assignments, currentUserId, ASSIGNED_ROLE);
+  },
+
   sandboxUrl(course, assignment) {
     if (assignment.sandbox_url) return assignment.sandbox_url;
 
@@ -80,16 +101,32 @@ export const MyArticles = createReactClass({
   },
 
   render() {
-    const { assignments, course, current_user, wikidataLabels } = this.props;
+    let { assignments } = this.props;
+    const { course, current_user, wikidataLabels } = this.props;
     const user_id = current_user.id;
 
+    // Backfill Sandbox URLs for assignments
     const addSandboxUrl = this.addSandboxUrl(assignments, course, user_id);
-    const updatedAssignments = assignments.map(addSandboxUrl);
+    assignments = assignments.map(addSandboxUrl);
+
+    // Add editors
+    const editorsList = this.getEditorsList(assignments, user_id);
+    assignments = assignments.map((assignment) => {
+      assignment.editors = editorsList[assignment.article_title] || null;
+      return assignment;
+    });
+
+    // Add reviewers
+    const reviewersList = this.getReviewersList(assignments, user_id);
+    assignments = assignments.map((assignment) => {
+      assignment.reviewers = reviewersList[assignment.article_title] || null;
+      return assignment;
+    });
 
     const {
       assigned, reviewing,
       unassigned, reviewable
-    } = groupByAssignmentType(updatedAssignments, user_id);
+    } = groupByAssignmentType(assignments, user_id);
 
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
     const assignmentCount = all.length;
@@ -117,7 +154,7 @@ export const MyArticles = createReactClass({
               hideAssignedArticles
               id="user_assigned"
               prefix={I18n.t('users.my_assigned')}
-              role={0}
+              role={ASSIGNED_ROLE}
               student={current_user}
               tooltip_message={I18n.t('assignments.assign_tooltip')}
               unassigned={unassigned}
@@ -131,7 +168,7 @@ export const MyArticles = createReactClass({
               hideAssignedArticles
               id="user_reviewing"
               prefix={I18n.t('users.my_reviewing')}
-              role={1}
+              role={REVIEWING_ROLE}
               student={current_user}
               tooltip_message={I18n.t('assignments.review_tooltip')}
               unassigned={reviewable}

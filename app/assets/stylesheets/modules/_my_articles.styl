@@ -11,14 +11,23 @@
         font-size 12px
 
 .my-assignment
-
-.my-assignment-button
-  div
-    float right
-    margin-left 10px
-
-.my-assignment-title
-  font-size 130%
+  display flex
+  .actions, .header
+    flex 1
+    font-size 90%
+  .actions
+    align-items center
+    display flex
+    justify-content flex-end
+    div
+      margin-right 5px
+  .header
+    display inline
+    .title h4
+      color $text
+      display inline
+      font-size 130%
+      font-weight normal
 
 .my-assignment-checklist
   font-size 120%
