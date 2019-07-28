@@ -54,8 +54,6 @@ class Article < ApplicationRecord
     TALK           = 1
     USER           = 2
     USER_TALK      = 3
-    WIKIPEDIA      = 4
-    WIKIPEDIA_TALK = 5
     FILE           = 6
     TEMPLATE       = 10
     TEMPLATE_TALK  = 11
@@ -74,8 +72,6 @@ class Article < ApplicationRecord
     Namespaces::TALK => 'Talk:',
     Namespaces::USER => 'User:',
     Namespaces::USER_TALK => 'User_talk:',
-    Namespaces::WIKIPEDIA => 'Wikipedia:',
-    Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
     Namespaces::TEMPLATE => 'Template:',
     Namespaces::TEMPLATE_TALK => 'Template_talk:',
     Namespaces::DRAFT => 'Draft:',
@@ -90,6 +86,32 @@ class Article < ApplicationRecord
     # The following namespace index are spread over
     # several wikis and needs to be additionally
     # namespaced via project
+    4 => {
+      'wikipedia' => 'Wikipedia:',
+      'wiktionary' => 'Wiktionary:',
+      'wikisource' => 'Wikisource:',
+      'wikiversity' => 'Wikiversity:',
+      'wikidata' => 'Wikidata:',
+      'wikiquote' => 'Wikiquote:',
+      'wikivoyage' => 'Wikivoyage:',
+      'wikinews' => 'Wikinews:',
+      'wikibooks' => 'Wikibooks:',
+      'commons' => 'Commons:',
+      'incubator' => 'Incubator:'
+    },
+    5 => {
+      'wikipedia' => 'Wikipedia_talk:',
+      'wiktionary' => 'Wiktionary_talk:',
+      'wikisource' => 'Wikisource_talk:',
+      'wikiversity' => 'Wikiversity_talk:',
+      'wikidata' => 'Wikidata_talk:',
+      'wikiquote' => 'Wikiquote_talk:',
+      'wikivoyage' => 'Wikivoyage_talk:',
+      'wikinews' => 'Wikinews_talk:',
+      'wikibooks' => 'Wikibooks_talk:',
+      'commons' => 'Commons_talk:',
+      'incubator' => 'Incubator_talk:'
+    },
     100 => {
       'wiktionary' => 'Appendix:',
       'wikisource' => 'Portal:',
@@ -126,7 +148,7 @@ class Article < ApplicationRecord
   def namespace_prefix
     prefix = NS_PREFIX[namespace]
     return prefix if prefix.is_a?(String)
-    prefix[wiki.project]
+    prefix[wiki.project == 'wikimedia' ? wiki.language : wiki.project]
   end
 
   private
