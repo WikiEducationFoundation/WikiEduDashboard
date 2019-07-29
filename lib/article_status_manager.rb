@@ -101,9 +101,13 @@ class ArticleStatusManager
       # These titles are saved as their URL-encoded equivalents.
       next if article.title[0] == '%'
 
-      article.update!(title: article_data['page_title'],
-                      namespace: article_data['page_namespace'],
-                      deleted: false)
+      begin
+        article.update!(title: article_data['page_title'],
+                        namespace: article_data['page_namespace'],
+                        deleted: false)
+      rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
+        Raven.capture_exception e
+      end
     end
   end
 
