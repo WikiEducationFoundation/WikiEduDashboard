@@ -8,6 +8,7 @@ import PeerReviewChecklist from '../common/peer_review_checklist.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import Feedback from '../common/feedback.jsx';
 
+import { ASSIGNED_ROLE } from '../../constants';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
@@ -53,9 +54,9 @@ const Actions = ({
         username={username}
       />
     );
-    if (assignment.role === 0 && !assignment.article_id) {
+    if (assignment.role === ASSIGNED_ROLE && !assignment.article_id) {
       actions.push(<MainspaceChecklist key="mainspace-button" />, feedback);
-    } else if (assignment.role === 0) {
+    } else if (assignment.role === ASSIGNED_ROLE) {
       actions.push(<FinalArticleChecklist key="final-article-button" />, feedback);
     } else {
       actions.push(<PeerReviewChecklist key="peer-review-button" />);
@@ -73,7 +74,27 @@ const Actions = ({
 // Links Components
 const BibliographyLink = ({ assignment }) => {
   const link = `${assignment.sandboxUrl}/bibliography`;
-  return <a href={link}>{I18n.t('assignments.bibliography')}</a>;
+  const template = 'Template:Dashboard.wikiedu.org_biblography';
+  const query = assignment.role === ASSIGNED_ROLE
+    ? `?veaction=edit&preload=${template}%3ACn&action=edit`
+    : '';
+  return (
+    <a href={`${link}${query}`} target="_blank">
+      {I18n.t('assignments.bibliography')}
+    </a>
+  );
+};
+
+const SandboxLink = ({ assignment }) => {
+  const { sandboxUrl } = assignment;
+  const query = assignment.role === ASSIGNED_ROLE
+    ? '?veaction=edit&preload=Template%3ACn&action=edit'
+    : '';
+  return (
+    <a href={`${sandboxUrl}${query}`} target="_blank">
+      {I18n.t('assignments.sandbox_draft_link')}
+    </a>
+  );
 };
 
 const AssignedToLink = ({ name, members }) => {
@@ -104,11 +125,11 @@ const ReviewerLink = ({ reviewers }) => {
 
 const Separator = () => <span> •&nbsp;</span>;
 
-const Links = ({ articleTitle, assignment }) => {
-  const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
+const Links = ({ articleTitle, assignment, current_user }) => {
+  const { article_url, editors, id, reviewers } = assignment;
   const actions = [
     <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />,
-    <a key={`sandbox-${id}`} href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>,
+    <SandboxLink key={`sandbox-${id}`} assignment={assignment} current_user={current_user} />,
     <a key={`article-${id}`} href={article_url}>{I18n.t('assignments.article_link')}</a>
   ].reduce((acc, link, index, collection) => {
     const limit = collection.length - 1;
@@ -179,7 +200,7 @@ export const MyAssignment = createReactClass({
 
     return (
       <div className="my-assignment mb1">
-        <Links articleTitle={articleTitle} assignment={assignment} />
+        <Links articleTitle={articleTitle} assignment={assignment} current_user={current_user} />
         <Actions
           article={article}
           assignment={assignment}
