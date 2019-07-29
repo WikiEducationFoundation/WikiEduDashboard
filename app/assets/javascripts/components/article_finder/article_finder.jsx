@@ -14,7 +14,7 @@ import Loading from '../common/loading.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
+import { fetchPSIDResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
@@ -102,14 +102,14 @@ const ArticleFinder = createReactClass({
       this.buildURL();
       return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki);
+    return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
+    return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
   },
 
   handleChange(e) {
@@ -160,8 +160,8 @@ const ArticleFinder = createReactClass({
           </div>
           <div>
             <label>
-              <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={e => this.updateFields('search_type', e.target.value)} />
-              {I18n.t('article_finder.category_search')}
+              <input type="radio" value="PSID" checked={this.props.search_type === 'PSID'} onChange={e => this.updateFields('search_type', e.target.value)} />
+              {I18n.t('article_finder.PSID_search')}
             </label>
           </div>
         </div>
@@ -310,7 +310,7 @@ const ArticleFinder = createReactClass({
           elements={elements}
           keys={keys}
           sortable={true}
-          table_key="category-articles"
+          table_key="PSID-articles"
           className="table--expandable table--hoverable"
           none_message={I18n.t('article_finder.no_article_found')}
           sortBy={this.props.sortArticleFinder}
@@ -454,7 +454,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchCategoryResults: fetchCategoryResults,
+  fetchPSIDResults: fetchPSIDResults,
   updateFields: updateFields,
   addAssignment: addAssignment,
   fetchAssignments: fetchAssignments,

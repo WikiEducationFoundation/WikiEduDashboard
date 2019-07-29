@@ -51,6 +51,8 @@ class Category < ApplicationRecord
     case source
     when 'category'
       CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
+    when 'psid'
+      CategoryImporter.new(wiki).page_titles_for_psid(psid)
     when 'template'
       TransclusionImporter.new(self).transcluded_titles
     end

@@ -1259,6 +1259,7 @@ en:
     hide_options: "Hide Options"
     keyword_search: "Keyword Search"
     category_search: "Category Search"
+    PSID_search: "PSID Search"
     article_quality: "Article Quality(0-100)"
     more_results: "More Results"
     fetched_articles: "Fetched Articles"

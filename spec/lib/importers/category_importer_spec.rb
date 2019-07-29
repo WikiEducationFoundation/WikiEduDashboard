@@ -5,9 +5,22 @@ require "#{Rails.root}/lib/importers/category_importer"
 
 describe CategoryImporter do
   let(:wiki) { Wiki.default_wiki }
-  let(:subject) { described_class.new(wiki).page_titles_for_category(category, depth) }
+
+  describe '.page_titles_for_psid' do
+    let(:subject) { described_class.new(wiki).page_titles_for_psid(psid) }
+
+    let(:psid) { 9964305 }
+
+    it 'returns page page titles for a given psid' do
+      VCR.use_cassette 'category_importer/page_titles' do
+        expect(subject).to include('A cappella')
+      end
+    end
+  end
 
   describe '.page_titles_for_category' do
+    let(:subject) { described_class.new(wiki).page_titles_for_category(category, depth) }
+
     context 'for depth 0' do
       let(:category) { 'Category:AfD debates' }
       let(:depth) { 0 }

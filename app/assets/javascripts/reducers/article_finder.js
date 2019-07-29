@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
 import { ORESWeights } from '../utils/article_finder_language_mappings.js';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
+import { UPDATE_FIELD, RECEIVE_PSID_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
   RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
 
@@ -27,6 +27,14 @@ const initialState = {
   },
   lastRelevanceIndex: 0,
 };
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function replaceAll(str, term, replacement) {
+  return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
+}
 
 export default function articleFinder(state = initialState, action) {
   switch (action.type) {
@@ -78,32 +86,24 @@ export default function articleFinder(state = initialState, action) {
         lastRelevanceIndex: 0,
       };
     }
-    case RECEIVE_CATEGORY_RESULTS: {
+    case RECEIVE_PSID_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.query.categorymembers.forEach((data, i) => {
-        newStateArticles[data.title] = {
-          pageid: data.pageid,
-          ns: data.ns,
+      action.data['*'][0].a['*'].forEach((data, i) => {
+        newStateArticles[replaceAll(data.title, '_', ' ')] = {
+          pageid: data.id,
+          ns: data.namespace,
           fetchState: 'TITLE_RECEIVED',
-          title: data.title,
+          title: replaceAll(data.title, '_', ' '),
           relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
-      let continueResults = false;
-      let cmcontinue = '';
-      if (action.data.continue) {
-        continueResults = true;
-        cmcontinue = action.data.continue.cmcontinue;
-      }
       let fetchState = 'TITLE_RECEIVED';
-      if (!action.data.query.categorymembers.length) {
+      if (!action.data['*'][0].a['*'].len) {
         fetchState = 'PAGEVIEWS_RECEIVED';
       }
       return {
         ...state,
         articles: newStateArticles,
-        continue_results: continueResults,
-        cmcontinue: cmcontinue,
         loading: false,
         fetchState: fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
@@ -145,9 +145,10 @@ export default function articleFinder(state = initialState, action) {
       _.forEach(action.data, (article) => {
         const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
         newStateArticles[article.title].pageviews = averagePageviews;
-        newStateArticles[article.title].fetchState = 'PAGEVIEWS_RECEIVED';
       });
-
+      _.forEach(newStateArticles, (article) => {
+        article.fetchState = 'PAGEVIEWS_RECEIVED';
+      });
       return {
         ...state,
         articles: newStateArticles,

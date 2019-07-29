@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/petscan_api"
 
 #= Imports articles for a category, along with view data and revision scores
 class CategoryImporter
@@ -20,6 +21,16 @@ class CategoryImporter
 
   def page_titles_for_category(category, depth=0, namespace=nil)
     page_properties_for_category(category, 'title', depth, namespace)
+  end
+
+  def page_titles_for_psid(psid)
+    titles = []
+    titles_response = PetScanApi.new.get_titles(psid)
+    page_data = titles_response['*'][0]['a']['*']
+    page_data.each do |title|
+      titles << title['title'].sub('_', ' ')
+    end
+    titles
   end
 
   private
