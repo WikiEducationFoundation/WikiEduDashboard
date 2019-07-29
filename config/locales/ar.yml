@@ -176,6 +176,7 @@ ar:
       بعين الاعتبار للمحتوى ذاته. (هذه النقاط متاحة فقط لمقالات ويكيبيديا الإنجليزية).
   assignments:
     article: المقالة التي تحمل العنوان %{title} مخصصة الآن لك.
+    article_link: مقالة
     already_exists: هذه المهمة موجودة بالفعل!
     title_too_large: يجب أن لا يزيد العنوان عن عدد 255 محرف
     assignees: المخصص له(م)
@@ -185,10 +186,12 @@ ar:
     add_available_submit: إضافة مقالات
     assign_self: تعيين مقالة لنفسي
     assign_tooltip: المقالة المخصصة هي مقالة تعتزم إنشاءها أو تحسين مستواها.
+    bibliography: قائمة الأعمال
     clone: استنساخ
     confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
+    editors: مخصص لـ
     label: تعيين
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة
@@ -201,6 +204,7 @@ ar:
     review_self: مراجعة مقال
     review_tooltip: هذا الجزء مخصص لمقالة(ات) تعتزم مراجعة زملاء لها أو تقديم آراء
       وملاحظات عليها.
+    sandbox_draft_link: مسودة الملعب
     select: اختر
   blocks:
     milestones:

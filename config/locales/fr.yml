@@ -197,6 +197,7 @@ fr:
       ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
   assignments:
     article: L’article %{title} vous est maintenant affecté.
+    article_link: Article
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
@@ -207,10 +208,12 @@ fr:
     assign_self: M’affecter un article
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
+    bibliography: Bibliographie
     clone: Cloner
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
+    editors: Assigné à
     label: Assigner
     loading: Chargement des affectations…
     none_short: Aucun article affecté
@@ -224,6 +227,7 @@ fr:
     review_self: Relire un article
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
+    sandbox_draft_link: Brouillon de bac à sable
     select: Sélectionner
   blocks:
     milestones:

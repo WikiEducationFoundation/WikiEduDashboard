@@ -1,16 +1,21 @@
 # Messages for Tatar (Cyrillic script) (татарча)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ерней
 # Author: Ильнар
 ---
 tt-cyrl:
   application:
     help: Ярдәм
     home: Баш
+    change: Үзгәртү
+    confirm: Ярар
   courses:
     articles: Мәкаләләр
     title: Башлам
   revisions:
     class: Сыйныф
+    diff_show: Күрсәтү
+    diff_hide: Яшерү
     title: Башлам
 ...

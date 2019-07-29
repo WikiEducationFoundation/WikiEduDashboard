@@ -8,6 +8,10 @@
 tg-cyrl:
   articles:
     wiki: вики
+  assignments:
+    article_link: Мақола
+    bibliography: Китобшиносӣ
+    sandbox_draft_link: Пешнависи сиёҳнавис
   campaign:
     data_revisions: Маълумот оиди тағйирот
   courses:

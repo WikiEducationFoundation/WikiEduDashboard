@@ -153,6 +153,7 @@ zh-TW:
     wp10_doc: 「結構完整性」評分，是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
   assignments:
     article: 條目%{title}現在已被分配給您。
+    article_link: 條目
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
@@ -162,10 +163,12 @@ zh-TW:
     add_available_submit: 添加條目
     assign_self: 指定自己一個條目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
+    bibliography: 參考書目
     clone: 複製
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除此條目分配作業嗎？
+    editors: 分配給
     label: 分配
     loading: 載入分配作業中...
     none_short: 沒有分配任何條目
@@ -177,6 +180,7 @@ zh-TW:
     review_other: 指定審核
     review_self: 審核條目
     review_tooltip: 這是用於您打算同行評審、或是提供意見回饋的條目。
+    sandbox_draft_link: 沙盒草稿
     select: 選擇
   blocks:
     milestones:

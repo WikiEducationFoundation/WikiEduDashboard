@@ -13,6 +13,7 @@
 # Author: Matěj Suchánek
 # Author: Meliganai
 # Author: Mormegil
+# Author: Nixtonin
 # Author: Patriccck
 # Author: Rosičák
 # Author: Urbanecm
@@ -183,6 +184,7 @@ cs:
       v anglické Wikipedii.)
   assignments:
     article: Článek %{title} je nyní přiřazen k Vám.
+    article_link: Předmět
     already_exists: Tento článek už byl zadán!
     title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení
@@ -193,9 +195,11 @@ cs:
     add_available_submit: Přidejte články
     assign_self: Přiřadit článek sobě
     assign_tooltip: Přiřazený článek je ten, který plánujete vytvořit nebo vylepšit.
+    bibliography: Bibliografie
     confirm_add_available: Jste si jistý, že chcete přidat %{title}?
     confirm_addition: Chcete skutečně zadat článek %{title} uživateli %{username}?
     confirm_deletion: Chcete skutečně odstranit tento zadaný článek?
+    editors: Přiřazen k
     label: Zadat
     loading: Načítání zadaných článků...
     none_short: Žádné zadané články

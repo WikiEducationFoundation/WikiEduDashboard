@@ -190,6 +190,7 @@ it:
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
   assignments:
     article: La voce %{title} ora è assegnata a te.
+    article_link: Voce
     already_exists: Questa assegnazione esiste già!
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
@@ -199,9 +200,11 @@ it:
     add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
     assign_tooltip: Una voce assegnata è quella che pianifichi di creare o migliorare.
+    bibliography: Bibliografia
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     confirm_deletion: Sei sicuro di volere cancellare la valutazione di questa voce?
+    editors: Assegnato  a
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata

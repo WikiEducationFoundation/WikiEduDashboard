@@ -192,6 +192,7 @@ pt-br:
       para a Wikipédia em inglês.)
   assignments:
     article: O artigo %{title} foi designado agora para ti.
+    article_link: Artigo
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
@@ -201,10 +202,12 @@ pt-br:
     add_available_submit: Adicionar artigos
     assign_self: Atribuir um artigo a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
+    bibliography: Bibliografia
     clone: Fechar
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
+    editors: Atribuído a
     label: Atribuir
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído
@@ -217,6 +220,7 @@ pt-br:
     review_other: Atribuir uma revisão
     review_self: Revisar um artigo
     review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
+    sandbox_draft_link: Rascunho de teste
     select: Selecionar
   blocks:
     milestones:

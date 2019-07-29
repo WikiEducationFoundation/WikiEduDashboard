@@ -124,6 +124,7 @@ ko:
     wiki: 위키
   assignments:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
+    article_link: 문서
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     add_available: 읽을 수 있는 글 추가
@@ -136,6 +137,7 @@ ko:
     remove: 제거
     reviewers: 검토자
     review_self: 문서 미리보기
+    sandbox_draft_link: 연습장 초안
     select: 선택
   blocks:
     milestones:

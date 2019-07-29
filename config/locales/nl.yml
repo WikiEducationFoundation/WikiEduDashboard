@@ -151,10 +151,12 @@ nl:
     view_doc: Het aantal paginaweergaven van iedere pagina tijdens te cursustermijn
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
   assignments:
+    article_link: Artikel
     already_exists: Deze opdracht bestaat al!
     assignees: Toegewezen aan
     assign_other: Wijs een pagina toe
     assign_self: Wijs een pagina aan mezelf toe
+    bibliography: Bibliografie
     confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet je zeker dat je deze opdracht wilt verwijderen?
     label: Toewijzen
