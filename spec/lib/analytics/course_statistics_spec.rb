@@ -50,6 +50,14 @@ describe CourseStatistics do
       expect(subject[:characters_added]).to be > 0
       expect(subject[:words_added]).to be > 0
     end
+
+    it 'counts only tracked revisions and articles' do
+      create(:articles_course, course_id: 1, article_id: 1, tracked: false)
+      CoursesUsers.update_all_caches(CoursesUsers.where(id: 1))
+      expect(subject[:articles_edited]).to eq(course_ids.count - 1)
+      expect(subject[:revisions]).to eq(course_ids.count - 1)
+      expect(subject[:characters_added]).to eq(5000) # Characters added should be reduced from 6000
+    end
   end
 
   describe '#articles_edited' do

@@ -50,6 +50,17 @@ describe ArticlesController, type: :request do
       expect(json_response['article_details']['editors']).to include(user.username)
       expect(json_response['article_details']['editors']).to include(second_user.username)
     end
+
+    it 'only tracks the revisions of tracked articles' do
+      ArticlesCourses.first.update(tracked: false)
+      get '/articles/details', params: request_params
+      json_response = Oj.load(response.body)
+      expect(json_response['article_details']['editors'].count).to eq(0)
+      ArticlesCourses.first.update(tracked: true)
+      get '/articles/details', params: request_params
+      json_response = Oj.load(response.body)
+      expect(json_response['article_details']['editors'].count).to eq(2)
+    end
   end
 
   describe '#update_tracked_status' do
