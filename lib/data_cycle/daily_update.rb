@@ -2,8 +2,8 @@
 
 require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/importers/assigned_article_importer"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/article_status_manager"
@@ -56,7 +56,7 @@ class DailyUpdate
 
   def update_article_data
     log_message 'Finding articles that match assignment titles'
-    AssignedArticleImporter.import_articles_for_assignments
+    FindAssignmentsWorker.perform_async
 
     log_message 'Rebuilding ArticlesCourses for all current students'
     ArticlesCoursesCleaner.rebuild_articles_courses
