@@ -76,7 +76,7 @@ const BibliographyLink = ({ assignment }) => {
   const link = `${assignment.sandboxUrl}/bibliography`;
   const template = 'Template:Dashboard.wikiedu.org_biblography';
   const query = assignment.role === ASSIGNED_ROLE
-    ? `?veaction=edit&preload=${template}%3ACn&action=edit`
+    ? `?veaction=edit&preload=${template}`
     : '';
   return (
     <a href={`${link}${query}`} target="_blank">
@@ -87,8 +87,9 @@ const BibliographyLink = ({ assignment }) => {
 
 const SandboxLink = ({ assignment }) => {
   const { sandboxUrl } = assignment;
+  const template = 'Template:Dashboard.wikiedu.org_sandbox_assignment';
   const query = assignment.role === ASSIGNED_ROLE
-    ? '?veaction=edit&preload=Template%3ACn&action=edit'
+    ? `?veaction=edit&preload=${template}`
     : '';
   return (
     <a href={`${sandboxUrl}${query}`} target="_blank">
