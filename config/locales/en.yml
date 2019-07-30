@@ -1259,6 +1259,8 @@ en:
     hide_options: "Hide Options"
     keyword_search: "Keyword Search"
     category_search: "Category Search"
+    PSID_search: "PetScan PSID"
+    PetScan_doc: "PetScan is a powerful query tool for generating large lists of articles that meet specific criteria (such as having certain templates, being in certain categories, etc): (https://petscan.wmflabs.org)"
     article_quality: "Article Quality(0-100)"
     more_results: "More Results"
     fetched_articles: "Fetched Articles"

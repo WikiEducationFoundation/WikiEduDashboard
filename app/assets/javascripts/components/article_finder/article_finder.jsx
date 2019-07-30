@@ -14,7 +14,7 @@ import Loading from '../common/loading.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, fetchPSIDResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder, clearResults } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
@@ -101,6 +101,8 @@ const ArticleFinder = createReactClass({
     } else if (this.props.search_type === 'keyword') {
       this.buildURL();
       return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki);
+    } else if (this.props.search_type === 'PSID') {
+      return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
     }
     return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki);
   },
@@ -108,6 +110,8 @@ const ArticleFinder = createReactClass({
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
+    } else if (this.props.search_type === 'PSID') {
+      return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
     }
     return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
   },
@@ -162,6 +166,17 @@ const ArticleFinder = createReactClass({
             <label>
               <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={e => this.updateFields('search_type', e.target.value)} />
               {I18n.t('article_finder.category_search')}
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" value="PSID" checked={this.props.search_type === 'PSID'} onChange={e => this.updateFields('search_type', e.target.value)} />
+              <div className="stat-display__stat tooltip-trigger" id="PetScan-PSID">
+                {I18n.t('article_finder.PSID_search')}
+                <div className="tooltip dark" id="petScan-psid">
+                  <p>{I18n.t('article_finder.PetScan_doc')}</p>
+                </div>
+              </div>
             </label>
           </div>
         </div>
@@ -460,6 +475,7 @@ const mapDispatchToProps = {
   fetchAssignments: fetchAssignments,
   sortArticleFinder: sortArticleFinder,
   fetchKeywordResults: fetchKeywordResults,
+  fetchPSIDResults: fetchPSIDResults,
   deleteAssignment: deleteAssignment,
   resetArticleFinder: resetArticleFinder,
   clearResults: clearResults,
