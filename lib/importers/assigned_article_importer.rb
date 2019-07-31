@@ -36,8 +36,9 @@ class AssignedArticleImporter
   def update_assignment(assignment)
     article = Article.find_by(title: assignment.article_title,
                               namespace: Article::Namespaces::MAINSPACE,
-                              wiki_id: @wiki.id)
-    return unless article.title == assignment.article_title # guard against case variants
+                              wiki_id: @wiki.id,
+                              deleted: false)
+    return unless article&.title == assignment.article_title # guard against case variants
     assignment.article_id = article.id
     assignment.save
   end
