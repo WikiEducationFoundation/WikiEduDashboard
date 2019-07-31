@@ -35,7 +35,10 @@ class AssignmentsController < ApplicationController
   def update
     check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
-    if @assignment.update_attributes(assignment_params)
+    if @assignment.user_id
+      render json: { message: 'This assignment has been claimed already. Please refresh.' },
+             status: :conflict
+    elsif @assignment.update_attributes(assignment_params)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
