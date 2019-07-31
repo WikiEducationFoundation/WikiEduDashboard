@@ -74,7 +74,7 @@ const Actions = ({
 // Links Components
 const BibliographyLink = ({ assignment }) => {
   const link = `${assignment.sandboxUrl}/bibliography`;
-  const template = 'Template:Dashboard.wikiedu.org_biblography';
+  const template = 'Template:Dashboard.wikiedu.org_bibliography';
   const query = assignment.role === ASSIGNED_ROLE
     ? `?veaction=edit&preload=${template}`
     : '';
