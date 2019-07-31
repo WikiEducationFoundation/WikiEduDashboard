@@ -49,7 +49,6 @@
 #
 
 require 'rails_helper'
-require './lib/analytics/course_statistics.rb'
 
 describe Course, type: :model do
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
@@ -845,50 +844,6 @@ describe Course, type: :model do
     it 'returns Article records via course revisions' do
       expect(course.pages_edited).to include(article)
       expect(course.pages_edited).not_to include(article2)
-    end
-  end
-
-  describe '#tracked_revisions' do
-    let(:course) { create(:course, start: 1.year.ago) }
-    let(:user) { create(:user, id: 3, username: 'Amit') }
-    let(:article) { create(:article, namespace: 0, deleted: false) }
-    let(:article2) { create(:article, namespace: 0, deleted: false) }
-
-    before do
-      create(:revision, date: course.start + 1.minute,
-                        article_id: article.id,
-                        user_id: user.id, characters: 100)
-
-      create(:revision, date: course.start + 2.minutes,
-                        article_id: article.id,
-                        user_id: user.id, characters: 100)
-
-      create(:revision, date: course.start + 3.minutes,
-                        article_id: article2.id,
-                        user_id: user.id, characters: 100)
-
-      create(:revision, date: course.start + 4.minutes,
-                        article_id: article2.id,
-                        user_id: user.id, characters: 100)
-
-      course.students << user
-    end
-
-    it 'fetches the course stats for only tracked articles' do
-      course.update(needs_update: false)
-      VCR.use_cassette 'course_upload_importer/Ragesock' do
-        UpdateCourseStats.new(course)
-      end
-      subject = CourseStatistics.new([course.id]).report_statistics
-      expect(subject[:articles_edited]).to eq(2)
-      expect(subject[:characters_added]).to eq(400)
-      course.articles_courses.where(article_id: article2.id).update(tracked: false)
-      VCR.use_cassette 'course_upload_importer/Ragesock' do
-        UpdateCourseStats.new(course)
-      end
-      subject = CourseStatistics.new([course.id]).report_statistics
-      expect(subject[:articles_edited]).to eq(1)
-      expect(subject[:characters_added]).to eq(200)
     end
   end
 end
