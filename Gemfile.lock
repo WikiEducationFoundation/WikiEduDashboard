@@ -440,7 +440,7 @@ GEM
     rubocop-rails (2.0.1)
       rack (>= 1.1)
       rubocop (>= 0.70.0)
-    rubocop-rspec (1.34.0)
+    rubocop-rspec (1.34.1)
       rubocop (>= 0.60.0)
     rubocop-rspec-focused (1.0.0)
       rubocop (>= 0.51)
