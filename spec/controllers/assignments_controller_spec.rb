@@ -333,7 +333,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let(:assignment) { create(:assignment, course_id: course.id, user_id: nil, role: 0) }
+    let(:assignment) { create(:assignment, course_id: course.id, role: 0) }
     let(:request_params) do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
     end
