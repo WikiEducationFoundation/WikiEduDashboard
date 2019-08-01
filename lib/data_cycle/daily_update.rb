@@ -3,8 +3,8 @@
 require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
@@ -59,7 +59,7 @@ class DailyUpdate
     FindAssignmentsWorker.perform_async
 
     log_message 'Rebuilding ArticlesCourses for all current students'
-    ArticlesCoursesCleaner.rebuild_articles_courses
+    CleanArticlesCoursesWorker.perform_async
 
     log_message 'Updating ratings for all articles'
     RatingImporter.update_all_ratings
