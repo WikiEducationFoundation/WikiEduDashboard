@@ -60,9 +60,9 @@ const MyAssignmentsList = ({ assignments, course, current_user, wikidataLabels }
   }
 
   const articles = {
-    new: assignments.filter(({ status }) => status === NEW_ARTICLE),
-    improving: assignments.filter(({ status }) => status === IMPROVING_ARTICLE),
-    reviewing: assignments.filter(({ status }) => status === REVIEWING_ARTICLE)
+    new: assignments.filter(({ article_status: status }) => status === NEW_ARTICLE),
+    improving: assignments.filter(({ article_status: status }) => status === IMPROVING_ARTICLE),
+    reviewing: assignments.filter(({ article_status: status }) => status === REVIEWING_ARTICLE)
   };
 
   const listProps = { course, current_user, wikidataLabels };

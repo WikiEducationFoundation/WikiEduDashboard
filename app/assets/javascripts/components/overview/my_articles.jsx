@@ -68,12 +68,12 @@ export const MyArticles = createReactClass({
 
     if (assignment.role === ASSIGNED_ROLE) {
       if (!assignment.article_id) {
-        result.status = NEW_ARTICLE;
+        result.article_status = NEW_ARTICLE;
       } else {
-        result.status = IMPROVING_ARTICLE;
+        result.article_status = IMPROVING_ARTICLE;
       }
     } else {
-      result.status = REVIEWING_ARTICLE;
+      result.article_status = REVIEWING_ARTICLE;
     }
 
     return result;
