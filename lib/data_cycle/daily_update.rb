@@ -8,7 +8,6 @@ require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker
 require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 # Executes all the steps of 'update_constantly' data import task
