@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_work
 require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/refresh_categories_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
@@ -70,7 +71,7 @@ class DailyUpdate
 
   def update_category_data
     log_message 'Updating tracked categories'
-    Category.refresh_categories_for(Course.current)
+    RefreshCategoriesWorker.perform_async
   end
 
   ##########
