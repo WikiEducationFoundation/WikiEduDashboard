@@ -4,6 +4,7 @@
 # Author: Ahmadidwi
 # Author: Arief
 # Author: Arifin.wijaya
+# Author: ArlandGa
 # Author: Hidayatsrf
 # Author: Mirws
 # Author: Pebaryan
@@ -70,9 +71,12 @@ id:
     view_all: Tampilkan semua
     wiki: Wiki
   assignments:
+    article_link: Artikel
+    bibliography: Bibliografi
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
     loading: Memuat tugas...
     reviewers: Peninjau
+    sandbox_draft_link: Draf Kotak Pasir
   campaign:
     data_articles: Halaman yang disunting
     description: Keterangan

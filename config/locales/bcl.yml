@@ -1,6 +1,7 @@
 # Messages for Central Bikol (Bikol Central)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Brazal.dang
 # Author: Geopoet
 # Author: Macofe
 ---
@@ -24,7 +25,9 @@ bcl:
     view_all: Tanawon Gabos
     views_added: Pinagdugang %{count} baguhong mga pagtanaw para sa %{title}
   assignments:
+    article_link: Mga Artikulo
     assignees: Tinokahan
+    bibliography: Bibliograpiya
     confirm_addition: Segurado ka na muya mong magtoka nin %{title} sa %{username}?
     confirm_deletion: Segurado ka na muya mong puraon ining katokahan?
     loading: Ikinakarga an mga katokahan...

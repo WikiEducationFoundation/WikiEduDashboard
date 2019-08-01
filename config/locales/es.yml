@@ -172,6 +172,7 @@ es:
       solo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
     article: El artículo %{title} ahora está asignado a ti.
+    article_link: Artículo
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
@@ -181,6 +182,7 @@ es:
     add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
+    bibliography: Bibliografía
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?

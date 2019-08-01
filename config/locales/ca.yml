@@ -185,6 +185,7 @@ ca:
       en anglès).
   assignments:
     article: Se t'ha assignat l'article %{title}.
+    article_link: Article
     already_exists: Aquesta tasca ja existeix!
     title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
@@ -194,6 +195,7 @@ ca:
     add_available_submit: Afegeix articles
     assign_self: Assigna'm un article
     assign_tooltip: Un article assignat és un que planegeu crear o millorar.
+    bibliography: Bibliografia
     confirm_add_available: Esteu segur que voleu afegir %{title}?
     confirm_addition: Esteu segur que voleu assignar %{title} a %{username}?
     confirm_deletion: Esteu segur que voleu eliminar aquesta assignació d'article?
