@@ -17,6 +17,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/article_utils"
+require_dependency "#{Rails.root}/lib/assignment_pipeline"
 
 #= Assignment model
 class Assignment < ApplicationRecord
@@ -35,6 +36,8 @@ class Assignment < ApplicationRecord
 
   before_validation :set_defaults_and_normalize
   before_save :set_sandbox_url
+
+  serialize :flags, Hash
 
   #############
   # CONSTANTS #
@@ -63,6 +66,14 @@ class Assignment < ApplicationRecord
       .where(course_id: course_id, article_id: article_id)
       .where.not(id: id)
       .where.not(user: user_id)
+  end
+
+  def status
+    AssignmentPipeline.new(assignment: self).status
+  end
+
+  def next_status
+    AssignmentPipeline.new(assignment: self).next_status
   end
 
   private
