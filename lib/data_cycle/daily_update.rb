@@ -8,6 +8,8 @@ require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker
 require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/refresh_categories_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
+
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 
 # Executes all the steps of 'update_constantly' data import task
@@ -86,16 +88,6 @@ class DailyUpdate
   ###############
   def push_course_data_to_salesforce
     log_message 'Pushing course data to Salesforce'
-    Course.current.each do |course|
-      next unless course.flags[:salesforce_id]
-      PushCourseToSalesforce.new(course)
-    end
-    ClassroomProgramCourse
-      .archived
-      .where(withdrawn: false)
-      .reject(&:closed?)
-      .select(&:approved?).each do |course|
-      UpdateCourseFromSalesforce.new(course)
-    end
+    SalesforceSyncWorker.perform_async
   end
 end
