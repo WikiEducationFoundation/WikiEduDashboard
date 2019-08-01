@@ -4,8 +4,8 @@ require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
@@ -62,7 +62,7 @@ class DailyUpdate
     CleanArticlesCoursesWorker.perform_async
 
     log_message 'Updating ratings for all articles'
-    RatingImporter.update_all_ratings
+    ImportRatingsWorker.perform_async
 
     log_message 'Updating article namespace and deleted status'
     ArticleStatusManager.update_article_status
