@@ -7,9 +7,8 @@ require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_course
 require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/refresh_categories_worker"
-
+require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
@@ -79,7 +78,7 @@ class DailyUpdate
   ##########
   def generate_overdue_training_alerts
     log_message 'Generating alerts for overdue trainings'
-    OverdueTrainingAlertManager.new(Course.strictly_current).create_alerts
+    OverdueTrainingAlertWorker.perform_async
   end
 
   ###############
