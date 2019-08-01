@@ -16,6 +16,8 @@ require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 class DailyUpdate
   include BatchUpdateLogging
 
+  QUEUE = 'daily_update'
+
   def initialize
     setup_logger
     return if updates_paused?
@@ -48,31 +50,31 @@ class DailyUpdate
 
   def update_users
     log_message 'Updating registration dates for new Users'
-    UpdateUsersWorker.perform_async
+    UpdateUsersWorker.set(queue: QUEUE).perform_async
   end
 
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
-    UpdateCommonsUploadsWorker.perform_async
+    UpdateCommonsUploadsWorker.set(queue: QUEUE).perform_async
   end
 
   def update_article_data
     log_message 'Finding articles that match assignment titles'
-    FindAssignmentsWorker.perform_async
+    FindAssignmentsWorker.set(queue: QUEUE).perform_async
 
     log_message 'Rebuilding ArticlesCourses for all current students'
-    CleanArticlesCoursesWorker.perform_async
+    CleanArticlesCoursesWorker.set(queue: QUEUE).perform_async
 
     log_message 'Updating ratings for all articles'
-    ImportRatingsWorker.perform_async
+    ImportRatingsWorker.set(queue: QUEUE).perform_async
 
     log_message 'Updating article namespace and deleted status'
-    UpdateArticleStatusWorker.perform_async
+    UpdateArticleStatusWorker.set(queue: QUEUE).perform_async
   end
 
   def update_category_data
     log_message 'Updating tracked categories'
-    RefreshCategoriesWorker.perform_async
+    RefreshCategoriesWorker.set(queue: QUEUE).perform_async
   end
 
   ##########
@@ -80,7 +82,7 @@ class DailyUpdate
   ##########
   def generate_overdue_training_alerts
     log_message 'Generating alerts for overdue trainings'
-    OverdueTrainingAlertWorker.perform_async
+    OverdueTrainingAlertWorker.set(queue: QUEUE).perform_async
   end
 
   ###############
@@ -88,6 +90,6 @@ class DailyUpdate
   ###############
   def push_course_data_to_salesforce
     log_message 'Pushing course data to Salesforce'
-    SalesforceSyncWorker.perform_async
+    SalesforceSyncWorker.set(queue: QUEUE).perform_async
   end
 end
