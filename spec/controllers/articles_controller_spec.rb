@@ -74,4 +74,16 @@ describe ArticlesController, type: :request do
       expect(article_course.reload.tracked).to eq(true)
     end
   end
+
+  describe '#update_tracked_status' do
+    it 'updates the tracked status' do
+      request_params = { article_id: article.id, course_id: course.id, tracked: false }
+      article_course = course.articles_courses.find_by(article_id: article.id)
+      post '/articles/status', params: request_params, as: :json
+      expect(article_course.reload.tracked).to eq(false)
+      request_params[:tracked] = true
+      post '/articles/status', params: request_params, as: :json
+      expect(article_course.reload.tracked).to eq(true)
+    end
+  end
 end
