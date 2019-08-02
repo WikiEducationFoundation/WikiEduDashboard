@@ -69,6 +69,14 @@ class Assignment < ApplicationRecord
       .where.not(user: user_id)
   end
 
+  def editing?
+    role == Roles::ASSIGNED_ROLE
+  end
+
+  def reviewing?
+    role == Roles::REVIEWING_ROLE
+  end
+
   def status
     AssignmentPipeline.new(assignment: self).status
   end
