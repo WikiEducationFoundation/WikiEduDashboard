@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/app/workers/daily_update/update_users_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_uploads_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/refresh_categories_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
+
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/lib/importers/assigned_article_importer"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
-require_dependency "#{Rails.root}/lib/importers/rating_importer"
-require_dependency "#{Rails.root}/lib/article_status_manager"
-require_dependency "#{Rails.root}/lib/importers/upload_importer"
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
-require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
   include BatchUpdateLogging
+
+  QUEUE = 'daily_update'
 
   def initialize
     setup_logger
@@ -46,31 +50,31 @@ class DailyUpdate
 
   def update_users
     log_message 'Updating registration dates for new Users'
-    UserImporter.update_users
+    UpdateUsersWorker.set(queue: QUEUE).perform_async
   end
 
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
-    UploadImporter.find_deleted_files
+    UpdateCommonsUploadsWorker.set(queue: QUEUE).perform_async
   end
 
   def update_article_data
     log_message 'Finding articles that match assignment titles'
-    AssignedArticleImporter.import_articles_for_assignments
+    FindAssignmentsWorker.set(queue: QUEUE).perform_async
 
     log_message 'Rebuilding ArticlesCourses for all current students'
-    ArticlesCoursesCleaner.rebuild_articles_courses
+    CleanArticlesCoursesWorker.set(queue: QUEUE).perform_async
 
     log_message 'Updating ratings for all articles'
-    RatingImporter.update_all_ratings
+    ImportRatingsWorker.set(queue: QUEUE).perform_async
 
     log_message 'Updating article namespace and deleted status'
-    ArticleStatusManager.update_article_status
+    UpdateArticleStatusWorker.set(queue: QUEUE).perform_async
   end
 
   def update_category_data
     log_message 'Updating tracked categories'
-    Category.refresh_categories_for(Course.current)
+    RefreshCategoriesWorker.set(queue: QUEUE).perform_async
   end
 
   ##########
@@ -78,7 +82,7 @@ class DailyUpdate
   ##########
   def generate_overdue_training_alerts
     log_message 'Generating alerts for overdue trainings'
-    OverdueTrainingAlertManager.new(Course.strictly_current).create_alerts
+    OverdueTrainingAlertWorker.set(queue: QUEUE).perform_async
   end
 
   ###############
@@ -86,16 +90,6 @@ class DailyUpdate
   ###############
   def push_course_data_to_salesforce
     log_message 'Pushing course data to Salesforce'
-    Course.current.each do |course|
-      next unless course.flags[:salesforce_id]
-      PushCourseToSalesforce.new(course)
-    end
-    ClassroomProgramCourse
-      .archived
-      .where(withdrawn: false)
-      .reject(&:closed?)
-      .select(&:approved?).each do |course|
-      UpdateCourseFromSalesforce.new(course)
-    end
+    SalesforceSyncWorker.set(queue: QUEUE).perform_async
   end
 end
