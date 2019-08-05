@@ -5,6 +5,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '../common/article_viewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
+import Switch from 'react-switch';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -14,6 +15,7 @@ const Article = createReactClass({
     index: PropTypes.number,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
+    updateArticleTrackedStatus: PropTypes.func,
     articleDetails: PropTypes.object,
     wikidataLabel: PropTypes.string,
     showOnMount: PropTypes.bool,
@@ -22,10 +24,21 @@ const Article = createReactClass({
     selectedIndex: PropTypes.number
   },
 
+  getInitialState() {
+    return {
+      tracked: this.props.article.tracked
+    };
+  },
+
   fetchArticleDetails() {
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
     }
+  },
+
+  handleTrackedChange(tracked) {
+    this.props.updateArticleTrackedStatus(this.props.article.id, this.props.course.id, tracked);
+    this.setState({ tracked });
   },
 
   render() {
@@ -35,6 +48,14 @@ const Article = createReactClass({
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
+
+    const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
+
+    const tracked = (
+      <td className="tracking">
+        <Switch onChange={this.handleTrackedChange} disabled={!trackedEditable} checked={this.state.tracked} onColor="#676eb4" />
+      </td>
+    );
 
     return (
       <tr className="article">
@@ -83,6 +104,7 @@ const Article = createReactClass({
             selectedIndex={this.props.selectedIndex}
           />
         </td>
+        {tracked}
       </tr>
     );
   }

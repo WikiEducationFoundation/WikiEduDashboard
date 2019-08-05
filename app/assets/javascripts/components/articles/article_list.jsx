@@ -86,6 +86,11 @@ const ArticleList = createReactClass({
         label: I18n.t('articles.tools'),
         desktop_only: false,
         sortable: false
+      },
+      tracked: {
+        label: I18n.t('articles.tracked'),
+        desktop_only: true,
+        sortable: false
       }
     };
 
@@ -110,6 +115,7 @@ const ArticleList = createReactClass({
         // eslint-disable-next-line
         current_user={this.props.current_user}
         fetchArticleDetails={this.props.actions.fetchArticleDetails}
+        updateArticleTrackedStatus={this.props.actions.updateArticleTrackedStatus}
         articleDetails={this.props.articleDetails[article.id] || null}
         setSelectedIndex={this.showDiff}
         lastIndex={this.props.articles.length}
