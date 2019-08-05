@@ -227,7 +227,7 @@ fr:
     review_self: Relire un article
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
-    sandbox_draft_link: Brouillon de bac à sable
+    sandbox_draft_link: Brouillon du bac à sable
     select: Sélectionner
   blocks:
     milestones:

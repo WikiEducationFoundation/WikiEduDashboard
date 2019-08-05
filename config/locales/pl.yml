@@ -173,6 +173,7 @@ pl:
       Wikipedii)
   assignments:
     article: Artykuł %{title} został przypisany
+    article_link: Artykuł
     already_exists: Zadanie już zostało przypisane!
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
@@ -181,10 +182,12 @@ pl:
     add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
     add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
+    bibliography: Bibliografia
     clone: Sklonuj
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
     confirm_deletion: Czy na pewno chcesz usunąć to zadanie?
+    editors: Przypisany do
     label: Przypisz
     loading: Wczytuję zadane artykuły…
     none_short: Żaden artykuł nie został zadany

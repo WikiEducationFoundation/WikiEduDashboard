@@ -16,10 +16,10 @@ bcl:
     none: An kursong ini dae nakapagliwat nin arinman na mga artikulo.
     rating: Klase
     rating_docs:
-      start: Poon-sa-klase — sarong preliminaryong artikulo na igwa nin kadakol na
-        kuwarto para sa ikapag-gayon
-      list: Lista-nin-klase — sarong listahan kesa baya sa sarong konbensyonal na
-        artikulo
+      start: '%{class}-klase — sarong preliminaryong artikulo na igwa nin kadakol
+        na kuwarto para sa ikapag-gayon'
+      list: '%{class}-klase — sarong listahan kesa baya sa sarong konbensyonal na
+        artikulo'
     title: Titulo
     view: Hilingon an Artikulo
     view_all: Tanawon Gabos
@@ -36,13 +36,13 @@ bcl:
   courses:
     activity: Aktibidad
     articles: Mga Artikulo
-    course_description: Mga kurso sa Pagliwat sa Wiki
+    course_description: Mga Kurso
     courses: Mga Kurso
     current: Presenteng mga Kurso
     nocourses: Ika dae nagpapartisipar sa arinman na mga kurso.
-    overview: Mahiwason na patanaw
+    overview: Ginikanan
     students: Mga Estudyante
-    students_none: '%{title} mayo nin siisay man na nakapagpatalang mga estudyante.'
+    students_none: Mayo nin siisay man na nakapagpatalang mga estudyante.
     students_short: Mga Estudyante
     timeline: Katokahang mga Detalye
     title: Titulo
@@ -51,7 +51,7 @@ bcl:
       nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
       pagliwat sa lambang artikulo
     view_wiki: Tanawon sa Wikipedia
-    weeks_none: '%{title} mayo nin mga katokahan'
+    weeks_none: An kursong ini mayo pa nin oras.
     yourcourses: An saimong mga Kurso
   metrics:
     characters: Mga Letra
@@ -78,9 +78,11 @@ bcl:
     name: Pangaran
     reviewers: Tagapagrepaso
     training_complete:
-      one: nakapagkumpleto na nin pagsanay
+      one: is up-to-date with training
       other: nakakumpleto na nin pagsanay
-    training_complete_count: '%{count} nakapagkumpleto nin pagsanay'
+    training_complete_count:
+      one: '%{count} training up-to-date'
+      other: '%{count} nakapagkumpleto nin pagsanay'
     training_incomplete: Pagsanay Bakong Kumpleto
   error_422:
     header: 422 — dae maprosesong entidad.  :-(
