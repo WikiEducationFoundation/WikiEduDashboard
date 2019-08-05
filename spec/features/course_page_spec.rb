@@ -426,4 +426,26 @@ describe 'the course page', type: :feature, js: true do
       end
     end
   end
+
+  describe 'articles tracking' do
+    it 'does not allow articles to be marked for tracking by students' do
+      js_visit "/courses/#{Course.last.slug}/articles"
+      expect(first('.tracking').find('input').disabled?).to eq(true)
+    end
+
+    it 'does allows articles to be marked for tracking by instructors/admin' do
+      login_as(admin)
+      js_visit "/courses/#{Course.last.slug}/articles"
+      expect(first('.tracking').find('input').disabled?).to eq(false)
+    end
+
+    it 'marks an article to be excluded once it is untracked' do
+      login_as(admin)
+      course = Course.last
+      js_visit "/courses/#{course.slug}/articles"
+      expect(course.tracked_revisions.count).to eq(course.revisions.count)
+      first('.tracking').click
+      expect(course.tracked_revisions.count).to be < course.revisions.count
+    end
+  end
 end
