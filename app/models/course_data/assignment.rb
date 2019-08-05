@@ -76,12 +76,8 @@ class Assignment < ApplicationRecord
     role == Roles::REVIEWING_ROLE
   end
 
-  def status
-    AssignmentPipeline.new(assignment: self).status
-  end
-
-  def next_status
-    AssignmentPipeline.new(assignment: self).next_status
+  def assignment_pipeline
+    @pipeline ||= AssignmentPipeline.new(assignment: self)
   end
 
   private
