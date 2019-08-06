@@ -39,6 +39,11 @@ class AssignmentPipeline
     @flags[@key][:status]
   end
 
+  def all_statuses
+    constants = AssignmentStatuses.constants
+    constants.map { |constant| AssignmentStatuses.const_get(constant) }
+  end
+
   def update_status(new_status)
     return unless @pipeline.include?(new_status)
     @flags[@key] = {} unless @flags[@key]
@@ -46,6 +51,8 @@ class AssignmentPipeline
     @flags[@key][:updated_at] = Time.zone.now
     @assignment.save
   end
+
+  private
 
   def next_status
     index = @pipeline.index(status)
