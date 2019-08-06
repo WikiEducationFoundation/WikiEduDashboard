@@ -87,12 +87,15 @@ const ArticleList = createReactClass({
         desktop_only: false,
         sortable: false
       },
-      tracked: {
+    };
+
+    if (this.props.course.type !== 'ClassroomProgramCourse') {
+      keys.tracked = {
         label: I18n.t('articles.tracked'),
         desktop_only: true,
         sortable: false
-      }
-    };
+      };
+    }
 
     const sort = this.props.sort;
     if (sort.key) {
