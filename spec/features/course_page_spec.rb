@@ -428,24 +428,57 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'articles tracking' do
+    let(:course) do
+      editathon_slug = 'This_university.foo.bar/This.course_(term_2015)'
+      create(:editathon,
+             id: 10002,
+             title: 'This.course',
+             slug: editathon_slug,
+             start: '10-07-2019'.to_date,
+             end: '10-08-2019'.to_date,
+             timeline_start: course_start.to_date,
+             timeline_end: course_end.to_date,
+             school: 'This university.foo.bar',
+             expected_students: 1,
+             term: 'term 2015',
+             home_wiki_id: home_wiki.id,
+             description: 'This is a great course',
+             flags: update_logs)
+    end
+    let(:user) { create(:user, username: 'Hbultra') }
+
+    before do
+      course.students << user
+      VCR.use_cassette 'course_upload_importer/Hbultra' do
+        UpdateCourseStats.new(course)
+      end
+    end
+
     it 'does not allow articles to be marked for tracking by students' do
-      js_visit "/courses/#{Course.last.slug}/articles"
+      js_visit "/courses/#{course.slug}/articles"
       expect(first('.tracking').find('input').disabled?).to eq(true)
     end
 
     it 'does allows articles to be marked for tracking by instructors/admin' do
       login_as(admin)
-      js_visit "/courses/#{Course.last.slug}/articles"
+      js_visit "/courses/#{course.slug}/articles"
       expect(first('.tracking').find('input').disabled?).to eq(false)
     end
 
     it 'marks an article to be excluded once it is untracked' do
       login_as(admin)
-      course = Course.last
       js_visit "/courses/#{course.slug}/articles"
       expect(course.tracked_revisions.count).to eq(course.revisions.count)
       first('.tracking').click
       expect(course.tracked_revisions.count).to be < course.revisions.count
+    end
+
+    it 'is not shown for certain course types like ClassroomProgramCourse' do
+      login_as(admin)
+      js_visit "/courses/#{Course.first.slug}/articles"
+      expect do
+        find('.tracking')
+      end.to raise_error(Capybara::ElementNotFound)
     end
   end
 end
