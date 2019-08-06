@@ -29,13 +29,12 @@ describe AssignmentPipeline do
       end
     end
 
-    describe '#next_status' do
-      it 'predicts the next assignment status from having no status' do
+    describe '#all_statuses' do
+      it 'returns all the available statuses for the provided pipeline' do
         pipeline = described_class.new(assignment: assignment)
 
-        actual = pipeline.next_status
-        expected = described_class::AssignmentStatuses::READY_FOR_REVIEW
-        expect(actual).to equal(expected)
+        actual = pipeline.all_statuses
+        expect(actual.length).to equal(3)
       end
     end
 
@@ -91,13 +90,12 @@ describe AssignmentPipeline do
       end
     end
 
-    describe '#next_status' do
-      it 'predicts the next assignment status from having no status' do
+    describe '#all_statuses' do
+      it 'returns all the available statuses for the provided pipeline' do
         pipeline = described_class.new(assignment: assignment)
 
-        actual = pipeline.next_status
-        expected = described_class::ReviewStatuses::PEER_REVIEW_STARTED
-        expect(actual).to equal(expected)
+        actual = pipeline.all_statuses
+        expect(actual.length).to equal(3)
       end
     end
 

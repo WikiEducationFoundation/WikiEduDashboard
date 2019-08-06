@@ -23,4 +23,4 @@ json.username assignment.user.username if assignment.user
 
 # Assignment Status
 json.assignment_status assignment.assignment_pipeline.status
-json.assignment_next_status assignment.assignment_pipeline.next_status
+json.assignment_all_statuses assignment.assignment_pipeline.all_statuses
