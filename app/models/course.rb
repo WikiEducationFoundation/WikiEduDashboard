@@ -267,6 +267,10 @@ class Course < ApplicationRecord
     revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
   end
 
+  def tracked_articles
+    articles.where.not(id: articles_courses.not_tracked.pluck(:article_id))
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
@@ -302,7 +306,7 @@ class Course < ApplicationRecord
   end
 
   def new_articles
-    articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
+    articles_courses.tracked.live.new_article.joins(:article).where('articles.namespace = 0')
   end
 
   def new_articles_on(wiki)

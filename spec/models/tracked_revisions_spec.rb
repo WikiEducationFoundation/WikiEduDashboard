@@ -19,6 +19,12 @@ describe 'Course#tracked_revisions' do
 
     # Check if the data is cached
     old_character_sum = course.character_sum
+    old_course = course.dup
+    expect(course.revision_count).to eq(old_course.revision_count)
+    expect(course.view_sum).to eq(old_course.view_sum)
+    expect(course.references_count).to eq(old_course.references_count)
+    expect(course.article_count).to eq(old_course.article_count)
+    expect(course.new_article_count).to eq(old_course.new_article_count)
     expect(course.character_sum).to eq(old_character_sum)
     expect(CoursesUsers.first.character_sum_ms).to eq(old_character_sum)
     expect(course.articles_courses.tracked.sum(:character_sum)).to eq(old_character_sum)
@@ -32,8 +38,12 @@ describe 'Course#tracked_revisions' do
     VCR.use_cassette 'course_upload_importer/Hbultra' do
       UpdateCourseStats.new(course)
     end
-
     # Check if the updated cached data is lesser than previous data due to excluded articles
+    expect(course.revision_count).to be < old_course.revision_count
+    expect(course.view_sum).to eq(0).or be < old_course.view_sum
+    expect(course.references_count).to eq(0).or be < old_course.references_count
+    expect(course.article_count).to be < old_course.article_count
+    expect(course.new_article_count).to eq(0).or be < old_course.new_article_count
     expect(course.character_sum).to be < old_character_sum
     expect(course.articles_courses.tracked.sum(:character_sum)).to be < old_character_sum
     expect(CoursesUsers.first.character_sum_ms).to be < old_character_sum
