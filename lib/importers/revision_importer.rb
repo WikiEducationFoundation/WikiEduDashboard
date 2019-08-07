@@ -88,7 +88,7 @@ class RevisionImporter
   end
 
   def latest_revision_of_course
-    @course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
+    @course.tracked_revisions.where(wiki_id: @wiki.id).order('date DESC').first
   end
 
   def import_revisions_slice(sub_data)

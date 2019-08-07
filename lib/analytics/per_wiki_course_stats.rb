@@ -17,7 +17,7 @@ class PerWikiCourseStats
 
   def wiki_stats(wiki)
     {
-      "#{wiki.domain}_edits" => @course.revisions.where(wiki: wiki).count,
+      "#{wiki.domain}_edits" => @course.tracked_revisions.where(wiki: wiki).count,
       "#{wiki.domain}_articles_edited" => @course.articles.where(wiki: wiki).count,
       "#{wiki.domain}_articles_created" => @course.new_articles_on(wiki).count
     }

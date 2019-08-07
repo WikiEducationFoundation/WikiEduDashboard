@@ -49,7 +49,7 @@ class CourseCacheManager
   end
 
   def update_view_sum
-    @course.view_sum = @course.articles_courses.live.sum(:view_count)
+    @course.view_sum = @course.articles_courses.tracked.live.sum(:view_count)
   end
 
   def update_trained_count
@@ -67,7 +67,7 @@ class CourseCacheManager
   end
 
   def update_revision_count
-    @course.revision_count = @course.revisions.live.size
+    @course.revision_count = @course.tracked_revisions.live.size
   end
 
   def update_recent_revision_count
@@ -75,7 +75,7 @@ class CourseCacheManager
   end
 
   def update_article_count
-    @course.article_count = @course.articles.namespace(0).live.size
+    @course.article_count = @course.tracked_articles.namespace(0).live.size
   end
 
   def update_new_article_count

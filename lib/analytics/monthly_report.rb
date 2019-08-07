@@ -66,7 +66,7 @@ class MonthlyReport
   def revision_ids_for(courses)
     revision_ids = []
     courses.each do |course|
-      revision_ids += course.revisions.pluck(:id)
+      revision_ids += course.tracked_revisions.pluck(:id)
     end
     revision_ids.uniq
   end
