@@ -22,6 +22,7 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
 
   let addCategoryButton;
   let addTemplateButton;
+  let addPSIDButton;
   if (editable) {
     addCategoryButton = (
       <AddCategoryButton
@@ -29,6 +30,14 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
         addCategory={addCategory}
         course={course}
         source="category"
+      />
+    );
+    addPSIDButton = (
+      <AddCategoryButton
+        key="add_psid_button"
+        addCategory={addCategory}
+        course={course}
+        source="psid"
       />
     );
     addTemplateButton = (
@@ -47,6 +56,7 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
         <h3>{I18n.t('categories.tracked_categories')}</h3>
         <div className="section-header__actions">
           {addCategoryButton}
+          {addPSIDButton}
           {addTemplateButton}
         </div>
       </div>

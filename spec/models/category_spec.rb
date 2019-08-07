@@ -37,6 +37,22 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    context 'for psid-source Category' do
+      let(:category) { create(:category, name: 9964305, source: 'psid') }
+      let(:course) { create(:course) }
+      let!(:article) { create(:article, title: 'A cappella') }
+
+      it 'updates article titles for categories associated with courses' do
+        expect(Category.last.article_titles).to be_empty
+
+        VCR.use_cassette 'categories' do
+          Category.refresh_categories_for(Course.all)
+          expect(Category.last.article_titles).not_to be_empty
+          expect(Category.last.article_ids).to include(article.id)
+        end
+      end
+    end
+
     context 'for template-source Category' do
       let(:category) { create(:category, name: 'Malaysia-sport-bio-stub', source: 'template') }
       let(:course) { create(:course) }

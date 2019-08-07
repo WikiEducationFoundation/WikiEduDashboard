@@ -53,7 +53,7 @@ class Category < ApplicationRecord
     when 'category'
       CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
     when 'psid'
-      PetScanApi.new.page_titles_for_psid(psid)
+      PetScanApi.new.page_titles_for_psid(name)
     when 'template'
       TransclusionImporter.new(self).transcluded_titles
     end
