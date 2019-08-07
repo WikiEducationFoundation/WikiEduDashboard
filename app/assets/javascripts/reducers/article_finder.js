@@ -150,13 +150,12 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_PSID_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data['*'][0].a['*'].forEach((data, i) => {
+      action.data['*'][0].a['*'].forEach((data) => {
         newStateArticles[replaceAll(data.title, '_', ' ')] = {
           pageid: data.id,
           ns: data.namespace,
           fetchState: 'TITLE_RECEIVED',
           title: replaceAll(data.title, '_', ' '),
-          relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
       let fetchState = 'TITLE_RECEIVED';
@@ -168,7 +167,6 @@ export default function articleFinder(state = initialState, action) {
         articles: newStateArticles,
         loading: false,
         fetchState: fetchState,
-        lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
