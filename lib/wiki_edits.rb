@@ -162,7 +162,7 @@ class WikiEdits
   end
 
   def handle_mediawiki_server_errors(response)
-    return unless response.code =~ /^5../
+    return unless /^5../.match?(response.code)
     Raven.capture_message('Wikimedia API is down')
     yield
   end

@@ -15,7 +15,7 @@ module Errors
       '<p>Run `gulp` or `gulp build` and make sure there are no build errors.</p>'
     def self.rescue_from_rev_manifest(base)
       base.rescue_from ActionView::Template::Error do |e|
-        raise e unless e.message =~ /rev-manifest.json/
+        raise e unless /rev-manifest.json/.match?(e.message)
         explanation = '<p><code>' + String.new(e.message) + '</p></code>'
         explanation << REV_MANIFEST_EXPLANATION
 

@@ -100,7 +100,7 @@ class WikiPageviews
     data = Utils.parse_json(response)
     return data['items'] if data['items']
     # As of October 2017, the data type is https://www.mediawiki.org/wiki/HyperSwitch/errors/not_found
-    return no_results if data['type'] =~ %r{errors/not_found}
+    return no_results if %r{errors/not_found}.match?(data['type'])
     raise PageviewApiError, response
   end
 
