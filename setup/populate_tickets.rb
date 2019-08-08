@@ -103,7 +103,11 @@ def create_ticket_and_replies(course, sender, owner)
   })
   
   content = rand(3..6).times.inject('') do |acc|
-    acc + Faker::Lorem.sentence(3,true, 10) + " "
+    acc + Faker::Lorem.sentence(
+      word_count: 3,
+      supplemental: true,
+      random_words_to_add: 10
+    ) + " "
   end
   
   ticket.messages << TicketDispenser::Message.create({
