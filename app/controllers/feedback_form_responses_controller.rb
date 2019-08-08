@@ -3,7 +3,7 @@
 class FeedbackFormResponsesController < ApplicationController
   def new
     set_subjects
-    @is_training_module = true if @subject =~ %r{/training/}
+    @is_training_module = true if %r{/training/}.match?(@subject)
     @feedback_form_response = FeedbackFormResponse.new
   end
 

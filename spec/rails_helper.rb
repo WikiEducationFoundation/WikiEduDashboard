@@ -107,7 +107,7 @@ RSpec.configure do |config|
         errors.each do |error|
           # some specs test behavior for 4xx responses and other errors.
           # Don't fail on these.
-          next if error.message =~ /Failed to load resource/
+          next if /Failed to load resource/.match?(error.message)
 
           expect(error.level).not_to eq('SEVERE'), error.message
           next unless error.level == 'WARNING'
