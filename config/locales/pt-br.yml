@@ -172,6 +172,7 @@ pt-br:
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
       autoria
     title: Título
+    tracked: Monitorizado
     title_example: Título do artigo
     tools: Ferramentas de avaliação
     view: Ver artigo

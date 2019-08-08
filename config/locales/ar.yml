@@ -158,6 +158,7 @@ ar:
     show_current_version: عرض النسخة الحالية
     show_current_version_with_authorship_highlighting: النسخة الحالية دون تظليل المؤلف
     title: العنوان
+    tracked: متتبع
     title_example: عنوان المقال
     tools: أدوات التقييم
     view: عرض المقالة

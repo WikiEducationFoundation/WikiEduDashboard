@@ -177,6 +177,7 @@ fr:
     show_current_version_with_authorship_highlighting: Version actuelle avec mise
       en évidence de la paternité
     title: Titre
+    tracked: Suivi
     title_example: Titre de l’article
     tools: Outils d’évaluation
     view: Afficher l’article

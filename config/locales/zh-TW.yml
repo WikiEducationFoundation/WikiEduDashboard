@@ -140,6 +140,7 @@ zh-TW:
     show_current_version: 顯示目前版本
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
     title: 標題
+    tracked: 已追蹤
     title_example: 條目標題
     tools: 評估工具
     view: 檢視文章

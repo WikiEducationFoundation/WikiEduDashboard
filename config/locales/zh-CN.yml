@@ -13,6 +13,7 @@
 # Author: NeverBehave
 # Author: Phenolla
 # Author: Shizhao
+# Author: Viztor
 # Author: WDLJT
 # Author: Yanjiazhang
 # Author: Yfdyh000
@@ -135,6 +136,7 @@ zh-CN:
     wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
   assignments:
     article: 条目%{title}已分配给您。
+    article_link: 条目
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
@@ -144,9 +146,11 @@ zh-CN:
     add_available_submit: 添加条目
     assign_self: 给我自己分配一个条目
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
+    bibliography: 参考文献
     confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此条目分配吗？
+    editors: 分派给
     label: 分配
     loading: 正在加载作业...
     none_short: 没有分配的条目
