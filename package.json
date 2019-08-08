@@ -44,7 +44,7 @@
     "gulp-consolidate": "^0.2.0",
     "gulp-css-flipper": "^1.0.2",
     "gulp-csslint": "^1.0.1",
-    "gulp-eslint": "^5.0.0",
+    "gulp-eslint": "^6.0.0",
     "gulp-iconfont": "^10.0.3",
     "gulp-imagemin": "^6.0.0",
     "gulp-jsx-coverage": "^0.4.0",
