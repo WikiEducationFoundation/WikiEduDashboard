@@ -48,7 +48,7 @@ script:
   - yarn test
   - bundle exec rspec --color --profile
     --tag $TEST_SUITE
-  - bundle exec rubocop --rails
+  - bundle exec rubocop
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_success:
