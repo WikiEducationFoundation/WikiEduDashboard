@@ -97,7 +97,7 @@
     "react": "^16.8.6",
     "react-burger-menu": "2.6.11",
     "react-confetti": "^3.1.2",
-    "react-day-picker": "7.3.1",
+    "react-day-picker": "7.3.2",
     "react-dnd": "^3.0.2",
     "react-dnd-html5-backend": "^5.0.1",
     "react-dnd-touch-backend": "^0.3.15",
