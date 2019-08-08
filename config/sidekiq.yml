@@ -25,3 +25,4 @@ test:
  - short_update
  - medium_update
  - long_update
+ - daily_update

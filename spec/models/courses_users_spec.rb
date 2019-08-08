@@ -28,7 +28,7 @@ describe CoursesUsers, type: :model do
   describe '.update_all_caches' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
-    it 'updates data for course-user relationships' do
+    before do
       # Add a user, a course, an article, and a revision.
       create(:user,
              id: 1,
@@ -78,7 +78,9 @@ describe CoursesUsers, type: :model do
              id: 1,
              article_id: 1,
              course_id: 1)
+    end
 
+    it 'updates data for course-user relationships' do
       # Update caches for all CoursesUsers
       described_class.update_all_caches(described_class.where(id: 1))
 
@@ -92,6 +94,19 @@ describe CoursesUsers, type: :model do
       expect(course_user.character_sum_us).to eq(0)
       expect(course_user.references_count).to eq(5)
       expect(course_user.real_name).to eq('John Smith')
+    end
+
+    it 'updates only updates cache from tracked revisions' do
+      ArticlesCourses.first.update(tracked: false)
+      described_class.update_all_caches(described_class.where(id: 1))
+      # Fetch the created CoursesUsers entry
+      course_user = described_class.all.first
+      # Check if the stats are empty
+      # Check to see if the expected data got cached
+      expect(course_user.revision_count).to eq(0)
+      expect(course_user.character_sum_ms).to eq(0)
+      expect(course_user.character_sum_us).to eq(0)
+      expect(course_user.references_count).to eq(0)
     end
   end
 

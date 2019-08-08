@@ -10,7 +10,7 @@ class RevisionsController < ApplicationController
     user = User.find(params[:user_id])
     course = Course.find(params[:course_id])
 
-    @revisions = course.revisions.where(user_id: user.id)
+    @revisions = course.tracked_revisions.where(user_id: user.id)
                        .order('revisions.date DESC')
                        .eager_load(:article, :wiki)
                        .limit(params[:limit] || DEFAULT_REVISION_LIMIT)

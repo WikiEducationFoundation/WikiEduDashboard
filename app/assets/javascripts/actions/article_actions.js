@@ -18,3 +18,14 @@ export function fetchArticleDetails(articleId, courseId) {
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }
+
+export function updateArticleTrackedStatus(articleId, courseId, tracked) {
+  return function (dispatch) {
+    return API.updateArticleTrackedStatus(articleId, courseId, tracked).then(response => (dispatch({
+      type: types.UPDATE_ARTICLE_TRACKED_STATUS,
+      articleId: articleId,
+      tracked: tracked,
+      data: response
+    }))).catch(response => (dispatch({ type: types.API_FAIL, data: response })));
+  };
+}

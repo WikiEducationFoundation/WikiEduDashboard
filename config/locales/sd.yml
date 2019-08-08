@@ -246,14 +246,14 @@ sd:
     save: سانڍيو
   metrics:
     activity: تازي سرگرمي
-    articles_created: تخليقيل مضمون
+    articles_created: سرجيل مضمون
     articles_edited: سنواريل مضمون
     characters: اکرَ
     char_added: شامل ڪيل اکرن جو تعداد
     char_changed: تبديل ڪيل اکرن جو تعداد
     char: شامل ڪيل اکرن جو تعداد
     date_time: تاريخ/وقت
-    edit_count_description: ڪل ترميمون
+    edit_count_description: ڪل سنوارون
     revisions: تازيون تبديليون
     view_count_description: مضمون جون ڏيٿون
     view: ڏيٺون
@@ -264,8 +264,8 @@ sd:
   recent_activity:
     article_title: مضمون جو عنوان
     datetime: تاريخ/وقت
-    no_edits: ڪي بہ تازيون ترميمون ناھن.
-    recent_edits: تازيون ترميمون
+    no_edits: ڪي بہ تازيون سنوارون ناھن.
+    recent_edits: تازيون سنوارون
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو

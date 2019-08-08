@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Irus
+# Author: Surprizi
 # Author: Андрей
 ---
 ab:
@@ -95,6 +96,7 @@ ab:
     current: Уажәтәи акурсқәа
     delete_course: Ианыхтәуп акурс
     delete_suggestion: Ианыхуп
+    dismiss_survey: Аркра
     download_stats_data: Иҭыгатәуп астатистика
     edit_count: Ариашарақәа рхыҧхьаӡара
     instructor:

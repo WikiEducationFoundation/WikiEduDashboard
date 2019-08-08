@@ -1,6 +1,7 @@
 # Messages for Tagalog (Tagalog)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Brazal.dang
 # Author: Emem.calist
 # Author: Leeheonjin
 ---
@@ -15,7 +16,10 @@ tl:
     rating_docs:
       does_not_exist: Itong artikulo ay walang itinala sa Wikipedia
   assignments:
+    article_link: Artikulo
     title_too_large: Ang pamagat ay hindi dapat lalagpas ng 255 na karakters
+    bibliography: Talaaklatan
+    editors: Itinalaga Kay
   courses:
     campaign_courses: Mga Kurso
     overview: Pangunang Pahina (Ang Pinagmulan)

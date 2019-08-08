@@ -41,6 +41,8 @@ he:
     field_required: חובה למלא שדה הה
     field_invalid_characters: שדה זה מכיל תווים שאינם חוקיים
     field_invalid_date: 'בשדה זה יש להשתמש בתאריך עם המבנה יום, חודש ושנה, כך: YYYY-MM-DD'
+    field_invalid_date_time: תאריך הסיום חייב להיות אחרי תאריך ההתחלה. (השעות ממוספרות
+      מ־0 עד 23)
     greeting2: ברוכים הבאים ללוח הבקרה של מיזמי ויקי!
     greeting_extended: ברוכים הבאים לוויקיפדיה!
     greeting: שלום!
@@ -52,11 +54,13 @@ he:
     my_dashboard: לוח הבקרה שלי
     recent_activity: פעילות אחרונה
     report_problem: דיווח על תקלה
+    request_account: בקשת חשבון
     request_account_create: יצירת חשבון
     search: יש לך שאלות?
     search_results: 'תוצאות עבור: ''%{search_terms}'''
     no_results: לא נמצאו תוצאות עבור '%{query}'
     sign_up_extended: הרשמה עם חשבון ויקיפדיה
+    sign_up_wikipedia: או הרשמה דרך ויקיפדיה
     sign_up_log_in_extended: עם ויקיפדיה
     sign_up: הרשמה
     submit: שליחה
@@ -100,6 +104,7 @@ he:
   articles:
     assigned: ערכים מוקצים
     available: ערכים זמינים
+    no_available: אין ערכים זמינים
     next: הבא
     previous: הקודם
     article_title: כותרת הערך
@@ -110,6 +115,11 @@ he:
     edited: ערכים שנערכו
     edited_by: 'נערך על־ידי:'
     edited_mobile: ערכים
+    filter:
+      wiki_all: הכול
+      new: חדשים
+      existing: קיימים
+      new_and_existing: חדשים וגם קיימים
     hide: הסתרה
     history: (היסטוריה)
     label: ערכים
@@ -137,6 +147,7 @@ he:
       list: רשימה – רשימה, ולא ערך רגיל
       '?': לא מדורג – ערך שעדיין לא דורג בסולם האיכות של ויקיפדיה
       does_not_exist: הערך אינו קיים בוויקיפדיה
+    see_more: לטעון עוד
     show_cumulative_changes: הצגת שינויים מצטברים
     show_current_version: הצג גרסה נוכחית
     title: כותרת \ שם
@@ -147,6 +158,7 @@ he:
     view_doc: סך מספר הצפיות בכל ערך במהלך התוכנית
     view_on_wiki: הצג בוויקי
     views_added: נוספו %{count} צפיות חדשות לדף %{title}
+    edit_size: גודל העריכה
     wiki: ויקי
     wp10: שלמות מבנית
     wp10_doc: "הציון עבור \"שלמות מבנית\" מייצג עד כמה הערך מתאים לתבנית של ערך ויקיפדיה
@@ -158,6 +170,8 @@ he:
       את הסטנדרט הוויקיפדי למבנה של ערך הכתוב טוב, אך הוא אינו מתייחס לתוכן עצמו.
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
   assignments:
+    article: הערך %{title} כעת מוקצה אליך.
+    article_link: ערך
     already_exists: הקצאה זו כבר קיימת!
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
@@ -166,9 +180,13 @@ he:
     add_available_placeholder: יש להוסיף שם אחד או כתובת URL אחת של ערך בכל שורה
     add_available_submit: הוספת הערכים
     assign_self: הקצאת ערך לעצמי
+    assign_tooltip: ערך מוקצה הוא ערך שאתם מתכננים ליצור או לשפר.
+    bibliography: ביבליוגרפיה
+    clone: שכפול
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
     confirm_deletion: באמת למחוק את ההקצאה הזו?
+    editors: משויך ל
     label: שיוך
     loading: טעינת ערכים משוייכים...
     none_short: אין ערכים משוייכים
@@ -183,15 +201,31 @@ he:
     milestones:
       title: אבני דרך
   campaign:
+    active_campaigns: מסעות פרסום פעילים
+    add_organizer: הוספת מארגן
     alert_article: כותרת הערך
+    alert_label: התראות על מסע הפרסום
     alert_select_label: סינון לפי סוג ההתראה
+    alert_type: סוג
+    alert_user_id: משתמש
     all_campaigns: כל מסעות הפרסום
     campaign: מיזם \ פרויקט \ קמפיין
     campaigns: מסעות פרסום
+    campaign_deleted: מסע הפרסום "%{title}" נמחק
+    campaign_not_updated: לא היה ניתן לעדכן את מסע הפרסום
     campaign_updated: מסע הפרסום עודכן
     created_at: תאריך
+    confirm_campaign_deletion: האם באמת ברצונך למחוק את מסע הפרסום "%{title}"? אם
+      כן, יש להקליד את שם התוכנית על מנת להמשיך.
+    confirm_campaign_deletion_failed: '"%{title}" אינו השם של מסע הפרסום הזה. מחיקת
+      מסע הפרסום נכשלה.'
+    confirm_course_removal: האם באמת ברצונך להסיר את "%{title}" ממסע הפרסום "%{campaign_title}"?
+    course_already_removed: '"%{title}" כבר הוסר ממסע הפרסום "%{campaign_title}"'
+    course: קורס
+    course_removed: '"%{title}" הוסר ממסע הפרסום "%{campaign_title}"'
     create_campaign: יצירת מסע פרסום חדש
     create_my_campaign: יצירת מסע הפרסום שלי!
+    data_articles: דפים שנערכו
     default_course_type: סוג הקורס כבררת מחדל
     description: תיאור
     delete_campaign: מחיקת מסע הפרסום הזה
@@ -204,14 +238,18 @@ he:
     add_template: הוספת תבנית
     add_this_category: הוספת הקטגוריה הזאת
     add_this_template: הוספת התבנית הזאת
+    depth: עומק תת־קטגוריה
     name: שם
     category_name: שם הקטגוריה
     template_name: שם תבנית
     none: אין קטגוריות במעקב.
     remove: הסרה
     tracked_categories: קטגוריות ותבניות במעקב
+  chat:
+    label: צ'אט
   courses:
     activity: פעילות
+    alerts: התראות
     all_courses: כל הקורסים
     already_enrolled: הינך כבר חלק מ%{title}!
     already_exists: זה כבר קיים עבור הקורס הזה!
@@ -310,9 +348,11 @@ he:
       invalid_slug: שם בית הספר או הקורס לא מולאו.
       duplicate_slug: תוכנית אחרת בשם %{slug} כבר קיימת.
     expected_students: משתתפים מצופים
+    features_feedback: 'הצעות אוטומטיות:'
     feedback: משוב
     feedback_loading: נא להמתין לטעינת ההצעות…
     gradeables_none: לתוכנית \ לקורס \ למיזם הזה אין הקצאות שאפשר לתת להן ציונים.
+    home_wiki: האתר הראשי
     instructor:
       one: מנחה
       other: מנחים
@@ -343,6 +383,7 @@ he:
     passcode_none: אין קוד הרשמה
     passcode_prompt: נא להקליד את קוד ההרשמה שקיבלת מהמנחה שלך
     please_log_in: אנא התחברו
+    private: פרטי
     published: 'התוכנית \ הקורס \ המיזם שלך פורסם ופעיל! כעת משתתפים יכולים להירשם
       אליו ע"י ביקור בכתובת האינטרנט הבאה:'
     requested_accounts_alert_view: הצגה
@@ -352,6 +393,7 @@ he:
     revisions_doc: מספר העריכות ב־%{timeframe} הימים האחרונים
     revisions_none: בתוכנית \ בקורס \ במיזם הזה לא היתה פעילות ויקיפדיה לאחרונה.
     school: מוסד
+    search_courses: חיפוש קורסים
     start: התחלה
     start_typing: התחילו להקליד
     students: משתתפים
@@ -369,9 +411,15 @@ he:
     suggestions_sending: שליחת המשוב מתבצעת...
     user_role: תפקיד
     course_details: פרטים עבור תוכנית \ קורס \ מיזם
+    subject: נושא
+    submitted: נשלח
+    tag_select: לבחור או ליצור תג
+    tags: 'תגים:'
     term: מועד
     timeline: פרטי מטלה
+    timeline_enabled: ציר הזמן מופעל
     timeline_link: לוח זמנים
+    timeline_nav: מעבר לציר הזמן
     time_zone_message: זמני ההתחלה והסיום מוצגים על פי איזור הזמן שלך
     title: כותרת
     training_due: רכיב ההדרכה "%{title}" שוייך לתוכנית \ לקורס \ למיזם הזה, ויש להשלימו
@@ -381,9 +429,12 @@ he:
       צריך להשלימו עד תאריך %{date}.
     unsubmitted: תוכניות \ קורסים \ מיזמים שלא הוגשו
     untrained: לא עבר הדרכה
+    update_stats: עדכון סטטיסטיקות
     uploads_none: הקבוצה הזו לא תרמה תמונות או קבצי מדיה אחרים לויקישיתוף (WikiCommons).
+    user_uploads_none: משתמש זה לא תרם תמונות או קבצי מדיה אחרים לוויקישיתוף.
     user_recent_uploads: העלאות שבוצעו לאחרונה
     user_suggestions: 'הצעות משתמש:'
+    user_suggestions_prompt: ההצעות שלך לעורכי הערך
     view_other: עיון בקמפיינים אחרים
     view: הצגת התוכנית \ הקורס \ המיזם
     view_doc: סך כל הצפיות בערכים שערכו סטודנטים מאז שהעורך ביצע את עריכתו הראשונה
@@ -410,6 +461,7 @@ he:
       notification_message: מעבר לשאלון הזמין עבור התוכנית \ הקורס \ המיזם הזה
       link: מילוי שאלון
   courses_generic:
+    add_campaign: הוספת מסע פרסום
     all_courses: כל התכניות
     archived: תכניות בארכיון
     articles_none: אין, עדיין, דפים ערוכים לפרוייקט זה.
@@ -422,16 +474,22 @@ he:
     campaigns: מיזמים \ קמפיינים
     creator:
       assignment_end: סיום האירוע
-      assignment_end_placeholder: מועד סיום האירוע (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: התחלת האירוע
-      assignment_start_placeholder: התחלת האירוע (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: ביטול שכפול התוכנית
+      cancel_course_clone_confirm: האם באמת ברצונך לעצור את השכפול של התוכנית הזאת?
       checking_for_uniqueness: התוכנית \ הקורס \ המיזם נבדק על מנת לוודא שהוא ייחודי
       choose_clone: נא לבחור תכנית לשכפול.
       clone_previous: שיכפול תוכנית \ קורס \ מיזם קודם
       clone_this: שכפול התוכנית \ הקורס \ המיזם הזה
       clone_successful: התכנית שוכפלה בהצלחה
+      clone_successful_details: התוכנית שלך שוכפלה. יש ללחוץ על 'שמירה' למטה על מנת
+        לסיים את הגדרתה.
       course_description: תיאור התוכנית \ הקורס \ המיזם
       course_school: מוסד
+      course_term: מתי
+      course_term_placeholder: מתי
       course_title: כותרת התוכנית \ הקורס \ המיזם
       create_button: יצירת התוכנית \ הקורס \ המיזם שלי!
       create_label: יצירת תוכנית \ קורס \ מיזם חדש
@@ -441,6 +499,7 @@ he:
       find: מציאת תוכנית
       intro: כותרת התוכנית דרושה, כל דבר אחר ניתן למלא מאוחר יותר. לחיצה על "צור את
         התוכנית שלי!" כדי להתחיל לבנות את הדפים לתוכנית הוויקי שלך.
+      participate_in_campaign: השתתפות במסע פרסום
       save_cloned_course: שמירה
       start_date: התחלת מעקב פעילות
     delete_course: מחיקת תוכנית \ קורס \ מיזם
@@ -449,6 +508,7 @@ he:
     enroll: הוספת עורך
     enrollment: השתתפות
     explore: חיפוש תכניות
+    courses_enrolled: תוכניות שהשתתפת בהן
     expected_students: עורכים מצופים
     instructors: מנחים
     join_course: הצטרפות
@@ -542,11 +602,22 @@ he:
     time_doc: הזמן של כל גרסה היא באיזור הזמן הנוכחי שלך
     title: כותרת
     view_on_wiki: צפייה בשינויים בוויקיפדיה
+    see_more: לטעון עוד
+  resources:
+    label: משאבים
+  settings:
+    special_users:
+      remove:
+        revoking_button_working: מסיר...
+  suggestions:
+    editing: עריכת הצעות
   tasks:
     conseq: המשימה %{task} כבר בעבודה!
     constant: המשימה %{task} אינה יכולה לרוץ בזמן הרצת העידכון היומי (update_daily).
     paused: המשימה %{task} אינה יכולה לרוץ כי עדכונים מתוזמנים נעצרו. יש להריץ 'rake
       batch:resume' כדי לחזור לעדכונים.
+  tickets:
+    none: אין כרטיסים
   timeline:
     add_week: הוספת שבוע
     arrange_timeline: ארגון לוח הזמנים
@@ -572,7 +643,12 @@ he:
       האם ברצונך למחוק את השבוע הזה? פעולה זו תמחק את השבוע ואת כל החסימות המשויכות אליו.
 
       לא ניתן לבטל פעולה זו.
+    delete_weeks_confirmation: |-
+      האם באמת ברצונך למחוק את כל ציר הזמן הזה ולהתחיל מהתחלה?
+
+      פעולה זו לא יכולה להיות משוחזרת.
     discard_all_changes: התעלמות מכל השינויים
+    delete_timeline_and_start_over: מחיקת ציר הזמן
     due_default: חובה להגיש בשבוע הבא
     empty_week_1: על מנת להתחיל,
     empty_week_2: התחילו לערוך השבוע!
@@ -599,6 +675,11 @@ he:
     continue: המשך (%{progress})
     start: התחלה
     view: צפייה
+    next: הדף הבא
+    page: דף
+    page_number: עמוד %{number} מתוך %{total}
+    previous: < הקודם
+    table_of_contents: תוכן עניינים
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
     credit: קרדיט
@@ -633,6 +714,8 @@ he:
     contributions_more: הצגת תרומות נוספות
     course_passcode: 'סיסמה:'
     editors: תלמידים עורכים
+    edits: עריכות
+    edits_by: 'עריכות שבוצעו על ידי:'
     enroll_confirmation: האם ברצונך להוסיף את %{username}?
     enroll_url: 'משתמשים יכולים להצטרף על־ידי ביקור בקישור הבא:'
     enrolled_success: '%{username} {{GENDER:%{username}|נוסף|נוספה}} בהצלחה!'
@@ -658,6 +741,7 @@ he:
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
+    sandboxes: ארגזי חול
     total_uploads: סך כל ההעלאות
     training_complete:
       one: מעודכן עם ההכשרה
@@ -720,6 +804,7 @@ he:
     invalid_assignment: משימה לא תקינה
     invalid_file_format: לא ניתן לשמור את הקובץ הזה. יש לעלות קובץ וורד או PDF בלבד.
     oauth_invalid: "פג תוקף ההזדהות שלך מול וויקיפדיה. \nעליך להיכנס שוב לחשבון שלך."
+    start_date_before_end_date: תאריך ההתחלה צריך להיות קודם לתאריך הסיום
     unsupported_browser:
       header: צר לנו -- גלישה בדפדפן הזה אינה נתמכת ע"י המערכת. :-(
       explanation: אתם משתמשים בדפדפן שאינו תואם ללוח הבקרה. האתר הזה עובד טוב באינטרנט
@@ -729,10 +814,13 @@ he:
     header: לא מורשה. >:-(
     explanation: "אין לך הרשאה לבצע את הפעולה הזאת. \nאם נראה לך שקיבלת את ההודעה
       הזאת בטעות, יש ליצור קשר עם המתחזקים של לוח הבקרה ולעדכן אותם על הבעיה."
+    json_explanation: נראה שיצאת מהחשבון שלך. נא לבצע רענון, להיכנס ולנסות שוב.
   error_incorrect_passcode:
     header: סיסמה שגויה :-(
     explanation: קוד ההרשמה שגוי. יש לבדוק שוב מה קוד ההרשמה הנכון על מנת להירשם לתוכנית
       \ לקורס \ למיזם הזה.
+  error_no_course:
+    explanation: לא קיים קורס בשם %{slug}
   error_404:
     header: הדף לא נמצא. :-(
     explanation: הדף הזה אינו קיים. אם ניסית להגיע ללוח בקרה של קורס, ייתכן שהקורס
@@ -772,16 +860,22 @@ he:
     follow_up:
       message: זוהי תזכורת למלא את השאלון על ההשתתפות בתוכנית \ בקורס \ במיזם שאליו
         שוייכת, %{course_title}. המשוב שלך עוזר לנו לשפר את התמיכה במשתמשים חדשים.
+  feedback_form_responses:
+    no_responses: אין עדיין משובים
   onboarding:
     supplementary:
+      header: איך שמעת עלינו?
       why_are_you_here: מה ברצונך לעשות?
   article_finder:
     page_assessment_class: מחלקה
     average_views: ממוצע צפיות ביום
     remove_article: הסרת ערך
+    no_article_found: לא נמצאו ערכים בקטגוריה הזאת
     search_placeholder: יש להקליד מילת מפתח
     search: חיפוש
     tools: כלים
+    show_options: הצגת אפשרויות
+    hide_options: הסתרת אפשרויות
     keyword_search: חיפוש לפי מילת מפתח
     category_search: חיפוש לפי קטגוריה
     article_quality: איכות הערך (0–100)
@@ -793,10 +887,14 @@ he:
     fetching_revisions: אחזור גרסאות של דפים
     fetching_scores: אחזור דירוג השלמוּת
     fetching_pageviews: אחזור צפיות בדף
-    subheading_message: באפשרותך למצוא ערך שעונה על הצרכים שלך
+    subheading_message: באפשרותך למצוא ערך מוויקיפדיה לצורך עבודה עליו.
     article_finder: מציאת ערך
     submit: חיפוש
     relevanceIndex: מדד רלוונטיות
     assign_article_self: שיוך עצמך
     unassign_article_self: ביטול שיוך של ערך
+  training_status:
+    due: עד %{due_date}
+  multi_wiki:
+    selector_placeholder: בחירת ויקי
 ...
