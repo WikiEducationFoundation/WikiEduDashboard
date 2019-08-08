@@ -21,9 +21,6 @@ describe IndividualStatisticsPresenter do
                           date: course1.start + 1.minute, new_article: true, characters: 100,
                           features: {
                             refs_tags_key => 22
-                          },
-                          features_previous: {
-                            refs_tags_key => 17
                           })
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)
@@ -40,7 +37,7 @@ describe IndividualStatisticsPresenter do
         expect(course2.revisions.count).to eq(1)
         expect(subject.individual_article_views).to eq(100)
         expect(subject.individual_character_count).to eq(100)
-        expect(subject.individual_references_count).to eq(5)
+        expect(subject.individual_references_count).to eq(22)
         expect(subject.individual_article_count).to eq(1)
         expect(subject.individual_articles_created).to eq(1)
       end

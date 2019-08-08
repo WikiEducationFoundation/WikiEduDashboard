@@ -88,6 +88,7 @@ class WikiCourseEdits
     homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
       article = Article.find(article_id)
       next unless article.namespace == Article::Namespaces::MAINSPACE
+      next if article.deleted
       update_assignments_for_article(title: article.title,
                                      assignments_for_same_article: assignments_for_same_article)
     end

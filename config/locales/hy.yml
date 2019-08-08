@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aram1985
+# Author: Azniv Stepanian
 # Author: Kareyac
 # Author: KeepingCalm
 # Author: Lilitik22
@@ -75,6 +76,7 @@ hy:
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ
     assign_other: Հանձնարարել հոդված
+    add_available_submit: Յօդուածներ աւելցնել
     assign_self: Ինձ հոդված հանձնարարել
     confirm_deletion: Դուք համոզված եք, որ ցանկանում եք ջնջել այս նշանակումը?
     label: Հանձնարարել
@@ -96,6 +98,7 @@ hy:
     organizers: Կազմակերպիչներ
   courses:
     activity: Ակտիվություն
+    articles: Յօդուածներ
     course_description: Դասընթացներ
     courses: Դասընթացներ
     creation_date: Ստեղծման ամսաթիվը

@@ -44,6 +44,18 @@ describe RevisionsController, type: :request do
     let(:params) { { course_id: course.id, user_id: user.id, format: 'json' } }
     let(:params2) { { course_id: basic_course.id, user_id: user.id, format: 'json' } }
 
+    it 'returns only tracked revisions' do
+      # Doesn't include untracked revisions
+      create(:articles_course, course: course, article: article, tracked: false)
+      get '/revisions', params: params
+      expect(assigns(:revisions).count).to eq(0)
+
+      # Includes tracked revisions
+      ArticlesCourses.first.update(tracked: true)
+      get '/revisions', params: params
+      expect(assigns(:revisions).count).not_to eq(0)
+    end
+
     it 'returns revisions that happened during the course' do
       get '/revisions', params: params
       course_revisions.each do |revision|

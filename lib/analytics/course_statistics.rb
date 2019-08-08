@@ -69,7 +69,7 @@ class CourseStatistics
 
   def gather_contribution_ids_for_course(course_id)
     course = Course.find(course_id)
-    course_revisions = course.revisions
+    course_revisions = course.tracked_revisions
     @revision_ids << course_revisions.pluck(:id)
     @page_ids << course_revisions.pluck(:article_id)
     @upload_ids << course.uploads.pluck(:id)

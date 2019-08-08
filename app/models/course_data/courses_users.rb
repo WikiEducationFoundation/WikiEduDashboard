@@ -92,7 +92,7 @@ class CoursesUsers < ApplicationRecord
   end
 
   def live_revisions
-    course.revisions.joins(:article).where(user_id: user_id).live
+    course.tracked_revisions.joins(:article).where(user_id: user_id).live
   end
 
   def update_character_sum(revisions)

@@ -333,21 +333,30 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id, role: 0) }
-    let(:update_params) { { role: 1 } }
-    let(:request_params) { { course_id: course.id, id: assignment, format: :json } }
+    let(:assignment) { create(:assignment, course_id: course.id, role: 0) }
+    let(:request_params) do
+      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
+    end
 
     context 'when the update succeeds' do
       it 'renders a 200' do
-        put "/assignments/#{assignment.id}", params: request_params.merge(update_params)
+        put "/assignments/#{assignment.id}", params: request_params
         expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when the article is already assigned to a user' do
+      it 'renders a 409' do
+        assignment.update(user_id: 1)
+        put "/assignments/#{assignment.id}", params: request_params
+        expect(response.status).to eq(409)
       end
     end
 
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        put "/assignments/#{assignment.id}", params: request_params.merge(update_params)
+        put "/assignments/#{assignment.id}", params: request_params
         expect(response.status).to eq(500)
       end
     end

@@ -63,6 +63,7 @@ lv:
     view_all: Skatīt visus
     edit_size: Labojuma izmērs
   assignments:
+    article_link: Raksts
     assign_other: Piešķirt rakstu
     add_available: Pievienot pieejamu rakstu
     add_available_submit: Pievienot rakstus

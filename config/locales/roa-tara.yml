@@ -82,6 +82,11 @@ roa-tara:
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
+  assignments:
+    article_link: Vôsce
+    bibliography: Bibbliografije
+    editors: Assegnate a
+    sandbox_draft_link: Bozze d'a pàgene de prove
   campaign:
     data_revisions: Date de le revisiune
   courses:

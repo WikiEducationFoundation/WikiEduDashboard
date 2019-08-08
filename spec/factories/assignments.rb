@@ -20,7 +20,6 @@ FactoryBot.define do
   factory :assignment do
     created_at { '2015-02-18 18:02:50' }
     updated_at { '2015-02-18 18:03:01' }
-    user_id { 236_820_32 }
     course_id { 481 }
     article_id { 124_884_99 }
     article_title { 'Siderocalin' }
@@ -31,7 +30,6 @@ FactoryBot.define do
   factory :redlink, class: Assignment do
     created_at { '2015-02-18 18:02:50' }
     updated_at { '2015-02-18 18:02:50' }
-    user_id { 224_977_86 }
     course_id { 481 }
     article_id { nil }
     article_title { 'Faecal calprotectin' }
