@@ -257,6 +257,7 @@ describe CampaignsController, type: :request do
     let(:student) { create(:user) }
 
     before do
+      login_as build(:user)
       campaign.courses << course
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -288,6 +289,7 @@ describe CampaignsController, type: :request do
     let(:instructor) { create(:user) }
 
     before do
+      login_as build(:user)
       campaign.courses << course
       create(:courses_user, course_id: course.id, user_id: instructor.id,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
@@ -320,6 +322,7 @@ describe CampaignsController, type: :request do
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
+      login_as build(:user)
       campaign.courses << course
       create(:courses_user, course_id: course.id, user_id: instructor.id,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
@@ -347,6 +350,7 @@ describe CampaignsController, type: :request do
     end
 
     it 'returns a csv of course data' do
+      login_as(user)
       get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
       expect(response.body).to include(course.slug)
       expect(response.body).to include(article.title)
