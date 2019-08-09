@@ -1173,8 +1173,7 @@ en:
       header: "Unsupported browser.  :-("
       explanation: >
         You are using a browser that isn't compatible with the dashboard. This
-        site works well on Internet Explorer version 11 or later, on recent
-        versions of Chrome and Firefox, and on other modern browsers.
+        site works well on recent versions of Chrome, Firefox, Edge, and other modern browsers.
 
   error_401:
     header: "Unauthorized. >:-("
