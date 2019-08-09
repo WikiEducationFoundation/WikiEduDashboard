@@ -57,7 +57,8 @@ const InputHOC = (Component) => {
       if (this.state.value === nextState.value
             && this.state.id === nextState.id
             && this.state.invalid === nextState.invalid
-            && this.props.editable === nextProps.editable) {
+            && this.props.editable === nextProps.editable
+            && nextProps.rerenderHoc !== true) {
         return false;
       }
       return true;
