@@ -43,6 +43,7 @@ RSpec.describe Category, type: :model do
       let!(:article) { create(:article, title: 'A cappella') }
 
       it 'updates article titles for categories associated with courses' do
+        pending 'Fails when PetScan is down.'
         expect(Category.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
@@ -50,6 +51,7 @@ RSpec.describe Category, type: :model do
           expect(Category.last.article_titles).not_to be_empty
           expect(Category.last.article_ids).to include(article.id)
         end
+        pass_pending_spec
       end
     end
 
