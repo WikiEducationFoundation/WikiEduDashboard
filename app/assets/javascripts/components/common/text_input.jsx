@@ -24,7 +24,9 @@ const TextInput = createReactClass({
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     append: PropTypes.node,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    child: PropTypes.object
+    // child is an element which needs to be within the form-group
     // validation: Regex used by Conditional
     // required: bool used by Conditional
   },
@@ -94,6 +96,7 @@ const TextInput = createReactClass({
         <div className="form-group">
           <label htmlFor={this.props.id} className={labelClass}>{label}</label>
           {input}
+          {this.props.child}
         </div>
       );
     } else if (this.props.label) {
