@@ -662,7 +662,7 @@ describe Course, type: :model do
       it 'implements required methods for every course type that has academic_system' do
         Course::COURSE_TYPES.each do |type|
           create(:course, type: type, flags: flags, slug: "foo/#{type}")
-          course = Course.last
+          course = described_class.last
           expect(course.academic_system).to eq('Semester')
         end
       end
