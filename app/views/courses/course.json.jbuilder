@@ -13,6 +13,7 @@ json.course do
 
   json.wikis @course.wikis, :language, :project
   json.timeline_enabled @course.timeline_enabled?
+  json.academic_system @course.academic_system
   json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
   json.wiki_edits_enabled @course.wiki_edits_enabled?
   json.assignment_edits_enabled @course.assignment_edits_enabled?

@@ -5,13 +5,17 @@ const createReactClass = require('create-react-class');
 const AcademicSystem = createReactClass({
 
   getInitialState: function () {
+    console.log(this.props);
     return {
-      selectedOption: 'Semester'
+      selectedOption: this.props.value || 'Semester'
     };
   },
 
-  handleChange: function () {
-    this.props.onChange(this.props.myValue);
+  handleOptionChange: function (changeEvent) {
+    this.setState({
+      selectedOption: changeEvent.target.value
+    });
+    this.props.updateCourseProps({ academic_system: changeEvent.target.value });
   },
 
   render: function () {

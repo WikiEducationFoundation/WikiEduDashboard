@@ -260,6 +260,7 @@ class CoursesController < ApplicationController
     update_boolean_flag :wiki_edits_enabled
     update_boolean_flag :online_volunteers_enabled
     update_edit_settings
+    update_academic_system
   end
 
   def update_boolean_flag(flag)
@@ -282,6 +283,11 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
+    @course.save
+  end
+
+  def update_academic_system
+    @course.flags['academic_system'] = params.dig(:course, academic_system)
     @course.save
   end
 

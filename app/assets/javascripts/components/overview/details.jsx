@@ -33,6 +33,7 @@ import DatePicker from '../common/date_picker.jsx';
 
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import AcademicSystem from '../common/academic_system.jsx';
 
 const POLL_INTERVAL = 60000; // 1 minute
 
@@ -118,7 +119,7 @@ const Details = createReactClass({
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
     let campus;
     let staff;
-    let school;
+    let academic_system;
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
@@ -128,18 +129,16 @@ const Details = createReactClass({
       online = <OnlineVolunteers {...this.props} />;
     }
 
-    if (this.props.course.school || canRename) {
-      school = (
-        <TextInput
-          onChange={this.updateSlugPart}
-          value={this.props.course.school}
-          value_key="school"
-          validation={CourseUtils.courseSlugRegex()}
-          editable={canRename}
-          type="text"
-          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
-          required={true}
-        />
+    if (this.props.course.academic_system || canRename) {
+      academic_system = (
+        <div className="form-group academic_system">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.school_system')}:
+            </strong>
+            <AcademicSystem value = {this.props.course.academic_system}/>
+          </span>
+        </div>
       );
     }
 
@@ -425,7 +424,7 @@ const Details = createReactClass({
               {campus}
               {staff}
               <div><p className="red">{this.props.firstErrorMessage}</p></div>
-              {school}
+              {academic_system}
               {title}
               {term}
               {wikiSelector}

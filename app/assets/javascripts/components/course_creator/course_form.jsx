@@ -103,7 +103,7 @@ const CourseForm = (props) => {
   let backButton;
   let home_wiki;
   let multi_wiki;
-  let school_system;
+  let academic_system;
 
   if (props.course.wikis && !props.course.wikis.length) {
     props.course.wikis.push({ language: 'en', project: 'wikipedia' });
@@ -125,13 +125,13 @@ const CourseForm = (props) => {
         />
       </div>
     );
-    school_system = (
+    academic_system = (
       <div className="form-group academic_system">
         <span className="text-input-component__label">
           <strong>
             {I18n.t('courses.school_system')}:
           </strong>
-          <AcademicSystem/>
+          <AcademicSystem value = {{ ...props.course.academic_system }}/>
         </span>
       </div>
     );
@@ -202,7 +202,7 @@ const CourseForm = (props) => {
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
           placeholder={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
         />
-        {school_system}
+        {academic_system}
         {term}
         {subject}
         {expectedStudents}

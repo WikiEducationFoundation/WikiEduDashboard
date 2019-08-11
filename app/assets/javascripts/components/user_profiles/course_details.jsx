@@ -24,6 +24,10 @@ const CourseDetails = createReactClass({
               <div className="course-details_value">{course.course_term}</div>
             </div>
             <div className="col">
+              <div className="course-details_title">{I18n.t('courses.academic_system')}</div>
+              <div className="course-details_value">{course.academic_system}</div>
+            </div>
+            <div className="col">
               <div className="course-details_title">{I18n.t('courses.students_count')}</div>
               <div className="course-details_value">{course.user_count}</div>
             </div>
