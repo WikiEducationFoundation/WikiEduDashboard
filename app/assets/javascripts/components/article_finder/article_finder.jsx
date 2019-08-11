@@ -135,6 +135,7 @@ const ArticleFinder = createReactClass({
   },
 
   render() {
+    const searchButton = <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>;
     const searchTerm = (
       <TextInput
         id="category"
@@ -147,6 +148,7 @@ const ArticleFinder = createReactClass({
         placeholder={I18n.t('article_finder.search_placeholder')}
         onKeyDown={this.onKeyDown}
         ref="searchbox"
+        child={searchButton}
       />);
 
     const searchType = (
@@ -407,10 +409,7 @@ const ArticleFinder = createReactClass({
         </header>
         <div className="article-finder-form">
           <div className="search-bar">
-            <div>
-              {searchTerm}
-            </div>
-            <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
+            {searchTerm}
           </div>
         </div>
         {options}
