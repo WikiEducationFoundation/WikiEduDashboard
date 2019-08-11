@@ -136,7 +136,10 @@ const Details = createReactClass({
             <strong>
               {I18n.t('courses.school_system')}:
             </strong>
-            <AcademicSystem value = {this.props.course.academic_system}/>
+            <AcademicSystem
+              value={this.props.course.academic_system}
+              updateCourseProps={this.props.updateCourse}
+            />
           </span>
         </div>
       );

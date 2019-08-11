@@ -131,7 +131,10 @@ const CourseForm = (props) => {
           <strong>
             {I18n.t('courses.school_system')}:
           </strong>
-          <AcademicSystem value = {{ ...props.course.academic_system }}/>
+          <AcademicSystem
+            value={{ ...props.course.academic_system }}
+            updateCourseProps={props.updateCourseProps}
+          />
         </span>
       </div>
     );

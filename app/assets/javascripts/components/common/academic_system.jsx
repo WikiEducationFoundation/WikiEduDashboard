@@ -5,7 +5,6 @@ const createReactClass = require('create-react-class');
 const AcademicSystem = createReactClass({
 
   getInitialState: function () {
-    console.log(this.props);
     return {
       selectedOption: this.props.value || 'Semester'
     };
@@ -24,8 +23,14 @@ const AcademicSystem = createReactClass({
     const academic_system = [];
     for (i = 0; i < options.length; i += 1) {
       academic_system.push(
-        <label>
-          <input type = "radio" name="academic_system" defaultChecked={this.state.selectedOption === options[i]} onChange={this.handleOptionChange}/>
+        <label key={options[i]}>
+          <input
+            type="radio"
+            name="academic_system"
+            value={options[i]}
+            defaultChecked={this.state.selectedOption === options[i]}
+            onChange={this.handleOptionChange}
+          />
           {options[i]}
         </label>);
     }
