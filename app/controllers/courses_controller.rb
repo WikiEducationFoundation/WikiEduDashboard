@@ -25,7 +25,6 @@ class CoursesController < ApplicationController
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user)
-                                                        
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: :not_found
