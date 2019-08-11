@@ -47,7 +47,7 @@ const getTrackedStatusFilterEnabledStatus = _articles =>
   _articles.some(a => a.tracked) && _articles.some(a => !a.tracked);
 
 const getDefaultTrackedStatusFilter = _articles =>
-  (_articles[0].tracked ? 'tracked' : 'both');
+  ((_articles[0] && _articles[0].tracked) ? 'tracked' : 'both');
 
 export default function articles(state = initialState, action) {
   switch (action.type) {
