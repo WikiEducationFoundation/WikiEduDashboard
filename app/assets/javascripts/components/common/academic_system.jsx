@@ -23,11 +23,12 @@ const AcademicSystem = createReactClass({
     const academic_system = [];
     for (i = 0; i < options.length; i += 1) {
       academic_system.push(
-        <label key={options[i]}>
+        <label className="radio-inline">
           <input
             type="radio"
             name="academic_system"
             value={options[i]}
+            style={{ display: 'inline-block', width: '30px' }}
             defaultChecked={this.state.selectedOption === options[i]}
             onChange={this.handleOptionChange}
           />

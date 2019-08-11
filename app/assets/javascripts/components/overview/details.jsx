@@ -129,7 +129,7 @@ const Details = createReactClass({
       online = <OnlineVolunteers {...this.props} />;
     }
 
-    if (this.props.course.academic_system || canRename) {
+    if (canRename) {
       academic_system = (
         <div className="form-group academic_system">
           <span className="text-input-component__label">
@@ -427,9 +427,9 @@ const Details = createReactClass({
               {campus}
               {staff}
               <div><p className="red">{this.props.firstErrorMessage}</p></div>
-              {academic_system}
               {title}
               {term}
+              {academic_system}
               {wikiSelector}
               {multiWikiSelector}
               <form>
