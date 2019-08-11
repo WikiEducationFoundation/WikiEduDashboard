@@ -52,10 +52,10 @@ const Article = createReactClass({
     const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
 
     let tracked;
-    if (this.props.course.type !== 'ClassroomProgramCourse') {
+    if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
       tracked = (
         <td className="tracking">
-          <Switch onChange={this.handleTrackedChange} disabled={!trackedEditable} checked={this.state.tracked} onColor="#676eb4" />
+          <Switch onChange={this.handleTrackedChange} checked={this.state.tracked} onColor="#676eb4" />
         </td>
       );
     }

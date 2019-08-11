@@ -89,11 +89,14 @@ const ArticleList = createReactClass({
       },
     };
 
-    if (this.props.course.type !== 'ClassroomProgramCourse') {
+    const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
+
+    if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
       keys.tracked = {
         label: I18n.t('articles.tracked'),
         desktop_only: true,
-        sortable: false
+        sortable: false,
+        info_key: 'articles.tracked_doc'
       };
     }
 

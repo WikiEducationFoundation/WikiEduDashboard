@@ -456,7 +456,9 @@ describe 'the course page', type: :feature, js: true do
 
     it 'does not allow articles to be marked for tracking by students' do
       js_visit "/courses/#{course.slug}/articles"
-      expect(first('.tracking').find('input').disabled?).to eq(true)
+      expect do
+        find('.tracking')
+      end.to raise_error(Capybara::ElementNotFound)
     end
 
     it 'does allows articles to be marked for tracking by instructors/admin' do
