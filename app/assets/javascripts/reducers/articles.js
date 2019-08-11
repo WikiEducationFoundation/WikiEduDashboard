@@ -4,7 +4,9 @@ import {
   RECEIVE_ARTICLES,
   SORT_ARTICLES,
   SET_PROJECT_FILTER,
-  SET_NEWNESS_FILTER
+  SET_NEWNESS_FILTER,
+  SET_TRACKED_STATUS_FILTER,
+  UPDATE_ARTICLE_TRACKED_STATUS
 } from '../constants';
 
 const initialState = {
@@ -18,8 +20,10 @@ const initialState = {
   wikis: [],
   wikiFilter: null,
   newnessFilter: null,
+  trackedStatusFilter: 'tracked',
   loading: true,
-  newnessFilterEnabled: false
+  newnessFilterEnabled: false,
+  trackedStatusFilterEnabled: false
 };
 
 const SORT_DESCENDING = {
@@ -39,6 +43,12 @@ const mapWikis = (article) => {
   };
 };
 
+const getTrackedStatusFilterEnabledStatus = _articles =>
+  _articles.some(a => a.tracked) && _articles.some(a => !a.tracked);
+
+const getDefaultTrackedStatusFilter = _articles =>
+  (_articles[0].tracked ? 'tracked' : 'both');
+
 export default function articles(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES: {
@@ -48,6 +58,11 @@ export default function articles(state = initialState, action) {
       );
       const _articles = action.data.course.articles;
       const newnessFilterEnabled = _articles.some(a => a.new_article) && _articles.some(a => !a.new_article);
+      const trackedStatusFilterEnabled = getTrackedStatusFilterEnabledStatus(_articles);
+      let trackedStatusFilter = state.trackedStatusFilter;
+      if (!trackedStatusFilterEnabled) {
+        trackedStatusFilter = getDefaultTrackedStatusFilter(_articles);
+      }
       return {
         ...state,
         articles: _articles,
@@ -56,7 +71,9 @@ export default function articles(state = initialState, action) {
         wikis,
         wikiFilter: state.wikiFilter,
         newnessFilter: state.newnessFilter,
+        trackedStatusFilter,
         newnessFilterEnabled,
+        trackedStatusFilterEnabled,
         loading: false
       };
     }
@@ -89,6 +106,26 @@ export default function articles(state = initialState, action) {
 
     case SET_NEWNESS_FILTER: {
       return { ...state, newnessFilter: action.newness };
+    }
+
+    case SET_TRACKED_STATUS_FILTER: {
+      return { ...state, trackedStatusFilter: action.trackedStatus };
+    }
+
+    case UPDATE_ARTICLE_TRACKED_STATUS: {
+      // Make sure the article's tracked status is reflected in the redux state
+      const updatedArticles = state.articles.map((a) => {
+        if (a.id === action.articleId) {
+          a.tracked = action.tracked;
+        }
+        return a;
+      });
+      let { trackedStatusFilter } = state;
+      const trackedStatusFilterEnabled = getTrackedStatusFilterEnabledStatus(updatedArticles);
+      if (!trackedStatusFilterEnabled) {
+        trackedStatusFilter = getDefaultTrackedStatusFilter(updatedArticles);
+      }
+      return { ...state, trackedStatusFilterEnabled, trackedStatusFilter, articles: updatedArticles };
     }
 
     default:

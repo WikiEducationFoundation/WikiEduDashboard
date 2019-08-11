@@ -42,6 +42,10 @@ const ArticleList = createReactClass({
     return this.props.filterNewness(e.target.value);
   },
 
+  onTrackedFilterChange(e) {
+    return this.props.filterTrackedStatus(e.target.value);
+  },
+
   showDiff(index) {
     this.setState({
       selectedIndex: index
@@ -169,8 +173,19 @@ const ArticleList = createReactClass({
       );
     }
 
+    let filterTracked;
+    if (this.props.trackedStatusFilterEnabled) {
+      filterTracked = (
+        <select className="filter-articles" defaultValue={this.props.trackedStatusFilter} onChange={this.onTrackedFilterChange}>
+          <option value="tracked">{I18n.t('articles.filter.tracked')}</option>
+          <option value="untracked">{I18n.t('articles.filter.untracked')}</option>
+          <option value="both">{I18n.t('articles.filter.tracked_and_untracked')}</option>
+        </select>
+      );
+    }
+
     let filterLabel;
-    if (!!filterWikis || !!filterArticlesSelect) {
+    if (!!filterWikis || !!filterArticlesSelect || !!filterTracked) {
       filterLabel = <b>Filters:</b>;
     }
 
@@ -192,6 +207,7 @@ const ArticleList = createReactClass({
         <CourseOresPlot course={this.props.course} />
         <div className="wrap-filters">
           {filterLabel}
+          {filterTracked}
           {filterArticlesSelect}
           {filterWikis}
           {articleSort}

@@ -149,6 +149,9 @@ en:
       new: New
       existing: Existing
       new_and_existing: New and Existing
+      tracked: Tracked
+      untracked: Untracked
+      tracked_and_untracked: Tracked and Untracked
     hide: Hide
     history: (history)
     label: Articles
