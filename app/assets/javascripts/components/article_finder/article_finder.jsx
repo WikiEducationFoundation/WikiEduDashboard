@@ -73,6 +73,9 @@ const ArticleFinder = createReactClass({
       if (this.props.search_term.length !== 0) {
         this.buildURL();
       }
+      if (this.props.search_type === 'PSID') {
+        this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
+      }
     });
   },
 
