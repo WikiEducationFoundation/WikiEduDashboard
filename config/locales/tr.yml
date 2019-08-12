@@ -16,6 +16,7 @@
 # Author: Mirzali
 # Author: Rapsar
 # Author: Sayginer
+# Author: Suvarioglu
 # Author: TmY e12
 # Author: ToprakM
 # Author: Uğurkent
@@ -974,7 +975,7 @@ tr:
     unsupported_browser:
       header: Desteklenmeyen tarayıcı. :-(
       explanation: Kontrol paneliyle uyumlu olmayan bir tarayıcı kullanıyorsunuz.
-        Bu site, Internet Explorer 11 veya sonraki sürümlerinde, Chrome ve Firefox'un
+        Bu site, Internet Explorer 11 veya sonraki sürümlerinde, Edge, Chrome ve Firefox'un
         son sürümlerinde ve diğer modern tarayıcılarda iyi çalışır.
   error_401:
     header: Yetkisiz. >:-(

@@ -128,6 +128,7 @@ da:
       for engelske Wikipediaartikler).
   assignments:
     article: Artiklen %{title} er nu tildelt dig.
+    article_link: Artikel
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assign_other: Tildel en artikel

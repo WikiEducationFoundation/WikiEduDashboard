@@ -76,13 +76,16 @@ lt:
     view_on_wiki: Peržiūrėti viki
   assignments:
     article: Straipsnis %{title} buvo priskirtas
+    article_link: Straipsnis
     title_too_large: Pavadinimas neturėtų viršyti 255 simbolių
     assign_other: Priskirti straipsnį
     add_available: Pridėti prieinamą straipsnį
     assign_self: Priskirti straipsnį sau
+    bibliography: Bibliografija
     confirm_add_available: Ar tikrai norite pridėti %{title}?
     confirm_addition: Ar tikrai norite paskirti %{title} %{username}?
     confirm_deletion: Ar tikrai norite ištrinti šią straipsnio užduotį?
+    editors: Priskirta
     label: Paskirti
     loading: Įkeliamos užduotys...
     none_short: Nėra priskirtų užduočių
@@ -92,6 +95,7 @@ lt:
     reviewers: Vertintoja(-i)
     review_other: Priskirti peržiūrą
     review_self: Peržiūrėti straipsnį
+    sandbox_draft_link: Smėlio Dėžės Šablonas
     select: Pasirinkti
   blocks:
     milestones:
