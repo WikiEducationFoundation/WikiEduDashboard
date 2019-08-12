@@ -119,6 +119,7 @@ const Details = createReactClass({
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
     let campus;
     let staff;
+    let school;
     let academic_system;
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
@@ -127,6 +128,21 @@ const Details = createReactClass({
     let online;
     if (Features.wikiEd || this.props.course.online_volunteers_enabled) {
       online = <OnlineVolunteers {...this.props} />;
+    }
+
+    if (this.props.course.school || canRename) {
+      school = (
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.school}
+          value_key="school"
+          validation={CourseUtils.courseSlugRegex()}
+          editable={canRename}
+          type="text"
+          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+          required={true}
+        />
+      );
     }
 
     if (canRename) {
@@ -427,6 +443,7 @@ const Details = createReactClass({
               {campus}
               {staff}
               <div><p className="red">{this.props.firstErrorMessage}</p></div>
+              {school}
               {title}
               {term}
               {academic_system}

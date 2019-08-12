@@ -34,7 +34,8 @@ describe 'the course page', type: :feature, js: true do
   let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:admin) { create(:admin) }
   let(:update_logs) do
-    { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } } }
+    { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago,
+      'academic_system' => 'Semester' } } }
   end
 
   before do
@@ -147,6 +148,10 @@ describe 'the course page', type: :feature, js: true do
       # Title in the primary overview section
       title = 'This.course'
       expect(page.find('.primary')).to have_content title
+
+      # Academic_system
+      academic_system = 'Semester'
+      expect(page.find('.primary')).to have_content academic_system
 
       # Description
       description = 'This is a great course'
