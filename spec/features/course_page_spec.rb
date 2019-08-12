@@ -157,10 +157,6 @@ describe 'the course page', type: :feature, js: true do
       school = 'This university'
       expect(page.find('.sidebar')).to have_content school
 
-      # Academic_system
-      academic_system = Course.find_by(slug: slug).academic_system
-      expect(academic_system).to eq('Semester')
-
       # Term
       term = 'term 2015'
       expect(page.find('.sidebar')).to have_content term
@@ -192,6 +188,11 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to have_content 'Milestones'
         expect(page).to have_content 'blocky block'
       end
+    end
+
+    it 'get academic_system' do
+      academic_system = Course.find_by(slug: slug).academic_system
+      expect(academic_system).to eq('Semester')
     end
   end
 
