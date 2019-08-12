@@ -73,6 +73,11 @@ const ArticleFinder = createReactClass({
       if (this.props.search_term.length !== 0) {
         this.buildURL();
       }
+      if (key === 'article_quality' || key === 'min_views') {
+        if (this.props.search_type === 'PSID') {
+          this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
+        }
+      }
     });
   },
 
@@ -111,7 +116,7 @@ const ArticleFinder = createReactClass({
     if (this.props.search_type === 'keyword') {
       return this.props.fetchKeywordResults(this.props.search_term, this.props.home_wiki, this.props.offset, true);
     } else if (this.props.search_type === 'PSID') {
-      return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
+      return this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki, true);
     }
     return this.props.fetchCategoryResults(this.props.search_term, this.props.home_wiki, this.props.cmcontinue, true);
   },
