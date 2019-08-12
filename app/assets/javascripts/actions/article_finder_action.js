@@ -236,14 +236,20 @@ const fetchPageRevisionScore = (revids, home_wiki, dispatch) => {
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
-export const fetchPSIDResults = (PSID, home_wiki) => (dispatch, getState) => {
-  dispatch({
-    type: UPDATE_FIELD,
-    data: {
-      key: 'fetchState',
-      value: 'ARTICLES_LOADING',
-    }
-  });
+export const fetchPSIDResults = (PSID, home_wiki, continueResults = false) => (dispatch, getState) => {
+  if (!continueResults) {
+    dispatch({
+      type: INITIATE_SEARCH,
+    });
+  } else {
+    dispatch({
+      type: UPDATE_FIELD,
+      data: {
+        key: 'fetchState',
+        value: 'ARTICLES_LOADING',
+      }
+    });
+  }
   return getDataForPSID(PSID, home_wiki, dispatch, getState);
 };
 

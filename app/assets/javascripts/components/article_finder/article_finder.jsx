@@ -67,7 +67,7 @@ const ArticleFinder = createReactClass({
       return this.updateFields(key, val);
     });
   },
-  updateFields(key, value) {
+  updateData(key, value) {
     const update_field = this.props.updateFields(key, value);
     Promise.resolve(update_field).then(() => {
       if (this.props.search_term.length !== 0) {
@@ -75,6 +75,14 @@ const ArticleFinder = createReactClass({
       }
       if (this.props.search_type === 'PSID') {
         this.props.fetchPSIDResults(this.props.search_term, this.props.home_wiki);
+      }
+    });
+  },
+  updateFields(key, value) {
+    const update_field = this.props.updateFields(key, value);
+    Promise.resolve(update_field).then(() => {
+      if (this.props.search_term.length !== 0) {
+        this.buildURL();
       }
     });
   },
@@ -190,7 +198,7 @@ const ArticleFinder = createReactClass({
       <div>
         <TextInput
           id="min_views"
-          onChange={this.updateFields}
+          onChange={this.updateData}
           value={this.props.min_views}
           value_key="min_views"
           required
@@ -209,7 +217,7 @@ const ArticleFinder = createReactClass({
             maxValue={100}
             minValue={0}
             value={this.props.article_quality}
-            onChange={value => this.updateFields('article_quality', value)}
+            onChange={value => this.updateData('article_quality', value)}
             step={1}
           />
         </div>
