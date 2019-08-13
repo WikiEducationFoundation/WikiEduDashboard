@@ -13,6 +13,7 @@ const getUserCourses = state => state.userCourses.userCourses;
 const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
 const getNewnessFilter = state => state.articles.newnessFilter;
+const getTrackedStatusFilter = state => state.articles.trackedStatusFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
@@ -109,6 +110,19 @@ export const getArticlesByNewness = createSelector(
         return articles.filter(a => a.new_article);
       case 'existing':
         return articles.filter(a => !a.new_article);
+      default:
+        return articles;
+    }
+  }
+);
+
+export const getArticlesByTrackedStatus = createSelector(
+  [getArticlesByNewness, getTrackedStatusFilter], (articles, trackedStatusFilter) => {
+    switch (trackedStatusFilter) {
+      case 'tracked':
+        return articles.filter(a => a.tracked);
+      case 'untracked':
+        return articles.filter(a => !a.tracked);
       default:
         return articles;
     }

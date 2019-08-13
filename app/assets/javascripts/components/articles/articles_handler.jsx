@@ -10,9 +10,9 @@ import ArticleList from './article_list.jsx';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles, filterArticles, filterNewness } from '../../actions/articles_actions.js';
+import { fetchArticles, sortArticles, filterArticles, filterNewness, filterTrackedStatus } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import { getArticlesByNewness } from '../../selectors';
+import { getArticlesByTrackedStatus } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 
 export const ArticlesHandler = createReactClass({
@@ -130,14 +130,16 @@ export const ArticlesHandler = createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: getArticlesByNewness(state),
+  articles: getArticlesByTrackedStatus(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
   wikidataLabels: state.wikidataLabels.labels,
   loadingArticles: state.articles.loading,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
-  newnessFilterEnabled: state.articles.newnessFilterEnabled
+  newnessFilterEnabled: state.articles.newnessFilterEnabled,
+  trackedStatusFilterEnabled: state.articles.trackedStatusFilterEnabled,
+  trackedStatusFilter: state.articles.trackedStatusFilter
 });
 
 const mapDispatchToProps = {
@@ -145,6 +147,7 @@ const mapDispatchToProps = {
   sortArticles,
   filterArticles,
   filterNewness,
+  filterTrackedStatus,
   fetchAssignments
 };
 

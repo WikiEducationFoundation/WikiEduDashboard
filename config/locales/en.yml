@@ -149,6 +149,9 @@ en:
       new: New
       existing: Existing
       new_and_existing: New and Existing
+      tracked: Tracked
+      untracked: Untracked
+      tracked_and_untracked: Tracked and Untracked
     hide: Hide
     history: (history)
     label: Articles
@@ -175,6 +178,7 @@ en:
     show_current_version_with_authorship_highlighting: 'Current Version w/ Authorship Highlighting'
     title: Title
     tracked: Tracked
+    tracked_doc: Only tracked articles contribute to the the statistics for this program. When articles are marked as untracked, they will be removed from the statistics during the next data update.
     title_example: Article title
     tools: Assessment tools
     view: View Article

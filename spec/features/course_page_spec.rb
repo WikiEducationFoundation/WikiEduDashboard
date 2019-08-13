@@ -426,4 +426,57 @@ describe 'the course page', type: :feature, js: true do
       end
     end
   end
+
+  describe 'articles tracking' do
+    let(:article) { create(:article) }
+    let(:article2) { create(:article, id: 999) }
+    let(:user) { create(:user) }
+    let(:course) { create(course_type) }
+
+    before do
+      create(:articles_course, article: article, course: course)
+      create(:articles_course, article: article2, course: course)
+      create(:revision, article_id: article.id, user_id: user.id, date: course.start + 1.hour)
+      create(:revision, article_id: article2.id, user_id: user.id, date: course.start + 1.hour)
+      course.students << user
+    end
+
+    context 'editathon' do
+      let(:course_type) { :editathon }
+
+      it 'does not allow articles to be marked for tracking by students' do
+        js_visit "/courses/#{course.slug}/articles"
+        expect do
+          find('.tracking')
+        end.to raise_error(Capybara::ElementNotFound)
+      end
+
+      it 'does allows articles to be marked for tracking by instructors/admin' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(first('.tracking').find('input').disabled?).to eq(false)
+      end
+
+      it 'marks an article to be excluded once it is untracked' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(course.tracked_revisions.count).to eq(course.revisions.count)
+        first('.tracking').click
+        sleep 1
+        expect(course.tracked_revisions.count).to be < course.revisions.count
+      end
+    end
+
+    context 'classroom_program_course' do
+      let(:course_type) { :course } # Default course is ClassroomProgramCourse
+
+      it 'is not shown for certain course types like ClassroomProgramCourse' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect do
+          find('.tracking')
+        end.to raise_error(Capybara::ElementNotFound)
+      end
+    end
+  end
 end
