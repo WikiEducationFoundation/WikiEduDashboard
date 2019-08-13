@@ -428,48 +428,55 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'articles tracking' do
-    let(:editathon) { create(:editathon) }
-    let(:classroom_program_course) { create(:course) }
     let(:article) { create(:article) }
     let(:article2) { create(:article, id: 999) }
     let(:user) { create(:user) }
+    let(:course) { create(course_type) }
 
     before do
-      create(:articles_course, article: article, course: editathon)
-      create(:articles_course, article: article2, course: editathon)
-      create(:revision, article_id: article.id, user_id: user.id, date: editathon.start + 1.hour)
-      create(:revision, article_id: article2.id, user_id: user.id, date: editathon.start + 1.hour)
-      editathon.students << user
+      create(:articles_course, article: article, course: course)
+      create(:articles_course, article: article2, course: course)
+      create(:revision, article_id: article.id, user_id: user.id, date: course.start + 1.hour)
+      create(:revision, article_id: article2.id, user_id: user.id, date: course.start + 1.hour)
+      course.students << user
     end
 
-    it 'does not allow articles to be marked for tracking by students' do
-      js_visit "/courses/#{editathon.slug}/articles"
-      expect do
-        find('.tracking')
-      end.to raise_error(Capybara::ElementNotFound)
+    context 'editathon' do
+      let(:course_type) { :editathon }
+
+      it 'does not allow articles to be marked for tracking by students' do
+        js_visit "/courses/#{course.slug}/articles"
+        expect do
+          find('.tracking')
+        end.to raise_error(Capybara::ElementNotFound)
+      end
+
+      it 'does allows articles to be marked for tracking by instructors/admin' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(first('.tracking').find('input').disabled?).to eq(false)
+      end
+
+      it 'marks an article to be excluded once it is untracked' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(course.tracked_revisions.count).to eq(course.revisions.count)
+        first('.tracking').click
+        sleep 1
+        expect(course.tracked_revisions.count).to be < course.revisions.count
+      end
     end
 
-    it 'does allows articles to be marked for tracking by instructors/admin' do
-      login_as(admin)
-      js_visit "/courses/#{editathon.slug}/articles"
-      expect(first('.tracking').find('input').disabled?).to eq(false)
-    end
+    context 'classroom_program_course' do
+      let(:course_type) { :course } # Default course is ClassroomProgramCourse
 
-    it 'marks an article to be excluded once it is untracked' do
-      login_as(admin)
-      js_visit "/courses/#{editathon.slug}/articles"
-      expect(editathon.tracked_revisions.count).to eq(editathon.revisions.count)
-      first('.tracking').click
-      sleep 1
-      expect(editathon.tracked_revisions.count).to be < editathon.revisions.count
-    end
-
-    it 'is not shown for certain course types like ClassroomProgramCourse' do
-      login_as(admin)
-      js_visit "/courses/#{classroom_program_course.slug}/articles"
-      expect do
-        find('.tracking')
-      end.to raise_error(Capybara::ElementNotFound)
+      it 'is not shown for certain course types like ClassroomProgramCourse' do
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect do
+          find('.tracking')
+        end.to raise_error(Capybara::ElementNotFound)
+      end
     end
   end
 end
