@@ -294,14 +294,18 @@ en:
 
   categories:
     add_category: Add category
+    add_psid: Add PSID
     add_template: Add template
     add_this_category: Add this category
+    add_this_psid: Add this PSID
     add_this_template: Add this template
     confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
+    confirm_psid_addition: Are you sure you want to track contributions to the PSID "%{name}"?
     confirm_template_addition: Are you sure you want to track contributions to the template "%{name}"?
     depth: Subcategory depth
     name: Name
     category_name: Category name
+    psid: PSID
     template_name: Template name
     none: There are no categories being tracked.
     remove: Remove
