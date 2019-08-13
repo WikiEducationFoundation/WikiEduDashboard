@@ -437,12 +437,9 @@ describe 'the course page', type: :feature, js: true do
     before do
       create(:articles_course, article: article, course: editathon)
       create(:articles_course, article: article2, course: editathon)
-      create(:articles_course, article: article, course: classroom_program_course)
-      create(:articles_course, article: article2, course: classroom_program_course)
       create(:revision, article_id: article.id, user_id: user.id, date: editathon.start + 1.hour)
       create(:revision, article_id: article2.id, user_id: user.id, date: editathon.start + 1.hour)
       editathon.students << user
-      classroom_program_course.students << user
     end
 
     it 'does not allow articles to be marked for tracking by students' do
