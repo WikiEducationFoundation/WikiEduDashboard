@@ -148,8 +148,8 @@ const ArticleFinder = createReactClass({
         placeholder={I18n.t('article_finder.search_placeholder')}
         onKeyDown={this.onKeyDown}
         ref="searchbox"
-        child={searchButton}
-      />);
+      >{searchButton}
+      </TextInput>);
 
     const searchType = (
       <div>
