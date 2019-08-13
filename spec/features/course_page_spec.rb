@@ -428,34 +428,25 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'articles tracking' do
-    let(:course) do
-      editathon_slug = 'This_university.foo.bar/This.course_(term_2015)'
-      create(:editathon,
-             id: 10002,
-             title: 'This.course',
-             slug: editathon_slug,
-             start: '10-07-2019'.to_date,
-             end: '10-08-2019'.to_date,
-             timeline_start: course_start.to_date,
-             timeline_end: course_end.to_date,
-             school: 'This university.foo.bar',
-             expected_students: 1,
-             term: 'term 2015',
-             home_wiki_id: home_wiki.id,
-             description: 'This is a great course',
-             flags: update_logs)
-    end
-    let(:user) { create(:user, username: 'Hbultra') }
+    let(:editathon) { create(:editathon) }
+    let(:classroom_program_course) { create(:course) }
+    let(:article) { create(:article) }
+    let(:article2) { create(:article, id: 999) }
+    let(:user) { create(:user) }
 
     before do
-      course.students << user
-      VCR.use_cassette 'course_upload_importer/Hbultra' do
-        UpdateCourseStats.new(course)
-      end
+      create(:articles_course, article: article, course: editathon)
+      create(:articles_course, article: article2, course: editathon)
+      create(:articles_course, article: article, course: classroom_program_course)
+      create(:articles_course, article: article2, course: classroom_program_course)
+      create(:revision, article_id: article.id, user_id: user.id, date: editathon.start + 1.hour)
+      create(:revision, article_id: article2.id, user_id: user.id, date: editathon.start + 1.hour)
+      editathon.students << user
+      classroom_program_course.students << user
     end
 
     it 'does not allow articles to be marked for tracking by students' do
-      js_visit "/courses/#{course.slug}/articles"
+      js_visit "/courses/#{editathon.slug}/articles"
       expect do
         find('.tracking')
       end.to raise_error(Capybara::ElementNotFound)
@@ -463,21 +454,22 @@ describe 'the course page', type: :feature, js: true do
 
     it 'does allows articles to be marked for tracking by instructors/admin' do
       login_as(admin)
-      js_visit "/courses/#{course.slug}/articles"
+      js_visit "/courses/#{editathon.slug}/articles"
       expect(first('.tracking').find('input').disabled?).to eq(false)
     end
 
     it 'marks an article to be excluded once it is untracked' do
       login_as(admin)
-      js_visit "/courses/#{course.slug}/articles"
-      expect(course.tracked_revisions.count).to eq(course.revisions.count)
+      js_visit "/courses/#{editathon.slug}/articles"
+      expect(editathon.tracked_revisions.count).to eq(editathon.revisions.count)
       first('.tracking').click
-      expect(course.tracked_revisions.count).to be < course.revisions.count
+      sleep 1
+      expect(editathon.tracked_revisions.count).to be < editathon.revisions.count
     end
 
     it 'is not shown for certain course types like ClassroomProgramCourse' do
       login_as(admin)
-      js_visit "/courses/#{Course.first.slug}/articles"
+      js_visit "/courses/#{classroom_program_course.slug}/articles"
       expect do
         find('.tracking')
       end.to raise_error(Capybara::ElementNotFound)
