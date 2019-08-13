@@ -135,6 +135,7 @@ const ArticleFinder = createReactClass({
   },
 
   render() {
+    const searchButton = <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>;
     const searchTerm = (
       <TextInput
         id="category"
@@ -147,7 +148,8 @@ const ArticleFinder = createReactClass({
         placeholder={I18n.t('article_finder.search_placeholder')}
         onKeyDown={this.onKeyDown}
         ref="searchbox"
-      />);
+      >{searchButton}
+      </TextInput>);
 
     const searchType = (
       <div>
@@ -377,8 +379,8 @@ const ArticleFinder = createReactClass({
     );
     if (this.state.showLanguageAndWikiSelectors) {
       options = (
-        <div>
-          <div className="article-wiki-selector-block selector-block">
+        <div className="wiki-selector">
+          <div>
             <WikiSelect
               wikis={
                 [{ language: this.props.home_wiki.language, project: this.props.home_wiki.project }]
@@ -407,10 +409,7 @@ const ArticleFinder = createReactClass({
         </header>
         <div className="article-finder-form">
           <div className="search-bar">
-            <div>
-              {searchTerm}
-            </div>
-            <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
+            {searchTerm}
           </div>
         </div>
         {options}

@@ -94,6 +94,7 @@ const TextInput = createReactClass({
         <div className="form-group">
           <label htmlFor={this.props.id} className={labelClass}>{label}</label>
           {input}
+          {this.props.children}
         </div>
       );
     } else if (this.props.label) {
