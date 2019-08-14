@@ -29,7 +29,7 @@ const Category = ({ course, category, remove, editable }) => {
   return (
     <tr>
       <td>
-        <a href={link}>{catName}</a>
+        <a target="_blank" href={link}>{catName}</a>
       </td>
       <td>{depth}</td>
       <td>{category.articles_count}</td>
