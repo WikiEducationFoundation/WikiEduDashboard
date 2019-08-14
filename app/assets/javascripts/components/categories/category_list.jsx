@@ -13,6 +13,9 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
     depth: {
       label: I18n.t('categories.depth')
     },
+    articles_count: {
+      label: I18n.t('categories.articles_count')
+    },
   };
 
   const elements = categories.map((cat) => {

@@ -307,9 +307,10 @@ en:
     confirm_psid_addition: Are you sure you want to track contributions for PetScan PSID "%{name}"?
     confirm_template_addition: Are you sure you want to track contributions for the template "%{name}"?
     depth: Subcategory depth
+    articles_count: Articles Count
     name: Name
     category_name: Category name
-    psid: PSID
+    psid_name: PSID
     template_name: Template name
     psid_name: PSID
     none: There are no categories being tracked.

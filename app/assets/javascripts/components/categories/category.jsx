@@ -13,6 +13,7 @@ const Category = ({ course, category, remove, editable }) => {
     <tr>
       <td>{catName}</td>
       <td>{category.depth}</td>
+      <td>{category.articles_count}</td>
       <td>{removeButton}</td>
     </tr>
   );
