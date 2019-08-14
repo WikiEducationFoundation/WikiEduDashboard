@@ -176,7 +176,7 @@ const ArticleList = createReactClass({
     let filterTracked;
     if (this.props.trackedStatusFilterEnabled) {
       filterTracked = (
-        <select className="filter-articles" defaultValue={this.props.trackedStatusFilter} onChange={this.onTrackedFilterChange}>
+        <select className="filter-articles" value={this.props.trackedStatusFilter} onChange={this.onTrackedFilterChange}>
           <option value="tracked">{I18n.t('articles.filter.tracked')}</option>
           <option value="untracked">{I18n.t('articles.filter.untracked')}</option>
           <option value="both">{I18n.t('articles.filter.tracked_and_untracked')}</option>

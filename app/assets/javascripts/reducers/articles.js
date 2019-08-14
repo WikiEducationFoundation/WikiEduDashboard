@@ -124,6 +124,8 @@ export default function articles(state = initialState, action) {
       const trackedStatusFilterEnabled = getTrackedStatusFilterEnabledStatus(updatedArticles);
       if (!trackedStatusFilterEnabled) {
         trackedStatusFilter = getDefaultTrackedStatusFilter(updatedArticles);
+      } else if (trackedStatusFilter === 'tracked') {
+        trackedStatusFilter = 'both';
       }
       return { ...state, trackedStatusFilterEnabled, trackedStatusFilter, articles: updatedArticles };
     }
