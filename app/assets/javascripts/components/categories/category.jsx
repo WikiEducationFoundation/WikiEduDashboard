@@ -9,7 +9,7 @@ const Category = ({ course, category, remove, editable }) => {
 
   const catName = CourseUtils.formattedCategoryName(category, course.home_wiki);
   let depth;
-  if (category.source !== 'psid') {
+  if (category.source === 'category') {
     depth = category.depth;
   }
 

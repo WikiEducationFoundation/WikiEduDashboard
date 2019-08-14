@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Category from './category';
 import AddCategoryButton from './add_category_button';
 import List from '../common/list.jsx';
+import moment from 'moment';
 
 const CategoryList = ({ course, editable, categories, loading, removeCategory, addCategory }) => {
   const keys = {
@@ -22,6 +23,17 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
     const remove = () => { removeCategory(course.id, cat.id); };
     return <Category key={cat.id} course={course} category={cat} remove={remove} editable={editable} />;
   });
+
+  const category = categories[0];
+  let lastUpdate;
+  if (category) {
+    lastUpdate = category.updated_at;
+  }
+  const lastUpdateMoment = moment.utc(lastUpdate);
+  let lastUpdateMessage;
+  if (lastUpdate) {
+    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
+  }
 
   let addCategoryButton;
   let addTemplateButton;
@@ -61,6 +73,9 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
           {addCategoryButton}
           {addPSIDButton}
           {addTemplateButton}
+        </div>
+        <div className="pull-right">
+          <small className="mb2">{lastUpdateMessage}</small>
         </div>
       </div>
       <List
