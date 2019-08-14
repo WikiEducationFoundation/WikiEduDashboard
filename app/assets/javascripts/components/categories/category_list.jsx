@@ -75,7 +75,12 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
           {addTemplateButton}
         </div>
         <div className="pull-right">
-          <small className="mb2">{lastUpdateMessage}</small>
+          <div className="tooltip-trigger">
+            <small className="mb2">{lastUpdateMessage}</small>
+            <div className="tooltip dark" id="petScan-psid">
+              <p>{I18n.t('categories.articles_fetch_description')}</p>
+            </div>
+          </div>
         </div>
       </div>
       <List

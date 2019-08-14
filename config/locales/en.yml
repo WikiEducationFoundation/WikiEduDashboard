@@ -303,6 +303,7 @@ en:
     add_this_category: Add this category
     add_this_psid: Add this PSID
     add_this_template: Add this template
+    articles_fetch_description: Generally there are huge number of articles for a category, so importing of articles may take some time
     confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
     confirm_psid_addition: Are you sure you want to track contributions for PetScan PSID "%{name}"?
     confirm_template_addition: Are you sure you want to track contributions for the template "%{name}"?
