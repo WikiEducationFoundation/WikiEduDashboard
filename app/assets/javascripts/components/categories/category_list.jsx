@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Category from './category';
 import AddCategoryButton from './add_category_button';
 import List from '../common/list.jsx';
-import moment from 'moment';
 
 const CategoryList = ({ course, editable, categories, loading, removeCategory, addCategory }) => {
   const keys = {
@@ -17,23 +16,16 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
     articles_count: {
       label: I18n.t('categories.articles_count')
     },
+    timestamp: {
+      label: I18n.t('categories.timestamp'),
+      info_key: 'categories.import_articles_description'
+    },
   };
 
   const elements = categories.map((cat) => {
     const remove = () => { removeCategory(course.id, cat.id); };
     return <Category key={cat.id} course={course} category={cat} remove={remove} editable={editable} />;
   });
-
-  const category = categories[0];
-  let lastUpdate;
-  if (category) {
-    lastUpdate = category.updated_at;
-  }
-  const lastUpdateMoment = moment.utc(lastUpdate);
-  let lastUpdateMessage;
-  if (lastUpdate) {
-    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
-  }
 
   let addCategoryButton;
   let addTemplateButton;
@@ -73,14 +65,6 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
           {addCategoryButton}
           {addPSIDButton}
           {addTemplateButton}
-        </div>
-        <div className="pull-right">
-          <div className="tooltip-trigger">
-            <small className="mb2">{lastUpdateMessage}</small>
-            <div className="tooltip dark" id="petScan-psid">
-              <p>{I18n.t('categories.articles_fetch_description')}</p>
-            </div>
-          </div>
         </div>
       </div>
       <List

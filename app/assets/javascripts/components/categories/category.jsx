@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils';
+import moment from 'moment';
 
 const Category = ({ course, category, remove, editable }) => {
   let removeButton;
@@ -18,6 +19,12 @@ const Category = ({ course, category, remove, editable }) => {
   } else {
     link = `https://en.wikipedia.org/wiki/${catName}`;
   }
+  const lastUpdate = category.updated_at;
+  const lastUpdateMoment = moment.utc(lastUpdate);
+  let lastUpdateMessage;
+  if (lastUpdate) {
+    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
+  }
 
   return (
     <tr>
@@ -26,6 +33,11 @@ const Category = ({ course, category, remove, editable }) => {
       </td>
       <td>{depth}</td>
       <td>{category.articles_count}</td>
+      <td>
+        <div className="pull-center">
+          <small className="mb2">{lastUpdateMessage}</small>
+        </div>
+      </td>
       <td>{removeButton}</td>
     </tr>
   );
