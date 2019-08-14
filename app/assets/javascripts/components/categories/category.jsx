@@ -8,11 +8,15 @@ const Category = ({ course, category, remove, editable }) => {
   }
 
   const catName = CourseUtils.formattedCategoryName(category, course.home_wiki);
+  let depth;
+  if (category.source !== 'psid') {
+    depth = category.depth;
+  }
 
   return (
     <tr>
       <td>{catName}</td>
-      <td>{category.depth}</td>
+      <td>{depth}</td>
       <td>{category.articles_count}</td>
       <td>{removeButton}</td>
     </tr>
