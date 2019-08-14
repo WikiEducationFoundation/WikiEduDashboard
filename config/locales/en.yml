@@ -303,18 +303,21 @@ en:
     add_this_category: Add this category
     add_this_psid: Add this PSID
     add_this_template: Add this template
+    import_articles_description: List of articles in a category gets periodically updated, and it may take some time after it is added before the list gets populated.
     confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
     confirm_psid_addition: Are you sure you want to track contributions for PetScan PSID "%{name}"?
     confirm_template_addition: Are you sure you want to track contributions for the template "%{name}"?
     depth: Subcategory depth
+    articles_count: Articles Count
     name: Name
     category_name: Category name
-    psid: PSID
+    psid_name: PSID
     template_name: Template name
     psid_name: PSID
     none: There are no categories being tracked.
     remove: Remove
-    tracked_categories: Tracked Categories & Templates
+    tracked_categories: Tracked Categories, PSID & Templates
+    timestamp: Last Updated On
 
   chat:
     label: Chat

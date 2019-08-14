@@ -152,7 +152,7 @@ export default class CourseUtils {
   }
 
   static formattedCategoryName(category, defaultWiki) {
-    category.title = category.name;
+    category.title = category.cat_name;
     category.language = category.wiki.language;
     category.project = category.wiki.project;
     return this.formattedArticleTitle(category, defaultWiki);
