@@ -35,6 +35,7 @@ const CourseForm = (props) => {
   let expectedStudents;
   let courseLevel;
   let roleDescription;
+  let academic_system;
 
   let descriptionRequired = false;
   if (props.defaultCourse === 'ClassroomProgramCourse') {
@@ -86,6 +87,19 @@ const CourseForm = (props) => {
     const options = I18n.t('courses.creator.role_description_options').map((value) => {
       return { label: value, value };
     });
+    academic_system = (
+      <div className="form-group academic_system">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses.school_system')}:
+          </strong>
+          <AcademicSystem
+            value={props.course.academic_system}
+            updateCourseProps={props.updateCourseProps}
+          />
+        </span>
+      </div>
+    );
 
     roleDescription = (
       <CreatableInput
@@ -103,7 +117,6 @@ const CourseForm = (props) => {
   let backButton;
   let home_wiki;
   let multi_wiki;
-  let academic_system;
 
   if (props.course.wikis && !props.course.wikis.length) {
     props.course.wikis.push({ language: 'en', project: 'wikipedia' });
@@ -123,19 +136,6 @@ const CourseForm = (props) => {
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
         />
-      </div>
-    );
-    academic_system = (
-      <div className="form-group academic_system">
-        <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.school_system')}:
-          </strong>
-          <AcademicSystem
-            value={props.course.academic_system}
-            updateCourseProps={props.updateCourseProps}
-          />
-        </span>
       </div>
     );
     multi_wiki = (
