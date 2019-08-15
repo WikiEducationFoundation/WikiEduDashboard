@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import '../../testHelper';
 import configureMockStore from 'redux-mock-store';
-import { MyAssignment } from '../../../app/assets/javascripts/components/overview/my_assignment.jsx';
+import { MyAssignment } from '../../../app/assets/javascripts/components/overview/my_articles/my_assignment.jsx';
 import Feedback from '../../../app/assets/javascripts/components/common/feedback.jsx';
 
 const mockStore = configureMockStore([]);

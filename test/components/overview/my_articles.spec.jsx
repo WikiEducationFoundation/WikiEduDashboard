@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import '../../testHelper';
-import { MyArticles } from '../../../app/assets/javascripts/components/overview/my_articles.jsx';
+import { MyArticles } from '../../../app/assets/javascripts/components/overview/my_articles/my_articles.jsx';
 
 describe('MyArticles', () => {
   it('renders the My Articles header', () => {
