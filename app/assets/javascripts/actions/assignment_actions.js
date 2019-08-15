@@ -51,7 +51,7 @@ export const updateAssignment = assignment => (dispatch) => {
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
-export const updateAssignmentStatus = (assignment, status) => (dispatch) => {
+export const updateAssignmentStatus = (assignment, status) => () => {
   const body = {
     id: assignment.id,
     status,
