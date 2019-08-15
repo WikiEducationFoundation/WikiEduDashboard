@@ -20,11 +20,11 @@ describe AssignmentPipeline do
     end
 
     describe '#status' do
-      it 'returns the "in progress" status if there is no status' do
+      it 'returns the "not_yet_started" status if there is no status' do
         pipeline = described_class.new(assignment: assignment)
 
         actual = pipeline.status
-        expected = described_class::AssignmentStatuses::IN_PROGRESS
+        expected = described_class::AssignmentStatuses::NOT_YET_STARTED
         expect(actual).to equal(expected)
       end
     end
@@ -34,7 +34,7 @@ describe AssignmentPipeline do
         pipeline = described_class.new(assignment: assignment)
 
         actual = pipeline.all_statuses
-        expect(actual.length).to equal(3)
+        expect(actual.length).to equal(4)
       end
     end
 
@@ -53,7 +53,7 @@ describe AssignmentPipeline do
 
       it 'will only set the assignment if the status is valid' do
         pipeline = described_class.new(assignment: assignment)
-        in_progress_status = described_class::AssignmentStatuses::IN_PROGRESS
+        in_progress_status = described_class::AssignmentStatuses::NOT_YET_STARTED
         expect(pipeline.status).to eq(in_progress_status)
         expect(assignment.flags[:assignment]).to be(nil)
 
@@ -81,11 +81,11 @@ describe AssignmentPipeline do
     end
 
     describe '#status' do
-      it 'returns the "in progress" status if there is no status' do
+      it 'returns the "not_yet_started" status if there is no status' do
         pipeline = described_class.new(assignment: assignment)
 
         actual = pipeline.status
-        expected = described_class::ReviewStatuses::PEER_REVIEWER_NEEDED
+        expected = described_class::ReviewStatuses::NOT_YET_STARTED
         expect(actual).to equal(expected)
       end
     end
@@ -114,7 +114,7 @@ describe AssignmentPipeline do
 
       it 'will only set the assignment if the status is valid' do
         pipeline = described_class.new(assignment: assignment)
-        in_progress_status = described_class::ReviewStatuses::PEER_REVIEWER_NEEDED
+        in_progress_status = described_class::ReviewStatuses::NOT_YET_STARTED
         expect(pipeline.status).to eq(in_progress_status)
         expect(assignment.flags[:review]).to be(nil)
 
