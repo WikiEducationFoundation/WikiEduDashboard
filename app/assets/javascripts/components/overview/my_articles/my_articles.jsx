@@ -3,14 +3,14 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import AssignCell from '../students/assign_cell.jsx';
+import AssignCell from '../../students/assign_cell.jsx';
 import MyAssignmentsList from './my_assignments_list.jsx';
-import { fetchAssignments } from '../../actions/assignment_actions';
+import { fetchAssignments } from '../../../actions/assignment_actions';
 import {
   ASSIGNED_ROLE, REVIEWING_ROLE,
   IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
-} from '../../constants/assignments';
-import { groupByAssignmentType } from '../util/helpers';
+} from '../../../constants/assignments';
+import { groupByAssignmentType } from '../../util/helpers';
 
 export const MyArticles = createReactClass({
   displayName: 'MyArticles',

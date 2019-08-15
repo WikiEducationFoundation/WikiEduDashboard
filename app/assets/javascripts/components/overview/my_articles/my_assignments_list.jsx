@@ -1,6 +1,6 @@
 import React from 'react';
 import MyAssignment from './my_assignment.jsx';
-import { REVIEWING_ROLE, IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../constants/assignments';
+import { REVIEWING_ROLE, IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../../constants/assignments';
 
 // Helper Components
 const Tooltip = ({ message, text }) => {
