@@ -2,18 +2,21 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MainspaceChecklist from '../common/mainspace_checklist.jsx';
-import FinalArticleChecklist from '../common/final_article_checklist.jsx';
-import PeerReviewChecklist from '../common/peer_review_checklist.jsx';
-import CourseUtils from '../../utils/course_utils.js';
-import Feedback from '../common/feedback.jsx';
+import MainspaceChecklist from '../../common/mainspace_checklist.jsx';
+import FinalArticleChecklist from '../../common/final_article_checklist.jsx';
+import PeerReviewChecklist from '../../common/peer_review_checklist.jsx';
+import CourseUtils from '../../../utils/course_utils.js';
+import Feedback from '../../common/feedback.jsx';
+import Wizard from './my_articles_wizard.jsx';
 
-import { initiateConfirm } from '../../actions/confirm_actions';
-import { deleteAssignment } from '../../actions/assignment_actions';
+import { initiateConfirm } from '../../../actions/confirm_actions';
+import { deleteAssignment } from '../../../actions/assignment_actions';
 
 import { NEW_ARTICLE, REVIEWING_ROLE } from '../../constants/assignments';
 
 // Helper Components
+const Separator = () => <span> •&nbsp;</span>;
+
 // Actions Components
 const RemoveButton = ({ assignment, unassign }) => (
   <div>

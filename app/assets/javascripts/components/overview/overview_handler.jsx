@@ -13,7 +13,7 @@ import ThisWeek from './this_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
-import MyArticles from './my_articles.jsx';
+import MyArticles from './my_articles/my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions.js';

@@ -11,23 +11,96 @@
         font-size 12px
 
 .my-assignment
+  border 1px solid #EDEDED
+  border-radius 3px
   display flex
-  .actions, .header
+  flex-direction column
+  margin 15px 0
+  padding 15px
+  .header-wrapper
+    display flex
+    padding 0
+  .header, .actions
     flex 1
+  .header
     font-size 90%
+    display inline
+    margin-bottom 15px
+    text-align left
+    .title
+      padding 0
+      h4
+        color $text
+        display inline
+        font-size 130%
+        font-weight normal
   .actions
     align-items center
     display flex
     justify-content flex-end
-    div
-      margin-right 5px
-  .header
-    display inline
-    .title h4
-      color $text
-      display inline
-      font-size 130%
-      font-weight normal
+    text-align right
+    *
+      margin-left 3px
+  .flow
+    display flex
+    .step
+      align-items center
+      border-right 1px solid rgb(225,225,225)
+      color rgba(100,100,100,0.6)
+      display flex
+      flex 1
+      flex-direction column
+      padding 15px 30px
+      text-align center
+      *
+        flex 1
+      &:last-child
+        border-right none
+        margin-right 0
+      span.step-number
+        border 3px solid rgb(225,225,225)
+        border-radius 50%
+        color rgb(225,225,225)
+        display block
+        flex none
+        font-weight bold
+        padding 10px
+        text-align center
+        height 50px
+        width 50px
+      h3.step-title
+        color rgba(100,100,100,0.6)
+        font-weight 400
+        margin-bottom 0
+        padding 15px 0
+      p.step-description
+        font-size 0.9rem
+      aside.step-links a, section.step-members a
+        color rgba(100,100,100,0.6)
+        font-size 0.9rem
+        white-space nowrap
+      aside.step-links a
+        display block
+      section.step-members
+        font-size 0.9rem
+        margin 15px
+      nav.step-navigation
+        flex 1
+        margin-top 15px
+        text-align center
+        button
+          display block
+          margin 5px 0 0
+      &.active
+        color rgb(100,100,100)
+        span.step-number
+          border-color rgb(103, 110, 180)
+          color rgb(103, 110, 180)
+        h3.step-title
+          color rgb(103, 110, 180)
+        aside.step-links a
+          color rgb(103, 110, 180)
+
 
 .my-assignment-checklist
   font-size 120%
