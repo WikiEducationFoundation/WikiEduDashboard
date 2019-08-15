@@ -1,3 +1,5 @@
+import CourseUtils from './utils/course_utils';
+
 const List = require('list.js');
 
 $(() => {
@@ -29,7 +31,12 @@ $(() => {
 
     // campaign details form submission
     $('.campaign-details .rails_editable-save').on('click', () => {
-      $('#edit_campaign_details').trigger('submit');
+      const slug = $('#campaign_slug').val();
+      if (CourseUtils.courseSlugRegex().test(slug)) {
+        $('#edit_campaign_details').trigger('submit');
+      } else {
+        alert(I18n.t('campaign.invalid_slug', { slug }));
+      }
     });
   });
 
@@ -99,7 +106,7 @@ $(() => {
         case 'campaigns': return campaignList;
         default: break;
       }
-})();
+    })();
     if (list) {
       return list.sort($(this).val(), {
         order: $(this).children('option:selected').attr('rel')

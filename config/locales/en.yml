@@ -254,6 +254,7 @@ en:
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
+    invalid_slug: Invalid slug %{slug}
     confirm_course_removal: Are you sure you want to remove "%{title}" from the "%{campaign_title}" campaign?
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
@@ -294,6 +295,7 @@ en:
     random_passcode: a random passcode
     requested_accounts: Requested accounts
     title: Title
+    slug: Slug
     use_start_end_dates: Use start and end dates
 
   categories:
