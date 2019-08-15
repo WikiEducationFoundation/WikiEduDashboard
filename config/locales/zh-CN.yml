@@ -9,6 +9,7 @@
 # Author: Fanjiayi
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
+# Author: Looong
 # Author: Macofe
 # Author: NeverBehave
 # Author: Phenolla
@@ -98,6 +99,9 @@ zh-CN:
     edited_mobile: 条目
     filter:
       new: 新的
+      tracked: 跟踪的
+      untracked: 未跟踪的
+      tracked_and_untracked: 追踪和未追踪
     hide: 隐藏
     history: （历史）
     label: 条目
@@ -123,6 +127,8 @@ zh-CN:
     show_current_version: 显示当前版本
     show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
     title: 标题
+    tracked: 被跟踪的
+    tracked_doc: 这个项目的统计数据只包含被追踪的文章。没有被追踪的文章在下一次数据更新之前会被从统计数据中删除。
     title_example: 条目标题
     tools: 评定工具
     view: 查看条目
@@ -211,14 +217,18 @@ zh-CN:
     use_start_end_dates: 使用开始和结束日期
   categories:
     add_category: 添加分类
+    add_psid: 添加PetScan PSID
     add_template: 添加模板
     add_this_category: 添加此分类
+    add_this_psid: 添加这个PSID
     add_this_template: 添加此模板
     confirm_category_addition: 您确定要追踪对分类“%{name}”的贡献么？
-    confirm_template_addition: 您确定要追踪对模板“%{name}”的贡献么？
+    confirm_psid_addition: 你确定你要跟踪对PetScan PSID%{name}的贡献吗？
+    confirm_template_addition: 您确定要追踪给模板“%{name}”的贡献么？
     depth: 子分类深度
     name: 名称
     category_name: 分类名称
+    psid_name: PSID
     template_name: 模板名称
     none: 没有追踪的分类。
     remove: 移除
@@ -853,7 +863,7 @@ zh-CN:
     start_date_before_end_date: 开始日期必须在结束日期之前
     unsupported_browser:
       header: 浏览器不受支持。:-(
-      explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Internet Explorer 11或更高版本、Chrome和Firefox浏览器的最新版本以及其他现代浏览器上正常工作。
+      explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Chrome，Firefox，EDGE以及其他现代浏览器的最新版本上能正常工作。
   error_401:
     header: 未获授权。>:-(
     explanation: 您未被授权执行此请求。如果您相信看见此通知是个错误，请联络此控制面板的维护人员以让他们了解有关问题的详情。

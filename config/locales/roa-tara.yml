@@ -72,6 +72,8 @@ roa-tara:
       wiki_all: Tutte
       new: Nuève
       existing: Esistende
+      tracked: Tracciate
+      untracked: Non tracciate
     hide: Scunne
     history: (cunde)
     label: Vôsce
@@ -89,6 +91,9 @@ roa-tara:
     sandbox_draft_link: Bozze d'a pàgene de prove
   campaign:
     data_revisions: Date de le revisiune
+  categories:
+    add_this_psid: Aggiunge stu PSID
+    psid_name: PSID
   courses:
     assignment_headings:
       assigned_reviews: Revisiune assegnate

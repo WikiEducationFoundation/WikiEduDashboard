@@ -115,6 +115,9 @@ zh-TW:
       new: 新的
       existing: 存在
       new_and_existing: 新的且存在
+      tracked: 已追蹤
+      untracked: 已取消追蹤
+      tracked_and_untracked: 已追蹤與取消追蹤
     hide: 隱藏
     history: （歷史）
     label: 條目
@@ -141,6 +144,7 @@ zh-TW:
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
     title: 標題
     tracked: 已追蹤
+    tracked_doc: 僅已追蹤條目會加在用於此方案的統計。當條目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
     title_example: 條目標題
     tools: 評估工具
     view: 檢視文章
@@ -245,18 +249,25 @@ zh-TW:
     use_start_end_dates: 使用起始和結束時間
   categories:
     add_category: 新增分類
+    add_psid: 添加 PetScan PSID
     add_template: 新增模板
     add_this_category: 新增此分類
+    add_this_psid: 添加此 PSID
     add_this_template: 新增此模板
+    import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
     confirm_category_addition: 您確定您要追蹤分類「%{name}」的貢獻內容嗎？
-    confirm_template_addition: 您確定您要追蹤模板「%{name}」的貢獻內容嗎？
+    confirm_psid_addition: 您確定您要追蹤對於 PetScan PSID「%{name}」的貢獻內容嗎？
+    confirm_template_addition: 您確定您要追蹤對於模板「%{name}」的貢獻內容嗎？
     depth: 子分類層度
+    articles_count: 條目數
     name: 名稱
     category_name: 分類名稱
+    psid_name: PSID
     template_name: 模板名稱
     none: 沒有被追蹤的分類。
     remove: 移除
-    tracked_categories: 已追蹤分類與模板
+    tracked_categories: 已追蹤分類、PSID 與模板
+    timestamp: 最後更新於
   chat:
     label: 聊天
   courses:
@@ -982,8 +993,7 @@ zh-TW:
     start_date_before_end_date: 起始時間必須在結束時間之前
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(
-      explanation: 您使用的瀏覽器與此資訊看板不相容。請使用 Internet Explorer 11 或更新版本、Chrome 和 Firefox
-        等瀏覽器的最新版本。
+      explanation: 您使用的瀏覽器與此資訊看板不相容。此網站在 Chrome、Firefox、Egde，等其它新型瀏覽器的最新版本下可正常運作。
   error_401:
     header: 未授權。 :-(
     explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是因為有錯誤發生，請聯繫此資訊看板的維護人員讓他們知道此問題。

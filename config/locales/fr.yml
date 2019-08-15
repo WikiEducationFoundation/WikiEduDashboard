@@ -11,6 +11,7 @@
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
+# Author: Hk5184
 # Author: LudaOtaku
 # Author: Mabroukb
 # Author: Macofe
@@ -143,6 +144,9 @@ fr:
       new: Nouveau
       existing: Existant
       new_and_existing: Nouveau et existant
+      tracked: Suivi
+      untracked: Non suivi
+      tracked_and_untracked: Suivi et non suivi
     hide: Masquer
     history: (historique)
     label: Articles
@@ -178,6 +182,9 @@ fr:
       en évidence de la paternité
     title: Titre
     tracked: Suivi
+    tracked_doc: Seuls les articles suivis contribuent aux statistiques pour ce programme.
+      Quand des articles sont marqués comme non suivi, ils seront supprimés des statistiques
+      lors de la prochaine mise à jour de données.
     title_example: Titre de l’article
     tools: Outils d’évaluation
     view: Afficher l’article
@@ -299,16 +306,21 @@ fr:
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:
     add_category: Ajouter une catégorie
+    add_psid: Ajouter le PSID PetScan
     add_template: Ajouter un modèle
     add_this_category: Ajouter cette catégorie
+    add_this_psid: Ajouter ce PSID
     add_this_template: Ajouter ce modèle
     confirm_category_addition: Êtes-vous sûr de vouloir suivre les contributions à
       la catégorie « %{name} » ?
-    confirm_template_addition: Êtes-vous sûr de vouloir suivre les contributions au
-      modèle « %{name} » ?
+    confirm_psid_addition: Êtes-vous sûr de vouloir tracer les contributions au PSID
+      PetScan « %{name} » ?
+    confirm_template_addition: Êtes-vous sûr de vouloir suivre les contributions pour
+      le modèle « %{name} » ?
     depth: Profondeur de sous-catégorie
     name: Nom
     category_name: Nom de la catégorie
+    psid_name: PSID
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
     remove: Supprimer
@@ -1251,7 +1263,7 @@ fr:
     unsupported_browser:
       header: Navigateur non pris en charge. :-(
       explanation: Vous utilisez un navigateur qui n'est pas compatible avec le tableau
-        de bord. Le site fonctionne bien sur Internet Explorer 11 ou plus, sur les
+        de bord. Le site fonctionne bien sur Internet Explorer 11 ou encore, sur les
         versions récentes de Chrome ou Firefox, et sur d'autres navigateurs modernes.
   error_401:
     header: Non autorisé. >:-(

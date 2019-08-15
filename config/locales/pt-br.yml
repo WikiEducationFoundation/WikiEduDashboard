@@ -139,6 +139,9 @@ pt-br:
       new: Novo
       existing: Existentes
       new_and_existing: Novos e existentes
+      tracked: Rastreado
+      untracked: Não rastreado
+      tracked_and_untracked: Rastreado e não rastreado
     hide: Ocultar
     history: (histórico)
     label: Artigos
@@ -173,6 +176,9 @@ pt-br:
       autoria
     title: Título
     tracked: Monitorizado
+    tracked_doc: Apenas artigos rastreados contribuem para as estatísticas deste programa.
+      Quando os artigos são marcados como não acompanhados, eles serão removidos das
+      estatísticas durante a próxima atualização de dados.
     title_example: Título do artigo
     tools: Ferramentas de avaliação
     view: Ver artigo
@@ -290,16 +296,21 @@ pt-br:
     use_start_end_dates: Use datas de início e fim
   categories:
     add_category: Adicionar categoria
+    add_psid: Adicionar PetScan PSID
     add_template: Adicionar predefinição
     add_this_category: Adicionar esta categoria
+    add_this_psid: Adicionar esse PSID
     add_this_template: Adicionar esta predefinição
     confirm_category_addition: Você tem certeza de que deseja monitorar as contribuições
       da categoria "%{name}"?
+    confirm_psid_addition: Você tem certeza que quer acompanhar as contribuições para
+      o PetScan PSID? "%{name}"?
     confirm_template_addition: Você tem certeza de que deseja monitorar as contribuições
       da predefinição "%{name}"?
     depth: Profundidade de subcategorias
     name: Nome
     category_name: Nome da categoria
+    psid_name: PSID
     template_name: Nome da predefinição
     none: Não há nenhuma categoria sendo acompanhada.
     remove: Remover
