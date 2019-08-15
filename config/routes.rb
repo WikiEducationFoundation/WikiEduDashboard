@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   end
 
   resources :assignments do
+    patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
 
