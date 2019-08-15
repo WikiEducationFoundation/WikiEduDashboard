@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ReviewerLink } from './helpers';
 
-import { fetchAssignments, updateAssignment } from '../../../actions/assignment_actions';
+import { fetchAssignments, updateAssignmentStatus } from '../../../actions/assignment_actions';
 
 const StepNumber = ({ index }) => (
   <span className="step-number">{index + 1}</span>
@@ -44,14 +44,13 @@ const ButtonNavigation = ({
 }) => {
   const update = (undo = false) => async () => {
     const {
-      id,
       assignment_all_statuses: statuses,
       assignment_status: status
     } = assignment;
     const i = statuses.indexOf(status);
     const updated = (undo ? statuses[i - 1] : statuses[i + 1]) || status;
 
-    await handleUpdateAssignment({ id, status: updated });
+    await handleUpdateAssignment(assignment, updated);
     await refreshAssignments(courseSlug);
   };
 
@@ -189,7 +188,7 @@ export const Wizard = ({ assignment, courseSlug, handleUpdateAssignment, refresh
 };
 
 const mapDispatchToProps = {
-  handleUpdateAssignment: updateAssignment,
+  handleUpdateAssignment: updateAssignmentStatus,
   refreshAssignments: fetchAssignments
 };
 

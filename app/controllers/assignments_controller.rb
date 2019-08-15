@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
-  before_action :set_course, except: [:update]
+  before_action :set_course, except: [:update, :update_status]
 
   def destroy
     set_assignment { return }
@@ -43,6 +43,19 @@ class AssignmentsController < ApplicationController
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
              status: :internal_server_error
+    end
+  end
+
+  def update_status
+    check_permissions(assignment_params[:user_id].to_i)
+    @assignment = Assignment.find(assignment_params[:id])
+
+    if assignment_params[:status]
+      @assignment.assignment_pipeline.update_status(assignment_params[:status])
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
+    else
+      render json: { errors: @assignment.errors, message: 'unable to update assignment' },
+             status: :unprocessable_entity
     end
   end
 
