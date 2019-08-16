@@ -35,7 +35,7 @@ describe 'the course page', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:update_logs) do
     { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } },
-      'academic_system' => 'Semester' }
+      'academic_system' => 'semester' }
   end
 
   before do
@@ -192,7 +192,7 @@ describe 'the course page', type: :feature, js: true do
 
     it 'get academic_system' do
       academic_system = Course.find_by(slug: slug).academic_system
-      expect(academic_system).to eq('Semester')
+      expect(academic_system).to eq('semester')
     end
   end
 

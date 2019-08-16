@@ -5,9 +5,9 @@ const createReactClass = require('create-react-class');
 const AcademicSystem = createReactClass({
 
   getInitialState: function () {
-    this.props.updateCourseProps({ academic_system: this.props.value || 'Semester' });
+    this.props.updateCourseProps({ academic_system: this.props.value || 'semester' });
     return {
-      selectedOption: this.props.value || 'Semester'
+      selectedOption: this.props.value || 'semester'
     };
   },
 
@@ -19,7 +19,7 @@ const AcademicSystem = createReactClass({
   },
 
   render: function () {
-    const options = ['Semester', 'Quarter'];
+    const options = ['semester', 'quarter', 'other'];
     let i;
     const academic_system = [];
     for (i = 0; i < options.length; i += 1) {

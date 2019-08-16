@@ -655,7 +655,7 @@ describe Course, type: :model do
     context 'with academic_system flag' do
       let(:flags) do
         {
-          'academic_system' => 'Semester'
+          'academic_system' => 'semester'
         }
       end
 
@@ -663,7 +663,7 @@ describe Course, type: :model do
         Course::COURSE_TYPES.each do |type|
           create(:course, type: type, flags: flags, slug: "foo/#{type}")
           course = described_class.last
-          expect(course.academic_system).to eq('Semester')
+          expect(course.academic_system).to eq('semester')
         end
       end
     end
