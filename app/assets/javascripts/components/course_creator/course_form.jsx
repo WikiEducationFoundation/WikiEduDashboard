@@ -87,6 +87,19 @@ const CourseForm = (props) => {
     const options = I18n.t('courses.creator.role_description_options').map((value) => {
       return { label: value, value };
     });
+    academic_system = (
+      <div className="form-group academic_system">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses.school_system')}:
+          </strong>
+          <AcademicSystem
+            value={props.course.academic_system}
+            updateCourseProps={props.updateCourseProps}
+          />
+        </span>
+      </div>
+    );
 
     roleDescription = (
       <CreatableInput
@@ -123,19 +136,6 @@ const CourseForm = (props) => {
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
         />
-      </div>
-    );
-    academic_system = (
-      <div className="form-group academic_system">
-        <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.school_system')}:
-          </strong>
-          <AcademicSystem
-            value={props.course.academic_system}
-            updateCourseProps={props.updateCourseProps}
-          />
-        </span>
       </div>
     );
     multi_wiki = (
