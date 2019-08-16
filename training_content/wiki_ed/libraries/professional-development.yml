@@ -4,6 +4,12 @@ exclude_from_index: false
 introduction: |
   This set of modules covers the basics of contributing to Wikipedia.
 categories:
+  - title: ''
+    description: ''
+    modules:
+      - slug: orientation-professional
+        name: Orientation
+        description: An overview of Wiki Education's Wikipedia course
   - title: How Wikipedia works
     description: These modules cover the rules and norms of Wikipedia.
     modules:
@@ -30,7 +36,7 @@ categories:
         description: How to find a good article to work on
       - slug: drafting-professional
         name: Drafting in the sandbox
-        description: Practical steps for working in a sandbox, and beginning to draft of an article
+        description: Practical steps for working in a sandbox, and beginning to draft an article
       - slug: moving-live-professional
         name: Moving work out of the sandbox
         description: Practical steps for moving your work to Wikipedia
