@@ -1098,10 +1098,10 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
-"@tinymce/tinymce-react@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.3.0.tgz#a72c3539a4a559a6f7fa3ac2e0bc077f33fd8c55"
-  integrity sha512-pLewPrKdPJDvu22i0OjVZrsO+ALLvfD4FcxiwfkShGfCTWccwuS1Pky2rdLLoj5hib5z3WMcaMSy1hxX+G2xwQ==
+"@tinymce/tinymce-react@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.3.1.tgz#fbb867402ef6a857f14bed7eb88e6306660c10f4"
+  integrity sha512-eCYHsdHAnCePnYh+k4YAar3wpW5LyRL87TGWNIOrtqwKJ82uQ/bin0UQheVvpQhcb9XgHCGONJNGH1jDQ8cj1A==
   dependencies:
     prop-types "^15.6.2"
 
