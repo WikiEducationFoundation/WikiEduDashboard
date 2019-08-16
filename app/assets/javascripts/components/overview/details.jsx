@@ -145,7 +145,7 @@ const Details = createReactClass({
       );
     }
 
-    if (canRename) {
+    if (canRename && isClassroomProgramType) {
       academic_system = (
         <div className="form-group academic_system">
           <span className="text-input-component__label">
