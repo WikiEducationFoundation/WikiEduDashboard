@@ -2,13 +2,17 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anakmalaysia
+# Author: Tofeiku
 # Author: Yusozim
 ---
 ms:
   application:
     cancel: Batal
+    create_accounts: Cipta akaun Wikipedia
     dashboard: Papan Pemuka Wiki Ed
+    documentation: Pendokumenan
     explore: Jelajah
+    field_required: Medan ini diperlukan.
     greeting2: Selma datang!
     greeting_extended: Selamat datang ke Wikipedia
     greeting: Helo!
@@ -19,12 +23,19 @@ ms:
     log_out: Log keluar
     my_dashboard: Papan Pemuka Saya
     recent_activity: Kegiatan Terbaru
-    search: cari di ask.wikiedu.org
+    report_problem: Laporkan masalah
+    request_account_create: Buka akaun
+    search: tanyakan soalan
     sign_up_extended: Daftar masuk dengan Wikipedia
+    sign_up_wikipedia: Atau daftar di Wikipedia
     sign_up_log_in_extended: dengan Wikipedia
     sign_up: Daftar
     submit: Hantar
     training: Latihan
+    opt_in: Ya
+    opt_out: Tidak
+    opt_yes: ya
+    opt_no: tidak
   dashboard:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
     explore_course_pages: Jelajah Laman Kursus
@@ -45,4 +56,50 @@ ms:
     all: Kegiatan
     edited_by: Disunting oleh
     label: Aktiviti
+  articles:
+    edited_mobile: Rencana
+    filter:
+      wiki_all: Semua
+      new: Baru
+    history: (sejarah)
+    label: Rencana
+    new: (baru)
+    rating: Kelas
+    wiki: Wiki
+  assignments:
+    article_link: Rencana
+  campaign:
+    alert_type: Jenis
+    alert_user_id: Pengguna
+    created_at: Tarikh
+    data_editor_usernames: Nama pengguna penyunting
+    none: Tiada
+  categories:
+    name: Nama
+    category_name: Nama kategori
+    template_name: Nama templat
+  courses:
+    activity: Aktiviti
+    all_courses: Semua Kursus
+    articles: Rencana
+    course: Kursus
+    course_description: Kursus
+    courses: Kursus
+    creator:
+      start_date: Tarikh mula
+    feedback: Maklum balas
+    my_articles: Rencana Saya
+    new_week: Tambah Minggu Baru
+    new_account_email: Alamat e-mel
+    none: Tiada
+    school: Sekolah
+    start: Mula
+    students: Pelajar
+    students_short: Pelajar
+    user_role: Peranan
+  courses_generic:
+    course: Program
+    courses: Program
+    creator:
+      create_label: Cipta Program Baru
 ...

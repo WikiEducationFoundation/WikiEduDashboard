@@ -288,7 +288,7 @@ it:
     template_name: Nome template
     none: Non c'è alcuna categoria monitorata.
     remove: Rimuovi
-    tracked_categories: Categorie e template monitorati
+    tracked_categories: Categorie, PSID e template monitorati
   chat:
     label: Chat
   courses:

@@ -145,10 +145,12 @@ lb:
     add_template: Schabloun derbäisetzen
     add_this_category: Dës Kategorie derbäisetzen
     add_this_template: Dës Schabloun derbäisetzen
+    articles_count: Zuel vun den Artikelen
     name: Numm
     category_name: Numm vun der Kategorie
     template_name: Numm vun der Schabloun
     remove: Ewechhuelen
+    timestamp: Lescht Aktualiséierung den
   chat:
     label: Chat
   courses:

@@ -10,6 +10,8 @@ tt-cyrl:
     home: Баш
     change: Үзгәртү
     confirm: Ярар
+  assignments:
+    article_link: Мәкалә
   courses:
     articles: Мәкаләләр
     title: Башлам

@@ -7,6 +7,7 @@
 # Author: KeepingCalm
 # Author: Lilitik22
 # Author: Vahe Gharakhanyan
+# Author: Աշոտ1997
 ---
 hy:
   application:
@@ -98,7 +99,7 @@ hy:
     organizers: Կազմակերպիչներ
   courses:
     activity: Ակտիվություն
-    articles: Յօդուածներ
+    articles: Հոդվածներ
     course_description: Դասընթացներ
     courses: Դասընթացներ
     creation_date: Ստեղծման ամսաթիվը

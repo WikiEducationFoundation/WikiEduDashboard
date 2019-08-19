@@ -108,6 +108,9 @@ fi:
     article_development: (artikkelin kehittäminen)
     assigned: Tehtäväksi annetut artikkelit
     available: Käytettävissä olevat artikkelit
+    next: Seuraava
+    previous: Edellinen
+    article_title: Artikkelin otsikko
     assigned_to: Käsittelijä
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
@@ -171,6 +174,7 @@ fi:
       englanninkielisen Wikipedian artikkeleille.)'
   assignments:
     article: Artikkeli %{title} on nyt annettu tehtäväksi sinulle.
+    article_link: Artikkeli
     already_exists: Tehtävä on jo luotu!
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
@@ -180,6 +184,7 @@ fi:
     add_available_submit: Lisää artikkelit
     assign_self: Anna itsellesi artikkeli tehtäväksi
     assign_tooltip: Tehtäväartikkeli on se, jonka olet valinnut tehtäväksi tai parannettavaksi.
+    clone: Luo kopio
     confirm_add_available: Haluatko varmasti lisätä artikkelin %{title}
     confirm_addition: Haluatko varmasti antaa artikkelin %{title} tehtäväksi muokkaajalle
       %{username}?
@@ -394,6 +399,7 @@ fi:
     feedback: Palaute
     feedback_loading: Hetki, ehdotukset latautuvat...
     gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
+    home_wiki: Kotiwiki
     instructor:
       one: ohjaaja
       other: ohjaajat

@@ -103,6 +103,7 @@ lv:
     add_template: Pievienot veidni
     add_this_category: Pievienot šo kategoriju
     add_this_template: Pievienot šo veidni
+    articles_count: Rakstu skaits
     name: Nosaukums
     category_name: Kategorijas nosaukums
     template_name: Veidnes nosaukums

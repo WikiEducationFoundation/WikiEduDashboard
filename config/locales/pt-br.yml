@@ -14,6 +14,7 @@
 # Author: HenriqueCrang
 # Author: Ixocactus
 # Author: Joalpe
+# Author: Jurema Oliveira
 # Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
@@ -301,6 +302,9 @@ pt-br:
     add_this_category: Adicionar esta categoria
     add_this_psid: Adicionar esse PSID
     add_this_template: Adicionar esta predefinição
+    import_articles_description: A lista de artigos em uma categoria é atualizada
+      periodicamente e pode levar algum tempo depois de ser adicionada antes que a
+      lista seja preenchida.
     confirm_category_addition: Você tem certeza de que deseja monitorar as contribuições
       da categoria "%{name}"?
     confirm_psid_addition: Você tem certeza que quer acompanhar as contribuições para
@@ -308,13 +312,15 @@ pt-br:
     confirm_template_addition: Você tem certeza de que deseja monitorar as contribuições
       da predefinição "%{name}"?
     depth: Profundidade de subcategorias
+    articles_count: Contagem de artigos
     name: Nome
     category_name: Nome da categoria
     psid_name: PSID
     template_name: Nome da predefinição
     none: Não há nenhuma categoria sendo acompanhada.
     remove: Remover
-    tracked_categories: Categorias e predefinições monitoradas
+    tracked_categories: Categorias rastreadas, PSID e Predefinições
+    timestamp: Última atualização
   chat:
     label: Bate-papo
   courses:
@@ -1225,10 +1231,9 @@ pt-br:
     start_date_before_end_date: Data de início deve ser anterior a data de fim
     unsupported_browser:
       header: Navegador sem suporte. :-(
-      explanation: Você está usando um navegador que não é compatível com o painel
-        de controle. Esta página funciona bem com a versão 11 ou superior do Internet
-        Explorer, com versões recentes do Chrome e Firefox e com outros navegadores
-        modernos.
+      explanation: Você está usando um navegador que não é compatível com o painel.
+        Este site funciona bem em versões recentes do Chrome, Firefox, Edge e outros
+        navegadores modernos.
   error_401:
     header: Não autorizado. >:-(
     explanation: Você não está autorizado a executar este requerimento. Se você acredita

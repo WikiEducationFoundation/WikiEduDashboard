@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BaRaN6161 TURK
 # Author: Botansahin
 # Author: By erdo can
 # Author: Chansey
@@ -263,17 +264,21 @@ tr:
     add_template: Şablon ekle
     add_this_category: Bu kategoriyi ekle
     add_this_template: Bu şablonu ekle
+    import_articles_description: Bir kategorideki makalelerin listesi düzenli aralıklarla
+      güncellenir ve listenin eklenmesinden önce eklenmesinden sonra biraz zaman alabilir.
     confirm_category_addition: '"%{name}" kategorisine olan katkıları izlemek istediğinizden
       emin misiniz?'
-    confirm_template_addition: '"%{name}" şablonuna olan katkıları izlemek istediğinizden
+    confirm_template_addition: '"%{name}" şablonunun katkılarını izlemek istediğinizden
       emin misiniz?'
     depth: Alt kategori derinliği
+    articles_count: Makale Sayısı
     name: Ad
     category_name: Kategori adı
     template_name: Şablon adı
     none: İzlenen kategori yok.
     remove: Kaldır
-    tracked_categories: İzlenen Kategoriler ve Şablonlar
+    tracked_categories: İzlenen Kategoriler, PSID ve Şablonlar
+    timestamp: Son Güncelleme Tarihi
   chat:
     label: Sohbet
   courses:

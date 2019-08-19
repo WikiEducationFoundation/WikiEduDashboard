@@ -59,6 +59,10 @@ lt:
     edited: Redaguoti straipsniai
     edited_by: 'Redagavo:'
     edited_mobile: Straipsniai
+    filter:
+      tracked: Sekamas
+      untracked: Nesekamas
+      tracked_and_untracked: Sekami ir Nesekami
     hide: Slėpti
     label: Straipsniai
     loading: Įkeliami straipsniai...
@@ -70,6 +74,9 @@ lt:
     show_cumulative_changes: Rodyti Kaupiamuosius Pakeitimus
     show_current_version: Rodyti Dabartinę Versiją
     title: Pavadinimas
+    tracked_doc: Tik sekami straipsniai įtraukiami į programos statistiką. Kai straipsniai
+      nėra pažymėti kaip sekasi, jie bus šalinami iš statistikos per sekantį duomenų
+      atnaujinimą.
     title_example: Straipsnio pavadinimas
     view: Peržiūrėti straipsnį
     view_all: Rodyti visus
@@ -125,6 +132,11 @@ lt:
     program_template: Programos Šablonas
     title: Pavadinimas
     use_start_end_dates: Naudoti pradžios ir pabaigos datas
+  categories:
+    import_articles_description: Straipsnių sąrašas kategorija atnaujinamas periodiškai
+      ir gali užtrukti, kol sąrašas atsinaujins.
+    articles_count: Straipsnių Skaičius
+    timestamp: Paskutinį Kartą Atnaujinta
   courses:
     accounts_generation_enabled: Paskyrų prašymų generavimas įjungtas
     activity: Veikla

@@ -192,7 +192,8 @@ sv:
     add_this_template: Lägg till denna mall
     confirm_category_addition: Är du säker på att du vill spåra bidrag till kategorin
       "%{name}"?
-    confirm_template_addition: Är du säker på att du vill spåra bidrag på mallen "%{name}"?
+    confirm_template_addition: Är du säker på att du vill spåra bidrag för mallen
+      "%{name}"?
     depth: Underkategoridjup
     name: Namn
     category_name: Kategorinamn
