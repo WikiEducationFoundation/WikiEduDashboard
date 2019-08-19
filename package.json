@@ -131,7 +131,7 @@
     "striptags": "^3.1.1",
     "stylus": "0.54.5",
     "tinymce": "^5.0.13",
-    "uuid": "^3.3.2",
+    "uuid": "^3.3.3",
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
