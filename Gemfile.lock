@@ -520,7 +520,7 @@ GEM
     websocket-extensions (0.1.3)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    will_paginate (3.1.7)
+    will_paginate (3.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
