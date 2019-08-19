@@ -2,5 +2,13 @@ id: 5801
 title: "Assign yourself an article"
 summary:
 content: |
-  Add the article as one of your "assigned" articles in the **Editors** tab of the 
-  Dashboard. When you're done, you should see the article name next to your username.
+
+  Add the article as one of your "assigned" articles in the **Home** tab of the
+  Dashboard. Next to "My Articles", click the "Assign myself an article" button.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Screenshot_of_Wiki_Education_Dashboard_My_Articles_tab.png" />
+    <figcaption class="image-credit">
+  </figure>
+
+  When you're done, you should see the article name next to your username.
