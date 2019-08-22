@@ -224,6 +224,7 @@ en:
     none: This course has no assigned articles.
     no_available: This course has no available articles.
     peer_review_count_tooltip: You should select %{total} articles to peer review.
+    peer_review_link: Peer Review
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign a review
