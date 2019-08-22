@@ -3,10 +3,14 @@ id: 3603
 content: |
   Compile a list of relevant, reliable books, journal articles, or other sources.
   Post that bibliography to the Talk page of the article you'll be working on,
-  and in [your sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox).
+  and on the [bibliography page in your sandbox](https://en.wikipedia.org/wiki/Special:MyPage/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography).
 
   Make sure to check in on the Talk page to see if anyone has advice on your
   bibliography. Adding the article to your Watchlist by clicking the star next to
   "View history" will help you keep track. If you've added your email to your
   account (which is a *really* good idea), you'll get notifications if something
   on the page changes.
+
+  <h4>Templates Used</h4>
+  
+  * [Bibliography Template](https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_bibliography)
