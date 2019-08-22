@@ -175,9 +175,11 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = _.cloneDeep(state.articles);
       _.forEach(action.data, (article) => {
-        const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
-        if (article.title && newStateArticles[article.title]) {
-          newStateArticles[article.title].pageviews = averagePageviews;
+        if (article.pageviews) {
+          const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
+          if (article.title && newStateArticles[article.title]) {
+            newStateArticles[article.title].pageviews = averagePageviews;
+          }
         }
       });
       _.forEach(newStateArticles, (article) => {

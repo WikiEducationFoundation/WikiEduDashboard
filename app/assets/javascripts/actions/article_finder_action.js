@@ -147,7 +147,10 @@ const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState, type) 
   if (PageAssessmentSupportedWiki[home_wiki.project] && _.includes(PageAssessmentSupportedWiki[home_wiki.project], home_wiki.language)) {
     let query;
     if (type === 'PSID') {
-      articlesList.forEach((element) => {
+      articlesList.forEach((element, i) => {
+        if (i >= 500) {
+          return true;
+        }
         titles.push(replaceAll(element.title, '_', ' '));
       });
       titles_articles = titles;
