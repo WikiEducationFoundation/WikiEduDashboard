@@ -130,16 +130,12 @@ const assignmentContent = [
   },
   {
     title: 'Scaffold your article',
-    content: 'Create sections as appropriate, then fille them in. Remember to cite as you write.',
+    content: 'Create sections as appropriate, then fill them in. Remember to cite as you write.',
     status: 'in_progress',
     trainings: [
       {
         title: 'How to edit',
         path: 'training/students/how-to-edit'
-      },
-      {
-        title: 'Plagiarism and copyright violation',
-        path: 'training/students/plagiarism'
       },
       {
         // need to conditionally change this if working in groups
@@ -153,16 +149,26 @@ const assignmentContent = [
     ]
   },
   {
-    title: 'Peer Review',
-    content: 'If applicable...',
+    title: 'Expand your draft',
+    content: 'Implement updates of your own or from peer review. Then, review the Quality Checklist in preparation to move your work live.',
     status: 'ready_for_review',
-    trainings: []
+    trainings: [
+      {
+        title: 'Plagiarism and copyright violation',
+        path: 'training/students/plagiarism'
+      }
+    ]
   },
   {
-    title: 'Clean up',
-    content: 'Make sure you\'ve removed your sandbox template and then move to mainspace!',
+    title: 'Move your work',
+    content: 'Remove your Sandbox template. Then, move your work live. Review the Quality Checklist as you clean up your work.',
     status: 'ready_for_mainspace',
-    trainings: []
+    trainings: [
+      {
+        title: 'Moving work out of the sandbox',
+        path: 'training/students/moving-to-mainspace'
+      }
+    ]
   }
 ];
 
