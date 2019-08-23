@@ -18,7 +18,7 @@ const Description = ({ content }) => (
 
 const Links = ({ trainings }) => {
   const links = trainings.map((training, index) => (
-    <a key={index} href={training.path}>{training.title}</a>
+    <a key={index} href={`../../${training.path}`}>{training.title}</a>
   ));
 
   return (
@@ -150,11 +150,11 @@ const assignmentContent = [
   },
   {
     title: 'Expand your draft',
-    content: 'Implement updates of your own or from peer review. Then, review the Quality Checklist in preparation to move your work live.',
+    content: 'Implement updates of your own or from a peer review. Then, review the Quality Checklist in preparation to move your work live.',
     status: 'ready_for_review',
     trainings: [
       {
-        title: 'Plagiarism and copyright violation',
+        title: 'Plagiarism & copyrights',
         path: 'training/students/plagiarism'
       }
     ]
@@ -165,7 +165,7 @@ const assignmentContent = [
     status: 'ready_for_mainspace',
     trainings: [
       {
-        title: 'Moving work out of the sandbox',
+        title: 'Move your work',
         path: 'training/students/moving-to-mainspace'
       }
     ]
