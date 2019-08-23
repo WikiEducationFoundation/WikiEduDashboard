@@ -14,6 +14,7 @@
 # Author: Raymond
 # Author: Robby
 # Author: Vojtěch Dostál
+# Author: Zoranzoki21
 # Author: Андрей
 # Author: Ата
 ---
@@ -275,6 +276,7 @@ qqq:
   categories:
     name: '{{Identical|Name}}'
     category_name: '{{Identical|Category name}}'
+    psid_name: '{{optional}}'
     template_name: '{{Identical|Template name}}'
     remove: '{{Identical|Remove}}'
   chat:

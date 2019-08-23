@@ -110,6 +110,10 @@ sr-ec:
     article_development: (развој чланка)
     assigned: Додељени чланци
     available: Доступни чланци
+    no_available: Нема доступних чланака
+    next: Следећи
+    previous: Претходни
+    article_title: Наслов чланка
     assigned_to: Додељено
     character_doc: Збир знакова додатих чланцима од стране пријављених уредника између
       почетног и крајњег датума
@@ -126,6 +130,9 @@ sr-ec:
       new: Ново
       existing: Постојеће
       new_and_existing: Ново и постојеће
+      tracked: Праћено
+      untracked: Отпраћено
+      tracked_and_untracked: Праћено и отпраћено
     hide: Сакриј
     history: (историја)
     label: Чланци
@@ -156,6 +163,7 @@ sr-ec:
     show_current_version: Прикажи тренутну верзију
     show_current_version_with_authorship_highlighting: Тренутна верзија ауторства
     title: Наслов
+    tracked: Праћено
     title_example: Наслов чланка
     tools: Алатке за процену
     view: Види чланак
@@ -176,6 +184,7 @@ sr-ec:
       на Википедији на енглеском језику.)
   assignments:
     article: Чланак %{title} је сада додељен Вама.
+    article_link: Чланак
     already_exists: Овај задатак већ постоји!
     title_too_large: Наслов не би требало да има више од 255 знакова
     assignees: Додељено
@@ -185,9 +194,12 @@ sr-ec:
     add_available_submit: Додај чланке
     assign_self: Додели ми чланак
     assign_tooltip: Додељени чланак је онај који планирате да направите или побољшате.
+    bibliography: Библиографија
+    clone: Клонирај
     confirm_add_available: Да ли сте сигурни да желите да додате %{title}?
     confirm_addition: Да ли сте сигурни да желите доделити %{title} кориснику %{username}?
     confirm_deletion: Желите ли заиста да избришете овај задатак за чланак?
+    editors: Додељено
     label: Додели
     loading: Учитавање задатака…
     none_short: Нема додељених чланака
@@ -197,8 +209,9 @@ sr-ec:
     reviewers: Прегледач(и)
     review_other: Додели преглед
     review_self: Прегледај чланак
-    review_tooltip: Ово је за праћење чланака које планирате да прегледате или о којима
-      желите да пружите повратне информације.
+    review_tooltip: Ово је за чланке које планирате да прегледате или о којима желите
+      да пружите повратне информације.
+    sandbox_draft_link: Нацрт песка
     select: Изабери
   blocks:
     milestones:
@@ -232,6 +245,11 @@ sr-ec:
     create_campaign: Направи нову кампању
     create_my_campaign: Направи моју кампању!
     customize_passcode: подразумевана лозинка
+    data_articles: Измењено страница
+    data_revisions: Подаци о изменама
+    data_instructors: Наставници
+    data_editors_by_course: Уредници по курсу
+    data_editor_usernames: Корисничка имена уредника
     default_course_type: Подразумевана врста курса
     default_passcode: Подразумевана лозинка
     default_passcode_explanation: 'Подразумевано, нови програми у овој кампањи треба
@@ -267,7 +285,7 @@ sr-ec:
     template_name: Име шаблона
     none: Нема категорија које се прате.
     remove: Уклони
-    tracked_categories: Праћене категорије и шаблони
+    tracked_categories: Праћене категорије, PSID и шаблони
   chat:
     label: Ћаскање
   courses:
