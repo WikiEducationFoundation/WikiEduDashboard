@@ -11,7 +11,7 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
-import { REVIEWING_ROLE } from '../../constants/assignments';
+import { NEW_ARTICLE, REVIEWING_ROLE } from '../../constants/assignments';
 
 // Helper Components
 // Actions Components
@@ -104,6 +104,18 @@ const ReviewerLink = ({ reviewers }) => {
   return <AssignedToLink members={reviewers} name="reviewers" />;
 };
 
+const SandboxLink = ({ assignment }) => {
+  let url = assignment.sandboxUrl;
+  if (assignment.status === NEW_ARTICLE) {
+    url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template';
+  }
+  return (
+    <a href={url} target="_blank">
+      {I18n.t('assignments.sandbox_draft_link')}
+    </a>
+  );
+};
+
 const Separator = () => <span> •&nbsp;</span>;
 
 const Links = ({ articleTitle, assignment, current_user }) => {
@@ -112,7 +124,7 @@ const Links = ({ articleTitle, assignment, current_user }) => {
 
   let actions = [
     <BibliographyLink key={`bibliography-${id}`} />,
-    <a key={`sandbox-${id}`} href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>
+    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
   ];
 
   if (assignment.role === REVIEWING_ROLE) {
