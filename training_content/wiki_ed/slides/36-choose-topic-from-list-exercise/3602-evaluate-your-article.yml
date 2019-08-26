@@ -1,9 +1,10 @@
 title: "Evaluate your article"
 id: 3602
 content: |
-  On your [Evaluate an Article page](https://en.wikipedia.org/wiki/Special:MyPage/Evaluate_an_Article?veaction=edit&preload=Template:Dashboard.wikiedu.org_evaluate_article),
-  write a few sentences about what you plan to contribute to the selected article.
-  Check out the Talk page, too, to see what other Wikipedians are already contributing.
+  If you’re working on an existing article, draft 1-2 sentences on your article’s
+  sandbox page. You can find this page by going to the My Articles section on your
+  course’s home page and clicking on the link titled “Sandbox Draft.” Check out the
+  Talk page, too, to see what other Wikipedians are already contributing.
 
   Think back to how to evaluate an article. Look at the article's content, tone,
   and sourcing.
@@ -13,7 +14,3 @@ content: |
   * Does each claim have a citation? Are the citations reliable?
 
   What can you add? Consider posting some of your ideas to the article's Talk page.
-
-  <h4>Templates Used</h4>
-  
-  * [Evaluate an Article Template](https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_evaluate_article)
