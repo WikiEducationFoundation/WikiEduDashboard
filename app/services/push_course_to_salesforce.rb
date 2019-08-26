@@ -67,6 +67,7 @@ class PushCourseToSalesforce
       Article_views__c: @course.view_sum,
       No_of_Commons_uploads__c: @course.uploads.count,
       Actual_No_of_Participants__c: @course.user_count,
+      Assignment_Start_Date__c: @course.timeline_start.strftime('%Y-%m-%d'),
       Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
       Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
       Editing_in_mainspace_assignment_date__c: assignment_date_for(editing_in_mainspace_block),
