@@ -74,11 +74,7 @@ const Actions = ({
 
 // Links Components
 const BibliographyLink = ({ assignment }) => {
-  const editor = assignment.role === REVIEWING_ROLE
-    ? assignment.editors[0]
-    : 'Special:MyPage';
-
-  const url = `https://en.wikipedia.org/wiki/${editor}/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography`;
+  const url = `${assignment.sandboxUrl}/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography`;
   return <a href={url} target="_blank">{I18n.t('assignments.bibliography')}</a>;
 };
 
