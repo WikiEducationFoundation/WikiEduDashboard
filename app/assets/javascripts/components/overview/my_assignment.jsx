@@ -11,6 +11,8 @@ import Feedback from '../common/feedback.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { deleteAssignment } from '../../actions/assignment_actions';
 
+import { NEW_ARTICLE, REVIEWING_ROLE } from '../../constants/assignments';
+
 // Helper Components
 // Actions Components
 const RemoveButton = ({ assignment, unassign }) => (
@@ -72,8 +74,12 @@ const Actions = ({
 
 // Links Components
 const BibliographyLink = ({ assignment }) => {
-  const link = `${assignment.sandboxUrl}/bibliography`;
-  return <a href={link}>{I18n.t('assignments.bibliography')}</a>;
+  const editor = assignment.role === REVIEWING_ROLE
+    ? assignment.editors[0]
+    : 'Special:MyPage';
+
+  const url = `https://en.wikipedia.org/wiki/${editor}/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography`;
+  return <a href={url} target="_blank">{I18n.t('assignments.bibliography')}</a>;
 };
 
 const AssignedToLink = ({ name, members }) => {
@@ -102,15 +108,42 @@ const ReviewerLink = ({ reviewers }) => {
   return <AssignedToLink members={reviewers} name="reviewers" />;
 };
 
+const SandboxLink = ({ assignment }) => {
+  let url = assignment.sandboxUrl;
+  if (assignment.status === NEW_ARTICLE) {
+    url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template';
+  }
+  return (
+    <a href={url} target="_blank">
+      {I18n.t('assignments.sandbox_draft_link')}
+    </a>
+  );
+};
+
 const Separator = () => <span> •&nbsp;</span>;
 
-const Links = ({ articleTitle, assignment }) => {
+const Links = ({ articleTitle, assignment, current_user }) => {
   const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
-  const actions = [
+  const { username } = current_user;
+
+  let actions = [
     <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />,
-    <a key={`sandbox-${id}`} href={sandboxUrl} target="_blank">{I18n.t('assignments.sandbox_draft_link')}</a>,
-    <a key={`article-${id}`} href={article_url}>{I18n.t('assignments.article_link')}</a>
-  ].reduce((acc, link, index, collection) => {
+    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+  ];
+
+  if (assignment.role === REVIEWING_ROLE) {
+    let peerReviewUrl = `${sandboxUrl}/${username}_Peer_Review`;
+    peerReviewUrl += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_peer_review';
+    actions.push(
+      <a key={`review-${id}`} href={peerReviewUrl} target="_blank">{I18n.t('assignments.peer_review_link')}</a>
+    );
+  }
+
+  const article = (
+    <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t('assignments.article_link')}</a>
+  );
+
+  actions = actions.concat(article).reduce((acc, link, index, collection) => {
     const limit = collection.length - 1;
     const prefix = [...acc, link];
 
@@ -179,7 +212,11 @@ export const MyAssignment = createReactClass({
 
     return (
       <div className="my-assignment mb1">
-        <Links articleTitle={articleTitle} assignment={assignment} />
+        <Links
+          articleTitle={articleTitle}
+          assignment={assignment}
+          current_user={current_user}
+        />
         <Actions
           article={article}
           assignment={assignment}
