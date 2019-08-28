@@ -4,5 +4,14 @@ content: |
   If you're working on creating a new article, draft 1-2 sentences on your article's 
   sandbox page. You can find this page by going to the My Articles section on your
   course's home page and clicking on the link titled "Sandbox Draft."
+
+    <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Wiki_Education_Foundation_-_My_Articles_-_Draft_Highlight.png" />
+
+    <figcaption class="">
+    <a href="https://commons.wikimedia.org/wiki/File:Wiki_Education_Foundation_-_My_Articles_-_Draft_Highlight.png"></a>
+
+    </figcaption>
+    </figure>
   
   Summarize a statement from one of your sources and cite that statement to your source.
