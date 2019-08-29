@@ -7,6 +7,7 @@ import { getWeeksArray } from '../../selectors';
 import Block from '../timeline/block';
 import TrainingModules from '../timeline/training_modules';
 import Handouts from './handouts';
+import Templates from './templates';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
 const flattenAndCompact = _.flow([_.flatten, _.compact]);
@@ -60,6 +61,7 @@ const Resources = ({ weeks, current_user, course }) => {
           {instructorModulesLink}
         </div>
         {additionalResources}
+        { Features.wikiEd && <Templates /> }
         <Handouts trainingLibrarySlug={trainingLibrarySlug} blocks={blocks} />
       </div>
     </div>

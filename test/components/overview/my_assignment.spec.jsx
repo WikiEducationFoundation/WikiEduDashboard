@@ -14,7 +14,13 @@ describe('<MyAssignment />', () => {
   const course = { home_wiki: { language: 'en', project: 'wikipedia' } };
 
   it('feedback button is displayed on sandbox and improving articles', () => {
-    const props = { course: course, assignment: assignment, last: false, wikidataLabels: {} };
+    const props = {
+      assignment: assignment,
+      course: course,
+      current_user: { username: 'username' },
+      last: false,
+      wikidataLabels: {}
+    };
     const wrapper = mount(
       <Provider store={store}>
         <MyAssignment {...props} />
@@ -24,7 +30,13 @@ describe('<MyAssignment />', () => {
   });
 
   it('feedback button not present for non English Wikipedia', () => {
-    const props = { course: course, assignment: assignment, last: false, wikidataLabels: {} };
+    const props = {
+      assignment: assignment,
+      course: course,
+      current_user: { username: 'username' },
+      last: false,
+      wikidataLabels: {}
+    };
     props.course = { home_wiki: { language: 'en', project: 'wikivoyage' } };
 
     const wrapper = mount(
