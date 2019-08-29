@@ -1,14 +1,23 @@
 title: "Assign yourself an article"
 id: 3601
 content: |
-  Find an article from the list of "Available Articles" on the **Articles** tab on
-  your course page. When you find the one you want to work on, click **Select** to
-  assign it to yourself.
+  On your course's main page, assign yourself an article by clicking on the
+  "Assign myself an article" button in the My Articles section. You should then
+  be able to select an article from the dropdown list that appears.
 
-  If you're working in a group, only one group member can select your topic from
-  the list on the **Articles** tab. Once your group has agreed upon the topic, the
-  remaining group members should head to the **Students** tab, click "assign myself an
-  article", and copy the URL or title of the article you've chosen.
+    <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Wiki_Education_Foundation_-_My_Articles_-_Assign_article.png" />
+
+    <figcaption class="">
+    <a href="https://commons.wikimedia.org/wiki/File:Wiki_Education_Foundation_-_My_Articles_-_Assign_article.png"></a>
+
+    </figcaption>
+    </figure>
+
+  If you're working in a group, have one person assign themselves the article. 
+  Each additional group member should then copy the URL or title of the article
+  you've chosen and add it to the input box under the "Assign myself an article"
+  button.
 
   Review page 6 of your [Editing Wikipedia](https://wikiedu.org/editingwikipedia)
   guidebook for more tips.
