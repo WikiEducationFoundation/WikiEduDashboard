@@ -28,10 +28,10 @@ cs:
         format: '%n %u'
         units:
           thousand: K
-          million: M
-          billion: B
-          trillion: T
-          quadrillion: Q
+          million: mil.
+          billion: mld.
+          trillion: bil.
+          quadrillion: bld.
   accessibility:
     number_field: Toto je číselné pole. Tlačítka možná zobrazená prohlížečem mohou
       zvýšit nebo snížit hodnotu.
@@ -447,7 +447,7 @@ cs:
     feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
     instructor:
-      one: instruktur
+      one: instruktor
       other: instruktoři
     instructors: Instruktoři
     invitation: Byli jste pozváni k připojení se ke kurzu %{title}, ale nejprve se
@@ -513,6 +513,10 @@ cs:
       navštíví následující adresu URL:'
     rating_feedback: 'Předpokládané hodnocení článku je:'
     requested_accounts: Požadované účty
+    requested_accounts_alert:
+      one: '%{count} účet čeká na vyřízení.'
+      few: '%{count} účty čekají na vyřízení.'
+      other: '%{count} účtů čeká na vyřízení.'
     review_timeline: 'Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
       svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
       dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. (Pozn.:
@@ -717,7 +721,8 @@ cs:
     upload_count: Nahrané soubory na Commons
     uploads_in_use_count:
       one: soubor použitý v článku
-      other: soubory použité v článcích
+      few: soubory použité v článcích
+      other: souborů použitých v článcích
     upload_usages_count:
       one: použití celkem napříč jazykovými mutacemi
       other: použití celkem napříč jazykovými mutacemi
@@ -928,7 +933,8 @@ cs:
     no_revisions: Tento editor neprovedl žádnou revizi.
     number_of_articles:
       one: '%{count} článek'
-      other: '%{count} články'
+      few: '%{count} články'
+      other: '%{count} článků'
     recent_revisions: Poslední editace
     remove_confirmation: Jste si jist, že chcete odebrat %{username}?
     request_confirmation: Jste si jisti, že opravdu chcete žádat o tyto účty?

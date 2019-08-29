@@ -12,7 +12,7 @@ sd:
   application:
     cancel: رد
     create_accounts: وڪيپيڊيا کاتا کوليو
-    dashboard: وڪي ايڊيٽر ڊيشبورڊ
+    dashboard: وڪي تعليم ڊيشبورڊ
     documentation: دستاويزسازي
     error: 'ڪا خرابي ھئي:'
     explore: کوجيو
@@ -199,7 +199,7 @@ sd:
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو شامل ڪريو
     new_account_email: برق ٽپال پتو
-    new_account_username_placeholder: وڪي ايڊيٽر 123
+    new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     overview: گھر
     private: ذاتي
@@ -218,7 +218,7 @@ sd:
     view_wiki: وڪي‌پيڊيا تي ڏسو
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
     wiki_edits_enabled: وڪي سوارڻ کيل آهي
-    wiki_staff: وڪي ايڊيٽر عملو
+    wiki_staff: وڪي تعليم عملو
     yourcourses: توهان جا ڪورسز
   courses_generic:
     all_courses: سڀ سٽاءَ (پروگرام)
@@ -233,7 +233,7 @@ sd:
       save_cloned_course: سانڍيو
     delete_course: پروگرام ڊاهيو
     edit_course_dates: رٿا جون تاريخون سنواريو
-    enroll: ايڊيٽر شامل ڪيو
+    enroll: سنواريندڙ وجھو
     explore: پروگرامَ ڳوليو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
     student_editors: سنواريندڙَ
@@ -311,7 +311,7 @@ sd:
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
     recent_revisions: تازيون تبديليون
-    revisions_doc: هن ايڊيٽر طرفان گذريل 7 ڏينهن ۾ ڪيل تبديلين جو انگ.
+    revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
     reviewers: نظرثاني ڪندڙ
     reviewing: جائزي هيٺ
     training_complete_count: '%{count} تربيت حاصل ڪئي'
