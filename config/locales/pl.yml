@@ -260,6 +260,7 @@ pl:
     confirm_template_addition: Czy jesteś pewien, że chcesz śledzić wkład w tworzenie
       szablonu "%{name}"?
     depth: Głębokość podkategorii
+    articles_count: Licznik artykułów
     name: Nazwa
     category_name: Nazwa kategorii
     template_name: Nazwa szablonu

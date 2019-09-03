@@ -223,6 +223,7 @@ pt-br:
     no_available: Este curso não tem artigos disponíveis.
     peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
       por pares.
+    peer_review_link: Revisão por pares
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
