@@ -229,6 +229,7 @@ fr:
     no_available: Ce cours n’a pas d’article disponible.
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
+    peer_review_link: Relecture par un pair
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision

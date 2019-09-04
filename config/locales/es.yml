@@ -191,6 +191,7 @@ es:
     none_short: No hay artículos asignados
     none: Este curso no tiene artículos asignados.
     no_available: Este curso no tiene artículos disponibles.
+    peer_review_link: Revisión por pares
     remove: Eliminar
     reviewers: Revisor(es)
     review_other: Asignar una revisión
@@ -257,12 +258,13 @@ es:
     confirm_template_addition: ¿Confirmas que quieres dar seguimiento a las contribuciones
       a la plantilla «%{name}»?
     depth: Profundidad de subcategorías
+    articles_count: Recuento de artículos
     name: Nombre
     category_name: Nombre de categoría
     template_name: Nombre de plantilla
     none: No hay ninguna categoría en seguimiento.
     remove: Quitar
-    tracked_categories: Categorías y plantillas en seguimiento
+    tracked_categories: Categorías, PSID y plantillas en seguimiento
   chat:
     label: Chat
   courses:

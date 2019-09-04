@@ -205,6 +205,7 @@ ar:
     none: هذه الدورة ليست بها مقالات معينة.
     no_available: هذه الدورة ليست بها مقالات متاحة.
     peer_review_count_tooltip: يجب عليك تحديد %{total} لمراجعة النظراء.
+    peer_review_link: استعراض النظراء
     remove: إزالة
     reviewers: المراجع(ون)
     review_other: تعيين مراجعة

@@ -15,6 +15,7 @@
 # Author: Ndecouck
 # Author: Optilete
 # Author: Patio
+# Author: RadioAzureus
 # Author: Ragesoss
 # Author: Romaine
 # Author: SPQRobin
@@ -116,6 +117,7 @@ nl:
       wiki_all: Allemaal
       new: Nieuw
       existing: bestaand
+      untracked: Niet bijgehouden
     hide: Verbergen
     label: Pagina's
     loading: Bezig met pagina's laden...
@@ -177,8 +179,10 @@ nl:
     title: Titel
   categories:
     depth: subcategorie diepte
+    articles_count: Aantal pagina's
     name: Naam
     category_name: Categorie naam
+    timestamp: Laatst gewijzigd op
   courses:
     activity: Activiteit
     already_enrolled: Je bent onderdeel van "%{title}"!
