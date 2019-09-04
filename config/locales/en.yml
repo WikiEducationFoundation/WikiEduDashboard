@@ -295,6 +295,7 @@ en:
     random_passcode: a random passcode
     requested_accounts: Requested accounts
     title: Title
+    slug: Slug
     use_start_end_dates: Use start and end dates
 
   categories:

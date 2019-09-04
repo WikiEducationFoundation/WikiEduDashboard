@@ -77,6 +77,14 @@
                 = @campaign.title
               = text_field(:campaign, :title, required: true, class: 'rails_editable-input')
 
+            .campaign-slug.form-group.rails_editable-field
+              %label{for: 'campaign_slug'}
+                = succeed ':' do
+                  = t('campaign.slug')
+              %span.rails_editable-content
+                = @campaign.slug
+              = text_field(:campaign, :slug, required: true, class: 'rails_editable-input')
+
             .campaign-default_course_type.form-group.rails_editable-field
               %label{for: 'default_course_type'}
                 = succeed ':' do
