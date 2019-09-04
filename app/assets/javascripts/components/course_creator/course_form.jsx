@@ -6,6 +6,7 @@ import CourseLevelSelector from './course_level_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
+import AcademicSystem from '../common/academic_system.jsx';
 
 const CourseForm = (props) => {
   const updateCoursePrivacy = (e) => {
@@ -34,6 +35,7 @@ const CourseForm = (props) => {
   let expectedStudents;
   let courseLevel;
   let roleDescription;
+  let academic_system;
 
   let descriptionRequired = false;
   if (props.defaultCourse === 'ClassroomProgramCourse') {
@@ -85,6 +87,19 @@ const CourseForm = (props) => {
     const options = I18n.t('courses.creator.role_description_options').map((value) => {
       return { label: value, value };
     });
+    academic_system = (
+      <div className="form-group academic_system">
+        <span className="text-input-component__label">
+          <strong>
+            {I18n.t('courses.school_system')}:
+          </strong>
+          <AcademicSystem
+            value={props.course.academic_system}
+            updateCourseProps={props.updateCourseProps}
+          />
+        </span>
+      </div>
+    );
 
     roleDescription = (
       <CreatableInput
@@ -190,6 +205,7 @@ const CourseForm = (props) => {
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
           placeholder={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
         />
+        {academic_system}
         {term}
         {subject}
         {expectedStudents}

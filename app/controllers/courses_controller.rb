@@ -25,7 +25,6 @@ class CoursesController < ApplicationController
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user)
-
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: :not_found
@@ -33,6 +32,7 @@ class CoursesController < ApplicationController
     end
     @course = course_creation_manager.create
     update_courses_wikis
+    update_flags
   end
 
   def update
@@ -260,6 +260,7 @@ class CoursesController < ApplicationController
     update_boolean_flag :wiki_edits_enabled
     update_boolean_flag :online_volunteers_enabled
     update_edit_settings
+    update_academic_system
   end
 
   def update_boolean_flag(flag)
@@ -282,6 +283,11 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
+    @course.save
+  end
+
+  def update_academic_system
+    @course.flags['academic_system'] = params.dig(:course, 'academic_system')
     @course.save
   end
 
