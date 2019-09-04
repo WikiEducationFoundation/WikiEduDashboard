@@ -33,6 +33,7 @@ import DatePicker from '../common/date_picker.jsx';
 
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import AcademicSystem from '../common/academic_system.jsx';
 
 const POLL_INTERVAL = 60000; // 1 minute
 
@@ -119,6 +120,7 @@ const Details = createReactClass({
     let campus;
     let staff;
     let school;
+    let academic_system;
     if (Features.wikiEd) {
       staff = <WikiEdStaff {...this.props} />;
       campus = <CampusVolunteers {...this.props} />;
@@ -140,6 +142,22 @@ const Details = createReactClass({
           label={CourseUtils.i18n('school', this.props.course.string_prefix)}
           required={true}
         />
+      );
+    }
+
+    if (canRename && isClassroomProgramType) {
+      academic_system = (
+        <div className="form-group academic_system">
+          <span className="text-input-component__label">
+            <strong>
+              {I18n.t('courses.school_system')}:
+            </strong>
+            <AcademicSystem
+              value={this.props.course.academic_system}
+              updateCourseProps={this.props.updateCourse}
+            />
+          </span>
+        </div>
       );
     }
 
@@ -428,6 +446,7 @@ const Details = createReactClass({
               {school}
               {title}
               {term}
+              {academic_system}
               {wikiSelector}
               {multiWikiSelector}
               <form>
