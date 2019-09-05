@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import { mount } from 'enzyme';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -20,100 +20,113 @@ describe('GetHelpButton', () => {
   describe('Content', () => {
     const currentUser = { isAdvancedRole: 1 };
 
-    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
+    const TestGetHelpButton = mount(
       <Provider store={reduxStoreWithUsers}>
         <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
       </Provider>
     );
 
-    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
+    const popContainer = TestGetHelpButton.find('.pop__container');
 
     it('renders the get help button', () => {
-      const getHelpButton = popContainer.querySelectorAll('button.small');
+      const getHelpButton = popContainer.find('button.small');
       expect(getHelpButton.length).to.eq(1);
-      expect(getHelpButton[0].textContent).to.eq('Get Help');
+      expect(getHelpButton.text()).to.eq('Get Help');
     });
 
     it('has an ask search field', () => {
-      const searchField = popContainer.querySelectorAll('input[type=text]');
+      const searchField = popContainer.find('input#q');
       expect(searchField.length).to.eq(1);
-      expect(searchField[0].getAttribute('placeholder')).to.eq('Search Help Forum');
+      expect(searchField.prop('placeholder')).to.eq('Search Help Forum');
     });
   });
 
   describe('Interactions', () => {
     const currentUser = { isAdvancedRole: 1 };
 
-    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <Provider store={reduxStoreWithUsers}>
-        <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
-      </Provider>
-    );
-
-    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
-
     it('should be collapsed by default', () => {
-      const pop = popContainer.querySelectorAll('.pop')[0];
-      expect(pop.classList.contains('open')).to.eq(false);
+      const TestGetHelpButton = mount(
+        <Provider store={reduxStoreWithUsers}>
+          <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
+        </Provider>
+      );
+
+      const popContainer = TestGetHelpButton.find('.pop__container');
+      const pop = popContainer.find('.pop');
+      expect(pop.prop('className').includes('open')).to.eq(false);
     });
 
-    it('should open when clicked', (done) => {
-      const pop = popContainer.querySelectorAll('.pop')[0];
-      const getHelpButton = popContainer.querySelectorAll('button.small')[0];
-      expect(ReactTestUtils.isDOMComponent(getHelpButton)).to.eq(true);
-      ReactTestUtils.Simulate.click(getHelpButton);
-      setImmediate(() => {
-        expect(pop.classList.contains('open')).to.eq(true);
-        done();
-      });
+    it('should open when clicked', () => {
+      const TestGetHelpButton = mount(
+        <Provider store={reduxStoreWithUsers}>
+          <GetHelpButton
+            course={course}
+            currentUser={currentUser}
+            is_open
+            key="get_help"
+          />
+        </Provider>
+      );
+
+      const popContainer = TestGetHelpButton.find('.pop__container');
+      const pop = popContainer.find('.pop.open');
+      expect(pop.prop('className').includes('open')).to.eq(true);
     });
 
-    it('should switch to form', (done) => {
-      const expertLink = popContainer.querySelectorAll('.wikipedia-help-link')[0];
-      expect(ReactTestUtils.isDOMComponent(expertLink)).to.eq(true);
-      ReactTestUtils.Simulate.click(expertLink);
-      setImmediate(() => {
-        expect(popContainer.querySelectorAll('.get-help-info').length).to.eq(0);
-        expect(popContainer.querySelectorAll('.get-help-form').length).to.eq(1);
-        done();
-      });
+    it('should switch to form', () => {
+      const container = mount(
+        <Provider store={reduxStoreWithUsers}>
+          <GetHelpButton
+            course={course}
+            currentUser={currentUser}
+            is_open
+            key="get_help"
+          />
+        </Provider>
+      );
+
+      const popContainer = container.find('GetHelpButton');
+      popContainer.setState({ selectedTargetUser: {} });
+      expect(popContainer.find('.get-help-info')).to.exist;
+      expect(popContainer.find('.get-help-form')).to.exist;
     });
   });
 
   describe('As an instructor', () => {
     const currentUser = { isAdvancedRole: true };
 
-    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
+    const TestGetHelpButton = mount(
       <Provider store={reduxStoreWithUsers}>
         <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
       </Provider>
     );
 
-    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
+    const popContainer = TestGetHelpButton.find('.pop__container');
 
     it('lists the both wikipedia help and program help', () => {
-      const wikipediaHelp = popContainer.querySelector('.contact-wikipedia-help');
-      const programHelp = popContainer.querySelector('.contact-program-help');
-      expect(wikipediaHelp.textContent).to.eq('question about editing Wikipedia');
-      expect(programHelp.textContent).to.eq('question about Wiki Ed or your assignment');
+      const wikipediaHelp = popContainer.find('.contact-wikipedia-help');
+      const programHelp = popContainer.find('.contact-program-help');
+
+      expect(wikipediaHelp.text()).to.eq('question about editing Wikipedia');
+      expect(programHelp.text()).to.eq('question about Wiki Ed or your assignment');
     });
   });
 
   describe('As a student', () => {
     const currentUser = { isStudent: true };
 
-    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
+    const TestGetHelpButton = mount(
       <Provider store={reduxStoreWithUsers}>
         <GetHelpButton currentUser={currentUser} key="get_help" course={course} />
       </Provider>
     );
 
-    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
+    const popContainer = TestGetHelpButton.find('.pop__container');
 
     it('only lists the content expert', () => {
-      const contentExperts = popContainer.querySelector('.contact-wikipedia-help');
-      expect(contentExperts.textContent).to.eq('question about editing Wikipedia');
-      expect(popContainer.querySelectorAll('.contact-program-help').length).to.eq(0);
+      const contentExperts = popContainer.find('.contact-wikipedia-help');
+      expect(contentExperts.text()).to.eq('question about editing Wikipedia');
+      expect(popContainer.find('.contact-program-help').length).to.eq(0);
     });
   });
 });

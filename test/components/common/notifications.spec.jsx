@@ -1,52 +1,29 @@
 import React from 'react';
-import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 
 import '../../testHelper';
-import Notifications from '../../../app/assets/javascripts/components/common/notifications.jsx';
+import { Notifications } from '../../../app/assets/javascripts/components/common/notifications.jsx';
 
 
 describe('Notifications', () => {
   it('renders', () => {
-    const rendered = ReactTestUtils.renderIntoDocument(
-      <Provider store={reduxStore}>
-        <Notifications />
-      </Provider>
-    );
+    const rendered = shallow(<Notifications notifications={[]} />);
     expect(rendered).to.exist;
   });
 
-  it('updates via API_FAIL action and removes via close', (done) => {
-    const rendered = ReactTestUtils.renderIntoDocument(
-      <div>
-        <Provider store={reduxStore}>
-          <Notifications />
-        </Provider>
-      </div>
-    );
+  it('shows nothing when initially renderd', () => {
+    const rendered = shallow(<Notifications notifications={[]} />);
 
-    let rows = rendered.querySelectorAll('.notice');
+    const rows = rendered.find('.notice');
     expect(rows.length).to.eq(0);
+  });
 
-    reduxStore.dispatch({
-      type: 'API_FAIL',
-      data: {
-        responseJSON: {
-          error: 'Test error'
-        }
-      }
-    });
-
-    rows = rendered.querySelectorAll('.notice');
+  it('shows an error when the state reflects that', () => {
+    const notifications = [
+      { type: 'error', message: 'error message' }
+    ];
+    const rendered = shallow(<Notifications notifications={notifications} />);
+    const rows = rendered.find('.notice');
     expect(rows.length).to.eq(1);
-
-    const close = rendered.querySelector('svg');
-    Simulate.click(close);
-
-    return setImmediate(() => {
-      rows = rendered.querySelectorAll('.notice');
-      expect(rows.length).to.eq(0);
-      return done();
-    });
   });
 });

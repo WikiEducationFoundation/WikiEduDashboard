@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import { mount } from 'enzyme';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ describe('CampaignList', () => {
   const reduxStoreWithCampaigns = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
   it('it keeps the component closed when editable is false', () => {
-    const TestButton = ReactTestUtils.renderIntoDocument(
+    const TestButton = mount(
       <Provider store={reduxStoreWithCampaigns}>
         <CampaignList
           campaigns={campaigns}
@@ -27,6 +27,7 @@ describe('CampaignList', () => {
         />
       </Provider>
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns');
+
+    expect(TestButton.find('.campaigns')).to.exist;
   });
 });

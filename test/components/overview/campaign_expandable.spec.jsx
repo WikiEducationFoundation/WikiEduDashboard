@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import { mount } from 'enzyme';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ describe('CampaignEditable', () => {
   const reduxStoreWithCampaigns = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
   it('it opens the component when editable is true', () => {
-    const TestButton = ReactTestUtils.renderIntoDocument(
+    const TestButton = mount(
       <Provider store={reduxStoreWithCampaigns}>
         <CampaignEditable
           campaigns={campaigns}
@@ -28,11 +28,11 @@ describe('CampaignEditable', () => {
         />
       </Provider>
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'pop__container campaigns open');
+    expect(TestButton.find('.pop__container.campaigns.open')).to.exist;
   });
 
   it('it includes a plus button when is closed to open the expandable', () => {
-    const TestButton = ReactTestUtils.renderIntoDocument(
+    const TestButton = mount(
       <Provider store={reduxStoreWithCampaigns}>
         <CampaignEditable
           campaigns={campaigns}
@@ -42,6 +42,6 @@ describe('CampaignEditable', () => {
         />
       </Provider>
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'button border plus open');
+    expect(TestButton.find('.button.border.plus.open')).to.exist;
   });
 });

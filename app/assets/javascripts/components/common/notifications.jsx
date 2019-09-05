@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { removeNotification } from '../../actions/notification_actions.js';
 
-const Notifications = createReactClass({
+export const Notifications = createReactClass({
   displayName: 'Notifications',
 
 
