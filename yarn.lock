@@ -13200,10 +13200,10 @@ tiny-warning@^1.0.0:
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.2.tgz#1dfae771ee1a04396bdfde27a3adcebc6b648b28"
   integrity sha512-rru86D9CpQRLvsFG5XFdy0KdLAvjdQDyZCsRcuu60WtzFylDM3eAWSxEVz5kzL2Gp544XiUvPbVKtOA/txLi9Q==
 
-tinymce@^5.0.14:
-  version "5.0.14"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.0.14.tgz#6ec70a5ec6e95819ba9f711a0ec11f8412805c00"
-  integrity sha512-dQai8m80HgcfZ7e+F4YJBr69+mQJSDNpZYJTAnGlGTBc5fKfu6R6G2tq/G9It//ylZ7H/e7yvBQ+WyZBPQCnkQ==
+tinymce@^5.0.15:
+  version "5.0.15"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.0.15.tgz#315e6a416f40789e326ca95520397dce35b91ca8"
+  integrity sha512-00O5NcEGVP5aZ9wCN2JLnsVmSzdinvdd65O0IVPbxX0JCu83T4BQUX6Frowjn/Xe9ipLPrubNxY1RNmCI0ff7w==
 
 tmp@^0.0.33:
   version "0.0.33"
