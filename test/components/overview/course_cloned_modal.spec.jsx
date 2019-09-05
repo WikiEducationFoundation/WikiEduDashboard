@@ -37,9 +37,9 @@ describe('CourseClonedModal', () => {
   );
 
   it('renders a Modal', () => {
-    const renderedModal = TestModal.find('.cloned-course');
+    const renderedModal = TestModal.find(CourseClonedModal);
     expect(renderedModal).to.have.length(1);
-    TestModal.setState({ error_message: null });
+    renderedModal.setState({ error_message: null });
     const warnings = TestModal.find('.warning');
     expect(warnings).to.have.length(0);
   });
