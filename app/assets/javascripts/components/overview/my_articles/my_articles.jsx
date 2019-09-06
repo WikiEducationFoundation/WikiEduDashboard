@@ -31,7 +31,7 @@ export const MyArticles = createReactClass({
 
   getList(assignments, currentUserId, ROLE) {
     return assignments.reduce((acc, { article_title, role, user_id, username }) => {
-      if (role === ROLE || user_id === currentUserId) return acc;
+      if (!user_id || role === ROLE || user_id === currentUserId) return acc;
       if (acc[article_title]) {
         acc[article_title].push(username);
       } else {

@@ -12,7 +12,7 @@ import Wizard from './my_articles_wizard.jsx';
 import { initiateConfirm } from '../../../actions/confirm_actions';
 import { deleteAssignment } from '../../../actions/assignment_actions';
 
-import { NEW_ARTICLE, REVIEWING_ROLE } from '../../constants/assignments';
+import { NEW_ARTICLE, REVIEWING_ROLE } from '../../../constants/assignments';
 
 // Helper Components
 const Separator = () => <span> •&nbsp;</span>;
@@ -119,8 +119,6 @@ const SandboxLink = ({ assignment }) => {
   );
 };
 
-const Separator = () => <span> •&nbsp;</span>;
-
 const Links = ({ articleTitle, assignment, current_user }) => {
   const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
   const { username } = current_user;
@@ -211,19 +209,22 @@ export const MyAssignment = createReactClass({
 
     return (
       <div className="my-assignment mb1">
-        <Links
-          articleTitle={articleTitle}
-          assignment={assignment}
-          current_user={current_user}
-        />
-        <Actions
-          article={article}
-          assignment={assignment}
-          current_user={current_user}
-          username={username}
-          isEnglishWikipedia={this.isEnglishWikipedia}
-          unassign={this.unassign}
-        />
+        <header className="header-wrapper">
+          <Links
+            articleTitle={articleTitle}
+            assignment={assignment}
+            current_user={current_user}
+          />
+          <Actions
+            article={article}
+            assignment={assignment}
+            current_user={current_user}
+            username={username}
+            isEnglishWikipedia={this.isEnglishWikipedia}
+            unassign={this.unassign}
+          />
+        </header>
+        <Wizard assignment={assignment} courseSlug={course.slug} />
       </div>
     );
   }
