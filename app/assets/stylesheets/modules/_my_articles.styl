@@ -16,11 +16,9 @@
   display flex
   flex-direction column
   margin 15px 0
-  padding 15px
   .header-wrapper
-    border-bottom 1px solid #EDEDED
     display flex
-    padding 0 15px 15px
+    padding 15px
   .header, .actions
     flex 1
   .header
@@ -41,8 +39,18 @@
     text-align right
     *
       margin-left 3px
+  .toggle-wizard
+    background #EDEDED
+    color rgba(100,100,100,0.6)
+    cursor pointer
+    font-size 0.8rem
+    padding 5px 0
+    text-align center
   .flow
+    border-top 1px solid #EDEDED
     display flex
+    &.hidden
+      display none
     .step
       align-items center
       border-right 1px solid rgb(225,225,225)
@@ -50,7 +58,7 @@
       display flex
       flex 1 1 0
       flex-direction column
-      padding 15px 30px
+      padding 15px 30px 30px
       text-align center
       *
         flex 1
