@@ -116,7 +116,7 @@ namespace :deploy do
     ]
   end
   set :sidekiq_roles, -> { :app }
-  
+
   namespace :sidekiq do
     desc 'Quiet sidekiq (stop fetching new tasks from Redis)'
     task :quiet do
