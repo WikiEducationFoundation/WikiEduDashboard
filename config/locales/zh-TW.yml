@@ -200,7 +200,7 @@ zh-TW:
     alert_type: 類型
     alert_user_id: 使用者
     all_campaigns: 所有競賽
-    already_exists: 此競賽已存在！請以不同標題或指向內容再重試看看。
+    already_exists: 此競賽已存在！請以不同標題或代稱再重試看看。
     campaign: 競賽
     campaigns: 競賽
     campaign_deleted: 競賽「%{title}」已被刪除
@@ -247,6 +247,7 @@ zh-TW:
     random_passcode: 隨機選課代碼
     requested_accounts: 申請的帳號
     title: 標題
+    slug: 代稱
     use_start_end_dates: 使用起始和結束時間
   categories:
     add_category: 新增分類
@@ -272,6 +273,7 @@ zh-TW:
   chat:
     label: 聊天
   courses:
+    school_system: 學院系統
     assignment_edits_enabled: 分配編輯已啟用
     assignment_edits_enabled_tooltip: 若有啟用，面板會對各分配條目發佈討論頁模板。
     accounts_generation_enabled: 帳號申請產生已啟用
@@ -566,6 +568,7 @@ zh-TW:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
   courses_generic:
+    school_system: 學院系統
     add_campaign: 新增競賽
     all_courses: 所有方案
     archived: 存檔的方案

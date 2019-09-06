@@ -145,7 +145,7 @@ fr:
       existing: Existant
       new_and_existing: Nouveau et existant
       tracked: Suivi
-      untracked: Non suivi
+      untracked: Non-suivi
       tracked_and_untracked: Suivi et non suivi
     hide: Masquer
     history: (historique)
@@ -304,6 +304,7 @@ fr:
     random_passcode: un mot de passe aléatoire
     requested_accounts: Comptes demandés
     title: Titre
+    slug: Limace
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:
     add_category: Ajouter une catégorie
@@ -334,6 +335,7 @@ fr:
   chat:
     label: Clavardage
   courses:
+    school_system: Système académique
     assignment_edits_enabled: Modifications des affectations activées
     assignment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
       sur la page de discussion pour chaque article affecté.
@@ -743,6 +745,7 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    school_system: Système académique
     add_campaign: Ajouter une campagne
     all_courses: Tous les programmes
     archived: Programmes archivés
@@ -1268,9 +1271,9 @@ fr:
       fin
     unsupported_browser:
       header: Navigateur non pris en charge. :-(
-      explanation: Vous utilisez un navigateur qui n'est pas compatible avec le tableau
+      explanation: Vous utilisez un navigateur qui n’est pas compatible avec le tableau
         de bord. Le site fonctionne bien avec les versions récentes de Chrome, Firefox,
-        Edge et d'autres navigateurs modernes.
+        Edge et d’autres navigateurs modernes.
   error_401:
     header: Non autorisé. >:-(
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez

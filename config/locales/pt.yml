@@ -132,6 +132,9 @@ pt:
       new: Novos
       existing: Existentes
       new_and_existing: Novos e existentes
+      tracked: Monitorizados
+      untracked: Não monitorizados
+      tracked_and_untracked: Monitorizados e não monitorizados
     hide: Ocultar
     history: (histórico)
     label: Artigos
@@ -166,6 +169,9 @@ pt:
       autoria
     title: Título
     tracked: Monitorizado
+    tracked_doc: Só os artigos monitorizados contribuem para as estatísticas deste
+      programa. Quando os artigos forem marcados como não monitorizados, serão removidos
+      das estatísticas na próxima atualização dos dados.
     title_example: Título do artigo
     tools: Ferramentas de avaliação
     view: Ver artigo
@@ -208,6 +214,7 @@ pt:
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
+    peer_review_link: Revisão por pares
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
@@ -286,20 +293,29 @@ pt:
     use_start_end_dates: Utilizar datas iniciais e finais
   categories:
     add_category: Adicionar categoria
+    add_psid: Adicionar PSID PetScan
     add_template: Adicionar predefinição
     add_this_category: Adicionar esta categoria
+    add_this_psid: Adicionar este PSID
     add_this_template: Adicionar esta predefinição
+    import_articles_description: A lista de artigos numa categoria é atualizada periodicamente
+      e pode demorar algum tempo após a adição de um artigo até a lista ser preenchida.
     confirm_category_addition: Tem a certeza de que deseja monitorizar as contribuições
       da categoria "%{name}"?
+    confirm_psid_addition: Tem a certeza de que deseja monitorizar as contribuições
+      para o PSID PetScan "%{name}"?
     confirm_template_addition: Tem a certeza de que deseja monitorizar as contribuições
-      da predefinição "%{name}"?
+      para a predefinição "%{name}"?
     depth: Profundidade de subcategorias
+    articles_count: Contagem de artigos
     name: Nome
     category_name: Nome da categoria
+    psid_name: PSID
     template_name: Nome da predefinição
     none: Não há nenhuma categoria a ser monitorizada.
     remove: Remover
-    tracked_categories: Categorias e predefinições monitorizadas
+    tracked_categories: Categorias, PSID e predefinições monitorizadas
+    timestamp: Última atualização
   chat:
     label: Conversação
   courses:
@@ -1222,9 +1238,8 @@ pt:
     unsupported_browser:
       header: Navegador sem suporte.  :-(
       explanation: Está a utilizar um navegador que não é compatível com o painel
-        de controlo. Este sítio funciona melhor com a versão 11 ou superior do Internet
-        Explorer, com versões recentes do Chrome e Firefox, e com outros navegadores
-        modernos.
+        de controlo. Este sítio funciona bem com versões recentes do Chrome, Firefox,
+        Edge e outros navegadores modernos.
   error_401:
     header: Não autorizado. >:-(
     explanation: Não está autorizado a executar este solicitação. Se acredita que

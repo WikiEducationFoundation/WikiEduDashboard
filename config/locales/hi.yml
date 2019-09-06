@@ -219,6 +219,7 @@ hi:
   chat:
     label: बातचीत
   courses:
+    school_system: शैक्षणिक प्रणाली
     activity: गतिविधि
     active_courses: सक्रिय %{course_type}
     all_courses: सभी पाठ्यक्रम
@@ -300,6 +301,7 @@ hi:
     update_stats: आँकड़े सुधारे
     withdrawn: वापस ले लिया
   courses_generic:
+    school_system: शैक्षणिक प्रणाली
     add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम
     course: प्रोग्राम

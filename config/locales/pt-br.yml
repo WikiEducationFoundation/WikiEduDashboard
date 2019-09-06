@@ -325,6 +325,7 @@ pt-br:
   chat:
     label: Bate-papo
   courses:
+    school_system: Sistema acadêmico
     assignment_edits_enabled: Edições de atribuição ativadas
     assignment_edits_enabled_tooltip: Se ativado, o painel irá postar um modelo para
       a página de discussão de cada artigo atribuído.
@@ -719,6 +720,7 @@ pt-br:
       notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o Questionário
   courses_generic:
+    school_system: Sistema acadêmico
     add_campaign: Adicionar campanha
     all_courses: Todos os programas
     archived: Programas arquivados

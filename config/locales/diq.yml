@@ -103,6 +103,7 @@ diq:
     delete_campaign: Ena kampanya bestere
     none: Çıniyo
     title: Sername
+    slug: Guvelık
   categories:
     name: Name
     remove: Wedare

@@ -277,6 +277,7 @@ ar:
     random_passcode: كلمة سر عشوائية
     requested_accounts: الحسابات المطلوبة
     title: العنوان
+    slug: سبيكة
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
   categories:
     add_category: أضف تصنيفًا
@@ -303,6 +304,7 @@ ar:
   chat:
     label: دردشة
   courses:
+    school_system: النظام الأكاديمي
     assignment_edits_enabled: تم تمكين تعديلات المهمة
     assignment_edits_enabled_tooltip: في حالة التمكين، ستقوم لوحة البيانات بنشر قالب
       بصفحة النقاش لكل مقالة معينة.
@@ -663,6 +665,7 @@ ar:
       notification_message: شارك في استبياننا لهذه الدورة.
       link: المشاركة في استبيان
   courses_generic:
+    school_system: النظام الأكاديمي
     add_campaign: إضافة حملة
     all_courses: كل البرامج
     archived: البرامج المؤرشفة
