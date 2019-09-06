@@ -2,6 +2,15 @@ import React from 'react';
 import MyAssignment from './my_assignment.jsx';
 import { REVIEWING_ROLE, IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../../constants/assignments';
 
+// Helper Functions
+const filterStatus = status => ({ article_status }) => {
+  return status === article_status;
+};
+
+const sortBy = key => (a, b) => {
+  return a[key] > b[key] ? 1 : -1;
+};
+
 // Helper Components
 const Tooltip = ({ message, text }) => {
   return (
@@ -60,9 +69,9 @@ const MyAssignmentsList = ({ assignments, course, current_user, wikidataLabels }
   }
 
   const articles = {
-    new: assignments.filter(({ article_status: status }) => status === NEW_ARTICLE),
-    improving: assignments.filter(({ article_status: status }) => status === IMPROVING_ARTICLE),
-    reviewing: assignments.filter(({ article_status: status }) => status === REVIEWING_ARTICLE)
+    new: assignments.filter(filterStatus(NEW_ARTICLE)).sort(sortBy('article_title')),
+    improving: assignments.filter(filterStatus(IMPROVING_ARTICLE)).sort(sortBy('article_title')),
+    reviewing: assignments.filter(filterStatus(REVIEWING_ARTICLE)).sort(sortBy('article_title'))
   };
 
   const listProps = { course, current_user, wikidataLabels };

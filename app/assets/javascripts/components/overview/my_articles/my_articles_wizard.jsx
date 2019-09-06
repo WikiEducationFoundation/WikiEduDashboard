@@ -109,26 +109,53 @@ const Step = ({
   );
 };
 
-export const Wizard = ({ assignment, courseSlug, handleUpdateAssignment, refreshAssignments }) => {
-  const steps = assignmentContent.map((content, index, { length }) => (
-    <Step
-      {...content}
-      assignment={assignment}
-      courseSlug={courseSlug}
-      index={index}
-      key={index}
-      last={index === length - 1}
-      handleUpdateAssignment={handleUpdateAssignment}
-      refreshAssignments={refreshAssignments}
-    />
-  ));
+export class Wizard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
 
-  return (
-    <section className="flow">
-      { steps }
-    </section>
-  );
-};
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({ show: !this.state.show });
+  }
+
+  render() {
+    const {
+      assignment, courseSlug, kind = 'Assignment',
+      handleUpdateAssignment, refreshAssignments
+    } = this.props;
+    const { show } = this.state;
+    const toggleText = show ? 'Hide' : 'Show';
+
+    const steps = assignmentContent.map((content, index, { length }) => (
+      <Step
+        {...content}
+        assignment={assignment}
+        courseSlug={courseSlug}
+        index={index}
+        key={index}
+        last={index === length - 1}
+        handleUpdateAssignment={handleUpdateAssignment}
+        refreshAssignments={refreshAssignments}
+      />
+    ));
+
+    return (
+      <>
+        <section className={`flow${show ? '' : ' hidden'}`}>
+          {steps}
+        </section>
+        <nav className="toggle-wizard" onClick={this.toggle}>
+          <span>{ toggleText } { kind } Wizard</span>
+        </nav>
+      </>
+    );
+  }
+}
 
 const mapDispatchToProps = {
   handleUpdateAssignment: updateAssignmentStatus,
