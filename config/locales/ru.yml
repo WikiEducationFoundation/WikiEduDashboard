@@ -32,6 +32,7 @@
 # Author: Shaleych
 # Author: SmartNart12
 # Author: Vlad5250
+# Author: Марио
 # Author: Туллук
 # Author: Ядерный Трамвай
 ---
@@ -119,6 +120,7 @@ ru:
   articles:
     assigned: Назначенные статьи
     available: Доступные статьи
+    next: Далее
     assigned_to: Назначен
     character_doc: Общее число символов, добавленных в статьи участвующими редакторами
       между датами начала и окончания.
@@ -168,6 +170,7 @@ ru:
     wiki: Вики
   assignments:
     article: Вам назначена статья %{title}.
+    article_link: Статья
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
     add_available: Добавить доступные статьи

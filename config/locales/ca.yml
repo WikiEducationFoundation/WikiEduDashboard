@@ -263,6 +263,7 @@ ca:
     random_passcode: un codi d’accés a l’atzar
     requested_accounts: Comptes sol·licitats
     title: Títol
+    slug: URL semàntic
     use_start_end_dates: Utilitza les dates inicial i final
   categories:
     add_category: Afegeix una categoria
@@ -283,6 +284,7 @@ ca:
   chat:
     label: Xat
   courses:
+    school_system: Sistema acadèmic
     assignment_edits_enabled: S'han activat les edicions assignades
     assignment_edits_enabled_tooltip: Si s'activa, el tauler afegirà una plantilla
       a la pàgina de discussió de cada article assignat.
@@ -630,6 +632,7 @@ ca:
       notification_message: Responeu a una enquesta per aquest curs.
       link: Comença l'enquesta
   courses_generic:
+    school_system: Sistema acadèmic
     add_campaign: Afegiu un curs
     all_courses: Tots els programes
     archived: Programes arxivats

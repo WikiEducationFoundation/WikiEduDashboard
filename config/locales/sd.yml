@@ -38,7 +38,7 @@ sd:
     sign_up: کاتو کوليو
     submit: اماڻيو
     training: تربيت
-    change: تبديل ڪريو
+    change: بدلايو
     details: تفصيلَ
     confirm: ٺيڪ
     opt_in: ها
@@ -118,7 +118,7 @@ sd:
     select: چونڊيو
   blocks:
     milestones:
-      title: سنگ ميل
+      title: سنگ-ميلَ
   campaign:
     add_organizer: سرپرست شامل ڪيو (Add organizer)
     alert_article: مضمون جو عنوان
@@ -179,7 +179,7 @@ sd:
       start_date_placeholder: شروع ٿيڻ جي تاريخ (YYYY-MM-DD)
       subject: موضوع
     current: حاليہ ڪورسز
-    data_articles: مضمونن جا انگ اکر
+    data_articles: مضمونن جي ڊيٽا
     data_overview: انگ اکرَ ڏسو
     delete_course: ڪورس ڊاهيو
     delete_suggestion: ڊاھيو
@@ -250,11 +250,11 @@ sd:
     articles_edited: سنواريل مضمون
     characters: اکرَ
     char_added: شامل ڪيل اکرن جو تعداد
-    char_changed: تبديل ڪيل اکرن جو تعداد
+    char_changed: بدلايل نشانيون
     char: شامل ڪيل اکرن جو تعداد
     date_time: تاريخ/وقت
     edit_count_description: ڪل سنوارون
-    revisions: تازيون تبديليون
+    revisions: تازيون سنوارون
     view_count_description: مضمون جون ڏيٿون
     view: ڏيٺون
   namespace:
@@ -281,7 +281,7 @@ sd:
   timeline:
     add_week: هفتو شامل ڪيو
     block_in_class: ڪلاس ۾
-    block_milestone: سنگ ميل
+    block_milestone: سنگ-ميلَ
     due_default: مٿين هفتي واجب
     empty_week_3: يا
     save_all_changes: سڀ سانڍيو
@@ -310,7 +310,7 @@ sd:
     loading: واپرائيندڙَ اتاري رهيا آهيون...
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
-    recent_revisions: تازيون تبديليون
+    recent_revisions: تازيون سنوارون
     revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
     reviewers: نظرثاني ڪندڙ
     reviewing: جائزي هيٺ

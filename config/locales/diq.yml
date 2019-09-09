@@ -110,6 +110,7 @@ diq:
   chat:
     label: Mıhebet
   courses:
+    school_system: Sistemo akademik
     activity: Fealiyet
     actions: Hereketi
     articles: Wesiqey
@@ -176,6 +177,7 @@ diq:
     timeline_link: Demawexti
     title: Sername
   courses_generic:
+    school_system: Sistemo akademik
     cancel: Bıtexelne
     course: Program
     courses: Programi

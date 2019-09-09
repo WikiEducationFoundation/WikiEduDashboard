@@ -247,6 +247,7 @@ es:
     random_passcode: un código de acceso al azar
     requested_accounts: Cuentas solicitadas
     title: Título
+    slug: URL semántico
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
     add_category: Añadir categoría
@@ -268,6 +269,7 @@ es:
   chat:
     label: Chat
   courses:
+    school_system: Sistema académico
     accounts_generation_enabled: Generación de cuentas activada
     accounts_generation_confirm_message: ¿Confirmas que quieres activar las solicitudes
       de cuentas?
@@ -529,6 +531,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    school_system: Sistema académico
     add_campaign: Añadir campaña
     all_courses: Todos los programas
     archived: Programas archivados

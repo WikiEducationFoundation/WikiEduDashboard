@@ -138,6 +138,7 @@ lt:
     articles_count: Straipsnių Skaičius
     timestamp: Paskutinį Kartą Atnaujinta
   courses:
+    school_system: Akademinė Sistema
     accounts_generation_enabled: Paskyrų prašymų generavimas įjungtas
     activity: Veikla
     active_courses: Aktyvus %{course_type}
@@ -284,6 +285,7 @@ lt:
       notification_message: Atlikite šio kurso apklausą.
       link: Atlikti apklausą
   courses_generic:
+    school_system: Akademinė Sistema
     all_courses: Visos Programos
     articles_none: Dar nėra redaguotų straipsnių šiam projektui.
     assignment_end: Laiko Juostos Pabaigą

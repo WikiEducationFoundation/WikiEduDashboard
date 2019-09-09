@@ -215,6 +215,7 @@ zh-CN:
     random_passcode: 随机密码
     requested_accounts: 请求的账户
     title: 标题
+    slug: 重击
     use_start_end_dates: 使用开始和结束日期
   categories:
     add_category: 添加分类
