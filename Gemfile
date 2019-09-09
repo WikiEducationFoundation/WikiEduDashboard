@@ -101,7 +101,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'capistrano-sidekiq'
   gem 'rails-erd'
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'faker', require: false # Generates random data for example records

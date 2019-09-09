@@ -24,15 +24,6 @@ set :ssh_options, forward_agent: true
 # Default value for :pty is false
 set :pty, false
 
-# Sidekiq settings
-set :sidekiq_processes, 5
-set :sidekiq_options_per_process, ["--queue default --concurrency 2",
-                                   "--queue short_update --queue medium_update --concurrency 1",
-                                   "--queue medium_update --queue short_update --concurrency 1",
-                                   "--queue long_update --queue medium_update --concurrency 1",
-                                   "--queue daily_update --concurrency 1"]
-
-
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/database.yml',
@@ -96,4 +87,78 @@ namespace :deploy do
   before 'deploy:symlink:release', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 
+  ##############################
+  # Sidekiq process management #
+  ##############################
+
+  # These sidekiq processes are managed by systemd. Each one has its own .service
+  # file on the server; for reference, there are copies in server_config/systemd.
+  # The typical location on debian is /etc/systemd/system.
+
+  # These processes will all be started on system boot, and will restart if they fail
+  # (but not if they are shut down cleanly). The strategy for deployment is to first
+  # quiet all the processes so they don't accept new jobs, then stop them — killing incomplete
+  # jobs and putting them back into the queue — then starting them again with the newly-deployed
+  # code.
+
+  # We interact with these processes using standard Unix signals, via `systemctl`
+  # https://github.com/mperham/sidekiq/wiki/Signals
+
+  # To leave sidekiq processes running through a deploy instead of restarting them:
+  # `cap production deploy skip_sidekiq=true`
+  set :sidekiq_processes, -> do
+    [
+      'sidekiq-default', # transactional jobs like wiki edits and sending email
+      'sidekiq-short', # data updates for short-running courses, hopefully with low queue latency
+      'sidekiq-medium', # data updates for typical courses
+      'sidekiq-long', # data updates for long-running courses, which may have long queue latency
+      'sidekiq-daily', # once-daily long-running data update tasks
+    ]
+  end
+  set :sidekiq_roles, -> { :app }
+
+  namespace :sidekiq do
+    desc 'Quiet sidekiq (stop fetching new tasks from Redis)'
+    task :quiet do
+      on roles fetch(:sidekiq_roles) do
+        fetch(:sidekiq_processes).each do |service|
+          execute :systemctl, 'kill', '-s', 'TSTP', service, raise_on_non_zero_exit: false
+        end
+      end
+    end
+  
+    desc 'Stop sidekiq (graceful shutdown within timeout, put unfinished tasks back to Redis)'
+    task :stop do
+      on roles fetch(:sidekiq_roles) do
+        fetch(:sidekiq_processes).each do |service|
+          execute :systemctl, 'kill', '-s', 'TERM', service, raise_on_non_zero_exit: false
+        end
+      end
+    end
+  
+    desc 'Start sidekiq'
+    task :start do
+      on roles fetch(:sidekiq_roles) do
+        fetch(:sidekiq_processes).each do |service|
+          execute :systemctl, 'start', service, raise_on_non_zero_exit: false
+        end
+      end
+    end
+  
+    desc 'Restart sidekiq'
+    task :restart do
+      on roles fetch(:sidekiq_roles) do
+        fetch(:sidekiq_processes).each do |service|
+          execute :systemctl, 'restart', service, raise_on_non_zero_exit: false
+        end
+      end
+    end
+  end
+
+  unless ENV['skip_sidekiq']
+    after 'deploy:starting', 'sidekiq:quiet'
+    before 'deploy:migrate', 'sidekiq:stop'
+    after 'deploy:published', 'sidekiq:start'
+    after 'deploy:failed', 'sidekiq:restart'
+  end
 end
