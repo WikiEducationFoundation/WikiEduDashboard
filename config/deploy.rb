@@ -122,7 +122,7 @@ namespace :deploy do
     task :quiet do
       on roles fetch(:sidekiq_roles) do
         fetch(:sidekiq_processes).each do |service|
-          execute :systemctl, 'kill', '-s', 'TSTP', service, raise_on_non_zero_exit: false
+          execute :sudo, 'systemctl', 'kill', '-s', 'TSTP', service, raise_on_non_zero_exit: false
         end
       end
     end
@@ -131,7 +131,7 @@ namespace :deploy do
     task :stop do
       on roles fetch(:sidekiq_roles) do
         fetch(:sidekiq_processes).each do |service|
-          execute :systemctl, 'kill', '-s', 'TERM', service, raise_on_non_zero_exit: false
+          execute :sudo, 'systemctl', 'kill', '-s', 'TERM', service, raise_on_non_zero_exit: false
         end
       end
     end
@@ -140,16 +140,16 @@ namespace :deploy do
     task :start do
       on roles fetch(:sidekiq_roles) do
         fetch(:sidekiq_processes).each do |service|
-          execute :systemctl, 'start', service, raise_on_non_zero_exit: false
+          execute :sudo, 'systemctl', 'start', service, raise_on_non_zero_exit: false
         end
       end
     end
-  
+
     desc 'Restart sidekiq'
     task :restart do
       on roles fetch(:sidekiq_roles) do
         fetch(:sidekiq_processes).each do |service|
-          execute :systemctl, 'restart', service, raise_on_non_zero_exit: false
+          execute :sudo, 'systemctl', 'restart', service, raise_on_non_zero_exit: false
         end
       end
     end
