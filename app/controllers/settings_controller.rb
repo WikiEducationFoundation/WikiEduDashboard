@@ -159,7 +159,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       yield json: { message: message }, status: 422
     end
     # happy path!
-    @user.update_attributes permissions: User::Permissions::ADMIN
+    @user.update permissions: User::Permissions::ADMIN
     message = I18n.t('settings.admin_users.new.elevate_success', username: @user.username)
     yield json: { message: message }, status: 200
   end
@@ -179,7 +179,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     end
 
     # happy path
-    @user.update_attributes permissions: User::Permissions::INSTRUCTOR
+    @user.update permissions: User::Permissions::INSTRUCTOR
     message = I18n.t('settings.admin_users.remove.demote_success', username: @user.username)
     yield json: { message: message }, status: 200
   end

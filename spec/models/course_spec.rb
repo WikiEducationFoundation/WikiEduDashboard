@@ -491,7 +491,7 @@ describe Course, type: :model do
     let(:course) { create(:course) }
 
     describe '#before_save' do
-      subject { course.update_attributes(course_attrs) }
+      subject { course.update(course_attrs) }
 
       context 'params are legit' do
         let(:course_attrs) { { end: 1.year.from_now } }
@@ -536,7 +536,7 @@ describe Course, type: :model do
 
     describe '#set_default_times' do
       subject do
-        course.update_attributes(course_attrs)
+        course.update(course_attrs)
         course
       end
 
@@ -567,22 +567,22 @@ describe Course, type: :model do
     end
 
     it 'allows BasicCourse type' do
-      course.update_attributes(type: 'BasicCourse')
+      course.update(type: 'BasicCourse')
       expect(described_class.last.class).to eq(BasicCourse)
     end
 
     it 'allows VisitingScholarship type' do
-      course.update_attributes(type: 'VisitingScholarship')
+      course.update(type: 'VisitingScholarship')
       expect(described_class.last.class).to eq(VisitingScholarship)
     end
 
     it 'allows Editathon type' do
-      course.update_attributes(type: 'Editathon')
+      course.update(type: 'Editathon')
       expect(described_class.last.class).to eq(Editathon)
     end
 
     it 'allows FellowsCohort type' do
-      course.update_attributes(type: 'FellowsCohort')
+      course.update(type: 'FellowsCohort')
       expect(described_class.last.class).to eq(FellowsCohort)
     end
 
@@ -591,7 +591,7 @@ describe Course, type: :model do
     end
 
     it 'does not allow updating to arbitrary types' do
-      invalid_update = course.update_attributes(type: 'Bar')
+      invalid_update = course.update(type: 'Bar')
       expect(invalid_update).to eq(false)
       expect(described_class.last.class).to eq(ClassroomProgramCourse)
     end

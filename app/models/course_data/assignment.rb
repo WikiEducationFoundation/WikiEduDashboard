@@ -28,7 +28,8 @@ class Assignment < ApplicationRecord
 
   # The uniqueness constraint for assignments is done with a validation instead
   # of a unique index so that :article_title is case-sensitive.
-  validates_uniqueness_of :article_title, scope: %i[course_id user_id role wiki_id]
+  validates_uniqueness_of :article_title, scope: %i[course_id user_id role wiki_id],
+                                          case_sensitive: true
 
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }

@@ -22,7 +22,7 @@ class TrainingLibrary < ApplicationRecord
   serialize :categories, Array
   serialize :translations, Hash
 
-  validates :slug, uniqueness: true
+  validates_uniqueness_of :slug, case_sensitive: true
 
   validates_presence_of [:id, :name, :slug, :introduction, :categories]
 

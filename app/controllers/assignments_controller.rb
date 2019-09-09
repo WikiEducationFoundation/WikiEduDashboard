@@ -38,7 +38,7 @@ class AssignmentsController < ApplicationController
     if @assignment.user_id
       render json: { message: 'This assignment has been claimed already. Please refresh.' },
              status: :conflict
-    elsif @assignment.update_attributes(assignment_params)
+    elsif @assignment.update(assignment_params)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },

@@ -24,7 +24,7 @@ class SalesforceController < ApplicationController
     url = CreateSalesforceMediaRecord.new(article: @article, course: @course, user: @user,
                                           before_rev_id: params[:before_rev_id],
                                           after_rev_id: params[:after_rev_id]).url
-    redirect_to url
+    redirect_to url, allow_other_host: true
   end
 
   private
