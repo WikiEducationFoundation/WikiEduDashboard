@@ -13,7 +13,7 @@ task('minify', () => {
 
   // Minify CSS
   const css = src(`${config.outputPath}/${config.cssDirectory}/*.css`)
-    .pipe(plugins.minifyCss())
+    .pipe(plugins.cleanCss())
     .pipe(dest(`${config.outputPath}/${config.cssDirectory}`));
 
   return merge(vendor, css);
