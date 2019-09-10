@@ -125,11 +125,10 @@ export class Wizard extends React.Component {
 
   render() {
     const {
-      assignment, courseSlug, kind = 'Assignment',
+      assignment, courseSlug,
       handleUpdateAssignment, refreshAssignments
     } = this.props;
     const { show } = this.state;
-    const toggleText = show ? 'Hide' : 'Show';
 
     const steps = assignmentContent.map((content, index, { length }) => (
       <Step
@@ -143,6 +142,14 @@ export class Wizard extends React.Component {
         refreshAssignments={refreshAssignments}
       />
     ));
+    const lis = assignmentContent.map(({ status, title }, i) => {
+      const selected = assignment.assignment_status === status;
+      return (
+        <li className={selected ? 'selected' : ''} key={`process-step-${i}`}>
+          {`${i + 1}. ${title}`}
+        </li>
+      );
+    });
 
     return (
       <>
@@ -150,7 +157,14 @@ export class Wizard extends React.Component {
           {steps}
         </section>
         <nav className="toggle-wizard" onClick={this.toggle}>
-          <span>{ toggleText } { kind } Wizard</span>
+          <ul>
+            { lis }
+            {
+              show
+              ? <li className="icon icon-arrow-reverse table-expandable-indicator" />
+              : <li className="icon icon-arrow table-expandable-indicator" />
+            }
+          </ul>
         </nav>
       </>
     );
