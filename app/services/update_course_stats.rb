@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
@@ -33,6 +34,10 @@ class UpdateCourseStats
     log_update_progress :start
     CourseRevisionUpdater.import_revisions(@course, all_time: @full_update)
     log_update_progress :revisions_imported
+
+    RevisionScoreImporter.update_revision_scores_for_course(@course)
+    log_update_progress :revision_scores_imported
+
     CourseUploadImporter.new(@course).run
     log_update_progress :uploads_imported
   end

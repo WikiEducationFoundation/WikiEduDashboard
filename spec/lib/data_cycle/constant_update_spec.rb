@@ -12,7 +12,6 @@ describe ConstantUpdate do
 
     it 'calls lots of update routines' do
       expect(AssignmentUpdater).to receive(:update_assignment_article_ids_and_titles)
-      expect(RevisionScoreImporter).to receive(:update_revision_scores_for_all_wikis)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
       expect(StudentGreetingChecker).to receive(:check_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
