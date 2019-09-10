@@ -159,7 +159,7 @@
     "yarn": ">= 1.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.0",
     "webpack-cli": "^3.3.8"
   },
   "resolutions": {
