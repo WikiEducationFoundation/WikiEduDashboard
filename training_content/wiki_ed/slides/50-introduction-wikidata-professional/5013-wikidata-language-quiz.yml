@@ -9,16 +9,17 @@ assessment:
   answers:
     - id: 1
       text: |
-        Each language has its own, independent language version.
+        Each language has its own, independent set of facts, just like Wikipedia.
       explanation: |
-        INCORRECT! Users can choose from over 300 languages to view Wikidata.
+        INCORRECT! Although users can choose from over 300 languages to view Wikidata,
+        all languages use and see the same data.
     - id: 2
       text: |
-        Entries to Wikidata are in English, but the labels should be translated
+        Entries to Wikidata are in English, but the labels should be translated by hand
         into other languages.
       explanation: |
         INCORRECT! You can view Wikidata entries in any language. Labels are
-        tied to the language they represent.
+        tied to the language you use to read Wikidata.
     - id: 3
       text: |
         You can work in the language of your choice, since the underlying data
