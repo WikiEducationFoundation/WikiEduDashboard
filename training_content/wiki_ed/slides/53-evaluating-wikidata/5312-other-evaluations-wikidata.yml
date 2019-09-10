@@ -23,8 +23,8 @@ content: |
   * <a href="https://tools.wmflabs.org/wikidata-game/distributed/">The Distributed Game</a> -
   Fill in missing information about items such as what images depict, missing
   birth dates, and items without descriptions
-  * <a href="https://tools.wmflabs.org/wikishootme/">Wikishootme</a> - A mobile
-  app that alerts editors when they are near Wikidata items without an image.
+  * <a href="https://tools.wmflabs.org/wikishootme/">Wikishootme</a> - A webapp 
+  that alerts editors when they are near Wikidata items without an image.
   Take a photo, upload directly to Commons, and the particular Wikidata item
   * <a href="https://tools.wmflabs.org/wikidata-terminator/#/">Terminator</a> -
   Items are missing labels, descriptions, and articles in many languages. Help
