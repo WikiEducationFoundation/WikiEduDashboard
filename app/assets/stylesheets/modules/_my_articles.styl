@@ -45,7 +45,23 @@
     cursor pointer
     font-size 0.8rem
     padding 5px 0
-    text-align center
+    text-align left
+    ul
+      display flex
+      flex 1
+      margin 0
+      li
+        display inline-block
+        flex 1
+        &:first-child
+          margin-left 30px
+        &:last-child
+          margin-right 30px
+          text-align right
+        &.selected
+          color rgb(103, 110, 180)
+          font-weight bold
+
   .flow
     border-top 1px solid #EDEDED
     display flex
@@ -108,7 +124,6 @@
           color rgb(103, 110, 180)
         aside.step-links a
           color rgb(103, 110, 180)
-
 
 .my-assignment-checklist
   font-size 120%
