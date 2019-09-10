@@ -5,7 +5,7 @@ env:
 language: ruby
 rvm: 2.5.0
 sudo: required
-dist: trusty
+dist: bionic
 cache:
   apt: true
   directories:
