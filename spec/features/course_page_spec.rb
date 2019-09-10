@@ -414,6 +414,7 @@ describe 'the course page', type: :feature, js: true do
       stub_oauth_edit
 
       expect(CourseRevisionUpdater).to receive(:import_revisions)
+      expect(RevisionScoreImporter).to receive(:update_revision_scores_for_course)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
       updated_user_count = user_count + 1
