@@ -9,16 +9,17 @@ assessment:
   answers:
     - id: 1
       text: |
-        post a version of what you think the data model should be without telling anyone.
+        start modeling items on your own without sharing that model with anyone
       explanation: |
         INCORRECT! Wikidata is a collaborative project. Although we encourage
         you to be bold and share your expertise, inviting others to participate
         in the discussion is the best way to approach data models.
     - id: 2
       text: |
-        give up on the item and find something else to work on.
+        give up on the item and find something with an existing model to work on.
       explanation: |
-        INCORRECT! Never give up! There's a place for this kind of thing.
+        INCORRECT! Don't give up! It may require extra work to create a data model,
+        but the community benefits from them.
     - id: 3
       text: |
         use the Discussion page of the WikiProject to propose a data model.
