@@ -32,7 +32,7 @@ assessment:
         (<code>wdt:</code> for properties and <code>wd:</code> for items), in order for the query to run.
     - id: 4
       text: |
-        I'll use variables like ?item ?cat list.
+        I'll use variables like ?item ?cat ?list.
       explanation: |
         Close! This is starting to look like some SPARQL variables, but SPARQL
         requires you to be very clear and follow an explicit syntax. Review this
