@@ -76,7 +76,6 @@ const Block = createReactClass({
     const isEditable = this._isEditable();
     if (this._hidden()) { return null; }
 
-    const isGraded = !!block.points;
     let className = 'block';
     className += ` block-kind-${block.kind}`;
 
@@ -110,10 +109,6 @@ const Block = createReactClass({
           p_tag_classname="block__read__due-date"
         />
       );
-    }
-
-    if (!dueDateRead) {
-      dueDateRead = isGraded ? (<span className="block__default-due-date">{I18n.t('timeline.due_default')}</span>) : '';
     }
 
     let blockKindNote;
