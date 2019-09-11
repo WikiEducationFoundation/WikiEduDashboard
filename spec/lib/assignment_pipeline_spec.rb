@@ -34,7 +34,7 @@ describe AssignmentPipeline do
         pipeline = described_class.new(assignment: assignment)
 
         actual = pipeline.all_statuses
-        expect(actual.length).to equal(4)
+        expect(actual.length).to equal(5)
       end
     end
 
