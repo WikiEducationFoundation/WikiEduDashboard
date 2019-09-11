@@ -9,6 +9,7 @@ class AssignmentPipeline
     IN_PROGRESS = 'in_progress'
     READY_FOR_REVIEW = 'ready_for_review'
     READY_FOR_MAINSPACE = 'ready_for_mainspace'
+    ASSIGNMENT_COMPLETED = 'assignment_completed'
   end
 
   module ReviewStatuses
@@ -22,7 +23,8 @@ class AssignmentPipeline
       AssignmentStatuses::NOT_YET_STARTED,
       AssignmentStatuses::IN_PROGRESS,
       AssignmentStatuses::READY_FOR_REVIEW,
-      AssignmentStatuses::READY_FOR_MAINSPACE
+      AssignmentStatuses::READY_FOR_MAINSPACE,
+      AssignmentStatuses::ASSIGNMENT_COMPLETED
     ].freeze,
     review: [
       ReviewStatuses::NOT_YET_STARTED,
