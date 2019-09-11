@@ -17,7 +17,7 @@ content: |
   Interested in learning more about constraints? You can browse items by
   <a href="https://www.wikidata.org/wiki/Wikidata:Database_reports/Constraint_violations">constraint violations on this page</a>.
   An example of a constraint violation is distinguishing between two properties.
-  The properties <code>P131</code> and <code>P276</code> both represent
+  The properties <code>P131</code>, *located in the administrative territorial entity*, and <code>P276</code>, *location*, both represent
   location in different ways. Constraint reports can help you discover and
   correct properties that are not used correctly.
 
