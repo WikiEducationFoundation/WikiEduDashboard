@@ -33,6 +33,6 @@ content: |
   </figure>
 
   Your results consist of two columns: one column labeled **item** which consists of
-  Wikidata items (<code>wd:Q28115432</code>, for example) and the other labeled **itemLabel** 
+  Wikidata items (<code>wd:Q28114532</code>, for example) and the other labeled **itemLabel**
   which lists the label associated with each item. Recall that item labels are
   what make Wikidata items interpretable to humans.

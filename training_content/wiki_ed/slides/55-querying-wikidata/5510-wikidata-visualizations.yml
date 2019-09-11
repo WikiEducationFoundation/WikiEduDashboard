@@ -6,7 +6,7 @@ content: |
   to represent the results of your queries. Keep in mind to activate some of the
   visualizations you need to query the correct type of data. For example you
   need coordinates to see a map, dates to see a timeline, and images to see the
-  gallery.
+  image grid.
 
   To select the different visualizations on the query page look in the
   bottom-left corner and click on the eye icon.

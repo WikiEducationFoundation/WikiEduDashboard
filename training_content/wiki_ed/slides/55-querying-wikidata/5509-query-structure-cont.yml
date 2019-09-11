@@ -13,17 +13,17 @@ content: |
 
   The <code>WHERE</code> statement tells the query which kinds of values it wants to attach
   to the variables. The curly brackets <code>{</code> and <code>}</code> enclose
-  the instructions applied to the <code>WHERE</code> statement.
+  the instructions - or clause - applied to the variables of the <code>WHERE</code> statement.
 
   <code>?item wdt:P31 wd:Q146 .</code>
 
   This is the core element of our query. We're telling the query service which
-  pieces of information we're looking for. P31 is the "instance of" property,
-  while Q146 is the value associated with it. In this case, the value is house
+  pieces of information we're looking for. <code>P31</code> is the "instance of" property,
+  while <code>Q146</code> is the value associated with it. In this case, the value is house
   cat. This is where we're telling the service "to give us the Wikidata items
   where "instance of" equals "house cat".
 
-  <code>SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }</code>
+  <code>SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }</code>
 
   This next line tells the query to use a service that will assign the property
   "label" (recall that it's the human-readable value associated with an item).
