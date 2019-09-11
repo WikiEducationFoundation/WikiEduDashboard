@@ -5,29 +5,36 @@ content: |
 assessment:
   correct_answer_id: 3
   question: |
-    What does the syntax of the statement ?item wdt:P31 wd:Q146 reflect?
+    How do you retrieve information from the Wikidata Query Service?
   answers:
     - id: 1
       text: |
-        The item - property - value triple.
+        Type in a question like you would with a search engine. I can type
+        "give me a list of cats", for example.
       explanation: |
-        INCORRECT! This is picky, but this statement asks for items that satisfy
-        having the property P31 and the item number Q146. It's not quite a
-        item-property-value triple, but the answers you get will be.
+        INCORRECT! The query service uses SPARQL, a query language, which means
+        you must use the query language to run a successful query.
     - id: 2
       text: |
-        Complex and inscrutable code used by computer programmers.
+        I know SQL and that's a query language, so I can use SQL!
       explanation: |
-        INCORRECT! Although it looks complicated there is meaning behind this statement.
+        INCORRECT! Although SQL is a query language, it is not the same as SPARQL,
+        which is what Wikidata Query Service uses to retrieve information from Wikidata.
     - id: 3
       text: |
-        Please give me an item that is an instance of a house cat.
+        I need to use SPARQL to write a query using variables, specific properties,
+        and items in the correct syntax.
       explanation: |
-        CORRECT! In SPARQL that is how you write show me items that are a house cat.
+        CORRECT! SPARQL is particular and you must express queries explicitly.
+        You can express <code>show me all items that are an instance of a house cat</code> as
+        <code>?item</code> <code>P31</code> <code>Q146</code>. Recall that SPARQL
+        syntax also requires a SELECT statement and WHERE clause and prefixes
+        (<code>wdt:</code> for properties and <code>wd:</code> for items), in order for the query to run.
     - id: 4
       text: |
-        It's alphabet soup to me.
+        I'll use variables like ?item ?cat list.
       explanation: |
-        It may seem complicated at the beginning, but the more you practice, the
-        sooner you will get used to what all of the SPARQL syntax is and what it
-        means.
+        Close! This is starting to look like some SPARQL variables, but SPARQL
+        requires you to be very clear and follow an explicit syntax. Review this
+        training to ensure you understand some basic ways to form queries using
+        SPARQL.

@@ -3,9 +3,9 @@ id: 55
 description: |
   In this training we will cover...
 
-  * how to query Wikidata
+  * how to use the Wikidata Query Service (WDQS)
+  * how to find SPARQL query examples
   * how to generate query visualizations
-  * how to query for specific results (gaps, use-examples, conditional, etc.)
 estimated_ttc: 15 minutes
 slides:
   - slug: part-i-querying #5501
