@@ -40,7 +40,7 @@ const Reviewers = ({ reviewers }) => {
 };
 
 const ButtonNavigation = ({
-  active, assignment, courseSlug, index, last,
+  active, assignment, courseSlug, index,
   handleUpdateAssignment, refreshAssignments // functions
 }) => {
   const update = (undo = false) => async () => {
@@ -68,17 +68,13 @@ const ButtonNavigation = ({
           </button>
         ) : null
       }
-      {
-        last ? null : (
-          <button
-            className="button dark small"
-            disabled={!active}
-            onClick={update()}
-          >
-            Mark Complete &raquo;
-          </button>
-        )
-      }
+      <button
+        className="button dark small"
+        disabled={!active}
+        onClick={update()}
+      >
+        Mark Complete &raquo;
+      </button>
     </nav>
   );
 };
@@ -130,14 +126,13 @@ export class Wizard extends React.Component {
     } = this.props;
     const { show } = this.state;
 
-    const steps = assignmentContent.map((content, index, { length }) => (
+    const steps = assignmentContent.map((content, index) => (
       <Step
         {...content}
         assignment={assignment}
         courseSlug={courseSlug}
         index={index}
         key={index}
-        last={index === length - 1}
         handleUpdateAssignment={handleUpdateAssignment}
         refreshAssignments={refreshAssignments}
       />

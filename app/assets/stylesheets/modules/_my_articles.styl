@@ -16,6 +16,14 @@
   display flex
   flex-direction column
   margin 15px 0
+  &.complete
+    border 1px solid rgb(103, 110, 180)
+  .completed-assignment
+    background rgb(103, 110, 180)
+    color white
+    font-size 0.8rem
+    font-weight bold
+    padding 5px 15px
   .header-wrapper
     display flex
     padding 15px
@@ -115,6 +123,8 @@
         button
           display block
           margin 5px 0 0
+          text-align center
+          width 100%
       &.active
         color rgb(100,100,100)
         span.step-number
