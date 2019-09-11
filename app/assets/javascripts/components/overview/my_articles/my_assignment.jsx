@@ -10,7 +10,7 @@ import Feedback from '../../common/feedback.jsx';
 import Wizard from './my_articles_wizard.jsx';
 
 import { initiateConfirm } from '../../../actions/confirm_actions';
-import { deleteAssignment } from '../../../actions/assignment_actions';
+import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '../../../actions/assignment_actions';
 
 import { NEW_ARTICLE, REVIEWING_ROLE } from '../../../constants/assignments';
 
@@ -29,6 +29,30 @@ const RemoveButton = ({ assignment, unassign }) => (
   </div>
 );
 
+const MarkAsIncompleteButton = ({
+  assignment, courseSlug,
+  handleUpdateAssignment, refreshAssignments // functions
+}) => {
+  const update = async () => {
+    const statuses = assignment.assignment_all_statuses;
+    const prev = statuses[statuses.length - 2];
+
+    await handleUpdateAssignment(assignment, prev);
+    await refreshAssignments(courseSlug);
+  };
+
+  return (
+    <div>
+      <button
+        className="button danger small"
+        onClick={update}
+      >
+        Mark as Incomplete
+      </button>
+    </div>
+  );
+};
+
 const PageViews = ({ article }) => {
   const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
   return (
@@ -39,8 +63,8 @@ const PageViews = ({ article }) => {
 };
 
 const Actions = ({
-  article, assignment, current_user, username,
-  isEnglishWikipedia, unassign
+  article, assignment, courseSlug, current_user, isComplete, username,
+  isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
 }) => {
   const actions = [];
 
@@ -65,6 +89,20 @@ const Actions = ({
     } else {
       actions.push(<PeerReviewChecklist key="peer-review-button" />);
     }
+  }
+
+  if (isComplete) {
+    return (
+      <section className="actions">
+        <MarkAsIncompleteButton
+          key="mark-incomplete-button"
+          assignment={assignment}
+          courseSlug={courseSlug}
+          handleUpdateAssignment={handleUpdateAssignment}
+          refreshAssignments={refreshAssignments}
+        />
+      </section>
+    );
   }
 
   return (
@@ -181,6 +219,13 @@ export const MyAssignment = createReactClass({
     wikidataLabels: PropTypes.object.isRequired
   },
 
+  isComplete() {
+    const { assignment } = this.props;
+    const allStatuses = assignment.assignment_all_statuses;
+    const lastStatus = allStatuses[allStatuses.length - 1];
+    return assignment.assignment_status === lastStatus;
+  },
+
   isEnglishWikipedia() {
     if (this.props.course.home_wiki.language === 'en' && this.props.course.home_wiki.project === 'wikipedia') {
       if (typeof this.props.assignment.language === 'undefined') {
@@ -207,8 +252,9 @@ export const MyAssignment = createReactClass({
     let articleTitle = assignment.article_title;
     articleTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
 
+    const isComplete = this.isComplete();
     return (
-      <div className="my-assignment mb1">
+      <div className={`my-assignment mb1${isComplete ? ' complete' : ''}`}>
         <header className="header-wrapper">
           <Links
             articleTitle={articleTitle}
@@ -218,13 +264,21 @@ export const MyAssignment = createReactClass({
           <Actions
             article={article}
             assignment={assignment}
+            courseSlug={course.slug}
             current_user={current_user}
-            username={username}
             isEnglishWikipedia={this.isEnglishWikipedia}
+            isComplete={isComplete}
+            refreshAssignments={this.props.fetchAssignments}
             unassign={this.unassign}
+            handleUpdateAssignment={this.props.updateAssignmentStatus}
+            username={username}
           />
         </header>
-        <Wizard assignment={assignment} courseSlug={course.slug} />
+        {
+          isComplete
+          ? <section className="completed-assignment">{'You\'ve marked your article as complete.'}</section>
+          : <Wizard assignment={assignment} courseSlug={course.slug} />
+        }
       </div>
     );
   }
@@ -232,7 +286,9 @@ export const MyAssignment = createReactClass({
 
 const mapDispatchToProps = {
   initiateConfirm,
-  deleteAssignment
+  deleteAssignment,
+  fetchAssignments,
+  updateAssignmentStatus
 };
 
 export default connect(null, mapDispatchToProps)(MyAssignment);
