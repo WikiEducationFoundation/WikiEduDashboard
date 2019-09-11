@@ -23,7 +23,7 @@ class CourseAlertManager
   end
 
   def initialize
-    @courses_to_check = Course.strictly_current
+    @courses_to_check = Course.strictly_current.where(withdrawn: false)
   end
 
   def create_no_students_alerts
