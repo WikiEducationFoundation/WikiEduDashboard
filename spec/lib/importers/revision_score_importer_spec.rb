@@ -193,7 +193,7 @@ describe RevisionScoreImporter do
 
     before do
       stub_wiki_validation
-      RevisionScoreImporter::AVAILABLE_WIKIPEDIAS.each do |lang|
+      OresApi::AVAILABLE_WIKIPEDIAS.each do |lang|
         wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
         article = create(:article, wiki: wiki)
         create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
@@ -206,7 +206,7 @@ describe RevisionScoreImporter do
       VCR.use_cassette 'revision_scores/multiwiki' do
         described_class.update_revision_scores_for_all_wikis
 
-        RevisionScoreImporter::AVAILABLE_WIKIPEDIAS.each do |lang|
+        OresApi::AVAILABLE_WIKIPEDIAS.each do |lang|
           wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
           # This is fragile, because it assumes every available wiki has an existing
           # revision 12345. But it works so far.
@@ -220,8 +220,9 @@ describe RevisionScoreImporter do
 
   context 'for a wiki without the articlequality model' do
     it 'raises an error' do
+      stub_wiki_validation
       expect { described_class.new(language: 'zh').update_revision_scores }
-        .to raise_error(RevisionScoreImporter::InvalidWikiError)
+        .to raise_error(OresApi::InvalidProjectError)
     end
   end
 end

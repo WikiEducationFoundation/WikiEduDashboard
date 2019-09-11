@@ -5,14 +5,11 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports revision scoring data from ores.wikimedia.org
 class RevisionScoreImporter
-  # All the wikis with an articlequality model as of 2018-09-18
-  # https://ores.wikimedia.org/v3/scores/
-  AVAILABLE_WIKIPEDIAS = %w[en eu fa fr ru simple tr].freeze
   ################
   # Entry points #
   ################
   def self.update_revision_scores_for_all_wikis
-    AVAILABLE_WIKIPEDIAS.each do |language|
+    OresApi::AVAILABLE_WIKIPEDIAS.each do |language|
       new(language: language).update_revision_scores
       new(language: language).update_previous_revision_scores
     end
@@ -23,13 +20,13 @@ class RevisionScoreImporter
 
   def self.update_revision_scores_for_course(course)
     course.wikis.each do |wiki|
+      next unless OresApi.valid_wiki?(wiki)
       new(wiki: wiki, course: course).update_revision_scores
       new(wiki: wiki, course: course).update_previous_revision_scores
     end
   end
 
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil)
-    validate_wiki(language, project)
     @course = course
     @wiki = wiki || Wiki.get_or_create(language: language, project: project)
     @ores_api = OresApi.new(@wiki)
@@ -65,12 +62,6 @@ class RevisionScoreImporter
   # Helper methods #
   ##################
   private
-
-  def validate_wiki(language, project)
-    return if AVAILABLE_WIKIPEDIAS.include?(language)
-    return if project == 'wikidata'
-    raise InvalidWikiError, language
-  end
 
   # The top-level key representing the wiki in ORES data
   def wiki_key

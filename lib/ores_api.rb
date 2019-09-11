@@ -11,8 +11,17 @@ class OresApi
 
   REVS_PER_REQUEST = 50
 
+  # All the wikis with an articlequality model as of 2018-09-18
+  # https://ores.wikimedia.org/v3/scores/
+  AVAILABLE_WIKIPEDIAS = %w[en eu fa fr ru simple tr].freeze
+
+  def self.valid_wiki?(wiki)
+    return true if wiki.project == 'wikidata'
+    wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
+  end
+
   def initialize(wiki)
-    raise InvalidProjectError unless wiki.project == 'wikipedia' || wiki.project == 'wikidata'
+    raise InvalidProjectError unless OresApi.valid_wiki?(wiki)
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
     @project_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
   end
