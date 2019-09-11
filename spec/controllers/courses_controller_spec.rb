@@ -116,6 +116,7 @@ describe CoursesController, type: :request do
         day_exceptions: '',
         weekdays: '0001000',
         no_day_exceptions: true,
+        withdrawn: true,
         home_wiki_id: 1 }
     end
 
