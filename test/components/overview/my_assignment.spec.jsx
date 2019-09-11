@@ -10,7 +10,13 @@ import Feedback from '../../../app/assets/javascripts/components/common/feedback
 const mockStore = configureMockStore([]);
 describe('<MyAssignment />', () => {
   const store = mockStore({ feedback: {} });
-  const assignment = { id: 1, role: 0, article_title: '1', article_url: 'https://en.wikipedia.org/wiki/1' };
+  const assignment = {
+    id: 1,
+    role: 0,
+    article_title: '1',
+    article_url: 'https://en.wikipedia.org/wiki/1',
+    assignment_all_statuses: ['status one', 'status two']
+  };
   const course = { home_wiki: { language: 'en', project: 'wikipedia' } };
 
   it('feedback button is displayed on sandbox and improving articles', () => {
