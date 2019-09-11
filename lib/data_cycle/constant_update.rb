@@ -10,7 +10,6 @@ require_dependency "#{Rails.root}/app/models/course_data/block"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/assignment_updater"
-require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
 require_dependency "#{Rails.root}/lib/importers/view_importer"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
@@ -54,9 +53,6 @@ class ConstantUpdate
   def update_revisions_and_articles
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles
-
-    log_message 'Importing articlequality scores for all revisions on supported wikis'
-    RevisionScoreImporter.update_revision_scores_for_all_wikis
 
     log_message 'Checking for plagiarism in recent revisions'
     PlagiabotImporter.find_recent_plagiarism

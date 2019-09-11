@@ -13,17 +13,25 @@ class RevisionScoreImporter
   ################
   def self.update_revision_scores_for_all_wikis
     AVAILABLE_WIKIPEDIAS.each do |language|
-      new(language).update_revision_scores
-      new(language).update_previous_revision_scores
+      new(language: language).update_revision_scores
+      new(language: language).update_previous_revision_scores
     end
 
-    new(nil, 'wikidata').update_revision_scores
-    new(nil, 'wikidata').update_previous_revision_scores
+    new(language: nil, project: 'wikidata').update_revision_scores
+    new(language: nil, project: 'wikidata').update_previous_revision_scores
   end
 
-  def initialize(language = 'en', project = 'wikipedia')
+  def self.update_revision_scores_for_course(course)
+    course.wikis.each do |wiki|
+      new(wiki: wiki, course: course).update_revision_scores
+      new(wiki: wiki, course: course).update_previous_revision_scores
+    end
+  end
+
+  def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil)
     validate_wiki(language, project)
-    @wiki = Wiki.get_or_create(language: language, project: project)
+    @course = course
+    @wiki = wiki || Wiki.get_or_create(language: language, project: project)
     @ores_api = OresApi.new(@wiki)
   end
 
@@ -101,9 +109,10 @@ class RevisionScoreImporter
   end
 
   def mainspace_userspace_and_draft_revisions
-    Revision.joins(:article)
-            .where(wiki_id: @wiki.id, deleted: false)
-            .where(articles: { namespace: [0, 2, 118] })
+    all_revisions = @course&.revisions || Revision
+    all_revisions.joins(:article)
+                 .where(wiki_id: @wiki.id, deleted: false)
+                 .where(articles: { namespace: [0, 2, 118] })
   end
 
   def unscored_revisions

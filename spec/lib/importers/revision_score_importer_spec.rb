@@ -163,7 +163,10 @@ describe RevisionScoreImporter do
     # https://www.wikidata.org/w/index.php?title=Q61734980&oldid=860858080
     let(:language) { 'en' }
     let(:project) { 'wikipedia' }
-    let(:subject) { described_class.new(language, project).fetch_ores_data_for_revision_id(rev_id) }
+    let(:subject) do
+      described_class.new(language: language, project: project)
+                     .fetch_ores_data_for_revision_id(rev_id)
+    end
 
     it 'returns a hash with a predicted rating and features' do
       VCR.use_cassette 'revision_scores/single_revision' do
@@ -217,7 +220,7 @@ describe RevisionScoreImporter do
 
   context 'for a wiki without the articlequality model' do
     it 'raises an error' do
-      expect { described_class.new('zh').update_revision_scores }
+      expect { described_class.new(language: 'zh').update_revision_scores }
         .to raise_error(RevisionScoreImporter::InvalidWikiError)
     end
   end

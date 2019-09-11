@@ -32,4 +32,25 @@ describe UpdateCourseStats do
       subject
     end
   end
+
+  context 'when there are revisions' do
+    let(:course) { create(:course, start: '2018-11-23', end: '2018-11-30') }
+    let(:user) { create(:user, username: 'Ragesoss') }
+
+    before do
+      course.campaigns << Campaign.first
+      JoinCourse.new(course: course, user: user, role: 0)
+    end
+
+    it 'imports the revisions and their ORES data' do
+      VCR.use_cassette 'course_update' do
+        subject
+      end
+      expect(course.revisions.count).to eq(2)
+      course.revisions.each do |revision|
+        expect(revision.features).to have_key('feature.wikitext.revision.ref_tags')
+        expect(revision.features_previous).to have_key('feature.wikitext.revision.ref_tags')
+      end
+    end
+  end
 end
