@@ -23,7 +23,7 @@ class TrainingModule < ApplicationRecord
   serialize :slide_slugs, Array
   serialize :translations, Hash
 
-  validates_uniqueness_of :slug, case_sensitive: true
+  validates_uniqueness_of :slug, case_sensitive: false
 
   def self.path_to_yaml
     "#{base_path}/modules/*.yml"
