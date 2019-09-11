@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -11,6 +10,44 @@ import Templates from './templates';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
 const flattenAndCompact = _.flow([_.flatten, _.compact]);
+
+const moduleByExercises = (modules) => {
+  const orderedSteps = [
+    'Gather your Sources',
+    'Scaffold your Article',
+    'Expand your Draft',
+    'Move your Work',
+    'Other Assigned Training Modules'
+  ];
+  const [
+    GATHER_YOUR_SOURCES,
+    SCAFFOLD_YOUR_ARTICLE,
+    EXPAND_YOUR_DRAFT,
+    MOVE_YOUR_WORK,
+    OTHER
+  ] = orderedSteps;
+  const mapping = {
+    'wikipedia-essentials': GATHER_YOUR_SOURCES,
+    'evaluating-articles': GATHER_YOUR_SOURCES,
+    'how-to-edit': SCAFFOLD_YOUR_ARTICLE,
+    'drafting-in-sandbox': SCAFFOLD_YOUR_ARTICLE,
+    'drafting-in-sandbox-group': SCAFFOLD_YOUR_ARTICLE,
+    sources: SCAFFOLD_YOUR_ARTICLE,
+    plagiarism: EXPAND_YOUR_DRAFT,
+    'moving-to-mainspace': MOVE_YOUR_WORK,
+    'moving-to-mainspace-group': MOVE_YOUR_WORK
+  };
+
+  const categorized = modules.reduce((acc, block) => {
+    const key = mapping[block.slug] || OTHER;
+    acc[key] = acc[key] ? [...acc[key], block] : [block];
+    return acc;
+  }, {});
+
+  return orderedSteps.map((step) => {
+    return [step, categorized[step]];
+  });
+};
 
 const Resources = ({ weeks, current_user, course }) => {
   const trainingLibrarySlug = course.training_library_slug;
@@ -32,13 +69,14 @@ const Resources = ({ weeks, current_user, course }) => {
   }
   let assignedModules;
   if (modules.length) {
-    assignedModules = (
+    const categorized = moduleByExercises(modules);
+    assignedModules = categorized.map(([title, categorizedModules]) => (
       <TrainingModules
-        block_modules={modules}
+        block_modules={categorizedModules}
         trainingLibrarySlug={trainingLibrarySlug}
-        header="Assigned trainings"
+        header={title}
       />
-    );
+    ));
   }
   let additionalModules;
   if (Features.wikiEd) {

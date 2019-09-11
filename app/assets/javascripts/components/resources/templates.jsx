@@ -27,7 +27,7 @@ export default () => {
       <p>If you make changes to any of the sandbox userpages, you can always refer back to the templates below.</p>
       <table className="table table--small">
         <tbody>
-          { rows.map(resource => <Row {...resource} />) }
+          { rows.map((resource, i) => <Row key={`resource-${i}`} {...resource} />) }
         </tbody>
       </table>
     </div>
