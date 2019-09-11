@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if current_user.nil?
       redirect_to '/'
     else
-      current_user.update_attributes(wiki_token: nil, wiki_secret: nil)
+      current_user.update(wiki_token: nil, wiki_secret: nil)
       redirect_to true_destroy_user_session_path
     end
   end

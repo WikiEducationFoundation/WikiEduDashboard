@@ -357,8 +357,8 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'students view' do
     before do
-      Revision.last.update_attributes(date: 2.days.ago, user_id: User.first.id)
-      CoursesUsers.last.update_attributes(
+      Revision.last.update(date: 2.days.ago, user_id: User.first.id)
+      CoursesUsers.last.update(
         course_id: Course.find_by(slug: slug).id,
         user_id: User.first.id
       )

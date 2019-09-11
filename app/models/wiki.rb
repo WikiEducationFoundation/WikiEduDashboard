@@ -20,7 +20,7 @@ class Wiki < ApplicationRecord
   after_validation :ensure_wiki_exists
 
   # Language / project combination must be unique
-  validates_uniqueness_of :project, scope: :language
+  validates_uniqueness_of :project, scope: :language, case_sensitive: false
 
   PROJECTS = %w[
     wikipedia

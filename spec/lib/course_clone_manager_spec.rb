@@ -133,7 +133,7 @@ describe CourseCloneManager do
 
   context 'cloned LegacyCourse' do
     before do
-      Course.find(1).update_attributes(type: 'LegacyCourse')
+      Course.find(1).update(type: 'LegacyCourse')
       described_class.new(Course.find(1), User.find(1)).clone!
     end
 

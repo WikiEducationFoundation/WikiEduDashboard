@@ -54,7 +54,7 @@ describe OnboardingController, type: :request do
     end
 
     it 'remains an admin regardless of instructor param' do
-      user.update_attributes(permissions: User::Permissions::ADMIN, onboarded: false)
+      user.update(permissions: User::Permissions::ADMIN, onboarded: false)
       params = { real_name: 'Name', email: 'email@email.org', instructor: true }
       put '/onboarding/onboard', params: params
       expect(response.status).to eq(204)

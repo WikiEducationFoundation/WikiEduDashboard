@@ -30,7 +30,7 @@ describe StudentGreetingChecker do
     end
 
     it 'skips students who are already greeted' do
-      User.find(2).update_attributes(greeted: true)
+      User.find(2).update(greeted: true)
       # No response stubs are active, so this will fail an edit is attempted.
       subject
       expect(User.find(2).greeted).to eq(true)

@@ -37,7 +37,7 @@ class StudentGreetingChecker
       contributor_names = contributors_to_page(@student.talk_page)
       return if (@all_greeters.pluck(:username) & contributor_names).empty?
       # Mark student as greeted if a greeter has already edited their talk page
-      @student.update_attributes(greeted: true)
+      @student.update(greeted: true)
     end
 
     private

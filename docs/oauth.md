@@ -43,7 +43,7 @@ When you request a new consumer, add the tokens to the production server's `appl
 
 Give users admin privileges in the app, e.g. to approve submitted courses, by setting the users.permissions field to "1".  For example, if your wiki username is "RageSock",
 ```
-rails runner "User.find_by(wiki_id: 'RageSock').update_attributes(permissions: User::Permissions::ADMIN)"
+rails runner "User.find_by(wiki_id: 'RageSock').update(permissions: User::Permissions::ADMIN)"
 ```
 or via mysql,
 ```

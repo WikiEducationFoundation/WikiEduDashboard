@@ -25,7 +25,7 @@ class GreetUngreetedStudents
     response_data = WikiEdits.new(@wiki)
                              .add_new_section(@greeter, student.talk_page, welcome_message)
     return unless response_data.dig('edit', 'result') == 'Success'
-    student.update_attributes(greeted: true)
+    student.update(greeted: true)
   end
 
   def welcome_message

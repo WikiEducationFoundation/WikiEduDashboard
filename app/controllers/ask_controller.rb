@@ -9,11 +9,11 @@ class AskController < ApplicationController
   def search
     if params[:q].blank?
       # Default to the 'student' tag
-      redirect_to "#{ASK_ROOT}tags:student/page:1/"
+      redirect_to "#{ASK_ROOT}tags:student/page:1/", allow_other_host: true
     else
       log_to_sentry
       query = CGI.escape(params[:q])
-      redirect_to "#{ASK_ROOT}page:1/query:#{query}/"
+      redirect_to "#{ASK_ROOT}page:1/query:#{query}/", allow_other_host: true
     end
   end
 

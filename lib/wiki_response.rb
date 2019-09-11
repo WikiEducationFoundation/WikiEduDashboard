@@ -111,7 +111,7 @@ class WikiResponse
     # It gets handled by application controller.
     case code
     when 'mwoauth-invalid-authorization'
-      @current_user.update_attributes(wiki_token: 'invalid')
+      @current_user.update(wiki_token: 'invalid')
     when 'blocked', 'autoblocked'
       BlockedEditsWorker.schedule_notifications(user: @current_user, response_data: @response_data)
     end

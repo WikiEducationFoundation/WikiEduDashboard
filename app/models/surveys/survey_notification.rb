@@ -57,8 +57,8 @@ class SurveyNotification < ApplicationRecord
     return if user.email.nil?
     return unless ready_for_follow_up?
     SurveyMailer.send_follow_up(self)
-    update_attributes(last_follow_up_sent_at: Time.zone.now,
-                      follow_up_count: follow_up_count + 1)
+    update(last_follow_up_sent_at: Time.zone.now,
+           follow_up_count: follow_up_count + 1)
   end
 
   def survey_assignment

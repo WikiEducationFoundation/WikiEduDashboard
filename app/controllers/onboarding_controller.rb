@@ -17,10 +17,10 @@ class OnboardingController < ApplicationController
     validate_params
     @user = current_user
     set_new_permissions
-    @user.update_attributes(real_name: sanitized_real_name,
-                            email: params[:email],
-                            permissions: @permissions,
-                            onboarded: true)
+    @user.update(real_name: sanitized_real_name,
+                 email: params[:email],
+                 permissions: @permissions,
+                 onboarded: true)
     CheckWikiEmailWorker.check(user: @user)
     head :no_content
   end

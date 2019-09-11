@@ -63,7 +63,7 @@ class CourseCloneManager
   end
 
   def update_title_and_slug
-    @clone.update_attributes(
+    @clone.update(
       title: @clone.title,
       slug: @clone.slug
     )
@@ -83,9 +83,7 @@ class CourseCloneManager
   end
 
   def clear_meeting_days_and_due_dates
-    @clone.update_attributes(day_exceptions: '',
-                             weekdays: '0000000',
-                             no_day_exceptions: false)
+    @clone.update(day_exceptions: '', weekdays: '0000000', no_day_exceptions: false)
     @clone.blocks.update_all(due_date: nil)
     @clone.reload
   end
