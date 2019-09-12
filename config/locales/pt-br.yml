@@ -295,6 +295,7 @@ pt-br:
     random_passcode: um código de acesso aleatório
     requested_accounts: Contas solicitadas
     title: Título
+    slug: URL semântico
     use_start_end_dates: Use datas de início e fim
   categories:
     add_category: Adicionar categoria
