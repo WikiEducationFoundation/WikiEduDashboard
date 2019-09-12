@@ -40,6 +40,7 @@ slides:
   - slug: dashboard-timeline-tab # 326
   - slug: dashboard-students-tab # 327
   - slug: dashboard-articles-tab # 328
+  - slug: dashboard-resources-tab #337
   - slug: authorship-highlighting # 334
   - slug: dashboard-uploads-and-activity-tabs # 329
   - slug: finding-articles-to-work-on # 330
