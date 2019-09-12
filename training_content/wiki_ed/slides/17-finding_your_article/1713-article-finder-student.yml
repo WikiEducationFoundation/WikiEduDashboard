@@ -3,15 +3,17 @@ title: Article Finder tool
 summary:
 content: |
   The <a href="https://dashboard.wikiedu.org/article_finder">Article Finder</a>
-  is another way to find articles to work on. It can be found under
-  **My Articles** on your Dashboard course page. Click the "Find Articles" button.
+  is another way to find articles to work on. The tool can be found on the
+  **Articles** tab of your Dashboard course page, by pressing the
+  "Available Articles" button. Once there, click the "Find Articles" button located
+  at the top right of the page.
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Microbiology_Dashboard_course_page.png"/>
 
 
   When you search a keyword, you'll see a list of relevant articles. You can
-  filter the results by quality, completeness, and how many page views the
-  article receives per day. We recommend finding an article related to your topic
-  that is low quality, incomplete, or read by a lot of people.
+  filter the results by quality, completeness, and how many page views the article
+  receives per day. We recommend finding an article related to your topic that
+  is low quality, incomplete, or read by a lot of people.
 
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Wiki_Education_Article_Finder_tool_on_Dashboard.png"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Dashboard_Article_finder_%28student%29_2019.png"/>
