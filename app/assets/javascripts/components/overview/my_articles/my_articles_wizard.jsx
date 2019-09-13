@@ -18,11 +18,11 @@ const Description = ({ content }) => (
   <p className="step-description">{ content }</p>
 );
 
-const Links = ({ trainings }) => {
+const Links = ({ courseSlug, trainings }) => {
   const links = trainings.map((training, index) => {
     return training.external
     ? <a key={index} href={training.path} target="_blank">{training.title}</a>
-    : <Link key={index} to={`./${training.path}`}>{training.title}</Link>;
+    : <Link key={index} to={`/courses/${courseSlug}/${training.path}`}>{training.title}</Link>;
   });
 
   return (
@@ -93,7 +93,7 @@ const Step = ({
       <StepNumber index={index} />
       <Title title={title} />
       <Description content={content} />
-      <Links trainings={trainings} />
+      <Links courseSlug={courseSlug} trainings={trainings} />
       { status === 'ready_for_review' && <Reviewers reviewers={assignment.reviewers} /> }
       <ButtonNavigation
         active={active}
