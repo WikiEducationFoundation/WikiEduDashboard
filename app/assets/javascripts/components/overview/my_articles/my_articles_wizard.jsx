@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { HashLink as Link } from 'react-router-hash-link';
 import { ReviewerLink } from './helpers';
 
 import { fetchAssignments, updateAssignmentStatus } from '../../../actions/assignment_actions';
@@ -18,9 +19,11 @@ const Description = ({ content }) => (
 );
 
 const Links = ({ trainings }) => {
-  const links = trainings.map((training, index) => (
-    <a key={index} href={`../../${training.path}`}>{training.title}</a>
-  ));
+  const links = trainings.map((training, index) => {
+    return training.external
+    ? <a key={index} href={training.path} target="_blank">{training.title}</a>
+    : <Link key={index} to={`./${training.path}`}>{training.title}</Link>;
+  });
 
   return (
     <aside className="step-links">
@@ -126,7 +129,7 @@ export class Wizard extends React.Component {
     } = this.props;
     const { show } = this.state;
 
-    const steps = assignmentContent.map((content, index) => (
+    const steps = assignmentContent(assignment).map((content, index) => (
       <Step
         {...content}
         assignment={assignment}
@@ -137,7 +140,7 @@ export class Wizard extends React.Component {
         refreshAssignments={refreshAssignments}
       />
     ));
-    const lis = assignmentContent.map(({ status, title }, i) => {
+    const lis = assignmentContent(assignment).map(({ status, title }, i) => {
       const selected = assignment.assignment_status === status;
       return (
         <li className={selected ? 'selected' : ''} key={`process-step-${i}`}>
