@@ -13,26 +13,26 @@ const flattenAndCompact = _.flow([_.flatten, _.compact]);
 
 const moduleByExercises = (modules) => {
   const orderedSteps = [
-    'Gather your Sources',
-    'Scaffold your Article',
+    'Complete your Bibliography',
+    'Create in the sandbox',
     'Expand your Draft',
     'Move your Work',
     'Other Assigned Training Modules'
   ];
   const [
-    GATHER_YOUR_SOURCES,
-    SCAFFOLD_YOUR_ARTICLE,
+    COMPLETE_YOUR_BIBLIOGRAPHY,
+    CREATE_IN_THE_SANDBOX,
     EXPAND_YOUR_DRAFT,
     MOVE_YOUR_WORK,
     OTHER
   ] = orderedSteps;
   const mapping = {
-    'wikipedia-essentials': GATHER_YOUR_SOURCES,
-    'evaluating-articles': GATHER_YOUR_SOURCES,
-    'how-to-edit': SCAFFOLD_YOUR_ARTICLE,
-    'drafting-in-sandbox': SCAFFOLD_YOUR_ARTICLE,
-    'drafting-in-sandbox-group': SCAFFOLD_YOUR_ARTICLE,
-    sources: SCAFFOLD_YOUR_ARTICLE,
+    'wikipedia-essentials': COMPLETE_YOUR_BIBLIOGRAPHY,
+    'evaluating-articles': COMPLETE_YOUR_BIBLIOGRAPHY,
+    'how-to-edit': CREATE_IN_THE_SANDBOX,
+    'drafting-in-sandbox': CREATE_IN_THE_SANDBOX,
+    'drafting-in-sandbox-group': CREATE_IN_THE_SANDBOX,
+    sources: CREATE_IN_THE_SANDBOX,
     plagiarism: EXPAND_YOUR_DRAFT,
     'moving-to-mainspace': MOVE_YOUR_WORK,
     'moving-to-mainspace-group': MOVE_YOUR_WORK
@@ -73,8 +73,9 @@ const Resources = ({ weeks, current_user, course }) => {
     assignedModules = categorized.map(([title, categorizedModules]) => (
       <TrainingModules
         block_modules={categorizedModules}
-        trainingLibrarySlug={trainingLibrarySlug}
         header={title}
+        key={title}
+        trainingLibrarySlug={trainingLibrarySlug}
       />
     ));
   }

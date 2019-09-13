@@ -1,64 +1,71 @@
-
-export default [
+export default assignment => ([
   {
-    title: 'Gather your sources',
-    content: 'Remember that you need several reliable sources to establish notability.',
+    title: 'Complete your bibliography',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
     status: 'not_yet_started',
     trainings: [
       {
-        title: 'Wikipedia policies',
-        path: 'training/students/wikipedia-essentials'
+        title: 'Related Training Modules',
+        path: 'resources#complete-your-bibliography'
       },
       {
-        title: 'Evaluating articles and sources',
-        path: 'training/students/evaluating-articles'
-      },
-      {
-        title: 'Finding your article',
-        path: 'training/students/finding-your-article'
-      },
+        title: 'Bibliography',
+        path: `${assignment.sandboxUrl}/Bibliography?veaction=edit&preload=Template:Dashboard.wikiedu.org_bibliography`,
+        external: true
+      }
     ]
   },
   {
-    title: 'Scaffold your article',
-    content: 'Create sections as appropriate, then fill them in. Remember to cite as you write.',
+    title: 'Create in the sandbox',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
     status: 'in_progress',
     trainings: [
       {
-        title: 'How to edit',
-        path: 'training/students/how-to-edit'
+        title: 'Related Training Modules',
+        path: 'resources#create-in-the-sandbox'
       },
       {
-        // need to conditionally change this if working in groups
-        title: 'Drafting in the sandbox',
-        path: 'training/students/drafting-in-sandbox'
-      },
-      {
-        title: 'Adding citations',
-        path: 'training/students/sources'
-      },
+        title: 'Sandbox',
+        path: assignment.sandboxUrl,
+        external: true
+      }
     ]
   },
   {
     title: 'Expand your draft',
-    content: 'Implement updates of your own or from a peer review. Then, review the Quality Checklist in preparation to move your work live.',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
     status: 'ready_for_review',
     trainings: [
       {
-        title: 'Plagiarism & copyrights',
-        path: 'training/students/plagiarism'
+        title: 'Related Training Modules',
+        path: 'resources#expand-your-draft'
+      },
+      {
+        title: 'Sandbox',
+        path: assignment.sandboxUrl,
+        external: true
       }
     ]
   },
   {
     title: 'Move your work',
-    content: 'Remove your Sandbox template. Then, move your work live. Review the Quality Checklist as you clean up your work.',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
     status: 'ready_for_mainspace',
     trainings: [
       {
-        title: 'Move your work',
-        path: 'training/students/moving-to-mainspace'
+        title: 'Related Training Modules',
+        path: 'resources#move-your-work'
+      },
+      {
+        title: 'Sandbox',
+        path: assignment.sandboxUrl,
+        external: true
+      },
+      {
+        title: 'Article',
+        path: assignment.article_url,
+        external: true
       }
     ]
   }
-];
+]);
