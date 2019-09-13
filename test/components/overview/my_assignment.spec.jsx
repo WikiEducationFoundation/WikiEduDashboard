@@ -6,8 +6,10 @@ import '../../testHelper';
 import configureMockStore from 'redux-mock-store';
 import { MyAssignment } from '../../../app/assets/javascripts/components/overview/my_articles/my_assignment.jsx';
 import Feedback from '../../../app/assets/javascripts/components/common/feedback.jsx';
+import { MemoryRouter } from 'react-router';
 
 const mockStore = configureMockStore([]);
+
 describe('<MyAssignment />', () => {
   const store = mockStore({ feedback: {} });
   const assignment = {
@@ -29,7 +31,9 @@ describe('<MyAssignment />', () => {
     };
     const wrapper = mount(
       <Provider store={store}>
-        <MyAssignment {...props} />
+        <MemoryRouter>
+          <MyAssignment {...props} />
+        </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Feedback)).to.have.length(1);
@@ -47,7 +51,9 @@ describe('<MyAssignment />', () => {
 
     const wrapper = mount(
       <Provider store={store}>
-        <MyAssignment {...props} />
+        <MemoryRouter>
+          <MyAssignment {...props} />
+        </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Feedback)).to.have.length(0);
