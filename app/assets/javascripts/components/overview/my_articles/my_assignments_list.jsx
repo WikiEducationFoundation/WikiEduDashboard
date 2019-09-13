@@ -62,10 +62,24 @@ const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
   );
 };
 
+const NoAssignmentMessage = () => (
+  <section className="no-assignment-message">
+    <p>You have not chosen an article to work on. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean molestie, lectus id consequat placerat, elit ligula sodales risus, non fringilla felis eros sed elit.</p>
+    <aside>
+      <a href="/training/students/finding-your-article" target="_blank" className="button ghost-button">
+        How to find an article
+      </a>
+      <a href="/training/students/evaluating-articles" target="_blank" className="button ghost-button">
+        Evaluating articles and sources
+      </a>
+    </aside>
+  </section>
+);
+
 // Main Component
 const MyAssignmentsList = ({ assignments, course, current_user, wikidataLabels }) => {
   if (!assignments.length && current_user.isStudent) {
-    return <p>{I18n.t('assignments.none_short')}</p>;
+    return Features.wikiEd ? <NoAssignmentMessage /> : <p>{I18n.t('assignments.none_short')}</p>;
   }
 
   const articles = {
