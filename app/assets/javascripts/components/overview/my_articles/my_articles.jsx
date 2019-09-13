@@ -129,23 +129,12 @@ export const MyArticles = createReactClass({
     } = groupByAssignmentType(assignments, user_id);
 
     const all = assigned.concat(reviewing).map(this.addAssignmentCategory);
-    const assignmentCount = all.length;
-
-    let findYourArticleTraining;
-    if (Features.wikiEd && !assignmentCount) {
-      findYourArticleTraining = (
-        <a href="/training/students/finding-your-article" target="_blank" className="button ghost-button small">
-          How to find an article
-        </a>
-      );
-    }
 
     return (
       <div className="module my-articles">
         <div className="section-header my-articles-header">
           <h3>{I18n.t('courses.my_articles')}</h3>
           <div className="controls">
-            {findYourArticleTraining}
             <AssignCell
               assignments={assigned}
               editable
