@@ -94,6 +94,7 @@ const Actions = ({
   if (isComplete) {
     return (
       <section className="actions">
+        <PageViews key="pageviews-button" article={article} />
         <MarkAsIncompleteButton
           key="mark-incomplete-button"
           assignment={assignment}
