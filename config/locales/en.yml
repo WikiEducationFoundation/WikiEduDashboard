@@ -1303,4 +1303,4 @@ en:
     assignment_status: "Training Assignment (%{status})"
 
   multi_wiki:
-    selector_placeholder: "Select wiki"
+    selector_placeholder: "Begin typing a wiki domain"

@@ -113,7 +113,7 @@ const WikiSelect = createReactClass({
     return <AsyncSelect
       isMulti={this.props.multi}
       placeholder={I18n.t('multi_wiki.selector_placeholder')}
-      noOptionsMessage={() => null}
+      noOptionsMessage={() => I18n.t('multi_wiki.selector_placeholder')}
       value={wikis}
       loadOptions={loadOptions}
       onChange={preprocess}
