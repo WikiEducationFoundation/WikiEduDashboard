@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alaskian
+# Author: GabiBil
 # Author: Minisarm
 # Author: Wintereu
 ---
@@ -17,6 +18,7 @@ ro:
     rating: Clasă
     title: Titlu
   courses:
+    school_system: Sistem Academic
     activity: Activitate
     already_enrolled: Faceți deja parte din „%{title}”!
     articles: Articole
@@ -27,6 +29,8 @@ ro:
     students: Studenți
     title: Titlu
     yourcourses: Cursurile dumneavoastră
+  courses_generic:
+    school_system: Sistem Academic
   users:
     contributions: Contribuții utilizator
     contributions_more: Vezi mai multe contribuții

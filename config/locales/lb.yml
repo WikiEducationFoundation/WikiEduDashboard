@@ -154,6 +154,7 @@ lb:
   chat:
     label: Chat
   courses:
+    school_system: Akademesche System
     accounts_generation_confirm_message: Sidd Dir sécher datt Dir Ufroe fir Benotzerkonten
       aktivéiere wëllt?
     activity: Aktivitéit
@@ -289,6 +290,7 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    school_system: Akademesche System
     all_courses: All Progtrammer
     archived: Archivéiert Programmer
     assignment_end: Enn vum Evenement

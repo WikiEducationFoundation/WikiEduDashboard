@@ -14,6 +14,8 @@ mk:
     explore: Истражете
     field_required: Ова поле е задолжително
     field_invalid_characters: Ова поле има неважечки знаци
+    field_invalid_date_time: Крајот мора да биде после почетокот. (Часовите се во
+      опсег од 0 до 23.)
     greeting2: Добре дојдовте!
     greeting_extended: Добре дојдовте на Википедија
     greeting: Здраво!
@@ -47,6 +49,7 @@ mk:
     create_note: Стиснете на „Направи курс“ за да го направите вашиот прв курс.
     explore_course_pages: Истражете ги курсните страници
     explore_examples: Истражете примери
+    no_courses_instructor: Изгледа дека немате никакви курсеви.
     opt_out: Побарај изземање од насочувањето
   home:
     explore: Истражете
@@ -57,6 +60,7 @@ mk:
     edited_by: Уредено од
     label: Активности
   articles:
+    article_development: (развој на статија)
     assigned: Зададени статии
     next: Следна
     previous: Претходна
@@ -151,7 +155,9 @@ mk:
     description: Опис
     none: Нема
     organizers: Приредувачи
+    requested_accounts: Побарани сметки
     title: Наслов
+    use_start_end_dates: Користи почетен и завршен датум
   categories:
     add_category: Додај категорија
     add_psid: Додај PetScan PSID
@@ -221,6 +227,9 @@ mk:
       start_date_placeholder: ГГГГ-ММ-ДД
       subject: Предмет
     current: Тековни курсеви
+    data_edits: Податоци за уредувањата
+    data_students: Податоци за уредниците
+    data_revisions: Податоци за преработките
     delete_course: Избриши го курсот
     delete_suggestion: Избриши
     dismiss_survey: Тргни
@@ -265,10 +274,12 @@ mk:
     school_and_term: Установа/Траење
     search_courses: Барај курсеви
     start: Почни
+    start_typing: Почнете да пишувате
     students: Ученици
     student_editors: Ученици што уредуваат
     students_none: Овој курс нема ученици.
     students_short: Ученици
+    submitted_and_pending_heading: Поднесено и чека на одобрение
     user_role: Улога
     subject: Предмет
     submitted: Поднесено
@@ -287,7 +298,7 @@ mk:
       one: Доброволец
       other: Доброволци
     weeks_none: Овој курс засега нема времеслед.
-    wiki_staff: Образовен персонал
+    wiki_staff: Персонал на Wiki Education
     word_count_doc: Проценка за бројот на зборови додадени во статии (главен имен.
       простор) од учениците на курсот во текот на неговото траење
     yourcourses: Ваши курсеви
@@ -308,6 +319,7 @@ mk:
       course_school: Установа
       course_term: Кога
       course_term_placeholder: Кога
+      save_cloned_course: Зачувај
     edit_course_dates: Измени датуми за проектот
     enroll: Додај уредник
     enrollment: Додај/острани уредници
@@ -376,6 +388,8 @@ mk:
     none: Овој курс нема скорешни уреднички активности.
     time_doc: Времето на секоја преработка според вашето месно време
     title: Наслов
+    view_on_wiki: Погледај разлика на викито
+    see_more: Погледај уште
   resources:
     label: Ресурси
   settings:
@@ -385,6 +399,9 @@ mk:
     special_users:
       new:
         form_placeholder: Корисничко име
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Оваа статија не постои на Википедија.
   tasks:
     conseq: Задачата е%{task} е веќе во тек!
     constant: Задачата %{task} не може да започне додека е пуштен update_daily.
@@ -399,6 +416,9 @@ mk:
       пресвртници на страницата „Преглед“)
     course_dates: Датуми на курсот
     due_default: За следната недела
+    gradeable_value: Вредност
+    save_all_changes: Зачувај ги сите
+    this_week_title_default: Оваа седмица
     title: Времеслед
     unable_to_add_week: Не можете да додадете уште недели бидејќи временскиот распоред
       ви е полн. Избришете барем една недела или сменете ги датумите за да направите
@@ -450,10 +470,18 @@ mk:
     name: Име
     none: Овој курс нема ученици.
     no_articles: Нема статии
+    number_of_articles:
+      one: '%{count} статија'
+      other: '%{count} статии'
     recent_revisions: Скорешни уредувања
+    remove_confirmation: Дали сте сигурни дека сакате да го отстраните %{username}?
+    request_confirmation: Дали сте сигурни дека сакате да ја побарате оваа сметка?
+    revision_characters_and_views: 'Додадени знаци: %{characters}, Посети: %{views}'
     revisions_doc: Број на уредувања на уредникот во изминатите 7 дена
+    references_doc: Број на наводи што се додадени или отстранети од овој уредник
     reviewers: Оценувач(и)
     reviewing: Оценување
+    sandboxes: песочници
     training_complete:
       one: е во тек со обуката
       other: се во тек со обуката
@@ -461,7 +489,16 @@ mk:
     training_doc: Уредниците кои ги имаат звршено сите зададени модули за обука се
       смета дека се во тек со обуката.
     training_incomplete: Обуката е недовршена
+    training_module_status: Статус
     up_to_date_with_training: во тек со обуката
+    username: Корисничко име
+    username_placeholder: Корисничко име
+    useremail_placeholder: Е-пошта
+    role:
+      visitor: Посетител
+      student: Ученик
+      instructor: Наставник
+      wiki_ed_staff: Персонал на Wiki Education
   wiki_edits:
     notify_overdue:
       confirm: Ова ќе им испрати потсетник на разговорните страници на сите ученици
@@ -496,11 +533,12 @@ mk:
     summary: Краток опис
   error:
     oauth_invalid: Вашето овластување за Википедија истече. Најавете се повторно.
+    start_date_before_end_date: Почетниот датум мора да биде пред завршниот датум
     unsupported_browser:
       header: Прелистувачот не е поддржан.  :-(
       explanation: Користете прелистувач што не е складен со таблава. Ова мрежно место
-        работи добро со Internet Explorer верзија 11 или понова, на поновите верзии
-        на Chrome и Firefox, како и на други современи прелистувачи.
+        работи добро со поновите верзии на Chrome, Firefox, Edge, како и други современи
+        прелистувачи.
   error_401:
     header: Не сте овластени. >:-(
     explanation: Немате овластување да го извршите ова барање. Ако сметате дека стасавте
@@ -513,8 +551,7 @@ mk:
   error_404:
     header: Не ја најдов страницата. :-(
     explanation: Оваа страница не постои. Ако сакате да дојдете до таблата за курс,
-      можеби тој курс не е заведен на оваа табла. Доколку истиот е заведен неодамна,
-      може да треба да се почека додека системот не го додаде.
+      можеби тој курс не е заведен на оваа табла.
   error_422:
     header: 422 — необработлива единица.  :-(
     explanation: Нешто не е во ред. Обратете се кај одржувачите на таблава и известете
@@ -527,4 +564,21 @@ mk:
     header: Грешка при најавувањето
     explanation: Се јави проблем при најавата. (Се извинуваме! Се случува.) Најавете
       се или запишете се повторно.
+  survey:
+    email:
+      course: 'Курс: %{course_info}'
+  article_finder:
+    remove_article: Отстрани статија
+    no_article_found: Не се пронајдени статии во оваа категорија
+    search: Пребарај
+    tools: Алатки
+    category_search: Категориско пребарување
+    filtered_articles: Филтрирани статии
+    submit: Поднеси
+  training_status:
+    completed: Завршено
+    started: Започнато
+    not_started: Не започнато
+  multi_wiki:
+    selector_placeholder: Избор на вики
 ...
