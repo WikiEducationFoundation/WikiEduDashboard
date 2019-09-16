@@ -47,6 +47,7 @@ class Alert < ApplicationRecord
     NoEnrolledStudentsAlert
     OnboardingAlert
     OverdueTrainingAlert
+    OverEnrollmentAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
@@ -61,6 +62,7 @@ class Alert < ApplicationRecord
     DYKNominationAlert
     GANominationAlert
     HighQualityArticleEditAlert
+    OverEnrollmentAlert
   ].freeze
 
   PUBLIC_ALERT_TYPES = %w[
