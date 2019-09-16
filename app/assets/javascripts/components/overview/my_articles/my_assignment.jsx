@@ -255,7 +255,7 @@ export const MyAssignment = createReactClass({
     const isComplete = this.isComplete();
     return (
       <div className={`my-assignment mb1${isComplete ? ' complete' : ''}`}>
-        <header className="header-wrapper">
+        <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
           <Links
             articleTitle={articleTitle}
             assignment={assignment}

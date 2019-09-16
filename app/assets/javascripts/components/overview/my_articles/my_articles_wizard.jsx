@@ -97,7 +97,7 @@ const Step = ({
 }) => {
   const active = assignment.assignment_status === status;
   return (
-    <article className={`step ${active ? 'active' : ''}`}>
+    <article aria-label={active ? 'Current step' : ''} className={`step ${active ? 'active' : ''}`}>
       <StepNumber index={index} />
       <Title title={title} />
       <Description content={content} />
@@ -167,8 +167,8 @@ export class Wizard extends React.Component {
             { lis }
             {
               show
-              ? <li className="icon icon-arrow-reverse table-expandable-indicator" />
-              : <li className="icon icon-arrow table-expandable-indicator" />
+              ? <li aria-label="Close Progress Tracker" className="icon icon-arrow-reverse table-expandable-indicator" />
+              : <li aria-label="Show Progress Tracker" className="icon icon-arrow table-expandable-indicator" />
             }
           </ul>
         </nav>
