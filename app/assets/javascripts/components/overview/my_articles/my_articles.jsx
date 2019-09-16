@@ -102,7 +102,7 @@ export const MyArticles = createReactClass({
 
   render() {
     let { assignments } = this.props;
-    const { course, current_user, wikidataLabels } = this.props;
+    const { course, current_user, loadingAssignments, wikidataLabels } = this.props;
     const user_id = current_user.id;
 
     // Backfill Sandbox URLs for assignments
@@ -172,6 +172,7 @@ export const MyArticles = createReactClass({
           assignments={all}
           course={course}
           current_user={current_user}
+          loading={loadingAssignments}
           wikidataLabels={wikidataLabels}
         />
       </div>
