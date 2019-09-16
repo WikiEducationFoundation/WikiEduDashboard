@@ -77,7 +77,8 @@ const NoAssignmentMessage = () => (
 );
 
 // Main Component
-const MyAssignmentsList = ({ assignments, course, current_user, wikidataLabels }) => {
+const MyAssignmentsList = ({ assignments, course, current_user, loading, wikidataLabels }) => {
+  if (loading) return null;
   if (!assignments.length && current_user.isStudent) {
     return Features.wikiEd ? <NoAssignmentMessage /> : <p>{I18n.t('assignments.none_short')}</p>;
   }
