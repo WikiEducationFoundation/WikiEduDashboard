@@ -17,12 +17,16 @@ describe CourseAlertManager do
                     timeline_start: course_start,
                     timeline_end: course_end,
                     end: course_end,
-                    weekdays: '0101010')
+                    weekdays: '0101010',
+                    expected_students: expected_students,
+                    user_count: user_count)
   end
   let(:course_start) { 16.days.ago }
   let(:course_end) { 1.month.from_now }
   let(:admin) { create(:admin, email: 'staff@wikiedu.org') }
   let(:user) { create(:user) }
+  let(:expected_students) { nil }
+  let(:user_count) { 1 }
 
   let(:enroll_admin) do
     create(:courses_user,
@@ -39,6 +43,12 @@ describe CourseAlertManager do
 
   before do
     enroll_admin
+  end
+
+  describe '.generate_course_alerts' do
+    it 'runs without error' do
+      described_class.generate_course_alerts
+    end
   end
 
   describe '#create_no_students_alerts' do
@@ -60,6 +70,45 @@ describe CourseAlertManager do
       expect(Alert.count).to eq(1)
       subject.create_no_students_alerts
       expect(Alert.count).to eq(1)
+    end
+  end
+
+  describe '#create_over_enrollment_alerts' do
+    context 'when there is significant over-enrollment' do
+      let(:user_count) { 50 }
+      let(:expected_students) { 25 }
+
+      it 'creates an alert' do
+        subject.create_over_enrollment_alerts
+        expect(Alert.count).to eq(1)
+      end
+
+      it 'does not create a second Alert for the same course' do
+        Alert.create(type: 'OverEnrollmentAlert', course: course)
+        expect(Alert.count).to eq(1)
+        subject.create_over_enrollment_alerts
+        expect(Alert.count).to eq(1)
+      end
+    end
+
+    context 'when there is slight over-enrollment' do
+      let(:user_count) { 50 }
+      let(:expected_students) { 49 }
+
+      it 'does not create an alert' do
+        subject.create_over_enrollment_alerts
+        expect(Alert.count).to eq(0)
+      end
+    end
+
+    context 'when there are more than 100 students' do
+      let(:user_count) { 101 }
+      let(:expected_students) { 101 }
+
+      it 'creates an alert' do
+        subject.create_over_enrollment_alerts
+        expect(Alert.count).to eq(1)
+      end
     end
   end
 

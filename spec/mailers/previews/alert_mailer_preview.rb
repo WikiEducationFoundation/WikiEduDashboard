@@ -18,6 +18,10 @@ class AlertPreview < ActionMailer::Preview
     AlertMailer.alert(Alert.where(type: 'NeedHelpAlert').last, example_user)
   end
 
+  def over_enrollment_alert
+    AlertMailer.alert(example_over_enrollment_alert, example_user)
+  end
+
   def generic_alert
     AlertMailer.alert(example_alert, example_user)
   end
@@ -29,11 +33,16 @@ class AlertPreview < ActionMailer::Preview
   end
 
   def example_course
-    Course.new(title: "Apostrophe's Folly", slug: "School/Apostrophe's_Folly_(Spring_2019)")
+    Course.new(title: "Apostrophe's Folly", slug: "School/Apostrophe's_Folly_(Spring_2019)",
+               expected_students: 5, user_count: 11)
   end
 
   def example_article
     Article.new(title: "King's_Gambit", wiki: Wiki.first)
+  end
+
+  def example_over_enrollment_alert
+    Alert.new(type: 'OverEnrollmentAlert', course: example_course, id: 9)
   end
 
   def example_alert
