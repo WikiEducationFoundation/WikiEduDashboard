@@ -22,6 +22,11 @@
 
 # Alert for a course that has too many enrolled students
 class OverEnrollmentAlert < Alert
+  # Wiki Education has a maximum course size we will support.
+  # We also generate alerts if a course has significant more students than expected.
+  MAX_ENROLLMENT = 100
+  MAX_UNEXPECTED_STUDENTS = 5
+
   def main_subject
     "#{course.slug} — #{course.user_count} students"
   end
@@ -36,8 +41,9 @@ class OverEnrollmentAlert < Alert
 
   def resolve_explanation
     <<~EXPLANATION
-      Resolve this alert only if you've changed the expected student count for the course. The
-      Dashboard will create a new alert if it becomes over-enrolled again.
+      Resolve this alert only if you've changed the expected student count for the course
+      and there aren't more than #{MAX_ENROLLMENT}. If you resolve it, the Dashboard will
+      create a new alert if it becomes over-enrolled again.
     EXPLANATION
   end
 end

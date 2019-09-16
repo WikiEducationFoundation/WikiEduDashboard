@@ -18,13 +18,9 @@ class OverEnrollmentAlertManager
 
   private
 
-  # Wiki Education has a maximum course size we will support.
-  # We also generate alerts if a course has significant more students than expected.
-  MAX_ENROLLMENT = 100
-  MAX_UNEXPECTED_STUDENTS = 5
   def over_enrolled?(course)
-    return true if course.user_count > MAX_ENROLLMENT
+    return true if course.user_count > OverEnrollmentAlert::MAX_ENROLLMENT
     return false unless course.expected_students
-    (course.user_count - course.expected_students) > MAX_UNEXPECTED_STUDENTS
+    (course.user_count - course.expected_students) > OverEnrollmentAlert::MAX_UNEXPECTED_STUDENTS
   end
 end
