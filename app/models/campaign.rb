@@ -43,6 +43,7 @@ class Campaign < ApplicationRecord
   before_validation :set_slug
 
   validates :title, presence: true
+  validates :slug, presence: true
   validates_uniqueness_of :title, message: I18n.t('campaign.already_exists'), case_sensitive: false
   validates_uniqueness_of :slug, message: I18n.t('campaign.already_exists'), case_sensitive: false
 
