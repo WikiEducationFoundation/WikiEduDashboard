@@ -87,6 +87,7 @@ const Nav = createReactClass({
     let languageSwitcherEnabled;
     let loginLinks;
     let helpEnabled;
+    let consentBanner;
     if (this.state.languageSwitcherEnabled) {
       languageSwitcherEnabled = (
         <li>
@@ -192,6 +193,10 @@ const Nav = createReactClass({
         </span>
       );
     }
+
+    if (Features.consentBanner) {
+      consentBanner = <ConsentBanner />;
+    }
     if (this.state.fluid) {
       navClass = 'top-nav fluid';
     } else {
@@ -258,7 +263,7 @@ const Nav = createReactClass({
       <div>
         {confetti}
         {navBar}
-        <ConsentBanner />
+        {consentBanner}
       </div>
     );
   }
