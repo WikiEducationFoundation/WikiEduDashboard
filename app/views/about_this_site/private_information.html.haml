@@ -14,6 +14,12 @@
       %li The email address and requested username for Requested Accounts; the email address is used to create a Wikimedia account, and removed from this site upon creation.
 
   - if Features.wiki_ed?
-    %p For additional details, see our Terms of Use and Privacy Policy links below.
+    %p
+      For additional details, see our
+      = link_to 'Terms of Service', 'https://wikiedu.org/terms-of-service'
+      and
+      = link_to 'Privacy Policy.', 'https://wikiedu.org/privacy-policy'
   - else
-    %p Data use and retention is governed by the Wikimedia Cloud Services terms of use. For more details on this, see the link below.
+    %p
+      Data use and retention is governed by the
+      = link_to 'Wikimedia Cloud Services Terms of use.', 'https://wikitech.wikimedia.org/wiki/Wikitech:Cloud_Services_Terms_of_use', target: '_blank'

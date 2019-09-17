@@ -5,6 +5,7 @@ import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import LanguagePicker from './language_picker.jsx';
 import NotificationsBell from './notifications_bell';
+import ConsentBanner from './consent_banner';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -257,6 +258,7 @@ const Nav = createReactClass({
       <div>
         {confetti}
         {navBar}
+        <ConsentBanner />
       </div>
     );
   }

@@ -37,6 +37,9 @@ en:
 
   application:
     cancel: Cancel
+    cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
+    cookie_consent_acknowledge: I understand
+    cookie_consent_see_more: See more.
     create_accounts: Create Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentation
