@@ -1342,5 +1342,5 @@ pt-br:
     due: vencimento %{due_date}
     assignment_status: Atribuição de treinamento (%{status})
   multi_wiki:
-    selector_placeholder: Selecionar wiki
+    selector_placeholder: Comece a digitar um domínio de wiki
 ...

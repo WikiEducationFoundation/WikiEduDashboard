@@ -11,6 +11,7 @@
 # Author: Joalpe
 # Author: Ldacosta
 # Author: Macofe
+# Author: Mansil alfalb
 # Author: MokaAkashiyaPT
 # Author: Ruila
 # Author: Vitorvicentevalente
@@ -290,6 +291,7 @@ pt:
     random_passcode: um código de acesso aleatório
     requested_accounts: Contas solicitadas
     title: Título
+    slug: Linha composta
     use_start_end_dates: Utilizar datas iniciais e finais
   categories:
     add_category: Adicionar categoria
@@ -302,10 +304,10 @@ pt:
       e pode demorar algum tempo após a adição de um artigo até a lista ser preenchida.
     confirm_category_addition: Tem a certeza de que deseja monitorizar as contribuições
       da categoria "%{name}"?
-    confirm_psid_addition: Tem a certeza de que deseja monitorizar as contribuições
-      para o PSID PetScan "%{name}"?
-    confirm_template_addition: Tem a certeza de que deseja monitorizar as contribuições
-      para a predefinição "%{name}"?
+    confirm_psid_addition: Tem a certeza que deseja monitorizar as contribuições para
+      o PSID PetScan "%{name}"?
+    confirm_template_addition: Tem a certeza que deseja monitorizar as contribuições
+      para o modelo "%{name}"?
     depth: Profundidade de subcategorias
     articles_count: Contagem de artigos
     name: Nome
@@ -314,11 +316,12 @@ pt:
     template_name: Nome da predefinição
     none: Não há nenhuma categoria a ser monitorizada.
     remove: Remover
-    tracked_categories: Categorias, PSID e predefinições monitorizadas
+    tracked_categories: Categorias, PSID e Modelos monitorizados
     timestamp: Última atualização
   chat:
     label: Conversação
   courses:
+    school_system: Sistema académico
     assignment_edits_enabled: Edições relativas a trabalhos ativadas
     assignment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
       uma predefinição na página de discussão por cada artigo atribuído.
@@ -717,6 +720,7 @@ pt:
       notification_message: Responda ao nosso inquérito sobre este curso.
       link: Participar no inquérito
   courses_generic:
+    school_system: Sistema académico
     add_campaign: Adicionar campanha
     all_courses: Todos os programas
     archived: Programas arquivados
@@ -1238,7 +1242,7 @@ pt:
     unsupported_browser:
       header: Navegador sem suporte.  :-(
       explanation: Está a utilizar um navegador que não é compatível com o painel
-        de controlo. Este sítio funciona bem com versões recentes do Chrome, Firefox,
+        de controlo. Este site funciona bem com versões recentes do Chrome, Firefox,
         Edge e outros navegadores modernos.
   error_401:
     header: Não autorizado. >:-(
@@ -1345,5 +1349,5 @@ pt:
     due: esperada %{due_date}
     assignment_status: Formação (%{status})
   multi_wiki:
-    selector_placeholder: Selecionar wiki
+    selector_placeholder: Comece a escrever um domínio de wiki
 ...

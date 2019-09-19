@@ -963,5 +963,5 @@ it:
     started: Iniziato
     not_started: Non iniziato
   multi_wiki:
-    selector_placeholder: Seleziona wiki
+    selector_placeholder: Inizia a digitare un dominio wiki
 ...

@@ -6,6 +6,7 @@
 # Author: Elias Ahmmad
 # Author: Kayser Ahmad
 # Author: Mohammed Galib Hasan
+# Author: Nokib Sarkar
 # Author: Rasal Lia
 # Author: Sandipan
 # Author: Tahmid02016
@@ -349,4 +350,6 @@ bn:
     tools: সরঞ্জাম
     more_results: আরও ফলাফল
     submit: জমা দিন
+  multi_wiki:
+    selector_placeholder: একটি উইকিডোমেন লিখা শুরু করুন
 ...

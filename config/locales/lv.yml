@@ -375,4 +375,6 @@ lv:
     assign_article_self: Piešķirt sev
   training_status:
     completed: Pabeigts
+  multi_wiki:
+    selector_placeholder: Sāc rakstīt vikivietnes domēnvārdu
 ...

@@ -667,4 +667,6 @@ nl:
     started: Begonnen
     not_started: Niet begonnen
     due: vervalt %{due_date}
+  multi_wiki:
+    selector_placeholder: Wikidomein invoeren
 ...
