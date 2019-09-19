@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: https://github.com/ragesoss/premailer.git
-  revision: 9b4e1ec78a84605816dc90b0cd4e943650646658
+  revision: 6d78d1cdeb5bfb802106ea1a2886d7b41a70513e
   specs:
     premailer (1.11.1)
       addressable
