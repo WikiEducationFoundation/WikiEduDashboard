@@ -28,7 +28,7 @@
     enableChat: #{Features.enable_chat? && user_signed_in?},
     enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
     celebrate: #{Features.celebrate?(current_user)},
-    consentBanner: #{!Rails.env.test?}
+    consentBanner: #{user_signed_in? && !Rails.env.test?}
   }
 
   WikiProjects = document.getElementById("wikis").dataset.projects
