@@ -1,19 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import Actions from './Actions';
 import Links from './Links';
 
 const isEnglishWikipedia = ({ assignment, course }) => () => {
-  if (course.home_wiki.language === 'en' && course.home_wiki.project === 'wikipedia') {
-    if (typeof assignment.language === 'undefined') {
-      return true;
-    }
-  }
-  if (assignment.language === 'en' && assignment.project === 'wikipedia') {
+  const { language, project } = assignment;
+  const { home_wiki } = course;
+
+  // If the assignment language and project match with English Wikipedia
+  if (language === 'en' && project === 'wikipedia') return true;
+  // Or the home wiki matches, return true
+  if (
+    home_wiki.language === 'en'
+    && home_wiki.project === 'wikipedia'
+    && typeof language === 'undefined'
+  ) {
     return true;
   }
 
+  // Otherwise, return false
   return false;
 };
 
@@ -24,7 +31,7 @@ const unassign = ({ assignment, course, initiateConfirm, deleteAssignment }) => 
   return () => initiateConfirm(message, () => deleteAssignment(body));
 };
 
-export default ({
+export const Header = ({
   article, articleTitle, assignment, course, current_user, isComplete, username,
   deleteAssignment, fetchAssignments, initiateConfirm, updateAssignmentStatus
 }) => (
@@ -47,5 +54,22 @@ export default ({
       username={username}
     />
   </header>
-)
-;
+);
+
+Header.propTypes = {
+  // props
+  article: PropTypes.object.isRequired,
+  articleTitle: PropTypes.string.isRequired,
+  assignment: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+  isComplete: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+  // actions
+  deleteAssignment: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+  initiateConfirm: PropTypes.func.isRequired,
+  updateAssignmentStatus: PropTypes.func.isRequired,
+};
+
+export default Header;

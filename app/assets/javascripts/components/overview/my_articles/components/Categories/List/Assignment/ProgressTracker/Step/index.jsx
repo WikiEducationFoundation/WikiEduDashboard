@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import StepNumber from './StepNumber';
@@ -8,7 +9,7 @@ import Links from './Links.jsx';
 import Reviewers from './Reviewers.jsx';
 import ButtonNavigation from './ButtonNavigation.jsx';
 
-export default ({
+export const Step = ({
   assignment, content, courseSlug, index, status, title, trainings, last = false,
   updateAssignmentStatus, fetchAssignments
 }) => {
@@ -32,3 +33,20 @@ export default ({
     </article>
   );
 };
+
+Step.propTypes = {
+  // props
+  assignment: PropTypes.object.isRequired,
+  content: PropTypes.string.isRequired,
+  courseSlug: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  trainings: PropTypes.array.isRequired,
+
+  // actions
+  updateAssignmentStatus: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+};
+
+export default Step;

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ assignment, unassign }) => (
+export const RemoveButton = ({ assignment, unassign }) => (
   <div>
     <button
       onClick={() => unassign(assignment)}
@@ -10,3 +11,13 @@ export default ({ assignment, unassign }) => (
     </button>
   </div>
 );
+
+RemoveButton.propTypes = {
+  // props
+  assignment: PropTypes.object.isRequired,
+
+  // actions
+  unassign: PropTypes.func.isRequired,
+};
+
+export default RemoveButton;

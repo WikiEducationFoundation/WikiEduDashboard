@@ -67,7 +67,10 @@ MyArticlesContainer.propTypes = {
   assignments: PropTypes.array.isRequired,
   current_user: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  wikidataLabels: PropTypes.object.isRequired
+  wikidataLabels: PropTypes.object.isRequired,
+
+  // actions
+  fetchAssignments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

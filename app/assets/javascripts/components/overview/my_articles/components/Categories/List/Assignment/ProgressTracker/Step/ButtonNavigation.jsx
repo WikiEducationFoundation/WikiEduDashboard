@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const update = ({
   assignment, courseSlug,
@@ -15,7 +16,7 @@ const update = ({
   await fetchAssignments(courseSlug);
 };
 
-export default (props) => {
+export const ButtonNavigation = (props) => {
   const {
     active, index
   } = props;
@@ -43,3 +44,16 @@ export default (props) => {
     </nav>
   );
 };
+
+ButtonNavigation.propTypes = {
+  // props
+  active: PropTypes.bool.isRequired,
+  assignment: PropTypes.object.isRequired,
+  courseSlug: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  // actions
+  updateAssignmentStatus: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+};
+
+export default ButtonNavigation;

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import ReviewerLink from '../../../../../../common/ReviewerLink';
 
-export default ({ reviewers }) => {
+export const Reviewers = ({ reviewers }) => {
   if (!reviewers) return null;
 
   return (
@@ -12,3 +13,10 @@ export default ({ reviewers }) => {
     </section>
   );
 };
+
+Reviewers.propTypes = {
+  // props
+  reviewers: PropTypes.array
+};
+
+export default Reviewers;

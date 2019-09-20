@@ -1,14 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ message, text }) => {
+export const Tooltip = ({ message, text }) => {
   return (
     <div className="tooltip-trigger">
-      <small className="peer-review-count">{text}</small>
+      <small className="peer-review-count">{ text }</small>
       <div className="tooltip dark">
         <p>
-          {message}
+          { message }
         </p>
       </div>
     </div>
   );
 };
+
+Tooltip.propTypes = {
+  // props
+  message: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+export default Tooltip;
