@@ -25,7 +25,7 @@ export class MyArticlesContainer extends React.Component {
       assignments, course, current_user, loading, wikidataLabels
     } = this.props;
 
-    if (loading) return null;
+    if (loading || !current_user.isStudent) return null;
     if (!assignments.length && current_user.isStudent) {
       if (Features.wikiEd) return <MyArticlesNoAssignmentMessage />;
       return <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
@@ -70,7 +70,7 @@ MyArticlesContainer.propTypes = {
   wikidataLabels: PropTypes.object.isRequired,
 
   // actions
-  fetchAssignments: PropTypes.func.isRequired
+  fetchAssignments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
