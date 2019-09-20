@@ -15,3 +15,8 @@
         %h4
           #{@user.username}
           = t("courses.nocourse")
+
+  - if @user == current_user
+    .personal_data
+      %small
+        = link_to 'Download personal data', '/download_personal_data.json'
