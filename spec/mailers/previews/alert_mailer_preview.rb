@@ -38,7 +38,7 @@ class AlertPreview < ActionMailer::Preview
   end
 
   def example_article
-    Article.new(title: "King's_Gambit", wiki: Wiki.first)
+    Article.new(title: "King's_Gambit", wiki: Wiki.first, namespace: 0)
   end
 
   def example_over_enrollment_alert
