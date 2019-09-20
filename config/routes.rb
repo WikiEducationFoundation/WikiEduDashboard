@@ -43,6 +43,11 @@ Rails.application.routes.draw do
     post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
+  #PersonalDataController
+  controller :personal_data do
+    get 'download_personal_data' => 'personal_data#show'
+  end
+
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
     collection do
