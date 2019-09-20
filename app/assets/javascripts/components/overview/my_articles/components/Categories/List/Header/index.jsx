@@ -1,13 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import Tooltip from './Tooltip';
 
-export default ({ message, sub, title }) => {
-  const smallText = (
-    <Tooltip message={message} text={sub} />
-  );
-  return (
-    <h4 className="mb1 mt2">{title} {sub && smallText}</h4>
-  );
+export const Header = ({ message, sub, title }) => (
+  <h4 className="mb1 mt2">
+    { title }&nbsp;
+    { sub && <Tooltip message={message} text={sub} /> }
+  </h4>
+);
+
+Header.propTypes = {
+  // props
+  message: PropTypes.string.isRequired,
+  sub: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
+
+export default Header;

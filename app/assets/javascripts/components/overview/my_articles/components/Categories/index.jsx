@@ -1,20 +1,18 @@
 import React from 'react';
-import { IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE } from '../../../../../constants/assignments';
+import PropTypes from 'prop-types';
+import {
+  IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
+} from '../../../../../constants/assignments';
 
 // components
 import List from './List';
 
 // Helper Functions
-const filterStatus = status => ({ article_status }) => {
-  return status === article_status;
-};
-
-const sortBy = key => (a, b) => {
-  return a[key] > b[key] ? 1 : -1;
-};
+const filterStatus = status => ({ article_status }) => status === article_status;
+const sortBy = key => (a, b) => (a[key] > b[key] ? 1 : -1);
 
 // Main Component
-export default ({ assignments, course, current_user, wikidataLabels }) => {
+export const Categories = ({ assignments, course, current_user, wikidataLabels }) => {
   const articles = {
     new: assignments.filter(filterStatus(NEW_ARTICLE)).sort(sortBy('article_title')),
     improving: assignments.filter(filterStatus(IMPROVING_ARTICLE)).sort(sortBy('article_title')),
@@ -42,3 +40,13 @@ export default ({ assignments, course, current_user, wikidataLabels }) => {
     </>
   );
 };
+
+Categories.propTypes = {
+  // props
+  assignments: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+  wikidataLabels: PropTypes.object.isRequired,
+};
+
+export default Categories;

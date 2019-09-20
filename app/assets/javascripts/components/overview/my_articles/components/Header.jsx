@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // components
@@ -9,7 +10,7 @@ import {
   ASSIGNED_ROLE, REVIEWING_ROLE
 } from '../../../../constants/assignments';
 
-export default ({
+export const Header = ({
   assigned, course, current_user, reviewable, reviewing, unassigned, wikidataLabels
 }) => (
   <div className="section-header my-articles-header">
@@ -49,3 +50,16 @@ export default ({
     </div>
   </div>
 );
+
+Header.propTypes = {
+  // props
+  assigned: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+  reviewable: PropTypes.array.isRequired,
+  reviewing: PropTypes.array.isRequired,
+  unassigned: PropTypes.array.isRequired,
+  wikidataLabels: PropTypes.object.isRequired,
+};
+
+export default Header;

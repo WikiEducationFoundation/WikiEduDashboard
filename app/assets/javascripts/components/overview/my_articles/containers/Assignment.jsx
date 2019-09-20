@@ -1,68 +1,59 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CourseUtils from '../../../../utils/course_utils.js';
 import MyArticlesHeader from '../components/Categories/List/Assignment/Header';
+import MyArticlesCompletedAssignment from '../components/Categories/List/Assignment/CompletedAssignment';
 import MyArticlesProgressTracker from '../components/Categories/List/Assignment/ProgressTracker';
 
 import { initiateConfirm } from '../../../../actions/confirm_actions';
 import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '../../../../actions/assignment_actions';
 
 // Main Component
-export const MyAssignment = createReactClass({
-  displayName: 'MyAssignment',
-
-  propTypes: {
-    assignment: PropTypes.object.isRequired,
-    current_user: PropTypes.object,
-    course: PropTypes.object.isRequired,
-    username: PropTypes.string,
-    wikidataLabels: PropTypes.object.isRequired
-  },
-
+export class Assignment extends React.Component {
   isComplete() {
     const { assignment } = this.props;
     const allStatuses = assignment.assignment_all_statuses;
     const lastStatus = allStatuses[allStatuses.length - 1];
     return assignment.assignment_status === lastStatus;
-  },
+  }
 
   render() {
-    const { assignment, course, current_user, username, wikidataLabels } = this.props;
+    const { assignment, course, wikidataLabels } = this.props;
 
-    const article = CourseUtils.articleFromTitleInput(assignment.article_url);
-    const label = wikidataLabels[article.title.replace('www:wikidata', '')];
-    let articleTitle = assignment.article_title;
-    articleTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
-
+    const {
+      article, title
+    } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
     const isComplete = this.isComplete();
-    const props = {
-      article,
-      articleTitle,
-      assignment,
-      course,
-      current_user,
-      isComplete,
-      username,
-      deleteAssignment: this.props.deleteAssignment,
-      fetchAssignments: this.props.fetchAssignments,
-      initiateConfirm: this.props.initiateConfirm,
-      updateAssignmentStatus: this.props.updateAssignmentStatus
-    };
+    const props = { ...this.props, article, articleTitle: title, isComplete };
 
     return (
       <div className={`my-assignment mb1${isComplete ? ' complete' : ''}`}>
         <MyArticlesHeader {...props} />
         {
           isComplete
-            ? <section className="completed-assignment">{'You\'ve marked your article as complete.'}</section>
+            ? <MyArticlesCompletedAssignment />
             : <MyArticlesProgressTracker {...props} />
         }
       </div>
     );
   }
-});
+}
+
+Assignment.propTypes = {
+  // props
+  assignment: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object,
+  username: PropTypes.string,
+  wikidataLabels: PropTypes.object.isRequired,
+
+  // actions
+  deleteAssignment: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired,
+  initiateConfirm: PropTypes.func.isRequired,
+  updateAssignmentStatus: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
   initiateConfirm,
@@ -71,4 +62,4 @@ const mapDispatchToProps = {
   updateAssignmentStatus
 };
 
-export default connect(null, mapDispatchToProps)(MyAssignment);
+export default connect(null, mapDispatchToProps)(Assignment);

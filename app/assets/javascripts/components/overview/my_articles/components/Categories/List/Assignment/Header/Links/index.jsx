@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import BibliographyLink from './BibliographyLink';
 import SandboxLink from './SandboxLink';
+import PeerReviewLink from './PeerReviewLink';
 import EditorLink from './EditorLink';
 import ReviewerLink from '../../../../../../common/ReviewerLink';
 
@@ -11,9 +13,16 @@ import Separator from '../../../../../../common/Separator';
 // constants
 import { REVIEWING_ROLE } from '../../../../../../../../../constants/assignments';
 
-export default ({ articleTitle, assignment, current_user }) => {
-  const { article_url, editors, id, reviewers, sandboxUrl } = assignment;
-  const { username } = current_user;
+// helper functions
+const interleaveSeparators = (acc, link, index, collection) => {
+  const limit = collection.length - 1;
+  const prefix = [...acc, link];
+
+  return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
+};
+
+export const Links = ({ articleTitle, assignment, current_user }) => {
+  const { article_url, editors, id, reviewers } = assignment;
 
   let actions = [
     <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />,
@@ -21,10 +30,8 @@ export default ({ articleTitle, assignment, current_user }) => {
   ];
 
   if (assignment.role === REVIEWING_ROLE) {
-    let peerReviewUrl = `${sandboxUrl}/${username}_Peer_Review`;
-    peerReviewUrl += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_peer_review';
     actions.push(
-      <a key={`review-${id}`} href={peerReviewUrl} target="_blank">{I18n.t('assignments.peer_review_link')}</a>
+      <PeerReviewLink assignment={assignment} current_user={current_user} />
     );
   }
 
@@ -32,12 +39,7 @@ export default ({ articleTitle, assignment, current_user }) => {
     <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t('assignments.article_link')}</a>
   );
 
-  actions = actions.concat(article).reduce((acc, link, index, collection) => {
-    const limit = collection.length - 1;
-    const prefix = [...acc, link];
-
-    return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
-  }, []);
+  actions = actions.concat(article).reduce(interleaveSeparators, []);
 
   const assignedTo = (editors || reviewers)
     ? (
@@ -48,6 +50,7 @@ export default ({ articleTitle, assignment, current_user }) => {
       </>
     )
     : null;
+
   return (
     <section className="header">
       <section className="title">
@@ -60,3 +63,12 @@ export default ({ articleTitle, assignment, current_user }) => {
     </section>
   );
 };
+
+Links.propTypes = {
+  // props
+  articleTitle: PropTypes.string.isRequired,
+  assignment: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+};
+
+export default Links;

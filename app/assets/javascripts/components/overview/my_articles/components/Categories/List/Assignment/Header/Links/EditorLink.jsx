@@ -1,7 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import AssignedToLink from '../../../../../../common/AssignedToLink';
 
-export default ({ editors }) => {
+export const EditorLink = ({ editors }) => {
   return <AssignedToLink members={editors} name="editors" />;
 };
+
+EditorLink.propTypes = {
+  // props
+  editors: PropTypes.array.isRequired,
+};
+
+export default EditorLink;

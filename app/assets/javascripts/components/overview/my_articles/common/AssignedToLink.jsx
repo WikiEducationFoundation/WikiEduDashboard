@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default ({ name, members }) => {
+export const AssignedToLink = ({ name, members }) => {
   if (!members) return null;
 
   const label = <span key="label">{I18n.t(`assignments.${name}`)}: </span>;
@@ -17,3 +18,11 @@ export default ({ name, members }) => {
 
   return [label].concat(links);
 };
+
+AssignedToLink.propTypes = {
+  // props
+  name: PropTypes.string.isRequired,
+  members: PropTypes.array
+};
+
+export default AssignedToLink;

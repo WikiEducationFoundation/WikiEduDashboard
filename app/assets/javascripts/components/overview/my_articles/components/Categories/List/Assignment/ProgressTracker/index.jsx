@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import assignmentContent from '../../../../../step_processes/assignments';
 
 // components
 import Step from './Step';
+import NavigationElements from './NavigationElements';
 
-export default class Wizard extends React.Component {
+export class ProgressTracker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,31 +39,27 @@ export default class Wizard extends React.Component {
       />
     ));
 
-    const lis = assignmentContent(assignment).map(({ status, title }, i) => {
-      const selected = assignment.assignment_status === status;
-      return (
-        <li className={selected ? 'selected' : ''} key={`process-step-${i}`}>
-          {`${i + 1}. ${title}`}
-        </li>
-      );
-    });
-
     return (
       <>
         <section className={`flow${show ? '' : ' hidden'}`}>
-          {steps}
+          { steps }
         </section>
         <nav className="toggle-wizard" onClick={this.toggle}>
-          <ul>
-            {lis}
-            {
-              show
-                ? <li aria-label="Close Progress Tracker" className="icon icon-arrow-reverse table-expandable-indicator" />
-                : <li aria-label="Show Progress Tracker" className="icon icon-arrow table-expandable-indicator" />
-            }
-          </ul>
+          <NavigationElements assignment={assignment} show={show} />
         </nav>
       </>
     );
   }
 }
+
+ProgressTracker.propTypes = {
+  // props
+  assignment: PropTypes.object.isRequired,
+  course: PropTypes.object.isRequired,
+
+  // actions
+  updateAssignmentStatus: PropTypes.func.isRequired,
+  fetchAssignments: PropTypes.func.isRequired
+};
+
+export default ProgressTracker;

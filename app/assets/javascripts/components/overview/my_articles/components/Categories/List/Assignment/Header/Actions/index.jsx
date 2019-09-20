@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // components
 import PageViews from './PageViews';
@@ -10,7 +11,7 @@ import FinalArticleChecklist from '../../../../../../../../common/final_article_
 import PeerReviewChecklist from '../../../../../../../../common/peer_review_checklist.jsx';
 import Feedback from '../../../../../../../../common/feedback.jsx';
 
-export default ({
+export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
   isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
 }) => {
@@ -61,3 +62,21 @@ export default ({
     </section>
   );
 };
+
+Actions.propTypes = {
+  // props
+  article: PropTypes.object.isRequired,
+  assignment: PropTypes.object.isRequired,
+  courseSlug: PropTypes.string.isRequired,
+  current_user: PropTypes.object.isRequired,
+  isComplete: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+
+  // actions
+  isEnglishWikipedia: PropTypes.func.isRequired,
+  handleUpdateAssignment: PropTypes.func.isRequired,
+  refreshAssignments: PropTypes.func.isRequired,
+  unassign: PropTypes.func.isRequired,
+};
+
+export default Actions;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const update = ({
   assignment, courseSlug,
@@ -11,7 +12,7 @@ const update = ({
   await refreshAssignments(courseSlug);
 };
 
-export default props => (
+export const MarkAsIncompleteButton = props => (
   <div>
     <button
       className="button danger small"
@@ -21,3 +22,15 @@ export default props => (
     </button>
   </div>
 );
+
+MarkAsIncompleteButton.propTypes = {
+  // props
+  assignment: PropTypes.object.isRequired,
+  courseSlug: PropTypes.string.isRequired,
+
+  // actions
+  handleUpdateAssignment: PropTypes.func.isRequired,
+  refreshAssignments: PropTypes.func.isRequired,
+};
+
+export default MarkAsIncompleteButton;
