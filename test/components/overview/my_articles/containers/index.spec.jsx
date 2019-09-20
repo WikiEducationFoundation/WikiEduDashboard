@@ -4,85 +4,112 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import configureMockStore from 'redux-mock-store';
 
-import '../../../testHelper';
-import MyAssignmentsCategories from '../../../../app/assets/javascripts/components/overview/my_articles/components/Categories';
+import '../../../../testHelper';
+import MyArticlesContainer from '../../../../../app/assets/javascripts/components/overview/my_articles/containers';
 
-const mockStore = configureMockStore()({});
-
-describe('MyAssignmentsCategories', () => {
+describe('MyArticlesContainer', () => {
   describe('Features.wikiEd = true', () => {
     Features.wikiEd = true;
     const template = {
-      assignments: [],
-      course: { home_wiki: { language: 'en', project: 'wikipedia' } },
-      current_user: {},
-      loading: false,
-      wikidataLabels: {}
+      course: { home_wiki: { language: 'en', project: 'wikipedia' }, slug: 'course/slug' },
+      current_user: {}
     };
 
     it('displays a message if there are no assignments', () => {
+      const store = configureMockStore()({
+        assignments: { assignments: [], loading: false },
+        wikidataLabels: {}
+      });
+
       const props = {
         ...template,
-        current_user: { isStudent: true }
+        current_user: { isStudent: true, username: 'Username' }
       };
 
       const Container = mount(
-        <Provider store={mockStore}>
-          <MyAssignmentsCategories {...props} />
+        <Provider store={store}>
+          <MyArticlesContainer {...props} />
         </Provider>
       );
 
       // This checks that nothing gets rendered.
       expect(Container.children().length).to.equal(1);
-      expect(Container.children().at(0).type()).to.equal(MyAssignmentsCategories);
+      expect(Container.children().at(0).type()).to.equal(MyArticlesContainer);
     });
 
     it('does not display for an admin', () => {
+      const store = configureMockStore()({
+        assignments: { assignments: [], loading: false },
+        wikidataLabels: {}
+      });
+
       const props = {
         ...template,
-        assignments: [{}],
-        current_user: { isStudent: false }
+        current_user: { isStudent: false, username: 'Username' }
       };
 
       const Container = mount(
-        <Provider store={mockStore}>
-          <MyAssignmentsCategories {...props} />
+        <Provider store={store}>
+          <MyArticlesContainer {...props} />
         </Provider>
       );
 
       // This checks that nothing gets rendered.
       expect(Container.children().length).to.equal(1);
-      expect(Container.children().at(0).type()).to.equal(MyAssignmentsCategories);
+      expect(Container.children().at(0).type()).to.equal(MyArticlesContainer);
     });
 
-    describe('Successfully renders Improving Article', () => {
+    describe('rendering', () => {
+      const store = configureMockStore()({
+        assignments: {
+          assignments: [
+            {
+              article_id: 99,
+              article_rating: 'b',
+              article_status: 'improving_article',
+              article_title: 'My Article Title',
+              article_url: 'https://en.wikipedia.org/wiki/My_Article_Title_from_URL',
+              assignment_all_statuses: ['not_yet_started', 'in_progress'],
+              assignment_id: 9,
+              assignment_status: 'not_yet_started',
+              id: 1,
+              role: 0,
+              sandboxUrl: 'http://sandbox_url',
+              user_id: 1,
+              username: 'Username',
+            }
+          ],
+          loading: false
+        },
+        feedback: {},
+        wikidataLabels: {},
+        ui: { openKey: true }
+      });
+
       const props = {
         ...template,
-        current_user: { isStudent: true },
-        assignments: [
-          {
-            article_status: 'improving_article',
-            article_title: 'My Article Title',
-            article_url: 'https://en.wikipedia.org/wiki/My_Article_Title_from_URL',
-            assignment_all_statuses: ['not_yet_started', 'in_progress'],
-            assignment_status: 'not_yet_started',
-            id: 1,
-            sandboxUrl: 'http://sandbox_url',
-            username: 'username'
-          }
-        ]
+        current_user: { id: 1, isStudent: true, username: 'Username' }
       };
 
       const Container = mount(
-        <Provider store={mockStore}>
+        <Provider store={store}>
           <MemoryRouter>
-            <MyAssignmentsCategories {...props} />
+            <MyArticlesContainer {...props} />
           </MemoryRouter>
         </Provider>
       );
 
+      it('shows the header', () => {
+        expect(Container.find('.my-articles-header').length).to.equal(1);
+        expect(Container.find('.my-articles-header').text()).to.include('My Articles');
+      });
+
+      it('shows the assignment listing (categories)', () => {
+        expect(Container.find('Categories').length).to.equal(1);
+        expect(Container.find('Categories').text()).to.include('Articles I\'m updating');
+      });
+
       xit('shows the My Articles section if the student has any', () => {
-        console.log(Container.debug());
         expect(Container.find('Heading').length).to.equal(1);
         expect(Container.find('Heading').text()).to.include('Articles I\'m updating');
       });
