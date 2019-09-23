@@ -34,6 +34,7 @@ it:
       parte dei browser aumentano e diminuiscono il numero inserito.
   application:
     cancel: Annulla
+    cookie_consent_acknowledge: Ho capito
     create_accounts: Crea utenze di Wikipedia
     dashboard: Cruscotto Wiki Ed
     documentation: Documentazione

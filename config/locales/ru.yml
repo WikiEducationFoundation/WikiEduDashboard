@@ -16,6 +16,7 @@
 # Author: Irus
 # Author: Kaganer
 # Author: Kareyac
+# Author: Katunchik
 # Author: Link2xt
 # Author: Lizalizaufa
 # Author: Lugimax
@@ -42,6 +43,10 @@ ru:
       можно увеличивать и уменьшать значение.
   application:
     cancel: Отмена
+    cookie_consent: Этот сайт использует куки-файлы для вашего входа в систему и хранит
+      информацию, относящуюся к вашей учетной записи в Википедии.
+    cookie_consent_acknowledge: Понимаю
+    cookie_consent_see_more: Узнать больше.
     create_accounts: Создайте учётную запись в Википедии
     dashboard: Панель Wiki Ed
     documentation: Документация
@@ -218,6 +223,7 @@ ru:
     program_template: Шаблон программы
     random_passcode: Случайный код доступа
     title: Название
+    slug: Slug
     use_start_end_dates: Использовать даты начала и окончания
   categories:
     add_category: Добавить категорию
@@ -232,6 +238,7 @@ ru:
   chat:
     label: Чат
   courses:
+    school_system: Академическая система
     activity: Деятельность
     alerts: Оповещения
     all_courses: Все курсы
@@ -372,6 +379,7 @@ ru:
     withdrawn: Задание не сделано
     yourcourses: Ваши курсы
   courses_generic:
+    school_system: Академическая система
     all_courses: Все программы
     assignment_end: Конец события
     assignment_start: Начало события
@@ -610,4 +618,6 @@ ru:
     relevanceIndex: Индекс релевантности
     assign_article_self: Назначить себя
     unassign_article_self: Отменить назначение статьи
+  multi_wiki:
+    selector_placeholder: Начните вводить домен wiki
 ...

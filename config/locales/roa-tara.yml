@@ -19,6 +19,8 @@ roa-tara:
       parte de le browser aumendane e diminuiscene 'u numere sckaffate.
   application:
     cancel: Annulle
+    cookie_consent_acknowledge: Agghie capite
+    cookie_consent_see_more: '''Ndruche de cchiù.'
     create_accounts: Ccreje le cunde de Uicchipèdie
     dashboard: Wiki Ed Dashboard
     documentation: Documendazione

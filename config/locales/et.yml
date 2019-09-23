@@ -119,6 +119,9 @@ et:
       new: Uued
       existing: Olemasolevad
       new_and_existing: Uued ja olemasolevad
+      tracked: Jälgitavad
+      untracked: Mittejälgitavad
+      tracked_and_untracked: Jälgitavad ja mittejälgitavad
     hide: Peida
     history: (ajalugu)
     label: Artiklid
@@ -158,6 +161,10 @@ et:
     show_current_version_with_authorship_highlighting: Praegune versioon, kus on märgistatud
       muudatuste autor
     title: Pealkiri
+    tracked: Jälgitav
+    tracked_doc: Programmi statistikasse lähevad kirja ainult jälgitavad artiklid.
+      Artikli märkimisel mittejälgitavaks eemaldatakse see statistikast järgmisel
+      värskendusel.
     title_example: Artikli pealkiri
     tools: Hindamistööriistad
     view: Vaata artiklit
@@ -176,6 +183,7 @@ et:
       ei kajasta mingilgi määral artikli sisu. (Kasutatakse ainult ingliskeelses Vikipeedias.)
   assignments:
     article: Artikkel %{title} on nüüd seotud sinu kasutajakontoga.
+    article_link: Artikkel
     already_exists: Artikkel on juba seotud selle kasutajakontoga!
     title_too_large: Pealkiri ei tohi olla pikem kui 255 tähemärki
     assignees: Seotud kasutajakonto(d)
@@ -185,22 +193,27 @@ et:
     add_available_submit: Lisa artikleid
     assign_self: Seo artikkel oma kontoga
     assign_tooltip: Kontoga seotav artikkel on artikkel, mida kavatsed luua või täiendada.
+    bibliography: Kasutatud allikad
     clone: Klooni
     confirm_add_available: Kas oled kindel, et soovid lisada artikli %{title}?
     confirm_addition: Kas oled kindel, et soovid siduda artikli %{title} kasutajaga
       %{username}?
     confirm_deletion: Kas oled kindel, et tahad artikli sidumise tühistada?
+    editors: Määratud kasutajale
     label: Seo
     loading: Laadin seotud artikleid...
     none_short: Seotud artiklid puuduvad
     none: Kursusel osalejate kontodega ei ole seotud ühtegi artiklit.
     no_available: Valitavad artiklid puuduvad.
+    peer_review_count_tooltip: Vali hindamiseks %{total} artiklit.
+    peer_review_link: Vastastikune hindamine
     remove: Eemalda
     reviewers: Retsensendid
     review_other: Määra retsensent
     review_self: Retsenseeri artiklit
     review_tooltip: Siin kuvatakse artikleid, mida kavatsed retsenseerida või mille
       kohta tagasisidet anda.
+    sandbox_draft_link: Mustand liivakastis
     select: Vali
   blocks:
     milestones:
@@ -239,4 +252,71 @@ et:
     data_courses_info: Iga kursuse/programmi peamised mõõdikud
     data_articles: Muudetud leheküljed
     data_revisions: Muudatuste andmed
+    data_articles_info: Andmed kõigi kampaania raames muudetud jälgitavate lehekülgede
+      kohta
+    data_revisions_info: Andmed kõigi kampaania raames tehtud jälgitavate muudatuste
+      kohta
+    data_instructors: Õppejõud
+    data_instructors_info: Õppejõudude/juhendajate ja nende kursuste/programmide loend
+    data_editors_by_course: Toimetajad kursuse kaupa
+    data_editors_by_course_info: Registreerunud toimetajate ja nende kursuste/programmide
+      loend
+    data_editor_usernames: Toimetajate kasutajanimed
+    data_editor_usernames_info: Toimetajate kasutajanimede loend, iga nimi eraldi
+      real
+    default_course_type: Kursuse vaikeliik
+    default_passcode: Vaikepääsukood
+    default_passcode_explanation: 'Vaikimisi peaks kõik kampaaniasse kuuluvad uued
+      programmid olema:'
+    description: Kirjeldus
+    delete_campaign: Kustuta kampaania
+    disable_account_requests: Deaktiveeri kontotaotlused
+    enable_account_requests: Aktiveeri kontotaotlused
+    no_alerts: Kampaaniaga seotud teated puuduvad
+    no_passcode: pääsukood puudub
+    none: Puudub
+    organizers: Korraldajad
+    organizer_added: '%{user} on määratud kampaania "%{title}" korraldajaks'
+    organizer_removed: '%{user} on eemaldatud kampaania "%{title}" korraldajate hulgast'
+    program_template: Programmi mall
+    program_template_tooltip: Kui korraldaja loob kampaania jaoks uue programmi, kopeeritakse
+      kastis olev tekst programmi lehele selle kirjeldusse.
+    random_passcode: Juhuslik pääsukood
+    requested_accounts: Taotletavad kontod
+    title: Pealkiri
+    slug: Kood
+    use_start_end_dates: Kasuta algus- ja lõppkuupäeva
+  categories:
+    add_category: Lisa kategooria
+    add_psid: Lisa PetScani PSID
+    add_template: Lisa mall
+    add_this_category: Lisa valitud kategooria
+    add_this_psid: Lisa valitud PSID
+    add_this_template: Lisa valitud mall
+    import_articles_description: Kategooriasse kuuluvate artiklite loendit uuendatakse
+      perioodiliselt ning loendi lisamise järel võib kuluda veidi aega, enne kui see
+      täitub.
+    confirm_category_addition: Kas oled kindel, et soovid jälgida kaastöid kategoorias
+      "%{name}"?
+    confirm_psid_addition: Kas oled kindel, et soovid jälgida kaastöid PetScani PSID-ga
+      "%{name}"?
+    confirm_template_addition: Kas oled kindel, et soovid jälgida kaastöid malliga
+      "%{name}"?
+    depth: Alamkategooria sügavus
+    articles_count: Artiklite arv
+    name: Nimi
+    category_name: Kategooria nimi
+    psid_name: PSID
+    template_name: Malli nimi
+    none: Jälgitavad kategooriad puuduvad.
+    remove: Eemalda
+    tracked_categories: Jälgitavad kategooriad, PSID-d ja mallid
+    timestamp: Viimati uuendatud
+  chat:
+    label: Vestle
+  courses:
+    school_system: Õppesüsteem
+    creator:
+      end_date_placeholder: AAAA-KK-PP
+      start_date_placeholder: AAAA-KK-PP
 ...

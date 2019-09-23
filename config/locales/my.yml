@@ -8,6 +8,7 @@
 my:
   application:
     cancel: မလုပ်တော့ပါ
+    cookie_consent_see_more: ပိုမိုကြည့်ရန်။
     create_accounts: ဝီကီပီးဒီးယား ပိုင်ရှင်
     documentation: မှတ်တမ်းမှတ်ရာများ
     error: အမှားအယွင်းတစ်ခုရှိနေပါသည်။

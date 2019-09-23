@@ -14,6 +14,8 @@ da:
         format: '%n %u'
   application:
     cancel: Annullér
+    cookie_consent_acknowledge: Jeg forstår
+    cookie_consent_see_more: Se mere.
     create_accounts: Opret Wikipedia konti
     dashboard: Wiki Ed betjeningspanel
     documentation: Dokumentation

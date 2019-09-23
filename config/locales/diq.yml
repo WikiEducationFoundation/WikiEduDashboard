@@ -21,6 +21,7 @@ diq:
           quadrillion: Q
   application:
     cancel: Bıtexelne
+    cookie_consent_acknowledge: Ez fehm kenan
     dashboard: Texteyê cerrebnayışê Wiki Edi
     documentation: Dokumantasyon
     error: 'Yew xeta biye:'

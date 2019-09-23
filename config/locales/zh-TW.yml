@@ -31,6 +31,9 @@ zh-TW:
     number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
     cancel: 取消
+    cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
+    cookie_consent_acknowledge: 我了解
+    cookie_consent_see_more: 查看更多。
     create_accounts: 創建維基百科帳號
     dashboard: 維基教育控制面板
     documentation: 文件
@@ -1080,5 +1083,5 @@ zh-TW:
     due: 截止 %{due_date}
     assignment_status: 培訓分配（%{status}）
   multi_wiki:
-    selector_placeholder: 選擇 wiki
+    selector_placeholder: 開屬輸入一個 wiki 網域
 ...

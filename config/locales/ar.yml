@@ -32,6 +32,10 @@ ar:
       المدخلات.
   application:
     cancel: ألغ
+    cookie_consent: يستخدم هذا الموقع ملفات تعريف الارتباط للحفاظ على تسجيل الدخول
+      وتخزين المعلومات المتعلقة بحساب ويكيبيديا الخاص بك.
+    cookie_consent_acknowledge: أفهم
+    cookie_consent_see_more: شاهد المزيد.
     create_accounts: إنشاء حسابات ويكيبيديا
     dashboard: لوحة ويكي إد
     documentation: التوثيق

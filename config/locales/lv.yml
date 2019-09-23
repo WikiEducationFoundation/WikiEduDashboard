@@ -7,6 +7,8 @@
 lv:
   application:
     cancel: Atcelt
+    cookie_consent_acknowledge: Es saprotu
+    cookie_consent_see_more: Skatīt vairāk
     create_accounts: Izveidot Vikipēdijas kontus
     dashboard: Wiki Ed panelis
     documentation: Dokumentācija

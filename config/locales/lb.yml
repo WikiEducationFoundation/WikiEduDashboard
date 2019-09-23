@@ -7,6 +7,8 @@
 lb:
   application:
     cancel: Ofbriechen
+    cookie_consent_acknowledge: Ech verstinn
+    cookie_consent_see_more: Fir méi ze wëssen.
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
     documentation: Dokumentatioun
     error: 'Et gouf e Feeler:'

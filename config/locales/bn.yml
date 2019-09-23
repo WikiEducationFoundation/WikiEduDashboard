@@ -16,6 +16,8 @@
 bn:
   application:
     cancel: বাতিল
+    cookie_consent_acknowledge: আমি বুঝেছি
+    cookie_consent_see_more: আরো দেখুন।
     dashboard: উইকি ইডি ড্যাশবোর্ড
     documentation: নথিপত্র
     error: 'একটি ভুল অাছে:'
@@ -351,5 +353,5 @@ bn:
     more_results: আরও ফলাফল
     submit: জমা দিন
   multi_wiki:
-    selector_placeholder: একটি উইকিডোমেন লিখা শুরু করুন
+    selector_placeholder: একটি উইকি ডোমেইন লিখা শুরু করুন
 ...

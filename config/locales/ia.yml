@@ -10,6 +10,10 @@ ia:
       de navigatores incrementa e decrementa le entrata.
   application:
     cancel: Cancellar
+    cookie_consent: Iste sito usa cookies pro mantener tu session aperte, e immagazina
+      informationes associate a tu conto de Wikipedia.
+    cookie_consent_acknowledge: Io comprende
+    cookie_consent_see_more: Vider plus.
     error: 'Un error ha occurrite:'
     explore: Explorar
     field_required: Iste campo es obligatori

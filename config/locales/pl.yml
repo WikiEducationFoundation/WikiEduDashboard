@@ -33,6 +33,10 @@ pl:
       zwiększają i zmniejszają wprowadzoną wartość.
   application:
     cancel: Anuluj
+    cookie_consent: Ta strona używa ciasteczek aby utrzymać twoją sesję logowania
+      i przechowuje informacje związane z twoim kontem w Wikipedii.
+    cookie_consent_acknowledge: Rozumiem
+    cookie_consent_see_more: Zobacz więcej.
     create_accounts: Stwórz konta Wikipedia
     dashboard: Centrum programów i wydarzeń
     documentation: Dokumentacja
