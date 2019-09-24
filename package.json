@@ -9,7 +9,7 @@
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.6.0",
+    "@babel/register": "^7.6.2",
     "@bower_components/jquery": "jquery/jquery-dist#3.4.1",
     "@tinymce/tinymce-react": "^3.3.2",
     "autosize": "^4.0.2",
