@@ -165,7 +165,8 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       expect(page).to have_content User.last.username
       click_link 'Join'
-      expect(page).to have_content 'My Articles'
+      expect(page).to have_content 'How to find an article'
+      expect(page).to have_content 'Evaluating articles and sources'
       click_link 'Students'
       expect(find('tbody', match: :first)).to have_content User.last.username
       # Now try enrolling again, which shouldn't cause any errors
