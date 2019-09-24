@@ -1,7 +1,7 @@
 export default assignment => ([
   {
     title: 'Complete your bibliography',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
+    content: 'Compile a list of reliable and verifiable secondary sources for the subject you\'ll be contributing to.',
     status: 'not_yet_started',
     trainings: [
       {
@@ -17,7 +17,7 @@ export default assignment => ([
   },
   {
     title: 'Create in the sandbox',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
+    content: 'In your designated sandbox, begin to sketch out your contribution.',
     status: 'in_progress',
     trainings: [
       {
@@ -33,7 +33,7 @@ export default assignment => ([
   },
   {
     title: 'Expand your draft',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
+    content: 'Continue to build your contribution and prepare to move it into the article main space.',
     status: 'ready_for_review',
     trainings: [
       {
@@ -49,7 +49,7 @@ export default assignment => ([
   },
   {
     title: 'Move your work',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam felis mi, aliquam ac dui non, gravida convallis massa.',
+    content: 'It\'s time to move your contribution into the article main space and make your work live!',
     status: 'ready_for_mainspace',
     trainings: [
       {
