@@ -20,7 +20,7 @@ class UpdateCourseStats
     @start_time = Time.zone.now
     fetch_data
     update_categories if @course.needs_update
-    update_article_stats if @course.needs_update
+    update_article_status if @course.needs_update
     update_caches
     @course.update(needs_update: false)
     @end_time = Time.zone.now
@@ -47,7 +47,7 @@ class UpdateCourseStats
     log_update_progress :categories_updated
   end
 
-  def update_article_stats
+  def update_article_status
     ArticleStatusManager.update_article_status_for_course(@course)
     log_update_progress :article_status_updated
   end

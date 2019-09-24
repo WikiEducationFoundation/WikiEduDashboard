@@ -81,19 +81,23 @@ class ArticlesCourses < ApplicationRecord
 
   def self.update_from_course(course)
     mainspace_revisions = get_mainspace_revisions(course.revisions)
-    course_article_ids = course.articles.pluck(:id)
+    course_article_ids = course.articles.where(wiki: course.wikis).pluck(:id)
     revision_article_ids = mainspace_revisions.pluck(:article_id).uniq
 
     # Remove all the ArticlesCourses that do not correspond to course revisions.
     # That may happen if the course dates changed, so some revisions are no
     # longer part of the course.
-    course.articles_courses.where.not(article_id: revision_article_ids).destroy_all
+    # Also remove records for articles that aren't on a tracked wiki.
+    tracked_article_ids = revision_article_ids & course_article_ids
+    course.articles_courses.where.not(article_id: tracked_article_ids).destroy_all
 
     # Add new ArticlesCourses
     ActiveRecord::Base.transaction do
       revision_article_ids.each do |article_id|
         next if course_article_ids.include?(article_id)
-        course.articles << Article.find(article_id)
+        article = Article.find(article_id)
+        next unless course.wikis.include?(article.wiki)
+        course.articles << article
       end
     end
   end
