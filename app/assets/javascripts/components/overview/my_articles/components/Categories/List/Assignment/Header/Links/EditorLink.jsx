@@ -9,7 +9,7 @@ export const EditorLink = ({ editors }) => {
 
 EditorLink.propTypes = {
   // props
-  editors: PropTypes.array.isRequired,
+  editors: PropTypes.array,
 };
 
 export default EditorLink;

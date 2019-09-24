@@ -13,7 +13,7 @@ export const Header = ({ message, sub, title }) => (
 
 Header.propTypes = {
   // props
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   sub: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

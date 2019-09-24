@@ -31,7 +31,7 @@ export const Links = ({ articleTitle, assignment, current_user }) => {
 
   if (assignment.role === REVIEWING_ROLE) {
     actions.push(
-      <PeerReviewLink assignment={assignment} current_user={current_user} />
+      <PeerReviewLink key={`review-${id}`} assignment={assignment} current_user={current_user} />
     );
   }
 

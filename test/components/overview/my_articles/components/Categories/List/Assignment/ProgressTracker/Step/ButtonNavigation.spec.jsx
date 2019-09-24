@@ -1,0 +1,44 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+import '../../../../../../../../../testHelper';
+
+import ButtonNavigation from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/Step/ButtonNavigation';
+
+describe('ButtonNavigation', () => {
+  const props = {
+    active: true,
+    assignment: {},
+    courseSlug: 'course/slug',
+    index: 1,
+    updateAssignmentStatus: jest.fn(),
+    fetchAssignments: jest.fn()
+  };
+
+  it('should show the Mark Complete button and Go Back a Step button', () => {
+    const component = shallow(<ButtonNavigation {...props} />);
+    const buttons = component.find('button');
+
+    expect(buttons.length).to.equal(2);
+    expect(buttons.at(0).text()).to.include('Go Back a Step');
+    expect(buttons.at(1).text()).to.include('Mark Complete');
+  });
+
+  it('should not show the Go Back a Step button if it is the first step', () => {
+    const component = shallow(<ButtonNavigation {...props} index={0} />);
+    const buttons = component.find('button');
+
+    expect(buttons.length).to.equal(1);
+    expect(buttons.text()).to.include('Mark Complete');
+  });
+
+  it('should disable all buttons if the step is not active', () => {
+    const component = shallow(<ButtonNavigation {...props} active={false} />);
+    const buttons = component.find('button');
+
+    expect(buttons.length).to.equal(2);
+    expect(buttons.at(0).text()).to.include('Go Back a Step');
+    expect(buttons.at(0).props().disabled).to.equal(true);
+    expect(buttons.at(1).text()).to.include('Mark Complete');
+    expect(buttons.at(1).props().disabled).to.equal(true);
+  });
+});

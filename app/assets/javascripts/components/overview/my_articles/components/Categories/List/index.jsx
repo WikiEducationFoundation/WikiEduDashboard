@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import MyAssignment from '../../../containers/Assignment';
+import Assignment from '../../../containers/Assignment';
 import Header from './Header';
 
 // constants
@@ -11,7 +11,7 @@ import { REVIEWING_ROLE } from '../../../../../../constants/assignments';
 export const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
   const elements = assignments.map((assignment) => {
     return (
-      <MyAssignment
+      <Assignment
         assignment={assignment}
         course={course}
         current_user={current_user}

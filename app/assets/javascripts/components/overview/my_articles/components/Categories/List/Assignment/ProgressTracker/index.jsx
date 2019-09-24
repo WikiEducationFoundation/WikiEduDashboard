@@ -23,7 +23,7 @@ export class ProgressTracker extends React.Component {
   render() {
     const {
       assignment, course,
-      updateAssignmentStatus, fetchAssignments
+      fetchAssignments, updateAssignmentStatus
     } = this.props;
     const { show } = this.state;
 
@@ -34,17 +34,17 @@ export class ProgressTracker extends React.Component {
         courseSlug={course.slug}
         index={index}
         key={index}
-        updateAssignmentStatus={updateAssignmentStatus}
         fetchAssignments={fetchAssignments}
+        updateAssignmentStatus={updateAssignmentStatus}
       />
     ));
 
     return (
       <>
-        <section className={`flow${show ? '' : ' hidden'}`}>
-          { steps }
+        <section className="flow">
+          { show ? steps : null }
         </section>
-        <nav className="toggle-wizard" onClick={this.toggle}>
+        <nav className="toggle-progress-tracker" onClick={this.toggle}>
           <NavigationElements assignment={assignment} show={show} />
         </nav>
       </>
@@ -58,8 +58,8 @@ ProgressTracker.propTypes = {
   course: PropTypes.object.isRequired,
 
   // actions
+  fetchAssignments: PropTypes.func.isRequired,
   updateAssignmentStatus: PropTypes.func.isRequired,
-  fetchAssignments: PropTypes.func.isRequired
 };
 
 export default ProgressTracker;
