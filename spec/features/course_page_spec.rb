@@ -57,6 +57,7 @@ describe 'the course page', type: :feature, js: true do
                     description: 'This is a great course',
                     flags: update_logs)
     campaign = create(:campaign)
+    course.wikis << es_wiktionary
     course.campaigns << campaign
 
     (1..user_count).each do |i|
