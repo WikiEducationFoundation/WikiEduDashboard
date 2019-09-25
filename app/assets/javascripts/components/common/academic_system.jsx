@@ -24,7 +24,7 @@ const AcademicSystem = createReactClass({
     const academic_system = [];
     for (i = 0; i < options.length; i += 1) {
       academic_system.push(
-        <label className="radio-inline">
+        <label className="radio-inline" key={options[i]}>
           <input
             type="radio"
             name="academic_system"
