@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import ListItem from './ListItem';
 
 // helpers
-import content from '../../../../../../step_processes/assignments';
+import processes from '../../../../../../step_processes';
 
 export const Navigation = ({ assignment, show }) => {
-  const lis = content(assignment).map((props, i) => (
+  console.log(assignment);
+  const lis = processes(assignment).map((props, i) => (
     <ListItem
       {...props}
       assignment={assignment}

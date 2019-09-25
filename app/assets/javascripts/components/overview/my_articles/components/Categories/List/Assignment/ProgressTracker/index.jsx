@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import assignmentContent from '../../../../../step_processes/assignments';
+import processes from '../../../../../step_processes';
 
 // components
 import Step from './Step';
@@ -27,7 +27,7 @@ export class ProgressTracker extends React.Component {
     } = this.props;
     const { show } = this.state;
 
-    const steps = assignmentContent(assignment).map((content, index) => (
+    const steps = processes(assignment).map((content, index) => (
       <Step
         {...content}
         assignment={assignment}
