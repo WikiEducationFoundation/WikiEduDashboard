@@ -40,14 +40,19 @@ export class ProgressTracker extends React.Component {
     ));
 
     return (
-      <>
+      <div className="progress-tracker">
+        <span className="screen-reader">Click navigation below to hide or show progress tracker</span>
+        <nav
+          aria-label="Click to hide or show progress tracker"
+          className="toggle-progress-tracker"
+          onClick={this.toggle}
+        >
+          <NavigationElements assignment={assignment} show={show} />
+        </nav>
         <section className="flow">
           { show ? steps : null }
         </section>
-        <nav className="toggle-progress-tracker" onClick={this.toggle}>
-          <NavigationElements assignment={assignment} show={show} />
-        </nav>
-      </>
+      </div>
     );
   }
 }

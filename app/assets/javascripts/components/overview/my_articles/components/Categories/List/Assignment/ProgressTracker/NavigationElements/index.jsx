@@ -22,8 +22,8 @@ export const Navigation = ({ assignment, show }) => {
       { lis }
       {
         show
-          ? <li aria-label="Close Progress Tracker" className="icon icon-arrow-reverse table-expandable-indicator" />
-          : <li aria-label="Show Progress Tracker" className="icon icon-arrow table-expandable-indicator" />
+          ? <li className="icon icon-arrow-reverse table-expandable-indicator" />
+          : <li className="icon icon-arrow table-expandable-indicator" />
       }
     </ul>
   );
