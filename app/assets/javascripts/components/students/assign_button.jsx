@@ -61,7 +61,7 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
 const ArticleLink = ({ articleUrl, title }) => {
   if (!articleUrl) return (<span>{ title }</span>);
   return (
-    <a href={articleUrl} target="_blank" className="inline" aria-label="View on Wikipedia">{title}</a>
+    <a href={articleUrl} target="_blank" className="inline" aria-label={`View ${title} on Wikipedia`}>{title}</a>
   );
 };
 
