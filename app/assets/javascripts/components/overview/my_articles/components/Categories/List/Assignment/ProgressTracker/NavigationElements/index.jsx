@@ -8,7 +8,6 @@ import ListItem from './ListItem';
 import processes from '../../../../../../step_processes';
 
 export const Navigation = ({ assignment, show }) => {
-  console.log(assignment);
   const lis = processes(assignment).map((props, i) => (
     <ListItem
       {...props}
