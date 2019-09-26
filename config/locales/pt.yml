@@ -32,6 +32,10 @@ pt:
       aumentam ou reduzem a entrada.
   application:
     cancel: Cancelar
+    cookie_consent: Este ''site'' usa ''cookies'' para manter a sua sessão iniciada
+      e armazena informações relacionadas com a sua conta da Wikipédia.
+    cookie_consent_acknowledge: Compreendo
+    cookie_consent_see_more: Ver mais.
     create_accounts: Criar contas na Wikipédia
     dashboard: Painel da Wiki Educação
     documentation: Documentação

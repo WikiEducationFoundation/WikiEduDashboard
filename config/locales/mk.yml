@@ -8,6 +8,7 @@
 mk:
   application:
     cancel: Откажи
+    cookie_consent_see_more: Погледај уште.
     dashboard: Управувачница на Образовниот програм
     documentation: Документација
     error: 'Се појави грешка:'

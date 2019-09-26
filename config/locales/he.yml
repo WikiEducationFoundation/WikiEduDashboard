@@ -33,6 +33,7 @@ he:
           quadrillion: ק'
   application:
     cancel: ביטול
+    cookie_consent_acknowledge: הבנתי
     create_accounts: יצירת חשבונות בוויקיפדיה
     dashboard: לוח בקרה של מיזמי ויקי
     documentation: תיעוד

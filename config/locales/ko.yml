@@ -22,6 +22,8 @@ ko:
     number_field: 이것은 번호 필드입니다. 대부분의 브라우저에서 렌더링되는 버튼들은 입력값을 증가·감소시킵니다.
   application:
     cancel: 취소
+    cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
+    cookie_consent_acknowledge: 이해합니다
     create_accounts: 위키백과 계정 만들기
     dashboard: 위키 에듀 대시보드
     documentation: 설명서
@@ -655,5 +657,5 @@ ko:
     started: 시작됨
     not_started: 시작되지 않음
   multi_wiki:
-    selector_placeholder: 위키 선택
+    selector_placeholder: 위키 도메인 입력 시작
 ...
