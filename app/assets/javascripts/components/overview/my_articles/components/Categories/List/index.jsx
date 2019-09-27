@@ -29,10 +29,10 @@ export const List = ({ assignments, course, current_user, title, wikidataLabels 
   const message = I18n.t('assignments.peer_review_count_tooltip', { total });
 
   return (
-    <section>
+    <>
       <Header key={title} message={message} title={title} sub={sub} />
       {elements}
-    </section>
+    </>
   );
 };
 
