@@ -52,7 +52,7 @@ const CampaignOresPlot = createReactClass({
             <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={400} articleData={this.state.articleData} />
             <p>
               This graph visualizes, in aggregate, how much articles developed from
-              when campaign participants first edited them until now. The <em>Structural Completeness </em>
+              before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em>
               rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
               that estimates an article&apos;s quality rating based on the amount of
               prose, the number of wikilinks, images and section headers, and other features.
