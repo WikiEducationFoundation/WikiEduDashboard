@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import assignmentPropTypes from '../utils/assignmentPropTypes';
 
 // components
 import AssignCell from '../../../students/assign_cell.jsx';
@@ -53,13 +54,23 @@ export const Header = ({
 
 Header.propTypes = {
   // props
-  assigned: PropTypes.array.isRequired,
+  assigned: PropTypes.arrayOf(
+    PropTypes.shape(assignmentPropTypes)
+  ).isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
-  reviewable: PropTypes.array.isRequired,
-  reviewing: PropTypes.array.isRequired,
-  unassigned: PropTypes.array.isRequired,
-  wikidataLabels: PropTypes.object.isRequired,
+  reviewable: PropTypes.arrayOf(
+    PropTypes.shape(assignmentPropTypes)
+  ).isRequired,
+  reviewing: PropTypes.arrayOf(
+    PropTypes.shape(assignmentPropTypes)
+  ).isRequired,
+  unassigned: PropTypes.arrayOf(
+    PropTypes.shape(assignmentPropTypes)
+  ).isRequired,
+  wikidataLabels: PropTypes.shape({
+    labels: PropTypes.object
+  }).isRequired,
 };
 
 export default Header;

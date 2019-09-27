@@ -22,7 +22,7 @@ export const AssignedToLink = ({ name, members }) => {
 AssignedToLink.propTypes = {
   // props
   name: PropTypes.string.isRequired,
-  members: PropTypes.array
+  members: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default AssignedToLink;

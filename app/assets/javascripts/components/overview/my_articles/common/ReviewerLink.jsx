@@ -10,7 +10,9 @@ export const ReviewerLink = ({ reviewers }) => {
 
 ReviewerLink.propTypes = {
   // props
-  reviewers: PropTypes.array,
+  reviewers: PropTypes.arrayOf(
+    PropTypes.string
+  ),
 };
 
 export default ReviewerLink;
