@@ -67,7 +67,7 @@
       %tbody.list
         - if articles.empty?
           %tr.disabled
-            %td{:class => "text-center", :colSpan => 3}
+            %td{:class => "text-center", :colSpan => 7}
               %span= I18n.t('articles.none')
         - else
           - articles.each do |ac|
