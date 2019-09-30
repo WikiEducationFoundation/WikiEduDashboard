@@ -110,7 +110,7 @@
     "react-router-dom": "5.0.0",
     "react-select": "^3.0.5",
     "react-switch": "^5.0.1",
-    "react-test-renderer": "^16.9.0",
+    "react-test-renderer": "^16.10.1",
     "react-transition-group": "4.3.0",
     "react-typeahead": "^2.0.0-alpha.8",
     "redux": "^4.0.4",
