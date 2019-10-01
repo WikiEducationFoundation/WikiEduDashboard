@@ -41,7 +41,12 @@ export class ProgressTracker extends React.Component {
 
     return (
       <div className="progress-tracker">
-        <span className="screen-reader">Click navigation below to hide or show progress tracker</span>
+        <button
+          className="screen-reader"
+          onClick={this.toggle}
+        >
+            Click to hide or show progress tracker
+        </button>
         <nav
           aria-label="Click to hide or show progress tracker"
           className="toggle-progress-tracker"
