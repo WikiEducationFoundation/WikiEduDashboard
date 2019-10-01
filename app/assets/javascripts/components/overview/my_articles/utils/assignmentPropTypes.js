@@ -15,6 +15,6 @@ export default {
   reviewers: PropTypes.arrayOf(PropTypes.string),
   role: PropTypes.number.isRequired,
   sandboxUrl: PropTypes.string.isRequired,
-  user_id: PropTypes.number.isRequired,
-  username: PropTypes.string.isRequired
+  user_id: PropTypes.number,
+  username: PropTypes.string
 };
