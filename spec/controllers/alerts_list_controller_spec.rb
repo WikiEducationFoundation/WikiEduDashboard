@@ -7,6 +7,7 @@ require 'factory_bot_rails'
 describe AlertsListController, type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
+  let(:course) { create(:course) }
 
   describe '#index' do
     let!(:alert) { create(:alert) }
@@ -32,10 +33,20 @@ describe AlertsListController, type: :request do
 
       context 'filtering' do
         let!(:new_user) { create(:user, username: 'username', id: 10001) }
-        let!(:onboarding_alert) { create(:onboarding_alert, user_id: new_user.id) }
+        let!(:onboarding_alert) { create(:onboarding_alert, user: new_user) }
 
         it 'filters the alerts by user id' do
           get "/alerts_list?user_id=#{new_user.id}"
+
+          expect(response.status).to eq(200)
+          expect(response.body).to include(onboarding_alert.type)
+          expect(response.body).not_to include(alert.type)
+        end
+
+        it 'shows onboarding alerts for instructors of a course' do
+          create(:courses_user, course: course, user: new_user,
+                                role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          get "/alerts_list?course_id=#{course.id}"
 
           expect(response.status).to eq(200)
           expect(response.body).to include(onboarding_alert.type)
