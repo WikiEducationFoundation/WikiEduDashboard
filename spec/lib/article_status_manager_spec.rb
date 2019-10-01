@@ -112,6 +112,14 @@ describe ArticleStatusManager do
       end
     end
 
+    it 'handles SQL errors gracefully' do
+      expect_any_instance_of(Article).to receive(:update!).and_raise(ActiveRecord::StatementInvalid)
+      VCR.use_cassette 'article_status_manager/errors' do
+        article = create(:article, title: 'Selfeeee', mw_page_id: 38956275)
+        described_class.new.update_status([article])
+      end
+    end
+
     it 'handles cases of space vs. underscore' do
       VCR.use_cassette 'article_status_manager/main' do
         # This page was first moved from a sandbox to "Yōji Sakate", then
