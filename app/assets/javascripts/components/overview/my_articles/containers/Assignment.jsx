@@ -26,7 +26,7 @@ export class Assignment extends React.Component {
     } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
 
     const isComplete = this.isComplete();
-    const isProduction = process.env.NODE_ENV === 'production'; // TODO: Remove when ready
+    const isProduction = Features.environment === 'production'; // TODO: Remove when ready
 
     const props = { ...this.props, article, articleTitle: title, isComplete, isProduction };
     const progressTracker = isComplete
