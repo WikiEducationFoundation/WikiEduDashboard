@@ -13,7 +13,7 @@ describe('RemoveButton', () => {
   const component = shallow(<RemoveButton {...props} />);
 
   it('renders the button', () => {
-    expect(component.text()).toEqual('Remove');
+    expect(component).toMatchSnapshot();
   });
 
   it('calls the unassign function when clicked', () => {

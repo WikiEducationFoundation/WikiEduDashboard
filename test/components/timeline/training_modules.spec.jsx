@@ -11,7 +11,7 @@ describe('TrainingModules', () => {
 
     describe('Initial State', () => {
       it('should map array block_modules with their ids', () => {
-        const state = TrainingModulesM.instance().getInitialState()
+        const state = TrainingModulesM.instance().getInitialState();
         expect(state).toBeInstanceOf(Object);
         expect(state).toHaveProperty('value');
       });

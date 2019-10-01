@@ -13,8 +13,9 @@ describe('PeerReviewLink', () => {
       />
     );
 
+    expect(component).toMatchSnapshot();
+
     const link = component.find('a');
-    expect(link.length).toEqual(1);
     expect(link.props().href).toContain('url/username');
   });
 });

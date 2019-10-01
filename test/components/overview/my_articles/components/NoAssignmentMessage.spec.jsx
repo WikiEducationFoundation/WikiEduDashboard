@@ -7,7 +7,7 @@ import NoAssignmentMessage from '../../../../../app/assets/javascripts/component
 describe('NoAssignmentMessage', () => {
   const component = shallow(<NoAssignmentMessage />);
   it('should render', () => {
-    expect(component.find('.no-assignment-message'));
+    expect(component).toMatchSnapshot();
   });
   it('should include a link on how to find an article', () => {
     expect(component.find('a').contains('How to find an article')).toBeTruthy;

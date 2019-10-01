@@ -10,6 +10,8 @@ describe('PageViews', () => {
       article: { language: 'language', project: 'project', title: 'title' }
     };
     const component = shallow(<PageViews {...props} />);
+    expect(component).toMatchSnapshot();
+
     const link = component.find('a');
     const href = link.props().href;
     expect(href).toContain('language');

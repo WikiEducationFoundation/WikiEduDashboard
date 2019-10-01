@@ -7,8 +7,6 @@ import Tooltip from '../../../../../../../../app/assets/javascripts/components/o
 describe('Tooltip', () => {
   it('should render', () => {
     const component = shallow(<Tooltip message="message" text="text" />);
-
-    expect(component.text()).toContain('text');
-    expect(component.text()).toContain('message');
+    expect(component).toMatchSnapshot();
   });
 });

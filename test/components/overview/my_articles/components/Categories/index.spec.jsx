@@ -20,9 +20,7 @@ describe('Categories', () => {
       ]
     };
     const component = shallow(<Categories {...creatingProps} />);
-
-    const list = component.find('List');
-    expect(list.props().title).toEqual('Articles I will create');
+    expect(component).toMatchSnapshot();
   });
 
   it('should show articles the user is improving', () => {
@@ -33,9 +31,7 @@ describe('Categories', () => {
       ]
     };
     const component = shallow(<Categories {...creatingProps} />);
-
-    const list = component.find('List');
-    expect(list.props().title).toEqual('Articles I\'m updating');
+    expect(component).toMatchSnapshot();
   });
 
   it('should show articles the user is reviewing', () => {
@@ -46,8 +42,6 @@ describe('Categories', () => {
       ]
     };
     const component = shallow(<Categories {...creatingProps} />);
-
-    const list = component.find('List');
-    expect(list.props().title).toEqual('Articles I\'m peer reviewing');
+    expect(component).toMatchSnapshot();
   });
 });

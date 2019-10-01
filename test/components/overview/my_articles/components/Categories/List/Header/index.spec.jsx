@@ -9,15 +9,11 @@ describe('Header', () => {
     const component = shallow(
       <Header message="message" sub="subtext" title="title" />
     );
-
-    expect(component.text()).toContain('title');
-    expect(component.find('Tooltip').length).toEqual(1);
+    expect(component).toMatchSnapshot();
   });
 
   it('renders just the title if there is no message for the tooltip', () => {
     const component = shallow(<Header title="title" />);
-
-    expect(component.text()).toContain('title');
-    expect(component.find('Tooltip').length).not.toEqual(1);
+    expect(component).toMatchSnapshot();
   });
 });

@@ -7,6 +7,6 @@ import CompletedAssignment from '../../../../../../../../app/assets/javascripts/
 describe('CompletedAssignment', () => {
   it('should render', () => {
     const component = shallow(<CompletedAssignment />);
-    expect(component.text()).toContain('You\'ve marked your article as complete.');
+    expect(component).toMatchSnapshot();
   });
 });

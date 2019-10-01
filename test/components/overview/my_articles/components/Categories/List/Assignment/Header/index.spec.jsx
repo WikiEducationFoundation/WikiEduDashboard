@@ -21,7 +21,6 @@ describe('Header', () => {
 
   it('displays the links and actions', () => {
     const component = shallow(<Header {...props} />);
-    expect(component.find('Links').length).toEqual(1);
-    expect(component.find('Actions').length).toEqual(1);
+    expect(component).toMatchSnapshot();
   });
 });

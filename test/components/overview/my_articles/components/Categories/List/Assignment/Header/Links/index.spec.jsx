@@ -13,10 +13,7 @@ describe('Links', () => {
 
   it('should show the default links', () => {
     const component = shallow(<Links {...props} />);
-
-    expect(component.find('BibliographyLink').length).toEqual(1);
-    expect(component.find('SandboxLink').length).toEqual(1);
-    expect(component.find('a[href="url"]').length).toEqual(1);
+    expect(component).toMatchSnapshot();
   });
 
   it('should show the peer review link if the assignment role is set to reviewing', () => {
