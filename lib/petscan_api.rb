@@ -5,13 +5,15 @@ class PetScanApi
     title_data = Oj.load(response.body)
     title_data
   rescue StandardError => e
-    raise e unless Errno::EHOSTUNREACH.include?(e.class)
+    raise e unless typical_errors.include?(e.class)
     return {}
   end
 
   def page_titles_for_psid(psid)
     titles = []
     titles_response = get_titles(psid)
+    return titles if titles_response.empty?
+
     page_data = titles_response['*'][0]['a']['*']
     page_data.each { |page| titles << page['title'] }
     titles
@@ -30,5 +32,9 @@ class PetScanApi
     conn = Faraday.new(url: 'https://petscan.wmflabs.org')
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
+  end
+
+  def typical_errors
+    [Errno::EHOSTUNREACH]
   end
 end
