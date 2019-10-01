@@ -12,8 +12,8 @@ describe('PageViews', () => {
     const component = shallow(<PageViews {...props} />);
     const link = component.find('a');
     const href = link.props().href;
-    expect(href).to.include('language');
-    expect(href).to.include('project');
-    expect(href).to.include('title');
+    expect(href).toContain('language');
+    expect(href).toContain('project');
+    expect(href).toContain('title');
   });
 });

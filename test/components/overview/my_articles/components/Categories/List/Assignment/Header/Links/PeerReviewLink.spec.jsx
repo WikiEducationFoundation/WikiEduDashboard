@@ -14,7 +14,7 @@ describe('PeerReviewLink', () => {
     );
 
     const link = component.find('a');
-    expect(link.length).to.equal(1);
-    expect(link.props().href).to.include('url/username');
+    expect(link.length).toEqual(1);
+    expect(link.props().href).toContain('url/username');
   });
 });

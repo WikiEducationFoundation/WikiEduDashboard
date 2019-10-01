@@ -51,7 +51,7 @@ describe('ActivityTable', () => {
     );
 
     const loading = TestTable.querySelector('.loading');
-    expect(loading).to.exist;
+    expect(loading).toExist;
   });
 
   it('renders headers', () => {
@@ -68,7 +68,7 @@ describe('ActivityTable', () => {
     );
 
     const headerElements = TestTable.querySelectorAll('th');
-    expect(headerElements.length).to.eq(5);
+    expect(headerElements.length).toEqual(5);
   });
 
   it('renders activities', () => {
@@ -85,7 +85,7 @@ describe('ActivityTable', () => {
     );
 
     const rowElements = TestTable.querySelectorAll('tbody tr');
-    expect(rowElements.length).to.eq(6);
+    expect(rowElements.length).toEqual(6);
   });
 
   it('renders no-activity message when no activities exist', () => {
@@ -103,6 +103,6 @@ describe('ActivityTable', () => {
     );
 
     const firstRow = TestTable.querySelector('tbody tr:first-child');
-    expect(firstRow.textContent).to.eq('No activity');
+    expect(firstRow.textContent).toEqual('No activity');
   });
 });

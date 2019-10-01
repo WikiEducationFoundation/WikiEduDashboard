@@ -18,27 +18,27 @@ describe('Tickets', () => {
       const row = shallow(<TicketsTableRow ticket={ticket} />);
 
       const sender = row.find('.sender');
-      expect(sender.length).to.be.ok;
-      expect(sender.text()).to.eq('email@email.com');
+      expect(sender.length).toBeTruthy;
+      expect(sender.text()).toEqual('email@email.com');
 
       const subject = row.find('.subject');
-      expect(subject.length).to.be.ok;
-      expect(subject.text()).to.eq('');
+      expect(subject.length).toBeTruthy;
+      expect(subject.text()).toEqual('');
 
       const course = row.find('.course-page');
-      expect(course.length).to.be.ok;
-      expect(course.text()).to.eq('Course Unknown');
+      expect(course.length).toBeTruthy;
+      expect(course.text()).toEqual('Course Unknown');
 
       const status = row.find('.status');
-      expect(status.length).to.be.ok;
-      expect(status.text()).to.eq('Open');
+      expect(status.length).toBeTruthy;
+      expect(status.text()).toEqual('Open');
 
       const owner = row.find('.owner');
-      expect(owner.length).to.be.ok;
-      expect(owner.text()).to.eq('');
+      expect(owner.length).toBeTruthy;
+      expect(owner.text()).toEqual('');
 
       const actions = row.find('.actions');
-      expect(actions.length).to.be.ok;
+      expect(actions.length).toBeTruthy;
     });
     it('should display full information when set', () => {
       const ticket = {
@@ -60,26 +60,26 @@ describe('Tickets', () => {
       const row = shallow(<TicketsTableRow ticket={ticket} />);
 
       const sender = row.find('.sender');
-      expect(sender.length).to.be.ok;
-      expect(sender.text()).to.eq(ticket.sender.username);
+      expect(sender.length).toBeTruthy;
+      expect(sender.text()).toEqual(ticket.sender.username);
 
       const subject = row.find('.subject');
-      expect(subject.length).to.be.ok;
-      expect(subject.text()).to.eq(ticket.subject);
+      expect(subject.length).toBeTruthy;
+      expect(subject.text()).toEqual(ticket.subject);
 
       const course = row.find('.course-page');
-      expect(course.length).to.be.ok;
+      expect(course.length).toBeTruthy;
 
       const status = row.find('.status');
-      expect(status.length).to.be.ok;
-      expect(status.text()).to.eq('Open');
+      expect(status.length).toBeTruthy;
+      expect(status.text()).toEqual('Open');
 
       const owner = row.find('.owner');
-      expect(owner.length).to.be.ok;
-      expect(owner.text()).to.eq(ticket.owner.username);
+      expect(owner.length).toBeTruthy;
+      expect(owner.text()).toEqual(ticket.owner.username);
 
       const actions = row.find('.actions');
-      expect(actions.length).to.be.ok;
+      expect(actions.length).toBeTruthy;
     });
   });
 });

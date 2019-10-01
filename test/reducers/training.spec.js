@@ -50,29 +50,29 @@ describe('training reducer', () => {
   deepFreeze(initialStateWithModule);
 
 
-  it('receives modules', () => {
+  test('receives modules', () => {
     const output = training(initialState, { type: RECEIVE_TRAINING_MODULE, data: trainingModuleData });
-    expect(output.currentSlide.slug).to.eq('first-slide');
+    expect(output.currentSlide.slug).toBe('first-slide');
   });
 
-  it('sets the current slide', () => {
+  test('sets the current slide', () => {
     const output = training(initialStateWithModule, { type: SET_CURRENT_SLIDE, data: { slide: 'slide-two' } });
-    expect(output.currentSlide.slug).to.eq('slide-two');
+    expect(output.currentSlide.slug).toBe('slide-two');
   });
 
-  it('sets a slide and module as completed', () => {
+  test('sets a slide and module as completed', () => {
     const output = training(initialStateWithModule, { type: SLIDE_COMPLETED, data: { slide: { id: 102 }, completed: true } });
-    expect(output.enabledSlides).to.include(102);
-    expect(output.completed).to.eq(true);
+    expect(output.enabledSlides).toEqual(expect.arrayContaining([102]));
+    expect(output.completed).toBe(true);
   });
 
-  it('opens and closes the menu', () => {
-    expect(initialStateWithModule.menuIsOpen).to.eq(false);
+  test('opens and closes the menu', () => {
+    expect(initialStateWithModule.menuIsOpen).toBe(false);
     const output = training(initialStateWithModule, { type: MENU_TOGGLE, data: { currently: false } });
-    expect(output.menuIsOpen).to.eq(true);
+    expect(output.menuIsOpen).toBe(true);
 
     deepFreeze(output);
     const outputTwo = training(output, { type: MENU_TOGGLE, data: { currently: true } });
-    expect(outputTwo.menuIsOpen).to.eq(false);
+    expect(outputTwo.menuIsOpen).toBe(false);
   });
 });

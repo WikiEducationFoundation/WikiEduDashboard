@@ -54,12 +54,12 @@ describe('SlideMenu', () => {
 
   it('renders an ol', () => {
     const list = TestMenu.find('ol').first();
-    expect(list.children().length).to.eq(1);
+    expect(list.children().length).toEqual(1);
   });
 
   it('links to a slide', () => {
     const menu = TestMenu.find(SlideMenu).first();
     const aTag = menu.find('a');
-    expect(aTag.prop('href')).to.eq('/training/foo/bar/kittens');
+    expect(aTag.prop('href')).toEqual('/training/foo/bar/kittens');
   });
 });

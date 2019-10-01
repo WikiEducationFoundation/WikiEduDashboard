@@ -13,13 +13,13 @@ describe('RemoveButton', () => {
   const component = shallow(<RemoveButton {...props} />);
 
   it('renders the button', () => {
-    expect(component.text()).to.equal('Remove');
+    expect(component.text()).toEqual('Remove');
   });
 
   it('calls the unassign function when clicked', () => {
     const button = component.find('button');
     button.props().onClick();
 
-    expect(unassign.mock.calls.length).to.equal(1);
+    expect(unassign.mock.calls.length).toEqual(1);
   });
 });

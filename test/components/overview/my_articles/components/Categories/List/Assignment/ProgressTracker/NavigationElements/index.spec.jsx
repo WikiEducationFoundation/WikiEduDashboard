@@ -10,16 +10,16 @@ describe('NavigationElements', () => {
     const component = shallow(<NavigationElements {...props} />);
     const li = component.find('li');
 
-    expect(li.length).to.equal(1);
-    expect(li.props().className).to.include('icon-arrow');
+    expect(li.length).toEqual(1);
+    expect(li.props().className).toContain('icon-arrow');
   });
 
   it('should show the up arrow when `show` is true', () => {
     const component = shallow(<NavigationElements {...props} show={true} />);
     const li = component.find('li');
 
-    expect(li.length).to.equal(1);
-    expect(li.props().className).to.include('icon-arrow-reverse');
+    expect(li.length).toEqual(1);
+    expect(li.props().className).toContain('icon-arrow-reverse');
   });
 
   it('displays list items when given an assignment', () => {
@@ -27,6 +27,6 @@ describe('NavigationElements', () => {
       <NavigationElements assignment={{ sandboxUrl: 'url' }} show={true} />
     );
     const listItem = component.find('ListItem');
-    expect(listItem.length).to.be.ok;
+    expect(listItem.length).toBeTruthy;
   });
 });

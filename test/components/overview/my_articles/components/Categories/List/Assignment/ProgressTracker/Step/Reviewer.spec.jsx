@@ -7,11 +7,11 @@ import Reviewers from '../../../../../../../../../../app/assets/javascripts/comp
 describe('Reviewers', () => {
   it('shows nothing if there are no reviewers', () => {
     const component = shallow(<Reviewers reviewers={null} />);
-    expect(component.children().length).to.equal(0);
+    expect(component.children().length).toEqual(0);
   });
 
   it('renders if there are reviewers', () => {
     const component = shallow(<Reviewers reviewers={[]} />);
-    expect(component.children().length).to.be.ok;
+    expect(component.children().length).toBeTruthy;
   });
 });

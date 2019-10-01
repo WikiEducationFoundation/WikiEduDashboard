@@ -7,6 +7,6 @@ import Title from '../../../../../../../../../../app/assets/javascripts/componen
 describe('Title', () => {
   it('renders the title', () => {
     const component = shallow(<Title title="title" />);
-    expect(component.text()).to.equal('title');
+    expect(component.text()).toEqual('title');
   });
 });

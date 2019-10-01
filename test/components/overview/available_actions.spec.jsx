@@ -24,7 +24,7 @@ describe('AvailableActions', () => {
     );
 
     const text = TestAvailableActions.find('.available-action').text();
-    expect(text).to.eq('No available actions');
+    expect(text).toEqual('No available actions');
   });
 
   it('displays administrative P&E actions if the user is an admin', () => {
@@ -49,22 +49,22 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).to.eq(5);
+    expect(actions.length).toEqual(5);
 
     const deleteButton = actions.at(0);
-    expect(deleteButton.text()).to.eq('Delete course');
+    expect(deleteButton.text()).toEqual('Delete course');
 
     const enableAccountRequestsButton = actions.at(1);
-    expect(enableAccountRequestsButton.text()).to.eq('Enable account requests');
+    expect(enableAccountRequestsButton.text()).toEqual('Enable account requests');
 
     const downloadStatsButton = actions.at(2);
-    expect(downloadStatsButton.text()).to.eq('Download stats');
+    expect(downloadStatsButton.text()).toEqual('Download stats');
 
     const embedStatsButton = actions.at(3);
-    expect(embedStatsButton.text()).to.eq('Embed Course Stats');
+    expect(embedStatsButton.text()).toEqual('Embed Course Stats');
 
     const cloneCourseButton = actions.at(4);
-    expect(cloneCourseButton.text()).to.eq('Clone This Course');
+    expect(cloneCourseButton.text()).toEqual('Clone This Course');
   });
 
   it('displays administrative WikiEd actions if the user is an admin', () => {
@@ -90,21 +90,21 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).to.eq(5);
+    expect(actions.length).toEqual(5);
 
     const deleteButton = actions.at(0);
-    expect(deleteButton.text()).to.eq('Greet students');
+    expect(deleteButton.text()).toEqual('Greet students');
 
     const enableAccountRequestsButton = actions.at(1);
-    expect(enableAccountRequestsButton.text()).to.eq('Enable account requests');
+    expect(enableAccountRequestsButton.text()).toEqual('Enable account requests');
 
     const downloadStatsButton = actions.at(2);
-    expect(downloadStatsButton.text()).to.eq('Download stats');
+    expect(downloadStatsButton.text()).toEqual('Download stats');
 
     const embedStatsButton = actions.at(3);
-    expect(embedStatsButton.text()).to.eq('Embed Course Stats');
+    expect(embedStatsButton.text()).toEqual('Embed Course Stats');
 
     const cloneCourseButton = actions.at(4);
-    expect(cloneCourseButton.text()).to.eq('Clone This Course');
+    expect(cloneCourseButton.text()).toEqual('Clone This Course');
   });
 });

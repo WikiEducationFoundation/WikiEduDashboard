@@ -4,7 +4,7 @@ import { RECEIVE_ARTICLE_DETAILS } from '../../app/assets/javascripts/constants/
 import '../testHelper';
 
 describe('article_details reducer', () => {
-  it('Should return initial state if no action type matches', () => {
+  test('Should return initial state if no action type matches', () => {
     const mockAction = {
       type: 'NO_TYPE'
     };
@@ -12,20 +12,23 @@ describe('article_details reducer', () => {
     deepFreeze(initialState);
 
     const result = article_details(undefined, mockAction);
-    expect(result).to.deep.eq(initialState);
+    expect(result).toEqual(initialState);
   });
 
-  it('should reutrn a new state if action type is RECEIVE_ARTICLE_DETAILS', () => {
-    const mockAction = {
-      type: RECEIVE_ARTICLE_DETAILS,
-      articleId: 586,
-      data: {
-        article_details: 'best article ever'
-      }
-    };
-    const expectedState = {
-      586: 'best article ever'
-    };
-    expect(article_details(undefined, mockAction)).to.deep.eq(expectedState);
-  });
+  test(
+    'should reutrn a new state if action type is RECEIVE_ARTICLE_DETAILS',
+    () => {
+      const mockAction = {
+        type: RECEIVE_ARTICLE_DETAILS,
+        articleId: 586,
+        data: {
+          article_details: 'best article ever'
+        }
+      };
+      const expectedState = {
+        586: 'best article ever'
+      };
+      expect(article_details(undefined, mockAction)).toEqual(expectedState);
+    }
+  );
 });

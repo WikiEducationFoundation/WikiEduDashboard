@@ -21,29 +21,29 @@ describe('Step', () => {
   it('should display all the child components of a step', () => {
     const component = shallow(<Step {...props} />);
 
-    expect(component.find('StepNumber').length).to.be.ok;
-    expect(component.find('Title').length).to.be.ok;
-    expect(component.find('Description').length).to.be.ok;
-    expect(component.find('Links').length).to.be.ok;
-    expect(component.find('ButtonNavigation').length).to.be.ok;
+    expect(component.find('StepNumber').length).toBeTruthy;
+    expect(component.find('Title').length).toBeTruthy;
+    expect(component.find('Description').length).toBeTruthy;
+    expect(component.find('Links').length).toBeTruthy;
+    expect(component.find('ButtonNavigation').length).toBeTruthy;
   });
 
   it('should show the Reviewers component if the status is ready_for_review', () => {
     const component = shallow(<Step {...props} status="ready_for_review" />);
-    expect(component.find('Reviewers').length).to.be.ok;
+    expect(component.find('Reviewers').length).toBeTruthy;
   });
 
   it('should NOT be marked as active if the assignment status and step status do not match', () => {
     const component = shallow(
       <Step {...props} />
     );
-    expect(component.props().className).to.not.include('active');
+    expect(component.props().className).not.toContain('active');
   });
 
   it('should be marked as active if the assignment status and step status match', () => {
     const component = shallow(
       <Step {...props} assignment={{ assignment_status: 'status' }} />
     );
-    expect(component.props().className).to.include('active');
+    expect(component.props().className).toContain('active');
   });
 });

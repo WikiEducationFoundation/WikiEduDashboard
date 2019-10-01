@@ -13,7 +13,7 @@ describe('RecentUploadsHandler', () => {
     mount(<RecentUploadsHandlerBase fetchRecentUploads={spy} uploads={[]} />);
 
     // called once when mounted
-    expect(spy.callCount).to.eq(1);
+    expect(spy.callCount).toEqual(1);
   });
 });
 
@@ -48,6 +48,6 @@ describe('UploadList', () => {
     );
 
     const bodyElement = TestTable.querySelectorAll('div.upload');
-    expect(bodyElement).to.exist;
+    expect(bodyElement).toExist;
   });
 });

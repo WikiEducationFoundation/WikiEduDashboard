@@ -11,26 +11,32 @@ describe('TrainingModules', () => {
 
     describe('Initial State', () => {
       it('should map array block_modules with their ids', () => {
-        expect(TrainingModulesM.instance().getInitialState()).to.be.an('object').that.have.all.keys('value');
+        const state = TrainingModulesM.instance().getInitialState()
+        expect(state).toBeInstanceOf(Object);
+        expect(state).toHaveProperty('value');
       });
     });
     describe('onChange', () => {
       it('should map trainingModule to TrainingModules.value', () => {
         const onChange = sinon.stub(TrainingModulesM.instance(), 'onChange').callsFake(() => true);
-        expect(onChange.returnValues).to.be.an('array');
+        expect(onChange.returnValues).toBeInstanceOf(Array);
       });
     });
     describe('progressClass', () => {
       it('should return progress complete when \'Complete\' is given', () => {
-        expect(TrainingModulesM.instance().progressClass('Complete')).to.be.an('String').and.to.equal('timeline-module__progress-complete ');
+        const complete = TrainingModulesM.instance().progressClass('Complete');
+        expect(typeof complete).toEqual('string');
+        expect(complete).toEqual('timeline-module__progress-complete ');
       });
       it('should return in-progress when nothing is given', () => {
-        expect(TrainingModulesM.instance().progressClass()).to.be.an('String').and.to.equal('timeline-module__in-progress ');
+        const actual = TrainingModulesM.instance().progressClass();
+        expect(typeof actual).toEqual('string');
+        expect(actual).toEqual('timeline-module__in-progress ');
       });
     });
     describe('trainingSelector', () => {
       it('should return object', () => {
-        expect(TrainingModulesM.instance().trainingSelector()).to.be.an('object');
+        expect(TrainingModulesM.instance().trainingSelector()).toBeInstanceOf(Object);
       });
     });
   });
@@ -49,21 +55,21 @@ describe('TrainingModules', () => {
       const TrainingModulesH = mount(<TrainingModules block_modules={[test1]} editable={false} trainingLibrarySlug="students" />);
       describe('components testing', () => {
         it('`h4` text', () => {
-          expect(TrainingModulesH.find('h4').text()).to.eq('Training');
+          expect(TrainingModulesH.find('h4').text()).toEqual('Training');
         });
         describe('testing classes of components', () => {
-          expect(TrainingModulesH.find('div.block__training-modules')).to.have.length(1);
-          expect(TrainingModulesH.find('table.table.table--small')).to.have.length(1);
-          expect(TrainingModulesH.find('tr.training-module')).to.have.length(1);
-          expect(TrainingModulesH.find('td.block__training-modules-table__module-name')).to.have.length(1);
-          expect(TrainingModulesH.find('tr.training-module')).to.have.length(1);
-          expect(TrainingModulesH.find('td.block__training-modules-table__module-link')).to.have.length(1);
+          expect(TrainingModulesH.find('div.block__training-modules')).toHaveLength(1);
+          expect(TrainingModulesH.find('table.table.table--small')).toHaveLength(1);
+          expect(TrainingModulesH.find('tr.training-module')).toHaveLength(1);
+          expect(TrainingModulesH.find('td.block__training-modules-table__module-name')).toHaveLength(1);
+          expect(TrainingModulesH.find('tr.training-module')).toHaveLength(1);
+          expect(TrainingModulesH.find('td.block__training-modules-table__module-link')).toHaveLength(1);
           describe('status testing', () => {
             describe('progress', () => {
               it('Complete', () => {
-                expect(TrainingModulesH.find('td.timeline-module__progress-complete.block__training-modules-table__module-progress')).to.have.length(1);
-                expect(TrainingModulesH.find('a.Complete')).to.have.length(1);
-                expect(TrainingModulesH.find('a.Complete').text()).to.equal('View');
+                expect(TrainingModulesH.find('td.timeline-module__progress-complete.block__training-modules-table__module-progress')).toHaveLength(1);
+                expect(TrainingModulesH.find('a.Complete')).toHaveLength(1);
+                expect(TrainingModulesH.find('a.Complete').text()).toEqual('View');
               });
               it('in-progress', () => {
                 const testTemp = {
@@ -76,9 +82,9 @@ describe('TrainingModules', () => {
                   slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.block__training-modules-table__module-progress')).to.have.length(1);
-                expect(TrainingModulesTEMP.find('a.in-progress')).to.have.length(1);
-                expect(TrainingModulesTEMP.find('a.in-progress').text()).to.equal('Continue');
+                expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.block__training-modules-table__module-progress')).toHaveLength(1);
+                expect(TrainingModulesTEMP.find('a.in-progress')).toHaveLength(1);
+                expect(TrainingModulesTEMP.find('a.in-progress').text()).toEqual('Continue');
               });
               it('overdue (Complete)', () => {
                 const testTemp = {
@@ -91,7 +97,7 @@ describe('TrainingModules', () => {
                   slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue')).to.have.length(1);
+                expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue')).toHaveLength(1);
               });
               it('overdue (in-progress)', () => {
                 const testTemp = {
@@ -104,7 +110,7 @@ describe('TrainingModules', () => {
                   slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue')).to.have.length(1);
+                expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue')).toHaveLength(1);
               });
               describe('deadline_status', () => {
                 describe('complete', () => {
@@ -119,7 +125,7 @@ describe('TrainingModules', () => {
                       slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                    expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.complete')).to.have.length(1);
+                    expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
                     const testTemp = {
@@ -132,7 +138,7 @@ describe('TrainingModules', () => {
                       slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                    expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue.complete')).to.have.length(1);
+                    expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue.complete')).toHaveLength(1);
                   });
                 });
                 describe('in-progress', () => {
@@ -147,7 +153,7 @@ describe('TrainingModules', () => {
                       slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                    expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.complete')).to.have.length(1);
+                    expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
                     const testTemp = {
@@ -160,7 +166,7 @@ describe('TrainingModules', () => {
                       slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                    expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue.complete')).to.have.length(1);
+                    expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue.complete')).toHaveLength(1);
                   });
                 });
               });
@@ -177,7 +183,7 @@ describe('TrainingModules', () => {
                    slug: 'let-it-test'
                  };
                  const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
-                 expect(TrainingModulesTEMP.find('td.overdue').text()).to.match(/due on 2017\/12\/09/i);
+                 expect(TrainingModulesTEMP.find('td.overdue').text()).toMatch(/due on 2017\/12\/09/i);
                });
             });
           });
@@ -211,7 +217,7 @@ describe('TrainingModules', () => {
       const TrainingModulesEM = mount(<TrainingModules block_modules={[test1]} editable={true} all_modules={[test1, test2]} onChange={onChangeSpy} trainingLibrarySlug="students" />);
       it('onChange', () => {
         TrainingModulesEM.find('Select').instance().props.onChange([test1, test2]);
-        expect(onChangeSpy.called).to.be.true;
+        expect(onChangeSpy.called).toBeTruthy;
       });
     });
   });

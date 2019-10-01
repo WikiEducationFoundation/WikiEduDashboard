@@ -31,7 +31,7 @@ describe('CourseDetails', () => {
         <CourseDetails courses={courses} />
       </div>
     );
-    expect(TestCourseDetails.textContent).to.contain('courseTitle1');
-    expect(TestCourseDetails.textContent).to.contain('courseTitle2');
+    expect(TestCourseDetails.textContent).toContain('courseTitle1');
+    expect(TestCourseDetails.textContent).toContain('courseTitle2');
   });
 });

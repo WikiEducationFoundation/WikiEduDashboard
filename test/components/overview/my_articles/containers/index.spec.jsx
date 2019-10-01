@@ -33,8 +33,8 @@ describe('MyArticlesContainer', () => {
       );
 
       // This checks that nothing gets rendered.
-      expect(Container.children().length).to.equal(1);
-      expect(Container.children().at(0).type()).to.equal(MyArticlesContainer);
+      expect(Container.children().length).toEqual(1);
+      expect(Container.children().at(0).type()).toEqual(MyArticlesContainer);
     });
 
     it('does not display for an admin', () => {
@@ -55,8 +55,8 @@ describe('MyArticlesContainer', () => {
       );
 
       // This checks that nothing gets rendered.
-      expect(Container.children().length).to.equal(1);
-      expect(Container.children().at(0).type()).to.equal(MyArticlesContainer);
+      expect(Container.children().length).toEqual(1);
+      expect(Container.children().at(0).type()).toEqual(MyArticlesContainer);
     });
 
     describe('rendering', () => {
@@ -100,77 +100,77 @@ describe('MyArticlesContainer', () => {
       );
 
       it('shows the header', () => {
-        expect(Container.find('.my-articles-header').length).to.equal(1);
-        expect(Container.find('.my-articles-header').text()).to.include('My Articles');
+        expect(Container.find('.my-articles-header').length).toEqual(1);
+        expect(Container.find('.my-articles-header').text()).toContain('My Articles');
       });
 
       it('shows the assignment listing (categories)', () => {
-        expect(Container.find('Categories').length).to.equal(1);
-        expect(Container.find('Categories').text()).to.include('Articles I\'m updating');
+        expect(Container.find('Categories').length).toEqual(1);
+        expect(Container.find('Categories').text()).toContain('Articles I\'m updating');
       });
 
       xit('shows the My Articles section if the student has any', () => {
-        expect(Container.find('Heading').length).to.equal(1);
-        expect(Container.find('Heading').text()).to.include('Articles I\'m updating');
+        expect(Container.find('Heading').length).toEqual(1);
+        expect(Container.find('Heading').text()).toContain('Articles I\'m updating');
       });
 
       xit('shows the assignment title and related links', () => {
-        expect(Container.find('.title').text()).to.equal('My Article Title from URL');
+        expect(Container.find('.title').text()).toEqual('My Article Title from URL');
 
         const sandboxUrl = props.assignments[0].sandboxUrl;
         const bibliography = Container.find('BibliographyLink a');
-        expect(bibliography.length).to.be.ok;
-        expect(bibliography.props().href).to.include(sandboxUrl);
-        expect(bibliography.props().href).to.include('Bibliography');
+        expect(bibliography.length).toBeTruthy;
+        expect(bibliography.props().href).toContain(sandboxUrl);
+        expect(bibliography.props().href).toContain('Bibliography');
 
         const sandbox = Container.find('SandboxLink a');
-        expect(sandbox.length).to.be.ok;
-        expect(sandbox.props().href).to.include(sandboxUrl);
+        expect(sandbox.length).toBeTruthy;
+        expect(sandbox.props().href).toContain(sandboxUrl);
       });
 
       xit('shows the assignment title and related links', () => {
-        expect(Container.find('.title').text()).to.equal('My Article Title from URL');
+        expect(Container.find('.title').text()).toEqual('My Article Title from URL');
 
         const sandboxUrl = props.assignments[0].sandboxUrl;
         const bibliography = Container.find('BibliographyLink a');
-        expect(bibliography.length).to.be.ok;
-        expect(bibliography.props().href).to.include(sandboxUrl);
-        expect(bibliography.props().href).to.include('Bibliography');
+        expect(bibliography.length).toBeTruthy;
+        expect(bibliography.props().href).toContain(sandboxUrl);
+        expect(bibliography.props().href).toContain('Bibliography');
 
         const sandbox = Container.find('SandboxLink a');
-        expect(sandbox.length).to.be.ok;
-        expect(sandbox.props().href).to.include(sandboxUrl);
+        expect(sandbox.length).toBeTruthy;
+        expect(sandbox.props().href).toContain(sandboxUrl);
       });
 
       xit('hides the progress tracker on load, shows on state change', () => {
-        expect(Container.find('section.flow').props().className).to.include('hidden');
+        expect(Container.find('section.flow').props().className).toContain('hidden');
 
         const nav = Container.find('nav.toggle-wizard');
         nav.props().onClick();
         Container.update();
 
-        expect(Container.find('section.flow').props().className).to.not.include('hidden');
+        expect(Container.find('section.flow').props().className).not.toContain('hidden');
       });
 
       xit('shows the progress tracker with buttons to move ahead', () => {
         const wizard = Container.find('Wizard');
         wizard.setState({ show: true });
-        expect(Container.find('section.flow').props().className).to.not.include('hidden');
+        expect(Container.find('section.flow').props().className).not.toContain('hidden');
 
         const steps = wizard.find('Step');
-        expect(steps.length).to.equal(4);
-        expect(steps.at(0).find('.step').props().className).to.include('active');
-        expect(steps.at(1).find('.step').props().className).to.not.include('active');
+        expect(steps.length).toEqual(4);
+        expect(steps.at(0).find('.step').props().className).toContain('active');
+        expect(steps.at(1).find('.step').props().className).not.toContain('active');
 
         const buttons = wizard.find('ButtonNavigation');
-        expect(buttons.length).to.equal(4);
+        expect(buttons.length).toEqual(4);
         // The first step should only have a button to move forward
         // and should be enabled by default.
-        expect(buttons.at(0).find('button').length).to.equal(1);
+        expect(buttons.at(0).find('button').length).toEqual(1);
         expect(buttons.at(0).find('button').props().disabled).to.be.false;
         // The second step should have a button to move forward and backwards
         // and should be disabled.
-        expect(buttons.at(1).find('button').length).to.equal(2);
+        expect(buttons.at(1).find('button').length).toEqual(2);
         expect(buttons.at(1).find('button').at(0).props().disabled).to.be.true;
       });
     });

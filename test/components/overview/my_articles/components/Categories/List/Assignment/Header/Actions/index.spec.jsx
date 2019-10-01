@@ -21,24 +21,24 @@ describe('Actions', () => {
 
   it('shows the default buttons', () => {
     const component = shallow(<Actions {...props} />);
-    expect(component.find('RemoveButton').length).to.equal(1);
-    expect(component.find('PageViews').length).to.equal(0);
-    expect(component.find('MarkAsIncompleteButton').length).to.equal(0);
-    expect(component.find('OnClickOutside(PeerReviewChecklist)').length).to.equal(0);
-    expect(component.find('Connect(OnClickOutside(Feedback))').length).to.equal(0);
-    expect(component.find('OnClickOutside(MainspaceChecklist)').length).to.equal(0);
-    expect(component.find('OnClickOutside(FinalArticleChecklist)').length).to.equal(0);
+    expect(component.find('RemoveButton').length).toEqual(1);
+    expect(component.find('PageViews').length).toEqual(0);
+    expect(component.find('MarkAsIncompleteButton').length).toEqual(0);
+    expect(component.find('OnClickOutside(PeerReviewChecklist)').length).toEqual(0);
+    expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(0);
+    expect(component.find('OnClickOutside(MainspaceChecklist)').length).toEqual(0);
+    expect(component.find('OnClickOutside(FinalArticleChecklist)').length).toEqual(0);
   });
 
   it('should show the PageViews component if there is an article_id', () => {
     const component = shallow(<Actions {...props} assignment={{ article_id: 1 }} />);
-    expect(component.find('PageViews').length).to.equal(1);
+    expect(component.find('PageViews').length).toEqual(1);
   });
 
   it('should show the PageViews and MarkAsIncomplete button if the assignment is complete', () => {
     const component = shallow(<Actions {...props} isComplete={true} />);
-    expect(component.find('PageViews').length).to.equal(1);
-    expect(component.find('MarkAsIncompleteButton').length).to.equal(1);
+    expect(component.find('PageViews').length).toEqual(1);
+    expect(component.find('MarkAsIncompleteButton').length).toEqual(1);
   });
 
   describe('isEnglishWikipedia() returns true', () => {
@@ -46,7 +46,7 @@ describe('Actions', () => {
       const component = shallow(
         <Actions {...props} isEnglishWikipedia={jest.fn().mockReturnValue(true)} />
       );
-      expect(component.find('OnClickOutside(PeerReviewChecklist)').length).to.equal(1);
+      expect(component.find('OnClickOutside(PeerReviewChecklist)').length).toEqual(1);
     });
 
     it('should show the Feedback and MainspaceChecklist if the role is set to 0', () => {
@@ -58,8 +58,8 @@ describe('Actions', () => {
         />
       );
 
-      expect(component.find('Connect(OnClickOutside(Feedback))').length).to.equal(1);
-      expect(component.find('OnClickOutside(MainspaceChecklist)').length).to.equal(1);
+      expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(1);
+      expect(component.find('OnClickOutside(MainspaceChecklist)').length).toEqual(1);
     });
 
     it('should show the Feedback and FinalArticleChecklist if the role is 0 and the article_id is set', () => {
@@ -71,8 +71,8 @@ describe('Actions', () => {
         />
       );
 
-      expect(component.find('Connect(OnClickOutside(Feedback))').length).to.equal(1);
-      expect(component.find('OnClickOutside(FinalArticleChecklist)').length).to.equal(1);
+      expect(component.find('Connect(OnClickOutside(Feedback))').length).toEqual(1);
+      expect(component.find('OnClickOutside(FinalArticleChecklist)').length).toEqual(1);
     });
   });
 });

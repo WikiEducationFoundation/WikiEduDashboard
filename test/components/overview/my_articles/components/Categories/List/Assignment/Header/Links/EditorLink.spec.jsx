@@ -7,6 +7,6 @@ import EditorLink from '../../../../../../../../../../app/assets/javascripts/com
 describe('EditorLink', () => {
   it('renders an AssignedToLink', () => {
     const component = shallow(<EditorLink />);
-    expect(component.find('AssignedToLink').length).to.equal(1);
+    expect(component.find('AssignedToLink').length).toEqual(1);
   });
 });

@@ -22,14 +22,14 @@ describe('SettingsActions', () => {
     $.ajax.restore();
   });
 
-  it('dispatches to SET_ADMIN_USERS', () => {
+  test('dispatches to SET_ADMIN_USERS', () => {
     const expectedActions = [
       { type: SET_ADMIN_USERS, data: { spam: 'eggs' } }
     ];
 
     const store = mockStore({ });
     return store.dispatch(fetchAdminUsers()).then(() => {
-      expect(store.getActions()).to.eql(expectedActions);
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
@@ -47,7 +47,7 @@ describe('upgradeAdmin', () => {
     $.ajax.restore();
   });
 
-  it('dispatches to SUBMITTING_NEW_ADMIN', () => {
+  test('dispatches to SUBMITTING_NEW_ADMIN', () => {
     const username = 'someuser';
     const expectedActions = [
       {
@@ -77,7 +77,7 @@ describe('upgradeAdmin', () => {
     ];
     const store = mockStore({});
     return store.dispatch(upgradeAdmin(username)).then(() => {
-      expect(store.getActions()).to.eql(expectedActions);
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
@@ -95,7 +95,7 @@ describe('downgradeAdmin', () => {
     $.ajax.restore();
   });
 
-  it('dispatches correctly', () => {
+  test('dispatches correctly', () => {
     const username = 'someuser';
     const expectedActions = [
       {
@@ -131,7 +131,7 @@ describe('downgradeAdmin', () => {
     ];
     const store = mockStore({});
     return store.dispatch(downgradeAdmin(username)).then(() => {
-      expect(store.getActions()).to.eql(expectedActions);
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

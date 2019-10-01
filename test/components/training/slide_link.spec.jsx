@@ -56,16 +56,16 @@ describe('SlideLink', () => {
   });
 
   it('renders a button', () => {
-    expect(domBtn.prop('className')).to.eq('slide-nav btn btn-primary icon icon-rt_arrow');
+    expect(domBtn.prop('className')).toEqual('slide-nav btn btn-primary icon icon-rt_arrow');
   });
 
   it('renders correct text', () => {
-    expect(domBtn.text()).to.eq('Next Page');
+    expect(domBtn.text()).toEqual('Next Page');
   });
 
   it('renders correct link', () => {
     const expected = '/training/foo/bar/foobar';
     // mocha won't render the link with an actual href for some reason…
-    expect(domBtn.prop('data-href')).to.eq(expected);
+    expect(domBtn.prop('data-href')).toEqual(expected);
   });
 });

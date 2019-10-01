@@ -8,6 +8,6 @@ describe('BibliographyLink', () => {
   const props = { assignment: { sandboxUrl: 'url' } };
   it('should display the link', () => {
     const component = shallow(<BibliographyLink {...props} />);
-    expect(component.props().href).to.include('url/Bibliography');
+    expect(component.props().href).toContain('url/Bibliography');
   });
 });

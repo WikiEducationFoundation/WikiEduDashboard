@@ -48,6 +48,6 @@ describe('SettingsHandler', () => {
 
     expect(
       container.find('AdminUserList').first().props().adminUsers
-    ).to.eql(expectedAdminUsers);
+    ).toEqual(expectedAdminUsers);
   });
 });

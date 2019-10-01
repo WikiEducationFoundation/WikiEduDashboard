@@ -14,6 +14,6 @@ describe('AdminUserList', () => {
       </Provider>
     );
 
-    expect(renderedList.find('td.user__username').text()).to.eq('testUser');
+    expect(renderedList.find('td.user__username').text()).toEqual('testUser');
   });
 });

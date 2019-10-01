@@ -12,16 +12,16 @@ describe('Modal', () => {
     );
 
   it('renders its children with the modalClass', () => {
-    expect(wrapper.text()).to.equal('bar');
-    expect(wrapper.find('div.wizard.active.foo')).to.have.length(1);
+    expect(wrapper.text()).toEqual('bar');
+    expect(wrapper.find('div.wizard.active.foo')).toHaveLength(1);
   });
 
   it('adds modal-open class to the body', () => {
-    expect(document.body.className).to.eq('modal-open');
+    expect(document.body.className).toEqual('modal-open');
   });
 
   it('removes the modal-open when it unmounts', () => {
     wrapper.unmount();
-    expect(document.body.className).to.eq('');
+    expect(document.body.className).toEqual('');
   });
 });

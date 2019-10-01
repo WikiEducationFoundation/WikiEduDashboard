@@ -7,6 +7,6 @@ import StepNumber from '../../../../../../../../../../app/assets/javascripts/com
 describe('StepNumber', () => {
   it('should render the step number', () => {
     const component = shallow(<StepNumber index={0} />);
-    expect(component.text()).to.equal('1');
+    expect(component.text()).toEqual('1');
   });
 });

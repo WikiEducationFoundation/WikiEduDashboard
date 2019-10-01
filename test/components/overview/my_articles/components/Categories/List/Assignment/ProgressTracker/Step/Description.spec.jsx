@@ -7,6 +7,6 @@ import Description from '../../../../../../../../../../app/assets/javascripts/co
 describe('Description', () => {
   it('displays the content', () => {
     const component = shallow(<Description content="content" />);
-    expect(component.text()).to.include('content');
+    expect(component.text()).toContain('content');
   });
 });

@@ -4,7 +4,7 @@ import reducer from '../../app/assets/javascripts/reducers/settings.js';
 import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../../app/assets/javascripts/constants';
 
 describe('Settings reducer', () => {
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     const initialState = {
       adminUsers: [],
       specialUsers: {},
@@ -20,10 +20,10 @@ describe('Settings reducer', () => {
         username: null,
       }
     };
-    expect(reducer(undefined, {})).to.deep.eq(initialState);
+    expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should update array with new admin users', () => {
+  test('should update array with new admin users', () => {
     const oldAdmins = [{ id: 1, username: 'Admin1' }];
     const newAdmins = [{ id: 1, username: 'Admin1' }, { id: 2, username: 'Admin2' }];
 
@@ -37,12 +37,12 @@ describe('Settings reducer', () => {
         type: SET_ADMIN_USERS,
         data: { admins: newAdmins }
       })
-    ).to.deep.eq({
+    ).toEqual({
       adminUsers: newAdmins
     });
   });
 
-  it('should update submitting new action', () => {
+  test('should update submitting new action', () => {
     const initialState = {
       submittingNewAdmin: false
     };
@@ -53,12 +53,12 @@ describe('Settings reducer', () => {
         type: SUBMITTING_NEW_ADMIN,
         data: { submitting: true }
       })
-    ).to.deep.eq({
+    ).toEqual({
       submittingNewAdmin: true
     });
   });
 
-  it('should update revokingAdmin', () => {
+  test('should update revokingAdmin', () => {
     const initialState = {
       revokingAdmin: {
         status: false,
@@ -77,7 +77,7 @@ describe('Settings reducer', () => {
           }
         }
       })
-    ).to.deep.eq({
+    ).toEqual({
       revokingAdmin: {
         status: true,
         username: 'bannedUser',

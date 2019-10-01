@@ -15,7 +15,7 @@ describe('List', () => {
 
   it('renders', () => {
     const component = shallow(<List {...props} />);
-    expect(component.find('Header').length).to.equal(1);
-    expect(component.find('Connect(Assignment)').length).to.equal(2);
+    expect(component.find('Header').length).toEqual(1);
+    expect(component.find('Connect(Assignment)').length).toEqual(2);
   });
 });

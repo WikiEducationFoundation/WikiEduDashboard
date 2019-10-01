@@ -18,7 +18,7 @@ describe('ArticleViewer', () => {
         fetchArticleDetails={() => null}
       />
     );
-    expect(TestArticleViewer).to.exist;
+    expect(TestArticleViewer).toExist;
     // const showHideButton = ReactTestUtils.findRenderedDOMComponentWithClass(TestArticleViewer, 'button');
     // Simulate.click(showHideButton); // show
     // Simulate.click(showHideButton); // hide

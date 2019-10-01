@@ -14,13 +14,13 @@ describe('ListItem', () => {
 
   it('should display the title', () => {
     const component = shallow(<ListItem {...props} />);
-    expect(component.text()).to.include('1. title');
+    expect(component.text()).toContain('1. title');
   });
 
   it('should be marked as selected when the assignment_status matches the step status', () => {
     const component = shallow(
       <ListItem {...props} assignment={{ assignment_status: 'status' }} />
     );
-    expect(component.props().className).to.include('selected');
+    expect(component.props().className).toContain('selected');
   });
 });

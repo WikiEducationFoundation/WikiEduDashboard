@@ -18,12 +18,12 @@ describe('Links', () => {
     const external = component.find('a');
     const internal = component.find('HashLink');
 
-    expect(external.length).to.be.ok;
-    expect(external.props().href).to.equal('/external');
-    expect(external.text()).to.equal('external');
+    expect(external.length).toBeTruthy;
+    expect(external.props().href).toEqual('/external');
+    expect(external.text()).toEqual('external');
 
-    expect(internal.length).to.be.ok;
-    expect(internal.props().to).to.include('course/slug/internal');
-    expect(internal.props().children).to.equal('internal');
+    expect(internal.length).toBeTruthy;
+    expect(internal.props().to).toContain('course/slug/internal');
+    expect(internal.props().children).toEqual('internal');
   });
 });

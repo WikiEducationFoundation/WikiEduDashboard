@@ -19,14 +19,14 @@ describe('Header', () => {
       <Header {...props}/>
     );
 
-    expect(component.find('.my-articles-header').length).to.equal(1);
-    expect(component.find('.my-articles-header').text()).includes('My Articles');
+    expect(component.find('.my-articles-header').length).toEqual(1);
+    expect(component.find('.my-articles-header').text()).toContain('My Articles');
 
-    expect(component.find('.controls').length).to.equal(1);
+    expect(component.find('.controls').length).toEqual(1);
 
     const link = component.find('Link');
-    expect(link.length).to.equal(1);
-    expect(link.props().to).to.equal('/courses/course/slug/article_finder');
-    expect(link.find('button').text()).includes('Find Articles');
+    expect(link.length).toEqual(1);
+    expect(link.props().to).toEqual('/courses/course/slug/article_finder');
+    expect(link.find('button').text()).toContain('Find Articles');
   });
 });

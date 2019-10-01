@@ -18,27 +18,27 @@ describe('ButtonNavigation', () => {
     const component = shallow(<ButtonNavigation {...props} />);
     const buttons = component.find('button');
 
-    expect(buttons.length).to.equal(2);
-    expect(buttons.at(0).text()).to.include('Go Back a Step');
-    expect(buttons.at(1).text()).to.include('Mark Complete');
+    expect(buttons.length).toEqual(2);
+    expect(buttons.at(0).text()).toContain('Go Back a Step');
+    expect(buttons.at(1).text()).toContain('Mark Complete');
   });
 
   it('should not show the Go Back a Step button if it is the first step', () => {
     const component = shallow(<ButtonNavigation {...props} index={0} />);
     const buttons = component.find('button');
 
-    expect(buttons.length).to.equal(1);
-    expect(buttons.text()).to.include('Mark Complete');
+    expect(buttons.length).toEqual(1);
+    expect(buttons.text()).toContain('Mark Complete');
   });
 
   it('should disable all buttons if the step is not active', () => {
     const component = shallow(<ButtonNavigation {...props} active={false} />);
     const buttons = component.find('button');
 
-    expect(buttons.length).to.equal(2);
-    expect(buttons.at(0).text()).to.include('Go Back a Step');
-    expect(buttons.at(0).props().disabled).to.equal(true);
-    expect(buttons.at(1).text()).to.include('Mark Complete');
-    expect(buttons.at(1).props().disabled).to.equal(true);
+    expect(buttons.length).toEqual(2);
+    expect(buttons.at(0).text()).toContain('Go Back a Step');
+    expect(buttons.at(0).props().disabled).toEqual(true);
+    expect(buttons.at(1).text()).toContain('Mark Complete');
+    expect(buttons.at(1).props().disabled).toEqual(true);
   });
 });

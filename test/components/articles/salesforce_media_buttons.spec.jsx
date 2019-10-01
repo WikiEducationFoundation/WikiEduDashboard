@@ -25,6 +25,6 @@ describe('SalesforceMediaButtons', () => {
         />
       </div>
     );
-    expect(TestButtons.querySelectorAll('a').length).to.eq(3);
+    expect(TestButtons.querySelectorAll('a').length).toEqual(3);
   });
 });

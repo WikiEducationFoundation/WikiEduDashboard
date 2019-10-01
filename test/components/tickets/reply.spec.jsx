@@ -21,19 +21,19 @@ describe('Tickets', () => {
     const reply = shallow(<Reply message={message} />);
     it('displays all the standard information', () => {
       const subject = reply.find('.subject');
-      expect(subject.text()).to.eq(message.details.subject);
+      expect(subject.text()).toEqual(message.details.subject);
 
       const cc = reply.find('.cc');
-      expect(cc.length).to.not.be.ok;
+      expect(cc.length).toBeFalsy;
 
       const content = reply.find('.message-body');
-      expect(content.html()).to.include(message.content);
+      expect(content.html()).toContain(message.content);
 
       const from = reply.find('.from');
-      expect(from.text()).to.include(message.details.sender_email);
+      expect(from.text()).toContain(message.details.sender_email);
 
-      expect(reply.find('.created-at').length).to.be.ok;
-      expect(reply.find('[imageName="check"]').length).to.be.ok;
+      expect(reply.find('.created-at').length).toBeTruthy;
+      expect(reply.find('[imageName="check"]').length).toBeTruthy;
     });
     it('displays the subject as NOTE if the message is a note', () => {
       const noteMessage = {
@@ -46,7 +46,7 @@ describe('Tickets', () => {
       };
       const note = shallow(<Reply message={noteMessage} />);
       const subject = note.find('.subject');
-      expect(subject.text()).to.eq('NOTE');
+      expect(subject.text()).toEqual('NOTE');
     });
     it('should include CC information if it is included', () => {
       const email = 'email@email.com';
@@ -58,7 +58,7 @@ describe('Tickets', () => {
         }
       };
       const replyWithCC = shallow(<Reply message={messageWithCC} />);
-      expect(replyWithCC.text()).to.include(email);
+      expect(replyWithCC.text()).toContain(email);
     });
     it('should set content as HTML', () => {
       const content = '<p>Message</p><p>Content</p>';
@@ -68,7 +68,7 @@ describe('Tickets', () => {
       };
       const replyWithHTMLContent = shallow(<Reply message={messageWithHTMLContent} />);
       const contentElement = replyWithHTMLContent.find('.message-body');
-      expect(contentElement.html()).to.include(content);
+      expect(contentElement.html()).toContain(content);
     });
     it('should include the sender\'s real name if possible', () => {
       const name = 'Real Name';
@@ -82,7 +82,7 @@ describe('Tickets', () => {
       };
       const replyWithRealName = shallow(<Reply message={messageWithSenderName} />);
       const from = replyWithRealName.find('.from');
-      expect(from.text()).to.include(name);
+      expect(from.text()).toContain(name);
     });
     it('should include the sender\'s username as a backup', () => {
       const username = 'username';
@@ -95,7 +95,7 @@ describe('Tickets', () => {
       };
       const replyWithRealName = shallow(<Reply message={messageWithSenderName} />);
       const from = replyWithRealName.find('.from');
-      expect(from.text()).to.include(username);
+      expect(from.text()).toContain(username);
     });
     it('should include an error icon if the message could not be delivered', () => {
       const messageWithError = {
@@ -107,7 +107,7 @@ describe('Tickets', () => {
       };
       const replyWithError = shallow(<Reply message={messageWithError} />);
       const icon = replyWithError.find('[imageName="minus"]');
-      expect(icon.length).to.be.ok;
+      expect(icon.length).toBeTruthy;
     });
   });
 });

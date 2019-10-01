@@ -47,8 +47,8 @@ describe('ArticleList', () => {
       </div>
     );
 
-    expect(TestArticle.textContent).to.contain('articleTitle');
-    expect(TestArticle.textContent).to.contain('articleTitle2');
+    expect(TestArticle.textContent).toContain('articleTitle');
+    expect(TestArticle.textContent).toContain('articleTitle2');
   });
 });
 

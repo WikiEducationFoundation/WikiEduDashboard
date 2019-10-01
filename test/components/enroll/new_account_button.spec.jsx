@@ -23,14 +23,14 @@ describe('NewAccountButton', () => {
         passcode={course.passcode}
       />
     );
-    expect(newAccountButton.instance().state.showModal).to.eq(false);
+    expect(newAccountButton.instance().state.showModal).toEqual(false);
     // click the initial button to show the modal
     const button = newAccountButton.find('.button.auth.signup.border');
-    expect(button.length).to.eq(1);
+    expect(button.length).toEqual(1);
     button.simulate('click');
-    expect(newAccountButton.instance().state.showModal).to.eq(true);
+    expect(newAccountButton.instance().state.showModal).toEqual(true);
     // closes the modal
     newAccountButton.instance().closeModal();
-    expect(newAccountButton.instance().state.showModal).to.eq(false);
+    expect(newAccountButton.instance().state.showModal).toEqual(false);
   });
 });

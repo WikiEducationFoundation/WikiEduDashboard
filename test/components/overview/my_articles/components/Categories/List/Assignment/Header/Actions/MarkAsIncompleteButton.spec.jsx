@@ -14,7 +14,7 @@ describe('MarkAsIncompleteButton', () => {
   };
   it('should show the button', () => {
     const component = shallow(<MarkAsIncompleteButton {...props} />);
-    expect(component.text()).to.equal('Mark as Incomplete');
+    expect(component.text()).toEqual('Mark as Incomplete');
   });
 
   it('should update the assignment on button click', async () => {
@@ -22,6 +22,6 @@ describe('MarkAsIncompleteButton', () => {
     const button = component.find('button');
 
     await button.props().onClick();
-    expect(update.mock.calls.length).to.equal(1);
+    expect(update.mock.calls.length).toEqual(1);
   });
 });

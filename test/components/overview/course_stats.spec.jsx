@@ -19,7 +19,7 @@ describe('for view count zero and edited count greater than 0', () => {
   const msgString = I18n.t('metrics.view_data_unavailable');
   it('renders view data unavailable message', () => {
     const wrapper = shallow(testStats);
-    expect(wrapper.contains(msgString)).to.be.true;
+    expect(wrapper.contains(msgString)).toBeTruthy;
   });
 });
 
@@ -37,6 +37,6 @@ describe('for view count greater than zero', () => {
   const msgString = I18n.t('metrics.view_data_unavailable');
   it('doesn\'t render view data unavailable message', () => {
     const wrapper = shallow(testStats);
-    expect(wrapper.contains(msgString)).to.be.false;
+    expect(wrapper.contains(msgString)).toBeFalsy;
   });
 });

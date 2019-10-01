@@ -18,7 +18,7 @@ describe('Milestones', () => {
 
   it('renders block content in a <p> tag', () => {
     const milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestonesWithWeeks, 'milestones');
-    expect(milestones.innerHTML).to.include('<p>Tacos are great</p>');
+    expect(milestones.innerHTML).toContain('<p>Tacos are great</p>');
   });
 
   const TestMilestonesWithoutWeeks = ReactTestUtils.renderIntoDocument(
@@ -29,6 +29,6 @@ describe('Milestones', () => {
   );
 
   it('does not render block if empty', () => {
-    expect(TestMilestonesWithoutWeeks.render()).to.equal(null);
+    expect(TestMilestonesWithoutWeeks.render()).toEqual(null);
   });
 });
