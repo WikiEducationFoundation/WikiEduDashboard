@@ -12,6 +12,9 @@ da:
     human:
       decimal_units:
         format: '%n %u'
+        units:
+          thousand: T
+          million: M
   application:
     cancel: Annullér
     cookie_consent_acknowledge: Jeg forstår
@@ -172,6 +175,7 @@ da:
     create_my_campaign: Opret min kampagne!
     data_articles: Sider redigeret
     data_instructors: Instruktører
+    data_editors_by_course: Skribenter efter kursus
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
     none: Ingen

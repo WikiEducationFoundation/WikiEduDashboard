@@ -1,0 +1,23 @@
+# Messages for Ido (Ido)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Joao Xavier
+---
+io:
+  application:
+    cancel: Nuligar
+    cookie_consent_see_more: Videz pluse.
+    change: Modifiko
+  articles:
+    hide: Celez
+  courses:
+    students: Lernanti
+    tag_select: Selektez o kreez etiketo
+    tags: 'Etiketi:'
+  editable:
+    cancel: Nuligar
+  metrics:
+    tags: Etiketi
+  users:
+    up_to_date_with_training: Aktualigo pri aprentiseso
+...

@@ -32,6 +32,8 @@ es:
       de los navegadores incrementará y decrementará la entrada.
   application:
     cancel: Cancelar
+    cookie_consent_acknowledge: Comprendo
+    cookie_consent_see_more: Ver más.
     create_accounts: Crear cuentas de Wikipedia
     dashboard: Panel de Wiki Ed
     documentation: Documentación

@@ -47,6 +47,7 @@ lv:
     article_development: (raksta attīstība)
     assigned: Piešķirtie raksti
     available: Pieejamie raksti
+    article_title: Raksta nosaukums
     assigned_to: Piešķirts
     deleted: (dzēsts)
     edited: Labotie raksti
@@ -59,6 +60,7 @@ lv:
     new: (jauns)
     rating: Klase
     see_more: Skatīt vairāk
+    show_current_version: Rādīt aktuālo versiju
     title: Nosaukums
     title_example: Raksta nosaukums
     view: Apskatīt rakstu
@@ -70,6 +72,8 @@ lv:
     add_available: Pievienot pieejamu rakstu
     add_available_submit: Pievienot rakstus
     assign_self: Piešķirt sev rakstu
+    bibliography: Bibliogrāfija
+    clone: Klonēt
     label: Piešķirt
     loading: Ielādē uzdevumus...
     none_short: Nav piešķirtu rakstu
@@ -89,10 +93,12 @@ lv:
     all_campaigns: Visas kampaņas
     campaign: Kampaņa
     campaigns: Kampaņas
+    campaign_updated: Kampaņa atjaunināta
     created_at: Datums
     course: Kurss
     create_campaign: Izveidot jaunu kampaņu
     create_my_campaign: Izveidot manu kampaņu!
+    data_instructors: Pasniedzēji
     description: Apraksts
     delete_campaign: Dzēst šo kampaņu
     none: Nav
@@ -113,6 +119,7 @@ lv:
   chat:
     label: Tērzētava
   courses:
+    school_system: Akadēmiskā sistēma
     activity: Aktivitāte
     alerts: Brīdinājumi
     all_courses: Visi kursi
@@ -120,6 +127,8 @@ lv:
     actions: Darbības
     articles: Raksti
     articles_none: Šajā kursā nav labots neviens raksts.
+    assignment_headings:
+      available_articles: Pieejamie raksti
     calendar:
       legend: Apzīmējumi
       legend_class_canceled: Brīvdiena/atcelts
@@ -153,6 +162,7 @@ lv:
       expected_number: Paredzamais studentu skaits
       find: Atrast savu kursu
       role_description: Tava loma kursā
+      save_cloned_course: Saglabāt jaunu kursu
       start_date: Sākuma datums
       start_date_placeholder: Sākuma datums (GGGG-MM-DD)
       subject: Temats

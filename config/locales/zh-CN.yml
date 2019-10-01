@@ -8,6 +8,7 @@
 # Author: Endermoon
 # Author: Fanjiayi
 # Author: Hanyanbo98
+# Author: Josephine W.
 # Author: Liuxinyu970226
 # Author: Looong
 # Author: Macofe
@@ -26,6 +27,7 @@ zh-CN:
     number_field: 这是一个数字字段。大多数浏览器渲染的按钮将递增和递减输入。
   application:
     cancel: 取消
+    cookie_consent_acknowledge: 我懂了
     create_accounts: 创建维基百科账户
     dashboard: Wiki Ed控制面板
     documentation: 文档

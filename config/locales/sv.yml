@@ -26,6 +26,8 @@ sv:
       kommer att öka och minska inmatningen.
   application:
     cancel: Avbryt
+    cookie_consent_acknowledge: Jag förstår
+    cookie_consent_see_more: Se mer.
     create_accounts: Skapa Wikipedia-konton
     dashboard: Instrumentpanel för Wiki Ed
     documentation: Dokumentation
