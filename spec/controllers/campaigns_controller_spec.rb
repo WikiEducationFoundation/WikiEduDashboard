@@ -336,7 +336,7 @@ describe CampaignsController, type: :request do
     end
   end
 
-  describe '#articles_csv' do
+  describe 'CSV actions' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
     let(:article) { create(:article) }
@@ -349,11 +349,19 @@ describe CampaignsController, type: :request do
       create(:courses_user, course: course, user: user)
     end
 
-    it 'returns a csv of course data' do
+    it 'return a csv of article data' do
       login_as(user)
       get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
       expect(response.body).to include(course.slug)
       expect(response.body).to include(article.title)
+    end
+
+    it 'return a csv of revision data' do
+      login_as(user)
+      get "/campaigns/#{campaign.slug}/revisions_csv", params: request_params
+      expect(response.body).to include(course.slug)
+      expect(response.body).to include(article.title)
+      expect(response.body).to include('references_added')
     end
   end
 

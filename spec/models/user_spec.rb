@@ -215,6 +215,18 @@ describe User do
     end
   end
 
+  describe '#profile_image' do
+    let(:user) { create(:user) }
+
+    before do
+      create(:user_profile, user: user, image_file_link: 'https://example.com/cat.png')
+    end
+
+    it 'returns a URL when the user has an image set' do
+      expect(user.profile_image).to eq('https://example.com/cat.png')
+    end
+  end
+
   describe '#search' do
     let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Find Me') }
     let(:similar_search_user) { create(:user, username: 'similar', email: 'find@example.com') }

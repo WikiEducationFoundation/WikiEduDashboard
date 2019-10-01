@@ -54,6 +54,8 @@ class Article < ApplicationRecord
     TALK           = 1
     USER           = 2
     USER_TALK      = 3
+    PROJECT        = 4
+    PROJECT_TALK   = 5
     FILE           = 6
     TEMPLATE       = 10
     TEMPLATE_TALK  = 11

@@ -2,24 +2,6 @@
 
 require 'rails_helper'
 
-class MockR
-  def eval(_string)
-    nil
-  end
-
-  def before_count
-    15
-  end
-
-  def before_mean
-    5.6
-  end
-
-  def after_mean
-    50.9
-  end
-end
-
 describe AnalyticsController, type: :request do
   let(:user) { create(:user) }
 
@@ -29,11 +11,6 @@ describe AnalyticsController, type: :request do
     create(:campaign, id: 2, title: 'Second Campaign')
     create(:course, id: 1, start: 1.year.ago, end: 1.day.from_now)
     create(:campaigns_course, course_id: 1, campaign_id: 1)
-
-    # We cheat here to skip actually running any R code,
-    # since the output is very messy will depend on having specific R packages
-    # installed.
-    stub_const('R', MockR.new)
   end
 
   describe '#index' do
@@ -138,6 +115,15 @@ describe AnalyticsController, type: :request do
     it 'returns a CSV' do
       get '/course_articles_csv', params: { course: course.slug }
       expect(response.body).to include('pageviews_link')
+    end
+  end
+
+  describe '#course_revisions_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+
+    it 'returns a CSV' do
+      get '/course_revisions_csv', params: { course: course.slug }
+      expect(response.body).to include('references_added')
     end
   end
 

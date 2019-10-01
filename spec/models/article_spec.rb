@@ -48,4 +48,14 @@ describe Article, type: :model do
       expect(@draft.full_title).to eq('Draft:My Awesome Draft!!!')
     end
   end
+
+  describe '#namespace_prefix' do
+    let(:wiki) { create(:wiki, language: 'incubator', project: 'wikimedia') }
+    let(:article) { create(:article, wiki: wiki, namespace: Article::Namespaces::PROJECT) }
+
+    it 'handles *.wikimedia.org wikis' do
+      stub_wiki_validation
+      expect(article.namespace_prefix).to eq('Incubator:')
+    end
+  end
 end

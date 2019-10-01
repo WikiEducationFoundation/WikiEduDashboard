@@ -53,6 +53,12 @@ RSpec.describe Category, type: :model do
         end
         pass_pending_spec
       end
+
+      it 'fails gracefully when PetScan is unreachable' do
+        expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
+        described_class.refresh_categories_for(Course.all)
+        expect(described_class.last.article_ids).to be_empty
+      end
     end
 
     context 'for template-source Category' do
