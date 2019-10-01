@@ -12,7 +12,7 @@ import PeerReviewChecklist from '../../../../../../../../common/peer_review_chec
 import Feedback from '../../../../../../../../common/feedback.jsx';
 
 export const Actions = ({
-  article, assignment, courseSlug, current_user, isComplete, username,
+  article, assignment, courseSlug, current_user, isComplete, isProduction, username,
   isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
 }) => {
   const actions = [];
@@ -40,7 +40,8 @@ export const Actions = ({
     }
   }
 
-  if (isComplete) {
+  // TODO: Remove `isProduction` when ready
+  if (!isProduction && isComplete) {
     return (
       <section className="actions">
         <PageViews key="pageviews-button" article={article} />
@@ -70,6 +71,7 @@ Actions.propTypes = {
   courseSlug: PropTypes.string.isRequired,
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
+  isProduction: PropTypes.bool, // TODO: Remove when ready
   username: PropTypes.string.isRequired,
 
   // actions

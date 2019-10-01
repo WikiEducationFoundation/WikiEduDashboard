@@ -43,19 +43,17 @@ function startWebpack(cb) {
     }));
   }
 
-  // For prod
-  if (!config.development) {
-    // Update NODE_ENV
-    wpPlugins.push(new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }));
-  }
+  // Update NODE_ENV
+  const mode = config.development ? 'development' : 'production';
+  wpPlugins.push(new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify(mode)
+    }
+  }));
 
   const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
   const wpConf = {
-    mode: config.development ? 'development' : 'production',
+    mode,
     entry: entries,
     output: {
       path: outputPath,

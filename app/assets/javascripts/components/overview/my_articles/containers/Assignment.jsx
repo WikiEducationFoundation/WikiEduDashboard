@@ -24,17 +24,19 @@ export class Assignment extends React.Component {
     const {
       article, title
     } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
+
     const isComplete = this.isComplete();
-    const props = { ...this.props, article, articleTitle: title, isComplete };
+    const isProduction = process.env.NODE_ENV === 'production'; // TODO: Remove when ready
+
+    const props = { ...this.props, article, articleTitle: title, isComplete, isProduction };
+    const progressTracker = isComplete
+      ? <MyArticlesCompletedAssignment />
+      : <MyArticlesProgressTracker {...props} />;
 
     return (
-      <div className={`my-assignment mb1${isComplete ? ' complete' : ''}`}>
+      <div className={`my-assignment mb1${(isComplete && !isProduction) ? ' complete' : ''}`}>
         <MyArticlesHeader {...props} />
-        {
-          isComplete
-            ? <MyArticlesCompletedAssignment />
-            : <MyArticlesProgressTracker {...props} />
-        }
+        { !isProduction ? progressTracker : null }
       </div>
     );
   }
