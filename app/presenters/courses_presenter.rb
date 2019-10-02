@@ -48,7 +48,9 @@ class CoursesPresenter
 
   def campaign_organizer?
     return false unless campaign
-    campaign.organizers.include?(current_user)
+    return @campaign_organizer if @campaign_organizer_set
+    @campaign_organizer_set = true
+    @campaign_organizer ||= campaign.organizers.include?(current_user)
   end
 
   def campaigns
