@@ -91,6 +91,8 @@
           - @presenter.search_courses(@search_terms).each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
-          - @presenter.courses_by_recent_edits.each do |course|
+          - programs = @presenter.courses_by_recent_edits
+          = will_paginate programs
+          - programs.each do |course|
             - cache [course, locale, @presenter.can_remove_course?]  do
               = render 'campaigns/course_row', course: course, admin: false, user: false

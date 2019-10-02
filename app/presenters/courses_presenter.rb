@@ -79,11 +79,11 @@ class CoursesPresenter
 
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
-    courses.sort_by { |course| [-course.recent_revision_count, course.title] }
+    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 10)
   end
 
   def active_courses_by_recent_edits
-    active_courses.sort_by { |course| [-course.recent_revision_count, course.title] }
+    active_courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
   end
 
   def campaigns_by_num_courses
