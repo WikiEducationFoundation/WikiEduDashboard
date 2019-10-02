@@ -27,5 +27,5 @@
           %th{:style => "width: 175px;"}
             = t("metrics.tags")
       %tbody.list
-        - @presenter.courses_by_recent_edits.each do |c|
+        - @unsubmitted_courses.each do |c|
           = render 'unsubmitted_courses/row', course: c, admin: false, user: false
