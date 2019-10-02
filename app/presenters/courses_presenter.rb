@@ -7,9 +7,10 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil)
     @current_user = current_user
     @campaign_param = campaign_param
+    @page = page
     @courses_list = courses_list || campaign_courses
   end
 
@@ -79,7 +80,7 @@ class CoursesPresenter
 
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
-    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 10)
+    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
   end
 
   def active_courses_by_recent_edits

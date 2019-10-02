@@ -57,9 +57,8 @@ class CampaignsController < ApplicationController
   end
 
   def articles
+    set_page
     set_presenter
-    @page = params[:page]&.to_i
-    @page = nil unless @page&.positive?
   end
 
   def users
@@ -97,6 +96,7 @@ class CampaignsController < ApplicationController
   end
 
   def programs
+    set_page
     set_presenter
     @search_terms = params[:courses_query]
   end
@@ -224,8 +224,14 @@ class CampaignsController < ApplicationController
     raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 
+  def set_page
+    @page = params[:page]&.to_i
+    @page = nil unless @page&.positive?
+  end
+
   def set_presenter
-    @presenter = CoursesPresenter.new(current_user: current_user, campaign_param: @campaign.slug)
+    @presenter = CoursesPresenter.new(current_user: current_user,
+                                      campaign_param: @campaign.slug, page: @page)
   end
 
   def add_organizer_to_campaign(user)
