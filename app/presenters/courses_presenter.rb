@@ -30,6 +30,18 @@ class CoursesPresenter
     @campaign
   end
 
+  # If there are too many articles, this query can take a VERY long time.
+  ARTICLE_SORTING_LIMIT = 50000
+  def campaign_articles
+    too_many = campaign.articles_courses.count > ARTICLE_SORTING_LIMIT
+    articles = campaign.articles_courses
+                       .includes(article: :wiki)
+                       .includes(:course).where(courses: { private: false })
+                       .paginate(page: @page, per_page: 1000)
+    articles = articles.order('articles.deleted', character_sum: :desc) unless too_many
+    articles
+  end
+
   def can_remove_course?
     @can_remove ||= current_user&.admin? || campaign_organizer?
   end
