@@ -193,12 +193,12 @@ const EditButton = ({
   );
 };
 
-const FindArticles = ({ course }) => {
+const FindArticles = ({ course, open }) => {
   return (
     <tr className="assignment find-articles-section">
       <td>
         <Link to={`/courses/${course.slug}/article_finder`}>
-          <button className="button border small link">
+          <button className="button border small link" onClick={open}>
             Search Wikipedia for an Article
           </button>
         </Link>
@@ -467,7 +467,7 @@ export class AssignButton extends React.Component {
 
     // Add the FindArticles button
     if (role === ASSIGNED_ROLE && !isStudentsPage) {
-      assignmentRows.push(<FindArticles course={course} key="find-articles-link" />);
+      assignmentRows.push(<FindArticles course={course} open={open} key="find-articles-link" />);
     }
 
     return (
