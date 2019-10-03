@@ -82,7 +82,9 @@ class Assignment < ApplicationRecord
     if existing
       self.sandbox_url = existing.sandbox_url
     else
-      base_url = "https://#{wiki.language}.#{wiki.project}.org/wiki"
+      language = wiki.language || 'www'
+      project = wiki.project || 'wikipedia'
+      base_url = "https://#{language}.#{project}.org/wiki"
       self.sandbox_url = "#{base_url}/User:#{user.username}/#{article_title}"
     end
   end
