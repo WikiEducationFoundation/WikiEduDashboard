@@ -46,6 +46,21 @@ describe Assignment do
         expect(assignment.sandbox_url).to eq(expected)
       end
 
+      it 'generates a sandbox_url if no language is defined' do
+        wiki = create(:wiki, language: nil, project: 'wikidata')
+        course = create(:course)
+        user = create(:user)
+        article = create(:article)
+        article_title = article.title
+        assignment = create(:assignment, course: course, user: user,
+                             article: article, article_title: article.title,
+                             wiki: wiki)
+
+        base_url = 'https://www.wikidata.org/wiki'
+        expected = "#{base_url}/User:#{user.username}/#{article_title}"
+        expect(assignment.sandbox_url).to eq(expected)
+      end
+
       it 'uses an already existing sandbox URL for assignments with the same article' do
         course = create(:course)
         user = create(:user)
