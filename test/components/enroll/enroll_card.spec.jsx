@@ -25,7 +25,7 @@ describe('EnrollCard', () => {
       />
     );
     const button = TestEnrollCard.find('.button.auth.signup.border');
-    expect(button.length).to.eq(1);
+    expect(button.length).toEqual(1);
   });
 
   it('Warns about ended course', () => {
@@ -35,7 +35,7 @@ describe('EnrollCard', () => {
       />
     );
     const h1 = TestEnrollCard.find('h1');
-    expect(h1.first().text()).to.eq('The course has ended.');
+    expect(h1.first().text()).toEqual('The course has ended.');
     });
   }
 );

@@ -13,21 +13,21 @@ describe('Course Alerts reducer', () => {
     };
     deepFreeze(initialState);
   });
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     const state = reducer(undefined, { type: null });
-    expect(state).to.deep.equal(initialState);
+    expect(state).toEqual(initialState);
   });
   describe('Onboarding Alert', () => {
-    it('should merge the alert when received as an object', () => {
+    test('should merge the alert when received as an object', () => {
       const action = {
         type: RECEIVE_ONBOARDING_ALERT,
         data: { alerts: [{ message: 'Onboarding alert message' }] }
       };
       const state = reducer(initialState, action);
       const [alert] = action.data.alerts;
-      expect(state.onboardingAlert).to.deep.equal(alert);
+      expect(state.onboardingAlert).toEqual(alert);
     });
-    it('should replace an existing alert when another is received', () => {
+    test('should replace an existing alert when another is received', () => {
       const firstAction = {
         type: RECEIVE_ONBOARDING_ALERT,
         data: { alerts: [{ message: 'Alert Message One' }] }
@@ -39,7 +39,7 @@ describe('Course Alerts reducer', () => {
       };
       const secondState = reducer(firstState, secondAction);
       const [alert] = secondAction.data.alerts;
-      expect(secondState.onboardingAlert).to.deep.equal(alert);
+      expect(secondState.onboardingAlert).toEqual(alert);
     });
   });
 });

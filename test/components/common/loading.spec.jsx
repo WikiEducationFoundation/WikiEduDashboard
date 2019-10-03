@@ -9,8 +9,8 @@ describe('Loading', () => {
     const renderer = ShallowTestUtils.createRenderer();
     renderer.render(<Loading />);
     const output = renderer.getRenderOutput();
-    expect(output.type).to.eq('div');
-    expect(output.props.children[0].type).to.eq('h1');
-    expect(output.props.children[1].type).to.eq('div');
+    expect(output.type).toEqual('div');
+    expect(output.props.children[0].type).toEqual('h1');
+    expect(output.props.children[1].type).toEqual('div');
   });
 });

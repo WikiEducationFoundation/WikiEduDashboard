@@ -44,6 +44,6 @@ describe('top-level course component', () => {
         />
       </MemoryRouter>
     );
-    expect(testCourse).to.exist;
+    expect(testCourse).toExist;
   });
 });

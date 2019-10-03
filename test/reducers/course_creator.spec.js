@@ -12,8 +12,8 @@ describe('Course creator reducer', () => {
     };
     deepFreeze(initialState);
   });
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     const state = reducer(undefined, { type: null });
-    expect(state).to.deep.equal(initialState);
+    expect(state).toEqual(initialState);
   });
 });

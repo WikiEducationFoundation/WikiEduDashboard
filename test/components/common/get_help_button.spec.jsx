@@ -30,14 +30,14 @@ describe('GetHelpButton', () => {
 
     it('renders the get help button', () => {
       const getHelpButton = popContainer.find('button.small');
-      expect(getHelpButton.length).to.eq(1);
-      expect(getHelpButton.text()).to.eq('Get Help');
+      expect(getHelpButton.length).toEqual(1);
+      expect(getHelpButton.text()).toEqual('Get Help');
     });
 
     it('has an ask search field', () => {
       const searchField = popContainer.find('input#q');
-      expect(searchField.length).to.eq(1);
-      expect(searchField.prop('placeholder')).to.eq('Search Help Forum');
+      expect(searchField.length).toEqual(1);
+      expect(searchField.prop('placeholder')).toEqual('Search Help Forum');
     });
   });
 
@@ -53,7 +53,7 @@ describe('GetHelpButton', () => {
 
       const popContainer = TestGetHelpButton.find('.pop__container');
       const pop = popContainer.find('.pop');
-      expect(pop.prop('className').includes('open')).to.eq(false);
+      expect(pop.prop('className')).not.toContain('open');
     });
 
     it('should open when clicked', () => {
@@ -70,7 +70,7 @@ describe('GetHelpButton', () => {
 
       const popContainer = TestGetHelpButton.find('.pop__container');
       const pop = popContainer.find('.pop.open');
-      expect(pop.prop('className').includes('open')).to.eq(true);
+      expect(pop.prop('className')).toContain('open');
     });
 
     it('should switch to form', () => {
@@ -87,8 +87,8 @@ describe('GetHelpButton', () => {
 
       const popContainer = container.find('GetHelpButton');
       popContainer.setState({ selectedTargetUser: {} });
-      expect(popContainer.find('.get-help-info')).to.exist;
-      expect(popContainer.find('.get-help-form')).to.exist;
+      expect(popContainer.find('.get-help-info')).toExist;
+      expect(popContainer.find('.get-help-form')).toExist;
     });
   });
 
@@ -107,8 +107,8 @@ describe('GetHelpButton', () => {
       const wikipediaHelp = popContainer.find('.contact-wikipedia-help');
       const programHelp = popContainer.find('.contact-program-help');
 
-      expect(wikipediaHelp.text()).to.eq('question about editing Wikipedia');
-      expect(programHelp.text()).to.eq('question about Wiki Ed or your assignment');
+      expect(wikipediaHelp.text()).toEqual('question about editing Wikipedia');
+      expect(programHelp.text()).toEqual('question about Wiki Ed or your assignment');
     });
   });
 
@@ -125,8 +125,8 @@ describe('GetHelpButton', () => {
 
     it('only lists the content expert', () => {
       const contentExperts = popContainer.find('.contact-wikipedia-help');
-      expect(contentExperts.text()).to.eq('question about editing Wikipedia');
-      expect(popContainer.find('.contact-program-help').length).to.eq(0);
+      expect(contentExperts.text()).toEqual('question about editing Wikipedia');
+      expect(popContainer.find('.contact-program-help').length).toEqual(0);
     });
   });
 });

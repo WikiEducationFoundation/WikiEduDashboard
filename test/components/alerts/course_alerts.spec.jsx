@@ -34,7 +34,7 @@ describe('CourseAlerts', () => {
     );
     const notifications = component.find('.notification');
 
-    expect(notifications.length).to.be.above(0);
-    expect(notifications.at(1).text()).to.equal('1 requested account pending.View');
+    expect(notifications.length).toBeGreaterThan(0);
+    expect(notifications.at(1).text()).toEqual('1 requested account pending.View');
   });
 });

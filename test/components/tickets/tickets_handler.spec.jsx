@@ -43,18 +43,18 @@ describe('Tickets', () => {
       );
 
       const heading = handler.find('h1');
-      expect(heading.length).to.be.ok;
-      expect(heading.text()).to.eq('Ticketing Dashboard');
+      expect(heading.length).toBeTruthy;
+      expect(heading.text()).toEqual('Ticketing Dashboard');
 
       const ticketStatusesFilter = handler.find('TicketStatusesFilter');
-      expect(ticketStatusesFilter.length).to.be.ok;
+      expect(ticketStatusesFilter.length).toBeTruthy;
 
       const ticketOwnersFilter = handler.find('TicketOwnersFilter');
-      expect(ticketOwnersFilter.length).to.be.ok;
+      expect(ticketOwnersFilter.length).toBeTruthy;
 
       const html = handler.html();
       filteredTickets.forEach((ticket) => {
-        expect(html).to.include(ticket.subject);
+        expect(html).toContain(ticket.subject);
       });
     });
   });

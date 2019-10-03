@@ -14,7 +14,7 @@ describe('CourseAlertsActions', () => {
     store = mockStore({});
   });
   describe('#fetchOnboardingAlert', () => {
-    it('dispatches a message upon a successful alert request', async () => {
+    test('dispatches a message upon a successful alert request', async () => {
       fetch.mockResolvedValue(Promise.resolve({
         ok: true,
         status: 200,
@@ -23,12 +23,12 @@ describe('CourseAlertsActions', () => {
 
       await store.dispatch(fetchOnboardingAlert({ id: 1 }));
       const actions = store.getActions();
-      expect(actions.length).to.equal(1);
+      expect(actions.length).toBe(1);
 
       const [action] = actions;
-      expect(action.type).to.equal(types.RECEIVE_ONBOARDING_ALERT);
+      expect(action.type).toBe(types.RECEIVE_ONBOARDING_ALERT);
     });
-    it('dispatches a failure if the api request is unsuccessful', async () => {
+    test('dispatches a failure if the api request is unsuccessful', async () => {
       fetch.mockResolvedValue(Promise.resolve({
         ok: false,
         status: 500
@@ -36,10 +36,10 @@ describe('CourseAlertsActions', () => {
 
       await store.dispatch(fetchOnboardingAlert({ id: 1 }));
       const actions = store.getActions();
-      expect(actions.length).to.equal(1);
+      expect(actions.length).toBe(1);
 
       const [action] = actions;
-      expect(action.type).to.equal(types.API_FAIL);
+      expect(action.type).toBe(types.API_FAIL);
     });
   });
 });

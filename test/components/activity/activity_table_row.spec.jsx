@@ -26,6 +26,6 @@ describe('ActivityTableRow', () => {
   );
 
   it('renders a table row with a closed class', () => {
-    expect(TestRow.querySelectorAll('tr')[0].className).to.eq('closed');
+    expect(TestRow.querySelectorAll('tr')[0].className).toEqual('closed');
   });
 });

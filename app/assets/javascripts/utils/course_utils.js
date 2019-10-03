@@ -151,6 +151,14 @@ export default class CourseUtils {
     return `${languagePrefix}${projectPrefix}${title}`;
   }
 
+  static articleAndArticleTitle(assignment, course, wikidataLabels) {
+    const article = this.articleFromTitleInput(assignment.article_url);
+    const label = wikidataLabels[article.title.replace('www:wikidata', '')];
+    const title = this.formattedArticleTitle(article, course.home_wiki, label);
+
+    return { article, title };
+  }
+
   static formattedCategoryName(category, defaultWiki) {
     category.title = category.cat_name;
     category.language = category.wiki.language;

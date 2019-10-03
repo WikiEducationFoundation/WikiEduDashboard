@@ -20,3 +20,7 @@ unless assignment.wiki_id == course.home_wiki.id
 end
 
 json.username assignment.user.username if assignment.user
+
+# Assignment Status
+json.assignment_status assignment.assignment_pipeline.status
+json.assignment_all_statuses assignment.assignment_pipeline.all_statuses

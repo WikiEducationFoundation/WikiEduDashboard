@@ -28,6 +28,6 @@ describe('CampaignList', () => {
       </Provider>
     );
 
-    expect(TestButton.find('.campaigns')).to.exist;
+    expect(TestButton.find('.campaigns')).toExist;
   });
 });

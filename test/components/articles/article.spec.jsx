@@ -39,8 +39,8 @@ describe('Article', () => {
       </table>
     );
 
-    expect(TestArticle.textContent).to.not.contain('(new)');
-    expect(TestArticle.textContent).to.contain('articleTitle');
+    expect(TestArticle.textContent).not.toContain('(new)');
+    expect(TestArticle.textContent).toContain('articleTitle');
   });
 
   it('adds "(new)" to new articles', () => {
@@ -73,6 +73,6 @@ describe('Article', () => {
       </table>
     );
 
-    expect(TestArticle.textContent).to.contain('(new)');
+    expect(TestArticle.textContent).toContain('(new)');
   });
 });

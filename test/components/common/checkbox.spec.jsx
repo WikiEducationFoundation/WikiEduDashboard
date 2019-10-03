@@ -15,7 +15,7 @@ describe('Checkbox', () => {
       </Provider>
     );
     const checkbox = TestCheckbox.find('p');
-    expect(checkbox.find('input[type="checkbox"]').length).to.eq(1);
+    expect(checkbox.find('input[type="checkbox"]').length).toEqual(1);
   });
 
   it('sets proper input value through props', () => {
@@ -27,7 +27,7 @@ describe('Checkbox', () => {
       </Provider>
     );
     let checkbox = TestCheckbox.find('p');
-    expect(checkbox.find('input[type="checkbox"]').prop('checked')).to.eq(true);
+    expect(checkbox.find('input[type="checkbox"]').prop('checked')).toEqual(true);
     TestCheckbox = mount(
       <Provider store={reduxStore}>
         <Checkbox
@@ -36,6 +36,6 @@ describe('Checkbox', () => {
       </Provider>
     );
     checkbox = TestCheckbox.find('p');
-    expect(checkbox.find('input[type="checkbox"]').prop('checked')).to.eq(false);
+    expect(checkbox.find('input[type="checkbox"]').prop('checked')).toEqual(false);
   });
 });

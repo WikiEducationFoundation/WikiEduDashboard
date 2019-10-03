@@ -25,7 +25,7 @@ describe('ArticlesHandler', () => {
     );
 
     component.setState({ loading: false });
-    expect(component.find('NavLink')).to.exist;
-    expect(component.debug()).to.contain('Articles Edited');
+    expect(component.find('NavLink')).toExist;
+    expect(component.debug()).toContain('Articles Edited');
   });
 });

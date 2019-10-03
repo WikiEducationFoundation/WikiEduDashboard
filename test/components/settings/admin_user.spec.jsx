@@ -53,15 +53,15 @@ describe('AdminUser', () => {
       expectedCellValues.forEach((expectedValue, idx) => {
         expect(
           cells.at(idx).find('p').first().text()
-        ).to.equal(expectedValue);
+        ).toEqual(expectedValue);
       });
     });
 
     it('renders the revoking button', () => {
       const button = wrapper.find('td p button').first();
       expect(button.text())
-        .to.equal(I18n.t('settings.admin_users.remove.revoke_button'));
-      expect(button.hasClass('danger')).to.equal(true);
+        .toEqual(I18n.t('settings.admin_users.remove.revoke_button'));
+      expect(button.hasClass('danger')).toEqual(true);
     });
   }); // not revoking
 
@@ -90,8 +90,8 @@ describe('AdminUser', () => {
 
       const button = wrapper.find('td p button').first();
       expect(button.text())
-        .to.equal(I18n.t('settings.admin_users.remove.revoking_button_working'));
-      expect(button.hasClass('border')).to.equal(true);
+        .toEqual(I18n.t('settings.admin_users.remove.revoking_button_working'));
+      expect(button.hasClass('border')).toEqual(true);
     });
   });
 
@@ -112,16 +112,16 @@ describe('AdminUser', () => {
     it('changes state confirming false -> true when clicked', () => {
       const button = wrapper.find('tr td p button');
       button.simulate('click');
-      expect(wrapper.state().confirming).to.equal(true);
+      expect(wrapper.state().confirming).toEqual(true);
     });
 
     it('renders confirmation state', () => {
       wrapper.setState({ confirming: true });
       const button = wrapper.find('tr td p button');
       expect(button.text())
-        .to.equal(I18n.t('settings.admin_users.remove.revoke_button_confirm', { username: expectedUser.username })
+        .toEqual(I18n.t('settings.admin_users.remove.revoke_button_confirm', { username: expectedUser.username })
       );
-      expect(button.hasClass('danger')).to.equal(true);
+      expect(button.hasClass('danger')).toEqual(true);
     });
   });
 });

@@ -20,8 +20,8 @@ describe('AvailableArticle', () => {
         </tbody>
       </table>
     );
-    expect(TestDom.querySelector('.assignment')).to.exist;
-    expect(TestDom.textContent).to.contain('two');
+    expect(TestDom.querySelector('.assignment')).toExist;
+    expect(TestDom.textContent).toContain('two');
   });
 
   it('notify when an article is selected', () => {
@@ -42,7 +42,7 @@ describe('AvailableArticle', () => {
     const select = TestDom.querySelector('button');
     ReactTestUtils.Simulate.click(select);
 
-    expect(notificationSpy.mock.calls.length).to.eq(1);
-    expect(updateAssignmentSpy.mock.calls.length).to.eq(1);
+    expect(notificationSpy.mock.calls.length).toEqual(1);
+    expect(updateAssignmentSpy.mock.calls.length).toEqual(1);
   });
 });

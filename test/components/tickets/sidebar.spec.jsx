@@ -20,21 +20,21 @@ describe('Tickets', () => {
     const component = shallow(<Sidebar {...props} />);
 
     it('should display the standard information', () => {
-      expect(component.find('.sidebar .created-at').length).to.be.ok;
-      expect(component.find('.sidebar .status').length).to.be.ok;
-      expect(component.find('.sidebar .owner').length).to.be.ok;
+      expect(component.find('.sidebar .created-at').length).toBeTruthy;
+      expect(component.find('.sidebar .status').length).toBeTruthy;
+      expect(component.find('.sidebar .owner').length).toBeTruthy;
 
-      expect(component.find('.sidebar .course-name').length).to.be.ok;
-      expect(component.find('.sidebar .course-name').text()).to.equal('Course Unknown');
+      expect(component.find('.sidebar .course-name').length).toBeTruthy;
+      expect(component.find('.sidebar .course-name').text()).toEqual('Course Unknown');
 
-      expect(component.find('.sidebar .user-record').length).to.be.ok;
-      expect(component.find('.sidebar .user-record').text()).to.equal('Unknown User Record');
+      expect(component.find('.sidebar .user-record').length).toBeTruthy;
+      expect(component.find('.sidebar .user-record').text()).toEqual('Unknown User Record');
 
-      expect(component.find('.sidebar .button.info').length).to.be.ok;
-      expect(component.find('.sidebar .button.info').text()).to.equal('Email Ticket Owner');
+      expect(component.find('.sidebar .button.info').length).toBeTruthy;
+      expect(component.find('.sidebar .button.info').text()).toEqual('Email Ticket Owner');
 
-      expect(component.find('.sidebar .button.danger').length).to.be.ok;
-      expect(component.find('.sidebar .button.danger').text()).to.equal('Delete Ticket');
+      expect(component.find('.sidebar .button.danger').length).toBeTruthy;
+      expect(component.find('.sidebar .button.danger').text()).toEqual('Delete Ticket');
     });
     it('should display the owner as "You" if the owner is the current user', () => {
       ticket.owner = { id: 1 };
@@ -43,7 +43,7 @@ describe('Tickets', () => {
       const sidebar = shallow(<Sidebar {...props} />);
       const text = sidebar.find('.sidebar .owner').text();
 
-      expect(text).to.include('You');
+      expect(text).toContain('You');
 
       ticket.owner = {};
       props.currentUser = {};
@@ -53,10 +53,10 @@ describe('Tickets', () => {
 
       const courseName = shallow(<Sidebar {...props} />).find('.sidebar .course-name');
       const link = courseName.children().first();
-      expect(link.type()).to.eq(Link);
+      expect(link.type()).toEqual(Link);
 
       const text = link.children().reduce((acc, el) => acc + el.text(), '');
-      expect(text).to.include('Title');
+      expect(text).toContain('Title');
 
       ticket.project = {};
     });
@@ -66,7 +66,7 @@ describe('Tickets', () => {
       const sidebar = shallow(<Sidebar {...props} />);
       const text = sidebar.find('.sidebar .user-record').text();
 
-      expect(text).to.include('username');
+      expect(text).toContain('username');
 
       ticket.sender = {};
     });

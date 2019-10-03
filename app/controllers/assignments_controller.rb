@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
-  before_action :set_course, except: [:update]
+  before_action :set_course, except: [:update, :update_status]
 
   def destroy
     set_assignment { return }
@@ -35,14 +35,28 @@ class AssignmentsController < ApplicationController
   def update
     check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
+
     if @assignment.user_id
       render json: { message: 'This assignment has been claimed already. Please refresh.' },
              status: :conflict
-    elsif @assignment.update(assignment_params)
+    elsif @assignment.update_attributes(assignment_params)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
              status: :internal_server_error
+    end
+  end
+
+  def update_status
+    check_permissions(assignment_params[:user_id].to_i)
+    @assignment = Assignment.find(assignment_params[:id])
+
+    if assignment_params[:status]
+      @assignment.assignment_pipeline.update_status(assignment_params[:status])
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
+    else
+      render json: { errors: @assignment.errors, message: 'unable to update assignment' },
+             status: :unprocessable_entity
     end
   end
 
@@ -117,6 +131,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project)
+    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
   end
 end

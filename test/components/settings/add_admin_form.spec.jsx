@@ -48,13 +48,13 @@ describe('AddAdminForm', () => {
     it('renders form', () => {
       expect(
         wrapper.find('#new_admin_name').first().prop('label')
-      ).to.eq(I18n.t('settings.admin_users.new.form_label'));
+      ).toEqual(I18n.t('settings.admin_users.new.form_label'));
     });
 
     it('renders submit button', () => {
       expect(
         wrapper.find('button').first().text()
-      ).to.eq(I18n.t('application.submit'));
+      ).toEqual(I18n.t('application.submit'));
     });
 
     it('input onChange calls handleUsernameChange ', () => {
@@ -63,14 +63,14 @@ describe('AddAdminForm', () => {
       input.simulate('change', ...event);
       expect(
         wrapper.state().username
-      ).to.equal(expectedUser.username);
+      ).toEqual(expectedUser.username);
     });
 
     it('updates text field on state change', () => {
       wrapper.setState({ username: expectedUser.username });
       expect(
         wrapper.find('#new_admin_name').first().prop('value')
-      ).to.equal(expectedUser.username);
+      ).toEqual(expectedUser.username);
     });
 
 
@@ -81,7 +81,7 @@ describe('AddAdminForm', () => {
       form.simulate('submit', mockEvent);
       expect(
         submitSpy.calledOnce
-      ).to.equal(true);
+      ).toEqual(true);
     });
   }); // not confirming
 
@@ -93,13 +93,13 @@ describe('AddAdminForm', () => {
     it('renders a non editable form', () => {
       expect(
         wrapper.find('#new_admin_name').first().prop('editable')
-      ).to.eq(undefined);
+      ).toEqual(undefined);
     });
 
     it('renders confirm button', () => {
       expect(
         wrapper.find('button').first().text()
-      ).to.eq(I18n.t('settings.admin_users.new.confirm_add_admin'));
+      ).toEqual(I18n.t('settings.admin_users.new.confirm_add_admin'));
     });
   });
 
@@ -114,7 +114,7 @@ describe('AddAdminForm', () => {
     it('renders a spinner', () => {
       expect(
         wrapper.find('.loading__spinner')
-      ).to.have.length(1);
+      ).toHaveLength(1);
     });
   });
 });

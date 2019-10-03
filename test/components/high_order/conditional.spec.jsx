@@ -17,8 +17,8 @@ describe('Conditional', () => {
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput.type.displayName).to.eq('Connect(InputTextInput)');
-    expect(textInput.props.value).to.eq('foo');
+    expect(textInput.type.displayName).toEqual('Connect(InputTextInput)');
+    expect(textInput.props.value).toEqual('foo');
   });
 
   it('renders nothing when show is false', () => {
@@ -31,6 +31,6 @@ describe('Conditional', () => {
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput).to.be.false;
+    expect(textInput).toBeFalsy;
   });
 });

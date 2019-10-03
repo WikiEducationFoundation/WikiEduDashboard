@@ -16,8 +16,8 @@ describe('TagEditable', () => {
       </Provider>
     );
     const renderedButton = wrapper.find('button.plus');
-    expect(renderedButton).to.have.lengthOf(1);
-    expect(renderedButton.prop('className')).to.eq('button border plus open');
-    expect(renderedButton.text()).to.eq('+');
+    expect(renderedButton).toHaveLength(1);
+    expect(renderedButton.prop('className')).toEqual('button border plus open');
+    expect(renderedButton.text()).toEqual('+');
   });
 });

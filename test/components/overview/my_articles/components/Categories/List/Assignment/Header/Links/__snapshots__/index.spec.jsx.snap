@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Links should show the default links 1`] = `ShallowWrapper {}`;

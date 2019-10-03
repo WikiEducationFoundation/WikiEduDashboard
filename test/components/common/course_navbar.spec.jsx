@@ -25,10 +25,10 @@ describe('CourseNavbar', () => {
       />
     );
     it('includes Timeline link', () => {
-      expect(shallow(component).find('#timeline-link').length).to.eq(1);
+      expect(shallow(component).find('#timeline-link').length).toEqual(1);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('NavLink').getElements()[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('NavLink').getElements()[0].props.to).toEqual(`${slug}/home`);
     });
   });
 
@@ -46,10 +46,10 @@ describe('CourseNavbar', () => {
       />
     );
     it('does not include Timeline link', () => {
-      expect(shallow(component).find('#timeline-link').length).to.eq(0);
+      expect(shallow(component).find('#timeline-link').length).toEqual(0);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('NavLink').getElements()[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('NavLink').getElements()[0].props.to).toEqual(`${slug}/home`);
     });
   });
 });

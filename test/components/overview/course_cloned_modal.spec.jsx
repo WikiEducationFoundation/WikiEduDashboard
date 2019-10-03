@@ -38,22 +38,22 @@ describe('CourseClonedModal', () => {
 
   it('renders a Modal', () => {
     const renderedModal = TestModal.find(CourseClonedModal);
-    expect(renderedModal).to.have.length(1);
+    expect(renderedModal).toHaveLength(1);
     renderedModal.setState({ error_message: null });
     const warnings = TestModal.find('.warning');
-    expect(warnings).to.have.length(0);
+    expect(warnings).toHaveLength(0);
   });
 
   it('includes a Cancel and Save New Course button', () => {
     const renderedModal = TestModal.find('.cloned-course');
-    expect(renderedModal).to.have.length(1);
+    expect(renderedModal).toHaveLength(1);
 
     const cancel = renderedModal.find('.button.light');
-    expect(cancel).to.have.length(1);
-    expect(cancel.prop('disabled')).to.be.undefined;
+    expect(cancel).toHaveLength(1);
+    expect(cancel.prop('disabled')).toBeUndefined;
 
     const create = renderedModal.find('.button.dark');
-    expect(create).to.have.length(1);
-    expect(create.prop('disabled')).to.equal('disabled');
+    expect(create).toHaveLength(1);
+    expect(create.prop('disabled')).toEqual('disabled');
   });
 });

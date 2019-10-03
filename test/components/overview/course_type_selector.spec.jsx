@@ -18,7 +18,7 @@ describe('CourseTypeSelector', () => {
       />
     );
     const typeListing = ReactTestUtils.findRenderedDOMComponentWithTag(NonEditableCourseTypeSelector, 'div');
-    expect(typeListing.textContent).to.eq('Type: Wikipedia Student Program');
+    expect(typeListing.textContent).toEqual('Type: Wikipedia Student Program');
   });
 
   it('calls updateCourse when selection changes ', () => {
@@ -35,6 +35,6 @@ describe('CourseTypeSelector', () => {
     selector.value = 'Editathon';
     Simulate.change(selector);
     Simulate.keyDown(selector, { key: 'Enter', keyCode: 13, which: 13 });
-    expect(spy.callCount).to.eq(1);
+    expect(spy.callCount).toEqual(1);
   });
 });

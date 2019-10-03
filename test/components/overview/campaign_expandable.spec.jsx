@@ -28,7 +28,7 @@ describe('CampaignEditable', () => {
         />
       </Provider>
     );
-    expect(TestButton.find('.pop__container.campaigns.open')).to.exist;
+    expect(TestButton.find('.pop__container.campaigns.open')).toExist;
   });
 
   it('it includes a plus button when is closed to open the expandable', () => {
@@ -42,6 +42,6 @@ describe('CampaignEditable', () => {
         />
       </Provider>
     );
-    expect(TestButton.find('.button.border.plus.open')).to.exist;
+    expect(TestButton.find('.button.border.plus.open')).toExist;
   });
 });

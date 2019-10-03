@@ -8,14 +8,14 @@ import { Notifications } from '../../../app/assets/javascripts/components/common
 describe('Notifications', () => {
   it('renders', () => {
     const rendered = shallow(<Notifications notifications={[]} />);
-    expect(rendered).to.exist;
+    expect(rendered).toExist;
   });
 
   it('shows nothing when initially renderd', () => {
     const rendered = shallow(<Notifications notifications={[]} />);
 
     const rows = rendered.find('.notice');
-    expect(rows.length).to.eq(0);
+    expect(rows.length).toEqual(0);
   });
 
   it('shows an error when the state reflects that', () => {
@@ -24,6 +24,6 @@ describe('Notifications', () => {
     ];
     const rendered = shallow(<Notifications notifications={notifications} />);
     const rows = rendered.find('.notice');
-    expect(rows.length).to.eq(1);
+    expect(rows.length).toEqual(1);
   });
 });

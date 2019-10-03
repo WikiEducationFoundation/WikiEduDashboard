@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageViews should show a link that includes details about the article 1`] = `ShallowWrapper {}`;

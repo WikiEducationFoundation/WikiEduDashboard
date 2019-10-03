@@ -34,18 +34,18 @@ describe('Tickets', () => {
       const show = shallow(<TicketShow {...props} />);
 
       const link = show.find('Link');
-      expect(link.length).to.be.ok;
-      expect(link.children().text()).to.include('Ticketing Dashboard');
+      expect(link.length).toBeTruthy;
+      expect(link.children().text()).toContain('Ticketing Dashboard');
 
       const title = show.find('.title');
-      expect(title.length).to.be.ok;
-      expect(title.text()).to.include('Ticket from Real Name');
+      expect(title.length).toBeTruthy;
+      expect(title.text()).toContain('Ticket from Real Name');
 
       const reply = show.find('Reply');
-      expect(reply.length).to.be.ok;
+      expect(reply.length).toBeTruthy;
 
       const newReplyForm = show.find('NewReplyForm');
-      expect(newReplyForm.length).to.be.ok;
+      expect(newReplyForm.length).toBeTruthy;
     });
 
     it('can display multiple messages', () => {
@@ -55,7 +55,7 @@ describe('Tickets', () => {
       const show = shallow(<TicketShow {...props} />);
 
       const reply = show.find('Reply');
-      expect(reply.length).to.eq(2);
+      expect(reply.length).toEqual(2);
     });
   });
 });

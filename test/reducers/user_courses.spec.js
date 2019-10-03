@@ -4,17 +4,17 @@ import reducer from '../../app/assets/javascripts/reducers/user_courses.js';
 import { RECEIVE_USER_COURSES } from '../../app/assets/javascripts/constants';
 
 describe('Did you know reducer menu reducer', () => {
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     const initialState = {
       userCourses: [],
       loading: true
     };
     deepFreeze(initialState);
 
-    expect(reducer(undefined, {})).to.deep.eq(initialState);
+    expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should update array with new user course', () => {
+  test('should update array with new user course', () => {
     const newCourses = [{ id: 1, title: 'Test - Test (test-1)' }];
     const oldCourses = [{ id: 2, title: 'Test - Test (test-2)' }];
 
@@ -31,7 +31,7 @@ describe('Did you know reducer menu reducer', () => {
           data: { courses: newCourses }
         }
       })
-    ).to.deep.eq({
+    ).toEqual({
       userCourses: newCourses,
       loading: false
     });

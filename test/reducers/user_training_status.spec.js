@@ -4,12 +4,15 @@ import userTrainingStatus from '../../app/assets/javascripts/reducers/user_train
 import { RECEIVE_USER_TRAINING_STATUS } from '../../app/assets/javascripts/constants';
 
 describe('user training status reducer', () => {
-  it('should return initial state when no action nor state is provided', () => {
-    const newState = userTrainingStatus(undefined, { type: null });
-    expect(newState).to.be.an('array');
-  });
+  test(
+    'should return initial state when no action nor state is provided',
+    () => {
+      const newState = userTrainingStatus(undefined, { type: null });
+      expect(Array.isArray(newState)).toBe(true);
+    }
+  );
 
-  it('returns user training status with RECEIVE_USER_TRAINING_STATUS', () => {
+  test('returns user training status with RECEIVE_USER_TRAINING_STATUS', () => {
     const initialState = [];
     deepFreeze(initialState);
     const mockedAction = {
@@ -18,6 +21,6 @@ describe('user training status reducer', () => {
     };
 
     const newState = userTrainingStatus(initialState, mockedAction);
-    expect(newState).to.deep.eq([{ id: 1 }, { id: 2 }]);
+    expect(newState).toEqual([{ id: 1 }, { id: 2 }]);
   });
 });

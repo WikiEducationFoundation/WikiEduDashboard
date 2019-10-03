@@ -29,8 +29,8 @@ describe('Assignment', () => {
       <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
     );
 
-    expect(TestAssignment.text()).to.contain('Ragesoss');
-    expect(TestAssignment.text()).to.contain(article.title);
+    expect(TestAssignment.text()).toContain('Ragesoss');
+    expect(TestAssignment.text()).toContain(article.title);
   });
 
   it('renders for reviewing role', () => {
@@ -55,7 +55,7 @@ describe('Assignment', () => {
       <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
     );
 
-    expect(TestAssignment.text()).to.contain('Ragesock');
-    expect(TestAssignment.text()).to.contain(article.title);
+    expect(TestAssignment.text()).toContain('Ragesock');
+    expect(TestAssignment.text()).toContain(article.title);
   });
 });

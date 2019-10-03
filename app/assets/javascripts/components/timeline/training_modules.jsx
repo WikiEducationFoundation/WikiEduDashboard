@@ -118,10 +118,12 @@ const TrainingModules = createReactClass({
       );
     });
 
+    const header = this.props.header || 'Training';
+    const headerId = header.toLowerCase().split(/[^a-z]/).join('-');
     return (
       <div className="block__training-modules">
         <div>
-          <h4>{this.props.header || 'Training'}</h4>
+          <h4 id={headerId}>{ header }</h4>
           <table className="table table--small">
             <tbody>
               {modules}
