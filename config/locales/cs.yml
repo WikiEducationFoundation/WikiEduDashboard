@@ -8,6 +8,7 @@
 # Author: Frettie
 # Author: Hugo
 # Author: Ilimanaq29
+# Author: Janbery
 # Author: Marek Pavlica
 # Author: Martin Urbanec
 # Author: Matěj Suchánek
@@ -37,6 +38,10 @@ cs:
       zvýšit nebo snížit hodnotu.
   application:
     cancel: Zrušit
+    cookie_consent: Tato stránka používá soubory cookie a ukládá informace spojené
+      s vaším účtem na Wikipedii.
+    cookie_consent_acknowledge: Rozumím
+    cookie_consent_see_more: Zobrazit více
     create_accounts: Založte si účet na Wikipedii
     dashboard: Nástěnka programů
     documentation: Dokumentace
@@ -116,6 +121,10 @@ cs:
     article_development: (rozvoj článku)
     assigned: Přiřazené články
     available: Články k dispozici
+    no_available: Žádné dostupné články
+    next: Další
+    previous: Předchozí
+    article_title: Název článku
     assigned_to: Přiřazeno
     character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
       období mezi začátkem a koncem kurzu
@@ -132,6 +141,9 @@ cs:
       new: Nové
       existing: Existující
       new_and_existing: Nové a Existující
+      tracked: Sledované
+      untracked: Nesledované
+      tracked_and_untracked: Sledované a nesledované
     hide: Skrýt
     history: (historie)
     label: Články
@@ -165,6 +177,9 @@ cs:
     show_current_version_with_authorship_highlighting: Aktuální verze se zvýrazněním
       od autora
     title: Název
+    tracked: Sledováno
+    tracked_doc: Pouze sledované články budou zahrnuty do statistik programu. Pokud
+      článek označíte jako nesledovaný, bude odebrán ze statistiky při další aktualizaci.
     title_example: Název článku
     tools: Hodnotící nástroje
     view: Zobrazit článek
@@ -196,6 +211,7 @@ cs:
     assign_self: Přiřadit článek sobě
     assign_tooltip: Přiřazený článek je ten, který plánujete vytvořit nebo vylepšit.
     bibliography: Bibliografie
+    clone: Ukončit
     confirm_add_available: Jste si jistý, že chcete přidat %{title}?
     confirm_addition: Chcete skutečně zadat článek %{title} uživateli %{username}?
     confirm_deletion: Chcete skutečně odstranit tento zadaný článek?
@@ -205,12 +221,15 @@ cs:
     none_short: Žádné zadané články
     none: Tento kurz nemá žádné přidělené články.
     no_available: Tento kurz nemá žádné dostupné články.
+    peer_review_count_tooltip: Musíte vybrat %{total} článků pro recenzi.
+    peer_review_link: Recenze
     remove: Odebrat
     reviewers: Recenzent(i)
     review_other: Zadat recenzi
     review_self: Recenzovat článek
     review_tooltip: Tímto můžete sledovat, který článek/které články máte v plánu
       zrecenzovat nebo k němu/nim alespoň poskytnout zpětnou vazbu.
+    sandbox_draft_link: Návrh na pískovišti
     select: Vybrat
   blocks:
     milestones:
@@ -244,6 +263,18 @@ cs:
     create_campaign: Vytvořit nový program
     create_my_campaign: Vytvořit můj program!
     customize_passcode: výchozí přístupový kód
+    data_download_info: Stáhnout data jako CSV
+    data_courses: Souhrnná data z kurzu
+    data_courses_info: Základní metriky pro každý kurz/program.
+    data_articles: Editovaných stránek
+    data_articles_info: Podrobnosti o každé sledované stránce v kampani
+    data_revisions_info: Podrobnosti o každé revizi sledovaných stránek v kampani
+    data_instructors: Instruktoři
+    data_instructors_info: Seznam instruktorů/spolupracovníků a jejich kurzů/programů
+    data_editors_by_course: Editoři podle kurzu
+    data_editors_by_course_info: Seznam zapsaných uživatelů a jejich kurzů/programů
+    data_editor_usernames: Uživatelská jména editorů
+    data_editor_usernames_info: Seznam uživatelských jmen, jedno na každý řádek
     default_course_type: Výchozí typ kurzu
     default_passcode: Výchozí přístupový kód
     default_passcode_explanation: 'Ve výchozím nastavení by nové programy této kampaně
@@ -264,17 +295,26 @@ cs:
     random_passcode: náhodný vstupní kód
     requested_accounts: Požadované účty
     title: Název
+    slug: Slug
     use_start_end_dates: Použijte počáteční a koncová data
   categories:
     add_category: Vložit kategorii
+    add_psid: Přidat PetScan PSID
     add_template: Vložit šablonu
     add_this_category: Vložit tuto kategorii
+    add_this_psid: Přidat toto PSID
     add_this_template: Vložit tuto šablonu
+    import_articles_description: Seznam článků v kategorii je automaticky aktualizovaný,
+      může trvat nějaký čas, než se projeví změny.
     confirm_category_addition: Opravdu chcete sledovat příspěvky v kategorii %{name}?
+    confirm_psid_addition: Jste si jistý, že chcete sledovat příspěvky k PetScan PSID
+      %{name}?
     confirm_template_addition: Opravdu chcete sledovat příspěvky u šablony %{name}?
     depth: Úroveň podkategorie
+    articles_count: Počet článků
     name: Název
     category_name: Název kategorie
+    psid_name: PSID
     template_name: Název šablony
     none: Nejsou žádné kategorie ke sledování.
     remove: Odebrat
@@ -282,6 +322,10 @@ cs:
   chat:
     label: Chat
   courses:
+    school_system: Akademický systém
+    assignment_edits_enabled: Změny přiřazení povoleny
+    assignment_edits_enabled_tooltip: Pokud je povoleno, Nástěnka přidá šablonu do
+      diskusní stánky každého zapsaného článku.
     accounts_generation_enabled: Povoleno posílání žádostí o účet
     accounts_generation_explanation: Toto povolí účastníkům zadání jejich e-mailových
       adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Budete
@@ -299,6 +343,11 @@ cs:
     actions: Možnosti
     articles: Články
     articles_none: V tomto kurzu nebyly editovány žádné články.
+    assignment_headings:
+      assigned_articles: Přiřazené články
+      assigned_reviews: Přiřazené recenze
+      available_articles: Články k dispozici
+      available_reviews: Články spolužáků
     assignment_end: Konec kurzu
     assignments_none: Tento kurz nemá žádné zadané články.
     assignment_start: Začátek kurzu
@@ -338,6 +387,8 @@ cs:
       assignment_end_placeholder: RRRR-MM-DD
       assignment_start: Začátek zápisu
       assignment_start_placeholder: RRRR-MM-DD
+      cancel_course_clone: Zrušit kopii kurzu
+      cancel_course_clone_confirm: Opravdu chcete zastavit kopírování tohoto kurzu?
       checking_for_uniqueness: Pro tento kurz je kontrolována jedinečnost.
       choose_clone: Vyberte kurz ke zkopírování.
       clone_previous: Kopírovat předchozí kurz
@@ -351,6 +402,8 @@ cs:
       clone_successful_details: Váš kurz byl zkopírován, včetně částí časové osy (týdnů
         a bloků). Přidejte data, která nebyla zkopírována. Chcete něco jiného ve vašem
         kurzu upravit? Upravte to nyní.
+      course_dates_info: Vložte počáteční a závěrečné datum kurzu. V dalším kroku
+        můžete zvolit, kdy začne zadání na Wikipedii.
       course_description: Popis kurzu
       course_description_placeholder: Co je obsahem vašeho kurzu a co budou studenti
         dělat na Wikipedii? Vložte, prosím, dostatek detailů, aby ostatní redaktoři
@@ -363,7 +416,20 @@ cs:
       course_term_placeholder: Semestr
       course_title: Název kurzu
       course_types:
+        basic_course_name: Základní program
+        basic_course_description: Tento typ programu bude zaznamenávat editace do
+          všech stránek v hlavním jmenném prostoru jakýmkoliv účastníkem. Pokud jsou
+          povoleny automatické editace na domovské wiki programu, bude se stránka
+          programu na wiki automaticky aktualizovaná.
         edit_a_thon_name: Editační maraton
+        edit_a_thon_description: Edit-A-Thon program bude zaznamenávat editace do
+          všech jmenných prostorů. Ve výchozím nastavení nebudou provedeny žádné automatické
+          editace.
+        article_scoped_program_name: Program zaměřený na články
+        article_scoped_program_description: Tento typ programu bude zaznamenávat pouze
+          editace u článků, nebo kategorií. Tento typ použijte, pokud chcete statistiku
+          omezit jen pro určitou skupinu článků. Ve výchozím nastavení nebudou provedeny
+          žádné automatické editace.
       create_button: Vytvořit vlastní kurzǃ
       create_label: Vytvořit nový kurz
       create_new: Vytvořit nějaký nový kurz
@@ -384,6 +450,9 @@ cs:
         jste již nastavili.
       no_class_holidays: Třída nemá prázdniny
       role_description: Vaše role v kurzu
+      role_description_options:
+      - Instruktor
+      - Asistent
       role_description_placeholder: Instruktor, asistent vyučujícího, atd.
       separate_event_dates: Specifikujte čas začátku a konce události (nepovinné)
       separate_event_dates_info: Statistika aktivit pro tento program bude sledována
@@ -1089,6 +1158,8 @@ cs:
     search_placeholder: Vložte klíčové slovo
     search: Hledat
     tools: Nástroje
+    show_options: Zobrazit možnosti
+    hide_options: Skrýt možnosti
     keyword_search: Vyhledávání klíčových slov
     category_search: Vyhledávání kategorií
     article_quality: Kvalita článku (0-100)
@@ -1102,6 +1173,10 @@ cs:
     assign_article_self: Přiřaďte se
     unassign_article_self: Nepřiřazený článek
   training_status:
+    completed: Dokončeno
     started: Zahájeno
     not_started: Nezahájeno
+    due: kvůli %{due_date}
+  multi_wiki:
+    selector_placeholder: Zadejte název wiki
 ...
