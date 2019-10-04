@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 # == Schema Information
 #
-# Table name: training_slides
+# Table name: training_modules
 #
-#  id              :bigint(8)        not null, primary key
-#  name            :string(255)
-#  estimated_ttc   :string(255)
-#  wiki_page       :string(255)
-#  slide_slugs     :text(65535)
-#  description     :text(65535)
-#  translations    :text(16777215)
-#  slug            :string(255)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id            :bigint           not null, primary key
+#  name          :string(255)
+#  estimated_ttc :string(255)
+#  wiki_page     :string(255)
+#  slug          :string(255)
+#  slide_slugs   :text(65535)
+#  description   :text(65535)
+#  translations  :text(16777215)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  kind          :integer          default(0)
 #
 
 require_dependency "#{Rails.root}/lib/training/training_base"
@@ -24,6 +25,11 @@ class TrainingModule < ApplicationRecord
   serialize :translations, Hash
 
   validates_uniqueness_of :slug, case_sensitive: false
+
+  module Kinds
+    TRAINING = 0
+    EXERCISE = 1
+  end
 
   def self.path_to_yaml
     "#{base_path}/modules/*.yml"
