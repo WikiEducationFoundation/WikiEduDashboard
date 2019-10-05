@@ -2,11 +2,11 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
-    t.boolean "tracked", default: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
@@ -146,7 +145,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "wiki_id"
-    t.text "article_titles", limit: 16777215
+    t.text "article_titles", size: :medium
     t.string "name"
     t.integer "depth", default: 0
     t.datetime "created_at", null: false
@@ -455,8 +454,8 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
     t.string "wiki_page"
     t.string "slug"
     t.text "introduction"
-    t.text "categories", limit: 16777215
-    t.text "translations", limit: 16777215
+    t.text "categories", size: :medium
+    t.text "translations", size: :medium
     t.boolean "exclude_from_index", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -470,7 +469,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
     t.string "slug"
     t.text "slide_slugs"
     t.text "description"
-    t.text "translations", limit: 16777215
+    t.text "translations", size: :medium
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_training_modules_on_slug", unique: true
@@ -494,7 +493,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
     t.string "wiki_page"
     t.text "assessment"
     t.text "content"
-    t.text "translations", limit: 16777215
+    t.text "translations", size: :medium
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -543,7 +542,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_165123) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 4294967295
+    t.text "object", size: :long
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
