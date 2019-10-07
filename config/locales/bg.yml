@@ -42,6 +42,8 @@ bg:
     confirm: Добре
     opt_in: Да
     opt_out: Не
+    opt_yes: да
+    opt_no: не
   dashboard:
     create_note: Щракнете на „Създаване на курс“, за да стартирате първия си курс.
     explore_examples: Разгледай примерите

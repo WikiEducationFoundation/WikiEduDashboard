@@ -7,6 +7,7 @@
 # Author: Beta16
 # Author: Einreiher
 # Author: Greis
+# Author: JackLantern
 # Author: Macofe
 # Author: Marcok
 # Author: Martinligabue
@@ -35,6 +36,7 @@ it:
   application:
     cancel: Annulla
     cookie_consent_acknowledge: Ho capito
+    cookie_consent_see_more: Vedi altro.
     create_accounts: Crea utenze di Wikipedia
     dashboard: Cruscotto Wiki Ed
     documentation: Documentazione

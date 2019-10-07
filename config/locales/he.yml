@@ -31,9 +31,14 @@ he:
           billion: ב'
           trillion: ט'
           quadrillion: ק'
+  accessibility:
+    number_field: זה שדה מספר. הכפתורים שעובדים ברוב הדפדפנים יגדילו ויקטינו את הקלט.
   application:
     cancel: ביטול
+    cookie_consent: אתר זה משתמש בעוגיות כדי להשאיר אותך במערכת ומאחסן פרטים שקשורים
+      לחשבון שלך בוויקיפדיה.
     cookie_consent_acknowledge: הבנתי
+    cookie_consent_see_more: לטעון עוד.
     create_accounts: יצירת חשבונות בוויקיפדיה
     dashboard: לוח בקרה של מיזמי ויקי
     documentation: תיעוד
