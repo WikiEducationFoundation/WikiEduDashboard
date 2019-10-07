@@ -216,13 +216,22 @@ rating(color)
     .details-form
       display block
 
-    .pop__container
-      .pop.open
-        form
-          flex-direction  column  
+    
 
 .multi-wiki [class$='multiValue']:first-of-type svg
   display: none;
 
 .multi-wiki input[readonly]
   display: none
+
+@media only screen and (max-width: 1270px)
+
+  .modal-course-details
+    .pop__container
+        .pop.open
+          form
+            width auto
+            position relative
+            flex-direction  column  
+            input 
+              width 200px
