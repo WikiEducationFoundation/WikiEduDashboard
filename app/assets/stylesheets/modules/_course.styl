@@ -172,6 +172,16 @@ rating(color)
   .details-form
     display flex
 
+  .pop__container
+  //.pop.open
+    //position relative
+    //width 100%
+
+    form
+      display flex
+      align-items center
+      justify-content center
+
 @media only screen and (max-width: 920px)
   .course_main,
   .campaign_main
@@ -205,6 +215,11 @@ rating(color)
 
     .details-form
       display block
+
+    .pop__container
+      .pop.open
+        form
+          flex-direction  column  
 
 .multi-wiki [class$='multiValue']:first-of-type svg
   display: none;
