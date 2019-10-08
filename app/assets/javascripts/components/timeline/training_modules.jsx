@@ -69,6 +69,10 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
+    const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
+    const isExercise = module.kind === EXERCISE_KIND;
+    const isDiscussion = module.kind === isDiscussion;
+
     const modules = this.props.block_modules.map((module) => {
       const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
       const isExercise = module.kind === EXERCISE_KIND;
@@ -104,6 +108,7 @@ const TrainingModules = createReactClass({
         deadlineStatus = `(due on ${module.due_date})`;
       }
 
+<<<<<<< HEAD
       let moduleStatus;
       if (module.module_progress && module.deadline_status) {
         moduleStatus = (
@@ -117,6 +122,17 @@ const TrainingModules = createReactClass({
         moduleStatus = '--';
       }
 
+=======
+      const moduleStatus = module.module_progress && module.deadline_status ? (
+        <div>
+          {isTrainingModule ? module.module_progress : null}
+          &nbsp;
+          {deadlineStatus}
+        </div>
+      ) : (
+        '--'
+      );
+>>>>>>> Separate training modules by kind
       return (
         <tr key={module.id} className="training-module">
           <td className="block__training-modules-table__module-name">{module.name}</td>
