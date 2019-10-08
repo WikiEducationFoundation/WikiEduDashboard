@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
 import {
-  BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
+  EXERCISE_KIND, TRAINING_MODULE_KIND
 } from '../../constants/timeline';
 
 import selectStyles from '../../styles/select';
