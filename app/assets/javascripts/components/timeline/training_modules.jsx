@@ -3,6 +3,9 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
+import {
+  BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
+} from '../../constants/timeline';
 
 import selectStyles from '../../styles/select';
 
@@ -66,13 +69,21 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
+    const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
+    const isExercise = module.kind === EXERCISE_KIND;
+    const isDiscussion = module.kind === isDiscussion;
+
     const modules = this.props.block_modules.map((module) => {
       const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
       let deadlineStatus;
-      if (module.module_progress) {
+      if (isExercise || isDiscussion) {
+        progressClass = this.progressClass(module.module_progress);
+        linkText = 'View';
+        iconClassName += 'icon-rt_arrow';
+      } else if (isTrainingModule && module.module_progress) {
         progressClass = this.progressClass(module.module_progress);
         linkText = module.module_progress === 'Complete' ? 'View' : 'Continue';
         iconClassName += module.module_progress === 'Complete' ? 'icon-check' : 'icon-rt_arrow';
@@ -95,7 +106,7 @@ const TrainingModules = createReactClass({
 
       const moduleStatus = module.module_progress && module.deadline_status ? (
         <div>
-          {module.module_progress}
+          {isTrainingModule ? module.module_progress : null}
           &nbsp;
           {deadlineStatus}
         </div>
@@ -133,8 +144,6 @@ const TrainingModules = createReactClass({
       </div>
     );
   }
-}
-
-);
+});
 
 export default TrainingModules;

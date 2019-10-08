@@ -29,6 +29,7 @@ class TrainingModule < ApplicationRecord
   module Kinds
     TRAINING = 0
     EXERCISE = 1
+    DISCUSSION = 2
   end
 
   def self.path_to_yaml
@@ -77,6 +78,16 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
+
+    case content['kind']
+    when 'exercise'
+      training_module.kind = TrainingModule::Kinds::EXERCISE
+    when 'discussion'
+      training_module.kind = TrainingModule::Kinds::DISCUSSION
+    else
+      training_module.kind = TrainingModule::Kinds::TRAINING
+    end
+
     validate_and_save(training_module, slug)
     training_module
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
