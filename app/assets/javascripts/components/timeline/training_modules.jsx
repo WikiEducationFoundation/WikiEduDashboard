@@ -108,7 +108,6 @@ const TrainingModules = createReactClass({
         deadlineStatus = `(due on ${module.due_date})`;
       }
 
-<<<<<<< HEAD
       let moduleStatus;
       if (module.module_progress && module.deadline_status) {
         moduleStatus = (
@@ -122,17 +121,6 @@ const TrainingModules = createReactClass({
         moduleStatus = '--';
       }
 
-=======
-      const moduleStatus = module.module_progress && module.deadline_status ? (
-        <div>
-          {isTrainingModule ? module.module_progress : null}
-          &nbsp;
-          {deadlineStatus}
-        </div>
-      ) : (
-        '--'
-      );
->>>>>>> Separate training modules by kind
       return (
         <tr key={module.id} className="training-module">
           <td className="block__training-modules-table__module-name">{module.name}</td>
