@@ -90,19 +90,16 @@ essentials:
       -
         title: Evaluate Wikipedia
         kind: 1
-        training_module_ids: [28,7] # How to edit, Evaluate an article
+        training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
         graded: true
         points: 10
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="https://dashboard.wikiedu.org/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
-
       -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
+        training_module_ids: [43] # Discussion: Thinking about sources and plagiarism
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">Thinking about sources and plagiarism</a>
 
 
   - # Week three
@@ -119,26 +116,23 @@ essentials:
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
-        training_module_ids: [17] # Find Your Article
+        training_module_ids: [17, 37] # Find Your Article, Exercise: Choose your article
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="https://dashboard.wikiedu.org/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
-
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=6">Editing Wikipedia</a>, page 6</p>
 
       -
         if: choose_articles_from_list
         title: Exercise
         kind: 1
+        training_module_ids: [36] # Exercise: Choose your article
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose your topic / Find your sources</a>
 
       -
         if: content_gaps_discussion
         title: "Discussion"
         kind: 0
+        training_module_ids: [42] # Discussion: What's a content gap?
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">What's a content gap?</a>
 
       -
         if: choose_articles_from_list
@@ -152,28 +146,25 @@ essentials:
         if: add_to_article
         title: Add to an article
         kind: 1
-        training_module_ids: [8] # Adding citations
+        training_module_ids: [8, 35] # Adding citations, Exercise: Add to an article
         graded: true
         points: 10
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="https://dashboard.wikiedu.org/training/students/add-to-article-exercise" class="timeline-exercise">Add a citation</a>
-
       -
         if: copyedit
         title: Exercise
         kind: 1
+        training_module_ids: [27] # Exercise: Copyedit an article
         graded: true
         points: 5
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
 
       -
         if: explore_to_find_articles
         title: Exercise
         kind: 1
+        training_module_ids: [38] # Exercise: Finalizing your topic and finding sources
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
 
   - # Week five
     weight: 4
@@ -241,8 +232,8 @@ essentials:
         if: thinking_about_wikipedia_discussion
         title: "Discussion"
         kind: 0
+        training_module_ids: [44] # Discussion: Thinking about Wikipedia
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
 
       -
         title: Peer reviews are complete
@@ -302,8 +293,8 @@ essentials:
         if: did_you_know
         title: Exercise
         kind: 1
+        training_module_ids: [39] # Exercise: Nominating your article for Did You Know
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for Did You Know</a>
 
 
   - # Week nine
@@ -312,11 +303,8 @@ essentials:
       -
         title: Continue improving your article
         kind: 1
-        training_module_ids: [6] # Images and multimedia
+        training_module_ids: [6, 45] # Images and multimedia, Exercise: Link to other articles
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="https://dashboard.wikiedu.org/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
-
           <p>Now's the time to revisit your text and refine your work. You may
           do more research and find missing information; rewrite the lead section
           to represent all major points; reorganize the text to communicate the
@@ -357,17 +345,17 @@ essentials:
         kind: 0
         graded: true
         points: 10
+        training_module_ids: [40] # Exercise: Present about your Wikipedia editing experience
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
 
       -
         if: reflective_essay
         title: Reflective essay
         kind: 1
+        training_module_ids: [41] # Exercise: Reflective essay
         graded: true
         points: 10
         content: |
-          <a href="https://dashboard.wikiedu.org/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Guiding questions</a>
       -
         if: original_analytical_paper
         title: Original analytical paper
