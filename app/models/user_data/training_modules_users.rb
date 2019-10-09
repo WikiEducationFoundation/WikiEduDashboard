@@ -15,6 +15,7 @@ require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
+  has_one :training_module
 
   def training_module
     @training_module ||= TrainingModule.find(training_module_id)
