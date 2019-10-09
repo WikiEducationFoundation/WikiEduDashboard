@@ -17,7 +17,6 @@
 #  kind          :integer          default(0)
 #
 
-
 require 'rails_helper'
 
 describe TrainingModule do

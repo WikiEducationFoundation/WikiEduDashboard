@@ -78,15 +78,7 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
-
-    case content['kind']
-    when 'exercise'
-      training_module.kind = TrainingModule::Kinds::EXERCISE
-    when 'discussion'
-      training_module.kind = TrainingModule::Kinds::DISCUSSION
-    else
-      training_module.kind = TrainingModule::Kinds::TRAINING
-    end
+    training_module.kind = training_module_kind(content['kind'])
 
     validate_and_save(training_module, slug)
     training_module
@@ -129,4 +121,17 @@ class TrainingModule < ApplicationRecord
   end
 
   class ModuleNotFound < StandardError; end
+
+  private
+
+  def self.training_module_kind(value)
+    case value
+    when 'exercise'
+      TrainingModule::Kinds::EXERCISE
+    when 'discussion'
+      TrainingModule::Kinds::DISCUSSION
+    else
+      TrainingModule::Kinds::TRAINING
+    end
+  end
 end
