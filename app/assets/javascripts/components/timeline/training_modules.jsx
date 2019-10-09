@@ -69,10 +69,6 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
-    const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
-    const isExercise = module.kind === EXERCISE_KIND;
-    const isDiscussion = module.kind === isDiscussion;
-
     const modules = this.props.block_modules.map((module) => {
       const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
       const isExercise = module.kind === EXERCISE_KIND;
