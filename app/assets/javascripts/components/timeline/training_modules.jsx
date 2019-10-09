@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
 import {
-  EXERCISE_KIND, TRAINING_MODULE_KIND
+  DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
 } from '../../constants/timeline';
 
 import selectStyles from '../../styles/select';
@@ -69,11 +69,11 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
-    const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
-    const isExercise = module.kind === EXERCISE_KIND;
-    const isDiscussion = module.kind === isDiscussion;
-
     const modules = this.props.block_modules.map((module) => {
+      const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
+      const isExercise = module.kind === EXERCISE_KIND;
+      const isDiscussion = module.kind === DISCUSSION_KIND;
+
       const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
@@ -104,15 +104,19 @@ const TrainingModules = createReactClass({
         deadlineStatus = `(due on ${module.due_date})`;
       }
 
-      const moduleStatus = module.module_progress && module.deadline_status ? (
-        <div>
-          {isTrainingModule ? module.module_progress : null}
-          &nbsp;
-          {deadlineStatus}
-        </div>
-      ) : (
-        '--'
-      );
+      let moduleStatus;
+      if (module.module_progress && module.deadline_status) {
+        moduleStatus = (
+          <div>
+            {isTrainingModule ? module.module_progress : null}
+            &nbsp;
+            {deadlineStatus}
+          </div>
+        );
+      } else if (isTrainingModule) {
+        moduleStatus = '--';
+      }
+
       return (
         <tr key={module.id} className="training-module">
           <td className="block__training-modules-table__module-name">{module.name}</td>
