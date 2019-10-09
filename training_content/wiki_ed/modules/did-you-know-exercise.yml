@@ -1,5 +1,6 @@
-name: 'Exercise: Did You Know'
+name: 'Did You Know'
 id: 39
+kind: 'exercise'
 description: |
   Nominate your article for the "Did You Know" section of Wikipedia's main page.
 slides:

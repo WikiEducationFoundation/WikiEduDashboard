@@ -1,5 +1,6 @@
-name: "Discussion: What's a content gap?"
+name: "What's a content gap?"
 id: 42
+kind: 'discussion'
 description: |
   Consider these questions about content gaps on Wikipedia as an in-class discussion.
 slides:

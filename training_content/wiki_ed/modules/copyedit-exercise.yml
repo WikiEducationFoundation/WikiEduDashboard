@@ -1,5 +1,6 @@
-name: 'Exercise: Copyedit an article'
+name: 'Copyedit an article'
 id: 27
+kind: 'exercise'
 description: |
   This is an exercise to learn about editing an article.
 slides:
