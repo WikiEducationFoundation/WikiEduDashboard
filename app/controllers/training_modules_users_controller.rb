@@ -26,7 +26,7 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def set_training_module_user
-    @training_module_user = TrainingModulesUsers.find_or_create_by(
+    @training_module_user = TrainingModulesUsers.create_or_find_by(
       user: current_user,
       training_module_id: @training_module.id
     )
