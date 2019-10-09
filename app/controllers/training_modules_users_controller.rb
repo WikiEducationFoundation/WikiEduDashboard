@@ -2,10 +2,11 @@
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
+  before_action :require_signed_in
 
   def create_or_update
     set_slide
-    @training_module_user = find_or_create_tmu(params)
+    set_training_module_user
     return if @slide.nil?
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
@@ -24,9 +25,9 @@ class TrainingModulesUsersController < ApplicationController
     render json: { slide: @slide, completed: @completed }
   end
 
-  def find_or_create_tmu(params)
-    TrainingModulesUsers.find_or_initialize_by(
-      user_id: params[:user_id],
+  def set_training_module_user
+    @training_module_user = TrainingModulesUsers.find_or_create_by(
+      user: current_user,
       training_module_id: @training_module.id
     )
   end
