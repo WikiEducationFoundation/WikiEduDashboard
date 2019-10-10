@@ -40,12 +40,17 @@ describe UpdateCourseStats do
     before do
       course.campaigns << Campaign.first
       JoinCourse.new(course: course, user: user, role: 0)
-    end
-
-    it 'imports the revisions and their ORES data' do
       VCR.use_cassette 'course_update' do
         subject
       end
+    end
+
+    it 'imports average views of edited articles' do
+      expect(course.articles.count).to eq(2)
+      expect(course.articles.last.average_views).to be > 0
+    end
+
+    it 'imports the revisions and their ORES data' do
       expect(course.revisions.count).to eq(2)
       course.revisions.each do |revision|
         expect(revision.features).to have_key('feature.wikitext.revision.ref_tags')
