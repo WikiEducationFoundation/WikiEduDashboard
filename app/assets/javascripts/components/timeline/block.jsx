@@ -129,7 +129,7 @@ const Block = createReactClass({
     }
 
     const modules = [];
-    if (block.training_modules || isEditable) {
+    if (block.training_modules) {
       const length = block.training_modules.length;
       const partitioned = block.training_modules.reduce((acc, mod) => {
         let key = 'modules';

@@ -21,17 +21,20 @@ describe 'timeline editing', type: :feature, js: true do
                    id: 1,
                    kind: Block::KINDS['assignment'],
                    title: 'Block Title',
+                   training_module_ids: [1],
                    order: 0,
                    points: 50)
     create(:block, week: week,
                    id: 2,
                    kind: Block::KINDS['in_class'],
                    title: 'Another Title',
+                   training_module_ids: [2],
                    order: 1)
     create(:block, week: week,
                    id: 3,
                    kind: Block::KINDS['milestone'],
                    title: 'Third Title',
+                   training_module_ids: [3],
                    points: 7,
                    order: 2)
     return course
