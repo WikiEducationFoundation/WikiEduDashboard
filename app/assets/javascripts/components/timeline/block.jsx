@@ -7,7 +7,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
 import {
-  BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
+  BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND
 } from '../../constants/timeline';
 
 const DEFAULT_POINTS = 10;
