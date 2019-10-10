@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class AverageViewsImporter
+  DAYS_UNTIL_OUTDATED = 14
+  def self.update_outdated_average_views(articles)
+    to_update = articles.where(average_views_updated_at: nil).or(
+      articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
+    )
+    update_average_views(to_update)
+  end
+
   def self.update_average_views(articles)
     article_batches = articles.each_slice(30)
     article_batches.each do |batch|
