@@ -96,9 +96,32 @@ class TrainingModule < ApplicationRecord
     training_module.save if valid
   end
 
+  def self.training_module_kind(value)
+    case value
+    when 'exercise'
+      TrainingModule::Kinds::EXERCISE
+    when 'discussion'
+      TrainingModule::Kinds::DISCUSSION
+    else
+      TrainingModule::Kinds::TRAINING
+    end
+  end
+
   ####################
   # Instance methods #
   ####################
+
+  def is_training?
+    kind === TrainingModule::Kinds::TRAINING
+  end
+
+  def is_exercise?
+    kind === TrainingModule::Kinds::EXERCISE
+  end
+
+  def is_discussion?
+    kind === TrainingModule::Kinds::DISCUSSION
+  end
 
   def slides
     return @sorted_slides if @sorted_slides.present?
@@ -121,15 +144,4 @@ class TrainingModule < ApplicationRecord
   end
 
   class ModuleNotFound < StandardError; end
-
-  def self.training_module_kind(value)
-    case value
-    when 'exercise'
-      TrainingModule::Kinds::EXERCISE
-    when 'discussion'
-      TrainingModule::Kinds::DISCUSSION
-    else
-      TrainingModule::Kinds::TRAINING
-    end
-  end
 end
