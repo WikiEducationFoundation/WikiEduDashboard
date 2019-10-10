@@ -144,15 +144,4 @@ class TrainingModule < ApplicationRecord
   end
 
   class ModuleNotFound < StandardError; end
-
-  def self.training_module_kind(value)
-    case value
-    when 'exercise'
-      TrainingModule::Kinds::EXERCISE
-    when 'discussion'
-      TrainingModule::Kinds::DISCUSSION
-    else
-      TrainingModule::Kinds::TRAINING
-    end
-  end
 end
