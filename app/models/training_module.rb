@@ -111,16 +111,16 @@ class TrainingModule < ApplicationRecord
   # Instance methods #
   ####################
 
-  def is_training?
-    kind === TrainingModule::Kinds::TRAINING
+  def training?
+    kind == TrainingModule::Kinds::TRAINING
   end
 
-  def is_exercise?
-    kind === TrainingModule::Kinds::EXERCISE
+  def exercise?
+    kind == TrainingModule::Kinds::EXERCISE
   end
 
-  def is_discussion?
-    kind === TrainingModule::Kinds::DISCUSSION
+  def discussion?
+    kind == TrainingModule::Kinds::DISCUSSION
   end
 
   def slides

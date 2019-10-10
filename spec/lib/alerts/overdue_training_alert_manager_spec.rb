@@ -20,7 +20,7 @@ describe OverdueTrainingAlertManager do
   before do
     create(:courses_user, user: user, course: course)
     allow(Features).to receive(:email?).and_return(true)
-    course.weeks << [ week, exercise_week ]
+    course.weeks << [week, exercise_week]
     week.blocks << block
     exercise_week.blocks << exercise_block
   end
