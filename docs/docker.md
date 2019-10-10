@@ -53,3 +53,15 @@ Some useful commands and tools that can be used to monitor and administer the co
 
 Further Reference: https://docs.docker.com/reference/
 
+### Troubleshooting
+
+If you are using Windows OS for development and haven't configured Git for line ending settings, you may encounter error during docker image building process. This is caused by different line ending default behaviors between Windows and Linux systems. The error will read something like below:
+
+> ./db_init.sh /bin/sh^M: bad interpreter: No such file or directory
+
+To keep the line ending settings consistent between the systems, one option is to configure Git to use no line ending conversion so that it uses the line ending setting that comes from the repository.
+
+```sh
+git config --global core.autocrlf input
+```
+
