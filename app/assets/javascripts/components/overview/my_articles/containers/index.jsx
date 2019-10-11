@@ -26,9 +26,13 @@ export class MyArticlesContainer extends React.Component {
     } = this.props;
 
     if (loading || !current_user.isStudent) return null;
+    let noArticlesMessage;
     if (!assignments.length && current_user.isStudent) {
-      if (Features.wikiEd) return <MyArticlesNoAssignmentMessage />;
-      return <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
+      if (Features.wikiEd) {
+        noArticlesMessage = <MyArticlesNoAssignmentMessage />;
+      } else {
+        noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
+      }
     }
 
     const {
@@ -40,23 +44,26 @@ export class MyArticlesContainer extends React.Component {
     } = processAssignments(this.props);
 
     return (
-      <div className="module my-articles">
-        <MyArticlesHeader
-          assigned={assigned}
-          course={course}
-          current_user={current_user}
-          reviewable={reviewable}
-          reviewing={reviewing}
-          unassigned={unassigned}
-          wikidataLabels={wikidataLabels}
-        />
-        <MyArticlesCategories
-          assignments={all}
-          course={course}
-          current_user={current_user}
-          loading={loading}
-          wikidataLabels={wikidataLabels}
-        />
+      <div>
+        <div className="module my-articles">
+          <MyArticlesHeader
+            assigned={assigned}
+            course={course}
+            current_user={current_user}
+            reviewable={reviewable}
+            reviewing={reviewing}
+            unassigned={unassigned}
+            wikidataLabels={wikidataLabels}
+          />
+          <MyArticlesCategories
+            assignments={all}
+            course={course}
+            current_user={current_user}
+            loading={loading}
+            wikidataLabels={wikidataLabels}
+          />
+          {noArticlesMessage}
+        </div>
       </div>
     );
   }

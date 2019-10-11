@@ -18,7 +18,8 @@ describe('MyArticlesContainer', () => {
     it('displays a message if there are no assignments', () => {
       const store = configureMockStore()({
         assignments: { assignments: [], loading: false },
-        wikidataLabels: {}
+        wikidataLabels: {},
+        ui: {}
       });
 
       const props = {
@@ -28,13 +29,15 @@ describe('MyArticlesContainer', () => {
 
       const Container = mount(
         <Provider store={store}>
-          <MyArticlesContainer {...props} />
+          <MemoryRouter>
+            <MyArticlesContainer {...props} />
+          </MemoryRouter>
         </Provider>
       );
 
       // This checks that nothing gets rendered.
       expect(Container.children().length).toEqual(1);
-      expect(Container.children().at(0).type()).toEqual(MyArticlesContainer);
+      expect(Container.text()).toMatch(/You have not chosen an article/);
     });
 
     it('does not display for an admin', () => {
