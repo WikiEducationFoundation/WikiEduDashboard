@@ -70,14 +70,18 @@ const Resources = ({ weeks, current_user, course }) => {
   let assignedModules;
   if (modules.length) {
     const categorized = moduleByExercises(modules);
-    assignedModules = categorized.map(([title, categorizedModules]) => (
-      <TrainingModules
-        block_modules={categorizedModules}
-        header={title}
-        key={title}
-        trainingLibrarySlug={trainingLibrarySlug}
-      />
-    ));
+    assignedModules = categorized.map(([title, categorizedModules]) => {
+      if (categorizedModules) {
+        return (<TrainingModules
+          block_modules={categorizedModules}
+          header={title}
+          key={title}
+          trainingLibrarySlug={trainingLibrarySlug}
+        />);
+      }
+      return null;
+    }
+    );
   }
   let additionalModules;
   if (Features.wikiEd) {
