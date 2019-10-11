@@ -358,6 +358,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_150005) do
     t.integer "mw_page_id"
     t.text "features"
     t.text "features_previous"
+    t.text "summary"
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
     t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["user_id"], name: "index_revisions_on_user_id"
