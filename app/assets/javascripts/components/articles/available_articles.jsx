@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
+import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
 
 const AvailableArticles = createReactClass({
@@ -64,6 +65,13 @@ const AvailableArticles = createReactClass({
     }
 
     const showAvailableArticles = elements.length > 0 || this.props.current_user.isAdvancedRole;
+    const showMyArticlesSection = this.props.current_user.isStudent;
+    let myArticles;
+    if (showMyArticlesSection) {
+      myArticles = (
+        <MyArticlesContainer current_user={this.props.current_user} />
+      );
+    }
 
     if (showAvailableArticles) {
       availableArticles = (
@@ -83,7 +91,12 @@ const AvailableArticles = createReactClass({
       availableArticles = null;
     }
 
-    return availableArticles;
+    return (
+      <>
+        {myArticles}
+        {availableArticles}
+      </>
+    );
   }
 });
 
