@@ -39,6 +39,7 @@ export const Header = ({
     <Links
       articleTitle={articleTitle}
       assignment={assignment}
+      courseType={course.type}
       current_user={current_user}
     />
     <Actions
