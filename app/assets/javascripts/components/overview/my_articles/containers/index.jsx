@@ -22,18 +22,8 @@ export class MyArticlesContainer extends React.Component {
 
   render() {
     const {
-      assignments, course, current_user, loading, wikidataLabels
+      course, current_user, loading, wikidataLabels
     } = this.props;
-
-    if (loading || !current_user.isStudent) return null;
-    let noArticlesMessage;
-    if (!assignments.length && current_user.isStudent) {
-      if (Features.wikiEd) {
-        noArticlesMessage = <MyArticlesNoAssignmentMessage />;
-      } else {
-        noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
-      }
-    }
 
     const {
       assigned,
@@ -42,6 +32,16 @@ export class MyArticlesContainer extends React.Component {
       reviewable,
       all
     } = processAssignments(this.props);
+
+    if (loading || !current_user.isStudent) return null;
+    let noArticlesMessage;
+    if (!assigned.length && current_user.isStudent) {
+      if (Features.wikiEd) {
+        noArticlesMessage = <MyArticlesNoAssignmentMessage />;
+      } else {
+        noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
+      }
+    }
 
     return (
       <div>
