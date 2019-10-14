@@ -60,6 +60,7 @@ roa-tara:
     opt_yes: sìne
     opt_no: none
   dashboard:
+    explore_examples: Esplore le esembie
     review_orientation: Oriendamende d'a reviste
   home:
     explore: Esplore
@@ -69,7 +70,11 @@ roa-tara:
     label: Attività
   articles:
     assigned: Vôsce assegnate
+    next: Prossime
+    previous: Precedende
+    article_title: Titole d'a vôsce
     assigned_to: Assegnate a
+    deleted: (scangellate)
     filter:
       wiki_all: Tutte
       new: Nuève
@@ -84,15 +89,35 @@ roa-tara:
     none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
     rating: Classe
     title: Titole
+    tracked: Tracciate
+    title_example: Titole d'a vôsce
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
+    edit_size: Cange 'a dimenzione
+    wiki: Uicchi
+    wp10: Combletezze strutturale
   assignments:
     article_link: Vôsce
     bibliography: Bibbliografije
+    clone: Clone
     editors: Assegnate a
+    label: Assigne
+    remove: Live
     sandbox_draft_link: Bozze d'a pàgene de prove
+    select: Scacchie
   campaign:
+    alert_article: Titole d'a vôsce
+    alert_type: Tipe
+    alert_user_id: Utende
+    all_campaigns: Tutte le cambagne
+    campaign: Cambagne
+    campaigns: Cambagne
+    campaign_deleted: '''A cambagne "%{title}" ha state scangellate'
+    campaign_updated: Cambagne aggiornate
+    created_at: Date
+    course: Corse
     data_revisions: Date de le revisiune
+    title: Titole
   categories:
     add_this_psid: Aggiunge stu PSID
     psid_name: PSID

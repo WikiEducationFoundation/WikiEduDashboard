@@ -308,10 +308,10 @@ pt:
       e pode demorar algum tempo após a adição de um artigo até a lista ser preenchida.
     confirm_category_addition: Tem a certeza de que deseja monitorizar as contribuições
       da categoria "%{name}"?
-    confirm_psid_addition: Tem a certeza que deseja monitorizar as contribuições para
-      o PSID PetScan "%{name}"?
-    confirm_template_addition: Tem a certeza que deseja monitorizar as contribuições
-      para o modelo "%{name}"?
+    confirm_psid_addition: Tem a certeza de que deseja monitorizar as contribuições
+      para o PSID PetScan "%{name}"?
+    confirm_template_addition: Tem a certeza de que deseja monitorizar as contribuições
+      para a predefinição "%{name}"?
     depth: Profundidade de subcategorias
     articles_count: Contagem de artigos
     name: Nome
@@ -320,7 +320,7 @@ pt:
     template_name: Nome da predefinição
     none: Não há nenhuma categoria a ser monitorizada.
     remove: Remover
-    tracked_categories: Categorias, PSID e Modelos monitorizados
+    tracked_categories: Categorias, PSID e predefinições monitorizadas
     timestamp: Última atualização
   chat:
     label: Conversação
@@ -1246,7 +1246,7 @@ pt:
     unsupported_browser:
       header: Navegador sem suporte.  :-(
       explanation: Está a utilizar um navegador que não é compatível com o painel
-        de controlo. Este site funciona bem com versões recentes do Chrome, Firefox,
+        de controlo. Este sítio funciona bem com versões recentes do Chrome, Firefox,
         Edge e outros navegadores modernos.
   error_401:
     header: Não autorizado. >:-(

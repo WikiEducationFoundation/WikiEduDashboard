@@ -133,9 +133,9 @@ bg:
     creation_date: Дата на създаване
     creator:
       assignment_end: Край на заданието
-      assignment_end_placeholder: Край на заданието (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Начало на заданието
-      assignment_start_placeholder: Начало на заданието (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       clone_previous: Клониране на предишния курс
       clone_this: Клониране на този курс
       clone_successful: Обновена информация за клониран курс
@@ -146,7 +146,7 @@ bg:
       create_new: Създай нов курс
       create_short: Създаване на курс
       end_date: Крайна дата
-      end_date_placeholder: Крайна дата (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: Очакван брой обучаеми
       find: Намери курса си
       intro: Заглавието на курса, името на учебното заведение и периода определят
@@ -154,7 +154,7 @@ bg:
         да редактирате впоследствие. Щракнете на „Create my Course“, за да започнете
         със създаването на графика за вашите уики задания.
       start_date: Начална дата
-      start_date_placeholder: Начална дата (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: Тема
     current: Текущи курсове
     delete_course: Изтриване на курс
@@ -170,7 +170,9 @@ bg:
         или семестър.
       invalid_language_or_project: Невалиден език/проект
     join_prompt: Включване в '%{title}'?
-    join_successful: Успешно се включихте в %{title}.
+    join_successful: Успешно се включихте в %{title}. Приносите Ви ще бъдат автоматично
+      обновени в таблото, чрез периодични актуализации. Проверете по-късно, за да
+      видите как са отразени промените Ви.
     loading: Зареждане…
     my_articles: Моите статии
     new_week: Добавяне на нова седмица
