@@ -11,7 +11,11 @@ describe('MyArticlesContainer', () => {
   describe('Features.wikiEd = true', () => {
     Features.wikiEd = true;
     const template = {
-      course: { home_wiki: { language: 'en', project: 'wikipedia' }, slug: 'course/slug' },
+      course: {
+        home_wiki: { language: 'en', project: 'wikipedia' },
+        slug: 'course/slug',
+        type: 'ClassroomProgramCourse'
+      },
       current_user: {}
     };
 

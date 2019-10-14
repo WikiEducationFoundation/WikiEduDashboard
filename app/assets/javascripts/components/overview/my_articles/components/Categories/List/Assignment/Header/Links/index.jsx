@@ -21,13 +21,19 @@ const interleaveSeparators = (acc, link, index, collection) => {
   return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
 };
 
-export const Links = ({ articleTitle, assignment, current_user }) => {
+export const Links = ({ articleTitle, assignment, courseType, current_user }) => {
   const { article_url, editors, id, reviewers } = assignment;
+  let actions = [];
 
-  let actions = [
-    <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />,
+  if (courseType === 'ClassroomProgramCourse') {
+    actions.push(
+      <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
+    );
+  }
+
+  actions.push(
     <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-  ];
+  );
 
   if (assignment.role === REVIEWING_ROLE) {
     actions.push(
@@ -68,6 +74,7 @@ Links.propTypes = {
   // props
   articleTitle: PropTypes.string.isRequired,
   assignment: PropTypes.object.isRequired,
+  courseType: PropTypes.string.isRequired,
   current_user: PropTypes.object.isRequired,
 };
 
