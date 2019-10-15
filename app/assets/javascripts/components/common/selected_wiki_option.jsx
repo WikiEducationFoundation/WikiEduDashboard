@@ -14,7 +14,7 @@ export default class SelectedWikiOption extends React.Component {
 
   handleShowOptions(e) {
     e.preventDefault();
-    return this.setState(prevState => ({ show: !prevState.show }));
+    return this.setState({ show: true });
   }
 
   render() {
@@ -28,9 +28,6 @@ export default class SelectedWikiOption extends React.Component {
             multi={false}
             styles={{ ...selectStyles, singleValue: null }}
           />
-          <div className="small-block-link">
-            {language}.{project}.org <a href="#" onClick={this.handleShowOptions.bind(this)}>({I18n.t('articles.hide')})</a>
-          </div>
         </div>
       );
     }
