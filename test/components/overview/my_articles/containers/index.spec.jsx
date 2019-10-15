@@ -10,24 +10,21 @@ import MyArticlesContainer from '../../../../../app/assets/javascripts/component
 describe('MyArticlesContainer', () => {
   describe('Features.wikiEd = true', () => {
     Features.wikiEd = true;
-    const template = {
+    const initialState = {
+      assignments: { assignments: [], loading: false },
       course: {
         home_wiki: { language: 'en', project: 'wikipedia' },
         slug: 'course/slug',
         type: 'ClassroomProgramCourse'
       },
-      current_user: {}
+      wikidataLabels: {},
+      ui: {}
     };
 
     it('displays a message if there are no assignments', () => {
-      const store = configureMockStore()({
-        assignments: { assignments: [], loading: false },
-        wikidataLabels: {},
-        ui: {}
-      });
+      const store = configureMockStore()(initialState);
 
       const props = {
-        ...template,
         current_user: { isStudent: true, username: 'Username' }
       };
 
@@ -45,13 +42,9 @@ describe('MyArticlesContainer', () => {
     });
 
     it('does not display for an admin', () => {
-      const store = configureMockStore()({
-        assignments: { assignments: [], loading: false },
-        wikidataLabels: {}
-      });
+      const store = configureMockStore()(initialState);
 
       const props = {
-        ...template,
         current_user: { isStudent: false, username: 'Username' }
       };
 
@@ -88,13 +81,17 @@ describe('MyArticlesContainer', () => {
           ],
           loading: false
         },
+        course: {
+          home_wiki: { language: 'en', project: 'wikipedia' },
+          slug: 'course/slug',
+          type: 'ClassroomProgramCourse'
+        },
         feedback: {},
         wikidataLabels: {},
         ui: { openKey: true }
       });
 
       const props = {
-        ...template,
         current_user: { id: 1, isStudent: true, username: 'Username' }
       };
 

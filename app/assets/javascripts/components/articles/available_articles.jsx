@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
+import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
+import { processAssignments } from '../overview/my_articles/utils/processAssignments';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -24,6 +26,7 @@ const AvailableArticles = createReactClass({
     let availableArticles;
     let elements = [];
     let findingArticlesTraining;
+
     if (Features.wikiEd && this.props.current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
@@ -63,8 +66,16 @@ const AvailableArticles = createReactClass({
       );
     }
 
-    const showAvailableArticles = elements.length > 0 || this.props.current_user.isAdvancedRole;
+    const { assigned } = processAssignments(this.props);
+    const showMyArticlesSection = assigned.length && this.props.current_user.isStudent;
+    let myArticles;
+    if (showMyArticlesSection) {
+      myArticles = (
+        <MyArticlesContainer current_user={this.props.current_user} />
+      );
+    }
 
+    const showAvailableArticles = elements.length > 0 || this.props.current_user.isAdvancedRole;
     if (showAvailableArticles) {
       availableArticles = (
         <div id="available-articles" className="mt4">
@@ -83,7 +94,12 @@ const AvailableArticles = createReactClass({
       availableArticles = null;
     }
 
-    return availableArticles;
+    return (
+      <>
+        {myArticles}
+        {availableArticles}
+      </>
+    );
   }
 });
 
