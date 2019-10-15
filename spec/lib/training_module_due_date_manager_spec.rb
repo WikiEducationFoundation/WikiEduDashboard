@@ -114,10 +114,11 @@ describe TrainingModuleDueDateManager do
         end
       end
 
-      context "training module is not of kind TRAINING" do
+      context 'training module is not of kind TRAINING' do
         let(:due_date) { 1.week.ago.to_date }
 
         before { t_module.update(kind: TrainingModule::Kinds::EXERCISE) }
+
         after { t_module.update(kind: TrainingModule::Kinds::TRAINING) }
 
         it 'returns false' do

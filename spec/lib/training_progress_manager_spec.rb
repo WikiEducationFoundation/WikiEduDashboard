@@ -166,6 +166,7 @@ describe TrainingProgressManager do
         Block.destroy_all
         t_module.update(kind: TrainingModule::Kinds::EXERCISE)
       end
+
       after { t_module.update(kind: TrainingModule::Kinds::TRAINING) }
 
       it 'returns nil' do
