@@ -84,21 +84,21 @@ describe Course, type: :model do
     build(:article,
           id: 1,
           title: 'Selfie',
+          average_views: 1234,
           namespace: 0).save
 
     build(:revision,
           id: 1,
           user_id: 1,
           article_id: 1,
-          date: Time.zone.today,
+          date: 1.day.ago,
           characters: 9000,
           features: {
             refs_tags_key => 22
           },
           features_previous: {
             refs_tags_key => 17
-          },
-          views: 1234).save
+          }).save
 
     # Assign the article to the user.
     build(:assignment,
