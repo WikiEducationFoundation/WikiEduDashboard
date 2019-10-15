@@ -108,7 +108,7 @@ export const ArticlesHandler = createReactClass({
             render={() => {
               // If at any point there are no available articles, redirect the user
               if (!this.state.loading && this.hideAssignments()) {
-                return <Redirect to={`/courses/${this.props.course.slug}/articles/assigned`} />;
+                return <Redirect to={`/courses/${this.props.course.slug}`} />;
               }
 
               return <AvailableArticles {...this.props} />;

@@ -72,6 +72,7 @@ export class MyArticlesContainer extends React.Component {
 MyArticlesContainer.propTypes = {
   // props
   assignments: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
   current_user: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   wikidataLabels: PropTypes.object.isRequired,
@@ -82,6 +83,7 @@ MyArticlesContainer.propTypes = {
 
 const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
+  course: state.course,
   loading: state.assignments.loading,
   wikidataLabels: state.wikidataLabels
 });
