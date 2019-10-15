@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import _ from 'lodash';
 import qs from 'query-string';
-import selectStyles from '../../styles/select';
-import WikiSelect from '../common/wiki_select.jsx';
+import SelectedWikiOption from '../common/selected_wiki_option';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -34,7 +33,6 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
       showFilters: false,
-      showLanguageAndWikiSelectors: false,
     };
   },
 
@@ -122,12 +120,6 @@ const ArticleFinder = createReactClass({
     this.setState({ isSubmitted: false });
     this.props.clearResults();
     return this.updateFields('home_wiki', { language: wiki.language, project: wiki.project });
-  },
-
-  toggleLanguageAndWikiSelector(e) {
-    e.preventDefault();
-    return this.setState(
-      { showLanguageAndWikiSelectors: !this.state.showLanguageAndWikiSelectors });
   },
 
   sortSelect(e) {
@@ -370,34 +362,13 @@ const ArticleFinder = createReactClass({
       );
     }
 
-    let options = (
-      <div className="selector-block">
-        <div className="small-block-link pull-right">
-          {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('application.change')})</a>
-        </div>
-      </div>
+    const options = (
+      <SelectedWikiOption
+        language={this.props.home_wiki.language}
+        project={this.props.home_wiki.project}
+        handleWikiChange={this.handleWikiChange}
+      />
     );
-    if (this.state.showLanguageAndWikiSelectors) {
-      options = (
-        <div className="wiki-selector">
-          <div>
-            <WikiSelect
-              wikis={
-                [{ language: this.props.home_wiki.language, project: this.props.home_wiki.project }]
-              }
-              onChange={this.handleWikiChange}
-              multi={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-          </div>
-          <div className="selector-block">
-            <div className="small-block-link pull-right">
-              {this.props.home_wiki.language}.{this.props.home_wiki.project}.org <a href="#" onClick={this.toggleLanguageAndWikiSelector}>({I18n.t('articles.hide')})</a>
-            </div>
-          </div>
-        </div>
-      );
-    }
 
     return (
       <div className="container">
