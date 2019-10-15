@@ -10,12 +10,15 @@
 #  completed_at         :datetime
 #  created_at           :datetime
 #  updated_at           :datetime
+#  flags                :text(65535)
 #
 require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
   has_one :training_module
+
+  serialize :flags, Hash
 
   def training_module
     @training_module ||= TrainingModule.find(training_module_id)
