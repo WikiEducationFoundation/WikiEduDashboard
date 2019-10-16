@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/wiki_pageviews"
+
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
   def self.update_outdated_average_views(articles)
