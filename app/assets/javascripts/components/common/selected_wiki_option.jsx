@@ -34,8 +34,7 @@ export default class SelectedWikiOption extends React.Component {
 
     return (
       <div className="small-block-link">
-        {language}.{project}.org
-        <a href="#" onClick={this.handleShowOptions.bind(this)}>({I18n.t('application.change')})</a>
+        {language}.{project}.org <a href="#" onClick={this.handleShowOptions.bind(this)}>({I18n.t('application.change')})</a>
       </div>
     );
   }
