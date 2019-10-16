@@ -62,7 +62,7 @@ class ArticlesCourses < ApplicationRecord
 
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.references_count = revisions.sum(&:references_added)
-    self.view_count = revisions.order('date ASC').first.views unless revisions.empty?
+    self.view_count = views_since_earliest_revision(revisions)
 
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
@@ -70,6 +70,13 @@ class ArticlesCourses < ApplicationRecord
     self.new_article = all_revisions.exists?(new_article: true)
 
     save
+  end
+
+  def views_since_earliest_revision(revisions)
+    return if revisions.empty?
+    return if article.average_views.nil?
+    days = (Time.now.utc.to_date - revisions.order('date ASC').first.date.to_date).to_i
+    days * article.average_views
   end
 
   #################

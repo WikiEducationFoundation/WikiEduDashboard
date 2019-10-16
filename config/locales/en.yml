@@ -186,7 +186,7 @@ en:
     tools: Assessment tools
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the project
+    view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use tools.wmflabs.org/pageviews to see the exact numbers.
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
@@ -664,7 +664,7 @@ en:
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
     view_other: View other campaigns
     view: View Course
-    view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
+    view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
     view_wiki: View on Wikipedia
     volunteer:

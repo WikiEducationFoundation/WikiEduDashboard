@@ -18,7 +18,7 @@ require "#{Rails.root}/lib/importers/article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe ArticlesCourses, type: :model do
-  let(:article) { create(:article) }
+  let(:article) { create(:article, average_views: 1234) }
   let(:user) { create(:user) }
   let(:course) { create(:course, start: 1.month.ago, end: 1.month.from_now) }
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
@@ -37,13 +37,12 @@ describe ArticlesCourses, type: :model do
       create(:revision,
              user: user,
              article: article,
-             date: Time.zone.today,
+             date: 1.day.ago,
              characters: 9000,
              features: {
                refs_tags_key => 22
              },
-             new_article: true,
-             views: 1234)
+             new_article: true)
 
       # Deleted revision, which should not count towards stats.
       create(:revision,
@@ -51,8 +50,7 @@ describe ArticlesCourses, type: :model do
              article: article,
              date: Time.zone.today,
              characters: 9001,
-             deleted: true,
-             views: 2345)
+             deleted: true)
 
       # Run the cache update again with an existing revision.
       described_class.update_all_caches(described_class.all)

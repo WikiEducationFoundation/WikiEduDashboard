@@ -60,6 +60,9 @@ const Article = createReactClass({
       );
     }
 
+    const { language, project, title } = this.props.article;
+    const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
+
     return (
       <tr className="article">
         <td className="tooltip-trigger desktop-only-tc">
@@ -81,7 +84,9 @@ const Article = createReactClass({
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.references_count || ''}</td>
-        <td className="desktop-only-tc">{this.props.article.view_count}</td>
+        <td className="desktop-only-tc">
+          <a href={pageviewUrl} target="_blank" className="inline">{this.props.article.view_count}</a>
+        </td>
         <td>
           <ArticleViewer
             article={this.props.article}
