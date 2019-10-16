@@ -20,7 +20,6 @@
 #  mw_page_id               :integer
 #
 
-require_dependency "#{Rails.root}/lib/importers/view_importer"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 #= Article model
