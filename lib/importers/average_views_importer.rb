@@ -13,7 +13,7 @@ class AverageViewsImporter
 
   ARTICLES_PER_BATCH = 8
   def self.update_average_views(articles)
-    article_batches = articles.each_slice(ARTICLES_PER_BATCH)
+    article_batches = articles.includes(:wiki).each_slice(ARTICLES_PER_BATCH)
     article_batches.each do |batch|
       update_average_views_for_batch batch
     end
