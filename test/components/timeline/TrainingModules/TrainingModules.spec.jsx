@@ -1,42 +1,54 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 
 import '../../../testHelper';
 import TrainingModules from '../../../../app/assets/javascripts/components/timeline/TrainingModules/TrainingModules';
 
 describe('TrainingModules', () => {
   const fakeModules = [{ id: 1, value: 'test1', label: 'test1' }, { id: 2, value: 'test2', label: 'test2' }, { id: 3, value: 'test3', label: 'test3' }];
+  const store = configureMockStore()({});
+
   describe('render (machine tests)', () => {
-    const TrainingModulesM = mount(<TrainingModules block_modules={fakeModules} all_modules={['module1', 'module2', 'module3']} trainingLibrarySlug="students" />);
+    const TrainingModulesM = mount(
+      <Provider store={store}>
+        <TrainingModules
+          block_modules={fakeModules}
+          all_modules={['module1', 'module2', 'module3']}
+          trainingLibrarySlug="students"
+        />
+      </Provider>
+    );
 
     describe('Initial State', () => {
       it('should map array block_modules with their ids', () => {
-        const state = TrainingModulesM.instance().getInitialState();
+        const state = TrainingModulesM.find('TrainingModules').instance().getInitialState();
         expect(state).toBeInstanceOf(Object);
         expect(state).toHaveProperty('value');
       });
     });
     describe('onChange', () => {
       it('should map trainingModule to TrainingModules.value', () => {
-        const onChange = sinon.stub(TrainingModulesM.instance(), 'onChange').callsFake(() => true);
+        const onChange = sinon.stub(TrainingModulesM.find('TrainingModules').instance(), 'onChange').callsFake(() => true);
         expect(onChange.returnValues).toBeInstanceOf(Array);
       });
     });
     describe('progressClass', () => {
       it('should return progress complete when \'Complete\' is given', () => {
-        const complete = TrainingModulesM.instance().progressClass('Complete');
+        const complete = TrainingModulesM.find('TrainingModules').instance().progressClass('Complete');
         expect(typeof complete).toEqual('string');
         expect(complete).toEqual('timeline-module__progress-complete ');
       });
       it('should return in-progress when nothing is given', () => {
-        const actual = TrainingModulesM.instance().progressClass();
+        const actual = TrainingModulesM.find('TrainingModules').instance().progressClass();
         expect(typeof actual).toEqual('string');
         expect(actual).toEqual('timeline-module__in-progress ');
       });
     });
     describe('trainingSelector', () => {
       it('should return object', () => {
-        expect(TrainingModulesM.instance().trainingSelector()).toBeInstanceOf(Object);
+        expect(TrainingModulesM.find('TrainingModules').instance().trainingSelector()).toBeInstanceOf(Object);
       });
     });
   });
@@ -54,12 +66,14 @@ describe('TrainingModules', () => {
       };
 
       const TrainingModulesH = mount(
-        <TrainingModules
-          block_modules={[test1]}
-          editable={false}
-          header="Training"
-          trainingLibrarySlug="students"
-        />
+        <Provider store={store}>
+          <TrainingModules
+            block_modules={[test1]}
+            editable={false}
+            header="Training"
+            trainingLibrarySlug="students"
+          />
+        </Provider>
       );
       describe('components testing', () => {
         it('`h4` text', () => {
@@ -90,7 +104,7 @@ describe('TrainingModules', () => {
                   overdue: false,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.block__training-modules-table__module-progress')).toHaveLength(1);
                 expect(TrainingModulesTEMP.find('a.in-progress')).toHaveLength(1);
                 expect(TrainingModulesTEMP.find('a.in-progress').text()).toEqual('Continue');
@@ -106,7 +120,7 @@ describe('TrainingModules', () => {
                   overdue: true,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue')).toHaveLength(1);
               });
               it('overdue (in-progress)', () => {
@@ -120,7 +134,7 @@ describe('TrainingModules', () => {
                   overdue: true,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue')).toHaveLength(1);
               });
               describe('deadline_status', () => {
@@ -136,7 +150,7 @@ describe('TrainingModules', () => {
                       overdue: false,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
@@ -150,7 +164,7 @@ describe('TrainingModules', () => {
                       overdue: true,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue.complete')).toHaveLength(1);
                   });
                 });
@@ -166,7 +180,7 @@ describe('TrainingModules', () => {
                       overdue: false,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
@@ -180,7 +194,7 @@ describe('TrainingModules', () => {
                       overdue: true,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue.complete')).toHaveLength(1);
                   });
                 });
@@ -198,7 +212,7 @@ describe('TrainingModules', () => {
                    overdue: true,
                    slug: 'let-it-test'
                  };
-                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" />);
+                 const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                  expect(TrainingModulesTEMP.find('td.overdue').text()).toMatch(/due on 2017\/12\/09/i);
                });
             });
