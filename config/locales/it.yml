@@ -177,7 +177,9 @@ it:
     tools: Strumenti di valutazione
     view: Visualizza voce
     view_all: Mostra tutto
-    view_doc: La somma di tutte le visite ad ogni voce durante il progetto
+    view_doc: La stima delle visite per ogni voce da quando è stata modificata la
+      prima volta, attraverso le ultime statistiche più aggiornate. Puoi usare tools.wmflabs.org/pageviews
+      per vedere i numeri esatti.
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
     edit_size: Modifica dimensione
@@ -590,8 +592,8 @@ it:
       multimediali su Wikimedia Commons.
     view_other: Vedi altre campagne
     view: Visualizza corso
-    view_doc: La somma di tutte le visite alle voci modificate dagli editori iscritti
-      da quando gli editori hanno fatto la loro prima modifica ad ogni voce
+    view_doc: La stima delle visite alle voci modificate dagli editori iscritti da
+      quando gli editori hanno fatto la loro prima modifica ad ogni voce
     view_page: Vedi pagina del corso
     view_wiki: Mostra su Wikipedia
     volunteer:

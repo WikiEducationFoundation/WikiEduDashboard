@@ -188,7 +188,9 @@ pt-br:
     tools: Ferramentas de avaliação
     view: Ver artigo
     view_all: Ver tudo
-    view_doc: A soma de todas visualizações de cada artigo durante o prazo do curso
+    view_doc: As visualizações estimadas para cada artigo desde que ele foi editado
+      pela primeira vez, por meio da atualização de estatísticas mais recente. Você
+      pode usar o tools.wmflabs.org/pageviews para ver os números exatos.
     view_on_wiki: Ver na wiki
     views_added: '%{count} novas visualizações para %{title}'
     edit_size: Tamanho da edição
@@ -697,8 +699,8 @@ pt-br:
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
     view: Ver curso
-    view_doc: A soma de todas as visitas a artigos editados por editores inscritos
-      desde que o editor fez sua primeira edição em cada artigo
+    view_doc: Estimativa das visitas a artigos editados por editores inscritos, desde
+      que o editor fez a sua primeira edição de cada artigo
     view_page: Ver a Página do Curso
     view_wiki: Ver na Wikipedia
     volunteer:
