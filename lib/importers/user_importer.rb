@@ -111,5 +111,7 @@ class UserImporter
     user.update!(username: user_data['name'],
                  registered_at: user_data['registration'],
                  global_id: user_data&.dig('centralids', 'CentralAuth'))
+  rescue StandardError => e
+    Raven.capture_exception e, extra: { username: user.username, user_id: user.id }
   end
 end
