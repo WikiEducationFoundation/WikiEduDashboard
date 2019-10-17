@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
-import TrainingModules from './training_modules.jsx';
+import TrainingModules from './TrainingModules/TrainingModules';
 import BlockTypeSelect from './block_type_select.jsx';
 import {
   BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND

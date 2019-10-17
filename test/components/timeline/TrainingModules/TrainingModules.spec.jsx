@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import '../../testHelper';
-import TrainingModules from '../../../app/assets/javascripts/components/timeline/training_modules.jsx';
+import '../../../testHelper';
+import TrainingModules from '../../../../app/assets/javascripts/components/timeline/TrainingModules/TrainingModules';
 
 describe('TrainingModules', () => {
   const fakeModules = [{ id: 1, value: 'test1', label: 'test1' }, { id: 2, value: 'test2', label: 'test2' }, { id: 3, value: 'test3', label: 'test3' }];

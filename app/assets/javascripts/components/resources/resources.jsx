@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { getWeeksArray } from '../../selectors';
 import Block from '../timeline/block';
-import TrainingModules from '../timeline/training_modules';
+import TrainingModules from '../timeline/TrainingModules/TrainingModules';
 import Handouts from './handouts';
 import Templates from './templates';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';

@@ -5,9 +5,12 @@ import Select from 'react-select';
 import _ from 'lodash';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../constants/timeline';
+} from '../../../constants/timeline';
 
-import selectStyles from '../../styles/select';
+// Components
+import ModuleStatus from './ModuleStatus';
+
+import selectStyles from '../../../styles/select';
 
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
@@ -78,7 +81,7 @@ const TrainingModules = createReactClass({
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
-      let deadlineStatus;
+
       if (isExercise || isDiscussion) {
         progressClass = this.progressClass(module.module_progress);
         linkText = 'View';
@@ -100,28 +103,11 @@ const TrainingModules = createReactClass({
         progressClass += ' complete';
       }
 
-      if (module.deadline_status === 'overdue') {
-        deadlineStatus = `(due on ${module.due_date})`;
-      }
-
-      let moduleStatus;
-      if (module.module_progress && module.deadline_status) {
-        moduleStatus = (
-          <div>
-            {isTrainingModule ? module.module_progress : null}
-            &nbsp;
-            {deadlineStatus}
-          </div>
-        );
-      } else if (isTrainingModule) {
-        moduleStatus = '--';
-      }
-
       return (
         <tr key={module.id} className="training-module">
           <td className="block__training-modules-table__module-name">{module.name}</td>
           <td className={progressClass}>
-            {moduleStatus}
+            <ModuleStatus {...module} />
           </td>
           <td className="block__training-modules-table__module-link">
             <a className={module.module_progress} href={link} target="_blank">
