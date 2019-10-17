@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@components/*": [ "./app/assets/javascripts/components/*" ]
+    }
+  },
+  "include": [ "app" ]
+}

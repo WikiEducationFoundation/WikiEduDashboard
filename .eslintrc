@@ -94,5 +94,19 @@
   "env": {
     "jquery": true,
     "browser": true
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-plugin-root-import": [
+        {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "./"
+        },
+        {
+          "rootPathPrefix": "@components",
+          "rootPathSuffix": "./app/assets/javascripts/components"
+        }
+      ]
+    }
   }
 }
