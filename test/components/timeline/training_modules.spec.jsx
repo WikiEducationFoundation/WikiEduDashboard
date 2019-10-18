@@ -45,6 +45,7 @@ describe('TrainingModules', () => {
       const test1 = {
         deadline_status: 'complete',
         due_date: '2017/12/09',
+        kind: 0,
         id: 15,
         module_progress: 'Complete',
         name: 'Let it test',
@@ -52,7 +53,14 @@ describe('TrainingModules', () => {
         slug: 'let-it-test'
       };
 
-      const TrainingModulesH = mount(<TrainingModules block_modules={[test1]} editable={false} trainingLibrarySlug="students" />);
+      const TrainingModulesH = mount(
+        <TrainingModules
+          block_modules={[test1]}
+          editable={false}
+          header="Training"
+          trainingLibrarySlug="students"
+        />
+      );
       describe('components testing', () => {
         it('`h4` text', () => {
           expect(TrainingModulesH.find('h4').text()).toEqual('Training');
@@ -76,6 +84,7 @@ describe('TrainingModules', () => {
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
+                  kind: 0,
                   module_progress: 'in-progress',
                   name: 'Let it test',
                   overdue: false,
@@ -91,6 +100,7 @@ describe('TrainingModules', () => {
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
+                  kind: 0,
                   module_progress: 'Complete',
                   name: 'Let it test',
                   overdue: true,
@@ -104,6 +114,7 @@ describe('TrainingModules', () => {
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
+                  kind: 0,
                   module_progress: 'in-progress',
                   name: 'Let it test',
                   overdue: true,
@@ -119,6 +130,7 @@ describe('TrainingModules', () => {
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
+                      kind: 0,
                       module_progress: 'Complete',
                       name: 'Let it test',
                       overdue: false,
@@ -132,6 +144,7 @@ describe('TrainingModules', () => {
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
+                      kind: 0,
                       module_progress: 'Complete',
                       name: 'Let it test',
                       overdue: true,
@@ -147,6 +160,7 @@ describe('TrainingModules', () => {
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
+                      kind: 0,
                       module_progress: 'in-progress',
                       name: 'Let it test',
                       overdue: false,
@@ -160,6 +174,7 @@ describe('TrainingModules', () => {
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
+                      kind: 0,
                       module_progress: 'in-progress',
                       name: 'Let it test',
                       overdue: true,
@@ -177,6 +192,7 @@ describe('TrainingModules', () => {
                    deadline_status: 'overdue',
                    due_date: '2017/12/09',
                    id: 15,
+                   kind: 0,
                    module_progress: 'in-progress',
                    name: 'Let it test',
                    overdue: true,
@@ -195,6 +211,7 @@ describe('TrainingModules', () => {
         deadline_status: 'complete',
         due_date: '2017/12/09',
         id: 15,
+        kind: 0,
         module_progress: 'Complete',
         name: 'Let it test',
         overdue: false,
@@ -206,6 +223,7 @@ describe('TrainingModules', () => {
         deadline_status: 'complete',
         due_date: '2017/12/09',
         id: 16,
+        kind: 0,
         module_progress: 'Complete',
         name: 'Let it change',
         overdue: false,

@@ -159,6 +159,21 @@ describe TrainingProgressManager do
       end
     end
 
+    context 'training module is not of kind TRAINING' do
+      let(:completed_at) { Time.zone.now }
+
+      before do
+        Block.destroy_all
+        t_module.update(kind: TrainingModule::Kinds::EXERCISE)
+      end
+
+      after { t_module.update(kind: TrainingModule::Kinds::TRAINING) }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
     context 'module is completed' do
       let(:completed_at) { Time.zone.now }
 

@@ -14,3 +14,7 @@ export const RESTORE_TIMELINE = 'RESTORE_TIMELINE';
 export const DELETE_ALL_WEEKS = 'DELETE_ALL_WEEKS';
 
 export const BLOCK_KIND_RESOURCES = 5;
+
+export const TRAINING_MODULE_KIND = 0;
+export const EXERCISE_KIND = 1;
+export const DISCUSSION_KIND = 2;

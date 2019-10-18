@@ -1,5 +1,6 @@
-name: 'Discussion: Thinking about Wikipedia'
+name: 'Thinking about Wikipedia'
 id: 44
+kind: 'discussion'
 description: |
   Here are some guiding questions to discuss Wikipedia as a source of information.
 slides:

@@ -1,5 +1,6 @@
-name: 'Exercise: Add to an article'
+name: 'Add to an article'
 id: 35
+kind: 'exercise'
 description: |
   You've selected a few possible topics. Now it's time to familiarize yourself with Wikipedia
   by adding a citation to one of those articles.

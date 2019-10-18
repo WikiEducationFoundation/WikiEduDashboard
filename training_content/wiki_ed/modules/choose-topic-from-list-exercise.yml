@@ -1,5 +1,6 @@
-name: 'Exercise: Choose your article'
+name: 'Choose your article'
 id: 36
+kind: 'exercise'
 description: |
   Your instructor has prepared a list of articles for you. It's time to select
   one of these articles.

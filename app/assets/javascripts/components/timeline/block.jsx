@@ -6,7 +6,9 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
-import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
+import {
+  BLOCK_KIND_RESOURCES, DISCUSSION_KIND, EXERCISE_KIND
+} from '../../constants/timeline';
 
 const DEFAULT_POINTS = 10;
 
@@ -126,18 +128,55 @@ const Block = createReactClass({
       if (this.props.isDragging) { className += ' dragging'; }
     }
 
-    let modules;
-    if (block.training_modules || isEditable) {
-      modules = (
-        <TrainingModules
-          onChange={this.passedUpdateBlock}
+    const modules = [];
+    if (block.training_modules) {
+      const length = block.training_modules.length;
+      const partitioned = block.training_modules.reduce((acc, mod) => {
+        let key = 'modules';
+        if (mod.kind === EXERCISE_KIND) key = 'exercises';
+        if (mod.kind === DISCUSSION_KIND) key = 'discussions';
+        acc[key].push(mod);
+        return acc;
+      }, { discussions: [], exercises: [], modules: [] });
+
+      if (partitioned.modules.length) {
+        modules.push(<TrainingModules
           all_modules={this.props.all_training_modules}
-          block_modules={block.training_modules}
-          editable={isEditable}
+          block_modules={partitioned.modules}
           block={block}
+          editable={isEditable}
+          header={length > 1 && 'Training'}
+          key="training-modules"
+          onChange={this.passedUpdateBlock}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
-        />
-      );
+        />);
+      }
+
+      if (partitioned.exercises.length) {
+        modules.push(<TrainingModules
+          all_modules={this.props.all_training_modules}
+          block_modules={partitioned.exercises}
+          block={block}
+          editable={isEditable}
+          header={length > 1 && 'Exercise'}
+          key="assignment-modules"
+          onChange={this.passedUpdateBlock}
+          trainingLibrarySlug={this.props.trainingLibrarySlug}
+        />);
+      }
+
+      if (partitioned.discussions.length) {
+        modules.push(<TrainingModules
+          all_modules={this.props.all_training_modules}
+          block_modules={partitioned.discussions}
+          block={block}
+          editable={isEditable}
+          header={length > 1 && 'Discussion'}
+          key="assignment-modules"
+          onChange={this.passedUpdateBlock}
+          trainingLibrarySlug={this.props.trainingLibrarySlug}
+        />);
+      }
     }
 
     const content = (
