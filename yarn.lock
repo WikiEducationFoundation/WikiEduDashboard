@@ -2123,6 +2123,13 @@ babel-plugin-rewire@^1.2.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.2.0.tgz#822562d72ed2c84e47c0f95ee232c920853e9d89"
   integrity sha512-JBZxczHw3tScS+djy6JPLMjblchGhLI89ep15H3SyjujIzlxo5nr6Yjo7AXotdeVczeBmWs0tF8PgJWDdgzAkQ==
 
+babel-plugin-root-import@^6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-root-import/-/babel-plugin-root-import-6.4.1.tgz#5c0dfe7588778b1933764c913fa3ed1c78150bf6"
+  integrity sha512-xwEwOwilsg4ZJr5I8bySvpwxCfF4lhYtqySktyTyAG8gcyDYTIDjjvds8P+IHb5gTbM/jiE9hU8e5ZQPQv8TrA==
+  dependencies:
+    slash "^3.0.0"
+
 babel-plugin-syntax-jsx@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
@@ -4514,6 +4521,23 @@ eslint-config-airbnb@^17.1.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
+eslint-import-resolver-babel-plugin-root-import@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-babel-plugin-root-import/-/eslint-import-resolver-babel-plugin-root-import-1.1.1.tgz#b060f1177557918389f7ed476e5b36a43854a381"
+  integrity sha512-ZZxdV9AxzL2WFVggDxZ36xodPg2+BTrkhhMf/of+BxSVh/GKLGCs17EDq5b61wqC7/oQsA2h1RtH1fV7HOUV/w==
+  dependencies:
+    eslint-import-resolver-node "^0.2.1"
+    json5 "^0.5.0"
+
+eslint-import-resolver-node@^0.2.1:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"
+  integrity sha1-Wt2BBujJKNssuiMrzZ76hG49oWw=
+  dependencies:
+    debug "^2.2.0"
+    object-assign "^4.0.1"
+    resolve "^1.1.6"
+
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -4523,9 +4547,9 @@ eslint-import-resolver-node@^0.3.2:
     resolve "^1.5.0"
 
 eslint-module-utils@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.4.0.tgz#8b93499e9b00eab80ccb6614e69f03678e84e09a"
-  integrity sha512-14tltLm38Eu3zS+mt0KvILC3q8jyIAH518MlG+HO0p+yK885Lb1UHTY/UgR91eOyGdmxAPb+OLoW4znqIT6Ndw==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-module-utils/-/eslint-module-utils-2.4.1.tgz#7b4675875bf96b0dbf1b21977456e5bb1f5e018c"
+  integrity sha512-H6DOj+ejw7Tesdgbfs4jeS4YMFrT8uI8xwd1gtQqXssaR0EQ26L+2O/w6wkYFy2MymON0fTwHmXBvvfLNZVZEw==
   dependencies:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
@@ -7903,6 +7927,11 @@ json3@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
   integrity sha1-PAQ0dD35Pi9cQq7nsZvLSDV19OE=
+
+json5@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
+  integrity sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=
 
 json5@^1.0.1:
   version "1.0.1"

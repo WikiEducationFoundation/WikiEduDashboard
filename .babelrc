@@ -5,7 +5,22 @@
   ],
   "plugins": [
     "@babel/plugin-proposal-object-rest-spread",
-    "lodash"
+    "lodash",
+    [
+      "babel-plugin-root-import",
+      {
+        "paths": [
+          {
+            "rootPathSuffix": "./",
+            "rootPathPrefix": "~/"
+          },
+          {
+            "rootPathSuffix": "./app/assets/javascripts/components",
+            "rootPathPrefix": "@components/"
+          }
+        ]
+      }
+    ]
   ],
   "env": {
     "test": {
