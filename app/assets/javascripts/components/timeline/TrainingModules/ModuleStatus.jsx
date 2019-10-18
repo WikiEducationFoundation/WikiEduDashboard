@@ -20,17 +20,17 @@ export const ModuleStatus = ({
 
 
   let nonTrainingProgress = null;
-  if (isComplete && isExercise) {
+  if (isComplete && isExercise && Features.enableAdvancedFeatures) {
     if (flags.marked_complete) {
       nonTrainingProgress = (
         <button className="button small left" onClick={() => incomplete(block_id, slug)}>
-          Mark as Incomplete
+          Mark Incomplete
         </button>
       );
     } else {
       nonTrainingProgress = (
         <button className="button small left dark" onClick={() => complete(block_id, slug)}>
-          Mark as Complete
+          Mark Complete
         </button>
       );
     }
@@ -43,8 +43,7 @@ export const ModuleStatus = ({
         {
           isTrainingModule ? module_progress : nonTrainingProgress
         }
-        &nbsp;
-        {isOverdue ? `(due on ${due_date})` : null}
+        {isOverdue ? ` (due on ${due_date})` : null}
       </div>
     );
   }
