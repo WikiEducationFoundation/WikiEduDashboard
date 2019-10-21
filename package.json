@@ -109,7 +109,7 @@
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-router-hash-link": "^1.2.2",
-    "react-select": "^3.0.5",
+    "react-select": "^3.0.8",
     "react-switch": "^5.0.1",
     "react-test-renderer": "^16.10.2",
     "react-transition-group": "4.3.0",
