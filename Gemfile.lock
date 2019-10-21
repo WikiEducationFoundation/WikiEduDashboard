@@ -27,21 +27,22 @@ GIT
       rails (>= 3.0.0)
 
 GIT
+  remote: https://github.com/premailer/premailer.git
+  revision: 2ef4cdba9cd3e8bed7cc3749816b1f7ca00a0a6e
+  branch: master
+  specs:
+    premailer (1.11.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+
+GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
   revision: 0fc5c35ad94546ff00e9b6fb28740bce06d44e67
   specs:
     omniauth-mediawiki (0.0.2)
       jwt (~> 2.0)
       omniauth-oauth (~> 1.0)
-
-GIT
-  remote: https://github.com/ragesoss/premailer.git
-  revision: 6d78d1cdeb5bfb802106ea1a2886d7b41a70513e
-  specs:
-    premailer (1.11.1)
-      addressable
-      css_parser (>= 1.6.0)
-      htmlentities (>= 4.0.0)
 
 GEM
   remote: https://rubygems.org/
