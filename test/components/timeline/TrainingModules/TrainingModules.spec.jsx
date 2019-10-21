@@ -10,7 +10,7 @@ describe('TrainingModules', () => {
   const fakeModules = [{ id: 1, value: 'test1', label: 'test1' }, { id: 2, value: 'test2', label: 'test2' }, { id: 3, value: 'test3', label: 'test3' }];
   const store = configureMockStore()({});
 
-  describe('render (machine tests)', () => {
+  describe('render training module types (machine tests)', () => {
     const TrainingModulesM = mount(
       <Provider store={store}>
         <TrainingModules
@@ -250,6 +250,88 @@ describe('TrainingModules', () => {
       it('onChange', () => {
         TrainingModulesEM.find('Select').instance().props.onChange([test1, test2]);
         expect(onChangeSpy.called).toBeTruthy;
+      });
+    });
+  });
+
+  describe('render other module types', () => {
+    describe('Initial State', () => {
+      const exercise = {
+        deadline_status: 'complete',
+        due_date: '2017/12/09',
+        kind: 1,
+        id: 15,
+        module_progress: 'Complete',
+        name: 'Exercise',
+        overdue: false,
+        slug: 'exercise'
+      };
+
+      const Modules = mount(
+        <Provider store={store}>
+          <TrainingModules
+            block_modules={[exercise]}
+            editable={false}
+            header="Exercises"
+            trainingLibrarySlug="students"
+          />
+        </Provider>
+      );
+
+      it('should map array block_modules with their ids', () => {
+        const state = Modules.find('TrainingModules').instance().getInitialState();
+        expect(state).toBeInstanceOf(Object);
+        expect(state).toHaveProperty('value');
+        expect(state.value).toBeInstanceOf(Array);
+        expect(state.value.length).toEqual(1);
+      });
+      it('should display trainings with the appropriate text', () => {
+        const container = Modules.find('TrainingModules');
+        const tr = container.find('tr');
+        expect(tr.length).toEqual(1);
+        expect(tr.find('ModuleStatus'));
+        expect(tr.text()).toContain('Exercise');
+        expect(tr.text()).toContain('View');
+      });
+    });
+
+    describe('Initial State', () => {
+      const discussion = {
+        deadline_status: 'complete',
+        due_date: '2017/12/09',
+        kind: 2,
+        id: 15,
+        module_progress: 'Complete',
+        name: 'Discussion',
+        overdue: false,
+        slug: 'discussion'
+      };
+
+      const Modules = mount(
+        <Provider store={store}>
+          <TrainingModules
+            block_modules={[discussion]}
+            editable={false}
+            header="Discussions"
+            trainingLibrarySlug="students"
+          />
+        </Provider>
+      );
+
+      it('should map array block_modules with their ids', () => {
+        const state = Modules.find('TrainingModules').instance().getInitialState();
+        expect(state).toBeInstanceOf(Object);
+        expect(state).toHaveProperty('value');
+        expect(state.value).toBeInstanceOf(Array);
+        expect(state.value.length).toEqual(1);
+      });
+      it('should display trainings with the appropriate text', () => {
+        const container = Modules.find('TrainingModules');
+        const tr = container.find('tr');
+        expect(tr.length).toEqual(1);
+        expect(tr.find('ModuleStatus'));
+        expect(tr.text()).toContain('Discussion');
+        expect(tr.text()).toContain('View');
       });
     });
   });
