@@ -18,8 +18,8 @@ const moduleByExercises = (modules) => {
     'Expand your Draft',
     'Move your Work',
     'Other Assigned Training Modules',
+    'Discussions',
     'Exercises',
-    'Discussions'
   ];
   const [
     COMPLETE_YOUR_BIBLIOGRAPHY,
