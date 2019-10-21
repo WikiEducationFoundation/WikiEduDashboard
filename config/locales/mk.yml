@@ -15,6 +15,7 @@ mk:
     explore: Истражете
     field_required: Ова поле е задолжително
     field_invalid_characters: Ова поле има неважечки знаци
+    field_invalid_date: Ова поле бара датум во формат YYYY-MM-DD
     field_invalid_date_time: Крајот мора да биде после почетокот. (Часовите се во
       опсег од 0 до 23.)
     greeting2: Добре дојдовте!
@@ -173,6 +174,7 @@ mk:
     remove: Отстрани
   courses:
     activity: Активност
+    alerts: Напомени
     all_courses: Сите курсеви
     actions: Дејства
     articles: Статии
@@ -188,6 +190,9 @@ mk:
     character_doc: Збир од сите знаци додадени во статии од главниот именски простор
       од учениците на курсот во текот на неговото траење
     campaigns: 'Походи:'
+    campaign_articles: '%{title} Статии'
+    campaign_courses: '%{title} Курсеви'
+    campaign_users: '%{title} Уредници'
     course: Курс
     course_dates_calendar_instructions: Изберете ги датумите зада ги додадете или
       остраните од распоредот (на пр. празници, слободни денови). Стиснете на датумот
@@ -291,9 +296,10 @@ mk:
     title: Наслов
     uploads_none: Ова одделение нема ставено ниедна слика или снимка на Ризницата.
     user_recent_uploads: Скорешни подигања
+    user_suggestions: 'Кориснички Предлози:'
     view: Погл. курс
-    view_doc: Збир од сите посети на статии уредени запишани уредници од нивното прво
-      уредување на секоја статија
+    view_doc: Приближните посети на статии уредени од запишани уредници од нивното
+      прво уредување на секоја статија
     view_wiki: Погл. на Википедија
     volunteer:
       one: Доброволец
@@ -317,9 +323,12 @@ mk:
     creator:
       assignment_end_placeholder: ГГГГ-ММ-ДД
       assignment_start_placeholder: ГГГГ-ММ-ДД
+      course_description: Опис на програмата
       course_school: Установа
       course_term: Кога
       course_term_placeholder: Кога
+      course_title: Наслов на програмата
+      find: Најди програма
       save_cloned_course: Зачувај
     edit_course_dates: Измени датуми за проектот
     enroll: Додај уредник

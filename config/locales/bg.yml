@@ -4,6 +4,7 @@
 # Author: Kareyac
 # Author: Spiritia
 # Author: StanProg
+# Author: Ted Masters
 # Author: Termininja
 # Author: V111P
 # Author: Лорд Бъмбъри
@@ -75,7 +76,9 @@ bg:
     title: Заглавие
     title_example: Заглавие на статията
     tools: Инструменти за оценка
-    view_doc: Сумата на всички посещения на всяка статия по време на проекта
+    view_doc: Приблизителни преглеждания на всяка статия, откакто е била първоначално
+      редактирана, чрез най-новата актуализация на статистиката. Можете да използвате
+      tools.wmflabs.org/pageviews, за да видите точните данни.
     view_on_wiki: Вижте на Уики
     views_added: Добавени %{count} нови посещения на %{title}
     wiki: Уики
@@ -184,8 +187,8 @@ bg:
     term: Семестър
     title: Заглавие
     view_other: Преглед на други кампании
-    view_doc: Съвкупност на всички посещения на статиите редакториани от записани
-      редактори от тяхното първо редактиране на всяка статия
+    view_doc: Приблизителни преглеждания на статиите, редактирани от записани редактори
+      от тяхното първо редактиране на всяка статия
     yourcourses: Вашите курсове
   courses_generic:
     cancel: Отказ
@@ -195,6 +198,7 @@ bg:
     creator:
       course_title: Заглавие на програмата
       find: Намери програма
+      save_cloned_course: Съхраняване
     explore: Търсене на програми
     expected_students: Очаквани редактори
     student_editors: Редактори
@@ -225,6 +229,7 @@ bg:
   recent_activity:
     article_title: Заглавие на статията
     datetime: Дата/Час
+    image: Изображение
     no_edits: Няма скорошни редакции.
     recent_edits: Скорошни редакции
     recent_uploads: Последни качвания
@@ -244,8 +249,10 @@ bg:
     week_number: Седмица %{number}
   training:
     start: Начало
+    page: Страница
   uploads:
     header: Качени файлове в Общомедия
+    image: Изображение
     label: Качвания
     loading: Зареждане на качвания...
   users:
@@ -273,5 +280,6 @@ bg:
       headline: Здравейте, %{username}
   article_finder:
     search: Търсене
+    tools: Инструменти
     submit: Изпращане
 ...
