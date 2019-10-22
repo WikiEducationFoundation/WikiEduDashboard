@@ -5,13 +5,14 @@ export const ExerciseButton = ({
   block_id, flags, isComplete, isExercise, slug,
   complete, incomplete
 }) => {
+  if (!Features.enableAdvancedFeatures) return null;
   let button = (
     <button className="button small left dark" disabled>
       Mark Complete
     </button>
   );
 
-  if (isComplete && isExercise && Features.enableAdvancedFeatures) {
+  if (isComplete && isExercise) {
     if (flags.marked_complete) {
       button = (
         <button className="button small left" onClick={() => incomplete(block_id, slug)}>
