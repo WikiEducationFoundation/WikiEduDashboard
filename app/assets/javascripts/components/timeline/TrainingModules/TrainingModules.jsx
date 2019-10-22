@@ -3,13 +3,14 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
-import moment from 'moment';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
 } from '../../../constants/timeline';
 
 // Components
-import ModuleStatus from './ModuleStatus';
+import ModuleStatus from './ModuleStatus/ModuleStatus';
+import ModuleLink from './ModuleLink';
+import ModuleName from './ModuleName';
 
 import selectStyles from '../../../styles/select';
 
@@ -78,7 +79,6 @@ const TrainingModules = createReactClass({
       const isExercise = module.kind === EXERCISE_KIND;
       const isDiscussion = module.kind === DISCUSSION_KIND;
 
-      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
@@ -97,33 +97,20 @@ const TrainingModules = createReactClass({
       }
 
       progressClass += ' block__training-modules-table__module-progress ';
-      if (module.overdue === true) {
-        progressClass += ' overdue';
-      }
-      if (module.deadline_status === 'complete') {
-        progressClass += ' complete';
-      }
+      if (module.overdue === true) progressClass += ' overdue';
+      if (module.deadline_status === 'complete') progressClass += ' complete';
 
-      const dueDate = moment(module.due_date).format('MMM Do');
+      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       return (
         <tr key={module.id} className="training-module">
-          <td className="block__training-modules-table__module-name">
-            {module.name}
-            {
-              isExercise
-              ? <small className="due-date">Due on { dueDate }</small>
-              : null
-            }
-          </td>
-          <td className={progressClass}>
-            <ModuleStatus {...module} />
-          </td>
-          <td className="block__training-modules-table__module-link">
-            <a className={module.module_progress} href={link} target="_blank">
-              {linkText}
-              <i className={iconClassName} />
-            </a>
-          </td>
+          <ModuleName {...module} isExercise={isExercise} />
+          <ModuleStatus {...module} progressClass={progressClass} />
+          <ModuleLink
+            iconClassName={iconClassName}
+            link={link}
+            linkText={linkText}
+            module_progress={module.module_progress}
+          />
         </tr>
       );
     });

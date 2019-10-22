@@ -3,11 +3,45 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 
-import '../../../testHelper';
-import TrainingModules from '../../../../app/assets/javascripts/components/timeline/TrainingModules/TrainingModules';
+import '~/test/testHelper';
+import TrainingModules from '@components/timeline/TrainingModules/TrainingModules';
 
 describe('TrainingModules', () => {
-  const fakeModules = [{ id: 1, value: 'test1', label: 'test1' }, { id: 2, value: 'test2', label: 'test2' }, { id: 3, value: 'test3', label: 'test3' }];
+  const fakeModules = [
+    {
+      id: 1,
+      block_id: 11,
+      name: 'Module Name 1',
+      value: 'test1',
+      label: 'test1',
+      flags: {},
+      due_date: '2019/01/01',
+      module_progress: 'progress',
+      slug: 'training-slug-1'
+    },
+    {
+      id: 2,
+      block_id: 12,
+      name: 'Module Name 2',
+      value: 'test2',
+      label: 'test2',
+      flags: {},
+      due_date: '2019/01/01',
+      module_progress: 'progress',
+      slug: 'training-slug-2'
+    },
+    {
+      id: 3,
+      block_id: 13,
+      name: 'Module Name 3',
+      value: 'test3',
+      label: 'test3',
+      flags: {},
+      due_date: '2019/01/01',
+      module_progress: 'progress',
+      slug: 'training-slug-3'
+    }
+  ];
   const store = configureMockStore()({});
 
   describe('render training module types (machine tests)', () => {
@@ -55,6 +89,8 @@ describe('TrainingModules', () => {
   describe('render (human-like tests)', () => {
     describe('tests without edit-mode', () => {
       const test1 = {
+        block_id: 115,
+        flags: {},
         deadline_status: 'complete',
         due_date: '2017/12/09',
         kind: 0,
@@ -95,6 +131,8 @@ describe('TrainingModules', () => {
               });
               it('in-progress', () => {
                 const testTemp = {
+                  block_id: 115,
+                  flags: {},
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
@@ -111,6 +149,8 @@ describe('TrainingModules', () => {
               });
               it('overdue (Complete)', () => {
                 const testTemp = {
+                  block_id: 115,
+                  flags: {},
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
@@ -125,6 +165,8 @@ describe('TrainingModules', () => {
               });
               it('overdue (in-progress)', () => {
                 const testTemp = {
+                  block_id: 115,
+                  flags: {},
                   deadline_status: 'complete',
                   due_date: '2017/12/09',
                   id: 15,
@@ -141,6 +183,8 @@ describe('TrainingModules', () => {
                 describe('complete', () => {
                   it('without overdue', () => {
                     const testTemp = {
+                      block_id: 115,
+                      flags: {},
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
@@ -155,6 +199,8 @@ describe('TrainingModules', () => {
                   });
                   it('with overdue', () => {
                     const testTemp = {
+                      block_id: 115,
+                      flags: {},
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
@@ -171,6 +217,8 @@ describe('TrainingModules', () => {
                 describe('in-progress', () => {
                   it('without overdue', () => {
                     const testTemp = {
+                      block_id: 115,
+                      flags: {},
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
@@ -185,6 +233,8 @@ describe('TrainingModules', () => {
                   });
                   it('with overdue', () => {
                     const testTemp = {
+                      block_id: 115,
+                      flags: {},
                       deadline_status: 'complete',
                       due_date: '2017/12/09',
                       id: 15,
@@ -203,6 +253,8 @@ describe('TrainingModules', () => {
             describe('deadline_status', () => {
                it('overdue', () => {
                  const testTemp = {
+                   block_id: 115,
+                   flags: {},
                    deadline_status: 'overdue',
                    due_date: '2017/12/09',
                    id: 15,
@@ -257,6 +309,8 @@ describe('TrainingModules', () => {
   describe('render other module types', () => {
     describe('Initial State', () => {
       const exercise = {
+        block_id: 115,
+        flags: {},
         deadline_status: 'complete',
         due_date: '2017/12/09',
         kind: 1,
@@ -297,6 +351,8 @@ describe('TrainingModules', () => {
 
     describe('Initial State', () => {
       const discussion = {
+        block_id: 115,
+        flags: {},
         deadline_status: 'complete',
         due_date: '2017/12/09',
         kind: 2,

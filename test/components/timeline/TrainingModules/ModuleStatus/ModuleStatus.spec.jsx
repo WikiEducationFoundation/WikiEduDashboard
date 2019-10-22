@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import '../../../testHelper';
-import { ModuleStatus } from '../../../../app/assets/javascripts/components/timeline/TrainingModules/ModuleStatus';
+import '~/test/testHelper';
+import { ModuleStatus } from '@components/timeline/TrainingModules/ModuleStatus/ModuleStatus';
 
 describe('ModuleStatus', () => {
   Features.enableAdvancedFeatures = true;
@@ -15,13 +15,22 @@ describe('ModuleStatus', () => {
     flags: {},
     kind: 1,
     module_progress: 'Incomplete',
+    progressClass: 'in-progress',
     slug: 'course/slug',
     complete,
     incomplete
   };
 
   it('renders an incomplete exercise', () => {
-    const Component = shallow(<ModuleStatus {...props} />);
+    const Component = mount(
+      <table>
+        <tbody>
+          <tr>
+            <ModuleStatus {...props} />
+          </tr>
+        </tbody>
+      </table>
+    );
     expect(Component.find('button')).toBeTruthy;
     expect(Component.find('button').text()).toEqual('Mark Complete');
     expect(Component.find('button').props().disabled).toBeTruthy;
@@ -34,8 +43,15 @@ describe('ModuleStatus', () => {
       deadline_status: 'complete',
       module_progress: 'Complete'
     };
-    const Component = shallow(<ModuleStatus {...readied} />);
-
+    const Component = mount(
+      <table>
+        <tbody>
+          <tr>
+            <ModuleStatus {...readied} />
+          </tr>
+        </tbody>
+      </table>
+    );
     expect(Component.find('button')).toBeTruthy;
     expect(Component.find('button').text()).toEqual('Mark Complete');
     expect(Component.text()).not.toContain('DUEDATE');
@@ -47,9 +63,16 @@ describe('ModuleStatus', () => {
       deadline_status: 'complete',
       module_progress: 'Complete'
     };
-    const component = shallow(<ModuleStatus {...readied} />);
+    const component = mount(
+      <table>
+        <tbody>
+          <tr>
+            <ModuleStatus {...readied} />
+          </tr>
+        </tbody>
+      </table>
+    );
     component.find('button').props().onClick();
-
     expect(complete).toHaveBeenCalled();
   });
 
@@ -60,8 +83,15 @@ describe('ModuleStatus', () => {
       module_progress: 'Complete',
       flags: { marked_complete: true }
     };
-    const Component = shallow(<ModuleStatus {...readied} />);
-
+    const Component = mount(
+      <table>
+        <tbody>
+          <tr>
+            <ModuleStatus {...readied} />
+          </tr>
+        </tbody>
+      </table>
+    );
     expect(Component.find('button')).toBeTruthy;
     expect(Component.find('button').text()).toEqual('Mark Incomplete');
     expect(Component.text()).not.toContain('DUEDATE');
@@ -74,7 +104,15 @@ describe('ModuleStatus', () => {
       module_progress: 'Complete',
       flags: { marked_complete: true }
     };
-    const component = shallow(<ModuleStatus {...readied} />);
+    const component = mount(
+      <table>
+        <tbody>
+          <tr>
+            <ModuleStatus {...readied} />
+          </tr>
+        </tbody>
+      </table>
+    );
     component.find('button').props().onClick();
 
     expect(incomplete).toHaveBeenCalled();
