@@ -22,7 +22,9 @@ describe('ModuleStatus', () => {
 
   it('renders an incomplete exercise', () => {
     const Component = shallow(<ModuleStatus {...props} />);
-    expect(Component.find('button')).toBeFalsey;
+    expect(Component.find('button')).toBeTruthy;
+    expect(Component.find('button').text()).toEqual('Mark Complete');
+    expect(Component.find('button').props().disabled).toBeTruthy;
     expect(Component.text()).not.toContain('DUEDATE');
   });
 

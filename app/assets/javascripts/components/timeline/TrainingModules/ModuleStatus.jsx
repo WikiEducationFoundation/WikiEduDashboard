@@ -19,7 +19,12 @@ export const ModuleStatus = ({
   const isComplete = deadline_status === 'complete';
 
 
-  let nonTrainingProgress = null;
+  let nonTrainingProgress = (
+    <button className="button small left dark" disabled>
+      Mark Complete
+    </button>
+  );
+
   if (isComplete && isExercise && Features.enableAdvancedFeatures) {
     if (flags.marked_complete) {
       nonTrainingProgress = (
@@ -37,19 +42,18 @@ export const ModuleStatus = ({
   }
 
   // Display current information about the training module
-  if (module_progress && deadline_status) {
+  if (isTrainingModule || isExercise) {
     return (
       <div>
         {
-          isTrainingModule ? module_progress : nonTrainingProgress
+          isTrainingModule ? (module_progress || '--') : nonTrainingProgress
         }
         {isOverdue ? ` (due on ${due_date})` : null}
       </div>
     );
   }
 
-  // If it's a training module, show the placeholder
-  return isTrainingModule ? '--' : null;
+  return null;
 };
 
 const mapDispatchToProps = {

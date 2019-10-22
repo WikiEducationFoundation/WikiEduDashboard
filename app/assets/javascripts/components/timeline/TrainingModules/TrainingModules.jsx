@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
+import moment from 'moment';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
 } from '../../../constants/timeline';
@@ -103,9 +104,17 @@ const TrainingModules = createReactClass({
         progressClass += ' complete';
       }
 
+      const dueDate = moment(module.due_date).format('MMM Do');
       return (
         <tr key={module.id} className="training-module">
-          <td className="block__training-modules-table__module-name">{module.name}</td>
+          <td className="block__training-modules-table__module-name">
+            {module.name}
+            {
+              isExercise
+              ? <small className="due-date">Due on { dueDate }</small>
+              : null
+            }
+          </td>
           <td className={progressClass}>
             <ModuleStatus {...module} />
           </td>
