@@ -1,0 +1,46 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                Thank you for participating in the Wikipedia Student Program during
+                #{link_to @campaign.title, "https://#{ENV['dashboard_url']}/campaigns/#{@campaign.slug}", class: 'link'}!
+                You and your students were part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
+                contributed roughly #{number_to_human @presenter.word_count} words to Wikipedia. This is an incredible feat, and we couldn't have done it without you!
+              %p.paragraph
+                This term, your students
+              
+                %ul
+                  %li.paragraph
+                    %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}/articles/edited"} Edited #{number_to_human @course.article_count} articles
+                  %li.paragraph Added #{number_to_human @course.word_count} words to Wikipedia
+                  - if @course.new_article_count.positive?
+                    %li.paragraph Created #{number_to_human @course.new_article_count} new entries
+                  - if @course.references_count.positive?
+                    %li.paragraph Added #{number_to_human @course.references_count} references
+                  %li.paragraph Did work that has received about #{number_to_human @course.view_sum} page views
+
+              %p.paragraph
+                Numbers only tell part of the story. I encourage you to share your
+                %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} course page
+                to let others know how your students impacted Wikipedia and how Wikipedia impacted your students!
+
+              %p.paragraph
+                If you've taught more than one course with us, just go to
+                %a.link{href: "https://#{ENV['dashboard_url']}/my_account"} your profile page
+                to see the collective impact of your students!
+
+              %p.paragraph
+                Thank you again for a productive and meaningful term!
+
+              %p.paragraph
+                Best Wishes,
+                %br
+                %em
+                  Helaine Blumenthal, Wikipedia Student Program Manager
