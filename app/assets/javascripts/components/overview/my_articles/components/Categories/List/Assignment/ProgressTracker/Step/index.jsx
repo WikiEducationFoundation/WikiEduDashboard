@@ -20,7 +20,7 @@ export const Step = ({
       <Title title={title} />
       <Description content={content} />
       <Links courseSlug={courseSlug} trainings={trainings} />
-      {status === 'ready_for_review' && <Reviewers reviewers={assignment.reviewers} />}
+      {status === 'ready_for_review' && <Reviewers assignment={assignment} />}
       <ButtonNavigation
         active={active}
         assignment={assignment}

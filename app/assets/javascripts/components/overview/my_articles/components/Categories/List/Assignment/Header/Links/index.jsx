@@ -6,7 +6,7 @@ import BibliographyLink from './BibliographyLink';
 import SandboxLink from './SandboxLink';
 import PeerReviewLink from './PeerReviewLink';
 import EditorLink from './EditorLink';
-import ReviewerLink from '../../../../../../common/ReviewerLink';
+import ReviewerLink from './ReviewerLink';
 
 import Separator from '../../../../../../common/Separator';
 
