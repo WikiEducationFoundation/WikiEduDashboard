@@ -10,6 +10,7 @@
 #  completed_at         :datetime
 #  created_at           :datetime
 #  updated_at           :datetime
+#  flags                :text(65535)
 #
 
 FactoryBot.define do

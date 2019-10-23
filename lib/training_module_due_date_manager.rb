@@ -47,6 +47,10 @@ class TrainingModuleDueDateManager
     progress_manager.module_progress
   end
 
+  def flags
+    @tmu&.flags
+  end
+
   private
 
   def blocks_with_training_modules_for_user

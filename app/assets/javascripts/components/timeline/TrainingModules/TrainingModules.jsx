@@ -5,9 +5,14 @@ import Select from 'react-select';
 import _ from 'lodash';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../constants/timeline';
+} from '../../../constants/timeline';
 
-import selectStyles from '../../styles/select';
+// Components
+import ModuleStatus from './ModuleStatus/ModuleStatus';
+import ModuleLink from './ModuleLink';
+import ModuleName from './ModuleName';
+
+import selectStyles from '../../../styles/select';
 
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
@@ -74,11 +79,10 @@ const TrainingModules = createReactClass({
       const isExercise = module.kind === EXERCISE_KIND;
       const isDiscussion = module.kind === DISCUSSION_KIND;
 
-      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
-      let deadlineStatus;
+
       if (isExercise || isDiscussion) {
         progressClass = this.progressClass(module.module_progress);
         linkText = 'View';
@@ -93,42 +97,20 @@ const TrainingModules = createReactClass({
       }
 
       progressClass += ' block__training-modules-table__module-progress ';
-      if (module.overdue === true) {
-        progressClass += ' overdue';
-      }
-      if (module.deadline_status === 'complete') {
-        progressClass += ' complete';
-      }
+      if (module.overdue === true) progressClass += ' overdue';
+      if (module.deadline_status === 'complete') progressClass += ' complete';
 
-      if (module.deadline_status === 'overdue') {
-        deadlineStatus = `(due on ${module.due_date})`;
-      }
-
-      let moduleStatus;
-      if (module.module_progress && module.deadline_status) {
-        moduleStatus = (
-          <div>
-            {isTrainingModule ? module.module_progress : null}
-            &nbsp;
-            {deadlineStatus}
-          </div>
-        );
-      } else if (isTrainingModule) {
-        moduleStatus = '--';
-      }
-
+      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       return (
         <tr key={module.id} className="training-module">
-          <td className="block__training-modules-table__module-name">{module.name}</td>
-          <td className={progressClass}>
-            {moduleStatus}
-          </td>
-          <td className="block__training-modules-table__module-link">
-            <a className={module.module_progress} href={link} target="_blank">
-              {linkText}
-              <i className={iconClassName} />
-            </a>
-          </td>
+          <ModuleName {...module} isExercise={isExercise} />
+          <ModuleStatus {...module} progressClass={progressClass} />
+          <ModuleLink
+            iconClassName={iconClassName}
+            link={link}
+            linkText={linkText}
+            module_progress={module.module_progress}
+          />
         </tr>
       );
     });

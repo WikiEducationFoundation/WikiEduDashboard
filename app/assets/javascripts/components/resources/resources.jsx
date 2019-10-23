@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { getWeeksArray } from '../../selectors';
 import Block from '../timeline/block';
-import TrainingModules from '../timeline/training_modules';
+import TrainingModules from '../timeline/TrainingModules/TrainingModules';
 import Handouts from './handouts';
 import Templates from './templates';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
@@ -17,14 +17,18 @@ const moduleByExercises = (modules) => {
     'Create in the sandbox',
     'Expand your Draft',
     'Move your Work',
-    'Other Assigned Training Modules'
+    'Other Assigned Training Modules',
+    'Discussions',
+    'Exercises',
   ];
   const [
     COMPLETE_YOUR_BIBLIOGRAPHY,
     CREATE_IN_THE_SANDBOX,
     EXPAND_YOUR_DRAFT,
     MOVE_YOUR_WORK,
-    OTHER
+    OTHER,
+    DISCUSSIONS,
+    EXERCISES
   ] = orderedSteps;
   const mapping = {
     'wikipedia-essentials': COMPLETE_YOUR_BIBLIOGRAPHY,
@@ -35,7 +39,17 @@ const moduleByExercises = (modules) => {
     sources: CREATE_IN_THE_SANDBOX,
     plagiarism: EXPAND_YOUR_DRAFT,
     'moving-to-mainspace': MOVE_YOUR_WORK,
-    'moving-to-mainspace-group': MOVE_YOUR_WORK
+    'moving-to-mainspace-group': MOVE_YOUR_WORK,
+    'sources-and-plagiarism-discussion': DISCUSSIONS,
+    'content-gap-discussion': DISCUSSIONS,
+    'thinking-about-wikipedia-discussion': DISCUSSIONS,
+    'evaluate-wikipedia-exercise': EXERCISES,
+    'choose-topic-from-list-exercise': EXERCISES,
+    'add-to-article-exercise': EXERCISES,
+    'did-you-know-exercise': EXERCISES,
+    'continue-improving-exercise': EXERCISES,
+    'in-class-presentation-exercise': EXERCISES,
+    'reflective-essay-exercise': EXERCISES
   };
 
   const categorized = modules.reduce((acc, block) => {
