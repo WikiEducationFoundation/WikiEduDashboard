@@ -159,6 +159,19 @@ const CourseCreator = createReactClass({
       this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
+    if (!this.slugPartsAreValid()) {
+      this.props.setInvalid('course_title', I18n.t('application.field_required'));
+      this.props.setInvalid('course_school', I18n.t('application.field_required'));
+      this.props.setInvalid('description', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  },
+
+  slugPartsAreValid() {
+    if (!this.props.course.title.match(CourseUtils.courseSlugRegex())) { return false; }
+    if (!this.props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
+    if (this.props.course.term && !this.props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
     return true;
   },
 
@@ -329,6 +342,7 @@ const CourseCreator = createReactClass({
               previous={this.showCourseTypes}
               backCondition={this.campaignParam()}
               tempCourseId={this.state.tempCourseId}
+              firstErrorMessage={this.props.firstErrorMessage}
             />
             <CourseDates
               courseDateClass={courseDates}

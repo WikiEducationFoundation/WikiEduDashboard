@@ -228,6 +228,7 @@ const CourseForm = (props) => {
         />
         {roleDescription}
         {privacyCheckbox}
+        <div><p className="red">{props.firstErrorMessage}</p></div>
         <button onClick={props.next} id="next" className="dark button button__submit next">Next</button>
       </div>
     </div>
