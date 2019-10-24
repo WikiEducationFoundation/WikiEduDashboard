@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alifakoor
+# Author: Alireza Ivaz
 # Author: Amirsara
 # Author: Arash.pt
 # Author: Arian Ar
@@ -117,7 +118,7 @@ fa:
     title_example: عنوان مقاله
     view: مشاهدهٔ مقاله
     view_all: مشاهدهٔ همه
-    view_doc: مجموع تمام بازديدهای هریک از مقالات در طول مدت پروژه
+    view_doc: مجموع تمام بازديدهای هریک از نوشتارها در طول مدت پروژه
     view_on_wiki: نمایش در ویکی
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
     edit_size: اندازهٔ‌ویرایش
