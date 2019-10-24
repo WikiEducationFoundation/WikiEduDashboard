@@ -28,7 +28,7 @@ export default assignment => ([
       },
       {
         title: 'Peer Review',
-        path: `${assignment.sandboxUrl}/${assignment.username}_Peer_Review`,
+        path: `${assignment.sandboxUrl}/${assignment.username}_Peer_Review?veaction=edit&preload=Template:Dashboard.wikiedu.org_peer_review`,
         external: true
       }
     ]
