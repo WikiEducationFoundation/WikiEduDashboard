@@ -5,7 +5,7 @@ import Select from 'react-select';
 import _ from 'lodash';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../../constants/timeline';
+} from '../../../constants';
 
 // Components
 import ModuleStatus from './ModuleStatus/ModuleStatus';

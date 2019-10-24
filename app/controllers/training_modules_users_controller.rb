@@ -1,9 +1,13 @@
 # frozen_string_literal: true
-# frozen_string_literal: trues
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
   before_action :require_signed_in
+
+  def index
+    course = Course.find_by(id: params[:course_id])
+    render 'courses/_blocks', locals: { blocks: course.blocks, course: course }
+  end
 
   def create_or_update
     set_slide

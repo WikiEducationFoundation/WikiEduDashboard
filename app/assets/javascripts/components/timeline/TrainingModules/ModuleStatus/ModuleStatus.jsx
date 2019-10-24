@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../../../constants/timeline';
+} from '../../../../constants';
 
 // Components
 import ExerciseButton from './ExerciseButton';
