@@ -113,6 +113,7 @@ class CoursesController < ApplicationController
 
   def uploads
     set_course
+    set_page
   end
 
   ##########################
@@ -174,6 +175,16 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug(params[:id])
     @course.weeks.destroy_all
     render plain: '', status: :ok
+  end
+
+  def set_presenter
+    @presenter = CoursesPresenter.new(current_user: current_user,
+                                      campaign_param: @campaign.slug, page: @page)
+  end
+
+  def set_page
+    @page = params[:page]&.to_i
+    @page = nil unless @page&.positive?
   end
 
   ##################
