@@ -2,14 +2,16 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import '~/test/testHelper';
-import { ModuleStatus } from '@components/timeline/TrainingModules/ModuleStatus/ModuleStatus';
+import { ModuleStatus } from '@components/timeline/TrainingModules/ModuleRow/ModuleStatus/ModuleStatus';
 
 describe('ModuleStatus', () => {
   Features.enableAdvancedFeatures = true;
-  const complete = jest.fn();
-  const incomplete = jest.fn();
+  const complete = jest.fn(() => Promise.resolve());
+  const incomplete = jest.fn(() => Promise.resolve());
+  const fetchExercises = jest.fn();
   const props = {
     block_id: 1,
+    course: { id: 10 },
     deadline_status: 'incomplete',
     due_date: 'DUEDATE',
     flags: {},
@@ -18,7 +20,8 @@ describe('ModuleStatus', () => {
     progressClass: 'in-progress',
     slug: 'course/slug',
     complete,
-    incomplete
+    incomplete,
+    fetchExercises
   };
 
   it('renders an incomplete exercise', () => {
