@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 // Components
 import UpcomingExercise from '../components/UpcomingExercise.jsx';
+import Header from '../components/Header.jsx';
 
 // Actions
 import {
@@ -32,26 +32,14 @@ export class MyExercisesContainer extends React.Component {
     if (!latest) {
       return (
         <div className="module my-exercises">
-          <h3>All exercises completed.</h3>
+          <Header completed={true} course={course} text="Completed all exercises" />
         </div>
       );
     }
 
     return (
       <div className="module my-exercises">
-        <header className="header">
-          <h3>
-          Upcoming Exercises
-            {
-              remaining.length
-              ? <small>{ remaining.length } additional exercises remaining.</small>
-              : null
-            }
-          </h3>
-          <NavLink to={`../../${course.slug}/resources`} className="resources-link">
-            See your remaining exercises
-          </NavLink>
-        </header>
+        <Header course={course} remaining={remaining} text="Upcoming Exercises" />
         <UpcomingExercise exercise={latest} trainingLibrarySlug={trainingLibrarySlug} />
       </div>
     );
