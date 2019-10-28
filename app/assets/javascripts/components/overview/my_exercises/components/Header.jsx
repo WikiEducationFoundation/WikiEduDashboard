@@ -12,7 +12,7 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
         : null
       }
     </h3>
-    <NavLink to={`../../${course.slug}/resources`} className="resources-link">
+    <NavLink exact to={`/courses/${course.slug}/resources`} className="resources-link">
       View all exercises
     </NavLink>
   </header>
