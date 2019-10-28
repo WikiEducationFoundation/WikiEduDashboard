@@ -33,7 +33,8 @@ class DashboardPresenter
   end
 
   def ungreeted_students(course)
-    course.students.to_a.reject(&:greeted).length
+    ungreeted = course.students.to_a.reject(&:greeted)
+    ungreeted.count
   end
 
   # Show the 'Your Courses' label if there are current, submitted courses
