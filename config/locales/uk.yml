@@ -31,6 +31,11 @@ uk:
       збільшувати і зменшувати вивід.
   application:
     cancel: Скасувати
+    cookie_consent: Цей сайт використовує куки, щоб зберігати дані про ваш вхід в
+      систему, а також зберігає інформацію, пов'язану з вашим обліковим записом у
+      Вікіпедії.
+    cookie_consent_acknowledge: Я розумію
+    cookie_consent_see_more: Див. більше
     create_accounts: Створити облікові записи Вікіпедії
     dashboard: Панель Wiki Ed
     documentation: Документація
@@ -130,6 +135,9 @@ uk:
       new: Нові
       existing: Наявні
       new_and_existing: Нові та наявні
+      tracked: Відстежувані
+      untracked: Невідстежувані
+      tracked_and_untracked: Відстежувані та невідстежувані
     hide: Приховати
     history: (історія)
     label: Статті
@@ -162,6 +170,10 @@ uk:
     show_current_version_with_authorship_highlighting: Поточна версія з підсвіткою
       авторства
     title: Назва
+    tracked: Відстежувані
+    tracked_doc: Лише відстежувані статті враховуються у статистику цієї програми.
+      Коли статті позначено як невідстежувані, їх буде прибрано зі статистики під
+      час наступного оновлення даних.
     title_example: Назва статті
     tools: Інструменти оцінки
     view: Переглянути статтю
@@ -182,6 +194,7 @@ uk:
       уваги сам контент. (Ці оцінки доступні лише для статей англійської Вікіпедії.)
   assignments:
     article: Статтю %{title} тепер закріплено за вами.
+    article_link: Стаття
     already_exists: Це завдання вже існує!
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
@@ -192,21 +205,26 @@ uk:
     add_available_submit: Додати статті
     assign_self: Призначити собі статтю
     assign_tooltip: Задана стаття — це та, яку ви плануєте створити чи покращити.
+    bibliography: Бібліографія
     clone: Клонувати
     confirm_add_available: Ви дійсно хочете додати %{title}?
     confirm_addition: Ви дійсно хочете задати %{title} користувачу %{username}?
     confirm_deletion: Ви дійсно хочете вилучити це призначення статті?
+    editors: Задано
     label: Призначити
     loading: Завантаження завдань…
     none_short: Немає призначених статей
     none: Цей курс не має заданих статей.
     no_available: Цей курс не має доступних статей.
+    peer_review_count_tooltip: Ви маєте обрати %{total} статей для перевірки колегами.
+    peer_review_link: Перевірка колегами
     remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити рецензію
     review_self: Перевірити статтю
     review_tooltip: Це щоб слідкувати, яку(-і) статтю(-і) ви плануєте рецензувати
       чи зробити відгук.
+    sandbox_draft_link: Чернетка у пісочниці
     select: Обрати
   blocks:
     milestones:
@@ -244,8 +262,10 @@ uk:
     data_courses: Дані огляду курсу
     data_courses_info: Базові метрики кожного курсу/програми
     data_articles: Редаговані сторінки
+    data_revisions: Дані версій
     data_articles_info: Деталі про кожну відслідковувану сторінку, яка редагувалася
       кампанією
+    data_revisions_info: Деталі про кожну відстежувану версію у кампанії
     data_instructors: Інструктори
     data_instructors_info: Список інструкторів/фасилітаторів та їхніх курсів/програм
     data_editors_by_course: Редактори за курсом
@@ -275,23 +295,33 @@ uk:
     use_start_end_dates: Використовувати дати початку та закінчення
   categories:
     add_category: Додати категорію
+    add_psid: Додати PetScan PSID
     add_template: Додати шаблон
     add_this_category: Додати цю категорію
+    add_this_psid: Додати цей PSID
     add_this_template: Додати цей шаблон
+    import_articles_description: Список статей у категорії періодично оновлюється,
+      і між його доданням і появою переліку статей може пройти трохи часу
     confirm_category_addition: Ви впевнені, що хочете слідкувати за внеском до категорії
       «%{name}»?
+    confirm_psid_addition: Ви впевнені, що хочете слідкувати за внеском для PetScan
+      PSID «%{name}»?
     confirm_template_addition: Ви впевнені, що хочете слідкувати за внеском до шаблону
       «%{name}»?
     depth: Глибина підкатегорій
+    articles_count: Кількість статей
     name: Назва
     category_name: Назва категорії
+    psid_name: PSID
     template_name: Назва шаблону
     none: Немає відслідковуваних категорій.
     remove: Вилучити
     tracked_categories: Відслідковувані категорії, PSID і шаблони
+    timestamp: Останнє оновлення
   chat:
     label: Чат
   courses:
+    school_system: Академічна система
     assignment_edits_enabled: Призначені редагування увімкнено
     assignment_edits_enabled_tooltip: Якщо увімкнено, то панель додаватиме шаблон
       на сторінку обговорення для кожної заданої статті.
@@ -321,6 +351,7 @@ uk:
       assigned_articles: Задані статті
       assigned_reviews: Призначені рецензії
       available_articles: Доступні статті
+      available_reviews: Статті однокласників
     assignment_end: Кінець завдання
     assignments_none: Цей курс не має заданих статей.
     assignment_start: Початок завдання
@@ -448,6 +479,8 @@ uk:
       які сторінки нові, скільки всього переглядів сторінок. Ці значення переглядів
       можуть бути застарілими для курсів, які вже закінчилися, тому додано також посилання
       на інший інструмент підрахунку переглядів.
+    data_revisions_info: Дані версії включають кількість версій курсу, ідентифікатор
+      версії, ідентифікатор статті, які статті нові і кількість переглядів сторінок.
     data_download_info: Завантажити дані у форматі CSV.
     data_overview: Огляд даних
     data_overview_info: Огляд даних дає сумарну статистику за весь проект.
@@ -459,6 +492,7 @@ uk:
       скільки вони редагували і чи вони зареєстрували свої облікові записи під час
       проекту.
     data_uploads: Дані завантажень у Вікісховище
+    data_revisions: Дані версій
     data_uploads_info: Дані завантажень у Вікісховище показують назву і кількість
       використань кожного завантаженого файлу.
     delete_course: Вилучити курс
@@ -499,6 +533,7 @@ uk:
     feedback: Відгуки
     feedback_loading: Будь ласка, зачекайте, поки пропозиції завантажуються…
     gradeables_none: Цей курс не має жодних завдань, що можуть оцінюватись.
+    home_wiki: Домашня вікі
     multi_wiki: Вікі, що відслідковуються
     instructor:
       one: Інструктор
@@ -678,6 +713,7 @@ uk:
       notification_message: Пройдіть наше опитування для цього курсу.
       link: Взяти участь в опитуванні
   courses_generic:
+    school_system: Академічна система
     add_campaign: Додати кампанію
     all_courses: Усі програми
     archived: Архівовані програми
@@ -803,6 +839,10 @@ uk:
     edit_count_description: Всього редагувань
     per_user: '%{number} на користувача'
     revisions: Недавні редагування
+    references_count: Додано приміток
+    references_doc: Це кількість теґів приміток, доданих до статей, сюди враховуватимуться
+      і багаторазові примітки на те саме джерело. Дані надходять з моделі якості статей
+      ORES і доступні лише кількома мовами.
     tags: Теги
     upload_count: Завантаження у Вікісховище
     uploads_in_use_count:
@@ -844,6 +884,7 @@ uk:
     usage_count: Число використань
   revisions:
     chars_added: Додано символів
+    references: Додано приміток
     class: Клас
     date_time: Дата/час
     diff: різн.
@@ -1064,6 +1105,7 @@ uk:
     characters_added_short: 'ОП: %{mainspace}, ПК %{userspace}'
     characters_added_userspace: Додано символів (до сторінок користувачів)
     characters_added_draftspace: Додано символів (до чернеток)
+    references_count: Додано приміток
     my_assigned: 'Призначено:'
     my_reviewing: 'Перевіряються:'
     name: Ім'я
@@ -1078,6 +1120,7 @@ uk:
     request_confirmation: Ви дійсно бажаєте подати запит на цей обліковий запис?
     revision_characters_and_views: 'Додано символів: %{characters}, переглядів: %{views}'
     revisions_doc: Кількість змін, зроблених цим учасником в останні 7 днів
+    references_doc: Кількість приміток, доданих чи вилучених цим редактором
     reviewers: Оцінювач(і)
     reviewing: Оцінює
     sandboxes: чернетки
@@ -1274,4 +1317,6 @@ uk:
     not_started: Не почато
     due: до %{due_date}
     assignment_status: Тренувальне завдання (%{status})
+  multi_wiki:
+    selector_placeholder: Почніть вводити домен вікі
 ...

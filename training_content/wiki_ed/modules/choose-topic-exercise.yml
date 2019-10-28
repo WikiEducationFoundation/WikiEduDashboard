@@ -1,5 +1,6 @@
-name: 'Exercise: Choose your article'
+name: 'Choose your article'
 id: 37
+kind: 'exercise'
 description: |
   It's time to look up 3 – 5 potential topics on Wikipedia related to your
   course that you might want to improve.

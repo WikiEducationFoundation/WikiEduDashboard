@@ -50,30 +50,30 @@ fr:
     create_accounts: Créer les comptes Wikipédia
     dashboard: Tableau de bord de modification du wiki
     documentation: Documentation
-    error: 'Il y a eu une erreur :'
+    error: 'Une erreur s’est produite :'
     explore: Explorer
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
     field_invalid_date: Ce champ requiert une date au format AAAA-MM-JJ
-    field_invalid_date_time: La fin doit être avant le début (les heures vont de 0
+    field_invalid_date_time: La fin doit être après le début (les heures vont de 0
       à 23).
-    greeting2: Bienvenue !
+    greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
     greeting: Bonjour !
     help: Aide
     home: Accueil
     log_in_extended: Se connecter à Wikipédia
-    log_in: Connexion
-    log_out: Déconnexion
+    log_in: Se connecter
+    log_out: Se déconnecter
     my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
     report_problem: Signaler un problème
     request_account: Demander un compte
     request_account_create: Créer un compte
     search: poser une question
-    search_results: 'Résultats pour : ''%{search_terms}'''
-    no_results: Aucun résultat trouvé pour '%{query}'
-    sign_up_extended: S’inscrire avec Wikipédia
+    search_results: Résultats pour « %{search_terms} »
+    no_results: Aucun résultat trouvé pour « %{query} »
+    sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
@@ -81,45 +81,45 @@ fr:
     training: Formation
     change: Modifier
     details: Détails
-    confirm: Ok
+    confirm: Valider
     opt_in: Oui
     opt_out: Non
     opt_yes: oui
     opt_no: non
   dashboard:
-    create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
+    create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
-      dates de réunion de votre classe — y compris les pauses scolaires et les vacances
-      — pour adapter le planning à la plage de dates que vous choisirez. Souvenez-vous
+      dates de réunion de votre classe — y compris les pauses scolaires et les vacances —
+      pour adapter le planning à la plage de dates que vous choisirez. Souvenez-vous
       que vous pouvez toujours modifier le planning pour l’adapter à vos besoins.
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
-      cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
-    no_courses_instructor: Il semble que vous n’avez pas de cours.
+      cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
+    no_courses_instructor: Il semble que vous n’avez aucun cours.
     no_courses_student: Il semble que vous n’êtes encore inscrit à aucun cours.
     opt_out: Demande de retrait de l’orientation
     orientation_notice: Avant de créer un cours, passez par l’orientation pour vous
       aider à commencer (cela prendra 30 minutes pour le terminer).
     review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
-    blog_headline: Actualités récentes de Wiki Education
-    about_programs: Ce site suit les activités wiki à travers des Programmes — des
+    blog_headline: Actualités récentes de Wiki Éducation
+    about_programs: Ce site suit les activités wiki au travers des Programmes — des
       événements individuels tels qu’un wikithon ou un cours scolaire. Chaque Programme
-      fait partie d’une ou de plusieurs Campagnes, qui fournissent des statistiques
-      agrégées sur les Programmes.
+      fait partie d’une ou de plusieurs Campagnes qui fournissent des statistiques
+      agrégées sur leurs Programmes.
     about_creating_programs: Si vous gérez un événement unique et indépendant, vous
       pouvez créer un Programme maintenant. Si votre événement fait partie d’un ensemble,
       trouvez ou créez une Campagne pour cela. Créez ensuite un nouveau Programme
       depuis la page de la Campagne.
   home:
     explore: Explorer
-    log_in: Se connecter avec Wikipédia
+    log_in: Se connecter à Wikipédia
     sign_up: S’inscrire à Wikipédia
     sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
-      connecter avec un compte Wikipédia existant, ou en créer un nouveau.
+      connecter avec un compte Wikipédia existant ou en créer un nouveau.
   activity:
     all: Activité
     edited_by: Modifié par
@@ -133,7 +133,7 @@ fr:
     previous: Précédent
     article_title: Titre de l’article
     assigned_to: Assigné à
-    character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
+    character_doc: Le total du nombre de caractères ajoutés aux articles par les rédacteurs
       inscrits entre les dates de début et de fin
     cross_wiki_tracking: Les pages de l’espace de noms principal modifiées entre les
       dates de début et de fin sont listées ci-dessous. Le tableau de bord agrège
@@ -141,7 +141,7 @@ fr:
       wikis pour lesquels il y a une Affectation ou un Article disponible.
     deleted: (supprimé)
     edited: Articles modifiés
-    edited_by: 'Modifié par :'
+    edited_by: 'Modifié par :'
     edited_mobile: Articles
     filter:
       wiki_all: Tous
@@ -158,27 +158,27 @@ fr:
     new: (nouveau)
     none: Ce cours n’a modifié aucun article.
     rating: Classe
-    rating_doc: La notation attribuée à un article par WikiProjects sur Wikipédia.
+    rating_doc: La notation a été attribuée à un article par WikiProjects sur Wikipédia.
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
-      fa: '%{class} (Article vedette) — La plus haute notation de Wikipédia, probablement
+      fa: '%{class} (article vedette) — la plus haute notation de Wikipédia, probablement
         un article trop mature pour être le projet principal d’un nouvel éditeur'
-      fl: '%{class} (Liste vedette) — La plus haute notation de Wikipédia pour les
+      fl: '%{class} (liste vedette) — la plus haute notation de Wikipédia pour les
         listes'
-      a: '%{class}-class — article très développé qui pourrait être trop mature pour
-        être le projet principal d’un nouvel éditeur'
-      ga: '%{class} (Bon article) — un article bien développé qui pourrait être trop
+      a: classe %{class} — article très développé qui pourrait être trop mature pour
+        être le projet principal d’un nouvel éditeur
+      ga: '%{class} (bon article) — un article bien développé qui pourrait être trop
         mature pour être le projet principal d’un nouvel éditeur'
-      b: '%{class}-classe — un article modérément développé'
-      c: '%{class}-classe — un article intermédiaire, avec des possibilités d’amélioration'
-      start: '%{class}-classe — un article préliminaire avec beaucoup de possibilités
-        d’amélioration'
-      stub: '%{class}-classe — court début d’un article qui nécessite plus de contenu'
-      list: '%{class}-classe — une liste plutôt qu’un article habituel'
-      '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
+      b: classe %{class} — un article modérément développé
+      c: classe %{class} — un article intermédiaire, avec des possibilités d’amélioration
+      start: classe %{class} — un article préliminaire avec beaucoup de possibilités
+        d’amélioration
+      stub: classe %{class} — court début d’un article qui nécessite plus de contenu
+      list: classe %{class} — une liste plutôt qu’un article habituel
+      '?': non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
-      does_not_exist: Cet article n'existe pas sur Wikipédia
+      does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
@@ -193,20 +193,23 @@ fr:
     tools: Outils d’évaluation
     view: Afficher l’article
     view_all: Tout afficher
-    view_doc: Le total de toutes les vues sur chaque article durant le projet
+    view_doc: Le nombre de vues de chacun des articles depuis qu’il a été modifié
+      pour la première fois jusqu’à la dernière valeur fournie par les statistiques.
+      Vous pouvez utiliser tools.wmflabs.org/pageviews pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
     edit_size: Modifier la taille
     wiki: Wiki
-    wp10: Intégrité structurale 
-    wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
-      d’un article avec le modèle d’un article mature de Wikipedia, donné par le service
-      d’évaluation objective des versions (https://ores.wikimedia.org/). Ces valeurs
-      sont calculées sur la taille de l'article, le nombre de références et de liens
-      Wiki, ainsi que d’autres caractéristiques de base du texte. Une valeur élevée  indique
-      généralement qu’un article suit les conventions de Wikipedia pour la structure
-      d’un bon article, mais il ne prend pas en compte le contenu lui-même. (Ces statistiques
-      ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
+    wp10: Complétude structurale
+    wp10_doc: L’évaluation de la « complétude structurale » mesure le degré d’adéquation
+      d’un article au modèle d’un article mature de Wikipédia, donné par le service
+      d’évaluation objective des versions (https://ores.wikimedia.org/) basé sur l’apprentissage
+      par la machine. Ces valeurs sont calculées sur la taille de l’article, le nombre
+      de références et de liens Wiki, ainsi que d’autres caractéristiques de base
+      du texte. Une valeur élevée indique généralement qu’un article suit les conventions
+      de Wikipedia pour la structure d’un bon article, mais il ne prend pas en compte
+      le contenu lui-même. (Ces statistiques ne sont uniquement disponibles que pour
+      les articles du Wikipédia anglais).
   assignments:
     article: L’article %{title} vous est maintenant affecté.
     article_link: Article
@@ -223,14 +226,14 @@ fr:
     bibliography: Bibliographie
     clone: Cloner
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
-    confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
+    confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
     editors: Assigné à
     label: Assigner
-    loading: Chargement des affectations…
+    loading: Chargement des affectations...
     none_short: Aucun article affecté
     none: Ce cours n’a aucun article affecté.
-    no_available: Ce cours n’a pas d’article disponible.
+    no_available: Ce cours n’a aucun article disponible.
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
     peer_review_link: Relecture par un pair
@@ -250,7 +253,7 @@ fr:
     add_organizer: Ajouter un organisateur
     alert_article: Titre de l’article
     alert_label: Alertes des campagnes
-    alert_select_label: Filtrer par type d'alerte
+    alert_select_label: Filtrer par type d’alerte
     alert_type: Type
     alert_user_id: Utilisateur
     all_campaigns: Toutes les campagnes
@@ -262,7 +265,7 @@ fr:
     campaign_not_updated: La campagne n’a pas pu être mise à jour
     campaign_updated: Campagne mise à jour
     created_at: Date
-    confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne appelée
+    confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne intitulée
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
     confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
       La campagne n’a pas été supprimée.
@@ -275,28 +278,28 @@ fr:
     create_my_campaign: Créer ma campagne !
     customize_passcode: un mot de passe par défaut
     data_download_info: Télécharger les données de campagne en CSV
-    data_courses: Données d'aperçu des cours
+    data_courses: Données d’aperçu des cours
     data_courses_info: Métriques de base pour chaque cours/programme
     data_articles: Pages modifiées
-    data_revisions: Données de révision
-    data_articles_info: Détail concernant chaque page suivie modifiée durant la campagne
-    data_revisions_info: Détails concernant chaque révisions suivie de la campagne
+    data_revisions: Données des versions
+    data_articles_info: Détails concernant chaque page suivie modifiée par la campagne
+    data_revisions_info: Détails concernant chaque version suivie de la campagne
     data_instructors: Formateurs
     data_instructors_info: Liste des formateurs/facilitateurs avec leur cours/programmes
-    data_editors_by_course: Editeurs par cours
-    data_editors_by_course_info: Liste des éditeurs inscrits avec leurs cours/programmes
-    data_editor_usernames: Noms d'utilisateur des éditeurs
-    data_editor_usernames_info: Liste des noms d'utilisateur des éditeurs, un par
+    data_editors_by_course: Rédacteurs par cours
+    data_editors_by_course_info: Liste des rédacteurs inscrits avec leurs cours/programmes
+    data_editor_usernames: Noms d’utilisateur des rédacteurs
+    data_editor_usernames_info: Liste des noms d'utilisateur des rédacteurs, un par
       ligne
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut
     default_passcode_explanation: 'Par défaut, les nouveaux programmes dans cette
-      campagne doivent avoir :'
+      campagne doivent avoir :'
     description: Description
     delete_campaign: Supprimer cette campagne
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
-    no_alerts: Cette campagne n'a pas d'alertes
+    no_alerts: Cette campagne n’a aucune alerte
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
@@ -305,7 +308,7 @@ fr:
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
-    random_passcode: un mot de passe aléatoire
+    random_passcode: un code d’accès aléatoire
     requested_accounts: Comptes demandés
     title: Titre
     slug: Limace
@@ -348,18 +351,18 @@ fr:
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
       nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de
       bord, et les ajouter comme participants au programme en même temps. Pour utiliser
-      cette fonctionnalité, vous devez avoir le droit 'créateur de compte' sur le
+      cette fonctionnalité, vous devez avoir le droit « créateur de compte » sur le
       wiki d’accueil de ce programme.
     accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
     active_courses: '%{course_type} actifs'
     add_trainings: Veuillez ajouter des formations d’étudiant à votre planning d’affectation.
-      Affecter les modules de formation est une part essentielle des meilleurs pratiques
-      du wiki Ed.
+      Affecter les modules de formation est une part essentielle des meilleures pratiques
+      du Wiki Éducation.
     alerts: Alertes
     all_courses: Tous les cours
-    already_enrolled: Vous faites déjà partie de '%{title}' !
+    already_enrolled: Vous faites déjà partie de « %{title} » !
     already_exists: Cela existe déjà pour ce cours !
     archived: Cours archivés
     actions: Actions
@@ -375,7 +378,7 @@ fr:
     assignment_start: Début d’affectation
     calendar:
       legend: Légende
-      legend_class_canceled: Férié/Annulé
+      legend_class_canceled: Congé/Annulé
       legend_class_meeting: Réunion de classe
       legend_class_not_meeting: Aucune réunion programmée
       select_meeting_days: Sélectionner les jours de la semaine pendant lesquels votre
@@ -383,13 +386,13 @@ fr:
     cancel: Annuler
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
-    campaigns: 'Complices :'
-    campaign_articles: Articles %{title}
-    campaign_courses: '%{title} Cours'
+    campaigns: 'Campagnes :'
+    campaign_articles: Articles pour « %{title} »
+    campaign_courses: Cours pour « %{title} »
     campaign_select: Sélectionner une campagne
-    campaign_users: Éditeurs %{title}
+    campaign_users: Rédacteurs de « %{title} »
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
-      %{title} ? Si oui, taper le titre du cours pour continuer.
+      « %{title} » ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
       cours n’a pas été supprimé.
     confirm_manual_update: Êtes-vous sûr de vouloir exécuter une mise à jour manuelle ?
@@ -397,9 +400,10 @@ fr:
       processus peut prendre un peu de temps.
     course: Cours
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
-      du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
-      entre non sélectionnée, sélectionnée, et en congé. Les dates des activités de
-      cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
+      du calendrier (par ex., vacances et congés, école fermée). Cliquer sur la date
+      pour basculer entre non sélectionnée, sélectionnée et en congé. Les dates des
+      activités de cours seront modifiées pour tenir compte des semaines sans réunion
+      planifiée.
     course_description: Cours
     courses: Cours
     courses_taught: Cours enseignés
@@ -419,14 +423,14 @@ fr:
       clone_previous: Dupliquer le cours précédent
       clone_this: Dupliquer ce cours
       cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
-        du calendrier (par ex. les jours fériés, les vacances). Cliquer sur la date
-        pour la faire basculer entre non sélectionnée, sélectionnée, et état d’absence.
-        Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de vacances scolaires ».
-        Le planning cloné ajustera automatiquement les dates pour tenir compte des
-        semaines sans réunions programmées.
+        du calendrier (par ex. jours fériés, vacances ou congés, école fermée). Cliquer
+        sur la date pour la faire basculer entre non sélectionnée, sélectionnée et
+        état en congé. Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de
+        vacances scolaires ». Le planning cloné ajustera automatiquement les dates
+        pour tenir compte des semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
       clone_successful_details: Votre cours a été dupliqué, y compris les éléments
-        du planning (semaines et blocages). Assurez-vous d’ajouter les dates qui e
+        du planning (semaines et blocages). Assurez-vous d’ajouter les dates qui ne
         sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
         N’hésitez pas à le mettre à jour maintenant.
       course_dates_info: Saisir les dates de début et de fin de votre cours. Dans
@@ -719,8 +723,8 @@ fr:
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
     view: Afficher le cours
-    view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
-      depuis que ces derniers ont édité pour la première fois chacun des articles.
+    view_doc: Le nombre estimé de vues des articles modifiés par les contributeurs
+      enregistrés depuis la date de leur première modification de chaque article.
     view_page: Afficher la page du cours
     view_wiki: Afficher sur Wikipédia
     volunteer:

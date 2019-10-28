@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default () => (
-  <section className="no-assignment-message">
-    <p>You have not chosen an article to work on. Please use the buttons below to assign yourself an article.</p>
+  <div>
+    <p>You have not chosen an article to work on. When you have found an article to work on, use the button above to assign it.</p>
     <aside>
       <a href="/training/students/finding-your-article" target="_blank" className="button ghost-button">
         How to find an article
@@ -11,5 +11,5 @@ export default () => (
         Evaluating articles and sources
       </a>
     </aside>
-  </section>
+  </div>
 );

@@ -12,13 +12,17 @@ describe OverdueTrainingAlertManager do
   let(:week) { create(:week) }
   let(:block) { create(:block, training_module_ids: [1, 2, 3], due_date: due_date) }
   let(:due_date) { nil }
+  let(:exercise_week) { create(:week) }
+  let(:exercise_block) { create(:block, training_module_ids: [38], due_date: exercise_due_date) }
+  let(:exercise_due_date) { 1.day.from_now }
   let(:user) { create(:user, email: 'student@example.edu') }
 
   before do
     create(:courses_user, user: user, course: course)
     allow(Features).to receive(:email?).and_return(true)
-    course.weeks << week
+    course.weeks << [week, exercise_week]
     week.blocks << block
+    exercise_week.blocks << exercise_block
   end
 
   context 'when training is overdue' do
@@ -35,6 +39,17 @@ describe OverdueTrainingAlertManager do
         .to receive(:deliver_now).and_raise(Mailgun::CommunicationError)
       expect(Raven).to receive(:capture_exception)
       subject
+    end
+  end
+
+  context 'when training is not actually a training' do
+    let(:exercise_due_date) { 1.day.ago }
+    let(:due_date) { 1.day.from_now }
+
+    it 'does not create an alert' do
+      expect(OverdueTrainingAlert.count).to eq(0)
+      subject
+      expect(OverdueTrainingAlert.count).to eq(0)
     end
   end
 

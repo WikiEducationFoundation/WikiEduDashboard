@@ -9,7 +9,7 @@ describe('Header', () => {
     article: {},
     articleTitle: 'title',
     assignment: {},
-    course: { slug: 'course/slug' },
+    course: { slug: 'course/slug', type: 'ClassroomProgramCourse' },
     current_user: {},
     isComplete: true,
     username: 'username',

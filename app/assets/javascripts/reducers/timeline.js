@@ -11,7 +11,8 @@ import {
   INSERT_BLOCK,
   UPDATE_TITLE,
   RESET_TITLES,
-  RESTORE_TIMELINE
+  RESTORE_TIMELINE,
+  EXERCISE_COMPLETION_UPDATE
 } from '../constants';
 
 const initialState = {
@@ -221,6 +222,16 @@ export default function timeline(state = initialState, action) {
     }
     case RESTORE_TIMELINE: {
       return { ...state, blocks: { ...state.blocksPersisted }, weeks: deepCopyWeeks(state.weeksPersisted), editableBlockIds: [] };
+    }
+    case EXERCISE_COMPLETION_UPDATE: {
+      const block = action.data;
+      return {
+        ...state,
+        blocks: {
+          ...state.blocks,
+          [block.id]: block
+        }
+      };
     }
     default:
       return state;

@@ -27,12 +27,11 @@ class OverdueTrainingAlertManager
     status = {}
     overdue = false
     course.training_modules.each do |training_module|
+      next unless training_module.training?
       due_date_manager = TrainingModuleDueDateManager.new(course: course, user: student,
                                                           training_module: training_module)
       overdue = true if due_date_manager.overdue?
-      status[training_module.slug] = { due_date: due_date_manager.computed_due_date,
-                                       status: due_date_manager.deadline_status,
-                                       progress: due_date_manager.module_progress }
+      status[training_module.slug] = construct_status(due_date_manager)
     end
 
     return unless overdue
@@ -47,5 +46,11 @@ class OverdueTrainingAlertManager
     earliest_date = OverdueTrainingAlert::MINIMUM_DAYS_BETWEEN_ALERTS.days.ago
     Alert.where(course: course, user: student, type: 'OverdueTrainingAlert')
          .where('created_at > ?', earliest_date).exists?
+  end
+
+  def construct_status(due_date_manager)
+    { due_date: due_date_manager.computed_due_date,
+      status: due_date_manager.deadline_status,
+      progress: due_date_manager.module_progress }
   end
 end

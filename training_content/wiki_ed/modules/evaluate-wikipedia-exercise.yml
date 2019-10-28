@@ -1,5 +1,6 @@
-name: 'Exercise: Evaluate Wikipedia'
+name: 'Evaluate Wikipedia'
 id: 34
+kind: 'exercise'
 description: |
   This exercise will guide you in evaluating a Wikipedia article.
 slides:

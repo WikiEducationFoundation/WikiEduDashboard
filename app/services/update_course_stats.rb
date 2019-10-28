@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
@@ -21,6 +22,7 @@ class UpdateCourseStats
     fetch_data
     update_categories if @course.needs_update
     update_article_status if @course.needs_update
+    update_average_pageviews
     update_caches
     @course.update(needs_update: false)
     @end_time = Time.zone.now
@@ -50,6 +52,10 @@ class UpdateCourseStats
   def update_article_status
     ArticleStatusManager.update_article_status_for_course(@course)
     log_update_progress :article_status_updated
+  end
+
+  def update_average_pageviews
+    AverageViewsImporter.update_outdated_average_views(@course.articles)
   end
 
   def update_caches

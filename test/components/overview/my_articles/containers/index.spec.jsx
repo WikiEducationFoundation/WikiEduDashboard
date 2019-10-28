@@ -10,41 +10,41 @@ import MyArticlesContainer from '../../../../../app/assets/javascripts/component
 describe('MyArticlesContainer', () => {
   describe('Features.wikiEd = true', () => {
     Features.wikiEd = true;
-    const template = {
-      course: { home_wiki: { language: 'en', project: 'wikipedia' }, slug: 'course/slug' },
-      current_user: {}
+    const initialState = {
+      assignments: { assignments: [], loading: false },
+      course: {
+        home_wiki: { language: 'en', project: 'wikipedia' },
+        slug: 'course/slug',
+        type: 'ClassroomProgramCourse'
+      },
+      wikidataLabels: {},
+      ui: {}
     };
 
     it('displays a message if there are no assignments', () => {
-      const store = configureMockStore()({
-        assignments: { assignments: [], loading: false },
-        wikidataLabels: {}
-      });
+      const store = configureMockStore()(initialState);
 
       const props = {
-        ...template,
         current_user: { isStudent: true, username: 'Username' }
       };
 
       const Container = mount(
         <Provider store={store}>
-          <MyArticlesContainer {...props} />
+          <MemoryRouter>
+            <MyArticlesContainer {...props} />
+          </MemoryRouter>
         </Provider>
       );
 
       // This checks that nothing gets rendered.
       expect(Container.children().length).toEqual(1);
-      expect(Container.children().at(0).type()).toEqual(MyArticlesContainer);
+      expect(Container.text()).toMatch(/You have not chosen an article/);
     });
 
     it('does not display for an admin', () => {
-      const store = configureMockStore()({
-        assignments: { assignments: [], loading: false },
-        wikidataLabels: {}
-      });
+      const store = configureMockStore()(initialState);
 
       const props = {
-        ...template,
         current_user: { isStudent: false, username: 'Username' }
       };
 
@@ -81,13 +81,17 @@ describe('MyArticlesContainer', () => {
           ],
           loading: false
         },
+        course: {
+          home_wiki: { language: 'en', project: 'wikipedia' },
+          slug: 'course/slug',
+          type: 'ClassroomProgramCourse'
+        },
         feedback: {},
         wikidataLabels: {},
         ui: { openKey: true }
       });
 
       const props = {
-        ...template,
         current_user: { id: 1, isStudent: true, username: 'Username' }
       };
 

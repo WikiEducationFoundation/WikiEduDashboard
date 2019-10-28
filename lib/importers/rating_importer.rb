@@ -41,7 +41,7 @@ class RatingImporter
   # API Access #
   ##############
   def self.update_ratings(article_groups)
-    require './lib/wiki_api'
+    require "#{Rails.root}/lib/wiki_api"
     article_groups.each do |articles|
       titles = articles.map(&:title)
       # NOTE: English Wikipedia only, per above.

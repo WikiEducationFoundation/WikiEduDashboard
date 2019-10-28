@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 # == Schema Information
 #
-# Table name: training_slides
+# Table name: training_modules
 #
-#  id              :bigint(8)        not null, primary key
-#  name            :string(255)
-#  estimated_ttc   :string(255)
-#  wiki_page       :string(255)
-#  slide_slugs     :text(65535)
-#  description     :text(65535)
-#  translations    :text(16777215)
-#  slug            :string(255)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id            :bigint           not null, primary key
+#  name          :string(255)
+#  estimated_ttc :string(255)
+#  wiki_page     :string(255)
+#  slug          :string(255)
+#  slide_slugs   :text(65535)
+#  description   :text(65535)
+#  translations  :text(16777215)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  kind          :integer          default(0)
 #
 
 require_dependency "#{Rails.root}/lib/training/training_base"
@@ -24,6 +25,12 @@ class TrainingModule < ApplicationRecord
   serialize :translations, Hash
 
   validates_uniqueness_of :slug, case_sensitive: false
+
+  module Kinds
+    TRAINING = 0
+    EXERCISE = 1
+    DISCUSSION = 2
+  end
 
   def self.path_to_yaml
     "#{base_path}/modules/*.yml"
@@ -71,6 +78,8 @@ class TrainingModule < ApplicationRecord
     training_module.translations = content['translations']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
+    training_module.kind = training_module_kind(content['kind'])
+
     validate_and_save(training_module, slug)
     training_module
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
@@ -87,9 +96,32 @@ class TrainingModule < ApplicationRecord
     training_module.save if valid
   end
 
+  def self.training_module_kind(value)
+    case value
+    when 'exercise'
+      TrainingModule::Kinds::EXERCISE
+    when 'discussion'
+      TrainingModule::Kinds::DISCUSSION
+    else
+      TrainingModule::Kinds::TRAINING
+    end
+  end
+
   ####################
   # Instance methods #
   ####################
+
+  def training?
+    kind == TrainingModule::Kinds::TRAINING
+  end
+
+  def exercise?
+    kind == TrainingModule::Kinds::EXERCISE
+  end
+
+  def discussion?
+    kind == TrainingModule::Kinds::DISCUSSION
+  end
 
   def slides
     return @sorted_slides if @sorted_slides.present?

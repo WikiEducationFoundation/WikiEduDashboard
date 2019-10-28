@@ -33,12 +33,6 @@ namespace :batch do
     TicketNotificationEmails.notify
   end
 
-  desc 'View import updates'
-  task update_views: :environment do
-    require "#{Rails.root}/lib/data_cycle/views_update"
-    ViewsUpdate.new
-  end
-
   desc 'Pause updates'
   task pause: :environment do
     pid_file = 'tmp/batch_pause.pid'

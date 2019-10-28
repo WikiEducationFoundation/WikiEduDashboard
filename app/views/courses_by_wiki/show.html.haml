@@ -4,6 +4,9 @@
   .container
     %h1= @wiki.domain
 
+  .container
+    = render 'courses/header_stats', presenter: @presenter
+
 .container
   %section#courses
     .section-header

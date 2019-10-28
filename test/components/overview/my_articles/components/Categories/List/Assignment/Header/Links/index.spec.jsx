@@ -8,12 +8,19 @@ describe('Links', () => {
   const props = {
     articleTitle: 'title',
     assignment: { id: 1, article_url: 'url' },
+    courseType: 'ClassroomProgramCourse',
     current_user: { id: 99 }
   };
 
   it('should show the default links', () => {
     const component = shallow(<Links {...props} />);
     expect(component).toMatchSnapshot();
+  });
+
+  it('should not show the bibliography link if the course type is anything but ClassroomProgramCourse', () => {
+    const component = shallow(<Links {...props} courseType="Editathon" />);
+    expect(component).toMatchSnapshot();
+    expect(component.find('BibliographyLink').length).toBeUndefined;
   });
 
   it('should show the peer review link if the assignment role is set to reviewing', () => {

@@ -1176,7 +1176,7 @@ cs:
     completed: Dokončeno
     started: Zahájeno
     not_started: Nezahájeno
-    due: kvůli %{due_date}
+    due: do %{due_date}
   multi_wiki:
     selector_placeholder: Zadejte název wiki
 ...

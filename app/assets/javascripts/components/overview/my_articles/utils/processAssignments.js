@@ -62,8 +62,12 @@ export const addSandboxUrl = (assignments, course, user_id) => {
     };
 
     if (assignment.role === REVIEWING_ROLE) {
-      const related = assignments.find(({ article_id, user_id: id }) => {
-        return id && article_id === assignment.article_id && id !== user_id;
+      const related = assignments.find(({ article_id, article_title, role, user_id: id }) => {
+        return id
+          && role === ASSIGNED_ROLE
+          && article_id === assignment.article_id
+          && article_title === assignment.article_title
+          && id !== user_id;
       });
 
       if (related) {

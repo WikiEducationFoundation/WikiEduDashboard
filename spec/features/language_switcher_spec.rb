@@ -25,7 +25,7 @@ describe 'language_switcher', type: :feature, js: true do
       expect(page.current_path).to eq root_path
       uri = URI.parse(current_url)
       expect("#{uri.path}?#{uri.query}").to eq(root_path(locale: 'fr'))
-      expect(page).to have_text('Se connecter avec Wikipédia')
+      expect(page).to have_text('Se connecter à Wikipédia')
     end
   end
 

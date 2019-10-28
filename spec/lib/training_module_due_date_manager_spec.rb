@@ -113,6 +113,18 @@ describe TrainingModuleDueDateManager do
           expect(subject).to eq(true)
         end
       end
+
+      context 'training module is not of kind TRAINING' do
+        let(:due_date) { 1.week.ago.to_date }
+
+        before { t_module.update(kind: TrainingModule::Kinds::EXERCISE) }
+
+        after { t_module.update(kind: TrainingModule::Kinds::TRAINING) }
+
+        it 'returns false' do
+          expect(subject).to eq(false)
+        end
+      end
     end
 
     context 'module is complete' do

@@ -416,6 +416,7 @@ describe 'the course page', type: :feature, js: true do
 
       expect(CourseRevisionUpdater).to receive(:import_revisions)
       expect(RevisionScoreImporter).to receive(:update_revision_scores_for_course)
+      expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
       updated_user_count = user_count + 1

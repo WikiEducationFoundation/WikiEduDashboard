@@ -3,8 +3,16 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import _ from 'lodash';
+import {
+  DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
+} from '../../../constants/timeline';
 
-import selectStyles from '../../styles/select';
+// Components
+import ModuleStatus from './ModuleStatus/ModuleStatus';
+import ModuleLink from './ModuleLink';
+import ModuleName from './ModuleName';
+
+import selectStyles from '../../../styles/select';
 
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
@@ -15,7 +23,7 @@ const TrainingModules = createReactClass({
     all_modules: PropTypes.array,
     onChange: PropTypes.func,
     trainingLibrarySlug: PropTypes.string.isRequired,
-    header: PropTypes.string
+    header: PropTypes.any
   },
 
   getInitialState() {
@@ -67,12 +75,19 @@ const TrainingModules = createReactClass({
     }
 
     const modules = this.props.block_modules.map((module) => {
-      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
+      const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
+      const isExercise = module.kind === EXERCISE_KIND;
+      const isDiscussion = module.kind === DISCUSSION_KIND;
+
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
-      let deadlineStatus;
-      if (module.module_progress) {
+
+      if (isExercise || isDiscussion) {
+        progressClass = this.progressClass(module.module_progress);
+        linkText = 'View';
+        iconClassName += 'icon-rt_arrow';
+      } else if (isTrainingModule && module.module_progress) {
         progressClass = this.progressClass(module.module_progress);
         linkText = module.module_progress === 'Complete' ? 'View' : 'Continue';
         iconClassName += module.module_progress === 'Complete' ? 'icon-check' : 'icon-rt_arrow';
@@ -82,38 +97,20 @@ const TrainingModules = createReactClass({
       }
 
       progressClass += ' block__training-modules-table__module-progress ';
-      if (module.overdue === true) {
-        progressClass += ' overdue';
-      }
-      if (module.deadline_status === 'complete') {
-        progressClass += ' complete';
-      }
+      if (module.overdue === true) progressClass += ' overdue';
+      if (module.deadline_status === 'complete') progressClass += ' complete';
 
-      if (module.deadline_status === 'overdue') {
-        deadlineStatus = `(due on ${module.due_date})`;
-      }
-
-      const moduleStatus = module.module_progress && module.deadline_status ? (
-        <div>
-          {module.module_progress}
-          &nbsp;
-          {deadlineStatus}
-        </div>
-      ) : (
-        '--'
-      );
+      const link = `/training/${this.props.trainingLibrarySlug}/${module.slug}`;
       return (
         <tr key={module.id} className="training-module">
-          <td className="block__training-modules-table__module-name">{module.name}</td>
-          <td className={progressClass}>
-            {moduleStatus}
-          </td>
-          <td className="block__training-modules-table__module-link">
-            <a className={module.module_progress} href={link} target="_blank">
-              {linkText}
-              <i className={iconClassName} />
-            </a>
-          </td>
+          <ModuleName {...module} isExercise={isExercise} />
+          <ModuleStatus {...module} progressClass={progressClass} />
+          <ModuleLink
+            iconClassName={iconClassName}
+            link={link}
+            linkText={linkText}
+            module_progress={module.module_progress}
+          />
         </tr>
       );
     });
@@ -123,7 +120,7 @@ const TrainingModules = createReactClass({
     return (
       <div className="block__training-modules">
         <div>
-          <h4 id={headerId}>{ header }</h4>
+          { this.props.header ? <h4 id={headerId}>{ header }</h4> : null }
           <table className="table table--small">
             <tbody>
               {modules}
@@ -133,8 +130,6 @@ const TrainingModules = createReactClass({
       </div>
     );
   }
-}
-
-);
+});
 
 export default TrainingModules;

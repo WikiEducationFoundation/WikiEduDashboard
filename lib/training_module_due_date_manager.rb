@@ -22,7 +22,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    !module_completed? && Time.zone.now.to_date > computed_due_date
+    @training_module.training? && !module_completed? && Time.zone.now.to_date > computed_due_date
   end
 
   def deadline_status
@@ -45,6 +45,10 @@ class TrainingModuleDueDateManager
 
   def module_progress
     progress_manager.module_progress
+  end
+
+  def flags
+    @tmu&.flags
   end
 
   private

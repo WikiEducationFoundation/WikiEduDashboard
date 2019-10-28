@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 const StatisticsUpdateInfo = ({ course }) => {
-  if (course.ended || Features.wikiEd || !course.updates.last_update) {
+  if ((Features.wikiEd && !course.ended) || !course.updates.last_update) {
     return <div />;
   }
   const lastUpdate = course.updates.last_update.end_time;
