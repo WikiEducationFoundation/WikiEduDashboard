@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 
 export const Header = ({ completed = false, course, remaining = [], text }) => (
   <header className="header">
@@ -12,9 +12,13 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
         : null
       }
     </h3>
-    <NavLink exact to={`/courses/${course.slug}/resources`} className="resources-link">
+    <Link
+      exact
+      scroll={el => el.scrollIntoView({ block: 'center' })}
+      to={`/courses/${course.slug}/resources#exercises`} className="resources-link"
+    >
       View all exercises
-    </NavLink>
+    </Link>
   </header>
 );
 
