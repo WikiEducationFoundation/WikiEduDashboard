@@ -56,7 +56,7 @@ class IndividualStatisticsPresenter
   end
 
   def individual_articles_created
-    @articles_edited.values.select { |article_edits| article_edits[:new_article] }.count
+    @articles_edited.values.count { |article_edits| article_edits[:new_article] }
   end
 
   private

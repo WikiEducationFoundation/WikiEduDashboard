@@ -37,7 +37,7 @@ module SurveyAssignmentsHelper
   end
 
   def user_role(survey_assignment, total = 2)
-    role = ROLES.select { |r| r[:role] == survey_assignment.courses_user_role }.first[:name]
+    role = ROLES.find { |r| r[:role] == survey_assignment.courses_user_role }[:name]
     if total > 1
       role.pluralize
     else
@@ -46,7 +46,7 @@ module SurveyAssignmentsHelper
   end
 
   def role_name_by_id(id)
-    ROLES.select { |r| r[:role] == id }.first[:name].downcase.singularize
+    ROLES.find { |r| r[:role] == id }[:name].downcase.singularize
   end
 
   def test_email_path(id)
