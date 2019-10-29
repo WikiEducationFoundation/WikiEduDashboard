@@ -18,6 +18,8 @@ export class MyExercisesContainer extends React.Component {
 
   render() {
     const { course, exercises, trainingLibrarySlug } = this.props;
+    const incomplete = exercises.unread.concat(exercises.incomplete);
+    if (!incomplete.length) return null;
     if (exercises.loading) {
       return (
         <div className="module my-exercises">
@@ -26,9 +28,7 @@ export class MyExercisesContainer extends React.Component {
       );
     }
 
-    const incomplete = exercises.unread.concat(exercises.incomplete);
     const [latest, ...remaining] = [...incomplete].sort((a, b) => a.block_id > b.block_id);
-
     if (!latest) {
       return (
         <div className="module my-exercises">
