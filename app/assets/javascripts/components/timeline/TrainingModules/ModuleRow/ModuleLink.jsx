@@ -14,7 +14,7 @@ ModuleLink.propTypes = {
   iconClassName: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
   linkText: PropTypes.string.isRequired,
-  module_progress: PropTypes.string.isRequired
+  module_progress: PropTypes.string
 };
 
 export default ModuleLink;

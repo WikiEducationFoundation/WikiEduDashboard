@@ -11,6 +11,7 @@ export * from './confirm';
 export * from './course';
 export * from './course_alerts';
 export * from './did_you_know';
+export * from './exercises';
 export * from './feedback';
 export * from './need_help_alert';
 export * from './new_accounts';

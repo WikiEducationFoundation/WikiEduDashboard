@@ -14,6 +14,7 @@ import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles/containers';
+import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
@@ -117,11 +118,18 @@ const Overview = createReactClass({
     let userArticles;
     if (this.props.current_user.isStudent && course.id) {
       userArticles = (
-        <MyArticles
-          course={course}
-          course_id={this.props.course_id}
-          current_user={this.props.current_user}
-        />
+        <>
+          {
+            Features.enableAdvancedFeatures
+            ? <MyExercises trainingLibrarySlug={this.props.course.training_library_slug} />
+            : null
+          }
+          <MyArticles
+            course={course}
+            course_id={this.props.course_id}
+            current_user={this.props.current_user}
+          />
+        </>
       );
     }
 

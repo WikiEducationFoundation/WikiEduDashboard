@@ -12,6 +12,7 @@ import course from './course';
 import courseAlerts from './course_alerts';
 import courseCreator from './course_creator';
 import didYouKnow from './did_you_know';
+import exercises from './exercises';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   courseCreator,
   currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
+  exercises,
   feedback,
   needHelpAlert,
   newAccount,

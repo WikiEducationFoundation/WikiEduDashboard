@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../../../constants/timeline';
+} from '~/app/assets/javascripts/constants';
 
 // Components
 import ExerciseButton from './ExerciseButton';
@@ -11,11 +11,14 @@ import ExerciseButton from './ExerciseButton';
 // Actions
 import {
   setExerciseModuleComplete, setExerciseModuleIncomplete
-} from '../../../../actions/training_actions';
+} from '~/app/assets/javascripts/actions/training_actions';
+import {
+  fetchTrainingModuleExercisesByUser
+} from '~/app/assets/javascripts/actions/exercises_actions';
 
 export const ModuleStatus = ({
-  block_id, deadline_status, due_date, flags, kind, module_progress, progressClass, slug,
-  complete, incomplete
+  block_id, course, deadline_status, due_date, flags, kind, module_progress, progressClass, slug,
+  complete, fetchExercises, incomplete
 }) => {
   const isTrainingModule = kind === TRAINING_MODULE_KIND;
   const isExercise = kind === EXERCISE_KIND;
@@ -27,11 +30,13 @@ export const ModuleStatus = ({
     const button = (
       <ExerciseButton
         block_id={block_id}
+        course={course}
         flags={flags}
         isComplete={isComplete}
         isExercise={isExercise}
         slug={slug}
         complete={complete}
+        fetchExercises={fetchExercises}
         incomplete={incomplete}
       />
     );
@@ -49,13 +54,16 @@ export const ModuleStatus = ({
 
 ModuleStatus.propTypes = {
   block_id: PropTypes.number.isRequired,
+  course: PropTypes.shape({
+    id: PropTypes.number.isRequired
+  }).isRequired,
   deadline_status: PropTypes.string,
   due_date: PropTypes.string.isRequired,
-  flags: PropTypes.object.isRequired,
+  flags: PropTypes.object,
   kind: PropTypes.oneOf([
     DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
   ]),
-  module_progress: PropTypes.string.isRequired,
+  module_progress: PropTypes.string,
   progressClass: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
 
@@ -63,9 +71,14 @@ ModuleStatus.propTypes = {
   incomplete: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  course: state.course
+});
+
 const mapDispatchToProps = {
   complete: setExerciseModuleComplete,
-  incomplete: setExerciseModuleIncomplete
+  incomplete: setExerciseModuleIncomplete,
+  fetchExercises: fetchTrainingModuleExercisesByUser
 };
 
-export default connect(null, mapDispatchToProps)(ModuleStatus);
+export default connect(mapStateToProps, mapDispatchToProps)(ModuleStatus);

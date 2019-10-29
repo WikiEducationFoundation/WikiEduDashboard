@@ -42,7 +42,9 @@ describe('TrainingModules', () => {
       slug: 'training-slug-3'
     }
   ];
-  const store = configureMockStore()({});
+  const store = configureMockStore()({
+    course: { id: 99 }
+  });
 
   describe('render training module types (machine tests)', () => {
     const TrainingModulesM = mount(
@@ -66,18 +68,6 @@ describe('TrainingModules', () => {
       it('should map trainingModule to TrainingModules.value', () => {
         const onChange = sinon.stub(TrainingModulesM.find('TrainingModules').instance(), 'onChange').callsFake(() => true);
         expect(onChange.returnValues).toBeInstanceOf(Array);
-      });
-    });
-    describe('progressClass', () => {
-      it('should return progress complete when \'Complete\' is given', () => {
-        const complete = TrainingModulesM.find('TrainingModules').instance().progressClass('Complete');
-        expect(typeof complete).toEqual('string');
-        expect(complete).toEqual('timeline-module__progress-complete ');
-      });
-      it('should return in-progress when nothing is given', () => {
-        const actual = TrainingModulesM.find('TrainingModules').instance().progressClass();
-        expect(typeof actual).toEqual('string');
-        expect(actual).toEqual('timeline-module__in-progress ');
       });
     });
     describe('trainingSelector', () => {
