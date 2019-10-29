@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CourseUtils from '../../../../utils/course_utils.js';
-import MyArticlesHeader from '../components/Categories/List/Assignment/Header';
-import MyArticlesCompletedAssignment from '../components/Categories/List/Assignment/CompletedAssignment';
-import MyArticlesProgressTracker from '../components/Categories/List/Assignment/ProgressTracker';
+import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import MyArticlesHeader from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Header.jsx';
+import MyArticlesCompletedAssignment from '@components/overview/my_articles/components/Categories/List/Assignment/CompletedAssignment.jsx';
+import MyArticlesProgressTracker from '@components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/ProgressTracker.jsx';
 
-import { initiateConfirm } from '../../../../actions/confirm_actions';
-import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '../../../../actions/assignment_actions';
+import { initiateConfirm } from '~/app/assets/javascripts/actions/confirm_actions';
+import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '~/app/assets/javascripts/actions/assignment_actions';
 
 // Main Component
 export class Assignment extends React.Component {

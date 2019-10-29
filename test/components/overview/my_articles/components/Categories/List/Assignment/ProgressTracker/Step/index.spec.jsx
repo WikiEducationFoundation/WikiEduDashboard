@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import Step from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/Step';
+import Step from '@components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/Step/Step.jsx';
 
 describe('Step', () => {
   const props = {

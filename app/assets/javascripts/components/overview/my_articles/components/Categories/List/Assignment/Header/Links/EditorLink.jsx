@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AssignedToLink from '../../../../../../common/AssignedToLink';
+import AssignedToLink from '@components/overview/my_articles/common/AssignedToLink.jsx';
 
 export const EditorLink = ({ editors }) => {
   return <AssignedToLink members={editors} name="editors" />;

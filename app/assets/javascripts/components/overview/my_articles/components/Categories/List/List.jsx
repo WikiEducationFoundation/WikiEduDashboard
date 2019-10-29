@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import Assignment from '../../../containers/Assignment';
-import Header from './Header';
+import Assignment from '@components/overview/my_articles/containers/Assignment.jsx';
+import Header from './Header/Header.jsx';
 
 // constants
-import { REVIEWING_ROLE } from '../../../../../../constants/assignments';
+import { REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
 
 export const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
   const elements = assignments.map((assignment) => {

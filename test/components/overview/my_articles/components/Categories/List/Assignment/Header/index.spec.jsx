@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../testHelper';
 
-import Header from '../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header';
+import Header from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Header.jsx';
 
 describe('Header', () => {
   const props = {
