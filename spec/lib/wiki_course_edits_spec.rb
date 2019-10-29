@@ -123,6 +123,7 @@ describe WikiCourseEdits do
                           enrolling_user: enrolling_user)
     end
     # Posts to the Wiki Education dashboard by default in tests
+
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
       described_class.new(action: :enroll_in_course,

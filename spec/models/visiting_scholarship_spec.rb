@@ -82,12 +82,15 @@ describe VisitingScholarship, type: :model do
   it 'onlies count assigned articles' do
     expect(vs.article_count).to eq(1)
   end
+
   it 'onlies generate ArticlesCourses for assigned articles' do
     expect(vs.articles_courses.count).to eq(1)
   end
+
   it 'onlies count revisions to assigned articles' do
     expect(vs.revision_count).to eq(1)
   end
+
   it 'onlies count characters for assigned articles' do
     expect(vs.character_sum).to eq(in_scope_rev.characters)
   end

@@ -48,6 +48,7 @@ describe TrainingModuleDueDateManager do
         it "uses the last day of the block's parent week" do
           expect(subject).to eq(expected)
         end
+
         it 'is a Saturday, since weeks run Sun-Sat' do
           expect(subject.saturday?).to eq(true)
         end
