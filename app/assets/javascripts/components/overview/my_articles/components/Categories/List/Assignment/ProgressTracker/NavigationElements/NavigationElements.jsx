@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ListItem from './ListItem';
 
 // helpers
-import processes from '../../../../../../step_processes';
+import processes from '@components/overview/my_articles/step_processes';
 
 export const Navigation = ({ assignment, show }) => {
   const lis = processes(assignment).map((props, i) => (

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../testHelper';
 
-import List from '../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List';
+import List from '@components/overview/my_articles/components/Categories/List/List.jsx';
 
 describe('List', () => {
   it('renders', () => {

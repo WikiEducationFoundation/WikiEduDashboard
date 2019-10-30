@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import processes from '../../../../../step_processes';
+import processes from '@components/overview/my_articles/step_processes';
 
 // components
-import Step from './Step';
-import NavigationElements from './NavigationElements';
+import Step from './Step/Step.jsx';
+import NavigationElements from './NavigationElements/NavigationElements';
 
 export class ProgressTracker extends React.Component {
   constructor(props) {

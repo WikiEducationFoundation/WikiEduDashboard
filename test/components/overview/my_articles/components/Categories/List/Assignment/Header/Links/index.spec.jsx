@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import Links from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header/Links';
+import Links from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Links/Links.jsx';
 
 describe('Links', () => {
   const props = {

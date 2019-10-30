@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../testHelper';
 
-import Categories from '../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories';
+import Categories from '@components/overview/my_articles/components/Categories/Categories';
 
 describe('Categories', () => {
   const props = {

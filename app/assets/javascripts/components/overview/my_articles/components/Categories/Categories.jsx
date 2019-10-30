@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
-} from '../../../../../constants/assignments';
+} from '~/app/assets/javascripts/constants/assignments';
 
 // components
-import List from './List';
+import List from './List/List.jsx';
 
 // Helper Functions
 const filterStatus = status => ({ article_status }) => status === article_status;

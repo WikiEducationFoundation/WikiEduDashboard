@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import assignmentPropTypes from '../utils/assignmentPropTypes';
 
 // components
-import AssignCell from '../../../students/assign_cell.jsx';
+import AssignCell from '@components/students/assign_cell.jsx';
 
 // constants
 import {
   ASSIGNED_ROLE, REVIEWING_ROLE
-} from '../../../../constants/assignments';
+} from '~/app/assets/javascripts/constants/assignments';
 
 export const Header = ({
   assigned, course, current_user, reviewable, reviewing, unassigned, wikidataLabels
