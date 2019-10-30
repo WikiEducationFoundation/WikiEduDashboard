@@ -7,37 +7,38 @@ const CourseSubjectSelector = ({ subject, updateCourse }) => {
   const [options, setOptions] = useState();
   let selectedOption = { value: subject, label: subject };
 
-  const handleChange = option => {
-    const courseSubject = option.value;
+  const handleChange = (option) => {
     selectedOption = option;
+    const courseSubject = selectedOption.value;
     updateCourse('subject', courseSubject);
   };
 
   useEffect(() => {
-    let opts = [];
+    const opts = [];
 
     fetch('/wizards/researchwrite.json')
       .then(resp => resp.json())
-      .then(data => {
+      .then((data) => {
         const jsonObj = data;
+        const jsonObjects = jsonObj[5].options;
 
-        for (var value in jsonObj[5].options) {
-          if (jsonObj[5].options.hasOwnProperty(value)) {
+        Object.keys(jsonObjects).forEach((key) => {
+          if (jsonObjects.hasOwnProperty(key)) {
             opts.push({
-              value: jsonObj[5].options[value].title,
-              label: jsonObj[5].options[value].title
+              value: jsonObjects[key].title,
+              label: jsonObjects[key].title
             });
           }
-        }
+        });
         setOptions(opts);
       });
   }, []);
 
   return (
-    <div className='form-group'>
-      <label htmlFor='course_subject'>Course Subject:</label>
+    <div className="form-group">
+      <label htmlFor="course_subject">Course Subject:</label>
       <Select
-        id='course_subject'
+        id="course_subject"
         onChange={handleChange}
         options={options}
         simpleValue
@@ -53,3 +54,4 @@ CourseSubjectSelector.propTypes = {
 };
 
 export default CourseSubjectSelector;
+

@@ -9,14 +9,14 @@ import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import AcademicSystem from '../common/academic_system.jsx';
 
-const CourseForm = props => {
-  const updateCoursePrivacy = e => {
+const CourseForm = (props) => {
+  const updateCoursePrivacy = (e) => {
     const isPrivate = e.target.checked;
     props.updateCourseProps({ private: isPrivate });
     props.updateCourseAction('private', isPrivate);
   };
 
-  const handleWikiChange = wiki => {
+  const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
     const wikis = CourseUtils.normalizeWikis(
@@ -27,7 +27,7 @@ const CourseForm = props => {
     props.updateCourseProps({ home_wiki, wikis });
   };
 
-  const handleMultiWikiChange = wikis => {
+  const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
     const home_wiki = { ...props.course.home_wiki };
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
@@ -47,10 +47,10 @@ const CourseForm = props => {
     descriptionRequired = true;
     term = (
       <TextInput
-        id='course_term'
+        id="course_term"
         onChange={props.updateCourseAction}
         value={props.course.term}
-        value_key='term'
+        value_key="term"
         required
         validation={CourseUtils.courseSlugRegex()}
         editable
@@ -75,14 +75,14 @@ const CourseForm = props => {
     );
     expectedStudents = (
       <TextInput
-        id='course_expected_students'
+        id="course_expected_students"
         onChange={props.updateCourseAction}
         value={String(props.course.expected_students)}
-        value_key='expected_students'
+        value_key="expected_students"
         editable
         required
-        type='number'
-        max='999'
+        type="number"
+        max="999"
         label={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
         placeholder={CourseUtils.i18n(
           'creator.expected_number',
@@ -91,13 +91,13 @@ const CourseForm = props => {
       />
     );
     const options = I18n.t('courses.creator.role_description_options').map(
-      value => {
+      (value) => {
         return { label: value, value };
       }
     );
     academic_system = (
-      <div className='form-group academic_system'>
-        <span className='text-input-component__label'>
+      <div className="form-group academic_system">
+        <span className="text-input-component__label">
           <strong>{I18n.t('courses.school_system')}:</strong>
           <AcademicSystem
             value={props.course.academic_system}
@@ -109,7 +109,7 @@ const CourseForm = props => {
 
     roleDescription = (
       <CreatableInput
-        id='role_description'
+        id="role_description"
         onChange={({ value }) =>
           props.updateCourseAction('role_description', value)
         }
@@ -132,8 +132,8 @@ const CourseForm = props => {
 
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
-      <div className='form-group home-wiki'>
-        <span className='text-input-component__label'>
+      <div className="form-group home-wiki">
+        <span className="text-input-component__label">
           <strong>{I18n.t('courses.home_wiki')}:</strong>
         </span>
         <WikiSelect
@@ -145,8 +145,8 @@ const CourseForm = props => {
       </div>
     );
     multi_wiki = (
-      <div className='form-group multi-wiki'>
-        <span className='text-input-component__label'>
+      <div className="form-group multi-wiki">
+        <span className="text-input-component__label">
           <strong>{I18n.t('courses.multi_wiki')}:</strong>
         </span>
         <WikiSelect
@@ -159,13 +159,13 @@ const CourseForm = props => {
       </div>
     );
     privacyCheckbox = (
-      <div className='form-group'>
-        <label htmlFor='course_private'>
+      <div className="form-group">
+        <label htmlFor="course_private">
           {I18n.t('courses.creator.course_private')}:
         </label>
         <input
-          id='course_private'
-          type='checkbox'
+          id="course_private"
+          type="checkbox"
           value={true}
           onChange={updateCoursePrivacy}
           checked={!!props.course.private}
@@ -188,13 +188,13 @@ const CourseForm = props => {
   }
   return (
     <div className={props.courseFormClass}>
-      <div className='column'>
+      <div className="column">
         {campaign}
         <TextInput
-          id='course_title'
+          id="course_title"
           onChange={props.updateCourseAction}
           value={props.course.title}
-          value_key='title'
+          value_key="title"
           required
           validation={CourseUtils.courseSlugRegex()}
           editable
@@ -205,10 +205,10 @@ const CourseForm = props => {
           )}
         />
         <TextInput
-          id='course_school'
+          id="course_school"
           onChange={props.updateCourseAction}
           value={props.course.school}
-          value_key='school'
+          value_key="school"
           required
           validation={CourseUtils.courseSlugRegex()}
           editable
@@ -225,21 +225,21 @@ const CourseForm = props => {
         {home_wiki}
         {multi_wiki}
         {backButton}
-        <p className='tempCourseIdText'>{props.tempCourseId}</p>
+        <p className="tempCourseIdText">{props.tempCourseId}</p>
       </div>
-      <div className='column'>
+      <div className="column">
         {courseLevel}
-        <span className='text-input-component__label'>
+        <span className="text-input-component__label">
           <strong>
             {CourseUtils.i18n('creator.course_description', props.stringPrefix)}
             :
           </strong>
         </span>
         <TextAreaInput
-          id='course_description'
+          id="course_description"
           onChange={props.updateCourseAction}
           value={props.course.description}
-          value_key='description'
+          value_key="description"
           required={descriptionRequired}
           editable
           placeholder={CourseUtils.i18n(
@@ -251,8 +251,8 @@ const CourseForm = props => {
         {privacyCheckbox}
         <button
           onClick={props.next}
-          id='next'
-          className='dark button button__submit next'
+          id="next"
+          className="dark button button__submit next"
         >
           Next
         </button>
