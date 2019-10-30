@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import selectStyles from '../../styles/single_select';
 
 const CourseSubjectSelector = ({ subject, updateCourse }) => {
   const [options, setOptions] = useState();
-  let selectedOption = { value: subject, label: subject };
+  let selectedOption = { newValue: subject, actionMeta: subject };
 
   const handleChange = (option) => {
     selectedOption = option;
@@ -37,8 +37,9 @@ const CourseSubjectSelector = ({ subject, updateCourse }) => {
   return (
     <div className="form-group">
       <label htmlFor="course_subject">Course Subject:</label>
-      <Select
+      <CreatableSelect
         id="course_subject"
+        isMulti={false}
         onChange={handleChange}
         options={options}
         simpleValue
