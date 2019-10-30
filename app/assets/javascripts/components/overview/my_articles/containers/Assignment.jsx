@@ -26,7 +26,8 @@ export class Assignment extends React.Component {
     } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
 
     const isComplete = this.isComplete();
-    const enable = Features.enableAdvancedFeatures; // TODO: Remove when ready
+    const isClassroomProgram = course.type === 'ClassroomProgramCourse';
+    const enable = isClassroomProgram && Features.enableAdvancedFeatures; // TODO: Remove when ready
 
     const props = { ...this.props, article, articleTitle: title, isComplete };
     const progressTracker = isComplete
