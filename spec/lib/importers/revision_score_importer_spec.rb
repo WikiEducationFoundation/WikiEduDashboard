@@ -188,7 +188,7 @@ describe RevisionScoreImporter do
     end
   end
 
-  context '.update_revision_scores_for_all_wikis' do
+  describe '.update_revision_scores_for_all_wikis' do
     let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
 
     before do

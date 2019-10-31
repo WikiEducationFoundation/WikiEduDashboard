@@ -28,11 +28,11 @@ tr:
   number:
     human:
       decimal_units:
-        format: '%s%b'
+        format: '%n%u'
         units:
-          thousand: K
+          thousand: B
           million: M
-          billion: B
+          billion: M
           trillion: T
           quadrillion: Q
   accessibility:
@@ -59,18 +59,18 @@ tr:
     greeting: Merhaba!
     help: Yardım
     home: Anasayfa
-    log_in_extended: Vikipedi'yle oturum aç
-    log_in: Oturum aç
-    log_out: Oturumu kapat
+    log_in_extended: Vikipedi ile Oturum Aç
+    log_in: Oturum Aç
+    log_out: Oturumu Kapat
     my_dashboard: Gösterge Panelim
     recent_activity: Son Etkinlik
-    report_problem: Bir sorunu bildir
+    report_problem: Sorun bildir
     request_account: Hesap iste
     request_account_create: Bir hesap oluştur
     search: soru sor
-    search_results: '%{search_terms} için sonuçlar'
-    no_results: N'%{query}' için sonuç bulunamadı
-    sign_up_extended: Vikipedi'yle Kaydol
+    search_results: '''%{search_terms}'' için sonuçlar'
+    no_results: '''%{query}'' için sonuç bulunamadı'
+    sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydolun
     sign_up_log_in_extended: Vikipedi ile
     sign_up: Kaydol
@@ -85,11 +85,10 @@ tr:
     opt_no: hayır
   dashboard:
     create_note: İlk dersinizi oluşturmak için Oluştur'a tıklayın.
-    create_preparation_note: 'Başlamadan önce akademik takviminizin hazır bulunduğundan
-      emin olun; ödev tasarım aracı, zaman çizelgesini seçtiğiniz tarih aralığına
-      sığdırmak için sınıfınızın toplantı tarihlerini (okul tatilleri ve tatiller
-      dahil) kullanır. Hatırlayın: Zaman çizelgesini istediğiniz zaman ihtiyaçlarınıza
-      göre düzenleyebilirsiniz.'
+    create_preparation_note: Başlamadan önce akademik takviminizi hazır bulundurun;
+      ödev tasarım aracı, zaman çizelgenizi seçtiğiniz tarih aralığına uydurmak için
+      sınıfınızın buluşma tarihlerini (okul tatilleri ve tatiller dahil) kullanır.
+      Unutmayın, zaman çizelgesini gereksinimlerinize göre her zaman düzenleyebilirsiniz.
     explore_course_pages: Kurs Sayfalarını Keşfedin
     explore_examples: Örnekleri Keşfedin
     join_note: Eğitmeninizden bir şifre aldıktan sonra Kursunuzu Bul'a tıklayarak
@@ -99,20 +98,20 @@ tr:
     opt_out: Oryantasyondan çıkmayı talep edin
     orientation_notice: Bir kurs oluşturmadan önce başlamanıza yardımcı olması için
       oryantasyon yapalım. (Tamamlanması yaklaşık 30 dakika alır.)
-    review_orientation: İnceleme Oryantasyonu
-    start_orientation: Başlangıç Oryantasyonu
-    blog_headline: Wiki Eğitimi'nden Son Haberler
-    about_programs: Bu site, programlar (bir edit-a-thon veya okul kursu gibi bireysel
-      etkinlikler) vasıtasıyla viki etkinliklerini izler. Her program, programlar
-      arasında toplam istatistikler sağlayan bir veya daha fazla kampanyanın parçasıdır.
-    about_creating_programs: Bağımsız tek bir etkinlik yürütüyorsanız şimdi bir Program
-      oluşturabilirsiniz. Etkinliğiniz daha büyük bir şeyin parçasıysa bunun için
-      Kampanya'yı bulun veya yaratın. Ardından Kampanya sayfasından yeni bir Program
-      oluşturabilirsiniz.
+    review_orientation: Oryantasyonu İncele
+    start_orientation: Oryantasyonu Başlat
+    blog_headline: Wiki Eğitiminden Son Haberler
+    about_programs: Bu site, Programlar arasında - bir müzik dersi veya okul kursu
+      gibi kişisel etkinlikler olan wiki etkinliklerini izler. Her Program, Programlar
+      arasında toplam istatistikler sağlayan bir veya daha fazla Kampanyanın parçasıdır.
+    about_creating_programs: Tek, bağımsız bir etkinlik yürütüyorsanız, şimdi bir
+      Program oluşturabilirsiniz. Etkinliğiniz daha büyük bir şeyin parçasıysa, bunun
+      için Kampanyayı bulun veya oluşturun. Ardından, Kampanya sayfasından yeni bir
+      Program oluşturabilirsiniz.
   home:
     explore: Keşfet
-    log_in: Vikipedi'yle oturum aç
-    sign_up: Vikipedi'yle Kaydol
+    log_in: Vikipedi ile Oturum Aç
+    sign_up: Vikipedi ile Kaydol
     sign_up_help: Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
       hesabınıza erişme izni vermeniz gerekir. Var olan bir Vikipedi hesabıyla giriş
       yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz.
@@ -131,10 +130,10 @@ tr:
     assigned_to: Atanan
     character_doc: Kayıtlı editörler tarafından başlangıç ve bitiş tarihleri arasında
       eklenen karakterlerin toplamı
-    cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana alan
-      sayfaları aşağıda listelenmiştir. Gösterge paneli, bir Atama veya Mevcut Makale
-      bulunmayan diğer vikilerle birlikte, bu programın anasayfa viki'sinden katkıları
-      çeker.
+    cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana sayfalar
+      aşağıda listelenmiştir. Gösterge paneli, bu programın ev wikisinden ve ayrıca
+      bir Atama veya Kullanılabilir Makale bulunan diğer wikilerden gelen katkıları
+      alır.
     deleted: (silindi)
     edited: Düzenlenen Makaleler
     edited_by: 'Düzenleyen:'
@@ -189,8 +188,10 @@ tr:
     tools: Değerlendirme araçları
     view: Makaleyi Göster
     view_all: Hepsini Göster
-    view_doc: Proje boyunca her bir makalenin tüm görünümlerinin toplamı
-    view_on_wiki: Viki'de göster
+    view_doc: Her makalenin ilk düzenlenmesinden bu yana, en son istatistik güncellemesiyle
+      tahmin edilen görünümleri. Kesin sayıları görmek için tools.wmflabs.org/pageviews
+      adresini kullanabilirsiniz.
+    view_on_wiki: Wikide görüntüle
     views_added: '%{title} için %{count} yeni görüntüleme eklendi'
     edit_size: Boyutu Düzenle
     wiki: Wiki
@@ -208,7 +209,7 @@ tr:
     article_link: Makale
     already_exists: Bu devir işlemi zaten yapılmış!
     title_too_large: Başlık, 255 karakteri geçmemelidir
-    assignees: Devredilen(ler)
+    assignees: Devredilen
     assign_other: Bir makaleyi devredin
     add_available: Mevcut makaleleri ekleyin
     add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
@@ -231,11 +232,11 @@ tr:
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
     remove: Kaldır
-    reviewers: İnceleyici(ler)
+    reviewers: İnceleyici
     review_other: Bir inceleme ata
     review_self: Bir makaleyi incele
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
-      makale(ler) içindir.
+      makale içindir.
     sandbox_draft_link: Sandbox Taslağı
     select: Seç
   blocks:
@@ -694,7 +695,7 @@ tr:
     view_other: Diğer kampanyaları görüntüle
     view: Kursu Görüntüle
     view_doc: Editör her makalede ilk düzenlemesini yaptıktan sonra kayıtlı editörler
-      tarafından düzenlenen makalelere yapılan tüm görünümlerin toplamı
+      tarafından düzenlenen makalelere ilişkin tahmini görüntüleme sayısı
     view_page: Kurs Sayfasını Görüntüle
     view_wiki: Vikipedi'de görüntüle
     volunteer:

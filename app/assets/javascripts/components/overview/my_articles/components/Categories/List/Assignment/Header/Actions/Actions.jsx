@@ -6,10 +6,10 @@ import PageViews from './PageViews';
 import MarkAsIncompleteButton from './MarkAsIncompleteButton';
 import RemoveButton from './RemoveButton';
 
-import MainspaceChecklist from '../../../../../../../../common/mainspace_checklist.jsx';
-import FinalArticleChecklist from '../../../../../../../../common/final_article_checklist.jsx';
-import PeerReviewChecklist from '../../../../../../../../common/peer_review_checklist.jsx';
-import Feedback from '../../../../../../../../common/feedback.jsx';
+import MainspaceChecklist from '~/app/assets/javascripts/components/common/mainspace_checklist.jsx';
+import FinalArticleChecklist from '~/app/assets/javascripts/components/common/final_article_checklist.jsx';
+import PeerReviewChecklist from '~/app/assets/javascripts/components/common/peer_review_checklist.jsx';
+import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, isProduction, username,

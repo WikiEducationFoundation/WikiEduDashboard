@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // constants
-import { NEW_ARTICLE } from '../../../../../../../../../constants/assignments';
+import { NEW_ARTICLE } from '~/app/assets/javascripts/constants/assignments';
 
 export const SandboxLink = ({ assignment }) => {
   let url = assignment.sandboxUrl;

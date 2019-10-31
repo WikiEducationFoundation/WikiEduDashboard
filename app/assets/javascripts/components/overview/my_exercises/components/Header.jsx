@@ -13,7 +13,7 @@ export const Header = ({ completed = false, course, remaining = [], text }) => (
       }
     </h3>
     <Link
-      exact
+      exact="true"
       scroll={el => el.scrollIntoView({ block: 'center' })}
       to={`/courses/${course.slug}/resources#exercises`} className="resources-link"
     >

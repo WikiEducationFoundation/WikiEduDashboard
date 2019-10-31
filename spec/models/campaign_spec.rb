@@ -25,6 +25,7 @@ describe Campaign do
     it 'returns a the default campaign' do
       expect(described_class.default_campaign.slug).to eq(ENV['default_campaign'])
     end
+
     it 'returns another campaign if the default one is not found' do
       described_class.destroy_all
       described_class.create(title: 'Not the default one')
@@ -36,10 +37,12 @@ describe Campaign do
     it { is_expected.to have_many(:campaigns_courses) }
     it { is_expected.to have_many(:campaigns_users) }
     it { is_expected.to have_many(:question_group_conditionals) }
+
     it 'has many question groups' do
       expect(subject).to have_many(:rapidfire_question_groups)
         .through(:question_group_conditionals)
     end
+
     it { is_expected.to have_many(:articles_courses) }
   end
 
@@ -73,6 +76,7 @@ describe Campaign do
       campaign = described_class.create(title: 'My awesome 2016 campaign')
       expect(campaign.slug).to eq('my_awesome_2016_campaign')
     end
+
     it 'handles non-ascii campaign titles' do
       title = 'Карыстальнік Група Беларусь 2016'
       campaign = described_class.create(title: title)

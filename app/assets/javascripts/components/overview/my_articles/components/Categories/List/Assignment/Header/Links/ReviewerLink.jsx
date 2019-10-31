@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import AssignedToLink from '../../../../../../common/AssignedToLink';
+import AssignedToLink from '@components/overview/my_articles/common/AssignedToLink.jsx';
 
 export const ReviewerLink = ({ reviewers }) => {
   return <AssignedToLink members={reviewers} name="reviewers" />;

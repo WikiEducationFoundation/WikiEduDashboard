@@ -48,6 +48,7 @@ describe Rapidfire::Question do
     it 'is placed at the bottom of the list on create' do
       expect(@question3.position).to eq(3)
     end
+
     it 'has position 1 if move to top of list' do
       @question3.insert_at(1)
       expect(@question3.position).to eq(1)

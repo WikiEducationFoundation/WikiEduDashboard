@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // components
-import MyArticlesNoAssignmentMessage from '../components/NoAssignmentMessage';
-import MyArticlesHeader from '../components/Header';
-import MyArticlesCategories from '../components/Categories';
+import MyArticlesNoAssignmentMessage from '@components/overview/my_articles/components/NoAssignmentMessage.jsx';
+import MyArticlesHeader from '@components/overview/my_articles/components/Header.jsx';
+import MyArticlesCategories from '@components/overview/my_articles/components/Categories/Categories.jsx';
 
 // actions
-import { fetchAssignments } from '../../../../actions/assignment_actions';
+import { fetchAssignments } from '~/app/assets/javascripts/actions/assignment_actions';
 
 // helper functions
-import { processAssignments } from '../utils/processAssignments';
+import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 
 export class MyArticlesContainer extends React.Component {
   componentDidMount() {

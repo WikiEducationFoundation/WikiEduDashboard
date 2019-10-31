@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import Actions from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header/Actions';
+import Actions from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Actions/Actions.jsx';
 
 describe('Actions', () => {
   const props = {

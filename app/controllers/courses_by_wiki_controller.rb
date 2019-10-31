@@ -7,6 +7,7 @@ class CoursesByWikiController < ApplicationController
 
   def show
     @courses_list = Course.where(home_wiki: @wiki).order(id: :desc)
+    @courses_list = @courses_list.where("year(created_at) = #{params[:year].to_i}") if params[:year]
     @presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
   end
 

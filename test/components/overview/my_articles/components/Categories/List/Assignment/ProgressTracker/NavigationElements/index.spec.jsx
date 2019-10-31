@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import NavigationElements from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/NavigationElements';
+import NavigationElements from '@components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/NavigationElements/NavigationElements.jsx';
 
 describe('NavigationElements', () => {
   const props = { assignment: {}, show: false };
