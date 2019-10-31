@@ -39,6 +39,7 @@ describe UsersController, type: :request do
       it 'does not create a CoursesUsers' do
         expect(CoursesUsers.count).to eq(0)
       end
+
       it 'returns a 401' do
         expect(subject).to eq(401)
       end
@@ -64,6 +65,7 @@ describe UsersController, type: :request do
         it 'returns a 404' do
           expect(subject).to eq(404)
         end
+
         it 'does not enroll the user' do
           expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(0)
         end
@@ -83,6 +85,7 @@ describe UsersController, type: :request do
         it 'returns a 200' do
           expect(subject).to eq(200)
         end
+
         it 'enrolls the user' do
           expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(1)
         end
@@ -107,6 +110,7 @@ describe UsersController, type: :request do
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
+
       it 'enrolls the user' do
         expect(CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).count).to eq(1)
       end
@@ -129,6 +133,7 @@ describe UsersController, type: :request do
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
+
       it 'enrolls the user' do
         expect(CoursesUsers.where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE).count).to eq(1)
       end
@@ -154,6 +159,7 @@ describe UsersController, type: :request do
       it 'returns a 200' do
         expect(subject).to eq(200)
       end
+
       it 'sends an email alert' do
         expect(CoursesUsers.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).count).to eq(1)
         expect(NewInstructorEnrollmentMailer).to have_received(:send_staff_alert)
@@ -181,6 +187,7 @@ describe UsersController, type: :request do
       it 'destroys the courses user' do
         expect(CoursesUsers.count).to eq(0)
       end
+
       it 'succeeds' do
         expect(subject).to eq(200)
       end

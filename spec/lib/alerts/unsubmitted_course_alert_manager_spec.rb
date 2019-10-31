@@ -47,10 +47,12 @@ describe UnsubmittedCourseAlertManager do
       subject.create_alerts
       expect(Alert.count).to eq(2)
     end
+
     it 'sends the alert to the instructor on the course' do
       subject.create_alerts
       expect([Alert.first.user_id, Alert.last.user_id]).to include(99, 88)
     end
+
     it 'does not create alerts for courses that were created too recently' do
       create(:course,
              submitted: false,

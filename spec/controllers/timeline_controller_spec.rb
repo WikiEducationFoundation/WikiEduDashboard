@@ -41,6 +41,7 @@ describe TimelineController, type: :request do
         post "/courses/#{course.slug}/timeline", params: post_params, headers: headers, as: :json
         expect(block.reload.training_module_ids).to eq(ids)
       end
+
       context 'sending nil as training_module_ids param' do
         # When this gets set to [], ActiveRecord doesn't convert it to nil
         # like it does irl, so…

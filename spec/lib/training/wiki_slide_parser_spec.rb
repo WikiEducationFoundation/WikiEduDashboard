@@ -187,18 +187,22 @@ describe WikiSlideParser do
       output = described_class.new(source_wikitext.dup).title
       expect(output).to eq('E3: Situations you might encounter')
     end
+
     it 'extracts title from translated source wikitext' do
       output = described_class.new(translated_wikitext.dup).title
       expect(output).to eq('E3: Situaciones que podrías enfrentar')
     end
+
     it 'handles nil input' do
       output = described_class.new(+'').title
       expect(output).to eq('')
     end
+
     it 'extracts only the title from variant translation markup formats' do
       output = described_class.new(translate_markup_variant.dup).title
       expect(output).to eq('Five Pillars: The core rules of Wikipedia')
     end
+
     it 'extracts the title from translated wikitext with leading whitespace' do
       output = described_class.new(translated_wikitext_with_leading_whitespace.dup).title
       expect(output).to eq('Edizio ekintzei buruzko sarrera')
@@ -212,19 +216,23 @@ describe WikiSlideParser do
       output = described_class.new(translated_wikitext.dup).content
       expect(output).to match(/\*\*Transgresiones sutiles o moderadas a los espacios seguros\*\*/)
     end
+
     it 'converts an image template into figure markup' do
       output = described_class.new(image_wikitext.dup).content
       expect(output).to match(/Eryk Salvaggio/)
     end
+
     it 'converts multiple image templates into distinct figure markups' do
       output = described_class.new(multi_image_wikitext.dup).content
       expect(output).to include('five_pillars.jpg')
       expect(output).to include('Find_a_program.png')
     end
+
     it 'converts a video template into iframe markup' do
       output = described_class.new(video_wikitext.dup).content
       expect(output).to include('iframe>')
     end
+
     it 'includes a forced newline after figure markup' do
       # Markdown conversion outputs just one newline after figure markup, which
       # can result in the next line getting misparsed. Two newlines ensures that
@@ -232,10 +240,12 @@ describe WikiSlideParser do
       output = described_class.new(image_wikitext.dup).content
       expect(output).to include("figure>\n\n")
     end
+
     it 'removes leading newlines' do
       output = described_class.new(source_wikitext.dup).content
       expect(output[0..10]).to eq('Even though')
     end
+
     it 'handles nil input' do
       output = described_class.new(''.dup).content
       expect(output).to eq('')

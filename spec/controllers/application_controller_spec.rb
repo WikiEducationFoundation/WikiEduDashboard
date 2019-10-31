@@ -29,6 +29,7 @@ describe ApplicationController do
       get :index
       expect(response.status).to eq(401)
     end
+
     it 'returns a json 401' do
       exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
       allow(controller).to receive(:current_user).and_return(user)
@@ -195,6 +196,7 @@ describe ApplicationController do
         get :index
         expect(response.status).to eq(401)
       end
+
       it 'returns a json 401' do
         allow(controller).to receive(:json?).and_return(true)
         get :index, as: :json

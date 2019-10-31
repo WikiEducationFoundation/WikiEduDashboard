@@ -405,6 +405,7 @@ describe Course, type: :model do
       course = described_class.find(1)
       expect(course.uploads).to include(CommonsUpload.find(1))
     end
+
     it 'excludes uploads from before or after the course' do
       course = described_class.find(1)
       expect(course.uploads).not_to include(CommonsUpload.find(2))

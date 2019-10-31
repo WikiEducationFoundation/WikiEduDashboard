@@ -27,6 +27,7 @@ RSpec.describe CommonsUpload, type: :model do
       expect(upload.url)
         .to eq('https://commons.wikimedia.org/wiki/File%3AMyFile.jpg')
     end
+
     it 'handles files with a percent sign and spaces' do
       upload = create(:commons_upload,
                       file_name: 'File:Complex original - zoom 13%.jpg')
