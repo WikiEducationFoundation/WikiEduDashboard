@@ -39,7 +39,7 @@ const CourseSubjectSelector = ({ subject, updateCourse }) => {
       <label htmlFor="course_subject">Course Subject:</label>
       <CreatableSelect
         id="course_subject"
-        isMulti={false}
+        isMulti
         onChange={handleChange}
         options={options}
         simpleValue
@@ -55,4 +55,5 @@ CourseSubjectSelector.propTypes = {
 };
 
 export default CourseSubjectSelector;
+
 
