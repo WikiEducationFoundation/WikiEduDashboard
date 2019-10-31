@@ -684,7 +684,7 @@ es:
     references: Referencias añadidas
     class: Clase
     date_time: Fecha/hora
-    diff: dif
+    diff: difs.
     diff_show: Mostrar
     diff_hide: Ocultar
     edit_time_span: Las oediciones ocurrieron desde %{first_time} hasta %{last_time}
