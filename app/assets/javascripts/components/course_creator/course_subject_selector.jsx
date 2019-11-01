@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CreatableSelect from 'react-select/creatable';
-import selectStyles from '../../styles/single_select';
+import CreatableInput from '../common/creatable_input.jsx';
 
-const CourseSubjectSelector = ({ subject, updateCourse }) => {
+const CourseSubjectSelector = ({ updateCourse }) => {
   const [options, setOptions] = useState();
-  let selectedOption = { newValue: subject, actionMeta: subject };
-
-  const handleChange = (option) => {
-    selectedOption = option;
-    const courseSubject = selectedOption.value;
-    updateCourse('subject', courseSubject);
-  };
 
   useEffect(() => {
     const opts = [];
@@ -36,14 +28,14 @@ const CourseSubjectSelector = ({ subject, updateCourse }) => {
 
   return (
     <div className="form-group">
-      <label htmlFor="course_subject">Course Subject:</label>
-      <CreatableSelect
+      <CreatableInput
         id="course_subject"
-        isMulti
-        onChange={handleChange}
+        onChange={({ value }) =>
+          updateCourse('subject', value)
+        }
+        label={'Course Subject:'}
+        placeholder={'Subject'}
         options={options}
-        simpleValue
-        styles={selectStyles}
       />
     </div>
   );

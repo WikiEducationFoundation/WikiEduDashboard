@@ -26,7 +26,6 @@ const CourseForm = (props) => {
     );
     props.updateCourseProps({ home_wiki, wikis });
   };
-
   const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
     const home_wiki = { ...props.course.home_wiki };
@@ -63,7 +62,6 @@ const CourseForm = (props) => {
     );
     courseSubject = (
       <CourseSubjectSelector
-        subject={props.course.subject}
         updateCourse={props.updateCourseAction}
       />
     );
@@ -119,6 +117,7 @@ const CourseForm = (props) => {
       />
     );
   }
+
 
   let privacyCheckbox;
   let campaign;
