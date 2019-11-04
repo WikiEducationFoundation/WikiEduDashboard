@@ -6,14 +6,18 @@ const CourseSubjectSelector = ({ updateCourse }) => {
   const [options, setOptions] = useState();
 
   useEffect(() => {
+    // Will contain an array of subjects in the required object format
     const opts = [];
 
     fetch('/wizards/researchwrite.json')
       .then(resp => resp.json())
       .then((data) => {
         const jsonObj = data;
+        // Exctracting the 5th index of the researchwrite.json file that contains all the subjects
+        // Index number may change in the future if additional information is added to researchwrite.json.  
+        // Please update as needed
         const subjectOptions = jsonObj[5].options;
-
+        // itarating through all the subjects and copying to the opts array
         Object.keys(subjectOptions).forEach((key) => {
           if (subjectOptions.hasOwnProperty(key)) {
             opts.push({
