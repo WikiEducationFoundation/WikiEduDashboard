@@ -1,37 +1,36 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: revisions
 #
-#  id             :integer          not null, primary key
-#  characters     :integer          default(0)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  user_id        :integer
-#  article_id     :integer
-#  views          :bigint(8)        default(0)
-#  date           :datetime
-#  new_article    :boolean          default(FALSE)
-#  deleted        :boolean          default(FALSE)
-#  system         :boolean          default(FALSE)
-#  wp10           :float(24)
-#  wp10_previous  :float(24)
-#  ithenticate_id :integer
-#  wiki_id        :integer
-#  mw_rev_id      :integer
-#  mw_page_id     :integer
-#  features       :text(65535)
+# id             :integer          not null, primary key
+# characters     :integer          default(0)
+# created_at     :datetime
+# updated_at     :datetime
+# user_id        :integer
+# article_id     :integer
+# views          :bigint(8)        default(0)
+# date           :datetime
+# new_article    :boolean          default(FALSE)
+# deleted        :boolean          default(FALSE)
+# system         :boolean          default(FALSE)
+# wp10           :float(24)
+# wp10_previous  :float(24)
+# ithenticate_id :integer
+# wiki_id        :integer
+# mw_rev_id      :integer
+# mw_page_id     :integer
+# features       :text(65535)s
 #
 
-#= Revision model
+#= Revision model
 class Revision < ApplicationRecord
   belongs_to :user
   belongs_to :article
   belongs_to :wiki
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
-
-  # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
 
   validates :mw_page_id, presence: true
@@ -44,25 +43,25 @@ class Revision < ApplicationRecord
   include ArticleHelper
 
   ####################
-  # Instance methods #
+  # Instance methods #
   ####################
 
-  # Returns the web diff url for the revision, e.g.,
-  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
+  #  Returns the web diff url for the revision, e.g.,
+  #  https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
   def url
     return if article.nil?
     title = article.escaped_full_title
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
   end
 
-  # Returns all of the revision author's courses where the revision occured
-  # within the course start/end dates.
+  #  Returns all of the revision author's courses where the revision occured
+  #  within the course start/end dates.
   def infer_courses_from_user
     return [] if user.blank?
-    user.courses.where('start <= ?', date).where('end >= ?', date)
+    user.courses.where('start <= ?', date).where('end >= ?', date)
   end
 
-  # Returns a link to the plagiarism report for a revision, if there is one.
+  #  Returns a link to the plagiarism report for a revision, if there is one.
   def plagiarism_report_link
     return unless ithenticate_id
     "/recent-activity/plagiarism/report?ithenticate_id=#{ithenticate_id}"
@@ -70,14 +69,25 @@ class Revision < ApplicationRecord
 
   WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
   WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
+  WIKITEXT_SHORT_TEMPLATE = 'feature.enwiki.revision.shortened_footnote_templates'
+
+  def ref_tags_short_template
+    features[WIKITEXT_SHORT_TEMPLATE] || 0
+  end
 
   def ref_tags
-    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES]
+    features[WIKITEXT_REF_TAGS] + ref_tags_short_template || features[WIKIDATA_REFERENCES]
+  end
+
+  def ref_tags_previous_short_template
+    return 0 if new_article
+    features_previous[WIKITEXT_SHORT_TEMPLATE] || 0
   end
 
   def ref_tags_previous
     return 0 if new_article
-    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES]
+    features_previous[WIKITEXT_REF_TAGS] + ref_tags_previous_short_template ||
+      features_previous[WIKIDATA_REFERENCES]
   end
 
   def references_added
