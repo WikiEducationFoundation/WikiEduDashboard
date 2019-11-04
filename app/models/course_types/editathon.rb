@@ -50,7 +50,8 @@
 
 class Editathon < Course
   def wiki_edits_enabled?
-    false
+    return false unless flags.key?(:wiki_edits_enabled)
+    flags[:wiki_edits_enabled]
   end
 
   def wiki_course_page_enabled?
