@@ -12,13 +12,13 @@ const CourseSubjectSelector = ({ updateCourse }) => {
       .then(resp => resp.json())
       .then((data) => {
         const jsonObj = data;
-        const jsonObjects = jsonObj[5].options;
+        const subjectOptions = jsonObj[5].options;
 
-        Object.keys(jsonObjects).forEach((key) => {
-          if (jsonObjects.hasOwnProperty(key)) {
+        Object.keys(subjectOptions).forEach((key) => {
+          if (subjectOptions.hasOwnProperty(key)) {
             opts.push({
-              value: jsonObjects[key].title,
-              label: jsonObjects[key].title
+              value: subjectOptions[key].title,
+              label: subjectOptions[key].title
             });
           }
         });
@@ -47,5 +47,7 @@ CourseSubjectSelector.propTypes = {
 };
 
 export default CourseSubjectSelector;
+
+
 
 
