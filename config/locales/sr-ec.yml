@@ -30,6 +30,10 @@ sr-ec:
       инкрементирати и декрементирати унос.
   application:
     cancel: Откажи
+    cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
+      информације везаних за ваш налог на Википедији.
+    cookie_consent_acknowledge: Разумем.
+    cookie_consent_see_more: Погледај више.
     create_accounts: Направи налоге на Википедији
     dashboard: Контролна табла Вики Ед-а
     documentation: Документација
@@ -168,7 +172,9 @@ sr-ec:
     tools: Алатке за процену
     view: Види чланак
     view_all: Види све
-    view_doc: Збир свих прегледа сваког чланка током трајања пројекта
+    view_doc: Процењени прикази сваког чланка од његовог првог уређивања, помоћу најновијег
+      ажурирања статистике. Можете да користите tools.wmflabs.org/pageviews да бисте
+      видели тачне бројеве.
     view_on_wiki: Погледај на викију
     views_added: '{{PLURAL:%{count}|Додат %{count} нови преглед|Додата %{count} нова
       прегледа|Додато %{count} нових прегледа}} за %{title}'
@@ -270,25 +276,34 @@ sr-ec:
     random_passcode: случајна лозинка
     requested_accounts: Захтевани налози
     title: Наслов
+    slug: Жетон
     use_start_end_dates: Користи датуме почетка и завршетка
   categories:
     add_category: Додај категорију
+    add_psid: Додај PetScan PSID
     add_template: Додај шаблон
     add_this_category: Додај ову категорију
+    add_this_psid: Додај овај PSID
     add_this_template: Додај овај шаблон
     confirm_category_addition: Желите ли заиста да пратите доприносе у категорији
       „%{name}”?
     confirm_template_addition: Желите ли заиста да пратите доприносе шаблону „%{name}”?
     depth: Дубина подкатегорије
+    articles_count: Број чланака
     name: Назив
     category_name: Назив категорије
     template_name: Име шаблона
     none: Нема категорија које се прате.
     remove: Уклони
     tracked_categories: Праћене категорије, PSID и шаблони
+    timestamp: Последњи пут ажурирано на
   chat:
     label: Ћаскање
   courses:
+    school_system: Академски систем
+    assignment_edits_enabled: Омогућено додељивање измена
+    assignment_edits_enabled_tooltip: Ако је омогућено, радна табла ће слати шаблон
+      на страници за разговор за сваки додељени чланак.
     accounts_generation_enabled: Захтеви за генерисање налога су омогућени
     accounts_generation_explanation: Ово ће омогућити учесницима да унесу своју адресу
       е-поште и жељено корисничко име, уместо да сами креирају нове налоге. Тада ћете
@@ -307,6 +322,11 @@ sr-ec:
     actions: Радње
     articles: Чланци
     articles_none: Овај курс није уредио ниједан чланак.
+    assignment_headings:
+      assigned_articles: Додељени чланци
+      assigned_reviews: Додељени прегледи
+      available_articles: Додељени чланци
+      available_reviews: Чланци одељења
     assignment_end: Крај додељивања
     assignments_none: Овај курс не садржи додељене чланке.
     assignment_start: Почетак додељивања
@@ -392,6 +412,9 @@ sr-ec:
         курс који сте већ поставили.
       no_class_holidays: Немам празника
       role_description: Ваша улога на курсу
+      role_description_options:
+      - Инструктор
+      - Асистент
       role_description_placeholder: Инструктор, асистент итд.
       separate_event_dates: Наведите засебна времена почетка/завршетка догађаја
       separate_event_dates_info: Статистике активности за овај програм ће се пратити
@@ -422,6 +445,7 @@ sr-ec:
     data_students_info: Подаци о уредницима наводе све уписане уреднике, колико су
       уређивали и да ли су регистровали своје налоге током пројекта.
     data_uploads: Подаци о отпремању на Викимедијину оставу
+    data_revisions: Подаци о изменама
     data_uploads_info: Подаци о отпремању на Оставу приказују име и коришћење свих
       отпремљених медија.
     delete_course: Обриши курс
@@ -455,6 +479,8 @@ sr-ec:
     feedback: Повратне информације
     feedback_loading: Сачекајте док се предлози учитавају.
     gradeables_none: Овај курс нема задатке за оцењивање.
+    home_wiki: Домаћи вики
+    multi_wiki: Праћени викији
     instructor:
       one: инструктор
       other: инструктори
@@ -466,6 +492,7 @@ sr-ec:
       Ви то желите. (Дељење једног налога од стране више корисника није дозвољено)
     join: Прикључи се
     join_course: Прикључи се курсу
+    join_course_as_volunteer: Волонтер за помоћ
     join_prompt: Прикључи се курсу '%{title}'?
     join_successful: Успешно сте се прикључили курсу %{title}. Контролна табла ће
       аутоматски пратити ваш допринос с периодичним ажурирањем. Погледајте касније
@@ -523,6 +550,7 @@ sr-ec:
       следећу адресу:'
     rating_feedback: 'Предвиђена оцена за чланак је:'
     requested_accounts: Захтевани налози
+    requested_accounts_alert_view: Преглед
     review_timeline: 'Сада прегледајте временски оквир за израду задатка, прилагођавајући
       га тако да одговара вашим потребама. Ако сте задовољни, можете га послати на
       одобрење сарадницима на Образовном програму Викимедије. Након одобрења, добићете
@@ -590,8 +618,8 @@ sr-ec:
     user_suggestions_prompt: Ваши предлози за уреднике чланка
     view_other: Погледај остале кампање
     view: Види курс
-    view_doc: Збир свих прегледа чланака које су уредили пријављени уредници откад
-      су направили своју прву измену на сваком чланку
+    view_doc: Процењени број прегледа чланака који су уређени од стране уписаних уредника
+      од када је уредник први пут уредио сваки чланак
     view_page: Погледај страницу курса
     view_wiki: Види на Википедији
     volunteer:
@@ -615,10 +643,13 @@ sr-ec:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
   courses_generic:
+    school_system: Академски систем
     add_campaign: Додај кампању
     all_courses: Сви програми
     archived: Архивирани програми
     articles_none: Још увек не постоје измењени чланци за овај пројекат.
+    assignment_headings:
+      available_reviews: Доступно за преглед
     assignment_end: Крај догађаја
     assignments_none: Овај курс не садржи додељене чланке.
     assignment_start: Почетак догађаја
@@ -733,6 +764,7 @@ sr-ec:
     edit_count_description: Укупно измена
     per_user: '%{number}/корисник'
     revisions: Скорашње измене
+    references_count: Додато референци
     tags: Ознаке
     upload_count: Отпремања на Оставу
     uploads_in_use_count:
@@ -774,6 +806,7 @@ sr-ec:
     usage_count: Број употреба
   revisions:
     chars_added: Додато знакова
+    references: Додато референци
     class: Класа
     date_time: Датум/време
     diff: разл
@@ -788,6 +821,9 @@ sr-ec:
     title: Наслов
     view_on_wiki: Види разлику на викију
     see_more: Погледај више
+  resources:
+    label: Ресурси
+    header: Ресурси и тренинг
   settings:
     admin_users:
       new:
@@ -860,6 +896,8 @@ sr-ec:
     constant: Задатак %{task} се не може покренути док је update_daily у току.
     paused: Задатак %{task} не може се покренути зато што су планирана ажурирања паузирана.
       Покрените „rake batch:resume“ како бисте наставили ажурирања.
+  tickets:
+    none: Нема тикета
   timeline:
     add_week: Додај недељу
     arrange_timeline: Уреди временску линију
@@ -970,6 +1008,7 @@ sr-ec:
     contribution_statistics: Статистике доприноса
     course_passcode: 'Лозинка:'
     editors: Уредници
+    edits: измене
     edits_by: 'Уредници:'
     enroll_confirmation: Да ли сте сигурни да желите да додате %{username}?
     enroll_url: 'Корисници се могу прикључити кликом на:'
@@ -981,6 +1020,7 @@ sr-ec:
     characters_added_short: 'ГИП: %{mainspace}, КИП: %{userspace}'
     characters_added_userspace: Додато знакова (корисник)
     characters_added_draftspace: Додато знакова (радно)
+    references_count: Додато референци
     my_assigned: 'Додељено:'
     my_reviewing: 'Прегледање:'
     name: Име
@@ -995,8 +1035,10 @@ sr-ec:
     request_confirmation: Желите ли да затражите овај налог?
     revision_characters_and_views: 'Знакова додато: %{characters}, Прегледа: %{views}'
     revisions_doc: Број измена које је овај уредник направио у протеклих 7 дана
+    references_doc: Број референци које су додате или уклоњене од стране овог уредника
     reviewers: Прегледач(и)
     reviewing: Прегледање
+    sandboxes: песци
     total_uploads: Укупно отпремања
     training_complete:
       one: је развршио тренинг
@@ -1016,6 +1058,7 @@ sr-ec:
     user_no_training_status: Овај уредник није завршио обуку.
     up_to_date_with_training: су ажурни са обуком
     uploads_doc: Број отпремљених датотека на Викимедијиној остави
+    ungreeted: Непријављен
     username: Корисничко име
     username_placeholder: Корисничко име
     useremail_placeholder: Имејл
@@ -1037,6 +1080,7 @@ sr-ec:
     bio_placeholder: Додајте своју биографију (необавезно)
     location_placeholder: Додајте своју локацију (необавезно)
     institution_placeholder: Име институције (необавезно)
+    image_link_placeholder: Додајте линк ка слици (необавезно)
   wiki_edits:
     notify_overdue:
       confirm: Ово ће поставити подсетник на стране за разговор свим студентима који
