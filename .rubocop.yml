@@ -3,7 +3,7 @@ require:
   - rubocop/rspec/focused
   - rubocop-rspec
   - rubocop-performance
-Documentation:
+Style/Documentation:
   Enabled: false
 AllCops:
   Exclude:
