@@ -54,7 +54,7 @@ const ReferencesGraph = createReactClass({
           nice: true,
           zero: true,
           domain: [0, max_refs, 0, max_refs]
-        } 
+        }
       ],
       axes: [
         {
