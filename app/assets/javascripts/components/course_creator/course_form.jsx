@@ -3,6 +3,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
+import CourseSubjectSelector from './course_subject_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
@@ -18,10 +19,13 @@ const CourseForm = (props) => {
   const handleWikiChange = (wiki) => {
     const home_wiki = wiki.value;
     const prev_wiki = { ...props.course.home_wiki };
-    const wikis = CourseUtils.normalizeWikis([...props.course.wikis], home_wiki, prev_wiki);
+    const wikis = CourseUtils.normalizeWikis(
+      [...props.course.wikis],
+      home_wiki,
+      prev_wiki
+    );
     props.updateCourseProps({ home_wiki, wikis });
   };
-
   const handleMultiWikiChange = (wikis) => {
     wikis = wikis.map(wiki => wiki.value);
     const home_wiki = { ...props.course.home_wiki };
@@ -31,7 +35,7 @@ const CourseForm = (props) => {
 
   const backClass = `dark button ${props.backCondition ? 'hidden' : ''}`;
   let term;
-  let subject;
+  let courseSubject;
   let expectedStudents;
   let courseLevel;
   let roleDescription;
@@ -50,18 +54,15 @@ const CourseForm = (props) => {
         validation={CourseUtils.courseSlugRegex()}
         editable
         label={CourseUtils.i18n('creator.course_term', props.stringPrefix)}
-        placeholder={CourseUtils.i18n('creator.course_term_placeholder', props.stringPrefix)}
+        placeholder={CourseUtils.i18n(
+          'creator.course_term_placeholder',
+          props.stringPrefix
+        )}
       />
     );
-    subject = (
-      <TextInput
-        id="course_subject"
-        onChange={props.updateCourseAction}
-        value={props.course.subject}
-        value_key="subject"
-        editable
-        label={CourseUtils.i18n('creator.course_subject', props.stringPrefix)}
-        placeholder={I18n.t('courses.creator.subject')}
+    courseSubject = (
+      <CourseSubjectSelector
+        updateCourse={props.updateCourseAction}
       />
     );
     courseLevel = (
@@ -81,18 +82,21 @@ const CourseForm = (props) => {
         type="number"
         max="999"
         label={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
-        placeholder={CourseUtils.i18n('creator.expected_number', props.stringPrefix)}
+        placeholder={CourseUtils.i18n(
+          'creator.expected_number',
+          props.stringPrefix
+        )}
       />
     );
-    const options = I18n.t('courses.creator.role_description_options').map((value) => {
-      return { label: value, value };
-    });
+    const options = I18n.t('courses.creator.role_description_options').map(
+      (value) => {
+        return { label: value, value };
+      }
+    );
     academic_system = (
       <div className="form-group academic_system">
         <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.school_system')}:
-          </strong>
+          <strong>{I18n.t('courses.school_system')}:</strong>
           <AcademicSystem
             value={props.course.academic_system}
             updateCourseProps={props.updateCourseProps}
@@ -104,13 +108,16 @@ const CourseForm = (props) => {
     roleDescription = (
       <CreatableInput
         id="role_description"
-        onChange={({ value }) => props.updateCourseAction('role_description', value)}
+        onChange={({ value }) =>
+          props.updateCourseAction('role_description', value)
+        }
         label={I18n.t('courses.creator.role_description')}
         placeholder={I18n.t('courses.creator.role_description_placeholder')}
         options={options}
       />
     );
   }
+
 
   let privacyCheckbox;
   let campaign;
@@ -126,9 +133,7 @@ const CourseForm = (props) => {
     home_wiki = (
       <div className="form-group home-wiki">
         <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.home_wiki')}:
-          </strong>
+          <strong>{I18n.t('courses.home_wiki')}:</strong>
         </span>
         <WikiSelect
           wikis={[{ ...props.course.home_wiki }]}
@@ -141,9 +146,7 @@ const CourseForm = (props) => {
     multi_wiki = (
       <div className="form-group multi-wiki">
         <span className="text-input-component__label">
-          <strong>
-            {I18n.t('courses.multi_wiki')}:
-          </strong>
+          <strong>{I18n.t('courses.multi_wiki')}:</strong>
         </span>
         <WikiSelect
           wikis={props.course.wikis}
@@ -156,7 +159,9 @@ const CourseForm = (props) => {
     );
     privacyCheckbox = (
       <div className="form-group">
-        <label htmlFor="course_private">{I18n.t('courses.creator.course_private')}:</label>
+        <label htmlFor="course_private">
+          {I18n.t('courses.creator.course_private')}:
+        </label>
         <input
           id="course_private"
           type="checkbox"
@@ -167,7 +172,9 @@ const CourseForm = (props) => {
       </div>
     );
     backButton = (
-      <button onClick={props.previous} className={backClass}>Back</button>
+      <button onClick={props.previous} className={backClass}>
+        Back
+      </button>
     );
   }
   if (props.course.initial_campaign_title) {
@@ -181,7 +188,6 @@ const CourseForm = (props) => {
   return (
     <div className={props.courseFormClass}>
       <div className="column">
-
         {campaign}
         <TextInput
           id="course_title"
@@ -192,7 +198,10 @@ const CourseForm = (props) => {
           validation={CourseUtils.courseSlugRegex()}
           editable
           label={CourseUtils.i18n('creator.course_title', props.stringPrefix)}
-          placeholder={CourseUtils.i18n('creator.course_title', props.stringPrefix)}
+          placeholder={CourseUtils.i18n(
+            'creator.course_title',
+            props.stringPrefix
+          )}
         />
         <TextInput
           id="course_school"
@@ -203,11 +212,14 @@ const CourseForm = (props) => {
           validation={CourseUtils.courseSlugRegex()}
           editable
           label={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
-          placeholder={CourseUtils.i18n('creator.course_school', props.stringPrefix)}
+          placeholder={CourseUtils.i18n(
+            'creator.course_school',
+            props.stringPrefix
+          )}
         />
         {academic_system}
         {term}
-        {subject}
+        {courseSubject}
         {expectedStudents}
         {home_wiki}
         {multi_wiki}
@@ -216,7 +228,12 @@ const CourseForm = (props) => {
       </div>
       <div className="column">
         {courseLevel}
-        <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', props.stringPrefix)}:</strong></span>
+        <span className="text-input-component__label">
+          <strong>
+            {CourseUtils.i18n('creator.course_description', props.stringPrefix)}
+            :
+          </strong>
+        </span>
         <TextAreaInput
           id="course_description"
           onChange={props.updateCourseAction}
@@ -224,12 +241,20 @@ const CourseForm = (props) => {
           value_key="description"
           required={descriptionRequired}
           editable
-          placeholder={CourseUtils.i18n('creator.course_description_placeholder', props.stringPrefix)}
+          placeholder={CourseUtils.i18n(
+            'creator.course_description_placeholder',
+            props.stringPrefix
+          )}
         />
         {roleDescription}
         {privacyCheckbox}
-        <div><p className="red">{props.firstErrorMessage}</p></div>
-        <button onClick={props.next} id="next" className="dark button button__submit next">Next</button>
+        <button
+          onClick={props.next}
+          id="next"
+          className="dark button button__submit next"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
