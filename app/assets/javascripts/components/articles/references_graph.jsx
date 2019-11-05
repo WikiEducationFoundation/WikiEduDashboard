@@ -54,13 +54,7 @@ const ReferencesGraph = createReactClass({
           nice: true,
           zero: true,
           domain: [0, max_refs, 0, max_refs]
-        },
-        {
-          name: 'color',
-          type: 'ordinal',
-          range: 'category',
-          domain: { data: 'references_added', field: 'c' }
-        }
+        } 
       ],
       axes: [
         {
@@ -98,34 +92,15 @@ const ReferencesGraph = createReactClass({
       // //////////////
       marks: [
         {
-          type: 'group',
-          from: {
-            facet: {
-              name: 'series',
-              data: 'references_added',
-              groupby: 'c'
+          type: 'line',
+          from: { data: 'references_added' },
+          encode: {
+            update: {
+              x: { scale: 'x', field: 'date' },
+              y: { scale: 'y', field: 'refs' },
+              strokeWidth: { value: 4 }
             }
-          },
-          marks: [
-            {
-              type: 'line',
-              from: { data: 'references_added' },
-              encode: {
-                enter: {
-                  x: { scale: 'x', field: 'date' },
-                  y: { scale: 'y', field: 'refs' },
-                  stroke: { scale: 'color', field: 'c' },
-                  strokeWidth: { value: 4 }
-                },
-                update: {
-                  fillOpacity: { value: 1 }
-                },
-                hover: {
-                  fillOpacity: { value: 0.5 }
-                }
-              }
-            }
-          ]
+          }
         }
       ]
     };
