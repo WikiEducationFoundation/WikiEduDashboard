@@ -177,4 +177,15 @@ describe UserImporter do
       expect(ragesock.registered_at.to_date).to eq(Date.new(2012, 7, 11))
     end
   end
+
+  describe '.update_user_from_metawiki' do
+    it 'handles collisions smoothly' do
+      VCR.use_cassette 'user/new_from_renamed_user' do
+        create(:user, id: 1, username: 'Ragesock', global_id: '14093230')
+        dupe = create(:user, username: ' Ragesock')
+        expect(Raven).to receive(:capture_exception).and_call_original
+        described_class.update_user_from_metawiki(dupe)
+      end
+    end
+  end
 end
