@@ -89,6 +89,7 @@ const Resources = ({ weeks, current_user, course }) => {
         return (<TrainingModules
           block_modules={categorizedModules}
           header={title}
+          isStudent={current_user.isStudent}
           key={title}
           trainingLibrarySlug={trainingLibrarySlug}
         />);

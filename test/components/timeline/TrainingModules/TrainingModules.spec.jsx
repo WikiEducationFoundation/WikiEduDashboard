@@ -50,8 +50,9 @@ describe('TrainingModules', () => {
     const TrainingModulesM = mount(
       <Provider store={store}>
         <TrainingModules
-          block_modules={fakeModules}
           all_modules={['module1', 'module2', 'module3']}
+          block_modules={fakeModules}
+          isStudent={true}
           trainingLibrarySlug="students"
         />
       </Provider>
@@ -97,6 +98,7 @@ describe('TrainingModules', () => {
             block_modules={[test1]}
             editable={false}
             header="Training"
+            isStudent={true}
             trainingLibrarySlug="students"
           />
         </Provider>
@@ -132,7 +134,7 @@ describe('TrainingModules', () => {
                   overdue: false,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.block__training-modules-table__module-progress')).toHaveLength(1);
                 expect(TrainingModulesTEMP.find('a.in-progress')).toHaveLength(1);
                 expect(TrainingModulesTEMP.find('a.in-progress').text()).toEqual('Continue');
@@ -150,7 +152,7 @@ describe('TrainingModules', () => {
                   overdue: true,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue')).toHaveLength(1);
               });
               it('overdue (in-progress)', () => {
@@ -166,7 +168,7 @@ describe('TrainingModules', () => {
                   overdue: true,
                   slug: 'let-it-test'
                 };
-                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue')).toHaveLength(1);
               });
               describe('deadline_status', () => {
@@ -184,7 +186,7 @@ describe('TrainingModules', () => {
                       overdue: false,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
@@ -200,7 +202,7 @@ describe('TrainingModules', () => {
                       overdue: true,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue.complete')).toHaveLength(1);
                   });
                 });
@@ -218,7 +220,7 @@ describe('TrainingModules', () => {
                       overdue: false,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.complete')).toHaveLength(1);
                   });
                   it('with overdue', () => {
@@ -234,7 +236,7 @@ describe('TrainingModules', () => {
                       overdue: true,
                       slug: 'let-it-test'
                     };
-                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                    const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue.complete')).toHaveLength(1);
                   });
                 });
@@ -254,7 +256,7 @@ describe('TrainingModules', () => {
                    overdue: true,
                    slug: 'let-it-test'
                  };
-                 const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
+                 const TrainingModulesTEMP = mount(<Provider store={store}><TrainingModules isStudent={true} block_modules={[testTemp]} editable={false} trainingLibrarySlug="students" /></Provider>);
                  expect(TrainingModulesTEMP.find('td.overdue').text()).toMatch(/due on 2017\/12\/09/i);
                });
             });
