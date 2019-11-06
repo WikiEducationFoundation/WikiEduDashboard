@@ -39,6 +39,7 @@ describe 'the course page', type: :feature, js: true do
   end
 
   before do
+    ActionController::Base.allow_forgery_protection = true
     stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
 
@@ -136,6 +137,10 @@ describe 'the course page', type: :feature, js: true do
     Course.update_all_caches
 
     stub_token_request
+  end
+
+  after do
+    ActionController::Base.allow_forgery_protection = false
   end
 
   describe 'overview' do
