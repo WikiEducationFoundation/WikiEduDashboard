@@ -20,7 +20,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
   end
 
   after do
-    ActionController::Base.allow_forgery_protection = true
+    ActionController::Base.allow_forgery_protection = false
   end
 
   it 'can go mark a module complete, then mark it incomplete' do
