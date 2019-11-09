@@ -53,6 +53,22 @@ const DiffViewer = createReactClass({
     this.props.setSelectedIndex(index);
   },
 
+  // sets the ref for the diff, calls method to resize first empty diff
+  setDiffBodyRef(element) {
+    this.diffBody = element;
+    this.resizeFirstEmptyDiff();
+  },
+
+  // resizes first empty diff element to 50% width in table
+  resizeFirstEmptyDiff() {
+    if (this.diffBody) {
+      const emptyDiff = this.diffBody.querySelector('.diff-empty');
+      if (emptyDiff) {
+        emptyDiff.setAttribute('style', 'width: 50%;');
+      }
+    }
+  },
+
   showButtonLabel() {
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
@@ -259,11 +275,13 @@ const DiffViewer = createReactClass({
 
     let diff;
     if (!this.state.fetched) {
-      diff = <Loading/>;
+      // div cannot appear as a child of tbody
+      diff = <tbody><tr><td><Loading/></td></tr></tbody>;
     } else if (this.state.diff === '') {
-      diff = <div> —</div>;
+      diff = <tbody><tr><td> —</td></tr></tbody>;
     } else {
-      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
+      // adds a ref for the diff, used to format parts of diff element above
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} ref={this.setDiffBodyRef}/>;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
