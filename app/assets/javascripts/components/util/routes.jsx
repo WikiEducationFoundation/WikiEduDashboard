@@ -5,7 +5,8 @@ import Course from '../course/course.jsx';
 import Onboarding from '../onboarding/index.jsx';
 import { ConnectedCourseCreator } from '../course_creator/course_creator.jsx';
 import ArticleFinder from '../article_finder/article_finder.jsx';
-import AlertsHandler from '../alerts/alerts_handler.jsx';
+import CampaignAlerts from '../alerts/campaign_alerts.jsx';
+import AdminAlerts from '../alerts/admin_alerts.jsx';
 import CampaignOverviewHandler from '../campaign/campaign_overview_handler.jsx';
 import CampaignOresPlot from '../campaign/campaign_ores_plot.jsx';
 import RecentActivityHandler from '../activity/recent_activity_handler.jsx';
@@ -23,8 +24,9 @@ const routes = (
     <Route path="/course_creator" component={ConnectedCourseCreator} />
     <Route path="/users/:username" component={UserProfile} />
     <Route path="/campaigns/:campaign_slug/overview" component={CampaignOverviewHandler} />
-    <Route path="/campaigns/:campaign_slug/alerts" component={AlertsHandler} />
+    <Route path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
     <Route path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
+    <Route path="/alerts_list" component={AdminAlerts} />
     <Route path="/settings" component={SettingsHandler} />
     <Route path="/article_finder" component={ArticleFinder} />
     <Route path="/training" component={TrainingApp} />

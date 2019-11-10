@@ -124,6 +124,10 @@ en:
       it permission to access your account. You can log in with an existing
       Wikipedia account, or create a new one.
 
+  alerts:
+    alert_label: Alerts
+    no_alerts: No alerts found.
+
   activity:
     all: Activity
     edited_by: Edited By

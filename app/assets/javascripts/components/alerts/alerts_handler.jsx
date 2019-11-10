@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AlertsList from './alerts_list.jsx';
-import { fetchAlerts, sortAlerts, filterAlerts } from '../../actions/alert_actions';
+import { sortAlerts, filterAlerts } from '../../actions/alert_actions';
 import MultiSelectField from '../common/multi_select_field.jsx';
 import { getFilteredAlerts } from '../../selectors';
 
@@ -28,21 +28,10 @@ const AlertsHandler = createReactClass({
   displayName: 'AlertsHandler',
 
   propTypes: {
-    fetchAlerts: PropTypes.func,
     alerts: PropTypes.array,
-  },
-
-  componentWillMount() {
-    const campaignSlug = this.getCampaignSlug();
-    return this.props.fetchAlerts(campaignSlug);
-  },
-
-  getCampaignSlug() {
-    return `${this.props.match.params.campaign_slug}`;
-  },
-
-  fetchAlerts(campaignSlug) {
-    this.props.fetchAlerts(campaignSlug);
+    alertLabel: PropTypes.string,
+    noAlertsLabel: PropTypes.string,
+    adminAlert: PropTypes.bool,
   },
 
   sortSelect(e) {
@@ -59,7 +48,7 @@ const AlertsHandler = createReactClass({
       alertList = (
         <div id="alerts" className="campaign_main alerts container">
           <div className="section-header">
-            <h3>{I18n.t('campaign.alert_label')}</h3>
+            <h3>{this.props.alertLabel}</h3>
             <MultiSelectField options={ALERTS} label={I18n.t('campaign.alert_select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.filterAlerts} />
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
@@ -70,7 +59,12 @@ const AlertsHandler = createReactClass({
               </select>
             </div>
           </div>
-          <AlertsList alerts={this.props.selectedAlerts} sortBy={this.props.sortAlerts} />
+          <AlertsList
+            alerts={this.props.selectedAlerts}
+            sortBy={this.props.sortAlerts}
+            noAlertsLabel={this.props.noAlertsLabel}
+            adminAlert={this.props.adminAlert ? this.props.adminAlert : false}
+          />
         </div>
       );
     }
@@ -86,6 +80,6 @@ const mapStateToProps = state => ({
   selectedAlerts: getFilteredAlerts(state),
  });
 
-const mapDispatchToProps = { fetchAlerts, sortAlerts, filterAlerts };
+const mapDispatchToProps = { sortAlerts, filterAlerts };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlertsHandler);

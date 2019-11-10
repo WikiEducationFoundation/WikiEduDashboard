@@ -1,13 +1,10 @@
-import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS } from '../constants';
+import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS, RESOLVE_ALERT } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   alerts: [],
   sortKey: null,
-  selectedFilters: [
-    { value: 'ArticlesForDeletionAlert', label: 'Articles For Deletion' },
-    { value: 'DiscretionarySanctionsEditAlert', label: 'Discretionary Sanctions' }
-  ],
+  selectedFilters: [],
 };
 
 const SORT_DESCENDING = {
@@ -33,6 +30,15 @@ export default function alerts(state = initialState, action) {
     case FILTER_ALERTS: {
       const newState = { ...state };
       newState.selectedFilters = action.selectedFilters;
+      return newState;
+    }
+    case RESOLVE_ALERT: {
+      const newState = { ...state };
+      newState.alerts = state.alerts.map(
+        alert => (
+          alert.id === action.alertId ? { ...alert, resolved: true } : alert
+        )
+      );
       return newState;
     }
     default:
