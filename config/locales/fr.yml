@@ -606,7 +606,7 @@ fr:
     new_week: Ajouter une nouvelle semaine
     new_account_check_username: Vérifier la disponibilité du nom d’utilisateur
     new_account_email: Adresse de courriel
-    new_account_email_placeholder: nom@exemple.org
+    new_account_email_placeholder: nom@example.org
     new_account_info: Pour demander un compte, saisissez votre adresse de courriel
       et le nom d’utilisateur souhaité. Un mot de passe vous sera envoyé une fois
       que le compte aura été créé par un des animateurs.

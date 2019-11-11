@@ -27,7 +27,7 @@ sd:
     log_in_extended: وڪيپيڊيا سان داخل ٿيو
     log_in: داخل ٿيو
     log_out: خارج ٿيو
-    my_dashboard: منهنجو ڊيش بورڊ
+    my_dashboard: منھنجو ڊيش-بورڊ
     recent_activity: تازي سرگرمي
     request_account: کاتي لاءِ درخواست ڪيو
     request_account_create: کاتو کوليو
@@ -79,16 +79,16 @@ sd:
     none: هن ڪورس ڪي بہ مضمون نہ سنواريا آهن.
     rating: درجو
     rating_docs:
-      a: درجو-الف — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنهن نئين ايڊيٽر جي مکيہ رٿا لاءِ هيڪاندو
-        اُسريل هجي
-      ga: سٺو مضمون — ڀليءَ ڀت تحريريل مضمون، جيڪو ڪنهن نئين ايڊيٽر جي مکيہ رٿا لاءِ
-        هيڪاندو اُسريل هجي.
-      b: درجو ب — ٺيڪ ٺاڪ لکيل مضمون
-      c: درجو د —  هڪ درميانہ مضمون، جنهن ۾ سڌاري جي گنجائش موجود آهي.
-      start: آغازي درجو — هڪ ابتدائي مضمون، جنهن ۾ سڌاري جي تمام گھڻي گنجائش موجود
-        آهي.
-      stub: ڪچو درجو — شروعاتي مرحلن وارو مضمون، جنهن ۾ مواد تمام محدود هجي.
-      list: فهرست درجو — ڪنهن روايتي مضمون بدران هڪ فهرست
+      a: '%{class}-درجو — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنھن نئين ايڊيٽر جي مکيہ رٿا
+        لاءِ هيڪاندو اُسريل هجي'
+      ga: '%{class} (سٺو مضمون) — ڀليءَ ڀت تحريريل مضمون، جيڪو ڪنھن نئين ايڊيٽر جي
+        مکيہ رٿا لاءِ هيڪاندو اُسريل هجي'
+      b: '%{class}-درجو — ٺيڪ ٺاڪ لکيل مضمون'
+      c: '%{class}-درجو —  هڪ درميانہ مضمون، جنھن ۾ سڌاري جي گنجائش موجود آهي'
+      start: '%{class}-آغازي درجو — هڪ ابتدائي مضمون، جنھن ۾ سڌاري جي تمام گھڻي گنجائش
+        موجود آهي'
+      stub: '%{class}-ڪچو درجو — ڪنھن مضمون جي مختصر شروعات جيڪو وڌيڪ مواد گھري'
+      list: '%{class}-فھرست درجو — ڪنھن روايتي مضمون بدران هڪ فھرست'
     see_more: وڌيڪ ڏسو
     show_current_version: تازو ورزن ڏيکاريو
     title: عنوان
@@ -102,7 +102,7 @@ sd:
   assignments:
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
-    add_available: ڪو موجود مضمون شامل ڪريو
+    add_available: موجود مضمون وجھو
     add_available_submit: مضمون شامل ڪيو
     assign_self: مون کي مضمون سونپيو
     confirm_deletion: پڪ سان توهان هيءَ مضمون مشق ڊاهڻ گھرو ٿا؟
@@ -134,9 +134,9 @@ sd:
     title: عنوان
   categories:
     add_category: ڏَسان (زمرو) شامل ڪيو
-    add_template: سانچو شامل ڪريو
+    add_template: سانچو وجھو
     add_this_category: هي ڏَسان (زمرو) شامل ڪيو
-    add_this_template: ھڪ سانچو شامل ڪريو
+    add_this_template: ھي سانچو وجھو
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
@@ -166,17 +166,17 @@ sd:
       course_description: ڪورس جو تفصيل
       course_subject: ڪورس جو سبجيڪٽ
       course_title: ڪورس جو عنوان
-      create_button: منهنجو ڪورس ٺاهيو!
+      create_button: منھنجو ڪورس سرجيو!
       create_label: نئون ڪورس ٺاهيو
       create_new: نئون ڪورس ٺاهيو
       create_short: ڪورس ٺاهيو
       end_date: پڄاڻيءَ جي تاريخ
-      end_date_placeholder: پڄاڻيءَ جي تاريخ (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: شاگردن جو گُهربل تعداد
-      find: پنهنجو ڪورس ڳولهيو
+      find: پنھنجو ڪورس ڳولھيو
       save_cloned_course: نئون ڪورس سانڍيو
       start_date: شروع ڪرڻ جي تاريخ
-      start_date_placeholder: شروع ٿيڻ جي تاريخ (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: موضوع
     current: حاليہ ڪورسز
     data_articles: مضمونن جي ڊيٽا
@@ -197,10 +197,11 @@ sd:
     instructors: سکيا ڏيندڙ
     join: شامل ٿيو
     my_articles: منهنجا مضمونَ
-    new_week: نئون هفتو شامل ڪريو
-    new_account_email: برق ٽپال پتو
+    new_week: نئون هفتو وجھو
+    new_account_email: برقٽپال پتو
     new_account_username_placeholder: وڪي سنواريندڙ 123
-    nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
+    nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
+    none: ڪوبہ نہ
     overview: گھر
     private: ذاتي
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
@@ -228,7 +229,7 @@ sd:
       course_term: ڪڏهن
       course_term_placeholder: ڪڏهن
       course_title: پروگرام جو عنوان
-      create_button: منهنجو پروگرام ٺاهيو!
+      create_button: منھنجو پروگرام سرجيو!
       create_label: نئون پروگرام ٺاهيو
       save_cloned_course: سانڍيو
     delete_course: پروگرام ڊاهيو
@@ -289,6 +290,7 @@ sd:
     title: اوقاتي خط
   training:
     view: ڏسو
+    page: صفحو
   uploads:
     file_name: فائيل جو نالو
     header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا
@@ -307,6 +309,7 @@ sd:
     contributions: واپرائيندڙ جون ڀاڱيداريون
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
     editors: شاگرد سنواريندڙ
+    edits: سنواريو
     loading: واپرائيندڙَ اتاري رهيا آهيون...
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
@@ -317,7 +320,7 @@ sd:
     training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   user_profiles:
-    location_placeholder: پنهنجو هنڌ (لوڪيشن) شامل ڪيو (اختياري)
+    location_placeholder: پنھنجي مڪانيت وجھو (اختياري)
     institution_placeholder: اداري (انسٽيٽيوشن) جو نالو (اختياري)
   wizard:
     assignment_dates: مشقن جون تاريخون
@@ -326,7 +329,7 @@ sd:
     course_dates: ڪورس جون تاريخون
     read_less: گھٽ پڙهو
     read_more: وڌيڪ پڙهو
-    select_assignment: پنهنجي اوقاتي خط ۾ شامل ڪرڻ لاءِ مشقن جو قسم چونڊيو.
+    select_assignment: پنھنجي وقت-پٽي ۾ وجھڻ لاءِ مشقن جو قسم چونڊيو.
     summary: تَتُ
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
@@ -339,10 +342,9 @@ sd:
     header: غير منظور شده. >:-(
   error_404:
     header: صفحو نہ لڌو. :-(
-    explanation: هيءُ صفحو وجود نہ ٿو رکي. جيڪڏهن توهان ڪنهن ڪورس لاءِ ڊيشبورڊ تائين
-      رسائيءَ جي ڪوشش ڪري رهيا هئا، تہ ممڪن آهي اهو ڪورس هن ڊيشبورڊ تي رجسٽر ٿيل نہ   هجي.
-      جيڪڏهن اهو تازو ئي رجسٽر ٿيل ڪورس آهي تہ ان کي ڊيشبورڊ تي رکڻ ۾ سرشتو ڪجھہ وقت
-      لڳائيندو.
+    explanation: هيءُ صفحو وجود نٿو رکي. جيڪڏهن توهان ڪنھن ڪورس لاءِ ڊيشبورڊ تائين
+      رسائيءَ جي ڪوشش ڪري رهيا هئا، تہ ممڪن آهي اهو ڪورس هن ڊيشبورڊ تي رجسٽر ٿيل نہ
+      هجي.
   error_500:
     explanation: ڪا خرابي ٿي وئي. هن ڊيشبورڊ جو رک رکاءُ ڪندڙن سان رابطو ڪريو ۽ کين
       اهڙي آگاهي ڏيو.

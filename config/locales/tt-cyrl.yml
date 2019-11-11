@@ -16,10 +16,10 @@ tt-cyrl:
     articles: Мәкаләләр
     calendar:
       legend: Аңлатма
-    title: Башлам
+    title: Исем
   revisions:
     class: Сыйныф
     diff_show: Күрсәтү
     diff_hide: Яшерү
-    title: Башлам
+    title: Исем
 ...
