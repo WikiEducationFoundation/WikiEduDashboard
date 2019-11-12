@@ -50,15 +50,16 @@ const Nav = createReactClass({
     };
   },
 
-  componentWillMount() {
-    this.updateDimensions();
-  },
-
   componentDidMount() {
     window.addEventListener('resize', this.updateDimensions);
   },
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateDimensions);
+  },
+
+  UNSAFE_componentWillMount() {
+    this.updateDimensions();
   },
 
   updateDimensions() {

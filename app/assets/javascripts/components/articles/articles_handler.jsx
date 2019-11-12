@@ -37,7 +37,7 @@ export const ArticlesHandler = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

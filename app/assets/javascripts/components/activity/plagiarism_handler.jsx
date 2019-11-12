@@ -24,13 +24,13 @@ const PlagiarismHandler = createReactClass({
     loading: PropTypes.bool
   },
 
-  componentWillMount() {
-    return this.props.fetchSuspectedPlagiarism();
-  },
-
   setCourseScope(e) {
     const scoped = e.target.checked;
     return this.props.fetchSuspectedPlagiarism({ scoped });
+  },
+
+  UNSAFE_componentWillMount() {
+    return this.props.fetchSuspectedPlagiarism();
   },
 
   render() {

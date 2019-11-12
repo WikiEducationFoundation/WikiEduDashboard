@@ -15,7 +15,7 @@ const CategoryHandler = createReactClass({
     current_user: PropTypes.object
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchCategories(this.props.course.slug);
   },
 

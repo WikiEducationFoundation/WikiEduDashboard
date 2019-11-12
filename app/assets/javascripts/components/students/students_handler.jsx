@@ -28,7 +28,7 @@ const StudentsHandler = createReactClass({
     return { loading: true };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

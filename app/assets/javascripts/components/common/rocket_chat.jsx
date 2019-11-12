@@ -20,15 +20,15 @@ const RocketChat = createReactClass({
     };
   },
 
-  componentWillMount() {
-    if (Features.enableChat && !this.props.authToken) {
-      this.props.requestAuthToken();
-    }
-  },
-
   componentDidMount() {
     if (Features.enableChat && this.props.authToken && !this.state.showChat) {
       this.loginOnFrameLoad();
+    }
+  },
+
+  UNSAFE_componentWillMount() {
+    if (Features.enableChat && !this.props.authToken) {
+      this.props.requestAuthToken();
     }
   },
 

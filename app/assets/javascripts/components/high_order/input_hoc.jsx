@@ -37,22 +37,6 @@ const InputHOC = (Component) => {
       return { value: this.props.value };
     },
 
-    componentWillReceiveProps(props) {
-      const valid = getValidation(props.value_key, props.validations);
-
-      return this.setState(
-        {
-          value: props.value,
-          invalid: !valid,
-          id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
-        }, function () {
-          if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
-            return this.props.addValidation(this.props.value_key, I18n.t('application.field_required'));
-          }
-        }
-      );
-    },
-
     shouldComponentUpdate(nextProps, nextState) {
       if (this.state.value === nextState.value
             && this.state.id === nextState.id
@@ -79,6 +63,22 @@ const InputHOC = (Component) => {
           return this.validate();
         });
       }
+    },
+
+    UNSAFE_componentWillReceiveProps(props) {
+      const valid = getValidation(props.value_key, props.validations);
+
+      return this.setState(
+        {
+          value: props.value,
+          invalid: !valid,
+          id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
+        }, function () {
+          if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
+            return this.props.addValidation(this.props.value_key, I18n.t('application.field_required'));
+          }
+        }
+      );
     },
 
     validate() {
