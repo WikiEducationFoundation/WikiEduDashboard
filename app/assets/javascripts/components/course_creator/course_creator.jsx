@@ -57,7 +57,7 @@ const CourseCreator = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // If a campaign slug is provided, fetch the campaign.
     const campaignParam = this.campaignParam();
     if (campaignParam) {
@@ -66,7 +66,7 @@ const CourseCreator = createReactClass({
     this.props.fetchCoursesForUser(window.currentUser.id);
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.course.school !== '' && nextProps.course.title !== '') {
       this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
     } else {

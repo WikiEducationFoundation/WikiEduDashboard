@@ -37,7 +37,11 @@ const EnrollButton = createReactClass({
     });
   },
 
-  componentWillReceiveProps(newProps) {
+  getKey() {
+    return `add_user_role_${this.props.role}`;
+  },
+
+  UNSAFE_componentWillReceiveProps(newProps) {
     // This handles an added user showing up after being successfully added
     if (!this.refs.username || !this.refs.username.value) { return; }
     const username = this.refs.username.value;
@@ -49,9 +53,6 @@ const EnrollButton = createReactClass({
       });
       return this.refs.username.value = '';
     }
-  },
-  getKey() {
-    return `add_user_role_${this.props.role}`;
   },
 
   enroll(e) {

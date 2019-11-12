@@ -17,7 +17,7 @@ export const RecentUploadsHandlerBase = createReactClass({
     loading: PropTypes.bool
    },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return this.props.fetchRecentUploads();
   },
 

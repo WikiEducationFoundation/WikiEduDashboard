@@ -26,7 +26,7 @@ export const SettingsHandler = createReactClass({
     specialUsers: PropTypes.object
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchAdminUsers();
     this.props.fetchSpecialUsers();
   },

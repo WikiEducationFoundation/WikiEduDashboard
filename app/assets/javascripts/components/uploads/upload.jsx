@@ -22,16 +22,6 @@ const Upload = createReactClass({
     };
   },
 
-  componentWillMount() {
-    this.setImageFile();
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.imageFile) {
-      this.setState({ imageFile: nextProps.upload.thumburl });
-    }
-  },
-
   setImageFile() {
     let imageFile = this.props.upload.thumburl;
     if (this.props.upload.deleted) {
@@ -49,6 +39,16 @@ const Upload = createReactClass({
     img.onload = function () {
       component.setState({ width: this.width, height: this.height });
     };
+  },
+
+  UNSAFE_componentWillMount() {
+    this.setImageFile();
+  },
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (!this.state.imageFile) {
+      this.setState({ imageFile: nextProps.upload.thumburl });
+    }
   },
 
   isUploadViewerOpen() {

@@ -24,13 +24,13 @@ const RecentEditsHandler = createReactClass({
     loading: PropTypes.bool
   },
 
-  componentWillMount() {
-    return this.props.fetchRecentEdits();
-  },
-
   setCourseScope(e) {
     const scoped = e.target.checked;
     this.props.fetchRecentEdits({ scoped });
+  },
+
+  UNSAFE_componentWillMount() {
+    return this.props.fetchRecentEdits();
   },
 
   render() {
