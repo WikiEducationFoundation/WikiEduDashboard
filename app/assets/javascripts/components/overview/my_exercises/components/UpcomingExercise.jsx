@@ -9,6 +9,7 @@ export const UpcomingExercise = ({ exercise, trainingLibrarySlug }) => (
     <tbody>
       <ModuleRow
         key={exercise.id}
+        isStudent
         module={exercise}
         trainingLibrarySlug={trainingLibrarySlug}
       />
