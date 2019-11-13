@@ -18,7 +18,7 @@ const calcProgressClass = (progress) => {
   return `${linkStart}in-progress `;
 };
 
-export const ModuleRow = ({ module, trainingLibrarySlug }) => {
+export const ModuleRow = ({ isStudent, module, trainingLibrarySlug }) => {
   const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
   const isExercise = module.kind === EXERCISE_KIND;
   const isDiscussion = module.kind === DISCUSSION_KIND;
@@ -48,7 +48,7 @@ export const ModuleRow = ({ module, trainingLibrarySlug }) => {
   return (
     <tr className="training-module">
       <ModuleName {...module} isExercise={isExercise} />
-      <ModuleStatus {...module} progressClass={progressClass} />
+      { isStudent ? <ModuleStatus {...module} progressClass={progressClass} /> : null }
       <ModuleLink
         iconClassName={iconClassName}
         link={link}
@@ -60,6 +60,7 @@ export const ModuleRow = ({ module, trainingLibrarySlug }) => {
 };
 
 ModuleRow.propTypes = {
+  isStudent: PropTypes.bool,
   module: PropTypes.object.isRequired,
   trainingLibrarySlug: PropTypes.string.isRequired
 };

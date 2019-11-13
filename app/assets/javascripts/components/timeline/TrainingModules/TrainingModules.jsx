@@ -12,12 +12,13 @@ const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
 
   propTypes: {
+    all_modules: PropTypes.array,
     block_modules: PropTypes.array,
     editable: PropTypes.bool,
-    all_modules: PropTypes.array,
+    header: PropTypes.any,
+    isStudent: PropTypes.bool,
     onChange: PropTypes.func,
     trainingLibrarySlug: PropTypes.string.isRequired,
-    header: PropTypes.any
   },
 
   getInitialState() {
@@ -63,6 +64,7 @@ const TrainingModules = createReactClass({
     const modules = this.props.block_modules.map(module => (
       <ModuleRow
         key={module.id}
+        isStudent={this.props.isStudent}
         module={module}
         trainingLibrarySlug={this.props.trainingLibrarySlug}
       />
