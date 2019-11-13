@@ -10724,10 +10724,10 @@ rcloader@^0.2.1:
     lodash.merge "^4.6.0"
     rcfinder "^0.1.6"
 
-react-burger-menu@2.6.11:
-  version "2.6.11"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.6.11.tgz#e9ec8db2ea156ef9366423be971ae6859ea17570"
-  integrity sha512-Nz0CpcQBE4kgxI/xWviyHGQM8PS4GYlsxd8oUGuOabEweYzVJeFhGbHQlM2a/1SMeWM90S80vEvpI22/wFFifA==
+react-burger-menu@2.6.12:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.6.12.tgz#5f7d42b3723b76152eda1b6730d3a04120dfc356"
+  integrity sha512-ZS7bQHO9PBKzkftzcICppG7Iq98yyAMipt2btLVBOY6aIxuUbLxJ93vBR7tLqzrThSz1GbQZNhOWycCrf8Bq8Q==
   dependencies:
     browserify-optional "^1.0.0"
     classnames "^2.2.6"
