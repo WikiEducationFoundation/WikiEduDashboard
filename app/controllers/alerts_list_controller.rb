@@ -11,7 +11,7 @@ class AlertsListController < ApplicationController
     respond_to do |format|
       format.html { render }
       format.json do
-        render json: { alerts: @alerts }
+        @alerts
       end
     end
   end
