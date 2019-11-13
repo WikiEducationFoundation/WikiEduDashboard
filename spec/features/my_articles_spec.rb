@@ -11,12 +11,17 @@ describe 'My Articles', type: :feature, js: true do
   let(:course) { create(:course) }
 
   before do
+    ActionController::Base.allow_forgery_protection = true
     stub_info_query # for the query that checks whether an article exists
 
     create(:courses_user, user: student, course: course)
     create(:assignment, course: course, article_title: 'Border_Collie', user: nil, role: ASSIGNED)
     create(:assignment, course: course, article_title: 'Poodle', user: classmate, role: ASSIGNED)
     login_as(student)
+  end
+
+  after do
+    ActionController::Base.allow_forgery_protection = false
   end
 
   it 'lets a student choose an available article' do

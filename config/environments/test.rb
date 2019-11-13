@@ -29,6 +29,7 @@ ENV['edit_en.wikipedia.org'] = 'true'
 ENV['dashboard_url'] = 'dashboard.wikiedu.org'
 ENV['TICKET_FORWARDING_DOMAIN'] = 'wikiedu.org'
 ENV['SALESFORCE_BCC_EMAIL'] = 'salesforce@salesforce.com'
+ENV['ENABLE_ADVANCED_FEATURES'] = 'true'
 
 Rails.application.configure do
   # Settings specified here will take
