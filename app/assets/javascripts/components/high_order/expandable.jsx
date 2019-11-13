@@ -19,7 +19,7 @@ const Expandable = function (Component) {
       return { is_open: false };
     },
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
       this.setState({
         is_open: this.refs.component.getKey() === props.openKey
       });

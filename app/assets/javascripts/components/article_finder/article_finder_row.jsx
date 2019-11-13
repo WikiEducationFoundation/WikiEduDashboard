@@ -14,7 +14,7 @@ const ArticleFinderRow = createReactClass({
     };
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
       this.setState({
         isLoading: false,

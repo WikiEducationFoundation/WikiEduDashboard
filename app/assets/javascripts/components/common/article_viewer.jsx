@@ -45,7 +45,7 @@ const ArticleViewer = createReactClass({
   // fetched until the usernames are available, so 'show' will fetch the usernames
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!this.props.users && nextProps.users) {
       if (!this.state.userIdsFetched) {
         this.fetchUserIds(nextProps.users);

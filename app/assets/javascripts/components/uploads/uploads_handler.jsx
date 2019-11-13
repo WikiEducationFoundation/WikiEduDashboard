@@ -27,23 +27,6 @@ const UploadsHandler = createReactClass({
     };
   },
 
-  componentWillMount() {
-    if (this.props.loadingUploads) {
-      return this.props.receiveUploads(this.props.course_id);
-    }
-  },
-
-  componentWillReceiveProps(nextProps) {
-    const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + UPLOADS_PER_PAGE);
-    this.setState({
-      data: data,
-      pageCount: Math.ceil(nextProps.selectedUploads.length / UPLOADS_PER_PAGE),
-     });
-     if (this.state.currentPage === 0) {
-       this.setUploadMetadata(data);
-     }
-  },
-
   setUploadData(offset, selectedPage) {
     const data = this.props.selectedUploads.slice(offset, offset + UPLOADS_PER_PAGE);
     this.setUploadMetadata(data);
@@ -62,6 +45,23 @@ const UploadsHandler = createReactClass({
 
   setUploadMetadata(uploads) {
     return this.props.setUploadMetadata(uploads);
+  },
+
+  UNSAFE_componentWillMount() {
+    if (this.props.loadingUploads) {
+      return this.props.receiveUploads(this.props.course_id);
+    }
+  },
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + UPLOADS_PER_PAGE);
+    this.setState({
+      data: data,
+      pageCount: Math.ceil(nextProps.selectedUploads.length / UPLOADS_PER_PAGE),
+     });
+     if (this.state.currentPage === 0) {
+       this.setUploadMetadata(data);
+     }
   },
 
   handlePageClick(data) {

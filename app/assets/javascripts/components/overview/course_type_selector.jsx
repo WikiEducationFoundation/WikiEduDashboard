@@ -12,7 +12,7 @@ const CourseTypeSelector = createReactClass({
     updateCourse: PropTypes.func.isRequired
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({
       id: uuid.v4(),
       selectedOption: { value: this.props.course.type, label: this._getFormattedCourseType(this.props.course.type) },

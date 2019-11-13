@@ -21,16 +21,16 @@ const Quiz = createReactClass({
     return { selectedAnswerId: this.props.selectedAnswerId };
   },
 
-  componentWillReceiveProps(newProps) {
-    return this.setState({ selectedAnswerId: newProps.selectedAnswerId });
-  },
-
   setSelectedAnswer(id) {
     return this.props.setSelectedAnswer(id);
   },
 
   setAnswer(e) {
     return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
+  },
+
+  UNSAFE_componentWillReceiveProps(newProps) {
+    return this.setState({ selectedAnswerId: newProps.selectedAnswerId });
   },
 
   verifyAnswer(e) {

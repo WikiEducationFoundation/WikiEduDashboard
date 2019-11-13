@@ -29,7 +29,7 @@ const ActivityTable = createReactClass({
     };
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.activity !== this.state.activity) {
       this.setState({ activity: nextProps.activity });
     }

@@ -37,20 +37,36 @@ const DiffViewer = createReactClass({
     };
   },
 
+  // sets the ref for the diff, calls method to resize first empty diff
+  setDiffBodyRef(element) {
+    this.diffBody = element;
+    this.resizeFirstEmptyDiff();
+  },
+
+  setSelectedIndex(index) {
+    this.props.setSelectedIndex(index);
+  },
+
   // When 'show' is clicked, this component may or may not already have
   // users data (a list of usernames) in its props. If it does, then 'show' will
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
   // fetched until the usernames are available, so 'show' will fetch the usernames
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.shouldShowDiff(nextProps) && !this.state.fetched) {
       this.fetchRevisionDetails(nextProps);
     }
   },
 
-  setSelectedIndex(index) {
-    this.props.setSelectedIndex(index);
+  // resizes first empty diff element to 50% width in table
+  resizeFirstEmptyDiff() {
+    if (this.diffBody) {
+      const emptyDiff = this.diffBody.querySelector('.diff-empty');
+      if (emptyDiff) {
+        emptyDiff.setAttribute('style', 'width: 50%;');
+      }
+    }
   },
 
   showButtonLabel() {
@@ -259,11 +275,13 @@ const DiffViewer = createReactClass({
 
     let diff;
     if (!this.state.fetched) {
-      diff = <Loading/>;
+      // div cannot appear as a child of tbody
+      diff = <tbody><tr><td><Loading/></td></tr></tbody>;
     } else if (this.state.diff === '') {
-      diff = <div> —</div>;
+      diff = <tbody><tr><td> —</td></tr></tbody>;
     } else {
-      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }}/>;
+      // adds a ref for the diff, used to format parts of diff element above
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} ref={this.setDiffBodyRef}/>;
     }
 
     const wikiDiffUrl = this.webDiffUrl();

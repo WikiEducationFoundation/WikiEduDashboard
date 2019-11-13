@@ -32,13 +32,13 @@ const AlertsHandler = createReactClass({
     alerts: PropTypes.array,
   },
 
-  componentWillMount() {
-    const campaignSlug = this.getCampaignSlug();
-    return this.props.fetchAlerts(campaignSlug);
-  },
-
   getCampaignSlug() {
     return `${this.props.match.params.campaign_slug}`;
+  },
+
+  UNSAFE_componentWillMount() {
+    const campaignSlug = this.getCampaignSlug();
+    return this.props.fetchAlerts(campaignSlug);
   },
 
   fetchAlerts(campaignSlug) {
