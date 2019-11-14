@@ -5,6 +5,7 @@
 # Author: Fader
 # Author: Jopparn
 # Author: Josve05a
+# Author: Pyscowicz
 # Author: Rockyfelle
 # Author: Sturban
 # Author: Umeaboy
@@ -65,6 +66,8 @@ sv:
     confirm: OK
     opt_in: Ja
     opt_out: Nej
+    opt_yes: ja
+    opt_no: nej
   dashboard:
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
     explore_course_pages: Utforska kursussidorna
@@ -273,7 +276,7 @@ sv:
       role_description: Din roll i kursen
       save_cloned_course: Spara ny kurs
       start_date: Startdatum
-      start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
+      start_date_placeholder: ÅÅÅÅ-MM-DD
       subject: Ämne
     current: Aktuella kurser
     data_articles: Artikeldata
@@ -306,6 +309,7 @@ sv:
     features_feedback: 'Automatiska förslag:'
     feedback: Återkoppling
     feedback_loading: Var god vänta medan förslag läser in...
+    home_wiki: Hemwiki
     instructor:
       one: Instruktör
       other: Instruktörer
@@ -388,7 +392,7 @@ sv:
     volunteer:
       other: en=Volontär
     weeks_none: Detta kurs har ännu inte en tidslinje.
-    wiki_staff: Wiki Ed-anställda
+    wiki_staff: Wiki Education -anställda
     withdrawn: Gjorde inte uppgiften
     yourcourses: Dina kurser
     survey:
@@ -523,6 +527,9 @@ sv:
         already_instructor: '%{username} är redan en instruktör!'
         demote_success: '%{username} ändrades till instruktör.'
         no_super_admin: Kan inte återkalla administratörsstatus från en superadministratör
+    special_users:
+      new:
+        form_placeholder: Användarnamn
   suggestions:
     editing: Redigeringsförslag
     suggestion_docs:
@@ -697,6 +704,8 @@ sv:
       why_are_you_here: Vad vill du göra?
   article_finder:
     remove_article: Ta bort artikel
+    search: Sök
+    tools: Verktyg
     show_options: Visa alternativ
     hide_options: Dölj alternativ
     assign_article_self: Tilldela dig själv

@@ -157,7 +157,7 @@ tr:
       atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
       nedenle bunlar yalnızca makale olgunluğunun kaba bir göstergesidir.
     rating_docs:
-      fa: '%{class} (Seçkin makale) — Vikipedi''nin en yüksek reytingli ve muhtelemen
+      fa: '%{class} (Seçkin makale) — Vikipedi''nin en yüksek reytingli ve muhtemelen
         yeni bir editörün ana projesi için oldukça olgun bir makalesidir'
       fl: '%{class} (Seçkin liste) — Vikipedi''nin listeler için en yüksek reytingli
         sayfalarıdır'
@@ -344,10 +344,10 @@ tr:
       makale için konuşma sayfasına bir şablon gönderir.
     accounts_generation_enabled: Hesap isteği oluşturma etkin
     accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
-      e-posta adreslerini ve istenen kullanıcı adını girmelerini sağlayacaktır. Daha
-      sonra bu "Gösterge paneli"nden hesap oluşturabilir ve bunları aynı anda program
-      katılımcıları olarak ekleyebilirsiniz. Bu özelliği kullanmak için, bu program
-      için ana viki'de 'hesap oluşturucu' iznine sahip olmalısınız.
+      e-posta adreslerini ve istenen kullanıcı adlarını girmelerini sağlar. Daha sonra
+      bu Gösterge Tablosundan hesaplar oluşturabilecek ve aynı anda program katılımcıları
+      olarak ekleyebileceksiniz. Bu özelliği kullanmak için, bu programın ana wikisinde
+      'hesap oluşturucu' izniniz olmalıdır.
     accounts_generation_confirm_message: Hesap isteklerini etkinleştirmek istediğinizden
       emin misiniz?
     activity: Etkinlik
