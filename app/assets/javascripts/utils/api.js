@@ -1,6 +1,6 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
-import fetch from 'isomorphic-fetch';
+import request from './request';
 
 const RavenLogger = {};
 
@@ -10,9 +10,7 @@ const API = {
   // Getters /
   // /////////
   fetchRevisions(studentId, courseId) {
-    return fetch(`/revisions.json?user_id=${studentId}&course_id=${courseId}`, {
-      credentials: "include"
-    })
+    return request(`/revisions.json?user_id=${studentId}&course_id=${courseId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -28,9 +26,7 @@ const API = {
   },
 
   fetchCourseRevisions(courseId, limit) {
-    return fetch(`/courses/${courseId}/revisions.json?limit=${limit}`, {
-      credentials: "include"
-    })
+    return request(`/courses/${courseId}/revisions.json?limit=${limit}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -46,11 +42,7 @@ const API = {
   },
 
   fetchFeedback(articleTitle, assignmentId) {
-    return fetch(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`, {
-      headers: {
-        'Accept': 'application/json',
-      }
-    })
+    return request(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -66,13 +58,9 @@ const API = {
   },
 
   postFeedbackFormResponse(subject, body) {
-    return fetch(`/feedback_form_responses`, {
+    return request(`/feedback_form_responses`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({ feedback_form_response: { subject: subject, body: body } }),
-
     })
       .then(res => {
         if (res.ok) {
@@ -303,7 +291,7 @@ const API = {
   },
 
   fetch(courseId, endpoint) {
-    return fetch(`/courses/${courseId}/${endpoint}.json`, {
+    return request(`/courses/${courseId}/${endpoint}.json`, {
       credentials: "include"
     })
       .then(res => {

@@ -14,20 +14,12 @@ import {
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
-
-import fetch from 'cross-fetch';
-
-const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
+import request from '../utils/request';
 
 export const notifyOfMessage = body => async (dispatch) => {
   try {
-    const response = await fetch('/tickets/notify_owner', {
+    const response = await request('/tickets/notify_owner', {
       body: JSON.stringify(body),
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': getCsrf()
-      },
       method: 'POST'
     });
     if (!response.ok) {
@@ -51,13 +43,8 @@ export const notifyOfMessage = body => async (dispatch) => {
 
 const sendReplyEmail = async (notificationBody, dispatch) => {
   try {
-    const response = await fetch('/tickets/reply', {
+    const response = await request('/tickets/reply', {
       body: JSON.stringify(notificationBody),
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': getCsrf()
-      },
       method: 'POST'
     });
     if (!response.ok) throw new Error();
@@ -68,13 +55,8 @@ const sendReplyEmail = async (notificationBody, dispatch) => {
 };
 
 const createReplyRecord = (body, status) => {
-  return fetch('/td/tickets/replies', {
+  return request('/td/tickets/replies', {
     body: JSON.stringify({ ...body, read: true, status }),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
     method: 'POST'
   })
   .then(response => response.json());
@@ -107,13 +89,8 @@ export const readAllMessages = ticket => async (dispatch) => {
   const unreadMessages = ticket.messages.some(message => !message.read);
   if (!unreadMessages) return false;
 
-  const response = await fetch('/td/read_all_messages', {
+  const response = await request('/td/read_all_messages', {
     body: JSON.stringify({ ticket_id: ticket.id }),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
     method: 'PUT'
   });
   const json = await response.json();
@@ -122,7 +99,7 @@ export const readAllMessages = ticket => async (dispatch) => {
 
 const fetchSomeTickets = async (dispatch, page, batchSize = 100) => {
   const offset = batchSize * page;
-  const response = await fetch(`/td/tickets?limit=${batchSize}&offset=${offset}`);
+  const response = await request(`/td/tickets?limit=${batchSize}&offset=${offset}`);
   return response.json().then(({ tickets }) => {
     dispatch({ type: RECEIVE_TICKETS, data: tickets });
   });
@@ -143,7 +120,7 @@ export const fetchTickets = () => async (dispatch) => {
 export const selectTicket = ticket => ({ type: SELECT_TICKET, ticket });
 
 export const fetchTicket = id => async (dispatch) => {
-  const response = await fetch(`/td/tickets/${id}`);
+  const response = await request(`/td/tickets/${id}`);
   const data = await response.json();
   dispatch(selectTicket(data.ticket));
 };
@@ -151,13 +128,8 @@ export const fetchTicket = id => async (dispatch) => {
 export const sortTickets = key => ({ type: SORT_TICKETS, key });
 
 const updateTicket = async (id, ticket, dispatch) => {
-  const response = await fetch(`/td/tickets/${id}`, {
+  const response = await request(`/td/tickets/${id}`, {
     body: JSON.stringify(ticket),
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
     method: 'PATCH'
   });
   const json = await response.json();
@@ -173,15 +145,7 @@ export const updateTicketOwner = (id, owner_id) => (dispatch) => {
 };
 
 export const deleteTicket = id => async (dispatch) => {
-  await fetch(`/td/tickets/${id}`, {
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
-    method: 'DELETE'
-  });
-
+  await request(`/td/tickets/${id}`, { method: 'DELETE' });
   dispatch({ type: DELETE_TICKET, id });
 };
 

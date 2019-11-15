@@ -1,7 +1,7 @@
 import * as types from '../constants';
 import API from '../utils/api.js';
 import logErrorMessage from '../utils/log_error_message';
-import fetch from 'isomorphic-fetch';
+import request from '../utils/request';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
 // action object, it returns a function that takes the store dispatch fucntion —
@@ -28,7 +28,7 @@ const fetchResponseToJSON = (res) => {
 };
 
 const fetchAlertsPromise = (campaignSlug) => {
-  return fetch(`/campaigns/${campaignSlug}/alerts.json`, {
+  return request(`/campaigns/${campaignSlug}/alerts.json`, {
     credentials: 'include'
   }).then(fetchResponseToJSON)
     .catch((error) => {
