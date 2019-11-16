@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/wiki_assignment_output"
 require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 require_dependency "#{Rails.root}/lib/wikitext"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -74,6 +75,24 @@ class WikiCourseEdits
     sandbox_template = generator.sandbox_template(@dashboard_url)
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
     @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
+  end
+
+  # Removes existing template from the disenrolling student's userpage, and also
+  # removes existing template from their talk page
+  def disenroll_from_course(disenrolling_user:)
+    generator = WikiUserpageOutput.new(@course)
+
+    # Remove existing template from the user page
+    template = generator.enrollment_template
+    user_page = "User:#{disenrolling_user.username}"
+    summary = generator.disenrollment_summary
+    remove_content_from_article(user_page, template, summary)
+
+    # Remove existing template from the user's talk page
+    talk_template = generator.enrollment_talk_template
+    talk_page = "User_talk:#{disenrolling_user.username}"
+    talk_summary = "removing {{#{template_name(@templates, 'user_talk')}}}"
+    remove_content_from_article(talk_page, talk_template, talk_summary)
   end
 
   # Updates the assignment template for every Assignment for the course.
@@ -188,5 +207,21 @@ class WikiCourseEdits
     return if page_content.nil?
     summary = "Update [[#{@course.wiki_title}|#{@course.title}]] assignment details"
     @wiki_editor.post_whole_page(@current_user, talk_title, page_content, summary)
+  end
+
+  def remove_content_from_article(title:, content:, summary:)
+    initial_page_content = WikiApi.new(@home_wiki).get_page_content(title)
+    # This indicates an API failure, which may happen because of rate-limiting.
+    # A nonexistent page will return empty string instead of nil.
+    return if initial_page_content.nil?
+
+    page_content = initial_page_content.dup.force_encoding('utf-8')
+    # Return unless content already exists on page.
+    return unless page_content.include? content
+
+    # Remove content
+    page_content.gsub!(/#{Regexp.quote(content)}/, "")
+
+    @wiki_editor.post_whole_page(@current_user, title, page_content, summary)
   end
 end

@@ -144,6 +144,7 @@ class UsersController < ApplicationController
     return if @course_user.nil? # This will happen if the user was already removed.
 
     remove_assignment_templates
+    make_disenrollment_edits
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
@@ -159,6 +160,14 @@ class UsersController < ApplicationController
                                             editing_user: current_user,
                                             assignment: assignment)
     end
+  end
+
+  def make_disenrollment_edits
+    return unless student_role?
+    # for students only, posts templates to userpage, user talk page and sandbox
+    DisenrollFromCourseWorker.schedule_edits(course: @course,
+                                             editing_user: current_user,
+                                             disenrolling_user: @user)
   end
 
   ##################

@@ -27,6 +27,15 @@ class WikiUserpageOutput
     end
   end
 
+  def disenrollment_summary
+    case @course.type
+    when 'FellowsCohort'
+      "User is no longer participating in #{@course.slug}."
+    else
+      "User has disenrolled from [[#{@course.wiki_title}]]."
+    end
+  end
+
   def enrollment_talk_template
     "{{#{template_name(@templates, 'user_talk')}"\
     "#{course_page_param}"\
