@@ -86,13 +86,13 @@ class WikiCourseEdits
     template = generator.enrollment_template
     user_page = "User:#{disenrolling_user.username}"
     summary = generator.disenrollment_summary
-    remove_content_from_article(user_page, template, summary)
+    remove_content_from_article(title: user_page, content: template, summary: summary)
 
     # Remove existing template from the user's talk page
     talk_template = generator.enrollment_talk_template
     talk_page = "User_talk:#{disenrolling_user.username}"
     talk_summary = "removing {{#{template_name(@templates, 'user_talk')}}}"
-    remove_content_from_article(talk_page, talk_template, talk_summary)
+    remove_content_from_article(title: talk_page, content: talk_template, summary: talk_summary)
   end
 
   # Updates the assignment template for every Assignment for the course.
