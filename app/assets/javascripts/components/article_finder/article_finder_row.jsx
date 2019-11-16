@@ -14,12 +14,19 @@ const ArticleFinderRow = createReactClass({
     };
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
+  async addOrDelete(addOrDel, assignment) {
+    let response;
+    if (addOrDel === 'add') {
+      response = await this.props.addAssignment(assignment);
+    } else if (addOrDel === 'del') {
+      response = await this.props.deleteAssignment(assignment);
+    }
+    if (response !== undefined) {
       this.setState({
         isLoading: false,
       });
     }
+    return response;
   },
 
   assignArticle(userId = null) {
@@ -34,7 +41,7 @@ const ArticleFinderRow = createReactClass({
     this.setState({
       isLoading: true,
     });
-    return this.props.addAssignment(assignment);
+    return this.addOrDelete('add', assignment);
   },
 
   unassignArticle(userId = null) {
@@ -51,7 +58,7 @@ const ArticleFinderRow = createReactClass({
     this.setState({
       isLoading: true,
     });
-    return this.props.deleteAssignment(assignment);
+    return this.addOrDelete('del', assignment);
   },
 
   render() {

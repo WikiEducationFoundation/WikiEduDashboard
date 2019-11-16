@@ -36,6 +36,16 @@ const ArticleFinder = createReactClass({
     };
   },
 
+  componentDidMount() {
+    if (window.location.search.substring(1)) {
+      this.getParamsURL();
+    }
+    if (this.props.course_id && this.props.loadingAssignments) {
+      this.props.fetchAssignments(this.props.course_id);
+    }
+    return this.updateFields('home_wiki', this.props.course.home_wiki);
+  },
+
   componentWillUnmount() {
     return this.props.resetArticleFinder();
   },
@@ -54,16 +64,6 @@ const ArticleFinder = createReactClass({
       val = (key === 'article_quality') ? parseInt(val) : val;
       return this.updateFields(key, val);
     });
-  },
-
-  UNSAFE_componentWillMount() {
-    if (window.location.search.substring(1)) {
-      this.getParamsURL();
-    }
-    if (this.props.course_id && this.props.loadingAssignments) {
-      this.props.fetchAssignments(this.props.course_id);
-    }
-    return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
   updateFields(key, value) {
