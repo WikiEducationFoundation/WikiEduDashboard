@@ -88,6 +88,7 @@ describe 'Student users', type: :feature, js: true do
     it 'joins and leaves a course' do
       login_as(user, scope: :user)
       stub_oauth_edit
+      stub_raw_action
 
       # click enroll button, enter passcode in alert popup to enroll
       visit "/courses/#{Course.first.slug}"
