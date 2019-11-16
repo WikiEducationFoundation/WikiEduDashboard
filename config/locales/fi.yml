@@ -237,7 +237,7 @@ fi:
     default_passcode_explanation: 'Oletusarvoisesti tämän kampanjan uusilla ohjelmilla
       täytyy olla:'
     description: Kuvaus
-    delete_campaign: Poista tämän kampanja
+    delete_campaign: Poista tämä kampanja
     no_alerts: Tällä kampanjalla ei ole hälytyksiä
     no_passcode: ei pääsykoodia
     none: Ei mitään
@@ -253,6 +253,7 @@ fi:
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
   categories:
     add_category: Lisää luokka
+    add_psid: Lisää PetScan PSID
     add_template: Lisää malline
     add_this_category: Lisää tämä luokka
     add_this_template: Lisää tämä malline
@@ -263,7 +264,7 @@ fi:
     template_name: Mallineen nimi
     none: Luokkia ei seurata.
     remove: Poista
-    tracked_categories: Seuratut luokat ja mallineet
+    tracked_categories: Seuratut luokat, PSID ja mallineet
   chat:
     label: Keskustelu
   courses:
@@ -741,7 +742,7 @@ fi:
     first_week_title: Ensimmäinen aktiivinen viikko
     gradeable_value: Arvo
     gradeables_none: Tällä aikajanalla ei ole yhtään arvosteltua tehtävää.
-    grading_header: 'Arvosteltu (Yhteensä: %{total}%)'
+    grading_header: 'Arvosteltu (Yhteensä: %{total})'
     move_block_down: Siirrä lohko alas
     move_block_up: Siirrä lohko ylös
     no_class_holidays: Luokalla ei ole lomia

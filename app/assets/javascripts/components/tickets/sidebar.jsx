@@ -8,11 +8,6 @@ import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
 
 export class Sidebar extends React.Component {
-  // This is required because the User Profile is not a React page
-  goTo() {
-    window.location.pathname = `/users/${this.props.ticket.sender.username}`;
-  }
-
   notifyOwner() {
     const { currentUser, ticket } = this.props;
     this.props.notifyOfMessage({
@@ -32,6 +27,7 @@ export class Sidebar extends React.Component {
     const { createdAt, currentUser, ticket } = this.props;
     const assignedTo = ticket.owner.id === currentUser.id ? 'You' : ticket.owner.username;
     const status = STATUSES[ticket.status];
+    const realName = ticket.sender.real_name ? `(${ticket.sender.real_name})` : '';
 
     return (
       <section className="sidebar">
@@ -47,14 +43,14 @@ export class Sidebar extends React.Component {
         <section className="course-name">
           {
             ticket.project.id
-              ? <Link to={`/courses/${ticket.project.slug}`}>Go to the {ticket.project.title} Course</Link>
+              ? <Link target="_blank" to={`/courses/${ticket.project.slug}`}>Course page: {ticket.project.title}</Link>
               : 'Course Unknown'
           }
         </section>
         <section className="user-record">
           {
             ticket.sender.username
-              ? <a onClick={() => this.goTo()}>Go to {`${ticket.sender.real_name || ticket.sender.username}'s`} Account</a>
+              ? <a target="_blank" href={`/users/${this.props.ticket.sender.username}`}>Profile: {`${ticket.sender.username} ${realName}`}</a>
               : 'Unknown User Record'
           }
         </section>
