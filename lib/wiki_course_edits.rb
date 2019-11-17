@@ -220,7 +220,7 @@ class WikiCourseEdits
     return unless page_content.include? content
 
     # Remove content
-    page_content.gsub!(/#{Regexp.quote(content)}/, "")
+    page_content.gsub!(/#{Regexp.quote(content)}/, '')
 
     @wiki_editor.post_whole_page(@current_user, title, page_content, summary)
   end
