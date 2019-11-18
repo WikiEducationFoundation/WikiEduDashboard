@@ -126,6 +126,7 @@ describe WikiCourseEdits do
 
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
       described_class.new(action: :enroll_in_course,
                           course: course,
                           current_user: user,

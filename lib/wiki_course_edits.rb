@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/wiki_assignment_output"
 require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 require_dependency "#{Rails.root}/lib/wikitext"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -54,14 +55,15 @@ class WikiCourseEdits
   # adds a template to their /sandbox page — creating it if it does not
   # already exist.
   def enroll_in_course(enrolling_user:)
+    @enrolling_user = enrolling_user
     @generator = WikiUserpageOutput.new(@course)
 
-    add_template_to_user_page(enrolling_user)
-    add_template_to_user_talk_page(enrolling_user)
+    add_template_to_user_page
+    add_template_to_user_talk_page
 
     # Pre-create the user's sandbox
     return unless Features.wiki_ed?
-    add_template_to_sandbox(enrolling_user)
+    add_template_to_sandbox
   end
 
   # Updates the assignment template for every Assignment for the course.
@@ -123,23 +125,38 @@ class WikiCourseEdits
     true
   end
 
-  def add_template_to_user_page(enrolling_user)
+  def add_template_to_user_page
     template = @generator.enrollment_template
-    user_page = "User:#{enrolling_user.username}"
+    user_page = "User:#{@enrolling_user.username}"
+
+    # Never double-post the enrollment template
+    initial_page_content = WikiApi.new(@home_wiki).get_page_content(user_page)
+    return if initial_page_content.include?(template)
+
     summary = @generator.enrollment_summary
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
 
-  def add_template_to_user_talk_page(enrolling_user)
+  def add_template_to_user_talk_page
     talk_template = @generator.enrollment_talk_template
-    talk_page = "User_talk:#{enrolling_user.username}"
+    talk_page = "User_talk:#{@enrolling_user.username}"
+
+    # Never double-post the talk template
+    initial_page_content = WikiApi.new(@home_wiki).get_page_content(talk_page)
+    return if initial_page_content.include?(talk_template)
+
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
     @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
   end
 
-  def add_template_to_sandbox(enrolling_user)
-    sandbox = "User:#{enrolling_user.username}/sandbox"
+  def add_template_to_sandbox
+    sandbox = "User:#{@enrolling_user.username}/sandbox"
     sandbox_template = @generator.sandbox_template(@dashboard_url)
+
+    # Never double-post the sandbox template
+    initial_page_content = WikiApi.new(@home_wiki).get_page_content(sandbox)
+    return if initial_page_content.include?(sandbox_template)
+
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
     @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
