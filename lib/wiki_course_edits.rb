@@ -54,26 +54,14 @@ class WikiCourseEdits
   # adds a template to their /sandbox page — creating it if it does not
   # already exist.
   def enroll_in_course(enrolling_user:)
-    generator = WikiUserpageOutput.new(@course)
+    @generator = WikiUserpageOutput.new(@course)
 
-    # Add a template to the user page
-    template = generator.enrollment_template
-    user_page = "User:#{enrolling_user.username}"
-    summary = generator.enrollment_summary
-    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
-
-    # Add a template to the user's talk page
-    talk_template = generator.enrollment_talk_template
-    talk_page = "User_talk:#{enrolling_user.username}"
-    talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
-    @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
+    add_template_to_user_page(enrolling_user)
+    add_template_to_user_talk_page(enrolling_user)
 
     # Pre-create the user's sandbox
     return unless Features.wiki_ed?
-    sandbox = user_page + '/sandbox'
-    sandbox_template = generator.sandbox_template(@dashboard_url)
-    sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
-    @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
+    add_template_to_sandbox(enrolling_user)
   end
 
   # Updates the assignment template for every Assignment for the course.
@@ -133,6 +121,27 @@ class WikiCourseEdits
     # Edits can only be made to the course's home wiki through WikiCourseEdits
     return false unless @home_wiki.edits_enabled?
     true
+  end
+
+  def add_template_to_user_page(enrolling_user)
+    template = @generator.enrollment_template
+    user_page = "User:#{enrolling_user.username}"
+    summary = @generator.enrollment_summary
+    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
+  end
+
+  def add_template_to_user_talk_page(enrolling_user)
+    talk_template = @generator.enrollment_talk_template
+    talk_page = "User_talk:#{enrolling_user.username}"
+    talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
+    @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
+  end
+
+  def add_template_to_sandbox(enrolling_user)
+    sandbox = "User:#{enrolling_user.username}/sandbox"
+    sandbox_template = @generator.sandbox_template(@dashboard_url)
+    sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
+    @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
