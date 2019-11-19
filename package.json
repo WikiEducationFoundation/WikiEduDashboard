@@ -91,7 +91,7 @@
     "query-string": "6.9.0",
     "rails-ujs": "^5.2.3",
     "raven-js": "^3.27.2",
-    "react": "^16.11.0",
+    "react": "^16.12.0",
     "react-burger-menu": "2.6.12",
     "react-confetti": "^4.0.1",
     "react-cookie-consent": "^2.5.0",
