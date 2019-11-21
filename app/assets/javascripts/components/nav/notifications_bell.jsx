@@ -1,5 +1,5 @@
 import React from 'react';
-import fetch from 'cross-fetch';
+import request from '../../utils/request';
 
 export default class NotificationsBell extends React.Component {
   constructor() {
@@ -12,13 +12,13 @@ export default class NotificationsBell extends React.Component {
     const userId = main ? main.dataset.userId : null;
 
     if (Features.wikiEd && userId) {
-      fetch(`/td/open_tickets?owner_id=${userId}`)
+      request(`/td/open_tickets?owner_id=${userId}`)
         .then(res => res.json())
         .then(({ open_tickets }) => this.setState({ open_tickets }))
         .catch(err => err);
     }
 
-    fetch('/requested_accounts.json')
+    request('/requested_accounts.json')
       .then(res => res.json())
       .then(({ requested_accounts }) => this.setState({ requested_accounts }))
       .catch(err => err); // If this errors, we're going to ignore it

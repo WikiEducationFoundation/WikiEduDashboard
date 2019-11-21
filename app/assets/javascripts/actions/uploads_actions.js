@@ -2,12 +2,11 @@ import _ from 'lodash';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS, RESET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import pageViewDateString from '../utils/uploads_pageviews_utils';
-import fetch from 'isomorphic-fetch';
+import request from '../utils/request';
 
 const fetchUploads = (courseId) => {
-  return fetch(`/courses/${courseId}/uploads.json`, {
-    credentials: 'include'
-  }).then((res) => {
+  return request(`/courses/${courseId}/uploads.json`)
+    .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
@@ -39,7 +38,7 @@ const fetchUploadMetadata = (uploads) => {
   });
   url = url.slice(0, -1);
 
-  return fetch(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`)
+  return request(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`)
     .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
@@ -69,7 +68,7 @@ export const setUploadMetadata = uploadsList => (dispatch) => {
 };
 
 const fetchUploadViewerMetadata = (upload) => {
-  return fetch(`https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&
+  return request(`https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&
     pageids=${upload.id}&prop=globalusage|categories|imageinfo&iiprop=size|extmetadata|url&clshow=!hidden`)
     .then((res) => {
       if (res.ok && res.status === 200) {
@@ -111,7 +110,7 @@ const fetchUploadPageViews = (articleList) => {
   articleList.forEach((article) => {
     const title = encodeURIComponent(article.title);
     const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${formattedStartDate}/${endDate}`;
-    viewPerArticle.push(fetch(url)
+    viewPerArticle.push(request(url)
       .then((res) => {
         if (res.ok && res.status === 200) {
           return res.json();
