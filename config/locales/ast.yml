@@ -20,6 +20,10 @@ ast:
       de los navegadores van amontar y decrementar la entrada.
   application:
     cancel: Encaboxar
+    cookie_consent: Esti sitiu usa cookies pa caltener la sesión aniciada, y guarda
+      información relativa a la to cuenta de Wikipedia.
+    cookie_consent_acknowledge: Entiendo
+    cookie_consent_see_more: Ver más
     create_accounts: Crear cuentes de Wikipedia
     dashboard: Tableru de Wiki Ed
     documentation: Documentación
@@ -159,7 +163,9 @@ ast:
     tools: Ferramientes d'evaluación
     view: Ver artículu
     view_all: Ver toos
-    view_doc: La suma de toles visites a cada artículu demientres el proyectu
+    view_doc: Les vistes estimaes de cada artículu dende la primera edición hasta
+      l'anovamientu d'estadístiques más recién. Pues usar tools.wmflabs.org/pageviews
+      pa ver los númberos exautos.
     view_on_wiki: Ver na wiki
     views_added: Amestáronse %{count} visites nueves a %{title}
     edit_size: Tamañu d'edición
@@ -176,6 +182,7 @@ ast:
       pa los artículos de la Wikipedia n'inglés.)
   assignments:
     article: Asignósete l'artículu %{title}.
+    article_link: Artículu
     already_exists: ¡Esta xera yá esiste!
     title_too_large: El títulu nun tendría de pasar los 255 caráuteres
     assignees: Encargáu(os)
@@ -184,9 +191,13 @@ ast:
     add_available_placeholder: Añade un títulu d'artículu o una URL per llinia
     add_available_submit: Amestar artículos
     assign_self: Asiname un artículu
+    assign_tooltip: Un artículu asignáu ye'l que plantees crear o ameyorar.
+    bibliography: Bibliografía
+    clone: Clonar
     confirm_add_available: ¿Tas seguru de que quieres añadir %{title}?
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
     confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación d'artículu?
+    editors: Axudicáu a
     label: Asinar
     loading: Cargando xeres...
     none_short: Nun hai artículos asinaos
@@ -226,6 +237,7 @@ ast:
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear la mio campaña!
     customize_passcode: un códigu d'accesu predetermináu
+    data_articles: Páxines editaes
     default_course_type: Tipu de cursu predetermináu
     default_passcode: Códigu d'accesu predetermináu
     default_passcode_explanation: 'De mou predetermináu, los programes nuevos d''esta
@@ -254,7 +266,7 @@ ast:
     add_this_template: Amestar esta plantía
     confirm_category_addition: ¿Confirmes que quies siguir les contribuciones a la
       categoría «%{name}»?
-    confirm_template_addition: ¿Confirmes que quies siguir les contribuciones a la
+    confirm_template_addition: ¿Confirmes que quies siguir les contribuciones pa la
       plantía «%{name}»?
     depth: Fondura de subcategoríes
     name: Nome
@@ -262,7 +274,7 @@ ast:
     template_name: Nome de la plantía
     none: Nun hai nenguna categoría en siguimientu.
     remove: Desaniciar
-    tracked_categories: Categoríes y plantíes siguíes
+    tracked_categories: Categoríes, PSID y y plantíes en siguimientu
   chat:
     label: Charra
   courses:
@@ -476,8 +488,8 @@ ast:
     unsubmitted: Cursos ensin presentar
     view_other: Ver otres campañes
     view: Ver el cursu
-    view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
-      desque ficieron la primera edición en cada artículu
+    view_doc: El númberu estimáu de visites a los artículos editaos polos editores
+      apuntaos desque ficieron la primera edición en cada artículu
     view_page: Ver la páxina del cursu
     view_wiki: Ver en Wikipedia
     volunteer:
@@ -857,9 +869,9 @@ ast:
     start_date_before_end_date: La fecha inicial tien de ser anterior a la fecha final.
     unsupported_browser:
       header: Navegador ensin encontu. :-(
-      explanation: Tas usando un navegador que nun ye compatible col tableru. Esti
-        sitiu funciona bien con Internet Explorer versión 11 o mayor, en versiones
-        nueves de Chrome y Firefox, y n'otros navegadores modernos.
+      explanation: Tas usando un restolador que nun ye compatible col tableru. Esti
+        sitiu funciona bien con versiones nueves de Chrome, Firefox, Edge y otros
+        restoladores modernos.
   error_401:
     header: Non autorizáu. >:-(
     explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti

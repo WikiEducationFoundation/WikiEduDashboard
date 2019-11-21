@@ -1,14 +1,11 @@
 import API from '../utils/api.js';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import fetch from 'isomorphic-fetch';
-
-const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
+import request from '../utils/request';
 
 const fetchAssignmentsPromise = (courseSlug) => {
-  return fetch(`/courses/${courseSlug}/assignments.json`, {
-    credentials: 'include'
-  }).then((res) => {
+  return request(`/courses/${courseSlug}/assignments.json`)
+    .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
@@ -57,14 +54,9 @@ export const updateAssignmentStatus = (assignment, status) => () => {
     status,
     user_id: assignment.user_id
   };
-  return fetch(`/assignments/${assignment.id}/status.json`, {
+  return request(`/assignments/${assignment.id}/status.json`, {
     body: JSON.stringify(body),
-    credentials: 'include',
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
+    method: 'PATCH'
   }).then((res) => {
     if (res.ok && res.status === 200) {
       return res.json();

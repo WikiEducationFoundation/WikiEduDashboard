@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CreatableInput from '../common/creatable_input.jsx';
+import request from '../../utils/request';
 
 const CourseSubjectSelector = ({ updateCourse }) => {
   const [options, setOptions] = useState();
@@ -9,7 +10,7 @@ const CourseSubjectSelector = ({ updateCourse }) => {
     // Will contain an array of subjects in the required object format
     const opts = [];
 
-    fetch('/wizards/researchwrite.json')
+    request('/wizards/researchwrite.json')
       .then(resp => resp.json())
       .then((data) => {
         const jsonObj = data;

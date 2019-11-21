@@ -1,12 +1,11 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import { fetchWikidataLabelsForArticles } from './wikidata_actions';
-import fetch from 'isomorphic-fetch';
+import request from '../utils/request';
 
 const fetchArticlesPromise = (courseId, limit) => {
-  return fetch(`/courses/${courseId}/articles.json?limit=${limit}`, {
-    credentials: 'include'
-  }).then((res) => {
+  return request(`/courses/${courseId}/articles.json?limit=${limit}`)
+    .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
       }
