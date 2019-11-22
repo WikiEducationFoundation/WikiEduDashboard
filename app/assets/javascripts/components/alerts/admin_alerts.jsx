@@ -1,20 +1,16 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import AlertsHandler from './alerts_handler.jsx';
 import { fetchAdminAlerts } from '../../actions/alert_actions';
 
-const AdminAlerts = createReactClass({
-  displayName: 'AdminAlerts',
-  propTypes: {
-    fetchAlerts: PropTypes.func,
-  },
+class AdminAlerts extends React.Component {
   UNSAFE_componentWillMount() {
     // This adds ALL alerts to the state, to be used in AlertsHandler
     this.props.fetchAdminAlerts();
-  },
+  }
+
   render() {
     return (
       <AlertsHandler
@@ -24,7 +20,11 @@ const AdminAlerts = createReactClass({
       />
     );
   }
-});
+}
+
+AdminAlerts.propTypes = {
+  fetchAdminAlerts: PropTypes.func,
+};
 
 const mapDispatchToProps = { fetchAdminAlerts };
 
