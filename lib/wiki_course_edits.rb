@@ -135,7 +135,8 @@ class WikiCourseEdits
     return if initial_page_content.include?(template)
 
     summary = @generator.enrollment_summary
-    @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
+    new_line_template = template + "\n"
+    @wiki_editor.add_to_page_top(user_page, @current_user, new_line_template, summary)
   end
 
   def add_template_to_user_talk_page
@@ -147,19 +148,21 @@ class WikiCourseEdits
     return if initial_page_content.include?(talk_template)
 
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
-    @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
+    new_line_template = talk_template + "\n"
+    @wiki_editor.add_to_page_top(talk_page, @current_user, new_line_template, talk_summary)
   end
 
   def add_template_to_sandbox
-    sandbox = "User:#{@enrolling_user.username}/sandbox"
     sandbox_template = @generator.sandbox_template(@dashboard_url)
+    sandbox = "User:#{@enrolling_user.username}/sandbox"
 
     # Never double-post the sandbox template
     initial_page_content = @wiki_api.get_page_content(sandbox)
     return if initial_page_content.include?(sandbox_template)
 
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
-    @wiki_editor.add_to_page_top(sandbox, @current_user, sandbox_template, sandbox_summary)
+    new_line_template = sandbox_template + "\n"
+    @wiki_editor.add_to_page_top(sandbox, @current_user, new_line_template, sandbox_summary)
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
