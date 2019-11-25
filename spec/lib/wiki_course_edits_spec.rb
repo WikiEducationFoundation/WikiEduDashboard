@@ -4,9 +4,15 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 
 describe WikiCourseEdits do
-  let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1) }
+  let(:slug) { 'Missouri_SandT/History_of_Science_(Fall_2019)' }
+  let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1, slug: slug) }
   let(:user) { create(:user) }
-  let(:enrolling_user) { create(:user, username: 'EnrollingUser') }
+  let(:enrolling_user) { create(:user, username: 'Belajane41') }
+  # rubocop:disable Metrics/LineLength
+  let(:user_page_content) do
+    '{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}'
+  end
+  # rubocop:enable Metrics/LineLength
   let(:user_template) { WikiUserpageOutput.new(course).enrollment_template }
   let(:talk_template) { WikiUserpageOutput.new(course).enrollment_talk_template }
   let(:sandbox_template) { WikiUserpageOutput.new(course).sandbox_template(ENV['dashboard_url']) }
@@ -138,9 +144,10 @@ describe WikiCourseEdits do
 
     it 'does not repost templates that are already present' do
       expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(user_template,
-                                                                              talk_template,
-                                                                              sandbox_template)
+      allow_any_instance_of(WikiApi).to receive(:get_page_content)
+        .and_return(user_page_content,
+                    talk_template,
+                    sandbox_template)
       described_class.new(action: :enroll_in_course,
                           course: course,
                           current_user: user,
