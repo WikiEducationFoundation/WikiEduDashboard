@@ -193,7 +193,19 @@ const EnrollButton = createReactClass({
     const buttonText = this.props.inline ? '+' : CourseUtils.i18n('enrollment', this.props.course.string_prefix);
 
     // Remove this check when we re-enable adding users by username
-    const button = <button className={buttonClass} onClick={this.props.open}>{buttonText}</button>;
+    const button = (
+      <button
+        className={buttonClass}
+        onClick={() => {
+          this.props.open();
+          setTimeout(() => {
+            this.refs.username.focus();
+          }, 125);
+        }}
+      >
+        {buttonText}
+      </button>
+    );
 
     return (
       <div className="pop__container" onClick={this.stop}>
