@@ -21,6 +21,10 @@ const transformAlertsIntoOptions = (alertsArray) => {
     const label = labelWordArray.join(' ');
 
     return { label, value };
+  }).filter((elem, index, self) => {
+    return self.findIndex((t) => {
+      return (t.label === elem.label);
+    }) === index;
   });
 };
 
