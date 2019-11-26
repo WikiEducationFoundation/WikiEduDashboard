@@ -23,18 +23,6 @@ const ActivityTable = createReactClass({
     toggleDrawer: PropTypes.func
   },
 
-  getInitialState() {
-    return {
-      activity: this.props.activity
-    };
-  },
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.activity !== this.state.activity) {
-      this.setState({ activity: nextProps.activity });
-    }
-  },
-
   clearAllSortableClassNames() {
     Array.prototype.forEach.call(document.getElementsByClassName('sortable'), (el) => {
       el.classList.remove('asc');
@@ -47,7 +35,7 @@ const ActivityTable = createReactClass({
   },
 
   _renderActivites() {
-    return this.state.activity.map((revision) => {
+    return this.props.activity.map((revision) => {
       const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
       const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
       const talkPageLink = `${revision.base_url}/wiki/User_talk:${revision.username}`;
@@ -74,7 +62,7 @@ const ActivityTable = createReactClass({
   },
 
   _renderDrawers() {
-    return this.state.activity.map((revision) => {
+    return this.props.activity.map((revision) => {
       const courses = revision.courses.map((course) => {
         return (
           <li key={`${revision.key}-${course.slug}`}>

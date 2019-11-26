@@ -4,7 +4,10 @@ require 'rails_helper'
 
 describe 'Online Volunteer users', type: :feature, js: true do
   let(:user) { create(:user) }
-  let(:course) { create(:course, end: 1.day.from_now, flags: { online_volunteers_enabled: true }) }
+  let(:course) do
+    create(:basic_course, end: 1.day.from_now,
+                          flags: { online_volunteers_enabled: true, wiki_edits_enabled: false })
+  end
 
   before do
     include type: :feature

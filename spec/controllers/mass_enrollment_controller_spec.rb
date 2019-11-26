@@ -34,6 +34,7 @@ describe MassEnrollmentController, type: :request do
         course.campaigns << Campaign.first
         stub_add_user_to_channel_success
         stub_oauth_edit
+        stub_raw_action
       end
 
       it 'adds only real users to a course' do

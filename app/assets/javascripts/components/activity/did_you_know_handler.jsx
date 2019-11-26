@@ -23,13 +23,13 @@ const DidYouKnowHandler = createReactClass({
     loading: PropTypes.bool
   },
 
+  componentDidMount() {
+    this.props.fetchDYKArticles();
+  },
+
   setCourseScope(e) {
     const scoped = e.target.checked;
     this.props.fetchDYKArticles({ scoped });
-  },
-
-  UNSAFE_componentWillMount() {
-    this.props.fetchDYKArticles();
   },
 
   render() {

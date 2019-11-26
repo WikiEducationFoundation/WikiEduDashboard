@@ -15,9 +15,12 @@ describe GreetUngreetedStudents do
     stub_oauth_edit
   end
 
-  it 'posts a welcome message to the talk page of ungreeted students' do
+  it 'posts enrollment templates and welcome message for an ungreeted student' do
     expect(student.greeted).to eq(false)
+    # New section for the welcome message
     expect_any_instance_of(WikiEdits).to receive(:add_new_section).and_call_original
+    # Templates are added to the top of user page, talk page, sandbox
+    expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice.and_call_original
     subject
     expect(student.reload.greeted).to eq(true)
   end

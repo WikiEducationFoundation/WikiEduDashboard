@@ -1,13 +1,11 @@
 import _ from 'lodash';
-import fetch from 'isomorphic-fetch';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
+import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
-
-const getCsrf = () => document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
 const fetchAllTrainingModulesPromise = () => {
   return new Promise((res, rej) =>
@@ -88,14 +86,9 @@ export const setSlideCompleted = opts => (dispatch, getState) => {
 };
 
 const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatch) => {
-  return fetch('/training_modules_users/exercise.json', {
+  return request('/training_modules_users/exercise.json', {
     body: JSON.stringify({ block_id, complete, module_id }),
-    credentials: 'include',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': getCsrf()
-    },
+    method: 'POST'
   }).then(resp => resp.json())
     .then(resp => dispatch({ type: EXERCISE_COMPLETION_UPDATE, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
