@@ -113,6 +113,8 @@ Rails.application.routes.draw do
           constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
+    match 'courses/*id/user_enroll' => 'user_enrollments#enroll',
+          constraints: { id: /.*/ }, via: [:post, :delete]
 
     # show-type actions: first all the specific json endpoints,
     # then the catchall show endpoint
