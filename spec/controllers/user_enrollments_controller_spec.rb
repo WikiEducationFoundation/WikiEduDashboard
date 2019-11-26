@@ -96,6 +96,7 @@ describe UserEnrollmentsController, type: :request do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         stub_oauth_edit
+        stub_raw_action
       end
 
       let(:post_params) do
