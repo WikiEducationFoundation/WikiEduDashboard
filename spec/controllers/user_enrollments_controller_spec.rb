@@ -193,5 +193,5 @@ describe UserEnrollmentsController, type: :request do
         expect(subject).to eq(200)
       end
     end
-  end  
+  end
 end
