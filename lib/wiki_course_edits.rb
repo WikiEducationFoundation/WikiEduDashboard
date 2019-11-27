@@ -145,7 +145,7 @@ class WikiCourseEdits
   end
 
   def update_assignments_for_article(title:, assignments_for_same_article:)
-    return if WikiApi.new(@home_wiki).redirect?(title)
+    return if @wiki_api.redirect?(title)
 
     # MediaWiki will automatically handle i18n of the namespace
     talk_title = "Talk:#{title.tr(' ', '_')}"
