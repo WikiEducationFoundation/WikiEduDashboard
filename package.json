@@ -92,7 +92,7 @@
     "rails-ujs": "^5.2.3",
     "raven-js": "^3.27.2",
     "react": "^16.12.0",
-    "react-burger-menu": "2.6.12",
+    "react-burger-menu": "2.6.13",
     "react-confetti": "^4.0.1",
     "react-cookie-consent": "^2.5.0",
     "react-day-picker": "7.4.0",
