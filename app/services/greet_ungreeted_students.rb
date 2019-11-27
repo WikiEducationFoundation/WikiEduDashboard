@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/student_greeting_checker"
-require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_enrollment_edits"
 
 class GreetUngreetedStudents
   def initialize(course, greeter)
@@ -20,10 +20,10 @@ class GreetUngreetedStudents
       @greeting_checker.check(student, @wiki)
 
       # add enrollment templates if not already present
-      WikiCourseEdits.new(action: :enroll_in_course,
-                          course: @course,
-                          current_user: @greeter,
-                          enrolling_user: student)
+      WikiCourseEnrollmentEdits.new(action: :enroll_in_course,
+                                    course: @course,
+                                    current_user: @greeter,
+                                    enrolling_user: student)
 
       next if student.greeted
       greet(student)

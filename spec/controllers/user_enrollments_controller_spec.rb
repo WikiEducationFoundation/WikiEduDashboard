@@ -78,7 +78,7 @@ describe UserEnrollmentsController, type: :request do
         end
 
         before do
-          expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+          expect_any_instance_of(WikiCourseEnrollmentEdits).to receive(:enroll_in_course)
           post "/courses/#{course.slug}/user_enroll", params: post_params
         end
 
@@ -174,7 +174,7 @@ describe UserEnrollmentsController, type: :request do
       end
 
       before do
-        expect_any_instance_of(WikiCourseEdits).to receive(:disenroll_from_course)
+        expect_any_instance_of(WikiCourseEnrollmentEdits).to receive(:disenroll_from_course)
         create(:courses_user, user_id: user.id,
                               course_id: course.id,
                               role: CoursesUsers::Roles::STUDENT_ROLE)

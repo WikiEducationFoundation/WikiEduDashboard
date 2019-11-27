@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/lib/wiki_course_enrollment_edits"
 require "#{Rails.root}/lib/wiki_preferences_manager"
 
 describe SelfEnrollmentController, type: :request do
@@ -27,7 +28,7 @@ describe SelfEnrollmentController, type: :request do
       context 'when the course is not approved' do
         # Course is not in any campaigns, so enrollment will fail.
         it 'redirects without enrolling the user' do
-          expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+          expect_any_instance_of(WikiCourseEnrollmentEdits).not_to receive(:enroll_in_course)
           get enroll_url, params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(0)
@@ -43,7 +44,7 @@ describe SelfEnrollmentController, type: :request do
         context 'when the user is not enrolled yet' do
           it 'enrolls user (and redirects) and updates the user count' do
             expect(course.user_count).to eq(0)
-            expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+            expect_any_instance_of(WikiCourseEnrollmentEdits).to receive(:enroll_in_course)
             expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
             get enroll_url, params: request_params
             expect(subject).to eq(302)
@@ -52,7 +53,7 @@ describe SelfEnrollmentController, type: :request do
           end
 
           it 'returns a JSON success message' do
-            expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+            expect_any_instance_of(WikiCourseEnrollmentEdits).to receive(:enroll_in_course)
             expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
             get enroll_url, params: request_params.merge(format: :json)
             expect(subject).to eq(200)
@@ -80,7 +81,7 @@ describe SelfEnrollmentController, type: :request do
             end
 
             it 'redirects without enrolling the user' do
-              expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+              expect_any_instance_of(WikiCourseEnrollmentEdits).not_to receive(:enroll_in_course)
               get enroll_url, params: request_params
               expect(subject).to eq(302)
               expect(course.students.count).to eq(0)
@@ -118,7 +119,7 @@ describe SelfEnrollmentController, type: :request do
           let(:course) { create(:course, end: 1.day.ago, slug: slug_params) }
 
           it 'redirects without enrolling the user' do
-            expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+            expect_any_instance_of(WikiCourseEnrollmentEdits).not_to receive(:enroll_in_course)
             get enroll_url, params: request_params
             expect(subject).to eq(302)
             expect(course.students.count).to eq(0)

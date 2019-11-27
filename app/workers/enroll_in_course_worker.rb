@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_enrollment_edits"
 require_dependency "#{Rails.root}/lib/wiki_preferences_manager"
 
 class EnrollInCourseWorker
@@ -15,10 +16,10 @@ class EnrollInCourseWorker
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
     enrolling_user = User.find(enrolling_user_id)
-    WikiCourseEdits.new(action: :enroll_in_course,
-                        course: course,
-                        current_user: editing_user,
-                        enrolling_user: enrolling_user)
+    WikiCourseEnrollmentEdits.new(action: :enroll_in_course,
+                                  course: course,
+                                  current_user: editing_user,
+                                  enrolling_user: enrolling_user)
     WikiCourseEdits.new(action: :update_course,
                         course: course,
                         current_user: editing_user)

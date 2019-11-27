@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_enrollment_edits"
 
 class MassEnrollmentWorker
   include Sidekiq::Worker
@@ -19,10 +20,10 @@ class MassEnrollmentWorker
     enrollment_results.each do |username, result|
       next unless result.key?('success')
       enrolling_user = User.find_by(username: username)
-      WikiCourseEdits.new(action: :enroll_in_course,
-                          course: course,
-                          current_user: editing_user,
-                          enrolling_user: enrolling_user)
+      WikiCourseEnrollmentEdits.new(action: :enroll_in_course,
+                                    course: course,
+                                    current_user: editing_user,
+                                    enrolling_user: enrolling_user)
     end
   end
 end

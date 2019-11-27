@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_enrollment_edits"
 
 class DisenrollFromCourseWorker
   include Sidekiq::Worker
@@ -14,10 +15,10 @@ class DisenrollFromCourseWorker
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
     disenrolling_user = User.find(disenrolling_user_id)
-    WikiCourseEdits.new(action: :disenroll_from_course,
-                        course: course,
-                        current_user: editing_user,
-                        disenrolling_user: disenrolling_user)
+    WikiCourseEnrollmentEdits.new(action: :disenroll_from_course,
+                                  course: course,
+                                  current_user: editing_user,
+                                  disenrolling_user: disenrolling_user)
     WikiCourseEdits.new(action: :update_course,
                         course: course,
                         current_user: editing_user)
