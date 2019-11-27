@@ -70,19 +70,11 @@ class WikiCourseEdits
   # Removes existing template from the disenrolling student's userpage, and also
   # removes existing template from their talk page
   def disenroll_from_course(disenrolling_user:)
-    generator = WikiUserpageOutput.new(@course)
+    @disenrolling_user = disenrolling_user
+    @generator = WikiUserpageOutput.new(@course)
 
-    # Remove existing template from the user page
-    template = generator.enrollment_template
-    user_page = "User:#{disenrolling_user.username}"
-    summary = generator.disenrollment_summary
-    remove_content_from_article(title: user_page, content: template, summary: summary)
-
-    # Remove existing template from the user's talk page
-    talk_template = generator.enrollment_talk_template
-    talk_page = "User_talk:#{disenrolling_user.username}"
-    talk_summary = "removing {{#{template_name(@templates, 'user_talk')}}}"
-    remove_content_from_article(title: talk_page, content: talk_template, summary: talk_summary)
+    remove_template_from_user_page
+    remove_template_from_user_talk_page
   end
 
   # Updates the assignment template for every Assignment for the course.
@@ -129,7 +121,7 @@ class WikiCourseEdits
       yield unless @course.wiki_course_page_enabled?
     when :update_assignments, :remove_assignment
       yield unless @course.assignment_edits_enabled?
-    when :enroll_in_course
+    when :enroll_in_course, :disenroll_from_course
       yield unless @course.enrollment_edits_enabled?
     end
   end
@@ -238,8 +230,22 @@ class WikiCourseEdits
     @wiki_editor.post_whole_page(@current_user, talk_title, page_content, summary)
   end
 
+  def remove_template_from_user_page
+    template = @generator.enrollment_template
+    user_page = "User:#{@disenrolling_user.username}"
+    summary = @generator.disenrollment_summary
+    remove_content_from_article(title: user_page, content: template, summary: summary)
+  end
+
+  def remove_template_from_user_talk_page
+    talk_template = @generator.enrollment_talk_template
+    talk_page = "User_talk:#{@disenrolling_user.username}"
+    talk_summary = "removing {{#{template_name(@templates, 'user_talk')}}}"
+    remove_content_from_article(title: talk_page, content: talk_template, summary: talk_summary)
+  end
+
   def remove_content_from_article(title:, content:, summary:)
-    initial_page_content = WikiApi.new(@home_wiki).get_page_content(title)
+    initial_page_content = @wiki_api.get_page_content(title)
     # This indicates an API failure, which may happen because of rate-limiting.
     # A nonexistent page will return empty string instead of nil.
     return if initial_page_content.nil?

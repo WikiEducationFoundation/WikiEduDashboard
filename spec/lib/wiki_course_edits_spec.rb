@@ -8,6 +8,7 @@ describe WikiCourseEdits do
   let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1, slug: slug) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'Belajane41') }
+  let(:disenrolling_user) { create(:user, username: 'UserToBeDisenrolled') }
   # rubocop:disable Metrics/LineLength
   let(:user_page_content) do
     '{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}'
@@ -192,6 +193,37 @@ describe WikiCourseEdits do
           end
         end
       end
+    end
+  end
+
+  describe '#disenroll_from_course' do
+    it 'respects the enrollment_edits_enabled edit_settings flag' do
+      course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
+      expect_any_instance_of(WikiApi).not_to receive(:get_page_content)
+      described_class.new(action: :disenroll_from_course,
+                          course: course,
+                          current_user: user,
+                          disenrolling_user: disenrolling_user)
+    end
+
+    it 'removes from the userpage of the disenrolling student and their sandbox' do
+      expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice
+      allow_any_instance_of(WikiApi).to receive(:get_page_content)
+        .and_return(user_page_content,
+                    talk_template)
+      described_class.new(action: :disenroll_from_course,
+                          course: course,
+                          current_user: user,
+                          disenrolling_user: disenrolling_user)
+    end
+
+    it 'does not remove templates that are not already present' do
+      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
+      described_class.new(action: :disenroll_from_course,
+                          course: course,
+                          current_user: user,
+                          disenrolling_user: disenrolling_user)
     end
   end
 
