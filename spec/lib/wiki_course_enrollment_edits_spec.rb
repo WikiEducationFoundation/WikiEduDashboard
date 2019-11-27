@@ -124,5 +124,5 @@ describe WikiCourseEnrollmentEdits do
                           current_user: user,
                           disenrolling_user: disenrolling_user)
     end
-  end  
+  end
 end

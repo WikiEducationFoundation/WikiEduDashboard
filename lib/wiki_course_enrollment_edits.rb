@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 #= Class for making wiki enrollment edits for a particular course
 class WikiCourseEnrollmentEdits
   include WikiOutputTemplates
-  
+
   def initialize(action:, course:, current_user:, **opts)
     @course = course
     @home_wiki = course.home_wiki

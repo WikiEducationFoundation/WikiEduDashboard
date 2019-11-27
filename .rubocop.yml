@@ -33,7 +33,6 @@ Metrics/ClassLength:
     - 'app/controllers/courses_controller.rb'
     - 'lib/importers/revision_score_importer.rb'
     - 'lib/wizard_timeline_manager.rb'
-    - 'lib/wiki_course_edits.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
