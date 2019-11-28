@@ -5,6 +5,15 @@
 # Author: Silraks
 ---
 lv:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   application:
     cancel: Atcelt
     cookie_consent_acknowledge: Es saprotu
@@ -47,6 +56,8 @@ lv:
     article_development: (raksta attīstība)
     assigned: Piešķirtie raksti
     available: Pieejamie raksti
+    next: Nākamais
+    previous: Iepriekšējais
     article_title: Raksta nosaukums
     assigned_to: Piešķirts
     deleted: (dzēsts)
@@ -69,7 +80,7 @@ lv:
   assignments:
     article_link: Raksts
     assign_other: Piešķirt rakstu
-    add_available: Pievienot pieejamu rakstu
+    add_available: Pievienot pieejamos rakstus
     add_available_submit: Pievienot rakstus
     assign_self: Piešķirt sev rakstu
     bibliography: Bibliogrāfija
@@ -158,13 +169,13 @@ lv:
       create_new: Izveidot jaunu kursu
       create_short: Izveidot kursu
       end_date: Beigu datums
-      end_date_placeholder: Beigu datums (GGGG-MM-DD)
+      end_date_placeholder: GGGG-MM-DD
       expected_number: Paredzamais studentu skaits
       find: Atrast savu kursu
       role_description: Tava loma kursā
       save_cloned_course: Saglabāt jaunu kursu
       start_date: Sākuma datums
-      start_date_placeholder: Sākuma datums (GGGG-MM-DD)
+      start_date_placeholder: GGGG-MM-DD
       subject: Temats
     current: Aktīvie kursi
     data_articles: Rakstu dati
@@ -278,6 +289,7 @@ lv:
   metrics:
     label: Kursa aktivitāte
     last_update: Statistika atjaunināta
+    next_update: Nākamā atjaunināšana
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti
@@ -289,6 +301,8 @@ lv:
     revisions: Neseni labojumi
     tags: Iezīmes
     upload_count: Augšupielādes Vikikrātuvē
+    uploads_in_use_count:
+      other: faili izmantoti rakstos
     view_count_description: Rakstu skatījumi
     view: Skatījumi
     word_count: Pievienotie vārdi
