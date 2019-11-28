@@ -89,7 +89,7 @@
     "promise-limit": "^2.7.0",
     "prop-types": "^15.7.2",
     "query-string": "6.9.0",
-    "rails-ujs": "^5.2.3",
+    "rails-ujs": "^5.2.4",
     "raven-js": "^3.27.2",
     "react": "^16.12.0",
     "react-burger-menu": "2.6.13",
