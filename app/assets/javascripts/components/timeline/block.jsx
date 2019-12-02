@@ -172,11 +172,22 @@ const Block = createReactClass({
           block={block}
           editable={isEditable}
           header={length > 1 && 'Discussion'}
-          key="assignment-modules"
+          key="discussion-modules"
           onChange={this.passedUpdateBlock}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
         />);
       }
+    } else {
+      modules.push(<TrainingModules
+        all_modules={this.props.all_training_modules}
+        block_modules={[]}
+        block={block}
+        editable={isEditable}
+        header={length > 1 && 'Training'}
+        key="training-modules"
+        onChange={this.passedUpdateBlock}
+        trainingLibrarySlug={this.props.trainingLibrarySlug}
+      />);
     }
 
     const content = (

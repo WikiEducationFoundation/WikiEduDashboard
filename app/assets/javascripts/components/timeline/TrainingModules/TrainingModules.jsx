@@ -30,7 +30,10 @@ const TrainingModules = createReactClass({
   },
 
   onChange(selections) {
-    const trainingModuleIds = selections.map(trainingModule => trainingModule.value);
+    let trainingModuleIds = [];
+    if (selections) {
+      trainingModuleIds = selections.map(trainingModule => trainingModule.value);
+    }
     this.setState({ value: selections });
     return this.props.onChange(trainingModuleIds);
   },
