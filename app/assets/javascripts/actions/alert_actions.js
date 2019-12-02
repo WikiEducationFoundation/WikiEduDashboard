@@ -27,7 +27,53 @@ const fetchResponseToJSON = (res) => {
   return Promise.reject(res);
 };
 
-const fetchAlertsPromise = (campaignSlug) => {
+const resolveAlertPromise = (alertId) => {
+  return request(`/alerts/${alertId}/resolve.json`, {
+    credentials: 'include'
+  }).then(fetchResponseToJSON)
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
+    });
+};
+
+export const handleResolveAlert = alertId => (dispatch) => {
+  return (
+    resolveAlertPromise(alertId)
+      .then(() => {
+        dispatch({
+          type: types.RESOLVE_ALERT,
+          alertId
+        });
+      })
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+  );
+};
+
+const fetchAdminAlertsPromise = () => {
+  return request('/alerts_list.json', {
+    credentials: 'include'
+  }).then(fetchResponseToJSON)
+    .catch((error) => {
+      logErrorMessage(error);
+      return error;
+    });
+};
+
+export const fetchAdminAlerts = () => (dispatch) => {
+  return (
+    fetchAdminAlertsPromise()
+      .then((data) => {
+        dispatch({
+          type: types.RECEIVE_ALERTS,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+  );
+};
+
+const fetchCampaignAlertsPromise = (campaignSlug) => {
   return request(`/campaigns/${campaignSlug}/alerts.json`, {
     credentials: 'include'
   }).then(fetchResponseToJSON)
@@ -37,9 +83,9 @@ const fetchAlertsPromise = (campaignSlug) => {
     });
 };
 
-export const fetchAlerts = campaignSlug => (dispatch) => {
+export const fetchCampaignAlerts = campaignSlug => (dispatch) => {
   return (
-    fetchAlertsPromise(campaignSlug)
+    fetchCampaignAlertsPromise(campaignSlug)
       .then((data) => {
         dispatch({
           type: types.RECEIVE_ALERTS,

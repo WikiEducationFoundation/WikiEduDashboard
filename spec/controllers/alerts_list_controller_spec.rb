@@ -17,18 +17,18 @@ describe AlertsListController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       end
 
-      it 'renders the alerts list' do
-        get '/alerts_list'
+      it 'returns the alerts list' do
+        get '/alerts_list.json'
 
         expect(response.status).to eq(200)
         expect(response.body).to include(alert.type)
       end
 
-      it 'renders resolve button for resolvable alerts' do
-        get '/alerts_list'
+      it 'returns resolvable status for resolvable alerts' do
+        get '/alerts_list.json'
 
         expect(response.status).to eq(200)
-        expect(response.body).to include('Resolve')
+        expect(response.body).to include('resolvable')
       end
 
       context 'filtering' do
@@ -36,7 +36,7 @@ describe AlertsListController, type: :request do
         let!(:onboarding_alert) { create(:onboarding_alert, user: new_user) }
 
         it 'filters the alerts by user id' do
-          get "/alerts_list?user_id=#{new_user.id}"
+          get "/alerts_list.json?user_id=#{new_user.id}"
 
           expect(response.status).to eq(200)
           expect(response.body).to include(onboarding_alert.type)
@@ -46,7 +46,7 @@ describe AlertsListController, type: :request do
         it 'shows onboarding alerts for instructors of a course' do
           create(:courses_user, course: course, user: new_user,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-          get "/alerts_list?course_id=#{course.id}"
+          get "/alerts_list.json?course_id=#{course.id}"
 
           expect(response.status).to eq(200)
           expect(response.body).to include(onboarding_alert.type)
@@ -54,7 +54,7 @@ describe AlertsListController, type: :request do
         end
 
         it 'filters the alerts by type' do
-          get "/alerts_list?type=#{onboarding_alert.type}"
+          get "/alerts_list.json?type=#{onboarding_alert.type}"
 
           expect(response.status).to eq(200)
           expect(response.body).to include(onboarding_alert.type)
@@ -63,7 +63,7 @@ describe AlertsListController, type: :request do
 
         it 'filters by multiple properties' do
           FactoryBot.build(:onboarding_alert, user_id: user.id)
-          get "/alerts_list?user_id=#{new_user.id}&type=#{onboarding_alert.type}"
+          get "/alerts_list.json?user_id=#{new_user.id}&type=#{onboarding_alert.type}"
 
           expect(response.status).to eq(200)
           expect(response.body).to include(new_user.username)
