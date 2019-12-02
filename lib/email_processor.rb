@@ -44,6 +44,7 @@ class EmailProcessor
 
   def define_owner
     recipient_emails = @email.to.pluck(:email)
+    recipient_emails += @email.cc.pluck(:email) if @email.cc.present?
     @owner = User.find_by(greeter: true, email: recipient_emails)
   end
 
