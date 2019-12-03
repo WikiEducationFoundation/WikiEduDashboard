@@ -200,9 +200,28 @@ const Details = createReactClass({
       const coursesVar = '/courses/';
       const enrollmentUrl = window.location.origin + coursesVar + this.props.course_id + enrollEquals + this.props.course.passcode.toString();
       passcode = (
-        <a href={enrollmentUrl}>Enrollment Link</a>
+        <TextInput
+          onChange={this.updateDetails}
+          value={<a href={enrollmentUrl}>{this.props.course.passcode}</a>}
+          value_key="passcode"
+          editable={this.props.editable}
+          type="text"
+          label={I18n.t('courses.passcode')}
+          placeholder={I18n.t('courses.passcode_none')}
+          required={!!this.props.course.passcode_required}
+        />
       );
     }
+
+    // let passcode;
+    // if (this.props.course.passcode || this.props.editable) {
+    //   const enrollEquals = '?enroll=';
+    //   const coursesVar = '/courses/';
+    //   const enrollmentUrl = window.location.origin + coursesVar + this.props.course_id + enrollEquals + this.props.course.passcode.toString();
+    //   passcode = (
+    //     <a href={enrollmentUrl}>Enrollment Link</a>
+    //   );
+    // }
 
     let expectedStudents;
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
