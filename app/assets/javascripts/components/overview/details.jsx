@@ -34,6 +34,7 @@ import DatePicker from '../common/date_picker.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import AcademicSystem from '../common/academic_system.jsx';
+// import { url } from 'inspector';
 
 const POLL_INTERVAL = 60000; // 1 minute
 
@@ -195,17 +196,11 @@ const Details = createReactClass({
 
     let passcode;
     if (this.props.course.passcode || this.props.editable) {
+      const enrollEquals = '?enroll=';
+      const coursesVar = '/courses/';
+      const enrollmentUrl = window.location.origin + coursesVar + this.props.course_id + enrollEquals + this.props.course.passcode.toString();
       passcode = (
-        <TextInput
-          onChange={this.updateDetails}
-          value={this.props.course.passcode}
-          value_key="passcode"
-          editable={this.props.editable}
-          type="text"
-          label={I18n.t('courses.passcode')}
-          placeholder={I18n.t('courses.passcode_none')}
-          required={!!this.props.course.passcode_required}
-        />
+        <a href={enrollmentUrl}>Enrollment Link</a>
       );
     }
 
