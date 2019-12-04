@@ -85,13 +85,13 @@ Rails/Blank:
   Enabled: false # Sometimes unless foo.present? is more expressive.
 Layout/EmptyLineAfterMagicComment:
   Enabled: false # These get removed whenever 'annotate' updates a file anyway.
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
 Layout/TrailingWhitespace: # To disallow trailing whitespaces
   Enabled: true
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
   
 ########################
