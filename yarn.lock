@@ -9502,10 +9502,10 @@ normalize-url@2.0.1:
     query-string "^5.0.1"
     sort-keys "^2.0.0"
 
-nouislider@^14.0.3:
-  version "14.0.3"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-14.0.3.tgz#c0d51a25ae97395fe835254a1ff68765e40a4cc9"
-  integrity sha512-jJYqX5UqBjkHWf0Bz+OsYcdeKW1CgvntDGBSLL/+lQ/u/DD6rx1XIrO+2TSYlLEw2quLpsRMZ4JrBl0r/LPQyg==
+nouislider@^14.1.0:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-14.1.0.tgz#11e5c0483db7b59f5ff63506a646e296358b215c"
+  integrity sha512-o1EfnoqZKFtsoGl5re7IZ9AgFZ9tCsB+tnbBiomEODceDW+GhAIEeVbdXYUDbDIRmhDx1FIWLwBoSLrZlCFdYA==
 
 now-and-later@^2.0.0:
   version "2.0.1"
