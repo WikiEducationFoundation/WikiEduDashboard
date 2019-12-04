@@ -27,7 +27,7 @@ FactoryBot.define do
   end
 
   # article that does not exist
-  factory :redlink, class: Assignment do
+  factory :redlink, class: 'Assignment' do
     created_at { '2015-02-18 18:02:50' }
     updated_at { '2015-02-18 18:02:50' }
     course_id { 481 }

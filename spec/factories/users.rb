@@ -27,7 +27,7 @@
 #
 
 FactoryBot.define do
-  factory :test_user, class: User do
+  factory :test_user, class: 'User' do
     username { 'Pizza' }
     onboarded { true }
   end
@@ -37,24 +37,24 @@ FactoryBot.define do
     onboarded { true }
   end
 
-  factory :trained, class: User do
+  factory :trained, class: 'User' do
     username { 'Ragesoss' } # en.wiki local id 319203
     onboarded { true }
   end
 
-  factory :instructor, class: User do
+  factory :instructor, class: 'User' do
     username { 'Prof. Ragesoss' }
     onboarded { true }
     permissions { 2 }
   end
 
-  factory :admin, class: User do
+  factory :admin, class: 'User' do
     username { 'Ragesauce' }
     permissions { 1 }
     onboarded { true }
   end
 
-  factory :super_admin, class: User do
+  factory :super_admin, class: 'User' do
     username { 'Superragesauce' }
     permissions { 3 }
     onboarded { true }

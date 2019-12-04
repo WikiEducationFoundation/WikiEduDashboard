@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :email, class: OpenStruct do
+  factory :email, class: 'OpenStruct' do
     # Assumes Griddler.configure.to is :hash (default)
     to do
       [
