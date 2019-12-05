@@ -52,7 +52,7 @@
     "gulp-newer": "^1.4.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.1",
-    "gulp-rename": "^1.4.0",
+    "gulp-rename": "^2.0.0",
     "gulp-rev": "^9.0.0",
     "gulp-shell": "^0.7.1",
     "gulp-sourcemaps": "^2.6.5",
