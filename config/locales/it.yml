@@ -111,6 +111,9 @@ it:
     sign_up_help: Per utilizzare il pannello di controllo, dovrai fare login tramite
       Wikipedia e fornire autorizzazione per accedere alla tua utenza. Puoi accedere
       con una utenza esistente di Wikipedia o crearne una nuova.
+  alerts:
+    alert_label: Avvisi
+    no_alerts: Nessun avviso trovato.
   activity:
     all: Attività
     edited_by: Modificato da

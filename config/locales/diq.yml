@@ -61,6 +61,9 @@ diq:
     explore: Keşf ke
     log_in: Wikipedia ya Cıkew
     sign_up: Wikipedia ya qeyd be
+  alerts:
+    alert_label: İqazi
+    no_alerts: Qet iqaz nêvêniya.
   activity:
     all: Fealiyet
     edited_by: Vurnayoğ

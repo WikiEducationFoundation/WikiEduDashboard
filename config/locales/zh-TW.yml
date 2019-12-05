@@ -44,7 +44,7 @@ zh-TW:
     field_invalid_characters: 此欄位的字元無效
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
     field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
-    greeting2: 歡迎使用！
+    greeting2: 歡迎！
     greeting_extended: 歡迎來到維基百科
     greeting: 您好！
     help: 說明
@@ -94,6 +94,9 @@ zh-TW:
     log_in: 登入至維基百科
     sign_up: 註冊維基百科
     sign_up_help: 要使用資訊看板，您需要使用維基百科帳號登入，並允許資訊看板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。
+  alerts:
+    alert_label: 提醒
+    no_alerts: 找不到提醒。
   activity:
     all: 活動
     edited_by: 編輯自
@@ -153,7 +156,7 @@ zh-TW:
     tools: 評估工具
     view: 檢視文章
     view_all: 檢視全部
-    view_doc: 在專案中每個條目的檢視數
+    view_doc: 透過最新統計更新，各條目從首次編輯後的估計檢視數。您可以使用 tools.wmflabs.org/pageviews 來查看準確數字。
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
     edit_size: 編輯大小
@@ -550,7 +553,7 @@ zh-TW:
     user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
     view: 查看課程
-    view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
+    view_doc: 在選課的編輯者首次編輯條目之後，所有條目的估計瀏覽數量
     view_page: 查看課程頁面
     view_wiki: 在維基百科上檢視
     volunteer:

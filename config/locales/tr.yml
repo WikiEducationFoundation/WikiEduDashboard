@@ -115,6 +115,9 @@ tr:
     sign_up_help: Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
       hesabınıza erişme izni vermeniz gerekir. Var olan bir Vikipedi hesabıyla giriş
       yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz.
+  alerts:
+    alert_label: Uyarılar
+    no_alerts: Uyarı bulunamadı.
   activity:
     all: Etkinlik
     edited_by: Düzenleyen

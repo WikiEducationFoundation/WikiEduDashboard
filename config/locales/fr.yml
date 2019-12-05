@@ -120,6 +120,9 @@ fr:
     sign_up_help: Pour utiliser le tableau de bord, vous devez vous connecter via
       Wikipédia et lui donner le droit d’accéder à votre compte. Vous pouvez vous
       connecter avec un compte Wikipédia existant ou en créer un nouveau.
+  alerts:
+    alert_label: Alertes
+    no_alerts: Aucune alerte trouvée.
   activity:
     all: Activité
     edited_by: Modifié par
