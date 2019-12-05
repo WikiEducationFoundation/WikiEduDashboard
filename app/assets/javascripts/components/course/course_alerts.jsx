@@ -127,7 +127,26 @@ const CourseAlerts = createReactClass({
     if (course.survey_notifications && course.survey_notifications.length) {
       course.survey_notifications.forEach((notification) => {
         const dismissOnClick = () => this.dismissSurvey(notification.id);
-        return alerts.push(<CourseAlert key={`survey_notification_${notification.id}`} message={notification.message || I18n.t('courses.survey.notification_message')} className="notification--survey" actionLink={notification.survey_url} actionClassName="pull-right" actionMessage={I18n.t('courses.survey.link')} components={<button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>} />);
+        const components = (
+          <button
+            className="button small pull-right border inverse-border"
+            onClick={dismissOnClick}
+          >
+            {I18n.t('courses.dismiss_survey')}
+          </button>
+        );
+
+        return alerts.push(
+          <CourseAlert
+            key={`survey_notification_${notification.id}`}
+            actionClassName="pull-right"
+            actionMessage={I18n.t('courses.survey.link')}
+            className="notification--survey"
+            components={components}
+            href={notification.survey_url}
+            message={notification.message || I18n.t('courses.survey.notification_message')}
+          />
+        );
       });
     }
 

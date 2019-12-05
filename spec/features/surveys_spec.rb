@@ -19,7 +19,7 @@ describe 'Surveys', type: :feature, js: true do
   describe 'Instructor takes survey' do
     before do
       @instructor = create(:user)
-      @course = create(:course, title: 'My Active Course')
+      @course = create(:course, title: 'My Active Course', slug: 'my_active/course')
       article = create(:article)
       create(:articles_course, article_id: article.id, course_id: @course.id)
 
@@ -121,9 +121,21 @@ describe 'Surveys', type: :feature, js: true do
              courses_users_id: @courses_user.id)
     end
 
-    it 'sets the course and shows the progress bar' do
+    it 'sets the course and shows the progress bar by going directly to the survey' do
       login_as(@instructor, scope: :user)
       visit survey_path(@survey)
+      # Sets the course automatically
+      expect(page).to have_content 'Survey for My Active Course'
+      expect(page).to have_content 'progress'
+    end
+
+    it 'sets the course and shows the progress bar by going to the course page' do
+      stub_token_request
+      login_as(@instructor, scope: :user)
+
+      visit "/courses/#{@course.slug}"
+      expect(page).to have_content 'Take our survey for this course.'
+      click_link 'Take Survey'
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
       expect(page).to have_content 'progress'
