@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Loading from '../common/loading.jsx';
+import SubNavigation from '../common/sub_navigation.jsx';
 import ArticleList from './article_list.jsx';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
@@ -60,44 +61,25 @@ export const ArticlesHandler = createReactClass({
       categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
     }
 
+    const links = [
+      {
+        href: `/courses/${this.props.course.slug}/articles/edited`,
+        text: I18n.t('articles.edited')
+      },
+      {
+        href: `/courses/${this.props.course.slug}/articles/assigned`,
+        text: I18n.t('articles.assigned')
+      },
+      {
+        href: `/courses/${this.props.course.slug}/articles/available`,
+        text: I18n.t('articles.available')
+      }
+    ];
+
     if (this.state.loading) return <Loading />;
     return (
       <div className="articles-view">
-        <nav>
-          <ul>
-            <li>
-              <NavLink
-                to={`/courses/${this.props.course.slug}/articles/edited`}
-                activeClassName="active"
-                className="button"
-              >
-                {I18n.t('articles.edited')}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={`/courses/${this.props.course.slug}/articles/assigned`}
-                activeClassName="active"
-                className="button"
-              >
-                {I18n.t('articles.assigned')}
-              </NavLink>
-            </li>
-            <li>
-              {
-                !this.hideAssignments() && (
-                  <NavLink
-                    to={`/courses/${this.props.course.slug}/articles/available`}
-                    activeClassName="active"
-                    className="button"
-                  >
-                    {I18n.t('articles.available')}
-                  </NavLink>
-                )
-              }
-            </li>
-          </ul>
-        </nav>
+        <SubNavigation links={links} />
 
         <Switch>
           <Route exact path="/courses/:course_school/:course_title/articles/edited" render={() => <ArticleList {...this.props} />} />

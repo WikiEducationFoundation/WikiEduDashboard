@@ -1104,6 +1104,11 @@ en:
     reviewers: Reviewer(s)
     reviewing: Reviewing
     sandboxes: sandboxes
+    sub_navigation:
+      article_assignments: Article Assignments
+      editor_overview: Editor Overview
+      exercises_and_trainings: Exercises & Trainings
+      student_overview: Student Overview
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
