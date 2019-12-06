@@ -7,6 +7,6 @@ check_run() {
 }
 
 # check for npm pkgs change
-check_run package.json "npm install"
+check_run package.json "yarn install --ignore-engines"
 # check for gems change
 check_run Gemfile "bundle install"
