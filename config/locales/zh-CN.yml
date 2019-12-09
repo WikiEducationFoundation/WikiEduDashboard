@@ -21,6 +21,7 @@
 # Author: Yanjiazhang
 # Author: Yfdyh000
 # Author: 予弦
+# Author: 沈澄心
 # Author: 神樂坂秀吉
 ---
 zh-CN:
@@ -86,6 +87,9 @@ zh-CN:
     log_in: 登录维基百科
     sign_up: 注册维基百科
     sign_up_help: 要使用面板，您需要通过维基百科登录，并提供权限以访问您的账户。您可以使用现有的维基百科账户登录，或创建一个新账户。
+  alerts:
+    alert_label: 提醒
+    no_alerts: 找不到提醒。
   activity:
     all: 活跃
     edited_by: 编辑自
