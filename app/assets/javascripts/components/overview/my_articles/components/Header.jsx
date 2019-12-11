@@ -12,14 +12,14 @@ import {
 } from '~/app/assets/javascripts/constants/assignments';
 
 export const Header = ({
-  assigned, course, current_user, reviewable, reviewing, unassigned, wikidataLabels
+  assigned, course, current_user, reviewable, reviewing, unassigned, wikidataLabels, editable
 }) => (
   <div className="section-header my-articles-header">
     <h3>{I18n.t('courses.my_articles')}</h3>
     <div className="controls">
       <AssignCell
         assignments={assigned}
-        editable
+        editable={editable}
         course={course}
         current_user={current_user}
         hideAssignedArticles
@@ -35,7 +35,7 @@ export const Header = ({
         assignments={reviewing}
         course={course}
         current_user={current_user}
-        editable
+        editable={editable}
         hideAssignedArticles
         id="user_reviewing"
         prefix={I18n.t('users.my_reviewing')}
@@ -71,6 +71,7 @@ Header.propTypes = {
   wikidataLabels: PropTypes.shape({
     labels: PropTypes.object
   }).isRequired,
+  editable: PropTypes.bool
 };
 
 export default Header;
