@@ -41,6 +41,9 @@ categories:
     description: |
       These modules cover specific topics, in-depth, with how-to instructions.
     modules:
+      - slug: using-the-dashboard
+        name: Using the Dashboard to track assignments
+        description: How to use My Articles and other assignment-tracking features
       - slug: sources
         name: Adding citations
         description: What makes a good source, and how to create citations
