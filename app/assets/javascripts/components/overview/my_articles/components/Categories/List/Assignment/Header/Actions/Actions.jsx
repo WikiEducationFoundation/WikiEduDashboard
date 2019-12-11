@@ -13,7 +13,7 @@ import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, isProduction, username,
-  isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
+  isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign, editable
 }) => {
   const actions = [];
 
@@ -23,14 +23,17 @@ export const Actions = ({
 
   // Assigned article that does not yet exist in mainspace
   if (isEnglishWikipedia()) {
-    const feedback = (
-      <Feedback
-        assignment={assignment}
-        current_user={current_user}
-        key="feedback-button"
-        username={username}
-      />
-    );
+    let feedback;
+    if (editable) {
+      feedback = (
+        <Feedback
+          assignment={assignment}
+          current_user={current_user}
+          key="feedback-button"
+          username={username}
+        />
+      );
+    }
     if (assignment.role === 0 && !assignment.article_id) {
       actions.push(<MainspaceChecklist key="mainspace-button" />, feedback);
     } else if (assignment.role === 0) {
@@ -56,10 +59,15 @@ export const Actions = ({
     );
   }
 
+  let removeButton;
+  if (editable) {
+    removeButton = <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />;
+  }
+
   return (
     <section className="actions">
       {actions}
-      <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />
+      {removeButton}
     </section>
   );
 };
@@ -73,7 +81,7 @@ Actions.propTypes = {
   isComplete: PropTypes.bool.isRequired,
   isProduction: PropTypes.bool, // TODO: Remove when ready
   username: PropTypes.string.isRequired,
-
+  editable: PropTypes.bool,
   // actions
   isEnglishWikipedia: PropTypes.func.isRequired,
   handleUpdateAssignment: PropTypes.func.isRequired,
