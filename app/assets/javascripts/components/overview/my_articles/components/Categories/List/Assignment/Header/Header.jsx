@@ -33,7 +33,7 @@ const unassign = ({ assignment, course, initiateConfirm, deleteAssignment }) => 
 
 export const Header = ({
   article, articleTitle, assignment, course, current_user, isComplete, isProduction, username,
-  deleteAssignment, fetchAssignments, initiateConfirm, updateAssignmentStatus
+  deleteAssignment, fetchAssignments, initiateConfirm, updateAssignmentStatus, editable
 }) => (
   <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
     <Links
@@ -54,6 +54,7 @@ export const Header = ({
       unassign={unassign({ assignment, course, initiateConfirm, deleteAssignment })}
       handleUpdateAssignment={updateAssignmentStatus}
       username={username}
+      editable={editable}
     />
   </header>
 );
@@ -68,6 +69,7 @@ Header.propTypes = {
   isComplete: PropTypes.bool.isRequired,
   isProduction: PropTypes.bool, // TODO: Remove when ready
   username: PropTypes.string.isRequired,
+  editable: PropTypes.bool,
   // actions
   deleteAssignment: PropTypes.func.isRequired,
   fetchAssignments: PropTypes.func.isRequired,
