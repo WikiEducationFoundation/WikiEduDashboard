@@ -19,11 +19,11 @@ export class Assignment extends React.Component {
   }
 
   render() {
-    const { assignment, course, wikidataLabels } = this.props;
+    const { assignment, course, wikidataLabels, editable } = this.props;
 
     const {
       article, title
-    } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels);
+    } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels, editable);
 
     const isComplete = this.isComplete();
     const isClassroomProgram = course.type === 'ClassroomProgramCourse';
@@ -50,7 +50,7 @@ Assignment.propTypes = {
   current_user: PropTypes.object,
   username: PropTypes.string,
   wikidataLabels: PropTypes.object.isRequired,
-
+  editable: PropTypes.bool,
   // actions
   deleteAssignment: PropTypes.func.isRequired,
   fetchAssignments: PropTypes.func.isRequired,
