@@ -22,7 +22,7 @@ export class MyArticlesContainer extends React.Component {
 
   render() {
     const {
-      course, current_user, loading, wikidataLabels
+      course, current_user, loading, wikidataLabels, editable
     } = this.props;
 
     const {
@@ -54,6 +54,7 @@ export class MyArticlesContainer extends React.Component {
             reviewing={reviewing}
             unassigned={unassigned}
             wikidataLabels={wikidataLabels}
+            editable={editable}
           />
           <MyArticlesCategories
             assignments={all}
@@ -61,6 +62,7 @@ export class MyArticlesContainer extends React.Component {
             current_user={current_user}
             loading={loading}
             wikidataLabels={wikidataLabels}
+            editable={editable}
           />
           {noArticlesMessage}
         </div>
@@ -76,7 +78,7 @@ MyArticlesContainer.propTypes = {
   current_user: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   wikidataLabels: PropTypes.object.isRequired,
-
+  editable: PropTypes.bool,
   // actions
   fetchAssignments: PropTypes.func.isRequired,
 };
