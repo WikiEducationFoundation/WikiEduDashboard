@@ -11,6 +11,7 @@ const UserUtils = class {
       roles.isEnrolled = true;
     }
     if (getFiltered(users, { id: currentUser.id, role: INSTRUCTOR_ROLE })[0]) {
+      roles.isStudent = true;
       roles.isInstructor = true;
       roles.isAdvancedRole = true;
       roles.isEnrolled = true;
