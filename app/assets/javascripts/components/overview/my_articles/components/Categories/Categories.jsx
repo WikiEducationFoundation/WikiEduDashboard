@@ -12,7 +12,7 @@ const filterStatus = status => ({ article_status }) => status === article_status
 const sortBy = key => (a, b) => (a[key] > b[key] ? 1 : -1);
 
 // Main Component
-export const Categories = ({ assignments, course, current_user, wikidataLabels }) => {
+export const Categories = ({ assignments, course, current_user, wikidataLabels, editable }) => {
   const articles = {
     new: assignments.filter(filterStatus(NEW_ARTICLE)).sort(sortBy('article_title')),
     improving: assignments.filter(filterStatus(IMPROVING_ARTICLE)).sort(sortBy('article_title')),
@@ -24,17 +24,17 @@ export const Categories = ({ assignments, course, current_user, wikidataLabels }
     <>
       {
         articles.new.length
-          ? <List {...listProps} assignments={articles.new} title="Articles I will create" />
+          ? <List {...listProps} assignments={articles.new} title="Articles I will create" editable={editable} />
           : null
       }
       {
         articles.improving.length
-          ? <List {...listProps} assignments={articles.improving} title="Articles I'm updating" />
+          ? <List {...listProps} assignments={articles.improving} title="Articles I'm updating" editable={editable} />
           : null
       }
       {
         articles.reviewing.length
-          ? <List {...listProps} assignments={articles.reviewing} title="Articles I'm peer reviewing" />
+          ? <List {...listProps} assignments={articles.reviewing} title="Articles I'm peer reviewing" editable={editable} />
           : null
       }
     </>
@@ -47,6 +47,7 @@ Categories.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object.isRequired,
+  editable: PropTypes.bool
 };
 
 export default Categories;
