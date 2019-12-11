@@ -155,28 +155,54 @@
     vertical-align super
     font-size smaller
 
-.wikibase-statementgroupview-property-label
-  padding 30px 10px
-  width 100%
-  margin-right 70px
+.wikibase-statementgroupview-property-label 
+	padding 30px 10px
+	width 100%
+	margin-right 70px
 
-.wikibase-statementgroupview-property
-  background-color #eaecf0
+.wikibase-statementgroupview-property 
+	background-color #eaecf0
+	width 15em
 
-.wikibase-statementgroupview
-  background-color #fff
-  border 1px solid #c8ccd1
-  margin-bottom 15px
-  display flex
+.wikibase-statementgroupview 
+	background-color #fff
+	border 1px solid #c8ccd1
+	margin-bottom 15px
+	display flex
 
-.wb-normal
-  margin-left 15px
-  border-bottom 1px solid #eaecf0
-  width 100%
-  padding 15px 5px
+.wb-normal, .wb-preferred 
+	border-bottom 1px solid #eaecf0
+	width 100%
+	padding 15px 25px
 
-.wikibase-statementlistview
-  width -webkit-fill-available
+.wikibase-statementlistview 
+	width -webkit-fill-available
 
-.wikibase-statementview-mainsnak-container
-  margin-right 30px
+.wikibase-statementview-mainsnak-container 
+	margin-right 30px
+
+.wikibase-snakview 
+	display flex
+
+.wikibase-statementview-qualifiers 
+	.wikibase-snakview-value 
+		margin-left 12em
+
+.wikibase-referenceview-listview 
+	padding 20px 0
+	background-color #f8f9fa
+
+.wikibase-referenceview 
+	.wikibase-snaklistview-listview 
+		.wikibase-snakview-value-container 
+			margin-left 12em
+			position relative
+
+		.wikibase-snakview-property 
+			width 12em
+			font-size 90%
+
+.wikibase-referenceview-listview 
+	div 
+		&.wikibase-snakview 
+			padding 10px 5px 5px 10px
