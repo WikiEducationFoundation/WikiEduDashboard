@@ -16,6 +16,7 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles/containers';
 import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
+import Popover from '../common/popover.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
@@ -48,6 +49,13 @@ const Overview = createReactClass({
     isValid: PropTypes.bool.isRequired
   },
 
+  getInitialState() {
+      return ({
+        is_open: false,
+        viewAsStudent: false
+      });
+  },
+
   componentDidMount() {
     if (this.props.current_user.admin) {
       this.props.fetchOnboardingAlert(this.props.course);
@@ -55,8 +63,18 @@ const Overview = createReactClass({
     }
   },
 
+  changeViewMode(student) {
+    this.setState({
+      viewAsStudent: !this.state.viewAsStudent,
+      is_open: !this.state.is_open
+    });
+    this.props.current_user.id = student.id;
+  },
+
   render() {
     const course = this.props.course;
+    const currentUser = this.props.current_user;
+    const userId = this.props.current_user.id;
 
     if (course.cloned_status === 1) {
       return (
@@ -66,7 +84,7 @@ const Overview = createReactClass({
           deleteCourse={this.props.deleteCourse}
           updateCourse={this.props.updateCourse}
           updateClonedCourse={this.props.updateClonedCourse}
-          currentUser={this.props.current_user}
+          currentUser={currentUser}
           firstErrorMessage={this.props.firstErrorMessage}
           isValid={this.props.isValid}
           setValid={this.props.setValid}
@@ -105,18 +123,19 @@ const Overview = createReactClass({
           description={course.description}
           title={course.title}
           course_id={this.props.course_id}
-          current_user={this.props.current_user}
+          current_user={currentUser}
           updateCourse={this.props.updateCourse}
           resetState={this.props.resetCourse}
           persistCourse={this.props.persistCourse}
           nameHasChanged={this.props.nameHasChanged}
+          editable={!this.state.viewAsStudent}
         />
         {thisWeek}
       </div>
     );
 
     let userArticles;
-    if (this.props.current_user.isStudent && course.id) {
+    if ((this.state.viewAsStudent || (currentUser.isStudent && !currentUser.isInstructor)) && course.id) {
       userArticles = (
         <>
           {
@@ -127,12 +146,12 @@ const Overview = createReactClass({
           <MyArticles
             course={course}
             course_id={this.props.course_id}
-            current_user={this.props.current_user}
+            current_user={currentUser}
+            editable={!this.state.viewAsStudent}
           />
         </>
       );
     }
-
     const sidebar = course.id ? (
       <div className="sidebar">
         <Details
@@ -142,16 +161,55 @@ const Overview = createReactClass({
           persistCourse={this.props.persistCourse}
           nameHasChanged={this.props.nameHasChanged}
           refetchCourse={this.props.refetchCourse}
+          editable={!this.state.viewAsStudent}
         />
-        <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
+        <AvailableActions course={course} current_user={currentUser} updateCourse={this.props.updateCourse} editable={!this.state.viewAsStudent} />
         <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} />
       </div>
     ) : (
       <div className="sidebar" />
     );
 
+
+    const handleClick = () => {
+      if (this.state.viewAsStudent) {
+        currentUser.id = userId;
+        this.setState({ viewAsStudent: !this.state.viewAsStudent });
+      } else {
+        this.setState({ is_open: !this.state.is_open });
+      }
+    };
+
+    const edit_rows = [];
+    const users = this.props.students.map((student) => {
+        return (
+          <tr>
+            <td><button onClick={() => { this.changeViewMode(student); }}>{student.username}</button></td>
+          </tr>
+        );
+    });
+
+    let buttonText = 'View As';
+    buttonText += this.state.viewAsStudent ? ' Instructor' : ' Student';
+
+    let toggleButton;
+    if (currentUser.isInstructor) {
+      toggleButton = (
+        <div className="pop__container">
+          <button className="button dark" onClick={handleClick}>{buttonText}</button>
+          <Popover
+            is_open={this.state.is_open}
+            edit_row={edit_rows}
+            rows={users}
+          />
+        </div>
+      );
+  }
+
     return (
+
       <section className="overview container">
+        {toggleButton}
         { syllabusUpload }
         <CourseStats course={course} />
         <StatisticsUpdateInfo course={course} />
