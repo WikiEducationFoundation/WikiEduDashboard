@@ -33,7 +33,6 @@ const AvailableActions = createReactClass({
     deleteCourse: PropTypes.func.isRequired,
     greetStudents: PropTypes.func.isRequired,
     removeUser: PropTypes.func.isRequired,
-    editable: PropTypes.bool,
   },
 
   join(role = null) {
