@@ -152,6 +152,10 @@ const Overview = createReactClass({
         </>
       );
     }
+    let availableActions;
+    if (!this.state.viewAsStudent) {
+      availableActions = <AvailableActions course={course} current_user={currentUser} updateCourse={this.props.updateCourse} />;
+    }
     const sidebar = course.id ? (
       <div className="sidebar">
         <Details
@@ -163,7 +167,7 @@ const Overview = createReactClass({
           refetchCourse={this.props.refetchCourse}
           editable={!this.state.viewAsStudent}
         />
-        <AvailableActions course={course} current_user={currentUser} updateCourse={this.props.updateCourse} editable={!this.state.viewAsStudent} />
+        {availableActions}
         <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} />
       </div>
     ) : (
