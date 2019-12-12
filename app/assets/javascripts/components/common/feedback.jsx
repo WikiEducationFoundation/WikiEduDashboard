@@ -18,7 +18,8 @@ const Feedback = createReactClass({
     deleteUserFeedback: PropTypes.func,
     feedback: PropTypes.object,
     assignment: PropTypes.object.isRequired,
-    username: PropTypes.string
+    username: PropTypes.string,
+    editable: PropTypes.bool
   },
 
   getInitialState() {
@@ -92,7 +93,18 @@ const Feedback = createReactClass({
     if (this.state.show) {
       button = <button onClick={this.hide} className="okay icon-close" />;
     } else {
-      button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
+      button = (
+        <a
+          onClick={() => {
+            if (this.props.editable) {
+              this.show();
+            }
+          }}
+          className="button dark small"
+        >
+          {I18n.t('courses.feedback')}
+        </a>
+      );
     }
 
     let submitFeedback;
