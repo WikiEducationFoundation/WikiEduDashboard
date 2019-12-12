@@ -8,7 +8,7 @@ import Header from './Header/Header.jsx';
 // constants
 import { REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
 
-export const List = ({ assignments, course, current_user, title, wikidataLabels }) => {
+export const List = ({ assignments, course, current_user, title, wikidataLabels, editable }) => {
   const elements = assignments.map((assignment) => {
     return (
       <Assignment
@@ -18,6 +18,7 @@ export const List = ({ assignments, course, current_user, title, wikidataLabels 
         key={assignment.id}
         username={current_user.username}
         wikidataLabels={wikidataLabels}
+        editable={editable}
       />
     );
   });
@@ -43,6 +44,7 @@ List.propTypes = {
   current_user: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   wikidataLabels: PropTypes.object.isRequired,
+  editable: PropTypes.bool,
 };
 
 export default List;
