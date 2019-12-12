@@ -36,7 +36,7 @@ export class Assignment extends React.Component {
 
     return (
       <div className={`my-assignment mb1${(isComplete && enable) ? ' complete' : ''}`}>
-        <MyArticlesHeader {...props} />
+        <MyArticlesHeader {...props} editable={editable} />
         { enable ? progressTracker : null }
       </div>
     );
