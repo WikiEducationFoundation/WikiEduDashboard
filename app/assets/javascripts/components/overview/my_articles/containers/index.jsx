@@ -42,7 +42,7 @@ export class MyArticlesContainer extends React.Component {
         noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
       }
     }
-
+//    console.log(editable);
     return (
       <div>
         <div className="module my-articles">
