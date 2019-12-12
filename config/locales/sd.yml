@@ -122,7 +122,7 @@ sd:
   campaign:
     add_organizer: سرپرست شامل ڪيو (Add organizer)
     alert_article: مضمون جو عنوان
-    alert_user_id: واهپيندڙ (يُوزر)
+    alert_user_id: واپرائيندڙ
     all_campaigns: سڀ مهمون (All Campaigns)
     campaign: مهم (Campaign)
     created_at: تاريخ

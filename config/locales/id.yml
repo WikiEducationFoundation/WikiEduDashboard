@@ -18,9 +18,12 @@ id:
     human:
       decimal_units:
         units:
+          thousand: Rb
+          million: Jt
           trillion: T
   application:
     cancel: Batal
+    create_accounts: Buat akun Wikipedia
     dashboard: Papan Utama Wiki Ed
     documentation: Dokumentasi
     error: 'Terjadi kesalahan:'
@@ -28,7 +31,11 @@ id:
     field_required: Bidang ini perlu diisi
     field_invalid_characters: Ada karakter tidak sah di bidang ini
     greeting2: Selamat datang!
+    greeting_extended: Selamat datang di Wikipedia
+    greeting: Halo!
     help: Bantuan
+    home: Beranda
+    log_in_extended: Masuk log dengan Wikipedia
     log_in: Masuk
     log_out: Keluar
     my_dashboard: Papan instrumen saya

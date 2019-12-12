@@ -48,6 +48,9 @@ lt:
     explore: Naršyti
     log_in: Prisijungti su Vikipedija
     sign_up: Registruotis su Vikipedija
+  alerts:
+    alert_label: Perspėjimai
+    no_alerts: Nerasta jokių perspėjimų.
   activity:
     all: Veikla
     edited_by: Redagavo
