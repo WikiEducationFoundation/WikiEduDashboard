@@ -1,95 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import MyArticlesHeader from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Header.jsx';
+import MyArticlesCompletedAssignment from '@components/overview/my_articles/components/Categories/List/Assignment/CompletedAssignment.jsx';
+import MyArticlesProgressTracker from '@components/overview/my_articles/components/Categories/List/Assignment/ProgressTracker/ProgressTracker.jsx';
 
-// components
-import MyArticlesNoAssignmentMessage from '@components/overview/my_articles/components/NoAssignmentMessage.jsx';
-import MyArticlesHeader from '@components/overview/my_articles/components/Header.jsx';
-import MyArticlesCategories from '@components/overview/my_articles/components/Categories/Categories.jsx';
+import { initiateConfirm } from '~/app/assets/javascripts/actions/confirm_actions';
+import { deleteAssignment, fetchAssignments, updateAssignmentStatus } from '~/app/assets/javascripts/actions/assignment_actions';
 
-// actions
-import { fetchAssignments } from '~/app/assets/javascripts/actions/assignment_actions';
-
-// helper functions
-import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
-
-export class MyArticlesContainer extends React.Component {
-  componentDidMount() {
-    if (this.props.loading) {
-      this.props.fetchAssignments(this.props.course.slug);
-    }
+// Main Component
+export class Assignment extends React.Component {
+  isComplete() {
+    const { assignment } = this.props;
+    const allStatuses = assignment.assignment_all_statuses;
+    const lastStatus = allStatuses[allStatuses.length - 1];
+    return assignment.assignment_status === lastStatus;
   }
 
   render() {
-    const {
-      course, current_user, loading, wikidataLabels, editable
-    } = this.props;
+    const { assignment, course, wikidataLabels, editable } = this.props;
 
     const {
-      assigned,
-      reviewing,
-      unassigned,
-      reviewable,
-      all
-    } = processAssignments(this.props);
+      article, title
+    } = CourseUtils.articleAndArticleTitle(assignment, course, wikidataLabels, editable);
 
-    if (loading || !current_user.isStudent) return null;
-    let noArticlesMessage;
-    if (!assigned.length && current_user.isStudent) {
-      if (Features.wikiEd) {
-        noArticlesMessage = <MyArticlesNoAssignmentMessage />;
-      } else {
-        noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
-      }
-    }
-//    console.log(editable);
+    const isComplete = this.isComplete();
+    const isClassroomProgram = course.type === 'ClassroomProgramCourse';
+    const enable = isClassroomProgram && Features.enableAdvancedFeatures; // TODO: Remove when ready
+
+    const props = { ...this.props, article, articleTitle: title, isComplete };
+    const progressTracker = isComplete
+      ? <MyArticlesCompletedAssignment />
+      : <MyArticlesProgressTracker {...props} />;
+
     return (
-      <div>
-        <div className="module my-articles">
-          <MyArticlesHeader
-            assigned={assigned}
-            course={course}
-            current_user={current_user}
-            reviewable={reviewable}
-            reviewing={reviewing}
-            unassigned={unassigned}
-            wikidataLabels={wikidataLabels}
-            editable={editable}
-          />
-          <MyArticlesCategories
-            assignments={all}
-            course={course}
-            current_user={current_user}
-            loading={loading}
-            wikidataLabels={wikidataLabels}
-            editable={editable}
-          />
-          {noArticlesMessage}
-        </div>
+      <div className={`my-assignment mb1${(isComplete && enable) ? ' complete' : ''}`}>
+        <MyArticlesHeader {...props} editable={editable} />
+        { enable ? progressTracker : null }
       </div>
     );
   }
 }
 
-MyArticlesContainer.propTypes = {
+Assignment.propTypes = {
   // props
-  assignments: PropTypes.array.isRequired,
+  assignment: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object,
-  loading: PropTypes.bool.isRequired,
+  username: PropTypes.string,
   wikidataLabels: PropTypes.object.isRequired,
   editable: PropTypes.bool,
   // actions
+  deleteAssignment: PropTypes.func.isRequired,
   fetchAssignments: PropTypes.func.isRequired,
+  initiateConfirm: PropTypes.func.isRequired,
+  updateAssignmentStatus: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  assignments: state.assignments.assignments,
-  course: state.course,
-  loading: state.assignments.loading,
-  wikidataLabels: state.wikidataLabels
-});
+const mapDispatchToProps = {
+  initiateConfirm,
+  deleteAssignment,
+  fetchAssignments,
+  updateAssignmentStatus
+};
 
-const mapDispatchToProps = { fetchAssignments };
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyArticlesContainer);
+export default connect(null, mapDispatchToProps)(Assignment);
