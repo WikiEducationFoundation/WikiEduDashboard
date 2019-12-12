@@ -125,50 +125,49 @@ const AvailableActions = createReactClass({
     const course = this.props.course;
     const controls = [];
     const user = this.props.current_user;
+
     // If user has a role in the course or is an admin
-    if (this.props.editable) {
-      if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
-        // If user is a student, show the 'leave' button.
-        if (user.isStudent || user.isOnlineVolunteer) {
-          controls.push((
-            <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
-          ));
-        }
-        // If course is not published, show the 'delete' button to instructors and admins.
-        // Show a disabled version of it on P&E Dashboard even if a course is published,
-        // so that users can see the instructions for how to enable deletion.
-        if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
-          controls.push((
-            <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
-              <button className="button danger" onClick={this.delete}>
-                {CourseUtils.i18n('delete_course', course.string_prefix)}
-              </button>
-            </div>
-          ));
-        }
-        // If the course is ended, show the 'needs update' button.
-        if (CourseDateUtils.isEnded(course)) {
-          controls.push((
-            <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
-          ));
-        }
-        // If chat is available but not enabled for course, show the 'enable chat' button.
-        if (Features.enableChat && !course.flags.enable_chat && user.admin) {
-          controls.push((
-            <div key="enable_chat" className="available-action"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></div>
-          ));
-        }
-      // If user has no role or is logged out
-      } else if (!course.ended) {
-        controls.push(
-          <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
-        );
-        // On P&E Dashboard, offer option to join as online volunteer
+    if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
+      // If user is a student, show the 'leave' button.
+      if (user.isStudent || user.isOnlineVolunteer) {
+        controls.push((
+          <div key="leave" className="available-action"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
+        ));
+      }
+      // If course is not published, show the 'delete' button to instructors and admins.
+      // Show a disabled version of it on P&E Dashboard even if a course is published,
+      // so that users can see the instructions for how to enable deletion.
+      if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
+        controls.push((
+          <div title={I18n.t('courses.delete_course_instructions')} key="delete" className="available-action">
+            <button className="button danger" onClick={this.delete}>
+              {CourseUtils.i18n('delete_course', course.string_prefix)}
+            </button>
+          </div>
+        ));
+      }
+      // If the course is ended, show the 'needs update' button.
+      if (CourseDateUtils.isEnded(course)) {
+        controls.push((
+          <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
+        ));
+      }
+      // If chat is available but not enabled for course, show the 'enable chat' button.
+      if (Features.enableChat && !course.flags.enable_chat && user.admin) {
+        controls.push((
+          <div key="enable_chat" className="available-action"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></div>
+        ));
+      }
+    // If user has no role or is logged out
+    } else if (!course.ended) {
+      controls.push(
+        <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
+      );
+      // On P&E Dashboard, offer option to join as online volunteer
         if (!Features.wikiEd && course.online_volunteers_enabled) {
-          controls.push(
-            <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
-          );
-        }
+        controls.push(
+          <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+        );
       }
     }
     // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
@@ -180,7 +179,7 @@ const AvailableActions = createReactClass({
 
     // Requested accounts
     // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
-    if (this.props.editable && ((user.isAdvancedRole && !Features.wikiEd) || user.admin)) {
+    if ((user.isAdvancedRole && !Features.wikiEd) || user.admin) {
       // Enable account requests if allowed
       if (!course.account_requests_enabled) {
         controls.push((
