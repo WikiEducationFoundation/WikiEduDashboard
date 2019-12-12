@@ -47,7 +47,7 @@ Categories.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object.isRequired,
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
 };
 
 export default Categories;
