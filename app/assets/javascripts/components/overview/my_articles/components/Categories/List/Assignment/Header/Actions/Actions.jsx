@@ -23,17 +23,16 @@ export const Actions = ({
 
   // Assigned article that does not yet exist in mainspace
   if (isEnglishWikipedia()) {
-    let feedback;
-    if (editable) {
-      feedback = (
-        <Feedback
-          assignment={assignment}
-          current_user={current_user}
-          key="feedback-button"
-          username={username}
-        />
-      );
-    }
+    const feedback = (
+      <Feedback
+        assignment={assignment}
+        current_user={current_user}
+        key="feedback-button"
+        username={username}
+        editable={editable}
+      />
+    );
+
     if (assignment.role === 0 && !assignment.article_id) {
       actions.push(<MainspaceChecklist key="mainspace-button" />, feedback);
     } else if (assignment.role === 0) {
@@ -59,15 +58,10 @@ export const Actions = ({
     );
   }
 
-  let removeButton;
-  if (editable) {
-    removeButton = <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />;
-  }
-
   return (
     <section className="actions">
       {actions}
-      {removeButton}
+      <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} editable={editable} />;
     </section>
   );
 };
