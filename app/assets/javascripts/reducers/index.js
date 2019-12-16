@@ -38,6 +38,7 @@ import users from './users';
 import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
+import campaign from './campaign';
 
 const reducer = combineReducers({
   admins: (state = {}) => state, // only set from preloaded state
@@ -46,6 +47,7 @@ const reducer = combineReducers({
   articleFinder,
   articles,
   assignments,
+  campaign,
   campaigns,
   categories,
   chat,
