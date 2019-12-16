@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Kusavica
+# Author: Luky001
 # Author: Pmikolas44
 # Author: TomášPolonec
 ---
@@ -9,6 +10,7 @@ sk:
   application:
     cancel: Zrušiť
     dashboard: Wiki Ed Dashboard
+    documentation: Dokumentácia
     error: 'Vyskytla sa chyba:'
     explore: Preskúmať
     field_required: Toto pole je povinné.
@@ -24,12 +26,15 @@ sk:
     log_out: Odhlásiť sa
     my_dashboard: Moja nástenka
     recent_activity: Nedávna činnosť
+    report_problem: Nahlásiť problém
     search: Položiť otázku
     sign_up_extended: Zaregistrovať sa na Wikipédiu
     sign_up_log_in_extended: s Wikipédiou
     sign_up: Zaregistrovať sa
     submit: Odoslať
+    training: Sprievodca
     change: Zmeniť
+    details: Podrobnosti
   dashboard:
     create_note: Stlačte tlačidlo „Vytvoriť kurz“ a vytvorte svoj prvý kurz.
     explore_course_pages: Preskúmať kurzové stránky
@@ -154,9 +159,13 @@ sk:
         ktoré budú vaši študenti pridávať.
       role_description: Vaša úloha v kurze
       role_description_placeholder: Inštruktor, asistent učiteľa atď.
+    home_wiki: Domovská wiki
     instructor:
       one: Inštruktor
       other: Inštruktori
+    invitation: Boli ste pozvaní k pripojeniu sa ku kurzu %{title}, ale najprv sa
+      musíte prihlásiť k svojmu účtu.
+    overview: Domov
     students: Študenti
     students_short: Študenti
   courses_generic:
@@ -164,6 +173,26 @@ sk:
       course_description_placeholder: O čom je tento program, a čo budú účastníci
         wiki(s) robiť? Uveďte prosím dostatok podrobností, aby ste ostatným editorom
         poskytli zmysel kontextu príspevkov, ktoré budú pridávať účastníci.
+      course_school: Inštitúcia
+      course_term: Kedy
+    school: Inštitúcia
+    student_editors: Redaktori
+    term: Kedy
   editable:
     edit_template: Upraviť šablónu
+  metrics:
+    last_update: Posledná akualizácia štatistík
+    next_update: Ďalšia predpokladaná aktualizácia
+    articles_created: Vytvorené stránky
+    articles_edited: Upravené stránky
+    bytes_added: Pridaných bajtov
+    edit_count_description: Celkový počet úprav
+    upload_count: Nahrané súbory na Commons
+    view_count_description: Zobrazenia článkov
+  revisions:
+    edited_by: Upravil(a)
+  uploads:
+    label: Nahrané súbory
+  users:
+    editors: Redaktori
 ...
