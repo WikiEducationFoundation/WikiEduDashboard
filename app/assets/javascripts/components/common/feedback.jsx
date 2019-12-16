@@ -90,23 +90,16 @@ const Feedback = createReactClass({
   render() {
     // Title set based on if the article exists in mainspace
     let button;
+     
     if (this.state.show) {
       button = <button onClick={this.hide} className="okay icon-close" />;
     } else {
-      button = (
-        <a
-          onClick={() => {
-            if (this.props.editable) {
-              this.show();
-            }
-          }}
-          className="button dark small"
-        >
-          {I18n.t('courses.feedback')}
-        </a>
-      );
+      button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
-
+    if (!this.props.editable) {
+      button = <a className="button dark small">{I18n.t('courses.feedback')}</a>;
+    }
+    
     let submitFeedback;
     if (this.state.feedbackSent === true) {
       submitFeedback = I18n.t('courses.suggestions_sent');
