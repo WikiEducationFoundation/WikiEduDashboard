@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# MIT © Original by Sindre Sorhus - https://gist.github.com/sindresorhus/7996717
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+check_run() {
+	printf "$changed_files" | grep -q "$1" && eval "$2"
+}
+
+# check for npm pkgs change
+check_run package.json "yarn install --ignore-engines"
+# check for gems change
+check_run Gemfile "bundle install"

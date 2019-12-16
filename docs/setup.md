@@ -138,6 +138,8 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install Gulp (if not already installed)
   - `sudo yarn global add gulp`
 
+- (Optional) Set up a [`post-merge`](https://git-scm.com/docs/githooks#_post_merge) hook to update all dependencies if `package.json` or `Gemfile` changes.
+  - Copy `.git-hooks/pull-update-deps` to `.git/hooks/post-merge`
 ## Initialize
 1. **Migrate the development and test databases**
   - $ `rake db:migrate`

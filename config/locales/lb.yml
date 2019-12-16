@@ -54,6 +54,8 @@ lb:
     explore: Entdecken
     log_in: Mat Wikipedia aloggen
     sign_up: Mat Wikipedia umellen
+  alerts:
+    alert_label: Meldungen
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum

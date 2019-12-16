@@ -109,6 +109,9 @@ pt:
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
+  alerts:
+    alert_label: Alertas
+    no_alerts: Não foi encontrado nenhum alerta.
   activity:
     all: Atividade
     edited_by: Editado por
