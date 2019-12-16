@@ -7,11 +7,25 @@
 # Author: सरोज कुमार ढकाल
 ---
 ne:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: यो संख्या रहने स्थान हो। सबै जसो ब्राउजरहरूले देखाउने बटनले प्रविष्टिलाई
       बढाउने या घटाउने कार्य गर्दछ।
   application:
     cancel: रद्द गर्नुहोस्
+    cookie_consent: यस साइटले तपाईँलाई लग इन राखी राख्नु कुकी प्रयोग गर्छ र तपाईँको
+      विकिपिडिया खाताबारेमा जानकारी राख्छ। \
+    cookie_consent_acknowledge: मैले बुझेँ
+    cookie_consent_see_more: थप हेर्नुहोस्
     create_accounts: विकिपिडिया खाताहरू सिर्जना गर्नुहोस्
     dashboard: विकी एड ड्यासबोर्ड
     documentation: मिसिलिकरण
@@ -20,7 +34,7 @@ ne:
     field_required: यो फाँट आवश्यक छ
     field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
     field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
-    field_invalid_date_time: The end must be after the start. (समय 0 देखि 23 सम्म
+    field_invalid_date_time: अन्त सुरु भन्दा पछिल्लो आउनुपर्छ। (समय 0 देखि 23 सम्म
       हुनसक्छ।)
     greeting2: स्वागत!
     greeting_extended: विकिपिडियामा स्वागत् छ
@@ -28,14 +42,16 @@ ne:
     help: सहायता
     home: गृह
     log_in_extended: विकिपिडियाले लग इन गर्नुहोस्
-    log_in: लग इन
-    log_out: लग आउट गर्नुहोस्
+    log_in: प्रवेश
+    log_out: निर्गमन
     my_dashboard: मेरो ड्यसबोर्ड
     recent_activity: हालको कृयाकलाप
     report_problem: समस्या प्रतिवेदन पठाउनुहोस्
     request_account: एउटा खाता अनुरोध गर्नुहोस्
+    request_account_create: कुनै खाता सिर्जना गर्नुहोस्
     search: प्रश्न सोध्नुहोस्
     search_results: '%{search_terms} का नतिजाहरू:'
+    no_results: '''%{query}'' को लागि कुनै नतिजा भेटिएन'
     sign_up_extended: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
     sign_up_wikipedia: या विकिपिडियामा साइन अप गर्नुहोस्
     sign_up_log_in_extended: विकिपेडिया संग
@@ -43,8 +59,8 @@ ne:
     submit: पेश गर्नुहोस्
     training: तालिम
     change: परिवर्तन गर्नुहोस्
-    details: विवरण
-    confirm: ठीक छ
+    details: विवरणहरू
+    confirm: हुन्छ
     opt_in: हो
     opt_out: होइन
     opt_yes: छ
@@ -73,6 +89,8 @@ ne:
     explore: अन्वेषण
     log_in: विकिपिडियाले लग इन गर्नुहोस्
     sign_up: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
+  alerts:
+    alert_label: सुचनाहरू
   activity:
     all: क्रियाकलाप
     edited_by: सम्पादनकर्ता
@@ -81,11 +99,21 @@ ne:
     article_development: (लेख विकासक्रम)
     assigned: निर्दिष्ट गरिएका लेखहरू
     available: उपलब्ध लेखहरू
+    next: अर्को
+    article_title: लेख शीर्षक
     assigned_to: निर्दिष्ट गरिएको
     deleted: (मेटाइयो)
     edited: सम्पादन गरिएका लेखहरू
     edited_by: 'सम्पादनकर्ता:'
     edited_mobile: लेखहरू
+    filter:
+      wiki_all: सबै
+      new: नयाँ
+      existing: पहिले देखि रहेको
+      new_and_existing: नयाँ र पहिले देखि रहेको
+      tracked: ट्रयाक गरिएको
+      untracked: ट्रयाक नगरिएको
+      tracked_and_untracked: ट्रयाक गरिएको र ट्र्याक नगरिएको
     hide: लुकाउनुहोस्
     history: (इतिहास)
     label: लेखहरू
@@ -103,6 +131,7 @@ ne:
     show_cumulative_changes: सम्पूर्ण क्युमुलेटिभ परिवर्तनहरू
     show_current_version: हालको संस्करण देखाउनुहोस्
     title: शीर्षक
+    tracked: ट्रयाक गरिएको
     title_example: लेख शीर्षक
     tools: परीक्षण औजारहरू
     view: लेख हेर्नुहोस्
@@ -122,18 +151,23 @@ ne:
       the content itself. (यो प्राप्ताङ्कहरू अङ्ग्रेजी विकिपिडियामा मात्र उपलब्ध छ।)'
   assignments:
     article: '%{title} लेख अब तपाईँलाई निर्दिष्ट गरिएको छ।'
+    article_link: लेख
     already_exists: निर्दिष्टता पहिले देखि नै छ!
     title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुन सक्दैन
     assignees: निर्दिष्ट गरिएका(हरू)
     assign_other: लेख निर्दिष्ट गर्नुहोस्
     add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available_placeholder: हरेक हरफमा एक शीर्षक या युआरएल थप्नुहोस्
     add_available_submit: लेखहरू थप्नुहोस्
     assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
     assign_tooltip: निर्दिष्ट गरेको लेख त्यो हो जुन तपाईँले सुधार गर्ने या बनाउने
       योजना बनाउनु भएको हुन्छ।
+    bibliography: सन्दर्भसूची
+    clone: क्लोन गर्नुहोस्
     confirm_add_available: यस %{title} थप्न निश्चित हुनुहुन्छ?
     confirm_addition: '%{title} लाई को लागि %{username} निर्दिष्ट गर्न निश्चित हुनुहुन्छ?'
     confirm_deletion: यस लेख असाइन्मेन्ट मेट्ने कुरामा निश्चित हुनुहुन्छ?
+    editors: निर्दिष्ट गर्नुहोस्
     label: असाइन गर्नुहोस्
     loading: असाइन्मेन्टहरू खोल्दै...
     none_short: कुनैपनि लेखहरू असाइन गरिएको छैन
@@ -152,6 +186,7 @@ ne:
   campaign:
     active_campaigns: सक्रिय अभियानहरू
     add_organizer: आयोजक थप्नुहपस्
+    alert_article: लेख शीर्षक
     alert_type: प्रकार
     alert_user_id: प्रयोगकर्ता
     all_campaigns: अभियान थप्नुहोस्
@@ -170,13 +205,16 @@ ne:
     create_campaign: नयाँ अभियान बनाउनुहोस्
     create_my_campaign: मेरो अभियान बनाउनुहोस्!
     customize_passcode: पूर्वनिर्धारित पासकोड
+    data_instructors: प्रशिक्षकहरू
     default_passcode: पूर्वनिर्धारित पासकोड
     description: वर्णन
     delete_campaign: यो अभियान मेट्नुहोस्
+    enable_account_requests: खाता अनुरोधहरू सक्षम पार्नुहोस्
     no_passcode: कुनै पनि पासकोड छैन
     none: कुनै पनि होइन
     organizers: आयोजकहरू
     program_template: कार्यक्रम टेम्पलेट
+    requested_accounts: अनुरोध गरिएका खाताहरू
     title: शीर्षक
     use_start_end_dates: शुरू र समाप्ति मितिहरू प्रयोग गर्नुहोस्
   categories:
@@ -200,6 +238,9 @@ ne:
     actions: विभागहरू
     articles: लेखहरू
     articles_none: यो पाठ्यक्रमले कुनै पनि लेख सम्पादन गरेको छैन।
+    assignment_headings:
+      assigned_articles: निर्दिष्ट गरिएका लेखहरू
+      available_articles: उपलब्ध लेखहरू
     assignment_end: असाइन्मेन्ट अन्त
     assignments_none: यो पाठ्यक्रममा कुनै पनि निर्दिष्ट लेखहरू छैनन्।
     assignment_start: असाइन्मेन्ट सुरु
@@ -245,6 +286,8 @@ ne:
       find: तपाईँको पाठ्यक्रम भेटाउनुहोस्
       no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
       role_description: यस पाठ्यक्रममा तपाईँको भूमिका
+      role_description_options:
+      - प्रशिक्षक
       role_description_placeholder: प्रशिक्षक, अध्यापन सहायक आदि
       save_cloned_course: नयाँ पाठ्यक्रम सङ्ग्रह गर्नुहोस्
       start_date: सुरु मिति
@@ -315,6 +358,7 @@ ne:
     passcode_prompt: सामेल हुन पासकोड थप्नुहोस्
     private: निजी
     requested_accounts: अनुरोध गरिएका खाताहरू
+    requested_accounts_alert_view: अवलोकन गर्ने
     school: विद्यालय
     school_and_term: संस्था/सत्र
     start: सुरु गर्नुहोस्
@@ -340,6 +384,7 @@ ne:
     unsubmitted: नबुझाइएका पाठ्यक्रमहरू
     untrained: तालिम नलिइएको
     update_stats: तथ्याङ्क अद्यावधिक गर्नुहोस्
+    user_recent_uploads: हालका अपलोडहरू
     user_suggestions: 'प्रयोगकर्ता सुझावहरू:'
     view_other: अन्य अभियानहरू हेर्नुहोस्
     view: पाठ्यक्रम हेर्नुहोस्
@@ -416,7 +461,7 @@ ne:
   editable:
     edit: सम्पादन
     cancel: रद्द गर्नुहोस्
-    save: सङ्ग्रह गर्नुहोस्
+    save: संग्रह गर्नुहोस्
     edit_description: वर्णन सम्पादन गर्नुहोस्
     edit_details: जानकारी सम्पादन गर्नुहोस्
     edit_template: ढाँचा सम्पादन गर्नुहोस्
@@ -497,6 +542,8 @@ ne:
       new:
         form_placeholder: प्रयोगकर्ता नाम
         confirm_add_special_user: एक विशेष प्रयोगकर्ता थप्नुहोस्
+      remove:
+        revoking_button_working: हटाउँदै...
   suggestions:
     editing: सम्पादन सुझावहरू
     suggestion_docs:
@@ -559,7 +606,7 @@ ne:
   users:
     already_enrolled: यो प्रयोग कर्ता पहिले नै समावेश भइसके!
     assign_articles: लेखहरू असाइन गर्नुहोस्
-    assign_articles_done: भयो
+    assign_articles_done: सम्पन्न भयो
     assigned: निर्दिष्ट गरिएका लेखहरू
     assignees: असाइनी(हरू)
     contributions: प्रयोगकर्ता योगदान
@@ -648,6 +695,10 @@ ne:
         सुधार गर्न सहयोग गर्छ।
   feedback_form_responses:
     no_responses: कुनै पनि प्रतिक्रिया या सुझावहरू छैनन्।
+  article_finder:
+    page_assessment_class: कक्षा
+    search: खोज्नुहोस्
+    submit: पेश गर्नुहोस्
   training_status:
     completed: पूर्ण भयो
     started: सुरुवात
