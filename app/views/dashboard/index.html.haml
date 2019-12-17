@@ -93,9 +93,13 @@
               .tooltip-trigger
                 = t("#{Features.default_course_string_prefix}.courses")
                 %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-created", style: "width: 180px"}
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-created", style: "width: 140px"}
               .tooltip-trigger
                 = t('metrics.articles_created')
+                %span.sortable-indicator
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-edited", style: "width: 140px"}
+              .tooltip-trigger
+                = t('metrics.articles_edited')
                 %span.sortable-indicator
             %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "characters", style: "width: 172px;"}
               .tooltip-trigger
@@ -121,9 +125,10 @@
             %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", style: "width: 150px;"}
               = t("users.editors")
               %span.sortable-indicator
-            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation-date", style: "width: 160px"}
-              = t('courses.creation_date')
-              %span.sortable-indicator
+            - unless Features.wiki_ed?
+              %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "creation-date", style: "width: 160px"}
+                = t("courses.creation_date")
+                %span.sortable-indicator
         %tbody.list
           - @pres.campaigns.each do |campaign|
             - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
