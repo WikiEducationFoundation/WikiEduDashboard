@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 // import TextInput from './text_input.jsx';
 
 const CampaignNavbar = ({ campaign, campaignLink }) => {
-  const homeLink = `${campaignLink}/overview`;
+  const homeLink = `${campaign.slug}/overview`;
   const programsLink = `${campaignLink}/programs`;
-  const articlesLink = `${campaignLink}/articles`;
+  const articlesLink = `${campaign.slug}/articles`;
   const editorsLink = `${campaignLink}/users`;
   const oresLink = `${campaignLink}/ores/plot`;
   const alertsLink = `${campaignLink}/alerts`;

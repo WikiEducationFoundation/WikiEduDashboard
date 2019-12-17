@@ -13,32 +13,33 @@ export const Campaign = createReactClass({
 
   propTypes: {
     campaign: PropTypes.object.isRequired,
+    match: PropTypes.object,
   },
 
   componentDidMount() {
     const campaignSlug = this.props.match.params.slug;
-    console.log(`campaignSlug:${campaignSlug}`);
-    console.log(`campaign: ${this.props.getCampaign(campaignSlug)}`);
-
-    return this.props.getCampaign(campaignSlug);
+    // console.log(this.props.campaign);
+    console.log(`coming from componentDidMount ${this.props.getCampaign(campaignSlug}`));
+return this.props.getCampaign(campaignSlug);
   },
 
-  _campaignLinkParams() {
-    return '/campaigns/campaignSlug';
-  },
+_campaignLinkParams() {
+  return '/campaigns/slug';
+},
 
-  render() {
-    return (
-      <div className="container">
-        {/* <h2>{this.props.campaign.slug}</h2> */}
-        <CampaignNavbar
-          campaign={this.props.campaign}
-          campaignLink={this._campaignLinkParams}
-        />
-        <h1>Hello world!</h1>
-      </div>
-    );
-  }
+render() {
+  console.log(`from render ${this.props.campaign}`);
+  return (
+    <div className="container">
+      {/* <h2>{this.props.campaign.slug}</h2> */}
+      <CampaignNavbar
+        campaign={this.props.campaign}
+        campaignLink={this._campaignLinkParams}
+      />
+      <h1>Hello world!</h1>
+    </div>
+  );
+}
 });
 
 const mapStateToProps = state => ({
