@@ -13,8 +13,9 @@ class AssignmentPipeline
   end
 
   module ReviewStatuses
-    NOT_YET_STARTED = 'not_yet_started'
-    PEER_REVIEW_STARTED = 'peer_review_started'
+    READING_ARTICLE = 'reading_the_article'
+    PROVIDING_FEEDBACK = 'providing_feedback'
+    POST_TO_TALK = 'post_to_talk'
     PEER_REVIEW_COMPLETED = 'peer_review_completed'
   end
 
@@ -27,8 +28,9 @@ class AssignmentPipeline
       AssignmentStatuses::ASSIGNMENT_COMPLETED
     ].freeze,
     review: [
-      ReviewStatuses::NOT_YET_STARTED,
-      ReviewStatuses::PEER_REVIEW_STARTED,
+      ReviewStatuses::READING_ARTICLE,
+      ReviewStatuses::PROVIDING_FEEDBACK,
+      ReviewStatuses::POST_TO_TALK,
       ReviewStatuses::PEER_REVIEW_COMPLETED
     ].freeze
   }.freeze
