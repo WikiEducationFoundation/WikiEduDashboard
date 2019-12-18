@@ -6,10 +6,10 @@ import { toggleUI, resetUI } from '~/app/assets/javascripts/actions';
 import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
 import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selectors';
 
-import Controls from '../components/Controls/Controls.jsx';
-import StudentList from '../components/StudentList/StudentList.jsx';
+import Controls from '../components/Overview/Controls/Controls.jsx';
+import StudentList from '../components/Overview/StudentList/StudentList.jsx';
 
-export class StudentsView extends React.Component {
+export class Overview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,6 @@ export class StudentsView extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.toggleAssignmentEditingMode = this.toggleAssignmentEditingMode.bind(this);
     this.notify = this.notify.bind(this);
   }
 
@@ -35,9 +34,9 @@ export class StudentsView extends React.Component {
     this.setState({ showModal: false });
   }
 
-  toggleAssignmentEditingMode() {
-    this.setState({ editAssignments: !this.state.editAssignments });
-  }
+  // toggleAssignmentEditingMode() {
+  //   this.setState({ editAssignments: !this.state.editAssignments });
+  // }
 
   notify() {
     if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
@@ -47,53 +46,65 @@ export class StudentsView extends React.Component {
 
   render() {
     const {
-      course, current_user, sortSelect, students
+      assignments, course, current_user, openKey, sort, students,
+      trainingStatus, wikidataLabels, sortUsers, userRevisions,
+      sortSelect,
     } = this.props;
 
     return (
       <div className="list__wrapper">
         {
-          editPermissions
+          current_user.isAdmin
           ? (
             <Controls
               course={course}
               current_user={current_user}
-              editPermissions={this.state.editPermissions}
+              students={students}
               notify={this.notify}
               sortSelect={sortSelect}
-              students={students}
-              toggleAssignmentEditingMode={this.toggleAssignmentEditingMode}
             />
           ) : null
         }
 
-        <StudentList {...this.props} editAssignments={this.state.editAssignments} />
+        <StudentList
+          assignments={assignments}
+          course={course}
+          current_user={current_user}
+          openKey={openKey}
+          sort={sort}
+          sortUsers={sortUsers}
+          students={students}
+          toggleUI={this.props.toggleUI}
+          trainingStatus={trainingStatus}
+          userRevisions={userRevisions}
+          wikidataLabels={wikidataLabels}
+        />
       </div>
     );
   }
 }
 
-StudentsView.propTypes = {
-  course_id: PropTypes.string,
-  current_user: PropTypes.object,
+Overview.propTypes = {
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+  editPermissions: PropTypes.bool.isRequired,
   students: PropTypes.array,
-  course: PropTypes.object,
-  editable: PropTypes.bool,
   openKey: PropTypes.string,
-  toggleUI: PropTypes.func,
-  resetUI: PropTypes.func,
-  sortSelect: PropTypes.func,
-  sortUsers: PropTypes.func,
   userRevisions: PropTypes.object.isRequired,
   trainingStatus: PropTypes.object.isRequired,
+
   notifyOverdue: PropTypes.func.isRequired,
-  editPermissions: PropTypes.bool.isRequired
+  resetUI: PropTypes.func.isRequired,
+  sortSelect: PropTypes.func.isRequired,
+  sortUsers: PropTypes.func.isRequired,
+  toggleUI: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
+  assignments: state.assignments.assignments,
+
   openKey: state.ui.openKey,
   students: getStudentUsers(state),
-  assignments: state.assignments.assignments,
   sort: state.users.sort,
   userRevisions: state.userRevisions,
   trainingStatus: state.trainingStatus,
@@ -102,9 +113,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  toggleUI,
+  notifyOverdue,
   resetUI,
-  notifyOverdue
+  toggleUI
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsView);
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);

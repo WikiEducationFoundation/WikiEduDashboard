@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 
 // Components
 import List from '@components/common/list.jsx';
-import StudentRow from '@components/students/components/StudentList/StudentRow.jsx';
-import StudentDrawer from '@components/students/student_drawer.jsx';
+import StudentRow from '@components/students/components/Overview/StudentList/StudentRow.jsx';
+import StudentDrawer from './StudentDrawer/StudentDrawer';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
@@ -16,7 +17,7 @@ const showRecent = (course) => {
   // count. Otherwise, it's out of date because the course is no longer being
   // updated.
   const lastUpdate = course.updates.last_update;
-  if (!lastUpdate) { return false; }
+  if (!lastUpdate) return false;
   return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
 };
 
@@ -106,12 +107,35 @@ export const StudentList = (props) => {
       keys={keys}
       table_key="users"
       none_message={CourseUtils.i18n('students_none', course.string_prefix)}
-      editable={editAssignments}
       sortBy={sortUsers}
       stickyHeader={true}
       sortable={true}
     />
   );
+};
+
+StudentList.propTypes = {
+  assignments: PropTypes.array.isRequired,
+  trainingStatus: PropTypes.object.isRequired,
+  userRevisions: PropTypes.object.isRequired,
+  course: PropTypes.shape({
+    string_prefix: PropTypes.string.isRequired,
+    updates: PropTypes.shape({
+      last_update: PropTypes.shape({
+        end_time: PropTypes.string
+      })
+    }).isRequired
+  }).isRequired,
+  current_user: PropTypes.object.isRequired,
+  editAssignments: PropTypes.bool,
+  openKey: PropTypes.string,
+  sort: PropTypes.shape({
+    key: PropTypes.string,
+    sortKey: PropTypes.string
+  }).isRequired,
+  toggleUI: PropTypes.func,
+  sortUsers: PropTypes.func,
+  wikidataLabels: PropTypes.object,
 };
 
 export default StudentList;

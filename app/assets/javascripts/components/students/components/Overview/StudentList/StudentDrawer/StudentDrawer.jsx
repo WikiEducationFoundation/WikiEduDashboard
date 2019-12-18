@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import RevisionRow from './RevisionRow';
 import NoRevisionsRow from './NoRevisionsRow';
 import FullHistoryRow from './FullHistoryRow';
-import TrainingStatus from '@components/students/training_status.jsx';
 
 export class StudentDrawer extends React.Component {
   constructor(props) {
@@ -24,20 +23,19 @@ export class StudentDrawer extends React.Component {
   }
 
   render() {
-    const { isOpen, revisions = [], student, trainingModules = [] } = this.props;
+    const { isOpen, revisions = [], student } = this.props;
     if (!isOpen) return <tr />;
 
     const rows = revisions.map((revision, index) => (
-      <RevisionRow revision={revision} index={index} />
+      <RevisionRow key={index} revision={revision} index={index} />
     ));
 
-    if (rows.length === 0) rows.push(<NoRevisionsRow student={student} />);
-    rows.push(<FullHistoryRow student={student} />);
+    if (rows.length === 0) rows.push(<NoRevisionsRow key="no-revisions" student={student} />);
+    rows.push(<FullHistoryRow key="full-history" student={student} />);
 
     return (
       <tr className="drawer">
         <td colSpan="7">
-          <TrainingStatus trainingModules={trainingModules} />
           <table className="table">
             <thead>
               <tr>

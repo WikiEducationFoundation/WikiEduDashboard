@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
 import RevisionsHandler from '../revisions/revisions_handler.jsx';
-import StudentsHandler from '../students/students_handler.jsx';
+import StudentsHandler from '../students/containers/StudentsTabHandler';
 import ArticlesHandler from '../articles/articles_handler.jsx';
 import UploadsHandler from '../uploads/uploads_handler.jsx';
 import Resources from '../resources/resources.jsx';
@@ -134,7 +134,7 @@ export const Course = createReactClass({
             {/* The overview route path should not be removed in order to preserve the default url */}
             <Route exact path="/courses/:course_school/:course_title/overview" render={() => <OverviewHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/activity" render={() => <RevisionsHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/students" render={() => <StudentsHandler {...courseProps} />} />
+            <Route path="/courses/:course_school/:course_title/students" render={() => <StudentsHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/chat" render={() => <RocketChat {...courseProps} />} />
