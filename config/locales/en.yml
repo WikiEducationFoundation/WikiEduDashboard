@@ -813,7 +813,11 @@ en:
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
+    articles_created_generic: Pages Created
+    articles_created_wikidata: Items Created
     articles_edited: Articles Edited
+    articles_edited_generic: Pages Edited
+    articles_edited_wikidata: Items Edited
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
