@@ -22,8 +22,8 @@ export const Navigation = ({ assignment, show }) => {
       { lis }
       {
         show
-          ? <li className="icon icon-arrow-reverse table-expandable-indicator" />
-          : <li className="icon icon-arrow table-expandable-indicator" />
+          ? <li className="icon icon-arrow-reverse table-expandable-indicator limit-size" />
+          : <li className="icon icon-arrow table-expandable-indicator limit-size" />
       }
     </ul>
   );
