@@ -47,9 +47,7 @@ const CourseStats = ({ course }) => {
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
     );
-  } else if (isWikidata) {
-    // noop
-  } else {
+  } else if (!isWikidata) {
     contentCount = (
       <div className="stat-display__stat" id="bytes-added">
         <div className={valueClass('word_count')}>{course.character_sum_human}</div>
