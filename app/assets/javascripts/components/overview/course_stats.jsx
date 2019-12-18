@@ -29,6 +29,16 @@ const CourseStats = ({ course }) => {
   let trainedTooltip;
   let uploadCount;
 
+  let articlesCreated;
+  if (course.created_count !== '0') {
+    articlesCreated = (
+      <div className="stat-display__stat" id="articles-created">
+        <div className={valueClass('created_count')}>{course.created_count}</div>
+        <small>{createdLabel}</small>
+      </div>
+    );
+  }
+
   let contentCount;
   if (course.home_wiki.language === 'en') {
     contentCount = (
@@ -109,10 +119,7 @@ const CourseStats = ({ course }) => {
 
   return (
     <div className="stat-display">
-      <div className="stat-display__stat" id="articles-created">
-        <div className={valueClass('created_count')}>{course.created_count}</div>
-        <small>{createdLabel}</small>
-      </div>
+      {articlesCreated}
       <div className="stat-display__stat" id="articles-edited">
         <div className={valueClass('edited_count')}>{course.edited_count}</div>
         <small>{editedLabel}</small>
