@@ -134,7 +134,7 @@
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.3",
     "webpack-dev-server": "^3.9.0",
     "webpack-manifest-plugin": "2.2.0",
     "wnumb": "^1.2.0"
