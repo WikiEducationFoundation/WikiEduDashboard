@@ -215,14 +215,20 @@ const ArticleList = createReactClass({
       </div>
     );
 
-    let showMoreButton;
+    let showMoreSection;
     if (!this.props.limitReached) {
-      showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('articles.see_more')}</button></div>;
+      showMoreSection = (
+        <div className="see-more">
+          <button className="button ghost" onClick={this.showMore}>{I18n.t('articles.see_more')}</button>
+          <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>
+        </div>
+      );
     }
 
     return (
       <div id="articles" className="mt4">
         {sectionHeader}
+        {showMoreSection}
         <List
           elements={articleElements}
           keys={keys}
@@ -232,7 +238,6 @@ const ArticleList = createReactClass({
           none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
           sortBy={this.props.sortArticles}
         />
-        {showMoreButton}
       </div>
     );
   }

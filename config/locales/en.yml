@@ -135,6 +135,7 @@ en:
 
   articles:
     article_development: (article development)
+    articles_shown: 'Showing %{count} of %{total}'
     assigned: Assigned Articles
     available: Available Articles
     no_available: No Available Articles
