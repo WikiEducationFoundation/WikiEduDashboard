@@ -119,11 +119,7 @@ const Overview = createReactClass({
     if (this.props.current_user.isStudent && course.id) {
       userArticles = (
         <>
-          {
-            Features.enableAdvancedFeatures
-            ? <MyExercises trainingLibrarySlug={this.props.course.training_library_slug} />
-            : null
-          }
+          <MyExercises trainingLibrarySlug={this.props.course.training_library_slug} />
           <MyArticles
             course={course}
             course_id={this.props.course_id}

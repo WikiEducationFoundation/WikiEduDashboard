@@ -27,7 +27,7 @@ export class Assignment extends React.Component {
 
     const isComplete = this.isComplete();
     const isClassroomProgram = course.type === 'ClassroomProgramCourse';
-    const enable = isClassroomProgram && Features.enableAdvancedFeatures; // TODO: Remove when ready
+    const enable = isClassroomProgram && Features.wikiEd;
 
     const props = { ...this.props, article, articleTitle: title, isComplete };
     const progressTracker = isComplete

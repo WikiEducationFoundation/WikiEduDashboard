@@ -5,7 +5,6 @@ import '~/test/testHelper';
 import { ModuleStatus } from '@components/timeline/TrainingModules/ModuleRow/ModuleStatus/ModuleStatus';
 
 describe('ModuleStatus', () => {
-  Features.enableAdvancedFeatures = true;
   const complete = jest.fn(() => Promise.resolve());
   const incomplete = jest.fn(() => Promise.resolve());
   const fetchExercises = jest.fn();
