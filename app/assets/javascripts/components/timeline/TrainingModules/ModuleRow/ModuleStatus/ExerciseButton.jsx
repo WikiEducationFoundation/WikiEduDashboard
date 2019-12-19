@@ -5,7 +5,6 @@ export const ExerciseButton = ({
   block_id, course, flags, isComplete, isExercise, slug,
   complete, fetchExercises, incomplete
 }) => {
-  if (!Features.enableAdvancedFeatures) return null;
   let button = (
     <button className="button small left dark" disabled>
       Mark Complete
