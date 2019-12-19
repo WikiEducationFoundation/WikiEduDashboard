@@ -215,12 +215,12 @@ const ArticleList = createReactClass({
       </div>
     );
 
-    let showMore;
+    let showMoreSection;
     if (!this.props.limitReached) {
-      showMore = (
+      showMoreSection = (
         <div className="see-more">
           <button className="button ghost" onClick={this.showMore}>{I18n.t('articles.see_more')}</button>
-          <p>{I18n.t('articles.showing_of', { count: articleElements.length, total: this.props.course.edited_count })}</p>
+          <p>{I18n.t('articles.articles_shown', { count: articleElements.length, total: this.props.course.edited_count })}</p>
         </div>
       );
     }
@@ -228,7 +228,7 @@ const ArticleList = createReactClass({
     return (
       <div id="articles" className="mt4">
         {sectionHeader}
-        {showMore}
+        {showMoreSection}
         <List
           elements={articleElements}
           keys={keys}
