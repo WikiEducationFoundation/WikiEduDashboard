@@ -693,7 +693,11 @@ it:
     last_update: Ultimo aggiornamento statistiche
     activity: Attività recente
     articles_created: Voci create
+    articles_created_generic: Pagine create
+    articles_created_wikidata: Elementi creati
     articles_edited: Voci modificate
+    articles_edited_generic: Pagine modificate
+    articles_edited_wikidata: Elementi modificati
     bytes_added: Bytes aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti

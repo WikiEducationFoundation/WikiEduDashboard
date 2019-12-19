@@ -674,7 +674,11 @@ zh-TW:
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目
+    articles_created_generic: 頁面已創建
+    articles_created_wikidata: 項目已創建
     articles_edited: 已編輯的條目
+    articles_edited_generic: 頁面已編輯
+    articles_edited_wikidata: 項目已編輯
     bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元

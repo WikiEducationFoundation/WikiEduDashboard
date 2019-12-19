@@ -292,6 +292,7 @@ lv:
     next_update: Nākamā atjaunināšana
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
+    articles_created_generic: Izveidotās lapas
     articles_edited: Labotie raksti
     bytes_added: Pievienotie baiti
     char_added: Rakstzīmes pievienotas

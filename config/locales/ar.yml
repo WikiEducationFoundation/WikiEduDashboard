@@ -787,7 +787,11 @@ ar:
     activity: آخر نشاط
     are_trained: محدثة مع التدريب
     articles_created: المقالات التي تم إنشاؤها
+    articles_created_generic: الصفحات المنشأة
+    articles_created_wikidata: العناصر المنشأة
     articles_edited: المقالات التي تم تعديلها
+    articles_edited_generic: الصفحات المعدلة
+    articles_edited_wikidata: العناصر المعدلة
     bytes_added: البايتات المضافة
     characters: الأحرف
     char_added: الحروف المضافة
