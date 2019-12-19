@@ -12,9 +12,25 @@ import PeerReviewChecklist from '~/app/assets/javascripts/components/common/peer
 import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
 
 export const Actions = ({
-  article, assignment, courseSlug, current_user, isComplete, isProduction, username,
+  article, assignment, courseSlug, current_user, isComplete, username,
   isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
 }) => {
+  if (isComplete) {
+    // If complete, only return the following
+    return (
+      <section className="actions">
+        <PageViews key="pageviews-button" article={article} />
+        <MarkAsIncompleteButton
+          key="mark-incomplete-button"
+          assignment={assignment}
+          courseSlug={courseSlug}
+          handleUpdateAssignment={handleUpdateAssignment}
+          refreshAssignments={refreshAssignments}
+        />
+      </section>
+    );
+  }
+
   const actions = [];
 
   if (assignment.article_id) {
@@ -40,22 +56,6 @@ export const Actions = ({
     }
   }
 
-  // TODO: Remove `isProduction` when ready
-  if (!isProduction && isComplete) {
-    return (
-      <section className="actions">
-        <PageViews key="pageviews-button" article={article} />
-        <MarkAsIncompleteButton
-          key="mark-incomplete-button"
-          assignment={assignment}
-          courseSlug={courseSlug}
-          handleUpdateAssignment={handleUpdateAssignment}
-          refreshAssignments={refreshAssignments}
-        />
-      </section>
-    );
-  }
-
   return (
     <section className="actions">
       {actions}
@@ -71,7 +71,6 @@ Actions.propTypes = {
   courseSlug: PropTypes.string.isRequired,
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
-  isProduction: PropTypes.bool, // TODO: Remove when ready
   username: PropTypes.string.isRequired,
 
   // actions
