@@ -209,10 +209,12 @@ const Details = createReactClass({
           />
         );
       } else {
+        const studentLink = this.props.course.enroll_url.substring(0, this.props.course.enroll_url.indexOf('/enroll'));
+        const enrollToken = `?enroll=${this.props.course.passcode}`;
         passcode = (
           <TextInput
             onChange={this.updateDetails}
-            value={<a href={`${this.props.course.enroll_url}${this.props.course.passcode}`}>{this.props.course.passcode}</a>}
+            value={<a href={`${studentLink}${enrollToken}`}>{this.props.course.passcode}</a>}
             value_key="passcode"
             editable={this.props.editable}
             type="text"
