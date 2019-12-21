@@ -100,9 +100,11 @@ const StudentsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   articles: getArticlesByNewness(state),
+  course: state.course,
   limit: state.articles.limit,
   loadingAssignments: state.assignments.loading,
-  loadingArticles: state.articles.loading
+  loadingArticles: state.articles.loading,
+  wikidataLabels: state.wikidataLabels.labels,
 });
 
 const mapDispatchToProps = {

@@ -24,7 +24,7 @@ export class Articles extends React.Component {
 
   render() {
     const { selected } = this.state;
-    const { assignments, students } = this.props;
+    const { assignments, course, current_user, students, wikidataLabels } = this.props;
     const selectedAssignments = assignments.filter(assignment => (
       selected && assignment.user_id === selected.id
     ));
@@ -42,8 +42,16 @@ export class Articles extends React.Component {
           <section className="assignments">
             {
               selected
-              ? <SelectedStudent assignments={selectedAssignments} />
-              : <NoSelectedStudent />
+              ? (
+                <SelectedStudent
+                  allAssignments={assignments}
+                  assignments={selectedAssignments}
+                  course={course}
+                  current_user={current_user}
+                  selected={selected}
+                  wikidataLabels={wikidataLabels}
+                />
+              ) : <NoSelectedStudent />
             }
           </section>
         </article>
@@ -54,6 +62,7 @@ export class Articles extends React.Component {
 
 Articles.propTypes = {
   assignments: PropTypes.array.isRequired,
+  current_user: PropTypes.object.isRequired,
   students: PropTypes.array.isRequired,
   wikidataLabels: PropTypes.object
 };
