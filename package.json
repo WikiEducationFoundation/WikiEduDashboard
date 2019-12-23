@@ -135,7 +135,7 @@
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
     "webpack": "^4.41.4",
-    "webpack-dev-server": "^3.9.0",
+    "webpack-dev-server": "^3.10.1",
     "webpack-manifest-plugin": "2.2.0",
     "wnumb": "^1.2.0"
   },
