@@ -125,6 +125,7 @@ pt-br:
     label: Atividade
   articles:
     article_development: (desenvolvimento do artigo)
+    articles_shown: Mostrando %{count} de  %{total}
     assigned: Artigos atribuídos
     available: Artigos Disponíveis
     no_available: Nenhum artigo disponível
@@ -849,7 +850,11 @@ pt-br:
     activity: Atividade recente
     are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
+    articles_created_generic: Páginas criadas
+    articles_created_wikidata: Itens criados
     articles_edited: Artigos editados
+    articles_edited_generic: Páginas editadas
+    articles_edited_wikidata: Itens editados
     bytes_added: Bytes Adicionado
     characters: Caracteres
     char_added: Caracteres adicionados

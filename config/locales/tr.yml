@@ -124,6 +124,7 @@ tr:
     label: Etkinlik
   articles:
     article_development: (makale geliştirme)
+    articles_shown: '%{total} %{count} gösteriliyor'
     assigned: Atanmış Makaleler
     available: Kullanılabilir Makaleler
     no_available: Makale Yok
@@ -841,7 +842,11 @@ tr:
     activity: Son Etkinlik
     are_trained: eğitim ile güncel
     articles_created: Oluşturulan Makaleler
+    articles_created_generic: Oluşturulan Sayfalar
+    articles_created_wikidata: Oluşturulan Öğeler
     articles_edited: Makale Düzenlendi
+    articles_edited_generic: Düzenlenmiş Sayfalar
+    articles_edited_wikidata: Düzenlenmiş Öğeler
     bytes_added: Bayt Eklendi
     characters: Karakter
     char_added: Ekl. Krkter

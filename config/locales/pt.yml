@@ -28,14 +28,14 @@ pt:
           trillion: T
           quadrillion: P
   accessibility:
-    number_field: Este campo é numérico. Os botões mostrados pela maioria dos navegadores
+    number_field: É um campo numérico. Os botões mostrados pela maioria dos navegadores
       aumentam ou reduzem a entrada.
   application:
     cancel: Cancelar
-    cookie_consent: Este ''site'' usa ''cookies'' para manter a sua sessão iniciada
-      e armazena informações relacionadas com a sua conta da Wikipédia.
-    cookie_consent_acknowledge: Compreendo
-    cookie_consent_see_more: Ver mais.
+    cookie_consent: Este ''site'' utiliza ''cookies'' para manter a sua sessão iniciada
+      e guarda a informação relacionada com a sua conta da Wikipédia.
+    cookie_consent_acknowledge: Eu compreendo
+    cookie_consent_see_more: Ver mais
     create_accounts: Criar contas na Wikipédia
     dashboard: Painel da Wiki Educação
     documentation: Documentação
@@ -46,29 +46,29 @@ pt:
     field_invalid_date: Este campo requer uma data no formato AAAA-MM-DD
     field_invalid_date_time: O fim deve ser depois do início (as horas vão de 0 a
       23).
-    greeting2: Bem-vindo(a)!
-    greeting_extended: Bem-vindo(a) à Wikipédia
+    greeting2: Bem-vindo!
+    greeting_extended: Bem-vindo à Wikipédia
     greeting: Olá!
     help: Ajuda
     home: Início
-    log_in_extended: Iniciar sessão através da Wikipédia
-    log_in: Entrar
-    log_out: Sair
-    my_dashboard: Painel de controlo
-    recent_activity: Atividade recente
+    log_in_extended: Iniciar a sessão com Wikipédia
+    log_in: Iniciar sessão
+    log_out: Terminar sessão
+    my_dashboard: Meu Painel
+    recent_activity: Atividade Recente
     report_problem: Reportar um problema
     request_account: Pedir uma conta
     request_account_create: Criar uma conta
     search: faça uma pergunta
     search_results: 'Resultados para: ''%{search_terms}'''
     no_results: Não foram encontrados resultados para '%{query}'
-    sign_up_extended: Registar-se através da Wikipédia
-    sign_up_wikipedia: Ou registar-se na Wikipédia
-    sign_up_log_in_extended: através da Wikipédia
-    sign_up: Registar-se
-    submit: Enviar
+    sign_up_extended: Registe-se com Wikipédia
+    sign_up_wikipedia: Ou registe-se na Wikipédia
+    sign_up_log_in_extended: com Wikipédia
+    sign_up: Registar
+    submit: Submeter
     training: Formação
-    change: Mudar
+    change: Alterar
     details: Detalhes
     confirm: Aceitar
     opt_in: Sim
@@ -104,8 +104,8 @@ pt:
       página da campanha.
   home:
     explore: Explorar
-    log_in: Iniciar sessão através da Wikipédia
-    sign_up: Registar-se através da Wikipédia
+    log_in: Inicie a sessão com Wikipédia
+    sign_up: Registe-se com Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -118,6 +118,7 @@ pt:
     label: Atividade
   articles:
     article_development: (desenvolvimento do artigo)
+    articles_shown: A mostrar %{count} de %{total}
     assigned: Artigos atribuídos
     available: Artigos disponíveis
     no_available: Não há nenhum artigo disponível
@@ -850,7 +851,11 @@ pt:
     activity: Atividade recente
     are_trained: estão em dia com a formação
     articles_created: Artigos criados
+    articles_created_generic: Páginas Criadas
+    articles_created_wikidata: Itens Criados
     articles_edited: Artigos editados
+    articles_edited_generic: Páginas Editadas
+    articles_edited_wikidata: Itens Editados
     bytes_added: Bytes acrescentados
     characters: Caracteres
     char_added: Caracteres adicionados

@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Asdfqwer51
 # Author: Ellif
+# Author: Gongsoonyee
 # Author: Hwangjy9
 # Author: Jerrykim306
 # Author: Jonghaya
@@ -399,7 +400,11 @@ ko:
     last_update: 최근 통계 업데이트
     activity: 최근 활동
     articles_created: 문서 생성됨
+    articles_created_generic: 만든 문서
+    articles_created_wikidata: 만들어진 아이템
     articles_edited: 문서 편집됨
+    articles_edited_generic: 수정된 페이지
+    articles_edited_wikidata: 수정된 아이템
     characters: 글자
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜

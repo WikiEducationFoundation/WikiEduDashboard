@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Domani
 # Author: Metalhead64
 # Author: Taresi
 # Author: ToBeFree
@@ -100,6 +101,7 @@ de:
     label: Aktivität
   articles:
     article_development: (Artikelentwicklung)
+    articles_shown: Zeige %{count} von %{total}
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
     no_available: Keine verfügbaren Artikel

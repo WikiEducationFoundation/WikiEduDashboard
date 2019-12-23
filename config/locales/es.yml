@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
 # Author: Carlosmg.dg
@@ -19,6 +20,7 @@
 # Author: Lemondoge
 # Author: Macofe
 # Author: MarcoAurelio
+# Author: Silverie04
 # Author: Themasterriot
 # Author: Tiberius1701
 # Author: Tusca
@@ -630,6 +632,8 @@ es:
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
     articles_edited: Artículos editados
+    articles_edited_generic: Páginas editadas
+    articles_edited_wikidata: Elementos Editaron
     bytes_added: Bytes añadidos
     characters: Caracteres
     char_added: Caracteres añadidos

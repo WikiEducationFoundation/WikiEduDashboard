@@ -103,6 +103,7 @@ zh-TW:
     label: 活動
   articles:
     article_development: （條目發展）
+    articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
     assigned: 已分配條目
     available: 尚待分配的條目
     no_available: 沒有可用的條目

@@ -114,6 +114,7 @@ ar:
     label: النشاط
   articles:
     article_development: (تطوير المقالات)
+    articles_shown: عرض %{count} من %{total}
     assigned: المقالات المخصصة
     available: المقالات المتاحة
     no_available: لا مقالات متوفرة

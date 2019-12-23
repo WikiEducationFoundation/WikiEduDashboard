@@ -17,6 +17,7 @@
 # Author: Macofe
 # Author: PifyZ
 # Author: The RedBurn
+# Author: Thibaut120094
 # Author: Trial
 # Author: Tuxxic
 # Author: Urhixidur
@@ -129,6 +130,7 @@ fr:
     label: Activité
   articles:
     article_development: (développement d’article)
+    articles_shown: Affichage de %{count} sur %{total}
     assigned: Articles affectés
     available: Articles disponibles
     no_available: Aucun article disponible
@@ -877,7 +879,11 @@ fr:
     activity: Activité récente
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés
+    articles_created_generic: Pages créées
+    articles_created_wikidata: Éléments créés
     articles_edited: Articles modifiés
+    articles_edited_generic: Pages modifiées
+    articles_edited_wikidata: Éléments modifiés
     bytes_added: Octets ajoutés
     characters: Caractères
     char_added: Caractères ajoutés

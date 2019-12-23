@@ -84,6 +84,7 @@ sv:
     label: Aktivitet
   articles:
     article_development: (artikelutveckling)
+    articles_shown: Visar %{count} av %{total}
     assigned: Tilldelade artiklar
     available: Tillgängliga artiklar
     no_available: Inga tillgängliga artiklar

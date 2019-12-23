@@ -36,10 +36,13 @@ ia:
     opt_in: Si
   articles:
     article_development: (disveloppamento de articulo)
+    articles_shown: Se monstra %{count} de %{total}
     history: (historia)
   courses:
     join_no_passcode: Es tu secur de voler sequer iste curso?
     timeline_enabled: Chronologia activate
+  metrics:
+    articles_created_generic: Paginas create
   revisions:
     see_more: Vider plus
   training:

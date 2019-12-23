@@ -757,7 +757,9 @@ sr-ec:
     activity: Скорашње активности
     are_trained: су ажурни са тренинзима
     articles_created: Направљених чланака
+    articles_created_generic: Направљено страница
     articles_edited: Уређених чланака
+    articles_edited_generic: Измењено страница
     bytes_added: Додато бајтова
     characters: Знакова
     char_added: Додато знакова
