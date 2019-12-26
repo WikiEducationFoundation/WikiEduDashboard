@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Belkacem77
+# Author: K Messaoudi
 # Author: Mastanabal
 # Author: Sayem AtVkm
 ---
@@ -45,6 +46,7 @@ kab:
     edited_by: Yesnafel-it
     label: Armud
   articles:
+    articles_shown: Askan n %{count} seg %{total}
     assigned: Imagraden yettwaɣen
     available: Imagraden yellan
     character_doc: Aɣrud n yisekkilen yettwarnan ar imagraden sɣur imaẓragen yettwaggzan
@@ -138,6 +140,11 @@ kab:
     my_articles: Imagraden inu
   editable:
     edit_template: Snifel taneɣruft
+  metrics:
+    articles_created_generic: Isebtar yettwarnan
+    articles_created_wikidata: Iferdisen yettwarnan
+    articles_edited_generic: Isebtar yettwabeddlen
+    articles_edited_wikidata: Iferdisen yettwabeddlen
   users:
     contribution_statistics: Tidaddanin n uttekki
 ...

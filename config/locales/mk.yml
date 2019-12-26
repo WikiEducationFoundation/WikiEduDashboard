@@ -163,14 +163,14 @@ mk:
   categories:
     add_category: Додај категорија
     add_psid: Додај PetScan PSID
-    add_template: Додај шаблон
+    add_template: Додај предлошка
     add_this_category: Додај ја категоријава
     add_this_psid: Додај го овој PSID
-    add_this_template: Додај го овој шаблон
+    add_this_template: Додај ја предлошкава
     name: Назив
     category_name: Име на категоријата
     psid_name: PSID
-    template_name: Назив на шаблонот
+    template_name: Назив на предлошката
     remove: Отстрани
   courses:
     activity: Активност
@@ -353,7 +353,7 @@ mk:
     save: Зачувај
     edit_description: Уреди опис
     edit_details: Уреди подробности
-    edit_template: Уреди шаблон
+    edit_template: Уреди предлошка
   metrics:
     activity: Скорешни активности
     articles_created: Создадени статии

@@ -69,6 +69,7 @@ roa-tara:
     edited_by: Cangiate da
     label: Attività
   articles:
+    articles_shown: Stoche a fazze 'ndrucà %{count} de %{total}
     assigned: Vôsce assegnate
     next: Prossime
     previous: Precedende
