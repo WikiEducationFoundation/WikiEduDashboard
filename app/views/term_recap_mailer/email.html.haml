@@ -14,22 +14,28 @@
                 You and your students were part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
                 contributed roughly #{number_to_human @presenter.word_count} words to Wikipedia. This is an incredible feat, and we couldn't have done it without you!
               %p.paragraph
-                This term, your students
+                Here's a snapshot of what your students did during the term:
               
                 %ul
+                  %li.paragraph Added #{number_to_human @course.word_count} words to Wikipedia
                   %li.paragraph
                     %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}/articles/edited"} Edited #{number_to_human @course.article_count} articles
-                  %li.paragraph Added #{number_to_human @course.word_count} words to Wikipedia
                   - if @course.new_article_count.positive?
                     %li.paragraph Created #{number_to_human @course.new_article_count} new entries
                   - if @course.references_count.positive?
                     %li.paragraph Added #{number_to_human @course.references_count} references
-                  %li.paragraph Did work that has received about #{number_to_human @course.view_sum} page views
+                  %li.paragraph Received about #{number_to_human @course.view_sum} page views
 
               %p.paragraph
                 Numbers only tell part of the story. I encourage you to share your
                 %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} course page
                 to let others know how your students impacted Wikipedia and how Wikipedia impacted your students!
+
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link{href: "https://twitter.com/intent/tweet?text=In #{@campaign.title}, my students contributed to Wikipedia in a @WikiEducation assignment. Check out the amazing work they did. https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}  Share on Twitter
+                    %a.button_link{href: "https://www.facebook.com/sharer/sharer.php?u=https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} Share on Facebook
 
               %p.paragraph
                 If you've taught more than one course with us, just go to

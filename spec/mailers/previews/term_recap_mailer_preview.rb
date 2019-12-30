@@ -2,7 +2,7 @@
 
 class TermRecapMailerPreview < ActionMailer::Preview
   def email_to_instructors
-    TermRecapMailer.send_recap(example_course, Campaign.default_campaign)
+    TermRecapMailer.email(example_course, Campaign.default_campaign)
   end
 
   private
