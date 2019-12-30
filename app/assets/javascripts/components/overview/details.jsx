@@ -195,18 +195,35 @@ const Details = createReactClass({
 
     let passcode;
     if (this.props.course.passcode || this.props.editable) {
-      passcode = (
-        <TextInput
-          onChange={this.updateDetails}
-          value={this.props.course.passcode}
-          value_key="passcode"
-          editable={this.props.editable}
-          type="text"
-          label={I18n.t('courses.passcode')}
-          placeholder={I18n.t('courses.passcode_none')}
-          required={!!this.props.course.passcode_required}
-        />
-      );
+      if (this.props.editable) {
+        passcode = (
+          <TextInput
+            onChange={this.updateDetails}
+            value={this.props.course.passcode}
+            value_key="passcode"
+            editable={this.props.editable}
+            type="text"
+            label={I18n.t('courses.passcode')}
+            placeholder={I18n.t('courses.passcode_none')}
+            required={!!this.props.course.passcode_required}
+          />
+        );
+      } else {
+        const studentLink = this.props.course.enroll_url.substring(0, this.props.course.enroll_url.indexOf('/enroll'));
+        const enrollToken = `?enroll=${this.props.course.passcode}`;
+        passcode = (
+          <TextInput
+            onChange={this.updateDetails}
+            value={<a href={`${studentLink}${enrollToken}`}>{this.props.course.passcode}</a>}
+            value_key="passcode"
+            editable={this.props.editable}
+            type="text"
+            label={I18n.t('courses.passcode')}
+            placeholder={I18n.t('courses.passcode_none')}
+            required={!!this.props.course.passcode_required}
+          />
+        );
+      }
     }
 
     let expectedStudents;
