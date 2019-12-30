@@ -93,7 +93,7 @@ GEM
     activerecord (6.0.0)
       activemodel (= 6.0.0)
       activesupport (= 6.0.0)
-    activerecord-import (1.0.3)
+    activerecord-import (1.0.4)
       activerecord (>= 3.2)
     activestorage (6.0.0)
       actionpack (= 6.0.0)
@@ -506,7 +506,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.9)
     timecop (0.9.1)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.2)
       tzinfo (>= 1.0.0)
@@ -535,7 +535,7 @@ GEM
     will_paginate (3.2.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.2.1)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
