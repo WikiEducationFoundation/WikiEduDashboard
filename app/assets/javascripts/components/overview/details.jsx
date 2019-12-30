@@ -194,7 +194,7 @@ const Details = createReactClass({
     }
 
     let passcode;
-    if (this.props.course.passcode || this.props.editable) {
+    if (this.props.course.passcode !== '****' || this.props.editable) {
       if (this.props.editable) {
         passcode = (
           <TextInput
