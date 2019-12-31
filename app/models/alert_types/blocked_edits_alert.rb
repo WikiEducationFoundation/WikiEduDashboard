@@ -30,14 +30,14 @@ class BlockedEditsAlert < Alert
   end
 
   def ticket_body
-    <<-BLOCK_DETAILS
-An automatic Dashboard edit was blocked. This may mean the Dashboard's IP address is
-being affected by a range block. (No additional alerts for subsequent blocked edits
-will be generated for 8 hours.)
+    <<~BLOCK_DETAILS
+      An automatic Dashboard edit was blocked. This may mean the Dashboard's IP address is
+      being affected by a range block. (No additional alerts for subsequent blocked edits
+      will be generated for 8 hours.)
 
-Affected user: #{user.username}
+      Affected user: #{user.username}
 
-Info: #{details}
+      Info: #{details}
     BLOCK_DETAILS
   end
 end

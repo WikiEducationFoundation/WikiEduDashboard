@@ -21,7 +21,7 @@ AllCops:
     - 'setup/*'
   TargetRubyVersion: 2.5
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Metrics/ClassLength:
