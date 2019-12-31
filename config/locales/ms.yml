@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anakmalaysia
+# Author: CyberTroopers
 # Author: Tofeiku
 # Author: Yusozim
 ---
@@ -57,6 +58,7 @@ ms:
     edited_by: Disunting oleh
     label: Aktiviti
   articles:
+    articles_shown: Menunjukkan %{count} daripada %{total}
     edited_mobile: Rencana
     filter:
       wiki_all: Semua
@@ -102,4 +104,9 @@ ms:
     courses: Program
     creator:
       create_label: Cipta Program Baru
+  metrics:
+    articles_created_generic: Rencana Tercipta
+    articles_created_wikidata: Item Tercipta
+    articles_edited_generic: Halaman Tersunting
+    articles_edited_wikidata: Item Tersunting
 ...

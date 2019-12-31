@@ -113,6 +113,7 @@ es:
     label: Actividad
   articles:
     article_development: (desarrollo de artículo)
+    articles_shown: Se muestran %{count} de %{total}
     assigned: Artículos asignados
     available: Artículos disponibles
     next: Siguiente
@@ -631,6 +632,8 @@ es:
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
+    articles_created_generic: Páginas creadas
+    articles_created_wikidata: Elementos creados
     articles_edited: Artículos editados
     articles_edited_generic: Páginas editadas
     articles_edited_wikidata: Elementos Editaron

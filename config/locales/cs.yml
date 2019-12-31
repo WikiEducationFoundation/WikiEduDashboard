@@ -21,6 +21,7 @@
 # Author: Utar
 # Author: Vojtěch Dostál
 # Author: Walter Klosse
+# Author: YjM
 ---
 cs:
   number:
@@ -113,12 +114,16 @@ cs:
     sign_up_help: Chcete-li nástěnku používat, přihlaste se prosím se svým účtem na
       Wikipedii a povolte přístup ke svému účtu. Můžete se přihlásit k již existujícímu
       účtu na Wikipedii, nebo si vytvořit nový.
+  alerts:
+    alert_label: Upozornění
+    no_alerts: Nenalezena žádná upozornění.
   activity:
     all: Aktivita
     edited_by: Editoval(a)
     label: Aktivita
   articles:
     article_development: (rozvoj článku)
+    articles_shown: Zobrazuje se %{count} z %{total}
     assigned: Přiřazené články
     available: Články k dispozici
     no_available: Žádné dostupné články
@@ -776,7 +781,11 @@ cs:
     activity: Nedávná aktivita
     are_trained: účastníků projektu
     articles_created: Vytvořené stránky
+    articles_created_generic: Vytvořené stránky
+    articles_created_wikidata: Vytvořené položky
     articles_edited: Editované stránky
+    articles_edited_generic: Upravené stránky
+    articles_edited_wikidata: Upravené položky
     bytes_added: Přidáno bajtů
     characters: Znaky
     char_added: Přidáno znaků
