@@ -27,7 +27,7 @@ describe 'Student users', type: :feature, js: true do
            submitted: true,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
+           end: '2025-01-01'.to_date)
   end
   let!(:editathon) do
     create(:editathon,
@@ -38,7 +38,7 @@ describe 'Student users', type: :feature, js: true do
            submitted: true,
            passcode: '',
            start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
+           end: '2025-01-01'.to_date)
   end
 
   before do
