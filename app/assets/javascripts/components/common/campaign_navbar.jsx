@@ -1,48 +1,67 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-// import TextInput from './text_input.jsx';
+import PropTypes from 'prop-types';
+// import { NavLink } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
+// import { withRouter } from 'react-router';
 
-const CampaignNavbar = ({ campaign, campaignLink }) => {
-  const homeLink = `${campaign.slug}/overview`;
-  const programsLink = `${campaignLink}/programs`;
-  const articlesLink = `${campaign.slug}/articles`;
-  const editorsLink = `${campaignLink}/users`;
-  const oresLink = `${campaignLink}/ores/plot`;
-  const alertsLink = `${campaignLink}/alerts`;
-
-  // const searchDefaultCampaign = (
-  //   <TextInput
-  //     id={this.props.campaign.id}
-  //     value="Search Default Campaign"
-  //   />
-  // );
+const CampaignNavbar = ({ campaign }) => {
   return (
-    <div className="container">
-      <h2 className="title">Campaign:{campaign.title}</h2>
-      <nav>
-        <div className="nav__item" id="overview-link">
-          <p><NavLink to={homeLink} activeClassName="active">{I18n.t('courses.overview')}</NavLink>
-          </p>
+    <div className="campaign-nav__wrapper">
+      <div className="campaign_navigation">
+        <div className="container">
+          <a className="nav__item">
+            <h2 className="title">Campaign:{campaign.title}</h2>
+          </a>
+          {/* <Route exact path="/campaigns/miscellanea/overview" render={() => <CampaignHome />} */}
+          <nav>
+            <ul className="campaign-nav__ul">
+              <li className="nav__item" id="overview-link">
+                <p><a className="active" href="/campaigns/miscellanea/overview">Home</a></p>
+              </li>
+              <li className="nav__item" id="overview-link">
+                <p><a to="/campaigns/miscellanea/programs" >Programs</a></p>
+              </li>
+              <li className="nav__item" id="overview-link">
+                <p><a href="/campaigns/miscellanea/articles">{I18n.t('courses.articles')}</a></p>
+              </li>
+              <li className="nav__item" id="overview-link">
+                <p><a href="/campaigns/miscellanea/users">Editors</a></p>
+              </li>
+              <li className="nav__item" id="overview-link">
+                <p><a href="/campaigns/miscellanea/ores_plot">ORES</a></p>
+              </li>
+              <li className="nav__item" id="overview-link">
+                <p><a href="/campaigns/miscellanea/alerts">Alerts</a></p>
+              </li>
+            </ul>
+            <div className="campaign-nav__search" >
+              <form action="/campaigns/miscellanea/programs" acceptCharset="UTF-8" method="get">
+                <input
+                  type="text"
+                  name="courses_query"
+                  id="coureses_query"
+                  placeholder="Search Default Campaign"
+                />
+                <input
+                  type="hidden"
+                  name="source"
+                  id="source"
+                  value="nav_campaign_form"
+                />
+                <button type="submit">
+                  <i className="icon icon-search" />
+                </button>
+              </form>
+            </div>
+          </nav>
         </div>
-        <div className="nav__item" id="programs-link">
-          <p><NavLink to={programsLink} activeClassName="active">{I18n.t('course_string_prefix').courses}</NavLink></p>
-        </div>
-        <div className="nav__item" id="srticles-link">
-          <p><NavLink to={articlesLink} activeClassName="active">{I18n.t('courses.articles')}</NavLink></p>
-        </div>
-        <div className="nav__item" id="students-link">
-          <p><NavLink to={editorsLink} activeClassName="active">{I18n.t('campaign.course_string_prefix').students}</NavLink></p>
-        </div>
-        <div className="nav__item" id="ores-link">
-          <p><NavLink to={oresLink} activeClassName="active">{I18n.t('courses.ores_plot')}</NavLink></p>
-        </div>
-        <div className="nav__item" id="ores-link">
-          <p><NavLink to={alertsLink} activeClassName="active">{I18n.t('courses.alerts')}</NavLink></p>
-        </div>
-      </nav>
-      {/* {searchDefaultCampaign} */}
+      </div>
     </div>
   );
+};
+
+CampaignNavbar.propTypes = {
+  campaign: PropTypes.object,
 };
 
 export default CampaignNavbar;
