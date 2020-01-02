@@ -74,8 +74,8 @@ const UploadViewer = createReactClass({
       usageTableElements = globalUsage.map((usage, index) => {
           return (
             <tr key={usage.url}>
-              <td>{usage.wiki}</td>
-              <td><a href={usage.url}>{usage.title}</a></td>
+              <td>{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
+              <td><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
               <td className="text-right">{this.props.pageViews[index]}</td>
             </tr>
           );
@@ -86,8 +86,9 @@ const UploadViewer = createReactClass({
     if (globalUsage.length > 0) {
       fileUsageTable = (
         <div>
+          <h1>{'\n'}</h1>
           <h4>File usage on other wikis</h4>
-          <table>
+          <table border="1">
             <thead>
               <tr>
                 <th>Wiki</th>
@@ -112,6 +113,7 @@ const UploadViewer = createReactClass({
       categoriesList = categoriesList.splice(1);
       categories = (
         <div>
+          <h1>{'\n'}</h1>
           <h4>Categories</h4>
           {categoriesList}
         </div>
@@ -135,20 +137,21 @@ const UploadViewer = createReactClass({
             <table>
               <tbody>
                 <tr>
-                  <td className="bg-grey">Date</td>
+                  <td className="bg-grey">Date:&nbsp;</td>
                   <td>{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
                 </tr>
                 <tr>
-                  <td className="bg-grey">Author</td>
+                  <td className="bg-grey">Author:&nbsp;</td>
                   <td>{author}</td>
                 </tr>
                 <tr>
-                  <td className="bg-grey">Source</td>
+                  <td className="bg-grey">Source:&nbsp;</td>
                   <td dangerouslySetInnerHTML={{ __html: source }} />
                 </tr>
                 <tr>
-                  <td className="bg-grey">License</td>
+                  <td className="bg-grey">License:&nbsp;</td>
                   <td>{license}</td>
+                  <td>{'\n'}</td>
                 </tr>
               </tbody>
             </table>
