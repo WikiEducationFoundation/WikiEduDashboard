@@ -29,7 +29,4 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 
 - **To check if redis is running as a daemon in Linux** `ps aux | grep redis-server`
 
-- **Make sure that the CLI
-gulp version is same as the Local version** `gulp -v`.
-
 - Use node v10 or lower to avoid any errors.
