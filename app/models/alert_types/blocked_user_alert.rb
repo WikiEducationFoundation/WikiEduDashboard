@@ -27,8 +27,8 @@ class BlockedUserAlert < Alert
   end
 
   def url
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     "https://en.wikipedia.org/wiki/Special:Log?type=block&user=&page=User%3A#{user.url_encoded_username}&wpdate=&tagfilter=&subtype="
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 end

@@ -182,11 +182,11 @@ class WikiCourseEdits
 
   def announce_course_on_announcement_page(instructor)
     announcement_page = ENV['course_announcement_page']
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"
     section_title = "New course announcement: [[#{@course.wiki_title}]] (instructor: [[User:#{instructor.username}]])"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     message = { sectiontitle: section_title,
                 text: announcement,
                 summary: summary }
