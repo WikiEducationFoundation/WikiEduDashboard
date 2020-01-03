@@ -27,6 +27,7 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.json do
         @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
+        set_presenter
       end
     end
   end
