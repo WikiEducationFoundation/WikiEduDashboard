@@ -19,6 +19,10 @@
       = render 'create_modal'
 
 .container
+  = form_tag campaigns_path, class: 'explore-courses', method: :get do
+    = text_field_tag(:search, '', placeholder: t('campaign.search_campaigns'))
+    %button{type: 'submit'}
+      %i.icon.icon-search
   %section#js-campaigns.campaign-list
     %table.table.table--sortable
       %thead

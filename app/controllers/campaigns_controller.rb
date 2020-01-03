@@ -19,7 +19,11 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w[title start end].freeze
 
   def index
-    @campaigns = Campaign.all
+    @campaigns = if search_params[:search].present?
+      Campaign.where('lower(title) like ?', "#{search_params[:search].downcase}%")
+    else
+      Campaign.all
+    end
     @campaign = Campaign.new
   end
 
@@ -265,5 +269,9 @@ class CampaignsController < ApplicationController
     params.require(:campaign)
           .permit(:slug, :description, :template_description, :title, :start, :end,
                   :default_course_type, :default_passcode)
+  end
+
+  def search_params
+    params.permit(:search)
   end
 end
