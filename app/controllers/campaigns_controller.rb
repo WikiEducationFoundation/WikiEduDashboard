@@ -20,10 +20,11 @@ class CampaignsController < ApplicationController
 
   def index
     @campaigns = if search_params[:search].present?
-      Campaign.where('lower(title) like ?', "#{search_params[:search].downcase}%")
-    else
-      Campaign.all
-    end
+                   Campaign.where('lower(title) like ?', "#{search_params[:search].downcase}%")
+                 else
+                   Campaign.all
+                 end
+    @query = search_params[:search]
     @campaign = Campaign.new
   end
 
