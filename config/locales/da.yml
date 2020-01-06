@@ -140,6 +140,7 @@ da:
     add_available: Tilføj tilgængelige artikler
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
+    bibliography: Bibliografi
     clone: Klon
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
@@ -360,6 +361,8 @@ da:
     enroll: Tilføj skribent
     enrollment: Tilføj/Fjern skribenter
     explore: Find programmer
+    courses_enrolled: Programmer deltaget i
+    expected_students: Forventede skribenter
     join_course: Tilslut program
     leave_course: Forlad program
     milestones_none: Dette projekt har lige nu ingen milepæle.
@@ -460,6 +463,7 @@ da:
     first_week_title: Første aktive uge
     gradeable_value: Værdi
     no_timeline: Dette forløb har ingen tidslinje.
+    reset_titles: Nulstil til standard
     save_all_changes: Gem alle
     this_week_title_default: Denne uge
     title: Tidslinje
