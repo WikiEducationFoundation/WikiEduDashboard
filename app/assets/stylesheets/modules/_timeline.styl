@@ -171,6 +171,7 @@
     margin-left 2px
 
 button.week__delete-week
+  margin-top 55px
   &:after
     content '\EA0D'
     position relative
@@ -179,16 +180,17 @@ button.week__delete-week
     color $warning_text
 
 button.week__add-block
-  color $brand_primary
+  color $brand_primary  //this gives color of Add Block +
+  margin-top 55px
   &:after
     content '\EA08'
-    font-size 12px
+    font-size 12px  //12px is size of the +
   &:hover
     text-decoration underline
 
 .week__delete-week:after, .week__add-block:after
   font-family 'icons'
-  font-size 14px
+  font-size 14px //14px is size of the dustbin
   padding-left 2px
 
 .week__week-dates
