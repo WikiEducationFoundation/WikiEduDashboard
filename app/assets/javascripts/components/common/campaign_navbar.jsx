@@ -10,7 +10,7 @@ const CampaignNavbar = ({ campaign }) => {
       <div className="campaign_navigation">
         <div className="container">
           <a className="nav__item">
-            <h2 className="title">Campaign:{campaign.title}</h2>
+            <h2 className="title">Campaign: {campaign.title}</h2>
           </a>
           {/* <Route exact path="/campaigns/miscellanea/overview" render={() => <CampaignHome />} */}
           <nav>
