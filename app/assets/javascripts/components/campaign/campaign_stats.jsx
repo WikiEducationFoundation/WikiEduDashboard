@@ -64,29 +64,34 @@ const CampaignStats = (props) => {
             <small>{I18n.t('metrics.upload_count')}</small>
             <div className="tooltip dark">
               <h4>{props.campaign.uploads_in_use_count_human}</h4>
-              {/* <p>{I18n.t('metrics.uploads_in_use_count' props.campaign.uploads_in_use_count)}</p> */}
+              {/* <p>I18n.t('metrics.uploads_in_use_count',
+                {count: props.campaign.uploads_in_use_count })
+              </p> */}
               <h4>{props.campaign.upload_usage_count_human}</h4>
               {/* <p>{I18n.t['metrics.upload_usages_count', props.campaign.upload_usage_count]}</p> */}
             </div>
           </div>
         </div>
         <div className="primary">
-          <form className="module campaign-description rails_editable" id="edit_campaign_1" action="/campaign/miscellanea" acceptCharset="UTF-8" method="get">
-            {/* <input name="utf8" type="hidden" id="campaign_slug[@campaign.slug]" value=""> */}
-            {/* <button className="button dark green">
-              {I18n.t('courses_generic.creator.create_short')} */}
-            {/* </button>
-            <i className="icon icon-plus" /> */}
-            {/* <input type="hidden" name="_method" value="patch" />
-              <input type="hidden" name="authenticity_token" value="" /> */}
-            <div className="section-header">
-              <h3>Campaign: {props.campaign.title}</h3>
-              <p>{props.campaign.description}</p>
-            </div>
-          </form>
+          {/* <form className="module campaign-description rails_editable" id="edit_campaign_1" action="/campaign/miscellanea" acceptCharset="UTF-8" method="get">
+            <div className="sidebar">
+              if current_user && (Features.open_course_creation? || current_user&.admin?)
+              <form action="course_creator_path" method="get" acceptCharset="UTF-8" className="campaign-create">
+                <input name="utf8" type="hidden" id="campaign_slug[@campaign.slug]" value="" />
+                <button className="button dark green">
+                  {I18n.t('courses_generic.creator.create_short')}
+                </button>
+                <i className="icon icon-plus" />
+              </form> */}
         </div>
-      </section>
+        <div className="section-header">
+          <h3>Campaign: {props.campaign.title}</h3>
+          <p>{props.campaign.description}</p>
+        </div>
+          </form>
     </div>
+      </section >
+    </div >
   );
 };
 
