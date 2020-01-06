@@ -23,7 +23,9 @@ const Category = ({ course, category, remove, editable }) => {
   const lastUpdateMoment = moment.utc(lastUpdate);
   let lastUpdateMessage;
   if (lastUpdate) {
-    lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
+    lastUpdateMessage = moment(lastUpdate).isSame(category.created_at)
+      ? '---'
+      : `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
   }
 
   return (
