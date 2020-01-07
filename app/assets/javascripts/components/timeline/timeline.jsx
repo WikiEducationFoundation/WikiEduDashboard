@@ -436,7 +436,7 @@ const Timeline = createReactClass({
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
-          <section className="timeline-ctas float-container">
+          <section className="timeline-ctas1 float-container">
             <span>{wizardLink}</span>
             {reorderableControls}
             {reorderActionButtons}
