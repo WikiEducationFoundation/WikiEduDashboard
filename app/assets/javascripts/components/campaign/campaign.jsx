@@ -25,7 +25,11 @@ export const Campaign = createReactClass({
   },
 
   render() {
-    console.log(`FROM RENDER: ${this.props.campaign}`);
+    const campaignSlug = this.props.match.params.slug;
+    const campaign = this.props.campaign;
+    if (!campaignSlug || !campaign || !campaign.home_wiki) {
+      return <div />;
+    }
     return (
       <div>
         <CampaignNavbar
