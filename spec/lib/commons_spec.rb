@@ -67,11 +67,11 @@ describe Commons do
 
     it 'gets usage data for an unused file' do
       VCR.use_cassette 'commons/get_usage_none' do
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         upload = create(:commons_upload,
                         id: 39997956,
                         file_name: 'File:Designing Internet Research class at University of Washington, 2015-04-28 21.jpg')
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
         response = described_class.get_usages [upload]
         expect(response).to eq([])
       end

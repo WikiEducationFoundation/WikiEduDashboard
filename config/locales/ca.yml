@@ -731,7 +731,11 @@ ca:
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats
+    articles_created_generic: Pàgines creades
+    articles_created_wikidata: Elements creats
     articles_edited: Articles editats
+    articles_edited_generic: Pàgines editades
+    articles_edited_wikidata: Elements editats
     bytes_added: Bytes afegits
     characters: Caràcters
     char_added: Caràcters afegits

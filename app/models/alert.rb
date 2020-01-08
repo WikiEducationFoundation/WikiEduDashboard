@@ -146,6 +146,10 @@ class Alert < ApplicationRecord
     raise NotImplementedError
   end
 
+  def ticket_body
+    raise NotImplementedError
+  end
+
   def reply_to
     nil
   end

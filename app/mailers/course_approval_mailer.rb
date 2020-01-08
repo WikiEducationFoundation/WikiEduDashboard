@@ -14,9 +14,9 @@ class CourseApprovalMailer < ApplicationMailer
     @is_returning_instructor = @course.tag? 'returning_instructor'
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
     @signed = SpecialUsers.classroom_program_manager&.real_name || 'The Wiki Education team'
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     mail(to: @instructor.email,
          subject: "Your Wiki Education course page for #{@course.title} / #{@course.term} at #{@course.school} is now live")
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 end

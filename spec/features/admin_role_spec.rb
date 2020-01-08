@@ -21,7 +21,7 @@ describe 'Admin users', type: :feature, js: true do
            submitted: true,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
+           end: '2025-01-01'.to_date)
     create(:courses_user,
            user_id: 100,
            course_id: 10001,
@@ -36,7 +36,7 @@ describe 'Admin users', type: :feature, js: true do
            submitted: false,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
+           end: '2025-01-01'.to_date)
     create(:courses_user,
            user_id: 100,
            course_id: 10002,

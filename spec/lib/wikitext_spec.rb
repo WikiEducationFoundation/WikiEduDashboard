@@ -35,12 +35,12 @@ describe Wikitext do
       # be left as a raw link.
       # Here, we're making sure they get converted back to a format that works on-wiki.
       input = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       expected = '[https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice]'
       # Some versions of Pandoc don't have this bug and treat it as raw text, so that's
       # an acceptable alternative
       alternative_expected = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       output = subject.markdown_to_mediawiki(input)
       expect(output).to include(expected).or(include(alternative_expected))
     end

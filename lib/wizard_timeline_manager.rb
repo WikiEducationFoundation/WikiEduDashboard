@@ -120,7 +120,7 @@ class WizardTimelineManager
     block_record = Block.create(block_params)
     add_handouts(block_record) if block_record.kind == Block::KINDS['handouts']
   end
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   HANDOUTS = {
     'art_history_handout' => ['Art History', 'https://wikiedu.org/art_history'],
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
@@ -142,7 +142,7 @@ class WizardTimelineManager
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
   }.freeze
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
   def add_handouts(block)
     content = +''
     HANDOUTS.each_key do |logic_key|

@@ -8,11 +8,11 @@ describe WikiCourseEdits do
   let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1, slug: slug) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'Belajane41') }
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   let(:user_page_content) do
     '{{dashboard.wikiedu.org student editor | course = [[Wikipedia:Wiki_Ed/Missouri_SandT/History_of_Science_(Fall_2019)]] | slug = Missouri_SandT/History_of_Science_(Fall_2019) }}'
   end
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
   let(:user_template) { WikiUserpageOutput.new(course).enrollment_template }
   let(:talk_template) { WikiUserpageOutput.new(course).enrollment_talk_template }
   let(:sandbox_template) { WikiUserpageOutput.new(course).sandbox_template(ENV['dashboard_url']) }
