@@ -38,7 +38,7 @@ class Wiki < ApplicationRecord
 
   LANGUAGES = %w[
     aa ab ace ady af ak als am an ang ar arc arz as ast atj av ay az azb
-    ba bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
+    ba ban bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
     cv cy cz da de din diq dk dsb dty dv dz ee egl el eml en eo epo es et eu ext fa
     ff fi fiu-vro fj fo fr frp frr fur fy ga gag gan gd gl glk gn gom gor got gsw
