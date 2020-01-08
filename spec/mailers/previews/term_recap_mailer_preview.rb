@@ -5,6 +5,10 @@ class TermRecapMailerPreview < ActionMailer::Preview
     TermRecapMailer.email(example_course, Campaign.default_campaign)
   end
 
+  def basic_email_to_instructors
+    TermRecapMailer.basic_email(example_course, Campaign.default_campaign)
+  end
+
   private
 
   def example_course
