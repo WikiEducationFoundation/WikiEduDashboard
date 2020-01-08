@@ -10,6 +10,7 @@ const initialState = {
   template_description: null,
   default_course_type: '',
   default_passcode: '',
+  uploads_in_use_count: undefined,
 };
 
 export default function campaign(state = initialState, action) {

@@ -64,32 +64,51 @@ const CampaignStats = (props) => {
             <small>{I18n.t('metrics.upload_count')}</small>
             <div className="tooltip dark">
               <h4>{props.campaign.uploads_in_use_count_human}</h4>
-              {/* <p>I18n.t('metrics.uploads_in_use_count',
-                {count: props.campaign.uploads_in_use_count })
-              </p> */}
+              <p>{I18n.t('metrics.uploads_in_use_count',
+                { count: props.campaign.uploads_in_use_count })}
+              </p>
               <h4>{props.campaign.upload_usage_count_human}</h4>
-              {/* <p>{I18n.t['metrics.upload_usages_count', props.campaign.upload_usage_count]}</p> */}
+              <p>{I18n.t('metrics.upload_usages_count', { count: props.campaign.upload_usage_count })}</p>
             </div>
           </div>
         </div>
         <div className="primary">
-          {/* <form className="module campaign-description rails_editable" id="edit_campaign_1" action="/campaign/miscellanea" acceptCharset="UTF-8" method="get">
-            <div className="sidebar">
-              if current_user && (Features.open_course_creation? || current_user&.admin?)
-              <form action="course_creator_path" method="get" acceptCharset="UTF-8" className="campaign-create">
-                <input name="utf8" type="hidden" id="campaign_slug[@campaign.slug]" value="" />
-                <button className="button dark green">
-                  {I18n.t('courses_generic.creator.create_short')}
-                </button>
-                <i className="icon icon-plus" />
-              </form> */}
-        </div>
-        <div className="section-header">
-          <h3>Campaign: {props.campaign.title}</h3>
-          <p>{props.campaign.description}</p>
-        </div>
+          <form className="module campaign-description rails_editable" id="edit-campaign_1" action="/campaigns/miscellanea" acceptCharset="UTF-8" method="post">
+            <div className="section-header">
+              <h3>Campaign: {props.campaign.title}</h3>
+            </div>
+            <div className="module__data rails_editable-field">
+              <p className="rails_editable-content">{props.campaign.description}</p>
+            </div>
           </form>
-    </div>
+        </div>
+        <div className="sidebar">
+          <form className="campaign-create" action="./edit" method="get" acceptCharset="UTF-8">
+            <input type="hidden" name="campaign_slug" id="campaign_slug" value={props.campaign.title} />
+            <button className="button dark green">
+              {I18n.t('courses_generic.creator.create_short')}
+              <i className="icon icon-plus" />
+            </button>
+          </form>
+
+          <form className="campaign-create" action="/course_creator" method="get" acceptCharset="UTF-8">
+            <input type="hidden" name="utf8" value="" />
+            <input type="hidden" name="campaign_slug" id="campaign_slug" value={props.campaign.title} />
+            <button className="button dark">
+              {I18n.t('editable.edit')}
+            </button>
+          </form>
+
+          <form className="campaign-create" method="put" acceptCharset="UTF-8">
+            <input name="utf8" type="hidden" value="" />
+            <input type="hidden" name="authenticity_token" value="" />
+            <button className="button dark">
+              {I18n.t('campaign.disable_account_requests')}
+              <i className="icon icon-plus" />
+            </button>
+          </form>
+
+        </div>
       </section >
     </div >
   );
@@ -101,4 +120,3 @@ CampaignStats.propTypes = {
 };
 
 export default CampaignStats;
-

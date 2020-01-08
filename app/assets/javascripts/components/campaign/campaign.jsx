@@ -25,9 +25,7 @@ export const Campaign = createReactClass({
   },
 
   render() {
-    const campaignSlug = this.props.match.params.slug;
-    const campaign = this.props.campaign;
-    if (!campaignSlug || !campaign || !campaign.home_wiki) {
+    if (!this.props.campaign.uploads_in_use_count) {
       return <div />;
     }
     return (
@@ -36,7 +34,7 @@ export const Campaign = createReactClass({
           campaign={this.props.campaign}
         />
         <CampaignHome campaign={this.props.campaign} />
-      </div>
+      </div >
     );
   }
 });
