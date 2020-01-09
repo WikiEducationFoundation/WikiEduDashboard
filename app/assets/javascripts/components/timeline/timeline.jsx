@@ -64,6 +64,13 @@ const Timeline = createReactClass({
     return week.blocks;
   },
 
+  submit(e) {
+    e.preventDefault();
+    if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
+    this.props.updateCourse({ submitted: true });
+    return this.props.persistCourse(this.props.course.slug);
+  },
+
   usingCustomTitles() {
     return this.props.weeks.some(week => week.title);
   },
@@ -184,6 +191,7 @@ const Timeline = createReactClass({
     }
 
     const weekComponents = [];
+    const course = this.props.course;
     const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const usingCustomTitles = this.usingCustomTitles();
     const weekNavInfo = [];
@@ -433,10 +441,13 @@ const Timeline = createReactClass({
       );
     }
 
+    // console.log(!course.submitted && course.type === 'ClassroomProgramCourse');
+
+    if (!course.submitted && course.type === 'ClassroomProgramCourse') {
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
-          <section className="timeline-ctas float-container">
+          <section className="timeline-ctas1 float-container">
             <span>{wizardLink}</span>
             {reorderableControls}
             {reorderActionButtons}
@@ -475,6 +486,51 @@ const Timeline = createReactClass({
       </div>
     );
   }
+
+  if (!(!course.submitted && course.type === 'ClassroomProgramCourse')) {
+  const sidebar = this.props.course.id ? (
+    <div className="timeline__week-nav">
+      <Affix offset={100}>
+        <section className="timeline-ctas2 float-container">
+          <span>{wizardLink}</span>
+          {reorderableControls}
+          {reorderActionButtons}
+        </section>
+        <section className="timeline-ctas3 float-container">
+          {editWeekTitles}
+          {titlesActionButtons}
+        </section>
+        <section className="timeline-ctas float-container">
+          {restartTimeline}
+        </section>
+        <div className="panel">
+          <ol>
+            {weekNav}
+            {addWeekLink}
+          </ol>
+          {editCourseDates}
+          {/* <a className="week-nav__action week-nav__link" href="#grading">Grading</a> */}
+        </div>
+      </Affix>
+    </div>
+  ) : (
+    <div className="timeline__week-nav" />
+  );
+
+  return (
+    <div>
+      <div className="timeline__content">
+        <ul className="list-unstyled timeline__weeks">
+          {tooManyWeeksWarning}
+          {weekComponents}
+          {noWeeks}
+        </ul>
+        {sidebar}
+      </div>
+    </div>
+  );
+}
+}
 });
 
 export default EditableRedux(DragDropContext(Touch({ enableMouseEvents: true }))(Timeline));
