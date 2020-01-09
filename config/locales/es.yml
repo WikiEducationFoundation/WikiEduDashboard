@@ -256,6 +256,7 @@ es:
     requested_accounts: Cuentas solicitadas
     title: Título
     slug: URL semántico
+    search_campaigns: Buscar campañas
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
     add_category: Añadir categoría

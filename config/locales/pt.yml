@@ -302,6 +302,7 @@ pt:
     requested_accounts: Contas solicitadas
     title: Título
     slug: Linha composta
+    search_campaigns: Pesquisar campanhas
     use_start_end_dates: Utilizar datas iniciais e finais
   categories:
     add_category: Adicionar categoria

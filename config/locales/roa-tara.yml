@@ -119,6 +119,7 @@ roa-tara:
     course: Corse
     data_revisions: Date de le revisiune
     title: Titole
+    search_campaigns: Cirche le cambagne
   categories:
     add_this_psid: Aggiunge stu PSID
     psid_name: PSID
