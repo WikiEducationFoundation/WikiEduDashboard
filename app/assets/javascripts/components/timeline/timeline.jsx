@@ -64,12 +64,12 @@ const Timeline = createReactClass({
     return week.blocks;
   },
 
-  submit(e) {
+  /* submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
     this.props.updateCourse({ submitted: true });
     return this.props.persistCourse(this.props.course.slug);
-  },
+  }, */
 
   usingCustomTitles() {
     return this.props.weeks.some(week => week.title);
