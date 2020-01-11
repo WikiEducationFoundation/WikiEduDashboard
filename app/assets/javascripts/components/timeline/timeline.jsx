@@ -434,8 +434,6 @@ const Timeline = createReactClass({
       );
     }
 
-    // console.log(!course.submitted && course.type === 'ClassroomProgramCourse');
-
     if (!course.submitted && course.type === 'ClassroomProgramCourse') {
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
