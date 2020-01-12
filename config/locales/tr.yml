@@ -313,6 +313,7 @@ tr:
     requested_accounts: İstenen hesaplar
     title: Başlık
     slug: Slug
+    search_campaigns: Kampanyaları ara
     use_start_end_dates: Başlangıç ve bitiş tarihlerini kullan
   categories:
     add_category: Kategori ekle

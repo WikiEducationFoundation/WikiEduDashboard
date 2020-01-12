@@ -317,6 +317,7 @@ fr:
     requested_accounts: Comptes demandés
     title: Titre
     slug: Limace
+    search_campaigns: Rechercher les campagnes
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:
     add_category: Ajouter une catégorie

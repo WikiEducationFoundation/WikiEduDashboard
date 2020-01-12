@@ -17,6 +17,10 @@ class DashboardController < ApplicationController
                                    @submitted, @strictly_current, current_user)
   end
 
+  def my_account
+    current_user ? redirect_to("/users/#{current_user.username}") : redirect_to(root_path)
+  end
+
   private
 
   BLOG_FEED_URL = 'https://wikiedu.org/feed'

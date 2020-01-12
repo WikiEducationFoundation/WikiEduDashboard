@@ -117,6 +117,7 @@ lv:
     program_template: Programmas veidne
     requested_accounts: Pieprasītie konti
     title: Nosaukums
+    search_campaigns: Meklēt kampaņas
   categories:
     add_category: Pievienot kategoriju
     add_template: Pievienot veidni

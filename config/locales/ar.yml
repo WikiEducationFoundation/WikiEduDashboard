@@ -4,6 +4,7 @@
 # Author: ASHmed
 # Author: Ayatun
 # Author: Azouz.anis
+# Author: Eyas
 # Author: Haytham morsy
 # Author: Hhaboh162002
 # Author: Maroen1990
@@ -11,6 +12,7 @@
 # Author: Mido
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
+# Author: Sonic N800
 # Author: Youssef
 # Author: ديفيد
 # Author: علاء
@@ -287,6 +289,7 @@ ar:
     requested_accounts: الحسابات المطلوبة
     title: العنوان
     slug: سبيكة
+    search_campaigns: الحملات القائمة على البحث
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
   categories:
     add_category: أضف تصنيفًا
@@ -647,8 +650,8 @@ ar:
     user_suggestions_prompt: اقتراحاتك لمحرري المقالة
     view_other: عرض حملات أخرى
     view: عرض الدورة
-    view_doc: العدد المقدر للمشاهدات لمقالات تم تحريرها بواسطة المحررين المسجلين منذ
-      أن قام المحرر بتحريرهم الأول لكل مقالة
+    view_doc: العدد المقدر للمشاهدات لمقالات حَرَّرَها المحررون المسجلون منذ أن قام
+      المحرر بتحريره الأول لكل مقالة
     view_page: عرض صفحة الدورة
     view_wiki: عرض على ويكيبيديا
     volunteer:

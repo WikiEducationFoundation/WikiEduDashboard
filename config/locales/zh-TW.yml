@@ -256,6 +256,7 @@ zh-TW:
     requested_accounts: 申請的帳號
     title: 標題
     slug: 代稱
+    search_campaigns: 搜尋競賽
     use_start_end_dates: 使用起始和結束時間
   categories:
     add_category: 新增分類

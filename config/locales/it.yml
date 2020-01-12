@@ -280,6 +280,7 @@ it:
     random_passcode: un codice di accesso a caso
     requested_accounts: Richiedi utenza
     title: Titolo
+    search_campaigns: Cerca campagne
     use_start_end_dates: Usa date di inizio e fine
   categories:
     add_category: Aggiungi categoria

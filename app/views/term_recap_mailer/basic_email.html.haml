@@ -1,0 +1,31 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                Thank you for participating in the Wikipedia Student Program during
+                #{link_to @campaign.title, "https://#{ENV['dashboard_url']}/campaigns/#{@campaign.slug}", class: 'link'}!
+                You and your students were part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
+                contributed roughly #{number_to_human @presenter.word_count, delimiter: ','} words to Wikipedia. You can refer back to your
+                %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} course page
+                at any time to see what your students did on Wikipedia.
+
+              %p.paragraph
+                If you've taught more than one course with us, just go to
+                %a.link{href: "https://#{ENV['dashboard_url']}/my_account"} your profile page
+                to see your collective impact.
+
+              %p.paragraph
+                Thank you again.
+
+              %p.paragraph
+                Best Wishes,
+                %br
+                %em
+                  Helaine Blumenthal, Wikipedia Student Program Manager
