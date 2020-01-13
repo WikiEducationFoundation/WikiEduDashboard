@@ -25,9 +25,6 @@ export class Articles extends React.Component {
   render() {
     const { selected } = this.state;
     const { assignments, course, current_user, students, wikidataLabels } = this.props;
-    const selectedAssignments = assignments.filter(assignment => (
-      selected && assignment.user_id === selected.id
-    ));
 
     return (
       <section className="users-articles">
@@ -44,8 +41,7 @@ export class Articles extends React.Component {
               selected
               ? (
                 <SelectedStudent
-                  allAssignments={assignments}
-                  assignments={selectedAssignments}
+                  assignments={assignments}
                   course={course}
                   current_user={current_user}
                   selected={selected}

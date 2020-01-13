@@ -6,23 +6,20 @@ import Header from './Header.jsx';
 import AssignmentsList from './AssignmentsList/AssignmentsList.jsx';
 import NoAssignments from './NoAssignments.jsx';
 
-import {
-  ASSIGNED_ROLE, REVIEWING_ROLE
-} from '~/app/assets/javascripts/constants/assignments';
+// Utils
+import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 
 export const SelectedStudent = ({
-  allAssignments, assignments, course, current_user, selected, wikidataLabels
+  assignments, course, current_user, selected, wikidataLabels
 }) => {
-  const { assigned, reviewing } = assignments.reduce((acc, assignment) => {
-    if (ASSIGNED_ROLE === assignment.role) acc.assigned.push(assignment);
-    if (REVIEWING_ROLE === assignment.role) acc.reviewing.push(assignment);
-    return acc;
-  }, { assigned: [], reviewing: [] });
+  const {
+    assigned, reviewing
+  } = processAssignments({ assignments, course, current_user: selected });
 
   return (
     <article className="assignments-list">
       <Header
-        assignments={allAssignments}
+        assignments={assignments}
         course={course}
         current_user={current_user}
         reviewing={reviewing}
@@ -33,14 +30,18 @@ export const SelectedStudent = ({
       {
         !!assigned.length && <AssignmentsList
           assignments={assigned}
+          course={course}
           title="Assigned Articles"
+          user={selected}
         />
       }
 
       {
         !!reviewing.length && <AssignmentsList
           assignments={reviewing}
+          course={course}
           title="Reviewing Articles"
+          user={selected}
         />
       }
 
@@ -52,7 +53,6 @@ export const SelectedStudent = ({
 };
 
 SelectedStudent.propTypes = {
-  allAssignments: PropTypes.array.isRequired,
   assignments: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,

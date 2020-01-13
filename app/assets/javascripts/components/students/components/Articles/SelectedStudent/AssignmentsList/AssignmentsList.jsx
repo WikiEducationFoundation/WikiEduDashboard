@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Assignment from './Assignment/Assignment.jsx';
 import List from '@components/common/list.jsx';
 
-export const AssignmentsList = ({ assignments, title }) => {
+export const AssignmentsList = ({ assignments, course, title, user }) => {
   const options = { desktop_only: false, sortable: false };
   const keys = {
     article_name: { label: 'Article Name', ...options },
@@ -14,7 +14,12 @@ export const AssignmentsList = ({ assignments, title }) => {
   };
 
   const rows = assignments.map(assignment => (
-    <Assignment key={assignment.id} assignment={assignment} />
+    <Assignment
+      key={assignment.id}
+      assignment={assignment}
+      courseType={course.type}
+      user={user}
+    />
   ));
 
   return (
@@ -25,8 +30,6 @@ export const AssignmentsList = ({ assignments, title }) => {
         className="table--expandable table--hoverable"
         keys={keys}
         table_key="users"
-        // none_message={CourseUtils.i18n('students_none', this.props.course.string_prefix)}
-        // editable={this.state.editAssignments}
         stickyHeader={false}
         sortable={false}
       />
@@ -37,7 +40,12 @@ export const AssignmentsList = ({ assignments, title }) => {
 AssignmentsList.propTypes = {
   assignments: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.number.isRequired })
-  ).isRequired
+  ).isRequired,
+  course: PropTypes.shape({
+    type: PropTypes.string.isRequired
+  }).isRequired,
+  title: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default AssignmentsList;

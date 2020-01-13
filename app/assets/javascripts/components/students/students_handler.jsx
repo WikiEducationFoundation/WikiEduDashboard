@@ -8,7 +8,7 @@ import { fetchAssignments } from '../../actions/assignment_actions';
 import { fetchArticles } from '../../actions/articles_actions.js';
 import Loading from '../common/loading';
 import SubNavigation from '../common/sub_navigation';
-import StudentsView from './containers/StudentsView.jsx';
+import StudentsTabHandler from './containers/StudentsTabHandler.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import { getArticlesByNewness } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
@@ -63,7 +63,7 @@ const StudentsHandler = createReactClass({
         <div className="section-header">
           <h3>{CourseUtils.i18n('students', this.props.course.string_prefix)}</h3>
         </div>
-        <StudentsView {...this.props} sortSelect={this.sortSelect} />
+        <StudentsTabHandler {...this.props} sortSelect={this.sortSelect} />
       </div>
     );
   }
