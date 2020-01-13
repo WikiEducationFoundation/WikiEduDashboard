@@ -1,5 +1,5 @@
 // /* eslint no-undef: 2 */
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 // import { withRouter } from 'react-router';
 import React from 'react';
 import createReactClass from 'create-react-class';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import CampaignNavbar from '../common/campaign_navbar.jsx';
 import { getCampaign } from '../../actions/campaign1_actions';
 import CampaignHome from './campaign_home.jsx';
-import Alert from '../alerts/alert.jsx';
+import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 
 
 export const Campaign = createReactClass({
@@ -35,7 +35,7 @@ export const Campaign = createReactClass({
           <CampaignNavbar
             campaign={this.props.campaign}
           />
-          <Route path="/campaigns/miscellanea/alerts" component={Alert} />
+          <Route path="/campaigns/miscellanea/alerts" component={CampaignAlerts} />
         </Switch>
         <CampaignHome campaign={this.props.campaign} />
       </div >
@@ -52,7 +52,7 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Campaign);
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Campaign));
+        // export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Campaign));
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import CampaignOresPlot from '../campaign/campaign_ores_plot.jsx';
-// import { Route, NavLink, Switch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // import Alert from '../alerts/alert.jsx';
 
 const CampaignNavbar = ({ campaign }) => {
@@ -29,14 +29,14 @@ const CampaignNavbar = ({ campaign }) => {
               <li className="nav__item" id="overview-link">
                 <p><a href="/campaigns/miscellanea/ores_plot">ORES</a></p>
               </li>
-              <li className="nav__item" id="overview-link">
+              {/* <li className="nav__item" id="overview-link">
                 <p><a href="/campaigns/miscellanea/alerts">Alerts</a></p>
-              </li>
+              </li> */}
             </ul>
 
-            {/* <div>
-                <p><NavLink to={'/campaigns/miscellanea/alerts'} activeClassName="active">Alerts</NavLink></p>
-              </div> */}
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/miscellanea/alerts'}>Alerts</NavLink></p>
+            </div>
             <div className="campaign-nav__search" >
               <form action="/campaigns/miscellanea/programs" acceptCharset="UTF-8" method="get">
                 <input
