@@ -190,6 +190,7 @@ sv:
     random_passcode: ett slumpartat lösenord
     requested_accounts: Begärda konton
     title: Titel
+    search_campaigns: Sök kampanjer
     use_start_end_dates: Använd start- och slutdatum
   categories:
     add_category: Lägg till kategori

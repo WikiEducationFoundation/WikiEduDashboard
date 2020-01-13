@@ -18,6 +18,8 @@ io:
     cancel: Nuligar
   metrics:
     tags: Etiketi
+  training:
+    page: Pagino
   users:
     up_to_date_with_training: Aktualigo pri aprentiseso
 ...
