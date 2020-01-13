@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { NEW_ARTICLE } from '~/app/assets/javascripts/constants/assignments';
 
 export const SandboxLink = ({ assignment }) => {
-  let url = assignment.sandboxUrl;
+  let url = assignment.sandboxUrl || assignment.sandbox_url;
   if (assignment.status === NEW_ARTICLE) {
     url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template';
   }
