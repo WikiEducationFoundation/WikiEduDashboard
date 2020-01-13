@@ -130,52 +130,66 @@ const Block = createReactClass({
 
     const modules = [];
     if (block.training_modules) {
-      const length = block.training_modules.length;
-      const partitioned = block.training_modules.reduce((acc, mod) => {
-        let key = 'modules';
-        if (mod.kind === EXERCISE_KIND) key = 'exercises';
-        if (mod.kind === DISCUSSION_KIND) key = 'discussions';
-        acc[key].push(mod);
-        return acc;
-      }, { discussions: [], exercises: [], modules: [] });
-
-      if (partitioned.modules.length) {
+      if (isEditable) {
+        const length = block.training_modules.length;
         modules.push(<TrainingModules
           all_modules={this.props.all_training_modules}
-          block_modules={partitioned.modules}
+          block_modules={block.training_modules}
           block={block}
           editable={isEditable}
           header={length > 1 && 'Training'}
-          key="training-modules"
+          key=""
           onChange={this.passedUpdateBlock}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
         />);
-      }
+      } else {
+        const length = block.training_modules.length;
+        const partitioned = block.training_modules.reduce((acc, mod) => {
+          let key = 'modules';
+          if (mod.kind === EXERCISE_KIND) key = 'exercises';
+          if (mod.kind === DISCUSSION_KIND) key = 'discussions';
+          acc[key].push(mod);
+          return acc;
+        }, { discussions: [], exercises: [], modules: [] });
 
-      if (partitioned.exercises.length) {
-        modules.push(<TrainingModules
-          all_modules={this.props.all_training_modules}
-          block_modules={partitioned.exercises}
-          block={block}
-          editable={isEditable}
-          header={length > 1 && 'Exercise'}
-          key="assignment-modules"
-          onChange={this.passedUpdateBlock}
-          trainingLibrarySlug={this.props.trainingLibrarySlug}
-        />);
-      }
+        if (partitioned.modules.length) {
+          modules.push(<TrainingModules
+            all_modules={this.props.all_training_modules}
+            block_modules={partitioned.modules}
+            block={block}
+            editable={isEditable}
+            header={length > 1 && 'Training'}
+            key="training-modules"
+            onChange={this.passedUpdateBlock}
+            trainingLibrarySlug={this.props.trainingLibrarySlug}
+          />);
+        }
 
-      if (partitioned.discussions.length) {
-        modules.push(<TrainingModules
-          all_modules={this.props.all_training_modules}
-          block_modules={partitioned.discussions}
-          block={block}
-          editable={isEditable}
-          header={length > 1 && 'Discussion'}
-          key="discussion-modules"
-          onChange={this.passedUpdateBlock}
-          trainingLibrarySlug={this.props.trainingLibrarySlug}
-        />);
+        if (partitioned.exercises.length) {
+          modules.push(<TrainingModules
+            all_modules={this.props.all_training_modules}
+            block_modules={partitioned.exercises}
+            block={block}
+            editable={isEditable}
+            header={length > 1 && 'Exercise'}
+            key="assignment-modules"
+            onChange={this.passedUpdateBlock}
+            trainingLibrarySlug={this.props.trainingLibrarySlug}
+          />);
+        }
+
+        if (partitioned.discussions.length) {
+          modules.push(<TrainingModules
+            all_modules={this.props.all_training_modules}
+            block_modules={partitioned.discussions}
+            block={block}
+            editable={isEditable}
+            header={length > 1 && 'Discussion'}
+            key="discussion-modules"
+            onChange={this.passedUpdateBlock}
+            trainingLibrarySlug={this.props.trainingLibrarySlug}
+          />);
+        }
       }
     } else {
       modules.push(<TrainingModules
