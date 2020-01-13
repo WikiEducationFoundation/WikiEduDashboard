@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
+import TextAreaInput from '../common/text_area_input.jsx';
 
 const CampaignStats = (props) => {
   return (
@@ -78,36 +79,53 @@ const CampaignStats = (props) => {
               <h3>Campaign: {props.campaign.title}</h3>
             </div>
             <div className="module__data rails_editable-field">
-              <p className="rails_editable-content">{props.campaign.description}</p>
+              <TextAreaInput
+                className="rails_editable-content"
+                value={props.campaign.description}
+                value_key={'description'}
+                editable={false}
+                markdown={true}
+                autoExpand={true}
+              />
             </div>
           </form>
         </div>
         <div className="sidebar">
-          <form className="campaign-create" action="./edit" method="get" acceptCharset="UTF-8">
-            <input type="hidden" name="campaign_slug" id="campaign_slug" value={props.campaign.title} />
-            <button className="button dark green">
-              {I18n.t('courses_generic.creator.create_short')}
-              <i className="icon icon-plus" />
-            </button>
-          </form>
-
-          <form className="campaign-create" action="/course_creator" method="get" acceptCharset="UTF-8">
-            <input type="hidden" name="utf8" value="" />
-            <input type="hidden" name="campaign_slug" id="campaign_slug" value={props.campaign.title} />
-            <button className="button dark">
-              {I18n.t('editable.edit')}
-            </button>
-          </form>
-
-          <form className="campaign-create" method="put" acceptCharset="UTF-8">
-            <input name="utf8" type="hidden" value="" />
-            <input type="hidden" name="authenticity_token" value="" />
-            <button className="button dark">
-              {I18n.t('campaign.disable_account_requests')}
-              <i className="icon icon-plus" />
-            </button>
-          </form>
-
+          <div className="campaign-create">
+            <a href={`/course_creator?campaign_slug=${props.campaign.slug}`} >
+              <button className="button dark green" type="submit">
+                {I18n.t('courses_generic.creator.create_short')}
+                <i className="icon icon-plus" />
+              </button>
+            </a>
+          </div>
+          <div className="campaign-create">
+            <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
+              <button className="button dark" type="submit">
+                {I18n.t('editable.edit')}
+              </button>
+            </a>
+          </div>
+          <div className="campaign-create">
+            <a href={`/campaigns/${props.campaign.slug}/overview}`} >
+              <button className="button dark" type="submit">
+                {I18n.t('campaign.disable_account_requests')}
+              </button>
+              <div className="campaign-details module rails_editable">
+                <div className="section-header">
+                  <h3>{I18n.t('application.details')}</h3>
+                </div>
+                <div className="module__data extra-line-height">
+                  <form className="edit_campaign" id="edit-campaign_1" action="/campaigns/$props.campaign.title" acceptCharset="UTF-8" method="post" >
+                    <div>
+                      <label>Title:</label>
+                      <span className="rails_editable-content">{props.campaign.title}</span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </section >
     </div >

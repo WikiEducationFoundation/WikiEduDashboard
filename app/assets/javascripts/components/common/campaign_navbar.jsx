@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { NavLink } from 'react-router-dom';
-// import { Route, Switch } from 'react-router-dom';
-// import { withRouter } from 'react-router';
+// import CampaignOresPlot from '../campaign/campaign_ores_plot.jsx';
+// import { Route, NavLink, Switch } from 'react-router-dom';
+// import Alert from '../alerts/alert.jsx';
 
 const CampaignNavbar = ({ campaign }) => {
   return (
@@ -12,7 +12,6 @@ const CampaignNavbar = ({ campaign }) => {
           <a className="nav__item">
             <h2 className="title">Campaign: {campaign.title}</h2>
           </a>
-          {/* <Route exact path="/campaigns/miscellanea/overview" render={() => <CampaignHome />} */}
           <nav>
             <ul className="campaign-nav__ul">
               <li className="nav__item" id="overview-link">
@@ -34,13 +33,17 @@ const CampaignNavbar = ({ campaign }) => {
                 <p><a href="/campaigns/miscellanea/alerts">Alerts</a></p>
               </li>
             </ul>
+
+            {/* <div>
+                <p><NavLink to={'/campaigns/miscellanea/alerts'} activeClassName="active">Alerts</NavLink></p>
+              </div> */}
             <div className="campaign-nav__search" >
               <form action="/campaigns/miscellanea/programs" acceptCharset="UTF-8" method="get">
                 <input
                   type="text"
                   name="courses_query"
                   id="coureses_query"
-                  placeholder="Search Default Campaign"
+                  placeholder="Search"
                 />
                 <input
                   type="hidden"
