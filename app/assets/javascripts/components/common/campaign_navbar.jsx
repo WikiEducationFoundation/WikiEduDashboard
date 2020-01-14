@@ -26,14 +26,16 @@ const CampaignNavbar = ({ campaign }) => {
               <li className="nav__item" id="overview-link">
                 <p><a href="/campaigns/miscellanea/users">Editors</a></p>
               </li>
-              <li className="nav__item" id="overview-link">
+              {/* <li className="nav__item" id="overview-link">
                 <p><a href="/campaigns/miscellanea/ores_plot">ORES</a></p>
-              </li>
+              </li> */}
               {/* <li className="nav__item" id="overview-link">
                 <p><a href="/campaigns/miscellanea/alerts">Alerts</a></p>
               </li> */}
             </ul>
-
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/miscellanea/ores_plot'}>ORES</NavLink></p>
+            </div>
             <div className="nav__item">
               <p><NavLink to={'/campaigns/miscellanea/alerts'}>Alerts</NavLink></p>
             </div>
