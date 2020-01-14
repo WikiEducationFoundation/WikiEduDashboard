@@ -12,7 +12,7 @@ const CampaignStats = (props) => {
             <div className="stat-display__value">{props.campaign.courses_count}</div>
             <small>{CourseUtils.i18n('courses', props.campaign.course_string_prefix)}</small>
           </div>
-          <div className="stat-display__stat tootltip-trigger">
+          <div className="stat-display__stat tooltip-trigger">
             <div className="stat-display__value">
               {props.campaign.user_count}
               <img alt="tooltip default logo" src="/assets/images/info.svg" />
