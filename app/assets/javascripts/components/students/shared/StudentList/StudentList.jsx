@@ -5,7 +5,7 @@ import moment from 'moment';
 
 // Components
 import List from '@components/common/list.jsx';
-import StudentRow from '@components/students/components/Overview/StudentList/StudentRow.jsx';
+import StudentRow from '@components/students/shared/StudentList/StudentRow.jsx';
 import StudentDrawer from './StudentDrawer/StudentDrawer';
 
 // Libraries

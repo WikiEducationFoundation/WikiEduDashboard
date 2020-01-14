@@ -7,7 +7,7 @@ import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
 import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selectors';
 
 import Controls from '../components/Overview/Controls/Controls.jsx';
-import StudentList from '../components/Overview/StudentList/StudentList.jsx';
+import StudentList from '../shared/StudentList/StudentList.jsx';
 
 export class Overview extends React.Component {
   constructor(props) {
@@ -33,10 +33,6 @@ export class Overview extends React.Component {
   closeModal() {
     this.setState({ showModal: false });
   }
-
-  // toggleAssignmentEditingMode() {
-  //   this.setState({ editAssignments: !this.state.editAssignments });
-  // }
 
   notify() {
     if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {

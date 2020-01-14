@@ -43,11 +43,6 @@ const Student = createReactClass({
     return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
   },
 
-  buttonClick(e) {
-    e.stopPropagation();
-    return this.openDrawer();
-  },
-
   _shouldShowRealName() {
     const studentRole = 0;
     if (!this.props.student.real_name) { return false; }

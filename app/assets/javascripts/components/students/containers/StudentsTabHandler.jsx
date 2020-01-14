@@ -9,6 +9,7 @@ import Loading from '@components/common/loading.jsx';
 import SubNavigation from '@components/common/sub_navigation.jsx';
 import Overview from './Overview';
 import Articles from './Articles';
+import Exercises from './Exercises';
 
 
 // Actions
@@ -59,7 +60,7 @@ const StudentsHandler = createReactClass({
         text: I18n.t('users.sub_navigation.article_assignments')
       },
       {
-        href: `/courses/${this.props.course.slug}/articles/available`,
+        href: `/courses/${this.props.course.slug}/students/exercises`,
         text: I18n.t('users.sub_navigation.exercises_and_trainings')
       }
     ];
@@ -85,6 +86,11 @@ const StudentsHandler = createReactClass({
             exact
             path="/courses/:course_school/:course_title/students/articles"
             render={() => <Articles {...this.props} />}
+          />
+          <Route
+            exact
+            path="/courses/:course_school/:course_title/students/exercises"
+            render={() => <Exercises {...this.props} />}
           />
           <Redirect
             to={{
