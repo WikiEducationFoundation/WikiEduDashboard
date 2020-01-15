@@ -10,6 +10,10 @@ import { getCampaign } from '../../actions/campaign1_actions';
 import CampaignHome from './campaign_home.jsx';
 import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import CampaignOresPlot from './campaign_ores_plot.jsx';
+// import CampaignStats from './campaign_stats.jsx';
+import CampaignPrograms from './campaign_programs.jsx';
+import CampaignArticles from './campaign_articles.jsx';
+import CampaignEditors from './campaign_editors.jsx';
 
 
 export const Campaign = createReactClass({
@@ -32,13 +36,16 @@ export const Campaign = createReactClass({
     }
     return (
       <div>
-
         <CampaignNavbar
           campaign={this.props.campaign}
         />
         <Switch>
-          <Route path="/campaigns/:slug/alerts" component={CampaignAlerts} />
-          <Route path="/campaigns/:slug/ores_plot" component={CampaignOresPlot} />
+          {/* <Route exact path="/campaigns/:slug/overview" render={() => <CampaignStats {...this.props.campaign} />} /> */}
+          <Route exact path="/campaigns/:slug/programs" component={CampaignPrograms} />
+          <Route exact path="/campaigns/:slug/articles" component={CampaignArticles} />
+          <Route exact path="/campaigns/:slug/users" component={CampaignEditors} />
+          <Route exact path="/campaigns/:slug/ores_plot" component={CampaignOresPlot} />
+          <Route exact path="/campaigns/:slug/alerts" component={CampaignAlerts} />
         </Switch>
         <CampaignHome campaign={this.props.campaign} />
       </div >
@@ -55,9 +62,3 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Campaign));
-
-
-
-
-
-

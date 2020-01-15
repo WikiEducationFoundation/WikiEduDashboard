@@ -13,34 +13,40 @@ const CampaignNavbar = ({ campaign }) => {
             <h2 className="title">Campaign: {campaign.title}</h2>
           </a>
           <nav>
-            <ul className="campaign-nav__ul">
+            {/* <ul className="campaign-nav__ul">
               <li className="nav__item" id="overview-link">
-                <p><a className="active" href="/campaigns/miscellanea/overview">Home</a></p>
+                <p><a className="active" href="/campaigns/:slug/overview">Home</a></p>
               </li>
               <li className="nav__item" id="overview-link">
-                <p><a to="/campaigns/miscellanea/programs" >Programs</a></p>
+                <p><a to="/campaigns/:slug/programs" >Programs</a></p>
               </li>
               <li className="nav__item" id="overview-link">
-                <p><a href="/campaigns/miscellanea/articles">{I18n.t('courses.articles')}</a></p>
+                <p><a href="/campaigns/:slug/articles">{I18n.t('courses.articles')}</a></p>
               </li>
               <li className="nav__item" id="overview-link">
-                <p><a href="/campaigns/miscellanea/users">Editors</a></p>
+                <p><a href="/campaigns/:slug/users">Editors</a></p>
               </li>
-              {/* <li className="nav__item" id="overview-link">
-                <p><a href="/campaigns/miscellanea/ores_plot">ORES</a></p>
-              </li> */}
-              {/* <li className="nav__item" id="overview-link">
-                <p><a href="/campaigns/miscellanea/alerts">Alerts</a></p>
-              </li> */}
-            </ul>
+            </ul> */}
             <div className="nav__item">
-              <p><NavLink to={'/campaigns/miscellanea/ores_plot'}>ORES</NavLink></p>
+              <p><NavLink className="active" to={'/campaigns/:slug/overview'}>Home</NavLink></p>
             </div>
             <div className="nav__item">
-              <p><NavLink to={'/campaigns/miscellanea/alerts'}>Alerts</NavLink></p>
+              <p><NavLink to={'/campaigns/:slug/programs'}>Programs</NavLink></p>
+            </div>
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/:slug/articles'}>Articles</NavLink></p>
+            </div>
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/:slug/users'}>Editors</NavLink></p>
+            </div>
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/:slug/ores_plot'}>ORES</NavLink></p>
+            </div>
+            <div className="nav__item">
+              <p><NavLink to={'/campaigns/:slug/alerts'}>Alerts</NavLink></p>
             </div>
             <div className="campaign-nav__search" >
-              <form action="/campaigns/miscellanea/programs" acceptCharset="UTF-8" method="get">
+              <form action="/campaigns/:slug/programs" acceptCharset="UTF-8" method="get">
                 <input
                   type="text"
                   name="courses_query"

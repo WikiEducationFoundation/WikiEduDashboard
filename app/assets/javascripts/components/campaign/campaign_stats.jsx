@@ -111,20 +111,20 @@ const CampaignStats = (props) => {
               <button className="button dark" type="submit">
                 {I18n.t('campaign.disable_account_requests')}
               </button>
-              <div className="campaign-details module rails_editable">
-                <div className="section-header">
-                  <h3>{I18n.t('application.details')}</h3>
-                </div>
-                <div className="module__data extra-line-height">
-                  <form className="edit_campaign" id="edit-campaign_1" action="/campaigns/$props.campaign.title" acceptCharset="UTF-8" method="post" >
-                    <div>
-                      <label>Title:</label>
-                      <span className="rails_editable-content">{props.campaign.title}</span>
-                    </div>
-                  </form>
-                </div>
-              </div>
             </a>
+          </div>
+          <div className="campaign-details module rails_editable">
+            <div className="section-header">
+              <h3>{I18n.t('application.details')}</h3>
+            </div>
+            <div >
+              <form className="edit_campaign" id="edit-campaign_1" action="/campaigns/$props.campaign.title" acceptCharset="UTF-8" method="post" >
+                <div>
+                  <label>Title:</label>
+                  <span className="rails_editable-content">{props.campaign.title}</span>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </section >
