@@ -7,82 +7,65 @@ import {
   } from '../../../constants';
 
 const TrainingModulesViewMode = createReactClass({
-    displayName: 'TrainingModulesViewMode',
+  displayName: 'TrainingModulesViewMode',
 
-    propTypes: {
-        block: PropTypes.object,
-        all_training_modules: PropTypes.array,
-        trainingLibrarySlug: PropTypes.string.isRequired,
-        editable: PropTypes.bool,
-      },
+  propTypes: {
+    block: PropTypes.object,
+    all_training_modules: PropTypes.array,
+    trainingLibrarySlug: PropTypes.string.isRequired,
+    editable: PropTypes.bool,
+  },
 
-      passedUpdateBlock(selectedIds) {
-        const newBlock = $.extend(true, {}, this.props.block);
-        newBlock.training_module_ids = selectedIds;
-        return this.props.updateBlock(newBlock);
-      },
+  render() {
+    const block = this.props.block;
+    const modules = [];
+    const length = block.training_modules.length;
+    const partitioned = block.training_modules.reduce((acc, mod) => {
+      let key = 'modules';
+        if (mod.kind === EXERCISE_KIND) key = 'exercises';
+        if (mod.kind === DISCUSSION_KIND) key = 'discussions';
+      acc[key].push(mod);
+      return acc;
+    }, { discussions: [], exercises: [], modules: [] });
 
-      updateBlock(valueKey, value) {
-        const toPass = { ...this.props.block };
-        toPass[valueKey] = value;
-        delete toPass.deleteBlock;
-        return this.props.updateBlock(toPass);
-      },
+    if (partitioned.modules.length) {
+      modules.push(<TrainingModules
+        all_modules={this.props.all_training_modules}
+        block_modules={partitioned.modules}
+        block={block}
+        editable={this.props.editable}
+        header={length > 1 && 'Training'}
+        key="training-modules"
+        trainingLibrarySlug={this.props.trainingLibrarySlug}
+      />);
+    }
 
-      render() {
-        const block = this.props.block;
-        const modules = [];
+    if (partitioned.exercises.length) {
+      modules.push(<TrainingModules
+        all_modules={this.props.all_training_modules}
+        block_modules={partitioned.exercises}
+        block={block}
+        editable={this.props.editable}
+        header={length > 1 && 'Exercise'}
+        key="assignment-modules"
+        trainingLibrarySlug={this.props.trainingLibrarySlug}
+      />);
+    }
 
-        const length = block.training_modules.length;
-        const partitioned = block.training_modules.reduce((acc, mod) => {
-          let key = 'modules';
-          if (mod.kind === EXERCISE_KIND) key = 'exercises';
-          if (mod.kind === DISCUSSION_KIND) key = 'discussions';
-          acc[key].push(mod);
-          return acc;
-        }, { discussions: [], exercises: [], modules: [] });
+    if (partitioned.discussions.length) {
+      modules.push(<TrainingModules
+        all_modules={this.props.all_training_modules}
+        block_modules={partitioned.discussions}
+        block={block}
+        editable={this.props.editable}
+        header={length > 1 && 'Discussion'}
+        key="discussion-modules"
+        trainingLibrarySlug={this.props.trainingLibrarySlug}
+      />);
+    }
 
-        if (partitioned.modules.length) {
-          modules.push(<TrainingModules
-            all_modules={this.props.all_training_modules}
-            block_modules={partitioned.modules}
-            block={block}
-            editable={this.props.editable}
-            header={length > 1 && 'Training'}
-            key="training-modules"
-            onChange={this.passedUpdateBlock}
-            trainingLibrarySlug={this.props.trainingLibrarySlug}
-          />);
-        }
-
-        if (partitioned.exercises.length) {
-          modules.push(<TrainingModules
-            all_modules={this.props.all_training_modules}
-            block_modules={partitioned.exercises}
-            block={block}
-            editable={this.props.editable}
-            header={length > 1 && 'Exercise'}
-            key="assignment-modules"
-            onChange={this.passedUpdateBlock}
-            trainingLibrarySlug={this.props.trainingLibrarySlug}
-          />);
-        }
-
-        if (partitioned.discussions.length) {
-          modules.push(<TrainingModules
-            all_modules={this.props.all_training_modules}
-            block_modules={partitioned.discussions}
-            block={block}
-            editable={this.props.editable}
-            header={length > 1 && 'Discussion'}
-            key="discussion-modules"
-            onChange={this.passedUpdateBlock}
-            trainingLibrarySlug={this.props.trainingLibrarySlug}
-          />);
-        }
-
-        return modules;
-      }
+    return modules;
+  }
 });
 
 export default TrainingModulesViewMode;
