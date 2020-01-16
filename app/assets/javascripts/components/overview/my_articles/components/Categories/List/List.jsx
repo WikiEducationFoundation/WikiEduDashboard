@@ -25,7 +25,7 @@ export const List = ({ assignments, course, current_user, title, wikidataLabels 
   const { peer_review_count: total } = course;
   const currentCount = assignments.length;
   const isReviewing = assignments[0].role === REVIEWING_ROLE;
-  const sub = total && isReviewing ? `(${currentCount}/${total})` : null;
+  const sub = total && isReviewing ? I18n.t('assignments.peer_review_count', { currentCount, total }) : null;
   const message = I18n.t('assignments.peer_review_count_tooltip', { total });
 
   return (
