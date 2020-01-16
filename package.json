@@ -8,7 +8,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.8.0",
     "@babel/polyfill": "^7.8.0",
     "@babel/preset-env": "^7.8.3",
-    "@babel/preset-react": "^7.8.0",
+    "@babel/preset-react": "^7.8.3",
     "@babel/register": "^7.8.3",
     "@bower_components/jquery": "jquery/jquery-dist#3.4.1",
     "@tinymce/tinymce-react": "^3.3.2",
