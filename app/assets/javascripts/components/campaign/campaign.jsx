@@ -40,14 +40,13 @@ export const Campaign = createReactClass({
           campaign={this.props.campaign}
         />
         <Switch>
-          <Route exact path="/campaigns/:slug/overview" component={CampaignHome} />
+          <Route exact path="/campaigns/:slug/overview" render={() => <CampaignHome {...this.props} />} />
           <Route exact path="/campaigns/:slug/programs" component={CampaignPrograms} />
           <Route exact path="/campaigns/:slug/articles" component={CampaignArticles} />
           <Route exact path="/campaigns/:slug/users" component={CampaignEditors} />
           <Route exact path="/campaigns/:slug/ores_plot" component={CampaignOresPlot} />
           <Route exact path="/campaigns/:slug/alerts" component={CampaignAlerts} />
         </Switch>
-        {/* <CampaignHome campaign={this.props.campaign} /> */}
       </div >
     );
   }
