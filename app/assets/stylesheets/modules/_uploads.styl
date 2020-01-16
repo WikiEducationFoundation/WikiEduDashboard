@@ -90,27 +90,19 @@
     .info
       text-align left
 
-@media (min-width: 721px)
-  .view-buttons
+.view-buttons
+  +above(desktop)
     position absolute
     top 20px
     right 80px
-
-    button
-      padding 0
-      width 40px
-      height 40px
-      border-radius 50%
-
-@media (max-width: 720px)
-  .view-buttons
+  +below(desktop)
     width 100%
+  button
+    padding 0
+    width 40px
+    height 40px
+    border-radius 50%
 
-    button
-      padding 0
-      width 40px
-      height 40px
-      border-radius 50%
 
 #uploads .Select
   width 33%
