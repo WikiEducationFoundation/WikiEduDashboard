@@ -7,6 +7,7 @@ class SalesforceSyncWorker
   def perform
     Course.current.each do |course|
       next unless course.flags[:salesforce_id]
+      next unless course.approved?
       PushCourseToSalesforce.new(course)
     end
     ClassroomProgramCourse
