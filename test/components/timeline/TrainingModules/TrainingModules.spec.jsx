@@ -119,7 +119,7 @@ describe('TrainingModules', () => {
               it('Complete', () => {
                 expect(TrainingModulesH.find('td.timeline-module__progress-complete.block__training-modules-table__module-progress')).toHaveLength(1);
                 expect(TrainingModulesH.find('a.Complete')).toHaveLength(1);
-                expect(TrainingModulesH.find('a.Complete').text()).toEqual('View');
+                expect(TrainingModulesH.find('a.Complete').text()).toEqual('Continue');
               });
               it('in-progress', () => {
                 const testTemp = {
