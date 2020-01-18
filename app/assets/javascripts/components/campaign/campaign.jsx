@@ -41,8 +41,8 @@ export const Campaign = createReactClass({
         <Switch>
           <Route exact path={`/campaigns/${this.props.campaign.slug}/overview`} render={() => <CampaignHome {...this.props} />} />
           <Route exact path={`/campaigns/${this.props.campaign.slug}/programs`} render={() => <CampaignPrograms {...this.props} />} />
-          <Route exact path={`/campaigns/${this.props.campaign.slug}/articles`} component={CampaignArticles} />
-          <Route exact path={`/campaigns/${this.props.campaign.slug}/users`} component={CampaignEditors} />
+          <Route exact path={`/campaigns/${this.props.campaign.slug}/articles`} render={() => <CampaignArticles {...this.props} />} />
+          <Route exact path={`/campaigns/${this.props.campaign.slug}/users`} render={() => <CampaignEditors {...this.props} />} />
           <Route exact path={`/campaigns/${this.props.campaign.slug}/ores_plot`} component={CampaignOresPlot} />
           <Route exact path={`/campaigns/${this.props.campaign.slug}/alerts`} component={CampaignAlerts} />
         </Switch>
