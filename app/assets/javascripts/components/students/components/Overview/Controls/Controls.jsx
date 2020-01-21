@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import SortButton from './SortButton.jsx';
+import SortButton from '@components/students/shared/SortButton.jsx';
 import EnrollButton from './EnrollButton.jsx';
 import NewAccountButton from '@components/enroll/new_account_button.jsx';
 

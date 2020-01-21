@@ -29,8 +29,9 @@ const categorizeExercises = (blocks) => {
       acc.unread.push(training);
     }
 
+    acc.count += 1;
     return acc;
-  }, { complete: [], incomplete: [], unread: [] });
+  }, { complete: [], incomplete: [], unread: [], count: 0 });
 };
 
 export default function exercises(state = initialState, action) {

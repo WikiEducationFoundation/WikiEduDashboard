@@ -23,8 +23,8 @@ const showRecent = (course) => {
 
 export const StudentList = (props) => {
   const {
-    assignments, course, current_user, editAssignments, openKey, sort, students,
-    toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions
+    assignments, course, current_user, editAssignments, exerciseView, openKey, sort, students,
+    toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
   } = props;
 
   const rows = students.map(student => (
@@ -46,6 +46,7 @@ export const StudentList = (props) => {
     <StudentDrawer
       student={student}
       course={course}
+      exerciseView={exerciseView}
       key={`drawer_${student.id}`}
       isOpen={openKey === `drawer_${student.id}`}
       revisions={userRevisions[student.id]}
@@ -115,9 +116,9 @@ export const StudentList = (props) => {
 };
 
 StudentList.propTypes = {
-  assignments: PropTypes.array.isRequired,
+  assignments: PropTypes.array,
   trainingStatus: PropTypes.object.isRequired,
-  userRevisions: PropTypes.object.isRequired,
+  userRevisions: PropTypes.object,
   course: PropTypes.shape({
     string_prefix: PropTypes.string.isRequired,
     updates: PropTypes.shape({

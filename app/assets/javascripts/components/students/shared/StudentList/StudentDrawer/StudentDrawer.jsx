@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // Components
-import RevisionRow from './RevisionRow';
-import NoRevisionsRow from './NoRevisionsRow';
-import FullHistoryRow from './FullHistoryRow';
+import Contributions from './Contributions';
+import TrainingStatus from './TrainingStatus/TrainingStatus';
 
 export class StudentDrawer extends React.Component {
   constructor(props) {
@@ -23,32 +23,21 @@ export class StudentDrawer extends React.Component {
   }
 
   render() {
-    const { isOpen, revisions = [], student } = this.props;
+    const {
+      exercises, exerciseView, isOpen, revisions = [],
+      student, trainingModules = []
+    } = this.props;
+
     if (!isOpen) return <tr />;
-
-    const rows = revisions.map((revision, index) => (
-      <RevisionRow key={index} revision={revision} index={index} />
-    ));
-
-    if (rows.length === 0) rows.push(<NoRevisionsRow key="no-revisions" student={student} />);
-    rows.push(<FullHistoryRow key="full-history" student={student} />);
 
     return (
       <tr className="drawer">
         <td colSpan="7">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>{I18n.t('users.contributions')}</th>
-                <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
-                <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
-                <th className="desktop-only-tc">{I18n.t('metrics.references_count')}</th>
-                <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
-                <th className="desktop-only-tc" />
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </table>
+          {
+            exerciseView
+            ? <Contributions revisions={revisions} student={student} />
+            : <TrainingStatus exercises={exercises} trainingModules={trainingModules} />
+          }
         </td>
       </tr>
     );
@@ -57,6 +46,7 @@ export class StudentDrawer extends React.Component {
 
 StudentDrawer.propTypes = {
   course: PropTypes.object,
+  exerciseView: PropTypes.bool,
   student: PropTypes.object,
   isOpen: PropTypes.bool,
   revisions: PropTypes.array,
@@ -64,4 +54,8 @@ StudentDrawer.propTypes = {
   wikidataLabels: PropTypes.object
 };
 
-export default StudentDrawer;
+const mapStateToProps = ({ exercises }) => ({ exercises });
+
+const mapDispatchToProps = null;
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDrawer);

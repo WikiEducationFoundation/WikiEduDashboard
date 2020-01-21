@@ -10,6 +10,11 @@ import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_s
 import { groupByAssignmentType } from '@components/util/helpers';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
 
+// Actions
+import {
+  fetchTrainingModuleExercisesByUser
+} from '~/app/assets/javascripts/actions/exercises_actions';
+
 const Student = createReactClass({
   displayName: 'Student',
 
@@ -37,8 +42,10 @@ const Student = createReactClass({
 
   openDrawer() {
     if (!this.props.isOpen) {
-      this.props.fetchUserRevisions(this.props.course.id, this.props.student.id);
-      this.props.fetchTrainingStatus(this.props.student.id, this.props.course.id);
+      const { course, student } = this.props;
+      this.props.fetchUserRevisions(course.id, student.id);
+      this.props.fetchTrainingStatus(student.id, course.id);
+      this.props.fetchExercises(course.id, student.id);
     }
     return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
   },
@@ -87,7 +94,7 @@ const Student = createReactClass({
 
     let assignButton;
     let reviewButton;
-    if (course.published) {
+    if (assignments && course.published) {
       const {
         assigned, reviewing,
         unassigned, reviewable
@@ -180,7 +187,8 @@ const Student = createReactClass({
 const mapDispatchToProps = {
   setUploadFilters,
   fetchUserRevisions,
-  fetchTrainingStatus
+  fetchTrainingStatus,
+  fetchExercises: fetchTrainingModuleExercisesByUser
 };
 
 export default connect(null, mapDispatchToProps)(Student);

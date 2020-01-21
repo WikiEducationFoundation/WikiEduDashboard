@@ -90,7 +90,7 @@ const StudentsHandler = createReactClass({
           <Route
             exact
             path="/courses/:course_school/:course_title/students/exercises"
-            render={() => <Exercises {...this.props} />}
+            render={() => <Exercises {...this.props} sortSelect={this.sortSelect} />}
           />
           <Redirect
             to={{
