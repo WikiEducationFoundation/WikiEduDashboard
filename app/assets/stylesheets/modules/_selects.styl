@@ -32,26 +32,16 @@
   right 100px
   top 20px
 
-+above(desktop)
- .sort-select
-   width 60px
-   &.inset
-     right 191px
-   select.sorts
-     background url('../images/sort.svg') no-repeat 48% white
-     -webkit-appearance none
-     text-indent -200px
-
-+below(desktop)
- .sort-select
-   width 60px
-   &.inset
-     right 191px
-   select.sorts
-     background url('../images/sort.svg') no-repeat 48% white
-     -webkit-appearance none
-     text-indent -200px
-     margin-top -10px
+.sort-select
+  width 60px
+  &.inset
+    right 191px
+  select.sorts
+    background url('../images/sort.svg') no-repeat 48% white
+    -webkit-appearance none
+    text-indent -200px
+    +below(desktop)
+      margin-top -10px
 
 .select-with-button
   width 400px
