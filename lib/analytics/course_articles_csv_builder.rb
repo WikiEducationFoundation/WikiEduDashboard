@@ -29,6 +29,7 @@ class CourseArticlesCsvBuilder
   def set_articles_edited
     @articles_edited = {}
     @course.all_revisions.includes(article: :wiki).map do |edit|
+      next if untracked_article_ids.include? edit.article_id
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
       article_edits[:references][edit.mw_rev_id] = edit.references_added
@@ -112,5 +113,9 @@ class CourseArticlesCsvBuilder
     # Pageviews tool expects YYYY-MM-DD date formats.
     # When a future end date is provided, the current date is used instead.
     @date_range ||= "&start=#{@course.start.strftime('%Y-%m-%d')}&end=2099-01-01"
+  end
+
+  def untracked_article_ids
+    @untracked_article_ids ||= @course.articles_courses.where(tracked: false).pluck(:article_id)
   end
 end
