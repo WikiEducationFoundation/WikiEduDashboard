@@ -18,6 +18,25 @@ describe CoursesPresenter do
     end
   end
 
+  describe '#campaign_articles' do
+    subject { described_class.new(current_user: nil, campaign_param: Campaign.first.slug).campaign_articles }
+
+    let(:article) { create(:article) }
+    let(:article_two) { create(:article, title: 'Article_Two') }
+    let(:course) { create(:course) }
+
+    before do
+      create(:articles_course, course: course, article: article, tracked: true)
+      create(:articles_course, course: course, article: article_two, tracked: false)
+      course.campaigns << Campaign.first
+    end
+
+    it 'only includes tracked articles' do
+      expect(subject.count).to eq(1)
+      expect(subject.first.article.title).to eq(article.title)
+    end
+  end
+
   describe '#user_courses' do
     subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
 

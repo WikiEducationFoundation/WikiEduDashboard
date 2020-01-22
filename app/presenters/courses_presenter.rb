@@ -35,7 +35,7 @@ class CoursesPresenter
   ARTICLE_SORTING_LIMIT = 50000
   def campaign_articles
     too_many = campaign.articles_courses.count > ARTICLE_SORTING_LIMIT
-    articles = campaign.articles_courses
+    articles = campaign.articles_courses.tracked
                        .includes(article: :wiki)
                        .includes(:course).where(courses: { private: false })
                        .paginate(page: @page, per_page: 1000)
