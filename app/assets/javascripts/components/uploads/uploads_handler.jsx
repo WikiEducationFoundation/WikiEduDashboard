@@ -126,7 +126,7 @@ const UploadsHandler = createReactClass({
               <p className="tooltip dark">Tile View</p>
             </button>
           </div>
-          <div className="sort-select1">
+          <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
               <option value="uploader">{I18n.t('uploads.uploader')}</option>
