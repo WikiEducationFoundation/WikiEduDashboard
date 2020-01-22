@@ -19,7 +19,10 @@ describe CoursesPresenter do
   end
 
   describe '#campaign_articles' do
-    subject { described_class.new(current_user: nil, campaign_param: Campaign.first.slug).campaign_articles }
+    subject do
+      described_class.new(current_user: nil, campaign_param: Campaign.first.slug)
+                     .campaign_articles
+    end
 
     let(:article) { create(:article) }
     let(:article_two) { create(:article, title: 'Article_Two') }
