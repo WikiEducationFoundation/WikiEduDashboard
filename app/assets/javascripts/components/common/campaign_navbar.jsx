@@ -17,13 +17,19 @@ const CampaignNavbar = ({ campaign }) => {
               <p><NavLink className="active" to={`/campaigns/${campaign.slug}/overview`}>Home</NavLink></p>
             </div>
             <div className="nav__item">
-              <p><NavLink to={`/campaigns/${campaign.slug}/programs`}>Programs</NavLink></p>
+              <p>
+                <a href={`/campaigns/${campaign.slug}/programs`}>Programs</a>
+              </p>
             </div>
             <div className="nav__item">
-              <p><NavLink to={`/campaigns/${campaign.slug}/articles`}>Articles</NavLink></p>
+              <p>
+                <a href={`/campaigns/${campaign.slug}/articles`}>Articles</a>
+              </p>
             </div>
             <div className="nav__item">
-              <p><NavLink to={`/campaigns/${campaign.slug}/users`}>Editors</NavLink></p>
+              <p>
+                <a href={`/campaigns/${campaign.slug}/users`}>Editors</a>
+              </p>
             </div>
             <div className="nav__item">
               <p><NavLink to={`/campaigns/${campaign.slug}/ores_plot`}>ORES</NavLink></p>
@@ -37,7 +43,7 @@ const CampaignNavbar = ({ campaign }) => {
                   type="text"
                   name="courses_query"
                   id="coureses_query"
-                  placeholder="Search"
+                  placeholder={`Search ${campaign.title}`}
                 />
                 <button type="submit">
                   <i className="icon icon-search" />
