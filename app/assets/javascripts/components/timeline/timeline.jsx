@@ -190,6 +190,10 @@ const Timeline = createReactClass({
     const weekNavInfo = [];
     let i = 0;
 
+    function isBanner() {
+      return (!course.submitted && course.type === 'ClassroomProgramCourse');
+    }
+
     this.props.weeks.sort((a, b) => a.order - b.order);
 
     this.props.weeks.forEach(w =>
@@ -434,7 +438,7 @@ const Timeline = createReactClass({
       );
     }
 
-    if (!course.submitted && course.type === 'ClassroomProgramCourse') {
+    if (isBanner()) {
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
@@ -478,7 +482,7 @@ const Timeline = createReactClass({
     );
   }
 
-  if (!(!course.submitted && course.type === 'ClassroomProgramCourse')) {
+  if (!isBanner()) {
   const sidebar = this.props.course.id ? (
     <div className="timeline__week-nav">
       <Affix offset={100}>
