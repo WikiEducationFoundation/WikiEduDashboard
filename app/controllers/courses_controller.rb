@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
     end
     @course = course_creation_manager.create
     update_courses_wikis
-    update_flags
+    update_academic_system
   end
 
   def update
