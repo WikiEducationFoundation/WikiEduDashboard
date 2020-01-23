@@ -14,9 +14,17 @@ describe CourseTrainingProgressManager do
 
   let(:week)     { create(:week, course_id: course.id) }
   let(:due_date) { Date.new(2016, 2, 1) }
+  
+  # Training Modules block
   let(:tm_ids)   { [1, 2] }
   let(:create_block_with_tm_ids) do
     create(:block, week_id: week.id, training_module_ids: tm_ids, due_date: due_date)
+  end
+  
+  # Exercise block
+  let(:ex_ids)   { [35, 37] }
+  let(:create_block_with_ex_ids) do
+    create(:block, week_id: week.id, training_module_ids: ex_ids, due_date: due_date)
   end
 
   describe '#course_training_progress' do
@@ -84,6 +92,114 @@ describe CourseTrainingProgressManager do
 
         it 'returns "1/2 training modules completed"' do
           expect(subject).to eq('1/2 training modules completed')
+        end
+      end
+
+      context '3 training modules assigned, 1 completed, 1 exercise' do
+        let(:tm_ids) { [1, 2, 35] } # 35 is an exercise
+
+        before do
+          tm_ids.each do |tm_id|
+            create(:training_modules_users,
+                   training_module_id: tm_id,
+                   user_id: user.id)
+          end
+          # Complete module 1 and 35
+          TrainingModulesUsers.first.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+        end
+
+        it 'returns "1/2 training modules completed"' do
+          expect(subject).to eq('1/2 training modules completed')
+        end
+      end
+    end
+  end
+
+  describe '#course_exercise_progress' do
+    subject { described_class.new(course).course_exercise_progress(user) }
+
+    before do
+      create_block_with_ex_ids
+    end
+
+    context 'course begins before December 1, 2015' do
+      let(:start) { Date.new(2015, 1, 1) }
+
+      context 'training boolean for user is complete' do
+        it 'returns nil' do
+          expect(subject).to be_nil
+        end
+      end
+
+      context 'training boolean for user is nil' do
+        let(:trained) { nil }
+
+        it 'returns nil' do
+          expect(subject).to eq(nil)
+        end
+      end
+    end
+
+    context 'course begins after December 1, 2015' do
+      context '0 training modules assigned, 0 completed' do
+        let(:ex_ids) { [] }
+
+        it 'returns nil' do
+          expect(subject).to be_nil
+        end
+      end
+
+      context '1 exercise assigned, 1 completed' do
+        let(:ex_ids) { [35] }
+
+        before do
+          ex_ids.each do |tm_id|
+            create(:training_modules_users,
+                   training_module_id: tm_id,
+                   user_id: user.id)
+          end
+          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+        end
+
+        it 'returns "1/1 exercise completed"' do
+          expect(subject).to eq('1/1 exercise completed')
+        end
+      end
+
+      context '2 exercises assigned, 1 completed' do
+        let(:ex_ids) { [35, 37] }
+
+        before do
+          ex_ids.each do |ex_id|
+            create(:training_modules_users,
+                   training_module_id: ex_id,
+                   user_id: user.id)
+          end
+          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+        end
+
+        it 'returns "1/2 exercises completed"' do
+          expect(subject).to eq('1/2 exercises completed')
+        end
+      end
+
+      context '3 modules assigned, 1 completed, 1 is training' do
+        let(:ex_ids) { [1, 35, 37] } # 1 is a training module
+
+        before do
+          ex_ids.each do |ex_id|
+            create(:training_modules_users,
+                   training_module_id: ex_id,
+                   user_id: user.id)
+          end
+          # Complete module 1 and 35
+          TrainingModulesUsers.first.update_attribute(:completed_at, 1.hour.ago)
+          TrainingModulesUsers.last.update_attribute(:completed_at, 1.hour.ago)
+        end
+
+        it 'returns "1/2 exercises completed"' do
+          expect(subject).to eq('1/2 exercises completed')
         end
       end
     end

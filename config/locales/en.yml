@@ -1079,6 +1079,9 @@ en:
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
     enrolled_success: '%{username} was added successfully!'
+    exercise_modules_completed:
+      one: "%{completed_count}/%{count} exercise completed"
+      other: "%{completed_count}/%{count} exercises completed"
     first_name: First name
     last_name: Last name
     loading: Loading users...
