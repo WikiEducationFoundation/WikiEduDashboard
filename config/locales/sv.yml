@@ -715,4 +715,7 @@ sv:
     show_options: Visa alternativ
     hide_options: Dölj alternativ
     assign_article_self: Tilldela dig själv
+  training_status:
+    continue: Fortsätt
+    view: Visa
 ...

@@ -1183,6 +1183,8 @@ cs:
     unassign_article_self: Nepřiřazený článek
   training_status:
     completed: Dokončeno
+    continue: Pokračovat
+    view: Zobrazit
     started: Zahájeno
     not_started: Nezahájeno
     due: do %{due_date}

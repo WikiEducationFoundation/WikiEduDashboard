@@ -233,6 +233,7 @@ tr:
     none_short: Herhangi bir makale atanmadı
     none: Bu kursun atanmış makalesi bulunmamaktadır.
     no_available: Bu kursun atanmış makalesi bulunmamaktadır.
+    peer_review_count: '%{currentCount}/%{total} seçildi'
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
     remove: Kaldır
@@ -364,7 +365,7 @@ tr:
     already_enrolled: Zaten '%{title}' kursunun bir parçasısın!
     already_exists: Bu, bu kurs için zaten mevcut!
     archived: Arşivlenmiş Kurslar
-    actions: İşlemler
+    actions: Eylemler
     articles: Makaleler
     articles_none: Bu kursta herhangi bir makale düzenlenmedi.
     assignment_headings:
@@ -1335,6 +1336,8 @@ tr:
     unassign_article_self: Atanmamış Makaleler
   training_status:
     completed: Tamamlandı
+    continue: Devam et
+    view: Görüntüle
     started: Başladı
     not_started: Başlatılmadı
     due: '%{due_date} boyunca'

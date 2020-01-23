@@ -34,10 +34,10 @@ mk:
     search: поставете прашање
     search_results: 'Исход за: „%{search_terms}“'
     no_results: Не најдов ништо за „%{query}“
-    sign_up_extended: Регистрација со Википедија
-    sign_up_wikipedia: Или пак регистрирајте се на Википедија
+    sign_up_extended: Зачленување со Википедија
+    sign_up_wikipedia: Или пак зачленете се на Википедија
     sign_up_log_in_extended: со Википедија
-    sign_up: Регистрација
+    sign_up: Зачленување
     submit: Поднеси
     training: Обука
     change: Смени
@@ -56,7 +56,7 @@ mk:
   home:
     explore: Истражете
     log_in: Најава со Википедија
-    sign_up: Регистрација со Википедија
+    sign_up: Зачленување со Википедија
   activity:
     all: Активности
     edited_by: Уредено од
