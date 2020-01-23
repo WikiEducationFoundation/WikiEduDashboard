@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import PeerReviewLink from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header/Links/PeerReviewLink';
+import PeerReviewLink from '~/app/assets/javascripts/components/common/AssignmentLinks/PeerReviewLink';
 
 describe('PeerReviewLink', () => {
   it('should display the link', () => {

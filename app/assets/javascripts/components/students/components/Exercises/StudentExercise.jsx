@@ -1,13 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AssignCell from '@components/students/assign_cell.jsx';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
-import { groupByAssignmentType } from '@components/util/helpers';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
 
 // Actions

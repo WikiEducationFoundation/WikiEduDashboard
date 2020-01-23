@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Components
@@ -52,10 +51,6 @@ export class Exercises extends React.Component {
     );
   }
 }
-
-Exercises.propTypes = {
-
-};
 
 const mapStateToProps = state => ({
   openKey: state.ui.openKey,
