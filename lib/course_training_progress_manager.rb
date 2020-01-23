@@ -21,8 +21,14 @@ class CourseTrainingProgressManager
     assigned_count = total_training_modules_for_course
     return if assigned_count.zero?
     completed_count = completed_training_modules_for_user_and_course
-    I18n.t('users.training_modules_completed', completed_count: completed_count,
-                                               count: assigned_count)
+    description = I18n.t('users.training_modules_completed',
+                          completed_count: completed_count, count: assigned_count)
+
+    {
+      assigned_count: assigned_count,
+      completed_count: completed_count,
+      description: description
+    }
   end
 
   def course_exercise_progress(user)
@@ -32,8 +38,14 @@ class CourseTrainingProgressManager
     assigned_count = total_exercise_modules_for_course
     return if assigned_count.zero?
     completed_count = completed_exercise_modules_for_user_and_course
-    I18n.t('users.exercise_modules_completed', completed_count: completed_count,
-                                               count: assigned_count)
+    description = I18n.t('users.exercise_modules_completed',
+                          completed_count: completed_count, count: assigned_count)
+
+    {
+      assigned_count: assigned_count,
+      completed_count: completed_count,
+      description: description
+    }
   end
 
   def incomplete_assigned_modules(user)

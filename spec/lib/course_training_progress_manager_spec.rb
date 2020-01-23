@@ -74,7 +74,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/1 training modules completed"' do
-          expect(subject).to eq('1/1 training module completed')
+          expect(subject[:description]).to eq('1/1 training module completed')
+          expect(subject[:assigned_count]).to eq(1)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
 
@@ -91,7 +93,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/2 training modules completed"' do
-          expect(subject).to eq('1/2 training modules completed')
+          expect(subject[:description]).to eq('1/2 training modules completed')
+          expect(subject[:assigned_count]).to eq(2)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
 
@@ -110,7 +114,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/2 training modules completed"' do
-          expect(subject).to eq('1/2 training modules completed')
+          expect(subject[:description]).to eq('1/2 training modules completed')
+          expect(subject[:assigned_count]).to eq(2)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
     end
@@ -165,7 +171,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/1 exercise completed"' do
-          expect(subject).to eq('1/1 exercise completed')
+          expect(subject[:description]).to eq('1/1 exercise completed')
+          expect(subject[:assigned_count]).to eq(1)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
 
@@ -184,7 +192,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/2 exercises completed"' do
-          expect(subject).to eq('1/2 exercises completed')
+          expect(subject[:description]).to eq('1/2 exercises completed')
+          expect(subject[:assigned_count]).to eq(2)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
 
@@ -205,7 +215,9 @@ describe CourseTrainingProgressManager do
         end
 
         it 'returns "1/2 exercises completed"' do
-          expect(subject).to eq('1/2 exercises completed')
+          expect(subject[:description]).to eq('1/2 exercises completed')
+          expect(subject[:assigned_count]).to eq(2)
+          expect(subject[:completed_count]).to eq(1)
         end
       end
     end

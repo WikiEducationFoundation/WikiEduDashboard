@@ -61,7 +61,7 @@ const Student = createReactClass({
       isOpen, student
     } = this.props;
 
-    let className = 'students';
+    let className = 'students-exercise students';
     className += isOpen ? ' open' : '';
 
     const userName = this._shouldShowRealName() ? (
@@ -82,12 +82,22 @@ const Student = createReactClass({
         </span>
       );
 
-    const exerciseProgress = student.course_exercise_progress ? (
-      <small>{student.course_exercise_progress}</small>
+    const {
+      course_exercise_progress_assigned_count: exercise_assigned,
+      course_exercise_progress_completed_count: exercise_completed,
+      course_training_progress_assigned_count: training_assigned,
+      course_training_progress_completed_count: training_completed
+    } = student;
+    const exerciseProgress = student.course_exercise_progress_description ? (
+      <small className={exercise_assigned === exercise_completed ? 'modules-complete' : 'red'}>
+        {student.course_exercise_progress_description}
+      </small>
     ) : undefined;
 
-    const trainingProgress = student.course_training_progress ? (
-      <small>{student.course_training_progress}</small>
+    const trainingProgress = student.course_training_progress_description ? (
+      <small className={training_assigned === training_completed ? 'modules-complete' : 'red'}>
+        {student.course_training_progress_description}
+      </small>
     ) : undefined;
 
     return (

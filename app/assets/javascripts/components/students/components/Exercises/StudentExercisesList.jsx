@@ -62,12 +62,12 @@ export const StudentList = (props) => {
       desktop_only: false,
       sortable: true,
     },
-    exercises: {
+    course_exercise_progress_completed_count: {
       label: 'Exercises',
       desktop_only: false,
       sortable: true,
     },
-    training_modules: {
+    course_training_progress_completed_count: {
       label: 'Training Modules',
       desktop_only: false,
       sortable: true,
