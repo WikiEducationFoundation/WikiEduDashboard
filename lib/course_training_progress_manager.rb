@@ -21,6 +21,7 @@ class CourseTrainingProgressManager
     assigned_count = total_modules_for_course
     return if assigned_count.zero?
     completed_count = completed_modules_for_user_and_course
+    puts @modules_for_course.to_a.map { |id| TrainingModule.find(id).kind }
     I18n.t('users.training_modules_completed', completed_count: completed_count,
                                                count: assigned_count)
   end
@@ -78,9 +79,9 @@ class CourseTrainingProgressManager
   def completed_modules_for_user_and_course
     TrainingModulesUsers
       .where(user_id: @user.id)
-      .where(training_module_id: modules_for_course)
+      .where(training_module_id: training_modules_for_course)
       .where.not(completed_at: nil)
-      .count
+      .count { |tmu| TrainingModule.find(tmu.training_module_id).training? }
   end
 
   def blocks_with_modules_for_course
@@ -90,15 +91,19 @@ class CourseTrainingProgressManager
       .where(weeks: { course_id: @course.id })
   end
 
-  def modules_for_course
-    @modules_for_course ||= blocks_with_modules_for_course
-                            .pluck(:training_module_ids)
-                            .flatten
-                            .uniq
+  def training_modules_for_course
+    module_ids = blocks_with_modules_for_course
+                 .pluck(:training_module_ids)
+                 .flatten
+                 .uniq
+
+    @modules_for_course ||= module_ids.select do |id|
+      TrainingModule.find(id).training?
+    end
   end
 
   def total_modules_for_course
-    @total_modules_for_course ||= modules_for_course.count
+    @total_modules_for_course ||= training_modules_for_course.count
   end
 
   def meetings_manager

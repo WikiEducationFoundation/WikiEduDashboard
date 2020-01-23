@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+import {
+  TRAINING_MODULE_KIND
+} from '~/app/assets/javascripts/constants';
+
 export const TrainingModuleRows = ({ trainingModules }) => {
-  return trainingModules.map((trainingModule) => {
+  const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
+  return trainings.map((trainingModule) => {
     let moduleStatus;
     if (trainingModule.completion_date) {
       moduleStatus = (

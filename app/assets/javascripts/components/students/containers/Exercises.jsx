@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Components
 import Controls from '../components/Exercises/Controls/Controls.jsx';
-import StudentList from '../shared/StudentList/StudentList.jsx';
+import StudentExercisesList from '../components/Exercises/StudentExercisesList';
 
 // Actions
 import {
@@ -37,7 +37,7 @@ export class Exercises extends React.Component {
             ) : null
         }
 
-        <StudentList
+        <StudentExercisesList
           course={course}
           current_user={current_user}
           openKey={openKey}
