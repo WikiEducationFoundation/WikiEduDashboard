@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 # Redirects to a user sandbox page on a wiki
-class SandboxController < ApplicationController
+class RedirectsController < ApplicationController
   before_action :require_signed_in
 
-  ENGLISH_WIKIPEDIA = 'https://en.wikipedia.org/wiki/'
+  ENGLISH_WIKIPEDIA = 'https://en.wikipedia.org/wiki'
 
-  def send_to_sandbox
+  def sandbox
     uri = URI.parse(request.original_url)
     redirect_to "#{userpage}/#{params[:sandbox]}?#{uri.query}"
   end
@@ -14,6 +14,6 @@ class SandboxController < ApplicationController
   private
 
   def userpage
-    "#{ENGLISH_WIKIPEDIA}User:#{current_user.username}"
+    "#{ENGLISH_WIKIPEDIA}/User:#{current_user.username}"
   end
 end

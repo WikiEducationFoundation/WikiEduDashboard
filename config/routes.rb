@@ -381,7 +381,7 @@ Rails.application.routes.draw do
     post 'term_recap/send' => 'term_recap#send_recap_emails'
   end
 
-  get '/sandbox/:sandbox' => 'sandbox#send_to_sandbox'
+  get '/redirect/sandbox/:sandbox' => 'redirects#sandbox'
 
   resources :settings, only: [:index]
 

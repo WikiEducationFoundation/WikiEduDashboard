@@ -8,7 +8,7 @@ content: |+
   module.
 
   <div class="training__button-container">
-  <a target="_blank" class="btn btn-primary" href="/sandbox/be_bold?tour=wikiedbebold2">
+  <a target="_blank" class="btn btn-primary" href="/redirect/sandbox/be_bold?tour=wikiedbebold2">
   Launch “Be bold” tutorial. </a>
 
   </div>
