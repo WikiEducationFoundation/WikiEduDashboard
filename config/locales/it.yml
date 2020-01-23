@@ -973,6 +973,7 @@ it:
     submit: Invia
   training_status:
     completed: Completato
+    continue: Continua
     started: Iniziato
     not_started: Non iniziato
   multi_wiki:

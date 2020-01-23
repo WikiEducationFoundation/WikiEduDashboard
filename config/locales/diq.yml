@@ -75,6 +75,7 @@ diq:
     previous: Verên
     article_title: Sernameyê meqaleyi
     assigned_to: Çebye no
+    deleted: (esteriya)
     edited: Wesiqa ya vuriyena
     edited_by: 'Vurnayoğ:'
     edited_mobile: Meqaleyi
@@ -82,16 +83,19 @@ diq:
       wiki_all: Pêro
       new: Newe
     hide: Bınımne
+    history: (tarix)
     label: Wesiqey
     loading: Meqaleyi bar benê...
     new: (Newe)
     rating: Sınıfe
+    see_more: Tayêna bıvêne
     title: Sername
     title_example: Sernamey wesiqa
     view: Meqale Bıvêne
     view_all: Hemınan bıvin
     wiki: Wiki
   assignments:
+    article_link: Meqale
     assignees: Çebyayış(i)
     assign_other: Wesiqa cı ke
     add_available: Mewcud yu wesiqa dek
@@ -102,7 +106,10 @@ diq:
     milestones:
       title: Siyê kilometri
   campaign:
+    alert_type: Babet
+    alert_user_id: Karber
     campaign: Kampanya
+    created_at: Tarix
     data_instructors: Musnayoği
     description: Şınasnayış
     delete_campaign: Ena kampanya bestere
@@ -111,6 +118,7 @@ diq:
     slug: Guvelık
   categories:
     name: Name
+    category_name: Nameyê kategoriye
     remove: Wedare
   chat:
     label: Mıhebet
@@ -261,6 +269,7 @@ diq:
     training_module_status: Weziyet
     username: Namey karberi
     username_placeholder: Namey karberi
+    useremail_placeholder: E-poste
   wizard:
     read_more: Tayêna bıwane
     summary: Xulasa
@@ -272,7 +281,14 @@ diq:
       closing: Samimiyeta,
       signed: '- Wiki Ed team'
       link: Anket pırr ke
+  article_finder:
+    page_assessment_class: Sınıfe
+    search: Cı geyre
+    tools: Haceti
+    submit: Qeyd ke
   training_status:
     completed: Temam
+    continue: Dewam ke
+    view: Bıvêne
     started: Dest pêkerd
 ...

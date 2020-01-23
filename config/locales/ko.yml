@@ -663,6 +663,8 @@ ko:
     unassign_article_self: 문서 할당 해제
   training_status:
     completed: 완료
+    continue: 계속
+    view: 보기
     started: 시작됨
     not_started: 시작되지 않음
   multi_wiki:

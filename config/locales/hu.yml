@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: BanKris
 # Author: Bencemac
+# Author: Csega
 # Author: Misibacsi
 # Author: Notramo
 # Author: R-Joe
@@ -133,4 +134,6 @@ hu:
     email:
       headline: Helló, %{username}
       link: Kérdőív kitöltése
+  training_status:
+    continue: Folytatás
 ...
