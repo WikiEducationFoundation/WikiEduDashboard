@@ -46,7 +46,7 @@
     "gulp-csslint": "^1.0.1",
     "gulp-eslint": "^6.0.0",
     "gulp-iconfont": "^10.0.3",
-    "gulp-imagemin": "^7.0.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-livereload": "^4.0.2",
     "gulp-load-plugins": "^2.0.2",
     "gulp-newer": "^1.4.0",
