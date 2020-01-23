@@ -175,7 +175,7 @@ const Nav = createReactClass({
     if (this.state.userPermissions) {
       Sandbox = (
         <li>
-          <CustomLink to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" name="My Sandbox" />
+          <CustomLink to="/sandbox/sandbox" name="My Sandbox" />
         </li>
       );
     }
