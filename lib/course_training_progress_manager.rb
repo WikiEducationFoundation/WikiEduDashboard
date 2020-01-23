@@ -27,7 +27,7 @@ class CourseTrainingProgressManager
 
   def course_exercise_progress(user)
     return if in_dashboard_training?
-    
+
     @user = user
     assigned_count = total_exercise_modules_for_course
     return if assigned_count.zero?
@@ -97,9 +97,11 @@ class CourseTrainingProgressManager
   def completed_exercise_modules_for_user_and_course
     TrainingModulesUsers
       .where(user_id: @user.id)
-      .where(training_module_id: training_modules_for_course)
-      .where.not(completed_at: nil)
-      .count { |tmu| TrainingModule.find(tmu.training_module_id).exercise? }
+      .where(training_module_id: exercise_modules_for_course)
+      .where(flags: { marked_complete: true })
+      .count do |tmu|
+        TrainingModule.find(tmu.training_module_id).exercise?
+      end
   end
 
   def blocks_with_modules_for_course
@@ -117,7 +119,7 @@ class CourseTrainingProgressManager
   end
 
   def training_modules_for_course
-    @modules_for_course ||= module_ids_for_course.select do |id|
+    module_ids_for_course.select do |id|
       TrainingModule.find(id).training?
     end
   end
@@ -127,7 +129,7 @@ class CourseTrainingProgressManager
   end
 
   def exercise_modules_for_course
-    @modules_for_course ||= module_ids_for_course.select do |id|
+    module_ids_for_course.select do |id|
       TrainingModule.find(id).exercise?
     end
   end

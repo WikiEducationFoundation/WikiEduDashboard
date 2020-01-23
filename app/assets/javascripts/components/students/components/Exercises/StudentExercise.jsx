@@ -82,8 +82,12 @@ const Student = createReactClass({
         </span>
       );
 
+    const exerciseProgress = student.course_exercise_progress ? (
+      <small>{student.course_exercise_progress}</small>
+    ) : undefined;
+
     const trainingProgress = student.course_training_progress ? (
-      <small className="red">{student.course_training_progress}</small>
+      <small>{student.course_training_progress}</small>
     ) : undefined;
 
     return (
@@ -99,7 +103,7 @@ const Student = createReactClass({
           </div>
         </td>
         <td className="desktop-only-tc">
-          {trainingProgress}
+          {exerciseProgress}
         </td>
         <td className="desktop-only-tc">
           {trainingProgress}
