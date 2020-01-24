@@ -26,7 +26,7 @@ export const SortButton = ({ current_user, sortSelect }) => {
 SortButton.propTypes = {
   current_user: PropTypes.shape({
     admin: PropTypes.bool.isRequired,
-    role: PropTypes.number.isRequired
+    role: PropTypes.number
   }).isRequired,
   sortSelect: PropTypes.func.isRequired
 };

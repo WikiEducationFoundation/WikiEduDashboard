@@ -8,10 +8,10 @@ import DiffViewer from '@components/revisions/diff_viewer.jsx';
 // Helpers
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils';
 
-export const RevisionRow = ({ revision, index }) => {
+export const RevisionRow = ({ course, index, revision, revisions, selectedIndex, student, wikidataLabels, showDiff }) => {
   const article = revision.article;
-  const label = this.props.wikidataLabels[article.title];
-  const formattedTitle = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki, label);
+  const label = wikidataLabels[article.title];
+  const formattedTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
   const details = I18n.t('users.revision_characters_and_views', { characters: revision.characters, views: revision.views });
   const revisionDate = moment(revision.date).format('YYYY-MM-DD   h:mm A');
   return (
@@ -31,11 +31,11 @@ export const RevisionRow = ({ revision, index }) => {
         <DiffViewer
           revision={revision}
           index={index}
-          editors={[this.props.student.username]}
+          editors={[student.username]}
           articleTitle={formattedTitle}
-          setSelectedIndex={this.showDiff}
-          lastIndex={this.props.revisions.length}
-          selectedIndex={this.state.selectedIndex}
+          setSelectedIndex={showDiff}
+          lastIndex={revisions.length}
+          selectedIndex={selectedIndex}
         />
       </td>
     </tr>

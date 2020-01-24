@@ -68,7 +68,7 @@ const StudentsHandler = createReactClass({
     return (
       <div id="users">
         {
-          this.props.current_user.isAdmin
+          this.props.current_user.isAdvancedRole
           && <SubNavigation links={links} />
         }
 

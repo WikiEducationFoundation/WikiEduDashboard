@@ -8,7 +8,7 @@ const TextInput = createReactClass({
   displayName: 'TextInput',
 
   propTypes: {
-    value: PropTypes.string,
+    value: PropTypes.any,
     value_key: PropTypes.string,
     editable: PropTypes.bool,
     label: PropTypes.string,

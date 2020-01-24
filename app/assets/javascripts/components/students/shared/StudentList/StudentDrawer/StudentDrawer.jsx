@@ -24,8 +24,8 @@ export class StudentDrawer extends React.Component {
 
   render() {
     const {
-      exercises, exerciseView, isOpen, revisions = [],
-      student, trainingModules = []
+      course, exercises, exerciseView, isOpen, revisions = [],
+      student, trainingModules = [], wikidataLabels
     } = this.props;
 
     if (!isOpen) return <tr />;
@@ -35,8 +35,16 @@ export class StudentDrawer extends React.Component {
         <td colSpan="7">
           {
             exerciseView
-            ? <Contributions revisions={revisions} student={student} />
-            : <TrainingStatus exercises={exercises} trainingModules={trainingModules} />
+            ? (
+              <Contributions
+                course={course}
+                revisions={revisions}
+                selectedIndex={this.state.selectedIndex}
+                showDiff={this.showDiff}
+                student={student}
+                wikidataLabels={wikidataLabels}
+              />
+            ) : <TrainingStatus exercises={exercises} trainingModules={trainingModules} />
           }
         </td>
       </tr>

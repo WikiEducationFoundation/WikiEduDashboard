@@ -50,7 +50,7 @@ export class Overview extends React.Component {
     return (
       <div className="list__wrapper">
         {
-          current_user.isAdmin
+          current_user.isAdvancedRole
           ? (
             <Controls
               course={course}

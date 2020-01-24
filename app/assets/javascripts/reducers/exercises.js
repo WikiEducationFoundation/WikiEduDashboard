@@ -13,7 +13,7 @@ const initialState = {
   loading: true
 };
 
-const categorizeExercises = (blocks) => {
+const categorizeExercises = (blocks = []) => {
   const trainings = blocks.reduce((acc, block) => acc.concat(block.training_modules), [])
                           .filter(val => val);
   return trainings.reduce((acc, training) => {

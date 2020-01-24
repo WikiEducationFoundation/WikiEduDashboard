@@ -95,7 +95,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'can see real names of enrolled students' do
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
       expect(page).to have_content('Really Real Name')
     end
 
@@ -103,7 +103,7 @@ describe 'Instructor users', type: :feature, js: true do
       allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(
         'name' => 'Risker', 'userid' => 123, 'centralids' => { 'CentralAuth' => 456 }
       )
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
       click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('Risker') }
       click_button 'Enroll'
@@ -114,7 +114,7 @@ describe 'Instructor users', type: :feature, js: true do
 
     it 'is not able to add nonexistent users as students' do
       allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(nil)
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
       click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('NotARealUser') }
       click_button 'Enroll'
@@ -123,7 +123,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'is able to remove students' do
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
       click_button 'Add/Remove Students'
       sleep 1
       # Remove a user
@@ -138,7 +138,7 @@ describe 'Instructor users', type: :feature, js: true do
     it 'is able to assign articles' do
       pending 'This sometimes fails on travis.'
 
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/articles"
 
       # Assign an article
       click_button 'Assign Articles'
@@ -164,7 +164,7 @@ describe 'Instructor users', type: :feature, js: true do
       expect(page).to have_content 'Article 2'
 
       # Delete an assignments
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/articles"
       sleep 1
       click_button 'Assign Articles'
       find('button.border.assign-button', match: :first).click
@@ -183,7 +183,7 @@ describe 'Instructor users', type: :feature, js: true do
     it 'is able to remove students from the course' do
       pending 'This sometimes fails on travis.'
 
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
 
       click_button 'Add/Remove Students'
       find('button.border.plus', text: '-', match: :first).click
@@ -195,7 +195,7 @@ describe 'Instructor users', type: :feature, js: true do
     end
 
     it 'is able to notify users with overdue training' do
-      visit "/courses/#{Course.first.slug}/students"
+      visit "/courses/#{Course.first.slug}/students/overview"
 
       sleep 1
       # Notify users with overdue training
