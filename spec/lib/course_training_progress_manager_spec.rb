@@ -14,15 +14,15 @@ describe CourseTrainingProgressManager do
 
   let(:week)     { create(:week, course_id: course.id) }
   let(:due_date) { Date.new(2016, 2, 1) }
-  
+
   # Training Modules block
   let(:tm_ids)   { [1, 2] }
   let(:create_block_with_tm_ids) do
     create(:block, week_id: week.id, training_module_ids: tm_ids, due_date: due_date)
   end
-  
+
   # Exercise block
-  let(:ex_ids)   { [35, 37] }
+  let(:ex_ids) { [35, 37] }
   let(:create_block_with_ex_ids) do
     create(:block, week_id: week.id, training_module_ids: ex_ids, due_date: due_date)
   end
@@ -167,7 +167,7 @@ describe CourseTrainingProgressManager do
           end
           exercise = TrainingModulesUsers.last
           exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, { marked_complete: true })
+          exercise.update_attribute(:flags, marked_complete: true)
         end
 
         it 'returns "1/1 exercise completed"' do
@@ -188,7 +188,7 @@ describe CourseTrainingProgressManager do
           end
           exercise = TrainingModulesUsers.last
           exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, { marked_complete: true })
+          exercise.update_attribute(:flags, marked_complete: true)
         end
 
         it 'returns "1/2 exercises completed"' do
@@ -211,7 +211,7 @@ describe CourseTrainingProgressManager do
           TrainingModulesUsers.first.update_attribute(:completed_at, 1.hour.ago)
           exercise = TrainingModulesUsers.last
           exercise.update_attribute(:completed_at, 1.hour.ago)
-          exercise.update_attribute(:flags, { marked_complete: true })
+          exercise.update_attribute(:flags, marked_complete: true)
         end
 
         it 'returns "1/2 exercises completed"' do

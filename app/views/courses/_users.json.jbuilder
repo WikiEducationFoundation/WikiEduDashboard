@@ -11,14 +11,18 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.admin cu.user.admin?
 
   exercise_progress = cu.course.training_progress_manager.course_exercise_progress(cu.user)
-  json.course_exercise_progress_description exercise_progress[:description]
-  json.course_exercise_progress_assigned_count exercise_progress[:assigned_count]
-  json.course_exercise_progress_completed_count exercise_progress[:completed_count]
+  if exercise_progress.is_a?(Hash)
+    json.course_exercise_progress_description exercise_progress[:description]
+    json.course_exercise_progress_assigned_count exercise_progress[:assigned_count]
+    json.course_exercise_progress_completed_count exercise_progress[:completed_count]
+  end
 
   training_progress = cu.course.training_progress_manager.course_training_progress(cu.user)
-  json.course_training_progress_description training_progress[:description]
-  json.course_training_progress_assigned_count training_progress[:assigned_count]
-  json.course_training_progress_completed_count training_progress[:completed_count]
+  if training_progress.is_a?(Hash)
+    json.course_training_progress_description training_progress[:description]
+    json.course_training_progress_assigned_count training_progress[:assigned_count]
+    json.course_training_progress_completed_count training_progress[:completed_count]
+  end
 
   # Email and real names of participants are only shown to admins or
   # an instructor of the course.
