@@ -9,7 +9,7 @@ describe('PeerReviewLink', () => {
     const component = shallow(
       <PeerReviewLink
         assignment={{ sandboxUrl: 'url' }}
-        current_user={{ username: 'username' }}
+        user={{ username: 'username' }}
       />
     );
 
