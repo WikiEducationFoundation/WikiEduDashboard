@@ -116,7 +116,7 @@ const HamburgerMenu = createReactClass({
     if (userPermissions) {
       sandbox = (
         <li>
-          <CustomLink to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" name="My Sandbox" />
+          <CustomLink to="/redirect/sandbox/sandbox" name="My Sandbox" />
         </li>
       );
     }

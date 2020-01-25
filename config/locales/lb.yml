@@ -564,6 +564,8 @@ lb:
     relevanceIndex: Relevanzindex
   training_status:
     completed: Fäerdeg
+    continue: Virufueren
+    view: Weisen
     started: Ugefaangen
     not_started: Net ugefaangen
   multi_wiki:

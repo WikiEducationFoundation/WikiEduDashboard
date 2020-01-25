@@ -355,6 +355,9 @@ bn:
     tools: সরঞ্জাম
     more_results: আরও ফলাফল
     submit: জমা দিন
+  training_status:
+    continue: অব্যাহত
+    view: দেখুন
   multi_wiki:
     selector_placeholder: একটি উইকি ডোমেইন লিখা শুরু করুন
 ...

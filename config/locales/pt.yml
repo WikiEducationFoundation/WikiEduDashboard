@@ -11,6 +11,7 @@
 # Author: Joalpe
 # Author: Ldacosta
 # Author: Macofe
+# Author: Mansil
 # Author: Mansil alfalb
 # Author: MokaAkashiyaPT
 # Author: Ruila
@@ -224,6 +225,7 @@ pt:
     none_short: Nenhum artigo atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
+    peer_review_count: Selecionado %{currentCount}/%{total}
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
     peer_review_link: Revisão por pares
     remove: Remover
@@ -1359,6 +1361,8 @@ pt:
     unassign_article_self: Remover atribuição de artigo
   training_status:
     completed: Concluída
+    continue: Continuar
+    view: Ver
     started: Começada
     not_started: Não começada
     due: esperada %{due_date}

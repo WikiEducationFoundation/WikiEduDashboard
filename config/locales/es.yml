@@ -14,6 +14,7 @@
 # Author: Ihojose
 # Author: Irus
 # Author: Javiersanp
+# Author: Joanmp17
 # Author: Johny Weissmuller Jr
 # Author: KATRINE1992
 # Author: Koavf
@@ -1021,6 +1022,9 @@ es:
     filtered_articles: Artículos filtrados
     searching_articles: Buscando artículos
     submit: Enviar
+  training_status:
+    continue: Continuar
+    view: Ver
   multi_wiki:
     selector_placeholder: Seleccionar wiki
 ...

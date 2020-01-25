@@ -239,6 +239,7 @@ fr:
     none_short: Aucun article affecté
     none: Ce cours n’a aucun article affecté.
     no_available: Ce cours n’a aucun article disponible.
+    peer_review_count: '%{currentCount}/%{total} sélectionnés'
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
     peer_review_link: Relecture par un pair
@@ -1392,6 +1393,8 @@ fr:
     unassign_article_self: Désassigner un article
   training_status:
     completed: Terminé
+    continue: Poursuivre
+    view: Afficher
     started: Démarré
     not_started: Non démarré
     due: pour le %{due_date}

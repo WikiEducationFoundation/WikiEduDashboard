@@ -404,6 +404,8 @@ lv:
     assign_article_self: Piešķirt sev
   training_status:
     completed: Pabeigts
+    continue: Turpināt
+    view: Skatīt
   multi_wiki:
     selector_placeholder: Sāc rakstīt vikivietnes domēnvārdu
 ...

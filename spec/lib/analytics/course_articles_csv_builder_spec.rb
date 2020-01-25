@@ -35,4 +35,10 @@ describe CourseArticlesCsvBuilder do
     article_headers = subject.split('\n').first
     expect(article_headers.include?('rating')).to be true
   end
+
+  it 'excludes untracked articles' do
+    create(:articles_course, course: course, article: article, tracked: false)
+    create(:articles_course, course: course, article: article2, tracked: true)
+    expect(subject.split("\n").count).to eq(2)
+  end
 end

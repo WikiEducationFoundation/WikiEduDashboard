@@ -33,8 +33,12 @@ export const ModuleRow = ({ isStudent, module, trainingLibrarySlug }) => {
     iconClassName += 'icon-rt_arrow';
   } else if (isTrainingModule && module.module_progress) {
     progressClass = calcProgressClass(module.module_progress);
-    linkText = module.module_progress === 'Complete' ? 'View' : 'Continue';
-    iconClassName += module.module_progress === 'Complete' ? 'icon-check' : 'icon-rt_arrow';
+    const completedText = I18n.t('training_status.completed');
+    const viewText = I18n.t('training_status.view');
+    const continueText = I18n.t('training_status.continue');
+
+    linkText = module.module_progress === completedText ? viewText : continueText;
+    iconClassName += module.module_progress === completedText ? 'icon-check' : 'icon-rt_arrow';
   } else {
     linkText = 'Start';
     iconClassName += 'icon-rt_arrow';

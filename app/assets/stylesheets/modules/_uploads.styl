@@ -91,15 +91,20 @@
       text-align left
 
 .view-buttons
-  position absolute
-  top 20px
-  right 80px
-
+  +above(desktop)
+    position absolute
+    top 20px
+    right 80px
+  +below(desktop)
+    width 100%
+    margin-top -10px
+    margin-bottom 7px
   button
     padding 0
     width 40px
     height 40px
     border-radius 50%
+
 
 #uploads .Select
   width 33%

@@ -215,6 +215,7 @@ ar:
     none_short: لا توجد مقالات معينة
     none: هذه الدورة ليست بها مقالات معينة.
     no_available: هذه الدورة ليست بها مقالات متاحة.
+    peer_review_count: '%{currentCount}/%{total} تم اختيارها'
     peer_review_count_tooltip: يجب عليك تحديد %{total} لمراجعة النظراء.
     peer_review_link: استعراض النظراء
     remove: إزالة
@@ -1267,6 +1268,8 @@ ar:
     unassign_article_self: إلغاء تعيين المقالة
   training_status:
     completed: مكتمل
+    continue: استمرار
+    view: عرض
     started: بدأ
     not_started: لم يبدأ
     due: تاريخ الانتهاء %{due_date}

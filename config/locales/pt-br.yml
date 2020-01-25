@@ -231,6 +231,7 @@ pt-br:
     none_short: Nenhum artigo atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
+    peer_review_count: '%{currentCount}/%{total} selecionado'
     peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
       por pares.
     peer_review_link: Revisão por pares
@@ -1352,6 +1353,8 @@ pt-br:
     unassign_article_self: Remover atribuição de artigo
   training_status:
     completed: Completado
+    continue: Continuar
+    view: Ver
     started: Iniciado
     not_started: Não foi iniciado
     due: vencimento %{due_date}

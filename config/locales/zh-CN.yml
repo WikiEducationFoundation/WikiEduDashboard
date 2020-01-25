@@ -950,6 +950,8 @@ zh-CN:
     unassign_article_self: 取消分配条目
   training_status:
     completed: 完成于
+    continue: 继续
+    view: 查看
     started: 开始
     not_started: 入门
 ...
