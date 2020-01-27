@@ -65,11 +65,11 @@ const StudentsHandler = createReactClass({
       }
     ];
 
+    const isAdvancedRole = this.props.current_user.isAdvancedRole;
     return (
       <div id="users">
         {
-          this.props.current_user.isAdvancedRole
-          && <SubNavigation links={links} />
+          isAdvancedRole && <SubNavigation links={links} />
         }
 
         <div className="section-header">
@@ -80,18 +80,32 @@ const StudentsHandler = createReactClass({
           <Route
             exact
             path="/courses/:course_school/:course_title/students/overview"
-            render={() => <Overview {...this.props} sortSelect={this.sortSelect} />}
+            render={() => {
+              return <Overview {...this.props} sortSelect={this.sortSelect} />;
+            }}
           />
-          <Route
-            exact
-            path="/courses/:course_school/:course_title/students/articles"
-            render={() => <Articles {...this.props} />}
-          />
-          <Route
-            exact
-            path="/courses/:course_school/:course_title/students/exercises"
-            render={() => <Exercises {...this.props} sortSelect={this.sortSelect} />}
-          />
+          {
+            isAdvancedRole && (
+              <Route
+                exact
+                path="/courses/:course_school/:course_title/students/articles"
+                render={() => {
+                  return <Articles {...this.props} />;
+                }}
+              />
+            )
+          }
+          {
+            isAdvancedRole && (
+              <Route
+                exact
+                path="/courses/:course_school/:course_title/students/exercises"
+                render={() => {
+                  return <Exercises {...this.props} sortSelect={this.sortSelect} />;
+                }}
+              />
+            )
+          }
           <Redirect
             to={{
               pathname: '/courses/:course_school/:course_title/students/overview'
