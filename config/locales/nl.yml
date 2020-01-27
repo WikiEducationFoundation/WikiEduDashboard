@@ -664,6 +664,8 @@ nl:
         Wikipedia-opdrachten zoals de jouwe.
   training_status:
     completed: Voltooid
+    continue: Doorgaan
+    view: Weergeven
     started: Begonnen
     not_started: Niet begonnen
     due: vervalt %{due_date}
