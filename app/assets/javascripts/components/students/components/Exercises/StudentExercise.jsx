@@ -115,7 +115,7 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {trainingProgress}
         </td>
-        <td><button className="icon icon-arrow table-expandable-indicator" /></td>
+        <td className="table-action-cell"><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );
   }
