@@ -214,7 +214,7 @@ module RequestHelpers
 
   def stub_raw_action
     stub_request(:get, %r{.*wikipedia.org/w/index.php\?action=raw.*})
-      .to_return(status: 200, body: '[[wikitext]]', headers: {})
+      .to_return(status: 200, body: String.new('[[wikitext]]'), headers: {})
   end
 
   def stub_info_query

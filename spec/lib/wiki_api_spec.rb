@@ -48,7 +48,15 @@ describe WikiApi do
       end
     end
 
-    # This is really a test that Used#talk_page is returning the format
+    it 'returns a UTF-8 string' do
+      VCR.use_cassette 'wiki/utf8' do
+        title = 'Montreal'
+        response = described_class.new.get_page_content(title)
+        expect(response.encoding.name).to eq('UTF-8')
+      end
+    end
+
+    # This is really a test that User#talk_page is returning the format
     # expected by the API, and not a URL-encoded page title.
     it 'gets the content of a user talk page with special characters' do
       user = build(:user, username: 'Julie209!')

@@ -26,7 +26,7 @@ class WikiApi
     response = mediawiki('get_wikitext', page_title)
     case response&.status
     when 200
-      response.body
+      response.body.force_encoding('UTF-8')
     when 404
       ''
     end
