@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AssignCell from '@components/students/assign_cell.jsx';
+import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import AssignCell from '@components/students/assign_cell.jsx';
+import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 
 // Helper Functions
 import { groupByAssignmentType } from '@components/util/helpers';
