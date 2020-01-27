@@ -11,9 +11,10 @@ const STATUSES = {
   assignment_completed: 'Assignment Marked Complete',
 
   // reviewing
-  // not_yet_started: 'Reading Article',
-  peer_review_started: 'Providing Feedback',
-  peer_review_completed: ''
+  reading_the_article: 'Reading Article',
+  providing_feedback: 'Providing Feedback',
+  post_to_talk: 'Posting to Talk Page',
+  peer_review_completed: 'Review Completed'
 };
 
 export const CurrentStatus = ({ current, statuses }) => (
