@@ -116,9 +116,9 @@ const CampaignPrograms = (props) => {
                 </th>
               </tr>
             </thead>
-            {/* <tbody className="list">
-              <tr className data-link="/courses/QCA/Brisbane_QCA_"
-            </tbody> */}
+            <tbody className="list">
+              <tr className data-link="/courses/QCA/Brisbane_QCA_" />
+            </tbody>
           </table>
         </section>
       </div>

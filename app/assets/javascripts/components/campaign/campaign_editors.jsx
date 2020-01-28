@@ -45,13 +45,13 @@ const CampaignEditors = (props) => {
                 </th>
               </tr>
             </thead>
-            <tbody className="list">
+            {/* <tbody className="list">
               <tr>
                 <td className="username">
                   <a href="#" />
                 </td>
               </tr>
-            </tbody>
+            </tbody> */}
           </table>
         </section>
       </div>
