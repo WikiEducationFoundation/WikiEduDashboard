@@ -5,9 +5,9 @@ import TextAreaInput from '../common/text_area_input.jsx';
 
 const CampaignHome = (props) => {
   let create_program;
-  if (current_user && Features.open_course_creation ? || current_user && admin ?) {
+  if (Features.open_course_creation? current_user :  admin) {
     create_program = (
-      <div className="campaign-create">
+      <div className="campaign-create
         <a href={`/course_creator?campaign_slug=${props.campaign.slug}`} >
           <button className="button dark green" type="submit">
             {I18n.t('courses_generic.creator.create_short')}
@@ -41,7 +41,7 @@ const CampaignHome = (props) => {
         <div className="sidebar">
           {create_program}
 
-          if (current_user&&admin? || user_is_organizer?) {
+          if (current_user&&admin || user_is_organizer?) {
             <div className="campaign-create">
               <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
                 <button className="button dark" type="submit">
