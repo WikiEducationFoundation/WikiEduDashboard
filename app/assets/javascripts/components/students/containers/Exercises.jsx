@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Components
+import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import Controls from '../components/Exercises/Controls/Controls.jsx';
 import StudentExercisesList from '../components/Exercises/StudentExercisesList';
 
@@ -17,13 +18,22 @@ import { getStudentUsers } from '~/app/assets/javascripts/selectors';
 export class Exercises extends React.Component {
   render() {
     const {
-      course, current_user, openKey, sort, students,
+      course, current_user, prefix, openKey, sort, students,
       trainingStatus, wikidataLabels, sortUsers,
       sortSelect
     } = this.props;
 
     return (
       <div className="list__wrapper">
+        {
+          current_user.isAdvancedRole && (
+            <StudentsSubNavigation
+              course={course}
+              current_user={current_user}
+              heading={`${prefix} Exercises & Trainings`}
+            />
+          )
+        }
         {
           current_user.isAdvancedRole
             ? (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export const SubNavigation = ({ links }) => {
+export const SubNavigation = ({ heading, links }) => {
   const navLinks = links.map(({ href, text }, index) => {
     return (
       <li key={index}>
@@ -13,11 +13,16 @@ export const SubNavigation = ({ links }) => {
   });
 
   return (
-    <nav className="sub-navigation">
-      <ul>
-        { navLinks }
-      </ul>
-    </nav>
+    <div className="section-header">
+      <nav className="sub-navigation">
+        {
+          heading && <h3>{heading}</h3>
+        }
+        <ul>
+          { navLinks }
+        </ul>
+      </nav>
+    </div>
   );
 };
 

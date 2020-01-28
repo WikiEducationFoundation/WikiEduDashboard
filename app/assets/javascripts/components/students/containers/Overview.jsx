@@ -6,7 +6,8 @@ import { toggleUI, resetUI } from '~/app/assets/javascripts/actions';
 import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
 import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selectors';
 
-import Controls from '../components/Overview/Controls/Controls.jsx';
+import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
+import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentList from '../shared/StudentList/StudentList.jsx';
 
 export class Overview extends React.Component {
@@ -42,13 +43,22 @@ export class Overview extends React.Component {
 
   render() {
     const {
-      assignments, course, current_user, openKey, sort, students,
+      assignments, course, current_user, openKey, prefix, sort, students,
       trainingStatus, wikidataLabels, sortUsers, userRevisions,
       sortSelect,
     } = this.props;
 
     return (
       <div className="list__wrapper">
+        {
+          current_user.isAdvancedRole && (
+            <StudentsSubNavigation
+              course={course}
+              current_user={current_user}
+              heading={`${prefix} Overview`}
+            />
+          )
+        }
         {
           current_user.isAdvancedRole
           ? (

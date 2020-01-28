@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getStudentUsers } from '~/app/assets/javascripts/selectors';
 
 // Components
+import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import StudentSelection from '@components/students/components/Articles/StudentSelection.jsx';
 import SelectedStudent from '@components/students/components/Articles/SelectedStudent/SelectedStudent.jsx';
 import NoSelectedStudent from '@components/students/components/Articles/NoSelectedStudent.jsx';
@@ -24,34 +25,47 @@ export class Articles extends React.Component {
 
   render() {
     const { selected } = this.state;
-    const { assignments, course, current_user, students, wikidataLabels } = this.props;
+    const {
+      assignments, course, current_user, prefix, students, wikidataLabels
+    } = this.props;
 
     return (
-      <section className="users-articles">
-        <aside className="student-selection">
-          <StudentSelection
-            selected={this.state.selected}
-            selectStudent={this.selectStudent}
-            students={students}
-          />
-        </aside>
-        <article className="student-details">
-          <section className="assignments">
-            {
-              selected
-              ? (
-                <SelectedStudent
-                  assignments={assignments}
-                  course={course}
-                  current_user={current_user}
-                  selected={selected}
-                  wikidataLabels={wikidataLabels}
-                />
-              ) : <NoSelectedStudent />
-            }
-          </section>
-        </article>
-      </section>
+      <>
+        {
+          current_user.isAdvancedRole && (
+            <StudentsSubNavigation
+              course={course}
+              current_user={current_user}
+              heading={`${prefix} Assignments`}
+            />
+          )
+        }
+        <section className="users-articles">
+          <aside className="student-selection">
+            <StudentSelection
+              selected={this.state.selected}
+              selectStudent={this.selectStudent}
+              students={students}
+            />
+          </aside>
+          <article className="student-details">
+            <section className="assignments">
+              {
+                selected
+                ? (
+                  <SelectedStudent
+                    assignments={assignments}
+                    course={course}
+                    current_user={current_user}
+                    selected={selected}
+                    wikidataLabels={wikidataLabels}
+                  />
+                ) : <NoSelectedStudent />
+              }
+            </section>
+          </article>
+        </section>
+      </>
     );
   }
 }

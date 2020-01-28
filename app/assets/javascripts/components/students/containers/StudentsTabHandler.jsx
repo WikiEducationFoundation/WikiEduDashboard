@@ -6,7 +6,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 // Components
 import Loading from '@components/common/loading.jsx';
-import SubNavigation from '@components/common/sub_navigation.jsx';
 import Overview from './Overview';
 import Articles from './Articles';
 import Exercises from './Exercises';
@@ -49,39 +48,22 @@ const StudentsHandler = createReactClass({
   render() {
     if (this.state.loading) return <Loading />;
 
-    const links = [
-      {
-        href: `/courses/${this.props.course.slug}/students/overview`,
-        // Don't forget to change this to conditionally show editors
-        text: I18n.t('users.sub_navigation.student_overview')
-      },
-      {
-        href: `/courses/${this.props.course.slug}/students/articles`,
-        text: I18n.t('users.sub_navigation.article_assignments')
-      },
-      {
-        href: `/courses/${this.props.course.slug}/students/exercises`,
-        text: I18n.t('users.sub_navigation.exercises_and_trainings')
-      }
-    ];
-
+    const prefix = CourseUtils.i18n('students', this.props.course.string_prefix);
     const isAdvancedRole = this.props.current_user.isAdvancedRole;
     return (
       <div id="users">
-        {
-          isAdvancedRole && <SubNavigation links={links} />
-        }
-
-        <div className="section-header">
-          <h3>{CourseUtils.i18n('students', this.props.course.string_prefix)}</h3>
-        </div>
-
         <Switch>
           <Route
             exact
             path="/courses/:course_school/:course_title/students/overview"
             render={() => {
-              return <Overview {...this.props} sortSelect={this.sortSelect} />;
+              return (
+                <Overview
+                  {...this.props}
+                  prefix={prefix}
+                  sortSelect={this.sortSelect}
+                />
+              );
             }}
           />
           {
@@ -90,7 +72,7 @@ const StudentsHandler = createReactClass({
                 exact
                 path="/courses/:course_school/:course_title/students/articles"
                 render={() => {
-                  return <Articles {...this.props} />;
+                  return <Articles {...this.props} prefix={prefix} />;
                 }}
               />
             )
@@ -101,7 +83,7 @@ const StudentsHandler = createReactClass({
                 exact
                 path="/courses/:course_school/:course_title/students/exercises"
                 render={() => {
-                  return <Exercises {...this.props} sortSelect={this.sortSelect} />;
+                  return <Exercises {...this.props} prefix={prefix} sortSelect={this.sortSelect} />;
                 }}
               />
             )
