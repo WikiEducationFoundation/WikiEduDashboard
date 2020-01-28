@@ -159,7 +159,7 @@ describe WikiSlideParser do
 
       {{Training module video|
       video =  File:Esto es un editatón de Wikipedia.webm
-      |source = https://www.youtube.com/embed/94KtOE39Hyw
+      |source = https://www.youtube-nocookie.com/embed/94KtOE39Hyw
       |caption = Mexiko DFko Museo Soumayan egindako 72 orduko editatoia irudikatzen duen bideoa}}
 
       Wikipediako edizio ekintzak, askotan izendapen bera erabiliagatik, askotarikoak izan daitezke, eta helburu desberdinak dituzte, adibidez:
