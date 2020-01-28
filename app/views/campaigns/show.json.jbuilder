@@ -22,8 +22,13 @@ if @campaign
     json.upload_usage_count_human number_to_human(@presenter.upload_usage_count)
     json.upload_usage_count @presenter.upload_usage_count
     json.trained_percent_human number_to_human(@presenter.trained_percent)
-    json.course_string_prefix @presenter.course_string_prefix
-    
+    json.course_string_prefix @presenter.course_string_prefix 
+    # json.editable @campaign.editable
+    json.register_accounts @campaign.register_accounts
+    json.requested_accounts @campaign.requested_accounts
+    json.organizers @campaign.organizers
+    json.open_course_creation @campaign.open_course_creation
+    json.createCourseEnabled @campaign.createCourseEnabled
   end
 end
 
