@@ -53,6 +53,7 @@ describe WikiApi do
         title = 'Montreal'
         response = described_class.new.get_page_content(title)
         expect(response.encoding.name).to eq('UTF-8')
+        expect(response).to include('Montréal')
       end
     end
 

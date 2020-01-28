@@ -203,10 +203,10 @@ module RequestHelpers
   # MediaWiki query requests #
   ############################
   def stub_contributors_query
-    response = '{"continue":{"pccontinue":"2169951|5094","continue":"||"},
-               "query":{"normalized":[{"from":"User_talk:Ragesoss","to":"User talk:Ragesoss"}],
-               "pages":{"2169951":{"pageid":2169951,"ns":3,"title":"User talk:Ragesoss",
-               "anoncontributors":17,"contributors":[{"userid":584,"name":"Danny"}]}}}}'
+    response = String.new '{"continue":{"pccontinue":"2169951|5094","continue":"||"},
+                 "query":{"normalized":[{"from":"User_talk:Ragesoss","to":"User talk:Ragesoss"}],
+                 "pages":{"2169951":{"pageid":2169951,"ns":3,"title":"User talk:Ragesoss",
+                 "anoncontributors":17,"contributors":[{"userid":584,"name":"Danny"}]}}}}'
 
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 200, body: response, headers: {})
