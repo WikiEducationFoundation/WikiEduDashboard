@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// components
+// Components
+import NoReviewers from './NoReviewers';
+
 export const Reviewers = ({ assignment = {} }) => {
   const { reviewers, sandboxUrl } = assignment;
-  if (!reviewers) return null;
+  if (!reviewers) return <NoReviewers />;
 
   const label = <span key="label">{I18n.t('assignments.reviewers')}: </span>;
   const links = reviewers.map((username, index, collection) => {
