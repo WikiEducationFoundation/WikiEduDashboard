@@ -5,9 +5,9 @@ import TextAreaInput from '../common/text_area_input.jsx';
 
 const CampaignHome = (props) => {
   let create_program;
-  if (Features.open_course_creation? current_user :  admin) {
+  if (props.campaign.show_the_create_course_button) {
     create_program = (
-      <div className="campaign-create
+      <div className="campaign-create">
         <a href={`/course_creator?campaign_slug=${props.campaign.slug}`} >
           <button className="button dark green" type="submit">
             {I18n.t('courses_generic.creator.create_short')}
@@ -17,6 +17,59 @@ const CampaignHome = (props) => {
       </div>
     );
   }
+
+  let edit;
+  if (props.campaign.editable) {
+    edit = (
+      < div className="campaign-create" >
+        <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
+          <button className="button dark" type="submit">
+            {I18n.t('editable.edit')}
+          </button>
+        </a>
+      </div >
+    );
+  }
+
+  let enable_disable_accounts;
+  if (props.campaign.current_user_admin) {
+    if (!props.campaign.register_accounts) {
+      enable_disable_accounts = (
+        <div className="campaign-create">
+          <a href={`/campaigns/${props.campaign.slug}/overview}`} >
+            <button className="button dark" type="submit">
+              {I18n.t('campaign.enable_account_requests')}
+            </button>
+          </a>
+        </div>
+      );
+    } else {
+      enable_disable_accounts = (
+        <div className="campaign-create">
+          <a href={`/campaigns/${props.campaign.slug}/overview}`}>
+            <button className="button dark" type="submit">
+              {I18n.t('campaign.disable_account_requests')}
+            </button>
+          </a>
+        </div>
+      );
+    }
+  }
+
+  let requested_accounts;
+  if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
+    requested_accounts = (
+      <div className="campaign-create">
+        <a href={`/campaigns/${props.campaign.slug}/overview}`}>
+          <button className="button dark" type="submit">
+            {I18n.t('campaign.requested_accounts')}
+            <i className="icon icon-rt_arrow" />
+          </button>
+        </a>
+      </div>
+    );
+  }
+
   return (
     <div className="container campaign_main">
       <section className="overview container">
@@ -40,45 +93,10 @@ const CampaignHome = (props) => {
         </div>
         <div className="sidebar">
           {create_program}
+          {edit}
+          {enable_disable_accounts}
+          {requested_accounts}
 
-          if (current_user&&admin || user_is_organizer?) {
-            <div className="campaign-create">
-              <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
-                <button className="button dark" type="submit">
-                  {I18n.t('editable.edit')}
-                </button>
-              </a>
-            </div>
-          }
-          if (current_user||admin?) {
-            // if (!props.campaign.register_accounts) {
-            <div className="campaign-create">
-              <a href={`/campaigns/${props.campaign.slug}/overview}`} >
-                <button className="button dark" type="submit">
-                  {I18n.t('campaign.enable_account_requests')}
-                </button>
-              </a>
-            </div>
-          }else {
-            <div className="campaign-create">
-              <a href={`/campaigns/${props.campaign.slug}/overview}`}>
-                <button className="button dark" type="submit">
-                  {I18n.t('campaign.disable_account_requests')}
-                </button>
-              </a>
-            </div>
-          }
-          {/* } */}
-          if (current_user&.admin? && props.campaign.requested_accounts.any?) {
-            <div className="campaign-create">
-              <a href={`/campaigns/${props.campaign.slug}/overview}`}>
-                <button className="button dark" type="submit">
-                  {I18n.t('campaign.requested_accounts')}
-                  <i className="icon icon-rt_arrow" />
-                </button>
-              </a>
-            </div>
-          }
           <div className="campaign-details module rails_editable">
             <div className="section-header">
               <h3>{I18n.t('application.details')}</h3>

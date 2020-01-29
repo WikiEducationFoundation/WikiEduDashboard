@@ -23,12 +23,11 @@ if @campaign
     json.upload_usage_count @presenter.upload_usage_count
     json.trained_percent_human number_to_human(@presenter.trained_percent)
     json.course_string_prefix @presenter.course_string_prefix 
-    # json.editable @campaign.editable
+    json.show_the_create_course_button Features.open_course_creation? && current_user&.admin?
+    json.editable current_user&.admin? || user_is_organizer?
     json.register_accounts @campaign.register_accounts
-    json.requested_accounts @campaign.requested_accounts
-    json.organizers @campaign.organizers
-    json.open_course_creation @campaign.open_course_creation
-    json.createCourseEnabled @campaign.createCourseEnabled
+    json.current_user_admin current_user&.admin?
+    json.requested_accounts_any @campaign.requested_accounts.any?
   end
 end
 
