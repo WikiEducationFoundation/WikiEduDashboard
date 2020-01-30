@@ -149,7 +149,7 @@ describe 'Instructor users', type: :feature, js: true do
       find('button.border.assign-button', match: :first).click
 
       # Assign a review
-      find('button.border', text: 'Assign a review', match: :first).click
+      find('button.border', text: 'Assign a peer review', match: :first).click
       sleep 1
       within('#users') { find('input', match: :first).set('Article 2') }
       click_button 'Assign'

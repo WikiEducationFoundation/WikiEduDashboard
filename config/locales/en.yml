@@ -237,7 +237,7 @@ en:
     peer_review_link_personalized: "%{username}'s Peer Review"
     remove: Remove
     reviewers: Reviewer(s)
-    review_other: Assign a review
+    review_other: Assign a peer review
     review_self: Review an article
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
