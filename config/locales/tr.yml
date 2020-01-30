@@ -769,7 +769,7 @@ tr:
         ne yapacak? Lütfen diğer editörlere katılımcıların yapacağı katkılarla ilgili
         bir bağlam bilgisi vermek için yeterince ayrıntı ekleyin.
       course_school: Kurum
-      course_term: Ne Zaman
+      course_term: Ne zaman
       course_term_placeholder: Ne zaman
       course_title: Program adı
       create_button: Programımı Oluştur!
