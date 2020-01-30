@@ -36,7 +36,7 @@ const CampaignHome = (props) => {
     if (!props.campaign.register_accounts) {
       enable_disable_accounts = (
         <div className="campaign-create">
-          <a href={`/campaigns/${props.campaign.slug}/overview}`} >
+          <a href={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`}>
             <button className="button dark" type="submit">
               {I18n.t('campaign.enable_account_requests')}
             </button>
@@ -46,7 +46,7 @@ const CampaignHome = (props) => {
     } else {
       enable_disable_accounts = (
         <div className="campaign-create">
-          <a href={`/campaigns/${props.campaign.slug}/overview}`}>
+          <a href={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`}>
             <button className="button dark" type="submit">
               {I18n.t('campaign.disable_account_requests')}
             </button>
@@ -56,17 +56,26 @@ const CampaignHome = (props) => {
     }
   }
 
-  let requested_accounts;
-  if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
-    requested_accounts = (
-      <div className="campaign-create">
-        <a href={`/campaigns/${props.campaign.slug}/overview}`}>
-          <button className="button dark" type="submit">
-            {I18n.t('campaign.requested_accounts')}
-            <i className="icon icon-rt_arrow" />
-          </button>
-        </a>
-      </div>
+  // let requested_accounts;
+  // if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
+  //   requested_accounts = (
+  //     <div className="campaign-create">
+  //       <a href={`/campaigns/${props.campaign.slug}/overview}`}>
+  //         <button className="button dark" type="submit">
+  //           {I18n.t('campaign.requested_accounts')}
+  //           <i className="icon icon-rt_arrow" />
+  //         </button>
+  //       </a>
+  //     </div>
+  //   );
+  // }
+
+  let campaign_organizers;
+  if (props.campaign.organizers_any) {
+    campaign_organizers = (
+      <span className="campaign-organizers"><strong>{I18n.t('campaign.organizers')}</strong>
+        props.campaign.organezers.forEach(organizer, i)
+      </span>
     );
   }
 
@@ -75,7 +84,7 @@ const CampaignHome = (props) => {
       <section className="overview container">
         <CampaignStats campaign={props.campaign} />
         <div className="primary">
-          <form className="module campaign-description rails_editable" id="edit-campaign_1" action={`/campaigns/${props.campaign.slug}`} acceptCharset="UTF-8" method="post">
+          <form className="module campaign-description rails_editable" id="edit-campaign_3" action={`/campaigns/${props.campaign.slug}`} acceptCharset="UTF-8" method="post">
             <div className="section-header">
               <h3>{I18n.t('campaign.campaign')}: {props.campaign.title}</h3>
             </div>
@@ -95,23 +104,24 @@ const CampaignHome = (props) => {
           {create_program}
           {edit}
           {enable_disable_accounts}
-          {requested_accounts}
+          {/* <form className="campaign-create" acceptCharset="UTF-8" method="post">
+            {enable_disable_accounts}
+          </form> */}
 
+          {/* {requested_accounts} */}
           <div className="campaign-details module rails_editable">
             <div className="section-header">
               <h3>{I18n.t('application.details')}</h3>
             </div>
             <div className="module__data extra-line-height">
               <div>
-                if props.campaign.organizers.any? {
-                  <span className="campaign-organizers" />
-                }
-                <form className="edit_campaign" id="edit-campaign_1" action={`/campaigns/${props.campaign.title}`} acceptCharset="UTF-8" method="post" >
+                {campaign_organizers}
+                {/* <form className="edit_campaign" id="edit-campaign_details" action={`/campaigns/${props.campaign.title}`} acceptCharset="UTF-8" method="post" >
                   <div>
                     <label>Title:</label>
                     <span className="rails_editable-content">{props.campaign.title}</span>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>
@@ -127,8 +137,3 @@ CampaignHome.propTypes = {
 };
 
 export default CampaignHome;
-
-
-
-
-
