@@ -41,11 +41,11 @@ const Upload = createReactClass({
     };
   },
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this.setImageFile();
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (!this.state.imageFile) {
       this.setState({ imageFile: nextProps.upload.thumburl });
     }
