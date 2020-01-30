@@ -35,26 +35,53 @@ const CampaignHome = (props) => {
   if (props.campaign.current_user_admin) {
     if (!props.campaign.register_accounts) {
       enable_disable_accounts = (
-        <div className="campaign-create">
-          <a href={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`}>
-            <button className="button dark" type="submit">
-              {I18n.t('campaign.enable_account_requests')}
-            </button>
-          </a>
-        </div>
+        < form className="campaign-create" action={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`
+        } acceptCharset="UTF-8" method="put" >
+          <input name="utf8" type="hidden" />
+          <input name="_method" value="put" type="hidden" />
+          <button className="button dark" type="submit">
+            {I18n.t('campaign.enable_account_requests')}
+          </button>
+        </form >
       );
     } else {
       enable_disable_accounts = (
-        <div className="campaign-create">
-          <a href={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`}>
-            <button className="button dark" type="submit">
-              {I18n.t('campaign.disable_account_requests')}
-            </button>
-          </a>
-        </div>
+        < form className="campaign-create" action={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`} acceptCharset="UTF-8" method="put" >
+          <input name="utf8" type="hidden" />
+          <input name="_method" value="put" type="hidden" />
+          <button className="button dark" type="submit">
+            {I18n.t('campaign.enable_account_requests')}
+          </button>
+        </form >
       );
     }
   }
+
+
+  // let enable_disable_accounts;
+  // if (props.campaign.current_user_admin) {
+  //   if (!props.campaign.register_accounts) {
+  //     enable_disable_accounts = (
+  //       <div className="campaign-create">
+  //         <a href={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`}>
+  //           <button className="button dark" type="submit">
+  //             {I18n.t('campaign.enable_account_requests')}
+  //           </button>
+  //         </a>
+  //       </div>
+  //     );
+  //   } else {
+  //     enable_disable_accounts = (
+  //       <div className="campaign-create">
+  //         <a href={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`}>
+  //           <button className="button dark" type="submit">
+  //             {I18n.t('campaign.disable_account_requests')}
+  //           </button>
+  //         </a>
+  //       </div>
+  //     );
+  //   }
+  // }
 
   // let requested_accounts;
   // if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
