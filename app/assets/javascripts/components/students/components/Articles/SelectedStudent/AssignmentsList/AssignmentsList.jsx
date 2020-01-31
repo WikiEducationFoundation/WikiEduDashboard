@@ -8,9 +8,18 @@ import List from '@components/common/list.jsx';
 export const AssignmentsList = ({ assignments, course, title, user }) => {
   const options = { desktop_only: false, sortable: false };
   const keys = {
-    article_name: { label: 'Article Name', ...options },
-    relevant_links: { label: 'Relevant Links', ...options },
-    current_stage: { label: 'Current Stage', ...options }
+    article_name: {
+      label: I18n.t('instructor_view.assignments_table.article_name'),
+      ...options
+    },
+    relevant_links: {
+      label: I18n.t('instructor_view.assignments_table.relevant_links'),
+      ...options
+    },
+    current_stage: {
+      label: I18n.t('instructor_view.assignments_table.current_stage'),
+      ...options
+    }
   };
 
   const rows = assignments.map(assignment => (

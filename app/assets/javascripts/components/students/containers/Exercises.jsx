@@ -30,7 +30,7 @@ export class Exercises extends React.Component {
             <StudentsSubNavigation
               course={course}
               current_user={current_user}
-              heading={`${prefix} Exercises & Trainings`}
+              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
             />
           )
         }

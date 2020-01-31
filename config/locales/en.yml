@@ -81,6 +81,17 @@ en:
     opt_yes: 'yes'
     opt_no: 'no'
 
+  article_statuses:
+    not_yet_started: Getting Started
+    in_progress: Working in Sandbox
+    ready_for_review: Expanding Draft
+    ready_for_mainspace: Moving Work to Mainspace
+    assignment_completed: Assignment Marked Complete
+    reading_the_article: Reading Article
+    providing_feedback: Providing Feedback
+    post_to_talk: Posting to Talk Page
+    peer_review_completed: Review Completed
+
   dashboard:
     create_note:
       Click on Create Course to create your first course.
@@ -809,6 +820,21 @@ en:
     edit_details: Edit Details
     edit_template: Edit Template
     rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
+
+  instructor_view:
+    article_assignments: "%{prefix} Assignments"
+    assignments_table:
+      article_name: Article Name
+      current_stage: Current Stage
+      relevant_links: Relevant Links
+    assigned_articles: Assigned Articles
+    exercises_and_trainings: "%{prefix} Exercises & Trainings"
+    no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
+    overview: "%{prefix} Overview"
+    reviewing_articles: Reviewing Articles
+    select_student:
+      title: "Select %{prefix}"
+      content: to assign and view article assignments
 
   metrics:
     label: Course Activity

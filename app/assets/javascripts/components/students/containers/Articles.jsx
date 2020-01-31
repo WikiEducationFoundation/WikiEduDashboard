@@ -36,7 +36,7 @@ export class Articles extends React.Component {
             <StudentsSubNavigation
               course={course}
               current_user={current_user}
-              heading={`${prefix} Assignments`}
+              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
             />
           )
         }
@@ -60,7 +60,7 @@ export class Articles extends React.Component {
                     selected={selected}
                     wikidataLabels={wikidataLabels}
                   />
-                ) : <NoSelectedStudent />
+                ) : <NoSelectedStudent prefix={prefix} />
               }
             </section>
           </article>

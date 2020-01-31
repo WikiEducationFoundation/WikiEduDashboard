@@ -31,7 +31,7 @@ export const SelectedStudent = ({
         !!assigned.length && <AssignmentsList
           assignments={assigned}
           course={course}
-          title="Assigned Articles"
+          title={I18n.t('instructor_view.assigned_articles')}
           user={selected}
         />
       }
@@ -40,7 +40,7 @@ export const SelectedStudent = ({
         !!reviewing.length && <AssignmentsList
           assignments={reviewing}
           course={course}
-          title="Reviewing Articles"
+          title={I18n.t('instructor_view.reviewing_articles')}
           user={selected}
         />
       }
