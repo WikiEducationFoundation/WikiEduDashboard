@@ -1,37 +1,30 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import UploadViewer from './upload_viewer.jsx';
 import Modal from '../common/modal.jsx';
+import PropTypes from 'prop-types';
 
-const Upload = createReactClass({
-  displayName: 'Upload',
-
-  propTypes: {
-    upload: PropTypes.object,
-    linkUsername: PropTypes.bool,
-  },
-
-  getInitialState() {
-    return {
+class Upload extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
       width: null,
       height: null,
       isUploadViewerOpen: false,
     };
-  },
+  }
 
   componentDidMount() {
     this.setImageFile();
-  },
+  }
 
-  componentDidUpdate(nextProps) {
-    if (!this.state.imageFile) {
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ imageFile: nextProps.upload.thumburl });
-    }
-  },
+  static getDerivedStateFromProps(props, state) {
+    if (!state.imageFile) {
+      return { imageFile: props.upload.thumburl };
+    } else return null;
+  }
 
   setImageFile() {
     let imageFile = this.props.upload.thumburl;
@@ -41,7 +34,7 @@ const Upload = createReactClass({
     this.setState({ imageFile: imageFile }, () => {
       this.setImageDimensions();
     });
-  },
+  }
 
   setImageDimensions() {
     const img = new Image();
@@ -50,11 +43,11 @@ const Upload = createReactClass({
     img.onload = function () {
       component.setState({ width: this.width, height: this.height });
     };
-  },
+  }
 
   isUploadViewerOpen() {
     this.setState({ isUploadViewerOpen: !this.state.isUploadViewerOpen });
-  },
+  }
 
   render() {
     let fileName = this.props.upload.file_name;
@@ -158,6 +151,11 @@ const Upload = createReactClass({
       );
     }
   }
-});
+};
+
+Upload.propTypes = {
+  upload: PropTypes.object,
+  linkUsername: PropTypes.bool,
+}
 
 export default Upload;
