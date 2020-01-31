@@ -1,12 +1,11 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import moment from 'moment';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import UploadViewer from './upload_viewer.jsx';
 import Modal from '../common/modal.jsx';
 import PropTypes from 'prop-types';
 
-class Upload extends React.Component{
+class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +22,8 @@ class Upload extends React.Component{
   static getDerivedStateFromProps(props, state) {
     if (!state.imageFile) {
       return { imageFile: props.upload.thumburl };
-    } else return null;
+    }
+    return null;
   }
 
   setImageFile() {
@@ -151,11 +151,11 @@ class Upload extends React.Component{
       );
     }
   }
-};
+}
 
 Upload.propTypes = {
   upload: PropTypes.object,
   linkUsername: PropTypes.bool,
-}
+};
 
 export default Upload;
