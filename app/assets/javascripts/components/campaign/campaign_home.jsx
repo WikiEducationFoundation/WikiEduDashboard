@@ -5,104 +5,91 @@ import TextAreaInput from '../common/text_area_input.jsx';
 
 const CampaignHome = (props) => {
   let create_program;
-  if (props.campaign.show_the_create_course_button) {
+  if (props.campaign.current_user) {
     create_program = (
-      <div className="campaign-create">
-        <a href={`/course_creator?campaign_slug=${props.campaign.slug}`} >
-          <button className="button dark green" type="submit">
-            {I18n.t('courses_generic.creator.create_short')}
-            <i className="icon icon-plus" />
+      <form className="campaign-create" action={`/course_creator?campaign_slug=${props.campaign.slug}`} acceptCharset="UTF-8" method="get">
+        <button className="button dark green" type="submit">
+          {I18n.t('courses_generic.creator.create_short')}
+          <i className="icon icon-plus" />
+        </button>
+      </form>
+      // <div className="campaign-create">
+      //   <a href={`/course_creator?campaign_slug=${props.campaign.slug}`} >
+      //     <button className="button dark green" type="submit">
+      //       {I18n.t('courses_generic.creator.create_short')}
+      //       <i className="icon icon-plus" />
+      //     </button>
+      //   </a>
+      // </div>
+    );
+  }
+
+  let edit;
+  if (!props.campaign.editable) {
+    edit = (
+      <div className="campaign-create" >
+        <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
+          <button className="button dark" type="submit">
+            {I18n.t('editable.edit')}
           </button>
         </a>
       </div>
     );
   }
 
-  let edit;
-  if (props.campaign.editable) {
-    edit = (
-      < div className="campaign-create" >
-        <a href={`/campaigns/${props.campaign.slug}/edit?campaign_slug=${props.campaign.slug}`} >
+  let requested_accounts;
+  if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
+    requested_accounts = (
+      <div className="campaign-create">
+        <a href={`/campaigns/${props.campaign.slug}/overview}`}>
           <button className="button dark" type="submit">
-            {I18n.t('editable.edit')}
+            {I18n.t('campaign.requested_accounts')}
+            <i className="icon icon-rt_arrow" />
           </button>
         </a>
-      </div >
+      </div>
     );
   }
-
-  let enable_disable_accounts;
-  if (props.campaign.current_user_admin) {
-    if (!props.campaign.register_accounts) {
-      enable_disable_accounts = (
-        < form className="campaign-create" action={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`
-        } acceptCharset="UTF-8" method="put" >
-          <input name="utf8" type="hidden" />
-          <input name="_method" value="put" type="hidden" />
-          <button className="button dark" type="submit">
-            {I18n.t('campaign.enable_account_requests')}
-          </button>
-        </form >
-      );
-    } else {
-      enable_disable_accounts = (
-        < form className="campaign-create" action={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`} acceptCharset="UTF-8" method="put" >
-          <input name="utf8" type="hidden" />
-          <input name="_method" value="put" type="hidden" />
-          <button className="button dark" type="submit">
-            {I18n.t('campaign.enable_account_requests')}
-          </button>
-        </form >
-      );
-    }
-  }
-
-
-  // let enable_disable_accounts;
-  // if (props.campaign.current_user_admin) {
-  //   if (!props.campaign.register_accounts) {
-  //     enable_disable_accounts = (
-  //       <div className="campaign-create">
-  //         <a href={`/requested_accounts_campaigns/${props.campaign.slug}/enable_account_requests`}>
-  //           <button className="button dark" type="submit">
-  //             {I18n.t('campaign.enable_account_requests')}
-  //           </button>
-  //         </a>
-  //       </div>
-  //     );
-  //   } else {
-  //     enable_disable_accounts = (
-  //       <div className="campaign-create">
-  //         <a href={`/requested_accounts_campaigns/${props.campaign.slug}/disable_account_requests`}>
-  //           <button className="button dark" type="submit">
-  //             {I18n.t('campaign.disable_account_requests')}
-  //           </button>
-  //         </a>
-  //       </div>
-  //     );
-  //   }
-  // }
-
-  // let requested_accounts;
-  // if (props.campaign.current_user_admin && props.campaign.requested_accounts_any) {
-  //   requested_accounts = (
-  //     <div className="campaign-create">
-  //       <a href={`/campaigns/${props.campaign.slug}/overview}`}>
-  //         <button className="button dark" type="submit">
-  //           {I18n.t('campaign.requested_accounts')}
-  //           <i className="icon icon-rt_arrow" />
-  //         </button>
-  //       </a>
-  //     </div>
-  //   );
-  // }
 
   let campaign_organizers;
   if (props.campaign.organizers_any) {
     campaign_organizers = (
       <span className="campaign-organizers"><strong>{I18n.t('campaign.organizers')}</strong>
-        props.campaign.organezers.forEach(organizer, i)
+        props.campaign.organizers.map((organizer, i) => {
+          console.log(props.campaign.organizers.length)
+          //   if (i === props.campaign.organizers.length - 1) {
+          //   console.log(props.campaign.organizers.length);
+          //       <a href={`/users/${organizers.username}`}>
+          //   organizer.username
+          //       </a>
+          // }
+        }
+        );
       </span>
+    );
+  }
+
+  let program_templet;
+  if (props.campaign.template_description_present) {
+    program_templet = (
+      <form
+        className="module campaign-template-description rails_editable"
+        id="edit_campaign_3"
+        action={`/campaigns/${props.campaign.slug}`} acceptCharset="UTF-8" method="post">
+        <div className="section-header">
+          <span className="tooltip-trigger">
+            <h3>{I18n.t('campaign.program_template')}</h3>
+            <div className="tooltip dark">
+              {I18n.t('campaign.program_template_tooltip')}
+            </div>
+          </span>
+        </div>
+        <div className="module__data rails_editable-field">
+          <p className="rails_editable-content">
+            {props.campaign.template_description}
+          </p>
+        </div>
+      </form>
     );
   }
 
@@ -130,12 +117,7 @@ const CampaignHome = (props) => {
         <div className="sidebar">
           {create_program}
           {edit}
-          {enable_disable_accounts}
-          {/* <form className="campaign-create" acceptCharset="UTF-8" method="post">
-            {enable_disable_accounts}
-          </form> */}
-
-          {/* {requested_accounts} */}
+          {requested_accounts}
           <div className="campaign-details module rails_editable">
             <div className="section-header">
               <h3>{I18n.t('application.details')}</h3>
@@ -143,17 +125,27 @@ const CampaignHome = (props) => {
             <div className="module__data extra-line-height">
               <div>
                 {campaign_organizers}
-                {/* <form className="edit_campaign" id="edit-campaign_details" action={`/campaigns/${props.campaign.title}`} acceptCharset="UTF-8" method="post" >
-                  <div>
+                <form
+                  className="edit_campaign" id="edit-campaign_details" action={`/campaigns/${props.campaign.title}`} acceptCharset="UTF-8" method="post" >
+                  <div className="campaign-title form-group rails_editable-field">
                     <label>Title:</label>
                     <span className="rails_editable-content">{props.campaign.title}</span>
                   </div>
-                </form> */}
+                  <div className="campaign-use-dates form-group rails_editable-field">
+                    <label>
+                      <input type="checkbox" name="use-dates" id="use_dates" value="1" />
+                      "Use start and end dates"
+                    </label>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
+          {program_templet}
         </div>
       </section >
+
+
     </div >
   );
 };

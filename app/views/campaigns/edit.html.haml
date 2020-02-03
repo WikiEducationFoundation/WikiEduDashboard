@@ -31,6 +31,15 @@
             = preserve @campaign.description
           = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
     .sidebar
+      -# - if (current_user&.admin?)
+      -#   - if (!@campaign.register_accounts)
+      -#     = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do
+      -#       %button.button.dark
+      -#         = t('campaign.enable_account_requests')
+      -#   - else
+      -#     = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
+      -#       %button.button.dark
+      -#         = t('campaign.disable_account_requests')
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3
@@ -139,7 +148,16 @@
           %p.rails_editable-content
             = preserve @campaign.template_description
           = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
-
+      - if (current_user&.admin?)
+        - if (!@campaign.register_accounts)
+          = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do
+            %button.button.dark
+              = t('campaign.enable_account_requests')
+        - else
+          = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
+            %button.button.dark
+              = t('campaign.disable_account_requests')
       = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
         %button.button.danger
           = t('campaign.delete_campaign')
+      
