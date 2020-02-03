@@ -165,4 +165,7 @@ my:
     name: အမည်
   article_finder:
     submit: ထည့်သွင်းရန်
+  training_status:
+    continue: ဆက်လက်
+    view: ကြည့်ရန်
 ...
