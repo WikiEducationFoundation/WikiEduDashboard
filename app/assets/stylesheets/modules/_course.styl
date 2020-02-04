@@ -172,12 +172,6 @@ rating(color)
   .details-form
     display flex
 
-.pop__container
-  form
-    display flex
-    align-items center
-    justify-content center
-
 @media only screen and (max-width: 920px)
   .course_main,
   .campaign_main
@@ -218,8 +212,12 @@ rating(color)
 .multi-wiki input[readonly]
   display: none
 
-.modal-course-details1
+.modal-course-details
     .pop__container
+        form
+          display flex
+          align-items center
+          justify-content center
         .pop.open
           form
             flex-direction  column

@@ -524,12 +524,10 @@ const Details = createReactClass({
 
     return (
       <div className="modal-course-details">
-        <div className="modal-course-details1">
-          <Modal>
-            <Notifications />
-            {shared}
-          </Modal>
-        </div>
+        <Modal>
+          <Notifications />
+          {shared}
+        </Modal>
       </div>
     );
   }
