@@ -95,6 +95,7 @@ Overview.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   editPermissions: PropTypes.bool.isRequired,
+  prefix: PropTypes.string.isRequired,
   students: PropTypes.array,
   openKey: PropTypes.string,
   userRevisions: PropTypes.object.isRequired,
@@ -102,6 +103,7 @@ Overview.propTypes = {
 
   notifyOverdue: PropTypes.func.isRequired,
   resetUI: PropTypes.func.isRequired,
+  sort: PropTypes.func.isRequired,
   sortSelect: PropTypes.func.isRequired,
   sortUsers: PropTypes.func.isRequired,
   toggleUI: PropTypes.func.isRequired

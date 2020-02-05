@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Components
@@ -61,6 +62,20 @@ export class Exercises extends React.Component {
     );
   }
 }
+
+Exercises.propTypes = {
+  course: PropTypes.object.isRequired,
+  current_user: PropTypes.object.isRequired,
+  prefix: PropTypes.string.isRequired,
+  openKey: PropTypes.string,
+  students: PropTypes.array,
+  students: PropTypes.array,
+  wikidataLabels: PropTypes.object,
+
+  sort: PropTypes.func.isRequired,
+  sortSelect: PropTypes.func.isRequired,
+  sortUsers: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   openKey: state.ui.openKey,
