@@ -28,7 +28,7 @@ if @campaign
     json.register_accounts @campaign.register_accounts
     json.current_user_admin  @is_admin
     json.requested_accounts_any @campaign.requested_accounts.any?
-    json.open_details 'rails_editable-editing':''
+    # json.open_details 'rails_editable-editing':''
     json.organizers_any @campaign.organizers.any?
     json.organizers @organizers
     json.current_user current_user
