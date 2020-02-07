@@ -112,6 +112,7 @@ class CoursesController < ApplicationController
   end
 
   def uploads
+    set_page
     set_course
   end
 
@@ -185,6 +186,11 @@ class CoursesController < ApplicationController
   def set_course
     @course = find_course_by_slug(params[:slug])
     protect_privacy
+  end
+
+  def set_page
+    @page = params[:page]&.to_i
+    @page = nil unless @page&.positive?
   end
 
   def campaign_params
