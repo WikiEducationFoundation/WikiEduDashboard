@@ -113,6 +113,7 @@ class CoursesController < ApplicationController
 
   def uploads
     set_page
+    set_per_page
     set_course
   end
 
@@ -191,6 +192,11 @@ class CoursesController < ApplicationController
   def set_page
     @page = params[:page]&.to_i
     @page = nil unless @page&.positive?
+  end
+
+  def set_per_page
+    @per_page = params[:per_page]&.to_i
+    @per_page = nil unless @per_page&.positive?
   end
 
   def campaign_params
