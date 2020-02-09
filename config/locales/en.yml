@@ -125,7 +125,6 @@ en:
       If you are running a single, independent event, you can create a
       Program now. If your event is part of something bigger, find or create the
       Campaign for it. Then you can create a new Program from the Campaign page.
-
   home:
     explore: Explore
     log_in: Log in with Wikipedia
@@ -134,7 +133,6 @@ en:
       To use the dashboard, you'll need to sign in through Wikipedia and give
       it permission to access your account. You can log in with an existing
       Wikipedia account, or create a new one.
-
   alerts:
     alert_label: Alerts
     no_alerts: No alerts found.
@@ -218,7 +216,6 @@ en:
       usually indicates that an article follow Wikipedia's conventions for the
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
-
   assignments:
     article: The article %{title} is now assigned to you.
     article_link: Article
@@ -323,24 +320,28 @@ en:
   categories:
     add_category: Add category
     add_psid: Add PetScan PSID
+    add_pileid: Add PagePile id
     add_template: Add template
     add_this_category: Add this category
     add_this_psid: Add this PSID
+    add_this_pileid: Add this Page pile id
     add_this_template: Add this template
     import_articles_description: List of articles in a category gets periodically updated, and it may take some time after it is added before the list gets populated.
     confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
     confirm_psid_addition: Are you sure you want to track contributions for PetScan PSID "%{name}"?
+    confirm_pileid_addition: Are you sure you want to track contributions for PagePile ID "%{name}"?
     confirm_template_addition: Are you sure you want to track contributions for the template "%{name}"?
     depth: Subcategory depth
     articles_count: Articles Count
     name: Name
     category_name: Category name
     psid_name: PSID
+    pileid_name: Page pile id
     template_name: Template name
     psid_name: PSID
     none: There are no categories being tracked.
     remove: Remove
-    tracked_categories: Tracked Categories, PSID & Templates
+    tracked_categories: Tracked Categories, PSID, PagePile id & Templates
     timestamp: Last Updated On
 
   chat:
@@ -693,7 +694,6 @@ en:
     warn_mirrored: >
       Upon submission, this course will be automatically posted to Wikipedia with your user account.
       After that, new edits to the timeline will be mirrored to Wikipedia.
-
       Are you sure you want to do this?
     wiki_course_page_enabled: Wiki course page enabled
     wiki_course_page_enabled_tooltip: >
@@ -1240,7 +1240,6 @@ en:
       explanation: >
         You are using a browser that isn't compatible with the dashboard. This
         site works well on recent versions of Chrome, Firefox, Edge, and other modern browsers.
-
   error_401:
     header: "Unauthorized. >:-("
     explanation: >
@@ -1249,14 +1248,12 @@ en:
       dashboard to let them know about the problem.
     json_explanation: >
       It looks like you've gotten logged out. Please refresh, log in, and try again.
-
   error_incorrect_passcode:
     header: "Incorrect passcode.  :-("
     explanation: >
       The passcode for enrolling in this course in incorrect. Please ask the
       instructor for the current passcode to enroll in this course. You can
       retry by entering the correct passcode below.
-
   error_no_course:
     explanation: "No such course %{slug} exists."
 
@@ -1265,24 +1262,20 @@ en:
     explanation: >
       This page doesn't exist. If you were trying to reach the dashboard
       for a course, that course may not be registered for this dashboard.
-
   error_422:
     header: "422 — unprocessable entity.  :-("
     explanation: >
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
-
   error_500:
     header: "500 — internal server error.  :-("
     explanation: >
       Something went wrong. Please contact the maintainers of this dashboard
       to let them know about the problem.
-
   login_error:
     header: "Login Error"
     explanation: >
       It looks like there was an problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
-
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
