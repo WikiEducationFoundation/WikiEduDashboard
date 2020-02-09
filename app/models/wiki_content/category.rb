@@ -17,6 +17,7 @@ require_dependency "#{Rails.root}/lib/importers/category_importer"
 require_dependency "#{Rails.root}/lib/importers/transclusion_importer"
 require_dependency "#{Rails.root}/lib/article_utils"
 require_dependency "#{Rails.root}/lib/petscan_api.rb"
+require_dependency "#{Rails.root}/lib/pagepile_api.rb"
 
 class Category < ApplicationRecord
   belongs_to :wiki
@@ -54,6 +55,8 @@ class Category < ApplicationRecord
       CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
     when 'psid'
       PetScanApi.new.page_titles_for_psid(name)
+    when 'pileid'
+      PagePileApi.new.page_titles_for_pileid(name)
     when 'template'
       TransclusionImporter.new(self).transcluded_titles
     end
