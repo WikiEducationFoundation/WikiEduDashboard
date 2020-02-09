@@ -194,7 +194,7 @@ describe Revision, type: :model do
     end
 
     context 'has shortened footnote templates' do
-      let(:mw_rev_id) { 87035089 }
+      let(:mw_rev_id) { 902872698 }
 
       before do
         stub_wiki_validation
@@ -203,18 +203,18 @@ describe Revision, type: :model do
                article_id: 55012289,
                mw_page_id: 55012289,
                features: {
-                 refs_tags_key => 12,
-                 shootened_refs_tags_key => 2
+                 refs_tags_key => 4,
+                 shootened_refs_tags_key => 131
                },
                features_previous: {
-                 refs_tags_key => 11,
+                 refs_tags_key => 0,
                  shootened_refs_tags_key => 1
                })
       end
 
       it 'should include the shortened footnote template references' do
-        val = described_class.find_by(mw_rev_id: 87035089).references_added
-        expect(val).to eq(2)
+        val = described_class.find_by(mw_rev_id: 902872698).references_added
+        expect(val).to eq(134)
       end
     end
   end
