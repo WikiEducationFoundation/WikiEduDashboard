@@ -29,6 +29,7 @@ describe Revision, type: :model do
   describe '#references_added' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
     let(:wikidata_refs_tags_key) { 'feature.len(<datasource.wikidatawiki.revision.references>)' }
+    let(:shootened_refs_tags_key) { 'feature.enwiki.revision.shortened_footnote_templates' }
     let(:enwikidata) { create(:wiki, project: 'wikidata', language: 'en') }
 
     context 'new article' do
@@ -189,6 +190,31 @@ describe Revision, type: :model do
         wikidata_val = described_class.find_by(mw_rev_id: 870348508).references_added
         expect(val).to eq(5)
         expect(wikidata_val).to eq(5)
+      end
+    end
+
+    context 'has shortened footnote templates' do
+      let(:mw_rev_id) { 87035089 }
+
+      before do
+        stub_wiki_validation
+        create(:revision,
+               mw_rev_id: mw_rev_id,
+               article_id: 55012289,
+               mw_page_id: 55012289,
+               features: {
+                 refs_tags_key => 12,
+                 shootened_refs_tags_key => 2
+               },
+               features_previous: {
+                 refs_tags_key => 11,
+                 shootened_refs_tags_key => 1
+               })
+      end
+
+      it 'should include the shortened footnote template references' do
+        val = described_class.find_by(mw_rev_id: 87035089).references_added
+        expect(val).to eq(2)
       end
     end
   end
