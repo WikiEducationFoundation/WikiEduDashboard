@@ -48,14 +48,6 @@ const CampaignHome = (props) => {
           <i className="icon icon-rt_arrow" />
         </button>
       </form>
-      // <div className="campaign-create">
-      //   <a href={`/campaigns/${props.campaign.slug}/overview}`}>
-      //     <button className="button dark" type="submit">
-      //       {I18n.t('campaign.requested_accounts')}
-      //       <i className="icon icon-rt_arrow" />
-      //     </button>
-      //   </a>
-      // </div>
     );
   }
 
@@ -103,14 +95,16 @@ const CampaignHome = (props) => {
 
   let campaign_start_end;
   let use_dates;
-  if (use_dates === { props.campaign.start } || { props.campaign.end }) {
-    <label>
-      <input
-        type="checkbox"
-        value="1"
-        name="use_dates"
-      />{I18n.t('campaign.use_start_end_dates')}
-    </label>
+  if (use_dates === props.campaign.start || props.campaign.end) {
+    campaign_start_end = (
+      <label>
+        <input
+          type="checkbox"
+          value="1"
+          name="use_dates"
+        />{I18n.t('campaign.use_start_end_dates')}
+      </label>
+    );
   }
 
   return (
@@ -175,30 +169,9 @@ const CampaignHome = (props) => {
                   action={`/campaigns/${props.campaign.slug}`}
                 >
                   <div className="campaign-use-dates form-group rails_editable-field">
-
+                    {campaign_start_end}
                   </div>
                 </form>
-
-                {/* <form
-                  className="edit_campaign" id="edit-campaign_details" action={`/campaigns/${props.campaign.title}`} acceptCharset="UTF-8"
-                  method="post"
-                >
-                  <div className="campaign-title form-group rails_editable-field">
-                    <label>Title:</label>
-                    <span className="rails_editable-content">{props.campaign.title}</span>
-                  </div>
-                  <div className="campaign-use-dates form-group rails_editable-field">
-                    <label>
-                      <input
-                        type="checkbox"
-                        name="use-dates"
-                        id="use_dates"
-                        value="1"
-                      />
-                'Use start and end dates'
-                </label>
-                </div>
-                </form> */}
               </div>
             </div>
           </div>
