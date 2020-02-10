@@ -72,17 +72,31 @@ class Revision < ApplicationRecord
   WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
   WIKI_SHORTENED_REF_TAGS = 'feature.enwiki.revision.shortened_footnote_templates'
 
+  def wiki_ref_tags
+    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES] || 0
+  end
+
+  def shortened_ref_tags
+    features[WIKI_SHORTENED_REF_TAGS] || 0
+  end
+
   def ref_tags
     return nil if features.empty?
-    (features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES] || 0) +
-      (features[WIKI_SHORTENED_REF_TAGS] || 0)
+    wiki_ref_tags + shortened_ref_tags
+  end
+
+  def wiki_ref_tags_previous
+    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES] || 0
+  end
+
+  def shortened_ref_tags_previous
+    features_previous[WIKI_SHORTENED_REF_TAGS] || 0
   end
 
   def ref_tags_previous
     return 0 if new_article
     return nil if features_previous.empty?
-    (features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES] || 0) +
-      (features_previous[WIKI_SHORTENED_REF_TAGS] || 0)
+    wiki_ref_tags_previous + shortened_ref_tags_previous
   end
 
   def references_added
