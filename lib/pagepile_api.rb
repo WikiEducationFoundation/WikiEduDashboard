@@ -13,7 +13,6 @@ class PagePileApi
     titles_response = get_titles(pileid)
     return [] if titles_response.empty?
     titles = titles_response['pages']
-    binding.pry
     titles
   end
 
