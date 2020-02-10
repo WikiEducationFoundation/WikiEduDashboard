@@ -28,12 +28,13 @@ if @campaign
     json.register_accounts @campaign.register_accounts
     json.current_user_admin  @is_admin
     json.requested_accounts_any @campaign.requested_accounts.any?
-    # json.open_details 'rails_editable-editing':''
     json.organizers_any @campaign.organizers.any?
     json.organizers @organizers
     json.current_user current_user
     json.template_description_present @campaign.template_description.present?
     json.template_description @campaign.template_description
+    json.start @campaign.start
+    json.end @campaign.end
   end
 end
 
