@@ -71,7 +71,7 @@ Exercises.propTypes = {
   students: PropTypes.array,
   wikidataLabels: PropTypes.object,
 
-  sort: PropTypes.func.isRequired,
+  sort: PropTypes.object.isRequired,
   sortSelect: PropTypes.func.isRequired,
   sortUsers: PropTypes.func.isRequired,
 };
