@@ -69,14 +69,17 @@ export const ArticlesHandler = createReactClass({
       {
         href: `/courses/${this.props.course.slug}/articles/assigned`,
         text: I18n.t('articles.assigned')
-      },
-      {
-        href: `/courses/${this.props.course.slug}/articles/available`,
-        text: I18n.t('articles.available')
       }
     ];
 
     if (this.state.loading) return <Loading />;
+    // If there are assignments or the user is an admin, show the Articles Available button
+    if (!this.hideAssignments()) {
+      links.push({
+        href: `/courses/${this.props.course.slug}/articles/available`,
+        text: I18n.t('articles.available')
+      });
+    }
     return (
       <div className="articles-view">
         <SubNavigation links={links} />
