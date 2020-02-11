@@ -515,7 +515,7 @@ GEM
     unicode-display_width (1.6.1)
     validates_email_format_of (1.6.3)
       i18n
-    vcr (5.0.0)
+    vcr (5.1.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     webdrivers (4.2.0)
