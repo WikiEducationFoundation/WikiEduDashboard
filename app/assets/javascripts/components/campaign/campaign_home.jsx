@@ -94,8 +94,8 @@ const CampaignHome = (props) => {
   }
 
   let campaign_start_end;
-  let use_dates;
-  if (use_dates === props.campaign.start || props.campaign.end) {
+  // let use_dates;
+  if (props.campaign.use_dates === props.campaign.start || props.campaign.end) {
     campaign_start_end = (
       <label>
         <input
@@ -106,6 +106,8 @@ const CampaignHome = (props) => {
       </label>
     );
   }
+
+  // const campaign_hidden = use_dates ? '' : 'hidden';
 
   return (
     <div className="container campaign_main">
@@ -170,6 +172,16 @@ const CampaignHome = (props) => {
                 >
                   <div className="campaign-use-dates form-group rails_editable-field">
                     {campaign_start_end}
+                  </div>
+                  <div className="campaign-dates {campaign_hidden}">
+                    <div className="campaign-use-dates form-group rails_editable-field">
+                      <label>
+                        {I18n.t('courses.creator.start_date')}
+                      </label>
+                      <span className="rails_editable-content">
+                        {props.campaign.start.try}
+                      </span>
+                    </div>
                   </div>
                 </form>
               </div>

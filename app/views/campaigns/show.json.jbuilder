@@ -34,6 +34,8 @@ if @campaign
     json.template_description_present @campaign.template_description.present?
     json.template_description @campaign.template_description
     json.start @campaign.start
+    json.start_try @campaign.start.try
+    json.use_dates @campaign.use_dates
     json.end @campaign.end
   end
 end
