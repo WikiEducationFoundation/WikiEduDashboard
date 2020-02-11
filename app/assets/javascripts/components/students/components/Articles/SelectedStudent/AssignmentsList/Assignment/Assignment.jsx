@@ -7,7 +7,7 @@ import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.
 
 export const Assignment = ({ assignment, courseType, user }) => (
   <tr>
-    <td>{ assignment.article_title }</td>
+    <td className="article-title">{ assignment.article_title }</td>
     <td>
       <AssignmentLinks
         assignment={assignment}
