@@ -69,7 +69,6 @@ Exercises.propTypes = {
   prefix: PropTypes.string.isRequired,
   openKey: PropTypes.string,
   students: PropTypes.array,
-  students: PropTypes.array,
   wikidataLabels: PropTypes.object,
 
   sort: PropTypes.func.isRequired,
