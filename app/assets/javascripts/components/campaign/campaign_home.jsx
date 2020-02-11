@@ -93,19 +93,19 @@ const CampaignHome = (props) => {
     );
   }
 
-  let campaign_start_end;
-  // let use_dates;
-  if (props.campaign.use_dates === props.campaign.start || props.campaign.end) {
-    campaign_start_end = (
-      <label>
-        <input
-          type="checkbox"
-          value="1"
-          name="use_dates"
-        />{I18n.t('campaign.use_start_end_dates')}
-      </label>
-    );
-  }
+  // let campaign_start_end;
+  // let use_dates =
+  // if ({ props.campaign.start } || { props.campaign.end }) {
+  //   campaign_start_end = (
+  //     <label>
+  //       <input
+  //         type="checkbox"
+  //         value="1"
+  //         name="use_dates"
+  //       />{I18n.t('campaign.use_start_end_dates')}
+  //     </label>
+  //   );
+  // }
 
   // const campaign_hidden = use_dates ? '' : 'hidden';
 
@@ -171,15 +171,15 @@ const CampaignHome = (props) => {
                   action={`/campaigns/${props.campaign.slug}`}
                 >
                   <div className="campaign-use-dates form-group rails_editable-field">
-                    {campaign_start_end}
+                    {/* {campaign_start_end} */}
                   </div>
-                  <div className="campaign-dates {campaign_hidden}">
+                  <div className="campaign-dates">
                     <div className="campaign-use-dates form-group rails_editable-field">
                       <label>
                         {I18n.t('courses.creator.start_date')}
                       </label>
                       <span className="rails_editable-content">
-                        {props.campaign.start.try}
+                        {/* {props.campaign.start} */}
                       </span>
                     </div>
                   </div>

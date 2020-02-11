@@ -1,6 +1,6 @@
 - content_for :before_title, "#{@campaign.title} Overview  — "
 
-= render 'nav'
+-# = render 'nav'
 #react_root{data: {slug: @campaign.slug}}
 = hot_javascript_tag 'campaigns'
 
@@ -12,7 +12,7 @@
       - @campaign.errors.messages.each do |_key, message|
         %li
           = message.first
--# 
+
 .container.campaign_main
   %section.overview.container
     = render 'courses/header_stats', presenter: @presenter

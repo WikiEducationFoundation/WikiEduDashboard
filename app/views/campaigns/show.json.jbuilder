@@ -29,14 +29,12 @@ if @campaign
     json.current_user_admin  @is_admin
     json.requested_accounts_any @campaign.requested_accounts.any?
     json.organizers_any @campaign.organizers.any?
-    json.organizers @organizers
+    json.organizers @campaign.organizers
     json.current_user current_user
     json.template_description_present @campaign.template_description.present?
     json.template_description @campaign.template_description
-    json.start @campaign.start
-    json.start_try @campaign.start.try
-    json.use_dates @campaign.use_dates
-    json.end @campaign.end
+    # json.start @campaign.start
+    # json.end @campaign.end
   end
 end
 
