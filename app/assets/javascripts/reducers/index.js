@@ -4,6 +4,7 @@ import articleDetails from './article_details';
 import articleFinder from './article_finder';
 import articles from './articles';
 import assignments from './assignments';
+import campaign from './campaign';
 import campaigns from './campaigns';
 import categories from './categories';
 import chat from './chat';
@@ -38,7 +39,6 @@ import users from './users';
 import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
-import campaign from './campaign';
 
 const reducer = combineReducers({
   admins: (state = {}) => state, // only set from preloaded state
