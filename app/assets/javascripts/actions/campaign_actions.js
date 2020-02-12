@@ -10,10 +10,10 @@ const fetchCampaignsPromise = (courseId) => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
   });
 };
 
@@ -42,10 +42,10 @@ const removeCampaignsPromise = (courseId, campaignId) => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
   });
 };
 
@@ -72,10 +72,10 @@ const addCampaignsPromise = (courseId, campaignId) => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
   });
 };
 
@@ -101,10 +101,10 @@ const fetchAllCampaignsPromise = () => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
   });
 };
 

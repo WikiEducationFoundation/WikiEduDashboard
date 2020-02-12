@@ -19,6 +19,7 @@ class CampaignAlerts extends React.Component {
   }
 
   getCampaignSlug() {
+    console.log(this.props.match.campaign_slug);
     return `${this.props.match.params.campaign_slug}`;
   }
 

@@ -4,6 +4,7 @@ export * from './article_details';
 export * from './article_finder';
 export * from './articles.js';
 export * from './assignments.js';
+export * from './campaign';
 export * from './campaigns';
 export * from './categories';
 export * from './chat';
@@ -35,3 +36,4 @@ export * from './training_status';
 export * from './validations';
 export * from './wikidata_labels';
 export * from './wizard';
+
