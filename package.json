@@ -54,7 +54,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
     "gulp-rev": "^9.0.0",
-    "gulp-shell": "^0.7.1",
+    "gulp-shell": "^0.8.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-stylus": "^2.7.0",
     "gulp-uglify": "^3.0.2",
