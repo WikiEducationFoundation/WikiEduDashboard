@@ -164,7 +164,7 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "babel-plugin-root-import": "^6.4.1",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.11"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
