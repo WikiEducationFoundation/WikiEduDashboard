@@ -13,17 +13,17 @@ const CampaignNavbar = ({ campaign }) => {
             <h2 className="title">Campaign: {campaign.title}</h2>
           </a>
           <nav>
-            <div className="nav__item">
-              <p><NavLink className="active" to={`/campaigns/${campaign.slug}/overview`}>Home</NavLink></p>
+            <div className="nav__item" id="overview-link">
+              <p><NavLink activeClassName="active" to={`/campaigns/${campaign.slug}/overview`}>Home</NavLink></p>
             </div>
             <div className="nav__item">
               <p>
-                <a href={`/campaigns/${campaign.slug}/programs`}>Programs</a>
+                <a activeClassName="active" href={`/campaigns/${campaign.slug}/programs`}>Programs</a>
               </p>
             </div>
-            <div className="nav__item">
+            <div className="nav__item" id="articles-link">
               <p>
-                <a href={`/campaigns/${campaign.slug}/articles`}>Articles</a>
+                <a activeClassName="active" href={`/campaigns/${campaign.slug}/articles`}>Articles</a>
               </p>
             </div>
             <div className="nav__item">
