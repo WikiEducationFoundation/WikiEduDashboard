@@ -13,6 +13,9 @@ class Upload extends React.Component {
       height: null,
       isUploadViewerOpen: false,
     };
+    this.setImageFile = this.setImageFile.bind(this);
+    this.setImageDimensions = this.setImageDimensions.bind(this);
+    this.isUploadViewerOpen = this.isUploadViewerOpen.bind(this);
   }
 
   componentDidMount() {
