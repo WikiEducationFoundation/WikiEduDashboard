@@ -6,7 +6,7 @@ import CurrentStatus from './CurrentStatus';
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
 
 export const Assignment = ({ assignment, courseType, user }) => (
-  <tr>
+  <tr className="article-row">
     <td className="article-title">{ assignment.article_title }</td>
     <td>
       <AssignmentLinks
