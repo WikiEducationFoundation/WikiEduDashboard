@@ -60,7 +60,7 @@ export class Articles extends React.Component {
                     selected={selected}
                     wikidataLabels={wikidataLabels}
                   />
-                ) : <NoSelectedStudent prefix={prefix} />
+                ) : <NoSelectedStudent string_prefix={course.string_prefix} />
               }
             </section>
           </article>

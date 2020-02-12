@@ -635,6 +635,7 @@ en:
     search_courses: Search courses
     start: Start
     start_typing: Start typing
+    student: Student
     students: Students
     students_taught: Students Taught
     students_count: "# Students"
@@ -798,6 +799,7 @@ en:
     search_courses: Search programs
     start: Activity tracking start
     student_editors: Editors
+    student: Editor
     students: Editors
     students_taught: Total Editors
     students_none: This project has no editors enrolled.
