@@ -38,7 +38,7 @@ const fetchUploadMetadata = (uploads) => {
   });
   url = url.slice(0, -1);
 
-  return request(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`)
+  return request(`${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640`)
     .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
