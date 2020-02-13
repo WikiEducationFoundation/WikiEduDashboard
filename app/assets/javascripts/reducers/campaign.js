@@ -1,0 +1,36 @@
+import {
+  GET_CAMPAIGN
+} from '../constants';
+
+const initialState = {
+  id: '',
+  title: '',
+  slug: '',
+  description: '',
+  template_description: null,
+  default_course_type: '',
+  default_passcode: '',
+  courses_count: '',
+  user_count: '',
+  new_article_count_human: '',
+  word_count_human: '',
+  references_count_human: '',
+  view_sum_human: '',
+  article_count_human: '',
+  upload_count_human: '',
+  uploads_in_use_count_human: '',
+  uploads_in_use_count: undefined,
+  upload_usage_count_human: '',
+  upload_usage_count: '',
+  trained_percent_human: '',
+  course_string_prefix: ''
+};
+
+export default function campaign(state = initialState, action) {
+  switch (action.type) {
+    case GET_CAMPAIGN:
+      return { ...action.data.campaign };
+    default:
+      return state;
+  }
+}
