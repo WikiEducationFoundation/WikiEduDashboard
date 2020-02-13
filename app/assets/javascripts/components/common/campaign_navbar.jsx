@@ -18,12 +18,12 @@ const CampaignNavbar = ({ campaign }) => {
             </div>
             <div className="nav__item">
               <p>
-                <a activeClassName="active" href={`/campaigns/${campaign.slug}/programs`}>Programs</a>
+                <a href={`/campaigns/${campaign.slug}/programs`}>Programs</a>
               </p>
             </div>
             <div className="nav__item" id="articles-link">
               <p>
-                <a activeClassName="active" href={`/campaigns/${campaign.slug}/articles`}>Articles</a>
+                <a href={`/campaigns/${campaign.slug}/articles`}>Articles</a>
               </p>
             </div>
             <div className="nav__item">
