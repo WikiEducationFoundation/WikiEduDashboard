@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import TrainingStatus from '../students/training_status.jsx';
+import TrainingStatus from '@components/students/shared/StudentList/StudentDrawer/TrainingStatus/TrainingStatus.jsx';
 
 const UserTrainingStatus = createReactClass({
   propTypes: {

@@ -13,7 +13,7 @@ export const Reviewers = ({ assignment = {} }) => {
     return (
       <span key={username}>
         <a href={`${sandboxUrl}/Peer_Review_${username}`} target="_blank">
-          {`${username}'s Review`}
+          {`${username}'s Peer Review`}
         </a>
         {index < collection.length - 1 ? ', ' : null}
       </span>

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+user ||= current_user
 json.call(block, :id, :kind, :content, :week_id, :title,
           :order, :due_date, :training_module_ids, :points)
 if block.training_modules.any?
@@ -11,7 +12,7 @@ if block.training_modules.any?
     due_date_manager = TrainingModuleDueDateManager.new(
       course: course,
       training_module: tm,
-      user: current_user
+      user: user
     )
     json.call(tm, :slug, :id, :name, :kind)
     json.module_progress due_date_manager.module_progress

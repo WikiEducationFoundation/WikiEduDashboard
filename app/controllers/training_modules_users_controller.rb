@@ -6,7 +6,8 @@ class TrainingModulesUsersController < ApplicationController
 
   def index
     course = Course.find_by(id: params[:course_id])
-    render 'courses/_blocks', locals: { blocks: course.blocks, course: course }
+    user = User.find_by(id: params[:user_id]) if params[:user_id]
+    render 'courses/_blocks', locals: { blocks: course.blocks, course: course, user: user }
   end
 
   def create_or_update

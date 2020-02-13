@@ -81,6 +81,17 @@ en:
     opt_yes: 'yes'
     opt_no: 'no'
 
+  article_statuses:
+    not_yet_started: Getting Started
+    in_progress: Working in Sandbox
+    ready_for_review: Expanding Draft
+    ready_for_mainspace: Moving Work to Mainspace
+    assignment_completed: Assignment Marked Complete
+    reading_the_article: Reading Article
+    providing_feedback: Providing Feedback
+    post_to_talk: Posting to Talk Page
+    peer_review_completed: Review Completed
+
   dashboard:
     create_note:
       Click on Create Course to create your first course.
@@ -234,9 +245,10 @@ en:
     peer_review_count: "%{currentCount}/%{total} selected"
     peer_review_count_tooltip: You should select %{total} articles to peer review.
     peer_review_link: Peer Review
+    peer_review_link_personalized: "%{username}'s Peer Review"
     remove: Remove
     reviewers: Reviewer(s)
-    review_other: Assign a review
+    review_other: Assign a peer review
     review_self: Review an article
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
@@ -622,6 +634,7 @@ en:
     search_courses: Search courses
     start: Start
     start_typing: Start typing
+    student: Student
     students: Students
     students_taught: Students Taught
     students_count: "# Students"
@@ -785,6 +798,7 @@ en:
     search_courses: Search programs
     start: Activity tracking start
     student_editors: Editors
+    student: Editor
     students: Editors
     students_taught: Total Editors
     students_none: This project has no editors enrolled.
@@ -807,6 +821,21 @@ en:
     edit_details: Edit Details
     edit_template: Edit Template
     rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
+
+  instructor_view:
+    article_assignments: "%{prefix} Assignments"
+    assignments_table:
+      article_name: Article Name
+      current_stage: Current Stage
+      relevant_links: Relevant Links
+    assigned_articles: Assigned Articles
+    exercises_and_trainings: "%{prefix} Exercises & Trainings"
+    no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
+    overview: "%{prefix} Overview"
+    reviewing_articles: Reviewing Articles
+    select_student:
+      title: "Select %{prefix}"
+      content: to assign and view article assignments
 
   metrics:
     label: Course Activity
@@ -1077,6 +1106,9 @@ en:
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
     enrolled_success: '%{username} was added successfully!'
+    exercise_modules_completed:
+      one: "%{completed_count}/%{count} exercise completed"
+      other: "%{completed_count}/%{count} exercises completed"
     first_name: First name
     last_name: Last name
     loading: Loading users...
@@ -1103,6 +1135,11 @@ en:
     reviewers: Reviewer(s)
     reviewing: Reviewing
     sandboxes: sandboxes
+    sub_navigation:
+      article_assignments: Article Assignments
+      editor_overview: Editor Overview
+      exercises_and_trainings: Exercises & Trainings
+      student_overview: Student Overview
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
