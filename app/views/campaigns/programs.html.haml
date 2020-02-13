@@ -1,7 +1,7 @@
 - content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
 
--# = render 'nav'
-#react_root{data: {slug: @campaign.slug}}
+= render 'nav'
+-# #react_root{data: {slug: @campaign.slug}}
 
 %header.main-page
   .container

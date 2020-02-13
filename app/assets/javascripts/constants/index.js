@@ -13,6 +13,7 @@ export * from './course';
 export * from './course_alerts';
 export * from './did_you_know';
 export * from './exercises';
+export * from './feedback';
 export * from './need_help_alert';
 export * from './new_accounts';
 export * from './notifications';
@@ -35,3 +36,4 @@ export * from './training_status';
 export * from './validations';
 export * from './wikidata_labels';
 export * from './wizard';
+
