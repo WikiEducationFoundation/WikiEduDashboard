@@ -345,8 +345,7 @@ en:
       This will allow participants to enter their email address and desired
       username, instead of creating new accounts themselves. You will then be
       able to create the accounts from this Dashboard, and add them as
-      program participants at the same time. To use this feature, you should
-      have 'account creator' permission on the home wiki for this program.
+      program participants at the same time.
     accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
     active_courses: Active %{course_type}
