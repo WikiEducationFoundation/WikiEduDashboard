@@ -21,6 +21,10 @@ const UploadViewer = createReactClass({
     };
   },
 
+  componentDidMount() {
+    this.props.setUploadViewerMetadata(this.props.upload);
+  },
+
   componentDidUpdate() {
     const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
     const fileUsage = _.get(metadata, 'globalusage', []);
@@ -33,10 +37,6 @@ const UploadViewer = createReactClass({
 
   componentWillUnmount() {
     this.props.resetUploadsViews();
-  },
-
-  UNSAFE_componentWillMount() {
-    this.props.setUploadViewerMetadata(this.props.upload);
   },
 
   handleGetFileViews(files) {
