@@ -7,7 +7,7 @@ const initialState = {
   title: '',
   slug: '',
   description: '',
-  template_description: null,
+  template_description: '',
   default_course_type: '',
   default_passcode: '',
   courses_count: '',
@@ -19,11 +19,22 @@ const initialState = {
   article_count_human: '',
   upload_count_human: '',
   uploads_in_use_count_human: '',
-  uploads_in_use_count: undefined,
+  uploads_in_use_count: '',
   upload_usage_count_human: '',
   upload_usage_count: '',
   trained_percent_human: '',
-  course_string_prefix: ''
+  course_string_prefix: '',
+  show_the_create_course_button: false,
+  editable: false,
+  register_accounts: false,
+  current_user_admin: '',
+  requested_accounts_any: false,
+  organizers: [],
+  organizers_any: false,
+  current_user: '',
+  template_description_present: false,
+  start: null,
+  end: null
 };
 
 export default function campaign(state = initialState, action) {

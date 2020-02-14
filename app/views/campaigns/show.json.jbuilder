@@ -26,14 +26,14 @@ if @campaign
     json.show_the_create_course_button Features.open_course_creation? && current_user&.admin?
     json.editable @editable
     json.register_accounts @campaign.register_accounts
-    json.current_user_admin  @is_admin
+    json.current_user_admin @is_admin
     json.requested_accounts_any @campaign.requested_accounts.any?
     json.organizers_any @campaign.organizers.any?
     json.organizers @campaign.organizers
     json.current_user current_user
     json.template_description_present @campaign.template_description.present?
     json.template_description @campaign.template_description
-    # json.start @campaign.start
-    # json.end @campaign.end
+    json.start @campaign.start
+    json.end @campaign.end
   end
 end
