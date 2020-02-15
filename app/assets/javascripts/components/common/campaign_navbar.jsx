@@ -14,7 +14,8 @@ const CampaignNavbar = ({ campaign }) => {
           </a>
           <nav>
             <div className="nav__item" id="overview-link">
-              <p><NavLink activeClassName="active" to={`/campaigns/${campaign.slug}/overview`}>Home</NavLink></p>
+              <p><a href={`/campaigns/${campaign.slug}/overview`} activeClassName="active">Home</a>
+              </p>
             </div>
             <div className="nav__item">
               <p>

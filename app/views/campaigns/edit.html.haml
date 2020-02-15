@@ -1,7 +1,6 @@
 - content_for :before_title, "#{@campaign.title} Overview  — "
 
 = render 'nav'
--# #react_root{data: {slug: @campaign.slug}}
 
 = hot_javascript_tag 'campaigns'
 
@@ -140,6 +139,7 @@
           %p.rails_editable-content
             = preserve @campaign.template_description
           = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
+          
       - if (current_user&.admin?)
         - if (!@campaign.register_accounts)
           = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do

@@ -27,12 +27,6 @@ const initialState = {
   show_the_create_course_button: false,
   editable: false,
   register_accounts: false,
-  current_user_admin: '',
-  requested_accounts_any: false,
-  organizers: [],
-  organizers_any: false,
-  current_user: '',
-  template_description_present: false,
   start: null,
   end: null
 };
