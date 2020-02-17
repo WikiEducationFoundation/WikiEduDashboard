@@ -9,7 +9,7 @@ if @campaign
     json.template_description @campaign.template_description
     json.default_course_type @campaign.default_course_type
     json.default_passcode @campaign.default_passcode
-    json.courses_count @presenter.courses.count  
+    json.courses_count @presenter.courses.count
     json.user_count @presenter.user_count
     json.new_article_count_human number_to_human(@presenter.courses.sum(:new_article_count))
     json.word_count_human number_to_human(@presenter.word_count)
@@ -22,7 +22,7 @@ if @campaign
     json.upload_usage_count_human number_to_human(@presenter.upload_usage_count)
     json.upload_usage_count @presenter.upload_usage_count
     json.trained_percent_human number_to_human(@presenter.trained_percent)
-    json.course_string_prefix @presenter.course_string_prefix 
+    json.course_string_prefix @presenter.course_string_prefix
     json.show_the_create_course_button Features.open_course_creation? && current_user&.admin?
     json.editable @editable
     json.register_accounts @campaign.register_accounts
