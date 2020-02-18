@@ -36,7 +36,7 @@ export class Articles extends React.Component {
             <StudentsSubNavigation
               course={course}
               current_user={current_user}
-              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
+              heading={I18n.t('instructor_view.article_assignments', { prefix })}
             />
           )
         }
