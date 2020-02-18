@@ -26,9 +26,9 @@ const initialState = {
   course_string_prefix: '',
   show_the_create_course_button: false,
   editable: false,
-  register_accounts: false,
-  start: null,
-  end: null
+  register_accounts: '',
+  start: false,
+  end: false
 };
 
 export default function campaign(state = initialState, action) {

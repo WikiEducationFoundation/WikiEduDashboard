@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import CampaignOresPlot from '../campaign/campaign_ores_plot.jsx';
 import { NavLink } from 'react-router-dom';
-// import Alert from '../alerts/alert.jsx';
 
 const CampaignNavbar = ({ campaign }) => {
   return (
@@ -14,7 +12,7 @@ const CampaignNavbar = ({ campaign }) => {
           </a>
           <nav>
             <div className="nav__item" id="overview-link">
-              <p><a href={`/campaigns/${campaign.slug}/overview`} activeClassName="active">Home</a>
+              <p><a href={`/campaigns/${campaign.slug}/overview`} >Home</a>
               </p>
             </div>
             <div className="nav__item">
