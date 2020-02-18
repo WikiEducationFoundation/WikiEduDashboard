@@ -31,15 +31,11 @@ export class Articles extends React.Component {
 
     return (
       <>
-        {
-          current_user.isAdvancedRole && (
-            <StudentsSubNavigation
-              course={course}
-              current_user={current_user}
-              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
-            />
-          )
-        }
+        <StudentsSubNavigation
+          course={course}
+          current_user={current_user}
+          heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
+        />
         <section className="users-articles">
           <aside className="student-selection">
             <StudentSelection

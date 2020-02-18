@@ -26,15 +26,11 @@ export class Exercises extends React.Component {
 
     return (
       <div className="list__wrapper">
-        {
-          current_user.isAdvancedRole && (
-            <StudentsSubNavigation
-              course={course}
-              current_user={current_user}
-              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
-            />
-          )
-        }
+        <StudentsSubNavigation
+          course={course}
+          current_user={current_user}
+          heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
+        />
         {
           current_user.isAdvancedRole
             ? (

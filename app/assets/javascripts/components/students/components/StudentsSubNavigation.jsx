@@ -21,9 +21,7 @@ export const StudentsSubNavigation = ({ course, current_user, heading }) => {
     }
   ];
 
-  return current_user.isAdvancedRole ? (
-    <SubNavigation heading={heading} links={links} />
-  ) : null;
+  return <SubNavigation heading={heading} links={links} />;
 };
 
 StudentsSubNavigation.propTypes = {
