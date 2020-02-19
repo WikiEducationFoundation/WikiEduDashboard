@@ -45,8 +45,8 @@ const Nav = createReactClass({
       currentUser: currentUser,
       destroyUrl: destroyUrl,
       omniauthUrl: omniauthUrl,
-      width: $(window).width(),
-      height: $(window).height()
+      width: window.innerWidth,
+      height: window.innerHeight
     };
   },
 
@@ -60,7 +60,7 @@ const Nav = createReactClass({
   },
 
   updateDimensions() {
-    this.setState({ width: $(window).width(), height: $(window).height() });
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   },
 
   showSettings(event) {
