@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_181443) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
+    t.boolean "tracked", default: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
