@@ -11,22 +11,22 @@ const Nav = createReactClass({
   displayName: 'Nav',
 
   getInitialState() {
-    const rootUrl = $('#nav_root').data('rooturl');
-    const logoPath = $('#nav_root').data('logopath');
-    const fluid = $('#nav_root').data('fluid');
-    const exploreUrl = $('#nav_root').data('exploreurl');
-    const exploreName = $('#nav_root').data('explorename');
-    const userSignedIn = $('#nav_root').data('usersignedin');
-    const ifAdmin = $('#nav_root').data('ifadmin');
-    const trainingUrl = $('#nav_root').data('trainingurl');
-    const helpDisabled = $('#nav_root').data('help_disabled');
-    const askUrl = $('#nav_root').data('ask_url');
-    const userPermissions = $('#nav_root').data('user_permissions');
-    const wikiEd = $('#nav_root').data('wiki_ed');
-    const languageSwitcherEnabled = $('#nav_root').data('language_switcher_enabled');
-    const currentUser = $('#nav_root').data('username');
-    const destroyUrl = $('#nav_root').data('destroyurl');
-    const omniauthUrl = $('#nav_root').data('omniauth_url');
+    const rootUrl = document.querySelector('#nav_root').setAttribute('rooturl');
+    const logoPath = document.querySelector('nav_root').setAttribute('logopath');
+    const fluid = document.querySelector('#nav_root').setAttribute('fluid');
+    const exploreUrl = document.querySelector('#nav_root').setAttribute('exploreurl');
+    const exploreName = document.querySelector('#nav_root').setAttribute('explorename');
+    const userSignedIn = document.querySelector('#nav_root').setAttribute('usersignedin');
+    const ifAdmin = document.querySelector('#nav_root').setAttribute('ifadmin');
+    const trainingUrl = document.querySelector('#nav_root').setAttribute('trainingurl');
+    const helpDisabled = document.querySelector('#nav_root').setAttribute('help_disabled');
+    const askUrl = document.querySelector('#nav_root').setAttribute('ask_url');
+    const userPermissions = document.querySelector('#nav_root').setAttribute('user_permissions');
+    const wikiEd = document.querySelector('#nav_root').setAttribute('wiki_ed');
+    const languageSwitcherEnabled = document.querySelector('#nav_root').setAttribute('language_switcher_enabled');
+    const currentUser = document.querySelector('#nav_root').setAttribute('username');
+    const destroyUrl = document.querySelector('#nav_root').setAttribute('destroyurl');
+    const omniauthUrl = document.querySelector('#nav_root').setAttribute('omniauth_url');
 
     return {
       rootUrl: rootUrl,
