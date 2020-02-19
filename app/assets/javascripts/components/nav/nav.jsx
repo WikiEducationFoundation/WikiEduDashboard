@@ -12,7 +12,7 @@ const Nav = createReactClass({
 
   getInitialState() {
     const rootUrl = document.querySelector('#nav_root').setAttribute('rooturl');
-    const logoPath = document.querySelector('nav_root').setAttribute('logopath');
+    const logoPath = document.querySelector('#nav_root').setAttribute('logopath');
     const fluid = document.querySelector('#nav_root').setAttribute('fluid');
     const exploreUrl = document.querySelector('#nav_root').setAttribute('exploreurl');
     const exploreName = document.querySelector('#nav_root').setAttribute('explorename');
