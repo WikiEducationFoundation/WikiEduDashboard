@@ -52,7 +52,6 @@ export class Overview extends React.Component {
       <div className="list__wrapper">
         <StudentsSubNavigation
           course={course}
-          current_user={current_user}
           heading={I18n.t('instructor_view.overview', { prefix })}
         />
         {
