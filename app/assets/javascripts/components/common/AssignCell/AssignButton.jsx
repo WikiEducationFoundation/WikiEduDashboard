@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PopoverExpandable from '../high_order/popover_expandable.jsx';
-import Popover from '../common/popover.jsx';
-import { initiateConfirm } from '../../actions/confirm_actions';
-import { addAssignment, deleteAssignment, updateAssignment } from '../../actions/assignment_actions';
-import CourseUtils from '../../utils/course_utils.js';
-import AddAvailableArticles from '../articles/add_available_articles';
-import NewAssignmentInput from '../assignments/new_assignment_input';
-import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants';
-import SelectedWikiOption from '../common/selected_wiki_option';
+import PopoverExpandable from '../../high_order/popover_expandable.jsx';
+import Popover from '../popover.jsx';
+import { initiateConfirm } from '../../../actions/confirm_actions';
+import { addAssignment, deleteAssignment, updateAssignment } from '../../../actions/assignment_actions';
+import CourseUtils from '../../../utils/course_utils.js';
+import AddAvailableArticles from '../../articles/add_available_articles';
+import NewAssignmentInput from '../../assignments/new_assignment_input';
+import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
+import SelectedWikiOption from '../selected_wiki_option';
 
 // Helper Components
 // Button to show the static list

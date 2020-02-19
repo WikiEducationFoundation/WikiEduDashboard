@@ -93,6 +93,8 @@ tg-cyrl:
     edit_count_description: Тамоми вироишот
     per_user: '%{number}/корбар'
     revisions: Вироишоти охир
+  training:
+    page: Саҳифа
   users:
     course_passcode: 'Рамзи дохилшавӣ:'
     enroll_url: 'Истифодабарандагон метавонанд ҳамроҳ шаванд бо роҳи боздид аз ин

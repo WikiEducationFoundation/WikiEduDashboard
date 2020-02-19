@@ -7,6 +7,6 @@ content: |
 
   When you're finished, you can return here to continue this training module.
 
-  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyPage/be_bold?tour=wikiedbebold">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/redirect/sandbox/be_bold?tour=wikiedbebold">
     Launch "Be Bold" tutorial.
   </a></div>

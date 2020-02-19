@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import assignmentPropTypes from '../utils/assignmentPropTypes';
 
 // components
-import AssignCell from '@components/students/assign_cell.jsx';
+import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 
 // constants
 import {

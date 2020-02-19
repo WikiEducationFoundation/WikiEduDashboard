@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import Actions from './Actions/Actions.jsx';
-import Links from './Links/Links.jsx';
+import Links from './Links.jsx';
 
 const isEnglishWikipedia = ({ assignment, course }) => () => {
   const { language, project } = assignment;

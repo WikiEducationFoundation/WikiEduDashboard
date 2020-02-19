@@ -13,7 +13,7 @@ const initialState = {
   loading: true
 };
 
-const categorizeExercises = (blocks) => {
+const categorizeExercises = (blocks = []) => {
   const trainings = blocks.reduce((acc, block) => acc.concat(block.training_modules), [])
                           .filter(val => val);
   return trainings.reduce((acc, training) => {
@@ -29,8 +29,9 @@ const categorizeExercises = (blocks) => {
       acc.unread.push(training);
     }
 
+    acc.count += 1;
     return acc;
-  }, { complete: [], incomplete: [], unread: [] });
+  }, { complete: [], incomplete: [], unread: [], count: 0 });
 };
 
 export default function exercises(state = initialState, action) {

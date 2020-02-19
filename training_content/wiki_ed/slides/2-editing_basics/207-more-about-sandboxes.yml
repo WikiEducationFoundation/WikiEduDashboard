@@ -14,6 +14,6 @@ content: |
   slides back. Try to add some bold text, or link to another article. Don't forget
   to add an edit summary!
 
-  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="/redirect/sandbox/sandbox">
     Go to your sandbox and try these out!
   </a></div>

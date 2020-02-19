@@ -222,6 +222,6 @@ def find_correct_answer_by_trial_and_error
     end
     click_button 'Check Answer'
     next_button = page.first('a.slide-nav.btn.btn-primary')
-    break unless next_button['disabled'] == 'true'
+    break if next_button['disabled'].nil?
   end
 end

@@ -129,7 +129,7 @@ describe WikiTrainingLoader do
       end
     end
 
-    describe 'for libraries' do
+    describe 'for libraries (en)' do
       let(:content_class) { TrainingLibrary }
 
       before do
@@ -145,7 +145,7 @@ describe WikiTrainingLoader do
       end
     end
 
-    describe 'for libraries' do
+    describe 'for libraries (de)' do
       let(:content_class) { TrainingLibrary }
 
       before do

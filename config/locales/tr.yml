@@ -61,7 +61,7 @@ tr:
     home: Anasayfa
     log_in_extended: Vikipedi ile Oturum Aç
     log_in: Oturum aç
-    log_out: Oturumu Kapat
+    log_out: Oturumu kapat
     my_dashboard: Gösterge Panelim
     recent_activity: Son Etkinlik
     report_problem: Sorun bildir
@@ -769,7 +769,7 @@ tr:
         ne yapacak? Lütfen diğer editörlere katılımcıların yapacağı katkılarla ilgili
         bir bağlam bilgisi vermek için yeterince ayrıntı ekleyin.
       course_school: Kurum
-      course_term: Ne Zaman
+      course_term: Ne zaman
       course_term_placeholder: Ne zaman
       course_title: Program adı
       create_button: Programımı Oluştur!

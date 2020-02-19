@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import BibliographyLink from './BibliographyLink';
-import SandboxLink from './SandboxLink';
-import PeerReviewLink from './PeerReviewLink';
-import EditorLink from './EditorLink';
-import ReviewerLink from './ReviewerLink';
+import BibliographyLink from '@components/common/AssignmentLinks/BibliographyLink.jsx';
+import SandboxLink from '@components/common/AssignmentLinks/SandboxLink.jsx';
+import PeerReviewLink from '@components/common/AssignmentLinks/PeerReviewLink.jsx';
+import EditorLink from '@components/common/AssignmentLinks/EditorLink.jsx';
+import ReviewerLink from '@components/common/AssignmentLinks/ReviewerLink.jsx';
 
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 
@@ -37,7 +37,7 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
 
   if (assignment.role === REVIEWING_ROLE) {
     actions.push(
-      <PeerReviewLink key={`review-${id}`} assignment={assignment} current_user={current_user} />
+      <PeerReviewLink key={`review-${id}`} assignment={assignment} user={current_user} />
     );
   }
 
