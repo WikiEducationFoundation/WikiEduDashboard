@@ -18,7 +18,7 @@ describe TrainingModulesUsersController, type: :request do
     end
 
     context 'tmu record exists' do
-      context 'current slide has an index higher than last slide completed' do
+      context 'current slide has an index higher than last slide completed, set slide completed' do
         before do
           allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
           post '/training_modules_users', params: request_params1
@@ -30,7 +30,7 @@ describe TrainingModulesUsersController, type: :request do
         end
       end
 
-      context 'current slide has an index higher than last slide completed' do
+      context 'current slide has an index higher than last slide completed, maintain last slide' do
         # Like, go to slide 5 and go back to 3. last_slide_completed
         # should still be 5
         let(:slide) { TrainingModule.find(training_module.id).slides.last }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
-import AssignCell from '../students/assign_cell.jsx';
+import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import MyArticlesContainer from '../overview/my_articles/containers';

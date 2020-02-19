@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import SandboxLink from '../../../../../../../../../../app/assets/javascripts/components/overview/my_articles/components/Categories/List/Assignment/Header/Links/SandboxLink';
+import SandboxLink from '~/app/assets/javascripts/components/common/AssignmentLinks/SandboxLink';
 
 describe('SandboxLink', () => {
   it('should show the link', () => {
