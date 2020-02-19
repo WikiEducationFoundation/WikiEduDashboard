@@ -9,16 +9,29 @@
     color $text
 
 .users-articles
+  align-items flex-start
   display flex
   aside.student-selection
+    border-bottom 1px solid #DDDDDD
+    border-top 1px solid #DDDDDD
     flex 1
+    overflow hidden scroll
+    margin-top 5px
+    max-height 60vh
     ul
       list-style none
       li.student
         background white
         border 1px solid #DDDDDD
+        border-right none
         margin 5px 0
         padding 15px
+        &:first-child
+          border-top none
+          margin-top 0
+        &:last-child
+          border-bottom none
+          margin-bottom 0
         &.selected
           background #676eb4
           color white
@@ -35,7 +48,8 @@
       p.assignment-links
         margin-bottom 3px
     .no-selected-student
-      border 2px dashed #AAAAAA
+      background #EEEEEE
+      border 1px solid #DDDDDD
       display flex
       flex-direction column
       padding 45px 15px
