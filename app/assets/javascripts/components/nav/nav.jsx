@@ -11,22 +11,23 @@ const Nav = createReactClass({
   displayName: 'Nav',
 
   getInitialState() {
-    const rootUrl = $('#nav_root').data('rooturl');
-    const logoPath = $('#nav_root').data('logopath');
-    const fluid = $('#nav_root').data('fluid');
-    const exploreUrl = $('#nav_root').data('exploreurl');
-    const exploreName = $('#nav_root').data('explorename');
-    const userSignedIn = $('#nav_root').data('usersignedin');
-    const ifAdmin = $('#nav_root').data('ifadmin');
-    const trainingUrl = $('#nav_root').data('trainingurl');
-    const helpDisabled = $('#nav_root').data('help_disabled');
-    const askUrl = $('#nav_root').data('ask_url');
-    const userPermissions = $('#nav_root').data('user_permissions');
-    const wikiEd = $('#nav_root').data('wiki_ed');
-    const languageSwitcherEnabled = $('#nav_root').data('language_switcher_enabled');
-    const currentUser = $('#nav_root').data('username');
-    const destroyUrl = $('#nav_root').data('destroyurl');
-    const omniauthUrl = $('#nav_root').data('omniauth_url');
+    const navRoot = document.getElementById('nav_root');
+    const rootUrl = navRoot.dataset.rooturl;
+    const logoPath = navRoot.dataset.logopath;
+    const fluid = navRoot.dataset.fluid === 'true'; //  converts string to boolean
+    const exploreUrl = navRoot.dataset.exploreurl;
+    const exploreName = navRoot.dataset.explorename;
+    const userSignedIn = navRoot.dataset.usersignedin === 'true';
+    const ifAdmin = navRoot.dataset.ifadmin === 'true';
+    const trainingUrl = navRoot.dataset.trainingurl;
+    const helpDisabled = navRoot.dataset.help_disabled === 'true';
+    const askUrl = navRoot.dataset.ask_url;
+    const userPermissions = navRoot.dataset.user_permissions === 'true';
+    const wikiEd = navRoot.dataset.wiki_ed === 'true';
+    const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled;
+    const currentUser = navRoot.dataset.username;
+    const destroyUrl = navRoot.dataset.destroyurl;
+    const omniauthUrl = navRoot.dataset.omniauth_url;
 
     return {
       rootUrl: rootUrl,
