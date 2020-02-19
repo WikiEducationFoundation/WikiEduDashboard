@@ -50,15 +50,10 @@ export class Overview extends React.Component {
 
     return (
       <div className="list__wrapper">
-        {
-          current_user.isAdvancedRole && (
-            <StudentsSubNavigation
-              course={course}
-              current_user={current_user}
-              heading={I18n.t('instructor_view.overview', { prefix })}
-            />
-          )
-        }
+        <StudentsSubNavigation
+          course={course}
+          heading={I18n.t('instructor_view.overview', { prefix })}
+        />
         {
           current_user.isAdvancedRole
           ? (

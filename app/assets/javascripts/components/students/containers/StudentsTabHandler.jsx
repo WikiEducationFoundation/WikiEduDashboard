@@ -49,7 +49,6 @@ const StudentsHandler = createReactClass({
     if (this.state.loading) return <Loading />;
 
     const prefix = CourseUtils.i18n('students', this.props.course.string_prefix);
-    const isAdvancedRole = this.props.current_user.isAdvancedRole;
     return (
       <div id="users">
         <Switch>
@@ -66,28 +65,20 @@ const StudentsHandler = createReactClass({
               );
             }}
           />
-          {
-            isAdvancedRole && (
-              <Route
-                exact
-                path="/courses/:course_school/:course_title/students/articles"
-                render={() => {
-                  return <Articles {...this.props} prefix={prefix} />;
-                }}
-              />
-            )
-          }
-          {
-            isAdvancedRole && (
-              <Route
-                exact
-                path="/courses/:course_school/:course_title/students/exercises"
-                render={() => {
-                  return <Exercises {...this.props} prefix={prefix} sortSelect={this.sortSelect} />;
-                }}
-              />
-            )
-          }
+          <Route
+            exact
+            path="/courses/:course_school/:course_title/students/articles"
+            render={() => {
+              return <Articles {...this.props} prefix={prefix} />;
+            }}
+          />
+          <Route
+            exact
+            path="/courses/:course_school/:course_title/students/exercises"
+            render={() => {
+              return <Exercises {...this.props} prefix={prefix} sortSelect={this.sortSelect} />;
+            }}
+          />
           <Redirect
             to={{
               pathname: '/courses/:course_school/:course_title/students/overview'
