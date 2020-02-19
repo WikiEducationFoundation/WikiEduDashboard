@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-const TrainingStatus = ({ trainingModules }) => {
-  if (!trainingModules.length) {
-    return <div />;
-  }
-  const moduleRows = trainingModules.map((trainingModule) => {
+import {
+  TRAINING_MODULE_KIND
+} from '~/app/assets/javascripts/constants';
+
+export const TrainingModuleRows = ({ trainingModules }) => {
+  const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
+  return trainings.map((trainingModule) => {
     let moduleStatus;
     if (trainingModule.completion_date) {
       moduleStatus = (
@@ -28,24 +30,17 @@ const TrainingStatus = ({ trainingModules }) => {
       </tr>
     );
   });
-
-  return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>{I18n.t('users.training_module_name')}</th>
-          <th>{I18n.t('users.training_module_status')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {moduleRows}
-      </tbody>
-    </table>
-  );
 };
 
-TrainingStatus.propTypes = {
-  trainingModules: PropTypes.array
+TrainingModuleRows.propTypes = {
+  trainingModules: PropTypes.arrayOf(
+    PropTypes.shape({
+      completion_date: PropTypes.string,
+      id: PropTypes.number.isRequired,
+      module_name: PropTypes.string.isRequired,
+      status: PropTypes.string
+    }).isRequired
+  ).isRequired
 };
 
-export default TrainingStatus;
+export default TrainingModuleRows;

@@ -63,13 +63,13 @@ describe 'Students Page', type: :feature, js: true do
   end
 
   it 'displays a list of students' do
-    js_visit "/courses/#{@course.slug}/students"
+    js_visit "/courses/#{@course.slug}/students/overview"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).to have_content @user.username
   end
 
   it 'opens a list of individual student revisions' do
-    js_visit "/courses/#{@course.slug}/students"
+    js_visit "/courses/#{@course.slug}/students/overview"
     sleep 1 # Try to avoid issue where this test fails with 0 rows found.
     expect(page).not_to have_content 'Article Title'
     page.first('tr.students').click
@@ -85,7 +85,7 @@ describe 'Students Page', type: :feature, js: true do
 
     context 'logged out' do
       it 'does not display real name' do
-        js_visit "/courses/#{@course.slug}/students"
+        js_visit "/courses/#{@course.slug}/students/overview"
         sleep 1 # Try to avoid issue where this test fails with 0 rows found.
         within 'table.users' do
           expect(page).not_to have_content @user.real_name
@@ -96,7 +96,7 @@ describe 'Students Page', type: :feature, js: true do
     context 'logged in' do
       before do
         login_as user
-        js_visit "/courses/#{@course.slug}/students"
+        js_visit "/courses/#{@course.slug}/students/overview"
         sleep 1 # Try to avoid issue where this test fails with 0 rows found.
       end
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import TrainingStatus from '../students/training_status.jsx';
+import TrainingStatus from '@components/students/shared/StudentList/StudentDrawer/TrainingStatus/TrainingStatus.jsx';
 
 const UserTrainingStatus = createReactClass({
   propTypes: {
@@ -10,7 +10,7 @@ const UserTrainingStatus = createReactClass({
   render() {
     let status;
     if (this.props.trainingModules.length > 0) {
-      status = <TrainingStatus trainingModules={this.props.trainingModules} />;
+      status = <TrainingStatus exercises={{}} trainingModules={this.props.trainingModules} />;
     } else {
       status = <span>{I18n.t('users.user_no_training_status')}</span>;
     }

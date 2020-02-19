@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AssignButton from './assign_button.jsx';
-import { trunc } from '../../utils/strings';
-import CourseUtils from '../../utils/course_utils.js';
+import AssignButton from './AssignButton.jsx';
+import { trunc } from '../../../utils/strings';
+import CourseUtils from '../../../utils/course_utils.js';
 
 // Helper Components
 const ArticleLink = ({ content, href, prefix }) => {

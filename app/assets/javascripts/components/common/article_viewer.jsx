@@ -293,7 +293,8 @@ const ArticleViewer = createReactClass({
       if (this.props.title) {
         return (
           <div className={`tooltip-trigger ${this.props.showButtonClass || ''}`}>
-            <button onClick={this.showArticle}>{this.props.title}</button>
+            <button onClick={this.showArticle} aria-describedby="icon-article-viewer-desc">{this.props.title}</button>
+            <p id="icon-article-viewer-desc">Open Article Viewer</p>
             <div className="tooltip tooltip-title dark large">
               <p>{this.showButtonLabel()}</p>
             </div>
@@ -302,14 +303,14 @@ const ArticleViewer = createReactClass({
       }
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
-          <button onClick={this.showArticle} className="icon icon-article-viewer" />
+          <button onClick={this.showArticle} aria-label="Open Article Viewer" className="icon icon-article-viewer" />
           <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
         </div>
       );
     }
-    const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
+    const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" aria-label="Close Article Viewer" />;
 
     let style = 'hidden';
     if (this.state.showArticle) {

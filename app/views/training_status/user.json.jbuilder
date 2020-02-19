@@ -5,6 +5,7 @@ json.user do
     training_module = TrainingModule.find_by(id: tmu.training_module_id)
     if training_module
       json.id training_module.id
+      json.kind training_module.kind
       json.module_name training_module.name
       tp_manager = TrainingProgressManager.new(@user, training_module, training_module_user: tmu)
       json.status tp_manager.status

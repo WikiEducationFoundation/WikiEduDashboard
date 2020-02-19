@@ -18,11 +18,34 @@ class CourseTrainingProgressManager
     if in_dashboard_training?
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
-    assigned_count = total_modules_for_course
+    assigned_count = total_training_modules_for_course
     return if assigned_count.zero?
-    completed_count = completed_modules_for_user_and_course
-    I18n.t('users.training_modules_completed', completed_count: completed_count,
-                                               count: assigned_count)
+    completed_count = completed_training_modules_for_user_and_course
+    description = I18n.t('users.training_modules_completed',
+                         completed_count: completed_count, count: assigned_count)
+
+    {
+      assigned_count: assigned_count,
+      completed_count: completed_count,
+      description: description
+    }
+  end
+
+  def course_exercise_progress(user)
+    return if in_dashboard_training?
+
+    @user = user
+    assigned_count = total_exercise_modules_for_course
+    return if assigned_count.zero?
+    completed_count = completed_exercise_modules_for_user_and_course
+    description = I18n.t('users.exercise_modules_completed',
+                         completed_count: completed_count, count: assigned_count)
+
+    {
+      assigned_count: assigned_count,
+      completed_count: completed_count,
+      description: description
+    }
   end
 
   def incomplete_assigned_modules(user)
@@ -75,12 +98,22 @@ class CourseTrainingProgressManager
     assigned_module_ids - completed_module_ids
   end
 
-  def completed_modules_for_user_and_course
+  def completed_training_modules_for_user_and_course
     TrainingModulesUsers
       .where(user_id: @user.id)
-      .where(training_module_id: modules_for_course)
+      .where(training_module_id: training_modules_for_course)
       .where.not(completed_at: nil)
-      .count
+      .count { |tmu| TrainingModule.find(tmu.training_module_id).training? }
+  end
+
+  def completed_exercise_modules_for_user_and_course
+    TrainingModulesUsers
+      .where(user_id: @user.id)
+      .where(training_module_id: exercise_modules_for_course)
+      .where(flags: { marked_complete: true })
+      .count do |tmu|
+        TrainingModule.find(tmu.training_module_id).exercise?
+      end
   end
 
   def blocks_with_modules_for_course
@@ -90,15 +123,31 @@ class CourseTrainingProgressManager
       .where(weeks: { course_id: @course.id })
   end
 
-  def modules_for_course
-    @modules_for_course ||= blocks_with_modules_for_course
-                            .pluck(:training_module_ids)
-                            .flatten
-                            .uniq
+  def module_ids_for_course
+    blocks_with_modules_for_course
+      .pluck(:training_module_ids)
+      .flatten
+      .uniq
   end
 
-  def total_modules_for_course
-    @total_modules_for_course ||= modules_for_course.count
+  def training_modules_for_course
+    module_ids_for_course.select do |id|
+      TrainingModule.find(id).training?
+    end
+  end
+
+  def total_training_modules_for_course
+    @total_training_modules_for_course ||= training_modules_for_course.count
+  end
+
+  def exercise_modules_for_course
+    module_ids_for_course.select do |id|
+      TrainingModule.find(id).exercise?
+    end
+  end
+
+  def total_exercise_modules_for_course
+    @total_exercise_modules_for_course ||= exercise_modules_for_course.count
   end
 
   def meetings_manager

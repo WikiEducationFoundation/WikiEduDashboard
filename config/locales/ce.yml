@@ -26,6 +26,8 @@ ce:
   metrics:
     last_update: ТӀаьххьара карлаяккхар
     activity: Дукха хан йоцуш дийнарг
+  uploads:
+    label: Чуяьхнарш
   users:
     training_module_name: Дешаран модуль
     training_module_status: Статус

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EnrollButton from '../students/enroll_button.jsx';
+import EnrollButton from '../common/enroll_button.jsx';
 
 const InlineUsers = (props) => {
   const lastUserIndex = props.users.length - 1;

@@ -273,9 +273,15 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Education'
     end
 
-    it 'does not show an "Add an available article" button for students' do
+    it 'does not show the "Available Articles" selection when no articles' do
       js_visit "/courses/#{slug}/articles"
+      sleep 1
       expect(page).not_to have_content 'Available Articles'
+    end
+
+    it 'redirects students who try and go to "Available Articles"' do
+      js_visit "/courses/#{slug}/articles/available"
+      expect(page).to have_current_path("/courses/#{slug}")
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do

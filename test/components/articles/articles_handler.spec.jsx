@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import '../../testHelper';
-import { ArticlesHandler } from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
+import { ArticlesHandler } from '~/app/assets/javascripts/components/articles/articles_handler.jsx';
 
 describe('ArticlesHandler', () => {
   it('renders', () => {
@@ -26,6 +26,6 @@ describe('ArticlesHandler', () => {
 
     component.setState({ loading: false });
     expect(component.find('NavLink')).toExist;
-    expect(component.debug()).toContain('Articles Edited');
+    expect(component.find('div.articles-view')).toExist;
   });
 });

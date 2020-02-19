@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
-import Popover from '../common/popover.jsx';
+import Popover from './popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
