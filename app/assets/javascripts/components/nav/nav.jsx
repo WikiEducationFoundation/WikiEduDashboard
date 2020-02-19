@@ -11,22 +11,22 @@ const Nav = createReactClass({
   displayName: 'Nav',
 
   getInitialState() {
-    const rootUrl = document.querySelector('#nav_root').setAttribute('rooturl');
-    const logoPath = document.querySelector('#nav_root').setAttribute('logopath');
-    const fluid = document.querySelector('#nav_root').setAttribute('fluid');
-    const exploreUrl = document.querySelector('#nav_root').setAttribute('exploreurl');
-    const exploreName = document.querySelector('#nav_root').setAttribute('explorename');
-    const userSignedIn = document.querySelector('#nav_root').setAttribute('usersignedin');
-    const ifAdmin = document.querySelector('#nav_root').setAttribute('ifadmin');
-    const trainingUrl = document.querySelector('#nav_root').setAttribute('trainingurl');
-    const helpDisabled = document.querySelector('#nav_root').setAttribute('help_disabled');
-    const askUrl = document.querySelector('#nav_root').setAttribute('ask_url');
-    const userPermissions = document.querySelector('#nav_root').setAttribute('user_permissions');
-    const wikiEd = document.querySelector('#nav_root').setAttribute('wiki_ed');
-    const languageSwitcherEnabled = document.querySelector('#nav_root').setAttribute('language_switcher_enabled');
-    const currentUser = document.querySelector('#nav_root').setAttribute('username');
-    const destroyUrl = document.querySelector('#nav_root').setAttribute('destroyurl');
-    const omniauthUrl = document.querySelector('#nav_root').setAttribute('omniauth_url');
+    const rootUrl = document.querySelector('#nav_root').getAttribute('rooturl');
+    const logoPath = document.querySelector('#nav_root').getAttribute('logopath');
+    const fluid = document.querySelector('#nav_root').getAttribute('fluid');
+    const exploreUrl = document.querySelector('#nav_root').getAttribute('exploreurl');
+    const exploreName = document.querySelector('#nav_root').getAttribute('explorename');
+    const userSignedIn = document.querySelector('#nav_root').getAttribute('usersignedin');
+    const ifAdmin = document.querySelector('#nav_root').getAttribute('ifadmin');
+    const trainingUrl = document.querySelector('#nav_root').getAttribute('trainingurl');
+    const helpDisabled = document.querySelector('#nav_root').getAttribute('help_disabled');
+    const askUrl = document.querySelector('#nav_root').getAttribute('ask_url');
+    const userPermissions = document.querySelector('#nav_root').getAttribute('user_permissions');
+    const wikiEd = document.querySelector('#nav_root').getAttribute('wiki_ed');
+    const languageSwitcherEnabled = document.querySelector('#nav_root').getAttribute('language_switcher_enabled');
+    const currentUser = document.querySelector('#nav_root').getAttribute('username');
+    const destroyUrl = document.querySelector('#nav_root').getAttribute('destroyurl');
+    const omniauthUrl = document.querySelector('#nav_root').getAttribute('omniauth_url');
 
     return {
       rootUrl: rootUrl,
