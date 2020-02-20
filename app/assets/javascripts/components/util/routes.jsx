@@ -5,7 +5,6 @@ import Course from '../course/course.jsx';
 import Onboarding from '../onboarding/index.jsx';
 import { ConnectedCourseCreator } from '../course_creator/course_creator.jsx';
 import ArticleFinder from '../article_finder/article_finder.jsx';
-import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import AdminAlerts from '../alerts/admin_alerts.jsx';
 import RecentActivityHandler from '../activity/recent_activity_handler.jsx';
 import TrainingApp from '../../training/components/training_app.jsx';
@@ -22,7 +21,6 @@ const routes = (
     <Route path="/courses/:course_school/:course_title" component={Course} />
     <Route path="/course_creator" component={ConnectedCourseCreator} />
     <Route path="/users/:username" component={UserProfile} />
-    <Route path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
     <Route path="/alerts_list" component={AdminAlerts} />
     <Route path="/settings" component={SettingsHandler} />
     <Route path="/article_finder" component={ArticleFinder} />
