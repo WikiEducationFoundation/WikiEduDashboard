@@ -129,13 +129,8 @@ const CourseDateUtils = {
     __range__(0, (courseWeeks - 1), true).forEach((week) => {
       weekStart = moment(recurrence.startDate()).startOf('week').add(week, 'weeks');
 
-      // Account for the first partial week, which may not have 7 days.
       let firstDayOfWeek;
-      if (week === 0) {
-        firstDayOfWeek = firstWeekStart;
-      } else {
-        firstDayOfWeek = 0;
-      }
+      firstDayOfWeek = 0;
 
       const ms = [];
       __range__(firstDayOfWeek, 6, true).forEach((i) => {
