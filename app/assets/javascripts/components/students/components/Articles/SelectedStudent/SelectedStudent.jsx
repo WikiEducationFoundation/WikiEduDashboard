@@ -10,7 +10,7 @@ import NoAssignments from './NoAssignments.jsx';
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 
 export const SelectedStudent = ({
-  assignments, course, current_user, selected, wikidataLabels
+  assignments, course, current_user, fetchArticleDetails, selected, wikidataLabels
 }) => {
   const {
     assigned, reviewing
@@ -31,6 +31,7 @@ export const SelectedStudent = ({
         !!assigned.length && <AssignmentsList
           assignments={assigned}
           course={course}
+          fetchArticleDetails={fetchArticleDetails}
           title={I18n.t('instructor_view.assigned_articles')}
           user={selected}
         />
@@ -40,6 +41,7 @@ export const SelectedStudent = ({
         !!reviewing.length && <AssignmentsList
           assignments={reviewing}
           course={course}
+          fetchArticleDetails={fetchArticleDetails}
           title={I18n.t('instructor_view.reviewing_articles')}
           user={selected}
         />
@@ -56,6 +58,7 @@ SelectedStudent.propTypes = {
   assignments: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
+  fetchArticleDetails: PropTypes.func.isRequired,
   selected: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object
 };
