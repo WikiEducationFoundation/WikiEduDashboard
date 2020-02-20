@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import BibliographyLink from './BibliographyLink';
 import SandboxLink from './SandboxLink';
+import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
 import AllPeerReviewLinks from './AllPeerReviewLinks';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
@@ -43,6 +44,11 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
     <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t('assignments.article_link')}</a>
   );
 
+  let groupMembers;
+  if (assignment.editors && role === ASSIGNED_ROLE) {
+    groupMembers = <GroupMembersLink members={assignment.editors} />;
+  }
+
   let reviewers;
   if (assignment.reviewers && role === ASSIGNED_ROLE) {
     reviewers = <AllPeerReviewLinks assignment={assignment} />;
@@ -55,7 +61,10 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
     <>
       <p className="assignment-links">{ links }</p>
       {
-        reviewers && <p className="reviewers">{ reviewers }</p>
+        groupMembers && <p className="assignment-links editors">{groupMembers}</p>
+      }
+      {
+        reviewers && <p className="assignment-links reviewers">{ reviewers }</p>
       }
     </>
   );
