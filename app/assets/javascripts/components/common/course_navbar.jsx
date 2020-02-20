@@ -84,12 +84,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     );
   }
 
-  // ///////////////////////
-  // Prefix for home wiki /
-  // //////////////////////
-  let string_article_prefix = course.home_wiki.project === 'wikidata' ? 'wikidata' : 'others';
-  string_article_prefix = `${course.string_prefix}.${string_article_prefix}`;
-
   return (
     <div className="container">
       {courseLinkElement}
@@ -102,7 +96,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
           <p><NavLink to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="articles-link">
-          <p><NavLink to={articlesLink} activeClassName="active">{CourseUtils.i18n('articles_short', string_article_prefix)}</NavLink></p>
+          <p><NavLink to={articlesLink} activeClassName="active">{I18n.t('articles.label')}</NavLink></p>
         </div>
         <div className="nav__item" id="uploads-link">
           <p><NavLink to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</NavLink></p>

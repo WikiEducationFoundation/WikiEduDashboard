@@ -698,10 +698,6 @@ en:
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
-    wikidata: 
-      articles_short: Items
-    others: 
-      articles_short: Pages
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
@@ -803,10 +799,6 @@ en:
     view_page: View Program Page
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     yourcourses: Your Programs
-    wikidata: 
-      articles_short: Items
-    others: 
-      articles_short: Pages
 
   editable:
     edit: Edit
