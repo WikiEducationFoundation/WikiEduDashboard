@@ -29,7 +29,7 @@ describe Revision, type: :model do
   describe '#references_added' do
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
     let(:wikidata_refs_tags_key) { 'feature.len(<datasource.wikidatawiki.revision.references>)' }
-    let(:shootened_refs_tags_key) { 'feature.enwiki.revision.shortened_footnote_templates' }
+    let(:shortened_refs_tags_key) { 'feature.enwiki.revision.shortened_footnote_templates' }
     let(:enwikidata) { create(:wiki, project: 'wikidata', language: 'en') }
 
     context 'new article' do
@@ -204,11 +204,11 @@ describe Revision, type: :model do
                mw_page_id: 55012289,
                features: {
                  refs_tags_key => 4,
-                 shootened_refs_tags_key => 131
+                 shortened_refs_tags_key => 131
                },
                features_previous: {
                  refs_tags_key => 0,
-                 shootened_refs_tags_key => 1
+                 shortened_refs_tags_key => 1
                })
       end
 
