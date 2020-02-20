@@ -49,6 +49,7 @@ describe Alert do
       alert = described_class.new
       expect { alert.main_subject }.to raise_error(NotImplementedError)
       expect { alert.url }.to raise_error(NotImplementedError)
+      expect { alert.ticket_body}.to raise_error(NotImplementedError)
     end
   end
 
