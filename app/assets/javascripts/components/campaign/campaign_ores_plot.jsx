@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from '../articles/course_quality_progress_graph';
+import CampaignStats from './campaign_stats.jsx';
 
 const CampaignOresPlot = createReactClass({
   displayName: 'CampaignOresPlot',
@@ -37,7 +38,7 @@ const CampaignOresPlot = createReactClass({
 
   fetchFilePath() {
     $.ajax({
-      url: `/campaigns/${this.props.match.params.campaign_slug}/ores_data.json`,
+      url: '/campaigns/:campaign_slug/ores_data.json',
       success: (data) => {
         this.setState({ articleData: data.ores_plot, loading: false });
       }
@@ -65,7 +66,14 @@ const CampaignOresPlot = createReactClass({
       }
       return <div>No Structural Completeness data available</div>;
     }
-    return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
+    return (
+      <div className="container">
+        <section className="overview container">
+          <CampaignStats campaign={this.props.campaign} />
+          <button className="button small" onClick={this.show}>Change in Structural Completeness</button>
+        </section>
+      </div>
+    );
   }
 });
 
