@@ -11,22 +11,23 @@ const Nav = createReactClass({
   displayName: 'Nav',
 
   getInitialState() {
-    const rootUrl = document.querySelector('#nav_root').getAttribute('rooturl');
-    const logoPath = document.querySelector('#nav_root').getAttribute('logopath');
-    const fluid = document.querySelector('#nav_root').getAttribute('fluid');
-    const exploreUrl = document.querySelector('#nav_root').getAttribute('exploreurl');
-    const exploreName = document.querySelector('#nav_root').getAttribute('explorename');
-    const userSignedIn = document.querySelector('#nav_root').getAttribute('usersignedin');
-    const ifAdmin = document.querySelector('#nav_root').getAttribute('ifadmin');
-    const trainingUrl = document.querySelector('#nav_root').getAttribute('trainingurl');
-    const helpDisabled = document.querySelector('#nav_root').getAttribute('help_disabled');
-    const askUrl = document.querySelector('#nav_root').getAttribute('ask_url');
-    const userPermissions = document.querySelector('#nav_root').getAttribute('user_permissions');
-    const wikiEd = document.querySelector('#nav_root').getAttribute('wiki_ed');
-    const languageSwitcherEnabled = document.querySelector('#nav_root').getAttribute('language_switcher_enabled');
-    const currentUser = document.querySelector('#nav_root').getAttribute('username');
-    const destroyUrl = document.querySelector('#nav_root').getAttribute('destroyurl');
-    const omniauthUrl = document.querySelector('#nav_root').getAttribute('omniauth_url');
+    const navRoot = document.getElementById('nav_root');
+    const rootUrl = navRoot.dataset.rooturl;
+    const logoPath = navRoot.dataset.logopath;
+    const fluid = navRoot.dataset.fluid;
+    const exploreUrl = navRoot.dataset.exploreurl;
+    const exploreName = navRoot.dataset.explorename;
+    const userSignedIn = navRoot.dataset.usersignedin;
+    const ifAdmin = navRoot.dataset.ifadmin;
+    const trainingUrl = navRoot.dataset.trainingurl;
+    const helpDisabled = navRoot.dataset.help_disabled;
+    const askUrl = navRoot.dataset.ask_url;
+    const userPermissions = navRoot.dataset.user_permissions;
+    const wikiEd = navRoot.dataset.wiki_ed;
+    const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled;
+    const currentUser = navRoot.dataset.username;
+    const destroyUrl = navRoot.dataset.destroyurl;
+    const omniauthUrl = navRoot.dataset.omniauth_url;
 
     return {
       rootUrl: rootUrl,
