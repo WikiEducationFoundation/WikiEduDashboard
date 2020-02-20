@@ -6,7 +6,7 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CampaignNavbar from '../common/campaign_navbar.jsx';
-import { getCampaign } from '../../actions/campaign1_actions';
+import { getCampaign } from '../../actions/campaign_view_actions';
 import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import CampaignOresPlot from './campaign_ores_plot.jsx';
 
