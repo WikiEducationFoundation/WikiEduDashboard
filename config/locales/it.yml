@@ -220,7 +220,7 @@ it:
     no_available: Questo corso non ha voci disponibili.
     remove: Rimuovi
     reviewers: Revisori
-    review_other: Assegna una revisione
+    review_other: Assegna per una revisione
     review_self: Revisiona una voce
     review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
       o fornire riscontri.
@@ -308,8 +308,7 @@ it:
     accounts_generation_explanation: Ciò consentirà ai partecipanti di inserire il
       loro indirizzo email e il nome utente desiderato, invece di creare nuovi account.
       Sarai quindi in grado di creare gli account da questa Dashboard e aggiungerli
-      simultaneamente come partecipanti al programma. Per usare questa funzione, dovresti
-      avere il permesso di 'creatore di account' sulla home wiki per questo programma.
+      simultaneamente come partecipanti al programma.
     accounts_generation_confirm_message: Confermi che vuoi attivare le richieste di
       account?
     activity: Attività

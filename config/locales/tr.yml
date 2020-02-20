@@ -83,6 +83,16 @@ tr:
     opt_out: Hayır
     opt_yes: evet
     opt_no: hayır
+  article_statuses:
+    not_yet_started: Başlangıç
+    in_progress: Sandbox Üzerinde Çalışıyor
+    ready_for_review: Taslak Genişletiyor
+    ready_for_mainspace: İşi Ana Alana Taşınıyor
+    assignment_completed: Atanma Tamamlandı Olarak İşaretlendi
+    reading_the_article: Makale Okuma
+    providing_feedback: Geri Bildirim Sağlama
+    post_to_talk: Tartışma Sayfasına Gönderme
+    peer_review_completed: İnceleme Tamamlandı
   dashboard:
     create_note: İlk dersinizi oluşturmak için Oluştur'a tıklayın.
     create_preparation_note: Başlamadan önce akademik takviminizi hazır bulundurun;
@@ -236,9 +246,10 @@ tr:
     peer_review_count: '%{currentCount}/%{total} seçildi'
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
+    peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
     remove: Kaldır
     reviewers: İnceleyici
-    review_other: Bir inceleme ata
+    review_other: Akran değerlendirmesi ata
     review_self: Bir makaleyi incele
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
       makale içindir.
@@ -350,10 +361,9 @@ tr:
       makale için konuşma sayfasına bir şablon gönderir.
     accounts_generation_enabled: Hesap isteği oluşturma etkin
     accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
-      e-posta adreslerini ve istenen kullanıcı adlarını girmelerini sağlar. Daha sonra
-      bu Gösterge Tablosundan hesaplar oluşturabilecek ve aynı anda program katılımcıları
-      olarak ekleyebileceksiniz. Bu özelliği kullanmak için, bu programın ana wikisinde
-      'hesap oluşturucu' izniniz olmalıdır.
+      e-posta adreslerini ve istenen kullanıcı adlarını girmelerine olanak tanır.
+      Daha sonra bu Gösterge Tablosundan hesaplar oluşturabilir ve aynı anda program
+      katılımcıları olarak ekleyebilirsiniz.
     accounts_generation_confirm_message: Hesap isteklerini etkinleştirmek istediğinizden
       emin misiniz?
     activity: Etkinlik
@@ -647,6 +657,7 @@ tr:
     search_courses: Kursları ara
     start: Başlangıç
     start_typing: Yazmaya başla
+    student: Öğrenci
     students: Öğrenciler
     students_taught: Öğretilen Öğrenciler
     students_count: '# Öğrenciler'
@@ -812,6 +823,7 @@ tr:
     search_courses: Arama programları
     start: Etkinlik izleme başlangıcı
     student_editors: Editörler
+    student: Editör
     students: Editörler
     students_taught: Toplam Editör
     students_none: Bu projede kayıtlı editör yok.
@@ -837,6 +849,21 @@ tr:
     edit_template: Şablonu değiştir
     rename_confirmation: URL'yi oluşturan kurs alanları değişti. Bu durum, URL'yi
       değiştirecek ve gelen linkleri bozacaktır. Bunu yapmak istediğine emin misin?
+  instructor_view:
+    article_assignments: '%{prefix} Atanma'
+    assignments_table:
+      article_name: Makale Adı
+      current_stage: Geçerli Adım
+      relevant_links: İlgili Bağlantılar
+    assigned_articles: Atanmış Makaleler
+    exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
+    no_assignments: Şu anda bu öğrencinin atanmış makalesi yok. Yukarıdaki düğmeleri
+      kullanarak makale atayabilirsiniz.
+    overview: '%{prefix} Genel Bakış'
+    reviewing_articles: Makaleleri Gözden Geçirme
+    select_student:
+      title: '%{prefix} Seç'
+      content: makale atamak ve görüntülemek için
   metrics:
     label: Kurs Etkinliği
     last_update: Son istatistik güncellemesi
@@ -1124,6 +1151,9 @@ tr:
     enroll_confirmation: '%{username} kullanıcısını eklemek istediğinize emin misiniz?'
     enroll_url: 'Kullanıcılar şu URL''yi ziyaret ederek katılabilir:'
     enrolled_success: '%{username}, başarıyla eklendi!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} egzersiz tamamlandı'
+      other: '%{completed_count}/%{count} egzersiz tamamlandı'
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
@@ -1151,6 +1181,11 @@ tr:
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
     sandboxes: sandbox'lar
+    sub_navigation:
+      article_assignments: Makale Atamaları
+      editor_overview: Editöre Genel Bakış
+      exercises_and_trainings: Egzersizler ve Eğitimler
+      student_overview: Öğrenci Genel Bakış
     total_uploads: Toplam Yükleme
     training_complete:
       other: bir=eğitim ile güncel

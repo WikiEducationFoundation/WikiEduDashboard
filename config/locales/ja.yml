@@ -11,6 +11,7 @@
 # Author: Suyama
 # Author: Thibaut120094
 # Author: Yusuke1109
+# Author: きこねす
 ---
 ja:
   number:
@@ -442,6 +443,7 @@ ja:
     school: 学校
     search_courses: コースの検索
     start: 開始
+    student: 学生
     students: 学生
     students_count: '# 学生'
     student_editors: 学生の編集者

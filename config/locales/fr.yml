@@ -8,6 +8,7 @@
 # Author: C13m3n7
 # Author: Dcausse
 # Author: Derugon
+# Author: Eneelk
 # Author: Eric.LEWIN
 # Author: Fitoschido
 # Author: Gomoko
@@ -87,6 +88,16 @@ fr:
     opt_out: Non
     opt_yes: oui
     opt_no: non
+  article_statuses:
+    not_yet_started: Commencer
+    in_progress: Travailler dans un bac à sable
+    ready_for_review: Étendre le brouillon
+    ready_for_mainspace: Déplacement du travail dans l’espace principal
+    assignment_completed: Affectation marquée comme terminée
+    reading_the_article: Lecture de l’article
+    providing_feedback: Fournir un avis
+    post_to_talk: Publier sur la page de discussion
+    peer_review_completed: Révision terminée
   dashboard:
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
@@ -243,6 +254,7 @@ fr:
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
     peer_review_link: Relecture par un pair
+    peer_review_link_personalized: Révision de %{username}
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
@@ -357,9 +369,7 @@ fr:
     accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
       nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de
-      bord, et les ajouter comme participants au programme en même temps. Pour utiliser
-      cette fonctionnalité, vous devez avoir le droit « créateur de compte » sur le
-      wiki d’accueil de ce programme.
+      bord, et les ajouter comme participants au programme en même temps.
     accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
@@ -675,6 +685,7 @@ fr:
     search_courses: Chercher des cours
     start: Démarrer
     start_typing: Commencer à taper
+    student: Étudiant
     students: Étudiants
     students_taught: Étudiants enseignés
     students_count: Nombre d’étudiants
@@ -848,6 +859,7 @@ fr:
     search_courses: Chercher des programmes
     start: Début du suivi d’activité
     student_editors: Éditeurs
+    student: Éditeur
     students: Éditeurs
     students_taught: Total des éditeurs
     students_none: Ce projet n’a pas d’éditeurs inscrits.
@@ -874,6 +886,21 @@ fr:
     rename_confirmation: Les champs du cours qui composent l’URL ont changé. Cela
       va modifier l’URL et les liens pointant vers l’ancienne URL deviendront caducs.
       Voulez-vous vraiment continuer ?
+  instructor_view:
+    article_assignments: '%{prefix} Affectations'
+    assignments_table:
+      article_name: Nom de l’article
+      current_stage: Étape actuelle
+      relevant_links: Liens pertinents
+    assigned_articles: Articles affectés
+    exercises_and_trainings: '%{prefix} Exercices et formations'
+    no_assignments: Aucun article n’est affecté à cet étudiant pour le moment. Vous
+      pouvez affecter un article en utilisant les boutons ci-dessus.
+    overview: '%{prefix} Vue d’ensemble'
+    reviewing_articles: Relecture des articles
+    select_student:
+      title: Sélectionner %{prefix}
+      content: pour affecter et voir les affectations de l’article
   metrics:
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
@@ -1172,6 +1199,9 @@ fr:
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
     enroll_url: 'Les utilisateurs peuvent s’inscrire en allant à cette URL :'
     enrolled_success: '%{username} a été ajouté !'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} exercice terminé'
+      other: '%{completed_count}/%{count} exercices terminés'
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
@@ -1199,6 +1229,11 @@ fr:
     reviewers: Relecteur(s)
     reviewing: Relecture
     sandboxes: bacs à sable
+    sub_navigation:
+      article_assignments: Affectations de l’article
+      editor_overview: Vue d’ensemble de l’éditeur
+      exercises_and_trainings: Exercices & Formations
+      student_overview: Vue d’ensemble de l’étudiant
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation

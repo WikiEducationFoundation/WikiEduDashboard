@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Les Meloures
 # Author: Robby
+# Author: Soued031
 ---
 lb:
   application:
@@ -218,7 +219,7 @@ lb:
     enroll: Aschreiwen
     enrollment: Studenten derbäisetzen/ewechhuelen
     error:
-      exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
+      exists: Dee Cours gëtt et schonn! Probéiert et wgl. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
@@ -508,24 +509,24 @@ lb:
     image_link_placeholder: Link op d'Bild derbäisetzen (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
-    select_one_option: Wielt w.e.g. eng Optioun eraus.
+    select_one_option: Wielt wgl. eng Optioun eraus.
     minimum_options:
-      other: Sicht w.e.g. eng oder méi Optiounen. Optioun(en).
+      other: Sicht wgl. eng oder méi Optiounen. Optioun(en).
     read_less: Manner liesen
     read_more: Liest méi
     summary: Resumé
   error:
-    form_errors: Kuckt de Formulaire w.e.g. no Feeler no.
+    form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: '%{key} Datum ass net valabel'
-    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued w.e.g. e PDF
-      oder e Word-Dokument erop.
+    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued wgl. e PDF oder
+      e Word-Dokument erop.
     start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
     header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
-      w.e.g., loggt Iech an a probéiert nach eng Kéier.
+      wgl., loggt Iech an a probéiert nach eng Kéier.
   error_no_course:
     explanation: Et gëtt kee Cours %{slug}.
   error_404:
