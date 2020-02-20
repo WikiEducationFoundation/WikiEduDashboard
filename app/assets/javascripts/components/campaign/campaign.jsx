@@ -34,7 +34,7 @@ export const Campaign = createReactClass({
         />
         <Switch>
           <Route exact path="/campaigns/:campaign_slug/ores_plot" render={() => <CampaignOresPlot campaign={this.props.campaign} />} />
-          <Route exact path="/campaigns/:campaign_slug/alerts" render={() => <CampaignAlerts campaign_slug={this.props.campaign.slug} />} />
+          <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
         </Switch>
       </div >
     );
