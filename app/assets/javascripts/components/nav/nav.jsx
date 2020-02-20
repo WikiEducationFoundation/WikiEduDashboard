@@ -24,7 +24,7 @@ const Nav = createReactClass({
     const askUrl = navRoot.dataset.ask_url;
     const userPermissions = navRoot.dataset.user_permissions === 'true';
     const wikiEd = navRoot.dataset.wiki_ed === 'true';
-    const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled;
+    const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled !== ''; // returns boolean false for empty string and true otherwise.
     const currentUser = navRoot.dataset.username;
     const destroyUrl = navRoot.dataset.destroyurl;
     const omniauthUrl = navRoot.dataset.omniauth_url;
