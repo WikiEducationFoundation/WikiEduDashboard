@@ -24,7 +24,7 @@ export const Campaign = createReactClass({
   },
 
   render() {
-    if (!this.props.campaign.loading) {
+    if (this.props.campaign.uploads_in_use_count === '') {
       return <div />;
     }
     return (
