@@ -27,6 +27,7 @@ json.course do
   json.published CampaignsCourses.exists?(course_id: @course.id)
   json.closed @course.closed?
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
+  json.wiki_prefix @course.home_wiki.project == 'wikidata' ? 'articles.items' : 'articles.pages'
 
   json.created_count number_to_human @course.new_article_count
   json.edited_count number_to_human @course.article_count
