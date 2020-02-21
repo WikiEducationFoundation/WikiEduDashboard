@@ -255,7 +255,7 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    i18n-js (3.5.1)
+    i18n-js (3.6.0)
       i18n (>= 0.6.6)
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
