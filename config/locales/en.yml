@@ -218,10 +218,13 @@ en:
       usually indicates that an article follow Wikipedia's conventions for the
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
-    items:
-      articles_short: Items
-    pages:
-      articles_short: Pages
+    articles_short: Articles
+
+  articles_wikidata:
+    articles_short: Items
+  
+  articles_generic:
+    articles_short: Pages
 
   assignments:
     article: The article %{title} is now assigned to you.

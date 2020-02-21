@@ -96,7 +96,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
           <p><NavLink to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="articles-link">
-          <p><NavLink to={articlesLink} activeClassName="active">{CourseUtils.i18n('articles_short', course.wiki_prefix)}</NavLink></p>
+          <p><NavLink to={articlesLink} activeClassName="active">{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="uploads-link">
           <p><NavLink to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</NavLink></p>
