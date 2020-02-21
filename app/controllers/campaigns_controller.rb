@@ -32,6 +32,7 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.json do
         @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
+        set_presenter
       end
     end
   end
@@ -59,6 +60,7 @@ class CampaignsController < ApplicationController
   def overview
     set_presenter
     @editable = current_user&.admin? || user_is_organizer?
+    # @is_admin = current_user@.admin?
   end
 
   def articles

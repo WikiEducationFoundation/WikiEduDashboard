@@ -4,6 +4,7 @@ import articleDetails from './article_details';
 import articleFinder from './article_finder';
 import articles from './articles';
 import assignments from './assignments';
+import campaign from './campaign';
 import campaigns from './campaigns';
 import categories from './categories';
 import chat from './chat';
@@ -46,6 +47,7 @@ const reducer = combineReducers({
   articleFinder,
   articles,
   assignments,
+  campaign,
   campaigns,
   categories,
   chat,
