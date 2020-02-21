@@ -38,7 +38,7 @@ const CampaignOresPlot = createReactClass({
 
   fetchFilePath() {
     $.ajax({
-      url: '/campaigns/:campaign_slug/ores_data.json',
+      url: `/campaigns/${this.props.match.params.slug}/ores_data.json`,
       success: (data) => {
         this.setState({ articleData: data.ores_plot, loading: false });
       }

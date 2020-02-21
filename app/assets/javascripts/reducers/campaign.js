@@ -29,12 +29,16 @@ const initialState = {
   register_accounts: '',
   start: false,
   end: false,
+  loading: true,
 };
 
 export default function campaign(state = initialState, action) {
   switch (action.type) {
     case GET_CAMPAIGN:
-      return { ...action.data.campaign };
+      return {
+        ...action.data.campaign,
+        loading: false
+      };
     default:
       return state;
   }

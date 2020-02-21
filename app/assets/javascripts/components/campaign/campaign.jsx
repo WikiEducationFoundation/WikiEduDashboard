@@ -24,17 +24,18 @@ export const Campaign = createReactClass({
   },
 
   render() {
-    if (this.props.campaign.uploads_in_use_count === '') {
+    if (this.props.campaign.loading) {
       return <div />;
     }
+    const campaignProps = { campaign: this.props.campaign, match: this.props.match };
     return (
       <div>
         <CampaignNavbar
           campaign={this.props.campaign}
         />
         <Switch>
-          <Route exact path="/campaigns/:campaign_slug/ores_plot" render={() => <CampaignOresPlot campaign={this.props.campaign} />} />
-          <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
+          <Route exact path="/campaigns/:campaign_slug/ores_plot" render={() => <CampaignOresPlot {...campaignProps} />} />
+          <Route exact path="/campaigns/:campaign_slug/alerts" render={() => <CampaignAlerts {...campaignProps} />} />
         </Switch>
       </div >
     );
