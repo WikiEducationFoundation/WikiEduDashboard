@@ -83,6 +83,16 @@ pt-br:
     opt_out: Não
     opt_yes: sim
     opt_no: não
+  article_statuses:
+    not_yet_started: Primeiros passos
+    in_progress: Trabalhando no Sandbox
+    ready_for_review: Rascunho de expansão
+    ready_for_mainspace: Movendo o trabalho para o espaço principal
+    assignment_completed: Tarefa marcada como concluída
+    reading_the_article: Lendo o artigo
+    providing_feedback: Fornecendo comentários
+    post_to_talk: Postagem na página de discussão
+    peer_review_completed: Revisão concluída
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
@@ -235,9 +245,10 @@ pt-br:
     peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
       por pares.
     peer_review_link: Revisão por pares
+    peer_review_link_personalized: Revisão por pares %{username}
     remove: Remover
     reviewers: Revisor(es)
-    review_other: Atribuir uma revisão
+    review_other: Atribuir uma revisão por pares
     review_self: Revisar um artigo
     review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
@@ -343,11 +354,10 @@ pt-br:
     assignment_edits_enabled_tooltip: Se ativado, o painel irá postar um modelo para
       a página de discussão de cada artigo atribuído.
     accounts_generation_enabled: Geração de solicitação de contas ativada
-    accounts_generation_explanation: Isso permitirá que os participantes digitem seu
-      endereço de e-mail e nome de usuário desejado, em vez de criar novas contas.
-      Você poderá então criar as contas a partir deste Painel, e adicioná-las como
-      participantes do programa ao mesmo tempo. Para usar esse recurso, você deve
-      ter permissão de "criador de conta" no wiki de casa para este programa.
+    accounts_generation_explanation: Isso permitirá que os participantes insiram o
+      endereço de e-mail e o nome de usuário desejado, em vez de criar novas contas.
+      Você poderá criar as contas desse painel e adicioná-las como participantes do
+      programa ao mesmo tempo.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
       de contas?
     activity: Atividade
@@ -650,6 +660,7 @@ pt-br:
     search_courses: Pesquisar cursos
     start: Iniciar
     start_typing: Começar a escrever
+    student: Estudante
     students: Estudantes
     students_taught: Alunos ensinados
     students_count: '# Estudantes'
@@ -819,6 +830,7 @@ pt-br:
     search_courses: Pesquisar programas
     start: Início da atividade de monitorização
     student_editors: Editores
+    student: Editor
     students: Editores
     students_taught: Editores totais
     students_none: Este projeto não tem editores cadastrados.
@@ -845,6 +857,21 @@ pt-br:
     rename_confirmation: Os campos do curso que formam o URL foram alterados. Isto
       resultará na alteração do URL e as suas hiperligações poderão tornar-se obsoletas.
       Você tem certeza de que deseja fazer isto?
+  instructor_view:
+    article_assignments: '%{prefix} Atribuições'
+    assignments_table:
+      article_name: Nome do artigo
+      current_stage: Estágio atual
+      relevant_links: Links relevantes
+    assigned_articles: Artigos atribuídos
+    exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
+    no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
+      atribuir um artigo usando os botões acima.
+    overview: '%{prefix} Visão geral'
+    reviewing_articles: Revendo artigos
+    select_student:
+      title: Selecionar %{prefix}
+      content: atribuir e visualizar atribuições de artigos
   metrics:
     label: Atividade do curso
     last_update: Última atualização de estatísticas
@@ -1136,6 +1163,9 @@ pt-br:
     enroll_confirmation: Tem certeza de que deseja adicionar %{username}?
     enroll_url: 'Os usuários podem inscrever-se ao entrar nesta URL:'
     enrolled_success: '%{username} foi adicionado com êxito!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} exercício completod'
+      other: '%{completed_count}/%{count} exercícios concluídos'
     first_name: Nome
     last_name: Sobrenome
     loading: Carregando usuários...
@@ -1163,6 +1193,11 @@ pt-br:
     reviewers: Revisor(es)
     reviewing: Revisando
     sandboxes: páginas de teste
+    sub_navigation:
+      article_assignments: Atribuições de artigos
+      editor_overview: Visão geral do editor
+      exercises_and_trainings: Exercícios e treinamentos
+      student_overview: Visão geral do aluno
     total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento

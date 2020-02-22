@@ -5,6 +5,7 @@
 # Author: जनक राज भट्ट
 # Author: पर्वत सुबेदी
 # Author: सरोज कुमार ढकाल
+# Author: हिमाल सुबेदी
 ---
 ne:
   number:
@@ -41,7 +42,7 @@ ne:
     greeting: नमस्ते!
     help: सहायता
     home: गृह
-    log_in_extended: विकिपिडियाले लग इन गर्नुहोस्
+    log_in_extended: विकिपिडियाकाे प्रयाेग गरि प्रवेश गर्नुहाेस्
     log_in: प्रवेश
     log_out: निर्गमन
     my_dashboard: मेरो ड्यसबोर्ड
@@ -52,10 +53,10 @@ ne:
     search: प्रश्न सोध्नुहोस्
     search_results: '%{search_terms} का नतिजाहरू:'
     no_results: '''%{query}'' को लागि कुनै नतिजा भेटिएन'
-    sign_up_extended: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
-    sign_up_wikipedia: या विकिपिडियामा साइन अप गर्नुहोस्
-    sign_up_log_in_extended: विकिपेडिया संग
-    sign_up: साइन अप गर्नुहोस्
+    sign_up_extended: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
+    sign_up_wikipedia: या विकिपिडियामा खाता खाेल्नुहाेस्
+    sign_up_log_in_extended: विकिपिडियासँग
+    sign_up: खाता खाेल्नुहाेस्
     submit: पेश गर्नुहोस्
     training: तालिम
     change: परिवर्तन गर्नुहोस्
@@ -65,6 +66,12 @@ ne:
     opt_out: होइन
     opt_yes: छ
     opt_no: छैन
+  article_statuses:
+    not_yet_started: सुरु हुदैँछ
+    in_progress: प्रयाेगस्थलमा कार्य गर्दै
+    providing_feedback: सुझाव दिनुहोस्
+    post_to_talk: वार्तालाप पृष्ठमा पेश गरिँदै
+    peer_review_completed: समीक्षा पूरा भयो
   dashboard:
     create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
       गर्नुहोस्।
@@ -88,7 +95,7 @@ ne:
   home:
     explore: अन्वेषण
     log_in: विकिपिडियाले लग इन गर्नुहोस्
-    sign_up: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
+    sign_up: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
   alerts:
     alert_label: सुचनाहरू
   activity:
@@ -175,7 +182,7 @@ ne:
     no_available: यस पाठ्यक्रममा कुनै पनि उपलब्ध लेखहरू छैनन्।
     remove: हटाउनुहोस्
     reviewers: 'समीक्षक(हरू):'
-    review_other: समीक्षाको लागि असाइन गर्नुहोस्
+    review_other: समीक्षाको लागि ताेक्नुहाेस्
     review_self: लेखको समीक्षा गर्नुहोस्
     review_tooltip: यो तपाईँको लेखहरूको लगत राख्नको लागि हो जुनमा तपाईँले पुनरावलोकन
       गर्ने र सुझाव दिने योजना बनाउनु भएको छ। \
@@ -340,7 +347,7 @@ ne:
       cannot_join_twice: प्रयोगकर्ताहरूले एउटै पाठ्यक्रममा दुइपटक समावेश हुन पाउने
         छैन।
     leave_course: पाठ्यक्रम हेर्नुहोस्
-    loading: लोड गर्दैछ...
+    loading: खुल्दै छ…
     my_articles: मेरा लेखहरू
     needs_update: डेटा अद्यावधि मिति तय गर्नुहोस्
     new_week: नयाँ साता थप्नुहोस्
@@ -363,6 +370,7 @@ ne:
     school_and_term: संस्था/सत्र
     start: सुरु गर्नुहोस्
     start_typing: टाइप गर्न सुरुगर्नुहोस्
+    student: विद्यार्थी
     students: विद्यार्थीहरू
     students_taught: पढाइएका विद्यार्थीहरू
     students_count: '# विद्यार्थीहरू'
@@ -448,6 +456,7 @@ ne:
     school: संस्था
     school_and_term: संस्था/कहिले
     student_editors: सम्पादकहरू
+    student: सम्पादक
     students: सम्पादकहरू
     students_taught: जम्मा सम्पादकरू
     students_none: यस आयोजनामा कुनै पनि सम्पादकहरूले भाग लिएका छैनन।
@@ -465,6 +474,12 @@ ne:
     edit_description: वर्णन सम्पादन गर्नुहोस्
     edit_details: जानकारी सम्पादन गर्नुहोस्
     edit_template: ढाँचा सम्पादन गर्नुहोस्
+  instructor_view:
+    assignments_table:
+      article_name: लेखकाे नाम
+    assigned_articles: निर्दिष्ट गरिएका लेखहरू
+    overview: '%{prefix} अवलाेकन'
+    reviewing_articles: लेखहरूकाे समीक्षा गर्दै
   metrics:
     label: पाठ्यक्रम गतिविधिहरू
     last_update: अन्तिम तथ्याङ्क अद्यावधि
@@ -628,6 +643,10 @@ ne:
     recent_revisions: हालका सम्पादनहरू
     reviewers: समीक्षक(हरू)
     reviewing: समीक्षा गर्दै
+    sub_navigation:
+      editor_overview: सम्पादक अवलाेकन
+      exercises_and_trainings: अभ्यास र प्रशिक्षणहरू
+      student_overview: विद्यार्थी अवलोकन
     training_incomplete: तालिम अपूर्ण
     training_module_name: तालिम मोड्युल
     training_module_status: वस्तुस्थिति

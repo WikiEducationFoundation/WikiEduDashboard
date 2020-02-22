@@ -9,6 +9,9 @@ import StudentSelection from '@components/students/components/Articles/StudentSe
 import SelectedStudent from '@components/students/components/Articles/SelectedStudent/SelectedStudent.jsx';
 import NoSelectedStudent from '@components/students/components/Articles/NoSelectedStudent.jsx';
 
+// Actions
+import { fetchArticleDetails } from '~/app/assets/javascripts/actions/article_actions.js';
+
 export class Articles extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +55,7 @@ export class Articles extends React.Component {
                     assignments={assignments}
                     course={course}
                     current_user={current_user}
+                    fetchArticleDetails={this.props.fetchArticleDetails}
                     selected={selected}
                     wikidataLabels={wikidataLabels}
                   />
@@ -78,6 +82,8 @@ const mapStateToProps = state => ({
   wikidataLabels: state.wikidataLabels.labels
 });
 
-const mapDispatchToProps = null;
+const mapDispatchToProps = {
+  fetchArticleDetails
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);

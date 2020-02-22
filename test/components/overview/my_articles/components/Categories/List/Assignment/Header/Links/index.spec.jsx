@@ -29,14 +29,14 @@ describe('Links', () => {
     expect(component.find('PeerReviewLink').length).toEqual(1);
   });
 
-  it('should show EditorLink and ReviewerLink if there are editors or reviewers', () => {
+  it('should show GroupMembersLink and ReviewerLink if there are editors or reviewers', () => {
     const assignment = {
       ...props.assignment,
       editors: ['editor'],
       reviewers: ['reviewer']
     };
     const component = shallow(<Links {...props} assignment={assignment} />);
-    expect(component.find('EditorLink').length).toEqual(1);
+    expect(component.find('GroupMembersLink').length).toEqual(1);
     expect(component.find('ReviewerLink').length).toEqual(1);
   });
 });

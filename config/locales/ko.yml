@@ -63,6 +63,14 @@ ko:
     opt_out: 아니오
     opt_yes: 예
     opt_no: 아니오
+  article_statuses:
+    not_yet_started: 시작하기
+    in_progress: 연습장에서 작업
+    ready_for_mainspace: 작업 내용을 일반 이름공간으로 이동
+    reading_the_article: 문서 읽기
+    providing_feedback: 피드백 제공
+    post_to_talk: 토론 문서에 게시
+    peer_review_completed: 리뷰 완료
   dashboard:
     create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
     explore_course_pages: 코스 문서 둘러보기
@@ -304,6 +312,7 @@ ko:
     search_courses: 강의 검색
     start: 시작
     start_typing: 입력 시작
+    student: 학생
     students: 학생
     students_count: '# 학생'
     student_editors: 학생 편집자
@@ -386,6 +395,7 @@ ko:
     school: 기관
     search_courses: 프로그램 검색
     student_editors: 편집자
+    student: 편집자
     students: 편집자
     students_short: 편집자
     term: 날짜
@@ -397,6 +407,13 @@ ko:
     edit_description: 설명 편집
     edit_details: 자세한 사항 편집
     edit_template: 틀 편집
+  instructor_view:
+    assignments_table:
+      article_name: 문서 이름
+      relevant_links: 관련 링크
+    overview: '%{prefix} 개요'
+    select_student:
+      title: '%{prefix} 선택'
   metrics:
     last_update: 최근 통계 업데이트
     activity: 최근 활동
@@ -567,6 +584,9 @@ ko:
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     reviewing: 검토 중
+    sub_navigation:
+      editor_overview: 편집자 개요
+      student_overview: 학생 개요
     total_uploads: 총 업로드
     training_module_status: 상태
     uploads_doc: 위키미디어 공용에 올린 파일 수

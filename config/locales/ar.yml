@@ -76,6 +76,10 @@ ar:
     opt_out: لا
     opt_yes: نعم
     opt_no: لا
+  article_statuses:
+    ready_for_mainspace: نقل العمل إلى النطاق الرئيسي
+    reading_the_article: قراءة المقالة
+    peer_review_completed: تمت المراجعة
   dashboard:
     create_note: انقر فوق إنشاء ملعب لإنشاء دورتك الأولى.
     create_preparation_note: تأكد من توفر رزنامتك الدراسية في متناول يديك قبل أن تشرع
@@ -602,6 +606,7 @@ ar:
     search_courses: البحث في الدورات
     start: البداية
     start_typing: ابدأ الكتابة
+    student: طالب
     students: الطلاب
     students_taught: الطلاب المتعملون
     students_count: '# الطلاب'
@@ -760,6 +765,7 @@ ar:
     search_courses: البحث عن البرامج
     start: بدء تعقب النشاط
     student_editors: المحررون
+    student: المحرر
     students: المحررون
     students_taught: مجموع المحررين
     students_none: هذا المشروع ليس لديه محررون مسجلون.
@@ -785,6 +791,11 @@ ar:
     edit_template: تحرير القالب
     rename_confirmation: تم تغيير حقول الدورة التدريبية من المسار، سيؤدي هذا إلى تغيير
       المسار وكسر أية وصلات واردة، هل أنت متأكد من أنك تريد أن تفعل هذا؟
+  instructor_view:
+    assignments_table:
+      article_name: اسم المقالة
+      relevant_links: الوصلات المتعلقة
+    reviewing_articles: مراجعة المقالات
   metrics:
     label: نشاط المساق
     last_update: آخر تحديث للإحصاءات
@@ -1086,6 +1097,10 @@ ar:
     reviewers: المراجع(ون)
     reviewing: مراجعة
     sandboxes: ملاعب
+    sub_navigation:
+      editor_overview: نظرة عامة للمحرر
+      exercises_and_trainings: التمارين والتدريبات
+      student_overview: نظرة عامة للطالب
     total_uploads: إجمالي المرفوعات
     training_complete:
       one: أنهى التدريب حتى الآن
