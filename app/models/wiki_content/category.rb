@@ -40,7 +40,13 @@ class Category < ApplicationRecord
   end
 
   def article_ids
-    Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
+    case source
+    when 'pileid'
+      wiki = PagePileApi.new.get_wiki(name)
+      Article.where(namespace: 0, wiki_id: wiki, title: article_titles).pluck(:id)
+    else
+      Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
+    end
   end
 
   def name_with_prefix
