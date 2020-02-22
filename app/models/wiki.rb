@@ -122,12 +122,12 @@ class Wiki < ApplicationRecord
 
   def string_prefix
     case project
-      when 'wikipedia'
-        'articles'
-      when 'wikidata'
-        'articles_wikidata'
-      else
-        'articles_generic'
+    when 'wikipedia'
+      'articles'
+    when 'wikidata'
+      'articles_wikidata'
+    else
+      'articles_generic'
     end
   end
 
