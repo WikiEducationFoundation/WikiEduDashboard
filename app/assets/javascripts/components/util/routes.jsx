@@ -27,7 +27,7 @@ const routes = (
     <Route path="/training" component={TrainingApp} />
     <Route exact path="/tickets/dashboard" component={TicketsHandler} />
     <Route exact path="/tickets/dashboard/:id" component={TicketShowHandler} />
-    <Route path="/campaigns/:slug" component={Campaign} />
+    <Route path="/campaigns/:campaign_slug" component={Campaign} />
   </Switch>
 );
 
