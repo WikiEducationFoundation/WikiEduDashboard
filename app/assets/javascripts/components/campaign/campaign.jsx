@@ -10,6 +10,7 @@ import { getCampaign } from '../../actions/campaign_view_actions';
 import CampaignStats from './campaign_stats.jsx';
 import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import CampaignOresPlot from './campaign_ores_plot.jsx';
+import CampaignHome from './campaign_home.jsx';
 
 export const Campaign = createReactClass({
   displayName: 'Campaign',
@@ -28,6 +29,8 @@ export const Campaign = createReactClass({
     if (this.props.campaign.loading) {
       return <div />;
     }
+    console.log(this.props.campaign.organizers);
+    console.log(this.props.campaign.register_accounts);
     return (
       <div>
         <CampaignNavbar
@@ -37,8 +40,9 @@ export const Campaign = createReactClass({
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
             <Switch>
-              <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
-              <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
+              <Route exact path={`/campaigns/${this.props.campaign.slug}/overview`} render={() => <CampaignHome campaign={this.props.campaign} />} />
+              <Route exact path="/campaigns/:campaign_slug/ores_plot" render={() => <CampaignOresPlot campaign_slug={this.props.campaign.slug} />} />
+              <Route exact path="/campaigns/:campaign_slug/alerts" render={() => <CampaignAlerts campaign_slug={this.props.campaign.slug} />} />
             </Switch>
           </section>
         </div>

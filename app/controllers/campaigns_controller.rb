@@ -60,7 +60,6 @@ class CampaignsController < ApplicationController
   def overview
     set_presenter
     @editable = current_user&.admin? || user_is_organizer?
-    # @is_admin = current_user@.admin?
   end
 
   def articles

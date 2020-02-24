@@ -15,6 +15,7 @@ import TicketShowHandler from '../tickets/ticket_show_handler.jsx';
 import Campaign from '../campaign/campaign.jsx';
 
 const routes = (
+
   <Switch>
     <Route path="/onboarding" component={Onboarding} />
     <Route path="/recent-activity" component={RecentActivityHandler} />

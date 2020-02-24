@@ -25,9 +25,10 @@ if @campaign
     json.course_string_prefix @presenter.course_string_prefix
     json.show_the_create_course_button Features.open_course_creation? && current_user&.admin?
     json.editable @editable
-    json.register_accounts @campaign.register_accounts
     json.start @campaign.start
     json.end @campaign.end
     json.created_at @campaign.created_at
+    json.register_accounts @campaign.register_accounts
+    json.organizers @campaign.organizers
   end
 end
