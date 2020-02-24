@@ -73,10 +73,10 @@ const UploadViewer = createReactClass({
     if (globalUsage && (this.props.pageViews !== undefined)) {
       usageTableElements = globalUsage.map((usage, index) => {
           return (
-            <tr key={usage.url}>
-              <td>{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
-              <td><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
-              <td className="text-right">{this.props.pageViews[index]}</td>
+            <tr className="view_table" key={usage.url}>
+              <td className="element">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
+              <td className="element"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
+              <td className="text-right element">{this.props.pageViews[index]}</td>
             </tr>
           );
       });
@@ -134,23 +134,23 @@ const UploadViewer = createReactClass({
             <p dangerouslySetInnerHTML={{ __html: imageDescription }} />
           </div>
           <div className="right">
-            <table>
+            <table className="view_table">
               <tbody>
                 <tr>
-                  <td className="bg-grey">Date:&nbsp;</td>
-                  <td>{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
+                  <td className="element bg-grey">Date:&nbsp;</td>
+                  <td className="element">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
                 </tr>
                 <tr>
-                  <td className="bg-grey">Author:&nbsp;</td>
-                  <td>{author}</td>
+                  <td className="element bg-grey">Author:&nbsp;</td>
+                  <td className="element">{author}</td>
                 </tr>
                 <tr>
-                  <td className="bg-grey">Source:&nbsp;</td>
-                  <td dangerouslySetInnerHTML={{ __html: source }} />
+                  <td className="element bg-grey">Source:&nbsp;</td>
+                  <td className="element" dangerouslySetInnerHTML={{ __html: source }} />
                 </tr>
                 <tr>
-                  <td className="bg-grey">License:&nbsp;</td>
-                  <td>{license}</td>
+                  <td className="element bg-grey">License:&nbsp;</td>
+                  <td className="element">{license}</td>
                   <td>{'\n'}</td>
                 </tr>
               </tbody>
