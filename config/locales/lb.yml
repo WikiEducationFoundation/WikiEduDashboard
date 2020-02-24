@@ -46,6 +46,11 @@ lb:
     opt_out: Neen
     opt_yes: jo
     opt_no: neen
+  article_statuses:
+    not_yet_started: Fir unzefänken
+    in_progress: An enger Sandkëscht schaffen
+    reading_the_article: Artikel liesen
+    providing_feedback: Feedback ginn
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -116,6 +121,7 @@ lb:
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     editors: Net gespäichert
+    group_members: Membere vum Grupp
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
@@ -262,6 +268,7 @@ lb:
     school_and_term: Institutioun/Dauer
     start: Ufank
     start_typing: Fänkt u mat Tippen
+    student: Student
     students: Studenten
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
@@ -343,6 +350,15 @@ lb:
     edit_description: Beschreiwung änneren
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
+  instructor_view:
+    assignments_table:
+      article_name: Numm vum Artikel
+      current_stage: Aktuelle Stand
+      relevant_links: Relevant Linken
+    overview: Iwwersiicht %{prefix}
+    reviewing_articles: Artikelen nokucken
+    select_student:
+      title: '%{prefix} eraussichen'
   metrics:
     last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
@@ -482,6 +498,9 @@ lb:
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
     sandboxes: Sandkëschten
+    sub_navigation:
+      exercises_and_trainings: Exercicen & Formatiounen
+      student_overview: Iwwersiicht vum Student
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss

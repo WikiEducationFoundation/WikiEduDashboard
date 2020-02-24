@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aced
 # Author: Alex Khimich
+# Author: Alexander Yukal
 # Author: Andrew J.Kurbiko
 # Author: Andriykopanytsia
 # Author: Base
@@ -216,6 +217,7 @@ uk:
     confirm_addition: Ви дійсно хочете задати %{title} користувачу %{username}?
     confirm_deletion: Ви дійсно хочете вилучити це призначення статті?
     editors: Задано
+    group_members: Учасники групи
     label: Призначити
     loading: Завантаження завдань…
     none_short: Немає призначених статей

@@ -236,6 +236,7 @@ pt-br:
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
     editors: Atribuído a
+    group_members: Membros do grupo
     label: Atribuir
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído

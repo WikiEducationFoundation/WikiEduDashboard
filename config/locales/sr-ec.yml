@@ -214,6 +214,7 @@ sr-ec:
     confirm_addition: Да ли сте сигурни да желите доделити %{title} кориснику %{username}?
     confirm_deletion: Желите ли заиста да избришете овај задатак за чланак?
     editors: Додељено
+    group_members: Чланови групе
     label: Додели
     loading: Учитавање задатака…
     none_short: Нема додељених чланака

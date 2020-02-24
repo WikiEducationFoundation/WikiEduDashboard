@@ -192,6 +192,7 @@ zh-TW:
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除此條目分配作業嗎？
     editors: 分配給
+    group_members: 群組成員
     label: 分配
     loading: 載入分配作業中...
     none_short: 沒有分配任何條目

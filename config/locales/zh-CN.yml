@@ -14,6 +14,7 @@
 # Author: Looong
 # Author: Macofe
 # Author: NeverBehave
+# Author: Njzjz
 # Author: Phenolla
 # Author: Shizhao
 # Author: Viztor
@@ -422,6 +423,7 @@ zh-CN:
     school_and_term: 机构/学期
     start: 开始
     start_typing: 开始输入
+    student: 学生
     students: 学生
     students_taught: 所教学生
     students_count: '# 学生'

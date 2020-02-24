@@ -175,6 +175,7 @@ ne:
     confirm_addition: '%{title} लाई को लागि %{username} निर्दिष्ट गर्न निश्चित हुनुहुन्छ?'
     confirm_deletion: यस लेख असाइन्मेन्ट मेट्ने कुरामा निश्चित हुनुहुन्छ?
     editors: निर्दिष्ट गर्नुहोस्
+    group_members: सदस्यहरूको समूह
     label: असाइन गर्नुहोस्
     loading: असाइन्मेन्टहरू खोल्दै...
     none_short: कुनैपनि लेखहरू असाइन गरिएको छैन
@@ -477,9 +478,12 @@ ne:
   instructor_view:
     assignments_table:
       article_name: लेखकाे नाम
+      relevant_links: उपयुक्त सूत्रहरू
     assigned_articles: निर्दिष्ट गरिएका लेखहरू
     overview: '%{prefix} अवलाेकन'
     reviewing_articles: लेखहरूकाे समीक्षा गर्दै
+    select_student:
+      title: छनाेट %{prefix}
   metrics:
     label: पाठ्यक्रम गतिविधिहरू
     last_update: अन्तिम तथ्याङ्क अद्यावधि
