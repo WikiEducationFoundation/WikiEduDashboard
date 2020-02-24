@@ -96,6 +96,7 @@ lt:
     confirm_addition: Ar tikrai norite paskirti %{title} %{username}?
     confirm_deletion: Ar tikrai norite ištrinti šią straipsnio užduotį?
     editors: Priskirta
+    group_members: Grupės nariai
     label: Paskirti
     loading: Įkeliamos užduotys...
     none_short: Nėra priskirtų užduočių

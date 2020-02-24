@@ -144,6 +144,7 @@ da:
     clone: Klon
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
+    group_members: Gruppemedlemmer
     label: Tildel
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt

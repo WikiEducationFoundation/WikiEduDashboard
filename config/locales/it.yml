@@ -213,6 +213,7 @@ it:
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     confirm_deletion: Sei sicuro di volere cancellare la valutazione di questa voce?
     editors: Assegnato  a
+    group_members: Membri del gruppo
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
