@@ -5,6 +5,7 @@ import { getStudentUsers } from '~/app/assets/javascripts/selectors';
 
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
+import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentSelection from '@components/students/components/Articles/StudentSelection.jsx';
 import SelectedStudent from '@components/students/components/Articles/SelectedStudent/SelectedStudent.jsx';
 import NoSelectedStudent from '@components/students/components/Articles/NoSelectedStudent.jsx';
@@ -29,7 +30,8 @@ export class Articles extends React.Component {
   render() {
     const { selected } = this.state;
     const {
-      assignments, course, current_user, prefix, students, wikidataLabels
+      assignments, course, current_user, prefix, students, wikidataLabels,
+      notify, sortSelect
     } = this.props;
 
     return (
@@ -38,6 +40,19 @@ export class Articles extends React.Component {
           course={course}
           heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
         />
+        {
+          current_user.isAdvancedRole
+            ? (
+              <Controls
+                course={course}
+                current_user={current_user}
+                students={students}
+                notify={notify}
+                showOverviewFilters={false}
+                sortSelect={sortSelect}
+              />
+            ) : null
+        }
         <section className="users-articles">
           <aside className="student-selection">
             <StudentSelection
