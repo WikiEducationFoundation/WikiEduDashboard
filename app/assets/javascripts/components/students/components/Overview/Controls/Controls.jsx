@@ -8,7 +8,7 @@ import NewAccountButton from '@components/enroll/new_account_button.jsx';
 
 export const Controls = (props) => {
   const {
-    course, current_user, students, notify, sortSelect
+    course, current_user, students, notify, showOverviewFilters, sortSelect
   } = props;
 
   let requestAccountsButton;
@@ -25,6 +25,7 @@ export const Controls = (props) => {
     <div className="users-control">
       <SortButton
         current_user={current_user}
+        showOverviewFilters={showOverviewFilters}
         sortSelect={sortSelect}
       />
       {
