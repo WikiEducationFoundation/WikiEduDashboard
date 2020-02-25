@@ -73,10 +73,10 @@ const UploadViewer = createReactClass({
     if (globalUsage && (this.props.pageViews !== undefined)) {
       usageTableElements = globalUsage.map((usage, index) => {
           return (
-            <tr className="view_fileDetails" key={usage.url}>
-              <td className="row_details">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
-              <td className="row_details"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
-              <td className="text-right row_details">{this.props.pageViews[index]}</td>
+            <tr className="view-file-details" key={usage.url}>
+              <td className="row-details">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
+              <td className="row-details"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
+              <td className="text-right row-details">{this.props.pageViews[index]}</td>
             </tr>
           );
       });
@@ -134,23 +134,23 @@ const UploadViewer = createReactClass({
             <p dangerouslySetInnerHTML={{ __html: imageDescription }} />
           </div>
           <div className="right">
-            <table className="view_fileDetails">
+            <table className="view-file-details">
               <tbody>
                 <tr>
-                  <td className="row_details bg-grey">Date:&nbsp;</td>
-                  <td className="row_details">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
+                  <td className="row-details bg-grey">Date:&nbsp;</td>
+                  <td className="row-details">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
                 </tr>
                 <tr>
-                  <td className="row_details bg-grey">Author:&nbsp;</td>
-                  <td className="row_details">{author}</td>
+                  <td className="row-details bg-grey">Author:&nbsp;</td>
+                  <td className="row-details">{author}</td>
                 </tr>
                 <tr>
-                  <td className="row_details bg-grey">Source:&nbsp;</td>
-                  <td className="row_details" dangerouslySetInnerHTML={{ __html: source }} />
+                  <td className="row-details bg-grey">Source:&nbsp;</td>
+                  <td className="row-details" dangerouslySetInnerHTML={{ __html: source }} />
                 </tr>
                 <tr>
-                  <td className="row_details bg-grey">License:&nbsp;</td>
-                  <td className="row_details">{license}</td>
+                  <td className="row-details bg-grey">License:&nbsp;</td>
+                  <td className="row-details">{license}</td>
                   <td>{'\n'}</td>
                 </tr>
               </tbody>
