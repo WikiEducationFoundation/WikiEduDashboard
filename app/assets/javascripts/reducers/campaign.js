@@ -30,8 +30,6 @@ const initialState = {
   start: false,
   end: false,
   loading: true,
-  organizers: '',
-  organizers_count: '',
 };
 
 export default function campaign(state = initialState, action) {
