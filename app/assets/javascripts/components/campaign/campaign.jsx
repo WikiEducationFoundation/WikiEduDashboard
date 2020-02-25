@@ -28,7 +28,6 @@ export const Campaign = createReactClass({
     if (this.props.campaign.loading) {
       return <div />;
     }
-    console.log(this.props.campaign);
     return (
       <div>
         <CampaignNavbar
@@ -38,8 +37,8 @@ export const Campaign = createReactClass({
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
             <Switch>
-              <Route exact path="/campaigns/:campaign_slug/ores_plot" render={() => <CampaignOresPlot campaign_slug={this.props.campaign.slug} />} />
-              <Route exact path="/campaigns/:campaign_slug/alerts" render={() => <CampaignAlerts campaign_slug={this.props.campaign.slug} />} />
+              <Route exact path={`/campaigns/${this.props.campaign.slug}/ores_plot`} component={CampaignOresPlot} />
+              <Route exact path={`/campaigns/${this.props.campaign.slug}/alerts`} component={CampaignAlerts} />
             </Switch>
           </section>
         </div>
