@@ -26,7 +26,16 @@ function startWebpack(cb) {
   };
 
   // Set up plugins based on dev/prod mode
-  const wpPlugins = [];
+  const wpPlugins = [
+    new webpack.ProvidePlugin(
+      {
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.$': 'jquery',
+        'window.jQuery': 'jquery'
+      }
+    )
+  ];
 
   if (doHot) {
     // Wrap entries with hot hooks
@@ -78,7 +87,6 @@ function startWebpack(cb) {
       ]
     },
     externals: {
-      jquery: 'jQuery',
       'i18n-js': 'I18n'
     },
     watch: config.watch_js,
@@ -112,4 +120,4 @@ function startWebpack(cb) {
     });
   }
 }
-task('webpack', series('jquery-uls', startWebpack));
+task('webpack', series(startWebpack));

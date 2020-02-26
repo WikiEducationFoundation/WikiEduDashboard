@@ -6,6 +6,5 @@ task('clean', () => del([
   `${config.outputPath}/fonts/*`,
   `${config.outputPath}/images/*`,
   `${config.outputPath}/stylesheets/*`,
-  `!${config.outputPath}/javascripts/jquery-uls.js`,
   `${config.outputPath}/javascripts/*`
 ]));
