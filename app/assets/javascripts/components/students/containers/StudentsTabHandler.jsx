@@ -71,8 +71,13 @@ const StudentsHandler = createReactClass({
           />
           <Route
             exact
-            path="/courses/:course_school/:course_title/students/articles"
-            render={() => <Articles {...props} />}
+            path={[
+              '/courses/:course_school/:course_title/students/articles',
+              '/courses/:course_school/:course_title/students/articles/:username'
+            ]}
+            render={() => {
+              return <Articles {...this.props} />;
+            }}
           />
           <Route
             exact
