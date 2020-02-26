@@ -51,6 +51,11 @@ function startWebpack(cb) {
     }
   }));
 
+  wpPlugins.push(new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery'
+  }));
+
   const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
   const wpConf = {
     mode,
@@ -78,7 +83,7 @@ function startWebpack(cb) {
       ]
     },
     externals: {
-      jquery: 'jQuery',
+      // jquery: 'jQuery',
       'i18n-js': 'I18n'
     },
     watch: config.watch_js,
@@ -112,4 +117,4 @@ function startWebpack(cb) {
     });
   }
 }
-task('webpack', series('jquery-uls', startWebpack));
+task('webpack', series(startWebpack));

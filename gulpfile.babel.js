@@ -10,7 +10,7 @@ task('dev',
         'clean',
         'set-development',
         'set-watch-js',
-        parallel('i18n', 'copy-static', 'jquery-uls', stylesheets, 'cached-lintjs-watch'),
+        parallel('i18n', 'copy-static', stylesheets, 'cached-lintjs-watch'),
         parallel('webpack', 'watch')
     )
 );
@@ -21,13 +21,13 @@ task('hot-dev',
     series(
         'clean',
         'set-development',
-        parallel('i18n', 'copy-static', 'jquery-uls', 'stylesheets-livereload', 'cached-lintjs-watch'),
+        parallel('i18n', 'copy-static', 'stylesheets-livereload', 'cached-lintjs-watch'),
         parallel('webpack', 'watch'))
 );
 
 task('build',
     series(
         'clean',
-        parallel('i18n', 'copy-static', 'jquery-uls', stylesheets, 'lintjs'),
+        parallel('i18n', 'copy-static', stylesheets, 'lintjs'),
         parallel('webpack', 'minify'))
 );
