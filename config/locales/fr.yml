@@ -245,6 +245,7 @@ fr:
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
     editors: Assigné à
+    group_members: Membres du groupe
     label: Assigner
     loading: Chargement des affectations...
     none_short: Aucun article affecté
@@ -254,7 +255,7 @@ fr:
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.
     peer_review_link: Relecture par un pair
-    peer_review_link_personalized: Révision de %{username}
+    peer_review_link_personalized: Révision paire de %{username}
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision

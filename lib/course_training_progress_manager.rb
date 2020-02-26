@@ -15,7 +15,7 @@ class CourseTrainingProgressManager
     @user = user
 
     # For old courses, on-wiki training completion is tracked with User#trained?
-    if in_dashboard_training?
+    if off_dashboard_training?
       return @user.trained? ? nil : I18n.t('users.training_incomplete')
     end
     assigned_count = total_training_modules_for_course
@@ -32,7 +32,7 @@ class CourseTrainingProgressManager
   end
 
   def course_exercise_progress(user)
-    return if in_dashboard_training?
+    return if off_dashboard_training?
 
     @user = user
     assigned_count = total_exercise_modules_for_course
@@ -58,9 +58,9 @@ class CourseTrainingProgressManager
 
   private
 
-  def in_dashboard_training?
-    @in_dashboard_training ||= @course.start < TRAINING_BOOLEAN_CUTOFF_DATE &&
-                               @course.type != 'VisitingScholarship'
+  def off_dashboard_training?
+    @off_dashboard_training ||= @course.start < TRAINING_BOOLEAN_CUTOFF_DATE &&
+                                @course.type != 'VisitingScholarship'
   end
 
   def build_open_struct_for_module(id)

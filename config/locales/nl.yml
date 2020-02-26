@@ -74,6 +74,8 @@ nl:
     opt_out: Nee
     opt_yes: ja
     opt_no: nee
+  article_statuses:
+    not_yet_started: Aan de slag
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     explore_course_pages: Verken de cursuspagina's
@@ -162,6 +164,7 @@ nl:
     bibliography: Bibliografie
     confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet je zeker dat je deze opdracht wilt verwijderen?
+    group_members: Groepsleden
     label: Toewijzen
     loading: Bezig met het laden van opdrachten...
     none_short: Geen pagina's toegewezen
@@ -410,6 +413,7 @@ nl:
     search_courses: Zoekprogramma
     start: Activiteit volgen start
     student_editors: Bewerkers
+    student: Bewerker
     students: Bewerkers
     students_none: Dit project heeft geen ingeschreven bewerkers.
     students_short: Bewerkers
@@ -421,6 +425,10 @@ nl:
     cancel: Annuleren
     save: Opslaan
     edit_template: Sjabloon bewerken
+  instructor_view:
+    assignments_table:
+      article_name: Artikelnaam
+      relevant_links: Relevante koppelingen
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt

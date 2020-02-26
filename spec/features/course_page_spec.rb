@@ -392,18 +392,54 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'uploads view' do
-    it 'displays a list of uploads' do
-      # First, visit it no uploads
-      visit "/courses/#{slug}/uploads"
-      expect(page).to have_content I18n.t('courses_generic.uploads_none')
+    before do
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg',
              uploaded_at: '2015-06-01',
              thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png')
+    end
+
+    it 'displays a list of uploads' do
       visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
+    end
+
+    it 'displays view options' do
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('button#gallery-view')
+      expect(page).to have_selector('button#list-view')
+      expect(page).to have_selector('button#tile-view')
+    end
+
+    it 'displays gallery view by default' do
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('div.gallery-view')
+    end
+
+    it 'displays tile view when tile view is selected' do
+      visit "/courses/#{slug}/uploads"
+      find('button#tile-view').click
+      expect(page).to have_selector('div.tile-view')
+    end
+
+    it 'displays list view when list view is selected' do
+      visit "/courses/#{slug}/uploads"
+      find('button#list-view').click
+      expect(page).to have_selector('div.list-view')
+    end
+
+    it 'displays upload viewer when upload is clicked' do
+      visit "/courses/#{slug}/uploads"
+      upload_element = first('div.upload')
+      upload_text = upload_element.text
+      upload_element.click
+      expect(page).to have_selector('div.upload-viewer')
+      expect(page).to have_content upload_text
+      # Closes upload viewer
+      find('button.icon-close').click
+      expect(page).not_to have_selector('div.upload-viewer')
     end
   end
 

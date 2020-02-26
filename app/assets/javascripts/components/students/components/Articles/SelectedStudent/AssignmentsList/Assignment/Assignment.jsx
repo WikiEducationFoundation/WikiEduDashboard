@@ -20,6 +20,7 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
     ? assignment.editors.concat(user.username)
     : [user.username];
 
+  const showArticleId = Number(location.search.split('showArticle=')[1]);
   return (
     <tr className="article-row">
       <td className="article-title">{assignment.article_title}</td>
@@ -42,6 +43,7 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
           fetchArticleDetails={fetchArticleDetails}
           showPermalink={false}
           users={users}
+          showOnMount={showArticleId === article.id}
         />
       </td>
     </tr>

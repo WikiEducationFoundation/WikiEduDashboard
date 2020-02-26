@@ -214,6 +214,7 @@ ar:
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
     editors: مخصص لـ
+    group_members: أعضاء المجموعة
     label: تعيين
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة

@@ -238,6 +238,7 @@ tr:
       misiniz?'
     confirm_deletion: Bu makaleyi silmek istediğinizden emin misiniz?
     editors: Atanan
+    group_members: Grup üyeleri
     label: Ata
     loading: Atamalar yükleniyor...
     none_short: Herhangi bir makale atanmadı
