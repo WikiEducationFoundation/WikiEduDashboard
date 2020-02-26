@@ -127,7 +127,7 @@ GEM
       msgpack (~> 1.0)
     breadcrumbs_on_rails (4.0.0)
       rails (>= 5.0)
-    browser (3.0.3)
+    browser (4.0.0)
     builder (3.2.4)
     byebug (11.1.1)
     capistrano (3.12.0)
