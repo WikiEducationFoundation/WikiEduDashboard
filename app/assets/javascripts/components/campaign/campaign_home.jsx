@@ -40,12 +40,12 @@ const CampaignHome = (props) => {
   if (props.campaign.organizers.length > 0) {
     campaign_organizers = (
       <span className="campaign-organizers">
-        <strong>{I18n.t('campaign.organizers')}</strong>
+        <strong>{I18n.t('campaign.organizers')}: </strong>
         {props.campaign.organizers.map((organizer, i) => {
           if (i === props.campaign.organizers.length - 1) {
-            return (<a href={`/users/${organizer.username}`}>${organizer.username}</a>);
+            return (<a href={`/users/${organizer.username}`}>{organizer.username}</a>);
           }
-          return (<a href={`/users/${organizer.username}`}>organizer.username</a>
+          return (<a href={`/users/${organizer.username}`}>{organizer.username}</a>
           );
         })};
       </span>
@@ -78,22 +78,6 @@ const CampaignHome = (props) => {
     );
   }
 
-  // let campaign_start_end;
-  // let use_dates =
-  // if ({ props.campaign.start } || { props.campaign.end }) {
-  //   campaign_start_end = (
-  //     <label>
-  //       <input
-  //         type="checkbox"
-  //         value="1"
-  //         name="use_dates"
-  //       />{I18n.t('campaign.use_start_end_dates')}
-  //     </label>
-  //   );
-  // }
-
-  // const campaign_hidden = use_dates ? '' : 'hidden';
-
   return (
     <div className="container campaign_main">
       <div className="primary">
@@ -123,51 +107,6 @@ const CampaignHome = (props) => {
           <div className="module__data extra-line-height">
             <div>
               {campaign_organizers}
-              <span className="pop__container">
-                <button className="button border plus">+</button>
-                <div className="pop">
-                  <table>
-                    <tbody>
-                      <tr className="edit">
-                        <td>
-                          <form
-                            action={`add_organizer_campaign_path${props.campaign.slug}`} acceptCharset="UTF-8"
-                            method="put"
-                          >
-                            <textarea
-                              type="text"
-                              id="username"
-                              name="username"
-                              required={true}
-                              placeholder={I18n.t('users.username_placeholder')}
-                            />
-                            <button className="button border add-organizer-button">Add organizer</button>
-                          </form>
-                        </td>
-                      </tr>
-                      {/* {this.props.campaign.organizers.map(organizer => )} */}
-                    </tbody>
-                  </table>
-                </div>
-              </span>
-              <form
-                id="edit_campaign_details"
-                action={`/campaigns/${props.campaign.slug}`}
-              >
-                <div className="campaign-use-dates form-group rails_editable-field">
-                  {/* {campaign_start_end} */}
-                </div>
-                <div className="campaign-dates">
-                  <div className="campaign-use-dates form-group rails_editable-field">
-                    <label>
-                      {I18n.t('courses.creator.start_date')}
-                    </label>
-                    <span className="rails_editable-content">
-                      {/* {props.campaign.start} */}
-                    </span>
-                  </div>
-                </div>
-              </form>
             </div>
           </div>
         </div>
