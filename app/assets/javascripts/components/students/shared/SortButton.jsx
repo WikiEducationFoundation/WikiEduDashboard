@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SortButton = ({ current_user, sortSelect }) => {
+export const SortButton = ({ current_user, sortSelect, showOverviewFilters = true }) => {
   const isAdvancedRole = current_user.admin || current_user.role > 0;
 
   return (
@@ -14,10 +14,16 @@ export const SortButton = ({ current_user, sortSelect }) => {
         {
           isAdvancedRole && <option value="last_name">{I18n.t('users.last_name')}</option>
         }
-        <option value="character_sum_ms">{I18n.t('users.characters_added_mainspace')}</option>
-        <option value="character_sum_us">{I18n.t('users.characters_added_userspace')}</option>
-        <option value="character_sum_draft">{I18n.t('users.characters_added_draftspace')}</option>
-        <option value="references_count">{I18n.t('users.references_count')}</option>
+        {
+          showOverviewFilters && (
+            <>
+              <option value="character_sum_ms">{I18n.t('users.characters_added_mainspace')}</option>
+              <option value="character_sum_us">{I18n.t('users.characters_added_userspace')}</option>
+              <option value="character_sum_draft">{I18n.t('users.characters_added_draftspace')}</option>
+              <option value="references_count">{I18n.t('users.references_count')}</option>
+            </>
+          )
+        }
       </select>
     </div>
   );

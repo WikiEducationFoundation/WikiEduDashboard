@@ -10,8 +10,8 @@ import Overview from './Overview';
 import Articles from './Articles';
 import Exercises from './Exercises';
 
-
 // Actions
+import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
 import { sortUsers } from '~/app/assets/javascripts/actions/user_actions';
 import { fetchAssignments } from '~/app/assets/javascripts/actions/assignment_actions';
 import { fetchArticles } from '~/app/assets/javascripts/actions/articles_actions.js';
@@ -41,6 +41,12 @@ const StudentsHandler = createReactClass({
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 
+  notify() {
+    if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
+      return this.props.notifyOverdue(this.props.course.slug);
+    }
+  },
+
   sortSelect(e) {
     return this.props.sortUsers(e.target.value);
   },
@@ -49,35 +55,29 @@ const StudentsHandler = createReactClass({
     if (this.state.loading) return <Loading />;
 
     const prefix = CourseUtils.i18n('students', this.props.course.string_prefix);
+    const props = {
+      ...this.props,
+      prefix,
+      notify: this.notify,
+      sortSelect: this.sortSelect
+    };
     return (
       <div id="users">
         <Switch>
           <Route
             exact
             path="/courses/:course_school/:course_title/students/overview"
-            render={() => {
-              return (
-                <Overview
-                  {...this.props}
-                  prefix={prefix}
-                  sortSelect={this.sortSelect}
-                />
-              );
-            }}
+            render={() => <Overview {...props} />}
           />
           <Route
             exact
             path="/courses/:course_school/:course_title/students/articles"
-            render={() => {
-              return <Articles {...this.props} prefix={prefix} />;
-            }}
+            render={() => <Articles {...props} />}
           />
           <Route
             exact
             path="/courses/:course_school/:course_title/students/exercises"
-            render={() => {
-              return <Exercises {...this.props} prefix={prefix} sortSelect={this.sortSelect} />;
-            }}
+            render={() => <Exercises {...props} />}
           />
           <Redirect
             to={{
@@ -101,6 +101,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  notifyOverdue,
   sortUsers,
   fetchAssignments,
   fetchArticles
