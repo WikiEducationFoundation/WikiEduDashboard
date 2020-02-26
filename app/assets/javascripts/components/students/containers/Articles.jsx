@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getStudentUsers } from '~/app/assets/javascripts/selectors';
-import { Route, Switch } from 'react-router-dom';
+import { generatePath } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
@@ -22,10 +23,17 @@ export class Articles extends React.Component {
     };
 
     this.selectStudent = this.selectStudent.bind(this);
+    this.generateArticlesUrl = this.generateArticlesUrl.bind(this);
   }
 
   selectStudent(selected) {
     this.setState({ selected });
+  }
+
+  generateArticlesUrl(course) {
+    const [course_school, course_title] = course.slug.split('/');
+    const root = '/courses/:course_school/:course_title/students/articles';
+    return generatePath(root, { course_school, course_title });
   }
 
   render() {
@@ -57,6 +65,7 @@ export class Articles extends React.Component {
         <section className="users-articles">
           <aside className="student-selection">
             <StudentSelection
+              articlesUrl={this.generateArticlesUrl(course)}
               course={course}
               selected={this.state.selected}
               selectStudent={this.selectStudent}
@@ -71,6 +80,11 @@ export class Articles extends React.Component {
                   path="/courses/:course_school/:course_title/students/articles/:username"
                   render={({ match }) => {
                     const selected = students.find(({ username }) => username === match.params.username);
+                    if (!selected) {
+                      return (
+                        <Redirect to={this.generateArticlesUrl(course)} />
+                      );
+                    }
                     return (
                       <SelectedStudent
                         assignments={assignments}
