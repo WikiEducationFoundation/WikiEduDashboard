@@ -60,7 +60,7 @@ class CourseTrainingProgressManager
 
   def off_dashboard_training?
     @off_dashboard_training ||= @course.start < TRAINING_BOOLEAN_CUTOFF_DATE &&
-                               @course.type != 'VisitingScholarship'
+                                @course.type != 'VisitingScholarship'
   end
 
   def build_open_struct_for_module(id)
