@@ -41,12 +41,12 @@ const TrainingModules = createReactClass({
 
   moduleLabel(kind) {
     if (kind === EXERCISE_KIND) {
-      return ' (Exercise)';
+      return ` (${I18n.t('training.kind.exercise')})`;
     }
     if (kind === DISCUSSION_KIND) {
-      return ' (Discussion)';
+      return ` (${I18n.t('training.kind.discussion')})`;
     }
-    return ' (Training)';
+    return ` (${I18n.t('training.kind.training')})`;
   },
 
   trainingSelector() {
