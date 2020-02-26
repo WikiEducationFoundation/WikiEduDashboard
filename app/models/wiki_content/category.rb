@@ -41,9 +41,8 @@ class Category < ApplicationRecord
 
   def article_ids
     case source
-    when 'pileid'
-      wiki = PagePileApi.new.get_wiki(name)
-      Article.where(namespace: 0, wiki_id: wiki, title: article_titles).pluck(:id)
+    when 'psid'
+      PetScanApi.new.get_articleid(name)
     else
       Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
     end

@@ -117,7 +117,7 @@ const AddCategoryButton = createReactClass({
     let editRow;
     if (permitted) {
       let options;
-      if (this.props.source !== 'pileid') {
+      if (this.props.source !== 'psid') {
         if (this.state.showOptions) {
           const languageOptions = JSON.parse(WikiLanguages).map((language) => {
             return { label: language, value: language };
@@ -161,6 +161,17 @@ const AddCategoryButton = createReactClass({
         }
       }
 
+      let description;
+      if (this.props.source === 'pileid') {
+        description = (
+          <div id="pileid-description">
+            <p>
+              Pagepile only works for pages on the selected wiki and in case of cross-wiki piles may result in incorrect results.
+            </p>
+          </div>
+        );
+      }
+
       let depthSelector;
       if (this.props.source === 'category') {
         depthSelector = (
@@ -182,6 +193,7 @@ const AddCategoryButton = createReactClass({
       editRow = (
         <tr className="edit">
           <td>
+            {description}
             <form onSubmit={this.addCategory}>
               <input
                 id="category_name"

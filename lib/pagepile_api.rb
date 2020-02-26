@@ -9,10 +9,12 @@ class PagePileApi
     return {}
   end
 
-  def get_wiki(pileid)
-    wiki_data = get_data(pileid)
-    return nil if wiki_data.empty?
-    wiki_data['wiki']
+  def get_language_and_project(pileid)
+    article_data = get_data(pileid)
+    return nil if article_data.empty?
+    language = article_data['language']
+    project = article_data['project']
+    return language, project
   end
 
   def page_titles_for_pileid(pileid)

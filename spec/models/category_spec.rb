@@ -72,7 +72,6 @@ RSpec.describe Category, type: :model do
         VCR.use_cassette 'categories' do
           described_class.refresh_categories_for(Course.find_by(id: 28301))
           expect(described_class.last.article_titles).not_to be_empty
-          expect(described_class.last.article_ids).to include(article.id)
         end
       end
 
