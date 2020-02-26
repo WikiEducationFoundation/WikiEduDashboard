@@ -28,5 +28,6 @@ if @campaign
     json.register_accounts @campaign.register_accounts
     json.start @campaign.start
     json.end @campaign.end
+    json.created_at @campaign.created_at
   end
 end
