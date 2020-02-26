@@ -117,47 +117,48 @@ const AddCategoryButton = createReactClass({
     let editRow;
     if (permitted) {
       let options;
-      if (this.state.showOptions) {
-        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
-          return { label: language, value: language };
-        });
+      if (this.props.source !== 'pileid') {
+        if (this.state.showOptions) {
+          const languageOptions = JSON.parse(WikiLanguages).map((language) => {
+            return { label: language, value: language };
+          });
 
-        const projectOptions = JSON.parse(WikiProjects).map((project) => {
-          return { label: project, value: project };
-        });
-
-        options = (
-          <fieldset className="mt1">
-            <Select
-              ref="languageSelect"
-              className="half-width-select-left language-select"
-              name="language"
-              placeholder="Language"
-              onChange={this.handleChangeLanguage}
-              value={{ value: this.state.language, label: this.state.language }}
-              options={languageOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-            <Select
-              name="project"
-              ref="projectSelect"
-              className="half-width-select-right project-select"
-              onChange={this.handleChangeProject}
-              placeholder="Project"
-              value={{ value: this.state.project, label: this.state.project }}
-              options={projectOptions}
-              clearable={false}
-              styles={{ ...selectStyles, singleValue: null }}
-            />
-          </fieldset>
-        );
-      } else {
-        options = (
-          <div className="small-block-link">
-            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
-          </div>
-        );
+          const projectOptions = JSON.parse(WikiProjects).map((project) => {
+            return { label: project, value: project };
+          });
+          options = (
+            <fieldset className="mt1">
+              <Select
+                ref="languageSelect"
+                className="half-width-select-left language-select"
+                name="language"
+                placeholder="Language"
+                onChange={this.handleChangeLanguage}
+                value={{ value: this.state.language, label: this.state.language }}
+                options={languageOptions}
+                clearable={false}
+                styles={{ ...selectStyles, singleValue: null }}
+              />
+              <Select
+                name="project"
+                ref="projectSelect"
+                className="half-width-select-right project-select"
+                onChange={this.handleChangeProject}
+                placeholder="Project"
+                value={{ value: this.state.project, label: this.state.project }}
+                options={projectOptions}
+                clearable={false}
+                styles={{ ...selectStyles, singleValue: null }}
+              />
+            </fieldset>
+          );
+        } else {
+          options = (
+            <div className="small-block-link">
+              {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
+            </div>
+          );
+        }
       }
 
       let depthSelector;

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PagePileApi
-  def get_titles(pileid)
+  def get_data(pileid)
     response = pagepile.get query_url(pileid)
     title_data = Oj.load(response.body)
     title_data
@@ -9,8 +9,14 @@ class PagePileApi
     return {}
   end
 
+  def get_wiki(pileid)
+    wiki_data = get_data(pileid)
+    return nil if wiki_data.empty?
+    wiki_data['wiki']
+  end
+
   def page_titles_for_pileid(pileid)
-    titles_response = get_titles(pileid)
+    titles_response = get_data(pileid)
     return [] if titles_response.empty?
     titles = titles_response['pages']
     titles
