@@ -298,7 +298,7 @@ export class AssignButton extends React.Component {
       const wiki = `${assignment.language}.${assignment.project}.org`;
       warningMessage = I18n.t('assignments.warning_untracked_wiki', { wiki });
     }
-    return this.props.initiateConfirm(confirmMessage, onConfirm, false, null, warningMessage);
+    return this.props.initiateConfirm({ confirmMessage, onConfirm, warningMessage });
   }
 
   assign(e) {
@@ -361,9 +361,11 @@ export class AssignButton extends React.Component {
   }
 
   unassign(assignment) {
-    this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
+    const confirmMessage = I18n.t('assignments.confirm_deletion');
+    const onConfirm = () => {
       this.props.deleteAssignment({ course_slug: this.props.course.slug, ...assignment });
-    });
+    };
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   }
 
   render() {
