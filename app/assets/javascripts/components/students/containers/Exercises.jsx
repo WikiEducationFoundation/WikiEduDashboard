@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
-import Controls from '../components/Exercises/Controls/Controls.jsx';
+import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentExercisesList from '../components/Exercises/StudentExercisesList';
 
 // Actions
@@ -21,7 +21,7 @@ export class Exercises extends React.Component {
     const {
       course, current_user, prefix, openKey, sort, students,
       trainingStatus, wikidataLabels, sortUsers,
-      sortSelect
+      notify, sortSelect
     } = this.props;
 
     return (
@@ -37,6 +37,8 @@ export class Exercises extends React.Component {
                 course={course}
                 current_user={current_user}
                 students={students}
+                notify={notify}
+                showOverviewFilters={false}
                 sortSelect={sortSelect}
               />
             ) : null

@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
-export const StudentSelection = ({ selected, selectStudent, students }) => {
+export const StudentSelection = ({ articlesUrl, history, match, students }) => {
+  const selected = students.find(({ username }) => username === match.params.username);
   const lis = students.map(student => (
     <li
       key={student.id}
       className={`student ${selected && selected.id === student.id ? 'selected' : ''}`}
-      onClick={() => selectStudent(student)}
+      onClick={() => history.push(`${articlesUrl}/${student.username}`)}
     >
       {
         student.real_name
@@ -23,4 +25,4 @@ StudentSelection.propTypes = {
   students: PropTypes.array.isRequired
 };
 
-export default StudentSelection;
+export default withRouter(StudentSelection);
