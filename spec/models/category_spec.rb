@@ -40,7 +40,7 @@ RSpec.describe Category, type: :model do
     context 'for psid-source Category' do
       let(:category) { create(:category, name: 9964305, source: 'psid') }
       let(:course) { create(:course) }
-      let!(:article) { create(:article, title: 'A cappella') }
+      let!(:article) { create(:article, title: 'A cappella', id: 2411) }
 
       it 'updates article titles for categories associated with courses' do
         pending 'Fails when PetScan is down.'
@@ -57,7 +57,7 @@ RSpec.describe Category, type: :model do
       it 'fails gracefully when PetScan is unreachable' do
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
         described_class.refresh_categories_for(Course.all)
-        expect(described_class.last.article_ids).to be_empty
+        expect(described_class.last.article_titles).to be_empty
       end
     end
 

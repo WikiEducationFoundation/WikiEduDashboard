@@ -15,7 +15,7 @@ class PetScanApi
     return articles_id if page_data.empty?
 
     articles_data = page_data['*'][0]['a']['*']
-    articles_data.each { |article| aritcles_id << article['id'] }
+    articles_data.each { |article| articles_id << article['id'] }
     articles_id
   end
 
