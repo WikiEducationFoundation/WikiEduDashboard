@@ -1064,6 +1064,10 @@ en:
     view_library_source: view library source
     view_module_source: view module source
     reload_from_source: reload from source
+    kind:
+      exercise: Exercise
+      discussion: Discussion
+      training: Training
 
   uploads:
     credit: Credit
