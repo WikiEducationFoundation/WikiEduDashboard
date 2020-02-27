@@ -59,11 +59,12 @@ class WikiPageviews
   def query_url(start_date:, end_date:)
     title = CGI.escape(@title)
     base_url = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/'
-    configuration_params = "per-article/#{@wiki.language}.#{@wiki.project}/all-access/user/"
+    configuration_params = "per-article/#{wiki_url_param}/all-access/user/"
     start_param = start_date.strftime('%Y%m%d')
     end_param = end_date.strftime('%Y%m%d')
     title_and_date_params = "#{title}/daily/#{start_param}00/#{end_param}00"
     url = base_url + configuration_params + title_and_date_params
+    pp url
     url
   end
 
@@ -106,6 +107,11 @@ class WikiPageviews
 
   def no_results
     {}
+  end
+
+  def wiki_url_param
+    # Wikidata works with either "www.wikidata" or just "wikidata", but not ".wikidata"
+    @wiki.language ? "#{@wiki.language}.#{@wiki.project}" : @wiki.project
   end
 
   class PageviewApiError < StandardError; end
