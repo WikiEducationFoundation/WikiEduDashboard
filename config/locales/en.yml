@@ -254,6 +254,10 @@ en:
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
+    warning_untracked_wiki: >
+      Please note that the article you’ve chosen is on a wiki not tracked 
+      by this course. To track contributions to this article, an instructor 
+      must add the following wiki to this course: %{wiki}
 
   blocks:
     milestones:

@@ -26,9 +26,10 @@ const isEnglishWikipedia = ({ assignment, course }) => () => {
 
 const unassign = ({ assignment, course, initiateConfirm, deleteAssignment }) => {
   const body = { course_slug: course.slug, ...assignment };
-  const message = I18n.t('assignments.confirm_deletion');
+  const confirmMessage = I18n.t('assignments.confirm_deletion');
+  const onConfirm = () => deleteAssignment(body);
 
-  return () => initiateConfirm(message, () => deleteAssignment(body));
+  return () => initiateConfirm({ confirmMessage, onConfirm });
 };
 
 export const Header = ({

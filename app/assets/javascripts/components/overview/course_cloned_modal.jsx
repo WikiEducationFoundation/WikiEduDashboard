@@ -61,10 +61,11 @@ const CourseClonedModal = createReactClass({
 
   cancelCloneCourse() {
     const i18nPrefix = this.props.course.string_prefix;
-    const confirm = CourseUtils.i18n('creator.cancel_course_clone_confirm', i18nPrefix);
-    this.props.initiateConfirm(confirm, () => {
+    const confirmMessage = CourseUtils.i18n('creator.cancel_course_clone_confirm', i18nPrefix);
+    const onConfirm = () => {
       this.props.deleteCourse(this.state.course.slug);
-    });
+    };
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
   updateCourse(valueKey, value) {
