@@ -72,35 +72,15 @@ class Revision < ApplicationRecord
   WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
   WIKI_SHORTENED_REF_TAGS = 'feature.enwiki.revision.shortened_footnote_templates'
 
-  def wiki_ref_tags
-    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES] || 0
-  end
-
-  def shortened_ref_tags
-    features[WIKI_SHORTENED_REF_TAGS] || 0
-  end
-
-  def ref_tags
-    return nil if features.empty?
-    wiki_ref_tags + shortened_ref_tags
-  end
-
-  def wiki_ref_tags_previous
-    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES] || 0
-  end
-
-  def shortened_ref_tags_previous
-    features_previous[WIKI_SHORTENED_REF_TAGS] || 0
-  end
-
-  def ref_tags_previous
-    return 0 if new_article
-    return nil if features_previous.empty?
-    wiki_ref_tags_previous + shortened_ref_tags_previous
+  def references_count(ores_features)
+    return nil if ores_features.empty?
+    (ores_features[WIKITEXT_REF_TAGS] || ores_features[WIKIDATA_REFERENCES] || 0) +
+      (ores_features[WIKI_SHORTENED_REF_TAGS] || 0)
   end
 
   def references_added
-    return 0 unless ref_tags_previous && ref_tags
-    ref_tags - ref_tags_previous
+    return references_count(features) if new_article
+    return 0 unless references_count(features) && references_count(features_previous)
+    references_count(features) - references_count(features_previous)
   end
 end
