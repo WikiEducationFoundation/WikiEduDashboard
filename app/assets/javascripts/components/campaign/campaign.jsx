@@ -20,7 +20,7 @@ export const Campaign = createReactClass({
   },
 
   componentDidMount() {
-    const campaignSlug = this.props.match.params.slug;
+    const campaignSlug = this.props.match.params.campaign_slug;
     return this.props.getCampaign(campaignSlug);
   },
 

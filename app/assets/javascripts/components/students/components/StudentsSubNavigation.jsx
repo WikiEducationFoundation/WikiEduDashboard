@@ -25,9 +25,10 @@ export const StudentsSubNavigation = ({ course, heading }) => {
 };
 
 StudentsSubNavigation.propTypes = {
-  current_user: PropTypes.shape({
-    isAdvancedRole: PropTypes.bool
-  }).isRequired
+  course: PropTypes.shape({
+    slug: PropTypes.string.isRequired
+  }).isRequired,
+  heading: PropTypes.string.isRequired
 };
 
 export default StudentsSubNavigation;

@@ -63,7 +63,7 @@ const UploadList = createReactClass({
 
     if (this.props.view === GALLERY_VIEW) {
       uploadsView = (
-        <div className="gallery">
+        <div className="gallery-view">
           {elements}
         </div>
       );
@@ -71,13 +71,15 @@ const UploadList = createReactClass({
 
     if (this.props.view === LIST_VIEW) {
       uploadsView = (
-        <List
-          elements={elements}
-          keys={keys}
-          table_key="uploads"
-          sortBy={this.props.sortBy}
-          none_message={I18n.t('courses_generic.uploads_none')}
-        />
+        <div className="list-view">
+          <List
+            elements={elements}
+            keys={keys}
+            table_key="uploads"
+            sortBy={this.props.sortBy}
+            none_message={I18n.t('courses_generic.uploads_none')}
+          />
+        </div>
       );
     }
 
