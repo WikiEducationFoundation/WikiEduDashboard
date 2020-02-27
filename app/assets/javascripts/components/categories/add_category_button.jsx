@@ -106,7 +106,17 @@ const AddCategoryButton = createReactClass({
     return this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
+
   render() {
+    let description;
+      if (this.props.source === 'pileid') {
+        description = (
+          <p>
+            Pagepile only works for pages on the selected wiki and in case of cross-wiki piles may result in incorrect results.
+          </p>
+        );
+      }
+
     const permitted = true;
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
@@ -161,17 +171,6 @@ const AddCategoryButton = createReactClass({
         }
       }
 
-      let description;
-      if (this.props.source === 'pileid') {
-        description = (
-          <div id="pileid-description">
-            <p>
-              Pagepile only works for pages on the selected wiki and in case of cross-wiki piles may result in incorrect results.
-            </p>
-          </div>
-        );
-      }
-
       let depthSelector;
       if (this.props.source === 'category') {
         depthSelector = (
@@ -193,8 +192,8 @@ const AddCategoryButton = createReactClass({
       editRow = (
         <tr className="edit">
           <td>
-            {description}
             <form onSubmit={this.addCategory}>
+              {description}
               <input
                 id="category_name"
                 value={this.state.category}
