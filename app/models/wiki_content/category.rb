@@ -40,12 +40,7 @@ class Category < ApplicationRecord
   end
 
   def article_ids
-    case source
-    when 'psid'
-      PetScanApi.new.get_articleid(name)
-    else
-      Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
-    end
+    Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
   end
 
   def name_with_prefix

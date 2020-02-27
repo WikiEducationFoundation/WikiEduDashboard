@@ -115,6 +115,12 @@ const AddCategoryButton = createReactClass({
             Pagepile only works for pages on the selected wiki and in case of cross-wiki piles may result in incorrect results.
           </p>
         );
+      } else if (this.props.source === 'psid') {
+        description = (
+          <p>
+            PetScan queries only work with the Dashboard one wiki at a time. Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
+          </p>
+        );
       }
 
     const permitted = true;
@@ -127,48 +133,46 @@ const AddCategoryButton = createReactClass({
     let editRow;
     if (permitted) {
       let options;
-      if (this.props.source !== 'psid') {
-        if (this.state.showOptions) {
-          const languageOptions = JSON.parse(WikiLanguages).map((language) => {
-            return { label: language, value: language };
-          });
+      if (this.state.showOptions) {
+        const languageOptions = JSON.parse(WikiLanguages).map((language) => {
+          return { label: language, value: language };
+        });
 
-          const projectOptions = JSON.parse(WikiProjects).map((project) => {
-            return { label: project, value: project };
-          });
-          options = (
-            <fieldset className="mt1">
-              <Select
-                ref="languageSelect"
-                className="half-width-select-left language-select"
-                name="language"
-                placeholder="Language"
-                onChange={this.handleChangeLanguage}
-                value={{ value: this.state.language, label: this.state.language }}
-                options={languageOptions}
-                clearable={false}
-                styles={{ ...selectStyles, singleValue: null }}
-              />
-              <Select
-                name="project"
-                ref="projectSelect"
-                className="half-width-select-right project-select"
-                onChange={this.handleChangeProject}
-                placeholder="Project"
-                value={{ value: this.state.project, label: this.state.project }}
-                options={projectOptions}
-                clearable={false}
-                styles={{ ...selectStyles, singleValue: null }}
-              />
-            </fieldset>
-          );
-        } else {
-          options = (
-            <div className="small-block-link">
-              {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
-            </div>
-          );
-        }
+        const projectOptions = JSON.parse(WikiProjects).map((project) => {
+          return { label: project, value: project };
+        });
+        options = (
+          <fieldset className="mt1">
+            <Select
+              ref="languageSelect"
+              className="half-width-select-left language-select"
+              name="language"
+              placeholder="Language"
+              onChange={this.handleChangeLanguage}
+              value={{ value: this.state.language, label: this.state.language }}
+              options={languageOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+            <Select
+              name="project"
+              ref="projectSelect"
+              className="half-width-select-right project-select"
+              onChange={this.handleChangeProject}
+              placeholder="Project"
+              value={{ value: this.state.project, label: this.state.project }}
+              options={projectOptions}
+              clearable={false}
+              styles={{ ...selectStyles, singleValue: null }}
+            />
+          </fieldset>
+        );
+      } else {
+        options = (
+          <div className="small-block-link">
+            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
+          </div>
+        );
       }
 
       let depthSelector;

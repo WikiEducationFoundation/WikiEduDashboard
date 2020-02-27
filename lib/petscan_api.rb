@@ -9,16 +9,6 @@ class PetScanApi
     return {}
   end
 
-  def get_articleid(psid)
-    articles_id = []
-    page_data = get_data(psid)
-    return articles_id if page_data.empty?
-
-    articles_data = page_data['*'][0]['a']['*']
-    articles_data.each { |article| articles_id << article['id'] }
-    articles_id
-  end
-
   def page_titles_for_psid(psid)
     titles = []
     titles_response = get_data(psid)
