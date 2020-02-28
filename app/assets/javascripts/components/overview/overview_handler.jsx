@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router';
-import moment from 'moment';
 import CourseStats from './course_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
@@ -14,6 +13,7 @@ import ThisWeek from './this_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
+import LastReviewed from './last_reviewed.jsx';
 import MyArticles from './my_articles/containers';
 import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
@@ -134,30 +134,11 @@ const Overview = createReactClass({
       <div className="sidebar">
         {
           current_user.isStaff && (
-            <div className="module" style={{ textAlign: 'center' }}>
-              <p>
-                Last Reviewed:&nbsp;
-                <strong>
-                  { course.flags.last_reviewed.username }
-                </strong>&nbsp;on
-                <br />
-                <strong>
-                  {moment(course.flags.last_reviewed.timestamp).format('LLLL')}
-                </strong>
-              </p>
-              <button
-                className="button"
-                onClick={() => {
-                  course.last_reviewed = {
-                    username: current_user.username,
-                    timestamp: moment.utc().format()
-                  };
-                  this.props.persistCourse(course.slug);
-                }}
-              >
-                Mark as Reviewed
-              </button>
-            </div>
+            <LastReviewed
+              course={course}
+              current_user={current_user}
+              persistCourse={this.props.persistCourse}
+            />
           )
         }
         <Details
