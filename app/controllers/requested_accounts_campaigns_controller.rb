@@ -37,8 +37,7 @@ class RequestedAccountsCampaignsController < ApplicationController
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
     result = creation_attempt.result
     if result[:failure]
-      result[:failure] = result[:failure].sub('response: {}', '')
-      result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
+      result = CreateRequestedAccount.format_failure_requested_account_result(result)
       return result
     elsif result[:success]
       # If it was successful, enroll the user in the course
