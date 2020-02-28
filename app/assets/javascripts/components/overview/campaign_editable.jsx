@@ -25,7 +25,9 @@ const CampaignEditable = createReactClass({
   },
 
   getInitialState() {
-    return {};
+    return {
+      selectedCampaigns: []
+    };
   },
 
   componentDidMount() {
@@ -36,11 +38,9 @@ const CampaignEditable = createReactClass({
     return 'add_campaign';
   },
 
-  handleChangeCampaign(val) {
-    if (val) {
-      this.setState({ selectedCampaign: val });
-    } else {
-      this.setState({ selectedCampaign: null });
+  handleChangeCampaign(values) {
+    if (values.length > 0) {
+      this.setState({ selectedCampaigns: values });
     }
   },
 
@@ -58,10 +58,23 @@ const CampaignEditable = createReactClass({
   addCampaign() {
     // After adding the campaign, request users so that any defaults are
     // immediately propagated.
-    this.props.addCampaign(this.props.course_id, this.state.selectedCampaign.value)
-    .then(() => this.props.fetchUsers(this.props.course_id));
+    const { selectedCampaigns } = this.state;
+    const { course_id } = this.props;
 
-    this.setState({ selectedCampaign: null });
+    const addCampaignPromises = [];
+    selectedCampaigns.forEach((selectedCampaign) => {
+      const promise = this.props.addCampaign(course_id, selectedCampaign.value)
+      .then(() => {
+        const updatedCampaigns = selectedCampaigns.filter((campaign) => {
+          return campaign.value !== selectedCampaign.value;
+        });
+        this.setState({ selectedCampaigns: updatedCampaigns });
+      });
+      addCampaignPromises.push(promise);
+    });
+    Promise.all(addCampaignPromises).finally(() => {
+      this.props.fetchUsers(this.props.course_id);
+    });
   },
 
   render() {
@@ -84,7 +97,7 @@ const CampaignEditable = createReactClass({
         return { label: campaign, value: campaign };
       });
       let addCampaignButtonDisabled = true;
-      if (this.state.selectedCampaign) {
+      if (this.state.selectedCampaigns.length > 0) {
         addCampaignButtonDisabled = false;
       }
       campaignSelect = (
@@ -95,12 +108,14 @@ const CampaignEditable = createReactClass({
                 className="fixed-width"
                 ref="campaignSelect"
                 name="campaign"
-                value={this.state.selectedCampaign}
+                value={this.state.selectedCampaigns}
                 placeholder={I18n.t('courses.campaign_select')}
                 onChange={this.handleChangeCampaign}
                 options={campaignOptions}
                 styles={selectStyles}
                 isClearable
+                isSearchable
+                isMulti={true}
               />
               <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
                 Add
