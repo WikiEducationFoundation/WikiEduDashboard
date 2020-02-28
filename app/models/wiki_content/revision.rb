@@ -79,7 +79,7 @@ class Revision < ApplicationRecord
   end
 
   def references_added
-    return references_count(features) if new_article
+    return (references_count(features) || 0) if new_article
     return 0 unless references_count(features) && references_count(features_previous)
     references_count(features) - references_count(features_previous)
   end
