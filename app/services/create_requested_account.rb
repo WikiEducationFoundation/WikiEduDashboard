@@ -26,6 +26,12 @@ class CreateRequestedAccount
     process_request(@creator, @creation_reason)
   end
 
+  def self.format_failure_requested_account_result(result)
+    result[:failure] = result[:failure].sub('response: {}', '')
+    result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
+    return result
+  end
+
   private
 
   def en_wiki
@@ -105,12 +111,6 @@ class CreateRequestedAccount
     raise AccountCreationError, 'unexpected account creation response'
   rescue AccountCreationError => e
     Raven.capture_exception(e, extra: { response: @response })
-  end
-
-  def self.format_failure_requested_account_result(result)
-    result[:failure] = result[:failure].sub('response: {}', '')
-    result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
-    return result
   end
 
   class AccountCreationError < StandardError; end
