@@ -30,5 +30,6 @@ if @campaign
     json.created_at @campaign.created_at
     json.register_accounts @campaign.register_accounts
     json.organizers @campaign.organizers
+    json.created_at @campaign.created_at
   end
 end

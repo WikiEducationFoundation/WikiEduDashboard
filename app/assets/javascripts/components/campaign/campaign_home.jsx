@@ -43,7 +43,7 @@ const CampaignHome = (props) => {
         <strong>{I18n.t('campaign.organizers')}: </strong>
         {props.campaign.organizers.map((organizer, i) => {
           if (i === props.campaign.organizers.length - 1) {
-            return (<a href={`/users/${organizer.username}`}>{organizer.username}</a>);
+            return (<a key={i} href={`/users/${organizer.username}`}>{organizer.username}</a>);
           }
           return (<a href={`/users/${organizer.username}`}>{organizer.username}</a>
           );
@@ -53,7 +53,7 @@ const CampaignHome = (props) => {
   }
 
   let program_templet;
-  if (props.campaign.template_description_present) {
+  if (props.campaign.template_description) {
     program_templet = (
       <form
         className="module campaign-template-description rails_editable"

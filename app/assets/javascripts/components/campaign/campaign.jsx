@@ -29,8 +29,6 @@ export const Campaign = createReactClass({
     if (this.props.campaign.loading) {
       return <div />;
     }
-    console.log(this.props.campaign.organizers);
-    console.log(this.props.campaign.register_accounts);
     return (
       <div>
         <CampaignNavbar
