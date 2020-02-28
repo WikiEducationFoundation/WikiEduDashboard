@@ -22,7 +22,7 @@ $(() => {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
-        'students', 'creation-date', 'ungreeted', 'untrained'
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
       ]
     });
   }

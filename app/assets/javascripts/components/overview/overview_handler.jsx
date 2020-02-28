@@ -133,7 +133,7 @@ const Overview = createReactClass({
     const sidebar = course.id ? (
       <div className="sidebar">
         {
-          current_user.isStaff && (
+          Features.wikiEd && current_user.isStaff && (
             <LastReviewed
               course={course}
               current_user={current_user}

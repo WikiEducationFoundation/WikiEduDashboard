@@ -27,6 +27,6 @@
           - if course
             %a.link{:href => "https://#{ENV['dashboard_url']}/courses/#{course.slug}"}
               Go to Course
-      %time= ticket.created_at.in_time_zone('Pacific Time (US & Canada)').strftime('%m/%d/%Y at %l:%M %p %Z')
+      %time= ticket.created_at.in_time_zone('US/Pacific').strftime('%m/%d/%Y at %l:%M %p %Z')
   .hidden
     %p ignore_creating_dashboard_ticket
