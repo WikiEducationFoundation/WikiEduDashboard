@@ -297,8 +297,8 @@ class CoursesController < ApplicationController
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
     if username && timestamp
       @course.flags['last_reviewed'] = {
-        "username" => username,
-        "timestamp" => timestamp
+        'username' => username,
+        'timestamp' => timestamp
       }
       @course.save
     end

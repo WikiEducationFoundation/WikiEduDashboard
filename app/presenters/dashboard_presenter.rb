@@ -38,14 +38,10 @@ class DashboardPresenter
   end
 
   def last_reviewed_date(course)
-    strftime_format = "%b %-d, %Y at %-l:%M %p" # Feb 28, 2020 at 3:33 PM
+    strftime_format = '%b %-d, %Y at %-l:%M %p' # Feb 28, 2020 at 3:33 PM
     last_reviewed = course.flags['last_reviewed']
     timestamp = last_reviewed['timestamp'] if last_reviewed
-    if timestamp
-      timestamp.to_datetime.in_time_zone('US/Pacific').strftime(strftime_format)
-    else
-      nil
-    end
+    timestamp.to_datetime.in_time_zone('US/Pacific').strftime(strftime_format) if timestamp
   end
 
   # Show the 'Your Courses' label if there are current, submitted courses
