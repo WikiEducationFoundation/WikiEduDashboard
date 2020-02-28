@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router';
+import moment from 'moment';
 import CourseStats from './course_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
@@ -56,7 +57,7 @@ const Overview = createReactClass({
   },
 
   render() {
-    const course = this.props.course;
+    const { course, current_user } = this.props;
 
     if (course.cloned_status === 1) {
       return (
@@ -131,6 +132,34 @@ const Overview = createReactClass({
 
     const sidebar = course.id ? (
       <div className="sidebar">
+        {
+          current_user.isStaff && (
+            <div className="module" style={{ textAlign: 'center' }}>
+              <p>
+                Last Reviewed:&nbsp;
+                <strong>
+                  { course.flags.last_reviewed.username }
+                </strong>&nbsp;on
+                <br />
+                <strong>
+                  {moment(course.flags.last_reviewed.timestamp).format('LLLL')}
+                </strong>
+              </p>
+              <button
+                className="button"
+                onClick={() => {
+                  course.last_reviewed = {
+                    username: current_user.username,
+                    timestamp: moment.utc().format()
+                  };
+                  this.props.persistCourse(course.slug);
+                }}
+              >
+                Mark as Reviewed
+              </button>
+            </div>
+          )
+        }
         <Details
           {...this.props}
           updateCourse={this.props.updateCourse}

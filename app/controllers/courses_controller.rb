@@ -261,6 +261,7 @@ class CoursesController < ApplicationController
     update_boolean_flag :online_volunteers_enabled
     update_edit_settings
     update_academic_system
+    update_last_reviewed
   end
 
   def update_boolean_flag(flag)
@@ -289,6 +290,18 @@ class CoursesController < ApplicationController
   def update_academic_system
     @course.flags['academic_system'] = params.dig(:course, 'academic_system')
     @course.save
+  end
+
+  def update_last_reviewed
+    username = params.dig(:course, 'last_reviewed', 'username')
+    timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
+    if username && timestamp
+      @course.flags['last_reviewed'] = {
+        "username" => username,
+        "timestamp" => timestamp
+      }
+      @course.save
+    end
   end
 
   def course_params
