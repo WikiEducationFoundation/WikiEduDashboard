@@ -25,7 +25,6 @@ class RequestedAccountsController < ApplicationController
       render json: { message: I18n.t('courses.new_account_submitted') }
       return
     end
-    
     result = create_account(@requested)
     if result[:success]
       render json: { message: result.values.first }
@@ -91,8 +90,8 @@ class RequestedAccountsController < ApplicationController
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
     result = creation_attempt.result
     if result[:failure]
-      result[:failure] = result[:failure].sub("response: {}", "")
-      result[:failure] = result[:failure].sub("https://en.wikipedia.org", "")
+      result[:failure] = result[:failure].sub('response: {}', '')
+      result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
       return result
     elsif result[:success]
       # If it was successful, enroll the user in the course
