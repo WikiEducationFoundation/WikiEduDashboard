@@ -25,10 +25,9 @@ class RequestedAccountsController < ApplicationController
       render json: { message: I18n.t('courses.new_account_submitted') }
       return
     end
-    # TODO: render relevant json to be handled on the frontend
-    # { success: 'some message'} or { failure: 'some message' }
+    
     result = create_account(@requested)
-    if result[:success] # TODO: handle both success and failure
+    if result[:success]
       render json: { message: result.values.first }
     else
       render json: { message: result.values.first }, status: :internal_server_error
@@ -91,13 +90,17 @@ class RequestedAccountsController < ApplicationController
   def create_account(requested_account)
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
     result = creation_attempt.result
-    return result unless result[:success]
-    # If it was successful, enroll the user in the course
-    user = creation_attempt.user
-    JoinCourse.new(course: requested_account.course,
-                   user: user,
-                   role: CoursesUsers::Roles::STUDENT_ROLE)
-    result
+    if result[:failure]
+      result[:failure] = result[:failure].sub("response: {}", "")
+      result[:failure] = result[:failure].sub("https://en.wikipedia.org", "")
+      return result
+    elsif result[:success]
+      # If it was successful, enroll the user in the course
+      user = creation_attempt.user
+      JoinCourse.new(course: requested_account.course, user: user,
+                     role: CoursesUsers::Roles::STUDENT_ROLE)
+      return result
+    end
   end
 
   def check_creation_permissions
