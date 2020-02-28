@@ -107,5 +107,11 @@ class CreateRequestedAccount
     Raven.capture_exception(e, extra: { response: @response })
   end
 
+  def self.format_failure_requested_account_result(result)
+    result[:failure] = result[:failure].sub('response: {}', '')
+    result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
+    return result
+  end
+
   class AccountCreationError < StandardError; end
 end
