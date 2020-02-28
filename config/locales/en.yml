@@ -320,6 +320,9 @@ en:
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
     requested_accounts: Requested accounts
+    requested_account_status:
+      success: 'Success'
+      failure: 'Failure'
     title: Title
     slug: Slug
     search_campaigns: Search campaigns
@@ -626,6 +629,9 @@ en:
       one: '%{count} requested account pending.'
       other: '%{count} requested accounts pending.'
     requested_accounts_alert_view: 'View'
+    requested_account_status:
+      success: 'Success'
+      failure: 'Failure'
 
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
