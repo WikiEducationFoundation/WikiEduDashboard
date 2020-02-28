@@ -40,7 +40,12 @@ module WikiEduDashboard
 
     # Fallback to default locale when messages are missing.
     config.i18n.fallbacks = true
-
+  # i18n-js
+  # Provides support for localization/translations on the front end utilizing Rails localization.
+  # Uses same translation files, config/
+  # In combination with configuration
+    config.middleware.use I18n::JS::Middleware
+  
     require "#{Rails.root}/config/cldr_pluralization"
     I18n::Backend::Simple.send(:include, I18n::Backend::CldrPluralization)
 
