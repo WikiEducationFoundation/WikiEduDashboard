@@ -1163,6 +1163,10 @@ en:
     training_modules_completed:
       one: "%{completed_count}/%{count} training module completed"
       other: "%{completed_count}/%{count} training modules completed"
+    training_module_time_field:
+      hours: Hours
+      minutes: Minutes
+      seconds: Seconds
     training_module_name: Training module
     training_module_status: Status
     user_training_status: Training Status
