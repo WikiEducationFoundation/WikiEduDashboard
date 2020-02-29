@@ -10,6 +10,11 @@ json.user do
       tp_manager = TrainingProgressManager.new(@user, training_module, training_module_user: tmu)
       json.status tp_manager.status
       json.completion_date tp_manager.completion_date
+      if tp_manager.completion_date
+        json.completion_time Time.at(tmu.completed_at - tmu.created_at)
+                                 .utc
+                                 .strftime('%H Hours %M Minutes %S Seconds')
+      end
     end
   end
 end
