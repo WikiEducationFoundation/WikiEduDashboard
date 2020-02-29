@@ -45,6 +45,7 @@ const Confirm = createReactClass({
     let description;
     let confirmMessage;
     let lineBreak;
+    let warningMessage;
     if (this.props.showInput) {
       textInput = (
         <div>
@@ -80,12 +81,21 @@ const Confirm = createReactClass({
       );
     }
 
+    if (this.props.warningMessage) {
+      warningMessage = (
+        <div className="warning slim">
+          <p>{ this.props.warningMessage }</p>
+        </div>
+      );
+    }
+
     return (
       <Modal modalClass="confirm-modal-overlay">
         <div className="confirm-modal" role="alert">
           {description}
           {confirmMessage}
           {textInput}
+          {warningMessage}
           {lineBreak}
           <div className="pop_container pull-right">
             <button className="button ghost-button" onClick={this.onCancel}>{I18n.t('application.cancel')}</button>
@@ -99,10 +109,11 @@ const Confirm = createReactClass({
 
 const mapStateToProps = state => ({
   confirmationActive: state.confirm.confirmationActive,
-  onConfirm: state.confirm.onConfirm,
   confirmMessage: state.confirm.confirmMessage,
+  explanation: state.confirm.explanation,
+  onConfirm: state.confirm.onConfirm,
   showInput: state.confirm.showInput,
-  explanation: state.confirm.explanation
+  warningMessage: state.confirm.warningMessage
 });
 
 const mapDispatchToProps = { confirmAction, cancelAction };

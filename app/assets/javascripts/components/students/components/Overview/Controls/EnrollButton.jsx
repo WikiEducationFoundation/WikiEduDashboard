@@ -76,7 +76,7 @@ export class EnrollButton extends React.Component {
 
     // If the user is not already enrolled
     if (getFiltered(this.props.users, { username, role: this.props.role }).length === 0) {
-      return this.props.initiateConfirm(confirmMessage, onConfirm);
+      return this.props.initiateConfirm({ confirmMessage, onConfirm });
     }
     // If the user us already enrolled
     return this.props.addNotification({
@@ -97,7 +97,7 @@ export class EnrollButton extends React.Component {
       removeUserAction(courseId, { user: userObject });
     };
     const confirmMessage = I18n.t('users.remove_confirmation', { username: user.username });
-    return this.props.initiateConfirm(confirmMessage, onConfirm);
+    return this.props.initiateConfirm({ confirmMessage, onConfirm });
   }
 
   stop(e) {

@@ -57,6 +57,17 @@ Metrics/ModuleLength:
     - 'spec/**/*' # not a big deal in spec helper module
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
+
+########################
+# Recently-added rules #
+########################
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
 ########################
 # Permanent exceptions #
 ########################

@@ -190,7 +190,7 @@ class WizardTimelineManager
     '3_peer_reviewers' => { peer_review_count: 3 }
   }.freeze
   def add_flags
-    FLAG_LOGIC.keys.each do |logic_key|
+    FLAG_LOGIC.each_key do |logic_key|
       next unless @logic.include?(logic_key)
       @course.flags.merge!(FLAG_LOGIC[logic_key])
     end

@@ -131,6 +131,7 @@ sv:
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
+    group_members: Gruppmedlemmar
     label: Tilldela
     loading: Läser in tilldelningar...
     none_short: Inga tilldelade artiklar
@@ -464,6 +465,9 @@ sv:
     edit_description: Redigera beskrivning
     edit_details: Redigera detaljer
     edit_template: Redigera mall
+  instructor_view:
+    assignments_table:
+      article_name: Artikelnamn
   metrics:
     label: Kursaktivitet
     last_update: Senast uppdaterad
