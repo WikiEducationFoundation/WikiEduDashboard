@@ -3,6 +3,7 @@ import loadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import path from 'path';
 import ManifestPlugin from 'webpack-manifest-plugin';
+import WebpackShellPlugin from 'webpack-shell-plugin';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../config.js';
 
@@ -49,6 +50,10 @@ function startWebpack(cb) {
     'process.env': {
       NODE_ENV: JSON.stringify(mode)
     }
+  }));
+
+  wpPlugins.push(new WebpackShellPlugin({
+    onBuildStart: ['bundle exec rails i18n:js:export'],
   }));
 
   const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
