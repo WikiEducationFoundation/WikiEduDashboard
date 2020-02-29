@@ -225,7 +225,7 @@ pt:
     none_short: Nenhum artigo atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
-    peer_review_count: Selecionado %{currentCount}/%{total}
+    peer_review_count: Selecionados %{currentCount}/%{total}
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
     peer_review_link: Revisão por pares
     remove: Remover

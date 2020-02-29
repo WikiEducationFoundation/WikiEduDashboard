@@ -76,7 +76,7 @@ const StudentsHandler = createReactClass({
               '/courses/:course_school/:course_title/students/articles/:username'
             ]}
             render={() => {
-              return <Articles {...this.props} />;
+              return <Articles {...props} />;
             }}
           />
           <Route

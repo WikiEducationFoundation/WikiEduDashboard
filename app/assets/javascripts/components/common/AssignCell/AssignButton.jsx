@@ -258,7 +258,13 @@ export class AssignButton extends React.Component {
     });
   }
 
-  _onConfirmHandler({ action, assignment, title }) {
+  isAssignmentForTrackedWiki(wikis, assignment) {
+    return wikis.some(({ language, project }) => {
+      return language === assignment.language && project === assignment.project;
+    });
+  }
+
+  _onConfirmHandler({ action, assignment, isInTrackedWiki = true, title }) {
     const { student, open } = this.props;
     const studentId = (student && student.id) || null;
 
@@ -286,7 +292,13 @@ export class AssignButton extends React.Component {
       });
     }
 
-    return this.props.initiateConfirm(confirmMessage, onConfirm);
+    // If the article is not from a tracked wiki, add a warning message.
+    let warningMessage;
+    if (!isInTrackedWiki) {
+      const wiki = `${assignment.language}.${assignment.project}.org`;
+      warningMessage = I18n.t('assignments.warning_untracked_wiki', { wiki });
+    }
+    return this.props.initiateConfirm({ confirmMessage, onConfirm, warningMessage });
   }
 
   assign(e) {
@@ -307,9 +319,13 @@ export class AssignButton extends React.Component {
       return alert(I18n.t('assignments.title_too_large'));
     }
 
+    // Determine whether or not this assignment matches
+    // a tracked course wiki
+    const isInTrackedWiki = this.isAssignmentForTrackedWiki(course.wikis, assignment);
     return this._onConfirmHandler({
       action: this.props.addAssignment,
       assignment,
+      isInTrackedWiki,
       title: assignment.title
     });
   }
@@ -345,9 +361,11 @@ export class AssignButton extends React.Component {
   }
 
   unassign(assignment) {
-    this.props.initiateConfirm(I18n.t('assignments.confirm_deletion'), () => {
+    const confirmMessage = I18n.t('assignments.confirm_deletion');
+    const onConfirm = () => {
       this.props.deleteAssignment({ course_slug: this.props.course.slug, ...assignment });
-    });
+    };
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   }
 
   render() {

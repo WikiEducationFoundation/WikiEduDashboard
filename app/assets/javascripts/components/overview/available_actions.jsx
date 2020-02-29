@@ -38,28 +38,24 @@ const AvailableActions = createReactClass({
   join(role = null) {
     const enrollURL = this.props.course.enroll_url;
     if (this.props.course.passcode === '' || role === 'online_volunteer') {
-      const onConfirm = function () {
-        return window.location = `${enrollURL}?role=${role}`;
-      };
+      const onConfirm = () => window.location = `${enrollURL}?role=${role}`;
       const confirmMessage = CourseUtils.i18n('join_no_passcode');
-      this.props.initiateConfirm(confirmMessage, onConfirm);
+      this.props.initiateConfirm({ confirmMessage, onConfirm });
     } else {
-      const onConfirm = function (passcode) {
+      const onConfirm = (passcode) => {
         return window.location = `${enrollURL}${passcode}?role=${role}`;
       };
       const confirmMessage = I18n.t('courses.passcode_prompt');
-      const joinDescription = CourseUtils.i18n('join_details', this.props.course.string_prefix);
-      this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
+      const explanation = CourseUtils.i18n('join_details', this.props.course.string_prefix);
+      this.props.initiateConfirm({ confirmMessage, onConfirm, showInput: true, explanation });
     }
   },
 
   updateStats() {
     const updateUrl = `${window.location.origin}/courses/${this.props.course.slug}/manual_update`;
-    const onConfirm = function () {
-      return window.location = updateUrl;
-    };
+    const onConfirm = () => window.location = updateUrl;
     const confirmMessage = I18n.t('courses.confirm_manual_update');
-    this.props.initiateConfirm(confirmMessage, onConfirm);
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
   leave() {
@@ -67,11 +63,9 @@ const AvailableActions = createReactClass({
     const role = this.props.current_user.isOnlineVolunteer ? ONLINE_VOLUNTEER_ROLE : STUDENT_ROLE;
     const userRecord = { user: { user_id: this.props.current_user.id, role: role } };
     const leaveCourse = this.props.removeUser;
-    const onConfirm = function () {
-      return leaveCourse(courseSlug, userRecord);
-    };
+    const onConfirm = () => leaveCourse(courseSlug, userRecord);
     const confirmMessage = I18n.t('courses.leave_confirmation');
-    this.props.initiateConfirm(confirmMessage, onConfirm);
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
   delete() {
@@ -94,11 +88,9 @@ const AvailableActions = createReactClass({
 
   enableChat() {
     const course = this.props.course.id;
-    const onConfirm = function () {
-      return this.props.enableForCourse({ course });
-    };
+    const onConfirm = () => this.props.enableForCourse({ course });
     const confirmMessage = 'Are you sure you want to enable chat?';
-    this.props.initiateConfirm(confirmMessage, onConfirm);
+    this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
   enableRequests() {
@@ -106,7 +98,7 @@ const AvailableActions = createReactClass({
     const notify = this.props.addNotification;
     const course = this.props.course;
     const updateCourse = this.props.updateCourse;
-    const onConfirm = function () {
+    const onConfirm = () => {
       enableRequests(course);
       updateCourse(course);
       notify({
@@ -117,7 +109,7 @@ const AvailableActions = createReactClass({
     };
     const confirmMessage = I18n.t('courses.accounts_generation_confirm_message');
     const explanation = I18n.t('courses.accounts_generation_explanation');
-    this.props.initiateConfirm(confirmMessage, onConfirm, false, explanation);
+    this.props.initiateConfirm({ confirmMessage, onConfirm, showInput: false, explanation });
   },
 
   render() {
