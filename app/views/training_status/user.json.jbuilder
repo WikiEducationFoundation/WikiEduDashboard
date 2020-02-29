@@ -13,7 +13,10 @@ json.user do
       if tp_manager.completion_date
         json.completion_time Time.at(tmu.completed_at - tmu.created_at)
                                  .utc
-                                 .strftime('%H Hours %M Minutes %S Seconds')
+                                 .strftime('%H '\
+                                   + I18n.t('users.training_module_time_field.hours')\
+                                   + ' %M ' + I18n.t('users.training_module_time_field.minutes')\
+                                   + ' %S ' + I18n.t('users.training_module_time_field.seconds'))
       end
     end
   end
