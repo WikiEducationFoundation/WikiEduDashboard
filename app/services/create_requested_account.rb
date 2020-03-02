@@ -26,10 +26,15 @@ class CreateRequestedAccount
     process_request(@creator, @creation_reason)
   end
 
-  def self.format_failure_requested_account_result(result)
-    result[:failure] = result[:failure].sub('response: {}', '')
-    result[:failure] = result[:failure].sub('https://en.wikipedia.org', '')
-    return result
+  def result_description(result)
+    if result[:failure]
+      result_description = result[:failure].sub('response: {}', '')
+                                           .sub('https://en.wikipedia.org', '')
+      return I18n.t('users.requested_account_status.failure') + ': ' + result_description
+    elsif result[:success]
+      result_description = result[:success]
+      return I18n.t('users.requested_account_status.success') + ': ' + result_description
+    end
   end
 
   private
