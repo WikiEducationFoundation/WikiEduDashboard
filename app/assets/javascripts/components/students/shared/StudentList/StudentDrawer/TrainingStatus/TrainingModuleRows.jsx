@@ -13,7 +13,9 @@ export const TrainingModuleRows = ({ trainingModules }) => {
     if (trainingModule.completion_date) {
       moduleStatus = (
         <span className="completed">
-          Completed at {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
+          {I18n.t('training_status.completed_at')}: {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
+          <br/>
+          {I18n.t('training_status.completion_time')}: {moment.utc(trainingModule.completion_time * 1000).format('HH:mm:ss')}
         </span>
       );
     } else {
