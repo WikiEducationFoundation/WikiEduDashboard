@@ -1,7 +1,7 @@
 .container
   %h1 Results
   - @results.each do |result|
-    %li= if result[:success] then I18n.t('campaigns.requested_account_status.success') + ': ' + result[:success] else I18n.t('campaigns.requested_account_status.success') + ': ' + result[:failure] end
+    %li= if result[:success] then I18n.t('users.requested_account_status.success') + ': ' + result[:success] else I18n.t('users.requested_account_status.success') + ': ' + result[:failure] end
 
 .container
   %a.button{href: "/campaigns/#{@campaign.slug}"} Return to campaign page

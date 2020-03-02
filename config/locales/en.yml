@@ -320,9 +320,6 @@ en:
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
     requested_accounts: Requested accounts
-    requested_account_status:
-      success: 'Success'
-      failure: 'Failure'
     title: Title
     slug: Slug
     search_campaigns: Search campaigns
@@ -629,9 +626,6 @@ en:
       one: '%{count} requested account pending.'
       other: '%{count} requested accounts pending.'
     requested_accounts_alert_view: 'View'
-    requested_account_status:
-      success: 'Success'
-      failure: 'Failure'
 
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
@@ -1144,6 +1138,9 @@ en:
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?
+    requested_account_status:
+      success: 'Success'
+      failure: 'Failure'
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
     references_doc: The number of references added or removed by this editor
