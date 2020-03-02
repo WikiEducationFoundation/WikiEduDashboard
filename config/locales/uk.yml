@@ -76,6 +76,16 @@ uk:
     opt_out: Ні
     opt_yes: так
     opt_no: ні
+  article_statuses:
+    not_yet_started: Ознайомлення
+    in_progress: Робота в пісочниці
+    ready_for_review: Розширення чернетки
+    ready_for_mainspace: Перенесення праці в основний простір
+    assignment_completed: Призначення позначено як завершене
+    reading_the_article: Читання статті
+    providing_feedback: Надсилання відгуків
+    post_to_talk: Додавання коментарів на сторінку обговорення
+    peer_review_completed: Огляд завершено
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Починаючи роботу, тримайте свій навчальний план під рукою;
@@ -118,6 +128,7 @@ uk:
     label: Активність
   articles:
     article_development: (розвиток статті)
+    articles_shown: Показано %{count} із %{total}
     assigned: Задані статті…
     available: Доступні статті
     no_available: Доступних статей немає
@@ -223,8 +234,10 @@ uk:
     none_short: Немає призначених статей
     none: Цей курс не має заданих статей.
     no_available: Цей курс не має доступних статей.
+    peer_review_count: '%{currentCount}/%{total} вибрано'
     peer_review_count_tooltip: Ви маєте обрати %{total} статей для перевірки колегами.
     peer_review_link: Перевірка колегами
+    peer_review_link_personalized: Експертна оцінка від %{username}
     remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити рецензію
@@ -233,6 +246,9 @@ uk:
       чи зробити відгук.
     sandbox_draft_link: Чернетка у пісочниці
     select: Обрати
+    warning_untracked_wiki: 'Зверніть увагу, що обрана вами стаття розміщена на вікі,
+      яка не відслідковується цим курсом. Щоб врахувати внесок у цю статтю, інструктор
+      має додати таку вікі до цього курсу: %{wiki}'
   blocks:
     milestones:
       title: Віхи
@@ -299,6 +315,7 @@ uk:
     random_passcode: випадковий код доступу
     requested_accounts: Запити на облікові записи
     title: Назва
+    search_campaigns: Пошук по кампаніях
     use_start_end_dates: Використовувати дати початку та закінчення
   categories:
     add_category: Додати категорію
@@ -336,9 +353,7 @@ uk:
     accounts_generation_explanation: Це дозволить учасникам ввести свою електронну
       адресу і бажане ім'я користувача замість того, щоб створювати обліковий запис
       самостійно. Після цього ви зможете створити облікові записи з цієї Панелі, й
-      одночасно додати їх як учасників програми. Щоб користуватися цією функцією,
-      ви маєте мати прапорець «створювача облікових записів» у домашній вікі цієї
-      програми.
+      одночасно додати їх як учасників програми.
     accounts_generation_confirm_message: Ви впевнені, що хочете увімкнути запити на
       облікові записи?
     activity: Активність
@@ -638,6 +653,7 @@ uk:
     search_courses: Шукати курси
     start: Початок
     start_typing: Почніть вводити текст
+    student: Студент
     students: Студенти
     students_taught: Навчені студенти
     students_count: '# Студенти'
@@ -804,6 +820,7 @@ uk:
     search_courses: Шукати програми
     start: Початок відслідковування активності
     student_editors: Редактори
+    student: Редактор
     students: Редактори
     students_taught: Всього редакторів
     students_none: У цьому проекті немає записаних редакторів.
@@ -829,6 +846,21 @@ uk:
     edit_template: Редагувати шаблон
     rename_confirmation: Змінилися поля курсу, які формують посилання на нього. Це
       змінить URL і поламає всі вхідні посилання. Ви впевнені, що хочете це зробити?
+  instructor_view:
+    article_assignments: '%{prefix} призначення'
+    assignments_table:
+      article_name: Назва статті
+      current_stage: Поточний стан
+      relevant_links: Релевантні посилання
+    assigned_articles: Призначені статті
+    exercises_and_trainings: '%{prefix} вправи й тренінги'
+    no_assignments: Цей студент наразі не має призначених статей. Можете призначити
+      статтю за допомогою кнопок вище.
+    overview: '%{prefix} огляд'
+    reviewing_articles: Огляд статей
+    select_student:
+      title: Виберіть %{prefix}
+      content: для того, щоб призначити й переглянути призначення статей
   metrics:
     label: Активність курсу
     last_update: Останнє оновлення статистики
@@ -836,7 +868,11 @@ uk:
     activity: Недавня активність
     are_trained: без запізнень у навчанні
     articles_created: Створені статті
+    articles_created_generic: Створені сторінки
+    articles_created_wikidata: Створені елементи
     articles_edited: Редаговані статті
+    articles_edited_generic: Відредаговані сторінки
+    articles_edited_wikidata: Додані елементи
     bytes_added: Байтів додано
     characters: Символи
     char_added: Додано символів
@@ -1061,6 +1097,10 @@ uk:
     view_library_source: переглянути джерело бібліотеки
     view_module_source: переглянути джерело модуля
     reload_from_source: перезавантажити з джерела
+    kind:
+      exercise: Вправа
+      discussion: Обговорення
+      training: Навчання
   uploads:
     credit: Автор(и)
     file_name: Назва файлу
@@ -1105,6 +1145,11 @@ uk:
     enroll_confirmation: Ви дійсно хочете додати %{username}?
     enroll_url: 'Користувачі можуть приєднатися, перейшовши за цим URL:'
     enrolled_success: '%{username} було успішно додано!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} вправ завершено'
+      few: '%{completed_count}/%{count} вправ завершено'
+      many: '%{completed_count}/%{count} вправ завершено'
+      other: '%{completed_count}/%{count} вправ завершено'
     first_name: Ім'я
     last_name: Прізвище
     loading: Завантаження користувачів…
@@ -1131,6 +1176,11 @@ uk:
     reviewers: Оцінювач(і)
     reviewing: Оцінює
     sandboxes: чернетки
+    sub_navigation:
+      article_assignments: Призначення статей
+      editor_overview: Огляд внеску редактора
+      exercises_and_trainings: Вправи й тренінги
+      student_overview: Огляд внеску студента
     total_uploads: Усього завантажень
     training_complete:
       one: завершив навчання на сьогодні
@@ -1320,6 +1370,8 @@ uk:
     unassign_article_self: Скасувати призначення статті
   training_status:
     completed: Завершено
+    continue: Продовжити
+    view: Перегляд
     started: Почато
     not_started: Не почато
     due: до %{due_date}

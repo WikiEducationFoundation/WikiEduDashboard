@@ -264,6 +264,9 @@ fr:
       de commenter.
     sandbox_draft_link: Brouillon du bac à sable
     select: Sélectionner
+    warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
+      sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
+      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
   blocks:
     milestones:
       title: Jalons
@@ -1156,6 +1159,10 @@ fr:
     view_library_source: afficher la source de la bibliothèque
     view_module_source: afficher la source du module
     reload_from_source: recharger depuis la source
+    kind:
+      exercise: Exercice
+      discussion: Discussion
+      training: Formation
   uploads:
     credit: Crédit
     file_name: Nom de fichier

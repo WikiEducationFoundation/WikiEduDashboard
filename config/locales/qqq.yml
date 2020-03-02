@@ -684,6 +684,8 @@ qqq:
     invalid: Alert stating the slide does not exist
     wait: Alert to not leave the page as the training progress is being updated in
       the background
+    kind:
+      discussion: '{{identical|Discussion}}'
   uploads:
     image: '{{Identical|Image}}'
     label: |-

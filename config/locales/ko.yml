@@ -538,6 +538,8 @@ ko:
     included_modules: 포함된 모듈
     view_module_source: 모듈 원본 보기
     reload_from_source: 원본에서 다시 불러오기
+    kind:
+      discussion: 토론
   uploads:
     file_name: 파일 이름
     header: 위키미디어 공용에 올린 파일

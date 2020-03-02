@@ -254,6 +254,9 @@ pt-br:
     review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
+    warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
+      não rastreado por este curso. Para acompanhar as contribuições para este artigo,
+      um instrutor deve adicionar o seguinte wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Marco
@@ -1120,6 +1123,10 @@ pt-br:
     view_library_source: ver fonte da biblioteca
     view_module_source: ver a fonte do módulo
     reload_from_source: recarregar da fonte
+    kind:
+      exercise: Exercício
+      discussion: Discussão
+      training: Treinamento
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo

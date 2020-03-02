@@ -51,6 +51,8 @@ lb:
     in_progress: An enger Sandkëscht schaffen
     reading_the_article: Artikel liesen
     providing_feedback: Feedback ginn
+    post_to_talk: Op der Diskussiounssäit publizéieren
+    peer_review_completed: Nokucken ofgeschloss
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -336,6 +338,7 @@ lb:
     school: Institutioun
     school_and_term: Institiutioun/Wéini
     student_editors: Editeuren
+    student: Editeur
     students: Editeuren
     students_short: Auteuren
     students_count: Zuel vu Participanten
@@ -458,6 +461,10 @@ lb:
     done: Fäerdeg!
     invalid: Pardon dee Slide gëtt et net!
     check_answer: Äntwert nokucken
+    kind:
+      exercise: Exercice
+      discussion: Diskussioun
+      training: Formatioun
   uploads:
     file_name: Numm vum Fichier
     image: Bild

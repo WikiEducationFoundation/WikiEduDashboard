@@ -256,6 +256,9 @@ tr:
       makale içindir.
     sandbox_draft_link: Sandbox Taslağı
     select: Seç
+    warning_untracked_wiki: 'Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
+      vikide olduğunu lütfen unutmayın. Bu makaleye katkıları izlemek için bir eğitmen
+      bu kursa şu vikiyi eklemelidir: %{wiki}'
   blocks:
     milestones:
       title: Kilometre taşları
@@ -1109,6 +1112,10 @@ tr:
     view_library_source: kütüphane kaynağını göster
     view_module_source: modül kaynağını göster
     reload_from_source: kaynaktan yeniden yükle
+    kind:
+      exercise: Eksersiz
+      discussion: Tartışma
+      training: Eğitim
   uploads:
     credit: Katkılar
     file_name: Dosya Adı

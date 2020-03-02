@@ -798,6 +798,10 @@ es:
     done: ¡Hecho!
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
+    kind:
+      exercise: Ejercicio
+      discussion: Discusión
+      training: Entrenamiento
   uploads:
     credit: Crédito
     file_name: Nombre del archivo
