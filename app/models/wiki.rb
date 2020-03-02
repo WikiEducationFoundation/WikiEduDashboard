@@ -120,6 +120,17 @@ class Wiki < ApplicationRecord
     edit_templates['course_prefix']
   end
 
+  def string_prefix
+    case project
+    when 'wikipedia'
+      'articles'
+    when 'wikidata'
+      'articles_wikidata'
+    else
+      'articles_generic'
+    end
+  end
+
   private
 
   def template_file_path
