@@ -868,6 +868,7 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
+    last_reviewed: Last Reviewed
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
