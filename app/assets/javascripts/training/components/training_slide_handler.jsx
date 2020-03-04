@@ -19,15 +19,57 @@ const TrainingSlideHandler = createReactClass({
     match: PropTypes.object
   },
 
+  getInitialState() {
+    return {
+      disableNextPageButtonBool: true,
+      countdownSeconds: 0,
+      intervalID: null,
+      completedSlideIDs: [],
+      unlockLimit: 3,
+    };
+  },
+
   componentDidMount() {
     const slideId = __guard__(this.props.match.params, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
+    this.setNextPageCountdown(true);
     window.addEventListener('keyup', this.handleKeyPress);
   },
 
   componentWillUnmount() {
     return window.removeEventListener('keyup', this.handleKeyPress);
+  },
+
+  setNextPageCountdown(set) {
+    if (!set) {
+      if (this.state.intervalID) {
+        window.clearInterval(this.state.intervalID);
+      }
+      this.setState({
+        disableNextPageButtonBool: false,
+        countdownSeconds: this.state.unlockLimit,
+      });
+    } else if (!this.props.training.nextSlide.completed && !this.state.completedSlideIDs.includes(this.props.training.nextSlide.id)) {
+      this.setState({
+        disableNextPageButtonBool: true,
+        countdownSeconds: 0,
+      });
+      const intervalID = setInterval(() => {
+         if (this.state.countdownSeconds === this.state.unlockLimit) {
+           this.setState({
+             disableNextPageButtonBool: false,
+             completedSlideIDs: [...this.state.completedSlideIDs, this.props.training.currentSlide.id],
+             intervalID: null,
+           });
+           window.clearInterval(intervalID);
+         }
+         this.setState({
+             countdownSeconds: this.state.countdownSeconds + 1,
+             intervalID: intervalID,
+         });
+      }, 1000);
+    }
   },
 
   setSlideCompleted(slideId) {
@@ -41,6 +83,7 @@ const TrainingSlideHandler = createReactClass({
   },
 
   next() {
+    this.setNextPageCountdown(true);
     const nextSlug = this.props.training.nextSlide.slug;
     this.props.setCurrentSlide(nextSlug);
     this.setSlideCompleted(nextSlug);
@@ -48,6 +91,7 @@ const TrainingSlideHandler = createReactClass({
 
   prev() {
     this.props.setCurrentSlide(this.props.training.previousSlide.slug);
+    this.setNextPageCountdown(false);
   },
 
   moduleId() {
@@ -73,7 +117,14 @@ const TrainingSlideHandler = createReactClass({
   keys: { rightKey: 39, leftKey: 37 },
 
   disableNext() {
-    return Boolean(this.props.training.currentSlide.assessment) && !this.props.training.currentSlide.answeredCorrectly;
+    return this.state.disableNextPageButtonBool || (Boolean(this.props.training.currentSlide.assessment) && !this.props.training.currentSlide.answeredCorrectly);
+  },
+
+  buttonText() {
+    if (this.state.disableNextPageButtonBool) {
+      return I18n.t('training.slide_countdown', { countdown: this.state.unlockLimit - this.state.countdownSeconds });
+    }
+    return this.props.training.currentSlide.buttonText || I18n.t('training.next');
   },
 
   returnToLink() {
@@ -123,7 +174,7 @@ const TrainingSlideHandler = createReactClass({
       nextLink = (
         <SlideLink
           slideId={this.props.training.nextSlide.slug}
-          buttonText={this.props.training.currentSlide.buttonText || I18n.t('training.next')}
+          buttonText={this.buttonText()}
           disabled={this.disableNext()}
           button={true}
           params={this.props.match.params}
