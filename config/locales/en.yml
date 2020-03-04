@@ -1063,6 +1063,7 @@ en:
     previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
+    slide_countdown: Unlocking in %{countdown} seconds
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
     done: Done!
     invalid: Sorry that slide does not exist!
