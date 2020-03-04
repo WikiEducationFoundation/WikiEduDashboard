@@ -89,7 +89,6 @@ class RequestedAccountsController < ApplicationController
   def create_account(requested_account)
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
     result = creation_attempt.result
-    result[:result_description] = creation_attempt.result_description(result)
     if result[:success]
       # If it was successful, enroll the user in the course
       user = creation_attempt.user

@@ -62,6 +62,7 @@ class CreateRequestedAccount
                                                       'messagecode')
 
     status == 'PASS' ? create_account : handle_failed_account_creation(message, messagecode)
+    @result[:result_description] = result_description(@result)
   end
 
   def create_account
