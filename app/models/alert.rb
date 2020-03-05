@@ -34,6 +34,7 @@ class Alert < ApplicationRecord
   ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
+    BadWorkAlert
     BlockedEditsAlert
     BlockedUserAlert
     ContinuedCourseActivityAlert
@@ -57,6 +58,7 @@ class Alert < ApplicationRecord
 
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
+    BadWorkAlert
     ContinuedCourseActivityAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
