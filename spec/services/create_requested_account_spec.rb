@@ -34,6 +34,7 @@ describe CreateRequestedAccount do
     stub_account_creation(wiki: home_wiki)
     allow(UserImporter).to receive(:new_from_username).and_return(user)
     expect(subject.result[:success]).not_to be_nil
+    expect(subject.result[:result_description]).not_to be_nil
     expect(user.username).to eq('Ragesock')
     expect(RequestedAccount.count).to eq(0)
   end
@@ -41,6 +42,7 @@ describe CreateRequestedAccount do
   it 'destroys the requested account if the username already exist' do
     stub_account_creation_failure_userexists(wiki: home_wiki)
     expect(subject.result[:failure]).not_to be_nil
+    expect(subject.result[:result_description]).not_to be_nil
     expect(RequestedAccount.count).to eq(0)
   end
 
@@ -48,6 +50,7 @@ describe CreateRequestedAccount do
     expect(Raven).to receive(:capture_exception)
     stub_account_creation_failure_unexpected(wiki: home_wiki)
     expect(subject.result[:failure]).not_to be_nil
+    expect(subject.result[:result_description]).not_to be_nil
     expect(RequestedAccount.count).to eq(1)
   end
 
