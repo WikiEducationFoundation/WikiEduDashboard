@@ -49,6 +49,7 @@ lb:
   article_statuses:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkëscht schaffen
+    ready_for_review: Schabloun erweideren
     reading_the_article: Artikel liesen
     providing_feedback: Feedback ginn
     post_to_talk: Op der Diskussiounssäit publizéieren
@@ -116,6 +117,11 @@ lb:
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
     wiki: Wiki
+    articles_short: Artikelen
+  articles_wikidata:
+    articles_short: Elementer
+  articles_generic:
+    articles_short: Säiten
   assignments:
     article_link: Artikel
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
@@ -372,6 +378,7 @@ lb:
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
+    last_reviewed: Fir d'lescht nogekuckt
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
     tags: Markéierungen

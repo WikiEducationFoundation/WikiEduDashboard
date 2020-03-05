@@ -123,6 +123,11 @@ sv:
     views_added: Lade till %{count} nya läsningar %{title}
     edit_size: Redigera storlek
     wiki: Wiki
+    articles_short: Artiklar
+  articles_wikidata:
+    articles_short: Objekt
+  articles_generic:
+    articles_short: Sidor
   assignments:
     article: Artikeln %{title} har tilldelats dig
     assign_other: Tilldela en artikel
@@ -593,6 +598,10 @@ sv:
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
     view_library_source: via bibliotekskälla
+    kind:
+      exercise: Övning
+      discussion: Diskussion
+      training: Träning
   uploads:
     credit: Erkännande
     file_name: Filnamn

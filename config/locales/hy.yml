@@ -73,6 +73,11 @@ hy:
     view_all: Դիտել բոլորը
     view_on_wiki: Դիտել Վիքիյում
     wiki: Վիքի
+    articles_short: Հոդվածներ
+  articles_wikidata:
+    articles_short: Տարրեր
+  articles_generic:
+    articles_short: Էջեր
   assignments:
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ

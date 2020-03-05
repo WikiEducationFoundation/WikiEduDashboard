@@ -226,6 +226,11 @@ fr:
       de Wikipedia pour la structure d’un bon article, mais il ne prend pas en compte
       le contenu lui-même. (Ces statistiques ne sont uniquement disponibles que pour
       les articles du Wikipédia anglais).
+    articles_short: Articles
+  articles_wikidata:
+    articles_short: Éléments
+  articles_generic:
+    articles_short: Pages
   assignments:
     article: L’article %{title} vous est maintenant affecté.
     article_link: Article
@@ -924,6 +929,7 @@ fr:
     char: Caractères ajoutés
     date_time: Date/Heure
     edit_count_description: Total des modifications
+    last_reviewed: Dernier revu
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
     references_count: Références ajoutées

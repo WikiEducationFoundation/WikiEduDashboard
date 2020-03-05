@@ -196,6 +196,11 @@ it:
       più alto indica in genere che una voce segue le convenzioni di Wikipedia per
       la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
+    articles_short: Voci
+  articles_wikidata:
+    articles_short: Elementi
+  articles_generic:
+    articles_short: Pagine
   assignments:
     article: La voce %{title} ora è assegnata a te.
     article_link: Voce

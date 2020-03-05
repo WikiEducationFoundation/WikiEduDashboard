@@ -218,6 +218,11 @@ pt-br:
       indica que um artigo segue as convenções da Wikipédia para a estrutura de um
       bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
       para a Wikipédia em inglês.)
+    articles_short: Artigos
+  articles_wikidata:
+    articles_short: Itens
+  articles_generic:
+    articles_short: Páginas
   assignments:
     article: O artigo %{title} foi designado agora para ti.
     article_link: Artigo
@@ -895,6 +900,7 @@ pt-br:
     char: Caracteres adicionados
     date_time: Data/Horário
     edit_count_description: Total de edições
+    last_reviewed: Última revisão
     per_user: '%{number}/usuário'
     revisions: Edições recentes
     references_count: Referências adicionadas
