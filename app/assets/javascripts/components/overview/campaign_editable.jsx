@@ -62,17 +62,25 @@ const CampaignEditable = createReactClass({
     const { course_id } = this.props;
 
     const addCampaignPromises = [];
+
     selectedCampaigns.forEach((selectedCampaign) => {
-      const promise = this.props.addCampaign(course_id, selectedCampaign.value)
-      .then(() => {
-        const updatedCampaigns = selectedCampaigns.filter((campaign) => {
-          return campaign.value !== selectedCampaign.value;
-        });
-        this.setState({ selectedCampaigns: updatedCampaigns });
-      });
+      const promise = this.props.addCampaign(course_id, selectedCampaign.value);
       addCampaignPromises.push(promise);
     });
+
+    // remove from selected campaigns list if campaign was successfully added
     Promise.all(addCampaignPromises).finally(() => {
+      const updatedSelectedCampaigns = selectedCampaigns.filter((selectedCampaign) => {
+        let shouldRemove = false;
+
+        this.props.campaigns.forEach((campaign) => {
+          if (campaign.title === selectedCampaign.value) shouldRemove = true;
+        });
+
+        return !shouldRemove;
+      });
+
+      this.setState({ selectedCampaigns: updatedSelectedCampaigns });
       this.props.fetchUsers(this.props.course_id);
     });
   },
