@@ -29,7 +29,8 @@ const ArticleViewer = createReactClass({
 
   getInitialState() {
     return {
-      showArticle: false
+      showArticle: false,
+      showBadArticleAlert: false
     };
   },
 
@@ -51,6 +52,10 @@ const ArticleViewer = createReactClass({
         this.fetchUserIds(nextProps.users);
       }
     }
+  },
+
+  showBadArticleAlert() {
+    this.setState({ showBadArticleAlert: true });
   },
 
   showButtonLabel() {
@@ -363,9 +368,22 @@ const ArticleViewer = createReactClass({
               }
 
               {closeButton}
-              <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
+              <a
+                className="button danger small pull-right article-viewer-button"
+                onClick={() => this.showBadArticleAlert()}
+              >
+                Report Unsatisfactory Work
+              </a>
             </p>
           </div>
+          {
+            this.state.showBadArticleAlert && (
+              <div className="article-alert">
+                <p>Click this button if you believe the work completed by your students needs intervention by a staff member of Wiki Education Foundation. A member of our staff will get in touch with you and your students.</p>
+                <button className="button danger">Notify Wiki Expert</button>
+              </div>
+            )
+          }
           <div className="article-scrollbox">
             {article}
           </div>
