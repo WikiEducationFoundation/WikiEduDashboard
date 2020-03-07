@@ -21,21 +21,13 @@ function startWebpack(cb) {
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
     campaigns: [`${jsSource}/campaigns.js`],
     charts: [`${jsSource}/charts.js`],
+    jquery: [`${jsSource}/jquery.js`],
     tinymce: [`${jsSource}/tinymce.js`],
     embed_course_stats: [`${jsSource}/embed_course_stats.js`]
   };
 
   // Set up plugins based on dev/prod mode
-  const wpPlugins = [
-    new webpack.ProvidePlugin(
-      {
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.$': 'jquery',
-        'window.jQuery': 'jquery'
-      }
-    )
-  ];
+  const wpPlugins = [];
 
   if (doHot) {
     // Wrap entries with hot hooks
