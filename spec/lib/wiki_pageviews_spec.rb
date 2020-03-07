@@ -132,6 +132,19 @@ describe WikiPageviews do
       end
     end
 
+    context 'for a wikidata item' do
+      let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+      let(:article) { create(:article, title: 'Q42', wiki: wikidata) }
+
+      before { stub_wiki_validation }
+
+      it 'returns the average page views' do
+        VCR.use_cassette 'wiki_pageviews/average_views' do
+          expect(subject).to be > 50
+        end
+      end
+    end
+
     context 'for an article that does not exist' do
       let(:title) { 'THIS_IS_NOT_A_REAL_ARTICLE' }
 

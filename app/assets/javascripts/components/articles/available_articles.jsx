@@ -26,8 +26,9 @@ const AvailableArticles = createReactClass({
     let availableArticles;
     let elements = [];
     let findingArticlesTraining;
+    const { assignments, course, course_id, current_user } = this.props;
 
-    if (Features.wikiEd && this.props.current_user.isAdvancedRole) {
+    if (Features.wikiEd && current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
           How to find articles
@@ -35,8 +36,8 @@ const AvailableArticles = createReactClass({
       );
     }
 
-    if (this.props.assignments.length > 0) {
-      elements = this.props.assignments.map((assignment) => {
+    if (assignments.length > 0) {
+      elements = assignments.map((assignment) => {
         if (assignment.user_id === null) {
           return (
             <ConnectedAvailableArticle
@@ -51,15 +52,15 @@ const AvailableArticles = createReactClass({
       elements = _.compact(elements);
     }
 
-    if (this.props.course.id) {
+    if (course.id) {
       assignCell = (
         <AssignCell
-          course={this.props.course}
+          course={course}
           role={ASSIGNED_ROLE}
           editable
           allowMultipleArticles={true}
-          course_id={this.props.course_id}
-          current_user={this.props.current_user}
+          course_id={course_id}
+          current_user={current_user}
           assignments={[]}
           prefix={I18n.t('users.my_assigned')}
         />
@@ -67,15 +68,16 @@ const AvailableArticles = createReactClass({
     }
 
     const { assigned } = processAssignments(this.props);
-    const showMyArticlesSection = assigned.length && this.props.current_user.isStudent;
+    const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
+    const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
     let myArticles;
     if (showMyArticlesSection) {
       myArticles = (
-        <MyArticlesContainer current_user={this.props.current_user} />
+        <MyArticlesContainer current_user={current_user} />
       );
     }
 
-    const showAvailableArticles = elements.length > 0 || this.props.current_user.isAdvancedRole;
+    const showAvailableArticles = elements.length > 0 || current_user.isAdvancedRole;
     if (showAvailableArticles) {
       availableArticles = (
         <div id="available-articles" className="mt4">
@@ -84,7 +86,7 @@ const AvailableArticles = createReactClass({
             <div className="section-header__actions">
               {findingArticlesTraining}
               {assignCell}
-              <Link to={`/courses/${this.props.course_id}/article_finder`}><button className="button border small ml2">Find Articles</button></Link>
+              <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find Articles</button></Link>
             </div>
           </div>
           <AvailableArticlesList {...this.props} elements={elements} />

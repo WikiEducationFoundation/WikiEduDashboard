@@ -4,13 +4,31 @@
 # Author: Aursani
 # Author: BukhariSaeed
 # Author: Indus Asia
+# Author: JogiAsad
 # Author: Macofe
 # Author: Mehtab ahmed
 # Author: Tweety
 ---
 sd:
+  number:
+    human:
+      decimal_units:
+        format: '%انگ%يونٽ'
+        units:
+          thousand: هزار
+          million: ملين
+          billion: بلين
+          trillion: ٽريلين
+          quadrillion: ڪواڊريلين
+  accessibility:
+    number_field: هي هڪ انگ جو ميدان آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
+      کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
   application:
     cancel: رد
+    cookie_consent: هيءَ سائيٽ توهان کي لاگ اِن (داخل رکڻ) لاءِ ڪوڪيز استعمال ڪندي
+      آهي، ۽ توهان جي وڪيپيڊيا کاتو يا اڪائونٽ بابت معلومات جمع ڪندي آهي.
+    cookie_consent_acknowledge: مان سمجهان ٿو
+    cookie_consent_see_more: وڌيڪ ڏسو
     create_accounts: وڪيپيڊيا کاتا کوليو
     dashboard: وڪي تعليم ڊيشبورڊ
     documentation: دستاويزسازي
@@ -19,6 +37,8 @@ sd:
     field_required: ھي جڳھ گھربل آھي
     field_invalid_characters: ھن جڳھ ۾ ناقل ڪار نشانيون آھن
     field_invalid_date: جڳھ کي YYYY-MM-DD ۾ تاريخ گھرجي ٿي.
+    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گھرجي. (0 کان 23 تائين ڪلاڪ وڃن
+      ٿا.)
     greeting2: ڀليڪار!
     greeting_extended: وڪيپيڊيا ۾ ڀليڪار
     greeting: سلام!
@@ -29,9 +49,12 @@ sd:
     log_out: خارج ٿيو
     my_dashboard: منھنجو ڊيش-بورڊ
     recent_activity: تازي سرگرمي
+    report_problem: مسئلو رپورٽ ڪريو
     request_account: کاتي لاءِ درخواست ڪيو
     request_account_create: کاتو کوليو
     search: ڪو سوال پڇو
+    search_results: ' نتيجن لاءِ: ''٪ {search_terms}'''
+    no_results: '''٪{query}'' لاءِ ڪي بہ نتيجا نه مليا'
     sign_up_extended: وڪيپيڊيا ۾ کاتو کوليو
     sign_up_wikipedia: يا وڪيپيڊيا تي سائن اَپ ڪيو
     sign_up_log_in_extended: وڪيپيڊيا سان
@@ -43,11 +66,25 @@ sd:
     confirm: ٺيڪ
     opt_in: ها
     opt_out: نہ
+    opt_yes: ھا
+    opt_no: نہ
+  article_statuses:
+    not_yet_started: شروع ڪريو
+    in_progress: مشق پٽي ۾ ڪم ڪرڻ
+    ready_for_review: ڊرافٽ کي وَڌائڻ
+    ready_for_mainspace: ڪم کي مُک اسپيس ڏانهن موڪلڻ
+    assignment_completed: ذميواري ڪم لڳل نشان پورو ڪيو ويو
+    reading_the_article: پڙهڻ جو مضمون
+    providing_feedback: فيڊ بئڪ (سُڌ سماءُ) پھچايو
+    post_to_talk: ڳالهه ٻولهه واري بحث صفحو ڏانهن پوسٽ ڪرڻ
+    peer_review_completed: پرک، ورجاءُ پورو ٿيو
   dashboard:
+    create_note: پنهنجو پهريون اڀياس (ڪورس) ٺاهڻ لاءِ ڪورس ٺاهڻ تي ٺِڙڪ (ڪلڪ) ڪريو.
     explore_course_pages: ڪورس جا صفحا کوجيو
     explore_examples: مثالَ ڳوليو
     no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
     no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
+    review_orientation: واقفيت جو جائزو وٺو
     start_orientation: اوريئنٽيشن شروع ڪيو
     blog_headline: وڪي ايڊيوڪيشن مان تازيون خبرون
   home:
@@ -57,13 +94,21 @@ sd:
     sign_up_help: To use the dashboard, you'll need to sign in through Wikipiedia
       and give it permission to access your account. You can log in with an existing
       Wikipedia account, or create a new one.
+  alerts:
+    alert_label: چِتاوڻيون
+    no_alerts: ڪي بہ چِتاوڻيون نہ لڌيون.
   activity:
     all: سرگرمي
     edited_by: سنواريندڙ
     label: سرگرمي
   articles:
+    article_development: (مضمون جي ترقي)
     assigned: تخصيصيل مضمون
     available: موجود مضمون
+    no_available: موجود مضمونَ نه مليا
+    next: اڳيون
+    previous: پويون
+    article_title: مضمون جو عنوان
     assigned_to: تخصيصدار
     character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
       ڪيل اکرن جو ڪل تعداد
@@ -71,6 +116,14 @@ sd:
     edited: سنواريل مضمون
     edited_by: جي طرفان سنواريو ويو
     edited_mobile: مضمون
+    filter:
+      wiki_all: سڀ
+      new: نئون
+      existing: موجوده
+      new_and_existing: نئون ۽ موجوده
+      tracked: پيرو کنيو ويو
+      untracked: اڻ ٽريڪ ڪيل
+      tracked_and_untracked: ٽريڪ ڪيل ۽ اڻ ٽريڪ ڪيل
     hide: لڪايو
     history: اڳوڻا تفصيل
     label: مضمون
@@ -92,6 +145,7 @@ sd:
     see_more: وڌيڪ ڏسو
     show_current_version: تازو ورزن ڏيکاريو
     title: عنوان
+    tracked: پيرو کنيو ويو
     title_example: مضمون جو عنوان
     tools: تشخيص جا اوزار
     view: مضمون ڏسو
@@ -100,31 +154,46 @@ sd:
     edit_size: سنوار جي ماپ
     wiki: وڪي
   assignments:
+    article_link: مضمون
+    already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
     add_available: موجود مضمون وجھو
     add_available_submit: مضمون شامل ڪيو
     assign_self: مون کي مضمون سونپيو
+    bibliography: ببلوگرافي
+    clone: ڪِلون
     confirm_deletion: پڪ سان توهان هيءَ مضمون مشق ڊاهڻ گھرو ٿا؟
+    editors: کي حوالي ڪيو ويو
+    group_members: گروپ رُڪنَ
     label: سونپيو
     loading: مشقون اتاري رهيا آهيون...
     none_short: ڪوبہ مضمون سونپيل ناھي
     none: هن ڪورس لاءِ ڪو بہ مضمون سونپيل نہ آهي.
     no_available: ھن ڪورس ۾ ڪي بہ مضمون موجود نہ آھن.
+    peer_review_link: شريڪ نظرثاني
+    peer_review_link_personalized: '%{username}''جي شريڪ نظرثاني'
     remove: هٽايو
     reviewers: تجزيو ڪندڙ
-    review_other: جائزي لاءِ سونپيو
+    review_other: شريڪ جائزي لاءِ سونپيو
     review_self: ڪنھن مضمون جو جائزو وٺو
+    sandbox_draft_link: مشق پَٽي ڊرافٽ
     select: چونڊيو
   blocks:
     milestones:
       title: سنگ-ميلَ
   campaign:
+    active_campaigns: هلندڙ مهم
     add_organizer: سرپرست شامل ڪيو (Add organizer)
     alert_article: مضمون جو عنوان
+    alert_label: اطلاع مهم
+    alert_type: قِسم
     alert_user_id: واپرائيندڙ
     all_campaigns: سڀ مهمون (All Campaigns)
+    already_exists: ان نالي سان مهم اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، يا سُرخي آزمايو.
     campaign: مهم (Campaign)
+    campaigns: مهم (Campaign)
+    campaign_updated: مهم تازي ڪئي وئي
     created_at: تاريخ
     course: ڪورس
     description: تفصيل

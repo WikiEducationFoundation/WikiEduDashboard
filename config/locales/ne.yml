@@ -69,6 +69,7 @@ ne:
   article_statuses:
     not_yet_started: सुरु हुदैँछ
     in_progress: प्रयाेगस्थलमा कार्य गर्दै
+    reading_the_article: अध्ययन लेख
     providing_feedback: सुझाव दिनुहोस्
     post_to_talk: वार्तालाप पृष्ठमा पेश गरिँदै
     peer_review_completed: समीक्षा पूरा भयो

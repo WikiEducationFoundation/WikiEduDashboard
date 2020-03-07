@@ -43,3 +43,7 @@
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.ungreeted
           = @pres.ungreeted_students(course)
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.reviewed
+          = @pres.last_reviewed_date(course)

@@ -63,6 +63,9 @@ ast:
     opt_out: Non
     opt_yes: sí
     opt_no: non
+  article_statuses:
+    not_yet_started: Primeros pasos
+    ready_for_review: Espander borrador
   dashboard:
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
     create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
@@ -203,9 +206,11 @@ ast:
     none_short: Nun hai artículos asinaos
     none: Esti cursu nun tien artículos asinaos.
     no_available: Esti cursu nun tien artículos disponibles.
+    peer_review_link: Revisión per pares
+    peer_review_link_personalized: Revisión per pares de %{username}
     remove: Desaniciar
     reviewers: Revisor(es)
-    review_other: Asinar una revisión
+    review_other: Axudicar una revisión per pares
     review_self: Revisar un artículu
     select: Seleicionar
   blocks:

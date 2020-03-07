@@ -70,18 +70,17 @@ class Revision < ApplicationRecord
 
   WIKITEXT_REF_TAGS = 'feature.wikitext.revision.ref_tags'
   WIKIDATA_REFERENCES = 'feature.len(<datasource.wikidatawiki.revision.references>)'
+  WIKI_SHORTENED_REF_TAGS = 'feature.enwiki.revision.shortened_footnote_templates'
 
-  def ref_tags
-    features[WIKITEXT_REF_TAGS] || features[WIKIDATA_REFERENCES]
-  end
-
-  def ref_tags_previous
-    return 0 if new_article
-    features_previous[WIKITEXT_REF_TAGS] || features_previous[WIKIDATA_REFERENCES]
+  def references_count(ores_features)
+    return nil if ores_features.empty?
+    (ores_features[WIKITEXT_REF_TAGS] || ores_features[WIKIDATA_REFERENCES] || 0) +
+      (ores_features[WIKI_SHORTENED_REF_TAGS] || 0)
   end
 
   def references_added
-    return 0 unless ref_tags_previous && ref_tags
-    ref_tags - ref_tags_previous
+    return (references_count(features) || 0) if new_article
+    return 0 unless references_count(features) && references_count(features_previous)
+    references_count(features) - references_count(features_previous)
   end
 end

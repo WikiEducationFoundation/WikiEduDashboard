@@ -13,6 +13,7 @@ import ThisWeek from './this_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
+import LastReviewed from './last_reviewed.jsx';
 import MyArticles from './my_articles/containers';
 import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
@@ -56,7 +57,7 @@ const Overview = createReactClass({
   },
 
   render() {
-    const course = this.props.course;
+    const { course, current_user } = this.props;
 
     if (course.cloned_status === 1) {
       return (
@@ -116,7 +117,8 @@ const Overview = createReactClass({
     );
 
     let userArticles;
-    if (this.props.current_user.isStudent && course.id) {
+    const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
+    if (this.props.current_user.isStudent && course.id && !isWikidataCourse) {
       userArticles = (
         <>
           <MyExercises trainingLibrarySlug={this.props.course.training_library_slug} />
@@ -131,6 +133,15 @@ const Overview = createReactClass({
 
     const sidebar = course.id ? (
       <div className="sidebar">
+        {
+          Features.wikiEd && current_user.isStaff && (
+            <LastReviewed
+              course={course}
+              current_user={current_user}
+              persistCourse={this.props.persistCourse}
+            />
+          )
+        }
         <Details
           {...this.props}
           updateCourse={this.props.updateCourse}

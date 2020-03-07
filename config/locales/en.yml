@@ -218,6 +218,13 @@ en:
       usually indicates that an article follow Wikipedia's conventions for the
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
+    articles_short: Articles
+
+  articles_wikidata:
+    articles_short: Items
+  
+  articles_generic:
+    articles_short: Pages
 
   assignments:
     article: The article %{title} is now assigned to you.
@@ -254,6 +261,10 @@ en:
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
+    warning_untracked_wiki: >
+      Please note that the article you’ve chosen is on a wiki not tracked 
+      by this course. To track contributions to this article, an instructor 
+      must add the following wiki to this course: %{wiki}
 
   blocks:
     milestones:
@@ -857,6 +868,7 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
+    last_reviewed: Last Reviewed
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
@@ -1060,6 +1072,10 @@ en:
     view_library_source: view library source
     view_module_source: view module source
     reload_from_source: reload from source
+    kind:
+      exercise: Exercise
+      discussion: Discussion
+      training: Training
 
   uploads:
     credit: Credit

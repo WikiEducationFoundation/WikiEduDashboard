@@ -73,10 +73,6 @@ class Assignment < ApplicationRecord
     role == Roles::ASSIGNED_ROLE
   end
 
-  def reviewing?
-    role == Roles::REVIEWING_ROLE
-  end
-
   def assignment_pipeline
     @pipeline ||= AssignmentPipeline.new(assignment: self)
   end

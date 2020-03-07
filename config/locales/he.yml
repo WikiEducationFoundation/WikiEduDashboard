@@ -686,6 +686,8 @@ he:
     previous: < הקודם
     table_of_contents: תוכן עניינים
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
+    kind:
+      discussion: דיון
   uploads:
     credit: קרדיט
     file_name: שם הקובץ

@@ -123,6 +123,11 @@ sv:
     views_added: Lade till %{count} nya läsningar %{title}
     edit_size: Redigera storlek
     wiki: Wiki
+    articles_short: Artiklar
+  articles_wikidata:
+    articles_short: Objekt
+  articles_generic:
+    articles_short: Sidor
   assignments:
     article: Artikeln %{title} har tilldelats dig
     assign_other: Tilldela en artikel
@@ -131,6 +136,7 @@ sv:
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
+    group_members: Gruppmedlemmar
     label: Tilldela
     loading: Läser in tilldelningar...
     none_short: Inga tilldelade artiklar
@@ -464,6 +470,9 @@ sv:
     edit_description: Redigera beskrivning
     edit_details: Redigera detaljer
     edit_template: Redigera mall
+  instructor_view:
+    assignments_table:
+      article_name: Artikelnamn
   metrics:
     label: Kursaktivitet
     last_update: Senast uppdaterad
@@ -589,6 +598,10 @@ sv:
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
     view_library_source: via bibliotekskälla
+    kind:
+      exercise: Övning
+      discussion: Diskussion
+      training: Träning
   uploads:
     credit: Erkännande
     file_name: Filnamn

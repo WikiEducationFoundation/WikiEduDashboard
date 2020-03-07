@@ -22,14 +22,15 @@ export function CloneCourseButton(props) {
 
 function onClickConfirmation(props) {
   return () => {
-    const clone = () => {
+    const confirmMessage = 'Are you sure you want to clone this course?';
+    const onConfirm = () => {
       props.cloneCourse(props.courseId).then(({ data }) => {
         const course = data.course;
         props.updateCourse(course);
         window.location = `/courses/${course.slug}`;
       });
     };
-    props.initiateConfirm('Are you sure you want to clone this course?', clone);
+    props.initiateConfirm({ confirmMessage, onConfirm });
   };
 }
 
