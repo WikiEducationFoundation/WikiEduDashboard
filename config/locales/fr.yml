@@ -102,9 +102,9 @@ fr:
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
-      dates de réunion de votre classe — y compris les pauses scolaires et les vacances —
-      pour adapter le planning à la plage de dates que vous choisirez. Souvenez-vous
-      que vous pouvez toujours modifier le planning pour l’adapter à vos besoins.
+      dates de réunion de votre classe —y compris les pauses scolaires et les vacances—
+      pour adapter la planification à la plage de dates que vous choisirez. Souvenez-vous
+      que vous pouvez toujours modifier la planification pour l’adapter à vos besoins.
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
@@ -383,9 +383,9 @@ fr:
       de compte ?
     activity: Activité
     active_courses: '%{course_type} actifs'
-    add_trainings: Veuillez ajouter des formations d’étudiant à votre planning d’affectation.
-      Affecter les modules de formation est une part essentielle des meilleures pratiques
-      du Wiki Éducation.
+    add_trainings: Veuillez ajouter des formations d’étudiant à votre planification
+      d’affectation. Affecter les modules de formation est une part essentielle des
+      meilleures pratiques du Wiki Éducation.
     alerts: Alertes
     all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de « %{title} » !
@@ -452,16 +452,16 @@ fr:
         du calendrier (par ex. jours fériés, vacances ou congés, école fermée). Cliquer
         sur la date pour la faire basculer entre non sélectionnée, sélectionnée et
         état en congé. Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de
-        vacances scolaires ». Le planning cloné ajustera automatiquement les dates
-        pour tenir compte des semaines sans réunions programmées.
+        vacances scolaires ». La planification clonée ajustera automatiquement les
+        dates pour tenir compte des semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
       clone_successful_details: Votre cours a été dupliqué, y compris les éléments
-        du planning (semaines et blocages). Assurez-vous d’ajouter les dates qui ne
-        sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
-        N’hésitez pas à le mettre à jour maintenant.
+        de planification (semaines et blocages). Assurez-vous d’ajouter les dates
+        qui ne sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il
+        changé ? N’hésitez pas à le mettre à jour maintenant.
       course_dates_info: Saisir les dates de début et de fin de votre cours. Dans
         la prochaine étape, vous pourrez choisir quand commencer l’affectation Wikipédia
-        dans ce planning.
+        dans cette planification.
       course_description: Description du cours
       course_description_placeholder: Qu’est-ce qui est couvert par votre cours, et
         que feront les étudiants sur Wikipédia ? Veuillez inclure suffisamment de
@@ -500,15 +500,15 @@ fr:
       find: Trouver votre cours
       intro: Le titre, l’école et la période créent l’URL de la page de cotre cours,
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
-        Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
+        Cliquez sur « Créer mon cours ! » pour commencer à construire la planification
         de votre affectation à Wikipédia.
       new_or_clone: Vous pouvez maintenant créer un nouveau cours en utilisant l’assistant
-        de conception de l’affectation. Si vous avez un planning fortement personnalisé
-        provenant d’un cours précédent que vous voulez réutiliser, vous pouvez le
+        de conception de l’affectation. Si vous avez une planification fortement personnalisée
+        provenant d’un cours précédent que vous voulez réutiliser, vous pouvez la
         dupliquer avec de nouvelles dates (si vous n’avez pas grandement personnalisé
-        votre planning auparavant, nous vous recommandons de démarrer un nouveau cours
-        pour avoir les versions les plus à jour des options d’affectation). Vous pouvez
-        aussi utiliser l’option duplication pour créer des sections supplémentaires
+        votre planification auparavant, nous vous recommandons de démarrer un nouveau
+        cours pour avoir les versions les plus à jour des options d’affectation).
+        Vous pouvez aussi utiliser l’option duplication pour créer des sections supplémentaires
         pour un cours que vous avez déjà défini.
       no_class_holidays: Je n’ai pas de congés scolaires
       role_description: Votre rôle dans le cours
@@ -729,7 +729,7 @@ fr:
       activités hebdomadaires et d'affecter les modules de formation. Elle est utile
       pour les cours du programme d'éducation et d'autres programmes longs et très
       structurés.
-    timeline_nav: Aller au planning
+    timeline_nav: Aller à la planification
     time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
     title: Titre
@@ -757,7 +757,7 @@ fr:
     volunteer:
       one: Bénévole
       other: Bénévoles
-    weeks_none: Ce cours n’a pas encore de planning.
+    weeks_none: Ce cours n’a pas encore de planification.
     warn_mirrored: |-
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
@@ -1081,10 +1081,10 @@ fr:
     none: Aucun ticket
   timeline:
     add_week: Ajouter une semaine
-    arrange_timeline: Organiser le planning
-    arrange_timeline_instructions: Organiser le planning en 'tirant et lâchant' des
-      blocs vers l’emplacement/semaine souhaité, ou repositionner les blocs en utilisant
-      les flèches sur la carte.
+    arrange_timeline: Organiser la planification
+    arrange_timeline_instructions: Organiser la planification en 'tirant et lâchant'
+      des blocs vers l’emplacement/semaine souhaité, ou repositionner les blocs en
+      utilisant les flèches sur la carte.
     assignment_dates_instructions: Sélectionner les dates de début et de fin de l'agenda
       d'affectations de Wikipédia. Modifier la date de début décalera toutes les dates
       de l'agenda.
@@ -1096,8 +1096,8 @@ fr:
     block_in_class: Dans la classe
     block_milestone: Jalon
     block_type: Le type de bloc est utilisé pour communiquer à vos étudiants sur cet
-      élément dans leur planning et pour construire des outils utiles pour vous (comme
-      la visualisation des jalons sur la page Vue d’ensemble)
+      élément dans leur planification et pour construire des outils utiles pour vous
+      (comme la visualisation des jalons sur la page Vue d’ensemble)
     course_dates: Dates du cours
     course_dates_instructions: Sélectionner les dates de début et de fin du cours
       complet (pas seulement l’affectation Wikipédia).
@@ -1108,40 +1108,40 @@ fr:
 
       Cette action ne peut être annulée.
     delete_weeks_confirmation: |-
-      Êtes-vous sûr de vouloir supprimer tout ce planning et recommencer ?
+      Êtes-vous sûr de vouloir supprimer toute cette planification et recommencer ?
 
       Cette opération ne pourra pas être annulée.
     discard_all_changes: Annuler toutes les modifications
-    delete_timeline_and_start_over: Supprimer le planning
+    delete_timeline_and_start_over: Supprimer la planification
     due_default: Attendu de la semaine prochaine
     edit_titles: Modifier les titres de semaine
-    edit_titles_info: Modifier les titres de semaine dans le planning. Seules les
-      semaines avec des réunions prévues peuvent recevoir des titres personnalisés.
+    edit_titles_info: Modifier les titres de semaine dans la planification. Seules
+      les semaines avec des réunions prévues peuvent recevoir des titres personnalisés.
       Si des titres personnalisés sont utilisés, les semaines sans réunion seront
       datées au lieu d’être numérotées.
     empty_week_1: Pour commencer,
     empty_week_2: commencer à modifier cette semaine
     empty_week_3: ou
-    empty_week_4: utiliser l’assistant d’affectation pour créer un planning.
+    empty_week_4: utiliser l’assistant d’affectation pour créer une planification.
     first_week_title: Première semaine active
     gradeable_value: Valeur
-    gradeables_none: Ce planning n’a aucune affectation marquée comme évaluée.
+    gradeables_none: Cette planification n’a aucune affectation marquée comme évaluée.
     grading_header: 'Évaluation (Total : %{total})'
     move_block_down: Faire descendre le bloc
     move_block_up: Faire monter le bloc
     no_class_holidays: Je n’ai pas de congés scolaires
-    no_timeline: Ce cours n’a pas de planning.
+    no_timeline: Ce cours n’a pas de planification.
     no_activity_this_week: pas de réunions prévues cette semaine
-    nothing_this_week: Il n’y a rien au planning pour cette semaine.
+    nothing_this_week: Il n’y a rien de planifié pour cette semaine.
     reset_titles: Réinitialiser à la valeur par défaut
     reset_titles_confirmation: Êtes-vous sûr de vouloir réinitialiser tous les titres
       de semaine ? Cela ne pourra pas être annulé.
     save_all_changes: Enregistrer tout
     this_week_title_default: Cette semaine
-    title: Planning
+    title: Planification
     unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
-      planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
-      pour faire de la place pour une nouvelle semaine.
+      planification est saturée. Supprimez au moins une semaine ou modifiez vos dates
+      d’affectation pour faire de la place pour une nouvelle semaine.
     view_full_timeline: Voir l'intégralité de l'échelle des temps
     week_number: Semaine %{number}
   training:
@@ -1299,11 +1299,11 @@ fr:
       summary: retard de formation d’étudiant
   wizard:
     assignment_dates: Dates de l'assignement
-    assignment_description: Choisir les dates de début et de fin de votre planning
+    assignment_description: Choisir les dates de début et de fin de votre planification
       d’affectation. Par exemple, si vous voulez commencer votre projet Wikipédia
       la deuxième semaine du cours, mettez la date de début d’affectation une semaine
       après celle de début du cours. L’outil de conception des affectations créera
-      un brouillon de planning qui correspondra aux dates que vous aurez choisies.
+      un brouillon de planification qui correspondra aux dates que vous aurez choisies.
     assignment_type: Que feront les étudiants pour leur devoir wikipédien ?
     calendar_instructions: Sélectionner les dates à ajouter ou supprimer du calendrier
       (par ex., vacances, pas d’école). Cela aidera l’outil de création des cours
@@ -1324,9 +1324,9 @@ fr:
     read_more: Lire plus
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier
       une sélection. Quand ce sera fini, cliquez sur 'Soumettre' pour terminer l’assistant
-      et construire votre planning.
+      et construire votre planification.
     select_assignment: Sélectionner le type de tâche que vous voulez ajouter à votre
-      planning.
+      planification.
     summary: Résumé
   error:
     form_errors: Veuillez vérifier les erreurs du formulaire.

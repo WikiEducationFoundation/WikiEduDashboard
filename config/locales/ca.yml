@@ -183,6 +183,11 @@ ca:
       Viquipèdia per tenir una bona estructura, però no té en compte el contingut
       (aquestes puntuacions només estan disponibles per articles de la Viquipèdia
       en anglès).
+    articles_short: Articles
+  articles_wikidata:
+    articles_short: Elements
+  articles_generic:
+    articles_short: Pàgines
   assignments:
     article: Se t'ha assignat l'article %{title}.
     article_link: Article

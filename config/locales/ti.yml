@@ -37,6 +37,7 @@ ti:
     remove: ኣልግስ
   campaign:
     alert_user_id: ተጠቃሚ
+    created_at: ዕለት
     description: መግለጺ
   categories:
     remove: ኣልግስ
@@ -47,4 +48,11 @@ ti:
     dismiss_survey: ኣሰነበተ
     loading: ጽዕነት...
     private: ብሕታዊ
+  metrics:
+    date_time: ዕለት/ሰዓት
+    view: ትርኢታት
+  recent_activity:
+    datetime: ዕለት/ሰዓት
+  revisions:
+    date_time: ዕለት/ሰዓት
 ...

@@ -18,6 +18,9 @@ hr:
     log_out: Odjavi se
   articles:
     articles_shown: Prikazuje se %{count} od ukupno %{total}
+    articles_short: Članci
+  articles_generic:
+    articles_short: Stranice
   assignments:
     group_members: Članovi skupine
   courses_generic:

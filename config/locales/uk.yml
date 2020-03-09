@@ -320,6 +320,7 @@ uk:
     random_passcode: випадковий код доступу
     requested_accounts: Запити на облікові записи
     title: Назва
+    slug: Службове поле
     search_campaigns: Пошук по кампаніях
     use_start_end_dates: Використовувати дати початку та закінчення
   categories:
@@ -885,6 +886,7 @@ uk:
     char: Додано символів
     date_time: Дата/час
     edit_count_description: Всього редагувань
+    last_reviewed: Останні переглянуті
     per_user: '%{number} на користувача'
     revisions: Недавні редагування
     references_count: Додано приміток

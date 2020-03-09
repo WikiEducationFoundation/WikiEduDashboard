@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Cedric31
 # Author: Jfblanc
+# Author: Quentí
 ---
 oc:
   application:
@@ -59,6 +60,11 @@ oc:
     view_on_wiki: Veire sul wiki
     views_added: '%{count} novèlas vistas apondudas per %{title}'
     edit_size: Modificar la talha
+    articles_short: Articles
+  articles_wikidata:
+    articles_short: Elements
+  articles_generic:
+    articles_short: Paginas
   assignments:
     assignees: Afectacion(s)
     assign_other: Afectar un article
@@ -185,6 +191,9 @@ oc:
     save: Enregistrar
     edit_description: Modificar la descripcion
     edit_details: Modificar los detalhs
+  instructor_view:
+    assignments_table:
+      article_name: Nom de l’article
   metrics:
     activity: Activitat recenta
     articles_created: Articles creats
@@ -195,6 +204,7 @@ oc:
     char: Caractèrs aponduts
     date_time: Data/Ora
     edit_count_description: Total de las modificacions
+    last_reviewed: Darrièra relectura
     per_user: '%{number}/utilizaire'
     revisions: Darrièrs cambiaments
     tags: Balisas
@@ -234,6 +244,10 @@ oc:
   training:
     start: Aviar
     view: Afichar
+    kind:
+      exercise: Exercici
+      discussion: Discussion
+      training: Formacion
   uploads:
     file_name: Nom de fichièr
     image: Imatge
