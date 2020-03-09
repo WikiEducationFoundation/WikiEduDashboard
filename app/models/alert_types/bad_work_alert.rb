@@ -22,6 +22,8 @@
 # Alert for an instructor marks a particular article as including work
 # that requires Wiki Expert intervention
 class BadWorkAlert < Alert
+  before_save :set_default_values
+
   def main_subject
     "#{article.title} — #{course&.slug}"
   end
@@ -34,14 +36,16 @@ class BadWorkAlert < Alert
     !resolved
   end
 
-  def send_email
-    email_content_expert
-  end
-
   def resolve_explanation
     <<~EXPLANATION
       Resolving this alert means the article work in question has been addressed
       with the students, the instructor, or the community.
     EXPLANATION
+  end
+
+  private
+
+  def set_default_values
+    self.target_user_id = content_experts.first
   end
 end

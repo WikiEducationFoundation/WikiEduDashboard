@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
 import _ from 'lodash';
 
@@ -8,11 +9,15 @@ import { trunc } from '../../utils/strings';
 import Loading from './loading.jsx';
 import ArticleViewerLegend from './article_viewer_legend.jsx';
 
+// Actions
+import { submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
+
 const ArticleViewer = createReactClass({
   displayName: 'ArticleViewer',
 
   propTypes: {
     article: PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
     showButtonLabel: PropTypes.string,
     showButtonClass: PropTypes.string,
     title: PropTypes.string,
@@ -271,6 +276,14 @@ const ArticleViewer = createReactClass({
     });
   },
 
+  submitBadWorkAlert() {
+    this.props.submitBadWorkAlert({
+      article_id: this.props.article.id,
+      course_id: this.props.course.id,
+      message: `BadWorkAlert: ${this.props.article.title}`
+    });
+  },
+
   wikiUserQueryUrl(users) {
     const baseUrl = `${this.wikiUrl()}/w/api.php`;
     const usersParam = (users || this.props.users).join('|');
@@ -380,7 +393,12 @@ const ArticleViewer = createReactClass({
             this.state.showBadArticleAlert && (
               <div className="article-alert">
                 <p>Click this button if you believe the work completed by your students needs intervention by a staff member of Wiki Education Foundation. A member of our staff will get in touch with you and your students.</p>
-                <button className="button danger">Notify Wiki Expert</button>
+                <button
+                  className="button danger"
+                  onClick={() => this.submitBadWorkAlert()}
+                >
+                  Notify Wiki Expert
+                </button>
               </div>
             )
           }
@@ -397,4 +415,8 @@ const ArticleViewer = createReactClass({
   }
 });
 
-export default OnClickOutside(ArticleViewer);
+const clickOutsideComponent = OnClickOutside(ArticleViewer);
+const mapDispatchToProps = {
+  submitBadWorkAlert
+};
+export default connect(null, mapDispatchToProps)(clickOutsideComponent);
