@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 
+import { ArticleViewer } from '../../../app/assets/javascripts/components/common/article_viewer.jsx';
 import '../../testHelper';
-import ArticleViewer from '../../../app/assets/javascripts/components/common/article_viewer.jsx';
 
 describe('ArticleViewer', () => {
   it('renders', () => {
@@ -12,9 +12,13 @@ describe('ArticleViewer', () => {
       project: 'wikipedia',
       url: 'https://en.wikipedia.org/wiki/Selfie'
     };
+    const course = {
+      id: 1
+    };
     const TestArticleViewer = ReactTestUtils.renderIntoDocument(
       <ArticleViewer
         article={article}
+        course={course}
         fetchArticleDetails={() => null}
       />
     );

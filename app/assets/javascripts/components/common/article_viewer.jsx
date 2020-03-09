@@ -12,7 +12,7 @@ import ArticleViewerLegend from './article_viewer_legend.jsx';
 // Actions
 import { submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
-const ArticleViewer = createReactClass({
+export const ArticleViewer = createReactClass({
   displayName: 'ArticleViewer',
 
   propTypes: {
