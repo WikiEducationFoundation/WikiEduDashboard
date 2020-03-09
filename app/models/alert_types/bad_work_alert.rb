@@ -46,6 +46,7 @@ class BadWorkAlert < Alert
   private
 
   def set_default_values
-    self.target_user_id = content_experts.first
+    self.message = "BadWorkAlert for #{self.article.title}"
+    self.target_user_id = content_experts.first&.id
   end
 end

@@ -279,8 +279,7 @@ const ArticleViewer = createReactClass({
   submitBadWorkAlert() {
     this.props.submitBadWorkAlert({
       article_id: this.props.article.id,
-      course_id: this.props.course.id,
-      message: `BadWorkAlert: ${this.props.article.title}`
+      course_id: this.props.course.id
     });
   },
 

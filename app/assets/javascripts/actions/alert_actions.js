@@ -12,7 +12,7 @@ import request from '../utils/request';
 export function submitBadWorkAlert(data) {
   return function (dispatch) {
     dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
-    return API.createNeedHelpAlert(data)
+    return API.createBadWorkAlert(data)
       .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
