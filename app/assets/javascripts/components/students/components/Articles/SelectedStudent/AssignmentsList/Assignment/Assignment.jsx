@@ -40,6 +40,7 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
       <td>
         <ArticleViewer
           article={article}
+          course={course}
           fetchArticleDetails={fetchArticleDetails}
           showPermalink={false}
           users={users}

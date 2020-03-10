@@ -154,8 +154,9 @@ const ArticleFinderRow = createReactClass({
 
     const articleViewer = (
       <ArticleViewer
-        title={this.props.article.title}
         article={article}
+        course={this.props.course}
+        title={this.props.article.title}
         showArticleFinder={true}
         showPermalink={false}
       />
