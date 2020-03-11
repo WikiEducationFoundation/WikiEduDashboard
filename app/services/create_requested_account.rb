@@ -28,14 +28,13 @@ class CreateRequestedAccount
 
   def set_result_description
     if @result[:failure]
-      @result[:result_description] = @result[:failure].sub('response: {}', '')
-                                                      .sub('https://en.wikipedia.org', '')
+      formatted_failure_message = @result[:failure].sub('response: {}', '')
+                                                   .sub('https://en.wikipedia.org', '')
       @result[:result_description] = I18n.t('users.requested_account_status.failure_message',
-                                            result_description: @result[:result_description])
+                                            result_description: formatted_failure_message)
     elsif @result[:success]
-      @result[:result_description] = @result[:success]
       @result[:result_description] = I18n.t('users.requested_account_status.success_message',
-                                            result_description: @result[:result_description])
+                                            result_description: @result[:success])
     end
   end
 
