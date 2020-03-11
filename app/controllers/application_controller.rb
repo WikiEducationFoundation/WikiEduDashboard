@@ -106,6 +106,10 @@ class ApplicationController < ActionController::Base
     current_user&.admin?
   end
 
+  def count_and_pluralize(results)
+    "#{results.count} #{(results.count > 1 ? 'Results' : 'Result')}"
+  end
+
   private
 
   def set_locale
