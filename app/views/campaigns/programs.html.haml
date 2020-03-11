@@ -88,8 +88,8 @@
               = t('courses.actions')
       %tbody.list
         - if @search_terms.present?
-          %h4= t('application.search_results', search_terms: @search_terms)
-          - @presenter.search_courses(@search_terms).each do |c|
+          %h4= t('application.search_results', search_terms: @search_terms, total_results: @num_of_results)
+          - @results.each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
           - programs = @presenter.courses_by_recent_edits

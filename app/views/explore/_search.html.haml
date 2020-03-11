@@ -70,7 +70,7 @@
               %th{style: 'width:100px'}
                 = t('courses.actions')
         %tbody.list
-          %h4= t('application.search_results', search_terms: query, results: total_results)
+          %h4= t('application.search_results', search_terms: query, total_results: num_of_results)
           - results.each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
     - else

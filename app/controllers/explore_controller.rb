@@ -22,6 +22,6 @@ class ExploreController < ApplicationController
     )
     @query = params[:search]
     @results = search_presenter.search_courses(@query)
-    @total_results = "#{@results.count} #{(@results.count > 1 ? 'Results' : 'Result')}"
+    @num_of_results = count_and_pluralize(@results)
   end
 end
