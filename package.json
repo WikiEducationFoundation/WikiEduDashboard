@@ -120,7 +120,7 @@
     "require-dir": "1.2.0",
     "reselect": "^4.0.0",
     "rev-del": "^2.0.0",
-    "rewire": "^4.0.1",
+    "rewire": "^5.0.0",
     "run-sequence": "^2.2.1",
     "rupture": "^0.7.1",
     "should": "^13.2.1",
