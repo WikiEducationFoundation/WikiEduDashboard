@@ -37,7 +37,8 @@ def osx_setup():
                    shell=True, check=True)
 
 if platform.platform().lower().find('ubuntu') != -1 \
-        or platform.platform().lower().find('debian') != -1:
+        or platform.platform().lower().find('debian') != -1 \
+        or platform.platform().lower().find('elementary') != -1:
     deb_setup()
 elif platform.platform().lower().find('fedora') != -1:
     dnf_setup()
