@@ -130,7 +130,7 @@ GEM
     browser (4.0.0)
     builder (3.2.4)
     byebug (11.1.1)
-    capistrano (3.12.0)
+    capistrano (3.12.1)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -498,7 +498,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.20.0)
+    sshkit (1.21.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.1)
