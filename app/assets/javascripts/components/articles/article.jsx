@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
-import ArticleViewer from '../common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';

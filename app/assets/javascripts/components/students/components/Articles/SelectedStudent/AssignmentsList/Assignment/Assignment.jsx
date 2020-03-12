@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import CurrentStatus from './CurrentStatus';
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
-import ArticleViewer from '@components/common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
 export const Assignment = ({ assignment, course, fetchArticleDetails, user }) => {
   const article = {

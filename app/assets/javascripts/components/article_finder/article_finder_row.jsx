@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
-import ArticleViewer from '../common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
 import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from '../../constants';
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
