@@ -63,7 +63,6 @@ en:
     request_account: Request an account
     request_account_create: Create an account
     search: ask a question
-    search_results: "%{total_results} for: '%{search_terms}'"
     search_results: 
      one: "%{count} Result for: '%{search_terms}'"
      other: "%{count} Results for: '%{search_terms}'"
