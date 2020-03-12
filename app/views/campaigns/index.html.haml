@@ -25,8 +25,12 @@
       %i.icon.icon-search
   - if @query.present?
     - if @campaigns.exists?
-      %h4
-        = t('application.search_results', search_terms: @query, total_results: @num_of_results)
+      - if @num_of_results > 1
+        %h4
+          = t('application.search_results.other', search_terms: @query, count: @num_of_results)
+      - else
+        %h4
+          = t('application.search_results.one', search_terms: @query, count: @num_of_results)
     - else
       %h4
         = t('application.no_results', query: @query)

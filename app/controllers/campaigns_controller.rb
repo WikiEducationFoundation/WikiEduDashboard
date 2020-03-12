@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
     @query = search_params[:search]
     @campaigns = if @query.present?
                    @results = Campaign.where('lower(title) like ?', "%#{@query.downcase}%")
-                   @num_of_results = count_and_pluralize(@results)
+                   @num_of_results = @results.count
                    @results
                  else
                    Campaign.all
@@ -110,7 +110,7 @@ class CampaignsController < ApplicationController
     @search_terms = params[:courses_query]
     if @search_terms.present?
       @results = @presenter.search_courses(@search_terms)
-      @num_of_results = count_and_pluralize(@results)
+      @num_of_results = @results.count
     end
   end
 

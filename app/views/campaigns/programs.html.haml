@@ -88,7 +88,10 @@
               = t('courses.actions')
       %tbody.list
         - if @search_terms.present?
-          %h4= t('application.search_results', search_terms: @search_terms, total_results: @num_of_results)
+          - if @num_of_results > 1
+            %h4= t('application.search_results.other', search_terms: @search_terms, count: @num_of_results)
+          -else
+            %h4= t('application.search_results.one', search_terms: @search_terms, count: @num_of_results)
           - @results.each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
