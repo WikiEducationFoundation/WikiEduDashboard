@@ -36,13 +36,13 @@ class RequestedAccountsCampaignsController < ApplicationController
   def create_account(requested_account)
     creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
     result = creation_attempt.result
-    if result[:success]
-      # If it was successful, enroll the user in the course
-      user = creation_attempt.user
-      JoinCourse.new(course: requested_account.course, user: user,
-                     role: CoursesUsers::Roles::STUDENT_ROLE)
-    end
-    return result
+    return result unless result[:success]
+    # If it was successful, enroll the user in the course
+    user = creation_attempt.user
+    JoinCourse.new(course: requested_account.course,
+                   user: user,
+                   role: CoursesUsers::Roles::STUDENT_ROLE)
+    result
   end
 
   def check_creation_permissions
