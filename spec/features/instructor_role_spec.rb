@@ -87,11 +87,11 @@ describe 'Instructor users', type: :feature, js: true do
 
     before do
       TrainingModulesUsers.destroy_all
-      Timecop.travel(1.year.from_now)
+      travel(1.year)
     end
 
     after do
-      Timecop.return
+      travel_back
     end
 
     it 'can see real names of enrolled students' do
