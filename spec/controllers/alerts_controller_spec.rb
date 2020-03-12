@@ -12,7 +12,13 @@ describe AlertsController, type: :request do
     end
 
     let(:alert_params) do
-      { message: 'hello?', target_user_id: target_user.id, course_id: course.id, format: :json }
+      {
+        message: 'hello?',
+        target_user_id: target_user.id,
+        course_id: course.id,
+        format: :json,
+        alert_type: 'NeedHelpAlert'
+      }
     end
 
     before do
@@ -47,7 +53,7 @@ describe AlertsController, type: :request do
 
     context 'when no target user is provided' do
       let(:alert_params) do
-        { message: 'hello?', course_id: course.id, format: :json }
+        { message: 'hello?', course_id: course.id, format: :json, alert_type: 'NeedHelpAlert' }
       end
 
       it 'still works' do

@@ -42,21 +42,4 @@ describe BadWorkAlert do
   let(:alert) do
     create(:bad_work_alert, user: instructor, course: course, article: article)
   end
-
-  describe '#send_email' do
-    it 'sends an email to the content expert with the correct subject' do
-      expect(alert.email_sent_at).to be_nil
-      alert.send_email
-      expect(alert.reload.email_sent_at).not_to be_nil
-
-      emails = ActionMailer::Base.deliveries
-      expect(emails.length).to eq(1)
-
-      email = emails.first
-      expect(email.to_addresses.length).to eq(1)
-      expect(email.to_addresses.first.address).to eq(expert.email)
-      expect(email.subject).to include(article.title)
-      expect(email.subject).to include(course.slug)
-    end
-  end
 end

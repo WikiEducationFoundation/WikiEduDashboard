@@ -68,7 +68,7 @@ class AlertsController < ApplicationController
   end
 
   def alert_params
-    params.permit(:alert_type, :article_id, :course_id, :message)
+    params.permit(:alert_type, :article_id, :course_id, :message, :target_user_id)
   end
 
   def set_default_target_user
