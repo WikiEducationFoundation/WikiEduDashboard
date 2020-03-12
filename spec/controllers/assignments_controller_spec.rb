@@ -374,7 +374,7 @@ describe AssignmentsController, type: :request do
       it 'renders a 200' do
         patch "/assignments/#{assignment.id}/status", params: request_params
         expect(response.status).to eq(200)
-        expect(assignment.reload.assignment_pipeline.status).to eq(status)
+        expect(assignment.reload.status).to eq(status)
       end
     end
 

@@ -40,6 +40,10 @@ class Assignment < ApplicationRecord
 
   serialize :flags, Hash
 
+  delegate :status, to: :assignment_pipeline
+  delegate :update_status, to: :assignment_pipeline
+  delegate :all_statuses, to: :assignment_pipeline
+
   #############
   # CONSTANTS #
   #############
@@ -73,11 +77,11 @@ class Assignment < ApplicationRecord
     role == Roles::ASSIGNED_ROLE
   end
 
+  private
+
   def assignment_pipeline
     @pipeline ||= AssignmentPipeline.new(assignment: self)
   end
-
-  private
 
   def set_defaults_and_normalize
     self.wiki_id ||= course.home_wiki.id
