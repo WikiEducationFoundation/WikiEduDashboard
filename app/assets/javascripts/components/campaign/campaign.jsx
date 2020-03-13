@@ -10,6 +10,7 @@ import { getCampaign } from '../../actions/campaign_view_actions';
 import CampaignStats from './campaign_stats.jsx';
 import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import CampaignOresPlot from './campaign_ores_plot.jsx';
+import CampaignOverviewHandler from './campaign_overview_handler';
 
 export const Campaign = createReactClass({
   displayName: 'Campaign',
@@ -27,6 +28,9 @@ export const Campaign = createReactClass({
   render() {
     if (this.props.campaign.loading) {
       return <div />;
+    }
+    if (window.location.href.match(/overview/)) {
+      return <CampaignOverviewHandler {...this.props} />;
     }
     return (
       <div>
