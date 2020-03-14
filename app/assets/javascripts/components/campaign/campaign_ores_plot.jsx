@@ -65,7 +65,9 @@ const CampaignOresPlot = createReactClass({
       }
       return <div>No Structural Completeness data available</div>;
     }
-    return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
+    return (
+      <button className="button small" onClick={this.show}>Change in Structural Completeness</button>
+    );
   }
 });
 

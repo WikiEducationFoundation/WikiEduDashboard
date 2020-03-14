@@ -91,6 +91,8 @@ export const OnboardingSupplementary = createReactClass({
             <input type="radio" name="heardFrom" value="conference" onChange={this._handleFieldChange} />Conference<br/>
             <input type="radio" name="heardFrom" value="workshop" onChange={this._handleFieldChange} />University workshop<br/>
             <input type="radio" name="heardFrom" value="web" onChange={this._handleFieldChange} />Web Search<br/>
+            <input type="radio" name="heardFrom" value="twitter" onChange={this._handleFieldChange} />Twitter<br/>
+            <input type="radio" name="heardFrom" value="facebook" onChange={this._handleFieldChange} />Facebook<br/>
             <input type="radio" name="heardFrom" value="other" onChange={this._handleFieldChange} />Other<br/>
             {
               referralDetailsLabel && referralDetails

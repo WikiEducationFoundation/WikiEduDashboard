@@ -21,4 +21,18 @@ describe 'user profile pages', type: :feature, js: true do
     expect(page).to have_content "Total impact made by Sage's students"
     expect(page).to have_content 'Total impact made by Sage as a student'
   end
+
+  context 'when user has done training(s)' do
+    before do
+      TrainingModule.load
+      create(:training_modules_users, user: user, training_module_id: TrainingModule.first.id,
+                                      completed_at: Time.zone.now)
+    end
+
+    it 'shows training status' do
+      visit "/users/#{user.username}"
+      expect(page).to have_content TrainingModule.first.name
+      expect(page).to have_content 'Completed at'
+    end
+  end
 end

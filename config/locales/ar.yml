@@ -15,6 +15,7 @@
 # Author: Sonic N800
 # Author: Youssef
 # Author: ديفيد
+# Author: عباد ديرانية
 # Author: علاء
 # Author: محمد أحمد عبد الفتاح
 ---
@@ -76,6 +77,16 @@ ar:
     opt_out: لا
     opt_yes: نعم
     opt_no: لا
+  article_statuses:
+    not_yet_started: ابدأ
+    in_progress: العمل في الملعب
+    ready_for_review: توسيع مسودة
+    ready_for_mainspace: نقل العمل إلى النطاق الرئيسي
+    assignment_completed: المهمة مُعلمة كمنتهية
+    reading_the_article: قراءة المقالة
+    providing_feedback: تزويد تغذية راجعة
+    post_to_talk: الكتابة في صفحة النقاش
+    peer_review_completed: تمت المراجعة
   dashboard:
     create_note: انقر فوق إنشاء ملعب لإنشاء دورتك الأولى.
     create_preparation_note: تأكد من توفر رزنامتك الدراسية في متناول يديك قبل أن تشرع
@@ -192,6 +203,11 @@ ar:
       المراجع وروابط الويكي وسمات نصية أساسية أخرى، يشير في العادة مجموع النقاط المرتفع
       إلى أن المقالة تتبع أعراف ويكيبيديا الخاصة ببنية المقالة الجيدة إلا أنه لا ينظر
       بعين الاعتبار للمحتوى ذاته. (هذه النقاط متاحة فقط لمقالات ويكيبيديا الإنجليزية).
+    articles_short: المقالات
+  articles_wikidata:
+    articles_short: العناصر
+  articles_generic:
+    articles_short: الصفحات
   assignments:
     article: المقالة التي تحمل العنوان %{title} مخصصة الآن لك.
     article_link: مقالة
@@ -210,6 +226,7 @@ ar:
     confirm_addition: هل أنت متأكد أنك تريد تعيين %{title} ل%{username}?
     confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
     editors: مخصص لـ
+    group_members: أعضاء المجموعة
     label: تعيين
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة
@@ -218,14 +235,18 @@ ar:
     peer_review_count: '%{currentCount}/%{total} تم اختيارها'
     peer_review_count_tooltip: يجب عليك تحديد %{total} لمراجعة النظراء.
     peer_review_link: استعراض النظراء
+    peer_review_link_personalized: '%{username}'' مراجعات دقيقة'
     remove: إزالة
     reviewers: المراجع(ون)
-    review_other: تعيين مراجعة
+    review_other: تعيين مراجعة أقران
     review_self: مراجعة مقال
     review_tooltip: هذا الجزء مخصص لمقالة(ات) تعتزم مراجعة زملاء لها أو تقديم آراء
       وملاحظات عليها.
     sandbox_draft_link: مسودة الملعب
     select: اختر
+    warning_untracked_wiki: 'انتبه رجاءً لأنك اخترتَ مقالةً في نسخة من مواقع ويكيميديا
+      غير متضمّنة بهذه المادة، ولذلك لا يمكن تتبّع التعديلات عليها. يجب على أستاذ
+      المادة أن يضيف هذا الموقع إلى المادة: %{wiki}'
   blocks:
     milestones:
       title: معالم
@@ -323,9 +344,8 @@ ar:
       بصفحة النقاش لكل مقالة معينة.
     accounts_generation_enabled: تم تمكين استحداث طلبات حسابات
     accounts_generation_explanation: سوف يمكن هذا الأمر المشاركين من إدخال عنوان بريدهم
-      الإلكتروني واسم المستخدم المرغوب، بدلا من إنشاء حسابات جديدة بأنفسهم، سيمكنك
-      بعد ذلك إنشاء حسابات من لوحة التحكم وإضافتها بصفة مشاركين في ذات الوقت كي تستخدم
-      هذه السمة يجب أن تمتلك صلاحية 'منشئ حساب' على الويكي الرئيسي لهذا البرنامج.
+      الإلكتروني واسم المستخدم المرغوب، بدلا من إنشاء حسابات جديدة بأنفسهم، ويمكنك
+      بعد ذلك إنشاء حسابات من لوحة التحكم وإضافتها بصفة مشاركين في ذات الوقت.
     accounts_generation_confirm_message: هل أنت متأكد أنك ترغب في تمكين طلبات الحسابات؟
     activity: النشاط
     active_courses: '%{course_type} الناشطة'
@@ -602,6 +622,7 @@ ar:
     search_courses: البحث في الدورات
     start: البداية
     start_typing: ابدأ الكتابة
+    student: طالب
     students: الطلاب
     students_taught: الطلاب المتعملون
     students_count: '# الطلاب'
@@ -760,6 +781,7 @@ ar:
     search_courses: البحث عن البرامج
     start: بدء تعقب النشاط
     student_editors: المحررون
+    student: المحرر
     students: المحررون
     students_taught: مجموع المحررين
     students_none: هذا المشروع ليس لديه محررون مسجلون.
@@ -785,6 +807,21 @@ ar:
     edit_template: تحرير القالب
     rename_confirmation: تم تغيير حقول الدورة التدريبية من المسار، سيؤدي هذا إلى تغيير
       المسار وكسر أية وصلات واردة، هل أنت متأكد من أنك تريد أن تفعل هذا؟
+  instructor_view:
+    article_assignments: '%{prefix} المقالات المسندة'
+    assignments_table:
+      article_name: اسم المقالة
+      current_stage: المرحلة الحالية
+      relevant_links: الوصلات المتعلقة
+    assigned_articles: تعيين مقالات
+    exercises_and_trainings: مهام وتدريبات %{prefix}
+    no_assignments: لم تُسنَد أي مقالات لهذا الطالب حالياً. يمكنك أن تُسنِدَ إليه
+      مقالةً من الاختيارات أعلاه.
+    overview: '%{prefix} مقدمة'
+    reviewing_articles: مراجعة المقالات
+    select_student:
+      title: اختر %{prefix}
+      content: لإسناد المقالات أو عرض المقالات المسندة
   metrics:
     label: نشاط المساق
     last_update: آخر تحديث للإحصاءات
@@ -804,6 +841,7 @@ ar:
     char: الحروف المضافة
     date_time: تاريخ/وقت
     edit_count_description: إجمالي التعديلات
+    last_reviewed: المراجعات الأخيرة
     per_user: '%{number}/مستخدم'
     revisions: تعديلات حديثة
     references_count: المراجع المضافة
@@ -1018,6 +1056,10 @@ ar:
     view_library_source: عرض مصدر المكتبة
     view_module_source: عرض مصدر الوحدة
     reload_from_source: إعادة تحميل من المصدر
+    kind:
+      exercise: تمرين
+      discussion: نقاش
+      training: تدريب
   uploads:
     credit: الإحالات
     file_name: اسم الملف
@@ -1060,6 +1102,9 @@ ar:
     enroll_confirmation: هل أنت متأكد أنك تريد إضافة %{username}
     enroll_url: 'يمكن للمستخدمين الانضمام من خلال زيارة هذا المسار:'
     enrolled_success: تمت إضافة %{username} بنجاح!
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} تمرين مكتمل'
+      other: '%{completed_count}/%{count} تمرينات مكتملة'
     first_name: الاسم الأول
     last_name: الاسم الأخير
     loading: جارٍ تحميل المستخدمين...
@@ -1086,6 +1131,11 @@ ar:
     reviewers: المراجع(ون)
     reviewing: مراجعة
     sandboxes: ملاعب
+    sub_navigation:
+      article_assignments: مهام مقالات
+      editor_overview: نظرة عامة للمحرر
+      exercises_and_trainings: التمارين والتدريبات
+      student_overview: نظرة عامة للطالب
     total_uploads: إجمالي المرفوعات
     training_complete:
       one: أنهى التدريب حتى الآن

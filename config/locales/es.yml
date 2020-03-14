@@ -179,6 +179,11 @@ es:
       un artículo sigue las convenciones de Wikipedia sobre la estructura de un buen
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
+    articles_short: Artículos
+  articles_wikidata:
+    articles_short: Elementos
+  articles_generic:
+    articles_short: Páginas
   assignments:
     article: El artículo %{title} ahora está asignado a ti.
     article_link: Artículo
@@ -798,6 +803,10 @@ es:
     done: ¡Hecho!
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
+    kind:
+      exercise: Ejercicio
+      discussion: Discusión
+      training: Entrenamiento
   uploads:
     credit: Crédito
     file_name: Nombre del archivo

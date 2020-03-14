@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
-import Controls from '../components/Exercises/Controls/Controls.jsx';
+import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentExercisesList from '../components/Exercises/StudentExercisesList';
 
 // Actions
@@ -21,20 +21,15 @@ export class Exercises extends React.Component {
     const {
       course, current_user, prefix, openKey, sort, students,
       trainingStatus, wikidataLabels, sortUsers,
-      sortSelect
+      notify, sortSelect
     } = this.props;
 
     return (
       <div className="list__wrapper">
-        {
-          current_user.isAdvancedRole && (
-            <StudentsSubNavigation
-              course={course}
-              current_user={current_user}
-              heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
-            />
-          )
-        }
+        <StudentsSubNavigation
+          course={course}
+          heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
+        />
         {
           current_user.isAdvancedRole
             ? (
@@ -42,6 +37,8 @@ export class Exercises extends React.Component {
                 course={course}
                 current_user={current_user}
                 students={students}
+                notify={notify}
+                showOverviewFilters={false}
                 sortSelect={sortSelect}
               />
             ) : null

@@ -103,7 +103,7 @@ const AddCategoryButton = createReactClass({
     };
 
     const confirmMessage = I18n.t(`categories.confirm_${this.props.source}_addition`, { name: categoryCourse.category });
-    return this.props.initiateConfirm(confirmMessage, onConfirm);
+    return this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
 

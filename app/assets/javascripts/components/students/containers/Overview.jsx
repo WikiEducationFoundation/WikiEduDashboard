@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { toggleUI, resetUI } from '~/app/assets/javascripts/actions';
-import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
 import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selectors';
 
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
@@ -20,7 +19,6 @@ export class Overview extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.notify = this.notify.bind(this);
   }
 
   componentWillUnmount() {
@@ -35,30 +33,19 @@ export class Overview extends React.Component {
     this.setState({ showModal: false });
   }
 
-  notify() {
-    if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
-      return this.props.notifyOverdue(this.props.course.slug);
-    }
-  }
-
   render() {
     const {
       assignments, course, current_user, openKey, prefix, sort, students,
       trainingStatus, wikidataLabels, sortUsers, userRevisions,
-      sortSelect,
+      notify, sortSelect
     } = this.props;
 
     return (
       <div className="list__wrapper">
-        {
-          current_user.isAdvancedRole && (
-            <StudentsSubNavigation
-              course={course}
-              current_user={current_user}
-              heading={I18n.t('instructor_view.overview', { prefix })}
-            />
-          )
-        }
+        <StudentsSubNavigation
+          course={course}
+          heading={I18n.t('instructor_view.overview', { prefix })}
+        />
         {
           current_user.isAdvancedRole
           ? (
@@ -66,7 +53,7 @@ export class Overview extends React.Component {
               course={course}
               current_user={current_user}
               students={students}
-              notify={this.notify}
+              notify={notify}
               sortSelect={sortSelect}
             />
           ) : null
@@ -122,7 +109,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  notifyOverdue,
   resetUI,
   toggleUI
 };

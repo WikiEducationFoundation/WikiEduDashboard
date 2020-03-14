@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Les Meloures
 # Author: Robby
+# Author: Soued031
 ---
 lb:
   application:
@@ -45,6 +46,14 @@ lb:
     opt_out: Neen
     opt_yes: jo
     opt_no: neen
+  article_statuses:
+    not_yet_started: Fir unzefänken
+    in_progress: An enger Sandkëscht schaffen
+    ready_for_review: Schabloun erweideren
+    reading_the_article: Artikel liesen
+    providing_feedback: Feedback ginn
+    post_to_talk: Op der Diskussiounssäit publizéieren
+    peer_review_completed: Nokucken ofgeschloss
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -108,6 +117,11 @@ lb:
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
     wiki: Wiki
+    articles_short: Artikelen
+  articles_wikidata:
+    articles_short: Elementer
+  articles_generic:
+    articles_short: Säiten
   assignments:
     article_link: Artikel
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
@@ -115,6 +129,7 @@ lb:
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     editors: Net gespäichert
+    group_members: Membere vum Grupp
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
@@ -218,7 +233,7 @@ lb:
     enroll: Aschreiwen
     enrollment: Studenten derbäisetzen/ewechhuelen
     error:
-      exists: Dee Cours gëtt et schonn! Probéiert et w.e.g. nach eng Kéier mat engem
+      exists: Dee Cours gëtt et schonn! Probéiert et wgl. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
@@ -261,6 +276,7 @@ lb:
     school_and_term: Institutioun/Dauer
     start: Ufank
     start_typing: Fänkt u mat Tippen
+    student: Student
     students: Studenten
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
@@ -328,6 +344,7 @@ lb:
     school: Institutioun
     school_and_term: Institiutioun/Wéini
     student_editors: Editeuren
+    student: Editeur
     students: Editeuren
     students_short: Auteuren
     students_count: Zuel vu Participanten
@@ -342,6 +359,15 @@ lb:
     edit_description: Beschreiwung änneren
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
+  instructor_view:
+    assignments_table:
+      article_name: Numm vum Artikel
+      current_stage: Aktuelle Stand
+      relevant_links: Relevant Linken
+    overview: Iwwersiicht %{prefix}
+    reviewing_articles: Artikelen nokucken
+    select_student:
+      title: '%{prefix} eraussichen'
   metrics:
     last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
@@ -352,6 +378,7 @@ lb:
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
+    last_reviewed: Fir d'lescht nogekuckt
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
     tags: Markéierungen
@@ -441,6 +468,10 @@ lb:
     done: Fäerdeg!
     invalid: Pardon dee Slide gëtt et net!
     check_answer: Äntwert nokucken
+    kind:
+      exercise: Exercice
+      discussion: Diskussioun
+      training: Formatioun
   uploads:
     file_name: Numm vum Fichier
     image: Bild
@@ -481,6 +512,9 @@ lb:
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
     sandboxes: Sandkëschten
+    sub_navigation:
+      exercises_and_trainings: Exercicen & Formatiounen
+      student_overview: Iwwersiicht vum Student
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
@@ -508,24 +542,24 @@ lb:
     image_link_placeholder: Link op d'Bild derbäisetzen (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
-    select_one_option: Wielt w.e.g. eng Optioun eraus.
+    select_one_option: Wielt wgl. eng Optioun eraus.
     minimum_options:
-      other: Sicht w.e.g. eng oder méi Optiounen. Optioun(en).
+      other: Sicht wgl. eng oder méi Optiounen. Optioun(en).
     read_less: Manner liesen
     read_more: Liest méi
     summary: Resumé
   error:
-    form_errors: Kuckt de Formulaire w.e.g. no Feeler no.
+    form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: '%{key} Datum ass net valabel'
-    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued w.e.g. e PDF
-      oder e Word-Dokument erop.
+    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued wgl. e PDF oder
+      e Word-Dokument erop.
     start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
     header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
-      w.e.g., loggt Iech an a probéiert nach eng Kéier.
+      wgl., loggt Iech an a probéiert nach eng Kéier.
   error_no_course:
     explanation: Et gëtt kee Cours %{slug}.
   error_404:

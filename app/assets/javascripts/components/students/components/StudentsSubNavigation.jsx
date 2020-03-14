@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import SubNavigation from '@components/common/sub_navigation.jsx';
 
-export const StudentsSubNavigation = ({ course, current_user, heading }) => {
+export const StudentsSubNavigation = ({ course, heading }) => {
   const links = [
     {
       href: `/courses/${course.slug}/students/overview`,
@@ -21,15 +21,14 @@ export const StudentsSubNavigation = ({ course, current_user, heading }) => {
     }
   ];
 
-  return current_user.isAdvancedRole ? (
-    <SubNavigation heading={heading} links={links} />
-  ) : null;
+  return <SubNavigation heading={heading} links={links} />;
 };
 
 StudentsSubNavigation.propTypes = {
-  current_user: PropTypes.shape({
-    isAdvancedRole: PropTypes.bool
-  }).isRequired
+  course: PropTypes.shape({
+    slug: PropTypes.string.isRequired
+  }).isRequired,
+  heading: PropTypes.string.isRequired
 };
 
 export default StudentsSubNavigation;

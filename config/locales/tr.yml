@@ -45,7 +45,7 @@ tr:
     cookie_consent_acknowledge: Anladım
     cookie_consent_see_more: Daha fazla gör.
     create_accounts: Vikipedi hesabı oluştur
-    dashboard: Wiki Ed Deneme Tahtası
+    dashboard: Viki Eğitim Paneli
     documentation: Belgelendirme
     error: 'Bir hata oluştu:'
     explore: Keşfet
@@ -83,6 +83,16 @@ tr:
     opt_out: Hayır
     opt_yes: evet
     opt_no: hayır
+  article_statuses:
+    not_yet_started: Başlangıç
+    in_progress: Sandbox Üzerinde Çalışıyor
+    ready_for_review: Taslak Genişletiyor
+    ready_for_mainspace: İşi Ana Alana Taşınıyor
+    assignment_completed: Atanma Tamamlandı Olarak İşaretlendi
+    reading_the_article: Makale Okuma
+    providing_feedback: Geri Bildirim Sağlama
+    post_to_talk: Tartışma Sayfasına Gönderme
+    peer_review_completed: İnceleme Tamamlandı
   dashboard:
     create_note: İlk dersinizi oluşturmak için Oluştur'a tıklayın.
     create_preparation_note: Başlamadan önce akademik takviminizi hazır bulundurun;
@@ -100,7 +110,7 @@ tr:
       oryantasyon yapalım. (Tamamlanması yaklaşık 30 dakika alır.)
     review_orientation: Oryantasyonu İncele
     start_orientation: Oryantasyonu Başlat
-    blog_headline: Wiki Eğitiminden Son Haberler
+    blog_headline: Viki Eğitiminden Son Haberler
     about_programs: Bu site, Programlar arasında - bir müzik dersi veya okul kursu
       gibi kişisel etkinlikler olan wiki etkinliklerini izler. Her Program, Programlar
       arasında toplam istatistikler sağlayan bir veya daha fazla Kampanyanın parçasıdır.
@@ -198,7 +208,7 @@ tr:
     view_on_wiki: Wikide görüntüle
     views_added: '%{title} için %{count} yeni görüntüleme eklendi'
     edit_size: Boyutu Düzenle
-    wiki: Wiki
+    wiki: Viki
     wp10: Yapısal Bütünlük
     wp10_doc: '''Yapısal Tamamlanma'' puanı, bir makalenin, makine öğrenmeye dayalı
       Amaç Revizyon Değerlendirme Hizmeti''ne (https://ores.wikimedia.org/) dayanarak,
@@ -208,9 +218,14 @@ tr:
       bir makalenin Vikipedi''nin iyi bir makalenin yapısına ilişkin sözleşmelerini
       takip ettiğini gösterir, ancak içeriğin kendisini dikkate almaz. (Bu puanlar
       yalnızca İngilizce Vikipedi makaleleri için geçerlidir.)'
+    articles_short: Maddeler
+  articles_wikidata:
+    articles_short: Ögeler
+  articles_generic:
+    articles_short: Sayfalar
   assignments:
     article: '%{title} makalesi artık size devredilmiştir.'
-    article_link: Makale
+    article_link: Madde
     already_exists: Bu devir işlemi zaten yapılmış!
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
@@ -228,6 +243,7 @@ tr:
       misiniz?'
     confirm_deletion: Bu makaleyi silmek istediğinizden emin misiniz?
     editors: Atanan
+    group_members: Grup üyeleri
     label: Ata
     loading: Atamalar yükleniyor...
     none_short: Herhangi bir makale atanmadı
@@ -236,14 +252,18 @@ tr:
     peer_review_count: '%{currentCount}/%{total} seçildi'
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
+    peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
     remove: Kaldır
     reviewers: İnceleyici
-    review_other: Bir inceleme ata
+    review_other: Akran değerlendirmesi ata
     review_self: Bir makaleyi incele
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
       makale içindir.
     sandbox_draft_link: Sandbox Taslağı
     select: Seç
+    warning_untracked_wiki: 'Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
+      vikide olduğunu lütfen unutmayın. Bu makaleye katkıları izlemek için bir eğitmen
+      bu kursa şu vikiyi eklemelidir: %{wiki}'
   blocks:
     milestones:
       title: Kilometre taşları
@@ -350,10 +370,9 @@ tr:
       makale için konuşma sayfasına bir şablon gönderir.
     accounts_generation_enabled: Hesap isteği oluşturma etkin
     accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
-      e-posta adreslerini ve istenen kullanıcı adlarını girmelerini sağlar. Daha sonra
-      bu Gösterge Tablosundan hesaplar oluşturabilecek ve aynı anda program katılımcıları
-      olarak ekleyebileceksiniz. Bu özelliği kullanmak için, bu programın ana wikisinde
-      'hesap oluşturucu' izniniz olmalıdır.
+      e-posta adreslerini ve istenen kullanıcı adlarını girmelerine olanak tanır.
+      Daha sonra bu Gösterge Tablosundan hesaplar oluşturabilir ve aynı anda program
+      katılımcıları olarak ekleyebilirsiniz.
     accounts_generation_confirm_message: Hesap isteklerini etkinleştirmek istediğinizden
       emin misiniz?
     activity: Etkinlik
@@ -552,7 +571,7 @@ tr:
     feedback: Geri bildirim
     feedback_loading: Öneriler yükleniyorken lütfen bekleyin...
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
-    home_wiki: Ana Wiki
+    home_wiki: Ana Viki
     multi_wiki: İzlenen Wikiler
     instructor:
       one: Eğitmen
@@ -647,6 +666,7 @@ tr:
     search_courses: Kursları ara
     start: Başlangıç
     start_typing: Yazmaya başla
+    student: Öğrenci
     students: Öğrenciler
     students_taught: Öğretilen Öğrenciler
     students_count: '# Öğrenciler'
@@ -711,13 +731,13 @@ tr:
     warn_mirrored: |-
       Gönderildikten sonra, bu kurs kullanıcı hesabınızla otomatik olarak Vikipedi'ye gönderilecektir. Bundan sonra, zaman çizelgesindeki yeni düzenlemeler Vikipedi'ye yansıtılır.
       Bunu yapmak istediğinden emin misin?
-    wiki_course_page_enabled: Wiki ders sayfası etkin
+    wiki_course_page_enabled: Viki ders sayfası etkin
     wiki_course_page_enabled_tooltip: Etkinleştirildiğinde, program veya kullanıcıları
       ve atamaları her değiştirildiğinde, sayfanın bir wiki yansıması güncellenir.
     wiki_edits_enabled: Viki düzenlemeleri etkinleştirildi
-    wiki_edits_enabled_tooltip: Wiki düzenlemeleri etkinse, bu program için otomatik
-      wiki düzenlemeleri yapılacaktır. Şablonların kullanıcı sayfalarına, atanmış
-      makalelerin konuşma sayfalarına vb. eklenmesini istemiyorsanız wiki düzenlemelerini
+    wiki_edits_enabled_tooltip: Viki düzenlemeleri etkinse, bu program için otomatik
+      viki düzenlemeleri yapılacaktır. Şablonların kullanıcı sayfalarına, atanmış
+      makalelerin konuşma sayfalarına vb. eklenmesini istemiyorsanız viki düzenlemelerini
       devre dışı bırakın.
     wiki_staff: Viki Eğitim ekibi
     withdrawn: Atama yapmadı
@@ -779,10 +799,10 @@ tr:
       end_date: Etkinlik takibinin sonu
       find: Program bul
       intro: Programın adı ve kurumu programın URL'sini oluşturur. Ana wiki, katılımcıların
-        çalışacağı ana wikidir ve bu wikideki düzenlemeler varsayılan olarak izlenir.
-        Programınız birden fazla dil veya projeyi içeriyorsa, "İzlenen Wiki" e açıkça
-        eklenmiş olan herhangi bir wiki için katkılar da izlenecektir. "Programımı
-        Oluştur!" wiki programınızın sayfasını oluşturmaya başlamak için kullanılır.
+        çalışacağı ana vikidir ve bu vikideki düzenlemeler varsayılan olarak izlenir.
+        Programınız birden fazla dil veya projeyi içeriyorsa, "İzlenen Viki"'ye açıkça
+        eklenmiş olan herhangi bir viki için katkılar da izlenecektir. "Programımı
+        Oluştur!" viki programınızın sayfasını oluşturmaya başlamak için kullanılır.
       new_or_clone: Şimdi yeni bir program oluşturun veya katıldığınız başka bir programı
         kopyalamak için 'klon' seçeneğini kullanın.
       participate_in_campaign: Bir Kampanyaya Katıl
@@ -812,6 +832,7 @@ tr:
     search_courses: Arama programları
     start: Etkinlik izleme başlangıcı
     student_editors: Editörler
+    student: Editör
     students: Editörler
     students_taught: Toplam Editör
     students_none: Bu projede kayıtlı editör yok.
@@ -837,6 +858,21 @@ tr:
     edit_template: Şablonu değiştir
     rename_confirmation: URL'yi oluşturan kurs alanları değişti. Bu durum, URL'yi
       değiştirecek ve gelen linkleri bozacaktır. Bunu yapmak istediğine emin misin?
+  instructor_view:
+    article_assignments: '%{prefix} Atanma'
+    assignments_table:
+      article_name: Makale Adı
+      current_stage: Geçerli Adım
+      relevant_links: İlgili Bağlantılar
+    assigned_articles: Atanmış Makaleler
+    exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
+    no_assignments: Şu anda bu öğrencinin atanmış makalesi yok. Yukarıdaki düğmeleri
+      kullanarak makale atayabilirsiniz.
+    overview: '%{prefix} Genel Bakış'
+    reviewing_articles: Makaleleri Gözden Geçirme
+    select_student:
+      title: '%{prefix} Seç'
+      content: makale atamak ve görüntülemek için
   metrics:
     label: Kurs Etkinliği
     last_update: Son istatistik güncellemesi
@@ -856,6 +892,7 @@ tr:
     char: Ekl. Krkter
     date_time: Tarih/Saat
     edit_count_description: Toplam Düzenleme
+    last_reviewed: Son İnceleme
     per_user: '%{number}/kullanıcı'
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
@@ -1081,6 +1118,10 @@ tr:
     view_library_source: kütüphane kaynağını göster
     view_module_source: modül kaynağını göster
     reload_from_source: kaynaktan yeniden yükle
+    kind:
+      exercise: Eksersiz
+      discussion: Tartışma
+      training: Eğitim
   uploads:
     credit: Katkılar
     file_name: Dosya Adı
@@ -1124,6 +1165,9 @@ tr:
     enroll_confirmation: '%{username} kullanıcısını eklemek istediğinize emin misiniz?'
     enroll_url: 'Kullanıcılar şu URL''yi ziyaret ederek katılabilir:'
     enrolled_success: '%{username}, başarıyla eklendi!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} egzersiz tamamlandı'
+      other: '%{completed_count}/%{count} egzersiz tamamlandı'
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
@@ -1151,6 +1195,11 @@ tr:
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
     sandboxes: sandbox'lar
+    sub_navigation:
+      article_assignments: Makale Atamaları
+      editor_overview: Editöre Genel Bakış
+      exercises_and_trainings: Egzersizler ve Eğitimler
+      student_overview: Öğrenci Genel Bakış
     total_uploads: Toplam Yükleme
     training_complete:
       other: bir=eğitim ile güncel
@@ -1179,7 +1228,7 @@ tr:
       instructor: Eğitmen
       campus_volunteer: Kampüs Gönüllüsü
       online_volunteer: Çevrimiçi Gönüllü
-      wiki_ed_staff: Wiki Eğitim Ekibi
+      wiki_ed_staff: Viki Eğitim Ekibi
   user_profiles:
     student_impact: '%{username} tarafından öğrenci olarak yapılan toplam etki'
     instructor_impact: '%{username} tarafından eğitmen olarak yapılan toplam etki'
@@ -1288,7 +1337,7 @@ tr:
         getirmemize yardımcı olmak için aşağıdaki butona tıklayın.
       course: 'Kurs: %{course_info}'
       closing: İçtenlikle,
-      signed: '- Wiki Eğitim ekibi'
+      signed: '- Viki Eğitim ekibi'
       link: Anketi Doldur
     follow_up:
       message: Bu, %{course_title} adlı kursunuzun anketi hakkında bir hatırlatmadır.
@@ -1301,7 +1350,7 @@ tr:
   onboarding:
     supplementary:
       header: Bizden nasıl haberin oldu?
-      where_did_you_hear: Wiki Eğitim'i ilk defa nerede veya kimlerden duydun?
+      where_did_you_hear: Viki Eğitim'i ilk defa nerede veya kimlerden duydun?
       why_are_you_here: Ne yapmak istiyorsun?
   article_finder:
     page_assessment_class: Sınıf
@@ -1343,5 +1392,5 @@ tr:
     due: '%{due_date} boyunca'
     assignment_status: Eğitim Ataması (%{status})
   multi_wiki:
-    selector_placeholder: Bir wiki alanı yazmaya başla
+    selector_placeholder: Bir viki alanı yazmaya başla
 ...

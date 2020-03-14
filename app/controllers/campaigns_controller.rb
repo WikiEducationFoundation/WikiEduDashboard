@@ -6,7 +6,7 @@ require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
-  before_action :require_signed_in, only: %i[students instructors courses articles_csv
+  before_action :require_signed_in, only: %i[instructors courses articles_csv
                                              revisions_csv]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
@@ -32,6 +32,7 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.json do
         @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
+        set_presenter
       end
     end
   end
@@ -59,6 +60,7 @@ class CampaignsController < ApplicationController
   def overview
     set_presenter
     @editable = current_user&.admin? || user_is_organizer?
+    # @is_admin = current_user@.admin?
   end
 
   def articles

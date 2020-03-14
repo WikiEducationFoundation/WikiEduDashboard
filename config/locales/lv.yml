@@ -77,6 +77,9 @@ lv:
     view: Apskatīt rakstu
     view_all: Skatīt visus
     edit_size: Labojuma izmērs
+    articles_short: Raksti
+  articles_generic:
+    articles_short: Lapas
   assignments:
     article_link: Raksts
     assign_other: Piešķirt rakstu
@@ -220,6 +223,7 @@ lv:
     school: Skola
     search_courses: Meklēt kursus
     start: Sākums
+    student: Students
     students: Studenti
     students_none: Šim kursam nav studentu.
     students_short: Studenti
@@ -275,6 +279,7 @@ lv:
     search_courses: Meklēt programmas
     start: Darbību sekošanas sākums
     student_editors: Redaktori
+    student: Redaktors
     students: Redaktori
     students_count: Dalībnieku skaits
     term: Kad
@@ -287,6 +292,10 @@ lv:
     edit_description: Labot aprakstu
     edit_details: Labot datus
     edit_template: Labot veidni
+  instructor_view:
+    assignments_table:
+      article_name: Raksta nosaukums
+    assigned_articles: Piešķirtie raksti
   metrics:
     label: Kursa aktivitāte
     last_update: Statistika atjaunināta
@@ -351,6 +360,8 @@ lv:
     view: Skatīt
     next: Nākamā lapa
     page: Lapa
+    kind:
+      discussion: Diskusija
   uploads:
     file_name: Faila nosaukums
     header: Wikimedia Commons augšupielādētie faili
@@ -374,6 +385,8 @@ lv:
     none: Dalībnieku nav.
     recent_revisions: Neseni labojumi
     revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
+    sub_navigation:
+      student_overview: Studenta pārskats
     total_uploads: Kopējās augšupielādes
     username: Lietotājvārds
     username_placeholder: Lietotājvārds

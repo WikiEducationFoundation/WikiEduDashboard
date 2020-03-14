@@ -40,5 +40,21 @@ describe CourseArticlesCsvBuilder do
     create(:articles_course, course: course, article: article, tracked: false)
     create(:articles_course, course: course, article: article2, tracked: true)
     expect(subject.split("\n").count).to eq(2)
+    expect(subject).not_to include(article.title)
+    expect(subject).to include(article2.title)
+  end
+
+  context 'for an ArticleScopedProgram' do
+    let(:course) { create(:article_scoped_program) }
+
+    before do
+      create(:assignment, user: user, course: course, article: article)
+    end
+
+    it 'only includes in-scope articles' do
+      expect(subject.split("\n").count).to eq(2)
+      expect(subject).to include(article.title)
+      expect(subject).not_to include(article2.title)
+    end
   end
 end

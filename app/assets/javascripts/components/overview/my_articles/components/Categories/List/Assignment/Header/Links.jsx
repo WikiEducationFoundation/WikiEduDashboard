@@ -6,6 +6,7 @@ import BibliographyLink from '@components/common/AssignmentLinks/BibliographyLin
 import SandboxLink from '@components/common/AssignmentLinks/SandboxLink.jsx';
 import PeerReviewLink from '@components/common/AssignmentLinks/PeerReviewLink.jsx';
 import EditorLink from '@components/common/AssignmentLinks/EditorLink.jsx';
+import GroupMembersLink from '@components/common/AssignmentLinks/GroupMembersLink.jsx';
 import ReviewerLink from '@components/common/AssignmentLinks/ReviewerLink.jsx';
 
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
@@ -50,7 +51,11 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
   const assignedTo = (editors || reviewers)
     ? (
       <>
-        <EditorLink key={`editor-${id}`} editors={editors} />
+        {
+          assignment.role === REVIEWING_ROLE
+            ? <EditorLink key={`editor-${id}`} editors={editors} />
+            : <GroupMembersLink key={`editor-${id}`} members={editors} />
+        }
         {(editors && reviewers) ? <Separator key="member-links" /> : null}
         <ReviewerLink key={`reviewer-${id}`} reviewers={reviewers} />
       </>

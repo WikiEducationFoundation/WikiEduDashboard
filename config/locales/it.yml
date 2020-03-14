@@ -196,6 +196,11 @@ it:
       più alto indica in genere che una voce segue le convenzioni di Wikipedia per
       la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
+    articles_short: Voci
+  articles_wikidata:
+    articles_short: Elementi
+  articles_generic:
+    articles_short: Pagine
   assignments:
     article: La voce %{title} ora è assegnata a te.
     article_link: Voce
@@ -213,6 +218,7 @@ it:
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
     confirm_deletion: Sei sicuro di volere cancellare la valutazione di questa voce?
     editors: Assegnato  a
+    group_members: Membri del gruppo
     label: Assegna
     loading: Caricando gli incarichi...
     none_short: Nessuna voce assegnata
@@ -220,7 +226,7 @@ it:
     no_available: Questo corso non ha voci disponibili.
     remove: Rimuovi
     reviewers: Revisori
-    review_other: Assegna una revisione
+    review_other: Assegna per una revisione
     review_self: Revisiona una voce
     review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
       o fornire riscontri.
@@ -308,8 +314,7 @@ it:
     accounts_generation_explanation: Ciò consentirà ai partecipanti di inserire il
       loro indirizzo email e il nome utente desiderato, invece di creare nuovi account.
       Sarai quindi in grado di creare gli account da questa Dashboard e aggiungerli
-      simultaneamente come partecipanti al programma. Per usare questa funzione, dovresti
-      avere il permesso di 'creatore di account' sulla home wiki per questo programma.
+      simultaneamente come partecipanti al programma.
     accounts_generation_confirm_message: Confermi che vuoi attivare le richieste di
       account?
     activity: Attività
@@ -813,6 +818,8 @@ it:
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
     done: Fatto!
+    kind:
+      discussion: Discussione
   uploads:
     file_name: Nome del file
     header: File caricati su Wikimedia Commons

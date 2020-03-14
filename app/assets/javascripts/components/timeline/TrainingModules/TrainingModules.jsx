@@ -7,6 +7,7 @@ import selectStyles from '../../../styles/select';
 
 // Components
 import ModuleRow from './ModuleRow/ModuleRow';
+import { EXERCISE_KIND, DISCUSSION_KIND } from '../../../constants';
 
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
@@ -24,7 +25,7 @@ const TrainingModules = createReactClass({
   getInitialState() {
     let selections;
     if (this.props.block_modules) {
-      selections = this.props.block_modules.map(module => ({ value: module.id, label: module.name }));
+      selections = this.props.block_modules.map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
     }
     return { value: selections };
   },
@@ -38,9 +39,19 @@ const TrainingModules = createReactClass({
     return this.props.onChange(trainingModuleIds);
   },
 
+  moduleLabel(kind) {
+    if (kind === EXERCISE_KIND) {
+      return ` (${I18n.t('training.kind.exercise')})`;
+    }
+    if (kind === DISCUSSION_KIND) {
+      return ` (${I18n.t('training.kind.discussion')})`;
+    }
+    return ` (${I18n.t('training.kind.training')})`;
+  },
+
   trainingSelector() {
     const options = _.filter(_.compact(this.props.all_modules), module => module.status !== 'deprecated')
-                    .map(module => ({ value: module.id, label: module.name }));
+                    .map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
     return (
       <div className="block__training-modules">
         <div>

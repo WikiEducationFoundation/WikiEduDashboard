@@ -109,7 +109,7 @@ el:
     none_short: Δεν ανατέθηκαν άρθρα
     remove: Αφαίρεση
     reviewers: Θεωρητής(-ές)
-    review_other: Ανάθεση αναθεώρησης
+    review_other: Ανάθεση ομότιμης αναθεώρησης
     review_self: Αναθεώρηση ενός άρθρου
     select: Διαλέξτε
   blocks:
@@ -288,6 +288,9 @@ el:
     delete_course: Διαγραφή προγράμματος
     enrollment: Προσθήκη/Αφαίρεση Συντακτών
     view_page: Δείτε τη Σελίδα του Προγράμματος
+  instructor_view:
+    assignments_table:
+      article_name: Όνομα λήμματος
   metrics:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών

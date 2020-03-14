@@ -1,6 +1,7 @@
 # Messages for Russian (русский)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alexander Yukal
 # Author: Alexandr Efremov
 # Author: Aram1985
 # Author: Athena Atterdag
@@ -183,11 +184,15 @@ ru:
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это задание?
+    group_members: Участники группы
     loading: Загрузка заданий...
     none: Этот курс не имеет назначенных статей.
     remove: Удалить
     reviewers: Проверяющий(е)
     select: Выбрать
+    warning_untracked_wiki: 'Обратите внимание, что выбранная вами статья из вики,
+      не отслеживается этим курсом. Чтобы отслеживать вклады в эту статью, инструктор
+      должен добавить к этому курсу следующую вики: %{wiki}'
   blocks:
     milestones:
       title: Этапы
@@ -239,6 +244,10 @@ ru:
     label: Чат
   courses:
     school_system: Академическая система
+    accounts_generation_explanation: Это позволит участникам ввести свой адрес электронной
+      почты и желаемое имя пользователя, вместо того, чтобы создавать свои новые учетные
+      записи. После этого вы сможете создавать учетные записи с помощью даной панели
+      инструментов, и одновременно добавлять их в качестве участников программы.
     activity: Деятельность
     alerts: Оповещения
     all_courses: Все курсы
@@ -346,6 +355,7 @@ ru:
     school: Школа
     search_courses: Искать курсы
     start: Начать
+    student: Студент
     students: Студенты
     students_count: '# Студенты'
     students_none: У этого курса пока нет студентов.
@@ -498,6 +508,8 @@ ru:
     done: Готово!
     invalid: Извините, этого слайда не существует!
     check_answer: Проверить ответ
+    kind:
+      exercise: Упражнение
   uploads:
     credit: Создатели
     file_name: Имя файла
@@ -535,6 +547,8 @@ ru:
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка
+    sub_navigation:
+      article_assignments: Назначения статьи
     training_complete:
       one: завершил обучение
       other: завершили обучение

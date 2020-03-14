@@ -38,6 +38,10 @@ ia:
     article_development: (disveloppamento de articulo)
     articles_shown: Se monstra %{count} de %{total}
     history: (historia)
+  assignments:
+    warning_untracked_wiki: 'Nota ben que le articulo que tu ha seligite es un wiki
+      non traciate per iste curso. Pro traciar le contributiones a iste articulo,
+      un instructor debe adder le sequente wiki a iste curso: %{wiki}'
   courses:
     join_no_passcode: Es tu secur de voler sequer iste curso?
     timeline_enabled: Chronologia activate
@@ -47,6 +51,8 @@ ia:
     see_more: Vider plus
   training:
     table_of_contents: Tabula del contentos
+    kind:
+      discussion: Discussion
   uploads:
     credit: Credito
   users:

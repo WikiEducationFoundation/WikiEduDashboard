@@ -73,6 +73,11 @@ hy:
     view_all: Դիտել բոլորը
     view_on_wiki: Դիտել Վիքիյում
     wiki: Վիքի
+    articles_short: Հոդվածներ
+  articles_wikidata:
+    articles_short: Տարրեր
+  articles_generic:
+    articles_short: Էջեր
   assignments:
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ
@@ -125,6 +130,7 @@ hy:
     my_articles: Իմ հոդվածները
     new_week: Ավելացնել Նոր շաբաթ
     school: Դպրոց
+    student: Ուսանող
     students: Ուսանողներ
     students_count: '# Ուսանողներ'
     student_editors: Ուսանող խմբագիրներ

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Domani
+# Author: Killarnee
 # Author: Metalhead64
 # Author: Taresi
 # Author: ToBeFree
@@ -61,6 +62,14 @@ de:
     opt_out: Nein
     opt_yes: ja
     opt_no: nein
+  article_statuses:
+    not_yet_started: Erste Schritte
+    ready_for_review: Entwurf ausklappen
+    ready_for_mainspace: Seite in den Hauptnamensraum verschieben
+    reading_the_article: Artikel lesen
+    providing_feedback: Rückmeldung geben
+    post_to_talk: Auf die Diskussionsseite laden
+    peer_review_completed: Sichtung vollständig
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -597,6 +606,7 @@ de:
     search_courses: Kurse suchen
     start: Start
     start_typing: Mit dem Tippen anfangen
+    student: Schüler
     students: Studenten
     students_taught: Unterrichtete Studenten
     students_count: Anzahl der Studenten
@@ -767,6 +777,7 @@ de:
     search_courses: Programme suchen
     start: Beginn der Aktivitätsverfolgung
     student_editors: Autoren
+    student: Autor
     students: Autoren
     students_taught: Anzahl der Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
@@ -793,6 +804,14 @@ de:
     rename_confirmation: Die Kursfelder, die die URL bilden, wurden geändert. Dieser
       Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
       tun möchtest?
+  instructor_view:
+    assignments_table:
+      article_name: Artikelname
+      current_stage: Aktueller Status
+      relevant_links: Relevante links
+    reviewing_articles: Artikel sichten
+    select_student:
+      title: '%{prefix} auswählen'
   metrics:
     label: Kursaktivität
     last_update: Letzte Statistikaktualisierung
@@ -1107,6 +1126,10 @@ de:
     reviewers: Überprüfer
     reviewing: Überprüft
     sandboxes: Spielwiesen
+    sub_navigation:
+      article_assignments: Artikelzuweisungen
+      editor_overview: Bearbeiter Übersicht
+      student_overview: Schülerübersicht
     total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
