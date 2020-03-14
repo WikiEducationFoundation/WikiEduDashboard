@@ -61,28 +61,20 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    # Pagepile is a tool for representing a static list of articles —
+    # both existing and not — on a single wiki: https://tools.wmflabs.org/pagepile/
     context 'for pileid-source Category' do
       let(:category) { create(:category, name: 28301, source: 'pileid') }
-      let(:course) { create(:course, id: 28301) }
+      let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'America') }
 
       it 'updates article titles for categories associated with courses' do
         expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          described_class.refresh_categories_for(Course.find_by(id: 28301))
+          described_class.refresh_categories_for(Course.all)
           expect(described_class.last.article_titles).not_to be_empty
           expect(described_class.last.article_ids).to include(article.id)
-        end
-      end
-
-      it 'return empty list' do
-        expect(described_class.last.article_titles).to be_empty
-
-        VCR.use_cassette 'categories' do
-          described_class.refresh_categories_for(Course.find_by(id: 1234))
-          expect(described_class.last.article_titles).to be_empty
-          expect(described_class.last.article_ids).to be_empty
         end
       end
     end
