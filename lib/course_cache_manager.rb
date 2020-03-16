@@ -67,7 +67,9 @@ class CourseCacheManager
   end
 
   def update_revision_count
-    @course.revision_count = @course.tracked_revisions.live.size
+    @course.revision_count = @course.tracked_revisions
+                                    .where('revisions.wiki_id in (?)', @course.wiki_ids)
+                                    .live.size
   end
 
   def update_recent_revision_count
