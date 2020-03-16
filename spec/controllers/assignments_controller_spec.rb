@@ -361,4 +361,30 @@ describe AssignmentsController, type: :request do
       end
     end
   end
+
+  describe 'PATCH #update_status' do
+    let(:assignment) { create(:assignment, course: course, role: 0) }
+    let(:request_params) do
+      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: status }
+    end
+
+    context 'when a status param is provided' do
+      let(:status) { 'in_progress' }
+
+      it 'renders a 200' do
+        patch "/assignments/#{assignment.id}/status", params: request_params
+        expect(response.status).to eq(200)
+        expect(assignment.reload.status).to eq(status)
+      end
+    end
+
+    context 'when no status param is provided' do
+      let(:status) { nil }
+
+      it 'renders a 422' do
+        patch "/assignments/#{assignment.id}/status", params: request_params
+        expect(response.status).to eq(422)
+      end
+    end
+  end
 end

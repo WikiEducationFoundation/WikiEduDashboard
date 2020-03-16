@@ -52,7 +52,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(assignment_params[:id])
 
     if assignment_params[:status]
-      @assignment.assignment_pipeline.update_status(assignment_params[:status])
+      @assignment.update_status(assignment_params[:status])
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
