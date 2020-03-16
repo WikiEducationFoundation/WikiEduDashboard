@@ -30,6 +30,9 @@ hr:
   instructor_view:
     assignments_table:
       article_name: Ime članka
+  training:
+    kind:
+      discussion: Rasprava
   users:
     training_incomplete: Nepotpun trening
   training_status:

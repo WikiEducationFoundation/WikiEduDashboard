@@ -390,11 +390,11 @@ zh-TW:
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
-      find: 找到您的課程
+      find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
       new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配作業選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
-      no_class_holidays: 我的開課時段沒有遭遇假日
+      no_class_holidays: 我的課程沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_options:
       - 導師
@@ -975,6 +975,9 @@ zh-TW:
     recent_revisions: 近期編輯
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
+    requested_account_status:
+      success_message: 成功：%{result_description}
+      failure_message: 失敗：%{result_description}
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     references_doc: 由此編輯者所添加或移除的參考來源數量

@@ -26,6 +26,8 @@ eu:
       igo edo jaitsi egingo dute sartutakoa.
   application:
     cancel: Utzi
+    cookie_consent_acknowledge: Ulertzen dut
+    cookie_consent_see_more: Gehiago ikusi.
     create_accounts: Wikipedia kontuak sortu
     dashboard: Wiki Hezkuntzako Arbela
     documentation: Dokumentazioa
@@ -64,6 +66,9 @@ eu:
     opt_out: Ez
     opt_yes: bai
     opt_no: ez
+  article_statuses:
+    not_yet_started: Nola hasi
+    in_progress: Proba orrian lan egin
   dashboard:
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;
@@ -98,6 +103,9 @@ eu:
     sign_up_help: Arbela erabiltzeko, Wikipediaren bitartez saioa hasi eta konturako
       sarbidea ematea baimendu beharko duzu. Wikipedian existitzen den kontu batekin
       erregistratu zaitezke, ala kontu berri bat sortu.
+  alerts:
+    alert_label: Alertak
+    no_alerts: Ez da alertarik aurkitu.
   activity:
     all: Jarduera
     edited_by: Nork editatua
@@ -173,8 +181,14 @@ eu:
       Wikipediako arauak jarraitzen dituela, baina ez du kontuan hartzen edukia bera
       (puntuazio horiek oraingoz Ingelesezko Wikipediako artikuluetan bakarrik balia
       daitezke).'
+    articles_short: Artikuluak
+  articles_wikidata:
+    articles_short: Itemak
+  articles_generic:
+    articles_short: Orrialdeak
   assignments:
     article: '%{title} artikulua zuri esleitu zaizu orain.'
+    article_link: Artikulua
     already_exists: Lan hau existitzen da dagoeneko!
     title_too_large: Izenburuak ez du 255 karaktere baino gehiago izan behar
     assignees: Artikulu-egilea(k)
@@ -184,10 +198,13 @@ eu:
     add_available_submit: Artikuluak gehitu
     assign_self: Neure buruari artikulu bat esleitu
     assign_tooltip: Esleitutako artikulua da zuk sortu edo hobetzeko asmoa duzun bat.
+    bibliography: Bibliografia
     clone: Klonatu
     confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
     confirm_addition: Ziur zaude %{title} %{username} lankideari esleitu nahi diozula?
     confirm_deletion: Ziur zaude artikulu lan hau ezabatu nahi duzula?
+    editors: Nori esleitua
+    group_members: Taldekideak
     label: Esleitu
     loading: Lanak kargatzen...
     none_short: Ez da artikulurik esleitu
@@ -441,6 +458,8 @@ eu:
     feedback: Iruzkina
     feedback_loading: Mesedez itxaron iradokizunak kargatu bitartean...
     gradeables_none: Ikastaro honek ez du nota jartzeko lanik.
+    home_wiki: Wiki nagusia
+    multi_wiki: Jarraitutako wikiak
     instructor:
       one: Irakaslea
       other: Irakasleak

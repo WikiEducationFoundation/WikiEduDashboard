@@ -551,7 +551,7 @@ lb:
   error:
     form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: '%{key} Datum ass net valabel'
-    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued wgl. e PDF oder
+    invalid_file_format: De Fichier konnt net gespäichert ginn. Luet wgl. e PDF oder
       e Word-Dokument erop.
     start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien
     unsupported_browser:

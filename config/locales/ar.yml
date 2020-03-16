@@ -11,6 +11,7 @@
 # Author: Meno25
 # Author: Mido
 # Author: Moud hosny
+# Author: NEHAOUA
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
 # Author: Youssef
@@ -1125,6 +1126,9 @@ ar:
     recent_revisions: تعديلات حديثة
     remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
     request_confirmation: هل تريد بالتأكيد طلب هذا الحساب؟
+    requested_account_status:
+      success_message: نجاح:%{result_description}
+      failure_message: فشل %{result_description}
     revision_characters_and_views: 'حروف مضافة: %{characters}، مشاهدات: %{views}'
     revisions_doc: عدد التعديلات التي أجراها هذا المحرر في السبعة أيام الماضية
     references_doc: عدد المراجع التي تمت إضافتها أو إزالتها بواسطة هذا المحرر

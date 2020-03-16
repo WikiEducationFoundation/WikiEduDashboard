@@ -22,6 +22,7 @@
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Rodrigo codignoli
 # Author: Rukasuoribera
 # Author: Trigonometria87
 ---
@@ -1200,6 +1201,9 @@ pt-br:
     recent_revisions: Edições recentes
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
     request_confirmation: Tem certeza de que deseja solicitar essa conta?
+    requested_account_status:
+      success_message: 'Sucesso: %{result_description}'
+      failure_message: 'Falha: %{result_description}'
     revision_characters_and_views: 'Caracteres adicionados: %{characters}, Visitas:
       %{views}'
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias

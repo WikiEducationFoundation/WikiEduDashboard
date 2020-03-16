@@ -1177,6 +1177,9 @@ uk:
     recent_revisions: Останні зміни
     remove_confirmation: Ви дійсно хочете вилучити %{username}?
     request_confirmation: Ви дійсно бажаєте подати запит на цей обліковий запис?
+    requested_account_status:
+      success_message: 'Успіх: %{result_description}'
+      failure_message: 'Невдача: %{result_description}'
     revision_characters_and_views: 'Додано символів: %{characters}, переглядів: %{views}'
     revisions_doc: Кількість змін, зроблених цим учасником в останні 7 днів
     references_doc: Кількість приміток, доданих чи вилучених цим редактором

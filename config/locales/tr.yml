@@ -1188,6 +1188,9 @@ tr:
     recent_revisions: Son Düzenlemeler
     remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
+    requested_account_status:
+      success_message: 'Başarılı: %{result_description}'
+      failure_message: 'Başarısızlık: %{result_description}'
     revision_characters_and_views: 'Eklenen Karakter: %{characters}, Görüntüleme:
       %{views}'
     revisions_doc: Bu editör tarafından son 7 günde yapılan düzenlemelerin sayısı
@@ -1249,7 +1252,7 @@ tr:
   wizard:
     assignment_dates: Atama Tarihleri
     assignment_description: Ödev zaman çizelgenizin başlangıç ve bitiş tarihlerini
-      seçin. Örneğin, Wikipedia projenize sınıfın ikinci haftasını başlatmak istiyorsanız
+      seçin. Örneğin, Vikipedi projenize sınıfın ikinci haftasını başlatmak istiyorsanız
       ödev başlangıç tarihini kursun başlangıç tarihinden sonraki bir haftaya ayarlayın.
       Bu atama tasarım aracı, seçtiğiniz zaman çizelgesi tarihlerine uyan bir taslak
       zaman çizelgesi oluşturur.

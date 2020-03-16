@@ -1236,6 +1236,9 @@ fr:
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous sûr de vouloir demander ce compte ?
+    requested_account_status:
+      success_message: 'Succès : %{result_description}'
+      failure_message: 'Echec : %{result_description}'
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours

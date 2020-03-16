@@ -4,6 +4,7 @@
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
 # Author: Codynguyen1116
@@ -866,6 +867,9 @@ es:
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
+    requested_account_status:
+      success_message: 'Éxito: %{result_description}'
+      failure_message: 'Fracaso: %{result_description}'
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
