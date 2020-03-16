@@ -19,9 +19,15 @@ const RevisionHandler = createReactClass({
     loadingRevisions: PropTypes.bool
   },
 
+  getInitialState() {
+    return {
+      courseSpecificBool: false,
+    };
+  },
+
   UNSAFE_componentWillMount() {
     if (this.props.loadingRevisions) {
-      this.props.fetchRevisions(this.props.course_id, this.props.limit);
+      this.props.fetchRevisions(this.props.course_id, this.props.limit, this.state.courseSpecificBool);
     }
   },
 
@@ -30,7 +36,21 @@ const RevisionHandler = createReactClass({
   },
 
   showMore() {
-    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
+    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100, this.state.courseSpecificBool);
+  },
+
+  toggleCourseSpecificBool() {
+    this.props.fetchRevisions(this.props.course_id, this.props.limit, !this.state.courseSpecificBool);
+    this.setState({
+      courseSpecificBool: !this.state.courseSpecificBool,
+    });
+  },
+
+  revisionFilterButtonText() {
+    if (this.state.courseSpecificBool) {
+      return I18n.t('revisions.show_all');
+    }
+    return I18n.t('revisions.show_course_specific');
   },
 
   render() {
@@ -38,10 +58,12 @@ const RevisionHandler = createReactClass({
     if (!this.props.limitReached) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
+    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecificBool}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
+          {revisionFilterButton}
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>
