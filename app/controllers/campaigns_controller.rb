@@ -19,12 +19,12 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w[title start end].freeze
 
   def index
-    @campaigns = if search_params[:search].present?
-                   Campaign.where('lower(title) like ?', "%#{search_params[:search].downcase}%")
+    @query = search_params[:search]
+    @campaigns = if @query.present?
+                   @results = Campaign.where('lower(title) like ?', "%#{@query.downcase}%")
                  else
                    Campaign.all
                  end
-    @query = search_params[:search]
     @campaign = Campaign.new
   end
 
@@ -106,6 +106,7 @@ class CampaignsController < ApplicationController
     set_page
     set_presenter
     @search_terms = params[:courses_query]
+    @results = @presenter.search_courses(@search_terms) if @search_terms.present?
   end
 
   def ores_plot
