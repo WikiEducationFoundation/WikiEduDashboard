@@ -2,11 +2,13 @@ import { RECEIVE_REVISIONS, SORT_REVISIONS, API_FAIL } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 
-const fetchRevisionsPromise = (courseId, limit) => {
+const fetchRevisionsPromise = (courseId, limit, isCourseSpecific) => {
+  const allRevisionsUrl = `/courses/${courseId}/revisions.json?limit=${limit}`;
+  const courseSpecificRevisionsUrl = `/courses/${courseId}/revisions.json?limit=${limit}&course_specific=true`;
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/courses/${courseId}/revisions.json?limit=${limit}`,
+      url: (isCourseSpecific) ? courseSpecificRevisionsUrl : allRevisionsUrl,
       success(data) {
         return res(data);
       }
@@ -18,9 +20,9 @@ const fetchRevisionsPromise = (courseId, limit) => {
   });
 };
 
-export const fetchRevisions = (courseId, limit) => (dispatch) => {
+export const fetchRevisions = (courseId, limit, isCourseSpecific) => (dispatch) => {
   return (
-    fetchRevisionsPromise(courseId, limit)
+    fetchRevisionsPromise(courseId, limit, isCourseSpecific)
       .then((resp) => {
         dispatch({
           type: RECEIVE_REVISIONS,
