@@ -29,7 +29,7 @@ There are some basic requirements for the script to work:
 - python 3.5 or newer
 - ruby 2.5.0
 - apt (debian) or homebrew (MacOS)
-- node v10 or lower
+- node v10 or higher
 
 ## Instructions
 - Clone the repository
