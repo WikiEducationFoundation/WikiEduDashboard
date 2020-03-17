@@ -265,6 +265,7 @@ class Course < ApplicationRecord
 
   def tracked_revisions
     revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
+             .where(wiki_id: wiki_ids)
   end
 
   def tracked_articles
