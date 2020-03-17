@@ -27,7 +27,7 @@ const RevisionHandler = createReactClass({
 
   UNSAFE_componentWillMount() {
     if (this.props.loadingRevisions) {
-      this.props.fetchRevisions(this.props.course_id, this.props.limit, this.state.courseSpecificBool);
+      this.props.fetchRevisions(this.props.course_id, this.props.limit);
     }
   },
 
@@ -36,11 +36,10 @@ const RevisionHandler = createReactClass({
   },
 
   showMore() {
-    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100, this.state.courseSpecificBool);
+    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
   },
 
   toggleCourseSpecificBool() {
-    this.props.fetchRevisions(this.props.course_id, this.props.limit, !this.state.courseSpecificBool);
     this.setState({
       courseSpecificBool: !this.state.courseSpecificBool,
     });
@@ -76,7 +75,7 @@ const RevisionHandler = createReactClass({
           </div>
         </div>
         <RevisionList
-          revisions={this.props.revisions}
+          revisions={(this.state.courseSpecificBool) ? this.props.revisions.filter((revision) => { return revision.course_specific; }) : this.props.revisions}
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
