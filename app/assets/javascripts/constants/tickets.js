@@ -17,3 +17,5 @@ export const TICKET_STATUS_RESOLVED = 2;
 
 export const MESSAGE_KIND_REPLY = 0;
 export const MESSAGE_KIND_NOTE = 1;
+
+export const MESSAGE_KIND_NOTE_DELETE = 'MESSAGE_KIND_NOTE_DELETE';

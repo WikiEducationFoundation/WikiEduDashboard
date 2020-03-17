@@ -9,7 +9,8 @@ import {
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
   TICKET_STATUS_OPEN,
-  UPDATE_TICKET
+  UPDATE_TICKET,
+  MESSAGE_KIND_NOTE_DELETE
 } from '../constants/tickets';
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
@@ -147,6 +148,11 @@ export const updateTicketOwner = (id, owner_id) => (dispatch) => {
 export const deleteTicket = id => async (dispatch) => {
   await request(`/td/tickets/${id}`, { method: 'DELETE' });
   dispatch({ type: DELETE_TICKET, id });
+};
+
+export const deleteNote = id => async (dispatch) => {
+  request(`/td/tickets/replies/${id}`, { method: 'DELETE' });
+  dispatch({ type: MESSAGE_KIND_NOTE_DELETE, id });
 };
 
 export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });
