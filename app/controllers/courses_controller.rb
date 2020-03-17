@@ -337,7 +337,6 @@ class CoursesController < ApplicationController
   end
 
   def set_course_specific
-    @course_specific = params[:course_specific]
     @course_assignment_urls = Assignment.where(course_id: @course.id).pluck(:sandbox_url)
   end
 
