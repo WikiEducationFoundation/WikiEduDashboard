@@ -60,6 +60,21 @@ const ArticleList = createReactClass({
     return this.props.sortArticles(e.target.value);
   },
 
+  contentAddedKey() {
+    if (this.props.course.home_wiki_bytes_per_word) {
+      return {
+        label: I18n.t('metrics.word_count'),
+        desktop_only: true,
+        info_key: `${this.props.course.string_prefix}.word_count_doc`
+      };
+    }
+    return {
+      label: I18n.t('metrics.char_added'),
+      desktop_only: true,
+      info_key: 'articles.character_doc'
+    };
+  },
+
   render() {
     const keys = {
       rating_num: {
@@ -71,11 +86,7 @@ const ArticleList = createReactClass({
         label: I18n.t('articles.title'),
         desktop_only: false
       },
-      character_sum: {
-        label: I18n.t('metrics.char_added'),
-        desktop_only: true,
-        info_key: 'articles.character_doc'
-      },
+      character_sum: this.contentAddedKey(),
       references_count: {
         label: I18n.t('metrics.references_count'),
         desktop_only: true,

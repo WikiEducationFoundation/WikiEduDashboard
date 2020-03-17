@@ -21,6 +21,21 @@ const showRecent = (course) => {
   return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
 };
 
+const charactersAddedKey = {
+  label: I18n.t('users.chars_added'),
+  desktop_only: true,
+  sortable: true,
+  info_key: 'users.character_doc'
+};
+
+const wordsAddedKey = {
+  label: I18n.t('users.words_added'),
+  desktop_only: true,
+  sortable: true,
+  info_key: 'users.character_doc'
+};
+
+
 export const StudentList = (props) => {
   const {
     assignments, course, current_user, editAssignments, exerciseView, openKey, sort, students,
@@ -56,6 +71,8 @@ export const StudentList = (props) => {
   ));
 
   const elements = _.flatten(_.zip(rows, drawers));
+
+  const contentAddedKey = course.home_wiki_bytes_per_word ? wordsAddedKey : charactersAddedKey;
   const keys = {
     username: {
       label: I18n.t('users.name'),
@@ -78,12 +95,7 @@ export const StudentList = (props) => {
       sortable: true,
       info_key: 'users.revisions_doc'
     },
-    character_sum_ms: {
-      label: I18n.t('users.chars_added'),
-      desktop_only: true,
-      sortable: true,
-      info_key: 'users.character_doc'
-    },
+    character_sum_ms: contentAddedKey,
     references_count: {
       label: I18n.t('users.references_count'),
       desktop_only: true,
