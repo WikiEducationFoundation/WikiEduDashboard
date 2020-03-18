@@ -37,7 +37,7 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
           statuses={assignment.assignment_all_statuses}
         />
       </td>
-      <td>
+      <td className="article-actions">
         <ArticleViewer
           article={article}
           course={course}
