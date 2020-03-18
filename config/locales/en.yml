@@ -1187,6 +1187,9 @@ en:
     username_placeholder: Username
     useremail_placeholder: Email
     userpasscode_placeholder: Passcode
+    words_added:
+      Words Added<br>(article | user | draft)
+
 
     role:
       description: Role in course

@@ -11,9 +11,12 @@ class WordCount
   # See graph with regression line here: https://commons.wikimedia.org/wiki/File:Bytes.content_length.scatter.correlation.enwiki.png
   # This is just a rough estimate, pending research on how bytes *added*
   # relates to changes in readable word count for work by student editors.
-  CHARACTERS_PER_WORD = 5.175
+  HALFAK_EN_WIKI_ESTIMATE = 5.175
+  BYTES_PER_WORD = {
+    'en.wikipedia.org' => HALFAK_EN_WIKI_ESTIMATE
+  }.freeze
 
   def self.from_characters(characters)
-    (characters / CHARACTERS_PER_WORD).to_i
+    (characters / HALFAK_EN_WIKI_ESTIMATE).to_i
   end
 end
