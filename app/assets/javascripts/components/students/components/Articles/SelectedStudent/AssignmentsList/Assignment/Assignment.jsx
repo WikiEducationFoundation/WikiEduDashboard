@@ -42,7 +42,6 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
           article={article}
           course={course}
           fetchArticleDetails={fetchArticleDetails}
-          showPermalink={false}
           users={users}
           showOnMount={showArticleId === article.id}
         />

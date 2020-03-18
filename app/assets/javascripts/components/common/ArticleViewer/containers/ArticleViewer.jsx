@@ -3,11 +3,21 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
-import _ from 'lodash';
 
+// Utilities
+import _ from 'lodash';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
+
+// Components
 import Loading from '@components/common/loading.jsx';
 import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
+import TitleOpener from '@components/common/ArticleViewer/components/TitleOpener.jsx';
+import IconOpener from '@components/common/ArticleViewer/components/IconOpener.jsx';
+import CloseButton from '@components/common/ArticleViewer/components/CloseButton.jsx';
+import Permalink from '@components/common/ArticleViewer/components/Permalink.jsx';
+import BadWorkAlert from '../components/BadWorkAlert';
+import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
+import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
 
 // Helpers
 import URLBuilder from '@components/common/ArticleViewer/utils/URLBuilder';
@@ -66,6 +76,10 @@ export const ArticleViewer = createReactClass({
     }
   },
 
+  hideBadArticleAlert() {
+    this.setState({ showBadArticleAlert: false });
+  },
+
   showBadArticleAlert() {
     this.setState({ showBadArticleAlert: true });
   },
@@ -122,6 +136,7 @@ export const ArticleViewer = createReactClass({
   },
 
   hideArticle(e) {
+    this.hideBadArticleAlert();
     this.setState({ showArticle: false });
     // removes the article parameter from the URL
     this.removeParamFromURL(e);
@@ -225,42 +240,32 @@ export const ArticleViewer = createReactClass({
   },
 
   render() {
+    const { showButtonClass, showPermalink = true, title } = this.props;
     if (!this.state.showArticle) {
-      if (this.props.title) {
+      if (title) {
         return (
-          <div className={`tooltip-trigger ${this.props.showButtonClass || ''}`}>
-            <button onClick={this.showArticle} aria-describedby="icon-article-viewer-desc">{this.props.title}</button>
-            <p id="icon-article-viewer-desc">Open Article Viewer</p>
-            <div className="tooltip tooltip-title dark large">
-              <p>{this.showButtonLabel()}</p>
-            </div>
-          </div>
+          <TitleOpener
+            showArticle={this.showArticle}
+            showButtonClass={showButtonClass}
+            showButtonLabel={this.showButtonLabel}
+            title={title}
+          />
         );
       }
       return (
-        <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
-          <button onClick={this.showArticle} aria-label="Open Article Viewer" className="icon icon-article-viewer" />
-          <div className="tooltip tooltip-center dark large">
-            <p>{this.showButtonLabel()}</p>
-          </div>
-        </div>
+        <IconOpener
+          showArticle={this.showArticle}
+          showButtonClass={showButtonClass}
+          showButtonLabel={this.showButtonLabel}
+        />
       );
     }
-    const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" aria-label="Close Article Viewer" />;
 
     let style = 'hidden';
     if (this.state.showArticle) {
       style = '';
     }
     const className = `article-viewer ${style}`;
-
-    let article;
-    if (this.state.fetched) {
-      const articleHTML = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
-      article = <div className="parsed-article" dangerouslySetInnerHTML={{ __html: articleHTML }} />;
-    } else {
-      article = <Loading />;
-    }
 
     let legendStatus;
     if (this.state.highlightedHtml) {
@@ -283,7 +288,7 @@ export const ArticleViewer = createReactClass({
         />
       );
     }
-    const { showPermalink = true } = this.props;
+
     return (
       <div>
         <div className={className}>
@@ -291,37 +296,25 @@ export const ArticleViewer = createReactClass({
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
               {
-                showPermalink && (
-                  <span>
-                    <a className="icon-link" href={`?showArticle=${this.props.article.id}`} />
-                  </span>
-                )
+                showPermalink && <Permalink articleId={this.props.article.id} />
               }
-
-              {closeButton}
-              <a
-                className="button danger small pull-right article-viewer-button"
-                onClick={() => this.showBadArticleAlert()}
-              >
-                Report Unsatisfactory Work
-              </a>
+              <CloseButton hideArticle={this.hideArticle} />
+              <BadWorkAlertButton showBadArticleAlert={this.showBadArticleAlert} />
             </p>
           </div>
           {
             this.state.showBadArticleAlert && (
-              <div className="article-alert">
-                <p>Click this button if you believe the work completed by your students needs intervention by a staff member of Wiki Education Foundation. A member of our staff will get in touch with you and your students.</p>
-                <button
-                  className="button danger"
-                  onClick={() => this.submitBadWorkAlert()}
-                >
-                  Notify Wiki Expert
-                </button>
-              </div>
+              <BadWorkAlert submitBadWorkAlert={this.submitBadWorkAlert} />
             )
           }
           <div className="article-scrollbox">
-            {article}
+            {
+              this.state.fetched ? (
+                <ParsedArticle {...this.state} />
+              ) : (
+                <Loading />
+              )
+            }
           </div>
           <div className="article-footer">
             {articleViewerLegend}
