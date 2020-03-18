@@ -85,7 +85,6 @@ class CoursesController < ApplicationController
   def revisions
     set_course
     set_limit
-    set_course_specific
   end
 
   def users
@@ -334,10 +333,6 @@ class CoursesController < ApplicationController
 
   def set_limit
     @limit = params[:limit]
-  end
-
-  def set_course_specific
-    @course_assignment_urls = Assignment.where(course_id: @course.id).pluck(:sandbox_url)
   end
 
   # If the user could make an edit to the course, this verifies that
