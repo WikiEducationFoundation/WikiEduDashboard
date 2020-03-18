@@ -156,6 +156,7 @@ const ArticleFinderRow = createReactClass({
       <ArticleViewer
         article={article}
         course={this.props.course}
+        current_user={this.props.current_user}
         title={this.props.article.title}
         showArticleFinder={true}
         showPermalink={false}

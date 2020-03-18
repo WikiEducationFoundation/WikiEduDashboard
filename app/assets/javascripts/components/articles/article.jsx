@@ -93,6 +93,7 @@ const Article = createReactClass({
           <ArticleViewer
             article={this.props.article}
             course={this.props.course}
+            current_user={this.props.current_user}
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
             showButtonClass="pull-left"

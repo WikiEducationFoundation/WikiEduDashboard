@@ -240,8 +240,16 @@ export const ArticleViewer = createReactClass({
   },
 
   render() {
-    const { showButtonClass, showPermalink = true, title } = this.props;
-    if (!this.state.showArticle) {
+    const {
+      article, current_user = {}, showButtonClass, showPermalink = true,
+      showArticleFinder, title
+    } = this.props;
+    const {
+      failureMessage, fetched, highlightedHtml, showArticle, showBadArticleAlert,
+      whocolorFailed, users
+    } = this.state;
+
+    if (!showArticle) {
       if (title) {
         return (
           <TitleOpener
@@ -262,29 +270,29 @@ export const ArticleViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.state.showArticle) {
+    if (showArticle) {
       style = '';
     }
     const className = `article-viewer ${style}`;
 
     let legendStatus;
-    if (this.state.highlightedHtml) {
+    if (highlightedHtml) {
       legendStatus = 'ready';
-    } else if (this.state.whocolorFailed) {
+    } else if (whocolorFailed) {
       legendStatus = 'failed';
     } else if (this.isWhocolorLang()) {
       legendStatus = 'loading';
     }
 
     let articleViewerLegend;
-    if (!this.props.showArticleFinder) {
+    if (!showArticleFinder) {
       articleViewerLegend = (
         <ArticleViewerLegend
-          article={this.props.article}
-          users={this.state.users}
+          article={article}
+          users={users}
           colors={colors}
           status={legendStatus}
-          failureMessage={this.state.failureMessage}
+          failureMessage={failureMessage}
         />
       );
     }
@@ -294,31 +302,31 @@ export const ArticleViewer = createReactClass({
         <div className={className}>
           <div className="article-header">
             <p>
-              <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
+              <span className="article-viewer-title">{trunc(article.title, 56)}</span>
               {
-                showPermalink && <Permalink articleId={this.props.article.id} />
+                showPermalink && <Permalink articleId={article.id} />
               }
               <CloseButton hideArticle={this.hideArticle} />
-              <BadWorkAlertButton showBadArticleAlert={this.showBadArticleAlert} />
+              {
+                current_user.isAdvancedRole && (
+                  <BadWorkAlertButton showBadArticleAlert={this.showBadArticleAlert} />
+                )
+              }
             </p>
           </div>
           {
-            this.state.showBadArticleAlert && (
+            showBadArticleAlert && (
               <BadWorkAlert submitBadWorkAlert={this.submitBadWorkAlert} />
             )
           }
           <div className="article-scrollbox">
             {
-              this.state.fetched ? (
-                <ParsedArticle {...this.state} />
-              ) : (
-                <Loading />
-              )
+              fetched ? <ParsedArticle {...this.state} /> : <Loading />
             }
           </div>
           <div className="article-footer">
             {articleViewerLegend}
-            <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
+            <a className="button dark small pull-right article-viewer-button" href={article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import CurrentStatus from './CurrentStatus';
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
-export const Assignment = ({ assignment, course, fetchArticleDetails, user }) => {
+export const Assignment = ({ assignment, course, current_user, fetchArticleDetails, user }) => {
   const article = {
     ...assignment,
     course_id: course.id,
@@ -41,6 +41,7 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
         <ArticleViewer
           article={article}
           course={course}
+          current_user={current_user}
           fetchArticleDetails={fetchArticleDetails}
           users={users}
           showOnMount={showArticleId === article.id}
@@ -59,6 +60,7 @@ Assignment.propTypes = {
   course: PropTypes.shape({
     type: PropTypes.string.isRequired
   }).isRequired,
+  current_user: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };
 
