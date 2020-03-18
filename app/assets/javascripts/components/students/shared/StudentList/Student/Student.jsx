@@ -9,6 +9,7 @@ import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisi
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
+import ContentAdded from './ContentAdded';
 
 // Actions
 import {
@@ -131,24 +132,6 @@ const Student = createReactClass({
       );
     }
 
-    let contentAdded;
-    if (course.home_wiki_bytes_per_word) {
-      const mainspaceWords = Math.round(student.character_sum_ms / course.home_wiki_bytes_per_word);
-      const userspaceWords = Math.round(student.character_sum_us / course.home_wiki_bytes_per_word);
-      const draftWords = Math.round(student.character_sum_draft / course.home_wiki_bytes_per_word);
-      contentAdded = (
-        <td className="desktop-only-tc">
-          {mainspaceWords} | {userspaceWords} | {draftWords}
-        </td>
-      );
-    } else {
-      contentAdded = (
-        <td className="desktop-only-tc">
-          {student.character_sum_ms} | {student.character_sum_us} | {student.character_sum_draft}
-        </td>
-      );
-    }
-
     const uploadsLink = `/courses/${course.slug}/uploads`;
 
     return (
@@ -181,7 +164,7 @@ const Student = createReactClass({
           {reviewButton}
         </td>
         {recentRevisions}
-        {contentAdded}
+        <ContentAdded course={course} student={student} />
         <td className="desktop-only-tc">
           {student.references_count}
         </td>
