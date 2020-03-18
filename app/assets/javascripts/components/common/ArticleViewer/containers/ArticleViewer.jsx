@@ -241,12 +241,12 @@ export const ArticleViewer = createReactClass({
 
   render() {
     const {
-      article, current_user = {}, showButtonClass, showPermalink = true,
+      alertStatus, article, current_user = {}, showButtonClass, showPermalink = true,
       showArticleFinder, title
     } = this.props;
     const {
-      failureMessage, fetched, highlightedHtml, showArticle, showBadArticleAlert,
-      whocolorFailed, users
+      failureMessage, fetched, highlightedHtml, showArticle,
+      showBadArticleAlert, whocolorFailed, users
     } = this.state;
 
     if (!showArticle) {
@@ -316,7 +316,10 @@ export const ArticleViewer = createReactClass({
           </div>
           {
             showBadArticleAlert && (
-              <BadWorkAlert submitBadWorkAlert={this.submitBadWorkAlert} />
+              <BadWorkAlert
+                alertStatus={alertStatus}
+                submitBadWorkAlert={this.submitBadWorkAlert}
+              />
             )
           }
           <div className="article-scrollbox">
@@ -335,7 +338,8 @@ export const ArticleViewer = createReactClass({
 });
 
 const clickOutsideComponent = OnClickOutside(ArticleViewer);
+const mapStateToProps = ({ needHelpAlert }) => ({ alertStatus: needHelpAlert });
 const mapDispatchToProps = {
   submitBadWorkAlert
 };
-export default connect(null, mapDispatchToProps)(clickOutsideComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(clickOutsideComponent);
