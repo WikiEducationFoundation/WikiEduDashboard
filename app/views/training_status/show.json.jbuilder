@@ -9,7 +9,6 @@ json.course do
     json.kind training_module.kind
     json.status tp_manager.status
     json.completion_date tp_manager.completion_date
-    tmu = TrainingModulesUsers.find_by(user_id: @user.id, training_module_id: training_module.id)
-    json.completion_time tmu.completed_at - tmu.created_at if tp_manager.completion_date
+    json.completion_time tp_manager.completion_time
   end
 end
