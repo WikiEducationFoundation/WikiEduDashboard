@@ -8,6 +8,7 @@
 # Author: Macofe
 # Author: Medol
 # Author: Toniher
+# Author: Townie
 # Author: Unapersona
 # Author: Unapersoneta
 # Author: Vriullop
@@ -133,7 +134,7 @@ ca:
     hide: Amaga
     history: (historial)
     label: Articles
-    loading: S’estan carregant els articles…
+    loading: S'estan carregant els articles…
     new: (nou)
     none: Aquest curs encara no ha editat cap article
     rating: Classe
@@ -1103,7 +1104,7 @@ ca:
     more_results: Més resultats
     fetched_articles: S'han recuperat els articles
     filtered_articles: Articles filtrats
-    searching_articles: S’estan cercant els articles
+    searching_articles: S'estan cercant els articles
     subheading_message: Trobem un article de la Viquipèdia per treballar.
     article_finder: Buscador d'articles
     submit: Envia

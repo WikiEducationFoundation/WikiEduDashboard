@@ -565,6 +565,7 @@ ru:
     username_placeholder: Имя участника
     useremail_placeholder: Эл. почта
     userpasscode_placeholder: Код доступа
+    words_added: Добавлено cлов<br>(статья | пользователь | черновик)
     role:
       visitor: Посетитель
       student: Студент

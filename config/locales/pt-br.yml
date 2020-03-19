@@ -69,7 +69,9 @@ pt-br:
     request_account: Pedir uma conta
     request_account_create: Criar uma conta
     search: perguntar
-    search_results: 'Resultados para: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Resultado para: ''%{search_terms}'''
+      other: '%{count} Resultado para: ''%{search_terms}'''
     no_results: Nenhum resultado encontrado para '%{query}'
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_wikipedia: Ou registe-se na Wikipédia

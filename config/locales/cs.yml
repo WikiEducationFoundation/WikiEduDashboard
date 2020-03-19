@@ -67,7 +67,10 @@ cs:
     request_account: Požádat o účet
     request_account_create: Vytvořit účet
     search: Zeptat se
-    search_results: 'Výsledky pro: „%{search_terms}“'
+    search_results:
+      one: '%{count} výsledek pro: „%{search_terms}“'
+      few: '%{count} výsledky pro: „%{search_terms}“'
+      other: '%{count} výsledků pro: „%{search_terms}“'
     no_results: Žádné výsledky pro '%{query}'
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_wikipedia: Nebo se přihlaste na Wikipedii
@@ -332,9 +335,9 @@ cs:
     assignment_edits_enabled_tooltip: Pokud je povoleno, Nástěnka přidá šablonu do
       diskusní stánky každého zapsaného článku.
     accounts_generation_enabled: Povoleno posílání žádostí o účet
-    accounts_generation_explanation: Toto povolí účastníkům zadání jejich e-mailových
-      adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Budete
-      pak schopni založit účty z této desky, a přidat je ve stejný čas jako účastníky
+    accounts_generation_explanation: Toto umožní účastníkům zadání jejich e-mailových
+      adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Posléze
+      budete moct založit účty z této nástěnky a současně je přidat jako účastníky
       programu.
     accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita

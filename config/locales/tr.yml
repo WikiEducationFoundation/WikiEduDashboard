@@ -68,7 +68,8 @@ tr:
     request_account: Hesap iste
     request_account_create: Bir hesap oluştur
     search: soru sor
-    search_results: '''%{search_terms}'' için sonuçlar'
+    search_results:
+      one: '%{count} Sonucu: ''%{search_terms}'''
     no_results: '''%{query}'' için sonuç bulunamadı'
     sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydolun
@@ -1224,6 +1225,7 @@ tr:
     username_placeholder: Kullanıcı adı
     useremail_placeholder: E-posta
     userpasscode_placeholder: Şifre Kodu
+    words_added: Kelimeler Eklendi<br>(article | user | draft)
     role:
       description: Kurstaki rolü
       visitor: Ziyaretçi

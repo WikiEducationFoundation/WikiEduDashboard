@@ -61,7 +61,9 @@ it:
     request_account: Richiedi utenza
     request_account_create: Crea una nuova utenza
     search: fai una domanda
-    search_results: 'Risultati per: ''%{search_terms}'''
+    search_results:
+      one: '%{count} risultato per: ''%{search_terms}'''
+      other: '%{count} risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
     sign_up_wikipedia: Oppure fai login su Wikipedia

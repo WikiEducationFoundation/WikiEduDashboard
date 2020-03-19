@@ -58,7 +58,8 @@ zh-TW:
     request_account: 申請帳號
     request_account_create: 建立帳號
     search: 提出問題
-    search_results: 結果：「%{search_terms}」
+    search_results:
+      one: '''%{search_terms}'' %{count} 個結果：'
     no_results: 查無「%{query}」的結果
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
@@ -940,7 +941,7 @@ zh-TW:
     loading_authorship_data: 載入作者資料中
     authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
-    chars_added: 字數的增加<br> (條目|使用者|草稿)
+    chars_added: 已增加字元<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
     contributions_history_full: 檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
@@ -1012,6 +1013,7 @@ zh-TW:
     username_placeholder: 使用者名稱
     useremail_placeholder: 電子郵件
     userpasscode_placeholder: 選課代碼
+    words_added: 已增加詞<br>（條目|使用者|草稿）
     role:
       description: 在課程裡的身份
       visitor: 訪客

@@ -73,7 +73,9 @@ fr:
     request_account: Demander un compte
     request_account_create: Créer un compte
     search: poser une question
-    search_results: Résultats pour « %{search_terms} »
+    search_results:
+      one: '%{count} résultat pour : « %{search_terms} »'
+      other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia

@@ -61,7 +61,11 @@ uk:
     request_account: Подати запит на обліковий запис
     request_account_create: Створити обліковий запис
     search: поставити запитання
-    search_results: 'Результати для: «%{search_terms}»'
+    search_results:
+      one: '%{count} результат для: «%{search_terms}»'
+      few: '%{count} результати для: «%{search_terms}»'
+      many: '%{count} результатів для: «%{search_terms}»'
+      other: '%{count} результатів для: «%{search_terms}»'
     no_results: Не знайдено результатів, що відповідають '%{query}'
     sign_up_extended: Зареєструватися через Вікіпедію
     sign_up_wikipedia: або зареєструватися у Вікіпедії
@@ -1215,6 +1219,7 @@ uk:
     username_placeholder: Ім'я користувача
     useremail_placeholder: Ел. пошта
     userpasscode_placeholder: Код доступу
+    words_added: Слів додано<br>(стаття | користувач | чернетка)
     role:
       description: Записатися в курс
       visitor: Відвідувач
