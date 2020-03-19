@@ -29,7 +29,6 @@ There are some basic requirements for the script to work:
 - python 3.5 or newer
 - ruby 2.5.0
 - apt (debian) or homebrew (MacOS)
-- node v10 or higher
 
 ## Instructions
 - Clone the repository
@@ -56,6 +55,8 @@ You can also contact us on slack for any further queries.
 - If you face the error that `Sorry! Your operating is not supported by this script`
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
+- If you're running Windows and experience `RUNAS ERROR`
+  - Try running a command prompt session as administrator (via right click), and run the batch script in that window i.e., `win-setup.bat`
 
 # Manual setup
 ## TL;DR bare minimum version

@@ -98,6 +98,14 @@ else
   output_line "gem install bundler" && print_success "${CLEAR_LINE}[+] Bundler installed\n"
 fi
 
+printf '[*] Updating bundler... \n'
+if ruby should_update_rubygems.rb
+  gem update --system
+  printf '[+] Bundler updated\n'
+else
+  printf '[+] Bundler already up to date\n'
+fi
+
 printf '[*] Installing Gems... \n'
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 
