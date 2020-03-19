@@ -8,6 +8,7 @@ import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
+import articleListKeys from './article_list_keys';
 import CourseUtils from '../../utils/course_utils.js';
 
 const ArticleList = createReactClass({
@@ -61,37 +62,7 @@ const ArticleList = createReactClass({
   },
 
   render() {
-    const keys = {
-      rating_num: {
-        label: I18n.t('articles.rating'),
-        desktop_only: true,
-        info_key: 'articles.rating_doc'
-      },
-      title: {
-        label: I18n.t('articles.title'),
-        desktop_only: false
-      },
-      character_sum: {
-        label: I18n.t('metrics.char_added'),
-        desktop_only: true,
-        info_key: 'articles.character_doc'
-      },
-      references_count: {
-        label: I18n.t('metrics.references_count'),
-        desktop_only: true,
-        info_key: 'metrics.references_doc'
-      },
-      view_count: {
-        label: I18n.t('metrics.view'),
-        desktop_only: true,
-        info_key: 'articles.view_doc'
-      },
-      tools: {
-        label: I18n.t('articles.tools'),
-        desktop_only: false,
-        sortable: false
-      },
-    };
+    const keys = articleListKeys(this.props.course);
 
     const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
 

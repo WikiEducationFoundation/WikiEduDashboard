@@ -10,6 +10,7 @@ import StudentDrawer from './StudentDrawer/StudentDrawer';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+import studentListKeys from './student_list_keys';
 
 // Helper Functions
 const showRecent = (course) => {
@@ -56,48 +57,8 @@ export const StudentList = (props) => {
   ));
 
   const elements = _.flatten(_.zip(rows, drawers));
-  const keys = {
-    username: {
-      label: I18n.t('users.name'),
-      desktop_only: false,
-      sortable: true,
-    },
-    assignment_title: {
-      label: I18n.t('users.assigned'),
-      desktop_only: true,
-      sortable: false
-    },
-    reviewing_title: {
-      label: I18n.t('users.reviewing'),
-      desktop_only: true,
-      sortable: false
-    },
-    recent_revisions: {
-      label: I18n.t('users.recent_revisions'),
-      desktop_only: true,
-      sortable: true,
-      info_key: 'users.revisions_doc'
-    },
-    character_sum_ms: {
-      label: I18n.t('users.chars_added'),
-      desktop_only: true,
-      sortable: true,
-      info_key: 'users.character_doc'
-    },
-    references_count: {
-      label: I18n.t('users.references_count'),
-      desktop_only: true,
-      sortable: true,
-      info_key: 'metrics.references_doc'
-    },
-    total_uploads: {
-      label: I18n.t('users.total_uploads'),
-      desktop_only: true,
-      sortable: true,
-      info_key: 'users.uploads_doc'
-    }
-  };
 
+  const keys = studentListKeys(course);
   if (!showRecent(course)) delete keys.recent_revisions;
   if (sort.key && keys[sort.key]) keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';
 

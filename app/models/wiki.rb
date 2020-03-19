@@ -9,6 +9,7 @@
 #  project  :string(16)
 #
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/word_count"
 
 class Wiki < ApplicationRecord
   has_many :articles
@@ -129,6 +130,10 @@ class Wiki < ApplicationRecord
     else
       'articles_generic'
     end
+  end
+
+  def bytes_per_word
+    WordCount::BYTES_PER_WORD[domain]
   end
 
   private
