@@ -75,7 +75,8 @@ class TrainingProgressManager
   end
 
   def completion_time
-    return @tmu.completed_at - @tmu.created_at if completion_date
+    return unless module_completed?
+    @tmu.completed_at - @tmu.created_at
   end
 
   private
