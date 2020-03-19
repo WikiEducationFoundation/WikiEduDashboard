@@ -72,7 +72,7 @@ class Course < ApplicationRecord
   has_many :staff, -> { where('courses_users.role = 4') },
            through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
-  has_many :requested_accounts
+  has_many :requested_accounts, dependent: :destroy
   has_many :tickets,
            class_name: 'TicketDispenser::Ticket',
            foreign_key: 'project_id',
