@@ -298,7 +298,7 @@ export const ArticleViewer = createReactClass({
     }
 
     return (
-      <div>
+      <div className="ignore-react-onclickoutside">
         <div className={className}>
           <div className="article-header">
             <p>
