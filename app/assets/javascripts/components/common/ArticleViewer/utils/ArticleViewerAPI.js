@@ -49,6 +49,19 @@ export class ArticleViewerAPI {
     return response.json();
   }
 
+  // This function sets up a timer for the request to the highlighting
+  // API endpoint so that we can make requests on a delay.
+  __wikiwhoColorURLTimedRequestPromise(timeout) {
+    const url = this.builder.wikiwhoColorURL();
+    return new Promise((resolve, reject) => {
+      const headers = { 'Content-Type': 'application/javascript' };
+      setTimeout(() => {
+        fetch(`${url}?origin=*`, { headers })
+          .then(response => (response.ok ? resolve(response) : reject(response)));
+      }, timeout * 1000);
+    });
+  }
+
   fetchParsedArticle() {
     const url = this.builder.parsedArticleURL();
     // Adding `origin=*` allows for requests to go to en.wikipedia.org
@@ -79,27 +92,30 @@ export class ArticleViewerAPI {
   }
 
   fetchWhocolorHtml() {
-    const url = this.builder.wikiwhoColorURL();
-    const colorRequest = () => fetch(`${url}?origin=*`, {
-      headers: {
-        'Content-Type': 'application/javascript'
-      }
-    }).then(response => this.__handleFetchResponse(response));
+    let attempts = 0;
+    const MAX_RETRY_ATTEMPTS = 5;
 
-    return colorRequest()
-      .then((response) => {
-        if (response.success) return Promise.resolve(response);
+    // This function is defined in this way so that the variable name
+    // will be hoisted, allowing it to call itself.
+    function colorURLRequest(timeout = 0) {
+      return this.__wikiwhoColorURLTimedRequestPromise(timeout)
+        .then(response => response.json())
+        .then((response) => {
+          if (response.success) return Promise.resolve(response);
 
-        // If the data isn't already available on the wikiwho server,
-        // it may return a 200 response with `success: false`.
-        // In this case, requesting the `rev_content` for the article
-        // usually causes a subsequent request for the extented html to
-        // succeed.
-        return this.generateWhocolorHtml().then(() => colorRequest());
-      })
-      .then((response) => {
-        return this.__processHtml(response.extended_html, true);
-      });
+          // If the data isn't already available on the wikiwho server,
+          // it may return a 200 response with `success: false`.
+          // In this case, we will retry a few times.
+          attempts += 1;
+          if (attempts <= MAX_RETRY_ATTEMPTS) return colorURLRequest.call(this, attempts);
+
+          const err = `Request failed after ${MAX_RETRY_ATTEMPTS} attempts. Please try again.`;
+          throw new Error(err);
+        });
+    }
+
+    return colorURLRequest.call(this)
+      .then(response => this.__processHtml(response.extended_html, true));
   }
 
   fetchUserIds() {
