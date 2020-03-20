@@ -9,6 +9,7 @@
 #  project  :string(16)
 #
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/word_count"
 
 class Wiki < ApplicationRecord
   has_many :articles
@@ -118,6 +119,21 @@ class Wiki < ApplicationRecord
 
   def course_prefix
     edit_templates['course_prefix']
+  end
+
+  def string_prefix
+    case project
+    when 'wikipedia'
+      'articles'
+    when 'wikidata'
+      'articles_wikidata'
+    else
+      'articles_generic'
+    end
+  end
+
+  def bytes_per_word
+    WordCount::BYTES_PER_WORD[domain]
   end
 
   private

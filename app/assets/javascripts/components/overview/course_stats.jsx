@@ -57,7 +57,7 @@ const CourseStats = ({ course }) => {
   }
 
   let refCount;
-  if (course.references_count !== '0') {
+  if (Number(course.references_count)) {
     refCount = (
       <div className="stat-display__stat tooltip-trigger" id="references-added">
         <div className={valueClass('references_count')}>

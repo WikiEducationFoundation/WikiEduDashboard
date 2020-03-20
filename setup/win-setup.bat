@@ -15,6 +15,10 @@ echo [+] Node.js installed!
 
 echo [*] Installing Gems...
 call gem install bundler
+call ruby.exe should_update_rubygems.rb
+IF %ERRORLEVEL% EQU 0 (
+  gem update --system
+)
 call bundle install
 echo [+] Gems installed!
 

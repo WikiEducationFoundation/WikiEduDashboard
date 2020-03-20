@@ -72,7 +72,7 @@ class Course < ApplicationRecord
   has_many :staff, -> { where('courses_users.role = 4') },
            through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
-  has_many :requested_accounts
+  has_many :requested_accounts, dependent: :destroy
   has_many :tickets,
            class_name: 'TicketDispenser::Ticket',
            foreign_key: 'project_id',
@@ -265,6 +265,7 @@ class Course < ApplicationRecord
 
   def tracked_revisions
     revisions.where.not(article_id: articles_courses.not_tracked.pluck(:article_id))
+             .where(wiki_id: wiki_ids)
   end
 
   def tracked_articles

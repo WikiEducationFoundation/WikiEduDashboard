@@ -67,7 +67,10 @@ cs:
     request_account: Požádat o účet
     request_account_create: Vytvořit účet
     search: Zeptat se
-    search_results: 'Výsledky pro: „%{search_terms}“'
+    search_results:
+      one: '%{count} výsledek pro: „%{search_terms}“'
+      few: '%{count} výsledky pro: „%{search_terms}“'
+      other: '%{count} výsledků pro: „%{search_terms}“'
     no_results: Žádné výsledky pro '%{query}'
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_wikipedia: Nebo se přihlaste na Wikipedii
@@ -332,11 +335,10 @@ cs:
     assignment_edits_enabled_tooltip: Pokud je povoleno, Nástěnka přidá šablonu do
       diskusní stánky každého zapsaného článku.
     accounts_generation_enabled: Povoleno posílání žádostí o účet
-    accounts_generation_explanation: Toto povolí účastníkům zadání jejich e-mailových
-      adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Budete
-      pak schopni založit účty z této desky, a přidat je ve stejný čas jako účastníky
-      programu. Abyste mohli používat tuto funkci, musíte patřit na své domovské wiki
-      do skupiny 'zakladatelů účtů'.
+    accounts_generation_explanation: Toto umožní účastníkům zadání jejich e-mailových
+      adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Posléze
+      budete moct založit účty z této nástěnky a současně je přidat jako účastníky
+      programu.
     accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita
     active_courses: Aktivní %{course_type}
@@ -653,7 +655,7 @@ cs:
     user_suggestions_prompt: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy
     view: Zobrazit kurz
-    view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
+    view_doc: Odhadovaný počet návštěv článků editovaných účastníky tohoto kurzu (počítáno
       od doby, kdy účastník provedl v článku první editaci).
     view_page: Zobrazit stránku kurzu
     view_wiki: Zobrazit na Wikipedii
@@ -718,9 +720,9 @@ cs:
       intro: Instituce a název programu tvoří URL programu. Domácí wiki je hlavní
         Wikipedií, kde budou účastníci přispívat a z této wiki budou také ve výchozím
         stavu zaznamenávány editace. Pokud váš program zahrnuje více jazyků nebo projektů,
-        příspěvky budou také zaznamenávány z každé wiki, která má „Dostupný článek“
-        nebo „Úkol“ pro tuto wiki. Klikněte na „Vytvořit můj program!“ a začněte tvořit
-        stránku pro váš wiki program.
+        příspěvky budou také zaznamenávány z každé wiki, která byla přidána mezi „Sledované
+        wiki“. Klikněte na „Vytvořit můj program!“ a začněte tvořit stránku pro váš
+        wiki program.
       new_or_clone: Vytvořte nový program nyní nebo použijte možnost „kopírovat“ ke
         zkopírování jiného programu, kterého jste se zúčastnil(a).
       participate_in_campaign: Účastněte se programu
@@ -1094,8 +1096,7 @@ cs:
     unsupported_browser:
       header: Nepodporovaný prohlížeč. :-(
       explanation: Váš prohlížeč není kompatibilní s Nástěnkou. Tato stránka funguje
-        v Internet Exploreru verze 11 či novější, v nedávných verzích Chromu či Firefoxu
-        i v dalších moderních prohlížečích.
+        v nedávných verzích Chromu, Firefoxu, Edge i dalších moderních prohlížečů.
   error_401:
     header: Nepovoleno. >:-(
     explanation: Nemáte dostatečná práva pro spuštění tohoto požadavku. Pokud jste

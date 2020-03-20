@@ -218,6 +218,18 @@ describe CoursesController, type: :request do
       end
     end
 
+    describe 'updating "last_reviewed"' do
+      it 'sets the timestamp and reviewer' do
+        expect(course.flags['last_reviewed']).to be_nil
+        params = {
+          id: course.slug,
+          course: { last_reviewed: { username: 'Ragesoss', timestamp: Time.zone.now } }
+        }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(course.reload.flags.dig('last_reviewed', 'username')).to eq('Ragesoss')
+      end
+    end
+
     it 'raises if course is not found' do
       params = { id: 'peanut-butter', course: course_params }
       expect { put "/courses/#{course.id}", params: params, as: :json }

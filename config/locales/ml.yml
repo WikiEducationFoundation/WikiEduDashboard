@@ -1,0 +1,47 @@
+# Messages for Malayalam (മലയാളം)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Adithyak1997
+# Author: Jameela P.
+# Author: Jinoytommanjaly
+# Author: Praveenp
+---
+ml:
+  application:
+    cancel: റദ്ദാക്കുക
+    cookie_consent_acknowledge: എനിക്ക് മനസ്സിലായി
+    cookie_consent_see_more: കൂടുതൽ കാണുക.
+    create_accounts: വിക്കിപീഡിയ അംഗത്വങ്ങൾ സൃഷ്ടിക്കുക
+    dashboard: വിക്കി എഡ് ഡാഷ്ബോർഡ്
+    documentation: വിവരണം
+    error: 'ഒരു പിഴവ്:'
+    field_required: ഇത് നിർബന്ധമായും പൂരിപ്പിക്കുക
+    greeting2: സ്വാഗതം!
+    greeting_extended: വിക്കിപീഡിയയിലേക്ക് സ്വാഗതം
+    greeting: നമസ്കാരം!
+    help: സഹായം
+    log_in_extended: വിക്കിപീഡിയയിൽ പ്രവേശിക്കുക
+    log_in: പ്രവേശിക്കുക
+    log_out: ലോഗൗട്ട്
+    my_dashboard: എന്റെ ഡാഷ്ബോർഡ്
+    recent_activity: സമീപകാല പ്രവർത്തനങ്ങൾ
+    report_problem: പ്രശ്നമറിയിക്കുക
+    request_account: അംഗത്വത്തിനായി അഭ്യർത്ഥിക്കുക
+    request_account_create: അംഗത്വമെടുക്കുക
+    search: ചോദ്യം ചോദിക്കുക
+    sign_up_extended: വിക്കിപീഡിയയിൽ പ്രവേശിക്കുക
+    sign_up: അംഗത്വമെടുക്കുക
+    submit: സമർപ്പിക്കുക
+    training: പരീശീലനം
+    change: മാറ്റുക
+    details: വിശദാംശങ്ങൾ
+    confirm: ശരി
+    opt_in: അതെ
+    opt_out: അല്ല
+    opt_yes: അതെ
+  courses_generic:
+    user_uploads_none: തിരഞ്ഞെടുത്ത ഉപയോക്താക്കൾ ഈ പ്രോജക്റ്റിലേക്ക് ഏതെങ്കിലും ചിത്രങ്ങൾ
+      അല്ലെങ്കിൽ മറ്റ് മീഡിയ ഫയലുകൾ സംഭാവന ചെയ്തിട്ടില്ല.
+  metrics:
+    tags: ടാഗുകൾ
+...

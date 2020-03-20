@@ -63,7 +63,9 @@ en:
     request_account: Request an account
     request_account_create: Create an account
     search: ask a question
-    search_results: "Results for: '%{search_terms}'"
+    search_results: 
+     one: "%{count} Result for: '%{search_terms}'"
+     other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
@@ -218,6 +220,13 @@ en:
       usually indicates that an article follow Wikipedia's conventions for the
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
+    articles_short: Articles
+
+  articles_wikidata:
+    articles_short: Items
+  
+  articles_generic:
+    articles_short: Pages
 
   assignments:
     article: The article %{title} is now assigned to you.
@@ -861,6 +870,7 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
+    last_reviewed: Last Reviewed
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
@@ -1138,6 +1148,9 @@ en:
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?
+    requested_account_status:
+      success_message: 'Success: %{result_description}'
+      failure_message: 'Failure: %{result_description}'
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
     references_doc: The number of references added or removed by this editor
@@ -1174,6 +1187,9 @@ en:
     username_placeholder: Username
     useremail_placeholder: Email
     userpasscode_placeholder: Passcode
+    words_added:
+      Words Added<br>(article | user | draft)
+
 
     role:
       description: Role in course

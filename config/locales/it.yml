@@ -61,7 +61,9 @@ it:
     request_account: Richiedi utenza
     request_account_create: Crea una nuova utenza
     search: fai una domanda
-    search_results: 'Risultati per: ''%{search_terms}'''
+    search_results:
+      one: '%{count} risultato per: ''%{search_terms}'''
+      other: '%{count} risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
     sign_up_wikipedia: Oppure fai login su Wikipedia
@@ -196,6 +198,11 @@ it:
       più alto indica in genere che una voce segue le convenzioni di Wikipedia per
       la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
+    articles_short: Voci
+  articles_wikidata:
+    articles_short: Elementi
+  articles_generic:
+    articles_short: Pagine
   assignments:
     article: La voce %{title} ora è assegnata a te.
     article_link: Voce
@@ -813,6 +820,8 @@ it:
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
     done: Fatto!
+    kind:
+      discussion: Discussione
   uploads:
     file_name: Nome del file
     header: File caricati su Wikimedia Commons

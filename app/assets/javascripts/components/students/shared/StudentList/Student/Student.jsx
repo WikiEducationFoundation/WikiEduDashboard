@@ -9,6 +9,7 @@ import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisi
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
+import ContentAdded from './ContentAdded';
 
 // Actions
 import {
@@ -163,9 +164,7 @@ const Student = createReactClass({
           {reviewButton}
         </td>
         {recentRevisions}
-        <td className="desktop-only-tc">
-          {student.character_sum_ms} | {student.character_sum_us} | {student.character_sum_draft}
-        </td>
+        <ContentAdded course={course} student={student} />
         <td className="desktop-only-tc">
           {student.references_count}
         </td>

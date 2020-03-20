@@ -131,6 +131,11 @@ da:
       at en artikel følger Wikipedias konventioner for strukturen på en god artikel,
       men tager ikke højde for selve indholdet. (Disse bedømmelser er kun tilgængelige
       for engelske Wikipediaartikler).
+    articles_short: Artikler
+  articles_wikidata:
+    articles_short: Emner
+  articles_generic:
+    articles_short: Sider
   assignments:
     article: Artiklen %{title} er nu tildelt dig.
     article_link: Artikel
@@ -484,6 +489,10 @@ da:
     included_modules: Inkluderede moduler
     view_library_source: vis bibliotekskilde
     view_module_source: vis modulkilde
+    kind:
+      exercise: Øvelse
+      discussion: Diskussion
+      training: Træning
   uploads:
     file_name: Filnavn
     header: Filer uploadet til Wikimedia Commons

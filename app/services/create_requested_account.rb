@@ -26,6 +26,18 @@ class CreateRequestedAccount
     process_request(@creator, @creation_reason)
   end
 
+  def set_result_description
+    if @result[:failure]
+      formatted_failure_message = @result[:failure].sub('response: {}', '')
+                                                   .sub('https://en.wikipedia.org', '')
+      @result[:result_description] = I18n.t('users.requested_account_status.failure_message',
+                                            result_description: formatted_failure_message)
+    elsif @result[:success]
+      @result[:result_description] = I18n.t('users.requested_account_status.success_message',
+                                            result_description: @result[:success])
+    end
+  end
+
   private
 
   def en_wiki
@@ -51,6 +63,7 @@ class CreateRequestedAccount
                                                       'messagecode')
 
     status == 'PASS' ? create_account : handle_failed_account_creation(message, messagecode)
+    set_result_description
   end
 
   def create_account

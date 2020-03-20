@@ -60,6 +60,9 @@ hu:
     loading: Szócikkek betöltése...
     title: Cím
     title_example: Szócikk címe
+    articles_short: Szócikkek
+  articles_generic:
+    articles_short: Lapok
   assignments:
     label: Hozzárendelés
   blocks:
