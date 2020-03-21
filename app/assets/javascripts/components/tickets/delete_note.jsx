@@ -6,7 +6,6 @@ class DeleteNote extends React.Component {
       onClick(e) {
             e.preventDefault();
             this.props.deleteNote(this.props.messageId);
-            window.location.reload();
       }
 
       render() {

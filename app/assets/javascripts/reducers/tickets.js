@@ -76,8 +76,7 @@ export default function (state = initialState, action) {
       const all = removeNote(state.selected.messages, action.id);
       return {
         ...state,
-        all,
-        loading: false
+        all
       };
     }
     case FETCH_TICKETS:
