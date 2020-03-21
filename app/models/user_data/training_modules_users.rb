@@ -33,10 +33,6 @@ class TrainingModulesUsers < ApplicationRecord
     flags[:marked_complete] = value
   end
 
-  def marked_complete?
-    flags[:marked_complete] || false
-  end
-
   private
 
   def training_progress_manager

@@ -4,6 +4,7 @@
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
 # Author: Codynguyen1116
@@ -179,6 +180,11 @@ es:
       un artículo sigue las convenciones de Wikipedia sobre la estructura de un buen
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
+    articles_short: Artículos
+  articles_wikidata:
+    articles_short: Elementos
+  articles_generic:
+    articles_short: Páginas
   assignments:
     article: El artículo %{title} ahora está asignado a ti.
     article_link: Artículo
@@ -798,6 +804,10 @@ es:
     done: ¡Hecho!
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
+    kind:
+      exercise: Ejercicio
+      discussion: Discusión
+      training: Entrenamiento
   uploads:
     credit: Crédito
     file_name: Nombre del archivo
@@ -857,6 +867,9 @@ es:
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
+    requested_account_status:
+      success_message: 'Éxito: %{result_description}'
+      failure_message: 'Fracaso: %{result_description}'
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días

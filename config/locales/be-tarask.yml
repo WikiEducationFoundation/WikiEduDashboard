@@ -6,6 +6,15 @@
 # Author: Renessaince
 ---
 be-tarask:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: тыс.
+          million: млн
+          billion: млрд
+          trillion: трлн
+          quadrillion: квдрлн
   accessibility:
     number_field: Гэта лічбавае поле. Кнопкі, што адлюстроўваюцца большасьцю броўзэраў,
       павялічваюць і памяншаюць уведзеныя зьвесткі.
@@ -23,6 +32,8 @@ be-tarask:
     field_required: Гэтае поле — абавязковае
     field_invalid_characters: Поле зьмяшчае недапушчальныя сымбалі
     field_invalid_date: Поле патрабуе даты ў фармаце ГГГГ-ММ-ДД
+    field_invalid_date_time: Канец мусіць быць пазьнейшы за пачатак (дапушчальныя
+      гадзіны ад 0 да 23).
     greeting2: Вітаем!
     greeting_extended: Вітаем у Вікіпэдыі
     greeting: Прывітаньне!
@@ -33,13 +44,30 @@ be-tarask:
     log_out: Выйсьці
     my_dashboard: Мая панэль
     recent_activity: Нядаўняя актыўнасьць
+    report_problem: Паведаміць пра праблему
+    request_account: Запыт на стварэньне рахунку
+    request_account_create: Стварыць рахунак
     search: задаць пытаньне
+    search_results: 'Вынікі для: «%{search_terms}»'
+    no_results: Для «%{query}» вынікаў ня знойдзена
     sign_up_extended: Увайдзіце празь Вікіпэдыю
+    sign_up_wikipedia: Альбо увайдзіце на Вікіпэдыю
     sign_up_log_in_extended: празь Вікіпэдыю
     sign_up: Зарэгістравацца
     submit: Даслаць
     training: Навучаньне
     change: Зьмяніць
+    details: Падрабязнасьці
+    confirm: Добра
+    opt_in: Так
+    opt_out: Не
+    opt_yes: так
+    opt_no: не
+  article_statuses:
+    not_yet_started: Пачатак працы
+    in_progress: Работа ў пясочніцы
+    ready_for_review: Пашырэньне чарнавіку
+    ready_for_mainspace: Перанос працы ў асноўную прастору
   dashboard:
     create_note: Націсьніце «Стварыць курс», каб запачаткаваць Ваш першы курс.
     create_preparation_note: Перш чым пачаць, пераканайцеся, што маеце пад рукой каляндар
@@ -132,7 +160,7 @@ be-tarask:
     no_available: Гэты курс ня мае даступных артыкулаў.
     remove: Выдаліць
     reviewers: Правяраючы(я)
-    review_other: Прызначыць разгляд
+    review_other: Прызначыць экспэртную ацэнку
     review_self: Разгледзець артыкул
     select: Выбраць
   blocks:

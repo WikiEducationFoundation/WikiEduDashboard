@@ -22,6 +22,7 @@
 # Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Rodrigo codignoli
 # Author: Rukasuoribera
 # Author: Trigonometria87
 ---
@@ -68,7 +69,9 @@ pt-br:
     request_account: Pedir uma conta
     request_account_create: Criar uma conta
     search: perguntar
-    search_results: 'Resultados para: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Resultado para: ''%{search_terms}'''
+      other: '%{count} Resultado para: ''%{search_terms}'''
     no_results: Nenhum resultado encontrado para '%{query}'
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_wikipedia: Ou registe-se na Wikipédia
@@ -218,6 +221,11 @@ pt-br:
       indica que um artigo segue as convenções da Wikipédia para a estrutura de um
       bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
       para a Wikipédia em inglês.)
+    articles_short: Artigos
+  articles_wikidata:
+    articles_short: Itens
+  articles_generic:
+    articles_short: Páginas
   assignments:
     article: O artigo %{title} foi designado agora para ti.
     article_link: Artigo
@@ -254,6 +262,9 @@ pt-br:
     review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
+    warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
+      não rastreado por este curso. Para acompanhar as contribuições para este artigo,
+      um instrutor deve adicionar o seguinte wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Marco
@@ -892,6 +903,7 @@ pt-br:
     char: Caracteres adicionados
     date_time: Data/Horário
     edit_count_description: Total de edições
+    last_reviewed: Última revisão
     per_user: '%{number}/usuário'
     revisions: Edições recentes
     references_count: Referências adicionadas
@@ -1120,6 +1132,10 @@ pt-br:
     view_library_source: ver fonte da biblioteca
     view_module_source: ver a fonte do módulo
     reload_from_source: recarregar da fonte
+    kind:
+      exercise: Exercício
+      discussion: Discussão
+      training: Treinamento
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo
@@ -1187,6 +1203,9 @@ pt-br:
     recent_revisions: Edições recentes
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
     request_confirmation: Tem certeza de que deseja solicitar essa conta?
+    requested_account_status:
+      success_message: 'Sucesso: %{result_description}'
+      failure_message: 'Falha: %{result_description}'
     revision_characters_and_views: 'Caracteres adicionados: %{characters}, Visitas:
       %{views}'
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias

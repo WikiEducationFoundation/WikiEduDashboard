@@ -64,7 +64,6 @@ class WikiPageviews
     end_param = end_date.strftime('%Y%m%d')
     title_and_date_params = "#{title}/daily/#{start_param}00/#{end_param}00"
     url = base_url + configuration_params + title_and_date_params
-    pp url
     url
   end
 

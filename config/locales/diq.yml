@@ -26,7 +26,7 @@ diq:
     dashboard: Texteyê cerrebnayışê Wiki Edi
     documentation: Dokumantasyon
     error: 'Yew xeta biye:'
-    explore: Cı geyre
+    explore: Keşf bıkerê
     field_required: No ca icab keno
     greeting2: Xeyr amey!
     greeting_extended: Xeyr amey Wikipediya
@@ -99,6 +99,8 @@ diq:
     assignees: Çebyayış(i)
     assign_other: Wesiqa cı ke
     add_available: Mewcud yu wesiqa dek
+    bibliography: Bibliyografiye
+    clone: Klon kerê
     loading: Çebyayena bena bar....
     remove: Wedare
     select: Weçine

@@ -6,7 +6,7 @@ require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
-  before_action :require_signed_in, only: %i[students instructors courses articles_csv
+  before_action :require_signed_in, only: %i[instructors courses articles_csv
                                              revisions_csv]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
@@ -19,12 +19,12 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w[title start end].freeze
 
   def index
-    @campaigns = if search_params[:search].present?
-                   Campaign.where('lower(title) like ?', "%#{search_params[:search].downcase}%")
+    @query = search_params[:search]
+    @campaigns = if @query.present?
+                   @results = Campaign.where('lower(title) like ?', "%#{@query.downcase}%")
                  else
                    Campaign.all
                  end
-    @query = search_params[:search]
     @campaign = Campaign.new
   end
 
@@ -105,6 +105,7 @@ class CampaignsController < ApplicationController
     set_page
     set_presenter
     @search_terms = params[:courses_query]
+    @results = @presenter.search_courses(@search_terms) if @search_terms.present?
   end
 
   def ores_plot

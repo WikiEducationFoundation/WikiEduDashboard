@@ -119,10 +119,6 @@ class TrainingModule < ApplicationRecord
     kind == TrainingModule::Kinds::EXERCISE
   end
 
-  def discussion?
-    kind == TrainingModule::Kinds::DISCUSSION
-  end
-
   def slides
     return @sorted_slides if @sorted_slides.present?
     selected_slides = TrainingSlide.where(slug: slide_slugs)
