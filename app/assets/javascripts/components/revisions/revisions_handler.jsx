@@ -15,6 +15,7 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     limit: PropTypes.number,
     revisions: PropTypes.array,
+    course_specific_revision_ids: PropTypes.array,
     wikidataLabels: PropTypes.object,
     loadingRevisions: PropTypes.bool
   },
@@ -75,7 +76,7 @@ const RevisionHandler = createReactClass({
           </div>
         </div>
         <RevisionList
-          revisions={(this.state.courseSpecificBool) ? this.props.revisions.filter((revision) => { return revision.course_specific; }) : this.props.revisions}
+          revisions={(this.state.courseSpecificBool) ? this.props.revisions.filter((revision) => { return this.props.course_specific_revision_ids.includes(revision.id); }) : this.props.revisions}
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
@@ -90,6 +91,7 @@ const RevisionHandler = createReactClass({
 const mapStateToProps = state => ({
   limit: state.revisions.limit,
   revisions: state.revisions.revisions,
+  course_specific_revision_ids: state.revisions.course_specific_revision_ids,
   limitReached: state.revisions.limitReached,
   wikidataLabels: state.wikidataLabels.labels,
   loadingRevisions: state.revisions.loading,
