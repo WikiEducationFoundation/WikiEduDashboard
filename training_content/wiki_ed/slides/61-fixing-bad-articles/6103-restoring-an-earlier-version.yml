@@ -1,0 +1,20 @@
+id: 6103
+title: Restoring an earlier version
+summary:
+content: |
+  Sometimes the most expedient way to repair an article is simply
+  to undo all the recent changes, reverting the article to an earlier
+  version.
+
+  If you've found an earlier version in the article's history that
+  you want to restore:
+
+    1. Load that version by clicking its timestamp on the history page
+    2. Click 'Edit'. When the editor loads, you should see a message letting
+    you know you're editing an old revision.
+    3. Click 'Publish changes', add an edit summary to explain why you're
+    reverting to an earier version, and then publish it.
+
+  This process will save a new edit under your username, which returns
+  the article to its earlier state. You can leave the article like that,
+  or make further edits from there.
