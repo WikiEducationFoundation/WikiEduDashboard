@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import _ from 'lodash';
 import { addValidation, setValid, setInvalid } from '../../actions/validation_actions';
 
@@ -72,7 +72,7 @@ const InputHOC = (Component) => {
         {
           value: props.value,
           invalid: !valid,
-          id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
+          id: props.id || this.state.id || uuid // create a UUID if no id prop
         }, function () {
           if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
             return this.props.addValidation(this.props.value_key, I18n.t('application.field_required'));

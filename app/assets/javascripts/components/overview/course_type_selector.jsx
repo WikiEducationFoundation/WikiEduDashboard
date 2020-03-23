@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import selectStyles from '../../styles/single_select';
 
 const CourseTypeSelector = createReactClass({
@@ -14,7 +14,7 @@ const CourseTypeSelector = createReactClass({
 
   UNSAFE_componentWillMount() {
     this.setState({
-      id: uuid.v4(),
+      id: uuid(),
       selectedOption: { value: this.props.course.type, label: this._getFormattedCourseType(this.props.course.type) },
     });
   },
