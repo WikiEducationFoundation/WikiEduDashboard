@@ -1366,6 +1366,7 @@ en:
     continue: "Continue"
     completed_at: "Completed at"
     completion_time: "Completion time"
+    sufficient_time_allocation: "Sufficient time allocated"
     view: "View"
     started: "Started"
     not_started: "Not started"
