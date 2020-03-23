@@ -20,12 +20,19 @@ const TrainingSlideHandler = createReactClass({
   },
 
   getInitialState() {
+    const navRoot = document.getElementById('nav_root');
+    const userSignedIn = navRoot.dataset.usersignedin === 'true';
+    const ifAdmin = navRoot.dataset.ifadmin === 'true';
+    const isTimerDisabled = !userSignedIn || ifAdmin;
+    let disableNextPageButtonBool = true;
+    if (isTimerDisabled) disableNextPageButtonBool = false;
     return {
-      disableNextPageButtonBool: true,
+      disableNextPageButtonBool: disableNextPageButtonBool,
       countdownSeconds: 0,
       intervalID: null,
       completedSlideIDs: [],
       unlockLimit: 3,
+      isTimerDisabled: isTimerDisabled,
     };
   },
 
@@ -42,33 +49,35 @@ const TrainingSlideHandler = createReactClass({
   },
 
   setNextPageCountdown(set) {
-    if (!set) {
-      if (this.state.intervalID) {
-        window.clearInterval(this.state.intervalID);
-      }
-      this.setState({
-        disableNextPageButtonBool: false,
-        countdownSeconds: this.state.unlockLimit,
-      });
-    } else if (!this.props.training.nextSlide.completed && !this.state.completedSlideIDs.includes(this.props.training.nextSlide.id)) {
-      this.setState({
-        disableNextPageButtonBool: true,
-        countdownSeconds: 0,
-      });
-      const intervalID = setInterval(() => {
-         if (this.state.countdownSeconds === this.state.unlockLimit) {
+    if (!this.state.isTimerDisabled) {
+      if (!set) {
+        if (this.state.intervalID) {
+          window.clearInterval(this.state.intervalID);
+        }
+        this.setState({
+          disableNextPageButtonBool: false,
+          countdownSeconds: this.state.unlockLimit,
+        });
+      } else if (!this.props.training.nextSlide.completed && !this.state.completedSlideIDs.includes(this.props.training.nextSlide.id)) {
+        this.setState({
+          disableNextPageButtonBool: true,
+          countdownSeconds: 0,
+        });
+        const intervalID = setInterval(() => {
+           if (this.state.countdownSeconds === this.state.unlockLimit) {
+             this.setState({
+               disableNextPageButtonBool: false,
+               completedSlideIDs: [...this.state.completedSlideIDs, this.props.training.currentSlide.id],
+               intervalID: null,
+             });
+             window.clearInterval(intervalID);
+           }
            this.setState({
-             disableNextPageButtonBool: false,
-             completedSlideIDs: [...this.state.completedSlideIDs, this.props.training.currentSlide.id],
-             intervalID: null,
+               countdownSeconds: this.state.countdownSeconds + 1,
+               intervalID: intervalID,
            });
-           window.clearInterval(intervalID);
-         }
-         this.setState({
-             countdownSeconds: this.state.countdownSeconds + 1,
-             intervalID: intervalID,
-         });
-      }, 1000);
+        }, 1000);
+      }
     }
   },
 
@@ -120,13 +129,6 @@ const TrainingSlideHandler = createReactClass({
     return this.state.disableNextPageButtonBool || (Boolean(this.props.training.currentSlide.assessment) && !this.props.training.currentSlide.answeredCorrectly);
   },
 
-  buttonText() {
-    if (this.state.disableNextPageButtonBool) {
-      return I18n.t('training.slide_countdown', { countdown: this.state.unlockLimit - this.state.countdownSeconds });
-    }
-    return this.props.training.currentSlide.buttonText || I18n.t('training.next');
-  },
-
   returnToLink() {
     return document.getElementById('react_root').getAttribute('data-return-to');
   },
@@ -174,7 +176,7 @@ const TrainingSlideHandler = createReactClass({
       nextLink = (
         <SlideLink
           slideId={this.props.training.nextSlide.slug}
-          buttonText={this.buttonText()}
+          buttonText={this.props.training.currentSlide.buttonText || I18n.t('training.next')}
           disabled={this.disableNext()}
           button={true}
           params={this.props.match.params}
