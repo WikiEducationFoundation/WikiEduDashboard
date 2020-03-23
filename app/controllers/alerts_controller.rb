@@ -9,7 +9,7 @@ class AlertsController < ApplicationController
     'NeedHelpAlert' => NeedHelpAlert,
     'BadWorkAlert' => BadWorkAlert
   }.freeze
-  # Creates only NeedHelpAlert. Doesn't require admin permission.
+  # Creates alerts based on parameters. Doesn't require admin permission.
   # Other type of alerts are created via the update cycle, not directly by users.
   def create
     ensure_alerts_are_enabled { return }

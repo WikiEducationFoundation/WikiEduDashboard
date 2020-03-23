@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 
-import { ArticleViewer } from '../../../app/assets/javascripts/components/common/article_viewer.jsx';
+import { ArticleViewer } from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import '../../testHelper';
 
 describe('ArticleViewer', () => {
   it('renders', () => {
     const article = {
+      id: 99,
       title: 'Selfie',
       language: 'en',
       project: 'wikipedia',
@@ -17,14 +18,12 @@ describe('ArticleViewer', () => {
     };
     const TestArticleViewer = ReactTestUtils.renderIntoDocument(
       <ArticleViewer
+        alertStatus={{}}
         article={article}
         course={course}
         fetchArticleDetails={() => null}
       />
     );
     expect(TestArticleViewer).toExist;
-    // const showHideButton = ReactTestUtils.findRenderedDOMComponentWithClass(TestArticleViewer, 'button');
-    // Simulate.click(showHideButton); // show
-    // Simulate.click(showHideButton); // hide
   });
 });

@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
@@ -10,7 +9,6 @@ import { trunc } from '~/app/assets/javascripts/utils/strings';
 
 // Components
 import Loading from '@components/common/loading.jsx';
-import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
 import TitleOpener from '@components/common/ArticleViewer/components/TitleOpener.jsx';
 import IconOpener from '@components/common/ArticleViewer/components/IconOpener.jsx';
 import CloseButton from '@components/common/ArticleViewer/components/CloseButton.jsx';
@@ -18,6 +16,7 @@ import Permalink from '@components/common/ArticleViewer/components/Permalink.jsx
 import BadWorkAlert from '../components/BadWorkAlert';
 import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
 import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
+import Footer from '@components/common/ArticleViewer/components/Footer.jsx';
 
 // Helpers
 import URLBuilder from '@components/common/ArticleViewer/utils/URLBuilder';
@@ -29,38 +28,32 @@ import colors from '@components/common/ArticleViewer/constants/colors';
 // Actions
 import { submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
-export const ArticleViewer = createReactClass({
-  displayName: 'ArticleViewer',
-
-  propTypes: {
-    article: PropTypes.object.isRequired,
-    course: PropTypes.object.isRequired,
-    showButtonLabel: PropTypes.string,
-    showButtonClass: PropTypes.string,
-    title: PropTypes.string,
-    users: PropTypes.array,
-    showOnMount: PropTypes.bool,
-    showArticleLegend: PropTypes.bool,
-    fetchArticleDetails: PropTypes.func,
-  },
-  getDefaultProps() {
-    return {
-      showArticleFinder: false,
-    };
-  },
-
-  getInitialState() {
-    return {
+export class ArticleViewer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      failureMessage: null,
+      fetched: false,
+      highlightedHtml: null,
       showArticle: false,
-      showBadArticleAlert: false
+      showBadArticleAlert: false,
+      whocolorFailed: false,
+      users: []
     };
-  },
+
+    this.showArticle = this.showArticle.bind(this);
+    this.showButtonLabel = this.showButtonLabel.bind(this);
+    this.hideArticle = this.hideArticle.bind(this);
+    this.showBadArticleAlert = this.showBadArticleAlert.bind(this);
+    this.submitBadWorkAlert = this.submitBadWorkAlert.bind(this);
+    this.isWhocolorLang = this.isWhocolorLang.bind(this);
+  }
 
   componentDidMount() {
     if (this.props.showOnMount) {
       this.showArticle();
     }
-  },
+  }
 
   // When 'show' is clicked, this component may or may not already have
   // users data (a list of usernames) in its props. If it does, then 'show' will
@@ -74,34 +67,31 @@ export const ArticleViewer = createReactClass({
         this.fetchUserIds(nextProps.users);
       }
     }
-  },
+  }
 
   hideBadArticleAlert() {
     this.setState({ showBadArticleAlert: false });
-  },
+  }
 
   showBadArticleAlert() {
     this.setState({ showBadArticleAlert: true });
-  },
+  }
 
   showButtonLabel() {
-    if (this.props.showArticleFinder) {
-      return 'Brief preview of Article';
-    }
-    if (this.props.showButtonLabel) {
-      return this.props.showButtonLabel;
-    }
+    const { showArticleFinder, showButtonLabel } = this.props;
+    if (showArticleFinder) return 'Brief preview of Article';
+    if (showButtonLabel) return showButtonLabel;
     if (this.isWhocolorLang()) {
       return I18n.t('articles.show_current_version_with_authorship_highlighting');
     }
     return I18n.t('articles.show_current_version');
-  },
+  }
 
   // It takes the data sent as the parameter and appends to the current Url
   addParamToURL(urlParam) {
     if (this.props.showArticleFinder) { return; }
     window.history.pushState({}, '', `?showArticle=${urlParam}`);
-  },
+  }
 
   // It takes a synthetic event to check if it exist
   // It checks if the node(viewer) doesn't exist
@@ -114,7 +104,7 @@ export const ArticleViewer = createReactClass({
         window.history.replaceState(null, null, window.location.pathname);
       }
     }
-  },
+  }
 
   showArticle() {
     this.setState({ showArticle: true });
@@ -133,24 +123,25 @@ export const ArticleViewer = createReactClass({
     }
     // Add article id in the URL
     this.addParamToURL(this.props.article.id);
-  },
+  }
 
   hideArticle(e) {
     this.hideBadArticleAlert();
     this.setState({ showArticle: false });
     // removes the article parameter from the URL
     this.removeParamFromURL(e);
-  },
+  }
 
   handleClickOutside() {
     this.hideArticle();
-  },
+  }
 
   isWhocolorLang() {
     // Supported languages for https://api.wikiwho.net/ as of 2018-02-11
-    const whocolorSupportedLang = ['de', 'en', 'es', 'eu', 'tr'];
-    return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
-  },
+    const { article } = this.props;
+    const supported = ['de', 'en', 'es', 'eu', 'tr'];
+    return supported.includes(article.language) && article.project === 'wikipedia';
+  }
 
   // This takes the extended_html from the whoColor API, and replaces the span
   // annotations with ones that are more convenient to style in React.
@@ -174,10 +165,9 @@ export const ArticleViewer = createReactClass({
 
       i += 1;
     });
-    this.setState({
-      highlightedHtml: html
-    });
-  },
+
+    this.setState({ highlightedHtml: html });
+  }
 
   fetchParsedArticle() {
     const builder = new URLBuilder({ article: this.props.article });
@@ -195,29 +185,22 @@ export const ArticleViewer = createReactClass({
           whocolorFailed: true,
         });
       });
-  },
+  }
 
   fetchWhocolorHtml() {
     const builder = new URLBuilder({ article: this.props.article });
     const api = new ArticleViewerAPI({ builder });
     api.fetchWhocolorHtml()
-       .then((response) => {
-         this.setState({ whocolorHtml: response.html });
-         this.highlightAuthors();
-       }).catch((error) => {
-         this.setState({
-           whocolorFailed: true,
-           failureMessage: error.message
-         });
-       });
-  },
-
-  submitBadWorkAlert() {
-    this.props.submitBadWorkAlert({
-      article_id: this.props.article.id,
-      course_id: this.props.course.id
-    });
-  },
+      .then((response) => {
+        this.setState({ whocolorHtml: response.html });
+        this.highlightAuthors();
+      }).catch((error) => {
+        this.setState({
+          whocolorFailed: true,
+          failureMessage: error.message
+        });
+      });
+  }
 
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.
@@ -237,7 +220,14 @@ export const ArticleViewer = createReactClass({
           whocolorFailed: true,
         });
       });
-  },
+  }
+
+  submitBadWorkAlert() {
+    this.props.submitBadWorkAlert({
+      article_id: this.props.article.id,
+      course_id: this.props.course.id
+    });
+  }
 
   render() {
     const {
@@ -249,7 +239,9 @@ export const ArticleViewer = createReactClass({
       showBadArticleAlert, whocolorFailed, users
     } = this.state;
 
+    // If the article viewer is hidden, show the icon instead.
     if (!showArticle) {
+      // If a title was provided, show the article viewer with the title.
       if (title) {
         return (
           <TitleOpener
@@ -269,37 +261,9 @@ export const ArticleViewer = createReactClass({
       );
     }
 
-    let style = 'hidden';
-    if (showArticle) {
-      style = '';
-    }
-    const className = `article-viewer ${style}`;
-
-    let legendStatus;
-    if (highlightedHtml) {
-      legendStatus = 'ready';
-    } else if (whocolorFailed) {
-      legendStatus = 'failed';
-    } else if (this.isWhocolorLang()) {
-      legendStatus = 'loading';
-    }
-
-    let articleViewerLegend;
-    if (!showArticleFinder) {
-      articleViewerLegend = (
-        <ArticleViewerLegend
-          article={article}
-          users={users}
-          colors={colors}
-          status={legendStatus}
-          failureMessage={failureMessage}
-        />
-      );
-    }
-
     return (
       <div className="ignore-react-onclickoutside">
-        <div className={className}>
+        <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(article.title, 56)}</span>
@@ -327,15 +291,44 @@ export const ArticleViewer = createReactClass({
               fetched ? <ParsedArticle {...this.state} /> : <Loading />
             }
           </div>
-          <div className="article-footer">
-            {articleViewerLegend}
-            <a className="button dark small pull-right article-viewer-button" href={article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
-          </div>
+          <Footer
+            article={article}
+            colors={colors}
+            failureMessage={failureMessage}
+            isWhocolorLang={this.isWhocolorLang}
+            highlightedHtml={highlightedHtml}
+            showArticleFinder={showArticleFinder}
+            whocolorFailed={whocolorFailed}
+            users={users}
+          />
         </div>
       </div>
     );
   }
-});
+}
+
+ArticleViewer.defaultProps = {
+  showArticleFinder: false
+};
+
+ArticleViewer.propTypes = {
+  alertStatus: PropTypes.object.isRequired,
+  article: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    language: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
+  }),
+  course: PropTypes.object.isRequired,
+  fetchArticleDetails: PropTypes.func,
+  showArticleLegend: PropTypes.bool,
+  showButtonLabel: PropTypes.string,
+  showButtonClass: PropTypes.string,
+  showOnMount: PropTypes.bool,
+  title: PropTypes.string,
+  users: PropTypes.array
+};
 
 const clickOutsideComponent = OnClickOutside(ArticleViewer);
 const mapStateToProps = ({ needHelpAlert }) => ({ alertStatus: needHelpAlert });
