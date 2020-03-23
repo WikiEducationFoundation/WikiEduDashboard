@@ -192,7 +192,8 @@ cs:
     tools: Hodnotící nástroje
     view: Zobrazit článek
     view_all: Zobrazit vše
-    view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
+    view_doc: Odhadovaný počet zobrazení každého článku od jeho první úpravy na základě
+      poslední aktualizace statistik. Přesná čísla můžete zjistit na tools.wmflabs.org/pageviews.
     view_on_wiki: Zobrazit na wiki
     views_added: Přidáno %{count} nových zobrazení pro %{title}
     edit_size: Velikost editace

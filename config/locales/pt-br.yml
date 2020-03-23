@@ -1242,6 +1242,7 @@ pt-br:
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail
     userpasscode_placeholder: Código de acesso
+    words_added: Palavras adicionadas<br>(article | usuário | rascunho)
     role:
       description: Função no curso
       visitor: Visitante

@@ -583,6 +583,9 @@ ko:
     recent_revisions: 최근 편집
     remove_confirmation: '%{username}님을 제거하겠습니까?'
     request_confirmation: 이 계정을 요청하시겠습니까?
+    requested_account_status:
+      success_message: '성공: %{result_description}'
+      failure_message: '실패: %{result_description}'
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     reviewing: 검토 중

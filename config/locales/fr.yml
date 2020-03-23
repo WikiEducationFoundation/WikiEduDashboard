@@ -1277,6 +1277,7 @@ fr:
     username_placeholder: Nom d’utilisateur
     useremail_placeholder: Courriel
     userpasscode_placeholder: Code d’accès
+    words_added: Mots ajoutés<br>(article | utilisateur | brouillon)
     role:
       description: Rôle dans le cours
       visitor: Visiteur

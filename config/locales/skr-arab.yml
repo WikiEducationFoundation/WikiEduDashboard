@@ -70,6 +70,11 @@ skr-arab:
     view_all: سارے ݙیکھو
     view_on_wiki: وکی تے ݙکھالا
     wiki: وکی
+    articles_short: مقالے
+  articles_wikidata:
+    articles_short: آئٹم
+  articles_generic:
+    articles_short: ورقے
   assignments:
     article_link: مضمون
     clone: کلون
