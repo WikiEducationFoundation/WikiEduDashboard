@@ -29,8 +29,9 @@ class TrainingModulesUsers < ApplicationRecord
     training_progress_manager.slide_further_than_previous?(slide_slug, last_slide_completed)
   end
 
-  def mark_completion(value=true)
-    flags[:marked_complete] = value
+  def mark_completion(value=true, course_id=nil)
+    flags[:marked_complete] = value unless training_module.exercise?
+    flags[course_id] = { marked_complete: value }
   end
 
   private
