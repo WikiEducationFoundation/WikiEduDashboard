@@ -74,6 +74,7 @@ export default function (state = initialState, action) {
     }
     case MESSAGE_KIND_NOTE_DELETE: {
       const all = removeNote(state.selected.messages, action.id);
+      state.selected.messages = all;
       return {
         ...state,
         all

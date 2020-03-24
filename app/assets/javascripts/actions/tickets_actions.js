@@ -172,7 +172,14 @@ export const deleteNote = id => (dispatch) => {
     deleteNotePromise(id)
       .then(() => {
         dispatch({ type: MESSAGE_KIND_NOTE_DELETE, id });
-        window.location.reload();
+        dispatch({
+          type: ADD_NOTIFICATION,
+          notification: {
+            message: 'Note Deleted Successfully',
+            type: 'success',
+            closable: true
+          }
+        });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
