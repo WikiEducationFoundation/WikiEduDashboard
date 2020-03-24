@@ -13,7 +13,7 @@ export const TrainingModuleRows = ({ trainingModules }) => {
     if (trainingModule.completion_date) {
       let completionTime = '';
       if (trainingModule.completion_time <= 60 * 60) {
-        completionTime = `${I18n.t('training_status.completion_time')}: ${moment.utc(trainingModule.completion_time * 1000).format('HH:mm:ss')}`;
+        completionTime = `${I18n.t('training_status.completion_time')}: ${moment.utc(trainingModule.completion_time * 1000).format(`mm [${I18n.t('users.training_module_time.minutes')}] ss [${I18n.t('users.training_module_time.seconds')}]`)}`;
       }
       moduleStatus = (
         <span className="completed">
