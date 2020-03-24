@@ -11,17 +11,15 @@ export const TrainingModuleRows = ({ trainingModules }) => {
   return trainings.map((trainingModule) => {
     let moduleStatus;
     if (trainingModule.completion_date) {
-      let completionTime;
+      let completionTime = '';
       if (trainingModule.completion_time <= 60 * 60) {
-        completionTime = moment.utc(trainingModule.completion_time * 1000).format('HH:mm:ss');
-      } else {
-        completionTime = I18n.t('training_status.sufficient_time_allocation');
+        completionTime = `${I18n.t('training_status.completion_time')}: ${moment.utc(trainingModule.completion_time * 1000).format('HH:mm:ss')}`;
       }
       moduleStatus = (
         <span className="completed">
           {I18n.t('training_status.completed_at')}: {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
           <br/>
-          {I18n.t('training_status.completion_time')}: {completionTime}
+          {completionTime}
         </span>
       );
     } else {
