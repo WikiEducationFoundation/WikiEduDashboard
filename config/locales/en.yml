@@ -1178,6 +1178,9 @@ en:
       other: "%{completed_count}/%{count} training modules completed"
     training_module_name: Training module
     training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Sec
     user_training_status: Training Status
     user_no_training_status: This user has not completed any training modules.
     up_to_date_with_training: 'up-to-date with training'
@@ -1373,6 +1376,8 @@ en:
   training_status:
     completed: "Completed"
     continue: "Continue"
+    completed_at: "Completed at"
+    completion_time: "Completion time"
     view: "View"
     started: "Started"
     not_started: "Not started"

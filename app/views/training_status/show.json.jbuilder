@@ -9,5 +9,6 @@ json.course do
     json.kind training_module.kind
     json.status training_progress_manager.status
     json.completion_date training_progress_manager.completion_date
+    json.completion_time training_progress_manager.completion_time
   end
 end
