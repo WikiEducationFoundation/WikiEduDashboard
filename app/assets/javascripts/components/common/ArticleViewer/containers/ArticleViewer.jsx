@@ -13,7 +13,7 @@ import TitleOpener from '@components/common/ArticleViewer/components/TitleOpener
 import IconOpener from '@components/common/ArticleViewer/components/IconOpener.jsx';
 import CloseButton from '@components/common/ArticleViewer/components/CloseButton.jsx';
 import Permalink from '@components/common/ArticleViewer/components/Permalink.jsx';
-import BadWorkAlert from '../components/BadWorkAlert';
+import BadWorkAlert from '../components/BadWorkAlert/BadWorkAlert';
 import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
 import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
 import Footer from '@components/common/ArticleViewer/components/Footer.jsx';
@@ -26,7 +26,7 @@ import ArticleViewerAPI from '@components/common/ArticleViewer/utils/ArticleView
 import colors from '@components/common/ArticleViewer/constants/colors';
 
 // Actions
-import { submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
+import { resetNeedHelpAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 
 export class ArticleViewer extends React.Component {
   constructor(props) {
@@ -44,6 +44,7 @@ export class ArticleViewer extends React.Component {
     this.showArticle = this.showArticle.bind(this);
     this.showButtonLabel = this.showButtonLabel.bind(this);
     this.hideArticle = this.hideArticle.bind(this);
+    this.hideBadArticleAlert = this.hideBadArticleAlert.bind(this);
     this.showBadArticleAlert = this.showBadArticleAlert.bind(this);
     this.submitBadWorkAlert = this.submitBadWorkAlert.bind(this);
     this.isWhocolorLang = this.isWhocolorLang.bind(this);
@@ -128,6 +129,7 @@ export class ArticleViewer extends React.Component {
   hideArticle(e) {
     this.hideBadArticleAlert();
     this.setState({ showArticle: false });
+    this.props.resetNeedHelpAlert();
     // removes the article parameter from the URL
     this.removeParamFromURL(e);
   }
@@ -222,10 +224,11 @@ export class ArticleViewer extends React.Component {
       });
   }
 
-  submitBadWorkAlert() {
+  submitBadWorkAlert(message) {
     this.props.submitBadWorkAlert({
       article_id: this.props.article.id,
-      course_id: this.props.course.id
+      course_id: this.props.course.id,
+      message
     });
   }
 
@@ -333,6 +336,7 @@ ArticleViewer.propTypes = {
 const clickOutsideComponent = OnClickOutside(ArticleViewer);
 const mapStateToProps = ({ needHelpAlert }) => ({ alertStatus: needHelpAlert });
 const mapDispatchToProps = {
+  resetNeedHelpAlert,
   submitBadWorkAlert
 };
 export default connect(mapStateToProps, mapDispatchToProps)(clickOutsideComponent);
