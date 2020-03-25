@@ -12,6 +12,7 @@ const course = {
 describe('Article', () => {
   it('renders', () => {
     const article = {
+      id: 99,
       rating: 'start',
       rating_num: 6,
       pretty_rating: 's',
@@ -48,6 +49,7 @@ describe('Article', () => {
 
   it('adds "(new)" to new articles', () => {
     const article = {
+      id: 99,
       rating: 'start',
       rating_num: 6,
       pretty_rating: 's',
