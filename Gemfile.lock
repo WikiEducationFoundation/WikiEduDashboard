@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/WikiEducationFoundation/TicketDispenser.git
-  revision: 078f52e619399fb2f5474f32bd4014cbd4838086
+  revision: 4186eb0d5cc2c131e17c7fd7626a5e57d80d3078
   specs:
     ticket_dispenser (0.1.0)
       active_model_serializers
