@@ -1,6 +1,3 @@
-// gather the bundle analysis by doing:
-// npx webpack --config ./webpack-analysis.js --mode production --profile --json > stats.json
-
 const loadPlugins = require('gulp-load-plugins');
 const webpack = require('webpack');
 const path = require('path');
