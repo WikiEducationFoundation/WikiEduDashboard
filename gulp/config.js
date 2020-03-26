@@ -47,4 +47,4 @@ const Config = function () {
 };
 
 
-export default new Config();
+module.exports = new Config();
