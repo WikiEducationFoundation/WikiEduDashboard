@@ -19,7 +19,7 @@ if block.training_modules.any?
     json.due_date due_date_manager.computed_due_date.strftime('%Y/%m/%d')
     json.overdue due_date_manager.overdue?
     json.deadline_status due_date_manager.deadline_status
-    json.flags due_date_manager.flags
+    json.flags due_date_manager.flags(course.id)
     json.block_id block.id
   end
 end
