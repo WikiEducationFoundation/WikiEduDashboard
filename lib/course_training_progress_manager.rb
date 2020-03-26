@@ -111,10 +111,9 @@ class CourseTrainingProgressManager
       .where(user_id: @user.id)
       .where(training_module_id: exercise_modules_for_course)
       .count do |tmu|
-        course_flags_hash = tmu.flags[@course.id] || tmu.flags
-        if course_flags_hash[:marked_complete] == true
-          TrainingModule.find(tmu.training_module_id).exercise?
-        end
+        flags_hash = tmu.flags
+        course_flags_hash = flags_hash[@course.id] || flags_hash
+        course_flags_hash[:marked_complete] == true && tmu.training_module.exercise?
       end
   end
 
