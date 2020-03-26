@@ -4,6 +4,7 @@ import linkifyHtml from 'linkifyjs/html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
 import HelperIcon from './helper_icon';
+import DeleteNote from './delete_note';
 
 export const Reply = ({ message }) => {
   const { sender, details } = message;
@@ -23,7 +24,10 @@ export const Reply = ({ message }) => {
   } else if (message.kind === MESSAGE_KIND_NOTE) {
     messageClass = 'tickets-note';
     subject = (
-      <h4 className="subject">NOTE</h4>
+      <div className="note-heading">
+        <h4 className="subject">NOTE</h4>
+        <DeleteNote messageId={message.id} />
+      </div>
     );
   }
 
