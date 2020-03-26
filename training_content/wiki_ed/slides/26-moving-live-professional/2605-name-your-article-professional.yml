@@ -10,7 +10,6 @@ content: |+
 
   -   Use natural English
   -   Capitalize only the first letter (and proper nouns)
-  -   Use blank spaces between words
-  -   Don't omit words
+  -   Use spaces between words, not underscores
 
 id: 2605

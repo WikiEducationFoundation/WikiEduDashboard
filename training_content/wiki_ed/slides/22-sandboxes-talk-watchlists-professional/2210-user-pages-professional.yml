@@ -8,15 +8,14 @@ content: |
   personal Talk page.
 
   Your User page can be found in the upper right menu bar on Wikipedia whenever
-  you're logged in. It's likely that yours is a red link right now. That means
-  that you have yet to create the page attached to your username.
+  you're logged in.
 
   <figure class="alt-layout-100">
   <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Upper_menu_on_English_Wikipedia.png" />
   </figure>
 
 
-  Open Wikipedia in another tab, log in, and click on that red link. This will
+  Open Wikipedia in another tab, log in, and click on your username. This will
   open up an editing window to create the new page. Try copying and pasting this
   sentence into the editor:
 
@@ -28,4 +27,5 @@ content: |
   </code>
   </p>
 
-  Now click "Publish changes".
+  When you're done, type a summary of what you just did where it says "Edit summary"
+  at the bottom of the page and click "Publish changes".
