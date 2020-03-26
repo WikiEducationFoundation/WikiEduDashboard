@@ -30,7 +30,6 @@ class TrainingModulesUsers < ApplicationRecord
   end
 
   def mark_completion(value=true, course_id=nil)
-    flags[:marked_complete] = value unless training_module.exercise?
     flags[course_id] = { marked_complete: value }
   end
 
