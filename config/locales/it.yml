@@ -884,6 +884,9 @@ it:
       one: '%{completed_count}/%{count} modulo formativo completato'
       other: '%{completed_count}/%{count} moduli formativi completati'
     training_module_status: Stato
+    training_module_time:
+      minutes: Min
+      seconds: Sec
     up_to_date_with_training: aggiornato con la formazione
     uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
@@ -983,6 +986,7 @@ it:
   training_status:
     completed: Completato
     continue: Continua
+    completed_at: Completato il
     started: Iniziato
     not_started: Non iniziato
   multi_wiki:

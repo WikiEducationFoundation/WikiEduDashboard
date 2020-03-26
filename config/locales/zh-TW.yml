@@ -1004,6 +1004,9 @@ zh-TW:
       other: '%{completed_count}/%{count}培訓模組完成'
     training_module_name: 培訓模組
     training_module_status: 狀態
+    training_module_time:
+      minutes: 分
+      seconds: 秒
     user_training_status: 培訓狀態
     user_no_training_status: 此使用者尚未完成任何培訓模組
     up_to_date_with_training: 最近培訓
@@ -1142,6 +1145,8 @@ zh-TW:
   training_status:
     completed: 已完成
     continue: 繼續
+    completed_at: 完成於
+    completion_time: 完成時間
     view: 檢視
     started: 已開始
     not_started: 尚未開始

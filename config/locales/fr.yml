@@ -1268,6 +1268,9 @@ fr:
       other: '%{completed_count}/%{count} modules de formation terminés'
     training_module_name: Module de formation
     training_module_status: État
+    training_module_time:
+      minutes: min
+      seconds: sec
     user_training_status: Etat de la formation
     user_no_training_status: Cet utilisateur n’a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
@@ -1449,6 +1452,8 @@ fr:
   training_status:
     completed: Terminé
     continue: Poursuivre
+    completed_at: Terminé à
+    completion_time: Heure de fin
     view: Afficher
     started: Démarré
     not_started: Non démarré

@@ -1233,6 +1233,9 @@ pt-br:
       other: '%{completed_count}/%{count} módulos de treinamento completados'
     training_module_name: Módulo de treinamento
     training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Seg
     user_training_status: Status de treinamento
     user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
@@ -1410,6 +1413,8 @@ pt-br:
   training_status:
     completed: Completado
     continue: Continuar
+    completed_at: Concluído em
+    completion_time: Tempo de conclusão
     view: Ver
     started: Iniciado
     not_started: Não foi iniciado

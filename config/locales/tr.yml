@@ -193,7 +193,8 @@ tr:
     see_more: Daha fazla gör
     show_cumulative_changes: Birikmiş Değişiklikleri Göster
     show_current_version: Mevcut Sürümü Göster
-    show_current_version_with_authorship_highlighting: Yazar Vurgulamalı Güncel Versiyon
+    show_current_version_with_authorship_highlighting: Yazar Vurgulamalı w/ Güncel
+      Sürüm
     title: Başlık
     tracked: İzlenen
     tracked_doc: Yalnızca izlenen makaleler, bu programın istatistiklerine katkıda
@@ -1216,6 +1217,9 @@ tr:
       other: bir=%{completed_count}/%{count} eğitim modülü tamamlandı
     training_module_name: Eğitim modülü
     training_module_status: Durum
+    training_module_time:
+      minutes: Dakika
+      seconds: Saniye
     user_training_status: Eğitim Durumu
     user_no_training_status: Bu kullanıcı herhangi bir eğitim modülünü tamamlamadı.
     up_to_date_with_training: eğitim ile güncel
@@ -1391,6 +1395,8 @@ tr:
   training_status:
     completed: Tamamlandı
     continue: Devam et
+    completed_at: 'Tamamlanma tarihi:'
+    completion_time: Tamamlanma süresi
     view: Görüntüle
     started: Başladı
     not_started: Başlatılmadı
