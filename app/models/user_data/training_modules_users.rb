@@ -16,13 +16,9 @@ require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
-  has_one :training_module
+  belongs_to :training_module
 
   serialize :flags, Hash
-
-  def training_module
-    @training_module ||= TrainingModule.find(training_module_id)
-  end
 
   def furthest_slide?(slide_slug)
     return true if last_slide_completed.nil?

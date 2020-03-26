@@ -91,7 +91,7 @@ class CourseTrainingProgressManager
   end
 
   def assigned_module_ids
-    @course.training_modules.collect(&:id)
+    @assigned_module_ids ||= @course.training_modules.collect(&:id)
   end
 
   def incomplete_module_ids
@@ -100,14 +100,16 @@ class CourseTrainingProgressManager
 
   def completed_training_modules_for_user_and_course
     TrainingModulesUsers
+      .includes(:training_module)
       .where(user_id: @user.id)
       .where(training_module_id: training_modules_for_course)
       .where.not(completed_at: nil)
-      .count { |tmu| TrainingModule.find(tmu.training_module_id).training? }
+      .count { |tmu| tmu.training_module.training? }
   end
 
   def completed_exercise_modules_for_user_and_course
     TrainingModulesUsers
+      .includes(:training_module)
       .where(user_id: @user.id)
       .where(training_module_id: exercise_modules_for_course)
       .count do |tmu|
@@ -131,10 +133,12 @@ class CourseTrainingProgressManager
       .uniq
   end
 
+  def modules_for_course
+    @modules_for_course ||= TrainingModule.where(id: module_ids_for_course)
+  end
+
   def training_modules_for_course
-    module_ids_for_course.select do |id|
-      TrainingModule.find(id).training?
-    end
+    @training_modules_for_course ||= modules_for_course.select(&:training?)
   end
 
   def total_training_modules_for_course
@@ -142,9 +146,7 @@ class CourseTrainingProgressManager
   end
 
   def exercise_modules_for_course
-    module_ids_for_course.select do |id|
-      TrainingModule.find(id).exercise?
-    end
+    @exercise_modules_for_course ||= modules_for_course.select(&:exercise?)
   end
 
   def total_exercise_modules_for_course
