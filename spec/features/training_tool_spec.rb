@@ -8,6 +8,7 @@ describe 'Training', type: :feature, js: true do
   before { TrainingModule.load_all }
 
   let(:user) { create(:user, id: 1) }
+  let(:admin) { create(:admin, id: 2) }
   let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
   before do
@@ -91,9 +92,10 @@ describe 'Training', type: :feature, js: true do
     end
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
+      login_as(admin, scope: :user)
       click_link 'Start'
       sleep 1.5
-      tmu = TrainingModulesUsers.find_by(user_id: user.id, training_module_id: module_2.id)
+      tmu = TrainingModulesUsers.find_by(user_id: 2, training_module_id: module_2.id)
       expect(tmu.last_slide_completed).to eq(module_2.slides.first.slug)
       click_link 'Next Page'
       sleep 1.5
@@ -101,6 +103,7 @@ describe 'Training', type: :feature, js: true do
     end
 
     it 'allows for navigation with the left and right buttons' do
+      logout(:user)
       click_link 'Start'
       expect(page).to have_content('Page 1 of')
       find('html').native.send_keys :right
@@ -174,6 +177,7 @@ describe 'Training', type: :feature, js: true do
       end
 
       it 'lets the user go from start to finish' do
+        login_as(admin, scope: :user)
         training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)
       end
@@ -187,7 +191,7 @@ def go_through_module_from_start_to_finish(training_module)
   click_through_slides(training_module)
   sleep 1
   expect(TrainingModulesUsers.find_by(
-    user_id: 1,
+    user_id: 2,
     training_module_id: training_module.id
   ).completed_at).not_to be_nil
 end
