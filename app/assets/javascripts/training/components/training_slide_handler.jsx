@@ -21,10 +21,15 @@ const TrainingSlideHandler = createReactClass({
 
   getInitialState() {
     const navRoot = document.getElementById('nav_root');
-    const userSignedIn = navRoot.dataset.usersignedin === 'true';
-    const ifAdmin = navRoot.dataset.ifadmin === 'true';
-    const isTimerDisabled = !userSignedIn || ifAdmin;
+    let userSignedIn = false;
+    let ifAdmin = false;
+    let isTimerDisabled = true;
     let disableNextPageButtonBool = true;
+    if (navRoot) {
+      userSignedIn = navRoot.dataset.usersignedin === 'true';
+      ifAdmin = navRoot.dataset.ifadmin === 'true';
+      isTimerDisabled = !userSignedIn || ifAdmin;
+    }
     if (isTimerDisabled) disableNextPageButtonBool = false;
     return {
       disableNextPageButtonBool: disableNextPageButtonBool,
