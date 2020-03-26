@@ -5,4 +5,4 @@
 * [Location by Aya Sofya from the Noun Project](https://thenounproject.com/search/?q=location&i=882631)
 * [Information by Arunkumar from the Noun Project](https://thenounproject.com/term/information/875785/)
 * Other icons from Google's [Material Design](https://www.google.com/design/icons)
-* [Delete Icon by Unuplusunu from Wikimedia Commons](https://commons.wikimedia.org/w/index.php?search=delete+icon&title=Special%3ASearch&go=Go&ns0=1&ns6=1&ns12=1&ns14=1&ns100=1&ns106=1#/media/File:Delete5.svg)
+* [Delete Icon by Unuplusunu](https://commons.wikimedia.org/wiki/File:Delete5.svg), CC-BY-SA 4.0
