@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2019_10_15_181443) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
-    t.boolean "tracked", default: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
@@ -214,7 +213,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_181443) do
     t.integer "upload_usages_count", default: 0
     t.string "syllabus_file_name"
     t.string "syllabus_content_type"
-    t.bigint "syllabus_file_size"
+    t.integer "syllabus_file_size"
     t.datetime "syllabus_updated_at"
     t.integer "home_wiki_id"
     t.integer "recent_revision_count", default: 0
@@ -409,7 +408,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_181443) do
     t.text "optout"
   end
 
-  create_table "surveys_question_groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "surveys_question_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "survey_id"
     t.integer "rapidfire_question_group_id"
     t.integer "position"
@@ -508,7 +507,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_181443) do
     t.integer "user_id"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.string "location"
     t.string "institution"
