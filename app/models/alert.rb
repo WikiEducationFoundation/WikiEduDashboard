@@ -34,6 +34,7 @@ class Alert < ApplicationRecord
   ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
+    BadWorkAlert
     BlockedEditsAlert
     BlockedUserAlert
     ContinuedCourseActivityAlert
@@ -57,6 +58,7 @@ class Alert < ApplicationRecord
 
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
+    BadWorkAlert
     ContinuedCourseActivityAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
@@ -96,14 +98,16 @@ class Alert < ApplicationRecord
     courses_user&.contribution_url
   end
 
+  def content_experts
+    course.nonstudents.where(greeter: true)
+  end
+
   def email_content_expert
     return if emails_disabled?
     return if course.nil?
-    content_experts = course.nonstudents.where(greeter: true)
-    return if content_experts.empty?
-    content_experts.each do |content_expert|
-      AlertMailer.send_alert_email(self, content_expert)
-    end
+    experts = content_experts
+    return if experts.empty?
+    experts.each { |expert| AlertMailer.send_alert_email(self, expert) }
     update_attribute(:email_sent_at, Time.zone.now)
   end
 

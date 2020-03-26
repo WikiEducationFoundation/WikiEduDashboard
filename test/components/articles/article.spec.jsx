@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 
 import '../../testHelper';
 import Article from '../../../app/assets/javascripts/components/articles/article.jsx';
@@ -11,6 +12,7 @@ const course = {
 describe('Article', () => {
   it('renders', () => {
     const article = {
+      id: 99,
       rating: 'start',
       rating_num: 6,
       pretty_rating: 's',
@@ -27,14 +29,16 @@ describe('Article', () => {
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <Article
-            article={article}
-            course={course}
-            isOpen={false}
-            toggleDrawer={() => {}}
-            fetchArticleDetails={() => {}}
-            articleDetails={null}
-          />
+          <Provider store={reduxStore}>
+            <Article
+              article={article}
+              course={course}
+              isOpen={false}
+              toggleDrawer={() => {}}
+              fetchArticleDetails={() => {}}
+              articleDetails={null}
+            />
+          </Provider>
         </tbody>
       </table>
     );
@@ -45,6 +49,7 @@ describe('Article', () => {
 
   it('adds "(new)" to new articles', () => {
     const article = {
+      id: 99,
       rating: 'start',
       rating_num: 6,
       pretty_rating: 's',
@@ -61,14 +66,16 @@ describe('Article', () => {
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <Article
-            article={article}
-            course={course}
-            isOpen={false}
-            toggleDrawer={() => {}}
-            fetchArticleDetails={() => {}}
-            articleDetails={null}
-          />
+          <Provider store={reduxStore}>
+            <Article
+              article={article}
+              course={course}
+              isOpen={false}
+              toggleDrawer={() => {}}
+              fetchArticleDetails={() => {}}
+              articleDetails={null}
+            />
+          </Provider>
         </tbody>
       </table>
     );

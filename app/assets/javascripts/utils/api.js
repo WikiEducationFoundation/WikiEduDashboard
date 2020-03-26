@@ -549,13 +549,30 @@ const API = {
         });
     });
   },
+  
+  createBadWorkAlert(opts) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: '/alerts',
+        data: { ...opts, alert_type: 'BadWorkAlert' },
+        success(data) {
+          return res(data);
+        }
+      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+    );
+  },
 
   createNeedHelpAlert(opts) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'POST',
         url: '/alerts',
-        data: opts,
+        data: { ...opts, alert_type: 'NeedHelpAlert' },
         success(data) {
           return res(data);
         }

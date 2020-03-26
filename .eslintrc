@@ -92,6 +92,7 @@
     "WikiProjects": true
   },
   "env": {
+    "jest": true,
     "jquery": true,
     "browser": true
   },

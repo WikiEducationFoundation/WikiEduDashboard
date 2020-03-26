@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
-import ArticleViewer from '../common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
@@ -100,6 +100,8 @@ const Article = createReactClass({
         <td>
           <ArticleViewer
             article={this.props.article}
+            course={this.props.course}
+            current_user={this.props.current_user}
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
             showButtonClass="pull-left"
