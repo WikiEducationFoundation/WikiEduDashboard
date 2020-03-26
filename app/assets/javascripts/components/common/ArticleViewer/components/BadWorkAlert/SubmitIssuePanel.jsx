@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import TextAreaInput from '@components/common/text_area_input.jsx';
 
-export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, message }) => {
+export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSubmitting, message }) => {
   if (alertStatus.created) {
     return (
       <article className="submit-alert">
@@ -27,7 +27,7 @@ export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, mess
           value={message}
           value_key="message"
         />
-        <button className="button danger" type="submit">
+        <button className="button danger" type="submit" disabled={isSubmitting}>
           Notify Wiki Expert
         </button>
       </form>

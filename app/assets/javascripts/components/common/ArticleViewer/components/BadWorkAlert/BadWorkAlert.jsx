@@ -7,7 +7,7 @@ import SubmitIssuePanel from '@components/common/ArticleViewer/components/BadWor
 export class BadWorkAlert extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { message: '' };
+    this.state = { message: '', isSubmitting: false };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,10 +20,11 @@ export class BadWorkAlert extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.submitBadWorkAlert(this.state.message);
+    this.setState({ isSubmitting: true });
   }
 
   render() {
-    const { message } = this.state;
+    const { isSubmitting, message } = this.state;
     const { alertStatus } = this.props;
 
     return (
@@ -38,6 +39,7 @@ export class BadWorkAlert extends React.Component {
           alertStatus={alertStatus}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          isSubmitting={isSubmitting}
           message={message}
         />
       </section>
