@@ -95,7 +95,7 @@ describe 'Training', type: :feature, js: true do
       login_as(admin, scope: :user)
       click_link 'Start'
       sleep 1.5
-      tmu = TrainingModulesUsers.find_by(user_id: 2, training_module_id: module_2.id)
+      tmu = TrainingModulesUsers.find_by(user_id: admin.id, training_module_id: module_2.id)
       expect(tmu.last_slide_completed).to eq(module_2.slides.first.slug)
       click_link 'Next Page'
       sleep 1.5
@@ -191,7 +191,7 @@ def go_through_module_from_start_to_finish(training_module)
   click_through_slides(training_module)
   sleep 1
   expect(TrainingModulesUsers.find_by(
-    user_id: 2,
+    user_id: admin.id,
     training_module_id: training_module.id
   ).completed_at).not_to be_nil
 end
