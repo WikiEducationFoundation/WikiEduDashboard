@@ -99,7 +99,7 @@ else
 fi
 
 printf '[*] Updating bundler... \n'
-if ruby should_update_rubygems.rb
+if ruby should_update_rubygems.rb; then
   gem update --system
   printf '[+] Bundler updated\n'
 else
