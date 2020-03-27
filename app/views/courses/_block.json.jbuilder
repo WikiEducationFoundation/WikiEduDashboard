@@ -3,7 +3,7 @@
 user ||= current_user
 json.call(block, :id, :kind, :content, :week_id, :title,
           :order, :due_date, :training_module_ids, :points)
-if block.training_modules.any?
+if block.training_module_ids.present?
   json.training_modules block.training_modules do |tm|
     # The available training modules may change over time, especially on
     # Programs & Events Dashboard where wiki trainings are enabled.
