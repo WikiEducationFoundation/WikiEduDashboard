@@ -135,6 +135,7 @@
                 %span.rails_editable-content
                   = @campaign.default_passcode
       %section#campaign_stats
+        #react_root{data: {slug: @campaign.slug}}
       - if @campaign.template_description.present?
         = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
           .section-header
@@ -146,4 +147,3 @@
           .module__data.rails_editable-field
             %p.rails_editable-content
               = html_from_markdown @campaign.template_description
-        #react_root{data: {slug: @campaign.slug}}
