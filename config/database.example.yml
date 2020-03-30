@@ -4,7 +4,7 @@
 
 default: &default
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   username: wiki
   password: wikiedu
   host: 127.0.0.1
