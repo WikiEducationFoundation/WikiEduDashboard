@@ -17,7 +17,9 @@ class CampaignsUsers < ApplicationRecord
   belongs_to :campaign
   belongs_to :user
 
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :campaign_id, uniqueness: { scope: %i[user_id role] }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
 
   ##############
   # CONSTANTS  #
