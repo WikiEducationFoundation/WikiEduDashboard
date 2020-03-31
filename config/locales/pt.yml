@@ -61,7 +61,9 @@ pt:
     request_account: Pedir uma conta
     request_account_create: Criar uma conta
     search: faça uma pergunta
-    search_results: 'Resultados para: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Resultado para: ''%{search_terms}'''
+      other: '%{count} Resultado para: ''%{search_terms}'''
     no_results: Não foram encontrados resultados para '%{query}'
     sign_up_extended: Registar-se via Wikipédia
     sign_up_wikipedia: Ou registar-se na Wikipédia
@@ -76,6 +78,16 @@ pt:
     opt_out: Não
     opt_yes: sim
     opt_no: não
+  article_statuses:
+    not_yet_started: Primeiros passos
+    in_progress: Trabalhando no Sandbox
+    ready_for_review: Expansão do rascunho
+    ready_for_mainspace: Movendo o trabalho para o domínio principal
+    assignment_completed: Tarefa marcada como concluída
+    reading_the_article: Lendo o artigo
+    providing_feedback: Fornecendo comentários
+    post_to_talk: Postagem na página de discussão
+    peer_review_completed: Revisão concluída
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
     create_preparation_note: Verifique que tem o seu calendário académico à mão antes
@@ -202,6 +214,11 @@ pt:
       artigo segue as convenções da Wikipédia sobre a estrutura de um artigo bom,
       mas não leva em conta o conteúdo em si. (Estas notas só estão disponíveis para
       os artigos da Wikipédia em inglês.)
+    articles_short: Artigos
+  articles_wikidata:
+    articles_short: Itens
+  articles_generic:
+    articles_short: Páginas
   assignments:
     article: O artigo %{title} está atribuído agora a si.
     article_link: Artigo
@@ -220,6 +237,7 @@ pt:
     confirm_addition: Tem a certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Tem certeza de que deseja eliminar esta atribuição a um artigo?
     editors: Atribuído a
+    group_members: Membros do grupo
     label: Atribuir
     loading: A carregar tarefas...
     none_short: Nenhum artigo atribuído
@@ -228,14 +246,18 @@ pt:
     peer_review_count: Selecionados %{currentCount}/%{total}
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
     peer_review_link: Revisão por pares
+    peer_review_link_personalized: Revisão por pares %{username}
     remove: Remover
     reviewers: Revisor(es)
-    review_other: Atribuir uma revisão
+    review_other: Atribuir uma revisão por pares
     review_self: Rever um artigo
     review_tooltip: Isto é para os artigos a que planeia fazer revisão por pares ou
       comentar.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
+    warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
+      não rastreado por este curso. Para acompanhar as contribuições para este artigo,
+      um instrutor deve adicionar o seguinte wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Marcos
@@ -339,12 +361,10 @@ pt:
     assignment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
       uma predefinição na página de discussão por cada artigo atribuído.
     accounts_generation_enabled: Geração de pedidos de contas ativada
-    accounts_generation_explanation: Isto vai permitir que os participantes introduzam
-      o seu endereço de correio eletrónico e o nome de utilizador desejado, em vez
-      de criarem contas novas. Poderá então criar as contas a partir do Painel de
-      Controlo e, ao mesmo tempo, adicioná-las como participantes do programa. Para
-      utilizar esta funcionalidade, deve ter o privilégio de 'criador de contas' na
-      wiki de acolhimento deste programa.
+    accounts_generation_explanation: Isso permitirá que os participantes insiram o
+      endereço de e-mail e o nome de usuário desejado, em vez de criar novas contas.
+      Você poderá criar as contas desse painel e adicioná-las como participantes do
+      programa ao mesmo tempo.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar pedidos
       de contas?
     activity: Atividade
@@ -649,6 +669,7 @@ pt:
     search_courses: Pesquisar cursos
     start: Início
     start_typing: Começar a escrever
+    student: Estudante
     students: Estudantes
     students_taught: Alunos ensinados
     students_count: '# Estudantes'
@@ -821,6 +842,7 @@ pt:
     search_courses: Pesquisar programas
     start: Início da monitorização da atividade
     student_editors: Editores
+    student: Editor
     students: Editores
     students_taught: Total de editores
     students_none: Este projeto não tem editores registados.
@@ -847,6 +869,31 @@ pt:
     rename_confirmation: Os campos do curso que formam o URL foram alterados. Isto
       resultará na alteração do URL e as suas hiperligações poderão tornar-se obsoletas.
       Tem a certeza de que deseja fazer isto?
+  instructor_view:
+    article_assignments: '%{prefix} Atribuições'
+    assignments_table:
+      article_name: Nome do artigo
+      current_stage: Estágio atual
+      relevant_links: Links relevantes
+    assigned_articles: Artigos atribuídos
+    bad_work:
+      learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que você o
+        edite. Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
+        mais tarde.
+      learn_more_button: Saiba mais
+      submit_issue: Quais são os problemas significativos com este artigo?
+      submit_issue_placeholder: Quanto mais perspectiva e detalhes você puder fornecer,
+        melhor.
+      thank_you: Obrigado! Entre em contato com o seu especialista da Wiki se tiver
+        mais perguntas.
+    exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
+    no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
+      atribuir um artigo usando os botões acima.
+    overview: '%{prefix} Visão geral'
+    reviewing_articles: Revendo artigos
+    select_student:
+      title: Selecionar %{prefix}
+      content: atribuir e visualizar atribuições de artigos
   metrics:
     label: Atividade do curso
     last_update: Última atualização das estatísticas
@@ -866,6 +913,7 @@ pt:
     char: Caracteres adicionados
     date_time: Data/Hora
     edit_count_description: Total de edições
+    last_reviewed: Última revisão
     per_user: '%{number}/utilizador'
     revisions: Edições Recentes
     references_count: Referências adicionadas
@@ -1096,6 +1144,10 @@ pt:
     view_library_source: ver a fonte da biblioteca
     view_module_source: ver a fonte do módulo
     reload_from_source: recarregar da fonte
+    kind:
+      exercise: Exercício
+      discussion: Discussão
+      training: Treinamento
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro
@@ -1140,6 +1192,9 @@ pt:
     enroll_confirmation: Tem a certeza de que deseja adicionar %{username}?
     enroll_url: 'Os utilizadores podem se juntar ao entrar neste URL:'
     enrolled_success: '%{username} foi adicionado com sucesso!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} exercício completod'
+      other: '%{completed_count}/%{count} exercícios concluídos'
     first_name: Primeiro nome
     last_name: Apelido
     loading: A carregar os utilizadores...
@@ -1160,6 +1215,9 @@ pt:
     recent_revisions: Edições recentes
     remove_confirmation: Tem a certeza de que pretende remover %{username}?
     request_confirmation: Tem a certeza de que deseja pedir esta conta?
+    requested_account_status:
+      success_message: 'Sucesso: %{result_description}'
+      failure_message: 'Falha: %{result_description}'
     revision_characters_and_views: 'Os caracteres foram acrescentados: %{characters},
       Visitas: %{views}'
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
@@ -1167,6 +1225,11 @@ pt:
     reviewers: Revisor(es)
     reviewing: Em revisão
     sandboxes: páginas de testes
+    sub_navigation:
+      article_assignments: Atribuições de artigos
+      editor_overview: Visão geral do editor
+      exercises_and_trainings: Exercícios e treinamentos
+      student_overview: Visão geral do aluno
     total_uploads: Total de carregamentos
     training_complete:
       one: está em dia com a formação
@@ -1182,6 +1245,9 @@ pt:
       other: '%{completed_count}/%{count} módulos de formação concluídos'
     training_module_name: Módulo de formação
     training_module_status: Estado
+    training_module_time:
+      minutes: Min
+      seconds: Seg
     user_training_status: Estado de formação
     user_no_training_status: Este utilizador não completou nenhum módulo de formação.
     up_to_date_with_training: em dia com a formação
@@ -1191,6 +1257,7 @@ pt:
     username_placeholder: Nome de utilizador
     useremail_placeholder: Correio eletrónico
     userpasscode_placeholder: Código de acesso
+    words_added: Palavras adicionadas<br>(article | usuário | rascunho)
     role:
       description: Função no curso
       visitor: Visitante
@@ -1362,6 +1429,8 @@ pt:
   training_status:
     completed: Concluída
     continue: Continuar
+    completed_at: Concluído em
+    completion_time: Tempo de conclusão
     view: Ver
     started: Começada
     not_started: Não começada

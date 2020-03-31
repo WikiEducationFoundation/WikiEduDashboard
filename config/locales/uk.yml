@@ -863,6 +863,16 @@ uk:
       current_stage: Поточний стан
       relevant_links: Релевантні посилання
     assigned_articles: Призначені статті
+    bad_work:
+      learn_more: Якщо студент погіршив статтю, рекомендуємо вам відредагувати її
+        самостійно. В іншому разі просимо повідомити нам про проблеми, щоб ми могли
+        їх вирішити пізніше.
+      learn_more_button: Дізнатися більше
+      submit_issue: Які суттєві проблеми має ця стаття?
+      submit_issue_placeholder: Чим більше експертних точок зору та подробиць ви можете
+        надати, тим краще.
+      thank_you: Дякуємо! Зв'яжіться із вашим експертом по вікі, якщо у вас є додаткові
+        запитання.
     exercises_and_trainings: '%{prefix} вправи й тренінги'
     no_assignments: Цей студент наразі не має призначених статей. Можете призначити
       статтю за допомогою кнопок вище.
@@ -1210,6 +1220,9 @@ uk:
       other: Завершено %{completed_count} тренувальні модулі з %{count}
     training_module_name: Навчальний модуль
     training_module_status: Статус
+    training_module_time:
+      minutes: хв
+      seconds: с
     user_training_status: Статус навчання
     user_no_training_status: Це користувач ще не пройшов жодних навчальних модулів.
     up_to_date_with_training: без запізнень у навчанні
@@ -1386,6 +1399,8 @@ uk:
   training_status:
     completed: Завершено
     continue: Продовжити
+    completed_at: Завершено
+    completion_time: Час завершення
     view: Перегляд
     started: Почато
     not_started: Не почато

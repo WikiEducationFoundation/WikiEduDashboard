@@ -1,6 +1,7 @@
 # Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 500000000006城
 # Author: A Chinese Wikipedian
 # Author: A Retired User
 # Author: Assoc
@@ -26,11 +27,25 @@
 # Author: 神樂坂秀吉
 ---
 zh-CN:
+  number:
+    human:
+      decimal_units:
+        format: |2-
+
+          %n%u
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: 这是一个数字字段。大多数浏览器渲染的按钮将递增和递减输入。
   application:
     cancel: 取消
+    cookie_consent: 这个网站使用cookies来保持您的登录，并存储与您的维基百科帐户相关的信息。
     cookie_consent_acknowledge: 我懂了
+    cookie_consent_see_more: 查看更多
     create_accounts: 创建维基百科账户
     dashboard: Wiki Ed控制面板
     documentation: 文档
@@ -54,7 +69,10 @@ zh-CN:
     request_account: 请求账户
     request_account_create: 创建账户
     search: 提问
-    search_results: “%{search_terms}”的结果
+    search_results:
+      one: '%{count} Result for: ''%{search_terms}'''
+      other: '%{count} Results for: ''%{search_terms}'''
+    no_results: 找不到“％{query}”的结果
     sign_up_extended: 注册维基百科
     sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科
@@ -68,6 +86,16 @@ zh-CN:
     opt_out: 否
     opt_yes: 是
     opt_no: 否
+  article_statuses:
+    not_yet_started: 入门
+    in_progress: 在沙盒中工作
+    ready_for_review: 扩充草稿
+    ready_for_mainspace: 将工作转移到主空间
+    assignment_completed: 任务标记完成
+    reading_the_article: 阅读文章
+    providing_feedback: 提供反馈
+    post_to_talk: 发布到对话页
+    peer_review_completed: 审查完成
   dashboard:
     create_note: 点击“创建课程”以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。

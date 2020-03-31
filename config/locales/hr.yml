@@ -30,6 +30,11 @@ hr:
   instructor_view:
     assignments_table:
       article_name: Ime članka
+    bad_work:
+      learn_more: Ako je studentski rad pogoršao članak, potičemo Vas da ga sami uredite.
+        U suprotnom nas obavijestite o problemima da bismo ih kasnije mogli riješiti.
+      learn_more_button: Saznajte više
+      thank_you: Hvala Vam! Kontaktirajte sa svojim Wikiekspertom ako imate još pitanja.
   training:
     kind:
       discussion: Rasprava

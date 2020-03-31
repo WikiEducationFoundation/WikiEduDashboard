@@ -289,6 +289,9 @@ br:
     save: Enrollañ
     edit_description: Kemmañ an deskrivadur
     edit_details: Kemmañ ar munudoù
+  instructor_view:
+    bad_work:
+      learn_more_button: Gouzout hiroc'h
   metrics:
     activity: Oberiantiz nevez
     articles_created: Pennadoù krouet

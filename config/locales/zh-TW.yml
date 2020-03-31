@@ -698,6 +698,12 @@ zh-TW:
       current_stage: 目前階段
       relevant_links: 相關連結
     assigned_articles: 已分配條目
+    bad_work:
+      learn_more: 如果學生的作業反而讓條目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
+      learn_more_button: 了解更多
+      submit_issue: 此條目重大的問題是什麼？
+      submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
+      thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
     exercises_and_trainings: '%{prefix}練習與訓練'
     no_assignments: 此學生目前沒有分配到條目，您可以透過使用以上按鈕來分配條目給對方。
     overview: '%{prefix}概要'

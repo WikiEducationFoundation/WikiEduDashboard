@@ -876,6 +876,16 @@ pt-br:
       current_stage: Estágio atual
       relevant_links: Links relevantes
     assigned_articles: Artigos atribuídos
+    bad_work:
+      learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que você o
+        edite. Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
+        mais tarde.
+      learn_more_button: Saiba mais
+      submit_issue: Quais são os problemas significativos com este artigo?
+      submit_issue_placeholder: Quanto mais perspectiva e detalhes você puder fornecer,
+        melhor.
+      thank_you: Obrigado! Entre em contato com o seu especialista da Wiki se tiver
+        mais perguntas.
     exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
     no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
       atribuir um artigo usando os botões acima.

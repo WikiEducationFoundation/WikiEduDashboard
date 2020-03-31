@@ -4,6 +4,7 @@
 # Author: Bengtsson96
 # Author: Fader
 # Author: Jopparn
+# Author: Josefine Hellroth Larsson (WMSE)
 # Author: Josve05a
 # Author: Pyscowicz
 # Author: Rockyfelle
@@ -27,6 +28,8 @@ sv:
       kommer att öka och minska inmatningen.
   application:
     cancel: Avbryt
+    cookie_consent: Denna sida använder kakor för att hålla dig inloggad, och sparar
+      information relaterad till ditt Wikipedia-konto.
     cookie_consent_acknowledge: Jag förstår
     cookie_consent_see_more: Se mer.
     create_accounts: Skapa Wikipedia-konton
@@ -68,6 +71,11 @@ sv:
     opt_out: Nej
     opt_yes: ja
     opt_no: nej
+  article_statuses:
+    not_yet_started: Komma igång
+    in_progress: Att arbeta i sandlådan
+    ready_for_mainspace: Flytta artikel till huvudsidan
+    post_to_talk: Posta på diskussionssidan
   dashboard:
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
     explore_course_pages: Utforska kursussidorna

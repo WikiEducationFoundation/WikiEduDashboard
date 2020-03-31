@@ -712,6 +712,17 @@ eu:
     edit_template: Txantiloia aldatu
     rename_confirmation: URLa osatzen duten ikastaro eremuak aldatu egin dira. Honek
       URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
+  instructor_view:
+    bad_work:
+      learn_more: Ikaslearen lanak artikulua okertu egin badu, guk editatzera zirikatu
+        nahi zaitugu. Bestela, jakinarazi guri arazoen berri, geroago geuk konpon
+        dezagun.
+      learn_more_button: Gehiago ikasi
+      submit_issue: Zein arazo nabarmen ditu artikulu honek?
+      submit_issue_placeholder: Zenbat eta aditu ikuspegi eta xehetasun gehiago hornitu,
+        hainbat eta hobeto.
+      thank_you: Eskerrik asko! Jarri harremanetan Wikiadituarekin galdera gehiago
+        baldin badituzu.
   metrics:
     label: Ikastaroko jarduera
     last_update: Eguneratutako azken estatistikak

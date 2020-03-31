@@ -867,6 +867,15 @@ tr:
       current_stage: Geçerli Adım
       relevant_links: İlgili Bağlantılar
     assigned_articles: Atanmış Makaleler
+    bad_work:
+      learn_more: Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
+        düzenlemenizi öneririz. Aksi takdirde, sorunları daha sonra çözebilmemiz için
+        bize bildirin.
+      learn_more_button: Daha Fazla Bilgi
+      submit_issue: Bu madde ile ilgili önemli sorunlar nelerdir?
+      submit_issue_placeholder: Ne kadar fazla uzman perspektifi ve detayı olursa
+        o kadar iyidir.
+      thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
     exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
     no_assignments: Şu anda bu öğrencinin atanmış makalesi yok. Yukarıdaki düğmeleri
       kullanarak makale atayabilirsiniz.

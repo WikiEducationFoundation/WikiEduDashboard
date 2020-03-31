@@ -364,6 +364,8 @@ lb:
       article_name: Numm vum Artikel
       current_stage: Aktuelle Stand
       relevant_links: Relevant Linken
+    bad_work:
+      learn_more_button: Fir méi ze wëssen
     overview: Iwwersiicht %{prefix}
     reviewing_articles: Artikelen nokucken
     select_student:
@@ -521,6 +523,9 @@ lb:
     training_incomplete: Formatioun net komplett
     training_module_name: Formatiounsmodul
     training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Sek
     username: Benotzernumm
     username_placeholder: Benotzernumm
     useremail_placeholder: E-Mail

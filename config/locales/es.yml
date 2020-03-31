@@ -635,6 +635,9 @@ es:
     edit_description: Editar descripción
     edit_details: Editar detalles
     edit_template: Editar plantilla
+  instructor_view:
+    bad_work:
+      learn_more_button: Más información
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -892,6 +895,9 @@ es:
       other: '%{completed_count}/%{count} módulos de capacitación completados'
     training_module_name: Módulo de capacitación
     training_module_status: Estado
+    training_module_time:
+      minutes: min
+      seconds: s
     up_to_date_with_training: al día con la capacitación
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
@@ -1039,6 +1045,7 @@ es:
     submit: Enviar
   training_status:
     continue: Continuar
+    completion_time: Tiempo de compleción
     view: Ver
   multi_wiki:
     selector_placeholder: Seleccionar wiki

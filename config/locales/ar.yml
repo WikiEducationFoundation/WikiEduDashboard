@@ -63,7 +63,9 @@ ar:
     request_account: اطلب حسابا
     request_account_create: إنشاء حساب
     search: طرح سؤال
-    search_results: 'نتائج البحث عن: ''%{search_terms}'''
+    search_results:
+      one: '%{count} نتيجة البحث عن: ''%{search_terms}'''
+      other: '%{count} نتائج البحث عن: ''%{search_terms}'''
     no_results: لم يتم العثور على نتائج لـ'%{query}'
     sign_up_extended: إنشاء حساب عبر ويكيبيديا
     sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
@@ -815,6 +817,14 @@ ar:
       current_stage: المرحلة الحالية
       relevant_links: الوصلات المتعلقة
     assigned_articles: تعيين مقالات
+    bad_work:
+      learn_more: إذا جعل عمل الطالب المقالة أسوأ، فإننا نشجعك على تحريره بنفسك. وإلا،
+        فأخبرنا بالمشكلات حتى نتمكن من إصلاحها لاحقا.
+      learn_more_button: معرفة المزيد
+      submit_issue: ما هي المشاكل الهامة في هذه المقالة؟
+      submit_issue_placeholder: كلما كان بإمكانك تقديم منظور وتفاصيل أكثر خبرة، كان
+        ذلك أفضل.
+      thank_you: شكرا لك! اتصل بخبير الويكي الخاص بك إذا كانت لديك أسئلة إضافية.
     exercises_and_trainings: مهام وتدريبات %{prefix}
     no_assignments: لم تُسنَد أي مقالات لهذا الطالب حالياً. يمكنك أن تُسنِدَ إليه
       مقالةً من الاختيارات أعلاه.
@@ -1155,6 +1165,9 @@ ar:
       other: '%{completed_count}/%{count} وحدات تدريب اكتملت'
     training_module_name: وحدة التدريب
     training_module_status: الحالة
+    training_module_time:
+      minutes: دقيقة
+      seconds: ثانية
     user_training_status: حالة التدريب
     user_no_training_status: هذا المستخدم لم يكمل أية وحدات تدريب.
     up_to_date_with_training: التدريب حتى الآن
@@ -1164,6 +1177,7 @@ ar:
     username_placeholder: اسم المستخدم
     useremail_placeholder: البريد الإلكتروني
     userpasscode_placeholder: رمز المرور
+    words_added: الكلمات المضافة<br>(مقالة | مستخدم | مسودة)
     role:
       description: الدور في الدورة
       visitor: زائر
@@ -1323,6 +1337,8 @@ ar:
   training_status:
     completed: مكتمل
     continue: استمرار
+    completed_at: اكتمل في
+    completion_time: وقت الإكمال
     view: عرض
     started: بدأ
     not_started: لم يبدأ

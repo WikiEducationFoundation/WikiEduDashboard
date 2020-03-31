@@ -9,6 +9,7 @@
 # Author: Nokib Sarkar
 # Author: Rasal Lia
 # Author: Sandipan
+# Author: Sourav Halder
 # Author: Tahmid02016
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
@@ -251,6 +252,17 @@ bn:
     cancel: বাতিল
     save: সংরক্ষণ
     edit_description: বিবরণ সম্পাদনা করুন
+  instructor_view:
+    bad_work:
+      learn_more: যদি শিক্ষার্থীদের কাজ নিবন্ধটি আরও খারাপ করে তোলে তবে আমরা আপনাকে
+        এটি সম্পাদনা করতে উত্সাহিত করি।  অন্যথায়, সমস্যাগুলির সম্পর্কে আমাদের জানান
+        যাতে আমরা সেগুলি পরে ঠিক করতে পারি।
+      learn_more_button: আরও জানুন
+      submit_issue: এই নিবন্ধটির সাথে উল্লেখযোগ্য সমস্যাগুলি কী?
+      submit_issue_placeholder: আপনি যত বেশি বিশেষজ্ঞের দৃষ্টিভঙ্গি এবং বিশদ সরবরাহ
+        করতে পারেন তত ভাল।
+      thank_you: ধন্যবাদ!  আপনার যদি অতিরিক্ত প্রশ্ন থাকে তবে আপনার উইকি বিশেষজ্ঞের
+        সাথে যোগাযোগ করুন।
   metrics:
     activity: সাম্প্রতিক কার্যকালাপ
     articles_edited: সম্পাদিত নিবন্ধসমূহ
