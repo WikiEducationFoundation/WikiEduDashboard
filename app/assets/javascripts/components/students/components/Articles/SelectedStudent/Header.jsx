@@ -22,7 +22,14 @@ export const Header = ({
 
   return (
     <aside className="header">
-      <h3>{ selected.username }</h3>
+      <section>
+        <h3>{ selected.username }</h3>
+        <div className="sandbox-link">
+          <a href={selected.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
+            &nbsp;
+          <a href={selected.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
+        </div>
+      </section>
       <div className="button-actions">
         <AssignCell
           assignments={assigned}
