@@ -69,7 +69,6 @@ export class Overview extends React.Component {
           sort={sort}
           sortUsers={sortUsers}
           students={students}
-          toggleUI={this.props.toggleUI}
           trainingStatus={trainingStatus}
           userRevisions={userRevisions}
           wikidataLabels={wikidataLabels}

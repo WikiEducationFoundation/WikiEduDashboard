@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -42,13 +43,17 @@ const Student = createReactClass({
   },
 
   openDrawer() {
-    if (!this.props.isOpen) {
-      const { course, student } = this.props;
+    const { course, history, isOpen, student, toggleDrawer } = this.props;
+    if (!toggleDrawer) {
+      const url = `/courses/${course.slug}/students/articles/${student.username}`;
+      return history.push(url);
+    }
+    if (!isOpen) {
       this.props.fetchUserRevisions(course.id, student.id);
       this.props.fetchTrainingStatus(student.id, course.id);
       this.props.fetchExercises(course.id, student.id);
     }
-    return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
+    return toggleDrawer(`drawer_${student.id}`);
   },
 
   _shouldShowRealName() {
@@ -176,7 +181,13 @@ const Student = createReactClass({
             {student.total_uploads || 0}
           </Link>
         </td>
-        <td><button className="icon icon-arrow table-expandable-indicator" /></td>
+        {
+          this.props.toggleDrawer && (
+            <td>
+              <button className="icon icon-arrow table-expandable-indicator" />
+            </td>
+          )
+        }
       </tr>
     );
   }
@@ -190,4 +201,5 @@ const mapDispatchToProps = {
   fetchExercises: fetchTrainingModuleExercisesByUser
 };
 
-export default connect(null, mapDispatchToProps)(Student);
+const component = withRouter(Student);
+export default connect(null, mapDispatchToProps)(component);
