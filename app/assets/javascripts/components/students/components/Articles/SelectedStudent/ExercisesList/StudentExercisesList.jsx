@@ -73,7 +73,9 @@ export const StudentList = (props) => {
 
   return (
     <div className="list__wrapper">
-      <h4 className="assignments-list-title">Exercises & Trainings</h4>
+      <h4 className="assignments-list-title">
+        {I18n.t('users.revisions')}
+      </h4>
       <List
         elements={elements}
         className="table--expandable table--hoverable"

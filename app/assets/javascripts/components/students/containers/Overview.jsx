@@ -45,6 +45,7 @@ export class Overview extends React.Component {
         <StudentsSubNavigation
           course={course}
           heading={I18n.t('instructor_view.overview', { prefix })}
+          prefix={prefix}
         />
         {
           current_user.isAdvancedRole

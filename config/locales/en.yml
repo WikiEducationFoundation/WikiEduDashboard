@@ -1134,6 +1134,7 @@ en:
     exercise_modules_completed:
       one: "%{completed_count}/%{count} exercise completed"
       other: "%{completed_count}/%{count} exercises completed"
+    exercises_and_trainings: Exercises & Trainings
     first_name: First name
     last_name: Last name
     loading: Loading users...
@@ -1162,12 +1163,13 @@ en:
     references_doc: The number of references added or removed by this editor
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    revisions: Revisions
     sandboxes: sandboxes
     sub_navigation:
-      article_assignments: Article Assignments
+      assignments_and_exercises: Assignments & Exercises
       editor_overview: Editor Overview
       exercises_and_trainings: Exercises & Trainings
-      student_overview: Student Overview
+      student_overview: '%{prefix}  Overview'
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"

@@ -70,7 +70,9 @@ export class StudentRevisionsList extends React.Component {
 
     return (
       <div className="list__wrapper">
-        <h4 className="assignments-list-title">Revisions</h4>
+        <h4 className="assignments-list-title">
+          {I18n.t('users.exercises_and_trainings')}
+        </h4>
         <List
           elements={elements}
           className="table--expandable table--hoverable"
