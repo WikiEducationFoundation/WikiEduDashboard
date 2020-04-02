@@ -31,18 +31,6 @@ export const SelectedStudent = ({
         wikidataLabels={wikidataLabels}
       />
 
-      <StudentExercisesList
-        course={course}
-        current_user={current_user}
-        openKey={openKey}
-        sort={sort}
-        sortUsers={sortUsers}
-        selected={selected}
-        toggleUI={toggleUI}
-        trainingStatus={trainingStatus}
-        wikidataLabels={wikidataLabels}
-      />
-
       {
         !!assigned.length && <AssignmentsList
           assignments={assigned}
@@ -68,6 +56,18 @@ export const SelectedStudent = ({
       {
         !assigned.length && !reviewing.length && <NoAssignments />
       }
+
+      <StudentExercisesList
+        course={course}
+        current_user={current_user}
+        openKey={openKey}
+        sort={sort}
+        sortUsers={sortUsers}
+        selected={selected}
+        toggleUI={toggleUI}
+        trainingStatus={trainingStatus}
+        wikidataLabels={wikidataLabels}
+      />
 
       <StudentRevisionsList
         course={course}
