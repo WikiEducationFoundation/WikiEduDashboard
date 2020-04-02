@@ -176,12 +176,7 @@ const Student = createReactClass({
             {student.total_uploads || 0}
           </Link>
         </td>
-        {
-          // fullView
-          // && (
-          <td><button className="icon icon-arrow table-expandable-indicator" /></td>
-          // )
-        }
+        <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );
   }

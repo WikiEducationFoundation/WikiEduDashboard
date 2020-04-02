@@ -8,7 +8,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Loading from '@components/common/loading.jsx';
 import Overview from './Overview';
 import Articles from './Articles';
-import Exercises from './Exercises';
 
 // Actions
 import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
@@ -78,11 +77,6 @@ const StudentsHandler = createReactClass({
             render={() => {
               return <Articles {...props} />;
             }}
-          />
-          <Route
-            exact
-            path="/courses/:course_school/:course_title/students/exercises"
-            render={() => <Exercises {...props} />}
           />
           <Redirect
             to={{

@@ -5,12 +5,16 @@ import PropTypes from 'prop-types';
 import Header from './Header.jsx';
 import AssignmentsList from './AssignmentsList/AssignmentsList.jsx';
 import NoAssignments from './NoAssignments.jsx';
+import StudentExercisesList from './ExercisesList/StudentExercisesList.jsx';
+import StudentRevisionsList from './RevisionsList/StudentRevisionsList.jsx';
 
 // Utils
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 
 export const SelectedStudent = ({
-  assignments, course, current_user, fetchArticleDetails, selected, wikidataLabels
+  assignments, course, current_user, fetchArticleDetails, fetchUserRevisions,
+  openKey, selected, setUploadFilters, sort, sortUsers, toggleUI, trainingStatus,
+  wikidataLabels, userRevisions
 }) => {
   const {
     assigned, reviewing
@@ -24,6 +28,18 @@ export const SelectedStudent = ({
         current_user={current_user}
         reviewing={reviewing}
         selected={selected}
+        wikidataLabels={wikidataLabels}
+      />
+
+      <StudentExercisesList
+        course={course}
+        current_user={current_user}
+        openKey={openKey}
+        sort={sort}
+        sortUsers={sortUsers}
+        selected={selected}
+        toggleUI={toggleUI}
+        trainingStatus={trainingStatus}
         wikidataLabels={wikidataLabels}
       />
 
@@ -52,6 +68,20 @@ export const SelectedStudent = ({
       {
         !assigned.length && !reviewing.length && <NoAssignments />
       }
+
+      <StudentRevisionsList
+        course={course}
+        current_user={current_user}
+        fetchUserRevisions={fetchUserRevisions}
+        openKey={openKey}
+        setUploadFilters={setUploadFilters}
+        sort={sort}
+        sortUsers={sortUsers}
+        student={selected}
+        trainingStatus={trainingStatus}
+        wikidataLabels={wikidataLabels}
+        userRevisions={userRevisions}
+      />
     </article>
   );
 };
@@ -61,8 +91,10 @@ SelectedStudent.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   fetchArticleDetails: PropTypes.func.isRequired,
+  fetchUserRevisions: PropTypes.func.isRequired,
   selected: PropTypes.object.isRequired,
-  wikidataLabels: PropTypes.object
+  wikidataLabels: PropTypes.object,
+  userRevisions: PropTypes.object
 };
 
 export default SelectedStudent;

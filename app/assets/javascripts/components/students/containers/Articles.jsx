@@ -14,6 +14,12 @@ import NoSelectedStudent from '@components/students/components/Articles/NoSelect
 
 // Actions
 import { fetchArticleDetails } from '~/app/assets/javascripts/actions/article_actions.js';
+import {
+  fetchTrainingModuleExercisesByUser
+} from '~/app/assets/javascripts/actions/exercises_actions';
+import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
+import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
+import { toggleUI } from '~/app/assets/javascripts/actions';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -39,7 +45,7 @@ export class Articles extends React.Component {
   render() {
     const {
       assignments, course, current_user, prefix, students, wikidataLabels,
-      notify, sortSelect
+      notify, sortSelect, openKey, sort, trainingStatus, sortUsers, userRevisions
     } = this.props;
 
     if (!students.length) return null;
@@ -91,9 +97,17 @@ export class Articles extends React.Component {
                         course={course}
                         current_user={current_user}
                         fetchArticleDetails={this.props.fetchArticleDetails}
+                        fetchUserRevisions={this.props.fetchUserRevisions}
+                        openKey={openKey}
                         selected={selected}
-                        selectStudent={this.selectStudent}
+                        setUploadFilters={setUploadFilters}
+                        sort={sort}
+                        sortUsers={sortUsers}
+                        students={students}
+                        toggleUI={this.props.toggleUI}
+                        trainingStatus={trainingStatus}
                         wikidataLabels={wikidataLabels}
+                        userRevisions={userRevisions}
                       />
                     );
                   }}
@@ -114,19 +128,34 @@ export class Articles extends React.Component {
 
 Articles.propTypes = {
   assignments: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
+  openKey: PropTypes.string,
+  prefix: PropTypes.string.isRequired,
   students: PropTypes.array.isRequired,
-  wikidataLabels: PropTypes.object
+  wikidataLabels: PropTypes.object,
+
+  sort: PropTypes.object.isRequired,
+  sortSelect: PropTypes.func.isRequired,
+  sortUsers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  students: getStudentUsers(state),
   assignments: state.assignments.assignments,
-  wikidataLabels: state.wikidataLabels.labels
+  openKey: state.ui.openKey,
+  sort: state.users.sort,
+  students: getStudentUsers(state),
+  trainingStatus: state.trainingStatus,
+  wikidataLabels: state.wikidataLabels.labels,
+  userRevisions: state.userRevisions
 });
 
 const mapDispatchToProps = {
-  fetchArticleDetails
+  fetchArticleDetails,
+  fetchTrainingModuleExercisesByUser,
+  fetchUserRevisions,
+  setUploadFilters,
+  toggleUI
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);

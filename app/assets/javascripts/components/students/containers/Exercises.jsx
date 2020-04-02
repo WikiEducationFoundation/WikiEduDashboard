@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
-import StudentExercisesList from '../components/Exercises/StudentExercisesList';
+import StudentExercisesList from '../components/Articles/SelectedStudent/ExercisesList/StudentExercisesList';
 
 // Actions
 import {

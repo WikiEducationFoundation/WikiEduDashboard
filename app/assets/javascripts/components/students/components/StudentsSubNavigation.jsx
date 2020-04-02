@@ -14,10 +14,6 @@ export const StudentsSubNavigation = ({ course, heading }) => {
     {
       href: `/courses/${course.slug}/students/articles`,
       text: I18n.t('users.sub_navigation.article_assignments')
-    },
-    {
-      href: `/courses/${course.slug}/students/exercises`,
-      text: I18n.t('users.sub_navigation.exercises_and_trainings')
     }
   ];
 
