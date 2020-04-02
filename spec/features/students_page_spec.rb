@@ -68,18 +68,6 @@ describe 'Students Page', type: :feature, js: true do
     expect(page).to have_content @user.username
   end
 
-  it 'opens a list of individual student revisions' do
-    js_visit "/courses/#{@course.slug}/students/overview"
-    sleep 1 # Try to avoid issue where this test fails with 0 rows found.
-    expect(page).not_to have_content 'Article Title'
-    page.first('tr.students').click
-    sleep 1
-    within 'table.users' do
-      expect(page).to have_content 'User Contributions'
-      expect(page).to have_content 'Article Title'
-    end
-  end
-
   describe 'display of user name' do
     let(:user) { create(:user) }
 
