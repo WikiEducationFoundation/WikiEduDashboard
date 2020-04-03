@@ -20,8 +20,8 @@ import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 import { getArticlesByNewness } from '~/app/assets/javascripts/selectors';
 import { delayFetchAssignmentsAndArticles } from '@components/util/helpers';
 
-const StudentsHandler = createReactClass({
-  displayName: 'StudentsHandler',
+const StudentsTabHandler = createReactClass({
+  displayName: 'StudentsTabHandler',
 
   propTypes: {
     course_id: PropTypes.string,
@@ -106,4 +106,4 @@ const mapDispatchToProps = {
   fetchArticles
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsTabHandler);

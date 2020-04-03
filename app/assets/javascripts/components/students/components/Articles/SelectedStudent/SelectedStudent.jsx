@@ -13,8 +13,8 @@ import { processAssignments } from '@components/overview/my_articles/utils/proce
 
 export const SelectedStudent = ({
   assignments, course, current_user, fetchArticleDetails, fetchUserRevisions,
-  openKey, selected, setUploadFilters, sort, sortUsers, toggleUI, trainingStatus,
-  wikidataLabels, userRevisions
+  hasExercisesOrTrainings, openKey, selected, setUploadFilters, sort, sortUsers,
+  toggleUI, trainingStatus, wikidataLabels, userRevisions
 }) => {
   const {
     assigned, reviewing
@@ -57,17 +57,21 @@ export const SelectedStudent = ({
         !assigned.length && !reviewing.length && <NoAssignments />
       }
 
-      <StudentExercisesList
-        course={course}
-        current_user={current_user}
-        openKey={openKey}
-        sort={sort}
-        sortUsers={sortUsers}
-        selected={selected}
-        toggleUI={toggleUI}
-        trainingStatus={trainingStatus}
-        wikidataLabels={wikidataLabels}
-      />
+      {
+        hasExercisesOrTrainings && (
+          <StudentExercisesList
+            course={course}
+            current_user={current_user}
+            openKey={openKey}
+            sort={sort}
+            sortUsers={sortUsers}
+            selected={selected}
+            toggleUI={toggleUI}
+            trainingStatus={trainingStatus}
+            wikidataLabels={wikidataLabels}
+          />
+        )
+      }
 
       <StudentRevisionsList
         course={course}
@@ -94,7 +98,8 @@ SelectedStudent.propTypes = {
   fetchUserRevisions: PropTypes.func.isRequired,
   selected: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object,
-  userRevisions: PropTypes.object
+  userRevisions: PropTypes.object,
+  weeks: PropTypes.array
 };
 
 export default SelectedStudent;

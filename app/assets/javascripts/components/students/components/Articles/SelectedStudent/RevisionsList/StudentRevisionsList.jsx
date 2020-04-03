@@ -62,7 +62,6 @@ export class StudentRevisionsList extends React.Component {
       />
     ];
 
-
     const {
       recent_revisions, character_sum_ms, references_count, total_uploads
     } = studentListKeys(course);
@@ -71,7 +70,7 @@ export class StudentRevisionsList extends React.Component {
     return (
       <div className="list__wrapper">
         <h4 className="assignments-list-title">
-          {I18n.t('users.exercises_and_trainings')}
+          {I18n.t('users.revisions')}
         </h4>
         <List
           elements={elements}

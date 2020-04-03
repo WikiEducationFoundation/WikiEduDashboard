@@ -48,11 +48,13 @@ const Student = createReactClass({
       const url = `/courses/${course.slug}/students/articles/${student.username}`;
       return history.push(url);
     }
+
     if (!isOpen) {
       this.props.fetchUserRevisions(course.id, student.id);
       this.props.fetchTrainingStatus(student.id, course.id);
       this.props.fetchExercises(course.id, student.id);
     }
+
     return toggleDrawer(`drawer_${student.id}`);
   },
 

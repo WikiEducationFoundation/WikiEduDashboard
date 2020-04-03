@@ -74,7 +74,7 @@ export const StudentList = (props) => {
   return (
     <div className="list__wrapper">
       <h4 className="assignments-list-title">
-        {I18n.t('users.revisions')}
+        {I18n.t('users.exercises_and_trainings')}
       </h4>
       <List
         elements={elements}

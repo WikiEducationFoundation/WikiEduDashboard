@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getStudentUsers } from '~/app/assets/javascripts/selectors';
 import { generatePath } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
@@ -14,12 +13,14 @@ import NoSelectedStudent from '@components/students/components/Articles/NoSelect
 
 // Actions
 import { fetchArticleDetails } from '~/app/assets/javascripts/actions/article_actions.js';
-import {
-  fetchTrainingModuleExercisesByUser
-} from '~/app/assets/javascripts/actions/exercises_actions';
+import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
 import { toggleUI } from '~/app/assets/javascripts/actions';
+
+// Utils
+import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
+import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -45,8 +46,12 @@ export class Articles extends React.Component {
   render() {
     const {
       assignments, course, current_user, prefix, students, wikidataLabels,
-      notify, sortSelect, openKey, sort, trainingStatus, sortUsers, userRevisions
+      notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
+      userRevisions
     } = this.props;
+
+    const { modules } = getModulesAndBlocksFromWeeks(weeks);
+    const hasExercisesOrTrainings = !!modules.length;
 
     if (!students.length) return null;
     return (
@@ -99,6 +104,7 @@ export class Articles extends React.Component {
                         current_user={current_user}
                         fetchArticleDetails={this.props.fetchArticleDetails}
                         fetchUserRevisions={this.props.fetchUserRevisions}
+                        hasExercisesOrTrainings={hasExercisesOrTrainings}
                         openKey={openKey}
                         selected={selected}
                         setUploadFilters={setUploadFilters}
@@ -147,6 +153,7 @@ const mapStateToProps = state => ({
   sort: state.users.sort,
   students: getStudentUsers(state),
   trainingStatus: state.trainingStatus,
+  weeks: getWeeksArray(state),
   wikidataLabels: state.wikidataLabels.labels,
   userRevisions: state.userRevisions
 });

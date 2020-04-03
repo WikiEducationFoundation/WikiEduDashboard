@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { getWeeksArray } from '../../selectors';
 import Block from '../timeline/block';
@@ -8,8 +7,7 @@ import TrainingModules from '../timeline/TrainingModules/TrainingModules';
 import Handouts from './handouts';
 import Templates from './templates';
 import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
-
-const flattenAndCompact = _.flow([_.flatten, _.compact]);
+import { getModulesAndBlocksFromWeeks } from '../util/helpers';
 
 const moduleByExercises = (modules) => {
   const orderedSteps = [
@@ -69,9 +67,8 @@ const Resources = ({ weeks, current_user, course }) => {
   if (current_user.isInstructor && Features.wikiEd) {
     instructorModulesLink = <a href={'/training/instructors'} className="button pull-right">Instructor orientation modules</a>;
   }
-  const blocks = _.flatten(weeks.map(week => week.blocks));
-  const modules = flattenAndCompact(blocks.map(block => block.training_modules));
 
+  const { blocks, modules } = getModulesAndBlocksFromWeeks(weeks);
   let additionalResources;
   const additionalResourcesBlocks = blocks.filter(block => block.kind === BLOCK_KIND_RESOURCES);
   if (additionalResourcesBlocks) {
@@ -100,8 +97,8 @@ const Resources = ({ weeks, current_user, course }) => {
   }
   let additionalModules;
   if (Features.wikiEd) {
-     additionalModules = (
-       <a href={`/training/${trainingLibrarySlug}`} className="button pull-right ml1">Additional training modules</a>
+    additionalModules = (
+      <a href={`/training/${trainingLibrarySlug}`} className="button pull-right ml1">Additional training modules</a>
     );
   } else {
     additionalModules = (
