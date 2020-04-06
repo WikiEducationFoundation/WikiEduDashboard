@@ -9,8 +9,10 @@ import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actio
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
-import { trunc } from '~/app/assets/javascripts/utils/strings';
+
+// Components
 import ContentAdded from './ContentAdded';
+import StudentUsername from './StudentUsername';
 
 // Actions
 import {
@@ -73,31 +75,17 @@ const Student = createReactClass({
     let className = 'students';
     className += isOpen ? ' open' : '';
 
-    const userName = this._shouldShowRealName() ? (
-      <span>
-        <strong>{trunc(student.real_name)}</strong>
-        &nbsp;
-        (
-        <a href={`/users/${student.username}`}>
-          {trunc(student.username)}
-        </a>)
-      </span>
-      )
-      : (
-        <span>
-          <a href={`/users/${student.username}`}>
-            {trunc(student.username)}
-          </a>
-        </span>
-    );
-
     const trainingProgress = student.course_training_progress ? (
       <small className="red">{student.course_training_progress}</small>
     ) : undefined;
 
     let recentRevisions;
     if (showRecent) {
-      recentRevisions = <td className="desktop-only-tc">{student.recent_revisions}</td>;
+      recentRevisions = (
+        <td className="desktop-only-tc" onClick={this.openDrawer} >
+          {student.recent_revisions}
+        </td>
+      );
     }
 
     let assignButton;
@@ -142,10 +130,10 @@ const Student = createReactClass({
     const uploadsLink = `/courses/${course.slug}/uploads`;
 
     return (
-      <tr onClick={this.openDrawer} className={className}>
-        <td>
+      <tr className={className}>
+        <td onClick={this.openDrawer} >
           <div className="name">
-            {userName}
+            <StudentUsername current_user={current_user} student={student} />
           </div>
           <div className="sandbox-link">
             <a onClick={this.stop} href={student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
@@ -164,28 +152,30 @@ const Student = createReactClass({
             )
           }
         </td>
-        <td className="desktop-only-tc">
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {assignButton}
         </td>
-        <td className="desktop-only-tc">
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {reviewButton}
         </td>
         {recentRevisions}
         <ContentAdded course={course} student={student} />
-        <td className="desktop-only-tc">
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {student.references_count}
         </td>
         <td className="desktop-only-tc">
           <Link
             to={uploadsLink}
-            onClick={() => { this.setUploadFilters([{ value: student.username, label: student.username }]); }}
+            onClick={() => {
+              this.setUploadFilters([{ value: student.username, label: student.username }]);
+            }}
           >
             {student.total_uploads || 0}
           </Link>
         </td>
         {
           this.props.toggleDrawer && (
-            <td>
+            <td onClick={this.openDrawer}>
               <button className="icon icon-arrow table-expandable-indicator" />
             </td>
           )
