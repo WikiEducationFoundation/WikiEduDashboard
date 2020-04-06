@@ -1152,6 +1152,7 @@ en:
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    profile: profile
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?

@@ -28,6 +28,8 @@ export const Header = ({
           <a href={selected.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
             &nbsp;
           <a href={selected.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
+            &nbsp;
+          <a href={`/users/${selected.username}`}>{I18n.t('users.profile')}</a>
         </div>
       </section>
       <div className="button-actions">
