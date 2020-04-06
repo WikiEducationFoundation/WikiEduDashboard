@@ -48,7 +48,7 @@
     "gulp-iconfont": "^10.0.3",
     "gulp-imagemin": "^7.1.0",
     "gulp-livereload": "^4.0.2",
-    "gulp-load-plugins": "^2.0.2",
+    "gulp-load-plugins": "^2.0.3",
     "gulp-newer": "^1.4.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.1",
