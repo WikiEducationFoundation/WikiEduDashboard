@@ -67,8 +67,10 @@ class ArticlesCourses < ApplicationRecord
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
     # first edit of a mainspace article's revision history
-    self.new_article = all_revisions.exists?(new_article: true)
-
+    article_revisions = article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
+    article_created_at = article.created_at
+    created_during_course = article_created_at > course.start && article_created_at < course.end
+    self.new_article = created_during_course || article_revisions.exists?(['system = ? or new_article = ?', true, true])
     save
   end
 
