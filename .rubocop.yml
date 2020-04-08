@@ -27,6 +27,7 @@ Layout/LineLength:
 Metrics/ClassLength:
   Max: 127 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
+    - 'app/models/alert.rb'
     - 'app/models/course.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
@@ -104,7 +105,7 @@ Layout/TrailingWhitespace: # To disallow trailing whitespaces
   Enabled: true
 Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
-  
+
 ########################
 # Temporary exceptions #
 ########################
