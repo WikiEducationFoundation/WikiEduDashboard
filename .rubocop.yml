@@ -105,7 +105,7 @@ Layout/TrailingWhitespace: # To disallow trailing whitespaces
   Enabled: true
 Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
-
+  
 ########################
 # Temporary exceptions #
 ########################
