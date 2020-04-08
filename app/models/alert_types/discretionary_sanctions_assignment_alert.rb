@@ -38,8 +38,9 @@ class DiscretionarySanctionsAssignmentAlert < Alert
   def resolve_explanation
     <<~EXPLANATION
       Resolve this alert if you want to be alerted again for future assignments to
-      the article. The Dashboard will issue a new alert only if there assignments to
-      this article that happen after the resolved alert was generated.
+      the article in the same course. The Dashboard will issue a new alert only if
+      there assignments to this article in the same course that happen after the
+      resolved alert was generated.
     EXPLANATION
   end
 end
