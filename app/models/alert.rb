@@ -39,6 +39,7 @@ class Alert < ApplicationRecord
     BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     FirstEnrolledStudentAlert
@@ -60,6 +61,7 @@ class Alert < ApplicationRecord
     ArticlesForDeletionAlert
     BadWorkAlert
     ContinuedCourseActivityAlert
+    DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
@@ -74,6 +76,7 @@ class Alert < ApplicationRecord
     BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
