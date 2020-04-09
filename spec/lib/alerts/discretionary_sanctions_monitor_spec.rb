@@ -33,6 +33,13 @@ describe DiscretionarySanctionsMonitor do
                                course_id: course.id)
     end
 
+    let!(:assignment) do
+      create(:assignment, article_title: article.title,
+                          article_id: article.id,
+                          course_id: course.id,
+                          user_id: student.id)
+    end
+
     before do
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:Wikipedia pages under discretionary sanctions', 1)
@@ -41,11 +48,12 @@ describe DiscretionarySanctionsMonitor do
                      'Talk:Armenian Genocide denial'])
     end
 
-    it 'creates Alert records for edited articles under discretionary sanctions' do
+    it 'creates Alert records for assignments and edited articles under discretionary sanctions' do
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(1)
+      expect(Alert.count).to eq(2)
       alerted_article_ids = Alert.all.pluck(:article_id)
       expect(alerted_article_ids).to include(article.id)
+      expect(alerted_article_ids.count(article.id)).to eq(2)
     end
 
     it 'emails a greeter' do
@@ -55,12 +63,20 @@ describe DiscretionarySanctionsMonitor do
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
+    it 'does not create a second Alert for the same assignments, if the first is not resolved' do
+      Alert.create(type: 'DiscretionarySanctionsAssignmentAlert', article_id: assignment.article_id,
+                   course_id: assignment.course_id, user_id: assignment.user_id)
+      expect(Alert.count).to eq(1)
+      described_class.create_alerts_for_course_articles
+      expect(Alert.count).to eq(2)
+    end
+
     it 'does not create a second Alert for the same articles, if the first is not resolved' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert',
                    article_id: article.id, course_id: course.id)
       expect(Alert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(1)
+      expect(Alert.count).to eq(2)
     end
 
     it 'does not create second Alert if the first alert is resolved but there are no new edits' do
@@ -68,7 +84,7 @@ describe DiscretionarySanctionsMonitor do
                    course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
       expect(Alert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(1)
+      expect(Alert.count).to eq(2)
     end
 
     it 'does create second Alert if the first alert is resolved and there are later edits' do
@@ -76,7 +92,15 @@ describe DiscretionarySanctionsMonitor do
                    course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
       expect(Alert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(2)
+      expect(Alert.count).to eq(3)
+    end
+
+    it 'does create second Alert if the first alert is resolved and there are later assignments' do
+      Alert.create(type: 'DiscretionarySanctionsAssignmentAlert', article_id: assignment.article_id,
+                   course_id: assignment.course_id, user_id: assignment.user_id, resolved: true)
+      expect(Alert.count).to eq(1)
+      described_class.create_alerts_for_course_articles
+      expect(Alert.count).to eq(3)
     end
   end
 end
