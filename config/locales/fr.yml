@@ -911,7 +911,7 @@ fr:
       learn_more_button: En savoir plus
       submit_issue: Quels sont les problèmes significatifs avec cet article ?
       submit_issue_placeholder: Plus vous pourrez fournir de perspective d’expert
-        et de détail, mieux ce sera.
+        et de détails, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez d'autres questions.
     exercises_and_trainings: '%{prefix} Exercices et formations'
     no_assignments: Aucun article n’est affecté à cet étudiant pour le moment. Vous

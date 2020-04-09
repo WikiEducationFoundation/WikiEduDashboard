@@ -9,6 +9,7 @@ be-tarask:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: тыс.
           million: млн
@@ -48,7 +49,10 @@ be-tarask:
     request_account: Запыт на стварэньне рахунку
     request_account_create: Стварыць рахунак
     search: задаць пытаньне
-    search_results: 'Вынікі для: «%{search_terms}»'
+    search_results:
+      one: '%{count} вынік для: ''%{search_terms}'''
+      few: '%{count} вынікі для: ''%{search_terms}'''
+      many: '%{count} вынікаў для: «%{search_terms}»'
     no_results: Для «%{query}» вынікаў ня знойдзена
     sign_up_extended: Увайдзіце празь Вікіпэдыю
     sign_up_wikipedia: Альбо увайдзіце на Вікіпэдыю
@@ -167,6 +171,9 @@ be-tarask:
     milestones:
       title: Дасягненьні
   campaign:
+    delete_campaign: Выдаліць гэтую кампанію
+    disable_account_requests: Адключыць запыты ўліковых запісаў
+    enable_account_requests: Уключыць запыты ўліковых запісаў
     none: Няма
   courses:
     activity: Актыўнасьць

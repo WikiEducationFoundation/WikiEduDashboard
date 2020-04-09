@@ -391,6 +391,9 @@ da:
     edit_description: Rediger beskrivelse
     edit_details: Redigér detaljer
     edit_template: Rediger skabelon
+  instructor_view:
+    bad_work:
+      learn_more_button: Lær mere
   metrics:
     label: Kursusaktivitet
     activity: Seneste aktivitet

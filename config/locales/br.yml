@@ -449,6 +449,9 @@ br:
     training_incomplete: Stummadur diechu
     training_module_name: Modulenn stummañ
     training_module_status: Statud
+    training_module_time:
+      minutes: Mun.
+      seconds: eilenn
     up_to_date_with_training: Hizivaat
     username: Implijer
     username_placeholder: Implijer
@@ -505,4 +508,6 @@ br:
       closing: A-wir-galon ganeoc'h.
       signed: '- ar skipailh Wiki Ed'
       link: Kemer perzh er sontadeg
+  training_status:
+    completed_at: Graet e
 ...
