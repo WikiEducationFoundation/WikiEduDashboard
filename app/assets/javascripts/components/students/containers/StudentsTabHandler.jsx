@@ -8,7 +8,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Loading from '@components/common/loading.jsx';
 import Overview from './Overview';
 import Articles from './Articles';
-import Exercises from './Exercises';
 
 // Actions
 import { notifyOverdue } from '~/app/assets/javascripts/actions/course_actions';
@@ -21,8 +20,8 @@ import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 import { getArticlesByNewness } from '~/app/assets/javascripts/selectors';
 import { delayFetchAssignmentsAndArticles } from '@components/util/helpers';
 
-const StudentsHandler = createReactClass({
-  displayName: 'StudentsHandler',
+const StudentsTabHandler = createReactClass({
+  displayName: 'StudentsTabHandler',
 
   propTypes: {
     course_id: PropTypes.string,
@@ -79,11 +78,6 @@ const StudentsHandler = createReactClass({
               return <Articles {...props} />;
             }}
           />
-          <Route
-            exact
-            path="/courses/:course_school/:course_title/students/exercises"
-            render={() => <Exercises {...props} />}
-          />
           <Redirect
             to={{
               pathname: '/courses/:course_school/:course_title/students/overview'
@@ -112,4 +106,4 @@ const mapDispatchToProps = {
   fetchArticles
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsTabHandler);

@@ -45,6 +45,7 @@ export class Overview extends React.Component {
         <StudentsSubNavigation
           course={course}
           heading={I18n.t('instructor_view.overview', { prefix })}
+          prefix={prefix}
         />
         {
           current_user.isAdvancedRole
@@ -68,7 +69,6 @@ export class Overview extends React.Component {
           sort={sort}
           sortUsers={sortUsers}
           students={students}
-          toggleUI={this.props.toggleUI}
           trainingStatus={trainingStatus}
           userRevisions={userRevisions}
           wikidataLabels={wikidataLabels}
