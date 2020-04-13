@@ -21,8 +21,8 @@
 #
 
 # Alert for when an article under discretionary sanctions on Wikipedia has been
-# edited.
-class DiscretionarySanctionsEditAlert < Alert
+# chosen as an assignment by a student.
+class DiscretionarySanctionsAssignmentAlert < Alert
   def main_subject
     "#{article.title} — #{course&.slug}"
   end
@@ -37,9 +37,9 @@ class DiscretionarySanctionsEditAlert < Alert
 
   def resolve_explanation
     <<~EXPLANATION
-      Resolve this alert if you want to be alerted again for future edits to
-      the article in the same course. The Dashboard will issue a new alert only
-      if there edits to this article in the same course that happen after the
+      Resolve this alert if you want to be alerted again for future assignments to
+      the article in the same course. The Dashboard will issue a new alert only if
+      there assignments to this article in the same course that happen after the
       resolved alert was generated.
     EXPLANATION
   end
