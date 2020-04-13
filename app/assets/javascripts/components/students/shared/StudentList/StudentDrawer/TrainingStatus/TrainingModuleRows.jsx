@@ -9,6 +9,10 @@ import {
 export const TrainingModuleRows = ({ trainingModules }) => {
   const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
   return trainings.map((trainingModule) => {
+    const momentDueDate = moment(trainingModule.due_date);
+    const dueDate = momentDueDate.format('MMM Do, YYYY');
+    const overdue = trainingModule.overdue || momentDueDate.isBefore(trainingModule.completion_date);
+
     let moduleStatus;
     if (trainingModule.completion_date) {
       let completionTime = '';
@@ -16,23 +20,35 @@ export const TrainingModuleRows = ({ trainingModules }) => {
         completionTime = `${I18n.t('training_status.completion_time')}: ${moment.utc(trainingModule.completion_time * 1000).format(`mm [${I18n.t('users.training_module_time.minutes')}] ss [${I18n.t('users.training_module_time.seconds')}]`)}`;
       }
       moduleStatus = (
-        <span className="completed">
-          {I18n.t('training_status.completed_at')}: {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
+        <>
+          <span className="completed">
+            {I18n.t('training_status.completed_at')}: {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
+          </span>
+          { overdue && <span> ({I18n.t('training_status.late')})</span> }
           <br/>
-          {completionTime}
-        </span>
+          <span className="completed">
+            {completionTime}
+          </span>
+        </>
       );
     } else {
       moduleStatus = (
-        <span className="overdue">
-          {trainingModule.status}
-        </span>
+        <>
+          <span className="overdue">
+            {trainingModule.status}
+          </span>
+          {overdue && <span> ({I18n.t('training_status.late')})</span>}
+        </>
       );
     }
+
+
     return (
       <tr className="student-training-module" key={trainingModule.id}>
-        <td>{trainingModule.module_name}</td>
-        <td>{moduleStatus}</td>
+        <td>{trainingModule.module_name} <small>Due by { dueDate }</small></td>
+        <td>
+          { moduleStatus }
+        </td>
       </tr>
     );
   });
