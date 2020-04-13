@@ -70,10 +70,8 @@ class ArticlesCourses < ApplicationRecord
     article_revisions = article.revisions
                                .where('date >= ?', course.start)
                                .where('date <= ?', course.end)
-    article_created_at = article.created_at
-    created_during_course = article_created_at > course.start && article_created_at < course.end
-    self.new_article = created_during_course ||
-                       article_revisions.exists?(['system = ? or new_article = ?', true, true])
+    self.new_article = all_revisions.exists?(new_article: true) ||
+                       article_revisions.exists?(new_article: true, system: true)
     save
   end
 
