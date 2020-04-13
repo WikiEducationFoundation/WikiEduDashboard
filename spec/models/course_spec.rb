@@ -355,7 +355,7 @@ describe Course, type: :model do
       it 'returns the whole student count before assigned trainings are due' do
         create(:week, id: 1, course_id: 1)
         create(:block, week_id: 1, training_module_ids: [1, 2])
-        travel_to  Time.zone.local(2016, 01, 02)
+        travel_to Time.zone.local(2016, 1, 2)
         freeze_time
         course.update_cache
         expect(course.trained_count).to eq(3)
@@ -374,7 +374,7 @@ describe Course, type: :model do
                                         completed_at: '2016-01-09'.to_date)
         create(:training_modules_users, training_module_id: 2, user_id: 2,
                                         completed_at: nil)
-        travel_to  Time.zone.local(2016, 10, 01)
+        travel_to Time.zone.local(2016, 10, 1)
         freeze_time
         course.update_cache
         expect(course.trained_count).to eq(1)

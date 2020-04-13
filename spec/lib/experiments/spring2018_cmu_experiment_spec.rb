@@ -47,7 +47,7 @@ describe Spring2018CmuExperiment do
 
       it 'sends reminders for courses that have not responded' do
         described_class.process_courses
-        travel(8.day)
+        travel(8.days)
         described_class.process_courses
         reminded_courses = Course.all.select do |c|
           c.flags[Spring2018CmuExperiment::STATUS_KEY] == 'reminder_sent'
