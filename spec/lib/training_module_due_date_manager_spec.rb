@@ -191,7 +191,7 @@ describe TrainingModuleDueDateManager do
                      .overall_due_date
     end
 
-    before { travel_to Date.new(2015, 8, 25) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
     after(:all) { travel_back }
 
