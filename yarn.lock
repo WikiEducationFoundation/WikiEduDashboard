@@ -903,9 +903,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bower_components/jquery@jquery/jquery-dist#3.4.1":
-  version "3.4.1"
-  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
+"@bower_components/jquery@jquery/jquery-dist#3.5.0":
+  version "3.5.0"
+  uid "1fd78cd729742aa26f64783f9188e169e41f194e"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/1fd78cd729742aa26f64783f9188e169e41f194e"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
