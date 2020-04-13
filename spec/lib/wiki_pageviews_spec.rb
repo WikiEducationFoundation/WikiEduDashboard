@@ -4,6 +4,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_pageviews"
 
 describe WikiPageviews do
+  before { pp Time.current }
   describe '.views_for_article' do
     context 'for a popular article' do
       let(:article) { create(:article, title: 'Selfie') }

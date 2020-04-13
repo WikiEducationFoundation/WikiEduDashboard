@@ -5,6 +5,7 @@ require 'rails_helper'
 describe UpdateCourseStats do
   let(:course) { create(:course, flags: flags) }
   let(:subject) { described_class.new(course) }
+  before { pp Time.current }
 
   context 'when debugging is not enabled' do
     let(:flags) { nil }

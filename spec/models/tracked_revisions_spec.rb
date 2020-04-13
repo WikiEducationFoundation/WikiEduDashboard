@@ -19,6 +19,7 @@ describe 'Course#tracked_revisions' do
   before do
     course.students << user
     different_wiki_course.students << user
+    pp Time.current
   end
 
   it 'fetches the course stats for only tracked articles' do
