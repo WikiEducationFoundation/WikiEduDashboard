@@ -9,7 +9,7 @@ end
 
 describe DiscretionarySanctionsMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course) }
+    let(:course) { create(:course, start: 1.month.ago, end: 1.month.after) }
     let(:student) { create(:user, username: 'student') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,
