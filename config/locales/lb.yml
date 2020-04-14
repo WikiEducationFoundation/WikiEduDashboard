@@ -510,13 +510,15 @@ lb:
     number_of_articles:
       one: Een Artikel
       other: '%{count} Artikelen'
+    profile: Profil
     recent_revisions: Rezent Ännerungen
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
+    revisions: Versiounen
     sandboxes: Sandkëschten
     sub_navigation:
       exercises_and_trainings: Exercicen & Formatiounen
-      student_overview: Iwwersiicht vum Student
+      student_overview: Iwwersiicht %{prefix}
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss

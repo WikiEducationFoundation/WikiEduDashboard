@@ -1193,6 +1193,7 @@ pt-br:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} exercício completod'
       other: '%{completed_count}/%{count} exercícios concluídos'
+    exercises_and_trainings: Exercícios e treinamentos
     first_name: Nome
     last_name: Sobrenome
     loading: Carregando usuários...
@@ -1210,6 +1211,7 @@ pt-br:
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
+    profile: perfil
     recent_revisions: Edições recentes
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
     request_confirmation: Tem certeza de que deseja solicitar essa conta?
@@ -1222,12 +1224,13 @@ pt-br:
     references_doc: O número de referências incluídas ou removidas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
+    revisions: Revisões
     sandboxes: páginas de teste
     sub_navigation:
-      article_assignments: Atribuições de artigos
+      assignments_and_exercises: Trabalhos e exercícios
       editor_overview: Visão geral do editor
       exercises_and_trainings: Exercícios e treinamentos
-      student_overview: Visão geral do aluno
+      student_overview: Visão geral do %{prefix}
     total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento

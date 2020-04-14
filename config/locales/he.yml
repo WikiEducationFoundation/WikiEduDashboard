@@ -193,12 +193,12 @@ he:
     clone: שכפול
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?
-    confirm_deletion: באמת למחוק את ההקצאה הזו?
+    confirm_deletion: באמת למחוק את ההקצאה הזאת?
     editors: משויך ל
     label: שיוך
     loading: טעינת ערכים משוייכים...
     none_short: אין ערכים משוייכים
-    none: לא שוייכו ערכים לתוכנית הזו.
+    none: לא שויכו ערכים לתוכנית הזאת.
     no_available: לקורס הזה אין ערכים זמינים.
     remove: הסרה
     reviewers: בודקים\בודקות
@@ -264,9 +264,9 @@ he:
     archived: קורסים \ תוכניות \ מיזמים מאורכבים
     actions: פעולות
     articles: ערכים
-    articles_none: לא נערכו או נכתבו ערכים בתוכנית הזו.
+    articles_none: לא נערכו או נכתבו ערכים בתוכנית הזאת.
     assignment_end: סיום המשימה
-    assignments_none: לא שוייכו ערכים לתוכנית הזו.
+    assignments_none: לא שויכו ערכים לתוכנית הזאת.
     assignment_start: תחילת המשימה
     calendar:
       legend: מקרא
@@ -380,8 +380,8 @@ he:
     new_account_submit: בקשת חשבון
     nocourses: אינך משתתף בשום תוכנית \ קורס \ מיזם.
     none: אין
-    notify_untrained_confirmation: הפעולה הזו תפרסם תזכורת בדף השיחה של כל המשתתפים
-      אשר לא השלימו עדיין את ההדרכה. לפרסם?
+    notify_untrained_confirmation: הפעולה הזאת תשלח תזכורת לדפי השיחה של כל המשתתפים
+      שלא השלימו עדיין את ההדרכה. באמת לשלוח?
     no_available_actions: אין פעולות זמינות
     overview: דף הבית
     passcode: קוד הרשמה
@@ -435,8 +435,8 @@ he:
     unsubmitted: תוכניות \ קורסים \ מיזמים שלא הוגשו
     untrained: לא עבר הדרכה
     update_stats: עדכון סטטיסטיקות
-    uploads_none: הקבוצה הזו לא תרמה תמונות או קבצי מדיה אחרים לויקישיתוף (WikiCommons).
-    user_uploads_none: משתמש זה לא תרם תמונות או קבצי מדיה אחרים לוויקישיתוף.
+    uploads_none: הקבוצה הזאת לא תרמה תמונות או קובצי מדיה אחרים לוויקישיתוף (WikiCommons).
+    user_uploads_none: משתמש זה לא תרם תמונות או קובצי מדיה אחרים לוויקישיתוף.
     user_recent_uploads: העלאות שבוצעו לאחרונה
     user_suggestions: 'הצעות משתמש:'
     user_suggestions_prompt: ההצעות שלך לעורכי הערך
@@ -703,7 +703,7 @@ he:
     uploaded_by: הועלה על־ידי
     uploaded_on: הועלה ב־
     usage_count: מונה שימוש
-    usage_doc: מספר הערכים בוויקיפדיה שהתמונה הזו מופיעה בהם.
+    usage_doc: מספר הערכים בוויקיפדיה שהתמונה הזאת מופיעה בהם.
     usage_count_gallery_tile: בשימוש ב־%{usage_count} ערכים
     usages: שימושים
   users:

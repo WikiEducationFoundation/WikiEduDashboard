@@ -273,7 +273,7 @@ fr:
     select: Sélectionner
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
-      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
+      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
   blocks:
     milestones:
       title: Jalons
@@ -1227,6 +1227,7 @@ fr:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} exercice terminé'
       other: '%{completed_count}/%{count} exercices terminés'
+    exercises_and_trainings: Exercices & Entraînements
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
@@ -1244,6 +1245,7 @@ fr:
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    profile: profil
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous sûr de vouloir demander ce compte ?
@@ -1256,12 +1258,13 @@ fr:
     references_doc: Le nombre de références ajoutées ou retirées par cet éditeur
     reviewers: Relecteur(s)
     reviewing: Relecture
+    revisions: Révisions
     sandboxes: bacs à sable
     sub_navigation:
-      article_assignments: Affectations de l’article
+      assignments_and_exercises: Affectations & Exercices
       editor_overview: Vue d’ensemble de l’éditeur
       exercises_and_trainings: Exercices & Formations
-      student_overview: Vue d’ensemble de l’étudiant
+      student_overview: Vue d’ensemble de %{prefix}
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation

@@ -641,6 +641,7 @@ sv:
     enroll_confirmation: Är du säker på att du vill lägga till %{username}?
     enroll_url: 'Användare kan gå med genom att besöka denna URL:'
     enrolled_success: '%{username} lades framgångsrikt till!'
+    exercises_and_trainings: Övningar och träningar
     first_name: Förnamn
     last_name: Efternamn
     loading: Laddar användare...
@@ -656,6 +657,7 @@ sv:
     number_of_articles:
       one: '%{count} artikel'
       other: '%{count} artiklar'
+    profile: profil
     recent_revisions: Senaste redigeringar
     remove_confirmation: Är du säker på att du vill ta bort %{username}?
     request_confirmation: Är du säker på att du vill begära detta konto?
@@ -663,6 +665,9 @@ sv:
       dagarna
     reviewers: Granskare
     reviewing: Granskar
+    revisions: Versioner
+    sub_navigation:
+      student_overview: Översikt för %{prefix}
     training_module_name: Träningsmodul
     training_module_status: Status
     user_training_status: Träningsstatus

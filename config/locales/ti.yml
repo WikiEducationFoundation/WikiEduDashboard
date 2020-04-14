@@ -46,7 +46,7 @@ ti:
     cancel: ኣትርፍ
     delete_suggestion: ሰረዘ
     dismiss_survey: ኣሰነበተ
-    loading: ጽዕነት...
+    loading: ይጽዕን ኣሎ...
     private: ብሕታዊ
   metrics:
     date_time: ዕለት/ሰዓት

@@ -852,6 +852,7 @@ es:
     enroll_confirmation: ¿Confirmas que quieres añadir a %{username}?
     enroll_url: 'Los usuarios pueden unirse visitando este URL:'
     enrolled_success: ¡%{username} añadido con éxito!
+    exercises_and_trainings: Ejercicios y capacitaciones
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
@@ -869,6 +870,7 @@ es:
     number_of_articles:
       one: '%{count} artículo'
       other: '%{count} artículos'
+    profile: perfil
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
@@ -881,6 +883,9 @@ es:
     references_doc: El número de referencias añadidas o eliminadas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
+    revisions: Revisiones
+    sub_navigation:
+      assignments_and_exercises: Deberes y ejercicios
     training_complete:
       one: está al día con la capacitación
       other: están al día con la capacitación

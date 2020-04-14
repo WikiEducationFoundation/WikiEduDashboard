@@ -6,6 +6,7 @@
 # Author: Anto
 # Author: Beta16
 # Author: Einreiher
+# Author: Fierodelveneto
 # Author: Greis
 # Author: JackLantern
 # Author: Macofe
@@ -863,6 +864,7 @@ it:
     number_of_articles:
       one: '%{count} voce'
       other: '%{count} voci'
+    profile: profilo
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
@@ -870,6 +872,7 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    revisions: Versioni
     total_uploads: Totale caricamenti
     training_complete:
       one: è aggiornato con la formazione

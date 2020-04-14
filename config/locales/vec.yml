@@ -1,0 +1,43 @@
+# Messages for Venetian (vèneto)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fierodelveneto
+---
+vec:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Sto cuà el xé on canpo numerego. I botoni vixuałixai da ła major
+      parte dei navegadori web i fa cresare o sbasare el numaro inserìo.
+  application:
+    cancel: Descançełare
+    cookie_consent_acknowledge: Go capìo
+    cookie_consent_see_more: Varda altro
+    create_accounts: Crea utense de Wikipedia
+    dashboard: Casełoto Wiki Ed
+    documentation: Documentasion
+    error: Ghe xé sta on erore
+    explore: Esplora
+    field_required: Sto canpo el xé obligatorio.
+    field_invalid_characters: Sto canpo el ga carateri no vałidi
+    field_invalid_date: Sto canpo el domanda na data im formà YYYY-MM-DD
+  courses:
+    calendar:
+      legend: Lejenda
+  metrics:
+    upload_count: Cargamenti Commons
+  recent_activity:
+    recent_uploads: Cargamenti fati in ultima
+  uploads:
+    label: Cargamenti
+  users:
+    total_uploads: Totałe dei cargamenti
+...

@@ -1,6 +1,7 @@
 # Messages for Hindi (हिन्दी)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Abijeet Patro
 # Author: Anamdas
 # Author: Bhatakati aatma
 # Author: Nitin1485
@@ -342,6 +343,7 @@ hi:
     loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
     authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
     edits_by: 'संपादनकर्ता:'
+    profile: प्रोफ़ाइल
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ

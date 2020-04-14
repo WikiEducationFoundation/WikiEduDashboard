@@ -4,6 +4,7 @@
 # Author: An13sa
 # Author: EukeneFL
 # Author: Iñaki LL
+# Author: Joseba
 # Author: Mikel Ibaiba
 # Author: Sator
 # Author: Subi
@@ -985,6 +986,7 @@ eu:
     number_of_articles:
       one: '%{count} artikulu'
       other: '%{count} artikulu'
+    profile: Profila
     recent_revisions: Azken Aldaketak
     remove_confirmation: Ziur zaude %{username} kendu nahi duzula?
     request_confirmation: Ziur zaude kontu hau eskatu nahi duzula?

@@ -550,8 +550,6 @@ ru:
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка
-    sub_navigation:
-      article_assignments: Назначения статьи
     training_complete:
       one: завершил обучение
       other: завершили обучение

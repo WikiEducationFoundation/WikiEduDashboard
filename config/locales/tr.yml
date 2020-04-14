@@ -1179,6 +1179,7 @@ tr:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} egzersiz tamamlandı'
       other: '%{completed_count}/%{count} egzersiz tamamlandı'
+    exercises_and_trainings: Egzersizler ve Eğitimler
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
@@ -1196,6 +1197,7 @@ tr:
     number_of_articles:
       one: '%{count} makale'
       other: '%{count} makale'
+    profile: profil
     recent_revisions: Son Düzenlemeler
     remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
@@ -1208,12 +1210,13 @@ tr:
     references_doc: Bu editör tarafından eklenen veya kaldırılan referansların sayısı
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
+    revisions: Revizyonlar
     sandboxes: sandbox'lar
     sub_navigation:
-      article_assignments: Makale Atamaları
+      assignments_and_exercises: Ödevler ve Alıştırmalar
       editor_overview: Editöre Genel Bakış
       exercises_and_trainings: Egzersizler ve Eğitimler
-      student_overview: Öğrenci Genel Bakış
+      student_overview: '%{prefix}  Genel Bakış'
     total_uploads: Toplam Yükleme
     training_complete:
       other: bir=eğitim ile güncel

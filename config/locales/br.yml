@@ -423,6 +423,7 @@ br:
     enroll_url: 'Gallout a ra an implijerien en em skrivañ en ur vont d''an URL-mañ
       :'
     enrolled_success: '%{username} zo bet ouzhpennet!'
+    exercises_and_trainings: Poelladennoù ha pleustradennoù
     first_name: Anv-bihan
     last_name: Anv-familh
     loading: Pellgargadenn an implijerien...
@@ -437,11 +438,16 @@ br:
     number_of_articles:
       one: '%{count} video'
       other: '%{count} video'
+    profile: profil
     recent_revisions: Kemmoù nevez
     remove_confirmation: Ha suc'h eo hoc'h eus c'hoant da zilemel %{username}?
     revisions_doc: An niver a gemennoù graet gant an embanner e-pad ar 7 deiz diwezhañ
     reviewers: Reizher(ien)
     reviewing: Reizhañ
+    revisions: Adweladennoù
+    sub_navigation:
+      assignments_and_exercises: Dleadoù ha poelladennoù
+      student_overview: Brassell war %{prefix}
     training_complete:
       one: en deus echuet da c'hourdonañ
       other: o deus echuet da c'hourdonnañ
@@ -510,4 +516,5 @@ br:
       link: Kemer perzh er sontadeg
   training_status:
     completed_at: Graet e
+    completion_time: Eur echuiñ
 ...

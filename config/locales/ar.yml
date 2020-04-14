@@ -1144,9 +1144,9 @@ ar:
     references_doc: عدد المراجع التي تمت إضافتها أو إزالتها بواسطة هذا المحرر
     reviewers: المراجع(ون)
     reviewing: مراجعة
+    revisions: المراجعات
     sandboxes: ملاعب
     sub_navigation:
-      article_assignments: مهام مقالات
       editor_overview: نظرة عامة للمحرر
       exercises_and_trainings: التمارين والتدريبات
       student_overview: نظرة عامة للطالب

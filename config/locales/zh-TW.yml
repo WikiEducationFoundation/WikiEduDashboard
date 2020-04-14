@@ -962,6 +962,7 @@ zh-TW:
     exercise_modules_completed:
       one: '%{completed_count}/%{count}練習完成'
       other: '%{completed_count}/%{count}練習完成'
+    exercises_and_trainings: 練習與訓練
     first_name: 名
     last_name: 姓
     loading: 使用者載入中...
@@ -979,6 +980,7 @@ zh-TW:
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
+    profile: 個人檔案
     recent_revisions: 近期編輯
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
@@ -990,12 +992,13 @@ zh-TW:
     references_doc: 由此編輯者所添加或移除的參考來源數量
     reviewers: 審核者
     reviewing: 審查中
+    revisions: 修訂
     sandboxes: 沙盒
     sub_navigation:
-      article_assignments: 條目分配
+      assignments_and_exercises: 分配與練習
       editor_overview: 編輯者概要
       exercises_and_trainings: 練習與訓練
-      student_overview: 學生概要
+      student_overview: '%{prefix}概要'
     total_uploads: 上傳總數
     training_complete:
       one: 最新培訓
@@ -1153,6 +1156,7 @@ zh-TW:
     continue: 繼續
     completed_at: 完成於
     completion_time: 完成時間
+    late: 延遲
     view: 檢視
     started: 已開始
     not_started: 尚未開始

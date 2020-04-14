@@ -1171,6 +1171,7 @@ uk:
       few: '%{completed_count}/%{count} вправ завершено'
       many: '%{completed_count}/%{count} вправ завершено'
       other: '%{completed_count}/%{count} вправ завершено'
+    exercises_and_trainings: Вправи й тренінги
     first_name: Ім'я
     last_name: Прізвище
     loading: Завантаження користувачів…
@@ -1188,6 +1189,7 @@ uk:
     number_of_articles:
       one: '%{count} стаття'
       other: '%{count} статті'
+    profile: профіль
     recent_revisions: Останні зміни
     remove_confirmation: Ви дійсно хочете вилучити %{username}?
     request_confirmation: Ви дійсно бажаєте подати запит на цей обліковий запис?
@@ -1199,12 +1201,13 @@ uk:
     references_doc: Кількість приміток, доданих чи вилучених цим редактором
     reviewers: Оцінювач(і)
     reviewing: Оцінює
+    revisions: Версії
     sandboxes: чернетки
     sub_navigation:
-      article_assignments: Призначення статей
+      assignments_and_exercises: Призначення та вправи
       editor_overview: Огляд внеску редактора
       exercises_and_trainings: Вправи й тренінги
-      student_overview: Огляд внеску студента
+      student_overview: Огляд внеску %{prefix}
     total_uploads: Усього завантажень
     training_complete:
       one: завершив навчання на сьогодні
