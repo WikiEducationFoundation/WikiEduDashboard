@@ -1,4 +1,3 @@
-# config valid only for current version of Capistrano
 lock Gem.loaded_specs['capistrano'].version.to_s
 
 set :application, 'wiki_edu_dashboard'
