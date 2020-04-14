@@ -6,6 +6,10 @@ import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actio
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 
+// Components
+import ExerciseProgressDescription from './ExerciseProgressDescription.jsx';
+import TrainingProgressDescription from './TrainingProgressDescription.jsx';
+
 // Actions
 import {
   fetchTrainingModuleExercisesByUser
@@ -54,31 +58,13 @@ const Student = createReactClass({
     let className = 'students-exercise students';
     className += isOpen ? ' open' : '';
 
-    const {
-      course_exercise_progress_assigned_count: exercise_assigned,
-      course_exercise_progress_completed_count: exercise_completed,
-      course_training_progress_assigned_count: training_assigned,
-      course_training_progress_completed_count: training_completed
-    } = student;
-    const exerciseProgress = student.course_exercise_progress_description ? (
-      <small className={exercise_assigned === exercise_completed ? 'modules-complete' : 'red'}>
-        {student.course_exercise_progress_description}
-      </small>
-    ) : undefined;
-
-    const trainingProgress = student.course_training_progress_description ? (
-      <small className={training_assigned === training_completed ? 'modules-complete' : 'red'}>
-        {student.course_training_progress_description}
-      </small>
-    ) : undefined;
-
     return (
       <tr onClick={this.openDrawer} className={className}>
         <td className="desktop-only-tc">
-          {exerciseProgress}
+          <ExerciseProgressDescription student={student} />
         </td>
         <td className="desktop-only-tc">
-          {trainingProgress}
+          <TrainingProgressDescription student={student} />
         </td>
         <td className="table-action-cell"><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>

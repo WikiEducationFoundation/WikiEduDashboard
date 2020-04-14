@@ -64,7 +64,6 @@ export class Overview extends React.Component {
           assignments={assignments}
           course={course}
           current_user={current_user}
-          exerciseView={true}
           openKey={openKey}
           sort={sort}
           sortUsers={sortUsers}

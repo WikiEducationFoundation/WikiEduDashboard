@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StudentExercise from './StudentExercise.jsx';
+import StudentExercise from './StudentExercise/StudentExercise.jsx';
 
 // Helper Functions
 const setRealName = (student) => {

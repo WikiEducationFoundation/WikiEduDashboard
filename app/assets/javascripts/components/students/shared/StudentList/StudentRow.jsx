@@ -24,7 +24,6 @@ export const StudentRow = ({
       current_user={current_user}
       editable={editAssignments}
       isOpen={isOpen}
-      fullView={false}
       showRecent={showRecent}
       student={student}
       toggleDrawer={toggleUI}

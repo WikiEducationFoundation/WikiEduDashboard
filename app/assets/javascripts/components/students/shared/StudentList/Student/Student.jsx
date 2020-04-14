@@ -13,6 +13,8 @@ import { groupByAssignmentType } from '@components/util/helpers';
 // Components
 import ContentAdded from './ContentAdded';
 import StudentUsername from './StudentUsername';
+import ExerciseProgressDescription from '@components/students/components/Articles/SelectedStudent/ExercisesList/StudentExercise/ExerciseProgressDescription.jsx';
+import TrainingProgressDescription from '@components/students/components/Articles/SelectedStudent/ExercisesList/StudentExercise/TrainingProgressDescription.jsx';
 
 // Actions
 import {
@@ -68,16 +70,12 @@ const Student = createReactClass({
 
   render() {
     const {
-      assignments, course, current_user, editable, isOpen, fullView = true,
+      assignments, course, current_user, editable, isOpen,
       showRecent, student, wikidataLabels
     } = this.props;
 
     let className = 'students';
     className += isOpen ? ' open' : '';
-
-    const trainingProgress = student.course_training_progress ? (
-      <small className="red">{student.course_training_progress}</small>
-    ) : undefined;
 
     let recentRevisions;
     if (showRecent) {
@@ -131,7 +129,7 @@ const Student = createReactClass({
 
     return (
       <tr className={className}>
-        <td onClick={this.openDrawer} >
+        <td onClick={this.openDrawer} style={{ minWidth: '250px' }}>
           <div className="name">
             <StudentUsername current_user={current_user} student={student} />
           </div>
@@ -140,17 +138,8 @@ const Student = createReactClass({
             &nbsp;
             <a onClick={this.stop} href={student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
           </div>
-          { fullView && trainingProgress }
-          {
-            fullView
-            && (
-              <div className="sandbox-link">
-                <a onClick={this.stop} href={student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
-                &nbsp;
-                <a onClick={this.stop} href={student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
-              </div>
-            )
-          }
+          <ExerciseProgressDescription student={student} />
+          <TrainingProgressDescription student={student} />
         </td>
         <td className="desktop-only-tc" onClick={this.openDrawer}>
           {assignButton}
