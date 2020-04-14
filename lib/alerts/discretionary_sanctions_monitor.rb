@@ -22,6 +22,7 @@ class DiscretionarySanctionsMonitor
                                      .where(articles: { title: @page_titles, wiki_id: @wiki.id })
     course_assignments = Assignment.joins(:article)
                                    .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+                                   .where(course: Course.current)
     course_articles.each do |articles_course|
       create_edit_alert(articles_course)
     end
