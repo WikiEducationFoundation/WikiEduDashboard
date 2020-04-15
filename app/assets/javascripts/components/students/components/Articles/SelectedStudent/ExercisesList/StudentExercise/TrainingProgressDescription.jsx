@@ -8,10 +8,11 @@ export const TrainingProgressDescription = ({ student }) => {
     course_training_progress_completed_count: training_completed
   } = student;
 
+  const classHighlight = training_assigned === training_completed ? 'modules-complete' : 'red';
   return description ? (
-    <small className={training_assigned === training_completed ? 'modules-complete' : 'red'}>
+    <span className={`completeness ${classHighlight}`}>
       {description}
-    </small>
+    </span>
   ) : null;
 };
 
