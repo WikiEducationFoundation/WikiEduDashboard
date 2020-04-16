@@ -148,8 +148,6 @@ RSpec/LetSetup:
   Enabled: false
 RSpec/AnyInstance:
   Enabled: false
-RSpec/RepeatedDescription:
-  Enabled: false
 RSpec/MessageSpies:
   Enabled: false
 Capybara/CurrentPathExpectation:
