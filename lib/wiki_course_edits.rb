@@ -159,7 +159,6 @@ class WikiCourseEdits
 
     AddSandboxTemplate.new(home_wiki: @home_wiki, sandbox: sandbox,
                            sandbox_template: sandbox_template, current_user: @current_user)
-                      .add_template
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
