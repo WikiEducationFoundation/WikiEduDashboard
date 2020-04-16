@@ -134,7 +134,8 @@ describe WikiCourseEdits do
     # Posts to the Wiki Education dashboard by default in tests
 
     it 'posts to the userpage of the enrolling student and their sandbox' do
-      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
+      expect(AddSandboxTemplate).to receive(:new)
+      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
       allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
       described_class.new(action: :enroll_in_course,
                           course: course,
@@ -143,11 +144,11 @@ describe WikiCourseEdits do
     end
 
     it 'does not repost templates that are already present' do
+      expect(AddSandboxTemplate).to receive(:new)
       expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
       allow_any_instance_of(WikiApi).to receive(:get_page_content)
         .and_return(user_page_content,
-                    talk_template,
-                    sandbox_template)
+                    talk_template)
       described_class.new(action: :enroll_in_course,
                           course: course,
                           current_user: user,
