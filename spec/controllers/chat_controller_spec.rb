@@ -24,8 +24,8 @@ describe ChatController, type: :request do
       it 'returns an auth_token and user_id' do
         subject
         response_data = Oj.load(response.body)
-        expect(response_data['auth_token']).to be
-        expect(response_data['user_id']).to be
+        expect(response_data['auth_token']).not_to be_nil
+        expect(response_data['user_id']).not_to be_nil
       end
 
       it 'raises an error if chat is not enabled' do

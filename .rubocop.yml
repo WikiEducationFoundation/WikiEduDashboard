@@ -158,7 +158,5 @@ RSpec/MultipleDescribes:
   Enabled: false
 RSpec/ExampleWording:
   Enabled: false
-RSpec/Be:
-  Enabled: false
 Style/DateTime:
   Enabled: false
