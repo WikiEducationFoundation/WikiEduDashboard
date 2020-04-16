@@ -12,7 +12,10 @@ class AddSandboxTemplate
     @wiki_editor = WikiEdits.new(home_wiki)
     @wiki_api = WikiApi.new(home_wiki)
     @initial_page_content = @wiki_api.get_page_content(@sandbox)
+    add_template
   end
+
+  private
 
   def add_template
     # Never double-post the sandbox template
