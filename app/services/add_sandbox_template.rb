@@ -19,8 +19,9 @@ class AddSandboxTemplate
 
   def add_template
     # Never double-post the sandbox template
-    return if sandbox_template_present?
-    if default_template_present?
+    if sandbox_template_present?
+      return
+    elsif default_template_present?
       replace_default_with_sandbox_template
     else
       add_sandbox_template
