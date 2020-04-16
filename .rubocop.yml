@@ -6,6 +6,7 @@ require:
 Style/Documentation:
   Enabled: false
 AllCops:
+  NewCops: enable
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
