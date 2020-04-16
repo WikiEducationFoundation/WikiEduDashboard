@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe 'timeline editing', type: :feature, js: true do
-  before { TrainingModule.load_all }
-
   let(:start_date) { '2025-02-10'.to_date } # a Monday
   let(:submitted) { true }
 
@@ -43,6 +41,7 @@ describe 'timeline editing', type: :feature, js: true do
   let(:unassigned_module_name) { 'Translating articles' }
 
   before do
+    TrainingModule.load_all
     include type: :feature
     include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)

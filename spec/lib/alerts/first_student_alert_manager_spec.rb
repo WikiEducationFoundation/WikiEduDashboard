@@ -52,9 +52,8 @@ describe FirstStudentAlertManager do
     before do
       create(:courses_user, user: student, course: course,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:alert, type: 'FirstEnrolledStudentAlert', course_id: course.id)
     end
-
-    before { create(:alert, type: 'FirstEnrolledStudentAlert', course_id: course.id) }
 
     it 'does not create an alert' do
       subject.create_alerts

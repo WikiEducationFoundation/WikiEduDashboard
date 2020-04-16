@@ -31,9 +31,6 @@ describe 'course overview page', type: :feature, js: true do
 
   before do
     stub_token_request
-  end
-
-  before do
     login_as(admin, scope: :user)
   end
 
