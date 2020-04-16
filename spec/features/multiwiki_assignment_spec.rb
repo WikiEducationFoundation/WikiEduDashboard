@@ -27,7 +27,10 @@ describe 'multiwiki assignments', type: :feature, js: true do
       button.click
 
       within('#users') do
-        first('input').set('https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D')
+        first('input').set(
+          'https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D',
+          rapid: false
+        )
       end
       click_button 'Assign'
       click_button 'OK'
