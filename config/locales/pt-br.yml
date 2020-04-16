@@ -1428,6 +1428,7 @@ pt-br:
     continue: Continuar
     completed_at: Concluído em
     completion_time: Tempo de conclusão
+    late: Atrasado
     view: Ver
     started: Iniciado
     not_started: Não foi iniciado

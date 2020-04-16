@@ -14,6 +14,7 @@
 # Author: NEHAOUA
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
+# Author: Tala Ali
 # Author: Youssef
 # Author: ديفيد
 # Author: عباد ديرانية
@@ -1116,6 +1117,7 @@ ar:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} تمرين مكتمل'
       other: '%{completed_count}/%{count} تمرينات مكتملة'
+    exercises_and_trainings: تمارين و تدريبات
     first_name: الاسم الأول
     last_name: الاسم الأخير
     loading: جارٍ تحميل المستخدمين...
@@ -1133,6 +1135,7 @@ ar:
     number_of_articles:
       one: '%{count} مقالة'
       other: '%{count} مقالات'
+    profile: الملف الشخصي
     recent_revisions: تعديلات حديثة
     remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
     request_confirmation: هل تريد بالتأكيد طلب هذا الحساب؟
@@ -1147,6 +1150,7 @@ ar:
     revisions: المراجعات
     sandboxes: ملاعب
     sub_navigation:
+      assignments_and_exercises: المهام و التمارين
       editor_overview: نظرة عامة للمحرر
       exercises_and_trainings: التمارين والتدريبات
       student_overview: نظرة عامة للطالب
@@ -1339,6 +1343,7 @@ ar:
     continue: استمرار
     completed_at: اكتمل في
     completion_time: وقت الإكمال
+    late: متأخر
     view: عرض
     started: بدأ
     not_started: لم يبدأ

@@ -1227,7 +1227,7 @@ fr:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} exercice terminé'
       other: '%{completed_count}/%{count} exercices terminés'
-    exercises_and_trainings: Exercices & Entraînements
+    exercises_and_trainings: Exercices et entraînements
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
@@ -1466,6 +1466,7 @@ fr:
     continue: Poursuivre
     completed_at: Terminé à
     completion_time: Heure de fin
+    late: Dernier
     view: Afficher
     started: Démarré
     not_started: Non démarré

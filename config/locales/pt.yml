@@ -62,8 +62,8 @@ pt:
     request_account_create: Criar uma conta
     search: faça uma pergunta
     search_results:
-      one: '%{count} Resultado para: ''%{search_terms}'''
-      other: '%{count} Resultado para: ''%{search_terms}'''
+      one: '%{count} resultado para: ''%{search_terms}'''
+      other: '%{count} resultados para: ''%{search_terms}'''
     no_results: Não foram encontrados resultados para '%{query}'
     sign_up_extended: Registar-se via Wikipédia
     sign_up_wikipedia: Ou registar-se na Wikipédia
@@ -80,13 +80,13 @@ pt:
     opt_no: não
   article_statuses:
     not_yet_started: Primeiros passos
-    in_progress: Trabalhando no Sandbox
-    ready_for_review: Expansão do rascunho
-    ready_for_mainspace: Movendo o trabalho para o domínio principal
+    in_progress: A trabalhar na zona de testes
+    ready_for_review: A expandir o rascunho
+    ready_for_mainspace: A mover para o espaço nominal principal
     assignment_completed: Tarefa marcada como concluída
-    reading_the_article: Lendo o artigo
-    providing_feedback: Fornecendo comentários
-    post_to_talk: Postagem na página de discussão
+    reading_the_article: A ler o artigo
+    providing_feedback: A fornecer comentários
+    post_to_talk: A publicar na página de discussão
     peer_review_completed: Revisão concluída
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
@@ -216,7 +216,7 @@ pt:
       os artigos da Wikipédia em inglês.)
     articles_short: Artigos
   articles_wikidata:
-    articles_short: Itens
+    articles_short: Elementos
   articles_generic:
     articles_short: Páginas
   assignments:
@@ -246,7 +246,7 @@ pt:
     peer_review_count: Selecionados %{currentCount}/%{total}
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
     peer_review_link: Revisão por pares
-    peer_review_link_personalized: Revisão por pares %{username}
+    peer_review_link_personalized: Revisão por pares de %{username}
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão por pares
@@ -255,9 +255,9 @@ pt:
       comentar.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
-    warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
-      não rastreado por este curso. Para acompanhar as contribuições para este artigo,
-      um instrutor deve adicionar o seguinte wiki a este curso: %{wiki}'
+    warning_untracked_wiki: 'Note que o artigo que escolheu está numa wiki que não
+      é monitorizada por este curso. Para acompanhar as contribuições deste artigo,
+      um instrutor tem de adicionar a seguinte wiki a este curso: %{wiki}'
   blocks:
     milestones:
       title: Marcos
@@ -361,10 +361,10 @@ pt:
     assignment_edits_enabled_tooltip: Se ativadas, o painel de controlo publicará
       uma predefinição na página de discussão por cada artigo atribuído.
     accounts_generation_enabled: Geração de pedidos de contas ativada
-    accounts_generation_explanation: Isso permitirá que os participantes insiram o
-      endereço de e-mail e o nome de usuário desejado, em vez de criar novas contas.
-      Você poderá criar as contas desse painel e adicioná-las como participantes do
-      programa ao mesmo tempo.
+    accounts_generation_explanation: Isto vai permitir que os participantes introduzam
+      o seu endereço de correio eletrónico e o nome de utilizador desejado, em vez
+      de criarem contas novas. Poderá então criar as contas a partir deste Painel
+      de Controlo e, ao mesmo tempo, adicioná-las como participantes do programa.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar pedidos
       de contas?
     activity: Atividade
@@ -873,27 +873,27 @@ pt:
     article_assignments: '%{prefix} Atribuições'
     assignments_table:
       article_name: Nome do artigo
-      current_stage: Estágio atual
-      relevant_links: Links relevantes
+      current_stage: Estado atual
+      relevant_links: Hiperligações relevantes
     assigned_articles: Artigos atribuídos
     bad_work:
-      learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que você o
-        edite. Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
+      learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que o edite.
+        Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
         mais tarde.
       learn_more_button: Saiba mais
-      submit_issue: Quais são os problemas significativos com este artigo?
-      submit_issue_placeholder: Quanto mais perspectiva e detalhes você puder fornecer,
-        melhor.
-      thank_you: Obrigado! Entre em contato com o seu especialista da Wiki se tiver
+      submit_issue: Quais são os problemas importantes deste artigo?
+      submit_issue_placeholder: Quanto mais representar a perspetiva dos especialistas
+        e mais forem os detalhes que puder fornecer, melhor.
+      thank_you: Obrigado! Entre em contacto com o especialista da sua Wiki se tiver
         mais perguntas.
-    exercises_and_trainings: '%{prefix} Exercícios e Treinamentos'
-    no_assignments: Atualmente, este aluno não possui artigos atribuídos. Você pode
-      atribuir um artigo usando os botões acima.
+    exercises_and_trainings: '%{prefix} Exercícios e formações'
+    no_assignments: Este aluno não tem artigos atribuídos de momento. Pode atribuir-lhe
+      um artigo usando os botões acima.
     overview: '%{prefix} Visão geral'
-    reviewing_articles: Revendo artigos
+    reviewing_articles: A rever artigos
     select_student:
       title: Selecionar %{prefix}
-      content: atribuir e visualizar atribuições de artigos
+      content: atribuir e ver atribuições de artigos
   metrics:
     label: Atividade do curso
     last_update: Última atualização das estatísticas
@@ -1147,7 +1147,7 @@ pt:
     kind:
       exercise: Exercício
       discussion: Discussão
-      training: Treinamento
+      training: Formação
   uploads:
     credit: Créditos
     file_name: Nome do ficheiro
@@ -1193,7 +1193,7 @@ pt:
     enroll_url: 'Os utilizadores podem se juntar ao entrar neste URL:'
     enrolled_success: '%{username} foi adicionado com sucesso!'
     exercise_modules_completed:
-      one: '%{completed_count}/%{count} exercício completod'
+      one: '%{completed_count}/%{count} exercício concluído'
       other: '%{completed_count}/%{count} exercícios concluídos'
     first_name: Primeiro nome
     last_name: Apelido
@@ -1216,7 +1216,7 @@ pt:
     remove_confirmation: Tem a certeza de que pretende remover %{username}?
     request_confirmation: Tem a certeza de que deseja pedir esta conta?
     requested_account_status:
-      success_message: 'Sucesso: %{result_description}'
+      success_message: 'Êxito: %{result_description}'
       failure_message: 'Falha: %{result_description}'
     revision_characters_and_views: 'Os caracteres foram acrescentados: %{characters},
       Visitas: %{views}'
@@ -1227,7 +1227,7 @@ pt:
     sandboxes: páginas de testes
     sub_navigation:
       editor_overview: Visão geral do editor
-      exercises_and_trainings: Exercícios e treinamentos
+      exercises_and_trainings: Exercícios e formações
       student_overview: Visão geral do aluno
     total_uploads: Total de carregamentos
     training_complete:
@@ -1256,7 +1256,7 @@ pt:
     username_placeholder: Nome de utilizador
     useremail_placeholder: Correio eletrónico
     userpasscode_placeholder: Código de acesso
-    words_added: Palavras adicionadas<br>(article | usuário | rascunho)
+    words_added: Palavras adicionadas<br>(artigo | utilizador | rascunho)
     role:
       description: Função no curso
       visitor: Visitante
@@ -1428,13 +1428,13 @@ pt:
   training_status:
     completed: Concluída
     continue: Continuar
-    completed_at: Concluído em
-    completion_time: Tempo de conclusão
+    completed_at: Concluído a
+    completion_time: Hora de conclusão
     view: Ver
     started: Começada
     not_started: Não começada
     due: esperada %{due_date}
     assignment_status: Formação (%{status})
   multi_wiki:
-    selector_placeholder: Comece a escrever um domínio de wiki
+    selector_placeholder: Comece a escrever o domínio de uma wiki
 ...

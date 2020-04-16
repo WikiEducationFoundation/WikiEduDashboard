@@ -1409,6 +1409,7 @@ tr:
     continue: Devam et
     completed_at: 'Tamamlanma tarihi:'
     completion_time: Tamamlanma süresi
+    late: Geç
     view: Görüntüle
     started: Başladı
     not_started: Başlatılmadı

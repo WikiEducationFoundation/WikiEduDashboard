@@ -606,6 +606,8 @@ lb:
   training_status:
     completed: Fäerdeg
     continue: Virufueren
+    completed_at: Fäerdeg ëm
+    late: Spéit
     view: Weisen
     started: Ugefaangen
     not_started: Net ugefaangen
