@@ -126,8 +126,6 @@ Rails/RakeEnvironment:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
-Rails/ActiveRecordAliases:
-  Enabled: false
 Style/ExpandPathArguments:
   Enabled: false
 RSpec/InstanceVariable:
