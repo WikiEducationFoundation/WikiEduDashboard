@@ -150,7 +150,7 @@ describe 'Training', type: :feature, js: true do
           click_link 'Done!'
         end
         sleep 1
-        expect(current_path).to eq(root_path)
+        expect(page).to have_current_path(root_path)
       end
     end
 
@@ -162,7 +162,7 @@ describe 'Training', type: :feature, js: true do
         within '.training__slide__footer' do
           click_link 'Done!'
         end
-        expect(current_path).to eq('/training/students')
+        expect(page).to have_current_path('/training/students')
       end
     end
   end

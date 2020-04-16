@@ -13,7 +13,7 @@ describe 'onboarding', type: :feature, js: true do
 
       it 'is not able to access onboarding' do
         visit onboarding_path
-        expect(page.current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
       end
     end
 
@@ -31,12 +31,12 @@ describe 'onboarding', type: :feature, js: true do
 
       it 'is not able to access other parts of the app' do
         visit explore_path
-        expect(page.current_path).to eq onboarding_path
+        expect(page).to have_current_path(onboarding_path, ignore_query: true)
       end
 
       it 'is able to log out' do
         visit destroy_user_session_path
-        expect(page.current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
       end
     end
   end

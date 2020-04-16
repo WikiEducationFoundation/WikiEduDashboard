@@ -150,8 +150,6 @@ RSpec/AnyInstance:
   Enabled: false
 RSpec/MessageSpies:
   Enabled: false
-Capybara/CurrentPathExpectation:
-  Enabled: false
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
