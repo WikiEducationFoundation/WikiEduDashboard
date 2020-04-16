@@ -136,8 +136,6 @@ Rails/ActiveRecordAliases:
   Enabled: false
 Style/ExpandPathArguments:
   Enabled: false
-Layout/ClosingHeredocIndentation:
-  Enabled: false # buggy in 0.57.2: https://github.com/rubocop-hq/rubocop/issues/6009
 RSpec/InstanceVariable:
   Enabled: false
 RSpec/ExampleLength:
