@@ -122,8 +122,6 @@ Rails/Validation:
   Enabled: false
 Rails/FindBy:
   Enabled: false
-Rails/Output:
-  Enabled: false
 Rails/RakeEnvironment:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
