@@ -28,7 +28,7 @@ describe TrainingSlide do
 
     it 'prints an error message if a slide cannot be saved' do
       described_class.create!(id: 1000, title: 'foo', slug: slug)
-      expect(STDOUT).to receive(:puts).with(/#{slug}/)
+      expect(Rails.logger).to receive(:info).with(/#{slug}/)
       expect { subject }.to raise_error ActiveRecord::RecordNotUnique
     end
   end
