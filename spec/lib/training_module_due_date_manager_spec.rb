@@ -22,7 +22,7 @@ describe TrainingModuleDueDateManager do
            user_id: user&.id,
            completed_at: completed_at)
   end
-  let(:due_date) { t_start + 1. week }
+  let(:due_date) { t_start + 1.week }
   let(:week)     { create(:week, course_id: course.id, order: 1) }
   let!(:block) do
     create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
