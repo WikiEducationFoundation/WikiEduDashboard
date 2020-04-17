@@ -62,7 +62,7 @@ class TrainingSlide < ApplicationRecord
     slide.save
     slide
   rescue StandardError => e
-    Rails.logger.info "There's a problem with file '#{slug}'"
+    puts "There's a problem with file '#{slug}'"
     raise e
   end
 end

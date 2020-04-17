@@ -83,7 +83,7 @@ class TrainingModule < ApplicationRecord
     validate_and_save(training_module, slug)
     training_module
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
-    Rails.logger.info "There's a problem with file '#{slug}'" if Rails.env.development?
+    puts "There's a problem with file '#{slug}'" if Rails.env.development?
     raise e
   end
 
