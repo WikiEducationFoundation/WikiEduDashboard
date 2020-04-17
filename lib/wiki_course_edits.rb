@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 require_dependency "#{Rails.root}/lib/wikitext"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/app/services/add_sandbox_template"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -156,13 +157,8 @@ class WikiCourseEdits
     sandbox_template = @generator.sandbox_template(@dashboard_url)
     sandbox = "User:#{@enrolling_user.username}/sandbox"
 
-    # Never double-post the sandbox template
-    initial_page_content = @wiki_api.get_page_content(sandbox)
-    return if initial_page_content.include?(sandbox_template)
-
-    sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"
-    new_line_template = sandbox_template + "\n"
-    @wiki_editor.add_to_page_top(sandbox, @current_user, new_line_template, sandbox_summary)
+    AddSandboxTemplate.new(home_wiki: @home_wiki, sandbox: sandbox,
+                           sandbox_template: sandbox_template, current_user: @current_user)
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
