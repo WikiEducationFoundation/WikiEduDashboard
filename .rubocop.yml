@@ -106,6 +106,8 @@ Rails/FilePath:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
+Rails/OutputSafety:
+  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:

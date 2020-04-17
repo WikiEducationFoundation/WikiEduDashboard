@@ -15,6 +15,6 @@ module CampaignHelper
   def html_from_markdown(markdown)
     return unless markdown
     converter = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    sanitize converter.render(markdown)
+    raw converter.render(markdown)
   end
 end
