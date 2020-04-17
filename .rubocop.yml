@@ -140,8 +140,6 @@ RSpec/MultipleExpectations:
   Enabled: false
 RSpec/BeforeAfterAll:
   Enabled: false
-RSpec/EmptyExampleGroup:
-  Enabled: false
 RSpec/ScatteredLet:
   Enabled: false
 RSpec/LetSetup:
