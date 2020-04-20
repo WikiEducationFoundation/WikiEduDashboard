@@ -4,6 +4,7 @@
 # Author: Abijeet Patro
 # Author: Anamdas
 # Author: Bhatakati aatma
+# Author: Gopalindians
 # Author: Nitin1485
 # Author: Prong$31
 # Author: Rajat11
@@ -343,7 +344,12 @@ hi:
     loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
     authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
     edits_by: 'संपादनकर्ता:'
+    exercises_and_trainings: व्यायाम और प्रशिक्षण
     profile: प्रोफ़ाइल
+    revisions: संशोधन
+    sub_navigation:
+      assignments_and_exercises: कार्य और अभ्यास
+      student_overview: '%{prefix} अवलोकन'
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ

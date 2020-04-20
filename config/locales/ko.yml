@@ -593,7 +593,7 @@ ko:
     reviewing: 검토 중
     sub_navigation:
       editor_overview: 편집자 개요
-      student_overview: 학생 개요
+      student_overview: '%{prefix}  개요'
     total_uploads: 총 업로드
     training_module_status: 상태
     training_module_time:
