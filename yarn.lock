@@ -10881,10 +10881,10 @@ react-cookie-consent@^3.0.0:
   dependencies:
     js-cookie "^2.2.0"
 
-react-day-picker@7.4.1:
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.4.1.tgz#a68af9b4c9ba557a5d748ee16bebce78d606de04"
-  integrity sha512-BzE1XsxeSAu0MpLED//T4ljivgNaSWND5UU8GMJ3uGyxKWuz6XXOlMCIgPPf/k3q2gh6pMI8wP038uwzh1CY3g==
+react-day-picker@7.4.6:
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.4.6.tgz#951426eee9a2bf43e802aa2ced63f71f03be8a3a"
+  integrity sha512-aPqF+edeP5Mf1ifVGHlSo0ajKfisLIAsIULxkQb+WCw593m2KchXAgj1+u+Zh3sH3WCjz2lM+3l9twrhYggjPA==
   dependencies:
     prop-types "^15.6.2"
 
