@@ -44,6 +44,7 @@ class Alert < ApplicationRecord
     DYKNominationAlert
     FirstEnrolledStudentAlert
     GANominationAlert
+    HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
@@ -65,6 +66,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
+    HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     OverEnrollmentAlert
   ].freeze
@@ -80,6 +82,7 @@ class Alert < ApplicationRecord
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
     GANominationAlert
+    HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
