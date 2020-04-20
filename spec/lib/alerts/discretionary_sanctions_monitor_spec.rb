@@ -50,10 +50,12 @@ describe DiscretionarySanctionsMonitor do
 
     it 'creates Alert records for assignments and edited articles under discretionary sanctions' do
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(2)
-      alerted_article_ids = Alert.all.pluck(:article_id)
-      expect(alerted_article_ids).to include(article.id)
-      expect(alerted_article_ids.count(article.id)).to eq(2)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
+      expect(DiscretionarySanctionsAssignmentAlert.count).to eq(1)
+      alerted_edit_article_ids = DiscretionarySanctionsEditAlert.all.pluck(:article_id)
+      expect(alerted_edit_article_ids).to include(article.id)
+      alerted_assignment_article_ids = DiscretionarySanctionsAssignmentAlert.all.pluck(:article_id)
+      expect(alerted_assignment_article_ids).to include(article.id)
     end
 
     it 'emails a greeter' do
@@ -66,41 +68,41 @@ describe DiscretionarySanctionsMonitor do
     it 'does not create a second Alert for the same assignments, if the first is not resolved' do
       Alert.create(type: 'DiscretionarySanctionsAssignmentAlert', article_id: assignment.article_id,
                    course_id: assignment.course_id, user_id: assignment.user_id)
-      expect(Alert.count).to eq(1)
+      expect(DiscretionarySanctionsAssignmentAlert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(2)
+      expect(DiscretionarySanctionsAssignmentAlert.count).to eq(1)
     end
 
     it 'does not create a second Alert for the same articles, if the first is not resolved' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert',
                    article_id: article.id, course_id: course.id)
-      expect(Alert.count).to eq(1)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(2)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
     end
 
     it 'does not create second Alert if the first alert is resolved but there are no new edits' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
                    course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
-      expect(Alert.count).to eq(1)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(2)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
     end
 
     it 'does create second Alert if the first alert is resolved and there are later edits' do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
                    course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
-      expect(Alert.count).to eq(1)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(3)
+      expect(DiscretionarySanctionsEditAlert.count).to eq(2)
     end
 
     it 'does create second Alert if the first alert is resolved and there are later assignments' do
       Alert.create(type: 'DiscretionarySanctionsAssignmentAlert', article_id: assignment.article_id,
                    course_id: assignment.course_id, user_id: assignment.user_id, resolved: true)
-      expect(Alert.count).to eq(1)
+      expect(DiscretionarySanctionsAssignmentAlert.count).to eq(1)
       described_class.create_alerts_for_course_articles
-      expect(Alert.count).to eq(3)
+      expect(DiscretionarySanctionsAssignmentAlert.count).to eq(2)
     end
   end
 end
