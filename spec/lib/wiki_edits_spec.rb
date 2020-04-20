@@ -42,12 +42,12 @@ describe WikiEdits do
     described_class.new.notify_untrained(course, User.first)
   end
 
-  it 'handles unexpected responses' do
+  it 'handles unexpected edits with failure captcha responses' do
     stub_oauth_edit_captcha
     described_class.new.notify_untrained(course, User.first)
   end
 
-  it 'handles unexpected responses' do
+  it 'handles unexpected edits with empty responses' do
     stub_oauth_edit_with_empty_response
     described_class.new.notify_untrained(course, User.first)
   end

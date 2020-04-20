@@ -26,7 +26,7 @@ class UpdateLogger
   ###########
 
   def self.average_delay(log_hash)
-    return unless log_hash&.length&. > 1
+    return unless log_hash&.length&.> 1
     end_times = log_hash.values.map { |update| update['end_time'] }
     average_delay_in_seconds = (end_times.last.to_f - end_times.first.to_f) / (end_times.count - 1)
     average_delay_in_seconds.to_i

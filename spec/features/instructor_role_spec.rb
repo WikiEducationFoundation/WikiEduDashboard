@@ -8,9 +8,6 @@ describe 'Instructor users', type: :feature, js: true do
     include Devise::TestHelpers
     TrainingModule.load_all
     page.current_window.resize_to(1920, 1080)
-  end
-
-  before do
     instructor = create(:user,
                         id: 100,
                         username: 'Professor Sage',

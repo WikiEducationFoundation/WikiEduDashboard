@@ -13,14 +13,11 @@ describe 'Survey Administration', type: :feature, js: true do
   end
 
   context 'an admin' do
-    before do
-      admin = create(:admin)
-      login_as admin
-    end
-
     let(:instructor) { create(:user, email: 'instructor@school.edu') }
 
     before do
+      admin = create(:admin)
+      login_as admin
       course = create(:course)
       course.campaigns << Campaign.last
       course.courses_users << create(:courses_user, user_id: instructor.id, role: 1)

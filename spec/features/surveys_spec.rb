@@ -284,28 +284,28 @@ describe 'Surveys', type: :feature, js: true do
     it 'can view survey if the survey notification id is associated with current user' do
       login_as(@instructor, scope: :user)
       visit survey_path(@survey)
-      expect(current_path).to eq(survey_path(@survey))
+      expect(page).to have_current_path(survey_path(@survey))
     end
 
     it 'can view survey if it is open' do
       login_as(@user, scope: :user)
       visit survey_path(@open_survey)
-      expect(current_path).to eq(survey_path(@open_survey))
+      expect(page).to have_current_path(survey_path(@open_survey))
     end
 
     it 'can view survey if user is an admin' do
       login_as(@admin, scope: :user)
       visit survey_path(@survey)
-      expect(current_path).to eq(survey_path(@survey))
+      expect(page).to have_current_path(survey_path(@survey))
       login_as(@admin, scope: :user)
       visit survey_path(@open_survey)
-      expect(current_path).to eq(survey_path(@open_survey))
+      expect(page).to have_current_path(survey_path(@open_survey))
     end
 
     it 'redirects a user if not logged in or survey notification id isnt associated with them' do
       login_as(@user, scope: :user)
       visit survey_path(@survey)
-      expect(current_path).to eq(root_path)
+      expect(page).to have_current_path(root_path)
     end
   end
 end

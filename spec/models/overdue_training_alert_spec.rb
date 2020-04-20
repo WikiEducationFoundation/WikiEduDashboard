@@ -23,11 +23,10 @@
 require 'rails_helper'
 
 describe OverdueTrainingAlert do
-  before { TrainingModule.load_all }
-
   let(:course) { create(:course) }
   let(:student) { create(:user, email: 'student@example.edu') }
   before do
+    TrainingModule.load_all
     create(:user_profile, user: student, email_preferences: email_preferences)
   end
 

@@ -207,12 +207,6 @@ describe SettingsController, type: :request do
         expect(response.body).to include("Can't revoke admin status from a super admin")
       end
     end
-
-    context 'request is not json' do
-      before do
-        @format_type = :html
-      end
-    end
   end
 
   describe '#upgrade_special_user' do

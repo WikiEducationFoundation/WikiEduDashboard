@@ -210,8 +210,8 @@ describe WikiAssignmentOutput do
 
     context 'when the article page has a disambiguation template' do
       it 'returns nil' do
-        talk_page_response = double('wiki')
-        article_page_response = double('wiki')
+        talk_page_response = instance_double('wiki')
+        article_page_response = instance_double('wiki')
         allow(WikiApi).to receive(:new)
           .and_return(talk_page_response, article_page_response)
         allow(talk_page_response).to receive(:get_page_content)

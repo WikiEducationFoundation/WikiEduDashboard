@@ -105,9 +105,6 @@ end
 describe 'New course creation and editing', type: :feature do
   before do
     set_up_suite
-  end
-
-  before do
     user = create(:user,
                   id: 1,
                   permissions: User::Permissions::INSTRUCTOR)

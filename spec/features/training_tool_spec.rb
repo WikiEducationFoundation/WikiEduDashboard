@@ -5,12 +5,11 @@ require 'rails_helper'
 DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
 describe 'Training', type: :feature, js: true do
-  before { TrainingModule.load_all }
-
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
   before do
+    TrainingModule.load_all
     login_as(user, scope: :user)
   end
 
@@ -150,7 +149,7 @@ describe 'Training', type: :feature, js: true do
           click_link 'Done!'
         end
         sleep 1
-        expect(current_path).to eq(root_path)
+        expect(page).to have_current_path(root_path)
       end
     end
 
@@ -162,7 +161,7 @@ describe 'Training', type: :feature, js: true do
         within '.training__slide__footer' do
           click_link 'Done!'
         end
-        expect(current_path).to eq('/training/students')
+        expect(page).to have_current_path('/training/students')
       end
     end
   end

@@ -93,18 +93,15 @@ describe UsersController, type: :request do
     end
 
     context 'POST with student role, when the user is an admin' do
-      before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        stub_oauth_edit
-        stub_raw_action
-      end
-
       let(:post_params) do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
 
       before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        stub_oauth_edit
+        stub_raw_action
         post "/courses/#{course.slug}/user", params: post_params
       end
 
@@ -118,16 +115,13 @@ describe UsersController, type: :request do
     end
 
     context 'POST with Wiki Ed staff role, when the user is an admin' do
-      before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      end
-
       let(:post_params) do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE } }
       end
 
       before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         post "/courses/#{course.slug}/user", params: post_params
       end
 
@@ -142,17 +136,14 @@ describe UsersController, type: :request do
 
     context 'POST with instructor role, when the user is is allowed' do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
-      before do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-        SpecialUsers.set_user('classroom_program_manager', staff.username)
-      end
-
       let(:post_params) do
         { id: course.slug,
           user: { user_id: admin.id, role: CoursesUsers::Roles::INSTRUCTOR_ROLE } }
       end
 
       before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        SpecialUsers.set_user('classroom_program_manager', staff.username)
         allow(NewInstructorEnrollmentMailer).to receive(:send_staff_alert).and_call_original
         post "/courses/#{course.slug}/user", params: post_params
       end

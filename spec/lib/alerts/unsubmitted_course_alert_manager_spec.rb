@@ -65,9 +65,10 @@ describe UnsubmittedCourseAlertManager do
   end
 
   context 'when alerts already exist' do
-    before { create(:alert, type: 'UnsubmittedCourseAlert', course: @first_course) }
-
-    before { create(:alert, type: 'UnsubmittedCourseAlert', course: @returning_course) }
+    before do
+      create(:alert, type: 'UnsubmittedCourseAlert', course: @first_course)
+      create(:alert, type: 'UnsubmittedCourseAlert', course: @returning_course)
+    end
 
     it 'does not create new ones' do
       expect(Alert.count).to eq(2)

@@ -196,15 +196,13 @@ describe AssignmentsController, type: :request do
       end
 
       context 'when the article exists' do
-        before do
-          create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
-        end
-
         let(:assignment_params_with_language_and_project) do
           { user_id: user.id, course_slug: course.slug, title: 'pizza',
             role: 0, language: 'es', project: 'wikibooks', format: :json }
         end
+
         before do
+          create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
           create(:article, title: 'Pizza', wiki_id: es_wikibooks.id,
                            namespace: Article::Namespaces::MAINSPACE)
         end
