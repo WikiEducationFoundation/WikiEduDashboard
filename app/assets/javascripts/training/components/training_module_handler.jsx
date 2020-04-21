@@ -8,7 +8,7 @@ import { fetchTrainingModule } from '../../actions/training_actions.js';
 const TrainingModuleHandler = createReactClass({
   displayName: 'TrainingModuleHandler',
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
     return this.props.fetchTrainingModule({ module_id: moduleId });
   },

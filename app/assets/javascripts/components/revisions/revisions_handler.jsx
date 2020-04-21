@@ -19,7 +19,7 @@ const RevisionHandler = createReactClass({
     loadingRevisions: PropTypes.bool
   },
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     if (this.props.loadingRevisions) {
       this.props.fetchRevisions(this.props.course_id, this.props.limit);
     }

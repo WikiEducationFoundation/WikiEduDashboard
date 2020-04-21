@@ -36,7 +36,7 @@ const StudentsTabHandler = createReactClass({
     return { loading: true };
   },
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

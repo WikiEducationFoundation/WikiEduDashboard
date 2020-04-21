@@ -7,11 +7,11 @@ const Modal = createReactClass({
     modalClass: PropTypes.string,
     children: PropTypes.node
   },
+  componentDidMount() {
+    return $('body').addClass('modal-open');
+  },
   componentWillUnmount() {
     return $('body').removeClass('modal-open');
-  },
-  UNSAFE_componentWillMount() {
-    return $('body').addClass('modal-open');
   },
   render() {
     const className = `wizard active ${this.props.modalClass}`;

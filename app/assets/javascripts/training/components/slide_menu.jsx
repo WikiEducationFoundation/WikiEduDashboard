@@ -15,12 +15,12 @@ const SlideMenu = createReactClass({
     menuClass: PropTypes.string
   },
 
-  componentWillUnmount() {
-    return window.removeEventListener('click', this.props.closeMenu, false);
+  componentDidMount() {
+    return window.addEventListener('click', this.props.closeMenu, false);
   },
 
-  UNSAFE_componentWillMount() {
-    return window.addEventListener('click', this.props.closeMenu, false);
+  componentWillUnmount() {
+    return window.removeEventListener('click', this.props.closeMenu, false);
   },
 
   linkParams(props) {

@@ -18,14 +18,14 @@ class CampaignAlerts extends React.Component {
     this.getCampaignSlug = this.getCampaignSlug.bind(this);
   }
 
-  getCampaignSlug() {
-    return `${this.props.match.params.campaign_slug}`;
-  }
-
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     // This adds the specific campaign alerts to the state, to be used in AlertsHandler
     this.props.fetchCampaignAlerts(this.getCampaignSlug());
     this.props.filterAlerts(this.state.defaultFilters);
+  }
+
+  getCampaignSlug() {
+    return `${this.props.match.params.campaign_slug}`;
   }
 
   render() {
