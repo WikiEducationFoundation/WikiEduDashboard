@@ -65,7 +65,7 @@ class ArticlesCourses < ApplicationRecord
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.references_count = revisions.sum(&:references_added)
     self.view_count = views_since_earliest_revision(revisions)
-    self.details['user_ids'] = associated_user_ids(revisions)
+    details['user_ids'] = associated_user_ids(revisions)
 
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
@@ -84,7 +84,7 @@ class ArticlesCourses < ApplicationRecord
 
   def associated_user_ids(revisions)
     return [] if revisions.empty?
-    revisions.map { |revision| revision.user_id }.compact.uniq
+    revisions.map(&:user_id).compact.uniq
   end
 
   #################
