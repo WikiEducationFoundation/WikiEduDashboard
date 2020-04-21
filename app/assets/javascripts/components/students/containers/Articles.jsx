@@ -21,6 +21,7 @@ import { toggleUI } from '~/app/assets/javascripts/actions';
 // Utils
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
 import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
+import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export class Articles extends React.Component {
 
   render() {
     const {
-      assignments, course, current_user, prefix, students, wikidataLabels,
+      articles, assignments, course, current_user, prefix, students, wikidataLabels,
       notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
       userRevisions
     } = this.props;
@@ -53,6 +54,7 @@ export class Articles extends React.Component {
     const { modules } = getModulesAndBlocksFromWeeks(weeks);
     const hasExercisesOrTrainings = !!modules.length;
 
+    const groupedArticles = groupArticlesCoursesByUserId(articles);
     if (!students.length) return null;
     return (
       <>
@@ -104,6 +106,7 @@ export class Articles extends React.Component {
                         current_user={current_user}
                         fetchArticleDetails={this.props.fetchArticleDetails}
                         fetchUserRevisions={this.props.fetchUserRevisions}
+                        groupedArticles={groupedArticles}
                         hasExercisesOrTrainings={hasExercisesOrTrainings}
                         openKey={openKey}
                         selected={selected}
@@ -134,6 +137,7 @@ export class Articles extends React.Component {
 }
 
 Articles.propTypes = {
+  articles: PropTypes.array.isRequired,
   assignments: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,

@@ -7,18 +7,22 @@ import AssignmentsList from './AssignmentsList/AssignmentsList.jsx';
 import NoAssignments from './NoAssignments.jsx';
 import StudentExercisesList from './ExercisesList/StudentExercisesList.jsx';
 import StudentRevisionsList from './RevisionsList/StudentRevisionsList.jsx';
+import EditedUnassignedArticles from './EditedUnassignedArticles/EditedUnassignedArticles.jsx';
 
 // Utils
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
+import setUnassignedArticles from '@components/students/utils/setUnassignedArticles';
 
 export const SelectedStudent = ({
-  assignments, course, current_user, fetchArticleDetails, fetchUserRevisions,
-  hasExercisesOrTrainings, openKey, selected, setUploadFilters, sort, sortUsers,
-  toggleUI, trainingStatus, wikidataLabels, userRevisions
+  groupedArticles, assignments, course, current_user, fetchArticleDetails,
+  fetchUserRevisions, hasExercisesOrTrainings, openKey, selected, setUploadFilters,
+  sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions
 }) => {
   const {
     assigned, reviewing
   } = processAssignments({ assignments, course, current_user: selected });
+  const unassigned = setUnassignedArticles(groupedArticles, assignments, selected);
+  const showArticleId = Number(location.search.split('showArticle=')[1]);
 
   return (
     <article className="assignments-list">
@@ -73,6 +77,20 @@ export const SelectedStudent = ({
         )
       }
 
+      {
+        !!unassigned.length && (
+          <EditedUnassignedArticles
+            articles={unassigned}
+            course={course}
+            user={selected}
+            current_user={current_user}
+            showArticleId={showArticleId}
+            fetchArticleDetails={fetchArticleDetails}
+            title="Other Edited Articles"
+          />
+        )
+      }
+
       <StudentRevisionsList
         course={course}
         current_user={current_user}
@@ -96,6 +114,7 @@ SelectedStudent.propTypes = {
   current_user: PropTypes.object.isRequired,
   fetchArticleDetails: PropTypes.func.isRequired,
   fetchUserRevisions: PropTypes.func.isRequired,
+  groupedArticles: PropTypes.object.isRequired,
   selected: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object,
   userRevisions: PropTypes.object,
