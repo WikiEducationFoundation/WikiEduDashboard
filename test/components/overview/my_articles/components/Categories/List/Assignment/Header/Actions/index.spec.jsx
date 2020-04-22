@@ -12,7 +12,7 @@ describe('Actions', () => {
     current_user: {},
     isComplete: false,
     username: 'username',
-
+    isClassroomProgram: true,
     isEnglishWikipedia: jest.fn(),
     handleUpdateAssignment: jest.fn(),
     refreshAssignments: jest.fn(),

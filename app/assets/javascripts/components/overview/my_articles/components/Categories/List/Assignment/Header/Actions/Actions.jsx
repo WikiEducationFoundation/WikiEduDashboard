@@ -72,6 +72,7 @@ Actions.propTypes = {
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
+  isClassroomProgram: PropTypes.bool.isRequired,
 
   // actions
   isEnglishWikipedia: PropTypes.func.isRequired,
