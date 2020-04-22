@@ -68,10 +68,10 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
     <section className="editors">
       <p className="assignment-links mb0">{ links }</p>
       {
-        groupMembers && <p className="assignment-links editors">{groupMembers}</p>
+        groupMembers && <p className="assignment-links mb0 editors">{groupMembers}</p>
       }
       {
-        reviewers && <p className="assignment-links reviewers">{ reviewers }</p>
+        reviewers && <p className="assignment-links mb0 reviewers">{ reviewers }</p>
       }
     </section>
   );
