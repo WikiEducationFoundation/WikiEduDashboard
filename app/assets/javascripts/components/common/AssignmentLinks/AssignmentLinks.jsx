@@ -21,12 +21,14 @@ const interleaveSeparators = (acc, link, index, collection) => {
 };
 
 const AssignmentLinks = ({ assignment, courseType, user }) => {
-  const { article_url, id, role } = assignment;
+  const { article_url, id, role, editors } = assignment;
   const actions = [];
 
-  actions.push(
-    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-  );
+  if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
+    actions.push(
+      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+    );
+  }
 
   if (courseType === 'ClassroomProgramCourse') {
     actions.unshift(
@@ -45,8 +47,8 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   );
 
   let groupMembers;
-  if (assignment.editors && role === ASSIGNED_ROLE) {
-    groupMembers = <GroupMembersLink members={assignment.editors} />;
+  if (editors && role === ASSIGNED_ROLE) {
+    groupMembers = <GroupMembersLink members={editors} />;
   }
 
   let reviewers;
