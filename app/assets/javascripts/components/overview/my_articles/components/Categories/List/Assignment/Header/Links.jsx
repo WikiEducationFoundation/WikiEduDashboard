@@ -26,12 +26,13 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
   const { article_url, editors, id, reviewers } = assignment;
   let actions = [];
 
+  actions.push(
+    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+  );
+
   if (courseType === 'ClassroomProgramCourse') {
-    actions.push(
+    actions.unshift(
       <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
-    );
-    actions.push(
-      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
     );
     if (assignment.role === REVIEWING_ROLE) {
       actions.push(

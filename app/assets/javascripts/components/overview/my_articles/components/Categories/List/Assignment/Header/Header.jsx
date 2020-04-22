@@ -24,6 +24,8 @@ const isEnglishWikipedia = ({ assignment, course }) => () => {
   return false;
 };
 
+const isClassroomProgram = course => (course.type === 'ClassroomProgramCourse');
+
 const unassign = ({ assignment, course, initiateConfirm, deleteAssignment }) => {
   const body = { course_slug: course.slug, ...assignment };
   const confirmMessage = I18n.t('assignments.confirm_deletion');
@@ -49,6 +51,7 @@ export const Header = ({
       courseSlug={course.slug}
       current_user={current_user}
       isEnglishWikipedia={isEnglishWikipedia({ assignment, course })}
+      isClassroomProgram={isClassroomProgram(course)}
       isComplete={isComplete}
       refreshAssignments={fetchAssignments}
       unassign={unassign({ assignment, course, initiateConfirm, deleteAssignment })}

@@ -24,13 +24,15 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   const { article_url, id, role } = assignment;
   const actions = [];
 
+  actions.push(
+    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+  );
+
   if (courseType === 'ClassroomProgramCourse') {
-    actions.push(
+    actions.unshift(
       <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
     );
-    actions.push(
-      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-    );
+
     if (role === REVIEWING_ROLE) {
       actions.push(
         <PeerReviewLink key={`review-${id}`} assignment={assignment} user={user} />
