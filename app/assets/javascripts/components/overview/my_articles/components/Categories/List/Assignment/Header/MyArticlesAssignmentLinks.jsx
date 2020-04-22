@@ -10,7 +10,7 @@ export const MyArticlesAssignmentLinks = ({ articleTitle, assignment, courseType
         <h4>{articleTitle}</h4>
       </section>
       <section className="editors">
-        {AssignmentLinks({ articleTitle, assignment, courseType, current_user })}
+        {AssignmentLinks({ articleTitle, assignment, courseType, user: current_user })}
       </section>
     </section>
   );
