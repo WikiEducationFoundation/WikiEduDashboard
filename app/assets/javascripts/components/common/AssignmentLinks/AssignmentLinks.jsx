@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import BibliographyLink from './BibliographyLink';
+import EditorLink from './EditorLink';
 import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
@@ -47,8 +48,12 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   );
 
   let groupMembers;
-  if (editors && role === ASSIGNED_ROLE) {
-    groupMembers = <GroupMembersLink members={editors} />;
+  if (editors) {
+    if (role === ASSIGNED_ROLE) {
+      groupMembers = <GroupMembersLink members={editors} />;
+    } else {
+      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} />;
+    }
   }
 
   let reviewers;
@@ -60,15 +65,15 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   const links = actions.concat(article).reduce(interleaveSeparators, []);
 
   return (
-    <>
-      <p className="assignment-links">{ links }</p>
+    <section className="editors">
+      <p className="assignment-links mb0">{ links }</p>
       {
         groupMembers && <p className="assignment-links editors">{groupMembers}</p>
       }
       {
         reviewers && <p className="assignment-links reviewers">{ reviewers }</p>
       }
-    </>
+    </section>
   );
 };
 
