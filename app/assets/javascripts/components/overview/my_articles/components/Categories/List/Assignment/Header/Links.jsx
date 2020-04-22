@@ -12,7 +12,7 @@ import ReviewerLink from '@components/common/AssignmentLinks/ReviewerLink.jsx';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 
 // constants
-import { REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
+import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
 
 // helper functions
 const interleaveSeparators = (acc, link, index, collection) => {
@@ -26,9 +26,11 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
   const { article_url, editors, id, reviewers } = assignment;
   let actions = [];
 
-  actions.push(
-    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-  );
+  if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
+    actions.push(
+      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+    );
+  }
 
   if (courseType === 'ClassroomProgramCourse') {
     actions.unshift(
