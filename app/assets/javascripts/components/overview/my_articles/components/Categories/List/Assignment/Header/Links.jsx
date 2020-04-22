@@ -30,16 +30,14 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
     actions.push(
       <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
     );
-  }
-
-  actions.push(
-    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-  );
-
-  if (assignment.role === REVIEWING_ROLE) {
     actions.push(
-      <PeerReviewLink key={`review-${id}`} assignment={assignment} user={current_user} />
+      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
     );
+    if (assignment.role === REVIEWING_ROLE) {
+      actions.push(
+        <PeerReviewLink key={`review-${id}`} assignment={assignment} user={current_user} />
+      );
+    }
   }
 
   const article = (

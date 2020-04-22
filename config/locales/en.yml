@@ -384,6 +384,7 @@ en:
     actions: Actions
     articles: Articles
     articles_none: This course has not edited any articles.
+    article_viewer: Article Viewer
     assignment_headings:
         assigned_articles: Assigned Articles
         assigned_reviews: Assigned Reviews
