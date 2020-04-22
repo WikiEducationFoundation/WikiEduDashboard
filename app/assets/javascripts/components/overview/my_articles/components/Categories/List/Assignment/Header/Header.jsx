@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import Actions from './Actions/Actions.jsx';
-import Links from './Links.jsx';
+import MyArticlesAssignmentLinks from './Links.jsx';
 
 const isEnglishWikipedia = ({ assignment, course }) => () => {
   const { language, project } = assignment;
@@ -39,7 +39,7 @@ export const Header = ({
   deleteAssignment, fetchAssignments, initiateConfirm, updateAssignmentStatus
 }) => (
   <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
-    <Links
+    <MyArticlesAssignmentLinks
       articleTitle={articleTitle}
       assignment={assignment}
       courseType={course.type}

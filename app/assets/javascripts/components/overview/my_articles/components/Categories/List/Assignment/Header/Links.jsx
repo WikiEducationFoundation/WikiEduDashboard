@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
 
-export const Links = ({ articleTitle, assignment, courseType, current_user }) => {
+export const MyArticlesAssignmentLinks = ({ articleTitle, assignment, courseType, current_user }) => {
   return (
     <section className="header">
       <section className="title">
@@ -16,7 +16,7 @@ export const Links = ({ articleTitle, assignment, courseType, current_user }) =>
   );
 };
 
-Links.propTypes = {
+MyArticlesAssignmentLinks.propTypes = {
   // props
   articleTitle: PropTypes.string.isRequired,
   assignment: PropTypes.object.isRequired,
@@ -24,4 +24,4 @@ Links.propTypes = {
   current_user: PropTypes.object.isRequired,
 };
 
-export default Links;
+export default MyArticlesAssignmentLinks;
