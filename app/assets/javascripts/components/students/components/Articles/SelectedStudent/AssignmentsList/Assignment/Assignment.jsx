@@ -21,6 +21,15 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
     : [user.username];
 
   const showArticleId = Number(location.search.split('showArticle=')[1]);
+  let currentStatus;
+  if (course.type === 'ClassroomProgramCourse') {
+    currentStatus = (
+      <CurrentStatus
+        current={assignment.assignment_status}
+        statuses={assignment.assignment_all_statuses}
+      />
+    );
+  }
   return (
     <tr className="article-row">
       <td className="article-title">{assignment.article_title}</td>
@@ -32,10 +41,7 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
         />
       </td>
       <td className="current-status">
-        <CurrentStatus
-          current={assignment.assignment_status}
-          statuses={assignment.assignment_all_statuses}
-        />
+        {currentStatus}
       </td>
       <td className="article-actions">
         <ArticleViewer

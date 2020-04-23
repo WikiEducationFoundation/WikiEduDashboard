@@ -13,7 +13,7 @@ import Feedback from '~/app/assets/javascripts/components/common/feedback.jsx';
 
 export const Actions = ({
   article, assignment, courseSlug, current_user, isComplete, username,
-  isEnglishWikipedia, handleUpdateAssignment, refreshAssignments, unassign
+  isEnglishWikipedia, isClassroomProgram, handleUpdateAssignment, refreshAssignments, unassign
 }) => {
   if (isComplete) {
     // If complete, only return the following
@@ -38,7 +38,7 @@ export const Actions = ({
   }
 
   // Assigned article that does not yet exist in mainspace
-  if (isEnglishWikipedia()) {
+  if (isEnglishWikipedia() && isClassroomProgram) {
     const feedback = (
       <Feedback
         assignment={assignment}
@@ -72,6 +72,7 @@ Actions.propTypes = {
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
+  isClassroomProgram: PropTypes.bool.isRequired,
 
   // actions
   isEnglishWikipedia: PropTypes.func.isRequired,

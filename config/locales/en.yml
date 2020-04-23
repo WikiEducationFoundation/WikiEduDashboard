@@ -384,6 +384,8 @@ en:
     actions: Actions
     articles: Articles
     articles_none: This course has not edited any articles.
+    article_viewer: Article Viewer
+    articles_i_am_reviewing: Articles I'm peer reviewing
     assignment_headings:
         assigned_articles: Assigned Articles
         assigned_reviews: Assigned Reviews
@@ -731,6 +733,7 @@ en:
     add_campaign: Add campaign
     all_courses: All Programs
     archived: Archived Programs
+    articles_i_am_reviewing: Articles I'm reviewing
     articles_none: There are no edited articles for this project yet.
     assignment_headings:
       available_reviews: Available to Review
