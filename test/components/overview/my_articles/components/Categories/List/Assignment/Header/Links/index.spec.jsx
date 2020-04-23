@@ -18,14 +18,14 @@ describe('MyArticlesAssignmentLinks', () => {
   });
 
   it('should not show the bibliography link if the course type is anything but ClassroomProgramCourse', () => {
-    const component = shallow(<MyArticlesAssignmentLinks {...props} courseType="Editathon" />);
+    const component = mount(<MyArticlesAssignmentLinks {...props} courseType="Editathon" />);
     expect(component).toMatchSnapshot();
     expect(component.find('BibliographyLink').length).toBeUndefined;
   });
 
   it('should show the peer review link if the assignment role is set to reviewing', () => {
     const newProps = { ...props, assignment: { ...props.assignment, role: 1 } };
-    const component = shallow(<MyArticlesAssignmentLinks {...newProps} />);
+    const component = mount(<MyArticlesAssignmentLinks {...newProps} />);
     expect(component.find('PeerReviewLink').length).toEqual(1);
   });
 
