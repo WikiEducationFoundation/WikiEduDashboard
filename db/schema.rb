@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_172134) do
+ActiveRecord::Schema.define(version: 2020_04_21_180015) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_172134) do
     t.boolean "new_article", default: false
     t.integer "references_count", default: 0
     t.boolean "tracked", default: true
+    t.text "user_ids"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end

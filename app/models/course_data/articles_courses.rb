@@ -27,6 +27,8 @@ class ArticlesCourses < ApplicationRecord
   scope :tracked, -> { where(tracked: true).distinct }
   scope :not_tracked, -> { where(tracked: false).distinct }
 
+  serialize :user_ids, Array # This text field only stores user ids as text
+
   ####################
   # Instance methods #
   ####################
@@ -63,6 +65,7 @@ class ArticlesCourses < ApplicationRecord
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.references_count = revisions.sum(&:references_added)
     self.view_count = views_since_earliest_revision(revisions)
+    self.user_ids = associated_user_ids(revisions)
 
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
@@ -77,6 +80,11 @@ class ArticlesCourses < ApplicationRecord
     return if article.average_views.nil?
     days = (Time.now.utc.to_date - revisions.order('date ASC').first.date.to_date).to_i
     days * article.average_views
+  end
+
+  def associated_user_ids(revisions)
+    return [] if revisions.empty?
+    revisions.map(&:user_id).compact.uniq
   end
 
   #################
