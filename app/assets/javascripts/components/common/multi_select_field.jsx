@@ -21,6 +21,15 @@ const MultiSelectField = createReactClass({
     };
   },
 
+  componentDidUpdate(prevProps) {
+    if (this.props.selected.length !== prevProps.selected.length) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        value: this.props.selected
+      });
+    }
+  },
+
   handleSelectChange(value) {
     this.setState({ value });
     this.props.setSelectedFilters(value || []);
