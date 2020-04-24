@@ -57,7 +57,7 @@ const CourseCreator = createReactClass({
     };
   },
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     // If a campaign slug is provided, fetch the campaign.
     const campaignParam = this.campaignParam();
     if (campaignParam) {
