@@ -23,7 +23,14 @@ class SyllabusUpload extends React.Component {
     const loadingAnimation = <Loading message={false} />;
     const dropzone = (
       <Dropzone onDrop={this.onDrop} multiple={false} className="course-syllabus__uploader">
-        <div>Drag and Drop or <button id="browse_files" className="link-button">Browse Files</button></div>
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            <p>
+              Drag and Drop or <button id="browse_files" className="link-button">Browse Files</button>
+            </p>
+          </div>
+        )}
       </Dropzone>
     );
     return (
