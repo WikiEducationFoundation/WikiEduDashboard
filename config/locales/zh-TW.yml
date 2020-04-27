@@ -320,6 +320,8 @@ zh-TW:
     actions: 操作
     articles: 條目
     articles_none: 此課程沒有編輯任何條目
+    article_viewer: 條目檢視者
+    articles_i_am_reviewing: 我正在同行評審的條目
     assignment_headings:
       assigned_articles: 已分配條目
       assigned_reviews: 已分配審核
@@ -602,6 +604,7 @@ zh-TW:
     add_campaign: 新增競賽
     all_courses: 所有方案
     archived: 存檔的方案
+    articles_i_am_reviewing: 我正在審核的條目
     articles_none: 此專案裡目前無編輯的條目。
     assignment_headings:
       available_reviews: 可供審核

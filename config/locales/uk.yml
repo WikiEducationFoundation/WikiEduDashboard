@@ -89,7 +89,7 @@ uk:
     reading_the_article: Читання статті
     providing_feedback: Надсилання відгуків
     post_to_talk: Додавання коментарів на сторінку обговорення
-    peer_review_completed: Огляд завершено
+    peer_review_completed: Рецензію завершено
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Починаючи роботу, тримайте свій навчальний план під рукою;
@@ -379,6 +379,8 @@ uk:
     actions: Дії
     articles: Статті
     articles_none: Цей курс ще не редагував жодні статті.
+    article_viewer: Оглядач статей
+    articles_i_am_reviewing: Статті, рецензовані мною
     assignment_headings:
       assigned_articles: Задані статті
       assigned_reviews: Призначені рецензії
@@ -750,9 +752,10 @@ uk:
     add_campaign: Додати кампанію
     all_courses: Усі програми
     archived: Архівовані програми
+    articles_i_am_reviewing: Статті, оглянуті мною
     articles_none: У цьому проекті ще немає редагованих статей
     assignment_headings:
-      available_reviews: Доступно для рецензії
+      available_reviews: Доступно для огляду
     assignment_end: Кінець події
     assignments_none: У цьому проекті немає заданих статей.
     assignment_start: Початок події

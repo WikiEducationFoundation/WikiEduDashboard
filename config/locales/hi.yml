@@ -16,6 +16,7 @@
 # Author: Swapnil.Karambelkar
 # Author: Upendradutt93
 # Author: Wassan.anmol
+# Author: गोपाल
 # Author: चक्रपाणी
 # Author: जनक राज भट्ट
 ---
@@ -231,6 +232,7 @@ hi:
     actions: क्रियाएँ
     articles: लेख
     articles_none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
+    article_viewer: लेख जिनकी मेरे सहकर्मी समीक्षा कर रहे हैं
     assignment_end: सौंपा गया कार्य खत्म
     assignments_none: इस पाठ्यक्रम में कोई सौंपा गया लेख नहीं है।
     assignment_start: सौंपा गया कार्य शुरू करें
@@ -306,6 +308,7 @@ hi:
     school_system: शैक्षणिक प्रणाली
     add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम
+    articles_i_am_reviewing: लेख जिनकी मैं समीक्षा कर रहा हूं
     course: प्रोग्राम
     creator:
       assignment_end_placeholder: YYYY-MM-DD

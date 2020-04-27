@@ -144,6 +144,7 @@ br:
     actions: Oberoù
     articles: Pennadoù
     articles_none: Gant ar gentel-mañ n'eus bet kemmet pennad ebet.
+    article_viewer: Lenner pennadoù
     assignment_end: Dibenn deverkañ
     assignments_none: Ar gentel-mañ n'he deus pennad ebet deverket.
     assignment_start: Deroù deverkañ
@@ -246,6 +247,7 @@ br:
       notification_message: Ur sontadeg a c'haller kaout evit ar gentel-mañ
       link: Kemer perzh er sontadeg
   courses_generic:
+    articles_i_am_reviewing: Pennadoù a adlennan
     articles_none: N'eus pennad ebet kemmet evit ar raktres-se.
     assignment_end: Dibenn ar gronologiezh
     assignment_start: Kregiñ ar gronologiezh

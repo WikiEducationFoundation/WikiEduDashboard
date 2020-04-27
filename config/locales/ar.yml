@@ -363,6 +363,8 @@ ar:
     actions: الإجراءات
     articles: المقالات
     articles_none: هذه الدورة لم تحرر أية مقالات.
+    article_viewer: عارض المقالات
+    articles_i_am_reviewing: مقالات أشارك في مراجعتها
     assignment_headings:
       assigned_articles: المقالات المخصصة
       assigned_reviews: المراجعات المخصصة
@@ -707,6 +709,7 @@ ar:
     add_campaign: إضافة حملة
     all_courses: كل البرامج
     archived: البرامج المؤرشفة
+    articles_i_am_reviewing: المقالات التي أراجعها
     articles_none: لا توجد مقالات محررة لهذا المشروع حتى الآن.
     assignment_headings:
       available_reviews: متاحة للمراجعة

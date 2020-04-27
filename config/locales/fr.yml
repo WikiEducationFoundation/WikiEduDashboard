@@ -396,6 +396,8 @@ fr:
     actions: Actions
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
+    article_viewer: Lecteur d’article
+    articles_i_am_reviewing: Articles dont je suis pair relecteur
     assignment_headings:
       assigned_articles: Articles affectés
       assigned_reviews: Relectures affectées
@@ -786,6 +788,7 @@ fr:
     add_campaign: Ajouter une campagne
     all_courses: Tous les programmes
     archived: Programmes archivés
+    articles_i_am_reviewing: Articles dont je suis relecteur
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_headings:
       available_reviews: Disponible pour relecture
