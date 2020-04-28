@@ -6,9 +6,9 @@ import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article
 
 const mediawikiApiBase = (language, project) => {
   if (project === 'wikidata') {
-    return `https://${project}.org/w/api.php?action=query&format=json`;
+    return `https://${project}.org/w/api.php?action=query&format=json&origin=*`;
   }
-  return `https://${language}.${project}.org/w/api.php?action=query&format=json`;
+  return `https://${language}.${project}.org/w/api.php?action=query&format=json&origin=*`;
 };
 
 const oresApiBase = (language, project) => {
