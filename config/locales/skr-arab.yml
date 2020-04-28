@@ -70,6 +70,11 @@ skr-arab:
     view_all: سارے ݙیکھو
     view_on_wiki: وکی تے ݙکھالا
     wiki: وکی
+    articles_short: مقالے
+  articles_wikidata:
+    articles_short: آئٹم
+  articles_generic:
+    articles_short: ورقے
   assignments:
     article_link: مضمون
     clone: کلون
@@ -266,13 +271,14 @@ skr-arab:
   users:
     assign_articles_done: مکمل
     loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
-    contributions: ورتݨ آلے دیاں شراکتاں
+    contributions: ورتݨ آلے دیاں ونڳاراں
     course_passcode: 'پاس کوڈ:'
     editors: ایڈیٹ کرݨ آلے
     edits_by: 'دے ولوں تبدیلی:'
     first_name: پہلا ناں
     last_name: چھیکڑی ناں
     name: ناں
+    profile: پروفائل
     training_module_status: حیثیت
     username: ورتݨ آلا ناں
     username_placeholder: ورتݨ آلا ناں

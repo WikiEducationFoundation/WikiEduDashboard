@@ -11,5 +11,6 @@ json.course do
     json.url article.url
     json.rating_num rating_priority(article.rating)
     json.pretty_rating rating_display(article.rating)
+    json.user_ids ac.user_ids
   end
 end

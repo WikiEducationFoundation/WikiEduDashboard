@@ -22,7 +22,8 @@ content: |
   * The "Underline" item (<span style="text-decoration: underline">U</span>) adds a solid line beneath the selected text.
   * The "Language" item (Aあ) allows you to label the language (for example,
   Japanese) and direction (for example, right-to-left) of the selected text.
-  * The final item, "Clear styling" (&nbsp;   ⃠ ), removes all character formatting from the
+  * The final item, "Clear styling" (<img style="width:13px;" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Prohibition_sign_%28black%29.svg" />), 
+  removes all character formatting from the
   selected text, including links.
 
   If you have not selected any text, then when you click the "<span style="text-decoration: underline">***A***</span>"

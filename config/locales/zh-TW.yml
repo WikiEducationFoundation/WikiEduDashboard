@@ -58,7 +58,8 @@ zh-TW:
     request_account: 申請帳號
     request_account_create: 建立帳號
     search: 提出問題
-    search_results: 結果：「%{search_terms}」
+    search_results:
+      one: '''%{search_terms}'' %{count} 個結果：'
     no_results: 查無「%{query}」的結果
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
@@ -319,6 +320,8 @@ zh-TW:
     actions: 操作
     articles: 條目
     articles_none: 此課程沒有編輯任何條目
+    article_viewer: 條目檢視者
+    articles_i_am_reviewing: 我正在同行評審的條目
     assignment_headings:
       assigned_articles: 已分配條目
       assigned_reviews: 已分配審核
@@ -390,11 +393,11 @@ zh-TW:
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
-      find: 找到您的課程
+      find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
       new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配作業選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
-      no_class_holidays: 我的開課時段沒有遭遇假日
+      no_class_holidays: 我的課程沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_options:
       - 導師
@@ -601,6 +604,7 @@ zh-TW:
     add_campaign: 新增競賽
     all_courses: 所有方案
     archived: 存檔的方案
+    articles_i_am_reviewing: 我正在審核的條目
     articles_none: 此專案裡目前無編輯的條目。
     assignment_headings:
       available_reviews: 可供審核
@@ -697,6 +701,12 @@ zh-TW:
       current_stage: 目前階段
       relevant_links: 相關連結
     assigned_articles: 已分配條目
+    bad_work:
+      learn_more: 如果學生的作業反而讓條目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
+      learn_more_button: 了解更多
+      submit_issue: 此條目重大的問題是什麼？
+      submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
+      thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
     exercises_and_trainings: '%{prefix}練習與訓練'
     no_assignments: 此學生目前沒有分配到條目，您可以透過使用以上按鈕來分配條目給對方。
     overview: '%{prefix}概要'
@@ -940,7 +950,7 @@ zh-TW:
     loading_authorship_data: 載入作者資料中
     authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
-    chars_added: 字數的增加<br> (條目|使用者|草稿)
+    chars_added: 已增加字元<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
     contributions_history_full: 檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
@@ -955,6 +965,7 @@ zh-TW:
     exercise_modules_completed:
       one: '%{completed_count}/%{count}練習完成'
       other: '%{completed_count}/%{count}練習完成'
+    exercises_and_trainings: 練習與訓練
     first_name: 名
     last_name: 姓
     loading: 使用者載入中...
@@ -972,20 +983,25 @@ zh-TW:
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
+    profile: 個人檔案
     recent_revisions: 近期編輯
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
+    requested_account_status:
+      success_message: 成功：%{result_description}
+      failure_message: 失敗：%{result_description}
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     references_doc: 由此編輯者所添加或移除的參考來源數量
     reviewers: 審核者
     reviewing: 審查中
+    revisions: 修訂
     sandboxes: 沙盒
     sub_navigation:
-      article_assignments: 條目分配
+      assignments_and_exercises: 分配與練習
       editor_overview: 編輯者概要
       exercises_and_trainings: 練習與訓練
-      student_overview: 學生概要
+      student_overview: '%{prefix}概要'
     total_uploads: 上傳總數
     training_complete:
       one: 最新培訓
@@ -1000,6 +1016,9 @@ zh-TW:
       other: '%{completed_count}/%{count}培訓模組完成'
     training_module_name: 培訓模組
     training_module_status: 狀態
+    training_module_time:
+      minutes: 分
+      seconds: 秒
     user_training_status: 培訓狀態
     user_no_training_status: 此使用者尚未完成任何培訓模組
     up_to_date_with_training: 最近培訓
@@ -1009,6 +1028,7 @@ zh-TW:
     username_placeholder: 使用者名稱
     useremail_placeholder: 電子郵件
     userpasscode_placeholder: 選課代碼
+    words_added: 已增加詞<br>（條目|使用者|草稿）
     role:
       description: 在課程裡的身份
       visitor: 訪客
@@ -1137,6 +1157,9 @@ zh-TW:
   training_status:
     completed: 已完成
     continue: 繼續
+    completed_at: 完成於
+    completion_time: 完成時間
+    late: 延遲
     view: 檢視
     started: 已開始
     not_started: 尚未開始

@@ -23,9 +23,9 @@ class TrainingModulesUsersController < ApplicationController
   def mark_exercise_complete
     set_training_module
     set_training_module_user
-    mark_completion_status(params[:complete])
-
     block = Block.find(params[:block_id])
+    mark_completion_status(params[:complete], block.course.id)
+
     render 'courses/_block', locals: { block: block, course: block.course }
   end
 
@@ -68,8 +68,8 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.furthest_slide?(@slide.slug)
   end
 
-  def mark_completion_status(value)
-    @training_module_user.mark_completion(value)
+  def mark_completion_status(value, course_id)
+    @training_module_user.mark_completion(value, course_id)
     @training_module_user.save
   end
 end

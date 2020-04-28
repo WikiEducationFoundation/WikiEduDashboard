@@ -196,15 +196,13 @@ describe AssignmentsController, type: :request do
       end
 
       context 'when the article exists' do
-        before do
-          create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
-        end
-
         let(:assignment_params_with_language_and_project) do
           { user_id: user.id, course_slug: course.slug, title: 'pizza',
             role: 0, language: 'es', project: 'wikibooks', format: :json }
         end
+
         before do
+          create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
           create(:article, title: 'Pizza', wiki_id: es_wikibooks.id,
                            namespace: Article::Namespaces::MAINSPACE)
         end
@@ -358,6 +356,32 @@ describe AssignmentsController, type: :request do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
         put "/assignments/#{assignment.id}", params: request_params
         expect(response.status).to eq(500)
+      end
+    end
+  end
+
+  describe 'PATCH #update_status' do
+    let(:assignment) { create(:assignment, course: course, role: 0) }
+    let(:request_params) do
+      { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: status }
+    end
+
+    context 'when a status param is provided' do
+      let(:status) { 'in_progress' }
+
+      it 'renders a 200' do
+        patch "/assignments/#{assignment.id}/status", params: request_params
+        expect(response.status).to eq(200)
+        expect(assignment.reload.status).to eq(status)
+      end
+    end
+
+    context 'when no status param is provided' do
+      let(:status) { nil }
+
+      it 'renders a 422' do
+        patch "/assignments/#{assignment.id}/status", params: request_params
+        expect(response.status).to eq(422)
       end
     end
   end

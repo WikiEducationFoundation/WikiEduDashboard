@@ -5,12 +5,17 @@ class AlertsController < ApplicationController
   before_action :require_admin_permissions, only: [:resolve]
   before_action :set_alert, only: [:resolve]
 
-  # Creates only NeedHelpAlert. Doesn't require admin permission.
+  ALERT_TYPES = {
+    'NeedHelpAlert' => NeedHelpAlert,
+    'BadWorkAlert' => BadWorkAlert
+  }.freeze
+  # Creates alerts based on parameters. Doesn't require admin permission.
   # Other type of alerts are created via the update cycle, not directly by users.
   def create
     ensure_alerts_are_enabled { return }
 
-    @alert = NeedHelpAlert.new(alert_params)
+    alert_type = params[:alert_type]
+    @alert = ALERT_TYPES[alert_type].new(alert_params.except(:alert_type))
     @alert.user = current_user
     # :target_user_id will be nil for the 'dashboard help' option
     set_default_target_user unless alert_params[:target_user_id]
@@ -42,7 +47,7 @@ class AlertsController < ApplicationController
       content: @alert.message,
       details: {
         sender_email: @alert.user.email,
-        subject: 'Need Help Alert'
+        subject: params[:alert_type]
       },
       project_id: @alert.course_id,
       owner_id: @alert.target_user_id,
@@ -63,7 +68,7 @@ class AlertsController < ApplicationController
   end
 
   def alert_params
-    params.permit(:target_user_id, :message, :course_id)
+    params.permit(:alert_type, :article_id, :course_id, :message, :target_user_id)
   end
 
   def set_default_target_user

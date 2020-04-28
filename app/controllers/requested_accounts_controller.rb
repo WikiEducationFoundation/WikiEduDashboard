@@ -25,10 +25,8 @@ class RequestedAccountsController < ApplicationController
       render json: { message: I18n.t('courses.new_account_submitted') }
       return
     end
-    # TODO: render relevant json to be handled on the frontend
-    # { success: 'some message'} or { failure: 'some message' }
     result = create_account(@requested)
-    if result[:success] # TODO: handle both success and failure
+    if result[:success]
       render json: { message: result.values.first }
     else
       render json: { message: result.values.first }, status: :internal_server_error

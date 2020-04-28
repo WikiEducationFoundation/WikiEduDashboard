@@ -73,7 +73,9 @@ fr:
     request_account: Demander un compte
     request_account_create: Créer un compte
     search: poser une question
-    search_results: Résultats pour « %{search_terms} »
+    search_results:
+      one: '%{count} résultat pour : « %{search_terms} »'
+      other: '%count résultats pour : « %{search_terms} »'
     no_results: Aucun résultat trouvé pour « %{query} »
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
@@ -271,7 +273,7 @@ fr:
     select: Sélectionner
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
-      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
+      à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
   blocks:
     milestones:
       title: Jalons
@@ -394,6 +396,8 @@ fr:
     actions: Actions
     articles: Articles
     articles_none: Ce cours n’a modifié aucun article.
+    article_viewer: Lecteur d’article
+    articles_i_am_reviewing: Articles dont je suis pair relecteur
     assignment_headings:
       assigned_articles: Articles affectés
       assigned_reviews: Relectures affectées
@@ -784,6 +788,7 @@ fr:
     add_campaign: Ajouter une campagne
     all_courses: Tous les programmes
     archived: Programmes archivés
+    articles_i_am_reviewing: Articles dont je suis relecteur
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_headings:
       available_reviews: Disponible pour relecture
@@ -902,6 +907,15 @@ fr:
       current_stage: Étape actuelle
       relevant_links: Liens pertinents
     assigned_articles: Articles affectés
+    bad_work:
+      learn_more: Si le travail de l’étudiant rend l’article pire, nous vous encourageons
+        à le modifier vous-même. Sinon, faites-nous savoir les problèmes pour que
+        nous puissions les corriger plus tard.
+      learn_more_button: En savoir plus
+      submit_issue: Quels sont les problèmes significatifs avec cet article ?
+      submit_issue_placeholder: Plus vous pourrez fournir de perspective d’expert
+        et de détails, mieux ce sera.
+      thank_you: Merci ! Contactez votre Expert Wiki si vous avez d'autres questions.
     exercises_and_trainings: '%{prefix} Exercices et formations'
     no_assignments: Aucun article n’est affecté à cet étudiant pour le moment. Vous
       pouvez affecter un article en utilisant les boutons ci-dessus.
@@ -1216,6 +1230,7 @@ fr:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} exercice terminé'
       other: '%{completed_count}/%{count} exercices terminés'
+    exercises_and_trainings: Exercices et entraînements
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
@@ -1233,21 +1248,26 @@ fr:
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    profile: profil
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous sûr de vouloir demander ce compte ?
+    requested_account_status:
+      success_message: 'Succès : %{result_description}'
+      failure_message: 'Echec : %{result_description}'
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
     references_doc: Le nombre de références ajoutées ou retirées par cet éditeur
     reviewers: Relecteur(s)
     reviewing: Relecture
+    revisions: Révisions
     sandboxes: bacs à sable
     sub_navigation:
-      article_assignments: Affectations de l’article
+      assignments_and_exercises: Affectations & Exercices
       editor_overview: Vue d’ensemble de l’éditeur
       exercises_and_trainings: Exercices & Formations
-      student_overview: Vue d’ensemble de l’étudiant
+      student_overview: Vue d’ensemble de %{prefix}
     total_uploads: Nombre total de téléversements
     training_complete:
       one: est à jour avec la formation
@@ -1263,6 +1283,9 @@ fr:
       other: '%{completed_count}/%{count} modules de formation terminés'
     training_module_name: Module de formation
     training_module_status: État
+    training_module_time:
+      minutes: min
+      seconds: sec
     user_training_status: Etat de la formation
     user_no_training_status: Cet utilisateur n’a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
@@ -1272,6 +1295,7 @@ fr:
     username_placeholder: Nom d’utilisateur
     useremail_placeholder: Courriel
     userpasscode_placeholder: Code d’accès
+    words_added: Mots ajoutés<br>(article | utilisateur | brouillon)
     role:
       description: Rôle dans le cours
       visitor: Visiteur
@@ -1443,6 +1467,9 @@ fr:
   training_status:
     completed: Terminé
     continue: Poursuivre
+    completed_at: Terminé à
+    completion_time: Heure de fin
+    late: Dernier
     view: Afficher
     started: Démarré
     not_started: Non démarré

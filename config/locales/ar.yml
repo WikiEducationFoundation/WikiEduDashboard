@@ -11,8 +11,10 @@
 # Author: Meno25
 # Author: Mido
 # Author: Moud hosny
+# Author: NEHAOUA
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
+# Author: Tala Ali
 # Author: Youssef
 # Author: ديفيد
 # Author: عباد ديرانية
@@ -62,7 +64,9 @@ ar:
     request_account: اطلب حسابا
     request_account_create: إنشاء حساب
     search: طرح سؤال
-    search_results: 'نتائج البحث عن: ''%{search_terms}'''
+    search_results:
+      one: '%{count} نتيجة البحث عن: ''%{search_terms}'''
+      other: '%{count} نتائج البحث عن: ''%{search_terms}'''
     no_results: لم يتم العثور على نتائج لـ'%{query}'
     sign_up_extended: إنشاء حساب عبر ويكيبيديا
     sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
@@ -359,6 +363,8 @@ ar:
     actions: الإجراءات
     articles: المقالات
     articles_none: هذه الدورة لم تحرر أية مقالات.
+    article_viewer: عارض المقالات
+    articles_i_am_reviewing: مقالات أشارك في مراجعتها
     assignment_headings:
       assigned_articles: المقالات المخصصة
       assigned_reviews: المراجعات المخصصة
@@ -703,6 +709,7 @@ ar:
     add_campaign: إضافة حملة
     all_courses: كل البرامج
     archived: البرامج المؤرشفة
+    articles_i_am_reviewing: المقالات التي أراجعها
     articles_none: لا توجد مقالات محررة لهذا المشروع حتى الآن.
     assignment_headings:
       available_reviews: متاحة للمراجعة
@@ -814,6 +821,14 @@ ar:
       current_stage: المرحلة الحالية
       relevant_links: الوصلات المتعلقة
     assigned_articles: تعيين مقالات
+    bad_work:
+      learn_more: إذا جعل عمل الطالب المقالة أسوأ، فإننا نشجعك على تحريره بنفسك. وإلا،
+        فأخبرنا بالمشكلات حتى نتمكن من إصلاحها لاحقا.
+      learn_more_button: معرفة المزيد
+      submit_issue: ما هي المشاكل الهامة في هذه المقالة؟
+      submit_issue_placeholder: كلما كان بإمكانك تقديم منظور وتفاصيل أكثر خبرة، كان
+        ذلك أفضل.
+      thank_you: شكرا لك! اتصل بخبير الويكي الخاص بك إذا كانت لديك أسئلة إضافية.
     exercises_and_trainings: مهام وتدريبات %{prefix}
     no_assignments: لم تُسنَد أي مقالات لهذا الطالب حالياً. يمكنك أن تُسنِدَ إليه
       مقالةً من الاختيارات أعلاه.
@@ -1105,6 +1120,7 @@ ar:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} تمرين مكتمل'
       other: '%{completed_count}/%{count} تمرينات مكتملة'
+    exercises_and_trainings: تمارين و تدريبات
     first_name: الاسم الأول
     last_name: الاسم الأخير
     loading: جارٍ تحميل المستخدمين...
@@ -1122,17 +1138,22 @@ ar:
     number_of_articles:
       one: '%{count} مقالة'
       other: '%{count} مقالات'
+    profile: الملف الشخصي
     recent_revisions: تعديلات حديثة
     remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
     request_confirmation: هل تريد بالتأكيد طلب هذا الحساب؟
+    requested_account_status:
+      success_message: نجاح:%{result_description}
+      failure_message: فشل %{result_description}
     revision_characters_and_views: 'حروف مضافة: %{characters}، مشاهدات: %{views}'
     revisions_doc: عدد التعديلات التي أجراها هذا المحرر في السبعة أيام الماضية
     references_doc: عدد المراجع التي تمت إضافتها أو إزالتها بواسطة هذا المحرر
     reviewers: المراجع(ون)
     reviewing: مراجعة
+    revisions: المراجعات
     sandboxes: ملاعب
     sub_navigation:
-      article_assignments: مهام مقالات
+      assignments_and_exercises: المهام و التمارين
       editor_overview: نظرة عامة للمحرر
       exercises_and_trainings: التمارين والتدريبات
       student_overview: نظرة عامة للطالب
@@ -1151,6 +1172,9 @@ ar:
       other: '%{completed_count}/%{count} وحدات تدريب اكتملت'
     training_module_name: وحدة التدريب
     training_module_status: الحالة
+    training_module_time:
+      minutes: دقيقة
+      seconds: ثانية
     user_training_status: حالة التدريب
     user_no_training_status: هذا المستخدم لم يكمل أية وحدات تدريب.
     up_to_date_with_training: التدريب حتى الآن
@@ -1160,6 +1184,7 @@ ar:
     username_placeholder: اسم المستخدم
     useremail_placeholder: البريد الإلكتروني
     userpasscode_placeholder: رمز المرور
+    words_added: الكلمات المضافة<br>(مقالة | مستخدم | مسودة)
     role:
       description: الدور في الدورة
       visitor: زائر
@@ -1319,6 +1344,9 @@ ar:
   training_status:
     completed: مكتمل
     continue: استمرار
+    completed_at: اكتمل في
+    completion_time: وقت الإكمال
+    late: متأخر
     view: عرض
     started: بدأ
     not_started: لم يبدأ

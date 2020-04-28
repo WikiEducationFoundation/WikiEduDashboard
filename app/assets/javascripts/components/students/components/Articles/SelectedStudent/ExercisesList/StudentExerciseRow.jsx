@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StudentExercise from './StudentExercise.jsx';
+import StudentExercise from './StudentExercise/StudentExercise.jsx';
 
 // Helper Functions
 const setRealName = (student) => {
@@ -10,7 +10,7 @@ const setRealName = (student) => {
   student.last_name = nameParts.slice().pop();
 };
 
-export const StudentRow = ({
+export const StudentExerciseRow = ({
   assignments, course, current_user, editAssignments,
   openKey, showRecent, student, wikidataLabels,
   toggleUI
@@ -33,7 +33,7 @@ export const StudentRow = ({
   );
 };
 
-StudentRow.propTypes = {
+StudentExerciseRow.propTypes = {
   assignments: PropTypes.array,
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
@@ -44,4 +44,4 @@ StudentRow.propTypes = {
   wikidataLabels: PropTypes.object
 };
 
-export default StudentRow;
+export default StudentExerciseRow;

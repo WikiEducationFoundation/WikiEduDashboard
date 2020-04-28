@@ -6,7 +6,7 @@ import AlertsHandler from './alerts_handler.jsx';
 import { fetchAdminAlerts } from '../../actions/alert_actions';
 
 class AdminAlerts extends React.Component {
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     // This adds ALL alerts to the state, to be used in AlertsHandler
     this.props.fetchAdminAlerts();
   }

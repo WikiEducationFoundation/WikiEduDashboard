@@ -8,6 +8,7 @@
 # Author: Macofe
 # Author: Medol
 # Author: Toniher
+# Author: Townie
 # Author: Unapersona
 # Author: Unapersoneta
 # Author: Vriullop
@@ -968,6 +969,9 @@ ca:
       dins de les dates se'ls compta com a usuaris que estan al dia amb el seu entrenament.
     training_incomplete: Formació Incompleta
     training_module_status: Estat
+    training_module_time:
+      minutes: min
+      seconds: s
     up_to_date_with_training: esteu al dia amb la formació
     username: Nom d'usuari
     username_placeholder: Nom d'usuari
@@ -1112,6 +1116,7 @@ ca:
     unassign_article_self: Desassigneu l'article
   training_status:
     completed: Completat
+    completion_time: Temps de compleció
     started: Iniciat
     not_started: No s'ha iniciat
     due: per %{due_date}

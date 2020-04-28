@@ -157,6 +157,11 @@ ne:
       आधारमा गणना गरिन्छ। A high score usually indicates that an article follow Wikipedia''s
       conventions for the structure of a good article, but it does not take into account
       the content itself. (यो प्राप्ताङ्कहरू अङ्ग्रेजी विकिपिडियामा मात्र उपलब्ध छ।)'
+    articles_short: लेखहरू
+  articles_wikidata:
+    articles_short: सामग्री
+  articles_generic:
+    articles_short: पृष्ठहरू
   assignments:
     article: '%{title} लेख अब तपाईँलाई निर्दिष्ट गरिएको छ।'
     article_link: लेख
@@ -614,6 +619,10 @@ ne:
     done: सकियो!
     check_answer: उत्तरको जाँच
     included_modules: समावेस मोड्युलहरू
+    kind:
+      exercise: अभ्यास
+      discussion: छलफल
+      training: तालिम
   uploads:
     file_name: फाइल नाम
     header: विकिमिडिया कमन्समा अपलोड गरिएका फाइलहरू
@@ -646,6 +655,8 @@ ne:
     none: कुनै पनि सहभागीहरू छैनन्।
     no_articles: कुनै लेखहरू छैनन्
     recent_revisions: हालका सम्पादनहरू
+    requested_account_status:
+      success_message: सम्पन्न %{result_description}
     reviewers: समीक्षक(हरू)
     reviewing: समीक्षा गर्दै
     sub_navigation:

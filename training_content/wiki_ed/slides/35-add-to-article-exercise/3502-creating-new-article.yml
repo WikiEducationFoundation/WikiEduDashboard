@@ -1,5 +1,6 @@
 title: "If you're creating a new article"
 id: 3502
+button_text: 'Okay'
 content: |
   If you're working on creating a new article, draft 1-2 sentences on your article's 
   sandbox page. You can find this page by going to the My Articles section on your
@@ -15,3 +16,8 @@ content: |
     </figure>
   
   Summarize a statement from one of your sources and cite that statement to your source.
+
+  <p class="training__note">
+  NOTE: Once you've completed this exercise, be sure to click <strong>Mark Complete</strong>
+  from your course page Home tab.
+  </p>

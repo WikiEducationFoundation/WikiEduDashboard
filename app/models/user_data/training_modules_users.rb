@@ -16,25 +16,17 @@ require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
-  has_one :training_module
+  belongs_to :training_module
 
   serialize :flags, Hash
-
-  def training_module
-    @training_module ||= TrainingModule.find(training_module_id)
-  end
 
   def furthest_slide?(slide_slug)
     return true if last_slide_completed.nil?
     training_progress_manager.slide_further_than_previous?(slide_slug, last_slide_completed)
   end
 
-  def mark_completion(value=true)
-    flags[:marked_complete] = value
-  end
-
-  def marked_complete?
-    flags[:marked_complete] || false
+  def mark_completion(value=true, course_id=nil)
+    flags[course_id] = { marked_complete: value }
   end
 
   private

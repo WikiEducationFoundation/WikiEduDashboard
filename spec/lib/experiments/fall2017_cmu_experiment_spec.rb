@@ -34,11 +34,11 @@ describe Fall2017CmuExperiment do
     end
 
     context 'when invitations get no response for a week' do
-      after { Timecop.return }
+      after { travel_back }
 
       it 'sends reminders for courses that have not responded' do
         described_class.process_courses
-        Timecop.travel(8.days.from_now)
+        travel(8.days)
         described_class.process_courses
         reminded_courses = Course.all.select do |c|
           c.flags[Fall2017CmuExperiment::STATUS_KEY] == 'reminder_sent'

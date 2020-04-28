@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 // Components
 import CurrentStatus from './CurrentStatus';
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
-import ArticleViewer from '@components/common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
-export const Assignment = ({ assignment, course, fetchArticleDetails, user }) => {
+export const Assignment = ({ assignment, course, current_user, fetchArticleDetails, user }) => {
   const article = {
     ...assignment,
     course_id: course.id,
@@ -21,6 +21,15 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
     : [user.username];
 
   const showArticleId = Number(location.search.split('showArticle=')[1]);
+  let currentStatus;
+  if (course.type === 'ClassroomProgramCourse') {
+    currentStatus = (
+      <CurrentStatus
+        current={assignment.assignment_status}
+        statuses={assignment.assignment_all_statuses}
+      />
+    );
+  }
   return (
     <tr className="article-row">
       <td className="article-title">{assignment.article_title}</td>
@@ -32,16 +41,14 @@ export const Assignment = ({ assignment, course, fetchArticleDetails, user }) =>
         />
       </td>
       <td className="current-status">
-        <CurrentStatus
-          current={assignment.assignment_status}
-          statuses={assignment.assignment_all_statuses}
-        />
+        {currentStatus}
       </td>
-      <td>
+      <td className="article-actions">
         <ArticleViewer
           article={article}
+          course={course}
+          current_user={current_user}
           fetchArticleDetails={fetchArticleDetails}
-          showPermalink={false}
           users={users}
           showOnMount={showArticleId === article.id}
         />
@@ -59,6 +66,7 @@ Assignment.propTypes = {
   course: PropTypes.shape({
     type: PropTypes.string.isRequired
   }).isRequired,
+  current_user: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };
 

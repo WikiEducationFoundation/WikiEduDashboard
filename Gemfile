@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '6.0.2.1'
+gem 'rails', '6.0.2.2'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -115,7 +115,6 @@ group :development, :test do
   gem 'rubocop-rspec-focused', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
-  gem 'timecop' # Test utility for setting the time
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
 

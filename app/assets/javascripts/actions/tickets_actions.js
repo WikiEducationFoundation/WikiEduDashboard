@@ -9,12 +9,14 @@ import {
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
   TICKET_STATUS_OPEN,
-  UPDATE_TICKET
+  UPDATE_TICKET,
+  MESSAGE_KIND_NOTE_DELETE
 } from '../constants/tickets';
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
 import request from '../utils/request';
+import logErrorMessage from '../utils/log_error_message';
 
 export const notifyOfMessage = body => async (dispatch) => {
   try {
@@ -147,6 +149,39 @@ export const updateTicketOwner = (id, owner_id) => (dispatch) => {
 export const deleteTicket = id => async (dispatch) => {
   await request(`/td/tickets/${id}`, { method: 'DELETE' });
   dispatch({ type: DELETE_TICKET, id });
+};
+
+
+export const deleteNotePromise = (id) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'DELETE',
+      url: `/td/tickets/replies/${id}`,
+      success: function (data) {
+        return res(data);
+      }
+    })
+    .fail((err) => {
+      logErrorMessage(err);
+      return rej(err);
+    });
+  });
+};
+
+export const deleteNote = id => (dispatch) => {
+    deleteNotePromise(id)
+      .then(() => {
+        dispatch({ type: MESSAGE_KIND_NOTE_DELETE, id });
+        dispatch({
+          type: ADD_NOTIFICATION,
+          notification: {
+            message: 'Note Deleted Successfully',
+            type: 'success',
+            closable: true
+          }
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
 export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });

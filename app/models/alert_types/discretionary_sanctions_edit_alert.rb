@@ -38,8 +38,9 @@ class DiscretionarySanctionsEditAlert < Alert
   def resolve_explanation
     <<~EXPLANATION
       Resolve this alert if you want to be alerted again for future edits to
-      the article. The Dashboard will issue a new alert only if there edits to
-      this article that happen after the resolved alert was generated.
+      the article in the same course. The Dashboard will issue a new alert only
+      if there are edits to this article in the same course that happen after the
+      resolved alert was generated.
     EXPLANATION
   end
 end

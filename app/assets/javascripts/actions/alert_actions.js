@@ -9,6 +9,15 @@ import request from '../utils/request';
 // actions to be handled by the store.
 // This is how actions with side effects — such as API calls — are handled in
 // Redux.
+export function submitBadWorkAlert(data) {
+  return function (dispatch) {
+    dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
+    return API.createBadWorkAlert(data)
+      .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
+  };
+}
+
 export function submitNeedHelpAlert(data) {
   return function (dispatch) {
     dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });

@@ -35,12 +35,12 @@ const AssignmentList = createReactClass({
       const article = getFiltered(this.props.articles, { title })[0];
       return (
         <Assignment
+          key={group[0].id}
           assignmentGroup={group}
           article={article || null}
-          wikidataLabel={this.props.wikidataLabels[title]}
           course={this.props.course}
-          key={group[0].id}
           current_user={this.props.current_user}
+          wikidataLabel={this.props.wikidataLabels[title]}
         />
       );
     });

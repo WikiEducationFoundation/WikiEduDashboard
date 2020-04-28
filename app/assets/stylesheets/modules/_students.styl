@@ -4,7 +4,10 @@
 .users-control
   text-align right
 
-.students-exercise
+.students, .students-exercise
+  .completeness
+    display block
+    font-size 0.8rem
   .modules-complete
     color $text
 
@@ -57,21 +60,21 @@
       h4
         margin-bottom 5px
   article.assignments-list
-    font-size 12px
+    .article-title, .current-status, .assignment-links
+      font-size 12px
     aside.header
       display flex
       flex-direction row
       h3
         flex 1
         font-size 18px
-        margin 10px 0
+        margin 10px 0 5px
       .button-actions
         flex 2
         text-align right
     .no-assignments
       font-size 14px
-      padding 30px
-      text-align center
+      padding 30px 30px 0
     h4.assignments-list-title
       margin 30px 0 0
     .current-status span

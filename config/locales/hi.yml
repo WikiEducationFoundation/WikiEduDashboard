@@ -1,8 +1,10 @@
 # Messages for Hindi (हिन्दी)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Abijeet Patro
 # Author: Anamdas
 # Author: Bhatakati aatma
+# Author: Gopalindians
 # Author: Nitin1485
 # Author: Prong$31
 # Author: Rajat11
@@ -14,6 +16,7 @@
 # Author: Swapnil.Karambelkar
 # Author: Upendradutt93
 # Author: Wassan.anmol
+# Author: गोपाल
 # Author: चक्रपाणी
 # Author: जनक राज भट्ट
 ---
@@ -229,6 +232,7 @@ hi:
     actions: क्रियाएँ
     articles: लेख
     articles_none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
+    article_viewer: लेख जिनकी मेरे सहकर्मी समीक्षा कर रहे हैं
     assignment_end: सौंपा गया कार्य खत्म
     assignments_none: इस पाठ्यक्रम में कोई सौंपा गया लेख नहीं है।
     assignment_start: सौंपा गया कार्य शुरू करें
@@ -304,6 +308,7 @@ hi:
     school_system: शैक्षणिक प्रणाली
     add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम
+    articles_i_am_reviewing: लेख जिनकी मैं समीक्षा कर रहा हूं
     course: प्रोग्राम
     creator:
       assignment_end_placeholder: YYYY-MM-DD
@@ -342,6 +347,12 @@ hi:
     loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
     authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
     edits_by: 'संपादनकर्ता:'
+    exercises_and_trainings: व्यायाम और प्रशिक्षण
+    profile: प्रोफ़ाइल
+    revisions: संशोधन
+    sub_navigation:
+      assignments_and_exercises: कार्य और अभ्यास
+      student_overview: '%{prefix} अवलोकन'
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ

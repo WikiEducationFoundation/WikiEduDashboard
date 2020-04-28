@@ -621,6 +621,9 @@ fi:
     edit_description: Muokkaa kuvausta
     edit_details: Muokkaa yksityiskohtia
     edit_template: Muokkaa mallinetta
+  instructor_view:
+    bad_work:
+      learn_more_button: Lisätietoa
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen

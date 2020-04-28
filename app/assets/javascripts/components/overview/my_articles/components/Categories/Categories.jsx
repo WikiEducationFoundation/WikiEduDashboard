@@ -4,6 +4,8 @@ import {
   IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
 } from '~/app/assets/javascripts/constants/assignments';
 
+import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+
 // components
 import List from './List/List.jsx';
 
@@ -34,7 +36,7 @@ export const Categories = ({ assignments, course, current_user, wikidataLabels }
       }
       {
         articles.reviewing.length
-          ? <List {...listProps} assignments={articles.reviewing} title="Articles I'm peer reviewing" />
+          ? <List {...listProps} assignments={articles.reviewing} title={CourseUtils.i18n('articles_i_am_reviewing', course.string_prefix)} />
           : null
       }
     </>

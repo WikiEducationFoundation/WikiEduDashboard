@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import moment from 'moment';
 
 // Components
@@ -23,45 +22,40 @@ const showRecent = (course) => {
 
 export const StudentList = (props) => {
   const {
-    assignments, course, current_user, editAssignments, exerciseView, openKey, sort, students,
-    toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
+    assignments, course, current_user, editAssignments, exerciseView, openKey, selected,
+    sort, toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
   } = props;
 
-  const rows = students.map(student => (
+  const row = (
     <StudentExerciseRow
       assignments={assignments}
       course={course}
       current_user={current_user}
       editAssignments={editAssignments}
-      key={student.id}
+      key={selected.id}
       openKey={openKey}
       showRecent={showRecent(course)}
-      student={student}
+      student={selected}
       toggleUI={toggleUI}
       wikidataLabels={wikidataLabels}
     />
-  ));
+  );
 
-  const drawers = students.map(student => (
+  const drawer = (
     <StudentDrawer
-      student={student}
+      student={selected}
       course={course}
       exerciseView={exerciseView}
-      key={`drawer_${student.id}`}
-      isOpen={openKey === `drawer_${student.id}`}
-      revisions={userRevisions[student.id]}
-      trainingModules={trainingStatus[student.id]}
+      key={`drawer_${selected.id}`}
+      isOpen={openKey === `drawer_${selected.id}`}
+      revisions={userRevisions[selected.id]}
+      trainingModules={trainingStatus[selected.id]}
       wikidataLabels={wikidataLabels}
     />
-  ));
+  );
 
-  const elements = _.flatten(_.zip(rows, drawers));
+  const elements = [row, drawer];
   const keys = {
-    username: {
-      label: I18n.t('users.name'),
-      desktop_only: false,
-      sortable: true,
-    },
     course_exercise_progress_completed_count: {
       label: 'Exercises',
       desktop_only: false,
@@ -78,16 +72,21 @@ export const StudentList = (props) => {
   if (sort.key && keys[sort.key]) keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';
 
   return (
-    <List
-      elements={elements}
-      className="table--expandable table--hoverable"
-      keys={keys}
-      table_key="users"
-      none_message={CourseUtils.i18n('students_none', course.string_prefix)}
-      sortBy={sortUsers}
-      stickyHeader={true}
-      sortable={true}
-    />
+    <div className="list__wrapper">
+      <h4 className="assignments-list-title">
+        {I18n.t('users.exercises_and_trainings')}
+      </h4>
+      <List
+        elements={elements}
+        className="table--expandable table--hoverable"
+        keys={keys}
+        table_key="users"
+        none_message={CourseUtils.i18n('students_none', course.string_prefix)}
+        sortBy={sortUsers}
+        stickyHeader={false}
+        sortable={true}
+      />
+    </div>
   );
 };
 
@@ -110,6 +109,7 @@ StudentList.propTypes = {
     key: PropTypes.string,
     sortKey: PropTypes.string
   }).isRequired,
+  selected: PropTypes.object.isRequired,
   toggleUI: PropTypes.func,
   sortUsers: PropTypes.func,
   wikidataLabels: PropTypes.object,

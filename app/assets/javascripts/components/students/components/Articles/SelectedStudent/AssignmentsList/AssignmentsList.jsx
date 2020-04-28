@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Assignment from './Assignment/Assignment.jsx';
 import List from '@components/common/list.jsx';
 
-export const AssignmentsList = ({ assignments, course, fetchArticleDetails, title, user }) => {
+export const AssignmentsList = ({ assignments, course, current_user, fetchArticleDetails, title, user }) => {
   const options = { desktop_only: false, sortable: false };
   const keys = {
     article_name: {
@@ -17,7 +17,11 @@ export const AssignmentsList = ({ assignments, course, fetchArticleDetails, titl
       ...options
     },
     current_stage: {
-      label: I18n.t('instructor_view.assignments_table.current_stage'),
+      label: course.type === 'ClassroomProgramCourse' ? I18n.t('instructor_view.assignments_table.current_stage') : null,
+      ...options
+    },
+    article_viewer: {
+      label: I18n.t('courses.article_viewer'),
       ...options
     }
   };
@@ -27,6 +31,7 @@ export const AssignmentsList = ({ assignments, course, fetchArticleDetails, titl
       key={assignment.id}
       assignment={assignment}
       course={course}
+      current_user={current_user}
       fetchArticleDetails={fetchArticleDetails}
       user={user}
     />
@@ -54,6 +59,7 @@ AssignmentsList.propTypes = {
   course: PropTypes.shape({
     type: PropTypes.string.isRequired
   }).isRequired,
+  current_user: PropTypes.object.isRequired,
   fetchArticleDetails: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired

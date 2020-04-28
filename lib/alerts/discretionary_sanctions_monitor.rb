@@ -20,8 +20,14 @@ class DiscretionarySanctionsMonitor
   def create_alerts_from_page_titles
     course_articles = ArticlesCourses.joins(:article)
                                      .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+    course_assignments = Assignment.joins(:article)
+                                   .where(articles: { title: @page_titles, wiki_id: @wiki.id })
+                                   .where(course: Course.current)
     course_articles.each do |articles_course|
-      create_alert(articles_course)
+      create_edit_alert(articles_course)
+    end
+    course_assignments.each do |assignments_course|
+      create_assignment_alert(assignments_course)
     end
   end
 
@@ -49,11 +55,11 @@ class DiscretionarySanctionsMonitor
     @page_titles.uniq!
   end
 
-  def create_alert(articles_course)
-    return if unresolved_alert_already_exists?(articles_course)
+  def create_edit_alert(articles_course)
+    return if unresolved_edit_alert_already_exists?(articles_course)
     revisions = articles_course.course.revisions.where(article_id: articles_course.article_id)
     last_revision = revisions.last
-    return if resolved_alert_covers_latest_revision?(articles_course, last_revision)
+    return if resolved_edit_alert_covers_latest_revision?(articles_course, last_revision)
     first_revision = revisions.first
     alert = Alert.create!(type: 'DiscretionarySanctionsEditAlert',
                           article_id: articles_course.article_id,
@@ -63,13 +69,28 @@ class DiscretionarySanctionsMonitor
     alert.email_content_expert
   end
 
-  def unresolved_alert_already_exists?(articles_course)
+  def create_assignment_alert(assignments_course)
+    return if unresolved_assignment_alert_already_exists?(assignments_course)
+    alert = Alert.create!(type: 'DiscretionarySanctionsAssignmentAlert',
+                          article_id: assignments_course.article_id,
+                          user_id: assignments_course.user_id,
+                          course_id: assignments_course.course_id)
+    alert.email_content_expert
+  end
+
+  def unresolved_edit_alert_already_exists?(articles_course)
     DiscretionarySanctionsEditAlert.exists?(article_id: articles_course.article_id,
                                             course_id: articles_course.course_id,
                                             resolved: false)
   end
 
-  def resolved_alert_covers_latest_revision?(articles_course, last_revision)
+  def unresolved_assignment_alert_already_exists?(assignments_course)
+    DiscretionarySanctionsAssignmentAlert.exists?(article_id: assignments_course.article_id,
+                                                  course_id: assignments_course.course_id,
+                                                  resolved: false)
+  end
+
+  def resolved_edit_alert_covers_latest_revision?(articles_course, last_revision)
     return false if last_revision.nil?
     last_resolved = DiscretionarySanctionsEditAlert.where(article_id: articles_course.article_id,
                                                           course_id: articles_course.course_id,

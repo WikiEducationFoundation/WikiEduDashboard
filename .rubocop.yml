@@ -6,6 +6,7 @@ require:
 Style/Documentation:
   Enabled: false
 AllCops:
+  NewCops: enable
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
@@ -27,6 +28,7 @@ Layout/LineLength:
 Metrics/ClassLength:
   Max: 127 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
+    - 'app/models/alert.rb'
     - 'app/models/course.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
@@ -56,17 +58,6 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
-
-
-########################
-# Recently-added rules #
-########################
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
 
 ########################
 # Permanent exceptions #
@@ -100,8 +91,6 @@ Naming/MethodParameterName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
 Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
-Layout/TrailingWhitespace: # To disallow trailing whitespaces
-  Enabled: true
 Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
   
@@ -117,8 +106,6 @@ Rails/FilePath:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
-Rails/OutputSafety:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
@@ -126,8 +113,6 @@ Style/GuardClause:
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:
-  Enabled: false
-Rails/UnknownEnv:
   Enabled: false
 Rails/Delegate:
   Enabled: false
@@ -143,12 +128,6 @@ Rails/RakeEnvironment:
   Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
-Rails/ActiveRecordAliases:
-  Enabled: false
-Style/ExpandPathArguments:
-  Enabled: false
-Layout/ClosingHeredocIndentation:
-  Enabled: false # buggy in 0.57.2: https://github.com/rubocop-hq/rubocop/issues/6009
 RSpec/InstanceVariable:
   Enabled: false
 RSpec/ExampleLength:
@@ -159,13 +138,9 @@ RSpec/ContextWording:
   Enabled: false
 RSpec/NestedGroups:
   Enabled: false
-RSpec/VerifiedDoubles:
-  Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
 RSpec/BeforeAfterAll:
-  Enabled: false
-RSpec/EmptyExampleGroup:
   Enabled: false
 RSpec/ScatteredLet:
   Enabled: false
@@ -173,23 +148,15 @@ RSpec/LetSetup:
   Enabled: false
 RSpec/AnyInstance:
   Enabled: false
-RSpec/RepeatedDescription:
-  Enabled: false
 RSpec/MessageSpies:
-  Enabled: false
-Capybara/CurrentPathExpectation:
   Enabled: false
 RSpec/DescribeClass:
   Enabled: false
 RSpec/ExpectInHook:
   Enabled: false
-RSpec/ScatteredSetup:
-  Enabled: false
 RSpec/MultipleDescribes:
   Enabled: false
 RSpec/ExampleWording:
-  Enabled: false
-RSpec/Be:
   Enabled: false
 Style/DateTime:
   Enabled: false

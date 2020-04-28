@@ -4,6 +4,7 @@
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
 # Author: Codynguyen1116
@@ -61,7 +62,9 @@ es:
     request_account: Solicitar una cuenta
     request_account_create: Crear una cuenta
     search: preguntar
-    search_results: 'Resultados de: «%{search_terms}»'
+    search_results:
+      one: '%{count} resultado para «%{search_terms}»'
+      other: '%{count} resultados para «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
     sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -632,6 +635,9 @@ es:
     edit_description: Editar descripción
     edit_details: Editar detalles
     edit_template: Editar plantilla
+  instructor_view:
+    bad_work:
+      learn_more_button: Más información
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -846,6 +852,7 @@ es:
     enroll_confirmation: ¿Confirmas que quieres añadir a %{username}?
     enroll_url: 'Los usuarios pueden unirse visitando este URL:'
     enrolled_success: ¡%{username} añadido con éxito!
+    exercises_and_trainings: Ejercicios y capacitaciones
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
@@ -863,15 +870,22 @@ es:
     number_of_articles:
       one: '%{count} artículo'
       other: '%{count} artículos'
+    profile: perfil
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
+    requested_account_status:
+      success_message: 'Éxito: %{result_description}'
+      failure_message: 'Fallo: %{result_description}'
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
     references_doc: El número de referencias añadidas o eliminadas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
+    revisions: Revisiones
+    sub_navigation:
+      assignments_and_exercises: Deberes y ejercicios
     training_complete:
       one: está al día con la capacitación
       other: están al día con la capacitación
@@ -886,6 +900,9 @@ es:
       other: '%{completed_count}/%{count} módulos de capacitación completados'
     training_module_name: Módulo de capacitación
     training_module_status: Estado
+    training_module_time:
+      minutes: min
+      seconds: s
     up_to_date_with_training: al día con la capacitación
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
@@ -1033,6 +1050,7 @@ es:
     submit: Enviar
   training_status:
     continue: Continuar
+    completion_time: Tiempo de compleción
     view: Ver
   multi_wiki:
     selector_placeholder: Seleccionar wiki

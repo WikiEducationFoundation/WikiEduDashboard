@@ -411,6 +411,8 @@ ko:
     assignments_table:
       article_name: 문서 이름
       relevant_links: 관련 링크
+    bad_work:
+      learn_more_button: 더 알아보기
     overview: '%{prefix} 개요'
     select_student:
       title: '%{prefix} 선택'
@@ -583,14 +585,20 @@ ko:
     recent_revisions: 최근 편집
     remove_confirmation: '%{username}님을 제거하겠습니까?'
     request_confirmation: 이 계정을 요청하시겠습니까?
+    requested_account_status:
+      success_message: '성공: %{result_description}'
+      failure_message: '실패: %{result_description}'
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     reviewing: 검토 중
     sub_navigation:
       editor_overview: 편집자 개요
-      student_overview: 학생 개요
+      student_overview: '%{prefix}  개요'
     total_uploads: 총 업로드
     training_module_status: 상태
+    training_module_time:
+      minutes: 분
+      seconds: 초
     uploads_doc: 위키미디어 공용에 올린 파일 수
     username: 사용자 이름
     username_placeholder: 사용자 이름
@@ -686,6 +694,7 @@ ko:
   training_status:
     completed: 완료
     continue: 계속
+    completion_time: 완료 시간
     view: 보기
     started: 시작됨
     not_started: 시작되지 않음

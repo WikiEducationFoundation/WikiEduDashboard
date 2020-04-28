@@ -66,3 +66,10 @@ export const groupByAssignmentType = (assignments, user_id) => {
   const reviewable = _.uniqBy(reviewableDuplicates, 'article_url');
   return { assigned, reviewing, unassigned, reviewable };
 };
+
+export const getModulesAndBlocksFromWeeks = (weeks) => {
+  const flattenAndCompact = _.flow([_.flatten, _.compact]);
+  const blocks = _.flatten(weeks.map(week => week.blocks));
+  const modules = flattenAndCompact(blocks.map(block => block.training_modules));
+  return { blocks, modules };
+};

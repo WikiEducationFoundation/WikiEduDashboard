@@ -1,5 +1,6 @@
 title: "Discuss your list of potential articles"
 id: 3704
+button_text: 'Okay'
 content: |
   Discuss your choices with your instructor. Make sure your selections are
   clearly marked on [this page](/redirect/sandbox/Choose_an_Article?veaction=edit&preload=Template:Dashboard.wikiedu.org_choose_article)
@@ -14,3 +15,8 @@ content: |
   to reference easily when you start writing. Once you've assigned yourself the article, your bibliography
   can be found by going to the **My Articles** section and clicking on the **Bibliography** link underneath
   the article you are working on.
+
+  <p class="training__note">
+  NOTE: Once you've completed this exercise, be sure to click <strong>Mark Complete</strong>
+  from your course page Home tab.
+  </p>

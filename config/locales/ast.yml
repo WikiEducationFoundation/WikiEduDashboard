@@ -48,7 +48,9 @@ ast:
     request_account: Solicita una cuenta
     request_account_create: Crear una cuenta
     search: facer una entruga
-    search_results: 'Resultancies de: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Resultancia de: ''%{search_terms}'''
+      other: '%{count} Resultancies de: ''%{search_terms}'''
     no_results: Nun s’alcontró nengún resultáu pa «%{query}»
     sign_up_extended: Rexístrate con Wikipedia
     sign_up_wikipedia: O rexístrate'n Wikipedia
@@ -65,7 +67,13 @@ ast:
     opt_no: non
   article_statuses:
     not_yet_started: Primeros pasos
+    in_progress: Trabayando nel espaciu de pruebes
     ready_for_review: Espander borrador
+    ready_for_mainspace: Moviendo'l trabayu al Espaciu principal
+    reading_the_article: Lleyendo artículu
+    providing_feedback: Faciendo comentarios
+    post_to_talk: Espublizando na Páxina d'alderique
+    peer_review_completed: Revisión completada
   dashboard:
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
     create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
@@ -100,12 +108,16 @@ ast:
     sign_up_help: Pa usar el tableru de control, vas tener qu'aniciar sesión en Wikipiedia
       y da-y permisu p'aportar a la to cuenta. Puedes aniciar sesión con una cuenta
       de Wikipedia esistiente o crear una nueva.
+  alerts:
+    alert_label: Alertes
+    no_alerts: Nun s'alcontró nenguna alerta.
   activity:
     all: Actividá
     edited_by: Editáu por
     label: Actividá
   articles:
     article_development: (desendolcu d'artículu)
+    articles_shown: Amuésense %{count} de %{total}
     assigned: Artículos axudicaos
     available: Artículos disponibles
     no_available: Nun hai nengún artículu disponible
@@ -128,6 +140,9 @@ ast:
       new: Nuevos
       existing: Esistentes
       new_and_existing: Nuevos y esistentes
+      tracked: Siguío
+      untracked: Ensin siguir
+      tracked_and_untracked: Siguíos y Ensin siguir
     hide: Anubrir
     history: (historial)
     label: Artículos
@@ -162,6 +177,7 @@ ast:
     show_current_version_with_authorship_highlighting: Versión actual con Resaltáu
       d'autor
     title: Títulu
+    tracked: Siguío
     title_example: Títulu del artículu
     tools: Ferramientes d'evaluación
     view: Ver artículu
@@ -183,6 +199,11 @@ ast:
       artículu sigue les convenciones de Wikipedia sobre la estructura d'un bon artículu,
       pero nun toma en cuenta'l propiu conteníu. (Estes resultancies namái tán disponibles
       pa los artículos de la Wikipedia n'inglés.)
+    articles_short: Artículos
+  articles_wikidata:
+    articles_short: Elementos
+  articles_generic:
+    articles_short: Páxines
   assignments:
     article: Asignósete l'artículu %{title}.
     article_link: Artículu
@@ -201,11 +222,13 @@ ast:
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
     confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación d'artículu?
     editors: Axudicáu a
+    group_members: Miembros del grupu
     label: Asinar
     loading: Cargando xeres...
     none_short: Nun hai artículos asinaos
     none: Esti cursu nun tien artículos asinaos.
     no_available: Esti cursu nun tien artículos disponibles.
+    peer_review_count: '%{currentCount}/%{total} seleicionaos'
     peer_review_link: Revisión per pares
     peer_review_link_personalized: Revisión per pares de %{username}
     remove: Desaniciar
@@ -351,6 +374,8 @@ ast:
       course_term: Periodu del cursu
       course_term_placeholder: Periodu
       course_title: Títulu del cursu
+      course_types:
+        edit_a_thon_name: Editatón
       create_button: ¡Crear el mio cursu!
       create_label: Crear un cursu nuevu
       create_new: Crear un cursu nuevu
@@ -365,6 +390,9 @@ ast:
         to xera en Wikipedia.
       no_class_holidays: Nun tengo vacaciones de clases
       role_description: La to función nel cursu
+      role_description_options:
+      - Monitor
+      - Asistente d'enseñanza
       role_description_placeholder: Monitor, ayudante d'enseñu, etc.
       save_cloned_course: Guardar cursu nuevu
       start_date: Data d'entamu
@@ -454,11 +482,13 @@ ast:
     passcode: Códigu d'accesu
     passcode_none: Sin códigu d'accesu
     passcode_prompt: 'Escribe''l códigu d''accesu pa xunite:'
+    please_log_in: Anicia sesión.
     private: Priváu
     published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
       la siguiente URL:'
     rating_feedback: 'La puntuación prevista pal artículu ye:'
     requested_accounts: Cuentes solicitaes
+    requested_accounts_alert_view: Ver
     review_timeline: 'Agora, revisa''l cronograma de trabayu, y personalízalu según
       necesites. En tando satisfechu col cronograma, puedes unvialu pa que lu apruebe''l
       personal de Wiki Education. Cuando s''apruebe, recibirás una URL d''inscripción
@@ -468,8 +498,10 @@ ast:
     revisions_none: Esti cursu nun tien actividá editorial en Wikipedia recien.
     school: Escuela
     school_and_term: Institución/Periodu
+    search_courses: Busca cursos
     start: Principiu
     start_typing: Empieza a escribir
+    student: Alumnu
     students: Estudiantes
     students_count: '# d''estudiantes'
     student_editors: Estudiantes editores
@@ -486,6 +518,7 @@ ast:
     course_details: Detalles del cursu
     subject: Asuntu
     submitted: Unviáu
+    tags: 'Etiquetes:'
     term: Periodu
     timeline: Detalles de la xera
     timeline_link: Cronograma

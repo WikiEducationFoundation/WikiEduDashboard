@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getStudentUsers } from '~/app/assets/javascripts/selectors';
 import { generatePath } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
@@ -14,6 +13,15 @@ import NoSelectedStudent from '@components/students/components/Articles/NoSelect
 
 // Actions
 import { fetchArticleDetails } from '~/app/assets/javascripts/actions/article_actions.js';
+import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
+import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
+import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actions';
+import { toggleUI } from '~/app/assets/javascripts/actions';
+
+// Utils
+import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
+import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
+import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -38,16 +46,22 @@ export class Articles extends React.Component {
 
   render() {
     const {
-      assignments, course, current_user, prefix, students, wikidataLabels,
-      notify, sortSelect
+      articles, assignments, course, current_user, prefix, students, wikidataLabels,
+      notify, sortSelect, openKey, sort, trainingStatus, sortUsers, weeks,
+      userRevisions
     } = this.props;
 
+    const { modules } = getModulesAndBlocksFromWeeks(weeks);
+    const hasExercisesOrTrainings = !!modules.length;
+
+    const groupedArticles = groupArticlesCoursesByUserId(articles);
     if (!students.length) return null;
     return (
       <>
         <StudentsSubNavigation
           course={course}
-          heading={I18n.t('instructor_view.exercises_and_trainings', { prefix })}
+          heading={I18n.t('instructor_view.article_assignments', { prefix })}
+          prefix={prefix}
         />
         {
           current_user.isAdvancedRole
@@ -91,9 +105,19 @@ export class Articles extends React.Component {
                         course={course}
                         current_user={current_user}
                         fetchArticleDetails={this.props.fetchArticleDetails}
+                        fetchUserRevisions={this.props.fetchUserRevisions}
+                        groupedArticles={groupedArticles}
+                        hasExercisesOrTrainings={hasExercisesOrTrainings}
+                        openKey={openKey}
                         selected={selected}
-                        selectStudent={this.selectStudent}
+                        setUploadFilters={setUploadFilters}
+                        sort={sort}
+                        sortUsers={sortUsers}
+                        students={students}
+                        toggleUI={this.props.toggleUI}
+                        trainingStatus={trainingStatus}
                         wikidataLabels={wikidataLabels}
+                        userRevisions={userRevisions}
                       />
                     );
                   }}
@@ -113,20 +137,37 @@ export class Articles extends React.Component {
 }
 
 Articles.propTypes = {
+  articles: PropTypes.array.isRequired,
   assignments: PropTypes.array.isRequired,
+  course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
+  openKey: PropTypes.string,
+  prefix: PropTypes.string.isRequired,
   students: PropTypes.array.isRequired,
-  wikidataLabels: PropTypes.object
+  wikidataLabels: PropTypes.object,
+
+  sort: PropTypes.object.isRequired,
+  sortSelect: PropTypes.func.isRequired,
+  sortUsers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  students: getStudentUsers(state),
   assignments: state.assignments.assignments,
-  wikidataLabels: state.wikidataLabels.labels
+  openKey: state.ui.openKey,
+  sort: state.users.sort,
+  students: getStudentUsers(state),
+  trainingStatus: state.trainingStatus,
+  weeks: getWeeksArray(state),
+  wikidataLabels: state.wikidataLabels.labels,
+  userRevisions: state.userRevisions
 });
 
 const mapDispatchToProps = {
-  fetchArticleDetails
+  fetchArticleDetails,
+  fetchTrainingModuleExercisesByUser,
+  fetchUserRevisions,
+  setUploadFilters,
+  toggleUI
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);

@@ -18,7 +18,7 @@ RSpec.describe AssignmentSuggestion, type: :model do
   let!(:assignment_suggestion) { create(:assignment_suggestion, assignment: assignment) }
 
   it 'is destroyed when its Assignment is destroyed' do
-    expect(assignment_suggestion).to be
+    expect(assignment_suggestion).not_to be_nil
     assignment.destroy
     expect(described_class.exists?(assignment_suggestion.id)).to eq(false)
   end

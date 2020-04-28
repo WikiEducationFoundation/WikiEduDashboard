@@ -6,7 +6,8 @@ import {
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
   SORT_TICKETS,
-  UPDATE_TICKET
+  UPDATE_TICKET,
+  MESSAGE_KIND_NOTE_DELETE
 } from '../constants/tickets';
 import { sortByKey } from '../utils/model_utils';
 
@@ -52,6 +53,15 @@ const removeTicket = (tickets, id) => {
   ];
 };
 
+const removeNote = (notes, id) => {
+  const note = notes.find(item => item.id === id);
+  const index = notes.indexOf(note);
+  return [
+    ...notes.slice(0, index),
+    ...notes.slice(index + 1)
+  ];
+};
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case DELETE_TICKET: {
@@ -60,6 +70,14 @@ export default function (state = initialState, action) {
         ...state,
         all,
         loading: false
+      };
+    }
+    case MESSAGE_KIND_NOTE_DELETE: {
+      const all = removeNote(state.selected.messages, action.id);
+      state.selected.messages = all;
+      return {
+        ...state,
+        all
       };
     }
     case FETCH_TICKETS:

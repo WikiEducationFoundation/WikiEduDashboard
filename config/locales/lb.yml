@@ -364,6 +364,8 @@ lb:
       article_name: Numm vum Artikel
       current_stage: Aktuelle Stand
       relevant_links: Relevant Linken
+    bad_work:
+      learn_more_button: Fir méi ze wëssen
     overview: Iwwersiicht %{prefix}
     reviewing_articles: Artikelen nokucken
     select_student:
@@ -508,19 +510,24 @@ lb:
     number_of_articles:
       one: Een Artikel
       other: '%{count} Artikelen'
+    profile: Profil
     recent_revisions: Rezent Ännerungen
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
+    revisions: Versiounen
     sandboxes: Sandkëschten
     sub_navigation:
       exercises_and_trainings: Exercicen & Formatiounen
-      student_overview: Iwwersiicht vum Student
+      student_overview: Iwwersiicht %{prefix}
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
     training_incomplete: Formatioun net komplett
     training_module_name: Formatiounsmodul
     training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Sek
     username: Benotzernumm
     username_placeholder: Benotzernumm
     useremail_placeholder: E-Mail
@@ -551,7 +558,7 @@ lb:
   error:
     form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: '%{key} Datum ass net valabel'
-    invalid_file_format: De Fichier konnt net gespäichert ginn. Lued wgl. e PDF oder
+    invalid_file_format: De Fichier konnt net gespäichert ginn. Luet wgl. e PDF oder
       e Word-Dokument erop.
     start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien
     unsupported_browser:
@@ -599,6 +606,8 @@ lb:
   training_status:
     completed: Fäerdeg
     continue: Virufueren
+    completed_at: Fäerdeg ëm
+    late: Spéit
     view: Weisen
     started: Ugefaangen
     not_started: Net ugefaangen

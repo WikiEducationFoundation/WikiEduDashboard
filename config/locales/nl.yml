@@ -16,6 +16,7 @@
 # Author: Ndecouck
 # Author: Optilete
 # Author: Patio
+# Author: PonkoSasuke
 # Author: RadioAzureus
 # Author: Ragesoss
 # Author: Romaine
@@ -559,15 +560,21 @@ nl:
     contributions: Gebruikersbijdragen
     contributions_more: Meer bijdragen bekijken
     editors: Studentbewerkers
+    exercises_and_trainings: Oefeningen & Opleidingen
     loading: Bezig met het laden van gebruikers...
     my_assigned: 'Toegewezen:'
     name: Naam
     none: Er zijn geen deelnemers.
+    profile: profiel
     recent_revisions: Recente bewerkingen
     revisions_doc: Het aantal bewerkingen dat is gemaakt door deze redacteur in de
       afgelopen 7 dagen
     reviewers: Controleur(s)
     reviewing: Wordt gecontroleerd
+    revisions: Versies
+    sub_navigation:
+      assignments_and_exercises: Opdrachten & Oefeningen
+      student_overview: '%{prefix}  Overzicht'
     training_complete:
       one: is up-to-date met de training
       other: zijn up-to-date met de training
@@ -674,6 +681,7 @@ nl:
   training_status:
     completed: Voltooid
     continue: Doorgaan
+    late: Laat
     view: Weergeven
     started: Begonnen
     not_started: Niet begonnen

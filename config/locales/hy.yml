@@ -158,6 +158,9 @@ hy:
     term: Երբ
     uploads_none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել
       Վիքիպահեստ։
+  instructor_view:
+    bad_work:
+      learn_more_button: Իմանալ ավելին
   metrics:
     activity: Վերջին փոփոխություններ
     articles_created: Ստեղծված հոդվածներ
@@ -206,6 +209,8 @@ hy:
     revisions_doc: Այս մասնակցի կատարած խմբագրումները վերջին 7 օրերին
     reviewers: Վերանայող(ներ)
     reviewing: Վերանայում
+    training_module_time:
+      seconds: Վրկ
   wizard:
     assignment_dates: Հանձնարարության ժամկետներ
     assignment_type: Հանձնարարության տեսակ

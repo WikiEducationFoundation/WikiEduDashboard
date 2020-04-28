@@ -1,31 +1,31 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import '../../../../../../../../../testHelper';
 
-import Links from '@components/overview/my_articles/components/Categories/List/Assignment/Header/Links.jsx';
+import MyArticlesAssignmentLinks from '@components/overview/my_articles/components/Categories/List/Assignment/Header/MyArticlesAssignmentLinks.jsx';
 
-describe('Links', () => {
+describe('MyArticlesAssignmentLinks', () => {
   const props = {
     articleTitle: 'title',
-    assignment: { id: 1, article_url: 'url' },
+    assignment: { id: 1, article_url: 'url', role: 0 },
     courseType: 'ClassroomProgramCourse',
-    current_user: { id: 99 }
+    current_user: { id: 99, username: 'user' }
   };
 
   it('should show the default links', () => {
-    const component = shallow(<Links {...props} />);
+    const component = shallow(<MyArticlesAssignmentLinks {...props} />);
     expect(component).toMatchSnapshot();
   });
 
   it('should not show the bibliography link if the course type is anything but ClassroomProgramCourse', () => {
-    const component = shallow(<Links {...props} courseType="Editathon" />);
+    const component = mount(<MyArticlesAssignmentLinks {...props} courseType="Editathon" />);
     expect(component).toMatchSnapshot();
     expect(component.find('BibliographyLink').length).toBeUndefined;
   });
 
   it('should show the peer review link if the assignment role is set to reviewing', () => {
     const newProps = { ...props, assignment: { ...props.assignment, role: 1 } };
-    const component = shallow(<Links {...newProps} />);
+    const component = mount(<MyArticlesAssignmentLinks {...newProps} />);
     expect(component.find('PeerReviewLink').length).toEqual(1);
   });
 
@@ -35,8 +35,8 @@ describe('Links', () => {
       editors: ['editor'],
       reviewers: ['reviewer']
     };
-    const component = shallow(<Links {...props} assignment={assignment} />);
+    const component = mount(<MyArticlesAssignmentLinks {...props} assignment={assignment} />);
     expect(component.find('GroupMembersLink').length).toEqual(1);
-    expect(component.find('ReviewerLink').length).toEqual(1);
+    expect(component.find('AllPeerReviewLinks').length).toEqual(1);
   });
 });

@@ -22,7 +22,7 @@ describe TrainingModuleDueDateManager do
            user_id: user&.id,
            completed_at: completed_at)
   end
-  let(:due_date) { t_start + 1. week }
+  let(:due_date) { t_start + 1.week }
   let(:week)     { create(:week, course_id: course.id, order: 1) }
   let!(:block) do
     create(:block, week_id: week.id, training_module_ids: ids, due_date: due_date)
@@ -88,9 +88,9 @@ describe TrainingModuleDueDateManager do
                      .overdue?
     end
 
-    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all)  { Timecop.return }
+    after(:all) { travel_back }
 
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
@@ -144,9 +144,9 @@ describe TrainingModuleDueDateManager do
                      .deadline_status
     end
 
-    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all)  { Timecop.return }
+    after(:all) { travel_back }
 
     let(:completed_at) { 1.day.ago }
 
@@ -191,9 +191,9 @@ describe TrainingModuleDueDateManager do
                      .overall_due_date
     end
 
-    before(:all) { Timecop.travel(Date.new(2015, 8, 25)) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all)  { Timecop.return }
+    after(:all) { travel_back }
 
     let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 

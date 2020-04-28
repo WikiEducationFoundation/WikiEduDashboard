@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
-import ArticleViewer from '../common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
 import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from '../../constants';
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
@@ -154,8 +154,10 @@ const ArticleFinderRow = createReactClass({
 
     const articleViewer = (
       <ArticleViewer
-        title={this.props.article.title}
         article={article}
+        course={this.props.course}
+        current_user={this.props.current_user}
+        title={this.props.article.title}
         showArticleFinder={true}
         showPermalink={false}
       />

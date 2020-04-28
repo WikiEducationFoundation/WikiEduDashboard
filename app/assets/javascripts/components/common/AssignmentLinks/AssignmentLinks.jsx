@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import BibliographyLink from './BibliographyLink';
+import EditorLink from './EditorLink';
 import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
@@ -21,23 +22,25 @@ const interleaveSeparators = (acc, link, index, collection) => {
 };
 
 const AssignmentLinks = ({ assignment, courseType, user }) => {
-  const { article_url, id, role } = assignment;
+  const { article_url, id, role, editors } = assignment;
   const actions = [];
 
-  if (courseType === 'ClassroomProgramCourse') {
+  if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
     actions.push(
-      <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
+      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
     );
   }
 
-  actions.push(
-    <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
-  );
-
-  if (role === REVIEWING_ROLE) {
-    actions.push(
-      <PeerReviewLink key={`review-${id}`} assignment={assignment} user={user} />
+  if (courseType === 'ClassroomProgramCourse') {
+    actions.unshift(
+      <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
     );
+
+    if (role === REVIEWING_ROLE) {
+      actions.push(
+        <PeerReviewLink key={`review-${id}`} assignment={assignment} user={user} />
+      );
+    }
   }
 
   const article = (
@@ -45,8 +48,12 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   );
 
   let groupMembers;
-  if (assignment.editors && role === ASSIGNED_ROLE) {
-    groupMembers = <GroupMembersLink members={assignment.editors} />;
+  if (editors) {
+    if (role === ASSIGNED_ROLE) {
+      groupMembers = <GroupMembersLink members={editors} />;
+    } else {
+      groupMembers = <EditorLink key={`editor-${id}`} editors={editors} />;
+    }
   }
 
   let reviewers;
@@ -58,15 +65,15 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   const links = actions.concat(article).reduce(interleaveSeparators, []);
 
   return (
-    <>
-      <p className="assignment-links">{ links }</p>
+    <section className="editors">
+      <p className="assignment-links mb0">{ links }</p>
       {
-        groupMembers && <p className="assignment-links editors">{groupMembers}</p>
+        groupMembers && <p className="assignment-links mb0 editors">{groupMembers}</p>
       }
       {
-        reviewers && <p className="assignment-links reviewers">{ reviewers }</p>
+        reviewers && <p className="assignment-links mb0 reviewers">{ reviewers }</p>
       }
-    </>
+    </section>
   );
 };
 

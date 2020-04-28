@@ -61,7 +61,11 @@ uk:
     request_account: Подати запит на обліковий запис
     request_account_create: Створити обліковий запис
     search: поставити запитання
-    search_results: 'Результати для: «%{search_terms}»'
+    search_results:
+      one: '%{count} результат для: «%{search_terms}»'
+      few: '%{count} результати для: «%{search_terms}»'
+      many: '%{count} результатів для: «%{search_terms}»'
+      other: '%{count} результатів для: «%{search_terms}»'
     no_results: Не знайдено результатів, що відповідають '%{query}'
     sign_up_extended: Зареєструватися через Вікіпедію
     sign_up_wikipedia: або зареєструватися у Вікіпедії
@@ -85,7 +89,7 @@ uk:
     reading_the_article: Читання статті
     providing_feedback: Надсилання відгуків
     post_to_talk: Додавання коментарів на сторінку обговорення
-    peer_review_completed: Огляд завершено
+    peer_review_completed: Рецензію завершено
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Починаючи роботу, тримайте свій навчальний план під рукою;
@@ -240,9 +244,9 @@ uk:
     none: Цей курс не має заданих статей.
     no_available: Цей курс не має доступних статей.
     peer_review_count: '%{currentCount}/%{total} вибрано'
-    peer_review_count_tooltip: Ви маєте обрати %{total} статей для перевірки колегами.
+    peer_review_count_tooltip: Ви маєте обрати %{total} статей для рецензії.
     peer_review_link: Перевірка колегами
-    peer_review_link_personalized: Експертна оцінка від %{username}
+    peer_review_link_personalized: Рецензія від %{username}
     remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити рецензію
@@ -375,6 +379,8 @@ uk:
     actions: Дії
     articles: Статті
     articles_none: Цей курс ще не редагував жодні статті.
+    article_viewer: Оглядач статей
+    articles_i_am_reviewing: Статті, рецензовані мною
     assignment_headings:
       assigned_articles: Задані статті
       assigned_reviews: Призначені рецензії
@@ -746,9 +752,10 @@ uk:
     add_campaign: Додати кампанію
     all_courses: Усі програми
     archived: Архівовані програми
+    articles_i_am_reviewing: Статті, оглянуті мною
     articles_none: У цьому проекті ще немає редагованих статей
     assignment_headings:
-      available_reviews: Доступно для рецензії
+      available_reviews: Доступно для огляду
     assignment_end: Кінець події
     assignments_none: У цьому проекті немає заданих статей.
     assignment_start: Початок події
@@ -859,6 +866,16 @@ uk:
       current_stage: Поточний стан
       relevant_links: Релевантні посилання
     assigned_articles: Призначені статті
+    bad_work:
+      learn_more: Якщо студент погіршив статтю, рекомендуємо вам відредагувати її
+        самостійно. В іншому разі просимо повідомити нам про проблеми, щоб ми могли
+        їх вирішити пізніше.
+      learn_more_button: Дізнатися більше
+      submit_issue: Які суттєві проблеми має ця стаття?
+      submit_issue_placeholder: Чим більше експертних точок зору та подробиць ви можете
+        надати, тим краще.
+      thank_you: Дякуємо! Зв'яжіться із вашим експертом по вікі, якщо у вас є додаткові
+        запитання.
     exercises_and_trainings: '%{prefix} вправи й тренінги'
     no_assignments: Цей студент наразі не має призначених статей. Можете призначити
       статтю за допомогою кнопок вище.
@@ -995,7 +1012,7 @@ uk:
       bplus: Може бути покращена відгуком від експертів про те, де бракує вмісту,
         а також ілюстраціями, історичним підґрунтям та кращими посиланнями на джерела.
         Розгляньте можливість рецензування або номінацію на добру статтю. Якщо стаття
-        ще не достатньо вікіфікована, то саме час.
+        ще не достатньо вікіфікована, то саме час це зробити.
       b: Треба поправити деякі моменти щодо вмісту і стилю. Можуть знадобитися експертні
         знання. За потреби можна додати допоміжні матеріали, а статтю перевірити за
         загальну відповідність посібнику зі стилю та пов'язаним настановам.
@@ -1157,6 +1174,7 @@ uk:
       few: '%{completed_count}/%{count} вправ завершено'
       many: '%{completed_count}/%{count} вправ завершено'
       other: '%{completed_count}/%{count} вправ завершено'
+    exercises_and_trainings: Вправи й тренінги
     first_name: Ім'я
     last_name: Прізвище
     loading: Завантаження користувачів…
@@ -1174,20 +1192,25 @@ uk:
     number_of_articles:
       one: '%{count} стаття'
       other: '%{count} статті'
+    profile: профіль
     recent_revisions: Останні зміни
     remove_confirmation: Ви дійсно хочете вилучити %{username}?
     request_confirmation: Ви дійсно бажаєте подати запит на цей обліковий запис?
+    requested_account_status:
+      success_message: 'Успіх: %{result_description}'
+      failure_message: 'Невдача: %{result_description}'
     revision_characters_and_views: 'Додано символів: %{characters}, переглядів: %{views}'
     revisions_doc: Кількість змін, зроблених цим учасником в останні 7 днів
     references_doc: Кількість приміток, доданих чи вилучених цим редактором
     reviewers: Оцінювач(і)
     reviewing: Оцінює
+    revisions: Версії
     sandboxes: чернетки
     sub_navigation:
-      article_assignments: Призначення статей
+      assignments_and_exercises: Призначення та вправи
       editor_overview: Огляд внеску редактора
       exercises_and_trainings: Вправи й тренінги
-      student_overview: Огляд внеску студента
+      student_overview: Огляд внеску %{prefix}
     total_uploads: Усього завантажень
     training_complete:
       one: завершив навчання на сьогодні
@@ -1203,6 +1226,9 @@ uk:
       other: Завершено %{completed_count} тренувальні модулі з %{count}
     training_module_name: Навчальний модуль
     training_module_status: Статус
+    training_module_time:
+      minutes: хв
+      seconds: с
     user_training_status: Статус навчання
     user_no_training_status: Це користувач ще не пройшов жодних навчальних модулів.
     up_to_date_with_training: без запізнень у навчанні
@@ -1212,6 +1238,7 @@ uk:
     username_placeholder: Ім'я користувача
     useremail_placeholder: Ел. пошта
     userpasscode_placeholder: Код доступу
+    words_added: Слів додано<br>(стаття | користувач | чернетка)
     role:
       description: Записатися в курс
       visitor: Відвідувач
@@ -1378,6 +1405,8 @@ uk:
   training_status:
     completed: Завершено
     continue: Продовжити
+    completed_at: Завершено
+    completion_time: Час завершення
     view: Перегляд
     started: Почато
     not_started: Не почато

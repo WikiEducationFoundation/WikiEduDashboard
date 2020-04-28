@@ -1,5 +1,6 @@
 title: "Think about sources"
 id: 3603
+button_text: 'Okay'
 content: |
   Compile a list of relevant, reliable books, journal articles, or other sources.
   Post that bibliography to the Talk page of the article you'll be working on,
@@ -12,3 +13,8 @@ content: |
   "View history" will help you keep track. If you've added your email to your
   account (which is a *really* good idea), you'll get notifications if something
   on the page changes.
+
+  <p class="training__note">
+  NOTE: Once you've completed this exercise, be sure to click <strong>Mark Complete</strong>
+  from your course page Home tab.
+  </p>

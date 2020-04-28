@@ -63,7 +63,9 @@ en:
     request_account: Request an account
     request_account_create: Create an account
     search: ask a question
-    search_results: "Results for: '%{search_terms}'"
+    search_results: 
+     one: "%{count} Result for: '%{search_terms}'"
+     other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
@@ -382,6 +384,8 @@ en:
     actions: Actions
     articles: Articles
     articles_none: This course has not edited any articles.
+    article_viewer: Article Viewer
+    articles_i_am_reviewing: Articles I'm peer reviewing
     assignment_headings:
         assigned_articles: Assigned Articles
         assigned_reviews: Assigned Reviews
@@ -729,6 +733,7 @@ en:
     add_campaign: Add campaign
     all_courses: All Programs
     archived: Archived Programs
+    articles_i_am_reviewing: Articles I'm reviewing
     articles_none: There are no edited articles for this project yet.
     assignment_headings:
       available_reviews: Available to Review
@@ -841,6 +846,12 @@ en:
       current_stage: Current Stage
       relevant_links: Relevant Links
     assigned_articles: Assigned Articles
+    bad_work:
+      learn_more: "If student work made the article worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
+      learn_more_button: "Learn More"
+      submit_issue: "What are the significant problems with this article?"
+      submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
+      thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
     overview: "%{prefix} Overview"
@@ -1126,6 +1137,7 @@ en:
     exercise_modules_completed:
       one: "%{completed_count}/%{count} exercise completed"
       other: "%{completed_count}/%{count} exercises completed"
+    exercises_and_trainings: Exercises & Trainings
     first_name: First name
     last_name: Last name
     loading: Loading users...
@@ -1143,20 +1155,25 @@ en:
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    profile: profile
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?
+    requested_account_status:
+      success_message: 'Success: %{result_description}'
+      failure_message: 'Failure: %{result_description}'
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
     references_doc: The number of references added or removed by this editor
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    revisions: Revisions
     sandboxes: sandboxes
     sub_navigation:
-      article_assignments: Article Assignments
+      assignments_and_exercises: Assignments & Exercises
       editor_overview: Editor Overview
       exercises_and_trainings: Exercises & Trainings
-      student_overview: Student Overview
+      student_overview: '%{prefix}  Overview'
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
@@ -1173,6 +1190,9 @@ en:
       other: "%{completed_count}/%{count} training modules completed"
     training_module_name: Training module
     training_module_status: Status
+    training_module_time:
+      minutes: Min
+      seconds: Sec
     user_training_status: Training Status
     user_no_training_status: This user has not completed any training modules.
     up_to_date_with_training: 'up-to-date with training'
@@ -1182,6 +1202,9 @@ en:
     username_placeholder: Username
     useremail_placeholder: Email
     userpasscode_placeholder: Passcode
+    words_added:
+      Words Added<br>(article | user | draft)
+
 
     role:
       description: Role in course
@@ -1365,6 +1388,9 @@ en:
   training_status:
     completed: "Completed"
     continue: "Continue"
+    completed_at: "Completed at"
+    completion_time: "Completion time"
+    late: Late
     view: "View"
     started: "Started"
     not_started: "Not started"

@@ -16,10 +16,24 @@ io:
     tags: 'Etiketi:'
   editable:
     cancel: Nuligar
+  instructor_view:
+    bad_work:
+      learn_more_button: Savez pluse
   metrics:
     tags: Etiketi
   training:
     page: Pagino
   users:
+    exercises_and_trainings: Exerci & Aprentiteso
+    profile: profilo
+    revisions: Revizuri
+    sub_navigation:
+      assignments_and_exercises: Taski & Exercici
+      student_overview: '%{prefix}  Supervido'
+    training_module_time:
+      minutes: Minuti
+      seconds: Sekundi
     up_to_date_with_training: Aktualigo pri aprentiseso
+  training_status:
+    completed_at: Kompletigita ye la
 ...

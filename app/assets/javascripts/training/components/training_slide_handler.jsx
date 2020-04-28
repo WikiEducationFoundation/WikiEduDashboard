@@ -136,9 +136,9 @@ const TrainingSlideHandler = createReactClass({
         nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.match.params.library_id}`;
       }
       if (this.props.training.completed) {
-        nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
+        nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {this.props.training.currentSlide.buttonText || I18n.t('training.done')} </a>;
       } else {
-        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {I18n.t('training.done')} </a>;
+        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {this.props.training.currentSlide.buttonText || I18n.t('training.done')} </a>;
       }
 
       if (this.props.training.completed === false) {

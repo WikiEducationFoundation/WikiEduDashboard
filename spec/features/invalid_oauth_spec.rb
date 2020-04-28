@@ -25,7 +25,7 @@ describe 'a user whose oauth credentials expire', type: :feature do
 
     login_as admin
     visit "/courses/#{escaped_slug course.slug}"
-    expect(page.current_path).to eq(root_path)
+    expect(page).to have_current_path(root_path)
     expect(page).to have_content 'Your Wikipedia authorization has expired'
   end
 end

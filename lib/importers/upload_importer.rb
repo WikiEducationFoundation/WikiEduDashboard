@@ -99,7 +99,7 @@ class UploadImporter
   def self.import_usages(usages)
     file_ids = usages.map { |usage| usage['pageid'] }
     # Create a hash matching file_ids to usage counts, starting at zero.
-    usage_counts = Hash[file_ids.uniq.map { |id| [id, 0] }]
+    usage_counts = file_ids.uniq.index_with { |_id| 0 }
 
     usages.each do |usage|
       id = usage['pageid']

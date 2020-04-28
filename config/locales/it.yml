@@ -6,6 +6,7 @@
 # Author: Anto
 # Author: Beta16
 # Author: Einreiher
+# Author: Fierodelveneto
 # Author: Greis
 # Author: JackLantern
 # Author: Macofe
@@ -61,7 +62,9 @@ it:
     request_account: Richiedi utenza
     request_account_create: Crea una nuova utenza
     search: fai una domanda
-    search_results: 'Risultati per: ''%{search_terms}'''
+    search_results:
+      one: '%{count} risultato per: ''%{search_terms}'''
+      other: '%{count} risultati per: ''%{search_terms}'''
     no_results: Nessun risultato trovato per '%{query}'
     sign_up_extended: Registrati con Wikipedia
     sign_up_wikipedia: Oppure fai login su Wikipedia
@@ -861,6 +864,7 @@ it:
     number_of_articles:
       one: '%{count} voce'
       other: '%{count} voci'
+    profile: profilo
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
     revision_characters_and_views: 'Caratteri aggiunti: %{characters}, Visualizzazioni:
@@ -868,6 +872,7 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    revisions: Versioni
     total_uploads: Totale caricamenti
     training_complete:
       one: è aggiornato con la formazione
@@ -882,6 +887,9 @@ it:
       one: '%{completed_count}/%{count} modulo formativo completato'
       other: '%{completed_count}/%{count} moduli formativi completati'
     training_module_status: Stato
+    training_module_time:
+      minutes: Min
+      seconds: Sec
     up_to_date_with_training: aggiornato con la formazione
     uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
@@ -981,6 +989,7 @@ it:
   training_status:
     completed: Completato
     continue: Continua
+    completed_at: Completato il
     started: Iniziato
     not_started: Non iniziato
   multi_wiki:

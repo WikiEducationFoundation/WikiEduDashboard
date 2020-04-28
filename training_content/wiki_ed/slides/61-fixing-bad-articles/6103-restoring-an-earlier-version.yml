@@ -1,0 +1,35 @@
+id: 6103
+title: Restoring an earlier version
+summary:
+content: |
+  Sometimes the most expedient way to repair an article is simply
+  to undo all the recent changes, reverting the article to an earlier
+  version.
+
+  If you've found an earlier version in the article's history that
+  you want to restore:
+
+    1. Load that version by clicking its timestamp on the history page
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Reverting_to_an_old_version_of_a_Wikipedia_article_%E2%80%94_selecting_an_old_revision.png" />
+  </figure>
+
+    2. Click 'Edit'. When the editor loads, you should see a message letting
+    you know you're editing an old revision.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Reverting_to_an_old_version_of_a_Wikipedia_article_%E2%80%94_edit_mode_warning.png" />
+  </figure>
+
+    3. Click 'Publish changes', add an edit summary to explain why you're
+    reverting to an earier version, and then publish it.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Reverting_to_an_old_version_of_a_Wikipedia_article_%E2%80%94_edit_summary.png" />
+  </figure>
+
+
+  This process will save a new edit under your username, which returns
+  the article to its earlier state. You can leave the article like that,
+  or make further edits from there.

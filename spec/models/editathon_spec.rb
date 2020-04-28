@@ -59,4 +59,20 @@ describe Editathon do
       expect(subject.assignment_edits_enabled?).to eq(false)
     end
   end
+
+  describe '#wiki_edits_enabled?' do
+    context 'without any flags' do
+      it 'returns false' do
+        expect(subject.wiki_edits_enabled?).to eq(false)
+      end
+    end
+
+    context 'with a flag to enable it' do
+      let(:flags) { { wiki_edits_enabled: true } }
+
+      it 'returns true' do
+        expect(subject.wiki_edits_enabled?).to eq(true)
+      end
+    end
+  end
 end

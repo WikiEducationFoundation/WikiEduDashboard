@@ -74,6 +74,11 @@ class TrainingProgressManager
     module_completed? ? I18n.t('training_status.completed') : completing
   end
 
+  def completion_time
+    return unless module_completed? && @tmu.created_at.present?
+    @tmu.completed_at - @tmu.created_at
+  end
+
   private
 
   def last_completed_slide_slug

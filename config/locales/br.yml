@@ -144,6 +144,7 @@ br:
     actions: Oberoù
     articles: Pennadoù
     articles_none: Gant ar gentel-mañ n'eus bet kemmet pennad ebet.
+    article_viewer: Lenner pennadoù
     assignment_end: Dibenn deverkañ
     assignments_none: Ar gentel-mañ n'he deus pennad ebet deverket.
     assignment_start: Deroù deverkañ
@@ -246,6 +247,7 @@ br:
       notification_message: Ur sontadeg a c'haller kaout evit ar gentel-mañ
       link: Kemer perzh er sontadeg
   courses_generic:
+    articles_i_am_reviewing: Pennadoù a adlennan
     articles_none: N'eus pennad ebet kemmet evit ar raktres-se.
     assignment_end: Dibenn ar gronologiezh
     assignment_start: Kregiñ ar gronologiezh
@@ -289,6 +291,9 @@ br:
     save: Enrollañ
     edit_description: Kemmañ an deskrivadur
     edit_details: Kemmañ ar munudoù
+  instructor_view:
+    bad_work:
+      learn_more_button: Gouzout hiroc'h
   metrics:
     activity: Oberiantiz nevez
     articles_created: Pennadoù krouet
@@ -420,6 +425,7 @@ br:
     enroll_url: 'Gallout a ra an implijerien en em skrivañ en ur vont d''an URL-mañ
       :'
     enrolled_success: '%{username} zo bet ouzhpennet!'
+    exercises_and_trainings: Poelladennoù ha pleustradennoù
     first_name: Anv-bihan
     last_name: Anv-familh
     loading: Pellgargadenn an implijerien...
@@ -434,11 +440,16 @@ br:
     number_of_articles:
       one: '%{count} video'
       other: '%{count} video'
+    profile: profil
     recent_revisions: Kemmoù nevez
     remove_confirmation: Ha suc'h eo hoc'h eus c'hoant da zilemel %{username}?
     revisions_doc: An niver a gemennoù graet gant an embanner e-pad ar 7 deiz diwezhañ
     reviewers: Reizher(ien)
     reviewing: Reizhañ
+    revisions: Adweladennoù
+    sub_navigation:
+      assignments_and_exercises: Dleadoù ha poelladennoù
+      student_overview: Brassell war %{prefix}
     training_complete:
       one: en deus echuet da c'hourdonañ
       other: o deus echuet da c'hourdonnañ
@@ -446,6 +457,9 @@ br:
     training_incomplete: Stummadur diechu
     training_module_name: Modulenn stummañ
     training_module_status: Statud
+    training_module_time:
+      minutes: Mun.
+      seconds: eilenn
     up_to_date_with_training: Hizivaat
     username: Implijer
     username_placeholder: Implijer
@@ -502,4 +516,8 @@ br:
       closing: A-wir-galon ganeoc'h.
       signed: '- ar skipailh Wiki Ed'
       link: Kemer perzh er sontadeg
+  training_status:
+    completed_at: Graet e
+    completion_time: Eur echuiñ
+    late: Diwezhat
 ...

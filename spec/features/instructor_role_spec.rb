@@ -8,9 +8,6 @@ describe 'Instructor users', type: :feature, js: true do
     include Devise::TestHelpers
     TrainingModule.load_all
     page.current_window.resize_to(1920, 1080)
-  end
-
-  before do
     instructor = create(:user,
                         id: 100,
                         username: 'Professor Sage',
@@ -87,11 +84,11 @@ describe 'Instructor users', type: :feature, js: true do
 
     before do
       TrainingModulesUsers.destroy_all
-      Timecop.travel(1.year.from_now)
+      travel(1.year)
     end
 
     after do
-      Timecop.return
+      travel_back
     end
 
     it 'can see real names of enrolled students' do

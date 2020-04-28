@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 describe DashboardController, type: :request do
+  let(:user) { create(:user) }
+
   describe '#index' do
     let(:course) { create(:course, end: 2.days.ago) }
     let(:admin) { create(:admin) }
-    let(:user) { create(:user) }
 
     context 'when the user is not logged in' do
       it 'redirects to landing page' do
@@ -53,6 +54,16 @@ describe DashboardController, type: :request do
         end
         expect(assigns(:blog_posts)).to eq([])
       end
+    end
+  end
+
+  describe '#my_account' do
+    let(:subject) { get '/my_account' }
+
+    before { login_as user }
+
+    it 'redirects to the user page of current user' do
+      expect(subject).to redirect_to "/users/#{user.username}"
     end
   end
 end

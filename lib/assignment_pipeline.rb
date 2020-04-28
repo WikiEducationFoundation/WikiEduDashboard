@@ -54,11 +54,4 @@ class AssignmentPipeline
     @flags[@key][:updated_at] = Time.zone.now
     @assignment.save
   end
-
-  private
-
-  def next_status
-    index = @all_statuses.index(status)
-    @all_statuses[index + 1] || status
-  end
 end

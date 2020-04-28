@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Domani
+# Author: FF11
 # Author: Killarnee
 # Author: Metalhead64
 # Author: Taresi
@@ -809,6 +810,12 @@ de:
       article_name: Artikelname
       current_stage: Aktueller Status
       relevant_links: Relevante links
+    bad_work:
+      learn_more: Wenn die Arbeit eines Schülers den Artikel schlechter gemacht hat,
+        ermutigen wir dich ihn selbst zu bearbeiten. Lass uns ansonsten über die Probleme
+        erfahren, damit wir sie später beheben können.
+      learn_more_button: Mehr erfahren
+      submit_issue: Was sind die signifikanten Probleme mit diesem Artikel?
     reviewing_articles: Artikel sichten
     select_student:
       title: '%{prefix} auswählen'
@@ -1127,7 +1134,6 @@ de:
     reviewing: Überprüft
     sandboxes: Spielwiesen
     sub_navigation:
-      article_assignments: Artikelzuweisungen
       editor_overview: Bearbeiter Übersicht
       student_overview: Schülerübersicht
     total_uploads: Gesamtanzahl der hochgeladenen Dateien
@@ -1145,6 +1151,9 @@ de:
       other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
     training_module_name: Ausbildungsmodul
     training_module_status: Status
+    training_module_time:
+      minutes: Min.
+      seconds: Sek.
     user_training_status: Ausbildungsstatus
     user_no_training_status: Dieser Benutzer hat keine Ausbildungsmodule vervollständigt.
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden

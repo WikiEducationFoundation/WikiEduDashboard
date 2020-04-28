@@ -2,15 +2,25 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Cedric31
+# Author: Guilhelma
 # Author: Jfblanc
 # Author: Quentí
 ---
 oc:
   application:
     cancel: Anullar
+    cookie_consent_acknowledge: Compreni
+    cookie_consent_see_more: Veire mai.
+    create_accounts: Crear los comptes de la Wikipèdia
     dashboard: Tablèu de bòrd de modificacion del wiki
+    documentation: Documentacion
+    error: Una error s'es produita
     explore: Explorar
     field_required: Aqueste camp es obligatòri
+    field_invalid_characters: Aquel camp a de caractèrs incorrèctes
+    field_invalid_date: Aquel camp requerís una data en format AAAA-MM-DD
+    field_invalid_date_time: La fin li cal èsser après l'inici. (Las oras van de 0
+      a 23.)
     greeting2: Benvenguda !
     greeting_extended: Benvenguda dins Wikipèdia
     greeting: Bonjorn !
@@ -21,8 +31,16 @@ oc:
     log_out: Desconnexion
     my_dashboard: Mon tablèu de bòrd
     recent_activity: Activitat recenta
+    report_problem: Senhalar un problèma
+    request_account: Demanda un compte
+    request_account_create: Crear un compte
     search: pausar una question
+    search_results:
+      one: '%{count} resultat per «%{search_terms}»'
+      other: '%{count} resultats per «%{search_terms}»'
+    no_results: ' S’a pas trobat cap de resultat per «%{query}»'
     sign_up_extended: S’inscriure amb Wikipèdia
+    sign_up_wikipedia: O enregistratz vos a la Wikipèdia
     sign_up_log_in_extended: amb Wikipèdia
     sign_up: S'inscriure
     submit: Sometre
@@ -30,9 +48,31 @@ oc:
     change: Modificar
     details: Detalhs
     confirm: D'acòrdi
+    opt_in: Òc
+    opt_out: Non
+    opt_yes: òc
+    opt_no: non
+  article_statuses:
+    not_yet_started: Començar
+    in_progress: Trabalhar dins lo bac de sable
+    ready_for_review: Espandir lo brolhon
+    ready_for_mainspace: Desplaçamentdel trabalh dins l'espaci principal
+    assignment_completed: Afectacion marcada coma acabada
+    reading_the_article: Lectura de l'article
+    providing_feedback: Donatz la vòstra opinion
+    post_to_talk: Publicar sus la pagina de discutida
+    peer_review_completed: Repassada acabada
   dashboard:
+    create_note: Clicar sus "Crear un cors" per crear lo vòstre primièr cors.
+    create_preparation_note: Asseguratz-vos qu'avètz lo vòstre calendari academic
+      a man abans de començar; l'aisina de prevision dels pòstes  utilizarà  los jorns
+      d'amassada de vòstra classa (los jorns de liura disposicion e las vacanças comprès)
+      per adaptar la planificacion a las datas qu'auretz causidas. Poiretz totjorn
+      modificar la planificacion segon los vòstres besonhs.
     explore_course_pages: Explorar las paginas de cors
     explore_examples: Explorar los exemples
+    join_note: Quand avètz recebut lo còdi d'accès mandat per lo vòstre instructor,
+      clicatz sus Trobatz lo vòstre Cors per lo trobar e vos i apuntar.
     start_orientation: Orientacion al despart
   home:
     explore: Explorar

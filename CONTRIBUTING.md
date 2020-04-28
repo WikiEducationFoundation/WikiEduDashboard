@@ -5,8 +5,6 @@
 We love contributions! If you're looking for a way to get involved, contact
 Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sage at wikiedu.org) for an invite.
 
-You can also join our [IRC Channel](https://webchat.freenode.net/?channels=#wikimedia-ed) !
-
 #### Bugs and enhancement issues
 
 The dashboard uses GitHub issues for bug tracking. Our main categories of bugs

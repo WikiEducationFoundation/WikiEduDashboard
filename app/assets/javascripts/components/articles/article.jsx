@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
-import ArticleViewer from '../common/article_viewer.jsx';
+import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 import Switch from 'react-switch';
@@ -60,6 +60,14 @@ const Article = createReactClass({
       );
     }
 
+    let contentAdded;
+    if (this.props.course.home_wiki_bytes_per_word) {
+      const wordsAdded = Math.round(this.props.article.character_sum / this.props.course.home_wiki_bytes_per_word);
+      contentAdded = <td className="desktop-only-tc">{wordsAdded}</td>;
+    } else {
+      contentAdded = <td className="desktop-only-tc">{this.props.article.character_sum}</td>;
+    }
+
     const { project, title } = this.props.article;
     let { language } = this.props.article;
     if (project === 'wikidata') language = 'www';
@@ -84,7 +92,7 @@ const Article = createReactClass({
             </small>
           </div>
         </td>
-        <td className="desktop-only-tc">{this.props.article.character_sum}</td>
+        {contentAdded}
         <td className="desktop-only-tc">{this.props.article.references_count || ''}</td>
         <td className="desktop-only-tc">
           <a href={pageviewUrl} target="_blank" className="inline">{this.props.article.view_count}</a>
@@ -92,6 +100,8 @@ const Article = createReactClass({
         <td>
           <ArticleViewer
             article={this.props.article}
+            course={this.props.course}
+            current_user={this.props.current_user}
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
             showButtonClass="pull-left"

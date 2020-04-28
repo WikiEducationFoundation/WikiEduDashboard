@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,7 +9,12 @@ import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actio
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
-import { trunc } from '~/app/assets/javascripts/utils/strings';
+
+// Components
+import ContentAdded from './ContentAdded';
+import StudentUsername from './StudentUsername';
+import ExerciseProgressDescription from '@components/students/components/Articles/SelectedStudent/ExercisesList/StudentExercise/ExerciseProgressDescription.jsx';
+import TrainingProgressDescription from '@components/students/components/Articles/SelectedStudent/ExercisesList/StudentExercise/TrainingProgressDescription.jsx';
 
 // Actions
 import {
@@ -41,13 +47,19 @@ const Student = createReactClass({
   },
 
   openDrawer() {
-    if (!this.props.isOpen) {
-      const { course, student } = this.props;
+    const { course, history, isOpen, student, toggleDrawer } = this.props;
+    if (!toggleDrawer) {
+      const url = `/courses/${course.slug}/students/articles/${student.username}`;
+      return history.push(url);
+    }
+
+    if (!isOpen) {
       this.props.fetchUserRevisions(course.id, student.id);
       this.props.fetchTrainingStatus(student.id, course.id);
       this.props.fetchExercises(course.id, student.id);
     }
-    return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
+
+    return toggleDrawer(`drawer_${student.id}`);
   },
 
   _shouldShowRealName() {
@@ -58,38 +70,20 @@ const Student = createReactClass({
 
   render() {
     const {
-      assignments, course, current_user, editable, isOpen, fullView = true,
+      assignments, course, current_user, editable, isOpen,
       showRecent, student, wikidataLabels
     } = this.props;
 
     let className = 'students';
     className += isOpen ? ' open' : '';
 
-    const userName = this._shouldShowRealName() ? (
-      <span>
-        <strong>{trunc(student.real_name)}</strong>
-        &nbsp;
-        (
-        <a href={`/users/${student.username}`}>
-          {trunc(student.username)}
-        </a>)
-      </span>
-      )
-      : (
-        <span>
-          <a href={`/users/${student.username}`}>
-            {trunc(student.username)}
-          </a>
-        </span>
-    );
-
-    const trainingProgress = student.course_training_progress ? (
-      <small className="red">{student.course_training_progress}</small>
-    ) : undefined;
-
     let recentRevisions;
     if (showRecent) {
-      recentRevisions = <td className="desktop-only-tc">{student.recent_revisions}</td>;
+      recentRevisions = (
+        <td className="desktop-only-tc" onClick={this.openDrawer} >
+          {student.recent_revisions}
+        </td>
+      );
     }
 
     let assignButton;
@@ -134,54 +128,46 @@ const Student = createReactClass({
     const uploadsLink = `/courses/${course.slug}/uploads`;
 
     return (
-      <tr onClick={this.openDrawer} className={className}>
-        <td>
+      <tr className={className}>
+        <td onClick={this.openDrawer} style={{ minWidth: '250px' }}>
           <div className="name">
-            {userName}
+            <StudentUsername current_user={current_user} student={student} />
           </div>
           <div className="sandbox-link">
             <a onClick={this.stop} href={student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
             &nbsp;
             <a onClick={this.stop} href={student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
           </div>
-          { fullView && trainingProgress }
-          {
-            fullView
-            && (
-              <div className="sandbox-link">
-                <a onClick={this.stop} href={student.sandbox_url} target="_blank">{I18n.t('users.sandboxes')}</a>
-                &nbsp;
-                <a onClick={this.stop} href={student.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
-              </div>
-            )
-          }
+          <ExerciseProgressDescription student={student} />
+          <TrainingProgressDescription student={student} />
         </td>
-        <td className="desktop-only-tc">
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {assignButton}
         </td>
-        <td className="desktop-only-tc">
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {reviewButton}
         </td>
         {recentRevisions}
-        <td className="desktop-only-tc">
-          {student.character_sum_ms} | {student.character_sum_us} | {student.character_sum_draft}
-        </td>
-        <td className="desktop-only-tc">
+        <ContentAdded course={course} student={student} />
+        <td className="desktop-only-tc" onClick={this.openDrawer}>
           {student.references_count}
         </td>
         <td className="desktop-only-tc">
           <Link
             to={uploadsLink}
-            onClick={() => { this.setUploadFilters([{ value: student.username, label: student.username }]); }}
+            onClick={() => {
+              this.setUploadFilters([{ value: student.username, label: student.username }]);
+            }}
           >
             {student.total_uploads || 0}
           </Link>
         </td>
         {
-          // fullView
-          // && (
-          <td><button className="icon icon-arrow table-expandable-indicator" /></td>
-          // )
+          this.props.toggleDrawer && (
+            <td onClick={this.openDrawer}>
+              <button className="icon icon-arrow table-expandable-indicator" />
+            </td>
+          )
         }
       </tr>
     );
@@ -196,4 +182,5 @@ const mapDispatchToProps = {
   fetchExercises: fetchTrainingModuleExercisesByUser
 };
 
-export default connect(null, mapDispatchToProps)(Student);
+const component = withRouter(Student);
+export default connect(null, mapDispatchToProps)(component);

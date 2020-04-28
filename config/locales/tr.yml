@@ -68,7 +68,8 @@ tr:
     request_account: Hesap iste
     request_account_create: Bir hesap oluştur
     search: soru sor
-    search_results: '''%{search_terms}'' için sonuçlar'
+    search_results:
+      one: '%{count} Sonucu: ''%{search_terms}'''
     no_results: '''%{query}'' için sonuç bulunamadı'
     sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydolun
@@ -89,7 +90,7 @@ tr:
     ready_for_review: Taslak Genişletiyor
     ready_for_mainspace: İşi Ana Alana Taşınıyor
     assignment_completed: Atanma Tamamlandı Olarak İşaretlendi
-    reading_the_article: Makale Okuma
+    reading_the_article: Madde Okuma
     providing_feedback: Geri Bildirim Sağlama
     post_to_talk: Tartışma Sayfasına Gönderme
     peer_review_completed: İnceleme Tamamlandı
@@ -133,20 +134,20 @@ tr:
     edited_by: Düzenleyen
     label: Etkinlik
   articles:
-    article_development: (makale geliştirme)
+    article_development: (madde geliştirme)
     articles_shown: '%{total} %{count} gösteriliyor'
     assigned: Atanmış Makaleler
     available: Kullanılabilir Makaleler
-    no_available: Makale Yok
+    no_available: Madde Yok
     next: Sonraki
     previous: Önceki
-    article_title: Makale Başlığı
+    article_title: Madde Başlığı
     assigned_to: Atanan
     character_doc: Kayıtlı editörler tarafından başlangıç ve bitiş tarihleri arasında
       eklenen karakterlerin toplamı
     cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana sayfalar
-      aşağıda listelenmiştir. Gösterge paneli, bu programın ev wikisinden ve ayrıca
-      bir Atama veya Kullanılabilir Makale bulunan diğer wikilerden gelen katkıları
+      aşağıda listelenmiştir. Gösterge paneli, bu programın ev vikisinden ve ayrıca
+      bir Atama veya Kullanılabilir Madde bulunan diğer vikilerden gelen katkıları
       alır.
     deleted: (silindi)
     edited: Düzenlenen Makaleler
@@ -165,7 +166,7 @@ tr:
     label: Makaleler
     loading: Makaleler yükleniyor...
     new: (yeni)
-    none: Bu kursta herhangi bir makale düzenlenmedi.
+    none: Bu kursta herhangi bir madde düzenlenmedi.
     rating: Sınıf
     rating_doc: Bir makalenin derecelendirmesi Vikipedi üzerinde VikiProjeler tarafından
       atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
@@ -177,10 +178,10 @@ tr:
         sayfalarıdır'
       a: '%{class}-sınıf: yeni bir editörün ana projesi için çok olgun olabilecek
         çok gelişmiş bir makale'
-      ga: '%{class} (Kaliteli makale): yeni bir editörün ana projesi için çok olgun
-        olabilecek iyi geliştirilmiş bir makale'
-      b: '%{class}-sınıf: orta gelişmiş bir makale'
-      c: '%{class}-sınıf: iyileştirilebilecek içeriğe sahip orta düzeyde bir makale'
+      ga: '%{class} (Kaliteli madde) — yeni bir editörün ana projesi için çok olgun
+        olabilecek iyi geliştirilmiş bir madde'
+      b: '%{class}-sınıf — orta gelişmiş bir madde'
+      c: '%{class}-sınıf — iyileştirilebilecek içeriğe sahip orta düzeyde bir madde'
       start: '%{class}-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
         bir makale'
       stub: '%{class}-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
@@ -188,17 +189,18 @@ tr:
       list: '%{class}-sınıf: geleneksel bir yazı yerine bir liste'
       '?': 'Değerlendirilmemiş: Vikipedi''nin kalite ölçeğinde henüz değerlendirilmemiş
         bir makalesi'
-      does_not_exist: Bu makale Vikipedi'de mevcut değil
+      does_not_exist: Bu madde Vikipedi'de mevcut değil
     see_more: Daha fazla gör
     show_cumulative_changes: Birikmiş Değişiklikleri Göster
     show_current_version: Mevcut Sürümü Göster
-    show_current_version_with_authorship_highlighting: Yazar Vurgulamalı Güncel Versiyon
+    show_current_version_with_authorship_highlighting: Yazar Vurgulamalı w/ Güncel
+      Sürüm
     title: Başlık
     tracked: İzlenen
     tracked_doc: Yalnızca izlenen makaleler, bu programın istatistiklerine katkıda
       bulunur. Makaleler izlenmemiş olarak işaretlendiğinde, bir sonraki veri güncellemesi
       sırasında istatistiklerden kaldırılırlar.
-    title_example: Makale başlığı
+    title_example: Madde başlığı
     tools: Değerlendirme araçları
     view: Makaleyi Göster
     view_all: Hepsini Göster
@@ -231,11 +233,11 @@ tr:
     assignees: Devredilen
     assign_other: Bir makaleyi devredin
     add_available: Mevcut makaleleri ekleyin
-    add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
-    add_available_submit: Makale ekle
+    add_available_placeholder: Satır başına bir madde başlığı veya URL ekleyin
+    add_available_submit: Madde ekle
     assign_self: Bir makaleyi kendime devredeyim
-    assign_tooltip: Atanan bir makale, oluşturmayı veya geliştirmeyi planladığınız
-      bir makaledir.
+    assign_tooltip: Atanan bir madde, oluşturmayı veya geliştirmeyi planladığınız
+      bir maddedir.
     bibliography: Kaynakça
     clone: Klonla
     confirm_add_available: '%{title} başlığını eklemek istediğinize emin misiniz?'
@@ -246,7 +248,7 @@ tr:
     group_members: Grup üyeleri
     label: Ata
     loading: Atamalar yükleniyor...
-    none_short: Herhangi bir makale atanmadı
+    none_short: Herhangi bir madde atanmadı
     none: Bu kursun atanmış makalesi bulunmamaktadır.
     no_available: Bu kursun atanmış makalesi bulunmamaktadır.
     peer_review_count: '%{currentCount}/%{total} seçildi'
@@ -270,7 +272,7 @@ tr:
   campaign:
     active_campaigns: Aktif Kampanyalar
     add_organizer: Organizatör ekle
-    alert_article: Makale başlığı
+    alert_article: Madde başlığı
     alert_label: Kampanya Uyarıları
     alert_select_label: Uyarı türüne göre filtre
     alert_type: Tür
@@ -352,7 +354,7 @@ tr:
     confirm_template_addition: '"%{name}" şablonunun katkılarını izlemek istediğinizden
       emin misiniz?'
     depth: Alt kategori derinliği
-    articles_count: Makale Sayısı
+    articles_count: Madde Sayısı
     name: Ad
     category_name: Kategori adı
     psid_name: PSID
@@ -386,7 +388,9 @@ tr:
     archived: Arşivlenmiş Kurslar
     actions: Eylemler
     articles: Makaleler
-    articles_none: Bu kursta herhangi bir makale düzenlenmedi.
+    articles_none: Bu kursta herhangi bir madde düzenlenmedi.
+    article_viewer: Madde Görüntüleyici
+    articles_i_am_reviewing: Akran incelemesinden aldığım maddeler
     assignment_headings:
       assigned_articles: Atanmış Makaleler
       assigned_reviews: Atanmış İncelemeler
@@ -471,10 +475,10 @@ tr:
         edit_a_thon_description: Edit-A-Thon programı herhangi bir makaleye ya da
           ana sayfadaki düzenlemeleri izler. Varsayılan olarak, bu program için otomatik
           düzenleme yapılmayacaktır.
-        article_scoped_program_name: Makale Kapsamlı Program
-        article_scoped_program_description: Bu program türü yalnızca atanmış makaleler
+        article_scoped_program_name: Madde Kapsamlı Program
+        article_scoped_program_description: Bu program türü yalnızca atanmış maddeler
           veya kategoriler için yapılan düzenlemeleri izler. İstatistikleri bilinen
-          bir makale veya konu alanı koleksiyonuyla sınırlamak istiyorsanız bu türü
+          bir madde veya konu alanı koleksiyonuyla sınırlamak istiyorsanız bu türü
           kullanın. Varsayılan olarak, otomatik wiki düzenlemeleri açıktır.
       create_button: Kursumu Oluştur!
       create_label: Yeni Kurs Oluştur
@@ -514,11 +518,11 @@ tr:
         boyunca mevcut tüm programlarla birlikte güncellenecektir. Bu genellikle birkaç
         saat sürer.
     current: Mevcut Kurslar
-    data_articles: Makale verileri
-    data_articles_info: Makale verileri her sayfadaki düzenleme sayfalarını, hangi
-      sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını içerir. Bu sayfa
-      görüntüleme değerleri daha önce bitmiş olan kurslar için eski olabilir, bu nedenle
-      WMF Aracı Laboratuarları sayfa görüntüleme aracına bir URL eklenir.
+    data_articles: Madde verileri
+    data_articles_info: Madde verileri her sayfadaki düzenleme sayfalarını, sayfaların
+      yeni olduğunu ve sayfa görüntüleme toplamlarını içerir. Bu sayfa görüntüleme
+      değerleri daha önce bitmiş olan kurslar için eski olabilir, bu nedenle WMF Aracı
+      Laboratuarları sayfa görüntüleme aracına bir URL eklenir.
     data_revisions_info: Revizyon verileri dersin revizyon sayısını, revizyon kimliğini,
       makale kimliğini, hangi sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını
       içerir.
@@ -648,7 +652,7 @@ tr:
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
-    rating_feedback: 'Makale için tahmini değerlendirme:'
+    rating_feedback: 'madde için tahmini değerlendirme:'
     requested_accounts: İstenen hesaplar
     requested_accounts_alert:
       one: '%{count} istenen hesap beklemede.'
@@ -752,11 +756,12 @@ tr:
     add_campaign: Kampanya ekle
     all_courses: Tüm Programlar
     archived: Arşivlenmiş Programlar
-    articles_none: Bu proje için henüz düzenlenmiş makale yok.
+    articles_i_am_reviewing: İncelediğim maddeler
+    articles_none: Bu proje için henüz düzenlenmiş madde yok.
     assignment_headings:
       available_reviews: İncelemeye Uygun
     assignment_end: Etkinlik Sonu
-    assignments_none: Bu projede atanmış makale yok.
+    assignments_none: Bu projede atanmış madde yok.
     assignment_start: Etkinlik Başlangıcı
     cancel: İptal
     course: Program
@@ -861,10 +866,19 @@ tr:
   instructor_view:
     article_assignments: '%{prefix} Atanma'
     assignments_table:
-      article_name: Makale Adı
+      article_name: Madde Adı
       current_stage: Geçerli Adım
       relevant_links: İlgili Bağlantılar
     assigned_articles: Atanmış Makaleler
+    bad_work:
+      learn_more: Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
+        düzenlemenizi öneririz. Aksi takdirde, sorunları daha sonra çözebilmemiz için
+        bize bildirin.
+      learn_more_button: Daha Fazla Bilgi
+      submit_issue: Bu madde ile ilgili önemli sorunlar nelerdir?
+      submit_issue_placeholder: Ne kadar fazla uzman perspektifi ve detayı olursa
+        o kadar iyidir.
+      thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
     exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
     no_assignments: Şu anda bu öğrencinin atanmış makalesi yok. Yukarıdaki düğmeleri
       kullanarak makale atayabilirsiniz.
@@ -872,7 +886,7 @@ tr:
     reviewing_articles: Makaleleri Gözden Geçirme
     select_student:
       title: '%{prefix} Seç'
-      content: makale atamak ve görüntülemek için
+      content: atamak ve maddeyi görüntülemek için
   metrics:
     label: Kurs Etkinliği
     last_update: Son istatistik güncellemesi
@@ -882,7 +896,7 @@ tr:
     articles_created: Oluşturulan Makaleler
     articles_created_generic: Oluşturulan Sayfalar
     articles_created_wikidata: Oluşturulan Öğeler
-    articles_edited: Makale Düzenlendi
+    articles_edited: Düzenlenen Maddeler
     articles_edited_generic: Düzenlenmiş Sayfalar
     articles_edited_wikidata: Düzenlenmiş Öğeler
     bytes_added: Bayt Eklendi
@@ -907,7 +921,7 @@ tr:
     upload_usages_count:
       one: diller genelinde toplam kullanım
       other: diller genelinde toplam kullanım
-    view_count_description: Makale Görüşleri
+    view_count_description: Madde Görünümleri
     view_data_unavailable: Görüntüleme verisi yok
     view: Görüntülenme
     word_count: Eklenen Kelime
@@ -919,13 +933,13 @@ tr:
     user_char_added: Kullanıcı alanı karakterleri eklendi
     user_ns: Kullanıcı
   recent_activity:
-    active_courses: Makale etkindir
-    article_title: Makale Başlığı
+    active_courses: Madde etkindir
+    article_title: Madde Başlığı
     datetime: Tarih/Saat
     did_you_know_eligible: Uygun olduğunu biliyor muydunuz?
     image: Resim
     file_name: Dosya Adı
-    no_dyk_eligible: Şu anda herhangi bir BBM'ye uygun makale yok.
+    no_dyk_eligible: Şu anda herhangi bir BBM'ye uygun madde yok.
     no_plagiarism: Şu anda intihalden şüphelenilen herhangi bir düzeltme bulunmamaktadır.
     no_edits: Yakın zamanda düzenleme yapılmadı.
     plagiarism_report: İntihal Raporu
@@ -1007,7 +1021,7 @@ tr:
         Makale zaten hiç yanlış değilse şimdi zamanı.
       b: İçerik ve stilin birkaç yönü ele alınmalıdır. Uzman bilgisi gerekli olabilir.
         Destekleyici materyallerin dahil edilmesi, eğer pratikse dikkate alınmalı
-        ve makale, Stil Kılavuzu ve ilgili stil kılavuzlarına genel uygunluk açısından
+        ve madde, Stil Kılavuzu ve ilgili stil kılavuzlarına genel uygunluk açısından
         kontrol edildi.
       c: İçerikteki boşlukları kapatmak ve temizleme sorunlarını çözmek için önemli
         düzenleme gereklidir.
@@ -1027,7 +1041,7 @@ tr:
         genellikle "(ayrıştırma)" gerek duymazlar.
       '?': Öneriler mevcut değil - Makale, derecelendirme için derecelendirilmemiş
         veya önerilmeyen önerilerdir.
-      does_not_exist: Bu makale Vikipedi'de mevcut değil.
+      does_not_exist: Bu madde Vikipedi'de mevcut değil.
   tasks:
     conseq: '%{task} görevi zaten yürütülüyor!'
     constant: update_daily görevi yürütülürken %{task} görevi yürütülemedi.
@@ -1153,7 +1167,7 @@ tr:
       boyutunu artıran tüm düzenlemeler için eklenen karakterler eklenerek hesaplanır.
       Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
       geri yüklenmesi de bu toplamı artıracaktır.
-    chars_added: Karakterler eklendi<br>(makale | kullanıcı | taslak)
+    chars_added: Eklenen Karakterler<br>(madde | kullanıcı | taslak)
     contributions: Kullanıcı Katkısı
     contributions_history_full: Tam katkı geçmişini görüntüle
     contributions_more: Diğer Katkıları Görüntüle
@@ -1168,10 +1182,11 @@ tr:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} egzersiz tamamlandı'
       other: '%{completed_count}/%{count} egzersiz tamamlandı'
+    exercises_and_trainings: Egzersizler ve Eğitimler
     first_name: Ad
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
-    characters_added_mainspace: Eklenen Karakter (makale)
+    characters_added_mainspace: Eklenen Karakter (madde)
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     characters_added_userspace: Eklenen Karakter (kullanıcı)
     characters_added_draftspace: Eklenen Karakter (taslak)
@@ -1180,26 +1195,31 @@ tr:
     my_reviewing: 'İnceleme:'
     name: Ad
     none: Katılımcı yok.
-    no_articles: Makale yok
+    no_articles: Madde yok
     no_revisions: Bu editör hiçbir değişiklik yapmadı.
     number_of_articles:
-      one: '%{count} makale'
-      other: '%{count} makale'
+      one: '%{count} madde'
+      other: '%{count} madde'
+    profile: profil
     recent_revisions: Son Düzenlemeler
     remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
+    requested_account_status:
+      success_message: 'Başarılı: %{result_description}'
+      failure_message: 'Başarısızlık: %{result_description}'
     revision_characters_and_views: 'Eklenen Karakter: %{characters}, Görüntüleme:
       %{views}'
     revisions_doc: Bu editör tarafından son 7 günde yapılan düzenlemelerin sayısı
     references_doc: Bu editör tarafından eklenen veya kaldırılan referansların sayısı
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
+    revisions: Revizyonlar
     sandboxes: sandbox'lar
     sub_navigation:
-      article_assignments: Makale Atamaları
+      assignments_and_exercises: Ödevler ve Alıştırmalar
       editor_overview: Editöre Genel Bakış
       exercises_and_trainings: Egzersizler ve Eğitimler
-      student_overview: Öğrenci Genel Bakış
+      student_overview: '%{prefix}  Genel Bakış'
     total_uploads: Toplam Yükleme
     training_complete:
       other: bir=eğitim ile güncel
@@ -1212,6 +1232,9 @@ tr:
       other: bir=%{completed_count}/%{count} eğitim modülü tamamlandı
     training_module_name: Eğitim modülü
     training_module_status: Durum
+    training_module_time:
+      minutes: Dakika
+      seconds: Saniye
     user_training_status: Eğitim Durumu
     user_no_training_status: Bu kullanıcı herhangi bir eğitim modülünü tamamlamadı.
     up_to_date_with_training: eğitim ile güncel
@@ -1221,6 +1244,7 @@ tr:
     username_placeholder: Kullanıcı adı
     useremail_placeholder: E-posta
     userpasscode_placeholder: Şifre Kodu
+    words_added: Kelimeler Eklendi<br>(article | user | draft)
     role:
       description: Kurstaki rolü
       visitor: Ziyaretçi
@@ -1249,7 +1273,7 @@ tr:
   wizard:
     assignment_dates: Atama Tarihleri
     assignment_description: Ödev zaman çizelgenizin başlangıç ve bitiş tarihlerini
-      seçin. Örneğin, Wikipedia projenize sınıfın ikinci haftasını başlatmak istiyorsanız
+      seçin. Örneğin, Vikipedi projenize sınıfın ikinci haftasını başlatmak istiyorsanız
       ödev başlangıç tarihini kursun başlangıç tarihinden sonraki bir haftaya ayarlayın.
       Bu atama tasarım aracı, seçtiğiniz zaman çizelgesi tarihlerine uyan bir taslak
       zaman çizelgesi oluşturur.
@@ -1359,7 +1383,7 @@ tr:
     add_available_article: Kullanılabilir makaleyi ekle
     remove_article: Makaleyi çıkar
     minimum_views_label: Minimum Görünümler
-    no_article_found: Bu kategoride hiç makale bulunamadı
+    no_article_found: Bu kategoride hiç madde bulunamadı
     search_placeholder: Anahtar kelimenizi girin
     search: Arama
     tools: Araçlar
@@ -1367,7 +1391,7 @@ tr:
     hide_options: Seçenekleri Gizle
     keyword_search: Anahtar Kelime Arama
     category_search: Kategori Arama
-    article_quality: Makale Kalitesi(0-100)
+    article_quality: Madde Kalitesi(0-100)
     more_results: Daha fazla sonuç
     fetched_articles: Getirilen Makaleler
     filtered_articles: Filtrelenen Makaleler
@@ -1378,7 +1402,7 @@ tr:
     fetching_pageviews: Sayfa Görünümlerini Alma
     subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
       bulalım
-    article_finder: Makale Bulucu
+    article_finder: Madde Bulucu
     submit: Gönder
     relevanceIndex: İlgi İndeksi
     assign_article_self: Kendini ata
@@ -1386,6 +1410,9 @@ tr:
   training_status:
     completed: Tamamlandı
     continue: Devam et
+    completed_at: 'Tamamlanma tarihi:'
+    completion_time: Tamamlanma süresi
+    late: Geç
     view: Görüntüle
     started: Başladı
     not_started: Başlatılmadı

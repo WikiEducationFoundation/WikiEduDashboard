@@ -49,10 +49,6 @@
 #
 
 class FellowsCohort < Course
-  def wiki_edits_enabled?
-    true
-  end
-
   def wiki_course_page_enabled?
     false
   end
