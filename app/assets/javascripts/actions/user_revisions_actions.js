@@ -17,7 +17,10 @@ const fetchUserRevisionsPromise = (courseId, userId) => {
   });
 };
 
-export const fetchUserRevisions = (courseId, userId) => (dispatch) => {
+export const fetchUserRevisions = (courseId, userId) => (dispatch, getState) => {
+  // Don't refetch a user's revisions if they are already in the store.
+  if (getState().userRevisions[userId]) { return; }
+
   return (
     fetchUserRevisionsPromise(courseId, userId)
       .then((resp) => {

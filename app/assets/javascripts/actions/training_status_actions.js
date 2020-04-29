@@ -42,7 +42,10 @@ export const fetchUserTrainingStatus = username => (dispatch) => {
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
-export const fetchTrainingStatus = (userId, courseId) => (dispatch) => {
+export const fetchTrainingStatus = (userId, courseId) => (dispatch, getState) => {
+  // Do not refetch status for this user if it is already in the store.
+  if (getState().trainingStatus[userId]) { return; }
+
   return fetchTrainingStatusPromise(userId, courseId)
     .then(resp => dispatch({ type: RECEIVE_TRAINING_STATUS, data: resp, userId }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
