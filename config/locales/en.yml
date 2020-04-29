@@ -943,7 +943,9 @@ en:
     title: Title
     view_on_wiki: View diff on wiki
     see_more: See more
-
+    show_all: Show All
+    show_course_specific: Show Course Specific
+    
   resources:
     label: Resources
     header: Resources and Training
