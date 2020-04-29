@@ -1,4 +1,4 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS, API_FAIL } from '../constants';
+import { RECEIVE_REVISIONS, SORT_REVISIONS, FILTER_COURSE_SPECIFIC_REVISIONS, API_FAIL } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 
@@ -36,3 +36,5 @@ export const fetchRevisions = (courseId, limit) => (dispatch) => {
 };
 
 export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key });
+
+export const filterCourseSpecificRevisions = key => ({ type: FILTER_COURSE_SPECIFIC_REVISIONS, key: key });
