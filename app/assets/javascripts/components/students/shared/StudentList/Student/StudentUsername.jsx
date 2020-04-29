@@ -7,7 +7,7 @@ import { trunc } from '~/app/assets/javascripts/utils/strings';
 export const StudentUsername = ({ current_user, student }) => {
   const username = trunc(student.username);
   const showRealName = student.real_name // Student has a real name listed
-    && current_user.isAdvanced; // // Current user is advanced role
+    && current_user.isAdvancedRole; // // Current user is advanced role
 
   return showRealName ? (
     <span>
