@@ -16,7 +16,7 @@ if block.training_module_ids.present?
     )
     json.call(tm, :slug, :id, :name, :kind)
     json.module_progress due_date_manager.module_progress
-    json.due_date due_date_manager.computed_due_date.strftime('%Y/%m/%d')
+    json.due_date due_date_manager.computed_due_date
     json.overdue due_date_manager.overdue?
     json.deadline_status due_date_manager.deadline_status
     json.flags due_date_manager.flags(course.id)
