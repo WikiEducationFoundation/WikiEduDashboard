@@ -22,8 +22,8 @@ const showRecent = (course) => {
 
 export const StudentList = (props) => {
   const {
-    assignments, course, current_user, editAssignments, openKey, sort, students,
-    toggleUI, wikidataLabels, sortUsers = {}
+    assignments, course, current_user, editAssignments, sort, students,
+    wikidataLabels, sortUsers = {}
   } = props;
 
   const rows = students.map(student => (
@@ -33,10 +33,8 @@ export const StudentList = (props) => {
       current_user={current_user}
       editAssignments={editAssignments}
       key={student.id}
-      openKey={openKey}
       showRecent={showRecent(course)}
       student={student}
-      toggleUI={toggleUI}
       wikidataLabels={wikidataLabels}
     />
   ));
@@ -73,12 +71,10 @@ StudentList.propTypes = {
   }).isRequired,
   current_user: PropTypes.object.isRequired,
   editAssignments: PropTypes.bool,
-  openKey: PropTypes.string,
   sort: PropTypes.shape({
     key: PropTypes.string,
     sortKey: PropTypes.string
   }).isRequired,
-  toggleUI: PropTypes.func,
   sortUsers: PropTypes.func,
   wikidataLabels: PropTypes.object,
 };

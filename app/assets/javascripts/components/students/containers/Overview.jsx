@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { toggleUI, resetUI } from '~/app/assets/javascripts/actions';
 import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selectors';
 
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
@@ -10,32 +9,9 @@ import Controls from '@components/students/components/Overview/Controls/Controls
 import StudentList from '../shared/StudentList/StudentList.jsx';
 
 export class Overview extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false,
-      editAssignments: false
-    };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.props.resetUI();
-  }
-
-  openModal() {
-    this.setState({ showModal: true });
-  }
-
-  closeModal() {
-    this.setState({ showModal: false });
-  }
-
   render() {
     const {
-      assignments, course, current_user, openKey, prefix, sort, students,
+      assignments, course, current_user, prefix, sort, students,
       trainingStatus, wikidataLabels, sortUsers, userRevisions,
       notify, sortSelect
     } = this.props;
@@ -64,7 +40,6 @@ export class Overview extends React.Component {
           assignments={assignments}
           course={course}
           current_user={current_user}
-          openKey={openKey}
           sort={sort}
           sortUsers={sortUsers}
           students={students}
@@ -88,11 +63,9 @@ Overview.propTypes = {
   trainingStatus: PropTypes.object.isRequired,
 
   notifyOverdue: PropTypes.func.isRequired,
-  resetUI: PropTypes.func.isRequired,
   sort: PropTypes.object.isRequired,
   sortSelect: PropTypes.func.isRequired,
-  sortUsers: PropTypes.func.isRequired,
-  toggleUI: PropTypes.func.isRequired
+  sortUsers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -107,9 +80,4 @@ const mapStateToProps = state => ({
   wikidataLabels: state.wikidataLabels.labels
 });
 
-const mapDispatchToProps = {
-  resetUI,
-  toggleUI
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Overview);
+export default connect(mapStateToProps)(Overview);

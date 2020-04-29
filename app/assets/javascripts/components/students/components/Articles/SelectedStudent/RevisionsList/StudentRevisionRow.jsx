@@ -9,7 +9,9 @@ export const StudentRevisionRow = ({ course, isOpen, toggleDrawer, student, uplo
   return (
     <tr onClick={toggleDrawer} className={`students ${isOpen ? 'open' : ''}`}>
       <td className="desktop-only-tc">{student.recent_revisions}</td>
-      <ContentAdded course={course} student={student} />
+      <td className="desktop-only-tc">
+        <ContentAdded course={course} student={student} />
+      </td>
       <td className="desktop-only-tc">
         {student.references_count}
       </td>

@@ -11,22 +11,17 @@ const setRealName = (student) => {
 };
 
 export const StudentRow = ({
-  assignments, course, current_user, editAssignments,
-  openKey, showRecent, student, wikidataLabels,
-  toggleUI
+  assignments, course, current_user, editAssignments, showRecent, student, wikidataLabels
 }) => {
   if (student.real_name) setRealName(student);
-  const isOpen = openKey === `drawer_${student.id}`;
   return (
     <Student
       assignments={assignments}
       course={course}
       current_user={current_user}
       editable={editAssignments}
-      isOpen={isOpen}
       showRecent={showRecent}
       student={student}
-      toggleDrawer={toggleUI}
       wikidataLabels={wikidataLabels}
     />
   );
