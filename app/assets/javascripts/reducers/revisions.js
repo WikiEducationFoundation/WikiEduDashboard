@@ -3,6 +3,8 @@ import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   revisions: [],
+  isCourseSpecific: false,
+  courseSpecificRevisionIds: [],
   limit: 50,
   limitReached: false,
   sort: {
@@ -22,6 +24,7 @@ export default function revisions(state = initialState, action) {
       return {
         ...state,
         revisions: action.data.course.revisions,
+        courseSpecificRevisionIds: action.data.course.course_specific_revision_ids,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.revisions, action.limit),
         loading: false
