@@ -2,7 +2,7 @@
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
-  before_action :require_signed_in
+  before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
   def index
     course = Course.find_by(id: params[:course_id])
