@@ -12,6 +12,7 @@ export class StudentDrawer extends React.Component {
     this.state = {
       selectedIndex: -1,
     };
+    this.showDiff = this.showDiff.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
