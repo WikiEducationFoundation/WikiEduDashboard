@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
-import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
+import { fetchRevisions, sortRevisions, filterCourseSpecificRevisions } from '../../actions/revisions_actions.js';
 import { getActivityRevisions } from '../../selectors';
 
 const RevisionHandler = createReactClass({
@@ -56,7 +56,7 @@ const RevisionHandler = createReactClass({
     if (!this.props.limitReached) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
-    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
+    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.props.filterCourseSpecificRevisions}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
@@ -99,7 +99,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchRevisions,
-  sortRevisions
+  sortRevisions,
+  filterCourseSpecificRevisions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RevisionHandler);
