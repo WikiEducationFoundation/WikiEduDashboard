@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import moment from 'moment';
 
 // Components
 import List from '@components/common/list.jsx';
 import StudentRow from '@components/students/shared/StudentList/StudentRow.jsx';
-import StudentDrawer from './StudentDrawer/StudentDrawer';
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
@@ -24,8 +22,8 @@ const showRecent = (course) => {
 
 export const StudentList = (props) => {
   const {
-    assignments, course, current_user, editAssignments, exerciseView, openKey, sort, students,
-    toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
+    assignments, course, current_user, editAssignments, openKey, sort, students,
+    toggleUI, wikidataLabels, sortUsers = {}
   } = props;
 
   const rows = students.map(student => (
@@ -43,28 +41,13 @@ export const StudentList = (props) => {
     />
   ));
 
-  const drawers = students.map(student => (
-    <StudentDrawer
-      student={student}
-      course={course}
-      exerciseView={exerciseView}
-      key={`drawer_${student.id}`}
-      isOpen={openKey === `drawer_${student.id}`}
-      revisions={userRevisions[student.id]}
-      trainingModules={trainingStatus[student.id]}
-      wikidataLabels={wikidataLabels}
-    />
-  ));
-
-  const elements = _.flatten(_.zip(rows, drawers));
-
   const keys = studentListKeys(course);
   if (!showRecent(course)) delete keys.recent_revisions;
   if (sort.key && keys[sort.key]) keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';
 
   return (
     <List
-      elements={elements}
+      elements={rows}
       className="table--expandable table--hoverable"
       keys={keys}
       table_key="users"
