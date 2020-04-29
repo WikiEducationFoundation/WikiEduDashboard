@@ -92,6 +92,7 @@ export const SelectedStudent = ({
       }
 
       <StudentRevisionsList
+        key={`student-revisions-${selected.id}`}
         course={course}
         current_user={current_user}
         fetchUserRevisions={fetchUserRevisions}
