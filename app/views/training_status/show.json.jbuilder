@@ -15,7 +15,7 @@ json.course do
     json.module_name training_module.name
 
     json.overdue due_date_manager.overdue?
-    json.due_date due_date_manager.computed_due_date.strftime('%Y/%m/%d')
+    json.due_date due_date_manager.computed_due_date
     json.deadline_status due_date_manager.deadline_status
 
     json.completion_date training_progress_manager.completion_date
