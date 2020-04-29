@@ -1,4 +1,4 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
+import { RECEIVE_REVISIONS, SORT_REVISIONS, FILTER_COURSE_SPECIFIC_REVISIONS } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -39,6 +39,12 @@ export default function revisions(state = initialState, action) {
           sortKey: desc ? null : action.key,
           key: action.key
         }
+      };
+    }
+    case FILTER_COURSE_SPECIFIC_REVISIONS: {
+      return {
+        ...state,
+        isCourseSpecific: !state.isCourseSpecific
       };
     }
     default:
