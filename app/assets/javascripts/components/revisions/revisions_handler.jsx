@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
+import { getActivityRevisions } from '../../selectors';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -15,6 +16,7 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     limit: PropTypes.number,
     revisions: PropTypes.array,
+    courseSpecificRevisionIds: PropTypes.array,
     wikidataLabels: PropTypes.object,
     loadingRevisions: PropTypes.bool
   },
@@ -23,6 +25,22 @@ const RevisionHandler = createReactClass({
     if (this.props.loadingRevisions) {
       this.props.fetchRevisions(this.props.course_id, this.props.limit);
     }
+  },
+
+  toggleCourseSpecific() {
+    this.setState({
+      revisions: {
+        ...this.state.revisions,
+        isCourseSpecific: !this.state.revisions.isCourseSpecific
+      }
+    });
+  },
+
+  revisionFilterButtonText() {
+    if (this.props.isCourseSpecific) {
+      return I18n.t('revisions.show_all');
+    }
+    return I18n.t('revisions.show_course_specific');
   },
 
   sortSelect(e) {
@@ -38,10 +56,12 @@ const RevisionHandler = createReactClass({
     if (!this.props.limitReached) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
+    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
           <h3>{I18n.t('application.recent_activity')}</h3>
+          {revisionFilterButton}
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>
@@ -67,8 +87,10 @@ const RevisionHandler = createReactClass({
 });
 
 const mapStateToProps = state => ({
+  isCourseSpecific: state.revisions.isCourseSpecific,
   limit: state.revisions.limit,
-  revisions: state.revisions.revisions,
+  revisions: getActivityRevisions(state),
+  courseSpecificRevisionIds: state.revisions.courseSpecificRevisionIds,
   limitReached: state.revisions.limitReached,
   wikidataLabels: state.wikidataLabels.labels,
   loadingRevisions: state.revisions.loading,
