@@ -106,6 +106,10 @@
         {
           "rootPathPrefix": "@components",
           "rootPathSuffix": "./app/assets/javascripts/components"
+        },
+        {
+          "rootPathPrefix": "@constants",
+          "rootPathSuffix": "./app/assets/javascripts/constants"
         }
       ]
     }

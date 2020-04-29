@@ -9,6 +9,7 @@ import { setUploadFilters } from '~/app/assets/javascripts/actions/uploads_actio
 import { fetchUserRevisions } from '~/app/assets/javascripts/actions/user_revisions_actions';
 import { fetchTrainingStatus } from '~/app/assets/javascripts/actions/training_status_actions';
 import { groupByAssignmentType } from '@components/util/helpers';
+import { ASSIGNED_ROLE, REVIEWING_ROLE } from '@constants/assignments';
 
 // Components
 import ContentAdded from './ContentAdded';
@@ -87,7 +88,7 @@ const Student = createReactClass({
           editable={editable}
           isStudentsPage
           student={student}
-          role={0}
+          role={ASSIGNED_ROLE}
           wikidataLabels={wikidataLabels}
           unassigned={unassigned}
         />
@@ -102,7 +103,7 @@ const Student = createReactClass({
           editable={editable}
           isStudentsPage
           student={student}
-          role={1}
+          role={REVIEWING_ROLE}
           wikidataLabels={wikidataLabels}
           unassigned={reviewable}
         />
