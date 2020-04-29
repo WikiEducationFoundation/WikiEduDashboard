@@ -20,7 +20,7 @@ const showRecent = (course) => {
   return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
 };
 
-export const StudentList = (props) => {
+export const StudentExerciseList = (props) => {
   const {
     assignments, course, current_user, editAssignments, exerciseView, openKey, selected,
     sort, toggleUI, trainingStatus, wikidataLabels, sortUsers, userRevisions = {}
@@ -90,7 +90,7 @@ export const StudentList = (props) => {
   );
 };
 
-StudentList.propTypes = {
+StudentExerciseList.propTypes = {
   assignments: PropTypes.array,
   trainingStatus: PropTypes.object.isRequired,
   userRevisions: PropTypes.object,
@@ -115,4 +115,4 @@ StudentList.propTypes = {
   wikidataLabels: PropTypes.object,
 };
 
-export default StudentList;
+export default StudentExerciseList;
