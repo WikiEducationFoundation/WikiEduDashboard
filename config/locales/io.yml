@@ -23,6 +23,8 @@ io:
     tags: Etiketi
   training:
     page: Pagino
+  uploads:
+    label: Arkivi kargita
   users:
     exercises_and_trainings: Exerci & Aprentiteso
     profile: profilo

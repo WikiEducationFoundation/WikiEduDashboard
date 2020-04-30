@@ -31,8 +31,11 @@ hy:
     submit: Հաստատել
     training: Ուսուցում
     change: փոխել
+    confirm: Լավ
     opt_in: Այո
     opt_out: Ոչ
+    opt_yes: այո
+    opt_no: ոչ
   dashboard:
     create_note: Սեղմեք Ստեղծել Դասընթաց, որպեսզի ստեղծեք ձեր առաջին դասընթացը։
     explore_course_pages: Ուսումնասիրել դասընթացների էջերը
@@ -51,13 +54,17 @@ hy:
     label: Ակտիվություն
   articles:
     assigned: Հանձնարարված հոդվածներ
+    next: Հաջորդ
+    previous: Նախորդ
     assigned_to: Հանձնարարված
+    deleted: (հեռացվել է)
     edited: Խմբագրված հոդվածներ
     edited_mobile: Հոդվածներ
     filter:
       wiki_all: Բոլորը
       new: Նոր
     hide: Թաքցնել
+    history: (պատմություն)
     label: Հոդվածներ
     loading: Բեռնվում են հոդվածները
     new: (նոր)
@@ -79,6 +86,7 @@ hy:
   articles_generic:
     articles_short: Էջեր
   assignments:
+    article_link: Հոդված
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ
     assign_other: Հանձնարարել հոդված
@@ -97,14 +105,20 @@ hy:
     milestones:
       title: Փուլեր
   campaign:
+    alert_type: Տեսակ
+    alert_user_id: Մասնակից
+    created_at: Ամսաթիվ
     confirm_course_removal: Դուք համոզված եք, որ ցանկանում եք ջնջել "%{title}"  "%{campaign_title}"
       քարոզարշավից?
     course_already_removed: '"%{title}" արդեն հեռացվել է %{campaign_title}" քարոզարշավից'
     course_removed: '"%{title}" հեռացվել է %{campaign_title}" քարոզարշավից'
+    description: Նկարագրություն
     organizers: Կազմակերպիչներ
   courses:
     activity: Ակտիվություն
+    actions: Գործողություններ
     articles: Հոդվածներ
+    cancel: Չեղարկել
     course_description: Դասընթացներ
     courses: Դասընթացներ
     creation_date: Ստեղծման ամսաթիվը
@@ -129,7 +143,9 @@ hy:
     loading: բեռնվում է
     my_articles: Իմ հոդվածները
     new_week: Ավելացնել Նոր շաբաթ
+    requested_accounts_alert_view: Դիտել
     school: Դպրոց
+    start: Սկսել
     student: Ուսանող
     students: Ուսանողներ
     students_count: '# Ուսանողներ'
@@ -144,20 +160,28 @@ hy:
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
     creator:
       course_description: Նախագծի նկարագրություն
+      course_term: Երբ
+      course_term_placeholder: Երբ
       course_title: Նախագծի անվանում
       create_button: Ստեղծի՛ր իմ նախագիծը։
       create_label: Ստեղծել նոր նախագիծ
       create_new: Ստեղծել նոր նախագիծ
       create_short: Ստեղծել նախագիծ
       find: Գտի՛ր քո նախագիծը
+      save_cloned_course: Հիշել
     edit_course_dates: Խմբագրել նախագծի ամսաթվերը
     expected_students: Ակնկալվող խմբագիրներ
     student_editors: Խմբագիրներ
+    student: Խմբագիր
     students: Խմբագիրներ
     students_short: Խմբագիրներ
     term: Երբ
     uploads_none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել
       Վիքիպահեստ։
+  editable:
+    edit: Խմբագրել
+    cancel: Չեղարկել
+    save: Հիշել
   instructor_view:
     bad_work:
       learn_more_button: Իմանալ ավելին
@@ -175,6 +199,8 @@ hy:
     main: Գլխավոր անվանատարածք
     user: Մասնակցի անվանատարածք
     user_ns: Մասնակից
+  recent_activity:
+    image: Պատկեր
   revisions:
     diff_show: Ցուցադրել
     diff_hide: Թաքցնել
@@ -186,6 +212,9 @@ hy:
   suggestions:
     suggestion_docs:
       does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'
+  timeline:
+    empty_week_3: կամ
+    this_week_title_default: Այս շաբաթ
   training:
     start: Սկսել
     view: Դիտել
@@ -199,16 +228,20 @@ hy:
     time_doc: Յուրաքանչյուր բեռնման ժամանակը տեղական ժամանակով
     usages: Գործածումներ
   users:
+    assign_articles_done: Արված է
     assigned: Հանձնարարված հոդվածներ
     assignees: Կատարող(ներ)
     contributions: Մասնակցի ներդրումներ
     contributions_more: Դիտել ավելի շատ ներդրումներ
+    editors: Խմբագիրներ
+    edits: խմբագրումներ
     loading: Մասնակիցների բեռնում․․․
     name: Անուն
     recent_revisions: Վերջին խմբագրումներ
     revisions_doc: Այս մասնակցի կատարած խմբագրումները վերջին 7 օրերին
     reviewers: Վերանայող(ներ)
     reviewing: Վերանայում
+    training_module_status: Կարգավիճակ
     training_module_time:
       seconds: Վրկ
   wizard:

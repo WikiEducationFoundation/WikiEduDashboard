@@ -1156,7 +1156,7 @@ ar:
       assignments_and_exercises: المهام و التمارين
       editor_overview: نظرة عامة للمحرر
       exercises_and_trainings: التمارين والتدريبات
-      student_overview: نظرة عامة للطالب
+      student_overview: نظرة عامة ل%{prefix}
     total_uploads: إجمالي المرفوعات
     training_complete:
       one: أنهى التدريب حتى الآن

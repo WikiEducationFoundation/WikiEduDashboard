@@ -379,6 +379,7 @@ pt:
     actions: Ações
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
+    article_viewer: Visualizador de Artigo
     assignment_headings:
       assigned_articles: Artigos atribuídos
       assigned_reviews: Revisões atribuídas
@@ -758,6 +759,7 @@ pt:
     add_campaign: Adicionar campanha
     all_courses: Todos os programas
     archived: Programas arquivados
+    articles_i_am_reviewing: Artigos que eu estou a rever
     articles_none: Não há ainda artigos editados neste projeto.
     assignment_headings:
       available_reviews: Disponível para revisão

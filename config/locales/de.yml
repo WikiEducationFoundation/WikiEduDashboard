@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bjarncraft
 # Author: Domani
 # Author: FF11
 # Author: Killarnee
@@ -696,6 +697,7 @@ de:
     add_campaign: Kampagne hinzufügen
     all_courses: Alle Programme
     archived: Archivierte Programme
+    articles_i_am_reviewing: Artikel die ich überüfe
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Ereignisende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
