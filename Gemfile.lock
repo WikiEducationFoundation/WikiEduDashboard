@@ -329,7 +329,7 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     parallel (1.19.1)
-    parser (2.7.1.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     premailer-rails (1.11.1)
       actionmailer (>= 3)
@@ -451,7 +451,7 @@ GEM
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.38.1)
+    rubocop-rspec (1.39.0)
       rubocop (>= 0.68.1)
     rubocop-rspec-focused (1.0.0)
       rubocop (>= 0.51)
