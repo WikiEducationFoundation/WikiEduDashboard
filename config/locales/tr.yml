@@ -168,22 +168,22 @@ tr:
     new: (yeni)
     none: Bu kursta herhangi bir madde düzenlenmedi.
     rating: Sınıf
-    rating_doc: Bir makalenin derecelendirmesi Vikipedi üzerinde VikiProjeler tarafından
+    rating_doc: Bir maddenin derecelendirmesi Vikipedi üzerinde VikiProje tarafından
       atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
-      nedenle bunlar yalnızca makale olgunluğunun kaba bir göstergesidir.
+      nedenle bunlar yalnızca madde olgunluğunun kaba bir göstergesidir.
     rating_docs:
-      fa: '%{class} (Seçkin makale) — Vikipedi''nin en yüksek reytingli ve muhtemelen
-        yeni bir editörün ana projesi için oldukça olgun bir makalesidir'
+      fa: '%{class} (Seçkin madde) — Vikipedi''nin en yüksek reytingli ve muhtemelen
+        yeni bir editörün ana projesi için oldukça olgun bir maddesidir'
       fl: '%{class} (Seçkin liste) — Vikipedi''nin listeler için en yüksek reytingli
         sayfalarıdır'
-      a: '%{class}-sınıf: yeni bir editörün ana projesi için çok olgun olabilecek
-        çok gelişmiş bir makale'
+      a: '%{class}-sınıf: yeni bir editörün ana projesi çok olgun olabilecek çok gelişmiş
+        bir madde'
       ga: '%{class} (Kaliteli madde) — yeni bir editörün ana projesi için çok olgun
         olabilecek iyi geliştirilmiş bir madde'
       b: '%{class}-sınıf — orta gelişmiş bir madde'
       c: '%{class}-sınıf — iyileştirilebilecek içeriğe sahip orta düzeyde bir madde'
       start: '%{class}-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
-        bir makale'
+        bir madde'
       stub: '%{class}-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
         başlangıcı'
       list: '%{class}-sınıf: geleneksel bir yazı yerine bir liste'
@@ -260,7 +260,7 @@ tr:
     review_other: Akran değerlendirmesi ata
     review_self: Bir makaleyi incele
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
-      makale içindir.
+      madde içindir.
     sandbox_draft_link: Sandbox Taslağı
     select: Seç
     warning_untracked_wiki: 'Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
@@ -369,7 +369,7 @@ tr:
     school_system: Akademik Sistemi
     assignment_edits_enabled: Atama düzenlemeleri etkin
     assignment_edits_enabled_tooltip: Etkinleştirilmişse, gösterge paneli atanan her
-      makale için konuşma sayfasına bir şablon gönderir.
+      madde için tartışma sayfasına bir şablon gönderir.
     accounts_generation_enabled: Hesap isteği oluşturma etkin
     accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
       e-posta adreslerini ve istenen kullanıcı adlarını girmelerine olanak tanır.
@@ -524,7 +524,7 @@ tr:
       değerleri daha önce bitmiş olan kurslar için eski olabilir, bu nedenle WMF Aracı
       Laboratuarları sayfa görüntüleme aracına bir URL eklenir.
     data_revisions_info: Revizyon verileri dersin revizyon sayısını, revizyon kimliğini,
-      makale kimliğini, hangi sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını
+      madde kimliğini, sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını
       içerir.
     data_download_info: Verileri CSV formatında indirin.
     data_overview: Genel bakış verileri
@@ -545,7 +545,7 @@ tr:
     dismiss_survey: Kapat
     dismiss_survey_confirm: Bu anketi kalıcı olarak kapatmak istediğinizden emin misiniz?
     download_stats_data: İstatistikleri indir
-    does_not_exist: Makale mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
+    does_not_exist: Madde mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
       almak için kendinize atayın.
     duration: Kurs Süresi
     edit_count: Değişiklik Sayısı
@@ -880,8 +880,8 @@ tr:
         o kadar iyidir.
       thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
     exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
-    no_assignments: Şu anda bu öğrencinin atanmış makalesi yok. Yukarıdaki düğmeleri
-      kullanarak makale atayabilirsiniz.
+    no_assignments: Şu anda bu öğrencinin atanmış maddesi yok. Yukarıdaki düğmeleri
+      kullanarak madde atayabilirsiniz.
     overview: '%{prefix} Genel Bakış'
     reviewing_articles: Makaleleri Gözden Geçirme
     select_student:
@@ -1013,12 +1013,12 @@ tr:
       a: Makaleyi düzeltmek için uzman bilgisi gerekebilir ve stil problemleri çözüme
         ihtiyaç duyabilir. Akran değerlendirmesi yardımcı olabilir.
       ga: Konu ve stil uzmanlarına göre bazı düzenleme yapmak yararlıdır; Benzer bir
-        konudaki mevcut bir makale ile karşılaştırmak, içeriğin zayıf veya eksik olduğu
+        konudaki mevcut bir madde ile karşılaştırmak, içeriğin zayıf veya eksik olduğu
         alanları vurgulayabilir.
       bplus: Kapsamın hala eksik olduğunu değerlendirmek için uzmanlardan alınan bilgilerle
-        ve ayrıca resimler, tarihsel arka plan ve diğer referanslar ile iyileştirilebilir.
-        Hakem değerlendirmesini ya da iyi makale statüsü için aday göstermeyi düşünün.
-        Makale zaten hiç yanlış değilse şimdi zamanı.
+        ve ayrıca resimler, tarihsel arka plan ve diğer kaynakça ile iyileştirilebilir.
+        Üst değerlendirmesini ya da iyi madde statüsü için aday göstermeyi düşünün.
+        Madde zaten hiç yanlış değilse şimdi zamanı.
       b: İçerik ve stilin birkaç yönü ele alınmalıdır. Uzman bilgisi gerekli olabilir.
         Destekleyici materyallerin dahil edilmesi, eğer pratikse dikkate alınmalı
         ve madde, Stil Kılavuzu ve ilgili stil kılavuzlarına genel uygunluk açısından
@@ -1039,8 +1039,7 @@ tr:
       disambig: Bu isimdeki yeni makaleler oluşturuldukça eklemeler yapılmalıdır.
         Bu tür sayfaların düzgün bir şekilde adlandırılmasına dikkat edin, çünkü başlığa
         genellikle "(ayrıştırma)" gerek duymazlar.
-      '?': Öneriler mevcut değil - Makale, derecelendirme için derecelendirilmemiş
-        veya önerilmeyen önerilerdir.
+      '?': Öneriler mevcut değil - Madde, derecelendirilmemiş veya önerilmeyen önerilerdir.
       does_not_exist: Bu madde Vikipedi'de mevcut değil.
   tasks:
     conseq: '%{task} görevi zaten yürütülüyor!'

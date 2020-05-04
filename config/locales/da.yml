@@ -522,6 +522,7 @@ da:
     name: Navn
     none: Der er ingen deltagere.
     no_articles: Ingen artikler
+    profile: profil
     recent_revisions: Seneste redigeringer
     remove_confirmation: Er du sikker på du vil fjerne %{username}?
     sandboxes: sandkasser

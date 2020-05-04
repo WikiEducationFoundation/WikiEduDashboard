@@ -235,6 +235,7 @@ sv:
     actions: Åtgärder
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
+    article_viewer: Artikelvisare
     assignment_headings:
       assigned_articles: Tilldelade artiklar
       assigned_reviews: Tilldelade granskningar
