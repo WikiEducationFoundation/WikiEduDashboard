@@ -60,12 +60,12 @@ export class ArticleViewer extends React.Component {
   // users data (a list of usernames) in its props. If it does, then 'show' will
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
   // fetched until the usernames are available, so 'show' will fetch the usernames
-  // first in that case. In that case, componentWillReceiveProps fetches the
+  // first in that case. In that case, componentDidUpdate fetches the
   // user ids as soon as usernames are avaialable.
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!this.props.users && nextProps.users) {
-      if (!this.state.userIdsFetched) {
-        this.fetchUserIds(nextProps.users);
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.users && this.props.users) {
+      if (!prevState.userIdsFetched) {
+        this.fetchUserIds(this.props.users);
       }
     }
   }
