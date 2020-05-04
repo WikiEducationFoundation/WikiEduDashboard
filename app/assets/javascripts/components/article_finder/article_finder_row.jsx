@@ -14,8 +14,9 @@ const ArticleFinderRow = createReactClass({
     };
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isLoading && (prevProps.assignment !== this.props.assignment)) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         isLoading: false,
       });
