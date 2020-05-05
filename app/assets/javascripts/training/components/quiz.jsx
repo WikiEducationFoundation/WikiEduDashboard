@@ -29,10 +29,6 @@ const Quiz = createReactClass({
     return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
   },
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    return this.setState({ selectedAnswerId: newProps.selectedAnswerId });
-  },
-
   verifyAnswer(e) {
     e.preventDefault();
     e.stopPropagation();
