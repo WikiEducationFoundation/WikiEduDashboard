@@ -23,13 +23,21 @@ const PopoverExpandable = function (Component) {
   const wrappedComponent = createReactClass({
     displayName: 'PopoverExpandable',
 
+    statics: {
+      getDerivedStateFromProps(props, state) {
+        return {
+          is_open: state.key === props.openKey
+        };
+      }
+    },
+
     getInitialState() {
       return { is_open: false };
     },
 
-    UNSAFE_componentWillReceiveProps(props) {
+    componentDidMount() {
       this.setState({
-        is_open: this.refs.component.getKey() === props.openKey
+        key: this.refs.component.getKey()
       });
     },
 
