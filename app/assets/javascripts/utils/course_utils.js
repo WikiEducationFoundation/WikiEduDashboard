@@ -5,6 +5,7 @@ export default class CourseUtils {
   // Given a course object with title, school and term properties,
   // generate the standard 'slug' that is used as the course URL.
   static generateTempId(course) {
+    if (course.school === '' || course.title === '') return '';
     const title = CourseUtils.slugify(course.title.trim());
     const school = CourseUtils.slugify(course.school.trim());
     let term = '';
