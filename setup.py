@@ -42,7 +42,8 @@ if platform.platform().lower().find('ubuntu') != -1 \
     deb_setup()
 elif platform.platform().lower().find('fedora') != -1:
     dnf_setup()
-elif platform.platform().lower().find('darwin') != -1:
+elif platform.platform().lower().find('darwin') != -1 \
+        or platform.platform().lower().find('mac') != -1: 
     osx_setup()
 elif platform.platform().lower().find('windows') != -1:
     win_setup()
