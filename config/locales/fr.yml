@@ -8,6 +8,7 @@
 # Author: C13m3n7
 # Author: Dcausse
 # Author: Derugon
+# Author: Eihel
 # Author: Eneelk
 # Author: Eric.LEWIN
 # Author: Fitoschido
@@ -35,7 +36,7 @@ fr:
       decimal_units:
         format: '%n%u'
         units:
-          thousand: k
+          thousand: K
           million: M
           billion: G
           trillion: T
@@ -112,7 +113,7 @@ fr:
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
       cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
     no_courses_instructor: Il semble que vous n’avez aucun cours.
-    no_courses_student: Il semble que vous n’êtes encore inscrit à aucun cours.
+    no_courses_student: Il semble que vous n'ayez pas encore rejoint de cours.
     opt_out: Demande de retrait de l’orientation
     orientation_notice: Avant de créer un cours, passez par l’orientation pour vous
       aider à commencer (cela prendra 30 minutes pour le terminer).

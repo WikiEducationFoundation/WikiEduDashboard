@@ -234,7 +234,7 @@ eu:
       izenburu desberdin batekin.
     campaign: Kanpaina
     campaigns: Kanpainak
-    campaign_deleted: '%{title} kanpaina ezabatua izan da'
+    campaign_deleted: «%{title}» kanpaina ezabatu da
     campaign_not_updated: Kanpaina ezin izan da eguneratu
     campaign_updated: Kanpaina eguneratua
     created_at: Data
@@ -247,7 +247,7 @@ eu:
     course_already_removed: '"%{title}" kenduta zegoen dagoeneko "%{campaign_title}"
       kanpainatik.'
     course: Ikastaroa
-    course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
+    course_removed: «%{title}» kendu da «%{campaign_title}» kanpainatik
     create_campaign: Kanpaina berria sortu
     create_my_campaign: Sortu nire kanpaina!
     customize_passcode: pasahitz lehenetsia
