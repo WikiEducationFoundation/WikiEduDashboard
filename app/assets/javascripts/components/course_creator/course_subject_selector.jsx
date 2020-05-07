@@ -4,10 +4,9 @@ import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import request from '../../utils/request';
 
-const CourseSubjectSelector = ({ updateCourse, subject, editable }) => {
+const CourseSubjectSelector = ({ updateCourse, subject = '', editable = true }) => {
   const [options, setOptions] = useState();
   const [selected, setSelected] = useState(null);
-  if (typeof editable !== 'boolean') editable = true;
 
   useEffect(() => {
     if (editable) {
