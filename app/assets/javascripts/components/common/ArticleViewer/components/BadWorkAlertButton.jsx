@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 export const BadWorkAlertButton = ({ showBadArticleAlert }) => (
   <a
-    className="button danger small pull-right article-viewer-button"
+    className="button small pull-right article-viewer-button"
     onClick={showBadArticleAlert}
   >
-    Report Unsatisfactory Work
+    Quality Problems?
   </a>
 );
 
