@@ -27,7 +27,7 @@ const CourseSubjectSelector = ({ updateCourse, subject = '', editable = true }) 
               });
             }
           });
-          if (subject.length > 0) {
+          if (subject !== '') {
             const sel = { value: subject, label: subject };
             setSelected(sel);
             opts.push(sel);
