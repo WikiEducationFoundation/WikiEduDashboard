@@ -24,6 +24,8 @@ eo:
           quadrillion: P
   application:
     cancel: Nuligi
+    cookie_consent_acknowledge: Mi komprenas
+    cookie_consent_see_more: Vidi pli.
     create_accounts: Krei Vikipediajn kontojn
     dashboard: Stirpanelo de Viki-Eduko
     documentation: Dokumentaro
@@ -46,7 +48,9 @@ eo:
     request_account: Peti konton
     request_account_create: Krei konton
     search: demandi
-    search_results: 'Rezultoj pri: ''%{search_terms}'''
+    search_results:
+      one: '%{count} rezulto por: ''%{search_terms}'''
+      other: '%{count} rezultoj por: ''%{search_terms}'''
     no_results: Neniu rezulto troviĝis pri '%{query}'
     sign_up_extended: Registriĝi per Vikipedio
     sign_up_wikipedia: Aŭ registriĝi per Vikipedio
@@ -69,6 +73,9 @@ eo:
     explore: Esplori
     log_in: Ensaluti per Vikipedio
     sign_up: Registriĝi per Vikipedio
+  alerts:
+    alert_label: Atentigoj
+    no_alerts: Neniu atentigo trovita.
   activity:
     all: Aktiveco
     edited_by: Redaktita De
@@ -112,12 +119,17 @@ eo:
     edit_size: Grando de Revizio
     wiki: Vikio
     wp10: Struktura Kompleteco
+    articles_short: Artikoloj
+  articles_generic:
+    articles_short: Paĝoj
   assignments:
+    article_link: Artikolo
     already_exists: Ĉi tiu asigno jam ekzistas!
     assign_other: Asigni artikolon
     add_available: Aldoni haveblajn artikolojn
     add_available_submit: Aldoni artikolojn
     assign_self: Asigni artikolon al mi
+    bibliography: Bibliografio
     clone: Kloni
     label: Asigni
     none_short: Neniu artikolo asignita
@@ -130,6 +142,8 @@ eo:
     milestones:
       title: Mejloŝtonoj
   campaign:
+    active_campaigns: Aktivaj kampanjoj
+    add_organizer: Aldoni organizanton
     alert_article: Titolo de artikolo
     alert_label: Atentigoj pri Kampanjo
     alert_type: Tipo
@@ -146,6 +160,7 @@ eo:
     create_my_campaign: Krei mian Kampanjon!
     description: Priskribo
     none: Nenio
+    organizers: Organizantoj
     title: Titolo
   categories:
     add_category: Aldoni kategorion
@@ -160,10 +175,19 @@ eo:
     label: Babili
   courses:
     activity: Aktiveco
+    active_courses: Aktiva %{course_type}
+    alerts: Atentigoj
     all_courses: Ĉiuj Kursoj
     archived: Enarkivigitaj Kursoj
     actions: Agoj
     articles: Artikoloj
+    cancel: Nuligi
+    campaigns: Kampanjoj
+    campaign_articles: '%{title} Artikoloj'
+    campaign_courses: '%{title} Kursoj'
+    course: Kurso
+    course_description: Kursoj
+    courses: Kursoj
     creator:
       course_description: Priskribo de kurso
       course_subject: Temo de kurso
@@ -175,22 +199,48 @@ eo:
       end_date: Fina dato
       find: Trovi vian kurson
       start_date: Komenca dato
+      subject: Temo
     delete_course: Forigi kurson
+    delete_suggestion: Forigi
+    error:
+      invalid_language_or_project: Nevalida lingvo/projekto
     leave_course: Forlasi kurson
+    loading: Ŝargado…
     my_articles: Miaj artikoloj
+    new_week: Aldoni novan semajnon
+    new_account_email: Retpoŝtadreso
+    new_account_email_placeholder: nomo@example.org
+    none: Neniu
+    school: Lernejo
+    student: Studento
     students: Lernantoj
+    students_count: '# Studentoj'
+    students_short: Studentoj
+    user_role: Rolo
+    subject: Temo
+    tags: 'Etikedoj:'
     title: Titolo
     view_wiki: Legi en Vikipedio
+    volunteer:
+      one: Volontulo
+      other: Volontuloj
+    yourcourses: Viaj kursoj
   courses_generic:
+    add_campaign: Aldoni kampanjon
+    cancel: Nuligi
     courses: Programoj
+    campaigns: 'Kampanjoj:'
     creator:
       course_description: Priskribo de programo
       course_school: Lernejo
+      course_term: Kiam
+      course_term_placeholder: Kiam
       create_button: Krei mian programon!
       create_label: Krei novan programon
       create_new: Krei sendependan programon
       create_short: Krei programon
       find: Trovi programon
+      save_cloned_course: Konservi
   editable:
     edit: Redakti
     cancel: Nuligi
@@ -198,6 +248,7 @@ eo:
   metrics:
     date_time: Dato/Tempo
     per_user: '%{number}/uzanto'
+    tags: Etikedoj
     view: Vidoj
   namespace:
     user_ns: Uzanto

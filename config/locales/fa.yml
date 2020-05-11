@@ -29,8 +29,8 @@ fa:
     field_required: این گزینه الزامی است.
     field_invalid_characters: این فیلد دارای کاراکتر‌های نامعتبراست
     field_invalid_date: برای این کادر، فُرمت تاریخ YYYY-MM-DD الزامی است.
-    greeting2: خوش‌آمدید!
-    greeting_extended: به ویکی‌پدیا خوش‌آمدید
+    greeting2: خوش آمدید!
+    greeting_extended: به ویکی‌پدیا خوش آمدید
     greeting: سلام!
     help: راهنما
     home: صفحهٔ اصلی

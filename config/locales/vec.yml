@@ -92,7 +92,7 @@ vec:
   home:
     explore: Varda
     log_in: Va drento co Wikipedia
-    sign_up: Rejistrate co Wikipedia
+    sign_up: Nòtate co Wikipedia
     sign_up_help: Par doparar el casełoto de controło, te garè da ndar drento co Wikipedia
       e dare l'autorixasion par ndar drento a ła to utensa. Te połi ndar drento co
       na utensa che xà ła ghe xé so Wikipedia o crearghine una de nova.
@@ -126,4 +126,6 @@ vec:
     label: Cargamenti
   users:
     total_uploads: Totałe dei cargamenti
+  training_status:
+    continue: Sèvita
 ...
