@@ -53,7 +53,8 @@ class SurveyUpdate
       # Sending an email and updating the record returns true.
       # When no email needs to be sent, the email methods return nil.
       next unless notification.send(method)
-      # Don't send emails too quickly, to avoid being throttled by gmail
+      # Don't send emails too quickly, to avoid being throttled.
+      # This may no longer be necessary since we swithced to Mailgun.
       sleep 2 unless Rails.env.test?
     end
   rescue Mailgun::CommunicationError => e
