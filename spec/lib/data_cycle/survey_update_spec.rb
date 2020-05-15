@@ -40,10 +40,10 @@ describe SurveyUpdate do
     end
 
     # This doesn't really test the effects of the error handling, but it does exercise it.
-    it 're-raises common SMTP errors if they recur' do
+    it 're-raises common email errors if they recur' do
       allow_any_instance_of(SurveyNotification).to receive(:send_email)
-        .and_raise(Net::SMTPAuthenticationError)
-      expect { described_class.new }.to raise_error Net::SMTPAuthenticationError
+        .and_raise(Mailgun::CommunicationError)
+      expect { described_class.new }.to raise_error Mailgun::CommunicationError
     end
   end
 end

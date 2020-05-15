@@ -7,7 +7,6 @@ class SurveyUpdate
   include BatchUpdateLogging
 
   def initialize
-    @error_count = 0
     setup_logger
     return if updates_paused?
 
@@ -50,16 +49,15 @@ class SurveyUpdate
 
   def try_to_process_notifications(method)
     SurveyNotification.active.each do |notification|
+      @notification = notification
       # Sending an email and updating the record returns true.
       # When no email needs to be sent, the email methods return nil.
       next unless notification.send(method)
       # Don't send emails too quickly, to avoid being throttled by gmail
       sleep 2 unless Rails.env.test?
     end
-  rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy => e
-    log_message "SMTP error #{@error_count += 1}"
-    sleep 10 unless Rails.env.test?
-    retry unless @error_count >= 3
+  rescue Mailgun::CommunicationError => e
+    log_message "Error emailing for SurveyNotification #{@notification.id}"
     log_end_of_update 'Survey update errored'
     raise e
   end
