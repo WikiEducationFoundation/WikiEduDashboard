@@ -35,6 +35,6 @@ class PetScanApi
   end
 
   def typical_errors
-    [Errno::EHOSTUNREACH]
+    [Errno::EHOSTUNREACH, Faraday::TimeoutError]
   end
 end
