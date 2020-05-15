@@ -143,6 +143,7 @@ describe 'Admin users', type: :feature, js: true do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
 
       visit "/courses/#{Course.first.slug}"
+      expect(page).to have_button 'Link to Salesforce'
       accept_prompt(with: 'https://cs54.salesforce.com/a0f1a011101Xyas?foo=bar') do
         click_button 'Link to Salesforce'
       end
