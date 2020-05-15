@@ -13,6 +13,9 @@ describe 'course deletion', type: :feature, js: true do
 
     expect(Course.count).to eq(1)
 
+    # wait for all the json requests to resolve before deleting
+    sleep 1
+
     accept_prompt(with: course.title) do
       click_button 'Delete course'
     end
