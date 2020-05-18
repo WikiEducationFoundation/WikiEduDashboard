@@ -22,8 +22,15 @@ class SyllabusUpload extends React.Component {
     const cancelButton = <button className="link-button" onClick={this.props.toggleEditingSyllabus}>cancel</button>;
     const loadingAnimation = <Loading message={false} />;
     const dropzone = (
-      <Dropzone onDrop={this.onDrop} multiple={false} className="course-syllabus__uploader">
-        <div>Drag and Drop or <button id="browse_files" className="link-button">Browse Files</button></div>
+      <Dropzone onDrop={this.onDrop} multiple={false}>
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()} className="course-syllabus__uploader">
+            <input {...getInputProps()} />
+            <div>
+              Drag and Drop or <button id="browse_files" className="link-button">Browse Files</button>
+            </div>
+          </div>
+        )}
       </Dropzone>
     );
     return (
