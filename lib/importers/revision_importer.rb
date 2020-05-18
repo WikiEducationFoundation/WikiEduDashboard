@@ -67,7 +67,7 @@ class RevisionImporter
   # Get revisions made by a set of users between two dates.
   def get_revisions(users, start, end_date)
     Utils.chunk_requests(users, 40) do |block|
-      Replica.new(@wiki).get_revisions block, start, end_date
+      Replica.new(@wiki, @course).get_revisions block, start, end_date
     end
   end
 
