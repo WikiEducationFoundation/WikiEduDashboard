@@ -181,7 +181,8 @@ describe Replica do
     end
   end
 
-  describe 'error handling' do
+  describe 'error handling and saves CourseErrorRecords for errors' do
+    let(:course) { create(:course, start: '2013-12-31', end: '2015-01-01') }
     let(:all_users) do
       [build(:user, username: 'ELE427'),
        build(:user, username: 'Ragesoss'),
@@ -189,30 +190,35 @@ describe Replica do
     end
     let(:rev_start) { 2014_01_01_003430 }
     let(:rev_end) { 2014_12_31_003430 }
-    let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
+    let(:subject) do
+      described_class.new(en_wiki, course).get_revisions(all_users, rev_start, rev_end)
+    end
 
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
+      expect(CourseErrorRecord).to receive(:create).exactly(3).times
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
-
+      expect(CourseErrorRecord).to receive(:create).exactly(3).times
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      expect(CourseErrorRecord).not_to receive(:create)
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
+      expect(CourseErrorRecord).not_to receive(:create)
       expect(subject).to be_empty
     end
   end
