@@ -127,7 +127,7 @@ class RevisionScoreImporter
   def get_parent_revisions(rev_batch)
     revisions = {}
     rev_query = parent_revisions_query rev_batch.map(&:mw_rev_id)
-    response = WikiApi.new(@wiki).query rev_query
+    response = WikiApi.new(@wiki, @course).query rev_query
     return unless response.data['pages']
     response.data['pages'].each do |_page_id, page_data|
       rev_data = page_data['revisions']
