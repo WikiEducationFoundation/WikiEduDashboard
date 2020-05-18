@@ -6,9 +6,10 @@ require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
-  def initialize(wiki = nil)
+  def initialize(wiki = nil, course = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
+    @course = course
   end
 
   ################
@@ -99,9 +100,11 @@ class WikiApi
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
     log_error e, action, query
+    save_course_error_record(e.class, mediawiki_request_url)
   rescue StandardError => e
     tries -= 1
     log_error e, action, query
+    save_course_error_record(e.class, mediawiki_request_url)
     handle_non_api_error(e)
     retry if tries >= 0
     Raven.capture_exception e, level: 'warning'
@@ -138,5 +141,14 @@ class WikiApi
     [Faraday::TimeoutError,
      Faraday::ConnectionFailed,
      MediawikiApi::HttpError]
+  end
+
+  def mediawiki_request_url
+    @mediawiki.instance_variable_get(:@conn).instance_variable_get(:@url_prefix).to_s
+  end
+
+  def save_course_error_record(type_of_error, url)
+    return unless @course.present?
+    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end
