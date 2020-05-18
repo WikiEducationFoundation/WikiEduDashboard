@@ -379,7 +379,8 @@ pt:
     actions: Ações
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
-    article_viewer: Visualizador de Artigo
+    article_viewer: Leitor de artigos
+    articles_i_am_reviewing: Artigos que estou a rever entre pares
     assignment_headings:
       assigned_articles: Artigos atribuídos
       assigned_reviews: Revisões atribuídas
@@ -759,7 +760,7 @@ pt:
     add_campaign: Adicionar campanha
     all_courses: Todos os programas
     archived: Programas arquivados
-    articles_i_am_reviewing: Artigos que eu estou a rever
+    articles_i_am_reviewing: Artigos que estou a rever
     articles_none: Não há ainda artigos editados neste projeto.
     assignment_headings:
       available_reviews: Disponível para revisão
@@ -1197,6 +1198,7 @@ pt:
     exercise_modules_completed:
       one: '%{completed_count}/%{count} exercício concluído'
       other: '%{completed_count}/%{count} exercícios concluídos'
+    exercises_and_trainings: Exercícios e formações
     first_name: Primeiro nome
     last_name: Apelido
     loading: A carregar os utilizadores...
@@ -1214,6 +1216,7 @@ pt:
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
+    profile: perfil
     recent_revisions: Edições recentes
     remove_confirmation: Tem a certeza de que pretende remover %{username}?
     request_confirmation: Tem a certeza de que deseja pedir esta conta?
@@ -1226,11 +1229,13 @@ pt:
     references_doc: O número de referências adicionadas ou removidas por este editor
     reviewers: Revisor(es)
     reviewing: Em revisão
+    revisions: Revisões
     sandboxes: páginas de testes
     sub_navigation:
+      assignments_and_exercises: Trabalhos e exercícios
       editor_overview: Visão geral do editor
       exercises_and_trainings: Exercícios e formações
-      student_overview: Visão geral do aluno
+      student_overview: Visão geral do aluno %{prefix}
     total_uploads: Total de carregamentos
     training_complete:
       one: está em dia com a formação
@@ -1432,6 +1437,7 @@ pt:
     continue: Continuar
     completed_at: Concluído a
     completion_time: Hora de conclusão
+    late: Atrasado
     view: Ver
     started: Começada
     not_started: Não começada

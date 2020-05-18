@@ -26,6 +26,8 @@ ce:
   metrics:
     last_update: ТӀаьххьара карлаяккхар
     activity: Дукха хан йоцуш дийнарг
+  training:
+    previous: < Хьалхара
   uploads:
     label: Чуяьхнарш
   users:

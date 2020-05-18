@@ -39,6 +39,10 @@
 # Author: Ядерный Трамвай
 ---
 ru:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
   accessibility:
     number_field: Это числовое поле. С помощью кнопок, отображаемых большинством браузеров,
       можно увеличивать и уменьшать значение.
@@ -85,6 +89,9 @@ ru:
     opt_out: Нет
     opt_yes: да
     opt_no: нет
+  article_statuses:
+    not_yet_started: Начало работы
+    in_progress: Работа в песочнице
   dashboard:
     create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
     create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть
@@ -119,6 +126,9 @@ ru:
     sign_up_help: Чтобы использовать панель мониторинга, необходимо войти в Википедию
       и дать разрешение на доступ к вашей учётной записи. Вы можете войти в систему
       под имеющейся учётной записью в Википедии, или создать новую.
+  alerts:
+    alert_label: Оповещения
+    no_alerts: Оповещения не найдены.
   activity:
     all: Активность
     edited_by: Изменил(а)
@@ -174,6 +184,11 @@ ru:
     views_added: '%{count} новых просмотров статьи %{title}'
     edit_size: Изменить размер
     wiki: Вики
+    articles_short: Статьи
+  articles_wikidata:
+    articles_short: Элементы
+  articles_generic:
+    articles_short: Страницы
   assignments:
     article: Вам назначена статья %{title}.
     article_link: Статья
@@ -181,6 +196,7 @@ ru:
     assignees: Назначенный(е)
     add_available: Добавить доступные статьи
     add_available_submit: Добавить статьи
+    clone: Клонировать
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это задание?
