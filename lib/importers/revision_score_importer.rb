@@ -29,7 +29,7 @@ class RevisionScoreImporter
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil)
     @course = course
     @wiki = wiki || Wiki.get_or_create(language: language, project: project)
-    @ores_api = OresApi.new(@wiki)
+    @ores_api = OresApi.new(@wiki, @course)
   end
 
   # assumes a mediawiki rev_id from the correct Wikipedia
