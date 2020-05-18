@@ -20,17 +20,22 @@ class OresApi
     wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
   end
 
-  def initialize(wiki)
+  def initialize(wiki, course = nil)
     raise InvalidProjectError unless OresApi.valid_wiki?(wiki)
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
     @project_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+    @course = course
   end
 
   def get_revision_data(rev_ids)
-    response = ores_server.get query_url(rev_ids)
+    server_conn = ores_server
+    url_prefix = server_conn.url_prefix
+    url_query = query_url(rev_ids)
+    response = server_conn.get(url_query)
     ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => e
+    save_course_error_record(e.class, (url_prefix + url_query).to_s)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -60,5 +65,10 @@ class OresApi
     conn = Faraday.new(url: 'https://ores.wikimedia.org')
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
+  end
+
+  def save_course_error_record(type_of_error, url)
+    return unless @course.present?
+    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end
