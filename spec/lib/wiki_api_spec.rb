@@ -39,6 +39,40 @@ describe WikiApi do
     end
   end
 
+  describe 'error handling and saves CourseErrorRecords' do
+    let(:course) { create(:course, start: '2013-12-31', end: '2015-01-01') }
+    let(:rev_query) { { prop: 'revisions', revids: [641962088, 12345], rvprop: 'ids' } }
+    let(:subject) { described_class.new(Wiki.find(1), course).query rev_query }
+
+    it 'handles timeout errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(Faraday::TimeoutError)
+      expect(CourseErrorRecord).to receive(:create).exactly(4).times
+      expect(subject).to eq(nil)
+    end
+
+    it 'handles API errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::ApiError)
+      expect(CourseErrorRecord).to receive(:create).once
+      expect(subject).to eq(nil)
+    end
+
+    it 'handles HTTP errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::HttpError, '')
+      expect(CourseErrorRecord).to receive(:create).exactly(4).times
+      expect(subject).to eq(nil)
+    end
+
+    it 're-raises unexpected errors' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(UnexpectedError)
+      expect(CourseErrorRecord).to receive(:create).once
+      expect { subject }.to raise_error(UnexpectedError)
+    end
+  end
+
   describe '#get_page_content' do
     it 'returns the content of a page' do
       VCR.use_cassette 'wiki/course_list' do
