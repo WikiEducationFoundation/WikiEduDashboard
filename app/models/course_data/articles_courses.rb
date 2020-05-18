@@ -59,6 +59,10 @@ class ArticlesCourses < ApplicationRecord
     course.all_revisions.where(article_id: article_id)
   end
 
+  def article_revisions
+    article.revisions.where('date >= ?', course.start).where('date <= ?', course.end)
+  end
+
   def update_cache
     revisions = live_manual_revisions
 
@@ -70,8 +74,8 @@ class ArticlesCourses < ApplicationRecord
     # We use the 'all_revisions' scope so that the dashboard system edits that
     # create sandboxes are not excluded, since those are often wind up being the
     # first edit of a mainspace article's revision history
-    self.new_article = all_revisions.exists?(new_article: true)
-
+    self.new_article = all_revisions.exists?(new_article: true) ||
+                       article_revisions.exists?(new_article: true, system: true)
     save
   end
 

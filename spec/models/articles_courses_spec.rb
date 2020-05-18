@@ -24,12 +24,16 @@ describe ArticlesCourses, type: :model do
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
   describe '.update_all_caches' do
-    it 'updates data for article-course relationships' do
+    let(:instructor) { create(:instructor) }
+
+    before do
       # Make an ArticlesCourses record
       create(:articles_course, article: article, course: course)
       # Add user to course
       create(:courses_user, course: course, user: user)
+    end
 
+    it 'updates data for article-course relationships' do
       # Run a cache update without any revisions.
       described_class.update_all_caches(described_class.all)
 
@@ -62,6 +66,25 @@ describe ArticlesCourses, type: :model do
       expect(article_course.new_article).to be true
       expect(article_course.references_count).to eq(22)
       expect(article_course.character_sum).to eq(9000)
+    end
+
+    it 'updates new_article for a new_article revision by student' do
+      create(:revision, article: article, user: user, date: 1.week.ago, new_article: true)
+
+      described_class.update_all_caches(described_class.all)
+      article_course = described_class.first
+
+      expect(article_course.new_article).to be true
+    end
+
+    it 'updates new_article for a system and new_article revision by another editor' do
+      create(:revision, article: article, user: instructor, date: 1.week.ago,
+                        system: true, new_article: true)
+
+      described_class.update_all_caches(described_class.all)
+      article_course = described_class.first
+
+      expect(article_course.new_article).to be true
     end
   end
 
