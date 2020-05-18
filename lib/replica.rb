@@ -7,8 +7,9 @@ require_dependency "#{Rails.root}/lib/revision_data_parser"
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
-  def initialize(wiki)
+  def initialize(wiki, course = nil)
     @wiki = wiki
+    @course = course
   end
 
   # This is the maximum number of concurrent queries the system should run
@@ -116,13 +117,15 @@ class Replica
   #  }]
   def api_get(endpoint, query='')
     tries ||= 3
-    response = do_query(endpoint, query)
+    url = compile_query_url(endpoint, query)
+    response = do_query(url)
     return if response.empty?
     parsed = Oj.load(response.to_s)
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
+    save_course_error_record e.class, url
     sleep 2 && retry unless tries.zero?
 
     report_exception e, endpoint, query
@@ -142,8 +145,7 @@ class Replica
     report_exception e, endpoint, data
   end
 
-  def do_query(endpoint, query)
-    url = compile_query_url(endpoint, query)
+  def do_query(url)
     Net::HTTP::get(URI.parse(url))
   end
 
@@ -213,5 +215,10 @@ class Replica
       query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
     }
     return nil
+  end
+
+  def save_course_error_record(type_of_error, url)
+    return unless @course.present?
+    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end
