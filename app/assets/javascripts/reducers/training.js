@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import {
-  RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
+  RECEIVE_TRAINING_MODULE, MENU_TOGGLE, CHECK_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
   SLIDE_COMPLETED
 } from '../constants';
 
-const setSelectedAnswer = function (state, answer) {
+const checkAnswer = function (state, answer) {
   const answerId = parseInt(answer);
   const temp = { ...state, currentSlide: { ...state.currentSlide, selectedAnswer: answerId } };
   if (state.currentSlide.assessment.correct_answer_id === answerId) {
@@ -88,8 +88,8 @@ export default function training(state = initialState, action) {
     }
     case MENU_TOGGLE:
       return { ...state, menuIsOpen: !data.currently };
-    case SET_SELECTED_ANSWER:
-      return setSelectedAnswer(state, data.answer);
+    case CHECK_ANSWER:
+      return checkAnswer(state, data.answer);
     case SET_CURRENT_SLIDE:
       return update(setCurrentSlide(state, data.slide));
     case RECEIVE_ALL_TRAINING_MODULES:

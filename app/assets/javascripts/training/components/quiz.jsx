@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setSelectedAnswer } from '../../actions/training_actions.js';
+import { checkAnswer } from '../../actions/training_actions.js';
 
 const md = require('../../utils/markdown_it.js').default();
 
@@ -21,8 +21,8 @@ const Quiz = createReactClass({
     return { selectedAnswerId: this.props.selectedAnswerId };
   },
 
-  setSelectedAnswer(id) {
-    return this.props.setSelectedAnswer(id);
+  checkAnswer(id) {
+    return this.props.checkAnswer(id);
   },
 
   setAnswer(e) {
@@ -32,7 +32,7 @@ const Quiz = createReactClass({
   verifyAnswer(e) {
     e.preventDefault();
     e.stopPropagation();
-    return this.setSelectedAnswer(this.state.selectedAnswerId);
+    return this.checkAnswer(this.state.selectedAnswerId);
   },
 
   correctStatus(answer) {
@@ -93,7 +93,7 @@ const Quiz = createReactClass({
 });
 
 const mapDispatchToProps = {
-  setSelectedAnswer
+  checkAnswer
 };
 
 export default connect(null, mapDispatchToProps)(Quiz);
