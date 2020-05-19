@@ -18,15 +18,15 @@ const Quiz = createReactClass({
   },
 
   getInitialState() {
-    return { selectedAnswerId: this.props.selectedAnswerId };
-  },
-
-  checkAnswer(id) {
-    return this.props.checkAnswer(id);
+    return { selectedAnswerId: null };
   },
 
   setAnswer(e) {
     return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
+  },
+
+  checkAnswer(id) {
+    return this.props.checkAnswer(id);
   },
 
   verifyAnswer(e) {
