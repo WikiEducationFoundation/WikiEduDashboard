@@ -14,7 +14,7 @@ const ArticleFinderRow = createReactClass({
     };
   },
 
-  // Note: This is comment is applicable for the article finder row of a course
+  // Note: This comment is applicable for the article finder row of a course
   // There are two scenarios in which we use isLoading:
   // In the first one, when this.props.assignment is not null, it means the article
   // is assigned. In the second one, when this.props.assignment is undefined, it means
