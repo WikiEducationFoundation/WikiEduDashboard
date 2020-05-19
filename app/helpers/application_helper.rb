@@ -67,6 +67,10 @@ module ApplicationHelper
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "/assets/stylesheets/#{manifest[file_prefix + filename].split('/').last}"
   end
+  
+  def i18n_md5_hash(locale)
+    Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
+  end
 
   def class_for_path(req, path)
     return 'active' if req.path == '/' && path == '/'

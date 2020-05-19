@@ -11,7 +11,7 @@
 = content_for :head
 
 = javascript_include_tag '/assets/javascripts/i18n'
-= javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
+= javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s + "?v=#{i18n_md5_hash(I18n.locale.to_s)}"
 #wikis{:'data-projects' => Wiki::PROJECTS.to_json, :'data-languages' => Wiki::LANGUAGES.to_json}
 :javascript
   I18n.defaultLocale = "#{I18n.default_locale}";
