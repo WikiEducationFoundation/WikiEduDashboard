@@ -41,8 +41,7 @@ class CheckCourseJobs
     Sidekiq::Queue.all.each do |queue|
       queue.each do |job|
         next unless job.klass == 'CourseDataUpdateWorker'
-        next unless job.args == [@course_id]
-        return job
+        return job if job.args == [@course_id]
       end
     end
 
