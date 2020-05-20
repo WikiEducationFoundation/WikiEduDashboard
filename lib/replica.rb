@@ -125,9 +125,9 @@ class Replica
     parsed['data']
   rescue StandardError => e
     tries -= 1
-    save_course_error_record e.class, url
     sleep 2 && retry unless tries.zero?
 
+    save_course_error_record e.class, url
     report_exception e, endpoint, query
   end
 

@@ -197,14 +197,14 @@ describe Replica do
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
-      expect(CourseErrorRecord).to receive(:create).exactly(3).times
+      expect(CourseErrorRecord).to receive(:create).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
-      expect(CourseErrorRecord).to receive(:create).exactly(3).times
+      expect(CourseErrorRecord).to receive(:create).once
       expect(subject).to be_empty
     end
 

@@ -47,7 +47,7 @@ describe WikiApi do
     it 'handles timeout errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(Faraday::TimeoutError)
-      expect(CourseErrorRecord).to receive(:create).exactly(4).times
+      expect(CourseErrorRecord).to receive(:create).once
       expect(subject).to eq(nil)
     end
 
@@ -61,7 +61,7 @@ describe WikiApi do
     it 'handles HTTP errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::HttpError, '')
-      expect(CourseErrorRecord).to receive(:create).exactly(4).times
+      expect(CourseErrorRecord).to receive(:create).once
       expect(subject).to eq(nil)
     end
 
