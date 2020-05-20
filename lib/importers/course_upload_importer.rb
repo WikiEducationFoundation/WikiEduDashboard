@@ -25,14 +25,15 @@ class CourseUploadImporter
   end
 
   def import_thumbnail_urls
-    UploadImporter.import_urls_in_batches @course.uploads.where(thumburl: nil, deleted: false)
+    UploadImporter.import_urls_in_batches(@course.uploads.where(thumburl: nil, deleted: false),
+                                          course: @course)
   end
 
   def update_usage
-    UploadImporter.update_usage_count(@course.uploads)
+    UploadImporter.update_usage_count(@course.uploads, course: @course)
   end
 
   def uploads_data(users)
-    Commons.get_uploads(users, start_date: @start, end_date: @end)
+    Commons.get_uploads(users, start_date: @start, end_date: @end, course: @course)
   end
 end
