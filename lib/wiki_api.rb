@@ -3,9 +3,12 @@
 require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/errors/course_error_records"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
+  include Errors::CourseErrorRecords
+
   def initialize(wiki = nil, course = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
@@ -100,13 +103,13 @@ class WikiApi
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
     log_error e, action, query
-    save_course_error_record(e.class, mediawiki_request_url)
+    save_course_error_record(@course, e.class, mediawiki_request_url)
   rescue StandardError => e
     tries -= 1
     log_error e, action, query
     handle_non_api_error(e)
     retry if tries >= 0
-    save_course_error_record(e.class, mediawiki_request_url)
+    save_course_error_record(@course, e.class, mediawiki_request_url)
     Raven.capture_exception e, level: 'warning'
     return nil # Do not return a Raven object
   end
@@ -131,7 +134,7 @@ class WikiApi
     if typical_errors.include?(e.class)
       sleep 1 if too_many_requests?(e)
     else
-      save_course_error_record(e.class, mediawiki_request_url)
+      save_course_error_record(@course, e.class, mediawiki_request_url)
       raise e
     end
   end
@@ -149,10 +152,5 @@ class WikiApi
 
   def mediawiki_request_url
     @mediawiki.instance_variable_get(:@conn).instance_variable_get(:@url_prefix).to_s
-  end
-
-  def save_course_error_record(type_of_error, url)
-    return unless @course.present?
-    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end

@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/errors/course_error_records"
+
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
+  include Errors::CourseErrorRecords
+
   # This is the maximum number of concurrent requests the app should make.
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
   # https://lists.wikimedia.org/pipermail/wikitech-l/2018-September/090835.html
@@ -35,7 +39,7 @@ class OresApi
     ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => e
-    save_course_error_record(e.class, (url_prefix + url_query).to_s)
+    save_course_error_record(@course, e.class, (url_prefix + url_query).to_s)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -65,10 +69,5 @@ class OresApi
     conn = Faraday.new(url: 'https://ores.wikimedia.org')
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
-  end
-
-  def save_course_error_record(type_of_error, url)
-    return unless @course.present?
-    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end

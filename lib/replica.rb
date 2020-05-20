@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
+require_dependency "#{Rails.root}/lib/errors/course_error_records"
+
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
 #=   https://tools.wmflabs.org/wikiedudashboard
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
+  include Errors::CourseErrorRecords
+
   def initialize(wiki, course = nil)
     @wiki = wiki
     @course = course
@@ -127,7 +131,7 @@ class Replica
     tries -= 1
     sleep 2 && retry unless tries.zero?
 
-    save_course_error_record e.class, url
+    save_course_error_record @course, e.class, url
     report_exception e, endpoint, query
   end
 
@@ -215,10 +219,5 @@ class Replica
       query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
     }
     return nil
-  end
-
-  def save_course_error_record(type_of_error, url)
-    return unless @course.present?
-    CourseErrorRecord.create(course: @course, type_of_error: type_of_error, api_call_url: url)
   end
 end
