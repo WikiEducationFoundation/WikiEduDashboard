@@ -104,6 +104,7 @@ class WikiApi
   rescue MediawikiApi::ApiError => e
     log_error e, action, query
     save_course_error_record(@course, e.class, mediawiki_request_url)
+    return nil
   rescue StandardError => e
     tries -= 1
     log_error e, action, query
