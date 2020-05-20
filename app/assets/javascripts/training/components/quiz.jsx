@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkAnswer } from '../../actions/training_actions.js';
+import { reviewAnswer } from '../../actions/training_actions.js';
 
 const md = require('../../utils/markdown_it.js').default();
 
@@ -25,14 +25,14 @@ const Quiz = createReactClass({
     return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
   },
 
-  checkAnswer(id) {
-    return this.props.checkAnswer(id);
+  reviewAnswer(id) {
+    return this.props.reviewAnswer(id);
   },
 
   verifyAnswer(e) {
     e.preventDefault();
     e.stopPropagation();
-    return this.checkAnswer(this.state.selectedAnswerId);
+    return this.reviewAnswer(this.state.selectedAnswerId);
   },
 
   correctStatus(answer) {
@@ -93,7 +93,7 @@ const Quiz = createReactClass({
 });
 
 const mapDispatchToProps = {
-  checkAnswer
+  reviewAnswer
 };
 
 export default connect(null, mapDispatchToProps)(Quiz);
