@@ -130,8 +130,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-
-    save_course_error_record @course, e.class, url
+    save_course_error_record(@course, e, url: url)
     report_exception e, endpoint, query
   end
 

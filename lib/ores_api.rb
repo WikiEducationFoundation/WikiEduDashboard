@@ -38,7 +38,7 @@ class OresApi
     ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => e
-    save_course_error_record(@course, e.class, ORES_SERVER_URL + url_query)
+    save_course_error_record(@course, e, url: ORES_SERVER_URL + url_query)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end

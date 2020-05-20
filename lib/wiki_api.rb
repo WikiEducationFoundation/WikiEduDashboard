@@ -103,14 +103,14 @@ class WikiApi
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
     log_error e, action, query
-    save_course_error_record(@course, e.class, mediawiki_request_url)
+    save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
     return nil
   rescue StandardError => e
     tries -= 1
     log_error e, action, query
-    handle_non_api_error(e)
+    handle_non_api_error(e, action, query)
     retry if tries >= 0
-    save_course_error_record(@course, e.class, mediawiki_request_url)
+    save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
     Raven.capture_exception e, level: 'warning'
     return nil # Do not return a Raven object
   end
@@ -131,11 +131,11 @@ class WikiApi
   # Raise unknown errors.
   # Continue for typical errors so that the request can be retried, but wait
   # a short bit in the case of 429 — too many request — errors.
-  def handle_non_api_error(e)
+  def handle_non_api_error(e, action, query)
     if typical_errors.include?(e.class)
       sleep 1 if too_many_requests?(e)
     else
-      save_course_error_record(@course, e.class, mediawiki_request_url)
+      save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
       raise e
     end
   end
