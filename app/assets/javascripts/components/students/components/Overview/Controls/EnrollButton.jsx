@@ -29,15 +29,11 @@ export class EnrollButton extends React.Component {
     this._courseLinkParams = this._courseLinkParams.bind(this);
   }
 
-  getKey() {
-    return `add_user_role_${this.props.role}`;
-  }
-
-  UNSAFE_componentWillReceiveProps(newProps) {
+  componentDidUpdate() {
     // This handles an added user showing up after being successfully added
     if (!this.refs.username || !this.refs.username.value) { return; }
     const username = this.refs.username.value;
-    if (getFiltered(newProps.users, { username, role: this.props.role }).length > 0) {
+    if (getFiltered(this.props.users, { username, role: this.props.role }).length > 0) {
       this.props.addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
@@ -45,6 +41,10 @@ export class EnrollButton extends React.Component {
       });
       return this.refs.username.value = '';
     }
+  }
+
+  getKey() {
+    return `add_user_role_${this.props.role}`;
   }
 
   enroll(e) {

@@ -23,6 +23,14 @@ const Calendar = createReactClass({
     updateCourse: PropTypes.func.isRequired
   },
 
+  statics: {
+    getDerivedStateFromProps(props) {
+      return {
+        initialMonth: moment(props.course.start, 'YYYY-MM-DD').toDate()
+      };
+    }
+  },
+
   getInitialState() {
     return ({ initialMonth: moment(this.props.course.start, 'YYYY-MM-DD').toDate() });
   },
@@ -33,12 +41,6 @@ const Calendar = createReactClass({
       return start.isValid() && end.isValid();
     }
     return true;
-  },
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.course.start !== moment(this.state.initialMonth).format('YYYY-MM-DD')) {
-      return this.setState(
-        { initialMonth: moment(nextProps.course.start, 'YYYY-MM-DD').toDate() });
-    }
   },
   selectDay(day) {
     let exceptions;

@@ -14,8 +14,17 @@ const ArticleFinderRow = createReactClass({
     };
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
+  // Note: This comment is applicable for the article finder row of a course
+  // There are two scenarios in which we use isLoading:
+  // In the first one, when this.props.assignment is not null, it means the article
+  // is assigned. In the second one, when this.props.assignment is undefined, it means
+  // that the article is unassigned. When the request to either assign or unassign an
+  // article is made, for that time isLoading is set to true and the corresponding
+  // button is disabled. On completion of request, this.props.assignment changes and
+  // button is enabled again after isLoading is set to false
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.isLoading && (prevProps.assignment !== this.props.assignment)) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         isLoading: false,
       });

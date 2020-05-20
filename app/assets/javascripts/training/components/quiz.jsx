@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setSelectedAnswer } from '../../actions/training_actions.js';
+import { reviewAnswer } from '../../actions/training_actions.js';
 
 const md = require('../../utils/markdown_it.js').default();
 
@@ -18,25 +18,21 @@ const Quiz = createReactClass({
   },
 
   getInitialState() {
-    return { selectedAnswerId: this.props.selectedAnswerId };
-  },
-
-  setSelectedAnswer(id) {
-    return this.props.setSelectedAnswer(id);
+    return { selectedAnswerId: null };
   },
 
   setAnswer(e) {
     return this.setState({ selectedAnswerId: e.currentTarget.getAttribute('data-answer-id') });
   },
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    return this.setState({ selectedAnswerId: newProps.selectedAnswerId });
+  reviewAnswer(id) {
+    return this.props.reviewAnswer(id);
   },
 
   verifyAnswer(e) {
     e.preventDefault();
     e.stopPropagation();
-    return this.setSelectedAnswer(this.state.selectedAnswerId);
+    return this.reviewAnswer(this.state.selectedAnswerId);
   },
 
   correctStatus(answer) {
@@ -97,7 +93,7 @@ const Quiz = createReactClass({
 });
 
 const mapDispatchToProps = {
-  setSelectedAnswer
+  reviewAnswer
 };
 
 export default connect(null, mapDispatchToProps)(Quiz);

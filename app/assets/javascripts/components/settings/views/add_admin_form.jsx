@@ -13,10 +13,10 @@ const AddAdminForm = createReactClass({
     return { confirming: false };
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     // if `this.props.submittingNewAdmin` goes from `true->false` that means the component should reset
 
-    if (this.props.submittingNewAdmin && !nextProps.submittingNewAdmin) {
+    if (prevProps.submittingNewAdmin && !this.props.submittingNewAdmin) {
       this.reset();
     }
   },

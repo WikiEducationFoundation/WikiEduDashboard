@@ -26,10 +26,30 @@ const CourseClonedModal = createReactClass({
     firstErrorMessage: PropTypes.string
   },
 
+  statics: {
+    getDerivedStateFromProps(props, state) {
+        return {
+          tempCourseId: CourseUtils.generateTempId(state.course)
+        };
+    }
+  },
+
   getInitialState() {
     return {
       course: this.props.course
     };
+  },
+
+  componentDidUpdate(prevProps, prevState) {
+    let isPersisting = prevState.isPersisting;
+    if (this.props.firstErrorMessage && !prevProps.firstErrorMessage) {
+      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+      isPersisting = false;
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        isPersisting
+      });
+    }
   },
 
   setAnyDatesSelected(bool) {
@@ -43,18 +63,6 @@ const CourseClonedModal = createReactClass({
   setNoBlackoutDatesChecked() {
     const { checked } = this.noDates;
     return this.updateCourse('no_day_exceptions', checked);
-  },
-
-  UNSAFE_componentWillReceiveProps(newProps) {
-    let isPersisting = this.state.isPersisting;
-    if (newProps.firstErrorMessage && !this.props.firstErrorMessage) {
-      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
-      isPersisting = false;
-    }
-    return this.setState({
-      isPersisting,
-      tempCourseId: CourseUtils.generateTempId(this.state.course)
-    });
   },
 
   cloneCompletedStatus: 2,

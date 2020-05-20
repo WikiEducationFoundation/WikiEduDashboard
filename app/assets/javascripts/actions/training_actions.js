@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {
-  RECEIVE_TRAINING_MODULE, MENU_TOGGLE, SET_SELECTED_ANSWER,
+  RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
@@ -106,9 +106,9 @@ export const toggleMenuOpen = opts => (dispatch) => {
   });
 };
 
-export const setSelectedAnswer = answer => (dispatch) => {
+export const reviewAnswer = answer => (dispatch) => {
   return dispatch({
-    type: SET_SELECTED_ANSWER,
+    type: REVIEW_ANSWER,
     data: {
       answer
     }

@@ -16,10 +16,10 @@ const AddSpecialUserForm = createReactClass({
     return { confirming: false, enabled: false };
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     // if `this.props.submittingNewSpecialUser` goes from `true->false` that means the component should reset
 
-    if (this.props.submittingNewSpecialUser && !nextProps.submittingNewSpecialUser) {
+    if (prevProps.submittingNewSpecialUser && !this.props.submittingNewSpecialUser) {
       this.reset();
     }
   },

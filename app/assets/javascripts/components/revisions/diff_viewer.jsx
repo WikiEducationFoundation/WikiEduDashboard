@@ -37,6 +37,18 @@ const DiffViewer = createReactClass({
     };
   },
 
+  // When 'show' is clicked, this component may or may not already have
+  // users data (a list of usernames) in its props. If it does, then 'show' will
+  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
+  // fetched until the usernames are available, so 'show' will fetch the usernames
+  // first in that case. In that case, componentDidUpdate fetches the
+  // user ids as soon as usernames are avaialable.
+  componentDidUpdate(prevProps, prevState) {
+    if (this.shouldShowDiff(this.props) && !prevState.fetched) {
+      this.fetchRevisionDetails(this.props);
+    }
+  },
+
   // sets the ref for the diff, calls method to resize first empty diff
   setDiffBodyRef(element) {
     this.diffBody = element;
@@ -45,18 +57,6 @@ const DiffViewer = createReactClass({
 
   setSelectedIndex(index) {
     this.props.setSelectedIndex(index);
-  },
-
-  // When 'show' is clicked, this component may or may not already have
-  // users data (a list of usernames) in its props. If it does, then 'show' will
-  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
-  // fetched until the usernames are available, so 'show' will fetch the usernames
-  // first in that case. In that case, componentWillReceiveProps fetches the
-  // user ids as soon as usernames are avaialable.
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.shouldShowDiff(nextProps) && !this.state.fetched) {
-      this.fetchRevisionDetails(nextProps);
-    }
   },
 
   // resizes first empty diff element to 50% width in table

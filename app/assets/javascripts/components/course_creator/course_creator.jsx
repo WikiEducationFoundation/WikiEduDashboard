@@ -67,11 +67,9 @@ const CourseCreator = createReactClass({
   },
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.course.school !== '' && nextProps.course.title !== '') {
-      this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
-    } else {
-      this.state.tempCourseId = '';
-    }
+    this.setState({
+      tempCourseId: CourseUtils.generateTempId(nextProps.course)
+    });
     return this.handleCourse(nextProps.course, nextProps.isValid);
   },
 
