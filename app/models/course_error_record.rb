@@ -9,8 +9,10 @@
 #  course_id           :integer
 #  type_of_error       :string(255)
 #  api_call_url        :text(65535)
+#  miscellaneous       :text(65535)
 #
 
 class CourseErrorRecord < ApplicationRecord
   belongs_to :course
+  serialize :miscellaneous, Hash
 end
