@@ -150,8 +150,4 @@ class WikiApi
      Faraday::ConnectionFailed,
      MediawikiApi::HttpError]
   end
-
-  def mediawiki_request_url
-    @mediawiki.instance_variable_get(:@conn).instance_variable_get(:@url_prefix).to_s
-  end
 end
