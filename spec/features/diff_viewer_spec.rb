@@ -22,9 +22,8 @@ describe 'diff viewer', type: :feature, js: true do
 
       response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
 
-      response[article.mw_page_id.to_s]['revisions'].each_with_index do |revision, index|
+      response[article.mw_page_id.to_s]['revisions'].uniq.each do |revision|
         create(:revision,
-               id: index,
                mw_rev_id: revision['mw_rev_id'],
                date: revision['date'],
                characters: revision['characters'].to_i,
@@ -34,18 +33,15 @@ describe 'diff viewer', type: :feature, js: true do
                system: revision['system'],
                deleted: false,
                user_id: user.id)
-      rescue ActiveRecord::RecordNotUnique
-        next
       end
 
       create(:courses_user, id: 1, course_id: 1, user_id: 1)
       create(:articles_course, id: 1, course: course, article: article, tracked: true)
 
       visit "/courses/#{Course.first.slug}/activity"
-
       expect(page).to have_css('button.icon-diff-viewer', count: 3)
       all('button.icon-diff-viewer').last.click
-      expect(page).to have_content 'Edited on 2016/04/17 9:16 pm; -69 Chars Added'
+      expect(page).to have_content 'Edited on 2016/04/17 3:46 pm; -69 Chars Added'
     end
   end
 end
