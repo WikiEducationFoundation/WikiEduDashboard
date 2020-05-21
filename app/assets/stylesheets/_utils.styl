@@ -94,23 +94,6 @@ show-over(breakpoint, display)
 .desktop-only-tc
   show-over(desktop, table-cell)
 
-// appearance of hr (double border)
-// but more semantic
-.appearance-hr
-  position relative
-  border-bottom 1px solid $border
-  padding-bottom 16px
-  display inline-block
-  &:after
-    content ' '
-    height 1px
-    width 100%
-    border-bottom 1px solid $border + 30
-    position absolute
-    top 100%
-    z-index 10
-    display block
-
 .pull-right
   float right !important
 
