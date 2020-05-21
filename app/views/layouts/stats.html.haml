@@ -12,7 +12,7 @@
   %script(src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js")
 
   = javascript_include_tag '/assets/javascripts/i18n'
-  = javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
+  = i18n_javascript_tag I18n.locale.to_s
   :javascript
     I18n.defaultLocale = "#{I18n.default_locale}";
     I18n.locale = "#{I18n.locale}";

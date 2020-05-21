@@ -68,8 +68,9 @@ module ApplicationHelper
     "/assets/stylesheets/#{manifest[file_prefix + filename].split('/').last}"
   end
   
-  def i18n_md5_hash(locale)
-    Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
+  def i18n_javascript_tag(locale)
+    md5 = Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
+    javascript_include_tag "/assets/javascripts/i18n/#{locale}.js?v=#{md5}"
   end
 
   def class_for_path(req, path)
