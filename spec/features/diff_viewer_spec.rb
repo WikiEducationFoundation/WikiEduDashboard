@@ -41,7 +41,7 @@ describe 'diff viewer', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/activity"
       expect(page).to have_css('button.icon-diff-viewer', count: 3)
       all('button.icon-diff-viewer').last.click
-      expect(page).to have_content 'Edited on 2016/04/17 3:46 pm; -69 Chars Added'
+      expect(page).to have_content '-69 Chars Added'
     end
   end
 end
