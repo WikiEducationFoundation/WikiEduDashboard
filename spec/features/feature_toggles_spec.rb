@@ -25,7 +25,7 @@ describe 'Feature toggles', type: :feature, js: true do
 
       it 'renders the home page' do
         # This breaks of the manifest file is absent, which is the case when
-        # `gulp hot-dev` is running.
+        # `yarn hot` is running.
         visit root_path if stylesheet_manifest_file_exists?
       end
     end

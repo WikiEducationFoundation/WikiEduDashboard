@@ -172,7 +172,4 @@ print_success "${CLEAR_LINE}[+] Database migration completed\n"
 printf '[*] Installing node_modules... \n'
 output_line "yarn" && print_success "${CLEAR_LINE}[+] node_modules installed\n"
 
-printf '[*] Installing gulp... \n'
-output_line "sudo yarn global add gulp" && print_success "${CLEAR_LINE}[+] Gulp installed\n"
-
 echo 'Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.'

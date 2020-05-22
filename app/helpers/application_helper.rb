@@ -39,10 +39,11 @@ module ApplicationHelper
 
   def dashboard_stylesheet_tag(filename)
     if Features.hot_loading?
-      stylesheet_link_tag "/assets/stylesheets/#{rtl? ? 'rtl-' : nil}#{filename}.css"
+      filename = "#{rtl? ? 'rtl-' : nil}#{filename}"
+      stylesheet_link_tag "http://localhost:8080/assets/stylesheets/#{filename}.css"
     else
-      file_prefix = rtl? ? 'rtl-' : nil
-      stylesheet_link_tag fingerprinted('/assets/stylesheets/', "#{filename}.css", file_prefix),
+      file_prefix = rtl? ? 'rtl-' : ''
+      stylesheet_link_tag css_fingerprinted("#{filename}.css", file_prefix),
                           media: 'all'
     end
   end
@@ -59,6 +60,12 @@ module ApplicationHelper
     manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "#{path}#{file_prefix}#{manifest[filename]}"
+  end
+
+  def css_fingerprinted(filename, file_prefix = '')
+    manifest_path = "#{Rails.root}/public/assets/javascripts/rev-manifest.json"
+    manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
+    "/assets/stylesheets/#{manifest[file_prefix + filename].split('/').last}"
   end
 
   def class_for_path(req, path)

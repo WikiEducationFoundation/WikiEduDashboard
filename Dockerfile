@@ -29,7 +29,7 @@ COPY config/application.example.yml ./config/application.yml
 COPY config/database.example.yml ./config/database.yml
 COPY entrypoint.sh ./entrypoint.sh
 COPY db_init.sh ./db_init.sh
-RUN yarn && yarn global add gulp
+RUN yarn
 
 # Setup and initialize DBs
 RUN ./db_init.sh

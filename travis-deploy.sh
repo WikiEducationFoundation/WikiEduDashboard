@@ -11,9 +11,9 @@ if [ "${TRAVIS_PULL_REQUEST}" = "false" ]
 
     if [ $TRAVIS_BRANCH = "production" ]
       then
-        bundle exec cap production deploy skip_gulp=true;
+        bundle exec cap production deploy skip_build=true;
     elif [ $TRAVIS_BRANCH = "staging" ]
       then
-        bundle exec cap staging deploy skip_gulp=true;
+        bundle exec cap staging deploy skip_build=true;
     fi
 fi

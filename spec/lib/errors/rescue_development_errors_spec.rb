@@ -22,7 +22,7 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
     it 'renders an explanation with helpful advice' do
       # In development environment, this renders the page.
       # In test environment, it raises an error with the explanation
-      expect { get :index }.to raise_error(/gulp/)
+      expect { get :index }.to raise_error(/yarn/)
     end
   end
 

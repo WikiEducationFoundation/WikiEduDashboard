@@ -49,10 +49,10 @@ namespace :deploy do
     skip_assets = true
   end
 
-  desc 'Run gulp to compile the assets'
-  task :local_gulp_build do
+  desc 'Run yarn build to compile the assets'
+  task :local_yarn_build do
     run_locally do
-      execute 'gulp build'
+      execute 'yarn build'
     end
   end
 
@@ -83,7 +83,7 @@ namespace :deploy do
   end
 
   before 'deploy:rollback', 'deploy:do_not_update_assets'
-  before :deploy, 'deploy:local_gulp_build' unless ENV['skip_gulp'] || skip_assets
+  before :deploy, 'deploy:local_yarn_build' unless ENV['skip_build'] || skip_assets
   before 'deploy:symlink:release', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
 

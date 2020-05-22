@@ -24,7 +24,7 @@ For a developer's ease of use, it is desirable to have the container auto update
  ```sh
  $ docker run --net=host -it -v /path/to/WikiEduDashboard:/usr/src/app wiki-edu-dashboard
 ```
-This starts the container with host networking and allows `/path/to/WikiEduDashboard` (developer's working directory) to be accessible from the `WORKDIR` of container. For WikiEduDashboard Docker image, the working directory has been set as `/usr/src/app`. Once the container starts, you should start expecting the following prompts and `gulp` to have started with its status messages waiting for live changes.
+This starts the container with host networking and allows `/path/to/WikiEduDashboard` (developer's working directory) to be accessible from the `WORKDIR` of container. For WikiEduDashboard Docker image, the working directory has been set as `/usr/src/app`. Once the container starts, you should start expecting the following prompts and `yarn start` to have started with its status messages waiting for live changes.
 ```
 [ ok ] Starting MariaDB database server: mysqld ..
 + redis-server --daemonize yes

@@ -70,7 +70,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * `rake db:migrate`
 * install yarn
 * `yarn` for more javascript requirements
-* `gulp` to build assets
+* `yarn start` to build assets
 * `guard` or `rails s` to start a server
 * localhost:3000 should load the home page
 
@@ -136,9 +136,6 @@ If you know your way around Rails, here's the very short version. Some additiona
   - OSX: `brew install redis`
   - Windows: Download [the Windows port](https://github.com/MSOpenTech/redis/releases) by the Microsoft Open Tech Group
 
-- Install Gulp (if not already installed)
-  - `sudo yarn global add gulp`
-
 - (Optional) Set up a [`post-merge`](https://git-scm.com/docs/githooks#_post_merge) hook to update all dependencies if `package.json` or `Gemfile` changes.
   - Copy `.git-hooks/pull-update-deps` to `.git/hooks/post-merge`
 ## Initialize
@@ -188,13 +185,13 @@ with a few example events with editing activity.
 
       $ `rails s`
 
-3. **Start Gulp to compile assets**
-    - The default gulp command will build the project's javascripts and stylesheets
+3. **Compile assets**
+    - The `yarn start` command will build the project's javascripts and stylesheets
     (in lieu of the rails asset pipeline), and watch the assets directory, recompiling
-    after changes to javascript, jsx and stylesheet files. Using `gulp build` instead
+    after changes to javascript, jsx and stylesheet files. Using `yarn build` instead
     will generate the minified production version of assets.
 
-      $ `gulp`
+      $ `yarn start`
 
 4. The frontend is now visible at http://localhost:3000/
 

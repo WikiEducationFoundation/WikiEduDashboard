@@ -4,7 +4,7 @@
 
 - **Most integration tests fail with an exception.** This is usually caused by an improperly installed/linked version of QT, particularly on OSX. [This wiki section](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit#video-playback-mp4-on-osx-requires-qt-5) should set you straight.
 
-- **"Error: EACCES: permission denied, open '/home/username/.babel.json'"** This happen, when babel don't have acces to ~/. To fix this, use command: `BABEL_DISABLE_CACHE=1 gulp`
+- **"Error: EACCES: permission denied, open '/home/username/.babel.json'"** This happen, when babel don't have acces to ~/. To fix this, use command: `BABEL_DISABLE_CACHE=1 yarn start`
 
 - **"sh: 1: node: not found"** This usually happen on Ubuntu 16.04, when nodejs is not linked as 'node'. To fix this, use command: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
 
