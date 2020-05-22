@@ -102,16 +102,14 @@ class WikiApi
     @mediawiki = api_client
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
-    log_error e, action, query
-    save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
+    perform_error_handling_tasks(e, action, query)
     return nil
   rescue StandardError => e
     tries -= 1
     log_error e, action, query
     handle_non_api_error(e, action, query)
     retry if tries >= 0
-    save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
-    Raven.capture_exception e, level: 'warning'
+    perform_error_handling_tasks e, action, query
     return nil # Do not return a Raven object
   end
 
@@ -119,12 +117,19 @@ class WikiApi
     MediawikiApi::Client.new @api_url
   end
 
-  def log_error(e, action, query)
+  def log_error(e, action, query, sentry_tag_uuid: nil)
     Rails.logger.info "Caught #{e}"
-    Raven.capture_exception e, level: 'warning',
-                               extra: { action: action,
-                                        query: query,
-                                        api_url: @api_url }
+    if sentry_tag_uuid.present?
+      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+        Raven.capture_exception e, level: 'warning', extra: {
+          action: action, query: query, api_url: @api_url
+        }
+      end
+    else
+      Raven.capture_exception e, level: 'warning', extra: {
+        action: action, query: query, api_url: @api_url
+      }
+    end
     return nil # Do not return a Raven object
   end
 
@@ -132,10 +137,10 @@ class WikiApi
   # Continue for typical errors so that the request can be retried, but wait
   # a short bit in the case of 429 — too many request — errors.
   def handle_non_api_error(e, action, query)
-    if typical_errors.include?(e.class)
+    if TYPICAL_ERRORS.include?(e.class)
       sleep 1 if too_many_requests?(e)
     else
-      save_course_error_record(@course, e, miscellaneous: { action: action, query: query })
+      perform_error_handling_tasks(e, action, query)
       raise e
     end
   end
@@ -145,9 +150,15 @@ class WikiApi
     e.status == 429
   end
 
-  def typical_errors
-    [Faraday::TimeoutError,
-     Faraday::ConnectionFailed,
-     MediawikiApi::HttpError]
+  TYPICAL_ERRORS = [Faraday::TimeoutError,
+                    Faraday::ConnectionFailed,
+                    MediawikiApi::HttpError].freeze
+
+  def perform_error_handling_tasks(error, action, query)
+    return log_error(error, action, query) unless @course.present?
+    sentry_tag_uuid = SecureRandom.uuid
+    save_course_error_record(@course, error, sentry_tag_uuid,
+                             miscellaneous: { action: action, query: query })
+    log_error(error, action, query, sentry_tag_uuid: sentry_tag_uuid)
   end
 end
