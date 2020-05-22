@@ -38,7 +38,8 @@ class OresApi
     ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => e
-    save_course_error_record(@course, e, url: ORES_SERVER_URL + url_query)
+    url = ORES_SERVER_URL + url_query
+    perform_error_handling_tasks(e, url)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -68,5 +69,28 @@ class OresApi
     conn = Faraday.new(url: ORES_SERVER_URL)
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
+  end
+
+  def report_exception(error, url, level: 'error', sentry_tag_uuid: nil)
+    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
+    if sentry_tag_uuid.present?
+      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+        Raven.capture_exception error, level: level, extra: {
+          project_code: @project_code, project_model: @project_model, url: url
+        }
+      end
+    else
+      Raven.capture_exception error, level: level, extra: {
+        project_code: @project_code, project_model: @project_model, url: url
+      }
+    end
+    return nil
+  end
+
+  def perform_error_handling_tasks(error, url)
+    return report_exception(error, url) unless @course.present?
+    sentry_tag_uuid = SecureRandom.uuid
+    save_course_error_record(@course, error, sentry_tag_uuid, url: url)
+    report_exception(error, url, sentry_tag_uuid: sentry_tag_uuid)
   end
 end
