@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "no-descending-specificity": null,
+    "declaration-block-no-shorthand-property-overrides": null,
+    "no-duplicate-selectors": null,
+    "declaration-block-no-duplicate-properties": null,
+    "selector-type-no-unknown": null,
+    "font-family-no-missing-generic-family-keyword": null
+  }
+}

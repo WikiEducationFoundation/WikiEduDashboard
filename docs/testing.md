@@ -18,14 +18,14 @@ Write tests for the applicable parts of your contribution wherever possible.
 Running `rspec` will run all model, controller, and integration tests (found in `spec/features`), as well as any other specs in the `spec` directory (such as classes in `lib` and `presenters`). Running `rspec spec/features` will run just the integration tests. You can pass any directory to `rspec` to run specs in just that directory, such as `rspec spec/models`.
 
 If there are deprecations warnings in the development build of the javascript assets,
-this can cause feature specs to fail. Run `gulp build` to get the production build,
+this can cause feature specs to fail. Run `yarn build` to get the production build,
 which will not include the deprecation warnings.
 
 #### Javascript tests
 Running `yarn test` will run the entire client-side test suite. During development, you can use `jest --watch` to run Jest in watch mode. This works similarly to guard, re-running relevant tests whenever the corresponding files change.
 
 ### Server and client tests together
-You can run the entire test suite, including a fresh compilation of assets, with `gulp build && rspec && yarn test`.
+You can run the entire test suite, including a fresh compilation of assets, with `yarn build && rspec && yarn test`.
 
 ## Test Coverage
 All new code should be covered with appropriate tests. Much of the Javascript-dependent UI is covered by Poltergeist integration tests. Whenever possible, new Javascript functionality should be tested in isolation via Javascript tests instead (or additionally), as the integration tests tend to be both slower and more brittle.

@@ -62,10 +62,7 @@ echo [*] Installing Redis...
 msiexec /i https://github.com/MicrosoftArchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.msi
 echo [+] Redis installed!
 
-echo [*] Installing Gulp...
-call yarn global add gulp
 SET "PATH=%PATH%;%LOCALAPPDATA%\Yarn\bin"
-echo [+] Gulp install complete!
 
 echo [*] Migrating databases...
 call rake db:migrate
