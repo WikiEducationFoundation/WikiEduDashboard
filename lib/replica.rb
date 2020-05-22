@@ -130,8 +130,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    save_course_error_record(@course, e, url: url)
-    report_exception e, endpoint, query
+    perform_error_handling_tasks(e, endpoint, query, url)
   end
 
   def api_post(endpoint, key, data)
@@ -212,11 +211,26 @@ class Replica
   # These are typical network errors that we expect to encounter.
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
-  def report_exception(error, endpoint, query, level='error')
+  def report_exception(error, endpoint, query, level: 'error', sentry_tag_uuid: nil)
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
-    Raven.capture_exception error, level: level, extra: {
-      query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
-    }
+    if sentry_tag_uuid.present?
+      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+        Raven.capture_exception error, level: level, extra: {
+          query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
+        }
+      end
+    else
+      Raven.capture_exception error, level: level, extra: {
+        query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
+      }
+    end
     return nil
+  end
+
+  def perform_error_handling_tasks(error, endpoint, query, url)
+    return report_exception(error, endpoint, query) unless @course.present?
+    sentry_tag_uuid = SecureRandom.uuid
+    save_course_error_record(@course, error, sentry_tag_uuid, url: url)
+    report_exception(error, endpoint, query, sentry_tag_uuid: sentry_tag_uuid)
   end
 end
