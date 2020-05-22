@@ -40,10 +40,10 @@ module ApplicationHelper
   def dashboard_stylesheet_tag(filename)
     if Features.hot_loading?
       filename = "#{rtl? ? 'rtl-' : nil}#{filename}"
-      stylesheet_link_tag "http://localhost:8080/assets/stylesheets/#{filename}_css.css"
+      stylesheet_link_tag "http://localhost:8080/assets/stylesheets/#{filename}.css"
     else
       file_prefix = rtl? ? 'rtl-' : ''
-      stylesheet_link_tag css_fingerprinted("#{filename}_css.css", file_prefix),
+      stylesheet_link_tag css_fingerprinted("#{filename}.css", file_prefix),
                           media: 'all'
     end
   end

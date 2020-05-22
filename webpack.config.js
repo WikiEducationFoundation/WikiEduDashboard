@@ -25,9 +25,9 @@ const cleanPaths = [
   `${config.outputPath}/javascripts/*`,
 ];
 const entries = {
-  main: [`${jsSource}/main.js`],
+  main: [`${jsSource}/main.js`, `${cssSource}/main.styl`],
   raven: [`${jsSource}/raven.js`],
-  styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
+  styleguide: [`${jsSource}/styleguide/styleguide.jsx`, `${cssSource}/styleguide.styl`],
   survey: [`${jsSource}/surveys/survey.js`],
   survey_admin: [`${jsSource}/surveys/survey-admin.js`],
   survey_results: [`${jsSource}/surveys/survey-results.jsx`],
@@ -35,10 +35,8 @@ const entries = {
   charts: [`${jsSource}/charts.js`],
   tinymce: [`${jsSource}/tinymce.js`],
   embed_course_stats: [`${jsSource}/embed_course_stats.js`],
-  main_css: [`${cssSource}/main.styl`],
-  styleguide_css: [`${cssSource}/styleguide.styl`],
-  surveys_css: [`${cssSource}/surveys.styl`],
-  training_css: [`${cssSource}/training.styl`],
+  surveys: [`${cssSource}/surveys.styl`],
+  training: [`${cssSource}/training.styl`],
 };
 
 module.exports = (env) => {
