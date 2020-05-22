@@ -214,7 +214,7 @@ class Replica
   def report_exception(error, endpoint, query, level: 'error', sentry_tag_uuid: nil)
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
     if sentry_tag_uuid.present?
-      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+      Raven.tags_context(uuid: sentry_tag_uuid) do
         Raven.capture_exception error, level: level, extra: {
           query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
         }

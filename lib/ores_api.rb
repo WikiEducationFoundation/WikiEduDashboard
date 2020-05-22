@@ -74,7 +74,7 @@ class OresApi
   def report_exception(error, url, level: 'error', sentry_tag_uuid: nil)
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
     if sentry_tag_uuid.present?
-      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+      Raven.tags_context(uuid: sentry_tag_uuid) do
         Raven.capture_exception error, level: level, extra: {
           project_code: @project_code, project_model: @project_model, url: url
         }

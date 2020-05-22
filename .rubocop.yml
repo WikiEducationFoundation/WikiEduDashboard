@@ -34,6 +34,7 @@ Metrics/ClassLength:
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
     - 'lib/importers/revision_score_importer.rb'
+    - 'lib/replica.rb'
     - 'lib/wizard_timeline_manager.rb'
     - 'lib/wiki_course_edits.rb'
 
@@ -93,7 +94,7 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false # Not very helpful
 Layout/HashAlignment:
   Enabled: false # Hashes look uglier when corrected
-  
+
 ########################
 # Temporary exceptions #
 ########################

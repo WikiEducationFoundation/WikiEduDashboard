@@ -109,7 +109,7 @@ class WikiApi
     log_error e, action, query
     handle_non_api_error(e, action, query)
     retry if tries >= 0
-    perform_error_handling_tasks e, action, query
+    perform_error_handling_tasks(e, action, query)
     return nil # Do not return a Raven object
   end
 
@@ -120,7 +120,7 @@ class WikiApi
   def log_error(e, action, query, sentry_tag_uuid: nil)
     Rails.logger.info "Caught #{e}"
     if sentry_tag_uuid.present?
-      Raven.tags_context(sentry_tag_uuid: sentry_tag_uuid) do
+      Raven.tags_context(uuid: sentry_tag_uuid) do
         Raven.capture_exception e, level: 'warning', extra: {
           action: action, query: query, api_url: @api_url
         }
