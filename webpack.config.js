@@ -184,19 +184,11 @@ module.exports = (env) => {
             },
             'css-loader',
             {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  require('stylelint')({ fix: true, quiet: true }),
-                  require('autoprefixer')
-                ]
-              }
-            },
-            {
               // Compiles Stylus to CSS
               loader: 'stylus-native-loader',
               options: {
                 includeCSS: true,
+                vendors: true
               }
             }
           ]
