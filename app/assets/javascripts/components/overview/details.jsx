@@ -21,6 +21,7 @@ import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
+import CourseSubjectSelector from '../course_creator/course_subject_selector.jsx';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
@@ -281,7 +282,7 @@ const Details = createReactClass({
         {campaignEditable}
       </span>
     );
-    let subject;
+    let courseSubject;
     let tags;
     let courseTypeSelector;
     let submittedSelector;
@@ -296,14 +297,11 @@ const Details = createReactClass({
     let multiWikiSelector;
 
     if (this.props.current_user.admin) {
-      subject = (
-        <TextInput
-          onChange={this.updateDetails}
-          value={this.props.course.subject}
-          value_key="subject"
+      courseSubject = (
+        <CourseSubjectSelector
           editable={this.props.editable}
-          type="text"
-          label={I18n.t('courses.subject')}
+          updateCourse={this.updateDetails}
+          subject={this.props.course.subject}
         />
       );
       tags = (
@@ -496,7 +494,7 @@ const Details = createReactClass({
             <div className="group-right">
               {timelineStart}
               {timelineEnd}
-              {subject}
+              {courseSubject}
               {courseLevelSelector}
               {tags}
               {courseTypeSelector}

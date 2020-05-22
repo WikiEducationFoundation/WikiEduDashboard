@@ -20,7 +20,7 @@ class CreatableInput extends React.Component {
   }
 
   render() {
-    const { label, id, options, placeholder } = this.props;
+    const { label, id, options, placeholder, selected } = this.props;
 
     return (
       <div>
@@ -33,7 +33,7 @@ class CreatableInput extends React.Component {
           onBlur={element => this.onModify({ value: element.target.value })}
           options={options}
           placeholder={placeholder}
-          value={this.state.selected}
+          value={this.state.selected || selected}
           styles={{ ...selectStyles, singleValue: null }}
         />
       </div>
