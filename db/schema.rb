@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_214142) do
+ActiveRecord::Schema.define(version: 2020_05_22_160431) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -188,6 +188,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_214142) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id"
+    t.text "miscellaneous"
+    t.string "sentry_tag_uuid"
   end
 
   create_table "courses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
