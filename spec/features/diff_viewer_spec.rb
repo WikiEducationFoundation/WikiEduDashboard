@@ -1,47 +1,32 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/replica"
 
-describe 'diff viewer', type: :feature, js: true do
-  let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-  let(:course) { create(:course, id: 1, start: '2013-01-01', end: '2014-01-02') }
-  let(:user) { create(:user, id: 1, username: 'I enjoy sandwiches') }
-  let(:article) do
-    create(:article, id: 1, title: 'Periodontium', mw_page_id: 1172296, rating: 'fa')
-  end
+describe 'difference viewer', type: :feature, js: true do
+  let(:course) { create(:course, start: '2013-10-01', end: '2014-10-01') }
+  let(:user) { create(:user, username: '66.45.13.253') }
 
-  it 'checks whether diff viewer is working properly' do
-    VCR.use_cassette 'diff_viewer/revisions' do
-      login_as user
-      all_users = [
-        build(:user, username: 'I enjoy sandwiches')
-      ]
-      rev_start = 2016_04_17_003430
-      rev_end = 2016_04_18_003430
+  it 'checks if renders details properly' do
+    create(:courses_user, course_id: course.id, user_id: user.id)
 
-      response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
-
-      response[article.mw_page_id.to_s]['revisions'].uniq.each do |revision|
-        create(:revision,
-               mw_rev_id: revision['mw_rev_id'],
-               date: revision['date'],
-               characters: revision['characters'].to_i,
-               wiki_id: revision['wiki_id'],
-               article_id: article.id,
-               new_article: revision['new_article'],
-               system: revision['system'],
-               deleted: false,
-               user_id: user.id)
-      end
-
-      create(:courses_user, id: 1, course_id: 1, user_id: 1)
-      create(:articles_course, id: 1, course: course, article: article, tracked: true)
-
-      visit "/courses/#{Course.first.slug}/activity"
-      expect(page).to have_css('button.icon-diff-viewer', count: 3)
-      all('button.icon-diff-viewer').last.click
-      expect(page).to have_content '-69 Chars Added'
+    # Updating course
+    login_as user
+    VCR.use_cassette 'diff_viewer/course_update' do
+      visit "/courses/#{course.slug}/manual_update"
     end
+
+    # User has 6 contributions since 24th Oct 2013
+    # https://en.wikipedia.org/wiki/Special:Contributions/66.45.13.253
+    visit "/courses/#{course.slug}/activity"
+    expect(page).to have_css('button.icon-diff-viewer', count: 6)
+
+    # Checking length of difference, difference of characters (which in this case
+    # is ' lilah', should appear only once) and a small portion of unchanged text,
+    # which should appear two times (i.e., in both the columns of diff viewer)
+    # https://en.wikipedia.org/w/index.php?title=Heaven%27s_Gate_(religious_group)&diff=prev&oldid=578607606
+    all('button.icon-diff-viewer').last.click
+    expect(page).to have_content('6 Chars Added')
+    expect(page).to have_content(' lilah').once
+    expect(page).to have_content('Jacques Vallée').twice
   end
 end
