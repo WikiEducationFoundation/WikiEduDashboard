@@ -257,6 +257,7 @@ eo:
     file_name: Dosiernomo
   revisions:
     class: Klaso
+    diff: diferencoj
     title: Titolo
   timeline:
     add_week: Aldoni semajnon

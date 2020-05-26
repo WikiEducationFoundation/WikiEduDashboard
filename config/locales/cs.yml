@@ -425,10 +425,10 @@ cs:
       course_title: Název kurzu
       course_types:
         basic_course_name: Základní program
-        basic_course_description: Tento typ programu bude zaznamenávat editace do
-          všech stránek v hlavním jmenném prostoru jakýmkoliv účastníkem. Pokud jsou
-          povoleny automatické editace na domovské wiki programu, bude se stránka
-          programu na wiki automaticky aktualizovaná.
+        basic_course_description: Tento typ programu bude zaznamenávat editace všech
+          stránek v hlavním jmenném prostoru kterýmkoliv účastníkem. Pokud jsou na
+          domovské wiki programu povoleny automatické editace, bude stránka programu
+          na wiki automaticky vytvořena a aktualizována.
         edit_a_thon_name: Editační maraton
         edit_a_thon_description: Edit-A-Thon program bude zaznamenávat editace do
           všech jmenných prostorů. Ve výchozím nastavení nebudou provedeny žádné automatické

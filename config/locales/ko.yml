@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Asdfqwer51
+# Author: Codenstory
 # Author: Ellif
 # Author: Gongsoonyee
 # Author: Hwangjy9
@@ -201,6 +202,8 @@ ko:
     actions: 행동
     articles: 문서
     articles_none: 본 코스는 어떠한 문서도 편집한 적이 없습니다.
+    article_viewer: 문서 뷰어
+    articles_i_am_reviewing: 동료 검사 중인 문서
     calendar:
       legend: 범례
       legend_class_canceled: 휴강/취소됨
@@ -356,6 +359,7 @@ ko:
   courses_generic:
     all_courses: 모든 프로그램
     archived: 보존된 프로그램
+    articles_i_am_reviewing: 검토하고 있는 문서
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 이벤트 끝
     assignment_start: 이벤트 시작
