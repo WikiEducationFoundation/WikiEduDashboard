@@ -67,7 +67,7 @@ module ApplicationHelper
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "/assets/stylesheets/#{manifest[file_prefix + filename].split('/').last}"
   end
-  
+
   def i18n_javascript_tag(locale)
     md5 = Digest::MD5.file("#{Rails.root}/public/assets/javascripts/i18n/#{locale}.js").hexdigest
     javascript_include_tag "/assets/javascripts/i18n/#{locale}.js?v=#{md5}"
