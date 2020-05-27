@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
+require_dependency "#{Rails.root}/lib/errors/error_handling"
 
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
-  include CourseUpdateErrorHandling
+  include ErrorHandling
 
   # This is the maximum number of concurrent requests the app should make.
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
@@ -39,7 +39,7 @@ class OresApi
     ores_data
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
-    perform_error_handling_tasks(e, url)
+    invoke_error_handling_tasks(e, url)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -71,26 +71,10 @@ class OresApi
     conn
   end
 
-  def report_exception(error, url, level: 'error', sentry_tag_uuid: nil)
+  def invoke_error_handling_tasks(error, url)
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
-    if sentry_tag_uuid.present?
-      Raven.tags_context(uuid: sentry_tag_uuid) do
-        Raven.capture_exception error, level: level, extra: {
-          project_code: @project_code, project_model: @project_model, url: url
-        }
-      end
-    else
-      Raven.capture_exception error, level: level, extra: {
-        project_code: @project_code, project_model: @project_model, url: url
-      }
-    end
-    return nil
-  end
-
-  def perform_error_handling_tasks(error, url)
-    return report_exception(error, url) unless @course.present?
-    sentry_tag_uuid = SecureRandom.uuid
-    save_course_error_record(@course, error, sentry_tag_uuid, url: url)
-    report_exception(error, url, sentry_tag_uuid: sentry_tag_uuid)
+    extra = { project_code: @project_code, project_model: @project_model, url: url }
+    optional_params = @course.present? ? { url: url } : {}
+    perform_error_handling_tasks(error, level, extra, @course, optional_params)
   end
 end
