@@ -3,10 +3,12 @@
 require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/errors/error_handling"
 require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
+  include ErrorHandling
   include CourseUpdateErrorHandling
 
   def initialize(wiki = nil, course = nil)
@@ -101,48 +103,20 @@ class WikiApi
     tries ||= 3
     @mediawiki = api_client
     @mediawiki.send(action, query)
-  rescue MediawikiApi::ApiError => e
-    perform_error_handling_tasks(e, action, query)
-    return nil
   rescue StandardError => e
     tries -= 1
-    log_error e, action, query
-    handle_non_api_error(e, action, query)
-    retry if tries >= 0
-    perform_error_handling_tasks(e, action, query)
-    return nil # Do not return a Raven object
+    # Raise unknown errors.
+    # Continue for typical errors so that the request can be retried, but wait
+    # a short bit in the case of 429 — too many request — errors.
+    sleep 1 if too_many_requests?(e)
+    retry unless tries.zero?
+    invoke_error_handling_tasks(e, action, query)
+    raise e unless TYPICAL_ERRORS.include?(e.class)
+    return nil
   end
 
   def api_client
     MediawikiApi::Client.new @api_url
-  end
-
-  def log_error(e, action, query, sentry_tag_uuid: nil)
-    Rails.logger.info "Caught #{e}"
-    if sentry_tag_uuid.present?
-      Raven.tags_context(uuid: sentry_tag_uuid) do
-        Raven.capture_exception e, level: 'warning', extra: {
-          action: action, query: query, api_url: @api_url
-        }
-      end
-    else
-      Raven.capture_exception e, level: 'warning', extra: {
-        action: action, query: query, api_url: @api_url
-      }
-    end
-    return nil # Do not return a Raven object
-  end
-
-  # Raise unknown errors.
-  # Continue for typical errors so that the request can be retried, but wait
-  # a short bit in the case of 429 — too many request — errors.
-  def handle_non_api_error(e, action, query)
-    if TYPICAL_ERRORS.include?(e.class)
-      sleep 1 if too_many_requests?(e)
-    else
-      perform_error_handling_tasks(e, action, query)
-      raise e
-    end
   end
 
   def too_many_requests?(e)
@@ -152,13 +126,13 @@ class WikiApi
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,
                     Faraday::ConnectionFailed,
-                    MediawikiApi::HttpError].freeze
+                    MediawikiApi::HttpError,
+                    MediawikiApi::ApiError].freeze
 
-  def perform_error_handling_tasks(error, action, query)
-    return log_error(error, action, query) unless @course.present?
-    sentry_tag_uuid = SecureRandom.uuid
-    save_course_error_record(@course, error, sentry_tag_uuid,
-                             miscellaneous: { action: action, query: query })
-    log_error(error, action, query, sentry_tag_uuid: sentry_tag_uuid)
+  def invoke_error_handling_tasks(error, action, query)
+    Rails.logger.info "Caught #{error}"
+    extra = { action: action, query: query, api_url: @api_url }
+    optional_params = @course.present? ? { miscellaneous: { action: action, query: query } } : {}
+    perform_error_handling_tasks(error, 'warning', extra, @course, optional_params)
   end
 end
