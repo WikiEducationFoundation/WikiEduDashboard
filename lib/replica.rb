@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
-require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
+require_dependency "#{Rails.root}/lib/errors/error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
-  include CourseUpdateErrorHandling
+  include ErrorHandling
 
   def initialize(wiki, course = nil)
     @wiki = wiki
@@ -130,7 +130,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    perform_error_handling_tasks(e, endpoint, query, url)
+    invoke_error_handling_tasks(e, endpoint, query, url: url)
   end
 
   def api_post(endpoint, key, data)
@@ -143,8 +143,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-
-    report_exception e, endpoint, data
+    invoke_error_handling_tasks(e, endpoint, data)
   end
 
   def do_query(url)
@@ -211,26 +210,11 @@ class Replica
   # These are typical network errors that we expect to encounter.
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
-  def report_exception(error, endpoint, query, level: 'error', sentry_tag_uuid: nil)
-    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
-    if sentry_tag_uuid.present?
-      Raven.tags_context(uuid: sentry_tag_uuid) do
-        Raven.capture_exception error, level: level, extra: {
-          query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
-        }
-      end
-    else
-      Raven.capture_exception error, level: level, extra: {
-        query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
-      }
-    end
-    return nil
-  end
 
-  def perform_error_handling_tasks(error, endpoint, query, url)
-    return report_exception(error, endpoint, query) unless @course.present?
-    sentry_tag_uuid = SecureRandom.uuid
-    save_course_error_record(@course, error, sentry_tag_uuid, url: url)
-    report_exception(error, endpoint, query, sentry_tag_uuid: sentry_tag_uuid)
+  def invoke_error_handling_tasks(error, endpoint, query, url: nil)
+    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
+    extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
+    optional_params = @course.present? ? { url: url } : {}
+    perform_error_handling_tasks(error, level, extra, @course, optional_params)
   end
 end
