@@ -1227,6 +1227,7 @@ en:
 
   wiki_edits:
     notify_overdue:
+      button_label: Remind students about overdue training
       confirm: >
         This will post a reminder on the talk pages of all students who have
         overdue training. Are you sure you want to do this?
