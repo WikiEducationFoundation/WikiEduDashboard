@@ -3,13 +3,12 @@ import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
 
-const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json';
+const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 
 const fetchWikidataLabelsPromise = (qNumbers) => {
   const idsParam = _.join(qNumbers, '|');
   return new Promise((res, rej) => {
     return $.ajax({
-      dataType: 'jsonp',
       url: wikidataApiBase,
       data: {
         ids: idsParam,

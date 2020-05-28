@@ -5,8 +5,7 @@ import API from '../utils/api.js';
 const _checkAvailability = (newAccount) => {
   return new Promise((res, rej) =>
     $.ajax({
-      dataType: 'jsonp',
-      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json`,
+      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json&origin=*`,
       success: (data) => {
         const result = data.query.users[0];
         return res(result);
