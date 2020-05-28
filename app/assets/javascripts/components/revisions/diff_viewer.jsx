@@ -142,11 +142,11 @@ const DiffViewer = createReactClass({
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json&origin=*`;
     } else if (firstRevision) {
-      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json&origin=*`;
     } else {
-      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev&format=json`;
+      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev&format=json&origin=*`;
     }
 
     return diffUrl;
@@ -168,7 +168,6 @@ const DiffViewer = createReactClass({
     const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
     jQuery.ajax(
       {
-        dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
           const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
@@ -182,7 +181,6 @@ const DiffViewer = createReactClass({
   fetchDiff(diffUrl) {
     jQuery.ajax(
       {
-        dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
           let firstRevisionData;
