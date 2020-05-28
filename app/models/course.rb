@@ -341,6 +341,10 @@ class Course < ApplicationRecord
     flags['academic_system']
   end
 
+  def format
+    flags['format']
+  end
+
   def edit_settings_present?
     flags.key?('edit_settings')
   end
