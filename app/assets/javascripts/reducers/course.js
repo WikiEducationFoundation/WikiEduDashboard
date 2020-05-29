@@ -25,6 +25,7 @@ const initialState = {
   level: '',
   subject: '',
   expected_students: '0',
+  format: '',
   start: null,
   end: null,
   timeline_start: null,

@@ -33,6 +33,7 @@ class CoursesController < ApplicationController
     @course = course_creation_manager.create
     update_courses_wikis
     update_academic_system
+    update_course_format
   end
 
   def update
@@ -261,6 +262,7 @@ class CoursesController < ApplicationController
     update_boolean_flag :online_volunteers_enabled
     update_edit_settings
     update_academic_system
+    update_course_format
     update_last_reviewed
   end
 
@@ -289,6 +291,11 @@ class CoursesController < ApplicationController
 
   def update_academic_system
     @course.flags['academic_system'] = params.dig(:course, 'academic_system')
+    @course.save
+  end
+
+  def update_course_format
+    @course.flags['format'] = params.dig(:course, 'format')
     @course.save
   end
 

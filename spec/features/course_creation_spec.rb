@@ -8,20 +8,6 @@ def set_up_suite
   stub_oauth_edit
 end
 
-def fill_out_course_creator_form
-  find('.course_start-datetime-control input').set('2015-01-04')
-  find('.course_end-datetime-control input').set('2015-02-01')
-  find('div.wizard__panel').click
-  sleep 3
-  click to escape the calendar popup
-  fill_in 'Course title:', with: 'My course'
-  fill_in 'Course term:', with: 'Spring 2016'
-  fill_in 'Course school:', with: 'University of Oklahoma'
-  find('#course_expected_students').set('20')
-  find('#course_description').set('My course at OU')
-  click_button 'Create my Course!'
-end
-
 def interact_with_clone_form
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course description:', with: 'A new course'
@@ -142,12 +128,22 @@ describe 'New course creation and editing', type: :feature do
       # Now we fill out all the fields and continue.
       find('#course_school').set('University of Wikipedia, East Campus')
       find('#course_term').set('Fall 2015')
-      find('#course_subject').set('Advanced Studies')
-      find('#course_expected_students').set('500')
-      find('textarea').set('In this course, we study things.')
-      click_button 'Next'
 
-      sleep 1
+      find('#course_subject').click
+      within '#course_subject' do
+        all('div', text: 'Chemistry')[2].click
+      end
+      find('#course_expected_students').set('500')
+      find('#course_level').click
+      within '#course_level' do
+        all('div', text: 'Introductory')[2].click
+      end
+      find('#course_format').click
+      within '#course_format' do
+        all('div', text: 'In-person')[2].click
+      end
+      find('#course_description').set('In this course, we study things.')
+      click_button 'Next'
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'
@@ -170,9 +166,9 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_css('button.dark[disabled=""]')
       start_input = find('input.start', match: :first).value
       sleep 1
-      expect(start_input.to_date).to eq(start_date.to_date)
+      expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
       end_input = find('input.end', match: :first).value
-      expect(end_input.to_date).to eq(end_date.to_date)
+      expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
@@ -228,6 +224,12 @@ describe 'New course creation and editing', type: :feature do
 
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
+
+      # Now check that the course form selections went through
+      saved_course = Course.last
+      expect(saved_course.level).to eq('Introductory')
+      expect(saved_course.subject).to eq('Chemistry')
+      expect(saved_course.format).to eq('In-person')
 
       # Navigate back to overview, check relevant data, then delete course
       visit "/courses/#{Course.first.slug}"

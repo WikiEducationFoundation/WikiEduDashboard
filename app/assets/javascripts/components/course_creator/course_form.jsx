@@ -3,6 +3,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CreatableInput from '../common/creatable_input.jsx';
 import TextInput from '../common/text_input.jsx';
 import CourseLevelSelector from './course_level_selector.jsx';
+import CourseFormatSelector from './course_format_selector.jsx';
 import CourseSubjectSelector from './course_subject_selector.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
@@ -38,6 +39,7 @@ const CourseForm = (props) => {
   let courseSubject;
   let expectedStudents;
   let courseLevel;
+  let courseFormat;
   let roleDescription;
   let academic_system;
 
@@ -68,6 +70,12 @@ const CourseForm = (props) => {
     courseLevel = (
       <CourseLevelSelector
         level={props.course.level}
+        updateCourse={props.updateCourseAction}
+      />
+    );
+    courseFormat = (
+      <CourseFormatSelector
+        format={props.course.format}
         updateCourse={props.updateCourseAction}
       />
     );
@@ -224,10 +232,11 @@ const CourseForm = (props) => {
         {home_wiki}
         {multi_wiki}
         {backButton}
-        <p className="tempCourseIdText">{props.tempCourseId}</p>
+        <p className="tempCourseIdText">{props.tempCourseId || '\xa0'}</p>
       </div>
       <div className="column">
         {courseLevel}
+        {courseFormat}
         <span className="text-input-component__label">
           <strong>
             {CourseUtils.i18n('creator.course_description', props.stringPrefix)}

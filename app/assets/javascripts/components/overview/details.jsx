@@ -20,7 +20,8 @@ import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
 
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
-import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
+import CourseLevelSelector from '../course_creator/course_level_selector';
+import CourseFormatSelector from '../course_creator/course_format_selector';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import Modal from '../common/modal.jsx';
@@ -287,6 +288,7 @@ const Details = createReactClass({
     let submittedSelector;
     let privacySelector;
     let courseLevelSelector;
+    let courseFormatSelector;
     let timelineToggle;
     let onlineVolunteersToggle;
     let wikiEditsToggle;
@@ -355,6 +357,12 @@ const Details = createReactClass({
       courseLevelSelector = (
         <CourseLevelSelector
           level={this.props.course.level}
+          updateCourse={this.updateDetails}
+        />
+      );
+      courseFormatSelector = (
+        <CourseFormatSelector
+          format={this.props.course.format}
           updateCourse={this.updateDetails}
         />
       );
@@ -498,6 +506,7 @@ const Details = createReactClass({
               {timelineEnd}
               {subject}
               {courseLevelSelector}
+              {courseFormatSelector}
               {tags}
               {courseTypeSelector}
               {submittedSelector}
