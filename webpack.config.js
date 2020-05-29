@@ -151,6 +151,7 @@ module.exports = (env) => {
     },
     resolve: {
       extensions: ['.js', '.jsx', '.styl'],
+      symlinks: false
     },
     module: {
       rules: [
@@ -213,6 +214,7 @@ module.exports = (env) => {
       contentBase: path.join(__dirname, 'public'),
       writeToDisk: true,
     },
+    stats: 'minimal',
     plugins,
   };
 };
