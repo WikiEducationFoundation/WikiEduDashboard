@@ -167,7 +167,7 @@ module.exports = (env) => {
       plugins: [
         ...plugins, ...cssConfig(env).plugins,
         new ManifestPlugin({
-          fileName: `${Object.keys(entry)[0]}-manifest.json`,
+          fileName: `${Object.keys(entry)[0]}-css-manifest.json`,
           map: (file) => {
             if (/rtl-.*\.css$/.test(file.path)) {
               file.name = `rtl-${file.name}`;
