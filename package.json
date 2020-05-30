@@ -124,10 +124,10 @@
   },
   "scripts": {
     "test": "jest",
-    "lint-non-build": "eslint 'test/**/*.{jsx,js}' 'webpack.config.js' 'config.js'",
-    "start": "parallel-webpack --watch -- --env.development --env.watch_js",
-    "hot": "webpack-dev-server --env.development",
-    "build": "parallel-webpack -- --env.production"
+    "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
+    "start": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 --watch -- --env.development --env.watch_js",
+    "hot": "node prepare.js && webpack-dev-server --env.development",
+    "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production"
   },
   "jest": {
     "collectCoverage": false,
@@ -147,8 +147,6 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.9.0",
     "babel-plugin-root-import": "^6.5.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.0.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "parallel-webpack": "^2.6.0",
     "stylus-native-loader": "^1.1.2",

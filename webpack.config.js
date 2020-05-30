@@ -1,11 +1,7 @@
 const path = require('path');
-const spawn = require('child_process').spawn;
 const webpack = require('webpack');
 const config = require('./config');
 
-// plugins
-const CopyPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -14,16 +10,9 @@ const WebpackRTLPlugin = require('webpack-rtl-plugin');
 const plugins = [];
 
 const appRoot = path.resolve('./');
-const absoluteOutputPath = path.join(process.cwd(), config.outputPath);
+
 const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const cssSource = `./${config.sourcePath}/${config.cssDirectory}`;
-const jqueryUlsPath = './node_modules/jquery/dist/jquery.min.js';
-const cleanPaths = [
-  `${config.outputPath}/fonts/*`,
-  `${config.outputPath}/images/*`,
-  `${config.outputPath}/stylesheets/*`,
-  `${config.outputPath}/javascripts/*`,
-];
 const entries = {
   main: [`${jsSource}/main.js`, `${cssSource}/main.styl`],
   raven: [`${jsSource}/raven.js`],
@@ -46,15 +35,6 @@ module.exports = (env) => {
     ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`)
     : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
 
-  // clean
-  plugins.push(
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: cleanPaths.map(relative =>
-        path.join(process.cwd(), relative)
-      ),
-    })
-  );
-
   // extracts CSS to a separate file
   plugins.push(new MiniCssExtractPlugin({
     filename: env.development ? '../stylesheets/[name].css' : '../stylesheets/[name].[hash].css',
@@ -70,41 +50,6 @@ module.exports = (env) => {
   plugins.push(new ExcludeAssetsPlugin({
     path: ['^.*css.*\\.js$']
   }));
-
-  // generates i18n files from rake task after the assets have been emitted
-  plugins.push({
-    apply: (compiler) => {
-      compiler.hooks.afterEmit.tap('AfterEmitPlugin', (_) => {
-        spawn('bundle', ['exec', 'rails', 'i18n:js:export'], {
-          stdio: 'inherit'
-        });
-      });
-    },
-  });
-
-  // copy static assets
-  plugins.push(
-    new CopyPlugin({
-      patterns: [
-        {
-          from: jqueryUlsPath,
-          to: `${absoluteOutputPath}/${config.jsDirectory}`,
-        },
-        {
-          from: `${config.sourcePath}/${config.imagesDirectory}`,
-          to: `${absoluteOutputPath}/${config.imagesDirectory}`,
-        },
-        {
-          from: `${config.sourcePath}/${config.fontsDirectory}`,
-          to: `${absoluteOutputPath}/${config.fontsDirectory}`,
-        },
-        {
-          from: './node_modules/tinymce/skins',
-          to: `${absoluteOutputPath}/${config.jsDirectory}/skins`,
-        },
-      ],
-    })
-  );
 
   if (doHot) {
     // wrap entries with hot hooks
