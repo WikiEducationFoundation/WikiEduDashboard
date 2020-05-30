@@ -1,7 +1,7 @@
 const execSync = require('child_process').execSync;
 const config = require('./config');
 
-execSync(`rm -r ${config.outputPath} && bundle exec rails i18n:js:export`);
+execSync(`rm -rf ${config.outputPath} && bundle exec rails i18n:js:export`);
 const jqueryUlsPath = './node_modules/jquery/dist/jquery.min.js';
 
 const copyPaths = [{
