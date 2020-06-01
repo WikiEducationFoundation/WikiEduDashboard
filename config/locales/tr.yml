@@ -1264,6 +1264,7 @@ tr:
     image_link_placeholder: Resme bağlantı ekle (isteğe bağlı)
   wiki_edits:
     notify_overdue:
+      button_label: Öğrencilere gecikmiş eğitimi hatırlatın
       confirm: Bu, gecikmiş eğitim alan tüm öğrencilerin mesaj sayfalarında bir hatırlatma
         yayınlayacaktır. Bunu yapmak istediğine emin misin?
       header: Gecikmiş bir eğitim göreviniz var.

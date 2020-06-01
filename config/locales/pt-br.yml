@@ -1281,6 +1281,7 @@ pt-br:
     image_link_placeholder: Adicionar hiperligação à imagem (opcional)
   wiki_edits:
     notify_overdue:
+      button_label: Lembre os alunos sobre o treinamento vencido
       confirm: Isto irá postar um lembrete nas páginas de discussão de todos os estudantes
         que não completaram a tempo os módulos de treinamento. Você tem certeza de
         que deseja prosseguir?

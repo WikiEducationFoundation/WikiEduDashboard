@@ -1048,6 +1048,7 @@ zh-TW:
     image_link_placeholder: 添加連結到圖片（可選）
   wiki_edits:
     notify_overdue:
+      button_label: 提醒學生關於過期的培訓
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
       header: 您有一項過期的培訓分配作業。
       message: 請完成分配的[%{link}培訓模組]。
