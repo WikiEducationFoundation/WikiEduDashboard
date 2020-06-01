@@ -138,15 +138,15 @@ const DiffViewer = createReactClass({
 
   diffUrl(lastRevision, firstRevision) {
     const wikiUrl = this.wikiUrl(lastRevision);
-    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&rvprop=ids|timestamp|comment`;
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&format=json&origin=*&rvprop=ids|timestamp|comment`;
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json&origin=*`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}`;
     } else if (firstRevision) {
-      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json&origin=*`;
+      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}`;
     } else {
-      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev&format=json&origin=*`;
+      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev`;
     }
 
     return diffUrl;
@@ -164,8 +164,8 @@ const DiffViewer = createReactClass({
 
   findParentOfFirstRevision(props) {
     const wikiUrl = this.wikiUrl(props.revision);
-    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
-    const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&origin=*&format=json`;
+    const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}`;
     jQuery.ajax(
       {
         url: diffUrl,
