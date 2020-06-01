@@ -72,7 +72,7 @@ class OresApi
   end
 
   def invoke_error_handling_tasks(error, url)
-    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
+    level = TYPICAL_ERRORS.include?(error.class) ? 'warning' : 'error'
     extra = { project_code: @project_code, project_model: @project_model, url: url }
     optional_params = @course.present? ? { url: url } : {}
     perform_error_handling_tasks(error, level, extra, @course, optional_params)

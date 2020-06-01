@@ -212,7 +212,7 @@ class Replica
                     Oj::ParseError].freeze
 
   def invoke_error_handling_tasks(error, endpoint, query, url: nil)
-    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
+    level = TYPICAL_ERRORS.include?(error.class) ? 'warning' : 'error'
     extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
     optional_params = @course.present? ? { url: url } : {}
     perform_error_handling_tasks(error, level, extra, @course, optional_params)
