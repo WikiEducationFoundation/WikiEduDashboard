@@ -130,7 +130,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling_tasks(e, endpoint, query, url: url)
+    invoke_error_handling_tasks(e, endpoint, url: url)
   end
 
   def api_post(endpoint, key, data)
@@ -143,7 +143,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling_tasks(e, endpoint, data)
+    invoke_error_handling_tasks(e, endpoint, query: data)
   end
 
   def do_query(url)
@@ -211,7 +211,7 @@ class Replica
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
 
-  def invoke_error_handling_tasks(error, endpoint, query, url: nil)
+  def invoke_error_handling_tasks(error, endpoint, query: nil, url: nil)
     level = TYPICAL_ERRORS.include?(error.class) ? 'warning' : 'error'
     extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
     optional_params = @course.present? ? { url: url } : {}
