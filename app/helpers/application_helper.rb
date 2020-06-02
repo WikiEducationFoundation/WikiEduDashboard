@@ -43,7 +43,7 @@ module ApplicationHelper
       stylesheet_link_tag "http://localhost:8080/assets/stylesheets/#{filename}.css"
     else
       file_prefix = rtl? ? 'rtl-' : ''
-      stylesheet_link_tag css_fingerprinted("#{filename}.css", file_prefix),
+      stylesheet_link_tag css_fingerprinted(filename, file_prefix),
                           media: 'all'
     end
   end
@@ -52,20 +52,20 @@ module ApplicationHelper
     if Features.hot_loading?
       javascript_include_tag "http://localhost:8080/#{filename}.js"
     else
-      javascript_include_tag fingerprinted('/assets/javascripts/', "#{filename}.js")
+      javascript_include_tag fingerprinted('/assets/javascripts/', filename)
     end
   end
 
   def fingerprinted(path, filename, file_prefix = nil)
-    manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
+    manifest_path = "#{Rails.root}/public/#{path}/#{filename}-manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
-    "#{path}#{file_prefix}#{manifest[filename]}"
+    "#{path}#{file_prefix}#{manifest[filename + '.js']}"
   end
 
   def css_fingerprinted(filename, file_prefix = '')
-    manifest_path = "#{Rails.root}/public/assets/javascripts/rev-manifest.json"
+    manifest_path = "#{Rails.root}/public/assets/javascripts/#{filename}-css-manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
-    "/assets/stylesheets/#{manifest[file_prefix + filename].split('/').last}"
+    "/assets/stylesheets/#{manifest[file_prefix + filename + '.css'].split('/').last}"
   end
 
   def i18n_javascript_tag(locale)
