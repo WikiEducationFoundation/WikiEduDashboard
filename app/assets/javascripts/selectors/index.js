@@ -132,7 +132,7 @@ export const getArticlesByTrackedStatus = createSelector(
 export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
-    const alertTypes = alertFilters.map(filter => filter.value);
+    const alertTypes = alertFilters.map(_filter => _filter.value);
     return filter(alerts, alert => includes(alertTypes, alert.type));
   }
 );
@@ -170,7 +170,7 @@ export const getFilteredArticleFinder = createSelector(
 export const getFilteredUploads = createSelector(
   [getUploads, getUploadFilters], (uploads, uploadFilters) => {
     if (!uploadFilters.length) { return uploads; }
-    const uploaders = uploadFilters.map(filter => filter.value);
+    const uploaders = uploadFilters.map(_filter => _filter.value);
     return filter(uploads, upload => includes(uploaders, upload.uploader));
   }
 );
@@ -242,8 +242,8 @@ export const editPermissions = createSelector(
 
 export const getFilteredTickets = createSelector(
   [getTickets], (tickets) => {
-    const ownerIds = tickets.filters.owners.map(filter => filter.value);
-    const statuses = tickets.filters.statuses.map(filter => parseInt(filter.value));
+    const ownerIds = tickets.filters.owners.map(_filter => _filter.value);
+    const statuses = tickets.filters.statuses.map(_filter => parseInt(_filter.value));
 
     let ownerFilter = ticket => ticket;
     let statusFilter = ticket => ticket;

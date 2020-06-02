@@ -1,4 +1,4 @@
-import { findIndex} from 'lodash-es';
+import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
