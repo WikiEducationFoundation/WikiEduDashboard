@@ -48,10 +48,10 @@ const cssConfig = env => ({
     new WebpackRTLPlugin({
       filename: env.development ? '../stylesheets/rtl-[name].css' : '../stylesheets/rtl-[name].[contenthash].css'
     }),
-    // css-loader generates unnecesary js files.
-    // this will remove that.
+    // css-loader generates unnecesary js files (but with .styl extension)
+    // the following will remove that
     new ExcludeAssetsPlugin({
-      path: ['^.*\\.js$']
+      path: ['^.*\\.styl$']
     })
   ],
   module: {
@@ -164,6 +164,11 @@ module.exports = (env) => {
       entry,
       ...baseConfig,
       ...cssConfig(env),
+      output: {
+        path: outputPath,
+        filename: doHot ? '[name].styl' : '[name].[chunkhash].styl',
+        publicPath: '/',
+      },
       plugins: [
         ...plugins, ...cssConfig(env).plugins,
         new ManifestPlugin({
