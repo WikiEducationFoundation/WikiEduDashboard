@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { chunk, map, includes, } from 'lodash-es';
 import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
@@ -92,8 +92,8 @@ const getDataForCategory = (category, home_wiki, cmcontinue, namespace = 0, disp
 // };
 
 const fetchPageViews = (articlesList, home_wiki, dispatch, getState) => {
-  const promises = _.chunk(articlesList, 5).map((articles) => {
-    const query = pageviewQueryGenerator(_.map(articles, 'pageid'));
+  const promises = chunk(articlesList, 5).map((articles) => {
+    const query = pageviewQueryGenerator(map(articles, 'pageid'));
     return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
     .then(data => data.query.pages)
     .then((data) => {
@@ -123,9 +123,9 @@ const fetchPageViews = (articlesList, home_wiki, dispatch, getState) => {
 };
 
 const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState) => {
-  if (PageAssessmentSupportedWiki[home_wiki.project] && _.includes(PageAssessmentSupportedWiki[home_wiki.project], home_wiki.language)) {
-    const promises = _.chunk(articlesList, 20).map((articles) => {
-      const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
+  if (PageAssessmentSupportedWiki[home_wiki.project] && includes(PageAssessmentSupportedWiki[home_wiki.project], home_wiki.language)) {
+    const promises = chunk(articlesList, 20).map((articles) => {
+      const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
       return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
       .then(data => data.query.pages)
@@ -148,9 +148,9 @@ const fetchPageAssessment = (articlesList, home_wiki, dispatch, getState) => {
 };
 
 const fetchPageRevision = (articlesList, home_wiki, dispatch, getState) => {
-  if (_.includes(ORESSupportedWiki.languages, home_wiki.language) && _.includes(ORESSupportedWiki.projects, home_wiki.project)) {
-    const promises = _.chunk(articlesList, 20).map((articles) => {
-      const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
+  if (includes(ORESSupportedWiki.languages, home_wiki.language) && includes(ORESSupportedWiki.projects, home_wiki.project)) {
+    const promises = chunk(articlesList, 20).map((articles) => {
+      const query = pageRevisionQueryGenerator(map(articles, 'title'));
       return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
       .then(data => data.query.pages)
       .then((data) => {
@@ -175,7 +175,7 @@ const fetchPageRevision = (articlesList, home_wiki, dispatch, getState) => {
 };
 
 const fetchPageRevisionScore = (revids, home_wiki, dispatch) => {
-    const query = pageRevisionScoreQueryGenerator(_.map(revids, (revid) => {
+    const query = pageRevisionScoreQueryGenerator(map(revids, (revid) => {
       return revid.revisions[0].revid;
     }), home_wiki.project);
     return promiseLimit(4)(() => queryUrl(oresApiBase(home_wiki.language, home_wiki.project), query))

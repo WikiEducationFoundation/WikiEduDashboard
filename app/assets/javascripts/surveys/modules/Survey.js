@@ -1,9 +1,7 @@
 //--------------------------------------------------------
 // Vendor Requirements [imports]
 //--------------------------------------------------------
-import _throttle from 'lodash.throttle';
-import _assign from 'lodash.assign';
-
+import { assign, throttle } from 'lodash-es';
 //--------------------------------------------------------
 // Required Internal Modules
 //--------------------------------------------------------
@@ -129,7 +127,7 @@ const Survey = {
 
   initSlider() {
     this.$surveyContainer = $('[data-survey-form-container]');
-    this.parentSlider = this.$surveyContainer.slick(_assign({}, slickOptions, { adaptiveHeight: false }));
+    this.parentSlider = this.$surveyContainer.slick(assign({}, slickOptions, { adaptiveHeight: false }));
 
     this.parentSlider.on('init', (e, slick) => {
       if (!this.firstQuestionTabbed) {
@@ -507,7 +505,7 @@ const Survey = {
         $input.val(val).trigger('change');
       };
 
-      const throttled = _throttle(updateValue, 100);
+      const throttled = throttle(updateValue, 100);
 
       slider.noUiSlider.on('update', throttled);
 

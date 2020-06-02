@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { find } from 'lodash-es';
 import {
   ASSIGNMENTS_PANEL_INDEX,
   RECEIVE_WIZARD_ASSIGNMENT_OPTIONS,
@@ -134,7 +134,7 @@ const submitWizardPromise = (courseSlug, wizardId, wizardOutput) => {
 
 const getWizardKey = (state) => {
   const assignmentOptions = state.assignmentOptions;
-  return _.find(assignmentOptions, option => option.selected).key;
+  return find(assignmentOptions, option => option.selected).key;
 };
 
 const getWizardOutput = (state) => {

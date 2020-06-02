@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty, pull } from 'lodash-es';
 import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL, SAVE_TIMELINE_FAIL } from '../constants';
 
 const initialState = [];
@@ -31,7 +31,7 @@ const handleErrorNotification = function (data) {
   }
 
   if (!notification.message) { notification.message = data.statusText; }
-  if (_.isEmpty(data)) {
+  if (isEmpty(data)) {
     console.error('Error: ', data); // eslint-disable-line no-console
     console.log(data); // eslint-disable-line no-console
   }
@@ -47,7 +47,7 @@ export default function notifications(state = initialState, action) {
     }
     case REMOVE_NOTIFICATION: {
       const newState = [...state];
-      _.pull(newState, action.notification);
+      pull(newState, action.notification);
       return newState;
     }
     case API_FAIL: {

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forEach } from 'lodash-es';
 import logErrorMessage from './log_error_message';
 
 export const queryUrl = (url, query = {}) => {
@@ -79,7 +79,7 @@ export const pageviewQueryGenerator = (pageids) => {
 
 export const extractClassGrade = (pageAssessments) => {
   let classGrade = '';
-  _.forEach(pageAssessments, (pageAssessment) => {
+  forEach(pageAssessments, (pageAssessment) => {
     if (pageAssessment.class) {
       classGrade = pageAssessment.class;
       return false;

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { extend } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
@@ -16,10 +16,10 @@ const fetchAllTrainingModulesPromise = () => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
   );
 };
 
@@ -32,10 +32,10 @@ const fetchTrainingModulePromise = (opts) => {
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
   );
 };
 
@@ -51,10 +51,10 @@ slide_id=${opts.slide_id}`,
         return res(data);
       }
     })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
   );
 };
 
@@ -68,7 +68,7 @@ export const fetchTrainingModule = (opts = {}) => (dispatch) => {
   return fetchTrainingModulePromise(opts)
     .then((resp) => {
       const valid = !!resp.training_module.slides.filter(o => o.slug === opts.slide_id).length;
-      dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.slide_id, valid }) });
+      dispatch({ type: RECEIVE_TRAINING_MODULE, data: extend(resp, { slide: opts.slide_id, valid }) });
 
       if (valid && opts.user_id) {
         dispatch(setSlideCompleted(opts));

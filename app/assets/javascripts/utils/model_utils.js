@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { sortBy } from 'lodash-es';
 
 export const getFiltered = (models, options) => {
   const filteredModels = [];

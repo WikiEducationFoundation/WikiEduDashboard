@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { uniqWith, map, isEqual } from 'lodash-es';
 import { sortByKey } from '../utils/model_utils';
 import {
   RECEIVE_ARTICLES,
@@ -52,9 +52,9 @@ const getDefaultTrackedStatusFilter = _articles =>
 export default function articles(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES: {
-      const wikis = _.uniqWith(
-        _.map(action.data.course.articles, mapWikis),
-        _.isEqual
+      const wikis = uniqWith(
+        map(action.data.course.articles, mapWikis),
+        isEqual
       );
       const _articles = action.data.course.articles;
       const newnessFilterEnabled = _articles.some(a => a.new_article) && _articles.some(a => !a.new_article);

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
@@ -6,7 +6,7 @@ import CourseUtils from '../utils/course_utils';
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 
 const fetchWikidataLabelsPromise = (qNumbers) => {
-  const idsParam = _.join(qNumbers, '|');
+  const idsParam = join(qNumbers, '|');
   return new Promise((res, rej) => {
     return $.ajax({
       url: wikidataApiBase,
@@ -39,10 +39,10 @@ const isEntityTitle = (title) => {
 
 const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
-  const qNumbers = _.map(wikidataEntities, 'title')
+  const qNumbers = map(wikidataEntities, 'title')
                      .filter(isEntityTitle)
                      .map(CourseUtils.removeNamespace);
-  _.chunk(qNumbers, 30).forEach((someQNumbers) => {
+  chunk(qNumbers, 30).forEach((someQNumbers) => {
     fetchWikidataLabelsPromise(someQNumbers)
       .then((resp) => {
         dispatch({
@@ -57,11 +57,11 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
 
 
 export const fetchWikidataLabelsForArticles = (articles, dispatch) => {
-  const wikidataEntities = _.filter(articles, { project: 'wikidata' });
+  const wikidataEntities = filter(articles, { project: 'wikidata' });
   fetchWikidataLabels(wikidataEntities, dispatch);
 };
 
 export const fetchWikidataLabelsForRevisions = (revisions, dispatch) => {
-  const wikidataEntities = _.filter(revisions, { wiki: { project: 'wikidata' } });
+  const wikidataEntities = filter(revisions, { wiki: { project: 'wikidata' } });
   fetchWikidataLabels(wikidataEntities, dispatch);
 };

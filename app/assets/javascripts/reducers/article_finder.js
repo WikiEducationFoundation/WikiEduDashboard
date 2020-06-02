@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { cloneDeep, forEach, reduce, find } from 'lodash-es';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
 import { ORESWeights } from '../utils/article_finder_language_mappings.js';
@@ -141,9 +141,9 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
-      const newStateArticles = _.cloneDeep(state.articles);
-      _.forEach(action.data, (article) => {
-        const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
+      const newStateArticles = cloneDeep(state.articles);
+      forEach(action.data, (article) => {
+        const averagePageviews = Math.round((reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
         newStateArticles[article.title].pageviews = averagePageviews;
         newStateArticles[article.title].fetchState = 'PAGEVIEWS_RECEIVED';
       });
@@ -155,8 +155,8 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
-      const newStateArticles = _.cloneDeep(state.articles);
-      _.forEach(action.data, (article) => {
+      const newStateArticles = cloneDeep(state.articles);
+      forEach(action.data, (article) => {
         const grade = extractClassGrade(article.pageassessments);
 
         newStateArticles[article.title].grade = grade;
@@ -170,8 +170,8 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case RECEIVE_ARTICLE_REVISION: {
-      const newStateArticles = _.cloneDeep(state.articles);
-      _.forEach(action.data, (value) => {
+      const newStateArticles = cloneDeep(state.articles);
+      forEach(action.data, (value) => {
         newStateArticles[value.title].revid = value.revisions[0].revid;
         newStateArticles[value.title].fetchState = 'REVISION_RECEIVED';
       });
@@ -182,12 +182,12 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
-      const newStateArticles = _.cloneDeep(state.articles);
-      _.forEach(action.data.data, (scores, revid) => {
-        const revScore = _.reduce(ORESWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
+      const newStateArticles = cloneDeep(state.articles);
+      forEach(action.data.data, (scores, revid) => {
+        const revScore = reduce(ORESWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
           return result + (value * scores[`${action.data.project === 'wikidata' ? 'itemquality' : 'wp10'}`].score.probability[key]);
         }, 0);
-        const article = _.find(newStateArticles, { revid: parseInt(revid) });
+        const article = find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
         article.fetchState = 'REVISIONSCORE_RECEIVED';
       });

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forEach } from 'lodash-es';
 import { RECEIVE_WIKIDATA_LABELS } from '../constants';
 
 const initialState = {
@@ -9,7 +9,7 @@ export default function wikidataLabels(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_WIKIDATA_LABELS: {
       const newLabels = { ...state.labels };
-      _.forEach(action.data.entities, (entity) => {
+      forEach(action.data.entities, (entity) => {
         const label = entity.labels[action.language] || entity.labels.en;
         if (!label) { return; }
         newLabels[entity.id] = label.value;

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forEach, get } from 'lodash-es';
 import {
   RECEIVE_UPLOADS,
   SORT_UPLOADS,
@@ -51,16 +51,16 @@ export default function uploads(state = initialState, action) {
     }
     case SET_UPLOAD_METADATA: {
       let fetchedData;
-      _.forEach(action.data, (data) => {
+      forEach(action.data, (data) => {
         if (data && data.query) {
           fetchedData = { ...fetchedData, ...data.query.pages };
         }
       });
       const updatedUploads = state.uploads.map((upload) => {
         if (fetchedData && fetchedData[upload.id]) {
-          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
+          upload.credit = get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
           if (!upload.thumburl) {
-            upload.thumburl = _.get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
+            upload.thumburl = get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
           }
           upload.fetchState = true;
         }
@@ -91,10 +91,10 @@ export default function uploads(state = initialState, action) {
     }
     case SET_UPLOAD_PAGEVIEWS: {
       const views = [];
-      _.forEach(action.data, (fileView) => {
+      forEach(action.data, (fileView) => {
         let fileViews = 0;
-        _.forEach(fileView.items, (article) => {
-          fileViews += _.get(article, 'views');
+        forEach(fileView.items, (article) => {
+          fileViews += get(article, 'views');
         });
         views.push(Math.round(fileViews / fileView.items.length));
       });

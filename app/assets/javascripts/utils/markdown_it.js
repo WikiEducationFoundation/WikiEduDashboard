@@ -1,9 +1,9 @@
 import markdownIt from 'markdown-it';
-import _ from 'lodash';
+import { assign } from 'lodash-es';
 import footnotes from 'markdown-it-footnote';
 
 export default function (opts) {
-  const mergedOpts = _.assign({}, opts, { html: true, linkify: true });
+  const mergedOpts = assign({}, opts, { html: true, linkify: true });
   const md = markdownIt(mergedOpts).use(footnotes);
 
   if (mergedOpts.openLinksExternally) {
