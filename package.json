@@ -142,6 +142,9 @@
       "test",
       "app/assets/javascripts",
       "node_modules"
+    ],
+    "transformIgnorePatterns": [
+      "/!node_modules\\/lodash-es/"
     ]
   },
   "engines": {
