@@ -116,6 +116,7 @@
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
     "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.8.0",
     "webpack-dev-server": "^3.10.3",
     "webpack-exclude-assets-plugin": "^0.1.1",
     "webpack-manifest-plugin": "2.2.0",
@@ -127,7 +128,8 @@
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
     "start": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 --watch -- --env.development --env.watch_js",
     "hot": "node prepare.js && webpack-dev-server --env.development",
-    "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production"
+    "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production",
+    "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
   },
   "jest": {
     "collectCoverage": false,

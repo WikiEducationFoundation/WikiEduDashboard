@@ -38,6 +38,7 @@
   SentryDsn = "#{ENV['sentry_public_dsn']}"
   SalesforceServer = "#{ENV['SF_SERVER']}"
 
+= hot_javascript_tag "vendors"
 - unless ENV['DISABLE_SENTRY']
   = hot_javascript_tag("raven")
   // Sentry logging
