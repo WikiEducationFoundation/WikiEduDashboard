@@ -152,6 +152,12 @@ module.exports = (env) => {
       jquery: 'jQuery',
       'i18n-js': 'I18n',
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        name: 'vendors'
+      },
+    },
     watch: env.watch_js,
     devtool: env.development ? 'eval' : 'source-map',
     devServer: {
@@ -159,7 +165,7 @@ module.exports = (env) => {
       contentBase: path.join(__dirname, 'public'),
       writeToDisk: true,
     },
-    stats: 'minimal',
+    stats: env.stats ? 'normal' : 'minimal',
     plugins,
   };
 };
