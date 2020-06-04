@@ -7,7 +7,7 @@ import CourseUtils from '../../utils/course_utils.js';
 const TagList = ({ tags, course }) => {
   const lastIndex = tags.length - 1;
   const renderedTags = (tags.length > 0
-    ? _.map(tags, (tag, index) => {
+    ? map(tags, (tag, index) => {
       const comma = (index !== lastIndex) ? ', ' : '';
       return <span key={`${tag.tag}${tag.id}`}>{tag.tag}{comma}</span>;
     })

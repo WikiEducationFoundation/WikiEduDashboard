@@ -132,7 +132,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -187,15 +187,15 @@ module.exports = {
   // watchman: true,
   collectCoverage: false,
   roots: [
-    "test",
-    "app/assets/javascripts"
+    'test',
+    'app/assets/javascripts'
   ],
   moduleDirectories: [
-    "test",
-    "app/assets/javascripts",
-    "node_modules"
+    'test',
+    'app/assets/javascripts',
+    'node_modules'
   ],
   transformIgnorePatterns: [
-    "/node_modules/(?!lodash-es)"
+    '/node_modules/(?!lodash-es)'
   ]
 };
