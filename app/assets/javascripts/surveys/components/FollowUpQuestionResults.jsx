@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { filter, isEmpty } from 'lodash-es';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextResults from './TextResults.jsx';
@@ -6,8 +6,8 @@ import TextResults from './TextResults.jsx';
 export default class FollowUpQuestionResults extends Component {
   render() {
     const { type } = this.props;
-    const answers = _.filter(this.props.follow_up_answers, (a) => {
-      return !_.isEmpty(a);
+    const answers = filter(this.props.follow_up_answers, (a) => {
+      return !isEmpty(a);
     });
     if (answers === undefined || answers.length === 0) {
       return null;

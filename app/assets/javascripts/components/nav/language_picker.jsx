@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import _ from 'lodash';
+import { compact, without } from 'lodash-es';
 import languageNames from '../../utils/language_names';
 import selectStyles from '../../styles/select';
 
@@ -40,7 +40,7 @@ class LanguagePicker extends React.Component {
       { label: 'Help translate', value: 'help_translate' },
     ];
 
-    const allLocales = _.compact(I18n.availableLocales).map((code) => {
+    const allLocales = compact(I18n.availableLocales).map((code) => {
       const nativeName = getNativeName(code);
       if (nativeName !== enN && nativeName !== esN && nativeName !== frN) {
         return { label: nativeName || code, value: code };
@@ -48,7 +48,7 @@ class LanguagePicker extends React.Component {
       return undefined;
     });
 
-    const defLocales = _.without(allLocales, undefined);
+    const defLocales = without(allLocales, undefined);
     const newLocales = translateLink.concat(popularLocales).concat(defLocales);
     const curLocale = <span><img src="/assets/images/icon-language.png" alt="Translate this page" /> {I18n.locale} </span>;
 

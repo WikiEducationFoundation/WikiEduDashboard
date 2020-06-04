@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { map } from 'lodash-es';
 
 import CourseUtils from '../../utils/course_utils.js';
 

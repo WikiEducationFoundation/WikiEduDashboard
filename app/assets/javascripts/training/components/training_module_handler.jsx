@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'lodash';
+import { compact } from 'lodash-es';
 import { connect } from 'react-redux';
 import { fetchTrainingModule } from '../../actions/training_actions.js';
 
@@ -15,7 +15,7 @@ const TrainingModuleHandler = createReactClass({
 
   render() {
     const locale = I18n.locale;
-    const slidesAry = _.compact(this.props.training.module.slides);
+    const slidesAry = compact(this.props.training.module.slides);
     const slides = slidesAry.map((slide, i) => {
       const disabled = !slide.enabled;
       const slideLink = `${this.props.training.module.slug}/${slide.slug}`;

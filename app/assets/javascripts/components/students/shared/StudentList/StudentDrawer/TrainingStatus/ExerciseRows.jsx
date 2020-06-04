@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { capitalize } from 'lodash-es';
 import moment from 'moment';
 
 // Helper Components
 const ExerciseStatusCell = ({ status }) => {
-  return <td className={`exercise-status ${status}`}>{_.capitalize(status)}</td>;
+  return <td className={`exercise-status ${status}`}>{capitalize(status)}</td>;
 };
 
 // Helper Functions

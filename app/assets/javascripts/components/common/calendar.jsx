@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
-import _ from 'lodash';
+import { compact } from 'lodash-es';
 import moment from 'moment';
 
 import WeekdayPicker from './weekday_picker.jsx';
@@ -65,7 +65,7 @@ const Calendar = createReactClass({
     }
 
     course.day_exceptions = exceptions.join(',');
-    course.no_day_exceptions = (_.compact(exceptions).length === 0);
+    course.no_day_exceptions = (compact(exceptions).length === 0);
     return this.props.updateCourse(course);
   },
   selectWeekday(e, weekday) {

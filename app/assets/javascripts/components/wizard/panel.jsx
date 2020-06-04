@@ -2,7 +2,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { reduce } from 'lodash-es';
 import Option from './option.jsx';
 
 const md = require('../../utils/markdown_it.js').default();
@@ -110,7 +110,7 @@ const Panel = createReactClass({
 
     let reqsMet = true;
     if (this.props.panel.options && this.props.panel.minimum) {
-      reqsMet = _.reduce(
+      reqsMet = reduce(
         this.props.panel.options, (total, option) => total + (option.selected ? 1 : 0), 0
       ) >= this.props.panel.minimum;
     }

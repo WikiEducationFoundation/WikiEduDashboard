@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { sortBy } from 'lodash-es';
 
 import CourseUtils from '../../utils/course_utils.js';
 import Feedback from '../common/feedback.jsx';
@@ -35,7 +35,7 @@ const Assignment = createReactClass({
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
     const assignees = [];
     const reviewers = [];
-    const iterable = _.sortBy(this.props.assignmentGroup, 'username');
+    const iterable = sortBy(this.props.assignmentGroup, 'username');
     for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
       if (assignment.role === 0 && assignment.user_id && assignment.username) {

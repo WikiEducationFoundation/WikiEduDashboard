@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import Touch from 'react-dnd-touch-backend';
-import _ from 'lodash';
+import { throttle } from 'lodash-es';
 import moment from 'moment';
 
 import Week from './week.jsx';
@@ -150,7 +150,7 @@ const Timeline = createReactClass({
     return (scrollTop + window.innerHeight) >= scrollHeight;
   },
 
-  _handleScroll: _.throttle(function () {
+  _handleScroll: throttle(function () {
     this.setState({ unscrolled: false });
     const scrollTop = window.scrollTop || document.body.scrollTop || window.pageYOffset;
     const bodyTop = document.body.getBoundingClientRect().top;

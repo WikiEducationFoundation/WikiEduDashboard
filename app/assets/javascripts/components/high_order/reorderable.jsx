@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
-import _ from 'lodash';
+import { flow } from 'lodash-es';
 
 // This component is used for components which function both as draggable
 // items and also as their own "drop targets". As of 8/12/2015 the Block
@@ -94,7 +94,7 @@ export default function (Component, Type, MoveFunction) {
   // The lodash `flow` function is essentially a chain, passing the return
   // value of each function to the next. Note here that DragSource() and
   // DragTarget() both return functions which are then used in the flow.
-  return _.flow(
+  return flow(
     DragSource(Type, dragSourceSpec, sourceConnect),
     DropTarget(Type, dragTargetSpec, targetConnect)
   )(Reorderable);

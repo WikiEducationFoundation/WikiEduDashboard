@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { keys } from 'lodash-es';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { answerTotals } from './utils';
@@ -9,7 +9,7 @@ const BarGraph = (props) => {
 
   return (
     <div className="results__bar-graph">
-      {_.keys(answers).map((key) => {
+      {keys(answers).map((key) => {
         const total = answers[key];
         const width = ((total / totalAnswers) * 100).toFixed(2);
         const nullWidth = isNaN(width);

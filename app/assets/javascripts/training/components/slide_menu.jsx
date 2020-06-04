@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import _ from 'lodash';
+import { extend } from 'lodash-es';
 
 const SlideMenu = createReactClass({
   displayName: 'SlideMenu',
@@ -40,7 +40,7 @@ const SlideMenu = createReactClass({
     const slides = this.props.slides.map((slide, loopIndex) => {
       const current = slide.id === this.props.currentSlide.id;
       const liClass = current ? 'current' : '';
-      const newParams = _.extend(this.linkParams(this.props), { slide_id: slide.slug });
+      const newParams = extend(this.linkParams(this.props), { slide_id: slide.slug });
       const slideLink = this._slideLink(newParams);
       // a slide is enabled if it comes back from the API as such,
       // it is set enabled in the parent component,

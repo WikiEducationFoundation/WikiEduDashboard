@@ -1,6 +1,6 @@
 import { getFiltered } from '../../utils/model_utils';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants/assignments';
-import * as _ from 'lodash';
+import { uniqBy, flow, flatten, compact } from 'lodash-es';
 
 export const delayFetchAssignmentsAndArticles = (props, cb) => {
   const { loadingArticles, loadingAssignments } = props;
@@ -63,13 +63,13 @@ export const groupByAssignmentType = (assignments, user_id) => {
       && !reviewingArticleIds.includes(id);
   });
 
-  const reviewable = _.uniqBy(reviewableDuplicates, 'article_url');
+  const reviewable = uniqBy(reviewableDuplicates, 'article_url');
   return { assigned, reviewing, unassigned, reviewable };
 };
 
 export const getModulesAndBlocksFromWeeks = (weeks) => {
-  const flattenAndCompact = _.flow([_.flatten, _.compact]);
-  const blocks = _.flatten(weeks.map(week => week.blocks));
+  const flattenAndCompact = flow([flatten, compact]);
+  const blocks = flatten(weeks.map(week => week.blocks));
   const modules = flattenAndCompact(blocks.map(block => block.training_modules));
   return { blocks, modules };
 };

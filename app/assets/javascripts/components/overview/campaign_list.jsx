@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { map } from 'lodash-es';
 
 import CourseUtils from '../../utils/course_utils.js';
 
 const CampaignList = ({ campaigns, course }) => {
   const lastIndex = campaigns.length - 1;
   campaigns = (campaigns.length > 0
-    ? _.map(campaigns, (campaign, index) => {
+    ? map(campaigns, (campaign, index) => {
       let comma = '';
       const url = `/campaigns/${campaign.slug}`;
       if (index !== lastIndex) { comma = ', '; }
