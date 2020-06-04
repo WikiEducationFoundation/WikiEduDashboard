@@ -14,6 +14,8 @@ ce:
     sign_up: ДӀаяздар кхоллар
   articles:
     wiki: Вики
+  campaign:
+    alert_type: Тайпа
   categories:
     template_name: Кепан цӀе
   courses:

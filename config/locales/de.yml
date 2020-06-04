@@ -6,8 +6,10 @@
 # Author: FF11
 # Author: Killarnee
 # Author: Metalhead64
+# Author: Sebastian Wallroth
 # Author: Taresi
 # Author: ToBeFree
+# Author: WikiBayer
 ---
 de:
   number:
@@ -25,6 +27,10 @@ de:
       Schaltflächen erhöhen und vermindern die Eingabe.
   application:
     cancel: Abbrechen
+    cookie_consent: Diese Website verwendet Cookies, um Sie angemeldet zu halten,
+      und speichert Informationen die mit Ihrem Wikipedia-Konto im Zusammenhang stehen.
+    cookie_consent_acknowledge: Ich verstehe
+    cookie_consent_see_more: Mehr sehen
     create_accounts: Wikipedia-Benutzerkonten erstellen
     dashboard: Wiki-Ed-Dashboard
     documentation: Dokumentation
@@ -49,7 +55,9 @@ de:
     request_account: Ein Benutzerkonto beantragen
     request_account_create: Ein Benutzerkonto erstellen
     search: eine Frage stellen
-    search_results: 'Ergebnisse für: „%{search_terms}“'
+    search_results:
+      one: '%{count} Ergebnis für: ''%{search_terms}'''
+      other: '%{count} Ergebnisse für : ''%{search_terms}'''
     no_results: Keine Ergebnisse für „%{query}“ gefunden
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_wikipedia: Oder auf Wikipedia registrieren
@@ -66,8 +74,10 @@ de:
     opt_no: nein
   article_statuses:
     not_yet_started: Erste Schritte
+    in_progress: Arbeiten auf der Spielwiese
     ready_for_review: Entwurf ausklappen
     ready_for_mainspace: Seite in den Hauptnamensraum verschieben
+    assignment_completed: Zuordnung als vollständig markiert
     reading_the_article: Artikel lesen
     providing_feedback: Rückmeldung geben
     post_to_talk: Auf die Diskussionsseite laden
@@ -106,6 +116,9 @@ de:
     sign_up_help: Um das Dashboard zu nutzen, musst du dich bei Wikipedia anmelden
       und Zugriff auf dein Benutzerkonto gewähren. Du kannst dich mit einem vorhandenen
       Wikipedia-Benutzerkonto anmelden oder ein neues erstellen.
+  alerts:
+    alert_label: Meldungen
+    no_alerts: Keine Meldungen gefunden
   activity:
     all: Aktivität
     edited_by: Bearbeitet von
@@ -135,6 +148,9 @@ de:
       new: Neu
       existing: Vorhandene
       new_and_existing: Neue und vorhandene
+      tracked: Getrackt
+      untracked: Ungetrackt
+      tracked_and_untracked: Getrackt und ungetrackt
     hide: Ausblenden
     history: (Versionsgeschichte)
     label: Artikel
@@ -166,11 +182,17 @@ de:
     show_current_version: Aktuelle Version anzeigen
     show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
     title: Titel
+    tracked: Getrackt
+    tracked_doc: Nur getrackte Artikel fließen in die Statistik dieses Programms ein.
+      Wenn Artikel als unbeobachtet markiert werden, werden sie beim nächsten Datenupdate
+      aus der Statistik entfernt.
     title_example: Artikelname
     tools: Bewertungswerkzeuge
     view: Artikel anzeigen
     view_all: Alles anzeigen
-    view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
+    view_doc: Die geschätzten Aufrufe jedes Artikels, seit er das erste Mal bearbeitet
+      wurde, seit dem letzten Update der Stats. Du kannst tools.wmflabs.org/pageviews
+      verwenden, um die exakten Zahlen zu sehen.
     view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
     edit_size: Bearbeitungsgröße
@@ -185,8 +207,14 @@ de:
       für die Struktur eines guten Artikels folgt, aber sie berücksichtigt nicht den
       Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
       verfügbar.
+    articles_short: Artikel
+  articles_wikidata:
+    articles_short: Einträge
+  articles_generic:
+    articles_short: Seiten
   assignments:
     article: Der Artikel %{title} ist jetzt dir zugewiesen.
+    article_link: Artikel
     already_exists: Diese Zuweisung ist bereits vorhanden!
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
@@ -197,22 +225,34 @@ de:
     assign_self: Einen Artikel selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
       oder zu verbessern.
+    bibliography: Bibliografie
     clone: Klonen
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
+    editors: Zugewiesen an
+    group_members: Gruppenmitglieder
     label: Zuweisen
     loading: Lade Zuordnungen…
     none_short: Keine zugewiesenen Artikel
     none: Dieser Kurs hat keine zugewiesenen Artikel.
     no_available: Dieser Kurs hat keine verfügbaren Artikel.
+    peer_review_count: '%{currentCount}/%{total} ausgewählt'
+    peer_review_count_tooltip: Du solltest %{total} Artikel für den Peer Review auswählen.
+    peer_review_link: Peer Review
+    peer_review_link_personalized: '%{username}s Peer Review'
     remove: Entfernen
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
-    review_tooltip: Dies ist zur Verfolgung, welche(n) Artikel du zur Begutachtung
-      planst oder zu dem/denen du Rückmeldungen geben möchtest.
+    review_tooltip: Das ist für Artikel, für die Du planst, einen Peer Review oder
+      Feedback zu geben.
+    sandbox_draft_link: Spielwiesenentwurf
     select: Auswählen
+    warning_untracked_wiki: 'Bitte beachte, dass Artikel, die Du in einem Wiki ausgewählt
+      hast, in diesem Kurs nicht getrackt werden, Um Beiträge  zu diesem Artikel zu
+      tracken, muss ein Instrukteur das folgende Wiki zum diesem Kurs hinzufügen:
+      %{wiki}'
   blocks:
     milestones:
       title: Meilensteine
@@ -251,8 +291,10 @@ de:
     data_courses: Übersichtsdaten zum Kurs
     data_courses_info: Basismetriken für jeden Kurs/jedes Programm
     data_articles: Bearbeitete Seiten
+    data_revisions: Versionsdaten
     data_articles_info: Einzelheiten über jede verfolgte Seite, die von der Kampagne
       bearbeitet wurde.
+    data_revisions_info: Einzelheiten über jede getrackte Seite dieser Kampagne.
     data_instructors: Kursleiter
     data_instructors_info: Liste der Kursleiter/Vermittler und ihrer Kurse/Programme
     data_editors_by_course: Autoren nach Kurs
@@ -279,36 +321,48 @@ de:
     random_passcode: ein zufälliger Passcode
     requested_accounts: Beantragte Benutzerkonten
     title: Titel
+    slug: Slug
+    search_campaigns: Kampagnen durchsuchen
     use_start_end_dates: Start- und Enddaten verwenden
   categories:
     add_category: Kategorie hinzufügen
+    add_psid: PetScan PSID hinzufügen
     add_template: Vorlage hinzufügen
     add_this_category: Diese Kategorie hinzufügen
+    add_this_psid: Diese PSID hinzufügen
     add_this_template: Diese Vorlage hinzufügen
+    import_articles_description: Die Liste von Artikel in einer Kategorie wird periodisch
+      aktualisiert und es kann nach dem Hinzufügen einige Zeit dauern, bevor die Liste
+      erneuert wird.
     confirm_category_addition: Bist du sicher, dass du Beiträge an der Kategorie „%{name}“
       verfolgen möchtest?
+    confirm_psid_addition: Bist du sicher, dass du Beiträge der PetScan PSID „%{name}“
+      tracken möchtest?
     confirm_template_addition: Bist du sicher, dass du Beiträge an der Vorlage „%{name}“
-      verfolgen möchtest?
+      tracken möchtest?
     depth: Unterkategorietiefe
+    articles_count: Artikelzähler
     name: Name
     category_name: Name der Kategorie
+    psid_name: PSID
     template_name: Name der Vorlage
     none: Es gibt keine verfolgten Kategorien.
     remove: Entfernen
-    tracked_categories: Verfolgte Kategorien und Vorlagen
+    tracked_categories: Getrackte Kategorien, PSID und Vorlagen
+    timestamp: Zuletzt aktualisiert am
   chat:
     label: Chat
   courses:
+    school_system: Wissenschaftssystem
     assignment_edits_enabled: Zuweisungsbearbeitungen aktiviert
     assignment_edits_enabled_tooltip: Falls aktiviert, wird das Dashboard eine Vorlage
       auf die Diskussionsseite für jeden zugewiesenen Artikel einfügen.
     accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
-    accounts_generation_explanation: Dies erlaubt Teilnehmern, ihre E-Mail-Adresse
-      und den gewünschten Benutzernamen einzugeben anstatt sich selbst neue Benutzerkonten
+    accounts_generation_explanation: Dies erlaubt Teilnehmenden, ihre E-Mail-Adresse
+      und den gewünschten Accountnamen einzugeben anstatt sich selbst neue Benutzerkonten
       zu erstellen. Du wirst dann in der Lage sein, die Benutzerkonten von diesem
       Dashboard aus zu erstellen und sie zur gleichen Zeit als Programmteilnehmer
-      hinzuzufügen. Um diese Funktion zu verwenden, solltest du die Berechtigung „Benutzerkontenersteller“
-      auf dem Heimatwiki für dieses Programm besitzen.
+      hinzuzufügen.
     accounts_generation_confirm_message: Bist du sicher, dass du die Benutzerkontoanfragen
       aktivieren möchtest?
     activity: Aktivität
@@ -324,6 +378,13 @@ de:
     actions: Aktionen
     articles: Artikel
     articles_none: Dieser Kurs hat keine Artikel bearbeitet.
+    article_viewer: Artikelbetrachter
+    articles_i_am_reviewing: Artikel die ich peer reviewe
+    assignment_headings:
+      assigned_articles: Zugeordnete Artikel
+      assigned_reviews: Zugeordnete Reviews
+      available_articles: Verfügbare Artikel
+      available_reviews: Artikel anderer Kampagnenteilnehmer
     assignment_end: Zuweisungs-Ende
     assignments_none: Dieser Kurs hat keine zugewiesenen Artikel.
     assignment_start: Zuweisungs-Beginn
@@ -457,6 +518,8 @@ de:
       Seite, welche Seiten neu sind und Summen zu Seitenaufrufen. Diese Seitenaufrufwerte
       können bei beendeten Kursen veraltet sein, so dass eine URL auf das Seitenaufrufwerkzeug
       auf dem WMF-Tool-Labs-Server enthalten ist.
+    data_revisions_info: Zu den Versionsdaten gehören die Anzahl der Versionen im
+      Kurs, Versions-ID, Artikel-ID, welche Seiten neu sind und Anzahl der Pageviews.
     data_download_info: Daten im CSV-Format herunterladen.
     data_overview: Übersichtsdaten
     data_overview_info: Übersichtsdaten stellen kumulative Statistiken für das gesamte
@@ -469,6 +532,7 @@ de:
       viel sie bearbeitet haben und ob sie ihre Benutzerkonten während des Projekts
       registriert haben.
     data_uploads: Daten zu hochgeladenen Commons-Dateien
+    data_revisions: Versionsdaten
     data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
       Verwendungszähler eines jeden Medienuploads.
     delete_course: Kurs löschen
@@ -511,6 +575,8 @@ de:
     feedback: Rückmeldung
     feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
+    home_wiki: Heimatwiki
+    multi_wiki: Getrackte Wikis
     instructor:
       one: Leiter
       other: Leiter
@@ -664,9 +730,9 @@ de:
     user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen
     view: Kurs anzeigen
-    view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
-      bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
-      hat.
+    view_doc: Die geschätzte Anzahl aller Aufrufe von Artikeln, die von eingeschriebenen
+      Autoren bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel
+      gemacht hat.
     view_page: Kursseite ansehen
     view_wiki: Auf Wikipedia anzeigen
     volunteer:
@@ -694,11 +760,14 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    school_system: Wissenschaftssystem
     add_campaign: Kampagne hinzufügen
     all_courses: Alle Programme
     archived: Archivierte Programme
     articles_i_am_reviewing: Artikel die ich überüfe
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
+    assignment_headings:
+      available_reviews: Bereit für Review
     assignment_end: Ereignisende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Ereignisbeginn
@@ -748,8 +817,8 @@ de:
         Heimatwiki ist das Hauptwiki, an dem die Teilnehmer arbeiten werden und Bearbeitungen
         an diesem Wiki werden standardmäßig verfolgt. Falls dein Programm mehrere
         Sprachen oder Projekte umfasst, werden Beiträge auch für jedes Wiki verfolgt,
-        das „Verfügbare Artikel“ oder „Zuweisungen“ für dieses Wiki hat. Klicke auf
-        „Mein Programm erstellen!“, um mit der Erstellung der Seite für dein Wikiprogramm
+        das explizit zu den „Getrackte Wikis“ hinzugefügt wurde. Klicke auf „Mein
+        Programm erstellen!“, um mit der Erstellung der Seite für dein Wikiprogramm
         zu beginnen.
       new_or_clone: Erstelle jetzt ein neues Programm oder verwende die Option „Klonen“,
         um ein anderes Programm zu kopieren, an dem du teilgenommen hast.
@@ -808,19 +877,29 @@ de:
       Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
       tun möchtest?
   instructor_view:
+    article_assignments: '%{prefix} Zuordnungen'
     assignments_table:
       article_name: Artikelname
       current_stage: Aktueller Status
       relevant_links: Relevante links
+    assigned_articles: Zugeordnete Artikel
     bad_work:
       learn_more: Wenn die Arbeit eines Schülers den Artikel schlechter gemacht hat,
         ermutigen wir dich ihn selbst zu bearbeiten. Lass uns ansonsten über die Probleme
         erfahren, damit wir sie später beheben können.
       learn_more_button: Mehr erfahren
       submit_issue: Was sind die signifikanten Probleme mit diesem Artikel?
+      submit_issue_placeholder: Je mehr Expertenperspektive und Details Du hinzufügen
+        kannst, umso besser.
+      thank_you: Dankeschön! Kontaktiere Wiki-Experten, wenn Du weitere Fragen hast.
+    exercises_and_trainings: '%{prefix} Übungen & Trainings'
+    no_assignments: Dieser Student hat derzeit keine zugeordneten Artikel. Du kannst
+      einen Artikel mit den Knöpfen oben zuordnen.
+    overview: '%{prefix} Überblick'
     reviewing_articles: Artikel sichten
     select_student:
       title: '%{prefix} auswählen'
+      content: um Artikel zuzuordenen und Artikelzuordnungen anzusehen
   metrics:
     label: Kursaktivität
     last_update: Letzte Statistikaktualisierung
@@ -828,6 +907,7 @@ de:
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
+    articles_created_generic: Erstellte Seiten
     articles_edited: Bearbeitete Artikel
     bytes_added: Hinzugefügte Bytes
     characters: Zeichen
