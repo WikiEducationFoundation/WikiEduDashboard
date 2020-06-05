@@ -6,6 +6,7 @@ const ExcludeAssetsPlugin = require('webpack-exclude-assets-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackRTLPlugin = require('webpack-rtl-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const plugins = [];
 
@@ -50,6 +51,8 @@ module.exports = (env) => {
   plugins.push(new ExcludeAssetsPlugin({
     path: ['^.*css.*\\.js$']
   }));
+
+  plugins.push(new LodashModuleReplacementPlugin);
 
   if (doHot) {
     // wrap entries with hot hooks

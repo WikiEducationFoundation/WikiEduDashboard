@@ -1,6 +1,7 @@
 const path = require('path');
 const config = require('./config');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
 
 const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
@@ -74,7 +75,8 @@ module.exports = (env) => {
         'process.env': {
           NODE_ENV: JSON.stringify(mode),
         },
-      })
+      }),
+      new LodashModuleReplacementPlugin,
     ],
     optimization: {
       splitChunks: {

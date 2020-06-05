@@ -1,10 +1,13 @@
 module.exports = {
   presets: [
     '@babel/preset-react',
-    '@babel/preset-env'
+    ['@babel/preset-env', {
+      "modules": false
+    }]
   ],
   plugins: [
     '@babel/plugin-proposal-object-rest-spread',
+    'lodash',
     [
       'babel-plugin-root-import',
       {
