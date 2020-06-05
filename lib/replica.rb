@@ -124,13 +124,14 @@ class Replica
     url = compile_query_url(endpoint, query)
     response = do_query(url)
     return if response.empty?
-    parsed = Oj.load(response.to_s)
+    response_body = response.to_s
+    parsed = Oj.load(response_body)
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling_tasks(e, endpoint, url: url, response: response.to_s)
+    invoke_error_handling(e, endpoint, url: url, response_body: response_body)
   end
 
   def api_post(endpoint, key, data)
@@ -143,7 +144,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling_tasks(e, endpoint, query: data)
+    invoke_error_handling(e, endpoint, query: data)
   end
 
   def do_query(url)
@@ -211,16 +212,9 @@ class Replica
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
 
-  def invoke_error_handling_tasks(error, endpoint, query: nil, url: nil, response: nil)
-    level = TYPICAL_ERRORS.include?(error.class) ? 'warning' : 'error'
+  def invoke_error_handling(error, endpoint, query: nil, url: nil, response_body: nil)
     extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
-    optional_params = {}
-    if @course.present?
-      optional_params[:url] = url
-      if error.class == Oj::ParseError
-        optional_params[:miscellaneous] = { response_body: response[0..500] }
-      end
-    end
-    perform_error_handling_tasks(error, level, extra, @course, optional_params)
+    optional_params = build_optional_params(@course, error, url, response_body)
+    perform_error_handling(error, TYPICAL_ERRORS, extra, @course, optional_params)
   end
 end
