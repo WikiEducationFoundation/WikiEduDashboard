@@ -35,11 +35,12 @@ class OresApi
   def get_revision_data(rev_ids)
     url_query = query_url(rev_ids)
     response = ores_server.get(url_query)
-    ores_data = Oj.load(response.body)
+    response_body = response.body
+    ores_data = Oj.load(response_body)
     ores_data
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
-    invoke_error_handling_tasks(e, url, response)
+    invoke_error_handling(e, url, response_body)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -71,16 +72,9 @@ class OresApi
     conn
   end
 
-  def invoke_error_handling_tasks(error, url, response)
-    level = TYPICAL_ERRORS.include?(error.class) ? 'warning' : 'error'
+  def invoke_error_handling(error, url, response_body)
     extra = { project_code: @project_code, project_model: @project_model, url: url }
-    optional_params = {}
-    if @course.present?
-      optional_params[:url] = url
-      if error.class == Oj::ParseError
-        optional_params[:miscellaneous] = { response_body: response.body[0..500] }
-      end
-    end
-    perform_error_handling_tasks(error, level, extra, @course, optional_params)
+    optional_params = build_optional_params(@course, error, url, response_body)
+    perform_error_handling(error, TYPICAL_ERRORS, extra, @course, optional_params)
   end
 end
