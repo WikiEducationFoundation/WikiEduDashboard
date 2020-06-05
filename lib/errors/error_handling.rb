@@ -5,21 +5,37 @@ require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 module ErrorHandling
   include CourseUpdateErrorHandling
 
-  def perform_error_handling_tasks(error, level, extra, course, optional_params)
-    return report_exception_sentry(error, level, extra) unless course.present?
-    sentry_tag_uuid = SecureRandom.uuid
-    save_course_error_record(course, error, sentry_tag_uuid, optional_params)
-    report_exception_sentry(error, level, extra, sentry_tag_uuid: sentry_tag_uuid)
-  end
-
-  def report_exception_sentry(error, level, extra, sentry_tag_uuid: nil)
-    if sentry_tag_uuid.present?
-      Raven.tags_context(uuid: sentry_tag_uuid) do
-        Raven.capture_exception error, level: level, extra: extra
-      end
+  def perform_error_handling(error, typical_errors, extra, course, optional_params)
+    Rails.logger.info "Caught #{error}"
+    level = error_level(error, typical_errors)
+    if course.present?
+      perform_course_error_handling(error, level, extra, course, optional_params)
     else
-      Raven.capture_exception error, level: level, extra: extra
+      report_exception_sentry(error, level, extra)
     end
     return nil
+  end
+
+  def error_level(error, typical_errors)
+    typical_errors.include?(error.class) ? 'warning' : 'error'
+  end
+
+  def report_exception_sentry(error, level, extra)
+    Raven.capture_exception error, level: level, extra: extra
+  end
+
+  # Building optional params for Replica and OresApi which require
+  # response body for Oj::ParseError to be saved in CourseErrorRecord
+  # WikiApi does not have Oj::ParseError as a typical error, which is
+  # why it does not use this method
+  def build_optional_params(course, error, url, response_body)
+    return {} unless course.present?
+    optional_params = { url: url }
+    if error.class == Oj::ParseError
+      # First 500 characters of response_body sufficient to analyze the error.
+      # In most cases of Oj::ParseError, the response is not a JSON object
+      optional_params[:miscellaneous] = { response_body: response_body[0..499] }
+    end
+    optional_params
   end
 end
