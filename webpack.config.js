@@ -52,7 +52,7 @@ module.exports = (env) => {
     path: ['^.*css.*\\.js$']
   }));
 
-  plugins.push(new LodashModuleReplacementPlugin);
+  plugins.push(new LodashModuleReplacementPlugin());
 
   if (doHot) {
     // wrap entries with hot hooks
