@@ -108,7 +108,7 @@ class WikiApi
     # a short bit in the case of 429 — too many request — errors.
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
-    invoke_error_handling_tasks(e, action, query)
+    invoke_error_handling(e, action, query)
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return nil
   end
@@ -127,10 +127,9 @@ class WikiApi
                     MediawikiApi::HttpError,
                     MediawikiApi::ApiError].freeze
 
-  def invoke_error_handling_tasks(error, action, query)
-    Rails.logger.info "Caught #{error}"
+  def invoke_error_handling(error, action, query)
     extra = { action: action, query: query, api_url: @api_url }
-    optional_params = @course.present? ? { miscellaneous: { action: action, query: query } } : {}
-    perform_error_handling_tasks(error, 'warning', extra, @course, optional_params)
+    optional_params = { miscellaneous: { action: action, query: query } }
+    perform_error_handling(error, TYPICAL_ERRORS, extra, @course, optional_params)
   end
 end
