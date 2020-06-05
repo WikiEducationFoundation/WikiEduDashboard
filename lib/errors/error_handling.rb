@@ -20,6 +20,10 @@ module ErrorHandling
     typical_errors.include?(error.class) ? 'warning' : 'error'
   end
 
+  def raise_unexpected_error(error, typical_errors)
+    raise error if typical_errors.exclude?(error.class)
+  end
+
   def report_exception_sentry(error, level, extra)
     Raven.capture_exception error, level: level, extra: extra
   end

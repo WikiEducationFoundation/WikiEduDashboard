@@ -41,7 +41,7 @@ class OresApi
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
     invoke_error_handling(e, url, response_body)
-    raise e unless TYPICAL_ERRORS.include?(e.class)
+    raise_unexpected_error(e, TYPICAL_ERRORS)
     return {}
   end
 

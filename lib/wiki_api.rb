@@ -109,7 +109,7 @@ class WikiApi
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
     invoke_error_handling(e, action, query)
-    raise e unless TYPICAL_ERRORS.include?(e.class)
+    raise_unexpected_error(e, TYPICAL_ERRORS)
     return nil
   end
 
