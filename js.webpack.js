@@ -78,7 +78,8 @@ module.exports = (env) => {
       }),
       new LodashModuleReplacementPlugin({
         collections: true,
-        shorthands: true
+        shorthands: true,
+        flattening: true
       }),
     ],
     optimization: {

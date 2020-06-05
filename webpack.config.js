@@ -54,7 +54,8 @@ module.exports = (env) => {
 
   plugins.push(new LodashModuleReplacementPlugin({
     collections: true,
-    shorthands: true
+    shorthands: true,
+    flattening: true
   }));
 
   if (doHot) {
