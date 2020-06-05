@@ -76,7 +76,10 @@ module.exports = (env) => {
           NODE_ENV: JSON.stringify(mode),
         },
       }),
-      new LodashModuleReplacementPlugin(),
+      new LodashModuleReplacementPlugin({
+        collections: true,
+        shorthands: true
+      }),
     ],
     optimization: {
       splitChunks: {
