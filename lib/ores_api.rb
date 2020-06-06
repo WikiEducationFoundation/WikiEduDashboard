@@ -74,7 +74,8 @@ class OresApi
 
   def invoke_error_handling(error, url, response_body)
     extra = { project_code: @project_code, project_model: @project_model, url: url }
-    optional_params = build_optional_params(@course, error, url, response_body)
-    perform_error_handling(error, extra, @course, optional_params)
+    optional_params = { url: url, response_body: response_body, build: true }
+    perform_error_handling(error: error, extra: extra, course: @course,
+                           optional_params: optional_params)
   end
 end

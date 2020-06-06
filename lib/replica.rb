@@ -214,7 +214,8 @@ class Replica
 
   def invoke_error_handling(error, endpoint, query: nil, url: nil, response_body: nil)
     extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
-    optional_params = build_optional_params(@course, error, url, response_body)
-    perform_error_handling(error, extra, @course, optional_params)
+    optional_params = { url: url, response_body: response_body, build: true }
+    perform_error_handling(error: error, extra: extra, course: @course,
+                           optional_params: optional_params)
   end
 end
