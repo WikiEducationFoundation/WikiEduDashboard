@@ -5,9 +5,9 @@ require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 module ErrorHandling
   include CourseUpdateErrorHandling
 
-  def perform_error_handling(error, typical_errors, extra, course, optional_params)
+  def perform_error_handling(error, extra, course, optional_params)
     Rails.logger.info "Caught #{error}"
-    level = error_level(error, typical_errors)
+    level = error_level(error)
     if course.present?
       perform_course_error_handling(error, level, extra, course, optional_params)
     else
@@ -16,12 +16,12 @@ module ErrorHandling
     return nil
   end
 
-  def error_level(error, typical_errors)
-    typical_errors.include?(error.class) ? 'warning' : 'error'
+  def error_level(error)
+    self.class.const_get(:TYPICAL_ERRORS).include?(error.class) ? 'warning' : 'error'
   end
 
-  def raise_unexpected_error(error, typical_errors)
-    raise error if typical_errors.exclude?(error.class)
+  def raise_unexpected_error(error)
+    raise error if self.class.const_get(:TYPICAL_ERRORS).exclude?(error.class)
   end
 
   def report_exception_sentry(error, level, extra)

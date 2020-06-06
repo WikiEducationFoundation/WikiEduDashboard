@@ -41,7 +41,7 @@ class OresApi
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
     invoke_error_handling(e, url, response_body)
-    raise_unexpected_error(e, TYPICAL_ERRORS)
+    raise_unexpected_error(e)
     return {}
   end
 
@@ -75,6 +75,6 @@ class OresApi
   def invoke_error_handling(error, url, response_body)
     extra = { project_code: @project_code, project_model: @project_model, url: url }
     optional_params = build_optional_params(@course, error, url, response_body)
-    perform_error_handling(error, TYPICAL_ERRORS, extra, @course, optional_params)
+    perform_error_handling(error, extra, @course, optional_params)
   end
 end

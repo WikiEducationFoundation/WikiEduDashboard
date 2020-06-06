@@ -109,7 +109,7 @@ class WikiApi
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
     invoke_error_handling(e, action, query)
-    raise_unexpected_error(e, TYPICAL_ERRORS)
+    raise_unexpected_error(e)
     return nil
   end
 
@@ -130,6 +130,6 @@ class WikiApi
   def invoke_error_handling(error, action, query)
     extra = { action: action, query: query, api_url: @api_url }
     optional_params = { miscellaneous: { action: action, query: query } }
-    perform_error_handling(error, TYPICAL_ERRORS, extra, @course, optional_params)
+    perform_error_handling(error, extra, @course, optional_params)
   end
 end
