@@ -52,6 +52,8 @@ module.exports = (env) => {
     path: ['^.*css.*\\.js$']
   }));
 
+  // this stubs unused function with noop function
+  // resulting in smaller builds
   plugins.push(new LodashModuleReplacementPlugin({
     collections: true,
     shorthands: true,
