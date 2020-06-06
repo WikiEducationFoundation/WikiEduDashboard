@@ -129,7 +129,8 @@ class WikiApi
 
   def invoke_error_handling(error, action, query)
     extra = { action: action, query: query, api_url: @api_url }
-    optional_params = { miscellaneous: { action: action, query: query } }
-    perform_error_handling(error, extra, @course, optional_params)
+    optional_params = { miscellaneous: { action: action, query: query }, build: false }
+    perform_error_handling(error: error, extra: extra, course: @course,
+                           optional_params: optional_params)
   end
 end
