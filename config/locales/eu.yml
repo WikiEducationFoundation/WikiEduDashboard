@@ -1,6 +1,7 @@
 # Messages for Basque (euskara)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Amaia
 # Author: An13sa
 # Author: EukeneFL
 # Author: Iñaki LL
@@ -27,6 +28,8 @@ eu:
       igo edo jaitsi egingo dute sartutakoa.
   application:
     cancel: Utzi
+    cookie_consent: Gune honek cookie-ak erabiltzen ditu konektatuta mantentzeko eta
+      zure Wikipedia kontuarekin lotutako informazioa biltzen du.
     cookie_consent_acknowledge: Ulertzen dut
     cookie_consent_see_more: Gehiago ikusi.
     create_accounts: Wikipedia kontuak sortu
@@ -53,7 +56,9 @@ eu:
     request_account: Eskatu kontua
     request_account_create: Kontua sortu
     search: Galdera egin
-    search_results: 'Emaitzak honetarako: ''%{search_terms}'''
+    search_results: '{{Emaitza PLURAL|one=%{count} ''%{search_terms}'' bilaketarako|%{count}
+      emaitza ''%{search_terms}'' bilaketarako}}'
+    no_results: Emaitzarik ez '%{query}' bilaketarako
     sign_up_extended: Wikipediarekin kontua sortu
     sign_up_wikipedia: Edo Wikipediako kontuan sartu
     sign_up_log_in_extended: Wikipedian
@@ -70,6 +75,11 @@ eu:
   article_statuses:
     not_yet_started: Nola hasi
     in_progress: Proba orrian lan egin
+    ready_for_review: Hedatze proiektua
+    assignment_completed: Markatutako esleipena osatua
+    reading_the_article: Artikulua irakurtzen
+    post_to_talk: Elkarrizketan argitaratu
+    peer_review_completed: Berrikusketa osatua
   dashboard:
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;
@@ -113,10 +123,13 @@ eu:
     label: Jarduera
   articles:
     article_development: (artikuluaren garapena)
+    articles_shown: '%{count}ikusgai %{total}-(e)tik'
     assigned: Esleitutako artikuluak
     available: Artikulu erabilgarriak
+    no_available: Artikulu erabilgarririk ez
     next: Hurrengoa
     previous: Aurrekoa
+    article_title: Artikuluaren izenburua
     assigned_to: 'Nori esleitua:'
     character_doc: Hasiera eta amaiera daten artean, atxikitako editoreek artikuluetan
       gehitutako karaktere kopurua.
@@ -133,6 +146,9 @@ eu:
       new: Berria
       existing: Existitzen direnak
       new_and_existing: Berriak eta existitzen direnak
+      tracked: Jarraitua
+      untracked: Ez jarraitua
+      tracked_and_untracked: Jarraitua eta ez jarraitua
     hide: Ezkutatu
     history: (historia)
     label: Artikuluak
@@ -163,11 +179,17 @@ eu:
     show_current_version: Erakutsi Oraingo Bertsioa
     show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
     title: Izenburua
+    tracked: Jarraitua
+    tracked_doc: Jarraitutako artikuluek bakarrik laguntzen dute programa honetako
+      estatistiketan. Artikuluak ez jarraitu bezala markatuta egotekotan, estatistiketatik
+      ezabatuko dira hurrengo datu eguneratzean.
     title_example: Artikuluaren izenburua
     tools: Baloraziorako tresnak
     view: Artikulua ikusi
     view_all: Denak ikusi
-    view_doc: Proiektuak iraun bitartean artikulu guztiei egindako bisiten batura
+    view_doc: Artikulu bakoitzaren gutxi gorabeherako ikustaldiak lehenengoz editatua
+      izan zenetik, estatistiken azken eguneratzera arte. tools.wmflabs.org/pageviews
+      erabil dezakezu zenbaki zehatzak ikusteko.
     view_on_wiki: Ikus wikian
     views_added: Bisita berrien %{count} gehituta %{title} artikulurako
     edit_size: Tamaina aldatu
@@ -211,9 +233,14 @@ eu:
     none_short: Ez da artikulurik esleitu
     none: Ikastaro honek ez du esleitutako artikulurik.
     no_available: Ikastaro honek ez du artikulu eskuragarririk.
+    peer_review_count: '%{currentCount}/%{total} aukeratua'
+    peer_review_count_tooltip: '%{total}artikulu aukeratu behar dituzu bikotekako
+      berrikusketarako.'
+    peer_review_link: Bikotekako berrikusketa
+    peer_review_link_personalized: '%{username}-(r)en bikotekako berrikusketa'
     remove: Kendu
     reviewers: Berrikuslea(k)
-    review_other: Berrikuspen bat esleitu
+    review_other: Bikotekako berrikusketa esleitu
     review_self: Artikulua berrikusi
     review_tooltip: Hau da gaikide berrikuspena eta iruzkin bat egitekotan zabiltzan
       artikulu baten jarraipena egiteko.
