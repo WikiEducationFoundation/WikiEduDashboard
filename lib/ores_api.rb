@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/error_record"
 
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
@@ -73,9 +74,9 @@ class OresApi
   end
 
   def invoke_error_handling(error, url, response_body)
-    extra = { project_code: @project_code, project_model: @project_model, url: url }
-    optional_params = { url: url, response_body: response_body, build: true }
-    perform_error_handling(error: error, extra: extra, course: @course,
-                           optional_params: optional_params)
+    sentry_extra = { project_code: @project_code, project_model: @project_model, url: url }
+    course_extra = { url: url, response_body: response_body, build: true }
+    error_record = ErrorRecord.new(error, sentry_extra, @course, course_extra)
+    perform_error_handling(error_record)
   end
 end

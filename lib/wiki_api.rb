@@ -4,6 +4,7 @@ require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
@@ -128,9 +129,9 @@ class WikiApi
                     MediawikiApi::ApiError].freeze
 
   def invoke_error_handling(error, action, query)
-    extra = { action: action, query: query, api_url: @api_url }
-    optional_params = { miscellaneous: { action: action, query: query }, build: false }
-    perform_error_handling(error: error, extra: extra, course: @course,
-                           optional_params: optional_params)
+    sentry_extra = { action: action, query: query, api_url: @api_url }
+    course_extra = { miscellaneous: { action: action, query: query }, build: false }
+    error_record = ErrorRecord.new(error, sentry_extra, @course, course_extra)
+    perform_error_handling(error_record)
   end
 end

@@ -5,14 +5,13 @@ require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 module ErrorHandling
   include CourseUpdateErrorHandling
 
-  def perform_error_handling(error:, extra:, course:, optional_params:)
-    Rails.logger.info "Caught #{error}"
-    level = error_level(error)
-    if course.present?
-      perform_course_error_handling(error: error, level: level, extra: extra,
-                                    course: course, optional_params: optional_params)
+  def perform_error_handling(error_record)
+    Rails.logger.info "Caught #{error_record.error}"
+    error_record.level = error_level(error_record.error)
+    if error_record.course_present?
+      perform_course_error_handling(error_record)
     else
-      report_exception_sentry(error, level, extra)
+      report_exception_sentry(error_record)
     end
     return nil
   end
@@ -25,7 +24,9 @@ module ErrorHandling
     raise error if self.class.const_get(:TYPICAL_ERRORS).exclude?(error.class)
   end
 
-  def report_exception_sentry(error, level, extra)
-    Raven.capture_exception error, level: level, extra: extra
+  def report_exception_sentry(error_record)
+    Raven.capture_exception(error_record.error,
+                            level: error_record.level,
+                            extra: error_record.sentry_extra)
   end
 end

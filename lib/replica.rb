@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
 require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
@@ -213,9 +214,10 @@ class Replica
                     Oj::ParseError].freeze
 
   def invoke_error_handling(error, endpoint, query: nil, url: nil, response_body: nil)
-    extra = { query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project }
-    optional_params = { url: url, response_body: response_body, build: true }
-    perform_error_handling(error: error, extra: extra, course: @course,
-                           optional_params: optional_params)
+    sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
+                     project: @wiki.project }
+    course_extra = { url: url, response_body: response_body, build: true }
+    error_record = ErrorRecord.new(error, sentry_extra, @course, course_extra)
+    perform_error_handling(error_record)
   end
 end

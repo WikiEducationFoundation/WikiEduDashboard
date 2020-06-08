@@ -1,43 +1,45 @@
 # frozen_string_literal: true
 
 module CourseUpdateErrorHandling
-  def perform_course_error_handling(error:, level:, extra:, course:, optional_params:)
-    sentry_tag_uuid = SecureRandom.uuid
-    save_course_error_record(course, error, sentry_tag_uuid, optional_params)
-    report_course_exception_sentry(error, level, extra, sentry_tag_uuid)
+  def perform_course_error_handling(error_record)
+    error_record.sentry_tag_uuid = SecureRandom.uuid
+    save_course_error_record(error_record)
+    report_course_exception_sentry(error_record)
   end
 
-  def save_course_error_record(course, error, sentry_tag_uuid, optional_params)
-    optional_params = build_optional_params(error, optional_params)
+  def save_course_error_record(error_record)
+    modify_extra_data(error_record)
     # WikiApi uses a gem which abstracts the url from us, so we only store
     # api_call_url in the case of Replica and OresApi
-    CourseErrorRecord.create(course: course,
-                             type_of_error: error.class,
-                             sentry_tag_uuid: sentry_tag_uuid,
-                             api_call_url: optional_params[:url],
-                             miscellaneous: optional_params[:miscellaneous])
+    CourseErrorRecord.create(course: error_record.course,
+                             type_of_error: error_record.error.class,
+                             sentry_tag_uuid: error_record.sentry_tag_uuid,
+                             api_call_url: error_record.course_extra[:url],
+                             miscellaneous: error_record.course_extra[:miscellaneous])
   end
 
-  def report_course_exception_sentry(error, level, extra, sentry_tag_uuid)
-    Raven.tags_context(uuid: sentry_tag_uuid) do
-      Raven.capture_exception error, level: level, extra: extra
+  def report_course_exception_sentry(error_record)
+    Raven.tags_context(uuid: error_record.sentry_tag_uuid) do
+      Raven.capture_exception(error_record.error,
+                              level: error_record.level,
+                              extra: error_record.sentry_extra)
     end
   end
 
-  # Building optional params for Replica and OresApi which require
+  # Modifying course_extra data for Replica and OresApi which require
   # response body for Oj::ParseError to be saved in CourseErrorRecord
   # WikiApi does not have Oj::ParseError as a typical error, which is
   # why it does not use this method
-  def build_optional_params(error, optional_params)
-    # Does processing only if optional_params[:build] is true, which is
+  def modify_extra_data(error_record)
+    # Does processing only if course_extra[:build] is true, which is
     # true for Replica and OresApi
-    return optional_params unless optional_params[:build] == true
-    result = { url: optional_params[:url] }
-    if error.class == Oj::ParseError
+    return unless error_record.course_extra[:build]
+    result = { url: error_record.course_extra[:url] }
+    if error_record.error.class == Oj::ParseError
       # First 500 characters of response_body sufficient to analyze the error.
       # In most cases of Oj::ParseError, the response is not a JSON object
-      result[:miscellaneous] = { response_body: optional_params[:response_body][0..499] }
+      result[:miscellaneous] = { response_body: error_record.course_extra[:response_body][0..499] }
     end
-    result
+    error_record.course_extra = result
   end
 end
