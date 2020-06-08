@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { find } from 'lodash-es';
 import ArrayUtils from './array_utils';
 
 export default class CourseUtils {
@@ -175,10 +175,10 @@ export default class CourseUtils {
     }
     function weekHasTrainings(week) {
       if (!week.blocks.length) { return false; }
-      return Boolean(_.find(week.blocks, blockHasTrainings));
+      return Boolean(find(week.blocks, blockHasTrainings));
     }
     if (!weeks.length) { return false; }
-    return Boolean(_.find(weeks, weekHasTrainings));
+    return Boolean(find(weeks, weekHasTrainings));
   }
 
   // Is the location the main index of a course page, rather than one of the

@@ -1,5 +1,5 @@
-import Rails from 'rails-ujs';
 import fetch from 'cross-fetch';
+import Rails from '@rails/ujs';
 
 const isRelativePath = path => !path.match(/http(s?)/g);
 

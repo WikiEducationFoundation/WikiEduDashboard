@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
-import _ from 'lodash';
+import { includes, map, find } from 'lodash-es';
 import qs from 'query-string';
 import SelectedWikiOption from '../common/selected_wiki_option';
 
@@ -262,11 +262,11 @@ const ArticleFinder = createReactClass({
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
-    if (!_.includes(ORESSupportedWiki.languages, this.props.home_wiki.language) || !_.includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (!includes(ORESSupportedWiki.languages, this.props.home_wiki.language) || !includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
       delete keys.revScore;
     }
 
-    if (!PageAssessmentSupportedWiki[this.props.home_wiki.project] || !_.includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
+    if (!PageAssessmentSupportedWiki[this.props.home_wiki.project] || !includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
       delete keys.grade;
     }
 
@@ -276,7 +276,7 @@ const ArticleFinder = createReactClass({
 
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
-      const modifiedAssignmentsArray = _.map(this.props.assignments, (element) => {
+      const modifiedAssignmentsArray = map(this.props.assignments, (element) => {
           if (!element.language && !element.project) {
             return {
                 ...element,
@@ -287,13 +287,13 @@ const ArticleFinder = createReactClass({
           return element;
       });
 
-      const elements = _.map(this.props.articles, (article, title) => {
+      const elements = map(this.props.articles, (article, title) => {
         let assignment;
         if (this.props.course_id) {
           if (this.props.current_user.isAdvancedRole) {
-            assignment = _.find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
+            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: null, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
           } else if (this.props.current_user.role === STUDENT_ROLE) {
-            assignment = _.find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
+            assignment = find(modifiedAssignmentsArray, { article_title: title, user_id: this.props.current_user.id, language: this.props.home_wiki.language, project: this.props.home_wiki.project });
           }
         }
         return (

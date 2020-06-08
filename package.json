@@ -10,14 +10,13 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/register": "^7.9.0",
+    "@rails/ujs": "^6.0.3-1",
     "@tinymce/tinymce-react": "^3.5.0",
     "autosize": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^25.3.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-plugin-lodash": "^3.3.4",
-    "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.2.0",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.0",
@@ -40,7 +39,7 @@
     "i18n-js": "^3.5.1",
     "isomorphic-fetch": "^2.2.1",
     "jeet": "^7.2.0",
-    "jest": "^25.3.0",
+    "jest": "^26.0.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.10.5",
     "jsdom": "^16.2.2",
@@ -49,13 +48,8 @@
     "linkifyjs": "^2.1.9",
     "list.js": "git+https://github.com/WikiEducationFoundation/list.js.git",
     "location-origin": "^1.1.4",
-    "lodash": "^4.17.10",
-    "lodash.assign": "^4.2.0",
-    "lodash.map": "^4.6.0",
-    "lodash.reject": "^4.6.0",
-    "lodash.sorteduniqby": "^4.7.0",
-    "lodash.throttle": "^4.1.1",
-    "lodash.where": "^3.1.0",
+    "lodash-es": "^4.17.15",
+    "lodash-webpack-plugin": "^0.11.5",
     "markdown-it": "^10.0.0",
     "markdown-it-footnote": "^3.0.2",
     "merge-stream": "^2.0.0",
@@ -68,7 +62,6 @@
     "promise-limit": "^2.7.0",
     "prop-types": "^15.7.2",
     "query-string": "6.12.1",
-    "rails-ujs": "^5.2.4",
     "raven-js": "^3.27.2",
     "react": "^16.13.1",
     "react-burger-menu": "2.6.13",
@@ -130,18 +123,6 @@
     "hot": "node prepare.js && webpack-dev-server --env.development",
     "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production",
     "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
-  },
-  "jest": {
-    "collectCoverage": false,
-    "roots": [
-      "test",
-      "app/assets/javascripts"
-    ],
-    "moduleDirectories": [
-      "test",
-      "app/assets/javascripts",
-      "node_modules"
-    ]
   },
   "engines": {
     "yarn": ">= 1.0.0"

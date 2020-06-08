@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { map } from 'lodash-es';
 
 const CourseType = ({ wizardClass, wizardAction }) => {
   const courseTypes = [
@@ -22,7 +22,7 @@ const CourseType = ({ wizardClass, wizardAction }) => {
 
   return (
     <div className={wizardClass}>
-      {_.map(courseTypes, (program) => {
+      {map(courseTypes, (program) => {
         return (
           <div key={program.name} onClick={wizardAction.bind(null, program.type)} className="program-description">
             <h4><strong>{program.name}</strong></h4>

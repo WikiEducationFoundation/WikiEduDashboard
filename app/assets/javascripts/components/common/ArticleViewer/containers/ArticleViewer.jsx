@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
 
 // Utilities
-import _ from 'lodash';
+import { forEach } from 'lodash-es';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
 
 // Components
@@ -154,7 +154,7 @@ export class ArticleViewer extends React.Component {
     if (!html) { return; }
 
     let i = 0;
-    _.forEach(this.state.users, (user) => {
+    forEach(this.state.users, (user) => {
       // Move spaces inside spans, so that background color is continuous
       html = html.replace(/ (<span class="editor-token.*?>)/g, '$1 ');
 

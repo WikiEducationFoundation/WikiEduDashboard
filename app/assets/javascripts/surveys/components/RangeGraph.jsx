@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { keys, values } from 'lodash-es';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { answerFrequency } from './utils';
@@ -19,8 +19,8 @@ export default class RangeGraph extends Component {
     const min = validationRules.range_minimum;
     const max = validationRules.range_maximum;
     const answers = answerFrequency(this.props);
-    const answerKeys = _.keys(answers).sort((a, b) => { return a - b; });
-    const mostFrequent = _.values(answers).sort((a, b) => { return a - b; }).pop();
+    const answerKeys = keys(answers).sort((a, b) => { return a - b; });
+    const mostFrequent = values(answers).sort((a, b) => { return a - b; }).pop();
     const graphHeight = mostFrequent * 40;
     const showValue = this.state.showValue;
 

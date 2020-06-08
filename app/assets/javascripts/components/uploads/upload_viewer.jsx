@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import _ from 'lodash';
+import { forEach, get } from 'lodash-es';
 import moment from 'moment';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
@@ -26,8 +26,8 @@ const UploadViewer = createReactClass({
   },
 
   componentDidUpdate() {
-    const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
-    const fileUsage = _.get(metadata, 'globalusage', []);
+    const metadata = get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
+    const fileUsage = get(metadata, 'globalusage', []);
     if (fileUsage) {
       if (this.state.loadingViews) {
         this.handleGetFileViews(fileUsage);
@@ -52,23 +52,23 @@ const UploadViewer = createReactClass({
 
 
   render() {
-    const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
-    const imageDescription = _.get(metadata, 'imageinfo[0].extmetadata.ImageDescription.value');
-    const width = _.get(metadata, 'imageinfo[0].width');
-    const height = _.get(metadata, 'imageinfo[0].height');
+    const metadata = get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
+    const imageDescription = get(metadata, 'imageinfo[0].extmetadata.ImageDescription.value');
+    const width = get(metadata, 'imageinfo[0].width');
+    const height = get(metadata, 'imageinfo[0].height');
 
-    let size = _.get(metadata, 'imageinfo[0].size');
+    let size = get(metadata, 'imageinfo[0].size');
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(size) / Math.log(1024));
     size = `${parseFloat((size / (1024 ** i)).toFixed(2))} ${sizes[i]}`;
 
-    const imageUrl = _.get(metadata, 'imageinfo[0].url');
+    const imageUrl = get(metadata, 'imageinfo[0].url');
 
     const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
     const author = <a href={profileLink} target="_blank">{this.props.upload.uploader}</a>;
-    const source = _.get(metadata, 'imageinfo[0].extmetadata.Credit.value');
-    const license = _.get(metadata, 'imageinfo[0].extmetadata.LicenseShortName.value');
-    const globalUsage = _.get(metadata, 'globalusage', []);
+    const source = get(metadata, 'imageinfo[0].extmetadata.Credit.value');
+    const license = get(metadata, 'imageinfo[0].extmetadata.LicenseShortName.value');
+    const globalUsage = get(metadata, 'globalusage', []);
     let usageTableElements;
     if (globalUsage && (this.props.pageViews !== undefined)) {
       usageTableElements = globalUsage.map((usage, index) => {
@@ -105,7 +105,7 @@ const UploadViewer = createReactClass({
     }
     let categoriesList = [];
     let categories;
-    _.forEach(_.get(metadata, 'categories', []), (category) => {
+    forEach(get(metadata, 'categories', []), (category) => {
       categoriesList.push(<span> | </span>);
       categoriesList.push(<a href={`https://commons.wikimedia.org/wiki/${category.title}`} target="_blank">{category.title.slice('Category:'.length)}</a>);
     });

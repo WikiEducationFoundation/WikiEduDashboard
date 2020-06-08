@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
+import { includes } from 'lodash-es';
 
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
@@ -133,7 +133,7 @@ const CourseCreator = createReactClass({
 
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
-    if (_.includes(['title', 'school', 'term'], key)) {
+    if (includes(['title', 'school', 'term'], key)) {
       return this.props.setValid('exists');
     }
   },

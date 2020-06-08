@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'lodash';
+import { includes } from 'lodash-es';
 
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
@@ -75,7 +75,7 @@ const ArticleFinderRow = createReactClass({
     }
 
     let revScore;
-    if (_.includes(ORESSupportedWiki.languages, this.props.home_wiki.language) && _.includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
+    if (includes(ORESSupportedWiki.languages, this.props.home_wiki.language) && includes(ORESSupportedWiki.projects, this.props.home_wiki.project)) {
       if (this.props.article.fetchState === 'PAGEASSESSMENT_RECEIVED' || this.props.article.fetchState === 'REVISION_RECEIVED') {
         revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.revScore) {
@@ -88,7 +88,7 @@ const ArticleFinderRow = createReactClass({
     }
 
     let grade;
-    if (PageAssessmentSupportedWiki[this.props.home_wiki.project] && _.includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
+    if (PageAssessmentSupportedWiki[this.props.home_wiki.project] && includes(PageAssessmentSupportedWiki[this.props.home_wiki.project], this.props.home_wiki.language)) {
       if (this.props.article.fetchState === 'TITLE_RECEIVED') {
         grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
       } else if (this.props.article.grade) {

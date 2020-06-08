@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import _ from 'lodash';
+import { sortBy, difference, uniq, filter, includes, pickBy, find } from 'lodash-es';
 import { getFiltered } from '../utils/model_utils';
 import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates } from '../constants';
 import UserUtils from '../utils/user_utils.js';
@@ -32,7 +32,7 @@ const getTickets = state => state.tickets;
 
 
 export const getInstructorUsers = createSelector(
-  [getUsers], users => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
+  [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
 );
 
 export const getStudentUsers = createSelector(
@@ -44,7 +44,7 @@ export const getStudentCount = createSelector(
 );
 
 export const getStaffUsers = createSelector(
-  [getUsers], users => _.sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
+  [getUsers], users => sortBy(getFiltered(users, { role: STAFF_ROLE }), 'enrolled_at')
 );
 
 export const getProgramManagers = createSelector(
@@ -56,11 +56,11 @@ export const getContentExperts = createSelector(
 );
 
 export const getOnlineVolunteerUsers = createSelector(
-  [getUsers], users => _.sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
+  [getUsers], users => sortBy(getFiltered(users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
 export const getCampusVolunteerUsers = createSelector(
-  [getUsers], users => _.sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
+  [getUsers], users => sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
 export const getCurrentUser = createSelector(
@@ -75,15 +75,15 @@ export const getCurrentUser = createSelector(
 export const getAvailableCampaigns = createSelector(
   [getCourseCampaigns, getAllCampaigns], (campaigns, allCampaigns) => {
     campaigns = campaigns.map(campaign => campaign.title);
-    return _.difference(allCampaigns, campaigns);
+    return difference(allCampaigns, campaigns);
   }
 );
 
 export const getAvailableTags = createSelector(
   [getTags, getAllTags], (tags, allTags) => {
     tags = tags.map(tag => tag.tag);
-    allTags = _.uniq(allTags);
-    return _.difference(allTags, tags);
+    allTags = uniq(allTags);
+    return difference(allTags, tags);
   }
 );
 
@@ -132,17 +132,17 @@ export const getArticlesByTrackedStatus = createSelector(
 export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
-    const alertTypes = alertFilters.map(filter => filter.value);
-    return _.filter(alerts, alert => _.includes(alertTypes, alert.type));
+    const alertTypes = alertFilters.map(_filter => _filter.value);
+    return filter(alerts, alert => includes(alertTypes, alert.type));
   }
 );
 
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
-    return _.pickBy(articleFinder.articles, (article) => {
+    return pickBy(articleFinder.articles, (article) => {
       const language = articleFinder.home_wiki.language;
       const project = articleFinder.home_wiki.project;
-      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
+      if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
         return false;
       }
       let quality;
@@ -170,8 +170,8 @@ export const getFilteredArticleFinder = createSelector(
 export const getFilteredUploads = createSelector(
   [getUploads, getUploadFilters], (uploads, uploadFilters) => {
     if (!uploadFilters.length) { return uploads; }
-    const uploaders = uploadFilters.map(filter => filter.value);
-    return _.filter(uploads, upload => _.includes(uploaders, upload.uploader));
+    const uploaders = uploadFilters.map(_filter => _filter.value);
+    return filter(uploads, upload => includes(uploaders, upload.uploader));
   }
 );
 
@@ -218,7 +218,7 @@ export const getAvailableTrainingModules = createSelector(
 export const isValid = createSelector(
   [getValidations], (validations) => {
     // If any validation is not valid, return false.
-    const invalidValue = _.find(validations, (value) => { return value.valid === false; });
+    const invalidValue = find(validations, (value) => { return value.valid === false; });
     if (invalidValue) { return false; }
     return true;
   }
@@ -242,8 +242,8 @@ export const editPermissions = createSelector(
 
 export const getFilteredTickets = createSelector(
   [getTickets], (tickets) => {
-    const ownerIds = tickets.filters.owners.map(filter => filter.value);
-    const statuses = tickets.filters.statuses.map(filter => parseInt(filter.value));
+    const ownerIds = tickets.filters.owners.map(_filter => _filter.value);
+    const statuses = tickets.filters.statuses.map(_filter => parseInt(_filter.value));
 
     let ownerFilter = ticket => ticket;
     let statusFilter = ticket => ticket;

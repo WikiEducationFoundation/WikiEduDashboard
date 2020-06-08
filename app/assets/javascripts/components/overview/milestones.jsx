@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import _ from 'lodash';
+import { filter } from 'lodash-es';
 
 import CourseDateUtils from '../../utils/course_date_utils';
 
@@ -25,7 +25,7 @@ const Milestones = createReactClass({
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const blocks = [];
     this.props.weeks.map((week) => {
-      const milestoneBlocks = _.filter(week.blocks, block => block.kind === this.milestoneBlockType);
+      const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map((block) => {
         let classNames = 'module__data';
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }

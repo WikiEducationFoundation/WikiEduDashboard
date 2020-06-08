@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
-import _ from 'lodash';
+import { range, includes } from 'lodash-es';
 import moment from 'moment';
 
 import InputHOC from '../high_order/input_hoc.jsx';
@@ -96,7 +96,7 @@ const DatePicker = createReactClass({
   },
 
   getTimeDropdownOptions(type) {
-    return _.range(0, type === 'hour' ? 24 : 60).map((value) => {
+    return range(0, type === 'hour' ? 24 : 60).map((value) => {
       return (
         <option value={value} key={`timedropdown-${type}-${value}`}>
           {(`00${value}`).slice(-2)}
@@ -177,7 +177,7 @@ const DatePicker = createReactClass({
 
   handleDateFieldKeyDown(e) {
     // Close picker if tab, enter, or escape
-    if (_.includes([9, 13, 27], e.keyCode)) {
+    if (includes([9, 13, 27], e.keyCode)) {
       this.setState({ datePickerVisible: false });
     }
   },

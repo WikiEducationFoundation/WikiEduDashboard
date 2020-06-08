@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import { flatten, zip } from 'lodash-es';
 import moment from 'moment';
 
 import * as UIActions from '../../actions';
@@ -115,7 +115,7 @@ const ActivityTable = createReactClass({
     const drawers = this._renderDrawers();
     const ths = this._renderHeaders();
 
-    let elements = _.flatten(_.zip(activity, drawers));
+    let elements = flatten(zip(activity, drawers));
     if (!elements.length) {
       elements = <tr><td colSpan={this.props.headers.length + 1}>{this.props.noActivityMessage}</td></tr>;
     }

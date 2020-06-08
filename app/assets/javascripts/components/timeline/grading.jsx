@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { sumBy } from 'lodash-es';
 import EditableRedux from '../high_order/editable_redux';
 
 import Gradeable from './gradeable.jsx';
@@ -36,7 +36,7 @@ const Grading = createReactClass({
       return a.grading_order - b.grading_order;
     });
 
-    const total = _.sumBy(gradeableBlocks, 'points') || 0;
+    const total = sumBy(gradeableBlocks, 'points') || 0;
 
     const gradeables = gradeableBlocks.map((block) => {
       return (

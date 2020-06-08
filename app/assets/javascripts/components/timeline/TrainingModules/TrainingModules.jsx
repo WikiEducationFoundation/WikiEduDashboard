@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import _ from 'lodash';
+import { filter, compact } from 'lodash-es';
 import selectStyles from '../../../styles/select';
 
 // Components
@@ -50,7 +50,7 @@ const TrainingModules = createReactClass({
   },
 
   trainingSelector() {
-    const options = _.filter(_.compact(this.props.all_modules), module => module.status !== 'deprecated')
+    const options = filter(compact(this.props.all_modules), module => module.status !== 'deprecated')
                     .map(module => ({ value: module.id, label: module.name + this.moduleLabel(module.kind) }));
     return (
       <div className="block__training-modules">

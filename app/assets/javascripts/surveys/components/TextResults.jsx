@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { filter, isEmpty } from 'lodash-es';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -8,8 +8,8 @@ export default class TextResults extends Component {
   constructor(props) {
     super();
     const { followUpOnly, answers_data } = props;
-    this.followUpAnswers = _.filter(props.follow_up_answers, (a) => {
-      return !_.isEmpty(a);
+    this.followUpAnswers = filter(props.follow_up_answers, (a) => {
+      return !isEmpty(a);
     });
     this.showButton = answers_data.length > INITIAL_LIMIT;
     let limit = answers_data.length < INITIAL_LIMIT ? answers_data.length : INITIAL_LIMIT;

@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { sortBy, groupBy, compact } from 'lodash-es';
 
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
@@ -27,8 +27,8 @@ const AssignmentList = createReactClass({
 
   render() {
     const allAssignments = this.props.assignments;
-    const sortedAssignments = _.sortBy(allAssignments, assignment => assignment.article_title);
-    const grouped = _.groupBy(sortedAssignments, assignment => assignment.article_title);
+    const sortedAssignments = sortBy(allAssignments, assignment => assignment.article_title);
+    const grouped = groupBy(sortedAssignments, assignment => assignment.article_title);
     let elements = Object.keys(grouped).map((title) => {
       const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
@@ -44,7 +44,7 @@ const AssignmentList = createReactClass({
         />
       );
     });
-    elements = _.compact(elements);
+    elements = compact(elements);
 
     const keys = {
       rating_num: {

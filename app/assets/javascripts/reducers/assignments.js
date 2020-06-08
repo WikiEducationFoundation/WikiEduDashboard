@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { reject } from 'lodash-es';
 import { sortByKey } from '../utils/model_utils';
 import { RECEIVE_ASSIGNMENTS, ADD_ASSIGNMENT, DELETE_ASSIGNMENT, UPDATE_ASSIGNMENT } from '../constants';
 
@@ -28,12 +28,12 @@ export default function assignments(state = initialState, action) {
       return { ...state, assignments: updatedAssignments };
     }
     case DELETE_ASSIGNMENT: {
-      const updatedAssignments = _.reject(state.assignments, { id: action.data.assignmentId });
+      const updatedAssignments = reject(state.assignments, { id: action.data.assignmentId });
       return { ...state, assignments: updatedAssignments };
     }
     case UPDATE_ASSIGNMENT: {
       const updatedAssignment = action.data.assignment;
-      const nonupdatedAssignments = _.reject(state.assignments, { id: updatedAssignment.id });
+      const nonupdatedAssignments = reject(state.assignments, { id: updatedAssignment.id });
       return { ...state, assignments: [...nonupdatedAssignments, updatedAssignment] };
     }
     default:

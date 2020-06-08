@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forEach, chunk } from 'lodash-es';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS, RESET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import pageViewDateString from '../utils/uploads_pageviews_utils';
@@ -33,7 +33,7 @@ export const receiveUploads = courseId => (dispatch) => {
 
 const fetchUploadMetadata = (uploads) => {
   let url = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&pageids=';
-  _.forEach(uploads, (upload) => {
+  forEach(uploads, (upload) => {
     url = `${url}${upload.id}|`;
   });
   url = url.slice(0, -1);
@@ -53,7 +53,7 @@ const fetchUploadMetadata = (uploads) => {
 export const setUploadMetadata = uploadsList => (dispatch) => {
   const list = uploadsList.filter(upload => !upload.fetchState);
   if (list.length === 0) { return; }
-  const promises = _.chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
+  const promises = chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
   return (
     Promise.all(promises)
       .then(resp => dispatch({

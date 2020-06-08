@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { withRouter } from 'react-router';
-import _ from 'lodash';
+import { extend } from 'lodash-es';
 import { connect } from 'react-redux';
 import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
 import SlideLink from './slide_link.jsx';
@@ -87,13 +87,13 @@ const TrainingSlideHandler = createReactClass({
   handleKeyPress(e) {
     const navParams = { library_id: this.props.match.params.library_id, module_id: this.props.match.params.module_id };
     if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
-      const params = _.extend(navParams, { slide_id: this.props.training.previousSlide.slug });
+      const params = extend(navParams, { slide_id: this.props.training.previousSlide.slug });
       this.prev();
       this.props.history.push(this.trainingUrl(params));
     }
     if (e.which === this.keys.rightKey && this.props.training.nextSlide) {
       if (this.disableNext()) { return; }
-      const params = _.extend(navParams, { slide_id: this.props.training.nextSlide.slug });
+      const params = extend(navParams, { slide_id: this.props.training.nextSlide.slug });
       this.next();
       return this.props.history.push(this.trainingUrl(params));
     }

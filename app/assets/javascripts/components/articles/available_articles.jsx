@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { compact } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
 import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
@@ -49,7 +49,7 @@ const AvailableArticles = createReactClass({
         }
         return null;
       });
-      elements = _.compact(elements);
+      elements = compact(elements);
     }
 
     if (course.id) {

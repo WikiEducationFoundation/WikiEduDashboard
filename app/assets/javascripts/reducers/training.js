@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { findIndex } from 'lodash-es';
 import {
   RECEIVE_TRAINING_MODULE, MENU_TOGGLE, REVIEW_ANSWER,
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
@@ -16,7 +16,7 @@ const reviewAnswer = function (state, answer) {
 
 const setCurrentSlide = function (state, slideId) {
   if (!state.module.slides) { return state; }
-  const slideIndex = _.findIndex(state.module.slides, slide => slide.slug === slideId);
+  const slideIndex = findIndex(state.module.slides, slide => slide.slug === slideId);
   return { ...state, currentSlide: { ...state.module.slides[slideIndex] }, loading: false };
 };
 
@@ -33,7 +33,7 @@ const getNextSlide = (state) => {
 
 const getSlideRelativeToCurrent = (state, opts) => {
   if (!getCurrentSlide(state) || desiredSlideIsCurrentSlide(opts, getCurrentSlide(state), state.module.slides)) { return; }
-  const slideIndex = _.findIndex(state.module.slides, slide => slide.slug === getCurrentSlide(state).slug);
+  const slideIndex = findIndex(state.module.slides, slide => slide.slug === getCurrentSlide(state).slug);
   const newIndex = opts.position === 'next' ? slideIndex + 1 : slideIndex - 1;
   if (!state.module.slides) { return; }
   return state.module.slides[newIndex];

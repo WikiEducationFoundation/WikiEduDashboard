@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import uuid from 'uuid';
-import _ from 'lodash';
+import { has } from 'lodash-es';
 import { addValidation, setValid, setInvalid } from '../../actions/validation_actions';
 
 // This needs to be implemented as a mixin for state reasons.
@@ -91,7 +91,7 @@ const InputHOC = (Component) => {
           charcheck = this.props.validation(this.state.value);
         }
         if (this.props.required && !filled) {
-          if (_.has(this.props, 'disableSave')) {
+          if (has(this.props, 'disableSave')) {
             this.props.disableSave(true);
           }
           return this.props.setInvalid(this.props.value_key, I18n.t('application.field_required'));

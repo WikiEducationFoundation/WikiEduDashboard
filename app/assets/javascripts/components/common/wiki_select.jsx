@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { map } from 'lodash-es';
 import ArrayUtils from '../../utils/array_utils';
 import WIKI_OPTIONS from '../../utils/wiki_options';
 
@@ -55,7 +55,7 @@ const WikiSelect = createReactClass({
     if (this.props.readOnly) {
       const lastIndex = this.props.wikis.length - 1;
 
-      const wikiList = _.map(this.props.wikis, (wiki, index) => {
+      const wikiList = map(this.props.wikis, (wiki, index) => {
         const comma = (index !== lastIndex) ? ', ' : '';
         const wikiUrl = this.url(wiki);
         return <span key={wikiUrl}>{wikiUrl}{comma}</span>;

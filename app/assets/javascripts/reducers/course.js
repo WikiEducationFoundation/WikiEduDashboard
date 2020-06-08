@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { reject } from 'lodash-es';
 import {
   RECEIVE_INITIAL_CAMPAIGN,
   RECEIVE_COURSE_CLONE,
@@ -76,7 +76,7 @@ export default function course(state = initialState, action) {
     case DISMISS_SURVEY_NOTIFICATION: {
       return {
         ...state,
-        survey_notifications: _.reject(state.survey_notifications, { id: action.id })
+        survey_notifications: reject(state.survey_notifications, { id: action.id })
       };
     }
     case TOGGLE_EDITING_SYLLABUS:
