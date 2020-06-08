@@ -76,13 +76,9 @@ module.exports = (env) => {
           NODE_ENV: JSON.stringify(mode),
         },
       }),
-      // this stubs unused function with noop function
-      // resulting in smaller builds
-      new LodashModuleReplacementPlugin({
-        collections: true,
-        shorthands: true,
-        flattening: true
-      }),
+      // Creates smaller Lodash builds by replacing feature sets of modules with noop,
+      // identity, or simpler alternatives.
+      new LodashModuleReplacementPlugin(config.requiredLodashFeatures),
     ],
     optimization: {
       splitChunks: {

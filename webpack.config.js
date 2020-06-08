@@ -52,13 +52,9 @@ module.exports = (env) => {
     path: ['^.*css.*\\.js$']
   }));
 
-  // this stubs unused function with noop function
-  // resulting in smaller builds
-  plugins.push(new LodashModuleReplacementPlugin({
-    collections: true,
-    shorthands: true,
-    flattening: true
-  }));
+  // Creates smaller Lodash builds by replacing feature sets of modules with noop,
+  // identity, or simpler alternatives.
+  plugins.push(new LodashModuleReplacementPlugin(config.requiredLodashFeatures));
 
   if (doHot) {
     // wrap entries with hot hooks
