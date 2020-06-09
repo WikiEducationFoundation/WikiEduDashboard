@@ -1,19 +1,29 @@
 # frozen_string_literal: true
 
 class ErrorRecord
-  attr_reader :error, :sentry_extra, :course, :course_extra,
-              :level, :sentry_tag_uuid
-  attr_writer :level, :sentry_tag_uuid, :course_extra
-  def initialize(error, sentry_extra, course, course_extra)
+  attr_reader :error, :sentry_extra, :level
+  attr_writer :level
+
+  def initialize(error, sentry_extra, update_course_stats)
     @error = error
     @sentry_extra = sentry_extra
-    @course = course
-    @course_extra = course_extra
+    @update_course_stats = update_course_stats
     @level = nil
-    @sentry_tag_uuid = nil
+  end
+
+  def course
+    @update_course_stats.course if @update_course_stats.present?
   end
 
   def course_present?
-    @course.present?
+    course.present?
+  end
+
+  def course_slug
+    course.slug if course_present?
+  end
+
+  def sentry_tag_uuid
+    @update_course_stats.sentry_tag_uuid if course_present?
   end
 end
