@@ -2,7 +2,7 @@ import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import request from './request';
 
-const RavenLogger = {};
+const SentryLogger = {};
 
 /* eslint-disable */
 const API = {
@@ -336,7 +336,7 @@ const API = {
       });
 
       const req_data = { weeks };
-      RavenLogger.type = 'POST';
+      SentryLogger.type = 'POST';
 
       return $.ajax({
         type: 'POST',
@@ -351,11 +351,11 @@ const API = {
           this.obj = obj;
           this.status = status;
           console.error('Couldn\'t save timeline!');
-          RavenLogger.obj = this.obj;
-          RavenLogger.status = this.status;
-          Raven.captureMessage('saveTimeline failed', {
+          SentryLogger.obj = this.obj;
+          SentryLogger.status = this.status;
+          Sentry.captureMessage('saveTimeline failed', {
             level: 'error',
-            extra: RavenLogger
+            extra: SentryLogger
           });
           return rej(obj);
         });
@@ -367,7 +367,7 @@ const API = {
     const append = (courseId != null) ? `/${courseId}` : '';
     // append = '.json'
     const type = (courseId != null) ? 'PUT' : 'POST';
-    RavenLogger.type = type;
+    SentryLogger.type = type;
     let req_data = { course: data.course };
 
     this.obj = null;
@@ -385,11 +385,11 @@ const API = {
         .fail(function (obj, status) {
           this.obj = obj;
           this.status = status;
-          RavenLogger.obj = this.obj;
-          RavenLogger.status = this.status;
-          Raven.captureMessage('saveCourse failed', {
+          SentryLogger.obj = this.obj;
+          SentryLogger.status = this.status;
+          Sentry.captureMessage('saveCourse failed', {
             level: 'error',
-            extra: RavenLogger
+            extra: SentryLogger
           });
           return rej(obj);
         })

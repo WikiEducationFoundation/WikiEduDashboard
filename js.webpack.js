@@ -8,7 +8,7 @@ const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const appRoot = path.resolve('./');
 const entry = {
   main: [`${jsSource}/main.js`],
-  raven: [`${jsSource}/raven.js`],
+  sentry: [`${jsSource}/sentry.js`],
   styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
   survey: [`${jsSource}/surveys/survey.js`],
   survey_admin: [`${jsSource}/surveys/survey-admin.js`],
@@ -35,6 +35,11 @@ module.exports = (env) => {
       publicPath: '/',
     },
     resolve: {
+      alias: {
+        // use sentry ESM build which is not declared in the @sentry/browser package.json
+        '@sentry/browser': '@sentry/browser/esm',
+        'lodash': 'lodash-es'
+      },
       extensions: ['.js', '.jsx'],
       symlinks: false
     },
@@ -42,7 +47,7 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.jsx?$/,
-          exclude: [/vendor/, /node_modules(?!\/striptags)/],
+          exclude: [/vendor/, /(node_modules\/(?!(@sentry\/[^/]+\/esm))|bower_components)\//],
           use: {
             loader: 'babel-loader',
             query: {

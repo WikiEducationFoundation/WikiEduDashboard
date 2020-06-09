@@ -99,7 +99,7 @@ const Survey = {
   surveyStarted() {
     try {
       // SurveyDetails is set in app/views/surveys/show.html.haml
-      Raven.captureMessage(`Survey ${SurveyDetails.id} started`, { level: 'info' });
+      Sentry.captureMessage(`Survey ${SurveyDetails.id} started`, { level: 'info' });
     } catch (e) {
       // nothing
     }
@@ -229,7 +229,7 @@ const Survey = {
 
   submitAllQuestionGroups() {
     try {
-      Raven.captureMessage(`Survey ${SurveyDetails.id} submitted`, { level: 'info' });
+      Sentry.captureMessage(`Survey ${SurveyDetails.id} submitted`, { level: 'info' });
     } catch (e) {
       // nothing
     }

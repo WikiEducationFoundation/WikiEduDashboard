@@ -16,7 +16,7 @@ const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const cssSource = `./${config.sourcePath}/${config.cssDirectory}`;
 const entries = {
   main: [`${jsSource}/main.js`, `${cssSource}/main.styl`],
-  raven: [`${jsSource}/raven.js`],
+  sentry: [`${jsSource}/sentry.js`],
   styleguide: [`${jsSource}/styleguide/styleguide.jsx`, `${cssSource}/styleguide.styl`],
   survey: [`${jsSource}/surveys/survey.js`],
   survey_admin: [`${jsSource}/surveys/survey-admin.js`],

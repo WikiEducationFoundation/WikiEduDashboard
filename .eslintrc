@@ -85,7 +85,7 @@
     "I18n": true,
     "_": true,
     "moment": true,
-    "Raven": true,
+    "Sentry": true,
     "SurveyDetails": true,
     "Features": true,
     "WikiLanguages": true,
