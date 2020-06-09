@@ -35,11 +35,6 @@ module.exports = (env) => {
       publicPath: '/',
     },
     resolve: {
-      alias: {
-        // use sentry ESM build which is not declared in the @sentry/browser package.json
-        '@sentry/browser': '@sentry/browser/esm',
-        'lodash': 'lodash-es'
-      },
       extensions: ['.js', '.jsx'],
       symlinks: false
     },
