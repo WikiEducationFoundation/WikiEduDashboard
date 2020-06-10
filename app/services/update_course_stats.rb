@@ -7,11 +7,17 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
+require_dependency "#{Rails.root}/lib/errors/course_update_helper"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
+  include CourseUpdateHelper
+
+  attr_reader :course, :sentry_tag_uuid
+
   def initialize(course, full: false)
     @course = course
+    @sentry_tag_uuid = generate_sentry_tag_uuid
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
@@ -34,7 +40,7 @@ class UpdateCourseStats
 
   def fetch_data
     log_update_progress :start
-    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update)
+    CourseRevisionUpdater.import_revisions(self, all_time: @full_update)
     log_update_progress :revisions_imported
 
     RevisionScoreImporter.update_revision_scores_for_course(@course)

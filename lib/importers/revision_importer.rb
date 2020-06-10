@@ -6,9 +6,10 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
-  def initialize(wiki, course)
+  def initialize(wiki, update_cs)
     @wiki = wiki
-    @course = course
+    @update_cs = update_cs
+    @course = update_cs.course
   end
 
   def import_revisions_for_course(all_time:)
@@ -67,7 +68,7 @@ class RevisionImporter
   # Get revisions made by a set of users between two dates.
   def get_revisions(users, start, end_date)
     Utils.chunk_requests(users, 40) do |block|
-      Replica.new(@wiki, @course).get_revisions block, start, end_date
+      Replica.new(@wiki, @update_cs).get_revisions block, start, end_date
     end
   end
 

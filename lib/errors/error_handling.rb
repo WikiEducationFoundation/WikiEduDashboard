@@ -9,7 +9,7 @@ module ErrorHandling
     Rails.logger.info "Caught #{error_record.error}"
     error_record.level = error_level(error_record.error)
     if error_record.course_present?
-      perform_course_error_handling(error_record)
+      report_course_exception_sentry(error_record)
     else
       report_exception_sentry(error_record)
     end
