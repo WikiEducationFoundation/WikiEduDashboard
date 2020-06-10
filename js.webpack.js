@@ -42,7 +42,7 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.jsx?$/,
-          exclude: [/vendor/, /(node_modules\/(?!(@sentry\/[^/]+\/esm))|bower_components)\//],
+          exclude: [/vendor/, /node_modules(?!\/striptags)/],
           use: {
             loader: 'babel-loader',
             query: {
