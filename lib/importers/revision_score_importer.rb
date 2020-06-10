@@ -18,18 +18,19 @@ class RevisionScoreImporter
     new(language: nil, project: 'wikidata').update_previous_revision_scores
   end
 
-  def self.update_revision_scores_for_course(course)
-    course.wikis.each do |wiki|
+  def self.update_revision_scores_for_course(update_cs)
+    update_cs.course.wikis.each do |wiki|
       next unless OresApi.valid_wiki?(wiki)
-      new(wiki: wiki, course: course).update_revision_scores
-      new(wiki: wiki, course: course).update_previous_revision_scores
+      new(wiki: wiki, update_cs: update_cs).update_revision_scores
+      new(wiki: wiki, update_cs: update_cs).update_previous_revision_scores
     end
   end
 
-  def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil)
-    @course = course
+  def initialize(language: 'en', project: 'wikipedia', wiki: nil, update_cs: nil)
+    @update_cs = update_cs
+    @course = update_cs.course
     @wiki = wiki || Wiki.get_or_create(language: language, project: project)
-    @ores_api = OresApi.new(@wiki, @course)
+    @ores_api = OresApi.new(@wiki, @update_cs)
   end
 
   # assumes a mediawiki rev_id from the correct Wikipedia
@@ -127,7 +128,7 @@ class RevisionScoreImporter
   def get_parent_revisions(rev_batch)
     revisions = {}
     rev_query = parent_revisions_query rev_batch.map(&:mw_rev_id)
-    response = WikiApi.new(@wiki, @course).query rev_query
+    response = WikiApi.new(@wiki, @update_cs).query rev_query
     return unless response.data['pages']
     response.data['pages'].each do |_page_id, page_data|
       rev_data = page_data['revisions']

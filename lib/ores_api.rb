@@ -26,11 +26,11 @@ class OresApi
     wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
   end
 
-  def initialize(wiki, course = nil)
+  def initialize(wiki, update_cs = nil)
     raise InvalidProjectError unless OresApi.valid_wiki?(wiki)
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
     @project_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
-    @course = course
+    @update_cs = update_cs
   end
 
   def get_revision_data(rev_ids)
@@ -74,9 +74,9 @@ class OresApi
   end
 
   def invoke_error_handling(error, url, response_body)
-    sentry_extra = { project_code: @project_code, project_model: @project_model, url: url }
-    course_extra = { url: url, response_body: response_body, build: true }
-    error_record = ErrorRecord.new(error, sentry_extra, @course, course_extra)
+    sentry_extra = { project_code: @project_code, project_model: @project_model,
+                     url: url, response_body: response_body }
+    error_record = ErrorRecord.new(error, sentry_extra, @update_cs)
     perform_error_handling(error_record)
   end
 end
