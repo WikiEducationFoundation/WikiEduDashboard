@@ -23,6 +23,8 @@ hr:
     articles_short: Stranice
   assignments:
     group_members: Članovi skupine
+  courses:
+    please_log_in: Molimo Vas, prijavite se.
   courses_generic:
     campaigns: 'Kampanje:'
     student: Uređivač
@@ -40,6 +42,9 @@ hr:
       discussion: Rasprava
   users:
     training_incomplete: Nepotpun trening
+  error:
+    oauth_invalid: Vaša je autorizacija na Wikipediji istekla. Molimo Vas, prijavite
+      se ponovo.
   training_status:
     continue: Nastavi
     view: Vidi

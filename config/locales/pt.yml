@@ -7,6 +7,7 @@
 # Author: Fúlvio
 # Author: Gato Preto
 # Author: Hamilton Abreu
+# Author: He7d3r
 # Author: Jkb8
 # Author: Joalpe
 # Author: Ldacosta
@@ -1283,6 +1284,7 @@ pt:
     image_link_placeholder: Adicionar hiperligação à imagem (opcional)
   wiki_edits:
     notify_overdue:
+      button_label: Lembrar os estudantes sobre o treinamento atrasado
       confirm: Isto irá postar uma anotação nas páginas de discussão de todos os alunos
         que não completaram a tempo os módulos de treino. Tem a certeza de que deseja
         prosseguir?
