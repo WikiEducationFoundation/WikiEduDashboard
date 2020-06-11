@@ -40,11 +40,11 @@
 
 = hot_javascript_tag "vendors"
 - unless ENV['DISABLE_SENTRY']
-  = hot_javascript_tag("raven")
+  = hot_javascript_tag("sentry")
   // Sentry logging
   %script
-    Raven.config(SentryDsn).install();
-    Raven.setExtraContext(currentUser);
+    Sentry.init({ dsn: SentryDsn });
+    Sentry.setContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag("tinymce")

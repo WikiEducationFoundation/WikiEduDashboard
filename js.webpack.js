@@ -8,7 +8,7 @@ const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
 const appRoot = path.resolve('./');
 const entry = {
   main: [`${jsSource}/main.js`],
-  raven: [`${jsSource}/raven.js`],
+  sentry: [`${jsSource}/sentry.js`],
   styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
   survey: [`${jsSource}/surveys/survey.js`],
   survey_admin: [`${jsSource}/surveys/survey-admin.js`],
