@@ -5,25 +5,25 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= This class is for getting data directly from the Wikimedia Commons API.
 class Commons
-  def initialize(query, course = nil)
+  def initialize(query, update_cs = nil)
     @query = query
-    @course = course
+    @update_cs = update_cs
   end
   ###################
   # Request methods #
   ###################
 
   # Get user contribution data that corresponds to new file uploads.
-  def self.get_uploads(users, start_date: nil, end_date: nil, course: nil)
+  def self.get_uploads(users, start_date: nil, end_date: nil, update_cs: nil)
     upload_query = build_upload_query(users, start_date, end_date)
-    uploads = new(upload_query, course).fetch_all_uploads
+    uploads = new(upload_query, update_cs).fetch_all_uploads
     uploads
   end
 
   # Get data about how files are being used across Wikimedia sites.
-  def self.get_usages(commons_uploads, course: nil)
+  def self.get_usages(commons_uploads, update_cs: nil)
     usage_query = build_usage_query commons_uploads
-    usages = new(usage_query, course).get_image_data('globalusage', 'gucontinue')
+    usages = new(usage_query, update_cs).get_image_data('globalusage', 'gucontinue')
     usages
   end
 
@@ -35,9 +35,9 @@ class Commons
     commons_uploads.select { |file| missing_page_ids.include? file.id }
   end
 
-  def self.get_urls(commons_uploads, course: nil)
+  def self.get_urls(commons_uploads, update_cs: nil)
     url_query = build_url_query commons_uploads
-    file_urls = new(url_query, course).get_image_data('imageinfo', 'iicontinue')
+    file_urls = new(url_query, update_cs).get_image_data('imageinfo', 'iicontinue')
     file_urls
   end
 
@@ -139,6 +139,6 @@ class Commons
   private
 
   def api_get
-    WikiApi.new(CommonsWiki.new, @course).query(@query)
+    WikiApi.new(CommonsWiki.new, @update_cs).query(@query)
   end
 end
