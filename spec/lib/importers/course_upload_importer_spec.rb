@@ -13,10 +13,10 @@ describe CourseUploadImporter do
     create(:courses_user, user: user, course: course)
   end
 
-  describe '.update_courses' do
-    it 'imports uploads with thumburls and usage counts for the courses' do
+  describe '.run' do
+    it 'imports uploads with thumburls and usage counts for the course' do
       VCR.use_cassette 'course_upload_importer/kippleboy' do
-        described_class.update_courses([course])
+        described_class.new(course).run
         expect(course.reload.uploads.count).to eq(5)
         # https://commons.wikimedia.org/wiki/File%3AVaga_feminista_8M_2018_a_Sabadell_02.jpg
         upload = course.uploads.third
