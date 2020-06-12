@@ -8,10 +8,12 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/course_update_helper"
+require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
   include CourseUpdateHelper
+  include CourseUpdateErrorHandling
 
   attr_reader :course
 
