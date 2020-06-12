@@ -181,7 +181,7 @@ describe Replica do
     end
   end
 
-  describe 'error handling and saves course update data in sentry' do
+  describe 'error handling and calls error tasks' do
     let(:course) { create(:course, start: '2013-12-31', end: '2015-01-01') }
     let(:all_users) do
       [build(:user, username: 'ELE427'),
@@ -190,7 +190,6 @@ describe Replica do
     end
     let(:rev_start) { 2014_01_01_003430 }
     let(:rev_end) { 2014_12_31_003430 }
-    let(:dummy_class) { Class.new { include ErrorHandling } }
     let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do

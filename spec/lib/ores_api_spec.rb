@@ -58,7 +58,7 @@ describe OresApi do
     end
   end
 
-  describe 'error handling and saves CourseErrorRecords' do
+  describe 'error handling and calls error tasks' do
     let(:course) { create(:course, start: '2013-12-31', end: '2015-01-01') }
     let(:rev_ids) { [641962088, 12345] }
     let(:subject) do
@@ -68,21 +68,21 @@ describe OresApi do
     it 'handles timeout errors' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(Errno::ETIMEDOUT)
-      expect(CourseErrorRecord).to receive(:create).once
+      expect_any_instance_of(described_class).to receive(:perform_error_handling).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(Faraday::ConnectionFailed)
-      expect(CourseErrorRecord).to receive(:create).once
+      expect_any_instance_of(described_class).to receive(:perform_error_handling).once
       expect(subject).to be_empty
     end
 
     it 'raises errors not in TYPICAL_ERRORS' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(ArgumentError)
-      expect(CourseErrorRecord).to receive(:create).once
+      expect_any_instance_of(described_class).to receive(:perform_error_handling).once
       expect { subject }.to raise_error(ArgumentError)
     end
   end
