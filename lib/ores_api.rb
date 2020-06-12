@@ -76,7 +76,7 @@ class OresApi
   def invoke_error_handling(error, url, response_body)
     sentry_extra = { project_code: @project_code, project_model: @project_model,
                      url: url, response_body: response_body }
-    error_record = ErrorRecord.new(error, sentry_extra, @update_cs)
+    error_record = ErrorRecord.new(error, sentry_extra, update_obj: @update_cs)
     perform_error_handling(error_record)
   end
 end

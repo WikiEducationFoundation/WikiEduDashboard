@@ -130,7 +130,7 @@ class WikiApi
 
   def invoke_error_handling(error, action, query)
     sentry_extra = { action: action, query: query, api_url: @api_url }
-    error_record = ErrorRecord.new(error, sentry_extra, @update_cs)
+    error_record = ErrorRecord.new(error, sentry_extra, update_obj: @update_cs)
     perform_error_handling(error_record)
   end
 end

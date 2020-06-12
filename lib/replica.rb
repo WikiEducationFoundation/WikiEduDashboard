@@ -216,7 +216,7 @@ class Replica
   def invoke_error_handling(error, endpoint, query: nil, url: nil, response_body: nil)
     sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
                      project: @wiki.project, url: url, response_body: response_body }
-    error_record = ErrorRecord.new(error, sentry_extra, @update_cs)
+    error_record = ErrorRecord.new(error, sentry_extra, update_obj: @update_cs)
     perform_error_handling(error_record)
   end
 end
