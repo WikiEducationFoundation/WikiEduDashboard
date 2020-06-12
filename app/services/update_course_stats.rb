@@ -13,11 +13,10 @@ require_dependency "#{Rails.root}/lib/errors/course_update_helper"
 class UpdateCourseStats
   include CourseUpdateHelper
 
-  attr_reader :course, :sentry_tag_uuid
+  attr_reader :course
 
   def initialize(course, full: false)
     @course = course
-    @sentry_tag_uuid = generate_sentry_tag_uuid
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
     # In that case, do a full update rather than just fetching the most
