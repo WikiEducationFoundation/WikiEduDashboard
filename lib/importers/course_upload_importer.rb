@@ -10,9 +10,9 @@ class CourseUploadImporter
     end
   end
 
-  def initialize(update_cs)
+  def initialize(course, update_cs: nil)
+    @course = course
     @update_cs = update_cs
-    @course = update_cs.course
     @start = @course.start
     @end = @course.end + Course::UPDATE_LENGTH
   end

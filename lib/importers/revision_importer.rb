@@ -6,10 +6,10 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
-  def initialize(wiki, update_cs)
+  def initialize(wiki, course, update_cs: nil)
     @wiki = wiki
+    @course = course
     @update_cs = update_cs
-    @course = update_cs.course
   end
 
   def import_revisions_for_course(all_time:)

@@ -18,17 +18,17 @@ class RevisionScoreImporter
     new(language: nil, project: 'wikidata').update_previous_revision_scores
   end
 
-  def self.update_revision_scores_for_course(update_cs)
-    update_cs.course.wikis.each do |wiki|
+  def self.update_revision_scores_for_course(course, update_cs: nil)
+    course.wikis.each do |wiki|
       next unless OresApi.valid_wiki?(wiki)
-      new(wiki: wiki, update_cs: update_cs).update_revision_scores
-      new(wiki: wiki, update_cs: update_cs).update_previous_revision_scores
+      new(wiki: wiki, course: course, update_cs: update_cs).update_revision_scores
+      new(wiki: wiki, course: course, update_cs: update_cs).update_previous_revision_scores
     end
   end
 
-  def initialize(language: 'en', project: 'wikipedia', wiki: nil, update_cs: nil)
+  def initialize(language: 'en', project: 'wikipedia', wiki: nil, course: nil, update_cs: nil)
+    @course = course
     @update_cs = update_cs
-    @course = update_cs.course
     @wiki = wiki || Wiki.get_or_create(language: language, project: project)
     @ores_api = OresApi.new(@wiki, @update_cs)
   end
