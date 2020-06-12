@@ -4,12 +4,6 @@ require_dependency "#{Rails.root}/lib/importers/upload_importer"
 
 #= Imports uploads by students during a course
 class CourseUploadImporter
-  def self.update_courses(courses)
-    courses.each do |course|
-      new(course).run
-    end
-  end
-
   def initialize(course)
     @course = course
     @start = course.start
