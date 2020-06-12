@@ -20,5 +20,6 @@ module CourseUpdateErrorHandling
     @course.flags[:errors] ||= {}
     @course.flags[:errors][sentry_tag_uuid] ||= 0
     @course.flags[:errors][sentry_tag_uuid] += 1
+    @course.save
   end
 end
