@@ -10,9 +10,9 @@ class CourseUploadImporter
     end
   end
 
-  def initialize(course, update_cs: nil)
+  def initialize(course, update_object: nil)
     @course = course
-    @update_cs = update_cs
+    @update_object = update_object
     @start = @course.start
     @end = @course.end + Course::UPDATE_LENGTH
   end
@@ -33,14 +33,14 @@ class CourseUploadImporter
 
   def import_thumbnail_urls
     UploadImporter.import_urls_in_batches(@course.uploads.where(thumburl: nil, deleted: false),
-                                          update_cs: @update_cs)
+                                          update_object: @update_object)
   end
 
   def update_usage
-    UploadImporter.update_usage_count(@course.uploads, update_cs: @update_cs)
+    UploadImporter.update_usage_count(@course.uploads, update_object: @update_object)
   end
 
   def uploads_data(users)
-    Commons.get_uploads(users, start_date: @start, end_date: @end, update_cs: @update_cs)
+    Commons.get_uploads(users, start_date: @start, end_date: @end, update_object: @update_object)
   end
 end
