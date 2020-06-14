@@ -32,7 +32,9 @@ class UpdateCourseStats
     @course.update(needs_update: false)
     @end_time = Time.zone.now
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
-                                        'end_time' => @end_time.to_datetime)
+                                        'end_time' => @end_time.to_datetime,
+                                        'sentry_tag_uuid' => sentry_tag_uuid,
+                                        'error_count' => error_count)
   end
 
   private

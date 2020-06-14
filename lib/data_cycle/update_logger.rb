@@ -4,9 +4,9 @@ class UpdateLogger
   ################
   # Entry points #
   ################
-  def self.update_course(course, times)
+  def self.update_course(course, hash_info)
     logs = course.flags['update_logs']
-    new_logs = new(logs).update(times)
+    new_logs = new(logs).update(hash_info)
     course.flags['update_logs'] = new_logs
     course.flags['average_update_delay'] = average_delay(new_logs)
     course.save
@@ -40,9 +40,9 @@ class UpdateLogger
     @last_update_number = @log_hash.keys.max || 0
   end
 
-  def update(times)
+  def update(hash_info)
     @update_number = @last_update_number + 1
-    @log_hash[@update_number] = times
+    @log_hash[@update_number] = hash_info
     @log_hash.delete(@log_hash.keys.min) until @log_hash.count <= MAX_UPDATES
     @log_hash
   end

@@ -5,8 +5,12 @@ module CourseUpdateErrorHandling
     @sentry_tag_uuid ||= SecureRandom.uuid
   end
 
+  def error_count
+    @error_count ||= 0
+  end
+
   def perform_error_handling(error_record)
-    update_course_flags
+    @error_count = error_count + 1
     report_course_exception_sentry(error_record)
   end
 
@@ -18,12 +22,5 @@ module CourseUpdateErrorHandling
                               course_update_id: sentry_tag_uuid,
                               course: @course.slug
                             })
-  end
-
-  def update_course_flags
-    @course.flags[:errors] ||= {}
-    @course.flags[:errors][sentry_tag_uuid] ||= 0
-    @course.flags[:errors][sentry_tag_uuid] += 1
-    @course.save
   end
 end
