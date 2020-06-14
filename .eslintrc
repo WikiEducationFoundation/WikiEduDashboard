@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:you-dont-need-momentjs/recommended"],
   "rules": {
     # This makes it easier for Windows users to work on the project. Git automatically
     # converts between linebreak styles to unix-style should end up in the repo.

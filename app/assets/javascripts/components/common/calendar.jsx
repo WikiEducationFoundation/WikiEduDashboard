@@ -3,10 +3,13 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import { compact } from 'lodash-es';
-import moment from 'moment';
-
+import dayjs from 'dayjs';
+import _weekday from 'dayjs/plugin/weekday';
 import WeekdayPicker from './weekday_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import moment from 'moment';
+
+dayjs.extend(_weekday);
 
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
@@ -26,18 +29,18 @@ const Calendar = createReactClass({
   statics: {
     getDerivedStateFromProps(props) {
       return {
-        initialMonth: moment(props.course.start, 'YYYY-MM-DD').toDate()
+        initialMonth: dayjs(props.course.start, 'YYYY-MM-DD').toDate()
       };
     }
   },
 
   getInitialState() {
-    return ({ initialMonth: moment(this.props.course.start, 'YYYY-MM-DD').toDate() });
+    return ({ initialMonth: dayjs(this.props.course.start, 'YYYY-MM-DD').toDate() });
   },
   shouldComponentUpdate(nextProps) {
     if (nextProps.course) {
-      const start = moment(nextProps.course.start, 'YYYY-MM-DD');
-      const end = moment(nextProps.course.end, 'YYYY-MM-DD');
+      const start = dayjs(nextProps.course.start, 'YYYY-MM-DD');
+      const end = dayjs(nextProps.course.end, 'YYYY-MM-DD');
       return start.isValid() && end.isValid();
     }
     return true;
@@ -52,7 +55,7 @@ const Calendar = createReactClass({
     } else {
       exceptions = course.day_exceptions.split(',');
     }
-    const formatted = moment(day).format('YYYYMMDD');
+    const formatted = dayjs(day).format('YYYYMMDD');
     if (__in__(formatted, exceptions)) {
       exceptions.splice(exceptions.indexOf(formatted), 1);
     } else {
@@ -99,7 +102,7 @@ const Calendar = createReactClass({
         } else if (day < 8) {
           return false;
         }
-        const formatted = moment(day).format('YYYYMMDD');
+        const formatted = dayjs(day).format('YYYYMMDD');
         const inrange = this.inrange(day);
         let exception = false;
         let weekday = false;
@@ -107,7 +110,7 @@ const Calendar = createReactClass({
           exception = __in__(formatted, this.props.course.day_exceptions.split(','));
         }
         if (this.props.course.weekdays) {
-          weekday = this.props.course.weekdays.charAt(moment(day).format('e')) === '1';
+          weekday = this.props.course.weekdays.charAt(dayjs(day).format('e')) === '1';
         }
         return inrange && ((weekday && !exception) || (!weekday && exception));
       },
@@ -118,7 +121,7 @@ const Calendar = createReactClass({
       ['bordered']: (day) => {
         if (day <= 7) { return false; }
         if (!this.props.course.day_exceptions || !this.props.course.weekdays) { return false; }
-        const formatted = moment(day).format('YYYYMMDD');
+        const formatted = dayjs(day).format('YYYYMMDD');
         const inrange = this.inrange(day);
         const exception = __in__(formatted, this.props.course.day_exceptions.split(','));
         const weekday = this.props.course.weekdays.charAt(moment(day).format('e')) === '1';

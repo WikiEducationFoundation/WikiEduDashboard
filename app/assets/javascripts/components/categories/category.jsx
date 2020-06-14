@@ -1,7 +1,9 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
+dayjs.extend(relativeTime);
 const Category = ({ course, category, remove, editable }) => {
   let removeButton;
   if (editable) {
@@ -20,10 +22,10 @@ const Category = ({ course, category, remove, editable }) => {
     link = `https://${course.home_wiki.language}.${course.home_wiki.project}.org/wiki/${catName}`;
   }
   const lastUpdate = category.updated_at;
-  const lastUpdateMoment = moment.utc(lastUpdate);
+  const lastUpdateMoment = dayjs.utc(lastUpdate);
   let lastUpdateMessage;
   if (lastUpdate) {
-    lastUpdateMessage = moment(lastUpdate).isSame(category.created_at)
+    lastUpdateMessage = dayjs(lastUpdate).isSame(category.created_at)
       ? '---'
       : `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
   }

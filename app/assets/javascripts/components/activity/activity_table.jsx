@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { flatten, zip } from 'lodash-es';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import * as UIActions from '../../actions';
 import ActivityTableRow from './activity_table_row.jsx';
@@ -37,7 +37,7 @@ const ActivityTable = createReactClass({
   _renderActivites() {
     return this.props.activity.map((revision) => {
       const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
-      const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
+      const revisionDateTime = dayjs(revision.datetime).format('YYYY/MM/DD h:mm a');
       const talkPageLink = `${revision.base_url}/wiki/User_talk:${revision.username}`;
       const isOpen = this.props.openKey === `drawer_${revision.key}`;
 
