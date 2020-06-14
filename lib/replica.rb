@@ -122,8 +122,7 @@ class Replica
   #  }]
   def api_get(endpoint, query='')
     tries ||= 3
-    url = compile_query_url(endpoint, query)
-    response = do_query(url)
+    response = do_query(endpoint, query)
     return if response.empty?
     response_body = response.to_s
     parsed = Oj.load(response_body)
@@ -132,7 +131,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling(e, endpoint, url: url, response_body: response_body)
+    invoke_error_handling(e, endpoint, response_body: response_body)
   end
 
   def api_post(endpoint, key, data)
@@ -148,7 +147,8 @@ class Replica
     invoke_error_handling(e, endpoint, query: data)
   end
 
-  def do_query(url)
+  def do_query(endpoint, query)
+    url = compile_query_url(endpoint, query)
     Net::HTTP::get(URI.parse(url))
   end
 
@@ -213,9 +213,9 @@ class Replica
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
 
-  def invoke_error_handling(error, endpoint, query: nil, url: nil, response_body: nil)
+  def invoke_error_handling(error, endpoint, query: nil, response_body: nil)
     sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
-                     project: @wiki.project, url: url, response_body: response_body }
+                     project: @wiki.project, response_body: response_body }
     error_record = ErrorRecord.new(error, sentry_extra, update_object: @update_object)
     perform_error_handling(error_record)
   end
