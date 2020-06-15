@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PetScanApi
-  def get_titles(psid)
+  def get_data(psid)
     response = petscan.get query_url(psid)
     title_data = Oj.load(response.body)
     title_data
@@ -11,7 +11,7 @@ class PetScanApi
 
   def page_titles_for_psid(psid)
     titles = []
-    titles_response = get_titles(psid)
+    titles_response = get_data(psid)
     return titles if titles_response.empty?
 
     page_data = titles_response['*'][0]['a']['*']
