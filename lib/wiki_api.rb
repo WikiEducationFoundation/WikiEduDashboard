@@ -4,7 +4,6 @@ require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
-require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
@@ -109,7 +108,8 @@ class WikiApi
     # a short bit in the case of 429 — too many request — errors.
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
-    invoke_error_logging(e, action, query)
+    handle_api_error(e, update_service: @update_service,
+                     sentry_extra: { action: action, query: query, api_url: @api_url })
     raise_unexpected_error(e)
     return nil
   end
@@ -127,10 +127,4 @@ class WikiApi
                     Faraday::ConnectionFailed,
                     MediawikiApi::HttpError,
                     MediawikiApi::ApiError].freeze
-
-  def invoke_error_logging(error, action, query)
-    sentry_extra = { action: action, query: query, api_url: @api_url }
-    error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
-    log_error(error_record)
-  end
 end

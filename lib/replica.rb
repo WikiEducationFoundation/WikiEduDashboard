@@ -2,7 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
-require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
@@ -131,7 +130,9 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_logging(e, endpoint, response_body: response_body)
+    handle_api_error(e, update_service: @update_service,
+                     sentry_extra: { endpoint: endpoint, response_body: response_body,
+                                     language: @wiki.language, project: @wiki.project })
   end
 
   def api_post(endpoint, key, data)
@@ -144,7 +145,9 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_logging(e, endpoint, query: data)
+    handle_api_error(e, sentry_extra: { query: data,
+                                        language: @wiki.language,
+                                        project: @wiki.project })
   end
 
   def do_query(endpoint, query)
@@ -212,11 +215,4 @@ class Replica
   # These are typical network errors that we expect to encounter.
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
-
-  def invoke_error_logging(error, endpoint, query: nil, response_body: nil)
-    sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
-                     project: @wiki.project, response_body: response_body }
-    error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
-    log_error(error_record)
-  end
 end

@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 module ApiErrorHandling
-  def log_error(error_record)
-    Rails.logger.info "Caught #{error_record.error}"
-    error_record.level = error_level(error_record.error)
-    if error_record.specific_error_logging?
-      error_record.log_error
-    else
-      report_exception_sentry(error_record)
+  def handle_api_error(error, update_service: nil, sentry_extra:)
+    Rails.logger.info "Caught #{error}"
+    sentry_tags = nil
+    if update_service.present?
+      update_service.update_error_stats
+      sentry_tags = update_service.sentry_tags
     end
+    Raven.capture_exception(error,
+                            level: error_level(error),
+                            extra: sentry_extra,
+                            tags: sentry_tags)
     return nil
   end
 
@@ -18,11 +21,5 @@ module ApiErrorHandling
 
   def raise_unexpected_error(error)
     raise error if self.class.const_get(:TYPICAL_ERRORS).exclude?(error.class)
-  end
-
-  def report_exception_sentry(error_record)
-    Raven.capture_exception(error_record.error,
-                            level: error_record.level,
-                            extra: error_record.sentry_extra)
   end
 end

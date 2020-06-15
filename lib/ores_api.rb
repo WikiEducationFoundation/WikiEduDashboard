@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
-require_dependency "#{Rails.root}/lib/errors/error_record"
 
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
@@ -41,7 +40,9 @@ class OresApi
     ores_data
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
-    invoke_error_logging(e, url, response_body)
+    handle_api_error(e, update_service: @update_service,
+                     sentry_extra: { url: url, response_body: response_body,
+                                     project_code: @project_code, project_model: @project_model })
     raise_unexpected_error(e)
     return {}
   end
@@ -71,12 +72,5 @@ class OresApi
     conn = Faraday.new(url: ORES_SERVER_URL)
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
-  end
-
-  def invoke_error_logging(error, url, response_body)
-    sentry_extra = { project_code: @project_code, project_model: @project_model,
-                     url: url, response_body: response_body }
-    error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
-    log_error(error_record)
   end
 end

@@ -21,8 +21,10 @@ class RevisionScoreImporter
   def self.update_revision_scores_for_course(course, update_service: nil)
     course.wikis.each do |wiki|
       next unless OresApi.valid_wiki?(wiki)
-      new(wiki: wiki, course: course, update_service: update_service).update_revision_scores
-      new(wiki: wiki, course: course, update_service: update_service).update_previous_revision_scores
+      new(wiki: wiki, course: course, update_service: update_service)
+        .update_revision_scores
+      new(wiki: wiki, course: course, update_service: update_service)
+        .update_previous_revision_scores
     end
   end
 

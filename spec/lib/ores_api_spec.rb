@@ -68,21 +68,21 @@ describe OresApi do
     it 'handles timeout errors' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(Errno::ETIMEDOUT)
-      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect_any_instance_of(described_class).to receive(:handle_api_error).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(Faraday::ConnectionFailed)
-      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect_any_instance_of(described_class).to receive(:handle_api_error).once
       expect(subject).to be_empty
     end
 
     it 'raises errors not in TYPICAL_ERRORS' do
       stub_request(:any, %r{https://ores.wikimedia.org/.*})
         .to_raise(ArgumentError)
-      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect_any_instance_of(described_class).to receive(:handle_api_error).once
       expect { subject }.to raise_error(ArgumentError)
     end
   end

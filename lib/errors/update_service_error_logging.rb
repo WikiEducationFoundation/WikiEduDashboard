@@ -9,18 +9,11 @@ module UpdateServiceErrorLogging
     @error_count ||= 0
   end
 
-  def log_error(error_record)
+  def update_error_stats
     @error_count = error_count + 1
-    report_course_exception_sentry(error_record)
   end
 
-  def report_course_exception_sentry(error_record)
-    Raven.capture_exception(error_record.error,
-                            level: error_record.level,
-                            extra: error_record.sentry_extra,
-                            tags: {
-                              update_service_id: sentry_tag_uuid,
-                              course: @course.slug
-                            })
+  def sentry_tags
+    { update_service_id: sentry_tag_uuid, course: @course.slug }
   end
 end
