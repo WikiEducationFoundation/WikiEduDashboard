@@ -16,6 +16,8 @@ const Category = ({ course, category, remove, editable }) => {
   }
   if (category.source === 'psid') {
     link = `https://petscan.wmflabs.org/?psid=${category.name}`;
+  } else if (category.source === 'pileid') {
+    link = `https://tools.wmflabs.org/pagepile/api.php?id=${category.name}&action=get_data`;
   } else {
     link = `https://${course.home_wiki.language}.${course.home_wiki.project}.org/wiki/${catName}`;
   }

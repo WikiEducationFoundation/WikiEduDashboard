@@ -61,6 +61,36 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    # Pagepile is a tool for representing a static list of articles —
+    # both existing and not — on a single wiki: https://tools.wmflabs.org/pagepile/
+    context 'for pileid-source Category' do
+      # Example pile from `lawiktionary`: https://tools.wmflabs.org/pagepile/api.php?action=get_data&format=json&id=28301
+      let(:category) { create(:category, name: 28301, source: 'pileid') }
+      let(:course) { create(:course) }
+      let(:lawiktionary) { Wiki.get_or_create(language: 'la', project: 'wiktionary') }
+      let(:article) { create(:article, wiki: lawiktionary, title: 'America') }
+
+      it 'updates article titles and wiki for categories associated with courses' do
+        expect(described_class.last.article_titles).to be_empty
+        expect(described_class.last.wiki.language).to eq('en')
+
+        VCR.use_cassette 'categories' do
+          expect(article.wiki.language).to eq('la')
+          described_class.refresh_categories_for(Course.all)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
+          expect(described_class.last.wiki).to eq(lawiktionary)
+        end
+      end
+
+      it 'fails gracefully when fetching a PagePile errors' do
+        expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
+        expect(Raven).to receive(:capture_exception)
+        described_class.refresh_categories_for(Course.all)
+        expect(described_class.last.article_titles).to be_empty
+      end
+    end
+
     context 'for template-source Category' do
       let(:category) { create(:category, name: 'Malaysia-sport-bio-stub', source: 'template') }
       let(:course) { create(:course) }

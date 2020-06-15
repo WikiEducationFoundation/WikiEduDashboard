@@ -106,7 +106,23 @@ const AddCategoryButton = createReactClass({
     return this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 
+
   render() {
+    let description;
+      if (this.props.source === 'pileid') {
+        description = (
+          <p>
+            Make sure the PagePile&apos;s wiki is one of the tracked wikis for this program.
+          </p>
+        );
+      } else if (this.props.source === 'psid') {
+        description = (
+          <p>
+            PetScan queries only work with the Dashboard one wiki at a time. Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
+          </p>
+        );
+      }
+
     const permitted = true;
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
@@ -125,7 +141,6 @@ const AddCategoryButton = createReactClass({
         const projectOptions = JSON.parse(WikiProjects).map((project) => {
           return { label: project, value: project };
         });
-
         options = (
           <fieldset className="mt1">
             <Select
@@ -182,6 +197,7 @@ const AddCategoryButton = createReactClass({
         <tr className="edit">
           <td>
             <form onSubmit={this.addCategory}>
+              {description}
               <input
                 id="category_name"
                 value={this.state.category}
