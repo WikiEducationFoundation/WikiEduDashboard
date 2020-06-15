@@ -112,7 +112,7 @@ const AddCategoryButton = createReactClass({
       if (this.props.source === 'pileid') {
         description = (
           <p>
-            Pagepile only works for pages on the selected wiki and in case of cross-wiki piles may result in incorrect results.
+            Make sure the PagePile&apos;s wiki is one of the tracked wikis for this program.
           </p>
         );
       } else if (this.props.source === 'psid') {

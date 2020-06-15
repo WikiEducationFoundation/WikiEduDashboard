@@ -1,26 +1,18 @@
 # frozen_string_literal: true
 class PagePileApi
-  def get_data(pileid)
-    response = pagepile.get query_url(pileid)
-    title_data = Oj.load(response.body)
-    title_data
-  rescue StandardError => e
-    raise e unless Errno::EHOSTUNREACH.include?(e.class)
-    return {}
+  def initialize(category)
+    raise 'Wrong category type' unless category.source == 'pileid'
+    @category = category
+    @wiki = @category.wiki
   end
 
-  def get_language_and_project(pileid)
-    article_data = get_data(pileid)
-    return nil if article_data.empty?
-    language = article_data['language']
-    project = article_data['project']
-    return language, project
-  end
+  def page_titles_for_pileid
+    fetch_pile_data
+    return [] if @pile_data.empty?
 
-  def page_titles_for_pileid(pileid)
-    titles_response = get_data(pileid)
-    return [] if titles_response.empty?
-    titles = titles_response['pages']
+    update_language_and_project
+
+    titles = @pile_data['pages']
     titles
   end
 
@@ -29,7 +21,29 @@ class PagePileApi
   ###################
   private
 
-  def query_url(pileid)
+  def pileid
+    @category.name
+  end
+
+  def fetch_pile_data
+    response = pagepile.get query_url
+    @pile_data = Oj.load(response.body)
+  rescue StandardError => e
+    Raven.capture_exception e
+    @pile_data = {}
+  end
+
+  # This ensures the Category has the same wiki as the PagePile.
+  def update_language_and_project
+    language = @pile_data['language']
+    project = @pile_data['project']
+    return if [@wiki.language, @wiki.project] == [language, project]
+
+    @wiki = Wiki.get_or_create(language: language, project: project)
+    @category.update(wiki: @wiki)
+  end
+
+  def query_url
     return "https://tools.wmflabs.org/pagepile/api.php?id=#{pileid}&action=get_data&format=json"
   end
 

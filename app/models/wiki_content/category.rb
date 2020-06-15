@@ -56,7 +56,7 @@ class Category < ApplicationRecord
     when 'psid'
       PetScanApi.new.page_titles_for_psid(name)
     when 'pileid'
-      PagePileApi.new.page_titles_for_pileid(name)
+      PagePileApi.new(self).page_titles_for_pileid
     when 'template'
       TransclusionImporter.new(self).transcluded_titles
     end
