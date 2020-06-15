@@ -12,9 +12,9 @@ require_dependency "#{Rails.root}/lib/errors/error_record"
 class Replica
   include ErrorHandling
 
-  def initialize(wiki, update_object = nil)
+  def initialize(wiki, update_service = nil)
     @wiki = wiki
-    @update_object = update_object
+    @update_service = update_service
   end
 
   # This is the maximum number of concurrent queries the system should run
@@ -216,7 +216,7 @@ class Replica
   def invoke_error_handling(error, endpoint, query: nil, response_body: nil)
     sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
                      project: @wiki.project, response_body: response_body }
-    error_record = ErrorRecord.new(error, sentry_extra, update_object: @update_object)
-    perform_error_handling(error_record)
+    error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
+    log_error(error_record)
   end
 end

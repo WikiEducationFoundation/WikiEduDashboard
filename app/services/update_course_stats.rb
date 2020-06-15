@@ -7,11 +7,11 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
-require_dependency "#{Rails.root}/lib/errors/course_update_error_handling"
+require_dependency "#{Rails.root}/lib/errors/update_service_error_logging"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
-  include CourseUpdateErrorHandling
+  include UpdateServiceErrorLogging
 
   attr_reader :course
 
@@ -41,13 +41,13 @@ class UpdateCourseStats
 
   def fetch_data
     log_update_progress :start
-    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update, update_object: self)
+    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update, update_service: self)
     log_update_progress :revisions_imported
 
-    RevisionScoreImporter.update_revision_scores_for_course(@course, update_object: self)
+    RevisionScoreImporter.update_revision_scores_for_course(@course, update_service: self)
     log_update_progress :revision_scores_imported
 
-    CourseUploadImporter.new(@course, update_object: self).run
+    CourseUploadImporter.new(@course, update_service: self).run
     log_update_progress :uploads_imported
   end
 

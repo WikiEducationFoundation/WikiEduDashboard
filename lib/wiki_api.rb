@@ -10,10 +10,10 @@ require_dependency "#{Rails.root}/lib/errors/error_record"
 class WikiApi
   include ErrorHandling
 
-  def initialize(wiki = nil, update_object = nil)
+  def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
-    @update_object = update_object
+    @update_service = update_service
   end
 
   ################
@@ -130,7 +130,7 @@ class WikiApi
 
   def invoke_error_handling(error, action, query)
     sentry_extra = { action: action, query: query, api_url: @api_url }
-    error_record = ErrorRecord.new(error, sentry_extra, update_object: @update_object)
-    perform_error_handling(error_record)
+    error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
+    log_error(error_record)
   end
 end

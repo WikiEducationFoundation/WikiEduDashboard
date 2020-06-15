@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module ErrorHandling
-  def perform_error_handling(error_record)
+  def log_error(error_record)
     Rails.logger.info "Caught #{error_record.error}"
     error_record.level = error_level(error_record.error)
-    if error_record.specific_error_tasks?
-      error_record.perform_error_handling
+    if error_record.specific_error_logging?
+      error_record.log_error
     else
       report_exception_sentry(error_record)
     end

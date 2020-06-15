@@ -4,15 +4,9 @@ require_dependency "#{Rails.root}/lib/importers/upload_importer"
 
 #= Imports uploads by students during a course
 class CourseUploadImporter
-  def self.update_courses(courses)
-    courses.each do |course|
-      new(course).run
-    end
-  end
-
-  def initialize(course, update_object: nil)
+  def initialize(course, update_service: nil)
     @course = course
-    @update_object = update_object
+    @update_service = update_service
     @start = @course.start
     @end = @course.end + Course::UPDATE_LENGTH
   end
@@ -33,14 +27,14 @@ class CourseUploadImporter
 
   def import_thumbnail_urls
     UploadImporter.import_urls_in_batches(@course.uploads.where(thumburl: nil, deleted: false),
-                                          update_object: @update_object)
+                                          update_service: @update_service)
   end
 
   def update_usage
-    UploadImporter.update_usage_count(@course.uploads, update_object: @update_object)
+    UploadImporter.update_usage_count(@course.uploads, update_service: @update_service)
   end
 
   def uploads_data(users)
-    Commons.get_uploads(users, start_date: @start, end_date: @end, update_object: @update_object)
+    Commons.get_uploads(users, start_date: @start, end_date: @end, update_service: @update_service)
   end
 end

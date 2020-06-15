@@ -26,9 +26,9 @@ class UploadImporter
     end
   end
 
-  def self.update_usage_count(commons_uploads, update_object: nil)
+  def self.update_usage_count(commons_uploads, update_service: nil)
     commons_uploads.in_groups_of(50, false) do |file_batch|
-      usages = Commons.get_usages(file_batch, update_object: update_object)
+      usages = Commons.get_usages(file_batch, update_service: update_service)
       import_usages usages
     end
   end
@@ -54,10 +54,10 @@ class UploadImporter
   ################
   # Data methods #
   ################
-  def self.import_urls_in_batches(commons_uploads, update_object: nil)
+  def self.import_urls_in_batches(commons_uploads, update_service: nil)
     # Larger values (50) per batch choke the MediaWiki API on this query.
     commons_uploads.in_groups_of(10, false) do |file_batch|
-      file_urls = Commons.get_urls(file_batch, update_object: update_object)
+      file_urls = Commons.get_urls(file_batch, update_service: update_service)
       import_urls file_urls
     end
   end
