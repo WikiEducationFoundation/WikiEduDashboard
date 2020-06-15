@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UpdateServiceErrorLogging
+module UpdateServiceErrorHelper
   def sentry_tag_uuid
     @sentry_tag_uuid ||= SecureRandom.uuid
   end

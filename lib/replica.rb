@@ -130,7 +130,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    handle_api_error(e, update_service: @update_service,
+    log_error(e, update_service: @update_service,
                      sentry_extra: { endpoint: endpoint, response_body: response_body,
                                      language: @wiki.language, project: @wiki.project })
   end
@@ -145,7 +145,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    handle_api_error(e, sentry_extra: { query: data,
+    log_error(e, sentry_extra: { query: data,
                                         language: @wiki.language,
                                         project: @wiki.project })
   end

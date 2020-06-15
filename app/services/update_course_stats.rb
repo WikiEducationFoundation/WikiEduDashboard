@@ -7,11 +7,11 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
-require_dependency "#{Rails.root}/lib/errors/update_service_error_logging"
+require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
-  include UpdateServiceErrorLogging
+  include UpdateServiceErrorHelper
 
   attr_reader :course
 

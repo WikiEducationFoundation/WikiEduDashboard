@@ -17,21 +17,21 @@ describe WikiApi do
     it 'handles timeout errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(Faraday::TimeoutError)
-      expect_any_instance_of(described_class).to receive(:handle_api_error).once
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
     end
 
     it 'handles API errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
-      expect_any_instance_of(described_class).to receive(:handle_api_error).once
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
     end
 
     it 'handles HTTP errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::HttpError, '')
-      expect_any_instance_of(described_class).to receive(:handle_api_error).once
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
     end
   end
