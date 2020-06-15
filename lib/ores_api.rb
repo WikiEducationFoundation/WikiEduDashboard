@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 require_dependency "#{Rails.root}/lib/errors/error_record"
 
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
-  include ErrorHandling
+  include ApiErrorHandling
 
   # This is the maximum number of concurrent requests the app should make.
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:

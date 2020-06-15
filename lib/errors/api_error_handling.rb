@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ErrorHandling
+module ApiErrorHandling
   def log_error(error_record)
     Rails.logger.info "Caught #{error_record.error}"
     error_record.level = error_level(error_record.error)

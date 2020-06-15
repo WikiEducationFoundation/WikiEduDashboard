@@ -3,12 +3,12 @@
 require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
-require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
-  include ErrorHandling
+  include ApiErrorHandling
 
   def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki

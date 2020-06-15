@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
-require_dependency "#{Rails.root}/lib/errors/error_handling"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 require_dependency "#{Rails.root}/lib/errors/error_record"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
@@ -10,7 +10,7 @@ require_dependency "#{Rails.root}/lib/errors/error_record"
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
-  include ErrorHandling
+  include ApiErrorHandling
 
   def initialize(wiki, update_service = nil)
     @wiki = wiki
