@@ -110,7 +110,6 @@ class WikiApi
     retry unless tries.zero?
     handle_api_error(e, update_service: @update_service,
                      sentry_extra: { action: action, query: query, api_url: @api_url })
-    raise_unexpected_error(e)
     return nil
   end
 

@@ -43,7 +43,6 @@ class OresApi
     handle_api_error(e, update_service: @update_service,
                      sentry_extra: { url: url, response_body: response_body,
                                      project_code: @project_code, project_model: @project_model })
-    raise_unexpected_error(e)
     return {}
   end
 

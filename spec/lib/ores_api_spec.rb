@@ -78,12 +78,5 @@ describe OresApi do
       expect_any_instance_of(described_class).to receive(:handle_api_error).once
       expect(subject).to be_empty
     end
-
-    it 'raises errors not in TYPICAL_ERRORS' do
-      stub_request(:any, %r{https://ores.wikimedia.org/.*})
-        .to_raise(ArgumentError)
-      expect_any_instance_of(described_class).to receive(:handle_api_error).once
-      expect { subject }.to raise_error(ArgumentError)
-    end
   end
 end

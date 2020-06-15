@@ -18,8 +18,4 @@ module ApiErrorHandling
   def error_level(error)
     self.class.const_get(:TYPICAL_ERRORS).include?(error.class) ? 'warning' : 'error'
   end
-
-  def raise_unexpected_error(error)
-    raise error if self.class.const_get(:TYPICAL_ERRORS).exclude?(error.class)
-  end
 end
