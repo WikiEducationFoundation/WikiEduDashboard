@@ -131,7 +131,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling(e, endpoint, response_body: response_body)
+    invoke_error_logging(e, endpoint, response_body: response_body)
   end
 
   def api_post(endpoint, key, data)
@@ -144,7 +144,7 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    invoke_error_handling(e, endpoint, query: data)
+    invoke_error_logging(e, endpoint, query: data)
   end
 
   def do_query(endpoint, query)
@@ -213,7 +213,7 @@ class Replica
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
 
-  def invoke_error_handling(error, endpoint, query: nil, response_body: nil)
+  def invoke_error_logging(error, endpoint, query: nil, response_body: nil)
     sentry_extra = { query: query, endpoint: endpoint, language: @wiki.language,
                      project: @wiki.project, response_body: response_body }
     error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)

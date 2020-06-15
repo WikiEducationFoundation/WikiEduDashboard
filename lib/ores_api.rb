@@ -41,7 +41,7 @@ class OresApi
     ores_data
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
-    invoke_error_handling(e, url, response_body)
+    invoke_error_logging(e, url, response_body)
     raise_unexpected_error(e)
     return {}
   end
@@ -73,7 +73,7 @@ class OresApi
     conn
   end
 
-  def invoke_error_handling(error, url, response_body)
+  def invoke_error_logging(error, url, response_body)
     sentry_extra = { project_code: @project_code, project_model: @project_model,
                      url: url, response_body: response_body }
     error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)

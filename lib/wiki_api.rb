@@ -109,7 +109,7 @@ class WikiApi
     # a short bit in the case of 429 — too many request — errors.
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
-    invoke_error_handling(e, action, query)
+    invoke_error_logging(e, action, query)
     raise_unexpected_error(e)
     return nil
   end
@@ -128,7 +128,7 @@ class WikiApi
                     MediawikiApi::HttpError,
                     MediawikiApi::ApiError].freeze
 
-  def invoke_error_handling(error, action, query)
+  def invoke_error_logging(error, action, query)
     sentry_extra = { action: action, query: query, api_url: @api_url }
     error_record = ErrorRecord.new(error, sentry_extra, update_service: @update_service)
     log_error(error_record)
