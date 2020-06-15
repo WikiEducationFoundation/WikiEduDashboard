@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 import {
   TRAINING_MODULE_KIND
@@ -9,20 +11,20 @@ import {
 export const TrainingModuleRows = ({ trainingModules }) => {
   const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
   return trainings.map((trainingModule) => {
-    const momentDueDate = moment(trainingModule.due_date);
-    const dueDate = momentDueDate.format('MMM Do, YYYY');
-    const overdue = trainingModule.overdue || momentDueDate.isBefore(trainingModule.completion_date);
+    const dayjsDueDate = dayjs(trainingModule.due_date);
+    const dueDate = dayjsDueDate.format('MMM Do, YYYY');
+    const overdue = trainingModule.overdue || dayjsDueDate.isBefore(trainingModule.completion_date);
 
     let moduleStatus;
     if (trainingModule.completion_date) {
       let completionTime = '';
       if (trainingModule.completion_time <= 60 * 60) {
-        completionTime = `${I18n.t('training_status.completion_time')}: ${moment.utc(trainingModule.completion_time * 1000).format(`mm [${I18n.t('users.training_module_time.minutes')}] ss [${I18n.t('users.training_module_time.seconds')}]`)}`;
+        completionTime = `${I18n.t('training_status.completion_time')}: ${dayjs.utc(trainingModule.completion_time * 1000).format(`mm [${I18n.t('users.training_module_time.minutes')}] ss [${I18n.t('users.training_module_time.seconds')}]`)}`;
       }
       moduleStatus = (
         <>
           <span className="completed">
-            {I18n.t('training_status.completed_at')}: {moment(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
+            {I18n.t('training_status.completed_at')}: {dayjs(trainingModule.completion_date).format('YYYY-MM-DD   h:mm A')}
           </span>
           { overdue && <span> ({I18n.t('training_status.late')})</span> }
           <br/>

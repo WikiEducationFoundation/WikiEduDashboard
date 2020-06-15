@@ -1,12 +1,17 @@
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
 
 const StatisticsUpdateInfo = ({ course }) => {
   if ((Features.wikiEd && !course.ended) || !course.updates.last_update) {
     return <div />;
   }
   const lastUpdate = course.updates.last_update.end_time;
-  const lastUpdateMoment = moment.utc(lastUpdate);
+  const lastUpdateMoment = dayjs.utc(lastUpdate);
   const averageDelay = course.updates.average_delay;
   let lastUpdateMessage;
   if (lastUpdate) {

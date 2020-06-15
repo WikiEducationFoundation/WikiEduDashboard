@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 // Components
 import List from '@components/common/list.jsx';
@@ -17,7 +19,7 @@ const showRecent = (course) => {
   // updated.
   const lastUpdate = course.updates.last_update;
   if (!lastUpdate) return false;
-  return moment.utc(lastUpdate.end_time).add(7, 'days').isAfter(moment());
+  return dayjs.utc(lastUpdate.end_time).add(7, 'days').isAfter(dayjs());
 };
 
 export const StudentList = (props) => {

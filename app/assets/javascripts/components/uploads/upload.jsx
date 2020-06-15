@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import UploadViewer from './upload_viewer.jsx';
 import Modal from '../common/modal.jsx';
@@ -120,7 +120,7 @@ class Upload extends React.Component {
           </td>
           <td className="desktop-only-tc">{uploader}</td>
           <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
-          <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
+          <td className="desktop-only-tc">{dayjs(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
           <td className="desktop-only-tc" dangerouslySetInnerHTML={{ __html: credit }} />
         </tr>
       );
@@ -132,7 +132,7 @@ class Upload extends React.Component {
             <p className="usage"><b>{usage}</b></p>
             <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{dayjs(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
           </div>
         </div>
       );
@@ -146,7 +146,7 @@ class Upload extends React.Component {
               <p><b><a href={this.props.upload.url} target="_blank" onClick={event => event.stopPropagation()}>{fileName}</a></b></p>
               <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
               <p>
-                <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}
+                <b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{dayjs(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}
               </p>
             </div>
           </div>

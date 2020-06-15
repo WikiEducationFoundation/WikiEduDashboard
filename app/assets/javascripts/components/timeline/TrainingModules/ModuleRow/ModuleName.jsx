@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export const ModuleName = ({ due_date, isExercise, name }) => {
   const date = due_date ? due_date.replace(/\//g, '-') : null;
-  const dueDate = moment(date).format('MMM Do');
+  const dueDate = dayjs(date).format('MMM Do');
   return (
     <td className="block__training-modules-table__module-name">
       {name}

@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import linkifyHtml from 'linkifyjs/html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
@@ -9,10 +9,10 @@ import DeleteNote from './delete_note';
 export const Reply = ({ message }) => {
   const { sender, details } = message;
 
-  const deliveredTime = moment(details.delivered).format('YYYY/MM/DD h:mm a');
+  const deliveredTime = dayjs(details.delivered).format('YYYY/MM/DD h:mm a');
   const delivered = `Delivered on ${deliveredTime}`;
 
-  const failedTime = moment(details.delivery_failed).format('YYYY/MM/DD h:mm a');
+  const failedTime = dayjs(details.delivery_failed).format('YYYY/MM/DD h:mm a');
   const failed = `Failed on ${failedTime}`;
 
   let subject;
@@ -55,7 +55,7 @@ export const Reply = ({ message }) => {
           <p>From: {from}</p>
         </span>
         <span className="created-at">
-          <p>Created: {moment(message.created_at).format('MMM DD, YYYY h:mm a')}</p>
+          <p>Created: {dayjs(message.created_at).format('MMM DD, YYYY h:mm a')}</p>
         </span>
         <span>
           {

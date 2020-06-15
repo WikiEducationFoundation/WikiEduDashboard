@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
@@ -25,7 +25,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
       <td className="desktop-only-tc">{revision.references_added}</td>
-      <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
+      <td className="desktop-only-tc date"><a href={revision.url}>{dayjs(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
         <DiffViewer
           index={index}

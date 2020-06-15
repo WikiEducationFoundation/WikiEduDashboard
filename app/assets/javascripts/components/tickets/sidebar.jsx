@@ -1,11 +1,13 @@
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import TicketStatusHandler from './ticket_status_handler';
 import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 export class Sidebar extends React.Component {
   notifyOwner() {
@@ -31,14 +33,16 @@ export class Sidebar extends React.Component {
 
     return (
       <section className="sidebar">
-        <section className="created-at">Created <time className="bold">{moment(createdAt).fromNow()}</time></section>
+        <section className="created-at">Created <time className="bold">{dayjs(createdAt).fromNow()}</time></section>
         <section className="status">
           Ticket is currently <span className={`${status.toLowerCase()} bold`}>{status}</span>
           <TicketStatusHandler ticket={ticket} />
         </section>
         <section className="owner">
           Assigned to <span className="bold">{assignedTo}</span>
-          <TicketOwnerHandler ticket={ticket} />
+          import relativeTime from <TicketOwnerHandler ticket={ticket} />'dayjs/plugin/relativeTime';
+          dayjs.extend(relativeTime);
+          
         </section>
         <section className="course-name">
           {

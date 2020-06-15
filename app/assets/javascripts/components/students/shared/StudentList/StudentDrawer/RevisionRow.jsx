@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // Components
 import DiffViewer from '@components/revisions/diff_viewer.jsx';
@@ -13,7 +13,7 @@ export const RevisionRow = ({ course, index, revision, revisions, selectedIndex,
   const label = wikidataLabels[article.title];
   const formattedTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, label);
   const details = I18n.t('users.revision_characters_and_views', { characters: revision.characters, views: revision.views });
-  const revisionDate = moment(revision.date).format('YYYY-MM-DD   h:mm A');
+  const revisionDate = dayjs(revision.date).format('YYYY-MM-DD   h:mm A');
   return (
     <tr key={revision.id}>
       <td>

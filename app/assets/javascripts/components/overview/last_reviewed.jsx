@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // Helper Functions
 const DetailsText = ({ flags }) => (
@@ -12,7 +12,7 @@ const DetailsText = ({ flags }) => (
     </strong>&nbsp;on
     <br />
     <strong>
-      {moment(flags.last_reviewed.timestamp).format('LLLL')}
+      {dayjs(flags.last_reviewed.timestamp).format('LLLL')}
     </strong>
   </p>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from 'lodash-es';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 // Helper Components
 const ExerciseStatusCell = ({ status }) => {
@@ -9,10 +9,10 @@ const ExerciseStatusCell = ({ status }) => {
 };
 
 // Helper Functions
-const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
+const orderByDueDate = (a, b) => (dayjs(a.due_date).isBefore(b.due_date) ? -1 : 1);
 
 const generateRow = status => (exercise) => {
-  const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
+  const dueDate = dayjs(exercise.due_date).format('MMM Do, YYYY');
   return (
     <tr className="student-training-module" key={exercise.id}>
       <td>{exercise.name} <small>Due by {dueDate}</small></td>

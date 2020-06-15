@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 import _weekday from 'dayjs/plugin/weekday';
 import WeekdayPicker from './weekday_picker.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import moment from 'moment';
 
 dayjs.extend(_weekday);
 
@@ -124,7 +123,7 @@ const Calendar = createReactClass({
         const formatted = dayjs(day).format('YYYYMMDD');
         const inrange = this.inrange(day);
         const exception = __in__(formatted, this.props.course.day_exceptions.split(','));
-        const weekday = this.props.course.weekdays.charAt(moment(day).format('e')) === '1';
+        const weekday = this.props.course.weekdays.charAt(dayjs(day).weekday()) === '1';
         return inrange && exception && weekday;
       }
     };

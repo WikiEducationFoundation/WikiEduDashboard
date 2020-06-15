@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import Touch from 'react-dnd-touch-backend';
 import { throttle } from 'lodash-es';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import Week from './week.jsx';
 import EmptyWeek from './empty_week.jsx';
@@ -366,9 +366,9 @@ const Timeline = createReactClass({
         <CourseLink className="week-nav__action week-nav__link" to={courseLink}>{CourseUtils.i18n('edit_course_dates', this.props.course.string_prefix)}</CourseLink>
       );
 
-      const start = moment(this.props.course.timeline_start);
-      const end = moment(this.props.course.timeline_end);
-      const timelineFull = (moment(end - start).weeks()) - weekComponents.length <= 0;
+      const start = dayjs(this.props.course.timeline_start);
+      const end = dayjs(this.props.course.timeline_end);
+      const timelineFull = (dayjs(end - start).weeks()) - weekComponents.length <= 0;
       addWeekLink = timelineFull ? (
         <li>
           <label className="week-nav__action week-nav__link disabled tooltip-trigger">

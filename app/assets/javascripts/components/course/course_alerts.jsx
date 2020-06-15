@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -116,7 +116,7 @@ const CourseAlerts = createReactClass({
     if (course.incomplete_assigned_modules && course.incomplete_assigned_modules.length) {
       // `table` key is because it comes back as an openstruct
       const module = course.incomplete_assigned_modules[0].table;
-      const messageKey = moment().isAfter(module.due_date, 'day') ? 'courses.training_overdue' : 'courses.training_due';
+      const messageKey = dayjs().isAfter(module.due_date, 'day') ? 'courses.training_overdue' : 'courses.training_due';
 
       alerts.push(<CourseAlert key="upcoming_module" message={I18n.t(messageKey, { title: module.title, date: module.due_date })} buttonLink={module.link} actionClassName="pull-right" actionMessage={I18n.t('courses.training_nav')} />);
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { forEach, get } from 'lodash-es';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
 import { setUploadViewerMetadata, setUploadPageViews, resetUploadsViews } from '../../actions/uploads_actions.js';
@@ -138,7 +138,7 @@ const UploadViewer = createReactClass({
               <tbody>
                 <tr>
                   <td className="row-details bg-grey">Date:&nbsp;</td>
-                  <td className="row-details">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
+                  <td className="row-details">{dayjs(this.props.upload.uploaded_at).format('YYYY-MM-DD')}</td>
                 </tr>
                 <tr>
                   <td className="row-details bg-grey">Author:&nbsp;</td>

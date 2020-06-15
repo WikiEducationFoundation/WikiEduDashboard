@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import { range, includes } from 'lodash-es';
-import moment from 'moment';
-
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+
+dayjs.extend(utc);
 
 const DatePicker = createReactClass({
   displayName: 'DatePicker',
@@ -45,7 +47,7 @@ const DatePicker = createReactClass({
 
   getInitialState() {
     if (this.props.value) {
-      const dateObj = this.moment(this.props.value);
+      const dateObj = this.dayjs(this.props.value);
       return {
         value: dateObj.format('YYYY-MM-DD'),
         hour: dateObj.hour(),
@@ -73,11 +75,11 @@ const DatePicker = createReactClass({
   },
 
   /**
-   * Get moment object of currently select date, hour and minute
-   * @return {moment}
+   * Get dayjs object of currently select date, hour and minute
+   * @return {dayjs}
    */
   getDate() {
-    let dateObj = this.moment(this.state.value, 'YYYY-MM-DD');
+    let dateObj = this.dayjs(this.state.value, 'YYYY-MM-DD');
     dateObj = dateObj.hour(this.state.hour);
     return dateObj.minute(this.state.minute);
   },
@@ -106,7 +108,7 @@ const DatePicker = createReactClass({
   },
 
   handleDatePickerChange(selectedDate) {
-    const date = this.moment(selectedDate);
+    const date = this.dayjs(selectedDate);
     if (this.isDayDisabled(date)) {
       return;
     }
@@ -183,19 +185,19 @@ const DatePicker = createReactClass({
   },
 
   isDaySelected(date) {
-    const currentDate = this.moment(date).format('YYYY-MM-DD');
+    const currentDate = this.dayjs(date).format('YYYY-MM-DD');
     return currentDate === this.state.value;
   },
 
   isDayDisabled(date) {
-    const currentDate = this.moment(date);
+    const currentDate = this.dayjs(date);
     if (this.props.date_props) {
-      const minDate = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
+      const minDate = this.dayjs(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
       if (minDate.isValid() && currentDate < minDate) {
         return true;
       }
 
-      const maxDate = this.moment(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
+      const maxDate = this.dayjs(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
       if (maxDate.isValid() && currentDate > maxDate) {
         return true;
       }
@@ -210,11 +212,11 @@ const DatePicker = createReactClass({
    */
   isValidDate(value) {
     const validationRegex = /^20\d\d-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/;
-    return validationRegex.test(value) && moment(value, 'YYYY-MM-DD').isValid();
+    return validationRegex.test(value) && dayjs(value, 'YYYY-MM-DD').isValid();
   },
 
-  moment(...args) {
-    return this.props.showTime ? moment(...args) : moment(...args).utc().local();
+  dayjs(...args) {
+    return this.props.showTime ? dayjs(...args) : dayjs(...args).utc().local();
   },
 
   showCurrentDate() {
@@ -254,20 +256,20 @@ const DatePicker = createReactClass({
 
       let minDate;
       if (this.props.date_props && this.props.date_props.minDate) {
-        const minDateValue = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD');
+        const minDateValue = this.dayjs(this.props.date_props.minDate, 'YYYY-MM-DD');
         if (minDateValue.isValid()) {
           minDate = minDateValue;
         }
       }
 
       // don't validate YYYY-MM-DD format so we can update the daypicker as they type
-      const date = moment(this.state.value, 'YYYY-MM-DD');
+      const date = dayjs(this.state.value, 'YYYY-MM-DD');
       if (date.isValid()) {
-        currentMonth = this.moment(date).toDate();
+        currentMonth = this.dayjs(date).toDate();
       } else if (minDate) {
-        currentMonth = this.moment(minDate).toDate();
+        currentMonth = this.dayjs(minDate).toDate();
       } else {
-        currentMonth = this.moment().toDate();
+        currentMonth = this.dayjs().toDate();
       }
 
       const modifiers = {
