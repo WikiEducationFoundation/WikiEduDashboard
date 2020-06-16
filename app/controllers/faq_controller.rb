@@ -9,7 +9,14 @@ class FaqController < ApplicationController
     @faq = Faq.find(params[:id])
   end
 
-  def create; end
+  def new
+    @faq = Faq.new
+  end
+
+  def create
+    @faq = Faq.create!(update_params)
+    redirect_to faq_path(@faq)
+  end
 
   def edit
     @faq = Faq.find(params[:id])
