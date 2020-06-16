@@ -28,7 +28,11 @@ class FaqController < ApplicationController
     redirect_to faq_path(@faq)
   end
 
-  def destroy; end
+  def destroy
+    @faq = Faq.find(params[:id])
+    @faq.destroy!
+    redirect_to '/faq'
+  end
 
   private
 
