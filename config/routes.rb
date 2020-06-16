@@ -299,6 +299,9 @@ Rails.application.routes.draw do
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
 
+  # frequenty asked questions
+  resources :faq
+
   # Authenticated users root to the courses dashboard
   authenticated :user do
     root to: "dashboard#index", as: :courses_dashboard

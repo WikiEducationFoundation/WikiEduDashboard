@@ -1,0 +1,6 @@
+%div.faq.collapsed{id: "faq-#{faq.id}"}
+  %h2.faq-title{onclick: "accordianToggle('faq-#{faq.id}')"}
+    =faq.title
+    .edit-link= link_to 'edit', edit_faq_path(faq)
+
+  .faq-content= raw faq.html_content

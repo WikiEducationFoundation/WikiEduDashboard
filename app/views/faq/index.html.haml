@@ -1,0 +1,7 @@
+%header
+  .container
+    %h1 Frequenty Asked Questions
+.container
+  - @faqs.each do |faq|
+    = render 'faq', faq: faq
+    %hr
