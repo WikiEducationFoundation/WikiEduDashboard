@@ -6,9 +6,10 @@ require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
-  def initialize(wiki = nil)
+  def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
+    @update_service = update_service
   end
 
   ################

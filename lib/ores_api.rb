@@ -20,10 +20,11 @@ class OresApi
     wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
   end
 
-  def initialize(wiki)
+  def initialize(wiki, update_service = nil)
     raise InvalidProjectError unless OresApi.valid_wiki?(wiki)
     @project_code = wiki.project == 'wikidata' ? 'wikidata' + 'wiki' : wiki.language + 'wiki'
     @project_model = wiki.project == 'wikidata' ? 'itemquality' : 'articlequality'
+    @update_service = update_service
   end
 
   def get_revision_data(rev_ids)

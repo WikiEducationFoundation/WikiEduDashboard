@@ -37,7 +37,7 @@ class UpdateCourseStats
     CourseRevisionUpdater.import_revisions(@course, all_time: @full_update, update_service: self)
     log_update_progress :revisions_imported
 
-    RevisionScoreImporter.update_revision_scores_for_course(@course)
+    RevisionScoreImporter.update_revision_scores_for_course(@course, update_service: self)
     log_update_progress :revision_scores_imported
 
     CourseUploadImporter.new(@course).run

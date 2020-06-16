@@ -20,7 +20,8 @@ class CourseRevisionUpdater
 
   def update_revisions_for_relevant_wikis(all_time)
     @course.wikis.each do |wiki|
-      RevisionImporter.new(wiki, @course, update_service: @update_service).import_revisions_for_course(all_time: all_time)
+      RevisionImporter.new(wiki, @course, update_service: @update_service)
+                      .import_revisions_for_course(all_time: all_time)
     end
   end
 end
