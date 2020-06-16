@@ -7,9 +7,12 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
+require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
+  include UpdateServiceErrorHelper
+
   def initialize(course, full: false)
     @course = course
     # If the upate was explicitly requested by a user,
@@ -27,7 +30,9 @@ class UpdateCourseStats
     @course.update(needs_update: false)
     @end_time = Time.zone.now
     UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
-                                        'end_time' => @end_time.to_datetime)
+                                        'end_time' => @end_time.to_datetime,
+                                        'sentry_tag_uuid' => sentry_tag_uuid,
+                                        'error_count' => error_count)
   end
 
   private
