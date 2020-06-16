@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/revision_data_parser"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
 #=   https://tools.wmflabs.org/wikiedudashboard
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
+  include ApiErrorHandling
+
   def initialize(wiki, update_service = nil)
     @wiki = wiki
     @update_service = update_service
@@ -126,8 +130,9 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-
-    report_exception e, endpoint, query
+    log_error(e, update_service: @update_service,
+              sentry_extra: { endpoint: endpoint, response_body: response_body,
+                              language: @wiki.language, project: @wiki.project })
   end
 
   def api_post(endpoint, key, data)
@@ -140,8 +145,9 @@ class Replica
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-
-    report_exception e, endpoint, data
+    log_error(e, sentry_extra: { query: data,
+                                 language: @wiki.language,
+                                 project: @wiki.project })
   end
 
   def do_query(endpoint, query)
@@ -209,11 +215,4 @@ class Replica
   # These are typical network errors that we expect to encounter.
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     Oj::ParseError].freeze
-  def report_exception(error, endpoint, query, level='error')
-    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
-    Raven.capture_exception error, level: level, extra: {
-      query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
-    }
-    return nil
-  end
 end

@@ -3,9 +3,12 @@
 require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
+  include ApiErrorHandling
+
   def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
@@ -104,21 +107,13 @@ class WikiApi
     # a short bit in the case of 429 — too many request — errors.
     sleep 1 if too_many_requests?(e)
     retry unless tries.zero?
-    log_error e, action, query
+    log_error(e, update_service: @update_service,
+              sentry_extra: { action: action, query: query, api_url: @api_url })
     return nil
   end
 
   def api_client
     MediawikiApi::Client.new @api_url
-  end
-
-  def log_error(e, action, query)
-    Rails.logger.info "Caught #{e}"
-    Raven.capture_exception e, level: 'warning',
-                               extra: { action: action,
-                                        query: query,
-                                        api_url: @api_url }
-    return nil # Do not return a Raven object
   end
 
   def too_many_requests?(e)

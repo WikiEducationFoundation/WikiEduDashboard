@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
+  include ApiErrorHandling
+
   # This is the maximum number of concurrent requests the app should make.
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
   # https://lists.wikimedia.org/pipermail/wikitech-l/2018-September/090835.html
@@ -36,6 +40,9 @@ class OresApi
     ores_data
   rescue StandardError => e
     url = ORES_SERVER_URL + url_query
+    log_error(e, update_service: @update_service,
+              sentry_extra: { url: url, response_body: response_body,
+                              project_code: @project_code, project_model: @project_model })
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
