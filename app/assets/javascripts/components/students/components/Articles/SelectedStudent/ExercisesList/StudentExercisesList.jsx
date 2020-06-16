@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
-dayjs.extend(utc);
-
 // Components
 import List from '@components/common/list.jsx';
 import StudentExerciseRow from './StudentExerciseRow.jsx';
@@ -12,6 +10,8 @@ import StudentDrawer from '@components/students/shared/StudentList/StudentDrawer
 
 // Libraries
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
+
+dayjs.extend(utc);
 
 // Helper Functions
 const showRecent = (course) => {

@@ -7,6 +7,7 @@ import TicketStatusHandler from './ticket_status_handler';
 import TicketOwnerHandler from './ticket_owner_handler';
 import { STATUSES } from './util';
 import relativeTime from 'dayjs/plugin/relativeTime';
+
 dayjs.extend(relativeTime);
 
 export class Sidebar extends React.Component {
@@ -40,9 +41,7 @@ export class Sidebar extends React.Component {
         </section>
         <section className="owner">
           Assigned to <span className="bold">{assignedTo}</span>
-          import relativeTime from <TicketOwnerHandler ticket={ticket} />'dayjs/plugin/relativeTime';
-          dayjs.extend(relativeTime);
-          
+          <TicketOwnerHandler ticket={ticket} />
         </section>
         <section className="course-name">
           {

@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-dayjs.extend(utc);
 
 import {
   TRAINING_MODULE_KIND
 } from '~/app/assets/javascripts/constants';
+
+dayjs.extend(utc);
 
 export const TrainingModuleRows = ({ trainingModules }) => {
   const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
