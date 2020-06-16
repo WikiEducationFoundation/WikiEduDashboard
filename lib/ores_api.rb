@@ -9,6 +9,7 @@ class OresApi
   # Use this if we need to make parallel threaded requests.
   # CONCURRENCY = 4
 
+  ORES_SERVER_URL = 'https://ores.wikimedia.org'
   REVS_PER_REQUEST = 50
 
   # All the wikis with an articlequality model as of 2018-09-18
@@ -28,10 +29,13 @@ class OresApi
   end
 
   def get_revision_data(rev_ids)
-    response = ores_server.get query_url(rev_ids)
-    ores_data = Oj.load(response.body)
+    url_query = query_url(rev_ids)
+    response = ores_server.get(url_query)
+    response_body = response.body
+    ores_data = Oj.load(response_body)
     ores_data
   rescue StandardError => e
+    url = ORES_SERVER_URL + url_query
     raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
@@ -58,7 +62,7 @@ class OresApi
   end
 
   def ores_server
-    conn = Faraday.new(url: 'https://ores.wikimedia.org')
+    conn = Faraday.new(url: ORES_SERVER_URL)
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end

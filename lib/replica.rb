@@ -119,7 +119,8 @@ class Replica
     tries ||= 3
     response = do_query(endpoint, query)
     return if response.empty?
-    parsed = Oj.load(response.to_s)
+    response_body = response.to_s
+    parsed = Oj.load(response_body)
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
