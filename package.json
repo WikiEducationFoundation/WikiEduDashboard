@@ -24,7 +24,7 @@
     "chosen-js": "^1.8.5",
     "core-js": "^3.6.5",
     "create-react-class": "^15.6.3",
-    "cross-fetch": "^3.0.4",
+    "cross-fetch": "^3.0.5",
     "css-loader": "^3.5.3",
     "deep-freeze": "^0.0.1",
     "del": "^5.1.0",
