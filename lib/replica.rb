@@ -7,8 +7,9 @@ require_dependency "#{Rails.root}/lib/revision_data_parser"
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
-  def initialize(wiki)
+  def initialize(wiki, update_service = nil)
     @wiki = wiki
+    @update_service = update_service
   end
 
   # This is the maximum number of concurrent queries the system should run

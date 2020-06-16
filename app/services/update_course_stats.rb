@@ -34,7 +34,7 @@ class UpdateCourseStats
 
   def fetch_data
     log_update_progress :start
-    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update)
+    CourseRevisionUpdater.import_revisions(@course, all_time: @full_update, update_service: self)
     log_update_progress :revisions_imported
 
     RevisionScoreImporter.update_revision_scores_for_course(@course)
