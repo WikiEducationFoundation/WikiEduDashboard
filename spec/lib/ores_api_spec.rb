@@ -57,4 +57,26 @@ describe OresApi do
       end
     end
   end
+
+  describe 'error handling and calls ApiErrorHandling method' do
+    let(:course) { create(:course, start: '2013-12-31', end: '2015-01-01') }
+    let(:rev_ids) { [641962088, 12345] }
+    let(:subject) do
+      described_class.new(Wiki.find(1), course).get_revision_data(rev_ids)
+    end
+
+    it 'handles timeout errors' do
+      stub_request(:any, %r{https://ores.wikimedia.org/.*})
+        .to_raise(Errno::ETIMEDOUT)
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(subject).to be_empty
+    end
+
+    it 'handles connection refused errors' do
+      stub_request(:any, %r{https://ores.wikimedia.org/.*})
+        .to_raise(Faraday::ConnectionFailed)
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(subject).to be_empty
+    end
+  end
 end
