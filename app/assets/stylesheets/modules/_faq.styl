@@ -1,15 +1,42 @@
 .faq
+  border-bottom 1px solid #ccc
+
   h2
+    margin 0
+
+  .icon
     font-size 30px
+    float right
+    transform-origin 50% 45%
 
   .edit-link
     font-size 15px
-    float right
+    float left
+
+  .faq-header
+    padding 12px
+    overflow auto
+    cursor pointer
+
+    .faq-title
+      font-size 30px
+      float left
+
+  .faq-content
+    padding 0 12px
+    overflow hidden
 
   &.collapsed
+    .icon
+      transition transform 0.2s
     .faq-content
-      visibility hidden
+      max-height 0
+      transition max-height 0.1s
 
   &.expanded
+    transition all 0.2s
+    .icon
+      transform rotate(180deg)
     .faq-content
-      visibility visible
+      padding-bottom 20px
+      max-height 1000px
