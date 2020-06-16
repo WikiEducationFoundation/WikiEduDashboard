@@ -43,7 +43,6 @@ class OresApi
     log_error(e, update_service: @update_service,
               sentry_extra: { url: url, response_body: response_body,
                               project_code: @project_code, project_model: @project_model })
-    raise e unless TYPICAL_ERRORS.include?(e.class)
     return {}
   end
 

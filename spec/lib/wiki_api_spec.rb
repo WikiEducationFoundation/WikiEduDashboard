@@ -31,12 +31,6 @@ describe WikiApi do
         .and_raise(MediawikiApi::HttpError, '')
       expect(subject).to eq(nil)
     end
-
-    it 're-raises unexpected errors' do
-      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
-        .and_raise(UnexpectedError)
-      expect { subject }.to raise_error(UnexpectedError)
-    end
   end
 
   describe '#get_page_content' do
