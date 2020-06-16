@@ -98,15 +98,14 @@ class WikiApi
     tries ||= 3
     @mediawiki = api_client
     @mediawiki.send(action, query)
-  rescue MediawikiApi::ApiError => e
-    log_error e, action, query
   rescue StandardError => e
     tries -= 1
+    # Continue for typical errors so that the request can be retried, but wait
+    # a short bit in the case of 429 — too many request — errors.
+    sleep 1 if too_many_requests?(e)
+    retry unless tries.zero?
     log_error e, action, query
-    handle_non_api_error(e)
-    retry if tries >= 0
-    Raven.capture_exception e, level: 'warning'
-    return nil # Do not return a Raven object
+    return nil
   end
 
   def api_client
@@ -122,22 +121,13 @@ class WikiApi
     return nil # Do not return a Raven object
   end
 
-  # Raise unknown errors.
-  # Continue for typical errors so that the request can be retried, but wait
-  # a short bit in the case of 429 — too many request — errors.
-  def handle_non_api_error(e)
-    raise e unless typical_errors.include?(e.class)
-    sleep 1 if too_many_requests?(e)
-  end
-
   def too_many_requests?(e)
     return false unless e.class == MediawikiApi::HttpError
     e.status == 429
   end
 
-  def typical_errors
-    [Faraday::TimeoutError,
-     Faraday::ConnectionFailed,
-     MediawikiApi::HttpError]
-  end
+  TYPICAL_ERRORS = [Faraday::TimeoutError,
+                    Faraday::ConnectionFailed,
+                    MediawikiApi::HttpError,
+                    MediawikiApi::ApiError].freeze
 end
