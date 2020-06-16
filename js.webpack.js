@@ -17,6 +17,7 @@ const entry = {
   charts: [`${jsSource}/charts.js`],
   tinymce: [`${jsSource}/tinymce.js`],
   embed_course_stats: [`${jsSource}/embed_course_stats.js`],
+  faq: [`${jsSource}/faq.js`]
 };
 
 module.exports = (env) => {
