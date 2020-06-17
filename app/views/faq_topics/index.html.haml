@@ -1,0 +1,6 @@
+.container
+  %h2 FAQ Topics
+  - @faq_topics.each do |topic|
+    = topic.name
+    = topic.slug
+    = topic.faqs.map(&:title)

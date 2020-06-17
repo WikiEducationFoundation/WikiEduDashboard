@@ -301,6 +301,7 @@ Rails.application.routes.draw do
 
   # frequenty asked questions
   resources :faq
+  resources :faq_topics
 
   # Authenticated users root to the courses dashboard
   authenticated :user do
