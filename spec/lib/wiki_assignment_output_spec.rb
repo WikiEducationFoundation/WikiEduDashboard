@@ -11,7 +11,8 @@ describe WikiAssignmentOutput do
            title: 'Language in Hawaiʻi and the Pacific',
            school: 'University of Hawaiʻi at Mānoa',
            term: 'Fall 2016',
-           slug: 'University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)')
+           slug: 'University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)',
+           submitted: true)
     create(:assignment,
            id: 1,
            user_id: 3,
@@ -184,6 +185,15 @@ describe WikiAssignmentOutput do
           page_content = wiki_assignment_output.build_talk_page_update
           expect(page_content).to include('{{dashboard.wikiedu.org assignment | course = ')
         end
+      end
+    end
+
+    context 'when the course is not submitted' do
+      let(:course) { create(:course, submitted: false) }
+
+      it 'returns nil' do
+        page_content = wiki_assignment_output.build_talk_page_update
+        expect(page_content).to be_nil
       end
     end
 
