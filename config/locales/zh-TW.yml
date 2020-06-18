@@ -282,23 +282,27 @@ zh-TW:
   categories:
     add_category: 新增分類
     add_psid: 添加 PetScan PSID
+    add_pileid: 添加頁面檔案 ID
     add_template: 新增模板
     add_this_category: 新增此分類
     add_this_psid: 添加此 PSID
+    add_this_pileid: 添加此頁面檔案 ID
     add_this_template: 新增此模板
     import_articles_description: 在分類裡的條目清單會定期更新，並且在清單填充之前添加可能會花費一段時間。
     confirm_category_addition: 您確定您要追蹤分類「%{name}」的貢獻內容嗎？
     confirm_psid_addition: 您確定您要追蹤對於 PetScan PSID「%{name}」的貢獻內容嗎？
+    confirm_pileid_addition: 您確定您要追蹤對於頁面檔案 ID「%{name}」的貢獻內容嗎？
     confirm_template_addition: 您確定您要追蹤對於模板「%{name}」的貢獻內容嗎？
     depth: 子分類層度
     articles_count: 條目數
     name: 名稱
     category_name: 分類名稱
     psid_name: PSID
+    pileid_name: 頁面檔案 ID
     template_name: 模板名稱
     none: 沒有被追蹤的分類。
     remove: 移除
-    tracked_categories: 已追蹤分類、PSID 與模板
+    tracked_categories: 已追蹤分類、PSID、頁面檔案 ID 與模板
     timestamp: 最後更新於
   chat:
     label: 聊天
@@ -584,9 +588,7 @@ zh-TW:
     volunteer:
       other: 志工
     weeks_none: 此課程尚未建立時間軸。
-    warn_mirrored: |-
-      在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發布之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
-      您確定想要執行嗎？
+    warn_mirrored: 在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發布之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。您確定想要執行嗎？
     wiki_course_page_enabled: Wiki 課程頁面已啟用
     wiki_course_page_enabled_tooltip: 若有啟用，無論方案或使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
     wiki_edits_enabled: 已啟用 wiki 編輯

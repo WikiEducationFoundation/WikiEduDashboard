@@ -293,8 +293,10 @@ it:
     use_start_end_dates: Usa date di inizio e fine
   categories:
     add_category: Aggiungi categoria
+    add_pileid: Aggiungi ID PagePile
     add_template: Aggiungi template
     add_this_category: Aggiungi questa categoria
+    add_this_pileid: Aggiungi questo ID PagePile
     add_this_template: Aggiungi questo template
     confirm_category_addition: Confermi che vuoi monitorare i contributi relativi
       alla categoria "%{name}"?
@@ -303,10 +305,11 @@ it:
     depth: Profondità delle sottocategorie
     name: Nome
     category_name: Nome della categoria
+    pileid_name: ID PagePile
     template_name: Nome template
     none: Non c'è alcuna categoria monitorata.
     remove: Rimuovi
-    tracked_categories: Categorie, PSID e template monitorati
+    tracked_categories: Categorie, PSID, ID PagePile e template monitorati
   chat:
     label: Chat
   courses:

@@ -347,9 +347,11 @@ fr:
   categories:
     add_category: Ajouter une catégorie
     add_psid: Ajouter le PSID PetScan
+    add_pileid: Ajouter l’id de PagePile
     add_template: Ajouter un modèle
     add_this_category: Ajouter cette catégorie
     add_this_psid: Ajouter ce PSID
+    add_this_pileid: Ajouter cet id de PagePile
     add_this_template: Ajouter ce modèle
     import_articles_description: La liste des articles dans une catégorie est mise
       à jour périodiquement et après un ajout cela peut prendre quelque temps pour
@@ -358,6 +360,8 @@ fr:
       la catégorie « %{name} » ?
     confirm_psid_addition: Êtes-vous sûr de vouloir suivre les contributions au PSID
       PetScan « %{name} » ?
+    confirm_pileid_addition: Êtes-vous sûr de vouloir suivre les contributions pour
+      l’id de PagePile « %{name} » ?
     confirm_template_addition: Êtes-vous sûr de vouloir suivre les contributions pour
       le modèle « %{name} » ?
     depth: Profondeur de sous-catégorie
@@ -365,10 +369,11 @@ fr:
     name: Nom
     category_name: Nom de la catégorie
     psid_name: PSID
+    pileid_name: id de PagePile
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
     remove: Supprimer
-    tracked_categories: Catégories suivies, PSID et modèles
+    tracked_categories: Catégories suivies, PSID, id de PagePile et modèles
     timestamp: Dernière mise à jour du
   chat:
     label: Clavardage
@@ -763,9 +768,10 @@ fr:
       one: Bénévole
       other: Bénévoles
     weeks_none: Ce cours n’a pas encore de planification.
-    warn_mirrored: |-
-      Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
-      Êtes-vous sûr de vouloir faire cela ?
+    warn_mirrored: Lors de la soumission, le cours sera automatiquement publié sur
+      Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications
+      au calendrier seront répercutées sur Wikipédia. Êtes-vous sûr de vouloir faire
+      cela ?
     wiki_course_page_enabled: Page de cours du wiki activée
     wiki_course_page_enabled_tooltip: Si activé, un miroir de la page sur le wiki
       sera mis à jour dès que le programme ou ses utilisateurs ou ses affectations
