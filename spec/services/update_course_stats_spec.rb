@@ -58,4 +58,74 @@ describe UpdateCourseStats do
       end
     end
   end
+
+  context 'sentry course update error tracking' do
+    let(:flags) { { debug_updates: true } }
+    let(:user) { create(:user, username: 'Ragesoss') }
+
+    before do
+      create(:courses_user, course_id: course.id, user_id: user.id)
+    end
+
+    it 'tracks update errors properly in Replica' do
+      allow(Raven).to receive(:capture_exception)
+
+      # Raising errors only in Replica
+      stub_request(:any, %r{https://tools.wmflabs.org/.*}).to_raise(Errno::ECONNREFUSED)
+      VCR.use_cassette 'course_update/replica' do
+        subject
+      end
+      sentry_tag_uuid = subject.sentry_tag_uuid
+      expect(course.flags['update_logs'][1]['error_count']).to eq 1
+      expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
+
+      # Checking whether Raven receives correct error and tags as arguments
+      expect(Raven).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
+      expect(Raven).to have_received(:capture_exception)
+        .once.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
+                                                    course: course.slug })
+    end
+
+    it 'tracks update errors properly in OresApi' do
+      allow(Raven).to receive(:capture_exception)
+
+      # Raising errors only in OresApi
+      stub_request(:any, %r{https://ores.wikimedia.org/.*}).to_raise(Faraday::ConnectionFailed)
+      VCR.use_cassette 'course_update/ores_api' do
+        subject
+      end
+      sentry_tag_uuid = subject.sentry_tag_uuid
+      expect(course.flags['update_logs'][1]['error_count']).to eq 8
+      expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
+
+      # Checking whether Raven receives correct error and tags as arguments
+      expect(Raven).to have_received(:capture_exception)
+        .exactly(8).times.with(Faraday::ConnectionFailed, anything)
+      expect(Raven).to have_received(:capture_exception)
+        .exactly(8).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
+                                                                course: course.slug })
+    end
+
+    it 'tracks update errors properly in WikiApi' do
+      allow(Raven).to receive(:capture_exception)
+      allow_any_instance_of(described_class).to receive(:update_article_status).and_return(nil)
+
+      # Raising errors only in WikiApi
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::ApiError)
+      VCR.use_cassette 'course_update/wiki_api' do
+        subject
+      end
+      sentry_tag_uuid = subject.sentry_tag_uuid
+      expect(course.flags['update_logs'][1]['error_count']).to eq 5
+      expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
+
+      # Checking whether Raven receives correct error and tags as arguments
+      expect(Raven).to have_received(:capture_exception)
+        .exactly(5).times.with(MediawikiApi::ApiError, anything)
+      expect(Raven).to have_received(:capture_exception)
+        .exactly(5).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
+                                                                course: course.slug })
+    end
+  end
 end
