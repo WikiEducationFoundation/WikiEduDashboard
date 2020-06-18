@@ -17,7 +17,7 @@ const StatisticsUpdateInfo = ({ course }) => {
   if (lastUpdate) {
     lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
   }
-  const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'seconds');
+  const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'second');
   let nextUpdateMessage;
   if (nextUpdateExpectedTime.isAfter()) {
     nextUpdateMessage = `. ${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;

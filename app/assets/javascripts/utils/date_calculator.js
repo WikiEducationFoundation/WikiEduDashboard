@@ -1,5 +1,7 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import minMax from 'dayjs/plugin/minMax';
 
+dayjs.extend(minMax);
 class DateCalculator {
   constructor(beginning, ending, loopIndex, opts) {
     this.beginning = beginning;
@@ -10,7 +12,7 @@ class DateCalculator {
 
   startDate() {
     const index = this.opts.zeroIndexed === true ? this.loopIndex : this.loopIndex - 1;
-    return moment(this.beginning).startOf('week').add(7 * index, 'day');
+    return dayjs(this.beginning).startOf('week').add(7 * index, 'day');
   }
 
   start() {
@@ -18,7 +20,7 @@ class DateCalculator {
   }
 
   endDate() {
-    return moment.min(this.startDate().clone().add(6, 'day'), moment(this.ending));
+    return dayjs.min(this.startDate().clone().add(6, 'day'), dayjs(this.ending));
   }
 
   end() {

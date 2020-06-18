@@ -1,7 +1,11 @@
 import { filter } from 'lodash-es';
 import moment from 'moment';
+import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
 
 require('moment-recur');
+
+dayjs.extend(localeData);
 
 const CourseDateUtils = {
   validationRegex() {
@@ -10,7 +14,7 @@ const CourseDateUtils = {
   },
 
   isDateValid(date) {
-    return /^20\d{2}-\d{2}-\d{2}/.test(date) && moment(date).isValid();
+    return /^20\d{2}-\d{2}-\d{2}/.test(date) && dayjs(date).isValid();
   },
 
 
@@ -22,18 +26,18 @@ const CourseDateUtils = {
       timeFormat = ' HH:mm';
       try {
         timeZoneAbbr = ' ';
-        timeZoneAbbr += moment(datetime).toDate().toString().split('(')[1].slice(0, -1);
+        timeZoneAbbr += dayjs(datetime).toDate().toString().split('(')[1].slice(0, -1);
       } catch (err) {
         timeZoneAbbr = '';
       }
     }
     const format = `YYYY-MM-DD${timeFormat}`;
-    return moment(datetime).format(format) + timeZoneAbbr;
+    return dayjs(datetime).format(format) + timeZoneAbbr;
   },
 
   // Returns an object of minDate and maxDate props for each date field of a course
   dateProps(course) {
-    const startDate = moment(course.start, 'YYYY-MM-DD');
+    const startDate = dayjs(course.start, 'YYYY-MM-DD');
 
     const props = {
       end: {
@@ -41,11 +45,11 @@ const CourseDateUtils = {
       },
       timeline_start: {
         minDate: startDate,
-        maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
+        maxDate: dayjs(course.timeline_end, 'YYYY-MM-DD')
       },
       timeline_end: {
-        minDate: moment(course.timeline_start, 'YYYY-MM-DD'),
-        maxDate: moment(course.end, 'YYYY-MM-DD')
+        minDate: dayjs(course.timeline_start, 'YYYY-MM-DD'),
+        maxDate: dayjs(course.end, 'YYYY-MM-DD')
       }
     };
 
@@ -62,19 +66,19 @@ const CourseDateUtils = {
     // or if it it lacks timeline dates
     if (!this.isDateValid(value) || !updatedCourse.timeline_start) { return updatedCourse; }
 
-    if (moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && valueKey !== 'timeline_start') {
+    if (dayjs(updatedCourse.start, 'YYYY-MM-DD').isAfter(dayjs(updatedCourse.timeline_start, 'YYYY-MM-DD')) && valueKey !== 'timeline_start') {
       updatedCourse.timeline_start = updatedCourse.start;
     }
-    if (moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_end, 'YYYY-MM-DD') && valueKey !== 'timeline_end') {
+    if (dayjs(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(dayjs(updatedCourse.timeline_end, 'YYYY-MM-DD')) && valueKey !== 'timeline_end') {
       updatedCourse.timeline_end = updatedCourse.timeline_start;
     }
-    if (moment(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(updatedCourse.end, 'YYYY-MM-DD') && valueKey !== 'end') {
+    if (dayjs(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(dayjs(updatedCourse.end, 'YYYY-MM-DD')) && valueKey !== 'end') {
       updatedCourse.end = updatedCourse.timeline_end;
     }
-    if (moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && valueKey !== 'timeline_start') {
+    if (dayjs(updatedCourse.start, 'YYYY-MM-DD').isAfter(dayjs(updatedCourse.timeline_start, 'YYYY-MM-DD')) && valueKey !== 'timeline_start') {
       updatedCourse.timeline_start = updatedCourse.start;
     }
-    if (moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.end) && valueKey !== 'timeline_start') {
+    if (dayjs(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(dayjs(updatedCourse.end)) && valueKey !== 'timeline_start') {
       updatedCourse.timeline_start = updatedCourse.end;
     }
 
@@ -95,18 +99,18 @@ const CourseDateUtils = {
 
 
   wouldCreateBlackoutWeek(course, day, exceptions) {
-    const selectedDay = moment(day);
+    const selectedDay = dayjs(day);
     let noMeetingsThisWeek = true;
     [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
-      const wkDay = selectedDay.day(0).add(i, 'days').format('YYYYMMDD');
+      const wkDay = selectedDay.day(0).add(i, 'day').format('YYYYMMDD');
       if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) { return noMeetingsThisWeek = false; }
     });
     return noMeetingsThisWeek;
   },
 
   weeksBeforeTimeline(course) {
-    const courseStart = moment(course.start).startOf('week');
-    const timelineStart = moment(course.timeline_start).startOf('week');
+    const courseStart = dayjs(course.start).startOf('week');
+    const timelineStart = dayjs(course.timeline_start).startOf('week');
     return timelineStart.diff(courseStart, 'week');
   },
 
@@ -127,7 +131,7 @@ const CourseDateUtils = {
     const meetings = [];
 
     __range__(0, (courseWeeks - 1), true).forEach((week) => {
-      weekStart = moment(recurrence.startDate()).startOf('week').add(week, 'weeks');
+      weekStart = dayjs(recurrence.startDate()).startOf('week').add(week, 'week');
 
       // Account for the first partial week, which may not have 7 days.
       let firstDayOfWeek;
@@ -139,7 +143,7 @@ const CourseDateUtils = {
 
       const ms = [];
       __range__(firstDayOfWeek, 6, true).forEach((i) => {
-        const day = moment(weekStart).add(i, 'days');
+        const day = dayjs(weekStart).add(i, 'day');
         if (course && this.courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)) {
           return ms.push(day.format('ddd'));
         }
@@ -159,12 +163,12 @@ const CourseDateUtils = {
       const weekdays = [];
       course.weekdays.split('').forEach((wd, i) => {
         if (wd !== '1') { return; }
-        const day = moment().weekday(i);
-        return weekdays.push(moment.localeData().weekdaysShort(day));
+        const day = dayjs().weekday(i);
+        return weekdays.push(dayjs.localeData().weekdaysShort(day));
       });
       meetings.every(weekdays).daysOfWeek();
       course.day_exceptions.split(',').forEach((e) => {
-        if (e.length > 0) { return meetings.except(moment(e, 'YYYYMMDD')); }
+        if (e.length > 0) { return meetings.except(dayjs(e, 'YYYYMMDD')); }
       });
     }
     return meetings;
@@ -188,11 +192,11 @@ const CourseDateUtils = {
   },
 
   isEnded(course) {
-    return moment(course.end, 'YYYY-MM-DD').isBefore();
+    return dayjs(course.end, 'YYYY-MM-DD').isBefore();
   },
 
   currentWeekIndex(timelineStart) {
-    return Math.max(moment().startOf('week').diff(moment(timelineStart).startOf('week'), 'weeks'), 0);
+    return Math.max(dayjs().startOf('week').diff(dayjs(timelineStart).startOf('week'), 'week'), 0);
   },
 
   currentWeekOrder(timelineStart) {

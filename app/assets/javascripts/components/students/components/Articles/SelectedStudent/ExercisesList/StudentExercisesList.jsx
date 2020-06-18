@@ -20,7 +20,7 @@ const showRecent = (course) => {
   // updated.
   const lastUpdate = course.updates.last_update;
   if (!lastUpdate) return false;
-  return dayjs.utc(lastUpdate.end_time).add(7, 'days').isAfter(dayjs());
+  return dayjs.utc(lastUpdate.end_time).add(7, 'day').isAfter(dayjs());
 };
 
 export const StudentExerciseList = (props) => {
