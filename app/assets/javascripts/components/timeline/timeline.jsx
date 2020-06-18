@@ -368,7 +368,7 @@ const Timeline = createReactClass({
 
       const start = dayjs(this.props.course.timeline_start);
       const end = dayjs(this.props.course.timeline_end);
-      const timelineFull = (dayjs(end - start).weeks()) - weekComponents.length <= 0;
+      const timelineFull = (end.diff(start, 'week') + 1) - weekComponents.length <= 0;
       addWeekLink = timelineFull ? (
         <li>
           <label className="week-nav__action week-nav__link disabled tooltip-trigger">
