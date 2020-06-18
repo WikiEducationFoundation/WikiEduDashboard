@@ -28,6 +28,9 @@ class WikiAssignmentOutput
   # Main routine #
   ################
   def build_talk_page_update
+    # If a course changed state so that it has no on-wiki course page, don't post.
+    return nil if @course_page.nil?
+
     initial_page_content = WikiApi.new(@wiki).get_page_content(@talk_title)
     # This indicates an API failure, which may happen because of rate-limiting.
     # A nonexistent page will return empty string instead of nil.
