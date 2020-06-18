@@ -1,8 +1,12 @@
 = hot_javascript_tag 'faq'
 
 %header
-  .container
-    %h1 Frequenty Asked Questions
+  .container.faq-header
+    %h1 Frequently Asked Questions
+    = form_tag '/faq', method: :get do
+      = text_field_tag(:search, @query, placeholder: 'search')
+      %button.search{type: 'submit'}
+        %i.icon.icon-search
 .container
   - @faqs.each do |faq|
     = render 'faq', faq: faq, expanded: false
