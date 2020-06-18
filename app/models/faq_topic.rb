@@ -31,6 +31,6 @@ class FaqTopic
   end
 
   def faqs
-    Faq.where(id: @details[:faqs] ).sort_by{ |faq| @details[:faqs].index faq.id }
+    Faq.where(id: @details[:faqs]).sort_by { |faq| @details[:faqs].index faq.id }
   end
 end

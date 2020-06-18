@@ -4,7 +4,6 @@ class FaqController < ApplicationController
   def index
     @query = params[:search]
     @faqs = if @query
-              pp 'wat'
               Faq.where('lower(title) like ?', "%#{@query}%")
                  .or(Faq.where('lower(content) like ?', "%#{@query}%"))
             else
