@@ -4,6 +4,9 @@ require 'rails_helper'
 
 describe 'FAQs', type: :feature, js: true do
   let!(:faq) { create(:faq, title: 'How does this work?', content: 'It works.') }
+  let(:admin) { create(:admin) }
+
+  before { login_as admin }
 
   describe 'INDEX page' do
     it 'has search working search' do

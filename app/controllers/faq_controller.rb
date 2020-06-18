@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FaqController < ApplicationController
+  before_action :require_admin_permissions, only: [:edit, :update, :destroy, :new, :create]
+
   def index
     @query = params[:search]
     @faqs = if @query
