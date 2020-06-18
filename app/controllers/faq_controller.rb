@@ -3,13 +3,16 @@
 class FaqController < ApplicationController
   before_action :require_admin_permissions, only: [:edit, :update, :destroy, :new, :create]
 
+  DEFAULT_TOPIC = 'top'
+
   def index
     @query = params[:search]
+    @topic = params[:topic] || DEFAULT_TOPIC
     @faqs = if @query
               Faq.where('lower(title) like ?', "%#{@query}%")
                  .or(Faq.where('lower(content) like ?', "%#{@query}%"))
             else
-              Faq.all
+              FaqTopic.new(@topic).faqs
             end
   end
 

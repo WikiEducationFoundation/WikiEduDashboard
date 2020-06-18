@@ -23,7 +23,7 @@ class FaqTopic
 
   def initialize(slug)
     @slug = slug
-    @details = FaqTopic.setting_record.value[@slug]
+    @details = FaqTopic.setting_record.value[@slug] || {}
   end
 
   def name
