@@ -14,7 +14,7 @@ export const TrainingModuleRows = ({ trainingModules }) => {
   return trainings.map((trainingModule) => {
     const dayjsDueDate = dayjs(trainingModule.due_date);
     const dueDate = dayjsDueDate.format('MMM Do, YYYY');
-    const overdue = trainingModule.overdue || dayjsDueDate.isBefore(trainingModule.completion_date);
+    const overdue = trainingModule.overdue || dayjsDueDate.isBefore(dayjs(trainingModule.completion_date));
 
     let moduleStatus;
     if (trainingModule.completion_date) {

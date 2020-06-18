@@ -9,7 +9,7 @@ const ExerciseStatusCell = ({ status }) => {
 };
 
 // Helper Functions
-const orderByDueDate = (a, b) => (dayjs(a.due_date).isBefore(b.due_date) ? -1 : 1);
+const orderByDueDate = (a, b) => (dayjs(a.due_date).isBefore(dayjs(b.due_date)) ? -1 : 1);
 
 const generateRow = status => (exercise) => {
   const dueDate = dayjs(exercise.due_date).format('MMM Do, YYYY');
