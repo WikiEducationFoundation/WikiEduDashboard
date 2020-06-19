@@ -23,6 +23,7 @@ export function CloneCourseButton(props) {
 function onClickConfirmation(props) {
   return () => {
     const confirmMessage = 'Are you sure you want to clone this course?';
+    const warningMessage = Features.courseCreationNotice;
     const onConfirm = () => {
       props.cloneCourse(props.courseId).then(({ data }) => {
         const course = data.course;
@@ -30,7 +31,7 @@ function onClickConfirmation(props) {
         window.location = `/courses/${course.slug}`;
       });
     };
-    props.initiateConfirm({ confirmMessage, onConfirm });
+    props.initiateConfirm({ confirmMessage, warningMessage, onConfirm });
   };
 }
 

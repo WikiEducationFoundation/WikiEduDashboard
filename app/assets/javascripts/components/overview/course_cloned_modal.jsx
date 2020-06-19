@@ -153,6 +153,15 @@ const CourseClonedModal = createReactClass({
       errorMessage = <div className="warning">{CourseUtils.i18n('not_permitted', i18nPrefix)}</div>;
     }
 
+    let specialNotice;
+    if (Features.courseCreationNotice) {
+      specialNotice = (
+        <p className="timeline-warning">
+          {Features.courseCreationNotice}
+        </p>
+      );
+    }
+
     const dateProps = CourseDateUtils.dateProps(this.state.course);
     const saveDisabled = this.saveEnabled() ? '' : 'disabled';
 
@@ -332,6 +341,7 @@ const CourseClonedModal = createReactClass({
       <Modal>
         <div className="container">
           <div className="wizard__panel active cloned-course">
+            {specialNotice}
             <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
             <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
             {errorMessage}
