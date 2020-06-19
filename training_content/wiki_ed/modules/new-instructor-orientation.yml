@@ -12,39 +12,42 @@ estimated_ttc: 30 minutes
 slides:
   - slug: wiki-ed-support-criteria # 301
   - slug: welcome-new-instructors # 302
+  - slug: about-wiki-education # 339 NEW
+  - slug: course-page-approval #336
   - slug: course-dashboards # 303
   - slug: features-of-the-dashboard # 333
   - slug: what-makes-wikipedia-work # 304
   - slug: concerning-original-research # 305
-  - slug: writing-and-communication # 306
   - slug: neutrality # 307
-  - slug: npov-and-critical-thinking # 308
-  - slug: concerning-conflicts-of-interest # 309
-  - slug: avoiding-plagiarism # 310
   - slug: concerning-notability # 311
-  - slug: when-student-work-gets-removed # 312
+  - slug: concerning-conflicts-of-interest # 309
+  - slug: student-learning-outcomes # 340 NEW
+  - slug: digital-literacy # 341 NEW
+  - slug: writing-and-communication # 306
+  - slug: npov-and-critical-thinking # 308
   - slug: designing-a-wikipedia-assignment # 313
   - slug: create-or-expand-an-article # 314
   - slug: translate-an-article # 315
   - slug: create-images-and-multimedia # 316
-  - slug: never-grade-on-what-sticks # 317
-  - slug: avoid-minimum-requirements # 318
-  - slug: setting-expectations # 319
+  - slug: setting-expectations # 319\
+  - slug: avoiding-plagiarism # 310
   - slug: grading-your-assignment # 335
+  - slug: avoid-minimum-requirements # 318
+  - slug: never-grade-on-what-sticks # 317
+  - slug: when-student-work-gets-removed # 312
   - slug: help-and-support # 320
   - slug: training-for-students # 321
   - slug: guidebooks-and-handouts # 322
   - slug: ask-dot-wikiedu-dot-org # 323
   - slug: wiki-ed-staff # 324
+  - slug: finding-articles-to-work-on # 330
+  - slug: orientation-for-health-related-content # 331
   - slug: dashboard-home-tab # 325
   - slug: dashboard-timeline-tab # 326
   - slug: dashboard-students-tab # 327
   - slug: dashboard-student-assignments-and-exercises # 338
   - slug: dashboard-articles-tab # 328
-  - slug: dashboard-resources-tab #337
   - slug: authorship-highlighting # 334
+  - slug: dashboard-resources-tab #337
   - slug: dashboard-uploads-and-activity-tabs # 329
-  - slug: finding-articles-to-work-on # 330
-  - slug: orientation-for-health-related-content # 331
-  - slug: course-page-approval #336
   - slug: new-instructor-orientation-complete # 332
