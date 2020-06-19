@@ -865,6 +865,9 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
+    update_statistics_button: Update Statistics
+    close_modal: Close
+    error_count_message: We encountered %{error_count} errors while updating your course. We are working on it!
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
