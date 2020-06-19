@@ -82,12 +82,13 @@ module.exports = (env) => {
     ],
     optimization: {
       splitChunks: {
-        chunks: 'all',
+        chunks: chunk => !/tinymce|charts|styleguide/.test(chunk.name),
         name: 'vendors'
       },
     },
     watch: env.watch_js,
     devtool: env.development ? 'eval' : 'source-map',
-    stats: 'minimal',
+    stats: env.stats ? 'normal' : 'minimal',
   };
 };
+
