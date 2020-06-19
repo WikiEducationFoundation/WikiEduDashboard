@@ -281,6 +281,15 @@ const CourseCreator = createReactClass({
       instructions = CourseUtils.i18n('creator.intro', this.state.course_string_prefix);
     }
 
+    let specialNotice;
+    if (Features.courseCreationNotice) {
+      specialNotice = (
+        <p className="timeline-warning">
+          {Features.courseCreationNotice}
+        </p>
+      );
+    }
+
     let formStyle;
     if (this.state.isSubmitting === true) {
       formStyle = { pointerEvents: 'none', opacity: 0.5 };
@@ -309,6 +318,7 @@ const CourseCreator = createReactClass({
         <div className="container">
           <div className="wizard__panel active" style={formStyle}>
             <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
+            {specialNotice}
             <p>{instructions}</p>
             <NewOrClone
               cloneClasss={cloneOptions}
