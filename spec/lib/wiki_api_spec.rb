@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/wiki_api"
 class UnexpectedError < StandardError; end
 
 describe WikiApi do
-  describe 'error handling' do
+  describe 'error handling and calls ApiErrorHandling method' do
     let(:subject) { described_class.new.get_page_content('Ragesoss') }
 
     it 'handles mediawiki 503 errors gracefully' do
@@ -17,25 +17,22 @@ describe WikiApi do
     it 'handles timeout errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(Faraday::TimeoutError)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
     end
 
     it 'handles API errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::ApiError)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
     end
 
     it 'handles HTTP errors gracefully' do
       allow_any_instance_of(MediawikiApi::Client).to receive(:send)
         .and_raise(MediawikiApi::HttpError, '')
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to eq(nil)
-    end
-
-    it 're-raises unexpected errors' do
-      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
-        .and_raise(UnexpectedError)
-      expect { subject }.to raise_error(UnexpectedError)
     end
   end
 

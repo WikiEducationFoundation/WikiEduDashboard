@@ -181,7 +181,7 @@ describe Replica do
     end
   end
 
-  describe 'error handling' do
+  describe 'error handling and calls ApiErrorHandling method' do
     let(:all_users) do
       [build(:user, username: 'ELE427'),
        build(:user, username: 'Ragesoss'),
@@ -194,25 +194,28 @@ describe Replica do
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
-
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
+      expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
     end
   end

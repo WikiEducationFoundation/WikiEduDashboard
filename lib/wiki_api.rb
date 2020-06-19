@@ -3,12 +3,16 @@
 require 'mediawiki_api'
 require 'json'
 require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
-  def initialize(wiki = nil)
+  include ApiErrorHandling
+
+  def initialize(wiki = nil, update_service = nil)
     wiki ||= Wiki.default_wiki
     @api_url = wiki.api_url
+    @update_service = update_service
   end
 
   ################
@@ -97,36 +101,19 @@ class WikiApi
     tries ||= 3
     @mediawiki = api_client
     @mediawiki.send(action, query)
-  rescue MediawikiApi::ApiError => e
-    log_error e, action, query
   rescue StandardError => e
     tries -= 1
-    log_error e, action, query
-    handle_non_api_error(e)
-    retry if tries >= 0
-    Raven.capture_exception e, level: 'warning'
-    return nil # Do not return a Raven object
+    # Continue for typical errors so that the request can be retried, but wait
+    # a short bit in the case of 429 — too many request — errors.
+    sleep 1 if too_many_requests?(e)
+    retry unless tries.zero?
+    log_error(e, update_service: @update_service,
+              sentry_extra: { action: action, query: query, api_url: @api_url })
+    return nil
   end
 
   def api_client
     MediawikiApi::Client.new @api_url
-  end
-
-  def log_error(e, action, query)
-    Rails.logger.info "Caught #{e}"
-    Raven.capture_exception e, level: 'warning',
-                               extra: { action: action,
-                                        query: query,
-                                        api_url: @api_url }
-    return nil # Do not return a Raven object
-  end
-
-  # Raise unknown errors.
-  # Continue for typical errors so that the request can be retried, but wait
-  # a short bit in the case of 429 — too many request — errors.
-  def handle_non_api_error(e)
-    raise e unless typical_errors.include?(e.class)
-    sleep 1 if too_many_requests?(e)
   end
 
   def too_many_requests?(e)
@@ -134,9 +121,8 @@ class WikiApi
     e.status == 429
   end
 
-  def typical_errors
-    [Faraday::TimeoutError,
-     Faraday::ConnectionFailed,
-     MediawikiApi::HttpError]
-  end
+  TYPICAL_ERRORS = [Faraday::TimeoutError,
+                    Faraday::ConnectionFailed,
+                    MediawikiApi::HttpError,
+                    MediawikiApi::ApiError].freeze
 end
