@@ -16,7 +16,7 @@ const CourseDateUtils = {
   },
 
   isDateValid(date) {
-    return /^20\d{2}-\d{2}-\d{2}/.test(date) && dayjs(date, 'YYYY-MM-DD').format('YYYY-MM-DD') === date;
+    return /^20\d{2}-\d{2}-\d{2}/.test(date) && dayjs(date, 'YYYY-MM-DD').format('YYYY-MM-DD') === date.slice(0, 10);
   },
 
 
