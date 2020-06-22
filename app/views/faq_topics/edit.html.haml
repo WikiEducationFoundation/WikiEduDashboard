@@ -1,0 +1,11 @@
+.container
+  %h2= "Editing topic: #{@topic.slug}" 
+  = form_with url: "/faq_topics/#{@topic.slug}", method: :update do
+    = label_tag :name, 'Name'
+    = text_field_tag :name, @topic.name
+    = label_tag :faqs, 'IDs of FAQs included'
+    = text_field_tag :faqs, @topic.faq_ids.join(',')
+    = submit_tag 'Update FAQ Topic'
+
+  %hr
+  = button_to 'delete', "/faq_topics/#{@topic.slug}", method: :delete

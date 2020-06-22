@@ -11,10 +11,9 @@ describe 'FAQs', type: :feature, js: true do
   describe 'INDEX page' do
     it 'has search working search' do
       visit '/faq'
-      expect(page).to have_content 'It works'
-      fill_in 'search', with: 'how do i begin?'
+      fill_in 'search', with: 'how does'
       click_button 'submit_search'
-      expect(page).not_to have_content 'It works'
+      expect(page).to have_content 'How does this work?'
     end
   end
 

@@ -30,7 +30,11 @@ class FaqTopic
     @details[:name]
   end
 
+  def faq_ids
+    @details[:faqs]
+  end
+
   def faqs
-    Faq.where(id: @details[:faqs]).sort_by { |faq| @details[:faqs].index faq.id }
+    Faq.where(id: faq_ids).sort_by { |faq| faq_ids.index faq.id }
   end
 end

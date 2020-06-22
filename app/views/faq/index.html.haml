@@ -9,4 +9,4 @@
         %i.icon.icon-search
 .container
   - @faqs.each do |faq|
-    = render 'faq', faq: faq, expanded: false
+    = render 'faq', faq: faq, expanded: @query.present?
