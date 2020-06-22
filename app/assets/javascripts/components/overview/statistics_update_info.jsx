@@ -17,7 +17,7 @@ const StatisticsUpdateInfo = createReactClass({
     };
   },
 
-  getUpdateMessage() {
+  getUpdateTimesMessage() {
     const course = this.props.course;
 
     const lastUpdate = course.updates.last_update.end_time;
@@ -34,15 +34,16 @@ const StatisticsUpdateInfo = createReactClass({
       nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
     }
 
+    return [lastUpdateMessage, nextUpdateMessage];
+  },
+
+  getCourseUpdateErrorMessage() {
     let courseUpdateErrorMessage = '';
-    const errorCount = course.updates.last_update.error_count;
+    const errorCount = this.props.course.updates.last_update.error_count;
     if (errorCount > 0) {
       courseUpdateErrorMessage = `${I18n.t('metrics.error_count_message', { error_count: errorCount })} `;
     }
-
-    return (
-      <p>{lastUpdateMessage}<br/>{nextUpdateMessage}<br/>{courseUpdateErrorMessage}</p>
-    );
+    return courseUpdateErrorMessage;
   },
 
   toggleModal() {
@@ -58,18 +59,51 @@ const StatisticsUpdateInfo = createReactClass({
       return <div />;
     }
 
-    if (this.state.renderModal) {
+    const [lastUpdateMessage, nextUpdateMessage] = this.getUpdateTimesMessage();
+
+    // If no errors, display only update time information
+    if (course.updates.last_update.error_count === 0) {
       return (
-        <Modal className="course-update-stats">
-          <div>{ this.getUpdateMessage() }</div>
-          <br/>
-          <button className="button dark" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
+        <div className="pull-right">
+          <small className="mb2">{lastUpdateMessage}<br/>{nextUpdateMessage}</small>
+        </div>
+      );
+    }
+
+    // If there are errors
+
+    // Render Modal
+    if (this.state.renderModal) {
+      const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
+
+      return (
+        <Modal>
+          <div className="course-update-stats" style={{ paddingLeft: '10%', paddingRight: '10%' }}>
+            { this.getCourseUpdateErrorMessage() }
+            <br/>
+            {I18n.t('metrics.replag_info')}
+            <br/>
+            <a href="https://replag.toolforge.org/">{I18n.t('metrics.replag_link')}</a>
+            <br/>
+            <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
+            <br/>
+            <small className="mb2">{helpMessage}</small>
+          </div>
         </Modal>
       );
     }
 
+    // Render update time information along with 'See More' button to open modal
     return (
-      <button className="button small dark" onClick={this.toggleModal}>{I18n.t('metrics.update_statistics_button')}</button>
+      <div className="pull-right">
+        <small className="mb2">
+          {lastUpdateMessage}
+          <br/>
+          {nextUpdateMessage}
+          <br/>
+          <a onClick={this.toggleModal} className="button pull-right small">{I18n.t('metrics.update_statistics_button')}</a>
+        </small>
+      </div>
     );
   }
 });
