@@ -25,3 +25,9 @@
         = course_i18n('students_count', course)
       .course-details_value
         = course.students.length
+    - if assignment_start
+      .col
+        .course-details_title
+          = course_i18n('creator.assignment_start', course)
+        .course-details_value
+          = course.timeline_start
