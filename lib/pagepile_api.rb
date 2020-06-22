@@ -44,7 +44,7 @@ class PagePileApi
   end
 
   def query_url
-    return "https://tools.wmflabs.org/pagepile/api.php?id=#{pileid}&action=get_data&format=json"
+    return "https://pagepile.toolforge.org/api.php?id=#{pileid}&action=get_data&format=json"
   end
 
   def pagepile
