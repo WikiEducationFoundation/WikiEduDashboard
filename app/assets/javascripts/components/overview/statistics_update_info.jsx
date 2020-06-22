@@ -64,8 +64,8 @@ const StatisticsUpdateInfo = createReactClass({
     // If no errors, display only update time information
     if (course.updates.last_update.error_count === 0) {
       return (
-        <div className="pull-right">
-          <small className="mb2">{lastUpdateMessage}<br/>{nextUpdateMessage}</small>
+        <div className="pull-right mb2">
+          <small>{lastUpdateMessage}<br/>{nextUpdateMessage}</small>
         </div>
       );
     }
@@ -78,16 +78,17 @@ const StatisticsUpdateInfo = createReactClass({
 
       return (
         <Modal>
-          <div className="course-update-stats" style={{ paddingLeft: '10%', paddingRight: '10%' }}>
+          <div className="course-error-stats">
+            <h3>{I18n.t('metrics.course_update_error_heading')}</h3>
             { this.getCourseUpdateErrorMessage() }
             <br/>
             {I18n.t('metrics.replag_info')}
             <br/>
-            <a href="https://replag.toolforge.org/">{I18n.t('metrics.replag_link')}</a>
+            <a href="https://replag.toolforge.org/" className="button small mt2" target="_blank">{I18n.t('metrics.replag_link')}</a>
             <br/>
             <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
             <br/>
-            <small className="mb2">{helpMessage}</small>
+            <small className="mt1">{helpMessage}</small>
           </div>
         </Modal>
       );
@@ -95,13 +96,13 @@ const StatisticsUpdateInfo = createReactClass({
 
     // Render update time information along with 'See More' button to open modal
     return (
-      <div className="pull-right">
-        <small className="mb2">
+      <div className="pull-right mb2">
+        <small>
           {lastUpdateMessage}
           <br/>
           {nextUpdateMessage}
           <br/>
-          <a onClick={this.toggleModal} className="button pull-right small">{I18n.t('metrics.update_statistics_button')}</a>
+          <button onClick={this.toggleModal} className="button pull-right small">{I18n.t('metrics.update_statistics_button')}</button>
         </small>
       </div>
     );
