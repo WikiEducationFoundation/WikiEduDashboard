@@ -865,7 +865,7 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
-    update_statistics_button: Update Statistics
+    update_statistics_button: See More
     close_modal: Close
     error_count_message: We encountered %{error_count} errors while updating your course. We are working on it!
     activity: Recent Activity
@@ -888,6 +888,15 @@ en:
     revisions: Recent Edits
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+    replag_info: >
+        Sometimes our replica databases lag a bit behind the production databases.
+        It might be possible that your course has not updated properly due to the lag.
+        You can click on the below link to check the status of our replica databases.
+        Slice s1-s8 refers to the production masters and the lag time is shown in both,
+        seconds and time.
+    replag_link: Database Status
+    outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar
+    wiki_ed_help: Need Help? Refer to 'Get Help' in the course page
     tags: Tags
     upload_count: Commons Uploads
     uploads_in_use_count:
