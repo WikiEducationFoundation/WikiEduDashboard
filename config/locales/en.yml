@@ -883,6 +883,7 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
+    course_update_error_heading: Course Update Error Information
     last_reviewed: Last Reviewed
     per_user: '%{number}/user'
     revisions: Recent Edits
