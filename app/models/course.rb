@@ -147,6 +147,7 @@ class Course < ApplicationRecord
   def self.submitted_but_unapproved
     Course.includes(:campaigns).where('campaigns.id IS NULL')
           .where(submitted: true).references(:campaigns)
+          .order('timeline_start')
   end
 
   def self.unsubmitted
