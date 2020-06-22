@@ -335,9 +335,11 @@ pt-br:
   categories:
     add_category: Adicionar categoria
     add_psid: Adicionar PetScan PSID
+    add_pileid: Adicionar ID da pilha de páginas
     add_template: Adicionar predefinição
     add_this_category: Adicionar esta categoria
     add_this_psid: Adicionar esse PSID
+    add_this_pileid: Adicionar esta página ID da pilha
     add_this_template: Adicionar esta predefinição
     import_articles_description: A lista de artigos em uma categoria é atualizada
       periodicamente e pode levar algum tempo depois de ser adicionada antes que a
@@ -346,6 +348,8 @@ pt-br:
       da categoria "%{name}"?
     confirm_psid_addition: Você tem certeza que quer acompanhar as contribuições para
       o PetScan PSID? "%{name}"?
+    confirm_pileid_addition: Tem certeza de que deseja acompanhar as contribuições
+      para o ID da pilha de páginas "%{name}"?
     confirm_template_addition: Você tem certeza de que deseja monitorar as contribuições
       da predefinição "%{name}"?
     depth: Profundidade de subcategorias
@@ -353,10 +357,11 @@ pt-br:
     name: Nome
     category_name: Nome da categoria
     psid_name: PSID
+    pileid_name: ID da pilha de páginas
     template_name: Nome da predefinição
     none: Não há nenhuma categoria sendo acompanhada.
     remove: Remover
-    tracked_categories: Categorias rastreadas, PSID e Predefinições
+    tracked_categories: Categorias rastreadas, PSID, pilha de páginas e predefinições
     timestamp: Última atualização
   chat:
     label: Bate-papo
@@ -738,9 +743,9 @@ pt-br:
       one: Volunteer
       other: Voluntários
     weeks_none: Este curso não tem um cronograma ainda.
-    warn_mirrored: A partir da submissão, este curso será enviado automaticamente
-      à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
-      serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    warn_mirrored: Após o envio, este curso será postado automaticamente na Wikipédia
+      com sua conta de usuário. Depois disso, novas edições na linha do tempo serão
+      espelhadas na Wikipédia. Você tem certeza de que quer fazer isso?
     wiki_course_page_enabled: Página do curso do Wiki ativada
     wiki_course_page_enabled_tooltip: Se ativado, um espelho wiki da página será atualizado
       sempre que o programa ou seus usuários e atribuições forem alterados.

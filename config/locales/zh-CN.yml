@@ -23,6 +23,7 @@
 # Author: Yanjiazhang
 # Author: Yfdyh000
 # Author: 予弦
+# Author: 列维劳德
 # Author: 沈澄心
 # Author: 神樂坂秀吉
 ---
@@ -262,6 +263,7 @@ zh-CN:
     add_this_template: 添加此模板
     confirm_category_addition: 您确定要追踪对分类“%{name}”的贡献么？
     confirm_psid_addition: 你确定你要跟踪对PetScan PSID%{name}的贡献吗？
+    confirm_pileid_addition: 你确定你要跟踪对PagePile ID%{name}的贡献吗？
     confirm_template_addition: 您确定要追踪给模板“%{name}”的贡献么？
     depth: 子分类深度
     name: 名称
@@ -270,7 +272,7 @@ zh-CN:
     template_name: 模板名称
     none: 没有追踪的分类。
     remove: 移除
-    tracked_categories: 追踪分类与模板
+    tracked_categories: 追踪分类、PSID、PagePile id与模板
   chat:
     label: 聊天
   courses:

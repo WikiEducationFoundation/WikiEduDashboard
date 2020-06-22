@@ -58,6 +58,9 @@ da:
     opt_out: Nej
     opt_yes: ja
     opt_no: nej
+  article_statuses:
+    not_yet_started: Kom i gang
+    ready_for_review: Udvider kladde
   dashboard:
     create_note: Klik på Opret kursus for at oprette dit første kursus.
     create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig
@@ -194,6 +197,7 @@ da:
     add_category: Tilføj kategori
     add_template: Tilføj skabelon
     add_this_category: Tilføj denne kategori
+    add_this_psid: Tilføj dette PSID
     add_this_template: Tilføj denne skabelon
     name: Navn
     category_name: Kategorinavn
@@ -392,6 +396,8 @@ da:
     edit_details: Redigér detaljer
     edit_template: Rediger skabelon
   instructor_view:
+    assignments_table:
+      article_name: Artikelnavn
     bad_work:
       learn_more_button: Lær mere
   metrics:
@@ -583,6 +589,7 @@ da:
     submit: Indsend
   training_status:
     completed: Fuldført
+    continue: Fortsæt
     started: Startet
     not_started: Ikke startet
 ...

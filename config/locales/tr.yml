@@ -152,7 +152,7 @@ tr:
     deleted: (silindi)
     edited: Düzenlenen Makaleler
     edited_by: 'Düzenleyen:'
-    edited_mobile: Makaleler
+    edited_mobile: Maddeler
     filter:
       wiki_all: Hepsi
       new: Yeni
@@ -163,7 +163,7 @@ tr:
       tracked_and_untracked: İzlenen ve İzlenmeyen
     hide: Gizle
     history: (geçmiş)
-    label: Makaleler
+    label: Maddeler
     loading: Makaleler yükleniyor...
     new: (yeni)
     none: Bu kursta herhangi bir madde düzenlenmedi.
@@ -341,9 +341,11 @@ tr:
   categories:
     add_category: Kategori ekle
     add_psid: PetScan PSID Ekle
+    add_pileid: PagePile kimliği ekle
     add_template: Şablon ekle
     add_this_category: Bu kategoriyi ekle
     add_this_psid: Bu PSID'yi ekle
+    add_this_pileid: Bunu PagePile kimliğini ekle
     add_this_template: Bu şablonu ekle
     import_articles_description: Bir kategorideki makalelerin listesi düzenli aralıklarla
       güncellenir ve listenin eklenmesinden önce eklenmesinden sonra biraz zaman alabilir.
@@ -351,6 +353,8 @@ tr:
       emin misiniz?'
     confirm_psid_addition: PetScan PSID "%{name}" için katkıları izlemek istediğinizden
       emin misiniz?
+    confirm_pileid_addition: '"%{name}" PagePile kimliği için katkıları izlemek istediğinizden
+      emin misiniz?'
     confirm_template_addition: '"%{name}" şablonunun katkılarını izlemek istediğinizden
       emin misiniz?'
     depth: Alt kategori derinliği
@@ -358,10 +362,11 @@ tr:
     name: Ad
     category_name: Kategori adı
     psid_name: PSID
+    pileid_name: PagePile kimliği
     template_name: Şablon adı
     none: İzlenen kategori yok.
     remove: Kaldır
-    tracked_categories: İzlenen Kategoriler, PSID ve Şablonlar
+    tracked_categories: İzlenen Kategoriler, PSID, PagePile kimliği ve Şablonlar
     timestamp: Son Güncelleme Tarihi
   chat:
     label: Sohbet
@@ -387,7 +392,7 @@ tr:
     already_exists: Bu, bu kurs için zaten mevcut!
     archived: Arşivlenmiş Kurslar
     actions: Eylemler
-    articles: Makaleler
+    articles: Maddeler
     articles_none: Bu kursta herhangi bir madde düzenlenmedi.
     article_viewer: Madde Görüntüleyici
     articles_i_am_reviewing: Akran incelemesinden aldığım maddeler
@@ -732,9 +737,9 @@ tr:
       one: Gönüllü
       other: Gönüllü
     weeks_none: Bu kursun henüz bir zaman çizelgesi yok.
-    warn_mirrored: |-
-      Gönderildikten sonra, bu kurs kullanıcı hesabınızla otomatik olarak Vikipedi'ye gönderilecektir. Bundan sonra, zaman çizelgesindeki yeni düzenlemeler Vikipedi'ye yansıtılır.
-      Bunu yapmak istediğinden emin misin?
+    warn_mirrored: Gönderildikten sonra, bu kurs kullanıcı hesabınızla otomatik olarak
+      Vikipedi'ye gönderilecektir. Bundan sonra, zaman çizelgesindeki yeni düzenlemeler
+      Vikipedi'ye yansıtılır. Bunu yapmak istediğinden emin misin?
     wiki_course_page_enabled: Viki ders sayfası etkin
     wiki_course_page_enabled_tooltip: Etkinleştirildiğinde, program veya kullanıcıları
       ve atamaları her değiştirildiğinde, sayfanın bir wiki yansıması güncellenir.
@@ -956,7 +961,7 @@ tr:
     chars_added: Ekl. Krkter
     references: Referanslar Eklendi
     class: Sınıf
-    date_time: Tariq/Saat
+    date_time: Tarih/Saat
     diff: fark
     diff_show: Göster
     diff_hide: Gizle
