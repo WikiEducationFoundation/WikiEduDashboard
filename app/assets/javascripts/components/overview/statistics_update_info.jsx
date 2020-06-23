@@ -75,26 +75,26 @@ const StatisticsUpdateInfo = createReactClass({
       const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
       return (
-        <Modal modalClass="course-error-stats">
-            <h3>{I18n.t('metrics.course_update_error_heading')}</h3>
-            { this.getCourseUpdateErrorMessage() }
-            <br/>
-            {I18n.t('metrics.replag_info')}
-            <br/>
-            <a href="https://replag.toolforge.org/" className="button small mt2" target="_blank">{I18n.t('metrics.replag_link')}</a>
-            <br/>
-            <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
-            <br/>
-            <small className="mt1">{helpMessage}</small>
+        <Modal modalClass="course-data-update-modal">
+          <h3>{I18n.t('metrics.course_update_error_heading')}</h3>
+          { this.getCourseUpdateErrorMessage() }
+          <br/>
+          {I18n.t('metrics.replag_info')}
+          <br/>
+          <a href="https://replag.toolforge.org/" className="button small mt2" target="_blank">{I18n.t('metrics.replag_link')}</a>
+          <br/>
+          <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
+          <br/>
+          <small className="mt1">{helpMessage}</small>
         </Modal>
       );
     }
 
     // Render update time information along with 'See More' button to open modal
     return (
-      <div className="pull-right mb2">
+      <div className="course-data-update pull-right mb2">
         <small>
-          {this.getUpdateTimesMessage()}<a onClick={this.toggleModal} href='#'>{I18n.t('metrics.update_statistics_button')}</a>
+          {this.getUpdateTimesMessage()}<a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>
         </small>
       </div>
     );
