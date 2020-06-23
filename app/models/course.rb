@@ -409,6 +409,10 @@ class Course < ApplicationRecord
     @training_progress_manager ||= CourseTrainingProgressManager.new(self)
   end
 
+  def submitted_at
+    tags.find_by(tag: 'submitted')&.created_at
+  end
+
   #################
   # Cache methods #
   #################

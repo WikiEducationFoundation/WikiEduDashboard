@@ -206,6 +206,7 @@ class CoursesController < ApplicationController
     return unless newly_submitted
     # Needs to be switched to submitted before the announcement edits are made
     @course.update(submitted: true)
+    AddSubmittedTag.new(@course)
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,

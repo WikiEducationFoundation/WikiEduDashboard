@@ -675,6 +675,7 @@ en:
     course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
     subject: Subject
     submitted: Submitted
+    submitted_at: Submitted at
     tag_select: 'Select or create a tag'
     tags: 'Tags: '
     term: Term
