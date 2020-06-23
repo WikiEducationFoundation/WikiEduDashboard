@@ -52,7 +52,12 @@ const Wizard = createReactClass({
 
   componentDidUpdate(prevProps) {
     if (prevProps.activePanelIndex === this.props.activePanelIndex) { return; }
-    document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+    try {
+      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (_err) {
+      // eslint-disable-next-line no-console
+      console.log('scrollTo not supported');
+    }
   },
 
   componentWillUnmount() {
