@@ -6,7 +6,7 @@ class FaqTopic
   end
 
   def self.all
-    setting_record.value.keys.map { |slug| FaqTopic.new(slug) }
+    setting_record.value.keys.sort.map { |slug| FaqTopic.new(slug) }
   end
 
   def self.update(slug:, name:, faqs:)

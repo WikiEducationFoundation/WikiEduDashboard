@@ -7,12 +7,12 @@ class FaqController < ApplicationController
 
   def index
     @query = params[:search]
-    @topic = params[:topic] || DEFAULT_TOPIC
+    @topic_slug = params[:topic] || DEFAULT_TOPIC
     @faqs = if @query
               Faq.where('lower(title) like ?', "%#{@query}%")
                  .or(Faq.where('lower(content) like ?', "%#{@query}%"))
             else
-              FaqTopic.new(@topic).faqs
+              FaqTopic.new(@topic_slug).faqs
             end
   end
 

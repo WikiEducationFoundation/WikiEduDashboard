@@ -8,5 +8,14 @@
       %button.search#submit_search{type: 'submit'}
         %i.icon.icon-search
 .container
-  - @faqs.each do |faq|
-    = render 'faq', faq: faq, expanded: @query.present?
+  .faq-list
+    - @faqs.each do |faq|
+      = render 'faq', faq: faq, expanded: @query.present?
+  .faq-topic-list
+    %h3 Topics
+    - FaqTopic.all.each do |topic|
+      %hr
+      - if topic.slug == @topic_slug
+        = topic.name
+      - else
+        %a.topic-link{href: "/faq?topic=#{topic.slug}"}= topic.name
