@@ -2,6 +2,7 @@ const path = require('path');
 const config = require('./config');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const webpack = require('webpack');
 
 const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
@@ -79,10 +80,11 @@ module.exports = (env) => {
       // Creates smaller Lodash builds by replacing feature sets of modules with noop,
       // identity, or simpler alternatives.
       new LodashModuleReplacementPlugin(config.requiredLodashFeatures),
+      new MomentLocalesPlugin()
     ],
     optimization: {
       splitChunks: {
-        chunks: chunk => !/tinymce|charts|styleguide/.test(chunk.name),
+        chunks: chunk => !/tinymce|charts/.test(chunk.name),
         name: 'vendors'
       },
     },
