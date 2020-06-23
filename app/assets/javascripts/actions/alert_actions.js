@@ -19,7 +19,10 @@ export function submitBadWorkAlert(data) {
 }
 
 export function submitNeedHelpAlert(data) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    // Don't double-submit.
+    if (getState().needHelpAlert.submitting) { return; }
+
     dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
     return API.createNeedHelpAlert(data)
       .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
