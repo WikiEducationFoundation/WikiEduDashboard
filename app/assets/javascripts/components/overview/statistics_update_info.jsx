@@ -13,7 +13,7 @@ const StatisticsUpdateInfo = createReactClass({
 
   getInitialState() {
     return {
-      renderModal: false
+      showModal: false
     };
   },
 
@@ -34,7 +34,7 @@ const StatisticsUpdateInfo = createReactClass({
       nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
     }
 
-    return [lastUpdateMessage, nextUpdateMessage];
+    return `${lastUpdateMessage}. ${nextUpdateMessage} `;
   },
 
   getCourseUpdateErrorMessage() {
@@ -48,7 +48,7 @@ const StatisticsUpdateInfo = createReactClass({
 
   toggleModal() {
     this.setState({
-      renderModal: !this.state.renderModal
+      showModal: !this.state.showModal
     });
   },
 
@@ -59,13 +59,11 @@ const StatisticsUpdateInfo = createReactClass({
       return <div />;
     }
 
-    const [lastUpdateMessage, nextUpdateMessage] = this.getUpdateTimesMessage();
-
     // If no errors, display only update time information
     if (course.updates.last_update.error_count === 0) {
       return (
         <div className="pull-right mb2">
-          <small>{lastUpdateMessage}<br/>{nextUpdateMessage}</small>
+          <small>{this.getUpdateTimesMessage()}</small>
         </div>
       );
     }
@@ -73,12 +71,11 @@ const StatisticsUpdateInfo = createReactClass({
     // If there are errors
 
     // Render Modal
-    if (this.state.renderModal) {
+    if (this.state.showModal) {
       const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
       return (
-        <Modal>
-          <div className="course-error-stats">
+        <Modal modalClass="course-error-stats">
             <h3>{I18n.t('metrics.course_update_error_heading')}</h3>
             { this.getCourseUpdateErrorMessage() }
             <br/>
@@ -89,7 +86,6 @@ const StatisticsUpdateInfo = createReactClass({
             <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
             <br/>
             <small className="mt1">{helpMessage}</small>
-          </div>
         </Modal>
       );
     }
@@ -98,11 +94,7 @@ const StatisticsUpdateInfo = createReactClass({
     return (
       <div className="pull-right mb2">
         <small>
-          {lastUpdateMessage}
-          <br/>
-          {nextUpdateMessage}
-          <br/>
-          <button onClick={this.toggleModal} className="button pull-right small">{I18n.t('metrics.update_statistics_button')}</button>
+          {this.getUpdateTimesMessage()}<a onClick={this.toggleModal} href='#'>{I18n.t('metrics.update_statistics_button')}</a>
         </small>
       </div>
     );
