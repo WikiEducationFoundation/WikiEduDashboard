@@ -36,6 +36,8 @@ const StatisticsUpdateInfo = createReactClass({
     return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
   },
 
+  // Update numbers (ids) are stored incrementally as counts in update_logs, so the
+  // last update number is the total number of updates till now
   getTotalNumberOfUpdates() {
     const updateNumbers = Object.keys(this.props.course.flags.update_logs);
 
@@ -79,7 +81,7 @@ const StatisticsUpdateInfo = createReactClass({
     if (this.state.showModal) {
       const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
       let missingDataMessage;
-      
+
       if (course.type === 'ArticleScopedProgram') {
           missingDataMessage = `${I18n.t('metrics.article_scoped_program_info')} ${I18n.t('metrics.replag_info')}`;
       } else {
