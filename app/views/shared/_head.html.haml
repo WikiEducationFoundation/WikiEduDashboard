@@ -30,7 +30,7 @@
     enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
     celebrate: #{Features.celebrate?(current_user)},
     consentBanner: #{user_signed_in? && !Rails.env.test?},
-    courseCreationNotice: "#{ENV['course_creation_notice']}"
+    courseCreationNotice: '#{raw ENV['course_creation_notice']}'
   }
 
   WikiProjects = document.getElementById("wikis").dataset.projects

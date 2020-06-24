@@ -82,9 +82,10 @@ const Confirm = createReactClass({
     }
 
     if (this.props.warningMessage) {
+      console.log(this.props.warningMessage);
       warningMessage = (
         <div className="warning slim">
-          <p>{ this.props.warningMessage }</p>
+          <p dangerouslySetInnerHTML={{ __html: this.props.warningMessage }} />
         </div>
       );
     }

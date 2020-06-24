@@ -284,9 +284,7 @@ const CourseCreator = createReactClass({
     let specialNotice;
     if (Features.courseCreationNotice) {
       specialNotice = (
-        <p className="timeline-warning">
-          {Features.courseCreationNotice}
-        </p>
+        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: Features.courseCreationNotice }} />
       );
     }
 
