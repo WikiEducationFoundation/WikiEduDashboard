@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import moment from 'moment';
-import Modal from '../common/modal';
 import PropTypes from 'prop-types';
+import StatisticsUpdateModal from './statistics_update_modal';
 
 const StatisticsUpdateInfo = createReactClass({
   displayName: 'StatisticsUpdateInfo',
@@ -79,9 +79,9 @@ const StatisticsUpdateInfo = createReactClass({
 
     // Render Modal
     if (this.state.showModal) {
-      const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
-      let missingDataMessage;
+      const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${this.getTotalNumberOfUpdates()}`;
 
+      let missingDataMessage;
       if (course.type === 'ArticleScopedProgram') {
           missingDataMessage = `${I18n.t('metrics.article_scoped_program_info')} ${I18n.t('metrics.replag_info')}`;
       } else {
@@ -89,24 +89,13 @@ const StatisticsUpdateInfo = createReactClass({
       }
 
       return (
-        <Modal modalClass="course-data-update-modal">
-          <b>{I18n.t('metrics.update_status_heading')}</b>
-          <br/>
-          { this.getCourseUpdateErrorMessage() }
-          <ul>
-            <li>{I18n.t('metrics.total_updates')}: { this.getTotalNumberOfUpdates() }</li>
-            <li>{ nextUpdateMessage }</li>
-          </ul>
-          <b>{I18n.t('metrics.missing_data_heading')}</b>
-          <br/>
-          { missingDataMessage }
-          <br/>
-          <a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a>
-          <br/>
-          <small className="mt1">{ helpMessage }</small>
-          <br/>
-          <button className="button dark" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
-        </Modal>
+        <StatisticsUpdateModal
+          errorMessage={this.getCourseUpdateErrorMessage()}
+          totalUpdatesMessage={totalUpdatesMessage}
+          nextUpdateMessage={nextUpdateMessage}
+          missingDataMessage={missingDataMessage}
+          toggleModal={this.toggleModal}
+        />
       );
     }
 
