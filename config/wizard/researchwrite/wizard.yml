@@ -448,3 +448,67 @@
       blurb: The Wiki Ed team can provide advice and support to high-achieving students who are interested in the Good Article process.
       tag: dyk_and_ga
       logic: good_article_nominations
+
+-
+  key: assignment_expectations
+  title: Assignment expectations
+  description: |
+    What types of contributions do you expect your students to make to Wikipedia?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: I would like my students to substantially contribute to Wikipedia either by considerably expanding existing articles or creating new articles.
+      tag: expected_contributions_large
+    -
+      title: I expect that my students will make small edits to Wikipedia, such as adding a few sentences to an article.
+      tag: expected_contributions_small
+    -
+      title: I don't know how much content my students will contribute to Wikipedia.
+      tag: expected_contributions_unknown
+
+-
+  key: other_assignments
+  title: Other assignments
+  description: |
+    What portion of your course will the Wikipedia assignment comprise?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: The Wikipedia assignment will be the only assignment.
+      tag: assignment_portion_only
+    -
+      title: The Wikipedia assignment is a major assignment.
+      tag: assignment_portion_major
+    -
+      title: The Wikipedia assignment is a minor assignment.
+      tag: assignment_portion_minor
+    -
+      title: I don't know.
+      tag: assignment_portion_unknown
+
+-
+  key: staying_in_sandboxes
+  title: Staying in sandboxes
+  description: |
+    In Fall 2020, we will be asking many classes to leave student work in draft spaces ("sandboxes") on Wikipedia,
+    rather than making edits to live articles. Wiki Education staff would then evaluate and move good student work
+    live in the weeks following the conclusion of the term. This measure will greatly help us support more courses
+    as we deal with a high demand for support in Fall 2020. How do you feel about this for your class?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: I would only be comfortable doing this assignment if my students worked on live articles.
+      tag: sandboxes_unacceptable
+    -
+      title: I would prefer they worked on live articles, but it would be acceptable to leave work in sandboxes if that's what it takes to participate in the program this term.
+      tag: sandboxes_not_preferred
+    -
+      title: I would prefer my students' work stays in sandboxes until it can be evaluated by a Wiki Education staff person.
+      tag: sandboxes_preferred
+    -
+      title: I don't know.
+      tag: sandboxes_unknown
+      
