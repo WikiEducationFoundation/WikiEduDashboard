@@ -5,7 +5,7 @@ const StatisticsUpdateModal = (props) => {
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
     return (
-      <Modal modalClass="course-data-update-modal">
+      <Modal modalClass="statistics-update-modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
         <br/>
         { props.errorMessage }

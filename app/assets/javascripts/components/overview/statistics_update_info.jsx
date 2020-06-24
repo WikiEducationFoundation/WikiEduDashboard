@@ -101,7 +101,7 @@ const StatisticsUpdateInfo = createReactClass({
 
     // Render update time information along with 'See More' link to open modal
     return (
-      <div className="course-data-update pull-right mb2">
+      <div className="statistics-update-info pull-right mb2">
         <small>
           { updateTimesMessage }<a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>
         </small>
