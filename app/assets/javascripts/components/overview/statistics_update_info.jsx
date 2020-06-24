@@ -17,33 +17,35 @@ const StatisticsUpdateInfo = createReactClass({
     };
   },
 
-  getUpdateTimesMessage() {
+  getUpdateTimesInformation() {
     const course = this.props.course;
-
     const lastUpdate = course.updates.last_update.end_time;
     const lastUpdateMoment = moment.utc(lastUpdate);
     const averageDelay = course.updates.average_delay;
     let lastUpdateMessage = '';
+    let nextUpdateMessage = '';
+    let isNextUpdateAfter = null;
+
     if (lastUpdate) {
       lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
-    }
-
-    const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'seconds');
-    let nextUpdateMessage = '';
-    if (nextUpdateExpectedTime.isAfter()) {
+      const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'seconds');
+      isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
       nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
     }
 
-    return `${lastUpdateMessage}. ${nextUpdateMessage} `;
+    return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
+  },
+
+  getTotalNumberOfUpdates() {
+    const updateNumbers = Object.keys(this.props.course.flags.update_logs);
+
+    return updateNumbers[updateNumbers.length - 1];
   },
 
   getCourseUpdateErrorMessage() {
-    let courseUpdateErrorMessage = '';
     const errorCount = this.props.course.updates.last_update.error_count;
-    if (errorCount > 0) {
-      courseUpdateErrorMessage = `${I18n.t('metrics.error_count_message', { error_count: errorCount })} `;
-    }
-    return courseUpdateErrorMessage;
+
+    return `${I18n.t('metrics.error_count_message', { error_count: errorCount })} `;
   },
 
   toggleModal() {
@@ -59,11 +61,14 @@ const StatisticsUpdateInfo = createReactClass({
       return <div />;
     }
 
+    const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = this.getUpdateTimesInformation();
+    const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage}. ${nextUpdateMessage}. ` : `${lastUpdateMessage}. `;
+
     // If no errors, display only update time information
     if (course.updates.last_update.error_count === 0) {
       return (
         <div className="pull-right mb2">
-          <small>{this.getUpdateTimesMessage()}</small>
+          <small>{ updateTimesMessage }</small>
         </div>
       );
     }
@@ -73,19 +78,32 @@ const StatisticsUpdateInfo = createReactClass({
     // Render Modal
     if (this.state.showModal) {
       const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
+      let missingDataMessage;
+      
+      if (course.type === 'ArticleScopedProgram') {
+          missingDataMessage = `${I18n.t('metrics.article_scoped_program_info')} ${I18n.t('metrics.replag_info')}`;
+      } else {
+        missingDataMessage = `${I18n.t('metrics.replag_info')}`;
+      }
 
       return (
         <Modal modalClass="course-data-update-modal">
-          <h3>{I18n.t('metrics.course_update_error_heading')}</h3>
+          <b>{I18n.t('metrics.update_status_heading')}</b>
+          <br/>
           { this.getCourseUpdateErrorMessage() }
+          <ul>
+            <li>{I18n.t('metrics.total_updates')}: { this.getTotalNumberOfUpdates() }</li>
+            <li>{ nextUpdateMessage }</li>
+          </ul>
+          <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>
-          {I18n.t('metrics.replag_info')}
+          { missingDataMessage }
           <br/>
-          <a href="https://replag.toolforge.org/" className="button small mt2" target="_blank">{I18n.t('metrics.replag_link')}</a>
+          <a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a>
           <br/>
-          <button className="button dark mt2" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
+          <small className="mt1">{ helpMessage }</small>
           <br/>
-          <small className="mt1">{helpMessage}</small>
+          <button className="button dark" onClick={this.toggleModal}>{I18n.t('metrics.close_modal')}</button>
         </Modal>
       );
     }
@@ -94,7 +112,7 @@ const StatisticsUpdateInfo = createReactClass({
     return (
       <div className="course-data-update pull-right mb2">
         <small>
-          {this.getUpdateTimesMessage()}<a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>
+          { updateTimesMessage }<a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>
         </small>
       </div>
     );
