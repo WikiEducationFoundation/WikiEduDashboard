@@ -458,7 +458,7 @@
   minimum: 1
   options:
     -
-      title: I would like my students to substantially contribute to Wikipedia either by considerably expanding existing articles or creating new articles.
+      title: I would like my students to contribute substantially to Wikipedia either by considerably expanding existing articles or creating new articles.
       tag: expected_contributions_large
     -
       title: I expect that my students will make small edits to Wikipedia, such as adding a few sentences to an article.
