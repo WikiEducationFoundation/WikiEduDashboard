@@ -84,8 +84,13 @@ module.exports = (env) => {
     ],
     optimization: {
       splitChunks: {
-        chunks: chunk => !/tinymce|charts/.test(chunk.name),
-        name: 'vendors'
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]((?!(chart)).*)[\\/]/,
+            chunks: chunk => !/tinymce/.test(chunk.name),
+            name: 'vendors'
+          }
+        }
       },
     },
     watch: env.watch_js,
