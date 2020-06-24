@@ -299,6 +299,15 @@ Rails.application.routes.draw do
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
 
+  # frequenty asked questions
+  resources :faq
+  get '/faq_topics' => 'faq_topics#index'
+  get '/faq_topics/new' => 'faq_topics#new'
+  post '/faq_topics' => 'faq_topics#create'
+  get '/faq_topics/:slug/edit' => 'faq_topics#edit'
+  post '/faq_topics/:slug' => 'faq_topics#update'
+  delete '/faq_topics/:slug' => 'faq_topics#delete'
+
   # Authenticated users root to the courses dashboard
   authenticated :user do
     root to: "dashboard#index", as: :courses_dashboard
