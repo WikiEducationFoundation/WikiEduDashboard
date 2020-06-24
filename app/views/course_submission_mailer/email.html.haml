@@ -7,17 +7,17 @@
           %tr
             %td.main-content
               %h1.headline
-                = "#{@course.title}: submitted!"
+                = "#{@course.title}: application submitted."
               %p.paragraph
-                = "Hi #{@instructor.real_name || @instructor.username}! Thank you for joining Wiki Education's Student Program. Your course page has been submitted successfully."
+                = "Dear #{@instructor.real_name || @instructor.username},"
               %p.paragraph
-                Helaine Blumenthal, Wikipedia Student Program Manager at Wiki Education, will
-                be in touch with you soon and will work to support your assignment
-                throughout the term. In the meantime, if you have any questions, check out
-                = succeed ',' do
-                  %a.link{href: 'https://ask.wikiedu.org'} ask.wikiedu.org
-                where you can find answers to commonly asked questions about
-                teaching with Wikipedia.
+                Thank you for submitting your Wiki Education course page. Your application is now complete. 
+              %p.paragraph
+                If you are applying for a spot in our Fall 2020 cohort, we will notify you of our decision by August 7.
+              %p.paragraph
+                If you've submitted your course page for Summer 2020 or another academic term, we will follow up accordingly.
+              %p.paragraph
+                If you have any questions, please reach out to Helaine Blumenthal (helaine@wikiedu.org)
               %p.paragraph
                 You can access — and continue to edit — your course page here:
             %td.expander
