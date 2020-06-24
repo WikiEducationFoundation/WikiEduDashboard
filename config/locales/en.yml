@@ -867,7 +867,7 @@ en:
     next_update: Next estimated update
     update_statistics_link: See More
     close_modal: Close
-    error_count_message: We encountered %{error_count} errors while updating your course. We are working on it!
+    error_count_message: We encountered %{error_count} errors while updating your course.
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
@@ -876,6 +876,9 @@ en:
     articles_edited: Articles Edited
     articles_edited_generic: Pages Edited
     articles_edited_wikidata: Items Edited
+    article_scoped_program_info:
+        Your course is an 'Article Scoped Program', in which only assigned articles and categories
+        are counted.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
@@ -883,22 +886,23 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
-    course_update_error_heading: Course Data Update
     last_reviewed: Last Reviewed
+    missing_data_heading: Missing or unexpected results?
+    outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     replag_info: >
-        Sometimes our replica databases lag a bit behind the production databases.
-        It might be possible that your course has not updated properly due to the lag.
-        You can click on the below link to check the status of our replica databases.
-        Slice s1-s8 refers to the production masters and the lag time is shown in both,
-        seconds and time.
+        One possibility of missing data might be replag. Sometimes our replica databases 
+        lag a bit behind the production databases. It might be possible that your course 
+        has not updated properly due to the lag. You can click on the below link to check 
+        the status of our replica databases. Slice s1-s8 refers to the production masters 
+        and the lag time is shown in both, seconds and time.
     replag_link: Database Status
-    outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar
-    wiki_ed_help: Need Help? Refer to 'Get Help' in the course page
     tags: Tags
+    total_updates: Total number of updates till now
+    update_status_heading: Update status
     upload_count: Commons Uploads
     uploads_in_use_count:
       one: file used in an article
@@ -909,6 +913,7 @@ en:
     view_count_description: Article Views
     view_data_unavailable: No view data available
     view: Views
+    wiki_ed_help: Use the 'Get Help' button to report a problem.
     word_count: Words Added
     word_count_average: Average Word Count
 
