@@ -865,9 +865,6 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
-    update_statistics_link: See More
-    close_modal: Close
-    error_count_message: We encountered %{error_count} errors while updating your course.
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
@@ -884,8 +881,10 @@ en:
     char_added: Chars Added
     char_changed: Characters Changed
     char: Chars Added
+    close_modal: Close
     date_time: Date/Time
     edit_count_description: Total Edits
+    error_count_message: We encountered %{error_count} errors while updating your course.
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
     outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
@@ -903,6 +902,7 @@ en:
     tags: Tags
     total_updates: Total number of updates till now
     update_status_heading: Update status
+    update_statistics_link: See More
     upload_count: Commons Uploads
     uploads_in_use_count:
       one: file used in an article

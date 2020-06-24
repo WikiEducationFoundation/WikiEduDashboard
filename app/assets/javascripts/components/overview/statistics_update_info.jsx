@@ -110,7 +110,7 @@ const StatisticsUpdateInfo = createReactClass({
       );
     }
 
-    // Render update time information along with 'See More' button to open modal
+    // Render update time information along with 'See More' link to open modal
     return (
       <div className="course-data-update pull-right mb2">
         <small>
