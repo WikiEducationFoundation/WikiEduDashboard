@@ -10,13 +10,17 @@ class FaqTopic
   end
 
   def self.update(slug:, name:, faqs:)
-    setting_record.value[slug] = { name: name, faqs: faqs }
-    setting_record.save
+    record = Setting.find_or_create_by(key: 'faq_topics')
+    record.value[slug] = { name: name, faqs: faqs }
+    record.save
+    @setting_record = record
   end
 
   def self.delete(slug:)
-    setting_record.value.delete(slug)
-    setting_record.save
+    record = Setting.find_or_create_by(key: 'faq_topics')
+    record.value.delete(slug)
+    record.save
+    @setting_record = record
   end
 
   attr_reader :slug
