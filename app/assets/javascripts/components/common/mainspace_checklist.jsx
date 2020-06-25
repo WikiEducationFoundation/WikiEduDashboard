@@ -28,7 +28,7 @@ const MainspaceChecklist = createReactClass({
     if (this.state.show) {
       button = <button onClick={this.hide} className="button dark small">Okay</button>;
     } else {
-      button = <a onClick={this.show} className="button dark small">Ready for mainspace checklist</a>;
+      button = <a onClick={this.show} className="button dark small">Quality checklist</a>;
     }
 
     let modal;
@@ -37,10 +37,10 @@ const MainspaceChecklist = createReactClass({
     } else {
       modal = (
         <div className="article-viewer my-assignment-checklist">
-          <h2>Mainspace checklist</h2>
+          <h2>Quality checklist</h2>
           <p>
-            Before you move your draft into mainspace and make it a live Wikipedia
-            article, make sure it&apos;s ready.
+            Before your article can become a live Wikipedia
+            article, make sure meets all these criteria.
           </p>
           <dl>
             <dd><input type="checkbox" /> It starts with a clear definition of the topic, with the title in the first sentence in <strong>bold</strong>.</dd>
@@ -48,7 +48,7 @@ const MainspaceChecklist = createReactClass({
             <dd><input type="checkbox" /> If it has additional sections after the lead, they have content, not just a placeholder.</dd>
             <dd><input type="checkbox" /> The content has inline citations, not just a bibliography.</dd>
             <dd><input type="checkbox" /> It has a &quot;References&quot; section after the body of the article.</dd>
-            <dd><input type="checkbox" /> You have removed all comments, notes, and outlines from the draft.</dd>
+            <dd><input type="checkbox" /> All comments, notes, and outlines have been removed from the draft.</dd>
           </dl>
           {button}
         </div>
