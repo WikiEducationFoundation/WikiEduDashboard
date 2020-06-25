@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 # Executes all the steps of 'update_views' data import task
 class TrainingUpdate
   attr_reader :result
+
   include BatchUpdateLogging
 
   def initialize(module_slug:)

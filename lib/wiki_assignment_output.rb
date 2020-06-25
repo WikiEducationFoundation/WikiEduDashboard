@@ -91,7 +91,7 @@ class WikiAssignmentOutput
 
     # Check for existing tags and replace
     existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
-    page_content.gsub!(/#{Regexp.quote(existing_tag)}[^\}]*\}\}/, new_tag)
+    page_content.gsub!(/#{Regexp.quote(existing_tag)}[^}]*\}\}/, new_tag)
 
     # Add new tag at top (if there wasn't an existing tag already)
     unless page_content.include?(new_tag)
@@ -131,7 +131,7 @@ class WikiAssignmentOutput
         \s*      # optional whitespace
         \*?      # an optional bullet (used in some shell templates)
         \s*      # optional whitespace, then
-        [\{\|\}] # any of these characters: {|}
+        [{|}] # any of these characters: {|}
       )
     /x
   end

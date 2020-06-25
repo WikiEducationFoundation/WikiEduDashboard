@@ -21,6 +21,7 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 #= Class representing an individual training module
 class TrainingModule < ApplicationRecord
   attr_accessor :status
+
   serialize :slide_slugs, Array
   serialize :translations, Hash
 

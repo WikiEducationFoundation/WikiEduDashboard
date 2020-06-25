@@ -128,11 +128,15 @@ class RevisionScoreImporter
   end
 
   def get_parent_revisions(rev_batch)
-    revisions = {}
     rev_query = parent_revisions_query rev_batch.map(&:mw_rev_id)
     response = WikiApi.new(@wiki, @update_service).query rev_query
     return unless response.present? && response.data['pages']
-    response.data['pages'].each do |_page_id, page_data|
+    extract_revisions(response.data['pages'])
+  end
+
+  def extract_revisions(pages_data)
+    revisions = {}
+    pages_data.each do |_page_id, page_data|
       rev_data = page_data['revisions']
       next unless rev_data
       rev_data.each do |rev_datum|
