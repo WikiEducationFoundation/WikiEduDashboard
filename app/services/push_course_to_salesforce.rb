@@ -76,7 +76,8 @@ class PushCourseToSalesforce
       Medical_or_Psychology_Articles__c: editing_medicine_or_psychology?,
       Group_work__c: group_work?,
       Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?,
-      Content_Expert__c: content_expert
+      Content_Expert__c: content_expert,
+      Stay_in_sandbox__c: @course.stay_in_sandbox?
     }
   end
   # rubocop:enable Metrics/MethodLength
