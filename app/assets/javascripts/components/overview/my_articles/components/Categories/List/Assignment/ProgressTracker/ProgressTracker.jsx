@@ -27,7 +27,7 @@ export class ProgressTracker extends React.Component {
     } = this.props;
     const { show } = this.state;
 
-    const steps = processes(assignment).map((content, index) => (
+    const steps = processes(assignment, course).map((content, index) => (
       <Step
         {...content}
         assignment={assignment}
@@ -52,7 +52,7 @@ export class ProgressTracker extends React.Component {
           className="toggle-progress-tracker"
           onClick={this.toggle}
         >
-          <NavigationElements assignment={assignment} show={show} />
+          <NavigationElements assignment={assignment} show={show} course={course}/>
         </nav>
         <section className="flow">
           { show ? steps : null }

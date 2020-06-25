@@ -1,5 +1,21 @@
-export default assignment => ([
-  {
+export default (assignment, course) => {
+  if (course.stay_in_sandbox) {
+    return [
+      completeBibliography(assignment),
+      createInSandbox(assignment),
+      expandYourDraft(assignment)
+    ];
+  }
+  return [
+    completeBibliography(assignment),
+    createInSandbox(assignment),
+    expandYourDraft(assignment),
+    moveYourWork(assignment)
+  ];
+};
+
+const completeBibliography = (assignment) => {
+  return {
     title: 'Complete your bibliography',
     content: 'Compile a list of reliable and verifiable secondary sources for the subject you\'ll be contributing to.',
     status: 'not_yet_started',
@@ -14,8 +30,11 @@ export default assignment => ([
         external: true
       }
     ]
-  },
-  {
+  };
+};
+
+const createInSandbox = (assignment) => {
+  return {
     title: 'Create in the sandbox',
     content: 'In your designated sandbox, begin to sketch out your contribution.',
     status: 'in_progress',
@@ -30,8 +49,11 @@ export default assignment => ([
         external: true
       }
     ]
-  },
-  {
+  };
+};
+
+const expandYourDraft = (assignment) => {
+  return {
     title: 'Expand your draft',
     content: 'Continue to build your contribution and prepare to move it into the article main space.',
     status: 'ready_for_review',
@@ -46,8 +68,11 @@ export default assignment => ([
         external: true
       }
     ]
-  },
-  {
+  };
+};
+
+const moveYourWork = (assignment) => {
+  return {
     title: 'Move your work',
     content: 'It\'s time to move your contribution into the article main space and make your work live!',
     status: 'ready_for_mainspace',
@@ -67,5 +92,5 @@ export default assignment => ([
         external: true
       }
     ]
-  }
-]);
+  };
+};
