@@ -2,6 +2,9 @@ import React from 'react';
 import YesNoSelector from './yes_no_selector';
 
 const SubmittedSelector = ({ course, editable, updateCourse }) => {
+  if (!Features.wikiEd) {
+    return null;
+  }
   return (
     <YesNoSelector
       courseProperty="submitted"

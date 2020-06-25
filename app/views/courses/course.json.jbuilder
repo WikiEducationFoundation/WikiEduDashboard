@@ -22,6 +22,7 @@ json.course do
   json.enrollment_edits_enabled @course.enrollment_edits_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
   json.online_volunteers_enabled @course.online_volunteers_enabled?
+  json.stay_in_sandbox @course.stay_in_sandbox?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended @course.end < Time.zone.now

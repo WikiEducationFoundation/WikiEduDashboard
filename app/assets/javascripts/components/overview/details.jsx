@@ -17,6 +17,7 @@ import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
+import StayInSandboxToggle from './stay_in_sandbox_toggle';
 
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
@@ -294,6 +295,7 @@ const Details = createReactClass({
     let wikiEditsToggle;
     let editSettingsToggle;
     let withdrawnSelector;
+    let stayInSandboxToggle;
     let wikiSelector;
     let multiWikiSelector;
 
@@ -323,6 +325,13 @@ const Details = createReactClass({
       );
       withdrawnSelector = (
         <WithdrawnSelector
+          course={this.props.course}
+          editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
+        />
+      );
+      stayInSandboxToggle = (
+        <StayInSandboxToggle
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
@@ -510,6 +519,7 @@ const Details = createReactClass({
               {tags}
               {courseTypeSelector}
               {submittedSelector}
+              {stayInSandboxToggle}
               {privacySelector}
               {timelineToggle}
               {onlineVolunteersToggle}

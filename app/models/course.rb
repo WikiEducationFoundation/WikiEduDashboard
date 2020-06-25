@@ -386,6 +386,10 @@ class Course < ApplicationRecord
     flags[:online_volunteers_enabled].present?
   end
 
+  def stay_in_sandbox?
+    flags[:stay_in_sandbox].present?
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
