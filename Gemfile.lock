@@ -393,7 +393,7 @@ GEM
     rb-readline (0.5.5)
     redcarpet (3.5.0)
     redis (4.2.1)
-    regexp_parser (1.7.0)
+    regexp_parser (1.7.1)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (3.0.0)
@@ -453,7 +453,7 @@ GEM
       activesupport
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.38.1)
+    rubocop-rspec (1.40.0)
       rubocop (>= 0.68.1)
     rubocop-rspec-focused (1.0.0)
       rubocop (>= 0.51)
