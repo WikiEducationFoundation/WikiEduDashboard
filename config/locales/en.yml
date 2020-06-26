@@ -892,10 +892,8 @@ en:
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     replag_info: >
-        One possibility of missing data might be replag. The Dashboard retrieves edit data from WMF Cloud replica databases. 
-        Sometimes these databases are missing the most recent edits because of replication lag (replag). When this is the case, 
-        the missing edits will show up later on. You can click on the below link to check the status of the replica databases. 
-        Slice s1-s8 refers to the production masters and the lag time is shown in both, seconds and time.
+        The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits 
+        because of replication lag (replag). When this is the case, the missing edits will show up later on.
     replag_link: Check replag
     tags: Tags
     total_updates: Total number of updates till now
