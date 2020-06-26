@@ -3,7 +3,8 @@ export default (assignment, course) => {
     return [
       completeBibliography(assignment),
       createInSandbox(assignment),
-      expandYourDraft(assignment)
+      expandYourDraft(assignment),
+      prepareForMainspace(assignment)
     ];
   }
   return [
@@ -55,7 +56,7 @@ const createInSandbox = (assignment) => {
 const expandYourDraft = (assignment) => {
   return {
     title: 'Expand your draft',
-    content: 'Continue to build your contribution and prepare to move it into the article main space.',
+    content: 'Continue to build your contribution and prepare it for the article main space.',
     status: 'ready_for_review',
     trainings: [
       {
@@ -81,6 +82,26 @@ const moveYourWork = (assignment) => {
         title: 'Related Training Modules',
         path: 'resources#move-your-work'
       },
+      {
+        title: 'Sandbox',
+        path: assignment.sandboxUrl,
+        external: true
+      },
+      {
+        title: 'Article',
+        path: assignment.article_url,
+        external: true
+      }
+    ]
+  };
+};
+
+const prepareForMainspace = (assignment) => {
+  return {
+    title: 'Final checks',
+    content: 'Use the quality checklist to make sure your work meets all the requirements to become a live Wikipedia article. If it does, it will be moved live after the end of the course.',
+    status: 'ready_for_mainspace',
+    trainings: [
       {
         title: 'Sandbox',
         path: assignment.sandboxUrl,
