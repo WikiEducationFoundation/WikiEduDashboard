@@ -36,20 +36,6 @@ const StatisticsUpdateInfo = createReactClass({
     return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
   },
 
-  // Update numbers (ids) are stored incrementally as counts in update_logs, so the
-  // last update number is the total number of updates till now
-  getTotalNumberOfUpdates() {
-    const updateNumbers = Object.keys(this.props.course.flags.update_logs);
-
-    return updateNumbers[updateNumbers.length - 1];
-  },
-
-  getCourseUpdateErrorMessage() {
-    const errorCount = this.props.course.updates.last_update.error_count;
-
-    return `${I18n.t('metrics.error_count_message', { error_count: errorCount })} `;
-  },
-
   toggleModal() {
     this.setState({
       showModal: !this.state.showModal
@@ -79,21 +65,10 @@ const StatisticsUpdateInfo = createReactClass({
 
     // Render Modal
     if (this.state.showModal) {
-      const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${this.getTotalNumberOfUpdates()}`;
-
-      let missingDataMessage;
-      if (course.type === 'ArticleScopedProgram') {
-          missingDataMessage = `${I18n.t('metrics.article_scoped_program_info')} ${I18n.t('metrics.replag_info')}`;
-      } else {
-        missingDataMessage = `${I18n.t('metrics.replag_info')}`;
-      }
-
       return (
         <StatisticsUpdateModal
-          errorMessage={this.getCourseUpdateErrorMessage()}
-          totalUpdatesMessage={totalUpdatesMessage}
+          course={course}
           nextUpdateMessage={nextUpdateMessage}
-          missingDataMessage={missingDataMessage}
           toggleModal={this.toggleModal}
         />
       );
