@@ -52,17 +52,6 @@ const StatisticsUpdateInfo = createReactClass({
     const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = this.getUpdateTimesInformation();
     const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage}. ${nextUpdateMessage}. ` : `${lastUpdateMessage}. `;
 
-    // If no errors, display only update time information
-    if (course.updates.last_update.error_count === 0) {
-      return (
-        <div className="pull-right mb2">
-          <small>{ updateTimesMessage }</small>
-        </div>
-      );
-    }
-
-    // If there are errors
-
     // Render Modal
     if (this.state.showModal) {
       return (

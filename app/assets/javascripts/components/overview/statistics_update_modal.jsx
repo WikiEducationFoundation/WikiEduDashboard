@@ -5,7 +5,7 @@ const StatisticsUpdateModal = (props) => {
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
     const errorCount = props.course.updates.last_update.error_count;
-    const errorMessage = `${I18n.t('metrics.error_count_message', { error_count: errorCount })} `;
+    const errorMessage = errorCount > 0 ? `${I18n.t('metrics.error_count_message', { error_count: errorCount })} ` : '';
 
     // Update numbers (ids) are stored incrementally as counts in update_logs, so the
     // last update number is the total number of updates till now
