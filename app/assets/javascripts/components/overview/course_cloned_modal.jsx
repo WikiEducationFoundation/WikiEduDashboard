@@ -43,7 +43,13 @@ const CourseClonedModal = createReactClass({
   componentDidUpdate(prevProps, prevState) {
     let isPersisting = prevState.isPersisting;
     if (this.props.firstErrorMessage && !prevProps.firstErrorMessage) {
-      document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+      try {
+        document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (_err) {
+        // eslint-disable-next-line no-console
+        console.log('scrollTo not supported');
+      }
+
       isPersisting = false;
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
