@@ -59,7 +59,7 @@ module ApplicationHelper
   def fingerprinted(path, filename, file_prefix = nil)
     manifest_path = "#{Rails.root}/public/#{path}/js-manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
-    "#{path}#{file_prefix}#{manifest[filename + '.js']}"
+    "#{file_prefix}#{manifest[filename + '.js']}"
   end
 
   def css_fingerprinted(filename, file_prefix = '')
