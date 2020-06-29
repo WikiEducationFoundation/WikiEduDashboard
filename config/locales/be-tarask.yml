@@ -53,6 +53,7 @@ be-tarask:
       one: '%{count} вынік для: ''%{search_terms}'''
       few: '%{count} вынікі для: ''%{search_terms}'''
       many: '%{count} вынікаў для: «%{search_terms}»'
+      other: '%{count} вынікаў для: «%{search_terms}»'
     no_results: Для «%{query}» вынікаў ня знойдзена
     sign_up_extended: Увайдзіце празь Вікіпэдыю
     sign_up_wikipedia: Альбо увайдзіце на Вікіпэдыю

@@ -679,6 +679,7 @@ pt-br:
     search_courses: Pesquisar cursos
     start: Iniciar
     start_typing: Começar a escrever
+    stay_in_sandbox: Ficar na página de teste
     student: Estudante
     students: Estudantes
     students_taught: Alunos ensinados
@@ -705,6 +706,7 @@ pt-br:
       relevante para o tipo de curso ClassroomProgram.
     subject: Assunto
     submitted: Enviado
+    submitted_at: Enviado em
     tag_select: Selecione ou crie uma etiqueta
     tags: 'Etiquetas:'
     term: Prazo

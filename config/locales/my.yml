@@ -4,6 +4,7 @@
 # Author: Dr Lotus Black
 # Author: Khinelay
 # Author: Ninjastrikers
+# Author: Teitei Para
 ---
 my:
   application:
@@ -135,6 +136,7 @@ my:
     requested_accounts_alert_view: ကြည့်ရန်
     school: ကျောင်း
     students_short: ကျောင်းသားများ
+    submitted_at: တင်သွင်းသည့်ရက်
     view_wiki: ဝီကီပီးဒီးယားတွင်ကြည့်ရန်
   courses_generic:
     cancel: မလုပ်တော့ပါ

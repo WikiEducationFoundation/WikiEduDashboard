@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adamw
+# Author: BaRaN6161 TURK
 # Author: Base
 # Author: Beta16
 # Author: Hamilton Abreu
@@ -519,9 +520,7 @@ qqq:
     all_courses: |-
       Button to view the list of all courses. Uses alternative word for generic courses.
       {{Identical|Programs}}
-    archived: |-
-      The alternative wording for generic courses.
-      {{Identical|Archived Programs}}
+    archived: The alternative wording for generic courses.
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
     cancel: '{{Identical|Cancel}}'
@@ -875,7 +874,7 @@ qqq:
     fetching_pageviews: Loading spinner label indicating fetching of Pageviews for
       found articles
     subheading_message: Subheading message for the article finder tool
-    article_finder: Title heading for article finder {{Identical|Article Finder}}
+    article_finder: Title heading for article finder
     submit: Submit button label {{Identical|Submit}}
     relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
     assign_article_self: Button label to assign an article to self

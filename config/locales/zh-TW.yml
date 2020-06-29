@@ -60,6 +60,7 @@ zh-TW:
     search: 提出問題
     search_results:
       one: '''%{search_terms}'' %{count} 個結果：'
+      other: '''%{search_terms}'' %{count} 個結果：'
     no_results: 查無「%{query}」的結果
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
@@ -537,6 +538,7 @@ zh-TW:
     search_courses: 搜尋課程
     start: 開始日
     start_typing: 開始輸入
+    stay_in_sandbox: 留在沙盒
     student: 學生
     students: 學生
     students_taught: 學生教導
@@ -559,6 +561,7 @@ zh-TW:
     course_submitted: 提交狀態是用於教育方案課程裡，必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
     subject: 主題
     submitted: 已提交
+    submitted_at: 提交於
     tag_select: 選擇或建立一個標籤
     tags: 標籤：
     term: 學期

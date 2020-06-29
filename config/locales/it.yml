@@ -589,6 +589,7 @@ it:
       sapere!
     user_role: Ruolo
     course_details: Dettagli del corso
+    submitted_at: Inviato il
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline

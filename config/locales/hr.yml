@@ -25,6 +25,8 @@ hr:
     group_members: Članovi skupine
   courses:
     please_log_in: Molimo Vas, prijavite se.
+    stay_in_sandbox: Ostaje u pješčaniku
+    submitted_at: Podneseno na
   courses_generic:
     campaigns: 'Kampanje:'
     student: Uređivač

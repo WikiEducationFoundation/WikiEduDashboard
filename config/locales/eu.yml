@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amaia
 # Author: An13sa
+# Author: BaRaN6161 TURK
 # Author: EukeneFL
 # Author: Iñaki LL
 # Author: Joseba
@@ -56,8 +57,9 @@ eu:
     request_account: Eskatu kontua
     request_account_create: Kontua sortu
     search: Galdera egin
-    search_results: '{{Emaitza PLURAL|one=%{count} ''%{search_terms}'' bilaketarako|%{count}
-      emaitza ''%{search_terms}'' bilaketarako}}'
+    search_results:
+      one: '%{count} ''%{search_terms}'' bilaketarako'
+      other: '%{count} emaitza ''%{search_terms}'' bilaketarako'
     no_results: Emaitzarik ez '%{query}' bilaketarako
     sign_up_extended: Wikipediarekin kontua sortu
     sign_up_wikipedia: Edo Wikipediako kontuan sartu

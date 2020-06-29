@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: AZISS
 # Author: Neriman2003
+# Author: Vesely35
 ---
 az:
   application:
@@ -35,8 +36,10 @@ az:
     duration: Kursun müddəti
     new_week: Yeni həftə əlavə et
     school: Məktəb
+    stay_in_sandbox: Sandboxda qalın
     students: Tələbələr
     students_short: Tələbələr
+    submitted_at: Göndərilib
     title: Başlıq
   metrics:
     last_update: Son statistik məlumatların yeniləməsi

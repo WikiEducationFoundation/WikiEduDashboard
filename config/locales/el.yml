@@ -7,6 +7,7 @@
 # Author: Glavkos
 # Author: KATRINE1992
 # Author: Nikosgranturismogt
+# Author: Norhorn
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
@@ -262,6 +263,7 @@ el:
     course_details: Λεπτομέρειες μαθήματος
     subject: Θέμα
     submitted: Υποβεβλημμένα
+    submitted_at: Υποβλήθηκε στις
     tags: 'Ετικέτες:'
     term: Περίοδος
     timeline_enabled: Το χρονολόγιο ενεργοποιήθηκε

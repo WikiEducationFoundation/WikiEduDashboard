@@ -704,6 +704,7 @@ fr:
     search_courses: Chercher des cours
     start: Démarrer
     start_typing: Commencer à taper
+    stay_in_sandbox: Rester dans le bac à sable
     student: Étudiant
     students: Étudiants
     students_taught: Étudiants enseignés
@@ -729,6 +730,7 @@ fr:
       n’est significatif que pour le type de cours ClassroomProgram.
     subject: Sujet
     submitted: Soumis
+    submitted_at: Soumis le
     tag_select: Sélectionner ou créer une balise
     tags: 'Balises :'
     term: Période

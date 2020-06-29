@@ -70,6 +70,7 @@ tr:
     search: soru sor
     search_results:
       one: '%{count} Sonucu: ''%{search_terms}'''
+      other: '%{count} Sonucu: ''%{search_terms}'''
     no_results: '''%{query}'' için sonuç bulunamadı'
     sign_up_extended: Vikipedi ile Kaydol
     sign_up_wikipedia: Veya Vikipedi'ye kaydolun
@@ -86,7 +87,7 @@ tr:
     opt_no: hayır
   article_statuses:
     not_yet_started: Başlangıç
-    in_progress: Sandbox Üzerinde Çalışıyor
+    in_progress: Deneme Tahtası Üzerinde Çalışıyor
     ready_for_review: Taslak Genişletiyor
     ready_for_mainspace: İşi Ana Alana Taşınıyor
     assignment_completed: Atanma Tamamlandı Olarak İşaretlendi
@@ -261,7 +262,7 @@ tr:
     review_self: Bir makaleyi incele
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
       madde içindir.
-    sandbox_draft_link: Sandbox Taslağı
+    sandbox_draft_link: Deneme Tahtası Taslağı
     select: Seç
     warning_untracked_wiki: 'Seçtiğiniz makalenin bu kurs tarafından izlenmeyen bir
       vikide olduğunu lütfen unutmayın. Bu makaleye katkıları izlemek için bir eğitmen
@@ -675,6 +676,7 @@ tr:
     search_courses: Kursları ara
     start: Başlangıç
     start_typing: Yazmaya başla
+    stay_in_sandbox: Deneme tahtasında kal
     student: Öğrenci
     students: Öğrenciler
     students_taught: Öğretilen Öğrenciler
@@ -700,6 +702,7 @@ tr:
       türü ile ilgilidir.
     subject: Konu
     submitted: Gönderilen
+    submitted_at: Gönderme tarihi
     tag_select: Bir etiket seç ya da oluştur
     tags: 'Etiketler:'
     term: Dönem

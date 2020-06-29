@@ -4,6 +4,7 @@
 # Author: ASHmed
 # Author: Ayatun
 # Author: Azouz.anis
+# Author: Dr. Mohammed
 # Author: Eyas
 # Author: Haytham morsy
 # Author: Hhaboh162002
@@ -652,6 +653,7 @@ ar:
       برنامج الفصل الدراسي.
     subject: الموضوع
     submitted: قُدِّمت
+    submitted_at: مقدمة من قبل
     tag_select: اختر أو أنشىء وسما
     tags: 'الوسوم:'
     term: المصطلح

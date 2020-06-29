@@ -33,6 +33,7 @@
 # Author: Romanko Mikhail
 # Author: Shaleych
 # Author: SmartNart12
+# Author: Teretalexev
 # Author: Vlad5250
 # Author: Марио
 # Author: Туллук
@@ -371,6 +372,7 @@ ru:
     school: Школа
     search_courses: Искать курсы
     start: Начать
+    stay_in_sandbox: Остаться в песочнице
     student: Студент
     students: Студенты
     students_count: '# Студенты'

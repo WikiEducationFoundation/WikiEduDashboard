@@ -73,7 +73,7 @@ zh-CN:
     search_results:
       one: '%{count} Result for: ''%{search_terms}'''
       other: '%{count} Results for: ''%{search_terms}'''
-    no_results: 找不到“％{query}”的结果
+    no_results: 找不到“%{query}”的结果
     sign_up_extended: 注册维基百科
     sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科
@@ -136,6 +136,7 @@ zh-CN:
     edited_by: 编辑者：
     edited_mobile: 条目
     filter:
+      wiki_all: 全部
       new: 新的
       tracked: 跟踪的
       untracked: 未跟踪的
@@ -178,6 +179,10 @@ zh-CN:
     wiki: Wiki
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
+  articles_wikidata:
+    articles_short: 项目
+  articles_generic:
+    articles_short: 页面
   assignments:
     article: 条目%{title}已分配给您。
     article_link: 条目
