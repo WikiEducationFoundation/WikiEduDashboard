@@ -886,6 +886,7 @@ en:
     error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
+    missing_data_info: Common issues include
     outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
     per_user: '%{number}/user'
     revisions: Recent Edits
