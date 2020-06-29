@@ -71,6 +71,18 @@ describe WikiCourseEdits do
       end
     end
 
+    context 'when the course has no wiki page enabled' do
+      let(:course) { create(:felows_cohort, submitted: true) }
+
+      it 'makes no edit' do
+        expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
+        described_class.new(action: :announce_course,
+                            course:  course,
+                            current_user: user,
+                            instructor: nil)
+      end
+    end
+
     context 'makes correct edits on P&E Outreach Dashboard' do
       before do
         @dashboard_url = ENV['dashboard_url']

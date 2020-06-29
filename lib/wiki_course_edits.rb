@@ -47,6 +47,8 @@ class WikiCourseEdits
   # Posts to the instructor's userpage, and also makes a public
   # announcement of a newly submitted course at the course announcement page.
   def announce_course(instructor: nil)
+    return unless @course.wiki_title # Don't post for courses that lack a wiki course page
+
     instructor ||= @current_user
     add_course_template_to_instructor_userpage(instructor)
     # Announce the course on the Education Noticeboard or equivalent.
