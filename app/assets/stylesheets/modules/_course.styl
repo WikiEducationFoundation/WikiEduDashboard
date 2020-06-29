@@ -124,16 +124,21 @@ rating(color)
   a
     color inherit
 
+.statistics-update-modal-container
+  display flex
+  justify-content center
+  align-items center
+
 .statistics-update-modal
-  background-color white !important
-  text-align left !important
-  height fit-content
+  background-color white
   box-shadow 0px 1px 6px rgba(0, 0, 0, 0.1)
-  margin 5%
-  padding 5%
-  @media screen and (min-width: 500px)
-    margin-left 20%
-    margin-right 20%
+  position absolute
+  z-index 1
+  padding 30px
+  width 90%
+  @media only screen and (min-width: 920px)
+    width 700px
+    margin-top 100px
 
 .rating
   round-placeholder(23)
