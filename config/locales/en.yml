@@ -874,19 +874,33 @@ en:
     articles_edited: Articles Edited
     articles_edited_generic: Pages Edited
     articles_edited_wikidata: Items Edited
+    article_scoped_program_info:
+        This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
     char_changed: Characters Changed
     char: Chars Added
+    close_modal: Close
     date_time: Date/Time
     edit_count_description: Total Edits
+    error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
     last_reviewed: Last Reviewed
+    missing_data_heading: Missing or unexpected results?
+    missing_data_info: Common issues include
+    outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
     per_user: '%{number}/user'
     revisions: Recent Edits
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+    replag_info: >
+        The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits 
+        because of replication lag (replag). When this is the case, the missing edits will show up later on.
+    replag_link: Check replag
     tags: Tags
+    total_updates: Total number of updates till now
+    update_status_heading: Update status
+    update_statistics_link: See more
     upload_count: Commons Uploads
     uploads_in_use_count:
       one: file used in an article
@@ -897,6 +911,7 @@ en:
     view_count_description: Article Views
     view_data_unavailable: No view data available
     view: Views
+    wiki_ed_help: Use the 'Get Help' button to report a problem.
     word_count: Words Added
     word_count_average: Average Word Count
 
