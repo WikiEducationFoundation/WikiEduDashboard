@@ -1,25 +1,22 @@
 -
   key: essentials
-  title: Wikipedia essentials
+  title: Training
   description: |
-    As your first Wikipedia milestone, you'll want to introduce students to the
-    basic rules of participating in, and contributing to, the Wikipedia
-    community.
+    To help your students familiarize themselves with the basics of Wikipedia editing
+    and its policy and community norms, we've developed a series of online training modules. 
 
-    Students should create user accounts and complete the core student training
-    modules. This training helps students understand the Wikipedia fundamentals,
-    walks students through their first edits, gives advice for picking articles
-    and drafting revisions, and shows how to find support. It takes about an hour.
-    Students who complete the training are better prepared to focus on your
-    course's learning outcomes, and generally have better experiences.
+    Students should create user accounts and complete the core student training modules.
+    This training helps students understand the Wikipedia fundamentals, walks students
+    through their first edits, gives advice for picking articles and drafting revisions,
+    and shows how to find support. Students who complete the training are better prepared
+    to focus on your course's learning outcomes, and generally have better experiences.
+    The training modules are embedded throughout your assignment and provide students with
+    relevant help as they undertake different tasks of their Wikipedia assignment. 
 
-    You can track which students have not completed the training through your
-    course Dashboard. **Grading students for completing the training is
-    recommended.**
+    You can track which training modules your students have taken through your course
+    Dashboard. **Grading students for completing the training is recommended.**
 
-    <br>
-
-    **Will you ask students to complete this training as part of their grade?**
+    #### Will you ask students to complete this training as part of their grade?
   type: 1  # single choice
   minimum: 1
   options:
@@ -36,10 +33,10 @@
   key: early_editing_tasks
   title: Getting started with editing
   description: |
-    It's best for students to start editing Wikipedia early on. We recommend assigning a few basic Wikipedia assignments to ease them in.
+    It's best for students to start editing Wikipedia early on. We require an evaluation exercise to get you started;
+    we recommend assigning a few additional Wikipedia assignments to ease them in. 
 
     #### Which introductory assignments would you like to use?
-    Select none, one, or more.
   type: 0 # multiple choice
   minimum: 0
   options:
@@ -66,19 +63,31 @@
   key: working_in_groups
   title: Working in groups
   description: |
-    Wikipedia assignments work well as individual or group projects. When students
-    work individually, they have the chance to make a substantial quality
-    contribution to Wikipedia, but when they work in groups, they may have an
-    easier time overcoming some of the first-time challenges of contributing to
-    Wikipedia.
+    Wikipedia assignments work well as individual or group projects.
+    In either case, students have a chance to make a substantial quality
+    contribution to Wikipedia. Your decision to include collaboration should
+    take into account the following factors:
 
-    If you decide to have your students work in groups for their Wikipedia assignment,
-    your timeline will include some recommendations to ensure that each student
-    gets credit for their work on Wikipedia.
+    **When students work individually:**
+ 
+      * They can independently control the way they navigate and participate on Wikipedia.
+      * Students can experience every aspect of contributing to Wikipedia from choosing their
+      topic to finding sources to updating their chosen entry.
+      * You, the instructor, will have to assess a larger number of Wikipedia contributions.
 
-    <br>
+    **When they work in groups:**
+      * They may have an easier time overcoming some of the first-time challenges of contributing to Wikipedia.
+      * Depending on how you structure your groups, students may only participate in one aspect of contributing to
+      Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
+      * You will have fewer entries to assess.
+    
+    If you decide to have your students work in groups at any point of their Wikipedia assignment,
+    your timeline will include some recommendations to ensure that each student gets credit for their work on Wikipedia.
 
-    **Will your students be working in groups or individually?**
+    Note: if your course will have more than 50 students, we strongly recommend that you choose
+    group work for your Wikipedia assignment. 
+
+    #### Will your students be working in groups or individually during this Wikipedia assignment? 
   type: 1 # single choice
   minimum: 1
   options:
@@ -95,43 +104,27 @@
   key: choosing_articles
   title: Choosing articles
   description: |
-    Choosing the right (or wrong) articles to work on can make (or break) a Wikipedia writing assignment.
+    Whether your students choose their own topics or you provide them with a pre-selected list,
+    as the instructor, you should apply your own expertise to examining Wikipedia’s coverage of
+    your field. You understand the broader intellectual context where individual topics fit in.
+    Moreover, you have access to knowledge about published information on subjects and can
+    teach students how to access these resources via library and online resources.
 
-    Some articles may initially look easy to improve, but quality references to expand them may be difficult to find. Finding topics with the right balance between poor Wikipedia coverage and available literature from which to expand that coverage can be tricky. Here are some guidelines to keep in mind when selecting articles for improvement.
+    When helping your students to choose articles, you also have a great opportunity to help
+    address Wikipedia's equity gaps. Such practices include:
 
-    <br>
+      * Directing students to consult and cite research published by scholars representing
+      historically marginalized racial/ethnic, gendered, economic, and geographic cultural identities
+      * Showcasing underdeveloped articles involving diverse knowledge and communities
+      * Modeling antidiscrimination editing techniques that describe women in terms other
+      than someone’s wife, mistress, mother, or daughter
 
-    ---
-    <br>
-
-    #### Good choice
-
-    * Choose a well-established topic for which a lot of literature is available in its field, but which isn't covered extensively on Wikipedia.
-
-    * Gravitate toward "stub" and "start" class articles. These articles often have only 1–2 paragraphs of information and are in need of expansion. Relevant WikiProject pages can provide a list of stubs that need improvement.
-
-    * Before creating a new article, search related topics on Wikipedia to make sure your topic isn't already covered elsewhere. Often, an article may exist under another name, or the topic may be covered as a subsection of a broader article.
-
-    <br>
-
-    #### Not such a good choice
-
-    Articles that are "not such a good choice" for newcomers usually involve a lack of appropriate research material, highly controversial topics that may already be well developed, broad subjects, or topics for which it is difficult to demonstrate notability.
-
-    * You probably shouldn't try to completely overhaul articles on very broad topics (e.g., Law).
-    * You should probably avoid trying to improve articles on topics that are highly controversial (for example, Global Warming, Abortion, or Scientology). You may be more successful starting a sub-article on the topic instead.
-    * Don't work on an article that is already of high quality on Wikipedia, unless you discuss a specific plan for improving it with other editors beforehand.
-    * Avoid working on something with scarce literature. Wikipedia articles cite secondary literature sources, so it's important to have enough sources for verification and to provide a neutral point of view.
-    * Don't start articles with titles that imply an argument or essay-like approach (e.g., The Effects That The Recent Sub-Prime Mortgage Crisis has had on the US and Global Economics). These type of titles, and most likely the content too, may not be appropriate for an encyclopedia.
-
-    <br>
-
-    ---
-    <br>
-
-    As the instructor, you should apply your own expertise to examining Wikipedia’s coverage of your field. You understand the broader intellectual context where individual topics fit in, you can recognize where Wikipedia falls short, you know—or know how to find—the relevant literature, and you know what topics your students should be able to handle. Your guidance on article choice and sourcing is critical for both your students’ success and the improvement of Wikipedia.
-
-    **How will your class select articles?**
+    Regardless of your unique method of teaching students to choose articles, you can recognize
+    and identify where Wikipedia falls short in your area of subject-matter expertise. Overall,
+    you know what topics your students should be able to handle within the larger constraints
+    of a typical term. 
+    
+    #### How will your class select articles?
   type: 1 # single choice
   minimum: 1
   options:
@@ -150,25 +143,17 @@
   key: tricky_topic_areas
   title: Medicine and other tricky topics
   description: |
-    Writing about some topics on Wikipedia can be especially tricky — in particular, topics related to medicine, human health, and psychology. Is there any chance some of your students will work in these topic areas?
-
-    If you expect any of your students to work on medicine-related articles — including psychology — you'll need to familiarize yourself, and those students, with the special sourcing rules for these subject areas. These rules also apply if your students will be adding information on, say, the sociological implications of disease or other ways of looking at medical articles.Even if your course is not directly related to medicine, these rules may be important if your students are choosing their own topics.
-
-    #### Special considerations for medical and psychology topics
-
-    Though it is not a medical resource, many people nonetheless turn to Wikipedia for medical information. Poor medical information on Wikipedia can have terrible consequences. For this reason, the standards for sourcing on medical topics differ from other topic areas. In particular, the use of primary sources is strongly discouraged.
-
-    By Wikipedia's conventions for medical content, inappropriate primary sources include original medical research such as clinical studies, case reports, or animal studies, even if published in respected journals. In general, medical and health-related content should be based on review articles from reputable journals and other professional medical literature. Popular press is not considered a reliable source for medical topics.
-
-    Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
-
-    **Does your course fall into any of the following subject areas?** (If so, we'll include the training module that covers these special rules.)
+    #### Does your course fall into any of the following subject areas?
+    
+    (If so, we'll include the training module that covers these special rules.)
 
     * Medicine/Health
     * Psychology
     * Life sciences
+    * Social science fields, such as sociology and anthropology
+    * Women's and gender studies
     * General composition
-    * Other subjects that could involve medical information
+    * Other subjects that could involve human health
   type: 1 # single choice
   minimum: 1
   options:
@@ -321,7 +306,7 @@
 
 -
   key: in_class_discussions
-  title: In-class Wikipedia discussions
+  title: Wikipedia discussions
   description: |
     Setting aside some class time to discuss your Wikipedia assignment can be a
     great way to keep your students on track as well as provide them with an
@@ -339,11 +324,14 @@
   minimum: 0
   options:
     -
-      title: Content gaps
+      title: Content gaps and equity
       selected: true
       blurb: >
-        This prompt will explore why and how gaps in content coverage arise on
-        Wikipedia and how your students can fill in these gaps.
+        This prompt will explore how gaps in content arise on Wikipedia and will pay
+        special attention to gaps related to knowledge equity. Students will begin to
+        understand the complex issues surrounding Wikipedia's coverage of women and minorities,
+        why these equity gaps have arisen, and how students can begin to rectify these
+        gaps and address issues related to systemic bias on Wikipedia. 
       description:
       logic: content_gaps_discussion
     -
