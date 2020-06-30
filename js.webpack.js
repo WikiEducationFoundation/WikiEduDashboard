@@ -34,7 +34,7 @@ module.exports = (env) => {
     output: {
       path: outputPath,
       filename: doHot ? '[name].js' : '[name].[chunkhash].js',
-      publicPath: '/',
+      publicPath: '/assets/javascripts/',
     },
     resolve: {
       extensions: ['.js', '.jsx'],
@@ -65,7 +65,7 @@ module.exports = (env) => {
     },
     externals: {
       jquery: 'jQuery',
-      'i18n-js': 'I18n',
+      'i18n-js': 'I18n'
     },
     plugins: [
       // manifest file
