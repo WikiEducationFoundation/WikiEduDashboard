@@ -11,8 +11,9 @@ description: |
 estimated_ttc: 30 minutes
 slides:
   - slug: wiki-ed-support-criteria # 301
+  - slug: note-about-fall-2020 # 342
   - slug: welcome-new-instructors # 302
-  - slug: about-wiki-education # 339 NEW
+  - slug: about-wiki-education # 339
   - slug: course-page-approval #336
   - slug: course-dashboards # 303
   - slug: features-of-the-dashboard # 333
@@ -21,16 +22,17 @@ slides:
   - slug: neutrality # 307
   - slug: concerning-notability # 311
   - slug: concerning-conflicts-of-interest # 309
-  - slug: student-learning-outcomes # 340 NEW
-  - slug: digital-literacy # 341 NEW
+  - slug: student-learning-outcomes # 340
+  - slug: digital-literacy # 341
   - slug: writing-and-communication # 306
   - slug: npov-and-critical-thinking # 308
   - slug: designing-a-wikipedia-assignment # 313
   - slug: create-or-expand-an-article # 314
   - slug: translate-an-article # 315
   - slug: create-images-and-multimedia # 316
-  - slug: setting-expectations # 319\
+  - slug: setting-expectations # 319
   - slug: avoiding-plagiarism # 310
+  - slug: responding-to-plagiarism # 343
   - slug: grading-your-assignment # 335
   - slug: avoid-minimum-requirements # 318
   - slug: never-grade-on-what-sticks # 317
