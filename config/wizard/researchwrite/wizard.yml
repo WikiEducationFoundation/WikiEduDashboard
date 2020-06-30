@@ -143,9 +143,19 @@
   key: tricky_topic_areas
   title: Medicine and other tricky topics
   description: |
-    #### Does your course fall into any of the following subject areas?
-    
-    (If so, we'll include the training module that covers these special rules.)
+    Writing about some topics on Wikipedia can be especially tricky — in particular, topics related to medicine, human health, and psychology. Is there any chance some of your students will work in these topic areas?
+
+    If you expect any of your students to work on medicine-related articles — including psychology — you'll need to familiarize yourself, and those students, with the special sourcing rules for these subject areas. These rules also apply if your students will be adding information on, say, the sociological implications of disease or other ways of looking at medical articles.Even if your course is not directly related to medicine, these rules may be important if your students are choosing their own topics.
+
+    #### Special considerations for medical and psychology topics
+
+    Though it is not a medical resource, many people nonetheless turn to Wikipedia for medical information. Poor medical information on Wikipedia can have terrible consequences. For this reason, the standards for sourcing on medical topics differ from other topic areas. In particular, the use of primary sources is strongly discouraged.
+
+    By Wikipedia's conventions for medical content, inappropriate primary sources include original medical research such as clinical studies, case reports, or animal studies, even if published in respected journals. In general, medical and health-related content should be based on review articles from reputable journals and other professional medical literature. Popular press is not considered a reliable source for medical topics.
+
+    Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
+
+    **Does your course fall into any of the following subject areas?** (If so, we'll include the training module that covers these special rules.)
 
     * Medicine/Health
     * Psychology
@@ -154,6 +164,7 @@
     * Women's and gender studies
     * General composition
     * Other subjects that could involve human health
+
   type: 1 # single choice
   minimum: 1
   options:
@@ -330,8 +341,8 @@
         This prompt will explore how gaps in content arise on Wikipedia and will pay
         special attention to gaps related to knowledge equity. Students will begin to
         understand the complex issues surrounding Wikipedia's coverage of women and minorities,
-        why these equity gaps have arisen, and how students can begin to rectify these
-        gaps and address issues related to systemic bias on Wikipedia. 
+        why these equity gaps have arisen, and how students can begin to rectify these gaps
+        and address issues related to systemic bias on Wikipedia. 
       description:
       logic: content_gaps_discussion
     -
