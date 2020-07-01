@@ -56,11 +56,14 @@ class CheckCourseJobs
   end
 
   def find_job
-    Sidekiq::Queue.all.each do |queue|
-      queue.each do |job|
-        next unless job.klass == 'CourseDataUpdateWorker'
-        return job if job.args == [@course_id]
-      end
+    Sidekiq::Queue.new(@queue).each do |job|
+      next unless job.klass == 'CourseDataUpdateWorker'
+      return job if job.args == [@course_id]
+    end
+
+    Sidekiq::Workers.new.each do |_process_id, _thread_id, work|
+      next unless work['payload']['class'] == 'CourseDataUpdateWorker'
+      return work if work['payload']['args'] == [@course_id]
     end
 
     return nil
