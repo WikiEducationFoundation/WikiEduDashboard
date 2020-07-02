@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+require_dependency "#{Rails.root}/lib/data_cycle/schedule_course_updates"
+
 describe CheckCourseJobs do
   let(:course) { create(:course) }
 
@@ -38,6 +40,27 @@ describe CheckCourseJobs do
 
       it 'returns the update job' do
         expect(subject.find_job).to be_a(Sidekiq::Job)
+      end
+    end
+  end
+
+  describe '#delete_orphan_lock' do
+    context 'when a digest is there' do
+      before do
+        Sidekiq::Testing.disable!
+        SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
+                                           'unique_digest' => subject.expected_digest }).lock
+      end
+
+      after { Sidekiq::Testing.inline! }
+
+      it 'course worker does not exist, deletes orphan lock' do
+        expect(subject.delete_orphan_lock).to eq true
+      end
+
+      it 'course worker is already exists, does not delete the orphan lock' do
+        CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
+        expect(subject.delete_orphan_lock).to eq false
       end
     end
   end
