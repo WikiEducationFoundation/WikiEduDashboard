@@ -611,11 +611,13 @@ zh-CN:
     char_added: 添加的字符
     char_changed: 更改的字符
     char: 添加的字符
+    close_modal: 关闭
     date_time: 日期/时间
     edit_count_description: 总计编辑
     per_user: '%{number}/用户'
     revisions: 最近编辑
     tags: 标签
+    update_statistics_link: 查看更多
     upload_count: 共享资源上传
     uploads_in_use_count:
       one: 条目中使用的文件

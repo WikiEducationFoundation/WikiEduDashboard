@@ -59,8 +59,10 @@ te:
     activity: ఇటీవలి కార్యకలాపం
     articles_edited: సవరించబడిన వ్యాసాలు
     characters: పాత్రలు
+    close_modal: మూసివేయి
     date_time: తేదీ/సమయం
     edit_count_description: మొత్తం దిద్దుబాట్లు
+    update_statistics_link: ఇంకా చూడండి
     word_count: చేర్చిన పదాలు
   namespace:
     user_ns: వాడుకరి

@@ -413,10 +413,13 @@ da:
     char_added: Tegn tilføjet
     char_changed: Tegn ændrede
     char: Tegn tilføjet
+    close_modal: Luk
     date_time: Dato/tid
     edit_count_description: Totalt antal ændringer
     revisions: Seneste redigeringer
     references_count: Referencer tilføjet
+    update_status_heading: Opdater status
+    update_statistics_link: Se mere
     view_count_description: Artikel visninger
     view: Visninger
     word_count: Ord tilføjet

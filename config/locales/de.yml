@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bjarncraft
+# Author: Bxalber
 # Author: Domani
 # Author: FF11
 # Author: Killarnee
@@ -914,11 +915,24 @@ de:
     char_added: Zeichen hinzugefügt
     char_changed: Zeichen geändert
     char: Zeichen hinzugefügt
+    close_modal: Schließen
     date_time: Datum/Uhrzeit
     edit_count_description: Gesamte Bearbeitungen
+    error_count_message: Das Dashboard stieß während der letzten Aktualisierung auf
+      %{error_count}-Fehler.
+    missing_data_heading: Fehlende oder unerwartete Ergebnisse?
+    missing_data_info: Häufige Themen sind
     per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
+    replag_info: Das Dashboard ruft Bearbeitungsdaten aus WMF-Cloud-Replikat-Datenbanken
+      ab. Manchmal fehlen in diesen Datenbanken die neuesten Bearbeitungen aufgrund
+      von Replikationsverzögerungen (Replace). Wenn dies der Fall ist, werden die
+      fehlenden Bearbeitungen später angezeigt.
+    replag_link: Ersatz prüfen
     tags: Markierungen
+    total_updates: Gesamtzahl der bisherigen Updates
+    update_status_heading: Status ändern
+    update_statistics_link: Mehr sehen
     upload_count: Auf Commons hochgeladene Dateien
     uploads_in_use_count:
       one: in einem Artikel verwendete Datei
@@ -929,6 +943,7 @@ de:
     view_count_description: Artikelaufrufe
     view_data_unavailable: Keine Aufrufdaten verfügbar
     view: Aufrufe
+    wiki_ed_help: Benutzen Sie die Schaltfläche 'Get Help', um ein Problem zu melden.
     word_count: Hinzugefügte Wörter
     word_count_average: Durchschnittliche Wortanzahl
   namespace:

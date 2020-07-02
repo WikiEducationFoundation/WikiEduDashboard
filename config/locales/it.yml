@@ -716,6 +716,7 @@ it:
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
     char: Caratteri aggiunti
+    close_modal: Chiudi
     date_time: Data/Ora
     edit_count_description: Modifiche totali
     per_user: '%{number}/utente'

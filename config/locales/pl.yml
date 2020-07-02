@@ -627,11 +627,15 @@ pl:
     char_added: Dodano znaków
     char_changed: Zmieniono znaków
     char: Dodano znaków
+    close_modal: Zamknij
     date_time: Data/Czas
     edit_count_description: Łączna liczba edycji
+    missing_data_heading: Brakujące lub niespodziewane wyniki?
     per_user: '%{number}/użytkownika'
     revisions: Ostatnie edycje
     tags: Znaczniki
+    update_status_heading: Zaktualizuj status
+    update_statistics_link: Zobacz więcej
     upload_count: Pliki wgrane do Commons
     uploads_in_use_count:
       one: plik użyty w artykule

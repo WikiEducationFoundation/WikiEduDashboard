@@ -489,6 +489,7 @@ es:
     school_and_term: Institución/Período
     start: Inicio
     start_typing: Empieza a escribir
+    stay_in_sandbox: Permanecer en entorno seguro
     students: Estudiantes
     students_count: '# Estudiantes'
     student_editors: Editores estudiantiles
@@ -655,6 +656,7 @@ es:
     char_added: Caracteres añadidos
     char_changed: Caracteres cambiados
     char: Caracteres añadidos
+    close_modal: Cerrar
     date_time: Fecha/hora
     edit_count_description: Ediciones totales
     per_user: '%{number}/usuario'
@@ -665,6 +667,7 @@ es:
       del modelo de calidad de artículo de ORES y sólo están disponibles para algunos
       idiomas.
     tags: Etiquetas
+    update_statistics_link: Ver más
     upload_count: Subidas a Commons
     uploads_in_use_count:
       one: archivo utilizado en un artículos

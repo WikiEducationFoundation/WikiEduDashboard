@@ -6,6 +6,7 @@
 # Author: By erdo can
 # Author: Chansey
 # Author: Elftrkn
+# Author: Evrifaessa
 # Author: HakanIST
 # Author: Hbseren
 # Author: Hedda
@@ -907,21 +908,37 @@ tr:
     articles_edited: Düzenlenen Maddeler
     articles_edited_generic: Düzenlenmiş Sayfalar
     articles_edited_wikidata: Düzenlenmiş Öğeler
+    article_scoped_program_info: Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
+      düzenlemeleri sayan bir 'Madde Kapsamlı Program'dır.
     bytes_added: Bayt Eklendi
     characters: Karakter
     char_added: Ekl. Krkter
     char_changed: Karakterler Değişti
     char: Ekl. Krkter
+    close_modal: Kapat
     date_time: Tarih/Saat
     edit_count_description: Toplam Düzenleme
+    error_count_message: Gösterge tablosu, en son güncelleme sırasında %{error_count}
+      hata ile karşılaştı.
     last_reviewed: Son İnceleme
+    missing_data_heading: Eksik veya beklenmeyen sonuçlar mı var?
+    missing_data_info: Sık karşılaşılan sorunlar
+    outreach_help: Yardıma mı ihtiyacınız var?  Gezinme çubuğunda 'Sorun bildir' konusuna
+      bakın.
     per_user: '%{number}/kullanıcı'
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
     references_doc: Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa
       birden fazla referans içerebilir. Veriler ORES ürün kalitesi modelinden gelmektedir
       ve sadece bazı diller için mevcuttur.
+    replag_info: Gösterge Tablosu, düzenleme verilerini WMF Bulut çoğaltma veritabanlarından
+      alır. Bazen bu veritabanları, çoğaltma gecikmesi nedeniyle en son düzenlemeleri
+      kaçırır. Bu durumda, eksik düzenlemeler daha sonra görünecektir.
+    replag_link: Gecikmeyi kontrol et
     tags: Etiketler
+    total_updates: Şimdiye kadar toplam güncelleme sayısı
+    update_status_heading: Güncelleme durumu
+    update_statistics_link: Daha fazla gör
     upload_count: Commons Yüklemeleri
     uploads_in_use_count:
       one: bir makalede kullanılan dosya
@@ -932,6 +949,7 @@ tr:
     view_count_description: Madde Görünümleri
     view_data_unavailable: Görüntüleme verisi yok
     view: Görüntülenme
+    wiki_ed_help: Bir sorunu bildirmek için 'Yardım Al' düğmesini kullanın.
     word_count: Eklenen Kelime
     word_count_average: Ortalama Kelime Sayısı
   namespace:
@@ -957,7 +975,7 @@ tr:
     revision_author: Sürüm Yazarı
     revision_datetime: Sürüm Tarihi/Saati
     revision_score: Sürüm Puanı
-    show_courses: Sadece Benim Kurslarımı Göster
+    show_courses: Yalnızca Benim Kurslarımı Göster
     uploaded_by: Yükleyen
     usage_count: Kullanım Sayısı
   revisions:
@@ -1012,7 +1030,7 @@ tr:
           et'
         revoking_button_working: İptal ediliyor...
         already_is_not: '%{username} Özel Kullanıcı değil!'
-        demote_success: '%{username} şimdi sadece bir kullanıcı.'
+        demote_success: '%{username} şimdi yalnızca bir kullanıcı.'
   suggestions:
     editing: Önerileri Düzenleme
     suggestion_docs:

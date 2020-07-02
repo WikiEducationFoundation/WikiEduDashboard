@@ -755,6 +755,7 @@ ca:
     per_user: '%{number}/user'
     revisions: Edicions recents
     tags: Etiquetes
+    update_statistics_link: Mostra’n més
     upload_count: Càrregues a Wikimedia Commons
     uploads_in_use_count:
       one: fitxer utilitzat en un article

@@ -731,19 +731,30 @@ zh-TW:
     articles_edited: 已編輯的條目
     articles_edited_generic: 頁面已編輯
     articles_edited_wikidata: 項目已編輯
+    article_scoped_program_info: 此為「條目範圍方案」，這只會計算所分配到條目與分類的編輯次數。
     bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元
     char_changed: 變更的字元
     char: 新增的字元
+    close_modal: 關閉
     date_time: 日期/時間
     edit_count_description: 總編輯數
+    error_count_message: 控制面板在最近更新期間遇到 %{error_count} 個錯誤。
     last_reviewed: 最新審核
+    missing_data_heading: 缺少或非預期的結果？
+    missing_data_info: 常見問題包括
+    outreach_help: 需要幫助？請參閱在導航欄中的「回報問題」。
     per_user: '%{number}/使用者'
     revisions: 近期編輯
     references_count: 參考來源已添加
     references_doc: 此為添加到條目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。資料來自於 ORES 條目品質模組，並僅對於某些語言可用。
+    replag_info: 控制面板是從維基媒體基金會雲端副本資料庫檢索編輯資料。有時候這些資料會因為複寫延遲的關係，缺少最近編輯數。當發生這種情況時，缺少的編輯數會延後一段時間才會顯示出。
+    replag_link: 檢查複寫延遲
     tags: 標籤
+    total_updates: 到目前為止更新總數
+    update_status_heading: 更新狀態
+    update_statistics_link: 查看更多
     upload_count: 維基共享資源上傳
     uploads_in_use_count:
       one: 條目中使用的檔案
@@ -754,6 +765,7 @@ zh-TW:
     view_count_description: 條目檢視數
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
+    wiki_ed_help: 使用「取得幫助」按鈕來回報問題。
     word_count: 加入的文字
     word_count_average: 平均字數
   namespace:

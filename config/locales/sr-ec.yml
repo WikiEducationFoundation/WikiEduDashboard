@@ -306,7 +306,7 @@ sr-ec:
     template_name: Име шаблона
     none: Нема категорија које се прате.
     remove: Уклони
-    tracked_categories: Праћене категорије, PSID и шаблони
+    tracked_categories: Праћене категорије, PSID, PagePile ID и шаблони
     timestamp: Последњи пут ажурирано на
   chat:
     label: Ћаскање
@@ -573,6 +573,7 @@ sr-ec:
     search_courses: Претражи курсеве
     start: Започни
     start_typing: Започни куцање
+    stay_in_sandbox: Остани у песку
     students: Студенти
     students_taught: Студенти подучавају
     students_count: '# Студенти'
@@ -777,12 +778,15 @@ sr-ec:
     char_added: Додато знакова
     char_changed: Промењено знакова
     char: Додато знакова
+    close_modal: Затвори
     date_time: Датум/време
     edit_count_description: Укупно измена
+    missing_data_heading: Резултати су неочекивани или недостају?
     per_user: '%{number}/корисник'
     revisions: Скорашње измене
     references_count: Додато референци
     tags: Ознаке
+    update_status_heading: Ажурирај стање
     upload_count: Отпремања на Оставу
     uploads_in_use_count:
       one: фајл искоришћен у чланцима

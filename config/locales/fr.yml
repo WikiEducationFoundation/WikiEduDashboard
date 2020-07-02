@@ -945,14 +945,23 @@ fr:
     articles_edited: Articles modifiés
     articles_edited_generic: Pages modifiées
     articles_edited_wikidata: Éléments modifiés
+    article_scoped_program_info: Ceci est un 'Programme ciblé sur l’article', qui
+      ne compte que les modifications des articles et catégories affectés.
     bytes_added: Octets ajoutés
     characters: Caractères
     char_added: Caractères ajoutés
     char_changed: Caractères modifiés
     char: Caractères ajoutés
+    close_modal: Fermer
     date_time: Date/Heure
     edit_count_description: Total des modifications
+    error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
+      de la mise à jour la plus récente.
     last_reviewed: Dernier revu
+    missing_data_heading: Résultats manquants ou inattendus ?
+    missing_data_info: Les problèmes courants incluent
+    outreach_help: Besoin d’aide ? Reportez-vous à 'Signaler un problème' dans la
+      barre de navigation.
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
     references_count: Références ajoutées
@@ -960,7 +969,15 @@ fr:
       et qui peut comprendre plusieurs références à la même source. Les données viennent
       du modèle ORES de qualité d'article et ne sont disponibles que pour certaines
       pages.
+    replag_info: Le tableau de bord récupère des données de modification des bases
+      de données répliquées du cloud WMF. Parfois, ces bases n’ont pas les modifications
+      les plus récentes du fait de délai de réplication (replag). Quand c’est le cas,
+      les modifications manquantes s’afficheront plus tard.
+    replag_link: Vérifier le replag
     tags: Balises
+    total_updates: Nombre total de modifications jusqu’à présent
+    update_status_heading: État de mise à jour
+    update_statistics_link: Voir plus
     upload_count: Téléversement de Commons
     uploads_in_use_count:
       one: fichier utilisé dans un article
@@ -971,6 +988,7 @@ fr:
     view_count_description: Articles vus
     view_data_unavailable: Aucune donnée visible disponible
     view: Vues
+    wiki_ed_help: Utiliser le bouton 'Obtenir de l’aide' pour signaler un problème.
     word_count: Mots ajoutés
     word_count_average: Nombre moyen de mots
   namespace:

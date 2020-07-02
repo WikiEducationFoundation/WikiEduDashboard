@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Actuallyisjoha
 # Author: Antsa
 # Author: Mikahama
 # Author: Nike
@@ -633,11 +634,13 @@ fi:
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
     char: Lisättyjä merkkejä
+    close_modal: Sulje
     date_time: Päivämäärä
     edit_count_description: Muokkaukset yhteensä
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
     tags: Merkkaukset
+    update_statistics_link: Lisätietoja
     upload_count: tallennusta Commonsiin
     uploads_in_use_count:
       one: tiedosto käytössä artikkelissa
