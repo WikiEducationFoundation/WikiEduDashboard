@@ -55,10 +55,17 @@ class CheckCourseJobs
     "uniquejobs:#{digest}"
   end
 
-  def find_job
-    Sidekiq::Queue.new(@queue).each do |job|
-      next unless job.klass == 'CourseDataUpdateWorker'
-      return job if job.args == [@course_id]
+  def find_job # rubocop:disable Metrics/CyclomaticComplexity
+    Sidekiq::ScheduledSet.new.select do |retri|
+      next unless retri.klass == 'CourseDataUpdateWorker'
+      return retri if retri.args == [@course_id]
+    end
+
+    Sidekiq::Queue.all.each do |queue|
+      queue.each do |job|
+        next unless job.klass == 'CourseDataUpdateWorker'
+        return job if job.args == [@course_id]
+      end
     end
 
     Sidekiq::Workers.new.each do |_process_id, _thread_id, work|
