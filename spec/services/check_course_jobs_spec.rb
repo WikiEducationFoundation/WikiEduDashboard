@@ -11,22 +11,11 @@ describe CheckCourseJobs do
     described_class.new(course)
   end
 
-  describe '#health_report' do
-    it 'runs without error' do
-      subject.health_report
-    end
-  end
-
-  describe '#expected_digest' do
-    it 'produces a plausible string' do
-      expect(subject.expected_digest).to match(/uniquejobs/)
-    end
-  end
-
-  describe '#find_job' do
+  describe '#job_exists? and #find_job' do
     context 'when no update is scheduled' do
-      it 'returns nil' do
-        expect(subject.find_job).to be_nil
+      it 'returns false' do
+        expect(subject.find_job).to be nil
+        expect(subject.job_exists?).to eq false
       end
     end
 
@@ -38,14 +27,33 @@ describe CheckCourseJobs do
 
       after { Sidekiq::Testing.inline! }
 
-      it 'returns the update job' do
-        expect(subject.find_job).to be_a(Sidekiq::Job)
+      it 'returns true' do
+        expect(subject.find_job).to be_a Sidekiq::Job
+        expect(subject.job_exists?).to eq true
       end
     end
   end
 
+  describe '#lock_exists?' do
+    it 'detects lock when it exists' do
+      SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
+                                         'unique_digest' => subject.expected_digest }).lock
+      expect(subject.lock_exists?).to eq true
+    end
+
+    it 'detects no lock when it does not exist' do
+      expect(subject.lock_exists?).to eq false
+    end
+  end
+
+  describe '#expected_digest' do
+    it 'produces a plausible string' do
+      expect(subject.expected_digest).to match(/uniquejobs/)
+    end
+  end
+
   describe '#delete_orphan_lock' do
-    context 'when a digest is there' do
+    context 'when a lock is there' do
       before do
         Sidekiq::Testing.disable!
         SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
@@ -62,12 +70,6 @@ describe CheckCourseJobs do
         CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
         expect(subject.delete_orphan_lock).to eq false
       end
-    end
-  end
-
-  describe '#delete_unique_lock' do
-    it 'runs without error' do
-      subject.delete_unique_lock
     end
   end
 end
