@@ -12,16 +12,18 @@ require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhan
 
 document.addEventListener('DOMContentLoaded', () => {
   window.List = require('list.js'); // List is used for sorting tables outside of React
-  require.ensure(
-    ['i18n-js', './utils/course.js', './components/app.jsx', 'events', './utils/editable.js', './utils/users_profile.js'],
-    (require) => {
-      window.I18n = require('i18n-js');
-      require('./utils/course.js'); // This adds jquery features for some views outside of React
-      // This is the main React entry point. It renders the navbar throughout the app, and
-      // renders other components depending on the route.
-      require('./components/app.jsx');
-      require('events').EventEmitter.defaultMaxListeners = 30;
-      require('./utils/editable.js');
-      require('./utils/users_profile.js');
-    });
+  import('i18n-js').then(({ default: I18n }) => {
+    window.I18n = I18n;
+  });
+  /* eslint-disable */
+  import('./utils/course.js'); // This adds jquery features for some views outside of React
+  // This is the main React entry point. It renders the navbar throughout the app, and
+  // renders other components depending on the route.
+  import('./components/app.jsx');
+  import('events').then(({default: events}) => {
+    events.EventEmitter.defaultMaxListeners = 30;
+  });
+  import('./utils/editable.js');
+  import('./utils/users_profile.js');
+  /* eslint-enable */
 });
