@@ -1,43 +1,37 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/data_cycle/check_course_jobs_logging"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 
 # Utility for debugging problems with the course update job queue.
 class CheckCourseJobs
+  include CheckCourseJobsLogging
   include CourseQueueSorting
 
+  COURSE_DATA_UPDATE_WORKER = 'CourseDataUpdateWorker'
+
   def self.remove_orphan_locks(courses_to_update)
-    orphan_lock_courses = []
     courses_to_update.each do |course|
-      check_course_job = new(course)
-      is_removed = check_course_job.delete_orphan_lock
-      orphan_lock_courses << check_course_job.sentry_extra if is_removed
+      new(course).delete_orphan_lock
     end
-
-    orphan_lock_count = orphan_lock_courses.length
-    return unless orphan_lock_count.positive?
-
-    Raven.capture_message("#{orphan_lock_count} Orphan lock(s) removed",
-                          level: 'warn',
-                          extra: { courses: orphan_lock_courses })
-    return nil
   end
 
   def initialize(course)
     @course = course
-    @course_id = course.id
+    @worker_args = [course.id]
     @queue = queue_for(course)
   end
 
-  def health_report
-    is_locked = SidekiqUniqueJobs::Digests.all.include? expected_digest
-    has_job = find_job.present?
-    pp "locked: #{is_locked}"
-    pp "job in queue: #{has_job}"
+  def job_exists?
+    find_job.present?
   end
 
-  def delete_unique_lock
-    SidekiqUniqueJobs::Digests.delete_by_digest expected_digest
+  def lock_exists?
+    SidekiqUniqueJobs::Digests.all.include? expected_digest
+  end
+
+  def find_job
+    find_scheduled_job || find_queued_job || find_active_job
   end
 
   # This is based on the implementation of SidekiqUniqueJobs digest generation
@@ -49,42 +43,51 @@ class CheckCourseJobs
     hash = {
       'class' => 'CourseDataUpdateWorker',
       'queue' => @queue,
-      'unique_args' => [@course_id]
+      'unique_args' => @worker_args
     }.to_json
     digest = OpenSSL::Digest::MD5.hexdigest hash
     "uniquejobs:#{digest}"
   end
 
-  def find_job # rubocop:disable Metrics/CyclomaticComplexity
-    Sidekiq::ScheduledSet.new.select do |retri|
-      next unless retri.klass == 'CourseDataUpdateWorker'
-      return retri if retri.args == [@course_id]
-    end
-
-    Sidekiq::Queue.all.each do |queue|
-      queue.each do |job|
-        next unless job.klass == 'CourseDataUpdateWorker'
-        return job if job.args == [@course_id]
-      end
-    end
-
-    Sidekiq::Workers.new.each do |_process_id, _thread_id, work|
-      next unless work['payload']['class'] == 'CourseDataUpdateWorker'
-      return work if work['payload']['args'] == [@course_id]
-    end
-
-    return nil
-  end
-
   def delete_orphan_lock
-    if find_job.nil? && SidekiqUniqueJobs::Digests.all.include?(expected_digest)
+    if !job_exists? && lock_exists?
       delete_unique_lock
+      log_previous_failed_update
+      log_orphan_record
       return true
     end
     return false
   end
 
-  def sentry_extra
-    { course: @course.slug, queue: @queue }
+  private
+
+  def find_scheduled_job
+    Sidekiq::ScheduledSet.new.select do |retri|
+      next unless retri.klass == COURSE_DATA_UPDATE_WORKER
+      return retri if retri.args == @worker_args
+    end
+    return nil
+  end
+
+  def find_queued_job
+    Sidekiq::Queue.all.each do |queue|
+      queue.each do |job|
+        next unless job.klass == COURSE_DATA_UPDATE_WORKER
+        return job if job.args == @worker_args
+      end
+    end
+    return nil
+  end
+
+  def find_active_job
+    Sidekiq::Workers.new.each do |_process_id, _thread_id, work|
+      next unless work['payload']['class'] == COURSE_DATA_UPDATE_WORKER
+      return work if work['payload']['args'] == @worker_args
+    end
+    return nil
+  end
+
+  def delete_unique_lock
+    SidekiqUniqueJobs::Digests.delete_by_digest expected_digest
   end
 end
