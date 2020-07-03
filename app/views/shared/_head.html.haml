@@ -48,6 +48,6 @@
     Sentry.setContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
-= hot_javascript_tag("tinymce")
+%p#tiny-mce-url=hot_javascript_path("tinymce")
 = content_for :javascripts
 = csrf_meta_tags

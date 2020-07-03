@@ -9,7 +9,7 @@
 .idea/
 .vscode/
 /dump.rdb
-
+/public/skins
 *.rbc
 capybara-*.html
 .rspec

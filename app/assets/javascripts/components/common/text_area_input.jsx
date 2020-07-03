@@ -29,6 +29,20 @@ const TextAreaInput = createReactClass({
     clearOnSubmit: PropTypes.bool
   },
 
+  getInitialState() {
+    return { tinymceLoaded: false };
+  },
+
+  componentDidMount() {
+    if (this.props.wysiwyg) {
+      import(/* webpackIgnore: true */ document.getElementById('tiny-mce-url').innerText).then(() => {
+        this.setState({
+          tinymceLoaded: true
+        });
+      });
+    }
+  },
+
   handleRichTextEditorChange(e) {
     this.props.onChange(
       { target: { value: e.target.getContent() } },
@@ -56,7 +70,7 @@ const TextAreaInput = createReactClass({
       }
 
       // Use TinyMCE if props.wysiwyg, otherwise, use a basic textarea.
-      if (this.props.wysiwyg) {
+      if (this.props.wysiwyg && this.state.tinymceLoaded) {
         inputElement = (
           <Editor
             initialValue={this.props.value}
@@ -64,16 +78,16 @@ const TextAreaInput = createReactClass({
             onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
-               setup: (editor) => { this.setState({ activeEditor: editor }); },
-               inline: true,
-               convert_urls: false,
-               plugins: 'lists link code',
-               toolbar: [
-                 'undo redo | styleselect | bold italic',
-                 'alignleft aligncenter alignright alignleft',
-                 'bullist numlist outdent indent',
-                 'link'
-               ],
+              setup: (editor) => { this.setState({ activeEditor: editor }); },
+              inline: true,
+              convert_urls: false,
+              plugins: 'lists link code',
+              toolbar: [
+                'undo redo | styleselect | bold italic',
+                'alignleft aligncenter alignright alignleft',
+                'bullist numlist outdent indent',
+                'link'
+              ],
             }}
           />
         );

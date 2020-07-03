@@ -32,7 +32,7 @@ const copyPaths = [{
   to: `${config.outputPath}/${config.fontsDirectory}`,
 }, {
   from: './node_modules/tinymce/skins',
-  to: `${config.outputPath}/${config.jsDirectory}/skins`,
+  to: `${config.publicPath}/skins`, // tinymce skins resolve to public path
 }];
 copyPaths.forEach((entry, idx) => {
   switch (idx) {
