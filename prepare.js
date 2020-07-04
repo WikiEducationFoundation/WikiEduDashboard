@@ -32,7 +32,7 @@ const copyPaths = [{
   to: `${config.outputPath}/${config.fontsDirectory}`,
 }, {
   from: './node_modules/tinymce/skins',
-  to: `${config.publicPath}/skins`, // tinymce skins resolve to public path
+  to: `${config.outputPath}/${config.jsDirectory}/skins`,
 }];
 copyPaths.forEach((entry, idx) => {
   switch (idx) {
@@ -51,4 +51,3 @@ copyPaths.forEach((entry, idx) => {
     default: console.log('\x1b[33m%s\x1b[0m', `Finished copying static assets after ${elapsed(process.hrtime(start))} seconds`); break;
   }
 });
-

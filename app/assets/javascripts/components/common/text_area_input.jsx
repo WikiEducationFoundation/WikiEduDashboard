@@ -35,12 +35,23 @@ const TextAreaInput = createReactClass({
 
   componentDidMount() {
     if (this.props.wysiwyg) {
-      import(/* webpackIgnore: true */ document.getElementById('tiny-mce-url').innerText).then(() => {
-        this.setState({
-          tinymceLoaded: true
-        });
-      });
+      this.loadTinyMCE();
     }
+  },
+
+  loadTinyMCE() {
+    // dynamically add the script tag
+    // import() doesn't work because
+    // the skins are loaded relative to the current url which results in 500
+    const script = document.createElement('script');
+    script.onload = () => {
+      // tinymce is loaded at this point
+      this.setState({
+        tinymceLoaded: true
+      });
+    };
+    script.src = document.getElementById('tiny-mce-url').innerText;
+    document.head.appendChild(script);
   },
 
   handleRichTextEditorChange(e) {
