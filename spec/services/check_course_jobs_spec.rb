@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-require_dependency "#{Rails.root}/lib/data_cycle/schedule_course_updates"
-
 describe CheckCourseJobs do
   let(:course) { create(:course) }
 

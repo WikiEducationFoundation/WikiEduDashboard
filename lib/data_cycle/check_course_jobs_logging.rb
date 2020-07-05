@@ -6,7 +6,7 @@ module CheckCourseJobsLogging
   def log_orphan_record
     Raven.capture_message('Orphan lock removed',
                           level: 'warn',
-                          extra: { courses: sentry_extra })
+                          extra: sentry_extra)
     return nil
   end
 
