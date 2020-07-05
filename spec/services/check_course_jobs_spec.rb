@@ -25,7 +25,11 @@ describe CheckCourseJobs do
         CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
       end
 
-      after { Sidekiq::Testing.inline! }
+      after do
+        # Clearing the queue, to delete the job after the test
+        Sidekiq::Queue.new('test').clear
+        Sidekiq::Testing.inline!
+      end
 
       it 'returns true' do
         expect(subject.find_job).to be_a Sidekiq::Job
@@ -39,6 +43,9 @@ describe CheckCourseJobs do
       SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
                                          'unique_digest' => subject.expected_digest }).lock
       expect(subject.lock_exists?).to eq true
+
+      # Deleting the digest after the test
+      SidekiqUniqueJobs::Digests.delete_by_digest subject.expected_digest
     end
 
     it 'detects no lock when it does not exist' do
@@ -60,7 +67,11 @@ describe CheckCourseJobs do
                                            'unique_digest' => subject.expected_digest }).lock
       end
 
-      after { Sidekiq::Testing.inline! }
+      after do
+        # Deleting the digest after the test
+        SidekiqUniqueJobs::Digests.delete_by_digest subject.expected_digest
+        Sidekiq::Testing.inline!
+      end
 
       it 'course worker does not exist, deletes orphan lock' do
         expect(subject.delete_orphan_lock).to eq true
@@ -69,6 +80,9 @@ describe CheckCourseJobs do
       it 'course worker is already exists, does not delete the orphan lock' do
         CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
         expect(subject.delete_orphan_lock).to eq false
+
+        # Clearing the queue, to delete the job after the test
+        Sidekiq::Queue.new('test').clear
       end
     end
   end
