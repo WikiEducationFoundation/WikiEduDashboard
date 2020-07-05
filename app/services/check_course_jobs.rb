@@ -41,7 +41,7 @@ class CheckCourseJobs
   # among the unique digests
   def expected_digest
     hash = {
-      'class' => 'CourseDataUpdateWorker',
+      'class' => COURSE_DATA_UPDATE_WORKER,
       'queue' => @queue,
       'unique_args' => @worker_args
     }.to_json
