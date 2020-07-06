@@ -83,7 +83,7 @@ describe WikiPageviews do
     let(:article) { create(:article, title: title) }
 
     context 'for a popular article' do
-      let(:title) { 'Selfie' }
+      let(:title) { 'Facebook' }
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
