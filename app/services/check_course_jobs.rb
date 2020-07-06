@@ -30,8 +30,10 @@ class CheckCourseJobs
     SidekiqUniqueJobs::Digests.all.include? expected_digest
   end
 
+  # Currently, course jobs are either enqueued, or already running
+  # Course jobs are neither scheduled nor retried(retry: 0), so not searching in those sets
   def find_job
-    find_scheduled_job || find_queued_job || find_active_job
+    find_queued_job || find_active_job
   end
 
   # This is based on the implementation of SidekiqUniqueJobs digest generation
@@ -60,14 +62,6 @@ class CheckCourseJobs
   end
 
   private
-
-  def find_scheduled_job
-    Sidekiq::ScheduledSet.new.select do |retri|
-      next unless retri.klass == COURSE_DATA_UPDATE_WORKER
-      return retri if retri.args == @worker_args
-    end
-    return nil
-  end
 
   def find_queued_job
     Sidekiq::Queue.all.each do |queue|
