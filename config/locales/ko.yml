@@ -315,6 +315,7 @@ ko:
     search_courses: 강의 검색
     start: 시작
     start_typing: 입력 시작
+    stay_in_sandbox: 연습장에 머물기
     student: 학생
     students: 학생
     students_count: '# 학생'
@@ -433,11 +434,14 @@ ko:
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜
     char: 글자가 추가됨
+    close_modal: 닫기
     date_time: 날짜/시간
     edit_count_description: 총 편집
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     tags: 태그
+    update_status_heading: 상태 업데이트
+    update_statistics_link: 더 보기
     view_data_unavailable: 이용 가능한 뷰 데이터 없음
     view: 보기
     word_count_average: 평균 단어 개수

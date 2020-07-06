@@ -465,7 +465,7 @@ tr:
       course_description_placeholder: Kursunuzda neler var ve Vikipedi'de öğrenciler
         ne yapacak? Lütfen diğer Vikipedi editörlerine öğrencilerinizin yapacağı katkılar
         için bir bağlam hissi vermek için yeterli ayrıntı ekleyin.
-      course_private: Özel program (sadece yöneticiler ve kolaylaştırıcılar tarafından
+      course_private: Özel program (yalnızca hizmetliler ve kolaylaştırıcılar tarafından
         görülebilir)
       course_school: Kurs okulu
       course_subject: Kurs konusu

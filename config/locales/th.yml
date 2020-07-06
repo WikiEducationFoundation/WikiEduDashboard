@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ans
 # Author: B20180
+# Author: Korrawit
 # Author: Pilarbini
 # Author: Pon44695
 # Author: TMo3289
@@ -21,7 +22,7 @@ th:
     help: วิธีใช้
     home: หน้าหลัก
     log_in_extended: ลงชื่อเข้าใช้ด้วยวิกิพีเดีย
-    log_in: ลงชื่อเข้าใช้
+    log_in: เข้าสู่ระบบ
     log_out: ออกจากระบบ
     my_dashboard: แผงควบคุมของฉัน
     recent_activity: กิจกรรมล่าสุด

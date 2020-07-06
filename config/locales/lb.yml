@@ -380,12 +380,14 @@ lb:
     bytes_added: Byten derbäigesat
     characters: Buschtawen
     char_changed: Geännert Buschtawen
+    close_modal: Zoumaachen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
     last_reviewed: Fir d'lescht nogekuckt
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
     tags: Markéierungen
+    update_statistics_link: Méi gesinn
     uploads_in_use_count:
       one: Fichier deen an Artikele benotzt gëtt
       other: Fichieren déi an Artikele  benotzt ginn

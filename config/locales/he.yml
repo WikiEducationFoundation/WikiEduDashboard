@@ -401,6 +401,7 @@ he:
     search_courses: חיפוש קורסים
     start: התחלה
     start_typing: התחילו להקליד
+    stay_in_sandbox: להישאר בארגז החול
     students: משתתפים
     students_taught: תלמידים למדו
     students_count: מס' משתתפים
@@ -555,6 +556,7 @@ he:
     char_added: תווים שנוספו
     char_changed: תווים ששונו
     char: תווים שנוספו
+    close_modal: סגירה
     date_time: תאריך/שעה
     edit_count_description: סה"כ עריכות
     per_user: '%{number}/משתמש'
@@ -566,6 +568,7 @@ he:
     upload_usages_count: שימוש כולל בכל השפות
     view_count_description: צפיות בערכים
     view: צפיות
+    wiki_ed_help: ניתן להשתמש בכפתור ’קבלת עזרה’ לדיווח על בעיה.
     word_count: מילים שנוספו
     word_count_average: כמות מילים ממוצעת
   namespace:

@@ -921,16 +921,21 @@ pt-br:
     char_added: Caracteres adicionados
     char_changed: Caracteres alterados
     char: Caracteres adicionados
+    close_modal: Fechar
     date_time: Data/Horário
     edit_count_description: Total de edições
     last_reviewed: Última revisão
+    missing_data_heading: Resultados ausentes ou inesperados?
     per_user: '%{number}/usuário'
     revisions: Edições recentes
     references_count: Referências adicionadas
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
       e pode incluir várias referências à mesma fonte. Os dados provêm do modelo de
       qualidade de artigos ORES e só estão disponíveis para alguns idiomas.
+    replag_link: Verificar replagagem
     tags: Etiquetas
+    update_status_heading: Atualizar status
+    update_statistics_link: Veja mais
     upload_count: Envios ao Commons
     uploads_in_use_count:
       one: arquivo usado em um artigo

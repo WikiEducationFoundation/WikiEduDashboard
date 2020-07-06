@@ -10,7 +10,10 @@ io:
     change: Modifiko
   articles:
     hide: Celez
+  campaign:
+    none: Nula
   courses:
+    none: Nula
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'

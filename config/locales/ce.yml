@@ -28,6 +28,7 @@ ce:
   metrics:
     last_update: ТӀаьххьара карлаяккхар
     activity: Дукха хан йоцуш дийнарг
+    close_modal: ДӀачӀагӀа
   training:
     previous: < Хьалхара
   uploads:

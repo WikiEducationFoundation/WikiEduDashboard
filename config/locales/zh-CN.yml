@@ -18,6 +18,7 @@
 # Author: Njzjz
 # Author: Phenolla
 # Author: Shizhao
+# Author: Shuiwater
 # Author: Viztor
 # Author: WDLJT
 # Author: Yanjiazhang
@@ -614,9 +615,12 @@ zh-CN:
     close_modal: 关闭
     date_time: 日期/时间
     edit_count_description: 总计编辑
+    error_count_message: 控制面板在最近的更新中遇到%{error_count}错误。
+    missing_data_heading: 丢失或者是意想不到的结果？
     per_user: '%{number}/用户'
     revisions: 最近编辑
     tags: 标签
+    update_status_heading: 更新状态。
     update_statistics_link: 查看更多
     upload_count: 共享资源上传
     uploads_in_use_count:

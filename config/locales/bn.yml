@@ -266,6 +266,7 @@ bn:
   metrics:
     activity: সাম্প্রতিক কার্যকালাপ
     articles_edited: সম্পাদিত নিবন্ধসমূহ
+    close_modal: বন্ধ করুন
     date_time: তারিখ/সময়
     edit_count_description: মোট সম্পাদনা
     per_user: '%{number}/ব্যবহারকারী'

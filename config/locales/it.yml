@@ -7,6 +7,7 @@
 # Author: Beta16
 # Author: Einreiher
 # Author: Fierodelveneto
+# Author: Gianfranco
 # Author: Greis
 # Author: JackLantern
 # Author: Macofe
@@ -574,6 +575,7 @@ it:
     school: Scuola
     start: Inizio
     start_typing: Inizia a digitare
+    stay_in_sandbox: Resta nella sandbox
     students: Studenti
     students_count: Numero studenti
     student_editors: Editori studenti
@@ -719,11 +721,15 @@ it:
     close_modal: Chiudi
     date_time: Data/Ora
     edit_count_description: Modifiche totali
+    missing_data_heading: Risultati mancanti o inattesi?
+    missing_data_info: I problemi più comuni includono
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
     references_doc: Questo è il numero di tag di note aggiunti alle voci e possono
       includere più riferimenti alla stessa fonte. I dati provengono dal modello di
       qualità ORES della voce ed è disponibile solo per alcune lingue.
+    update_status_heading: Aggiorna stato
+    update_statistics_link: Vedi altro
     upload_count: Caricamenti Commons
     uploads_in_use_count:
       one: file usato in una voce

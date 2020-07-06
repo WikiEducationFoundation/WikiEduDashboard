@@ -16,10 +16,14 @@ nah:
     main: Huēyitlacāuhtli
     user: Tequihuihcātlacāuhtli
     user_ns: Tequihuihqui
+  recent_activity:
+    file_name: Tlahcuiloltocaitl
   revisions:
     diff_show: Monextiz
+  training:
+    page: Tlahcuilolamatl
   users:
-    name: Tōcāitl
+    name: Tocaitl
   wizard:
     summary: Tlacecempōhualōni
   error_404:
