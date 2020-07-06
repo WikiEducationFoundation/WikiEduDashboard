@@ -15,7 +15,7 @@
   - if @pres.submitted.any?
     #submitted-list.expanded
       %h2{onclick: "toggleAccordian('submitted-list')"}
-        = t("courses.submitted_and_pending_heading")
+        = t("courses.submitted_and_pending_heading") + " (#{@pres.submitted.count})"
         = hot_javascript_tag 'accordian'
         .submitted.icon.icon-arrow
 
