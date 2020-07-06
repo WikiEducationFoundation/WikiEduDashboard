@@ -13,10 +13,15 @@
 
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?
-    %h2
-      = t("courses.submitted_and_pending_heading")
-    - @pres.submitted.each do |course|
-      = render "course_row", course: course, assignment_start: true
+    #submitted-list.expanded
+      %h2{onclick: "toggleAccordian('submitted-list')"}
+        = t("courses.submitted_and_pending_heading")
+        = hot_javascript_tag 'accordian'
+        .submitted.icon.icon-arrow
+
+      .course-list
+        - @pres.submitted.each do |course|
+          = render "course_row", course: course, assignment_start: true
 
   - # Orientation block
   - if @pres.show_orientation_block?

@@ -1,0 +1,19 @@
+#submitted-list
+  h2
+    margin-top 20px
+
+  .icon
+    font-size 30px
+    float right
+    transform-origin 50% 45%
+
+  &.collapsed
+    .icon
+      transition transform 0.2s
+    .course-list
+      display none
+
+  &.expanded
+    transition all 0.2s
+    .icon
+      transform rotate(180deg)
