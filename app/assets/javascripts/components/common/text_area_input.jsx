@@ -6,6 +6,9 @@ import InputHOC from '../high_order/input_hoc.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
+const TINY_MCE_URL = 'tiny-mce-url';
+const TINY_MCE_SCRIPT = 'tiny-mce-script';
+
 // This is a flexible text input box. It switches between edit and read mode,
 // and can either provide a wysiwyg editor or a plain text editor.
 const TextAreaInput = createReactClass({
@@ -34,6 +37,14 @@ const TextAreaInput = createReactClass({
   },
 
   componentDidMount() {
+    // check if tinymce is already loaded
+    let tinyMCEScript = document.getElementById(TINY_MCE_SCRIPT);
+    if(tinyMCEScript != null) {
+      this.setState({
+        tinymceLoaded: true
+      });
+      return;
+    }
     if (this.props.wysiwyg) {
       this.loadTinyMCE();
     }
@@ -43,15 +54,19 @@ const TextAreaInput = createReactClass({
     // dynamically add the script tag
     // import() doesn't work because
     // the skins are loaded relative to the current url which results in 500
-    const script = document.createElement('script');
-    script.onload = () => {
-      // tinymce is loaded at this point
-      this.setState({
-        tinymceLoaded: true
-      });
-    };
-    script.src = document.getElementById('tiny-mce-url').innerText;
-    document.head.appendChild(script);
+    const tinyMCEPath = document.getElementById(TINY_MCE_URL).innerText;
+    if (tinyMCEPath.trim() != "") { // path is empty when logged out
+      const script = document.createElement('script');
+      script.id = TINY_MCE_SCRIPT;
+      script.onload = () => {
+        // tinymce is loaded at this point
+        this.setState({
+          tinymceLoaded: true
+        });
+      };
+      script.src = tinyMCEPath;
+      document.head.appendChild(script);
+    }
   },
 
   handleRichTextEditorChange(e) {
