@@ -52,7 +52,7 @@ class CheckCourseJobs
   end
 
   def delete_orphan_lock
-    if !job_exists? && lock_exists?
+    if orphan_expected? && !job_exists? && lock_exists?
       delete_unique_lock
       log_previous_failed_update
       log_orphan_record
@@ -62,6 +62,31 @@ class CheckCourseJobs
   end
 
   private
+
+  # NOTE: In a orphan lock failure, the system does not log anything
+  # because the job usually ends abruptly, and does not reach the end
+  # of update process where we update the logs
+
+  def orphan_expected?
+    update_logs = @course.flags['update_logs']
+
+    # Possible in a situation where there are no logs due to all being orphan failures
+    return true unless update_logs.present?
+
+    # Extracting the latest update end time by getting the last element
+    # in the values of update logs which are filtered by no orphan lock logs
+    last_update_times_log = update_logs&.values
+                                       &.select { |element| element['orphan_lock_failure'].nil? }
+                                       &.last
+    last_end_time = last_update_times_log['end_time']
+
+    # If there is no log having update times means all are orphan lock logs
+    return true unless last_end_time.present?
+
+    # Return true only if the last update time is bigger than last update time + one day,
+    # as currently most update jobs would end in a few minutes at max
+    Time.zone.now > last_end_time + 1.day
+  end
 
   def find_queued_job
     Sidekiq::Queue.all.each do |queue|
