@@ -38,8 +38,8 @@ const TextAreaInput = createReactClass({
 
   componentDidMount() {
     // check if tinymce is already loaded
-    let tinyMCEScript = document.getElementById(TINY_MCE_SCRIPT);
-    if(tinyMCEScript != null) {
+    const tinyMCEScript = document.getElementById(TINY_MCE_SCRIPT);
+    if (tinyMCEScript !== null) {
       this.setState({
         tinymceLoaded: true
       });
@@ -55,7 +55,7 @@ const TextAreaInput = createReactClass({
     // import() doesn't work because
     // the skins are loaded relative to the current url which results in 500
     const tinyMCEPath = document.getElementById(TINY_MCE_URL).innerText;
-    if (tinyMCEPath.trim() != "") { // path is empty when logged out
+    if (tinyMCEPath.trim() !== '') { // path is empty when logged out
       const script = document.createElement('script');
       script.id = TINY_MCE_SCRIPT;
       script.onload = () => {
