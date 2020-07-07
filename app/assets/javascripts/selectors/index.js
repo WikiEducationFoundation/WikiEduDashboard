@@ -29,7 +29,9 @@ const getValidations = state => state.validations.validations;
 const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
 const getTickets = state => state.tickets;
-
+const getRevisions = state => state.revisions.revisions;
+const getIsCourseSpecific = state => state.revisions.isCourseSpecific;
+const getCourseSpecificRevisionIds = state => state.revisions.courseSpecificRevisionIds;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -263,5 +265,13 @@ export const getFilteredTickets = createSelector(
 export const getTicketsById = createSelector(
   [getTickets], (tickets) => {
     return tickets.all.reduce((acc, ticket) => ({ ...acc, [ticket.id]: ticket }), {});
+  }
+);
+
+export const getActivityRevisions = createSelector(
+  [getRevisions, getIsCourseSpecific, getCourseSpecificRevisionIds],
+  (revisions, isCourseSpecific, courseSpecificRevisionIds) => {
+    if (!isCourseSpecific) { return revisions; }
+    return revisions.filter((revision) => { return courseSpecificRevisionIds.includes(revision.id); });
   }
 );

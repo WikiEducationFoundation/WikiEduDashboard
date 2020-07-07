@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 json.course do
+  json.course_specific_revision_ids @course.tracked_revisions
+                                           .order(date: :desc).limit(@limit).pluck(:id)
   json.revisions(@course.recent_revisions
                         .eager_load(:user, :wiki).includes(article: :wiki)
                         .order(date: :desc).limit(@limit)) do |rev|
