@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe CheckCourseJobs do
-  let(:course) { create(:course) }
+  let(:course) { create(:course, needs_update: true) }
 
   let(:subject) do
     described_class.new(course)
@@ -17,7 +17,7 @@ describe CheckCourseJobs do
       end
     end
 
-    context 'when there is an update scheduled' do
+    context 'when there is an update queued' do
       before do
         Sidekiq::Testing.disable!
         CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
@@ -31,6 +31,51 @@ describe CheckCourseJobs do
 
       it 'returns true' do
         expect(subject.find_job).to be_a Sidekiq::Job
+        expect(subject.job_exists?).to eq true
+      end
+    end
+
+    context 'when there is an update job running' do
+      # Value returned by Sidekiq::Worker.new for currently running jobs
+      # Refer to Sidekiq API Workers Wiki
+      let(:currently_running_jobs) do
+        [
+          [
+            'process_id_1',
+            'thread_id_1',
+            { 'queue' => 'test',
+              'run_at' => Time.zone.now,
+              'payload' => {
+                'retry' => false,
+                'queue' => 'test',
+                'class' => 'SomeOtherWorker',
+                'args' => [567],
+                'jid' => '5678',
+                'enqueued_at' => 3456.7890
+              } }
+          ], [
+            'process_id_2',
+            'thread_id_2',
+            { 'queue' => 'test',
+              'run_at' => Time.zone.now,
+              'payload' => {
+                'retry' => false,
+                'queue' => 'test',
+                'class' => 'CourseDataUpdateWorker',
+                'args' => [course.id],
+                'jid' => '1234',
+                'enqueued_at' => 1234.5678
+              } }
+          ]
+        ]
+      end
+
+      it 'returns true' do
+        allow(Sidekiq::Workers).to receive(:new).and_return(currently_running_jobs)
+        worker_hash = subject.find_job
+        expect(worker_hash).to be_a Hash
+        expect(worker_hash['payload']['class']).to eq 'CourseDataUpdateWorker'
+        expect(worker_hash['payload']['args']).to eq [course.id]
         expect(subject.job_exists?).to eq true
       end
     end
