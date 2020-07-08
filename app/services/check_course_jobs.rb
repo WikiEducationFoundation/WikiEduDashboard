@@ -76,16 +76,15 @@ class CheckCourseJobs
     # Extracting the latest update end time by getting the last element
     # in the values of update logs which are filtered by no orphan lock logs
     last_update_times_log = update_logs&.values
-                                       &.select { |element| element['orphan_lock_failure'].nil? }
+                                       &.select { |element| element[:orphan_lock_failure].nil? }
                                        &.last
-    last_end_time = last_update_times_log['end_time']
 
-    # If there is no log having update times means all are orphan lock logs
-    return true unless last_end_time.present?
+    # If we cannot find a log having update times means all are orphan lock logs
+    return true unless last_update_times_log.present?
 
-    # Return true only if the last update time is bigger than last update time + one day,
+    # Return true only if the last update end time is bigger than last update time + one day,
     # as currently most update jobs would end in a few minutes at max
-    Time.zone.now > last_end_time + 1.day
+    Time.zone.now > last_update_times_log['end_time'] + 1.day
   end
 
   def find_queued_job
