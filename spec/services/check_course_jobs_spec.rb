@@ -103,24 +103,66 @@ describe CheckCourseJobs do
   end
 
   describe '#delete_orphan_lock' do
-    context 'when a lock is there' do
-      before do
-        Sidekiq::Testing.disable!
-        SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
-                                           'unique_digest' => subject.expected_digest }).lock
+    before do
+      Sidekiq::Testing.disable!
+      SidekiqUniqueJobs::Locksmith.new({ 'jid' => 1234,
+                                         'unique_digest' => subject.expected_digest }).lock
+    end
+
+    after do
+      # Deleting the digest after the test
+      SidekiqUniqueJobs::Digests.delete_by_digest subject.expected_digest
+      Sidekiq::Testing.inline!
+    end
+
+    context 'when a lock is there and no job exists' do
+      let(:days_ago_update_log) do
+        { 'start_time' => 4.days.ago,
+          'end_time' => 3.days.ago,
+          'error_count': 0,
+          'sentry_tag_uuid': 'abcd-12ef' }
+      end
+      let(:hours_ago_update_log) do
+        { 'start_time' => 2.hours.ago,
+          'end_time' => 1.hour.ago,
+          'error_count': 0,
+          'sentry_tag_uuid': 'wxyz-34jk' }
+      end
+      let(:orphan_lock_update_log) do
+        { 'orphan_lock_failure': true }
+      end
+      let(:orphan_not_expected) do
+        { 'update_logs' => {  1 => days_ago_update_log,
+                              2 => hours_ago_update_log,
+                              3 => orphan_lock_update_log } }
+      end
+      let(:orphan_expected_1) do
+        { 'update_logs' => { 1 => days_ago_update_log,
+                             2 => orphan_lock_update_log } }
       end
 
-      after do
-        # Deleting the digest after the test
-        SidekiqUniqueJobs::Digests.delete_by_digest subject.expected_digest
-        Sidekiq::Testing.inline!
+      let(:orphan_expected_2) do
+        { 'update_logs' => { 1 => orphan_lock_update_log } }
       end
 
-      it 'course worker does not exist, deletes orphan lock' do
+      it 'last update hours ago, does not delete orphan lock' do
+        course.flags = orphan_not_expected
+        expect(subject.delete_orphan_lock).to eq false
+      end
+
+      it 'last update some days ago, deletes orphan lock' do
+        course.flags = orphan_expected_1
         expect(subject.delete_orphan_lock).to eq true
       end
 
-      it 'course worker is already exists, does not delete the orphan lock' do
+      it 'no successful update yet, deletes orphan lock' do
+        course.flags = orphan_expected_2
+        expect(subject.delete_orphan_lock).to eq true
+      end
+    end
+
+    context 'when a lock is there and a job exists' do
+      it 'no update logs, orphan expected, does not delete the orphan lock' do
         CourseDataUpdateWorker.set(queue: 'test').perform_async(course.id)
         expect(subject.delete_orphan_lock).to eq false
 
