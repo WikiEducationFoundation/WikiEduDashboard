@@ -3,13 +3,20 @@ import React from 'react';
 const StatisticsUpdateModal = (props) => {
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
+    let errorMessage = '';
     const errorCount = props.course.updates.last_update.error_count;
-    const errorMessage = errorCount > 0 ? `${I18n.t('metrics.error_count_message', { error_count: errorCount })} ` : '';
+    if (errorCount && errorCount > 0) {
+      errorMessage = `${I18n.t('metrics.error_count_message', { error_count: errorCount })}`;
+    } else if (props.course.updates.last_update.orphan_lock_failure) {
+      errorMessage = `${I18n.t('metrics.last_update_failed')}`;
+    }
 
     // Update numbers (ids) are stored incrementally as counts in update_logs, so the
     // last update number is the total number of updates till now
     const updateNumbers = Object.keys(props.course.flags.update_logs);
     const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
+
+    const updateTimesInformation = props.getUpdateTimesInformation();
 
     return (
       <div className="statistics-update-modal-container">
@@ -19,7 +26,7 @@ const StatisticsUpdateModal = (props) => {
           { errorMessage }
           <ul>
             <li>{ totalUpdatesMessage }</li>
-            <li>{ props.nextUpdateMessage }</li>
+            { updateTimesInformation !== null && <li>{updateTimesInformation[1]}</li> }
           </ul>
           <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>

@@ -19,21 +19,25 @@ const StatisticsUpdateInfo = createReactClass({
 
   getUpdateTimesInformation() {
     const course = this.props.course;
-    const lastUpdate = course.updates.last_update.end_time;
-    const lastUpdateMoment = moment.utc(lastUpdate);
+    const updateTimesLogs = Object.values(course.flags.update_logs).filter(log => log.end_time !== undefined);
+
+    if (updateTimesLogs.length === 0) return null;
+
+    const lastSuccessfulUpdate = updateTimesLogs[updateTimesLogs.length - 1].end_time;
+    const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
     const averageDelay = course.updates.average_delay;
-    let lastUpdateMessage = '';
+    let lastSuccessfulUpdateMessage = '';
     let nextUpdateMessage = '';
     let isNextUpdateAfter = null;
 
-    if (lastUpdate) {
-      lastUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastUpdateMoment.fromNow()}`;
-      const nextUpdateExpectedTime = lastUpdateMoment.add(averageDelay, 'seconds');
+    if (lastSuccessfulUpdate) {
+      lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
+      const nextUpdateExpectedTime = lastSuccessfulUpdateMoment.add(averageDelay, 'seconds');
       isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
       nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
     }
 
-    return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
+    return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
   },
 
   toggleModal() {
@@ -49,18 +53,22 @@ const StatisticsUpdateInfo = createReactClass({
       return <div />;
     }
 
-    const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = this.getUpdateTimesInformation();
-    const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage}. ${nextUpdateMessage}. ` : `${lastUpdateMessage}. `;
-
     // Render Modal
     if (this.state.showModal) {
       return (
         <StatisticsUpdateModal
           course={course}
-          nextUpdateMessage={nextUpdateMessage}
+          getUpdateTimesInformation={this.getUpdateTimesInformation}
           toggleModal={this.toggleModal}
         />
       );
+    }
+
+    const updateTimesInformation = this.getUpdateTimesInformation();
+    let updateTimesMessage = '';
+    if (updateTimesInformation !== null) {
+      const [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = updateTimesInformation;
+      updateTimesMessage = isNextUpdateAfter ? `${lastSuccessfulUpdateMessage}. ${nextUpdateMessage}. ` : `${lastSuccessfulUpdateMessage}. `;
     }
 
     // Render update time information along with 'See More' link to open modal
