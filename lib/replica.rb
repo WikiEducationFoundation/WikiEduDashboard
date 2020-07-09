@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
-#=   https://tools.wmflabs.org/wikiedudashboard
+#=   https://wikiedudashboard.wmflabs.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
@@ -97,7 +97,7 @@ class Replica
   # query appropriate to that endpoint, return the parsed json response.
   #
   # Example revisions.php query:
-  #   https://tools.wmflabs.org/wikiedudashboard/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
+  #   https://wikiedudashboard.toolforge.org/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
@@ -156,7 +156,7 @@ class Replica
   end
 
   def do_post(endpoint, key, data)
-    url = "https://tools.wmflabs.org/wikiedudashboard/#{endpoint}"
+    url = "https://wikiedudashboard.toolforge.org/#{endpoint}"
     database_params = project_database_params_post
     Net::HTTP::post_form(URI.parse(url),
                          'db' => database_params['db'],
@@ -167,7 +167,7 @@ class Replica
 
   # Query URL for the WikiEduDashboardTools repository
   def compile_query_url(endpoint, query)
-    base_url = 'https://tools.wmflabs.org/wikiedudashboard/'
+    base_url = 'https://wikiedudashboard.toolforge.org/'
     "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 

@@ -98,8 +98,8 @@ class CourseArticlesCsvBuilder
   end
 
   # Example:
-  # https://tools.wmflabs.org/pageviews/?project=en.wikipedia.org&platform=all-access&agent=user&start=2015-07-01&end=2017-01-16&pages=Mossack_Fonseca
-  PAGEVIEWS_BASE_URL = 'https://tools.wmflabs.org/pageviews/?platform=all-access&agent=user'
+  # https://pageviews.toolforge.org/?project=en.wikipedia.org&platform=all-access&agent=user&redirects=0&start=2015-07-01&end=2017-01-16&pages=Mossack_Fonseca
+  PAGEVIEWS_BASE_URL = 'https://pageviews.toolforge.org/?platform=all-access&agent=user'
   def pageview_url(article)
     PAGEVIEWS_BASE_URL + pageviews_range_param + pageview_article_params(article)
   end

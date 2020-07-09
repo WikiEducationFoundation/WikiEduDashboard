@@ -62,9 +62,9 @@ RSpec.describe Category, type: :model do
     end
 
     # Pagepile is a tool for representing a static list of articles —
-    # both existing and not — on a single wiki: https://tools.wmflabs.org/pagepile/
+    # both existing and not — on a single wiki: https://pagepile.toolforge.org/
     context 'for pileid-source Category' do
-      # Example pile from `lawiktionary`: https://tools.wmflabs.org/pagepile/api.php?action=get_data&format=json&id=28301
+      # Example pile from `lawiktionary`: https://pagepile.toolforge.org/api.php?action=get_data&format=json&id=28301
       let(:category) { create(:category, name: 28301, source: 'pileid') }
       let(:course) { create(:course) }
       let(:lawiktionary) { Wiki.get_or_create(language: 'la', project: 'wiktionary') }

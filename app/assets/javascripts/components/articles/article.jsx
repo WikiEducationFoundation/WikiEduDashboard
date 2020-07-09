@@ -71,7 +71,7 @@ const Article = createReactClass({
     const { project, title } = this.props.article;
     let { language } = this.props.article;
     if (project === 'wikidata') language = 'www';
-    const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
+    const pageviewUrl = `https://pageviews.toolforge.org/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
 
     return (
       <tr className="article">

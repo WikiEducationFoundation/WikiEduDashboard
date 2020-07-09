@@ -48,7 +48,7 @@ class PagePileApi
   end
 
   def pagepile
-    conn = Faraday.new(url: 'https://tools.wmflabs.org/pagepile')
+    conn = Faraday.new(url: 'https://pagepile.toolforge.org')
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end

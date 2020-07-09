@@ -6,8 +6,8 @@ content: |
   information about them, but as a human (<code>Q5</code>) it's usually easier
   to access and piece together that information from a Wikipedia article. There
   are tools that make Wikidata items easier to interpret
-  (<a href="https://tools.wmflabs.org/reasonator">Reasonator</a> and
-  <a href="https://tools.wmflabs.org/sqid">SQID</a> are some tools that Wikidata's
+  (<a href="https://reasonator.toolforge.org/">Reasonator</a> and
+  <a href="https://sqid.toolforge.org/#/">SQID</a> are some tools that Wikidata's
   information easier to read), but the power of Wikidata doesn't come from
   reading entries. The real power of Wikidata comes from queries.
 

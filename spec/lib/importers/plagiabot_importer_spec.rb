@@ -15,7 +15,7 @@ describe PlagiabotImporter do
       create(:article,
              id: 123321,
              namespace: 0)
-      stub_request(:get, /tools.wmflabs.org.*/)
+      stub_request(:get, /eranbot.toolforge.org.*/)
         .to_return(body: "[{'project': 'wikipedia',
                             'page_ns': '0',
                             'page_title': 'Prasad_karmarkar',
@@ -29,7 +29,7 @@ describe PlagiabotImporter do
 
   describe '.api_get_url' do
     it 'returns an ithenticate report url for an ithenticate_id' do
-      stub_request(:get, /tools.wmflabs.org.*/)
+      stub_request(:get, /eranbot.toolforge.org.*/)
         .to_return(body: '[https://api.ithenticate.com/view_report/'\
                          '85261B20-0B70-11E7-992A-907D4A89A445]')
       report_url = described_class.api_get_url(ithenticate_id: 19201081)
@@ -45,7 +45,7 @@ describe PlagiabotImporter do
     end
 
     it 'redirects to a 404 page if no url is available' do
-      stub_request(:get, /tools.wmflabs.org.*/).to_return(body: '[;(]')
+      stub_request(:get, /eranbot.toolforge.org.*/).to_return(body: '[;(]')
       report_url = described_class.api_get_url(ithenticate_id: 19201081999)
       expect(report_url).to eq('/not_found')
     end
@@ -105,7 +105,7 @@ describe PlagiabotImporter do
         {'lang': 'en', 'page_ns': '0', 'page_title': 'Queens_Gardens,_Brisbane', 'diff_timestamp': '20170317152833', 'ithenticate_id': '27708174', 'project': 'wikipedia', 'diff': '770784503'},
         {'lang': 'en', 'page_ns': '0', 'page_title': 'Wikipeia:Wikiproject_Radiopharmacy/Radiopharmaceuticals', 'diff_timestamp': '20170317152002', 'ithenticate_id': '27707903', 'project': 'wikipedia', 'diff': '770783335'}]
       DIFFS
-      stub_request(:get, /tools.wmflabs.org.*/).to_return(body: suspected_diffs_array)
+      stub_request(:get, /eranbot.toolforge.org.*/).to_return(body: suspected_diffs_array)
 
       # This is tricky to test, because we don't know what the recent revisions
       # will be. So, first we have to get one of those revisions.
@@ -123,14 +123,14 @@ describe PlagiabotImporter do
     end
 
     it 'handles API failures gracefully' do
-      stub_request(:any, /.*wmflabs.org.*/).and_raise(Oj::ParseError)
+      stub_request(:any, /.*toolforge.org.*/).and_raise(Oj::ParseError)
       expect { described_class.find_recent_plagiarism }.not_to raise_error
     end
   end
 
   describe 'error handling' do
     it 'handles connectivity problems gracefully' do
-      stub_request(:any, /.*wmflabs.org.*/).and_raise(Errno::ETIMEDOUT)
+      stub_request(:any, /.*toolforge.org.*/).and_raise(Errno::ETIMEDOUT)
       expect(described_class.api_get('suspected_diffs')).to be_empty
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#= Imports plagiarism data from tools.wmflabs.org/eranbot/plagiabot/api.py
+#= Imports plagiarism data from eranbot.toolforge.org/plagiabot/api.py
 class PlagiabotImporter
   ################
   # Entry points #
@@ -48,7 +48,7 @@ class PlagiabotImporter
   end
 
   def self.query_url(type, opts = {})
-    base_url = 'https://tools.wmflabs.org/eranbot/plagiabot/api.py'
+    base_url = 'https://eranbot.toolforge.org/plagiabot/api.py'
     base_params = "?action=#{type}"
     url = base_url + base_params
     url += "&lang=en&diff=#{opts[:revision_id]}" if opts[:revision_id]
