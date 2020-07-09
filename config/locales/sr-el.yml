@@ -164,7 +164,7 @@ sr-el:
     view: Vidi članak
     view_all: Vidi sve
     view_doc: Procenjeni prikazi svakog članka od njegovog prvog uređivanja, pomoću
-      najnovijeg ažuriranja statistike. Možete da koristite tools.wmflabs.org/pageviews
+      najnovijeg ažuriranja statistike. Možete da koristite pageviews.toolforge.org
       da biste videli tačne brojeve.
     view_on_wiki: Pogledaj na vikiju
     views_added: '{{PLURAL:%{count}|Dodat %{count} novi pregled|Dodata %{count} nova

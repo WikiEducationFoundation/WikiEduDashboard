@@ -207,7 +207,7 @@ tr:
     view: Makaleyi Göster
     view_all: Hepsini Göster
     view_doc: Her makalenin ilk düzenlenmesinden bu yana, en son istatistik güncellemesiyle
-      tahmin edilen görünümleri. Kesin sayıları görmek için tools.wmflabs.org/pageviews
+      tahmin edilen görünümleri. Kesin sayıları görmek için pageviews.toolforge.org
       adresini kullanabilirsiniz.
     view_on_wiki: Wikide görüntüle
     views_added: '%{title} için %{count} yeni görüntüleme eklendi'

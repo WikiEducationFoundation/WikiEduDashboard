@@ -185,7 +185,7 @@ it:
     view: Visualizza voce
     view_all: Mostra tutto
     view_doc: La stima delle visite per ogni voce da quando è stata modificata la
-      prima volta, attraverso le ultime statistiche più aggiornate. Puoi usare tools.wmflabs.org/pageviews
+      prima volta, attraverso le ultime statistiche più aggiornate. Puoi usare pageviews.toolforge.org
       per vedere i numeri esatti.
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}

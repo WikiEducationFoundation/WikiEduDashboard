@@ -183,7 +183,7 @@ ast:
     view: Ver artículu
     view_all: Ver toos
     view_doc: Les vistes estimaes de cada artículu dende la primera edición hasta
-      l'anovamientu d'estadístiques más recién. Pues usar tools.wmflabs.org/pageviews
+      l'anovamientu d'estadístiques más recién. Pues usar pageviews.toolforge.org
       pa ver los númberos exautos.
     view_on_wiki: Ver na wiki
     views_added: Amestáronse %{count} visites nueves a %{title}

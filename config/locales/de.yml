@@ -192,7 +192,7 @@ de:
     view: Artikel anzeigen
     view_all: Alles anzeigen
     view_doc: Die geschätzten Aufrufe jedes Artikels, seit er das erste Mal bearbeitet
-      wurde, seit dem letzten Update der Stats. Du kannst tools.wmflabs.org/pageviews
+      wurde, seit dem letzten Update der Stats. Du kannst pageviews.toolforge.org
       verwenden, um die exakten Zahlen zu sehen.
     view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'

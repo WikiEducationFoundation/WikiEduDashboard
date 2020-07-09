@@ -169,7 +169,7 @@ zh-TW:
     tools: 評估工具
     view: 檢視文章
     view_all: 檢視全部
-    view_doc: 透過最新統計更新，各條目從首次編輯後的估計檢視數。您可以使用 tools.wmflabs.org/pageviews 來查看準確數字。
+    view_doc: 透過最新統計更新，各條目從首次編輯後的估計檢視數。您可以使用 pageviews.toolforge.org 來查看準確數字。
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
     edit_size: 編輯大小

@@ -152,7 +152,7 @@ sk:
     view: Zobraziť článok
     view_all: Zobraziť všetko
     view_doc: Odhadovaný počet zobrazení každého článku od jeho prvej úpravy na základe
-      poslednej aktualizácie štatistík. Presné čísla môžete nájsť na tools.wmflabs.org/pageviews.
+      poslednej aktualizácie štatistík. Presné čísla môžete nájsť na pageviews.toolforge.org.
     view_on_wiki: Zobraziť na wiki
     views_added: '%{title} bol zobrazený %{count}-krát'
     edit_size: Veľkosť úpravy

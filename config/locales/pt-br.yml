@@ -207,7 +207,7 @@ pt-br:
     view_all: Ver tudo
     view_doc: As visualizações estimadas para cada artigo desde que ele foi editado
       pela primeira vez, por meio da atualização de estatísticas mais recente. Você
-      pode usar o tools.wmflabs.org/pageviews para ver os números exatos.
+      pode usar o pageviews.toolforge.org para ver os números exatos.
     view_on_wiki: Ver na wiki
     views_added: '%{count} novas visualizações para %{title}'
     edit_size: Tamanho da edição

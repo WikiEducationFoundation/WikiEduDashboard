@@ -190,7 +190,7 @@ eu:
     view: Artikulua ikusi
     view_all: Denak ikusi
     view_doc: Artikulu bakoitzaren gutxi gorabeherako ikustaldiak lehenengoz editatua
-      izan zenetik, estatistiken azken eguneratzera arte. tools.wmflabs.org/pageviews
+      izan zenetik, estatistiken azken eguneratzera arte. pageviews.toolforge.org
       erabil dezakezu zenbaki zehatzak ikusteko.
     view_on_wiki: Ikus wikian
     views_added: Bisita berrien %{count} gehituta %{title} artikulurako

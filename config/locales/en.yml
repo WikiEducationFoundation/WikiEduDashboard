@@ -202,7 +202,7 @@ en:
     tools: Assessment tools
     view: View Article
     view_all: View All
-    view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use tools.wmflabs.org/pageviews to see the exact numbers.
+    view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"

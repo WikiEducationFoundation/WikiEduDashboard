@@ -214,7 +214,7 @@ fr:
     view_all: Tout afficher
     view_doc: Le nombre de vues de chacun des articles depuis qu’il a été modifié
       pour la première fois jusqu’à la dernière valeur fournie par les statistiques.
-      Vous pouvez utiliser tools.wmflabs.org/pageviews pour voir les valeurs exactes.
+      Vous pouvez utiliser pageviews.toolforge.org pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
     edit_size: Modifier la taille
