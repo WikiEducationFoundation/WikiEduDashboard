@@ -71,7 +71,7 @@ describe UpdateCourseStats do
       allow(Raven).to receive(:capture_exception)
 
       # Raising errors only in Replica
-      stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*}).to_raise(Errno::ECONNREFUSED)
+      stub_request(:any, %r{wikiedudashboard.toolforge.org/.*}).to_raise(Errno::ECONNREFUSED)
       VCR.use_cassette 'course_update/replica' do
         subject
       end
