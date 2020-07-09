@@ -20,6 +20,7 @@ gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'dalli' # Caching
 gem 'connection_pool'
+gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 
 ### Login, authentication, browser support
 gem 'devise' # user session management

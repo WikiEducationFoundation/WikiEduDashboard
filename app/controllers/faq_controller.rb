@@ -9,8 +9,7 @@ class FaqController < ApplicationController
     @query = params[:search]
     @topic_slug = params[:topic] || DEFAULT_TOPIC
     @faqs = if @query
-              Faq.where('lower(title) like ?', "%#{@query}%")
-                 .or(Faq.where('lower(content) like ?', "%#{@query}%"))
+              Faq.find_by_fuzzy_question_and_answer @query # rubocop:disable Rails/DynamicFindBy
             else
               FaqTopic.new(@topic_slug).faqs
             end

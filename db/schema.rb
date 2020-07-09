@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_162237) do
+ActiveRecord::Schema.define(version: 2020_07_09_150005) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -509,6 +509,16 @@ ActiveRecord::Schema.define(version: 2020_06_16_162237) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_training_slides_on_slug", unique: true
+  end
+
+  create_table "trigrams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "trigram", limit: 3
+    t.integer "score", limit: 2
+    t.integer "owner_id"
+    t.string "owner_type"
+    t.string "fuzzy_field"
+    t.index ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match"
+    t.index ["owner_id", "owner_type"], name: "index_by_owner"
   end
 
   create_table "user_profiles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

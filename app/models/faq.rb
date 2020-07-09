@@ -11,6 +11,8 @@
 #  content    :text(65535)
 #
 class Faq < ApplicationRecord
+  fuzzily_searchable :question_and_answer
+
   def self.markdown_renderer
     @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
   end
@@ -19,6 +21,20 @@ class Faq < ApplicationRecord
     markdown_renderer.render(content)
   end
 
+  ##########################
+  # Fuzzily search helpers #
+  ##########################
+  def question_and_answer
+    "#{title} #{content}"
+  end
+
+  def saved_change_to_question_and_answer?
+    saved_change_to_title? || saved_change_to_content?
+  end
+
+  #############
+  # Rendering #
+  #############
   def html_content
     Faq.render_markdown(content)
   end
