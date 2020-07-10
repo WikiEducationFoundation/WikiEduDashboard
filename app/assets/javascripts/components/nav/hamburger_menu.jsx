@@ -16,7 +16,6 @@ const HamburgerMenu = createReactClass({
     ifAdmin: PropTypes.bool,
     trainingUrl: PropTypes.string,
     helpDisabled: PropTypes.bool,
-    askUrl: PropTypes.string,
     wikiEd: PropTypes.bool,
     userPermissions: PropTypes.bool,
     languageSwitcherEnabled: PropTypes.bool,
@@ -40,7 +39,7 @@ const HamburgerMenu = createReactClass({
   },
 
   render() {
-    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
+    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
     let myDashboard;
     let forAdmin;
     let help;
@@ -109,7 +108,7 @@ const HamburgerMenu = createReactClass({
     if ((userSignedIn || helpDisabled) === false) {
       help = (
         <li>
-          <CustomLink to={askUrl} name={I18n.t('application.help')} />
+          <CustomLink to="/faq" name={I18n.t('application.help')} />
         </li>
       );
     }
