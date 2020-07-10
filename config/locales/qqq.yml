@@ -61,7 +61,7 @@ qqq:
       Casual greeting
       {{Identical|Hello}}
     help: |-
-      Link to http://ask.wikiedu.org
+      Link to frequently asked questions
       (Wiki Ed only)
       {{Identical|Help}}
     home: |-
@@ -79,7 +79,7 @@ qqq:
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
     request_account: '{{Identical|Request an account}}'
-    search: Input box for search on ask.wikiedu.org (Wiki Ed only)
+    search: Input box for Frequently Asked Questions search (Wiki Ed only)
     sign_up_extended: Short text (< 14 characters) to make clear that authentication
       is via wikipedia
     sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that

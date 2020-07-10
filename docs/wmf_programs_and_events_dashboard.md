@@ -17,5 +17,4 @@ As of January 2019:
 * Wizard for creating new assignment timelines
 * ClassroomProgramCourse & VisitingScholarship course types
 * "Get Help" button
-* ask.wikiedu.org integration
 * Wiki Education blog integration
