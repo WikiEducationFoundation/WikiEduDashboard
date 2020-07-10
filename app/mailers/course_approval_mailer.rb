@@ -16,7 +16,7 @@ class CourseApprovalMailer < ApplicationMailer
     @signed = SpecialUsers.classroom_program_manager&.real_name || 'The Wiki Education team'
     # rubocop:disable Layout/LineLength
     mail(to: @instructor.email,
-         subject: "Your Wiki Education course page for #{@course.title} / #{@course.term} at #{@course.school} is now live")
+         subject: "Wiki Education — Your application for #{@course.title} / #{@course.term} at #{@course.school} has been approved!")
     # rubocop:enable Layout/LineLength
   end
 end

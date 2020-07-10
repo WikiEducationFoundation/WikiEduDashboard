@@ -7,40 +7,42 @@
           %tr
             %td.main-content
               %p.paragraph
-                = "Hi #{@instructor.real_name || @instructor.username},"
+                = "Dear #{@instructor.real_name || @instructor.username},"
               - if !@is_returning_instructor
                 %p.paragraph
-                  Thanks for submitting your
+                  Your application for a spot in our Wikipedia Student Program has been approved, and your
                   %a.link{href: @course_link}course page
-                  at dashboard.wikiedu.org.
+                  is now live on our Course Dashboard!
                 %p.paragraph
-                  Your course page is now live! That means that when you're ready to begin
-                  the assignment, your students can both create their Wikipedia accounts
-                  and enroll on the page with the following link:
+                  To get started with your Wikipedia assignment, please distribute the
+                  following enrollment link to your students:
                 %p.paragraph
                   %a.link{href: @enroll_link}= @enroll_link
                 %p.paragraph
-                  Please be sure to distribute this link to them early on so they
-                  can get a head start on learning the ins and outs of Wikipedia,
-                  and so you can begin tracking their progress.
+                  This link will enable your students to both create a Wikipedia account
+                  and then enroll on your Dashboard course page. Once a student is
+                  enrolled, you'll be able to use the Dashboard to track their progress
+                  throughout the Wikipedia assignment.
+                %p.paragraph
+                  Please get your students onto the Dashboard early on so that students can
+                  familiarize themselves with the Wikipedia assignment.
                 %p.paragraph
                   In addition to myself, you'll be working with one of our Wikipedia Experts.
                   You can reach out to either of us using the "Get Help" button on your course
                   page.
                 %p.paragraph
-                  Finally,
-                  %a.link{href: 'https://ask.wikiedu.org/question/784/what-do-i-need-to-know-now-that-my-course-page-is-live/?answer=785#post-id-785'}here
-                  are some additional tips for making the most of your Wiki Education support.
-                  I look forward to working with you this term. 
+                  Finally, to learn more about how you can make the most of your Wiki Education support,
+                  = succeed '.' do
+                    %a.link{href: 'https://dashboard.wikiedu.org/faq/7'} click here
+                  I look forward to working with you.
               -if @is_returning_instructor
                 %p.paragraph
-                  Your
+                  Your application for a spot in our Wikipedia Student Program has been approved, and your
                   %a.link{href: @course_link}course page
                   is now live!
                 %p.paragraph
-                  Please remember to distribute the following enrollment link
-                  to your students so they can get a head start on their
-                  Wikipedia assignment.
+                  Please distribute the following enrollment link to your students
+                  so they can enroll on your course page:
                 %p.paragraph
                   %a.link{href: @enroll_link}= @enroll_link
                 %p.paragraph
