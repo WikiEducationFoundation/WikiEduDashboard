@@ -39,6 +39,9 @@ hr:
         U suprotnom nas obavijestite o problemima da bismo ih kasnije mogli riješiti.
       learn_more_button: Saznajte više
       thank_you: Hvala Vam! Kontaktirajte sa svojim Wikiekspertom ako imate još pitanja.
+  revisions:
+    show_all: Pokaži sve
+    show_course_specific: Pokaži pojedinosti tečaja
   training:
     kind:
       discussion: Rasprava

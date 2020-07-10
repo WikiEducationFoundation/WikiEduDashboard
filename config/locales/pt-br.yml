@@ -991,6 +991,8 @@ pt-br:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Veja mais
+    show_all: Mostrar todos
+    show_course_specific: Mostrar curso específico
   resources:
     label: Recursos
     header: Recursos e Treinamento

@@ -496,10 +496,13 @@ sv:
     char_added: Tillagda tecken
     char_changed: Ändrade tecken
     char: Tillagda tecken
+    close_modal: Stäng
     date_time: Datum/Tid
     per_user: '%{number}/user'
     revisions: Senaste redigeringar
     tags: Märken
+    update_status_heading: Uppdatera status
+    update_statistics_link: Se mer
     upload_count: Commons-uppladdningar
     uploads_in_use_count:
       one: fil används i en artikel

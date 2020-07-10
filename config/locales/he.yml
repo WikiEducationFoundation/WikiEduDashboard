@@ -63,7 +63,9 @@ he:
     request_account: בקשת חשבון
     request_account_create: יצירת חשבון
     search: יש לך שאלות?
-    search_results: 'תוצאות עבור: ''%{search_terms}'''
+    search_results:
+      one: 'תוצאה אחת עבור: ''%{search_terms}'''
+      other: '%{count} תוצאות עבור: ''%{search_terms}'''
     no_results: לא נמצאו תוצאות עבור '%{query}'
     sign_up_extended: הרשמה עם חשבון ויקיפדיה
     sign_up_wikipedia: או הרשמה דרך ויקיפדיה
@@ -103,6 +105,9 @@ he:
     sign_up: הרשמה עם חשבון ויקיפדיה
     sign_up_help: כדי להשתמש בלוח הבקרה, יש להיכנס לחשבון באמצעות ויקיפדיה ולתת הרשאה
       לגשת לחשבון שלך. באפשרותך להיכנס לחשבון ויקיפדיה קיים, או ליצור חשבון חדש.
+  alerts:
+    alert_label: התראות
+    no_alerts: לא נמצאו התראות.
   activity:
     all: פעילות
     edited_by: נערך על-ידי
@@ -162,8 +167,7 @@ he:
     view: הצגת הערך
     view_all: להציג הכול
     view_doc: הערכה של מספר הצפיות בכל ערך מאז שהוא נערך לראשונה, באמצעות עדכון הסטטיסטיקה
-      האחרון. באפשרותך להשתמש באתר pageviews.toolforge.org כדי לראות את המספרים
-      המדויקים.
+      האחרון. באפשרותך להשתמש באתר pageviews.toolforge.org כדי לראות את המספרים המדויקים.
     view_on_wiki: הצג בוויקי
     views_added: נוספו %{count} צפיות חדשות לדף %{title}
     edit_size: גודל העריכה
@@ -177,6 +181,11 @@ he:
       המצוטטים, ומאפייני טקסט בסיסיים אחרים. \nציון גבוה נותן אינדיקציה שהמאמר תואם
       את הסטנדרט הוויקיפדי למבנה של ערך הכתוב טוב, אך הוא אינו מתייחס לתוכן עצמו.
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
+    articles_short: ערכים
+  articles_wikidata:
+    articles_short: פריטים
+  articles_generic:
+    articles_short: דפים
   assignments:
     article: הערך %{title} כעת מוקצה אליך.
     article_link: ערך
@@ -247,15 +256,18 @@ he:
     add_this_category: הוספת הקטגוריה הזאת
     add_this_template: הוספת התבנית הזאת
     depth: עומק תת־קטגוריה
+    articles_count: מונה ערכים
     name: שם
     category_name: שם הקטגוריה
     template_name: שם תבנית
     none: אין קטגוריות במעקב.
     remove: הסרה
     tracked_categories: קטגוריות, תבניות, ו־PSID במעקב
+    timestamp: עדכון אחרון ב
   chat:
     label: צ'אט
   courses:
+    school_system: מערכת אקדמית
     activity: פעילות
     alerts: התראות
     all_courses: כל הקורסים
@@ -419,6 +431,7 @@ he:
     course_details: פרטים עבור תוכנית \ קורס \ מיזם
     subject: נושא
     submitted: נשלח
+    submitted_at: נשלח ב
     tag_select: לבחור או ליצור תג
     tags: 'תגים:'
     term: מועד
@@ -561,6 +574,7 @@ he:
     edit_count_description: סה"כ עריכות
     per_user: '%{number}/משתמש'
     revisions: עריכות אחרונות
+    update_statistics_link: לטעון עוד
     upload_count: מס' העלאות לוויקישיתוף
     uploads_in_use_count:
       one: קובץ הנמצא בשימוש בערך

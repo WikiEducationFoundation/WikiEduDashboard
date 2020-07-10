@@ -437,6 +437,7 @@ ko:
     close_modal: 닫기
     date_time: 날짜/시간
     edit_count_description: 총 편집
+    missing_data_heading: 결과가 존재하지 않거나 예기치 않은 결과입니까?
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     tags: 태그
@@ -475,6 +476,7 @@ ko:
     title: 제목
     view_on_wiki: 위키에서 차이 보기
     see_more: 더 보기
+    show_all: 모두 보기
   settings:
     admin_users:
       new:

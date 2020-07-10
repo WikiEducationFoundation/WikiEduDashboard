@@ -1034,6 +1034,8 @@ fr:
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
     see_more: Voir plus
+    show_all: Afficher tout
+    show_course_specific: Afficher le cours spécifique
   resources:
     label: Ressources
     header: Ressources et formation

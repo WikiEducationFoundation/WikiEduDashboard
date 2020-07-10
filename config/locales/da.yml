@@ -416,6 +416,7 @@ da:
     close_modal: Luk
     date_time: Dato/tid
     edit_count_description: Totalt antal ændringer
+    missing_data_heading: Manglende eller uventede resultater?
     revisions: Seneste redigeringer
     references_count: Referencer tilføjet
     update_status_heading: Opdater status
@@ -449,6 +450,7 @@ da:
     edited_on: Blev redigeret den %{edit_date}
     title: Titel
     see_more: Se mere
+    show_all: Vis alle
   resources:
     label: Ressourcer
   settings:

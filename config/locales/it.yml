@@ -775,6 +775,7 @@ it:
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo
+    show_all: Mostra tutte
   settings:
     admin_users:
       new:

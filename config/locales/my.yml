@@ -155,6 +155,7 @@ my:
   revisions:
     title: ခေါင်းစဉ်
     see_more: ပို၍ ကြည့်ရန်
+    show_all: အားလုံးပြရန်
   resources:
     label: အရင်းအမြစ်များ
   timeline:

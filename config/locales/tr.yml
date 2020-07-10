@@ -996,6 +996,8 @@ tr:
     title: Başlık
     view_on_wiki: Viki'de farklılıkları göster
     see_more: Daha fazla gör
+    show_all: Hepsini Göster
+    show_course_specific: Kursa Özel Göster
   resources:
     label: Kaynaklar
     header: Kaynaklar ve Eğitim

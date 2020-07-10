@@ -676,6 +676,8 @@ zh-CN:
     title: 标题
     view_on_wiki: 在wiki上查看差异
     see_more: 查看更多
+    show_all: 全部显示
+    show_course_specific: 显示具体的课程
   settings:
     admin_users:
       new:

@@ -420,6 +420,7 @@ lb:
     title: Titel
     view_on_wiki: Ënnerscheed op der Wiki weisen
     see_more: Méi gesinn
+    show_all: All weisen
   settings:
     admin_users:
       new:
