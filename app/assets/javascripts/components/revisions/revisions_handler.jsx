@@ -3,8 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
-import { fetchRevisions, sortRevisions, filterCourseSpecificRevisions } from '../../actions/revisions_actions.js';
-import { getActivityRevisions } from '../../selectors';
+import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -12,32 +11,36 @@ const RevisionHandler = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object,
+    courseScopedLimit: PropTypes.number,
+    courseScopedLimitReached: PropTypes.bool,
+    courseSpecificRevisions: PropTypes.array,
     fetchRevisions: PropTypes.func,
-    limitReached: PropTypes.bool,
     limit: PropTypes.number,
+    limitReached: PropTypes.bool,
     revisions: PropTypes.array,
-    courseSpecificRevisionIds: PropTypes.array,
     wikidataLabels: PropTypes.object,
     loadingRevisions: PropTypes.bool
+  },
+
+  getInitialState() {
+    return {
+      isCourseScoped: false
+    };
   },
 
   componentDidMount() {
     if (this.props.loadingRevisions) {
       this.props.fetchRevisions(this.props.course_id, this.props.limit);
+      this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
     }
   },
 
   toggleCourseSpecific() {
-    this.setState({
-      revisions: {
-        ...this.state.revisions,
-        isCourseSpecific: !this.state.revisions.isCourseSpecific
-      }
-    });
+    this.setState({ isCourseScoped: !this.state.isCourseScoped });
   },
 
   revisionFilterButtonText() {
-    if (this.props.isCourseSpecific) {
+    if (this.state.isCourseScoped) {
       return I18n.t('revisions.show_all');
     }
     return I18n.t('revisions.show_course_specific');
@@ -48,15 +51,20 @@ const RevisionHandler = createReactClass({
   },
 
   showMore() {
+    if (this.state.isCourseScoped) {
+      return this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit + 100, true);
+    }
     return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
   },
 
   render() {
+    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
+
     let showMoreButton;
-    if (!this.props.limitReached) {
+    if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
-    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.props.filterCourseSpecificRevisions}>{this.revisionFilterButtonText()}</button></div>;
+    const revisionFilterButton = <div><button className="button ghost stacked right" onClick={this.toggleCourseSpecific}>{this.revisionFilterButtonText()}</button></div>;
     return (
       <div id="revisions">
         <div className="section-header">
@@ -74,7 +82,7 @@ const RevisionHandler = createReactClass({
           </div>
         </div>
         <RevisionList
-          revisions={this.props.revisions}
+          revisions={revisions}
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
@@ -87,11 +95,12 @@ const RevisionHandler = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  isCourseSpecific: state.revisions.isCourseSpecific,
+  courseScopedLimit: state.revisions.courseScopedLimit,
+  courseScopedLimitReached: state.revisions.courseScopedLimitReached,
+  courseScopedRevisions: state.revisions.courseScopedRevisions,
   limit: state.revisions.limit,
-  revisions: getActivityRevisions(state),
-  courseSpecificRevisionIds: state.revisions.courseSpecificRevisionIds,
   limitReached: state.revisions.limitReached,
+  revisions: state.revisions.revisions,
   wikidataLabels: state.wikidataLabels.labels,
   loadingRevisions: state.revisions.loading,
   sort: state.revisions.sort,
@@ -99,8 +108,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchRevisions,
-  sortRevisions,
-  filterCourseSpecificRevisions
+  sortRevisions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RevisionHandler);
