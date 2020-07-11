@@ -1,12 +1,13 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS, FILTER_COURSE_SPECIFIC_REVISIONS } from '../constants';
+import { RECEIVE_REVISIONS, SORT_REVISIONS, RECEIVE_COURSE_SCOPED_REVISIONS } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   revisions: [],
-  isCourseSpecific: false,
-  courseSpecificRevisionIds: [],
   limit: 50,
   limitReached: false,
+  courseScopedRevisions: [],
+  courseScopedLimit: 50,
+  courseScopedLimitReached: false,
   sort: {
     key: null,
     sortKey: null,
@@ -24,9 +25,16 @@ export default function revisions(state = initialState, action) {
       return {
         ...state,
         revisions: action.data.course.revisions,
-        courseSpecificRevisionIds: action.data.course.course_specific_revision_ids,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.revisions, action.limit),
+        loading: false
+      };
+    case RECEIVE_COURSE_SCOPED_REVISIONS:
+      return {
+        ...state,
+        courseScopedRevisions: action.data.course.revisions,
+        courseScopedLimit: action.limit,
+        courseScopedLimitReached: isLimitReached(action.data.course.revisions, action.limit),
         loading: false
       };
     case SORT_REVISIONS: {
@@ -39,12 +47,6 @@ export default function revisions(state = initialState, action) {
           sortKey: desc ? null : action.key,
           key: action.key
         }
-      };
-    }
-    case FILTER_COURSE_SPECIFIC_REVISIONS: {
-      return {
-        ...state,
-        isCourseSpecific: !state.isCourseSpecific
       };
     }
     default:
