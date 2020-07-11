@@ -85,6 +85,7 @@ class CoursesController < ApplicationController
 
   def revisions
     set_course
+    set_course_scoped
     set_limit
   end
 
@@ -342,6 +343,10 @@ class CoursesController < ApplicationController
 
   def set_limit
     @limit = params[:limit]
+  end
+
+  def set_course_scoped
+    @course_scoped = params[:course_scoped] == 'true'
   end
 
   # If the user could make an edit to the course, this verifies that
