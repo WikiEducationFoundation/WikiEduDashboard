@@ -41,8 +41,10 @@ export default function revisions(state = initialState, action) {
       const absolute = action.key === 'characters';
       const desc = action.key === state.sort.sortKey;
       const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute);
+      const sortedCourseScopedRevisions = sortByKey(state.courseScopedRevisions, action.key, null, desc, absolute);
       return { ...state,
         revisions: sortedRevisions.newModels,
+        courseScopedRevisions: sortedCourseScopedRevisions.newModels,
         sort: {
           sortKey: desc ? null : action.key,
           key: action.key
