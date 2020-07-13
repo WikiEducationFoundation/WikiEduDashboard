@@ -49,11 +49,12 @@ module ApplicationHelper
   end
 
   def hot_javascript_tag(filename)
-    if Features.hot_loading?
-      javascript_include_tag "http://localhost:8080/#{filename}.js"
-    else
-      javascript_include_tag fingerprinted('/assets/javascripts/', filename)
-    end
+    javascript_include_tag hot_javascript_path(filename)
+  end
+
+  def hot_javascript_path(filename)
+    return "http://localhost:8080/#{filename}.js" if Features.hot_loading?
+    fingerprinted('/assets/javascripts/', filename)
   end
 
   def fingerprinted(path, filename, file_prefix = nil)

@@ -51,4 +51,3 @@ copyPaths.forEach((entry, idx) => {
     default: console.log('\x1b[33m%s\x1b[0m', `Finished copying static assets after ${elapsed(process.hrtime(start))} seconds`); break;
   }
 });
-

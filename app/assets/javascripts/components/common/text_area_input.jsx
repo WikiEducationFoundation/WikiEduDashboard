@@ -6,6 +6,9 @@ import InputHOC from '../high_order/input_hoc.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
+const TINY_MCE_URL = 'tiny-mce-url';
+const TINY_MCE_SCRIPT = 'tiny-mce-script';
+
 // This is a flexible text input box. It switches between edit and read mode,
 // and can either provide a wysiwyg editor or a plain text editor.
 const TextAreaInput = createReactClass({
@@ -27,6 +30,43 @@ const TextAreaInput = createReactClass({
     markdown: PropTypes.bool, // render value as Markdown when in read mode
     className: PropTypes.string,
     clearOnSubmit: PropTypes.bool
+  },
+
+  getInitialState() {
+    return { tinymceLoaded: false };
+  },
+
+  componentDidMount() {
+    // check if tinymce is already loaded
+    const tinyMCEScript = document.getElementById(TINY_MCE_SCRIPT);
+    if (tinyMCEScript !== null) {
+      this.setState({
+        tinymceLoaded: true
+      });
+      return;
+    }
+    if (this.props.wysiwyg) {
+      this.loadTinyMCE();
+    }
+  },
+
+  loadTinyMCE() {
+    // dynamically add the script tag
+    // import() doesn't work because
+    // the skins are loaded relative to the current url which results in 500
+    const tinyMCEPath = document.getElementById(TINY_MCE_URL).innerText;
+    if (tinyMCEPath.trim() !== '') { // path is empty when logged out
+      const script = document.createElement('script');
+      script.id = TINY_MCE_SCRIPT;
+      script.onload = () => {
+        // tinymce is loaded at this point
+        this.setState({
+          tinymceLoaded: true
+        });
+      };
+      script.src = tinyMCEPath;
+      document.head.appendChild(script);
+    }
   },
 
   handleRichTextEditorChange(e) {
@@ -56,7 +96,7 @@ const TextAreaInput = createReactClass({
       }
 
       // Use TinyMCE if props.wysiwyg, otherwise, use a basic textarea.
-      if (this.props.wysiwyg) {
+      if (this.props.wysiwyg && this.state.tinymceLoaded) {
         inputElement = (
           <Editor
             initialValue={this.props.value}
@@ -64,16 +104,16 @@ const TextAreaInput = createReactClass({
             onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
-               setup: (editor) => { this.setState({ activeEditor: editor }); },
-               inline: true,
-               convert_urls: false,
-               plugins: 'lists link code',
-               toolbar: [
-                 'undo redo | styleselect | bold italic',
-                 'alignleft aligncenter alignright alignleft',
-                 'bullist numlist outdent indent',
-                 'link'
-               ],
+              setup: (editor) => { this.setState({ activeEditor: editor }); },
+              inline: true,
+              convert_urls: false,
+              plugins: 'lists link code',
+              toolbar: [
+                'undo redo | styleselect | bold italic',
+                'alignleft aligncenter alignright alignleft',
+                'bullist numlist outdent indent',
+                'link'
+              ],
             }}
           />
         );

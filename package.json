@@ -15,6 +15,7 @@
     "@tinymce/tinymce-react": "^3.6.0",
     "autosize": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",

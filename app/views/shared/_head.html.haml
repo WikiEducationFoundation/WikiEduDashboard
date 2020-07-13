@@ -48,6 +48,8 @@
     Sentry.setContext(currentUser);
 
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
-= hot_javascript_tag("tinymce")
+// The following path will be only available when a user is logged in
+// and is used to load tinymce dynamically.
+%p#tiny-mce-url=user_signed_in? ? hot_javascript_path("tinymce") : ""
 = content_for :javascripts
 = csrf_meta_tags
