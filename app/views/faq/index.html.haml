@@ -4,7 +4,7 @@
   .container.faq-header
     %h1 Frequently Asked Questions
     = form_tag '/faq', method: :get do
-      = text_field_tag(:search, @query, placeholder: 'search')
+      = text_field_tag(:search, @query, placeholder: 'search', id: 'faq_search')
       %button.search#submit_search{type: 'submit'}
         %i.icon.icon-search
 .container
