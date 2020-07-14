@@ -35,7 +35,7 @@ describe('GetHelpButton', () => {
     });
 
     it('has an ask search field', () => {
-      const searchField = popContainer.find('input#q');
+      const searchField = popContainer.find('input#search');
       expect(searchField.length).toEqual(1);
       expect(searchField.prop('placeholder')).toEqual('Search Help Forum');
     });

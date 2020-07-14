@@ -21,7 +21,6 @@ const Nav = createReactClass({
     const ifAdmin = navRoot.dataset.ifadmin === 'true';
     const trainingUrl = navRoot.dataset.trainingurl;
     const helpDisabled = navRoot.dataset.help_disabled === 'true';
-    const askUrl = navRoot.dataset.ask_url;
     const userPermissions = navRoot.dataset.user_permissions === 'true';
     const wikiEd = navRoot.dataset.wiki_ed === 'true';
     const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled !== ''; // returns boolean false for empty string and true otherwise.
@@ -39,7 +38,6 @@ const Nav = createReactClass({
       ifAdmin: ifAdmin,
       trainingUrl: trainingUrl,
       helpDisabled: helpDisabled,
-      askUrl: askUrl,
       wikiEd: wikiEd,
       userPermissions: userPermissions,
       languageSwitcherEnabled: languageSwitcherEnabled,
@@ -114,9 +112,9 @@ const Nav = createReactClass({
       if (!this.state.helpDisabled) {
         helpEnabled = (
           <div className="top-nav__faq-search">
-            <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
+            <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
               <input name="utf8" type="hidden" defaultValue="✓" />
-              <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
+              <input type="text" name="search" id="search" defaultValue="" placeholder={I18n.t('application.search')} />
               <input name="source" type="hidden" defaultValue="nav_ask_form" />
               <button type="submit">
                 <i className="icon icon-search" />
@@ -169,7 +167,7 @@ const Nav = createReactClass({
     if ((this.state.userSignedIn || this.state.helpDisabled) === false) {
       help = (
         <li>
-          <CustomLink to={this.state.askUrl} name={I18n.t('application.help')} />
+          <CustomLink to="/faq" name={I18n.t('application.help')} />
         </li>
       );
     }
@@ -213,7 +211,6 @@ const Nav = createReactClass({
             ifAdmin = {this.state.ifAdmin}
             trainingUrl = {this.state.trainingUrl}
             helpDisabled = {this.state.helpDisabled}
-            askUrl = {this.state.askUrl}
             wikiEd = {this.state.wikiEd}
             userPermissions = {this.state.userPermissions}
             languageSwitcherEnabled = {this.state.languageSwitcherEnabled}

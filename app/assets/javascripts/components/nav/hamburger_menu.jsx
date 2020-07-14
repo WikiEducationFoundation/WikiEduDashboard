@@ -16,7 +16,6 @@ const HamburgerMenu = createReactClass({
     ifAdmin: PropTypes.bool,
     trainingUrl: PropTypes.string,
     helpDisabled: PropTypes.bool,
-    askUrl: PropTypes.string,
     wikiEd: PropTypes.bool,
     userPermissions: PropTypes.bool,
     languageSwitcherEnabled: PropTypes.bool,
@@ -40,7 +39,7 @@ const HamburgerMenu = createReactClass({
   },
 
   render() {
-    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
+    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
     let myDashboard;
     let forAdmin;
     let help;
@@ -68,9 +67,9 @@ const HamburgerMenu = createReactClass({
       if (!helpDisabled) {
         helpEnabled = (
           <li>
-            <form className="top-nav__faq-search" target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
+            <form className="top-nav__faq-search" target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
               <input name="utf8" type="hidden" defaultValue="✓" />
-              <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
+              <input type="text" name="search" id="search" defaultValue="" placeholder={I18n.t('application.search')} />
               <input name="source" type="hidden" defaultValue="nav_ask_form" />
               <button type="submit">
                 <i className="icon icon-search" />
@@ -109,7 +108,7 @@ const HamburgerMenu = createReactClass({
     if ((userSignedIn || helpDisabled) === false) {
       help = (
         <li>
-          <CustomLink to={askUrl} name={I18n.t('application.help')} />
+          <CustomLink to="/faq" name={I18n.t('application.help')} />
         </li>
       );
     }

@@ -189,21 +189,21 @@ const GetHelpButton = createReactClass({
     } else {
       if (this.props.currentUser.isAdvancedRole) {
         faqLink = (
-          <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
+          <a className="button dark stacked" href="https://dashboard.wikiedu.org/faq?topic=instructor_faq" target="blank">Instructor FAQ</a>
         );
       } else if (this.props.course.type === 'ClassroomProgramCourse') {
         faqLink = (
-          <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">Student FAQ</a>
+          <a className="button dark stacked" href="https://dashboard.wikiedu.org/faq?topic=student_faq" target="blank">Student FAQ</a>
         );
       }
 
       let searchHelpForum;
       if (this.props.course.type === 'ClassroomProgramCourse') {
         searchHelpForum = (
-          <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
+          <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
             <input name="utf8" type="hidden" defaultValue="✓" />
             <input name="source" type="hidden" defaultValue="get_help_button" />
-            <input type="text" name="q" id="q" defaultValue="" placeholder="Search Help Forum" />
+            <input type="text" name="search" id="search" defaultValue="" placeholder="Search Help Forum" />
             <button type="submit">
               <i className="icon icon-search" />
             </button>
