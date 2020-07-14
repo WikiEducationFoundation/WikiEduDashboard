@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bouman4
+# Author: Dutchy45
+# Author: Eebie
 # Author: Elroy
 # Author: Festina90
 # Author: Goefie
@@ -154,7 +156,9 @@ nl:
     title_example: Paginanaam
     view: Pagina bekijken
     view_all: Alle bekijken
-    view_doc: Het aantal paginaweergaven van iedere pagina tijdens te cursustermijn
+    view_doc: Bij benadering het aantal maal dat ieder artikel bekeken werd sinds
+      het voor het eerst bewerkt werd, volgens de meest recente gegevens update. U
+      kunt met pageviews.toolforge.org  het exacte aantal zien.
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
   assignments:
     article_link: Artikel
@@ -339,6 +343,7 @@ nl:
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     submitted: Verzonden
+    submitted_at: Ingediend bij
     tag_select: Een label selecteren of aanmaken
     tags: 'Labels:'
     term: Periode
@@ -484,6 +489,7 @@ nl:
     none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     time_doc: De tijd van iedere versie in je lokale tijd
     title: Naam
+    show_all: Alles weergeven
   settings:
     special_users:
       new:

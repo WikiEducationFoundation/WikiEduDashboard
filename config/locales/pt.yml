@@ -332,9 +332,11 @@ pt:
   categories:
     add_category: Adicionar categoria
     add_psid: Adicionar PSID PetScan
+    add_pileid: Adicionar identificador da pilha de páginas
     add_template: Adicionar predefinição
     add_this_category: Adicionar esta categoria
     add_this_psid: Adicionar este PSID
+    add_this_pileid: Adicionar este identificador de pilha de páginas
     add_this_template: Adicionar esta predefinição
     import_articles_description: A lista de artigos numa categoria é atualizada periodicamente
       e pode demorar algum tempo após a adição de um artigo até a lista ser preenchida.
@@ -342,6 +344,8 @@ pt:
       da categoria "%{name}"?
     confirm_psid_addition: Tem a certeza de que deseja monitorizar as contribuições
       para o PSID PetScan "%{name}"?
+    confirm_pileid_addition: Tem a certeza de que deseja monitorizar as contribuições
+      para o identificador de pilha de páginas "%{name}"?
     confirm_template_addition: Tem a certeza de que deseja monitorizar as contribuições
       para a predefinição "%{name}"?
     depth: Profundidade de subcategorias
@@ -349,10 +353,12 @@ pt:
     name: Nome
     category_name: Nome da categoria
     psid_name: PSID
+    pileid_name: Identificador de pilha de páginas
     template_name: Nome da predefinição
     none: Não há nenhuma categoria a ser monitorizada.
     remove: Remover
-    tracked_categories: Categorias, PSID e predefinições monitorizadas
+    tracked_categories: Categorias monitorizadas, PSID, identificador de pilha de
+      páginas e predefinições
     timestamp: Última atualização
   chat:
     label: Conversação
@@ -672,6 +678,7 @@ pt:
     search_courses: Pesquisar cursos
     start: Início
     start_typing: Começar a escrever
+    stay_in_sandbox: Permanecer na zona de testes
     student: Estudante
     students: Estudantes
     students_taught: Alunos ensinados
@@ -698,6 +705,7 @@ pt:
       relevante para o tipo de curso ClassroomProgram.
     subject: Tema
     submitted: Enviado
+    submitted_at: Enviado em
     tag_select: Selecionar ou criar uma etiqueta
     tags: 'Etiquetas:'
     term: Período
@@ -736,9 +744,9 @@ pt:
       one: Voluntário
       other: Voluntários
     weeks_none: Este curso ainda não está calendarizado.
-    warn_mirrored: |-
-      Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições do calendário serão refletidas na Wikipédia.
-      Tem a certeza de que deseja prosseguir?
+    warn_mirrored: Ao ser enviado, este curso será publicado automaticamente na Wikipédia
+      com a sua conta de utilizador. A partir daí, as novas edições do calendário
+      serão refletidas na Wikipédia. Tem a certeza de que deseja prosseguir?
     wiki_course_page_enabled: Página de curso da wiki ativada
     wiki_course_page_enabled_tooltip: Se ativada, sempre que o programa ou os seus
       utilizadores e trabalhos forem alterados será atualizada uma cópia-espelho da
@@ -910,21 +918,37 @@ pt:
     articles_edited: Artigos editados
     articles_edited_generic: Páginas editadas
     articles_edited_wikidata: Elementos editados
+    article_scoped_program_info: Este é um 'Programa limitado por artigos', que só
+      conta edições dos artigos e categorias atribuídos.
     bytes_added: Bytes acrescentados
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres modificados
     char: Caracteres adicionados
+    close_modal: Fechar
     date_time: Data/Hora
     edit_count_description: Total de edições
+    error_count_message: O painel de controlo encontrou %{error_count} erro(s) durante
+      a atualização mais recente.
     last_reviewed: Última revisão
+    missing_data_heading: Resultados em falta ou inesperados?
+    missing_data_info: Os problemas comuns incluem
+    outreach_help: Precisa de ajuda? Consulte 'Reportar um problema' na barra de navegação.
     per_user: '%{number}/utilizador'
     revisions: Edições Recentes
     references_count: Referências adicionadas
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos
       e pode incluir várias referências à mesma fonte. Os dados provêm do modelo de
       qualidade de artigos ORES e só estão disponíveis para algumas línguas.
+    replag_info: O painel de controlo obtém os dados de edição das bases de dados
+      réplica da WMF Cloud. Por vezes, estas bases de dados não contêm as edições
+      mais recentes devido ao atraso na replicação (''replag''). Quando esta situação
+      ocorre, as edições em falta serão apresentadas mais tarde.
+    replag_link: Verificar atrasos na replicação
     tags: Etiquetas
+    total_updates: Número total de atualizações até agora
+    update_status_heading: Atualizar estado
+    update_statistics_link: Ver mais
     upload_count: Carregamentos na wiki Commons
     uploads_in_use_count:
       one: arquivo usado em um artigo
@@ -935,6 +959,7 @@ pt:
     view_count_description: Visualizações de artigo
     view_data_unavailable: Não há dados visíveis disponíveis
     view: Visualizações
+    wiki_ed_help: Usar o botão 'Obter ajuda' para reportar um problema.
     word_count: Palavras Adicionadas
     word_count_average: Número médio de palavras
   namespace:
@@ -980,6 +1005,8 @@ pt:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Ver mais
+    show_all: Mostrar todas
+    show_course_specific: Mostrar específicas de um curso
   resources:
     label: Recursos
     header: Recursos e formação

@@ -8,6 +8,7 @@
 # Author: Josve05a
 # Author: Pyscowicz
 # Author: Rockyfelle
+# Author: Sabelöga
 # Author: Sturban
 # Author: Umeaboy
 # Author: WikiPhoenix
@@ -538,6 +539,7 @@ sv:
     title: Titel
     view_on_wiki: Visa diff på wiki
     see_more: Se mer
+    show_all: Visa alla
   settings:
     admin_users:
       new:

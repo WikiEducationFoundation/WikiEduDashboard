@@ -722,6 +722,7 @@ es:
     title: Título
     view_on_wiki: Ver diferencias en wiki
     see_more: Ver más
+    show_all: Mostrar todo
   settings:
     admin_users:
       new:
