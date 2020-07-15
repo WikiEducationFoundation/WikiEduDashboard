@@ -2,7 +2,9 @@
 
 json.course do
   revisions = if @course_scoped
-                @course.tracked_revisions.order(date: :desc).limit(@limit)
+                @course.tracked_revisions
+                       .eager_load(:user, :wiki).includes(article: :wiki)
+                       .order(date: :desc).limit(@limit)
               else
                 @course.recent_revisions
                        .eager_load(:user, :wiki).includes(article: :wiki)
