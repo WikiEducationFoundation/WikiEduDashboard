@@ -79,7 +79,7 @@ describe ScheduleCourseUpdates do
         # 1 job enqueued by ScheduleCourseUpdates
         expect(Sidekiq::Queue.new(queue).size).to eq 1
         # Orphan lock  failure is logged
-        expect(Course.first.flags['update_logs'][1]['orphan_lock_failure']).to eq true
+        expect(Course.first.flags['update_logs'][1]['orphan_lock_failure'].present?).to eq true
       end
     end
   end

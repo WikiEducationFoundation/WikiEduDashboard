@@ -119,17 +119,17 @@ describe CheckCourseJobs do
       let(:days_ago_update_log) do
         { 'start_time' => 4.days.ago,
           'end_time' => 3.days.ago,
-          'error_count': 0,
-          'sentry_tag_uuid': 'abcd-12ef' }
+          'error_count' => 0,
+          'sentry_tag_uuid' => 'abcd-12ef' }
       end
       let(:hours_ago_update_log) do
         { 'start_time' => 2.hours.ago,
           'end_time' => 1.hour.ago,
-          'error_count': 0,
-          'sentry_tag_uuid': 'wxyz-34jk' }
+          'error_count' => 0,
+          'sentry_tag_uuid' => 'wxyz-34jk' }
       end
       let(:orphan_lock_update_log) do
-        { 'orphan_lock_failure': true }
+        { 'orphan_lock_failure' => 30.minutes.ago }
       end
       let(:orphan_not_expected) do
         { 'update_logs' => {  1 => days_ago_update_log,
