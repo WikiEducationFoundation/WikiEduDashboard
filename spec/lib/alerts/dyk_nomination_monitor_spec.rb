@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/alerts/dyk_nomination_monitor"
 
 describe DYKNominationMonitor do
   describe '.create_alerts_for_course_articles' do
-    let(:course) { create(:course) }
+    let(:course) { create(:course, end: 1.week.from_now) }
     let(:student) { create(:user, username: 'student') }
     let(:courses_user) do
       create(:courses_user, user_id: student.id,
