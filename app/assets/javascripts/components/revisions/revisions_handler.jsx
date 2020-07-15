@@ -19,7 +19,8 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     revisions: PropTypes.array,
     wikidataLabels: PropTypes.object,
-    loadingRevisions: PropTypes.bool
+    loadingRevisions: PropTypes.bool,
+    loadingCourseScopedRevisions: PropTypes.bool
   },
 
   getInitialState() {
@@ -39,17 +40,15 @@ const RevisionHandler = createReactClass({
     }
   },
 
-  componentDidUpdate() {
-    // This block of code runs only once, when the user initially goes to the course scoped part
-    if (this.state.isCourseScoped && this.state.isInitialFetchCourseScoped) {
-      this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ isInitialFetchCourseScoped: false });
-    }
-  },
-
   toggleCourseSpecific() {
-    this.setState({ isCourseScoped: !this.state.isCourseScoped });
+    const toggledIsCourseScoped = !this.state.isCourseScoped;
+    this.setState({ isCourseScoped: toggledIsCourseScoped });
+
+    // If user reaches the course scoped part initially, and there are no
+    // loaded course scoped revisions, we fetch course scoped revisions
+    if (toggledIsCourseScoped && this.props.loadingCourseScopedRevisions) {
+      this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
+    }
   },
 
   revisionFilterButtonText() {
@@ -115,7 +114,8 @@ const mapStateToProps = state => ({
   limitReached: state.revisions.limitReached,
   revisions: state.revisions.revisions,
   wikidataLabels: state.wikidataLabels.labels,
-  loadingRevisions: state.revisions.loading,
+  loadingCourseScopedRevisions: state.revisions.loadingCourseScopedRevisions,
+  loadingRevisions: state.revisions.loadingRevisions,
   sort: state.revisions.sort,
 });
 
