@@ -10,6 +10,7 @@ describe('for a mixture of successful and failure update logs', () => {
   const twoHoursAgo = moment().subtract(2, 'hours');
   const fourHoursAgo = moment().subtract(4, 'hours');
   const fiveHoursAgo = moment().subtract(5, 'hours');
+  const sixHoursAgo = moment().subtract(6, 'hours');
 
   const firstSuccessLog = {
     start_time: fiveHoursAgo.toISOString(),
@@ -32,22 +33,21 @@ describe('for a mixture of successful and failure update logs', () => {
     sentry_tag_uuid: '78ij-90kl'
   };
 
-  const failureLog = {
-    orphan_lock_failure: true
-  };
-
   it('renders course update times information correctly if last update is a failure', () => {
+    const firstFailureLog = { orphan_lock_failure: sixHoursAgo.toISOString() };
+    const lastFailureLog = { orphan_lock_failure: current.toISOString() };
+
     const course = {
       flags: {
         update_logs: {
-          1: failureLog,
+          1: firstFailureLog,
           2: firstSuccessLog,
           3: secondSuccessLog,
-          4: failureLog
+          4: lastFailureLog
         }
       },
       updates: {
-        last_update: failureLog,
+        last_update: lastFailureLog,
         average_delay: 3600
       }
     };
@@ -61,6 +61,8 @@ describe('for a mixture of successful and failure update logs', () => {
   });
 
   it('renders course update times information correctly if last update is a success', () => {
+    const failureLog = { orphan_lock_failure: twoHoursAgo.toISOString() };
+
     const course = {
       flags: {
         update_logs: {
