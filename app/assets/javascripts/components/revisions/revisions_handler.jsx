@@ -24,14 +24,27 @@ const RevisionHandler = createReactClass({
 
   getInitialState() {
     return {
-      isCourseScoped: false
+      isCourseScoped: false,
+      isInitialFetchCourseScoped: true
     };
   },
 
   componentDidMount() {
     if (this.props.loadingRevisions) {
+      // Fetching in advance initially only for all revisions
+      // For Course Scoped Revisions, fetching in componentDidUpdate
+      // because in most cases, users would not be using these, so we
+      // will fetch only when the user initially goes there, hence saving extra queries
       this.props.fetchRevisions(this.props.course_id, this.props.limit);
+    }
+  },
+
+  componentDidUpdate() {
+    // This block of code runs only once, when the user initially goes to the course scoped part
+    if (this.state.isCourseScoped && this.state.isInitialFetchCourseScoped) {
       this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ isInitialFetchCourseScoped: false });
     }
   },
 
