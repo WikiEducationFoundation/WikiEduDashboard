@@ -10,8 +10,8 @@ module CheckCourseJobsLogging
     return nil
   end
 
-  def log_previous_failed_update
-    UpdateLogger.update_course(@course, 'orphan_lock_failure' => true)
+  def log_previous_failed_update(removal_time)
+    UpdateLogger.update_course(@course, 'orphan_lock_failure' => removal_time.to_datetime)
   end
 
   def sentry_extra

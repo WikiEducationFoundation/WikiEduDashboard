@@ -11,9 +11,11 @@ class CheckCourseJobs
   COURSE_DATA_UPDATE_WORKER = 'CourseDataUpdateWorker'
 
   def self.remove_orphan_locks(courses_to_update)
+    orphan_lock_count = 0
     courses_to_update.each do |course|
-      new(course).delete_orphan_lock
+      orphan_lock_count += 1 if new(course).delete_orphan_lock
     end
+    orphan_lock_count
   end
 
   def initialize(course)
@@ -54,7 +56,8 @@ class CheckCourseJobs
   def delete_orphan_lock
     if orphan_expected? && !job_exists? && lock_exists?
       delete_unique_lock
-      log_previous_failed_update
+      removal_time = Time.zone.now
+      log_previous_failed_update(removal_time)
       log_orphan_record
       return true
     end
@@ -76,7 +79,7 @@ class CheckCourseJobs
     # Extracting the latest update end time by getting the last element
     # in the values of update logs which are filtered by no orphan lock logs
     last_update_times_log = update_logs&.values
-                                       &.select { |element| element[:orphan_lock_failure].nil? }
+                                       &.select { |element| element['orphan_lock_failure'].nil? }
                                        &.last
 
     # If we cannot find a log having update times means all are orphan lock logs
