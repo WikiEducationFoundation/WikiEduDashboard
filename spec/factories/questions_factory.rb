@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-
 FactoryBot.define do
-  factory :question do
+  factory :question, class: 'Rapidfire::Question' do
     validation_rules = {
       presence: '1',
       grouped: '0',
