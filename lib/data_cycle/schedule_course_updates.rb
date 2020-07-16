@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/app/workers/course_data_update_worker"
+require_dependency "#{Rails.root}/app/services/check_course_jobs"
 
 # Executes all the steps of 'update_constantly' data import task
 class ScheduleCourseUpdates
@@ -36,12 +37,17 @@ class ScheduleCourseUpdates
 
   def enqueue_course_updates
     log_message "Ready to update #{Course.ready_for_update.count} courses"
-    Course.ready_for_update.each do |course|
+
+    courses_to_update = Course.ready_for_update
+    orphan_lock_count = CheckCourseJobs.remove_orphan_locks(courses_to_update)
+
+    courses_to_update.each do |course|
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
     end
     log_message "Short update latency: #{latency('short_update')}"
     log_message "Medium update latency: #{latency('medium_update')}"
     log_message "Long update latency: #{latency('long_update')}"
+    log_message "#{orphan_lock_count} Orphan lock(s) removed"
   end
 
   def conflicting_updates_running?

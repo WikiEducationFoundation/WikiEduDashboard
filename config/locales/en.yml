@@ -888,8 +888,11 @@ en:
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
     missing_data_info: Common issues include
+    last_update_failed: The last update to this course failed.
+    last_update_success: The last update ran successfully, so the statistics should be up to date.
     outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
     per_user: '%{number}/user'
+    recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.

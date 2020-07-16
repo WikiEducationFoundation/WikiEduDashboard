@@ -3,23 +3,39 @@ import React from 'react';
 const StatisticsUpdateModal = (props) => {
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
+    let lastUpdateSummary = '';
     const errorCount = props.course.updates.last_update.error_count;
-    const errorMessage = errorCount > 0 ? `${I18n.t('metrics.error_count_message', { error_count: errorCount })} ` : '';
+
+    if (errorCount === 0) {
+      lastUpdateSummary = `${I18n.t('metrics.last_update_success')}`;
+    } else if (errorCount > 0) {
+      lastUpdateSummary = `${I18n.t('metrics.error_count_message', { error_count: errorCount })}`;
+    } else if (props.course.updates.last_update.orphan_lock_failure) {
+      lastUpdateSummary = `${I18n.t('metrics.last_update_failed')}`;
+    }
+
+    const updateLogs = Object.values(props.course.flags.update_logs);
+    const failureUpdatesCount = updateLogs.filter(log => log.orphan_lock_failure !== undefined).length;
+    const erroredUpdatesCount = updateLogs.filter(log => log.error_count !== undefined && log.error_count > 0).length;
+    const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', { total: updateLogs.length, failure_count: failureUpdatesCount, error_count: erroredUpdatesCount });
 
     // Update numbers (ids) are stored incrementally as counts in update_logs, so the
     // last update number is the total number of updates till now
     const updateNumbers = Object.keys(props.course.flags.update_logs);
     const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
 
+    const updateTimesInformation = props.getUpdateTimesInformation();
+
     return (
       <div className="statistics-update-modal-container">
         <div className="statistics-update-modal">
           <b>{I18n.t('metrics.update_status_heading')}</b>
           <br/>
-          { errorMessage }
+          { lastUpdateSummary }
           <ul>
+            <li>{ recentUpdatesSummary }</li>
             <li>{ totalUpdatesMessage }</li>
-            <li>{ props.nextUpdateMessage }</li>
+            { updateTimesInformation !== null && <li>{updateTimesInformation[1]}</li> }
           </ul>
           <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>
