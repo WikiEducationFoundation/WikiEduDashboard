@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 json.course do
-  json.course_specific_revision_ids @course.tracked_revisions
-                                           .order(date: :desc).limit(@limit).pluck(:id)
-  json.revisions(@course.recent_revisions
-                        .eager_load(:user, :wiki).includes(article: :wiki)
-                        .order(date: :desc).limit(@limit)) do |rev|
+  revisions = if @course_scoped
+                @course.tracked_revisions
+                       .eager_load(:user, :wiki).includes(article: :wiki)
+                       .order(date: :desc).limit(@limit)
+              else
+                @course.recent_revisions
+                       .eager_load(:user, :wiki).includes(article: :wiki)
+                       .order(date: :desc).limit(@limit)
+              end
+
+  json.revisions(revisions) do |rev|
     json.call(rev, :id, :url, :characters, :date, :user_id,
               :mw_rev_id, :mw_page_id, :wiki)
     json.call(rev.article, :rating)
