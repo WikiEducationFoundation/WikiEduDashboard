@@ -26,7 +26,7 @@ describe 'Training Translations', type: :feature, js: true do
     visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
     expect(page).to have_css('.slide__menu__nav__dropdown ol',
                              text: 'Bost euskarriei buruzko proba',
-                             visible: false)
+                             visible: :hidden)
   end
 
   # Make sure default trainings get reloaded

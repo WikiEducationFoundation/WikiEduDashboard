@@ -103,7 +103,7 @@ class CoursesPresenter
                     'SUM(user_count), ' \
                     'SUM(courses.references_count)'
   def course_sums
-    @course_sums ||= courses.pluck(Arel.sql(COURSE_SUMS_SQL)).first
+    @course_sums ||= courses.pick(Arel.sql(COURSE_SUMS_SQL))
   end
 
   def word_count

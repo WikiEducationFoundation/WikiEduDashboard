@@ -160,3 +160,5 @@ RSpec/ExampleWording:
   Enabled: false
 Style/DateTime:
   Enabled: false
+Rails/ContentTag:
+  Enabled: false
