@@ -443,9 +443,13 @@ nl:
     char_added: Tekens toegevoegd
     char_changed: Tekens gewijzigd
     char: Tekens toegevoegd
+    close_modal: Sluiten
     date_time: Datum- en tijd
     edit_count_description: Totaal bewerkingen
+    missing_data_heading: Gemiste of onverwachte resultaten
     revisions: Recente bewerkingen
+    total_updates: Totaal aantal bewerkingen tot nu
+    update_status_heading: Status bijwerken
     upload_count: Uploads op Commons
     uploads_in_use_count: bestanden die gebruikt worden in artikelen
     upload_usages_count: totaal gebruik in alle talen

@@ -931,6 +931,9 @@ pt-br:
     last_reviewed: Última revisão
     missing_data_heading: Resultados ausentes ou inesperados?
     missing_data_info: Problemas comuns incluem
+    last_update_failed: A última atualização deste curso falhou.
+    last_update_success: A última atualização foi executada com êxito, portanto as
+      estatísticas devem estar atualizadas.
     outreach_help: Precisa de ajuda? Consulte 'Relatar um problema' na barra de navegação.
     per_user: '%{number}/usuário'
     revisions: Edições recentes

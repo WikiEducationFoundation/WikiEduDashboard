@@ -212,7 +212,7 @@ fr:
     tools: Outils d’évaluation
     view: Afficher l’article
     view_all: Tout afficher
-    view_doc: Le nombre de vues de chacun des articles depuis qu’il a été modifié
+    view_doc: Le nombre de vues estimé de chacun des articles depuis qu’il a été modifié
       pour la première fois jusqu’à la dernière valeur fournie par les statistiques.
       Vous pouvez utiliser pageviews.toolforge.org pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
@@ -960,9 +960,14 @@ fr:
     last_reviewed: Dernier revu
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
+    last_update_failed: La dernière mise à jour de ce cours a échoué.
+    last_update_success: La dernière mise à jour a réussi, les statistiques ont donc
+      été réactualisées.
     outreach_help: Besoin d’aide ? Reportez-vous à 'Signaler un problème' dans la
       barre de navigation.
     per_user: '%{number}/utilisateur'
+    recent_updates_summary: Parmi les %{total} mises à jour récentes, %{failure_count}
+      ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
     references_doc: C’est le nombre de balises de référence ajoutées aux articles

@@ -21,6 +21,7 @@
 # Author: Suvarioglu
 # Author: TmY e12
 # Author: ToprakM
+# Author: Uncitoyen
 # Author: Uğurkent
 # Author: Vito Genovese
 # Author: Watermelon juice
@@ -923,9 +924,14 @@ tr:
     last_reviewed: Son İnceleme
     missing_data_heading: Eksik veya beklenmeyen sonuçlar mı var?
     missing_data_info: Sık karşılaşılan sorunlar
+    last_update_failed: Bu kursta son güncelleme başarısız oldu.
+    last_update_success: Son güncelleme başarıyla gerçekleştirildi, bu yüzden istatistikler
+      güncel olmalıdır.
     outreach_help: Yardıma mı ihtiyacınız var?  Gezinme çubuğunda 'Sorun bildir' konusuna
       bakın.
     per_user: '%{number}/kullanıcı'
+    recent_updates_summary: Son %{total} güncellemeden %{failure_count} başarısız
+      oldu ve %{error_count} hata ile karşılaştı.
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
     references_doc: Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa

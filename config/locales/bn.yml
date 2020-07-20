@@ -9,6 +9,7 @@
 # Author: Nokib Sarkar
 # Author: Rasal Lia
 # Author: Sandipan
+# Author: Sibabrata Banerjee
 # Author: Sourav Halder
 # Author: Tahmid02016
 # Author: আজিজ
@@ -201,6 +202,7 @@ bn:
     school: বিদ্যালয়
     school_and_term: প্রতিষ্ঠান/মেয়াদ
     start: শুরু করুন
+    stay_in_sandbox: খেলাঘরে থাকুন
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'
     student_editors: '# ছাত্র সম্পাদকগণ'
@@ -294,6 +296,7 @@ bn:
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
     see_more: আরো দেখুন
+    show_all: সব দেখান
   settings:
     admin_users:
       new:
