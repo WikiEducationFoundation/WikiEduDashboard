@@ -1,27 +1,29 @@
 import React from 'react';
 
 const StatisticsUpdateModal = (props) => {
+    const course = props.course;
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
+    const futureUpdatesMessage = course.update_in_future ? I18n.t('metrics.future_updates_remaining.true') : I18n.t('metrics.future_updates_remaining.false');
 
     let lastUpdateSummary = '';
-    const errorCount = props.course.updates.last_update.error_count;
+    const errorCount = course.updates.last_update.error_count;
 
     if (errorCount === 0) {
       lastUpdateSummary = `${I18n.t('metrics.last_update_success')}`;
     } else if (errorCount > 0) {
       lastUpdateSummary = `${I18n.t('metrics.error_count_message', { error_count: errorCount })}`;
-    } else if (props.course.updates.last_update.orphan_lock_failure) {
+    } else if (course.updates.last_update.orphan_lock_failure) {
       lastUpdateSummary = `${I18n.t('metrics.last_update_failed')}`;
     }
 
-    const updateLogs = Object.values(props.course.flags.update_logs);
+    const updateLogs = Object.values(course.flags.update_logs);
     const failureUpdatesCount = updateLogs.filter(log => log.orphan_lock_failure !== undefined).length;
     const erroredUpdatesCount = updateLogs.filter(log => log.error_count !== undefined && log.error_count > 0).length;
     const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', { total: updateLogs.length, failure_count: failureUpdatesCount, error_count: erroredUpdatesCount });
 
     // Update numbers (ids) are stored incrementally as counts in update_logs, so the
     // last update number is the total number of updates till now
-    const updateNumbers = Object.keys(props.course.flags.update_logs);
+    const updateNumbers = Object.keys(course.flags.update_logs);
     const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
 
     const updateTimesInformation = props.getUpdateTimesInformation();
@@ -36,13 +38,14 @@ const StatisticsUpdateModal = (props) => {
             <li>{ recentUpdatesSummary }</li>
             <li>{ totalUpdatesMessage }</li>
             { updateTimesInformation !== null && <li>{updateTimesInformation[1]}</li> }
+            <li>{ futureUpdatesMessage }</li>
           </ul>
           <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>
           { I18n.t('metrics.missing_data_info') }:
           <ul>
             <li>{ I18n.t('metrics.replag_info') }<a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
-            { props.course.type === 'ArticleScopedProgram' && <li>{ I18n.t('metrics.article_scoped_program_info') }</li> }
+            { course.type === 'ArticleScopedProgram' && <li>{ I18n.t('metrics.article_scoped_program_info') }</li> }
           </ul>
           <small>{ helpMessage }</small>
           <br/>
