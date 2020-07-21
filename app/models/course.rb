@@ -285,6 +285,11 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  def update_in_future?
+    current_time = Time.zone.now
+    needs_update || (current_time > start && current_time - UPDATE_LENGTH < self.end)
+  end
+
   def wiki_page?
     wiki_course_page_enabled? && home_wiki.edits_enabled?
   end
