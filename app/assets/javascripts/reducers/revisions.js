@@ -12,8 +12,8 @@ const initialState = {
     key: null,
     sortKey: null,
   },
-  loadingRevisions: true,
-  loadingCourseScopedRevisions: true
+  revisionsLoaded: false,
+  courseScopedRevisionsLoaded: false
 };
 
 const isLimitReached = (revs, limit) => {
@@ -28,7 +28,7 @@ export default function revisions(state = initialState, action) {
         revisions: action.data.course.revisions,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.revisions, action.limit),
-        loadingRevisions: false
+        revisionsLoaded: true
       };
     case RECEIVE_COURSE_SCOPED_REVISIONS:
       return {
@@ -36,7 +36,7 @@ export default function revisions(state = initialState, action) {
         courseScopedRevisions: action.data.course.revisions,
         courseScopedLimit: action.limit,
         courseScopedLimitReached: isLimitReached(action.data.course.revisions, action.limit),
-        loadingCourseScopedRevisions: false
+        courseScopedRevisionsLoaded: true
       };
     case SORT_REVISIONS: {
       const absolute = action.key === 'characters';

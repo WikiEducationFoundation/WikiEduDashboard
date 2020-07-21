@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
+import Loading from '../common/loading.jsx';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -19,8 +20,8 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     revisions: PropTypes.array,
     wikidataLabels: PropTypes.object,
-    loadingRevisions: PropTypes.bool,
-    loadingCourseScopedRevisions: PropTypes.bool
+    revisionsLoaded: PropTypes.bool,
+    courseScopedRevisionsLoaded: PropTypes.bool
   },
 
   getInitialState() {
@@ -31,7 +32,7 @@ const RevisionHandler = createReactClass({
   },
 
   componentDidMount() {
-    if (this.props.loadingRevisions) {
+    if (!this.props.revisionsLoaded) {
       // Fetching in advance initially only for all revisions
       // For Course Scoped Revisions, fetching in componentDidUpdate
       // because in most cases, users would not be using these, so we
@@ -46,7 +47,7 @@ const RevisionHandler = createReactClass({
 
     // If user reaches the course scoped part initially, and there are no
     // loaded course scoped revisions, we fetch course scoped revisions
-    if (toggledIsCourseScoped && this.props.loadingCourseScopedRevisions) {
+    if (toggledIsCourseScoped && !this.props.courseScopedRevisionsLoaded) {
       this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
     }
   },
@@ -70,6 +71,11 @@ const RevisionHandler = createReactClass({
   },
 
   render() {
+    // Displaying loading spinner till the time revisions of the current section(all or course specific) are loaded
+    if ((!this.state.isCourseScoped && !this.props.revisionsLoaded) || (this.state.isCourseScoped && !this.props.courseScopedRevisionsLoaded)) {
+      return <Loading/>;
+    }
+
     const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
 
     let showMoreButton;
@@ -114,8 +120,8 @@ const mapStateToProps = state => ({
   limitReached: state.revisions.limitReached,
   revisions: state.revisions.revisions,
   wikidataLabels: state.wikidataLabels.labels,
-  loadingCourseScopedRevisions: state.revisions.loadingCourseScopedRevisions,
-  loadingRevisions: state.revisions.loadingRevisions,
+  courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
+  revisionsLoaded: state.revisions.revisionsLoaded,
   sort: state.revisions.sort,
 });
 
