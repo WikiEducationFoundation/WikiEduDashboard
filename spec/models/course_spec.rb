@@ -863,4 +863,19 @@ describe Course, type: :model do
       expect(course.pages_edited).not_to include(article2)
     end
   end
+
+  describe '#current_and_future?' do
+    let(:course1) { create(:course) }
+    let(:course2) do
+      create(:course, slug: 'foo/2', start: Time.zone.now - 2.months, end: Time.zone.now + 2.months)
+    end
+
+    it 'returns false for earlier course' do
+      expect(course1.current_and_future?).to eq false
+    end
+
+    it 'returns true for current and future course' do
+      expect(course2.current_and_future?).to eq true
+    end
+  end
 end
