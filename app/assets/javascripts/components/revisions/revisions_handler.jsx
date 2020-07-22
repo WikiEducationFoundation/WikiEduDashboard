@@ -63,6 +63,8 @@ const RevisionHandler = createReactClass({
     return this.props.sortRevisions(e.target.value);
   },
 
+  // We disable show more button if there is a request which is still resolving
+  // by keeping track of revisionsLoaded and courseScopedRevisionsLoaded
   showMore() {
     if (this.state.isCourseScoped) {
       return this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit + 100, true);
@@ -71,11 +73,8 @@ const RevisionHandler = createReactClass({
   },
 
   render() {
-    // Displaying loading spinner till the time revisions of the current section(all or course specific) are loaded
-    if ((!this.state.isCourseScoped && !this.props.revisionsLoaded) || (this.state.isCourseScoped && !this.props.courseScopedRevisionsLoaded)) {
-      return <Loading/>;
-    }
-
+    // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
+    const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
     const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
 
     let showMoreButton;
@@ -101,12 +100,14 @@ const RevisionHandler = createReactClass({
         </div>
         <RevisionList
           revisions={revisions}
+          loaded={loaded}
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
           sort={this.props.sort}
         />
-        {showMoreButton}
+        {!loaded && <Loading/>}
+        {loaded && showMoreButton}
       </div>
     );
   }
