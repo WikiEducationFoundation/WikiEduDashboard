@@ -52,9 +52,9 @@ ON THE SERVER
   - $ `source /home/deploy/.rvm/scripts/rvm`
   - $ `sudo usermod -a -G rvm <username>`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 2.5.0`
+  - $ `rvm install 2.7.1`
     - This will probably report that ruby is already installed, but we do this just in case.
-  - $ `rvm --default use 2.5.0`
+  - $ `rvm --default use 2.7.``
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`

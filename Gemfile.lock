@@ -513,6 +513,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     validates_email_format_of (1.6.3)
       i18n
@@ -630,7 +631,7 @@ DEPENDENCIES
   will_paginate
 
 RUBY VERSION
-   ruby 2.5.0p0
+   ruby 2.7.1p83
 
 BUNDLED WITH
    2.1.4
