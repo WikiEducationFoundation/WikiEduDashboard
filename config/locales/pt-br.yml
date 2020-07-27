@@ -936,6 +936,8 @@ pt-br:
       estatísticas devem estar atualizadas.
     outreach_help: Precisa de ajuda? Consulte 'Relatar um problema' na barra de navegação.
     per_user: '%{number}/usuário'
+    recent_updates_summary: Das últimas %{total} atualizações, %{failure_count} falharam
+      e %{error_count} encontraram erros.
     revisions: Edições recentes
     references_count: Referências adicionadas
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos

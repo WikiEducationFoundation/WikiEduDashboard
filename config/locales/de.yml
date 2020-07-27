@@ -910,6 +910,7 @@ de:
     articles_created: Erstellte Artikel
     articles_created_generic: Erstellte Seiten
     articles_edited: Bearbeitete Artikel
+    articles_edited_generic: Bearbeitete Seiten
     bytes_added: Hinzugefügte Bytes
     characters: Zeichen
     char_added: Zeichen hinzugefügt
@@ -1158,6 +1159,8 @@ de:
     view_library_source: Bibliotheksquelle ansehen
     view_module_source: Modulquelle ansehen
     reload_from_source: Von Quelle neu laden
+    kind:
+      discussion: Diskussion
   uploads:
     credit: Danksagung
     file_name: Dateiname

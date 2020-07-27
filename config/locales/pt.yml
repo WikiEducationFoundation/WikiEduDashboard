@@ -6,6 +6,7 @@
 # Author: Fitoschido
 # Author: Fúlvio
 # Author: Gato Preto
+# Author: GoEThe
 # Author: Hamilton Abreu
 # Author: He7d3r
 # Author: Jkb8
@@ -933,8 +934,13 @@ pt:
     last_reviewed: Última revisão
     missing_data_heading: Resultados em falta ou inesperados?
     missing_data_info: Os problemas comuns incluem
+    last_update_failed: A última atualização a este curso falhou.
+    last_update_success: A última atualização foi bem sucedida, por isso as estatísticas
+      devem estar atualizadas.
     outreach_help: Precisa de ajuda? Consulte 'Reportar um problema' na barra de navegação.
     per_user: '%{number}/utilizador'
+    recent_updates_summary: Das últimas %{total} atualizações, %{failure_count} falharam
+      e %{error_count} encontraram erros.
     revisions: Edições Recentes
     references_count: Referências adicionadas
     references_doc: Este é o número de etiquetas de referência adicionadas aos artigos

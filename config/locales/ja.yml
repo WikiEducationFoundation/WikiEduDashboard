@@ -11,6 +11,7 @@
 # Author: Sujiniku
 # Author: Suyama
 # Author: Thibaut120094
+# Author: Tmv
 # Author: Yusuke1109
 # Author: きこねす
 ---
@@ -145,7 +146,7 @@ ja:
     tools: 評価のツール
     view: 記事を閲覧
     view_all: すべてを表示
-    view_doc: 記事名とプロジェクト期間中の合計閲覧回数
+    view_doc: 直近の統計情報更新時の、各記事の最初の編集以来の推定閲覧回数。正確な数値は pageviews.toolforge.org で見ることができます。
     view_on_wiki: ウィキ上で表示
     views_added: '%{title}の新規閲覧が%{count}件増加'
     edit_size: 長さを編集

@@ -174,7 +174,7 @@ zh-CN:
     tools: 评定工具
     view: 查看条目
     view_all: 查看全部
-    view_doc: 在项目期间每个条目的访问量总数
+    view_doc: 通过最新的统计数据更新，对每篇文章的估计浏览量进行首次编辑。您可以使用 pageviews.toolforge.org 查看确切的数字。
     view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
     edit_size: 编辑大小

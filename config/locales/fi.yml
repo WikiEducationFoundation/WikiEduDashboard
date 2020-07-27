@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 01miki10
 # Author: Actuallyisjoha
 # Author: Antsa
 # Author: Mikahama
@@ -432,12 +433,12 @@ fi:
     my_articles: Omat artikkelit
     needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
-    new_account_check_username: Tarkista, onko käyttäjätunnus saatavana
+    new_account_check_username: Tarkista, onko käyttäjänimi saatavana
     new_account_email: Sähköpostiosoite
     new_account_email_placeholder: nimi@esimerkki.org
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
-    new_account_username_taken: Käyttäjätunnus on jo käytössä. Valitse ystävällisesti
+    new_account_username_taken: Käyttäjänimi on jo käytössä. Valitse ystävällisesti
       toinen.
     new_account_submit: Pyydä tiliä
     nocourses: Et ole ilmoittautunut millekään kurssille.
@@ -851,8 +852,8 @@ fi:
     training_module_name: Harjoitusmoduuli
     training_module_status: Tila
     up_to_date_with_training: on suorittanut harjoituksen
-    username: Käyttäjätunnus
-    username_placeholder: Käyttäjätunnus
+    username: Käyttäjänimi
+    username_placeholder: Käyttäjänimi
     useremail_placeholder: Sähköpostiosoite
     userpasscode_placeholder: Pääsykoodi
     role:
