@@ -23,7 +23,7 @@ class UpdateCourseStats
 
     @start_time = Time.zone.now
     fetch_data
-    update_categories if @course.needs_update
+    update_categories
     update_article_status if @course.needs_update
     update_average_pageviews
     update_caches
@@ -50,7 +50,9 @@ class UpdateCourseStats
   end
 
   def update_categories
+    return unless @course.needs_update || should_update_categories?
     Category.refresh_categories_for(@course)
+    UpdateLogger.update_categories(@course, Time.zone.now)
     log_update_progress :categories_updated
   end
 
@@ -80,6 +82,11 @@ class UpdateCourseStats
     Raven.capture_message "#{@course.title} update: #{step}",
                           level: 'warn',
                           extra: { logs: @sentry_logs }
+  end
+
+  def should_update_categories?
+    previous_categories_update = @course.flags['previous_categories_update']
+    previous_categories_update.nil? || Time.zone.now > previous_categories_update + 1.day
   end
 
   def debug?
