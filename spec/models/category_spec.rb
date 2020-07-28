@@ -79,6 +79,7 @@ RSpec.describe Category, type: :model do
       let!(:article) { create(:article, title: 'A cappella') }
 
       it 'updates article titles for categories associated with courses' do
+        # Pending is used here to make sure that the build passes when PetScan is down
         pending 'Fails when PetScan is down.'
         expect(described_class.last.article_titles).to be_empty
 
