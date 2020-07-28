@@ -50,9 +50,7 @@ class UpdateCourseStats
   end
 
   def update_categories
-    return unless @course.needs_update || should_update_categories?
     Category.refresh_categories_for(@course)
-    UpdateLogger.update_categories(@course, Time.zone.now)
     log_update_progress :categories_updated
   end
 

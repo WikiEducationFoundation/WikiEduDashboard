@@ -21,11 +21,6 @@ class UpdateLogger
     setting.save
   end
 
-  def self.update_categories(course, time)
-    course.flags['previous_categories_update'] = time
-    course.save
-  end
-
   ###########
   # Helpers #
   ###########
