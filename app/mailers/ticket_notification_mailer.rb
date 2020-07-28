@@ -5,12 +5,12 @@ class TicketNotificationMailer < ApplicationMailer
 
   def self.notify_of_message(opts)
     return unless Features.email?
-    notify(opts).deliver_now
+    notify(**opts).deliver_now
   end
 
   def self.notify_of_open_tickets(opts)
     return unless Features.email?
-    open_tickets_notify(opts).deliver_now
+    open_tickets_notify(**opts).deliver_now
   end
 
   def notify(course:, message:, recipient:, sender:, bcc_to_salesforce:)
