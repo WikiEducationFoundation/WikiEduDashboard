@@ -34,7 +34,9 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for category updated more than one day ago' do
-      let(:category) { create(:category, name: 'Films', created_at: 5.days.ago, updated_at: 2.days.ago) }
+      let(:category) do
+        create(:category, name: 'Films', created_at: 5.days.ago, updated_at: 2.days.ago)
+      end
       let(:course) { create(:course) }
 
       it 'updates the category' do
@@ -46,7 +48,9 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for category updated less than one day ago' do
-      let(:category) { create(:category, name: 'Animals', created_at: 5.days.ago, updated_at: 12.hours.ago) }
+      let(:category) do
+        create(:category, name: 'Animals', created_at: 5.days.ago, updated_at: 12.hours.ago)
+      end
       let(:course) { create(:course) }
 
       it 'does not update the category' do
