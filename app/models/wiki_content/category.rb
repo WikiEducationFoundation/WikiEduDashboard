@@ -26,10 +26,13 @@ class Category < ApplicationRecord
 
   serialize :article_titles, Array
 
-  def self.refresh_categories_for(courses)
-    CategoriesCourses.where(course: courses).find_each do |category_course|
-      category_course.category.refresh_titles
-    end
+  def self.refresh_categories_for(course)
+    # Updating categories only if they were last updated since
+    # more than a day, or those which are newly created
+    course.categories
+          .where('categories.updated_at < ? OR categories.created_at = categories.updated_at',
+                 1.day.ago)
+          .find_each(&:refresh_titles)
   end
 
   def refresh_titles
@@ -37,6 +40,9 @@ class Category < ApplicationRecord
       ArticleUtils.format_article_title(title)
     end
     save
+    # Using touch to update the timestamps even when there is actually no
+    # updation (SQL update query) in the category
+    touch(:updated_at)
   end
 
   def article_ids
