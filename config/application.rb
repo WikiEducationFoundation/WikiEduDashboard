@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module WikiEduDashboard
   class Application < Rails::Application
     config.autoload_paths += Dir[Rails.root.join("app", "models", "{*/}")]
+    config.autoload_paths += Dir[Rails.root.join("app", "workers", "{*/}")]
 
     config.generators do |g|
       g.test_framework :rspec,
