@@ -27,7 +27,7 @@ We have a script to automate the process of setting up your developmental enviro
 There are some basic requirements for the script to work:
 - git (to clone the repository)
 - python 3.5 or newer
-- ruby 2.5.0
+- ruby 2.7.1
 - apt (debian) or homebrew (MacOS)
 
 ## Instructions
@@ -65,7 +65,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * copy `config/application.example.yml` to `config/application.yml`
 * copy `config/database.example.yml` to `config/database.yml`
 * create a MySQL database, `dashboard`
-* install ruby 2.5.0 and nodejs
+* install ruby 2.7.1 and nodejs
 * `bundle install`
 * `rake db:migrate`
 * install yarn
@@ -87,10 +87,10 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
 - On OSX/Debian, make sure you are in the "sudo" group.
-- Install Ruby 2.5.0 (RVM is documented here; rbenv also works fine.)
+- Install Ruby 2.7.1 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - `rvm install ruby-2.5.0`
+       - `rvm install ruby-2.7.1`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)

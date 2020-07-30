@@ -11,7 +11,7 @@ print ("WARNING! This is a work in progress script. It has been tested to work f
   The logs can be found in the setup directory. If you can help improve this script, \
   We would love your contributions.")
 
-print ("Please install ruby-2.5.0 before running this script.")
+print ("Please install ruby-2.7.1 before running this script.")
 
 def deb_setup():
     print ("Your system is found to be debian-based.")
