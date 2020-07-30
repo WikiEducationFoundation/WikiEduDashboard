@@ -1,9 +1,10 @@
 import React from 'react';
+import moment from 'moment';
 
 const StatisticsUpdateModal = (props) => {
     const course = props.course;
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
-    const futureUpdatesMessage = course.update_in_future ? I18n.t('metrics.future_updates_remaining.true') : I18n.t('metrics.future_updates_remaining.false');
+    const futureUpdatesMessage = moment.utc(course.update_until).isAfter() ? I18n.t('metrics.future_updates_remaining.true') : I18n.t('metrics.future_updates_remaining.false');
 
     let lastUpdateSummary = '';
     const errorCount = course.updates.last_update.error_count;
@@ -39,6 +40,7 @@ const StatisticsUpdateModal = (props) => {
             <li>{ totalUpdatesMessage }</li>
             { updateTimesInformation !== null && <li>{updateTimesInformation[1]}</li> }
             <li>{ futureUpdatesMessage }</li>
+            { course.needs_update && <li>{I18n.t('metrics.non_updating_course_update')}</li> }
           </ul>
           <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>
