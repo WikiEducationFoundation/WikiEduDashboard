@@ -9,7 +9,8 @@ json.course do
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
-            :closed?, :training_library_slug, :peer_review_count, :withdrawn)
+            :closed?, :training_library_slug, :peer_review_count, :needs_update,
+            :update_until, :withdrawn)
 
   json.wikis @course.wikis, :language, :project
   json.timeline_enabled @course.timeline_enabled?
@@ -43,7 +44,6 @@ json.course do
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
-  json.update_in_future @course.update_in_future?
 
   if user_role.zero? # student role
     json.incomplete_assigned_modules @course.training_progress_manager

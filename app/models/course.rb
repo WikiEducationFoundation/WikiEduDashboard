@@ -250,11 +250,6 @@ class Course < ApplicationRecord
     flags[:closed_date].present?
   end
 
-  def current_and_future?
-    current_time = Time.zone.now
-    current_time > start && current_time - UPDATE_LENGTH < self.end
-  end
-
   def tag?(query_tag)
     tags.pluck(:tag).include? query_tag
   end
@@ -290,8 +285,8 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
-  def update_in_future?
-    needs_update || current_and_future?
+  def update_until
+    self.end + UPDATE_LENGTH
   end
 
   def wiki_page?
