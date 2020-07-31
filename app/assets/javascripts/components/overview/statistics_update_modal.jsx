@@ -4,7 +4,10 @@ import moment from 'moment';
 const StatisticsUpdateModal = (props) => {
     const course = props.course;
     const helpMessage = Features.wikiEd ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
-    const futureUpdatesMessage = moment.utc(course.update_until).isAfter() ? I18n.t('metrics.future_updates_remaining.true') : I18n.t('metrics.future_updates_remaining.false');
+    const updatesEndMoment = moment.utc(course.update_until);
+    const futureUpdatesRemaining = updatesEndMoment.isAfter();
+    const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.true', { date: updatesEndMoment.format('MMMM Do YYYY') }) : I18n.t('metrics.future_updates_remaining.false');
+    const additionalUpdateMessage = course.needs_update ? I18n.t('metrics.non_updating_course_update') : '';
 
     let lastUpdateSummary = '';
     const errorCount = course.updates.last_update.error_count;
@@ -38,9 +41,8 @@ const StatisticsUpdateModal = (props) => {
           <ul>
             <li>{ recentUpdatesSummary }</li>
             <li>{ totalUpdatesMessage }</li>
-            { updateTimesInformation !== null && <li>{updateTimesInformation[1]}</li> }
-            <li>{ futureUpdatesMessage }</li>
-            { course.needs_update && <li>{I18n.t('metrics.non_updating_course_update')}</li> }
+            { (updateTimesInformation !== null && futureUpdatesRemaining) && <li>{updateTimesInformation[1]}</li> }
+            <li>{futureUpdatesMessage} {additionalUpdateMessage}</li>
           </ul>
           <b>{I18n.t('metrics.missing_data_heading')}</b>
           <br/>
