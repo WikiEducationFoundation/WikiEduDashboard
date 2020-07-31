@@ -82,11 +82,6 @@ class UpdateCourseStats
                           extra: { logs: @sentry_logs }
   end
 
-  def should_update_categories?
-    previous_categories_update = @course.flags['previous_categories_update']
-    previous_categories_update.nil? || Time.zone.now > previous_categories_update + 1.day
-  end
-
   def debug?
     @course.flags[:debug_updates]
   end
