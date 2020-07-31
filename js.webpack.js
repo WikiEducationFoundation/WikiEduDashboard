@@ -96,7 +96,9 @@ module.exports = (env) => {
       },
     },
     watch: env.watch_js,
-    devtool: env.development ? 'eval' : 'source-map',
+    // eval causes trouble with instrumenting and outputs the transformed code which is not useful with coverage data
+    // cheap-module-source-map outputs an almost original code at the best possible speed which helps in evaluating the coverage data
+    devtool: env.development ? (env.coverage ? 'cheap-module-source-map' : 'eval') : 'source-map',
     stats: env.stats ? 'normal' : 'minimal',
   };
 };
