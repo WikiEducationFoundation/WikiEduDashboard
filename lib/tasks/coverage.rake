@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :generate do
   namespace :coverage do
     desc 'Generates the assets for coverage'
@@ -5,9 +7,9 @@ namespace :generate do
       # The yarn build output is moved to tmp_build for recovery after tests
       Rake::Task['move:assets:to_tmp'].execute
 
-      puts "Generating coverage assets..."
+      puts 'Generating coverage assets…'
       `yarn coverage`
-      puts "Coverage assets generated."
+      puts 'Coverage assets generated.'
 
       # Instruments the coverage assets
       Rake::Task['assets:coverage'].execute
@@ -25,7 +27,7 @@ end
 namespace :move do
   namespace :assets do
     desc 'Moves the yarn build output to temporary folder'
-    task :to_tmp  do
+    task :to_tmp do
       `rm -rf tmp_build` # Remove stale build assets
       `mkdir tmp_build` # Create an empty directory
       `cp -r public/assets/* tmp_build` # Copy production build assets to tmp_build

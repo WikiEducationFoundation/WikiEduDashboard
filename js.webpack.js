@@ -27,7 +27,7 @@ module.exports = (env) => {
   const outputPath = doHot
     ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`)
     : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
-
+  const devtool = env.coverage ? 'cheap-module-source-map' : 'eval';
   return {
     mode,
     entry,
@@ -98,7 +98,7 @@ module.exports = (env) => {
     watch: env.watch_js,
     // eval causes trouble with instrumenting and outputs the transformed code which is not useful with coverage data
     // cheap-module-source-map outputs an almost original code at the best possible speed which helps in evaluating the coverage data
-    devtool: env.development ? (env.coverage ? 'cheap-module-source-map' : 'eval') : 'source-map',
+    devtool: env.development ? devtool : 'source-map',
     stats: env.stats ? 'normal' : 'minimal',
   };
 };

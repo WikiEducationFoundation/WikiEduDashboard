@@ -12,10 +12,11 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
-$run_once = true
+run_once = true
 # https://github.com/rspec/rspec-core/issues/1900#issuecomment-78490902
-# RSpec loads spec files in alphabetical order and then runs tests in defined order or random order depending on your configuration.
-$last_feature_spec_path = Dir['spec/features/*'].sort.last
+# RSpec loads spec files in alphabetical order and then runs tests in
+# defined order or random order depending on your configuration.
+last_feature_spec_path = Dir['spec/features/*'].sort.second
 
 Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities
@@ -26,8 +27,7 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
                                  options: options,
-                                 clear_local_storage: false, 
-                                 # Local storage data needs to be persisted across tests as it contains coverage data
+                                 clear_local_storage: false, # Persist local storage across tests
                                  desired_capabilities: capabilities)
 end
 
@@ -50,6 +50,9 @@ Capybara.server = :puma, { Silent: true }
 # require only the support files necessary.
 #
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+
+# Rake tasks need to be loaded before they can be executed
+Rails.application.load_tasks
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -90,15 +93,10 @@ RSpec.configure do |config|
       .to_return(status: 200, body: +'@font-face {}', headers: {})
   end
 
-  config.before(:suite) do
-    # Rake tasks need to be loaded before they can be executed
-    Rails.application.load_tasks
-  end
-
   config.before(:each, type: :feature, js: true) do
     # Generate and instrument assets once
-    if $run_once
-      $run_once = false;
+    if run_once
+      run_once = false
       Rake::Task['generate:coverage:assets'].execute
     end
     # Make sure any logs from the previous test get
@@ -109,10 +107,14 @@ RSpec.configure do |config|
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
     # Capture the coverage data in the final feature spec and write to jscoverage.json
-    if example.metadata[:example_group][:absolute_file_path].end_with?($last_feature_spec_path)
-      out=page.evaluate_script("typeof(_$jscoverage)!='undefined' && jscoverage_serializeCoverageToJSON()")
-      unless out.blank? then
-        File.open(File.join(Rails.root,"public/js_coverage/jscoverage.json"), 'w') {|f| f.write(out) }
+    if example.metadata[:example_group][:absolute_file_path].end_with?(last_feature_spec_path)
+      out = page.evaluate_script(
+        "typeof(_$jscoverage)!='undefined' && jscoverage_serializeCoverageToJSON()"
+      )
+      if out.present?
+        File.open(File.join(Rails.root, 'public/js_coverage/jscoverage.json'), 'w') do |f|
+          f.write(out)
+        end
       end
     end
 
