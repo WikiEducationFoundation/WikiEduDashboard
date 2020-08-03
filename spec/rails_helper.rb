@@ -16,7 +16,7 @@ run_once = true
 # https://github.com/rspec/rspec-core/issues/1900#issuecomment-78490902
 # RSpec loads spec files in alphabetical order and then runs tests in
 # defined order or random order depending on your configuration.
-last_feature_spec_path = Dir['spec/features/*'].sort.second
+last_feature_spec_path = Dir['spec/features/*'].max
 
 Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities
@@ -50,9 +50,6 @@ Capybara.server = :puma, { Silent: true }
 # require only the support files necessary.
 #
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
-
-# Rake tasks need to be loaded before they can be executed
-Rails.application.load_tasks
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -143,11 +140,6 @@ RSpec.configure do |config|
         end
       end
     end
-  end
-
-  config.after(:suite) do
-    Rake::Task['generate:coverage:report'].execute # Generate the report
-    Rake::Task['move:assets:to_public'].execute # Move the production build back to public/assets
   end
 end
 

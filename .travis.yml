@@ -50,6 +50,8 @@ script:
   - yarn test
   - bundle exec rspec --color --profile
     --tag $TEST_SUITE
+  - rake generate:coverage:report
+  - rake move:assets:to_public
   - bundle exec rubocop
   - yarn lint-non-build
 after_script:
