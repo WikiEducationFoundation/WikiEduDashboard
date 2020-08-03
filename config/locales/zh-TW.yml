@@ -741,9 +741,13 @@ zh-TW:
     date_time: 日期/時間
     edit_count_description: 總編輯數
     error_count_message: 控制面板在最近更新期間遇到 %{error_count} 個錯誤。
+    future_updates_remaining:
+      1: 統計內容會持續更新直到 %{date}。
+      "": 此方案的統計內容不再定期更新。
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括
+    non_updating_course_update: 已排定一次性更新，應即將進行。
     last_update_failed: 此課程的最新更新失敗。
     last_update_success: 最新更新執行成功，統計內容應是最新的。
     outreach_help: 需要幫助？請參閱在導航欄中的「回報問題」。

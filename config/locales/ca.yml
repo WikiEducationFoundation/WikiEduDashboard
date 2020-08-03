@@ -7,6 +7,7 @@
 # Author: Lluis tgn
 # Author: Macofe
 # Author: Medol
+# Author: Mguix
 # Author: Toniher
 # Author: Townie
 # Author: Unapersona
@@ -30,6 +31,8 @@ ca:
       o abaixar el valor introduït.
   application:
     cancel: Cancel·la
+    cookie_consent_acknowledge: Entenc
+    cookie_consent_see_more: Veure més.
     create_accounts: Crea comptes de la Viquipèdia
     dashboard: Tauler de control de Wiki Ed
     documentation: Documentació
@@ -54,7 +57,9 @@ ca:
     request_account: Sol·licita un compte
     request_account_create: Crea un compte
     search: feu una pregunta
-    search_results: 'Resultats per a: «%{search_terms}»'
+    search_results:
+      one: "\t%{count} resultat per a «%{search_terms}»"
+      other: "\t%{count} resultats per a «%{search_terms}»"
     no_results: No s’ha trobat cap resultat per a «%{query}»
     sign_up_extended: Registreu-vos amb la Viquipèdia
     sign_up_wikipedia: O registreu-vos-hi a la Viquipèdia
@@ -169,7 +174,9 @@ ca:
     tools: Eines de valoració
     view: Mostra l’article
     view_all: Mostra-ho tot
-    view_doc: La suma de totes les visites a cada article durant el projecte
+    view_doc: El nombre de vistes estimat de cadascun dels articles des que ha estat
+      modificat per primera vegada fins a l'últim valor proporcionat per les estadístiques.
+      Podeu utilitzar pageviews.toolforge.org per veure els valors exactes.
     view_on_wiki: Mostra-ho al wiki
     views_added: Afegit %{count} nous punts de vista per a %{title}
     edit_size: Edita la mida
@@ -210,12 +217,15 @@ ca:
     none_short: No hi ha articles assignats
     none: Aquest curs no té cap article disponible.
     no_available: Aquest curs no té cap article disponible.
+    peer_review_link: Revisió per parells
+    peer_review_link_personalized: Revisió per parells de %{username}
     remove: Suprimeix
     reviewers: Revisors
     review_other: Assigna una revisió
     review_self: Revisa un article
-    review_tooltip: Això serveix per fer seguiment de quin(s) article(s) tens intenció
-      de revisar o oferir-hi crítica.
+    review_tooltip: Això serveix per als articles que tingeu intenció de revisar o
+      de comentar.
+    sandbox_draft_link: Esborrany de prova
     select: Selecciona
   blocks:
     milestones:
@@ -278,15 +288,15 @@ ca:
     add_this_template: Afegeix aquesta plantilla
     confirm_category_addition: Segur que voleu fer seguiment de les contribucions
       a la categoria "%{name}"?
-    confirm_template_addition: Seguir que voleu fer seguiment de les contribucions
-      a la plantilla "%{name}"?
+    confirm_template_addition: Segur que voleu fer seguiment de les contribucions
+      per a la plantilla "%{name}"?
     depth: Profunditat de la subcategoria
     name: Nom
     category_name: Nom de la categoria
     template_name: Nom de la plantilla
     none: No s'està fent seguiment de cap categoria.
     remove: Elimina
-    tracked_categories: Plantilles i categories seguides
+    tracked_categories: Categories seguides, PSID, PagePile id i Plantilles
   chat:
     label: Xat
   courses:
@@ -298,9 +308,7 @@ ca:
     accounts_generation_explanation: Això permetrà que els participants introdueixin
       els seus correus electrònics i noms d'usuaris, en comptes de crear-se els seus
       propis comptes. A continuació, podreu crear els comptes des d'aquest tauler
-      i afegir-los com a participants alhora. Per utilitzar aquesta funcionalitat,
-      haurieu de tenir el premís de creador de comptes al wiki principal d'aquest
-      programa.
+      i afegir-los com a participants alhora.
     accounts_generation_confirm_message: Segur que voleu activar la sol·licitud de
       comptes?
     activity: Activitat
@@ -615,18 +623,18 @@ ca:
     user_suggestions_prompt: Els vostres suggeriments pels editors de l'article
     view_other: Visualitza altres campanyes
     view: Vegeu el curs
-    view_doc: La suma de totes les visites a articles editats pels estudiants apuntats
-      des de que van fer la primera modificació.
+    view_doc: El nombre estimat de les visites a articles editats pels estudiants
+      apuntats des de que van fer la primera modificació.
     view_page: Mostra la pàgina del curs
     view_wiki: Mostra a la Viquipèdia
     volunteer:
       one: Voluntari
       other: Voluntaris
     weeks_none: Aquest curs encara no té línia temporal.
-    warn_mirrored: Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
+    warn_mirrored: "Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
       amb el teu compte d'usuari. Després d'això, les noves edicions a la línia de
-      temps seran automàticament reflectides a la Viquipèdia. N'estàs segur què vols
-      fer aquesta acció?
+      temps seran automàticament reflectides a la Viquipèdia. \n\nN'estàs segur què
+      vols fer aquesta acció?"
     wiki_course_page_enabled: S'ha activat la pàgina wiki del curs
     wiki_edits_enabled: Edicions wiki activades
     wiki_staff: Equip de Wiki Education
@@ -680,13 +688,9 @@ ca:
       create_short: Crea programa
       end_date: Final del seguiment d'activitat
       find: Cerca un programa
-      intro: El títol del programa i la institució formen l'URL del programa. El wiki
-        principal és el wiki en el qual els participants treballaran, i les edicions
-        en aquest wiki se seguiran per defecte. Si el vostre programa té diversos
-        idiomes o projectes, es farà seguiment de les contribucions per qualsevol
-        wiki que tingui un "Article disponible" o "Tasca" pel wiki en qüestió. Premeu
-        "Crea el meu programa!" per començar a construir la pàgina pel vostre programa
-        wiki.
+      intro: |-
+        El títol del programa i la institució formen l'URL del programa. El wiki principal és el wiki en el qual els participants treballaran, i les edicions en aquest wiki se seguiran per defecte. Si el vostre programa té diversos idiomes o projectes, les contribucions també seran rastrejades per qualsevol wiki que hagi estat explícitament afegida als "Wikis rastrejats".
+        Premeu "Crea el meu programa!" per començar a construir la pàgina pel vostre programa wiki.
       participate_in_campaign: Participeu en una campanya
       save_cloned_course: Desa
       start_date: Inici del seguiment d'activitat
@@ -1031,9 +1035,9 @@ ca:
       amb el teu usuari.
     unsupported_browser:
       header: Navegador no compatible :-(
-      explanation: Estàs fent servir un navegador que no és compatible amb el tauler
-        de control. Aquesta pàgina funciona bé amb Internet Explorer versió 11 o posterior,
-        amb versions recents de Chrome i Firefox i/o altres navegadors moderns.
+      explanation: Estàs fent servir un navegador que no és compatible amb el panell
+        de control. Aquesta pàgina funciona bé a les versions recents de Chrome, Firefox,
+        Edge,  i altres navegadors moderns.
   error_401:
     header: No autoritzat. >:-(
     explanation: No estàs autoritzat a executar aquesta petició. Si creus que t'ha

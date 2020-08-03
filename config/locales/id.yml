@@ -12,6 +12,7 @@
 # Author: Rachmat.Wahidi
 # Author: Rachmat04
 # Author: RaymondSutanto94
+# Author: Sonic Speedy
 ---
 id:
   number:
@@ -117,6 +118,9 @@ id:
       checking_for_uniqueness: Keunikan program akan diperiksa.
     view_other: Lihat kampanye lain
   metrics:
+    future_updates_remaining:
+      1: Statistik akan terus diperbarui hingga %{date}.
+      "": Statistik untuk program ini tidak lagi diperbarui secara berkala.
     word_count: Kata ditambahkan
   revisions:
     diff: beda

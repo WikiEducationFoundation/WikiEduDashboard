@@ -957,9 +957,14 @@ fr:
     edit_count_description: Total des modifications
     error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
+    future_updates_remaining:
+      1: Les statistiques continueront d'être mises à jour jusqu'au %{date}.
+      "": Les statistiques pour ce programme ne sont plus mises à jour régulièrement.
     last_reviewed: Dernier revu
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
+    non_updating_course_update: Une mise à jour unique a été planifiée, et va commencer
+      bientôt.
     last_update_failed: La dernière mise à jour de ce cours a échoué.
     last_update_success: La dernière mise à jour a réussi, les statistiques ont donc
       été réactualisées.
