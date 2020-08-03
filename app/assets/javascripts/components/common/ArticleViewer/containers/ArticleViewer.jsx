@@ -317,7 +317,7 @@ ArticleViewer.defaultProps = {
 ArticleViewer.propTypes = {
   alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     language: PropTypes.string.isRequired,
     project: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
