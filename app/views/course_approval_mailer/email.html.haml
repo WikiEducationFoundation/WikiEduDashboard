@@ -8,11 +8,19 @@
             %td.main-content
               %p.paragraph
                 = "Dear #{@instructor.real_name || @instructor.username},"
-              - if !@is_returning_instructor
+              %p.paragraph
+                Your application for a spot in our Wikipedia Student Program has been approved, and your
+                %a.link{href: @course_link} course page
+                is now live on our Course Dashboard!
+              - if @course.stay_in_sandbox?
                 %p.paragraph
-                  Your application for a spot in our Wikipedia Student Program has been approved, and your
-                  %a.link{href: @course_link}course page
-                  is now live on our Course Dashboard!
+                  As we previously discussed, your students will keep their work in sandboxes this term.
+                  We've adjusted your course page accordingly. Please remind students that they will not
+                  be moving their work into the article main space. For more information about how this
+                  will affect your course,
+                  = succeed '.' do
+                    %a.link{href: 'https://wikiedu.org/blog/2020/06/24/new-application-process-for-student-program-in-fall-2020-term/#sandboxes'} click here
+              - if !@is_returning_instructor
                 %p.paragraph
                   To get started with your Wikipedia assignment, please distribute the
                   following enrollment link to your students:
@@ -34,8 +42,11 @@
                   Finally, to learn more about how you can make the most of your Wiki Education support,
                   = succeed '.' do
                     %a.link{href: 'https://dashboard.wikiedu.org/faq/7'} click here
-                  I look forward to working with you.
-              -if @is_returning_instructor
+                  - if @course.stay_in_sandbox?
+                    Thank you again for your flexibility, and we look forward to working with you.
+                  - else
+                    I look forward to working with you.
+              - if @is_returning_instructor
                 %p.paragraph
                   Your application for a spot in our Wikipedia Student Program has been approved, and your
                   %a.link{href: @course_link}course page
@@ -45,8 +56,12 @@
                   so they can enroll on your course page:
                 %p.paragraph
                   %a.link{href: @enroll_link}= @enroll_link
-                %p.paragraph
-                  Looking forward to another successful term! 
+                - if @course.stay_in_sandbox?
+                  %p.paragraph
+                    Thank you again for your flexibility, and we look forward to another successful term!
+                - else
+                  %p.paragraph
+                    Looking forward to another successful term! 
               %p.paragraph
                 Best,
                 %br
