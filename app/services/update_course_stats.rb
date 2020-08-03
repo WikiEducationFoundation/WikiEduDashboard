@@ -23,7 +23,7 @@ class UpdateCourseStats
 
     @start_time = Time.zone.now
     fetch_data
-    update_categories if @course.needs_update
+    update_categories
     update_article_status if @course.needs_update
     update_average_pageviews
     update_caches
