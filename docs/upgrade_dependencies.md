@@ -11,7 +11,7 @@ Make sure the tests pass on travis with the new Ruby.
 ### Prepare for deployment
 
 * Stop updates: `cap production sake task=batch:pause`
-* Stop Sidekiq: `cap production sidekiq:stop`
+* Stop Sidekiq: `cap production deploy:sidekiq:stop`
 
 ### Prepare Ruby and Passenger on the server
 
