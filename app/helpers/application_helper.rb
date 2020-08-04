@@ -3,13 +3,7 @@
 #= Root-level helpers
 module ApplicationHelper
   def logo_path
-    logo_path = "/assets/images/#{Figaro.env.logo_file}"
-    logo_path
-  end
-
-  def logo_tag
-    logo_path = "/assets/images/#{Figaro.env.logo_file}"
-    image_tag logo_path
+    "/assets/images/#{ENV['logo_file']}"
   end
 
   def permissions
@@ -28,13 +22,7 @@ module ApplicationHelper
   end
 
   def logo_favicon_tag
-    favicon_path = if Rails.env.development?
-                     "/assets/images/#{Figaro.env.favicon_dev_file}"
-                   else
-                     "/assets/images/#{Figaro.env.favicon_file}"
-                   end
-
-    favicon_link_tag favicon_path
+    favicon_link_tag "/assets/images/#{ENV['favicon_file']}"
   end
 
   def dashboard_stylesheet_tag(filename)
