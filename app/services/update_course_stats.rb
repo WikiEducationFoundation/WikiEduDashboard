@@ -24,7 +24,7 @@ class UpdateCourseStats
     @start_time = Time.zone.now
     fetch_data
     update_categories
-    update_article_status if @course.needs_update
+    update_article_status
     update_average_pageviews
     update_caches
     @course.update(needs_update: false)

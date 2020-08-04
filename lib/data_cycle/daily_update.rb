@@ -65,9 +65,6 @@ class DailyUpdate
 
     log_message 'Updating ratings for all articles'
     ImportRatingsWorker.set(queue: QUEUE).perform_async
-
-    log_message 'Updating article namespace and deleted status'
-    UpdateArticleStatusWorker.set(queue: QUEUE).perform_async
   end
 
   ##########

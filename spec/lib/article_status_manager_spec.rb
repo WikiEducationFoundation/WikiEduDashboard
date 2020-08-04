@@ -10,14 +10,6 @@ describe ArticleStatusManager do
   let(:user) { create(:user) }
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
 
-  describe '.update_article_status' do
-    it 'runs without error' do
-      VCR.use_cassette 'article_status_manager/main' do
-        described_class.update_article_status
-      end
-    end
-  end
-
   describe '.update_article_status_for_course' do
     it 'marks deleted articles as "deleted"' do
       VCR.use_cassette 'article_status_manager/main' do
