@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/update_commons_upload
 require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/import_wikidata_summaries_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
@@ -32,6 +33,7 @@ class DailyUpdate
     update_users
     update_commons_uploads
     update_article_data
+    import_wikidata_summaries if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
@@ -68,6 +70,11 @@ class DailyUpdate
 
     log_message 'Updating article namespace and deleted status'
     UpdateArticleStatusWorker.set(queue: QUEUE).perform_async
+  end
+
+  def import_wikidata_summaries
+    log_message 'Importing Wikidata revision summaries'
+    ImportWikidataSummariesWorker.set(queue: QUEUE).perform_async
   end
 
   ##########
