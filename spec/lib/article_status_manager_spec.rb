@@ -227,21 +227,7 @@ describe ArticleStatusManager do
       end
     end
 
-    it 'marks an undeleted article as not deleted' do
-      VCR.use_cassette 'article_status_manager/main' do
-        create(:article,
-               id: 50661367,
-               mw_page_id: 52228477,
-               title: 'Antiochis_of_Tlos',
-               namespace: 0,
-               deleted: true)
-        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
-        described_class.update_article_status_for_course(course)
-        expect(Article.find(50661367).deleted).to eq(false)
-      end
-    end
-
-    it 'updates for newly added articles' do
+    it 'updates for newly added articles and marks an undeleted article as not deleted' do
       VCR.use_cassette 'article_status_manager/main' do
         create(:article,
                id: 50661367,
