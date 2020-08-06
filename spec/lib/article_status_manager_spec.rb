@@ -240,5 +240,47 @@ describe ArticleStatusManager do
         expect(Article.find(50661367).deleted).to eq(false)
       end
     end
+
+    it 'updates for newly added articles' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 50661367,
+               mw_page_id: 52228477,
+               title: 'Antiochis_of_Tlos',
+               namespace: 0,
+               deleted: true)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(50661367).deleted).to eq(false)
+      end
+    end
+
+    it 'updates if article updated more than 1 day ago' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 50661367,
+               mw_page_id: 52228477,
+               title: 'Antiochis_of_Tlos',
+               namespace: 0,
+               updated_at: 2.days.ago)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(50661367).updated_at > 30.seconds.ago).to eq(true)
+      end
+    end
+
+    it 'does not update if article updated less than 1 day ago' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 50661367,
+               mw_page_id: 52228477,
+               title: 'Antiochis_of_Tlos',
+               namespace: 0,
+               updated_at: 12.hours.ago)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(50661367).updated_at <= 12.hours.ago).to eq(true)
+      end
+    end
   end
 end
