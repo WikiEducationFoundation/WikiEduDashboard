@@ -25,7 +25,7 @@ class ArticleStatusManager
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(wiki).update_status(article_batch.to_a)
-        article_batch.update_all(updated_at: Time.zone.now)
+        article_batch.touch_all(:updated_at)
       end
     end
   end
