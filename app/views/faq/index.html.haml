@@ -10,7 +10,7 @@
 .container
   .faq-list
     - @faqs.each do |faq|
-      = render 'faq', faq: faq, expanded: @query.present?
+      = render 'faq', faq: faq, expanded: @faqs.one?
   .faq-topic-list
     %h3 Topics
     - FaqTopic.all.each do |topic|
