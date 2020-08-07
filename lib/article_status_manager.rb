@@ -13,8 +13,7 @@ class ArticleStatusManager
   ################
 
   def self.update_article_status_for_course(course)
-    Wiki.all.each do |wiki|
-      next unless course.pages_edited.exists?(wiki_id: wiki.id)
+    course.wikis.each do |wiki|
       # Updating only those articles which are updated more than  1 day ago
       course.pages_edited
             .where(wiki_id: wiki.id)
