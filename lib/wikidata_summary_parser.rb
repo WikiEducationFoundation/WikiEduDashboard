@@ -1,53 +1,59 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/ClassLength
 class WikidataSummaryParser
   def self.analyze_revisions(revisions)
     puts "total revisions: #{revisions.count}"
-    claims_created = revisions.select { |r| new(r.summary).created_claim? }.count
+    claims_created = revisions.count { |r| new(r.summary).created_claim? }
     puts "claims created: #{claims_created}"
-    claims_changed = revisions.select { |r| new(r.summary).changed_claim? }.count
+    claims_changed = revisions.count { |r| new(r.summary).changed_claim? }
     puts "claims changed: #{claims_changed}"
-    claims_removed = revisions.select { |r| new(r.summary).removed_claim? }.count
+    claims_removed = revisions.count { |r| new(r.summary).removed_claim? }
     puts "claims removed: #{claims_removed}"
-    items_created = revisions.select { |r| new(r.summary).created_item? }.count
+    items_created = revisions.count { |r| new(r.summary).created_item? }
     puts "items created: #{items_created}"
-    labels_added = revisions.select { |r| new(r.summary).added_label? }.count
+    labels_added = revisions.count { |r| new(r.summary).added_label? }
     puts "labels added: #{labels_added}"
-    labels_changed = revisions.select { |r| new(r.summary).changed_label? }.count
+    labels_changed = revisions.count { |r| new(r.summary).changed_label? }
     puts "labels changed: #{labels_changed}"
-    labels_removed = revisions.select { |r| new(r.summary).removed_label? }.count
+    labels_removed = revisions.count { |r| new(r.summary).removed_label? }
     puts "labels removed: #{labels_removed}"
-    descriptions_added = revisions.select { |r| new(r.summary).added_description? }.count
+    descriptions_added = revisions.count { |r| new(r.summary).added_description? }
     puts "descriptions added: #{descriptions_added}"
-    descriptions_changed = revisions.select { |r| new(r.summary).changed_description? }.count
+    descriptions_changed = revisions.count { |r| new(r.summary).changed_description? }
     puts "descriptions changed: #{descriptions_changed}"
-    descriptions_removed = revisions.select { |r| new(r.summary).removed_description? }.count
+    descriptions_removed = revisions.count { |r| new(r.summary).removed_description? }
     puts "descriptions removed: #{descriptions_removed}"
-    aliases_added = revisions.select { |r| new(r.summary).added_alias? }.count
+    aliases_added = revisions.count { |r| new(r.summary).added_alias? }
     puts "aliases added: #{aliases_added}"
-    aliases_changed = revisions.select { |r| new(r.summary).changed_alias? }.count
+    aliases_changed = revisions.count { |r| new(r.summary).changed_alias? }
     puts "aliases changed: #{aliases_changed}"
-    aliases_removed = revisions.select { |r| new(r.summary).removed_alias? }.count
+    aliases_removed = revisions.count { |r| new(r.summary).removed_alias? }
     puts "aliases removed: #{aliases_removed}"
-    merged_from = revisions.select { |r| new(r.summary).merged_from? }.count
+    merged_from = revisions.count { |r| new(r.summary).merged_from? }
     puts "merged from: #{merged_from}"
-    merged_to = revisions.select { |r| new(r.summary).merged_to? }.count
+    merged_to = revisions.count { |r| new(r.summary).merged_to? }
     puts "merged to: #{merged_to}"
-    added_interwiki = revisions.select { |r| new(r.summary).added_interwiki_link? }.count
+    added_interwiki = revisions.count { |r| new(r.summary).added_interwiki_link? }
     puts "interwiki links added: #{added_interwiki}"
-    removed_interwiki = revisions.select { |r| new(r.summary).removed_interwiki_link? }.count
+    removed_interwiki = revisions.count { |r| new(r.summary).removed_interwiki_link? }
     puts "interwiki links removed: #{removed_interwiki}"
-    redirects_created = revisions.select { |r| new(r.summary).created_redirect? }.count
+    redirects_created = revisions.count { |r| new(r.summary).created_redirect? }
     puts "redirects created: #{redirects_created}"
-    reverts = revisions.select { |r| new(r.summary).reverted_an_edit? }.count
+    reverts = revisions.count { |r| new(r.summary).reverted_an_edit? }
     puts "reverts performed: #{reverts}"
-    restorations = revisions.select { |r| new(r.summary).restored_revision? }.count
+    restorations = revisions.count { |r| new(r.summary).restored_revision? }
     puts "restorations performed: #{restorations}"
-    items_cleared = revisions.select { |r| new(r.summary).cleared_item? }.count
+    items_cleared = revisions.count { |r| new(r.summary).cleared_item? }
     puts "items cleared: #{items_cleared}"
-    qualifiers_added = revisions.select { |r| new(r.summary).added_qualifier? }.count
+    qualifiers_added = revisions.count { |r| new(r.summary).added_qualifier? }
     puts "qualifiers added: #{qualifiers_added}"
-    other_updates = revisions.select { |r| new(r.summary).unknown_update? }.count
+    other_updates = revisions.count { |r| new(r.summary).unknown_update? }
     puts "other updates: #{other_updates}"
-    unknown = revisions.select { |r| new(r.summary).unknown? }.count
+    unknown = revisions.count { |r| new(r.summary).unknown? }
     puts "unknown: #{unknown}"
   end
 
@@ -69,6 +75,7 @@ class WikidataSummaryParser
     @summary = summary
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def unknown?
     !created_claim? &&
       !changed_claim? &&
@@ -94,6 +101,7 @@ class WikidataSummaryParser
       !added_qualifier? &&
       !unknown_update?
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def changes
     {
@@ -200,3 +208,7 @@ class WikidataSummaryParser
     @summary.include? 'restore:'
   end
 end
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/ClassLength
