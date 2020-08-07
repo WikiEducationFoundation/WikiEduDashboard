@@ -17,8 +17,7 @@ class ArticleStatusManager
       # Updating only those articles which are updated more than  1 day ago
       course.pages_edited
             .where(wiki_id: wiki.id)
-            .where('articles.updated_at < ? OR articles.created_at = articles.updated_at',
-                   1.day.ago)
+            .where('articles.updated_at < ?', 1.day.ago)
             .in_batches do |article_batch|
         # Using in_batches so that the update_at of all articles in the batch can be
         # excuted in a single query, otherwise if we use find_in_batches, query for
