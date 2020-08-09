@@ -18,6 +18,8 @@ run_once = true
 # defined order or random order depending on your configuration.
 last_feature_spec_path = Dir['spec/features/*'].max
 
+Rails.application.load_tasks if Rake::Task.tasks.length <= 1
+
 Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities
                  .chrome(chromeOptions: { w3c: false })

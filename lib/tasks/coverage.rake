@@ -2,6 +2,35 @@
 
 namespace :generate do
   namespace :coverage do
+    desc 'Splits the modules in main.js into their own files'
+    task :split do
+      puts 'Separating the modules…'
+      counter = 0
+      filenames = []
+      main = 'public/assets/javascripts/main.js'
+      text = File.read(main)
+      funs = text.scan(%r/![*]{3}.*[*]{3}!(?:.|\n)*?\/[*]{3}\/ \}\)/)
+      # The above Regex matches the individual modules in the concatenated main.js
+      funs.each do |fun|
+        counter += 1
+        text = text.sub(fun, "*/module_#{counter}") # Replaces the function with module_{number}
+        fun = fun.gsub(%r/\/[*]{3}\/ \(function/, "var module_#{counter} = (function")
+        # The above names the individual modules in the format module_{number}
+        filename = File
+                   .basename(fun.scan(/![*]{3}(.*)[*]{3}!/).second.first.squish, '.*')
+                   .gsub(/\W/, '') + "_#{counter}"
+        filenames << filename
+        File.open("public/assets/javascripts/#{filename}.js", 'w') do |file|
+          file.write("/*#{fun}")
+        end
+      end
+      File.write(main, text) # Replace main.js file with modules in the form of module_{number}
+      File.open('modules.txt', 'w') do |file|
+        file.write(filenames.join("\n")) # Store the module file names for loading via <script>
+      end
+      puts 'Modules separated.'
+    end
+
     desc 'Generates the assets for coverage'
     task :assets do
       # The yarn build output is moved to tmp_build for recovery after tests
@@ -10,6 +39,9 @@ namespace :generate do
       puts 'Generating coverage assets…'
       `yarn coverage`
       puts 'Coverage assets generated.'
+
+      # Split the modules in main.js into their own files
+      Rake::Task['generate:coverage:split'].execute
 
       # Instruments the coverage assets
       Rake::Task['assets:coverage'].execute

@@ -78,6 +78,7 @@ module.exports = (env) => {
         'process.env': {
           NODE_ENV: JSON.stringify(mode),
         },
+        COVERAGE: !!env.coverage // Used to do conditional builds in main.js
       }),
       // Creates smaller Lodash builds by replacing feature sets of modules with noop,
       // identity, or simpler alternatives.
