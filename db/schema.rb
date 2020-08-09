@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_150005) do
     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
   end
 
-  create_table "faqs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "faqs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title", null: false
