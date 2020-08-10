@@ -6,7 +6,6 @@ require_dependency "#{Rails.root}/app/workers/daily_update/find_assignments_work
 require_dependency "#{Rails.root}/app/workers/daily_update/clean_articles_courses_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/import_wikidata_summaries_worker"
-require_dependency "#{Rails.root}/app/workers/daily_update/update_article_status_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
 
@@ -67,9 +66,6 @@ class DailyUpdate
 
     log_message 'Updating ratings for all articles'
     ImportRatingsWorker.set(queue: QUEUE).perform_async
-
-    log_message 'Updating article namespace and deleted status'
-    UpdateArticleStatusWorker.set(queue: QUEUE).perform_async
   end
 
   def import_wikidata_summaries
