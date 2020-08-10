@@ -49,7 +49,7 @@ module ApplicationHelper
   end
 
   def hot_javascript_tag(filename)
-    if Rails.env.test? && filename == 'main'
+    if ENV['feature'] == 'true' && Rails.env.test? && filename == 'main'
       files = File.read('modules.txt').split("\n")
       paths = ''
       files.each do |file|

@@ -82,17 +82,6 @@ RSpec.configure do |config|
   Warden.test_mode!
 
   config.before do
-    # Generate and instrument assets once
-    if run_once
-      begin
-        run_once = false
-        Rake::Task['generate:coverage:assets'].execute
-      rescue StandardError
-        # When single RSpec tasks are run the Rake tasks aren't loaded
-        Rails.application.load_tasks
-        Rake::Task['generate:coverage:assets'].execute
-      end
-    end
     stub_request(:get, 'https://wikiedu.org/feed')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<rss version="2.0" />', headers: {})
@@ -102,9 +91,26 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature, js: true) do
+    # Generate and instrument assets once
+    if run_once
+      begin
+        ENV['feature'] = 'true' # Used in hot_javascript_tag to generate separate modules
+        run_once = false
+        Rake::Task['generate:coverage:assets'].execute
+      rescue StandardError
+        # When single RSpec tasks are run the Rake tasks aren't loaded
+        Rails.application.load_tasks
+        Rake::Task['generate:coverage:assets'].execute
+      end
+    end
+
     # Make sure any logs from the previous test get
     errors = page.driver.browser.manage.logs.get(:browser)
     warn errors
+  end
+
+  config.after(:suite) do
+    ENV['feature'] = '' # Reset
   end
 
   # fail on javascript errors in feature specs
