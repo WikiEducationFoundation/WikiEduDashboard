@@ -49,7 +49,8 @@ class CategoryImporter
       cat_response = WikiApi.new(@wiki).query query
       page_data = cat_response.data['categorymembers']
       page_data.each do |page|
-        data_values << property.present? ? page[property] : page
+        data = property.present? ? page[property] : page
+        data_values << data
       end
 
       continue = cat_response['continue']
