@@ -169,4 +169,29 @@ RSpec.describe Category, type: :model do
       end
     end
   end
+
+  describe '.refresh_titles' do
+    let(:pt_wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
+    # Portuguese language category with 'Discussão:' in prefixes
+    let(:category1) do
+      create(:category, name: '!Artigos de importância 1 sobre Museu Paulista',
+             wiki: pt_wiki, source: 'category')
+    end
+    # English language template-source category with several 'Talk:' in prefixes
+    let(:category2) { create(:category, name: 'Cn', wiki: Wiki.find(1), source: 'template') }
+
+    it 'does not include Discussão: prefix in titles' do
+      VCR.use_cassette 'categories' do
+        category1.refresh_titles
+        expect(category1.article_titles.select { |title| title.include? 'Discussão:' }).to eq([])
+      end
+    end
+
+    it 'does not include Talk: prefix in titles' do
+      VCR.use_cassette 'categories' do
+        category2.refresh_titles
+        expect(category2.article_titles.select { |title| title.include? 'Talk:' }).to eq([])
+      end
+    end
+  end
 end
