@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
+require_dependency "#{Rails.root}/lib/category_utils"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
@@ -18,42 +19,48 @@ class CategoryImporter
     @max_wp10 = opts[:max_wp10] || 100
   end
 
+  def mainspace_page_titles_for_category(category, depth=0)
+    CategoryUtils.get_titles_without_prefixes(page_data_for_category(category, depth))
+  end
+
   def page_titles_for_category(category, depth=0, namespace=nil)
-    page_properties_for_category(category, 'title', depth, namespace)
+    page_data_for_category(category, depth, namespace, 'title')
   end
 
   private
 
-  def page_properties_for_category(category, property, depth=0, namespace=nil)
+  def page_data_for_category(category, depth=0, namespace=nil, property=nil)
     cat_query = category_query(category, namespace)
-    page_data = get_category_member_properties(cat_query, property)
+    page_data = get_category_member_data(cat_query, property)
     if depth.positive?
       depth -= 1
       subcats = subcategories_of(category)
       subcats.each do |subcat|
-        page_data += page_properties_for_category(subcat, property, depth, namespace)
+        page_data += page_data_for_category(subcat, depth, namespace, property)
       end
     end
     page_data
   end
 
-  def get_category_member_properties(query, property)
-    property_values = []
+  def get_category_member_data(query, property)
+    data_values = []
     continue = true
     until continue.nil?
       cat_response = WikiApi.new(@wiki).query query
       page_data = cat_response.data['categorymembers']
-      page_data.each { |page| property_values << page[property] }
+      page_data.each do |page|
+        data_values << property.present? ? page[property] : page
+      end
 
       continue = cat_response['continue']
       query['cmcontinue'] = continue['cmcontinue'] if continue
     end
-    property_values
+    data_values
   end
 
   def subcategories_of(category)
     subcat_query = category_query(category, 14) # 14 is the Category namespace
-    subcats = get_category_member_properties(subcat_query, 'title')
+    subcats = get_category_member_data(subcat_query, 'title')
     subcats
   end
 
