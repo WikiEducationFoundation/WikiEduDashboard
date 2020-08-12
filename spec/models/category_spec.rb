@@ -178,7 +178,7 @@ RSpec.describe Category, type: :model do
              wiki: pt_wiki, source: 'category')
     end
     # English language template-source category with several 'Talk:' in prefixes
-    let(:category2) { create(:category, name: 'Cn', wiki: Wiki.find(1), source: 'template') }
+    let(:category2) { create(:category, name: 'WikiProject Punjab', wiki: Wiki.find(1), source: 'template') }
 
     it 'does not include Discussão: prefix in titles' do
       VCR.use_cassette 'categories' do
