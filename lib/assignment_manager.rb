@@ -14,6 +14,26 @@ class AssignmentManager
     @role = role
   end
 
+  def create_random_peer_review
+    current_reviewing_assignment_ids = @course.assignments
+                                              .reviewing
+                                              .where(user_id: @user_id).pluck(:article_id)
+
+    return unless current_reviewing_assignment_ids.length < @course.peer_review_count
+    unreviewed_peer_assignments = @course.assignments
+                                         .assigned
+                                         .where
+                                         .not(user_id: @user_id,
+                                              article_id: current_reviewing_assignment_ids)
+
+    random_assignment = unreviewed_peer_assignments.sample
+
+    Assignment.create!(user_id: @user_id, course: @course,
+                       article_title: random_assignment.article_title, wiki: @wiki,
+                       article_id: random_assignment.article_id,
+                       role: Assignment::Roles::REVIEWING_ROLE)
+  end
+
   def create_assignment
     set_clean_title
     set_article_from_database
