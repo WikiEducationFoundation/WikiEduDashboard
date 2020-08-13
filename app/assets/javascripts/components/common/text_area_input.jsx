@@ -6,7 +6,6 @@ import InputHOC from '../high_order/input_hoc.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
-const TINY_MCE_URL = 'tiny-mce-url';
 const TINY_MCE_SCRIPT = 'tiny-mce-script';
 
 // This is a flexible text input box. It switches between edit and read mode,
@@ -54,7 +53,7 @@ const TextAreaInput = createReactClass({
     // dynamically add the script tag
     // import() doesn't work because
     // the skins are loaded relative to the current url which results in 500
-    const tinyMCEPath = document.getElementById(TINY_MCE_URL).innerText;
+    const tinyMCEPath = Features.tinyMceUrl;
     if (tinyMCEPath.trim() !== '') { // path is empty when logged out
       const script = document.createElement('script');
       script.id = TINY_MCE_SCRIPT;

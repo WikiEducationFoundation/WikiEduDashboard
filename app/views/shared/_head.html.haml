@@ -30,7 +30,8 @@
     enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
     celebrate: #{Features.celebrate?(current_user)},
     consentBanner: #{user_signed_in? && !Rails.env.test?},
-    courseCreationNotice: '#{raw ENV['course_creation_notice']}'
+    courseCreationNotice: '#{raw ENV['course_creation_notice']}',
+    tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
   }
 
   WikiProjects = document.getElementById("wikis").dataset.projects
@@ -50,6 +51,5 @@
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
 // The following path will be only available when a user is logged in
 // and is used to load tinymce dynamically.
-%p#tiny-mce-url=user_signed_in? ? hot_javascript_path("tinymce") : ""
 = content_for :javascripts
 = csrf_meta_tags
