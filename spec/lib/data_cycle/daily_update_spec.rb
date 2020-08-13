@@ -11,6 +11,7 @@ describe DailyUpdate do
     old_course = create(:course, slug: 'old', start: '2015-03-20', end: '2015-04-20',
                                  flags: { salesforce_id: 'b0f1a9063a1Wyad' })
     old_course.campaigns << Campaign.first
+    stub_wiki_validation
   end
 
   describe 'on initialization' do
