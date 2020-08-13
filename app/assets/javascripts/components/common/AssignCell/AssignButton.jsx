@@ -137,10 +137,17 @@ const PotentialAssignmentRows = ({
   const text = role === ASSIGNED_ROLE
     ? I18n.t('courses.assignment_headings.available_articles')
     : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);
+
+  const randomPeerAssignButton = (
+    <button className={'button border assign-selection-button'} onClick={e => assign(e)}>
+      {I18n.t('assignments.random_peer_review.heading')}
+    </button>
+  );
+
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>
-        <h3>{ text }</h3>
+        <h3>{ text }{ randomPeerAssignButton }</h3>
       </td>
     </tr>
   );
@@ -264,11 +271,26 @@ export class AssignButton extends React.Component {
     });
   }
 
-  _onConfirmHandler({ action, assignment, isInTrackedWiki = true, title }) {
+  _onConfirmHandler({ action, assignment, isInTrackedWiki = true, title, randomPeerReview }) {
     const { student, open } = this.props;
     const studentId = (student && student.id) || null;
 
-    const onConfirm = (e) => {
+    let onConfirm;
+    if (randomPeerReview && student) {
+      onConfirm = (e) => {
+        open(e);
+        action({
+          ...randomPeerReview,
+          user_id: studentId
+        });
+      };
+      // Confirm for assigning an article to a student
+      const confirmMessage = I18n.t('assignments.random_peer_review.confirm_addition', { username: student.username });
+
+      return this.props.initiateConfirm({ confirmMessage, onConfirm, warningMessage: null });
+    }
+
+    onConfirm = (e) => {
       open(e);
       this.setState({ title: '' });
 
@@ -277,6 +299,7 @@ export class AssignButton extends React.Component {
         user_id: studentId
       });
     };
+
 
     let confirmMessage;
     // Confirm for assigning an article to a student
@@ -330,20 +353,34 @@ export class AssignButton extends React.Component {
     });
   }
 
-  review(e, assignment) {
+  // If no assignment is provided in argument,
+  // that means it is a random peer assign
+  review(e, assignment = null) {
     e.preventDefault();
     const { course, role } = this.props;
 
-    const reviewing = {
-      title: assignment.article_title,
+    if (assignment) {
+      const reviewing = {
+        title: assignment.article_title,
+        course_slug: course.slug,
+        role
+      };
+
+      return this._onConfirmHandler({
+        action: this.props.addAssignment,
+        assignment: reviewing,
+        title: reviewing.title
+      });
+    }
+
+    const randomPeerReview = {
       course_slug: course.slug,
       role
     };
 
     return this._onConfirmHandler({
       action: this.props.addAssignment,
-      assignment: reviewing,
-      title: reviewing.title
+      randomPeerReview
     });
   }
 
