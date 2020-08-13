@@ -116,11 +116,17 @@ class AssignmentsController < ApplicationController
   end
 
   def set_new_assignment
-    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
-                                        course: @course,
-                                        wiki: @wiki,
-                                        title: assignment_params[:title],
-                                        role: assignment_params[:role]).create_assignment
+    assignment_manager = AssignmentManager.new(user_id: assignment_params[:user_id],
+                                               course: @course,
+                                               wiki: @wiki,
+                                               title: assignment_params[:title],
+                                               role: assignment_params[:role])
+
+    @assignment = if assignment_params[:title].present?
+                    assignment_manager.create_assignment
+                  else
+                    assignment_manager.create_random_peer_review
+                  end
   end
 
   def check_permissions(user_id)
