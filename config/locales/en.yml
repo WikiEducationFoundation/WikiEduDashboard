@@ -254,6 +254,9 @@ en:
     peer_review_count_tooltip: You should select %{total} articles to peer review.
     peer_review_link: Peer Review
     peer_review_link_personalized: "%{username}'s Peer Review"
+    random_peer_review:
+      heading: Randomly Assign
+      confirm_addition: Are you sure you want to randomly assign an article to %{username}?
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign a peer review
