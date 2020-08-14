@@ -8,7 +8,7 @@ class ImportWikidataSummariesWorker
 
   def perform
     wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')
-    Revision.where(wiki: wikidata, summary: nil).find_in_batches do |revision_batch|
+    Revision.where(wiki: wikidata, summary: nil, deleted: false).find_in_batches do |revision_batch|
       revision_batch.each do |rev|
         rev.update(summary: WikidataSummaryParser.fetch_summary(rev))
       end
