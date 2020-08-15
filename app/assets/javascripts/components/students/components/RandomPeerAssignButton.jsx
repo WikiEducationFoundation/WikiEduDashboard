@@ -18,9 +18,7 @@ const RandomPeerAssignButton = createReactClass({
   },
 
   randomPeerAssign() {
-    const onConfirm = (e) => {
-      open(e);
-
+    const onConfirm = () => {
       this.props.randomPeerAssignments({
         course_slug: this.props.course.slug,
         role: this.props.role,
