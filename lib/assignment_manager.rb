@@ -14,24 +14,21 @@ class AssignmentManager
     @role = role
   end
 
-  def create_random_peer_review
-    current_reviewing_assignment_ids = @course.assignments
-                                              .reviewing
-                                              .where(user_id: @user_id).pluck(:article_id)
+  def create_random_peer_reviews
+    set_peer_review_count if @course.peer_review_count.nil?
 
-    return unless current_reviewing_assignment_ids.length < @course.peer_review_count
-    unreviewed_peer_assignments = @course.assignments
-                                         .assigned
-                                         .where
-                                         .not(user_id: @user_id,
-                                              article_id: current_reviewing_assignment_ids)
+    @course.students.each do |student|
+      currently_reviewing = @course.assignments.reviewing
+                                   .where(user_id: student.id).pluck(:article_id)
+      next if currently_reviewing.length > @course.peer_review_count
 
-    random_assignment = unreviewed_peer_assignments.sample
-
-    Assignment.create!(user_id: @user_id, course: @course,
-                       article_title: random_assignment.article_title, wiki: @wiki,
-                       article_id: random_assignment.article_id,
-                       role: Assignment::Roles::REVIEWING_ROLE)
+      unreviewed_peer_assignments = @course.assignments.assigned
+                                           .where.not(user_id: student.id,
+                                                      article_id: currently_reviewing)
+      randomly_assign_peer_reviews(student,
+                                   unreviewed_peer_assignments,
+                                   @course.peer_review_count - currently_reviewing.length)
+    end
   end
 
   def create_assignment
@@ -75,6 +72,20 @@ class AssignmentManager
 
   def update_article_rating
     RatingImporter.update_rating_for_article(@article)
+  end
+
+  def set_peer_review_count
+    @course.peer_review_count = 1
+    @course.save
+  end
+
+  def randomly_assign_peer_reviews(student, potential_assignments, count)
+    potential_assignments.sample(count).each do |random_assignment|
+      Assignment.create!(user_id: student.id, course: @course,
+                         article_title: random_assignment.article_title, wiki: @wiki,
+                         article_id: random_assignment.article_id,
+                         role: Assignment::Roles::REVIEWING_ROLE)
+    end
   end
 
   class DuplicateAssignmentError < StandardError; end
