@@ -24,9 +24,17 @@ class AssignmentsController < ApplicationController
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-    set_new_assignment
-    update_onwiki_course_and_assignments
-    render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
+    # If condition for random peer assignments
+    # Else condition for normal assignment creation
+    if assignment_params[:random].present?
+      create_random_peer_reviews
+      update_onwiki_course_and_assignments
+      redirect_to "/courses/#{@course.slug}/assignments.json"
+    else
+      set_new_assignment
+      update_onwiki_course_and_assignments
+      render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
+    end
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :internal_server_error
@@ -116,17 +124,16 @@ class AssignmentsController < ApplicationController
   end
 
   def set_new_assignment
-    assignment_manager = AssignmentManager.new(user_id: assignment_params[:user_id],
-                                               course: @course,
-                                               wiki: @wiki,
-                                               title: assignment_params[:title],
-                                               role: assignment_params[:role])
+    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
+                                        course: @course,
+                                        wiki: @wiki,
+                                        title: assignment_params[:title],
+                                        role: assignment_params[:role]).create_assignment
+  end
 
-    @assignment = if assignment_params[:title].present?
-                    assignment_manager.create_assignment
-                  else
-                    assignment_manager.create_random_peer_review
-                  end
+  def create_random_peer_reviews
+    AssignmentManager.new(user_id: nil, course: @course, wiki: @wiki,
+                          title: nil, role: assignment_params[:role]).create_random_peer_reviews
   end
 
   def check_permissions(user_id)
@@ -137,6 +144,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
+    params.permit(:id, :user_id, :course_id, :title, :random, :role, :language, :project, :status)
   end
 end
