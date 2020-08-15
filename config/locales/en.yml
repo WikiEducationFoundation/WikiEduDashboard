@@ -255,8 +255,9 @@ en:
     peer_review_link: Peer Review
     peer_review_link_personalized: "%{username}'s Peer Review"
     random_peer_review:
-      heading: Randomly Assign
-      confirm_addition: Are you sure you want to randomly assign an article to %{username}?
+      confirm_addition: Are you sure you want to assign article(s) randomly to each student?
+      heading: Assign random peer reviews
+      tooltip_message: Assigns random articles (with peer review count as the maximum number) to each student.
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign a peer review
