@@ -931,9 +931,14 @@ pt:
     edit_count_description: Total de edições
     error_count_message: O painel de controlo encontrou %{error_count} erro(s) durante
       a atualização mais recente.
+    future_updates_remaining:
+      1: As estatísticas continuarão a ser atualizadas até %{date}.
+      "": As estatísticas deste programa já não são atualizadas regularmente.
     last_reviewed: Última revisão
     missing_data_heading: Resultados em falta ou inesperados?
     missing_data_info: Os problemas comuns incluem
+    non_updating_course_update: Foi programado para uma atualização pontual, que deverá
+      ocorrer em breve.
     last_update_failed: A última atualização a este curso falhou.
     last_update_success: A última atualização foi bem sucedida, por isso as estatísticas
       devem estar atualizadas.
