@@ -16,6 +16,11 @@ namespace :assets do
     'JSCover/JSCover-all.jar'
   end
 
+  def no_instrument
+    files = %w[sentry jquery vendors tinymce i18n]
+    files.map { |path| "--no-instrument-reg=.*#{path}.*" }.join(' ')
+  end
+
   def instrumentalize
     config = Rails.application.config
     target = File.join(Rails.public_path, config.assets.prefix) + '/javascripts'
@@ -30,7 +35,7 @@ namespace :assets do
     # At this point, the instrumented code is in public/js_coverage
 
     # rubocop:disable Layout/LineLength
-    `java -Dfile.encoding=UTF-8 -jar #{jscoverage_loc} -fs #{target} #{tmp} --local-storage --no-instrument-reg=.*sentry.* --no-instrument-reg=.*jquery.* --no-instrument-reg=.*vendors.* --no-instrument-reg=.*tinymce.* --no-instrument-reg=.*i18n.*`
+    `java -Dfile.encoding=UTF-8 -jar #{jscoverage_loc} -fs #{target} #{tmp} --local-storage #{no_instrument}`
     # rubocop:enable Layout/LineLength
 
     # We copy the instrumented code to public/asssets/javascript

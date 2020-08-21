@@ -29,3 +29,36 @@ You can run the entire test suite, including a fresh compilation of assets, with
 
 ## Test Coverage
 All new code should be covered with appropriate tests. Much of the Javascript-dependent UI is covered by Poltergeist integration tests. Whenever possible, new Javascript functionality should be tested in isolation via Javascript tests instead (or additionally), as the integration tests tend to be both slower and more brittle.
+
+## RSpec Test Coverage
+JSCover is used to provide the test coverage for RSpec feature tests. When the full test suite is run, the report is generated and can be
+accessed at http://localhost:3000/js_coverage/jscoverage.html which means to view the report you have to have the server running
+by doing `rails s`
+
+Report generation doesn't work out of the box when you run individual/specific tests. There are some additional steps to get it working:
+
+For example, when you do
+```
+bundle exec rspec activity_page_spec.rb
+```
+in order to get the report for that specific test,
+you need to replace the `last_feature_spec_path` in `rails_helper.rb` with that spec file name like so:
+
+```
+last_feature_spec_path = 'activity_page_spec.rb'
+```
+
+If you are running more than one test like
+```
+bundle exec rspec activity_page_spec.rb admin_role_spec.rb article_finder_spec.rb
+````
+
+then you need
+to replace the `last_feature_spec_path` in `rails_helper.rb` with the last spec file in the list of tests you're explictly running.
+
+In this case, it is
+```
+last_feature_spec_path = 'article_finder_spec.rb'
+````
+
+Once the above step is performed, report generation will work as usual.
