@@ -152,7 +152,6 @@ export class ArticleViewer extends React.Component {
   highlightAuthors() {
     let html = this.state.whocolorHtml;
     if (!html) { return; }
-
     let i = 0;
     forEach(this.state.users, (user) => {
       // Move spaces inside spans, so that background color is continuous
@@ -160,14 +159,14 @@ export class ArticleViewer extends React.Component {
 
       // Replace each editor span for this user with one that includes their
       // username and color class.
+      const prevHtml = html;
       const colorClass = colors[i];
       const styledAuthorSpan = `<span title="${user.name}" class="editor-token token-editor-${user.userid} ${colorClass}`;
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
-
+      if (prevHtml !== html) user.activeRevision = true;
       i += 1;
     });
-
     this.setState({ highlightedHtml: html });
   }
 
@@ -292,7 +291,7 @@ export class ArticleViewer extends React.Component {
               />
             )
           }
-          <div className="article-scrollbox">
+          <div id="article-scrollbox-id" className="article-scrollbox">
             {
               fetched ? <ParsedArticle {...this.state} /> : <Loading />
             }
