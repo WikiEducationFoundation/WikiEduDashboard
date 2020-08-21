@@ -939,7 +939,7 @@ pt:
     missing_data_info: Os problemas comuns incluem
     non_updating_course_update: Foi programado para uma atualização pontual, que deverá
       ocorrer em breve.
-    last_update_failed: A última atualização a este curso falhou.
+    last_update_failed: A última atualização deste curso falhou.
     last_update_success: A última atualização foi bem sucedida, por isso as estatísticas
       devem estar atualizadas.
     outreach_help: Precisa de ajuda? Consulte 'Reportar um problema' na barra de navegação.

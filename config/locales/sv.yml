@@ -19,7 +19,7 @@ sv:
       decimal_units:
         format: '%n%u'
         units:
-          thousand: k
+          thousand: K
           million: M
           billion: G
           trillion: T
@@ -57,7 +57,9 @@ sv:
     request_account: Begär ett konto
     request_account_create: Skapa ett konto
     search: ställ en fråga
-    search_results: 'Resultat för: "%{search_terms}"'
+    search_results:
+      one: '%{count} Resultat för: ''%{search_terms}'''
+      other: '%{count} Resultat för: ''%{search_terms}'''
     no_results: Inga resultat hittades för "%{query}"
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_wikipedia: Eller registrera dig på Wikipedia

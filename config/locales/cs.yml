@@ -206,6 +206,11 @@ cs:
       hodnota ukazuje, jak článek dodržuje konvence Wikipedie pro strukturu dobrého
       článku, ale nezohledňuje obsah článku. (Výsledky jsou dostupné pouze pro články
       v anglické Wikipedii.)
+    articles_short: Články
+  articles_wikidata:
+    articles_short: Položky
+  articles_generic:
+    articles_short: Stránky
   assignments:
     article: Článek %{title} je nyní přiřazen k Vám.
     article_link: Předmět
@@ -523,6 +528,8 @@ cs:
     feedback: Zpětná vazba
     feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
+    home_wiki: Domovská wiki
+    multi_wiki: Sledované wiki
     instructor:
       one: instruktor
       other: instruktoři
@@ -594,6 +601,7 @@ cs:
       one: '%{count} účet čeká na vyřízení.'
       few: '%{count} účty čekají na vyřízení.'
       other: '%{count} účtů čeká na vyřízení.'
+    requested_accounts_alert_view: Zobrazit
     review_timeline: 'Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
       svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
       dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. (Pozn.:
@@ -605,6 +613,8 @@ cs:
     search_courses: Vyhledat kurzy
     start: Začátek
     start_typing: Začněte psát
+    stay_in_sandbox: Zůstat v pískovišti
+    student: Student
     students: Studenti
     students_taught: Absolventi
     students_count: Počet studentů
@@ -628,6 +638,7 @@ cs:
       pouze pro kurzy typu ClassroomProgram.
     subject: Předmět
     submitted: Odevzdáno
+    submitted_at: Odesláno v
     tag_select: Vybrat nebo vytvořit tag
     tags: 'Štítky:'
     term: Semestr
@@ -637,6 +648,7 @@ cs:
     timeline_tooltip: Povolování časové osy vás nechá specifikovat týdenní aktivity
       a přiřazuje trénovací moduly. Je to užitečné pro kurzy edukace a jiné dlouhé,
       vysoce strukturované programy.
+    timeline_nav: Přejít na časovou osu
     time_zone_message: Časy začátku a konce jsou zobrazeny podle vašeho časového pásma.
     title: Název
     training_due: Výukový modul "%{title}" je přiřazen k tomuto kurzu; termín splnění
@@ -750,8 +762,10 @@ cs:
     revisions_none: Tento projekt nemá nedávnou editační aktivitu.
     school: Instituce
     school_and_term: Instituce/kdy
+    search_courses: Vyhledávat programy
     start: Začátek sledování aktivity
     student_editors: Editoři
+    student: Editor
     students: Editoři
     students_taught: Celkový počet editorů
     students_none: Tento projekt nemá žádné zapsané studenty.
@@ -794,6 +808,7 @@ cs:
     char_added: Přidáno znaků
     char_changed: Změněno znaků
     char: Přidáno znaků
+    close_modal: Zavřít
     date_time: Datum/čas
     edit_count_description: Celkový počet editací
     per_user: '%{number}/uživatel'
@@ -839,6 +854,7 @@ cs:
     usage_count: Počet použití
   revisions:
     chars_added: Přidáno znaků
+    references: Přidány reference
     class: Třída
     date_time: Datum/Čas
     diff: rozdíl
@@ -972,6 +988,7 @@ cs:
     time_doc: Čas každého nahraného souboru v místním čase
     uploaded_at: Doba nahrávání
     uploaded_by: Načteno uživatelem
+    uploaded_on: Načteno v
     usage_count: Počet užití
     usage_doc: Počet článků ve wikipedii, které obsahují tento obrázek.
     usage_count_gallery_tile: Použito v %{usage_count} článcích
@@ -995,6 +1012,7 @@ cs:
     contribution_statistics: Statistika příspěvků
     course_passcode: 'Heslo:'
     editors: Studenti
+    edits: editace
     edits_by: 'Editace uživatele:'
     enroll_confirmation: Jste si jisti, že chcete přidat %{username}?
     enroll_url: 'Uživatelé se mohou zapsat tím, že navštíví toto URL:'
@@ -1006,6 +1024,7 @@ cs:
     characters_added_short: 'HP: %{mainspace}, UP: %{userspace}'
     characters_added_userspace: Přidáno znaků (uživatel)
     characters_added_draftspace: Přidáno znaků (koncept)
+    references_count: Přidány reference
     my_assigned: 'Přiřazeno:'
     my_reviewing: 'Kontroluje:'
     name: Jméno
@@ -1016,6 +1035,7 @@ cs:
       one: '%{count} článek'
       few: '%{count} články'
       other: '%{count} článků'
+    profile: profil
     recent_revisions: Poslední editace
     remove_confirmation: Jste si jist, že chcete odebrat %{username}?
     request_confirmation: Jste si jisti, že opravdu chcete žádat o tyto účty?
@@ -1024,6 +1044,8 @@ cs:
     revisions_doc: Počet editací provedených tímto editorem v posledních 7 dnech
     reviewers: Recenzent(i)
     reviewing: Recenzuje
+    revisions: Revize
+    sandboxes: pískoviště
     total_uploads: Celkový počet uploadů
     training_complete:
       one: je obeznámen s tréninkem

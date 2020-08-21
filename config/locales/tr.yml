@@ -140,8 +140,8 @@ tr:
   articles:
     article_development: (madde geliştirme)
     articles_shown: '%{total} %{count} gösteriliyor'
-    assigned: Atanmış Makaleler
-    available: Kullanılabilir Makaleler
+    assigned: Atanmış Maddeler
+    available: Kullanılabilir Maddeler
     no_available: Madde Yok
     next: Sonraki
     previous: Önceki
@@ -154,7 +154,7 @@ tr:
       bir Atama veya Kullanılabilir Madde bulunan diğer vikilerden gelen katkıları
       alır.
     deleted: (silindi)
-    edited: Düzenlenen Makaleler
+    edited: Düzenlenen Maddeler
     edited_by: 'Düzenleyen:'
     edited_mobile: Maddeler
     filter:
@@ -168,7 +168,7 @@ tr:
     hide: Gizle
     history: (geçmiş)
     label: Maddeler
-    loading: Makaleler yükleniyor...
+    loading: Maddeler yükleniyor...
     new: (yeni)
     none: Bu kursta herhangi bir madde düzenlenmedi.
     rating: Sınıf
@@ -401,9 +401,9 @@ tr:
     article_viewer: Madde Görüntüleyici
     articles_i_am_reviewing: Akran incelemesinden aldığım maddeler
     assignment_headings:
-      assigned_articles: Atanmış Makaleler
+      assigned_articles: Atanmış Maddeler
       assigned_reviews: Atanmış İncelemeler
-      available_articles: Kullanılabilir Makaleler
+      available_articles: Kullanılabilir Maddeler
       available_reviews: Sınıf Arkadaşları Makaleleri
     assignment_end: Atama Sonu
     assignments_none: Bu kursun atanmış makalesi bulunmamaktadır.
@@ -904,7 +904,7 @@ tr:
     next_update: Sonraki tahmini güncelleme
     activity: Son Etkinlik
     are_trained: eğitim ile güncel
-    articles_created: Oluşturulan Makaleler
+    articles_created: Oluşturulan Maddeler
     articles_created_generic: Oluşturulan Sayfalar
     articles_created_wikidata: Oluşturulan Öğeler
     articles_edited: Düzenlenen Maddeler
@@ -1196,9 +1196,9 @@ tr:
     usages: Kullanım
   users:
     already_enrolled: Bu kullanıcı zaten kayıtlı!
-    assign_articles: Atanmış Makaleler
+    assign_articles: Atanmış Maddeler
     assign_articles_done: Yapıldı
-    assigned: Atanmış Makaleler
+    assigned: Atanmış Maddeler
     assignees: Devredilen(ler)
     loading_authorship_data: yazarlık verileri yükleniyor
     authorship_data_not_fetched: yazarlık verileri alınamadı
@@ -1433,8 +1433,8 @@ tr:
     category_search: Kategori Arama
     article_quality: Madde Kalitesi(0-100)
     more_results: Daha fazla sonuç
-    fetched_articles: Getirilen Makaleler
-    filtered_articles: Filtrelenen Makaleler
+    fetched_articles: Getirilen Maddeler
+    filtered_articles: Filtrelenen Maddeler
     searching_articles: Makaleleri Ara
     fetching_assessments: Sayfa Değerlendirmeleri Alınması
     fetching_revisions: Sayfa Düzeltmeleri Alınması
@@ -1446,7 +1446,7 @@ tr:
     submit: Gönder
     relevanceIndex: İlgi İndeksi
     assign_article_self: Kendini ata
-    unassign_article_self: Atanmamış Makaleler
+    unassign_article_self: Atanmamış Maddeler
   training_status:
     completed: Tamamlandı
     continue: Devam et
