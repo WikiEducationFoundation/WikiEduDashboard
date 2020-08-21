@@ -1,4 +1,11 @@
-import { RECEIVE_REVISIONS, RECEIVE_COURSE_SCOPED_REVISIONS, SORT_REVISIONS, API_FAIL } from '../constants';
+import {
+  RECEIVE_REVISIONS,
+  REVISIONS_LOADING,
+  RECEIVE_COURSE_SCOPED_REVISIONS,
+  COURSE_SCOPED_REVISIONS_LOADING,
+  SORT_REVISIONS,
+  API_FAIL
+} from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 
@@ -19,7 +26,14 @@ const fetchRevisionsPromise = (courseId, limit, isCourseScoped) => {
 };
 
 export const fetchRevisions = (courseId, limit, isCourseScoped = false) => (dispatch) => {
-  const actionType = isCourseScoped ? RECEIVE_COURSE_SCOPED_REVISIONS : RECEIVE_REVISIONS;
+  let actionType;
+  if (isCourseScoped) {
+    actionType = RECEIVE_COURSE_SCOPED_REVISIONS;
+    dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+  } else {
+    actionType = RECEIVE_REVISIONS;
+    dispatch({ type: REVISIONS_LOADING });
+  }
   return (
     fetchRevisionsPromise(courseId, limit, isCourseScoped)
       .then((resp) => {

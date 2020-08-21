@@ -21,6 +21,46 @@ RSpec.describe Category, type: :model do
       course.categories << category
     end
 
+    context 'for newly added category' do
+      let(:category) { create(:category, name: 'Sports') }
+      let(:course) { create(:course) }
+
+      it 'updates the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+        end
+      end
+    end
+
+    context 'for category updated more than one day ago' do
+      let(:category) do
+        create(:category, name: 'Films', created_at: 5.days.ago, updated_at: 2.days.ago)
+      end
+      let(:course) { create(:course) }
+
+      it 'updates the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.updated_at > 30.seconds.ago).to eq(true)
+        end
+      end
+    end
+
+    context 'for category updated less than one day ago' do
+      let(:category) do
+        create(:category, name: 'Animals', created_at: 5.days.ago, updated_at: 12.hours.ago)
+      end
+      let(:course) { create(:course) }
+
+      it 'does not update the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.updated_at <= 12.hours.ago).to eq(true)
+        end
+      end
+    end
+
     context 'for category-source Category' do
       let(:category) { create(:category, name: 'Homo sapiens fossils') }
       let(:course) { create(:course) }
@@ -30,7 +70,7 @@ RSpec.describe Category, type: :model do
         expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          described_class.refresh_categories_for(Course.all)
+          described_class.refresh_categories_for(course)
           expect(described_class.last.article_titles).not_to be_empty
           expect(described_class.last.article_ids).to include(article.id)
         end
@@ -43,11 +83,12 @@ RSpec.describe Category, type: :model do
       let!(:article) { create(:article, title: 'A cappella') }
 
       it 'updates article titles for categories associated with courses' do
+        # Pending is used here to make sure that the build passes when PetScan is down
         pending 'Fails when PetScan is down.'
         expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          described_class.refresh_categories_for(Course.all)
+          described_class.refresh_categories_for(course)
           expect(described_class.last.article_titles).not_to be_empty
           expect(described_class.last.article_ids).to include(article.id)
         end
@@ -56,7 +97,7 @@ RSpec.describe Category, type: :model do
 
       it 'fails gracefully when PetScan is unreachable' do
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
-        described_class.refresh_categories_for(Course.all)
+        described_class.refresh_categories_for(course)
         expect(described_class.last.article_ids).to be_empty
       end
     end
@@ -76,7 +117,7 @@ RSpec.describe Category, type: :model do
 
         VCR.use_cassette 'categories' do
           expect(article.wiki.language).to eq('la')
-          described_class.refresh_categories_for(Course.all)
+          described_class.refresh_categories_for(course)
           expect(described_class.last.article_titles).not_to be_empty
           expect(described_class.last.article_ids).to include(article.id)
           expect(described_class.last.wiki).to eq(lawiktionary)
@@ -86,7 +127,7 @@ RSpec.describe Category, type: :model do
       it 'fails gracefully when fetching a PagePile errors' do
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
         expect(Raven).to receive(:capture_exception)
-        described_class.refresh_categories_for(Course.all)
+        described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to be_empty
       end
     end
@@ -100,7 +141,7 @@ RSpec.describe Category, type: :model do
         expect(described_class.last.article_titles).to be_empty
 
         VCR.use_cassette 'categories' do
-          described_class.refresh_categories_for(Course.all)
+          described_class.refresh_categories_for(course)
           expect(described_class.last.article_titles).not_to be_empty
           expect(described_class.last.article_ids).to include(article.id)
         end

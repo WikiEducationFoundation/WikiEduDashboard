@@ -49,9 +49,9 @@ export class URLBuilder {
     if (!users || !users.length) throw new TypeError('No users provided!');
 
     const base = `${this.wikiURL()}/w/api.php`;
-    const params = users.join('|');
-    const url = `${base}?action=query&list=users&format=json&ususers=${params}`;
-    return encodeURI(url);
+    const params = encodeURIComponent(users.join('|'));
+    const url = `${base}?action=query&list=users&format=json&ususers=`;
+    return encodeURI(url) + params;
   }
 }
 

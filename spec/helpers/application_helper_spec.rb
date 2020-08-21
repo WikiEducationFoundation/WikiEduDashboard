@@ -3,14 +3,6 @@
 require 'rails_helper'
 
 describe ApplicationHelper, type: :helper do
-  it 'returns a different favicon in the dev environment' do
-    string_inquirer = instance_double('StringInquirer', development?: true)
-    allow(Rails).to receive(:env).and_return(string_inquirer)
-    expected_path = "/assets/images/#{Figaro.env.favicon_dev_file}"
-    expected_tag = favicon_link_tag expected_path
-    expect(logo_favicon_tag).to eq(expected_tag)
-  end
-
   describe '#class_for_path' do
     # class_for_path(req, path)
     subject { class_for_path(req, link_path) }

@@ -9,6 +9,14 @@ class CourseApprovalMailerPreview < ActionMailer::Preview
     CourseApprovalMailer.email(example_course, example_user)
   end
 
+  def new_sandbox_approval
+    CourseApprovalMailer.email(example_new_sandbox_course, example_user)
+  end
+
+  def returning_sandbox_approval
+    CourseApprovalMailer.email(example_returning_sandbox_course, example_user)
+  end
+
   private
 
   def example_course
@@ -25,6 +33,25 @@ class CourseApprovalMailerPreview < ActionMailer::Preview
     course = example_course
     course.define_singleton_method(:tag?) do |tag|
       tag == 'returning_instructor'
+    end
+    course
+  end
+
+  def example_returning_sandbox_course
+    course = example_course
+    course.define_singleton_method(:tag?) do |tag|
+      tag == 'returning_instructor'
+    end
+    course.define_singleton_method(:stay_in_sandbox?) do
+      true
+    end
+    course
+  end
+
+  def example_new_sandbox_course
+    course = example_course
+    course.define_singleton_method(:stay_in_sandbox?) do
+      true
     end
     course
   end

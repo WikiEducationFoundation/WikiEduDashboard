@@ -383,6 +383,9 @@ lb:
     close_modal: Zoumaachen
     date_time: Datum/Zäit
     edit_count_description: Total vun den Ännerungen
+    future_updates_remaining:
+      1: D'Statistike gi bis de(n) %{date} aktualiséiert.
+      "": D'Statistike fir dëse Programm ginn net méi reegelméisseg aktualiséiert.
     last_reviewed: Fir d'lescht nogekuckt
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen

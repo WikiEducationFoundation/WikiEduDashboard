@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
 import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
+import Loading from '../common/loading.jsx';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -19,8 +20,8 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     revisions: PropTypes.array,
     wikidataLabels: PropTypes.object,
-    loadingRevisions: PropTypes.bool,
-    loadingCourseScopedRevisions: PropTypes.bool
+    revisionsLoaded: PropTypes.bool,
+    courseScopedRevisionsLoaded: PropTypes.bool
   },
 
   getInitialState() {
@@ -31,7 +32,7 @@ const RevisionHandler = createReactClass({
   },
 
   componentDidMount() {
-    if (this.props.loadingRevisions) {
+    if (!this.props.revisionsLoaded) {
       // Fetching in advance initially only for all revisions
       // For Course Scoped Revisions, fetching in componentDidUpdate
       // because in most cases, users would not be using these, so we
@@ -46,7 +47,7 @@ const RevisionHandler = createReactClass({
 
     // If user reaches the course scoped part initially, and there are no
     // loaded course scoped revisions, we fetch course scoped revisions
-    if (toggledIsCourseScoped && this.props.loadingCourseScopedRevisions) {
+    if (toggledIsCourseScoped && !this.props.courseScopedRevisionsLoaded) {
       this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
     }
   },
@@ -62,6 +63,8 @@ const RevisionHandler = createReactClass({
     return this.props.sortRevisions(e.target.value);
   },
 
+  // We disable show more button if there is a request which is still resolving
+  // by keeping track of revisionsLoaded and courseScopedRevisionsLoaded
   showMore() {
     if (this.state.isCourseScoped) {
       return this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit + 100, true);
@@ -70,6 +73,8 @@ const RevisionHandler = createReactClass({
   },
 
   render() {
+    // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
+    const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
     const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
 
     let showMoreButton;
@@ -95,12 +100,14 @@ const RevisionHandler = createReactClass({
         </div>
         <RevisionList
           revisions={revisions}
+          loaded={loaded}
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
           sort={this.props.sort}
         />
-        {showMoreButton}
+        {!loaded && <Loading/>}
+        {loaded && showMoreButton}
       </div>
     );
   }
@@ -114,8 +121,8 @@ const mapStateToProps = state => ({
   limitReached: state.revisions.limitReached,
   revisions: state.revisions.revisions,
   wikidataLabels: state.wikidataLabels.labels,
-  loadingCourseScopedRevisions: state.revisions.loadingCourseScopedRevisions,
-  loadingRevisions: state.revisions.loadingRevisions,
+  courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
+  revisionsLoaded: state.revisions.revisionsLoaded,
   sort: state.revisions.sort,
 });
 

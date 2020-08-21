@@ -35,7 +35,7 @@ When you request a new consumer, add the tokens to the production server's `appl
 2. Initiate a snapshot of the Linode server and wait for it to finish (just in case).
 3. Update `application.yml`, commenting out the old tokens and uncommenting the new, and removing the sitenotice.
 4. In a rails console on production, remove all oauth tokens from users: `User.update_all(wiki_token: nil, wiki_secret: nil)`.
-5. Restart both the main server process (`touch tmp/restart.txt`) and the sidekiq processes (`cap production sidekiq:restart`).
+5. Restart both the main server process (`touch tmp/restart.txt`) and the sidekiq processes (`cap production deploy:sidekiq:restart`).
 6. Once an edit has been made with the new consumer, find the CID of that consumer via `Special:Tags` on Wikipedia, and add it to the list of CIDs in `application.yml`.
 7. Restart the server and sidekiq processes again.
 

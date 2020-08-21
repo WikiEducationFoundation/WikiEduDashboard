@@ -238,20 +238,20 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :mediawiki,
-                  Figaro.env.wikipedia_token,
-                  Figaro.env.wikipedia_secret,
+                  ENV['wikipedia_token'],
+                  ENV['wikipedia_secret'],
                   client_options: {
-                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org"
+                    site: "https://#{ENV['wiki_language']}.wikipedia.org"
                   }
 
 
   config.omniauth :mediawiki_signup,
-                  Figaro.env.wikipedia_token,
-                  Figaro.env.wikipedia_secret,
+                  ENV['wikipedia_token'],
+                  ENV['wikipedia_secret'],
                   name: 'mediawiki_signup',
                   strategy_class: OmniAuth::Strategies::Mediawiki,
                   client_options: {
-                    site: "https://#{Figaro.env.wiki_language}.wikipedia.org",
+                    site: "https://#{ENV['wiki_language']}.wikipedia.org",
                     signup: true
                   }
 

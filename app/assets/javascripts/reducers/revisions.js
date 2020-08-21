@@ -1,4 +1,10 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS, RECEIVE_COURSE_SCOPED_REVISIONS } from '../constants';
+import {
+  RECEIVE_REVISIONS,
+  REVISIONS_LOADING,
+  RECEIVE_COURSE_SCOPED_REVISIONS,
+  COURSE_SCOPED_REVISIONS_LOADING,
+  SORT_REVISIONS
+} from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -12,8 +18,8 @@ const initialState = {
     key: null,
     sortKey: null,
   },
-  loadingRevisions: true,
-  loadingCourseScopedRevisions: true
+  revisionsLoaded: false,
+  courseScopedRevisionsLoaded: false
 };
 
 const isLimitReached = (revs, limit) => {
@@ -28,7 +34,7 @@ export default function revisions(state = initialState, action) {
         revisions: action.data.course.revisions,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.revisions, action.limit),
-        loadingRevisions: false
+        revisionsLoaded: true
       };
     case RECEIVE_COURSE_SCOPED_REVISIONS:
       return {
@@ -36,7 +42,17 @@ export default function revisions(state = initialState, action) {
         courseScopedRevisions: action.data.course.revisions,
         courseScopedLimit: action.limit,
         courseScopedLimitReached: isLimitReached(action.data.course.revisions, action.limit),
-        loadingCourseScopedRevisions: false
+        courseScopedRevisionsLoaded: true
+      };
+    case REVISIONS_LOADING:
+      return {
+        ...state,
+        revisionsLoaded: false
+      };
+    case COURSE_SCOPED_REVISIONS_LOADING:
+      return {
+        ...state,
+        courseScopedRevisionsLoaded: false
       };
     case SORT_REVISIONS: {
       const absolute = action.key === 'characters';

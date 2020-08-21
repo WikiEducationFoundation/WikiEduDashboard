@@ -2,7 +2,8 @@
 
 class TermRecapEmailWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options unique: :until_executed,
+                  retry: 0 # Move job to the 'dead' queue if it fails
 
   def self.send_email(course:, campaign:)
     perform_async(course.id, campaign.id)

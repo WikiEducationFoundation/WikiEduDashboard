@@ -10,7 +10,7 @@
 .container
   .faq-list
     - @faqs.each do |faq|
-      = render 'faq', faq: faq, expanded: @query.present?
+      = render 'faq', faq: faq, expanded: @faqs.one?
   .faq-topic-list
     %h3 Topics
     - FaqTopic.all.each do |topic|
@@ -19,3 +19,8 @@
         = topic.name
       - else
         %a.topic-link{href: "/faq?topic=#{topic.slug}"}= topic.name
+    %hr
+      - if params[:all]
+        All questions
+      - else
+        %a.topic-link{href: "/faq?all=true"} All questions

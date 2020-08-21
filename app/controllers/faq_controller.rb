@@ -7,10 +7,12 @@ class FaqController < ApplicationController
 
   def index
     @query = params[:search]
-    @topic_slug = params[:topic] || DEFAULT_TOPIC
+    @topic_slug = params[:topic] || DEFAULT_TOPIC unless @query || params[:all]
     @faqs = if @query
               log_to_sentry
               Faq.find_by_fuzzy_question_and_answer @query # rubocop:disable Rails/DynamicFindBy
+            elsif params[:all]
+              Faq.all
             else
               FaqTopic.new(@topic_slug).faqs
             end

@@ -16,11 +16,13 @@
 # Author: KorkmazO
 # Author: Mavrikant
 # Author: Mirzali
+# Author: MuratTheTurkish
 # Author: Rapsar
 # Author: Sayginer
 # Author: Suvarioglu
 # Author: TmY e12
 # Author: ToprakM
+# Author: Uncitoyen
 # Author: Uğurkent
 # Author: Vito Genovese
 # Author: Watermelon juice
@@ -920,12 +922,22 @@ tr:
     edit_count_description: Toplam Düzenleme
     error_count_message: Gösterge tablosu, en son güncelleme sırasında %{error_count}
       hata ile karşılaştı.
+    future_updates_remaining:
+      1: İstatistikler %{date} tarihine kadar güncellenmeye devam edecek.
+      "": Bu programın istatistikleri artık düzenli olarak güncellenmiyor.
     last_reviewed: Son İnceleme
     missing_data_heading: Eksik veya beklenmeyen sonuçlar mı var?
     missing_data_info: Sık karşılaşılan sorunlar
+    non_updating_course_update: Yakında gerçekleşmesi gereken bir kerelik bir güncelleme
+      için planlandı.
+    last_update_failed: Bu kursta son güncelleme başarısız oldu.
+    last_update_success: Son güncelleme başarıyla gerçekleştirildi, bu yüzden istatistikler
+      güncel olmalıdır.
     outreach_help: Yardıma mı ihtiyacınız var?  Gezinme çubuğunda 'Sorun bildir' konusuna
       bakın.
     per_user: '%{number}/kullanıcı'
+    recent_updates_summary: Son %{total} güncellemeden %{failure_count} başarısız
+      oldu ve %{error_count} hata ile karşılaştı.
     revisions: Son Düzenlemeler
     references_count: Referanslar Eklendi
     references_doc: Bu makalelere eklenen referans etiketi sayısıdır ve aynı kaynağa
