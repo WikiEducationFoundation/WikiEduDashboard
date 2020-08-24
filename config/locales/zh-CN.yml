@@ -209,9 +209,9 @@ zh-CN:
     no_available: 此课程没有可用的条目。
     remove: 移除
     reviewers: 复核员
-    review_other: 分配一次复核
+    review_other: 分配一次同行复核
     review_self: 复核一个条目
-    review_tooltip: 这是要保持追踪您计划同行评审，或是提供反馈的条目。
+    review_tooltip: 这是要您计划同行评审，或是提供反馈的条目。
     select: 选择
   blocks:
     milestones:
@@ -284,7 +284,7 @@ zh-CN:
     label: 聊天
   courses:
     accounts_generation_enabled: 账户请求生成已启用
-    accounts_generation_explanation: 这将允许参与者输入其电子邮件地址以及想要的用户名，而不是让他们自己创建新账户。您稍后将从此面板创建账户，并同时添加为计划参与者。要使用此功能，您应在此计划的主wiki上具有“账户创建者”权限。
+    accounts_generation_explanation: 这将允许参与者输入其电子邮件地址以及想要的用户名，而不是让他们自己创建新账户。您稍后将从此面板创建账户，并同时添加为计划参与者。
     accounts_generation_confirm_message: 您确定要启用帐户请求吗？
     activity: 活动
     active_courses: 激活%{course_type}
@@ -355,7 +355,7 @@ zh-CN:
       no_class_holidays: 我没有班级假日
       role_description: 您在课程中的角色
       role_description_placeholder: 导师、教学助理等
-      separate_event_dates: 分别指定活动开始/结束时间
+      separate_event_dates: 分别指定活动开始/结束时间（可选）
       separate_event_dates_info: 此计划的活跃统计将基于上面的日期和时间追踪，但您可以分别指定活动或计划本身的开始和结束时间（例如，这样参与者知道何时露面，或何时集会结束）。
       save_cloned_course: 保存新的课程
       start_date: 开始日期
@@ -389,7 +389,7 @@ zh-CN:
     end: 结束
     ended: 课程已启用。
     enroll: 注册
-    enrollment: 登记
+    enrollment: 添加/删除学生
     courses_enrolled: 课程已登记
     error:
       exists: 该课程已存在！请使用不同的标题、学校或学期再试。
@@ -501,7 +501,7 @@ zh-CN:
     user_suggestions_prompt: 您为条目编辑者提出的建议
     view_other: 查看其它活动
     view: 查看课程
-    view_doc: 所有由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量之和
+    view_doc: 由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量的估计浏览量
     view_page: 查看课程页面
     view_wiki: 在维基百科上查看
     volunteer:
@@ -534,9 +534,9 @@ zh-CN:
     campaign_courses: '%{title}计划'
     creator:
       assignment_end: 活动结束
-      assignment_end_placeholder: 活动结束（YYYY-MM-DD）
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: 活动开始
-      assignment_start_placeholder: 活动开始（YYYY-MM-DD）
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: 这个计划正在检查其独立性。
       choose_clone: 选择要克隆的计划。
       clone_previous: 克隆上一个计划
@@ -556,7 +556,8 @@ zh-CN:
       create_short: 创建计划
       end_date: 活跃追踪结束
       find: 寻找一个计划
-      intro: 来自计划URL的计划标题及机构。主wiki是参与者将要工作的主要wiki，默认情况下将跟踪这个wiki上的编辑。如果您的计划跨越多种语言或项目，那么任何wiki的“可用文章”或“赋值”都将被跟踪。点击“创建我的计划！”以开始构造用于您wiki计划的页面。
+      intro: 来自计划URL的计划标题及机构。主wiki是参与者将要工作的主要wiki，默认情况下将跟踪这个wiki上的编辑。如果您的计划跨越多种语言或项目，那么任何wiki的已明确添加到“跟踪
+        Wiki”都将被跟踪。点击“创建我的计划！”以开始构造用于您wiki计划的页面。
       new_or_clone: 现在创建一个新计划，或者使用“克隆”选项复制您参与的另一个计划。
       participate_in_campaign: 参与活动
       save_cloned_course: 保存
@@ -565,7 +566,7 @@ zh-CN:
     edit_course_dates: 编辑项目日期
     end: 活跃追踪结束
     enroll: 添加编辑者
-    enrollment: 参与
+    enrollment: 添加/删除编者
     explore: 寻找计划
     courses_enrolled: 计划已参与
     expected_students: 预期编辑者
@@ -762,7 +763,7 @@ zh-CN:
     first_week_title: 首个活跃周
     gradeable_value: 值
     gradeables_none: 此时间轴没有分配被标记为已分级。
-    grading_header: 正在分级（总计：%{total}%）
+    grading_header: 正在分级（总计：%{total}）
     move_block_down: 向下移动块
     move_block_up: 向上移动块
     no_class_holidays: 我没有班级假日
@@ -819,7 +820,7 @@ zh-CN:
     character_doc: 用户添加至此名字空间的内容总数，计算方式是将所有增长页面大小的编辑中，添加的字符加起来。此数字未必反应用户添加的新内容数量。恢复移除的内容也将会增长这个总数。
     chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
     contributions: 用户贡献
-    contributions_history_full: 在维基百科查看完整贡献历史
+    contributions_history_full: 查看完整贡献历史
     contributions_more: 查看更多贡献
     contribution_statistics: 贡献统计
     course_passcode: 密码：

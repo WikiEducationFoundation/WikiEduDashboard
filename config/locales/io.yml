@@ -18,6 +18,7 @@ io:
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
   editable:
+    edit: Redakto
     cancel: Nuligar
   instructor_view:
     bad_work:
