@@ -31,5 +31,8 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
     json.real_name cu.real_name
     # Student emails are not shown to anyone.
     json.email cu.user.email unless cu.role == CoursesUsers::Roles::STUDENT_ROLE
+  # Real names of instructors are public.
+  elsif cu.role == CoursesUsers::Roles::INSTRUCTOR_ROLE
+    json.real_name cu.real_name
   end
 end
