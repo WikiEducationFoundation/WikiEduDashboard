@@ -15,9 +15,12 @@ export const ExerciseButton = ({
     if (flags.marked_complete) {
       const onClick = () => incomplete(block_id, slug).then(() => fetchExercises(course.id));
       button = (
-        <button className="button small left" onClick={onClick}>
-          Mark Incomplete
-        </button>
+        <div>
+          Status: Complete!
+          <button className="button small left" onClick={onClick}>
+            Mark Incomplete
+          </button>
+        </div>
       );
     } else {
       const onClick = () => complete(block_id, slug).then(() => fetchExercises(course.id));
