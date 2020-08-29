@@ -61,4 +61,8 @@ In this case, it is
 last_feature_spec_path = 'article_finder_spec.rb'
 ````
 
-Once the above step is performed, report generation will work as usual.
+Once the above step is performed, run the tests and after the tests have run, to generate the report, do
+
+```
+rake generate:coverage:report
+```

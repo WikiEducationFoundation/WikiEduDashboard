@@ -49,9 +49,12 @@ namespace :generate do
 
     desc 'Generates the coverage report'
     task :report do
+      puts 'Generating report…'
       `java -jar JSCover/JSCover-all.jar -gf public/js_coverage`
       # The report can be viewed by running the rails server `rails s`
       # and visiting localhost:3000/js_coverage/jscoverage.html
+      puts 'Reports generated.'
+      puts 'Visit http://localhost:3000/js_coverage/jscoverage.html to view the report'
     end
   end
 end
