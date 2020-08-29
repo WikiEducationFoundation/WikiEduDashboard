@@ -32,8 +32,7 @@ RSpec.configure do |config|
         run_once = false
         Rake::Task['generate:coverage:assets'].execute
       rescue StandardError
-        # When single RSpec tasks are run the Rake tasks aren't loaded
-        Rails.application.load_tasks
+        Rails.application.load_tasks # Load tasks manually
         Rake::Task['generate:coverage:assets'].execute
       end
     end
@@ -55,8 +54,14 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     if ENV['feature'] == 'true'
-      Rake::Task['generate:coverage:report'].execute
-      Rake::Task['move:assets:to_public'].execute
+      begin
+        Rake::Task['generate:coverage:report'].execute
+        Rake::Task['move:assets:to_public'].execute
+      rescue StandardError
+        Rails.application.load_tasks # Load tasks manually
+        Rake::Task['generate:coverage:report'].execute
+        Rake::Task['move:assets:to_public'].execute
+      end
     end
   end
 end
