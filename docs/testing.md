@@ -35,34 +35,8 @@ JSCover is used to provide the test coverage for RSpec feature tests. When the f
 accessed at http://localhost:3000/js_coverage/jscoverage.html which means to view the report you have to have the server running
 by doing `rails s`
 
-Report generation doesn't work out of the box when you run individual/specific tests. There are some additional steps to get it working:
-
-For example, when you do
-```
-bundle exec rspec activity_page_spec.rb
-```
-in order to get the report for that specific test,
-you need to replace the `last_feature_spec_path` in `rails_helper.rb` with that spec file name like so:
+For report generation to work, the environment variable `COVERAGE` must be set to `'true'`.
 
 ```
-last_feature_spec_path = 'activity_page_spec.rb'
-```
-
-If you are running more than one test like
-```
-bundle exec rspec activity_page_spec.rb admin_role_spec.rb article_finder_spec.rb
-````
-
-then you need
-to replace the `last_feature_spec_path` in `rails_helper.rb` with the last spec file in the list of tests you're explictly running.
-
-In this case, it is
-```
-last_feature_spec_path = 'article_finder_spec.rb'
-````
-
-Once the above step is performed, run the tests and after the tests have run, to generate the report, do
-
-```
-rake generate:coverage:report
+COVERAGE=true bundle exec rspec
 ```

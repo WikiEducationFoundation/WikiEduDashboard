@@ -37,17 +37,6 @@ module ApplicationHelper
   end
 
   def hot_javascript_tag(filename)
-    if ENV['feature'] == 'true' && Rails.env.test? && filename == 'main'
-      files = File.read('modules.txt').split("\n")
-      paths = ''
-      files.each do |file|
-        paths += javascript_include_tag "/assets/javascripts/#{file}.js"
-      end
-      paths += javascript_include_tag hot_javascript_path('main')
-      # rubocop:disable Rails/OutputSafety
-      return paths.html_safe
-      # rubocop:enable Rails/OutputSafety
-    end
     javascript_include_tag hot_javascript_path(filename)
   end
 

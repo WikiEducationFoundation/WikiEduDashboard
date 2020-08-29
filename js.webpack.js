@@ -28,6 +28,12 @@ module.exports = (env) => {
     ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`)
     : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
   const devtool = env.coverage ? 'cheap-module-source-map' : 'eval';
+  if (env.coverage) {
+    // In coverage mode, every React component should
+    // be bundled within main.js
+    entry.main = [`${jsSource}/main-coverage.js`];
+  }
+
   return {
     mode,
     entry,
@@ -78,7 +84,6 @@ module.exports = (env) => {
         'process.env': {
           NODE_ENV: JSON.stringify(mode),
         },
-        COVERAGE: !!env.coverage // Used to do conditional builds in main.js
       }),
       // Creates smaller Lodash builds by replacing feature sets of modules with noop,
       // identity, or simpler alternatives.
