@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amjad Khan
 # Author: Baloch Khan
+# Author: Bjh21
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
 # Author: Pierpao
@@ -52,7 +53,7 @@ en-gb:
       help you get started. (It takes about 30 minutes to complete.)
     review_orientation: Review Orientation
     start_orientation: Start Orientation
-    blog_headline: Recent News from Wiki Ed
+    blog_headline: Recent News from Wiki Education
   home:
     explore: Explore
     log_in: Log in with Wikipedia
@@ -81,36 +82,38 @@ en-gb:
       These ratings may corresponds to much older versions, so they are just a rough
       indicator of article maturity.
     rating_docs:
-      fa: Featured article — Wikipedia's highest rating, probably too mature an article
-        for a new editor's main project
-      fl: Featured list — Wikipedia's highest rating for lists
-      a: A-class — very developed article that may be too mature an article for a
-        new editor's main project
-      ga: Good article — a well-developed article that may be too mature an article
-        for a new editor's main project
-      b: B-class — a moderately developed article
-      c: C-class — an intermediate article with room for improvement
-      start: Start-class — a preliminary article with plenty of room for improvement
-      stub: Stub-class — a short beginning of an article that needs more content
-      list: List-class — a list rather than a conventional article
+      fa: '%{class} (Featured article) — Wikipedia''s highest rating, probably too
+        mature an article for a new editor''s main project'
+      fl: '%{class} (Featured list) — Wikipedia''s highest rating for lists'
+      a: '%{class}-class — very developed article that may be too mature an article
+        for a new editor''s main project'
+      ga: '%{class} (Good article) — a well-developed article that may be too mature
+        an article for a new editor''s main project'
+      b: '%{class}-class — a moderately developed article'
+      c: '%{class}-class — an intermediate article with room for improvement'
+      start: '%{class}-class — a preliminary article with plenty of room for improvement'
+      stub: '%{class}-class — a short beginning of an article that needs more content'
+      list: '%{class}-class — a list rather than a conventional article'
       '?': Unrated — an article that hasn't yet been rated on Wikipedia's quality
         scale
     title: Title
     title_example: Article title
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the course term
+    view_doc: The estimated views to each article since it was first edited, through
+      the most recent stats update. You can use pageviews.toolforge.org to see the
+      exact numbers.
     views_added: Added %{count} new views for %{title}
     wiki: Wiki
   assignments:
     already_exists: This assignment already exists!
     assignees: Assignee(s)
     assign_other: Assign an article
-    add_available: Add an available article
+    add_available: Add available articles
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this assignment?
+    confirm_deletion: Are you sure you want to delete this article assignment?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
@@ -169,10 +172,11 @@ en-gb:
         unselected, selected, and holiday state. If you have no holidays, check "I
         have no class holidays". The cloned timeline will automatically adjust the
         dates to account for weeks that have no scheduled meetings.
-      clone_successful: Course Successfully Cloned
+      clone_successful: Update Details for Cloned Course
       clone_successful_details: Your course has been cloned, including the elements
-        of the timeline (weeks and blocks). Has anything else about your course changed?
-        Feel free to update it now.
+        of the timeline (weeks and blocks). Be sure to add the dates, which are not
+        carried over. Has anything else about your course changed? Feel free to update
+        it now.
       course_description: Course description
       course_school: Course school
       course_subject: Course subject
@@ -213,13 +217,14 @@ en-gb:
       one: Instructor
       other: Instructors
     instructors: Instructors
-    invitation: |-
-      You’ve been invited to join %{title}. To join the course, you need to log in with a Wikipedia account.
-      If you don’t have a Wikipedia account yet, sign up for one now.
+    invitation: You’ve been invited to join %{title}. To join the course, you need
+      to log in with a Wikipedia account.
     join: Join
     join_course: Join course
     join_prompt: Join '%{title}'?
-    join_successful: You’ve successfully joined %{title}.
+    join_successful: You’ve successfully joined %{title}. The dashboard will automatically
+      keep track of your contributions with periodic updates. Check back later to
+      see what impact you've made!
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course
     loading: Cargando...
@@ -235,13 +240,14 @@ en-gb:
     overview: Home
     passcode: Passcode
     passcode_none: No passcode
-    passcode_prompt: Enter the passcode given to you by your instructor for this course
+    passcode_prompt: 'Enter the passcode to join:'
     published: 'Your course has been published! Students may enrol in the course by
       visiting the following URL:'
-    review_timeline: Please review this timeline and make changes. Once you're satisfied
-      with your timeline, submit it for approval by Wiki Ed staff. Once approved,
-      you will be given an enrolment URL that students can use to join the course.
-      (You'll still be able to make edits later.)
+    review_timeline: 'Now, review your assignment timeline, customizing it to fit
+      your needs. Once you''re satisfied, you can submit it for approval by Wiki Education
+      staff. Once approved, you''ll receive an enrollment URL that students can use
+      to join the course and access the trainings. (Note: You''ll still be able to
+      make edits later.)'
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School

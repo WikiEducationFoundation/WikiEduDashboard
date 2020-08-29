@@ -741,11 +741,19 @@ zh-TW:
     date_time: 日期/時間
     edit_count_description: 總編輯數
     error_count_message: 控制面板在最近更新期間遇到 %{error_count} 個錯誤。
+    future_updates_remaining:
+      1: 統計內容會持續更新直到 %{date}。
+      "": 此方案的統計內容不再定期更新。
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括
+    non_updating_course_update: 已排定一次性更新，應即將進行。
+    last_update_failed: 此課程的最新更新失敗。
+    last_update_success: 最新更新執行成功，統計內容應是最新的。
     outreach_help: 需要幫助？請參閱在導航欄中的「回報問題」。
     per_user: '%{number}/使用者'
+    recent_updates_summary: 最新的 %{total} 個更新中，有 %{failure_count} 個失敗以及 %{error_count}
+      個遇到錯誤。
     revisions: 近期編輯
     references_count: 參考來源已添加
     references_doc: 此為添加到條目的參考來源標籤號碼，且可讓多個參考對應到同一個來源。資料來自於 ORES 條目品質模組，並僅對於某些語言可用。

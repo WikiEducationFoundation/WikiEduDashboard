@@ -212,7 +212,7 @@ fr:
     tools: Outils d’évaluation
     view: Afficher l’article
     view_all: Tout afficher
-    view_doc: Le nombre de vues de chacun des articles depuis qu’il a été modifié
+    view_doc: Le nombre de vues estimé de chacun des articles depuis qu’il a été modifié
       pour la première fois jusqu’à la dernière valeur fournie par les statistiques.
       Vous pouvez utiliser pageviews.toolforge.org pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
@@ -957,12 +957,22 @@ fr:
     edit_count_description: Total des modifications
     error_count_message: Le tableau de bord a rencontré %{error_count} erreur(s) lors
       de la mise à jour la plus récente.
+    future_updates_remaining:
+      1: Les statistiques continueront d'être mises à jour jusqu'au %{date}.
+      "": Les statistiques pour ce programme ne sont plus mises à jour régulièrement.
     last_reviewed: Dernier revu
     missing_data_heading: Résultats manquants ou inattendus ?
     missing_data_info: Les problèmes courants incluent
+    non_updating_course_update: Une mise à jour unique a été planifiée, et va commencer
+      bientôt.
+    last_update_failed: La dernière mise à jour de ce cours a échoué.
+    last_update_success: La dernière mise à jour a réussi, les statistiques ont donc
+      été réactualisées.
     outreach_help: Besoin d’aide ? Reportez-vous à 'Signaler un problème' dans la
       barre de navigation.
     per_user: '%{number}/utilisateur'
+    recent_updates_summary: Parmi les %{total} mises à jour récentes, %{failure_count}
+      ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
     references_doc: C’est le nombre de balises de référence ajoutées aux articles

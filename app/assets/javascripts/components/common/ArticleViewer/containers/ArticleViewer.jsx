@@ -211,6 +211,9 @@ export class ArticleViewer extends React.Component {
     const api = new ArticleViewerAPI({ builder });
     api.fetchUserIds()
       .then((response) => {
+        response.query.users.forEach((user) => {
+          user.name = decodeURIComponent(user.name);
+        });
         this.setState({
           users: response.query.users,
           userIdsFetched: true

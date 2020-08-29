@@ -2,7 +2,7 @@
 
 %header.main-page
   .container
-    %h1= Figaro.env.dashboard_title
+    %h1=  ENV['dashboard_title']
 
 .container
   = form_tag explore_path, class: 'explore-courses', method: :get do

@@ -19,6 +19,7 @@
 # Author: Phenolla
 # Author: Shizhao
 # Author: Shuiwater
+# Author: SomeyaMako
 # Author: Viztor
 # Author: WDLJT
 # Author: Yanjiazhang
@@ -173,7 +174,7 @@ zh-CN:
     tools: 评定工具
     view: 查看条目
     view_all: 查看全部
-    view_doc: 在项目期间每个条目的访问量总数
+    view_doc: 通过最新的统计数据更新，对每篇文章的估计浏览量进行首次编辑。您可以使用 pageviews.toolforge.org 查看确切的数字。
     view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
     edit_size: 编辑大小
@@ -459,6 +460,7 @@ zh-CN:
     school_and_term: 机构/学期
     start: 开始
     start_typing: 开始输入
+    stay_in_sandbox: 留在沙盒
     student: 学生
     students: 学生
     students_taught: 所教学生
@@ -479,6 +481,7 @@ zh-CN:
     course_submitted: 提交的状态用于教育计划课程，而课程计划必须在项目开始之前获得通过。这只与课堂计划的课程类型相关。
     subject: 主题
     submitted: 已提交
+    submitted_at: 提交于
     term: 学期
     timeline: 分配详细信息
     timeline_enabled: 已启用时间轴

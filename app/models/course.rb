@@ -285,6 +285,10 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  def update_until
+    self.end + UPDATE_LENGTH
+  end
+
   def wiki_page?
     wiki_course_page_enabled? && home_wiki.edits_enabled?
   end

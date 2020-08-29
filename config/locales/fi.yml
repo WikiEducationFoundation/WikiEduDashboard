@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 01miki10
 # Author: Actuallyisjoha
 # Author: Antsa
 # Author: Mikahama
@@ -265,7 +266,7 @@ fi:
     template_name: Mallineen nimi
     none: Luokkia ei seurata.
     remove: Poista
-    tracked_categories: Seuratut luokat, PSID ja mallineet
+    tracked_categories: Seuratut luokat, PSID, PagePile-tunniste ja mallineet
   chat:
     label: Keskustelu
   courses:
@@ -432,12 +433,12 @@ fi:
     my_articles: Omat artikkelit
     needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
-    new_account_check_username: Tarkista, onko käyttäjätunnus saatavana
+    new_account_check_username: Tarkista, onko käyttäjänimi saatavana
     new_account_email: Sähköpostiosoite
     new_account_email_placeholder: nimi@esimerkki.org
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
-    new_account_username_taken: Käyttäjätunnus on jo käytössä. Valitse ystävällisesti
+    new_account_username_taken: Käyttäjänimi on jo käytössä. Valitse ystävällisesti
       toinen.
     new_account_submit: Pyydä tiliä
     nocourses: Et ole ilmoittautunut millekään kurssille.
@@ -585,7 +586,7 @@ fi:
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
     enroll: Lisää muokkaaja
-    enrollment: Osallistuminen
+    enrollment: Lisää/Muokkaa muokkaajia
     explore: Etsi ohjelmia
     courses_enrolled: Osallistumiset
     expected_students: Odotetut muokkaajat
@@ -851,8 +852,8 @@ fi:
     training_module_name: Harjoitusmoduuli
     training_module_status: Tila
     up_to_date_with_training: on suorittanut harjoituksen
-    username: Käyttäjätunnus
-    username_placeholder: Käyttäjätunnus
+    username: Käyttäjänimi
+    username_placeholder: Käyttäjänimi
     useremail_placeholder: Sähköpostiosoite
     userpasscode_placeholder: Pääsykoodi
     role:
@@ -914,9 +915,8 @@ fi:
     unsupported_browser:
       header: Selain ei ole tuettu. :-(
       explanation: Käytät selainta, joka ei ole yhteensopiva ohjausnäkymän kanssa.
-        Sivusto toimii hyvin Internet Explorer 11:n tai myöhemmän version kanssa,
-        viimeisimpien Chromen ja Firefoxin versioiden kanssa sekä muilla nykyaikaisilla
-        selaimilla.
+        Sivusto toimii hyvin viimeisimpien Chromen, Firefoxin ja Edgen versioiden
+        kanssa sekä muilla nykyaikaisilla selaimilla.
   error_401:
     header: Ei lupaa. >:-(
     explanation: Sinulla ei ole lupaa suorittaa tätä pyyntöä. Jos uskot, että ilmoitus
@@ -924,12 +924,12 @@ fi:
   error_incorrect_passcode:
     header: Väärä salasana. :-(
     explanation: Salasana, jolla yritit ilmoittautua kurssille, on väärä. Pyydä kurssin
-      vetäjältä oikea salasana kurssille ilmoittautumista varten.
+      vetäjältä oikea salasana kurssille ilmoittautumista varten. Voit yrittää uudelleen
+      kirjoittamalla oikean pääsykoodin alla.
   error_404:
     header: Sivua ei ole. :-(
-    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjausnäkymään, kurssia
-      ei välttämättä ole rekisteröity tähän siihen. Jos kurssi rekisteröitiin hiljattain,
-      sen lisäämiseen voi mennä hetki.
+    explanation: Tätä sivua ei ole. Jos yritit päästä kurssin ohjausnäkymään, kurssia
+      ei välttämättä ole rekisteröity siihen.
   error_422:
     header: 422 — kohdetta ei voi käsitellä.  :-(
     explanation: Jokin meni vikaan. Kerro ongelmasta ohjausnäkymän ylläpitäjille.
@@ -941,8 +941,8 @@ fi:
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
   survey:
-    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjausnäkymään kyselyn
-      täyttämiseksi.
+    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Education -ohjausnäkymään
+      kyselyn täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
       sähköpostia muistutusaikataulun mukaisesti selaimen sisäisten ilmoitusten lisäksi.
       Jos kohtaa ei ole valittuna, muokkaajat saavat vain selaimen sisäisiä ilmoituksia.

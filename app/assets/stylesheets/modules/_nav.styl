@@ -295,7 +295,7 @@ nav.ham-nav
 .course-nav__wrapper,
 .campaign-nav__wrapper
   height $nav_height
-  +below(desktop)
+  +below(desktop - 1)
     margin-top 50px
 
 .course_navigation,
@@ -323,7 +323,9 @@ nav.ham-nav
       text-decoration none
       text-align center
       +above(desktop)
-        max-width 370px
+        max-width 290px
+        @media only screen and (min-width: 1000px)
+          max-width 370px
         margin-right 20px
         padding-right 40px
         text-align left

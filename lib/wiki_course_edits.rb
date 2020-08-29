@@ -23,7 +23,7 @@ class WikiCourseEdits
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
     @templates = @home_wiki.edit_templates
-    send(action, opts)
+    send(action, **opts)
   end
 
   # Updates the on-wiki version of a course to reflect the latest

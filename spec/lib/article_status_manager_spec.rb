@@ -6,17 +6,13 @@ require "#{Rails.root}/lib/article_status_manager"
 describe ArticleStatusManager do
   before { stub_wiki_validation }
 
+  # For update_article_status_for_course, updated_at: 2.days.ago is used
+  # because ArticleStatusManager updates articles updated more than 1 day ago
+  # For update_status, it is not required, because it does not implement that logic
+
   let(:course) { create(:course, start: 1.year.ago, end: 1.year.from_now) }
   let(:user) { create(:user) }
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
-
-  describe '.update_article_status' do
-    it 'runs without error' do
-      VCR.use_cassette 'article_status_manager/main' do
-        described_class.update_article_status
-      end
-    end
-  end
 
   describe '.update_article_status_for_course' do
     it 'marks deleted articles as "deleted"' do
@@ -25,7 +21,8 @@ describe ArticleStatusManager do
                id: 1,
                mw_page_id: 1,
                title: 'Noarticle',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
         described_class.update_article_status_for_course(course)
@@ -41,7 +38,8 @@ describe ArticleStatusManager do
                id: 100,
                mw_page_id: 100,
                title: 'Audi',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 100, user: user)
 
         # es.wikipedia
@@ -51,7 +49,8 @@ describe ArticleStatusManager do
                mw_page_id: 100000001,
                title: 'Audi',
                namespace: 0,
-               wiki_id: 2)
+               wiki_id: 2,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 100000001, user: user)
 
         described_class.update_article_status_for_course(course)
@@ -68,7 +67,8 @@ describe ArticleStatusManager do
                id: 100,
                mw_page_id: 100,
                title: 'Audi',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 100, user: user)
         create(:article,
                id: 848,
@@ -88,7 +88,8 @@ describe ArticleStatusManager do
                id: 848,
                mw_page_id: 848,
                title: 'Audi_Cars', # 'Audi' is the actual title
-               namespace: 2)
+               namespace: 2,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 848, user: user)
 
         described_class.update_article_status_for_course(course)
@@ -130,7 +131,8 @@ describe ArticleStatusManager do
                mw_page_id: 46745170,
                # Currently this is a redirect to the other title.
                title: 'Yōji Sakate',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 46745170, user: user)
 
         create(:article,
@@ -138,7 +140,8 @@ describe ArticleStatusManager do
                mw_page_id: 46364485,
                # Current title is "Yōji Sakate" as of 2016-07-06.
                title: 'Yōji_Sakate',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 46364485, user: user)
 
         described_class.update_article_status_for_course(course)
@@ -152,14 +155,16 @@ describe ArticleStatusManager do
                           mw_page_id: 3914927,
                           title: 'Cyber-ethnography',
                           deleted: true,
-                          namespace: 1)
+                          namespace: 1,
+                          updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 3914927, user: user)
         article2 = create(:article,
                           id: 46394760,
                           mw_page_id: 46394760,
                           title: 'Cyber-Ethnography',
                           deleted: false,
-                          namespace: 1)
+                          namespace: 1,
+                          updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 46394760, user: user)
 
         described_class.update_article_status_for_course(course)
@@ -174,7 +179,8 @@ describe ArticleStatusManager do
                id: 2262715,
                mw_page_id: 2262715,
                title: 'Kostanay',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision,
                date: 1.day.ago,
                user: user,
@@ -197,13 +203,15 @@ describe ArticleStatusManager do
                id: 848,
                mw_page_id: 848,
                title: 'Audi',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 848, user: user)
         create(:article,
                id: 1,
                mw_page_id: 1,
                title: 'Noarticle',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
         allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
@@ -219,13 +227,15 @@ describe ArticleStatusManager do
                id: 848,
                mw_page_id: 848,
                title: 'Audi',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 848, user: user)
         create(:article,
                id: 1,
                mw_page_id: 1,
                title: 'Noarticle',
-               namespace: 0)
+               namespace: 0,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
         allow_any_instance_of(Replica).to receive(:post_existing_articles_by_title).and_return(nil)
@@ -242,10 +252,39 @@ describe ArticleStatusManager do
                mw_page_id: 52228477,
                title: 'Antiochis_of_Tlos',
                namespace: 0,
-               deleted: true)
+               deleted: true,
+               updated_at: 2.days.ago)
         create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).deleted).to eq(false)
+      end
+    end
+
+    it 'updates if article updated more than 1 day ago' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 50661367,
+               mw_page_id: 52228477,
+               title: 'Antiochis_of_Tlos',
+               namespace: 0,
+               updated_at: 2.days.ago)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(50661367).updated_at > 30.seconds.ago).to eq(true)
+      end
+    end
+
+    it 'does not update if article updated less than 1 day ago' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 50661367,
+               mw_page_id: 52228477,
+               title: 'Antiochis_of_Tlos',
+               namespace: 0,
+               updated_at: 12.hours.ago)
+        create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(50661367).updated_at <= 12.hours.ago).to eq(true)
       end
     end
   end

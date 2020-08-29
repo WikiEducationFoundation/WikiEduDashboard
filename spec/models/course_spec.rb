@@ -170,8 +170,8 @@ describe Course, type: :model do
   describe '#url' do
     it 'returns the url of a course page' do
       # A legacy course
-      lang = Figaro.env.wiki_language
-      prefix = Figaro.env.course_prefix
+      lang = ENV['wiki_language']
+      prefix = ENV['course_prefix']
       course = build(:legacy_course,
                      id: 618,
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)',

@@ -15,11 +15,9 @@ describe ArticleHelper, type: :helper do
 
   describe '.article_url' do
     it 'gets the url for an article' do
-      # rubocop:disable Layout/LineLength
-      expect(@article.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Selfie")
-      expect(@sandbox.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/User:Ragesoss/sandbox")
-      expect(@draft.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!")
-      # rubocop:enable Layout/LineLength
+      expect(@article.url).to eq('https://en.wikipedia.org/wiki/Selfie')
+      expect(@sandbox.url).to eq('https://en.wikipedia.org/wiki/User:Ragesoss/sandbox')
+      expect(@draft.url).to eq('https://en.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!')
     end
   end
 

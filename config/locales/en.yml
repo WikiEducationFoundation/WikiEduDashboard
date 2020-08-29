@@ -885,9 +885,13 @@ en:
     date_time: Date/Time
     edit_count_description: Total Edits
     error_count_message: The dashboard encountered %{error_count} error(s) during the most recent update.
+    future_updates_remaining:
+      true: The stats will continue to be updated until %{date}.
+      false: The stats for this program are no longer being updated regularly.
     last_reviewed: Last Reviewed
     missing_data_heading: Missing or unexpected results?
     missing_data_info: Common issues include
+    non_updating_course_update: It has been scheduled for a one-time update, which should take place soon.
     last_update_failed: The last update to this course failed.
     last_update_success: The last update ran successfully, so the statistics should be up to date.
     outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.

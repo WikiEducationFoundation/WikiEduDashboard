@@ -10,6 +10,7 @@
 # Author: Sebastian Wallroth
 # Author: Taresi
 # Author: ToBeFree
+# Author: Umherirrender
 # Author: WikiBayer
 ---
 de:
@@ -349,7 +350,7 @@ de:
     template_name: Name der Vorlage
     none: Es gibt keine verfolgten Kategorien.
     remove: Entfernen
-    tracked_categories: Getrackte Kategorien, PSID und Vorlagen
+    tracked_categories: Getrackte Kategorien, PSID, PagePile-ID und Vorlagen
     timestamp: Zuletzt aktualisiert am
   chat:
     label: Chat
@@ -740,9 +741,9 @@ de:
       one: Freiwilliger
       other: Freiwillige
     weeks_none: Dieser Kurs hat noch keine Zeitleiste.
-    warn_mirrored: |-
-      Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
-      Möchtest du fortfahren?
+    warn_mirrored: Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch
+      auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste
+      gespiegelt. Möchtest du fortfahren?
     wiki_course_page_enabled: Wiki-Kursseite aktiviert
     wiki_course_page_enabled_tooltip: Falls aktiviert, wird ein Wikimirror der Seite
       immer dann aktualisiert, wenn das Programm oder seine Benutzer und Zuweisungen
@@ -910,6 +911,7 @@ de:
     articles_created: Erstellte Artikel
     articles_created_generic: Erstellte Seiten
     articles_edited: Bearbeitete Artikel
+    articles_edited_generic: Bearbeitete Seiten
     bytes_added: Hinzugefügte Bytes
     characters: Zeichen
     char_added: Zeichen hinzugefügt
@@ -1158,6 +1160,8 @@ de:
     view_library_source: Bibliotheksquelle ansehen
     view_module_source: Modulquelle ansehen
     reload_from_source: Von Quelle neu laden
+    kind:
+      discussion: Diskussion
   uploads:
     credit: Danksagung
     file_name: Dateiname
@@ -1232,7 +1236,7 @@ de:
     sandboxes: Spielwiesen
     sub_navigation:
       editor_overview: Bearbeiter Übersicht
-      student_overview: Schülerübersicht
+      student_overview: '%{prefix}übersicht'
     total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
@@ -1326,9 +1330,8 @@ de:
     unsupported_browser:
       header: Nicht unterstützter Browser. :-(
       explanation: Du benutzt einen Browser, der nicht mit dem Dashboard kompatibel
-        ist. Diese Website funktioniert gut auf dem Internet Explorer, Version 11
-        oder später, auf aktuellen Versionen von Chrome und Firefox und auf anderen
-        modernen Browsern.
+        ist. Diese Website funktioniert gut auf aktuellen Versionen von Chrome, Firefox,
+        Edge und auf anderen modernen Browsern.
   error_401:
     header: Nicht berechtigt. >:-(
     explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,

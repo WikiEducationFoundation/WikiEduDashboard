@@ -23,8 +23,8 @@ class UpdateCourseStats
 
     @start_time = Time.zone.now
     fetch_data
-    update_categories if @course.needs_update
-    update_article_status if @course.needs_update
+    update_categories
+    update_article_status
     update_average_pageviews
     update_caches
     @course.update(needs_update: false)
@@ -61,6 +61,7 @@ class UpdateCourseStats
 
   def update_average_pageviews
     AverageViewsImporter.update_outdated_average_views(@course.articles)
+    log_update_progress :average_pageviews_updated
   end
 
   def update_caches

@@ -11,7 +11,7 @@ Make sure the tests pass on travis with the new Ruby.
 ### Prepare for deployment
 
 * Stop updates: `cap production sake task=batch:pause`
-* Stop Sidekiq: `cap production sidekiq:stop`
+* Stop Sidekiq: `cap production deploy:sidekiq:stop`
 
 ### Prepare Ruby and Passenger on the server
 
@@ -27,10 +27,10 @@ On the server where the dashboard is already running, in `/var/www/dashboard/cur
 Passenger should now be ready. Copy the output for updating the apache config.
 It will be something like this:
 ```
-LoadModule passenger_module /usr/local/rvm/gems/ruby-2.5.0/gems/passenger-5.1.12/buildout/apache2/mod_passenger.so
+LoadModule passenger_module /usr/local/rvm/gems/ruby-2.7.1/gems/passenger-5.1.12/buildout/apache2/mod_passenger.so
 <IfModule mod_passenger.c>
-  PassengerRoot /usr/local/rvm/gems/ruby-2.5.0/gems/passenger-5.1.12
-  PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.5.0/wrappers/ruby
+  PassengerRoot /usr/local/rvm/gems/ruby-2.7.1/gems/passenger-5.1.12
+  PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.7.1/wrappers/ruby
 </IfModule>
 ```
 

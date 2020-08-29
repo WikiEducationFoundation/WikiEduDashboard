@@ -74,12 +74,18 @@ const RevisionList = createReactClass({
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
+
+    // Until the revisions are loaded, we do not pass the none_message prop
+    // This is done to avoid showing the none_message when the revisions are loading
+    // initially because at that time the revisions is an empty array
+    // Whether or not the revisions is really an empty array is confirmed after the revisions
+    // are successfully loaded
     return (
       <List
         elements={elements}
         keys={keys}
         table_key="revisions"
-        none_message={CourseUtils.i18n('revisions_none', this.props.course.string_prefix)}
+        none_message={this.props.loaded ? CourseUtils.i18n('revisions_none', this.props.course.string_prefix) : ''}
         sortBy={this.props.sortBy}
         sortable={true}
       />
