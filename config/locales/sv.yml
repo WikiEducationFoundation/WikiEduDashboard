@@ -78,7 +78,10 @@ sv:
     not_yet_started: Komma igång
     in_progress: Att arbeta i sandlådan
     ready_for_mainspace: Flytta artikel till huvudsidan
+    reading_the_article: Läser artikel
+    providing_feedback: Ger återkoppling
     post_to_talk: Posta på diskussionssidan
+    peer_review_completed: Recension fulländad
   dashboard:
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
     explore_course_pages: Utforska kursussidorna
@@ -103,8 +106,8 @@ sv:
     previous: Föregående
     article_title: Artikeltitel
     assigned_to: Tilldelad till
-    character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
-      under kursen
+    character_doc: Summan av tecken som lagts till i artiklar av anmälda användare
+      mellan start- och slutdatumen
     deleted: (raderad)
     edited: Redigerade artiklar
     edited_by: 'Redigerad av:'
@@ -114,6 +117,9 @@ sv:
       new: Nya
       existing: Befintliga
       new_and_existing: Nya och befintliga
+      tracked: Spårad
+      untracked: Inte spårad
+      tracked_and_untracked: Spårad och inte spårad
     hide: Dölj
     history: (historik)
     label: Artiklar
@@ -121,19 +127,25 @@ sv:
     new: (ny)
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
+    rating_docs:
+      does_not_exist: Den här artikeln finns inte på Wikipedia
     see_more: Se mer
     show_current_version: Visa aktuell version
     show_current_version_with_authorship_highlighting: Nuvarande version med författaren
       markerad
     title: Titel
+    tracked: Spårad
     title_example: Artikelns titel
     view: Visa artikel
     view_all: Visa alla
-    view_doc: Summan av alla läsningar av varje artikel under kursen
+    view_doc: Den uppskattade summan av alla läsningar av varje artikel sen den först
+      redigerades, till den senaste statusuppdateringen. Du kan använda pageviews.toolforge.org
+      för att se det exakta numret.
     view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
     edit_size: Redigera storlek
     wiki: Wiki
+    wp10: Strukturell fullständighet
     articles_short: Artiklar
   articles_wikidata:
     articles_short: Objekt
@@ -141,11 +153,13 @@ sv:
     articles_short: Sidor
   assignments:
     article: Artikeln %{title} har tilldelats dig
+    article_link: Artikel
     assign_other: Tilldela en artikel
     add_available: Lägg till tillgängliga artiklar
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
+    clone: Klon
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
     group_members: Gruppmedlemmar
     label: Tilldela
@@ -192,6 +206,7 @@ sv:
     customize_passcode: ett standardlösenord
     data_revisions: Sidversionsdata
     data_revisions_info: Detaljer om varje spårad sidversion av kampanjen
+    data_instructors: Instruktörer
     description: Beskrivning
     delete_campaign: Radera denna kampanj
     disable_account_requests: Inaktivera kontobegäran
@@ -219,12 +234,14 @@ sv:
     confirm_template_addition: Är du säker på att du vill spåra bidrag för mallen
       "%{name}"?
     depth: Underkategoridjup
+    articles_count: Antal artiklar
     name: Namn
     category_name: Kategorinamn
     template_name: Mallnamn
     none: Det är inga kategorier som spåras.
     remove: Ta bort
     tracked_categories: Spårade kategorier & mallar
+    timestamp: Senast uppdaterad
   chat:
     label: Chatta
   courses:
@@ -245,6 +262,8 @@ sv:
       available_articles: Tillgängliga artiklar
       available_reviews: Klasskamraters artiklar
     calendar:
+      legend: Teckenförklaring
+      legend_class_canceled: Semester/avlyst
       legend_class_meeting: Klassmöte
       legend_class_not_meeting: Inget schemalagt möte
     cancel: Avbryt
@@ -294,6 +313,8 @@ sv:
         bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
         att börja bygga tidslinjen för din Wikipedia uppgift.
       role_description: Din roll i kursen
+      role_description_options:
+      - Instruktör
       save_cloned_course: Spara ny kurs
       start_date: Startdatum
       start_date_placeholder: ÅÅÅÅ-MM-DD
@@ -374,6 +395,7 @@ sv:
     private: Privat
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
+    requested_accounts_alert_view: Visa
     school: Skola
     search_courses: Sök i kurser
     start: Starta

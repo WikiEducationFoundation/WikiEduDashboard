@@ -55,4 +55,6 @@ ti:
     datetime: ዕለት/ሰዓት
   revisions:
     date_time: ዕለት/ሰዓት
+  users:
+    edits: ምምዕርራያት
 ...
