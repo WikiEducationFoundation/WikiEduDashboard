@@ -36,7 +36,7 @@ class YamlTrainingLoader
   def validate_id(yaml_file, content)
     return unless @content_class.trim_id_from_filename
     filename_id = File.basename(yaml_file, '.yml')[/^[0-9]+(?=-)/]
-    raise InvalidYamlError unless content['id'] == filename_id.to_i
+    raise InvalidYamlError, "Filename doesn't match id." unless content['id'] == filename_id.to_i
   end
 
   class InvalidYamlError < StandardError; end

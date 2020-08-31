@@ -99,6 +99,9 @@ categories:
       - slug: reflective-essay-exercise
         name: 'Exercise: Reflective essay'
         description: Write a reflective essay about your Wikipedia contributions.
+      - slug: assignment-blog
+        name: 'Exercise: Keep an assignment blog'
+        description: Keep a weekly blog to reflect on the Wikipedia assignment.
   - title: Discussions
     description: |
       Prompts for in-class discussions

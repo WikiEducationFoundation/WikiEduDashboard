@@ -72,7 +72,7 @@ essentials:
         kind: 1
         content: |
           <p>
-            Begin a blog about your experiences. You can use
+            <a href="/training/students/assignment-blog/keep-a-blog">Begin a blog about your experiences</a>. You can use
             discussion questions to frame your entries, or reflect on the
             research and writing process. Create at least one blog entry
             each week during the Wikipedia assignment.
