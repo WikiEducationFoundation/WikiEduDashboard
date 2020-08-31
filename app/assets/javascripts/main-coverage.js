@@ -1,3 +1,17 @@
+/*
+  This file replaces normal main.js when we enable COVERAGE=true in RSpec tests.
+
+  The reason we have a separate version of main.js for coverage is because the
+  coverage relies on all the components being embedded in the main bundle.
+
+  The main.js file uses dynamic importing via import() which splits those components into separate files.
+  This file instead uses require() which embeds all the required code within main bundle.
+
+  This file should replicate the contents of main.js with the exception that this should have
+  require() instead of import() for the above reasons.
+*/
+
+
 // This file gets added to the page via /app/views/shared/_head
 // That Rails view also adds several JavaScript globals to the page,
 // including the available locales and wikis, the Features enabled,
