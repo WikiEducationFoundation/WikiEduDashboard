@@ -122,6 +122,7 @@
     "test": "jest",
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
     "start": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 --watch -- --env.development --env.watch_js",
+    "coverage": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.development --env.coverage",
     "hot": "node prepare.js && webpack-dev-server --env.development",
     "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production",
     "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"

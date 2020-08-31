@@ -29,3 +29,14 @@ You can run the entire test suite, including a fresh compilation of assets, with
 
 ## Test Coverage
 All new code should be covered with appropriate tests. Much of the Javascript-dependent UI is covered by Poltergeist integration tests. Whenever possible, new Javascript functionality should be tested in isolation via Javascript tests instead (or additionally), as the integration tests tend to be both slower and more brittle.
+
+## RSpec Test Coverage
+JSCover is used to provide the test coverage for RSpec feature tests. When the full test suite is run, the report is generated and can be
+accessed at http://localhost:3000/js_coverage/jscoverage.html which means to view the report you have to have the server running
+by doing `rails s`
+
+For report generation to work, the environment variable `COVERAGE` must be set to `'true'`.
+
+```
+COVERAGE=true bundle exec rspec
+```

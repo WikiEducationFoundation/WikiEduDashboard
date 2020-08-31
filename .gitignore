@@ -10,6 +10,9 @@
 .vscode/
 /dump.rdb
 /public/skins
+/tmp_build
+modules.txt
+/public/js_coverage
 *.rbc
 capybara-*.html
 .rspec
