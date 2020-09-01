@@ -143,7 +143,7 @@ describe 'the course page', type: :feature, js: true do
     ActionController::Base.allow_forgery_protection = false
   end
 
-  describe 'overview' do
+  describe 'overview', type: :smoke do
     it 'displays title, tab links, stats, description, school, term, dates, milestones' do
       js_visit "/courses/#{slug}"
 

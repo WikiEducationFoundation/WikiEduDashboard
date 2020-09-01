@@ -1,7 +1,8 @@
 env:
-- TEST_SUITE='~type:feature' AFTER_SUCCESS='./travis-deploy.sh'
-# Run all tests in job 2
-- TEST_SUITE='~type:foo' AFTER_SUCCESS='' CC_TEST_REPORTER_ID=f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
+# Job 1 skips most of the tests, to minimize the time it takes to deploy to production.
+- TEST_SUITE='type:smoke' AFTER_SUCCESS='./travis-deploy-production.sh'
+# Job 2 runs the full test suite, and also deploys to staging with JS coverage data
+- TEST_SUITE='~type:foo' AFTER_SUCCESS='./travis-deploy-staging.sh'
 language: ruby
 rvm: 2.7.1
 sudo: required
@@ -28,7 +29,6 @@ before_install:
 - node --version
 - yarn --version
 install:
-- yarn global add codeclimate-test-reporter
 - yarn install
 - gem update --system
 - gem install bundler
@@ -36,11 +36,6 @@ install:
 - gem install rubocop-rspec-focused
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
-# install Code Climate test reporter
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter before-build; fi
-
 - mkdir tmp -m 777
 - cp config/database.travis.yml config/database.yml
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
@@ -52,11 +47,5 @@ script:
     --tag $TEST_SUITE
   - bundle exec rubocop
   - yarn lint-non-build
-after_script:
-- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_success:
 - "$AFTER_SUCCESS"
-notifications:
-  slack:
-    # https://agileventures.slack.com/messages/wiki_edu-notify/
-    secure: LDzHmtPo8jt9wrnH51F8PHTHl2gwOj117+bvWYgtVa4VM7SW1SL+BuiD3+DMs83VTNptek8I/kOduR0lRxIgQMqddYrQRz1O10vOcIXGLOrWbXcx0tgCQjnDcLp4BdBd3k5Ybn1pc/uf7cQXGgCUQ9lAXzAEE+V6CkrCmaCYrVE=
