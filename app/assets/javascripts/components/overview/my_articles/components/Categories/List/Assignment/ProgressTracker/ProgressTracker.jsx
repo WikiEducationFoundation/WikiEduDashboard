@@ -45,7 +45,7 @@ export class ProgressTracker extends React.Component {
           className="screen-reader"
           onClick={this.toggle}
         >
-            Click to hide or show progress tracker
+          Click to hide or show progress tracker
         </button>
         <nav
           aria-label="Click to hide or show progress tracker"
