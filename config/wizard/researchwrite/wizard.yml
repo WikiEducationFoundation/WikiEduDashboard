@@ -392,13 +392,15 @@
     -
       title: Class blog or class discussion
       blurb: |
-        Students keep a blog about their experiences. Giving them prompts every
-        week or two, such as “To what extent are the editors on Wikipedia a
+        Students keep a blog about their experiences, and/or discuss their experiences in class.
+
+        Note: Wiki Education does not provide a blog platform.
+      description: >
+        Giving them prompts every week or two, such as “To what extent are the editors on Wikipedia a
         self-selecting group and why?” will help them think about the larger
         issues surrounding this online encyclopedia community. It will also give
         you material on and off wiki to grade. If you have time in class, these
         discussions can be particularly constructive in person.
-      description:
       logic: blog_or_discussion_assignment
     -
       title: In-class presentation
