@@ -523,6 +523,8 @@ en:
     data_uploads: Commons uploads data
     data_revisions: Revisions data
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
     delete_course: Delete course
     delete_suggestion: Delete
     delete_course_instructions: You may delete this page if all campaigns are removed first.

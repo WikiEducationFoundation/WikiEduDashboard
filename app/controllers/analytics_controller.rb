@@ -8,6 +8,7 @@ require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 
@@ -17,7 +18,8 @@ class AnalyticsController < ApplicationController
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
   before_action :set_course, only: %i[course_csv course_edits_csv course_uploads_csv
-                                      course_students_csv course_articles_csv course_revisions_csv]
+                                      course_students_csv course_articles_csv course_revisions_csv
+                                      course_wikidata_csv]
 
   ########################
   # Routing entry points #
@@ -77,6 +79,11 @@ class AnalyticsController < ApplicationController
   def course_revisions_csv
     send_data CourseRevisionsCsvBuilder.new(@course).generate_csv,
               filename: "#{@course.slug}-revisions-#{Time.zone.today}.csv"
+  end
+
+  def course_wikidata_csv
+    send_data CourseWikidataCsvBuilder.new(@course).generate_csv,
+              filename: "#{@course.slug}-wikidata-#{Time.zone.today}.csv"
   end
 
   def all_courses_csv
