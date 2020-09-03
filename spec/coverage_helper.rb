@@ -21,7 +21,8 @@ run_once = true
 # https://github.com/rspec/rspec-core/issues/1900#issuecomment-78490902
 # RSpec loads spec files in alphabetical order and then runs tests in
 # defined order or random order depending on your configuration.
-last_feature_spec_path = ARGV.empty? ? Dir['spec/features/*'].max : File.basename(ARGV.last)
+paths = ARGV.select { |arg| arg.downcase.include? '.rb' } # select path args and ignore other flags
+last_feature_spec_path = paths.empty? ? Dir['spec/features/*'].max : File.basename(paths.last)
 
 RSpec.configure do |config|
   config.before(:each, type: :feature, js: true) do
