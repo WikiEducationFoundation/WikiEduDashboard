@@ -4,6 +4,7 @@
 # Author: 500000000006城
 # Author: A Chinese Wikipedian
 # Author: A Retired User
+# Author: AYZ04
 # Author: Assoc
 # Author: Camilali0609
 # Author: Deathkon
@@ -130,6 +131,9 @@ zh-CN:
     article_development: （条目状况）
     assigned: 分配的条目
     available: 可用条目
+    next: 下一步
+    previous: 上一步
+    article_title: 条目标题
     assigned_to: 分配给
     character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
     cross_wiki_tracking: 在开始日期和结束日期期间编辑的主空间页面如下。控制面板从此计划的主wiki拉进贡献，与这里有分配任务或有意义条目的其他wiki一样。
@@ -181,6 +185,7 @@ zh-CN:
     wiki: Wiki
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
+    articles_short: 条目
   articles_wikidata:
     articles_short: 项目
   articles_generic:
@@ -202,11 +207,16 @@ zh-CN:
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此条目分配吗？
     editors: 分派给
+    group_members: 小组成员
     label: 分配
     loading: 正在加载作业...
     none_short: 没有分配的条目
     none: 此课程没有被条目所分配。
     no_available: 此课程没有可用的条目。
+    peer_review_count: |2-
+
+      已选择%{currentCount}/%{total}
+    peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
     remove: 移除
     reviewers: 复核员
     review_other: 分配一次同行复核
