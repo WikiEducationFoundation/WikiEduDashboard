@@ -35,7 +35,7 @@ const CourseStatsDownloadModal = createReactClass({
     const wikidataCsvLink = `/course_wikidata_csv?course=${this.props.course.slug}`;
 
     let wikidataLink;
-    if (this.props.course.home_wiki.project === 'wikidata') {
+    if (Features.wikiEd && this.props.course.home_wiki.project === 'wikidata') {
       wikidataLink = (
         <>
           <hr />
