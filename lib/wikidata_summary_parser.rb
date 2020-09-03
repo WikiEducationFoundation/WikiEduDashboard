@@ -29,7 +29,8 @@ class WikidataSummaryParser
     'items cleared' => :cleared_item?,
     'qualifiers added' => :added_qualifier?,
     'other updates' => :unknown_update?,
-    'unknown' => :unknown?
+    'unknown' => :unknown?,
+    'no data' => :no_data?
   }.freeze
 
   def self.analyze_revisions(revisions)
@@ -59,7 +60,7 @@ class WikidataSummaryParser
   end
 
   def initialize(summary)
-    @summary = summary
+    @summary = summary || ''
   end
 
   # rubocop:disable Metrics/PerceivedComplexity
@@ -98,6 +99,10 @@ class WikidataSummaryParser
       added_description: added_description?,
       changed_description: changed_description?
     }
+  end
+
+  def no_data?
+    @summary.empty?
   end
 
   def created_claim?
