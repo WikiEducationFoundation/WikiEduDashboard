@@ -1180,6 +1180,7 @@ en:
     none: There are no participants.
     no_articles: No articles
     no_revisions: This editor has made no revisions.
+    no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
