@@ -10,24 +10,16 @@ const RandomPeerAssignButton = createReactClass({
   displayName: 'RandomPeerAssignButton',
 
   propTypes: {
-    addAssignments: PropTypes.func,
+    randomPeerAssignments: PropTypes.func,
     course: PropTypes.object,
     current_user: PropTypes.object,
-    initiateConfirm: PropTypes.func,
-    role: PropTypes.number
+    initiateConfirm: PropTypes.func
   },
 
   randomPeerAssign() {
-    const onConfirm = () => {
-      this.props.randomPeerAssignments({
-        course_slug: this.props.course.slug,
-        role: this.props.role,
-        random: true
-      });
-    };
-
     // Confirm for assigning an article to a student
     const confirmMessage = I18n.t('assignments.random_peer_review.confirm_addition');
+    const onConfirm = () => this.props.randomPeerAssignments({ course_slug: this.props.course.slug });
     this.props.initiateConfirm({ confirmMessage, onConfirm });
   },
 

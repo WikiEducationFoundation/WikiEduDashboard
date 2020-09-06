@@ -38,7 +38,7 @@ export const addAssignment = assignment => (dispatch) => {
 
 export const randomPeerAssignments = randomAssignments => (dispatch) => {
   dispatch({ type: types.LOADING_ASSIGNMENTS });
-  return API.createAssignment(randomAssignments)
+  return API.createRandomPeerAssignments(randomAssignments)
     .then(resp => dispatch({ type: types.RECEIVE_ASSIGNMENTS, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
