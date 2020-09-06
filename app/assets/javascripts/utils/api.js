@@ -273,6 +273,23 @@ const API = {
     );
   },
 
+  createRandomPeerAssignments(opts) {
+    const queryString = $.param(opts);
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: `/assignments/random_peer?${queryString}`,
+        success(data) {
+          return res(data);
+        }
+      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+    );
+  },
+
   updateAssignment(opts) {
     const queryString = $.param(opts);
     return new Promise((res, rej) =>
@@ -549,7 +566,7 @@ const API = {
         });
     });
   },
-  
+
   createBadWorkAlert(opts) {
     return new Promise((res, rej) =>
       $.ajax({
