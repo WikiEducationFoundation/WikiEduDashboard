@@ -21,23 +21,30 @@ class AssignmentsController < ApplicationController
     render json: { assignmentId: @assignment.id }
   end
 
+  # For creating single assignments
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
-    # If condition for random peer assignments
-    # Else condition for normal assignment creation
-    if assignment_params[:random].present?
-      create_random_peer_reviews
-      update_onwiki_course_and_assignments
-      redirect_to "/courses/#{@course.slug}/assignments.json"
-    else
-      set_new_assignment
-      update_onwiki_course_and_assignments
-      render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
-    end
+
+    set_new_assignment
+    update_onwiki_course_and_assignments
+    render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :internal_server_error
+  end
+
+  # For creating random peer assignments to whole class
+  def create_random_peer
+    # Allowed only to instructors
+    require_signed_in
+    raise NotPermittedError unless current_user.instructor?(@course)
+
+    create_random_peer_reviews
+    update_onwiki_course_and_assignments
+    # Redirecting to give full list of course assignments after
+    # creating a bunch of random peer assignments
+    redirect_to "/courses/#{@course.slug}/assignments.json"
   end
 
   def update
@@ -132,8 +139,7 @@ class AssignmentsController < ApplicationController
   end
 
   def create_random_peer_reviews
-    AssignmentManager.new(user_id: nil, course: @course, wiki: @wiki,
-                          title: nil, role: assignment_params[:role]).create_random_peer_reviews
+    AssignmentManager.new(course: @course).create_random_peer_reviews
   end
 
   def check_permissions(user_id)
