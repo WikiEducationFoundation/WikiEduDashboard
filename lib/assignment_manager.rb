@@ -6,7 +6,7 @@ require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 class AssignmentManager
-  def initialize(course:, user_id:, wiki:, title:, role:)
+  def initialize(course:, user_id: nil, wiki: nil, title: nil, role: nil)
     @course = course
     @user_id = user_id
     @wiki = wiki
@@ -75,7 +75,7 @@ class AssignmentManager
   end
 
   def set_peer_review_count
-    @course.peer_review_count = 1
+    @course.flags[:peer_review_count] = 1
     @course.save
   end
 
