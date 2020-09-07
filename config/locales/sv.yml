@@ -328,6 +328,8 @@ sv:
     data_edits: Redigeringsdata
     data_uploads: Commons-uppladdningsdata
     data_revisions: Sidversionsdata
+    data_wikidata: Wikidatastatistik
+    data_wikidata_info: Detaljerad nedbrytning av Wikidataaktivitet, baserad på redigeringssammanfattningar
     delete_course: Radera kurs
     delete_suggestion: Radera
     delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort

@@ -546,6 +546,9 @@ pt-br:
     data_revisions: Dados de revisões
     data_uploads_info: Os dados dos envios ao Commons mostra o nome e a contagem da
       utilização de cada mídia enviada.
+    data_wikidata: Estatísticas do Wikidata
+    data_wikidata_info: Análise detalhada da atividade do Wikidata, com base em resumos
+      de edição
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, você deve primeiramente

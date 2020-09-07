@@ -54,7 +54,9 @@ fi:
     request_account: Pyydä tiliä
     request_account_create: Luo tili
     search: esitä kysymys
-    search_results: 'Hakutulokset: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Hakutulos: ''%{search_terms}'''
+      other: '%{count} Hakutulokset: ''%{search_terms}'''
     no_results: Ei tuloksia haulle '%{query}'
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
@@ -69,6 +71,8 @@ fi:
     opt_out: Ei
     opt_yes: kyllä
     opt_no: ei
+  article_statuses:
+    not_yet_started: Aloittaminen
   dashboard:
     create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
     create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
@@ -117,7 +121,7 @@ fi:
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
     deleted: (poistettu)
-    edited: Muokattuja artikkeleita
+    edited: Muokatut artikkelit
     edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
     filter:
@@ -629,8 +633,8 @@ fi:
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
-    articles_created: luotua artikkelia
-    articles_edited: muokattua artikkelia
+    articles_created: Luodut artikkelit
+    articles_edited: Muokatut artikkelit
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
@@ -640,9 +644,10 @@ fi:
     edit_count_description: Muokkaukset yhteensä
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
+    references_count: Lisätyt viitteet
     tags: Merkkaukset
     update_statistics_link: Lisätietoja
-    upload_count: tallennusta Commonsiin
+    upload_count: Tallennukset Commonsiin
     uploads_in_use_count:
       one: tiedosto käytössä artikkelissa
       other: tiedostoa käytössä artikkeleissa
@@ -651,7 +656,7 @@ fi:
       other: kokonaiskäytöt eri kieliversioissa
     view_count_description: Artikkelin näyttökertaa
     view: Näyttökerrat
-    word_count: lisättyä sanaa
+    word_count: Lisätyt sanat
     word_count_average: Keskimääräinen sanamäärä
   namespace:
     main: Päänimiavaruus
@@ -681,6 +686,7 @@ fi:
     usage_count: Käyttökerrat
   revisions:
     chars_added: Lis. merkit
+    references: Lisätyt viitteet
     class: Ryhmä
     date_time: Päivämäärä
     diff: ero

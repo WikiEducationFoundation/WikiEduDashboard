@@ -543,6 +543,9 @@ pt:
     data_revisions: Dados de revisões
     data_uploads_info: Os dados dos carregamentos na wiki Commons mostram o nome e
       a contagem da utilização de cada ficheiro multimédia carregado.
+    data_wikidata: Estatísticas Wikidata
+    data_wikidata_info: Decomposição detalhada da atividade na wiki Wikidata, com
+      base nos resumos de edição
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, deve primeiramente

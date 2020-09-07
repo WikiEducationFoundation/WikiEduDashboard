@@ -565,6 +565,9 @@ fr:
     data_revisions: Données de révision
     data_uploads_info: Les données de téléversements sur Commons affichent le nom
       et le nombre d’utilisations de chaque média téléversé.
+    data_wikidata: Statistiques de Wikidata
+    data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
+      résumés de modification
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes

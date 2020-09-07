@@ -397,6 +397,9 @@ es:
     data_students: Datos de editores
     data_uploads: Datos de cargas a Commons
     data_revisions: Datos de revisiones
+    data_wikidata: Estadísticas de Wikidata
+    data_wikidata_info: Desglose detallado de la actividad en Wikidata, basada en
+      los resúmenes de edición
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Puedes eliminar esta página si todas las campañas

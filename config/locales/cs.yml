@@ -172,8 +172,8 @@ cs:
       ga: '%{class} Dobrý článek — propracovaný článek, jehož další vylepšování by
         pro nové editory mohlo být komplikované'
       b: Článek %{class}. třídy — středně propracovaný článek
-      c: Článek %{class} třídy — středně rozvinutý článek s značným prostorem pro
-        rozšiřování
+      c: Článek %{class} třídy — středně rozvinutý článek se značným prostorem pro
+        vylepšování
       start: '%{class}. třída — základní článek s velkým prostorem pro vylepšování'
       stub: '%{class}. třída — krátký úvod k tématu vyžadující rozpracování'
       list: '%{class}. třída - spíše seznam než běžný článek'
@@ -212,7 +212,7 @@ cs:
   articles_generic:
     articles_short: Stránky
   assignments:
-    article: Článek %{title} je nyní přiřazen k Vám.
+    article: Článek %{title} je nyní přiřazen vám.
     article_link: Předmět
     already_exists: Tento článek už byl zadán!
     title_too_large: Titulek by neměl přesáhnout 255 písmen
@@ -676,9 +676,9 @@ cs:
       one: Dobrovolník
       other: Dobrovolníci
     weeks_none: Tento kurz ještě nemá žádný časový plán.
-    warn_mirrored: "Po potvrzení, kurz bude automaticky publikován na Wikipedii pod
+    warn_mirrored: Po potvrzení bude kurz automaticky publikován na Wikipedii pod
       vaším uživatelským účtem. Poté budou všechny editace tohoto kurzu změněny i
-      na Wikipedii. \nJste si jist, že toto chcete udělat?"
+      na Wikipedii. Jste si jisti, že toto chcete udělat?
     wiki_edits_enabled: Editování wikipedie povoleno
     wiki_staff: Wiki Education personál
     withdrawn: Nerealizované zadání

@@ -12,6 +12,7 @@
 # Author: Sibabrata Banerjee
 # Author: Sourav Halder
 # Author: Tahmid02016
+# Author: Titodutta
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
 ---
@@ -171,6 +172,7 @@ bn:
       start_date: শুরুর তারিখ
       start_date_placeholder: বববব-মম-দদ
       subject: বিষয়
+    data_wikidata: উইকিউপাত্ত পরিসংখ্যান
     delete_suggestion: অপসারণ
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে

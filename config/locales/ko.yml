@@ -246,6 +246,7 @@ ko:
     data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
     data_overview: 개요 데이터
     data_students: 편집자 데이터
+    data_wikidata: 위키데이터 통계
     delete_course: 과정 삭제
     delete_suggestion: 삭제
     dismiss_survey: 숨기기
