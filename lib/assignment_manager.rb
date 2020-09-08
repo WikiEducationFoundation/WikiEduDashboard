@@ -15,19 +15,18 @@ class AssignmentManager
   end
 
   def create_random_peer_reviews
-    set_peer_review_count if @course.peer_review_count.nil?
+    peer_review_count = @course.peer_review_count || 1
 
     @course.students.each do |student|
       currently_reviewing = @course.assignments.reviewing
                                    .where(user_id: student.id).pluck(:article_id)
-      next if currently_reviewing.length > @course.peer_review_count
+      next if currently_reviewing.length > peer_review_count
 
       unreviewed_peer_assignments = @course.assignments.assigned
                                            .where.not(user_id: student.id,
                                                       article_id: currently_reviewing)
-      randomly_assign_peer_reviews(student,
-                                   unreviewed_peer_assignments,
-                                   @course.peer_review_count - currently_reviewing.length)
+      randomly_assign_peer_reviews(student, unreviewed_peer_assignments,
+                                   peer_review_count - currently_reviewing.length)
     end
   end
 
@@ -72,11 +71,6 @@ class AssignmentManager
 
   def update_article_rating
     RatingImporter.update_rating_for_article(@article)
-  end
-
-  def set_peer_review_count
-    @course.flags[:peer_review_count] = 1
-    @course.save
   end
 
   def randomly_assign_peer_reviews(student, potential_assignments, count)
