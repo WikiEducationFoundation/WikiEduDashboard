@@ -35,10 +35,8 @@ class AssignmentsController < ApplicationController
   end
 
   # For creating random peer assignments to whole class
-  def create_random_peer
-    # Allowed only to instructors
-    require_signed_in
-    raise NotPermittedError unless current_user.instructor?(@course)
+  def assign_reviewers_randomly
+    check_permissions
 
     create_random_peer_reviews
     update_onwiki_course_and_assignments
@@ -142,10 +140,13 @@ class AssignmentsController < ApplicationController
     AssignmentManager.new(course: @course).create_random_peer_reviews
   end
 
-  def check_permissions(user_id)
+  # user_id = nil is when it is not passed in query parameters
+  # and in that case we only check if the current user can edit
+  # the course (valid for randomly assigning reviewers)
+  def check_permissions(user_id = nil)
     require_signed_in
-    return if current_user.id == user_id
     return if current_user.can_edit?(@course)
+    return if user_id.present? && current_user.id == user_id
     raise NotPermittedError
   end
 

@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
-  post '/assignments/random_peer' => 'assignments#create_random_peer'
+  post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }

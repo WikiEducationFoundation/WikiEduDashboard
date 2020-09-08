@@ -278,7 +278,7 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'POST',
-        url: `/assignments/random_peer?${queryString}`,
+        url: `/assignments/assign_reviewers_randomly?${queryString}`,
         success(data) {
           return res(data);
         }
