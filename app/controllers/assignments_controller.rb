@@ -150,6 +150,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.permit(:id, :user_id, :course_id, :title, :random, :role, :language, :project, :status)
+    params.permit(:id, :user_id, :course_id, :title, :role, :language, :project, :status)
   end
 end
