@@ -20,7 +20,7 @@ const RandomPeerAssignButton = createReactClass({
   randomPeerAssign() {
     const peerReviewCount = this.props.course.peer_review_count || 1;
     const currentlyReviewing = this.props.assignments.filter(assignment => assignment.role === REVIEWING_ROLE).length;
-    const randomAssignmentsCount = (this.props.students.length * this.props.course.peer_review_count) - currentlyReviewing;
+    const randomAssignmentsCount = (this.props.students.length * peerReviewCount) - currentlyReviewing;
 
     let confirmMessage;
     let onConfirm;
