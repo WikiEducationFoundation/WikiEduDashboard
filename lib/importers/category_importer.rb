@@ -24,45 +24,41 @@ class CategoryImporter
   end
 
   def page_titles_for_category(category, depth=0, namespace=nil)
-    page_data_for_category(category, depth, namespace, 'title')
+    CategoryUtils.get_titles(page_data_for_category(category, depth, namespace))
   end
 
   private
 
-  def page_data_for_category(category, depth=0, namespace=nil, property=nil)
+  def page_data_for_category(category, depth=0, namespace=nil)
     cat_query = category_query(category, namespace)
-    page_data = get_category_member_data(cat_query, property)
+    page_data = get_category_member_data(cat_query)
     if depth.positive?
       depth -= 1
       subcats = subcategories_of(category)
       subcats.each do |subcat|
-        page_data += page_data_for_category(subcat, depth, namespace, property)
+        page_data += page_data_for_category(subcat, depth, namespace)
       end
     end
     page_data
   end
 
-  def get_category_member_data(query, property)
-    data_values = []
+  def get_category_member_data(query)
+    pages = []
     continue = true
     until continue.nil?
       cat_response = WikiApi.new(@wiki).query query
-      page_data = cat_response.data['categorymembers']
-      page_data.each do |page|
-        data = property.present? ? page[property] : page
-        data_values << data
-      end
-
+      pages_batch = cat_response.data['categorymembers']
+      pages += pages_batch
       continue = cat_response['continue']
       query['cmcontinue'] = continue['cmcontinue'] if continue
     end
-    data_values
+    pages
   end
 
   def subcategories_of(category)
     subcat_query = category_query(category, 14) # 14 is the Category namespace
-    subcats = get_category_member_data(subcat_query, 'title')
-    subcats
+    subcats_pages = get_category_member_data(subcat_query)
+    CategoryUtils.get_titles(subcats_pages)
   end
 
   def category_query(category, namespace=0)
