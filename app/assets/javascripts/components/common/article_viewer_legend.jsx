@@ -32,10 +32,8 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
       </div>
     );
-    userLinks = '';
   } else if (status === 'failed') {
     usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}: {failureMessage}</div>;
-    userLinks = '';
   }
 
   return (
