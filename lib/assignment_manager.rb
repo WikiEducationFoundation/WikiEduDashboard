@@ -23,8 +23,8 @@ class AssignmentManager
       next if currently_reviewing.length > peer_review_count
 
       unreviewed_peer_assignments = @course.assignments.assigned
-                                           .where.not(user_id: student.id,
-                                                      article_id: currently_reviewing)
+                                           .where.not(user_id: student.id)
+                                           .where.not(article_id: currently_reviewing)
       randomly_assign_peer_reviews(student, unreviewed_peer_assignments,
                                    peer_review_count - currently_reviewing.length)
     end

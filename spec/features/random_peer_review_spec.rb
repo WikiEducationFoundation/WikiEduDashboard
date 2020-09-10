@@ -8,6 +8,12 @@ describe 'random peer reviews', type: :feature, js: true do
   let(:instructor) { create(:instructor) }
   let(:student1) { create(:user) }
   let(:student2) { create(:test_user) }
+  let(:football_article) { create(:article, title: 'Football') }
+  let(:basketball_article) { create(:article, title: 'Basketball') }
+  let(:hockey_article) { create(:article, title: 'Hockey') }
+  let(:tennis_article) { create(:article, title: 'Tennis') }
+  let(:skating_article) { create(:article, title: 'Skating') }
+  let(:cricket_article) { create(:article, title: 'Cricket') }
 
   before do
     create(:campaigns_course, campaign_id: campaign.id, course_id: course.id)
@@ -15,24 +21,21 @@ describe 'random peer reviews', type: :feature, js: true do
     JoinCourse.new(course: course, user: student1, role: CoursesUsers::Roles::STUDENT_ROLE)
     JoinCourse.new(course: course, user: student2, role: CoursesUsers::Roles::STUDENT_ROLE)
 
-    # Student1 assigned 2 articles, already reviewing 1 article
-    create(:article, title: 'Football')
-    create(:article, title: 'Basketball')
-    create(:article, title: 'Tennis')
-    create(:assignment, course: course, article_title: Article.first.title, user: student1,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: Article.first)
-    create(:assignment, course: course, article_title: Article.second.title, user: student1,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: Article.second)
-    create(:assignment, course: course, article_title: Article.third.title, user: student1,
-           role: Assignment::Roles::REVIEWING_ROLE, wiki: course.home_wiki, article: Article.third)
+    # Student1 assigned 3 articles, already reviewing 1 article
+    create(:assignment, course: course, article_title: football_article.title, user: student1,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: football_article)
+    create(:assignment, course: course, article_title: basketball_article.title, user: student1,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: basketball_article)
+    create(:assignment, course: course, article_title: hockey_article.title, user: student1,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: hockey_article)
+    create(:assignment, course: course, article_title: tennis_article.title, user: student1,
+           role: Assignment::Roles::REVIEWING_ROLE, wiki: course.home_wiki, article: tennis_article)
 
     # Student2 assigned 2 articles, reviewing none
-    create(:article, title: 'Skating')
-    create(:article, title: 'Cricket')
-    create(:assignment, course: course, article_title: Article.fourth.title, user: student2,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: Article.fourth)
-    create(:assignment, course: course, article_title: Article.fifth.title, user: student2,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: Article.fifth)
+    create(:assignment, course: course, article_title: skating_article.title, user: student2,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: skating_article)
+    create(:assignment, course: course, article_title: cricket_article.title, user: student2,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: cricket_article)
 
     login_as(instructor, scope: :user)
     stub_oauth_edit
@@ -75,7 +78,10 @@ describe 'random peer reviews', type: :feature, js: true do
     expect(page).to have_content 'total of 1'
     find('button', text: 'OK').click
 
-    sleep 2
+    within(all('tr.students').last) do
+      expect(page).to have_content(/[Football|Basketball|Hockey]/)
+    end
+
     student1_peer_reviews = student1.assignments.where(role: Assignment::Roles::REVIEWING_ROLE)
                                     .pluck(:article_title)
     student2_peer_reviews = student2.assignments.where(role: Assignment::Roles::REVIEWING_ROLE)
@@ -88,7 +94,7 @@ describe 'random peer reviews', type: :feature, js: true do
 
     # Student2 assigned any of the two assigned articles of Student1
     expect(student2_peer_reviews.length).to eq 1
-    expect(%w[Basketball Football].include?(student2_peer_reviews.first)).to eq true
+    expect(%w[Basketball Football Hockey].include?(student2_peer_reviews.first)).to eq true
   end
 
   it 'assigns correctly if peer review count is set' do
@@ -100,11 +106,15 @@ describe 'random peer reviews', type: :feature, js: true do
     end
 
     find('button', text: 'Assign random peer reviews').click
+
     # 4 - 1 (Student1 already reviewing an article)
     expect(page).to have_content 'total of 3'
     find('button', text: 'OK').click
 
-    sleep 2
+    within(first('tr.students')) do
+      expect(page).to have_content '2 articles'
+    end
+
     student1_peer_reviews = student1.assignments.where(role: Assignment::Roles::REVIEWING_ROLE)
                                     .pluck(:article_title)
     student2_peer_reviews = student2.assignments.where(role: Assignment::Roles::REVIEWING_ROLE)
@@ -116,9 +126,8 @@ describe 'random peer reviews', type: :feature, js: true do
     expect(student1_peer_reviews.first).to eq 'Tennis'
     expect(%w[Skating Cricket].include?(student1_peer_reviews.second)).to eq true
 
-    # Student2 assigned both of the assigned articles of Student1
-    # Working around randomness by sorting article titles
+    # Student2 assigned two of the assigned articles of Student1
     expect(student2_peer_reviews.length).to eq 2
-    expect(student2_peer_reviews.sort).to eq %w[Basketball Football]
+    expect((%w[Basketball Football Hockey] & student2_peer_reviews).length).to eq 2
   end
 end
