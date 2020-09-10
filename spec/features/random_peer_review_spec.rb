@@ -23,9 +23,11 @@ describe 'random peer reviews', type: :feature, js: true do
 
     # Student1 assigned 3 articles, already reviewing 1 article
     create(:assignment, course: course, article_title: football_article.title, user: student1,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: football_article)
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki,
+           article: football_article)
     create(:assignment, course: course, article_title: basketball_article.title, user: student1,
-           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: basketball_article)
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki,
+           article: basketball_article)
     create(:assignment, course: course, article_title: hockey_article.title, user: student1,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: hockey_article)
     create(:assignment, course: course, article_title: tennis_article.title, user: student1,
