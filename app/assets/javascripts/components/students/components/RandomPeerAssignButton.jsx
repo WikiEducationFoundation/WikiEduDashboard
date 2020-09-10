@@ -36,7 +36,7 @@ const RandomPeerAssignButton = createReactClass({
   },
 
   render() {
-    if (!this.props.current_user.isInstructor) {
+    if (!this.props.current_user.isAdvancedRole) {
       return <div/>;
     }
 
