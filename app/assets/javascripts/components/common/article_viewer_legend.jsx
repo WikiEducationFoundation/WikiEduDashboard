@@ -8,14 +8,16 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
   let userLinks;
   if (users) {
     userLinks = users.map((user, i) => {
+      let res;
       const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
       const fullUserRecord = allUsers.find(_user => _user.username === user.name);
       const realName = fullUserRecord && fullUserRecord.real_name;
-      return (
-        <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}>
-          <a href={userLink} title={realName} target="_blank">{user.name}</a>
-        </div>
-      );
+      if (user.activeRevision === true) {
+        res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+      } else {
+        res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+      }
+      return res;
     });
   } else {
     userLinks = <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>;
