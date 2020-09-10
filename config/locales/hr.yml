@@ -24,6 +24,7 @@ hr:
   assignments:
     group_members: Članovi skupine
   courses:
+    data_wikidata: Wikipodatkovna statistika
     please_log_in: Molimo Vas, prijavite se.
     stay_in_sandbox: Ostaje u pješčaniku
     submitted_at: Podneseno na
