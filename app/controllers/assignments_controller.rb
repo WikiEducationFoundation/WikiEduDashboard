@@ -21,15 +21,28 @@ class AssignmentsController < ApplicationController
     render json: { assignmentId: @assignment.id }
   end
 
+  # For creating single assignments
   def create
     check_permissions(assignment_params[:user_id].to_i)
     set_wiki { return }
+
     set_new_assignment
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :internal_server_error
+  end
+
+  # For creating random peer assignments to whole class
+  def assign_reviewers_randomly
+    check_permissions
+
+    create_random_peer_reviews
+    update_onwiki_course_and_assignments
+    # Redirecting to give full list of course assignments after
+    # creating a bunch of random peer assignments
+    redirect_to "/courses/#{@course.slug}/assignments.json"
   end
 
   def update
@@ -123,10 +136,17 @@ class AssignmentsController < ApplicationController
                                         role: assignment_params[:role]).create_assignment
   end
 
-  def check_permissions(user_id)
+  def create_random_peer_reviews
+    AssignmentManager.new(course: @course).create_random_peer_reviews
+  end
+
+  # user_id = nil is when it is not passed in query parameters
+  # and in that case we only check if the current user can edit
+  # the course (valid for randomly assigning reviewers)
+  def check_permissions(user_id = nil)
     require_signed_in
-    return if current_user.id == user_id
     return if current_user.can_edit?(@course)
+    return if user_id.present? && current_user.id == user_id
     raise NotPermittedError
   end
 

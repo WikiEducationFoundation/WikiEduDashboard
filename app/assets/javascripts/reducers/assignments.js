@@ -1,6 +1,6 @@
 import { reject } from 'lodash-es';
 import { sortByKey } from '../utils/model_utils';
-import { RECEIVE_ASSIGNMENTS, ADD_ASSIGNMENT, DELETE_ASSIGNMENT, UPDATE_ASSIGNMENT } from '../constants';
+import { RECEIVE_ASSIGNMENTS, ADD_ASSIGNMENT, DELETE_ASSIGNMENT, UPDATE_ASSIGNMENT, LOADING_ASSIGNMENTS } from '../constants';
 
 const initialState = {
   assignments: [],
@@ -35,6 +35,9 @@ export default function assignments(state = initialState, action) {
       const updatedAssignment = action.data.assignment;
       const nonupdatedAssignments = reject(state.assignments, { id: updatedAssignment.id });
       return { ...state, assignments: [...nonupdatedAssignments, updatedAssignment] };
+    }
+    case LOADING_ASSIGNMENTS: {
+      return { ...state, loading: true };
     }
     default:
       return state;
