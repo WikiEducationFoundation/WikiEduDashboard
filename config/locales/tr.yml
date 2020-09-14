@@ -259,6 +259,9 @@ tr:
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
     peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
+    random_peer_review:
+      heading: Rastgele akran incelemeleri atayın
+      limit_exceeded: Her öğrenci zaten en az %{maximum} maddeyi inceliyor.
     remove: Kaldır
     reviewers: İnceleyici
     review_other: Akran değerlendirmesi ata
@@ -1236,6 +1239,8 @@ tr:
     none: Katılımcı yok.
     no_articles: Madde yok
     no_revisions: Bu editör hiçbir değişiklik yapmadı.
+    no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
+      Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:
       one: '%{count} madde'
       other: '%{count} madde'

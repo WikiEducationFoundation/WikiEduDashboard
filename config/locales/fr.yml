@@ -264,6 +264,13 @@ fr:
       relecture par des pairs.
     peer_review_link: Relecture par un pair
     peer_review_link_personalized: Révision paire de %{username}
+    random_peer_review:
+      confirm_addition: Êtes-vous sûr de vouloir affecter un total de %{count} article(s)
+        à toute la classe avec un maximum de %{maximum} pour chaque étudiant ?
+      heading: Assigner des relectures par paires aléatoires
+      tooltip_message: Affecte des articles aléatoires (avec comptage de revue de
+        pair comme nombre maximum) à chaque étudiant.
+      limit_exceeded: Chaque étudiant relit déjà au moins %{maximum} article(s).
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
@@ -1287,6 +1294,8 @@ fr:
     none: Il n'y a pas de participants.
     no_articles: Aucun article
     no_revisions: Cet éditeur n’a fait aucune révision.
+    no_highlighting: Aucun texte de la version actuelle de l’article n’est attribué
+      à cet éditeur. Vérifiez l’historique de la page pour voir leurs modifications.
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'

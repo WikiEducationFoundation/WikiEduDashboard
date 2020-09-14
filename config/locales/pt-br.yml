@@ -255,6 +255,13 @@ pt-br:
       por pares.
     peer_review_link: Revisão por pares
     peer_review_link_personalized: Revisão por pares %{username}
+    random_peer_review:
+      confirm_addition: Tem a certeza de que quer atribuir um total de %{count} artigo(s)
+        a toda a turma, com um máximo de %{maximum} a cada estudante?
+      heading: Atribuir revisões de pares aleatórias
+      tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
+        como o número máximo) para cada aluno.
+      limit_exceeded: Cada estudante já está a rever pelo menos %{maximum} artigo(s).
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão por pares
@@ -1250,6 +1257,8 @@ pt-br:
     none: Não há participantes.
     no_articles: Sem artigo
     no_revisions: Este editor não fez nenhuma revisão.
+    no_highlighting: Nenhum texto da versão atual do artigo é atribuído a este editor.
+      Verifique o histórico da página para ver suas edições.
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'

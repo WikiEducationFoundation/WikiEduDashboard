@@ -217,6 +217,10 @@ zh-CN:
 
       已选择%{currentCount}/%{total}
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
+    random_peer_review:
+      confirm_addition: 您确定要给整个班级分配%{count}条文章，而且每位学生最多分配%{maximum}条？
+      heading: 分配随机的同行复核
+      limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
     remove: 移除
     reviewers: 复核员
     review_other: 分配一次同行复核

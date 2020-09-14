@@ -4,18 +4,24 @@
 # Author: AZISS
 # Author: Neriman2003
 # Author: Vesely35
+# Author: Şeyx Şamil
 ---
 az:
   application:
     cancel: İmtina
     greeting2: Xoş gəldiniz!
     greeting_extended: Vikipediyaya xoş gəldiniz
-    greeting: Salam,
+    greeting: Salam!
     help: Kömək
     home: Ana səhifə
     log_in: Daxil ol
     log_out: Sistemdən çıx
     sign_up: Qeydiyyatdan keç
+    change: Dəyişdir
+    opt_in: Bəli
+    opt_out: Xeyr
+    opt_yes: bəli
+    opt_no: xeyr
   activity:
     edited_by: tərəfindən dəyişdirildi
   articles:

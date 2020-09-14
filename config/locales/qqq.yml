@@ -7,9 +7,11 @@
 # Author: Beta16
 # Author: Hamilton Abreu
 # Author: Ixocactus
+# Author: Kizule
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: MojoMann
+# Author: MuratTheTurkish
 # Author: Nemo bis
 # Author: Ragesoss
 # Author: Raymond
@@ -856,8 +858,7 @@ qqq:
     tools: Label for tools table column {{Identical|Tools}}
     keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
       Search}}
-    category_search: Radio Button label for selecting category based search {{Identical|Category
-      Search}}
+    category_search: Radio Button label for selecting category based search.
     article_quality: Slider lable for article quality filter
     more_results: Button label for fetching more search results {{Identical|More Results}}
     fetched_articles: Label indicating count of fetched results {{Identical|Fetched
