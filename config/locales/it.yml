@@ -937,7 +937,7 @@ it:
       one: Seleziona %{count} o più opzioni.
       other: Seleziona %{count} o più opzioni.
     read_less: Leggi di meno
-    read_more: Leggi di più
+    read_more: Per saperne di più
     summary: Sommario
   error:
     form_errors: Controlla il modulo per gli errori.

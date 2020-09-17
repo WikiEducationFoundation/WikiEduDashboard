@@ -5,6 +5,7 @@
 # Author: Actuallyisjoha
 # Author: Antsa
 # Author: Mikahama
+# Author: Moj
 # Author: Nike
 # Author: Olimar
 # Author: Pitke
@@ -376,6 +377,7 @@ fi:
     data_uploads: Commons-tallennusten tiedot
     data_uploads_info: Commons-latausten tiedot näyttää kunkin ladatun mediatiedoston
       nimen ja käyttökerrat.
+    data_wikidata: Wikidatan tilastot
     delete_course: Poista kurssi
     delete_suggestion: Poista
     delete_course_instructions: Voit poistaa tämän sivun, kun kaikki kampanjat on

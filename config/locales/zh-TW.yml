@@ -209,6 +209,11 @@ zh-TW:
     peer_review_count_tooltip: 您必須選擇 %{total} 個條目來同行評審。
     peer_review_link: 同行評審
     peer_review_link_personalized: '%{username}的同行評審'
+    random_peer_review:
+      confirm_addition: 您確定您要分配一共 %{count} 條目給整個班級，且每位學生最多 %{maximum} 個？
+      heading: 分配隨機同行評審
+      tooltip_message: 分配隨機條目（以同行評審數為最大數目）給各學生。
+      limit_exceeded: 每位學生至少已檢閱 %{maximum} 個條目。
     remove: 移除
     reviewers: 審核者
     review_other: 分配同行評審
@@ -1009,6 +1014,7 @@ zh-TW:
     none: 沒有參與者。
     no_articles: 沒有條目
     no_revisions: 這位編輯者沒有做出修訂。
+    no_highlighting: 條目的目前版本中沒有文字內容歸因於該名編輯者。檢查頁面歷史來查看他們的編輯。
     number_of_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
