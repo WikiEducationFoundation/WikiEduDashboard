@@ -22,7 +22,7 @@ import { initiateConfirm } from '../../actions/confirm_actions.js';
 import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
-import { setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
+import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
 
 const Overview = createReactClass({
@@ -72,6 +72,7 @@ const Overview = createReactClass({
           isValid={this.props.isValid}
           setValid={this.props.setValid}
           setInvalid={this.props.setInvalid}
+          addValidation={this.props.addValidation}
           activateValidations={this.props.activateValidations}
         />
       );
@@ -192,6 +193,7 @@ const mapDispatchToProps = {
   updateClonedCourse,
   fetchTags,
   refetchCourse,
+  addValidation,
   setValid,
   setInvalid,
   activateValidations,
