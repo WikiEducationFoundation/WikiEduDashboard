@@ -142,6 +142,88 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.language).toBe('es');
     expect(output.article_url).toBe(input);
   });
+
+  test('correctly parses Wikipedia redlinks', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=Redlink&action=edit&redlink=1';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Redlink');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses wikipedia redlinks (variation: The edit link for an older revision)', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=72nd_Primetime_Emmy_Awards&oldid=980777920&action=edit';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('72nd Primetime Emmy Awards');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses wikipedia redlinks (variation: Section edit link)', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=Sweetwater_Formation&action=edit&section=2';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Sweetwater Formation');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses wikipedia redlinks (variation: Old version of page)', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=Smedsb%C3%B6le_Radio_Mast&oldid=479392613';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Smedsböle Radio Mast');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses wikipedia redlinks (variation: Old version edit link using VisualEditor)', () => {
+    const input = ' https://en.wikipedia.org/w/index.php?title=Christian_Social_Party_of_Obwalden&oldid=886780353&veaction=editsource';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Christian Social Party of Obwalden');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses mobile Wikipedia redlinks', () => {
+    const input = 'https://en.m.wikipedia.org/w/index.php?title=Red_link&action=edit&redlink=1';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Red link');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('correctly parses Wikimedia redlinks', () => {
+    const input = 'https://incubator.wikimedia.org/w/index.php?title=Redlink&action=edit&redlink=1';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Redlink');
+    expect(output.project).toBe('wikimedia');
+    expect(output.language).toBe('incubator');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('handles url-encoded characters in Wikipedia redlinks -- #1', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=Jalape%C3%B1o&action=edit&redlink=1';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Jalapeño');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+
+  test('handles url-encoded characters in Wikipedia redlinks -- #2', () => {
+    const input = 'https://en.wikipedia.org/w/index.php?title=Mesut%20%C3%96zil:REDLINK&redirect=no';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Mesut Özil');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(input);
+  });
+  
 });
 
 describe('courseUtils.articleFromAssignment', () => {

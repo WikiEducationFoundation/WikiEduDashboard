@@ -93,6 +93,19 @@ export default class CourseUtils {
       };
     }
 
+    const wikiRedLinkUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
+    if (wikiRedLinkUrlParts) {
+        const title = decodeURIComponent(wikiRedLinkUrlParts[3]).replace(/_/g, ' ');
+        const project = wikiRedLinkUrlParts[2];
+        const language = wikiRedLinkUrlParts[1];
+        return {
+          title: title,
+          project: project,
+          language: language,
+           article_url: articleTitle,
+        };
+      }
+
     return {
       title: articleTitleInput,
       project: null,
