@@ -1,0 +1,351 @@
+title: Wikipedia article rubric
+criteria:
+  -
+    id: '1.1'
+    description: 'Lead section: Introductory sentence'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'States article topic concisely and accurately in single sentence'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Topic of article stated, though not concise/direct'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Begins with an introduction, not a lead'
+        points: 1
+      -
+        description: Poor
+        long_description: 'No lead'
+        points: 0
+
+  -
+    id: '1.2'
+    description: 'Lead section: Summary'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Summarizes all major points in the article'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Summarizes most major points, but misses one or more important aspects'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Includes excessive background information'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Summary missing, lacking key ideas'
+        points: 0
+  -
+    id: '1.3'
+    description: 'Lead section: Context'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'All information included is also present in body of the article'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Includes some information not present in body of the article'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Includes only 1-2 additional sentences of information'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Doesn’t provide enough information to determine what the article is about'
+        points: 0
+
+  -
+    id: '2.1'
+    description: 'Article body: Organization'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Clear organization of heading and subheadings; appropriate transitions and clear language/grammar'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Purposeful organization but article does not flow between sections'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Confusing organization and/or many grammatical errors'
+        points: 1
+      -
+        description: Poor
+        long_description: 'No sections'
+        points: 0
+  -
+    id: '2.2'
+    description: 'Article body: Content'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Covers info relevant to assigned topic; links to relevant articles for background'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Covers most of the assigned topic area'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Covers some of the assigned topic area'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Misses the point'
+        points: 0
+  -
+    id: '2.3'
+    description: 'Article body: Balance'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Article presents balanced coverage without favoring one side unduly'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Article presents one side, ignores minority views'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Article attempts to convince readers of majority view'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Article presents fringe view as if it were mainstream'
+        points: 0
+  -
+    id: '2.4'
+    description: 'Article body: Tone'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Tone is neutral and appropriate for an encyclopedia audience'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Tone is mostly good, but becomes informal or chatty in places'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Content speaks to the reader directly (uses: you, I, we, or one)'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Additions are promotional'
+        points: 0
+  -
+    id: '2.5'
+    description: 'Article body: Images'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Images improve the reader’s understanding of the topic. Captions are clear, concise.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Images are relevant. Article is more visually attractive. Captions are too detailed.
+        '
+        points: 2
+      - 
+        description: Fair
+        long_description: 'No images, or images of limited relevance. Captions are absent or confusing.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Irrelevant images. Images that break the layout of the page. Copyright violations.'
+        points: 0
+  -
+    id: '3.1'
+    description: 'References: Citations'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Every statement can easily be associated with a supporting reference.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'A few statements at the end of some paragraphs have unclear sourcing'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'A few unsourced paragraphs or sections'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Very few or no sources'
+        points: 0
+  -
+    id: '3.2'
+    description: 'References: Choice of sources'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Most sources are the best available, are appropriate for the discipline/genre.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Article uses mostly good sources, but includes some lower-quality sources.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Article depends heavily on non-independent sources or uses many low-quality sources.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Article uses unreliable internet sources.'
+        points: 0
+  -
+    id: '3.3'
+    description: 'References: Completeness'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Most references include completely filled-out citation template or are otherwise complete.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Most references are fairly complete, but some are missing something.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'References have enough information to track down sources, but with difficulty.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'References lack important information; sources are too hard to track down.'
+        points: 0
+  -
+    id: '4.1'
+    description: 'Existing article: New sections'
+    long_description: 'This criterion applies only to existing articles being improved/explanded.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Sections added are comprehensive and do not duplicate other sections.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Sections added cover the topic broadly but are missing some sections.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Sections added do not cover the topic adequately.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Sections added do not cover the assigned topic.'
+        points: 0
+  -
+    id: '4.2'
+    description: 'Existing article: Re-organization'
+    long_description: 'This criterion applies only to existing articles being improved/explanded.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Article covers the topic in organized, logical fashion.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Article organization is improved, but retains flaws.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Article organization remains poor.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'No attempt to impose order.'
+        points: 0
+  -
+    id: '4.3'
+    description: 'Existing article: Gaps'
+    long_description: 'This criterion applies only to existing articles being improved/explanded.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Key gaps are filled.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Most gaps are filled.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Some gaps are filled.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'No real attempt to fill gaps.'
+        points: 0
+  -
+    id: '4.4'
+    description: 'Existing article: Smaller additions'
+    long_description: 'This criterion applies only to existing articles being improved/explanded.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Additions added to relevant section of the article.'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Some additions are added to relevant sections of the article.'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Content is added in one block, with little regard to article organization.'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Content added isn’t relevant to the article.'
+        points: 0
+  -
+    id: '5.1'
+    description: 'New article: Coverage'
+    long_description: 'This criterion applies only to newly-created articles.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Comprehensive coverage of the topic'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Coverage has some important gaps'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Coverage has many important gaps that make it difficult to follow'
+        points: 1
+      -
+        description: Poor
+        long_description: 'Article does not provide enough detail for reader to determine topic'
+        points: 0
+  -
+    id: '5.2'
+    description: 'New article: Article body'
+    long_description: 'This criterion applies only to newly-created articles.'
+    ratings:
+      - 
+        description: Excellent
+        long_description: 'Body is divided into relevant, logical sections that follow guidelines for topic'
+        points: 3
+      - 
+        description: Good
+        long_description: 'Body includes sections, but they don’t follow guidelines or aren’t hierarchical'
+        points: 2
+      - 
+        description: Fair
+        long_description: 'Article sections duplicate one-another'
+        points: 1
+      -
+        description: Poor
+        long_description: 'No sections'
+        points: 0

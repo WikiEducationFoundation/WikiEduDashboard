@@ -77,6 +77,7 @@ gem 'chartkick' # Used for plots in Rails views
 gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
+gem 'canvas_cc' # Generates Canvas Common Cartridge files for import into Canvas
 
 ### Platform-specific fixes
 # TZ information is not available on Windows, needs to be installed separately
