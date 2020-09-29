@@ -90,6 +90,7 @@ describe('courseUtils.i18n', () => {
 });
 
 describe('courseUtils.articleFromTitleInput', () => {
+
   test('replaces underscores', () => {
     const input = 'Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
@@ -99,7 +100,6 @@ describe('courseUtils.articleFromTitleInput', () => {
   test('converts Wikipedia urls into titles', () => {
     const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
-
     expect(output.title).toBe('Robot selfie');
     expect(output.project).toBe('wikipedia');
     expect(output.language).toBe('en');
@@ -109,7 +109,6 @@ describe('courseUtils.articleFromTitleInput', () => {
   test('handles mobile urls correctly', () => {
     const input = 'https://en.m.wikipedia.org/wiki/Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
-
     expect(output.title).toBe('Robot selfie');
     expect(output.project).toBe('wikipedia');
     expect(output.language).toBe('en');
@@ -223,7 +222,6 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.language).toBe('en');
     expect(output.article_url).toBe(input);
   });
-  
 });
 
 describe('courseUtils.articleFromAssignment', () => {
