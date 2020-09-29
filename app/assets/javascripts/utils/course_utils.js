@@ -93,11 +93,11 @@ export default class CourseUtils {
       };
     }
 
-    const wikiRedLinkUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
-    if (wikiRedLinkUrlParts) {
-        const title = decodeURIComponent(wikiRedLinkUrlParts[3]).replace(/_/g, ' ');
-        const project = wikiRedLinkUrlParts[2];
-        const language = wikiRedLinkUrlParts[1];
+    const indexphpFormatUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
+    if (indexphpFormatUrlParts) {
+        const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
+        const project = indexphpFormatUrlParts[2];
+        const language = indexphpFormatUrlParts[1];
         return {
           title: title,
           project: project,
