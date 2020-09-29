@@ -90,7 +90,6 @@ describe('courseUtils.i18n', () => {
 });
 
 describe('courseUtils.articleFromTitleInput', () => {
-
   test('replaces underscores', () => {
     const input = 'Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
