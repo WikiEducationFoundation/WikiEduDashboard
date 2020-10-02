@@ -6,7 +6,7 @@
 ti:
   application:
     cancel: ኣትርፍ
-    explore: ዳህሰሰ
+    explore: ዳህስስ
     greeting2: እንኳዕ ብደሓን መጻኻ!
     greeting: ሰላም!
     help: ሓገዝ
@@ -19,7 +19,7 @@ ti:
     opt_yes: እወ
     opt_no: ኣይፋል
   home:
-    explore: ዳህሰሰ
+    explore: ዳህስስ
   activity:
     all: ንጥፈት
     label: ንጥፈት
