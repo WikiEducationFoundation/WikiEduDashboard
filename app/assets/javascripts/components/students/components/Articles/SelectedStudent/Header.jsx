@@ -38,7 +38,7 @@ export const Header = ({
           editable
           course={course}
           current_user={current_user}
-          id="user_assigned"
+          key={`assign_${selected.id}`}
           prefix={I18n.t('users.my_assigned')}
           role={ASSIGNED_ROLE}
           student={selected}
@@ -51,7 +51,7 @@ export const Header = ({
           course={course}
           current_user={current_user}
           editable
-          id="user_reviewing"
+          key={`review_${selected.id}`}
           prefix={I18n.t('users.my_reviewing')}
           role={REVIEWING_ROLE}
           student={selected}
