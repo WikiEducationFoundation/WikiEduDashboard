@@ -182,6 +182,30 @@ describe WikiSlideParser do
     WIKISLIDE
   end
 
+  # https://meta.wikimedia.org/wiki/Training_modules/editathons/library
+  let(:editathons_library_wikitext) do
+    <<~WIKITEXT
+      <noinclude><languages /></noinclude>
+      <translate>== Running Editathons and other Editing Events == <!--T:1--></translate>
+
+      <translate><!--T:2--> This set of modules focuses on the development of editathons and other editing events.</translate>
+
+      {{Training module category
+      | title = <translate><!--T:3--> Running Editathons</translate>
+      | description = <translate><!--T:4--> Training modules for running an editathon or other similar editing events. The training takes about 1.5-2 hours, and is in three parts.</translate>
+      | module_name_1 = <translate><!--T:5--> Module 1: Defining your event</translate>
+      | module_slug_1 = defining-your-event
+      | module_description_1 = <translate><!--T:6--> What decisions do you need to make to identify and create and editing event?</translate>
+      | module_name_2 =<translate> <!--T:7--> Module 2: Planning well before the Editathon</translate>
+      | module_slug_2 = planning-well-before-the-event
+      | module_description_2 = <translate><!--T:8--> Logistics, decisions and outreach that can be done well before editing events — including Venue logistics, Communications plans and preparing contribution topics.</translate>
+      | module_name_3 = <translate><!--T:9--> Module 3: Planning leading up to the event</translate>
+      | module_slug_3 = planning-leading-up-to-the-event
+      | module_description_3 = <translate><!--T:10--> Logistics, preparation and concerns that might arise in the final weeks before the event and during the event.</translate>
+      }}
+    WIKITEXT
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = described_class.new(source_wikitext.dup).title
@@ -206,6 +230,11 @@ describe WikiSlideParser do
     it 'extracts the title from translated wikitext with leading whitespace' do
       output = described_class.new(translated_wikitext_with_leading_whitespace.dup).title
       expect(output).to eq('Edizio ekintzei buruzko sarrera')
+    end
+
+    it 'works for training libraries' do
+      output = described_class.new(editathons_library_wikitext.dup).title
+      expect(output).to eq('Running Editathons and other Editing Events')
     end
   end
 
@@ -257,6 +286,19 @@ describe WikiSlideParser do
       output = described_class.new(quiz_wikitext.dup).quiz
       expect(output[:correct_answer_id]).to eq(1)
       expect(output[:answers].count).to eq(2)
+    end
+  end
+
+  describe '#categories' do
+    it 'extracts an array of category hashes from a wiki template' do
+      output = described_class.new(editathons_library_wikitext.dup).categories
+      expect(output.count).to eq(1)
+      expect(output.first['modules'].count).to eq(3)
+      expect(output.first['modules'].first['slug']).to eq('defining-your-event')
+      expect(output.first['modules'].second['name'])
+        .to eq('Module 2: Planning well before the Editathon')
+      expect(output.first['modules'].third['description'])
+        .to include('Logistics, preparation and concerns that might arise')
     end
   end
 end

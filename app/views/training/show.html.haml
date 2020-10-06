@@ -7,7 +7,7 @@
     %p
       = @library.translated_introduction
   %ul.training__categories
-    - @library.categories.each do |lib_category|
+    - @library.translated_categories.each do |lib_category|
       - lib_category = lib_category.to_hashugar
       %li
         .training__category__header

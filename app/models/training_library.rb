@@ -63,7 +63,7 @@ class TrainingLibrary < ApplicationRecord
     training_library.introduction = content['introduction'] || content[:introduction]
     training_library.translations = content['translations']
     training_library.wiki_page = wiki_page
-    training_library.categories = content['categories']
+    training_library.categories = content['categories'] || content[:categories]
     training_library.exclude_from_index = content['exclude_from_index']
     TrainingLibrary.save_if_valid(training_library, slug)
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
@@ -81,6 +81,10 @@ class TrainingLibrary < ApplicationRecord
 
   def translated_introduction
     translated(:introduction) || introduction
+  end
+
+  def translated_categories
+    translated(:categories) || categories
   end
 
   def translated(key)
