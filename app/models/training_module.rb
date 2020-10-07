@@ -24,6 +24,7 @@ class TrainingModule < ApplicationRecord
 
   serialize :slide_slugs, Array
   serialize :translations, Hash
+  serialize :settings, Hash
 
   validates_uniqueness_of :slug, case_sensitive: false
 
@@ -77,6 +78,7 @@ class TrainingModule < ApplicationRecord
     training_module.description = content['description'] || content[:description]
     training_module.estimated_ttc = content['estimated_ttc']
     training_module.translations = content['translations']
+    training_module.settings = content['settings']
     training_module.wiki_page = wiki_page
     training_module.slide_slugs = content['slides'].pluck('slug')
     training_module.kind = training_module_kind(content['kind'])
@@ -138,6 +140,10 @@ class TrainingModule < ApplicationRecord
 
   def translated(key)
     translations.dig(I18n.locale.to_s, key)
+  end
+
+  def sandbox_location
+    settings['sandbox_location']
   end
 
   class ModuleNotFound < StandardError; end

@@ -121,6 +121,10 @@ class User < ApplicationRecord
     CGI.escape(username.tr(' ', '_'))
   end
 
+  def userpage_url(course)
+    "#{course.home_wiki.base_url}/wiki/User:#{url_encoded_username}"
+  end
+
   def admin?
     [Permissions::ADMIN, Permissions::SUPER_ADMIN].include? permissions
   end
