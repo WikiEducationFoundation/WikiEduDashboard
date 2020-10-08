@@ -10,6 +10,7 @@ io:
     home: Chefpagino
     change: Modifiko
   articles:
+    article_title: Titulo dil artiklo
     hide: Celez
   campaign:
     none: Nula
