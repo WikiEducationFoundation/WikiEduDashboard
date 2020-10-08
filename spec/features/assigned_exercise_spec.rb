@@ -40,7 +40,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
   context 'when there are multiple incomplete exercises' do
     let(:assigned_ids) { [evaluate_exercise_id, presentation_exercise_id] }
 
-    it 'see the next incomplete exercise after complete one' do
+    it 'shows the next incomplete exercise after complete one' do
       visit "/courses/#{course.slug}"
 
       within '.my-exercises' do
@@ -54,6 +54,31 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
         expect(page).not_to have_content 'Evaluate Wikipedia'
         expect(page).to have_content 'In-class presentation'
       end
+    end
+  end
+
+  context 'shows a link to the sandbox of an completed exercise' do
+    let(:assigned_ids) { [evaluate_exercise_id] }
+
+    it 'shows the next incomplete exercise after complete one' do
+      visit "/courses/#{course.slug}"
+
+      within '.my-exercises' do
+        click_button 'Mark Complete'
+        expect(page).not_to have_content 'Evaluate Wikipedia'
+      end
+
+      click_link 'Students'
+      within '#users' do
+        expect(page).to have_content student.username
+        page.find('.name').click
+      end
+
+      within 'tr.students-exercise' do
+        page.find('button').click
+      end
+
+      expect(page).to have_link 'Exercise Sandbox'
     end
   end
 end

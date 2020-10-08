@@ -14,6 +14,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  kind          :integer          default(0)
+#  settings      :text(65535)
 #
 
 require_dependency "#{Rails.root}/lib/training/training_base"
