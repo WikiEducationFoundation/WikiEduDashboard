@@ -127,6 +127,7 @@ export class ArticleViewer extends React.Component {
   }
 
   hideArticle(e) {
+    if (!this.state.showArticle) { return; }
     this.hideBadArticleAlert();
     this.setState({ showArticle: false });
     this.props.resetNeedHelpAlert();

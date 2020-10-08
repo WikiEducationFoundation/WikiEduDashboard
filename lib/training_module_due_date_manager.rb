@@ -56,6 +56,11 @@ class TrainingModuleDueDateManager
     end
   end
 
+  def sandbox_url
+    return unless @training_module.sandbox_location && @user
+    "#{@user.userpage_url(@course)}/#{@training_module.sandbox_location}"
+  end
+
   private
 
   def blocks_with_training_modules_for_user

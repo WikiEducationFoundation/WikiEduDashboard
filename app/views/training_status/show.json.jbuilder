@@ -18,6 +18,8 @@ json.course do
     json.due_date due_date_manager.computed_due_date
     json.deadline_status due_date_manager.deadline_status
 
+    json.sandbox_url due_date_manager.sandbox_url
+
     json.completion_date training_progress_manager.completion_date
     json.completion_time training_progress_manager.completion_time
   end

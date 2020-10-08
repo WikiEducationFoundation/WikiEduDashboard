@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_150005) do
+ActiveRecord::Schema.define(version: 2020_10_07_191933) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "course_id"
@@ -483,6 +483,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_150005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind", limit: 1, default: 0
+    t.text "settings"
     t.index ["slug"], name: "index_training_modules_on_slug", unique: true
   end
 

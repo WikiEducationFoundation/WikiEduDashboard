@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import TrainingModuleRows from './TrainingModuleRows';
 import ExerciseRows from './ExerciseRows';
 
+import {
+  TRAINING_MODULE_KIND
+} from '~/app/assets/javascripts/constants';
+
 const TrainingStatus = ({ exercises, trainingModules }) => {
   if (!trainingModules.length) return <div />;
 
@@ -22,7 +26,9 @@ const TrainingStatus = ({ exercises, trainingModules }) => {
     </table>
   );
 
-  const trainingModuleTable = (
+  const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
+
+  const trainingModuleTable = !!trainings.length && (
     <table className="table">
       <thead>
         <tr>
@@ -31,7 +37,7 @@ const TrainingStatus = ({ exercises, trainingModules }) => {
         </tr>
       </thead>
       <tbody>
-        <TrainingModuleRows trainingModules={trainingModules} />
+        <TrainingModuleRows trainings={trainings} />
       </tbody>
     </table>
   );
