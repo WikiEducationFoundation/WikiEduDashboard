@@ -62,17 +62,24 @@ You can also contact us on slack for any further queries.
 ## TL;DR bare minimum version
 If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
 
-* copy `config/application.example.yml` to `config/application.yml`
-* copy `config/database.example.yml` to `config/database.yml`
-* create a MySQL database, `dashboard`
-* install ruby 2.7.1 and nodejs
-* `bundle install`
-* `rake db:migrate`
-* install yarn
-* `yarn` for more javascript requirements
-* `yarn start` to build assets
-* `guard` or `rails s` to start a server
-* localhost:3000 should load the home page
+1. Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard.
+2. In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub     username.
+3. Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
+4. **Install gems:** Run `bundle install`
+ <br />**Note:** If you get an error message like Your Ruby version is 2.x.x, then you need to install the ruby version 2.7.1 using rvm or rbenv.
+      * Using **rvm:** `rvm install 2.7.1` followed by `rvm use 2.7.1`
+      * Using **rbenv:** `rbenv install 2.7.1` followed by `rbenv local 2.7.1`
+5. Next, copy `config/application.example.yml` to `config/application.yml` 
+    * by running the command `cp config/application.example.yml config/application.yml`
+6. And, copy `config/database.example.yml` to `config/database.yml`
+    * by running the command `cp config/database.example.yml config/database.yml`
+7. Now **login into your MySQL** database using the command `mysql -u root -p` and create a new user using`CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'`.
+8. Next, create a new MySQL database named as **dashboard** using the command `CREATE DATABASE dashboard`.
+9. Run `rake db:migrate` to migrate all database tables.
+10. Install yarn using `yarn install`.
+11. Run `yarn build` to build assets.
+12. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
+13. Now, you're up and running!!
 
 ## Detailed instructions
 
