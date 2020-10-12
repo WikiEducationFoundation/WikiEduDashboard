@@ -23,16 +23,7 @@ class AssignmentManager
       needed_count = peer_review_count - currently_reviewing.count
       next unless needed_count.positive?
 
-      reviewables = unreviewed_peer_titles(student)
-      if reviewables.count > needed_count
-        reviewables = reviewables.shuffle.take(needed_count)
-      elsif reviewables.count < needed_count
-        reviewables += @course.assignments.assigned
-                              .where.not(user_id: student.id)
-                              .where.not(article_title: currently_reviewing)
-                              .sample(needed_count - reviewables.count)
-                              .pluck(:article_title)
-      end
+      reviewables = reviewable_titles(student, needed_count, currently_reviewing)
 
       assign_peer_reviews(student, reviewables)
     end
@@ -69,6 +60,20 @@ class AssignmentManager
 
   def unreviewed_peer_titles(student)
     assigned_titles - reviewed_titles - own_assigned_titles(student)
+  end
+
+  def reviewable_titles(student, needed_count, currently_reviewing)
+    reviewables = unreviewed_peer_titles(student)
+    if reviewables.count > needed_count
+      reviewables = reviewables.shuffle.take(needed_count)
+    elsif reviewables.count < needed_count
+      reviewables += @course.assignments.assigned
+                            .where.not(user_id: student.id)
+                            .where.not(article_title: currently_reviewing)
+                            .sample(needed_count - reviewables.count)
+                            .pluck(:article_title)
+    end
+    reviewables
   end
 
   def set_clean_title
