@@ -53,6 +53,8 @@ export class ArticleViewer extends React.Component {
   componentDidMount() {
     if (this.props.showOnMount) {
       this.showArticle();
+    } else {
+      this.props.fetchArticleDetails();
     }
   }
 
@@ -63,6 +65,20 @@ export class ArticleViewer extends React.Component {
   // first in that case. In that case, componentDidUpdate fetches the
   // user ids as soon as usernames are avaialable.
   componentDidUpdate(prevProps, prevState) {
+    if (this.props.users !== null) {
+      if (this.props.articleDetails[`${this.props.article.id}`] !== undefined) {
+        if (Object.keys(prevProps.articleDetails).length === 0 && Object.keys(this.props.articleDetails).length === 1) {
+            console.log('updating upper');
+            const users = Array.from(new Set(this.props.users.concat(this.props.articleDetails[`${this.props.article.id}`].editors)));
+            this.fetchUserIds(users);
+        }
+        if (this.state.users.length === 0 && Object.keys(prevProps.articleDetails).length !== 0 && Object.keys(this.props.articleDetails).length !== 0) {
+            console.log('updating lower');
+            const users = Array.from(new Set(this.props.users.concat(this.props.articleDetails[`${this.props.article.id}`].editors)));
+            this.fetchUserIds(users);
+        }
+      }
+    }
     if (!prevProps.users && this.props.users) {
       if (!prevState.userIdsFetched) {
         this.fetchUserIds(this.props.users);

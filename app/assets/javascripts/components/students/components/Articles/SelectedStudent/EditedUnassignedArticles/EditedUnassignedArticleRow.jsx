@@ -21,7 +21,7 @@ export const EditedUnassignedArticleRow = ({
         article={article}
         course={course}
         current_user={current_user}
-        fetchArticleDetails={fetchArticleDetails}
+        fetchArticleDetails={() => { fetchArticleDetails(article.id, course.id); }}
         users={[user.username]}
         showOnMount={showArticleId === article.id}
       />

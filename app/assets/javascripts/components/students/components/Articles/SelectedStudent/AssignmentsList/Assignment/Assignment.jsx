@@ -48,7 +48,7 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
           article={article}
           course={course}
           current_user={current_user}
-          fetchArticleDetails={fetchArticleDetails}
+          fetchArticleDetails={() => { fetchArticleDetails(article.id, course.id); }}
           users={users}
           showOnMount={showArticleId === article.id}
         />
