@@ -54,7 +54,7 @@ describe 'random peer reviews', type: :feature, js: true do
     end
 
     find('button', text: 'Assign random peer reviews').click
-    expect(page).to have_content 'Each student is already reviewing atleast 1 articles(s)'
+    expect(page).to have_content 'Each student is already reviewing at least 1 articles(s)'
     find('button', text: 'OK').click
 
     sleep 2

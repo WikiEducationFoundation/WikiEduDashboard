@@ -19,14 +19,22 @@ class AssignmentManager
 
     @course.students.each do |student|
       currently_reviewing = @course.assignments.reviewing
-                                   .where(user_id: student.id).pluck(:article_id)
-      next if currently_reviewing.length > peer_review_count
+                                   .where(user_id: student.id).pluck(:article_title)
+      needed_count = peer_review_count - currently_reviewing.count
+      next unless needed_count.positive?
 
-      unreviewed_peer_assignments = @course.assignments.assigned
-                                           .where.not(user_id: student.id)
-                                           .where.not(article_id: currently_reviewing)
-      randomly_assign_peer_reviews(student, unreviewed_peer_assignments,
-                                   peer_review_count - currently_reviewing.length)
+      reviewables = unreviewed_peer_titles(student)
+      if reviewables.count > needed_count
+        reviewables = reviewables.shuffle.take(needed_count)
+      elsif reviewables.count < needed_count
+        reviewables += @course.assignments.assigned
+                              .where.not(user_id: student.id)
+                              .where.not(article_title: currently_reviewing)
+                              .sample(needed_count - reviewables.count)
+                              .pluck(:article_title)
+      end
+
+      assign_peer_reviews(student, reviewables)
     end
   end
 
@@ -44,6 +52,24 @@ class AssignmentManager
   end
 
   private
+
+  def assigned_titles
+    @assigned_titles ||= @course.assignments.assigned.pluck(:article_title).uniq
+  end
+
+  def reviewed_titles
+    @newly_reviewed_titles ||= []
+    @initially_reviewed_titles ||= @course.assignments.reviewing.pluck(:article_title).uniq
+    @initially_reviewed_titles + @newly_reviewed_titles
+  end
+
+  def own_assigned_titles(student)
+    @course.assignments.assigned.where(user_id: student.id).pluck(:article_title).uniq
+  end
+
+  def unreviewed_peer_titles(student)
+    assigned_titles - reviewed_titles - own_assigned_titles(student)
+  end
 
   def set_clean_title
     # Wiktionary allows titles that begin lower case.
@@ -73,12 +99,12 @@ class AssignmentManager
     RatingImporter.update_rating_for_article(@article)
   end
 
-  def randomly_assign_peer_reviews(student, potential_assignments, count)
-    potential_assignments.sample(count).each do |random_assignment|
+  def assign_peer_reviews(student, reviewable_titles)
+    reviewable_titles.each do |title|
       Assignment.create!(user_id: student.id, course: @course,
-                         article_title: random_assignment.article_title, wiki: @wiki,
-                         article_id: random_assignment.article_id,
+                         article_title: title, wiki: @wiki,
                          role: Assignment::Roles::REVIEWING_ROLE)
+      @newly_reviewed_titles << title
     end
   end
 
