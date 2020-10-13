@@ -53,7 +53,7 @@ export class ArticleViewer extends React.Component {
   componentDidMount() {
     if (this.props.showOnMount) {
       this.showArticle();
-    } else {
+    } else if (this.props.fetchArticleDetails) {
       this.props.fetchArticleDetails();
     }
   }
