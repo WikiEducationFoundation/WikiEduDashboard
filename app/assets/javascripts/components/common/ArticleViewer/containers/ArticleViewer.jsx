@@ -354,7 +354,7 @@ ArticleViewer.propTypes = {
 };
 
 const clickOutsideComponent = OnClickOutside(ArticleViewer);
-const mapStateToProps = ({ needHelpAlert }) => ({ alertStatus: needHelpAlert });
+const mapStateToProps = ({ articleDetails, needHelpAlert }) => ({ alertStatus: needHelpAlert, articleDetails: articleDetails });
 const mapDispatchToProps = {
   resetNeedHelpAlert,
   submitBadWorkAlert
