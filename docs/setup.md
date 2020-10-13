@@ -62,24 +62,22 @@ You can also contact us on slack for any further queries.
 ## TL;DR bare minimum version
 If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
 
-1. Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard.
-2. In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub     username.
-3. Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
-4. **Install gems:** Run `bundle install`
- <br />**Note:** If you get an error message like Your Ruby version is 2.x.x, then you need to install the ruby version 2.7.1 using rvm or rbenv.
-      * Using **rvm:** `rvm install 2.7.1` followed by `rvm use 2.7.1`
-      * Using **rbenv:** `rbenv install 2.7.1` followed by `rbenv local 2.7.1`
-5. Next, copy `config/application.example.yml` to `config/application.yml` 
-    * by running the command `cp config/application.example.yml config/application.yml`
-6. And, copy `config/database.example.yml` to `config/database.yml`
-    * by running the command `cp config/database.example.yml config/database.yml`
-7. Now **login into your MySQL** database using the command `mysql -u root -p` and create a new user using`CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'`.
-8. Next, create a new MySQL database named as **dashboard** using the command `CREATE DATABASE dashboard`.
-9. Run `rake db:migrate` to migrate all database tables.
-10. Install yarn using `yarn install`.
-11. Run `yarn build` to build assets.
-12. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
-13. Now, you're up and running!!
+1. Fork and clone our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard.
+2. **Install gems:** run `bundle install`
+3. Copy `config/application.example.yml` to `config/application.yml` 
+4. Copy `config/database.example.yml` to `config/database.yml`
+5. Create a new MySQL database named as `dashboard` using the command `CREATE DATABASE dashboard`.
+6. Now **login into your MySQL** database using the command `mysql -u root -p` 
+      *  Either create a new user using`CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'`
+      *  or update `database.yml` with valid credentials to connect to the database
+7. Run `rake db:migrate` to migrate all database tables.
+8. Install yarn
+9. Run `yarn` to download the required javascript packages
+10. **Building assets:**
+      * `yarn start` to built the development version
+      * `yarn build` to generate the production version
+11. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
+12. Now, you're up and running!!
 
 ## Detailed instructions
 
@@ -91,13 +89,15 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Pre-requisites for setup on Windows:
     - Install Git from [the official Windows package](https://git-scm.com/download/win)
 
-- Fork this repo, so that you can make changes and push them freely to GitHub.
-- Clone the new WikiEduDashboard repo and enter that directory.
+- Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard..
+- In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
+- Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
 - On OSX/Debian, make sure you are in the "sudo" group.
 - Install Ruby 2.7.1 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - `rvm install ruby-2.7.1`
+       - Use **rvm:** `rvm install 2.7.1` followed by `rvm use 2.7.1`
+       - or use **rbenv:** `rbenv install 2.7.1` followed by `rbenv local 2.7.1`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
