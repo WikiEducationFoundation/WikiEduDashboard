@@ -11,8 +11,8 @@ describe CourseStudentsCsvBuilder do
 
   it 'creates a CSV with a header and a row of data for each student' do
     expect(subject.split("\n").count).to eq(2)
-    # last column is 'registered_during_project', which should be true
+    # last column is 'total_articles_created', which should be 0
     # for the test user.
-    expect(subject[-5..-1]).to eq("true\n")
+    expect(subject[-2..-1]).to eq("0\n")
   end
 end
