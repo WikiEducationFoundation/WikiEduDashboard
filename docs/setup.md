@@ -123,7 +123,9 @@ If you know your way around Rails, here's the very short version. Some additiona
     - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
 
 - Add config files:
-    - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
+    - Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
+    - Or you can copy `config/application.example.yml` to `config/application.yml` by running the command `cp config/application.example.yml config/application.yml`
+    - and copy `config/database.example.yml` to `config/database.yml` by running the command `cp config/database.example.yml config/database.yml`
 
 - Create mysql development and test database:
     - Install mariadb-server (or mysql-server)
