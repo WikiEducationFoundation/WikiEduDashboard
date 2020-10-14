@@ -368,6 +368,7 @@ ru:
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     please_log_in: Представьтесь, пожалуйста.
     private: Скрытый
+    requested_accounts_alert_view: Просмотр
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     search_courses: Искать курсы
@@ -418,6 +419,8 @@ ru:
     campaign_courses: Программы %{title}
     creator:
       assignment_end: Конец события
+      assignment_end_placeholder: ГГГГ-ММ-ДД
+      assignment_start_placeholder: ГГГГ-ММ-ДД
       course_description: Описание программы
       course_school: Учреждение
       course_term: Когда
@@ -568,6 +571,7 @@ ru:
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка
+    sandboxes: песочницы
     training_complete:
       one: завершил обучение
       other: завершили обучение
@@ -577,6 +581,9 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    training_module_time:
+      minutes: мин.
+      seconds: сек.
     username: Имя участника
     username_placeholder: Имя участника
     useremail_placeholder: Эл. почта

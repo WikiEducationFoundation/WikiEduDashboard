@@ -4,8 +4,13 @@ import { capitalize } from 'lodash-es';
 import moment from 'moment';
 
 // Helper Components
-const ExerciseStatusCell = ({ status }) => {
-  return <td className={`exercise-status ${status}`}>{capitalize(status)}</td>;
+const ExerciseStatusCell = ({ status, sandboxUrl }) => {
+  let exerciseLink;
+  if (sandboxUrl && status === 'complete') {
+    exerciseLink = <> &nbsp; &nbsp; <a className="assignment-links" target="_blank" href={sandboxUrl}>Exercise Sandbox</a></>;
+  }
+
+  return <td className={`exercise-status ${status}`}>{capitalize(status)} {exerciseLink}</td>;
 };
 
 // Helper Functions
@@ -16,7 +21,7 @@ const generateRow = status => (exercise) => {
   return (
     <tr className="student-training-module" key={exercise.id}>
       <td>{exercise.name} <small>Due by {dueDate}</small></td>
-      <ExerciseStatusCell status={status} />
+      <ExerciseStatusCell status={status} sandboxUrl={exercise.sandbox_url}/>
     </tr>
   );
 };

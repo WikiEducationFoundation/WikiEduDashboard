@@ -72,7 +72,7 @@ essentials:
         kind: 1
         content: |
           <p>
-            Begin a blog about your experiences. You can use
+            <a href="/training/students/assignment-blog/keep-a-blog">Begin a blog about your experiences</a>. You can use
             discussion questions to frame your entries, or reflect on the
             research and writing process. Create at least one blog entry
             each week during the Wikipedia assignment.
@@ -94,6 +94,7 @@ essentials:
         graded: true
         points: 10
         content: |
+
       -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
@@ -112,6 +113,7 @@ essentials:
         kind: 1
         training_module_ids: [11] # Editing health and psychology topics
         content: |
+
       -
         if: explore_to_find_articles
         title: Choose possible topics
@@ -150,6 +152,7 @@ essentials:
         graded: true
         points: 10
         content: |
+
       -
         if: copyedit
         title: Exercise
@@ -356,6 +359,7 @@ essentials:
         graded: true
         points: 10
         content: |
+
       -
         if: original_analytical_paper
         title: Original analytical paper

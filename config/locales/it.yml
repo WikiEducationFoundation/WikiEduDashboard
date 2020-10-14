@@ -174,7 +174,7 @@ it:
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
       does_not_exist: Questa voce non esiste su Wikipedia
-    see_more: Vedi di più
+    see_more: Vedi altro
     show_cumulative_changes: Mostra cambiamenti cumulativi
     show_current_version: Mostra versione attuale
     show_current_version_with_authorship_highlighting: Versione attuale con evidenziazione
@@ -492,6 +492,7 @@ it:
     data_uploads: Dati dei caricamenti su Commons
     data_uploads_info: I dati dei caricamenti su Commons mostrano il nome e il totale
       dell'uso del caricamento di ogni file multimediale.
+    data_wikidata: Statistiche di Wikidata
     delete_course: Cancella corso
     delete_suggestion: Cancella
     delete_course_instructions: Puoi eliminare questa pagina se tutte le campagne
@@ -936,7 +937,7 @@ it:
       one: Seleziona %{count} o più opzioni.
       other: Seleziona %{count} o più opzioni.
     read_less: Leggi di meno
-    read_more: Leggi di più
+    read_more: Per saperne di più
     summary: Sommario
   error:
     form_errors: Controlla il modulo per gli errori.

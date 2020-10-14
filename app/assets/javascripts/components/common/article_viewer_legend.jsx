@@ -61,7 +61,6 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
     }
   }, [status]);
 
-
   return (
     <div className="user-legend-wrap">
       <div className="user-legend">{I18n.t('users.edits_by')} </div>

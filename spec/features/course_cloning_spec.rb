@@ -78,12 +78,13 @@ describe 'cloning a course', js: true do
       find('div.DayPicker-Day', text: timeline_end).click
     end
 
-    find('h3#clone_modal_header').click # This is just to close the datepicker
+    find('h3#clone_modal_header').click # This is just too close the datepicker
     omniclick find('span', text: 'MO')
     omniclick find('span', text: 'WE')
-    expect(page).to have_button('Save New Course', disabled: true)
+    click_button 'Save New Course'
+    expect(page).to have_content 'Mark the holidays' # Error message upon click.
     find('input#no_holidays').click
-    expect(page).not_to have_button('Save New Course', disabled: true)
+    expect(page).not_to have_content 'Mark the holidays'
     click_button 'Save New Course'
 
     # Fix the term to create an original slug, and try again

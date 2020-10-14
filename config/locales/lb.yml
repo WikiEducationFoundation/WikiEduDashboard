@@ -218,6 +218,7 @@ lb:
       subject: Sujet
     current: Aktuell Coursen
     data_download_info: Donnéeën am CSV-Format eroflueden.
+    data_wikidata: Wikidata-Statistiken
     delete_course: Cours läschen
     delete_suggestion: Läschen
     dismiss_survey: Verwerfen

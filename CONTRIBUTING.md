@@ -10,8 +10,8 @@ Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sag
 The dashboard uses GitHub issues for bug tracking. Our main categories of bugs
 organize problems by their importance (not how complex they will be to fix):
 * [minor bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/minor%20bug) - These are bugs or usability problems that do not fundamentally break the dashboard user experience, or that only affect edge cases. It's great to fix these, but they won't necessarily be prioritized any time soon (if ever).
-* [bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/bug) - These are bugs that should definitely be fixed. They may not require immediate attention, but they significantly affect some aspect of dashboard functionality.
-* [high-importance bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/high-importance%20bug) - These are big problems. They should fixed as soon as possible.
+* [bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/bug) - These are bugs that should definitely be fixed. They may not require immediate attention, but they significantly affect some aspects of dashboard functionality.
+* [high-importance bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/high-importance%20bug) - These are big problems. They should be fixed as soon as possible.
 
 Possible improvements that are not bugs per-se — mostly ones that are independent, rather than complex feature requests — are also tracked:
 * [enhancement](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Aenhancement) - User-facing improvements that address some usability or functionality need

@@ -201,8 +201,8 @@ tr:
       Sürüm
     title: Başlık
     tracked: İzlenen
-    tracked_doc: Yalnızca izlenen makaleler, bu programın istatistiklerine katkıda
-      bulunur. Makaleler izlenmemiş olarak işaretlendiğinde, bir sonraki veri güncellemesi
+    tracked_doc: Yalnızca izlenen maddeler, bu programın istatistiklerine katkıda
+      bulunur. Maddeler izlenmemiş olarak işaretlendiğinde, bir sonraki veri güncellemesi
       sırasında istatistiklerden kaldırılırlar.
     title_example: Madde başlığı
     tools: Değerlendirme araçları
@@ -236,7 +236,7 @@ tr:
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
     assign_other: Bir makaleyi devredin
-    add_available: Mevcut makaleleri ekleyin
+    add_available: Mevcut maddeleri ekleyin
     add_available_placeholder: Satır başına bir madde başlığı veya URL ekleyin
     add_available_submit: Madde ekle
     assign_self: Bir makaleyi kendime devredeyim
@@ -259,6 +259,13 @@ tr:
     peer_review_count_tooltip: Hakem incelemesi için %{total} makaleyi seçmelisiniz.
     peer_review_link: Hakem Denetimi
     peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
+    random_peer_review:
+      confirm_addition: Her öğrenciye maksimum %{maximum} olmak üzere tüm sınıfa toplam
+        %{count} madde atamak istediğinizden emin misiniz?
+      heading: Rastgele akran incelemeleri atayın
+      tooltip_message: Her öğrenciye rastgele maddeler atar (maksimum sayı olarak
+        akran incelemesi sayılır).
+      limit_exceeded: Her öğrenci zaten en az %{maximum} maddeyi inceliyor.
     remove: Kaldır
     reviewers: İnceleyici
     review_other: Akran değerlendirmesi ata
@@ -404,7 +411,7 @@ tr:
       assigned_articles: Atanmış Maddeler
       assigned_reviews: Atanmış İncelemeler
       available_articles: Kullanılabilir Maddeler
-      available_reviews: Sınıf Arkadaşları Makaleleri
+      available_reviews: Sınıf Arkadaşları Maddeleri
     assignment_end: Atama Sonu
     assignments_none: Bu kursun atanmış makalesi bulunmamaktadır.
     assignment_start: Atama Başlangıcı
@@ -548,6 +555,9 @@ tr:
     data_revisions: Düzeltme verileri
     data_uploads_info: Commons yükleme verileri, her medya yüklemesinin adını ve kullanım
       sayısını gösterir.
+    data_wikidata: Vikiveri durumları
+    data_wikidata_info: Düzenleme özetlerine dayalı olarak Vikiveri etkinliğinin ayrıntılı
+      dökümü
     delete_course: Kursu silin
     delete_suggestion: Sil
     delete_course_instructions: Tüm kampanyalar kaldırıldıktan sonra bu sayfayı silebilirsiniz.
@@ -880,7 +890,7 @@ tr:
       article_name: Madde Adı
       current_stage: Geçerli Adım
       relevant_links: İlgili Bağlantılar
-    assigned_articles: Atanmış Makaleler
+    assigned_articles: Atanmış Maddeler
     bad_work:
       learn_more: Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
         düzenlemenizi öneririz. Aksi takdirde, sorunları daha sonra çözebilmemiz için
@@ -1236,6 +1246,8 @@ tr:
     none: Katılımcı yok.
     no_articles: Madde yok
     no_revisions: Bu editör hiçbir değişiklik yapmadı.
+    no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
+      Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:
       one: '%{count} madde'
       other: '%{count} madde'
@@ -1435,7 +1447,7 @@ tr:
     more_results: Daha fazla sonuç
     fetched_articles: Getirilen Maddeler
     filtered_articles: Filtrelenen Maddeler
-    searching_articles: Makaleleri Ara
+    searching_articles: Madde Aranıyor
     fetching_assessments: Sayfa Değerlendirmeleri Alınması
     fetching_revisions: Sayfa Düzeltmeleri Alınması
     fetching_scores: Tamlık Puanı Alınması

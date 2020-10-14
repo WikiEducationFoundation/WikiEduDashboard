@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/category_utils"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Fetches data about which wiki pages transclude a given page
@@ -11,13 +12,7 @@ class TransclusionImporter
   end
 
   def transcluded_titles
-    all_transcluded_pages.map do |page|
-      title = page['title']
-      # Remove "Talk:" prefix if present
-      # TODO: Support for prefixes in other languages.
-      # Until then, talk page templates are only supported on English Wikipedia.
-      title.gsub(/Talk:/, '')
-    end
+    CategoryUtils.get_titles_without_prefixes all_transcluded_pages
   end
 
   private

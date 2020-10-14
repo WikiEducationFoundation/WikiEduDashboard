@@ -156,7 +156,8 @@ describe WikiTrainingLoader do
       it 'loads translated content' do
         VCR.use_cassette 'training/load_from_wiki' do
           content_class.load
-          expect(content_class.last.translations.key?('de')).to eq(true)
+          # https://meta.wikimedia.org/wiki/User:Ragesoss/dashboard_libraries/editing-wikipedia-dev.json
+          expect(content_class.find(10002).translations.key?('de')).to eq(true)
         end
       end
     end

@@ -40,6 +40,12 @@ const CourseClonedModal = createReactClass({
     };
   },
 
+  componentDidMount() {
+    if (this.props.course.type !== 'ClassroomProgramCourse') { return; }
+    this.props.addValidation('weekdays', 'Set the meeting days.');
+    return this.props.addValidation('holidays', 'Mark the holidays, or check "I have no class holidays".');
+  },
+
   componentDidUpdate(prevProps, prevState) {
     let isPersisting = prevState.isPersisting;
     if (this.props.firstErrorMessage && !prevProps.firstErrorMessage) {
@@ -68,6 +74,7 @@ const CourseClonedModal = createReactClass({
 
   setNoBlackoutDatesChecked() {
     const { checked } = this.noDates;
+    if (checked) { this.props.setValid('holidays'); }
     return this.updateCourse('no_day_exceptions', checked);
   },
 
@@ -92,12 +99,22 @@ const CourseClonedModal = createReactClass({
 
     // Term starts out blank and must be added.
     if (valueKey === 'term') {
-      return this.props.setValid('exists');
+      this.props.setValid('exists');
     }
     // If term is already set and any slug components are changed, reset 'exists' to valid.
     if (updatedCourse.term && ['title', 'school', 'term'].includes(valueKey)) {
       this.props.setValid('exists');
     }
+  },
+
+  updateCalendar(updatedCourse) {
+    if (updatedCourse.weekdays.indexOf(1) >= 0) {
+      this.props.setValid('weekdays');
+    }
+    if (__guard__(updatedCourse.day_exceptions, x => x.length) > 0 || updatedCourse.no_day_exceptions) {
+      this.props.setValid('holidays');
+    }
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateCourseDates(valueKey, value) {
@@ -132,15 +149,6 @@ const CourseClonedModal = createReactClass({
     // You must be logged in and have permission to edit the course.
     // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
     if (!this.props.currentUser.isAdvancedRole) { return false; }
-    // ClassroomProgramCourse conditions
-    if (this.props.course.type === 'ClassroomProgramCourse') {
-      if (!this.state.valuesUpdated || !this.state.dateValuesUpdated) { return false; }
-      if (__guard__(this.state.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(this.state.course.day_exceptions, x1 => x1.length) > 0 || this.state.course.no_day_exceptions)) {
-        return true;
-      }
-      return false;
-    }
-    // non-ClassroomProgramCourse conditions
     if (this.state.valuesUpdated && this.state.dateValuesUpdated) { return true; }
     return false;
   },
@@ -269,7 +277,7 @@ const CourseClonedModal = createReactClass({
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
             shouldShowSteps={false}
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
-            updateCourse={this.props.updateCourse}
+            updateCourse={this.updateCalendar}
           />
           <label> {I18n.t('courses.creator.no_class_holidays')}
             <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />

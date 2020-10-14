@@ -127,6 +127,7 @@ export class ArticleViewer extends React.Component {
   }
 
   hideArticle(e) {
+    if (!this.state.showArticle) { return; }
     this.hideBadArticleAlert();
     this.setState({ showArticle: false });
     this.props.resetNeedHelpAlert();
@@ -212,6 +213,7 @@ export class ArticleViewer extends React.Component {
       .then((response) => {
         response.query.users.forEach((user) => {
           user.name = decodeURIComponent(user.name);
+          user.activeRevision = false;
         });
         this.setState({
           users: response.query.users,
@@ -319,7 +321,7 @@ ArticleViewer.defaultProps = {
 ArticleViewer.propTypes = {
   alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     language: PropTypes.string.isRequired,
     project: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

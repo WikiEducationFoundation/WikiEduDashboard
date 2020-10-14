@@ -27,7 +27,7 @@ class CourseStudentsCsvBuilder
     registered_at
     revisions_during_project
     mainspace_bytes_added
-    userpace_bytes_added
+    userspace_bytes_added
     draft_space_bytes_added
     references_added
     registered_during_project

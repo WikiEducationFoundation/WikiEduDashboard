@@ -79,7 +79,7 @@ ku-latn:
       course_title: Sernavê bernameyê
       find: Bernameyekê bibîne
       save_cloned_course: Tomar bike
-    enrollment: Tevlîbûn
+    enrollment: Edîtoran Tevlî bike/Rake
   editable:
     edit: Biguherîne
     cancel: Betal bike
@@ -164,7 +164,7 @@ ku-latn:
     fetching_revisions: Sererastkirina Rûpelan Stendin
     fetching_scores: Puana Temamkirinê Stendin
     fetching_pageviews: Lênerîna Rûpelan Standin
-    subheading_message: Ka em gotareke ji bo pêwistiyên te bigerin
+    subheading_message: Ka em gotareke Wîkîpediyayê bibînin ji bo li serê bixebitî.
     article_finder: Peydakera Gotar
     submit: Tomar bike
 ...

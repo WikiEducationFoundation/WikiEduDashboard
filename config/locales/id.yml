@@ -9,6 +9,7 @@
 # Author: Mirws
 # Author: Pebaryan
 # Author: Presidenvolksraad
+# Author: RXerself
 # Author: Rachmat.Wahidi
 # Author: Rachmat04
 # Author: RaymondSutanto94
@@ -106,7 +107,7 @@ id:
       course_types:
         basic_course_name: Program Dasar
       expected_number: Jumlah perkiraan siswa
-    needs_update: Jadwal Pembaruan Data
+    needs_update: Jadwalkan Pembaruan Data
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
   courses_generic:

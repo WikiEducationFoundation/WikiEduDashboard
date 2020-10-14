@@ -12,6 +12,8 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
+require 'coverage_helper' if ENV['COVERAGE'] == 'true'
+
 Capybara.register_driver :selenium do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities
                  .chrome(chromeOptions: { w3c: false })
@@ -21,6 +23,7 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
                                  options: options,
+                                 clear_local_storage: false, # Persist local storage across tests
                                  desired_capabilities: capabilities)
 end
 

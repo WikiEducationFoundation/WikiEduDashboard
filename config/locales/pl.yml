@@ -378,6 +378,9 @@ pl:
         to kilka godzin.
     current: Aktualne kursy
     data_download_info: Pobierz dane w formacie CSV.
+    data_wikidata: Statystyki Wikidanych
+    data_wikidata_info: Dokładny raport o aktywności Wikidanych na podstawie opisów
+      zmian
     delete_course: Usuń kurs
     delete_suggestion: Usuń
     delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją

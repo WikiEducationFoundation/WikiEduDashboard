@@ -20,6 +20,7 @@ if block.training_module_ids.present?
     json.overdue due_date_manager.overdue?
     json.deadline_status due_date_manager.deadline_status
     json.flags due_date_manager.flags(course.id)
+    json.sandbox_url due_date_manager.sandbox_url
     json.block_id block.id
   end
 end

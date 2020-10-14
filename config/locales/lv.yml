@@ -48,6 +48,8 @@ lv:
     opt_out: Nē
     opt_yes: jā
     opt_no: nē
+  alerts:
+    alert_label: Brīdinājumi
   activity:
     all: Aktivitāte
     edited_by: Labotājs
@@ -112,9 +114,11 @@ lv:
     course: Kurss
     create_campaign: Izveidot jaunu kampaņu
     create_my_campaign: Izveidot manu kampaņu!
+    data_articles: Labotās lapas
     data_instructors: Pasniedzēji
     description: Apraksts
     delete_campaign: Dzēst šo kampaņu
+    no_alerts: Šajā kampaņā nav brīdinājumu
     none: Nav
     organizers: Organizatori
     program_template: Programmas veidne
@@ -143,6 +147,7 @@ lv:
     articles: Raksti
     articles_none: Šajā kursā nav labots neviens raksts.
     assignment_headings:
+      assigned_articles: Piešķirtie raksti
       available_articles: Pieejamie raksti
     calendar:
       legend: Apzīmējumi
@@ -160,6 +165,8 @@ lv:
     courses_taught: Mācītie kursi
     creation_date: Izveides datums
     creator:
+      assignment_end_placeholder: GGGG-MM-DD
+      assignment_start_placeholder: GGGG-MM-DD
       clone_previous: Klonēt iepriekšējo kursu
       clone_this: Klonēt šo kursu
       course_description: Kursa apraksts
@@ -185,6 +192,7 @@ lv:
     data_articles: Rakstu dati
     data_download_info: Lejupielādēt datus CSV formātā
     data_edits: Labojumu dati
+    data_revisions: Versiju dati
     data_uploads_info: Commons augšupielādes datos parādās katra ielādētā faila nosaukums
       un lietojumu skaits.
     delete_course: Dzēst kursu
@@ -311,6 +319,7 @@ lv:
     date_time: Datums/laiks
     edit_count_description: Labojumi kopā
     revisions: Neseni labojumi
+    references_count: Pievienotās atsauces
     tags: Iezīmes
     upload_count: Augšupielādes Vikikrātuvē
     uploads_in_use_count:
@@ -332,6 +341,7 @@ lv:
     usage_count: Lietojumu skaits
   revisions:
     chars_added: Rakstzīmes pievienotas
+    references: Pievienotās atsauces
     class: Klase
     date_time: Datums/laiks
     diff: izmaiņas
@@ -385,6 +395,7 @@ lv:
     none: Dalībnieku nav.
     recent_revisions: Neseni labojumi
     revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
+    references_doc: Šī redaktora pievienotās vai dzēstās atsauces
     sub_navigation:
       student_overview: Studenta pārskats
     total_uploads: Kopējās augšupielādes

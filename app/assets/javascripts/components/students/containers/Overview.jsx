@@ -7,6 +7,8 @@ import { getStudentUsers, editPermissions } from '~/app/assets/javascripts/selec
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
 import StudentList from '../shared/StudentList/StudentList.jsx';
+import RandomPeerAssignButton from '@components/students/components/RandomPeerAssignButton.jsx';
+import Loading from '@components/common/loading.jsx';
 
 export class Overview extends React.Component {
   render() {
@@ -36,17 +38,21 @@ export class Overview extends React.Component {
           ) : null
         }
 
-        <StudentList
-          assignments={assignments}
-          course={course}
-          current_user={current_user}
-          sort={sort}
-          sortUsers={sortUsers}
-          students={students}
-          trainingStatus={trainingStatus}
-          userRevisions={userRevisions}
-          wikidataLabels={wikidataLabels}
-        />
+        <RandomPeerAssignButton {...this.props} />
+        { this.props.loadingAssignments && <Loading /> }
+
+        { !this.props.loadingAssignments && (
+          <StudentList
+            assignments={assignments}
+            course={course}
+            current_user={current_user}
+            sort={sort}
+            sortUsers={sortUsers}
+            students={students}
+            trainingStatus={trainingStatus}
+            userRevisions={userRevisions}
+            wikidataLabels={wikidataLabels}
+          />)}
       </div>
     );
   }
@@ -70,6 +76,7 @@ Overview.propTypes = {
 
 const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
+  loadingAssignments: state.assignments.loading,
 
   openKey: state.ui.openKey,
   students: getStudentUsers(state),

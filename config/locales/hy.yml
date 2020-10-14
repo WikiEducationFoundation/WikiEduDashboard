@@ -12,8 +12,16 @@
 hy:
   application:
     cancel: Չեղարկել
+    cookie_consent_acknowledge: Հասկանում եմ
+    cookie_consent_see_more: Տեսնել ավելին
+    create_accounts: Ստեղծել մասնակցային հաշիվ Վիքիպեդիայում
     dashboard: Վիկի Ղեկավարման Վահանակ
+    documentation: Փաստաթղթեր
+    error: Սխալ՝
     explore: Բացահայտել
+    field_required: Պարտադիր լրացման դաշտ
+    field_invalid_characters: Տվյալ դաշտը պարունակում է անթույլատրելի նշաններ
+    field_invalid_date: Այս դաշտը պահանջում է ամսաթվի լրացում YYYY-MM-DD ձևաչափով
     greeting2: Բարի գալուստ
     greeting_extended: Բարի գալուստ Վիքիպեդիա
     greeting: Ողջո՜ւյն
@@ -24,18 +32,31 @@ hy:
     log_out: Դուրս գալ համակարգից
     my_dashboard: Իմ կառավարման էջ
     recent_activity: Վերջին ակտիվություն
+    report_problem: Տեղեկացնել սխալի մասին
+    request_account_create: Ստեղծել մասնակցային հաշիվ
     search: հարց ուղղել
+    no_results: '%{query}-ի համար արդյունքներ չկան'
     sign_up_extended: Գրանցվել Վիքիպեդիայով
+    sign_up_wikipedia: Կամ մո՛ւտք գործեք Վիքիպեդիա
     sign_up_log_in_extended: Վիքիպեդիայով
     sign_up: Գրանցվել
     submit: Հաստատել
     training: Ուսուցում
     change: փոխել
+    details: Մանրամասներ
     confirm: Լավ
     opt_in: Այո
     opt_out: Ոչ
     opt_yes: այո
     opt_no: ոչ
+  article_statuses:
+    not_yet_started: Աշխատանքի սկիզբ
+    in_progress: Աշխատանք ավազարկղում
+    ready_for_mainspace: Աշխատանքը տեղափոխվում է հիմնական անվանատարածք
+    reading_the_article: Կարդալ հոդվածը
+    providing_feedback: Կարծիք հայտնել
+    post_to_talk: Հրապարակվում է քննարկման էջում
+    peer_review_completed: Նախադիտումն ավարտված է
   dashboard:
     create_note: Սեղմեք Ստեղծել Դասընթաց, որպեսզի ստեղծեք ձեր առաջին դասընթացը։
     explore_course_pages: Ուսումնասիրել դասընթացների էջերը
@@ -44,6 +65,7 @@ hy:
       որպեսզի գտնեք և միանաք դրան։
     no_courses_instructor: 'Կարծես թե դուք չունեք որևէ դասընթացներ:'
     no_courses_student: 'Կարծես թե դուք դեռ չեք միացել որևէ դասընթացների:'
+    opt_out: Բաց թողնել ծանոթության հատվածը
   home:
     explore: Ուսումնասիրել
     log_in: Մուտք գործել Վիքիպեդիա
@@ -56,6 +78,7 @@ hy:
     assigned: Հանձնարարված հոդվածներ
     next: Հաջորդ
     previous: Նախորդ
+    article_title: Հոդվածի վերնագիր
     assigned_to: Հանձնարարված
     deleted: (հեռացվել է)
     edited: Խմբագրված հոդվածներ
@@ -73,6 +96,7 @@ hy:
       b: B-դաս — չափավոր զարգացած հոդված.
       start: Մեկնարկի դաս — կարճ հոդված է, որը պետք է լրացնել.
       does_not_exist: Այս հոդվածը գոյություն չունի ՝ Վիքիպեդիայում
+    see_more: Տեսնել ավելին
     show_current_version: Ցույց տալ ընթացիկ տարբերակը
     title: Վերնագիր
     title_example: Հոդվածի անվանումը
@@ -92,7 +116,10 @@ hy:
     assign_other: Հանձնարարել հոդված
     add_available_submit: Յօդուածներ աւելցնել
     assign_self: Ինձ հոդված հանձնարարել
+    bibliography: Մատենագրություն
+    clone: Պատճենել
     confirm_deletion: Դուք համոզված եք, որ ցանկանում եք ջնջել այս նշանակումը?
+    group_members: Խմբի մասնակիցներ
     label: Հանձնարարել
     loading: Բեռնել հանձնարարությունները
     none_short: Հանձնարարված հոդվածներ չկան
@@ -100,25 +127,60 @@ hy:
     reviewers: Վերանայող(ներ)
     review_other: Հանձնարարել վերանայել
     review_self: Վերանայել հոդված
+    sandbox_draft_link: Սևագիր
     select: Ընտրել
   blocks:
     milestones:
       title: Փուլեր
   campaign:
+    active_campaigns: Ակտիվ համագործակցություններ
+    add_organizer: Ավելացնել կազմակերպչին
+    alert_article: Հոդվածի վերնագիր
     alert_type: Տեսակ
     alert_user_id: Մասնակից
+    all_campaigns: Բոլոր համագործակցությունները
+    campaign: Համագործակցություն
+    campaign_deleted: '%{title} համագործակցությունը ջնջվել է'
+    campaign_updated: Համագործակցությունը թարմացվել է
     created_at: Ամսաթիվ
     confirm_course_removal: Դուք համոզված եք, որ ցանկանում եք ջնջել "%{title}"  "%{campaign_title}"
       քարոզարշավից?
     course_already_removed: '"%{title}" արդեն հեռացվել է %{campaign_title}" քարոզարշավից'
+    course: Դասընթաց
     course_removed: '"%{title}" հեռացվել է %{campaign_title}" քարոզարշավից'
+    create_campaign: Ստեղծել նոր համագործակցություն
+    data_articles: Խմբագրված էջեր
     description: Նկարագրություն
     organizers: Կազմակերպիչներ
+    organizer_added: '%{user} մասնակիցն այժմ %{title} համագործակցության կազմակերպիչն
+      է:'
+    organizer_removed: '%{user} մասնակիցը հեռացվել է %{title} համագործակցության կազմակերպչի
+      դերից'
+    program_template_tooltip: 'Երբ կազմակերպիչը ստեղծի ծրագիր այս համագործակցության
+      մեջ, այս դաշտի տեքստը կպատճենվի որպես ծրագրի էջի նկարագրություն:'
+    search_campaigns: Գտնել համագործակցություններ
+  categories:
+    add_category: Ավելացնել կատեգորիա
+    add_template: Ավելացնել կաղապար
+    add_this_category: Ավելացնել այս կատեգորիան
+    add_this_template: Ավելացնել այս կաղապարը
+    articles_count: Հոդվածների հաշվիչ
+    name: Անուն
+    category_name: Կատեգորիայի անվանում
+    psid_name: PSID
+    template_name: Կաղապարի անվանում
+    remove: Հեռացնել
+    timestamp: Վերջին անգամ թարմացվել է
+  chat:
+    label: Զրուցարան
   courses:
+    school_system: Ակադեմիական համակարգ
     activity: Ակտիվություն
     actions: Գործողություններ
     articles: Հոդվածներ
     cancel: Չեղարկել
+    campaigns: Համագործակցություններ՝
+    campaign_select: Ընտրել համագործակցություն
     course_description: Դասընթացներ
     courses: Դասընթացներ
     creation_date: Ստեղծման ամսաթիվը
@@ -130,7 +192,9 @@ hy:
       expected_number: Ուսանողների ակնկալվող քանակ
       start_date: Սկսելու ամսաթիվ
     dismiss_survey: Փակել
+    download_stats_data: Ներբեռնել վիճակագրությունը
     duration: Դասընթացի տեւողությունը
+    embed_course_stats: Ներառել դասընթացի վիճակագրությունը
     enroll: Գրանցվել
     error:
       user_exists: Ցավոք, մասնակից %{username} գոյություն չունի ։
@@ -143,6 +207,7 @@ hy:
     loading: բեռնվում է
     my_articles: Իմ հոդվածները
     new_week: Ավելացնել Նոր շաբաթ
+    overview: Գլխավոր էջ
     requested_accounts_alert_view: Դիտել
     school: Դպրոց
     start: Սկսել
@@ -160,6 +225,7 @@ hy:
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
     creator:
       course_description: Նախագծի նկարագրություն
+      course_school: Կազմակերպություն
       course_term: Երբ
       course_term_placeholder: Երբ
       course_title: Նախագծի անվանում
@@ -171,6 +237,8 @@ hy:
       save_cloned_course: Հիշել
     edit_course_dates: Խմբագրել նախագծի ամսաթվերը
     expected_students: Ակնկալվող խմբագիրներ
+    instructors: Նախաձեռնողներ
+    join_course: Միանալ ծրագրին
     student_editors: Խմբագիրներ
     student: Խմբագիր
     students: Խմբագիրներ
@@ -189,9 +257,12 @@ hy:
     activity: Վերջին փոփոխություններ
     articles_created: Ստեղծված հոդվածներ
     articles_edited: Խմբագրված հոդվածներ
+    bytes_added: Ավելացված բայթեր
     date_time: Ամսաթիվ/Ժամ
     edit_count_description: Ընդհանուր խմբագրումներ
     revisions: Վերջին խմբագրումներ
+    references_count: Ավելացված ծանոթագրություններ
+    upload_count: Բեռնվել է Վիքիպահեստ
     view_count_description: Հոդվածի դիտումներ
     view: Դիտումներ
     word_count: Ավելացված բառեր

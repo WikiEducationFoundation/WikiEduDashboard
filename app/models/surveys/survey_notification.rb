@@ -42,12 +42,15 @@ class SurveyNotification < ApplicationRecord
   # truthy if an email was sent. SurveyUpdate relies on this behavior.
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']
-    return if %w[development staging].include?(Rails.env) && !ENV['survey_test_email']
-              .split(',').include?(user.email)
+    return if nonsafe_email_environment?
     return if email_sent_at.present?
     return if user.email.nil?
     SurveyMailer.send_notification(self)
     update_attribute(:email_sent_at, Time.zone.now)
+  rescue Mailgun::CommunicationError => e
+    Raven.capture_exception e, extra: { username: user.username,
+                                        email: user.email,
+                                        survey_notification_id: id }
   end
 
   # This should return something falsey if no email was sent, and something
@@ -78,6 +81,11 @@ class SurveyNotification < ApplicationRecord
   end
 
   private
+
+  def nonsafe_email_environment?
+    %w[development staging].include?(Rails.env) && !ENV['survey_test_email']
+      .split(',').include?(user.email)
+  end
 
   MAX_FOLLOW_UPS = 3
   def ready_for_follow_up?

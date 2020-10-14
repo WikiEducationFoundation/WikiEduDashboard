@@ -249,6 +249,13 @@ pt:
     peer_review_count_tooltip: Deve selecionar %{total} artigos para revisão por pares.
     peer_review_link: Revisão por pares
     peer_review_link_personalized: Revisão por pares de %{username}
+    random_peer_review:
+      confirm_addition: Tem a certeza de que quer atribuir um total de %{count} artigo(s)
+        a toda a turma, com um máximo de %{maximum} a cada estudante?
+      heading: Atribuir revisões de pares aleatórias
+      tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
+        como número máximo) a cada aluno.
+      limit_exceeded: Cada estudante já está a rever pelo menos %{maximum} artigo(s).
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão por pares
@@ -543,6 +550,9 @@ pt:
     data_revisions: Dados de revisões
     data_uploads_info: Os dados dos carregamentos na wiki Commons mostram o nome e
       a contagem da utilização de cada ficheiro multimédia carregado.
+    data_wikidata: Estatísticas Wikidata
+    data_wikidata_info: Decomposição detalhada da atividade na wiki Wikidata, com
+      base nos resumos de edição
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, deve primeiramente
@@ -1252,6 +1262,8 @@ pt:
     none: Não há participantes.
     no_articles: Não há artigos
     no_revisions: Este editor não realizou nenhuma revisão.
+    no_highlighting: Nenhum do texto da versão atual do artigo está atribuído a este
+      editor. Verifique o historial da página para ver as edições em questão.
     number_of_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'

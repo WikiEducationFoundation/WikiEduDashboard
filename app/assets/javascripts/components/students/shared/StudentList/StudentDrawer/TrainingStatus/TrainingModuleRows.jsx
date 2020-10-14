@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import {
-  TRAINING_MODULE_KIND
-} from '~/app/assets/javascripts/constants';
-
-export const TrainingModuleRows = ({ trainingModules }) => {
-  const trainings = trainingModules.filter(({ kind }) => kind === TRAINING_MODULE_KIND);
+export const TrainingModuleRows = ({ trainings }) => {
   return trainings.map((trainingModule) => {
     const momentDueDate = moment(trainingModule.due_date);
     const dueDate = momentDueDate.format('MMM Do, YYYY');
@@ -55,7 +50,7 @@ export const TrainingModuleRows = ({ trainingModules }) => {
 };
 
 TrainingModuleRows.propTypes = {
-  trainingModules: PropTypes.arrayOf(
+  trainings: PropTypes.arrayOf(
     PropTypes.shape({
       completion_date: PropTypes.string,
       id: PropTypes.number.isRequired,

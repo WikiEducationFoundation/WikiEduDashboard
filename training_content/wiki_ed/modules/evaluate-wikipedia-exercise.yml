@@ -11,3 +11,5 @@ slides:
   - slug: evaluating-sources #3405
   - slug: checking-talk-page #3406
   - slug: option-activity #3407
+settings:
+  sandbox_location: 'Evaluate_an_Article'

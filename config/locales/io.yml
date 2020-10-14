@@ -7,17 +7,21 @@ io:
   application:
     cancel: Nuligar
     cookie_consent_see_more: Videz pluse.
+    home: Chefpagino
     change: Modifiko
   articles:
+    article_title: Titulo dil artiklo
     hide: Celez
   campaign:
     none: Nula
   courses:
     none: Nula
+    overview: Komenco
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
   editable:
+    edit: Redakto
     cancel: Nuligar
   instructor_view:
     bad_work:

@@ -11,3 +11,10 @@ Campaign.find_by(slug: 'spring_2017').courses.map do |course|
   ce.user_id = new_id
   ce.save
 end
+
+# Add one Wikipedia Expert to all courses in a campaign
+expert = User.find_by(username: 'Ian (Wiki Ed)')
+Campaign.find_by_slug('fall_2020').courses.each do |course|
+  next if course.staff.include? expert
+  JoinCourse.new(course: course, user: expert, role: 4, real_name: expert.real_name)
+end

@@ -11,6 +11,7 @@ class WikiSlideParser
     remove_translation_markers
     remove_translate_tags
     extract_quiz_template
+    extract_category_templates # only relevant for TrainingLibrary
     convert_image_templates
     convert_video_templates
     convert_button_templates
@@ -40,6 +41,13 @@ class WikiSlideParser
     { correct_answer_id: quiz_correct_answer,
       question: quiz_question,
       answers: quiz_answers }
+  end
+
+  # Only applies to TrainingLibrary
+  def categories
+    @category_templates.map do |template|
+      category_hash_from_template(template[0])
+    end
   end
 
   private
@@ -162,6 +170,40 @@ class WikiSlideParser
       #{button_text}
       </a></div>
     BUTTON
+  end
+
+  # Template for a category of modules, in a TrainingLibrary
+  # See for example https://meta.wikimedia.org/wiki/Training_modules/editathons/library
+  def extract_category_templates
+    # First get the wikitext for each instance of the template
+    @category_templates = @wikitext.scan(/(?<template>{{Training module category.*?\n}})/im)
+    # Then remove the templates from the wikitext, so they don't get included in the description
+    @wikitext.gsub!(/(?<template>{{Training module category.*?\n}})/m, '')
+  end
+
+  def category_hash_from_template(template)
+    {
+      'title' => template_parameter_value(template, 'title'),
+      'description' => template_parameter_value(template, 'description'),
+      'modules' => module_hashes_from_template(template)
+    }
+  end
+
+  def module_hashes_from_template(template)
+    modules = (1..9).map do |module_number|
+      module_hash(template, module_number)
+    end
+    modules.compact
+  end
+
+  def module_hash(template, module_number)
+    module_name = template_parameter_value(template, "module_name_#{module_number}")
+    return nil unless module_name
+    {
+      'slug' => template_parameter_value(template, "module_slug_#{module_number}"),
+      'name' => module_name,
+      'description' => template_parameter_value(template, "module_description_#{module_number}")
+    }
   end
 
   def template_parameter_value(template, parameter)

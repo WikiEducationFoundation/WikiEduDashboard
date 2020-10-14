@@ -8,11 +8,14 @@
 # Author: KATRINE1992
 # Author: Nikosgranturismogt
 # Author: Norhorn
+# Author: SkarletWitch
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
   application:
     cancel: Ακύρωση
+    cookie_consent_acknowledge: Καταλαβαίνω
+    cookie_consent_see_more: Δείτε περισσότερα.
     create_accounts: Δημιουργία λογαριασμών Βικιπαίδειας
     dashboard: Wiki Ed Dashboard
     documentation: Τεκμηρίωση
@@ -37,7 +40,9 @@ el:
     request_account: Κάντε αίτηση για ένα λογαριασμό
     request_account_create: Δημιουργία λογαριασμού
     search: Κάντε μια ερώτηση
-    search_results: 'Αποτελέσματα για: ''%{search_terms}'''
+    search_results:
+      one: '%{count}Αποτελέσμα για: ''%{search_terms}'''
+      other: '%{count} Αποτελέσματα για: ''%{search_terms}'''
     no_results: Δεν βρέθηκαν αποτελέσματα για «%{query}»
     sign_up_extended: Εγγραφή με Βικιπαίδεια
     sign_up_wikipedia: ή συνδεθείτε στη Βικιπαίδεια
@@ -52,6 +57,10 @@ el:
     opt_out: Όχι
     opt_yes: ναι
     opt_no: όχι
+  article_statuses:
+    not_yet_started: Ξεκινώντας
+    providing_feedback: Παροχή ανατροφοδότησης
+    peer_review_completed: Η αναθεώρηση ολοκληρώθηκε
   dashboard:
     explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
     explore_examples: Εξερεύνηση παραδειγμάτων
@@ -60,6 +69,8 @@ el:
     explore: Εξερεύνηση
     log_in: Σύνδεση μέσω Βικιπαίδειας
     sign_up: Εγγραφή μέσω Βικιπαίδειας
+  alerts:
+    no_alerts: Δεν βρέθηκαν ειδοποιήσεις.
   activity:
     all: Δραστηριότητα
     edited_by: Επεξεργάστηκε από
@@ -90,6 +101,7 @@ el:
     rating: Κλάση
     rating_docs:
       b: '%{class} — ένα μέτρια ανεπτυγμένο άρθρο'
+      does_not_exist: Αυτό το άρθρο δεν υπάρχει στο Wikipedia
     see_more: Δείτε περισσότερα
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
     title: Τίτλος
@@ -101,7 +113,13 @@ el:
     edit_size: Επεξεργασία μεγέθους
     wiki: Βίκι
     wp10: Δομική Ολοκληρωτικότητα
+    articles_short: Άρθρα
+  articles_wikidata:
+    articles_short: Αντικέιμενα
+  articles_generic:
+    articles_short: Σελίδες
   assignments:
+    article_link: Άρθρο
     assign_other: Αναθέστε ένα άρθρο
     add_available: Προσθήκη διαθέσιμων άρθρων
     add_available_submit: Προσθήκη λήμματος

@@ -93,6 +93,19 @@ export default class CourseUtils {
       };
     }
 
+    const indexphpFormatUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
+    if (indexphpFormatUrlParts) {
+        const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
+        const project = indexphpFormatUrlParts[2];
+        const language = indexphpFormatUrlParts[1];
+        return {
+          title: title,
+          project: project,
+          language: language,
+           article_url: articleTitle,
+        };
+      }
+
     return {
       title: articleTitleInput,
       project: null,
