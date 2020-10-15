@@ -52,10 +52,10 @@ export class ProgressTracker extends React.Component {
           className="toggle-progress-tracker"
           onClick={this.toggle}
         >
-          <NavigationElements assignment={assignment} show={show} course={course}/>
+          <NavigationElements assignment={assignment} show={show} course={course} />
         </nav>
         <section className="flow">
-          { show ? steps : null }
+          {show ? steps : null}
         </section>
       </div>
     );

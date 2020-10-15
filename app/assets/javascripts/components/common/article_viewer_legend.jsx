@@ -1,40 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+
 import UserUtils from '../../utils/user_utils.js';
+// import Scroll from 'react-scroll';
+
+import ArticleScroll from '@components/common/ArticleViewer/utils/ArticleScroll';
 
 const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage }) => {
-  let userLinks;
-  if (users) {
-    userLinks = users.map((user, i) => {
-      let res;
-      const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
-      const fullUserRecord = allUsers.find(_user => _user.username === user.name);
-      const realName = fullUserRecord && fullUserRecord.real_name;
-      if (user.activeRevision === true) {
-        res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
-      } else {
-        res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
-      }
-      return res;
-    });
-  } else {
-    userLinks = <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>;
-  }
+  const [userLinks, setUserLinks] = useState('');
+  const [usersStatus, setUsersStatus] = useState('');
+  const Scroller = new ArticleScroll();
 
-  let usersStatus;
-  if (status === 'loading') {
-    usersStatus = (
-      <div>
-        <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-        <div className="user-legend authorship-status">{I18n.t('users.loading_authorship_data')}</div>
-        <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-      </div>
-    );
-  } else if (status === 'failed') {
-    usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}: {failureMessage}</div>;
-  }
+  useEffect(() => {
+    if (users) {
+      const scrollBox = document.querySelector('#article-scrollbox-id');
+      let titles = null;
+      if (scrollBox !== null) {
+        titles = scrollBox.querySelectorAll('p, li, h2, h3');
+      }
+
+      if (titles !== null) {
+        Scroller.createScrollObject(titles, users);
+      }
+
+      setUserLinks(users.map((user, i) => {
+        let res;
+        const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
+        const fullUserRecord = allUsers.find(_user => _user.username === user.name);
+        const realName = fullUserRecord && fullUserRecord.real_name;
+        if (status === 'loading') {
+          res = <div key={`legend-${user.name}`} className={'user-legend'}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+        } else if (user.activeRevision === true) {
+          res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" src="/assets/images/arrow.svg" alt="scroll to users revisions" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
+        } else {
+          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+        }
+
+        return res;
+      }));
+    } else {
+      setUserLinks(<div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>);
+    }
+  }, [users, status]);
+
+  useEffect(() => {
+    if (status === 'loading') {
+      setUsersStatus(
+        <div>
+          <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+          <div className="user-legend authorship-status">{I18n.t('users.loading_authorship_data')}</div>
+          <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+        </div>
+      );
+    } else if (status === 'failed') {
+      setUsersStatus(<div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}: {failureMessage}</div>);
+    } else if (status === 'ready') {
+      setUsersStatus('');
+    }
+  }, [status]);
 
   return (
     <div className="user-legend-wrap">

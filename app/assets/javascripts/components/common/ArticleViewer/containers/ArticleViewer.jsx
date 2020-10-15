@@ -293,7 +293,7 @@ export class ArticleViewer extends React.Component {
               />
             )
           }
-          <div className="article-scrollbox">
+          <div id="article-scrollbox-id" className="article-scrollbox">
             {
               fetched ? <ParsedArticle {...this.state} /> : <Loading />
             }
