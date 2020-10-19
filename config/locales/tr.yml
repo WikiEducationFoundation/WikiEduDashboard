@@ -260,8 +260,8 @@ tr:
     peer_review_link: Hakem Denetimi
     peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
     random_peer_review:
-      confirm_addition: Her öğrenciye maksimum %{maximum} olmak üzere tüm sınıfa toplam
-        %{count} madde atamak istediğinizden emin misiniz?
+      confirm_addition: Bu, sınıf arkadaşlarının maddeleri arasından seçilen her öğrenci
+        için maksimum %{maximum} olmak üzere toplam %{count} ek akran incelemesi atayacaktır.
       heading: Rastgele akran incelemeleri atayın
       tooltip_message: Her öğrenciye rastgele maddeler atar (maksimum sayı olarak
         akran incelemesi sayılır).

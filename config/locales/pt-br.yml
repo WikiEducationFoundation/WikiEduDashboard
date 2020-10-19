@@ -256,8 +256,9 @@ pt-br:
     peer_review_link: Revisão por pares
     peer_review_link_personalized: Revisão por pares %{username}
     random_peer_review:
-      confirm_addition: Tem a certeza de que quer atribuir um total de %{count} artigo(s)
-        a toda a turma, com um máximo de %{maximum} a cada estudante?
+      confirm_addition: Isso irá atribuir um total de %{count} revisão(ões) por pares
+        adicional(is), com um máximo de %{maximum} para cada estudante, escolhido
+        dentre os artigos de seus colegas de classe.
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como o número máximo) para cada aluno.

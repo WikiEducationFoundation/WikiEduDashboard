@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aftabuzzaman
+# Author: Al Riaz Uddin Ripon
 # Author: Bodhisattwa
 # Author: Elias Ahmmad
 # Author: Kayser Ahmad
@@ -36,7 +37,7 @@ bn:
     home: প্রধান পাতা
     log_in_extended: উইকিপিডিয়া দিয়ে প্রবেশ করুন
     log_in: প্রবেশ করুন
-    log_out: প্রস্থান করুন
+    log_out: প্রস্থান
     my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
     report_problem: সমস্যার কথা জানান
