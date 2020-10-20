@@ -62,17 +62,22 @@ You can also contact us on slack for any further queries.
 ## TL;DR bare minimum version
 If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
 
-* copy `config/application.example.yml` to `config/application.yml`
-* copy `config/database.example.yml` to `config/database.yml`
-* create a MySQL database, `dashboard`
-* install ruby 2.7.1 and nodejs
-* `bundle install`
-* `rake db:migrate`
-* install yarn
-* `yarn` for more javascript requirements
-* `yarn start` to build assets
-* `guard` or `rails s` to start a server
-* localhost:3000 should load the home page
+1. Fork and clone our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard.
+2. **Install gems:** run `bundle install`
+3. Copy `config/application.example.yml` to `config/application.yml` 
+4. Copy `config/database.example.yml` to `config/database.yml`
+5. Now **login into your database**
+      *  Either create a new user using`CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'`
+      *  or update `database.yml` with valid credentials to connect to the database
+6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard`.
+7. Run `rake db:migrate` to migrate all database tables.
+8. Install yarn
+9. Run `yarn` to download the required javascript packages
+10. **Building assets:**
+      * `yarn start` to built the development version
+      * `yarn build` to generate the production version
+11. Finally, start rails with `guard` or `rails s`and open http://localhost:3000 in a web browser.
+12. Now, you're up and running!!
 
 ## Detailed instructions
 
@@ -84,13 +89,15 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Pre-requisites for setup on Windows:
     - Install Git from [the official Windows package](https://git-scm.com/download/win)
 
-- Fork this repo, so that you can make changes and push them freely to GitHub.
-- Clone the new WikiEduDashboard repo and enter that directory.
+- Fork our repo from https://github.com/WikiEducationFoundation/WikiEduDashboard..
+- In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
+- Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
 - On OSX/Debian, make sure you are in the "sudo" group.
 - Install Ruby 2.7.1 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - `rvm install ruby-2.7.1`
+       - Use **rvm:** `rvm install 2.7.1` followed by `rvm use 2.7.1`
+       - or use **rbenv:** `rbenv install 2.7.1` followed by `rbenv local 2.7.1`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
@@ -116,7 +123,9 @@ If you know your way around Rails, here's the very short version. Some additiona
     - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
 
 - Add config files:
-    - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
+    - Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
+    - Or you can copy `config/application.example.yml` to `config/application.yml` by running the command `cp config/application.example.yml config/application.yml`
+    - and copy `config/database.example.yml` to `config/database.yml` by running the command `cp config/database.example.yml config/database.yml`
 
 - Create mysql development and test database:
     - Install mariadb-server (or mysql-server)
