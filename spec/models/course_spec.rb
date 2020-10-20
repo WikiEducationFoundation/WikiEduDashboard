@@ -53,7 +53,7 @@ require 'rails_helper'
 describe Course, type: :model do
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
-  before do
+  before(:all) do
     stub_wiki_validation
     TrainingModule.load_all
   end
@@ -861,6 +861,42 @@ describe Course, type: :model do
     it 'returns Article records via course revisions' do
       expect(course.pages_edited).to include(article)
       expect(course.pages_edited).not_to include(article2)
+    end
+  end
+
+  describe '#submitted_at' do
+    let(:course) { create(:course) }
+
+    context 'when the course has not been submitted' do
+      it 'returns nil' do
+        expect(course.submitted_at).to be_nil
+      end
+    end
+
+    context 'when the course has a "submitted" tag' do
+      before { create(:tag, tag: 'submitted', course: course) }
+
+      it 'returns the time the tag was added' do
+        expect(course.submitted_at).to be_within(1.second).of(Time.zone.now)
+      end
+    end
+  end
+
+  describe '#approved' do
+    let(:course) { create(:course) }
+
+    context 'when the course has not been approved' do
+      it 'returns nil' do
+        expect(course.approved_at).to be_nil
+      end
+    end
+
+    context 'when the course has a campaign' do
+      before { course.campaigns << Campaign.first }
+
+      it 'returns the time the first campaign was added' do
+        expect(course.approved_at).to be_within(1.second).of(Time.zone.now)
+      end
     end
   end
 end

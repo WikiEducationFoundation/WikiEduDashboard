@@ -421,6 +421,10 @@ class Course < ApplicationRecord
     tags.find_by(tag: 'submitted')&.created_at
   end
 
+  def approved_at
+    campaigns_courses.first&.created_at
+  end
+
   #################
   # Cache methods #
   #################

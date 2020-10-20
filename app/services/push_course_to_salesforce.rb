@@ -77,7 +77,9 @@ class PushCourseToSalesforce
       Group_work__c: group_work?,
       Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?,
       Content_Expert__c: content_expert,
-      Stay_in_sandbox__c: @course.stay_in_sandbox?
+      Stay_in_sandbox__c: @course.stay_in_sandbox?,
+      Submitted_at__c: @course.submitted_at,
+      Approved_at__c: @course.approved_at
     }
   end
   # rubocop:enable Metrics/MethodLength
