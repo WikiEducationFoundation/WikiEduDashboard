@@ -49,8 +49,25 @@ export const deleteAssignment = assignment => (dispatch) => {
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
+const claimAssignmentPromise = (assignment) => {
+  return request(`/assignments/${assignment.id}/claim`, {
+    method: 'PUT',
+    body: JSON.stringify(assignment)
+  })
+  .then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  })
+  .catch((error) => {
+    logErrorMessage(error);
+    return error;
+  });
+};
+
 export const claimAssignment = assignment => (dispatch) => {
-  return API.updateAssignment(assignment)
+  return claimAssignmentPromise(assignment)
     .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };

@@ -330,32 +330,45 @@ describe AssignmentsController, type: :request do
     end
   end
 
-  describe 'PATCH #update' do
+  describe 'PUT #claim' do
     let(:assignment) { create(:assignment, course_id: course.id, role: 0) }
     let(:request_params) do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
     end
 
-    context 'when the update succeeds' do
+    context 'when the claim succeeds' do
+      before { create(:courses_user, course: course, user: user) }
+
       it 'renders a 200' do
-        put "/assignments/#{assignment.id}", params: request_params
+        put "/assignments/#{assignment.id}/claim", params: request_params
         expect(response.status).to eq(200)
       end
     end
 
     context 'when the article is already assigned to a user' do
+      before { create(:courses_user, course: course, user: user) }
+
       it 'renders a 409' do
         assignment.update(user_id: 1)
-        put "/assignments/#{assignment.id}", params: request_params
+        put "/assignments/#{assignment.id}/claim", params: request_params
         expect(response.status).to eq(409)
       end
     end
 
-    context 'when the update fails' do
+    context 'when the claim fails' do
+      before { create(:courses_user, course: course, user: user) }
+
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        put "/assignments/#{assignment.id}", params: request_params
+        put "/assignments/#{assignment.id}/claim", params: request_params
         expect(response.status).to eq(500)
+      end
+    end
+
+    context 'when the user is not in the course' do
+      it 'renders a 401' do
+        put "/assignments/#{assignment.id}/claim", params: request_params
+        expect(response.status).to eq(401)
       end
     end
   end

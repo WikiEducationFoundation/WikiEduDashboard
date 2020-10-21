@@ -290,23 +290,6 @@ const API = {
     );
   },
 
-  updateAssignment(opts) {
-    const queryString = $.param(opts);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: `/assignments/${opts.id}.json?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
   fetch(courseId, endpoint) {
     return request(`/courses/${courseId}/${endpoint}.json`, {
       credentials: "include"
