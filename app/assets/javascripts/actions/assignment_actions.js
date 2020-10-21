@@ -49,7 +49,7 @@ export const deleteAssignment = assignment => (dispatch) => {
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
-export const updateAssignment = assignment => (dispatch) => {
+export const claimAssignment = assignment => (dispatch) => {
   return API.updateAssignment(assignment)
     .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));

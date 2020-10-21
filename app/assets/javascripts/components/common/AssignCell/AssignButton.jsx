@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import PopoverExpandable from '../../high_order/popover_expandable.jsx';
 import Popover from '../popover.jsx';
 import { initiateConfirm } from '../../../actions/confirm_actions';
-import { addAssignment, deleteAssignment, updateAssignment } from '../../../actions/assignment_actions';
+import { addAssignment, deleteAssignment, claimAssignment } from '../../../actions/assignment_actions';
 import CourseUtils from '../../../utils/course_utils.js';
 import AddAvailableArticles from '../../articles/add_available_articles';
 import NewAssignmentInput from '../../assignments/new_assignment_input';
@@ -351,7 +351,7 @@ export class AssignButton extends React.Component {
     e.preventDefault();
 
     return this._onConfirmHandler({
-      action: this.props.updateAssignment,
+      action: this.props.claimAssignment,
       assignment: {
         id: assignment.id,
         role: this.props.role
@@ -524,7 +524,7 @@ const mapDispatchToProps = {
   addAssignment,
   deleteAssignment,
   initiateConfirm,
-  updateAssignment
+  claimAssignment
 };
 
 export default connect(null, mapDispatchToProps)(

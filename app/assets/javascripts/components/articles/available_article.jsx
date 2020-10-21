@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import CourseUtils from '../../utils/course_utils.js';
-import { deleteAssignment, updateAssignment } from '../../actions/assignment_actions.js';
+import { deleteAssignment, claimAssignment } from '../../actions/assignment_actions.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
 export const AvailableArticle = createReactClass({
@@ -16,7 +16,7 @@ export const AvailableArticle = createReactClass({
     course: PropTypes.object,
     addNotification: PropTypes.func,
     deleteAssignment: PropTypes.func,
-    updateAssignment: PropTypes.func
+    claimAssignment: PropTypes.func
   },
 
   onSelectHandler() {
@@ -33,7 +33,7 @@ export const AvailableArticle = createReactClass({
       type: 'success'
     });
 
-    return this.props.updateAssignment(assignment);
+    return this.props.claimAssignment(assignment);
   },
 
   onRemoveHandler(e) {
@@ -102,7 +102,7 @@ export const AvailableArticle = createReactClass({
 const mapDispatchToProps = {
   addNotification,
   deleteAssignment,
-  updateAssignment
+  claimAssignment
 };
 
 export default connect(null, mapDispatchToProps)(AvailableArticle);
