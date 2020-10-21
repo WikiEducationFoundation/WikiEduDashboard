@@ -66,9 +66,7 @@ class ApplicationController < ActionController::Base
   def require_participating_user
     require_signed_in
     course = Course.find_by(slug: params[:id])
-    # Course roles for non-students are greater than STUDENT_ROLE.
-    # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
-    return if current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
+    return if current_user.nonvisitor?(course)
     raise ParticipatingUserError
   end
 

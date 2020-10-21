@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     patch '/status' => 'assignments#update_status'
     resources :assignment_suggestions
   end
+  put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',

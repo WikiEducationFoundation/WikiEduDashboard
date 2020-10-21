@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 # Controller for Assignments
 class AssignmentsController < ApplicationController
   respond_to :json
-  before_action :set_course, except: [:update, :update_status]
+  before_action :set_course, except: [:claim, :update_status]
 
   def destroy
     set_assignment { return }
@@ -45,9 +45,13 @@ class AssignmentsController < ApplicationController
     redirect_to "/courses/#{@course.slug}/assignments.json"
   end
 
-  def update
+  def claim
+    @claimed_assignment = Assignment.find(params[:assignment_id])
+    @course = @claimed_assignment.course
     check_permissions(assignment_params[:user_id].to_i)
-    @assignment = Assignment.find(assignment_params[:id])
+    check_participation # prevents a user from a different course claiming an assignment
+
+    @assignment = @claimed_assignment
 
     if @assignment.user_id
       render json: { message: 'This assignment has been claimed already. Please refresh.' },
@@ -148,6 +152,11 @@ class AssignmentsController < ApplicationController
     return if current_user.can_edit?(@course)
     return if user_id.present? && current_user.id == user_id
     raise NotPermittedError
+  end
+
+  def check_participation
+    return if current_user.nonvisitor?(@course)
+    raise ParticipatingUserError
   end
 
   def assignment_params

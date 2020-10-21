@@ -159,6 +159,10 @@ class User < ApplicationRecord
     @course_student ||= courses_users.exists?(role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
+  def nonvisitor?(course)
+    role(course) != CoursesUsers::Roles::VISITOR_ROLE
+  end
+
   def role(course)
     # If this is a new course, grant permissions.
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if course.nil?
