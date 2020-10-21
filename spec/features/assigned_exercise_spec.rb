@@ -65,8 +65,9 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
 
       within '.my-exercises' do
         click_button 'Mark Complete'
-        expect(page).not_to have_content 'Evaluate Wikipedia'
       end
+
+      expect(page).not_to have_content 'Evaluate Wikipedia'
 
       click_link 'Students'
       within '#users' do
