@@ -26,14 +26,14 @@ describe('AvailableArticle', () => {
 
   it('notify when an article is selected', () => {
     const notificationSpy = jest.fn();
-    const updateAssignmentSpy = jest.fn();
+    const claimAssignmentSpy = jest.fn();
     const TestDom = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
           <AvailableArticle
             {...props}
             addNotification={notificationSpy}
-            updateAssignment={updateAssignmentSpy}
+            claimAssignment={claimAssignmentSpy}
           />
         </tbody>
       </table>
@@ -43,6 +43,6 @@ describe('AvailableArticle', () => {
     ReactTestUtils.Simulate.click(select);
 
     expect(notificationSpy.mock.calls.length).toEqual(1);
-    expect(updateAssignmentSpy.mock.calls.length).toEqual(1);
+    expect(claimAssignmentSpy.mock.calls.length).toEqual(1);
   });
 });
