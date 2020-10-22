@@ -45,22 +45,19 @@ class AssignmentsController < ApplicationController
     redirect_to "/courses/#{@course.slug}/assignments.json"
   end
 
+  # Select an Available Article as a new Assignment for a user
   def claim
     @claimed_assignment = Assignment.find(params[:assignment_id])
     @course = @claimed_assignment.course
     check_permissions(assignment_params[:user_id].to_i)
     check_participation # prevents a user from a different course claiming an assignment
 
-    @assignment = @claimed_assignment
-
-    if @assignment.user_id
+    if @claimed_assignment.user_id
       render json: { message: 'This assignment has been claimed already. Please refresh.' },
              status: :conflict
-    elsif @assignment.update(assignment_params)
-      render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
-      render json: { errors: @assignment.errors, message: 'unable to update assignment' },
-             status: :internal_server_error
+      claim_assignment # sets @assignment
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
     end
   end
 
@@ -138,6 +135,11 @@ class AssignmentsController < ApplicationController
                                         wiki: @wiki,
                                         title: assignment_params[:title],
                                         role: assignment_params[:role]).create_assignment
+  end
+
+  def claim_assignment
+    @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
+                                        course: @course).claim_assignment(@claimed_assignment)
   end
 
   def create_random_peer_reviews

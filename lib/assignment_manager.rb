@@ -42,6 +42,18 @@ class AssignmentManager
     raise DuplicateAssignmentError, "#{@clean_title} is already assigned to this user."
   end
 
+  def claim_assignment(claimed_assignment)
+    @wiki = claimed_assignment.wiki
+    @title = claimed_assignment.article_title
+    @role = Assignment::Roles::ASSIGNED_ROLE
+    if @course.retain_available_articles?
+      create_assignment
+    else
+      claimed_assignment.update(user_id: @user_id)
+      claimed_assignment
+    end
+  end
+
   private
 
   def assigned_titles
