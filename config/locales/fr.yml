@@ -265,8 +265,9 @@ fr:
     peer_review_link: Relecture par un pair
     peer_review_link_personalized: Révision paire de %{username}
     random_peer_review:
-      confirm_addition: Êtes-vous sûr de vouloir affecter un total de %{count} article(s)
-        à toute la classe avec un maximum de %{maximum} pour chaque étudiant ?
+      confirm_addition: Ceci affectera un total de %{count} article{{PLURAL:%{count}|s}}
+        à toute la classe, avec un maximum de %{maximum} pour chaque étudiant choisi{{PLURAL:%{count}|s}}
+        parmi les articles de ses collègues de classe.
       heading: Assigner des relectures par paires aléatoires
       tooltip_message: Affecte des articles aléatoires (avec comptage de revue de
         pair comme nombre maximum) à chaque étudiant.
