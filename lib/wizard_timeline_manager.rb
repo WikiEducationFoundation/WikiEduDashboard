@@ -187,7 +187,8 @@ class WizardTimelineManager
   FLAG_LOGIC = {
     '1_peer_reviewers' => { peer_review_count: 1 },
     '2_peer_reviewers' => { peer_review_count: 2 },
-    '3_peer_reviewers' => { peer_review_count: 3 }
+    '3_peer_reviewers' => { peer_review_count: 3 },
+    'working_in_groups' => { retain_available_articles: true }
   }.freeze
   def add_flags
     FLAG_LOGIC.each_key do |logic_key|

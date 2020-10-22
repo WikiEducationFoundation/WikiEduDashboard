@@ -394,6 +394,10 @@ class Course < ApplicationRecord
     flags[:stay_in_sandbox].present?
   end
 
+  def retain_available_articles?
+    flags[:retain_available_articles].present?
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
