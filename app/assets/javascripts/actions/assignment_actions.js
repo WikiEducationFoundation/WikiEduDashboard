@@ -59,10 +59,6 @@ const claimAssignmentPromise = (assignment) => {
       return res.json();
     }
     return Promise.reject(res);
-  })
-  .catch((error) => {
-    logErrorMessage(error);
-    return error;
   });
 };
 

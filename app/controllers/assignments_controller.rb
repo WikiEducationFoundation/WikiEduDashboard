@@ -59,6 +59,9 @@ class AssignmentsController < ApplicationController
       claim_assignment # sets @assignment
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     end
+  rescue AssignmentManager::DuplicateAssignmentError => e
+    render json: { errors: e, message: I18n.t('assignments.already_exists') },
+                   status: :conflict
   end
 
   def update_status

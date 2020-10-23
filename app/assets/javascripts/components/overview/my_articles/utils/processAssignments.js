@@ -102,7 +102,7 @@ export const processAssignments = ({ assignments, course, current_user }) => {
 
   const {
     assigned, reviewing,
-    unassigned, reviewable
+    unassigned, reviewable, assignable
   } = groupByAssignmentType(assignments, userId);
 
   const all = assigned.concat(reviewing).map(addAssignmentCategory);
@@ -112,6 +112,7 @@ export const processAssignments = ({ assignments, course, current_user }) => {
     reviewing,
     unassigned,
     reviewable,
+    assignable,
     all
   };
 };
