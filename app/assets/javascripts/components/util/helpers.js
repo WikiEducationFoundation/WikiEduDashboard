@@ -28,6 +28,12 @@ export const groupByAssignmentType = (assignments, user_id) => {
   const assignOptions = { user_id, role: ASSIGNED_ROLE };
   const assigned = getFiltered(assignments, assignOptions);
 
+  // Assignable to the current user: unassigned, and the current user
+  // isn't already assigned the same one
+  const pluckArticleUrl = pluck('article_url');
+  const assignedArticleUrls = assigned.map(pluckArticleUrl);
+  const assignable = unassigned.filter(assignment => !assignedArticleUrls.includes(assignment.article_url));
+
   // The current user is reviewing
   const reviewOptions = { user_id, role: REVIEWING_ROLE };
   const reviewing = getFiltered(assignments, reviewOptions);
@@ -64,7 +70,7 @@ export const groupByAssignmentType = (assignments, user_id) => {
   });
 
   const reviewable = uniqBy(reviewableDuplicates, 'article_url');
-  return { assigned, reviewing, unassigned, reviewable };
+  return { assigned, reviewing, unassigned, reviewable, assignable };
 };
 
 export const getModulesAndBlocksFromWeeks = (weeks) => {

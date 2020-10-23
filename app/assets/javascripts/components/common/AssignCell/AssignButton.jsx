@@ -517,7 +517,8 @@ AssignButton.propTypes = {
 
   addAssignment: PropTypes.func,
   initiateConfirm: PropTypes.func,
-  deleteAssignment: PropTypes.func
+  deleteAssignment: PropTypes.func,
+  unassigned: PropTypes.array
 };
 
 const mapDispatchToProps = {

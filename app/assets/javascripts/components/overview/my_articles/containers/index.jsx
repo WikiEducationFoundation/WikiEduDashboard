@@ -28,8 +28,8 @@ export class MyArticlesContainer extends React.Component {
     const {
       assigned,
       reviewing,
-      unassigned,
       reviewable,
+      assignable,
       all
     } = processAssignments(this.props);
 
@@ -52,7 +52,7 @@ export class MyArticlesContainer extends React.Component {
             current_user={current_user}
             reviewable={reviewable}
             reviewing={reviewing}
-            unassigned={unassigned}
+            unassigned={assignable}
             wikidataLabels={wikidataLabels}
           />
           <MyArticlesCategories

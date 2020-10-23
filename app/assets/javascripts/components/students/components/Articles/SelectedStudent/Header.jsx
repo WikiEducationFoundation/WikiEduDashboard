@@ -17,7 +17,7 @@ export const Header = ({
 }) => {
   const {
     assigned, reviewing,
-    unassigned, reviewable
+    reviewable, assignable
   } = groupByAssignmentType(assignments, selected.id);
 
   return (
@@ -43,7 +43,7 @@ export const Header = ({
           role={ASSIGNED_ROLE}
           student={selected}
           tooltip_message={I18n.t('assignments.assign_tooltip')}
-          unassigned={unassigned}
+          unassigned={assignable}
           wikidataLabels={wikidataLabels}
         />
         <AssignCell
