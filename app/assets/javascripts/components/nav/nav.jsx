@@ -114,7 +114,7 @@ const Nav = createReactClass({
           <div className="top-nav__faq-search">
             <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
               <input name="utf8" type="hidden" defaultValue="✓" />
-              <input type="text" name="search" id="search" defaultValue="" placeholder={I18n.t('application.search')} />
+              <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
               <input name="source" type="hidden" defaultValue="nav_ask_form" />
               <button type="submit">
                 <i className="icon icon-search" />
