@@ -24,15 +24,14 @@ describe('AvailableArticle', () => {
     expect(TestDom.textContent).toContain('two');
   });
 
-  it('notify when an article is selected', () => {
-    const notificationSpy = jest.fn();
+  it('claims an article when Select button is clicked', () => {
     const claimAssignmentSpy = jest.fn();
     const TestDom = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
           <AvailableArticle
             {...props}
-            addNotification={notificationSpy}
+            selectable={true}
             claimAssignment={claimAssignmentSpy}
           />
         </tbody>
@@ -42,7 +41,6 @@ describe('AvailableArticle', () => {
     const select = TestDom.querySelector('button');
     ReactTestUtils.Simulate.click(select);
 
-    expect(notificationSpy.mock.calls.length).toEqual(1);
     expect(claimAssignmentSpy.mock.calls.length).toEqual(1);
   });
 });
