@@ -64,7 +64,7 @@ export const claimAssignment = (assignment, successNotification) => (dispatch) =
   return claimAssignmentPromise(assignment)
     .then((resp) => {
       if (resp.assignment) {
-        dispatch(addNotification(successNotification));
+        if (successNotification) { dispatch(addNotification(successNotification)); }
         dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
       } else {
         dispatch({ type: types.API_FAIL, data: resp });
