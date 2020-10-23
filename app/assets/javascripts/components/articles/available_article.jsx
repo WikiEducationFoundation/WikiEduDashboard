@@ -14,7 +14,8 @@ export const AvailableArticle = createReactClass({
     current_user: PropTypes.object,
     course: PropTypes.object,
     deleteAssignment: PropTypes.func,
-    claimAssignment: PropTypes.func
+    claimAssignment: PropTypes.func,
+    selectable: PropTypes.func
   },
 
   onSelectHandler() {
@@ -60,7 +61,7 @@ export const AvailableArticle = createReactClass({
 
     let actionSelect;
     let actionRemove;
-    if (this.props.current_user.isStudent) {
+    if (this.props.current_user.isStudent && this.props.selectable) {
       actionSelect = (
         <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
       );

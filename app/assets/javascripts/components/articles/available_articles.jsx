@@ -28,6 +28,16 @@ const AvailableArticles = createReactClass({
     let findingArticlesTraining;
     const { assignments, course, course_id, current_user } = this.props;
 
+    const { assigned } = processAssignments(this.props);
+    const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
+    const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
+    let myArticles;
+    if (showMyArticlesSection) {
+      myArticles = (
+        <MyArticlesContainer current_user={current_user} />
+      );
+    }
+
     if (Features.wikiEd && current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
@@ -37,11 +47,13 @@ const AvailableArticles = createReactClass({
     }
 
     if (assignments.length > 0) {
+      const assignedUrls = assigned.map(assignment => assignment.article_url);
       elements = assignments.map((assignment) => {
         if (assignment.user_id === null) {
           return (
             <ConnectedAvailableArticle
               {...this.props}
+              selectable={!assignedUrls.includes(assignment.article_url)}
               assignment={assignment}
               key={assignment.id}
             />
@@ -64,16 +76,6 @@ const AvailableArticles = createReactClass({
           assignments={[]}
           prefix={I18n.t('users.my_assigned')}
         />
-      );
-    }
-
-    const { assigned } = processAssignments(this.props);
-    const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
-    const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
-    let myArticles;
-    if (showMyArticlesSection) {
-      myArticles = (
-        <MyArticlesContainer current_user={current_user} />
       );
     }
 
