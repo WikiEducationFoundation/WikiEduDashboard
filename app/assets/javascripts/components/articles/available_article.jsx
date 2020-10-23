@@ -15,7 +15,7 @@ export const AvailableArticle = createReactClass({
     course: PropTypes.object,
     deleteAssignment: PropTypes.func,
     claimAssignment: PropTypes.func,
-    selectable: PropTypes.func
+    selectable: PropTypes.bool
   },
 
   onSelectHandler() {
