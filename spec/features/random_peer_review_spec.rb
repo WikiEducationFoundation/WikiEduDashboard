@@ -39,7 +39,6 @@ describe 'random peer reviews', type: :feature, js: true do
     create(:assignment, course: course, article_title: cricket_article.title, user: student2,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: cricket_article)
 
-
     # Available articles not assigned to any student
     create(:assignment, course: course, article_title: 'Article that does not exist',
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki)
