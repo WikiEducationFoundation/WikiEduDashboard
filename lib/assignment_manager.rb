@@ -45,7 +45,8 @@ class AssignmentManager
   private
 
   def assigned_titles
-    @assigned_titles ||= @course.assignments.assigned.pluck(:article_title).uniq
+    @assigned_titles ||= @course.assignments.assigned
+                                .where.not(user_id: nil).pluck(:article_title).uniq
   end
 
   def reviewed_titles
