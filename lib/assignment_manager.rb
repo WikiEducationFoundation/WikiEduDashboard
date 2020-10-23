@@ -46,35 +46,30 @@ class AssignmentManager
 
   def assigned_titles
     @assigned_titles ||= @course.assignments.assigned
-                                .where.not(user_id: nil).pluck(:article_title).uniq
+                                .where.not(user_id: nil).pluck(:article_title).shuffle
   end
 
   def reviewed_titles
-    @newly_reviewed_titles ||= []
-    @initially_reviewed_titles ||= @course.assignments.reviewing.pluck(:article_title).uniq
-    @initially_reviewed_titles + @newly_reviewed_titles
+    @course.assignments.reviewing
+           .pluck(:article_title)
+  end
+
+  def review_counts
+    @review_counts ||= reviewed_titles.each_with_object(Hash.new(0)) do |title, title_counts|
+      title_counts[title] += 1
+    end
   end
 
   def own_assigned_titles(student)
-    @course.assignments.assigned.where(user_id: student.id).pluck(:article_title).uniq
-  end
-
-  def unreviewed_peer_titles(student)
-    assigned_titles - reviewed_titles - own_assigned_titles(student)
+    @course.assignments.assigned.where(user_id: student.id).pluck(:article_title)
   end
 
   def reviewable_titles(student, needed_count, currently_reviewing)
-    reviewables = unreviewed_peer_titles(student)
-    if reviewables.count > needed_count
-      reviewables = reviewables.shuffle.take(needed_count)
-    elsif reviewables.count < needed_count
-      reviewables += @course.assignments.assigned
-                            .where.not(user_id: student.id)
-                            .where.not(article_title: currently_reviewing)
-                            .sample(needed_count - reviewables.count)
-                            .pluck(:article_title)
-    end
-    reviewables
+    # all classmates' assigned titles that aren't assigned to this student
+    # and the student isn't already reviewing it
+    possible_reviews = assigned_titles.uniq - currently_reviewing - own_assigned_titles(student)
+    # order by fewest reviews
+    possible_reviews.sort_by { |title| -review_counts[title] }.take(needed_count)
   end
 
   def set_clean_title
@@ -110,7 +105,7 @@ class AssignmentManager
       Assignment.create!(user_id: student.id, course: @course,
                          article_title: title, wiki: @wiki,
                          role: Assignment::Roles::REVIEWING_ROLE)
-      @newly_reviewed_titles << title
+      review_counts[title] += 1
     end
   end
 
