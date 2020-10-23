@@ -30,7 +30,7 @@ const handleErrorNotification = function (data) {
     if (!notification.message) { notification.message = data.responseJSON.error; }
   }
 
-  if (!notification.message) { notification.message = data.statusText; }
+  if (!notification.message) { notification.message = data.errors || data.message || data.statusText; }
   if (isEmpty(data)) {
     console.error('Error: ', data); // eslint-disable-line no-console
     console.log(data); // eslint-disable-line no-console

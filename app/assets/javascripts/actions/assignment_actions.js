@@ -2,6 +2,9 @@ import API from '../utils/api.js';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
+import { addNotification } from './notification_actions.js';
+
+
 
 const fetchAssignmentsPromise = (courseSlug) => {
   return request(`/courses/${courseSlug}/assignments.json`)
@@ -54,17 +57,19 @@ const claimAssignmentPromise = (assignment) => {
     method: 'PUT',
     body: JSON.stringify(assignment)
   })
-  .then((res) => {
-    if (res.ok && res.status === 200) {
-      return res.json();
-    }
-    return Promise.reject(res);
-  });
+  .then(res => res.json());
 };
 
-export const claimAssignment = assignment => (dispatch) => {
+export const claimAssignment = (assignment, successNotification) => (dispatch) => {
   return claimAssignmentPromise(assignment)
-    .then(resp => dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp }))
+    .then((resp) => {
+      if (resp.assignment) {
+        dispatch(addNotification(successNotification));
+        dispatch({ type: types.UPDATE_ASSIGNMENT, data: resp });
+      } else {
+        dispatch({ type: types.API_FAIL, data: resp });
+      }
+    })
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import CourseUtils from '../../utils/course_utils.js';
 import { deleteAssignment, claimAssignment } from '../../actions/assignment_actions.js';
-import { addNotification } from '../../actions/notification_actions.js';
 
 export const AvailableArticle = createReactClass({
   displayName: 'AvailableArticle',
@@ -14,7 +13,6 @@ export const AvailableArticle = createReactClass({
     assignment: PropTypes.object,
     current_user: PropTypes.object,
     course: PropTypes.object,
-    addNotification: PropTypes.func,
     deleteAssignment: PropTypes.func,
     claimAssignment: PropTypes.func
   },
@@ -27,13 +25,13 @@ export const AvailableArticle = createReactClass({
     };
 
     const title = this.props.assignment.article_title;
-    this.props.addNotification({
+    const successNotification = {
       message: I18n.t('assignments.article', { title }),
       closable: true,
       type: 'success'
-    });
+    };
 
-    return this.props.claimAssignment(assignment);
+    return this.props.claimAssignment(assignment, successNotification);
   },
 
   onRemoveHandler(e) {
@@ -100,7 +98,6 @@ export const AvailableArticle = createReactClass({
 );
 
 const mapDispatchToProps = {
-  addNotification,
   deleteAssignment,
   claimAssignment
 };
