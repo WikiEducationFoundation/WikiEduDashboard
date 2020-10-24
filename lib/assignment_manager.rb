@@ -81,7 +81,7 @@ class AssignmentManager
     # and the student isn't already reviewing it
     possible_reviews = assigned_titles.uniq - currently_reviewing - own_assigned_titles(student)
     # order by fewest reviews
-    possible_reviews.sort_by { |title| -review_counts[title] }.take(needed_count)
+    possible_reviews.sort_by { |title| review_counts[title] }.take(needed_count)
   end
 
   def set_clean_title
