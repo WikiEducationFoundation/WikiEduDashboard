@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
 
 // Utilities
-import { forEach } from 'lodash-es';
+import { forEach, union } from 'lodash-es';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
 
 // Components
@@ -63,9 +63,13 @@ export class ArticleViewer extends React.Component {
   // first in that case. In that case, componentDidUpdate fetches the
   // user ids as soon as usernames are avaialable.
   componentDidUpdate(prevProps, prevState) {
-    if (!prevProps.users && this.props.users) {
-      if (!prevState.userIdsFetched) {
-        this.fetchUserIds(this.props.users);
+    if (this.props.assignedUsers && this.props.users) {
+      if (!this.state.userIdsFetched) {
+        this.fetchUserIds(union(this.props.assignedUsers, this.props.users));
+      }
+    } else if (!prevProps.users && this.props.users) {
+        if (!prevState.userIdsFetched) {
+          this.fetchUserIds(this.props.users);
       }
     }
   }
