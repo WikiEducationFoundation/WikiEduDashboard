@@ -1034,8 +1034,8 @@ tr:
         elevate_success: '%{username}, yönetici yapıldı.'
       remove:
         revoke_button: Yöneticiliği geri al
-        revoke_button_confirm: '%{username} kullanıcısından yöneticilik haklarını
-          geri al'
+        revoke_button_confirm: '%{username} adlı kullanıcının yöneticilik haklarını
+          al'
         revoking_button_working: Geri alınıyor...
         already_instructor: '%{username}, zaten bir eğitmen!'
         demote_success: '%{username}, eğitmen yapıldı.'

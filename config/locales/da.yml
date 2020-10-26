@@ -4,6 +4,7 @@
 # Author: Joedalton
 # Author: Jorn Ari
 # Author: Palnatoke
+# Author: Peterleth
 # Author: Saederup92
 # Author: Tinamalmgren
 ---
@@ -15,8 +16,16 @@ da:
         units:
           thousand: T
           million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Dette er et nummerisk felt. Knapperne som vises i de fleste browsere
+      vil øge eller mindske tallet.
   application:
     cancel: Annullér
+    cookie_consent: Denne side benytter cookies til at holde dig logget ind og til
+      at gemme informationer relateret til din Wikipedia-konto.
     cookie_consent_acknowledge: Jeg forstår
     cookie_consent_see_more: Se mere.
     create_accounts: Opret Wikipedia konti
@@ -43,7 +52,9 @@ da:
     request_account: Anmod om en konto
     request_account_create: Opret en konto
     search: stil et spørgsmål
-    search_results: 'Resultater for: ''%{search_terms}'''
+    search_results:
+      one: '%{count} Resultat for: ''%{search_terms}'''
+      other: '%{count} Resultater for: ''%{search_terms}'''
     no_results: Ingen resultater kunne findes for '%{query}'
     sign_up_extended: Registrer dig med Wikipedia
     sign_up_wikipedia: Eller tilmeld dig på Wikipedia
@@ -60,7 +71,14 @@ da:
     opt_no: nej
   article_statuses:
     not_yet_started: Kom i gang
+    in_progress: Arbejder i sandkassen
     ready_for_review: Udvider kladde
+    ready_for_mainspace: Flyt arbejdet til hovedsiden
+    assignment_completed: Markedet for opgaver er klaret
+    reading_the_article: Læser artikel
+    providing_feedback: Giver feedback
+    post_to_talk: Skriv på diskussionssiden
+    peer_review_completed: Gennemsyn fuldført
   dashboard:
     create_note: Klik på Opret kursus for at oprette dit første kursus.
     create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig
@@ -69,18 +87,39 @@ da:
       datointervaller. Husk at du altid kan ændre tidslinjen til dine behov.
     explore_course_pages: Udforsk kursussiderne
     explore_examples: Udforsk eksempler
+    join_note: Når du modtager en adgangskode af din instruktør, kan du klikke på
+      Find Dit Kursus og deltage.
     no_courses_instructor: Der ser ud til, at du ikke har nogen kurser.
     no_courses_student: Det ser ud til, at du endnu ikke har valgt et kursus.
+    opt_out: Spørg om at springe over orienteringen
+    orientation_notice: Før du opretter et kursus, så lad os gennemgå en orientering
+      for at få dig godt i gang. (Det tager ca. 30 minutter at gennemføre).
+    review_orientation: Gennemse orientering
+    start_orientation: Start orientering
     blog_headline: Seneste nyheder fra Wiki Education
+    about_programs: Denne side tracker wiki-aktiviteter gennem Programmer. Programmer
+      er individuelle begivenheder som fx edit-a-thon eller skole-kursus. Hvert Program
+      er en del af en eller flere Kampagner, som samler statistik på tværs af Programmer.
+    about_creating_programs: Hvis du vil afvikle et enkelt, uafhængigt projekt,kan
+      du oprette et Program nu. Hvis dit projekt er en del af noget større, kan du
+      finde eller oprette en Kampagne for det. Du kan oprette et nyt Program fra Kampagnesiden.
   home:
     explore: Udforsk
     log_in: Log på med Wikipedia
     sign_up: Registrer dig hos Wikipedia
+    sign_up_help: For at bruger værktøjet skal du logge ind via Wikipedia og give
+      tilladelse til at din konto får adgang. Du kan logge ind med en eksisterende
+      Wikipedia-konto eller oprette en ny.
+  alerts:
+    alert_label: Alarmer
+    no_alerts: Ingen alarmer fundet.
   activity:
     all: Aktivitet
     edited_by: Redigeret af
     label: Aktivitet
   articles:
+    article_development: (artikeludvikling)
+    articles_shown: Viser %{count} af %{total}
     assigned: Tildelte artikler
     available: Tilgængelige artikler
     no_available: Ingen tilgængelige artikler
@@ -103,6 +142,9 @@ da:
       new: Nye
       existing: Eksisterende
       new_and_existing: Nye og eksisterende
+      tracked: Tracked
+      untracked: Ikke tracked
+      tracked_and_untracked: Tracked og ikke-tracked
     hide: Skjul
     history: (historik)
     label: Artikler
@@ -110,17 +152,40 @@ da:
     new: (ny)
     none: Dette kursus har ikke redigeret artikler.
     rating: Klasse
+    rating_doc: Rangeringen som en artikel er blevet tildelt af WikiProjects på Wikipedia.
+      Disse rangeringer kan muligvis korrespondere til ældre versioner, så de er kun
+      en vejledende indikering af en artikels form.
     rating_docs:
+      fa: '%{class} (Featured article) — Wikipedias højeste rating. Muligvis for vanskelig
+        at opnå til at være en ny brugers hovedprojekt'
+      fl: '%{class} (Featured list) — Wikipedias højeste rating for lister'
+      a: '%{class}-class — meget omfattende og gennemarbejdet arbejdet artikel, som
+        muligvis vil være for vanskelig at opnå for en ny bruger'
+      ga: '%{class} (Good article) — en velunderbygget artikel som kan være vanskelig
+        for en ny bruger at opnå'
+      b: '%{class}-class – en ganske godt udviklet artikel'
+      c: '%{class}-class – en artikel med brugbar kvalitet og med plads til  forbedring'
+      start: '%{class}-class – en kort artikel med meget plads til forbedring'
+      stub: '%{class}-class – en meget kort artikel som behøver mere indhold'
+      list: '%{class}-class — nærmere en liste end en konventionel artikel'
+      '?': Unrated — en artikel som endnu ikke er blevet rated på Wikipedias kvalitetsskala
       does_not_exist: Denne artikel findes ikke på Wikipedia
     see_more: Se mere
     show_cumulative_changes: Vis kumulative ændringer
     show_current_version: Vis nuværende version
     show_current_version_with_authorship_highlighting: Nuværende version med forfatterskabfremhævelse
     title: Titel
+    tracked: Tracked
+    tracked_doc: Kun trackede artikler bidrager til statistikken for dette program.
+      Når artikler er markeret som Untracked, vil de blive fjernet fra statistikkerne
+      i forbindelse med den næste dataopdatering.
     title_example: Artikeltitel
+    tools: Vurderingsværktøjer
     view: Vis artikel
     view_all: Vis alle
-    view_doc: Summen af alle artikelvisninger i løbet af projektet
+    view_doc: "Det anslåede antal visninger for hver artikel  siden den første redigering,
+      ifølge den seneste stats-update. Du kan anvende \npageviews.toolforge.org for
+      at se det præcise tal."
     view_on_wiki: Vis på wikien
     views_added: Tilføjede %{count} nye visninger for %{title}
     edit_size: Redigeringsstørrelse
@@ -144,31 +209,58 @@ da:
     article_link: Artikel
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
+    assignees: Tildelt til
     assign_other: Tildel en artikel
     add_available: Tilføj tilgængelige artikler
+    add_available_placeholder: Tilføj en artikel-titel eller url pr linje
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
+    assign_tooltip: En tildelt artikel er en artikel, som du planlægger at oprette
+      eller forbedre.
     bibliography: Bibliografi
     clone: Klon
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
+    confirm_deletion: Er du sikker på at du vil slette denne tildeling af en artikel?
+    editors: Tildelt til
     group_members: Gruppemedlemmer
     label: Tildel
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt
+    none: Dette kursus har ingen tildelte artikler.
     no_available: Dette kursus har ingen tilgængelige artikler.
+    peer_review_count: '%{currentCount}/%{total} valgt'
+    peer_review_count_tooltip: Du bør vælge %{total} artikler til gennemsyn.
+    peer_review_link: Gennemsyn
+    peer_review_link_personalized: '%{username}s gennemsyn'
+    random_peer_review:
+      confirm_addition: Dette vil i alt tildele yderligere %{count} gennemsyn, med
+        et max antal på %{maximum} for hver studerende, valgt blandt deres holdkammeraters
+        artikler.
+      heading: Tildel tilfældige gennemsyn
+      tooltip_message: Tildel tilfældige artikler (med gennemsynstallet som maksimum)
+        til hver studerende.
+      limit_exceeded: Hver studerende gennemser allerede mindst %{maximum} artikler.
     remove: Fjern
     reviewers: Anmeldere
-    review_other: Tildel en anmeldelse
+    review_other: Tildel et gennemsyn
     review_self: Anmeld en artikel
+    review_tooltip: Dette er til artikler som du planlægger at gennemse eller give
+      feedback på.
+    sandbox_draft_link: Sandkassekladde
     select: Vælg
+    warning_untracked_wiki: 'Vær opmærksom på at den artikel som du netop har valgt,
+      er på en wiki, der ikke spores af dette kursus. For at spore bidrag til denne
+      artikel, skal en instruktør tilføje følgende wiki til dette kursus: %{wiki}'
   blocks:
     milestones:
       title: Milepæler
   campaign:
     active_campaigns: Aktive kampagner
+    add_organizer: Tilføj arrangør
     alert_article: Artikeltitel
     alert_label: Kampagnealarmer
+    alert_select_label: Filtrér efter advarselstype
     alert_type: Type
     alert_user_id: Bruger
     all_campaigns: Alle kampagner
@@ -180,34 +272,103 @@ da:
     campaign_not_updated: Kampagne kunne ikke opdateres
     campaign_updated: Kampagne opdateret
     created_at: Dato
+    confirm_campaign_deletion: Er du sikker på at du ønsker at slette kampangnen %{title}?
+      I så fald skal du her skrive titlen på kampagnen for at fortsætte.
+    confirm_campaign_deletion_failed: '%{title} er ikke titlen på denne kampagne.
+      Denne kampagne er derfor ikke blevet slettet.'
+    confirm_course_removal: Er du sikker på at du vil fjerne "%{title}" fra kampagnen
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" er allerede fjernet fra kampagnen "%{campaign_title}"'
     course: Kursus
+    course_removed: '"%{title}" er blevet fjernet fra kampagnen "%{campaign_title}"'
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
+    customize_passcode: et standard kodeord
+    data_download_info: Download kampagnens data som CSV-fil
+    data_courses: Kursets oversigtsdata
+    data_courses_info: Grundlæggende målinger for hvert kursus/program
     data_articles: Sider redigeret
+    data_revisions: Revisionsdata
+    data_articles_info: Detaljer om hver enkelt tracked side i denne kampagne
+    data_revisions_info: Detaljer om hver tracked revision i denne kampagne
     data_instructors: Instruktører
+    data_instructors_info: Liste over instruktører/facilitatorer og deres kurser/programmer
     data_editors_by_course: Skribenter efter kursus
+    data_editors_by_course_info: Liste over tilmeldte bidragsydere og deres kurser/programmer
+    data_editor_usernames: Bidragsyderes brugernavne
+    data_editor_usernames_info: Liste med bidragsydernes brugernavne. En per linje
+    default_course_type: Standard kursustype
+    default_passcode: Standard adgangskode
+    default_passcode_explanation: 'Som standard bør nye programmer i denne kampagne
+      have:'
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
+    disable_account_requests: Sluk for kontobegæring
+    enable_account_requests: Tænd for kontobegæring
+    no_alerts: Denne kampagne har ingen alarmer
+    no_passcode: ingen adgangskode
     none: Ingen
+    organizers: Arrangører
+    organizer_added: '%{user} er nu arrangør i "%{title}" kampagnen'
+    organizer_removed: '%{user} er blevet fjernet som arrangør af "%{title}" kampagnen'
     program_template: Programskabelon
+    program_template_tooltip: Når en arrangør opretter et program i denne kampagne,
+      vil tekst i dette felt blive kopieret over til programmets beskrivelsesside.
+    random_passcode: en tilfældig adgangskode
     requested_accounts: Anmodede konti
     title: Titel
+    slug: Slug
+    search_campaigns: Søg efter kampagner
     use_start_end_dates: Brug start- og slutningdatoer
   categories:
     add_category: Tilføj kategori
+    add_psid: Tilføj PetScan PSID
+    add_pileid: Tilføj PagePile id
     add_template: Tilføj skabelon
     add_this_category: Tilføj denne kategori
     add_this_psid: Tilføj dette PSID
+    add_this_pileid: Tilføj denne PagePile id
     add_this_template: Tilføj denne skabelon
+    import_articles_description: En liste med artikler i en kategori opdateres periodisk,
+      og det kan derfor tage lidt tid fra en artikel er tilføjet, til den også optræder
+      på listen.
+    confirm_category_addition: Er du sikker på at du vil tracke bidrag til kategorien
+      %{name}?
+    confirm_psid_addition: Er du sikker på at du ønsker at tracke bidrag til PetScan
+      PSID "%{name}"?
+    confirm_pileid_addition: Er du sikker på at du ønsker at tracke bidrag til PagePile
+      ID %{name}?
+    confirm_template_addition: Er du sikker på at du ønsker at tracke bidrag til skabelonen
+      %{name}?
+    depth: Underkategoris dybde
+    articles_count: Antal artikler
     name: Navn
     category_name: Kategorinavn
+    psid_name: PSID
+    pileid_name: PagePile id
     template_name: Skabelonnavn
+    none: Ingen kategorier trackes.
     remove: Fjern
+    tracked_categories: Tracked Kategorier, PSID, PagePile id & Skabeloner
+    timestamp: Senest opdateret
   chat:
     label: Diskussion
   courses:
+    school_system: Akademisk system
+    assignment_edits_enabled: Tændt for opgaveredigering
+    assignment_edits_enabled_tooltip: Hvis tændt, vil der på dashboardet blive oprettet
+      en skabelon til diskussionssiden for hver tildelt opgave.
+    accounts_generation_enabled: Tændt for kontoforespørgselsgenerering
+    accounts_generation_explanation: Dette vil deltagere mulighed for at skrive deres
+      email og et ønsket brugernavn, i stedet for at de selv skal oprette en ny konto.
+      Du vil herefter kunne oprette en konto til dem fra dette dashboard og tilføje
+      dem som program-deltagere på samme tid.
+    accounts_generation_confirm_message: Er du sikker på at du ønsker at tænde for
+      kontoforespørgselsfunktionen?
     activity: Aktivitet
     active_courses: Aktive %{course_type}
+    add_trainings: Tilføj venligst de studerendes træninger til din tidslinje med
+      opgaver. Det at tildele træningsopgaver er en vigtig del af Wiki Eds best practice.
     alerts: Alarmer
     all_courses: Alle kurser
     already_enrolled: Du er allerede del af «%{title}»!
@@ -216,13 +377,19 @@ da:
     actions: Handlinger
     articles: Artikler
     articles_none: Dette kursus har ikke redigeret nogen artikler.
+    article_viewer: Artikelvisning
+    articles_i_am_reviewing: Artikler jeg giver gennemsyn
     assignment_headings:
+      assigned_articles: Tildelte artikler
+      assigned_reviews: Tildelte gennemsyn
       available_articles: Tilgængelige artikler
       available_reviews: Klassekammeraters artikler
     assignment_end: Opgaveslut
     assignments_none: Dette kursus har ingen tildelte artikler.
     assignment_start: Opgavestart
     calendar:
+      legend: Forklaring
+      legend_class_canceled: Ferie/Aflyst
       legend_class_meeting: Klassetræf
       legend_class_not_meeting: Ingen møder planlagt
       select_meeting_days: Vælg ugedagene klassen mødes på.
@@ -232,22 +399,61 @@ da:
     campaign_courses: '%{title} Kurser'
     campaign_select: Vælg en kampagne
     campaign_users: '%{title} Skribenter'
+    confirm_course_deletion: Er du sikker på at du vil slette kurset %{title}? Hvis
+      det er tilfældet, så skriv her titlen på kurset for at fortsætte.
+    confirm_course_deletion_failed: '"%{title}" er ikke kursets titel. Kurset er ikke
+      blevet slettet.'
+    confirm_manual_update: Er du sikker på at du vil køre en manuel opdatering? De
+      seneste ændringer vil blive importeret og siden vil genindlæses. Denne proces
+      kan vare lidt.
     course: Kursus
     course_description: Kurser
     courses: Kurser
     courses_taught: Underviste kurser
     creation_date: Oprettelsesdato
     creator:
+      already_exists: Dette kursus eksisterer allerede. Overvej at ændre navnet, skolen
+        eller andet for at gøre kurset unikt.
+      assignment_end: Opgavens sluttidspunkt
       assignment_end_placeholder: ÅÅÅÅ-MM-DD
+      assignment_start: Opgavens start
       assignment_start_placeholder: ÅÅÅÅ-MM-DD
+      cancel_course_clone: Fortryd kloning af kurset
+      cancel_course_clone_confirm: Er du sikker på at du vil afbryde kloningen af
+        dette kursus?
+      checking_for_uniqueness: Dette kursus er blevet tjekket for dets unikhed
       choose_clone: Vælg et kursus du vil klone.
       clone_previous: Klon tidligere kursus
       clone_this: Klon dette kursus
+      clone_successful: Opdater detaljer for det klonede kursus
+      clone_successful_details: Dit kursus er blevet klonet inklusiv tidslinjens elementer
+        (uger og blokke). Sørg for at tilføje datoer, da disse ikke er overført. Er
+        der ellers noget, der adskiller dette kursus fra sit ophav? Så kan du bare
+        opdatere det nu.
       course_description: Beskrivelse af kursus
       course_description_placeholder: Hvad er dækket i dit kursus, og hvad vil studenterne
         lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
         en ide om konteksten for bidragene dine studenter udfører.
+      course_school: Kursusskolen
+      course_subject: Kursets emne
+      course_term: Kursets tidspunkt
+      course_term_placeholder: Tidspunkt
       course_title: Titel på kursus
+      course_types:
+        basic_course_name: Basisprogram
+        basic_course_description: Denne programtype vil tracke redigeringer på alle
+          artikler og hovedsider af enhver deltager. Hvis funktionen automatiske wiki-redigeringer
+          er tændt på dette programs hjemme-wiki, vil en on-wiki version af dette
+          program automatisk blive oprettet og opdateret.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Et Edit-A-Thon program vil tracke redigeringer på
+          alle artikler og hovedsider. Som standard vil der ikke blive udført nogle
+          automatiske ændringer i denne type program.
+        article_scoped_program_name: Arikel-fokuseret Program
+        article_scoped_program_description: Denne programtype tracker kun redigeringer
+          for tildelte artikler og kategorier. Brug dette program hvis du ønsker at
+          begrænse det statistiske materiale til kun at omfatte en kendt samling artikler
+          og emner. Som standard er automatiske wiki-redigeringer tændt.
       create_button: Opret mit kursus!
       create_label: Opret nyt kursus
       create_new: Opret et nyt kursus
@@ -256,22 +462,61 @@ da:
       end_date_placeholder: ÅÅÅÅ-MM-DD
       expected_number: Forventet antal studenter
       find: Find dit kursus
+      intro: Titel, skole og tidsrum skaber tilsammen jeres kursussides URL og kan
+        ikke ændres. Alt andet kan du redigere senere. Klik på "Opret mit kursus"
+        for at begynde at bygge din tidslinje for din Wikipedia-opgave.
+      no_class_holidays: Jeg har ingen klasseferier
       role_description: Din rolle i kursuset
       role_description_options:
       - Instruktør
+      - Undervisningassistent
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
+      separate_event_dates: Angiv tidspunkter for hvornår arrangementet starter/slutter
+        (valgfrit)
       save_cloned_course: Gem nyt kursus
       start_date: Startdato
       start_date_placeholder: ÅÅÅÅ-MM-DD
       subject: Emne
     current: Nuværende kurser
+    data_articles: Artikeldata
+    data_articles_info: Artikeldata omfatter antallet af redigeringer af hver side,
+      hvilke sider der er nye og det samlede antal sidevisninger. Disse tal kan være
+      ikke-opdaterede for kurser, der er afsluttede, hvorfor der også er inkluderet
+      en URL til WMF Tool Labs' sidetæller.
+    data_revisions_info: Revisionsdata omfatter tællinger af kursets samlede antal
+      revisioner, revisions id, artikel id, hvilke sider der er nye samt et samlet
+      antal sidevisninger.
+    data_download_info: Download data i CSV-format.
+    data_overview: Oversigtsdata
+    data_overview_info: Oversigtsdata indeholder akkumulerede statistikker for hele
+      projektet.
+    data_edits: Redigeringsdata
+    data_edits_info: Redigeringsdata viser detalker for alle redigeringer lavet i
+      løbet af projektet.
+    data_students: Deltagerdata
+    data_students_info: Deltagerdata indeholder dels en liste over alle tilmeldte
+      deltagere, hvor meget de har redigeret og hvorvidt de har registreret deres
+      konto i løbet af projektet.
+    data_uploads: Commons uploads data
+    data_revisions: Revisionsdata
+    data_uploads_info: Commons uploads data viser navn og anvendelse af hvert uploadet
+      medie.
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detaljeret opgørelse af Wikidata-aktivitet, baseret på optælling
+      af redigeringer
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
     dismiss_survey: Luk
+    dismiss_survey_confirm: Er du sikker på at du permanent vil afvise denne undersøgelse?
+    download_stats_data: Download stats
+    does_not_exist: Artiklen eksisterer ikke. Opret en Sandkasse-side og tildel dig
+      selv til den for at få forslag.
+    duration: Kursets varighed
     edit_count: Antal redigeringer
     edit_course_dates: Rediger kursusdatoer
+    embed_course_stats: Indlejr kursusstatistik
     enable_chat: Aktiver chat
     ended: Kurset er afsluttet.
     enrollment: Tilføj/Fjern studerende
