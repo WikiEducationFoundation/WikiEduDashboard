@@ -41,10 +41,6 @@ class WikidataSummaryParser
     stats
   end
 
-  def self.analyze_revision(revision)
-    new(fetch_summary(revision)).changes
-  end
-
   def self.fetch_summary(revision)
     query = {
       prop: 'revisions',
@@ -90,16 +86,6 @@ class WikidataSummaryParser
       !unknown_update?
   end
   # rubocop:enable Metrics/PerceivedComplexity
-
-  def changes
-    {
-      created_claim: created_claim?,
-      changed_claim: changed_claim?,
-      added_alias: added_alias?,
-      added_description: added_description?,
-      changed_description: changed_description?
-    }
-  end
 
   def no_data?
     @summary.empty?
