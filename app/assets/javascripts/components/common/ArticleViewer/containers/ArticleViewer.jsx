@@ -61,13 +61,26 @@ export class ArticleViewer extends React.Component {
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
   // fetched until the usernames are available, so 'show' will fetch the usernames
   // first in that case. In that case, componentDidUpdate fetches the
-  // user ids as soon as usernames are avaialable.
+  // user ids as soon as usernames are avaialable. However, the articleViewer will 
+  // contain an extra prop "assignedUsers" when viewed from the Students/Editors tab
+  // which holds all the users extracted from assigned articles in addition to 
+  // the "users" prop, which in this case contains all the usernames that have edited
+  // the article but have not been assigned to it.
   componentDidUpdate(prevProps, prevState) {
+    // checks for the availability of 'assignedUsers' and 'users' props.
+    // This condition will only pass when articleViewer is accessed from the Students/Editors tab 
     if (this.props.assignedUsers && this.props.users) {
+    // checks if usersIds required for coloration have already been fetched or not.
+    // if not, userIds are fetched by passing in an array that contains both 'assignedUsers'
+    // and 'users' as an argument to the fetchUserIds function.
       if (!this.state.userIdsFetched) {
         this.fetchUserIds(union(this.props.assignedUsers, this.props.users));
       }
-    } else if (!prevProps.users && this.props.users) {
+    }
+    // this condition will pass whenever 'assignedUsers' props is not available
+    // and the fetchUserIds inside this branch is invoked when 'users', if not available
+    // previously, have been fetched and passed down as props.
+    else if (!prevProps.users && this.props.users) {
         if (!prevState.userIdsFetched) {
           this.fetchUserIds(this.props.users);
       }
