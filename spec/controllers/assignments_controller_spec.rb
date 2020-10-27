@@ -346,11 +346,25 @@ describe AssignmentsController, type: :request do
       end
     end
 
-    context 'when the article is already assigned to a user' do
+    context 'when the assignment was already claimed by another user' do
       before { create(:courses_user, course: course, user: user) }
 
       it 'renders a 409' do
         assignment.update(user_id: 1)
+        put "/assignments/#{assignment.id}/claim", params: request_params
+        expect(response.status).to eq(409)
+      end
+    end
+
+    context 'when the same article is already assigned to the user' do
+      before do
+        create(:courses_user, course: course, user: user)
+        create(:assignment, article_title: assignment.article_title, user: user,
+                            course: course, role: assignment.role)
+        expect_any_instance_of(Course).to receive(:retain_available_articles?).and_return(true)
+      end
+
+      it 'renders a 409' do
         put "/assignments/#{assignment.id}/claim", params: request_params
         expect(response.status).to eq(409)
       end
