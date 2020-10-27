@@ -18,7 +18,7 @@
             %h3 Settings
         = f.input :name, label: "Question Group Name", input_html: { class: "input--large", required: true }
         .form__row
-          = f.association :campaigns, label_method: :title, input_html: { data: { chosen_select: true }}
+          = f.association :campaigns, label_method: :title
         .form__row
           %label Tags
-          = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true, data: { chosen_select: true }
+          = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true

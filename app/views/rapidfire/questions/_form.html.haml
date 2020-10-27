@@ -68,7 +68,7 @@
             Populate Answer Options with Course Data
         %div{:class => course_data?(@question_form) ? '' : 'hidden', "data-question-type-field" => "course_data"}
           .survey__question__option-row
-            = f.select :course_data_type, COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true}, :prompt => "Select type of course data"
+            = f.select :course_data_type, COURSE_DATA_ANSWER_TYPES, :prompt => "Select type of course data"
           .survey__question__option-row{"data-question-type-options" => "Select"}
             = f.label :placeholder_text, "Placeholder text for dropdown input"
             %br/
