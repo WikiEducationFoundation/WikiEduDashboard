@@ -147,6 +147,16 @@ describe SurveyNotification do
         expect((1.minute.ago..1.minute.from_now).cover?(subject.email_sent_at)).to eq(false)
       end
     end
+
+    context 'when the email is invalid' do
+      let(:email_sent_at) { nil }
+
+      it 'reports the problem to Sentry' do
+        allow(SurveyMailer).to receive(:send_notification).and_raise(Mailgun::CommunicationError)
+        expect(Raven).to receive(:capture_exception)
+        subject.send_email
+      end
+    end
   end
 
   describe '#send_follow_up' do
