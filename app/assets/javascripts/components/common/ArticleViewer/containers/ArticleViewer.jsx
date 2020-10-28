@@ -63,17 +63,14 @@ export class ArticleViewer extends React.Component {
   // first in that case. In that case, componentDidUpdate fetches the
   // user ids as soon as usernames are avaialable. In case the articleViewer is
   // accessed through the Students/Editors tab, an extra prop called assignedUsers,that
-  // holds all users extracted from assigned articles, will be passed to it in addition to
-  // the users prop, which in this case contains all the users that have edited the article
-  // but not been assigned to it.
+  // holds all users extracted from assigned articles, will be passed to the articleViewer in
+  // addition to the users prop, which in this case contains all the users that have edited
+  // the article but not been assigned to it. The assignedUsers prop, if available, is then
+  // used in the fetchUserIds function.
   componentDidUpdate(prevProps, prevState) {
-    // whenever the component updates, the fetchUserIds function is invoked only when the
-    // users prop gets populated with usernames such that userIds, required for coloration,
-    // haven't been fetched yet. In case the assignedUsers prop is available a combination
-    // with users prop is passed to the function, otherwise only the users prop is passed.
     if (!prevProps.users && this.props.users) {
         if (!prevState.userIdsFetched) {
-          this.fetchUserIds(union(this.props.assignedUsers || [], this.props.users));
+          this.fetchUserIds();
       }
     }
   }
@@ -124,13 +121,7 @@ export class ArticleViewer extends React.Component {
     if (!this.props.users && !this.props.showArticleFinder) {
       this.props.fetchArticleDetails();
     } else if (!this.state.userIdsFetched && !this.props.showArticleFinder) {
-      // if articleViewer is accessed through Students/Editors tab, a combination
-      // of both assignedUsers and users will be passed to the fetchUserIds function
-      // when show is clicked and the conditions have been satisfied. Otherwise
-      // whenever the articleViewer is accessed through any other tab, e.g Articles tab,
-      // the fetchUserIds function will be invoked with users because
-      // assignedUsers would be undefined.
-      this.fetchUserIds(union(this.props.assignedUsers || [], this.props.users));
+      this.fetchUserIds();
     }
     // WhoColor is only available for some languages
     if (!this.state.whocolorFetched && this.isWhocolorLang()) {
@@ -220,7 +211,14 @@ export class ArticleViewer extends React.Component {
 
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.
-  fetchUserIds(users) {
+  fetchUserIds() {
+    // if articleViewer is accessed through Students/Editors tab, a combination
+    // of both assignedUsers and users will be passed to the URLBuilder, whenever the
+    // fetchUserIds function is called. However, if the articleViewer is accessed
+    // through any other tab, e.g Articles tab, only the users prop will be passed
+    // to the URLBuilder as the assignedUsers prop would be undefined. In this case
+    // the users prop will be combined with an empty array.
+    const users = union(this.props.assignedUsers || [], this.props.users);
     const builder = new URLBuilder({ article: this.props.article, users });
     const api = new ArticleViewerAPI({ builder });
     api.fetchUserIds()
