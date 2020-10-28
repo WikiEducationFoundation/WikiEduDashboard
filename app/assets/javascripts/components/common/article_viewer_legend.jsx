@@ -33,7 +33,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         if (status === 'loading') {
           res = <div key={`legend-${user.name}`} className={'user-legend'}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
         } else if (user.activeRevision === true) {
-          res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" src="/assets/images/arrow.svg" alt="scroll to users revisions" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
+          res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
         } else {
           res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
         }
