@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Components
@@ -6,7 +7,7 @@ import CurrentStatus from './CurrentStatus';
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
-export const Assignment = ({ assignment, course, current_user, fetchArticleDetails, user }) => {
+export const Assignment = ({ assignment, course, current_user, fetchArticleDetails, user, articleDetails }) => {
   const article = {
     ...assignment,
     course_id: course.id,
@@ -30,6 +31,10 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
       />
     );
   }
+  const getAllEditors = () => {
+    fetchArticleDetails(article.id, course.id);
+  };
+  const details = articleDetails[article.id] || null;
   return (
     <tr className="article-row">
       <td className="article-title">{assignment.article_title}</td>
@@ -48,8 +53,9 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
           article={article}
           course={course}
           current_user={current_user}
-          fetchArticleDetails={fetchArticleDetails}
-          users={users}
+          fetchArticleDetails={getAllEditors}
+          users={details && details.editors}
+          assignedUsers={users}
           showOnMount={showArticleId === article.id}
         />
       </td>
@@ -70,4 +76,5 @@ Assignment.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-export default Assignment;
+const mapStateToProps = ({ articleDetails }) => ({ articleDetails: articleDetails });
+export default connect(mapStateToProps)(Assignment);
