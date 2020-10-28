@@ -19,12 +19,8 @@ class CourseCloneManager
     duplicate_timeline
     set_instructor
     tag_course
-
-    if @campaign
-      @clone.campaigns << @campaign
-    elsif Features.open_course_creation?
-      copy_campaigns
-    end
+    add_flags
+    add_campaigns
 
     return @clone
   # If a course with the new slug already exists — an incomplete clone of the
@@ -97,7 +93,11 @@ class CourseCloneManager
                    real_name: @user.real_name)
   end
 
-  TAG_KEYS_TO_CARRY_OVER = ['tricky_topic_areas'].freeze
+  TAG_KEYS_TO_CARRY_OVER = %w[
+    tricky_topic_areas
+    working_individually
+    working_in_groups
+  ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
     tag_manager.initial_tags(creator: @user)
@@ -105,6 +105,27 @@ class CourseCloneManager
     @course.tags.each do |tag|
       next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
       tag_manager.add(tag: tag.tag, key: tag.key)
+    end
+  end
+
+  FLAGS_TO_CARRY_OVER = [
+    :peer_review_count,
+    :retain_available_articles,
+    :stay_in_sandbox
+  ].freeze
+  def add_flags
+    FLAGS_TO_CARRY_OVER.each do |flag_key|
+      next unless @course.flags.key? flag_key
+      @clone.flags[flag_key] = @course.flags[flag_key]
+    end
+    @clone.save
+  end
+
+  def add_campaigns
+    if @campaign
+      @clone.campaigns << @campaign
+    elsif Features.open_course_creation?
+      copy_campaigns
     end
   end
 
