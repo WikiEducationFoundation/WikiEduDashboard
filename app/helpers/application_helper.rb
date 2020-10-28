@@ -36,9 +36,13 @@ module ApplicationHelper
     end
   end
 
+  # This gets overridden during tests via coverage_helper.rb, so
+  # we can't collect coverage data for the real method.
+  # :nocov:
   def hot_javascript_tag(filename)
     javascript_include_tag hot_javascript_path(filename)
   end
+  # :nocov:
 
   def hot_javascript_path(filename)
     return "http://localhost:8080/#{filename}.js" if Features.hot_loading?

@@ -11,8 +11,9 @@ class ImportWikidataSummariesWorker
     Revision.where(wiki: wikidata, summary: nil, deleted: false).find_in_batches do |revision_batch|
       revision_batch.each do |rev|
         summary = WikidataSummaryParser.fetch_summary(rev)
+        next if summary.nil?
         begin
-          rev.update(summary: summary)
+          rev.update!(summary: summary)
         rescue ActiveRecord::StatementInvalid => e
           Raven.capture_exception e
           rev.update(summary: CGI.escape(summary))
