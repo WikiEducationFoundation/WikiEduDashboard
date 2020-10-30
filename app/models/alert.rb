@@ -52,6 +52,7 @@ class Alert < ApplicationRecord
     OverdueTrainingAlert
     OverEnrollmentAlert
     ProductiveCourseAlert
+    SandboxedCourseMainspaceAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
@@ -88,6 +89,7 @@ class Alert < ApplicationRecord
     ProductiveCourseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
+    SandboxedCourseMainspaceAlert
   ].freeze
 
   scope :nonprivate, -> { where(type: PUBLIC_ALERT_TYPES) }
