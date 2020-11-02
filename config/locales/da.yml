@@ -30,7 +30,7 @@ da:
     cookie_consent_acknowledge: Jeg forstår
     cookie_consent_see_more: Se mere.
     create_accounts: Opret Wikipedia konti
-    dashboard: Wiki Ed betjeningspanel
+    dashboard: Wiki Ed Kontrolpanel
     documentation: Dokumentation
     error: 'Der opstod en fejl:'
     explore: Udforsk
@@ -45,7 +45,7 @@ da:
     help: Hjælp
     home: Forside
     log_in_extended: Log ind med Wikipedia
-    log_in: Log på
+    log_in: Log ind
     log_out: Log af
     my_dashboard: Mit Kontrolpanel
     recent_activity: Seneste aktivitet
@@ -63,15 +63,15 @@ da:
     sign_up: Opret en konto
     submit: Send
     training: Træning
-    change: Ændr
+    change: Skift
     details: Detaljer
-    confirm: O.k.
+    confirm: OK
     opt_in: Ja
     opt_out: Nej
     opt_yes: ja
     opt_no: nej
   article_statuses:
-    not_yet_started: Kom i gang
+    not_yet_started: Kom godt i gang
     in_progress: Arbejder i sandkassen
     ready_for_review: Udvider kladde
     ready_for_mainspace: Flyt arbejdet til hovedsiden
@@ -132,9 +132,8 @@ da:
     character_doc: Summen af antal tegn som er lagt til i artikler af indmeldte brugere
       mellem start- og slutningdatoerne.
     cross_wiki_tracking: Hovedrummets artikler redigeret mellem start- og slutdatoerne
-      vises forneden. På Mit Kontrolpanel hentes bidrag fra hjemmewikien for dette
-      program, lige så vel som med alle andre wikier hvor der er en aflevering eller
-      en tilgængelig artikel.
+      vises herunder. I kontrolpanelet hentes bidrag fra hjemmewikien for dette program,
+      samt for alle andre wikier hvor der er en aflevering eller en tilgængelig artikel.
     deleted: (slettet)
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
@@ -305,7 +304,7 @@ da:
       have:'
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
-    disable_account_requests: Sluk for kontobegæring
+    disable_account_requests: Sluk for kontoanmodninger
     enable_account_requests: Tænd for kontobegæring
     no_alerts: Denne kampagne har ingen alarmer
     no_passcode: ingen adgangskode
@@ -358,12 +357,12 @@ da:
   courses:
     school_system: Akademisk system
     assignment_edits_enabled: Tændt for opgaveredigering
-    assignment_edits_enabled_tooltip: Hvis tændt, vil der på dashboardet blive oprettet
-      en skabelon til diskussionssiden for hver tildelt opgave.
-    accounts_generation_enabled: Tændt for kontoforespørgselsgenerering
+    assignment_edits_enabled_tooltip: Hvis tændt, vil der på kontrolpanelet blive
+      oprettet en skabelon til diskussionssiden for hver tildelt opgave.
+    accounts_generation_enabled: Tændt for kontoanmodningsgenerering
     accounts_generation_explanation: Dette vil deltagere mulighed for at skrive deres
       email og et ønsket brugernavn, i stedet for at de selv skal oprette en ny konto.
-      Du vil herefter kunne oprette en konto til dem fra dette dashboard og tilføje
+      Du vil herefter kunne oprette en konto til dem fra kontrolpanelet og tilføje
       dem som program-deltagere på samme tid.
     accounts_generation_confirm_message: Er du sikker på at du ønsker at tænde for
       kontoforespørgselsfunktionen?
@@ -583,8 +582,8 @@ da:
     invitation: Du er blevet inviteret til at deltage i %{title}. For at deltage i
       et kursus skal du først logge din ind med en Wikipedia-konto.
     invitation_username_advice: Hvis du endnu ikke har en Wikipedia-konto, kan du
-      oprette en konto nu. Dit brugernavn kan være så anonymt - eller personligt identificerende
-      - som du ønsker. (Det er ikke tilladt at lave delte konti).
+      oprette en konto nu. Dit brugernavn kan være så anonymt, eller så personligt
+      identificerbart, som du ønsker. (Det er ikke tilladt at lave delte konti).
     join: Tilslut
     join_course: Tilslut kursus
     join_course_as_volunteer: Frivillig til at hjælpe
@@ -611,7 +610,7 @@ da:
     new_account_email: E-mailadresse
     new_account_email_placeholder: navn@eksempel.org
     new_account_info: For at anmode om en konto, skal du blot indskrive din email
-      og dit foretrukne brugernavn. Du vil herefter modtage en adgangskode via email,
+      og dit foretrukne brugernavn. Du vil herefter modtage en email med en adgangskode,
       når kontoen til dig er oprettet af en af arrangørerne.
     new_account_info_admin: For at oprette en konto til en ny bruger, skal du blot
       indskrive vedkommendes email og ønskede brugernavn. Brugeren vil herefter modtage
@@ -647,7 +646,7 @@ da:
     passcode: Adgangskode
     passcode_none: Ingen adgangskode
     passcode_prompt: 'Skriv adgangskode for at deltage i:'
-    please_log_in: Venligst log på.
+    please_log_in: Log venligst ind.
     private: Privat
     published: 'Dit kursus er blevet offentliggjort! Deltagere kan nu indskrives på
       kurset ved at besøge følgende URL:'
@@ -1048,17 +1047,55 @@ da:
         og flere referencer. Overvej at få artiklen gennemset eller få den nomineret
         som en God artikel. Det kunne nemlig være et godt tidspunkt at se om ikke
         artiklen kan blive fuldt wiki-ficeret.
+      b: Der kan nogle mindre forhold omkring indhold og opsætning. Kilder med ekspertviden
+        kan være nødvendig. Overvej om det er muligt at inkludere støttende materialer,
+        og gennemgå også artiklen for de generelle retningslinjer i stilmanualen.
+      c: Omfattende redigering er nødvendig for at lukke huller i indholdet og løse
+        oprydningsproblemer.
+      start: Den første opgave må være at sørge for referencer til troværdige kilder.
+        Derudover mangler artiklen nogle omfattende forbedringer af både indhold og
+        tilrettelæggelse. Tjek også at grammatik, stavning og sprogbrugen er i orden.
+      stub: Enhver redigering og udbygning af indhold vil være nyttig. Først og fremmest
+        er relevant indhold vigtigt. Den bedste måde at få denne artikel løftet op
+        fra en underklasse artikel til topklasse artikel er at have nogle underbyggede
+        begrundelser med tilhørende referencer for hvorfor dette emne er vigtigt.
+      fl: Der er sandsynligvis ikke brug for yderligere information med mindre nye
+        oplysninger bliver tilgængelige.
+      list: Lister bør være lister af eksisterende links til Wikipedia-artikler, i
+        en passende navngivning og organisering.
+      future: Materialet der er tilføjet er muligvis spekulationer og man bør derfor
+        være omhyggelig med kildeangivelser.
+      disambig: Tilføjelser skal foretages, når nye artikler med dette navn oprettes.
+        Vær opmærksom på den korrekte navngivning af sådanne sider, da de ofte ikke
+        har brug for "(tvetydiggørelse)", der er knyttet til titlen.
+      '?': |2-
+
+        Forslag ikke tilgængelige. Artiklen er enten ikke bedømt, eller forslag er ikke tilgængelige for vurderingen.
       does_not_exist: Denne artikel findes ikke på Wikipedia.
   tasks:
     conseq: Opgaven %{task} kører allerede!
     constant: Opgaven %{task} kan ikke køre mens opgaven update_daily kører.
+    paused: Opgaven %{task} kunne ikke behandles, fordi planlagte opdateringer er
+      sat på pause. Kør 'rake batch:resume' for at genoptage opdateringer.
+  tickets:
+    none: Ingen billetter
   timeline:
     add_week: Tilføj uge
     arrange_timeline: Organiser tidslinjen
+    arrange_timeline_instructions: Arrangér tidslinjen ved at trække og slippe blokke
+      ind på de ønskede tidspunkter eller flyt på allerede placerede blokke ved at
+      benytte pilene på kortet.
+    assignment_dates_instructions: Vælg start- og sluttidspunktet for tidslinjen med
+      Wikipedia-opgaver. Ændring af starttidspunktet vil ændre datoer for hele tidslinjen.
+    blackout_week_created: Der er planlagt blokke til denne uge. Flyt dem venligst
+      til en anden uge inden du flytter det sidste holds møde fra denne uge.
     block_assignment: Opgave
     block_custom: Tilpas
     block_in_class: På holdet
     block_milestone: Milepæl
+    block_type: Denne blokktype bruges til at kommunikere til dine deltagere om dette
+      element på deres tidslinje og til at oprette nyttige værktøjer til dig (såsom
+      milepælsoversigten på i oversigten i kontrolpanelet)
     course_dates: Kursusdatoer
     course_dates_instructions: Vælg start- og slutdato for hele kurset (ikke kun for
       Wikipedia-opgaverne).
@@ -1095,6 +1132,9 @@ da:
     save_all_changes: Gem alle
     this_week_title_default: Denne uge
     title: Tidslinje
+    unable_to_add_week: Du kan ikke tilføje nye uger, når din tidslinje er fyldt.
+      Slet mindst en uge eller ændr dine opgavers deadline for at skabe plads til
+      en ny.
     view_full_timeline: Se hele tidslinjen
     week_number: Uge %{number}
   training:
@@ -1173,6 +1213,7 @@ da:
     last_name: Efternavn
     loading: Laster brugere ...
     characters_added_mainspace: Tegn tilføjet (artikel)
+    characters_added_short: 'HO: %{mainspace}, BO: %{userspace}'
     characters_added_userspace: Tegn tilføjet (bruger)
     characters_added_draftspace: Tegn tilføjet (kladde)
     references_count: Referencer tilføjet
@@ -1261,7 +1302,15 @@ da:
       summary: deltagertræning er overskredet
   wizard:
     assignment_dates: Opgavedatoer
+    assignment_description: Vælg start- og sluttidspunkterne for din tidslinje med
+      opgaver. Fx hvis du ønsker at start dit Wikipedia-projekt i den anden uge, sætter
+      du blot din opgave til at begynde en uge efter kursets startdato. Dette opgaveværktøj
+      vil lave en tidslinje, som passer til de tidslinjedatoer du vælger.
     assignment_type: Hvad skal deltagerne fuldføre som del af deres Wikipedia-opgave?
+    calendar_instructions: Vælg datoer for at tilføje eller fjerne dem fra kalenderen
+      (fx ferier). Dette vil hjælpe værktøjet med at afsætte den korrekte tid til
+      dine opgaver. Klik på datoen for at skifte mellem ikke-valgt, valgt og ferietilstand.
+      Hvis der ikke er nogen ferie, vælg 'Jeg har ingen ferie' herunder.
     confirm_dates: Vælg kursets datoer, ugelige møder og indlagte ferier for dit kursus.
     course_dates: Kursus datoer
     min_weeks: Opgaven kræver mindst %{min_weeks} tilgængelige uger. Juster venligst
@@ -1272,6 +1321,10 @@ da:
       other: Vælg venligst %{count} eller flere muligheder.
     read_less: Læs mindre
     read_more: Læs mere
+    review_selections: Gennemse venligst dine valg herunder. Klik for at redigere
+      et område. Når du er færdig, vælger du 'Tilføj' for at afslutte guiden og bygge
+      din tidslinje.
+    select_assignment: Vælg typen af opgave som du vil tilføje til din tidslinje.
     summary: Sammendrag
   error:
     form_errors: Tjek venligst skemaet for fejl.
@@ -1290,8 +1343,8 @@ da:
     explanation: Du er ikke godkendt til at udføre denne forespørgsel. Hvis du mener
       at du har fået denne besked på grund af en teknisk fejl kontakt da dem, der
       vedligeholder dette værktøj, og fortæl dem om dit problem.
-    json_explanation: Det ser ud til at du er logget ud. Genindlæs venligst, log ind
-      og prøv igen.
+    json_explanation: Det ser ud til, at du er logget ud. Genindlæs venligst, log
+      ind og prøv igen.
   error_incorrect_passcode:
     header: Forkert adgangskode :-(
     explanation: Adgangskoden for at tilmelde sig dette kursus er forkert. Kontakt
@@ -1309,7 +1362,7 @@ da:
       om problemet.
   error_500:
     header: 500 — intern serverfejl.  :-(
-    explanation: Noget gik galt. Kontakt dashbordets vedligeholdere for at fortælle
+    explanation: Noget gik galt. Kontakt værktøjets vedligeholdere for at fortælle
       dem om problemet.
   login_error:
     header: Loginfejl
@@ -1318,7 +1371,7 @@ da:
       dig igen.
   survey:
     login_message: Tak for din tid. Vær venlig at logge ind på dit Wiki Education
-      dashboard for at gennemføre undersøgelsen.
+      kontrolpanel for at gennemføre undersøgelsen.
     notification_explanation: Hvis feltet herunder er markeret, vil brugere modtage
       emails i henhold til deres notificeringskalender, ud over at de også kan se
       disse notificeringer i browseren. Hvis feltet ikke er markeret, vil de kun se
