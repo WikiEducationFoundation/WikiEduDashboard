@@ -13,6 +13,6 @@ describe CourseStudentsCsvBuilder do
     expect(subject.split("\n").count).to eq(2)
     # last column is 'registered_during_project', which should be true
     # for the test user.
-    expect(subject[-5..-1]).to eq("true\n")
+    expect(subject[-5..]).to eq("true\n")
   end
 end

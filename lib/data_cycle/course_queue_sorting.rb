@@ -9,7 +9,7 @@ module CourseQueueSorting
       'short_update'
     when 31..600 # up to 10 minutes
       'medium_update'
-    when (601..Float::INFINITY) # more than 10 minutes
+    when (601..) # more than 10 minutes
       'long_update'
     end
   end

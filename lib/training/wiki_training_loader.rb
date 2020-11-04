@@ -55,7 +55,7 @@ class WikiTrainingLoader
     return if wikitext.blank? # Handle wiki pages that don't exist.
 
     # Handles either json pages or regular wikitext pages
-    content = if wiki_page[-5..-1] == '.json'
+    content = if wiki_page[-5..] == '.json'
                 new_from_json_wiki_page(wikitext)
               else
                 new_from_wikitext_page(wiki_page, wikitext)
