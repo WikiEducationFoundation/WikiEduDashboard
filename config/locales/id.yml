@@ -6,6 +6,8 @@
 # Author: Arifin.wijaya
 # Author: ArlandGa
 # Author: Hidayatsrf
+# Author: Joseagush
+# Author: Masjawad99
 # Author: Mirws
 # Author: Pebaryan
 # Author: Presidenvolksraad
@@ -22,9 +24,12 @@ id:
         units:
           thousand: Rb
           million: Jt
+          billion: B
           trillion: T
+          quadrillion: Q
   application:
     cancel: Batal
+    cookie_consent_see_more: lihat selengkapnya
     create_accounts: Buat akun Wikipedia
     dashboard: Papan Utama Wiki Ed
     documentation: Dokumentasi
@@ -107,6 +112,8 @@ id:
       course_types:
         basic_course_name: Program Dasar
       expected_number: Jumlah perkiraan siswa
+    edit_count: Jumlah suntingan
+    edit_course_dates: Sunting tanggal kursus
     needs_update: Jadwalkan Pembaruan Data
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
@@ -132,6 +139,9 @@ id:
     unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
       penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
       ruang bagi yang baru.
+  training:
+    kind:
+      training: Pelatihan
   uploads:
     none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
       untuk Wikimedia Commons.

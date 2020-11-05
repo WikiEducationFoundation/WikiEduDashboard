@@ -1,0 +1,58 @@
+# Messages for Balinese (Basa Bali)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Joseagush
+---
+ban:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: Rb
+          million: Yt
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Wangdé
+    documentation: Dokumentasi
+    greeting2: Rahajeng rauh!
+    greeting_extended: Rahajeng rauh ring Wikipédia
+    greeting: Halo!
+    help: Wantuan
+    home: Umah
+    log_in_extended: Manjing log sareng Wikipédia
+    log_in: Manjing log
+    log_out: Medal log
+    change: Uah
+    opt_in: Inggih
+    opt_out: Nénten
+    opt_yes: inggih
+    opt_no: nénten
+  articles:
+    next: Salanturané
+    previous: Sadurungné
+    edited: Suratan sané kauahin
+    edited_by: 'Kauahin olih:'
+    edited_mobile: Suratan
+    filter:
+      wiki_all: Makejang
+      new: Anyar
+    hide: Engkebang
+    label: Suratan
+    new: (anyar)
+    rating: Kelas
+    see_more: Cingak malih
+    title: Murda
+  campaign:
+    alert_type: Tipe
+    alert_user_id: Sang anganggé
+    created_at: Tanggal
+    description: Panjabaran
+    delete_campaign: Usap proyék puniki
+  courses:
+    cancel: Wangdé
+  users:
+    edits: Becikang
+...
