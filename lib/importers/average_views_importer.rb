@@ -11,7 +11,8 @@ class AverageViewsImporter
     update_average_views(to_update)
   end
 
-  ARTICLES_PER_BATCH = 8
+  # We get some 429 / too many requests errors with 8 per batch.
+  ARTICLES_PER_BATCH = 3
   def self.update_average_views(articles)
     article_batches = articles.includes(:wiki).each_slice(ARTICLES_PER_BATCH)
     article_batches.each do |batch|
