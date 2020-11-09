@@ -113,7 +113,7 @@ he:
     edited_by: נערך על-ידי
     label: פעילות
   articles:
-    assigned: ערכים מוקצים
+    assigned: ערכים שהוקצו
     available: ערכים זמינים
     no_available: אין ערכים זמינים
     next: הבא
@@ -727,7 +727,7 @@ he:
     already_enrolled: המשתמש הזה כבר רשום!
     assign_articles: הקצאת ערך
     assign_articles_done: בוצע
-    assigned: ערכים מוקצים
+    assigned: ערכים שהוקצו
     assignees: אנשים מוקצים
     character_doc: סך כמות התוכן שנוספה למרחב השם הזה, מחושב לפי הוספת כל התווים של
       כל העריכות שהגדילו את גודל הדף. המספר הזה לא בהכרח משקף את כמות התוכן החדש שהמשתמש
