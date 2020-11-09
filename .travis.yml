@@ -6,7 +6,7 @@ env:
 language: ruby
 rvm: 2.7.1
 sudo: required
-dist: xenial
+dist: focal
 cache:
   apt: true
   directories:
