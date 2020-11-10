@@ -32,10 +32,10 @@ export default (articlesById, assignments = [], student) => {
   // but that article is present,either as an assigned article or an available article yet
   // to be assigned, in the assignments array then that article is also included.
   return articles.filter(
-    (article) =>
+    article =>
       !includes(
-        !assignmentsByArticleId[article.id] ||
-          assignmentsByArticleId[article.id].assignees,
+        !assignmentsByArticleId[article.id]
+          || assignmentsByArticleId[article.id].assignees,
         student.id
       )
   );
