@@ -9,7 +9,7 @@ const wordsAddedKey = {
   label: I18n.t('users.words_added'),
   desktop_only: true,
   sortable: true,
-  info_key: 'users.character_doc'
+  info_key: 'users.word_count_doc'
 };
 
 const studentListKeys = (course) => {
