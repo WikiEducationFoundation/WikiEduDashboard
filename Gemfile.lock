@@ -37,6 +37,16 @@ GIT
       htmlentities (>= 4.0.0)
 
 GIT
+  remote: https://github.com/ragesoss/mediawiki-ruby-api
+  revision: f91ca9e7940a5ad22282d5fe714fbf2160815be2
+  branch: master
+  specs:
+    mediawiki_api (0.7.1)
+      faraday (>= 0.9.0)
+      faraday-cookie_jar (>= 0.0.6)
+      faraday_middleware (>= 0.10.0)
+
+GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
   revision: 80bdc4fed8d606a6104f57c72913eda6a298e1c0
   specs:
@@ -191,13 +201,14 @@ GEM
       railties (>= 5.0.0)
     faker (2.13.0)
       i18n (>= 1.6, < 2)
-    faraday (0.17.3)
+    faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
-    faraday-cookie_jar (0.0.6)
-      faraday (>= 0.7.4)
+      ruby2_keywords
+    faraday-cookie_jar (0.0.7)
+      faraday (>= 0.8.0)
       http-cookie (~> 1.0.0)
-    faraday_middleware (0.14.0)
-      faraday (>= 0.7.4, < 1.0)
+    faraday_middleware (1.0.0)
+      faraday (~> 1.0)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     figaro (1.2.0)
@@ -276,10 +287,6 @@ GEM
       rest-client (~> 2.0.2)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
-    mediawiki_api (0.7.1)
-      faraday (~> 0.9, >= 0.9.0)
-      faraday-cookie_jar (~> 0.0, >= 0.0.6)
-      faraday_middleware (~> 0.10, >= 0.10.0)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -457,6 +464,7 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.10.1)
+    ruby2_keywords (0.0.2)
     ruby_parser (3.14.2)
       sexp_processor (~> 4.9)
     rubyzip (2.3.0)
@@ -464,8 +472,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sentimental (1.5.0)
-    sentry-raven (2.13.0)
-      faraday (>= 0.7.6, < 1.0)
+    sentry-raven (3.1.1)
+      faraday (>= 1.0)
     sexp_processor (4.15.0)
     shellany (0.0.1)
     shoulda-matchers (4.3.0)
@@ -579,7 +587,7 @@ DEPENDENCIES
   i18n-js
   jbuilder
   mailgun-ruby
-  mediawiki_api (= 0.7.1)
+  mediawiki_api!
   mysql2
   newrelic_rpm
   nokogiri
