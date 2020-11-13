@@ -11,7 +11,7 @@ import EditedUnassignedArticles from './EditedUnassignedArticles/EditedUnassigne
 
 // Utils
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
-import setUnassignedArticles from '@components/students/utils/setUnassignedArticles';
+import setOtherEditedArticles from '@components/students/utils/setOtherEditedArticles';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
@@ -21,7 +21,7 @@ export const SelectedStudent = ({
   const {
     assigned, reviewing
   } = processAssignments({ assignments, course, current_user: selected });
-  const unassigned = setUnassignedArticles(groupedArticles, assignments, selected);
+  const otherEditedArticles = setOtherEditedArticles(groupedArticles, assignments, selected);
   const showArticleId = Number(location.search.split('showArticle=')[1]);
 
   return (
@@ -78,9 +78,9 @@ export const SelectedStudent = ({
       }
 
       {
-        !!unassigned.length && (
+        !!otherEditedArticles.length && (
           <EditedUnassignedArticles
-            articles={unassigned}
+            articles={otherEditedArticles}
             course={course}
             user={selected}
             current_user={current_user}
