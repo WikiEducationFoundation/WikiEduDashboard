@@ -4,7 +4,7 @@ export default (articlesById, assignments = [], student) => {
   // assignmentsByArticleId holds all the assignments grouped/sorted by articleIds
   // If there are mutiple assignments with the same article/article Id, then only the user_id of the
   // assigned editor is added to the assignees array. However, if no editor is assigned then
-  // null is added to the assignments array. At a time there can only be 1 null entry in the assignees
+  // null is added to the assignees array. At a time there can only be 1 null entry in the assignees
   // array for a particular article as WikiEduDashboard prevent having multiple unassigned assignments.
   const assignmentsByArticleId = assignments.reduce((acc, assignment) => {
     if (acc[assignment.article_id]) {
