@@ -117,7 +117,7 @@ class WikiApi
   end
 
   def too_many_requests?(e)
-    return false unless e.class == MediawikiApi::HttpError
+    return false unless e.instance_of?(MediawikiApi::HttpError)
     e.status == 429
   end
 

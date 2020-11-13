@@ -61,6 +61,7 @@ class IndividualStatisticsPresenter
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
     individual_courses.each do |course|
@@ -77,6 +78,7 @@ class IndividualStatisticsPresenter
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def set_upload_usage_counts
     @upload_usage_counts = {}

@@ -16,7 +16,7 @@ class BlockedEditsReporter
 
   # This method checks to see if any recent BlockedEditAlerts exist.
   def alert_already_exists?
-    BlockedEditsAlert.where('created_at >= ?', 8.hours.ago).exists?
+    BlockedEditsAlert.exists?(['created_at >= ?', 8.hours.ago])
   end
 
   private

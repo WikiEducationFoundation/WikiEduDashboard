@@ -45,7 +45,7 @@ class OverdueTrainingAlertManager
   def any_recent_alerts?(course, student)
     earliest_date = OverdueTrainingAlert::MINIMUM_DAYS_BETWEEN_ALERTS.days.ago
     Alert.where(course: course, user: student, type: 'OverdueTrainingAlert')
-         .where('created_at > ?', earliest_date).exists?
+         .exists?(['created_at > ?', earliest_date])
   end
 
   def construct_status(due_date_manager)

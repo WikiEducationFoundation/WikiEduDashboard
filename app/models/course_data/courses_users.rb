@@ -101,6 +101,7 @@ class CoursesUsers < ApplicationRecord
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update_cache
     revisions = live_revisions
     self.total_uploads = course.uploads.where(user_id: user_id).count
@@ -112,6 +113,7 @@ class CoursesUsers < ApplicationRecord
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     save
   end
+  # rubocop: enable Metrics/AbcSize
 
   ##################
   # Helper methods #

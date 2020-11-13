@@ -83,8 +83,8 @@ class SurveyNotification < ApplicationRecord
   private
 
   def nonsafe_email_environment?
-    %w[development staging].include?(Rails.env) && !ENV['survey_test_email']
-      .split(',').include?(user.email)
+    %w[development staging].include?(Rails.env) &&
+      ENV['survey_test_email'].split(',').exclude?(user.email)
   end
 
   MAX_FOLLOW_UPS = 3

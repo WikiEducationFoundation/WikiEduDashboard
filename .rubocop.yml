@@ -163,3 +163,29 @@ Style/DateTime:
   Enabled: false
 Rails/ContentTag:
   Enabled: false
+Style/StringConcatenation:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/RedundantAssignment:
+  Enabled: false
+Style/KeywordParametersOrder:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
+Lint/DuplicateRegexpCharacterClassElement:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Lint/EmptyBlock:
+  Enabled: false
+Style/SingleArgumentDig:
+  Enabled: false
+Rails/PluckInWhere:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+Style/SoleNestedConditional:
+  Enabled: false

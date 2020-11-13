@@ -26,6 +26,7 @@ class CourseArticlesCsvBuilder
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
     @course.tracked_revisions.includes(article: :wiki).map do |edit|
@@ -38,6 +39,7 @@ class CourseArticlesCsvBuilder
       @articles_edited[edit.article_id] = article_edits
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def new_article_entry(edit)
     article = edit.article

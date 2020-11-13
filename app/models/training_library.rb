@@ -59,16 +59,23 @@ class TrainingLibrary < ApplicationRecord
   def self.inflate(content, slug, wiki_page = nil)
     training_library = TrainingLibrary.find_or_initialize_by(id: content['id'])
     training_library.slug = slug
-    training_library.name = content['name'] || content[:name]
-    training_library.introduction = content['introduction'] || content[:introduction]
-    training_library.translations = content['translations']
     training_library.wiki_page = wiki_page
-    training_library.categories = content['categories'] || content[:categories]
-    training_library.exclude_from_index = content['exclude_from_index']
+    training_library.inflate_content_hash(content)
     TrainingLibrary.save_if_valid(training_library, slug)
   rescue StandardError, TypeError => e # rubocop:disable Lint/ShadowedException
     puts "There's a problem with file '#{slug}'" if Rails.env.development?
     raise e
+  end
+
+  ####################
+  # Inflation helper #
+  ####################
+  def inflate_content_hash(content)
+    self.name = content['name'] || content[:name]
+    self.introduction = content['introduction'] || content[:introduction]
+    self.translations = content['translations']
+    self.categories = content['categories'] || content[:categories]
+    self.exclude_from_index = content['exclude_from_index']
   end
 
   ####################
