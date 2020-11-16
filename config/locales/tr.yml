@@ -316,7 +316,7 @@ tr:
     data_revisions: Düzeltme verileri
     data_articles_info: Kampanya tarafından düzenlenen her izlenen sayfa hakkındaki
       ayrıntılar
-    data_revisions_info: Kampanyanın izlenen her revizyonuyla ilgili detaylar
+    data_revisions_info: Kampanyanın izlenen her revizyonuyla ilgili ayrıntılar
     data_instructors: Eğitmenler
     data_instructors_info: Öğretim elemanlarının/kolaylaştırıcıların ve kursların/programların
       listesi
@@ -897,7 +897,7 @@ tr:
         bize bildirin.
       learn_more_button: Daha Fazla Bilgi
       submit_issue: Bu madde ile ilgili önemli sorunlar nelerdir?
-      submit_issue_placeholder: Ne kadar fazla uzman perspektifi ve detayı olursa
+      submit_issue_placeholder: Ne kadar uzman bakış açısı ve ayrıntı sunabilirseniz
         o kadar iyidir.
       thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
     exercises_and_trainings: '%{prefix} Egzersizler ve Eğitimler'
@@ -1296,6 +1296,12 @@ tr:
     useremail_placeholder: E-posta
     userpasscode_placeholder: Şifre Kodu
     words_added: Kelimeler Eklendi<br>(article | user | draft)
+    word_count_doc: Bir kullanıcının canlı maddelere, kullanıcı alanı sayfalarına
+      (deneme tahtaları) ve Taslak ad alanına eklediği toplam içerik miktarı tahminidir.
+      Kelime sayısı tahminleri, kaldırdıklarından daha fazlasını ekleyen tüm düzenlemelerde
+      sayfa boyutundaki değişikliklerin toplamından hesaplanır. Bu sayı, kullanıcının
+      eklediği yeni içerik miktarını mutlaka yansıtmaz. Kaldırılan içeriğin geri yüklenmesi
+      de bu toplamı artıracaktır.
     role:
       description: Kurstaki rolü
       visitor: Ziyaretçi

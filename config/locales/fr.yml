@@ -1348,6 +1348,13 @@ fr:
     useremail_placeholder: Courriel
     userpasscode_placeholder: Code d’accès
     words_added: Mots ajoutés<br>(article | utilisateur | brouillon)
+    word_count_doc: Une estimation de la somme totale de contenu qu’un utilisateur
+      a ajouté aux articles en cours, aux pages de l’espace utilisateur (bacs à sable)
+      et à l’espace de noms Brouillon. Les estimations de nombre de mots sont calculés
+      depuis la somme des modifications en taille de page de toutes les modifications
+      qui ont ajouté plus qu’elles n’ont enlevé. Ce nombre ne reflète pas nécessaire
+      la quantité de nouveau contenu que l’utilisateur a ajouté. Restaurer du contenu
+      supprimé augmentera aussi ce nombre.
     role:
       description: Rôle dans le cours
       visitor: Visiteur

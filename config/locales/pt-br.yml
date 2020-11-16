@@ -1311,6 +1311,13 @@ pt-br:
     useremail_placeholder: E-mail
     userpasscode_placeholder: Código de acesso
     words_added: Palavras adicionadas<br>(article | usuário | rascunho)
+    word_count_doc: Uma estimativa da quantidade total de conteúdo que um usuário
+      adicionou aos artigos ativos, páginas do espaço do usuário (caixas de proteção)
+      e ao namespace de rascunho. As estimativas de contagem de palavras são calculadas
+      a partir da soma das alterações no tamanho da página em todas as edições que
+      adicionaram mais do que removeram. Este número não reflete necessariamente a
+      quantidade de novos conteúdos que o usuário adicionou. Restaurar o conteúdo
+      removido também aumentará esse total.
     role:
       description: Função no curso
       visitor: Visitante
