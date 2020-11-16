@@ -170,7 +170,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   DESIRED_TRAINING_MODULES.each do |module_slug|
-    describe "'#{module_slug[:slug]}' module", focus: true do
+    describe "'#{module_slug[:slug]}' module" do
       before do
         TrainingSlide.load
       end
