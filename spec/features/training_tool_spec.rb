@@ -8,8 +8,11 @@ describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
-  before do
+  before(:all) do
     TrainingModule.load_all
+  end
+
+  before do
     login_as(user, scope: :user)
   end
 
