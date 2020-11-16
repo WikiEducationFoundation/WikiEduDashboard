@@ -41,6 +41,11 @@ editing_5:
   title: 'VE'
   slug: 'visual-editing-vs-source-editing'
 
+evaluating_end:
+  id: 726
+  title: 'Last slide'
+  slug: 'evaluating-sources-and-articles-finished'
+
 instructor_orientation_feedback:
   id: 332
   title: 'Done'
@@ -49,3 +54,4 @@ instructor_orientation_feedback:
     <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
       Submit Feedback
     </a></div>
+
