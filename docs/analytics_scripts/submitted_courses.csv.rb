@@ -4,7 +4,7 @@
 
 require 'csv'
 
-CSV.open("/home/sage/unsubmitted-#{Date.today}.csv", 'wb') do |csv|
+CSV.open("/home/sage/submitted-#{Date.today}.csv", 'wb') do |csv|
   csv << %w[url title instructor first_time_instructor submitted_at expected_students subject level contribution_type assignment_portion sandbox_opinion]
   Course.submitted_but_unapproved.each do |course|
     tags = course.tags.pluck(:tag)
