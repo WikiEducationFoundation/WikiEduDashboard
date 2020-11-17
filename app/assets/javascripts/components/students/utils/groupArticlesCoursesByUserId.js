@@ -9,7 +9,6 @@ export default (articles) => {
         acc[id] = [article];
       }
     });
-
     return acc;
   }, {});
 };
