@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.7.1'
 
 ### Basic Framework
-gem 'rails', '6.0.3.2'
+gem 'rails', '6.0.3.4'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
