@@ -29,7 +29,7 @@ class WikiSlideParser
   # Everything after the first translated line is the slide content
   def content
     return '' if @wikitext.blank?
-    wikitext = @wikitext.lines[1..].join # Line 0 is the title
+    wikitext = @wikitext.lines.drop(1).join # First line is the title
     wikitext[0] = '' while wikitext[0] == "\n" # Remove leading newlines
     markdown = Wikitext.mediawiki_to_markdown(wikitext)
     # Make sure first line after a figure gets parsed as a new paragraph
