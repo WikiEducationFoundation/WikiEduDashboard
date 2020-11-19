@@ -516,12 +516,11 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2020.1)
+    tzinfo-data (1.2020.4)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
-    unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     validates_email_format_of (1.6.3)
       i18n
