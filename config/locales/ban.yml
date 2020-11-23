@@ -1,6 +1,7 @@
 # Messages for Balinese (Basa Bali)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Chinamoonroll
 # Author: Joseagush
 ---
 ban:
@@ -16,13 +17,13 @@ ban:
           quadrillion: Q
   application:
     cancel: Wangdé
-    documentation: Dokumentasi
+    documentation: Dokuméntasi
     greeting2: Rahajeng rauh!
     greeting_extended: Rahajeng rauh ring Wikipédia
     greeting: Halo!
     help: Wantuan
     home: Umah
-    log_in_extended: Manjing log sareng Wikipédia
+    log_in_extended: Manjing log antuk Wikipédia
     log_in: Manjing log
     log_out: Medal log
     change: Uah
@@ -31,13 +32,13 @@ ban:
     opt_yes: inggih
     opt_no: nénten
   articles:
-    next: Salanturané
+    next: Salanturné
     previous: Sadurungné
     edited: Suratan sané kauahin
     edited_by: 'Kauahin olih:'
     edited_mobile: Suratan
     filter:
-      wiki_all: Makejang
+      wiki_all: Sinamian
       new: Anyar
     hide: Engkebang
     label: Suratan
