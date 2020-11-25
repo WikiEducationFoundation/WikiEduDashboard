@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_cache_manager"
-require_dependency "#{Rails.root}/lib/chat/rocket_chat"
 
 #= Adds a user to a course
 class JoinCourse
@@ -22,7 +21,6 @@ class JoinCourse
     validate_request { return }
     create_courses_user
     update_course_user_count
-    add_user_to_course_chatroom
     @result = { success: 'User added to course.' }
   end
 
@@ -73,10 +71,5 @@ class JoinCourse
     return unless student_role?
     CourseCacheManager.new(@course).update_user_count
     @course.save
-  end
-
-  def add_user_to_course_chatroom
-    return unless Features.enable_chat?
-    RocketChat.new(user: @user, course: @course).add_user_to_course_channel
   end
 end

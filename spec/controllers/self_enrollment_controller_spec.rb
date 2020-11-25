@@ -37,7 +37,6 @@ describe SelfEnrollmentController, type: :request do
       context 'when the course is approved' do
         before do
           course.campaigns << Campaign.first
-          stub_add_user_to_channel_success
         end
 
         context 'when the user is not enrolled yet' do

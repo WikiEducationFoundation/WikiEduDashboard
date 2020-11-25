@@ -13,7 +13,6 @@ import StudentsTabHandler from '../students/containers/StudentsTabHandler';
 import ArticlesHandler from '../articles/articles_handler.jsx';
 import UploadsHandler from '../uploads/uploads_handler.jsx';
 import Resources from '../resources/resources.jsx';
-import RocketChat from '../common/rocket_chat.jsx';
 import ArticleFinder from '../article_finder/article_finder.jsx';
 
 import Confirm from '../common/confirm.jsx';
@@ -137,7 +136,6 @@ export const Course = createReactClass({
             <Route path="/courses/:course_school/:course_title/students" render={() => <StudentsTabHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/chat" render={() => <RocketChat {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/article_finder" render={() => <ArticleFinder {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/timeline" render={() => <TimelineHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/resources" render={() => <Resources {...courseProps} />} />

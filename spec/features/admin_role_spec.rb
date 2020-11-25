@@ -66,7 +66,6 @@ describe 'Admin users', type: :feature, js: true do
   describe 'adding a course to a campaign' do
     it 'makes the course live' do
       stub_oauth_edit
-      stub_chat_channel_create_success
 
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content 'This course has been submitted for approval by its creator'

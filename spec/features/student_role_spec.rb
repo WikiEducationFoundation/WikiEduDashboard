@@ -49,7 +49,6 @@ describe 'Student users', type: :feature, js: true do
            user: classmate,
            course: course,
            role: CoursesUsers::Roles::STUDENT_ROLE)
-    stub_add_user_to_channel_success
   end
 
   after do

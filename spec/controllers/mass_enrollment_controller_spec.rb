@@ -32,7 +32,6 @@ describe MassEnrollmentController, type: :request do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         course.campaigns << Campaign.first
-        stub_add_user_to_channel_success
         stub_oauth_edit
         stub_raw_action
       end

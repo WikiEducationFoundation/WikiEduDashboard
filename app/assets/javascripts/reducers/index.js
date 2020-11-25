@@ -7,7 +7,6 @@ import assignments from './assignments';
 import campaign from './campaign';
 import campaigns from './campaigns';
 import categories from './categories';
-import chat from './chat';
 import confirm from './confirm';
 import course from './course';
 import courseAlerts from './course_alerts';
@@ -50,7 +49,6 @@ const reducer = combineReducers({
   campaign,
   campaigns,
   categories,
-  chat,
   confirm,
   course,
   courseAlerts,

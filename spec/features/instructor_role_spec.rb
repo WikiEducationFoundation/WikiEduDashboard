@@ -60,7 +60,6 @@ describe 'Instructor users', type: :feature, js: true do
     stub_oauth_edit
     stub_raw_action
     stub_info_query
-    stub_add_user_to_channel_success
   end
 
   after do

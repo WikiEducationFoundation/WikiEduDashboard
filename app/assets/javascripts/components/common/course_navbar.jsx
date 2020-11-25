@@ -59,19 +59,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   const uploadsLink = `${courseLink}/uploads`;
   const activityLink = `${courseLink}/activity`;
 
-  // ////////////
-  // Chat link //
-  // ////////////
-  let chatNav;
-  if (course.flags && course.flags.enable_chat) {
-    const chatLink = `${courseLink}/chat`;
-    chatNav = (
-      <div className="nav__item" id="activity-link">
-        <p><NavLink to={chatLink} activeClassName="active">{I18n.t('chat.label')}</NavLink></p>
-      </div>
-    );
-  }
-
   // /////////////////
   // Get Help button /
   // /////////////////
@@ -105,7 +92,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
           <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
         </div>
         {resources}
-        {chatNav}
         {getHelp}
       </nav>
     </div>

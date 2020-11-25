@@ -359,12 +359,6 @@ Rails.application.routes.draw do
   post '/feedback_form_responses' => 'feedback_form_responses#create'
   get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
 
-  # Chat
-  if Features.enable_chat?
-    get '/chat/login' => 'chat#login'
-    put '/chat/enable_for_course/:course_id' => 'chat#enable_for_course'
-  end
-
   # Salesforce
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'

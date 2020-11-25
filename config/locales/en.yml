@@ -363,9 +363,6 @@ en:
     tracked_categories: Tracked Categories, PSID, PagePile id & Templates
     timestamp: Last Updated On
 
-  chat:
-    label: Chat
-
   courses:
     school_system: Academic System
     assignment_edits_enabled: Assignment edits enabled
@@ -543,7 +540,6 @@ en:
     embed_course_stats: Embed Course Stats
     embed_course_stats_description: To embed the stats for this program in another website, copy and paste this code snippet into
     enable_account_requests: Enable account requests
-    enable_chat: Enable chat
     end: End
     ended: The course has ended.
     enroll: Enroll

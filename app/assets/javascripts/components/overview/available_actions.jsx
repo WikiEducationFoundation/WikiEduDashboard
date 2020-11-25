@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { enableForCourse } from '../../actions/chat_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
@@ -27,7 +26,6 @@ const AvailableActions = createReactClass({
     initiateConfirm: PropTypes.func.isRequired,
     addNotification: PropTypes.func.isRequired,
     enableAccountRequests: PropTypes.func.isRequired,
-    enableForCourse: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
     linkToSalesforce: PropTypes.func.isRequired,
     deleteCourse: PropTypes.func.isRequired,
@@ -86,13 +84,6 @@ const AvailableActions = createReactClass({
     this.props.needsUpdate(this.props.course.slug);
   },
 
-  enableChat() {
-    const course = this.props.course.id;
-    const onConfirm = () => this.props.enableForCourse({ course });
-    const confirmMessage = 'Are you sure you want to enable chat?';
-    this.props.initiateConfirm({ confirmMessage, onConfirm });
-  },
-
   enableRequests() {
     const enableRequests = this.props.enableAccountRequests;
     const notify = this.props.addNotification;
@@ -140,12 +131,6 @@ const AvailableActions = createReactClass({
       if (CourseDateUtils.isEnded(course)) {
         controls.push((
           <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
-        ));
-      }
-      // If chat is available but not enabled for course, show the 'enable chat' button.
-      if (Features.enableChat && !course.flags.enable_chat && user.admin) {
-        controls.push((
-          <div key="enable_chat" className="available-action"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></div>
         ));
       }
     // If user has no role or is logged out
@@ -223,7 +208,6 @@ const mapDispatchToProps = {
   initiateConfirm,
   addNotification,
   enableAccountRequests,
-  enableForCourse,
   needsUpdate,
   linkToSalesforce,
   updateSalesforceRecord,

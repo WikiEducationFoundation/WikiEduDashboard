@@ -22,7 +22,6 @@ describe UsersController, type: :request do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       course.campaigns << Campaign.first
-      stub_add_user_to_channel_success
     end
 
     # Users who are not part of the course enroll via SelfEnrollmentController

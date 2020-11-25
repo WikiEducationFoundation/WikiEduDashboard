@@ -498,7 +498,6 @@ describe CoursesController, type: :request do
           create(:courses_user, user_id: user.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-          stub_chat_channel_create_success
         end
 
         it 'creates a CampaignsCourse' do
@@ -511,12 +510,6 @@ describe CoursesController, type: :request do
 
         it 'sends an email if course has no previous campaigns' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification)
-          params = { id: course.slug, campaign: { title: campaign.title } }
-          post "/courses/#{course.slug}/campaign", params: params, as: :json
-        end
-
-        it 'creates a chat channel if course has no previous campaigns' do
-          expect_any_instance_of(RocketChat).to receive(:create_channel_for_course)
           params = { id: course.slug, campaign: { title: campaign.title } }
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end

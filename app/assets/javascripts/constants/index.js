@@ -7,7 +7,6 @@ export * from './assignments.js';
 export * from './campaign';
 export * from './campaigns';
 export * from './categories';
-export * from './chat';
 export * from './confirm';
 export * from './course';
 export * from './course_alerts';

@@ -12,7 +12,6 @@ describe('CourseNavbar', () => {
     const course = {
       type: 'ClassroomProgramCourse',
       timeline_enabled: true,
-      flags: { enable_chat: true }, // adds Chat link
       title: 'bar',
       url: 'https://example.com'
     };
