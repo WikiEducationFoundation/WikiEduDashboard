@@ -352,8 +352,6 @@ da:
     remove: Fjern
     tracked_categories: Tracked Kategorier, PSID, PagePile id & Skabeloner
     timestamp: Senest opdateret
-  chat:
-    label: Diskussion
   courses:
     school_system: Akademisk system
     assignment_edits_enabled: Tændt for opgaveredigering
@@ -551,7 +549,6 @@ da:
     embed_course_stats_description: For at indlejre kursusstatistikker fra dette program
       i et andet websted, skal du blot kopiere og indsætte denne lille snip kode
     enable_account_requests: Tænd for kontobegæring
-    enable_chat: Aktiver chat
     end: Slut
     ended: Kurset er afsluttet.
     enroll: Tilmeld

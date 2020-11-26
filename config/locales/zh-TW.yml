@@ -310,8 +310,6 @@ zh-TW:
     remove: 移除
     tracked_categories: 已追蹤分類、PSID、頁面檔案 ID 與模板
     timestamp: 最後更新於
-  chat:
-    label: 聊天
   courses:
     school_system: 學院系統
     assignment_edits_enabled: 分配編輯已啟用
@@ -450,7 +448,6 @@ zh-TW:
     embed_course_stats: 內嵌課程統計
     embed_course_stats_description: 要替在其它網站的此方案內嵌統計內容，請複製貼上此代碼段落資訊
     enable_account_requests: 啟用帳號申請
-    enable_chat: 啟用聊天
     end: 結束
     ended: 課程已結束。
     enroll: 登記

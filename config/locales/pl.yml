@@ -272,8 +272,6 @@ pl:
     none: Brak śledzonych kategorii
     remove: Usuń
     tracked_categories: Śledzone kategorie i szablony
-  chat:
-    label: Czat
   courses:
     assignment_edits_enabled: Edycja wniosków włączona
     assignment_edits_enabled_tooltip: Jeżeli włączone, Panel Edukacyjny będzie edytował
@@ -390,7 +388,6 @@ pl:
     download_stats_data: Pobierz statystyki
     duration: Długość kursu
     edit_course_dates: Zmień terminy kursu
-    enable_chat: Włącz chat
     end: Koniec
     ended: Kurs zakończony.
     enroll: Zapisz się

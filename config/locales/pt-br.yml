@@ -371,8 +371,6 @@ pt-br:
     remove: Remover
     tracked_categories: Categorias rastreadas, PSID, pilha de páginas e predefinições
     timestamp: Última atualização
-  chat:
-    label: Bate-papo
   courses:
     school_system: Sistema acadêmico
     assignment_edits_enabled: Edições de atribuição ativadas
@@ -573,7 +571,6 @@ pt-br:
     embed_course_stats_description: Para incorporar as estatísticas deste programa
       em outro site, copie e cole este snippet de código em
     enable_account_requests: Ativar as solicitações de contas
-    enable_chat: Ativar Bate Papo
     end: Fim
     ended: O curso terminou.
     enroll: Inscrever-se

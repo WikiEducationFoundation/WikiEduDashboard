@@ -294,8 +294,6 @@ zh-CN:
     none: 没有追踪的分类。
     remove: 移除
     tracked_categories: 追踪分类、PSID、PagePile id与模板
-  chat:
-    label: 聊天
   courses:
     accounts_generation_enabled: 账户请求生成已启用
     accounts_generation_explanation: 这将允许参与者输入其电子邮件地址以及想要的用户名，而不是让他们自己创建新账户。您稍后将从此面板创建账户，并同时添加为计划参与者。
@@ -399,7 +397,6 @@ zh-CN:
     edit_count: 编辑数
     edit_course_dates: 编辑课程日期
     enable_account_requests: 启用帐户请求
-    enable_chat: 启用聊天
     end: 结束
     ended: 课程已启用。
     enroll: 注册

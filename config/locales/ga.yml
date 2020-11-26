@@ -104,8 +104,6 @@ ga:
     program_template: Teimpléad an Chláir
     title: Teideal
     use_start_end_dates: Úsáid dátaí tosaithe agus deiridh
-  chat:
-    label: Comhrá
   courses:
     activity: Gníomhaíocht
     active_courses: '%{course_type} gníomhach'
@@ -170,7 +168,6 @@ ga:
     download_stats_data: Staitisticí Íoslódála
     duration: Fad an chúrsa
     edit_course_dates: Athraigh Dátaí an Chúrsa
-    enable_chat: Cumasaigh comhrá
     end: Deireadh
     ended: Tá an cúrsa thart
     enroll: Cláraigh

@@ -340,8 +340,6 @@ ar:
     remove: حذف
     tracked_categories: التصنيفات والقوالب وPSID المتابعة
     timestamp: آخر تحديث في
-  chat:
-    label: دردشة
   courses:
     school_system: النظام الأكاديمي
     assignment_edits_enabled: تم تمكين تعديلات المهمة
@@ -518,7 +516,6 @@ ar:
     embed_course_stats_description: لتضمين إحصائيات هذا البرنامج في موقع ويب آخر;
       انسخ والصق قصاصة الكود هذه إلى
     enable_account_requests: تمكين طلبات الحساب
-    enable_chat: تفعيل الدردشة
     end: نهاية
     ended: لقد انتهى تاريخ المقرر الدراسي.
     enroll: سجل نفسك

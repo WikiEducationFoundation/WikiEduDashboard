@@ -311,8 +311,6 @@ it:
     none: Non c'è alcuna categoria monitorata.
     remove: Rimuovi
     tracked_categories: Categorie, PSID, ID PagePile e template monitorati
-  chat:
-    label: Chat
   courses:
     assignment_edits_enabled: Abilitata assegnazione dei contributori
     assignment_edits_enabled_tooltip: Se abilitato, il pannello pubblicherà un template
@@ -510,7 +508,6 @@ it:
     embed_course_stats_description: Per includere le statistiche di questo programma
       in un altro sito web, copia e incolla questo codice
     enable_account_requests: Attiva richieste di account
-    enable_chat: Attiva chat
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi

@@ -122,8 +122,6 @@ diq:
     name: Name
     category_name: Nameyê kategoriye
     remove: Wedare
-  chat:
-    label: Mıhebet
   courses:
     school_system: Sistemo akademik
     activity: Fealiyet

@@ -170,8 +170,6 @@ lb:
     template_name: Numm vun der Schabloun
     remove: Ewechhuelen
     timestamp: Lescht Aktualiséierung den
-  chat:
-    label: Chat
   courses:
     school_system: Akademesche System
     accounts_generation_confirm_message: Sidd Dir sécher datt Dir Ufroe fir Benotzerkonten
@@ -228,7 +226,6 @@ lb:
     duration: Dauer vum Cours
     edit_count: Zuel vun den Ännerungen
     edit_course_dates: Datume vum Cours änneren
-    enable_chat: Chat aktivéieren
     end: Schluss
     ended: De Cours ass eriwwer.
     enroll: Aschreiwen

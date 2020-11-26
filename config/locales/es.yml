@@ -284,8 +284,6 @@ es:
     none: No hay ninguna categoría en seguimiento.
     remove: Quitar
     tracked_categories: Categorías, PSID y plantillas en seguimiento
-  chat:
-    label: Chat
   courses:
     school_system: Sistema académico
     accounts_generation_enabled: Generación de cuentas activada
@@ -412,7 +410,6 @@ es:
     edit_count: Recuento de ediciones
     edit_course_dates: Editar las fechas del curso
     enable_account_requests: Activar solicitudes de cuentas
-    enable_chat: Activar el chat
     end: Fin
     ended: El curso ha terminado.
     enroll: Inscribirse

@@ -317,8 +317,6 @@ et:
     remove: Eemalda
     tracked_categories: Jälgitavad kategooriad, PSID-d ja mallid
     timestamp: Viimati uuendatud
-  chat:
-    label: Vestle
   courses:
     school_system: Õppesüsteem
     assignment_edits_enabled: Ülesannete toimetamine aktiveeritud
@@ -509,7 +507,6 @@ et:
     embed_course_stats: Manusta kursuse statistika
     embed_course_stats_description: Programmi statistika lisamiseks kopeeri koodilõigend
     enable_account_requests: Aktiveeri kontotaotlused
-    enable_chat: Aktiveeri vestlus
     end: Lõpp
     ended: Kursus on lõppenud.
     enroll: Registreeru

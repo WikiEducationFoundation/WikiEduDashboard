@@ -289,8 +289,6 @@ sr-el:
     remove: Ukloni
     tracked_categories: Praćene kategorije, PSID i šabloni
     timestamp: Poslednji put ažurirano na
-  chat:
-    label: Ćaskanje
   courses:
     school_system: Akademski sistem
     assignment_edits_enabled: Omogućeno dodeljivanje izmena
@@ -453,7 +451,6 @@ sr-el:
     edit_count: Broj izmena
     edit_course_dates: Izmeni datume kursa
     enable_account_requests: Omogući zahtevanje naloga
-    enable_chat: Omogući ćaskanje
     end: Kraj
     ended: Kurs je završen.
     enroll: Upiši me

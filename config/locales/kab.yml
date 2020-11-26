@@ -79,8 +79,6 @@ kab:
     program_template: Amsil n wahil
     title: Azwel
     use_start_end_dates: Seqdec izemzan n tazwara aked wid n taggara
-  chat:
-    label: Asqerdec
   courses:
     activity: Armud
     all_courses: Akk imsiren
@@ -121,7 +119,6 @@ kab:
     delete_suggestion: Kkes
     duration: Tanzagt n umsir
     edit_course_dates: Snifel izemzan n umsir
-    enable_chat: Rmed asqerdec
     end: Taggara
     enroll: Ggez
     enrollment: Tiggezt

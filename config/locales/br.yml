@@ -178,8 +178,6 @@ br:
   categories:
     articles_count: Niver a bennadoù
     name: Anv
-  chat:
-    label: Flap
   courses:
     school_system: Sistem akademek
     activity: Obererezh
@@ -251,7 +249,6 @@ br:
     duration: Pad ar gentel
     edit_count: Sammad degasadennoù
     edit_course_dates: Kemmañ deiziadoù ar gentel
-    enable_chat: Aotren ar flap
     end: Dibenn
     ended: Echu eo ar gentel.
     enroll: En em enskrivañ

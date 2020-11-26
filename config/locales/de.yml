@@ -352,8 +352,6 @@ de:
     remove: Entfernen
     tracked_categories: Getrackte Kategorien, PSID, PagePile-ID und Vorlagen
     timestamp: Zuletzt aktualisiert am
-  chat:
-    label: Chat
   courses:
     school_system: Wissenschaftssystem
     assignment_edits_enabled: Zuweisungsbearbeitungen aktiviert
@@ -554,7 +552,6 @@ de:
     embed_course_stats_description: Um die Statistiken für dieses Programm auf einer
       anderen Website einzubetten, kopiere diesen Codeschnipsel und füge ihn ein.
     enable_account_requests: Benutzerkontenanträge aktivieren
-    enable_chat: Chat aktivieren
     end: Ende
     ended: Der Kurs ist beendet.
     enroll: Einschreiben

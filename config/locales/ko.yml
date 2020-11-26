@@ -191,8 +191,6 @@ ko:
     none: 추적되는 분류가 없습니다.
     remove: 제거
     tracked_categories: 추적된 분류, PSID, 틀
-  chat:
-    label: 채팅
   courses:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
     accounts_generation_confirm_message: 계정 요청을 사용하시겠습니까?
@@ -257,7 +255,6 @@ ko:
     edit_count: 편집 수
     edit_course_dates: 코스 날짜 편집하기
     enable_account_requests: 계정 요청 활성화
-    enable_chat: 채팅 사용하기
     end: 종료
     enrollment: 학생 추가/제거
     error:

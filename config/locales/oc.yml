@@ -127,8 +127,6 @@ oc:
     none: Pas cap
     organizers: Organizators
     title: Títol
-  chat:
-    label: Discussion
   courses:
     activity: Activitat
     active_courses: '%{course_type} actius'

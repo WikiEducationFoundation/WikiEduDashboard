@@ -303,8 +303,6 @@ ast:
     none: Nun hai nenguna categoría en siguimientu.
     remove: Desaniciar
     tracked_categories: Categoríes, PSID y y plantíes en siguimientu
-  chat:
-    label: Charra
   courses:
     accounts_generation_enabled: Xeneración de solicitúes de cuenta activada
     activity: Actividá
@@ -424,7 +422,6 @@ ast:
     edit_count: Recuentu d'ediciones
     edit_course_dates: Editar les Dates del cursu
     enable_account_requests: Activar les solicitúes de cuentes
-    enable_chat: Activar el chat
     end: Fin
     ended: El cursu terminó.
     enroll: Inscribise

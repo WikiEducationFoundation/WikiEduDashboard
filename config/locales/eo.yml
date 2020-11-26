@@ -171,8 +171,6 @@ eo:
     category_name: Nomo de kategorio
     template_name: Nomo de ŝablono
     remove: Forigi
-  chat:
-    label: Babili
   courses:
     activity: Aktiveco
     active_courses: Aktiva %{course_type}

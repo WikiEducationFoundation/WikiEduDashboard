@@ -310,8 +310,6 @@ sr-ec:
     remove: Уклони
     tracked_categories: Праћене категорије, PSID, PagePile ID и шаблони
     timestamp: Последњи пут ажурирано на
-  chat:
-    label: Ћаскање
   courses:
     school_system: Академски систем
     assignment_edits_enabled: Омогућено додељивање измена
@@ -473,7 +471,6 @@ sr-ec:
     edit_count: Број измена
     edit_course_dates: Измени датуме курса
     enable_account_requests: Омогући захтевање налога
-    enable_chat: Омогући ћаскање
     end: Крај
     ended: Курс је завршен.
     enroll: Упиши ме

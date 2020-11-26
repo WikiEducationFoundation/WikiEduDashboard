@@ -109,8 +109,6 @@ skr-arab:
     category_name: ونکی دا ناں
     template_name: سان٘چے دا ناں
     remove: ہٹاؤ
-  chat:
-    label: چیٹ
   courses:
     activity: سرگرمی
     alerts: الرٹ
@@ -143,7 +141,6 @@ skr-arab:
     delete_course: کورس مٹاؤ
     delete_suggestion: مٹاؤ
     duration: کورس دا دورانیہ
-    enable_chat: ڳالھ کرݨ فعال کرو
     end: چھیکڑ
     ended: کورس مُک ڳیا
     enroll: داخلہ گھنو

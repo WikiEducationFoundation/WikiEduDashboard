@@ -289,10 +289,6 @@ qqq:
     psid_name: '{{optional}}'
     template_name: '{{Identical|Template name}}'
     remove: '{{Identical|Remove}}'
-  chat:
-    label: |-
-      Short label for chat / discussion channel
-      {{Identical|Chat}}
   courses:
     activity: Label for link to the 'recent activity' list for a course
     active_courses: |-

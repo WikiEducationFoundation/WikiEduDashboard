@@ -333,8 +333,6 @@ cs:
     none: Nejsou žádné kategorie ke sledování.
     remove: Odebrat
     tracked_categories: Sledované kategorie a šablony
-  chat:
-    label: Chat
   courses:
     school_system: Akademický systém
     assignment_edits_enabled: Změny přiřazení povoleny
@@ -510,7 +508,6 @@ cs:
     edit_count: Počet editací
     edit_course_dates: Upravit termíny kurzů
     enable_account_requests: Povolit žádosti o účet
-    enable_chat: Povolit chat
     end: Konec
     ended: Kurz již skončil.
     enroll: Zapsat se

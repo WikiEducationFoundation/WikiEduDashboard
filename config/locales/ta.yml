@@ -93,8 +93,6 @@ ta:
     category_name: பகுப்புப் பெயர்
     template_name: வார்ப்புருப் பெயர்
     remove: நீக்குக
-  chat:
-    label: அரட்டை
   courses:
     activity: செயற்பாடு
     all_courses: அனைத்துப் பாடங்கள்

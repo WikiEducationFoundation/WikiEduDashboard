@@ -242,8 +242,6 @@ sv:
     remove: Ta bort
     tracked_categories: Spårade kategorier & mallar
     timestamp: Senast uppdaterad
-  chat:
-    label: Chatta
   courses:
     activity: Aktivitet
     active_courses: Aktiva %{course_type}
@@ -340,7 +338,6 @@ sv:
       till den för att få förslag.
     edit_count: Antal redigeringar
     enable_account_requests: Aktivera kontobegäran
-    enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
     enrollment: Lägg till/Ta bort studenter

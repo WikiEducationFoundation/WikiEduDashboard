@@ -240,8 +240,6 @@ ne:
     category_name: श्रेणीको नाम
     template_name: टेम्प्लेट नाम
     remove: हटाउनुहोस्
-  chat:
-    label: च्याट
   courses:
     activity: क्रियाकलाप
     active_courses: सक्रिय %{course_type}
@@ -324,7 +322,6 @@ ne:
     edit_count: सम्पादन गणना
     edit_course_dates: पाठ्यक्रम मितिहरू सम्पादन गर्नुहोस्
     enable_account_requests: खाता अनुरोधहरू सक्षम पार्नुहोस्
-    enable_chat: च्याट सक्षम पार्नुहोस्
     end: अन्तिम
     ended: यो पाठ्यक्रम समाप्त भयो।
     enroll: समावेस गर्नुहोस्

@@ -379,8 +379,6 @@ tr:
     remove: Kaldır
     tracked_categories: İzlenen Kategoriler, PSID, PagePile kimliği ve Şablonlar
     timestamp: Son Güncelleme Tarihi
-  chat:
-    label: Sohbet
   courses:
     school_system: Akademik Sistemi
     assignment_edits_enabled: Atama düzenlemeleri etkin
@@ -573,7 +571,6 @@ tr:
     embed_course_stats_description: Bu programın istatistiklerini başka bir web sitesine
       yerleştirmek için bu kod pasajını kopyalayıp yapıştırın.
     enable_account_requests: Hesap isteklerini etkinleştir
-    enable_chat: Sohbeti etkinleştir
     end: Bitiş
     ended: Kurs bitti.
     enroll: Kaydol

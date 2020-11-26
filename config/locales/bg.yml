@@ -115,8 +115,6 @@ bg:
     category_name: Име на категорията
     template_name: Име на шаблона
     remove: Премахване
-  chat:
-    label: Чат
   courses:
     activity: Дейност
     all_courses: Всички курсове
@@ -164,7 +162,6 @@ bg:
     delete_suggestion: Изтриване
     duration: Продължителност на курса
     edit_course_dates: Редактиране на датите на курса
-    enable_chat: Разрешаване на чата
     end: Край
     ended: Курсът е приключил.
     enroll: Записване

@@ -89,8 +89,6 @@ bs:
     description: Opis
     organizers: Organizatori
     title: Naslov
-  chat:
-    label: Ćaskanje
   courses:
     activity: Aktivnost
     all_courses: Svi kursevi

@@ -135,8 +135,6 @@ lv:
     category_name: Kategorijas nosaukums
     template_name: Veidnes nosaukums
     remove: Noņemt
-  chat:
-    label: Tērzētava
   courses:
     school_system: Akadēmiskā sistēma
     activity: Aktivitāte
@@ -202,7 +200,6 @@ lv:
     duration: Kursa ilgums
     edit_count: Labojumu skaits
     edit_course_dates: Labot kursa datumus
-    enable_chat: Iespējot tērzēšanu
     end: Beigas
     ended: Kurss ir noslēdzies.
     enroll: Reģistrēties

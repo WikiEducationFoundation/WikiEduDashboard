@@ -1,6 +1,7 @@
 # Messages for Kurdish (Latin script) (kurdî (latînî)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Balyozxane
 # Author: Bikarhêner
 # Author: Cûndûllah el-Kurdî
 # Author: George Animal
@@ -93,7 +94,7 @@ ku-latn:
     date_time: Dîrok/Katjimêr
     edit_count_description: Hemû Guherandin
     per_user: '%{number}/bikarhêner'
-    revisions: Guhertinên Dawî
+    revisions: Guhartinên Dawî
     view_count_description: Dîtinên Gotara
     view: Dîtin
   namespace:
@@ -129,7 +130,7 @@ ku-latn:
     last_name: Paşnav
     loading: Bikarhêner tên barkirin...
     name: Nav
-    recent_revisions: Guhertinên Dawî
+    recent_revisions: Guhartinên Dawî
     username: Navê bikarhêner
     username_placeholder: Navê bikarhêner
   wizard:

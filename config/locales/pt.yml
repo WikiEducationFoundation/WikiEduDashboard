@@ -368,8 +368,6 @@ pt:
     tracked_categories: Categorias monitorizadas, PSID, identificador de pilha de
       páginas e predefinições
     timestamp: Última atualização
-  chat:
-    label: Conversação
   courses:
     school_system: Sistema académico
     assignment_edits_enabled: Edições relativas a trabalhos ativadas
@@ -570,7 +568,6 @@ pt:
     embed_course_stats_description: Para incorporar as estatísticas deste programa
       noutro ''site'', copie e insira este trecho de código em
     enable_account_requests: Ativar pedidos de contas
-    enable_chat: Ativar conversação
     end: Fim
     ended: O curso terminou.
     enroll: Inscreva-se

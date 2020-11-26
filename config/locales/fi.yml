@@ -272,8 +272,6 @@ fi:
     none: Luokkia ei seurata.
     remove: Poista
     tracked_categories: Seuratut luokat, PSID, PagePile-tunniste ja mallineet
-  chat:
-    label: Keskustelu
   courses:
     activity: Toiminta
     active_courses: Aktiiviset %{course_type}
@@ -390,7 +388,6 @@ fi:
     duration: Kurssin kesto
     edit_count: Muokkausten määrä
     edit_course_dates: Muokkaa kurssin päivämääriä
-    enable_chat: Aktivoi keskustelu
     end: Päättyy
     ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu

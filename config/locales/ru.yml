@@ -257,8 +257,6 @@ ru:
     category_name: Название категории
     template_name: Имя шаблона
     remove: Удалить
-  chat:
-    label: Чат
   courses:
     school_system: Академическая система
     accounts_generation_explanation: Это позволит участникам ввести свой адрес электронной
@@ -327,7 +325,6 @@ ru:
     download_stats_data: Скачать статистику
     duration: Продолжительность курса
     edit_count: Число правок
-    enable_chat: Включить чат
     end: Завершение
     ended: Курс завершен.
     enroll: Записаться

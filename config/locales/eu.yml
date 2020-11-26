@@ -317,8 +317,6 @@ eu:
     none: Ez gaude egiten ari kategoriaren jarraipenik.
     remove: Kendu
     tracked_categories: Jarraipena egindako kategoriak eta txantiloiak
-  chat:
-    label: Txata
   courses:
     accounts_generation_enabled: Kontuen eskaera orokorra gaituta dago
     accounts_generation_explanation: Horrek parte-hartzaileek beren helbide elektronikoa
@@ -470,7 +468,6 @@ eu:
     edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu
     enable_account_requests: Kontu eskaerak gaitu
-    enable_chat: Txata gaitu
     end: Amaitu
     ended: Ikastaroa amaituta dago.
     enroll: Izena eman

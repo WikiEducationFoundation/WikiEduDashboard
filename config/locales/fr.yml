@@ -383,8 +383,6 @@ fr:
     remove: Supprimer
     tracked_categories: Catégories suivies, PSID, id de PagePile et modèles
     timestamp: Dernière mise à jour du
-  chat:
-    label: Clavardage
   courses:
     school_system: Système académique
     assignment_edits_enabled: Modifications des affectations activées
@@ -593,7 +591,6 @@ fr:
     embed_course_stats_description: Pour inclure les statistiques pour ce programme
       dans une autre page web, copiez et collez cette partie de code dans
     enable_account_requests: Activer les demandes de compte
-    enable_chat: Activer le clavardage
     end: Fin
     ended: Le cours est terminé.
     enroll: S’inscrire

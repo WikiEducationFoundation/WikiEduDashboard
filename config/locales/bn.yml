@@ -139,8 +139,6 @@ bn:
     name: নাম
     category_name: বিষয়শ্রেণীর নাম
     template_name: টেমপ্লেটের নাম
-  chat:
-    label: চ্যাট
   courses:
     activity: কর্মকাণ্ড
     alerts: অবহিতি
@@ -179,7 +177,6 @@ bn:
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
     edit_count: সম্পাদনা গণনা
-    enable_chat: চ্যাট সক্রিয় করুন
     end: শেষ
     ended: কোর্সটি শেষ হয়েছে।
     courses_enrolled: কোর্সে ভর্তি

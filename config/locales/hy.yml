@@ -171,8 +171,6 @@ hy:
     template_name: Կաղապարի անվանում
     remove: Հեռացնել
     timestamp: Վերջին անգամ թարմացվել է
-  chat:
-    label: Զրուցարան
   courses:
     school_system: Ակադեմիական համակարգ
     activity: Ակտիվություն

@@ -264,8 +264,6 @@ ja:
     remove: 削除
     tracked_categories: 追跡するカテゴリとPSID、テンプレート
     timestamp: 最終更新日
-  chat:
-    label: チャット
   courses:
     assignment_edits_enabled: 課題の編集が有効になりました
     assignment_edits_enabled_tooltip: ダッシュボードを有効にすると、割り当てられた記事のトークページにテンプレートが投稿されます。
@@ -380,7 +378,6 @@ ja:
     edit_course_dates: コース日程を編集
     embed_course_stats: コースの統計を埋め込む
     enable_account_requests: アカウント開設を有効にする
-    enable_chat: チャットを有効にする
     end: 終了
     ended: コースは終了済みです。
     enroll: 入会

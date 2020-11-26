@@ -297,8 +297,6 @@ ca:
     none: No s'està fent seguiment de cap categoria.
     remove: Elimina
     tracked_categories: Categories seguides, PSID, PagePile id i Plantilles
-  chat:
-    label: Xat
   courses:
     school_system: Sistema acadèmic
     assignment_edits_enabled: S'han activat les edicions assignades
@@ -476,7 +474,6 @@ ca:
     embed_course_stats_description: Per incrustar les estadístiques d'aquest programa
       en una altra web, copieu i enganxeu aquest fragment de codi a
     enable_account_requests: Activa sol·licituds de comptes
-    enable_chat: Activa el xat
     end: Final
     ended: El curs ha finalitzat.
     enroll: Inscriure's

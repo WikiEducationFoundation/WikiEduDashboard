@@ -179,8 +179,6 @@ el:
     template_name: Nom de modele
     remove: Αφαίρεση
     tracked_categories: Κατηγορίες Παρακολούθησης $ Μοντέλα
-  chat:
-    label: Συνομιλία
   courses:
     activity: Δραστηριότητα
     alerts: Ειδοποιήσεις
@@ -235,7 +233,6 @@ el:
     edit_count: Αριθμός επεξεργασιών
     edit_course_dates: Επεξεργασία ημερομηνιών μαθήματος
     enable_account_requests: Ενεργοποίηση αιτήσεων λογαριασμών
-    enable_chat: Ενεργοποίηση συνομιλίας
     end: Τέλος
     ended: Το μάθημα έχει τελειώσει.
     enroll: Εγγραφή

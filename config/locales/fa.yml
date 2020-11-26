@@ -154,8 +154,6 @@ fa:
     description: توضیحات
     none: هیچ‌کدام
     title: عنوان
-  chat:
-    label: گفتگو
   courses:
     activity: فعالیت
     all_courses: تمامی دوره‌ها

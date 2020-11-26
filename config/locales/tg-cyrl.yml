@@ -49,8 +49,6 @@ tg-cyrl:
     category_name: Номи гурӯҳ
     template_name: Номи шаблон
     remove: Ҳазф
-  chat:
-    label: Чат
   courses:
     activity: Фаъолият
     actions: Амалкардҳо

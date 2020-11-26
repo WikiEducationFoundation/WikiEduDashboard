@@ -209,8 +209,6 @@ sd:
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
-  chat:
-    label: ڳالھ ٻولھ
   courses:
     activity: سرگرمي
     alerts: تاڪيدون
@@ -253,7 +251,6 @@ sd:
     delete_course: ڪورس ڊاهيو
     delete_suggestion: ڊاھيو
     duration: ڪورس جو دورانيو
-    enable_chat: ڪچھري قابلِڪار بڻايو
     end: پُڄاڻي
     ended: ڪورس ختم ٿي ويو آهي.
     error:

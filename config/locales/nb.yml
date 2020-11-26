@@ -270,8 +270,6 @@ nb:
     remove: Fjern
     tracked_categories: Inkluderte kategorier, PSID-er og maler
     timestamp: Sist oppdatert
-  chat:
-    label: Chat
   courses:
     activity: Aktivitet
     active_courses: Aktive %{course_type}
@@ -398,7 +396,6 @@ nb:
     download_stats_data: Last ned statistikk
     duration: Kursvarighet
     edit_course_dates: Rediger kursdatoer
-    enable_chat: Slå på chat
     end: Slutt
     ended: Kurset er avsluttet.
     enroll: Meld deg på

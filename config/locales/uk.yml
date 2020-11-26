@@ -365,8 +365,6 @@ uk:
     remove: Вилучити
     tracked_categories: Відслідковувані категорії, PSID, PagePile id і шаблони
     timestamp: Останнє оновлення
-  chat:
-    label: Чат
   courses:
     school_system: Академічна система
     assignment_edits_enabled: Призначені редагування увімкнено
@@ -560,7 +558,6 @@ uk:
     embed_course_stats_description: Щоб вбудувати статистику цієї програми на іншому
       веб-сайті, скопіюйте і вставте цей шматок коду у
     enable_account_requests: Увімкнути запити на облікові записи
-    enable_chat: Увімкнути чат
     end: Кінець
     ended: Курс завершено.
     enroll: Записатись

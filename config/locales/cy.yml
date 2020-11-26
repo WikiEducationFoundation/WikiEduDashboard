@@ -239,8 +239,6 @@ cy:
     none: Dim categoriau'n cael eu tracio.
     remove: Diddymu
     timestamp: Diweddariad Diwethaf Ar
-  chat:
-    label: Sgwrs
   courses:
     activity: Gweithgaredd
     active_courses: Mae %{course_type} yn weithredol
@@ -329,7 +327,6 @@ cy:
     edit_course_dates: Golygwch Ddyddiadau'r Cwrs
     embed_course_stats: Mewnosod Stats y Cwrs
     enable_account_requests: Caniatau ceisiadau am gyfrifon
-    enable_chat: Caniatau sgwrsio
     end: Diwedd
     ended: Mae'r cwrs yma wedi dod i ben.
     enroll: Cofrestrwch
