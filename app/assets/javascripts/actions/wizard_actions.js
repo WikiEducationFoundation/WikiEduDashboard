@@ -12,6 +12,8 @@ import {
   RECEIVE_WIZARD_PANELS,
   API_FAIL
 } from '../constants';
+import { fetchCourse } from './course_actions';
+import { fetchTimeline } from './timeline_actions';
 
 import logErrorMessage from '../utils/log_error_message';
 
@@ -165,11 +167,11 @@ const getWizardOutput = (state) => {
   return { output, logic, tags };
 };
 
-export const submitWizard = courseSlug => (_dispatch, getState) => {
+export const submitWizard = courseSlug => (dispatch, getState) => {
   const wizardState = getState().wizard;
   submitWizardPromise(courseSlug, getWizardKey(wizardState), getWizardOutput(wizardState))
     .then(() => {
-      // reload the timeline tab with the new timeline
-      window.location = `/${window.location.pathname.split('/').splice(1, 4).join('/')}`;
+      fetchCourse(courseSlug)(dispatch); // Update any flags that changed via the Wizard
+      fetchTimeline(courseSlug)(dispatch); // Fetch the newly-generated Timeline
     });
 };
