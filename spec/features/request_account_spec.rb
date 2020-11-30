@@ -13,6 +13,5 @@ describe 'Account requests', type: :feature, js: true do
     click_button 'Check username availability'
     click_button 'Request account'
     expect(page).to have_content 'Your request for an account has been submitted'
-    sleep 60
   end
 end
