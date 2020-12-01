@@ -81,8 +81,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # No supplementary assignments
   sleep 1
 
-  click_button 'Next' # No DYK/GA
-  sleep 1
+  # DYK/GA option removed for ~Spring 2021
+  # click_button 'Next' # No DYK/GA
+  # sleep 1
 
   ####################################
   # Fall 2020 supplemental questions #
