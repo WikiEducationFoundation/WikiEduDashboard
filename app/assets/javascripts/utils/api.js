@@ -9,38 +9,6 @@ const API = {
   // /////////
   // Getters /
   // /////////
-  fetchRevisions(studentId, courseId) {
-    return request(`/revisions.json?user_id=${studentId}&course_id=${courseId}`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        else {
-          return Promise.reject({ statusText: res.statusText });
-        }
-      })
-      .catch(error => {
-        logErrorMessage(error);
-        return Promise.reject({ error });
-      });
-  },
-
-  fetchCourseRevisions(courseId, limit) {
-    return request(`/courses/${courseId}/revisions.json?limit=${limit}`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        else {
-          return Promise.reject({ statusText: res.statusText });
-        }
-      })
-      .catch(error => {
-        logErrorMessage(error);
-        return Promise.reject({ error });
-      });
-  },
-
   fetchFeedback(articleTitle, assignmentId) {
     return request(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`)
       .then(res => {
