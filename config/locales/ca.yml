@@ -31,6 +31,8 @@ ca:
       o abaixar el valor introduït.
   application:
     cancel: Cancel·la
+    cookie_consent: Aquest lloc utilitza galetes per mantenir-te connectat i emmagatzema
+      informació relacionada amb el teu compte de Viquipèdia.
     cookie_consent_acknowledge: Entenc
     cookie_consent_see_more: Veure més.
     create_accounts: Crea comptes de la Viquipèdia
@@ -74,6 +76,11 @@ ca:
     opt_out: "No"
     opt_yes: sí
     opt_no: "no"
+  article_statuses:
+    not_yet_started: Primers passos
+    in_progress: Treballant en un entorn de proves
+    ready_for_review: Desplegant l'esborrany
+    ready_for_mainspace: Moure la feina a l'espai principal
   dashboard:
     create_note: Feu clic a Crea Curs per crear el vostre primer curs.
     create_preparation_note: Assegureu-vos que teniu el vostre calendari acadèmic
