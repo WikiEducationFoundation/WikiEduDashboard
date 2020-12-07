@@ -250,8 +250,9 @@ pt:
     peer_review_link: Revisão por pares
     peer_review_link_personalized: Revisão por pares de %{username}
     random_peer_review:
-      confirm_addition: Tem a certeza de que quer atribuir um total de %{count} artigo(s)
-        a toda a turma, com um máximo de %{maximum} a cada estudante?
+      confirm_addition: Isto irá atribuir um total de %{count} revisões por pares,
+        com um máximo de %{maximum} a cada estudante, escolhidos entre os artigos
+        dos colegas.
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como número máximo) a cada aluno.
@@ -1312,6 +1313,13 @@ pt:
     useremail_placeholder: Correio eletrónico
     userpasscode_placeholder: Código de acesso
     words_added: Palavras adicionadas<br>(artigo | utilizador | rascunho)
+    word_count_doc: Uma estimativa da quantidade total de conteúdo que um utilizador
+      adicionou a artigos, páginas do espaço do utilizador (páginas de testes) e ao
+      espaço nominal Rascunho. As estimativas de contagem de palavras são calculadas
+      pela soma das alterações no tamanho da página de todas as edições que adicionaram
+      mais do que removeram. Este número não reflete necessariamente a quantidade
+      de novo conteúdo que o utilizador adicionou. Restaurar conteúdo removido também
+      aumentará este total.
     role:
       description: Função no curso
       visitor: Visitante
