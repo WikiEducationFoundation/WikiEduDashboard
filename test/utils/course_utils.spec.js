@@ -52,6 +52,7 @@ describe('CourseUtils.courseSlugRegex', () => {
     expect(courseSlugRegex.test('वसंत 2017')).toBe(true);
     expect(courseSlugRegex.test('  ')).toBe(false);
     expect(courseSlugRegex.test('')).toBe(false);
+    expect(courseSlugRegex.test('Washington University in St. Louis')).toBe(true);
   });
 });
 

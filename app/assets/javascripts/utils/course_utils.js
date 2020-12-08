@@ -26,11 +26,11 @@ export default class CourseUtils {
   // Regex of allowed characters for a course slug.
   static courseSlugRegex() {
     // This regex is intended to match ascii word characters, dash,
-    // whitespace, comma, apostrophe, and any unicode "letter".
-    // It requires blank spaces(if any) in the beginning to be followed by at least one non-blank letter character
-    // from the allowed characters, to be followed by zero or more of all allowed characters(including blank characters).
+    // whitespace, comma, apostrophe, period, and any unicode "letter".
+    // It requires blank spaces (if any) in the beginning to be followed by at least one non-blank letter character
+    // from the allowed characters, to be followed by zero or more of all allowed characters (including blank characters).
     // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
-    return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
+    return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'.\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
   }
 
   // Given a course object with title, school and term properties,
