@@ -233,6 +233,7 @@ const CourseForm = (props) => {
         {multi_wiki}
         {backButton}
         <p className="tempCourseIdText">{props.tempCourseId || '\xa0'}</p>
+        <p className="red">{props.firstErrorMessage || '\xa0'}</p>
       </div>
       <div className="column">
         {courseLevel}
