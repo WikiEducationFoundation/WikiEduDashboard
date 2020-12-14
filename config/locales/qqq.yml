@@ -556,9 +556,7 @@ qqq:
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'
-    unsubmitted: |-
-      Alternative wording for generic courses.
-      {{Identical|Unsubmitted Programs}}
+    unsubmitted: Alternative wording for generic courses.
     uploads_none: Message indicating that there are no Commons contributions to show
     yourcourses: |-
       The alternative wording for generic courses.
