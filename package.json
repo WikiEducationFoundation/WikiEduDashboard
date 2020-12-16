@@ -12,7 +12,7 @@
     "@babel/register": "^7.9.0",
     "@rails/ujs": "^6.0.3-2",
     "@sentry/browser": "^5.17.0",
-    "@tinymce/tinymce-react": "^3.6.0",
+    "@tinymce/tinymce-react": "^3.8.4",
     "autosize": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
