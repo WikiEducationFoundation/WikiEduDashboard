@@ -39,8 +39,15 @@ diq:
     my_dashboard: Texteyê mıno cerrebnayışi
     recent_activity: Fealiyeto Peyên
     report_problem: Perse rapor ke
+    request_account: Hesab bıwaze
+    request_account_create: Hesab vıraze
     search: persê bıperse
+    search_results:
+      one: '%{count} neticey: ''%{search_terms}'''
+      other: '%{count} Neticey:''%{search_terms}'''
+    no_results: '''%{query}'' rê neticey nêvineyay'
     sign_up_extended: Ebe Wikipediya ra cıkewe
+    sign_up_wikipedia: Yana Wikipedia rê qeyd bıbê
     sign_up_log_in_extended: ebe Wikipediya ra
     sign_up: Qeyd be
     submit: Bırışe
@@ -52,6 +59,15 @@ diq:
     opt_out: Nê
     opt_yes: eya
     opt_no: nê
+  article_statuses:
+    not_yet_started: Serkewtış
+    in_progress: Qumdor de Guriyena
+    ready_for_review: Teslağo Bena Hera
+    ready_for_mainspace: Karo Kırışiyeno Cayo Esas
+    reading_the_article: Meqale Wanayış
+    providing_feedback: Peyd rışte Resnayış
+    post_to_talk: Pera Werênayışi Rıstış
+    peer_review_completed: Çımeştış Biyo Temam
   dashboard:
     explore_examples: Nımuneyan cı geyre
     review_orientation: Çımdariya istiqameti
@@ -82,6 +98,7 @@ diq:
     filter:
       wiki_all: Pêro
       new: Newe
+      new_and_existing: Newe u Mewcud
     hide: Bınımne
     history: (tarix)
     label: Wesiqey
@@ -94,6 +111,11 @@ diq:
     view: Meqale Bıvêne
     view_all: Hemınan bıvin
     wiki: Wiki
+    articles_short: Meqaley
+  articles_wikidata:
+    articles_short: Obcey
+  articles_generic:
+    articles_short: Peri
   assignments:
     article_link: Meqale
     assignees: Çebyayış(i)
@@ -131,6 +153,10 @@ diq:
       legend: Kıtabek
     cancel: Bıtexelne
     campaigns: 'Kohorti:'
+    campaign_articles: '%{title} Meqaley'
+    campaign_courses: '%{title} Kursi'
+    campaign_select: Ju kampanya weçinê
+    campaign_users: '%{title} Editori'
     course: Kurs
     course_description: Kursi
     courses: Qursi
