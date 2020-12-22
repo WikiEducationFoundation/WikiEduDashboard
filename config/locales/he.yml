@@ -80,6 +80,12 @@ he:
     opt_out: לא
     opt_yes: כן
     opt_no: לא
+  article_statuses:
+    not_yet_started: איך להתחיל
+    ready_for_review: הרחבת טיוטה
+    providing_feedback: שליחת משוב
+    post_to_talk: פרסום לדף שיחה
+    peer_review_completed: הסקירה הושלמה
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.
@@ -209,6 +215,8 @@ he:
     none_short: אין ערכים משוייכים
     none: לא שויכו ערכים לתוכנית הזאת.
     no_available: לקורס הזה אין ערכים זמינים.
+    peer_review_link: סקירת עמיתים
+    peer_review_link_personalized: סקירת העמיתים של %{username}
     remove: הסרה
     reviewers: בודקים\בודקות
     review_other: שיוך בודקים\בודקות

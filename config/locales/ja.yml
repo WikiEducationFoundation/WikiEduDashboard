@@ -4,6 +4,7 @@
 # Author: 90-NS-FZ
 # Author: Aefgh39622
 # Author: Bonfire12
+# Author: Kkairri
 # Author: Omotecho
 # Author: Otokoume
 # Author: Shirayuki
@@ -692,7 +693,7 @@ ja:
     authorship_data_not_fetched: 作成者データを取得できませんでした
     character_doc: この名前空間に特定の利用者が追加したコンテンツの量は、ページサイズを増加させた編集ごとに文字数の増分を足して算出します。ただしこの数字は、当該の利用者が追加したコンテンツの実数を必ずしも反映しません。除去されたコンテンツを復元しても、この合計値は増えるからです。
     chars_added: 追加した文字数<br>(記事 | 利用者 | 下書き)
-    contributions: ユーザーの投稿
+    contributions: 投稿記録
     contributions_history_full: 完全な投稿履歴を見る
     contributions_more: 他の投稿を表示
     contribution_statistics: 投稿統計
