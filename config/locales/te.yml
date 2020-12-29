@@ -68,12 +68,15 @@ te:
     user_ns: వాడుకరి
   recent_activity:
     datetime: తేదీ/సమయం
+    image: బొమ్మ
     recent_uploads: ఇటీవలి ఎక్కింపులు
   revisions:
     diff_show: చూపించు
     diff_hide: దాచు
   timeline:
     gradeable_value: విలువ
+  uploads:
+    image: బొమ్మ
   users:
     name: పేరు
     training_module_status: స్థితి

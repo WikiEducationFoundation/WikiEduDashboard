@@ -530,6 +530,10 @@ qqq:
       The title of a campaign followed by an identical translation for 'Programs'
       {{Identical|Program}}
     creator:
+      assignment_end_placeholder: 'This is the ISO format: do not change its order
+        or separators, just adapt the placeholder letters abbreviating each digit.'
+      assignment_start_placeholder: 'This is the ISO format: do not change its order
+        or separators, just adapt the placeholder letters abbreviating each digit.'
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course
       course_school: Label for the "Institution" input field of a program, which is
@@ -752,6 +756,9 @@ qqq:
     training_modules_completed: Label indicating how many of the training modules
       assigned to the course that an editor has completed
     training_module_status: '{{Identical|Status}}'
+    training_module_time:
+      minutes: Abbrevation for "Minute(s)".
+      seconds: Abbrevation for "second(s)" (unit of measurement of time).
     user_training_status: |-
       Link anchor for viewing training status of a user
       '{{Identical|Training Status}}'

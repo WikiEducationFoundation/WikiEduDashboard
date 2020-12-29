@@ -491,7 +491,7 @@ ca:
       exists: Aquest curs ja existeix! Torneu-ho a provar amb un altre títol, escola
         o terme.
       user_exists: Ho sentim, %{username} no és un usuari existent.
-      invalid_language_or_project: Idioma o projecte invàlid
+      invalid_language_or_project: Idioma o projecte no vàlids
       invalid_slug: Títol de l'assignatura
       duplicate_slug: Ja hi ha un altre programa anomenat %{slug}.
     expected_students: Estudiants esperats

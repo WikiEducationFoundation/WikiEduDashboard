@@ -1,6 +1,7 @@
 # Messages for Danish (dansk)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: IBDJ
 # Author: Joedalton
 # Author: Jorn Ari
 # Author: Palnatoke
@@ -1272,6 +1273,12 @@ da:
     useremail_placeholder: E-mail
     userpasscode_placeholder: Adgangskode
     words_added: Ord tilføjet<br>(artikel | bruger | kladde)
+    word_count_doc: Et estimat af den totalt mængde indhold, som en bruger har tilføjet
+      til live-artikler, brugersider (sandkasser) og navne-udkastside. Ordtællingestimater
+      er beregnet på baggrund af ændringer i side størrelse på tværs alle redigeringer,
+      hvor der blev tilføjet flere ord end der blev fjernet. Estimatet afspejler ikke
+      nødvendigvis mængden af nyt indhold, som en bruger har tilføjet. Gendannelse
+      af slettet indhold vil også øge estimatet.
     role:
       description: Rolle i kursus
       visitor: Besøgende
