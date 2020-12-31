@@ -269,10 +269,6 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
-  def tracked_articles
-    articles.where.not(id: articles_courses.not_tracked.pluck(:article_id))
-  end
-
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
