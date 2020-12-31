@@ -311,12 +311,16 @@ class Course < ApplicationRecord
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  def new_articles
-    articles_courses.tracked.live.new_article.joins(:article).where('articles.namespace = 0')
+  def edited_articles_courses
+    articles_courses.tracked.live
+  end
+
+  def new_articles_courses
+    edited_articles_courses.new_article
   end
 
   def new_articles_on(wiki)
-    new_articles.where("articles.wiki_id = #{wiki.id}")
+    new_articles_courses.where("articles.wiki_id = #{wiki.id}")
   end
 
   def uploads_in_use

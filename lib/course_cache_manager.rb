@@ -75,11 +75,11 @@ class CourseCacheManager
   end
 
   def update_article_count
-    @course.article_count = @course.tracked_articles.namespace(0).live.size
+    @course.article_count = @course.edited_articles_courses.count
   end
 
   def update_new_article_count
-    @course.new_article_count = @course.new_articles.count
+    @course.new_article_count = @course.new_articles_courses.count
   end
 
   def update_upload_count
