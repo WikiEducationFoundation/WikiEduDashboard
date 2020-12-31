@@ -297,7 +297,6 @@ describe Course, type: :model do
       # non-mainspace page
       sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
-      create(:articles_course, article_id: sandbox.id, course_id: course.id)
 
       course.update_cache
       expect(course.article_count).to eq(1)
@@ -319,8 +318,6 @@ describe Course, type: :model do
       # non-mainspace page
       sandbox = create(:article, namespace: Article::Namespaces::TALK)
       create(:revision, article_id: sandbox.id, user_id: student.id)
-      create(:articles_course, article_id: sandbox.id, course_id: course.id,
-                               new_article: true)
 
       course.update_cache
       expect(course.new_article_count).to eq(1)
