@@ -7,10 +7,11 @@ class CourseStudentsCsvBuilder
     @course = course
     @created_articles = Hash.new(0)
     @edited_articles = Hash.new(0)
-    @revisions = @course.all_revisions.where(new_article: true).pluck(:article_id, :user_id).to_h
   end
 
   def generate_csv
+    @new_article_revisions = @course.all_revisions.where(new_article: true)
+                                    .pluck(:article_id, :user_id).to_h
     populate_created_articles
     populate_edited_articles
     csv_data = [CSV_HEADERS]
@@ -34,7 +35,7 @@ class CourseStudentsCsvBuilder
   end
 
   def article_creator?(article_id, user_id)
-    @revisions[article_id] == user_id
+    @new_article_revisions[article_id] == user_id
   end
 
   def populate_edited_articles
@@ -61,6 +62,7 @@ class CourseStudentsCsvBuilder
     total_articles_created
     total_articles_edited
   ].freeze
+  # rubocop:disable Metrics/AbcSize
   def row(courses_user)
     row = [courses_user.user.username]
     row << courses_user.created_at
@@ -74,6 +76,7 @@ class CourseStudentsCsvBuilder
     row << @created_articles[courses_user.user_id]
     row << @edited_articles[courses_user.user_id]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def newbie?(user)
     (@course.start..@course.end).cover? user.registered_at
