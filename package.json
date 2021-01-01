@@ -136,7 +136,7 @@
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "parallel-webpack": "^2.6.0",
     "stylus-native-loader": "^1.1.2",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^4.3.1"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
