@@ -5,11 +5,14 @@ require 'csv'
 class CourseStudentsCsvBuilder
   def initialize(course)
     @course = course
-    @created_articles = course.new_articles.select(:article_id, :user_ids).to_a
-    @edited_articles = course.new_articles.select(:article_id, :user_ids).unscope(where: :new_article).to_a
+    @created_articles = Hash.new(0)
+    @edited_articles = Hash.new(0)
+    @revisions = @course.all_revisions.where(new_article: true).pluck(:article_id, :user_id).to_h
   end
 
   def generate_csv
+    populate_created_articles
+    populate_edited_articles
     csv_data = [CSV_HEADERS]
     courses_users.each do |courses_user|
       csv_data << row(courses_user)
@@ -18,6 +21,28 @@ class CourseStudentsCsvBuilder
   end
 
   private
+
+  def populate_created_articles
+    # A user has created an article during the course if
+    # the user is in the user_ids of new_articles_courses
+    # has a revision with new_article: true for that article
+    @course.new_articles_courses.pluck(:article_id, :user_ids).each do |article_id, user_ids|
+      user_ids.each do |user_id|
+        @created_articles[user_id] += 1 if article_creator?(article_id, user_id)
+      end
+    end
+  end
+
+  def article_creator?(article_id, user_id)
+    @revisions[article_id] == user_id
+  end
+
+  def populate_edited_articles
+    # A user has edited an article if the user is in the user_ids list of edited_articles_courses
+    @course.edited_articles_courses.pluck(:article_id, :user_ids).each do |_article_id, user_ids|
+      user_ids.each { |user_id| @edited_articles[user_id] += 1 }
+    end
+  end
 
   def courses_users
     @course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE).includes(:user)
@@ -46,19 +71,11 @@ class CourseStudentsCsvBuilder
     row << courses_user.character_sum_draft
     row << courses_user.references_count
     row << newbie?(courses_user.user)
-    row << total_articles_created(courses_user.user_id)
-    row << total_articles_edited(courses_user.user_id)
+    row << @created_articles[courses_user.user_id]
+    row << @edited_articles[courses_user.user_id]
   end
 
   def newbie?(user)
     (@course.start..@course.end).cover? user.registered_at
-  end
-
-  def total_articles_created(user_id)
-    @created_articles.count {|a| a[:user_ids].include?(user_id)}
-  end
-
-  def total_articles_edited(user_id)
-    @edited_articles.count {|a| a[:user_ids].include?(user_id)}
   end
 end
