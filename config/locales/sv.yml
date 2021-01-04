@@ -159,18 +159,23 @@ sv:
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
+    bibliography: Bibliografi
     clone: Klon
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
+    confirm_addition: Är du säker på att du vill tilldela %{title} till %{username}?
+    editors: Tilldelad till
     group_members: Gruppmedlemmar
     label: Tilldela
     loading: Läser in tilldelningar...
     none_short: Inga tilldelade artiklar
     none: Denna kurs har inga tilldelade artiklar.
     no_available: Denna kurs har inga tillgängliga artiklar.
+    peer_review_count: '%{currentCount}/%{total} valt'
     remove: Ta bort
     reviewers: Granskare
     review_other: Tilldela en granskning
     review_self: Granska en artikel
+    sandbox_draft_link: Sandlådeutkast
     select: Välj
   blocks:
     milestones:
@@ -207,10 +212,16 @@ sv:
     data_revisions: Sidversionsdata
     data_revisions_info: Detaljer om varje spårad sidversion av kampanjen
     data_instructors: Instruktörer
+    data_editors_by_course_info: Lista över inskrivna användare och deras kurser och
+      program
+    data_editor_usernames: Användarnas användarnamn
+    data_editor_usernames_info: Lista över användarnas användarnamn, en per rad
+    default_passcode_explanation: 'Som standard bör nya program i denna kampanj ha:'
     description: Beskrivning
     delete_campaign: Radera denna kampanj
     disable_account_requests: Inaktivera kontobegäran
     enable_account_requests: Aktivera kontobegäran
+    no_alerts: Denna kampanj har inga alarm
     no_passcode: inget lösenord
     none: Ingen
     organizers: Arrangörer
@@ -399,6 +410,7 @@ sv:
     search_courses: Sök i kurser
     start: Starta
     start_typing: Börja skriva
+    student: Student
     students: Studenter
     students_taught: Undervisade studenter
     students_count: '# studenter'
@@ -487,7 +499,9 @@ sv:
     request_accounts: Begär konton
     search_courses: Sök i program
     student_editors: Redigerare
+    student: Användare
     students: Redigerare
+    students_taught: Total antal användare
     students_short: Redigerare
     students_count: Antal deltagare
     term: När

@@ -466,10 +466,10 @@ fr:
       clone_this: Dupliquer ce cours
       cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
         de l’agenda (par ex. jours fériés, vacances ou congés, école fermée). Cliquer
-        sur la date pour la faire basculer entre non sélectionnée, sélectionnée et
-        état en congé. Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de
-        vacances scolaires ». La planification clonée ajustera automatiquement les
-        dates pour tenir compte des semaines sans réunions programmées.
+        sur la date pour faire basculer son état entre non sélectionnée, sélectionnée
+        et congé. Si vous n’avez pas de congés, cliquez sur « Je n’ai pas de vacances
+        scolaires ». La planification clonée ajustera automatiquement les dates pour
+        tenir compte des semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
       clone_successful_details: Votre cours a été dupliqué, y compris les éléments
         de planification (semaines et blocages). Assurez-vous d’ajouter les dates
@@ -594,7 +594,7 @@ fr:
     end: Fin
     ended: Le cours est terminé.
     enroll: S’inscrire
-    enrollment: Ajouter / Supprimer des étudiants
+    enrollment: Ajouter / supprimer des étudiants
     enrollment_edits_enabled: Modifications des inscriptions activées
     enrollment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
       sur la page de l’utilisateur et la page de discussion de chaque contributeur
@@ -643,7 +643,7 @@ fr:
     launch_wizard: Lancer l’assistant
     leave_confirmation: Êtes-vous certain(e) de vouloir quitter ce cours ?
     leave_course: Quitter le cours
-    loading: Chargement en cours...
+    loading: Chargement en cours…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     my_articles: Mes articles
     needs_update: Planifier une mise à jour des données
@@ -762,8 +762,8 @@ fr:
     unsubmitted: Cours non soumis
     untrained: Sans formation
     update_stats: Mettre à jour les statistiques
-    uploads_none: Cette classe n’a contribué avec aucune image ni aucun autre fichier
-      média sur Wikimedia Commons.
+    uploads_none: Cette classe n’a contribué à Wikimedia Commons avec aucune image
+      ni aucun autre fichier média.
     user_uploads_none: Cet utilisateur n’a contribué à aucune image ni aucun autre
       fichier média sur Wikimedia Commons.
     user_recent_uploads: Téléversements récents
@@ -871,7 +871,7 @@ fr:
     edit_course_dates: Modifier les dates du projet
     end: Fin du suivi d’activité
     enroll: Ajouter un rédacteur
-    enrollment: Ajouter / Supprimer des rédacteurs
+    enrollment: Ajouter / supprimer des rédacteurs
     explore: Trouver des programmes
     courses_enrolled: Participations aux programmes
     expected_students: Rédacteurs attendus
@@ -1032,7 +1032,7 @@ fr:
     recent_uploads: Téléversements récents
     revision_author: Auteur de la version
     revision_datetime: Horodatage de la version
-    revision_score: Pointage de la version
+    revision_score: Score de la version
     show_courses: Afficher uniquement mes cours
     uploaded_by: Téléversé par
     usage_count: Compteur d’utilisations
@@ -1049,7 +1049,7 @@ fr:
     edited_on: Modifié le %{edit_date}
     loading: Chargement en cours des versions...
     none: Ce cours n’a pas été récemment modifié.
-    time_doc: La date de chaque révision à votre heure locale.
+    time_doc: La date de chaque version dans votre fuseau horaire.
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
     see_more: Voir plus
@@ -1080,7 +1080,7 @@ fr:
         form_label: Attribuer les privilèges d’utilisateur spécial
         form_placeholder: Nom d’utilisateur
         confirm_add_special_user: Ajouter un utilisateur spécial
-        confirm_remove_special_user: Supprimer les privilèges d’utilisateur spécial
+        confirm_remove_special_user: Retirer les privilèges d’utilisateur spécial
           pour
         already_is: '%{username} est déjà un(e) {position} !'
         elevate_success: '%{username} est promu(e) {position}.'
@@ -1126,7 +1126,7 @@ fr:
         informations deviennent disponibles.
       list: Les listes doivent être des listes de liens actifs vers des articles de
         Wikipédia, nommés et organisés de façon appropriée.
-      future: Les matériaux ajoutés pourraient être spéculatifs et doivent être soigneusement
+      future: Les contenus ajoutés peuvent être spéculatifs et doivent être soigneusement
         référencés.
       disambig: Des ajouts devraient être faits sous forme de nouveaux articles créés
         sous ce nom. Faites bien attention au nommage correct de ces pages, car elles
@@ -1146,9 +1146,9 @@ fr:
   timeline:
     add_week: Ajouter une semaine
     arrange_timeline: Organiser l’agenda
-    arrange_timeline_instructions: Organiser l’agenda en « glissant et relâchant »
-      des blocs vers l’emplacement/semaine souhaité, ou repositionner les blocs en
-      utilisant les flèches sur la carte.
+    arrange_timeline_instructions: Organiser l’agenda en « glissant et déposant »
+      des blocs vers l’emplacement/semaine souhaité ou en repositionnant les blocs
+      à l’aide des flèches sur la carte.
     assignment_dates_instructions: Sélectionner les dates de début et de fin de l’agenda
       d’affectations de Wikipédia. Modifier la date de début décalera toutes les dates
       de l’agenda.
@@ -1189,7 +1189,7 @@ fr:
     empty_week_4: utiliser l’assistant d’affectation pour créer un agenda.
     first_week_title: Première semaine active
     gradeable_value: Valeur
-    gradeables_none: Cet agenda n n’a aucune affectation marquée comme évaluée.
+    gradeables_none: Cet agenda n’a aucune affectation marquée comme évaluée.
     grading_header: 'Évaluation (Total : %{total})'
     move_block_down: Faire descendre le bloc
     move_block_up: Faire monter le bloc
@@ -1215,7 +1215,7 @@ fr:
     next: Page suivante
     page: Page
     page_number: Page %{number} sur %{total}
-    previous: ◀ Précédent
+    previous: ◀︎ Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
@@ -1239,7 +1239,7 @@ fr:
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
-    loading: Chargement en cours des téléversements...
+    loading: Chargement en cours des téléversements…
     none: Cette classe n’a contribué avec aucune image ni aucun autre fichier média
       à Wikimedia Commons.
     select_label: Filtrer par téléverseur
@@ -1274,7 +1274,7 @@ fr:
     editors: Rédacteurs
     edits: modifications
     edits_by: 'Modifié par :'
-    enroll_confirmation: Êtes-vous certin(e)de vouloir ajouter %{username} ?
+    enroll_confirmation: Êtes-vous certain(e) de vouloir ajouter %{username} ?
     enroll_url: 'Les utilisateurs peuvent s’inscrire en visitant cette URL :'
     enrolled_success: '%{username} a été ajouté(e) !'
     exercise_modules_completed:
@@ -1302,7 +1302,7 @@ fr:
       other: '%{count} articles'
     profile: profil
     recent_revisions: Modifications récentes
-    remove_confirmation: Êtes-vous certain(e) de vouloir supprimer %{username} ?
+    remove_confirmation: Êtes-vous sûr(e) de vouloir supprimer %{username} ?
     request_confirmation: Êtes-vous certain(e) de vouloir demander ce compte ?
     requested_account_status:
       success_message: 'Succès : %{result_description}'
@@ -1386,8 +1386,8 @@ fr:
     assignment_dates: Dates d’affectation
     assignment_description: Choisir les dates de début et de fin de votre agenda d’affectation.
       Par exemple, si vous voulez commencer votre projet Wikipédia la deuxième semaine
-      du cours, mettez la date de début d’affectation une semaine après celle de début
-      du cours. L’outil de conception des affectations créera un brouillon d’agenda
+      du cours, fixez la date de début d’affectation à une semaine après celle de
+      début du cours. L’outil de conception des affectations créera un brouillon d’agenda
       qui correspondra aux dates que vous aurez choisies.
     assignment_type: Que devront compléter les étudiants pour leur affectation Wikipédia ?
     calendar_instructions: Sélectionner les dates à ajouter ou supprimer de l’agenda  (par
@@ -1401,7 +1401,7 @@ fr:
     min_weeks: Cette tâche nécessite au moins %{min_weeks} semaines disponibles. Veuillez
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
-    select_one_option: Veuillez sélectionner 1 option.
+    select_one_option: Veuillez sélectionner 1 option.
     minimum_options:
       one: Veuillez sélectionner au moins %{count} option.
       other: Veuillez sélectionner au moins %{count} options.
