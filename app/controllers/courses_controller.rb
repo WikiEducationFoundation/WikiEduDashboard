@@ -117,6 +117,11 @@ class CoursesController < ApplicationController
     set_course
   end
 
+  def alerts
+    set_course
+    @alerts = current_user.roles(@course)[:admin] ? @course.alerts : @course.public_alerts
+  end
+
   ##########################
   # User-initiated actions #
   ##########################
