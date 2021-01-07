@@ -96,9 +96,9 @@ def go_through_researchwrite_wizard
   omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
   sleep 1
-  # sandboxes unacceptable
-  omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  click_button 'Next'
+  # # sandboxes unacceptable
+  # omniclick find('.wizard__option', match: :first).find('button', match: :first)
+  # click_button 'Next'
   sleep 1
 
   click_button 'Generate Timeline'
