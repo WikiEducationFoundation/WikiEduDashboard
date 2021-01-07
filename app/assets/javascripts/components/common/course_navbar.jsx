@@ -58,6 +58,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   const articlesLink = `${courseLink}/articles`;
   const uploadsLink = `${courseLink}/uploads`;
   const activityLink = `${courseLink}/activity`;
+  const alertsLink = `${courseLink}/alerts`;
 
   // /////////////////
   // Get Help button /
@@ -90,6 +91,9 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
         </div>
         <div className="nav__item" id="activity-link">
           <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
+        </div>
+        <div className="nav__item" id="alerts-link">
+          <p><NavLink to={alertsLink} activeClassName="active">{I18n.t('courses.alerts')}</NavLink></p>
         </div>
         {resources}
         {getHelp}

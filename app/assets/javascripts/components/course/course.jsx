@@ -27,6 +27,7 @@ import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
+import CourseAlertsList from '../alerts/course_alerts_list';
 
 export const Course = createReactClass({
   displayName: 'Course',
@@ -139,6 +140,7 @@ export const Course = createReactClass({
             <Route exact path="/courses/:course_school/:course_title/article_finder" render={() => <ArticleFinder {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/timeline" render={() => <TimelineHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/resources" render={() => <Resources {...courseProps} />} />
+            <Route path="/courses/:course_school/:course_title/alerts" render={() => <CourseAlertsList {...courseProps} />} />
           </Switch>
         </div>
       </div>
