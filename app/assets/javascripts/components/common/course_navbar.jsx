@@ -92,9 +92,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
         <div className="nav__item" id="activity-link">
           <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
         </div>
-        <div className="nav__item" id="alerts-link">
-          <p><NavLink to={alertsLink} activeClassName="active">{I18n.t('courses.alerts')}</NavLink></p>
-        </div>
         {resources}
         {getHelp}
       </nav>
