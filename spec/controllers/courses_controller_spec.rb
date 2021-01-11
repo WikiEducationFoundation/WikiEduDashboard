@@ -679,4 +679,50 @@ describe CoursesController, type: :request do
       expect(response.status).to eq(200)
     end
   end
+
+  describe '#alerts' do
+    let(:course) { create(:course, slug: slug_params) }
+    let!(:public_alert) { create(:alert, course: course, type: 'BlockedEditsAlert') }
+    let!(:private_alert) { create(:alert, course: course, type: 'BadWorkAlert') }
+    let(:admin) { create(:admin) }
+    let(:user) { create(:user) }
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
+    end
+
+    context 'get as admin' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        get "/courses/#{course.slug}/alerts.json", as: :json
+      end
+
+      it 'should return a list of alerts' do
+        expect(response.status).to eq(200)
+        expect(response.body).to include('alerts')
+      end
+
+      it 'should contain all alerts' do
+        expect(response.parsed_body['alerts'].length).to eq(2)
+      end
+    end
+
+    context 'get as user' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        get "/courses/#{course.slug}/alerts.json", as: :json
+      end
+
+      it 'should return a list of alerts' do
+        expect(response.status).to eq(200)
+        expect(response.body).to include('alerts')
+      end
+
+      it 'should contain only the public alert' do
+        alerts = response.parsed_body['alerts']
+        expect(alerts.length).to eq(1)
+        expect(alerts[0]['id']).to eq(public_alert.id)
+      end
+    end
+  end
 end

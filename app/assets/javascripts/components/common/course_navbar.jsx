@@ -58,7 +58,6 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   const articlesLink = `${courseLink}/articles`;
   const uploadsLink = `${courseLink}/uploads`;
   const activityLink = `${courseLink}/activity`;
-  const alertsLink = `${courseLink}/alerts`;
 
   // /////////////////
   // Get Help button /
