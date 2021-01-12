@@ -22,13 +22,16 @@ export const ActivityHandler = createReactClass({
       {
         href: `/courses/${this.props.course.slug}/activity/recent`,
         text: I18n.t('application.recent_activity')
-      },
-      {
-        href: `/courses/${this.props.course.slug}/activity/alerts`,
-        text: I18n.t('courses.alerts')
       }
     ];
-
+    if (this.props.current_user.admin) {
+      links.push(
+        {
+          href: `/courses/${this.props.course.slug}/activity/alerts`,
+          text: I18n.t('courses.alerts')
+        }
+      );
+    }
     return (
       <div className="activity-handler">
         <SubNavigation links={links} />

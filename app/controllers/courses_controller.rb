@@ -119,7 +119,7 @@ class CoursesController < ApplicationController
 
   def alerts
     set_course
-    @alerts = current_user.roles(@course)[:admin] ? @course.alerts : @course.public_alerts
+    @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
   ##########################
