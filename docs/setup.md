@@ -135,6 +135,8 @@ If you know your way around Rails, here's the very short version. Some additiona
     - Start a mysql command line:
         - Debian: `sudo mysql`
         - OSX: `brew services start mariadb` then `sudo mysql`
+            (If you receive the error message: `Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)`
+            You may have a permissions issue. Try executing: `sudo chown -R _mysql:mysql /usr/local/var/mysql` before restarting database server and logging in)
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
