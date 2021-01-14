@@ -8,7 +8,6 @@ import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
-import RevisionsHandler from '../revisions/revisions_handler.jsx';
 import StudentsTabHandler from '../students/containers/StudentsTabHandler';
 import ArticlesHandler from '../articles/articles_handler.jsx';
 import UploadsHandler from '../uploads/uploads_handler.jsx';
@@ -27,6 +26,7 @@ import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
+import ActivityHandler from '../activity/activity_handler';
 
 export const Course = createReactClass({
   displayName: 'Course',
@@ -132,7 +132,7 @@ export const Course = createReactClass({
             <Route exact path="/courses/:course_school/:course_title/home" render={() => <OverviewHandler {...courseProps} />} />
             {/* The overview route path should not be removed in order to preserve the default url */}
             <Route exact path="/courses/:course_school/:course_title/overview" render={() => <OverviewHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/activity" render={() => <RevisionsHandler {...courseProps} />} />
+            <Route path="/courses/:course_school/:course_title/activity" render={() => <ActivityHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/students" render={() => <StudentsTabHandler {...courseProps} />} />
             <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
             <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />

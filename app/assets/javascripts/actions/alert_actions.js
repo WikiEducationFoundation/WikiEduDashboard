@@ -62,8 +62,8 @@ export const handleResolveAlert = alertId => (dispatch) => {
   );
 };
 
-const fetchAdminAlertsPromise = () => {
-  return request('/alerts_list.json', {
+const fetchAlertsPromise = (url) => {
+  return request(url, {
     credentials: 'include'
   }).then(fetchResponseToJSON)
     .catch((error) => {
@@ -71,42 +71,41 @@ const fetchAdminAlertsPromise = () => {
       return error;
     });
 };
+
+const fetchAdminAlertsPromise = () => fetchAlertsPromise('/alerts_list.json');
+
+const fetchCampaignAlertsPromise = slug => fetchAlertsPromise(`/campaigns/${slug}/alerts.json`);
+
+const fetchCourseAlertsPromise = slug => fetchAlertsPromise(`/courses/${slug}/alerts.json`);
+
+const receiveAlerts = dispatch => data => dispatch({ type: types.RECEIVE_ALERTS, data });
+
+const apiFail = dispatch => response => dispatch({ type: types.API_FAIL, data: response });
 
 export const fetchAdminAlerts = () => (dispatch) => {
   return (
     fetchAdminAlertsPromise()
-      .then((data) => {
-        dispatch({
-          type: types.RECEIVE_ALERTS,
-          data
-        });
-      })
-      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+      .then(receiveAlerts(dispatch))
+      .catch(apiFail(dispatch))
   );
-};
-
-const fetchCampaignAlertsPromise = (campaignSlug) => {
-  return request(`/campaigns/${campaignSlug}/alerts.json`, {
-    credentials: 'include'
-  }).then(fetchResponseToJSON)
-    .catch((error) => {
-      logErrorMessage(error);
-      return error;
-    });
 };
 
 export const fetchCampaignAlerts = campaignSlug => (dispatch) => {
   return (
     fetchCampaignAlertsPromise(campaignSlug)
-      .then((data) => {
-        dispatch({
-          type: types.RECEIVE_ALERTS,
-          data
-        });
-      })
-      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+      .then(receiveAlerts(dispatch))
+      .catch(apiFail(dispatch))
   );
 };
+
+export const fetchCourseAlerts = courseSlug => (dispatch) => {
+  return (
+    fetchCourseAlertsPromise(courseSlug)
+      .then(receiveAlerts(dispatch))
+      .catch(apiFail(dispatch))
+  );
+};
+
 
 export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
 
