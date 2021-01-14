@@ -22,19 +22,16 @@ export const ActivityHandler = createReactClass({
       {
         href: `/courses/${this.props.course.slug}/activity/recent`,
         text: I18n.t('application.recent_activity')
+      },
+      {
+        href: `/courses/${this.props.course.slug}/activity/alerts`,
+        text: I18n.t('courses.alerts')
       }
     ];
-    if (this.props.current_user.admin) {
-      links.push(
-        {
-          href: `/courses/${this.props.course.slug}/activity/alerts`,
-          text: I18n.t('courses.alerts')
-        }
-      );
-    }
+
     return (
       <div className="activity-handler">
-        <SubNavigation links={links} />
+        { this.props.current_user.admin ? <SubNavigation links={links} /> : null }
         <Switch>
           <Route exact path="/courses/:course_school/:course_title/activity/recent" render={() => <RevisionHandler {...this.props}/>} />
           <Route exact path="/courses/:course_school/:course_title/activity/alerts" render={() => <CourseAlertsList {...this.props} />} />
