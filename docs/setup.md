@@ -190,11 +190,23 @@ with a few example events with editing activity.
     It also watches the files, and will automatically restart the server when rails files are
     changed, and it will automatically run corresponding test files when applicable.
 
-      $ `guard`
+      $ `bundle exec guard`
 
     - Windows:
 
       $ `rails s`
+
+    NOTE: If you get a `500` error when trying access `http://localhost:3000/`, review your stack trace. It might include the following error:
+    `Mysql2::Error::ConnectionError (Access denied for user 'wiki'@'localhost' to database 'dashboard'`
+
+    In order to remedy this privileges issue, log into the database server and enter the following:
+
+    1. `DROP USER ‘wiki'@'localhost’;`
+    2. `CREATE USER ‘wiki'@'localhost’ IDENTIFIED BY 'wikiedu';`
+    3. `GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost';`
+    4. `FLUSH PRIVILEGES;`
+
+    Log out of database server and execute `bundle exec guard` again.
 
 3. **Compile assets**
     - The `yarn start` command will build the project's javascripts and stylesheets
