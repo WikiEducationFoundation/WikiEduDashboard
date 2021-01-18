@@ -50,11 +50,11 @@ class RevisionAnalyticsService
 
   def suspected_plagiarism
     if @course_ids
-      suspected_revisions = Revision.where.not(ithenticate_id: nil)
+      suspected_revisions = Revision.suspected_plagiarism
                                     .where(user_id: student_ids)
                                     .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
     else
-      suspected_revisions = Revision.where.not(ithenticate_id: nil)
+      suspected_revisions = Revision.suspected_plagiarism
                                     .order(date: :desc).first(DEFAULT_PLAGIARISM_LIMIT)
     end
     suspected_revisions
