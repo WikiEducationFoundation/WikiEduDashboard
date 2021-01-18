@@ -896,4 +896,30 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe '#possible_plagiarism_revisions', focus: true do
+    let(:course) { create(:course) }
+    let(:user) { create(:user) }
+    # Article edited during the course
+    let(:article) { create(:article, namespace: 1) }
+    let!(:revision) do
+      create(:revision, date: course.start + 1.minute, article: article, user: user)
+    end
+    # Article edited outside the course
+    let(:article2) { create(:article, namespace: 1) }
+    let!(:revision2) do
+      create(:revision, date: course.start + 2.minutes, article: article, user: user,
+             ithenticate_id: 1)
+    end
+
+    before do
+      course.students << user
+    end
+
+    it 'returns only the possible plagiarism revisions' do
+      expect(course.suspected_plagiarism.count).to eq(1)
+      expect(course.suspected_plagiarism.first.id).to eq(revision2.id)
+    end
+
+  end
 end

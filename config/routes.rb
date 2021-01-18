@@ -140,6 +140,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/suspected_plagiarism.json' => 'courses#suspected_plagiarism',
+        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
