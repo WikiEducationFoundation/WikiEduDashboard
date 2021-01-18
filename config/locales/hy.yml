@@ -70,6 +70,8 @@ hy:
     explore: Ուսումնասիրել
     log_in: Մուտք գործել Վիքիպեդիա
     sign_up: Գրանցվել Վիքիպեդիայում
+  alerts:
+    alert_label: Հաղորդագրություններ
   activity:
     all: Ակտիվություն
     edited_by: Խմբագրված
@@ -174,6 +176,7 @@ hy:
   courses:
     school_system: Ակադեմիական համակարգ
     activity: Ակտիվություն
+    alerts: Հաղորդագրություններ
     actions: Գործողություններ
     articles: Հոդվածներ
     cancel: Չեղարկել
@@ -189,14 +192,17 @@ hy:
       end_date: Ավարտելու ամսաթիվ
       expected_number: Ուսանողների ակնկալվող քանակ
       start_date: Սկսելու ամսաթիվ
+    delete_suggestion: Ջնջել
     dismiss_survey: Փակել
     download_stats_data: Ներբեռնել վիճակագրությունը
     duration: Դասընթացի տեւողությունը
     embed_course_stats: Ներառել դասընթացի վիճակագրությունը
+    end: Ավարտ
     enroll: Գրանցվել
     error:
       user_exists: Ցավոք, մասնակից %{username} գոյություն չունի ։
     expected_students: Ակնկալվող ուսանողներ
+    feedback: Հետադարձ կապ
     instructor:
       one: Հրահանգիչ
       other: Հրահանգիչներ
@@ -205,6 +211,7 @@ hy:
     loading: բեռնվում է
     my_articles: Իմ հոդվածները
     new_week: Ավելացնել Նոր շաբաթ
+    new_account_email: Էլ–փոստի հասցե
     overview: Գլխավոր էջ
     requested_accounts_alert_view: Դիտել
     school: Դպրոց
@@ -218,10 +225,16 @@ hy:
     timeline: Հանձնարարության մանրամասներ
     title: Վերնագիր
     view_wiki: Դիտել Վիքպեդիայում
+    volunteer:
+      one: Կամավոր
+      other: Կամավորներ
   courses_generic:
     articles_none: Այս նախագծի համար դեռ չկան խմբագրված հոդվածներ։
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
+    cancel: Չեղարկել
     creator:
+      assignment_end_placeholder: ՏՏՏՏ-ԱԱ-ՕՕ
+      assignment_start_placeholder: ՏՏՏՏ-ԱԱ-ՕՕ
       course_description: Նախագծի նկարագրություն
       course_school: Կազմակերպություն
       course_term: Երբ
@@ -248,6 +261,7 @@ hy:
     edit: Խմբագրել
     cancel: Չեղարկել
     save: Հիշել
+    edit_description: Խմբագրել նկարագրություն
   instructor_view:
     bad_work:
       learn_more_button: Իմանալ ավելին
@@ -256,6 +270,7 @@ hy:
     articles_created: Ստեղծված հոդվածներ
     articles_edited: Խմբագրված հոդվածներ
     bytes_added: Ավելացված բայթեր
+    close_modal: Փակել
     date_time: Ամսաթիվ/Ժամ
     edit_count_description: Ընդհանուր խմբագրումներ
     revisions: Վերջին խմբագրումներ
@@ -290,7 +305,10 @@ hy:
     next: Հաջորդ էջ
     page: Էջ
     done: Արված է
+    kind:
+      discussion: Քննարկում
   uploads:
+    image: Պատկեր
     label: Բեռնումներ
     loading: Բեռնել բեռնումները․․․
     none: Այս նախագծի շրջանակներում ոչ մի պատկեր կամ մեդիա նիշք չի բեռնվել Վիքիպահեստ։

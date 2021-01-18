@@ -1,15 +1,27 @@
 # Messages for Slovenian (slovenščina)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Eleassar
+# Author: Janezdrilc
 # Author: Pickle12
 ---
 sl:
+  application:
+    cancel: Prekliči
+    dashboard: Nadzorna plošča urejanja wikija
+    help: Pomoč
+    details: Podrobnosti
+    opt_in: Da
+    opt_out: Ne
+  training:
+    page: Stran
   users:
+    contribution_statistics: Statistika prispevkov
     role:
       visitor: Obiskovalec
       student: Študent/učenec
       instructor: Inštruktor
       campus_volunteer: Prostovoljec kampusa
       online_volunteer: Spletni prostovoljec
-      wiki_ed_staff: Wiki Ed osebje
+      wiki_ed_staff: Kolektiv Wikiizobraževanja
 ...
