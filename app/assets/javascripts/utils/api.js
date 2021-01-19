@@ -158,6 +158,22 @@ const API = {
     );
   },
 
+  fetchSuspectedCoursePlagiarism(course_id) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'GET',
+        url: `/courses/${course_id}/suspected_plagiarism.json`,
+        success(data) {
+          return res(data);
+        }
+      })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+    )
+  },
+
   fetchRecentUploads(opts = {}) {
     return new Promise((res, rej) =>
       $.ajax({
