@@ -897,7 +897,7 @@ describe Course, type: :model do
     end
   end
 
-  describe '#possible_plagiarism_revisions', focus: true do
+  describe '#possible_plagiarism_revisions' do
     let(:course) { create(:course) }
     let(:user) { create(:user) }
     # Article edited during the course
@@ -920,6 +920,5 @@ describe Course, type: :model do
       expect(course.suspected_plagiarism.count).to eq(1)
       expect(course.suspected_plagiarism.first.id).to eq(revision2.id)
     end
-
   end
 end
