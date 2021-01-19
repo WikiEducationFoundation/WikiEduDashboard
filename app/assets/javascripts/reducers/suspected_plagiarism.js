@@ -3,7 +3,10 @@ import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   revisions: [],
-  sortKey: null,
+  sort: {
+    key: null,
+    sortKey: null,
+  },
   loading: true
 };
 
@@ -12,15 +15,19 @@ export default function suspectedPlagiarism(state = initialState, action) {
     case RECEIVE_SUSPECTED_PLAGIARISM: {
       return {
         revisions: action.payload.data.revisions,
-        sortKey: state.sortKey,
+        sort: state.sort,
         loading: false
       };
     }
     case SORT_SUSPECTED_PLAGIARISM: {
-      const newRevisions = sortByKey(state.revisions, action.key, state.sortKey);
+      const desc = action.key === state.sort.sortKey;
+      const newRevisions = sortByKey(state.revisions, action.key, null, desc);
       return {
         revisions: newRevisions.newModels,
-        sortKey: newRevisions.newKey,
+        sort: {
+          sortKey: desc ? null : action.key,
+          key: action.key
+        },
         loading: state.loading
       };
     }
