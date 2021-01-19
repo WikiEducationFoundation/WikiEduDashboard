@@ -59,6 +59,7 @@ class Article < ApplicationRecord
     TEMPLATE       = 10
     TEMPLATE_TALK  = 11
     PAGE           = 104
+    BOOK           = 108
     WIKIJUNIOR     = 110
     TRANSLATION    = 114
     DRAFT          = 118
@@ -82,6 +83,7 @@ class Article < ApplicationRecord
     Namespaces::LEXEME => 'Lexeme:',
     Namespaces::FILE => 'File:',
     Namespaces::PAGE => 'Page:',
+    Namespaces::BOOK => 'Book:',
     Namespaces::WIKIJUNIOR => 'Wikijunior:',
     Namespaces::TRANSLATION => 'Translation:',
     # The following namespace index are spread over
