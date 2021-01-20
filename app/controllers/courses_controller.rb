@@ -125,7 +125,7 @@ class CoursesController < ApplicationController
   def suspected_plagiarism
     set_course
     @revisions = @course.suspected_plagiarism
-    @show_report = current_user&.admin?
+    @show_report = current_user&.can_edit?(@course)
   end
 
   ##########################
