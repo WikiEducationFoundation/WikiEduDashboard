@@ -8,7 +8,7 @@ import {
 } from '../../actions/suspected_plagiarism_actions';
 import SuspectedPlagiarismList from './suspected_plagiarism_list';
 
-  const PossiblePlagiarismHandler = createReactClass({
+const PossiblePlagiarismHandler = createReactClass({
   displayName: 'PossiblePlagiarismHandler',
 
   propTypes: {
@@ -31,6 +31,14 @@ import SuspectedPlagiarismList from './suspected_plagiarism_list';
   render() {
     return (
       <div id="possible-plagiarism">
+        <div className="section-header">
+          <h3 className="article tooltip-trigger">{I18n.t('recent_activity.possible_plagiarism')}
+            <span className="tooltip-indicator"/>
+            <div className="tooltip dark">
+              <p>{I18n.t('recent_activity.plagiarism_explanation')}</p>
+            </div>
+          </h3>
+        </div>
         <SuspectedPlagiarismList
           revisions={this.props.suspectedPlagiarism}
           course={this.props.course}

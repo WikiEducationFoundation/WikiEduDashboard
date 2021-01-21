@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
-import CourseUtils from '../../utils/course_utils.js';
 import createReactClass from 'create-react-class';
 import SuspectedPlagiarism from './suspected_plagiarism';
 
@@ -52,8 +51,8 @@ const SuspectedPlagiarismList = createReactClass({
       <List
         elements={elements}
         keys={keys}
-        table_key="revisions"
-        none_message={this.props.loaded ? CourseUtils.i18n('revisions_none', this.props.course.string_prefix) : ''}
+        table_key="possible_plagiarism"
+        none_message={this.props.loaded ? I18n.t('recent_activity.no_plagiarism') : ''}
         sortBy={this.props.sortBy}
         sortable={true}
       />

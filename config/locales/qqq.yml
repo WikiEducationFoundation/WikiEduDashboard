@@ -626,6 +626,9 @@ qqq:
     no_edits: Message stating there are no recent edits.
     plagiarism_report: Label for link to a plagiarism report (Wiki Ed only)
     possible_plagiarism: Label for Possible Plagiarism tab (Wiki Ed only)
+    plagiarism_explanation: Message that explains that the report might be a false positive.
+    Instructs to review the details before taking action and that if the revision or article is not
+    accessible it might be related to copyright reasons.
     recent_edits: Label for Recent Edits tab
     recent_uploads: Label for Recent Uploads tab
     revision_author: Label for a table column of the user who made each revision

@@ -63,7 +63,7 @@ en:
     request_account: Request an account
     request_account_create: Create an account
     search: ask a question
-    search_results: 
+    search_results:
      one: "%{count} Result for: '%{search_terms}'"
      other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
@@ -222,7 +222,7 @@ en:
 
   articles_wikidata:
     articles_short: Items
-  
+
   articles_generic:
     articles_short: Pages
 
@@ -267,8 +267,8 @@ en:
     sandbox_draft_link: Sandbox Draft
     select: Select
     warning_untracked_wiki: >
-      Please note that the article you’ve chosen is on a wiki not tracked 
-      by this course. To track contributions to this article, an instructor 
+      Please note that the article you’ve chosen is on a wiki not tracked
+      by this course. To track contributions to this article, an instructor
       must add the following wiki to this course: %{wiki}
 
   blocks:
@@ -904,7 +904,7 @@ en:
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     replag_info: >
-        The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits 
+        The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
         because of replication lag (replag). When this is the case, the missing edits will show up later on.
     replag_link: Check replag
     tags: Tags
@@ -944,6 +944,11 @@ en:
     no_edits: There are no recent edits.
     plagiarism_report: Plagiarism Report
     possible_plagiarism: Possible Plagiarism
+    plagiarism_explanation: >
+      These reports are not 100% accurate. For example, a direct quote with proper attribution
+      may trigger a false positive plagiarism report. Please review the student's contributions
+      and the details of the report before taking any action. (If you find that the change — or
+      the entire article — is not accessible, the content may have been deleted for copyright reasons.)
     recent_edits: Recent Edits
     recent_uploads: Recent Uploads
     revision_author: Revision Author
@@ -972,7 +977,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
-    
+
   resources:
     label: Resources
     header: Resources and Training
