@@ -945,6 +945,7 @@ en:
     plagiarism_report: Plagiarism Report
     possible_plagiarism: Possible Plagiarism
     plagiarism_explanation: >
+      Wikipedia's plagiarism detection system uses Turnitin/iThenticate to compare new edits with published text.
       These reports are not 100% accurate. For example, a direct quote with proper attribution
       may trigger a false positive plagiarism report. Please review the student's contributions
       and the details of the report before taking any action. (If you find that the change — or
