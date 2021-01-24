@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2020_10_07_191933) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
-    t.boolean "tracked", default: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
@@ -260,7 +259,7 @@ ActiveRecord::Schema.define(version: 2020_10_07_191933) do
     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
   end
 
-  create_table "faqs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "faqs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title", null: false
@@ -498,22 +497,22 @@ ActiveRecord::Schema.define(version: 2020_10_07_191933) do
     t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id", unique: true
   end
 
-  create_table "training_slides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "training_slides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "title"
     t.string "title_prefix"
     t.string "summary"
     t.string "button_text"
     t.string "wiki_page"
-    t.text "assessment"
+    t.text "assessment", size: :medium
     t.text "content"
-    t.text "translations", size: :medium
+    t.text "translations", size: :long
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_training_slides_on_slug", unique: true
+    t.index ["slug"], name: "index_training_slides_on_slug", unique: true, length: 191
   end
 
-  create_table "trigrams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "trigrams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "trigram", limit: 3
     t.integer "score", limit: 2
     t.integer "owner_id"
