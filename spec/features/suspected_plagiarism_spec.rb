@@ -13,22 +13,43 @@ describe 'Suspected Plagiarism', type: :feature, js: true do
     create(:articles_course, course: course, article: article, user_ids: [user.id])
   end
 
-  it 'should show an empty list when there are no possible plagiarism' do
-    visit "/courses/#{course.slug}/activity/plagiarism"
-    within(:css, '.possible_plagiarism', wait: 20) do
-      # Expect the table to have a single tr with a single td
-      expect(page).to have_selector(:xpath, '//tbody/tr', count: 1)
-      expect(page).to have_selector(:xpath, '//tbody/tr[1]/td', count: 1)
+  context 'when there are no revisions suspected of plagiarism' do
+    it 'should show a no suspected plagiarism text' do
+      no_revision = 'There are not currently any recent revisions suspected of plagiarism.'
+      visit "/courses/#{course.slug}/activity/plagiarism"
+      expect(page).to have_content no_revision
     end
   end
 
-  it 'should show a list for plagiarism containing the correct links' do
-    revision = create(:revision, article: article, user: user, date: '2019-01-01',
-                      ithenticate_id: 1)
-    visit "/courses/#{course.slug}/activity/plagiarism"
-    within(:css, '.possible_plagiarism', wait: 20) do
-      expect(page).to have_selector(:xpath, '//tbody/tr', count: 1)
-      within(:xpath, '//tbody/tr') do
+  context 'when there are revisions suspected of plagiarism' do
+    let(:revision) do
+      create(:revision, article: article, user: user, date: '2019-01-01', ithenticate_id: 1)
+    end
+
+    context 'when logged in as a student' do
+      before do
+        login_as(user)
+        stub_oauth_edit
+      end
+
+      it 'should show a list for plagiarism without the link to plagiarism report' do
+        visit "/courses/#{course.slug}/activity/plagiarism"
+        expect(page).to have_link(revision.article.full_title, href: revision.article.url)
+        expect(page).to have_link(href: revision.url)
+        expect(page).to have_no_link('Report', href: revision.plagiarism_report_link)
+      end
+    end
+
+    context 'when logged in as an admin' do
+      let(:admin) { create(:admin) }
+
+      before do
+        login_as(admin)
+        stub_oauth_edit
+      end
+
+      it 'should show a list for plagiarism containing the correct links' do
+        visit "/courses/#{course.slug}/activity/plagiarism"
         expect(page).to have_link(revision.article.full_title, href: revision.article.url)
         expect(page).to have_link(href: revision.url)
         expect(page).to have_link('Report', href: revision.plagiarism_report_link)
