@@ -16,3 +16,11 @@ export const fetchSuspectedPlagiarism = (opts = {}) => (dispatch) => {
 };
 
 export const sortSuspectedPlagiarism = key => ({ type: SORT_SUSPECTED_PLAGIARISM, key: key });
+
+export const fetchSuspectedCoursePlagiarism = course_id => (dispatch) => {
+  return (
+    API.fetchSuspectedCoursePlagiarism(course_id)
+      .then(data => dispatch({ type: RECEIVE_SUSPECTED_PLAGIARISM, payload: { data } }))
+      .catch(data => dispatch({ type: API_FAIL, data }))
+  );
+};

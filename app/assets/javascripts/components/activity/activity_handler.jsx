@@ -7,6 +7,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import SubNavigation from '../common/sub_navigation.jsx';
 import CourseAlertsList from '../alerts/course_alerts_list';
 import RevisionHandler from '../revisions/revisions_handler';
+import PossiblePlagiarismHandler from '../suspected_plagiarism/suspected_plagiarism_handler';
 
 export const ActivityHandler = createReactClass({
   displayName: 'ActivityHandler',
@@ -24,18 +25,37 @@ export const ActivityHandler = createReactClass({
         text: I18n.t('application.recent_activity')
       },
       {
+        href: `/courses/${this.props.course.slug}/activity/plagiarism`,
+        text: I18n.t('recent_activity.possible_plagiarism')
+      },
+    ];
+
+    if (this.props.current_user.admin) {
+      links.push({
         href: `/courses/${this.props.course.slug}/activity/alerts`,
         text: I18n.t('courses.alerts')
-      }
-    ];
+      });
+    }
 
     return (
       <div className="activity-handler">
-        { this.props.current_user.admin ? <SubNavigation links={links} /> : null }
+        <SubNavigation links={links}/>
         <Switch>
-          <Route exact path="/courses/:course_school/:course_title/activity/recent" render={() => <RevisionHandler {...this.props}/>} />
-          <Route exact path="/courses/:course_school/:course_title/activity/alerts" render={() => <CourseAlertsList {...this.props} />} />
-          <Redirect to={{ pathname: '/courses/:course_school/:course_title/activity/recent' }}/>
+          <Route
+            exact path="/courses/:course_school/:course_title/activity/recent"
+            render={() => <RevisionHandler {...this.props}/>}
+          />
+          <Route
+            exact path="/courses/:course_school/:course_title/activity/alerts"
+            render={() => <CourseAlertsList {...this.props} />}
+          />
+          <Route
+            exact path="/courses/:course_school/:course_title/activity/plagiarism"
+            render={() => <PossiblePlagiarismHandler {...this.props} />}
+          />
+          <Redirect
+            to={{ pathname: '/courses/:course_school/:course_title/activity/recent' }}
+          />
         </Switch>
       </div>
     );

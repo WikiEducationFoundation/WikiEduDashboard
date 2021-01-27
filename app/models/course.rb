@@ -269,6 +269,10 @@ class Course < ApplicationRecord
              .where(wiki_id: wiki_ids)
   end
 
+  def suspected_plagiarism
+    revisions.suspected_plagiarism
+  end
+
   def scoped_article_ids
     assigned_article_ids + category_article_ids
   end
