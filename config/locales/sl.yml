@@ -10,13 +10,28 @@ sl:
     cancel: Prekliči
     dashboard: Nadzorna plošča urejanja wikija
     help: Pomoč
+    home: Domov
+    log_in_extended: Prijava z Wikipedijo
+    log_in: Prijava
     details: Podrobnosti
     opt_in: Da
     opt_out: Ne
+  articles:
+    edited_mobile: Članki
+    label: Članki
+  courses:
+    articles: Članki
+    overview: Domov
+  metrics:
+    bytes_added: Bajtov dodanih
+    last_reviewed: Zadnjič pregledano
   training:
     page: Stran
   users:
     contribution_statistics: Statistika prispevkov
+    number_of_articles:
+      one: '%{count} članek'
+      other: '%{count} članka'
     role:
       visitor: Obiskovalec
       student: Študent/učenec
