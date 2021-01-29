@@ -47,3 +47,18 @@ CSV.open('/home/sage/spring_2016_student_training_completion.csv', 'wb') do |csv
     csv << line
   end
 end
+
+
+TrainingModule.all.each do |tm|
+  pp tm.name
+  completion_csv = [['module', 'module_id', 'user_id', 'started_at', 'completed_at', 'completion_time_in_seconds']]
+  TrainingModulesUsers.where(training_module: tm).where.not(completed_at: nil).where.not(created_at: nil).each do |tmu|
+    completion_csv << [tm.name, tm.id, tmu.user_id, tmu.created_at, tmu.completed_at, tmu.completed_at - tmu.created_at]
+  end
+  CSV.open("/home/sage/training_completion_times_#{tm.name}_#{tm.id}.csv", 'wb') do |csv|
+    completion_csv.each do |line|
+      csv << line
+    end
+  end
+end
+
