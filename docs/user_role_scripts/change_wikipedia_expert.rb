@@ -14,7 +14,16 @@ end
 
 # Add one Wikipedia Expert to all courses in a campaign
 expert = User.find_by(username: 'Ian (Wiki Ed)')
-Campaign.find_by_slug('fall_2020').courses.each do |course|
+Campaign.find_by_slug('fall_2021').courses.each do |course|
+  next if course.staff.include? expert
+  JoinCourse.new(course: course, user: expert, role: 4, real_name: expert.real_name)
+end
+
+# Add one Wikipedia expert to courses that have none
+# Skip if it already has Helaine plus a Wiki Expert in the staff role
+expert = User.find_by(username: 'Ian (Wiki Ed)')
+Campaign.find_by_slug('spring_2021').courses.each do |course|
+  next if course.staff.count > 1 
   next if course.staff.include? expert
   JoinCourse.new(course: course, user: expert, role: 4, real_name: expert.real_name)
 end
