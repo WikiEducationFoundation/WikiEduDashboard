@@ -2,7 +2,7 @@ name: Finding your article
 id: 17
 description: |
   In this tutorial, you'll learn how to find a good article to work on.
-estimated_ttc: 10 minutes
+estimated_ttc: 5-10 minutes
 slides:
   - slug: students-avoid-the-best-articles # 1701
   - slug: students-avoid-controversial-topics # 1702
