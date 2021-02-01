@@ -12,6 +12,7 @@
 # Author: Hedda
 # Author: Incelemeelemani
 # Author: JackUKElliott
+# Author: Joseph
 # Author: Katpatuka
 # Author: KorkmazO
 # Author: Mavrikant
@@ -989,6 +990,12 @@ tr:
     no_edits: Yakın zamanda düzenleme yapılmadı.
     plagiarism_report: İntihal Raporu
     possible_plagiarism: Olası İntihal
+    plagiarism_explanation: Vikipedi’nin intihal tespit sistemi yeni değişikliklerin
+      yayımlanmış metinlerle karşılaştırılması için Turnitin/iThenticate kullanır.
+      Bu raporlar %100 kesin değildir. Örneğin, düzgün atıfa sahip bir söz yanlış
+      bir intihal raporunu tetikleyebilir. Lütfen herhangi bir işlem yapmadan önce
+      öğrencinin katkılarını ve raporun detaylarını gözden geçirin. (Eğer değişikliğe
+      — ya da tüm makaleye — erişilemiyorsa, içerik telif nedeniyle silinmiş olabilir.
     recent_edits: Son Düzenlemeler
     recent_uploads: Son Yüklenenler
     revision_author: Sürüm Yazarı
