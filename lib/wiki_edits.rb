@@ -101,6 +101,20 @@ class WikiEdits
     api_post(params, creator, token_name: :createtoken, token_type: 'createaccount')
   end
 
+  ##############
+  # Send email #
+  ##############
+
+  def send_email(sender:, recipient:, subject:, message:)
+    params = { action: 'emailuser',
+               target: recipient.username,
+               text: message,
+               subject: subject,
+               format: 'json' }
+    api_post params, sender
+  end
+
+
   ###################
   # Helper methods #
   ###################
