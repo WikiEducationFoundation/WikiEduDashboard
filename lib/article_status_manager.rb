@@ -134,6 +134,7 @@ class ArticleStatusManager
   # If so, update the Article to use the new id.
   def update_article_ids(deleted_page_ids)
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
+    return if maybe_deleted.empty?
     # These pages have titles that match Articles in our DB with deleted ids
     request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
     @failed_request_count += 1 if request_results.nil?
