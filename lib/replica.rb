@@ -125,7 +125,7 @@ class Replica
     return if response.empty?
     response_body = response.to_s
     parsed = Oj.load(response_body)
-    return unless parsed['success']
+    raise StandardError unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
@@ -140,14 +140,16 @@ class Replica
     response = do_post(endpoint, key, data)
     return if response.body.empty?
     parsed = Oj.load(response.body)
-    return unless parsed['success']
+    raise StandardError unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
-    log_error(e, sentry_extra: { query: data,
-                                 language: @wiki.language,
-                                 project: @wiki.project })
+    log_error(e, update_service: @update_service,
+              sentry_extra: { query: data,
+                              response_body: response&.body,
+                              language: @wiki.language,
+                              project: @wiki.project })
   end
 
   def do_query(endpoint, query)

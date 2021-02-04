@@ -208,7 +208,7 @@ describe Replica do
     it 'handles failed queries' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
-      expect_any_instance_of(described_class).not_to receive(:log_error)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
@@ -227,18 +227,21 @@ describe Replica do
     it 'handles timeout errors' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_raise(Errno::ETIMEDOUT)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_raise(Errno::ECONNREFUSED)
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles failed queries' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
