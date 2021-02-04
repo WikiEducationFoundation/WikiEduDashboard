@@ -212,6 +212,13 @@ describe Replica do
       expect(subject).to be_empty
     end
 
+    it 'handles server errors' do
+      stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
+        .to_return(status: 500, body: '', headers: {})
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(subject).to be_empty
+    end
+
     it 'handles successful empty responses' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
@@ -241,6 +248,13 @@ describe Replica do
     it 'handles failed queries' do
       stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(result).to be_nil
+    end
+
+    it 'handles server errors' do
+      stub_request(:any, %r{https://wikiedudashboard.toolforge.org/.*})
+        .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end

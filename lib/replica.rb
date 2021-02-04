@@ -122,25 +122,27 @@ class Replica
   def api_get(endpoint, query='')
     tries ||= 3
     response = do_query(endpoint, query)
-    return if response.empty?
-    response_body = response.to_s
+    raise unless response.code == '200'
+    response_body = response.body
     parsed = Oj.load(response_body)
-    raise StandardError unless parsed['success']
+    raise unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
     log_error(e, update_service: @update_service,
-              sentry_extra: { endpoint: endpoint, response_body: response_body,
+              sentry_extra: { endpoint: endpoint, query: query,
                               language: @wiki.language, project: @wiki.project })
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
+    raise unless response.code == '200'
     return if response.body.empty?
     parsed = Oj.load(response.body)
-    raise StandardError unless parsed['success']
+    raise unless parsed['success']
     parsed['data']
   rescue StandardError => e
     tries -= 1
@@ -151,10 +153,11 @@ class Replica
                               language: @wiki.language,
                               project: @wiki.project })
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
-    Net::HTTP::get(URI.parse(url))
+    Net::HTTP::get_response(URI.parse(url))
   end
 
   def do_post(endpoint, key, data)
