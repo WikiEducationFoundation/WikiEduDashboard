@@ -8,10 +8,12 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
+require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
   include UpdateServiceErrorHelper
+  include CourseQueueSorting
 
   def initialize(course, full: false)
     @course = course
@@ -24,7 +26,7 @@ class UpdateCourseStats
     @start_time = Time.zone.now
     fetch_data
     update_categories
-    update_article_status
+    update_article_status if should_update_article_status?
     update_average_pageviews
     update_caches
     @course.update(needs_update: false)
@@ -81,6 +83,15 @@ class UpdateCourseStats
     Raven.capture_message "#{@course.title} update: #{step}",
                           level: 'warn',
                           extra: { logs: @sentry_logs }
+  end
+
+  def should_update_article_status?
+    return true if Features.wiki_ed?
+    # To cut down on overwhelming the system
+    # for courses with huge numbers of articles
+    # to check, we skip this on Programs & Events Dashboard
+    # for slow-updating courses.
+    queue_for(@course) != 'long_update'
   end
 
   def debug?
