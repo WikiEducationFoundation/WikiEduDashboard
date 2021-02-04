@@ -127,5 +127,18 @@ describe UpdateCourseStats do
         .exactly(5).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
     end
+
+    context 'when a Programs & Events Dashboard course is in the long_update queue' do
+      let(:course) { create(:course, start: 1.day.ago, end: 1.year.from_now) }
+
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+      end
+
+      it 'skips article status updates' do
+        expect_any_instance_of(described_class).not_to receive(:update_article_status)
+        subject
+      end
+    end
   end
 end
