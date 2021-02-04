@@ -2,8 +2,12 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Sveinki
+# Author: Sveinn í Felli
 ---
 is:
   courses:
+    new_account_email: Tölvupóstfang
     school: Skóli
+  users:
+    useremail_placeholder: Tölvupóstur
 ...

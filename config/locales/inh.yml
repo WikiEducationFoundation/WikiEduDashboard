@@ -6,8 +6,18 @@
 ---
 inh:
   application:
+    greeting: Моаршал да шуга!
     search: хаттар ле
   courses:
+    alerts: Хабар дáр
     creator:
       start_date: Доладалара таьрахь
+  namespace:
+    user_ns: Доакъашхо
+  users:
+    username: Доакъашхочун цIи
+    username_placeholder: Доакъашхочун цIи
+  survey:
+    email:
+      headline: Моаршал да хьога, %{username}
 ...

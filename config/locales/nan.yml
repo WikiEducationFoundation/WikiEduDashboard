@@ -20,7 +20,6 @@ nan:
       one: '%{completed_count}/%{count} liān-si̍p oân-sêng'
       other: '%{completed_count}/%{count} liān-si̍p oân-sêng'
     sub_navigation:
-      article_assignments: Bûn-chiuⁿ hun-phuè
       exercises_and_trainings: Liān-si̍p kah Hùn-liān
       student_overview: Ha̍k-seng Khài-iàu
 ...

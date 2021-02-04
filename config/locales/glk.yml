@@ -7,4 +7,6 @@ glk:
   application:
     log_out: بيرين شؤن
     sign_up_log_in_extended: ويکيپديا أمرأ
+  courses:
+    overview: خؤنه
 ...

@@ -1,6 +1,7 @@
 # Messages for Mingrelian (მარგალური)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Narazeni
 # Author: Silovan
 ---
 xmf:
@@ -8,9 +9,19 @@ xmf:
     creator:
       checking_for_uniqueness: თე პროგრამა უნიკალურობაშ გეშა იმორსებუაფუ.
       find: პროგრამაშ გორუა
+  instructor_view:
+    bad_work:
+      learn_more_button: ქიგეგით უმოსი
+  revisions:
+    show_all: არძაშ ძირაფა
   users:
     assign_articles: მეშანილი სტატიეფი
     assign_articles_done: ღოლამირჷ რე
+    training_module_time:
+      minutes: წთ
+      seconds: წმ
   login_error:
     header: ჩილათა მიშულას
+  training_status:
+    completion_time: თებაშ ბორჯი
 ...

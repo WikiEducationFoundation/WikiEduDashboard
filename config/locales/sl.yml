@@ -19,6 +19,10 @@ sl:
   articles:
     edited_mobile: Članki
     label: Članki
+  assignments:
+    remove: Odstrani
+  categories:
+    remove: Odstrani
   courses:
     articles: Članki
     overview: Domov

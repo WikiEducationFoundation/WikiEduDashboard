@@ -4,6 +4,8 @@
 # Author: Pahles
 ---
 li:
+  revisions:
+    diff_show: Tuin
   users:
     role:
       visitor: Bezeuker
