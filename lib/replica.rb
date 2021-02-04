@@ -136,6 +136,7 @@ class Replica
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
@@ -154,6 +155,7 @@ class Replica
                               project: @wiki.project })
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
