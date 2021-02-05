@@ -334,7 +334,7 @@ const DiffViewer = createReactClass({
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.hideDiff} className="pull-right icon-close"/>
+            <button onClick={this.hideDiff} aria-label="Close Diff Viewer" className="pull-right icon-close"/>
           </div>
           <div className="diff-viewer-header">
             {this.nextArticle()}
