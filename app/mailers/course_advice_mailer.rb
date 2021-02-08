@@ -14,7 +14,7 @@ class CourseAdviceMailer < ApplicationMailer
     'drafting_and_moving' => 'SUBJECT 2',
     'peer_review' => 'SUBJECT 3',
     'assessing_contributions' => 'SUBJECT 4'
-  }
+  }.freeze
 
   def email(course, stage, staffer)
     @course = course
