@@ -19,28 +19,43 @@ class ScheduleCourseAdviceEmails
   end
 
   def schedule_preliminary_work_email
-    # find timeline start
-    # send
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      stage: 'drafting_and_moving',
+      send_at: course.timeline_start
+    )
   end
 
   def schedule_drafting_and_moving_email
     block = @course.find_block_by_title 'Start drafting your'
     return unless block
 
-    # send
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      stage: 'drafting_and_moving',
+      send_at: block.calculated_date
+    )
   end
 
   def schedule_peer_review_email
     block = @course.find_block_by_title 'Peer review'
     return unless block
 
-    # send
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      stage: 'peer_review',
+      send_at: block.calculated_date
+    )
   end
 
   def schedule_assessing_contributions_email
     block = @course.find_block_by_title 'Final article'
     return unless block
 
-    # send
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      stage: 'assessing_contributions',
+      send_at: block.calculated_date
+    )
   end
 end
