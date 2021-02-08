@@ -56,5 +56,6 @@ class ListCourseManager
     @course.instructors.each do |user|
       CourseApprovalFollowupWorker.schedule_followup_email(course: @course, instructor: user)
     end
+    ScheduleCourseAdviceEmails.new(@course)
   end
 end
