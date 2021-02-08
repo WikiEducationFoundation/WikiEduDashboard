@@ -21,7 +21,7 @@ class ScheduleCourseAdviceEmails
   def schedule_preliminary_work_email
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
-      stage: 'drafting_and_moving',
+      stage: 'preliminary_work',
       send_at: course.timeline_start
     )
   end
