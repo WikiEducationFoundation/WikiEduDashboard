@@ -6,7 +6,7 @@ export const TrainingModuleRows = ({ trainings }) => {
   return trainings.map((trainingModule) => {
     const momentDueDate = moment(trainingModule.due_date);
     const dueDate = momentDueDate.format('MMM Do, YYYY');
-    const overdue = trainingModule.overdue || momentDueDate.isBefore(trainingModule.completion_date);
+    const overdue = trainingModule.overdue || momentDueDate.endOf('day').isBefore(trainingModule.completion_date);
 
     let moduleStatus;
     if (trainingModule.completion_date) {
