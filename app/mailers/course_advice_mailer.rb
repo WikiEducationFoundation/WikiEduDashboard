@@ -10,20 +10,21 @@ class CourseAdviceMailer < ApplicationMailer
   end
 
   SUBJECT_LINES = {
-    'preliminary_work' => 'SUBJECT 1',
-    'drafting_and_moving' => 'SUBJECT 2',
-    'peer_review' => 'SUBJECT 3',
-    'assessing_contributions' => 'SUBJECT 4'
+    'preliminary_work' => 'Tips for navigating the early weeks of your Wikipedia assignment',
+    'drafting_and_moving' => 'Tips for drafting work and moving it into the article main space',
+    'peer_review' => 'Tips for peer review',
+    'assessing_contributions' => 'How to find and assess student contributions'
   }.freeze
 
   def email(course, stage, staffer)
     @course = course
     @instructors = @course.instructors
+    @staffer = staffer
     @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
 
     mail(to: @instructors.pluck(:email),
-         reply_to: staffer.email,
+         reply_to: @staffer.email,
          subject: SUBJECT_LINES[stage],
          template_name: stage)
   end
