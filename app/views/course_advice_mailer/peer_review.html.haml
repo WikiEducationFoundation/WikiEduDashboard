@@ -8,3 +8,47 @@
             %td.main-content
               %p.paragraph
                 = "Dear #{@greeted_users},"
+              %p.paragraph
+                We recommend that all students review at least one of their peer's contributions, and
+                the Dashboard has the infrastructure to support peer review.
+              %p.paragraph
+                When students are ready for the peer review portion of the project, they should launch the
+                %a.link{href: 'https://dashboard.wikiedu.org/training/students/peer-review'} 'Peer review'
+                training module. This will provide them with tips on how to craft their reviews, how to select an article
+                to review using the Dashboard, and where to complete them.
+              %p.paragraph
+                As the instructor, you can randomly assign your students articles to review. To do this, go to the
+                %a.link{href: "#{@course_link}/students"} Students tab
+                of your course page click on the "Assign random peer reviews" button. Alternatively, students can select
+                for themselves which classmates' articles to review under the My Articles section.
+              %p.paragraph
+                Once a review is assigned, the My Articles secton of the Dashboard will provide a link to the
+                sandbox page where the student can compose their review. As long as they are signed in on Wikipedia,
+                the link will also prepopulate the review page with a template of guiding questions and considerations,
+                %a.link{href: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_peer_review'}like this.
+              %p.paragraph
+                You can find these reviews, once completed, by going to the Students tab and navigating to the
+                'Assignments & Exercises' section. See also our
+                %a.link{href: 'https://dashboard.wikiedu.org/faq/15/'}FAQ about the peer review process.
+              %p.paragraph.center — — —
+              %p.paragraph
+                Remember, you can always refer to our
+                %a.link{href: 'https://dashboard.wikiedu.org/faq?topic=instructor_faq'}Instructor FAQs
+                for more information.
+              %p.paragraph
+                Good luck!
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you with the peer review of your Wikipedia assignment.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Peer-Review-Advice-email'} leave feedback here.
