@@ -8,3 +8,74 @@
             %td.main-content
               %p.paragraph
                 = "Dear #{@greeted_users},"
+              %p.paragraph
+                Once your students have selected an article to work on and have gathered sources to
+                improve their chosen topic, it will be time to begin drafting their main contribution!
+              %h2.headline Drafting in the sandbox
+              %p.paragraph
+                Students should take the training module on
+                - if @group_work
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox-group'} 'Drafting as a group'
+                - else
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox'} Drafting in the sandbox
+                for guidance on the best way to draft their contribution.
+              %p.paragraph
+                Once students have assigned themselves their main article(s), the Dashboard will provide links to the
+                specific sandbox page where each article's draft should be prepared. Students can find these links in
+                My Articles section of the Home tab, and you can find them under 'Assigned Articles' in the
+                %a.link{href: "#{@course_link}/students/articles"} Students Assignments view
+                when you select an individual student.
+              %p.paragraph
+                A few things to remember:
+                %ul.paragraph
+                  %li
+                    Sandboxes are considered draft spaces on Wikipedia, but they are still publicly accessible like all
+                    Wikipedia pages. Students must adhere to Wikipedia policies in their sandboxes.
+                  %li
+                    If students are working on existing articles, they should not copy over the whole article into their
+                    sandbox. Rather, they should only copy over the section(s) they're working on.
+                  %li
+                    While the sandbox is a great place to experiment and get your draft ready, students shouldn't spend
+                    too long there. A few weeks should be enough for them to get their contribution up and ready for
+                    Wikipedia's live article space.
+              %h2.headline Moving work out of the sandbox
+              %p.paragraph
+                When students are ready to move their work into the article main space, they should take the
+                - if @group_work
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace-group'} 'Moving group work live'
+                - else
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace'} 'Moving work out of the sandbox'
+                training module.
+              %p.paragraph
+                A few critical points:
+                %ul.paragraph
+                  %li
+                    After students move their work, they should be sure to pay attention to any feedback from community members. They are now members of the Wikipedia community and have a responsibility toward that community.
+                  %li
+                    If student work is reverted, students should reach out to the editor that reverted the work to try and understand why and how they can improve it. They should NEVER just put the work back into the article. This type of activity may lead them to getting blocked.
+                  %li
+                    Stress to your students that their grade is not dependent on whether the work remains on Wikipedia and that you will always be able to see their contributions in their edit history.
+                  %li
+                    %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} Here are the various ways you can use the dashboard to keep track of your students' contributions.
+              %p.paragraph.center — — —
+              %p.paragraph
+                Remember, you can always refer to our
+                %a.link{href: 'https://dashboard.wikiedu.org/faq?topic=instructor_faq'}Instructor FAQs
+                for more information.
+              %p.paragraph
+                Good luck!
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you with the main article development stages of your Wikipedia assignment.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Drafting-and-Moving-Advice-email'} leave feedback here.

@@ -20,6 +20,7 @@ class CourseAdviceMailer < ApplicationMailer
     @course = course
     @instructors = @course.instructors
     @staffer = staffer
+    @group_work = @course.tag? 'working_in_groups'
     @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
 
