@@ -13,7 +13,7 @@ class ScheduleCourseAdviceEmails
     return unless @course.tag?('research_write_assignment')
 
     schedule_preliminary_work_email
-    schedule_drafting_and_moving_email
+    schedule_drafting_and_moving_email unless @course.stay_in_sandbox?
     schedule_peer_review_email
     schedule_assessing_contributions_email
   end
