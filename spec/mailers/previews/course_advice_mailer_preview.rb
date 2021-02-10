@@ -9,6 +9,10 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
     CourseAdviceMailer.email(example_course, 'drafting_and_moving', example_staffer)
   end
 
+  def drafting_sandbox_only
+    CourseAdviceMailer.email(sandbox_only_course, 'drafting_and_moving', example_staffer)
+  end
+
   def peer_review
     CourseAdviceMailer.email(example_course, 'peer_review', example_staffer)
   end
@@ -21,6 +25,12 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
 
   def example_course
     Course.last
+  end
+
+  def sandbox_only_course
+    course = example_course
+    course.define_singleton_method(:stay_in_sandbox?) { true }
+    course
   end
 
   def example_staffer
