@@ -13,7 +13,6 @@ sd:
   number:
     human:
       decimal_units:
-        format: '%انگ%يونٽ'
         units:
           thousand: هزار
           million: ملين

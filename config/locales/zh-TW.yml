@@ -798,6 +798,8 @@ zh-TW:
     no_edits: 無編輯紀錄。
     plagiarism_report: 抄襲報告
     possible_plagiarism: 可能涉嫌抄襲
+    plagiarism_explanation: 維基百科的抄襲偵測系統是使用 Turnitin/iThenticate 來把新的編輯內容與已發布文字做比較。這些報告並非
+      100% 準確。例如，帶有符合歸因的直接引言內容，可能會觸發誤判的抄襲報告。因此在採取任何行動之前，請先查看學生的貢獻和報告的詳細資訊。（如果您發現更改或整個條目無法存取，則可能出自於版權原因而將該內容刪除。）
     recent_edits: 近期編輯紀錄
     recent_uploads: 最新上傳
     revision_author: 修訂版本作者

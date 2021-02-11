@@ -26,6 +26,11 @@ sl:
   courses:
     articles: Članki
     overview: Domov
+  courses_generic:
+    creator:
+      save_cloned_course: Shrani
+  editable:
+    save: Shrani
   metrics:
     bytes_added: Bajtov dodanih
     last_reviewed: Zadnjič pregledano

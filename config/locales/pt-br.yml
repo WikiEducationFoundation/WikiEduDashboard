@@ -10,6 +10,7 @@
 # Author: Dianakc
 # Author: EVinente
 # Author: Eduardo Addad de Oliveira
+# Author: Eduardoaddad
 # Author: Felipe L. Ewald
 # Author: HenriqueCrang
 # Author: Ixocactus
@@ -748,7 +749,7 @@ pt-br:
     view_doc: Estimativa das visitas a artigos editados por editores inscritos, desde
       que o editor fez a sua primeira edição de cada artigo
     view_page: Ver a Página do Curso
-    view_wiki: Ver na Wikipedia
+    view_wiki: Ver na Wikipédia
     volunteer:
       one: Volunteer
       other: Voluntários
@@ -771,7 +772,7 @@ pt-br:
     yourcourses: Seus cursos
     survey:
       notification_message: Responda nossa pesquisa sobre este curso
-      link: Responder o Questionário
+      link: Responder o questionário
   courses_generic:
     school_system: Sistema acadêmico
     add_campaign: Adicionar campanha
@@ -819,12 +820,12 @@ pt-br:
       course_term: Quando
       course_term_placeholder: Quando
       course_title: Título do programa
-      create_button: Criar meu Programa!
-      create_label: Criar Novo Programa
+      create_button: Criar meu programa!
+      create_label: Criar novo programa
       create_new: Criar um programa independente
-      create_short: Criar Programa
+      create_short: Criar programa
       end_date: Fim da atividade de monitorização
-      find: Encontrar um Programa
+      find: Encontrar um programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão trabalhando, e as edições
         nesta serão registradas por omissão. Se o seu programa abrange várias línguas
@@ -837,13 +838,13 @@ pt-br:
       save_cloned_course: Salvar
       start_date: Início da atividade de monitorização
     delete_course: Eliminar programa
-    edit_course_dates: Editar Datas do projeto
+    edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
-    enroll: Adicionar Editor
+    enroll: Adicionar editor
     enrollment: Adicionar/Remover Editores
-    explore: Encontrar um Programa
+    explore: Encontrar um programa
     courses_enrolled: Programas em que participou
-    expected_students: Editores Esperados
+    expected_students: Editores esperados
     instructors: Facilitadores
     join_course: Entrar no programa
     join_details: Para entrar nesse programa, precisas de uma senha - ou link que
@@ -976,7 +977,7 @@ pt-br:
     view_data_unavailable: Não há dados visíveis disponíveis
     view: Visitas
     wiki_ed_help: Use o botão 'Obter ajuda' para relatar um problema.
-    word_count: Palavras Adicionadas
+    word_count: Palavras adicionadas
     word_count_average: Número médio de palavras
   namespace:
     main: Domínio principal
@@ -988,22 +989,22 @@ pt-br:
     active_courses: O artigo está ativo em
     article_title: Título do Artigo
     datetime: Data/Horário
-    did_you_know_eligible: Sabia que Elegível
+    did_you_know_eligible: Sabia que elegível
     image: Imagem
-    file_name: Nome do Arquivo
+    file_name: Nome do arquivo
     no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
     no_plagiarism: Não há atualmente nenhuma revisão suspeita de plágio.
     no_edits: Não existem edições recentes.
-    plagiarism_report: Relatório de Plágio
-    possible_plagiarism: Possivelmente Plágio
+    plagiarism_report: Relatório de plágio
+    possible_plagiarism: Possivelmente plágio
     recent_edits: Edições recentes
-    recent_uploads: Últimos Envios
-    revision_author: Autor da Revisão
-    revision_datetime: Data/Horário da Revisão
-    revision_score: Pontuação da Revisão
-    show_courses: Mostrar Apenas Meus Cursos
+    recent_uploads: Últimos envios
+    revision_author: Autor da revisão
+    revision_datetime: Data/Horário da revisão
+    revision_score: Pontuação da revisão
+    show_courses: Mostrar apenas meus cursos
     uploaded_by: Enviado por
-    usage_count: Total de Uso
+    usage_count: Total de uso
   revisions:
     chars_added: Caracteres adicionados
     references: Referências adicionadas
@@ -1013,7 +1014,7 @@ pt-br:
     diff_show: Exibir
     diff_hide: Esconder
     edit_time_span: Edições ocorreram de %{first_time} até %{last_time}
-    edited_by: Editado Por
+    edited_by: Editado por
     edited_on: Editado em %{edit_date}
     loading: Carregando revisões
     none: Este curso não tem nenhuma atividade recente de edição na Wikipédia.
@@ -1110,8 +1111,8 @@ pt-br:
   tickets:
     none: Sem ingressos
   timeline:
-    add_week: Adicionar Semana
-    arrange_timeline: Organizar Cronograma
+    add_week: Adicionar semana
+    arrange_timeline: Organizar cronograma
     arrange_timeline_instructions: Organizar cronograma "arrastando e soltando" blocos
       nos locais/semanas desejados ou recolocar os blocos usando as setas no cartão.
     assignment_dates_instructions: Selecionar as datas de início e fim para o cronograma
@@ -1120,23 +1121,23 @@ pt-br:
       para outra semana antes de apagar o último encontro de sala desta semana.
     block_assignment: Tarefa
     block_custom: Personalizar
-    block_in_class: Em Classe
+    block_in_class: Em classe
     block_milestone: Marco
     block_type: O tipo de bloco é usado para comunicar a seus estudantes sobre este
       item em seus cronogramas e para desenvolver ferramentas úteis para você (como
       a descrição de marcos na página de Visão Geral)
-    course_dates: Datas do Curso
+    course_dates: Datas do curso
     course_dates_instructions: Selecionar as datas de início e fim do curso inteiro
       (não só da tarefa na Wikipédia)
-    course_end: Fim do Curso
-    course_start: Início do Curso
+    course_end: Fim do curso
+    course_start: Início do curso
     delete_week_confirmation: |-
       Você tem certeza de que quer apagar esta semana? Isto vai apagar a semana e todos os blocos que lhe são associados.
 
       Isto não pode ser desfeito.
     delete_weeks_confirmation: "Você tem certeza de que deseja eliminar o cronograma
       por completo e recomeçar? \n\nEsta operação é irreversível."
-    discard_all_changes: Descartar Todas as Mudanças
+    discard_all_changes: Descartar todas as mudanças
     delete_timeline_and_start_over: Apagar cronograma
     due_default: Previsto para a próxima semana
     edit_titles: Editar títulos da semana
@@ -1147,21 +1148,21 @@ pt-br:
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
     empty_week_4: utilizar assistente para criar uma linha do tempo.
-    first_week_title: Primeira Semana Ativa
+    first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
     grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover bloco para baixo
     move_block_up: Mover bloco para cima
-    no_class_holidays: Não há férias
+    no_class_holidays: Não há férias escolares
     no_timeline: Este curso não tem cronograma.
     no_activity_this_week: Não há reuniões agendadas esta semana
     nothing_this_week: Não há nada agendado para esta semana.
     reset_titles: Restaurar ao padrão
     reset_titles_confirmation: Tem certeza de que deseja redefinir todos os títulos
       da semana? Isto não pode ser desfeito.
-    save_all_changes: Salvar Tudo
-    this_week_title_default: Esta Semana
+    save_all_changes: Salvar tudo
+    this_week_title_default: Esta semana
     title: Linha do tempo
     unable_to_add_week: Você não pode adicionar novas semanas quando seu cronograma
       está completo. Delete pelo menos uma semana ou mude as datas de sua tarefa para
@@ -1196,7 +1197,7 @@ pt-br:
   uploads:
     credit: Crédito
     file_name: Nome do Arquivo
-    header: Arquivos Enviados ao Wikimedia Commons
+    header: Arquivos enviados ao Wikimedia Commons
     image: Imagem
     label: Envios
     loading: Carregando atualizações...
@@ -1208,15 +1209,15 @@ pt-br:
     uploader: Carregado por
     uploaded_by: Enviado Por
     uploaded_on: Carregado em
-    usage_count: Total de Uso
+    usage_count: Total de uso
     usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
     usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
   users:
     already_enrolled: Aquele usuário já está inscrito!
-    assign_articles: Indicar Artigos
+    assign_articles: Indicar artigos
     assign_articles_done: Feito
-    assigned: Artigos Atribuídos
+    assigned: Artigos atribuídos
     assignees: Indicado(s)
     loading_authorship_data: carregando dados de autoria
     authorship_data_not_fetched: não foi possível obter os dados de autoria
@@ -1328,7 +1329,7 @@ pt-br:
     instructor_impact: Impacto total de %{username} como instrutor
     instructors_student_impact: Impacto total dos estudantes de %{username}
     disclaimer: Informações que prover estará disponível publicamente
-    bio_placeholder: Adicione sua Biografia (opcional)
+    bio_placeholder: Adicione sua biografia (opcional)
     location_placeholder: Adicione a sua localização (opcional)
     institution_placeholder: Nome da instituição (opcional)
     image_link_placeholder: Adicionar hiperligação à imagem (opcional)
@@ -1355,7 +1356,7 @@ pt-br:
       selecionada, selecionada e férias. Se você não tiver férias, marque "Não há
       férias" abaixo.
     confirm_dates: Selecione as datas, encontros semanais e férias para seu curso.
-    course_dates: Datas do Curso
+    course_dates: Datas do curso
     min_weeks: Esta tarefa requer pelo menos %{min_weeks} semanas disponíveis. Por
       favor ajuste as datas de início e fim da tarefa se quiser usar esse tipo de
       tarefa.

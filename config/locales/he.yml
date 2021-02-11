@@ -24,33 +24,33 @@ he:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: '%n% u'
         units:
           thousand: א'
           million: מ'
-          billion: ב'
-          trillion: ט'
-          quadrillion: ק'
+          billion: מיליארד
+          trillion: טריליון
+          quadrillion: קוודר'
   accessibility:
     number_field: זה שדה מספר. הכפתורים שעובדים ברוב הדפדפנים יגדילו ויקטינו את הקלט.
   application:
     cancel: ביטול
-    cookie_consent: אתר זה משתמש בעוגיות כדי להשאיר אותך במערכת ומאחסן פרטים שקשורים
+    cookie_consent: האתר הזה משתמש בעוגיות כדי להשאיר אותך במערכת ומאחסן פרטים שקשורים
       לחשבון שלך בוויקיפדיה.
     cookie_consent_acknowledge: הבנתי
-    cookie_consent_see_more: לטעון עוד.
+    cookie_consent_see_more: לראות עוד.
     create_accounts: יצירת חשבונות בוויקיפדיה
-    dashboard: לוח בקרה של מיזמי ויקי
+    dashboard: לוח בקרה של מיזמי ויקי חינוך
     documentation: תיעוד
     error: 'אירעה שגיאה:'
     explore: מיזמים קיימים
-    field_required: חובה למלא שדה הה
-    field_invalid_characters: שדה זה מכיל תווים שאינם חוקיים
+    field_required: חובה למלא את השדה הזה
+    field_invalid_characters: השדה הזה מכיל תווים בלתי־תקינים
     field_invalid_date: 'בשדה זה יש להשתמש בתאריך עם המבנה יום, חודש ושנה, כך: YYYY-MM-DD'
     field_invalid_date_time: תאריך הסיום חייב להיות אחרי תאריך ההתחלה. (השעות ממוספרות
       מ־0 עד 23)
-    greeting2: ברוכים הבאים ללוח הבקרה של מיזמי ויקי!
-    greeting_extended: ברוכים הבאים לוויקיפדיה!
+    greeting2: ברוך בואך!
+    greeting_extended: ברוכים הבאים לוויקיפדיה
     greeting: שלום!
     help: עזרה
     home: לדף הבית
@@ -62,13 +62,13 @@ he:
     report_problem: דיווח על תקלה
     request_account: בקשת חשבון
     request_account_create: יצירת חשבון
-    search: יש לך שאלות?
+    search: לשאול שאלה
     search_results:
       one: 'תוצאה אחת עבור: ''%{search_terms}'''
       other: '%{count} תוצאות עבור: ''%{search_terms}'''
     no_results: לא נמצאו תוצאות עבור '%{query}'
-    sign_up_extended: הרשמה עם חשבון ויקיפדיה
-    sign_up_wikipedia: או הרשמה דרך ויקיפדיה
+    sign_up_extended: הרשמה לוויקיפדיה
+    sign_up_wikipedia: או הרשמה לוויקיפדיה
     sign_up_log_in_extended: עם ויקיפדיה
     sign_up: הרשמה
     submit: שליחה
@@ -82,29 +82,35 @@ he:
     opt_no: לא
   article_statuses:
     not_yet_started: איך להתחיל
+    in_progress: עבודה בטיוטה
     ready_for_review: הרחבת טיוטה
+    ready_for_mainspace: העברת העבודה למרחב הראשי
+    assignment_completed: המשימה סומנה בתור משימה שהושלמה
+    reading_the_article: קריאת הערך
     providing_feedback: שליחת משוב
     post_to_talk: פרסום לדף שיחה
     peer_review_completed: הסקירה הושלמה
   dashboard:
-    create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
-      שלך.
-    create_preparation_note: רגע לפני שאתם מתחילים, וודאו שהיומן האקדמי שלכם זמין;
-      כלי תכנון המשימות ישתמש בתאריכי המפגשים של הכיתה, הקורס או הסדנא שאתם מעבירים,
-      כולל חגים וחופשות, על מנת להתאים את לוח הזמנים שלכם לטווח הזמנים שציינתם. זכרו
-      -- אתם יכולים תמיד לערוך את לוח הזמנים על מנת להתאימו לצרכים שלכם.
-    explore_course_pages: בחינת התוכניות הקיימות
-    explore_examples: בחינת דוגמאות
-    join_note: כאשר תתקבל אצלך סיסמה מהמנחה שלך, יש ללחוץ על "מציאת התוכנית שלך" בכדי
-      למצוא אותה ולהצטרף אליה.
-    no_courses_instructor: נראה כי אינך רשום לאף תוכנית.
-    no_courses_student: נראה כי לא הצרפת לאף תוכנית עדיין.
+    create_note: לחץ על "יצירת קורס" כדי ליצור את הקורס הראשון שלך.
+    create_preparation_note: רגע לפני שאתם מתחילים, ודאו שהיומן האקדמי שלכם זמין;
+      כלי תכנון המשימות ישתמש בתאריכי המפגשים של הכיתה – כולל חופשות וחגים – כדי להתאים
+      את לוח הזמנים שלכם לטווח הזמנים שציינתם. זכרו – אתם יכולים תמיד לערוך את לוח
+      הזמנים כדי להתאימו לצרכים שלכם.
+    explore_course_pages: עיון בדפי הקורסים
+    explore_examples: עיון בדוגמאות
+    join_note: כשתקבל קוד גישה מהמנחה שלך, לחץ על "מציאת הקורס שלך" כדי למצוא אותו
+      ולהצטרף אליו.
+    no_courses_instructor: נראה כי אין לך שום קורסים.
+    no_courses_student: נראה שעדיין לא הצטרפת לשום קורס.
     opt_out: שליחת בקשה לדלג על תהליך האוריינטציה
-    orientation_notice: לפני יצירת תוכנית, נעבור דרך האוריינטציה בכדי לעזור לך להתחיל
-      (זה ייקח בסביבות 30 דקות).
+    orientation_notice: לפני יצירת קורס, נעבור דרך ההדרכה כדי לעזור לך להתחיל. (זה
+      ייקח בסביבות 30 דקות.)
     review_orientation: בדיקת אוריינטציה
     start_orientation: התחלת אוריינטציה
     blog_headline: חדשות אחרונות מוויקי השכלה
+    about_programs: האתר הזה עוקב אחרי פעילויות ויקי באמצעות תוכניות – אירועים פרטניים
+      כגון מרתון עריכה או קורס במוסד חינוכי. כל תוכנית היא חלק ממבצע אחד או יותר,
+      שמספקים סטטיסטיקות משולבות לתוכניות.
   home:
     explore: תוכניות קיימות
     log_in: כניסה עם חשבון ויקיפדיה
@@ -142,7 +148,7 @@ he:
     label: ערכים
     loading: טעינת ערכים...
     new: (חדש)
-    none: לא נערכו ערכים בתוכנית.
+    none: בקורס הזה לא נערכו שום ערכים.
     rating: דירוג
     rating_doc: הדירוג שניתן לאיכותם של ערכים בוויקיפדיות שונות (כמו בוויקיפדיה האנגלית),
       נעשה דרך מיזמי-ויקי בנושאים שונים. הדירוג עשוי להתייחס לגרסאות ישנות של הערך,
@@ -211,9 +217,9 @@ he:
     confirm_deletion: באמת למחוק את ההקצאה הזאת?
     editors: משויך ל
     label: שיוך
-    loading: טעינת ערכים משוייכים...
+    loading: טעינת משימות...
     none_short: אין ערכים משוייכים
-    none: לא שויכו ערכים לתוכנית הזאת.
+    none: לא שויכו ערכים לקורס הזה.
     no_available: לקורס הזה אין ערכים זמינים.
     peer_review_link: סקירת עמיתים
     peer_review_link_personalized: סקירת העמיתים של %{username}
@@ -222,6 +228,8 @@ he:
     review_other: שיוך בודקים\בודקות
     review_self: בדיקת ערך
     select: בחירה
+    warning_untracked_wiki: 'נא לשים לב לכך שהערך שבחרת נמצא בוויקי שאינו במעקב בקורס
+      הזה. כדי לעקוב אחרי תרומות לערך הזה, המנחה צריך להוסיף ויקי לקורס: %{wiki}'
   blocks:
     milestones:
       title: אבני דרך
@@ -235,7 +243,7 @@ he:
     alert_user_id: משתמש
     all_campaigns: כל מסעות הפרסום
     campaign: מיזם \ פרויקט \ קמפיין
-    campaigns: מסעות פרסום
+    campaigns: מבצעים
     campaign_deleted: מסע הפרסום "%{title}" נמחק
     campaign_not_updated: לא היה ניתן לעדכן את מסע הפרסום
     campaign_updated: מסע הפרסום עודכן
@@ -250,12 +258,22 @@ he:
     course_removed: '"%{title}" הוסר ממסע הפרסום "%{campaign_title}"'
     create_campaign: יצירת מסע פרסום חדש
     create_my_campaign: יצירת מסע הפרסום שלי!
+    customize_passcode: קד גישה התחלתי
+    data_courses: נתונים כללים על הקורס
+    data_courses_info: מדדים בסיסיים לכל קורס / תוכנית
     data_articles: דפים שנערכו
+    data_instructors: מנחים
+    data_instructors_info: רשימת מנחים / עוזרים והקורסים / התוכניות שלהם
+    data_editors_by_course: עורכים לפי קורס
+    data_editors_by_course_info: רשימת עורכים רשומים והקורסים והתוכניות שלהם
     default_course_type: סוג הקורס כבררת מחדל
+    default_passcode: קד גישה התחלתי
     description: תיאור
     delete_campaign: מחיקת מסע הפרסום הזה
+    no_passcode: אין קוד גישה
     none: אין
     organizers: מארגנים
+    random_passcode: קוד גישה אקראי
     title: כותרת
     use_start_end_dates: הגדרת מועדי התחלה וסיום
   categories:
@@ -275,6 +293,7 @@ he:
   courses:
     school_system: מערכת אקדמית
     activity: פעילות
+    active_courses: '%{course_type} פעילים'
     alerts: התראות
     all_courses: כל הקורסים
     already_enrolled: הינך כבר חלק מ%{title}!
@@ -296,6 +315,7 @@ he:
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי משתתפי התוכנית במהלך
       תקופת התוכנית
     campaigns: 'מייזמים \ פרויקטים \ קמפיינים:'
+    campaign_courses: קורסים כחלק מהמבצע %{title}
     confirm_course_deletion: האם באמת ברצונך למחוק את התוכנית "%{title}"? אם כן, יש
       להקליד את שם התוכנית על מנת להמשיך.
     confirm_course_deletion_failed: '"%{title}" אינו השם של התוכנית \ הקורס הזה. מחיקת
@@ -305,29 +325,34 @@ he:
       (לדוגמה: חגים, חופשות מבית-הספר). יש ללחוץ על התאריך בכדי לבחור בין מצב לא מסומן,
       מסומן או חופש. רשימת תאריכי הפעילויות תשתנה בהתאם, ולא תכלול שבועות שבהם נקבע
       שאין פעילות.'
-    course_description: קורסים \ תוכניות \ מיזמים
-    courses: קורסים \ תוכניות \ מיזמים
+    course_description: קורסים
+    courses: קורסים
+    courses_taught: קורסים שלומדו
     creation_date: תאריך יצירה
     creator:
       already_exists: הקורס \ התוכנית \ המיזם הזה כבר קיים. שִקלו לשנות את שם התוכנית,
         שם המוסד, או המועד על מנת להפוך אותו לייחודי.
       assignment_end: סיום מטלה
       assignment_start: תחילת מטלה
+      cancel_course_clone: ביטול שכפול קורס
+      cancel_course_clone_confirm: האם ברצונך באמת להפסיק לשכפל את את הקורס הזה?
       checking_for_uniqueness: התוכנית \ הקורס \ המיזם נבדק על מנת לוודא שהוא ייחודי.
       choose_clone: נא לבחור קורס לשכפול.
       clone_previous: שיכפול תוכנית \ קורס \ מיזם.
-      clone_this: שיכפול התוכנית \ הקורס \ המיזם הזה
+      clone_this: שיכפול הקורס הזה
       cloned_course_calendar_instructions: 'בחירת תאריכים להוספה או הסרה מלוח הזמנים
-        (לדוגמה: חגים, חופשות מבית-הספר). יש ללחוץ על התאריך בכדי לבחור בין מצב לא
+        (לדוגמה: חגים, חופשות מבית־הספר). יש ללחוץ על התאריך בכדי לבחור בין מצב לא
         מסומן, מסומן או חופש. רשימת תאריכי הפעילויות תשתנה בהתאם, ולא תכלול שבועות
         שבהם נקבע שאין פעילות. אם אין לכם חופשות, יש לסמן "אין לי חופשות בתוכנית".
         לוח הזמנים ששוכפל יתעדכן אוטומטית עם תאריכי המפגשים המתוכננים.'
-      clone_successful: התוכנית \ הקורס \ המיזם שוכפל בהצלחה
-      clone_successful_details: התוכנית \ הקורס \ המיזם שוכפל בהצלחה, כולל רכיבים
-        כמו לוח זמנים (שבועות ובלוקים). שימו לב -- יש להוסיף תאריכים, אשר אינם מועברים
-        מקורס לקורס. האם יש משהו נוסף בתוכנית שלך שהשתנה? אם כן, ניתן לעדכן את הפרטים
-        עתה.
+      clone_successful: עדכון פרטים לקורס משוכפל
+      clone_successful_details: הקורס שלך שוכפל, כולל רכיבים כמו לוח זמנים (שבועות
+        ובלוקים). נא לשים לב לכך שיש להוסיף תאריכים, שאינם מועברים מקורס לקורס. האם
+        יש משהו נוסף שהשתנה בקורס שלך? אם כן, ניתן לעדכן את הפרטים עתה.
+      course_dates_info: נא להזין תאריכי התחלה וסיום לקורס שלך. בצעד הבא, באפשרותך
+        לבחור מתי להתחיל את משימות הוויקיפדיה בתוך זמן הזה.
       course_description: תיאור התוכנית \ הקורס \ המיזם
+      course_private: תוכנית פרטית (מוצגת רק למנהלים ועוזרים)
       course_school: מוסד
       course_subject: נושא התוכנית \ הקורס \ המיזם
       course_term: מועד התוכנית \ הקורס \ המיזם
@@ -336,16 +361,20 @@ he:
       create_button: צור את התוכנית \ הקורס \ המיזם שלי!
       create_label: יצירת התוכנית \ הקורס \ המיזם חדש
       create_new: יצירת תוכנית \ קורס \ מיזם חדש
-      create_short: יצירת תוכנית \ קורס \ מיזם
+      create_short: יצירת קורס
       end_date: תאריך סיום
       expected_number: מספר מצופה של משתתפים
-      find: מצא את התוכנית \ הקורס \ המיזם שלך
+      find: מציאת הקורס שלך
       intro: הכותרת, המוסד ומועד יוצרים יחד את כתובת האינטרנט של דף התוכנית \ הקורס
         \ המיזם שלך ולא ניתנים לשינוי. את כל שאר הפרטים ניתן לערוך במועד מאוחר יותר.
         יש ללחוץ על "יצירת התוכנית \ הקורס \ המיזם שלי!" כדי להתחיל לבנות את לוח הזמנים
         עבור התוכנית שלך.
       no_class_holidays: אין חגים או חופשים
       role_description: תפקידך בקורס
+      role_description_options:
+      - מנחה
+      - עוזר הוראה
+      role_description_placeholder: מנחה, עוזר הוראה, וכו'
       save_cloned_course: שמירת התוכנית \ הקורס \ המיזם החדש
       start_date: תאריך התחלה
       subject: נושא
@@ -359,9 +388,12 @@ he:
     dismiss_survey_confirm: האם ברצונך לסגור לצמיתות את השאלון הזה?
     duration: משך התוכנית \ הקורס \ המיזם
     edit_course_dates: עריכת תאריכי התוכנית \ הקורס \ המיזם
+    embed_course_stats: הטבעת סטטיסטיקות קורס
     end: סוף
+    ended: הקורס הסתיים.
     enroll: הרשמה
     enrollment: הוספה/הסרה של תלמידים
+    courses_enrolled: קורסים שנרשם אליהם
     error:
       exists: התוכנית \ הקורס \ המיזם הזה כבר קיים! נא לנסות שוב עם שם אחר, מוסד אחר
         או מועד אחר.
@@ -385,7 +417,14 @@ he:
     join: הצטרפות
     join_course: הצטרפות לתוכנית \ לקורס \ למיזם
     join_prompt: להצטרף ל-%{title}?
-    join_successful: צורפת בהצלחה ל-%{title}.
+    join_successful: צורפת בהצלחה לפעילות %{title}. לוח הבקרה יעקוב אוטומטית אחר התרומות
+      שלך עם עדכונים תקופתיים. נא לבדוק מאוחר יותר כדי לראות איזו השפעה הייתה לך!
+    join_failure_details:
+      cannot_join_twice: משתמשים לא יכולים להירשם לאותו קורס פעמיים.
+      not_yet_approved: הקורס הזה עוד לא אושר לרישום.
+    join_details: כדי להצטרף לקורס הזה, צריך לקבל קוד גישה – או קישור הרשמה שמכיל
+      את קוד הגישה – מהמנחה. אם עדיין לא קיבלת את זה, נא ליצור קשר עם המנחה שלך.
+    join_no_passcode: האם ברצונך באמת להצטרף לקורס הזה?
     leave_confirmation: באמת לעזוב את התוכנית \ הקורס \ המיזם הזה?
     leave_course: עזיבת התוכנית \ הקורס \ המיזם
     loading: בטעינה...
@@ -393,18 +432,26 @@ he:
     my_articles: הערכים שלי
     new_week: הוספת שבוע חדש
     new_account_email: כתובת דוא״ל
+    new_account_info: כדי לבקש חשבון, נא להזין את כתובת הדוא"ל שלך ואת שם המשתמש המבוקש.
+      סיסמה תישלח אליך בדוא"ל אחרי שהחשבון נוצר על־ידי אחד מהעוזרים.
+    new_account_info_admin: כדי ליצור חשבון לעורך חדש, יש להזין את כתובת הדוא"ל שלו
+      ואת שם המשתמש המבוקש. תישלח אליו סיסמה כשהחשבון ייווצר.
     new_account_username: שם המשתמש המבוקש
     new_account_username_invalid: שם משתמש זה אינו תקני.
     new_account_submit: בקשת חשבון
+    new_account_submitted: בקשת החשבון שלך נשלחה. העוזר עבור התוכנית הזאת יכול לסיים
+      את יצירת החשבון שלך עכשיו. כשהוא ייווצר, תקבל סיסמה לחשבון שלך בדוא"ל.
     nocourses: אינך משתתף בשום תוכנית \ קורס \ מיזם.
+    nocourse: לא השתתף בשום קורס.
     none: אין
+    not_permitted: אין לך הרשאה לערוך את הקורס הזה.
     notify_untrained_confirmation: הפעולה הזאת תשלח תזכורת לדפי השיחה של כל המשתתפים
       שלא השלימו עדיין את ההדרכה. באמת לשלוח?
     no_available_actions: אין פעולות זמינות
     overview: דף הבית
-    passcode: קוד הרשמה
-    passcode_none: אין קוד הרשמה
-    passcode_prompt: נא להקליד את קוד ההרשמה שקיבלת מהמנחה שלך
+    passcode: קוד גישה
+    passcode_none: אין קוד גישה
+    passcode_prompt: 'נא להזין את קוד הגישה כדי להצטרף:'
     please_log_in: אנא התחברו
     private: פרטי
     published: 'התוכנית \ הקורס \ המיזם שלך פורסם ופעיל! כעת משתתפים יכולים להירשם
@@ -430,11 +477,11 @@ he:
       אותו, יש להוסיף אותו למקבץ בדף הצפייה.
     submitted_and_pending_heading: הוגש וממתין לאישור
     submitted_heading: תוכניות \ קורסים \ מיזמים שהוגשו
-    submitted_note: התוכנית \ הקורס \ המיזם שלך הוגש. יצרו איתך קשר במידה ויעלו שאלות
-      כלשהן.
+    submitted_note: הקורס שלך הוגש. סגל ויקי חינוך יסקור אותו וייצור איתך קשר אם יעלו
+      שאלות כלשהן.
     suggestions_sending: שליחת המשוב מתבצעת...
     user_role: תפקיד
-    course_details: פרטים עבור תוכנית \ קורס \ מיזם
+    course_details: פרטי הקורס
     subject: נושא
     submitted: נשלח
     submitted_at: נשלח ב
@@ -524,6 +571,8 @@ he:
       find: מציאת תוכנית
       intro: כותרת התוכנית דרושה, כל דבר אחר ניתן למלא מאוחר יותר. לחיצה על "צור את
         התוכנית שלי!" כדי להתחיל לבנות את הדפים לתוכנית הוויקי שלך.
+      new_or_clone: אפשר ליצור תוכנית חדשה עכשיו, או להשתמש באפשרות "שכפול" כדי להעתיק
+        תוכנית אחרת שהשתתפת בה.
       participate_in_campaign: השתתפות במסע פרסום
       save_cloned_course: שמירה
       start_date: התחלת מעקב פעילות
@@ -535,8 +584,10 @@ he:
     explore: חיפוש תכניות
     courses_enrolled: תוכניות שהשתתפת בהן
     expected_students: עורכים מצופים
-    instructors: מנחים
-    join_course: הצטרפות
+    instructors: עוזרים
+    join_course: הצטרפות לתוכנית
+    join_details: כדי להצטרף לתוכנית הזאת, צריך לקבל קוד גישה – או קישור שמכיל את
+      קוד הגישה – מהעוזר.
     leave_course: עזיבת התוכנית \ הקורס \ המיזם
     milestones_none: לתוכנית \ לקורס \ למיזם הזה אין כרגע אבני דרך.
     published: 'התוכנית \ הקורס \ המיזם הזה פורסם! ניתן להירשם אליו דרך הכתובת הבאה:'
@@ -555,8 +606,8 @@ he:
       זה.
     view_other: צפיה במיזמים אחרים
     view_page: צפייה בדף התוכנית \ הקורס \ המיזם
-    word_count_doc: הערכה של מספר המלים שנוספו לערכים במרחב הראשי ע"י משתתפי התוכנית
-      \ הקורס \ המיזם לאורכו.
+    word_count_doc: הערכה של מספר המילים שנוספו לערכים במרחב הראשי על־ידי משתתפי הקורס
+      לאורכו
     yourcourses: התכניות שלך
   editable:
     edit: עריכה
@@ -566,6 +617,7 @@ he:
     edit_details: ערוך פרטים
     edit_template: עריכת תבנית
   metrics:
+    label: פעילות קורס
     activity: פעילות לאחרונה
     are_trained: משתתפים אשר השלימו הדרכה
     articles_created: מס' ערכים שנוצרו
@@ -578,6 +630,7 @@ he:
     close_modal: סגירה
     date_time: תאריך/שעה
     edit_count_description: סה"כ עריכות
+    last_update_failed: העדכון האחרון לקורס הזה נכשל.
     per_user: '%{number}/משתמש'
     revisions: עריכות אחרונות
     update_statistics_link: לטעון עוד
@@ -631,9 +684,20 @@ he:
     title: כותרת
     view_on_wiki: צפייה בשינויים בוויקיפדיה
     see_more: לטעון עוד
+    show_course_specific: הצגה של דברים ייחודיים לקורס
   resources:
     label: משאבים
   settings:
+    admin_users:
+      new:
+        form_label: לתת הרשאות מנהל
+        confirm_add_admin: לתת הרשאות מנהל
+        already_admin: למשתמש %{username} כבר יש הרשאות מנהל!
+      remove:
+        revoke_button: שלילת הרשאות מנהל
+        already_instructor: למשתמש %{username} כבר יש הרשאות מנחה!
+        demote_success: '%{username} שוּנה למנחה.'
+        no_super_admin: לא ניתן לשלול הרשאות מנהל ממנהל־על
     special_users:
       remove:
         revoking_button_working: מסיר...
@@ -742,8 +806,8 @@ he:
     contributions: תרומות המשתמש
     contributions_history_full: צפייה בהיסטוריית התרומות המלאה בוויקיפדיה
     contributions_more: הצגת תרומות נוספות
-    course_passcode: 'סיסמה:'
-    editors: תלמידים עורכים
+    course_passcode: 'קוד גישה:'
+    editors: עורכים
     edits: עריכות
     edits_by: 'עריכות שבוצעו על ידי:'
     enroll_confirmation: האם ברצונך להוסיף את %{username}?
@@ -789,7 +853,9 @@ he:
     uploads_doc: מספר העלאות הקבצים לוויקישיתוף
     username: שם משתמש
     username_placeholder: שם משתמש
+    userpasscode_placeholder: קוד גישה
     role:
+      description: תפקיד בקורס
       visitor: מבקר
       student: משתתף\משתתפת
       instructor: מנחה
@@ -797,6 +863,7 @@ he:
       online_volunteer: חונכות וחונכים מקוונים
       wiki_ed_staff: צוות מיזמי החינוך
   user_profiles:
+    instructor_impact: סך כל ההשפעה שנעשתה על־ידי %{username} בתור מנחה
     location_placeholder: הוספת המיקום שלך (רשות)
   wiki_edits:
     notify_overdue:
@@ -846,16 +913,15 @@ he:
       הזאת בטעות, יש ליצור קשר עם המתחזקים של לוח הבקרה ולעדכן אותם על הבעיה."
     json_explanation: נראה שיצאת מהחשבון שלך. נא לבצע רענון, להיכנס ולנסות שוב.
   error_incorrect_passcode:
-    header: סיסמה שגויה :-(
-    explanation: קוד ההרשמה שגוי. יש לבדוק שוב מה קוד ההרשמה הנכון על מנת להירשם לתוכנית
-      \ לקורס \ למיזם הזה.
+    header: קוד גישה שגוי :-(
+    explanation: קוד הגישה לרישום לקורס הזה שגוי. נא לבקש מהמנחה את קוד הגישה הנוכחי
+      לרישום לקורס הזה. אפשר לנסות שוב באמצעות הזנת קוד הגישה הנכון למטה.
   error_no_course:
     explanation: לא קיים קורס בשם %{slug}
   error_404:
     header: הדף לא נמצא. :-(
     explanation: הדף הזה אינו קיים. אם ניסית להגיע ללוח בקרה של קורס, ייתכן שהקורס
-      הזה לא רשום בלוח. אם רישום הקורס התבצע לא מזמן, יתכן שיקח למערכת זמן עידכון
-      עד שהוא יופיע.
+      הזה לא רשום בלוח הזה.
   error_422:
     header: 422 – ישות שלא ניתן לעבד. :-(
     explanation: משהו השתבש. יש ליצור קשר עם המתחזקים של לוח הבקרה ולעדכן אותם על
@@ -880,9 +946,9 @@ he:
       headline: שלום, %{username}
       message_line1: "אנחנו מקווים שנהנית בתוכנית \\ בקורס \\ במיזם! \nנשמח מאוד לקבל
         ממך משוב, אשר יסייע לנו להשתפר בהמשך."
-      message_line2: התוכלו להקדיש רבע שעה למילוי שאלון החונכים שלנו? יש ללחוץ על
-        הכפתור למטה כדי לסייע לנו להפוך את ההוראה בעזרת ויקיפדיה לחוויה מעשירה ומספקת
-        עוד יותר.
+      message_line2: התוכל להקדיש רבע שעה למילוי שאלון המנחים שלנו? יש ללחוץ על הכפתור
+        למטה כדי לסייע לנו להפוך את ההוראה בעזרת ויקיפדיה לחוויה מעשירה ומספקת עוד
+        יותר.
       course: 'תוכנית \ קורס \ מיזם: %{course_info}'
       closing: בכבוד רב,
       signed: '- סגל ויקי השכלה'
