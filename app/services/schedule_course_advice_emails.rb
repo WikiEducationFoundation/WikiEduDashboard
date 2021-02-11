@@ -22,7 +22,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'preliminary_work',
-      send_at: course.timeline_start
+      send_at: @course.timeline_start
     )
   end
 
@@ -33,7 +33,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'drafting_and_moving',
-      send_at: block.calculated_date
+      send_at: block.calculated_date.to_datetime
     )
   end
 
@@ -44,7 +44,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'peer_review',
-      send_at: block.calculated_date
+      send_at: block.calculated_date.to_datetime
     )
   end
 
@@ -55,7 +55,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'assessing_contributions',
-      send_at: block.calculated_date
+      send_at: block.calculated_date.to_datetime
     )
   end
 end

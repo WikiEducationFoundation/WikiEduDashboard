@@ -476,11 +476,20 @@ describe CoursesController, type: :request do
     let(:course_type) { 'ClassroomProgramCourse' }
     let(:campaign) { Campaign.last }
     let(:user) { create(:admin, email: 'user@example.edu') }
+    let(:teaching_assistant) { create(:user, username: 'TeachingAssistant', email: 'ta@example.com') }
+    let(:week) { create(:week) }
+    let!(:drafting_block) { create(:block, title: 'Start drafting your contributions', week: week) }
+    let!(:peer_review_block) { create(:block, title: 'Peer review', week: week) }
+    let!(:assessment_block) { create(:block, title: 'Final article', week: week) }
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
+      # Make it look like a typical full assignment, so that
+      # course advice emails get scheduled
+      course.tags << Tag.new(tag: 'research_write_assignment')
+      course.weeks << week
     end
 
     context 'when campaign is not found' do
@@ -498,6 +507,9 @@ describe CoursesController, type: :request do
           create(:courses_user, user_id: user.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          create(:courses_user, user_id: teaching_assistant.id,
+                                course_id: course.id,
+                                role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         end
 
         it 'creates a CampaignsCourse' do
@@ -509,7 +521,7 @@ describe CoursesController, type: :request do
         end
 
         it 'sends an email if course has no previous campaigns' do
-          expect(CourseApprovalMailer).to receive(:send_approval_notification)
+          expect(CourseApprovalMailer).to receive(:send_approval_notification).twice
           params = { id: course.slug, campaign: { title: campaign.title } }
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
@@ -525,7 +537,7 @@ describe CoursesController, type: :request do
           it 'sets the CPM as a Wiki Ed staff member if that role exists' do
             params = { id: course.slug, campaign: { title: campaign.title } }
             post "/courses/#{course.slug}/campaign", params: params, as: :json
-            expect(CoursesUsers.all.length).to eq(2)
+            expect(CoursesUsers.all.length).to eq(3) # two instructors plus staffer
 
             role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
             expect(CoursesUsers.where(role: role).length).to eq(1)
@@ -538,7 +550,7 @@ describe CoursesController, type: :request do
           it 'does not set the CPM as a Wiki Ed staff member' do
             params = { id: course.slug, campaign: { title: campaign.title } }
             post "/courses/#{course.slug}/campaign", params: params, as: :json
-            expect(CoursesUsers.all.length).to eq(1)
+            expect(CoursesUsers.all.length).to eq(2) # two instructors
 
             role = CoursesUsers::Roles::WIKI_ED_STAFF_ROLE
             expect(CoursesUsers.where(role: role).length).to eq(0)
