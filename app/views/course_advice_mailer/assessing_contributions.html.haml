@@ -8,3 +8,49 @@
             %td.main-content
               %p.paragraph
                 = "Dear #{@greeted_users},"
+              %p.paragraph
+                - if @course.stay_in_sandbox?
+                  As your students put the finishing touches on their final contributions,
+                  we want to make sure you know how to find and assess those contributions.
+                - else
+                  As your students move their work into the article main space and put the
+                  finishing touches on their final contributions, we want to make sure you
+                  know how to find and assess those contributions.
+              %ul.paragraph
+                %li
+                  Here are some
+                  %a.link{href: 'https://wikiedu.org/blog/2017/11/15/tips-for-grading-a-wikipedia-assignment/'} general tips for grading and assessing student work.
+                %li
+                  You may wish to use our sample grading rubric. (
+                  %a.link{href: 'https://wikiedu.org/wp-content/uploads/2020/07/Example-grading-rubric-for-a-Wikipedia-assignment.docx'} .doc
+                  ,
+                  %a.link{href: 'https://commons.wikimedia.org/wiki/File:Wiki_Education_Classroom_Program_example_grading_rubric.pdf'} PDF  
+                  )
+                %li
+                  Here's a guide on
+                  %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} how to use the dashboard to see your student contributions.
+                %li
+                  Remember, never base grades based on what sticks, and when it
+                  comes to the Wikipedia assignment, quality is far more important than quantity.
+              %p.paragraph.center — — —
+              %p.paragraph
+                You can always refer to our
+                %a.link{href: 'https://dashboard.wikiedu.org/faq?topic=instructor_faq'}Instructor FAQs
+                for more information.
+              %p.paragraph
+                Good luck!
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you with assessing student work for your Wikipedia assignment.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Assessing-Contributions-Advice-email'} leave feedback here.
