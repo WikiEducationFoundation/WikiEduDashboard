@@ -476,7 +476,7 @@ describe CoursesController, type: :request do
     let(:course_type) { 'ClassroomProgramCourse' }
     let(:campaign) { Campaign.last }
     let(:user) { create(:admin, email: 'user@example.edu') }
-    let(:teaching_assistant) { create(:user, username: 'TeachingAssistant', email: 'ta@example.com') }
+    let(:teaching_assistant) { create(:user, username: 'TA', email: 'ta@example.com') }
     let(:week) { create(:week) }
     let!(:drafting_block) { create(:block, title: 'Start drafting your contributions', week: week) }
     let!(:peer_review_block) { create(:block, title: 'Peer review', week: week) }
