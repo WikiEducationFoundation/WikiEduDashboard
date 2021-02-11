@@ -25,7 +25,7 @@ Overview:
 
 ## Contribute!
 
-This project welcomes contributions, and we try to be as newbie-friendly as possible. Checkout out [the CONTRIBUTING file](CONTRIBUTING.md) for more details.
+This project welcomes contributions, and we try to be as newbie-friendly as possible. Check out [the CONTRIBUTING file](CONTRIBUTING.md) for more details.
 
 ### Setup
 - [Setting up a development environment](docs/setup.md)
