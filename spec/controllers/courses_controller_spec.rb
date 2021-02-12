@@ -737,4 +737,13 @@ describe CoursesController, type: :request do
       end
     end
   end
+
+  describe '#find' do
+    let(:course) { create(:course) }
+
+    it 'redirects to a course page' do
+      get "/find_course/#{course.id}"
+      expect(response).to redirect_to("/courses/#{course.slug}")
+    end
+  end
 end

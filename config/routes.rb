@@ -161,6 +161,7 @@ Rails.application.routes.draw do
       constraints: {
         id: /.*/
       }
+    get 'find_course/:course_id' => 'courses#find'
   end
 
   # Categories

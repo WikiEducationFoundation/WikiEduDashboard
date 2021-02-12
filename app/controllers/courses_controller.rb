@@ -68,6 +68,11 @@ class CoursesController < ApplicationController
     end
   end
 
+  def find
+    course = Course.find(params[:course_id])
+    redirect_to "/courses/#{course.slug}"
+  end
+
   ##############################
   # Course data json endpoints #
   ##############################
