@@ -10,6 +10,7 @@ class ErrorsController < ApplicationController
   end
 
   def unprocessable
+    @error = request.env['action_dispatch.exception']
     render status: :unprocessable_entity # 422
   end
 

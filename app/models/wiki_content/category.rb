@@ -25,6 +25,8 @@ class Category < ApplicationRecord
   has_many :courses, through: :categories_courses
 
   serialize :article_titles, Array
+  validates :name, numericality: { only_integer: true }, on: :create,
+                   if: -> { source == 'psid' || source == 'pileid' }
 
   def self.refresh_categories_for(course)
     # Updating categories only if they were last updated since
@@ -66,5 +68,10 @@ class Category < ApplicationRecord
     when 'template'
       TransclusionImporter.new(self).transcluded_titles
     end
+  end
+
+  def numeric_psid?
+    return unless source == 'psid'
+    name.to_i.positive?
   end
 end
