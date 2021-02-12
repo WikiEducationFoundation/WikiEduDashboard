@@ -69,9 +69,4 @@ class Category < ApplicationRecord
       TransclusionImporter.new(self).transcluded_titles
     end
   end
-
-  def numeric_psid?
-    return unless source == 'psid'
-    name.to_i.positive?
-  end
 end
