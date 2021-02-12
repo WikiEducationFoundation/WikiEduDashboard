@@ -90,13 +90,12 @@ class PushCourseToSalesforce
   end
 
   def editing_in_sandbox_block
-    title_matcher = Regexp.union [/Draft your article/, /Start drafting your/]
-    @sandbox_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
+    title_matcher = Regexp.union('Draft your article', 'Start drafting your')
+    @sandbox_block ||= @course.find_block_by_title(title_matcher)
   end
 
   def editing_in_mainspace_block
-    title_matcher = /Begin moving your work to Wikipedia/
-    @mainspace_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
+    @mainspace_block ||= @course.find_block_by_title('Begin moving your work to Wikipedia')
   end
 
   def assignment_date_for(block)

@@ -254,6 +254,12 @@ class Course < ApplicationRecord
     tags.pluck(:tag).include? query_tag
   end
 
+  # title can be a string or a Regexp
+  def find_block_by_title(title)
+    title_matcher = Regexp.new(title)
+    blocks.find { |block| block.title =~ title_matcher }
+  end
+
   def training_modules
     @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
   end

@@ -50,6 +50,10 @@ section.message, section.message p, .paragraph {
   text-decoration: underline;
 }
 
+.center {
+  text-align: center;
+}
+
 .button_link {
   padding: 15px 20px;
   max-width: 600px;

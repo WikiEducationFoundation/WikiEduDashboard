@@ -17,7 +17,7 @@ class ListCourseManager
 
     # Tasks for when a course is initially approved
     add_instructor_real_names if Features.wiki_ed?
-    send_approval_notification_emails
+    send_approval_notification_emails if Features.wiki_ed?
     add_classroom_program_manager_if_exists if Features.wiki_ed?
   end
 
@@ -56,5 +56,6 @@ class ListCourseManager
     @course.instructors.each do |user|
       CourseApprovalFollowupWorker.schedule_followup_email(course: @course, instructor: user)
     end
+    ScheduleCourseAdviceEmails.new(@course)
   end
 end

@@ -97,6 +97,7 @@ class CourseCloneManager
     tricky_topic_areas
     working_individually
     working_in_groups
+    research_write_assignment
   ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
