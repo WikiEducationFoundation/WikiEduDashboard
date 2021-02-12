@@ -5,7 +5,7 @@ class TrainingModulesUsersController < ApplicationController
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
 
   def index
-    course = Course.find_by(id: params[:course_id])
+    course = Course.find(params[:course_id])
     user = User.find_by(id: params[:user_id]) if params[:user_id]
     render 'courses/_blocks', locals: { blocks: course.blocks, course: course, user: user }
   end
