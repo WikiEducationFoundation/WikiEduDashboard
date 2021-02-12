@@ -10,7 +10,7 @@ json.course do
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
             :closed?, :training_library_slug, :peer_review_count, :needs_update,
-            :update_until, :withdrawn)
+            :update_until, :withdrawn, :created_at)
 
   json.wikis @course.wikis, :language, :project
   json.timeline_enabled @course.timeline_enabled?
