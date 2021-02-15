@@ -20,7 +20,7 @@ const ArticleLink = ({ content, href, prefix }) => {
 
   return (
     <span>
-      { prefix }{ content }
+      { prefix }&nbsp;{ content }
     </span>
   );
 };
