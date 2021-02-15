@@ -75,7 +75,7 @@ en-gb:
     edited_mobile: Articles
     label: Articles
     loading: Loading articles...
-    new: (nuevo)
+    new: (new)
     none: This course has not edited any articles.
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia.
@@ -142,7 +142,7 @@ en-gb:
     assignment_start: Assignment Start
     calendar:
       legend: Legend
-      legend_class_canceled: El día de fiesta/Canceló
+      legend_class_canceled: Holiday/Cancelled
       legend_class_meeting: Class Meeting
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
@@ -243,9 +243,9 @@ en-gb:
     passcode_prompt: 'Enter the passcode to join:'
     published: 'Your course has been published! Students may enrol in the course by
       visiting the following URL:'
-    review_timeline: 'Now, review your assignment timeline, customizing it to fit
+    review_timeline: 'Now, review your assignment timeline, customising it to fit
       your needs. Once you''re satisfied, you can submit it for approval by Wiki Education
-      staff. Once approved, you''ll receive an enrollment URL that students can use
+      staff. Once approved, you''ll receive an enrolment URL that students can use
       to join the course and access the trainings. (Note: You''ll still be able to
       make edits later.)'
     revisions_doc: The number of edits in the past %{timeframe} days
@@ -258,9 +258,9 @@ en-gb:
     student_editors: Student Editors
     timeline_enabled: Timeline enabled
   recent_activity:
-    active_courses: Artículo es activo en
-    datetime: La fecha/El tiempo
-    image: La imagen
+    active_courses: Article is active in
+    datetime: Date/Time
+    image: Image
   article_finder:
     assign_article_self: Assign yourself
 ...
