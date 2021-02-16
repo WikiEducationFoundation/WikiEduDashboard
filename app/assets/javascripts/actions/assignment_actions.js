@@ -33,6 +33,7 @@ export const fetchAssignments = courseSlug => (dispatch) => {
   );
 };
 
+
 export const addAssignment = assignment => (dispatch) => {
   return API.createAssignment(assignment)
     .then(resp => dispatch({ type: types.ADD_ASSIGNMENT, data: resp }))
@@ -92,4 +93,38 @@ export const updateAssignmentStatus = (assignment, status) => () => {
       logErrorMessage(error);
       return error;
     });
+};
+
+const updateSandboxUrlPromise = (assignment, newURL) => {
+  const body = {
+    id: assignment.id,
+    status,
+    user_id: assignment.user_id,
+    newURL,
+  };
+  return request(`/assignments/${assignment.id}/update_sandbox_url`, {
+    body: JSON.stringify(body),
+    method: 'PATCH'
+  }).then((res) => {
+    if (res.ok && res.status === 200) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  }).catch((error) => {
+    logErrorMessage(error);
+    return error;
+  });
+};
+
+export const updateSandboxUrl = (assignment, newURL) => (dispatch) => {
+  return (
+    updateSandboxUrlPromise(assignment, newURL)
+      .then((resp) => {
+        dispatch({
+          type: types.UPDATE_ASSIGNMENT,
+          data: resp
+        });
+      })
+      .catch(response => dispatch({ type: types.API_FAIL, data: response }))
+  );
 };

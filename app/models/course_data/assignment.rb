@@ -43,7 +43,6 @@ class Assignment < ApplicationRecord
   delegate :status, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline
   delegate :all_statuses, to: :assignment_pipeline
-
   #############
   # CONSTANTS #
   #############

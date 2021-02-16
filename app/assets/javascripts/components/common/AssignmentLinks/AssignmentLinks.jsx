@@ -8,6 +8,7 @@ import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
 import AllPeerReviewLinks from './AllPeerReviewLinks';
+import EditSandboxUrl from './EditSandBoxUrl';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 
 // constants
@@ -62,6 +63,8 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   }
 
   // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
+  const test = <EditSandboxUrl user={user} assignment={assignment}/>;
+  actions.push(test);
   const links = actions.concat(article).reduce(interleaveSeparators, []);
 
   return (
