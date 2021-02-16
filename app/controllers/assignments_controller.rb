@@ -78,11 +78,11 @@ class AssignmentsController < ApplicationController
   end
 
   def update_sandbox_url
-    check_permissions(assignment_params[:user_id].to_i)
-    @assignment = Assignment.find(assignment_params[:id])
-    # New URL is update at this statement
-    # Before save method (set_url_sandbox) in Assignment.rb needs to update for this to work?
-    # @assignment.update(sandbox_url:)
+    check_permissions(params[:user_id].to_i)
+    @assignment = Assignment.find(params[:id])
+    # need to update before save (set_sandbox_url) method in assignments.rb
+    # new url is updated at this state after some string processing.
+    # @assignment.update(sandbox_url: //new_url_here//)
     render partial: 'updated_assignment', locals: { assignment: @assignment }
   end
 

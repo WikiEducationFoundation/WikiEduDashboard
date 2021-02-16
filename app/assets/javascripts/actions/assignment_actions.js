@@ -95,14 +95,13 @@ export const updateAssignmentStatus = (assignment, status) => () => {
     });
 };
 
-const updateSandboxUrlPromise = (assignment, newURL) => {
+const updateSandboxUrlPromise = (assignment, newUrl) => {
   const body = {
     id: assignment.id,
     status,
     user_id: assignment.user_id,
-    newURL,
   };
-  return request(`/assignments/${assignment.id}/update_sandbox_url`, {
+  return request(`/assignments/${assignment.id}/${newUrl}/update_sandbox_url`, {
     body: JSON.stringify(body),
     method: 'PATCH'
   }).then((res) => {
@@ -116,14 +115,15 @@ const updateSandboxUrlPromise = (assignment, newURL) => {
   });
 };
 
-export const updateSandboxUrl = (assignment, newURL) => (dispatch) => {
+export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
   return (
-    updateSandboxUrlPromise(assignment, newURL)
+    updateSandboxUrlPromise(assignment, newUrl)
       .then((resp) => {
         dispatch({
           type: types.UPDATE_ASSIGNMENT,
           data: resp
         });
+        console.log(resp);
       })
       .catch(response => dispatch({ type: types.API_FAIL, data: response }))
   );
