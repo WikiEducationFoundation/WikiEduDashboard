@@ -28,6 +28,8 @@ io:
       learn_more_button: Savez pluse
   metrics:
     tags: Etiketi
+  timeline:
+    week_number: Semano %{number}
   training:
     page: Pagino
   uploads:

@@ -1030,12 +1030,12 @@ fr:
     possible_plagiarism: Plagiat possible
     plagiarism_explanation: Le système de détection de plagiat de Wikipédia utilise
       Turnitin/iThenticate pour comparer les nouvelles modifications avec le texte
-      publié. Ces rapports ne sont pas fiables à 100%. Par exemple, une citation directe
-      avec la bonne attribution peut générer un faux signalement de plagiat positif.
-      Veuillez relire les contributions de l’étudiant et les détails du rapport avant
-      d’entreprendre toute action (si vous trouvez que la modification — ou tout l’article
-      — n’est pas accessible, le contenu peut avoir été supprimé pour des raisons
-      de droit d’auteur).
+      publié. Ces rapports ne sont pas fiables à 100 %. Par exemple, une citation
+      directe avec la bonne attribution peut générer un faux signalement de plagiat
+      positif. Veuillez relire les contributions de l’étudiant et les détails du rapport
+      avant d’entreprendre toute action (si vous trouvez que la modification — ou
+      tout l’article — n’est pas accessible, le contenu peut avoir été supprimé pour
+      des raisons de droit d’auteur).
     recent_edits: Modifications récentes
     recent_uploads: Téléversements récents
     revision_author: Auteur de la version

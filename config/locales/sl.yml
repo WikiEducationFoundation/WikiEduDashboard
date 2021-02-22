@@ -25,6 +25,7 @@ sl:
     remove: Odstrani
   courses:
     articles: Članki
+    loading: Nalaganje ...
     overview: Domov
   courses_generic:
     creator:
@@ -32,7 +33,7 @@ sl:
   editable:
     save: Shrani
   metrics:
-    bytes_added: Bajtov dodanih
+    bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
   training:
     page: Stran
