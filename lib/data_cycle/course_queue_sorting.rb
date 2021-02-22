@@ -2,7 +2,7 @@
 
 module CourseQueueSorting
   def queue_for(course)
-    case average_update_time(course)
+    case longest_update_time(course)
     when nil
       initial_queue(course)
     when 0..30 # up to 30 seconds
@@ -14,13 +14,13 @@ module CourseQueueSorting
     end
   end
 
-  def average_update_time(course)
+  def longest_update_time(course)
     logs = course.flags['update_logs']
     return unless logs.present?
-    total_time = logs.keys.sum do |update_number|
+    update_times = logs.keys.map do |update_number|
       logs[update_number]['end_time'].to_f - logs[update_number]['start_time'].to_f
     end
-    (total_time / logs.keys.count).to_i
+    update_times.max.to_i
   end
 
   def initial_queue(course)
