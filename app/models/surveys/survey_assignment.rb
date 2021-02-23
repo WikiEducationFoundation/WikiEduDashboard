@@ -72,7 +72,7 @@ class SurveyAssignment < ApplicationRecord
   ####################
   def send_at
     {
-      days: send_date_days,
+      days: send_date_days || 0,
       before: send_before,
       relative_to: send_date_relative_to
     }
