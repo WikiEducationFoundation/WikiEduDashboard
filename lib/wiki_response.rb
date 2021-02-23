@@ -106,12 +106,17 @@ class WikiResponse
 
   def parse_api_error_response
     code = @response_data['error']['code']
+    info = @response_data.dig('error', 'info')
 
-    # If the OAuth credentials are invalid, we need to flag this.
-    # It gets handled by application controller.
     case code
     when 'mwoauth-invalid-authorization'
-      @current_user.update(wiki_token: 'invalid')
+      # If the OAuth credentials are invalid, we need to flag this.
+      # It gets handled by application controller.
+      # However, if it's just a case of overlapping actions that invalidate
+      # an individual edit, don't invalidate the token in that case.
+      # The info message for such errors is something like this:
+      # The authorization headers in your request are not valid: Nonce already used: kj7w9...
+      @current_user.update(wiki_token: 'invalid') unless info.include?('Nonce already used')
     when 'blocked', 'autoblocked'
       BlockedEditsWorker.schedule_notifications(user: @current_user, response_data: @response_data)
     end
