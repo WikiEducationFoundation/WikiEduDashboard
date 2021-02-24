@@ -8,6 +8,7 @@ class GreetUngreetedStudents
     @course = course
     @greeter = greeter
     @wiki = @course.home_wiki
+    return unless @wiki.edits_enabled?
     @greeting_checker = StudentGreetingChecker.new
     greet_ungreeted
   end

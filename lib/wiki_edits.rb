@@ -7,6 +7,9 @@ class WikiEdits
   def initialize(wiki = nil)
     wiki ||= Wiki.default_wiki
     @wiki = wiki
+    # This should never be called for a wiki that doesn't have edits enabled.
+    # All code that uses WikiEdits should guard based on whether edits are enabled.
+    raise unless @wiki.edits_enabled?
   end
 
   #######################
