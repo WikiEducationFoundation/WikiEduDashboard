@@ -247,19 +247,6 @@ describe 'New course creation and editing', type: :feature do
       expect(saved_course.level).to eq('Introductory')
       expect(saved_course.subject).to eq('Chemistry')
       expect(saved_course.format).to eq('In-person')
-
-      # Navigate back to overview, check relevant data, then delete course
-      visit "/courses/#{Course.first.slug}"
-
-      within('.sidebar') do
-        expect(page).to have_content I18n.t('courses.instructor.other')
-      end
-
-      accept_prompt(with: 'My awesome new course - Foo 101') do
-        find('button.danger', match: :first).click
-      end
-
-      expect(page).to have_content 'Looks like you don\'t have any courses'
     end
 
     it 'does not allow a second course with the same slug' do
