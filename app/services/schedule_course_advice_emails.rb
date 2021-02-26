@@ -2,8 +2,9 @@
 
 #= Schedules a series of drip emails for advice, based on course timeline
 class ScheduleCourseAdviceEmails
-  def initialize(course)
+  def initialize(course, in_progress: false)
     @course = course
+    @in_progress = in_progress
     schedule_emails
   end
 
@@ -19,6 +20,8 @@ class ScheduleCourseAdviceEmails
   end
 
   def schedule_preliminary_work_email
+    return if @in_progress
+
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'preliminary_work',
@@ -29,6 +32,7 @@ class ScheduleCourseAdviceEmails
   def schedule_drafting_and_moving_email
     block = @course.find_block_by_title 'Start drafting your'
     return unless block
+    return if too_late?(block)
 
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
@@ -40,6 +44,7 @@ class ScheduleCourseAdviceEmails
   def schedule_peer_review_email
     block = @course.find_block_by_title 'Peer review'
     return unless block
+    return if too_late?(block)
 
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
@@ -51,11 +56,16 @@ class ScheduleCourseAdviceEmails
   def schedule_assessing_contributions_email
     block = @course.find_block_by_title 'Final article'
     return unless block
+    return if too_late?(block)
 
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       stage: 'assessing_contributions',
       send_at: block.calculated_date.to_datetime
     )
+  end
+
+  def too_late?(block)
+    block.calculated_date.past?
   end
 end
