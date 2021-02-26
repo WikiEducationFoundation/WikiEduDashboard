@@ -32,7 +32,7 @@ const SummaryPanel = createReactClass({
 
   submit() {
     this.props.submitWizard(this.props.courseId);
-    window.onbeforeunload = null;
+    window.onbeforeunload = window.onbeforeunloadcache;
     return this.props.history.push(`/courses/${this.props.courseId}/timeline`);
   },
   rewind(toIndex) {

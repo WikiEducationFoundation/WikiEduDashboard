@@ -14,6 +14,7 @@ import { fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption, submit
 import { isValid } from '../../selectors';
 
 const persist = function (goToWizardFunc) {
+  window.onbeforeunloadcache = window.onbeforeunload;
   window.onbeforeunload = function () {
       return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
@@ -29,7 +30,7 @@ const persist = function (goToWizardFunc) {
 
 const unloadEvents = function () {
     window.onpopstate = null;
-    window.onbeforeunload = null;
+    window.onbeforeunload = window.onbeforeunloadcache;
 };
 
 const Wizard = createReactClass({
