@@ -472,7 +472,7 @@ describe CoursesController, type: :request do
   end
 
   describe '#list' do
-    let(:course) { create(:course, slug: slug_params, type: course_type) }
+    let(:course) { create(:course, slug: slug_params, type: course_type, start: 1.week.from_now) }
     let(:course_type) { 'ClassroomProgramCourse' }
     let(:campaign) { Campaign.last }
     let(:user) { create(:admin, email: 'user@example.edu') }
