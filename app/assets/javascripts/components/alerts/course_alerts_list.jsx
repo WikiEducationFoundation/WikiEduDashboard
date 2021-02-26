@@ -6,18 +6,9 @@ import AlertsHandler from './alerts_handler.jsx';
 import { fetchCourseAlerts } from '../../actions/alert_actions';
 
 class CourseAlertsList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getCourseSlug = this.getCourseSlug.bind(this);
-  }
-
   componentDidMount() {
     // This adds the specific course alerts to the state, to be used in AlertsHandler
-    this.props.fetchCourseAlerts(this.getCourseSlug());
-  }
-
-  getCourseSlug() {
-    return `${this.props.course_id}`;
+    this.props.fetchCourseAlerts(this.props.course_id);
   }
 
   render() {
