@@ -641,7 +641,10 @@ en:
       one: '%{count} requested account pending.'
       other: '%{count} requested accounts pending.'
     requested_accounts_alert_view: 'View'
-
+    retain_available_articles: Retain Available Articles
+    retain_available_articles_info: >
+      When enabled, selecting an Available Article does not remove it from
+      the list, allowing a group of students to select the same article.
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
