@@ -135,6 +135,21 @@ describe Replica do
       end
     end
 
+    it 'functions identically for a language code with a hyphen' do
+      VCR.use_cassette 'replica/nds_nl_revisions' do
+        all_users = [
+          build(:user, username: 'Woolters')
+        ]
+
+        rev_start = 2021_02_02_003430
+        rev_end = 2021_02_04_003430
+
+        nds_nl_wiki = Wiki.new(language: 'nds-nl', project: 'wikipedia')
+        response = described_class.new(nds_nl_wiki).get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(3)
+      end
+    end
+
     it 'functions identically on multilingual wikisource' do
       VCR.use_cassette 'replica/wikisource_revisions' do
         all_users = [
