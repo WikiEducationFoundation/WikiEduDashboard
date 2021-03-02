@@ -7,5 +7,12 @@
     = text_field_tag :faqs, @topic.faq_ids.join(',')
     = submit_tag 'Update FAQ Topic'
 
+  %div
+    %ul
+      - @topic.faqs.each do |faq|
+        %li
+          %a{href: "/faq/#{faq.id}"}= faq.title
+          = "(#{faq.id})" 
+
   %hr
-  = button_to 'delete', "/faq_topics/#{@topic.slug}", method: :delete
+  = button_to 'delete', "/faq_topics/#{@topic.slug}", method: :delete, data: { confirm: "Are you sure you want to delete this?" }

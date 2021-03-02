@@ -29,7 +29,9 @@ describe 'FAQ topics', type: :feature, js: true do
 
     # Delete the topic
     click_link 'edit'
-    click_button 'delete'
+    accept_confirm do
+      click_button 'delete'
+    end
     expect(page).to have_current_path('/faq_topics')
     expect(page).not_to have_content('Updated name')
   end

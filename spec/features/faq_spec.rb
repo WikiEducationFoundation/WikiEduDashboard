@@ -43,7 +43,9 @@ describe 'FAQs', type: :feature, js: true do
 
     it 'redirects to FAQ INDEX after deleting' do
       visit "/faq/#{faq.id}/edit"
-      click_button 'delete'
+      accept_confirm do
+        click_button 'delete'
+      end
       expect(page).to have_current_path('/faq')
       expect(Faq.count).to eq(0)
     end
