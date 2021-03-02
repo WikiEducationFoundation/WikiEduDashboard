@@ -178,22 +178,36 @@ class Replica
     "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 
+  ###############################
+  # Replica database parameters #
+  ###############################
+
+  # wikiedudashboard.toolforge.org connects to a replica database for whatever
+  # wiki is being queried. Normally the database names can be derived directly
+  # from the language code and project — and this happens at the toolforge
+  # end of things — but some wikis don't follow the simple normal convention.
+  #
+  # For languages with hyphens in the language code, they are usually replaced
+  # with underscores.
+  #
+  # See https://quarry.wmflabs.org/query/4031 to look up database name for a wiki
+  #
+  # Here are some of the naming exceptions that we must special-case:
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
                        'wikisource.org' => 'sourceswiki',
                        'incubator.wikimedia.org' => 'incubatorwiki',
                        'commons.wikimedia.org' => 'commonswiki' }.freeze
   def project_database_params
-    # Returns special Labs database names as parameters for databases not meeting
-    # project/language naming conventions
+    # Use special-case db param if available.
     return "db=#{SPECIAL_DB_NAMES[@wiki.domain]}" if SPECIAL_DB_NAMES[@wiki.domain]
     # Otherwise, uses the language and project, and replica API infers the standard db name.
-    "lang=#{@wiki.language}&project=#{@wiki.project}"
+    "lang=#{@wiki.language.tr('-', '_')}&project=#{@wiki.project}"
   end
 
   def project_database_params_post
     db = ''
     db = SPECIAL_DB_NAMES[@wiki.domain] if SPECIAL_DB_NAMES[@wiki.domain]
-    { 'db' => db, 'lang' => @wiki.language, 'project' => @wiki.project }
+    { 'db' => db, 'lang' => @wiki.language.tr('-', '_'), 'project' => @wiki.project }
   end
 
   def compile_usernames_query(users)
