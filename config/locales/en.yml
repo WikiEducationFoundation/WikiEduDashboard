@@ -145,6 +145,7 @@ en:
     label: Activity
 
   articles:
+    article_not_found: 'This article has not been created yet.'
     article_development: (article development)
     articles_shown: 'Showing %{count} of %{total}'
     assigned: Assigned Articles
