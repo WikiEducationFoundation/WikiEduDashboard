@@ -276,6 +276,7 @@ export class ArticleViewer extends React.Component {
           showArticle={this.showArticle}
           showButtonClass={showButtonClass}
           showButtonLabel={this.showButtonLabel}
+          article={this.props.article}
         />
       );
     }
