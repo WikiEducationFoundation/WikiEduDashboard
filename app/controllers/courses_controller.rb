@@ -371,14 +371,17 @@ class CoursesController < ApplicationController
   # they get logged out immediately, and this method redirects them to the home
   # page, so that they don't make edits that fail upon save.
   # We don't need to do this too often, though.
+  # rubocop:disable Metrics/CyclomaticComplexity
   def verify_edit_credentials
     return if Features.disable_wiki_output?
+    return unless @course.home_wiki.edits_enabled?
     return unless current_user&.can_edit?(@course)
     return if current_user.wiki_token && current_user.updated_at > 12.hours.ago
-    return if WikiEdits.new.oauth_credentials_valid?(current_user)
+    return if WikiEdits.new(@course.home_wiki).oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def protect_privacy
     return unless @course.private
