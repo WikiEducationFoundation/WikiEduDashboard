@@ -19,7 +19,8 @@ shared_context 'survey_assignment' do
       send_date_days: 3,
       send_before: true,
       send_date_relative_to: 'end',
-      email_template: 'instructor_survey'
+      email_template: 'instructor_survey',
+      send_email: true
     }
     @survey_assignment1 = create(:survey_assignment, @survey_assignment_params)
 

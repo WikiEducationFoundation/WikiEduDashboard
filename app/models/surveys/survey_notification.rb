@@ -34,6 +34,11 @@ class SurveyNotification < ApplicationRecord
           survey_assignment_id: unclosed_survey_assignment_ids)
   end
 
+  def self.email_enabled
+    emailable_survey_assignment_ids = SurveyAssignment.where(send_email: true).pluck(:id)
+
+    where(survey_assignment_id: emailable_survey_assignment_ids)
+  end
   ####################
   # Instance methods #
   ####################

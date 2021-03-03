@@ -48,7 +48,7 @@ class SurveyUpdate
   end
 
   def try_to_process_notifications(method)
-    SurveyNotification.active.each do |notification|
+    SurveyNotification.active.email_enabled.each do |notification|
       @notification = notification
       # Sending an email and updating the record returns true.
       # When no email needs to be sent, the email methods return nil.
