@@ -82,7 +82,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
     # need to update before save (set_sandbox_url) method in assignments.rb
     # new url is updated at this state after some string processing.
-    # @assignment.update(sandbox_url: //new_url_here//)
+    # @assignment.update(sandbox_url: "/new-url-here/")
     render partial: 'updated_assignment', locals: { assignment: @assignment }
   end
 
