@@ -9,11 +9,15 @@
 ms:
   application:
     cancel: Batal
+    cookie_consent_acknowledge: Saya faham
+    cookie_consent_see_more: Lihat lagi.
     create_accounts: Cipta akaun Wikipedia
     dashboard: Papan Pemuka Wiki Ed
     documentation: Pendokumenan
+    error: 'Terdapat ralat:'
     explore: Jelajah
     field_required: Medan ini diperlukan.
+    field_invalid_characters: Medan ini mempunyai aksara tidak sah
     greeting2: Selma datang!
     greeting_extended: Selamat datang ke Wikipedia
     greeting: Helo!
@@ -25,6 +29,7 @@ ms:
     my_dashboard: Papan Pemuka Saya
     recent_activity: Kegiatan Terbaru
     report_problem: Laporkan masalah
+    request_account: Mohon akaun
     request_account_create: Buka akaun
     search: tanyakan soalan
     sign_up_extended: Daftar masuk dengan Wikipedia
@@ -33,10 +38,16 @@ ms:
     sign_up: Daftar
     submit: Hantar
     training: Latihan
+    change: Ubah
+    details: Butiran
+    confirm: Baik
     opt_in: Ya
     opt_out: Tidak
     opt_yes: ya
     opt_no: tidak
+  article_statuses:
+    reading_the_article: Membaca Rencana
+    providing_feedback: Memberi Maklum Balas
   dashboard:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
     explore_course_pages: Jelajah Laman Kursus
@@ -59,36 +70,100 @@ ms:
     label: Aktiviti
   articles:
     articles_shown: Menunjukkan %{count} daripada %{total}
+    next: Seterusnya
+    previous: Sebelumnya
+    article_title: Tajuk Rencana
+    deleted: (dihapuskan)
+    edited: Rencana Disunting
+    edited_by: 'Disunting oleh:'
     edited_mobile: Rencana
     filter:
       wiki_all: Semua
       new: Baru
+      tracked: Dijejak
+      untracked: Tidak dijejak
+    hide: Sorokkan
     history: (sejarah)
     label: Rencana
+    loading: Memuatkan rencana...
     new: (baru)
+    none: Kursus ini belum menyunting sebarang rencana.
     rating: Kelas
+    see_more: Lihat lagi
+    title: Tajuk
+    tracked: Dijejak
+    title_example: Tajuk rencana
+    view: Lihat Rencana
+    view_on_wiki: Papar di wiki
+    edit_size: Saiz Suntingan
     wiki: Wiki
+    articles_short: Rencana
+  articles_wikidata:
+    articles_short: Butir
+  articles_generic:
+    articles_short: Laman
   assignments:
     article_link: Rencana
+    add_available_submit: Tambah rencana
+    bibliography: Bibliografi
+    select: Pilih
   campaign:
+    alert_article: Tajuk rencana
     alert_type: Jenis
     alert_user_id: Pengguna
+    all_campaigns: Semua Kempen
+    campaign: Kempen
+    campaigns: Kempen
+    campaign_updated: Kempen dikemas kini
     created_at: Tarikh
+    course: Kursus
+    create_campaign: Cipta Kempen Baru
+    create_my_campaign: Cipta Kempen saya!
+    data_articles: Laman disunting
+    data_editors_by_course: Penyunting mengikut kursus
     data_editor_usernames: Nama pengguna penyunting
     none: Tiada
+    title: Tajuk
+    use_start_end_dates: Guna tarikh mula dan tamat
   categories:
+    add_category: Tambahkan kategori
+    add_template: Tambah templat
+    add_this_category: Tambah kategori ini
+    add_this_template: Tambah templat ini
+    articles_count: Kiraan Rencana
     name: Nama
     category_name: Nama kategori
     template_name: Nama templat
   courses:
+    school_system: Sistem Akademik
     activity: Aktiviti
     all_courses: Semua Kursus
+    actions: Tindakan
     articles: Rencana
+    calendar:
+      legend: Petunjuk
+    cancel: Batalkan
+    campaigns: 'Kempen:'
+    campaign_select: Pilih kempen
     course: Kursus
     course_description: Kursus
     courses: Kursus
+    creation_date: Tarikh Penciptaan
     creator:
+      course_title: Tajuk kursus
+      course_types:
+        basic_course_name: Program Asas
+        edit_a_thon_name: Lumba Sunting
+      create_button: Cipta Kursus saya!
+      create_label: Cipta Kursus Baru
+      create_new: Cipta Kursus Baru
+      create_short: Cipta Kursus
+      end_date: Tarikh tamat
+      find: Cari Kursus Anda
       start_date: Tarikh mula
+    data_students: Data Penyunting
+    edit_count: Kiraan Suntingan
+    end: Tamat
     feedback: Maklum balas
     my_articles: Rencana Saya
     new_week: Tambah Minggu Baru

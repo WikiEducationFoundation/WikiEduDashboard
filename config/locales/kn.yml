@@ -1,12 +1,38 @@
 # Messages for Kannada (ಕನ್ನಡ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: AVSmalnad77
 # Author: Nayvik
 # Author: Vikashegde
 ---
 kn:
   application:
+    cookie_consent_see_more: ಇನ್ನಷ್ಟು ನೋಡಿ.
     log_in: ಲಾಗಿನ್
+    submit: ಸಲ್ಲಿಸಿ
+    change: ಬದಲಾಯಿಸಿ
+    details: ವಿವರಗಳು
+    confirm: ಸರಿ
+    opt_in: ಹೌದು
+    opt_out: ಇಲ್ಲ
+    opt_yes: ಹೌದು
+    opt_no: ಇಲ್ಲ
+  articles:
+    edited_mobile: ಲೇಖನಗಳು
+    filter:
+      wiki_all: ಎಲ್ಲಾ
+      new: ಹೊಸ
+    hide: ಮರೆ ಮಾಡಿ
+    history: (ಇತಿಹಾಸ)
+    label: ಲೇಖನಗಳು
+    new: (ಹೊಸ)
+    see_more: ಇನ್ನಷ್ಟು ನೋಡಿ
+    title: ಶೀರ್ಷಿಕೆ
+    title_example: ಲೇಖನ ಶೀರ್ಷಿಕೆ
+    wiki: ವಿಕಿ
+    articles_short: ಲೇಖನಗಳು
+  articles_generic:
+    articles_short: ಪುಟಗಳು
   courses:
     error:
       user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
@@ -21,7 +47,19 @@ kn:
     volunteer:
       one: ಸ್ವಯಂಸೇವಕ
       other: ಸ್ವಯಂಸೇವಕರು
-    wiki_staff: ವಿಕಿ ಎಡ್ ಸಿಬ್ಬಂದಿ
+    wiki_staff: ವಿಕಿ ಎಜುಕೇಶನ್ ಸಿಬ್ಬಂದಿ
+  courses_generic:
+    creator:
+      course_term: ಯಾವಾಗ
+      course_term_placeholder: ಯಾವಾಗ
+      save_cloned_course: ಉಳಿಸಿ
+    student_editors: ಸಂಪಾದಕರು
+    student: ಸಂಪಾದಕ
+    students: ಸಂಪಾದಕರು
+    students_taught: ಒಟ್ಟು ಸಂಪಾದಕರು
+    students_short: ಸಂಪಾದಕರು
+  editable:
+    save: ಉಳಿಸಿ
   metrics:
     activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
     articles_created: ಸೃಷ್ಟಿಸಿದ ಲೇಖನಗಳು
