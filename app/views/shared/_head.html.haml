@@ -1,54 +1,56 @@
-%meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
-- before = content_for?(:before_title) ? yield(:before_title) : ''
-- after = content_for?(:after_title) ? yield(:after_title) : ''
-%title= raw "#{before}#{ENV['dashboard_title']}#{after}"
-= logo_favicon_tag
-%meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
-- if Features.wiki_ed?
-  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
-  = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+%head 
+  %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+  - before = content_for?(:before_title) ? yield(:before_title) : ''
+  - after = content_for?(:after_title) ? yield(:after_title) : ''
+  %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
+  = logo_favicon_tag
+  %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
+  - if Features.wiki_ed?
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
 
-= content_for :head
+  = content_for :head
 
-= javascript_include_tag '/assets/javascripts/i18n'
-= i18n_javascript_tag I18n.locale.to_s
-#wikis{:'data-projects' => Wiki::PROJECTS.to_json, :'data-languages' => Wiki::LANGUAGES.to_json}
-:javascript
-  I18n.defaultLocale = "#{I18n.default_locale}";
-  I18n.locale = "#{I18n.locale}";
-  I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
+  = javascript_include_tag '/assets/javascripts/i18n'
+  = i18n_javascript_tag I18n.locale.to_s
+  %meta{name: "data-projects", content: Wiki::PROJECTS.to_json}
+  %meta{name: "data-languages", content: Wiki::LANGUAGES.to_json}
+  :javascript
+    I18n.defaultLocale = "#{I18n.default_locale}";
+    I18n.locale = "#{I18n.locale}";
+    I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
 
-  currentUser = {
-    id: "#{current_user&.id || ''}",
-    username: "#{current_user&.username || ''}"
-  }
+    currentUser = {
+      id: "#{current_user&.id || ''}",
+      username: "#{current_user&.username || ''}"
+    }
 
-  Features = {
-    wikiEd: #{Features.wiki_ed?},
-    enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
-    enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
-    celebrate: #{Features.celebrate?(current_user)},
-    consentBanner: #{user_signed_in? && !Rails.env.test?},
-    courseCreationNotice: '#{raw ENV['course_creation_notice']}',
-    tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
-  }
+    Features = {
+      wikiEd: #{Features.wiki_ed?},
+      enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
+      enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
+      celebrate: #{Features.celebrate?(current_user)},
+      consentBanner: #{user_signed_in? && !Rails.env.test?},
+      courseCreationNotice: '#{raw ENV['course_creation_notice']}',
+      tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
+    }
 
-  WikiProjects = document.getElementById("wikis").dataset.projects
-  WikiLanguages = document.getElementById("wikis").dataset.languages
+    WikiProjects = document.querySelector('meta[name="data-projects"]').content
+    WikiLanguages = document.querySelector('meta[name="data-languages"]').content
 
-  SentryDsn = "#{ENV['sentry_public_dsn']}"
-  SalesforceServer = "#{ENV['SF_SERVER']}"
+    SentryDsn = "#{ENV['sentry_public_dsn']}"
+    SalesforceServer = "#{ENV['SF_SERVER']}"
 
-= hot_javascript_tag "vendors"
-- unless ENV['DISABLE_SENTRY']
-  = hot_javascript_tag("sentry")
-  // Sentry logging
-  %script
-    Sentry.init({ dsn: SentryDsn });
-    Sentry.setContext(currentUser);
+  = hot_javascript_tag "vendors"
+  - unless ENV['DISABLE_SENTRY']
+    = hot_javascript_tag("sentry")
+    // Sentry logging
+    %script
+      Sentry.init({ dsn: SentryDsn });
+      Sentry.setContext(currentUser);
 
-= javascript_include_tag '/assets/javascripts/jquery.min.js'
-// The following path will be only available when a user is logged in
-// and is used to load tinymce dynamically.
-= content_for :javascripts
-= csrf_meta_tags
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  // The following path will be only available when a user is logged in
+  // and is used to load tinymce dynamically.
+  = content_for :javascripts
+  = csrf_meta_tags
