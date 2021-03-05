@@ -56,7 +56,8 @@ You can also contact us on slack for any further queries.
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
 - If you're running Windows and experience `RUNAS ERROR`
-  - Try running a command prompt session as administrator (via right click), and run the batch script in that window i.e., `win-setup.bat`
+  - Try running a command prompt session as administrator (via right click), and run the batch script in that window i.e., `win-setup.bat` 
+- On MacOS, you may get a security exception from phantomjs if you are installing it for the first time. `$ dirname $(which phantomjs) | xargs open`, right click the phantomjs symlink and click "Open" on the resulting popup.
 
 # Manual setup
 ## TL;DR bare minimum version
