@@ -122,8 +122,8 @@ else
 fi
 
 printf "[*] Creating Databases... \n"
-echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+echo "CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+      CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
       exit" | sudo mysql && print_success "${CLEAR_LINE}[+] Databases created\n"
 
 printf '[*] Checking for Database configurations... \n'
