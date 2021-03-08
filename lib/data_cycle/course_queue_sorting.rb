@@ -2,6 +2,8 @@
 
 module CourseQueueSorting
   def queue_for(course)
+    update_longest_update_time(course)
+
     case longest_update_time(course)
     when nil
       initial_queue(course)
@@ -14,7 +16,7 @@ module CourseQueueSorting
     end
   end
 
-  def longest_update_time(course)
+  def longest_recent_update_time(course)
     logs = course.flags['update_logs']
     return unless logs.present?
     update_times = logs.keys.map do |update_number|
@@ -23,15 +25,24 @@ module CourseQueueSorting
     update_times.max.to_i
   end
 
+  def longest_update_time(course)
+    course.flags[:longest_update]
+  end
+
   def initial_queue(course)
     course_length = course.end - course.start
     not_ended = Time.zone.now < course.end
     if course_length < 3.days && not_ended
       'short_update'
-    elsif course_length < 6.months
-      'medium_update'
     else
-      'long_update'
+      'medium_update'
     end
+  end
+
+  def update_longest_update_time(course)
+    return unless longest_recent_update_time(course).to_i > longest_update_time(course).to_i
+
+    course.flags[:longest_update] = longest_recent_update_time(course)
+    course.save
   end
 end
