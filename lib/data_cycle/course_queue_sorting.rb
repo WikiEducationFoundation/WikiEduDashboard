@@ -40,7 +40,7 @@ module CourseQueueSorting
   end
 
   def update_longest_update_time(course)
-    return unless longest_recent_update_time(course).to_i > longest_update_time(course).to_i
+    return unless longest_recent_update_time(course).to_i >= longest_update_time(course).to_i
 
     course.flags[:longest_update] = longest_recent_update_time(course)
     course.save
