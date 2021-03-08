@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import EditSandboxUrl from '../AssignmentLinks/EditSandBoxUrl';
 // constants
 import { NEW_ARTICLE } from '~/app/assets/javascripts/constants/assignments';
 
-export const SandboxLink = ({ assignment }) => {
+export const SandboxLink = ({ assignment, user }) => {
   let url = assignment.sandboxUrl || assignment.sandbox_url;
   if (assignment.status === NEW_ARTICLE) {
     url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template';
   }
   return (
-    <a href={url} target="_blank">
-      {I18n.t('assignments.sandbox_draft_link')}
-    </a>
+    <>
+      <a href={url} target="_blank">
+        {I18n.t('assignments.sandbox_draft_link')}
+      </a>
+      <EditSandboxUrl user={user} assignment={assignment} />
+    </>
   );
 };
 

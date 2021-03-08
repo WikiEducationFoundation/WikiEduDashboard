@@ -8,7 +8,6 @@ import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
 import AllPeerReviewLinks from './AllPeerReviewLinks';
-import EditSandboxUrl from './EditSandBoxUrl';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 
 // constants
@@ -28,7 +27,11 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
 
   if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
     actions.push(
-      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+      <SandboxLink
+        key={`sandbox-${id}`}
+        assignment={assignment}
+        user={user}
+      />
     );
   }
 
@@ -63,13 +66,12 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   }
 
   // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
-  const test = <EditSandboxUrl user={user} assignment={assignment}/>;
-  actions.push(test);
+
   const links = actions.concat(article).reduce(interleaveSeparators, []);
 
   return (
     <section className="editors">
-      <p className="assignment-links mb0">{ links }</p>
+      <div className="assignment-links mb0">{ links }</div>
       {
         groupMembers && <p className="assignment-links mb0 editors">{groupMembers}</p>
       }

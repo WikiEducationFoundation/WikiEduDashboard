@@ -8,7 +8,7 @@ import { updateSandboxUrl } from '../../../actions/assignment_actions';
 export class EditSandboxUrl extends React.Component {
 constructor(props) {
   super(props);
-  this.open = this.open.bind(this);
+  this.toggle = this.toggle.bind(this);
   this.handleNewUrlChange = this.handleNewUrlChange.bind(this);
   this.submit = this.submit.bind(this);
   this.state = {
@@ -31,7 +31,7 @@ stop(e) {
   e.stopPropagation();
 }
 
-open(e) {
+toggle(e) {
   e.preventDefault();
   this.props.open();
   this.setState({
@@ -40,9 +40,13 @@ open(e) {
 }
 
 submit(e) {
-  const { assignment } = this.props;
-  this.open(e);
-  this.props.updateSandboxUrl(assignment, this.state.newUrl);
+  if (this.state.newUrl !== '') {
+    const { assignment } = this.props;
+    this.toggle(e);
+    this.props.updateSandboxUrl(assignment, this.state.newUrl);
+  } else {
+    e.preventDefault();
+  }
 }
 
 render() {
@@ -58,17 +62,21 @@ render() {
       </td>
     </tr>
   );
+  if (is_open) {
+    return (
+      <div className="pop__container" onClick={this.stop}>
+        <Popover
+          is_open={is_open}
+          edit_row={editRow}
+        />
+      </div>
+    );
+  }
     return (
       <>
-        <div className="pop__container" onClick={this.stop}>
-          <a href="" target="_blank" onClick={this.open}>
-            {I18n.t('assignments.edit_sandbox_url')}
-          </a>
-          <Popover
-            is_open={is_open}
-            edit_row={editRow}
-          />
-        </div>
+        <a href="" target="_blank" onClick={this.toggle} className="change-sandbox-url">
+          ({I18n.t('assignments.change_sandbox_url')})
+        </a>
       </>
     );
   }

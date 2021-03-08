@@ -119,12 +119,17 @@ export const updateSandboxUrl = (assignment, newUrl) => (dispatch) => {
   return (
     updateSandboxUrlPromise(assignment, newUrl)
       .then((resp) => {
-        dispatch({
-          type: types.UPDATE_ASSIGNMENT,
-          data: resp
-        });
-        console.log(resp);
+        if (resp.assignment) {
+          dispatch({
+            type: types.UPDATE_ASSIGNMENT,
+            data: resp
+          });
+        } else {
+          dispatch({ type: types.API_FAIL, data: resp });
+        }
       })
-      .catch(response => dispatch({ type: types.API_FAIL, data: response }))
+      .catch((error) => {
+        dispatch({ type: types.API_FAIL, data: error });
+    })
   );
 };
