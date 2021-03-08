@@ -139,6 +139,7 @@ tr:
     edited_by: Düzenleyen
     label: Etkinlik
   articles:
+    article_not_found: Bu yazı henüz oluşturulmadı.
     article_development: (madde geliştirme)
     articles_shown: '%{total} %{count} gösteriliyor'
     assigned: Atanmış Maddeler
@@ -675,6 +676,9 @@ tr:
       one: '%{count} istenen hesap beklemede.'
       other: '%{count} istenen hesap beklemede.'
     requested_accounts_alert_view: Görüntüle
+    retain_available_articles: Müsait Yazıları Koru
+    retain_available_articles_info: Etkinleştirildiğinde, Müsait bir Yazıyı seçmek,
+      onu listeden çıkarmaz, bir grup öğrencinin aynı yazıyı seçmesine izin verir.
     review_timeline: 'Şimdi, atama zaman çizelgenizi inceleyin ve ihtiyaçlarınıza
       göre özelleştirin. Memnun kaldığınızda, Wiki Eğitim personeli tarafından onay
       için gönderebilirsiniz. Onaylandıktan sonra, öğrencilerin kursa katılmak ve

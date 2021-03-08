@@ -143,6 +143,7 @@ fr:
     edited_by: Modifié par
     label: Activité
   articles:
+    article_not_found: Cet article n’a pas encore été créé.
     article_development: (développement d’article)
     articles_shown: Affichage de %{count} sur %{total}
     assigned: Articles affectés
@@ -701,6 +702,10 @@ fr:
       one: '%{count} compte demandé en attente.'
       other: '%{count} comptes demandés en attente.'
     requested_accounts_alert_view: Afficher
+    retain_available_articles: Conserver les articles disponibles
+    retain_available_articles_info: Si activé, la sélection d’un article disponible
+      ne le retire pas de la liste, ce qui permet à un groupe d’étudiants de sélectionner
+      le même article.
     review_timeline: 'Veuillez consulter maintenant votre agenda d’affectation et
       y faire les adaptations qui conviennent. Une fois satisfait, soumettez-le pour
       approbation par l’équipe de Wiki Éducation. Une fois cet agenda approuvé, vous

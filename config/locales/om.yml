@@ -1,6 +1,7 @@
 # Messages for Oromo (Oromoo)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Maammee
 # Author: Tumsaa
 ---
 om:
@@ -12,6 +13,7 @@ om:
   activity:
     label: Hojiiwwan
   articles:
+    article_not_found: Barruun kun hamma yoonaa hin uumamne.
     label: Barruulee
     title_example: Mataduree barruu
   assignments:

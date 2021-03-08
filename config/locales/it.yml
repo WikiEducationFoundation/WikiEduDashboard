@@ -123,6 +123,7 @@ it:
     edited_by: Modificato da
     label: Attività
   articles:
+    article_not_found: Questa voce non è stata ancora creata.
     article_development: (sviluppo della voce)
     assigned: Voci assegnate
     available: Voci disponibili

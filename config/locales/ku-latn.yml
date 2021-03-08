@@ -29,6 +29,7 @@ ku-latn:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
   articles:
+    article_not_found: Ev gotar hêj nehatiye çêkirin.
     edited_mobile: Gotar
     label: Gotar
     loading: Gotar tên barkirin...

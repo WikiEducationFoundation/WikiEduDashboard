@@ -114,6 +114,7 @@ zh-TW:
     edited_by: 編輯自
     label: 活動
   articles:
+    article_not_found: 此條目尚未創建。
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
     assigned: 已分配條目
@@ -531,6 +532,8 @@ zh-TW:
       one: '%{count} 個請求帳號待定中。'
       other: '%{count} 個請求帳號待定中。'
     requested_accounts_alert_view: 檢視
+    retain_available_articles: 保持可用條目
+    retain_available_articles_info: 當啟用後，選擇一個不會從清單裡刪除的可用條目，允許學生群組來選擇同一條目。
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
