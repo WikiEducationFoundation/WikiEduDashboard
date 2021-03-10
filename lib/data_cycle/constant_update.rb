@@ -23,9 +23,7 @@ class ConstantUpdate
   def initialize
     setup_logger
     return if updates_paused?
-    return if update_running?(:constant)
-
-    run_update_with_pid_files(:constant)
+    run_update
   end
 
   private

@@ -12,9 +12,10 @@ After=syslog.target network.target
 [Service]
 Type=simple
 WorkingDirectory=/var/www/dashboard/current
-# If you use rbenv:
-# ExecStart=/bin/bash -lc '/home/deploy/.rbenv/shims/bundle exec sidekiq -e production'
-# If you use the system's ruby:
+
+# NOTE: We keep concurrency at 1 for this process because it is the one that handles wiki edits, and we
+# don't ever want to attempt two edits from the same account concurrently, as this can result in failed
+# edits because mediawiki will only issue a user one valid edit token at a time.
 ExecStart=/usr/local/rvm/bin/rvm default do bundle exec sidekiq -e production --queue default --concurrency 1
 User=root
 Group=root

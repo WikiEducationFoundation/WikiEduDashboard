@@ -100,18 +100,22 @@ namespace :deploy do
   # Sidekiq process management #
   ##############################
 
-  # These sidekiq processes are managed by systemd. Each one has its own .service
-  # file on the server; for reference, there are copies in server_config/systemd.
+  # These sidekiq processes are managed by systemd. We interact with these
+  # processes using standard Unix signals, via `systemctl`:
+  # https://github.com/mperham/sidekiq/wiki/Signals
+  # Each one has its own .service file on the server; for reference,
+  # there are copies in server_config/systemd.
   # The typical location on debian is /etc/systemd/system.
+
+  # When adding a new process, you must add it to the server, then use
+  # `systemctl start` to start it and `systemctl enable` to make it start on boot.
+  # (The user and group may vary depending on which user owns the app on that server.)
 
   # These processes will all be started on system boot, and will restart if they fail
   # (but not if they are shut down cleanly). The strategy for deployment is to first
   # quiet all the processes so they don't accept new jobs, then stop them — killing incomplete
   # jobs and putting them back into the queue — then starting them again with the newly-deployed
   # code.
-
-  # We interact with these processes using standard Unix signals, via `systemctl`
-  # https://github.com/mperham/sidekiq/wiki/Signals
 
   # To leave sidekiq processes running through a deploy instead of restarting them:
   # `cap production deploy skip_sidekiq=true`
@@ -122,6 +126,7 @@ namespace :deploy do
       'sidekiq-medium', # data updates for typical courses
       'sidekiq-long', # data updates for long-running courses, which may have long queue latency
       'sidekiq-daily', # once-daily long-running data update tasks
+      'sidekiq-constant', # frequently-run tasks like adding courses to the update queues
     ]
   end
   set :sidekiq_roles, -> { :app }

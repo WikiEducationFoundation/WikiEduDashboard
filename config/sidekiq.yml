@@ -26,3 +26,4 @@ test:
  - medium_update
  - long_update
  - daily_update
+ - constant_update
