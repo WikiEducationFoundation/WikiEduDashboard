@@ -16,22 +16,31 @@ const ExerciseStatusCell = ({ status, sandboxUrl }) => {
 // Helper Functions
 const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
 
-const generateRow = status => (exercise) => {
+const generateRow = () => (exercise) => {
   const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
+  const isComplete = exercise.deadline_status === 'complete';
+  const flags = exercise.flags || {};
+  let exercise_status = '';
+  if (isComplete && flags.marked_complete) {
+    exercise_status = 'complete';
+  } else if (isComplete) {
+    exercise_status = 'incomplete';
+  } else {
+    exercise_status = 'unread';
+  }
   return (
-    <tr className="student-training-module" key={exercise.id}>
+    <tr className={exercise.overdue ? 'student-training-module overdue' : 'student-training-module'} key={exercise.id}>
       <td>{exercise.name} <small>Due by {dueDate}</small></td>
-      <ExerciseStatusCell status={status} sandboxUrl={exercise.sandbox_url}/>
+      <ExerciseStatusCell status={exercise_status} sandboxUrl={exercise.sandbox_url}/>
     </tr>
   );
 };
 
 export const ExerciseRows = ({ exercises }) => {
   const { unread, incomplete, complete } = exercises;
+  const all_exercises = [...unread, ...incomplete, ...complete];
   return [
-    unread.sort(orderByDueDate).map(generateRow('unread')),
-    incomplete.sort(orderByDueDate).map(generateRow('incomplete')),
-    complete.sort(orderByDueDate).map(generateRow('complete'))
+    all_exercises.sort(orderByDueDate).map(generateRow()),
   ];
 };
 
