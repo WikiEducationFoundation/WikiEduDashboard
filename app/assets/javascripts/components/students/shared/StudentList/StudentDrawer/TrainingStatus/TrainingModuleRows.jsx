@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
+
 export const TrainingModuleRows = ({ trainings }) => {
+  trainings.sort(orderByDueDate);
   return trainings.map((trainingModule) => {
     const momentDueDate = moment(trainingModule.due_date);
     const dueDate = momentDueDate.format('MMM Do, YYYY');
@@ -39,7 +42,7 @@ export const TrainingModuleRows = ({ trainings }) => {
 
 
     return (
-      <tr className="student-training-module" key={trainingModule.id}>
+      <tr className={trainingModule.overdue ? 'student-training-module overdue' : 'student-training-module'} key={trainingModule.id}>
         <td>{trainingModule.module_name} <small>Due by { dueDate }</small></td>
         <td>
           { moduleStatus }
