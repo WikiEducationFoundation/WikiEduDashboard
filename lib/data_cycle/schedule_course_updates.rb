@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/app/workers/course_data_update_worker"
 require_dependency "#{Rails.root}/app/services/check_course_jobs"
 
-# Executes all the steps of 'update_constantly' data import task
+# Puts courses into sidekiq queues for data updates
 class ScheduleCourseUpdates
   include BatchUpdateLogging
   include CourseQueueSorting
@@ -13,9 +13,8 @@ class ScheduleCourseUpdates
   def initialize
     setup_logger
     return if updates_paused?
-    return if conflicting_updates_running?
 
-    run_update_with_pid_files(:short)
+    run_update
   end
 
   private

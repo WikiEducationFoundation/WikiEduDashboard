@@ -11,8 +11,8 @@ namespace :batch do
 
   desc 'Course data updates'
   task schedule_course_updates: :environment do
-    require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
-    ScheduleCourseUpdates.new
+    require "#{Rails.root}/app/workers/schedule_course_updates_worker"
+    ScheduleCourseUpdatesWorker.set(queue: 'constant_update').perform_async
   end
 
   desc 'Daily data updates'
