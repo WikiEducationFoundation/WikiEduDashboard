@@ -10,7 +10,6 @@ namespace :dev do
 
   desc 'Copy a course from production'
   task copy_course: :environment do
-    require "#{Rails.root}/setup/copy_course_from_production"
     ARGV.each { |a| task(a.to_sym) {} }
 
     course_url = ARGV[1]
