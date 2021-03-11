@@ -93,6 +93,7 @@ gem 'rack-mini-profiler'
 gem 'stackprof'
 
 group :development do
+  gem 'stackprof'
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'guard-bundler'
