@@ -4,6 +4,7 @@ require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
+require_dependency "#{Rails.root}/app/workers/campaign_csv_worker"
 
 class CampaignCsvBuilder
   def initialize(campaign)

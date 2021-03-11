@@ -11,7 +11,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course courses ores_plot articles_csv
-                                        revisions_csv alerts]
+                                        revisions_csv alerts students instructors]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -174,6 +174,8 @@ class CampaignsController < ApplicationController
   # CSV-related actions #
   #######################
 
+  CSV_PATH = '/system/analytics'
+
   def students
     csv_for_role(:students)
   end
@@ -182,39 +184,29 @@ class CampaignsController < ApplicationController
     csv_for_role(:instructors)
   end
 
-  CSV_PUBLIC_PATH = '/system/analytics'
-
   def courses
-    filename = "#{@campaign.slug}-courses-#{Time.zone.today}.csv"
-    if File.exist? "public/#{CSV_PUBLIC_PATH}/#{filename}"
-      redirect_to "#{CSV_PUBLIC_PATH}/#{filename}"
-    else
-      CampaignCsvWorker.generate_csv(campaign: @campaign, filename: filename, type: 'courses')
-      render plain: 'This file is being generated. Please try back in a few minutes.', status: :ok
-    end
+    csv_of('courses')
   end
 
   def articles_csv
-    filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).articles_to_csv,
-                  filename: filename
-      end
-    end
+    csv_of('articles')
   end
 
   def revisions_csv
-    filename = "#{@campaign.slug}-revisions-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).revisions_to_csv,
-                  filename: filename
-      end
-    end
+    csv_of('revisions')
   end
 
   private
+
+  def csv_of(type)
+    filename = "#{@campaign.slug}-#{type}-#{Time.zone.today}.csv"
+    if File.exist? "public#{CSV_PATH}/#{filename}"
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      CampaignCsvWorker.generate_csv(campaign: @campaign, filename: filename, type: type)
+      render plain: 'This file is being generated. Please try back in a few minutes.', status: :ok
+    end
+  end
 
   def require_create_permissions
     require_signed_in
