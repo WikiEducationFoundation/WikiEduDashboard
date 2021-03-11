@@ -6,14 +6,18 @@ class CampaignCsvWorker
   include Sidekiq::Worker
   sidekiq_options unique: :until_executed
 
-  def self.generate_csv(campaign:, filename:, type:)
-    perform_async(campaign.id, filename, type)
+  def self.generate_csv(campaign:, filename:, type:, include_course:)
+    perform_async(campaign.id, filename, type, include_course)
   end
 
-  def perform(campaign_id, filename, type)
+  def perform(campaign_id, filename, type, include_course)
     campaign = Campaign.find(campaign_id)
     builder = CampaignCsvBuilder.new(campaign)
     data = case type
+           when 'instructors'
+             campaign.users_to_csv(:instructors, course: include_course)
+           when 'students'
+             campaign.users_to_csv(:students, course: include_course)
            when 'courses'
              builder.courses_to_csv
            when 'articles'
