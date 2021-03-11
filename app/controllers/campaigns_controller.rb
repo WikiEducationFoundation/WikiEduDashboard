@@ -182,13 +182,15 @@ class CampaignsController < ApplicationController
     csv_for_role(:instructors)
   end
 
+  CSV_PUBLIC_PATH = '/system/analytics'
+
   def courses
     filename = "#{@campaign.slug}-courses-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).courses_to_csv,
-                  filename: filename
-      end
+    if File.exist? "public/#{CSV_PUBLIC_PATH}/#{filename}"
+      redirect_to "#{CSV_PUBLIC_PATH}/#{filename}"
+    else
+      CampaignCsvWorker.generate_csv(campaign: @campaign, filename: filename, type: 'courses')
+      render plain: 'This file is being generated. Please try back in a few minutes.', status: :ok
     end
   end
 
