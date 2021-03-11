@@ -72,6 +72,17 @@ rake dev:populate
 
 Go to the **Explore** or **Find Programs** page to see the created campaigns and courses.
 
+
+## Copy a course from production
+
+You can create a copy of a course from production if you know its URL, like this:
+
+```
+rake dev:copy_course 'https://dashboard.wikiedu.org/courses/Southwestern_University/Biochemistry_(Fall)'
+```
+
+This will copy the title, dates, and participants. Running a data update will pull in stats for the course.
+
 ## Populating a course with data
 
 The data for Articles, Activity, Uploads and so on for a course comes from activity

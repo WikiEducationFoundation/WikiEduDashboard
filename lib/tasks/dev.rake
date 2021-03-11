@@ -7,4 +7,13 @@ namespace :dev do
   task populate: :environment do
     populate_dashboard
   end
+
+  desc 'Copy a course from production'
+  task copy_course: :environment do
+    require "#{Rails.root}/setup/copy_course_from_production"
+    ARGV.each { |a| task(a.to_sym) {} }
+
+    course_url = ARGV[1]
+    make_copy_of course_url
+  end
 end
