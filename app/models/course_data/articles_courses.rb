@@ -82,7 +82,7 @@ class ArticlesCourses < ApplicationRecord
   def views_since_earliest_revision(revisions)
     return if revisions.blank?
     return if article.average_views.nil?
-    days = (Time.now.utc.to_date - revisions.min { |a,b| a.date <=> b.date }.date.to_date).to_i
+    days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
     days * article.average_views
   end
 
