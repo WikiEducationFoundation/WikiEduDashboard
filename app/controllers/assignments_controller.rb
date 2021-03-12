@@ -30,7 +30,7 @@ class AssignmentsController < ApplicationController
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DuplicateAssignmentError => e
-    render json: { errors: e, message: I18n.t('assignments.already_exists') },
+    render json: { errors: e, message: e.message || I18n.t('assignments.already_exists') },
            status: :internal_server_error
   end
 

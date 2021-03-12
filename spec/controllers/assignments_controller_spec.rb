@@ -305,6 +305,24 @@ describe AssignmentsController, type: :request do
       end
     end
 
+    context 'when the title is invalid' do
+      let(:title) { 'My [invalid] title' }
+      let(:invalid_assignment_params) do
+        { user_id: user.id, course_slug: course.slug, title: title, role: 0, format: :json }
+      end
+
+      before do
+        VCR.use_cassette 'assignment_import' do
+          post '/assignments', params: invalid_assignment_params
+        end
+      end
+
+      it 'renders an error message with the article title' do
+        expect(response.status).to eq(500)
+        expect(response.body).to include('not a valid article title')
+      end
+    end
+
     context 'when a case-variant of the assignment already exists' do
       let(:title) { 'My article' }
       let(:variant_title) { 'MY ARTICLE' }

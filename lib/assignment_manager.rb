@@ -38,8 +38,13 @@ class AssignmentManager
     Assignment.create!(user_id: @user_id, course: @course,
                        article_title: @clean_title, wiki: @wiki, article: @article,
                        role: @role)
-  rescue ActiveRecord::RecordInvalid
-    raise DuplicateAssignmentError, "#{@clean_title} is already assigned to this user."
+  rescue ActiveRecord::RecordInvalid => e
+    message = if e.message.include?('invalid')
+                "#{@clean_title} is not a valid article title."
+              else
+                "#{@clean_title} is already assigned to this user."
+              end
+    raise DuplicateAssignmentError, message
   end
 
   def claim_assignment(claimed_assignment)
