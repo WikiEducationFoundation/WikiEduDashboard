@@ -44,6 +44,14 @@ describe ArticleImporter do
       expect(Article.find_by(title: titles[0])).to be_nil
     end
 
+    it 'does not create an article if the title is invalid' do
+      titles = ['Title_with_[illegal]_characters']
+      VCR.use_cassette 'article_importer/invalid_title' do
+        described_class.new(en_wiki).import_articles_by_title(titles)
+      end
+      expect(Article.find_by(title: titles[0])).to be_nil
+    end
+
     it 'works for a language besides the default' do
       VCR.use_cassette 'article_importer/existing_titles' do
         titles = %w[Selfie Bombus_hortorum]

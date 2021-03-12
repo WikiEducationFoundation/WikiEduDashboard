@@ -50,6 +50,7 @@ class ArticleImporter
     articles = []
     results.each_value do |page_data|
       next if page_data['missing']
+      next if page_data['invalid']
       articles << Article.new(mw_page_id: page_data['pageid'].to_i,
                               title: page_data['title'].tr(' ', '_'),
                               wiki_id: @wiki.id,
