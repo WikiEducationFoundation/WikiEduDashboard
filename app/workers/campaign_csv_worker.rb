@@ -26,8 +26,14 @@ class CampaignCsvWorker
              builder.revisions_to_csv
            end
 
-    File.write "public#{CampaignsController::CSV_PATH}/#{filename}", data
-
+    write_csv(filename, data)
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
+  end
+
+  private
+
+  def write_csv(filename, data)
+    FileUtils.mkdir_p "public#{CampaignsController::CSV_PATH}"
+    File.write "public#{CampaignsController::CSV_PATH}/#{filename}", data
   end
 end

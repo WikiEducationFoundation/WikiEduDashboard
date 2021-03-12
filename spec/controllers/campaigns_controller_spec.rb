@@ -282,12 +282,21 @@ describe CampaignsController, type: :request do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
+    after do
+      FileUtils.remove_dir('public/system/analytics')
+    end
+
     context 'without "course" option' do
       let(:request_params) { { slug: campaign.slug, format: :csv } }
 
       it 'returns a csv of student usernames' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
         get "/campaigns/#{campaign.slug}/students", params: request_params
-        expect(response.body).to include(student.username)
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(student.username)
       end
     end
 
@@ -295,9 +304,14 @@ describe CampaignsController, type: :request do
       let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
 
       it 'returns a csv of student usernames with course slugs' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
         get "/campaigns/#{campaign.slug}/students", params: request_params
-        expect(response.body).to include(student.username)
-        expect(response.body).to include(course.slug)
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(student.username)
+        expect(csv).to include(course.slug)
       end
     end
   end
@@ -308,17 +322,25 @@ describe CampaignsController, type: :request do
     let(:instructor) { create(:user) }
 
     before do
-      login_as build(:user)
+      login_as instructor
       campaign.courses << course
       create(:courses_user, course_id: course.id, user_id: instructor.id,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    after do
+      FileUtils.remove_dir('public/system/analytics')
     end
 
     context 'without "course" option' do
       let(:request_params) { { slug: campaign.slug, format: :csv } }
 
       it 'returns a csv of instructor usernames' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
         get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        follow_redirect!
         expect(response.body).to include(instructor.username)
       end
     end
@@ -327,9 +349,14 @@ describe CampaignsController, type: :request do
       let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
 
       it 'returns a csv of instructor usernames with course slugs' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
         get "/campaigns/#{campaign.slug}/instructors", params: request_params
-        expect(response.body).to include(instructor.username)
-        expect(response.body).to include(course.slug)
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(instructor.username)
+        expect(csv).to include(course.slug)
       end
     end
   end
@@ -341,17 +368,36 @@ describe CampaignsController, type: :request do
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
-      login_as build(:user)
+      login_as instructor
       campaign.courses << course
       create(:courses_user, course_id: course.id, user_id: instructor.id,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
 
+    after do
+      FileUtils.remove_dir('public/system/analytics')
+    end
+
     it 'returns a csv of course data' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
       get "/campaigns/#{campaign.slug}/courses", params: request_params
-      expect(response.body).to include(course.slug)
-      expect(response.body).to include(course.title)
-      expect(response.body).to include(course.school)
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.slug)
+      expect(csv).to include(course.title)
+      expect(csv).to include(course.school)
+    end
+
+    it 'cleans up the files afterwards' do
+      # This normally happens long afterwards, but in test mode
+      # sidekiq will execute all jobs immediately, so the file
+      # will be created and immediately deleted after the first
+      # visit, and won't be there when the second visit happens.
+      expect(CsvCleanupWorker).to receive(:perform_at).twice.and_call_original
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      expect(response.body).to include('file is being generated')
     end
   end
 
@@ -364,23 +410,34 @@ describe CampaignsController, type: :request do
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
+      login_as(user)
       campaign.courses << course
       create(:courses_user, course: course, user: user)
     end
 
+    after do
+      FileUtils.remove_dir('public/system/analytics')
+    end
+
     it 'return a csv of article data' do
-      login_as(user)
+      expect(CsvCleanupWorker).to receive(:perform_at)
       get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
-      expect(response.body).to include(course.slug)
-      expect(response.body).to include(article.title)
+      get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.slug)
+      expect(csv).to include(article.title)
     end
 
     it 'return a csv of revision data' do
-      login_as(user)
+      expect(CsvCleanupWorker).to receive(:perform_at)
       get "/campaigns/#{campaign.slug}/revisions_csv", params: request_params
-      expect(response.body).to include(course.slug)
-      expect(response.body).to include(article.title)
-      expect(response.body).to include('references_added')
+      get "/campaigns/#{campaign.slug}/revisions_csv", params: request_params
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.slug)
+      expect(csv).to include(article.title)
+      expect(csv).to include('references_added')
     end
   end
 
