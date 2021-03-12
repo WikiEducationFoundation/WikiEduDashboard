@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_191933) do
+ActiveRecord::Schema.define(version: 2021_03_12_211937) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "course_id"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2020_10_07_191933) do
     t.date "average_views_updated_at"
     t.integer "wiki_id"
     t.integer "mw_page_id"
+    t.virtual "index_hash", type: :string, as: "if(`deleted`,NULL,concat(`mw_page_id`,`wiki_id`))", stored: true
+    t.index ["index_hash"], name: "index_articles_on_index_hash", unique: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
