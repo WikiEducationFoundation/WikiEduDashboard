@@ -165,8 +165,8 @@ class Article < ApplicationRecord
   end
 
   def mw_page_id_unique_for_wiki
-    if Article.where(mw_page_id: mw_page_id, wiki_id: wiki_id, deleted: false).exists?
-      errors.add(:mw_page_id, "is not unique for this wiki")
+    if Article.exists?(mw_page_id: mw_page_id, wiki_id: wiki_id, deleted: false)
+      errors.add(:mw_page_id, 'is not unique for this wiki')
     end
   end
 end
