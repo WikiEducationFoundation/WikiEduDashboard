@@ -454,15 +454,6 @@ class Course < ApplicationRecord
     ready_for_update.each(&:update_cache)
   end
 
-  def self.update_all_caches_concurrently(concurrency = 2)
-    threads = ready_for_update
-              .in_groups(concurrency, false)
-              .map.with_index do |course_batch, i|
-      Thread.new(i) { course_batch.each(&:update_cache) }
-    end
-    threads.each(&:join)
-  end
-
   # Ensures weeks for a course have order 1..weeks.count
   # This is dangerous if creating or reordering timeline content except via
   # TimelineController, where every week is processed from the submitted params,

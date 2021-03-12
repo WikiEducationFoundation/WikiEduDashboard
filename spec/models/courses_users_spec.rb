@@ -176,13 +176,4 @@ describe CoursesUsers, type: :model do
       expect(subject.program_manager).to eq(true)
     end
   end
-
-  describe '.update_all_caches_concurrently' do
-    it 'calls .update_all_caches multiple times' do
-      concurrency = 6
-      expect(described_class).to receive(:update_all_caches)
-        .exactly(concurrency).times
-      described_class.update_all_caches_concurrently(concurrency)
-    end
-  end
 end

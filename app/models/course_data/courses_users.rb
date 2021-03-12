@@ -143,15 +143,4 @@ class CoursesUsers < ApplicationRecord
   def self.update_all_caches(courses_users)
     courses_users.includes(:user).find_each(&:update_cache)
   end
-
-  def self.update_all_caches_concurrently(concurrency = 2)
-    threads = CoursesUsers.ready_for_update
-                          .in_groups(concurrency, false)
-                          .map.with_index do |courses_users_batch, i|
-      Thread.new(i) do
-        update_all_caches(courses_users_batch)
-      end
-    end
-    threads.each(&:join)
-  end
 end

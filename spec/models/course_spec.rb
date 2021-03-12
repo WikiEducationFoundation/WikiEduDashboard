@@ -58,17 +58,6 @@ describe Course, type: :model do
     TrainingModule.load_all
   end
 
-  describe '.update_all_caches_concurrently' do
-    before do
-      create(:course, needs_update: true)
-      create(:course, needs_update: true, slug: 'foo/2')
-    end
-
-    it 'runs without error for multiple courses' do
-      described_class.update_all_caches_concurrently
-    end
-  end
-
   it 'caches revision data for students' do
     build(:user,
           id: 1,
