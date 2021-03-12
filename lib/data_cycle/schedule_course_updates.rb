@@ -49,11 +49,6 @@ class ScheduleCourseUpdates
     log_message "#{orphan_lock_count} Orphan lock(s) removed"
   end
 
-  def conflicting_updates_running?
-    return true if update_running?(:short)
-    false
-  end
-
   def latency(queue)
     Sidekiq::Queue.new(queue).latency
   end
