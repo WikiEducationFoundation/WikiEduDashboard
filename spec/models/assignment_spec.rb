@@ -124,5 +124,41 @@ describe Assignment do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
+
+    def create_with_title(title)
+      described_class.create(user_id: 1, course_id: 1, wiki_id: 1, role: 0, article_title: title)
+    end
+
+    context 'when the title is not valid' do
+      it 'disallows braces' do
+        title = 'My Title {{italicized}}'
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+
+      it 'disallows square brackets' do
+        title = '[[My Title]]'
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+
+      it 'disallows angle brackets' do
+        title = 'Arthur_smithies_-_Proud_Prophet_>_Thomas_Schelling'
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+
+      it 'disallows tabs' do
+        title = "•\tWartime_sexual_violence"
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+
+      it 'disallows special pages' do
+        title = 'Special:Contributions/Evanschwartz'
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+
+      it 'disallows leading colons' do
+        title = ':es:Plan_de_Acci%C3%B3n_Conjunto_y_Completo_'
+        expect(create_with_title(title).valid?).to eq(false)
+      end
+    end
   end
 end

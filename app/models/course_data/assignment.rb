@@ -32,6 +32,12 @@ class Assignment < ApplicationRecord
   validates_uniqueness_of :article_title, scope: %i[course_id user_id role wiki_id],
                                           case_sensitive: true
 
+  INVALID_CHARACTER_MATCHER = /\A[^{}\[\]\t<>]+\Z/.freeze
+  validates :article_title, format: { with: INVALID_CHARACTER_MATCHER }
+  LEADING_COLON_MATCHER = /\A[^:]/.freeze
+  validates :article_title, format: { with: LEADING_COLON_MATCHER }
+  SPECIAL_PAGE_MATCHER = /\A(?!Special:).*/.freeze
+  validates :article_title, format: { with: SPECIAL_PAGE_MATCHER }
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
 
