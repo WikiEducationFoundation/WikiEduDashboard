@@ -106,8 +106,9 @@ class RevisionImporter
     users = user_dict_from_sub_data(sub_data)
 
     # Now get all the revisions
-    revisions = sub_data_to_revision_attributes(sub_data, users)
-    revisions.flatten!
+    # We need a slightly different article dictionary format here
+    article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+    revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
     Revision.import revisions, on_duplicate_key_ignore: true
 
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
@@ -142,25 +143,25 @@ class RevisionImporter
   end
 
   def user_dict_from_sub_data(sub_data)
-    users = sub_data.map do |_a_id, article_data|
+    users = sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map { |rev_data| rev_data['username'] }
     end
-    users.flatten!
     users.uniq!
-    User.where(username: users)
+    # Returns e.g. {"Nalumc"=>4, "Twkpassmore"=>3}
+    User.where(username: users).pluck(:username, :id).to_h
   end
 
-  def sub_data_to_revision_attributes(sub_data, users)
-    sub_data.map do |_a_id, article_data|
+  def sub_data_to_revision_attributes(sub_data, users, articles)
+    sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
         mw_page_id = rev_data['mw_page_id'].to_i
         {
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'],
-          article_id: @articles.find { |a| a.mw_page_id == mw_page_id }&.id,
+          article_id: articles[mw_page_id],
           mw_page_id: mw_page_id,
-          user_id: users.find { |u| u.username == rev_data['username'] }&.id,
+          user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id']
