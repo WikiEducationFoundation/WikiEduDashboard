@@ -20,7 +20,7 @@ class AverageViewsImporter
 
     # Get the average views data and put it into a concurrency-safe datastructure
     articles.includes(:wiki).each do |article|
-      pool.post { update_average_views_for_batch(article, average_views, time) }
+      pool.post { update_average_views_for_article(article, average_views, time) }
     end
 
     pool.shutdown && pool.wait_for_termination # Block here until pool is done.
@@ -29,7 +29,7 @@ class AverageViewsImporter
     Article.update(average_views.keys, average_views.values)
   end
 
-  def self.update_average_views_for_batch(article, average_views, time)
+  def self.update_average_views_for_article(article, average_views, time)
     average_views[article.id] = {
       average_views: WikiPageviews.new(article).average_views,
       average_views_updated_at: time

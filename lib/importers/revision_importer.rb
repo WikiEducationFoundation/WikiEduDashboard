@@ -142,7 +142,7 @@ class RevisionImporter
   end
 
   def user_dict_from_sub_data(sub_data)
-    sub_data.map do |_a_id, article_data|
+    users = sub_data.map do |_a_id, article_data|
       article_data['revisions'].map { |rev_data| rev_data['username'] }
     end
     users.flatten!
