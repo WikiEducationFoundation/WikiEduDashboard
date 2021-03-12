@@ -11,7 +11,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course courses ores_plot articles_csv
-                                        revisions_csv alerts]
+                                        revisions_csv alerts students instructors]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -174,45 +174,41 @@ class CampaignsController < ApplicationController
   # CSV-related actions #
   #######################
 
+  CSV_PATH = '/system/analytics'
+
   def students
-    csv_for_role(:students)
+    csv_of('students')
   end
 
   def instructors
-    csv_for_role(:instructors)
+    csv_of('instructors')
   end
 
   def courses
-    filename = "#{@campaign.slug}-courses-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).courses_to_csv,
-                  filename: filename
-      end
-    end
+    csv_of('courses')
   end
 
   def articles_csv
-    filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).articles_to_csv,
-                  filename: filename
-      end
-    end
+    csv_of('articles')
   end
 
   def revisions_csv
-    filename = "#{@campaign.slug}-revisions-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data CampaignCsvBuilder.new(@campaign).revisions_to_csv,
-                  filename: filename
-      end
-    end
+    csv_of('revisions')
   end
 
   private
+
+  def csv_of(type)
+    include_course_segment = csv_params[:course] ? '-with_courses' : ''
+    filename = "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv"
+    if File.exist? "public#{CSV_PATH}/#{filename}"
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      CampaignCsvWorker.generate_csv(campaign: @campaign, filename: filename, type: type,
+                                     include_course: csv_params[:course])
+      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+    end
+  end
 
   def require_create_permissions
     require_signed_in
@@ -252,17 +248,6 @@ class CampaignsController < ApplicationController
     return false unless current_user
     @campaign.campaigns_users.where(user_id: current_user.id,
                                     role: CampaignsUsers::Roles::ORGANIZER_ROLE).any?
-  end
-
-  def csv_for_role(role)
-    set_campaign
-    filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
-    respond_to do |format|
-      format.csv do
-        send_data @campaign.users_to_csv(role, course: csv_params[:course]),
-                  filename: filename
-      end
-    end
   end
 
   def csv_params
