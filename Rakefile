@@ -2,6 +2,7 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+require 'tasks/newrelic'
 
 # Given a pid file that contains the pid of a process, check whether it is
 # running. If not, delete the file and return false.
