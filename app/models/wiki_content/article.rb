@@ -43,6 +43,8 @@ class Article < ApplicationRecord
   validates :wiki_id, presence: true
   validates :mw_page_id, presence: true
 
+  validate :mw_page_id_unique_for_wiki, on: :create
+
   before_validation :set_defaults_and_normalize
 
   ####################
@@ -160,5 +162,11 @@ class Article < ApplicationRecord
     # Always save titles with underscores instead of spaces, since that's the way
     # they are in the MediaWiki database.
     self.title = title.tr(' ', '_') unless title.nil?
+  end
+
+  def mw_page_id_unique_for_wiki
+    if Article.where(mw_page_id: mw_page_id, wiki_id: wiki_id, deleted: false).exists?
+      errors.add(:mw_page_id, "is not unique for this wiki")
+    end
   end
 end
