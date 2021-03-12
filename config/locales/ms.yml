@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Anakmalaysia
 # Author: CyberTroopers
+# Author: SNN95
 # Author: Tofeiku
 # Author: Yusozim
 ---
@@ -18,7 +19,7 @@ ms:
     explore: Jelajah
     field_required: Medan ini diperlukan.
     field_invalid_characters: Medan ini mempunyai aksara tidak sah
-    greeting2: Selma datang!
+    greeting2: Selamat datang!
     greeting_extended: Selamat datang ke Wikipedia
     greeting: Helo!
     help: Bantuan

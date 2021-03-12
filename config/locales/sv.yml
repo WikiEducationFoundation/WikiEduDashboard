@@ -97,6 +97,7 @@ sv:
     edited_by: Redigerad av
     label: Aktivitet
   articles:
+    article_not_found: Artikeln har ännu inte skapats.
     article_development: (artikelutveckling)
     articles_shown: Visar %{count} av %{total}
     assigned: Tilldelade artiklar

@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Anna7321
 # Author: Bjarncraft
 # Author: Bxalber
 # Author: Domani
@@ -126,6 +127,7 @@ de:
     edited_by: Bearbeitet von
     label: Aktivität
   articles:
+    article_not_found: Dieser Artikel wurde noch nicht erstellt.
     article_development: (Artikelentwicklung)
     articles_shown: Zeige %{count} von %{total}
     assigned: Zugeordnete Artikel
