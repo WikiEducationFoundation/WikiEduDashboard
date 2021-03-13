@@ -169,8 +169,9 @@ class CoursesController < ApplicationController
   end
 
   def manual_update
+    require_admin_permissions
     @course = find_course_by_slug(params[:id])
-    UpdateCourseStats.new(@course, full: true) if user_signed_in?
+    UpdateCourseStats.new(@course, full: true)
     redirect_to "/courses/#{@course.slug}"
   end
 
