@@ -34,9 +34,9 @@ const getExerciseStatus = (exercise) => {
 
 // This function compares exercise's due date with current date
 // returns true if the current date has not passed the training's due date
-const isExerciseDue = (exercise) => {
+const isExerciseDue = (date) => {
   const currentDate = new Date();
-  const exerciseDueDate = new Date(Date.parse(exercise.due_date.replace(/-/g, ' ')));
+  const exerciseDueDate = new Date(Date.parse(date.replace(/-/g, ' ')));
   return exerciseDueDate >= currentDate;
 };
 
@@ -44,7 +44,7 @@ const generateRow = () => (exercise) => {
   const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
   const exerciseStatus = getExerciseStatus(exercise);
   return (
-    <tr className={isExerciseDue(exercise) ? 'student-training-module due-training' : 'student-training-module'} key={exercise.id}>
+    <tr className={exercise.due_date && isExerciseDue(exercise.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={exercise.id}>
       <td>{exercise.name} <small>Due by {dueDate}</small></td>
       <ExerciseStatusCell status={exerciseStatus} sandboxUrl={exercise.sandbox_url}/>
     </tr>

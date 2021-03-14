@@ -7,9 +7,9 @@ const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 :
 
 // This function compares training's due date with current date
 // returns true if the current date has not passed the training's due date
-const isTrainingDue = (training) => {
+const isTrainingDue = (date) => {
   const currentDate = new Date();
-  const trainingDueDate = new Date(Date.parse(training.due_date.replace(/-/g, ' ')));
+  const trainingDueDate = new Date(Date.parse(date.replace(/-/g, ' ')));
   return trainingDueDate >= currentDate;
 };
 
@@ -50,7 +50,7 @@ export const TrainingModuleRows = ({ trainings }) => {
 
 
     return (
-      <tr className={isTrainingDue(trainingModule) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
+      <tr className={trainingModule.due_date && isTrainingDue(trainingModule.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
         <td>{trainingModule.module_name} <small>Due by { dueDate }</small></td>
         <td>
           { moduleStatus }
