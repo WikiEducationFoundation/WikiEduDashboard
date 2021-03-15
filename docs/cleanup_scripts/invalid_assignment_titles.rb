@@ -16,3 +16,5 @@ Article.where(mw_page_id: 0).each do |a|
   puts assignment.article_id
   puts assignment.course.slug
 end
+
+Article.where(mw_page_id: 0).each { |a| a.assignments.each { |ass| ass.update(article_id: nil ) }; a.destroy }
