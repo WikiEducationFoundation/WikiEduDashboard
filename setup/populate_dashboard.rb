@@ -53,8 +53,10 @@ def populate_dashboard
     'https://outreachdashboard.wmflabs.org/courses/QCA/Brisbane_QCA_ArtandFeminism_2018',
     'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)'
   ]
+  default_campaign = Campaign.find_by(slug: "miscellanea")
   example_courses.each do |url|
     course = make_copy_of(url)
+    default_campaign.courses << course
     puts "getting data for #{course.slug}..."
     UpdateCourseStats.new(course)
   end
