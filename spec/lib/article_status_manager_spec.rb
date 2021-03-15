@@ -288,4 +288,30 @@ describe ArticleStatusManager do
       end
     end
   end
+
+  describe '#update_status' do
+    context 'when passed a single article' do
+      let!(:first_article) do
+        create(:article,
+               title: 'Homosexuality_in_modern_sports',
+               mw_page_id: 26788997,
+               namespace: 0)
+      end
+
+      let!(:article_to_update) do
+        build(:article,
+              title: 'Homosexuality_in_Modern_Sports',
+              mw_page_id: 26788997,
+              namespace: 0).save(validate: false)
+        Article.last
+      end
+
+      it 'updates that article and not another with the same mw_page_id' do
+        VCR.use_cassette 'article_status_manager/duplicate_mw_page_ids' do
+          described_class.new.update_status([article_to_update])
+        end
+        expect(article_to_update.reload.title).to eq('Homosexuality_in_modern_sports')
+      end
+    end
+  end
 end

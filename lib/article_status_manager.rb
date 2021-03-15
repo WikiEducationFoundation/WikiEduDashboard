@@ -33,6 +33,11 @@ class ArticleStatusManager
   ####################
 
   def update_status(articles)
+    # This is used for problem cases where articles can't be easily disambiguated
+    # because of duplicate records with the same mw_page_id. It's only used if
+    # `articles` is just one record.
+    @article = articles.first if articles.one?
+
     identify_deleted_and_synced_page_ids(articles)
 
     # First we find any pages that just moved, and update title and namespace.
@@ -85,7 +90,7 @@ class ArticleStatusManager
   def update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on mw_page_ids
     synced_articles.each do |article_data|
-      article = Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
+      article = @article || Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
       next if data_matches_article?(article_data, article)
 
       # FIXME: Workaround for four-byte unicode characters in article titles,
