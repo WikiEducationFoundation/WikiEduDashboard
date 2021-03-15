@@ -85,9 +85,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_rmp
-    if current_user && current_user.super_admin?
-      Rack::MiniProfiler.authorize_request
-    end
+    return unless current_user&.super_admin?
+    Rack::MiniProfiler.authorize_request
   end
 
   def course_slug_path(slug, args={})
