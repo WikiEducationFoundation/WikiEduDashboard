@@ -70,6 +70,7 @@ lb:
     edited_by: Geännert Vum
     label: Aktivitéit
   articles:
+    article_not_found: Dësen Artikel gouf nach net ugeluecht.
     article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
