@@ -287,6 +287,7 @@ GEM
       rest-client (~> 2.0.2)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    memory_profiler (1.0.0)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -350,6 +351,8 @@ GEM
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-mini-profiler (2.3.1)
+      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.4)
@@ -508,6 +511,7 @@ GEM
     sshkit (1.21.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stackprof (0.2.16)
     temple (0.8.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
@@ -521,6 +525,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     validates_email_format_of (1.6.3)
       i18n
@@ -588,6 +593,7 @@ DEPENDENCIES
   jbuilder
   mailgun-ruby
   mediawiki_api!
+  memory_profiler
   mysql2
   newrelic_rpm
   nokogiri
@@ -602,6 +608,7 @@ DEPENDENCIES
   pry-rails
   puma
   rack-cors
+  rack-mini-profiler
   rails (= 6.0.3.4)
   rails-controller-testing
   rails-erd
@@ -628,6 +635,7 @@ DEPENDENCIES
   simple_form
   simplecov
   skylight
+  stackprof
   ticket_dispenser!
   tzinfo-data
   validates_email_format_of
