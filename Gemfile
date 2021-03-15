@@ -88,6 +88,10 @@ gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'griddler'
 gem 'griddler-mailgun'
 
+### Performance
+gem 'rack-mini-profiler'
+gem 'stackprof'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
@@ -105,6 +109,7 @@ group :development do
   gem 'rails-erd'
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'faker', require: false # Generates random data for example records
+  gem 'memory_profiler' # Unsafe for production use
 end
 
 group :development, :test do
