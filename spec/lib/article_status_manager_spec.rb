@@ -302,7 +302,8 @@ describe ArticleStatusManager do
         build(:article,
               title: 'Homosexuality_in_Modern_Sports',
               mw_page_id: 26788997,
-              namespace: 0).save(validate: false)
+              deleted: true,
+              namespace: 0)
         Article.last
       end
 

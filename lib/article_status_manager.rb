@@ -90,7 +90,9 @@ class ArticleStatusManager
   def update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on mw_page_ids
     synced_articles.each do |article_data|
-      article = @article || Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
+      article = @article || Article.find_by(wiki_id: @wiki.id,
+                                            mw_page_id: article_data['page_id'],
+                                            deleted: false)
       next if data_matches_article?(article_data, article)
 
       # FIXME: Workaround for four-byte unicode characters in article titles,
