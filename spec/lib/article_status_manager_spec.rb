@@ -168,8 +168,8 @@ describe ArticleStatusManager do
         create(:revision, date: 1.day.ago, article_id: 46394760, user: user)
 
         described_class.update_article_status_for_course(course)
-        expect(article1.id).to eq(3914927)
-        expect(article2.id).to eq(46394760)
+        expect(article1.mw_page_id).to eq(3914927)
+        expect(article2.mw_page_id).to eq(46394760)
       end
     end
 

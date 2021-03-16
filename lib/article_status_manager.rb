@@ -52,7 +52,7 @@ class ArticleStatusManager
     # Delete and undelete articles as appropriate
     update_deleted_articles(articles)
     update_undeleted_articles(articles)
-    ArticlesCourses.where(article_id: @deleted_page_ids).destroy_all
+
     limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
     ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
   end
@@ -90,9 +90,7 @@ class ArticleStatusManager
   def update_title_and_namespace(synced_articles)
     # Update titles and namespaces based on mw_page_ids
     synced_articles.each do |article_data|
-      article = @article || Article.find_by(wiki_id: @wiki.id,
-                                            mw_page_id: article_data['page_id'],
-                                            deleted: false)
+      article = @article || find_article_by_mw_page_id(article_data['page_id'])
       next if data_matches_article?(article_data, article)
 
       # FIXME: Workaround for four-byte unicode characters in article titles,
@@ -180,5 +178,11 @@ class ArticleStatusManager
     else
       article.update(mw_page_id: mw_page_id)
     end
+  end
+
+  def find_article_by_mw_page_id(mw_page_id)
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id, deleted: false)
+    article ||= Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    article
   end
 end
