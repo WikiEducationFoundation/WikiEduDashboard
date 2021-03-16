@@ -27,5 +27,7 @@ class DuplicatePageIdHandler
   end
 end
 
-
-
+Assignment.where.not(article_id: nil).find_each do |ass|
+  next unless ass.article.nil?
+  ass.update(article_id: nil)
+end
