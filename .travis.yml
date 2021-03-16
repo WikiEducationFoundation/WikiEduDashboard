@@ -13,12 +13,12 @@ cache:
   - vendor
   - node_modules
 addons:
+  mariadb: '10.3'
   chrome: stable
   apt:
     packages:
     - pandoc
 services:
-  - mysql
   - redis-server
 before_install:
 - rvm --default use 2.7.1
