@@ -33,6 +33,7 @@ describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:admin) { create(:admin) }
+  let(:super_admin) { create(:user, permissions: User::Permissions::SUPER_ADMIN) }
   let(:update_logs) do
     { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } },
       'academic_system' => 'semester' }
@@ -458,7 +459,7 @@ describe 'the course page', type: :feature, js: true do
              course: course,
              user: user,
              role: 0)
-      login_as(admin)
+      login_as(super_admin)
       stub_oauth_edit
 
       expect(CourseRevisionUpdater).to receive(:import_revisions)
