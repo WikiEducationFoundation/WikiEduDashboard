@@ -11,35 +11,28 @@ class AverageViewsImporter
     update_average_views(to_update)
   end
 
-  # We get some 429 / too many requests errors with 8 per batch.
-  ARTICLES_PER_BATCH = 3
+  # We get some 429 / too many requests errors with 8
+  MAX_HTTP_CONCURRENCY = 3
   def self.update_average_views(articles)
-    article_batches = articles.includes(:wiki).each_slice(ARTICLES_PER_BATCH)
-    article_batches.each do |batch|
-      update_average_views_for_batch batch
+    pool = Concurrent::FixedThreadPool.new(MAX_HTTP_CONCURRENCY)
+    average_views = Concurrent::Hash.new
+    time = Time.zone.today
+
+    # Get the average views data and put it into a concurrency-safe datastructure
+    articles.includes(:wiki).each do |article|
+      pool.post { update_average_views_for_article(article, average_views, time) }
     end
+
+    pool.shutdown && pool.wait_for_termination # Block here until pool is done.
+
+    # Now, take all the average views and save them to the DB in one fell swoop!
+    Article.update(average_views.keys, average_views.values)
   end
 
-  def self.update_average_views_for_batch(articles)
-    average_views = {}
-    threads = articles.each_with_index.map do |article, i|
-      Thread.new(i) do
-        average_views[article.id] = WikiPageviews.new(article).average_views
-      end
-    end
-    threads.each(&:join)
-
-    datestamp = Time.zone.today
-    save_updated_average_views(articles, average_views, datestamp)
-  end
-
-  def self.save_updated_average_views(articles, average_views, average_views_updated_at)
-    Article.transaction do
-      articles.each do |article|
-        article.average_views_updated_at = average_views_updated_at
-        article.average_views = average_views[article.id]
-        article.save
-      end
-    end
+  def self.update_average_views_for_article(article, average_views, time)
+    average_views[article.id] = {
+      average_views: WikiPageviews.new(article).average_views,
+      average_views_updated_at: time
+    }
   end
 end

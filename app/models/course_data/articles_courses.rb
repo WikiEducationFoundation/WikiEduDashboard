@@ -64,9 +64,9 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def update_cache
-    revisions = live_manual_revisions
+    revisions = live_manual_revisions.load
 
-    self.character_sum = revisions.where('characters >= 0').sum(:characters)
+    self.character_sum = revisions.sum { |r| r.characters >= 0 ? r.characters : 0 }
     self.references_count = revisions.sum(&:references_added)
     self.view_count = views_since_earliest_revision(revisions)
     self.user_ids = associated_user_ids(revisions)
@@ -80,14 +80,14 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def views_since_earliest_revision(revisions)
-    return if revisions.empty?
+    return if revisions.blank?
     return if article.average_views.nil?
-    days = (Time.now.utc.to_date - revisions.order('date ASC').first.date.to_date).to_i
+    days = (Time.now.utc.to_date - revisions.min_by(&:date).date.to_date).to_i
     days * article.average_views
   end
 
   def associated_user_ids(revisions)
-    return [] if revisions.empty?
+    return [] if revisions.blank?
     revisions.map(&:user_id).compact.uniq
   end
 

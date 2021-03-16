@@ -59,8 +59,8 @@ class RevisionImporter
   def import_revisions(data)
     # Use revision data fetched from Replica to add new Revisions as well as
     # new Articles where appropriate.
-    # Limit it to 8000 per slice to avoid running out of memory.
-    data.each_slice(8000) do |sub_data|
+    # Keep it to 100 articles per slice to keep query sizes and lengths reasonable.
+    data.each_slice(100) do |sub_data|
       import_revisions_slice(sub_data)
     end
   end
@@ -95,62 +95,78 @@ class RevisionImporter
   def import_revisions_slice(sub_data)
     @articles, @revisions = [], []
 
-    sub_data.each do |(_a_id, article_data)|
-      process_article_and_revisions(article_data)
-    end
+    # Extract all article data from the slice. Outputs a hash with article attrs.
+    articles = sub_data_to_article_attributes(sub_data)
+
+    # We rely on the unique index here
+    Article.import articles, on_duplicate_key_update: [:title, :namespace]
+    @articles = Article.where(mw_page_id: articles.map { |a| a['mw_page_id'] })
+
+    # Prep: get a user dictionary for all users referred to by revisions.
+    users = user_dict_from_sub_data(sub_data)
+
+    # Now get all the revisions
+    # We need a slightly different article dictionary format here
+    article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+    revisions = sub_data_to_revision_attributes(sub_data, users, article_dict)
+    Revision.import revisions, on_duplicate_key_ignore: true
 
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
-    Revision.import @revisions, on_duplicate_key_ignore: true
-  end
-
-  def process_article_and_revisions(article_data)
-    article = article_updated_from_data(article_data)
-    @articles.push article
-
-    article_data['revisions'].each do |rev_data|
-      push_revision_record(rev_data, article)
-    end
-  end
-
-  def article_updated_from_data(article_data)
-    article = Article.find_by(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
-    article ||= Article.new(mw_page_id: article_data['article']['mw_page_id'], wiki_id: @wiki.id)
-    article.update!(title: article_data['article']['title'],
-                    namespace: article_data['article']['namespace'])
-    article
-  # FIXME: Workaround for four-byte unicode characters in article titles,
-  # until we fix the database to handle them.
-  # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
-  rescue ActiveRecord::StatementInvalid => e
-    Raven.capture_exception e
-    # Use the RUI encoding instead of the unicode string, if
-    # the unicode itself can't be saved.
-    article.update!(title: CGI.escape(article_data['article']['title']),
-                    namespace: article_data['article']['namespace'])
-    article
-  end
-
-  def push_revision_record(rev_data, article)
-    existing_revision = Revision.find_by(mw_rev_id: rev_data['mw_rev_id'], wiki_id: @wiki.id)
-    return unless existing_revision.nil?
-    revision = revision_from_data(rev_data, article)
-    @revisions.push revision
-  end
-
-  def revision_from_data(rev_data, article)
-    Revision.new(mw_rev_id: rev_data['mw_rev_id'],
-                 date: rev_data['date'],
-                 characters: rev_data['characters'],
-                 article_id: article.id,
-                 mw_page_id: rev_data['mw_page_id'],
-                 user_id: User.find_by(username: rev_data['username'])&.id,
-                 new_article: string_to_boolean(rev_data['new_article']),
-                 system: string_to_boolean(rev_data['system']),
-                 wiki_id: rev_data['wiki_id'])
   end
 
   def string_to_boolean(string)
-    return false if string == 'false'
-    return true if string == 'true'
+    case string
+    when 'false'
+      false
+    when 'true'
+      true
+    end
+  end
+
+  def sanitize_4_byte_titles(title)
+    if title.chars.any? { |c| c.bytes.count >= 4 }
+      CGI.escape(title)
+    else
+      title
+    end
+  end
+
+  def sub_data_to_article_attributes(sub_data)
+    sub_data.map do |_a_id, article_data|
+      {
+        'mw_page_id' => article_data['article']['mw_page_id'],
+        'wiki_id' => @wiki.id,
+        'title' => sanitize_4_byte_titles(article_data['article']['title']),
+        'namespace' => article_data['article']['namespace']
+      }
+    end
+  end
+
+  def user_dict_from_sub_data(sub_data)
+    users = sub_data.flat_map do |_a_id, article_data|
+      article_data['revisions'].map { |rev_data| rev_data['username'] }
+    end
+    users.uniq!
+    # Returns e.g. {"Nalumc"=>4, "Twkpassmore"=>3}
+    User.where(username: users).pluck(:username, :id).to_h
+  end
+
+  def sub_data_to_revision_attributes(sub_data, users, articles)
+    sub_data.flat_map do |_a_id, article_data|
+      article_data['revisions'].map do |rev_data|
+        mw_page_id = rev_data['mw_page_id'].to_i
+        {
+          mw_rev_id: rev_data['mw_rev_id'],
+          date: rev_data['date'],
+          characters: rev_data['characters'],
+          article_id: articles[mw_page_id],
+          mw_page_id: mw_page_id,
+          user_id: users[rev_data['username']],
+          new_article: string_to_boolean(rev_data['new_article']),
+          system: string_to_boolean(rev_data['system']),
+          wiki_id: rev_data['wiki_id']
+        }
+      end
+    end
   end
 end
