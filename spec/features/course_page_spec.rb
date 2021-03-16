@@ -33,7 +33,9 @@ describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:admin) { create(:admin) }
-  let(:super_admin) { create(:user, permissions: User::Permissions::SUPER_ADMIN) }
+  let(:super_admin) do
+    create(:user, username: 'SuperAdmin', permissions: User::Permissions::SUPER_ADMIN)
+  end
   let(:update_logs) do
     { 'update_logs' => { 1 => { 'start_time' => 2.hours.ago, 'end_time' => 1.hour.ago } },
       'academic_system' => 'semester' }
