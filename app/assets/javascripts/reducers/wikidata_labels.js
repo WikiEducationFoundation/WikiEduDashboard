@@ -10,6 +10,7 @@ export default function wikidataLabels(state = initialState, action) {
     case RECEIVE_WIKIDATA_LABELS: {
       const newLabels = { ...state.labels };
       forEach(action.data.entities, (entity) => {
+        if (!entity.labels) { return; }
         const label = entity.labels[action.language] || entity.labels.en;
         if (!label) { return; }
         newLabels[entity.id] = label.value;
