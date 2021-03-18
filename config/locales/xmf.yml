@@ -5,6 +5,8 @@
 # Author: Silovan
 ---
 xmf:
+  articles:
+    article_not_found: თე სტატია დიო ვა რე გოჭყაფილი.
   courses_generic:
     creator:
       checking_for_uniqueness: თე პროგრამა უნიკალურობაშ გეშა იმორსებუაფუ.

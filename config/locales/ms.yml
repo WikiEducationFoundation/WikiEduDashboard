@@ -94,7 +94,9 @@ ms:
     title: Tajuk
     tracked: Dijejak
     title_example: Tajuk rencana
+    tools: Alat penilaian
     view: Lihat Rencana
+    view_all: Paparkan Semua
     view_on_wiki: Papar di wiki
     edit_size: Saiz Suntingan
     wiki: Wiki
@@ -105,10 +107,19 @@ ms:
     articles_short: Laman
   assignments:
     article_link: Rencana
+    title_too_large: Panjangnya tajuk tidak melebihi 255 aksara
+    assign_other: Tugaskan rencana
     add_available_submit: Tambah rencana
     bibliography: Bibliografi
+    label: Tugaskan
+    loading: Memuatkan tugasan...
+    none_short: Tiada rencana ditugaskan
+    none: Kursus ini tiada rencana yang ditugaskan.
+    remove: Buang
+    sandbox_draft_link: Draf Kotak Pasir
     select: Pilih
   campaign:
+    active_campaigns: Kempen Aktif
     alert_article: Tajuk rencana
     alert_type: Jenis
     alert_user_id: Pengguna
@@ -121,10 +132,14 @@ ms:
     create_campaign: Cipta Kempen Baru
     create_my_campaign: Cipta Kempen saya!
     data_articles: Laman disunting
+    data_revisions: Data semakan
     data_editors_by_course: Penyunting mengikut kursus
     data_editor_usernames: Nama pengguna penyunting
+    description: Keterangan
+    delete_campaign: Hapuskan kempen ini
     none: Tiada
     title: Tajuk
+    search_campaigns: Cari kempen
     use_start_end_dates: Guna tarikh mula dan tamat
   categories:
     add_category: Tambahkan kategori
@@ -135,17 +150,22 @@ ms:
     name: Nama
     category_name: Nama kategori
     template_name: Nama templat
+    remove: Buang
+    timestamp: Kali Terakhir Dikemas Kini Pada
   courses:
     school_system: Sistem Akademik
     activity: Aktiviti
     all_courses: Semua Kursus
+    archived: Kursus Arkib
     actions: Tindakan
     articles: Rencana
+    article_viewer: Pemapar Rencana
     calendar:
       legend: Petunjuk
     cancel: Batalkan
     campaigns: 'Kempen:'
     campaign_select: Pilih kempen
+    campaign_users: '%{title} Penyunting'
     course: Kursus
     course_description: Kursus
     courses: Kursus
@@ -162,13 +182,29 @@ ms:
       end_date: Tarikh tamat
       find: Cari Kursus Anda
       start_date: Tarikh mula
+      subject: Subjek
+    data_articles: Data rencana
+    data_edits: Data suntingan
     data_students: Data Penyunting
+    data_revisions: Data semakan
+    data_wikidata: Statistik Wikidata
+    delete_suggestion: Hapuskan
     edit_count: Kiraan Suntingan
+    edit_course_dates: Sunting Tarikh Kursus
     end: Tamat
+    error:
+      invalid_language_or_project: Bahasa/Projek tidak sah
     feedback: Maklum balas
+    join: Sertai
+    join_course: Sertai kursus
+    join_course_as_volunteer: Sukarela membantu
+    join_prompt: Sertai '%{title}'?
+    leave_course: Tinggalkan kursus
+    loading: Sedang dimuatkan...
     my_articles: Rencana Saya
     new_week: Tambah Minggu Baru
     new_account_email: Alamat e-mel
+    new_account_email_placeholder: nama@contoh.org
     none: Tiada
     school: Sekolah
     start: Mula
@@ -181,8 +217,11 @@ ms:
     creator:
       create_label: Cipta Program Baru
   metrics:
+    last_update: Kemas kini perangkaan terakhir
     articles_created_generic: Rencana Tercipta
     articles_created_wikidata: Item Tercipta
     articles_edited_generic: Halaman Tersunting
     articles_edited_wikidata: Item Tersunting
+    bytes_added: Bait Ditambah
+    edit_count_description: Jumlah Suntingan
 ...
