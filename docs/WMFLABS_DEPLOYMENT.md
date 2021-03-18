@@ -96,6 +96,10 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4
   - $ `sudo mkdir /var/log/apache2/dashboard`
   - $ `sudo service apache2 restart`
 
+- Increase the capacity of memcache
+  - $ `sudo nano /etc/memcached.conf`
+  - change the maximum size from 64m to 1024m: `-m 1024`
+  - add a higher max item size (default 1m): `-I 5m`
 
 ON GITHUB
 -------------
