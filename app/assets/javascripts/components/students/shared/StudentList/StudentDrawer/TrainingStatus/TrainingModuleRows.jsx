@@ -2,16 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-// Helper functions
-const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
-
-// This function compares training's due date with current date
-// returns true if the current date has not passed the training's due date
-const isTrainingDue = (date) => {
-  const currentDate = new Date();
-  const trainingDueDate = new Date(Date.parse(date.replace(/-/g, ' ')));
-  return trainingDueDate >= currentDate;
-};
+// Helper Functions
+import { isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
 
 export const TrainingModuleRows = ({ trainings }) => {
   trainings.sort(orderByDueDate);
