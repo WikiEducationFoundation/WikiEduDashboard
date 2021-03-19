@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+// Helper Functions
+import { isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
+
 export const TrainingModuleRows = ({ trainings }) => {
+  trainings.sort(orderByDueDate);
   return trainings.map((trainingModule) => {
     const momentDueDate = moment(trainingModule.due_date);
     const dueDate = momentDueDate.format('MMM Do, YYYY');
     const overdue = trainingModule.overdue || momentDueDate.endOf('day').isBefore(trainingModule.completion_date);
-
     let moduleStatus;
     if (trainingModule.completion_date) {
       let completionTime = '';
@@ -39,7 +42,7 @@ export const TrainingModuleRows = ({ trainings }) => {
 
 
     return (
-      <tr className="student-training-module" key={trainingModule.id}>
+      <tr className={trainingModule.due_date && isTrainingDue(trainingModule.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
         <td>{trainingModule.module_name} <small>Due by { dueDate }</small></td>
         <td>
           { moduleStatus }

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { capitalize } from 'lodash-es';
 import moment from 'moment';
 
+// Helper Functions
+import { getExerciseStatus, isTrainingDue, orderByDueDate } from '@components/students/utils/trainingHelperFunctions';
+
 // Helper Components
 const ExerciseStatusCell = ({ status, sandboxUrl }) => {
   let exerciseLink;
@@ -13,25 +16,22 @@ const ExerciseStatusCell = ({ status, sandboxUrl }) => {
   return <td className={`exercise-status ${status}`}>{capitalize(status)} {exerciseLink}</td>;
 };
 
-// Helper Functions
-const orderByDueDate = (a, b) => (moment(a.due_date).isBefore(b.due_date) ? -1 : 1);
-
-const generateRow = status => (exercise) => {
+const generateRow = () => (exercise) => {
   const dueDate = moment(exercise.due_date).format('MMM Do, YYYY');
+  const exerciseStatus = getExerciseStatus(exercise);
   return (
-    <tr className="student-training-module" key={exercise.id}>
+    <tr className={exercise.due_date && isTrainingDue(exercise.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={exercise.id}>
       <td>{exercise.name} <small>Due by {dueDate}</small></td>
-      <ExerciseStatusCell status={status} sandboxUrl={exercise.sandbox_url}/>
+      <ExerciseStatusCell status={exerciseStatus} sandboxUrl={exercise.sandbox_url}/>
     </tr>
   );
 };
 
 export const ExerciseRows = ({ exercises }) => {
   const { unread, incomplete, complete } = exercises;
+  const allExercises = [...unread, ...incomplete, ...complete];
   return [
-    unread.sort(orderByDueDate).map(generateRow('unread')),
-    incomplete.sort(orderByDueDate).map(generateRow('incomplete')),
-    complete.sort(orderByDueDate).map(generateRow('complete'))
+    allExercises.sort(orderByDueDate).map(generateRow()),
   ];
 };
 
