@@ -39,6 +39,7 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import AcademicSystem from '../common/academic_system.jsx';
 
 const POLL_INTERVAL = 60000; // 1 minute
+const MAX_UPDATE_COUNT = 60 * 12; // 12 hours of updates
 
 const Details = createReactClass({
   displayName: 'Details',
@@ -52,6 +53,12 @@ const Details = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     refetchCourse: PropTypes.func.isRequired,
     firstErrorMessage: PropTypes.string
+  },
+
+  getInitialState() {
+    return {
+      updateCount: 0
+    };
   },
 
   componentDidMount() {
@@ -108,8 +115,12 @@ const Details = createReactClass({
 
   poll() {
     return setInterval(() => {
+      if (this.state.updateCount > MAX_UPDATE_COUNT) { return; }
       if (!this.props.editable) {
         this.props.refetchCourse(this.props.course.slug);
+        this.setState({
+          updateCount: this.state.updateCount + 1
+        });
       }
     }, POLL_INTERVAL);
   },
