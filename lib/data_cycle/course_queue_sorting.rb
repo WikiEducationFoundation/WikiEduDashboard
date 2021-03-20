@@ -4,7 +4,7 @@ module CourseQueueSorting
   def queue_for(course)
     update_longest_update_time(course)
 
-    case longest_update_time(course)
+    case longest_recent_update_time(course)
     when nil
       initial_queue(course)
     when 0..30 # up to 30 seconds

@@ -92,11 +92,9 @@ class UpdateCourseStats
     # for courses with huge numbers of articles
     # to check, we skip this on Programs & Events Dashboard
     # for slow-updating courses.
-    # If a course is only too slow when article status is updated,
-    # then we do the article status update once the most recent
-    # too-long update is no longer recent enough to be
-    # included in the logs, ie, after skipping it 10 times.
-    longest_recent_update_time(@course).to_i > TEN_MINUTES
+    # This means we miss cases of article deletion
+    # and namespace changes unless the article
+    longest_update_time(@course).to_i > TEN_MINUTES
   end
 
   def debug?
