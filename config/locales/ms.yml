@@ -71,9 +71,11 @@ ms:
     label: Aktiviti
   articles:
     articles_shown: Menunjukkan %{count} daripada %{total}
+    assigned: Rencana Ditugaskan
     next: Seterusnya
     previous: Sebelumnya
     article_title: Tajuk Rencana
+    assigned_to: Ditugaskan Kepada
     deleted: (dihapuskan)
     edited: Rencana Disunting
     edited_by: 'Disunting oleh:'
@@ -111,6 +113,7 @@ ms:
     assign_other: Tugaskan rencana
     add_available_submit: Tambah rencana
     bibliography: Bibliografi
+    editors: Ditugaskan kepada
     label: Tugaskan
     loading: Memuatkan tugasan...
     none_short: Tiada rencana ditugaskan
@@ -131,13 +134,17 @@ ms:
     course: Kursus
     create_campaign: Cipta Kempen Baru
     create_my_campaign: Cipta Kempen saya!
+    data_courses: Data gambaran keseluruhan kursus
     data_articles: Laman disunting
     data_revisions: Data semakan
     data_editors_by_course: Penyunting mengikut kursus
     data_editor_usernames: Nama pengguna penyunting
     description: Keterangan
     delete_campaign: Hapuskan kempen ini
+    enable_account_requests: Bolehkan permohonan akaun
+    no_passcode: tiada kod laluan
     none: Tiada
+    random_passcode: kod laluan rawak
     title: Tajuk
     search_campaigns: Cari kempen
     use_start_end_dates: Guna tarikh mula dan tamat
@@ -154,12 +161,15 @@ ms:
     timestamp: Kali Terakhir Dikemas Kini Pada
   courses:
     school_system: Sistem Akademik
+    assignment_edits_enabled: Suntingan tugasan dibolehkan
     activity: Aktiviti
     all_courses: Semua Kursus
     archived: Kursus Arkib
     actions: Tindakan
     articles: Rencana
     article_viewer: Pemapar Rencana
+    assignment_headings:
+      assigned_articles: Rencana Ditugaskan
     calendar:
       legend: Petunjuk
     cancel: Batalkan
@@ -184,17 +194,25 @@ ms:
       start_date: Tarikh mula
       subject: Subjek
     data_articles: Data rencana
+    data_overview: Data gambaran keseluruhan
     data_edits: Data suntingan
     data_students: Data Penyunting
+    data_uploads: Data muat naik Commons
     data_revisions: Data semakan
+    data_uploads_info: Data muat naik Commons menunjukkan nama dan kiraan penggunaan
+      setiap muat naik media.
     data_wikidata: Statistik Wikidata
     delete_suggestion: Hapuskan
+    download_stats_data: Muat turut perangkaan
     edit_count: Kiraan Suntingan
     edit_course_dates: Sunting Tarikh Kursus
+    embed_course_stats: Benamkan Perangkaan Kursus
     end: Tamat
     error:
       invalid_language_or_project: Bahasa/Projek tidak sah
     feedback: Maklum balas
+    home_wiki: Wiki Rumah
+    multi_wiki: Wiki Dijejak
     join: Sertai
     join_course: Sertai kursus
     join_course_as_volunteer: Sukarela membantu
@@ -205,23 +223,106 @@ ms:
     new_week: Tambah Minggu Baru
     new_account_email: Alamat e-mel
     new_account_email_placeholder: nama@contoh.org
+    new_account_username_placeholder: Penyunting Wiki 123
     none: Tiada
+    overview: Laman Utama
+    passcode: Kod laluan
+    passcode_prompt: 'Masukkan kod laluan untuk sertai:'
     school: Sekolah
+    school_and_term: Institusi/Penggal
     start: Mula
     students: Pelajar
+    student_editors: Penyunting Pelajar
     students_short: Pelajar
     user_role: Peranan
+    user_recent_uploads: Muat Naik Terkini
+    view_other: Lihat kempen lain
   courses_generic:
+    articles_i_am_reviewing: Rencana yang saya meninjau semula
     course: Program
     courses: Program
+    campaigns: 'Kempen:'
     creator:
+      course_school: Institusi
       create_label: Cipta Program Baru
+      end_date: Tamat penjejakan kegiatan
+      intro: Tajuk program dan institusi mebentuk URL program. Wiki rumah ialah wiki
+        utama tempat peserta akan bekerja, dan suntingan di wiki ini akan dijejak
+        dengan lalai. Jika program anda menjangkau pelbagai bahasa atau projek, sumbangan
+        juga akan dijejak bagi mana-mana wiki yang telah terang-terang ditambah ke
+        "Wiki Dijejak". Klik "Cipta Program saya!" untuk mula membangun laman untuk
+        program wiki anda.
+      start_date: Mula penjejakan kegiatan
+    delete_course: Hapuskan program
+    end: Tamat penjejakan kegiatan
+    enroll: Tambah Penyunting
+    enrollment: Tambah/Buang Penyunting
+    instructors: Pemudah cara
+    school: Institusi
+    start: Mula penjejakan kegiatan
+    student_editors: Penyunting
+    students: Penyunting
+    students_taught: Jumlah Penyunting
+  editable:
+    edit_description: Sunting Keterangan
+    edit_details: Sunting Butiran
+  instructor_view:
+    assigned_articles: Rencana Ditugaskan
+    reviewing_articles: Meninjau Semula Rencana
   metrics:
     last_update: Kemas kini perangkaan terakhir
+    next_update: Kemas kini anggaran seterusnya
     articles_created_generic: Rencana Tercipta
     articles_created_wikidata: Item Tercipta
     articles_edited_generic: Halaman Tersunting
     articles_edited_wikidata: Item Tersunting
     bytes_added: Bait Ditambah
     edit_count_description: Jumlah Suntingan
+    revisions: Suntingan Terkini
+    references_count: Rujukan Ditambah
+    update_statistics_link: Lihat lagi
+    upload_count: Muat Naik Commons
+  recent_activity:
+    no_edits: Tiada suntingan terkini.
+    recent_edits: Suntingan Terkini
+    recent_uploads: Muat Naik Terkini
+    uploaded_by: Dimuat Naik Oleh
+  revisions:
+    references: Rujukan Ditambah
+    none: Kursus ini tiada kegiatan menyunting terkini.
+    see_more: Lihat lagi
+  uploads:
+    header: Fail Dimuat Naik ke Wikimedia Commons
+    label: Muat Naik
+    loading: Memuatkan muat naik...
+    select_label: Penapis mengikut pemuat naik
+    time_doc: Masa setiap muat naik dalam waktu tempatan anda
+    uploader: Pemuat naik
+    uploaded_on: Dimuat Naik Pada
+  users:
+    assigned: Rencana Ditugaskan
+    chars_added: Aksara Ditambah<br>(rencana | pengguna | draf)
+    course_passcode: 'Kod laluan:'
+    editors: Penyunting
+    characters_added_draftspace: Aksara Ditambah (draf)
+    references_count: Rujukan Ditambah
+    my_assigned: 'Ditugaskan:'
+    my_reviewing: 'Meninjau semula:'
+    no_revisions: Penyunting ini tidak membuat semakan.
+    recent_revisions: Suntingan Terkini
+    references_doc: Bilangan rujukan ditambah atau dibuang oleh penyunting ini
+    sub_navigation:
+      assignments_and_exercises: Tugasan & Latihan
+      editor_overview: Gambaran Keseluruhan Penyunting
+    total_uploads: Jumlah Muat Naik
+    uploads_doc: Bilangan muat naik fail ke Wikimedia Commons
+    userpasscode_placeholder: Kod laluan
+    words_added: Perkataan Ditambah<br>(rencana | pengguna | draf)
+  user_profiles:
+    institution_placeholder: Nama institusi (pilihan)
+  error:
+    invalid_file_format: Fail tidak dapat disimpan. Sila muat naik PDF atau dokumen
+      Word.
+  error_incorrect_passcode:
+    header: Kod laluan tidak betul.  :-(
 ...

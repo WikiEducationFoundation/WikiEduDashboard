@@ -1,6 +1,7 @@
 # Messages for Telugu (తెలుగు)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Chaduvari
 # Author: Naidugari Jayanna
 # Author: Ravichandra
 # Author: Veeven
@@ -45,6 +46,7 @@ te:
   courses:
     cancel: రద్దుచేయి
     duration: కోర్సు కాలపరిమితి
+    new_account_username: కోరిన వాడుకరిపేరు
     overview: ముంగిలి
     students: విద్యార్థులు
     students_short: విద్యార్థులు

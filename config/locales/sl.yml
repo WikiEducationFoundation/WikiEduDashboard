@@ -14,6 +14,7 @@ sl:
     log_in_extended: Prijava z Wikipedijo
     log_in: Prijava
     details: Podrobnosti
+    confirm: V redu
     opt_in: Da
     opt_out: Ne
   articles:
@@ -21,13 +22,18 @@ sl:
     label: Članki
   assignments:
     remove: Odstrani
+  campaign:
+    campaign: Kampanja
+    campaigns: Kampanje
   categories:
     remove: Odstrani
   courses:
     articles: Članki
+    campaigns: 'Kampanje:'
     loading: Nalaganje ...
     overview: Domov
   courses_generic:
+    campaigns: 'Kampanje:'
     creator:
       save_cloned_course: Shrani
   editable:
@@ -49,4 +55,6 @@ sl:
       campus_volunteer: Prostovoljec kampusa
       online_volunteer: Spletni prostovoljec
       wiki_ed_staff: Kolektiv Wikiizobraževanja
+  wizard:
+    summary: Povzetek
 ...

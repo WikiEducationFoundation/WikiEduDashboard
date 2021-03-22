@@ -93,6 +93,7 @@ ko:
     edited_by: '편집자 :'
     label: 활동 내역
   articles:
+    article_not_found: 이 문서는 아직 생성되지 않았습니다.
     articles_shown: '%{total}개 중 %{count}개 표시 중'
     assigned: 할당된 문서
     available: 이용 가능한 글

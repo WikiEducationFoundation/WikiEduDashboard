@@ -132,6 +132,7 @@ pt:
     edited_by: Editado por
     label: Atividade
   articles:
+    article_not_found: Este artigo ainda não foi criado.
     article_development: (desenvolvimento do artigo)
     articles_shown: A mostrar %{count} de %{total}
     assigned: Artigos atribuídos
@@ -675,6 +676,9 @@ pt:
       one: '%{count} conta solicitada pendente.'
       other: '%{count} contas solicitadas pendentes.'
     requested_accounts_alert_view: Ver
+    retain_available_articles: Reter os artigos disponíveis
+    retain_available_articles_info: Quando ativada, selecionar um artigo disponível
+      não o remove da lista, permitindo que vários estudantes selecionem o mesmo artigo.
     review_timeline: 'Agora, reveja o seu calendário de trabalhos e faça as alterações
       necessárias. Quando estiver satisfeito, pode submetê-lo para aprovação da equipa
       da Wiki Educação. Após a aprovação, receberá um URL de matrícula que os alunos
@@ -999,6 +1003,14 @@ pt:
     no_edits: Não existem edições recentes.
     plagiarism_report: Relatório de Plágio
     possible_plagiarism: Possível Plágio
+    plagiarism_explanation: O sistema de deteção de plágio da Wikipédia usa Turnitin/iThenticate
+      para comparar as edições novas com textos publicados. Estes relatórios não são
+      completamente fiáveis. Por exemplo, uma citação direta feita com a devida atribuição
+      de autoria pode desencadear um relatório de plágio que é um falso positivo.
+      Antes de agir em consequência do relatório, é favor rever as contribuições do
+      aluno e os detalhes do relatório. Se não for possível aceder à alteração — ou
+      ao próprio artigo — o respetivo conteúdo pode ter sido eliminado por motivos
+      de direitos de autor.
     recent_edits: Edições recentes
     recent_uploads: Últimos Envios
     revision_author: Autor da Revisão
