@@ -61,9 +61,8 @@ gem 'whenever' # Translates config/schedule.rb into cron jobs during deployment
 
 ### Analytics and error monitoring
 gem 'sentry-raven' # error reporting for both server-side Ruby and client-side JS
-gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git'
-gem 'newrelic_rpm' # monitoring, used in Wiki Ed Production mostly
-gem 'skylight' # Rails-specific performance monitoring, used in Wiki Ed Production
+gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git' # traffic analytics
+gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages

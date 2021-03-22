@@ -59,9 +59,6 @@ module WikiEduDashboard
 
     config.action_dispatch.return_only_media_type_on_content_type = false
 
-    # Skylight performance monitoring
-    config.skylight.environments += ['staging']
-
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

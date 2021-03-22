@@ -132,7 +132,6 @@ ON THE SERVER
   - Paste the standard file, then save.
   - $ `touch /var/www/dashboard/shared/config/newrelic.yml`
   - (No file content is necessary unless you're using New Relic monitoring.)
-  - Add a `skylight.yml` file with Skylight keys
 - Create the tmp directory for pid files
   - $ `mkdir /var/www/dashboard/shared/tmp/pids`
   - (Sidekiq will create a pid file in this directory upon deployment. If it is unable to do so, background jobs will not be performed.)
