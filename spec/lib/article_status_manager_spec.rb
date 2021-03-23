@@ -98,6 +98,27 @@ describe ArticleStatusManager do
       end
     end
 
+    it 'handles cases with deleted and nondeleted copies of an article' do
+      create(:article,
+             id: 53001516,
+             mw_page_id: 66653200,
+             title: 'Port_of_Spain_Gazette',
+             updated_at: 2.days.ago)
+      create(:article,
+             id: 53058287,
+             mw_page_id: 66653200,
+             title: 'Port_of_Spain_Gazette',
+             deleted: true,
+             updated_at: 2.days.ago)
+      create(:revision, date: 1.day.ago, article_id: 53001516, user: user)
+      create(:revision, date: 1.day.ago, article_id: 53058287, user: user)
+
+      VCR.use_cassette 'article_status_manager/undeletion_duplicate' do
+        described_class.update_article_status_for_course(course)
+      end
+      expect(Article.find(53001516).revisions.count).to eq(2)
+    end
+
     context 'when a title is a unicode dump' do
       let(:zh_wiki) { create(:wiki, language: 'zh', project: 'wikipedia') }
       # https://zh.wikipedia.org/wiki/%E9%BB%83%F0%A8%A5%88%E7%91%A9
