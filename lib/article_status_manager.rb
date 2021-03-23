@@ -129,14 +129,12 @@ class ArticleStatusManager
 
   def handle_undeletion(article)
     # If there's already a non-deleted copy, we need to move the revisions to that copy.
-    # If there's not a non-deleted copy, we can undelete this one.
     nondeleted_article = Article.find_by(wiki_id: @wiki.id,
                                          mw_page_id: article.mw_page_id, deleted: false)
-    if nondeleted_article
-      article.revisions.update_all(article_id: nondeleted_article.id)
-    else
-      article.update_attribute(:deleted, false)
-    end
+    # If there is only one copy of the article, it was already found and updated
+    # via `update_title_and_namespace`
+    return unless nondeleted_article
+    article.revisions.update_all(article_id: nondeleted_article.id)
   end
 
   def data_matches_article?(article_data, article)

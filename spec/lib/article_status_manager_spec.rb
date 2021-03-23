@@ -119,7 +119,7 @@ describe ArticleStatusManager do
       expect(Article.find(53001516).revisions.count).to eq(2)
     end
 
-    it 'handles undeleted articles' do
+    it 'handles undeleted articles', focus: true do
       create(:article,
              id: 53058287,
              mw_page_id: 66653200,
