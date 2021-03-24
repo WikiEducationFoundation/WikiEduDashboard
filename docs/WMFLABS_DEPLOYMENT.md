@@ -18,11 +18,14 @@ ON THE SERVER
 - ssh into this new instance from your machine
 
 - install some additional packages needed by the app and web server
-  - $ `sudo apt-get install pandoc redis-server mariadb-server libmariadb-dev imagemagick gnupg2 apache2 apache2-dev apache2-mpm-worker libcurl4-openssl-dev libapr1-dev libaprutil1-dev`
+  - $ `sudo apt update`
+  - $ `sudo apt install pandoc redis-server mariadb-server libmariadb-dev imagemagick gnupg2 apache2`
+- Passenger requirements:
+  - $ `sudo apt install libcurl4-openssl-dev libapr1-dev libaprutil1-dev apache2-dev`
 
 - configure mariaDB to use /srv as the location of database files:
   - `sudo systemctl stop mysql`
-  - `mv /var/lib/msyql /srv/mysql`
+  - `sudo mv /var/lib/msyql /srv/mysql`
   - edit `/etc/mysql/my.conf` and add the following directives:
     ```
     [mysqld]
@@ -54,7 +57,7 @@ ON THE SERVER
   - logout and back in again so that these settings take effect
   - $ `rvm install 2.7.1`
     - This will probably report that ruby is already installed, but we do this just in case.
-  - $ `rvm --default use 2.7.``
+  - $ `rvm --default use 2.7.1`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
