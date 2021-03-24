@@ -43,15 +43,15 @@ describe ArticleStatusManager do
         create(:revision, date: 1.day.ago, article_id: 100, user: user)
 
         # es.wikipedia
-        create(:wiki, id: 2, language: 'es', project: 'wikipedia')
+        course.wikis << create(:wiki, id: 2, language: 'es', project: 'wikipedia')
         create(:article,
-               id: 100000001,
-               mw_page_id: 100000001,
+               id: 10000001,
+               mw_page_id: 10000001,
                title: 'Audi',
                namespace: 0,
                wiki_id: 2,
                updated_at: 2.days.ago)
-        create(:revision, date: 1.day.ago, article_id: 100000001, user: user)
+        create(:revision, date: 1.day.ago, article_id: 10000001, user: user)
 
         described_class.update_article_status_for_course(course)
 
@@ -348,6 +348,15 @@ describe ArticleStatusManager do
           described_class.new.update_status([article_to_update])
         end
         expect(article_to_update.reload.title).to eq('Homosexuality_in_modern_sports')
+      end
+
+      it 'moves revisions after mw_page_id collisions with an undeleted article' do
+        deleted_article = create(:article, mw_page_id: 26788997, deleted: true)
+        create(:revision, article: deleted_article)
+        VCR.use_cassette 'article_status_manager/duplicate_mw_page_ids' do
+          described_class.new.update_status([deleted_article])
+        end
+        expect(deleted_article.revisions.count).to eq(0)
       end
     end
   end

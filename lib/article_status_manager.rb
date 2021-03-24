@@ -103,12 +103,14 @@ class ArticleStatusManager
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
-      rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
-        Raven.capture_exception e
       rescue ActiveRecord::RecordNotUnique => e
         # if this is a duplicate article record, moving the revisions to the non-deleted
         # copy should prevent it from being part of a future update.
+        # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
+        # so this rescue comes first.
         handle_undeletion(article)
+        Raven.capture_exception e
+      rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
         Raven.capture_exception e
       end
     end
