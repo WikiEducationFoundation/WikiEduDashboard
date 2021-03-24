@@ -406,7 +406,7 @@ en:
       select_meeting_days: Select the days of the week on which your class meets.
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
-    campaigns: 'Campaigns: '
+    campaigns: 'Campaigns:'
     campaign_articles: '%{title} Articles'
     campaign_courses: '%{title} Courses'
     campaign_select: 'Select a campaign'
@@ -636,7 +636,7 @@ en:
     please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
-    rating_feedback: "Predicted rating for the article is: "
+    rating_feedback: "Predicted rating for the article is:"
     requested_accounts: Requested accounts
     requested_accounts_alert:
       one: '%{count} requested account pending.'
@@ -685,7 +685,7 @@ en:
     submitted: Submitted
     submitted_at: Submitted at
     tag_select: 'Select or create a tag'
-    tags: 'Tags: '
+    tags: 'Tags:'
     term: Term
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
@@ -753,7 +753,7 @@ en:
     course: Program
     courses: Programs
     courses_taught: Programs Taught
-    campaigns: 'Campaigns: '
+    campaigns: 'Campaigns:'
     campaign_courses: '%{title} Programs'
     creator:
       assignment_end: Event end
@@ -1078,9 +1078,9 @@ en:
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
     # FIXME: lego message. This one is hard to work around because it has inline components.
-    empty_week_1: 'To get started, '
+    empty_week_1: 'To get started,'
     empty_week_2: start editing this week
-    empty_week_3: ' or '
+    empty_week_3: 'or'
     empty_week_4: use the assignment wizard to create a timeline.
     first_week_title: First Active Week
     gradeable_value: Value
@@ -1166,10 +1166,10 @@ en:
     contributions_history_full: View full contribution history
     contributions_more: View More Contributions
     contribution_statistics: Contribution Statistics
-    course_passcode: 'Passcode: '
+    course_passcode: 'Passcode:'
     editors: Editors
     edits: edits
-    edits_by: 'Edits by: '
+    edits_by: 'Edits by:'
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
     enrolled_success: '%{username} was added successfully!'
@@ -1185,8 +1185,8 @@ en:
     characters_added_userspace: Characters Added (user)
     characters_added_draftspace: Characters Added (draft)
     references_count: References Added
-    my_assigned: "Assigned: "
-    my_reviewing: "Reviewing: "
+    my_assigned: "Assigned:"
+    my_reviewing: "Reviewing:"
     name: Name
     none: There are no participants.
     no_articles: No articles

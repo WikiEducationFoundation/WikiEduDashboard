@@ -152,7 +152,7 @@ const EnrollButton = createReactClass({
       editRows.push(
         <tr className="edit" key="enroll_students">
           <td>
-            <p>{I18n.t('users.course_passcode')}<b>{this.props.course.passcode}</b></p>
+            <p>{I18n.t('users.course_passcode')}&nbsp;<b>{this.props.course.passcode}</b></p>
             <p>{I18n.t('users.enroll_url')}</p>
             <input type="text" readOnly={true} value={enrollUrl} style={{ width: '100%' }} />
             {massEnrollmentLink}
