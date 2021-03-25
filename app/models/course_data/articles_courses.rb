@@ -106,8 +106,8 @@ class ArticlesCourses < ApplicationRecord
     # That may happen if the course dates changed, so some revisions are no
     # longer part of the course.
     # Also remove records for articles that aren't on a tracked wiki.
-    tracked_article_ids = revision_article_ids & course_article_ids
-    course.articles_courses.where.not(article_id: tracked_article_ids).destroy_all
+    valid_article_ids = revision_article_ids & course_article_ids
+    destroy_invalid_records(course, valid_article_ids)
 
     # Add new ArticlesCourses
     ActiveRecord::Base.transaction do
@@ -117,6 +117,14 @@ class ArticlesCourses < ApplicationRecord
         next unless course.wikis.include?(article.wiki)
         course.articles << article
       end
+    end
+  end
+
+  def self.destroy_invalid_records(course, valid_article_ids)
+    course_ac_records = course.articles_courses.pluck(:id, :article_id)
+    course_ac_records.each do |(id, article_id)|
+      next if valid_article_ids.include?(article_id)
+      find(id).destroy
     end
   end
 
