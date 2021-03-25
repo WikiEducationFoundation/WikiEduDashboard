@@ -22,7 +22,9 @@ class ArticleImporter
   end
 
   def import_articles_by_title(titles)
-    titles.each_slice(40) do |some_article_titles|
+    # Slice size is limited by max URI length.
+    # 40 is too much for some languages, such as bn.wipedia.org
+    titles.each_slice(30) do |some_article_titles|
       query = { prop: 'info', titles: some_article_titles }
       response = WikiApi.new(@wiki).query(query)
       results = response&.data
