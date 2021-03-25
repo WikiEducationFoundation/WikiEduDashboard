@@ -59,8 +59,8 @@ class RevisionImporter
   def import_revisions(data)
     # Use revision data fetched from Replica to add new Revisions as well as
     # new Articles where appropriate.
-    # Keep it to 100 articles per slice to keep query sizes and lengths reasonable.
-    data.each_slice(100) do |sub_data|
+    # Keep it to 10 articles per slice to keep query sizes and lengths reasonable.
+    data.each_slice(10) do |sub_data|
       import_revisions_slice(sub_data)
     end
   end
