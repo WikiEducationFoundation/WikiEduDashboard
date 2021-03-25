@@ -207,7 +207,7 @@ class Replica
   def project_database_params_post
     db = ''
     db = SPECIAL_DB_NAMES[@wiki.domain] if SPECIAL_DB_NAMES[@wiki.domain]
-    { 'db' => db, 'lang' => @wiki.language.tr('-', '_'), 'project' => @wiki.project }
+    { 'db' => db, 'lang' => @wiki.language&.tr('-', '_'), 'project' => @wiki.project }
   end
 
   def compile_usernames_query(users)
