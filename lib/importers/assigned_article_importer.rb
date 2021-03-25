@@ -23,6 +23,13 @@ class AssignedArticleImporter
   def import_articles(assignments)
     missing_titles = assignments.map(&:article_title).uniq
     ArticleImporter.new(@wiki).import_articles_by_title(missing_titles)
+
+    missing_titles.in_groups_of(100) do |title_group|
+      update_assignments_for_titles(title_group)
+    end
+  end
+
+  def update_assignments_for_titles(missing_titles)
     newly_imported_article_titles = Article.where(namespace: Article::Namespaces::MAINSPACE,
                                                   title: missing_titles,
                                                   wiki_id: @wiki.id).pluck(:title)
