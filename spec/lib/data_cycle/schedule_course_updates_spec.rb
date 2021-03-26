@@ -33,7 +33,7 @@ describe ScheduleCourseUpdates do
       create(:course, slug: 'Fast/Updates', flags: fast_update_logs)
       create(:course, slug: 'Medium/Updates', flags: medium_update_logs)
       create(:course, slug: 'Slow/Updates', flags: slow_update_logs)
-      create(:course, slug: 'VeryLong/Updates', flags: { very_long_updates: true } )
+      create(:course, slug: 'VeryLong/Updates', flags: { very_long_updates: true })
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do
