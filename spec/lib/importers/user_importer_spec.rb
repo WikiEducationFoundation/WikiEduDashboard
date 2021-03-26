@@ -179,12 +179,18 @@ describe UserImporter do
   end
 
   describe '.update_user_from_metawiki' do
-    it 'handles collisions smoothly' do
+    let(:course) { create(:course) }
+
+    it 'cleans up records when there are collisions' do
       VCR.use_cassette 'user/new_from_renamed_user' do
-        create(:user, id: 1, username: 'Ragesock', global_id: '14093230')
+        original = create(:user, username: 'Ragesock', global_id: 14093230)
         dupe = create(:user, username: ' Ragesock')
+        create(:courses_user, user: dupe, course: course)
+
         expect(Raven).to receive(:capture_exception).and_call_original
         described_class.update_user_from_metawiki(dupe)
+
+        expect(original.courses_users.count).to eq(1)
       end
     end
   end

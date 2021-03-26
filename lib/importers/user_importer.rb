@@ -111,7 +111,20 @@ class UserImporter
     user.update!(username: user_data['name'],
                  registered_at: user_data['registration'],
                  global_id: user_data&.dig('centralids', 'CentralAuth'))
-  rescue StandardError => e
+  rescue ActiveRecord::RecordNotUnique => e
+    handle_duplicate_user(user, user_data)
     Raven.capture_exception e, extra: { username: user.username, user_id: user.id }
+  end
+
+  def self.handle_duplicate_user(user, user_data)
+    existing_user = User.find_by(username: user_data['name'])
+    user.revisions.update_all(user_id: existing_user.id)
+    user.courses_users.each do |cu|
+      next if CoursesUsers.exists?(course_id: cu.course_id, user_id: existing_user.id)
+      cu.update(user_id: existing_user.id)
+    end
+    # This destroys remaining duplicate CoursesUsers records as well.
+    # Reload prevents destruction of any updated CoursesUsers.
+    user.reload.destroy
   end
 end
