@@ -146,11 +146,12 @@ const AvailableActions = createReactClass({
       }
     }
     // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
-    if ((user.isEnrolled || user.isAdmin) && (course.type === 'Editathon' && !course.ended)) {
-      controls.push((
-        <div key="updateStats" className="available-action"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></div>
-      ));
-    }
+    // NOTE: This is disabled until we have a better way to prevent manual updates from overloading the system.
+    // if ((user.isEnrolled || user.isAdmin) && (course.type === 'Editathon' && !course.ended)) {
+    //   controls.push((
+    //     <div key="updateStats" className="available-action"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></div>
+    //   ));
+    // }
 
     // Requested accounts
     // These are enabled for instructors on P&E Dashboard, but only for admins on Wiki Education Dashboard.
