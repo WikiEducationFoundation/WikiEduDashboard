@@ -3,6 +3,7 @@
 module CourseQueueSorting
   def queue_for(course)
     update_longest_update_time(course)
+    return 'very_long_update' if very_long_update?(course)
 
     case longest_recent_update_time(course)
     when nil
@@ -23,6 +24,10 @@ module CourseQueueSorting
       logs[update_number]['end_time'].to_f - logs[update_number]['start_time'].to_f
     end
     update_times.max.to_i
+  end
+
+  def very_long_update?(course)
+    course.flags[:very_long_update].present?
   end
 
   def longest_update_time(course)

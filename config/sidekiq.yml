@@ -27,3 +27,4 @@ test:
  - long_update
  - daily_update
  - constant_update
+ - very_long_update
