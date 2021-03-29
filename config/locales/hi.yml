@@ -333,6 +333,8 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  timeline:
+    empty_week_3: या
   training:
     next: अगला पृष्ठ
     page: पृष्ठ

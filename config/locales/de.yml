@@ -5,6 +5,7 @@
 # Author: Bjarncraft
 # Author: Bxalber
 # Author: Domani
+# Author: FF-11
 # Author: FF11
 # Author: Killarnee
 # Author: Metalhead64
@@ -1114,7 +1115,7 @@ de:
       Titel verwendet werden, werden Wochen ohne Treffen datiert anstatt nummeriert.
     empty_week_1: Um anzufangen,
     empty_week_2: beginne mit dem Bearbeiten in dieser Woche
-    empty_week_3: ' oder&nbsp;'
+    empty_week_3: oder
     empty_week_4: verwende den Zuweisungsassistenten, um eine Zeitleiste zu erstellen.
     first_week_title: Erste aktive Woche
     gradeable_value: Wert

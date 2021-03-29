@@ -11,6 +11,7 @@
 # Author: Sudachi
 # Author: Sujiniku
 # Author: Suyama
+# Author: Tamaki Wakita
 # Author: Thibaut120094
 # Author: Tmv
 # Author: Yusuke1109
@@ -661,6 +662,7 @@ ja:
     due_default: 来週の〆切
     edit_titles: 編集した週の題名
     empty_week_2: 今週から編集を開始
+    empty_week_3: または
     empty_week_4: 課題ウィザードを使うとタイムラインが作成できます。
     gradeable_value: 値
     gradeables_none: このタイムラインには採点済みの課題が指定されていません。

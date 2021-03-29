@@ -19,6 +19,7 @@
 # Author: Mirzali
 # Author: MuratTheTurkish
 # Author: Rapsar
+# Author: SaldırganSincap
 # Author: Sayginer
 # Author: Suvarioglu
 # Author: TmY e12
@@ -1146,7 +1147,7 @@ tr:
       numaralandırılmak yerine toplantıya sahip olmayan haftalar tarihlendirilir.
     empty_week_1: Başlamak için,
     empty_week_2: bu hafta düzenlemeye başla
-    empty_week_3: ya da
+    empty_week_3: veya
     empty_week_4: bir zaman çizelgesi oluşturmak için atama sihirbazını kullanın.
     first_week_title: İlk Aktif Hafta
     gradeable_value: Değer

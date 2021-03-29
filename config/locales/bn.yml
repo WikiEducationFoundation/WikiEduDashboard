@@ -306,6 +306,7 @@ bn:
       does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।
   timeline:
     add_week: সপ্তাহ যোগ করুন
+    empty_week_3: অথবা
     no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
   training:
     start: শুরু করুন

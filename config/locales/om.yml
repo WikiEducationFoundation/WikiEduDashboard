@@ -1,6 +1,7 @@
 # Messages for Oromo (Oromoo)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ahrada2016
 # Author: Maammee
 # Author: Tumsaa
 ---
@@ -35,6 +36,8 @@ om:
     students: Gulaaltota
     students_short: Gulaaltota
     term: Yoom
+  timeline:
+    empty_week_3: ykn
   training:
     start: Jalqabi
     view: Ilaali

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ans
 # Author: B20180
+# Author: Bebiezaza
 # Author: Korrawit
 # Author: Pilarbini
 # Author: Pon44695
@@ -186,6 +187,8 @@ th:
   recent_activity:
     article_title: ชื่อบทความ
     datetime: วันที่/เวลา
+  timeline:
+    empty_week_3: หรือ
   users:
     first_name: ชื่อจริง
     last_name: นามสกุล
