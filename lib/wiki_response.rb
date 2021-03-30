@@ -77,7 +77,7 @@ class WikiResponse
                                   action_type: @type },
                           extra: { response_data: @response_data,
                                    post_data: @post_data,
-                                   current_user: @current_user }
+                                   current_user: @current_user[:username] }
   end
 
   ###################
