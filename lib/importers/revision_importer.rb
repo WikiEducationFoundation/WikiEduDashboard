@@ -52,7 +52,7 @@ class RevisionImporter
 
   def revisions_from_old_users
     first_rev = latest_revision_of_course
-    start = first_rev.blank? ? course_start_date : first_rev.date.strftime('%Y%m%d')
+    start = first_rev.blank? ? course_start_date : first_rev.date.strftime('%Y%m%d%H%M%S')
     get_revisions(@old_users, start, end_of_update_period)
   end
 
