@@ -5,11 +5,10 @@ require_dependency "#{Rails.root}/lib/wiki_pageviews"
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
   def self.update_outdated_average_views(articles)
-    articles.where(average_views_updated_at: nil).or(
+    to_update = articles.where(average_views_updated_at: nil).or(
       articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
-    ).find_in_batches(batch_size: 200) do |article_group|
-      update_average_views(article_group)
-    end
+    )
+    update_average_views(to_update)
   end
 
   # We get some 429 / too many requests errors with 8
