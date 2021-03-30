@@ -51,8 +51,8 @@ class RevisionImporter
   end
 
   def revisions_from_old_users
-    first_rev = latest_revision_of_course
-    start = first_rev.blank? ? course_start_date : first_rev.date.strftime('%Y%m%d%H%M%S')
+    latest_rev = latest_revision_of_course
+    start = latest_rev.blank? ? course_start_date : latest_rev.date.strftime('%Y%m%d%H%M%S')
     get_revisions(@old_users, start, end_of_update_period)
   end
 
@@ -89,7 +89,7 @@ class RevisionImporter
   end
 
   def latest_revision_of_course
-    @course.tracked_revisions.where(wiki_id: @wiki.id).order('date DESC').first
+    @course.recent_revisions.where(wiki_id: @wiki.id).order('date DESC').first
   end
 
   def import_revisions_slice(sub_data)
