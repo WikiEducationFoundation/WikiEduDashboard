@@ -149,6 +149,20 @@ const CourseAlerts = createReactClass({
         );
       });
     }
+    // ////////////////////////////////
+    // Very Long Update notifications /
+    // ////////////////////////////////
+    if (course.flags && course.flags.very_long_update) {
+      alerts.push(
+        <CourseAlert
+          key="updates_paused"
+          message="Updates for this program or event have been taking too long and are currently paused. If you need updated data soon, please use the 'Report a problem' link to let us know."
+          actionMessage="See details"
+          buttonLink="https://phabricator.wikimedia.org/T277651"
+        />
+      );
+    }
+
 
     // //////////////////////////
     // Experiment notifications /
