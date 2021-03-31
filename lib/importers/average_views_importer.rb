@@ -5,10 +5,11 @@ require_dependency "#{Rails.root}/lib/wiki_pageviews"
 class AverageViewsImporter
   DAYS_UNTIL_OUTDATED = 14
   def self.update_outdated_average_views(articles)
-    to_update = articles.where(average_views_updated_at: nil).or(
+    articles.where(average_views_updated_at: nil).or(
       articles.where('average_views_updated_at < ?', DAYS_UNTIL_OUTDATED.days.ago)
-    )
-    update_average_views(to_update)
+    ).includes(:wiki).find_in_batches(batch_size: 200) do |article_group|
+      update_average_views(article_group)
+    end
   end
 
   # We get some 429 / too many requests errors with 8
@@ -19,7 +20,7 @@ class AverageViewsImporter
     time = Time.zone.today
 
     # Get the average views data and put it into a concurrency-safe datastructure
-    articles.includes(:wiki).each do |article|
+    articles.each do |article|
       pool.post { update_average_views_for_article(article, average_views, time) }
     end
 
