@@ -13,7 +13,7 @@ class CampaignCsvBuilder
 
   def courses_to_csv
     csv_data = [CourseCsvBuilder::CSV_HEADERS]
-    @campaign.courses.each do |course|
+    @campaign.courses.find_each do |course|
       csv_data << CourseCsvBuilder.new(course).row
     end
 
@@ -22,7 +22,7 @@ class CampaignCsvBuilder
 
   def articles_to_csv
     csv_data = [CourseArticlesCsvBuilder::CSV_HEADERS + ['course_slug']]
-    @campaign.courses.each do |course|
+    @campaign.courses.find_each do |course|
       CourseArticlesCsvBuilder.new(course).article_rows.each do |row|
         row_with_slug = row + [course.slug]
         csv_data << row_with_slug
@@ -34,7 +34,7 @@ class CampaignCsvBuilder
 
   def revisions_to_csv
     csv_data = [CourseRevisionsCsvBuilder::CSV_HEADERS + ['course_slug']]
-    @campaign.courses.each do |course|
+    @campaign.courses.find_each do |course|
       CourseRevisionsCsvBuilder.new(course).revisions_rows.each do |row|
         row_with_slug = row + [course.slug]
         csv_data << row_with_slug
