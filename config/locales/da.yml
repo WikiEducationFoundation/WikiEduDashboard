@@ -122,6 +122,7 @@ da:
     edited_by: Redigeret af
     label: Aktivitet
   articles:
+    article_not_found: Denne artikel er endnu ikke oprettet.
     article_development: (artikeludvikling)
     articles_shown: Viser %{count} af %{total}
     assigned: Tildelte artikler
@@ -655,6 +656,10 @@ da:
       one: '%{count} anmodet konto venter.'
       other: '%{count} anmodede konti venter.'
     requested_accounts_alert_view: Vis
+    retain_available_articles: Behold tilgængelige artikler
+    retain_available_articles_info: Når tændt, bliver en tilgængelig artikel ikke
+      fjernet fra listen, hvilket gør det muligt for flere personer at vælge den samme
+      artikel.
     review_timeline: 'Nu kan du gennemse din tidslinje med opgaver og tilpasse den
       som du ønsker. Når du er tilfreds, kan du indsende den til godkendelse til  Wiki
       Education. Når den er godkendt vil du modtage en tilmeldings-url, som deltagere
@@ -971,6 +976,13 @@ da:
     no_edits: Der er ingen seneste reedigeringer.
     plagiarism_report: Anmeld for plagiering
     possible_plagiarism: Muligt plagiat
+    plagiarism_explanation: Wikipedias plagieringskontrol benytter Turnitin/iThenticate
+      for at sammenligne nye redigeringer med udgivne tekster. Disse kontroller er
+      ikke 100 % akkurate. For eksempel kan en korrekt citering aktivere en falsk
+      plagieringsrapport. Gennemse venligst dine studerendes bidrag og detaljerne
+      i rapporten inden du handler på disse oplysninger. (Hvis du opdager at ændringerne,
+      eller hele artiklen, er utilgængelig, kan indholdet muligvis være blevet slettet
+      af ophavsretslige grunde).
     recent_edits: Seneste redigeringer
     recent_uploads: Seneste uploads
     revision_author: Forfatter af denne revision

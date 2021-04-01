@@ -4,6 +4,7 @@
 # Author: BanKris
 # Author: Bencemac
 # Author: Csega
+# Author: Hanna Tardos
 # Author: Misibacsi
 # Author: Notramo
 # Author: R-Joe
@@ -102,6 +103,7 @@ hu:
   resources:
     label: Erőforrások
   timeline:
+    empty_week_3: vagy
     no_activity_this_week: Nincsenek ütemezett találkozók ezen a héten
     title: Idővonal
   training:
