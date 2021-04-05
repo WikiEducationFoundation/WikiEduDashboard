@@ -9,6 +9,7 @@ sl:
   application:
     cancel: Prekliči
     dashboard: Nadzorna plošča urejanja wikija
+    explore: Raziskuj
     help: Pomoč
     home: Domov
     log_in_extended: Prijava z Wikipedijo
@@ -17,6 +18,8 @@ sl:
     confirm: V redu
     opt_in: Da
     opt_out: Ne
+  home:
+    explore: Raziskuj
   articles:
     edited_mobile: Članki
     label: Članki
