@@ -47,6 +47,13 @@ export class Sidebar extends React.Component {
               : 'Course Unknown'
           }
         </section>
+        <section className="course-user-details">
+          {
+            ticket.project.id && ticket.sender.username
+              ? <Link target="_blank" to={`/courses/${ticket.project.slug}/students/articles/${ticket.sender.username}`}>User assignments: {ticket.sender.username}</Link>
+              : ''
+          }
+        </section>
         <section className="user-record">
           {
             ticket.sender.username
