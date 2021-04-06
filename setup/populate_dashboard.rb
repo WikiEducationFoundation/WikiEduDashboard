@@ -39,6 +39,16 @@ def make_copy_of(url)
     user = User.find_or_create_by!(username: user_hash['username'])
     CoursesUsers.create!(user_id: user.id, role: user_hash['role'], course_id: course.id)
   end
+
+  # Get assignments
+  assignments_data = JSON.parse(Net::HTTP.get URI(url + '/assignments.json'))['course']['assignments']
+  # Replicate the assignments as available articles
+  # This is a quick hack so stats are counted for an ArticleScopedProgram.
+  # It assumes all assignments are on home wiki.
+  assignments_data.each do |assignment_hash|
+    Assignment.create(course_id: course.id, article_title: assignment_hash['article_title'], role: 0, wiki_id: home_wiki.id)
+  end
+
   puts "Course #{url} copied! "
   puts "http://localhost:3000/courses/#{course.slug}"
   return course
