@@ -140,7 +140,11 @@ class Wiki < ApplicationRecord
   private
 
   def template_file_path
-    "config/templates/#{ENV['dashboard_url']}_#{language}.yml"
+    if project == 'wikipedia'
+      "config/templates/#{ENV['dashboard_url']}_#{language}.yml"
+    else
+      "config/templates/#{ENV['dashboard_url']}_#{language}.#{project}.yml"
+    end
   end
 
   #############

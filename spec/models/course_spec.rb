@@ -159,8 +159,6 @@ describe Course, type: :model do
   describe '#url' do
     it 'returns the url of a course page' do
       # A legacy course
-      lang = ENV['wiki_language']
-      prefix = ENV['course_prefix']
       course = build(:legacy_course,
                      id: 618,
                      slug: 'UW Bothell/Conservation Biology (Winter 2015)',
@@ -174,9 +172,7 @@ describe Course, type: :model do
                          slug: 'UW Bothell/Conservation Biology (Winter 2016)',
                          submitted: true)
       url = new_course.url
-      # rubocop:disable Layout/LineLength
-      expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
-      # rubocop:enable Layout/LineLength
+      expect(url).to eq('https://en.wikipedia.org/wiki/Wikipedia:Wiki_Ed/UW_Bothell/Conservation_Biology_(Winter_2016)')
 
       # A course that hasn't been submitted so has no on-wiki course page yet
       new_course = build(:course, submitted: false)

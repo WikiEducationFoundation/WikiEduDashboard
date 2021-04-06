@@ -205,4 +205,23 @@ describe Wiki do
       end
     end
   end
+
+  describe '#edit_templates' do
+    before do
+      @dashboard_url = ENV['dashboard_url']
+      ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
+    end
+
+    after do
+      ENV['dashboard_url'] = @dashboard_url
+    end
+
+    it 'works with non-Wikipedia wikis' do
+      VCR.use_cassette 'wiki' do
+        wiki = described_class.get_or_create(language: 'pt', project: 'wikiversity')
+        templates = wiki.edit_templates
+        expect(templates['default']['course']).to eq('Detalhes de programa')
+      end
+    end
+  end
 end
