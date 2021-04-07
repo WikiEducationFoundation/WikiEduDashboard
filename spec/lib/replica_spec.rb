@@ -89,7 +89,7 @@ describe Replica do
       VCR.use_cassette 'replica/articles' do
         article_titles = [
           { 'title' => 'Autism' }, # exists in namespace 0, 1, 10, 11
-          { 'title' => 'Allegiance' }, # exists in namespace 0, 1
+          { 'title' => 'Allegiance' }, # exists in namespace 0, 1, 10
           # Test with URI reserved characters
           { 'title' => "Broussard's" }, # exists in namespace 0, 1
           { 'title' => 'Procter_&_Gamble' }, # exists in namespace 0, 1, 10, 11
@@ -99,7 +99,7 @@ describe Replica do
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
         response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
-        expect(response.size).to eq(17)
+        expect(response.size).to eq(18)
       end
     end
 
