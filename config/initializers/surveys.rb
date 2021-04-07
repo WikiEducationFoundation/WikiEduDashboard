@@ -11,12 +11,12 @@ Rails.application.config.to_prepare do
     has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
   end
 
+  Rapidfire::AnswerGroup.class_eval do
+    belongs_to :user
+  end
+
   Rapidfire::Answer.class_eval do
-    def user
-      answer_group = Rapidfire::AnswerGroup.find_by_id(answer_group_id)
-      return nil if answer_group.nil?
-      User.find_by_id(answer_group.user_id)
-    end
+    has_one :user, through: :answer_group
 
     def notification(survey_id)
       notifications = user.survey_notifications.completed
