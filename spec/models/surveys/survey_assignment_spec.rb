@@ -121,7 +121,7 @@ RSpec.describe SurveyAssignment, type: :model do
     end
   end
 
-  describe '#total_notifications' do
+  describe '#target_user_count' do
     it 'returns the total number of users who will receive a notification' do
       course.campaigns << @campaign
       course.save
@@ -139,7 +139,7 @@ RSpec.describe SurveyAssignment, type: :model do
         send_date_relative_to: 'end'
       )
 
-      expect(@survey_assignment.total_notifications).to eq(1)
+      expect(@survey_assignment.target_user_count).to eq(1)
     end
   end
 

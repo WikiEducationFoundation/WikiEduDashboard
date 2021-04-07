@@ -176,14 +176,14 @@ class Course < ApplicationRecord
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("#{relative_to} > '#{ready_date}'")
+    where("courses.#{relative_to} > '#{ready_date}'")
   end
 
   def self.ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("#{relative_to} <= '#{ready_date}'")
+    where("courses.#{relative_to} <= '#{ready_date}'")
   end
 
   ##################

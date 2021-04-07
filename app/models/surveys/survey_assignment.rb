@@ -25,6 +25,7 @@ class SurveyAssignment < ApplicationRecord
   belongs_to :survey
   has_and_belongs_to_many :campaigns
   has_many :survey_notifications
+  has_many :courses, through: :campaigns
 
   before_destroy :remove_notifications
 
@@ -78,20 +79,12 @@ class SurveyAssignment < ApplicationRecord
     }
   end
 
-  def total_notifications
-    users = campaigns.collect do |c|
-      c.courses.collect do |course|
-        course.courses_users.where(role: courses_user_role)
-      end
-    end
-    users.flatten.length
+  def courses_users
+    CoursesUsers.where(course: courses, role: courses_user_role)
   end
 
   def courses_users_ready_for_survey
-    courses = courses_users_ready_for_notifications.collect do |course|
-      course.courses_users.where(role: courses_user_role)
-    end
-    courses.flatten
+    CoursesUsers.where(course: courses_ready_for_notifications, role: courses_user_role)
   end
 
   def survey
@@ -102,30 +95,26 @@ class SurveyAssignment < ApplicationRecord
     published && !courses_with_pending_notifications.empty?
   end
 
-  def courses_users_ready_for_notifications
-    campaigns.collect { |campaign| campaign.courses.ready_for_survey(send_at) }.flatten
-  end
-
   def courses_with_pending_notifications
-    campaigns.collect { |campaign| campaign.courses.will_be_ready_for_survey(send_at) }.flatten
-  end
-
-  def target_courses
-    campaigns.collect(&:courses).flatten
+    courses.will_be_ready_for_survey(send_at)
   end
 
   def target_user_count
-    target_courses.sum { |c| c.courses_users.where(role: courses_user_role).count }
+    @target_user_count ||= courses_users.count
   end
 
   def status
     return 'Draft' unless published
     return 'Closed' if survey.closed
-    return 'Pending' if total_notifications.zero?
-    return 'Active' if total_notifications.positive?
+    return 'Pending' if target_user_count.zero?
+    return 'Active' if target_user_count.positive?
   end
 
   private
+
+  def courses_ready_for_notifications
+    courses.ready_for_survey(send_at)
+  end
 
   def remove_notifications
     SurveyNotification.where(survey_assignment_id: id).destroy_all
