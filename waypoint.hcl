@@ -1,15 +1,15 @@
 project = "wikiedu"
 
-app "wikiedu-web" {
-  runner {
-    enabled = true
+runner {
+  enabled = true
 
-    data_source "git" {
-      url  = "https://github.com/speedshop/WikiEduDashboard.git"
-      ref  = "hashistack"
-    }
+  data_source "git" {
+    url  = "https://github.com/speedshop/WikiEduDashboard.git"
+    ref  = "hashistack"
   }
+}
 
+app "wikiedu-web" {
   build {
     use "pack" {
       builder = "heroku/buildpacks:20"
