@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.7.1'
 
 ### Basic Framework
-gem 'rails', '6.0.3.4'
+gem 'rails', '~> 6.0.3.4'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -29,6 +29,7 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 # Parses user agent strings to determine which browser is in use.
 # Used for browser support warnings.
 gem 'browser'
+gem "omniauth", "~> 1.9.1"
 
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
