@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Irus
+# Author: Pupsik-ipa
 # Author: Surprizi
 # Author: Андрей
 ---
@@ -13,7 +14,7 @@ ab:
     dashboard: Wiki Ed Апанель
     documentation: Адокументациа
     error: 'Иҟалеит агха:'
-    explore: Аҭыҧхәаҧшра
+    explore: Аҭыԥхәаԥшра
     greeting2: Бзиала шәаабеит!
     greeting_extended: Бзиала шәаабеит Википедиа ахь
     greeting: Абзиара шәымаз!
@@ -24,16 +25,16 @@ ab:
     search_results: 'Алҵшәақәа: "%{search_terms}" азы'
     submit: Идәықәҵатәуп
     training: Арҵара
-    change: Иҧсахтәуп
+    change: Иԥсахтәуп
     confirm: OK
   dashboard:
-    explore_examples: Иҵатәуп аҿырҧштәқәа
+    explore_examples: Иҵатәуп аҿырԥштәқәа
     blog_headline: Wiki Education аҵыхәтәантәи ажәабжьқәа
   home:
     explore: Иҭҵаатәуп
   activity:
     all: Активра
-    edited_by: И(л)ҧсахит
+    edited_by: И(л)ԥсахит
     label: Активра
   articles:
     deleted: (ианыхуп)
@@ -43,11 +44,11 @@ ab:
     loading: Астатиақәа рҭагалара...
     new: (иҿыцу)
     rating: Акласс
-    show_current_version: Иаарҧштәуп уажәтәи аверсиа
+    show_current_version: Иаарԥштәуп уажәтәи аверсиа
     title: Ахьӡ
     title_example: Астатиа ахьӡ
-    view: Астатиа ахәаҧшра
-    view_all: Ирыхәаҧштәуп зегьы
+    view: Астатиа ахәаԥшра
+    view_all: Ирыхәаԥштәуп зегьы
   assignments:
     title_too_large: Ахьӡ 255 символ иреиҳамзароуп
     remove: Ианыхтәуп
@@ -62,7 +63,7 @@ ab:
     campaigns: Акомпаниақәа
     campaign_deleted: Акампаниа "%{title}" аныхын
     campaign_updated: Акампаниақәа рҿыцуп
-    create_campaign: Иаҧҵатәуп акампаниа ҿыц
+    create_campaign: Иаԥҵатәуп акампаниа ҿыц
     description: Ахҳәаа
     delete_campaign: Ианыхтәуп ари акампаниа
     none: Мап
@@ -89,14 +90,14 @@ ab:
     creator:
       course_description: Акурс ахҳәаа
       course_title: Акурс ахьӡ
-      create_new: Иаҧҵатәуп акурс ҿыц
-      create_short: Иаҧҵатәуп акурс
+      create_new: Иаԥҵатәуп акурс ҿыц
+      create_short: Иаԥҵатәуп акурс
     current: Уажәтәи акурсқәа
     delete_course: Ианыхтәуп акурс
     delete_suggestion: Ианыхуп
     dismiss_survey: Аркра
     download_stats_data: Иҭыгатәуп астатистика
-    edit_count: Ариашарақәа рхыҧхьаӡара
+    edit_count: Ариашарақәа рхыԥхьаӡара
     instructor:
       one: Аинструктор
       other: Аинструкторцәа
@@ -109,7 +110,7 @@ ab:
     students_short: Астудентцәа
     user_role: Ароль
     title: Ахьӡ
-    view: Акурс ахәаҧшра
+    view: Акурс ахәаԥшра
     yourcourses: Шәара шәкурсқәа
   courses_generic:
     all_courses: Апрограммақәа зегьы
@@ -122,11 +123,11 @@ ab:
       course_term: Ианба
       course_term_placeholder: Ианба
       course_title: Апрограмма ахьӡ
-      create_label: Иаҧҵатәуп апрограмма ҿыц
-      create_short: Иаҧҵатәуп апрограмма
-      find: Иҧшаатәуп апрограмма
+      create_label: Иаԥҵатәуп апрограмма ҿыц
+      create_short: Иаԥҵатәуп апрограмма
+      find: Иԥшаатәуп апрограмма
       save_cloned_course: Еиқәырхатәуп
-    explore: Иҧшаатәуп апрограммақәа
+    explore: Иԥшаатәуп апрограммақәа
     student_editors: Аредакторцәа
     students: Аредакторцәа
     students_short: Аредакторцәа
@@ -151,9 +152,9 @@ ab:
     uploaded_by: Иҭаигалеит
     usage_count: Ихархәоуп
   revisions:
-    diff_show: Иаарҧштәуп
+    diff_show: Иаарԥштәуп
     diff_hide: Иҵәахтәуп
-    edited_by: И(л)ҧсахит
+    edited_by: И(л)ԥсахит
     loading: Аверсиақәа рҭагалара...
     title: Ахьӡ
   timeline:
@@ -163,7 +164,7 @@ ab:
     week_number: Амчыбжь %{number}
   training:
     start: Иалагатәуп
-    view: Ахәаҧшра
+    view: Ахәаԥшра
   uploads:
     file_name: Афаил ахьӡ
     image: Асахьа

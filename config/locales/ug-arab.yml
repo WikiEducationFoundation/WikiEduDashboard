@@ -1,6 +1,7 @@
 # Messages for Uyghur (Arabic script) (ئۇيغۇرچە)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Sahran
 # Author: Uzdil
 # Author: چۈشكۈن
 ---
@@ -32,6 +33,8 @@ ug-arab:
     requested_accounts: ھېسابات ئىلتىماس قىلىش
   courses_generic:
     request_accounts: ھېسابات ئىلتىماس قىلىش
+  timeline:
+    empty_week_3: ياكى
   users:
     loading_authorship_data: ئاپتور سانلىق مەلۇماتى يۈكلىنىۋاتىدۇ
     authorship_data_not_fetched: ئاپتور سانلىق مەلۇمات ئىزدەپ تېپىش مۇمكىن ئەمەس
