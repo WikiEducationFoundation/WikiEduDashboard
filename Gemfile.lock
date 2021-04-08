@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: https://github.com/premailer/premailer.git
-  revision: ae21ddab9302cf3e3b9dad9c3cd1115487f06acb
+  revision: b6a2abab99d3f8eebf623e33c2506daa210dc154
   branch: master
   specs:
     premailer (1.14.2)
@@ -176,7 +176,7 @@ GEM
     connection_pool (2.2.3)
     crack (0.4.4)
     crass (1.0.6)
-    css_parser (1.7.1)
+    css_parser (1.9.0)
       addressable
     dalli (2.7.11)
     debug_inspector (0.0.3)
