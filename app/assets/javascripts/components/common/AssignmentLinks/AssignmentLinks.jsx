@@ -27,7 +27,11 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
 
   if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
     actions.push(
-      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+      <SandboxLink
+        key={`sandbox-${id}`}
+        assignment={assignment}
+        user={user}
+      />
     );
   }
 
@@ -62,11 +66,12 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   }
 
   // const reviewers = <ReviewerLink key={`reviewers-${id}`} reviewers={assignment.reviewers} />;
+
   const links = actions.concat(article).reduce(interleaveSeparators, []);
 
   return (
     <section className="editors">
-      <p className="assignment-links mb0">{ links }</p>
+      <div className="assignment-links mb0">{ links }</div>
       {
         groupMembers && <p className="assignment-links mb0 editors">{groupMembers}</p>
       }

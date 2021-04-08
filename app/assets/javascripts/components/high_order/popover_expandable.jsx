@@ -48,7 +48,6 @@ const PopoverExpandable = function (Component) {
     handleClickOutside(e) {
       if (this.state.is_open) this.open(e);
     },
-
     render() {
       return (
         <Component
