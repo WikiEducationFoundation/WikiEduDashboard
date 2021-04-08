@@ -5,7 +5,7 @@ app "wikiedu-web" {
     enabled = true
 
     data_source "git" {
-      url  = "https://github.com/WikiEducationFoundation/WikiEduDashboard.git"
+      url  = "https://github.com/speedshop/WikiEduDashboard.git"
       ref  = "hashistack"
     }
   }
