@@ -128,8 +128,10 @@ describe UpdateCourseStats do
                                                                 course: course.slug })
     end
 
-    context 'when a Programs & Events Dashboard course is in the long_update queue' do
-      let(:course) { create(:course, start: 1.day.ago, end: 1.year.from_now) }
+    context 'when a Programs & Events Dashboard course has a potentially long update time' do
+      let(:course) do
+        create(:course, start: 1.day.ago, end: 1.year.from_now, flags: { longest_update: 1.hour })
+      end
 
       before do
         allow(Features).to receive(:wiki_ed?).and_return(false)
