@@ -94,7 +94,7 @@ class UpdateCourseStats
     # for slow-updating courses.
     # This means we miss cases of article deletion
     # and namespace changes unless the article
-    longest_update_time(@course).to_i > TEN_MINUTES
+    longest_update_time(@course).to_i < TEN_MINUTES
   end
 
   def debug?
