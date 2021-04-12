@@ -38,7 +38,7 @@ kn:
     error:
       user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
     new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
-    overview: ಅವಲೋಕನ
+    overview: ಮುಖ್ಯಪುಟ
     students: ವಿದ್ಯಾರ್ಥಿಗಳು
     students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
     students_short: ವಿದ್ಯಾರ್ಥಿಗಳು
@@ -67,5 +67,7 @@ kn:
     articles_edited: ಸಂಪಾದಿಸಿದ ಲೇಖನಗಳು
     date_time: ದಿನಾಂಕ/ಸಮಯ
     edit_count_description: ಒಟ್ಟು ಸಂಪಾದನೆಗಳು
-    revisions: ಇತ್ತೀಚೆಗಿನ ಆವೃತ್ತಿಗಳು
+    revisions: ಇತ್ತೀಚೆಗಿನ ಸಂಪಾದನೆಗಳು
+  timeline:
+    empty_week_3: ಅಥವಾ
 ...
