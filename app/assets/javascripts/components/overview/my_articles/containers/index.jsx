@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // components
+import MyArticlesInstructorMessage from '@components/overview/my_articles/components/InstructorMessage.jsx';
 import MyArticlesNoAssignmentMessage from '@components/overview/my_articles/components/NoAssignmentMessage.jsx';
 import MyArticlesHeader from '@components/overview/my_articles/components/Header.jsx';
 import MyArticlesCategories from '@components/overview/my_articles/components/Categories/Categories.jsx';
@@ -33,7 +34,7 @@ export class MyArticlesContainer extends React.Component {
       all
     } = processAssignments(this.props);
 
-    if (loading || !current_user.isStudent) return null;
+    if (loading) return null;
     let noArticlesMessage;
     if (!assigned.length && current_user.isStudent) {
       if (Features.wikiEd) {
@@ -43,9 +44,15 @@ export class MyArticlesContainer extends React.Component {
       }
     }
 
+    let instructorMessage;
+    if (Features.wikiEd && current_user.isInstructor) {
+      instructorMessage = <MyArticlesInstructorMessage />;
+    }
+
     return (
       <div>
         <div className="module my-articles">
+          {instructorMessage}
           <MyArticlesHeader
             assigned={assigned}
             course={course}

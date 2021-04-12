@@ -209,11 +209,18 @@ describe WikiCourseEdits do
   end
 
   describe '#update_assignments' do
-    before { stub_wiki_validation }
-
+    let(:instructor) { create(:user, username: 'Instructor') }
     let(:selfie) { create(:article, title: 'Selfie') }
     let(:selfie_talk) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
     let(:redirect) { create(:article, title: 'Athletics_in_Epic_Poetry') }
+
+    before do
+      stub_wiki_validation
+      stub_raw_action
+      create(:courses_user, user: user, course: course)
+      create(:courses_user, user: instructor, course: course,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
 
     context 'when the course is not yet approved for a campaign' do
       it 'does not make assignment edits' do
@@ -244,7 +251,6 @@ describe WikiCourseEdits do
 
       context 'posts are made' do
         before do
-          stub_raw_action
           allow_any_instance_of(WikiApi).to receive(:redirect?).and_return(false)
           create(:assignment,
                  user_id: user.id,
@@ -323,6 +329,19 @@ describe WikiCourseEdits do
                  course_id: course.id,
                  article_title: 'Selfie',
                  article_id: nil,
+                 role: Assignment::Roles::ASSIGNED_ROLE)
+          described_class.new(action: :update_assignments,
+                              course: course,
+                              current_user: user)
+        end
+
+        it 'does not post if assignment is for instructor' do
+          expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+          create(:assignment,
+                 user_id: instructor.id,
+                 course_id: course.id,
+                 article_title: 'Selfie',
+                 article_id: selfie.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
           described_class.new(action: :update_assignments,
                               course: course,

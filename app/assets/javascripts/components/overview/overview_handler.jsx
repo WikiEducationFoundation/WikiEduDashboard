@@ -119,7 +119,7 @@ const Overview = createReactClass({
 
     let userArticles;
     const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
-    if (this.props.current_user.isStudent && course.id && !isWikidataCourse) {
+    if (this.props.current_user.isEnrolled && course.id && !isWikidataCourse) {
       userArticles = (
         <>
           <MyExercises trainingLibrarySlug={this.props.course.training_library_slug} />

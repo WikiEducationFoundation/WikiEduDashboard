@@ -195,9 +195,10 @@ class WikiCourseEdits
   def homewiki_assignments_grouped_by_article
     # Only do on-wiki updates for articles that are on the course's home wiki
     # and that are not 'available articles' with no assigned user.
+    # Also exclude assignments of non-students.
     @course.assignments.where(wiki: @home_wiki)
+           .where(user: @course.students)
            .where.not(article_id: nil)
-           .where.not(user_id: nil)
            .group_by(&:article_id)
   end
 
