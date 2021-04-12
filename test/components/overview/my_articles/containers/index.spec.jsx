@@ -41,24 +41,6 @@ describe('MyArticlesContainer', () => {
       expect(Container.text()).toMatch(/You have not chosen an article/);
     });
 
-    it('does not display for an admin', () => {
-      const store = configureMockStore()(initialState);
-
-      const props = {
-        current_user: { isStudent: false, username: 'Username' }
-      };
-
-      const Container = mount(
-        <Provider store={store}>
-          <MyArticlesContainer {...props} />
-        </Provider>
-      );
-
-      // This checks that nothing gets rendered.
-      expect(Container.children().length).toEqual(1);
-      expect(Container.children().at(0).type()).toEqual(MyArticlesContainer);
-    });
-
     describe('rendering', () => {
       const store = configureMockStore()({
         assignments: {
