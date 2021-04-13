@@ -52,6 +52,7 @@ class Alert < ApplicationRecord
     OverdueTrainingAlert
     OverEnrollmentAlert
     ProductiveCourseAlert
+    ProtectedArticleAssignmentAlert
     SandboxedCourseMainspaceAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
@@ -87,6 +88,7 @@ class Alert < ApplicationRecord
     HighQualityArticleEditAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
+    ProtectedArticleAssignmentAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
     SandboxedCourseMainspaceAlert
