@@ -26,8 +26,8 @@ class HighQualityArticleMonitor
     course_articles.each do |articles_course|
       create_edit_alert(articles_course)
     end
-    course_assignments.each do |assignments_course|
-      create_assignment_alert(assignments_course)
+    course_assignments.each do |assignment|
+      create_assignment_alert(assignment)
     end
   end
 
@@ -63,13 +63,13 @@ class HighQualityArticleMonitor
     alert.email_content_expert
   end
 
-  def create_assignment_alert(assignments_course)
-    return if unresolved_assignment_alert_already_exists?(assignments_course)
+  def create_assignment_alert(assignment)
+    return if unresolved_assignment_alert_already_exists?(assignment)
     alert = Alert.create!(type: 'HighQualityArticleAssignmentAlert',
-                          article_id: assignments_course.article_id,
-                          user_id: assignments_course.user_id,
-                          course_id: assignments_course.course_id)
-    alert.email_content_expert
+                          article_id: assignment.article_id,
+                          user_id: assignment.user_id,
+                          course_id: assignment.course_id)
+    alert.email_involved_users
   end
 
   def unresolved_edit_alert_already_exists?(articles_course)

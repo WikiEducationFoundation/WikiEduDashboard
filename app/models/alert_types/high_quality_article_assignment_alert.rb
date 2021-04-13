@@ -24,7 +24,7 @@
 # as an assignment by a student.
 class HighQualityArticleAssignmentAlert < Alert
   def main_subject
-    "#{article.title} — #{course&.slug}"
+    "[Wiki Education: #{course&.title}] #{article.title} is well-developed article"
   end
 
   def url
@@ -42,5 +42,11 @@ class HighQualityArticleAssignmentAlert < Alert
       there are assignments to this article in the same course that happen after the
       resolved alert was generated.
     EXPLANATION
+  end
+
+  def email_involved_users
+    return if emails_disabled?
+    HighQualityArticleAssignmentMailer.send_email(self)
+    update_attribute(:email_sent_at, Time.zone.now)
   end
 end

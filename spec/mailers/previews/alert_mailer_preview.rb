@@ -3,15 +3,15 @@
 #= Preview all emails at http://localhost:3000/rails/mailers/survey_mailer
 class AlertPreview < ActionMailer::Preview
   def articles_for_deletion_alert
-    AlertMailer.alert(Alert.where(type: 'ArticlesForDeletionAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'ArticlesForDeletionAlert'), example_user)
   end
 
   def productive_course_alert
-    AlertMailer.alert(Alert.where(type: 'ProductiveCourseAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'ProductiveCourseAlert'), example_user)
   end
 
   def continued_course_activity_alert
-    AlertMailer.alert(Alert.where(type: 'ContinuedCourseActivityAlert').last, example_user)
+    AlertMailer.alert(example_alert(type: 'ContinuedCourseActivityAlert'), example_user)
   end
 
   def need_help_alert
@@ -45,8 +45,8 @@ class AlertPreview < ActionMailer::Preview
     Alert.new(type: 'OverEnrollmentAlert', course: example_course, id: 9)
   end
 
-  def example_alert
-    Alert.new(type: 'HighQualityArticleEditAlert', article: example_article,
+  def example_alert(type: 'HighQualityArticleEditAlert')
+    Alert.new(type: type, article: example_article,
               course: example_course, id: 9)
   end
 end
