@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 module CheckCourseJobsLogging
   def log_orphan_record
     Raven.capture_message('Orphan lock removed',
-                          level: 'warn',
+                          level: 'warning',
                           extra: sentry_extra)
     return nil
   end

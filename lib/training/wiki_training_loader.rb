@@ -44,7 +44,7 @@ class WikiTrainingLoader
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
       Raven.capture_message 'Invalid wiki training content',
-                            level: 'warn', extra: { content: content, wiki_page: wiki_page }
+                            level: 'warning', extra: { content: content, wiki_page: wiki_page }
       return
     end
     @collection << content

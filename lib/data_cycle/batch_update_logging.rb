@@ -65,7 +65,7 @@ module BatchUpdateLogging
   def log_message(message)
     Rails.logger.debug message
     @sentry_logs << "#{Time.zone.now} - #{message}"
-    Raven.capture_message(message, level: 'warn', extra: { logs: @sentry_logs }) if debug?
+    Raven.capture_message(message, level: 'warning', extra: { logs: @sentry_logs }) if debug?
   end
 
   def log_start_of_update(message)

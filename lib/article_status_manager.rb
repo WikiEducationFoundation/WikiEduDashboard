@@ -109,7 +109,7 @@ class ArticleStatusManager
         # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
         # so this rescue comes first.
         handle_undeletion(article)
-        Raven.capture_exception e
+        Raven.capture_exception e, level: 'warning'
       rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
         Raven.capture_exception e
       end

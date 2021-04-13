@@ -81,7 +81,7 @@ class UpdateCourseStats
     @sentry_logs ||= {}
     @sentry_logs[step] = Time.zone.now
     Raven.capture_message "#{@course.title} update: #{step}",
-                          level: 'warn',
+                          level: 'warning',
                           extra: { logs: @sentry_logs }
   end
 
