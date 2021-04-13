@@ -34,7 +34,8 @@ export class MyArticlesContainer extends React.Component {
       all
     } = processAssignments(this.props);
 
-    if (loading) return null;
+    const rightUserType = current_user.isStudent || current_user.isInstructor;
+    if (loading || !rightUserType) return null;
     let noArticlesMessage;
     if (!assigned.length && current_user.isStudent) {
       if (Features.wikiEd) {
