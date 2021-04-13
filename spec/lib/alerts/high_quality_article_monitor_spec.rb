@@ -3,20 +3,17 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 
-def mock_mailer
-  OpenStruct.new(deliver_now: true)
-end
-
 describe HighQualityArticleMonitor do
   describe '.create_alerts_for_course_articles' do
     let(:course) { create(:course, start: 1.month.ago, end: 1.month.after) }
-    let(:student) { create(:user, username: 'student') }
+    let(:student) { create(:user, username: 'student', email: 'learn@school.edu') }
+    let(:instructor) { create(:user, username: 'instructor', email: 'teach@school.edu') }
     let!(:courses_user) do
       create(:courses_user, user_id: student.id,
                             course_id: course.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
-    let(:content_expert) { create(:user, greeter: true) }
+    let(:content_expert) { create(:user, greeter: true, email: 'expert@wikiedu.org') }
 
     # Good article that hasn't been edited by students
     let!(:article2) { create(:article, title: 'History_of_aspirin', namespace: 0) }
@@ -40,6 +37,9 @@ describe HighQualityArticleMonitor do
     end
 
     before do
+      create(:courses_user, course: course, user: instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:Good articles')
         .and_return(['10 Hygiea',
@@ -66,7 +66,6 @@ describe HighQualityArticleMonitor do
 
     it 'emails a greeter' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
-      allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       VCR.use_cassette 'high_quality' do
         described_class.create_alerts_for_course_articles
       end
