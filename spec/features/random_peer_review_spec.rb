@@ -14,6 +14,7 @@ describe 'random peer reviews', type: :feature, js: true do
   let(:tennis_article) { create(:article, title: 'Tennis') }
   let(:skating_article) { create(:article, title: 'Skating') }
   let(:cricket_article) { create(:article, title: 'Cricket') }
+  let(:polo_article) { create(:article, title: 'Polo') }
 
   before do
     create(:campaigns_course, campaign_id: campaign.id, course_id: course.id)
@@ -38,6 +39,10 @@ describe 'random peer reviews', type: :feature, js: true do
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: skating_article)
     create(:assignment, course: course, article_title: cricket_article.title, user: student2,
            role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: cricket_article)
+
+    # Instructor is assigned an article as well, which should't be included among assigned reviews
+    create(:assignment, course: course, article_title: polo_article.title, user: instructor,
+           role: Assignment::Roles::ASSIGNED_ROLE, wiki: course.home_wiki, article: polo_article)
 
     # Available articles not assigned to any student
     create(:assignment, course: course, article_title: 'Article that does not exist',

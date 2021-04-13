@@ -63,7 +63,7 @@ class AssignmentManager
 
   def assigned_titles
     @assigned_titles ||= @course.assignments.assigned
-                                .where.not(user_id: nil).pluck(:article_title).shuffle
+                                .where(user: @course.students).pluck(:article_title).shuffle
   end
 
   def reviewed_titles
