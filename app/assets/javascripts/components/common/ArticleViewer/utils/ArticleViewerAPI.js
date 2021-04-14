@@ -109,7 +109,10 @@ export class ArticleViewerAPI {
           attempts += 1;
           if (attempts <= MAX_RETRY_ATTEMPTS) return colorURLRequest.call(this, attempts);
 
-          const err = `Request failed after ${MAX_RETRY_ATTEMPTS} attempts. Please try again.`;
+          // Handle the case when the key 'info' is not present in response.
+          let info = response.info ? response.info : ''
+
+          const err = `Request failed after ${MAX_RETRY_ATTEMPTS} attempts. ${info}`;
           throw new Error(err);
         });
     }
