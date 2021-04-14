@@ -24,7 +24,7 @@
 # as an assignment by a student.
 class HighQualityArticleAssignmentAlert < Alert
   def main_subject
-    "[Wiki Education: #{course&.title}] #{article.title} is well-developed article"
+    "[Wiki Education: #{course&.title}] #{article.title} is a well-developed article"
   end
 
   def url
