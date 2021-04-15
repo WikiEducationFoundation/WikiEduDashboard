@@ -106,5 +106,13 @@ describe CourseRevisionUpdater do
         expect(Revision.all.count > 1).to be true
       end
     end
+
+    it 'skips import for ArticleScopedCourse with no tracked articles' do
+      expect_any_instance_of(RevisionImporter).not_to receive(:import_revisions_for_course)
+      course = create(:article_scoped_program)
+      student = create(:user)
+      create(:courses_user, course: course, user: student)
+      described_class.import_revisions(course, all_time: true)
+    end
   end
 end
