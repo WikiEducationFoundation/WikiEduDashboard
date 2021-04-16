@@ -593,6 +593,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   oj
+  omniauth (~> 1.9.1)
   omniauth-mediawiki!
   pandoc-ruby
   paper_trail
