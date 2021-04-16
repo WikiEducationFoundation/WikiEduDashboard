@@ -20,7 +20,7 @@ app "wikiedu-web" {
     }
     registry {
       use "docker" {
-        image = "978bcc.wikiedu.org/wikiedu-web"
+        image = "a5641d.wikiedu.org/wikiedu-web"
         tag = "latest"
       }
     }

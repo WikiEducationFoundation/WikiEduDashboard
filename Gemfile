@@ -31,6 +31,7 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 # Used for browser support warnings.
 gem 'browser'
 gem "omniauth", "~> 1.9.1"
+gem "puma"
 
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
@@ -121,7 +122,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'puma'
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
