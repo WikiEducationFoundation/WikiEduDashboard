@@ -599,7 +599,6 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   oj
-  omniauth (~> 1.9.1)
   omniauth-mediawiki!
   pandoc-ruby
   paper_trail
@@ -610,7 +609,7 @@ DEPENDENCIES
   puma
   rack-cors
   rack-mini-profiler
-  rails (~> 6.0.3.4)
+  rails (= 6.0.3.4)
   rails-controller-testing
   rails-erd
   rake (>= 11.0)
