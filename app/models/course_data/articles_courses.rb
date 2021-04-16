@@ -66,7 +66,7 @@ class ArticlesCourses < ApplicationRecord
   def update_cache
     revisions = live_manual_revisions.load
 
-    self.character_sum = revisions.sum { |r| r.characters >= 0 ? r.characters : 0 }
+    self.character_sum = revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
     self.references_count = revisions.sum(&:references_added)
     self.view_count = views_since_earliest_revision(revisions)
     self.user_ids = associated_user_ids(revisions)
