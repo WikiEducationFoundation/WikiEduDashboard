@@ -50,6 +50,7 @@ ti:
     private: ብሕታዊ
   metrics:
     date_time: ዕለት/ሰዓት
+    tags: መፈለጥታታት
     view: ትርኢታት
   recent_activity:
     datetime: ዕለት/ሰዓት
