@@ -5,6 +5,11 @@
 # Author: ElizaMag
 ---
 inh:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: эз.
   application:
     greeting: Моаршал да шуга!
     search: хаттар ле
