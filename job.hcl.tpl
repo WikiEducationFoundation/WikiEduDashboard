@@ -2,8 +2,16 @@ job "rails" {
   datacenters = ["dc1"]
 
   group "web" {
+    count = 2
+
     network {
       mode = "bridge"
+    }
+
+    volume "rails" {
+      type      = "host"
+      read_only = false
+      source    = "rails"
     }
 
     service {
@@ -34,11 +42,17 @@ job "rails" {
     task "rails_server" {
       driver = "docker"
 
+      volume_mount {
+        volume      = "rails"
+        destination = "/workspace/public/system"
+        read_only   = false
+      }
+
       config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
         ports = ["http"]
-        command = "bundle"
-        args = ["exec", "puma", "-b", "0.0.0.0", "-p", "5000", "--preload", "-w", "4", "-t", "1:1"]
+        command = "puma"
+        args = ["-b", "tcp://0.0.0.0", "-p", "5000", "--preload", "-w", "2", "-t", "1:1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -47,8 +61,8 @@ job "rails" {
 
       resources {
         # Dependent on the worker count (4)
-        cpu    = 7500 # 2000 * 4, -500 for the envoy proxy
-        memory = 4096 # 1024 * 4
+        cpu    = 3000 # 2000 * 4, -500 for the envoy proxy
+        memory = 2048 # 1024 * 4
       }
 
       env {
@@ -62,6 +76,12 @@ job "rails" {
   group "sidekiq-constant" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -90,9 +110,10 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "constant_update", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "constant_update", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -115,6 +136,12 @@ job "rails" {
   group "sidekiq-daily" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -143,9 +170,10 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "daily_update", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "daily_update", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -168,6 +196,12 @@ job "rails" {
   group "sidekiq-default" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -196,9 +230,11 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "default", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "default", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -221,6 +257,12 @@ job "rails" {
   group "sidekiq-long" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -249,9 +291,11 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "long_update", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "long_update", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -274,6 +318,12 @@ job "rails" {
   group "sidekiq-medium" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -302,9 +352,11 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "medium_update", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "medium_update", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
@@ -327,6 +379,12 @@ job "rails" {
   group "sidekiq-short" {
     network {
       mode = "bridge"
+    }
+
+    constraint {
+      attribute = "${node.unique.name}"
+      operator  = "!="
+      value     = "node-railsweb"
     }
 
     service {
@@ -355,9 +413,11 @@ job "rails" {
 
     task "sidekiq" {
       driver = "docker"
+
+      config {
         image = "a5641d.wikiedu.org/wikiedu-web:latest"
-        command = "bundle"
-        args = ["exec", "sidekiq", "-q", "short_update", "-c", "1"]
+        command = "sidekiq"
+        args = ["-q", "short_update", "-c", "1"]
         auth {
           username = "docker"
           password = "testpass"
