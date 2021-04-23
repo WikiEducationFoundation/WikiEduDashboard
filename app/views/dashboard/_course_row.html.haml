@@ -9,7 +9,7 @@
         = course_i18n('instructors', course)
       .course-details_value
         - course.instructors.each do |user|
-          = user.username
+          = Features.wiki_ed? ? user.real_name : user.username
     .col
       .course-details_title
         = course_i18n('school', course)
