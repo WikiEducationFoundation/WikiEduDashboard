@@ -49,14 +49,11 @@ job "rails" {
       }
 
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         ports = ["http"]
         command = "puma"
         args = ["-b", "tcp://0.0.0.0", "-p", "5000", "--preload", "-w", "2", "-t", "1:1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -111,13 +108,10 @@ job "rails" {
     task "sidekiq" {
       driver = "docker"
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "constant_update", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -171,13 +165,10 @@ job "rails" {
     task "sidekiq" {
       driver = "docker"
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "daily_update", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -232,13 +223,10 @@ job "rails" {
       driver = "docker"
 
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "default", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -293,13 +281,10 @@ job "rails" {
       driver = "docker"
 
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "long_update", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -354,13 +339,10 @@ job "rails" {
       driver = "docker"
 
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "medium_update", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
@@ -415,13 +397,10 @@ job "rails" {
       driver = "docker"
 
       config {
-        image = "a5641d.wikiedu.org/wikiedu-web:latest"
+        image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "short_update", "-c", "1"]
-        auth {
-          username = "docker"
-          password = "testpass"
-        }
+        auth = file("./dockerAuth.json")
       }
 
       resources {
