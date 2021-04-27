@@ -53,7 +53,7 @@ job "rails" {
         ports = ["http"]
         command = "puma"
         args = ["-b", "tcp://0.0.0.0", "-p", "5000", "--preload", "-w", "2", "-t", "1:1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -111,7 +111,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "constant_update", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -168,7 +168,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "daily_update", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -226,7 +226,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "default", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -284,7 +284,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "long_update", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -342,7 +342,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "medium_update", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
@@ -400,7 +400,7 @@ job "rails" {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
         args = ["-q", "short_update", "-c", "1"]
-        auth = file("./dockerAuth.json")
+        auth = jsondecode(file("./dockerAuth.json"))
       }
 
       resources {
