@@ -54,8 +54,8 @@ module WikiEduDashboard
     # Use custom error pages (like 404) instead of Rails defaults
     config.exceptions_app = self.routes
 
-    # Rails cache with dalli / memcached
-    config.cache_store = :dalli_store, nil, { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
+    # Rails cache with Dalli/memcached
+    config.cache_store = :mem_cache_store, 'localhost', { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
 
     config.action_dispatch.return_only_media_type_on_content_type = false
 
