@@ -401,6 +401,7 @@ Rails.application.routes.draw do
   end
 
   require 'sidekiq_unique_jobs/web'
+  require 'sidekiq/cron/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
