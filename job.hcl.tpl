@@ -4,6 +4,11 @@ job "rails" {
   group "web" {
     count = 2
 
+    update {
+      max_parallel = 1
+      min_healthy_time = "30s"
+    }
+
     network {
       mode = "bridge"
     }
@@ -57,9 +62,11 @@ job "rails" {
       }
 
       resources {
-        # Dependent on the worker count (4)
-        cpu    = 3000 # 2000 * 4, -500 for the envoy proxy
-        memory = 2048 # 1024 * 4
+        # Each instance allocates this much resources.
+        # It runs on a node with total capacity 7978 MiB, 11596 MHz
+        # Some extra capacity is also set aside for envoy proxy
+        cpu    = 5500 
+        memory = 3800
       }
 
       env {
