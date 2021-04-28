@@ -3,18 +3,6 @@
 require 'action_view'
 
 namespace :batch do
-  desc 'Constant data updates'
-  task update_constantly: :environment do
-    require "#{Rails.root}/app/workers/constant_update_worker"
-    ConstantUpdateWorker.set(queue: 'constant_update').perform_async
-  end
-
-  desc 'Course data updates'
-  task schedule_course_updates: :environment do
-    require "#{Rails.root}/app/workers/schedule_course_updates_worker"
-    ScheduleCourseUpdatesWorker.set(queue: 'constant_update').perform_async
-  end
-
   desc 'Daily data updates'
   task update_daily: :environment do
     require "#{Rails.root}/lib/data_cycle/daily_update"

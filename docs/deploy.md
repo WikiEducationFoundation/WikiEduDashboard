@@ -26,7 +26,7 @@ The standard deployment process is as follows:
 
 To run rake tasks on a server via Capistrano, use "sake":
 
-	$ cap production sake task="batch:update_constantly"
+	$ cap production sake task="batch:pause"
 
 Note: batch updates can take a while, so you probably don't want to do them live via Capistrano.
 

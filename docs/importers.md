@@ -3,8 +3,8 @@
 ## Analytics Pipeline
 
 #### Scheduled Tasks
-- **`batch:update_constantly` (run frequently throughout the day):** Triggers a string of importers that update courses, users, revisions, articles, view counts for newly added articles, article ratings, and cached values.
-- **`batch:update_daily`: (at 4:30am server time)** Triggers a string of importers that update view counts, article ratings, article statuses, uploads, and cached values
+
+Recurring tasks are managed by Sidekiq via the sidekiq-cron plugin. See `config/schedule.yml`.
 
 #### Key Importers
 - **[RevisionImporter](../lib/importers/revision_importer.rb):** Entry point for revision and article data from the WMFLabsTools-hosted WikiEduDashboardTools

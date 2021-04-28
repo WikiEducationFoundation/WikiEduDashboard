@@ -9,22 +9,8 @@ require "#{Rails.root}/lib/tickets/ticket_notification_emails"
 
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 
-describe 'batch:update_constantly' do
+describe 'batch:update_daily' do
   include_context 'rake'
-
-  describe 'update_constantly' do
-    it 'initializes a ConstantUpdate' do
-      expect(ConstantUpdate).to receive(:new)
-      subject.invoke
-    end
-  end
-
-  describe 'schedule_course_updates' do
-    it 'initializes a ShortUpdate' do
-      expect(ScheduleCourseUpdates).to receive(:new)
-      rake['batch:schedule_course_updates'].invoke
-    end
-  end
 
   describe 'update_daily' do
     it 'initializes a DailyUpdate' do

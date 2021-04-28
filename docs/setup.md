@@ -12,7 +12,6 @@
   - [Populate example data](#populate-example-data)
   - [Develop](#develop)
   - [Design](#design)
-  - [Maintain](#maintain)
 
 [Back to README](../README.md)
 
@@ -168,8 +167,7 @@ with a few example events with editing activity.
 
 
 2. **Import revision and upload data**
-  - $ `rake batch:update_constantly`
-  - $ `rake batch:update_daily`
+  - Start Sidekiq, or run updates via rails console.
 
 ## Develop
 1. **Start Redis** (if not already running as daemon)
@@ -213,10 +211,3 @@ with a few example events with editing activity.
 ## Design
 
 The living style guide illustrates many of the design building blocks of the dashboard, which you can use for creating new features: http://localhost:3000/styleguide
-
-## Maintain
-
-The Dashboard includes several rake tasks intended to keep the database synced with Wikipedia:
-- Initialize: `rake batch:initialize` (Only to be run manually, initializes the database)
-- Constant update: `rake batch:update_constantly` (Runs every 15 minutes by default)
-- Daily update: `rake batch:update_daily` (Runs once a day by default)

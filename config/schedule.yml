@@ -1,0 +1,20 @@
+# Used by sidekiq-cron
+# Loaded in the sidekiq initializer
+# For usage see https://github.com/ondrejbartas/sidekiq-cron
+
+# Course updates will pull in revisions and articles for courses that are ongoing
+# or still within the update window. They are sorted into queues depending on how
+# long they run, with short courses having their own queue and very long ones their
+# own as well.
+schedule_course_updates:
+  cron: "*/5 * * * *" # execute at every 5 minutes
+  class: "ScheduleCourseUpdatesWorker"
+  queue: constant_update
+
+# Constant updates are independent of the main course stats, pulling in revision
+# metadata, generating alerts, and doing other data and network-intensive tasks,
+# for all current courses.
+update_constantly:
+  cron: "*/4 * * * *" # execute at every 4 minutes
+  class: "ConstantUpdateWorker"
+  queue: constant_update
