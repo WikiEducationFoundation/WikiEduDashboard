@@ -14,8 +14,8 @@ app "wikiedu-web" {
     use "pack" {
       builder = "heroku/buildpacks:20"
       buildpacks = [
-        "./apt-buildpack-0.1.0",
-        "urn:cnb:registry:heroku/ruby"
+        "urn:cnb:registry:heroku/ruby",
+        "./apt-buildpack-0.1.0"
       ]
       static_environment = {
         "CURL_CONNECT_TIMEOUT" = "30"
