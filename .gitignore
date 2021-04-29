@@ -1,6 +1,7 @@
 /config/application.yml
 /config/database.yml
 /config/newrelic.yml
+/config/secrets.yml
 /dockerAuth.json
 /fixtures
 /node_modules
