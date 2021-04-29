@@ -7,6 +7,7 @@ gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
+gem 'puma'
 
 ### Database and caching
 gem 'mysql2' # MySQL integration for ActiveRecord
@@ -27,6 +28,7 @@ gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
+gem "omniauth", "~> 1.9.1"
 # Parses user agent strings to determine which browser is in use.
 # Used for browser support warnings.
 gem 'browser'
@@ -120,7 +122,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'puma'
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
