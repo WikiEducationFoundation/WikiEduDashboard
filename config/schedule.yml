@@ -18,3 +18,23 @@ update_constantly:
   cron: "*/4 * * * *" # execute at every 4 minutes
   class: "ConstantUpdateWorker"
   queue: constant_update
+
+# This pulls in additional data and performs other tasks that do not need to be
+# done many times per day.
+update_daily:
+  cron: "30 4 * * *"
+  class: "DailyUpdateWorker"
+  queue: daily_update
+
+# Assigns surveys to users who are newly eligible and sends
+# survey notification and reminder emails
+survey_emails:
+  cron: "15 10 * * 1,2,3,4" # every Monday, Tuesday, Wednesday, Thursday at 10:15am
+  class: "SurveyUpdateWorker"
+  queue: constant_update
+
+# Emails admins to let them know when they have open support tickets
+open_ticket_emails:
+  cron: "0 6,13 * * 1,2,3,4,5" # every weekday at 6am and 1pm
+  class: "TicketNotificationsWorker"
+  queue: constant_update

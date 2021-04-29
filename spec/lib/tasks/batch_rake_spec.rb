@@ -9,29 +9,8 @@ require "#{Rails.root}/lib/tickets/ticket_notification_emails"
 
 # https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
 
-describe 'batch:update_daily' do
+describe 'batch:pause' do
   include_context 'rake'
-
-  describe 'update_daily' do
-    it 'initializes a DailyUpdate' do
-      expect(DailyUpdate).to receive(:new)
-      rake['batch:update_daily'].invoke
-    end
-  end
-
-  describe 'survey_update' do
-    it 'initializes a SurveyUpdate' do
-      expect(SurveyUpdate).to receive(:new)
-      rake['batch:survey_update'].invoke
-    end
-  end
-
-  describe 'ticket_notifications' do
-    it 'calls TicketNotificationEmails.notify' do
-      expect(TicketNotificationEmails).to receive(:notify)
-      rake['batch:ticket_notifications'].invoke
-    end
-  end
 
   describe 'pause' do
     it 'creates a pause file' do
