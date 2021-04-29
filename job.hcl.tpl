@@ -290,7 +290,7 @@ job "rails" {
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
-        args = ["-q", "long_update", "-c", "1"]
+        args = ["-q", "long_update", "-q", "medium_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
       }
 
@@ -348,7 +348,7 @@ job "rails" {
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
-        args = ["-q", "medium_update", "-c", "1"]
+        args = ["-q", "medium_update", "-q", "short_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
       }
 
@@ -406,7 +406,7 @@ job "rails" {
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
-        args = ["-q", "short_update", "-c", "1"]
+        args = ["-q", "short_update", "-q", "medium_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
       }
 

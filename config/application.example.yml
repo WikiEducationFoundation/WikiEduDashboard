@@ -19,6 +19,8 @@
 
   contact_email: 'contact@wikiedu.org'
 
+# Generate a new one of these via `rake secret` for a new server.
+  secret_key_base: ''
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
