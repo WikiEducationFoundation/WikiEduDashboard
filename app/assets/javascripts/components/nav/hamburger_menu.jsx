@@ -17,7 +17,6 @@ const HamburgerMenu = createReactClass({
     trainingUrl: PropTypes.string,
     helpDisabled: PropTypes.bool,
     wikiEd: PropTypes.bool,
-    userPermissions: PropTypes.bool,
     languageSwitcherEnabled: PropTypes.bool,
     currentUser: PropTypes.string,
     destroyUrl: PropTypes.string,
@@ -39,11 +38,10 @@ const HamburgerMenu = createReactClass({
   },
 
   render() {
-    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
+    const { rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, wikiEd, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl } = this.props;
     let myDashboard;
     let forAdmin;
     let help;
-    let sandbox;
     let programsDashboard;
     let languageSwitcher;
     let loggingLinks;
@@ -112,13 +110,6 @@ const HamburgerMenu = createReactClass({
         </li>
       );
     }
-    if (userPermissions) {
-      sandbox = (
-        <li>
-          <CustomLink to="/redirect/sandbox/sandbox" name="My Sandbox" />
-        </li>
-      );
-    }
     if (!wikiEd) {
       programsDashboard = (
         <span id="span_wikied">
@@ -159,7 +150,6 @@ const HamburgerMenu = createReactClass({
                   <li>
                     <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
                   </li>
-                  {sandbox}
                   {help}
                   {programsDashboard}
                   {helpEnabled}

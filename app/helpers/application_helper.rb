@@ -6,14 +6,6 @@ module ApplicationHelper
     "/assets/images/#{ENV['logo_file']}"
   end
 
-  def permissions
-    if Features.wiki_ed? && current_user&.permissions == User::Permissions::NONE
-      'true'
-    else
-      'false'
-    end
-  end
-
   def language_switcher_enabled
     # If the language switcher is not enabled site-wide, show it anyway for users
     # with a non-English browser-based locale and for users with an explicit locale set.

@@ -21,7 +21,6 @@ const Nav = createReactClass({
     const ifAdmin = navRoot.dataset.ifadmin === 'true';
     const trainingUrl = navRoot.dataset.trainingurl;
     const helpDisabled = navRoot.dataset.help_disabled === 'true';
-    const userPermissions = navRoot.dataset.user_permissions === 'true';
     const wikiEd = navRoot.dataset.wiki_ed === 'true';
     const languageSwitcherEnabled = navRoot.dataset.language_switcher_enabled !== ''; // returns boolean false for empty string and true otherwise.
     const currentUser = navRoot.dataset.username;
@@ -39,7 +38,6 @@ const Nav = createReactClass({
       trainingUrl: trainingUrl,
       helpDisabled: helpDisabled,
       wikiEd: wikiEd,
-      userPermissions: userPermissions,
       languageSwitcherEnabled: languageSwitcherEnabled,
       currentUser: currentUser,
       destroyUrl: destroyUrl,
@@ -79,7 +77,6 @@ const Nav = createReactClass({
     let training;
     let notifications;
     let help;
-    let Sandbox;
     let wikiEd;
     let languageSwitcherEnabled;
     let loginLinks;
@@ -171,13 +168,6 @@ const Nav = createReactClass({
         </li>
       );
     }
-    if (this.state.userPermissions) {
-      Sandbox = (
-        <li>
-          <CustomLink to="/redirect/sandbox/sandbox" name="My Sandbox" />
-        </li>
-      );
-    }
     if (!this.state.wikiEd) {
       wikiEd = (
         <span id="span_wikied">
@@ -212,7 +202,6 @@ const Nav = createReactClass({
             trainingUrl = {this.state.trainingUrl}
             helpDisabled = {this.state.helpDisabled}
             wikiEd = {this.state.wikiEd}
-            userPermissions = {this.state.userPermissions}
             languageSwitcherEnabled = {this.state.languageSwitcherEnabled}
             currentUser = {this.state.currentUser}
             destroyUrl = {this.state.destroyUrl}
@@ -235,7 +224,6 @@ const Nav = createReactClass({
                 {myDashboard}
                 {forAdmin}
                 {training}
-                {Sandbox}
                 {help}
                 {wikiEd}
               </ul>
