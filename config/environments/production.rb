@@ -20,7 +20,8 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.public_file_server.enabled = true
+  # TODO: After hashistack is deployed to production, set this to `true`
+  config.public_file_server.enabled = ENV['hashistack']
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -35,7 +36,8 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  # TODO: After hashistack is deployed to production, set this to `false`
+  config.force_ssl = !ENV['hashistack']
 
   # Set to :debug to see everything in the log.
   config.logger = Logger.new(STDOUT)
