@@ -64,9 +64,12 @@ job "rails" {
       resources {
         # Each instance allocates this much resources.
         # It runs on a node with total capacity 7978 MiB, 11596 MHz
-        # Some extra capacity is also set aside for envoy proxy
-        cpu    = 5500 
-        memory = 3800
+        # Some extra capacity is also set aside for envoy proxy.
+        # We also run the `default` sidekiq queue on this node
+        # to do background tasks that require interacting with
+        # the storage volume.
+        cpu    = 4800
+        memory = 3000
       }
 
       env {
@@ -196,10 +199,10 @@ job "rails" {
       mode = "bridge"
     }
 
-    constraint {
-      attribute = "${node.unique.name}"
-      operator  = "!="
-      value     = "node-railsweb"
+    volume "rails" {
+      type      = "host"
+      read_only = false
+      source    = "rails"
     }
 
     service {
@@ -229,6 +232,12 @@ job "rails" {
     task "sidekiq" {
       driver = "docker"
 
+      volume_mount {
+        volume      = "rails"
+        destination = "/workspace/public/system"
+        read_only   = false
+      }
+
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         command = "sidekiq"
@@ -237,8 +246,8 @@ job "rails" {
       }
 
       resources {
-        cpu    = 1500
-        memory = 1024
+        cpu    = 1200
+        memory = 1500
       }
 
       env {
