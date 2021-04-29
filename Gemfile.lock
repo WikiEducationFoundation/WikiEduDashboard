@@ -300,7 +300,7 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     netrc (0.11.0)
-    newrelic_rpm (6.13.1)
+    newrelic_rpm (7.0.0)
     nio4r (2.5.4)
     nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
