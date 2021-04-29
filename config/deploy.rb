@@ -39,7 +39,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/syst
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 skip_assets = false
 
 namespace :deploy do

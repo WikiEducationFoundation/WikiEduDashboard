@@ -55,9 +55,6 @@ gem 'oj' # JSON Parsing library
 gem 'http_accept_language'
 gem 'i18n-js'
 
-### Deployment
-gem 'whenever' # Translates config/schedule.rb into cron jobs during deployment
-
 ### Analytics and error monitoring
 gem 'sentry-raven' # error reporting for both server-side Ruby and client-side JS
 gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git' # traffic analytics
