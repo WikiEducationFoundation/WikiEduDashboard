@@ -20,6 +20,7 @@ app "wikiedu-web" {
       static_environment = {
         "CURL_CONNECT_TIMEOUT" = "30"
         "CURL_TIMEOUT" = "120"
+        "SECRET_KEY_BASE" = yamldecode(file(abspath("./config/application.yml"))).secret_key_base
       }
     }
     registry {

@@ -19,6 +19,11 @@
 
   contact_email: 'contact@wikiedu.org'
 
+  # This is the basis for login/session cookies for Docker builds.
+  # It gets turned into an environment variable during the build process
+  # by `waypoint.hcl`.
+  secret_key_base: <some output from `rails secret`>
+
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
 
