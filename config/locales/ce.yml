@@ -11,6 +11,7 @@ ce:
     log_out: Болх дӀаберзор
     recent_activity: Дукха хан йоцуш дийнарг
     report_problem: Проблемех хаам бар
+    request_account: Декъашхочун агӀо ехар
     sign_up: ДӀаяздар кхоллар
   articles:
     wiki: Вики
@@ -34,6 +35,7 @@ ce:
   uploads:
     label: Чуяьхнарш
   users:
+    request_confirmation: Бакъалла езий хьуна хӀара декъашхочун агӀо?
     training_module_name: Дешаран модуль
     training_module_status: Статус
   article_finder:
