@@ -16,3 +16,7 @@ rescue Errno::ESRCH
 end
 
 Rails.application.load_tasks
+
+# We don't use Rails Asset Pipeline. Clearing this task
+# prevents the heroku/ruby buildpack from trying to use it anyway.
+Rake::Task["assets:precompile"].clear
