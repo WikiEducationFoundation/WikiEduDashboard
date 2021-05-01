@@ -170,7 +170,7 @@ GEM
       addressable
     dalli (2.7.11)
     debug_inspector (0.0.3)
-    deep_cloneable (3.0.0)
+    deep_cloneable (3.1.0)
       activerecord (>= 3.1.0, < 7)
     devise (4.7.3)
       bcrypt (~> 3.0)
