@@ -19,7 +19,7 @@
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.2",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.1",
     "core-js": "^3.6.5",
