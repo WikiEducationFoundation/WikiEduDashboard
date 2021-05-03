@@ -4,6 +4,10 @@ engines:
     channel: rubocop-1-10-0
   eslint:
     enabled: true
+    channel: "eslint-7"
+    extensions:
+    - .js
+    - .jsx
   csslint:
     enabled: true
   bundler-audit:
