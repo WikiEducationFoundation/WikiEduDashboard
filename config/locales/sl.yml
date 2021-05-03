@@ -46,6 +46,8 @@ sl:
     last_reviewed: Zadnjič pregledano
   training:
     page: Stran
+  uploads:
+    label: Naložitve
   users:
     contribution_statistics: Statistika prispevkov
     number_of_articles:
@@ -59,6 +61,6 @@ sl:
       online_volunteer: Spletni prostovoljec
       wiki_ed_staff: Kolektiv Wikiizobraževanja
   wizard:
-    read_more: Preberite še kaj
+    read_more: Preberi še kaj
     summary: Povzetek
 ...
