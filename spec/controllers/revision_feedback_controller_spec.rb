@@ -6,7 +6,7 @@ describe RevisionFeedbackController, type: :request do
   describe '#index' do
     let!(:course) { create(:course, id: 1) }
     let(:assignment) { create(:assignment, id: 1, course_id: course.id) }
-    let(:params) { { 'title': 'Quantum_Chemistry', 'assignment_id': assignment.id } }
+    let(:params) { { title: 'Quantum_Chemistry', assignment_id: assignment.id } }
 
     context 'When the article exists' do
       before do

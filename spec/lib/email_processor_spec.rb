@@ -136,13 +136,13 @@ describe EmailProcessor do
         owner_id: expert.id,
         sender_id: student.id
       )
-      email_body = ''"Hi there,
+      email_body = "Hi there,
       Thanks for responding! ...
 
       -- DO NOT DELETE ANYTHING BELOW THIS LINE --
       **ref_#{ticket.reference_id}_ref**
       -- REPLY ABOVE THIS LINE --
-      "''
+      "
       email = create(:email, to: [{ email: expert.email }],
                              from: { email: student.email },
                              body: email_body,
@@ -159,13 +159,13 @@ describe EmailProcessor do
         owner_id: expert.id,
         sender_id: student.id
       )
-      email_body = ''"Hi there,
+      email_body = "Hi there,
       Thanks for responding! ...
 
       -- DO NOT DELETE ANYTHING BELOW THIS LINE --
       **ref_#{ticket.reference_id}_ref**
       -- REPLY ABOVE THIS LINE --
-      "''
+      "
       email = create(:email, to: [{ email: expert.email }],
                              from: { email: student.email },
                              body: email_body,

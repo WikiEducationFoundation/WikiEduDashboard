@@ -163,5 +163,6 @@ class WikiTrainingLoader
   end
 
   class InvalidWikiContentError < StandardError; end
+
   class NoMatchingWikiPagesFound < StandardError; end
 end
