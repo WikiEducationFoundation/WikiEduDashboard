@@ -32,9 +32,10 @@ This project welcomes contributions, and we try to be as newbie-friendly as poss
 - [Troubleshooting](docs/troubleshooting.md)
 
 ### Technology overview
-- [Front end](docs/frontend.md)
+- Backend - Ruby on Rails, with Sidekiq for background jobs and data updates
+- [Front end](docs/frontend.md) - mostly built with React.js and Redux, with some server-rendered Ruby template (haml)
 - [Analytics Pipeline](docs/importers.md)
-- [Testing](docs/testing.md)
+- [Testing](docs/testing.md) - mainly Rspec, including browser-based feature specs
 
 ### Other
 - [Contributing](CONTRIBUTING.md)
