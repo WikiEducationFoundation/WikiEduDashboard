@@ -62,7 +62,6 @@ export default class CourseUtils {
         title,
         project: null,
         language: null,
-        // TODO: use the course home language and project to construct the url
         article_url: null
       };
     }
