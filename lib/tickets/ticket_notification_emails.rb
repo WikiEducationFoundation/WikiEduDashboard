@@ -12,7 +12,7 @@ class TicketNotificationEmails
   end
 
   def notify_of_open_tickets(admin)
-    open_tickets = TicketDispenser::Ticket.open.where(owner: [admin, nil])
+    open_tickets = TicketDispenser::Ticket.open_tickets.where(owner: [admin, nil])
     return unless open_tickets.any?
     TicketNotificationMailer.notify_of_open_tickets(tickets: open_tickets, owner: admin)
   end
