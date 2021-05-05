@@ -3,7 +3,6 @@ require_dependency "#{Rails.root}/lib/data_cycle/constant_update"
 
 class ConstantUpdateWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
 
   def perform
     ConstantUpdate.new
