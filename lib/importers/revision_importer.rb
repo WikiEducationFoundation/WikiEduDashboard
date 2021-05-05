@@ -3,9 +3,12 @@
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
+  include EncodingHelper
+
   def initialize(wiki, course, update_service: nil)
     @wiki = wiki
     @course = course
@@ -124,20 +127,12 @@ class RevisionImporter
     end
   end
 
-  def sanitize_4_byte_titles(title)
-    if title.chars.any? { |c| c.bytes.count >= 4 }
-      CGI.escape(title)
-    else
-      title
-    end
-  end
-
   def sub_data_to_article_attributes(sub_data)
     sub_data.map do |_a_id, article_data|
       {
         'mw_page_id' => article_data['article']['mw_page_id'],
         'wiki_id' => @wiki.id,
-        'title' => sanitize_4_byte_titles(article_data['article']['title']),
+        'title' => sanitize_4_byte_string(article_data['article']['title']),
         'namespace' => article_data['article']['namespace']
       }
     end

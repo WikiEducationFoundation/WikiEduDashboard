@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 
 # This class checks recent block logs and creates alerts
 # for any active Dashboard users who were blocked.
 class BlockedUserMonitor
+  include EncodingHelper
+
   def self.create_alerts_for_recently_blocked_users
     new.create_alerts_for_recently_blocked_users
   end
@@ -49,7 +52,7 @@ class BlockedUserMonitor
   end
 
   def blocked_usernames
-    recent_blocks.map { |block| blocked_username(block) }
+    recent_blocks.map { |block| sanitize_4_byte_string blocked_username(block) }
   end
 
   def blocked_dashboard_users
