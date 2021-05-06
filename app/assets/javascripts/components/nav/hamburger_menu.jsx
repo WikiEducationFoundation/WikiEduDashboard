@@ -44,7 +44,7 @@ const HamburgerMenu = createReactClass({
     let help;
     let programsDashboard;
     let languageSwitcher;
-    let loggingLinks;
+    let loginLinks;
     let helpEnabled;
     if (languageSwitcherEnabled) {
       languageSwitcher = (
@@ -52,7 +52,7 @@ const HamburgerMenu = createReactClass({
       );
     }
     if (userSignedIn) {
-      loggingLinks = (
+      loginLinks = (
         <span>
           <li>
             <b><a href={rootUrl} className="current-user">{currentUser}</a></b>
@@ -77,9 +77,12 @@ const HamburgerMenu = createReactClass({
       );
       }
     } else {
-      loggingLinks = (
+      // This link relies on rails/ujs to turn the anchor link into
+      // a POST request based on data-method="post". Otherwise, this
+      // needs to become a button or form and include the authenticity token.
+      loginLinks = (
         <li>
-          <a href={omniauthUrl}>
+          <a data-method="post" href={omniauthUrl}>
             <i className="icon icon-wiki-logo" />
             {I18n.t('application.log_in')}
             <span className="expand">
@@ -153,7 +156,7 @@ const HamburgerMenu = createReactClass({
                   {help}
                   {programsDashboard}
                   {helpEnabled}
-                  {loggingLinks}
+                  {loginLinks}
                 </div>
               </div>
             </div>

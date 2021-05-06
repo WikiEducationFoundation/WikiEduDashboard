@@ -8,12 +8,14 @@ class SelfEnrollmentController < ApplicationController
     # Catch HEAD requests
     respond_to_non_get_request { return }
 
+    # The direct enrollment link only works if you are signed in.
+    # The frontend ?enroll= links handle UI for making sure you're signed in
+    # before redirecting here.
+    require_signed_in
+
     set_course
     # Don't allow users to self-enroll if the course has already ended.
     redirect_if_course_ended { return }
-
-    # Redirect to sign in (with callback leading back to this method)
-    redirect_if_user_logged_out { return }
 
     redirect_if_passcode_invalid { return }
 

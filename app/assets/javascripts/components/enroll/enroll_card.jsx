@@ -44,13 +44,16 @@ const EnrollCard = ({
     messageBody = <h1>{I18n.t('courses.already_enrolled', { title: course.title })}</h1>;
   // User is not logged in
   } else if (!user.id) {
+    // Login link relies on rails/ujs to turn the anchor link into
+    // a POST request based on data-method="post". Otherwise, this
+    // needs to become a button or form and include the authenticity token.
     messageBody = (
       <div>
         <h1>{I18n.t('application.greeting')}</h1>
         <p>{I18n.t('courses.invitation', { title: course.title })}</p>
         <p>{I18n.t('courses.invitation_username_advice')}</p>
         <div>
-          <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
+          <a data-method="post" href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
             <i className="icon icon-wiki-logo" /> {I18n.t('application.log_in_extended')}
           </a>
           <NewAccountButton course={course} passcode={passcode} currentUser={user} />

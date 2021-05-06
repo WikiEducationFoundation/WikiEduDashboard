@@ -121,9 +121,12 @@ const Nav = createReactClass({
       );
       }
     } else {
+      // This link relies on rails/ujs to turn the anchor link into
+      // a POST request based on data-method="post". Otherwise, this
+      // needs to become a button or form and include the authenticity token.
       loginLinks = (
         <li>
-          <a href={this.state.omniauthUrl}>
+          <a data-method="post" href={this.state.omniauthUrl}>
             <i className="icon icon-wiki-logo" />
             {I18n.t('application.log_in')}
             <span className="expand">

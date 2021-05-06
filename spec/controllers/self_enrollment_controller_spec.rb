@@ -145,9 +145,10 @@ describe SelfEnrollmentController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
       end
 
-      it 'redirects to mediawiki for OAuth' do
-        expect(get(enroll_url, params: request_params))
-          .to redirect_to(/.*mediawiki.*/)
+      it 'returns a 401' do
+        get(enroll_url, params: request_params)
+        expect(response.body).to include('Please sign in')
+        expect(response.status).to eq(401)
       end
     end
   end
