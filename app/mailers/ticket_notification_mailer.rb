@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TicketNotificationMailer < ApplicationMailer
-  add_template_helper(TicketsHelper)
+  helper TicketsHelper
 
   def self.notify_of_message(opts)
     return unless Features.email?
