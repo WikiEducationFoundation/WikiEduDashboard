@@ -71,14 +71,6 @@ class SelfEnrollmentController < ApplicationController
     @course.end < Time.zone.now
   end
 
-  def redirect_if_user_logged_out
-    return unless current_user.nil?
-    auth_path = user_mediawiki_omniauth_authorize_path
-    path = "#{auth_path}?origin=#{request.original_url}"
-    redirect_to path
-    yield
-  end
-
   def redirect_if_enrollment_failed
     return unless @result[:failure]
     respond_to do |format|

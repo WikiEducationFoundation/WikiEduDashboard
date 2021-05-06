@@ -9,11 +9,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def mediawiki
     set_user_from_auth_hash { return }
 
-    unless @user.persisted?
-      redirect_to root_url
-      return
-    end
-
     remember_me @user
     register_first_login
 
