@@ -26,6 +26,11 @@ ENV['dashboard_url'] = 'dashboard.wikiedu.org'
 ENV['TICKET_FORWARDING_DOMAIN'] = 'wikiedu.org'
 ENV['SALESFORCE_BCC_EMAIL'] = 'salesforce@salesforce.com'
 ENV['ENABLE_ADVANCED_FEATURES'] = 'true'
+ENV['test_user'] = 'Ragetest dashboard-test-suite'
+ENV['test_user_password'] = 'testpassword'
+# https://meta.wikimedia.org/wiki/Special:OAuthListConsumers/view/b56122b2abe01f163349c9d0a6bcded5
+ENV['wikipedia_token'] = 'b56122b2abe01f163349c9d0a6bcded5'
+ENV['wikipedia_secret'] = '507c74d4c4cb6015c9087b2decb80d82b96b905e'
 
 Rails.application.configure do
   # Settings specified here will take

@@ -16,12 +16,34 @@ def mock_and_stub_oauth_login
 end
 
 describe 'logging in', type: :feature, js: true do
-  before { mock_and_stub_oauth_login }
+  # Capybara.server_port = 3333
 
-  it 'sets first_login on the user' do
-    visit '/'
-    click_link 'Log in with Wikipedia'
-    expect(page).to have_content 'Log out'
-    expect(User.last.first_login).not_to be_nil
+  context 'without a stubbed OAuth flow' do
+    it 'sends the user to log in on Wikipedia and allow the app' do
+      VCR.use_cassette 'oauth' do
+        visit '/'
+        click_link 'Log in with Wikipedia'
+        fill_in('wpName', with: ENV['test_user'])
+        fill_in('wpPassword', with: ENV['test_user_password'])
+        click_button 'Log in'
+        expect(page).to have_button('Allow')
+        # We can't go any further in the OAuth flow in test environment
+
+        # Clear the browser logs now so all the Wikipedia JS warnings
+        # don't get logged during test runs.
+        page.driver.browser.manage.logs.get(:browser)
+      end
+    end
+  end
+
+  context 'with a stubbed OAuth flow' do
+    before { mock_and_stub_oauth_login }
+
+    it 'sets first_login on the user' do
+      visit '/'
+      click_link 'Log in with Wikipedia'
+      expect(page).to have_content 'Log out'
+      expect(User.last.first_login).not_to be_nil
+    end
   end
 end
