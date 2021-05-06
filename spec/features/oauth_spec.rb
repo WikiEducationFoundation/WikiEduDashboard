@@ -37,13 +37,24 @@ describe 'logging in', type: :feature, js: true do
   end
 
   context 'with a stubbed OAuth flow' do
-    before { mock_and_stub_oauth_login }
-
     it 'sets first_login on the user' do
+      mock_and_stub_oauth_login
       visit '/'
       click_link 'Log in with Wikipedia'
       expect(page).to have_content 'Log out'
       expect(User.last.first_login).not_to be_nil
+    end
+
+    it 'handles OAuth failure' do
+      OmniAuth.config.test_mode = true
+      allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
+        .to receive(:callback_url).and_return('/users/auth/mediawiki/callback')
+      OmniAuth.config.mock_auth[:mediawiki] = OmniAuth::AuthHash.new(
+        extra: { raw_info: { login_failed: true } }
+      )
+      visit '/training'
+      click_link 'Log in'
+      expect(page).to have_content 'Login Error'
     end
   end
 end
