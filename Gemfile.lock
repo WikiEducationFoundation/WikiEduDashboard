@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/WikiEducationFoundation/rapidfire
-  revision: 3c9f21938f856a13104e817f18b692264e373ab2
+  revision: 02dcb1723a28ef1872b62e60dabc5e7d98247957
   branch: master
   specs:
     rapidfire (2.1.0)
@@ -302,7 +302,7 @@ GEM
     net-ssh (6.1.0)
     netrc (0.11.0)
     newrelic_rpm (6.13.1)
-    nio4r (2.5.4)
+    nio4r (2.5.7)
     nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
