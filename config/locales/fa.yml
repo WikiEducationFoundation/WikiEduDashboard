@@ -12,6 +12,7 @@
 # Author: GMozafarian
 # Author: Ladsgroup
 # Author: Mardetanha
+# Author: Mohammad ebz
 # Author: Ommmmid
 # Author: Reza1615
 # Author: Sunfyre
@@ -67,7 +68,7 @@ fa:
       کار کنید. (تکمیلش حدود ۳۰ دقیقه زمان نیاز دارد.)
     review_orientation: بازبینی آشناسازی
     start_orientation: شروع آشناسازی
-    blog_headline: خبرهای تازه از ویکی برنامهٔ آموزشی
+    blog_headline: اخبار تازه از ویکی آموزش
   home:
     explore: کاوش
     log_in: ورود با ویکی‌پدیا
@@ -82,15 +83,22 @@ fa:
   articles:
     assigned: مقالات اختصاص‌داده
     available: مقالات موجود
+    no_available: مقاله‌ای در دسترس نیست
+    next: بعدی
+    previous: قبلی
+    article_title: عنوان مقاله
     assigned_to: اختصاص‌داده‌شده به
     character_doc: مجموع کاراکتر‌های افزوده‌شده به مقالات توسط ویرایشگران ثبت‌نامی
       در بین تاریخ آغاز و پایان
+    deleted: (حذف شده)
     edited: مقالات ویرایش‌شده
+    edited_by: 'ویرایش شده توسط:'
     edited_mobile: مقاله‌ها
     filter:
       wiki_all: همه
       new: تازه
     hide: نهفتن
+    history: (تاریخچه)
     label: مقاله‌ها
     loading: در حال بارگذاری مقاله‌ها ...
     new: (نو)
@@ -151,9 +159,16 @@ fa:
     alert_user_id: کاربر
     campaign: کمپین
     campaigns: کمپین‌ها
+    customize_passcode: رمز عبور پیش‌فرض
+    data_articles: صفحات ویرایش‌شده
+    default_passcode: رمز عبور پیش‌فرض
     description: توضیحات
     none: هیچ‌کدام
     title: عنوان
+  categories:
+    name: نام
+    remove: حذف
+    timestamp: آخرین بروزرسانی در
   courses:
     activity: فعالیت
     all_courses: تمامی دوره‌ها
@@ -163,6 +178,8 @@ fa:
     actions: اقدامات
     articles: مقاله‌ها
     articles_none: این دوره هیچ مقاله‌ای را ویرایش نکرده‌است.
+    assignment_headings:
+      available_articles: مقالات موجود
     assignment_end: پایانِ تکلیف
     assignments_none: این دوره هیچ مقالهٔ اختصاص‌یافته‌ای ندارد.
     assignment_start: آغازِ تکلیف
@@ -222,6 +239,7 @@ fa:
       subject: موضوع
     current: دوره‌های کنونی
     delete_course: حذف دوره
+    delete_suggestion: حذف
     dismiss_survey: پنهان‌سازی
     dismiss_survey_confirm: آیا از پنهان‌سازی دائم این بررسی اطمینان دارید؟
     duration: مدت دوره
@@ -235,7 +253,11 @@ fa:
       user_exists: متأسفیم، نام کاربری %{username} معتبر نیست و وجود ندارد.
       invalid_language_or_project: زبان/پروژهٔ ناموجود
     expected_students: دانشجویان موردِ انتظار
+    features_feedback: 'پیشنهادات خودکار:'
+    feedback: بازخورد
+    feedback_loading: لطفاً تا پیشنهادها بارگیری شوند صبر کنید...
     gradeables_none: این دوره دارای هیچ تکلیف قابل ارزیابی نیست.
+    home_wiki: صفحه اصلی ویکی
     instructor:
       one: Instructor
       other: Instructors
@@ -245,6 +267,7 @@ fa:
       اگر هنوز حساب کاربری ویکی‌پدیا ندارید، برای دریافت آن به‌طور رایگان نام‌نویسی کنید.
     join: پیوستن
     join_course: پیوستن به دوره
+    join_course_as_volunteer: داوطلب برای کمک
     join_prompt: پیوستن به «%{title}»؟
     join_successful: با موفقیت به %{title} پیوستید.
     leave_confirmation: آیا از ترک این دوره اطمینان دارید؟
@@ -253,13 +276,29 @@ fa:
     milestones_none: این دوره در حال حاضر به هیچ دست‌آورد ویژه‌ای نرسیده‌است.
     my_articles: مقاله‌های من
     new_week: افزودن هفتهٔ تازه
+    new_account_email: نشانی ایمیل
+    new_account_email_placeholder: name@example.org
+    new_account_info: برای درخواست حساب، نشانی ایمیل و نام کاربری مورد نظر خود را
+      وارد کنید.  پس از ایجاد حساب توسط یکی از مجریان، رمز عبور برای شما ایمیل خواهد
+      شد.
+    new_account_info_admin: برای ایجاد حساب برای ویرایشگر جدید، نشانی ایمیل و نام
+      کاربری مورد نظر خود را وارد کنید.  پس از ایجاد حساب، رمز عبور برای آنها ایمیل
+      خواهد شد.
+    new_account_username: نام کاربری درخواستی
+    new_account_username_invalid: این نام کاربری معتبر نیست.
+    new_account_username_placeholder: ویرایشگر ویکی ۱۲۳
+    new_account_username_taken: این نام کاربری قبلاً استفاده شده است. لطفا یکی دیگر
+      را انتخاب کنید.
+    new_account_submit: درخواست حساب
     nocourses: شما در هیچ دوره‌ای شرکت نکرده‌اید.
     none: هیچ‌کدام
     no_available_actions: بدون اقدامات موجود
-    overview: چشم‌انداز
+    overview: خانه
     passcode: کد دسترسی
     passcode_none: بدون کد دسترسی
-    passcode_prompt: کد دسترسی‌ای که از مدرس‌تان دریافت کرده‌اید را وارد کنید
+    passcode_prompt: 'برای پیوستن کد عبور را وارد کنید:'
+    please_log_in: لطفا وارد شوید.
+    private: خصوصی
     published: 'دورهٔ آموزشی‌تان هم‌اینک منتشر شده‌است! دانش‌آموزان/دانشجویان می‌توانند
       از طریق پیوند زیر در این دوره نام‌نویسی کنند:'
     revisions_doc: تعداد ویرایش‌ها در %{timeframe} روز گذشته
@@ -277,6 +316,10 @@ fa:
     submitted_note: دورهٔ شما ثبت شده‌است. کارمندان ویکی برنامهٔ آموزشی آن را بازبینی
       خواهند کرد و با شما در تماس خواهند بود.
     user_role: نقش
+    submitted: ثبت شده
+    submitted_at: ثبت شده در
+    tag_select: یک برچسب را انتخاب یا ایجاد کنید
+    tags: 'برچسب‌ها:'
     term: ترم
     timeline: جزئیات تکلیف
     timeline_link: جدول زمانی
@@ -291,6 +334,8 @@ fa:
     update_stats: روزآمدسازی آمارها
     uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
       نداشته‌است.
+    user_recent_uploads: بارگذاری‌های اخیر
+    user_suggestions: 'پیشنهادات کاربر:'
     view: مشاهدهٔ دوره
     view_page: مشاهدهٔ صفحهٔ دوره
     view_wiki: مشاهده در ویکی‌پدیا
@@ -319,7 +364,7 @@ fa:
       course_title: عنوان برنامه
       create_button: ایجاد برنامهٔ من!
       create_label: ایجاد برنامهٔ نو
-      create_new: ایجاد برنامه‌ای نو
+      create_new: ایجاد برنامه‌ای مستقل
       create_short: ایجاد برنامه
       find: برنامه‌ای را پیدا کنید
       intro: تکمیل عنوان برنامه الزامی است، باقی موارد را می‌توان بعداً نیز پُر کرد.
@@ -329,6 +374,7 @@ fa:
     enrollment: مشارکت
     expected_students: ویراستاران موردِ انتظار
     instructors: تسهیل‌کنندگان
+    join_course: به برنامه بپیوندید
     published: 'این پروژه منتشر شد! ویراستاران می‌توانند با استفاده از پیوند زیر،
       در آن نام‌نویسی کنند:'
     revisions_none: این دوره فعالیت‌های اخیر ویرایشی ندارد.
@@ -360,6 +406,8 @@ fa:
     edit_count_description: مجموع ویرایش‌ها
     per_user: '%{number}/کاربر'
     revisions: ویرایش‌های اخیر
+    update_status_heading: وضعیت بروزرسانی
+    update_statistics_link: مشاهدهٔ بیشتر
     upload_count: بارگذاری‌های ویکی‌انبار
     uploads_in_use_count:
       one: پروندهٔ استفاده‌شده در مقاله
@@ -397,6 +445,7 @@ fa:
     usage_count: تعداد دفعات استفاده
   revisions:
     chars_added: کاراکترهای افزوده‌شده
+    references: منابع افزوده شده
     class: کلاس
     date_time: تاریخ/زمان
     diff: تفاوت
@@ -474,6 +523,8 @@ fa:
     contributions_more: نمایش مشارکت‌های بیش‌تر
     course_passcode: 'کد دسترسی:'
     editors: ویرایشگران
+    edits: ویرایش‌ها
+    edits_by: 'ویرایش‌‌‌ها توسط:'
     enroll_confirmation: آیا از افزودن %{username} اطمینان دارید؟
     enroll_url: 'کاربران با استفاده از پیوند زیر می‌تواند بپیوندند:'
     enrolled_success: '%{username} با موفقیت افزوده‌شد!'
@@ -493,6 +544,7 @@ fa:
     number_of_articles:
       one: '%{count} مقاله'
       other: '%{count} مقاله'
+    profile: رخ‌نما
     recent_revisions: ویرایش‌های اخیر
     remove_confirmation: از حذف %{username} اطمینان دارید؟
     revision_characters_and_views: 'کاراکترهای افزوده‌شده: %{characters}، بازدیدها:
@@ -505,6 +557,8 @@ fa:
     training_module_status: وضعیت
     username: نام کاربری
     username_placeholder: نام کاربری
+    useremail_placeholder: ایمیل
+    userpasscode_placeholder: رمز عبور
     role:
       visitor: بازدیدکننده
       student: دانشجو
@@ -512,6 +566,8 @@ fa:
       campus_volunteer: داوطلب دانشگاهی
       online_volunteer: داوطلب برخط
       wiki_ed_staff: کارمندان ویکی‌آموزش
+  user_profiles:
+    image_link_placeholder: افزودن پیوند به تصویر (اختیاری)
   wiki_edits:
     notify_overdue:
       summary: سررسید موعد آموزش دانشجو
