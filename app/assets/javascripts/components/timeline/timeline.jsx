@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
-import Touch from 'react-dnd-touch-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 import { throttle } from 'lodash-es';
 import moment from 'moment';
 
@@ -463,7 +463,7 @@ const Timeline = createReactClass({
     );
 
     return (
-      <div>
+      <DndProvider backend={HTML5Backend}>
         <div className="timeline__content">
           <ul className="list-unstyled timeline__weeks">
             {tooManyWeeksWarning}
@@ -472,12 +472,12 @@ const Timeline = createReactClass({
           </ul>
           {sidebar}
         </div>
-      </div>
+      </DndProvider>
     );
   }
 });
 
-export default EditableRedux(DragDropContext(Touch({ enableMouseEvents: true }))(Timeline));
+export default EditableRedux(Timeline);
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
