@@ -30,7 +30,6 @@ describe CourseStudentsCsvBuilder do
   it 'creates a CSV with a header and a row of data for each student' do
     lines = subject.split("\n")
     expect(lines.count).to eq(4)
-    puts 'revisions', course.all_revisions.to_a
     lines.shift # Remove headers
 
     expected_result = {
