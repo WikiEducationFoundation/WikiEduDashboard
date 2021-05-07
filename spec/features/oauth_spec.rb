@@ -20,6 +20,8 @@ describe 'logging in', type: :feature, js: true do
 
   context 'without a stubbed OAuth flow' do
     it 'sends the user to log in on Wikipedia and allow the app' do
+      OmniAuth.config.logger = Rails.logger
+
       VCR.use_cassette 'oauth' do
         visit '/'
         click_link 'Log in with Wikipedia'
