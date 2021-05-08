@@ -29,6 +29,7 @@ require 'active_support/testing/time_helpers'
 require 'sidekiq/testing'
 require 'sidekiq-unique-jobs'
 Sidekiq::Testing.inline!
+Sidekiq.logger.level = Logger::WARN
 Sidekiq.configure_client do |config|
   config.client_middleware do |chain|
     chain.remove SidekiqUniqueJobs::Client::Middleware
