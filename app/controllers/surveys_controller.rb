@@ -177,7 +177,7 @@ class SurveysController < ApplicationController
   def validate_user_for_survey
     return true if @survey.open
     return true if can_administer?
-    return true if !current_user.nil? && user_is_assigned_to_survey
+    return true if user_is_assigned_to_survey
     return false
   end
 
