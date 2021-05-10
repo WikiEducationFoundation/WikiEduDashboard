@@ -7,11 +7,11 @@
 set :branch, 'wmflabs'
 set :rails_env, 'production'
 
-role :app, %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
-role :web, %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
-role :db,  %w(programs-and-events-dashboard.globaleducation.eqiad.wmflabs)
+role :app, %w(p-and-e-dashboard-web.globaleducation.eqiad1.wikimedia.cloud)
+role :web, %w(p-and-e-dashboard-web.globaleducation.eqiad1.wikimedia.cloud)
+role :db,  %w(p-and-e-dashboard-web.globaleducation.eqiad1.wikimedia.cloud)
 
-set :address, 'programs-and-events-dashboard.globaleducation.eqiad.wmflabs'
+set :address, 'p-and-e-dashboard-web.globaleducation.eqiad1.wikimedia.cloud'
 
 set :user, File.read('.deploy_user').strip
 set :deploy_to, '/var/www/dashboard'

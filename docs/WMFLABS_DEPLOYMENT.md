@@ -16,14 +16,15 @@ ON THE SERVER
 -------------
 
 - ssh into this new instance from your machine
+  - You may may need to configure your SSH client for this new instance: https://wikitech.wikimedia.org/wiki/Help:Accessing_Cloud_VPS_instances
 
 - install some additional packages needed by the app and web server
   - $ `sudo apt update`
-  - $ `sudo apt install pandoc redis-server mariadb-server libmariadb-dev imagemagick gnupg2 apache2`
+  - $ `sudo apt install pandoc redis-server mariadb-server libmariadb-dev imagemagick gnupg2 apache2 memcached shared-mime-info`
 - Passenger requirements:
   - $ `sudo apt install libcurl4-openssl-dev libapr1-dev libaprutil1-dev apache2-dev`
 
-- configure mariaDB to use /srv as the location of database files:
+- (DATABASE NODE ONLY) configure mariaDB to use /srv as the location of database files:
   - `sudo systemctl stop mysql`
   - `sudo mv /var/lib/msyql /srv/mysql`
   - edit `/etc/mysql/my.conf` and add the following directives:
@@ -38,7 +39,7 @@ ON THE SERVER
     ```
   - verify that the new data directory is set, by logging into mysql and doing `select @@datadir;`
 
-- Create a database for the app
+- (DATABASE NODE ONLY)  Create a database for the app
   - $ `sudo mysql -p`
   - Enter the password you just set.
   - mysql> `CREATE DATABASE dashboard`
@@ -49,11 +50,10 @@ ON THE SERVER
 - Assign ownership to yourself for the web directory /var/www
   - $ `sudo chown <username> /var/www`
 
-- Install RVM (Ruby Version Manager) and configure Ruby 2.1.5, as the `deploy` user
+- Install RVM (Ruby Version Manager) and configure the Dashboard's current Ruby version, as the deploying user
   - $ `gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB`
   - $ `\curl -sSL https://get.rvm.io | bash -s stable`
-  - $ `source /home/deploy/.rvm/scripts/rvm`
-  - $ `sudo usermod -a -G rvm <username>`
+  - $ `source /home/ragesoss/.rvm/scripts/rvm`
   - logout and back in again so that these settings take effect
   - $ `rvm install 2.7.1`
     - This will probably report that ruby is already installed, but we do this just in case.
@@ -67,17 +67,26 @@ ON THE SERVER
   - Add to the end the text instructed by the passenger installer, something like:
 
 ```
-LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4.0.58/buildout/apache2/mod_passenger.so
-   <IfModule mod_passenger.c>
-     PassengerRoot /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4.0.58
-     PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-2.1.5/wrappers/ruby
-   </IfModule>
+LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6.0.8/buildout/apache2/mod_passenger.so
+<IfModule mod_passenger.c>
+  PassengerRoot /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6.0.8
+  PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-2.7.1/wrappers/ruby
+</IfModule>
 ```
 
-  - within that passenter block, add an additional rule to configure the PIDs directory:
+  - within that Passenger block, add an additional rule to configure the PIDs directory:
 ```
   PassengerInstanceRegistryDir /var/www/dashboard/shared/tmp/pids
 ```
+  - At the end of the apache.conf, add the following:
+```
+# Add header to incoming requests, timestamping them with time since the epoch in microseconds
+# This is required for New Relic's request queueing calculation
+RequestHeader set X-Request-Start "%t"
+```
+
+- Enable mod_headers:
+  - $ `sudo a2enmod headers`
 
 - Create a VirtualHost for the app
   - $ `sudo nano /etc/apache2/sites-available/dashboard.conf`
@@ -103,6 +112,7 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.1.5/gems/passenger-4
   - $ `sudo nano /etc/memcached.conf`
   - change the maximum size from 64m to 1024m: `-m 1024`
   - add a higher max item size (default 1m): `-I 5m`
+  - $ `sudo service memcached restart`
 
 ON GITHUB
 -------------
@@ -115,7 +125,7 @@ ON YOUR MACHINE
 
 - Clone your forked github repo
 - Get the Dashboard running locally (by installing all the necessary stuff)
-- Update '/config/deploy/production.rb' (and '/config/deploy/staging.rb') to point to your new wmflabs instance, commit the changes and push to github
+- Update or create the corresponding deployment file (eg, '/config/deploy/programs-and-events.rb') to point to your new wmflabs instance, commit the changes and push to github
 - Start the Capistrano deployment (on production). Enter the app's directory, then:
   - $ `cap production deploy`
   - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, secrets.yml, and newrelic.yml
@@ -154,12 +164,14 @@ ON YOUR MACHINE
 ON THE SERVER
 -------------
 
-- Add a SECRET_KEY_BASE to the environment:
+- For a fresh site, add a SECRET_KEY_BASE to the environment:
   - $ `cd /var/www/dashboard/current`
   - $ `rake secret`
   - Copy the secret key output and paste it into the secrets.yml file
     - $ `nano /var/www/dashboard/shared/config/secrets.yml`
     - Paste the key in as the value of "secret_key_base:"
+
+- For an existing site, copy over the secret.yml file from the extant server to preserve login cookies
 
 - Enable the site
   - $ `sudo a2dissite 000-default`
@@ -186,8 +198,10 @@ ON THE SERVER
 COPYING USER PROFILES
 -------------
 
-- Copy user profiles from the old server to your new server.
+- Copy user profile photos from the old server to your new server.
   - $ `scp -r3 <old>:/var/www/dashboard/current/public/system/user_profiles <new>:/var/www/dashboard/current/public/system`
+- Fix the permissions on the new server:
+  - $ `sudo chown -R <new_server_user> /var/www/dashboard/current/public/system`
 
 UPLOADING DATABASE
 -------------
@@ -196,3 +210,8 @@ UPLOADING DATABASE
   - $ `mysqldump --user=wiki --password=$DB_PASSWORD --host=<hostname> dashboard > /path/to/your/backup.sql`
 - Upload the database to the new server
   - $ `mysql -u wiki -p dashboard < <your-file>.sql`
+
+CONFIGURING RAILS CONSOLE
+
+- From `/var/www/dashboard/current` run `bundle exec rake app:update:bin`
+- If `bundle exec rails c -e production` does not work, you may need to edit the paths in `bin/rails` to work with the Capistrano directory structure: replace `../config` with `../../current/config`.
