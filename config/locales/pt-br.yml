@@ -678,7 +678,7 @@ pt-br:
       one: '%{count} conta solicitada pendente.'
       other: '%{count} contas solicitadas pendentes.'
     requested_accounts_alert_view: Ver
-    retain_available_articles: Reter Artigos Disponíveis
+    retain_available_articles: Reter os artigos disponíveis
     retain_available_articles_info: Quando ativada, selecionar um artigo disponível
       não o remove da lista, permitindo que vários estudantes selecionem o mesmo artigo.
     review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o

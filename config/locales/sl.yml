@@ -53,6 +53,7 @@ sl:
     number_of_articles:
       one: '%{count} članek'
       other: '%{count} članka'
+    training_module_status: Stanje
     role:
       visitor: Obiskovalec
       student: Študent/učenec
