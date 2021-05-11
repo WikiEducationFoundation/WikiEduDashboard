@@ -212,6 +212,32 @@ UPLOADING DATABASE
   - $ `mysql -u wiki -p dashboard < <your-file>.sql`
 
 CONFIGURING RAILS CONSOLE
+-------------
 
 - From `/var/www/dashboard/current` run `bundle exec rake app:update:bin`
 - If `bundle exec rails c -e production` does not work, you may need to edit the paths in `bin/rails` to work with the Capistrano directory structure: replace `../config` with `../../current/config`.
+
+CONFIGURING A SEPARATE SIDEKIQ NODE
+-------------
+
+- Configure the node running Redis to allow connections from other servers by editing `/etc/redis/redis.conf`
+  - Comment out the `bind` setting to allow connections from all interfaces
+  - Find the `protected-mode yes` line and change it to `protected-mode no`
+  - `sudo service redis restart`
+
+- Spin up a fresh server and log in to it
+- Install requirements:
+  - `sudo apt install pandoc libmariadb-dev imagemagick gnupg2 shared-mime-info`
+- Install RVM (see above)
+- Get the Dashboard code: `git clone https://github.com/WikiEducationFoundation/WikiEduDashboard.git`
+- In the Dashboard directory:
+  - `bundle install`
+  - Copy `application.yml`, `database.yml`, `secrets.yml`, `newrelic.yml` from the web node into the `config` directory
+
+- Add the systemd service files for the sidekiq processes you want to run on this server.
+  - Add the Redis URL to the `[Service]` block, something like: `Environment=REDIS_URL=redis://p-and-e-dashboard-web`
+  - Update the `WorkingDirectory` to something like `/home/ragesoss/WikiEduDashboard`
+
+- Enable and start the service
+
+To update for new deployments, you'll need to quiet these sidekiq processes, stop them, do a `git pull` and `bundle install`, then restart the sidekiq processes.
