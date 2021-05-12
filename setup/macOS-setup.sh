@@ -91,6 +91,13 @@ else
   output_line "brew install mariadb" && output_line "brew services start mariadb" && print_success "${CLEAR_LINE}[+] MariaDB installed "
 fi
 
+printf '[*] Installing shared-mime-info... \n'
+if brew list | grep shared-mime-info > /dev/null; then
+  printf "${CLEAR_LINE}shared-mime-info already installed\n"
+else
+  output_line "brew install shared-mime-info" && print_success "${CLEAR_LINE}[+] shared-mime-info installed "
+fi
+
 printf '[*] Installing bundler... \n'
 if which bundler > /dev/null; then
   printf "${CLEAR_LINE}bundler already installed\n"
@@ -100,9 +107,6 @@ fi
 
 printf '[*] Installing Gems... \n'
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
-
-printf '[*] Installing phantomjs-prebuilt... \n'
-output_line "sudo yarn global add phantomjs-prebuilt" && print_success "${CLEAR_LINE}[+] phantomjs-prebuilt installed\n"
 
 printf '[*] Checking for application configurations... \n'
 if [ -f config/application.yml ]; then
