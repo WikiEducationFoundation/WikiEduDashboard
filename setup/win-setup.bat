@@ -27,10 +27,6 @@ echo [*] Installing node modules...
 call yarn
 echo [+] Node modules installed!
 
-echo [*] Installing PhantomJs...
-call yarn global add phantomjs-prebuilt
-echo [+] PhantomJs installed!
-
 echo [*] Installing Pandoc...
 choco install pandoc -y
 echo [+] Pandoc installed!

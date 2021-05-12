@@ -107,9 +107,6 @@ fi
 printf '[*] Installing Gems... \n'
 output_line "bundle install" && print_success "${CLEAR_LINE}[+] Gems installed\n"
 
-printf '[*] Installing phantomjs-prebuilt... \n'
-output_line "sudo yarn global add phantomjs-prebuilt" && print_success "${CLEAR_LINE}[+] phantomjs-prebuilt installed\n"
-
 printf '[*] Checking for application configurations... \n'
 if [ -f config/application.yml ]; then
   printf "${CLEAR_LINE}Application configurations found\n"
