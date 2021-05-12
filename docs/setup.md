@@ -114,9 +114,6 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install node modules via Yarn:
     - $ `yarn`
 
-- Install PhantomJS:
-    - $ `sudo yarn global add phantomjs-prebuilt`
-
 - Install Pandoc
     - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
     - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
