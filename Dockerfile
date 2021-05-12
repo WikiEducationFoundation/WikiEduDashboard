@@ -9,13 +9,12 @@ FROM ruby:2.7.1
 WORKDIR /usr/src/app
 
 # Setup repos
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install deps
-RUN apt update
-RUN apt install -y nodejs r-base gnupg yarn pandoc redis-server mariadb-server libmariadbclient-dev
+RUN apt-get update
+RUN apt-get install -y nodejs npm r-base gnupg yarn pandoc redis-server mariadb-server libmariadbclient-dev
 
 # Install gems
 RUN bundle config --global frozen 1
@@ -23,7 +22,6 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 # App setup and configurations
-RUN yarn global add phantomjs-prebuilt
 COPY . .
 COPY config/application.example.yml ./config/application.yml
 COPY config/database.example.yml ./config/database.yml
