@@ -76,10 +76,13 @@ gem 'rack-cors', require: 'rack/cors' # Used for allowing cross-domain requests
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 
 ### Platform-specific fixes
+# You might need to uncomment these on Windows if you aren't using WSL.
+
 # TZ information is not available on Windows, needs to be installed separately
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
 # for those who don't have a native readline utility installed
-gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
+# gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 
 ### Incoming Mail
 gem 'griddler'
