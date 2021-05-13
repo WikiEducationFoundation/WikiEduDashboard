@@ -78,7 +78,7 @@ describe RevisionImporter do
       end
     end
 
-    context 'when an article with the same mw_page_id exists for a different wiki', focus: true do
+    context 'when an article with the same mw_page_id exists for a different wiki' do
       let(:course) { create(:course, start: '2021-04-28', end: '2021-04-30') }
       let(:user) { create(:user, username: 'דויד פון תמר') }
       let(:home_wiki) { Wiki.new(language: 'he', project: 'wikipedia', id: 24) }
