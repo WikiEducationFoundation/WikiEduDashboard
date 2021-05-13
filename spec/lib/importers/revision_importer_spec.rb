@@ -78,6 +78,27 @@ describe RevisionImporter do
       end
     end
 
+    context 'when an article with the same mw_page_id exists for a different wiki', focus: true do
+      let(:course) { create(:course, start: '2021-04-28', end: '2021-04-30') }
+      let(:user) { create(:user, username: 'דויד פון תמר') }
+      let(:home_wiki) { Wiki.new(language: 'he', project: 'wikipedia', id: 24) }
+      let(:he_wiki_page) { create(:article, title: 'מזנון', namespace: 3, mw_page_id: 13822, wiki: home_wiki) }
+      let(:it_wikiquote) { Wiki.new(language: 'it', project: 'wikiquote', id: 193) }
+      let(:it_wikiquote_page) { create(:article, title: 'CoB', namespace: 3, mw_page_id: 13822, wiki: it_wikiquote) }
+
+      it 'associates revisions with the correct article' do
+        # This replicates a bug on P & E Dashboard would occur before
+        # the fix in c6f89b6d53878827f24efa8484a260939271809d
+        VCR.use_cassette 'article_collision' do
+          he_wiki_page
+          it_wikiquote_page
+          subject
+          imported_rev = Revision.find_by(mw_page_id: 13822, wiki_id: home_wiki.id)
+          expect(imported_rev.article_id).not_to eq(it_wikiquote_page.id)
+        end
+      end
+    end
+
     context 'when there are edits to articles with four-byte unicode characters in the title' do
       # Workaround for # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
       let(:home_wiki) { Wiki.new(language: 'zh', project: 'wikipedia', id: 999) }
