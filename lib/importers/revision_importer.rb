@@ -103,7 +103,7 @@ class RevisionImporter
 
     # We rely on the unique index here, mw_page_id and wiki_id
     Article.import articles, on_duplicate_key_update: [:title, :namespace]
-    @articles = Article.where(mw_page_id: articles.map { |a| a['mw_page_id'] })
+    @articles = Article.where(wiki_id: @wiki.id, mw_page_id: articles.map { |a| a['mw_page_id'] })
 
     # Prep: get a user dictionary for all users referred to by revisions.
     users = user_dict_from_sub_data(sub_data)
