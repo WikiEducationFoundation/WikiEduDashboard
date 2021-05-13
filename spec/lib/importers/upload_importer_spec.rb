@@ -96,12 +96,17 @@ describe UploadImporter do
     let(:user) { create(:user) }
 
     it 'saves files with four-byte unicode characters' do
-      # Example from https://commons.wikimedia.org/wiki/File:%E6%9D%B1-bronze-shang.svg
-      # Moved from https://commons.wikimedia.org/wiki/File:%F0%A3%92%9A-bronze.svg
-      file_data = { 'user' => user.username, 'title' => 'File:𣒚-bronze.svg', 'pageid' => 12345 }
+      # Example from https://commons.wikimedia.org/wiki/File:東-bronze-shang.svg
+      file_data = {
+        'user' => user.username,
+        'title' => 'File:東-bronze-shang.svg',
+        'pageid' => 12345
+      }
       described_class.import_upload(file_data)
       expect(CommonsUpload.last.id).to eq(12345)
-      expect(CommonsUpload.last.file_name).to eq(CGI.escape('File:𣒚-bronze.svg'))
+      # Whether this gets saved with CGI.escape depends on whether the database can handle
+      # 4-byte characters.
+      expect(CGI.unescape(CommonsUpload.last.file_name)).to eq('File:東-bronze-shang.svg')
     end
   end
 end

@@ -171,10 +171,15 @@ describe 'the course page', type: :feature, js: true do
       expect(page.find('.sidebar')).to have_content term
 
       # Course dates
+      # These are shown in local browser time. The start time is 00:00 UTC and
+      # the end time is 23:59 UTC, so depending the timezone where the tests
+      # are run, the day can vary.
       startf = course_start.to_date.strftime('%Y-%m-%d')
+      startf_prev = course_start.to_date.prev_day.strftime('%Y-%m-%d')
       endf = course_end.to_date.strftime('%Y-%m-%d')
-      expect(page.find('.sidebar')).to have_content startf
-      expect(page.find('.sidebar')).to have_content endf
+      endf_next = course_end.to_date.next_day.strftime('%Y-%m-%d')
+      expect(page.find('.sidebar')).to have_content(startf).or have_content(startf_prev)
+      expect(page.find('.sidebar')).to have_content(endf).or have_content(endf_next)
 
       # Links
       link = "/courses/#{slug}/home"
