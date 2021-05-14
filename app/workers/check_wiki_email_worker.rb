@@ -2,7 +2,7 @@
 
 class CheckWikiEmailWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def self.check(user:)
     perform_async(user.id)

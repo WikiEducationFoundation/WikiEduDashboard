@@ -5,7 +5,7 @@ require_dependency "#{Rails.root}/lib/wiki_preferences_manager"
 
 class EnrollInCourseWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def self.schedule_edits(course:, editing_user:, enrolling_user:, set_wiki_preferences: false)
     perform_async(course.id, editing_user.id, enrolling_user.id, set_wiki_preferences)

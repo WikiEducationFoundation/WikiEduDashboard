@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/wiki_course_edits"
 
 class MassEnrollmentWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed,
+  sidekiq_options lock: :until_executed,
                   retry: 0 # Move job to the 'dead' queue if it fails
 
   def self.schedule_edits(course:, editing_user:, enrollment_results:)

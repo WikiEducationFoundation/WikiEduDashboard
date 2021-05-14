@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
 
 class CampaignCsvWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def self.generate_csv(campaign:, filename:, type:, include_course:)
     perform_async(campaign.id, filename, type, include_course)

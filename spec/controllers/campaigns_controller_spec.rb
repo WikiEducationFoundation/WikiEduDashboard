@@ -392,10 +392,8 @@ describe CampaignsController, type: :request do
     it 'cleans up the files afterwards' do
       # This normally happens long afterwards, but in test mode
       # sidekiq will execute all jobs immediately, so the file
-      # will be created and immediately deleted after the first
-      # visit, and won't be there when the second visit happens.
-      expect(CsvCleanupWorker).to receive(:perform_at).twice.and_call_original
-      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      # will be created and immediately deleted.
+      expect(CsvCleanupWorker).to receive(:perform_at).and_call_original
       get "/campaigns/#{campaign.slug}/courses", params: request_params
       expect(response.body).to include('file is being generated')
     end

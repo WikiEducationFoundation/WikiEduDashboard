@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 class OverdueTrainingAlertWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def perform
     OverdueTrainingAlertManager.new(Course.strictly_current).create_alerts

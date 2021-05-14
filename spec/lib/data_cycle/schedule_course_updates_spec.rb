@@ -94,27 +94,6 @@ describe ScheduleCourseUpdates do
         expect(job.args).to eq [Course.first.id]
         expect(Sidekiq::Queue.new(very_long_queue).size).to eq(1)
       end
-
-      it 'logs previous update failure and adds job, when orphan lock' do
-        # Adding orphan lock
-        SidekiqUniqueJobs::Locksmith
-          .new({ 'jid' => 1234,
-                 'unique_digest' => CheckCourseJobs.new(Course.first).expected_digest })
-          .lock
-
-        # No job before
-        expect(Sidekiq::Queue.new(queue).size).to eq 0
-        expect(Sidekiq::Queue.new(short_queue).size).to eq 0
-        described_class.new
-
-        # 1 job enqueued by ScheduleCourseUpdates
-        # It goes in the 'short' queue, because once it has an update log, queue
-        # sorting happens based on average time of recent updates, which
-        # is considered 0 for a failed update.
-        expect(Sidekiq::Queue.new(short_queue).size).to eq 1
-        # Orphan lock  failure is logged
-        expect(Course.first.flags['update_logs'][1]['orphan_lock_failure'].present?).to eq true
-      end
     end
   end
 end

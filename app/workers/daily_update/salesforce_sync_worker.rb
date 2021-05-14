@@ -2,7 +2,7 @@
 
 class SalesforceSyncWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def perform
     Course.current.each do |course|

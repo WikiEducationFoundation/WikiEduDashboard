@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
 
 class ImportWikidataSummariesWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def perform
     wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')

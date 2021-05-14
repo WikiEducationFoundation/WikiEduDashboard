@@ -2,7 +2,7 @@
 
 class CourseAdviceEmailWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
+  sidekiq_options lock: :until_executed
 
   def self.schedule_email(course:, stage:, send_at:)
     perform_at(send_at, course.id, stage)
