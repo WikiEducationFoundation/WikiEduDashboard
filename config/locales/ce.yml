@@ -33,7 +33,7 @@ ce:
   training:
     previous: < Хьалхара
   uploads:
-    label: Чуяьхнарш
+    label: Чуйаьхнарш
   users:
     request_confirmation: Бакъалла езий хьуна хӀара декъашхочун агӀо?
     training_module_name: Дешаран модуль

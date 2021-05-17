@@ -30,10 +30,10 @@ sv:
   application:
     cancel: Avbryt
     cookie_consent: Denna sida använder kakor för att hålla dig inloggad, och sparar
-      information relaterad till ditt Wikipedia-konto.
+      information relaterad till ditt Wikipediakonto.
     cookie_consent_acknowledge: Jag förstår
     cookie_consent_see_more: Se mer.
-    create_accounts: Skapa Wikipedia-konton
+    create_accounts: Skapa Wikipediakonton
     dashboard: Instrumentpanel för Wiki Ed
     documentation: Dokumentation
     error: 'Ett fel uppstod:'
@@ -60,7 +60,7 @@ sv:
     search_results:
       one: '%{count} Resultat för: ''%{search_terms}'''
       other: '%{count} Resultat för: ''%{search_terms}'''
-    no_results: Inga resultat hittades för "%{query}"
+    no_results: Inga resultat hittades för '%{query}'
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_wikipedia: Eller registrera dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -77,11 +77,11 @@ sv:
   article_statuses:
     not_yet_started: Komma igång
     in_progress: Att arbeta i sandlådan
-    ready_for_mainspace: Flytta artikel till huvudsidan
+    ready_for_mainspace: Flytta artikel till huvudnamnrymden
     reading_the_article: Läser artikel
     providing_feedback: Ger återkoppling
     post_to_talk: Posta på diskussionssidan
-    peer_review_completed: Recension fulländad
+    peer_review_completed: Bedömning avslutad
   dashboard:
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
     explore_course_pages: Utforska kursussidorna
@@ -131,7 +131,7 @@ sv:
     rating_docs:
       does_not_exist: Den här artikeln finns inte på Wikipedia
     see_more: Se mer
-    show_current_version: Visa aktuell version
+    show_current_version: Visa nuvarande version
     show_current_version_with_authorship_highlighting: Nuvarande version med författaren
       markerad
     title: Titel
@@ -140,7 +140,7 @@ sv:
     view: Visa artikel
     view_all: Visa alla
     view_doc: Den uppskattade summan av alla läsningar av varje artikel sen den först
-      redigerades, till den senaste statusuppdateringen. Du kan använda pageviews.toolforge.org
+      redigerades, till den senaste uppdateringen av statistiken. Du kan använda pageviews.toolforge.org
       för att se det exakta numret.
     view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
@@ -167,7 +167,7 @@ sv:
     editors: Tilldelad till
     group_members: Gruppmedlemmar
     label: Tilldela
-    loading: Läser in tilldelningar...
+    loading: Läser in tilldelade...
     none_short: Inga tilldelade artiklar
     none: Denna kurs har inga tilldelade artiklar.
     no_available: Denna kurs har inga tillgängliga artiklar.
@@ -278,18 +278,18 @@ sv:
       legend_class_not_meeting: Inget schemalagt möte
     cancel: Avbryt
     campaigns: 'Kampanjer:'
-    campaign_articles: '%{title} artiklar'
-    campaign_courses: '%{title} Kurser'
+    campaign_articles: '%{title}-artiklar'
+    campaign_courses: '%{title}-kurser'
     campaign_select: Välj en kampanj
     campaign_users: '%{title}-redigerare'
     confirm_course_deletion: Är du säker på att du vill radera kursen %{title}? Ifall
       du är säker, skriv in kursens titel för att fortsätta.
     confirm_course_deletion_failed: '"%{title}" är inte titeln för denna kurs. Kursen
-      har inte raderat.'
+      har inte raderats.'
     course: Kurs
     course_description: Kurser
     courses: Kurser
-    courses_taught: Lärda kurser
+    courses_taught: Undervisade kurser
     creation_date: Datum skapad
     creator:
       already_exists: Denna kurs finns redan. Överväg att ändra namnet, skolan eller
@@ -304,10 +304,10 @@ sv:
       course_subject: Kursämne
       course_term: Kurstermin
       course_term_placeholder: Termin
-      course_title: Kurs titel
+      course_title: Kurstitel
       course_types:
         basic_course_name: Grundläggande program
-        edit_a_thon_name: Redigeringsmaraton
+        edit_a_thon_name: Skrivstuga
         edit_a_thon_description: Programmet redigeringsmaraton kommer spåra redigeringar
           på alla artiklar eller namnrymdssidor. Inga automatiserade redigeringar
           kommer att göras för detta program.
@@ -446,7 +446,7 @@ sv:
     volunteer:
       other: en=Volontär
     weeks_none: Detta kurs har ännu inte en tidslinje.
-    wiki_staff: Wiki Education -anställda
+    wiki_staff: Wiki Education-anställda
     withdrawn: Gjorde inte uppgiften
     yourcourses: Dina kurser
     survey:
@@ -474,15 +474,15 @@ sv:
         för att slutföra det.
       course_when: Lägg till någonting i fältet "När" (t.ex. månad och år) för att
         särskilja den från originalet.
-      course_description: Program beskrivning
+      course_description: Programbeskrivning
       course_school: Institution
       course_term: När
       course_term_placeholder: När
       course_title: Program namn
       create_button: Skapa mitt program!
-      create_label: Skapa Nytt Program
+      create_label: Skapa nytt program
       create_new: Skapa ett oberoende program
-      create_short: Skapa Program
+      create_short: Skapa program
       find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
@@ -507,7 +507,7 @@ sv:
     students_count: Antal deltagare
     term: När
     user_uploads_none: Valda användare har inte bidragit några bilder eller mediafiler
-      i detta projekt.
+      till detta projekt.
     view_other: Visa andra kampanjer
     view_page: Visa programsida
     yourcourses: Dina program
@@ -539,7 +539,7 @@ sv:
     date_time: Datum/Tid
     per_user: '%{number}/user'
     revisions: Senaste redigeringar
-    tags: Märken
+    tags: Taggar
     update_status_heading: Uppdatera status
     update_statistics_link: Se mer
     upload_count: Commons-uppladdningar
@@ -563,7 +563,7 @@ sv:
     usage_count: Antal användningar
   revisions:
     chars_added: Tillagda tecken
-    references: Lade till referenser
+    references: Tillagda referenser
     class: Klass
     date_time: Datum/Tid
     diff: skillnad
@@ -607,7 +607,7 @@ sv:
     conseq: Uppgiften %{task} körs redan!
     constant: Uppgiften %{task} kan inte köras medan uppgiften update_daily körs.
     paused: Uppgiften %{task} kan inte köras eftersom schemalagda uppdateringar har
-      pausats. Kör "rake batch:resume" för att återuppta uppdateringar.
+      pausats. Kör 'rake batch:resume' för att återuppta uppdateringar.
   tickets:
     none: Inga ärenden
   timeline:
@@ -625,10 +625,10 @@ sv:
     empty_week_1: För att komma igång,
     empty_week_3: eller
     gradeable_value: Värde
-    move_block_down: Flytta upp block
-    move_block_up: Flytta ned block
+    move_block_down: Flytta ned block
+    move_block_up: Flytta upp block
     no_activity_this_week: Ingen schemalagda möten denna vecka
-    reset_titles: Standardvärden
+    reset_titles: Återställ till standardvärden
     save_all_changes: Spara alla
     this_week_title_default: Denna vecka
     title: Tidslinje
@@ -649,7 +649,7 @@ sv:
     done: Klar!
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
-    view_library_source: via bibliotekskälla
+    view_library_source: visa bibliotekskälla
     kind:
       exercise: Övning
       discussion: Diskussion
@@ -669,7 +669,7 @@ sv:
     uploaded_on: Uppladdningsdatum
     usage_count: Antal användningar
     usage_doc: Antal Wikipediaartiklar som denna sida finns på.
-    usage_count_gallery_tile: Används  i %{usage_count} artiklar
+    usage_count_gallery_tile: Används i %{usage_count} artiklar
     usages: Användning
   users:
     assign_articles: Tilldela artiklar
@@ -691,7 +691,7 @@ sv:
     loading: Laddar användare...
     characters_added_mainspace: Tecken som lades till (artikel)
     characters_added_userspace: Tecken som lades till (användare)
-    characters_added_draftspace: Tecken som lades till (skiss)
+    characters_added_draftspace: Tecken som lades till (utkast)
     my_assigned: 'Tilldelade:'
     my_reviewing: 'Granskar:'
     name: Namn
@@ -718,13 +718,13 @@ sv:
     username: Användarnamn
     username_placeholder: Användarnamn
     useremail_placeholder: E-post
-    userpasscode_placeholder: Postnummer
+    userpasscode_placeholder: Lösenkod
     role:
       description: Roll i kursen
       visitor: Besökare
       student: Student
       instructor: Instruktör
-      campus_volunteer: '{{SITENAME}}ambassadör'
+      campus_volunteer: Campusvolontär
       online_volunteer: Onlineambassadör
       wiki_ed_staff: Wiki Ed-anställda
   user_profiles:
