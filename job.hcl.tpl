@@ -65,11 +65,13 @@ job "rails" {
         # Each instance allocates this much resources.
         # It runs on a node with total capacity 7978 MiB, 11596 MHz
         # Some extra capacity is also set aside for envoy proxy.
+        # We also run redis on this node, to ensure it always
+        # has access to its persistence volume.
         # We also run the `default` sidekiq queue on this node
         # to do background tasks that require interacting with
         # the storage volume.
-        cpu    = 4800
-        memory = 3000
+        cpu    = 4400
+        memory = 2800
       }
 
       env {
