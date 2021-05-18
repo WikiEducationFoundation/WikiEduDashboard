@@ -13,7 +13,7 @@ cache:
   - vendor
   - node_modules
 addons:
-  mariadb: '10.3'
+  mariadb: '10.5' # we use 10.3 in production, but installation of 10.3 has been broken on travis
   chrome: stable
   apt:
     packages:
@@ -38,6 +38,7 @@ install:
 before_script:
 - mkdir tmp -m 777
 - cp config/database.travis.yml config/database.yml
+- sudo mysql -e "SET Password=PASSWORD('rootpassword')"
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
 script:

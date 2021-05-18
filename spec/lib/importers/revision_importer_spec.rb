@@ -82,9 +82,13 @@ describe RevisionImporter do
       let(:course) { create(:course, start: '2021-04-28', end: '2021-04-30') }
       let(:user) { create(:user, username: 'דויד פון תמר') }
       let(:home_wiki) { Wiki.new(language: 'he', project: 'wikipedia', id: 24) }
-      let(:he_wiki_page) { create(:article, title: 'מזנון', namespace: 3, mw_page_id: 13822, wiki: home_wiki) }
+      let(:he_wiki_page) do
+        create(:article, title: 'מזנון', namespace: 3, mw_page_id: 13822, wiki: home_wiki)
+      end
       let(:it_wikiquote) { Wiki.new(language: 'it', project: 'wikiquote', id: 193) }
-      let(:it_wikiquote_page) { create(:article, title: 'CoB', namespace: 3, mw_page_id: 13822, wiki: it_wikiquote) }
+      let(:it_wikiquote_page) do
+        create(:article, title: 'CoB', namespace: 3, mw_page_id: 13822, wiki: it_wikiquote)
+      end
 
       it 'associates revisions with the correct article' do
         # This replicates a bug on P & E Dashboard would occur before
