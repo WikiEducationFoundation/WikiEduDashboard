@@ -48,9 +48,4 @@ class Features
   def self.email?
     !ENV['mailgun_key'].nil?
   end
-
-  def self.celebrate?(current_user)
-    return false unless current_user&.admin?
-    ENV['celebrate'] == 'true'
-  end
 end

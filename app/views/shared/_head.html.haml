@@ -29,7 +29,6 @@
       wikiEd: #{Features.wiki_ed?},
       enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
       enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
-      celebrate: #{Features.celebrate?(current_user)},
       consentBanner: #{user_signed_in? && !Rails.env.test?},
       courseCreationNotice: '#{raw ENV['course_creation_notice']}',
       tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
