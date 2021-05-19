@@ -21,7 +21,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.2",
     "chai": "^4.3.4",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
     "core-js": "^3.6.5",
     "create-react-class": "^15.6.3",
