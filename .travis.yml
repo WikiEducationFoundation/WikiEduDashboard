@@ -40,7 +40,6 @@ script:
   - yarn build
   - yarn test
   - COVERAGE=true bundle exec rspec --color --profile --format documentation
-    --tag $TEST_SUITE
   - bundle exec rubocop
   - yarn lint-non-build
 after_success:
