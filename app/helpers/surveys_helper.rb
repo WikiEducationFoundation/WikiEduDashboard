@@ -18,7 +18,7 @@ module SurveysHelper
 
   def render_matrix_answer_labels(answer)
     render partial: 'rapidfire/answers/matrix_answer_labels',
-    locals: { answer: answer, course: @course }
+           locals: { answer: answer, course: @course }
   end
 
   def survey_preview_url(survey)
@@ -86,8 +86,8 @@ module SurveysHelper
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
-      user: current_user,
-      question_group: @question_group)
+                                                              user: current_user,
+                                                              question_group: @question_group)
     return { question_group: @question_group,
       answer_group_builder: @answer_group_builder,
       question_group_index: index,

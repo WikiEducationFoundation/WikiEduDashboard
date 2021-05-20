@@ -28,9 +28,9 @@ describe TicketsController, type: :request do
   before do
     login_as admin
     TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::NOTE,
-      content: 'this is a note')
+                                    content: 'this is a note')
     TicketDispenser::Message.create(ticket: ticket, kind: TicketDispenser::Message::Kinds::REPLY,
-      content: 'this is a reply')
+                                    content: 'this is a reply')
     TicketDispenser::Message.create(
       ticket: unknown_sender_ticket,
       kind: TicketDispenser::Message::Kinds::REPLY,

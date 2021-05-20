@@ -12,7 +12,7 @@ class IndividualStatisticsPresenter
   end
 
   def individual_courses
-    @user.courses.nonprivate.where('courses_users.role = ?', CoursesUsers::Roles::STUDENT_ROLE)
+    @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
   end
 
   def course_string_prefix

@@ -9,7 +9,7 @@ class RevisionStat
     Revision.where.not(article_id: course.articles_courses.not_tracked.pluck(:article_id))
             .where(user: course.students)
             .joins(article: { articles_courses: :course })
-            .where('courses.id = ?', course.id)
+            .where(courses: { id: course.id })
             .where('date >= ?', date)
             .count
   end

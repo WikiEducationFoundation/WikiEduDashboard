@@ -88,7 +88,7 @@ class ArticlesCourses < ApplicationRecord
 
   def associated_user_ids(revisions)
     return [] if revisions.blank?
-    revisions.map(&:user_id).compact.uniq
+    revisions.filter_map(&:user_id).uniq
   end
 
   #################

@@ -30,10 +30,12 @@ describe 'open course creation', type: :feature, js: true do
            template_description: 'This is the template description')
   end
 
+  around do |example|
+    Time.use_zone('UTC') { example.run }
+  end
+
   before do
     stub_wiki_validation
-    @system_time_zone = Time.zone
-    Time.zone = 'UTC'
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:open_course_creation?).and_return(true)
@@ -42,10 +44,6 @@ describe 'open course creation', type: :feature, js: true do
     allow(Features).to receive(:default_course_string_prefix).and_return('courses_generic')
     allow(Features).to receive(:wiki_ed?).and_return(false)
     login_as(user)
-  end
-
-  after do
-    Time.zone = @system_time_zone
   end
 
   it 'lets a user create a course immediately', js: true do

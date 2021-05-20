@@ -189,10 +189,10 @@ describe Course, type: :model do
 
     let(:course) do
       described_class.new(passcode: passcode,
-                 type: type,
-                 start: '2013-01-01',
-                 end: '2013-07-01',
-                 home_wiki_id: 1)
+                          type: type,
+                          start: '2013-01-01',
+                          end: '2013-07-01',
+                          home_wiki_id: 1)
     end
 
     context 'non-legacy course' do

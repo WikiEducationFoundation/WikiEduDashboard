@@ -59,6 +59,9 @@ Metrics/ModuleLength:
     - 'spec/**/*' # not a big deal in spec helper module
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
+Rails/EnvironmentVariableAccess:
+  AllowReads: true
+
 ########################
 # Permanent exceptions #
 ########################

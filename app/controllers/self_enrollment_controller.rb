@@ -83,7 +83,7 @@ class SelfEnrollmentController < ApplicationController
         render json: {
           message: I18n.t("courses.join_failure_details.#{@result[:failure]}")
         },
-        status: :bad_request
+               status: :bad_request
       end
     end
     yield

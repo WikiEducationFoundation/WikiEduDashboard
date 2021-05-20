@@ -145,13 +145,13 @@ class Course < ApplicationRecord
   scope :legacy, -> { where(type: 'LegacyCourse') }
 
   def self.submitted_but_unapproved
-    Course.includes(:campaigns).where('campaigns.id IS NULL')
+    Course.includes(:campaigns).where(campaigns: { id: nil })
           .where(submitted: true).references(:campaigns)
           .order('timeline_start')
   end
 
   def self.unsubmitted
-    Course.includes(:campaigns).where('campaigns.id IS NULL')
+    Course.includes(:campaigns).where(campaigns: { id: nil })
           .where(submitted: false).references(:campaigns)
   end
 

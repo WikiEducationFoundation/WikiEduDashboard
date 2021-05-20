@@ -28,7 +28,7 @@ class RevisionAnalyticsService
   def initialize(opts)
     return unless opts[:scoped] == 'true' && opts[:current_user]
     @course_ids = Course.joins(:courses_users)
-                        .where('courses_users.user_id = ?', opts[:current_user].id)
+                        .where(courses_users: { user_id: opts[:current_user].id })
                         .current.pluck(:id)
   end
 

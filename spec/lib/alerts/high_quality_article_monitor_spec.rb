@@ -74,7 +74,7 @@ describe HighQualityArticleMonitor do
 
     it 'does not create a second Alert for the same assignments, if the first is not resolved' do
       Alert.create(type: 'HighQualityArticleAssignmentAlert', article_id: assignment.article_id,
-                    course_id: assignment.course_id, user_id: assignment.user_id)
+                   course_id: assignment.course_id, user_id: assignment.user_id)
       expect(HighQualityArticleAssignmentAlert.count).to eq(1)
       VCR.use_cassette 'high_quality' do
         described_class.create_alerts_for_course_articles

@@ -56,7 +56,7 @@ describe ProtectedArticleMonitor do
 
     it 'does not create a second Alert for the same assignments' do
       Alert.create(type: 'ProtectedArticleAssignmentAlert', article_id: assignment.article_id,
-                    course_id: assignment.course_id, user_id: assignment.user_id)
+                   course_id: assignment.course_id, user_id: assignment.user_id)
       expect(ProtectedArticleAssignmentAlert.count).to eq(1)
       VCR.use_cassette 'protected_articles' do
         described_class.create_alerts_for_assigned_articles

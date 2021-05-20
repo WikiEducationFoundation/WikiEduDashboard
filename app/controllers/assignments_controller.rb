@@ -61,7 +61,7 @@ class AssignmentsController < ApplicationController
     end
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
-                   status: :conflict
+           status: :conflict
   end
 
   def update_status
