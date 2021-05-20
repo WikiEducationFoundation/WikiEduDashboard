@@ -312,16 +312,16 @@ describe Course, type: :model do
   describe '#trained_count' do
     before do
       create(:user, id: 1, trained: 0)
-      create(:courses_user, user_id: 1, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 1, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:user, username: 'user2', id: 2, trained: 1)
-      create(:courses_user, user_id: 2, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 2, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:user, username: 'user3', id: 3, trained: 1)
-      create(:courses_user, user_id: 3, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, user_id: 3, course: course, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
     context 'after the introduction of in-dashboard training modules' do
       let(:course) do
-        create(:course, id: 1, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date,
+        create(:course, start: '2016-01-01'.to_date, end: '2016-06-01'.to_date,
                         timeline_start: '2016-01-01'.to_date, timeline_end: '2016-06-01'.to_date)
       end
 
@@ -335,16 +335,16 @@ describe Course, type: :model do
       end
 
       it 'returns the whole student count before assigned trainings are due' do
-        create(:week, id: 1, course_id: 1)
-        create(:block, week_id: 1, training_module_ids: [1, 2])
+        week = create(:week, course: course)
+        create(:block, week: week, training_module_ids: [1, 2])
         travel_to Time.zone.local(2016, 1, 2)
         course.update_cache
         expect(course.trained_count).to eq(3)
       end
 
       it 'returns the count of students who are not overude on trainings' do
-        create(:week, id: 1, course_id: 1)
-        create(:block, week_id: 1, training_module_ids: [1, 2])
+        week = create(:week, course: course)
+        create(:block, week: week, training_module_ids: [1, 2])
         # User who completed all assigned modules
         create(:training_modules_users, training_module_id: 1, user_id: 1,
                                         completed_at: '2016-01-09'.to_date)
