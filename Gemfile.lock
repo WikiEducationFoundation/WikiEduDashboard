@@ -18,15 +18,6 @@ GIT
       rails (>= 3.2.13)
 
 GIT
-  remote: https://github.com/halfdan/piwik-ruby-tracking.git
-  revision: 5c733bd0d4deaef1f72dbfe8c9e305ddf3bca52a
-  specs:
-    piwik_analytics (2.0.0)
-      actionpack
-      activesupport
-      rails (>= 3.0.0)
-
-GIT
   remote: https://github.com/ragesoss/mediawiki-ruby-api
   revision: f91ca9e7940a5ad22282d5fe714fbf2160815be2
   branch: master
@@ -43,6 +34,15 @@ GIT
     omniauth-mediawiki (0.0.2)
       jwt (~> 2.0)
       omniauth-oauth
+
+GIT
+  remote: https://github.com/ragesoss/piwik-ruby-tracking
+  revision: 1181569b72fb719d72458d2c72a093aa87bac23d
+  specs:
+    piwik_analytics (2.0.0)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
 
 GEM
   remote: https://rubygems.org/

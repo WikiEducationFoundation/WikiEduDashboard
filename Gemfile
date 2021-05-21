@@ -59,7 +59,7 @@ gem 'i18n-js'
 
 ### Analytics and error monitoring
 gem 'sentry-raven' # error reporting for both server-side Ruby and client-side JS
-gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git' # traffic analytics
+gem 'piwik_analytics', git: 'https://github.com/ragesoss/piwik-ruby-tracking' # traffic analytics
 gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
