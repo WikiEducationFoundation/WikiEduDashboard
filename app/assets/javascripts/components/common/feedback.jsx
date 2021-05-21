@@ -186,7 +186,7 @@ const Feedback = createReactClass({
           <div className="feedback-body">
             {titleElement}
             <hr />
-            <h5>{I18n.t('courses.rating_feedback') + ' ' + rating}</h5>
+            <h5>{`${I18n.t('courses.rating_feedback')} ${rating}`}</h5>
             <p className="rating-description">
               {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`, { class: rating.toLowerCase() || '' })}
             </p>
