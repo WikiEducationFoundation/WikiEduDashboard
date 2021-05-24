@@ -356,7 +356,7 @@ sv:
     error:
       user_exists: Tyvärr, %{username} är inte en befintlig användare.
       invalid_language_or_project: Ogiltigt språk/projekt
-      duplicate_slug: Ett annat program som anropade %{slug} finns redan.
+      duplicate_slug: Ett annat program kallat %{slug} finns redan.
     expected_students: Förväntade studenter
     features_feedback: 'Automatiska förslag:'
     feedback: Återkoppling
@@ -367,8 +367,8 @@ sv:
       other: Instruktörer
     instructors: Instruktörer
     invitation: Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste
-      du logga in med ett Wikipedia-konto.
-    invitation_username_advice: Om du inte har ett Wikipedia-konto ännu, registrera
+      du logga in med ett Wikipediakonto.
+    invitation_username_advice: Om du inte har ett Wikipediakonto ännu, registrera
       ett nu. Ditt användarnamn kan vara så anonymt — eller personligt — som du vill.
       (Delade konton är inte tillåtet.)
     join: Gå med
@@ -392,7 +392,7 @@ sv:
     new_account_username_taken: Detta användarnamn är redan upptaget. Välj ett annat.
     new_account_submit: Begär konto
     new_account_submitted_admin: Din begäran för ett konto har skapats. Informera
-      dina studenter att kolla sin e-postinkorgen för att få sina nya lösenord.
+      dina studenter om att kolla sin e-postinkorg för att få sina nya lösenord.
     nocourses: Du deltar inte i alla kurser.
     nocourse: har inte deltagit i några kurser.
     none: Ingen

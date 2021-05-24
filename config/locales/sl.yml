@@ -23,11 +23,14 @@ sl:
   articles:
     edited_mobile: Članki
     label: Članki
+    title: Naslov
   assignments:
     remove: Odstrani
   campaign:
     campaign: Kampanja
     campaigns: Kampanje
+    description: Opis
+    title: Naslov
   categories:
     remove: Odstrani
   courses:
@@ -35,6 +38,7 @@ sl:
     campaigns: 'Kampanje:'
     loading: Nalaganje ...
     overview: Domov
+    title: Naslov
   courses_generic:
     campaigns: 'Kampanje:'
     creator:
@@ -44,6 +48,8 @@ sl:
   metrics:
     bytes_added: Zlogov dodanih
     last_reviewed: Zadnjič pregledano
+  revisions:
+    title: Naslov
   training:
     page: Stran
   uploads:
