@@ -8,7 +8,7 @@ content: |
   </figure>
 
   The Article Viewer tool — <img style="margin: -18px -8px;" src="/assets/images/article-viewer.svg" alt="Authorship Viewer icon"/> —
-  shows the current version on the article. Once authorship data has
+  shows the current version of the article. Once authorship data has
   loaded, it also overlays details about which text was introduced by which
   student. The Article Viewer is available on the Articles tab for each
   of the mainspace articles edited by your students, as well as in the
