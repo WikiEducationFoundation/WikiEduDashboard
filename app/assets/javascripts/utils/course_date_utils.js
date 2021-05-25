@@ -13,7 +13,6 @@ const CourseDateUtils = {
     return /^20\d{2}-\d{2}-\d{2}/.test(date) && moment(date).isValid();
   },
 
-
   formattedDateTime(datetime, showTime = false) {
     let timeZoneAbbr = '';
     let timeFormat = '';
@@ -87,12 +86,21 @@ const CourseDateUtils = {
     return updatedCourse;
   },
 
+  // Maximum tracking length of a year, plus a little bit of wiggle room.
+  // We want to make sure long-running events get broken up into smaller
+  // segments, because huge long-running courses cause performance problems
+  // with the Dashboard data update process.
+  MAX_MONTHS: 13,
+
+  courseTooLong(course) {
+    return moment(course.end).diff(moment(course.start), 'months') > this.MAX_MONTHS;
+  },
+
   moreWeeksThanAvailable(course, weeks, exceptions) {
     if (!weeks || !weeks.length) { return false; }
     const nonBlackoutWeeks = filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg !== '()');
     return weeks.length > nonBlackoutWeeks.length;
   },
-
 
   wouldCreateBlackoutWeek(course, day, exceptions) {
     const selectedDay = moment(day);

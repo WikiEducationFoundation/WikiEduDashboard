@@ -14,6 +14,7 @@ import { getCloneableCourses, isValid, firstValidationErrorMessage } from '../..
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseType from './course_type.jsx';
 import NewOrClone from './new_or_clone.jsx';
 import ReuseExistingCourse from './reuse_existing_course.jsx';
@@ -180,6 +181,10 @@ const CourseCreator = createReactClass({
     const endEventTime = new Date(this.props.timeline_end);
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
       this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
+      return false;
+    }
+    if (CourseDateUtils.courseTooLong(this.props.course)) {
+      this.props.setInvalid('end', I18n.t('courses.dates_too_long'));
       return false;
     }
     return true;

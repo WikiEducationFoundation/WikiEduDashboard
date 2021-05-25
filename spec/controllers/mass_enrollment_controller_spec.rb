@@ -45,6 +45,16 @@ describe MassEnrollmentController, type: :request do
       end
     end
 
+    context 'when the username list is too long' do
+      let(:usernames) { (1..160).map { |i| "Username_#{i}" }.join("\n") }
+
+      it 'returns an error message' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        post "/mass_enrollment/#{course.slug}", params: request_params
+        expect(response.body).to include('exceeds the maximum number of users')
+      end
+    end
+
     context 'when user cannot edit course' do
       before do
         course.campaigns << Campaign.first
