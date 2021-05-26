@@ -157,6 +157,7 @@ class Course < ApplicationRecord
 
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }
   scope :current, -> { current_and_future.where('start < ?', Time.zone.now) }
+  scope :ended, -> { where('end < ?', Time.zone.now) }
   # A course stays "current" for a while after the end date, during which time
   # we still check for new data and update page views. To exclude those courses
   # use "strictly_current".

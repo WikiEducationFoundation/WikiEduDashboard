@@ -22,7 +22,7 @@ class MassEmail::TermRecapController < ApplicationController
   end
 
   def eligible_courses
-    @eligible_courses ||= @campaign.courses.select do |course|
+    @eligible_courses ||= @campaign.courses.ended.select do |course|
       recap_not_sent?(course) && course.article_count.positive?
     end
   end
