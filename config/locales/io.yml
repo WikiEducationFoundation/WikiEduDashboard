@@ -16,6 +16,7 @@ io:
   campaign:
     none: Nula
   courses:
+    loading: Karganta...
     none: Nula
     overview: Komenco
     students: Lernanti
@@ -33,9 +34,11 @@ io:
     week_number: Semano %{number}
   training:
     page: Pagino
+    done: Facita!
   uploads:
     label: Arkivi kargita
   users:
+    assign_articles_done: Facita
     exercises_and_trainings: Exerci & Aprentiteso
     profile: profilo
     revisions: Revizuri
@@ -46,6 +49,8 @@ io:
       minutes: Minuti
       seconds: Sekundi
     up_to_date_with_training: Aktualigo pri aprentiseso
+  wizard:
+    read_more: Lektez pluse
   training_status:
     completed_at: Kompletigita ye la
 ...

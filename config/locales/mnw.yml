@@ -4,6 +4,7 @@
 # Author: Aue Nai
 # Author: Htawmonzel
 # Author: Ninjastrikers
+# Author: 咽頭べさ
 ---
 mnw:
   number:
@@ -54,6 +55,8 @@ mnw:
     confirm: ခိုဟ်
     opt_in: ယွံ
     opt_out: ဟအှ်ေ
+    opt_yes: ယွံ
+    opt_no: ဟွံသေၚ်
   dashboard:
     create_note: ဍဵု ပ္ဍဲ ခၞံဗဒှ် တန်ဗ္တောန် သွက်ဂွံ ခၞံဗဒှ် တန်ဗ္တောန်မၞး ကိုပ်ကၠာ
     explore_course_pages: ဂၠာဲသ္ၚေဝ် မုက်လိက် တန်ဗ္တောန်ဂမၠိုင်
@@ -68,15 +71,21 @@ mnw:
   activity:
     edited_by: ပလေဝ်ဒါန် နကဵု
   articles:
+    next: ဆက်အာ
     assigned_to: ပအပ်ကဵုလဝ် ဇရေၚ်
     deleted: (ပလီု)
     edited_mobile: လိက်ပရေင်ဂမၠိုင်
+    filter:
+      wiki_all: ' သီုဖအိုတ်'
+      new: တၟိ
     hide: ဗဒန်
     history: (လၟေင်မပြံင်လှာဲလဝ်)
     label: လိက်ပရေင်ဂမၠိုင်
     new: (တၟိ)
     title: က္ဍိုပ်လိက်
     wiki: ဝဳကဳ
+  articles_generic:
+    articles_short: မုက်လိက်ဂမၠိုင်
   assignments:
     add_available_submit: စုတ် လိက်ပရေၚ်ဂမၠိုၚ်
     assign_self: ပအပ်ကဵု အလဵုအဲ လိက်ပရေၚ်
@@ -89,6 +98,7 @@ mnw:
     alert_type: ဂကူ
     alert_user_id: ညးလွပ်
     created_at: စၟတ်တ္ၚဲ
+    data_articles: ပလေပ်ဒါန်မုက်လိက်ဂမၠိုင်
     description: မဗမံက်ထ္ၜး
     none: ဟွံသေၚ်
     organizers: ညးစန်ပ္ကောံဂမၠိုၚ်
@@ -118,6 +128,7 @@ mnw:
       start_date_placeholder: တ္ၚဲ စပ္တမ် (YYYY-MM-DD)
       subject: ဘာသာ
     delete_suggestion: ' ပလီု'
+    edit_count: ရိုဟ်လၟိုဟ် ပလေဝ်ဒါန်
     end: တုဲ
     enroll: ကဵုစရၚ်
     enrollment: စုတ်/ပတိတ် ကွးဘာဂမၠိုၚ်
@@ -130,6 +141,7 @@ mnw:
     none: ဟွံသေၚ်
     ores_plot: ORES
     overview: ဗဟိုစာမျက်နှာ
+    please_log_in: သ္ပဂုဏ် လုပ်လံက်အေန်အကံက်
     private: ဗွဲပူဂိုလ်
     school: ဘာ
     start: စ
@@ -170,6 +182,7 @@ mnw:
     leave_course: စၞးတိတ်နူ အစဳအဇန်
     request_accounts: အာတ်အခေါၚ် အကံက်
     student_editors: ညဒါန်ဂမၠိုၚ်
+    student: ပလေဝ်ဒါန်
     students: ညဒါန်ဂမၠိုၚ်
     students_taught: ညးဒါန်ဂမၠိုၚ် သီုဖအိုတ်
     students_short: ညဒါန်ဂမၠိုၚ်
@@ -182,4 +195,30 @@ mnw:
     save: ဂိုင်သိပ်
     edit_description: ပလေဝ်ဒါန် မဗၟံက်ထ္ၜး
     edit_template: ဒါန် Template
+  recent_activity:
+    datetime: စၟတ်တ္ၚဲ/အခိင်
+    image: ဗီုရုပ်
+    file_name: ယၟု ဝှာၚ်
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ယၟု ညးလွပ်
+    special_users:
+      new:
+        form_placeholder: ယၟု ညးလွပ်
+  training:
+    next: မုက်လိက် ဂတ
+    page: မုက်လိက်
+    done: တုဲရ
+  uploads:
+    file_name: ယၟု ဝှာၚ်
+    image: ဗီုရုပ်
+    label: ပတိုန်ဂမၠိုင်
+    usages: ဒၞဲါသုၚ်စောဲဂမၠိုင်
+  users:
+    assign_articles_done: တုဲဒှ်
+    edits: ပလေဝ်ဒါန်ဂမၠိုၚ်
+    name: ယၟု
+    username_placeholder: ယၟုညးလွပ်
+    useremail_placeholder: အဳမေလ်
 ...

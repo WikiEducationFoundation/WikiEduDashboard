@@ -14,6 +14,7 @@
 # Author: Fitoschido
 # Author: Gomoko
 # Author: Hk5184
+# Author: JenyxGym
 # Author: LudaOtaku
 # Author: Mabroukb
 # Author: Macofe
@@ -575,6 +576,7 @@ fr:
     data_wikidata: Statistiques de Wikidata
     data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
       résumés de modification
+    dates_too_long: La durée maximale est d’un an.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
     delete_course_instructions: Vous ne pouvez supprimer cette page que si toutes

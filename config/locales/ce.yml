@@ -20,6 +20,7 @@ ce:
   categories:
     template_name: Кепан цӀе
   courses:
+    campaign_users: '%{title} Редакторш'
     creator:
       start_date: Долина терахь
     feedback: ЗӀе
@@ -27,7 +28,7 @@ ce:
     creator:
       course_school: Институт
   metrics:
-    last_update: ТӀаьххьара карлаяккхар
+    last_update: Статистика тӀаьххьара карлайаккхар
     activity: Дукха хан йоцуш дийнарг
     close_modal: ДӀачӀагӀа
   training:
