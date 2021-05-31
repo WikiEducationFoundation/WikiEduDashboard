@@ -36,6 +36,9 @@ sl:
   courses:
     articles: Članki
     campaigns: 'Kampanje:'
+    creator:
+      end_date: Datum konca
+      start_date: Datum začetka
     loading: Nalaganje ...
     overview: Domov
     title: Naslov

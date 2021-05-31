@@ -436,6 +436,7 @@ zh-TW:
     data_uploads_info: 共享資源上傳資料顯示出任一媒體上傳的名稱和使用率次數。
     data_wikidata: 維基數據統計
     data_wikidata_info: 基於編輯摘要的維基數據活動詳細分類
+    dates_too_long: 最長為一年。
     delete_course: 刪除課程
     delete_suggestion: 刪除
     delete_course_instructions: 若所有競賽都已被移除的情況下，您可以刪除此頁面。

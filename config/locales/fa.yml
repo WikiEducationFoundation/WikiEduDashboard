@@ -10,6 +10,7 @@
 # Author: Ebraminio
 # Author: FarsiNevis
 # Author: GMozafarian
+# Author: Jeeputer
 # Author: Ladsgroup
 # Author: Mardetanha
 # Author: Mohammad ebz
@@ -238,6 +239,7 @@ fa:
       start_date_placeholder: YYYY-MM-DD
       subject: موضوع
     current: دوره‌های کنونی
+    dates_too_long: بیشینهٔ طول، یک سال است.
     delete_course: حذف دوره
     delete_suggestion: حذف
     dismiss_survey: پنهان‌سازی

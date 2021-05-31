@@ -558,6 +558,7 @@ pt-br:
     data_wikidata: Estatísticas do Wikidata
     data_wikidata_info: Análise detalhada da atividade do Wikidata, com base em resumos
       de edição
+    dates_too_long: A duração máxima é de um ano.
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, você deve primeiramente
