@@ -37,10 +37,10 @@ export class NewReplyForm extends React.Component {
     });
   }
 
-  onTextAreaChange(_key, content, e) {
+  onTextAreaChange(_key, content, _e) {
     this.setState({
       content,
-      plainText: e.target.getContent({ format: 'text' })
+      plainText: content
     });
   }
 

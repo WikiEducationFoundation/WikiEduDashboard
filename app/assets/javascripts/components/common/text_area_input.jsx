@@ -70,7 +70,7 @@ const TextAreaInput = createReactClass({
 
   handleRichTextEditorChange(e) {
     this.props.onChange(
-      { target: { value: e.target.getContent() } },
+      { target: { value: e } },
       e
     );
   },
@@ -98,8 +98,8 @@ const TextAreaInput = createReactClass({
       if (this.props.wysiwyg && this.state.tinymceLoaded) {
         inputElement = (
           <Editor
-            initialValue={this.props.value}
-            onChange={this.handleRichTextEditorChange}
+            value={this.props.value}
+            onEditorChange={this.handleRichTextEditorChange}
             onSubmit={this.handleSubmit}
             className={inputClass}
             init={{
