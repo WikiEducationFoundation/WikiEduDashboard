@@ -32,7 +32,7 @@ const NewAccountButton = createReactClass({
     // endpoint for the user to register an account on their own.
     if (!course.account_requests_enabled) {
       return (
-        <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
+        <a data-method="post" href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
           <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
         </a>
       );
