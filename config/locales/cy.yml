@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Cymrodor
 # Author: Robin Owain
+# Author: Troswr
 ---
 cy:
   number:
@@ -382,7 +383,7 @@ cy:
     nocourse: heb gyfrannu i unrhyw gwrs.
     none: Dim
     not_permitted: Nid oes gennych hawl i olygu'r cwrs yma.
-    no_available_actions: Dim opsiynnau ar gael
+    no_available_actions: Dim gweithredoedd ar gael
     ores_plot: ORES
     overview: Hafan
     passcode: Cod-mynediad

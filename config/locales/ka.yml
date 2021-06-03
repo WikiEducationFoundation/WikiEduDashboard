@@ -4,6 +4,7 @@
 # Author: Lemon134340
 # Author: MIKHEIL
 # Author: Otogi
+# Author: Გიო ოქრო
 ---
 ka:
   courses:
@@ -16,7 +17,13 @@ ka:
     submitted_note: თქვენი კურსი მიღებულია. ვიკი-განათლების თანამშრომელი მას გადახედავს
       და კითხვების ქონის შემთხვევაში დაგიკავშირდებათ.
     wiki_staff: ვიკი-განათლების თანამშრომლები
+  settings:
+    admin_users:
+      new:
+        form_placeholder: მომხმარებლის სახელი
   users:
+    username: მომხმარებლის სახელი
+    username_placeholder: მომხმარებლის სახელი
     role:
       wiki_ed_staff: ვიკი-განათლების თანამშრომლები
   survey:
