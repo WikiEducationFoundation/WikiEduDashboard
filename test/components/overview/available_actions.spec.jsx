@@ -90,21 +90,18 @@ describe('AvailableActions', () => {
     );
 
     const actions = TestAvailableActions.find('.available-action');
-    expect(actions.length).toEqual(5);
+    expect(actions.length).toEqual(4);
 
-    const deleteButton = actions.at(0);
-    expect(deleteButton.text()).toEqual('Greet students');
-
-    const enableAccountRequestsButton = actions.at(1);
+    const enableAccountRequestsButton = actions.at(0);
     expect(enableAccountRequestsButton.text()).toEqual('Enable account requests');
 
-    const downloadStatsButton = actions.at(2);
+    const downloadStatsButton = actions.at(1);
     expect(downloadStatsButton.text()).toEqual('Download stats');
 
-    const embedStatsButton = actions.at(3);
+    const embedStatsButton = actions.at(2);
     expect(embedStatsButton.text()).toEqual('Embed Course Stats');
 
-    const cloneCourseButton = actions.at(4);
+    const cloneCourseButton = actions.at(3);
     expect(cloneCourseButton.text()).toEqual('Clone This Course');
   });
 });

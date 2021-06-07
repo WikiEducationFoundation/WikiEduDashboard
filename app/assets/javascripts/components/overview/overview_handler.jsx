@@ -13,13 +13,13 @@ import ThisWeek from './this_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
-import LastReviewed from './last_reviewed.jsx';
+import AdminQuickActions from './admin_quick_actions.jsx';
 import MyArticles from './my_articles/containers';
 import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
-import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
+import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse, greetStudents } from '../../actions/course_actions';
 import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
@@ -136,10 +136,11 @@ const Overview = createReactClass({
       <div className="sidebar">
         {
           Features.wikiEd && current_user.isStaff && (
-            <LastReviewed
+            <AdminQuickActions
               course={course}
               current_user={current_user}
               persistCourse={this.props.persistCourse}
+              greetStudents={this.props.greetStudents}
             />
           )
         }
@@ -197,7 +198,8 @@ const mapDispatchToProps = {
   setValid,
   setInvalid,
   activateValidations,
-  fetchOnboardingAlert
+  fetchOnboardingAlert,
+  greetStudents
 };
 
 
