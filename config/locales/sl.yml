@@ -47,6 +47,7 @@ sl:
     creator:
       save_cloned_course: Shrani
   editable:
+    edit: Uredi
     save: Shrani
   metrics:
     bytes_added: Zlogov dodanih

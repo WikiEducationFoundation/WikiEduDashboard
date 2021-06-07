@@ -246,6 +246,7 @@ ko:
     data_overview: 개요 데이터
     data_students: 편집자 데이터
     data_wikidata: 위키데이터 통계
+    dates_too_long: 최대 길이는 1년입니다.
     delete_course: 과정 삭제
     delete_suggestion: 삭제
     dismiss_survey: 숨기기

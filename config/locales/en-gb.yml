@@ -163,9 +163,9 @@ en-gb:
       already_exists: This course already exists. Consider changing the name, school,
         or term to make it unique.
       assignment_end: Assignment end
-      assignment_end_placeholder: Assignment end (YYYY-MM-DD)
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: Assignment start
-      assignment_start_placeholder: Assignment start (YYYY-MM-DD)
+      assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: This course is being checked for uniqueness.
       cloned_course_calendar_instructions: Select dates to add or remove them from
         the schedule (e.g., holidays, no school). Click the date to change between
@@ -188,7 +188,7 @@ en-gb:
       create_new: Create a New Course
       create_short: Create Course
       end_date: End date
-      end_date_placeholder: End date (YYYY-MM-DD)
+      end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
       find: Find Your Course
       intro: The title, school, and term create your course page’s URL, and can't
@@ -197,7 +197,7 @@ en-gb:
       no_class_holidays: I have no class holidays
       save_cloned_course: Save New Course
       start_date: Start date
-      start_date_placeholder: Start date (YYYY-MM-DD)
+      start_date_placeholder: YYYY-MM-DD
       subject: Subject
     current: Current Courses
     delete_course: Delete course
