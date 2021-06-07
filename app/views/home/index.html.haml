@@ -14,6 +14,10 @@
       %span.help{data: { title: t('home.sign_up_help') } }
         ?
 
+#call_to_action
+  - if Features.wiki_ed?
+    = render :partial => "wiki_ed_call_to_action"
+
 %section
   .container.text-center
     %h2= @presenter.campaign&.title
