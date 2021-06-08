@@ -96,7 +96,7 @@ class CourseArticlesCsvBuilder
   end
 
   def references_sum(article_data)
-    article_data[:characters].values.sum(&:to_i)
+    article_data[:references].values.sum(&:to_i)
   end
 
   # Example:
