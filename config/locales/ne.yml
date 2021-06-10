@@ -4,6 +4,7 @@
 # Author: Nirajan pant
 # Author: जनक राज भट्ट
 # Author: पर्वत सुबेदी
+# Author: बिप्लब आनन्द
 # Author: सरोज कुमार ढकाल
 # Author: हिमाल सुबेदी
 ---
@@ -559,7 +560,7 @@ ne:
         elevate_success: '%{username} लाई प्रबन्धकमा बढुवा गरियो ।'
       remove:
         revoke_button: प्रबन्धक अधिकार हटाउनुहोस्
-        revoke_button_confirm: '%{username} बाट प्रबन्धक अधिकार हटाइयो'
+        revoke_button_confirm: '%{username}बाट प्रबन्धक अधिकार हटाइयो'
         revoking_button_working: हटाउँदै...
     special_users:
       new:
