@@ -1,6 +1,6 @@
 # Wiki Education Dashboard
 
-[![Build Status](https://travis-ci.org/WikiEducationFoundation/WikiEduDashboard.svg?branch=master)](https://travis-ci.org/WikiEducationFoundation/WikiEduDashboard)
+[![Build Status](https://travis-ci.com/WikiEducationFoundation/WikiEduDashboard.svg?branch=master)](https://travis-ci.com/WikiEducationFoundation/WikiEduDashboard)
 [![Test Coverage](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/coverage.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
 [![Code Climate](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/gpa.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
 [![Open Source Helpers](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard/badges/users.svg)](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard)
