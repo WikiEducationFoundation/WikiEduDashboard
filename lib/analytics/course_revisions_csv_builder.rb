@@ -25,7 +25,7 @@ class CourseRevisionsCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_revisions
     @new_revisions = {}
-    @course.all_revisions.includes(:wiki, :article, :user).map do |edit|
+    @course.revisions.includes(:wiki, :article, :user).map do |edit|
       revision_edits = @new_revisions[edit.article_id] || new_revision(edit)
       update_title_username(revision_edits, edit)
       revision_edits[:mw_rev_id] = edit.mw_rev_id

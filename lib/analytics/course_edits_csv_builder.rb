@@ -11,7 +11,7 @@ class CourseEditsCsvBuilder
 
   def generate_csv
     csv_data = [CSV_HEADERS]
-    @course.all_revisions.includes(:wiki, :article, :user).each do |revision|
+    @course.revisions.includes(:wiki, :article, :user).each do |revision|
       csv_data << row(revision)
     end
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
