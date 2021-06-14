@@ -95,6 +95,7 @@ const Overview = createReactClass({
         <ThisWeek
           course={course}
           weeks={this.props.weeks}
+          current_user={this.props.current_user}
         />
       );
     }

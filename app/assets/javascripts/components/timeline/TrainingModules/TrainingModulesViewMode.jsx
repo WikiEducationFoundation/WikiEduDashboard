@@ -14,6 +14,7 @@ const TrainingModulesViewMode = createReactClass({
     all_training_modules: PropTypes.array,
     trainingLibrarySlug: PropTypes.string.isRequired,
     editable: PropTypes.bool,
+    isStudent: PropTypes.bool
   },
 
   render() {
@@ -37,6 +38,7 @@ const TrainingModulesViewMode = createReactClass({
         header={length > 1 && 'Training'}
         key="training-modules"
         trainingLibrarySlug={this.props.trainingLibrarySlug}
+        isStudent={this.props.isStudent}
       />);
     }
 
@@ -49,6 +51,7 @@ const TrainingModulesViewMode = createReactClass({
         header={length > 1 && 'Exercise'}
         key="assignment-modules"
         trainingLibrarySlug={this.props.trainingLibrarySlug}
+        isStudent={this.props.isStudent}
       />);
     }
 
@@ -61,6 +64,7 @@ const TrainingModulesViewMode = createReactClass({
         header={length > 1 && 'Discussion'}
         key="discussion-modules"
         trainingLibrarySlug={this.props.trainingLibrarySlug}
+        isStudent={this.props.isStudent}
       />);
     }
 

@@ -25,7 +25,8 @@ const Block = createReactClass({
     isDragging: PropTypes.bool,
     all_training_modules: PropTypes.array,
     weekStart: PropTypes.object,
-    trainingLibrarySlug: PropTypes.string.isRequired
+    trainingLibrarySlug: PropTypes.string.isRequired,
+    current_user: PropTypes.object
   },
 
   updateBlock(valueKey, value) {
@@ -75,6 +76,7 @@ const Block = createReactClass({
   render() {
     const block = this.props.block;
     const isEditable = this._isEditable();
+    const isStudent = this.props.current_user && this.props.current_user.isStudent;
     if (this._hidden()) { return null; }
 
     let className = 'block';
@@ -146,6 +148,7 @@ const Block = createReactClass({
           all_modules={this.props.all_training_modules}
           block={block}
           editable={isEditable}
+          isStudent={isStudent}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
         />);
       }

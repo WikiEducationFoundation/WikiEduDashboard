@@ -156,6 +156,7 @@ const TimelineHandler = createReactClass({
           setBlockEditable={this.props.setBlockEditable}
           nameHasChanged={() => false}
           edit_permissions={this.props.editPermissions}
+          current_user={this.props.current_user}
         />
         {/* {grading} */}
       </div>

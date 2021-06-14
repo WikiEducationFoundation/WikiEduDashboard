@@ -34,7 +34,8 @@ const Week = createReactClass({
     deleteWeek: PropTypes.func,
     all_training_modules: PropTypes.array,
     weeksBeforeTimeline: PropTypes.number,
-    trainingLibrarySlug: PropTypes.string.isRequired
+    trainingLibrarySlug: PropTypes.string.isRequired,
+    current_user: PropTypes.object
   },
   getInitialState() {
     return { focusedBlockId: null };
@@ -158,6 +159,7 @@ const Week = createReactClass({
           cancelBlockEditable={this.props.cancelBlockEditable}
           updateBlock={this.props.updateBlock}
           trainingLibrarySlug={this.props.trainingLibrarySlug}
+          current_user={this.props.current_user}
         />
       );
     });

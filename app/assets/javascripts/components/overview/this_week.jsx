@@ -24,7 +24,7 @@ const emptyWeeksUntil = function (weekMeetings, weekIndex) {
   return count;
 };
 
-const ThisWeek = ({ course, weeks }) => {
+const ThisWeek = ({ course, weeks, current_user }) => {
   let weekIndex;
   let thisWeekMeetings;
   let weekMeetings;
@@ -74,6 +74,7 @@ const ThisWeek = ({ course, weeks }) => {
         meetings={meetingsProp}
         weeksBeforeTimeline={weeksBeforeTimeline}
         trainingLibrarySlug={course.training_library_slug}
+        current_user={current_user}
       />
     );
   } else {
@@ -102,7 +103,8 @@ const ThisWeek = ({ course, weeks }) => {
 
 ThisWeek.propTypes = {
   course: PropTypes.object.isRequired,
-  weeks: PropTypes.array.isRequired
+  weeks: PropTypes.array.isRequired,
+  current_user: PropTypes.object
 };
 
 export default ThisWeek;
