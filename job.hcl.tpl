@@ -56,6 +56,7 @@ job "rails" {
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
         ports = ["http"]
+        entrypoint = ["launcher"]
         command = "puma"
         args = ["-b", "tcp://0.0.0.0", "-p", "5000", "--preload", "-w", "2", "-t", "1:1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -121,6 +122,7 @@ job "rails" {
       driver = "docker"
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "constant_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -178,6 +180,7 @@ job "rails" {
       driver = "docker"
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "daily_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -242,6 +245,7 @@ job "rails" {
 
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "default", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -300,6 +304,7 @@ job "rails" {
 
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "long_update", "-q", "medium_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -358,6 +363,7 @@ job "rails" {
 
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "medium_update", "-q", "short_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
@@ -416,6 +422,7 @@ job "rails" {
 
       config {
         image = "docker.wikiedu.org/wikiedu-web:latest"
+        entrypoint = ["launcher"]
         command = "sidekiq"
         args = ["-q", "short_update", "-q", "medium_update", "-c", "1"]
         auth = jsondecode(file("./dockerAuth.json"))
