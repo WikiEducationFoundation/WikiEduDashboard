@@ -20,6 +20,10 @@ app "wikiedu-web" {
       static_environment = {
         "CURL_CONNECT_TIMEOUT" = "30"
         "CURL_TIMEOUT" = "120"
+        # Rails prioritizes a SECRET_KEY_BASE from the ENV over one in secrets.yml
+        # The heroku ruby buildpack will generate a SECRET_KEY_BASE if one is not already present.
+        # So, we must provide the production SECRET_KEY_BASE to the build environment to make sure it doesn't
+        # get overwritten by a random one, and thereby invalidate sessions upon deployment.
         "SECRET_KEY_BASE" = yamldecode(file(abspath("./config/application.yml"))).secret_key_base
       }
     }
