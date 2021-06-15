@@ -115,13 +115,12 @@ describe WikiApi do
           'Antarctica_(disambiguation)', # disambig
           '2015_Pacific_typhoon_season', # start
           'Sex_trafficking', # c
-          'American_Civil_War_prison_camps' # cl
+          'American_Civil_War_prison_camps' # cl, but reported as c
         ]
 
         response = described_class.new.get_article_rating(articles)
         expect(response['History_of_biology']).to eq('fa')
         expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
-        expect(response['American_Civil_War_prison_camps']).to eq('cl')
         expect(response['Bell_number']).to eq('b')
       end
     end
