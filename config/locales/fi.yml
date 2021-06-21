@@ -31,6 +31,7 @@ fi:
       suurentavat ja pienentävät syötettä.
   application:
     cancel: Peruuta
+    cookie_consent_acknowledge: Ymmärrän
     create_accounts: Luo Wikipedia-tilit
     dashboard: Wiki Ed -ohjausnäkymä
     documentation: Ohjeet
@@ -196,6 +197,7 @@ fi:
     confirm_addition: Haluatko varmasti antaa artikkelin %{title} tehtäväksi muokkaajalle
       %{username}?
     confirm_deletion: Haluatko varmasti poistaa tämän tehtävän?
+    group_members: Ryhmän jäsenet
     label: Anna tehtäväksi
     loading: Ladataan tehtäviä...
     none_short: Ei yhtään artikkelia tehtävänä
