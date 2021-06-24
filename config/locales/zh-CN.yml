@@ -25,6 +25,7 @@
 # Author: WDLJT
 # Author: Yanjiazhang
 # Author: Yfdyh000
+# Author: Zhang8569
 # Author: 予弦
 # Author: 列维劳德
 # Author: 沈澄心
@@ -386,6 +387,7 @@ zh-CN:
     data_students_info: 编辑数据列举所有登记的编辑者、他们的编辑数量及他们是否在项目期间注册了其帐户。
     data_uploads: 共享资源上传数据
     data_uploads_info: 共享资源上传数据显示每个媒体上传的名称和使用数。
+    dates_too_long: 最长时间长度为一年
     delete_course: 删除课程
     delete_suggestion: 删除
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
