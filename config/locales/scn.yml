@@ -1,0 +1,28 @@
+# Messages for Sicilian (sicilianu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+---
+scn:
+  application:
+    greeting: Ciau!
+  articles:
+    title: Tìtulu
+  campaign:
+    title: Tìtulu
+  categories:
+    category_name: Nomu dâ catigurìa
+  courses:
+    actions: Azzioni
+    title: Tìtulu
+  revisions:
+    diff_show: Ammustra
+    diff_hide: Ammuccia
+    title: Tìtulu
+  users:
+    username: Nomu utenti
+    username_placeholder: Nomu utenti
+  survey:
+    email:
+      headline: Ciau, %{username}
+...
