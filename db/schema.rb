@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_29_162720) do
+ActiveRecord::Schema.define(version: 2021_06_29_163706) do
 
   create_table "alerts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "course_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 2021_06_29_162720) do
     t.datetime "updated_at", null: false
     t.string "source", default: "category"
     t.index ["name"], name: "index_categories_on_name"
+    t.index ["wiki_id", "name", "depth", "source"], name: "index_categories_on_wiki_id_and_name_and_depth_and_source", unique: true
     t.index ["wiki_id"], name: "index_categories_on_wiki_id"
   end
 
