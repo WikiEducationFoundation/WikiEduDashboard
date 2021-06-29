@@ -1,6 +1,6 @@
 In conjunction with a server cluster managed with the [wikieduinfra repo](https://github.com/WikiEducationFoundation/wikieduinfra), the Dashboard uses Waypoint and Nomad to build and deploy to production.
 
-Use `waypoint up` to (attempt to) both build and deploy the app. This packages the local project directory — including the generated assets and the .gitignored files like `application.yml` and `database.yml` — into a Docker image, pushes it to docker.wikiedu.org, then deploys it as a set of puma and sidekiq jobs to replace to replace the running jobs from the previous deployment.
+Use `waypoint up` to (attempt to) both build and deploy the app. (This is equivalent to `waypoint up` followed by `waypoint build`.) This packages the local project directory — including the generated assets and the .gitignored files like `application.yml` and `database.yml` — into a Docker image, pushes it to docker.wikiedu.org, then deploys it as a set of puma and sidekiq jobs to replace to replace the running jobs from the previous deployment.
 
 ## Build
 
@@ -22,3 +22,10 @@ Use `waypoint deploy` to deploy the latest uploaded image to our Nomad cluster, 
  * the persistent volume (if any) that the task mounts
  * the Nomad cluster environment, including the distribution of available CPU/memory across servers the "constraint" stanzas of `job.hcl.tpl` that limit/determine where a given task can be allocated
  * the amount of CPU and memory allocated, based on the "resources" stanza for the task
+
+### Migrations
+
+To run a migration:
+1. Build and deploy an image that includes the migration.
+2. `exec` into an instance (eg, by finding a job in the Nomad UI and clicking 'Exec').
+3. `/cnb/lifecycle/launcher rails db:migrate`
