@@ -30,18 +30,18 @@ describe ConstantUpdate do
         .to receive(:create_continued_course_activity_alerts)
       expect_any_instance_of(SurveyResponseAlertManager).to receive(:create_alerts)
       expect(UpdateLogger).to receive(:update_settings_record)
-      expect(Raven).to receive(:capture_message).and_call_original
+      expect(Sentry).to receive(:capture_message).and_call_original
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Generating AfD alerts/).any?).to eq(true)
     end
 
     it 'reports logs to sentry even when it errors out' do
-      allow(Raven).to receive(:capture_message)
+      allow(Sentry).to receive(:capture_message)
       allow(PlagiabotImporter).to receive(:find_recent_plagiarism)
         .and_raise(StandardError)
       expect { described_class.new }.to raise_error(StandardError)
-      expect(Raven).to have_received(:capture_message).with('Constant update failed.', anything)
+      expect(Sentry).to have_received(:capture_message).with('Constant update failed.', anything)
     end
   end
 end

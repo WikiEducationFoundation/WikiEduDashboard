@@ -8,10 +8,10 @@ module ApiErrorHandling
       update_service.update_error_stats
       sentry_tags = update_service.sentry_tags
     end
-    Raven.capture_exception(error,
-                            level: error_level(error),
-                            extra: sentry_extra,
-                            tags: sentry_tags)
+    Sentry.capture_exception(error,
+                             level: error_level(error),
+                             extra: sentry_extra,
+                             tags: sentry_tags)
     return nil
   end
 

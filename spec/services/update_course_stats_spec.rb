@@ -10,7 +10,7 @@ describe UpdateCourseStats do
     let(:flags) { nil }
 
     it 'posts no Sentry logs' do
-      expect(Raven).not_to receive(:capture_message)
+      expect(Sentry).not_to receive(:capture_message)
       subject
     end
   end
@@ -28,7 +28,7 @@ describe UpdateCourseStats do
     let(:flags) { { debug_updates: true } }
 
     it 'posts debug info to Sentry' do
-      expect(Raven).to receive(:capture_message).at_least(6).times.and_call_original
+      expect(Sentry).to receive(:capture_message).at_least(6).times.and_call_original
       subject
     end
   end
@@ -68,7 +68,7 @@ describe UpdateCourseStats do
     end
 
     it 'tracks update errors properly in Replica' do
-      allow(Raven).to receive(:capture_exception)
+      allow(Sentry).to receive(:capture_exception)
 
       # Raising errors only in Replica
       stub_request(:any, %r{wikiedudashboard.toolforge.org/.*}).to_raise(Errno::ECONNREFUSED)
@@ -79,15 +79,15 @@ describe UpdateCourseStats do
       expect(course.flags['update_logs'][1]['error_count']).to eq 1
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
-      # Checking whether Raven receives correct error and tags as arguments
-      expect(Raven).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
-      expect(Raven).to have_received(:capture_exception)
+      # Checking whether Sentry receives correct error and tags as arguments
+      expect(Sentry).to have_received(:capture_exception).once.with(Errno::ECONNREFUSED, anything)
+      expect(Sentry).to have_received(:capture_exception)
         .once.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                     course: course.slug })
     end
 
     it 'tracks update errors properly in OresApi' do
-      allow(Raven).to receive(:capture_exception)
+      allow(Sentry).to receive(:capture_exception)
 
       # Raising errors only in OresApi
       stub_request(:any, %r{https://ores.wikimedia.org/.*}).to_raise(Faraday::ConnectionFailed)
@@ -98,16 +98,16 @@ describe UpdateCourseStats do
       expect(course.flags['update_logs'][1]['error_count']).to eq 8
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
-      # Checking whether Raven receives correct error and tags as arguments
-      expect(Raven).to have_received(:capture_exception)
+      # Checking whether Sentry receives correct error and tags as arguments
+      expect(Sentry).to have_received(:capture_exception)
         .exactly(8).times.with(Faraday::ConnectionFailed, anything)
-      expect(Raven).to have_received(:capture_exception)
+      expect(Sentry).to have_received(:capture_exception)
         .exactly(8).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
     end
 
     it 'tracks update errors properly in WikiApi' do
-      allow(Raven).to receive(:capture_exception)
+      allow(Sentry).to receive(:capture_exception)
       allow_any_instance_of(described_class).to receive(:update_article_status).and_return(nil)
 
       # Raising errors only in WikiApi
@@ -120,10 +120,10 @@ describe UpdateCourseStats do
       expect(course.flags['update_logs'][1]['error_count']).to eq 5
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
 
-      # Checking whether Raven receives correct error and tags as arguments
-      expect(Raven).to have_received(:capture_exception)
+      # Checking whether Sentry receives correct error and tags as arguments
+      expect(Sentry).to have_received(:capture_exception)
         .exactly(5).times.with(MediawikiApi::ApiError, anything)
-      expect(Raven).to have_received(:capture_exception)
+      expect(Sentry).to have_received(:capture_exception)
         .exactly(5).times.with anything, hash_including(tags: { update_service_id: sentry_tag_uuid,
                                                                 course: course.slug })
     end

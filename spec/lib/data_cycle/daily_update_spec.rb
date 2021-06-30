@@ -24,17 +24,17 @@ describe DailyUpdate do
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
       expect(UpdateCourseFromSalesforce).to receive(:new)
-      expect(Raven).to receive(:capture_message).and_call_original
+      expect(Sentry).to receive(:capture_message).and_call_original
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)
     end
 
     it 'reports logs to sentry even when it errors out' do
-      allow(Raven).to receive(:capture_message)
+      allow(Sentry).to receive(:capture_message)
       allow(UploadImporter).to receive(:find_deleted_files).and_raise(StandardError)
       expect { described_class.new }.to raise_error(StandardError)
-      expect(Raven).to have_received(:capture_message)
+      expect(Sentry).to have_received(:capture_message)
     end
   end
 

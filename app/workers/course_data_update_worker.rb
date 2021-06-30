@@ -16,6 +16,6 @@ class CourseDataUpdateWorker
     course = Course.find(course_id)
     UpdateCourseStats.new(course)
   rescue StandardError => e
-    Raven.capture_exception e
+    Sentry.capture_exception e
   end
 end

@@ -8,7 +8,7 @@ describe CourseDataUpdateWorker do
 
   it 'handles deleted courses' do
     course.destroy
-    expect(Raven).to receive(:capture_exception)
+    expect(Sentry).to receive(:capture_exception)
     described_class.update_course(course_id: course.id, queue: 'default')
   end
 end

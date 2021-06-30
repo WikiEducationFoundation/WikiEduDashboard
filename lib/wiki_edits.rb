@@ -31,12 +31,11 @@ class WikiEdits
 
     # We want to see how much this specific feature gets used, so we send it
     # to Sentry.
-    Raven.capture_message 'WikiEdits.notify_untrained',
-                          level: 'info',
-                          transaction: 'WikiEdits.notify_untrained',
-                          extra: { sender: current_user.username,
-                                   course_name: course.slug,
-                                   untrained_count: untrained_users.count }
+    Sentry.capture_message 'WikiEdits.notify_untrained',
+                           level: 'info',
+                           extra: { sender: current_user.username,
+                                    course_name: course.slug,
+                                    untrained_count: untrained_users.count }
   end
 
   ####################
@@ -163,7 +162,7 @@ class WikiEdits
 
   def handle_mediawiki_server_errors(response)
     return unless /^5../.match?(response.code)
-    Raven.capture_message('Wikimedia API is down')
+    Sentry.capture_message('Wikimedia API is down')
     yield
   end
 

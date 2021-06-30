@@ -38,7 +38,7 @@ class PushCourseToSalesforce
   # When Salesforce API is unavailable, it returns an HTML response that causes
   # a parsing error. If the course got deleted from Salesforce, it will throw a NotFoundError.
   rescue Faraday::ParsingError, Restforce::NotFoundError => e
-    Raven.capture_exception e, extra: { course: @course.slug }
+    Sentry.capture_exception e, extra: { course: @course.slug }
   end
 
   def course_salesforce_fields

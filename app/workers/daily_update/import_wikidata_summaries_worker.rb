@@ -15,7 +15,7 @@ class ImportWikidataSummariesWorker
         begin
           rev.update!(summary: summary)
         rescue ActiveRecord::StatementInvalid => e
-          Raven.capture_exception e
+          Sentry.capture_exception e
           rev.update(summary: CGI.escape(summary))
         end
       end

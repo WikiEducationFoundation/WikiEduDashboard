@@ -87,7 +87,7 @@ class UploadImporter
   # until we fix the database to handle them.
   # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
   rescue ActiveRecord::StatementInvalid => e
-    Raven.capture_exception e
+    Sentry.capture_exception e
     save_upload_with_invalid_characters(upload)
   end
 

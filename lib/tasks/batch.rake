@@ -7,13 +7,13 @@ namespace :batch do
   task pause: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.open(pid_file, 'w') { |f| f.puts Process.pid }
-    Raven.capture_message 'Updates paused.', level: 'warning'
+    Sentry.capture_message 'Updates paused.', level: 'warning'
   end
 
   desc 'Resume updates'
   task resume: :environment do
     pid_file = 'tmp/batch_pause.pid'
     File.delete pid_file if File.exist? pid_file
-    Raven.capture_message 'Updates resumed.', level: 'warning'
+    Sentry.capture_message 'Updates resumed.', level: 'warning'
   end
 end

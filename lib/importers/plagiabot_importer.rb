@@ -71,7 +71,7 @@ class PlagiabotImporter
     Oj.load(response)
   rescue StandardError => e
     raise e unless typical_errors.include?(e.class)
-    Raven.capture_exception e, level: 'warning'
+    Sentry.capture_exception e, level: 'warning'
     return {}
   end
 

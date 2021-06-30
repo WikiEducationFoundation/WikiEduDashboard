@@ -113,7 +113,7 @@ class UserImporter
                  global_id: user_data&.dig('centralids', 'CentralAuth'))
   rescue ActiveRecord::RecordNotUnique => e
     handle_duplicate_user(user, user_data)
-    Raven.capture_exception e, extra: { username: user.username, user_id: user.id }
+    Sentry.capture_exception e, extra: { username: user.username, user_id: user.id }
   end
 
   def self.handle_duplicate_user(user, user_data)

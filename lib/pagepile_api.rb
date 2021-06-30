@@ -29,7 +29,7 @@ class PagePileApi
     response = pagepile.get query_url
     @pile_data = Oj.load(response.body)
   rescue StandardError => e
-    Raven.capture_exception e
+    Sentry.capture_exception e
     @pile_data = {}
   end
 

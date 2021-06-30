@@ -12,7 +12,7 @@ class UpdateCourseFromSalesforce
     @client = Restforce.new(SalesforceCredentials.get)
     update
   rescue StandardError => e
-    Raven.capture_exception e
+    Sentry.capture_exception e
   end
 
   private

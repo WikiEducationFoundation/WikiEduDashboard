@@ -117,7 +117,7 @@ class CreateRequestedAccount
 
     raise AccountCreationError, 'unexpected account creation response'
   rescue AccountCreationError => e
-    Raven.capture_exception(e, extra: { response: @response })
+    Sentry.capture_exception(e, extra: { response: @response })
   end
 
   class AccountCreationError < StandardError; end

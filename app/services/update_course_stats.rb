@@ -80,9 +80,9 @@ class UpdateCourseStats
     return unless debug?
     @sentry_logs ||= {}
     @sentry_logs[step] = Time.zone.now
-    Raven.capture_message "#{@course.title} update: #{step}",
-                          level: 'warning',
-                          extra: { logs: @sentry_logs }
+    Sentry.capture_message "#{@course.title} update: #{step}",
+                           level: 'warning',
+                           extra: { logs: @sentry_logs }
   end
 
   TEN_MINUTES = 600

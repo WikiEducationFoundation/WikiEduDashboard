@@ -51,7 +51,7 @@ describe CreateRequestedAccount do
   end
 
   it 'logs an error and keeps the requested account when unexpected responses' do
-    expect(Raven).to receive(:capture_exception)
+    expect(Sentry).to receive(:capture_exception)
     stub_account_creation_failure_unexpected(wiki: home_wiki)
     expect(subject.result[:failure]).not_to be_nil
     expect(subject.result[:result_description])

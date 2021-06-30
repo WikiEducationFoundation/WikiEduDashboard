@@ -126,7 +126,7 @@ RSpec.describe Category, type: :model do
 
       it 'fails gracefully when fetching a PagePile errors' do
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
-        expect(Raven).to receive(:capture_exception)
+        expect(Sentry).to receive(:capture_exception)
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to be_empty
       end

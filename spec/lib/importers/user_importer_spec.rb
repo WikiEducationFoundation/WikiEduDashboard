@@ -187,7 +187,7 @@ describe UserImporter do
         dupe = create(:user, username: ' Ragesock')
         create(:courses_user, user: dupe, course: course)
 
-        expect(Raven).to receive(:capture_exception).and_call_original
+        expect(Sentry).to receive(:capture_exception).and_call_original
         described_class.update_user_from_metawiki(dupe)
 
         expect(original.courses_users.count).to eq(1)

@@ -7,8 +7,8 @@ class OverdueTrainingAlertMailer < ApplicationMailer
     email(alert).deliver_now
     alert.update(email_sent_at: Time.zone.now)
   rescue Mailgun::CommunicationError => e
-    Raven.capture_exception e, extra: { username: alert.user.username,
-                                        email: alert.user.email }
+    Sentry.capture_exception e, extra: { username: alert.user.username,
+                                         email: alert.user.email }
   end
 
   def email(alert)

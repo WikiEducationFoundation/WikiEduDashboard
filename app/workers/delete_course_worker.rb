@@ -15,14 +15,14 @@ class DeleteCourseWorker
     current_user = User.find(current_user_id)
 
     # Logging to know who performed the deletion
-    Raven.capture_message 'course deletion',
-                          level: 'info',
-                          extra: {
-                            course_slug: course.slug,
-                            course: course.as_json,
-                            participants: course_users(course),
-                            username: current_user.username
-                          }
+    Sentry.capture_message 'course deletion',
+                           level: 'info',
+                           extra: {
+                             course_slug: course.slug,
+                             course: course.as_json,
+                             participants: course_users(course),
+                             username: current_user.username
+                           }
     # destroy the course, clean up the on-wiki copy if necessary
     course.destroy
     WikiCourseEdits.new(action: :update_course,

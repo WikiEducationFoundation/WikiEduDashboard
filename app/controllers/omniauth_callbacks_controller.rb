@@ -36,9 +36,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def handle_login_failure(auth_hash)
     Rails.logger.info "OAuth login failed: #{auth_hash}"
-    Raven.capture_message 'OAuth login failed',
-                          level: 'warning',
-                          extra: auth_hash[:extra][:raw_info]
+    Sentry.capture_message 'OAuth login failed',
+                           level: 'warning',
+                           extra: auth_hash[:extra][:raw_info]
     return redirect_to errors_login_error_path
   end
 

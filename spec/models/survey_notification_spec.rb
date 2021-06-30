@@ -153,7 +153,7 @@ describe SurveyNotification do
 
       it 'reports the problem to Sentry' do
         allow(SurveyMailer).to receive(:send_notification).and_raise(Mailgun::CommunicationError)
-        expect(Raven).to receive(:capture_exception)
+        expect(Sentry).to receive(:capture_exception)
         subject.send_email
       end
     end

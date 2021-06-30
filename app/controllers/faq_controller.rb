@@ -55,9 +55,9 @@ class FaqController < ApplicationController
 
   def log_to_sentry
     # Logging to see how this feature gets used
-    Raven.capture_message 'FAQ query',
-                          level: 'info',
-                          tags: { 'source' => params[:source], 'query' => @query },
-                          extra: { query: @query, username: current_user&.username }
+    Sentry.capture_message 'FAQ query',
+                           level: 'info',
+                           tags: { 'source' => params[:source], 'query' => @query },
+                           extra: { query: @query, username: current_user&.username }
   end
 end

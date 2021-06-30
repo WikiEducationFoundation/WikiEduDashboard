@@ -36,7 +36,7 @@ describe OverdueTrainingAlertManager do
     it 'handles invalid email errors gracefully' do
       expect_any_instance_of(ActionMailer::MessageDelivery)
         .to receive(:deliver_now).and_raise(Mailgun::CommunicationError)
-      expect(Raven).to receive(:capture_exception)
+      expect(Sentry).to receive(:capture_exception)
       subject
     end
   end

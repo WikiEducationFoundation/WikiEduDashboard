@@ -73,7 +73,7 @@ describe WikiTrainingLoader do
 
       it 'logs a message and does not return the invalid content' do
         VCR.use_cassette 'training/load_from_wiki' do
-          expect(Raven).to receive(:capture_message).at_least(:once)
+          expect(Sentry).to receive(:capture_message).at_least(:once)
           libraries = subject.load_content
           expect(libraries.count).to eq(0)
         end

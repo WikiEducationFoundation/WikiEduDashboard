@@ -30,21 +30,21 @@ class WikiTrainingLoader
   def load_from_wiki
     source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
-    Raven.capture_message "Loading #{@content_class}s from wiki",
-                          level: 'info', extra: { wiki_pages: source_pages }
+    Sentry.capture_message "Loading #{@content_class}s from wiki",
+                           level: 'info', extra: { wiki_pages: source_pages }
 
     source_pages.each do |wiki_page|
       add_trainings_to_collection(wiki_page)
     end
   rescue InvalidWikiContentError => e
-    Raven.capture_exception e
+    Sentry.capture_exception e
   end
 
   def add_trainings_to_collection(wiki_page)
     content = new_from_wiki_page(wiki_page)
     unless content&.valid?
-      Raven.capture_message 'Invalid wiki training content',
-                            level: 'warning', extra: { content: content, wiki_page: wiki_page }
+      Sentry.capture_message 'Invalid wiki training content',
+                             level: 'warning', extra: { content: content, wiki_page: wiki_page }
       return
     end
     @collection << content

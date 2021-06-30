@@ -61,7 +61,9 @@ gem 'http_accept_language'
 gem 'i18n-js'
 
 ### Analytics and error monitoring
-gem 'sentry-raven' # error reporting for both server-side Ruby and client-side JS
+gem 'sentry-ruby' # error reporting for both server-side Ruby and client-side JS
+gem 'sentry-rails' # Sentry extension for Rails
+gem 'sentry-sidekiq' # Sentry extension for Sidekiq
 gem 'piwik_analytics', git: 'https://github.com/ragesoss/piwik-ruby-tracking' # traffic analytics
 gem 'newrelic_rpm' # performance monitoring
 

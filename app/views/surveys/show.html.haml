@@ -1,7 +1,7 @@
 - if params.key?("preview")
   .survey-previewing Preview Mode
 
-// Used for logging survey data via Raven
+// Used for logging survey data via Sentry
 :javascript
   SurveyDetails = {
     id: "#{@survey.id}"

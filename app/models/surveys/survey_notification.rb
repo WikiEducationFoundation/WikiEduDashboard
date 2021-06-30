@@ -53,9 +53,9 @@ class SurveyNotification < ApplicationRecord
     SurveyMailer.send_notification(self)
     update_attribute(:email_sent_at, Time.zone.now)
   rescue Mailgun::CommunicationError => e
-    Raven.capture_exception e, extra: { username: user.username,
-                                        email: user.email,
-                                        survey_notification_id: id }
+    Sentry.capture_exception e, extra: { username: user.username,
+                                         email: user.email,
+                                         survey_notification_id: id }
   end
 
   # This should return something falsey if no email was sent, and something

@@ -71,13 +71,13 @@ class WikiResponse
   ].freeze
   def send_to_sentry
     return if MESSAGES_TO_IGNORE.include?(@title)
-    Raven.capture_message @title,
-                          level: @level,
-                          tags: { username: @current_user[:username],
-                                  action_type: @type },
-                          extra: { response_data: @response_data,
-                                   post_data: @post_data,
-                                   current_user: @current_user[:username] }
+    Sentry.capture_message @title,
+                           level: @level,
+                           tags: { username: @current_user[:username],
+                                   action_type: @type },
+                           extra: { response_data: @response_data,
+                                    post_data: @post_data,
+                                    current_user: @current_user[:username] }
   end
 
   ###################

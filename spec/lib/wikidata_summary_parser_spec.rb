@@ -27,7 +27,7 @@ describe WikidataSummaryParser do
 
   it 'handles encoding problems gracefully' do
     allow_any_instance_of(Revision).to receive(:update!).and_raise(ActiveRecord::StatementInvalid)
-    expect(Raven).to receive(:capture_exception).at_least(:once)
+    expect(Sentry).to receive(:capture_exception).at_least(:once)
 
     VCR.use_cassette 'wikidata_summaries' do
       ImportWikidataSummariesWorker.perform_async
