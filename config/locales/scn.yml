@@ -20,6 +20,7 @@ scn:
     diff_hide: Ammuccia
     title: Tìtulu
   users:
+    training_module_status: Statu
     username: Nomu utenti
     username_placeholder: Nomu utenti
   survey:
