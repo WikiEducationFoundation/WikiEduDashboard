@@ -15,10 +15,14 @@ class UnsubmittedCourseAlertManager
 
   private
 
-  TIME_WINDOW = 3.days
+  # If a course goes 2 weeks after creation without being submitted, we send an email.
+  TIME_AFTER_CREATION = 2.weeks
+  # When we start sending out pings, we don't want to send them for older ones that
+  # were for previous terms.
+  MAX_TIME_AFTER_CREATION = 3.months
   def unsubmitted_recently_started_courses
     ClassroomProgramCourse.unsubmitted
-                          .where('courses.created_at <= ?', TIME_WINDOW.ago)
-                          .where(start: TIME_WINDOW.ago...TIME_WINDOW.from_now)
+                          .where('courses.created_at <= ?', TIME_AFTER_CREATION.ago)
+                          .where('courses.created_at >= ?', MAX_TIME_AFTER_CREATION.ago)
   end
 end

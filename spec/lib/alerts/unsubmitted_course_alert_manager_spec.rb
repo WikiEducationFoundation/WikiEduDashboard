@@ -25,7 +25,7 @@ describe UnsubmittedCourseAlertManager do
                            instructors: [new_instructor],
                            submitted: false,
                            start: 3.days.from_now,
-                           created_at: 3.days.ago)
+                           created_at: 3.weeks.ago)
     @first_course.tags << Tag.new(tag: 'first_time_instructor')
     create(:courses_user, course: @first_course, user: new_instructor, role: 1)
 
@@ -34,7 +34,7 @@ describe UnsubmittedCourseAlertManager do
                                submitted: false,
                                slug: 'returning',
                                start: 3.days.from_now,
-                               created_at: 3.days.ago)
+                               created_at: 3.weeks.ago)
     @returning_course.tags << Tag.new(tag: 'returning_instructor')
     create(:courses_user, course: @returning_course, user: returning_instructor, role: 1)
 
@@ -43,7 +43,7 @@ describe UnsubmittedCourseAlertManager do
   end
 
   context 'when the alerts do not exist' do
-    it 'creates alerts for courses that start in 3 days and were created at least 3 days ago' do
+    it 'creates alerts for courses that were created more than 2 weeks ago' do
       subject.create_alerts
       expect(Alert.count).to eq(2)
     end
@@ -58,7 +58,7 @@ describe UnsubmittedCourseAlertManager do
              submitted: false,
              slug: 'last_minute_course',
              start: 3.days.from_now,
-             created_at: 2.days.ago)
+             created_at: 1.week.ago)
       subject.create_alerts
       expect(Alert.count).to eq(2)
     end
