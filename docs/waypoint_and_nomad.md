@@ -29,3 +29,11 @@ To run a migration:
 1. Build and deploy an image that includes the migration.
 2. `exec` into an instance (eg, by finding a job in the Nomad UI and clicking 'Exec').
 3. `/cnb/lifecycle/launcher rails db:migrate`
+
+## Running analytics scripts
+
+To run analytics scripts that generate CSV data:
+* `exec` into an instance
+* `/cnb/lifecycle/launcher rails c` to enter a Rails console on an instance. (The sidekiq-daily instance is a good choice if it's not currently busy.)
+* Run the script to write data to `/alloc/data/some_file.csv`
+* From the Nomad UI, find the instance you ran the script on, go to Files > alloc > data, choose the file, and then 'View Raw File' to download it.
