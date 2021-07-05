@@ -1,6 +1,7 @@
 # Messages for Italian (italiano)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Alexmar983
 # Author: Annibale covini gerolamo
 # Author: Anto
@@ -570,11 +571,13 @@ it:
     private: Privato
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
       corso, visitando il seguente URL:'
+    requested_accounts_alert_view: Visualizza
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
     school: Scuola
     start: Inizio
     start_typing: Inizia a digitare
     stay_in_sandbox: Resta nella sandbox
+    student: Studente
     students: Studenti
     students_count: Numero studenti
     student_editors: Editori studenti
@@ -591,6 +594,7 @@ it:
     user_role: Ruolo
     course_details: Dettagli del corso
     submitted_at: Inviato il
+    tags: 'Etichette:'
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline
@@ -703,6 +707,9 @@ it:
     save: Salva
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
+  instructor_view:
+    bad_work:
+      learn_more_button: Ulteriori informazioni
   metrics:
     last_update: Ultimo aggiornamento statistiche
     activity: Attività recente
@@ -727,6 +734,7 @@ it:
     references_doc: Questo è il numero di tag di note aggiunti alle voci e possono
       includere più riferimenti alla stessa fonte. I dati provengono dal modello di
       qualità ORES della voce ed è disponibile solo per alcune lingue.
+    tags: Etichette
     update_status_heading: Aggiorna stato
     update_statistics_link: Vedi altro
     upload_count: Caricamenti Commons
@@ -774,7 +782,10 @@ it:
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo
+    see_more: Vedi altro
     show_all: Mostra tutte
+  resources:
+    label: Risorse
   settings:
     admin_users:
       new:
@@ -1001,6 +1012,7 @@ it:
     completed: Completato
     continue: Continua
     completed_at: Completato il
+    view: Visualizza
     started: Iniziato
     not_started: Non iniziato
   multi_wiki:

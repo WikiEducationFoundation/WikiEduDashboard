@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: 90-NS-FZ
 # Author: Aefgh39622
+# Author: Ajeje Brazorf
 # Author: Bonfire12
 # Author: Kkairri
 # Author: Omotecho
@@ -773,6 +774,7 @@ ja:
     header: ログインエラー
   survey:
     email:
+      headline: こんにちは、%{username}
       message_line1: 学期が有意義であったことをお祈りしています。ウィキ・エデュケーションではぜひ皆さんからご意見ご感想を寄せていただき、リソースの改善やウィキペディアを課題に指定された皆さんへのサポート向上につなげたいと望んでいます。現状の改善には、皆さんの声が大変重視しています。
       course: コース： %{course_info}
       link: 調査の実施

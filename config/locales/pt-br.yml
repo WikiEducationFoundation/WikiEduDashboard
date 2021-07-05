@@ -107,7 +107,7 @@ pt-br:
       no intervalo de datas de sua preferência. Lembre-se que pode sempre editar o
       cronograma de acordo com as suas necessidades.
     explore_course_pages: Explorar Páginas de Cursos
-    explore_examples: Explorar Exemplos
+    explore_examples: Explorar exemplos
     join_note: Depois de receber um código de acesso de seu instrutor, clique em "Encontre
       seu curso" para participar dele.
     no_courses_instructor: Parece que você não tem nenhum curso.
@@ -127,7 +127,7 @@ pt-br:
       página da campanha.
   home:
     explore: Explorar
-    log_in: Entrar pela Wikipédia
+    log_in: Entrar via Wikipédia
     sign_up: Criar conta pela Wikipédia
     sign_up_help: Para utilizar o painel de controle, você precisará iniciar uma sessão
       na Wikipédia e autorizar o acesso a sua conta de usuário. Inicie a sessão com
@@ -144,7 +144,7 @@ pt-br:
     article_development: (desenvolvimento do artigo)
     articles_shown: Mostrando %{count} de %{total}
     assigned: Artigos atribuídos
-    available: Artigos Disponíveis
+    available: Artigos disponíveis
     no_available: Nenhum artigo disponível
     next: Próximo
     previous: Anterior
@@ -192,8 +192,8 @@ pt-br:
       start: Classe %{class} — um artigo preliminar com muitas possibilidades de melhoramento
       stub: Classe %{class} — um artigo em estágio inicial, que precisa de mais conteúdo
       list: Classe %{class} — uma lista em vez de um artigo convencional
-      '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
-        de qualidade da Wikipédia'
+      '?': Sem classificação — um artigo que ainda não foi classificado na escala
+        de qualidade da Wikipédia
       does_not_exist: Este artigo não existe na Wikipédia
     see_more: Veja mais
     show_cumulative_changes: Mostrar Mudanças acumuladas
@@ -201,7 +201,7 @@ pt-br:
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
       autoria
     title: Título
-    tracked: Monitorizado
+    tracked: Rastreado
     tracked_doc: Apenas artigos rastreados contribuem para as estatísticas deste programa.
       Quando os artigos são marcados como não acompanhados, eles serão removidos das
       estatísticas durante a próxima atualização de dados.
@@ -231,7 +231,7 @@ pt-br:
   articles_generic:
     articles_short: Páginas
   assignments:
-    article: O artigo %{title} foi designado agora para ti.
+    article: O artigo %{title} foi atribuído a você.
     article_link: Artigo
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
@@ -243,7 +243,7 @@ pt-br:
     assign_self: Atribuir um artigo a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
     bibliography: Bibliografia
-    clone: Fechar
+    clone: Clonar
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
@@ -258,7 +258,7 @@ pt-br:
     peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
       por pares.
     peer_review_link: Revisão por pares
-    peer_review_link_personalized: Revisão por pares %{username}
+    peer_review_link_personalized: Revisão por pares de %{username}
     random_peer_review:
       confirm_addition: Isso irá atribuir um total de %{count} revisão(ões) por pares
         adicional(is), com um máximo de %{maximum} para cada estudante, escolhido
@@ -266,20 +266,21 @@ pt-br:
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como o número máximo) para cada aluno.
-      limit_exceeded: Cada estudante já está a rever pelo menos %{maximum} artigo(s).
+      limit_exceeded: Cada estudante já está revisando pelo menos %{maximum} artigo(s).
     remove: Remover
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão por pares
     review_self: Revisar um artigo
-    review_tooltip: Isto é para artigo(s) que você planeja revisar ou fornecer comentários.
+    review_tooltip: Isto é para artigo(s) que você planeja realizar revisão por pares
+      ou fornecer comentários.
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
     warning_untracked_wiki: 'Observe que o artigo que você escolheu está em uma wiki
       não rastreado por este curso. Para acompanhar as contribuições para este artigo,
-      um instrutor deve adicionar o seguinte wiki a este curso: %{wiki}'
+      um instrutor deve adicionar a seguinte wiki a este curso: %{wiki}'
   blocks:
     milestones:
-      title: Marco
+      title: Marcos
   campaign:
     active_campaigns: Campanhas ativas
     add_organizer: Adicionar um organizador
@@ -298,15 +299,15 @@ pt-br:
     campaign_updated: Campanha atualizada
     created_at: Data
     confirm_campaign_deletion: Tem certeza de que deseja excluir a campanha intitulada
-      %{title}? Se assim for, escreva o título da campanha para prosseguir.
+      "%{title}"? Se assim for, escreva o título da campanha para prosseguir.
     confirm_campaign_deletion_failed: '"%{title}" não é o título desta campanha. A
       campanha não foi eliminada.'
     confirm_course_removal: Tens certeza que quer remover "%{title}" da campanha "%{campaign_title}"?
     course_already_removed: '"%{title}" já foi removida da campanha "%{campaign_title}"'
     course: Curso
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
-    create_campaign: Criar uma nova Campanha
-    create_my_campaign: Criar a minha Campanha!
+    create_campaign: Criar uma nova campanha
+    create_my_campaign: Criar a minha campanha!
     customize_passcode: um código de acesso padrão
     data_download_info: Baixar os dados da campanha como CSVs
     data_courses: Dados da visão geral do curso
@@ -404,7 +405,7 @@ pt-br:
     articles_i_am_reviewing: Artigos que estou revisando
     assignment_headings:
       assigned_articles: Artigos atribuídos
-      assigned_reviews: Comentários atribuídos
+      assigned_reviews: Revisões atribuídas
       available_articles: Artigos disponíveis
       available_reviews: Artigos dos colegas
     assignment_end: Fim da atribuição
@@ -417,7 +418,7 @@ pt-br:
       legend_class_not_meeting: Nenhuma reunião marcada
       select_meeting_days: Selecionar os dias da semana em que a turma se encontra.
     cancel: Cancelar
-    character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
+    character_doc: A soma dos caracteres adicionados a artigos no domínio principal
       por estudantes do curso durante o prazo curso
     campaigns: 'Grupos:'
     campaign_articles: Artigos %{title}
@@ -447,11 +448,11 @@ pt-br:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Início da tarefa
       assignment_start_placeholder: AAAA-MM-DD
-      cancel_course_clone: Cancelar clone do curso
+      cancel_course_clone: Cancelar clonagem de curso
       cancel_course_clone_confirm: Tem certeza de que deseja interromper a clonagem
         deste curso?
       checking_for_uniqueness: Verificando se este curso é único.
-      choose_clone: Escolha um curso para duplicar
+      choose_clone: Escolha um curso para clonar.
       clone_previous: Clonar curso anterior
       clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecione datas para adicioná-las ou removê-las
@@ -475,7 +476,7 @@ pt-br:
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Prazo do curso
-      course_term_placeholder: Semestre
+      course_term_placeholder: Prazo
       course_title: Título do curso
       course_types:
         basic_course_name: Programa básico
@@ -484,18 +485,18 @@ pt-br:
           Se as edições automáticas da wiki estiverem ativadas na wiki de acolhimento
           do programa, então será automaticamente criada e atualizada uma versão deste
           programa na wiki.
-        edit_a_thon_name: Maratona de edições
-        edit_a_thon_description: Um programa 'Maratona de edições' regista todas as
-          edições de artigos ou páginas do espaço nominal principal. Por padrão, nenhuma
-          edição automatizada será feita para este programa.
+        edit_a_thon_name: Editatona
+        edit_a_thon_description: Uma editatona irá registrar todas as edições de artigos
+          ou páginas do espaço nominal principal. Por padrão, nenhuma edição automatizada
+          será feita para este programa.
         article_scoped_program_name: Programa de escopo de artigos
         article_scoped_program_description: Este tipo de programa só regista as edições
           dos artigos e categorias atribuídos. Use-o se pretende delimitar as estatísticas
           a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
           automatizadas do wiki estão ativadas.
       create_button: Criar meu curso!
-      create_label: Criar Novo Curso
-      create_new: Criar um Novo Curso
+      create_label: Criar novo curso
+      create_new: Criar um novo curso
       create_short: Criar Curso
       end_date: Data Final
       end_date_placeholder: AAAA-MM-DD
@@ -517,7 +518,7 @@ pt-br:
       role_description_options:
       - Instrutor
       - Professor assistente
-      role_description_placeholder: Professor, professor assistente, etc
+      role_description_placeholder: Instrutor, professor assistente etc.
       separate_event_dates: Especifique horários de início/término de eventos separados
         (opcional)
       separate_event_dates_info: As estatísticas de atividade deste programa serão
@@ -579,7 +580,7 @@ pt-br:
     end: Fim
     ended: O curso terminou.
     enroll: Inscrever-se
-    enrollment: Adicionar/Remover Alunos
+    enrollment: Adicionar/remover alunos
     enrollment_edits_enabled: Edições de inscrição ativadas
     enrollment_edits_enabled_tooltip: Se ativado, o painel de controle postará um
       modelo na página do usuário e na página de discussão de cada editor que ingressar
@@ -588,7 +589,7 @@ pt-br:
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
         ou termo diferente.
-      user_exists: Desculpe, %{username} não é um usuário existente.
+      user_exists: Desculpe, o usuário %{username} não existe.
       invalid_language_or_project: Idioma/projeto inválido
       invalid_slug: Escola ou título em branco para o curso.
       duplicate_slug: Outro programa chamado %{slug} já existe.
@@ -600,17 +601,17 @@ pt-br:
     home_wiki: Wiki principal
     multi_wiki: Wikis rastreadas
     instructor:
-      one: Instructor
+      one: Instrutor
       other: Instrutores
     instructors: Instrutores
     invitation: Você foi convidado a participar de %{title}. Para participar, precisa
       entrar com a sua conta na Wikipédia.
     invitation_username_advice: Se você ainda não tiver uma conta na Wikipédia, registre-se
-      agora. Você pode utilizar um nome de usuário anônimo — ou um que seja da sua
-      identificação pessoal — como desejar. (As contas compartilhadas não são permitidas.)
+      agora. Você pode utilizar um nome de usuário que mantenha anonimato ou que identifique
+      quem é pessoalmente. (Não é permitido compartilhar contas.)
     join: Participar
     join_course: Participar do curso
-    join_course_as_volunteer: Voluntário para ajudar
+    join_course_as_volunteer: Ofereça-se para ajudar
     join_prompt: Participar de '%{title}'?
     join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
       automático das suas contribuições, com atualizações periódicas. Regresse futuramente
@@ -685,7 +686,7 @@ pt-br:
       não o remove da lista, permitindo que vários estudantes selecionem o mesmo artigo.
     review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o
       para atender às suas necessidades. Quando estiver satisfeito, você pode enviá-lo
-      para aprovação pela equipe da Wiki Education. Depois de aprovado, você receberá
+      para aprovação pela equipe da Wiki Educação. Depois de aprovado, você receberá
       um URL de inscrição que os alunos podem usar para participar do curso e acessar
       os treinamentos. (Nota: você ainda poderá fazer edições mais tarde.)'
     revisions_doc: Número de edições nos últimos %{timeframe} dias
@@ -772,7 +773,7 @@ pt-br:
       automatizadas on-wiki serão feitas para este programa. Desative as edições do
       wiki se você não quiser que os modelos sejam adicionados às páginas do usuário,
       às páginas de discussão dos artigos atribuídos, etc.
-    wiki_staff: Equipe de Educação da Wiki
+    wiki_staff: Equipe da Wiki Educação
     withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
@@ -1193,7 +1194,7 @@ pt-br:
     page_number: Página %{number} de %{total}
     previous: < Anterior
     table_of_contents: Tabela de conteúdos
-    training_library: Biblioteca de formação
+    training_library: Biblioteca de treinamentos
     logged_out: Sua sessão de usuário não está aberta. Você não receberá crédito ao
       completar este módulo, a não ser que inicie uma sessão.
     done: Concluído!
@@ -1241,7 +1242,7 @@ pt-br:
       aumentaram o tamanho da página. Este número não reflete necessariamente a quantidade
       de conteúdo novo que o usuário adicionou. Restaurar conteúdo eliminado também
       aumentará este total.
-    chars_added: Os caracteres foram adicionados<br>(artigo | usuário | rascunho)
+    chars_added: Caracteres adicionados<br>(artigo | usuário | rascunho)
     contributions: Contribuições do usuário
     contributions_history_full: Ver histórico de contribuições completo
     contributions_more: Ver mais contribuições
@@ -1263,7 +1264,7 @@ pt-br:
     characters_added_mainspace: Caracteres adicionados  (artigo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres adicionados (usuário)
-    characters_added_draftspace: Os caracteres foram acrescentados (rascunho)
+    characters_added_draftspace: Caracteres adicionados (rascunho)
     references_count: Referências adicionadas
     my_assigned: 'Atribuído:'
     my_reviewing: 'Revisando:'
@@ -1317,7 +1318,7 @@ pt-br:
     user_training_status: Status de treinamento
     user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
-    uploads_doc: Número de pastas enviadas para Wikimedia Commons
+    uploads_doc: Número de ficheiros enviados para Wikimedia Commons
     ungreeted: Não saudados
     username: Nome de usuário
     username_placeholder: Nome de usuário
@@ -1338,7 +1339,7 @@ pt-br:
       instructor: Instrutor
       campus_volunteer: Voluntário de campus
       online_volunteer: Voluntário online
-      wiki_ed_staff: Equipe de Educação da Wiki
+      wiki_ed_staff: Equipe da Wiki Educação
   user_profiles:
     student_impact: Impacto total feito pelo usuário %{username} como estudante
     instructor_impact: Impacto total de %{username} como instrutor
@@ -1350,7 +1351,7 @@ pt-br:
     image_link_placeholder: Adicionar hiperligação à imagem (opcional)
   wiki_edits:
     notify_overdue:
-      button_label: Lembre os alunos sobre o treinamento vencido
+      button_label: Lembrar alunos sobre treinamento vencido
       confirm: Isto irá postar um lembrete nas páginas de discussão de todos os estudantes
         que não completaram a tempo os módulos de treinamento. Você tem certeza de
         que deseja prosseguir?
@@ -1442,7 +1443,7 @@ pt-br:
       eletrônicos de acompanhamento.
     email:
       headline: Olá, %{username}
-      message_line1: Esperamos que você tenha um ótimo termo! A Wiki Education está
+      message_line1: Esperamos que você tenha um ótimo termo! A Wiki Educação está
         buscando seu feedback para melhorar nossos recursos e suporte para suas atribuições
         na Wikipédia. Sua resposta é crucial para melhorar nossas ofertas atuais.
       message_line2: Você tem 15 minutos para completar nosso questionário de professor?
@@ -1450,7 +1451,7 @@ pt-br:
         experiência ainda mais gratificante e valiosa.
       course: 'Curso: %{course_info}'
       closing: Cordialmente,
-      signed: '- a equipe da Wiki Education'
+      signed: '- a equipe da Wiki Educação'
       link: Responder o Questionário
     follow_up:
       message: Isto é um lembrete sobre o questionário de seu curso, %{course_title}.
@@ -1464,7 +1465,7 @@ pt-br:
     supplementary:
       header: Como você ficou sabendo sobre nós?
       where_did_you_hear: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki
-        Education?
+        Educação?
       why_are_you_here: O que você gostaria de fazer?
   article_finder:
     page_assessment_class: Classe
