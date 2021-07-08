@@ -22,6 +22,9 @@ io:
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
+    volunteer:
+      one: Volontario
+      other: Volontarii
   editable:
     edit: Redakto
     cancel: Nuligar

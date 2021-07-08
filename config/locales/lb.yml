@@ -504,7 +504,7 @@ lb:
     editors: Auteuren
     edits_by: 'Ännerunge vum:'
     enroll_confirmation: Sidd Dir sécher datt Dir %{username} derbäisetze wëllt?
-    enrolled_success: '%{username} gouf dobäigesat!'
+    enrolled_success: '%{username} gouf derbäigesat!'
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
