@@ -37,3 +37,13 @@ To run analytics scripts that generate CSV data:
 * `/cnb/lifecycle/launcher rails c` to enter a Rails console on an instance. (The sidekiq-daily instance is a good choice if it's not currently busy.)
 * Run the script to write data to `/alloc/data/some_file.csv`
 * From the Nomad UI, find the instance you ran the script on, go to Files > alloc > data, choose the file, and then 'View Raw File' to download it.
+
+## Set up a new machine to build and deploy
+
+1. Clone the Dashboard repo (separately from any development version)
+2. Copy over the relevant config files that aren't checked in: `dockerAuth.json` and from the config directory `application.yml`, `database.yml`, `secrets.yml` and `newrelic.yml`.
+3. Copy over the waypoint context from `~/.config/waypoint`.
+4. Verify that the context works: `waypoint context verify` should succeed, and `waypoint -v` should show both the client and server versions of waypoint.
+5. Log in to docker.wikiedu.org (as during the initial setup above)
+6. Navigate to the Nomad UI address, and add the management token (as during the initial setup above)
+7. Now `waypoint build` and such should work.
