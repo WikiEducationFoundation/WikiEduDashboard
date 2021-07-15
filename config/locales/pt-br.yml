@@ -121,9 +121,9 @@ pt-br:
     about_programs: Esse site rastrea atividades através de Programas — eventos individuais
       como uma editatona ou cadeira universitária. Cada programa é parte de uma ou
       mais campanhas, que provê estatísticas agregadas para programas.
-    about_creating_programs: Se estás coordenando um evento único, independente, podes
+    about_creating_programs: Se está coordenando um evento único, independente, pode
       criar um programa agora. Se o seu programa é parte de algo maior, encontre ou
-      crie a campanha para ele. Poderás então criar o seu novo programa a partir da
+      crie a campanha para ele. Poderá então criar o seu novo programa a partir da
       página da campanha.
   home:
     explore: Explorar
@@ -180,7 +180,7 @@ pt-br:
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
       fa: '%{class} (Artigo destacado) — a classificação mais alta da Wikipédia, provavelmente
-        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.'
+        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor'
       fl: '%{class} (Lista destacada) — a classificação mais alta da Wikipédia para
         listas'
       a: Classe %{class} — um artigo muito desenvolvido que pode ser demasiado maduro
@@ -188,10 +188,10 @@ pt-br:
       ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demasiado
         maduro para ser o projeto principal de um editor novo'
       b: Classe %{class} — um artigo moderadamente desenvolvido
-      c: Classe %{class} — um artigo intermédio com possibilidades de melhoramento
-      start: Classe %{class} — um artigo preliminar com muitas possibilidades de melhoramento
-      stub: Classe %{class} — um artigo em estágio inicial, que precisa de mais conteúdo
-      list: Classe %{class} — uma lista em vez de um artigo convencional
+      c: Classe %{class} — um artigo mediano com possibilidades de melhoramento
+      start: Classe %{class} — um artigo preliminar com muito espaço para melhora
+      stub: '%{class} — um artigo em estágio inicial, que precisa de mais conteúdo'
+      list: '%{class} — uma lista em vez de um artigo convencional'
       '?': Sem classificação — um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia
       does_not_exist: Este artigo não existe na Wikipédia

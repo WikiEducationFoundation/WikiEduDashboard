@@ -48,6 +48,9 @@ ti:
     dismiss_survey: ስጎግ
     loading: ይጽዕን ኣሎ...
     private: ብሕታዊ
+  courses_generic:
+    student_editors: ኣርታዕቲ
+    students: ኣርታዕቲ
   metrics:
     date_time: ዕለት/ሰዓት
     tags: መፈለጥታታት
@@ -57,5 +60,5 @@ ti:
   revisions:
     date_time: ዕለት/ሰዓት
   users:
-    edits: ምምዕርራያት
+    edits: ኣርትዖታት
 ...
