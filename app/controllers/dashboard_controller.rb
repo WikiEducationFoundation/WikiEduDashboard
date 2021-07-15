@@ -29,7 +29,7 @@ class DashboardController < ApplicationController
       RSS::Parser.parse(BLOG_FEED_URL, false).items
     end
   # Rescue 404 errors, in case wikiedu.org is down.
-  rescue OpenURI::HTTPError, SocketError
+  rescue OpenURI::HTTPError, SocketError, Errno::ECONNREFUSED, Errno::ETIMEDOUT
     @blog_posts = []
   end
 
