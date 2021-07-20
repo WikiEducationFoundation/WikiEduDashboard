@@ -25,10 +25,11 @@
             = render_matrix_answer_labels(answer)
 
         %div{:'data-question-group' => "#{question_group_index}",
+         :'data-conditional-question' => conditional_attribute(answer),
          :id => question_presenter.grouped_question? ? "question_#{answer.question.id}" : "",
          :class => "survey__question-row #{question_presenter.grouped_question? ? 'matrix-row' : ''} " + |
-                   "#{question_presenter.required_class} #{conditional_string(answer)} " +               |
-                   "#{index.even? ? '' : 'odd'} #{is_end_of_group ? 'last' : ''}" }                      |
+                   "#{question_presenter.required_class} " +               |
+                   "#{index.even? ? '' : 'odd'} #{is_end_of_group ? 'last' : ''}" }
 
           - if results
             = render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer}

@@ -109,10 +109,10 @@ module SurveysHelper
     question_form.follow_up_question_text.present?
   end
 
-  def conditional_string(answer)
+  def conditional_attribute(answer)
     return unless answer.question.conditionals?
     string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
-    "data-conditional-question=#{string}"
+    string
   end
 
   def numeric_min(answer)

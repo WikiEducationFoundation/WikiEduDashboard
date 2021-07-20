@@ -66,5 +66,10 @@ FactoryBot.define do
       validation_rules { rangeinput_params }
       question_text { 'RangeInput Question' }
     end
+
+    factory :q_text, class: 'Rapidfire::Questions::Text' do
+      validation_rules { validation_rules }
+      question_text { 'Text Question' }
+    end
   end
 end

@@ -101,12 +101,18 @@ describe 'Surveys', type: :feature, js: true do
       q_select3.answer_options = ''
       q_select3.save!
 
+      # Q12 - this won't show up because the conditonal is not met
+      q_text = create(:q_text, question_group_id: question_group.id,
+                               conditionals: "#{q_checkbox.id}|=|telugu")
+      q_text.rules[:presence] = '0'
+      q_text.save!
+
       # Matrix questions back-to-back, and matrix question at the end of survey
-      # Q12
+      # Q13
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
-      # Q13
+      # Q14
       create(:matrix_question2, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'third line', question_group_id: question_group.id)
@@ -223,20 +229,21 @@ describe 'Surveys', type: :feature, js: true do
       end
 
       # Q11 not rendered
+      # Q12 not rendered
 
       sleep 1
 
       within('div[data-progress-index="12"]') do
-        click_button('Next', visible: true) # Q12
+        click_button('Next', visible: true) # Q13
       end
 
       sleep 1
 
       # expect(page).not_to have_content 'You made it!'
-      click_button('Submit Survey', visible: true) # Q13
+      click_button('Submit Survey', visible: true) # Q14
       expect(page).to have_content 'You made it!'
       sleep 1
-      expect(Rapidfire::Answer.count).to eq(21)
+      expect(Rapidfire::Answer.count).to eq(22)
       expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
 
