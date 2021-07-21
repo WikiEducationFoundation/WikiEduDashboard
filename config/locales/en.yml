@@ -1368,7 +1368,7 @@ en:
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
-    login_message: 'Thank you for your time. Please log in to your Wiki Education dashboard to take the survey.'
+    login_message: 'Thank you for your time. Please log in to the Dashboard to take the survey.'
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
     notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
     follow_up_explanation: Leave blank if no follow-up notification emails are desired.
