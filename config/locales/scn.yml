@@ -5,6 +5,7 @@
 ---
 scn:
   application:
+    cancel: Annulla
     greeting: Ciau!
   articles:
     title: Tìtulu
@@ -20,6 +21,7 @@ scn:
     diff_hide: Ammuccia
     title: Tìtulu
   users:
+    contributions: Cuntribbuti di l'utenti
     training_module_status: Statu
     username: Nomu utenti
     username_placeholder: Nomu utenti

@@ -977,8 +977,8 @@ it:
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   survey:
-    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Education
-      per partecipare al sondaggio.
+    login_message: Grazie per il tuo tempo. Accedi al cruscotto per partecipare al
+      sondaggio.
     email:
       headline: Ciao, %{username}
       message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Education

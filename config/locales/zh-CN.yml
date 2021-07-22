@@ -957,7 +957,7 @@ zh-CN:
     header: 登录错误
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
   survey:
-    login_message: 感谢您抽出时间。请登录您的维基教育控制面板以接受调查。
+    login_message: 感谢您的时间。请登录您的维基教育控制面板以参与调查。
     notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。
     notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。
     follow_up_explanation: 如果不要求跟随电子邮件通知则留空。
