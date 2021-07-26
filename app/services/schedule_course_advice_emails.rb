@@ -13,10 +13,21 @@ class ScheduleCourseAdviceEmails
   def schedule_emails
     return unless @course.tag?('research_write_assignment')
 
+    schedule_biographies_email
     schedule_preliminary_work_email
     schedule_drafting_and_moving_email
     schedule_peer_review_email
     schedule_assessing_contributions_email
+  end
+
+  def schedule_biographies_email
+    return unless @course.tag?('biographies')
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'biographies',
+      send_at: Time.zone.now
+    )
   end
 
   def schedule_preliminary_work_email

@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class CourseAdviceMailerPreview < ActionMailer::Preview
+  def biographies
+    CourseAdviceMailer.email(example_course, 'biographies', example_staffer)
+  end
+
   def preliminary_work
     CourseAdviceMailer.email(example_course, 'preliminary_work', example_staffer)
   end

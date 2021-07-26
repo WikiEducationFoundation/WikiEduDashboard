@@ -533,6 +533,18 @@ describe CoursesController, type: :request do
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
+        context 'for a course with the biographies tag' do
+          before { course.tags << Tag.new(tag: 'biographies') }
+
+          it 'sends a biographies advice email' do
+            allow(CourseAdviceMailer).to receive(:send_email)
+            params = { id: course.slug, campaign: { title: campaign.title } }
+            post "/courses/#{course.slug}/campaign", params: params, as: :json
+            expect(CourseAdviceMailer).to have_received(:send_email)
+              .with(course: course, subject: 'biographies')
+          end
+        end
+
         context 'for a ClassroomProgramCourse' do
           it 'sets the CPM as a Wiki Ed staff member if that role exists' do
             params = { id: course.slug, campaign: { title: campaign.title } }

@@ -10,6 +10,7 @@ class CourseAdviceMailer < ApplicationMailer
   end
 
   SUBJECT_LINES = {
+    'biographies' => 'Tips for working on Wikipedia biography articles',
     'preliminary_work' => 'Tips for navigating the early weeks of your Wikipedia assignment',
     'drafting_and_moving' => 'Tips for drafting work and moving it into the article main space',
     'peer_review' => 'Tips for peer review',
