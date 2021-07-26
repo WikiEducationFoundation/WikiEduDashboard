@@ -7,6 +7,10 @@ scn:
   application:
     cancel: Annulla
     greeting: Ciau!
+    help: Aiutu
+    log_in_extended: Trasi supra Wikipedia
+    log_in: Trasi
+    log_out: Nesci
   articles:
     title: Tìtulu
   campaign:
@@ -15,11 +19,23 @@ scn:
     category_name: Nomu dâ catigurìa
   courses:
     actions: Azzioni
+    delete_suggestion: Cancella
     title: Tìtulu
+  courses_generic:
+    creator:
+      save_cloned_course: Sarva
+  editable:
+    save: Sarva
+  recent_activity:
+    image: Mmàggini
   revisions:
     diff_show: Ammustra
     diff_hide: Ammuccia
     title: Tìtulu
+  training:
+    page: Pàggina
+  uploads:
+    image: Mmàggini
   users:
     contributions: Cuntribbuti di l'utenti
     training_module_status: Statu

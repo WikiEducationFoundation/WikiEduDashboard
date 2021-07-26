@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alex00728
+# Author: Apzp79
 # Author: Asdfqwer51
 # Author: Codenstory
 # Author: Ellif
@@ -667,7 +668,7 @@ ko:
   login_error:
     header: 로그인 오류
   survey:
-    login_message: 시간을 내 주셔서 감사합니다. Wiki 교육 대시보드로 로그인하여 설문 조사에 응해 주세요.
+    login_message: 시간 내 주셔서 고맙습니다. 설문 조사에 참여하려면 대시보드에 로그인 해주세요,
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
     email:
       headline: 안녕하세요, %{username}님

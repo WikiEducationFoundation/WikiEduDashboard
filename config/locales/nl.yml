@@ -13,6 +13,7 @@
 # Author: Mar(c)
 # Author: Marcelhospers
 # Author: Mbch331
+# Author: McDutchie
 # Author: Milenej
 # Author: MrLeopold
 # Author: Ndecouck
@@ -190,7 +191,7 @@ nl:
     depth: subcategorie diepte
     articles_count: Aantal pagina's
     name: Naam
-    category_name: Categorie naam
+    category_name: Categorienaam
     timestamp: Laatst gewijzigd op
   courses:
     activity: Activiteit
@@ -662,8 +663,8 @@ nl:
     explanation: Er lijkt een probleem te zijn geweest met het aanmeldproces. (Excuses
       daarvoor! Het gebeurt af en toe.) Probeer het aanmelden of inschrijven opnieuw.
   survey:
-    login_message: Dank je voor je tijd. Log in op je Wiki Ed dashboard om deel te
-      nemen aan de enquête.
+    login_message: Bedankt voor uw tijd. Log in op het Dashboard om de enquête in
+      te vullen.
     notification_explanation: Als hieronder is aangevinkt, zullen de gebruikers e-mails
       ontvangen op basis van het notificatieschema, in aanvulling op het zien van
       meldingen in het browser. Zo niet worden alleen meldingen in het browser weergegeven.

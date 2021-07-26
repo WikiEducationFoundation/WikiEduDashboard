@@ -1,6 +1,7 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Alacabe
 # Author: Appleuseryu
 # Author: Ash Crow
@@ -1474,8 +1475,8 @@ fr:
       (Désolé à ce sujet ! Cela arrive de temps en temps.) Veuillez essayez à nouveau
       de vous connecter ou de vous inscrire.
   survey:
-    login_message: Merci pour votre temps. Veuillez vous connecter à votre tableau
-      de bord Wiki Éducation pour participer au sondage.
+    login_message: Merci pour votre temps. Veuillez vous connecter au tableau de bord
+      pour participer au sondage.
     notification_explanation: Si la case ci-dessous est cochée, les utilisateurs recevront
       des courriels selon l’agenda de notification, en plus de voir les notifications
       dans le navigateur. Si non, seules les notifications dans le navigateur seront
