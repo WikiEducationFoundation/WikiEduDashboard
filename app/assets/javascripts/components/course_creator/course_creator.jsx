@@ -54,7 +54,8 @@ const CourseCreator = createReactClass({
       showCourseDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
-      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
+      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
+      courseCreationNotice: this.props.courseCreator.courseCreationNotice
     };
   },
 
@@ -287,9 +288,9 @@ const CourseCreator = createReactClass({
     }
 
     let specialNotice;
-    if (Features.courseCreationNotice) {
+    if (this.state.courseCreationNotice) {
       specialNotice = (
-        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: Features.courseCreationNotice }} />
+        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: this.state.courseCreationNotice }} />
       );
     }
 

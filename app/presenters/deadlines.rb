@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 
 class Deadlines
-  def self.setting_record
-    @setting_record ||= Setting.find_or_create_by(key: 'deadlines')
+  # This is the method used for loading the notice for
+  # the course creator and cloning UI. We load the setting
+  # from the DB here to make sure it's up to date across
+  # all application servers after a settings change.
+  def self.course_creation_notice
+    reload_setting_record
+    return unless deadline
+    Time.zone.today < deadline ? before_deadline_message : after_deadline_message
+  end
+
+  # Used to render the values in the /settings UI.
+  def self.student_program
+    setting_record.value['student_program']
   end
 
   def self.update_student_program(recruiting_term:, deadline:,
@@ -18,12 +29,19 @@ class Deadlines
     @setting_record = record
   end
 
-  def self.student_program
-    setting_record.value['student_program']
+  ##################
+  # Helper methods #
+  ##################
+  def self.reload_setting_record
+    @setting_record = Setting.find_or_create_by(key: 'deadlines')
   end
 
-  # We use `raw` to put these into a JavaScript object in _head.html.haml
-  # We replace any single-quotes with apostrophes so it doesn't break the syntax.
+  def self.setting_record
+    @setting_record ||= Setting.find_or_create_by(key: 'deadlines')
+  end
+
+  # These are injected into React via a `data` attribute.
+  # We replace any single-quotes with apostrophes so it doesn't break the syntax when used as raw inner HTML.
   def self.after_deadline_message
     student_program[:after_deadline_message]&.tr("'", '’')
   end
@@ -34,10 +52,5 @@ class Deadlines
 
   def self.deadline
     student_program&.dig(:deadline)&.to_date
-  end
-
-  def self.course_creation_notice
-    return unless deadline
-    Time.zone.today < deadline ? before_deadline_message : after_deadline_message
   end
 end

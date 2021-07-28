@@ -23,7 +23,8 @@ const CourseClonedModal = createReactClass({
     setInvalid: PropTypes.func.isRequired,
     isValid: PropTypes.bool.isRequired,
     activateValidations: PropTypes.func.isRequired,
-    firstErrorMessage: PropTypes.string
+    firstErrorMessage: PropTypes.string,
+    courseCreationNotice: PropTypes.string
   },
 
   statics: {
@@ -168,9 +169,9 @@ const CourseClonedModal = createReactClass({
     }
 
     let specialNotice;
-    if (Features.courseCreationNotice) {
+    if (this.props.courseCreationNotice) {
       specialNotice = (
-        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: Features.courseCreationNotice }} />
+        <p className="timeline-warning" dangerouslySetInnerHTML={{ __html: this.props.courseCreationNotice }} />
       );
     }
 

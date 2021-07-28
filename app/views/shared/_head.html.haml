@@ -30,7 +30,6 @@
       enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
       enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
       consentBanner: #{user_signed_in? && !Rails.env.test?},
-      courseCreationNotice: '#{raw Deadlines.course_creation_notice}',
       tinyMceUrl: '#{user_signed_in? ? hot_javascript_path("tinymce") : ''}'
     }
 

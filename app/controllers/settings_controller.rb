@@ -88,6 +88,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   def course_creation
+    Deadlines.reload_setting_record
     render json: Deadlines.student_program
   end
 

@@ -46,7 +46,8 @@ const Overview = createReactClass({
     setInvalid: PropTypes.func.isRequired,
     activateValidations: PropTypes.func.isRequired,
     firstErrorMessage: PropTypes.string,
-    isValid: PropTypes.bool.isRequired
+    isValid: PropTypes.bool.isRequired,
+    courseCreationNotice: PropTypes.string
   },
 
   componentDidMount() {
@@ -74,6 +75,7 @@ const Overview = createReactClass({
           setInvalid={this.props.setInvalid}
           addValidation={this.props.addValidation}
           activateValidations={this.props.activateValidations}
+          courseCreationNotice={this.props.courseCreationNotice}
         />
       );
     }
@@ -153,7 +155,7 @@ const Overview = createReactClass({
           nameHasChanged={this.props.nameHasChanged}
           refetchCourse={this.props.refetchCourse}
         />
-        <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
+        <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} courseCreationNotice={this.props.courseCreationNotice} />
         <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} />
       </div>
     ) : (
@@ -182,7 +184,8 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading || state.course.loading,
   firstErrorMessage: firstValidationErrorMessage(state),
-  isValid: isValid(state)
+  isValid: isValid(state),
+  courseCreationNotice: state.courseCreator.courseCreationNotice
  });
 
 const mapDispatchToProps = {

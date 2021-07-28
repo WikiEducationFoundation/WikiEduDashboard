@@ -23,7 +23,7 @@ export function CloneCourseButton(props) {
 function onClickConfirmation(props) {
   return () => {
     const confirmMessage = 'Are you sure you want to clone this course?';
-    const warningMessage = Features.courseCreationNotice;
+    const warningMessage = props.courseCreationNotice;
     const onConfirm = () => {
       props.cloneCourse(props.courseId).then(({ data }) => {
         const course = data.course;
