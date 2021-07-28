@@ -41,7 +41,8 @@ class Deadlines
   end
 
   # These are injected into React via a `data` attribute.
-  # We replace any single-quotes with apostrophes so it doesn't break the syntax when used as raw inner HTML.
+  # We replace any single-quotes with apostrophes so it doesn't
+  # break the syntax when used as raw inner HTML.
   def self.after_deadline_message
     student_program[:after_deadline_message]&.tr("'", '’')
   end
