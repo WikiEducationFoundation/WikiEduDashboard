@@ -4,15 +4,17 @@ require 'rails_helper'
 
 describe SettingsController, type: :request do
   describe '#index' do
-    it 'renders for super admins' do
-      super_admin = create(:super_admin)
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(super_admin)
-      get '/settings'
-      expect(response.status).to eq(200)
+    %i[super_admin admin].each do |role|
+      it "renders for role of #{role}" do
+        user = create(role)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+        get '/settings'
+        expect(response.status).to eq(200)
+      end
     end
 
-    %i[admin instructor user].each do |role|
+    %i[instructor user].each do |role|
       it "redirects for role of #{role}" do
         user = create(role)
         allow_any_instance_of(ApplicationController)

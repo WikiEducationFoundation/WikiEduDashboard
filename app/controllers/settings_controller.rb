@@ -3,10 +3,11 @@
 ##
 # controller actions for super users to interact with app wide settings
 class SettingsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  before_action :require_super_admin_permissions
-
-  ##
-  # for now, this controller provides a way for super admins to add and remove admins
+  before_action :require_admin_permissions
+  before_action :require_super_admin_permissions,
+                only: [:upgrade_admin, :downgrade_admin,
+                       :upgrade_special_user, :downgrade_special_user,
+                       :update_salesforce_credentials]
 
   layout 'application'
 
