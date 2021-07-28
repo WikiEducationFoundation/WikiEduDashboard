@@ -2,7 +2,7 @@
 import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
+  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS
 } from '../constants/settings';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -347,6 +347,63 @@ const updateSalesforceCredentialsPromise = (password, token) => {
 
 export const updateSalesforceCredentials = (password, token) => (dispatch) => {
   return updateSalesforceCredentialsPromise(password, token)
-    .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closeable: true } }))
+    .then(data => dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const fetchCourseCreationSettingsPromise = () => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'GET',
+      url: '/settings/course_creation',
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+export function fetchCourseCreationSettings() {
+  return (dispatch) => {
+    return fetchCourseCreationSettingsPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_COURSE_CREATION_SETTINGS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+const updateCourseCreationSettingsPromise = (settings) => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'POST',
+      url: '/settings/update_course_creation',
+      data: settings,
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+export const updateCourseCreationSettings = settings => (dispatch) => {
+  return updateCourseCreationSettingsPromise(settings)
+    .then((data) => {
+      dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } });
+      fetchCourseCreationSettings()(dispatch);
+    })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };

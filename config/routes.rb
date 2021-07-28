@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
   post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'
+
+  get '/settings/course_creation' => 'settings#course_creation'
+  post '/settings/update_course_creation' => 'settings#update_course_creation'
+
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
   mount_griddler

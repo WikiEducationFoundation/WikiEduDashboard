@@ -86,6 +86,20 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Salesforce credentials updated.' }, status: :ok
   end
 
+  def course_creation
+    render json: Deadlines.student_program
+  end
+
+  def update_course_creation
+    Deadlines.update_student_program(
+      recruiting_term: params[:recruiting_term],
+      deadline: params[:deadline],
+      before_deadline_message: params[:before_deadline_message],
+      after_deadline_message: params[:after_deadline_message]
+    )
+    render json: { message: 'Course creation settings updated.' }, status: :ok
+  end
+
   private
 
   def username_param

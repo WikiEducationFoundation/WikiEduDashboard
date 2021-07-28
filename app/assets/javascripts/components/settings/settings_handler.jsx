@@ -7,9 +7,10 @@ import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
 import AdminUserList from './admin_users_list';
 import Notifications from '../common/notifications';
-import { fetchAdminUsers, fetchSpecialUsers } from '../../actions/settings_actions';
+import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
+import CourseCreationSettings from './course_creation_settings';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
@@ -23,23 +24,27 @@ export const SettingsHandler = createReactClass({
         permissions: PropTypes.number.isRequired,
       })
     ),
-    specialUsers: PropTypes.object
+    specialUsers: PropTypes.object,
+    courseCreation: PropTypes.object
   },
 
   componentDidMount() {
     this.props.fetchAdminUsers();
     this.props.fetchSpecialUsers();
+    this.props.fetchCourseCreationSettings();
   },
 
   render() {
-    let salesforce;
+    let otherSettings;
     if (Features.wikiEd) {
-      salesforce = (
+      otherSettings = (
         <React.Fragment>
-          <h1 className="mx2">Other Settings</h1>
+          <h1 className="mx2">Other settings</h1>
           <hr />
           <h2 className="mx2">Salesforce</h2>
           <UpdateSalesforceCredentials />
+          <br />
+          <CourseCreationSettings settings={this.props.courseCreation}/>
         </React.Fragment>
       );
     }
@@ -54,7 +59,7 @@ export const SettingsHandler = createReactClass({
         <h2 className="mx2">Special Users</h2>
         <AddSpecialUserButton />
         <SpecialUserList specialUsers={this.props.specialUsers} />
-        {salesforce}
+        {otherSettings}
       </div>
 
     );
@@ -63,12 +68,14 @@ export const SettingsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   adminUsers: state.settings.adminUsers,
-  specialUsers: state.settings.specialUsers
+  specialUsers: state.settings.specialUsers,
+  courseCreation: state.settings.courseCreation
 });
 
 const mapDispatchToProps = {
   fetchAdminUsers,
-  fetchSpecialUsers
+  fetchSpecialUsers,
+  fetchCourseCreationSettings
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsHandler);

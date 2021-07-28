@@ -2,6 +2,7 @@ import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
+  SET_COURSE_CREATION_SETTINGS
 } from '../constants/settings';
 
 const initialState = {
@@ -26,6 +27,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { adminUsers: action.data.admins });
     case SET_SPECIAL_USERS:
       return Object.assign({}, state, { specialUsers: action.data.special_users });
+    case SET_COURSE_CREATION_SETTINGS:
+      return Object.assign({}, state, { courseCreation: action.data });
     case SUBMITTING_NEW_ADMIN:
       return Object.assign({}, state, { submittingNewAdmin: action.data.submitting });
     case REVOKING_ADMIN:
