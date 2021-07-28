@@ -21,4 +21,23 @@ class Deadlines
   def self.student_program
     setting_record.value['student_program']
   end
+
+  # We use `raw` to put these into a JavaScript object in _head.html.haml
+  # We replace any single-quotes with apostrophes so it doesn't break the syntax.
+  def self.after_deadline_message
+    student_program[:after_deadline_message]&.tr("'", '’')
+  end
+
+  def self.before_deadline_message
+    student_program[:before_deadline_message]&.tr("'", '’')
+  end
+
+  def self.deadline
+    student_program&.dig(:deadline)&.to_date
+  end
+
+  def self.course_creation_notice
+    return unless deadline
+    Time.zone.today < deadline ? before_deadline_message : after_deadline_message
+  end
 end

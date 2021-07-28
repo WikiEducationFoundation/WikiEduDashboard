@@ -53,6 +53,7 @@ const CourseCreationSettingsForm = createReactClass({
               onChange={this.handleChange}
               value={this.state.before_deadline_message}
               value_key="before_deadline_message"
+              maxLength="1000"
               type="text"
               label="Message before deadline"
             />
@@ -62,6 +63,7 @@ const CourseCreationSettingsForm = createReactClass({
               onChange={this.handleChange}
               value={this.state.after_deadline_message}
               value_key="after_deadline_message"
+              maxLength="1000"
               type="text"
               label="Message after deadline"
             />
