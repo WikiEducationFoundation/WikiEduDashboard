@@ -455,4 +455,23 @@ describe SettingsController, type: :request do
       expect(SalesforceCredentials.get[:security_token]).to eq('new_token')
     end
   end
+
+  describe '#update_course_creation' do
+    before do
+      @action = '/settings/update_course_creation'
+      @format_type = :json
+      admin = create(:admin)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(admin)
+    end
+
+    it 'sets the deadline and course creation messages' do
+      expect(Deadlines.course_creation_notice).to be_nil
+      post @action, params: {
+        deadline: '2021-05-07',
+        after_deadline_message: 'The deadline has passed.'
+      }
+      expect(Deadlines.course_creation_notice).to eq('The deadline has passed.')
+    end
+  end
 end
