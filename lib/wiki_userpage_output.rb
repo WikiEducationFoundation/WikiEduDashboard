@@ -12,10 +12,10 @@ class WikiUserpageOutput
 
   def enrollment_template
     "{{#{template_name(@templates, 'editor')}"\
-    "#{course_page_param}"\
-    "#{course_slug_param}"\
-    "#{course_type_param}"\
-    ' }}'
+      "#{course_page_param}"\
+      "#{course_slug_param}"\
+      "#{course_type_param}"\
+      ' }}'
   end
 
   def enrollment_summary
@@ -29,10 +29,10 @@ class WikiUserpageOutput
 
   def enrollment_talk_template
     "{{#{template_name(@templates, 'user_talk')}"\
-    "#{course_page_param}"\
-    "#{course_slug_param}"\
-    "#{course_type_param}"\
-    ' }}'
+      "#{course_page_param}"\
+      "#{course_slug_param}"\
+      "#{course_type_param}"\
+      ' }}'
   end
 
   def sandbox_template(dashboard_url)

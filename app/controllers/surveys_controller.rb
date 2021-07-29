@@ -163,7 +163,7 @@ class SurveysController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet.
   def survey_params
     params.require(:survey).permit(:name,
                                    :intro,

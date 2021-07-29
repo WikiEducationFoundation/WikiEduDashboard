@@ -191,3 +191,5 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 Style/SoleNestedConditional:
   Enabled: false
+Rails/I18nLocaleAssignment:
+  Enabled: false

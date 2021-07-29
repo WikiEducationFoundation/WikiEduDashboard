@@ -100,7 +100,7 @@ class SurveyAssignmentsController < ApplicationController
     @survey_assignment.update!(custom_email: @custom_email)
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet
   def survey_assignment_params
     params.require(:survey_assignment)
           .permit(:survey_id, :send_before, :send_date_relative_to,

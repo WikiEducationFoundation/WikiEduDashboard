@@ -6,8 +6,8 @@ require "#{Rails.root}/lib/wiki_course_output"
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
     markdown_with_image = 'The course description with ![image]'\
-    '(https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower'\
-    '_Moscow_04-2014_img12.jpg)'
+                          '(https://upload.wikimedia.org/wikipedia/commons/6/6b/View_from_Imperia_Tower'\
+                          '_Moscow_04-2014_img12.jpg)'
 
     let(:student) { create(:user, username: 'StudentUser') }
     let(:instructor) { create(:user, username: 'InstructorUser') }
@@ -32,10 +32,10 @@ describe WikiCourseOutput do
              content: 'block 1 content',
              week: week1)
       html_with_link = '<ul>\n  <li>Overview of the course</li>\n  <li>Introduction'\
-        ' to how Wikipedia will be used in the course</li>\n  <li>Understanding'\
-        ' Wikipedia as a community, we\'ll discuss its expectations and etiquette.'\
-        '</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">'\
-        'Editing Wikipedia</a></p>\n'
+                       ' to how Wikipedia will be used in the course</li>\n  <li>Understanding'\
+                       ' Wikipedia as a community, we\'ll discuss its expectations and etiquette.'\
+                       '</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">'\
+                       'Editing Wikipedia</a></p>\n'
       create(:block,
              id: 5,
              title: nil,

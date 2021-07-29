@@ -46,7 +46,7 @@ class RevisionScoreImporter
   def update_revision_scores
     batches = unscored_revisions.count / OresApi::REVS_PER_REQUEST + 1
     unscored_revisions.in_batches(of: OresApi::REVS_PER_REQUEST).each.with_index do |rev_batch, i|
-      Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
+      Rails.logger.debug { "Pulling revisions: batch #{i + 1} of #{batches}" }
       get_and_save_scores rev_batch
     end
   end
@@ -56,7 +56,7 @@ class RevisionScoreImporter
     unscored_previous_revisions
       .in_batches(of: OresApi::REVS_PER_REQUEST)
       .each.with_index do |rev_batch, i|
-      Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
+      Rails.logger.debug { "Getting wp10_previous: batch #{i + 1} of #{batches}" }
       get_and_save_previous_scores rev_batch
     end
   end

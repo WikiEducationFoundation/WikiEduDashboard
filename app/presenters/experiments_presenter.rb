@@ -17,7 +17,7 @@ class ExperimentsPresenter
   def notification
     {
       message: 'Would you like to add our latest peer discussion service to help your students '\
-      'with their assignment?',
+               'with their assignment?',
       read_more: 'Read more here.',
       read_more_link: 'https://wikiedu.org/intertwine-research-collaboration/',
       opt_in_link: opt_in_link,

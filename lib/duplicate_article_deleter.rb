@@ -40,7 +40,7 @@ class DuplicateArticleDeleter
     return unless article_group[1] > 1
     title = article_group[0][0]
     namespace = article_group[0][1]
-    Rails.logger.debug "Resolving duplicates for '#{title}, ns #{namespace}'"
+    Rails.logger.debug { "Resolving duplicates for '#{title}, ns #{namespace}'" }
     @deleted_ids += delete_duplicates(title, namespace)
   end
 

@@ -10,7 +10,7 @@ describe ApplicationController do
 
   controller do
     def index
-      head 200
+      head :ok
     end
   end
 
@@ -44,7 +44,7 @@ describe ApplicationController do
     controller do
       def index
         require_permissions
-        head 200
+        head :ok
       end
     end
 
@@ -68,7 +68,7 @@ describe ApplicationController do
     controller do
       def index
         require_participating_user
-        head 200
+        head :ok
       end
     end
 
@@ -92,7 +92,7 @@ describe ApplicationController do
     controller do
       def index
         require_admin_permissions
-        head 200
+        head :ok
       end
     end
 
@@ -132,7 +132,7 @@ describe ApplicationController do
     controller do
       def index
         require_super_admin_permissions
-        head 200
+        head :ok
       end
     end
 
@@ -187,7 +187,7 @@ describe ApplicationController do
     controller do
       def index
         require_signed_in
-        head 200
+        head :ok
       end
     end
 

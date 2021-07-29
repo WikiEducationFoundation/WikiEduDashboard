@@ -36,11 +36,11 @@ module BatchUpdateLogging
   # running. If not, delete the file and return false.
   def pid_file_process_running?(pid_file)
     return false unless File.exist? pid_file
-    Rails.logger.debug "#{pid_file} appears to be running."
+    Rails.logger.debug { "#{pid_file} appears to be running." }
     pid = File.read(pid_file).to_i
     return true if Process.kill 0, pid
   rescue Errno::ESRCH
-    Rails.logger.debug "Process #{pid} not found. Deleting #{pid_file}."
+    Rails.logger.debug { "Process #{pid} not found. Deleting #{pid_file}." }
     File.delete pid_file
     return false
   end
@@ -77,7 +77,7 @@ module BatchUpdateLogging
     @end_time = Time.zone.now
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
-    Rails.logger.debug "#{message} Time: #{total_time}."
+    Rails.logger.debug { "#{message} Time: #{total_time}." }
     if self.class.to_s == 'ConstantUpdate'
       UpdateLogger.update_settings_record('start_time' => @start_time.to_datetime,
                                           'end_time' => @end_time.to_datetime)
