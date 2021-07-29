@@ -32,6 +32,8 @@ scn:
     diff_show: Ammustra
     diff_hide: Ammuccia
     title: Tìtulu
+  timeline:
+    week_number: Simana %{number}
   training:
     page: Pàggina
   uploads:

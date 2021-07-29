@@ -1411,8 +1411,8 @@ tr:
       üzgünüm! Böyle şeyler bazen olur.) Lütfen tekrar giriş yapmayı veya kayıt olmayı
       deneyin.
   survey:
-    login_message: Zaman ayırdığın için teşekkürler. Ankete katılmak için lütfen Wiki
-      Eğitim gösterge paneline giriş yapın.
+    login_message: Zaman ayırdığınız için teşekkürler. Ankete katılmak için lütfen
+      Kontrol Paneli'ne oturum açın.
     notification_explanation: Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
       yanı sıra bildirim zamanlamasına göre de e-posta alırlar. Yapılmazsa yalnızca
       tarayıcı içi bildirimler gösterilecektir.
