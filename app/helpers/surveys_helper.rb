@@ -9,7 +9,7 @@ module SurveysHelper
   include CourseHelper
 
   def survey_course_title
-    if @course.nil?
+    if @course.nil? || !Features.wiki_ed?
       'Survey'
     else
       "Survey for #{@course.title} (#{@course.term})"
