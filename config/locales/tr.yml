@@ -1412,7 +1412,7 @@ tr:
       deneyin.
   survey:
     login_message: Zaman ayırdığınız için teşekkürler. Ankete katılmak için lütfen
-      Kontrol Paneli'ne oturum açın.
+      Kontrol Paneli'nde oturum açın.
     notification_explanation: Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
       yanı sıra bildirim zamanlamasına göre de e-posta alırlar. Yapılmazsa yalnızca
       tarayıcı içi bildirimler gösterilecektir.

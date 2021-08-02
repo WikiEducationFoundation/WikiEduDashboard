@@ -15,6 +15,8 @@ hyw:
     confirm: Լաւ
     opt_in: Այո
     opt_yes: այո
+  articles:
+    edited_mobile: Յօդուածներ
   assignments:
     article_link: Յօդուած
   courses:
