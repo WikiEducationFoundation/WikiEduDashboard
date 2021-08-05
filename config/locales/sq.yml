@@ -4,6 +4,7 @@
 # Author: Arianit
 # Author: Kosovastar
 # Author: Liridon
+# Author: Ritam
 ---
 sq:
   accessibility:
@@ -36,6 +37,7 @@ sq:
     change: Ndrysho
     details: Detaje
     confirm: Në rregull
+    opt_in: Po
   dashboard:
     create_note: Shtyp në Krijo Kurs për të krijuar kursin tuaj të parë.
     create_preparation_note: Sigurohu që të keni kalendarin tuaj afër para se të filloni;
@@ -153,6 +155,7 @@ sq:
     campaign_deleted: Fushata "%{title}" është fshirë
     campaign_not_updated: Fushata nuk mund të përditësohej
     campaign_updated: Fushata u përditësua
+    created_at: Data
     confirm_campaign_deletion: Jeni i sigurt se doni të fshini fushatën e titulluar
       %{title}? Nëse po, shkruani titullin e fushatës për të vazhduar.
     confirm_campaign_deletion_failed: '"%{title}" nuk është titull i kësaj fushate.
@@ -377,6 +380,7 @@ sq:
     revisions_none: Ky projekt nuk ka aktivitet redaktimi së fundi.
     school: Institucioni
     student_editors: Redaktorët
+    student: Redaktor
     students: Redaktorët
     students_none: Ky projekt nuk ka asnjë redaktor të regjistruar.
     students_short: Redaktorët
@@ -396,6 +400,9 @@ sq:
     save: Ruaj
     edit_description: Ndrysho Përshkrimin
     edit_details: Redakto Detajet
+  instructor_view:
+    bad_work:
+      learn_more_button: Mëso më shumë
   metrics:
     activity: Aktiviteti së fundi
     are_trained: kanë përfunduar trajnimin

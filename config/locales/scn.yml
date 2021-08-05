@@ -14,6 +14,7 @@ scn:
   articles:
     title: Tìtulu
   campaign:
+    description: Discrizzioni
     title: Tìtulu
   categories:
     category_name: Nomu dâ catigurìa
@@ -33,6 +34,7 @@ scn:
     diff_hide: Ammuccia
     title: Tìtulu
   timeline:
+    empty_week_3: o
     week_number: Simana %{number}
   training:
     page: Pàggina
