@@ -131,6 +131,7 @@ ar:
     edited_by: تم التعديل بواسطة
     label: النشاط
   articles:
+    article_not_found: لم يتم إنشاء هذه المقالة بعد.
     article_development: (تطوير المقالات)
     articles_shown: عرض %{count} من %{total}
     assigned: المقالات المخصصة
@@ -241,6 +242,11 @@ ar:
     peer_review_count_tooltip: يجب عليك تحديد %{total} لمراجعة النظراء.
     peer_review_link: استعراض النظراء
     peer_review_link_personalized: '%{username}'' مراجعات دقيقة'
+    random_peer_review:
+      heading: قم بتعيين مراجعات عشوائية من الأقران
+      tooltip_message: يخصص مقالات عشوائية (مع عدد مراجعات الزملاء كأقصى عدد) لكل
+        طالب.
+      limit_exceeded: يقوم كل طالب بالفعل بمراجعة %{maximum} من المقالات على الأقل.
     remove: إزالة
     reviewers: المراجع(ون)
     review_other: تعيين مراجعة أقران
@@ -321,24 +327,29 @@ ar:
   categories:
     add_category: أضف تصنيفًا
     add_psid: إضافة PetScan PSID
+    add_pileid: إضافة معرف PagePile
     add_template: أضف القالب
     add_this_category: أضف هذا التصنيف
     add_this_psid: إضافة هذا PSID
+    add_this_pileid: أضف معرف PagePile هذا
     add_this_template: أضف هذا القالب
     import_articles_description: يتم تحديث قائمة المقالات في تصنيف بشكل دوري، وقد
       يستغرق الأمر بعض الوقت بعد إضافتها قبل ملء القائمة.
     confirm_category_addition: هل أنت متأكد من أنك تريد تتبع المساهمات في تصنيف "%{name}"؟
     confirm_psid_addition: هل أنت متأكد من أنك تريد تتبع المساهمات لPetScan PSID "%{name}"؟
+    confirm_pileid_addition: هل أنت متأكد من أنك تريد تتبع المساهمات لمعرّف PagePile
+      "%{name}"?
     confirm_template_addition: هل أنت متأكد من أنك تريد تتبع المساهمات للقالب "%{name}"؟
     depth: عمق التصنيف الفرعي
     articles_count: عدد المقالات
     name: الاسم
     category_name: اسم التصنيف
     psid_name: PSID
+    pileid_name: معرف PagePile
     template_name: اسم القالب
     none: لا توجد تصنيفات يجري تتبعها.
     remove: حذف
-    tracked_categories: التصنيفات والقوالب وPSID المتابعة
+    tracked_categories: تعقب التصنيفات وPSID ومعرف PagePile والقوالب
     timestamp: آخر تحديث في
   courses:
     school_system: النظام الأكاديمي
@@ -500,6 +511,9 @@ ar:
     data_uploads: بيانات مرفوعات كومنز
     data_revisions: مراجعات البيانات
     data_uploads_info: تبين بيانات مرفوعات كومنز اسم كل ملف وسائط رفع وعدد حالات استخدامه.
+    data_wikidata: احصائيات ويكي بيانات
+    data_wikidata_info: تحليل مفصل لنشاط ويكي بيانات، بناءً على ملخصات التحرير
+    dates_too_long: الطول الأقصى هو سنة واحدة.
     delete_course: حذف دورة
     delete_suggestion: حذف
     delete_course_instructions: يمكنك حذف هذه الصفحة لو كانت كافة الحملات قد أُزيلت
@@ -615,6 +629,9 @@ ar:
       one: '%{count} الحساب المطلوب معلق.'
       other: '%{count} الحسابات المطلوبة معلقة.'
     requested_accounts_alert_view: عرض
+    retain_available_articles: الاحتفاظ بالمقالات المتاحة
+    retain_available_articles_info: عند التفعيل، لا يؤدي تحديد مقالة متاحة إلى إزالتها
+      من القائمة، مما يسمح لمجموعة من الطلاب بتحديد نفس المقالة.
     review_timeline: 'الآن، قم بمراجعة الجدول الزمني لمهمتك، وتخصيصه ليناسب احتياجاتك،
       بمجرد رضاك​​، يمكنك إرساله للموافقة عليه من قبل موظفي ويكي التعليم، بمجرد الموافقة،
       ستتلقى مسار تسجيل يمكن للطلاب استخدامه للانضمام إلى الدورة التدريبية والوصول
@@ -626,6 +643,7 @@ ar:
     search_courses: البحث في الدورات
     start: البداية
     start_typing: ابدأ الكتابة
+    stay_in_sandbox: ابق في الملعب
     student: طالب
     students: الطلاب
     students_taught: الطلاب المتعملون
@@ -685,9 +703,9 @@ ar:
       one: متطوع
       other: متطوعون
     weeks_none: ليس لهذه الدورة جدول زمني حتى الآن.
-    warn_mirrored: عند الإرسال، سيتم نشر هذه الدورة تلقائيا إلى ويكيبيديا بحساب المستخدم
-      الخاص بك، بعد ذلك، سوف تنعكس التعديلات الجديدة على الجدول الزمني على ويكيبيديا.
-      هل أنت متأكد أنك تريد أن تفعل هذا؟
+    warn_mirrored: عند الإرسال، سيتم نشر هذه الدورة تلقائيًا على ويكيبيديا باستخدام
+      حساب المستخدم الخاص بك. بعد ذلك، سوف تنعكس التعديلات الجديدة على الجدول الزمني
+      في ويكيبيديا. هل انت متأكد من أنك تريد أن تفعل هذا؟
     wiki_course_page_enabled: تم تمكين صفحة ويكي الدورة
     wiki_course_page_enabled_tooltip: في حالة التمكين، سيتم تحديث مرآة على الويكي
       للصفحة عند تغيير البرنامج أو مستخدميه وواجباتهم.
@@ -848,13 +866,19 @@ ar:
     articles_edited: المقالات التي تم تعديلها
     articles_edited_generic: الصفحات المعدلة
     articles_edited_wikidata: العناصر المعدلة
+    article_scoped_program_info: هذا هو "برنامج نطاق المقالة"، والذي يحسب فقط التعديلات
+      على المقالات والفئات المعينة.
     bytes_added: البايتات المضافة
     characters: الأحرف
     char_added: الحروف المضافة
     char_changed: الحروف التي تم تغييرها
     char: الحروف المضافة
+    close_modal: أغلق
     date_time: تاريخ/وقت
     edit_count_description: إجمالي التعديلات
+    error_count_message: واجهت لوحة التحكم %{error_count} خطأ أثناء التحديث الأخير.
+    future_updates_remaining:
+      1: سيستمر تحديث الإحصائيات حتى %{date}.
     last_reviewed: المراجعات الأخيرة
     per_user: '%{number}/مستخدم'
     revisions: تعديلات حديثة

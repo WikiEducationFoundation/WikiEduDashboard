@@ -12,7 +12,9 @@ sq:
       shfletueseve do e shtojë ose zvogëlojë numrin.
   application:
     cancel: Anulo
+    cookie_consent_see_more: Shiko me shumë.
     dashboard: Paneli Wiki Ed
+    documentation: Dokumentacioni
     error: 'Aty kishte një gabim:'
     explore: Eksploro
     field_required: Kjo fushë është e detyrueshme
@@ -28,6 +30,8 @@ sq:
     log_out: Dil
     my_dashboard: Paneli im
     recent_activity: Aktiviteti i fundit
+    report_problem: Raportoni një problem
+    request_account_create: Krijo një llogari
     search: bëj një pyetje
     sign_up_extended: Regjistrohu me Wikipedian
     sign_up_log_in_extended: me Wikipedian
@@ -38,6 +42,11 @@ sq:
     details: Detaje
     confirm: Në rregull
     opt_in: Po
+    opt_out: Jo
+    opt_yes: po
+    opt_no: jo
+  article_statuses:
+    providing_feedback: Ofroni sugjerime
   dashboard:
     create_note: Shtyp në Krijo Kurs për të krijuar kursin tuaj të parë.
     create_preparation_note: Sigurohu që të keni kalendarin tuaj afër para se të filloni;
@@ -56,7 +65,7 @@ sq:
       për t'ju ndihmuar që ju të mund të filloni. (Ajo merr rreth 30 minuta.)
     review_orientation: Shqyrto Orientimin
     start_orientation: Fillo Orientimin
-    blog_headline: Lajmet e fundit nga Wiki Ed
+    blog_headline: Lajmet e fundit nga Wiki Education
   home:
     explore: Eksploro
     log_in: Hyni me Wikipedian
@@ -71,13 +80,19 @@ sq:
   articles:
     assigned: Artikujt e caktuar
     available: Artikujt në dispozicion
+    previous: Paraprake
+    article_title: Titulli i artikullit
     assigned_to: Caktuar për
     character_doc: Shuma e shkronjave të shtuara në artikuj nga redaktorët e regjistruar
       mes fillimit dhe mbarimit të datave
     edited: Artikuj të redaktuar
     edited_by: 'Redaktuar nga:'
     edited_mobile: Artikuj
+    filter:
+      wiki_all: Të gjitha
+      new: E re
     hide: Fshih
+    history: (historiku)
     label: Artikuj
     loading: Duke u ngarkuar artikujt...
     new: (i ri)
@@ -103,6 +118,7 @@ sq:
       '?': I pavlerësuar — një artikull që ende nuk është vlerësuar në shkallët e
         cilësisë së Wikipedia-s
       does_not_exist: Ky artikull nuk ekziston në Wikipedia
+    see_more: Shiko me shumë
     show_cumulative_changes: Trego Ndryshimet Kumulative
     show_current_version: Trego Versionin Aktual
     title: Titulli
@@ -121,16 +137,24 @@ sq:
       zakonisht tregon se një artikull ndjekë konventat e Wikipedia-s për strukturën
       e një artikulli të mirë, por nuk merrë parasysh vetë përmbajtjen. (Këto rezultate
       janë në dispozicion vetëm për artikujt në anglisht të Wikipedia-s.)
+    articles_short: Artikuj
+  articles_wikidata:
+    articles_short: Objektet
+  articles_generic:
+    articles_short: Faqet
   assignments:
     article: Artikulli %{title} është caktuar
+    article_link: Artikull
     already_exists: Kjo detyrë tashmë ekziston!
     assignees: I/të caktuari(t)
     assign_other: Cakto një artikull
     add_available: Shto një artikull në dispozicion
+    add_available_submit: Shto artikuj
     assign_self: Caktoja vetes një artikull
     confirm_add_available: A jeni të sigurt që doni të shtoni %{title}?
     confirm_addition: A jeni të sigurt që doni të caktoni %{title} për %{username}?
     confirm_deletion: Jeni i sigurt se doni të fshini këtë artikull detyrë?
+    editors: Caktuar për
     label: Cakto
     loading: Po ngarkohen detyrat...
     none_short: Nuk ka artikuj të caktuar
@@ -147,6 +171,9 @@ sq:
   campaign:
     active_campaigns: Fushatat Aktive
     add_organizer: Shto organizator
+    alert_article: Titulli i artikullit
+    alert_type: Lloji
+    alert_user_id: Përdorues
     all_campaigns: Të Gjitha Fushatat
     already_exists: Ajo fushatë tashmë ekziston! Ju lutemi provoni përsëri me një
       tjetër titull ose përshkrim.
@@ -160,10 +187,14 @@ sq:
       %{title}? Nëse po, shkruani titullin e fushatës për të vazhduar.
     confirm_campaign_deletion_failed: '"%{title}" nuk është titull i kësaj fushate.
       Fushata nuk është fshirë.'
+    course: Lënda
     create_campaign: Krijo një Fushatë të Re
     create_my_campaign: Krijo Fushatën time!
+    data_articles: Faqet e redaktuara
+    data_instructors: Instruktorët
     description: Përshkrimi
     delete_campaign: Fshini këtë fushatë
+    no_passcode: nuk ka kodkalim
     none: Asnjë
     organizers: Organizatorët
     organizer_added: '%{user} tani është një organizator i fushatës "%{title}"'
@@ -173,6 +204,14 @@ sq:
       teksti në këtë fushë do të kopjohet si përshkrim në faqen e programit
     title: Titulli
     use_start_end_dates: Përdor datat e fillimit dhe mbarimit
+  categories:
+    add_category: Shtoni kategori
+    add_template: Shtoni gjedhe
+    add_this_category: Shtoni këtë kategori
+    add_this_template: Shtoni këtë gjedhe
+    name: Emri
+    category_name: Emri i kategorisë
+    remove: Largo
   courses:
     activity: Aktiviteti
     active_courses: '%{course_type} aktive'
@@ -183,6 +222,9 @@ sq:
     actions: Veprimet
     articles: Artikujt
     articles_none: Kjo lëndë nuk ka redaktuar ndonjë artikull.
+    assignment_headings:
+      assigned_articles: Artikujt e caktuar
+      available_articles: Artikujt në dispozicion
     assignment_end: Fundi i detyrës
     assignments_none: Kjo lëndë nuk ka artikuj të caktuar.
     assignment_start: Fillimi i Detyrës
@@ -200,6 +242,7 @@ sq:
       Nëse po, shkruani titullin e lëndës për të vazhduar.
     confirm_course_deletion_failed: '"%{title}" nuk është titulli i kësaj lënde. Lënda
       nuk është fshirë.'
+    course: Lënda
     course_dates_calendar_instructions: Zgjidhni datat për të shtuar ose hequr ato
       nga lista (p.sh., festat, pushimet shkollore). Kliko tani për të ndryshuar në
       mes të pazgjedhur, zgjedhur, dhe festa shtetërore. Datat e aktiviteteve të lëndës

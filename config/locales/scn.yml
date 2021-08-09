@@ -4,28 +4,72 @@
 # Author: Ajeje Brazorf
 ---
 scn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   application:
     cancel: Annulla
+    greeting2: Bimminutu!
     greeting: Ciau!
     help: Aiutu
+    home: Pàggina principali
     log_in_extended: Trasi supra Wikipedia
     log_in: Trasi
     log_out: Nesci
+    confirm: OK
+    opt_in: Sì
+    opt_out: "No"
+    opt_yes: sì
+    opt_no: "no"
   articles:
+    edited_mobile: Vuci
+    history: (crunuluggìa)
+    label: Vuci
     title: Tìtulu
+    title_example: Tìtulu dâ vuci
+    wiki: Wiki
+    articles_short: Vuci
+  articles_generic:
+    articles_short: Pàggini
+  assignments:
+    article_link: Vuci
+    bibliography: Bibliugrafìa
   campaign:
+    alert_type: Tipu
+    alert_user_id: Utenti
+    created_at: Data
     description: Discrizzioni
+    none: Nuddu
     title: Tìtulu
   categories:
+    name: Nomu
     category_name: Nomu dâ catigurìa
   courses:
     actions: Azzioni
+    articles: Vuci
+    cancel: Annulla
     delete_suggestion: Cancella
+    new_account_email: Nnirizzu email
+    none: Nuddu
+    requested_accounts_alert_view: Talìa
+    school: Scola
     title: Tìtulu
   courses_generic:
+    cancel: Annulla
     creator:
+      assignment_end_placeholder: AAAA-MM-JJ
+      assignment_start_placeholder: AAAA-MM-JJ
+      course_term: Quannu
+      course_term_placeholder: Quannu
       save_cloned_course: Sarva
   editable:
+    cancel: Annulla
     save: Sarva
   recent_activity:
     image: Mmàggini
@@ -42,6 +86,7 @@ scn:
     image: Mmàggini
   users:
     contributions: Cuntribbuti di l'utenti
+    name: Nomu
     training_module_status: Statu
     username: Nomu utenti
     username_placeholder: Nomu utenti
