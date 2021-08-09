@@ -21,11 +21,14 @@
 - configure mariaDB to use /srv as the location of database files:
   - `sudo systemctl stop mysql`
   - `sudo mv /var/lib/msyql /srv/mysql`
+  - `sudo mkdir /srv/tmp`
+  - `sudo chown mysql:mysql /srv/tmp`
 
   - edit `/etc/mysql/my.conf` and add the following directives:
     ```
     [mysqld]
     datadir=/srv/mysql
+    tmpdir/srv/tmp
     socket=/srv/mysql/mysql.sock
     bind-address=0.0.0.0
     max_allowed_packet=1073741824
