@@ -252,7 +252,10 @@ Devise.setup do |config|
                   strategy_class: OmniAuth::Strategies::Mediawiki,
                   client_options: {
                     site: "https://#{ENV['wiki_language']}.wikipedia.org",
-                    signup: true
+                    signup: true,
+                    # disable Growth features for new accounts using the geEnabled=0 parameter.
+                    # See https://phabricator.wikimedia.org/T284119
+                    signup_params: { geEnabled: 0 }
                   }
 
 

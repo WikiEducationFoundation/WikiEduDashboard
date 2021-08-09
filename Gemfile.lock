@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
-  revision: e4e5779ed2394cffab0fe23b281b707ee9f90f0b
+  revision: d785f4d8778fa14136a7ea963daf6829ff4f3222
   specs:
     omniauth-mediawiki (0.0.2)
       jwt (~> 2.0)
