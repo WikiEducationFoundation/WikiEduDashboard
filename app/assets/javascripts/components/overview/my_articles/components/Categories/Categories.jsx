@@ -26,12 +26,12 @@ export const Categories = ({ assignments, course, current_user, wikidataLabels }
     <>
       {
         articles.new.length
-          ? <List {...listProps} assignments={articles.new} title="Articles I will create" />
+          ? <List {...listProps} assignments={articles.new} title={CourseUtils.i18n('articles_i_will_create', course.string_prefix)} />
           : null
       }
       {
         articles.improving.length
-          ? <List {...listProps} assignments={articles.improving} title="Articles I'm updating" />
+          ? <List {...listProps} assignments={articles.improving} title={CourseUtils.i18n('articles_i_am_updating', course.string_prefix)} />
           : null
       }
       {

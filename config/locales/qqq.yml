@@ -311,6 +311,9 @@ qqq:
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
     articles_none: Message indicating that no articles have been edited (Wiki Ed only)
+    articles_i_am_reviewing: Heading for list of articles that the user is signed up to review
+    articles_i_will_create: Heading for list of a user's assigned article titles that do not exist on-wiki
+    articles_i_am_updating: Heading for list of a user's assigned articles
     assignment_end: The date on which the planned Wikipedia activities for a course
       end. (Wiki Ed only)
     assignments_none: Message indicating that no articles are assigned (Wiki Ed only)

@@ -390,6 +390,8 @@ en:
     articles_none: This course has not edited any articles.
     article_viewer: Article Viewer
     articles_i_am_reviewing: Articles I'm peer reviewing
+    articles_i_will_create: Articles I will create
+    articles_i_am_updating: Articles I'm updating
     assignment_headings:
         assigned_articles: Assigned Articles
         assigned_reviews: Assigned Reviews
