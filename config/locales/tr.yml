@@ -408,6 +408,8 @@ tr:
     articles_none: Bu kursta herhangi bir makale düzenlenmedi.
     article_viewer: Makale Görüntüleyici
     articles_i_am_reviewing: Akran incelemesinden aldığım makale
+    articles_i_will_create: Oluşturacağım maddeler
+    articles_i_am_updating: Güncellediğim maddeler
     assignment_headings:
       assigned_articles: Atanmış Makale
       assigned_reviews: Atanmış İncelemeler

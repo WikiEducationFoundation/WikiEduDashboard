@@ -331,6 +331,8 @@ zh-TW:
     articles_none: 此課程沒有編輯任何條目
     article_viewer: 條目檢視者
     articles_i_am_reviewing: 我正在同行評審的條目
+    articles_i_will_create: 我即將創建的條目
+    articles_i_am_updating: 我在更新的條目
     assignment_headings:
       assigned_articles: 已分配條目
       assigned_reviews: 已分配審核
@@ -1141,7 +1143,7 @@ zh-TW:
     header: 登入錯誤
     explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或登記。"
   survey:
-    login_message: 感謝您挪出時間。請登入您的維基教育控制面板來填寫問卷。
+    login_message: 感謝您挪出時間。請登入教育控制面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。
     notification_schedule_explanation: 通知包含顯示在瀏覽器畫面上與發送電子郵件，若在上方有開啟功能的情況下。
     follow_up_explanation: 如果不需要後續的電子郵件通知請留空。

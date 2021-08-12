@@ -413,6 +413,8 @@ fr:
     articles_none: Ce cours n’a modifié aucun article.
     article_viewer: Lecteur d’article
     articles_i_am_reviewing: Articles dont je suis relecteur pair
+    articles_i_will_create: Articles que je créerai
+    articles_i_am_updating: Articles que je mets à jour
     assignment_headings:
       assigned_articles: Articles affectés
       assigned_reviews: Relectures affectées
