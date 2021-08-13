@@ -40,7 +40,7 @@ class SlideConverter
   | image =  #{filename}
   | source = #{image_source}
   | layout = #{figure_class}
-  | caption =#{caption}
+  | caption =#{Wikitext.markdown_to_mediawiki(caption)}
 }}
 </translate>
 <translate>
@@ -86,7 +86,7 @@ end
 
 
 
-[modules.second].each do |tm|
+modules[0..2].each do |tm|
   slides_array = tm.slide_slugs.map { |slug| { "slug" => slug } }
   module_id = 10000 + module_id_suffix
   # this goes into the module .json page on Meta
