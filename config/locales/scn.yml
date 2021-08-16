@@ -73,6 +73,7 @@ scn:
     save: Sarva
   recent_activity:
     image: Mmàggini
+    file_name: Nomu dû file
   revisions:
     diff_show: Ammustra
     diff_hide: Ammuccia
