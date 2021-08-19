@@ -179,6 +179,8 @@ fa:
     actions: اقدامات
     articles: مقاله‌ها
     articles_none: این دوره هیچ مقاله‌ای را ویرایش نکرده‌است.
+    articles_i_will_create: مقاله‌هایی که ایجاد خواهم کرد
+    articles_i_am_updating: مقاله‌هایی که به‌روزرسانی می‌کنم
     assignment_headings:
       available_articles: مقالات موجود
     assignment_end: پایانِ تکلیف

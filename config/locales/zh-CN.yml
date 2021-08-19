@@ -309,6 +309,8 @@ zh-CN:
     actions: 操作
     articles: 条目
     articles_none: 此课程没有编辑任何条目。
+    articles_i_will_create: 我要创建的文章
+    articles_i_am_updating: 我在更新的文章
     assignment_end: 任务结束
     assignments_none: 此课程没有分配的条目。
     assignment_start: 任务开始
