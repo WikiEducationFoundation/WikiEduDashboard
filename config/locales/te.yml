@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chaduvari
 # Author: Naidugari Jayanna
+# Author: Pranayraj1985
 # Author: Ravichandra
 # Author: Veeven
 ---
@@ -24,19 +25,37 @@ te:
     training: శిక్షణ
     details: వివరాలు
     confirm: సరే
+    opt_in: అవును
+    opt_out: కాదు
+    opt_yes: అవును
+    opt_no: కాదు
+  article_statuses:
+    not_yet_started: మొదలుపెట్టడం
+    providing_feedback: ఫీడ్‌బ్యాకు ఇవ్వండి
   dashboard:
     explore_examples: ఉదాహరణల కోసం అన్వేషించండి
   home:
     explore: అన్వేషించండి
     log_in: వికీపీడియాతో ప్రవేశించండి
     sign_up: వికీపీడియాతో నమోదవండి
+  alerts:
+    alert_label: హెచ్చరికలు
   activity:
     all: కలాపం
     edited_by: సవరించినవారు
+    label: కార్యకలాపం
   articles:
+    next: తదుపరి
+    previous: మునుపటి
+    article_title: వ్యాస శీర్షిక
     edited_mobile: వ్యాసాలు
+    filter:
+      wiki_all: అన్నీ
+      new: కొత్తది
     hide: దాచు
+    history: చరిత్ర
     label: వ్యాసాలు
+    loading: వ్యాసాలను తెస్తోంది...
     new: (కొత్తది)
     rating: తరగతి
   assignments:
