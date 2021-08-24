@@ -33,6 +33,11 @@
   +above(tablet)
     float left
 
+.results__bar-graph
+  padding-bottom 20px
+  margin-bottom 15px
+  border-bottom 1px solid $text
+
 .results__bar-graph__row
   // overflow hidden
   position relative
@@ -43,24 +48,14 @@
   +above(tablet)
     width 200px
     font-size 14px
+    line-height 18px
 
 .results__bar-graph__bar-row
   position relative
   background $bg_light_gray
-  padding 5px 0
+  padding 6px 0
   // float left
   width 500px
-
-  &:after
-    content ''
-    display block
-    position absolute
-    left 50%
-    top 0
-    bottom 0
-    width 1px
-    height 100%
-    border-right 1px dashed darken($bg_light_gray, 10%)
 
 .results__bar-graph__bar.active
   position relative
