@@ -19,7 +19,7 @@ module QuestionResultsHelper
       answers_data: answers,
       grouped_question: question.validation_rules[:question_question],
       follow_up_question_text: question.follow_up_question_text,
-      follow_up_answers: question.answers.pluck(:follow_up_answer_text).compact
+      follow_up_answers: follow_up_answers(answers)
     }.to_json
   end
 
@@ -73,6 +73,16 @@ module QuestionResultsHelper
   def question_type_to_string(question)
     question.type.to_s.split('::').last.downcase
   end
-end
 
+  def follow_up_answers(answers)
+    follow_ups = {}
+    answers.each do |answer|
+      answer_record = answer[:data]
+      next unless answer_record.follow_up_answer_text.present?
+      follow_ups[answer_record.id] = answer_record.follow_up_answer_text
+    end
+
+    return follow_ups
+  end
+end
 # rubocop:enable Rails/HelperInstanceVariable

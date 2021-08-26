@@ -1,18 +1,11 @@
-import { filter, isEmpty } from 'lodash-es';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextResults from './TextResults.jsx';
 
 export default class FollowUpQuestionResults extends Component {
   render() {
-    const { type } = this.props;
-    const answers = filter(this.props.follow_up_answers, (a) => {
-      return !isEmpty(a);
-    });
-    if (answers === undefined || answers.length === 0) {
-      return null;
-    }
-    if (type === 'text' || type === 'long') {
+    const answerCount = Object.keys(this.props.follow_up_answers).length;
+    if (answerCount === 0) {
       return null;
     }
     return (
@@ -25,6 +18,6 @@ export default class FollowUpQuestionResults extends Component {
 }
 
 FollowUpQuestionResults.propTypes = {
-  follow_up_answers: PropTypes.array,
+  follow_up_answers: PropTypes.object,
   type: PropTypes.string
 };

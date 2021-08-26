@@ -1,4 +1,3 @@
-import { filter, isEmpty } from 'lodash-es';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -8,14 +7,13 @@ export default class TextResults extends Component {
   constructor(props) {
     super();
     const { followUpOnly, answers_data } = props;
-    this.followUpAnswers = filter(props.follow_up_answers, (a) => {
-      return !isEmpty(a);
-    });
+    this.followUpAnswers = props.follow_up_answers;
+    this.followUpAnswerCount = Object.keys(this.followUpAnswers).length;
     this.showButton = answers_data.length > INITIAL_LIMIT;
     let limit = answers_data.length < INITIAL_LIMIT ? answers_data.length : INITIAL_LIMIT;
     if (followUpOnly) {
-      limit = this.followUpAnswers.length < INITIAL_LIMIT ? this.followUpAnswers.length : INITIAL_LIMIT;
-      this.showButton = this.followUpAnswers.length > INITIAL_LIMIT;
+      limit = this.followUpAnswerCount < INITIAL_LIMIT ? this.followUpAnswerCount : INITIAL_LIMIT;
+      this.showButton = this.followUpAnswerCount > INITIAL_LIMIT;
     }
     this.state = {
       sentiment: null,
@@ -26,10 +24,9 @@ export default class TextResults extends Component {
   }
   answersList() {
     const { followUpOnly } = this.props;
-    const _answers = this.props.answers_data;
-    const answers = _answers.slice(0, this.state.limit);
+    const answers = this.props.answers_data;
     const followUpAnswers = this.followUpAnswers;
-    const list = answers.map((a, i) => {
+    const list = answers.map((a) => {
       const { course } = a;
       const courseTitle = course === null ? null : course.title;
       const answer = a.data;
@@ -39,8 +36,8 @@ export default class TextResults extends Component {
       if (sentiment.label !== undefined) {
         sentimentScore = <div className={`results__text__sentiment results__text__sentiment--${sentiment.label}`}>{sentiment.label} ({sentiment.score})</div>;
       }
-      const noFollowUpAnswer = followUpAnswers[i] === undefined || followUpAnswers[i] === '';
-      const followUpAnswer = noFollowUpAnswer ? null : <em className="results__text__follow-up-answer">{followUpAnswers[i]}</em>;
+      const noFollowUpAnswer = followUpAnswers[answer.id] === undefined || followUpAnswers[answer.id] === '';
+      const followUpAnswer = noFollowUpAnswer ? null : <em className="results__text__follow-up-answer">{followUpAnswers[answer.id]}</em>;
       const answerText = <div className="results__text__answer">{answer.answer_text}</div>;
       if (followUpOnly && noFollowUpAnswer) {
         return null;
@@ -57,7 +54,7 @@ export default class TextResults extends Component {
         </div>
       );
     });
-    return list;
+    return list.filter(e => e).slice(0, this.state.limit);
   }
 
   averageSentiment() {
@@ -77,7 +74,7 @@ export default class TextResults extends Component {
     const { limit } = this.state;
     const totalAnswers = this.props.answers_data.length;
     const followUpAnswers = this.followUpAnswers;
-    const total = followUpOnly ? followUpAnswers.length : totalAnswers;
+    const total = followUpOnly ? this.followUpAnswerCount : totalAnswers;
     const min = followUpAnswers < 3 ? followUpAnswers.length : 3;
     const buttonText = limit < total ? 'Less' : 'More';
     this.setState({ limit: limit < total ? total : min, buttonText });
@@ -97,7 +94,7 @@ export default class TextResults extends Component {
       <div className="results__text-answer__info">
         <span className="contextual">
           Displaying {limit} of
-          &nbsp;{(followUpOnly ? followUpAnswers.length : answers.length)}
+          &nbsp;{(followUpOnly ? this.followUpAnswerCount : answers.length)}
           &nbsp;{(followUpOnly ? 'follow-up answers' : 'answers')}.
         </span>
         {button}
@@ -125,6 +122,6 @@ TextResults.propTypes = {
   answers_data: PropTypes.array.isRequired,
   sentiment: PropTypes.object,
   question: PropTypes.object,
-  follow_up_answers: PropTypes.array,
+  follow_up_answers: PropTypes.object,
   followUpOnly: PropTypes.bool
 };
