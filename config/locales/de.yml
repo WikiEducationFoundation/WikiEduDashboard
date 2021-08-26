@@ -7,6 +7,7 @@
 # Author: Domani
 # Author: FF-11
 # Author: FF11
+# Author: Jikrau
 # Author: Killarnee
 # Author: Metalhead64
 # Author: Sebastian Wallroth
@@ -702,6 +703,7 @@ de:
       ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
     subject: Thema
     submitted: Eingereicht
+    submitted_at: Eingereicht am
     tag_select: Wähle eine Markierung aus oder erstelle eine
     tags: 'Markierungen:'
     term: Dauer
@@ -910,8 +912,10 @@ de:
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
     articles_created_generic: Erstellte Seiten
+    articles_created_wikidata: Erstellte Items
     articles_edited: Bearbeitete Artikel
     articles_edited_generic: Bearbeitete Seiten
+    articles_edited_wikidata: Geänderte Items
     bytes_added: Hinzugefügte Bytes
     characters: Zeichen
     char_added: Zeichen hinzugefügt
@@ -922,10 +926,14 @@ de:
     edit_count_description: Gesamte Bearbeitungen
     error_count_message: Das Dashboard stieß während der letzten Aktualisierung auf
       %{error_count}-Fehler.
+    last_reviewed: Zuletzt überprüft
     missing_data_heading: Fehlende oder unerwartete Ergebnisse?
     missing_data_info: Häufige Themen sind
+    non_updating_course_update: Es wurde ein einmaliges Update geplant, das demnächst
+      stattfindet.
     per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
+    references_count: Referenzen hinzugefügt
     replag_info: Das Dashboard ruft Bearbeitungsdaten aus WMF-Cloud-Replikat-Datenbanken
       ab. Manchmal fehlen in diesen Datenbanken die neuesten Bearbeitungen aufgrund
       von Replikationsverzögerungen (Replace). Wenn dies der Fall ist, werden die
@@ -991,6 +999,7 @@ de:
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
     see_more: Mehr sehen
+    show_all: Alle anzeigen
   resources:
     label: Quellen
     header: Quellen und Ausbildung
@@ -1161,6 +1170,7 @@ de:
     view_module_source: Modulquelle ansehen
     reload_from_source: Von Quelle neu laden
     kind:
+      exercise: Übung
       discussion: Diskussion
   uploads:
     credit: Danksagung
@@ -1214,6 +1224,7 @@ de:
     characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
     characters_added_userspace: Hinzugefügte Zeichen (Benutzer)
     characters_added_draftspace: Hinzugefügte Zeichen (Entwurf)
+    references_count: Referenzen hinzugefügt
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
     name: Name
@@ -1223,6 +1234,7 @@ de:
     number_of_articles:
       one: Ein Artikel
       other: '%{count} Artikel'
+    profile: Profil
     recent_revisions: Letzte Bearbeitungen
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
     request_confirmation: Bist du sicher, dass du dieses Benutzerkonto beantragen
@@ -1434,6 +1446,9 @@ de:
     unassign_article_self: Zuweisung des Artikels entfernen
   training_status:
     completed: Abgeschlossen
+    continue: Weiter
+    completed_at: Abgeschlossen um $1
+    completion_time: Abgeschlossen am
     started: Gestartet
     not_started: Nicht gestartet
     due: fällig %{due_date}
