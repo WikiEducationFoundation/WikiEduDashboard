@@ -68,7 +68,7 @@ uk:
       few: '%{count} результати для: «%{search_terms}»'
       many: '%{count} результатів для: «%{search_terms}»'
       other: '%{count} результатів для: «%{search_terms}»'
-    no_results: Не знайдено результатів, що відповідають '%{query}'
+    no_results: Не знайдено результатів, що відповідають «%{query}»
     sign_up_extended: Зареєструватися через Вікіпедію
     sign_up_wikipedia: або зареєструватися у Вікіпедії
     sign_up_log_in_extended: з Вікіпедії
@@ -284,7 +284,7 @@ uk:
       чи скороченням.
     campaign: Компанія
     campaigns: Компанії
-    campaign_deleted: Компанія "%{title}" вилучена
+    campaign_deleted: Компанія «%{title}» вилучена
     campaign_not_updated: Компанія не може бути змінена
     campaign_updated: Компанію оновлено
     created_at: Дата
@@ -382,7 +382,7 @@ uk:
     activity: Активність
     active_courses: Активні %{course_type}
     add_trainings: Будь ласка, додайте навчання студентів до навчальної програми.
-      Задати студентам пройти тренувальні модулі - важлива частина процесу, як показує
+      Задати студентам пройти тренувальні модулі — важлива частина процесу, як показує
       досвід Wiki Ed.
     alerts: Сповіщення
     all_courses: Усі курси
@@ -546,7 +546,7 @@ uk:
       використань кожного завантаженого файлу.
     data_wikidata: Статистика Вікіданих
     data_wikidata_info: Детальний аналіз активності Вікіданих, на основі описів редагувань
-    dates_too_long: Максимальна тривалість - один рік.
+    dates_too_long: Максимальна тривалість — один рік.
     delete_course: Вилучити курс
     delete_suggestion: Вилучити
     delete_course_instructions: Ви можете вилучити цю сторінку, якщо спочатку вилучите
