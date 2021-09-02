@@ -7,6 +7,7 @@ io:
   application:
     cancel: Nuligar
     cookie_consent_see_more: Videz pluse.
+    error: 'Eventis ula eroro:'
     home: Chefpagino
     change: Modifiko
     confirm: O.K.
