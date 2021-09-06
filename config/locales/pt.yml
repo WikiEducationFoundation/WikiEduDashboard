@@ -396,6 +396,8 @@ pt:
     articles_none: Este curso não editou nenhum artigo.
     article_viewer: Leitor de artigos
     articles_i_am_reviewing: Artigos que estou a rever entre pares
+    articles_i_will_create: Artigos que vou criar
+    articles_i_am_updating: Artigos que estou a atualizar
     assignment_headings:
       assigned_articles: Artigos atribuídos
       assigned_reviews: Revisões atribuídas
@@ -553,6 +555,7 @@ pt:
     data_wikidata: Estatísticas Wikidata
     data_wikidata_info: Decomposição detalhada da atividade na wiki Wikidata, com
       base nos resumos de edição
+    dates_too_long: A duração máxima é de um ano.
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, deve primeiramente
@@ -1434,8 +1437,8 @@ pt:
       por isto! Pode ocorrer por vezes.) Por favor, tente novamente iniciar a sessão
       ou matricular-se.
   survey:
-    login_message: Obrigado pelo seu tempo. Entre no seu painel da Wiki Educação para
-      participar no inquérito, por favor.
+    login_message: Obrigado pelo tempo que dedicou. Entre no painel para participar
+      no inquérito, por favor.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de
       poder ver as notificações no navegador. Se não a ativar, apenas serão mostradas

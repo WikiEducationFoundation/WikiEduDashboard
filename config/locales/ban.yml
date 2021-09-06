@@ -54,6 +54,8 @@ ban:
     delete_campaign: Usap proyék puniki
   courses:
     cancel: Wangdé
+  recent_activity:
+    image: Gambar
   users:
     edits: Becikang
 ...
