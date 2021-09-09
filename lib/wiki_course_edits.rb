@@ -36,10 +36,10 @@ class WikiCourseEdits
 
     # Post the update
     response = @wiki_editor.post_whole_page(@current_user, @course.wiki_title, wiki_text, summary)
-    return response unless response['edit']
+    return response unless response['error']
 
     # If it hit the spam blocklist, replace the offending links and try again.
-    spamlist = response['edit']['spamblacklist']
+    spamlist = response['error']['spamblacklist']
     return response if spamlist.nil?
     repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, spamlist)
   end

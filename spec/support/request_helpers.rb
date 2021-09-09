@@ -169,7 +169,7 @@ module RequestHelpers
 
   def stub_oauth_edit_spamblock
     stub_token_request
-    failure = '{"edit":{"result":"Failure",
+    failure = '{"error":{"code":"spamblacklist",
               "spamblacklist":{"matches":{"0":"ur1.ca","4":"bit.ly/foo"}}}}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
