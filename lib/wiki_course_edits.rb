@@ -164,7 +164,7 @@ class WikiCourseEdits
   end
 
   def repost_with_sanitized_links(wiki_title, wiki_text, summary, spamlist)
-    bad_links = spamlist.split('|')
+    bad_links = spamlist['matches'].values
     safe_wiki_text = Wikitext.substitute_bad_links(wiki_text, bad_links)
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
