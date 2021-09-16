@@ -140,7 +140,10 @@ class UsersController < ApplicationController
     @course_user = CoursesUsers.find_by(user_id: @user.id,
                                         course_id: @course.id,
                                         role: enroll_params[:role])
-    return if @course_user.nil? # This will happen if the user was already removed.
+    if @course_user.nil? # This will happen if the user was already removed.
+      render 'users', formats: :json
+      return
+    end
 
     remove_assignment_templates
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
