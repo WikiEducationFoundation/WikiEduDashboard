@@ -98,7 +98,6 @@ class WikiResponse
   def parse_failed_edit
     @title = "Failed #{@type}"
     @title += ': CAPTCHA' if @edit_data['captcha']
-    @title += ': spamblacklist' if @edit_data['spamblacklist']
     code = @response_data['edit']['code']
     @title += ": #{code}" if @edit_data['code']
     @level = 'warning'

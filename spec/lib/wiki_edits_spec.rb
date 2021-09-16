@@ -28,6 +28,8 @@ describe WikiEdits do
     create(:courses_user,
            course_id: 1,
            user_id: 2)
+    create(:week, id: 1, course_id: 1)
+    create(:block, week_id: 1, training_module_ids: [1])
   end
 
   let(:course) { Course.find(1) }
