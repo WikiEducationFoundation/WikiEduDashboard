@@ -97,7 +97,7 @@ const Nav = createReactClass({
       loginLinks = (
         <span>
           <li>
-            <b><a href={`/users/${this.state.currentUser}`} className="current-user">{this.state.currentUser}</a></b>
+            <b><a href={`/users/${encodeURIComponent(this.state.currentUser)}`} className="current-user">{this.state.currentUser}</a></b>
           </li>
           { notifications }
           <li>

@@ -29,7 +29,7 @@ export const Header = ({
             &nbsp;
           <a href={selected.contribution_url} target="_blank">{I18n.t('users.edits')}</a>
             &nbsp;
-          <a href={`/users/${selected.username}`}>{I18n.t('users.profile')}</a>
+          <a href={`/users/${encodeURIComponent(selected.username)}`}>{I18n.t('users.profile')}</a>
         </div>
       </section>
       <div className="button-actions">

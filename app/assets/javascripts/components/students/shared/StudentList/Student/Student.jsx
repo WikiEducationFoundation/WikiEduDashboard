@@ -47,7 +47,7 @@ const Student = createReactClass({
 
   openStudentDetails() {
     const { course, history, student } = this.props;
-    const url = `/courses/${course.slug}/students/articles/${student.username}`;
+    const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
     return history.push(url);
   },
 

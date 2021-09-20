@@ -8,7 +8,7 @@ export const StudentSelection = ({ articlesUrl, history, match, students }) => {
     <li
       key={student.id}
       className={`student ${selected && selected.id === student.id ? 'selected' : ''}`}
-      onClick={() => history.push(`${articlesUrl}/${student.username}`)}
+      onClick={() => history.push(`${articlesUrl}/${encodeURIComponent(student.username)}`)}
     >
       {
         student.real_name
