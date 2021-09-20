@@ -15,8 +15,11 @@ io:
     article_title: Titulo dil artiklo
     hide: Celez
   campaign:
+    campaign: Kampanio
+    campaigns: Kampanii
     none: Nula
   courses:
+    campaigns: 'Kampanii:'
     loading: Karganta...
     none: Nula
     overview: Komenco
@@ -26,6 +29,8 @@ io:
     volunteer:
       one: Volontario
       other: Volontarii
+  courses_generic:
+    campaigns: 'Kampanii:'
   editable:
     edit: Redakto
     cancel: Nuligar
