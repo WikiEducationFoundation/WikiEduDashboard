@@ -199,6 +199,8 @@ mnw:
     datetime: စၟတ်တ္ၚဲ/အခိင်
     image: ဗီုရုပ်
     file_name: ယၟု ဝှာၚ်
+  revisions:
+    title: က္ဍိုလိက်
   settings:
     admin_users:
       new:

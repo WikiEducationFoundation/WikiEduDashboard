@@ -41,6 +41,7 @@ scn:
   assignments:
     article_link: Vuci
     bibliography: Bibliugrafìa
+    remove: Leva
   campaign:
     alert_type: Tipu
     alert_user_id: Utenti
@@ -51,6 +52,7 @@ scn:
   categories:
     name: Nomu
     category_name: Nomu dâ catigurìa
+    remove: Leva
   courses:
     actions: Azzioni
     articles: Vuci
@@ -72,6 +74,7 @@ scn:
   editable:
     cancel: Annulla
     save: Sarva
+    edit_details: Cancia li dittagghî
   recent_activity:
     image: Mmàggini
     file_name: Nomu dû file
