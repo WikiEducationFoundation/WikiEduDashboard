@@ -79,3 +79,26 @@ export const getModulesAndBlocksFromWeeks = (weeks) => {
   const modules = flattenAndCompact(blocks.map(block => block.training_modules));
   return { blocks, modules };
 };
+
+// Here we're working around the quirks of react-router version 5.
+// When parsing route params, react-router doesn't return the same values as
+// the native JavaScript utils like encodeURIComponent and decodeURIComponent.
+// We need to handle cases where the username param that comes from a router `match`
+// object is not the same as the actual username.
+// Examples include:
+//   CaesSion? — ends in question mark
+//   Wikster808% — includes a percent sign, which react-router doesn't like.
+//   If you ain't runnin' game, Say my name — comma causes problems.
+// Upgrading to react-router 6 and the history 5 might (or might not) fix these issues.
+export const selectUserByUsernameParam = (users, usernameParam) => {
+  if (!usernameParam) return null;
+
+  let selectedUser = users.find(({ username }) => username === usernameParam);
+  if (selectedUser) return selectedUser;
+
+  selectedUser = users.find(({ username }) => username.replace(',', '%2C') === usernameParam);
+  if (selectedUser) return selectedUser;
+
+  selectedUser = users.find(({ username }) => username.replace('?', '%3F') === usernameParam);
+  return selectedUser;
+};

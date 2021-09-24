@@ -20,7 +20,7 @@ import { toggleUI } from '~/app/assets/javascripts/actions';
 
 // Utils
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
-import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
+import { getModulesAndBlocksFromWeeks, selectUserByUsernameParam } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 
 export class Articles extends React.Component {
@@ -93,7 +93,7 @@ export class Articles extends React.Component {
                   exact
                   path="/courses/:course_school/:course_title/students/articles/:username"
                   render={({ match }) => {
-                    const selected = students.find(({ username }) => username === match.params.username);
+                    const selected = selectUserByUsernameParam(students, match.params.username);
                     if (!selected) {
                       return (
                         <Redirect to={this.generateArticlesUrl(course)} />

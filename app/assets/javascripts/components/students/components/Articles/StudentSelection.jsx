@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { selectUserByUsernameParam } from '@components/util/helpers';
 
 export const StudentSelection = ({ articlesUrl, history, match, students }) => {
-  const selected = students.find(({ username }) => username === match.params.username);
+  const selected = selectUserByUsernameParam(students, match.params.username);
   const lis = students.map(student => (
     <li
       key={student.id}
       className={`student ${selected && selected.id === student.id ? 'selected' : ''}`}
-      onClick={() => history.push(`${articlesUrl}/${encodeURIComponent(student.username)}`)}
+      onClick={() => {
+        history.push(`${articlesUrl}/${encodeURIComponent(student.username)}`);
+      }}
     >
       {
         student.real_name
