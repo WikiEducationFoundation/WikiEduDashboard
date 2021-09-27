@@ -76,7 +76,9 @@ class UsersController < ApplicationController
   def ensure_user_exists
     return unless @user.nil?
     username = enroll_params[:user_id] || enroll_params[:username]
-    render json: { message: I18n.t('courses.error.user_exists', username: username) },
+    domain = @course.home_wiki.domain
+    message = I18n.t('courses.error.user_exists_on_wiki', username: username, domain: domain)
+    render json: { message: message },
            status: :not_found
     yield
   end

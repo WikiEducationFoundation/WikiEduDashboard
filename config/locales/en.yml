@@ -556,6 +556,7 @@ en:
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
+      user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
       invalid_language_or_project: Invalid language/project
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'

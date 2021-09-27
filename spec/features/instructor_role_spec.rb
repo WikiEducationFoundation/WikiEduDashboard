@@ -115,7 +115,7 @@ describe 'Instructor users', type: :feature, js: true do
       within('#users') { all('input')[1].set('NotARealUser') }
       click_button 'Enroll'
       click_button 'OK'
-      expect(page).to have_content 'NotARealUser is not an existing user.'
+      expect(page).to have_content 'NotARealUser is not an existing user on en.wikipedia.org.'
     end
 
     it 'is able to remove students' do
