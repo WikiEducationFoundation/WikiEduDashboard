@@ -38,7 +38,15 @@ describe WikiCourseEdits do
     end
 
     it 'reposts a clean version after hitting the spam filter' do
-      stub_oauth_edit_spamblock
+      stub_oauth_edit_spamblock # MediaWiki API returns an array of URL matches
+      expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
+      described_class.new(action: :update_course,
+                          course: course,
+                          current_user: user)
+    end
+
+    it 'reposts a clean version after hitting the spam filter with multiple matches' do
+      stub_oauth_edit_spamblock_multiple # MediaWiki API returns a JSON object of URL matches
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
       described_class.new(action: :update_course,
                           course: course,
