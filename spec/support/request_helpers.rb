@@ -167,7 +167,7 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
-  # If there's only one instance of a blocked link, MediaWiki returns an array for `matches`
+  # If there's only one instance of a blocked link, MediaWiki returns an array for matches.
   def stub_oauth_edit_spamblock
     stub_token_request
     failure = '{"error":{"code":"spamblacklist",
@@ -176,7 +176,7 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
-  # If there are multiple links hitting the filter, MediaWiki may return an object of matches like this.
+  # If there are multiple links hitting the filter, MediaWiki may return an object of matches.
   def stub_oauth_edit_spamblock_multiple
     stub_token_request
     failure = '{"error":{"code":"spamblacklist",
