@@ -27,7 +27,7 @@ class CoursesPresenter
 
   def campaign
     @campaign ||= Campaign.find_by(slug: campaign_param)
-    raise NoCampaignError if @campaign.nil? && campaign_param == ENV['default_campaign']
+    raise NoCampaignError if @campaign.nil? && campaign_param == CampaignsPresenter.default_campaign_slug
     @campaign
   end
 
