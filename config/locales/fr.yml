@@ -610,6 +610,8 @@ fr:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, une autre
         école ou une autre période.
       user_exists: Désolé, %{username} n’existe pas.
+      user_exists_on_wiki: Désolé, %{username} n’est pas un utilisateur existant sur
+        %{domain}.
       invalid_language_or_project: Langue ou projet non valide
       invalid_slug: École ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.

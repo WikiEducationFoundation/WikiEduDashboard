@@ -1,0 +1,27 @@
+# Messages for Northern Sami (davvisámegiella)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Yupik
+---
+se:
+  application:
+    cookie_consent_see_more: Lassedieđut
+  articles:
+    see_more: Lassedieđut
+  assignments:
+    select: Vállje
+  categories:
+    template_name: Málle namma
+  courses:
+    timeline_link: Áigelinnjá
+  recent_activity:
+    file_name: Fiilanamma
+  revisions:
+    diff_show: Čájet
+    diff_hide: Čiega
+    see_more: Lassedieđut
+  timeline:
+    title: Áigelinnjá
+  training:
+    page: Siidu
+...

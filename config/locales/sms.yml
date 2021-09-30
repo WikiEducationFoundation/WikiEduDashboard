@@ -1,0 +1,27 @@
+# Messages for Skolt Sami (nuõrttsääʹmǩiõll)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Yupik
+---
+sms:
+  application:
+    cookie_consent_see_more: Lââʹssteâđ
+    log_out: Ǩeeʹrjtõõđ åålǥas
+  articles:
+    see_more: Lââʹssteâđ
+  categories:
+    template_name: Maall nõmm
+  courses_generic:
+    creator:
+      save_cloned_course: Ruõkk
+  editable:
+    save: Ruõkk
+  recent_activity:
+    file_name: Teâttõsnõmm
+  revisions:
+    diff_show: Čuäʹjet
+    diff_hide: Čiõǥǥ
+    see_more: Lââʹssteâđ
+  training:
+    page: Seidd
+...

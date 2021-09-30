@@ -522,6 +522,7 @@ it:
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
+      user_exists_on_wiki: Spiacenti, %{username} non è un utente esistente in %{domain}.
       invalid_language_or_project: Lingua/progetto non valido
       invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
