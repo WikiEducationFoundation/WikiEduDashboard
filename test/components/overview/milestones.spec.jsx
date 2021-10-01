@@ -8,11 +8,13 @@ describe('Milestones', () => {
   const block = { id: 1, kind: 2, content: 'Tacos are great' };
   const week = { order: 1, blocks: [block] };
   const week2 = { order: 2, blocks: [] };
+  const course = { start: '2016-01-01', timeline_start: '2016-01-01' };
 
   const TestMilestonesWithWeeks = ReactTestUtils.renderIntoDocument(
     <Milestones
       timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[week, week2]}
+      course={course}
     />
   );
 
@@ -25,6 +27,7 @@ describe('Milestones', () => {
     <Milestones
       timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[]}
+      course={course}
     />
   );
 
