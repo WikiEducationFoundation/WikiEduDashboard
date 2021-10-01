@@ -12,7 +12,8 @@ const Milestones = createReactClass({
 
   propTypes: {
     timelineStart: PropTypes.string.isRequired,
-    weeks: PropTypes.array.isRequired
+    weeks: PropTypes.array.isRequired,
+    course: PropTypes.object.isRequired
   },
 
   milestoneBlockType: 2,
@@ -23,6 +24,7 @@ const Milestones = createReactClass({
 
   render() {
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
+    const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
     this.props.weeks.map((week) => {
       const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
@@ -34,7 +36,7 @@ const Milestones = createReactClass({
         return blocks.push(
           <div key={block.id} className="section-header">
             <div className={classNames}>
-              <p>Week {week.order} {completionNote}</p>
+              <p>Week {week.order + weekNumberOffset} {completionNote}</p>
               <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>

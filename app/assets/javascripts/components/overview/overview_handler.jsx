@@ -156,7 +156,7 @@ const Overview = createReactClass({
           refetchCourse={this.props.refetchCourse}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} courseCreationNotice={this.props.courseCreationNotice} />
-        <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} />
+        <Milestones timelineStart={course.timeline_start} weeks={this.props.weeks} course={course} />
       </div>
     ) : (
       <div className="sidebar" />
