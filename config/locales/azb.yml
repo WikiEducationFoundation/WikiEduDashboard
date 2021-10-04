@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alp Er Tunqa
 # Author: Ilğım
+# Author: Ziraksima
 ---
 azb:
   application:
@@ -76,6 +77,8 @@ azb:
       course_term_placeholder: ترم
       subject: موضوع
     end: سوْن
+    error:
+      user_exists_on_wiki: باغیشلایین، ایشلدن آدی %{username}، %{domain} -دا یوخدور.
     join: قوْشول
     loading: یوکلنیر...
     my_articles: منیم مقاله‌لریم

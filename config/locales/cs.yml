@@ -5,6 +5,7 @@
 # Author: Clon
 # Author: Dominikmatus
 # Author: Dvorapa
+# Author: Fraxinus.cs
 # Author: Frettie
 # Author: Hugo
 # Author: Ilimanaq29
@@ -518,6 +519,8 @@ cs:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
+      user_exists_on_wiki: Je nám líto, na %{domain} uživatelský účet %{username}
+        neexistuje.
       invalid_language_or_project: Neplatný jazyk/projekt
       invalid_slug: Nevyplněná škola nebo nevyplněný název kurzu
       duplicate_slug: Již existuje jiný program pojmenovaný %{slug}.

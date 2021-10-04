@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Kareyac
+# Author: Nieszczarda2
 # Author: Red Winged Duck
 # Author: Renessaince
 ---
@@ -206,6 +207,9 @@ be-tarask:
       з улікам тыдняў, якія ня маюць заплянаваных сустрэчаў.
     course_description: Курсы
     courses: Курсы
+    error:
+      user_exists_on_wiki: Прабачце, %{username} не зьяўляецца існым удзельнікам на
+        %{domain}.
     invitation: Вас запрасілі далучыцца да %{title}. Каб далучыцца да курсу, вы маеце
       ўвайсьці ў сыстэму з уліковым запісам у Вікіпэдыі.
     join: Далучыцца

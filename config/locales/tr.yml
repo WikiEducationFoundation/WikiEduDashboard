@@ -589,6 +589,8 @@ tr:
       exists: Bu kurs zaten var! Lütfen farklı bir başlık, okul veya dönemle tekrar
         deneyin.
       user_exists: Üzgünüz, %{username} mevcut bir kullanıcı değil.
+      user_exists_on_wiki: Üzgünüz, %{domain} üzerinde %{username} adlı bir kullanıcı
+        mevcut değil.
       invalid_language_or_project: Geçersiz dil/proje
       invalid_slug: Ders için boş okul/başlık.
       duplicate_slug: '%{slug} adlı başka bir program zaten var.'

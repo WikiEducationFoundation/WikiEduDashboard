@@ -462,6 +462,7 @@ zh-TW:
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
       user_exists: 抱歉，%{username} 並非存在的使用者。
+      user_exists_on_wiki: 很抱歉，%{username} 並非存在於 %{domain} 的使用者。
       invalid_language_or_project: 無法使用的語言或專案
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
