@@ -54,4 +54,8 @@ class Deadlines
   def self.deadline
     student_program&.dig(:deadline)&.to_date
   end
+
+  def self.recruiting_term
+    student_program&.dig(:recruiting_term)
+  end
 end
