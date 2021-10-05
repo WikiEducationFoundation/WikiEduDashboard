@@ -41,7 +41,7 @@ describe('SettingsHandler', () => {
 
     const decoratedShallow = createDecoratedEnzyme({ store });
     const wrapper = decoratedShallow(
-      <SettingsHandler adminUsers={fetchAdminUsers()} fetchAdminUsers={fetchAdminUsers} fetchSpecialUsers={spy} fetchCourseCreationSettings={spy} />
+      <SettingsHandler adminUsers={fetchAdminUsers()} fetchAdminUsers={fetchAdminUsers} fetchSpecialUsers={spy} fetchCourseCreationSettings={spy} fetchDefaultCampaign={spy} />
     );
 
     const container = wrapper;
