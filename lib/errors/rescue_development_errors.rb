@@ -5,7 +5,6 @@ module Errors
   module RescueDevelopmentErrors
     def self.included(base)
       rescue_from_rev_manifest(base)
-      rescue_from_no_campaigns(base)
     end
 
     REV_MANIFEST_EXPLANATION =
@@ -22,13 +21,6 @@ module Errors
         render plain: explanation,
                status: :internal_server_error
         raise StandardError, explanation if Rails.env.test?
-      end
-    end
-
-    def self.rescue_from_no_campaigns(base)
-      base.rescue_from CoursesPresenter::NoCampaignError do
-        Campaign.create(title: 'Default Campaign', slug: ENV['default_campaign'])
-        redirect_to '/'
       end
     end
   end

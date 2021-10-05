@@ -12,6 +12,7 @@ class ExploreController < ApplicationController
     @presenter = CoursesPresenter.new(current_user: current_user,
                                       campaign_param: CampaignsPresenter.default_campaign_slug)
     @campaign = @presenter.campaign
+    redirect_to '/' unless @campaign
     set_search if params[:search].present?
   end
 

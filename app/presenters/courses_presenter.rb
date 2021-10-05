@@ -27,8 +27,6 @@ class CoursesPresenter
 
   def campaign
     @campaign ||= Campaign.find_by(slug: campaign_param)
-    raise NoCampaignError if @campaign.nil? && campaign_param == CampaignsPresenter.default_campaign_slug
-    @campaign
   end
 
   # If there are too many articles, this query can take a VERY long time.
@@ -154,6 +152,4 @@ class CoursesPresenter
   def creation_date
     I18n.l campaign.created_at.to_date
   end
-
-  class NoCampaignError < StandardError; end
 end

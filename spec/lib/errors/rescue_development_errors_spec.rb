@@ -25,19 +25,4 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
       expect { get :index }.to raise_error(/yarn/)
     end
   end
-
-  describe 'when CoursesPresenter::NoCampaignError is raised' do
-    controller(ApplicationController) do
-      def index
-        raise CoursesPresenter::NoCampaignError
-      end
-    end
-
-    it 'creates a default campaign' do
-      Campaign.destroy_all
-      expect(Campaign.count).to eq(0)
-      get :index
-      expect(Campaign.count).to eq(1) # The default campaign has been created
-    end
-  end
 end
