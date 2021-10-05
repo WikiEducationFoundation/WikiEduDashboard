@@ -2,8 +2,9 @@
 import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS
-} from '../constants/settings';
+  SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
+  SET_DEFAULT_CAMPAIGN
+} from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
@@ -404,6 +405,64 @@ export const updateCourseCreationSettings = settings => (dispatch) => {
     .then((data) => {
       dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } });
       fetchCourseCreationSettings()(dispatch);
+    })
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+
+const fetchDefaultCamapignPromise = () => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'GET',
+      url: '/settings/default_campaign',
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+export function fetchDefaultCampaign() {
+  return (dispatch) => {
+    return fetchDefaultCamapignPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_DEFAULT_CAMPAIGN,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+const updateDefaultCampaignPromise = (campaignSlug) => {
+  return new Promise((accept, reject) => {
+    return $.ajax({
+      type: 'POST',
+      url: '/settings/update_default_campaign',
+      data: { default_campaign: campaignSlug },
+      success(data) {
+        return accept(data);
+      }
+    })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return reject(obj);
+      });
+  });
+};
+
+export const updateDefaultCampaign = campaignSlug => (dispatch) => {
+  return updateDefaultCampaignPromise(campaignSlug)
+    .then((data) => {
+      dispatch({ type: ADD_NOTIFICATION, notification: { ...data, type: 'success', closable: true } });
+      fetchDefaultCampaign()(dispatch);
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };

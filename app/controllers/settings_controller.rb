@@ -102,6 +102,15 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Course creation settings updated.' }, status: :ok
   end
 
+  def default_campaign
+    render json: { default_campaign: CampaignsPresenter.default_campaign_slug }
+  end
+
+  def update_default_campaign
+    CampaignsPresenter.update_default_campaign(params[:default_campaign])
+    render json: { message: 'Default campaign updated.' }, status: :ok
+  end
+
   private
 
   def username_param

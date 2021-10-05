@@ -7,15 +7,17 @@ import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
 import AdminUserList from './admin_users_list';
 import Notifications from '../common/notifications';
-import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings } from '../../actions/settings_actions';
+import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
+import DefaultCampaignSetting from './default_campaign_setting';
 
 export const SettingsHandler = createReactClass({
   propTypes: {
     fetchAdminUsers: PropTypes.func,
     fetchSpecialUsers: PropTypes.func,
+    fetchDefaultCampaign: PropTypes.func,
     adminUsers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -25,13 +27,15 @@ export const SettingsHandler = createReactClass({
       })
     ),
     specialUsers: PropTypes.object,
-    courseCreation: PropTypes.object
+    courseCreation: PropTypes.object,
+    defaultCampaign: PropTypes.string
   },
 
   componentDidMount() {
     this.props.fetchAdminUsers();
     this.props.fetchSpecialUsers();
     this.props.fetchCourseCreationSettings();
+    this.props.fetchDefaultCampaign();
   },
 
   render() {
@@ -45,6 +49,8 @@ export const SettingsHandler = createReactClass({
           <UpdateSalesforceCredentials />
           <br />
           <CourseCreationSettings settings={this.props.courseCreation}/>
+          <br />
+          <DefaultCampaignSetting defaultCampaign={this.props.defaultCampaign}/>
         </React.Fragment>
       );
     }
@@ -69,13 +75,15 @@ export const SettingsHandler = createReactClass({
 const mapStateToProps = state => ({
   adminUsers: state.settings.adminUsers,
   specialUsers: state.settings.specialUsers,
-  courseCreation: state.settings.courseCreation
+  courseCreation: state.settings.courseCreation,
+  defaultCampaign: state.settings.defaultCampaign
 });
 
 const mapDispatchToProps = {
   fetchAdminUsers,
   fetchSpecialUsers,
-  fetchCourseCreationSettings
+  fetchCourseCreationSettings,
+  fetchDefaultCampaign
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsHandler);

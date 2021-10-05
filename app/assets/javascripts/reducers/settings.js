@@ -2,7 +2,7 @@ import {
   SET_ADMIN_USERS, SET_SPECIAL_USERS,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN,
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
-  SET_COURSE_CREATION_SETTINGS
+  SET_COURSE_CREATION_SETTINGS, SET_DEFAULT_CAMPAIGN
 } from '../constants/settings';
 
 const initialState = {
@@ -29,6 +29,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { specialUsers: action.data.special_users });
     case SET_COURSE_CREATION_SETTINGS:
       return Object.assign({}, state, { courseCreation: action.data });
+    case SET_DEFAULT_CAMPAIGN:
+      return Object.assign({}, state, { defaultCampaign: action.data.default_campaign });
     case SUBMITTING_NEW_ADMIN:
       return Object.assign({}, state, { submittingNewAdmin: action.data.submitting });
     case REVOKING_ADMIN:
