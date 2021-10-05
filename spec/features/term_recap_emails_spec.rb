@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'term recap emails page', type: :feature do
+describe 'term recap emails page', type: :feature, js: true do
   let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
   let(:course) { create(:course, article_count: 2, end: 1.week.ago) }
   let(:active_course) do
@@ -24,6 +24,15 @@ describe 'term recap emails page', type: :feature do
   end
 
   it 'lets admins send term recap emails' do
+    # First the upcoming term and deadline must be set, since they are used in the email content.
+    visit '/settings'
+    click_button 'Update course creation settings'
+    fill_in 'recruiting_term', with: Campaign.first.slug
+    fill_in 'deadline', with: '11/11/2021'
+    click_button 'Submit'
+    expect(page).to have_content('Course creation settings updated.')
+
+    # Now we can generate term recap emails
     visit '/mass_email/term_recap'
 
     expect(TermRecapMailer).to receive(:email).and_call_original
