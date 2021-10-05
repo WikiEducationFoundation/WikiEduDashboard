@@ -43,4 +43,13 @@ describe 'settings', type: :feature, js: true do
       expect(page).to have_content('not an existing user.')
     end
   end
+
+  describe 'for default campaign' do
+    it 'allows updating the default campaign slug' do
+      click_button 'Update Default Campaign'
+      fill_in('default_campaign_slug', with: 'new-default-campaign-slug')
+      click_button 'Submit'
+      expect(page).to have_content('new-default-campaign-slug')
+    end
+  end
 end
