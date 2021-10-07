@@ -262,6 +262,7 @@ ko:
     enrollment: 학생 추가/제거
     error:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
+      user_exists_on_wiki: 죄송하지만 %{username}님은 %{domain}에 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
       duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
     features_feedback: '자동화된 제안:'

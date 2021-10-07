@@ -11,6 +11,9 @@ io:
     home: Chefpagino
     change: Modifiko
     confirm: O.K.
+  activity:
+    all: Aktiveso
+    label: Aktiveso
   articles:
     article_title: Titulo dil artiklo
     hide: Celez

@@ -236,6 +236,7 @@ lb:
       exists: Dee Cours gëtt et schonn! Probéiert et wgl. nach eng Kéier mat engem
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
+      user_exists_on_wiki: Pardon, de Benotzer %{username} gëtt et net op %{domain}.
       invalid_language_or_project: Net valabel Sprooch/Projet
       invalid_slug: Schoul/Titel eidel fir de Cours.
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.

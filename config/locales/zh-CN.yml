@@ -1,4 +1,4 @@
-# Messages for Simplified Chinese (中文（简体）‎)
+# Messages for Simplified Chinese (中文（简体）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 500000000006城
@@ -21,6 +21,7 @@
 # Author: Shizhao
 # Author: Shuiwater
 # Author: SomeyaMako
+# Author: TsuyaMarisa
 # Author: Viztor
 # Author: WDLJT
 # Author: Yanjiazhang
@@ -409,6 +410,7 @@ zh-CN:
     error:
       exists: 该课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
+      user_exists_on_wiki: 对不起，%{username}在%{domain}上不是一位存在的用户。
       invalid_language_or_project: 无效语言/项目
       invalid_slug: 清空课程所属学校/标题。
       duplicate_slug: 另一个叫%{slug}的课程已存在。

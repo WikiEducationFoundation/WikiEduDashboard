@@ -6,6 +6,7 @@
 # Author: Aram1985
 # Author: Athena Atterdag
 # Author: Av6
+# Author: DDPAT
 # Author: Diralik
 # Author: Edible Melon
 # Author: Evs
@@ -76,7 +77,9 @@ ru:
     request_account: Запросить учётную запись
     request_account_create: Создать учётную запись
     search: задать вопрос
-    search_results: 'Результаты для: "%{search_terms}"'
+    search_results:
+      one: '%{count} Результат для: ''%{search_terms}'''
+      other: '%{count} Результаты для: ''%{search_terms}'''
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
@@ -180,7 +183,9 @@ ru:
     title_example: Название статьи
     view: Просмотр статьи
     view_all: Просмотреть все
-    view_doc: Сумма всех Просмотров каждой статьи в рамках проекта
+    view_doc: Предполагаемое количество просмотров каждой статьи с момента ее первого
+      редактирования с учетом последнего обновления статистики. Вы можете использовать
+      pageviews.toolforge.org, чтобы увидеть точные цифры.
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
     edit_size: Изменить размер
@@ -393,8 +398,8 @@ ru:
     user_recent_uploads: Недавние загрузки
     view_other: Посмотреть другие кампании
     view: Просмотр курса
-    view_doc: Общее число просмотров статей, редактированных участниками, начиная
-      с момента первой правки участника в каждой из статей.
+    view_doc: Ориентировочное количество просмотров статей, редактированных участниками,
+      начиная с момента первой правки участника в каждой из статей.
     view_page: Посмотреть страницу курса
     view_wiki: Посмотреть на Википедии
     volunteer:
