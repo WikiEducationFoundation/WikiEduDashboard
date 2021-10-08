@@ -106,7 +106,8 @@ class UsersController < ApplicationController
 
   def ensure_enrollment_success
     return unless @result[:failure]
-    render json: { message: @result[:failure] }, status: :not_found
+    message = I18n.t("courses.join_failure_details.#{@result[:failure]}")
+    render json: { message: message }, status: :not_found
     yield
   end
 
