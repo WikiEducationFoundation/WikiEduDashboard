@@ -27,6 +27,8 @@ class JoinCourse
   def validate_request
     if user_already_enrolled?
       @result = { failure: :cannot_join_twice }
+    elsif course_withdrawn?
+      @result = { failure: :withdrawn }
     elsif student_joining_before_approval?
       @result = { failure: :not_yet_approved }
     else
@@ -45,6 +47,10 @@ class JoinCourse
     else
       CoursesUsers.exists?(user_id: @user.id, course_id: @course.id)
     end
+  end
+
+  def course_withdrawn?
+    @course.withdrawn
   end
 
   def student_joining_before_approval?

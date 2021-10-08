@@ -9,6 +9,7 @@ describe JoinCourse do
   let(:editathon) { create(:editathon) }
   let(:basic_course) { create(:basic_course) }
   let(:legacy_course) { create(:legacy_course) }
+  let(:withdrawn_course) { create(:course, withdrawn: true) }
 
   let(:subject) do
     described_class.new(course: course, user: user,
@@ -56,6 +57,16 @@ describe JoinCourse do
 
   context 'for a ClassroomProgramCourse' do
     let(:course) { classroom_program_course }
+
+    it 'does not allow joining with multiple roles' do
+      result = subject.result
+      expect(result[:failure]).not_to be_nil
+      expect(result[:success]).to be_nil
+    end
+  end
+
+  context 'for a withdrawn course' do
+    let(:course) { withdrawn_course }
 
     it 'does not allow joining with multiple roles' do
       result = subject.result

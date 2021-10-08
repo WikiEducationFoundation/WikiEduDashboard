@@ -588,6 +588,7 @@ en:
     join_failure_details:
       cannot_join_twice: Users may not join the same course twice.
       not_yet_approved: This course has not yet been approved for enrollment.
+      withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
     launch_wizard: Launch the Wizard
