@@ -1,6 +1,7 @@
 # Messages for Danish (dansk)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Antonla
 # Author: Dipsacus fullonum
 # Author: IBDJ
 # Author: Joedalton
@@ -594,6 +595,8 @@ da:
     join_failure_details:
       cannot_join_twice: Brugere kan ikke tilmelde sig det samme kursus to gange.
       not_yet_approved: Dette kursus er endnu ikke åbnet for indskrivning.
+      withdrawn: Dette kursus er markeret som tilbagetrukket — muligvis fejlagtigt.
+        Kontakt personale hos Wiki Education for at genaktivere det.
     join_details: For at deltage i dette kursus skal du have en adgangskode eller
       et indskrivningslink, der indeholder adgangskoden, fra din instruktør. Kontakt
       din instruktør, hvis du ikke har modtaget dette.

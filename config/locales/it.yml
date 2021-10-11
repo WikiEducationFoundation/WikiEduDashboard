@@ -537,8 +537,8 @@ it:
       one: Insegnante
       other: Insegnanti
     instructors: Insegnanti
-    invitation: Ti hanno invitato ad unirti a %{title}. Per partecipare al corso,
-      devi accedere con un nome utente di Wikipedia.
+    invitation: Ti hanno invitato ad unirti a %{title}. Per partecipare, devi accedere
+      con un'utenza di Wikipedia.
     invitation_username_advice: Se ancora non hai un'utenza su Wikipedia, registrane
       una nuova adesso. Il tuo nome utente può essere anonimo o identificarti personalmente
       a seconda di come preferisci (non sono ammessi account condivisi).

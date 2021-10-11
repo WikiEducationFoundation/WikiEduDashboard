@@ -42,6 +42,9 @@ io:
       learn_more_button: Savez pluse
   metrics:
     tags: Etiketi
+  revisions:
+    diff_show: Montrez
+    diff_hide: Celez
   timeline:
     gradeable_value: Valoro
     week_number: Semano %{number}

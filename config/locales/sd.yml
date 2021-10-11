@@ -42,7 +42,7 @@ sd:
     greeting_extended: وڪيپيڊيا ۾ ڀليڪار
     greeting: سلام!
     help: مدد
-    home: گھر
+    home: مک صفحو
     log_in_extended: وڪيپيڊيا سان داخل ٿيو
     log_in: داخل ٿيو
     log_out: خارج ٿيو
@@ -249,6 +249,7 @@ sd:
     data_overview: انگ اکرَ ڏسو
     delete_course: ڪورس ڊاهيو
     delete_suggestion: ڊاھيو
+    dismiss_survey: برخواست ڪريو
     duration: ڪورس جو دورانيو
     end: پُڄاڻي
     ended: ڪورس ختم ٿي ويو آهي.
@@ -267,7 +268,7 @@ sd:
     new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     none: ڪوبہ نہ
-    overview: گھر
+    overview: مک صفحو
     private: ذاتي
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
     school: اسڪول

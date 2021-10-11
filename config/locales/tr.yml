@@ -621,6 +621,8 @@ tr:
     join_failure_details:
       cannot_join_twice: Kullanıcılar aynı kursa iki kez katılamaz.
       not_yet_approved: Bu kurs henüz kayıt için onaylanmamıştır.
+      withdrawn: Bu kurs, muhtemelen yanlışlıkla geri çekilmiş olarak işaretlendi.
+        Yeniden etkinleştirmek için Wiki Eğitim personeli ile iletişime geçin.
     join_details: Bu kursa katılmak için şifre kodunu (veya şifreyi içeren bir kayıt
       bağlantısı) eğitmenden almanız gerekmektedir. Bunu almadıysanız, eğitmeninizle
       iletişim kurun.

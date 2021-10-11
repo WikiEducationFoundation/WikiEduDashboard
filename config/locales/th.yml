@@ -8,6 +8,7 @@
 # Author: Pilarbini
 # Author: Pon44695
 # Author: TMo3289
+# Author: Thas Tayapongsak
 ---
 th:
   application:
@@ -122,6 +123,12 @@ th:
         article_scoped_program_name: โปรแกรมกำหนดขอบเขตบทความ
       end_date_placeholder: ปปปป-ดด-วว
       start_date_placeholder: ปปปป-ดด-วว
+    error:
+      user_exists_on_wiki: ขออภัย ไม่มีบัญชีผู้ใช้ %{username} ใน %{domain}
+    invitation: คุณได้รับเชิญเข้าร่วม %{title} เพื่อเข้าร่วมกรุณาเข้าสู่ระบบด้วยบัญชีวิกิพีเดียของคุณ
+    join_failure_details:
+      withdrawn: อาจมีการถอนรายวิชาโดยไม่ตั้งใจ กรุณาติดต่อเจ้าหน้าที่ Wiki Education
+        เพื่อแก้ไข
     school: โรงเรียน
     start: เริ่ม
     students: นักเรียน

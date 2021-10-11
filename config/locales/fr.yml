@@ -9,6 +9,7 @@
 # Author: C13m3n7
 # Author: Dcausse
 # Author: Derugon
+# Author: DreZhsh
 # Author: Eihel
 # Author: Eneelk
 # Author: Eric.LEWIN
@@ -644,6 +645,8 @@ fr:
       cannot_join_twice: Les utilisateurs ne peuvent pas rejoindre le même cours deux
         fois.
       not_yet_approved: Ce cours n’a pas encore été approuvé pour l’inscription.
+      withdrawn: Ce cours a été marqué comme retiré - peut-être par erreur. Contactez
+        le personnel de Wiki Education pour le réactiver.
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
