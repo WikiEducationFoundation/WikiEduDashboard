@@ -16,7 +16,8 @@ export class URLBuilder {
   }
 
   wikiURL() {
-    const { language = 'www', project } = this.article;
+    const language = this.article.language || 'www';
+    const project = this.article.project;
 
     if (!project) throw new TypeError('Article project is missing!');
 
