@@ -10,10 +10,6 @@ class CampaignsPresenter
     default_campaign_setting.value[:slug] || ENV['default_campaign']
   end
 
-  def self.default_campaign
-    Campaign.find_by(slug: default_campaign_slug)
-  end
-
   def self.update_default_campaign(slug)
     default_campaign_setting.update(value: { slug: slug })
   end
