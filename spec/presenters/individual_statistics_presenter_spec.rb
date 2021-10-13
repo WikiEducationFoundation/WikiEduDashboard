@@ -50,7 +50,7 @@ describe IndividualStatisticsPresenter do
       end
     end
 
-    context 'when there are revisions made before the course started ' do
+    context 'when there are revisions made before the course started' do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)

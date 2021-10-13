@@ -193,3 +193,5 @@ Style/SoleNestedConditional:
   Enabled: false
 Rails/I18nLocaleAssignment:
   Enabled: false
+RSpec/SubjectDeclaration:
+  Enabled: false

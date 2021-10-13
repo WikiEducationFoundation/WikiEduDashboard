@@ -34,8 +34,6 @@ describe Fall2017CmuExperiment do
     end
 
     context 'when invitations get no response for a week' do
-      after { travel_back }
-
       it 'sends reminders for courses that have not responded' do
         described_class.process_courses
         travel(8.days)

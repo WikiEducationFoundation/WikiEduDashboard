@@ -90,8 +90,6 @@ describe TrainingModuleDueDateManager do
 
     before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
-
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
         it 'returns false' do
@@ -146,8 +144,6 @@ describe TrainingModuleDueDateManager do
 
     before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
-
     let(:completed_at) { 1.day.ago }
 
     context 'user is nil' do
@@ -192,8 +188,6 @@ describe TrainingModuleDueDateManager do
     end
 
     before(:all) { travel_to Date.new(2015, 8, 25) }
-
-    after(:all) { travel_back }
 
     let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 

@@ -86,10 +86,6 @@ describe 'Instructor users', type: :feature, js: true do
       travel(1.year)
     end
 
-    after do
-      travel_back
-    end
-
     it 'can see real names of enrolled students' do
       visit "/courses/#{Course.first.slug}/students/overview"
       expect(page).to have_content('Really Real Name')

@@ -206,7 +206,7 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.bio).not_to eq('Howdy')
       end
 
-      it ' doesn\'t update the location' do
+      it "doesn't update the location" do
         post route, params: { username: user.username,
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
@@ -214,7 +214,7 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.location).not_to eq('Seattle')
       end
 
-      it 'doesn\'t update the Institution' do
+      it "doesn't update the Institution" do
         post route, params: { username: user.username,
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,
@@ -222,7 +222,7 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.institution).not_to eq('Institution')
       end
 
-      it 'doesn\'t update the Image' do
+      it "doesn't update the Image" do
         file = fixture_file_upload('wiki-logo.png', 'image/png')
         post route, params: { username: user.username,
                               user_profile: { id: profile.id,
@@ -231,7 +231,7 @@ describe UserProfilesController, type: :request do
         expect(response.status).not_to eq(302)
       end
 
-      it 'doesn\'t update the Image Link' do
+      it "doesn't update the Image Link" do
         file_link = 'https://fake_link.com/fake_picture.jpg'
         post route, params: { username: user.username,
                               user_profile: { id: profile.id,
