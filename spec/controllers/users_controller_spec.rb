@@ -172,15 +172,29 @@ describe UsersController, type: :request do
                course_id: course.id,
                user_id: user.id,
                article_id: article.id)
-        delete "/courses/#{course.slug}/user", params: delete_params
       end
 
       it 'destroys the courses user' do
+        delete "/courses/#{course.slug}/user", params: delete_params
         expect(CoursesUsers.count).to eq(0)
       end
 
       it 'succeeds' do
+        delete "/courses/#{course.slug}/user", params: delete_params
         expect(subject).to eq(200)
+      end
+
+      context 'when the user is already removed' do
+        before do
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        end
+
+        it 'returns the list of users' do
+          delete "/courses/#{course.slug}/user", params: delete_params # remove the user
+          delete "/courses/#{course.slug}/user", params: delete_params # attempt to re-remove
+          expect(JSON.parse(response.body).dig('course', 'users')).to be_a(Array)
+          expect(subject).to eq(200)
+        end
       end
     end
   end
