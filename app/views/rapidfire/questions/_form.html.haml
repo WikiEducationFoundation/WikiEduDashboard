@@ -73,7 +73,8 @@
             = f.label :placeholder_text, "Placeholder text for dropdown input"
             %br/
             = f.text_area :placeholder_text, rows: 1
-        %div
+        -#follow up_question
+        %div{"data-question-type-options" => "Radio, Checkbox, Select, Numeric, RangeInput, Date, Long,Short"}
           %label
             <input type='checkbox' #{question_form_has_follow_up_question(@question_form) ? "checked" : ""} data-follow-up-question-checkbox />
             Add follow up question
