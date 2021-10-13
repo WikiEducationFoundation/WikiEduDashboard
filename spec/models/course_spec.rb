@@ -325,6 +325,10 @@ describe Course, type: :model do
                         timeline_start: '2016-01-01'.to_date, timeline_end: '2016-06-01'.to_date)
       end
 
+      after do
+        travel_back
+      end
+
       it 'returns the whole student count if no training modules are assigned' do
         course.update_cache
         expect(course.trained_count).to eq(3)
@@ -688,7 +692,7 @@ describe Course, type: :model do
       let(:before) { false }
       let(:relative_to) { 'end' }
 
-      it 'includes the Course' do
+      it 'includes the Course ' do
         course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)
