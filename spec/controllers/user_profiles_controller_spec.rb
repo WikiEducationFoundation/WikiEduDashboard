@@ -206,7 +206,7 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.bio).not_to eq('Howdy')
       end
 
-      it ' doesn\'t update the location' do
+      it 'doesn\'t update the location' do
         post route, params: { username: user.username,
                               user_profile: { id: profile.id,
                                               user_id: profile.user_id,

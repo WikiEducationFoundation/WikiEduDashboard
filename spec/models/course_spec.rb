@@ -692,7 +692,7 @@ describe Course, type: :model do
       let(:before) { false }
       let(:relative_to) { 'end' }
 
-      it 'includes the Course ' do
+      it 'includes the Course' do
         course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)

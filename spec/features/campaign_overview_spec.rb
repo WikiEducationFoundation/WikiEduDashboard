@@ -57,7 +57,7 @@ describe 'campaign overview page', type: :feature, js: true do
                role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         # The instructors are also enrolled as students.
         create(:courses_user,
-               id: i + campaign_course_count * 2,
+               id: i + (campaign_course_count * 2),
                course_id: i,
                user_id: i + campaign_course_count,
                role: CoursesUsers::Roles::STUDENT_ROLE)
