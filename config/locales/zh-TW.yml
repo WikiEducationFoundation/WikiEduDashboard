@@ -477,7 +477,7 @@ zh-TW:
       other: 導師
     instructors: 導師
     invitation: |-
-      您已被邀請參與 %{title} 課程。
+      您已被邀請參與 %{title}。
       若要參加此課程，您需要先以維基百科帳號登入。
     invitation_username_advice: 若您尚未有維基百科帳號，可以現在註冊。您的使用者名稱可以是匿名、或是可作為個人識別，一切都依您個人意願決定（注意請不要將帳號分享給別人使用。）
     join: 加入
@@ -489,6 +489,7 @@ zh-TW:
     join_failure_details:
       cannot_join_twice: 用戶不可加入同一課程兩次。
       not_yet_approved: 此課程尚未批准開放登記。
+      withdrawn: 此課程已被標記為撤銷 — 這可能是出自於錯誤。請聯絡 Wiki 教育成員來重新啟動。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     join_no_passcode: 您確定要加入這個課程嗎？
     launch_wizard: 啟動精靈

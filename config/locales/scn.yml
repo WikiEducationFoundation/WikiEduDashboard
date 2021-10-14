@@ -90,9 +90,11 @@ scn:
     week_number: Simana %{number}
   training:
     page: Pàggina
+    done: Fattu!
   uploads:
     image: Mmàggini
   users:
+    assign_articles_done: Fattu
     contributions: Cuntribbuti di l'utenti
     last_name: Cognomu
     name: Nomu

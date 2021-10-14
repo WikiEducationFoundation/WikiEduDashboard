@@ -423,7 +423,7 @@ zh-CN:
       one: 导师
       other: 导师
     instructors: 导师
-    invitation: 您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
+    invitation: 您已被邀请加入 %{title}。要加入，您需要使用维基百科账户登录。
     invitation_username_advice: 如果您尚未拥有维基百科账户，现在注册一个。您的用户名可以匿名——或作为个人标识——这基于您的选择。（不允许共享账户。）
     join: 加入
     join_course: 加入课程

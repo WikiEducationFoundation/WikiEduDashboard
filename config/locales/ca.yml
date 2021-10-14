@@ -503,8 +503,8 @@ ca:
       one: Instructor
       other: Instructors
     instructors: Instructors
-    invitation: Heu estat convidat a participar a %{title}. Per inscriure-us-hi, heu
-      d'entrar amb un compte de la Viquipèdia.
+    invitation: Heu estat convidat a participar a %{title}. Per unir-te, heu d'entrar
+      amb un compte de la Viquipèdia.
     invitation_username_advice: Si encara no en teniu una, podeu registrar-vos ara.
       El vostre usuari pot ser anònim o us pot identificar personalmet, com preferiu
       (no es permeten els comptes compartits).
