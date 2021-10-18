@@ -67,7 +67,7 @@ describe 'course overview page', type: :feature, js: true do
 
         expect(page).to have_content('(02/23 - 08/12)')
       end
-      within'.week__week-dates' do
+      within '.week__week-dates' do
         expect(page).to have_content('Meetings: Wednesday (02/26), Saturday (03/01)')
       end
       within '.week-index' do
