@@ -5,7 +5,7 @@ import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-
+import MeetingDates from '../../utils/meetingDates';
 import DateCalculator from '../../utils/date_calculator.js';
 
 const Week = createReactClass({
@@ -71,10 +71,13 @@ const Week = createReactClass({
   render() {
     let style;
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
-
     let weekDatesContent;
+    let meetDates;
+    if (this.props.meetings && this.props.meetings !== '()') {
+      meetDates = `Meetings: ${MeetingDates(this.props.week.start_date_raw, this.props.meetings).join(', ')}`;
+    }
     if (this.props.meetings) {
-      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()} ${this.props.meetings}`;
+      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
     } else {
       weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
     }
@@ -83,7 +86,11 @@ const Week = createReactClass({
         {weekDatesContent}
       </div>
     );
-
+    const meetDatesDiv = (
+      <div className="week__week-dates">
+        {meetDates}
+      </div>
+    );
     let weekTitleContent;
     if (this.props.week.title) {
       weekTitleContent = this.props.week.title;
@@ -213,6 +220,7 @@ const Week = createReactClass({
           {weekAddDelete}
           {weekTitle}
           {weekDates}
+          {meetDatesDiv}
         </div>
         {weekContent}
       </li>
