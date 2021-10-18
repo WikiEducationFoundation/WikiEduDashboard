@@ -7,6 +7,7 @@ scn:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: K
           million: M
@@ -15,6 +16,7 @@ scn:
           quadrillion: Q
   application:
     cancel: Annulla
+    documentation: Ducumintazzioni
     greeting2: Bimminutu!
     greeting: Ciau!
     help: Aiutu
@@ -32,11 +34,16 @@ scn:
     all: Attivitati
     label: Attivitati
   articles:
+    deleted: (cancillatu)
+    edited: Vuci canciati
     edited_mobile: Vuci
+    hide: Ammuccia
     history: (crunuluggìa)
     label: Vuci
+    new: (novu)
     title: Tìtulu
     title_example: Tìtulu dâ vuci
+    view: Talìa vuci
     wiki: Wiki
     articles_short: Vuci
   articles_generic:

@@ -27,6 +27,7 @@
 # Author: Raphaelras
 # Author: Rodrigo codignoli
 # Author: Rukasuoribera
+# Author: Svjatysberega
 # Author: Trigonometria87
 ---
 pt-br:
@@ -621,6 +622,8 @@ pt-br:
     join_failure_details:
       cannot_join_twice: Usuários não podem se inscrever no mesmo curso duas vezes.
       not_yet_approved: Esse curso ainda não foi aprovado para inscrição.
+      withdrawn: Esse curso foi marcado como suspenso — talvez sem querer. Entre em
+        contato com a equipe do Wiki Education para reabilitá-lo.
     join_details: Para entrar nesse curso, você precisa de uma senha - ou um link
       de inscrição que inclui a senha - do instrutor. Se ainda não recebeu isto, contate
       o seu instrutor.

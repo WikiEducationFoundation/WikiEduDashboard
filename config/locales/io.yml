@@ -1,6 +1,7 @@
 # Messages for Ido (Ido)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: JSantos
 # Author: Joao Xavier
 ---
 io:
@@ -8,9 +9,14 @@ io:
     cancel: Nuligar
     cookie_consent_see_more: Videz pluse.
     error: 'Eventis ula eroro:'
+    explore: Explorez
     home: Chefpagino
     change: Modifiko
     confirm: O.K.
+    opt_in: "Yes"
+    opt_out: "No"
+  home:
+    explore: Explorez
   activity:
     all: Aktiveso
     label: Aktiveso
@@ -23,6 +29,11 @@ io:
     none: Nula
   courses:
     campaigns: 'Kampanii:'
+    error:
+      user_exists_on_wiki: Pardonez, %{username} ne existas kom uzero che %{domain}.
+    join_failure_details:
+      withdrawn: Ca kurso indikesis, posible erore, kom retretita. Voluntez kontaktar
+        la kruo di Wiki Education por riposibligar ol.
     loading: Karganta...
     none: Nula
     overview: Komenco

@@ -1,0 +1,88 @@
+# Messages for Hausa (Hausa)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bashir Gwanki
+# Author: Em-em
+# Author: Itzedubaba
+# Author: Salihu aliyu
+---
+ha:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Wannan fannin nọmba ne. Maɓallan da sanya ga yawancin manhajar shiga
+      intanet zai ƙara da rage abinda aka sanya.
+  application:
+    cancel: fasawa
+    cookie_consent: Wannan shafin na amfani da cooki dan barin akwatin ku acikinta,
+      da adana bayanan da suka danganci akwatin ku na Wikipedia.
+    cookie_consent_acknowledge: Na fahimta
+    cookie_consent_see_more: Duba wasu.
+    create_accounts: Ƙirƙiri akwatin Wikipedia
+    dashboard: Wiki Ed Dashboard
+    documentation: Bayanai
+    error: 'Akwai ƴar matsala:'
+    explore: Fankaɗa
+    field_required: Wannan filin ana buƙata
+    field_invalid_characters: Wannan filin nada karaɗai da basu cancanta ba
+    field_invalid_date: Wannan filin na buƙatar kwanan wata a ƙa'idar SSS-WW-RR
+    field_invalid_date_time: Ƙarshen dole ya zama bayan farko. (Awanni na tafiya daga
+      0 zuwa 23)
+    greeting2: Maraba!
+    greeting_extended: Maraba da zuwa Wikipedia
+    greeting: Barka!
+    help: Taimaka
+    home: Gida
+    log_in_extended: Shiga da Wikipedia
+    log_in: Shiga
+    log_out: Fita
+    my_dashboard: Dashbod ɗina
+    recent_activity: Aikin yanzun nan
+    report_problem: Bada rahoton matsala
+    request_account: Neman buƙatar akwati
+    request_account_create: Ƙirƙiri akwati
+    search: yi tambaya
+    search_results: '{{PLURAL | one =%{count} Sakamakon: ''%{search_terms}'' |%{count}
+      Sakamakon: ''%{search_terms}''}}'
+    no_results: Babu sakamakon da aka samu na '%{query}'
+    sign_up_extended: Yi rajista tare da Wikipedia
+    sign_up_wikipedia: Yi rajista tare da Wikipedia
+    sign_up_log_in_extended: tare da Wikipedia
+    sign_up: Shiga
+    submit: Mika, Sallama
+    training: Horo
+    change: Canji
+    details: Karin bayani akan abu
+    confirm: OK
+    opt_in: Ea
+    opt_out: A'a
+    opt_yes: ea
+    opt_no: a'a
+  article_statuses:
+    not_yet_started: Farawa
+    in_progress: Yin aiki a cikin Sandbox
+    ready_for_review: Fadada Tsarin
+    ready_for_mainspace: Matsar da Aiki zuwa Mainspace
+    assignment_completed: Aikin da aka yiwa Alamar Kammala
+    reading_the_article: Karanta Mukala
+    providing_feedback: Bayar da martani
+    post_to_talk: Wallafa a shafin tattaunawa
+    peer_review_completed: An Kammala Nazari
+  dashboard:
+    create_note: Danna kan Ƙirƙiri Course don ƙirƙirar darasin ku na farko.
+  courses:
+    error:
+      user_exists_on_wiki: Yi hakuri, %{username} din babushi akan %{domain}.
+    invitation: An gayyace ka don shiga %{title}. don shiga, kanada bukatar ka shiga
+      da wikipedia account dinka.
+    join_failure_details:
+      withdrawn: 'shigar a matsayin:'
+...

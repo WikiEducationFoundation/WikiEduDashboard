@@ -24,6 +24,7 @@
 # Author: TsuyaMarisa
 # Author: Viztor
 # Author: WDLJT
+# Author: Xiplus
 # Author: Yanjiazhang
 # Author: Yfdyh000
 # Author: Zhang8569
@@ -322,7 +323,7 @@ zh-CN:
       legend_class_not_meeting: 没有预定会议
       select_meeting_days: 选择一周内您要开班会的几天。
     cancel: 取消
-    character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
+    character_doc: 在课程的学期期间，由课程的学生添加至主命名空间条目的字符之和
     campaigns: 活动：
     campaign_articles: '%{title}个条目'
     campaign_courses: '%{title}课程'
@@ -530,7 +531,7 @@ zh-CN:
     wiki_edits_enabled_tooltip: 如果启用wiki编辑，那么将为此计划自动安排wiki编辑。如果您不希望模板添加到用户页、已获分配条目的讨论页等的话，请禁用wiki编辑。
     wiki_staff: 维基教育职员
     withdrawn: 没有进行分配
-    word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
+    word_count_doc: 在课程的学期期间，由课程的学生添加至主命名空间条目字数的估计
     yourcourses: 您的课程
     survey:
       notification_message: 接受我们为此课程设立的调查。
@@ -610,7 +611,7 @@ zh-CN:
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
     view_other: 查看其它活动
     view_page: 查看计划页面
-    word_count_doc: 在课程的学期期间，由计划的编辑者添加至主名字空间条目字数的估计
+    word_count_doc: 在课程的学期期间，由计划的编辑者添加至主命名空间条目字数的估计
     yourcourses: 您的计划
   editable:
     edit: 编辑
@@ -656,10 +657,10 @@ zh-CN:
     word_count: 添加的文字
     word_count_average: 平均字数
   namespace:
-    main: 主名字空间
-    main_char_added: 主名字空间字符已添加
-    user: 用户名字空间
-    user_char_added: 添加的用户名字空间字符
+    main: 主命名空间
+    main_char_added: 主命名空间字符已添加
+    user: 用户命名空间
+    user_char_added: 添加的用户命名空间字符
     user_ns: 用户
   recent_activity:
     active_courses: 条目活跃于
@@ -834,7 +835,7 @@ zh-CN:
     assignees: 委托人
     loading_authorship_data: 正在加载作者数据
     authorship_data_not_fetched: 无法检索作者数据
-    character_doc: 用户添加至此名字空间的内容总数，计算方式是将所有增长页面大小的编辑中，添加的字符加起来。此数字未必反应用户添加的新内容数量。恢复移除的内容也将会增长这个总数。
+    character_doc: 用户添加至此命名空间的内容总数，计算方式是将所有增长页面大小的编辑中，添加的字符加起来。此数字未必反应用户添加的新内容数量。恢复移除的内容也将会增长这个总数。
     chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
     contributions: 用户贡献
     contributions_history_full: 查看完整贡献历史

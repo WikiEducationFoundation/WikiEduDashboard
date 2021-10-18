@@ -17,7 +17,12 @@ ban:
           quadrillion: Q
   application:
     cancel: Wangdé
+    cookie_consent_acknowledge: Titiang uning
+    cookie_consent_see_more: Cingak malih
+    create_accounts: Ngranjing akun Wikipédia
+    dashboard: Papan Utama Wiki Ed
     documentation: Dokuméntasi
+    explore: Jelajahin
     greeting2: Rahajeng rauh!
     greeting_extended: Rahajeng rauh ring Wikipédia
     greeting: Halo!
@@ -26,11 +31,29 @@ ban:
     log_in_extended: Manjing log antuk Wikipédia
     log_in: Manjing log
     log_out: Medal log
+    my_dashboard: Papan instrumén titiang
+    report_problem: Parandika pikobet
+    request_account_create: Kardi akun
+    sign_up_log_in_extended: sareng Wikipédia
+    sign_up: Daptar
+    training: Pelatihan
     change: Uah
+    details: Rerincén
+    confirm: Becik
     opt_in: Inggih
     opt_out: Nénten
     opt_yes: inggih
     opt_no: nénten
+  dashboard:
+    explore_examples: Conto penjelajahan
+  home:
+    explore: Jelajahin
+    log_in: Manjing log antuk Wikipédia
+    sign_up: Manjing log antuk Wikipédia
+  activity:
+    all: Parilaksana
+    edited_by: 'Kauahin olih:'
+    label: Parilaksana
   articles:
     next: Selanturné
     previous: Sadurungné
@@ -41,11 +64,25 @@ ban:
       wiki_all: Sinamian
       new: Anyar
     hide: Engkebang
+    history: (babad)
     label: Suratan
     new: (anyar)
     rating: Kelas
     see_more: Cingak malih
     title: Murda
+    title_example: Murda suratan
+    view: Cingak Suratan
+    view_all: Cingak Makasami
+    view_on_wiki: Cingak ring wiki
+    wiki: Wiki
+    articles_short: Suratan
+  articles_wikidata:
+    articles_short: Item
+  articles_generic:
+    articles_short: Kaca
+  assignments:
+    clone: Sineb
+    group_members: Semeton grup
   campaign:
     alert_type: Soroh
     alert_user_id: Sang anganggé
