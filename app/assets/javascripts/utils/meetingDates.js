@@ -8,25 +8,25 @@ const MeetingDates = (start, meetingsString) => {
   for (let i = 0; i < meetings.length; i += 1) {
     switch (meetings[i]) {
       case 'Sun':
-        dates.push(`${moment(start).format('dddd Do')}`);
+        dates.push(`Sunday (${moment(start).format('MM/DD')})`);
         break;
      case 'Mon':
-        dates.push(`${moment(start).add(1, 'day').format('dddd Do')}`);
+        dates.push(`Monday (${moment(start).add(1, 'day').format('MM/DD')})`);
         break;
        case 'Tue':
-        dates.push(`${moment(start).add(2, 'day').format('dddd Do')}`);
+        dates.push(`Tuesday (${moment(start).add(2, 'day').format('MM/DD')})`);
         break;
       case 'Wed':
-        dates.push(`${moment(start).add(3, 'day').format('dddd Do')}`);
+        dates.push(`Wednesday (${moment(start).add(3, 'day').format('MM/DD')})`);
         break;
       case 'Thu':
-        dates.push(`${moment(start).add(4, 'day').format('dddd Do')}`);
+        dates.push(`Thursday (${moment(start).add(4, 'day').format('MM/DD')})`);
         break;
       case 'Fri':
-        dates.push(`${moment(start).add(5, 'day').format('dddd Do')}`);
+        dates.push(`Friday (${moment(start).add(5, 'day').format('MM/DD')})`);
         break;
       case 'Sat':
-        dates.push(`${moment(start).add(6, 'day').format('dddd Do')}`);
+        dates.push(`Saturday (${moment(start).add(6, 'day').format('MM/DD')})`);
         break;
       default:
         dates.push('');
