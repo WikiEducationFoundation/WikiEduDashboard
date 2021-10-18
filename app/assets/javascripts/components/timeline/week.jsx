@@ -5,7 +5,7 @@ import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import MeetingDates from './meetingDates';
+import MeetingDates from '../../utils/meetingDates';
 import DateCalculator from '../../utils/date_calculator.js';
 
 const Week = createReactClass({
