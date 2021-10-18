@@ -5,7 +5,7 @@ import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import MeetingDates from '../../utils/meetingDates';
+import MeetingDates from './meetingDates';
 import DateCalculator from '../../utils/date_calculator.js';
 
 const Week = createReactClass({
@@ -81,11 +81,6 @@ const Week = createReactClass({
     } else {
       weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
     }
-    const weekDates = (
-      <div className="week__week-dates">
-        {weekDatesContent}
-      </div>
-    );
     const meetDatesDiv = (
       <div className="week__week-dates">
         {meetDates}
@@ -106,7 +101,7 @@ const Week = createReactClass({
         onChange={event => this.props.updateTitle(weekId, event.target.value)}
       />
     ) : (
-      <p className="week-index">{weekTitleContent}</p>
+      <p className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></p>
     );
 
     const blocks = this.props.blocks.map((block, i) => {
@@ -219,7 +214,6 @@ const Week = createReactClass({
         <div className="week__week-header">
           {weekAddDelete}
           {weekTitle}
-          {weekDates}
           {meetDatesDiv}
         </div>
         {weekContent}
