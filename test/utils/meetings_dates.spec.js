@@ -8,7 +8,7 @@ describe('MeetingDates', () => {
       const start = '2016-01-01';
       const meetingsString = '(Mon, Wed)';
       const dates = MeetingDates(start, meetingsString);
-         expect(dates).toStrictEqual(["Monday (01/02)", "Wednesday (01/04)"]);
+         expect(dates).toStrictEqual(['Monday (01/02)', 'Wednesday (01/04)']);
         }
       );
 
@@ -21,4 +21,4 @@ describe('MeetingDates', () => {
            expect(dates).toStrictEqual([]);
           }
         );
-        });
+});
