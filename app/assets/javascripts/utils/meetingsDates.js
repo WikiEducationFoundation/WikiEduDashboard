@@ -29,7 +29,7 @@ const MeetingDates = (start, meetingsString) => {
         dates.push(`Saturday (${moment(start).add(6, 'day').format('MM/DD')})`);
         break;
       default:
-        dates.push('');
+        return [];
     }
   }
   return dates;
