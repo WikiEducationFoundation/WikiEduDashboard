@@ -45,7 +45,7 @@ sd:
     home: مک صفحو
     log_in_extended: وڪيپيڊيا سان داخل ٿيو
     log_in: داخل ٿيو
-    log_out: خارج ٿيو
+    log_out: ٻاھر نڪرو
     my_dashboard: منھنجو ڊيش-بورڊ
     recent_activity: تازي سرگرمي
     report_problem: مسئلو رپورٽ ڪريو
@@ -75,7 +75,7 @@ sd:
     assignment_completed: ذميواري ڪم لڳل نشان پورو ڪيو ويو
     reading_the_article: پڙهڻ جو مضمون
     providing_feedback: فيڊ بئڪ (سُڌ سماءُ) پھچايو
-    post_to_talk: ڳالهه ٻولهه واري بحث صفحو ڏانهن پوسٽ ڪرڻ
+    post_to_talk: بحث صفحي ۾ درج ڪندي
     peer_review_completed: پرک، ورجاءُ پورو ٿيو
   dashboard:
     create_note: پنهنجو پهريون اڀياس (ڪورس) ٺاهڻ لاءِ ڪورس ٺاهڻ تي ٺِڙڪ (ڪلڪ) ڪريو.
@@ -142,7 +142,7 @@ sd:
       stub: '%{class}-ڪچو درجو — ڪنھن مضمون جي مختصر شروعات جيڪو وڌيڪ مواد گھري'
       list: '%{class}-فھرست درجو — ڪنھن روايتي مضمون بدران هڪ فھرست'
     see_more: وڌيڪ ڏسو
-    show_current_version: تازو ورزن ڏيکاريو
+    show_current_version: تازو ورجاءُ ڏيکاريو
     title: عنوان
     tracked: پيرو کنيو ويو
     title_example: مضمون جو عنوان
@@ -300,7 +300,7 @@ sd:
       save_cloned_course: سانڍيو
     delete_course: پروگرام ڊاهيو
     edit_course_dates: رٿا جون تاريخون سنواريو
-    enroll: سنواريندڙ وجھو
+    enroll: سنواريندڙ وجهو
     explore: پروگرامَ ڳوليو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
     student_editors: سنواريندڙَ
@@ -343,7 +343,7 @@ sd:
     edited_by: سنواريندڙ
     loading: ڀيرا اتاريندي ...
     none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
-    time_doc: توهان جي مقامي وقت مطابق هر هڪ ڀيري جو وقت
+    time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
     title: عنوان
   timeline:
     add_week: هفتو شامل ڪيو

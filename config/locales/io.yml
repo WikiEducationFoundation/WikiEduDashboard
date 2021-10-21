@@ -37,6 +37,7 @@ io:
     loading: Karganta...
     none: Nula
     overview: Komenco
+    start: Komenco
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
@@ -60,6 +61,7 @@ io:
     gradeable_value: Valoro
     week_number: Semano %{number}
   training:
+    start: Komenco
     page: Pagino
     done: Facita!
   uploads:

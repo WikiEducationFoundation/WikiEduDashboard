@@ -14,6 +14,7 @@
 # Author: Fortega
 # Author: Ihojose
 # Author: Irus
+# Author: Jakeukalane
 # Author: Javiersanp
 # Author: Joanmp17
 # Author: Johny Weissmuller Jr
@@ -168,7 +169,7 @@ es:
     view: Ver artículo
     view_all: Ver todos
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
-    view_on_wiki: Ver en el wiki
+    view_on_wiki: Ver en la wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     edit_size: Tamaño de edición
     wiki: Wiki
