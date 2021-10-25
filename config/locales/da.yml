@@ -580,8 +580,8 @@ da:
       one: Instruktør
       other: Instruktører
     instructors: Undervisere
-    invitation: Du er blevet inviteret til at deltage i %{title}. For at deltage i
-      et kursus skal du først logge din ind med en Wikipedia-konto.
+    invitation: Du er blevet inviteret til at deltage i %{title}. For at deltage skal
+      du først logge din ind med en Wikipedia-konto.
     invitation_username_advice: Hvis du endnu ikke har en Wikipedia-konto, kan du
       oprette en konto nu. Dit brugernavn kan være så anonymt, eller så personligt
       identificerbart, som du ønsker. (Det er ikke tilladt at lave delte konti).

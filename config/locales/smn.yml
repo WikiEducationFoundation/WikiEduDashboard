@@ -1,0 +1,26 @@
+# Messages for Inari Sami (anarâškielâ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Yupik
+---
+smn:
+  application:
+    cookie_consent_see_more: Lasetiäđuh
+  articles:
+    see_more: Lasetiäđuh
+  categories:
+    template_name: Myenster nommâ
+  courses:
+    tags: 'Kilgoleh:'
+  metrics:
+    tags: Kilgoleh
+  recent_activity:
+    file_name: Tiätuvuárkkánommâ
+  revisions:
+    diff_show: Čääiti
+    diff_hide: Čievâ
+    see_more: Lasetiäđuh
+  users:
+    first_name: Ovdânommâ
+    last_name: Suhânommâ
+...

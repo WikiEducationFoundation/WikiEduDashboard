@@ -1070,8 +1070,8 @@ ca:
       sap greu aquest error, a vegades passa. Si us plau torna a iniciar sessió o
       apunta't una altra vegada.
   survey:
-    login_message: Gràcies pel vostre temps. Podeu entrar al vostre tauler de Wiki
-      Education per respondre l'enquesta.
+    login_message: Gràcies pel vostre temps. Podeu entrar al tauler per respondre
+      l'enquesta.
     notification_explanation: Si la casella de sota està marcada els usuaris rebran
       emails amb les notificacions a més de veure-les amb el navegador. Si no està
       marcada només veuran les notificacions amb el navegador.

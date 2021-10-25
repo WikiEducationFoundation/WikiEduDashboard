@@ -157,8 +157,8 @@ sd:
     already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
-    add_available: موجود مضمون وجھو
-    add_available_submit: مضمون شامل ڪيو
+    add_available: موجود مضمون وجهو
+    add_available_submit: مضمونَ شامل ڪريو
     assign_self: مون کي مضمون سونپيو
     bibliography: ببلوگرافي
     clone: ڪِلون
@@ -183,7 +183,7 @@ sd:
       title: سنگ-ميلَ
   campaign:
     active_campaigns: هلندڙ مهم
-    add_organizer: سرپرست شامل ڪيو (Add organizer)
+    add_organizer: انتظام ڪندڙ شامل ڪريو
     alert_article: مضمون جو عنوان
     alert_label: اطلاع مهم
     alert_type: قِسم
@@ -201,10 +201,10 @@ sd:
     organizers: سرپرستَ (Organizers)
     title: عنوان
   categories:
-    add_category: ڏَسان (زمرو) شامل ڪيو
-    add_template: سانچو وجھو
-    add_this_category: هي ڏَسان (زمرو) شامل ڪيو
-    add_this_template: ھي سانچو وجھو
+    add_category: زمرو وجهو
+    add_template: سانچو وجهو
+    add_this_category: هي زمرو وجهو
+    add_this_template: ھي سانچو وجهو
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
@@ -263,7 +263,7 @@ sd:
     instructors: سکيا ڏيندڙ
     join: شامل ٿيو
     my_articles: منهنجا مضمونَ
-    new_week: نئون هفتو وجھو
+    new_week: نئون هفتو وجهو
     new_account_email: برقٽپال پتو
     new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
@@ -280,7 +280,7 @@ sd:
     timeline: مشق جا تفصيل
     title: عنوان
     training_nav: تربيت لاءِ وڃو
-    user_suggestions: 'واپرائيندڙ جون صلاحون:'
+    user_suggestions: 'واپرائيندڙ جا مشورا:'
     view: ڪورس ڏسو
     view_wiki: وڪي‌پيڊيا تي ڏسو
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
@@ -300,7 +300,7 @@ sd:
       save_cloned_course: سانڍيو
     delete_course: پروگرام ڊاهيو
     edit_course_dates: رٿا جون تاريخون سنواريو
-    enroll: سنواريندڙ وجهو
+    enroll: سنواريندڙ شامل ڪريو
     explore: پروگرامَ ڳوليو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
     student_editors: سنواريندڙَ
@@ -346,7 +346,7 @@ sd:
     time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
     title: عنوان
   timeline:
-    add_week: هفتو شامل ڪيو
+    add_week: هفتو شامل ڪريو
     block_in_class: ڪلاس ۾
     block_milestone: سنگ-ميلَ
     due_default: مٿين هفتي واجب
@@ -386,7 +386,7 @@ sd:
     training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   user_profiles:
-    location_placeholder: پنھنجي مڪانيت وجھو (اختياري)
+    location_placeholder: پنھنجي مڪانيت شامل ڪريو (اختياري)
     institution_placeholder: اداري (انسٽيٽيوشن) جو نالو (اختياري)
   wizard:
     assignment_dates: مشقن جون تاريخون
@@ -395,7 +395,7 @@ sd:
     course_dates: ڪورس جون تاريخون
     read_less: گھٽ پڙهو
     read_more: وڌيڪ پڙهو
-    select_assignment: پنھنجي وقت-پٽي ۾ وجھڻ لاءِ مشقن جو قسم چونڊيو.
+    select_assignment: پنھنجي وقت-پٽي ۾ رکڻ لاءِ مشقن جو قسم چونڊيو.
     summary: تَتُ
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
