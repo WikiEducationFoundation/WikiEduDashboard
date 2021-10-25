@@ -1,3 +1,5 @@
+- content_for :before_title, "#{@user.username} – "
+
 .container
   .profile_container
     = render 'user_profiles/user_form'
