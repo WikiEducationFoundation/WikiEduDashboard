@@ -204,6 +204,7 @@ const Timeline = createReactClass({
         </li>
       );
     }
+
     // For each week, first insert an extra empty week for each week with empty
     // week meetings, which indicates a blackout week. Then insert the week itself.
     // The index 'i' represents the zero-index week number; both empty and non-empty
@@ -246,7 +247,7 @@ const Timeline = createReactClass({
             updateTitle={this.props.updateTitle}
             blocks={week.blocks}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
-            meetings={this.props.week_meetings[i]}
+            meetings={this.props.week_meetings[i] || []}
             timeline_start={this.props.course.timeline_start}
             timeline_end={this.props.course.timeline_end}
             all_training_modules={this.props.all_training_modules}

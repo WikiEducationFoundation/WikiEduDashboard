@@ -5,7 +5,6 @@ import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import MeetingDates from '../../utils/meetingsDates';
 import DateCalculator from '../../utils/date_calculator.js';
 
 const Week = createReactClass({
@@ -15,7 +14,7 @@ const Week = createReactClass({
     index: PropTypes.number,
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
-    meetings: PropTypes.string,
+    meetings: PropTypes.array,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -73,8 +72,10 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings && this.props.meetings !== '()') {
-      meetDates = `Meetings: ${MeetingDates(this.props.week.start_date_raw, this.props.meetings).join(', ')}`;
+    if (this.props.meetings.length === 0) {
+      meetDates = 'No meetings';
+    } else {
+      meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {
       weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
