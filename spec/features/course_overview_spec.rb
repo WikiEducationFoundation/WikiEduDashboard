@@ -65,7 +65,7 @@ describe 'course overview page', type: :feature, js: true do
         expect(page).to have_content(timeline_start.beginning_of_week(:sunday).strftime('%m/%d'))
         # Class normally meets on Sun, W, Sat, but timeline starts on Tuesday.
       end
-      within '.week__week-dates' do
+      within '.margin-bottom' do
         expect(page).to have_content('Meetings: Wednesday (02/26), Saturday (03/01)')
       end
       within '.week-index' do
