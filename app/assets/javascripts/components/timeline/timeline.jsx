@@ -175,7 +175,7 @@ const Timeline = createReactClass({
   }, 150),
 
   tooManyWeeks() {
-    const nonEmptyWeeks = this.props.week_meetings.filter(week => week !== '()');
+    const nonEmptyWeeks = this.props.week_meetings.filter(week => week.length > 0);
     return nonEmptyWeeks.length < this.props.weeks.length;
   },
 
@@ -210,7 +210,7 @@ const Timeline = createReactClass({
     // The index 'i' represents the zero-index week number; both empty and non-empty
     // weeks are included in this numbering scheme.
     this.props.weeks.forEach((week, weekIndex) => {
-      while (this.props.week_meetings[i] === '()') {
+      while (this.props.week_meetings[i].length === 0) {
         const emptyWeekKey = `empty-week-${i}`;
         const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
         weekNavInfo.push({ emptyWeek: true, title: undefined });
@@ -247,7 +247,7 @@ const Timeline = createReactClass({
             updateTitle={this.props.updateTitle}
             blocks={week.blocks}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
-            meetings={this.props.week_meetings[i] || []}
+            meetings={this.props.week_meetings[i]}
             timeline_start={this.props.course.timeline_start}
             timeline_end={this.props.course.timeline_end}
             all_training_modules={this.props.all_training_modules}

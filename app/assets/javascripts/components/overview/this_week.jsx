@@ -9,7 +9,7 @@ const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;
   for (let i = 0; i < weekMeetings.length; i += 1) {
     const week = weekMeetings[i];
-    if (week !== '()') { return count; }
+    if (week.length > 0) { return count; }
     count += 1;
   }
 };
@@ -19,7 +19,7 @@ const emptyWeeksUntil = function (weekMeetings, weekIndex) {
   const iterable = weekMeetings.slice(0, weekIndex);
   for (let i = 0; i < iterable.length; i += 1) {
     const week = iterable[i];
-    if (week === '()') { count += 1; }
+    if (week.length === 0) { count += 1; }
   }
   return count;
 };

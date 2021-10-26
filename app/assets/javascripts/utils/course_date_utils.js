@@ -189,8 +189,8 @@ const CourseDateUtils = {
   // Takes a week weekMeetings array and returns the count of non-empty weeks
   openWeeks(weekMeetings) {
     let openWeekCount = 0;
-    weekMeetings.forEach((meetingString) => {
-      if (meetingString !== '()') { return openWeekCount += 1; }
+    weekMeetings.forEach((meetingArray) => {
+      if (meetingArray.length > 0) { return openWeekCount += 1; }
     });
     return openWeekCount;
   },

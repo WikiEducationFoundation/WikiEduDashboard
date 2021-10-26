@@ -72,9 +72,7 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings.length === 0) {
-      meetDates = 'No meetings';
-    } else {
+    if (this.props.meetings.length > 0) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {
@@ -83,7 +81,7 @@ const Week = createReactClass({
       weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
     }
     const meetDatesDiv = (
-      <div className="week__week-dates">
+      <div className="margin-bottom">
         {meetDates}
       </div>
     );
