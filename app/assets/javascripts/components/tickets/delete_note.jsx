@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteNote } from '../../actions/tickets_actions';
-
+// a
 class DeleteNote extends React.Component {
       onClick(e) {
             e.preventDefault();
@@ -9,7 +9,7 @@ class DeleteNote extends React.Component {
       }
 
       render() {
-            return <img src="/assets/images/delete-icon.svg" alt="delete icon" onClick={this.onClick.bind(this)} />;
+            return <img src="/assets/images/delete-icon.png" alt="delete icon" onClick={this.onClick.bind(this)} />;
       }
 }
 
