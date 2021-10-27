@@ -231,7 +231,7 @@ const Timeline = createReactClass({
         )
         );
         i += 1;
-        if (i > this.props.week_meetings[i].length) {
+        if (i > this.props.week_meetings.length) {
           return;
         }
       }
