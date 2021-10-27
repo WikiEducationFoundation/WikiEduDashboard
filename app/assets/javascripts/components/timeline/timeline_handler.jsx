@@ -92,7 +92,6 @@ const TimelineHandler = createReactClass({
       key: 'wizard_handler',
       course: this.props.course,
       weeks: this.props.weeks,
-      week_meetings: weekMeetings,
       meetings,
       open_weeks: openWeeks
     };

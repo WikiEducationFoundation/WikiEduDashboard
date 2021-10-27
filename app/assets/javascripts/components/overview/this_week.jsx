@@ -58,7 +58,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
   }
 
   if (week) {
-    const meetingsProp = weekMeetings ? thisWeekMeetings : ' ';
+    const meetingsProp = weekMeetings ? thisWeekMeetings : [];
     weekComponent = (
       <Week
         week={week}

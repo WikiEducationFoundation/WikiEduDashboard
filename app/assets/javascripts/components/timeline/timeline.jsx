@@ -231,8 +231,10 @@ const Timeline = createReactClass({
         )
         );
         i += 1;
+        if (i > this.props.week_meetings[i].length) {
+          return;
+        }
       }
-
       const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
       weekNavInfo.push({ emptyWeek: false, title: week.title });
       weekComponents.push((

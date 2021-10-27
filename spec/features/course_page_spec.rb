@@ -484,7 +484,7 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show authenticated links to a logged out user' do
       js_visit "/courses/#{Course.last.slug}/timeline"
 
-      within '.panel' do
+      within '.timeline__week-nav' do
         expect(page).not_to have_content 'Edit Course Dates'
         expect(page).not_to have_content 'Add Week'
       end
