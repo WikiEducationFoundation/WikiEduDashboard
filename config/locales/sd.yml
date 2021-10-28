@@ -20,7 +20,7 @@ sd:
           trillion: ٽريلين
           quadrillion: ڪواڊريلين
   accessibility:
-    number_field: هي هڪ انگ جو ميدان آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
+    number_field: هي هڪ انگ جي جڳھ آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
       کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
   application:
     cancel: رد
@@ -33,7 +33,7 @@ sd:
     documentation: دستاويزسازي
     error: 'ڪا خرابي ھئي:'
     explore: کوجيو
-    field_required: ھي جڳھ گھربل آھي
+    field_required: ھي جڳھ گهربل آھي
     field_invalid_characters: ھن جڳھ ۾ ناقل ڪار نشانيون آھن
     field_invalid_date: جڳھ کي YYYY-MM-DD ۾ تاريخ گھرجي ٿي.
     field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گھرجي. (0 کان 23 تائين ڪلاڪ وڃن
@@ -104,7 +104,7 @@ sd:
     article_development: (مضمون جي ترقي)
     assigned: تخصيصيل مضمون
     available: موجود مضمون
-    no_available: موجود مضمونَ نه مليا
+    no_available: موجود مضمونَ ڪونھن
     next: اڳيون
     previous: پويون
     article_title: مضمون جو عنوان
@@ -277,6 +277,7 @@ sd:
     students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
     students_short: شاگرد
     user_role: ڪردار
+    subject: موضوع
     timeline: مشق جا تفصيل
     title: عنوان
     training_nav: تربيت لاءِ وڃو
