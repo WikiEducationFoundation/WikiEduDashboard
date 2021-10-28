@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteNote } from '../../actions/tickets_actions';
-// a
 class DeleteNote extends React.Component {
       onClick(e) {
             e.preventDefault();
