@@ -228,7 +228,7 @@ const Timeline = createReactClass({
               addWeek={this.props.addWeek}
             />
           </div>
-        )        );
+        ));
         j += 1;
         if (j >= this.props.week_meetings.length) {
           return;
