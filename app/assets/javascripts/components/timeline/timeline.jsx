@@ -189,6 +189,7 @@ const Timeline = createReactClass({
     const usingCustomTitles = this.usingCustomTitles();
     const weekNavInfo = [];
     let i = 0;
+    let j = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
 
@@ -204,13 +205,12 @@ const Timeline = createReactClass({
         </li>
       );
     }
-
     // For each week, first insert an extra empty week for each week with empty
     // week meetings, which indicates a blackout week. Then insert the week itself.
     // The index 'i' represents the zero-index week number; both empty and non-empty
     // weeks are included in this numbering scheme.
     this.props.weeks.forEach((week, weekIndex) => {
-      if (this.props.week_meetings[i].length === 0) {
+      while (this.props.week_meetings[i].length === 0) {
         const emptyWeekKey = `empty-week-${i}`;
         const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
         weekNavInfo.push({ emptyWeek: true, title: undefined });
@@ -228,52 +228,53 @@ const Timeline = createReactClass({
               addWeek={this.props.addWeek}
             />
           </div>
-        )
-
-        );
-        i += 1;
-      } else {
-        const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
-        weekNavInfo.push({ emptyWeek: false, title: week.title });
-        weekComponents.push((
-          <div key={week.id}>
-            <a className="timeline__anchor" name={weekAnchorName} />
-            <Week
-              week={week}
-              index={i + 1}
-              reorderable={this.props.reorderable}
-              editableTitles={this.props.editableTitles}
-              usingCustomTitles={usingCustomTitles}
-              updateTitle={this.props.updateTitle}
-              blocks={week.blocks}
-              deleteWeek={this.deleteWeek.bind(this, week.id)}
-              meetings={this.props.week_meetings[i]}
-              timeline_start={this.props.course.timeline_start}
-              timeline_end={this.props.course.timeline_end}
-              all_training_modules={this.props.all_training_modules}
-              editableBlockIds={this.props.editableBlockIds}
-              edit_permissions={this.props.edit_permissions}
-              saveBlockChanges={this.props.saveBlockChanges}
-              setBlockEditable={this.props.setBlockEditable}
-              cancelBlockEditable={this.props.cancelBlockEditable}
-              updateBlock={this.props.updateBlock}
-              addBlock={this.props.addBlock}
-              deleteBlock={this.props.deleteBlock}
-              saveGlobalChanges={this.props.saveGlobalChanges}
-              canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
-              canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}
-              onMoveBlockUp={this._handleMoveBlock.bind(this, true)}
-              onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
-              onBlockDrag={this._handleBlockDrag}
-              weeksBeforeTimeline={weeksBeforeTimeline}
-              trainingLibrarySlug={this.props.course.training_library_slug}
-              current_user={this.props.current_user}
-            />
-          </div>
-        )
-        );
+        )        );
+        j += 1;
+        if (j >= this.props.week_meetings.length) {
+          return;
+        }
         i += 1;
       }
+      const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
+      weekNavInfo.push({ emptyWeek: false, title: week.title });
+      weekComponents.push((
+        <div key={week.id}>
+          <a className="timeline__anchor" name={weekAnchorName} />
+          <Week
+            week={week}
+            index={i + 1}
+            reorderable={this.props.reorderable}
+            editableTitles={this.props.editableTitles}
+            usingCustomTitles={usingCustomTitles}
+            updateTitle={this.props.updateTitle}
+            blocks={week.blocks}
+            deleteWeek={this.deleteWeek.bind(this, week.id)}
+            meetings={this.props.week_meetings[i]}
+            timeline_start={this.props.course.timeline_start}
+            timeline_end={this.props.course.timeline_end}
+            all_training_modules={this.props.all_training_modules}
+            editableBlockIds={this.props.editableBlockIds}
+            edit_permissions={this.props.edit_permissions}
+            saveBlockChanges={this.props.saveBlockChanges}
+            setBlockEditable={this.props.setBlockEditable}
+            cancelBlockEditable={this.props.cancelBlockEditable}
+            updateBlock={this.props.updateBlock}
+            addBlock={this.props.addBlock}
+            deleteBlock={this.props.deleteBlock}
+            saveGlobalChanges={this.props.saveGlobalChanges}
+            canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
+            canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}
+            onMoveBlockUp={this._handleMoveBlock.bind(this, true)}
+            onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
+            onBlockDrag={this._handleBlockDrag}
+            weeksBeforeTimeline={weeksBeforeTimeline}
+            trainingLibrarySlug={this.props.course.training_library_slug}
+            current_user={this.props.current_user}
+          />
+        </div>
+      )
+      );
+      return i += 1;
     }
     );
 
@@ -293,6 +294,7 @@ const Timeline = createReactClass({
         />
       );
     }
+
     let wizardLink;
     if (weekComponents.length <= 0 && this.props.edit_permissions && this.props.course.type === 'ClassroomProgramCourse') {
       const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
