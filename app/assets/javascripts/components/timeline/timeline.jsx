@@ -189,7 +189,6 @@ const Timeline = createReactClass({
     const usingCustomTitles = this.usingCustomTitles();
     const weekNavInfo = [];
     let i = 0;
-    let j = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
 
@@ -210,7 +209,7 @@ const Timeline = createReactClass({
     // The index 'i' represents the zero-index week number; both empty and non-empty
     // weeks are included in this numbering scheme.
     this.props.weeks.forEach((week, weekIndex) => {
-      while (this.props.week_meetings[i].length === 0) {
+      while (this.props.week_meetings[i] && this.props.week_meetings[i].length === 0) {
         const emptyWeekKey = `empty-week-${i}`;
         const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
         weekNavInfo.push({ emptyWeek: true, title: undefined });
@@ -229,10 +228,6 @@ const Timeline = createReactClass({
             />
           </div>
         ));
-        j += 1;
-        if (j >= this.props.week_meetings.length) {
-          return;
-        }
         i += 1;
       }
       const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;

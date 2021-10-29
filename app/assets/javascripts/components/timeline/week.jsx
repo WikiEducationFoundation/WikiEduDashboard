@@ -72,7 +72,7 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings.length > 0) {
+    if (this.props.meetings && this.props.meetings.length > 0) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {
