@@ -5,7 +5,6 @@ import { Motion, spring } from 'react-motion';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-
 import DateCalculator from '../../utils/date_calculator.js';
 
 const Week = createReactClass({
@@ -15,7 +14,7 @@ const Week = createReactClass({
     index: PropTypes.number,
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
-    meetings: PropTypes.string,
+    meetings: PropTypes.array,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -71,19 +70,21 @@ const Week = createReactClass({
   render() {
     let style;
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
-
     let weekDatesContent;
+    let meetDates;
+    if (this.props.meetings && this.props.meetings.length > 0) {
+      meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
+    }
     if (this.props.meetings) {
-      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()} ${this.props.meetings}`;
+      weekDatesContent = `${dateCalc.start()} - ${dateCalc.end()}`;
     } else {
       weekDatesContent = `Week of ${dateCalc.start()} — AFTER TIMELINE END DATE!`;
     }
-    const weekDates = (
-      <div className="week__week-dates">
-        {weekDatesContent}
+    const meetDatesDiv = (
+      <div className="margin-bottom">
+        {meetDates}
       </div>
     );
-
     let weekTitleContent;
     if (this.props.week.title) {
       weekTitleContent = this.props.week.title;
@@ -99,7 +100,7 @@ const Week = createReactClass({
         onChange={event => this.props.updateTitle(weekId, event.target.value)}
       />
     ) : (
-      <p className="week-index">{weekTitleContent}</p>
+      <p className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></p>
     );
 
     const blocks = this.props.blocks.map((block, i) => {
@@ -212,7 +213,7 @@ const Week = createReactClass({
         <div className="week__week-header">
           {weekAddDelete}
           {weekTitle}
-          {weekDates}
+          {meetDatesDiv}
         </div>
         {weekContent}
       </li>

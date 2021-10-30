@@ -55,7 +55,7 @@ describe('CourseDateUtils.openWeeks', () => {
   test(
     'returns the count of weeks with meetings from a weekMeetings array',
     () => {
-      const weekMeetings = ['(M, W, F)', '(M, W)', '()', '(W, T)', '(M, W, F)'];
+      const weekMeetings = [['M', 'W', 'F'], ['M', 'W'], [], ['W', 'T'], ['M', 'W', 'F']];
       const result = CourseDateUtils.openWeeks(weekMeetings);
       expect(result).toBe(4);
     }
@@ -68,7 +68,7 @@ describe('CourseDateUtils.openWeeks', () => {
   });
 
   test('handles arrays of all empty weeks', () => {
-    const weekMeetings = ['()', '()', '()', '()', '()'];
+    const weekMeetings = [[], [], [], [], []];
     const result = CourseDateUtils.openWeeks(weekMeetings);
     expect(result).toBe(0);
   });
