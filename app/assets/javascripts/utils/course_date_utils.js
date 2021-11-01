@@ -98,7 +98,7 @@ const CourseDateUtils = {
 
   moreWeeksThanAvailable(course, weeks, exceptions) {
     if (!weeks || !weeks.length) { return false; }
-    const nonBlackoutWeeks = filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg !== '()');
+    const nonBlackoutWeeks = filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg.length > 0);
     return weeks.length > nonBlackoutWeeks.length;
   },
 
@@ -118,8 +118,8 @@ const CourseDateUtils = {
     return timelineStart.diff(courseStart, 'week');
   },
 
-  // Returns string describing weekday meetings for each week
-  // Ex: ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]
+  // Returns array describing weekday meetings for each week
+  // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]
   weekMeetings(recurrence, course, exceptions) {
     if (!recurrence) { return []; }
     const weekEnd = recurrence.endDate();
@@ -149,13 +149,13 @@ const CourseDateUtils = {
       __range__(firstDayOfWeek, 6, true).forEach((i) => {
         const day = moment(weekStart).add(i, 'days');
         if (course && this.courseMeets(course.weekdays, i, day.format('YYYYMMDD'), exceptions)) {
-          return ms.push(day.format('ddd'));
+          return ms.push(day.format('dddd (MM/DD)'));
         }
       });
       if (ms.length === 0) {
-        return meetings.push('()');
+        return meetings.push([]);
       }
-      return meetings.push(`(${ms.join(', ')})`);
+      return meetings.push(ms);
     });
     return meetings;
   },
@@ -168,7 +168,7 @@ const CourseDateUtils = {
       course.weekdays.split('').forEach((wd, i) => {
         if (wd !== '1') { return; }
         const day = moment().weekday(i);
-        return weekdays.push(moment.localeData().weekdaysShort(day));
+        return weekdays.push(moment.localeData().weekdays(day));
       });
       meetings.every(weekdays).daysOfWeek();
       course.day_exceptions.split(',').forEach((e) => {
@@ -189,8 +189,8 @@ const CourseDateUtils = {
   // Takes a week weekMeetings array and returns the count of non-empty weeks
   openWeeks(weekMeetings) {
     let openWeekCount = 0;
-    weekMeetings.forEach((meetingString) => {
-      if (meetingString !== '()') { return openWeekCount += 1; }
+    weekMeetings.forEach((meetingArray) => {
+      if (meetingArray.length > 0) { return openWeekCount += 1; }
     });
     return openWeekCount;
   },

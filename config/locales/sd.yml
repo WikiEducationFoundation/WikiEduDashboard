@@ -20,7 +20,7 @@ sd:
           trillion: ٽريلين
           quadrillion: ڪواڊريلين
   accessibility:
-    number_field: هي هڪ انگ جو ميدان آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
+    number_field: هي هڪ انگ جي جڳھ آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
       کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
   application:
     cancel: رد
@@ -33,10 +33,10 @@ sd:
     documentation: دستاويزسازي
     error: 'ڪا خرابي ھئي:'
     explore: کوجيو
-    field_required: ھي جڳھ گھربل آھي
-    field_invalid_characters: ھن جڳھ ۾ ناقل ڪار نشانيون آھن
-    field_invalid_date: جڳھ کي YYYY-MM-DD ۾ تاريخ گھرجي ٿي.
-    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گھرجي. (0 کان 23 تائين ڪلاڪ وڃن
+    field_required: ھي جڳھ گهربل آھي
+    field_invalid_characters: ھن جڳھ ۾ ناقلِڪار حرف آھن
+    field_invalid_date: ھن جڳھ تي YYYY-MM-DD فارميٽ ۾ تاريخ گهرجي ٿي.
+    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گهرجي. (0 کان 23 تائين ڪلاڪ وڃن
       ٿا.)
     greeting2: ڀليڪار!
     greeting_extended: وڪيپيڊيا ۾ ڀليڪار
@@ -45,7 +45,7 @@ sd:
     home: مک صفحو
     log_in_extended: وڪيپيڊيا سان داخل ٿيو
     log_in: داخل ٿيو
-    log_out: خارج ٿيو
+    log_out: ٻاھر نڪرو
     my_dashboard: منھنجو ڊيش-بورڊ
     recent_activity: تازي سرگرمي
     report_problem: مسئلو رپورٽ ڪريو
@@ -75,7 +75,7 @@ sd:
     assignment_completed: ذميواري ڪم لڳل نشان پورو ڪيو ويو
     reading_the_article: پڙهڻ جو مضمون
     providing_feedback: فيڊ بئڪ (سُڌ سماءُ) پھچايو
-    post_to_talk: ڳالهه ٻولهه واري بحث صفحو ڏانهن پوسٽ ڪرڻ
+    post_to_talk: بحث صفحي ۾ درج ڪندي
     peer_review_completed: پرک، ورجاءُ پورو ٿيو
   dashboard:
     create_note: پنهنجو پهريون اڀياس (ڪورس) ٺاهڻ لاءِ ڪورس ٺاهڻ تي ٺِڙڪ (ڪلڪ) ڪريو.
@@ -104,13 +104,13 @@ sd:
     article_development: (مضمون جي ترقي)
     assigned: تخصيصيل مضمون
     available: موجود مضمون
-    no_available: موجود مضمونَ نه مليا
+    no_available: موجود مضمونَ ڪونھن
     next: اڳيون
     previous: پويون
     article_title: مضمون جو عنوان
     assigned_to: تخصيصدار
     character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
-      ڪيل اکرن جو ڪل تعداد
+      ڪيل حرفن جو ڪل تعداد
     deleted: ڊاٿل
     edited: سنواريل مضمون
     edited_by: جي طرفان سنواريو ويو
@@ -142,7 +142,7 @@ sd:
       stub: '%{class}-ڪچو درجو — ڪنھن مضمون جي مختصر شروعات جيڪو وڌيڪ مواد گھري'
       list: '%{class}-فھرست درجو — ڪنھن روايتي مضمون بدران هڪ فھرست'
     see_more: وڌيڪ ڏسو
-    show_current_version: تازو ورزن ڏيکاريو
+    show_current_version: تازو ورجاءُ ڏيکاريو
     title: عنوان
     tracked: پيرو کنيو ويو
     title_example: مضمون جو عنوان
@@ -157,8 +157,8 @@ sd:
     already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
-    add_available: موجود مضمون وجھو
-    add_available_submit: مضمون شامل ڪيو
+    add_available: موجود مضمون وجهو
+    add_available_submit: مضمونَ شامل ڪريو
     assign_self: مون کي مضمون سونپيو
     bibliography: ببلوگرافي
     clone: ڪِلون
@@ -183,7 +183,7 @@ sd:
       title: سنگ-ميلَ
   campaign:
     active_campaigns: هلندڙ مهم
-    add_organizer: سرپرست شامل ڪيو (Add organizer)
+    add_organizer: انتظام ڪندڙ شامل ڪريو
     alert_article: مضمون جو عنوان
     alert_label: اطلاع مهم
     alert_type: قِسم
@@ -201,10 +201,10 @@ sd:
     organizers: سرپرستَ (Organizers)
     title: عنوان
   categories:
-    add_category: ڏَسان (زمرو) شامل ڪيو
-    add_template: سانچو وجھو
-    add_this_category: هي ڏَسان (زمرو) شامل ڪيو
-    add_this_template: ھي سانچو وجھو
+    add_category: زمرو وجهو
+    add_template: سانچو وجهو
+    add_this_category: هي زمرو وجهو
+    add_this_template: ھي سانچو وجهو
     category_name: ڏَسان (زمري) جو نالو
     template_name: سانچي جو نالو
     remove: هٽايو
@@ -263,8 +263,8 @@ sd:
     instructors: سکيا ڏيندڙ
     join: شامل ٿيو
     my_articles: منهنجا مضمونَ
-    new_week: نئون هفتو وجھو
-    new_account_email: برقٽپال پتو
+    new_week: نئون هفتو وجهو
+    new_account_email: ايميل پتو
     new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     none: ڪوبہ نہ
@@ -277,10 +277,11 @@ sd:
     students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
     students_short: شاگرد
     user_role: ڪردار
+    subject: موضوع
     timeline: مشق جا تفصيل
     title: عنوان
     training_nav: تربيت لاءِ وڃو
-    user_suggestions: 'واپرائيندڙ جون صلاحون:'
+    user_suggestions: 'واپرائيندڙ جا مشورا:'
     view: ڪورس ڏسو
     view_wiki: وڪي‌پيڊيا تي ڏسو
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
@@ -300,7 +301,7 @@ sd:
       save_cloned_course: سانڍيو
     delete_course: پروگرام ڊاهيو
     edit_course_dates: رٿا جون تاريخون سنواريو
-    enroll: سنواريندڙ وجھو
+    enroll: سنواريندڙ شامل ڪريو
     explore: پروگرامَ ڳوليو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
     student_editors: سنواريندڙَ
@@ -315,7 +316,7 @@ sd:
     activity: تازي سرگرمي
     articles_created: سرجيل مضمون
     articles_edited: سنواريل مضمون
-    characters: اکرَ
+    characters: حرفَ
     char_added: شامل ڪيل اکرن جو تعداد
     char_changed: بدلايل نشانيون
     char: شامل ڪيل اکرن جو تعداد
@@ -343,10 +344,10 @@ sd:
     edited_by: سنواريندڙ
     loading: ڀيرا اتاريندي ...
     none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
-    time_doc: توهان جي مقامي وقت مطابق هر هڪ ڀيري جو وقت
+    time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
     title: عنوان
   timeline:
-    add_week: هفتو شامل ڪيو
+    add_week: هفتو شامل ڪريو
     block_in_class: ڪلاس ۾
     block_milestone: سنگ-ميلَ
     due_default: مٿين هفتي واجب
@@ -386,7 +387,7 @@ sd:
     training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   user_profiles:
-    location_placeholder: پنھنجي مڪانيت وجھو (اختياري)
+    location_placeholder: پنھنجي مڪانيت شامل ڪريو (اختياري)
     institution_placeholder: اداري (انسٽيٽيوشن) جو نالو (اختياري)
   wizard:
     assignment_dates: مشقن جون تاريخون
@@ -395,7 +396,7 @@ sd:
     course_dates: ڪورس جون تاريخون
     read_less: گھٽ پڙهو
     read_more: وڌيڪ پڙهو
-    select_assignment: پنھنجي وقت-پٽي ۾ وجھڻ لاءِ مشقن جو قسم چونڊيو.
+    select_assignment: پنھنجي وقت-پٽي ۾ رکڻ لاءِ مشقن جو قسم چونڊيو.
     summary: تَتُ
   error:
     oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.

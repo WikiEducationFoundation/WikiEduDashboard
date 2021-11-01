@@ -12,9 +12,21 @@ class AssignmentUpdater
       title = assignment.article_title.tr(' ', '_')
       article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
       next if article.nil?
-      assignment.article_id = article.id
-      assignment.article_title = article.title # update assignment to match case
-      assignment.save
+      update_assignment_from_article(assignment, article)
+    end
+  end
+
+  def self.update_assignment_from_article(assignment, article)
+    assignment.article_id = article.id
+    assignment.article_title = article.title # update assignment to match case
+    assignment.save
+  end
+
+  # This method will update the assignments to match the Article title, in
+  # case the Article moved titles.
+  def self.update_assignments_for_article(article)
+    article.assignments.each do |assignment|
+      update_assignment_from_article(assignment, article)
     end
   end
 end

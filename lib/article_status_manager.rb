@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/modified_revisions_manager"
+require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -103,6 +104,8 @@ class ArticleStatusManager
         article.update!(title: article_data['page_title'],
                         namespace: article_data['page_namespace'],
                         deleted: false)
+        # Find corresponding Assignment records and update the titles
+        AssignmentUpdater.update_assignments_for_article(article)
       rescue ActiveRecord::RecordNotUnique => e
         # if this is a duplicate article record, moving the revisions to the non-deleted
         # copy should prevent it from being part of a future update.

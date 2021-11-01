@@ -80,6 +80,7 @@ ru:
     search_results:
       one: '%{count} Результат для: ''%{search_terms}'''
       other: '%{count} Результаты для: ''%{search_terms}'''
+    no_results: Ничего не нашлось по запросу '%{query}'
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
@@ -96,6 +97,13 @@ ru:
   article_statuses:
     not_yet_started: Начало работы
     in_progress: Работа в песочнице
+    ready_for_review: Расширяющийся черновик
+    ready_for_mainspace: Переместить работу в основное пространство
+    assignment_completed: Задание помечено как выполненное
+    reading_the_article: Чтение статьи
+    providing_feedback: Отправка отзыва
+    post_to_talk: Замечание на страницу обсуждения
+    peer_review_completed: Обзор завершён
   dashboard:
     create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
     create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть
@@ -138,10 +146,15 @@ ru:
     edited_by: Изменил(а)
     label: Активность
   articles:
+    article_not_found: Эта статья пока не создана.
+    article_development: (разработка статьи)
     assigned: Назначенные статьи
     available: Доступные статьи
-    next: Далее
-    assigned_to: Назначен
+    no_available: Нет доступных статей
+    next: Следующая
+    previous: Предыдущая
+    article_title: Название статьи
+    assigned_to: Назначено участнику
     character_doc: Общее число символов, добавленных в статьи участвующими редакторами
       между датами начала и окончания.
     deleted: (удалено)
@@ -153,6 +166,9 @@ ru:
       new: Новые
       existing: Существующие
       new_and_existing: Новые и существующие
+      tracked: Отслеживаемые
+      untracked: Неотслеживаемые
+      tracked_and_untracked: Отслеживаемые и неотслеживаемые
     hide: Скрыть
     history: (история)
     label: Статьи
@@ -178,6 +194,8 @@ ru:
       list: '%{class} (Лист-класс) — больше похоже на список, чем на полноценную статью.'
       '?': Без рейтинга — этой статье ещё не был присвоен рейтинг по шкале Википедии.
       does_not_exist: Эта статья не существует в Википедии
+    see_more: Узнать больше
+    show_cumulative_changes: Показать сводку изменений
     show_current_version: Показать текущую версию
     title: Название
     title_example: Название статьи
@@ -202,6 +220,7 @@ ru:
     assignees: Назначенный(е)
     add_available: Добавить доступные статьи
     add_available_submit: Добавить статьи
+    bibliography: Библиография
     clone: Клонировать
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?

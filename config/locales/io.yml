@@ -11,6 +11,7 @@ io:
     error: 'Eventis ula eroro:'
     explore: Explorez
     home: Chefpagino
+    submit: Sendar
     change: Modifiko
     confirm: O.K.
     opt_in: "Yes"
@@ -37,6 +38,7 @@ io:
     loading: Karganta...
     none: Nula
     overview: Komenco
+    start: Komenco
     students: Lernanti
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
@@ -54,12 +56,14 @@ io:
   metrics:
     tags: Etiketi
   revisions:
+    diff: difero
     diff_show: Montrez
     diff_hide: Celez
   timeline:
     gradeable_value: Valoro
     week_number: Semano %{number}
   training:
+    start: Komenco
     page: Pagino
     done: Facita!
   uploads:

@@ -6,7 +6,9 @@
 sms:
   application:
     cookie_consent_see_more: Lââʹssteâđ
+    log_in: Ǩeeʹrjtõõđ sizz
     log_out: Ǩeeʹrjtõõđ åålǥas
+    request_account_create: Raaj tobdldõõǥǥ
   articles:
     see_more: Lââʹssteâđ
   categories:
@@ -22,6 +24,18 @@ sms:
     diff_show: Čuäʹjet
     diff_hide: Čiõǥǥ
     see_more: Lââʹssteâđ
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Õõʹnninõmm
   training:
     page: Seidd
+  users:
+    first_name: Risttnõmm
+    last_name: Sokknõmm
+    username: Õõʹnninõmm
+    username_placeholder: Õõʹnninõmm
+  survey:
+    email:
+      headline: Tiõrv, %{username}
 ...

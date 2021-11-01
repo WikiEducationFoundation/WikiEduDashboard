@@ -358,6 +358,20 @@ describe ArticleStatusManager do
         end
         expect(deleted_article.revisions.count).to eq(0)
       end
+
+      it 'updates associated Assignment records with the new title' do
+        VCR.use_cassette 'article_status_manager/assignments' do
+          article = create(:article, mw_page_id: 848,
+                           title: 'Audi_Cars', # 'Audi' is the actual title
+                           namespace: 2,
+                           updated_at: 2.days.ago)
+          assignment = create(:assignment, article_title: 'Audi_Cars',
+                                           article: article,
+                                           course: course)
+          described_class.new.update_status([article])
+          expect(assignment.reload.article_title).to eq('Audi')
+        end
+      end
     end
   end
 end

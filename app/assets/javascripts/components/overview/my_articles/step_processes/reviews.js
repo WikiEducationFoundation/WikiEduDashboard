@@ -18,7 +18,7 @@ export default assignment => ([
     trainings: [
       {
         title: 'Bibliography',
-        path: `${assignment.sandboxUrl}/Bibliograpy`,
+        path: `${assignment.sandboxUrl}/Bibliography`,
         external: true
       },
       {

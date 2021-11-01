@@ -35,6 +35,11 @@ const completeBibliography = (assignment) => {
 };
 
 const createInSandbox = (assignment) => {
+  let url = assignment.sandboxUrl;
+  if (Features.wikiEd) {
+    url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template';
+  }
+
   return {
     title: 'Create in the sandbox',
     content: 'In your designated sandbox, begin to sketch out your contribution.',
@@ -46,7 +51,7 @@ const createInSandbox = (assignment) => {
       },
       {
         title: 'Sandbox',
-        path: assignment.sandboxUrl,
+        path: url,
         external: true
       }
     ]

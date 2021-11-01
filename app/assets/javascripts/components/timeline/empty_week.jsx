@@ -62,7 +62,7 @@ const EmptyWeek = createReactClass({
     if (this.props.usingCustomTitles) {
       header = (
         <div className="week__week-header">
-          <p className="week-index">
+          <p >
             {I18n.t('timeline.week_number', { number: datesStr })}
           </p>
         </div>
@@ -70,12 +70,9 @@ const EmptyWeek = createReactClass({
     } else {
       header = (
         <div className="week__week-header">
-          <p className="week-index">
-            {I18n.t('timeline.week_number', { number: weekNumber || 1 })}
+          <p >
+            {I18n.t('timeline.week_number', { number: weekNumber || 1 })} <span className="week-range"> ({datesStr})</span>
           </p>
-          <span className="week__week-dates">
-            {datesStr}
-          </span>
         </div>
       );
     }
