@@ -34,9 +34,9 @@ sd:
     error: 'ڪا خرابي ھئي:'
     explore: کوجيو
     field_required: ھي جڳھ گهربل آھي
-    field_invalid_characters: ھن جڳھ ۾ ناقل ڪار نشانيون آھن
-    field_invalid_date: جڳھ کي YYYY-MM-DD ۾ تاريخ گھرجي ٿي.
-    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گھرجي. (0 کان 23 تائين ڪلاڪ وڃن
+    field_invalid_characters: ھن جڳھ ۾ ناقلِڪار حرف آھن
+    field_invalid_date: ھن جڳھ تي YYYY-MM-DD فارميٽ ۾ تاريخ گهرجي ٿي.
+    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گهرجي. (0 کان 23 تائين ڪلاڪ وڃن
       ٿا.)
     greeting2: ڀليڪار!
     greeting_extended: وڪيپيڊيا ۾ ڀليڪار
@@ -110,7 +110,7 @@ sd:
     article_title: مضمون جو عنوان
     assigned_to: تخصيصدار
     character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
-      ڪيل اکرن جو ڪل تعداد
+      ڪيل حرفن جو ڪل تعداد
     deleted: ڊاٿل
     edited: سنواريل مضمون
     edited_by: جي طرفان سنواريو ويو
@@ -264,7 +264,7 @@ sd:
     join: شامل ٿيو
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو وجهو
-    new_account_email: برقٽپال پتو
+    new_account_email: ايميل پتو
     new_account_username_placeholder: وڪي سنواريندڙ 123
     nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     none: ڪوبہ نہ
@@ -316,7 +316,7 @@ sd:
     activity: تازي سرگرمي
     articles_created: سرجيل مضمون
     articles_edited: سنواريل مضمون
-    characters: اکرَ
+    characters: حرفَ
     char_added: شامل ڪيل اکرن جو تعداد
     char_changed: بدلايل نشانيون
     char: شامل ڪيل اکرن جو تعداد

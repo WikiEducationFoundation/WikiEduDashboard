@@ -36,7 +36,7 @@ ban:
     request_account_create: Kardi akun
     sign_up_log_in_extended: sareng Wikipédia
     sign_up: Daptar
-    training: Pelatihan
+    training: Palatihan
     change: Uah
     details: Rerincén
     confirm: Becik
@@ -45,7 +45,7 @@ ban:
     opt_yes: inggih
     opt_no: nénten
   dashboard:
-    explore_examples: Conto penjelajahan
+    explore_examples: Conto pajelajahan
   home:
     explore: Jelajahin
     log_in: Manjing log antuk Wikipédia

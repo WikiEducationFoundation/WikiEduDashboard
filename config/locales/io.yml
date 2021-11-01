@@ -11,6 +11,7 @@ io:
     error: 'Eventis ula eroro:'
     explore: Explorez
     home: Chefpagino
+    submit: Sendar
     change: Modifiko
     confirm: O.K.
     opt_in: "Yes"
@@ -55,6 +56,7 @@ io:
   metrics:
     tags: Etiketi
   revisions:
+    diff: difero
     diff_show: Montrez
     diff_hide: Celez
   timeline:
