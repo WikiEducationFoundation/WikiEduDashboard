@@ -10,4 +10,4 @@ const formatOption = (wiki) => {
   };
 };
 
-export { formatOption };
+export { formatOption, url };
