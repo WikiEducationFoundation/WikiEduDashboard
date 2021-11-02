@@ -4,7 +4,6 @@ import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import { map } from 'lodash-es';
 import ArrayUtils from '../../utils/array_utils';
-import WIKI_OPTIONS from '../../utils/wiki_options';
 
 
 /**
@@ -37,6 +36,12 @@ const WikiSelect = createReactClass({
      *  Should the Wikis be read-only
      */
     readOnly: PropTypes.bool,
+    /**
+     * Wikis for options, in article finder (through selected_wiki_options)
+     * and assign button (through new assigment input and selected wiki options)  tracked Wikis,
+     * in details and couse_form all Wikis
+    */
+    options: PropTypes.array
   },
 
   formatOption(wiki) {
@@ -99,9 +104,9 @@ const WikiSelect = createReactClass({
         this.props.onChange(this.props.multi ? [] : {});
       }
     };
-
+    const options = this.props.options;
     const filterOptions = function (val) {
-      return WIKI_OPTIONS.filter(wiki =>
+      return options.filter(wiki =>
         wiki.label.toLowerCase().includes(val.toLowerCase())
       ).slice(0, 10); // limit the options for better performance
     };

@@ -9,6 +9,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import selectStyles from '../../styles/select';
 import WikiSelect from '../common/wiki_select.jsx';
 import AcademicSystem from '../common/academic_system.jsx';
+import WIKI_OPTIONS from '../../utils/wiki_options';
 
 const CourseForm = (props) => {
   const updateCoursePrivacy = (e) => {
@@ -146,6 +147,7 @@ const CourseForm = (props) => {
         <WikiSelect
           wikis={[{ ...props.course.home_wiki }]}
           onChange={handleWikiChange}
+          options={WIKI_OPTIONS}
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
         />

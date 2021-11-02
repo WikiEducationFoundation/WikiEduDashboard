@@ -34,9 +34,12 @@ import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
+import WIKI_OPTIONS from '../../utils/wiki_options';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import AcademicSystem from '../common/academic_system.jsx';
+
+
 
 const POLL_INTERVAL = 60000; // 1 minute
 const MAX_UPDATE_COUNT = 60 * 12; // 12 hours of updates
@@ -459,6 +462,7 @@ const Details = createReactClass({
             }
             readOnly={!this.props.editable}
             onChange={this.handleWikiChange}
+            options={WIKI_OPTIONS}
             multi={false}
             styles={{ ...selectStyles, singleValue: null }}
           />
@@ -475,6 +479,7 @@ const Details = createReactClass({
             wikis={this.props.course.wikis}
             homeWiki={home_wiki}
             readOnly={!this.props.editable}
+            options={WIKI_OPTIONS}
             onChange={this.handleMultiWikiChange}
             multi={true}
             styles={{ ...selectStyles, singleValue: null }}

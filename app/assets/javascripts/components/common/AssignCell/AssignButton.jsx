@@ -12,6 +12,7 @@ import AddAvailableArticles from '../../articles/add_available_articles';
 import NewAssignmentInput from '../../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
 import SelectedWikiOption from '../selected_wiki_option';
+import { formatOption } from '../../../utils/wiki_utils';
 
 // Helper Components
 // Button to show the static list
@@ -408,6 +409,14 @@ export class AssignButton extends React.Component {
       );
     }
 
+    let trackedWikis = [];
+    if (this.props.course.wikis) {
+     trackedWikis = this.props.course.wikis.map((wiki) => {
+        wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
+        return formatOption(wiki);
+      });
+    }
+
     let editRow;
     if (permitted) {
       let assignmentInput;
@@ -419,6 +428,7 @@ export class AssignButton extends React.Component {
             <br />
             <SelectedWikiOption
               language={this.state.language}
+              trackedWikis={trackedWikis}
               project={this.state.project}
               handleWikiChange={this.handleWikiChange.bind(this)}
             />
@@ -433,6 +443,7 @@ export class AssignButton extends React.Component {
               project={this.state.project}
               title={this.state.title}
               assign={this.assign.bind(this)}
+              trackedWikis={trackedWikis}
               handleChangeTitle={this.handleChangeTitle.bind(this)}
               handleWikiChange={this.handleWikiChange.bind(this)}
             />
