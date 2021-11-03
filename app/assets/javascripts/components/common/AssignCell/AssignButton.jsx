@@ -12,7 +12,7 @@ import AddAvailableArticles from '../../articles/add_available_articles';
 import NewAssignmentInput from '../../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
 import SelectedWikiOption from '../selected_wiki_option';
-import { formatOption } from '../../../utils/wiki_utils';
+import { trackedWikisMaker } from '../../../utils/wiki_utils';
 
 // Helper Components
 // Button to show the static list
@@ -409,13 +409,7 @@ export class AssignButton extends React.Component {
       );
     }
 
-    let trackedWikis = [];
-    if (this.props.course.wikis) {
-     trackedWikis = this.props.course.wikis.map((wiki) => {
-        wiki.language = wiki.language || 'www'; // for multilingual wikis language is null
-        return formatOption(wiki);
-      });
-    }
+    const trackedWikis = trackedWikisMaker(this.props.course);
 
     let editRow;
     if (permitted) {
