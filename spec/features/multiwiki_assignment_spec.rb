@@ -6,13 +6,16 @@ describe 'multiwiki assignments', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:course) { create(:course, submitted: true) }
   let(:user) { create(:user) }
+  let(:wikisource) { Wiki.get_or_create(language: 'es', project: 'wikisource') }
 
   before do
+    stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
     login_as(admin)
     course.campaigns << Campaign.last
+    course.wikis << wikisource
     create(:courses_user, course_id: course.id, user_id: user.id,
                           role: CoursesUsers::Roles::STUDENT_ROLE)
   end
@@ -41,6 +44,38 @@ describe 'multiwiki assignments', type: :feature, js: true do
         expect(page).to have_content 'ஆங்கிலம்'
         link = first('.assignment-links a')
         expect(link[:href]).to include('ta.wiktionary')
+      end
+    end
+  end
+
+  it 'creates a valid assignment from an article and a project and language from tracked Wikis' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      button = first('.assign-button')
+      expect(button).to have_content 'Assign an article'
+      button.click
+
+      within('#users') do
+        find('input', visible: true).set('No le des prisa, dolor')
+        click_link 'Change'
+        find('div.wiki-select').click
+        within('.wiki-select') do
+          find('input').send_keys('es.wikisource', :enter)
+        end
+      end
+
+      click_button 'Assign'
+      click_button 'OK'
+
+      visit "/courses/#{course.slug}/students/articles"
+      first('.student-selection .student').click
+
+      within('#users') do
+        expect(page).to have_content 'No le des prisa'
+        link = first('.assignment-links a')
+        expect(link[:href]).to include('es.wikisource')
       end
     end
   end

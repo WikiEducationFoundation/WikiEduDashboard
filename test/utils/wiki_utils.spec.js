@@ -1,5 +1,5 @@
 import '../testHelper';
-import { formatOption, url } from '../../app/assets/javascripts/utils/wiki_utils';
+import { formatOption, url, trackedWikisMaker } from '../../app/assets/javascripts/utils/wiki_utils';
 
 
 describe('formatOption', () => {
@@ -37,6 +37,33 @@ describe('url', () => {
       };
       const result = url(wikiData);
       expect(result).toStrictEqual('www.wikipedia.org');
+    }
+  );
+});
+
+describe('trackedWikisMaker', () => {
+  test(
+    'if course includes wikis data, creates an array of tracked Wikis objects',
+    () => {
+      const course = {
+        wikis: [{
+          language: 'en',
+          project: 'wikipedia'
+        }, {
+          language: null,
+          project: 'wikipedia'
+        }]
+      };
+  const result = trackedWikisMaker(course);
+  expect(result).toStrictEqual([{ label: 'en.wikipedia.org', value: '{"language":"en","project":"wikipedia"}' }, { label: 'www.wikipedia.org', value: '{"language":"www","project":"wikipedia"}' }]);
+    }
+  );
+  test(
+    'if course does not include wikis data, returns an empty array',
+    () => {
+      const course = 'no Wikis here';
+      const result = trackedWikisMaker(course);
+      expect(result).toStrictEqual([]);
     }
   );
 });
