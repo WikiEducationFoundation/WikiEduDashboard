@@ -7,11 +7,11 @@ describe('formatOption', () => {
     'formats wiki data',
     () => {
       const wikiData = {
-        "language": "en",
-        "project": "wikipedia"
+        language: 'en',
+        project: 'wikipedia'
       };
       const result = formatOption(wikiData);
-      expect(result).toStrictEqual( {"label": "en.wikipedia.org", "value": "{\"language\":\"en\",\"project\":\"wikipedia\"}"});
+      expect(result).toStrictEqual({ label: 'en.wikipedia.org', value: '{"language":"en","project":"wikipedia"}' });
     }
   );
 });
@@ -21,22 +21,22 @@ describe('url', () => {
     'returns url format',
     () => {
       const wikiData = {
-        "language": "en",
-        "project": "wikipedia"
+        language: 'en',
+        project: 'wikipedia'
       };
       const result = url(wikiData);
-      expect(result).toStrictEqual("en.wikipedia.org");
+      expect(result).toStrictEqual('en.wikipedia.org');
     }
   );
   test(
     'if no language specified, returns www subdomain',
     () => {
       const wikiData = {
-        "language": null,
-        "project": "wikipedia"
+        language: null,
+        project: 'wikipedia'
       };
       const result = url(wikiData);
-      expect(result).toStrictEqual("www.wikipedia.org");
+      expect(result).toStrictEqual('www.wikipedia.org');
     }
   );
 });
