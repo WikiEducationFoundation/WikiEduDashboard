@@ -45,38 +45,6 @@ describe 'multiwiki assignments', type: :feature, js: true do
     end
   end
 
-  it 'creates a valid assignment from an article and an alternative project and language' do
-    VCR.use_cassette 'multiwiki_assignment' do
-      visit "/courses/#{course.slug}/students/articles"
-      first('.student-selection .student').click
-
-      button = first('.assign-button')
-      expect(button).to have_content 'Assign an article'
-      button.click
-
-      within('#users') do
-        find('input', visible: true).set('No le des prisa, dolor')
-        click_link 'Change'
-        find('div.wiki-select').click
-        within('.wiki-select') do
-          find('input').send_keys('es.wikisource', :enter)
-        end
-      end
-
-      click_button 'Assign'
-      click_button 'OK'
-
-      visit "/courses/#{course.slug}/students/articles"
-      first('.student-selection .student').click
-
-      within('#users') do
-        expect(page).to have_content 'No le des prisa'
-        link = first('.assignment-links a')
-        expect(link[:href]).to include('es.wikisource')
-      end
-    end
-  end
-
   it 'will create a valid assignment for multilingual wikisource projects' do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students/articles"
