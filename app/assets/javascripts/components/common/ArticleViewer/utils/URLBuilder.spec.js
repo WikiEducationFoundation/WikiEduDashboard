@@ -26,6 +26,12 @@ describe('URLBuilder', () => {
       const result = new URLBuilder({ article });
       expect(() => result.parsedArticleURL()).toThrow(TypeError);
     });
+    it('should correctly encode page titles as URL parameters', () => {
+      const article = { language: 'en', project: 'wikipedia', title: 'Bed Bath & Beyond' };
+      const helper = new URLBuilder({ article });
+      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&page=Bed%20Bath%20%26%20Beyond';
+      expect(helper.parsedArticleURL()).toEqual(expected);
+    });
   });
 
   describe('#wikiURL', () => {

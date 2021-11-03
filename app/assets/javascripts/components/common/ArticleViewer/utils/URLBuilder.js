@@ -10,9 +10,9 @@ export class URLBuilder {
 
     const base = this.wikiURL();
     const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json`;
-    const url = `${query}&page=${title}`;
+    const url = `${query}&page=${encodeURIComponent(title)}`;
 
-    return encodeURI(url);
+    return url;
   }
 
   wikiURL() {
