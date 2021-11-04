@@ -3,7 +3,7 @@ import SelectedWikiOption from '../common/selected_wiki_option';
 
 const NewAssignmentInput = ({
   language, project, title,
-  assign, handleChangeTitle, handleWikiChange
+  assign, handleChangeTitle, handleWikiChange, trackedWikis
 }) => (
   <form onSubmit={assign}>
     <input
@@ -17,6 +17,7 @@ const NewAssignmentInput = ({
       language={language}
       project={project}
       handleWikiChange={handleWikiChange}
+      trackedWikis={trackedWikis}
     />
   </form>
 );

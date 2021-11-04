@@ -17,6 +17,8 @@ import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFin
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
+import { trackedWikisMaker } from '../../utils/wiki_utils';
+
 const ArticleFinder = createReactClass({
   getDefaultProps() {
     return {
@@ -374,13 +376,18 @@ const ArticleFinder = createReactClass({
       );
     }
 
+    const trackedWikis = trackedWikisMaker(this.props.course);
+
     const options = (
       <SelectedWikiOption
         language={this.props.home_wiki.language}
         project={this.props.home_wiki.project}
         handleWikiChange={this.handleWikiChange}
+        trackedWikis={trackedWikis}
       />
     );
+
+
 
     return (
       <div className="container">

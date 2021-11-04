@@ -11,13 +11,14 @@ const SelectedWikiOption = (props) => {
     setShow(true);
   };
 
-  const { language, project } = props;
+  const { language, project, trackedWikis } = props;
   if (show) {
     return (
       <div className="wiki-select">
         <WikiSelect
           wikis={[{ language, project }]}
           onChange={props.handleWikiChange}
+          options={trackedWikis}
           multi={false}
           styles={{ ...selectStyles, singleValue: null }}
         />

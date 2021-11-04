@@ -6,13 +6,16 @@ describe 'multiwiki assignments', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:course) { create(:course, submitted: true) }
   let(:user) { create(:user) }
+  let(:wikisource) { Wiki.get_or_create(language: 'es', project: 'wikisource') }
 
   before do
+    stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
     login_as(admin)
     course.campaigns << Campaign.last
+    course.wikis << wikisource
     create(:courses_user, course_id: course.id, user_id: user.id,
                           role: CoursesUsers::Roles::STUDENT_ROLE)
   end
@@ -45,7 +48,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
     end
   end
 
-  it 'creates a valid assignment from an article and an alternative project and language' do
+  it 'creates a valid assignment from an article and a project and language from tracked Wikis' do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
