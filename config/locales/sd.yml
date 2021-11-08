@@ -174,8 +174,8 @@ sd:
     peer_review_link_personalized: '%{username}''جي شريڪ نظرثاني'
     remove: هٽايو
     reviewers: تجزيو ڪندڙ
-    review_other: شريڪ جائزي لاءِ سونپيو
-    review_self: ڪنھن مضمون جو جائزو وٺو
+    review_other: شريڪ پاران نظرثاني لاءِ سونپيو
+    review_self: ڪنھن مضمون جي نظرثاني ڪريو
     sandbox_draft_link: مشق پَٽي ڊرافٽ
     select: چونڊيو
   blocks:
@@ -383,7 +383,7 @@ sd:
     recent_revisions: تازيون سنوارون
     revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
     reviewers: نظرثاني ڪندڙ
-    reviewing: جائزي هيٺ
+    reviewing: نظرثاني ڪندي
     training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
   user_profiles:

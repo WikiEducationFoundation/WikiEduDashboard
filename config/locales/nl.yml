@@ -287,7 +287,7 @@ nl:
       other: Instructeurs
     instructors: Instructeurs
     invitation: U bent uitgenodigd om deel te nemen aan %{title}. Om deel te nemen
-      aan de cursus moet u inloggen met een Wikipedia-account.
+      moet u inloggen met een Wikipedia-account.
     join: Deelnemen
     join_course: Neem deel aan cursus
     join_prompt: Wil je deelnemen aan "%{title}"?
