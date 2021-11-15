@@ -11,6 +11,7 @@
 # Author: Mr. Zabej
 # Author: Svetit
 # Author: Visem
+# Author: ZlyiLev
 ---
 be:
   accessibility:
@@ -391,7 +392,7 @@ be:
     file_name: Назва файла
     no_dyk_eligible: Няма бягучых артыкулаў, якія адпавядаюць крытэрыям рубрыкі "Ці
       ведалі вы, што ..." (DYK)?
-    no_plagiarism: Зараз няма зменаў, якія падазраюцца ў плагіяце.
+    no_plagiarism: Зараз няма змен, якія падазраюцца ў плагіяце.
     no_edits: Няма нядаўніх правак.
     plagiarism_report: Справаздача пра плагіят
     possible_plagiarism: Магчымы плагіят

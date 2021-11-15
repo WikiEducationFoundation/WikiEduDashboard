@@ -16,6 +16,7 @@
 # Author: Mansil
 # Author: Mansil alfalb
 # Author: MokaAkashiyaPT
+# Author: RogueScholar
 # Author: Ruila
 # Author: Vitorvicentevalente
 ---
@@ -586,6 +587,8 @@ pt:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
         ou semestre diferentes.
       user_exists: Desculpe, o utilizador %{username} não existe.
+      user_exists_on_wiki: Desculpe, %{username} não é um utilizador existente em
+        %{domain}.
       invalid_language_or_project: Língua ou projeto inválido
       invalid_slug: Escola ou título em branco para o curso.
       duplicate_slug: Já existe outro programa chamado %{slug}.
@@ -600,8 +603,8 @@ pt:
       one: Professor
       other: Professores
     instructors: Professores
-    invitation: Foi convidado a participar em %{title}. Para subscrever, precisa iniciar
-      sessão com a sua conta na Wikipédia.
+    invitation: Foi convidado a participar em %{title}. Para inscrever-se, precisa
+      de iniciar sessão com a sua conta na Wikipedia.
     invitation_username_advice: Se ainda não tiver uma conta na Wikipédia, registe-se
       agora. Pode utilizar um nome de utilizador anónimo — ou um que seja da sua identificação
       pessoal — como desejar. (As contas partilhadas não são permitidas.)
@@ -617,6 +620,8 @@ pt:
       cannot_join_twice: Os utilizadores não se podem matricular no mesmo curso duas
         vezes.
       not_yet_approved: Este curso ainda não foi aprovado para matrículas.
+      withdrawn: Esse curso foi marcado como retirado — talvez por engano. Contacte
+        o pessoal da Educação Wiki para o restabelecer.
     join_details: Para entrar neste curso, precisa de uma palavra-passe — ou uma hiperligação
       que inclua a palavra-passe — do professor. Se ainda não a recebeu, contacte
       o seu professor.
