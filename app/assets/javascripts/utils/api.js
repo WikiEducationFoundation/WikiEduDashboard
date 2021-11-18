@@ -10,7 +10,7 @@ const API = {
   // Getters /
   // /////////
   fetchFeedback(articleTitle, assignmentId) {
-    return request(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`)
+    return request(`/revision_feedback.json?title=${articleTitle}&assignment_id=${assignmentId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
