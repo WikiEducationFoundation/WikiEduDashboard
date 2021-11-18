@@ -18,6 +18,8 @@ sms:
       save_cloned_course: Ruõkk
   editable:
     save: Ruõkk
+  metrics:
+    references_count: Lââʹzztum teâttkääiv
   recent_activity:
     file_name: Teâttõsnõmm
   revisions:

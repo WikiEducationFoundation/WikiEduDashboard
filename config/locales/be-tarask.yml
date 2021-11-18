@@ -74,6 +74,9 @@ be-tarask:
     in_progress: Работа ў пясочніцы
     ready_for_review: Пашырэньне чарнавіку
     ready_for_mainspace: Перанос працы ў асноўную прастору
+    assignment_completed: Заданьне пазначанае выкананым
+    reading_the_article: Чытаньне артыкулу
+    providing_feedback: Адсыланьне водгуку
   dashboard:
     create_note: Націсьніце «Стварыць курс», каб запачаткаваць Ваш першы курс.
     create_preparation_note: Перш чым пачаць, пераканайцеся, што маеце пад рукой каляндар
@@ -156,6 +159,8 @@ be-tarask:
     assign_other: Прызначыць артыкул
     add_available: Дадаць даступныя артыкулы
     assign_self: Прызначыць артыкул сабе
+    bibliography: Бібліяграфія
+    clone: Клянаваць
     confirm_add_available: Вы ўпэўненыя, што жадаеце дадаць %{title}?
     confirm_addition: Вы ўпэўненыя, што хочаце прызначыць %{title} карыстальніку %{username}?
     confirm_deletion: Вы ўпэўненыя, што жадаеце выдаліць заданьне на гэты артыкул?
@@ -164,6 +169,8 @@ be-tarask:
     none_short: Няма прызначаных артыкулаў
     none: Гэты курс ня мае прызначаных артыкулаў.
     no_available: Гэты курс ня мае даступных артыкулаў.
+    random_peer_review:
+      limit_exceeded: Кожны студэнт ужо рэцэнзуе прынамсі %{maximum} артыкул(ы).
     remove: Выдаліць
     reviewers: Правяраючы(я)
     review_other: Прызначыць экспэртную ацэнку
@@ -210,8 +217,8 @@ be-tarask:
     error:
       user_exists_on_wiki: Прабачце, %{username} не зьяўляецца існым удзельнікам на
         %{domain}.
-    invitation: Вас запрасілі далучыцца да %{title}. Каб далучыцца да курсу, вы маеце
-      ўвайсьці ў сыстэму з уліковым запісам у Вікіпэдыі.
+    invitation: Вас запрасілі далучыцца да %{title}. Каб далучыцца, вы маеце ўвайсьці
+      ў сыстэму з уліковым запісам у Вікіпэдыі.
     join: Далучыцца
     join_course: Далучыцца да курсу
     join_prompt: Далучыцца да «%{title}»?

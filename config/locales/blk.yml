@@ -1,12 +1,13 @@
 # Messages for Pa'O (ပအိုဝ်ႏဘာႏသာႏ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Khun Kt
 # Author: 咽頭べさ
 ---
 blk:
   application:
     documentation: မုဲင်တန်ꩻစူခြောင်ꩻဖိုင်ႏ
-    help: အကိုအစွဲး
+    help: အစွဲးအကမ်း
     home: အမွူးနမ်း
     log_in: နွို့အကောက်
     log_out: ထန်ႏအကောက်
