@@ -3,17 +3,12 @@ import createReactClass from 'create-react-class';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import StatisticsUpdateModal from './statistics_update_modal';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import getQueuesLatency from '../../actions/queues_latency_actions';
-
 
 const StatisticsUpdateInfo = createReactClass({
   displayName: 'StatisticsUpdateInfo',
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    queuesLatency: PropTypes.object.isRequired,
   },
 
   getInitialState() {
@@ -22,45 +17,27 @@ const StatisticsUpdateInfo = createReactClass({
     };
   },
 
-  componentWillMount() {
-    this.props.getQueuesLatency();
-  },
+  getUpdateTimesInformation() {
+    const course = this.props.course;
+    const updateTimesLogs = Object.values(course.flags.update_logs).filter(log => log.end_time !== undefined);
 
-  getLatencyFromState(end, start, queuesLatency) {
-    const days = moment(end).diff(moment(start), 'days');
-    if (days < 3) {
-      return queuesLatency.short;
-    }
-    return queuesLatency.medium;
-  },
+    if (updateTimesLogs.length === 0) return null;
 
-
-  getUpdateTimesInformation(course, queuesLatency) {
+    const lastSuccessfulUpdate = updateTimesLogs[updateTimesLogs.length - 1].end_time;
+    const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
+    const averageDelay = course.updates.average_delay;
     let lastSuccessfulUpdateMessage = '';
-            let nextUpdateMessage = '';
-    let isNextUpdateAfter = false;
-    if (course.updates.last_update === null) {
-      const latency = this.getLatencyFromState(course.end, course.start, queuesLatency);
-      const nextUpdateExpectedTime = moment().add(latency, 'seconds');
+    let nextUpdateMessage = '';
+    let isNextUpdateAfter = null;
+
+    if (lastSuccessfulUpdate) {
+      lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
+      const nextUpdateExpectedTime = lastSuccessfulUpdateMoment.add(averageDelay, 'seconds');
       isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-      // nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${nextUpdateExpectedTime.fromNow()}`;
-      nextUpdateMessage = `next upd: ${nextUpdateExpectedTime.fromNow()}`;
-    } else {
-      const updateTimesLogs = Object.values(course.flags.update_logs).filter(log => log.end_time !== undefined);
-
-      if (updateTimesLogs.length === 0) return null;
-
-      const lastSuccessfulUpdate = updateTimesLogs[updateTimesLogs.length - 1].end_time;
-      const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
-      const averageDelay = course.updates.average_delay;
-      if (lastSuccessfulUpdate) {
-        lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
-        const nextUpdateExpectedTime = lastSuccessfulUpdateMoment.add(averageDelay, 'seconds');
-        isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-        nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
-      }
+      nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
     }
-  return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
+
+    return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
   },
 
   toggleModal() {
@@ -71,24 +48,24 @@ const StatisticsUpdateInfo = createReactClass({
 
   render() {
     const course = this.props.course;
-    const queuesLatency = this.props.queuesLatency;
-    if (Features.wikiEd && !course.ended) {
+    console.log(course);
+
+    if ((Features.wikiEd && !course.ended) || !course.updates.last_update) {
       return <div />;
     }
 
-    const updateTimesInformation = this.getUpdateTimesInformation(course, queuesLatency);
     // Render Modal
     if (this.state.showModal) {
       return (
         <StatisticsUpdateModal
           course={course}
-          getUpdateTimesInformation={updateTimesInformation}
+          getUpdateTimesInformation={this.getUpdateTimesInformation}
           toggleModal={this.toggleModal}
         />
       );
     }
 
-
+    const updateTimesInformation = this.getUpdateTimesInformation();
     let updateTimesMessage = '';
     if (updateTimesInformation !== null) {
       const [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = updateTimesInformation;
@@ -106,12 +83,4 @@ const StatisticsUpdateInfo = createReactClass({
   }
 });
 
-const mapStateToProps = state => ({
-  queuesLatency: state.queuesLatency,
-});
-
-const mapDispatchToProps = {
-  getQueuesLatency,
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StatisticsUpdateInfo));
+export default StatisticsUpdateInfo;

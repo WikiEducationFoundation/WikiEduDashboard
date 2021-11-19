@@ -18,7 +18,6 @@ import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
 import notifications from './notifications';
 import persistedCourse from './persisted_course';
-import queuesLatency from './queues_latency';
 import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
@@ -62,7 +61,6 @@ const reducer = combineReducers({
   newAccount,
   notifications,
   persistedCourse,
-  queuesLatency,
   recentEdits,
   recentUploads,
   revisions,

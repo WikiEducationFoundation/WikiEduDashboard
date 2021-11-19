@@ -632,22 +632,6 @@ const API = {
         })
     );
   },
-
-  getLatency() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/queues_latency',
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj.statusText);
-        })
-    );
-  },
 };
 
 export default API;
