@@ -27,12 +27,16 @@ lb:
     log_in_extended: Mat Wikipedia aloggen
     log_in: Aloggen
     log_out: Ausloggen
+    my_dashboard: Meng Iwwersiichtssäit
     recent_activity: Rezent Aktivitéit
     report_problem: E Probleem mellen
     request_account: E Benotzerkont ufroen
     request_account_create: E Benotzerkont opmaachen
     search: eng Fro stellen
-    search_results: 'Resultater fir: %{search_terms}'
+    search_results:
+      one: '%{count} Resultat fir: ''%{search_terms}'''
+      other: '%{count} Resultater fir : ''%{search_terms}'''
+    no_results: Näischt fonnt fir %{query}
     sign_up_extended: Mat Wikipedia umellen
     sign_up_wikipedia: Oder op Wikipedia registréieren
     sign_up_log_in_extended: mat Wikipedia
@@ -50,6 +54,7 @@ lb:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkëscht schaffen
     ready_for_review: Schabloun erweideren
+    ready_for_mainspace: Aarbecht an den Haaptnummraum réckelen
     reading_the_article: Artikel liesen
     providing_feedback: Feedback ginn
     post_to_talk: Op der Diskussiounssäit publizéieren
@@ -65,6 +70,7 @@ lb:
     sign_up: Mat Wikipedia umellen
   alerts:
     alert_label: Meldungen
+    no_alerts: Keng Warnunge fonnt.
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -117,6 +123,7 @@ lb:
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
+    edit_size: Gréisst änneren
     wiki: Wiki
     articles_short: Artikelen
   articles_wikidata:
@@ -129,6 +136,7 @@ lb:
     add_available: Disponibel Artikelen derbäisetzen
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
+    clone: Eng Kopie maachen
     editors: Net gespäichert
     group_members: Membere vum Grupp
     no_available: Dëse Cours huet keng disponibel Artikelen.
@@ -140,6 +148,7 @@ lb:
     milestones:
       title: Kilometersténg
   campaign:
+    active_campaigns: Aktiv Campagnen
     add_organizer: Organisateur derbäisetzen
     alert_article: Titel vum Artikel
     alert_type: Typ
@@ -187,6 +196,9 @@ lb:
       available_articles: Disponibel Artikelen
     calendar:
       legend: Erklärung
+      legend_class_canceled: Vakanz/Annuléiert
+      legend_class_meeting: Klassentreffen
+      legend_class_not_meeting: Keng Geplangt Reunioun
     cancel: Ofbriechen
     campaigns: 'Campagnen:'
     campaign_articles: '%{title} Artikelen'
@@ -510,7 +522,7 @@ lb:
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
-    references_count: Referenzen Derbäigesat
+    references_count: Referenzen derbäigesat
     my_reviewing: 'Nokucken:'
     name: Numm
     none: Dëse Cours huet keng Participanten.

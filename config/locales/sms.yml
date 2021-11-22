@@ -13,9 +13,16 @@ sms:
     see_more: Lââʹssteâđ
   categories:
     template_name: Maall nõmm
+  courses:
+    creator:
+      find: Ooʒʒ kuurs
+    data_download_info: Laadd teâđaid CSV-teâttõssân.
+    please_log_in: Ǩeeʹrjtõõđ sizz.
   courses_generic:
     creator:
+      find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
+    explore: Ooʒʒ prograammi
   editable:
     save: Ruõkk
   metrics:

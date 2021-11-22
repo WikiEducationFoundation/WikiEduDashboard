@@ -14,6 +14,7 @@
 # Author: Sanmosa
 # Author: Shangkuanlc
 # Author: Wehwei
+# Author: Winston Sung
 # Author: Wwycheuk
 # Author: Xiplus
 ---
@@ -35,7 +36,7 @@ zh-TW:
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
     cookie_consent_see_more: 查看更多。
-    create_accounts: 創建維基百科帳號
+    create_accounts: 建立維基百科帳號
     dashboard: 維基教育控制面板
     documentation: 文件
     error: 發生了錯誤：
@@ -249,7 +250,7 @@ zh-TW:
     course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
     course: 課程
     course_removed: '%{title}已從競賽「%{campaign_title}」移除'
-    create_campaign: 創建新競賽
+    create_campaign: 建立新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
     data_download_info: 下載競賽資料成 CSV
@@ -331,7 +332,7 @@ zh-TW:
     articles_none: 此課程沒有編輯任何條目
     article_viewer: 條目檢視者
     articles_i_am_reviewing: 我正在同行評審的條目
-    articles_i_will_create: 我即將創建的條目
+    articles_i_will_create: 我將建立的條目
     articles_i_am_updating: 我在更新的條目
     assignment_headings:
       assigned_articles: 已分配條目
@@ -738,8 +739,8 @@ zh-TW:
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目
-    articles_created_generic: 頁面已創建
-    articles_created_wikidata: 項目已創建
+    articles_created_generic: 已建立頁面
+    articles_created_wikidata: 已建立項目
     articles_edited: 已編輯的條目
     articles_edited_generic: 頁面已編輯
     articles_edited_wikidata: 項目已編輯

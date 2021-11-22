@@ -12,6 +12,11 @@ smn:
     template_name: Myenster nommâ
   courses:
     tags: 'Kilgoleh:'
+  courses_generic:
+    creator:
+      save_cloned_course: Vuorkkii
+  editable:
+    save: Vuorkkii
   metrics:
     tags: Kilgoleh
   recent_activity:
