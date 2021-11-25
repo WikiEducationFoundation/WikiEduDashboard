@@ -10,9 +10,13 @@ sms:
     log_out: Ǩeeʹrjtõõđ åålǥas
     request_account_create: Raaj tobdldõõǥǥ
   articles:
+    deleted: (jaukkuum)
     see_more: Lââʹssteâđ
+  assignments:
+    remove: Jaukkâd
   categories:
     template_name: Maall nõmm
+    remove: Jaukkâd
   courses:
     creator:
       find: Ooʒʒ kuurs
@@ -27,6 +31,7 @@ sms:
     save: Ruõkk
   metrics:
     references_count: Lââʹzztum teâttkääiv
+    tags: Ǩeâlggal
   recent_activity:
     file_name: Teâttõsnõmm
   revisions:
