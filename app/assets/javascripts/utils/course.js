@@ -27,6 +27,19 @@ $(() => {
     });
   }
 
+  // Course Results sorting
+  // only sort if there are tables to sort
+  let courseResultList;
+  if ($('#course_results table').length) {
+    courseResultList = new List('course_results', {
+      page: 500,
+      valueNames: [
+        'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
+        'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained'
+      ]
+    });
+  }
+
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
@@ -78,6 +91,7 @@ $(() => {
     const list = (() => {
       switch ($(this).attr('rel')) {
         case 'courses': return courseList;
+        case 'course_results': return courseResultList;
         case 'campaigns': return campaignList;
         case 'campaign-articles': return articlesList;
         case 'users': return studentsList;
