@@ -48,7 +48,6 @@ const StatisticsUpdateInfo = createReactClass({
 
   render() {
     const course = this.props.course;
-    console.log(course);
 
     if ((Features.wikiEd && !course.ended) || !course.updates.last_update) {
       return <div />;
