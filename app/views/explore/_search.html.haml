@@ -1,9 +1,9 @@
 - if query.present?
-  %section#courses
+  %section#course_results
     -if results.present?
       .section-header
         .sort-select
-          %select.sorts{rel: 'courses'}
+          %select.sorts{rel: 'course_results'}
             %option{rel: 'asc', value: 'title'}
               = t("courses.title")
             %option{rel: 'asc', value: 'school'}
