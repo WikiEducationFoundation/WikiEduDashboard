@@ -33,6 +33,8 @@ class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
 
+  include MediawikiUrlHelper
+
   #############
   # Constants #
   #############
@@ -115,10 +117,7 @@ class User < ApplicationRecord
   end
 
   def url_encoded_username
-    # Convert spaces to underscores, then URL-encode the rest
-    # The spaces-to-underscores is the MediaWiki convention, which we replicate
-    # for handling usernames in dashboard urls.
-    CGI.escape(username.tr(' ', '_'))
+    url_encoded_mediawiki_title username
   end
 
   def userpage_url(course)

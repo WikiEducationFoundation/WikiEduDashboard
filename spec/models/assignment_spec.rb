@@ -92,6 +92,20 @@ describe Assignment do
         expected = "#{base_url}/User:#{user.username}/#{article_title}"
         expect(assignment.sandbox_url).to eq(expected)
       end
+
+      it 'generates a working sandbox_url for article ending in "?"' do
+        course = create(:course)
+        user = create(:user)
+        article = create(:article, title: 'Brown_Bear,_Brown_Bear,_What_Do_You_See?')
+        assignment = create(:assignment, course: course, user: user,
+                             article: article, article_title: article.title,
+                             wiki_id: 1)
+
+        base_url = "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki"
+        encoded_title = 'Brown_Bear%2C_Brown_Bear%2C_What_Do_You_See%3F'
+        expected = "#{base_url}/User:#{user.username}/#{encoded_title}"
+        expect(assignment.sandbox_url).to eq(expected)
+      end
     end
 
     context 'when the same article on a different wiki is assignment' do

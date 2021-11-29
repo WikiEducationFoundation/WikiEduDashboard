@@ -21,6 +21,8 @@ require_dependency "#{Rails.root}/lib/assignment_pipeline"
 
 #= Assignment model
 class Assignment < ApplicationRecord
+  include MediawikiUrlHelper
+
   belongs_to :user
   belongs_to :course
   belongs_to :article
@@ -67,7 +69,7 @@ class Assignment < ApplicationRecord
   # Instance methods #
   ####################
   def article_url
-    "#{wiki.base_url}/wiki/#{article_title}"
+    "#{wiki.base_url}/wiki/#{url_encoded_mediawiki_title article_title}"
   end
 
   # A sibling assignment is an assignment for a different user,
@@ -106,7 +108,8 @@ class Assignment < ApplicationRecord
       language = wiki.language || 'www'
       project = wiki.project || 'wikipedia'
       base_url = "https://#{language}.#{project}.org/wiki"
-      self.sandbox_url = "#{base_url}/User:#{user.username}/#{article_title}"
+      encoded_title = url_encoded_mediawiki_title(article_title)
+      self.sandbox_url = "#{base_url}/User:#{user.username}/#{encoded_title}"
     end
   end
 end
