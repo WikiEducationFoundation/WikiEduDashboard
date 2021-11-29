@@ -41,6 +41,7 @@ scn:
     history: (crunuluggìa)
     label: Vuci
     new: (novu)
+    rating: Classi
     title: Tìtulu
     title_example: Tìtulu dâ vuci
     view: Talìa vuci
@@ -89,10 +90,12 @@ scn:
     image: Mmàggini
     file_name: Nomu dû file
   revisions:
+    class: Classi
     diff_show: Ammustra
     diff_hide: Ammuccia
     title: Tìtulu
   timeline:
+    block_custom: Pirsunalizzatu
     empty_week_3: o
     week_number: Simana %{number}
   training:

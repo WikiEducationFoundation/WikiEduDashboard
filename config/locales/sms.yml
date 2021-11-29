@@ -4,34 +4,91 @@
 # Author: Yupik
 ---
 sms:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
   application:
     cookie_consent_see_more: Lââʹssteâđ
     log_in: Ǩeeʹrjtõõđ sizz
     log_out: Ǩeeʹrjtõõđ åålǥas
     request_account_create: Raaj tobdldõõǥǥ
+    change: Muuʹtt
+    details: Teâđ
   articles:
     deleted: (jaukkuum)
+    hide: Čiõǥǥ
     see_more: Lââʹssteâđ
+    view: Čuäʹjet artikkeeʹl
+    articles_short: Artikkeeʹl
+  articles_generic:
+    articles_short: Seeid
   assignments:
+    article_link: Artikkel
+    add_available_submit: Lââʹzzet artikkeeʹlid
     remove: Jaukkâd
+  campaign:
+    alert_user_id: Õõʹnni
+    created_at: Peiʹvvmieʹrr
   categories:
+    add_category: Lââʹzzet kategoria
+    add_psid: Lââʹzzet PetScan PSID
+    add_template: Lââʹzzet maall
+    add_this_category: Lââʹzzet tän kategoria
+    add_this_psid: Lââʹzzet tän PSID
+    add_this_template: Lââʹzzet tän maall
+    name: Nõmm
+    category_name: Kategorianõmm
+    psid_name: PSID
     template_name: Maall nõmm
     remove: Jaukkâd
   courses:
+    course: Kurss
+    course_description: Kuurs
+    courses: Kuurs
     creator:
+      course_term_placeholder: Lookkâmpââʹjj
+      create_label: Raaj ođđ kuurs
+      create_new: Raaj ođđ kuurs
+      create_short: Raaj kuurs
       find: Ooʒʒ kuurs
+      save_cloned_course: Ruõkk ođđ kuurs
     data_download_info: Laadd teâđaid CSV-teâttõssân.
+    data_wikidata: Wikidata-statistiikk
+    delete_course: Jaukkâd kuurs
+    delete_suggestion: Jaukkâd
+    feedback: Maacctõs
     please_log_in: Ǩeeʹrjtõõđ sizz.
+    requested_accounts_alert_view: Čuäʹjet
+    search_courses: Ooʒʒ kuursid
+    tags: 'Ǩeâlggal:'
+    term: Lookkâmpââʹjj
+    update_stats: Muʹttemstatistiikk
+    view: Čuäʹjet kuurs
+    view_page: Čuäʹjet kuurs seeid
+    view_wiki: Čuäʹjet Wikipediast
   courses_generic:
+    all_courses: Puk prograamm
     creator:
+      create_label: Raaj ođđ prograamm
+      create_short: Raaj prograamm
       find: Ooʒʒ prograamm
       save_cloned_course: Ruõkk
+    delete_course: Jaukkâd prograamm
     explore: Ooʒʒ prograammi
   editable:
+    edit: Muuʹtt
     save: Ruõkk
+    edit_template: Muuʹtt maall
+  instructor_view:
+    bad_work:
+      learn_more_button: Lââʹssteâđ
   metrics:
     references_count: Lââʹzztum teâttkääiv
     tags: Ǩeâlggal
+    update_statistics_link: Lââʹssteâđ
+  namespace:
+    user_ns: Õõʹnni
   recent_activity:
     file_name: Teâttõsnõmm
   revisions:
@@ -42,9 +99,13 @@ sms:
     admin_users:
       new:
         form_placeholder: Õõʹnninõmm
+    special_users:
+      new:
+        form_placeholder: Õõʹnninõmm
   training:
     page: Seidd
   users:
+    contribution_statistics: Muʹttemstatistiikk
     first_name: Risttnõmm
     last_name: Sokknõmm
     username: Õõʹnninõmm
