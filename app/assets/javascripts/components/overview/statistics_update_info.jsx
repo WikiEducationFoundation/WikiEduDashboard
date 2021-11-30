@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import StatisticsUpdateModal from './statistics_update_modal';
+import { firstUpdateTime, lastSuccessfulUpdateTime } from '../../utils/statistic_update_info_utils';
 
 const StatisticsUpdateInfo = createReactClass({
   displayName: 'StatisticsUpdateInfo',
@@ -25,39 +26,24 @@ const StatisticsUpdateInfo = createReactClass({
     if (course.updates.last_update === null) {
      lastSuccessfulUpdateMessage = `${I18n.t('metrics.no_update')}`;
      if (course.flags.first_update) {
-      const nextUpdateExpectedTime = this.firstUpdateTime();
+      const nextUpdateExpectedTime = firstUpdateTime(course);
       isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-      nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${nextUpdateExpectedTime.fromNow()}`;
+      nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${nextUpdateExpectedTime.fromNow()}.`;
       lastSuccessfulUpdateMessage = `${I18n.t('metrics.enqueued_update')}`;
      }
      } else {
-      const lastSuccessfulUpdate = this.lastSuccessfulUpdateTime();
+      const lastSuccessfulUpdate = lastSuccessfulUpdateTime(course);
       const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
       const averageDelay = course.updates.average_delay;
 
       if (lastSuccessfulUpdate) {
-        lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
+        lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}.`;
         const nextUpdateExpectedTime = lastSuccessfulUpdateMoment.add(averageDelay, 'seconds');
         isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-        nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
+        nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}.`;
       }
     }
     return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
-  },
-
-  firstUpdateTime() {
-  const first_update = this.props.course.flags.first_update;
-  const latency = Math.round(first_update.queue_latency);
-    const enqueuedAt = moment(first_update.enqueued_at);
-    return moment(enqueuedAt).add(latency, 'seconds');
-  },
-
-  lastSuccessfulUpdateTime() {
-    const updateTimesLogs = Object.values(this.props.course.flags.update_logs).filter(log => log.end_time !== undefined);
-
-    if (updateTimesLogs.length === 0) return null;
-
-    return updateTimesLogs[updateTimesLogs.length - 1].end_time;
   },
 
   toggleModal() {
@@ -88,7 +74,7 @@ const StatisticsUpdateInfo = createReactClass({
     let updateTimesMessage = '';
     if (updateTimesInformation !== null) {
       const [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = updateTimesInformation;
-      updateTimesMessage = isNextUpdateAfter ? `${lastSuccessfulUpdateMessage}. ${nextUpdateMessage}. ` : `${lastSuccessfulUpdateMessage}. `;
+      updateTimesMessage = isNextUpdateAfter ? `${lastSuccessfulUpdateMessage} ${nextUpdateMessage} ` : `${lastSuccessfulUpdateMessage} `;
     }
 
     // Render update time information along with 'See More' link to open modal
