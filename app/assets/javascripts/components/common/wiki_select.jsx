@@ -107,7 +107,7 @@ const WikiSelect = createReactClass({
     const options = this.props.options;
     const filterOptions = function (val) {
       return options.filter(wiki =>
-        wiki.label.toLowerCase().includes(val.toLowerCase())
+        wiki.label.toLowerCase().startsWith(val.toLowerCase())
       ).slice(0, 10); // limit the options for better performance
     };
 
