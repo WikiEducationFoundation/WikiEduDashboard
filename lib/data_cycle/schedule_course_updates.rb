@@ -42,12 +42,10 @@ class ScheduleCourseUpdates
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
 
       # if course isn't updated before, add first update flags
-        flags = course.flags
-        if !flags[:first_update]
-          first_update = first_update_flags(course)
-          course.flags[:first_update] = first_update
-          course.save
-        end
+      next if course.flags[:first_update]
+      first_update = first_update_flags(course)
+      course.flags[:first_update] = first_update
+      course.save
     end
     log_message "Short update latency: #{latency('short_update')}"
     log_message "Medium update latency: #{latency('medium_update')}"
