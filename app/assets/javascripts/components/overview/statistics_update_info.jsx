@@ -20,24 +20,18 @@ const StatisticsUpdateInfo = createReactClass({
   getUpdateTimesInformation() {
     const course = this.props.course;
     let lastSuccessfulUpdateMessage = '';
-            let nextUpdateMessage = '';
+    let nextUpdateMessage = '';
     let isNextUpdateAfter = false;
     if (course.updates.last_update === null) {
-      lastSuccessfulUpdateMessage = "The Dashboard hasn't imported any data for this program yet";
-      if (course.flags.first_update) {
-      const latency = Math.round(course.flags.first_update.queue_latency);
-      const enqueuedAt = moment(course.flags.first_update.enqueued_at);
-      const nextUpdateExpectedTime = moment(enqueuedAt).add(latency, 'seconds');
+     lastSuccessfulUpdateMessage = `${I18n.t('metrics.no_update')}`;
+     if (course.flags.first_update) {
+      const nextUpdateExpectedTime = this.firstUpdateTime();
       isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-      // nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${nextUpdateExpectedTime.fromNow()}`;
-      nextUpdateMessage = `First update: ${nextUpdateExpectedTime.fromNow()}`;
-      }
+      nextUpdateMessage = `${I18n.t('metrics.first_update')}: ${nextUpdateExpectedTime.fromNow()}`;
+      lastSuccessfulUpdateMessage = `${I18n.t('metrics.enqueued_update')}`;
+     }
      } else {
-      const updateTimesLogs = Object.values(course.flags.update_logs).filter(log => log.end_time !== undefined);
-
-      if (updateTimesLogs.length === 0) return null;
-
-      const lastSuccessfulUpdate = updateTimesLogs[updateTimesLogs.length - 1].end_time;
+      const lastSuccessfulUpdate = this.lastSuccessfulUpdateTime();
       const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
       const averageDelay = course.updates.average_delay;
 
@@ -49,6 +43,21 @@ const StatisticsUpdateInfo = createReactClass({
       }
     }
     return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
+  },
+
+  firstUpdateTime() {
+  const first_update = this.props.course.flags.first_update;
+  const latency = Math.round(first_update.queue_latency);
+    const enqueuedAt = moment(first_update.enqueued_at);
+    return moment(enqueuedAt).add(latency, 'seconds');
+  },
+
+  lastSuccessfulUpdateTime() {
+    const updateTimesLogs = Object.values(this.props.course.flags.update_logs).filter(log => log.end_time !== undefined);
+
+    if (updateTimesLogs.length === 0) return null;
+
+    return updateTimesLogs[updateTimesLogs.length - 1].end_time;
   },
 
   toggleModal() {
@@ -75,7 +84,6 @@ const StatisticsUpdateInfo = createReactClass({
         />
       );
     }
-
 
     let updateTimesMessage = '';
     if (updateTimesInformation !== null) {

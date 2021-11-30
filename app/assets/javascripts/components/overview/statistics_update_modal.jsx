@@ -30,7 +30,7 @@ const StatisticsUpdateModal = (props) => {
     const updateNumbers = Object.keys(course.flags.update_logs);
     const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
 
-    const updateTimesInformation = props.getUpdateTimesInformation();
+    const updateTimesInformation = props.updateTimesInformation;
 
     return (
       <div className="statistics-update-modal-container">
