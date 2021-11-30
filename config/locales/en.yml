@@ -233,7 +233,7 @@ en:
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
-    assign_other: Assign an article
+    assign_other: Assign/remove an article
     add_available: Add available articles
     add_available_placeholder: Add one article title or URL per line
     add_available_submit: Add articles
@@ -262,7 +262,7 @@ en:
       limit_exceeded: Each student is already reviewing at least %{maximum} articles(s).
     remove: Remove
     reviewers: Reviewer(s)
-    review_other: Assign a peer review
+    review_other: Assign/remove a peer review
     review_self: Review an article
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft

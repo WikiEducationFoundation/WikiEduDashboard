@@ -108,7 +108,7 @@ en-gb:
   assignments:
     already_exists: This assignment already exists!
     assignees: Assignee(s)
-    assign_other: Assign an article
+    assign_other: Assign/remove an article
     add_available: Add available articles
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
@@ -121,7 +121,7 @@ en-gb:
     no_available: This course has no available articles.
     remove: Remove
     reviewers: Reviewer(s)
-    review_other: Assign a peer review
+    review_other: Assign/remove a peer review
     review_self: Review an article
     select: Select
   blocks:

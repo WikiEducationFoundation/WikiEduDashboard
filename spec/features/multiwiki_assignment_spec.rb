@@ -26,7 +26,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       button = first('.assign-button')
-      expect(button).to have_content 'Assign an article'
+      expect(button).to have_content 'Assign/remove an article'
       button.click
 
       within('#users') do
@@ -54,7 +54,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       button = first('.assign-button')
-      expect(button).to have_content 'Assign an article'
+      expect(button).to have_content 'Assign/remove an article'
       button.click
 
       within('#users') do
@@ -86,7 +86,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       button = first('.assign-button')
-      expect(button).to have_content 'Assign an article'
+      expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
         first('input').set('https://wikisource.org/wiki/Heyder_Cansa')
@@ -110,7 +110,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       button = first('.assign-button')
-      expect(button).to have_content 'Assign an article'
+      expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
         first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
