@@ -104,15 +104,30 @@ const WikiSelect = createReactClass({
         this.props.onChange(this.props.multi ? [] : {});
       }
     };
+
     const options = this.props.options;
-    const filterOptions = function (val) {
+    // Two types of matching for optimizing results.
+    // If the input is less than four characters, it will be matched from the beginning of the string.
+
+    const filterOptionsLong = function (val) {
+      return options.filter(wiki =>
+        wiki.label.toLowerCase().includes(val.toLowerCase())
+      ).slice(0, 10); // limit the options for better performance
+    };
+
+  // If the input is less than four characters, it will be matched anywhere in the string
+
+    const filterOptionsShort = function (val) {
       return options.filter(wiki =>
         wiki.label.toLowerCase().startsWith(val.toLowerCase())
       ).slice(0, 10); // limit the options for better performance
     };
 
     const loadOptions = function (inputValue, callback) {
-      callback(filterOptions(inputValue));
+      if (inputValue.length < 4) {
+        callback(filterOptionsShort(inputValue));
+      }
+      callback(filterOptionsLong(inputValue));
     };
 
     return <AsyncSelect
@@ -130,4 +145,3 @@ const WikiSelect = createReactClass({
 );
 
 export default WikiSelect;
-
