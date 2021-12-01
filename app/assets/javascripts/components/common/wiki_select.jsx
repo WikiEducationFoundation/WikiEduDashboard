@@ -106,8 +106,8 @@ const WikiSelect = createReactClass({
     };
 
     const options = this.props.options;
-    // Two types of matching for optimizing results.
-    // If the input is less than four characters, it will be matched from the beginning of the string.
+
+    // If the input is less than three characters, it will be matched from the beginning of the string.
 
     const filterOptionsLong = function (val) {
       return options.filter(wiki =>
@@ -115,16 +115,16 @@ const WikiSelect = createReactClass({
       ).slice(0, 10); // limit the options for better performance
     };
 
-  // If the input is less than four characters, it will be matched anywhere in the string
+  // If the input is at least three characters, it will be matched anywhere in the string
 
     const filterOptionsShort = function (val) {
       return options.filter(wiki =>
         wiki.label.toLowerCase().startsWith(val.toLowerCase())
-      ).slice(0, 10); // limit the options for better performance
+      ).slice(0, 10);
     };
 
     const loadOptions = function (inputValue, callback) {
-      if (inputValue.length < 4) {
+      if (inputValue.length < 3) {
         callback(filterOptionsShort(inputValue));
       }
       callback(filterOptionsLong(inputValue));
