@@ -35,23 +35,22 @@ const StatisticsUpdateInfo = createReactClass({
       return <div />;
     }
 
-    const updateTimesInformation = this.getUpdateTimesArray();
-    // Render Modal
+    const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = this.getUpdateTimesArray();
+
     if (this.state.showModal) {
       return (
         <StatisticsUpdateModal
           course={course}
-          updateTimesInformation={updateTimesInformation}
+          isNextUpdateAfter={isNextUpdateAfter}
+          nextUpdateMessage={nextUpdateMessage}
           toggleModal={this.toggleModal}
         />
       );
     }
 
-    const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = updateTimesInformation;
     const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage} ${nextUpdateMessage} ` : `${lastUpdateMessage} `;
 
-
-    // Render update time information along with 'See More' link to open modal
+    // Render update time information and if some updates were made a 'See More' link to open modal
     return (
       <div className="statistics-update-info pull-right mb2">
         <small>
@@ -61,6 +60,5 @@ const StatisticsUpdateInfo = createReactClass({
     );
   }
 });
-
 
 export default StatisticsUpdateInfo;
