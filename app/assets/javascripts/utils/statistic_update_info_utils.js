@@ -1,9 +1,5 @@
 import moment from 'moment';
 
-let lastUpdateMessage = '';
-let nextUpdateMessage = '';
-let isNextUpdateAfter = false;
-
 const firstUpdateTime = (first_update) => {
   const latency = Math.round(first_update.queue_latency);
   const enqueuedAt = moment(first_update.enqueued_at);
@@ -18,6 +14,9 @@ const lastSuccessfulUpdateMoment = (update_logs) => {
 };
 
 const getLastUpdateMessage = (course) => {
+  let lastUpdateMessage = '';
+  let nextUpdateMessage = '';
+  let isNextUpdateAfter = false;
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
   if (lastUpdateMoment) {
     const averageDelay = course.updates.average_delay;
@@ -30,6 +29,9 @@ const getLastUpdateMessage = (course) => {
 };
 
 const getFirstUpdateMessage = (course) => {
+  let lastUpdateMessage = '';
+  let nextUpdateMessage = '';
+  let isNextUpdateAfter = false;
   if (course.flags.first_update) {
     const nextUpdateExpectedTime = firstUpdateTime(course.flags.first_update);
     isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
@@ -41,4 +43,4 @@ const getFirstUpdateMessage = (course) => {
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
 };
 
-export { getLastUpdateMessage, getFirstUpdateMessage };
+export { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment };
