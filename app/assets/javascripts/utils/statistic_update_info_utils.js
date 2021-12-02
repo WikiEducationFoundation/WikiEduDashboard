@@ -28,6 +28,13 @@ const getLastUpdateMessage = (course) => {
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
 };
 
+const nextUpdateExpected = (course) => {
+  const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
+  const averageDelay = course.updates.average_delay;
+  const nextUpdateTime = lastUpdateMoment.add(averageDelay, 'seconds');
+  return nextUpdateTime.fromNow();
+};
+
 const getFirstUpdateMessage = (course) => {
   let lastUpdateMessage = '';
   let nextUpdateMessage = '';
@@ -43,4 +50,4 @@ const getFirstUpdateMessage = (course) => {
   return [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
 };
 
-export { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment };
+export { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected };

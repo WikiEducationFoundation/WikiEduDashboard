@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { nextUpdateExpected } from '../../utils/statistic_update_info_utils';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
@@ -31,7 +32,12 @@ const StatisticsUpdateModal = (props) => {
   const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
 
   const isNextUpdateAfter = props.isNextUpdateAfter;
-  const nextUpdateMessage = props.nextUpdateMessage;
+  let nextUpdateMessage = props.nextUpdateMessage;
+
+  if (!isNextUpdateAfter) {
+    const nextUpdateExpectedTime = nextUpdateExpected(course);
+    nextUpdateMessage = `${I18n.t('metrics.late_update_part1')}: ${nextUpdateExpectedTime}. ${I18n.t('metrics.late_update_part2')}`;
+  }
 
   return (
     <div className="statistics-update-modal-container">
@@ -42,7 +48,7 @@ const StatisticsUpdateModal = (props) => {
         <ul>
           <li>{ recentUpdatesSummary }</li>
           <li>{ totalUpdatesMessage }</li>
-          { isNextUpdateAfter && futureUpdatesRemaining && <li>{nextUpdateMessage}</li> }
+          <li>{nextUpdateMessage}</li>
           <li>{futureUpdatesMessage} {additionalUpdateMessage}</li>
         </ul>
         <b>{I18n.t('metrics.missing_data_heading')}</b>
