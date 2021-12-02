@@ -213,7 +213,7 @@ it:
     already_exists: Questa assegnazione esiste già!
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
-    assign_other: Assegna una voce
+    assign_other: Assegna/rimuovi una voce
     add_available: Aggiungi voci disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_submit: Aggiungi voci
@@ -232,7 +232,7 @@ it:
     no_available: Questo corso non ha voci disponibili.
     remove: Rimuovi
     reviewers: Revisori
-    review_other: Assegna per una revisione
+    review_other: Assegna/rimuovi per una revisione
     review_self: Revisiona una voce
     review_tooltip: Serve per la voce/i che pianifichi di far revisionare tra pari
       o fornire riscontri.

@@ -11,6 +11,7 @@
 # Author: Endermoon
 # Author: Fanjiayi
 # Author: Hanyanbo98
+# Author: Interestinghe
 # Author: Josephine W.
 # Author: Liuxinyu970226
 # Author: Looong
@@ -199,7 +200,7 @@ zh-CN:
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
-    assign_other: 分配一个条目
+    assign_other: 分配/移除一个文章
     add_available: 添加可用条目
     add_available_placeholder: 添加条目标题或URL（每行一个）
     add_available_submit: 添加条目
@@ -226,7 +227,7 @@ zh-CN:
       limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
     remove: 移除
     reviewers: 复核员
-    review_other: 分配一次同行复核
+    review_other: 分配/移除一次同行评审
     review_self: 复核一个条目
     review_tooltip: 这是要您计划同行评审，或是提供反馈的条目。
     select: 选择

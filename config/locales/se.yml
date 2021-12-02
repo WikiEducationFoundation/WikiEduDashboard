@@ -13,7 +13,10 @@ se:
   categories:
     template_name: Málle namma
   courses:
+    tags: 'Gilkorat:'
     timeline_link: Áigelinnjá
+  metrics:
+    tags: Gilkorat
   recent_activity:
     file_name: Fiilanamma
   revisions:

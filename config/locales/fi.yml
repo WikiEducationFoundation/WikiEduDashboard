@@ -10,6 +10,7 @@
 # Author: Olimar
 # Author: Pitke
 # Author: Pyscowicz
+# Author: Rönttönen
 # Author: Silvonen
 # Author: Surjection
 # Author: Susannaanas
@@ -186,7 +187,7 @@ fi:
     already_exists: Tehtävä on jo luotu!
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
-    assign_other: Anna artikkeli tehtäväksi
+    assign_other: Anna artikkeli tehtäväksi tai poista se
     add_available: Lisää saatavilla olevat artikkelit
     add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
     add_available_submit: Lisää artikkelit
@@ -205,7 +206,7 @@ fi:
     no_available: Tällä kurssilla ei ole yhtään tehtäväksi annettavaa artikelia.
     remove: Poista
     reviewers: Arvioija(t)
-    review_other: Anna tehtäväksi arvioiminen
+    review_other: Anna arvioiminen tehtäväksi tai ota se pois
     review_self: Arvioi artikkeli
     review_tooltip: Tässä näytetään artikkelit, joita olet ottanut vertaisarvioitavaksi
       tai joille aiot antaa palautetta.
