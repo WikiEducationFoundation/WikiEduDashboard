@@ -266,5 +266,5 @@ describe('nextUpdateExpected', () => {
       const result = nextUpdateExpected(course);
       expect(result).toBeDefined;
     }
-  )
+  );
 });
