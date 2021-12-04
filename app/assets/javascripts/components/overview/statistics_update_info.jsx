@@ -54,7 +54,7 @@ const StatisticsUpdateInfo = createReactClass({
     return (
       <div className="statistics-update-info pull-right mb2">
         <small>
-          {updateTimesMessage} {course.updates.last_update !== null && <a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>}
+          {updateTimesMessage} {(course.flags.first_update || course.flags.update_logs) && <a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>}
         </small>
       </div>
     );

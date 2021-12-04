@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { nextUpdateExpected } from '../../utils/statistic_update_info_utils';
+import { nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs } from '../../utils/statistic_update_info_utils';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
@@ -10,26 +10,17 @@ const StatisticsUpdateModal = (props) => {
   const futureUpdatesMessage = futureUpdatesRemaining ? I18n.t('metrics.future_updates_remaining.true', { date: updatesEndMoment.format('MMMM Do YYYY') }) : I18n.t('metrics.future_updates_remaining.false');
   const additionalUpdateMessage = course.needs_update ? I18n.t('metrics.non_updating_course_update') : '';
 
-  let lastUpdateSummary = '';
-  const errorCount = course.updates.last_update.error_count;
+  const lastUpdateSummary = getLastUpdateSummary(course);
+  const updateLogs = getUpdateLogs(course);
 
-  if (errorCount === 0) {
-    lastUpdateSummary = `${I18n.t('metrics.last_update_success')}`;
-  } else if (errorCount > 0) {
-    lastUpdateSummary = `${I18n.t('metrics.error_count_message', { error_count: errorCount })}`;
-  } else if (course.updates.last_update.orphan_lock_failure) {
-    lastUpdateSummary = `${I18n.t('metrics.last_update_failed')}`;
-  }
-
-  const updateLogs = Object.values(course.flags.update_logs);
   const failureUpdatesCount = updateLogs.filter(log => log.orphan_lock_failure !== undefined).length;
   const erroredUpdatesCount = updateLogs.filter(log => log.error_count !== undefined && log.error_count > 0).length;
   const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', { total: updateLogs.length, failure_count: failureUpdatesCount, error_count: erroredUpdatesCount });
 
   // Update numbers (ids) are stored incrementally as counts in update_logs, so the
   // last update number is the total number of updates till now
-  const updateNumbers = Object.keys(course.flags.update_logs);
-  const totalUpdatesMessage = `${I18n.t('metrics.total_updates')}: ${updateNumbers[updateNumbers.length - 1]}`;
+
+  const totalUpdatesMessage = getTotaUpdatesMessage(course);
 
   const isNextUpdateAfter = props.isNextUpdateAfter;
   let nextUpdateMessage = props.nextUpdateMessage;
