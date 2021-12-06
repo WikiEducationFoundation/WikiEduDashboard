@@ -39,6 +39,7 @@ class Alert < ApplicationRecord
     BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DeUserfyingAlert
     DiscretionarySanctionsAssignmentAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert

@@ -39,6 +39,9 @@ module UpdateCycleAlertGenerator
 
     log_message 'Generate blocked user alerts'
     BlockedUserMonitor.create_alerts_for_recently_blocked_users
+
+    log_message 'Generate de-userfying edits alerts'
+    DeUserfyingEditAlertMonitor.create_alerts_for_deuserfying_edits
   end
   # rubocop:enable Metrics/MethodLength
 end
