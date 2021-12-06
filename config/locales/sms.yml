@@ -57,6 +57,7 @@ sms:
     data_wikidata: Wikidata-statistiikk
     delete_course: Jaukkâd kuurs
     delete_suggestion: Jaukkâd
+    duration: Kuurs pešttmõš
     feedback: Maacctõs
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
@@ -111,7 +112,12 @@ sms:
     last_name: Sokknõmm
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
+  wizard:
+    summary: Õʹhtteǩeässmõš
   survey:
     email:
       headline: Tiõrv, %{username}
+  article_finder:
+    show_options: Čuäʹjet asetõõzzid
+    hide_options: Čiõǥǥ asetõõzzid
 ...
