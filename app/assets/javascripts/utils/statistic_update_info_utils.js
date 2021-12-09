@@ -32,10 +32,25 @@ const nextUpdateExpected = (course) => {
   if (!course.flags.update_logs) {
    return firstUpdateTime(course.flags.first_update).fromNow();
   }
+  if (lastSuccessfulUpdateMoment(course.flags.update_logs) === null) {
+    return 'unknown';
+  }
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
   const averageDelay = course.updates.average_delay || 0;
   const nextUpdateTime = lastUpdateMoment.add(averageDelay, 'seconds');
   return nextUpdateTime.fromNow();
+};
+
+
+const getUpdateMessage = (course) => {
+  if (!course.flags.update_logs) {
+    return getFirstUpdateMessage(course);
+  }
+  const successfulUpdate = lastSuccessfulUpdateMoment(course.flags.update_logs);
+  if (course.flags.update_logs && successfulUpdate !== null) {
+    return getLastUpdateMessage(course);
+  }
+  return [`${I18n.t('metrics.no_update')}`, '', ''];
 };
 
 const getFirstUpdateMessage = (course) => {
@@ -54,7 +69,7 @@ const getFirstUpdateMessage = (course) => {
 };
 
 const getLastUpdateSummary = (course) => {
-  if (course.updates.last_update === null) {
+  if (course.updates.last_update === null || lastSuccessfulUpdateMoment(course.flags.update_logs) === null) {
     return I18n.t('metrics.no_update');
   }
   const errorCount = course.updates.last_update.error_count;
@@ -81,4 +96,4 @@ const getUpdateLogs = (course) => {
   }
   return [];
 };
-export { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs };
+export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs };

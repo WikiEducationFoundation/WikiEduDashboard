@@ -42,7 +42,7 @@ class ScheduleCourseUpdates
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
 
       # if course isn't updated before, add first update flags
-      next if course.flags[:first_update] || course.flags[:update_logs]
+      next if course.flags[:first_update] || course.flags['update_logs']
       first_update = first_update_flags(course)
       course.flags[:first_update] = first_update
       course.save
