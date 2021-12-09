@@ -9,6 +9,7 @@
 # Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
+# Author: DDPAT
 # Author: Dgstranz
 # Author: Fitoschido
 # Author: Fortega
@@ -32,6 +33,10 @@
 # Author: YoViajo
 ---
 es:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
   accessibility:
     number_field: Este es un campo numérico. Los botones representados por la mayoría
       de los navegadores incrementará y decrementará la entrada.
@@ -539,9 +544,9 @@ es:
       one: Voluntario
       other: Voluntarios
     weeks_none: Este curso aún no tiene un cronograma.
-    warn_mirrored: |-
-      Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
-      ¿Estás seguro de que quieres hacer esto?
+    warn_mirrored: Tras la presentación, este curso se enviará automáticamente a Wikipedia
+      con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma
+      se reflejarán en Wikipedia. ¿Estás seguro de que quieres hacer esto?
     wiki_staff: Personal de Wiki Ed
     withdrawn: No hizo los deberes
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
@@ -569,9 +574,9 @@ es:
     campaign_courses: Programa de «%{title}»
     creator:
       assignment_end: Final del evento
-      assignment_end_placeholder: Final del evento (AAAA-MM-DD)
+      assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Comienzo del evento
-      assignment_start_placeholder: Comienzo del evento (AAAA-MM-DD)
+      assignment_start_placeholder: AAAA-MM-DD
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       choose_clone: Elige un programa para clonarlo.
       clone_previous: Clonar el programa previo
@@ -785,7 +790,7 @@ es:
     first_week_title: Primera semana activa
     gradeable_value: Valor
     gradeables_none: Este cronograma no tiene tareas marcadas como graduadas.
-    grading_header: 'Calificación (total: %{total} %)'
+    grading_header: 'Calificación (total: %{total})'
     move_block_down: Bajar el bloque
     move_block_up: Subir el bloque
     no_class_holidays: Yo no tengo vacaciones de clases
@@ -828,7 +833,7 @@ es:
     none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia a Wikimedia
       Commons.
     time_doc: El tiempo de cada subida en tu hora local
-    uploaded_at: Cargado el
+    uploaded_at: Subir archivo
     uploaded_by: Subido por
     usage_count: Total de usos
     usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
@@ -848,7 +853,7 @@ es:
       eliminado también aumentará este total.
     chars_added: Caracteres añadidos<br>(artículo | usuario | borrador)
     contributions: Contribuciones del usuario
-    contributions_history_full: Ver el historial completo de contribuciones a Wikipedia
+    contributions_history_full: Ver el historial completo de contribuciones
     contributions_more: Ver más contribuciones
     contribution_statistics: Estadísticas de contribuciones
     course_passcode: 'Código de acceso:'
