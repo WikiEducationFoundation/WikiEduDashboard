@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import StatisticsUpdateModal from './statistics_update_modal';
+import { getUpdateMessage } from '../../utils/statistic_update_info_utils';
 
 const StatisticsUpdateInfo = createReactClass({
   displayName: 'StatisticsUpdateInfo',
@@ -17,29 +17,6 @@ const StatisticsUpdateInfo = createReactClass({
     };
   },
 
-  getUpdateTimesInformation() {
-    const course = this.props.course;
-    const updateTimesLogs = Object.values(course.flags.update_logs).filter(log => log.end_time !== undefined);
-
-    if (updateTimesLogs.length === 0) return null;
-
-    const lastSuccessfulUpdate = updateTimesLogs[updateTimesLogs.length - 1].end_time;
-    const lastSuccessfulUpdateMoment = moment.utc(lastSuccessfulUpdate);
-    const averageDelay = course.updates.average_delay;
-    let lastSuccessfulUpdateMessage = '';
-    let nextUpdateMessage = '';
-    let isNextUpdateAfter = null;
-
-    if (lastSuccessfulUpdate) {
-      lastSuccessfulUpdateMessage = `${I18n.t('metrics.last_update')}: ${lastSuccessfulUpdateMoment.fromNow()}`;
-      const nextUpdateExpectedTime = lastSuccessfulUpdateMoment.add(averageDelay, 'seconds');
-      isNextUpdateAfter = nextUpdateExpectedTime.isAfter();
-      nextUpdateMessage = `${I18n.t('metrics.next_update')}: ${nextUpdateExpectedTime.fromNow()}`;
-    }
-
-    return [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter];
-  },
-
   toggleModal() {
     this.setState({
       showModal: !this.state.showModal
@@ -48,34 +25,30 @@ const StatisticsUpdateInfo = createReactClass({
 
   render() {
     const course = this.props.course;
-
-    if ((Features.wikiEd && !course.ended) || !course.updates.last_update) {
+    if (Features.wikiEd && !course.ended) {
       return <div />;
     }
 
-    // Render Modal
+    const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = getUpdateMessage(course);
+
     if (this.state.showModal) {
       return (
         <StatisticsUpdateModal
           course={course}
-          getUpdateTimesInformation={this.getUpdateTimesInformation}
+          isNextUpdateAfter={isNextUpdateAfter}
+          nextUpdateMessage={nextUpdateMessage}
           toggleModal={this.toggleModal}
         />
       );
     }
 
-    const updateTimesInformation = this.getUpdateTimesInformation();
-    let updateTimesMessage = '';
-    if (updateTimesInformation !== null) {
-      const [lastSuccessfulUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = updateTimesInformation;
-      updateTimesMessage = isNextUpdateAfter ? `${lastSuccessfulUpdateMessage}. ${nextUpdateMessage}. ` : `${lastSuccessfulUpdateMessage}. `;
-    }
+    const updateTimesMessage = isNextUpdateAfter ? `${lastUpdateMessage} ${nextUpdateMessage} ` : `${lastUpdateMessage} `;
 
-    // Render update time information along with 'See More' link to open modal
+    // Render update time information and if some updates were made a 'See More' link to open modal
     return (
       <div className="statistics-update-info pull-right mb2">
         <small>
-          { updateTimesMessage }<a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>
+          {updateTimesMessage} {(course.flags.first_update || course.flags.update_logs) && <a onClick={this.toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>}
         </small>
       </div>
     );
