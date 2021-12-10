@@ -40,6 +40,12 @@ class ScheduleCourseUpdates
 
     courses_to_update.each do |course|
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
+
+      # if course isn't updated before, add first update flags
+      next if course.flags[:first_update] || course.flags['update_logs']
+      first_update = first_update_flags(course)
+      course.flags[:first_update] = first_update
+      course.save
     end
     log_message "Short update latency: #{latency('short_update')}"
     log_message "Medium update latency: #{latency('medium_update')}"
@@ -48,5 +54,13 @@ class ScheduleCourseUpdates
 
   def latency(queue)
     Sidekiq::Queue.new(queue).latency
+  end
+
+  def first_update_flags(course)
+    {
+      enqueued_at: Time.zone.now,
+      queue_name: queue_for(course),
+      queue_latency: latency(queue_for(course))
+    }
   end
 end

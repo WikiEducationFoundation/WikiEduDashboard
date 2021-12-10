@@ -43,7 +43,7 @@ en:
     create_accounts: Create Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentation
-    error: 'There was an error:'
+    error: "There was an error:"
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
@@ -64,8 +64,8 @@ en:
     request_account_create: Create an account
     search: ask a question
     search_results:
-     one: "%{count} Result for: '%{search_terms}'"
-     other: "%{count} Results for: '%{search_terms}'"
+      one: "%{count} Result for: '%{search_terms}'"
+      other: "%{count} Results for: '%{search_terms}'"
     no_results: "No results found for '%{query}'"
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
@@ -78,10 +78,10 @@ en:
     change: Change
     details: Details
     confirm: OK
-    opt_in: 'Yes'
-    opt_out: 'No'
-    opt_yes: 'yes'
-    opt_no: 'no'
+    opt_in: "Yes"
+    opt_out: "No"
+    opt_yes: "yes"
+    opt_no: "no"
 
   article_statuses:
     not_yet_started: Getting Started
@@ -95,8 +95,7 @@ en:
     peer_review_completed: Review Completed
 
   dashboard:
-    create_note:
-      Click on Create Course to create your first course.
+    create_note: Click on Create Course to create your first course.
     create_preparation_note: >
       Be sure to have your academic calendar on hand before you begin; the
       assignment design tool will use the meeting dates of your class —
@@ -108,10 +107,8 @@ en:
     join_note:
       Once you receive a passcode from your instructor, click on Find Your
       Course to find and join it.
-    no_courses_instructor:
-      Looks like you don't have any courses.
-    no_courses_student:
-      Looks like you haven't joined a course yet.
+    no_courses_instructor: Looks like you don't have any courses.
+    no_courses_student: Looks like you haven't joined a course yet.
     opt_out: Request to opt out of orientation
     orientation_notice: >
       Before you create a course, let's go through orientation to help you get
@@ -145,9 +142,9 @@ en:
     label: Activity
 
   articles:
-    article_not_found: 'This article has not been created yet.'
+    article_not_found: "This article has not been created yet."
     article_development: (article development)
-    articles_shown: 'Showing %{count} of %{total}'
+    articles_shown: "Showing %{count} of %{total}"
     assigned: Assigned Articles
     available: Available Articles
     no_available: No Available Articles
@@ -162,7 +159,7 @@ en:
       with any other wikis for which there is an Assignment or an Available Article.
     deleted: (deleted)
     edited: Articles Edited
-    edited_by: 'Edited by:'
+    edited_by: "Edited by:"
     edited_mobile: Articles
     filter:
       wiki_all: All
@@ -195,7 +192,7 @@ en:
     see_more: See more
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
-    show_current_version_with_authorship_highlighting: 'Current Version w/ Authorship Highlighting'
+    show_current_version_with_authorship_highlighting: "Current Version w/ Authorship Highlighting"
     title: Title
     tracked: Tracked
     tracked_doc: Only tracked articles contribute to the the statistics for this program. When articles are marked as untracked, they will be removed from the statistics during the next data update.
@@ -393,10 +390,10 @@ en:
     articles_i_will_create: Articles I will create
     articles_i_am_updating: Articles I'm updating
     assignment_headings:
-        assigned_articles: Assigned Articles
-        assigned_reviews: Assigned Reviews
-        available_articles: Available Articles
-        available_reviews: Classmates' Articles
+      assigned_articles: Assigned Articles
+      assigned_reviews: Assigned Reviews
+      available_articles: Available Articles
+      available_reviews: Classmates' Articles
     assignment_end: Assignment End
     assignments_none: This course has no assigned articles.
     assignment_start: Assignment Start
@@ -406,13 +403,13 @@ en:
       legend_class_meeting: Class Meeting
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
-    cancel: 'Cancel'
+    cancel: "Cancel"
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
-    campaigns: 'Campaigns:'
-    campaign_articles: '%{title} Articles'
-    campaign_courses: '%{title} Courses'
-    campaign_select: 'Select a campaign'
-    campaign_users: '%{title} Editors'
+    campaigns: "Campaigns:"
+    campaign_articles: "%{title} Articles"
+    campaign_courses: "%{title} Courses"
+    campaign_select: "Select a campaign"
+    campaign_users: "%{title} Editors"
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
@@ -559,9 +556,9 @@ en:
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
       invalid_language_or_project: Invalid language/project
       invalid_slug: Blank school/title for course.
-      duplicate_slug: 'Another program called %{slug} already exists.'
+      duplicate_slug: "Another program called %{slug} already exists."
     expected_students: Expected Students
-    features_feedback: 'Automated Suggestions:'
+    features_feedback: "Automated Suggestions:"
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
@@ -644,9 +641,9 @@ en:
     rating_feedback: "Predicted rating for the article is:"
     requested_accounts: Requested accounts
     requested_accounts_alert:
-      one: '%{count} requested account pending.'
-      other: '%{count} requested accounts pending.'
-    requested_accounts_alert_view: 'View'
+      one: "%{count} requested account pending."
+      other: "%{count} requested accounts pending."
+    requested_accounts_alert_view: "View"
     retain_available_articles: Retain Available Articles
     retain_available_articles_info: >
       When enabled, selecting an Available Article does not remove it from
@@ -689,8 +686,8 @@ en:
     subject: Subject
     submitted: Submitted
     submitted_at: Submitted at
-    tag_select: 'Select or create a tag'
-    tags: 'Tags:'
+    tag_select: "Select or create a tag"
+    tags: "Tags:"
     term: Term
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
@@ -699,19 +696,17 @@ en:
     timeline_nav: Go to Timeline
     time_zone_message: Start and end times are displayed in your local time zone.
     title: Title
-    training_due:
-      The training module "%{title}" is assigned for this course, and is due on %{date}.
+    training_due: The training module "%{title}" is assigned for this course, and is due on %{date}.
     training_nav: Go to training
-    training_overdue:
-      The training module "%{title}" is assigned for this course, and was due on %{date}.
+    training_overdue: The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
     update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
     user_recent_uploads: Recent Uploads
-    user_suggestions: 'User Suggestions:'
-    user_suggestions_prompt: 'Your suggestions for the editors of the article'
+    user_suggestions: "User Suggestions:"
+    user_suggestions_prompt: "Your suggestions for the editors of the article"
     view_other: View other campaigns
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
@@ -758,8 +753,8 @@ en:
     course: Program
     courses: Programs
     courses_taught: Programs Taught
-    campaigns: 'Campaigns:'
-    campaign_courses: '%{title} Programs'
+    campaigns: "Campaigns:"
+    campaign_courses: "%{title} Programs"
     creator:
       assignment_end: Event end
       assignment_end_placeholder: YYYY-MM-DD
@@ -878,6 +873,11 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
+    late_update_part1: A new update was expected
+    late_update_part2: This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
+    no_update: The Dashboard hasn't imported any data for this program yet.
+    enqueued_update: This program has been added to the update queue.
+    first_update: Estimated start of statistics update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
@@ -886,8 +886,7 @@ en:
     articles_edited: Articles Edited
     articles_edited_generic: Pages Edited
     articles_edited_wikidata: Items Edited
-    article_scoped_program_info:
-        This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
+    article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
@@ -907,14 +906,14 @@ en:
     last_update_failed: The last update to this course failed.
     last_update_success: The last update ran successfully, so the statistics should be up to date.
     outreach_help: Need Help? Refer to 'Report a problem' in the navigation bar.
-    per_user: '%{number}/user'
+    per_user: "%{number}/user"
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     replag_info: >
-        The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
-        because of replication lag (replag). When this is the case, the missing edits will show up later on.
+      The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
+      because of replication lag (replag). When this is the case, the missing edits will show up later on.
     replag_link: Check replag
     tags: Tags
     total_updates: Total number of updates till now
@@ -1002,9 +1001,9 @@ en:
         already_admin: "%{username} is already an admin!"
         elevate_success: "%{username} elevated to admin."
       remove:
-        revoke_button: 'Revoke admin'
-        revoke_button_confirm: 'Revoke admin rights from %{username}'
-        revoking_button_working: 'Revoking...'
+        revoke_button: "Revoke admin"
+        revoke_button_confirm: "Revoke admin rights from %{username}"
+        revoking_button_working: "Revoking..."
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
         no_super_admin: "Can't revoke admin status from a super admin"
@@ -1017,9 +1016,9 @@ en:
         already_is: "%{username} is already an {position}!"
         elevate_success: "%{username} elevated to {position}."
       remove:
-        revoke_button: 'Revoke Special User'
-        revoke_button_confirm: 'Revoke Special User rights from %{username}'
-        revoking_button_working: 'Revoking...'
+        revoke_button: "Revoke Special User"
+        revoke_button_confirm: "Revoke Special User rights from %{username}"
+        revoking_button_working: "Revoking..."
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
 
@@ -1083,14 +1082,14 @@ en:
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
     # FIXME: lego message. This one is hard to work around because it has inline components.
-    empty_week_1: 'To get started,'
+    empty_week_1: "To get started,"
     empty_week_2: start editing this week
-    empty_week_3: 'or'
+    empty_week_3: "or"
     empty_week_4: use the assignment wizard to create a timeline.
     first_week_title: First Active Week
     gradeable_value: Value
     gradeables_none: This timeline has no assignments marked as graded.
-    grading_header: 'Grading (Total: %{total})'
+    grading_header: "Grading (Total: %{total})"
     move_block_down: Move block down
     move_block_up: Move block up
     no_class_holidays: I have no class holidays
@@ -1106,7 +1105,7 @@ en:
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.
     view_full_timeline: View Full Timeline
-    week_number: 'Week %{number}'
+    week_number: "Week %{number}"
 
   training:
     continue: Continue (%{progress})
@@ -1118,7 +1117,7 @@ en:
     previous: < Previous
     table_of_contents: Table of Contents
     training_library: Training Library
-    logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
+    logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     done: Done!
     invalid: Sorry that slide does not exist!
     wait: Please do not leave the page as your training progress is being updated.
@@ -1165,19 +1164,18 @@ en:
       increased page size. This number doesn't necessarily reflect the
       amount of new content the user added. Restoring removed content
       will also increase this total.
-    chars_added:
-      Characters Added<br>(article | user | draft)
+    chars_added: Characters Added<br>(article | user | draft)
     contributions: User Contributions
     contributions_history_full: View full contribution history
     contributions_more: View More Contributions
     contribution_statistics: Contribution Statistics
-    course_passcode: 'Passcode:'
+    course_passcode: "Passcode:"
     editors: Editors
     edits: edits
-    edits_by: 'Edits by:'
+    edits_by: "Edits by:"
     enroll_confirmation: Are you sure you want to add %{username}?
-    enroll_url: 'Users may join by visiting this URL:'
-    enrolled_success: '%{username} was added successfully!'
+    enroll_url: "Users may join by visiting this URL:"
+    enrolled_success: "%{username} was added successfully!"
     exercise_modules_completed:
       one: "%{completed_count}/%{count} exercise completed"
       other: "%{completed_count}/%{count} exercises completed"
@@ -1198,16 +1196,16 @@ en:
     no_revisions: This editor has made no revisions.
     no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
     number_of_articles:
-      one: '%{count} article'
-      other: '%{count} articles'
+      one: "%{count} article"
+      other: "%{count} articles"
     profile: profile
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?
     requested_account_status:
-      success_message: 'Success: %{result_description}'
-      failure_message: 'Failure: %{result_description}'
-    revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
+      success_message: "Success: %{result_description}"
+      failure_message: "Failure: %{result_description}"
+    revision_characters_and_views: "Chars Added: %{characters}, Views: %{views}"
     revisions_doc: The number of edits made by this editor in the past 7 days
     references_doc: The number of references added or removed by this editor
     reviewers: Reviewer(s)
@@ -1218,7 +1216,7 @@ en:
       assignments_and_exercises: Assignments & Exercises
       editor_overview: Editor Overview
       exercises_and_trainings: Exercises & Trainings
-      student_overview: '%{prefix}  Overview'
+      student_overview: "%{prefix}  Overview"
     total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
@@ -1240,15 +1238,14 @@ en:
       seconds: Sec
     user_training_status: Training Status
     user_no_training_status: This user has not completed any training modules.
-    up_to_date_with_training: 'up-to-date with training'
-    uploads_doc: 'Number of file uploads to Wikimedia Commons'
+    up_to_date_with_training: "up-to-date with training"
+    uploads_doc: "Number of file uploads to Wikimedia Commons"
     ungreeted: Ungreeted
     username: Username
     username_placeholder: Username
     useremail_placeholder: Email
     userpasscode_placeholder: Passcode
-    words_added:
-      Words Added<br>(article | user | draft)
+    words_added: Words Added<br>(article | user | draft)
     word_count_doc: >
       An estimate of total amount of content a user has added to live articles,
       userspace pages (sandboxes), and the Draft namespace.
@@ -1323,7 +1320,7 @@ en:
   error:
     form_errors: Please check the form for errors.
     invalid_assignment: Invalid assignment
-    invalid_date: '%{key} date is invalid'
+    invalid_date: "%{key} date is invalid"
     invalid_file_format: The file could not be saved. Please upload a PDF or Word document.
     oauth_invalid: Your Wikipedia authorization has expired. Please log in again.
     start_date_before_end_date: Start date must be before the end date
@@ -1372,7 +1369,7 @@ en:
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
-    login_message: 'Thank you for your time. Please log in to the Dashboard to take the survey.'
+    login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
     notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
     follow_up_explanation: Leave blank if no follow-up notification emails are desired.

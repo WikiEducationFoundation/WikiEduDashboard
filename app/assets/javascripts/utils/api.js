@@ -631,7 +631,7 @@ const API = {
           return rej(obj);
         })
     );
-  }
+  },
 };
 
 export default API;
