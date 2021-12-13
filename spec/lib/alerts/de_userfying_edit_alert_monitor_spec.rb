@@ -17,6 +17,15 @@ describe DeUserfyingEditAlertMonitor do
   let(:article1) { create(:article, title: 'my title 1', mw_page_id: 111) }
   let(:article2) { create(:article, title: 'my title 2', mw_page_id: 222) }
   let(:content_expert) { create(:user, greeter: true) }
+  let!(:student_role) { CoursesUsers::Roles::STUDENT_ROLE }
+  let(:courses_users) do
+    [
+      { course_id: course1.id, user_id: student1.id, role: student_role },
+      { course_id: course1.id, user_id: student3.id, role: student_role },
+      { course_id: course2.id, user_id: student2.id, role: student_role },
+      { course_id: course2.id, user_id: student3.id, role: student_role }
+    ]
+  end
 
   before do
     populate_students
@@ -73,18 +82,20 @@ describe DeUserfyingEditAlertMonitor do
     end
   end
 
+  describe '.courses_for_a_student' do
+    it 'checks course(s) for a given student' do
+      expect(mntor.courses_for_a_student(student1))
+        .to eq courses_users
+          .filter { |cu| cu[:user_id] == student1.id }
+          .pluck(:course_id)
+    end
+  end
+
   private
 
   # Some students should be enrolled in multiple courses to make
   # the test effective.
   def populate_students
-    student = CoursesUsers::Roles::STUDENT_ROLE
-    courses_users = [
-      { course_id: course1.id, user_id: student1.id, role: student },
-      { course_id: course1.id, user_id: student3.id, role: student },
-      { course_id: course2.id, user_id: student2.id, role: student },
-      { course_id: course2.id, user_id: student3.id, role: student }
-    ]
     CoursesUsers.create(courses_users)
   end
 

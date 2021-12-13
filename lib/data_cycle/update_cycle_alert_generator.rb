@@ -9,6 +9,7 @@ require_dependency "#{Rails.root}/lib/alerts/discretionary_sanctions_monitor"
 require_dependency "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 require_dependency "#{Rails.root}/lib/alerts/protected_article_monitor"
 require_dependency "#{Rails.root}/lib/alerts/blocked_user_monitor"
+require "#{Rails.root}/lib/alerts/de_userfying_edit_alert_monitor"
 
 module UpdateCycleAlertGenerator
   # rubocop:disable Metrics/MethodLength

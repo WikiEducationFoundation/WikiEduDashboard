@@ -18,12 +18,10 @@ class DeUserfyingEditAlertMonitor
     student_edits.each do |edit|
       article = Article.find_by(mw_page_id: edit['pageid'])
       user = User.find_by(username: edit['user'])
-      course_id = ArticlesCourses
-                  .where(article_id: article.id)
-                  .joins(course: [:users])
-                  .find_by(users: { id: user.id })
-                  .course_id
-      create_alert(user.id, course_id, article.id, edit['revid'])
+      course_ids = courses_for_a_student(user.id)
+      course_ids.each do |course_id|
+        create_alert(user.id, course_id, article.id, edit['revid'])
+      end
     end
   end
 
@@ -68,5 +66,13 @@ class DeUserfyingEditAlertMonitor
                   course_id: course_id,
                   article_id: article_id,
                   revision_id: revision_id)
+  end
+
+  def courses_for_a_student(id)
+    student = CoursesUsers::Roles::STUDENT_ROLE
+    CoursesUsers
+      .joins(:user)
+      .where(role: student, user_id: id)
+      .pluck(:course_id)
   end
 end
