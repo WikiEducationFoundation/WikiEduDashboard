@@ -1,12 +1,17 @@
 # Messages for Abkhazian (Аҧсшәа)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: DDPAT
 # Author: Irus
 # Author: Pupsik-ipa
 # Author: Surprizi
 # Author: Андрей
 ---
 ab:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
   accessibility:
     number_field: Агәаҭара
   application:
