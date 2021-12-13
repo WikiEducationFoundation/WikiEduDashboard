@@ -322,6 +322,7 @@ hy:
     contributions_more: Դիտել ավելի շատ ներդրումներ
     editors: Խմբագիրներ
     edits: խմբագրումներ
+    last_name: Ազգանուն
     loading: Մասնակիցների բեռնում․․․
     name: Անուն
     recent_revisions: Վերջին խմբագրումներ
@@ -339,4 +340,7 @@ hy:
     header: Էջը չի գտնվել :-(
   login_error:
     header: Մուտքի սխալ
+  survey:
+    email:
+      headline: Ողջո՜ւյն, %{username}
 ...
