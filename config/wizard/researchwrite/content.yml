@@ -124,7 +124,7 @@ essentials:
 
       -
         if: choose_articles_from_list
-        title: Exercise
+        title: Choose your article
         kind: 1
         training_module_ids: [36] # Exercise: Choose your article
         content: |
@@ -155,7 +155,7 @@ essentials:
 
       -
         if: copyedit
-        title: Exercise
+        title: Copyedit an article
         kind: 1
         training_module_ids: [27] # Exercise: Copyedit an article
         graded: true
@@ -164,7 +164,7 @@ essentials:
 
       -
         if: explore_to_find_articles
-        title: Exercise
+        title: Finalize your topic and find sources
         kind: 1
         training_module_ids: [38] # Exercise: Finalizing your topic and finding sources
         content: |
