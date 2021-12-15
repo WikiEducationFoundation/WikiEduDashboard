@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
 
