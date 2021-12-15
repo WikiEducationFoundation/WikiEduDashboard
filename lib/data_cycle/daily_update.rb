@@ -10,6 +10,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_aler
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
@@ -33,6 +34,7 @@ class DailyUpdate
     update_commons_uploads
     update_article_data
     import_wikidata_summaries if Features.wiki_ed?
+    send_term_recap_emails if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
@@ -71,6 +73,14 @@ class DailyUpdate
   def import_wikidata_summaries
     log_message 'Importing Wikidata revision summaries'
     ImportWikidataSummariesWorker.set(queue: QUEUE).perform_async
+  end
+
+  ##########
+  # Emails #
+  ##########
+  def send_term_recap_emails
+    log_message 'Sending term recap emails'
+    TermRecapEmailScheduler.schedule_emails
   end
 
   ##########

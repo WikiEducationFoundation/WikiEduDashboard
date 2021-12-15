@@ -12,6 +12,7 @@ class TermRecapEmailWorker
   def perform(course_id, campaign_id)
     course = Course.find(course_id)
     campaign = Campaign.find(campaign_id)
+    return if course.flags[:recap_sent_at].present?
 
     TermRecapMailer.send_recap(course, campaign)
 
