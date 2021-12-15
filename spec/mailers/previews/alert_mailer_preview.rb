@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-#= Preview all emails at http://localhost:3000/rails/mailers/survey_mailer
-class AlertPreview < ActionMailer::Preview
+#= Preview all emails at http://localhost:3000/rails/mailers/alert_mailer
+class AlertMailerPreview < ActionMailer::Preview
   def articles_for_deletion_alert
     AlertMailer.alert(example_alert(type: 'ArticlesForDeletionAlert'), example_user)
   end
@@ -26,10 +26,18 @@ class AlertPreview < ActionMailer::Preview
     AlertMailer.alert(example_alert, example_user)
   end
 
+  def de_userfying_alert
+    AlertMailer.alert(example_de_userfying_alert, example_user)
+  end
+
   private
 
   def example_user
     User.new(email: 'sage@example.com', username: 'Ragesoss', permissions: 1)
+  end
+
+  def example_student
+    User.new(email: 'nospam@nospam.com', username: 'nospam', permissions: 0)
   end
 
   def example_course
@@ -48,5 +56,10 @@ class AlertPreview < ActionMailer::Preview
   def example_alert(type: 'HighQualityArticleEditAlert')
     Alert.new(type: type, article: example_article,
               course: example_course, id: 9)
+  end
+
+  def example_de_userfying_alert
+    Alert.new(type: 'DeUserfyingAlert', article: example_article,
+              course: example_course, id: 9, user: example_student)
   end
 end

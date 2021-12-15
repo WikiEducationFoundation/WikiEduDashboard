@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/de_userfying_edit_alert_monitor"
+require "#{Rails.root}/lib/importers/article_importer"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)
@@ -61,7 +62,7 @@ describe DeUserfyingEditAlertMonitor do
   describe '.create_alerts' do
     before do
       populate_content_expert
-      populate_articles_courses
+      populate_articles
       allow(mntor).to receive(:edits).and_return(editsfeed)
       allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
     end
@@ -91,6 +92,27 @@ describe DeUserfyingEditAlertMonitor do
     end
   end
 
+  describe '.article_by_mw_page_id' do
+    context 'When no matching article in db' do
+      before do
+        allow(ArticleImporter).to receive(:new).and_return(importer)
+      end
+
+      let(:importer) { instance_double(ArticleImporter) }
+
+      it 'imports from wikipedia' do
+        expect(importer).to receive(:import_articles).with([7777])
+        mntor.article_by_mw_page_id(7777)
+      end
+    end
+
+    context 'When a matching article in db' do
+      it 'finds the article' do
+        expect(mntor.article_by_mw_page_id(article1.mw_page_id)).to eq Article.first
+      end
+    end
+  end
+
   private
 
   # Some students should be enrolled in multiple courses to make
@@ -117,8 +139,8 @@ describe DeUserfyingEditAlertMonitor do
            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
 
-  def populate_articles_courses
-    create(:articles_course, article_id: article1.id, course_id: course1.id)
-    create(:articles_course, article_id: article2.id, course_id: course2.id)
+  def populate_articles
+    article1
+    article2
   end
 end

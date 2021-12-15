@@ -16,7 +16,7 @@ class DeUserfyingEditAlertMonitor
   def create_alerts
     student_edits = edits_made_by_students(edits, current_students)
     student_edits.each do |edit|
-      article = Article.find_by(mw_page_id: edit['pageid'])
+      article = article_by_mw_page_id(edit['pageid'])
       user = User.find_by(username: edit['user'])
       course_ids = courses_for_a_student(user.id)
       course_ids.each do |course_id|
@@ -25,6 +25,12 @@ class DeUserfyingEditAlertMonitor
     end
   end
 
+  # Query:
+  # https://en.wikipedia.org/w/api.php
+  # ?action=query&list=recentchanges&rcprop=title|ids|flags|user|tags|loginfo&rctag=de-userfying
+  # Will fetch last 10 edits (parameter rclimit default) on an approximatively
+  # 12 hours timespan.
+  # Cf. https://www.mediawiki.org/wiki/API:RecentChanges
   def edits
     api = WikiApi.new @wiki
     query_params = {
@@ -74,5 +80,13 @@ class DeUserfyingEditAlertMonitor
       .joins(:user)
       .where(role: student, user_id: id)
       .pluck(:course_id)
+  end
+
+  def article_by_mw_page_id(mw_page_id)
+    wiki_id = @wiki.id
+    unless Article.exists?(wiki_id: wiki_id, mw_page_id: mw_page_id)
+      ArticleImporter.new(@wiki).import_articles([mw_page_id])
+    end
+    Article.find_by(wiki_id: wiki_id, mw_page_id: mw_page_id, deleted: false)
   end
 end
