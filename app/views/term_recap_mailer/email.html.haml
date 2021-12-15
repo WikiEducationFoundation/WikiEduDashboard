@@ -12,8 +12,8 @@
                 I'd like to thank you for participating in the Wikipedia Student Program during the
                 #{link_to @campaign.title, "https://#{ENV['dashboard_url']}/campaigns/#{@campaign.slug}", class: 'link'} term.
               %p.paragraph
-                You and your students were part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
-                contributed #{number_to_human @presenter.word_count, delimiter: ','} words to Wikipedia. This is an incredible feat, and we
+                You and your students are part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
+                contributed #{number_to_human @presenter.word_count, delimiter: ','} words to Wikipedia so far. This is an incredible feat, and we
                 couldn't have done it without you!
               %p.paragraph
                 Here's a snapshot of what your students did during the term:
