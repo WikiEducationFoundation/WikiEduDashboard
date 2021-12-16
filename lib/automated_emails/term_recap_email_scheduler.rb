@@ -4,30 +4,30 @@
 class TermRecapEmailScheduler
   def self.schedule_emails
     return unless Features.wiki_ed?
-    new.schedule_term_recap_emails
+    new.schedule_term_recap_emails(recently_ended_courses)
   end
 
-  def schedule_term_recap_emails
-    courses_to_email.each do |course|
+  def schedule_term_recap_emails(courses)
+    eligible_courses(courses).each do |course|
       campaign = student_program_campaign(course)
       next unless campaign
       TermRecapEmailWorker.send_email(course: course, campaign: campaign)
     end
   end
 
-  private
-
   DAYS_WITHIN_COURSE_END_TO_EMAIL = 7
 
-  def recently_ended_courses
+  def self.recently_ended_courses
     Course.current.ended
           .where('end > ?', DAYS_WITHIN_COURSE_END_TO_EMAIL.days.ago)
           .includes(:campaigns)
   end
 
-  def courses_to_email
-    recently_ended_courses.select do |course|
-      course.flags[:recap_sent_at].nil?
+  private
+
+  def eligible_courses(courses)
+    courses.select do |course|
+      should_email?(course)
     end
   end
 
@@ -40,5 +40,12 @@ class TermRecapEmailScheduler
   STUDENT_PROGRAM_CAMPAIGN_MATCHER = /(^spring|fall|summer)_202.$/.freeze
   def student_program_campaign?(campaign_slug)
     campaign_slug.match?(STUDENT_PROGRAM_CAMPAIGN_MATCHER)
+  end
+
+  def should_email?(course)
+    return false if course.average_word_count.zero? # Did some work?
+    return false if course.flags[:recap_sent_at].present? # Recap not already sent?
+    return false if course.withdrawn # Not withdrawn?
+    true
   end
 end
