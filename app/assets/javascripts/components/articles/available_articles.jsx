@@ -10,6 +10,7 @@ import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
 import { processAssignments } from '../overview/my_articles/utils/processAssignments';
+import ArticlesOrItemseUtils from '../../utils/articles_or_items_utils.js';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -38,10 +39,12 @@ const AvailableArticles = createReactClass({
       );
     }
 
+    const articlesOrItems = ArticlesOrItemseUtils.articlesOrItems(course.home_wiki.project);
+
     if (Features.wikiEd && current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
-          How to find articles
+          How to find {articlesOrItems}
         </a>
       );
     }
@@ -84,11 +87,11 @@ const AvailableArticles = createReactClass({
       availableArticles = (
         <div id="available-articles" className="mt4">
           <div className="section-header">
-            <h3>{I18n.t('articles.available')}</h3>
+            <h3>{ ArticlesOrItemseUtils.articlesOrItemsI18n('available', articlesOrItems)}</h3>
             <div className="section-header__actions">
               {findingArticlesTraining}
               {assignCell}
-              <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find Articles</button></Link>
+              <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find {articlesOrItems}</button></Link>
             </div>
           </div>
           <AvailableArticlesList {...this.props} elements={elements} />

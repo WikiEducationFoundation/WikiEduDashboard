@@ -142,6 +142,7 @@ en:
     label: Activity
 
   articles:
+    articles: Articles
     article_not_found: "This article has not been created yet."
     article_development: (article development)
     articles_shown: "Showing %{count} of %{total}"
@@ -222,6 +223,7 @@ en:
     articles_short: Articles
 
   items:
+    items: Items
     assigned: Assigned Items
     assignments_none: There are no assigned items yet.
     available: Available Items
@@ -262,7 +264,9 @@ en:
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
     assign_other: Assign/remove an article
-    add_available: Add available articles
+    add_available:
+      articles: Add available articles
+      items: Add available items
     add_available_placeholder: Add one article title or URL per line
     add_available_submit: Add articles
     assign_self: Assign myself an article

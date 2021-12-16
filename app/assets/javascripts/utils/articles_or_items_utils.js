@@ -1,4 +1,3 @@
-
 export default class ArticlesOrItemsUtils {
 // Returns article or item, based on home Wiki.
   static articlesOrItems(project) {
