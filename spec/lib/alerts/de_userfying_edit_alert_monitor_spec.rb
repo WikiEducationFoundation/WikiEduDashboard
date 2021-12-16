@@ -35,11 +35,13 @@ describe DeUserfyingEditAlertMonitor do
   describe '.edits' do
     it 'checks keys' do
       VCR.use_cassette 'recent_changes' do
-        fedits = mntor.edits.first
-        expect(fedits.dig('logparams', 'target_title')).not_to be_nil
-        expect(fedits.dig('user')).not_to be_nil
-        expect(fedits.dig('revid')).not_to be_nil
-        expect(fedits.dig('pageid')).not_to be_nil
+        fedit = mntor.edits.first
+        expect(fedit.dig('logparams', 'target_title')).not_to be_nil
+        expect(fedit.dig('user')).not_to be_nil
+        expect(fedit.dig('revid')).not_to be_nil
+        expect(fedit.dig('pageid')).not_to be_nil
+        expect(fedit.dig('logid')).not_to be_nil
+        expect(fedit.dig('timestamp')).not_to be_nil
       end
     end
   end
@@ -81,6 +83,14 @@ describe DeUserfyingEditAlertMonitor do
       mntor.create_alerts
       expect(Alert.count).to eq editsfeed.count
     end
+
+    context 'When neither article fetch or created' do
+      it 'creates an alert with nil article' do
+        allow(mntor).to receive(:article_by_mw_page_id)
+        mntor.create_alerts
+        expect(Alert.first.article_id).to eq nil
+      end
+    end
   end
 
   describe '.courses_for_a_student' do
@@ -100,7 +110,7 @@ describe DeUserfyingEditAlertMonitor do
 
       let(:importer) { instance_double(ArticleImporter) }
 
-      it 'imports from wikipedia' do
+      it 'tries to import from wikipedia' do
         expect(importer).to receive(:import_articles).with([7777])
         mntor.article_by_mw_page_id(7777)
       end
