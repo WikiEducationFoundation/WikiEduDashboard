@@ -53,6 +53,7 @@ const Assignment = createReactClass({
     if (reviewers.length) { reviewers.pop(); }
 
     let feedback;
+    console.log('in assignment', this.props.assignmentGroup[0]);
     // If the article exists (and therefore has an article id) then shows Feedback
     // If the article doesn't exist, then Feedback is based on a user's sandbox only if a single user is assigned
     if (this.props.course.type === 'ClassroomProgramCourse') {
