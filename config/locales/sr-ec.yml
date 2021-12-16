@@ -204,7 +204,7 @@ sr-ec:
     already_exists: Овај задатак већ постоји!
     title_too_large: Наслов не би требало да има више од 255 знакова
     assignees: Додељено
-    assign_other: Додели чланак
+    assign_other: Додели/уклони чланак
     add_available: Додај доступне чланке
     add_available_placeholder: Додајте један наслов чланка или URL у једном реду
     add_available_submit: Додај чланке

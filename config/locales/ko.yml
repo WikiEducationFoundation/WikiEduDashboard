@@ -145,6 +145,7 @@ ko:
     article_link: 문서
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
+    assign_other: 문서 할당/제거
     add_available: 읽을 수 있는 글 추가
     add_available_placeholder: 줄마다 문서 제목이나 URL을 추가합니다
     add_available_submit: 문서 추가

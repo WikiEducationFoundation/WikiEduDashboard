@@ -110,6 +110,7 @@ sms:
     contribution_statistics: Muʹttemstatistiikk
     first_name: Risttnõmm
     last_name: Sokknõmm
+    name: Nõmm
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
   wizard:

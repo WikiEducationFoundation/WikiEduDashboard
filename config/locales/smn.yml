@@ -9,6 +9,7 @@ smn:
   articles:
     see_more: Lasetiäđuh
   categories:
+    name: Nommâ
     template_name: Myenster nommâ
   courses:
     tags: 'Kilgoleh:'
@@ -28,4 +29,5 @@ smn:
   users:
     first_name: Ovdânommâ
     last_name: Suhânommâ
+    name: Nommâ
 ...

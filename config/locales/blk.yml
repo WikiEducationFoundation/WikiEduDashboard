@@ -15,6 +15,8 @@ blk:
   articles:
     title: ကꩻတူႏရဲန်ႏ
     view_all: ထွားလို့တာႏ
+  assignments:
+    reviewers: ကေားစဲစ်ထွားချာသား
   courses:
     alerts: ဖေႏသေချက်ဖုံႏ
     actions: ခွုမ်မာꩻချက်ဖိုင်ႏ

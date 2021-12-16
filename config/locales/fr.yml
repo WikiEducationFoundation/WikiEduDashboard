@@ -244,7 +244,7 @@ fr:
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
-    assign_other: Affecter un article
+    assign_other: Affecter/supprimer un article
     add_available: Ajouter des articles disponibles
     add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
     add_available_submit: Ajouter des articles
@@ -278,7 +278,7 @@ fr:
       limit_exceeded: Chaque étudiant relit déjà au moins %{maximum} article(s).
     remove: Supprimer
     reviewers: Relecteur(s)
-    review_other: Attribuer une révision
+    review_other: Attribuer/supprimer une relecture de pair
     review_self: Relire un article
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
@@ -961,6 +961,12 @@ fr:
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
     next_update: Prochaine mise à jour estimée
+    late_update_part1: Une nouvelle mise à jour était attendue
+    late_update_part2: Cela peut vouloir dire que la mise à jour prend plus longtemps
+      que prévu, ou peut indiquer un problème qui bloque les mises à jour.
+    no_update: Le tableau de bord n’a encore importé aucune donnée pour ce programme.
+    enqueued_update: Ce programme a été ajouté à la file de mise à jour.
+    first_update: Démarrage estimé de la mise à jour des statistiques
     activity: Activité récente
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés

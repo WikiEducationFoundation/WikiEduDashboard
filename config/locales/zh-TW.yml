@@ -189,7 +189,7 @@ zh-TW:
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
-    assign_other: 分配條目
+    assign_other: 分配/移除條目
     add_available: 加入可用的條目
     add_available_placeholder: 在每行添加一個條目標題或 URL
     add_available_submit: 添加條目
@@ -212,13 +212,16 @@ zh-TW:
     peer_review_link: 同行評審
     peer_review_link_personalized: '%{username}的同行評審'
     random_peer_review:
-      confirm_addition: 這將會分配一共 %{count} 額外的同行評審，每位學生從同學們的條目裡最多挑選出 %{maximum} 個。
+      confirm_addition: |-
+        在大部分情況下，您應只在所有學生都有分配到他們的主條目時使用。
+        您也可以讓您的學生挑選他們的同行評審，或著您可以用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同行評審。
+        點擊「確認」後，這將會分配一共 %{count} 額外的同行評審，每位學生可從同學們的條目裡最多挑選出 %{maximum} 個。
       heading: 分配隨機同行評審
       tooltip_message: 分配隨機條目（以同行評審數為最大數目）給各學生。
       limit_exceeded: 每位學生至少已檢閱 %{maximum} 個條目。
     remove: 移除
     reviewers: 審核者
-    review_other: 分配同行評審
+    review_other: 分配/移除同行評審
     review_self: 審核條目
     review_tooltip: 這是用於您打算同行評審、或是提供意見回饋的條目。
     sandbox_draft_link: 沙盒草稿
@@ -736,6 +739,11 @@ zh-TW:
     label: 課程活動
     last_update: 最後一次統計更新
     next_update: 下一次的預計更新
+    late_update_part1: 預期有新的更新
+    late_update_part2: 這可能代表著更新的時間會比預期來得長，或者是指示出有一個會阻礙到更新的問題。
+    no_update: 控制面板尚未匯入此方案的任何資料。
+    enqueued_update: 此方案已加入到更新佇列裡。
+    first_update: 估計統計更新的開始
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目

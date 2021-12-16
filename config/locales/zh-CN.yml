@@ -10,6 +10,7 @@
 # Author: Deathkon
 # Author: Endermoon
 # Author: Fanjiayi
+# Author: GuoPC
 # Author: Hanyanbo98
 # Author: Interestinghe
 # Author: Josephine W.
@@ -222,7 +223,10 @@ zh-CN:
       已选择%{currentCount}/%{total}
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
     random_peer_review:
-      confirm_addition: 您确定要给整个班级分配%{count}条文章，而且每位学生最多分配%{maximum}条？
+      confirm_addition: |-
+        在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。
+        您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。
+        点击“OK”分配共计 %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
       heading: 分配随机的同行复核
       limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
     remove: 移除
