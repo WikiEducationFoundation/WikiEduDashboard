@@ -134,7 +134,6 @@ const PotentialAssignmentRows = ({
     );
   });
 
-  // CourseUtils.i18n('articles_none', this.props.course.string_prefix)
   const text = role === ASSIGNED_ROLE
     ? I18n.t('courses.assignment_headings.available_articles')
     : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);

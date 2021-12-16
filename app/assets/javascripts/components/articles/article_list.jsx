@@ -9,7 +9,7 @@ import List from '../common/list.jsx';
 import Article from './article.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import articleListKeys from './article_list_keys';
-import CourseUtils from '../../utils/course_utils.js';
+import ArticlesOrItemsUtils from '../../utils/articles_or_items_utils.js';
 
 const ArticleList = createReactClass({
   displayName: 'ArticleList',
@@ -63,7 +63,7 @@ const ArticleList = createReactClass({
 
   render() {
     const keys = articleListKeys(this.props.course);
-
+    const articlesOrItems = ArticlesOrItemsUtils.articlesOrItems(this.props.course.home_wiki.project);
     const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
 
     if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
@@ -71,7 +71,7 @@ const ArticleList = createReactClass({
         label: I18n.t('articles.tracked'),
         desktop_only: true,
         sortable: false,
-        info_key: 'articles.tracked_doc'
+        info_key: `${articlesOrItems}.tracked_doc`
       };
     }
 
@@ -109,10 +109,10 @@ const ArticleList = createReactClass({
       header = <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
     } else {
       header = (
-        <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}
+        <h3 className="article tooltip-trigger">{ArticlesOrItemsUtils.articlesOrItemsI18n('edited', articlesOrItems)}
           <span className="tooltip-indicator" />
           <div className="tooltip dark">
-            <p>{I18n.t('articles.cross_wiki_tracking')}</p>
+            <p>{ArticlesOrItemsUtils.articlesOrItemsI18n('cross_wiki_tracking', articlesOrItems)}</p>
           </div>
         </h3>
       );
@@ -206,7 +206,7 @@ const ArticleList = createReactClass({
           sortable={true}
           table_key="articles"
           className="table--expandable table--hoverable"
-          none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
+          none_message={ArticlesOrItemsUtils.articlesOrItemsI18n('edited_none', articlesOrItems)}
           sortBy={this.props.sortArticles}
         />
       </div>

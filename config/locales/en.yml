@@ -146,6 +146,7 @@ en:
     article_development: (article development)
     articles_shown: "Showing %{count} of %{total}"
     assigned: Assigned Articles
+    assignments_none: There are no assigned articles yet.
     available: Available Articles
     no_available: No Available Articles
     next: Next
@@ -158,9 +159,11 @@ en:
       The dashboard pulls in contributions from the home wiki of this program, along
       with any other wikis for which there is an Assignment or an Available Article.
     deleted: (deleted)
+    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Articles Edited
     edited_by: "Edited by:"
     edited_mobile: Articles
+    edited_none: There are no edited articles yet.
     filter:
       wiki_all: All
       new: New
@@ -217,6 +220,34 @@ en:
       structure of a good article, but it does not take into account the content
       itself. (These scores are only available for English Wikipedia articles.)
     articles_short: Articles
+
+  items:
+    assigned: Assigned Items
+    assignments_none: There are no assigned items yet.
+    available: Available Items
+    character_doc: The sum of characters added to items by enrolled editors between the start and end dates
+    cross_wiki_tracking: >
+      Mainspace pages edited between the start and end dates are listed below.
+      The dashboard pulls in contributions from the home wiki of this program, along
+      with any other wikis for which there is an Assignment or an Available Item.
+    does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
+    edited: Items Edited
+    edited_none: There are no edited items yet.
+    rating_doc: The rating an item has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of item maturity.
+    tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
+    view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    rating_docs:
+      fa: "%{class} (Featured item) — Wikipedia's highest rating, probably too mature an item for a new editor's main project"
+      fl: "%{class} (Featured list) — Wikipedia's highest rating for lists"
+      a: "%{class}-class — very developed item that may be too mature an item for a new editor's main project"
+      ga: "%{class} (Good item) — a well-developed item that may be too mature an item for a new editor's main project"
+      b: "%{class}-class — a moderately developed item"
+      c: "%{class}-class — an intermediate item with room for improvement"
+      start: "%{class}-class — a preliminary item with plenty of room for improvement"
+      stub: "%{class}-class — a short beginning of an item that needs more content"
+      list: "%{class}-class — a list rather than a conventional item"
+      ?: Unrated — an item that hasn't yet been rated on Wikipedia's quality scale
+      does_not_exist: This item does not exist on Wikipedia
 
   articles_wikidata:
     articles_short: Items
@@ -384,7 +415,6 @@ en:
     archived: Archived Courses
     actions: Actions
     articles: Articles
-    articles_none: This course has not edited any articles.
     article_viewer: Article Viewer
     articles_i_am_reviewing: Articles I'm peer reviewing
     articles_i_will_create: Articles I will create
@@ -395,7 +425,6 @@ en:
       available_articles: Available Articles
       available_reviews: Classmates' Articles
     assignment_end: Assignment End
-    assignments_none: This course has no assigned articles.
     assignment_start: Assignment Start
     calendar:
       legend: Legend
@@ -534,7 +563,6 @@ en:
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     download_stats_data: Download stats
-    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     duration: Course Duration
     edit_count: Edit Count
     edit_course_dates: Edit Course Dates
@@ -638,7 +666,9 @@ en:
     please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
-    rating_feedback: "Predicted rating for the article is:"
+    rating_feedback:
+      articles: "Predicted rating for the article is:"
+      items: "Predicted rating for the item is:"
     requested_accounts: Requested accounts
     requested_accounts_alert:
       one: "%{count} requested account pending."
@@ -706,7 +736,9 @@ en:
     user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
     user_recent_uploads: Recent Uploads
     user_suggestions: "User Suggestions:"
-    user_suggestions_prompt: "Your suggestions for the editors of the article"
+    user_suggestions_prompt:
+      articles: "Your suggestions for the editors of the article"
+      items: "Your suggestions for the editors of the item"
     view_other: View other campaigns
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
@@ -730,6 +762,9 @@ en:
       if you don't want templates added to user pages, the talk pages of assigned articles, etc.
     wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
+    word_count_doc_separated:
+      articles: An estimate of the number of words added to mainspace articles by the course's students during the course term
+      items: An estimate of the number of words added to mainspace items by the course's students during the course term
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     yourcourses: Your Courses
     survey:
@@ -743,7 +778,6 @@ en:
     all_courses: All Programs
     archived: Archived Programs
     articles_i_am_reviewing: Articles I'm reviewing
-    articles_none: There are no edited articles for this project yet.
     assignment_headings:
       available_reviews: Available to Review
     assignment_end: Event End
@@ -836,6 +870,9 @@ en:
     user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Program Page
+    word_count_doc_separated:
+      items: An estimate of the number of words added to mainspace items by the program's editors during the program term
+      articles: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     yourcourses: Your Programs
 
@@ -910,6 +947,9 @@ en:
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
+    references_doc_separated:
+      articles: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+      items: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits

@@ -15,6 +15,7 @@ import { fetchArticles, sortArticles, filterArticles, filterNewness, filterTrack
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByTrackedStatus } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
+import ArticlesOrItemseUtils from '../../utils/articles_or_items_utils.js';
 
 export const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -61,14 +62,16 @@ export const ArticlesHandler = createReactClass({
       categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
     }
 
+    const articlesOrItems = ArticlesOrItemseUtils.articlesOrItems(this.props.course.home_wiki.project);
+
     const links = [
       {
         href: `/courses/${this.props.course.slug}/articles/edited`,
-        text: I18n.t('articles.edited')
+        text: ArticlesOrItemseUtils.articlesOrItemsI18n('edited', articlesOrItems)
       },
       {
         href: `/courses/${this.props.course.slug}/articles/assigned`,
-        text: I18n.t('articles.assigned')
+        text: ArticlesOrItemseUtils.articlesOrItemsI18n('assigned', articlesOrItems)
       }
     ];
 
@@ -77,7 +80,7 @@ export const ArticlesHandler = createReactClass({
     if (!this.hideAssignments()) {
       links.push({
         href: `/courses/${this.props.course.slug}/articles/available`,
-        text: I18n.t('articles.available')
+        text: ArticlesOrItemseUtils.articlesOrItemsI18n('available', articlesOrItems)
       });
     }
     return (
