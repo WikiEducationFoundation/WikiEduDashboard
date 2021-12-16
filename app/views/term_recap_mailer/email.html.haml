@@ -45,8 +45,9 @@
                 to see your collective impact!
 
               %p.paragraph
-                If you plan to participate in the Wikipedia Student Program again in the upcoming #{@upcoming_term&.title} term, please
-                %strong create and submit a course page by #{@deadline}.
+                If you plan on running a Wikipedia assignment again in an upcoming term, be sure to create and submit your course page on the
+                = succeed '.' do
+                  %a.link{href: "https://#{ENV['dashboard_url']}"} Dashboard
 
               %p.paragraph
                 Wishing you all the best, 
@@ -55,6 +56,6 @@
                   Helaine Blumenthal, Senior Program Manager
 
               %p.info
-                This is an automated email from Wiki Education intended to give you a recap of your students' impact and remind you about the deadline for doing this again next term.
+                This is an automated email from Wiki Education intended to give you a recap of your students' impact and remind you to submit your course for doing this again next term.
                 If you have thoughts about it you can let us know by replying, or
                 %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=term-recap-email'} leave feedback here.
