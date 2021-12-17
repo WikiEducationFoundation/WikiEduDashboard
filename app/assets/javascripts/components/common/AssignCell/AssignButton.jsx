@@ -13,6 +13,7 @@ import NewAssignmentInput from '../../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
+import ArticleUtils from '../../../utils/article_utils';
 
 // Helper Components
 // Button to show the static list
@@ -111,7 +112,7 @@ const AssignedAssignmentRows = ({
 };
 
 const PotentialAssignmentRows = ({
-  assignments = [], course, permitted, role, wikidataLabels,
+  assignments = [], course, permitted, articlesOrItems, role, wikidataLabels,
   assign // functions
 }) => {
   const elements = assignments.map((assignment) => {
@@ -134,9 +135,8 @@ const PotentialAssignmentRows = ({
     );
   });
 
-  // CourseUtils.i18n('articles_none', this.props.course.string_prefix)
   const text = role === ASSIGNED_ROLE
-    ? I18n.t('courses.assignment_headings.available_articles')
+    ? I18n.t(`courses.assignment_headings.available_${articlesOrItems}`)
     : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
@@ -161,12 +161,12 @@ const Tooltip = ({ message }) => {
 // Button to add new assignments
 const EditButton = ({
   allowMultipleArticles, current_user, is_open, open, role, student,
-  tooltip, tooltipIndicator, assignmentLength
+  tooltip, tooltipIndicator, assignmentLength, articlesOrItems
 }) => {
   let assignText;
   let reviewText;
   if (allowMultipleArticles) {
-    assignText = I18n.t('assignments.add_available');
+    assignText = I18n.t(`assignments.add_available.${articlesOrItems}`);
   } else if (assignmentLength) {
     assignText = '+/-';
     reviewText = '+/-';
@@ -207,6 +207,7 @@ const FindArticles = ({ course, open }) => {
     </tr>
   );
 };
+
 
 // Main Component
 export class AssignButton extends React.Component {
@@ -375,6 +376,8 @@ export class AssignButton extends React.Component {
       isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
+    const articlesOrItems = ArticleUtils.articlesOrItems(course.home_wiki.project);
+
     let showButton;
     if (!permitted && assignments.length > 1) {
       showButton = (
@@ -405,6 +408,7 @@ export class AssignButton extends React.Component {
           tooltip={tooltip}
           tooltipIndicator={tooltipIndicator}
           assignmentLength={isStudentsPage && assignments.length}
+          articlesOrItems={articlesOrItems}
         />
       );
     }
@@ -484,6 +488,7 @@ export class AssignButton extends React.Component {
           permitted={permitted}
           role={role}
           wikidataLabels={wikidataLabels}
+          articlesOrItems={articlesOrItems}
         />
       );
     }

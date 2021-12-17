@@ -15,6 +15,7 @@ import { fetchArticles, sortArticles, filterArticles, filterNewness, filterTrack
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByTrackedStatus } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
+import ArticleUtils from '../../utils/article_utils.js';
 
 export const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -61,14 +62,16 @@ export const ArticlesHandler = createReactClass({
       categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
     }
 
+     const project = this.props.course.home_wiki.project;
+
     const links = [
       {
         href: `/courses/${this.props.course.slug}/articles/edited`,
-        text: I18n.t('articles.edited')
+        text: ArticleUtils.I18n('edited', project)
       },
       {
         href: `/courses/${this.props.course.slug}/articles/assigned`,
-        text: I18n.t('articles.assigned')
+        text: ArticleUtils.I18n('assigned', project)
       }
     ];
 
@@ -77,7 +80,7 @@ export const ArticlesHandler = createReactClass({
     if (!this.hideAssignments()) {
       links.push({
         href: `/courses/${this.props.course.slug}/articles/available`,
-        text: I18n.t('articles.available')
+        text: ArticleUtils.I18n('available', project)
       });
     }
     return (

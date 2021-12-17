@@ -10,6 +10,7 @@ import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
 import { processAssignments } from '../overview/my_articles/utils/processAssignments';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -29,6 +30,10 @@ const AvailableArticles = createReactClass({
     const { assignments, course, course_id, current_user } = this.props;
 
     const { assigned } = processAssignments(this.props);
+
+    const project = course.home_wiki.project;
+    const articlesOrItems = ArticleUtils.articlesOrItems(project);
+
     const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
     const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
     let myArticles;
@@ -41,7 +46,7 @@ const AvailableArticles = createReactClass({
     if (Features.wikiEd && current_user.isAdvancedRole) {
       findingArticlesTraining = (
         <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
-          How to find articles
+          How to find {articlesOrItems}
         </a>
       );
     }
@@ -84,11 +89,11 @@ const AvailableArticles = createReactClass({
       availableArticles = (
         <div id="available-articles" className="mt4">
           <div className="section-header">
-            <h3>{I18n.t('articles.available')}</h3>
+            <h3>{ ArticleUtils.I18n('available', project)}</h3>
             <div className="section-header__actions">
               {findingArticlesTraining}
               {assignCell}
-              <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find Articles</button></Link>
+              <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">Find {articlesOrItems}</button></Link>
             </div>
           </div>
           <AvailableArticlesList {...this.props} elements={elements} />
