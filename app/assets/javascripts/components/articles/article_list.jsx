@@ -106,7 +106,7 @@ const ArticleList = createReactClass({
 
     let header;
     if (Features.wikiEd) {
-      header = <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+      header = <h3 className="article tooltip-trigger">{ArticleUtils.I18n('edited', project)}</h3>;
     } else {
       header = (
         <h3 className="article tooltip-trigger">{ArticleUtils.I18n('edited', project)}
