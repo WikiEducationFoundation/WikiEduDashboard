@@ -10,7 +10,7 @@ import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
 import { processAssignments } from '../overview/my_articles/utils/processAssignments';
-import ArticlesOrItemseUtils from '../../utils/articles_or_items_utils.js';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -30,6 +30,10 @@ const AvailableArticles = createReactClass({
     const { assignments, course, course_id, current_user } = this.props;
 
     const { assigned } = processAssignments(this.props);
+
+    const project = course.home_wiki.project;
+    const articlesOrItems = ArticleUtils.articlesOrItems(project);
+
     const isWikidataCourse = course.home_wiki && course.home_wiki.project === 'wikidata';
     const showMyArticlesSection = assigned.length && current_user.isStudent && !isWikidataCourse;
     let myArticles;
@@ -38,8 +42,6 @@ const AvailableArticles = createReactClass({
         <MyArticlesContainer current_user={current_user} />
       );
     }
-
-    const articlesOrItems = ArticlesOrItemseUtils.articlesOrItems(course.home_wiki.project);
 
     if (Features.wikiEd && current_user.isAdvancedRole) {
       findingArticlesTraining = (
@@ -87,7 +89,7 @@ const AvailableArticles = createReactClass({
       availableArticles = (
         <div id="available-articles" className="mt4">
           <div className="section-header">
-            <h3>{ ArticlesOrItemseUtils.articlesOrItemsI18n('available', articlesOrItems)}</h3>
+            <h3>{ ArticleUtils.I18n('available', project)}</h3>
             <div className="section-header__actions">
               {findingArticlesTraining}
               {assignCell}

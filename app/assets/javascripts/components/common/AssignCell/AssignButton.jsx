@@ -13,7 +13,7 @@ import NewAssignmentInput from '../../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
-import ArticlesOrItemsUtils from '../../../utils/articles_or_items_utils';
+import ArticleUtils from '../../../utils/article_utils';
 
 // Helper Components
 // Button to show the static list
@@ -376,7 +376,8 @@ export class AssignButton extends React.Component {
       isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
-    const articlesOrItems = ArticlesOrItemsUtils.articlesOrItems(course.home_wiki.project);
+    const articlesOrItems = ArticleUtils.articlesOrItems(course.home_wiki.project);
+
     let showButton;
     if (!permitted && assignments.length > 1) {
       showButton = (

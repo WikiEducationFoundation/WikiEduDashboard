@@ -1,4 +1,4 @@
-import ArticlesOrItemsUtils from '../../utils/articles_or_items_utils.js';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const contentAddedKey = (course, articlesOrItems) => {
   if (course.home_wiki_bytes_per_word) {
@@ -16,12 +16,12 @@ const contentAddedKey = (course, articlesOrItems) => {
 };
 
 const articleListKeys = (course) => {
-  const articlesOrItems = ArticlesOrItemsUtils.articlesOrItems(course.home_wiki.project);
+  const articlesOrItems = ArticleUtils.articlesOrItems(course.home_wiki.project);
   return {
     rating_num: {
       label: I18n.t('articles.rating'),
       desktop_only: true,
-      info_key: `${articlesOrItems}.rating_doc`
+      info_key: 'articles.rating_doc'
     },
     title: {
       label: I18n.t('articles.title'),

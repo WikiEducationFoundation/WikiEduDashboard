@@ -6,7 +6,7 @@ import { sortBy, groupBy, compact } from 'lodash-es';
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
 import { getFiltered } from '../../utils/model_utils.js';
-import ArticlesOrItemseUtils from '../../utils/articles_or_items_utils.js';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const AssignmentList = createReactClass({
   displayName: 'AssignmentList',
@@ -65,18 +65,18 @@ const AssignmentList = createReactClass({
       }
     };
 
-    const articlesOrItems = ArticlesOrItemseUtils.articlesOrItems(this.props.course.home_wiki.project);
+    const project = this.props.course.home_wiki.project;
 
     return (
       <div id="assignments" className="mt4">
         <div className="section-header">
-          <h3>{ArticlesOrItemseUtils.articlesOrItemsI18n('assigned', articlesOrItems)}</h3>
+          <h3>{ArticleUtils.I18n('assigned', project)}</h3>
         </div>
         <List
           elements={elements}
           keys={keys}
           table_key={'assignments'}
-          none_message={ArticlesOrItemseUtils.articlesOrItemsI18n('assignments_none', articlesOrItems)}
+          none_message={ArticleUtils.I18n('assignments_none', project)}
           sortable={false}
         />
       </div>
