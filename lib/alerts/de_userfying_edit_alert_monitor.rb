@@ -19,7 +19,7 @@ class DeUserfyingEditAlertMonitor
       article = article_by_mw_page_id(edit['pageid'])
       user = User.find_by(username: edit['user'])
       course_ids = courses_for_a_student(user.id)
-      details = { logid: edit['logid'], timestamp: edit['timestamp'] }
+      details = { logid: edit['logid'], timestamp: edit['timestamp'], title: edit['title'] }
       course_ids.each do |course_id|
         create_alert(user.id, course_id, article&.id, edit['revid'], details)
       end
@@ -44,7 +44,7 @@ class DeUserfyingEditAlertMonitor
     res = api.query(query_params)
     res.data['recentchanges']
        .map do |change|
-      change.slice('user', 'revid', 'pageid', 'logparams', 'logid', 'timestamp')
+      change.slice('user', 'revid', 'pageid', 'logparams', 'logid', 'timestamp', 'title')
     end
   end
 

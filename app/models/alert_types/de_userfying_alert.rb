@@ -24,10 +24,10 @@
 # the edits are automatically tagged de-userfying.
 class DeUserfyingAlert < Alert
   def main_subject
-    "#{user.username} moved article #{article.title} from sandbox into mainspace"
+    "#{user.username} moved article #{details[:title]} from sandbox into mainspace"
   end
 
   def url
-    article&.url
+    "#{course.home_wiki.base_url}/w/index.php?title=Special:Log&logid=#{details[:logid]}"
   end
 end

@@ -60,7 +60,7 @@ class AlertMailerPreview < ActionMailer::Preview
 
   def example_de_userfying_alert
     Alert.new(type: 'DeUserfyingAlert', article: example_article,
-              course: example_course, id: 9, user: example_student,
+              course: Course.last, id: 9, user: example_student,
               details: { logid: 125126035, timestamp: '2021-12-16T08:10:56Z' })
   end
 end
