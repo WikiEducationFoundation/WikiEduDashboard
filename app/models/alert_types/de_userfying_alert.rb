@@ -28,6 +28,6 @@ class DeUserfyingAlert < Alert
   end
 
   def url
-    article.url
+    article&.url
   end
 end
