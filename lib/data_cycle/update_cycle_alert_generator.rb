@@ -9,6 +9,7 @@ require_dependency "#{Rails.root}/lib/alerts/discretionary_sanctions_monitor"
 require_dependency "#{Rails.root}/lib/alerts/high_quality_article_monitor"
 require_dependency "#{Rails.root}/lib/alerts/protected_article_monitor"
 require_dependency "#{Rails.root}/lib/alerts/blocked_user_monitor"
+require "#{Rails.root}/lib/alerts/de_userfying_edit_alert_monitor"
 
 module UpdateCycleAlertGenerator
   # rubocop:disable Metrics/MethodLength
@@ -39,6 +40,9 @@ module UpdateCycleAlertGenerator
 
     log_message 'Generate blocked user alerts'
     BlockedUserMonitor.create_alerts_for_recently_blocked_users
+
+    log_message 'Generate de-userfying edits alerts'
+    DeUserfyingEditAlertMonitor.create_alerts_for_deuserfying_edits
   end
   # rubocop:enable Metrics/MethodLength
 end
