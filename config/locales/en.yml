@@ -1459,35 +1459,55 @@ en:
       why_are_you_here: "What would you like to do?"
 
   article_finder:
-    page_assessment_class: "Class"
-    completeness_estimate: "Completeness Score"
+    add_available_article:
+      articles: "Add as available article"
+      items: "Add as available item"
+    article_finder:
+      articles: "Article Finder"
+      items: "Item Finder"
+    article_quality:
+      articles: "Article Quality(0-100)"
+      items: "Item Quality(0-100)"
+    assign_article_self: "Assign yourself"
     average_views: "Average views per day"
-    add_available_article: "Add as available article"
-    remove_article: "Remove article"
-    minimum_views_label: "Minimum Views"
-    no_article_found: "No articles found in this category"
-    search_placeholder: "Enter your keyword"
-    search: "Search"
-    tools: "Tools"
-    show_options: "Show Options"
-    hide_options: "Hide Options"
-    keyword_search: "Keyword Search"
     category_search: "Category Search"
-    article_quality: "Article Quality(0-100)"
-    more_results: "More Results"
-    fetched_articles: "Fetched Articles"
-    filtered_articles: "Filtered Articles"
-    searching_articles: "Searching Articles"
+    completeness_estimate: "Completeness Score"
     fetching_assessments: "Fetching Page Assessments"
-    fetching_revisions: "Fetching Page Revisions"
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
-    subheading_message: "Let's find a Wikipedia article to work on."
-    article_finder: "Article Finder"
-    submit: "Submit"
+    fetching_revisions: "Fetching Page Revisions"
+    fetched_articles:
+      articles: "Fetched Articles"
+      items: "Fetched Items"
+    filtered_articles:
+      articles: "Filtered Articles"
+      items: "Filtered Items"
+    hide_options: "Hide Options"
+    keyword_search: "Keyword Search"
+    minimum_views_label: "Minimum Views"
+    more_results: "More Results"
+    no_article_found:
+      articles: "No articles found in this category"
+      items: "No items found in this category"
+    page_assessment_class: "Class"
     relevanceIndex: "Relevance Index"
-    assign_article_self: "Assign yourself"
-    unassign_article_self: "Unassign Article"
+    remove_article:
+      articles: "Remove article"
+      items: "Remove items"
+    search: "Search"
+    searching_articles:
+      articles: "Searching Articles"
+      items: "Searching Items"
+    search_placeholder: "Enter your keyword"
+    show_options: "Show Options"
+    subheading_message:
+      articles: "Let's find a Wikipedia article to work on."
+      items: "Let's find a Wikidata item to work on."
+    submit: "Submit"
+    tools: "Tools"
+    unassign_article_self:
+      articles: "Unassign Article"
+      items: "Unassign Item"
 
   training_status:
     completed: "Completed"

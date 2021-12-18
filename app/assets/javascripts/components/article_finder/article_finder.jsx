@@ -18,6 +18,7 @@ import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions
 import { getFilteredArticleFinder } from '../../selectors';
 
 import { trackedWikisMaker } from '../../utils/wiki_utils';
+import ArticleUtils from '../../utils/article_utils';
 
 const ArticleFinder = createReactClass({
   getDefaultProps() {
@@ -130,6 +131,7 @@ const ArticleFinder = createReactClass({
   },
 
   render() {
+    const articlesOrItems = ArticleUtils.articlesOrItems(this.props.course.home_wiki.project);
     const searchButton = <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>;
     const searchTerm = (
       <TextInput
@@ -183,7 +185,7 @@ const ArticleFinder = createReactClass({
     const articleQuality = (
       <div>
         <div className="form-group range-container">
-          <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
+          <label className="mb2">{I18n.t(`article_finder.article_quality.${articlesOrItems}`)}</label>
           <InputRange
             maxValue={100}
             minValue={0}
@@ -310,6 +312,7 @@ const ArticleFinder = createReactClass({
             addAssignment={this.props.addAssignment}
             deleteAssignment={this.props.deleteAssignment}
             current_user={this.props.current_user}
+            articlesOrItems={articlesOrItems}
           />
         );
       });
@@ -320,7 +323,7 @@ const ArticleFinder = createReactClass({
           sortable={true}
           table_key="category-articles"
           className="table--expandable table--hoverable"
-          none_message={I18n.t('article_finder.no_article_found')}
+          none_message={I18n.t(`article_finder.no_article_found.${articlesOrItems}`)}
           sortBy={this.props.sortArticleFinder}
         />
       );
@@ -347,11 +350,11 @@ const ArticleFinder = createReactClass({
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
-              <small>{I18n.t('article_finder.fetched_articles')}</small>
+              <small>{I18n.t(`article_finder.fetched_articles.${articlesOrItems}`)}</small>
             </div>
             <div className="stat-display__stat" id="articles-filtered">
               <div className="stat-display__value">{filteredCount}</div>
-              <small>{I18n.t('article_finder.filtered_articles')}</small>
+              <small>{I18n.t(`article_finder.filtered_articles.${articlesOrItems}`)}</small>
             </div>
           </div>
         </div>
@@ -359,7 +362,7 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: I18n.t('article_finder.searching_articles'),
+      ARTICLES_LOADING: I18n.t(`article_finder.searching_articles.${articlesOrItems}`),
       TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
       PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
       REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
@@ -392,9 +395,9 @@ const ArticleFinder = createReactClass({
     return (
       <div className="container">
         <header>
-          <h1 className="title">{I18n.t('article_finder.article_finder')}</h1>
+          <h1 className="title">{I18n.t(`article_finder.article_finder.${articlesOrItems}`)}</h1>
           <div>
-            {I18n.t('article_finder.subheading_message')}
+            {I18n.t(`article_finder.subheading_message.${articlesOrItems}`)}
           </div>
         </header>
         <div className="article-finder-form">
