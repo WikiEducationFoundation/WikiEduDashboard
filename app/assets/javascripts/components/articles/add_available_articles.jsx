@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextAreaInput from '../common/text_area_input';
 import CourseUtils from '../../utils/course_utils.js';
+import ArticleUtils from '../../utils/article_utils';
 
 const AddAvailableArticles = createReactClass({
   displayName: 'AddAvailableArticles',
@@ -64,6 +65,7 @@ const AddAvailableArticles = createReactClass({
   },
 
   render() {
+    const articlesOrItems = ArticleUtils.articlesOrItems(this.props.course.home_wiki.project);
     return (
       <div className="pop__padded-content">
         <TextAreaInput
@@ -72,9 +74,9 @@ const AddAvailableArticles = createReactClass({
           value={this.state.assignments}
           value_key="assignments"
           editable
-          placeholder={I18n.t('assignments.add_available_placeholder')}
+          placeholder={I18n.t(`assignments.add_available_placeholder.${articlesOrItems}`)}
         />
-        <button className="button border pull-right" onClick={this.submit}>{I18n.t('assignments.add_available_submit')}</button>
+        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.add_available_submit.${articlesOrItems}`)}</button>
       </div>
     );
   }
