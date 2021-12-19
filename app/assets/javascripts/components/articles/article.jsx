@@ -44,6 +44,7 @@ const Article = createReactClass({
   render() {
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
+    const isArticle = project !== 'wikidata';
 
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
@@ -76,14 +77,16 @@ const Article = createReactClass({
     return (
       <tr className="article">
         <td className="tooltip-trigger desktop-only-tc">
-          <p className="rating_num hidden">{this.props.article.rating_num}</p>
-          <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
-          <div className="tooltip dark">
+          {isArticle && <p className="rating_num hidden">{this.props.article.rating_num}</p>}
+          {isArticle && <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isArticle && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
-          </div>
+            {/* eslint-disable-next-line */}
+          </div>}
         </td>
         <td>
-          <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
+          {isArticle && <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {!isArticle && <div />}
           <div className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />

@@ -24,6 +24,8 @@ const Assignment = createReactClass({
     wikidataLabel: PropTypes.string
   },
   render() {
+    const isArticle = this.props.course.home_wiki.project !== 'wikidata';
+
     if (!this.props.course.home_wiki) { return <div />; }
     const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0], this.props.course.home_wiki);
     if (!article.formatted_title) {
@@ -65,14 +67,15 @@ const Assignment = createReactClass({
     return (
       <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
-          <p className="rating_num hidden">{article.rating_num}</p>
-          <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
-          <div className="tooltip dark">
+          {isArticle && <p className="rating_num hidden">{article.rating_num}</p>}
+          {isArticle && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
+          {isArticle && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
-          </div>
+            {/* eslint-disable-next-line */}
+          </div>}
         </td>
         <td>
-          <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
+          {isArticle && <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>}
           <p className="title">
             {articleLink}
           </p>
