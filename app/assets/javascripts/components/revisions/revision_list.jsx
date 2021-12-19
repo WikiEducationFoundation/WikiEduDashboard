@@ -4,6 +4,7 @@ import List from '../common/list.jsx';
 import Revision from './revision.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import createReactClass from 'create-react-class';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const RevisionList = createReactClass({
   displayName: 'RevisionList',
@@ -62,7 +63,7 @@ const RevisionList = createReactClass({
       references: {
         label: I18n.t('revisions.references'),
         desktop_only: true,
-        info_key: 'metrics.references_doc'
+        info_key: `metrics.references_doc_separated.${ArticleUtils.articlesOrItems(this.props.course.home_wiki.project)}`
       },
       date: {
         label: I18n.t('revisions.date_time'),
