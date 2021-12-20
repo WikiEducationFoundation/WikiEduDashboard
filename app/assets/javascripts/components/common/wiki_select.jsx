@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import { map } from 'lodash-es';
 import ArrayUtils from '../../utils/array_utils';
-
+import WIKI_OPTIONS from '../../utils/wiki_options';
 
 /**
  *  A Wiki Selector Component that combines both language and project into a singular searchable
@@ -105,7 +105,9 @@ const WikiSelect = createReactClass({
       }
     };
 
-    const options = this.props.options;
+    // If the component was passed a set of wikis as options, limit the options to those wikis.
+    // Otherwise, allow any wiki to be selected.
+    const options = this.props.options.length ? this.props.options : WIKI_OPTIONS;
 
     // If the input is less than three characters, it will be matched from the beginning of the string.
 
@@ -119,7 +121,7 @@ const WikiSelect = createReactClass({
 
     const filterOptionsShort = function (val) {
       return options.filter(wiki =>
-        wiki.label.toLowerCase().startsWith(val.toLowerCase())
+        wiki.label.toLowerCase().includes(val.toLowerCase())
       ).slice(0, 10);
     };
 
