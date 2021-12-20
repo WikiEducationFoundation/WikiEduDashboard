@@ -107,7 +107,7 @@ const WikiSelect = createReactClass({
 
     // If the component was passed a set of wikis as options, limit the options to those wikis.
     // Otherwise, allow any wiki to be selected.
-    const options = this.props.options.length ? this.props.options : WIKI_OPTIONS;
+    const options = (this.props.options && this.props.options.length) ? this.props.options : WIKI_OPTIONS;
 
     // If the input is less than three characters, it will be matched from the beginning of the string.
 
