@@ -54,11 +54,12 @@ export const AvailableArticle = createReactClass({
   render() {
     const className = 'assignment';
     const { assignment } = this.props;
+
     const article = CourseUtils.articleFromAssignment(assignment, this.props.course.home_wiki);
     const ratingClass = `rating ${assignment.article_rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
-    const isArticle = this.props.course.home_wiki.project !== 'wikidata';
+    const isWikipedia = article.project === 'wikipedia';
 
     let actionSelect;
     let actionRemove;
@@ -77,15 +78,15 @@ export const AvailableArticle = createReactClass({
     return (
       <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
-          {isArticle && <p className="rating_num hidden">{article.rating_num}</p>}
-          {isArticle && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
-          {isArticle && <div className="tooltip dark">
+          {isWikipedia && <p className="rating_num hidden">{article.rating_num}</p>}
+          {isWikipedia && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: assignment.article_rating || '' })}</p>
             {/* eslint-disable-next-line */}
           </div>}
         </td>
         <td>
-          {isArticle && <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>}
+          {isWikipedia && <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>}
           <p className="title">
             {articleLink}
           </p>
