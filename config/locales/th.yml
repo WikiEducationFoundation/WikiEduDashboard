@@ -75,7 +75,8 @@ th:
     wiki: วิกิ
   assignments:
     assign_other: กำหนดบทความ
-    add_available: เพิ่มบทความที่สามารถใช้ได้
+    add_available:
+      articles: เพิ่มบทความที่สามารถใช้ได้
     assign_self: กำหนดบทความโดยฉัน
     confirm_add_available: คุณแน่ใจหรือไม่ที่จะเพิ่ม %{title}
     confirm_addition: คุณแน่ใจหรือไม่ที่จะกำหนด %{title} ไปยัง %{username}
@@ -101,7 +102,6 @@ th:
     archived: เก็บถาวรหลักสูตร
     actions: การกระทำ
     articles: บทความ
-    articles_none: หลักสูตรนี้ยังไม่มีการแก้ไขบทความใด ๆ
     calendar:
       legend: คำอธิบายสัญลักษณ์
       legend_class_canceled: วันหยุด/ยกเลิก

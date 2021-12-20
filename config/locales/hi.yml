@@ -163,7 +163,8 @@ hi:
     title_too_large: शीर्षक 255 वर्णों से अधिक नहीं होना चाहिए
     assignees: अनुदिष्ट(रों)
     assign_other: एक लेख निर्दिष्ट करें
-    add_available: एक उपलब्ध लेख जोड़ें
+    add_available:
+      articles: एक उपलब्ध लेख जोड़ें
     assign_self: अपने आप को एक लेख निरुपित करें
     assign_tooltip: एक निर्धारित लेख वह है जिसे आप बनाने या सुधारने की योजना बनाते
       हैं।
@@ -229,10 +230,8 @@ hi:
     archived: संग्रहीत पाठ्यक्रम
     actions: क्रियाएँ
     articles: लेख
-    articles_none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
     article_viewer: लेख जिनकी मेरे सहकर्मी समीक्षा कर रहे हैं
     assignment_end: सौंपा गया कार्य खत्म
-    assignments_none: इस पाठ्यक्रम में कोई सौंपा गया लेख नहीं है।
     assignment_start: सौंपा गया कार्य शुरू करें
     calendar:
       legend: कुंजी

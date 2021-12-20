@@ -13,6 +13,7 @@ blk:
     log_out: ထန်ႏအကောက်
     submit: ဒင်ႏသွင်ꩻသော့ꩻ
   articles:
+    articles: ရောမ်ဖြုဲင်ꩻဖုံႏ
     title: ကꩻတူႏရဲန်ႏ
     view_all: ထွားလို့တာႏ
   assignments:

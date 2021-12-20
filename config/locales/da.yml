@@ -139,6 +139,8 @@ da:
       vises herunder. I kontrolpanelet hentes bidrag fra hjemmewikien for dette program,
       samt for alle andre wikier hvor der er en aflevering eller en tilgængelig artikel.
     deleted: (slettet)
+    does_not_exist: Artiklen eksisterer ikke. Opret en Sandkasse-side og tildel dig
+      selv til den for at få forslag.
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
     edited_mobile: Artikler
@@ -216,7 +218,8 @@ da:
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assignees: Tildelt til
     assign_other: Tildel en artikel
-    add_available: Tilføj tilgængelige artikler
+    add_available:
+      articles: Tilføj tilgængelige artikler
     add_available_placeholder: Tilføj en artikel-titel eller url pr linje
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
@@ -379,7 +382,6 @@ da:
     archived: Arkiverede kurser
     actions: Handlinger
     articles: Artikler
-    articles_none: Dette kursus har ikke redigeret nogen artikler.
     article_viewer: Artikelvisning
     articles_i_am_reviewing: Artikler jeg giver gennemsyn
     assignment_headings:
@@ -388,7 +390,6 @@ da:
       available_articles: Tilgængelige artikler
       available_reviews: Klassekammeraters artikler
     assignment_end: Opgaveslut
-    assignments_none: Dette kursus har ingen tildelte artikler.
     assignment_start: Opgavestart
     calendar:
       legend: Forklaring
@@ -544,8 +545,6 @@ da:
     dismiss_survey: Luk
     dismiss_survey_confirm: Er du sikker på at du permanent vil afvise denne undersøgelse?
     download_stats_data: Download stats
-    does_not_exist: Artiklen eksisterer ikke. Opret en Sandkasse-side og tildel dig
-      selv til den for at få forslag.
     duration: Kursets varighed
     edit_count: Antal redigeringer
     edit_course_dates: Rediger kursusdatoer
@@ -653,7 +652,8 @@ da:
     private: Privat
     published: 'Dit kursus er blevet offentliggjort! Deltagere kan nu indskrives på
       kurset ved at besøge følgende URL:'
-    rating_feedback: 'Anslået vurdering af denne artikel er:'
+    rating_feedback:
+      articles: 'Anslået vurdering af denne artikel er:'
     requested_accounts: Anmodede konti
     requested_accounts_alert:
       one: '%{count} anmodet konto venter.'
@@ -727,7 +727,8 @@ da:
       medier til Wikimedia Commons.
     user_recent_uploads: Seneste uploads
     user_suggestions: 'Brugerforslag:'
-    user_suggestions_prompt: Dine forslag til dem der redigerer denne artikel
+    user_suggestions_prompt:
+      articles: Dine forslag til dem der redigerer denne artikel
     view_other: Vis andre kampagner
     view: Vis kursus
     view_doc: Det anslåede antal visninger af artikler redigeret af tilmeldte brugere
@@ -763,7 +764,6 @@ da:
     all_courses: Alle programmer
     archived: Arkiverede programmer
     articles_i_am_reviewing: Artikler jeg gennemser
-    articles_none: Der er ingen redigerede artikler i dette projekt endnu.
     assignment_headings:
       available_reviews: Tilgængelig til gennemsyn
     assignment_end: Arrangementet slutter

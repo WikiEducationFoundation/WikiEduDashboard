@@ -107,6 +107,8 @@ hy:
     view_on_wiki: Դիտել Վիքիյում
     wiki: Վիքի
     articles_short: Հոդվածներ
+  items:
+    items: Տարրեր
   articles_wikidata:
     articles_short: Տարրեր
   articles_generic:
@@ -229,7 +231,6 @@ hy:
       one: Կամավոր
       other: Կամավորներ
   courses_generic:
-    articles_none: Այս նախագծի համար դեռ չկան խմբագրված հոդվածներ։
     assignments_none: Այս նախագծում չկան հանձնարարված հոդվածներ Վիքիպեդիայից։
     cancel: Չեղարկել
     creator:

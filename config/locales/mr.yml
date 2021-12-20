@@ -36,7 +36,8 @@ mr:
     view: लेख बघा
     view_all: सर्व बघा
   assignments:
-    add_available: उपलब्ध लेख जोडा
+    add_available:
+      articles: उपलब्ध लेख जोडा
     reviewers: तपासनीस
   blocks:
     milestones:

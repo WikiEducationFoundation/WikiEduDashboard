@@ -4,6 +4,7 @@
 # Author: 01miki10
 # Author: Actuallyisjoha
 # Author: Antsa
+# Author: MITO
 # Author: Mikahama
 # Author: Moj
 # Author: Nike
@@ -114,6 +115,7 @@ fi:
     edited_by: Muokannut
     label: Toiminta
   articles:
+    articles: Artikkelit
     article_development: (artikkelin kehittäminen)
     assigned: Tehtäväksi annetut artikkelit
     available: Käytettävissä olevat artikkelit
@@ -124,9 +126,12 @@ fi:
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
     deleted: (poistettu)
+    does_not_exist: Artikkelia ei ole. Luo sivu hiekkalaatikkoosi ja anna se itsellesi
+      tehtäväksi, niin saat muokkaussuosituksia.
     edited: Muokatut artikkelit
     edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
+    edited_none: Ei muokattuja artikkeleja vielä.
     filter:
       wiki_all: Kaikki
       new: Uusi
@@ -181,6 +186,10 @@ fi:
       että artikkeli noudattaa Wikipedian käytänteitä ja rakennetta hyville artikkeleille,
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
+  items:
+    items: Kohteet
+    available: Saatavilla olevat kohteet
+    edited_none: Ei muokattuja kohteita vielä.
   assignments:
     article: Artikkeli %{title} on nyt annettu tehtäväksi sinulle.
     article_link: Artikkeli
@@ -188,7 +197,8 @@ fi:
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
     assign_other: Anna artikkeli tehtäväksi tai poista se
-    add_available: Lisää saatavilla olevat artikkelit
+    add_available:
+      articles: Lisää saatavilla olevat artikkelit
     add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
     add_available_submit: Lisää artikkelit
     assign_self: Anna itsellesi artikkeli tehtäväksi
@@ -285,9 +295,7 @@ fi:
     archived: Arkistoidut kurssit
     actions: Toiminnot
     articles: Artikkelit
-    articles_none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
     assignment_end: Tehtävän loppumispäivä
-    assignments_none: Tällä kurssilla ei ole yhtään artikkelia tehtävänä.
     assignment_start: Tehtävä alkaa
     calendar:
       legend: Selite
@@ -386,8 +394,6 @@ fi:
     dismiss_survey: Ohita
     dismiss_survey_confirm: Oletko varma, että haluat pysyvästi ohittaa tämän kyselyn?
     download_stats_data: Lataustilastot
-    does_not_exist: Artikkelia ei ole. Luo sivu hiekkalaatikkoosi ja anna se itsellesi
-      tehtäväksi, niin saat muokkaussuosituksia.
     duration: Kurssin kesto
     edit_count: Muokkausten määrä
     edit_course_dates: Muokkaa kurssin päivämääriä
@@ -463,7 +469,8 @@ fi:
     private: Yksityinen
     published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
       linkin kautta:'
-    rating_feedback: 'Ennustettu arviointi tälle artikkelille on:'
+    rating_feedback:
+      articles: 'Ennustettu arviointi tälle artikkelille on:'
     requested_accounts: Pyydetyt tilit
     review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
       lähetä se hyväksyttäväksi Wiki Edin henkilökunnalle. Kun aikajana on hyväksytty,
@@ -519,7 +526,8 @@ fi:
       Wikimedia Commonsiin.
     user_recent_uploads: Tuoreet tallennukset
     user_suggestions: 'Käyttäjien ehdotukset:'
-    user_suggestions_prompt: Ehdotuksesi artikkelin muokkaajille
+    user_suggestions_prompt:
+      articles: Ehdotuksesi artikkelin muokkaajille
     view_other: Selaa muita kampanjoita
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
@@ -546,8 +554,6 @@ fi:
     add_campaign: Lisää kampanja
     all_courses: Kaikki ohjelmat
     archived: Arkistoidut ohjelmat
-    articles_none: Tämän projektin osallistujat eivät ole vielä muokanneet yhtään
-      artikkelia.
     assignment_end: Tapahtuman päättyyminen
     assignments_none: Tällä projektilla ei ole tehtäväksi annettuja artikkeleita.
     assignment_start: Tapahtuman alku

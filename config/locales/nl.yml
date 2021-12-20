@@ -123,6 +123,7 @@ nl:
     edited: Pagina's bewerkt
     edited_by: 'Bewerkt door:'
     edited_mobile: Pagina's
+    edited_none: '%{title} heeft geen pagina''s bewerkt.'
     filter:
       wiki_all: Allemaal
       new: Nieuw
@@ -203,9 +204,7 @@ nl:
     archived: Gearchiveerde cursussen
     actions: Acties
     articles: Pagina's
-    articles_none: In deze cursus zijn geen pagina's bewerkt.
     assignment_end: Einde opdracht
-    assignments_none: Aan deze cursus zijn geen artikelen toegewezen.
     assignment_start: Begin opdracht
     calendar:
       legend: Legenda
@@ -393,7 +392,6 @@ nl:
       notification_message: Vul onze enquête in voor deze cursus.
       link: Neem deel aan enquête
   courses_generic:
-    articles_none: Er zijn nog geen bewerkte artikelen in dit project.
     assignment_end: Einde gebeurtenis
     assignments_none: Aan dit project zijn geen artikelen toegewezen.
     assignment_start: Begin gebeurtenis

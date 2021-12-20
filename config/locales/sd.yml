@@ -157,7 +157,8 @@ sd:
     already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
-    add_available: موجود مضمون وجهو
+    add_available:
+      articles: موجود مضمون وجهو
     add_available_submit: مضمونَ شامل ڪريو
     assign_self: مون کي مضمون سونپيو
     bibliography: ببلوگرافي
@@ -215,8 +216,6 @@ sd:
     archived: آرڪائيوو ٿيل ڪورسَ
     actions: عمل
     articles: مضمون
-    articles_none: ھن ڪورس ڪي بہ مضمون سنواريا نہ آھن.
-    assignments_none: هن ڪورس کي ڪي بہ مضمون سونپيل نہ آهن.
     calendar:
       legend: ڪنجي
       legend_class_canceled: موڪل/ردٿيل

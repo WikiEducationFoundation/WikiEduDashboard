@@ -34,6 +34,7 @@ scn:
     all: Attivitati
     label: Attivitati
   articles:
+    articles: Vuci
     deleted: (cancillatu)
     edited: Vuci canciati
     edited_mobile: Vuci

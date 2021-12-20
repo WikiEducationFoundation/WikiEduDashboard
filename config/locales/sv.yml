@@ -110,6 +110,8 @@ sv:
     character_doc: Summan av tecken som lagts till i artiklar av anmälda användare
       mellan start- och slutdatumen
     deleted: (raderad)
+    does_not_exist: Artikeln finns inte. Skapa en sandlådesida och tilldela dig själv
+      till den för att få förslag.
     edited: Redigerade artiklar
     edited_by: 'Redigerad av:'
     edited_mobile: Artiklar
@@ -156,7 +158,8 @@ sv:
     article: Artikeln %{title} har tilldelats dig
     article_link: Artikel
     assign_other: Tilldela en artikel
-    add_available: Lägg till tillgängliga artiklar
+    add_available:
+      articles: Lägg till tillgängliga artiklar
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
@@ -264,7 +267,6 @@ sv:
     archived: Arkiverade kurser
     actions: Åtgärder
     articles: Artiklar
-    articles_none: Den här kursen har inte redigerat några artiklar.
     article_viewer: Artikelvisare
     assignment_headings:
       assigned_articles: Tilldelade artiklar
@@ -346,8 +348,6 @@ sv:
       först.
     dismiss_survey: Stäng
     download_stats_data: Ladda ned statistik
-    does_not_exist: Artikeln finns inte. Skapa en sandlådesida och tilldela dig själv
-      till den för att få förslag.
     edit_count: Antal redigeringar
     enable_account_requests: Aktivera kontobegäran
     end: Slut
@@ -404,7 +404,8 @@ sv:
     passcode_none: Inget lösenord
     please_log_in: Var god logga in.
     private: Privat
-    rating_feedback: 'Förutsägelsebetyget för artikeln är:'
+    rating_feedback:
+      articles: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
     requested_accounts_alert_view: Visa
     school: Skola

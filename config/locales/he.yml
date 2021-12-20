@@ -138,6 +138,7 @@ he:
     edited: ערכים שנערכו
     edited_by: 'נערך על־ידי:'
     edited_mobile: ערכים
+    edited_none: שום ערך לא נערך על־ידי %{title}
     filter:
       wiki_all: הכול
       new: חדשים
@@ -205,7 +206,8 @@ he:
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
     assign_other: שיוך ערך
-    add_available: הוספת ערכים זמינים
+    add_available:
+      articles: הוספת ערכים זמינים
     add_available_placeholder: יש להוסיף שם אחד או כתובת URL אחת של ערך בכל שורה
     add_available_submit: הוספת הערכים
     assign_self: הקצאת ערך לעצמי
@@ -301,9 +303,7 @@ he:
     archived: קורסים \ תוכניות \ מיזמים מאורכבים
     actions: פעולות
     articles: ערכים
-    articles_none: לא נערכו או נכתבו ערכים בתוכנית הזאת.
     assignment_end: סיום המשימה
-    assignments_none: לא שויכו ערכים לתוכנית הזאת.
     assignment_start: תחילת המשימה
     calendar:
       legend: מקרא
@@ -506,7 +506,8 @@ he:
     user_uploads_none: משתמש זה לא תרם תמונות או קובצי מדיה אחרים לוויקישיתוף.
     user_recent_uploads: העלאות שבוצעו לאחרונה
     user_suggestions: 'הצעות משתמש:'
-    user_suggestions_prompt: ההצעות שלך לעורכי הערך
+    user_suggestions_prompt:
+      articles: ההצעות שלך לעורכי הערך
     view_other: עיון בקמפיינים אחרים
     view: הצגת התוכנית \ הקורס \ המיזם
     view_doc: סך כל הצפיות בערכים שערכו סטודנטים מאז שהעורך ביצע את עריכתו הראשונה
@@ -536,7 +537,6 @@ he:
     add_campaign: הוספת מסע פרסום
     all_courses: כל התכניות
     archived: תכניות בארכיון
-    articles_none: אין, עדיין, דפים ערוכים לפרוייקט זה.
     assignment_end: סוף ציר זמן
     assignments_none: לא הוקצו ערכים למיזם הזה.
     assignment_start: תחילת ציר זמן

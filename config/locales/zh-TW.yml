@@ -129,6 +129,7 @@ zh-TW:
     cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用條目的
       wiki。
     deleted: (已刪除)
+    does_not_exist: 該條目不存在。請創建一個沙盒頁面並分配給您自己來接收建議。
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 條目
@@ -190,7 +191,8 @@ zh-TW:
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配/移除條目
-    add_available: 加入可用的條目
+    add_available:
+      articles: 加入可用的條目
     add_available_placeholder: 在每行添加一個條目標題或 URL
     add_available_submit: 添加條目
     assign_self: 指定自己一個條目
@@ -332,7 +334,6 @@ zh-TW:
     archived: 存檔的課程
     actions: 操作
     articles: 條目
-    articles_none: 此課程沒有編輯任何條目
     article_viewer: 條目檢視者
     articles_i_am_reviewing: 我正在同行評審的條目
     articles_i_will_create: 我將建立的條目
@@ -343,7 +344,6 @@ zh-TW:
       available_articles: 可用的條目
       available_reviews: 同學的條目
     assignment_end: 分配作業結束
-    assignments_none: 這個課程還沒有任何條目被分派。
     assignment_start: 分配作業開始
     calendar:
       legend: 說明
@@ -449,7 +449,6 @@ zh-TW:
     dismiss_survey: 關閉
     dismiss_survey_confirm: 確定要永久刪除此調查嗎？
     download_stats_data: 下載統計資料
-    does_not_exist: 該條目不存在。請創建一個沙盒頁面並分配給您自己來接收建議。
     duration: 開課期間
     edit_count: 編輯次數
     edit_course_dates: 編輯課程日期
@@ -535,7 +534,8 @@ zh-TW:
     published: |-
       您的課程已經發布！
       學生可透過此 URL 登記課程：
-    rating_feedback: 該條目的預估評級為：
+    rating_feedback:
+      articles: 該條目的預估評級為：
     requested_accounts: 申請的帳號
     requested_accounts_alert:
       one: '%{count} 個請求帳號待定中。'
@@ -598,7 +598,8 @@ zh-TW:
     user_uploads_none: 此使用者未上傳任何圖片或媒體檔案至維基共享資源。
     user_recent_uploads: 最新上傳
     user_suggestions: 使用者建議：
-    user_suggestions_prompt: 您給予條目編輯者的建議
+    user_suggestions_prompt:
+      articles: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的估計瀏覽數量
@@ -626,7 +627,6 @@ zh-TW:
     all_courses: 所有方案
     archived: 存檔的方案
     articles_i_am_reviewing: 我正在審核的條目
-    articles_none: 此專案裡目前無編輯的條目。
     assignment_headings:
       available_reviews: 可供審核
     assignment_end: 事項結束

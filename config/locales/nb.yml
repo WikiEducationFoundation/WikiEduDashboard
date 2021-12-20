@@ -188,7 +188,8 @@ nb:
     title_too_large: Tittelen bør ikke være lengre enn 255 tegn
     assignees: Tildelt til
     assign_other: Tildel en artikkel
-    add_available: Legg til tilgjengelige artikler
+    add_available:
+      articles: Legg til tilgjengelige artikler
     add_available_placeholder: Legg til én artikkeltittel eller URl per linje
     add_available_submit: Legg til artikler
     assign_self: Tildel meg selv en artikkel
@@ -280,12 +281,10 @@ nb:
     archived: Arkiverte kurs
     actions: Handlinger
     articles: Artikler
-    articles_none: Dette kurset har ikke redigert noen artikler.
     assignment_headings:
       assigned_articles: Tildelte artikler
       available_articles: Tilgjengelige artikler
     assignment_end: Oppgaveslutt
-    assignments_none: Dette kurset har ingen tildelte artikler.
     assignment_start: Oppgavestart
     calendar:
       legend: Tegnforklaring
@@ -518,7 +517,8 @@ nb:
       mediefiler på Wikimedia Commons.
     user_recent_uploads: Nylige opplastinger
     user_suggestions: 'Brukerforslag:'
-    user_suggestions_prompt: Forslagene dine til bidragsyterne til artikkelen
+    user_suggestions_prompt:
+      articles: Forslagene dine til bidragsyterne til artikkelen
     view_other: Vis andre prosjekter
     view: Vis kurs
     view_doc: Summen av visninger for alle artikler redigert av påmeldte deltakere
@@ -542,7 +542,6 @@ nb:
   courses_generic:
     all_courses: Alle programmer
     archived: Arkiverte programmer
-    articles_none: Det er ingen redigerte artikler for dette prosjektet ennå.
     assignment_end: Arrangementet slutter
     assignments_none: Dette prosjektet har ingen tildelte artikler
     assignment_start: Arrangementet starter

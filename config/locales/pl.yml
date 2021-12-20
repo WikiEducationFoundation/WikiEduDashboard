@@ -183,7 +183,8 @@ pl:
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
     assign_other: Zadaj artykuł
-    add_available: Dodaj dostępne artykuły
+    add_available:
+      articles: Dodaj dostępne artykuły
     add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
     add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
@@ -288,9 +289,7 @@ pl:
     archived: Zarchiwizowane kursy
     actions: Możliwości
     articles: Artykuły
-    articles_none: Uczestnicy nie edytowali jeszcze artykułów.
     assignment_end: Koniec kursu
-    assignments_none: Ten kurs nie ma przypisanych artykułów.
     assignment_start: Początek kursu
     calendar:
       legend: Legenda
@@ -501,7 +500,8 @@ pl:
       do Wikimedia Commons.
     user_recent_uploads: Niedawno przesłane
     user_suggestions: 'Sugestie użytkowników:'
-    user_suggestions_prompt: Twoje sugestie do edytorów tego artykułu
+    user_suggestions_prompt:
+      articles: Twoje sugestie do edytorów tego artykułu
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników
@@ -527,7 +527,6 @@ pl:
     add_campaign: Dodaj kampanię
     all_courses: Wszystkie programy
     archived: Zarchiwizowane programy
-    articles_none: W ramach tego projektu nikt jeszcze nie edytował artykułów.
     assignment_end: Koniec wydarzenia
     assignments_none: Ten projekt nie ma przypisanych artykułów.
     assignment_start: Rozpoczęcie wydarzenia

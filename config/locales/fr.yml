@@ -146,10 +146,12 @@ fr:
     edited_by: Modifié par
     label: Activité
   articles:
+    articles: Articles
     article_not_found: Cet article n’a pas encore été créé.
     article_development: (développement d’article)
     articles_shown: Affichage de %{count} sur %{total}
     assigned: Articles affectés
+    assignments_none: Il n’y a pas encore d’article affecté.
     available: Articles disponibles
     no_available: Aucun article disponible
     next: Suivant
@@ -163,9 +165,12 @@ fr:
       les contributions depuis le wiki d’accueil de ce programme, avec tous les autres
       wikis pour lesquels il y a une Affectation ou un Article disponible.
     deleted: (supprimé)
+    does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
+      y pour recevoir des suggestions.
     edited: Articles modifiés
     edited_by: 'Modifié par :'
     edited_mobile: Articles
+    edited_none: Il n’y a pas encore d’article modifié.
     filter:
       wiki_all: Tous
       new: Nouveau
@@ -234,6 +239,27 @@ fr:
       le contenu lui-même. (Ces statistiques ne sont uniquement disponibles que pour
       les articles du Wikipédia anglais).
     articles_short: Articles
+  items:
+    items: Éléments
+    assigned: Éléments affectés
+    assignments_none: Il n’y a pas encore d’éléments affectés.
+    available: Éléments disponibles
+    character_doc: La somme des caractères ajouté aux éléments par les éditeurs inscrits
+      entre les dates de début et de fin
+    cross_wiki_tracking: Les pages de l’espace principal modifiées entre les dates
+      de début et de fin sont listées ci-dessous. Le tableau de bord réunit les contributions
+      du wiki d’accueil de ce programme, parmi d’autres wikis pour lesquels il y a
+      un élément d’affectation ou disponible.
+    does_not_exist: L’élément n’existe pas. Créer une page bac à sable et vous affecter
+      à elle pour recevoir les suggestions.
+    edited: Éléments modifiés
+    edited_none: Il n’y a pas encore d’éléments modifiés.
+    tracked_doc: Seuls les éléments suivis contribuent aux statistiques pour ce programme.
+      Quand les éléments sont marqués comme non suivis, ils seront supprimés des statistiques
+      lors de la prochaine mise à jour des données.
+    view_doc: Les affichages estimés de chaque élément depuis sa première modification,
+      d’après la mise à jour des statistiques la plus récente. Vous pouvez utiliser
+      pageviews.toolforge.org pour voir les chiffres exacts.
   articles_wikidata:
     articles_short: Éléments
   articles_generic:
@@ -245,7 +271,9 @@ fr:
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter/supprimer un article
-    add_available: Ajouter des articles disponibles
+    add_available:
+      articles: Ajouter des articles disponibles
+      items: Ajouter les éléments disponibles
     add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
     add_available_submit: Ajouter des articles
     assign_self: M’affecter un article
@@ -269,9 +297,10 @@ fr:
     peer_review_link: Relecture par un pair
     peer_review_link_personalized: Révision du pair %{username}
     random_peer_review:
-      confirm_addition: Ceci affectera un total de %{count} article{{PLURAL:%{count}|s}}
-        à toute la classe, avec un maximum de %{maximum} pour chaque étudiant choisi{{PLURAL:%{count}|s}}
-        parmi les articles de ses collègues de classe.
+      confirm_addition: |-
+        Dans la plupart des cas, vous ne devrez utiliser cela qu’une fois que tous les étudiants ont eu leurs articles principaux affectés.
+        Au choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures par pair, ou vous pouvez affecter manuellement les relectures par pair en cliquant sur la ligne d’un étudiant puis en utilisant le bouton « Affecter/supprimer une relecture par pair ».
+        Cliquer sur « OK » affectera un total de %{count} relecture(s) par pair supplémentaire(s), avec un maximum de %{maximum} pour chaque étudiant, choisi parmi les articles de leurs camarades.
       heading: Assigner des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
@@ -411,7 +440,6 @@ fr:
     archived: Cours archivés
     actions: Actions
     articles: Articles
-    articles_none: Ce cours n’a modifié aucun article.
     article_viewer: Lecteur d’article
     articles_i_am_reviewing: Articles dont je suis relecteur pair
     articles_i_will_create: Articles que je créerai
@@ -422,7 +450,6 @@ fr:
       available_articles: Articles disponibles
       available_reviews: Articles de camarades
     assignment_end: Fin d’affectation
-    assignments_none: Ce cours n’a aucun article affecté.
     assignment_start: Début d’affectation
     calendar:
       legend: Légende
@@ -589,8 +616,6 @@ fr:
     dismiss_survey_confirm: Êtes-vous certain(e) de vouloir rejeter définitivement
       ce sondage ?
     download_stats_data: Télécharger les statistiques
-    does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
-      y pour recevoir des suggestions.
     duration: Durée du cours
     edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
@@ -706,7 +731,9 @@ fr:
     private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
-    rating_feedback: 'L’évaluation prévue pour cet article est :'
+    rating_feedback:
+      articles: 'L’évaluation prévue pour cet article est :'
+      items: 'Le taux prévu pour cet élément est :'
     requested_accounts: Comptes demandés
     requested_accounts_alert:
       one: '%{count} compte demandé en attente.'
@@ -783,7 +810,9 @@ fr:
       fichier média sur Wikimedia Commons.
     user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
-    user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
+    user_suggestions_prompt:
+      articles: Vos suggestions pour les éditeurs de l’article
+      items: Vos suggestions pour les éditeurs de l’élément
     view_other: Afficher d’autres campagnes
     view: Afficher le cours
     view_doc: Le nombre estimé de vues des articles modifiés par les contributeurs
@@ -810,6 +839,11 @@ fr:
       etc.
     wiki_staff: Équipe de Wiki Éducation
     withdrawn: Affectation non réalisée
+    word_count_doc_separated:
+      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
+        principal par les étudiants du cours pendant sa durée
+      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
+        par les étudiants du cours pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
@@ -822,7 +856,6 @@ fr:
     all_courses: Tous les programmes
     archived: Programmes archivés
     articles_i_am_reviewing: Articles dont je suis relecteur
-    articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_headings:
       available_reviews: Disponible pour relecture
     assignment_end: Fin de l’événement
@@ -920,6 +953,11 @@ fr:
       aucune image ni aucun autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
+    word_count_doc_separated:
+      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
+        par les éditeurs du programme pendant sa durée
+      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
+        principal par les éditeurs du programme pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
     yourcourses: Vos programmes
@@ -1005,6 +1043,15 @@ fr:
       ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
+    references_doc_separated:
+      articles: C’est le nombre de balises de référence ajoutées aux articles, et
+        cela peut inclure plusieurs références vers la même source. Les données viennent
+        du modèle de qualité d’article ORES, et est seulement disponible pour certaines
+        langues.
+      items: C’est le nombre de balises de référence ajoutées aux éléments, et cela
+        peut inclure plusieurs références à la même source. Les données viennent du
+        modèle de qualité d’élément ORES, et sont disponibles seulement pour certaines
+        langues.
     references_doc: Ceci est le nombre de balises de référence ajoutées aux articles
       et qui peut comprendre plusieurs références à la même source. Les données viennent
       du modèle de qualité d’article ORES et ne sont disponibles que pour certaines

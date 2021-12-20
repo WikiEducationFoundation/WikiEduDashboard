@@ -122,7 +122,8 @@ el:
   assignments:
     article_link: Άρθρο
     assign_other: Αναθέστε ένα άρθρο
-    add_available: Προσθήκη διαθέσιμων άρθρων
+    add_available:
+      articles: Προσθήκη διαθέσιμων άρθρων
     add_available_submit: Προσθήκη λήμματος
     label: Ανάθεση
     loading: Φόρτωση αναθέσεων...

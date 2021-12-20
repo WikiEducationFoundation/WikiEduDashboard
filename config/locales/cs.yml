@@ -143,6 +143,8 @@ cs:
       jak z domácí wiki tohoto programu, tak i ze všech dalších wiki, které jsou pro
       něj vyhrazeny.
     deleted: (smazáno)
+    does_not_exist: Tento článek neexistuje. Vytvořte stránku na pískovišti a přiřaďte
+      se k ní, abyste mohl(a) dostávat návrhy.
     edited: Editované články
     edited_by: 'Editoval:'
     edited_mobile: Články
@@ -220,7 +222,8 @@ cs:
     title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení
     assign_other: Přiřadit článek
-    add_available: Přidat dostupný článek
+    add_available:
+      articles: Přidat dostupný článek
     add_available_placeholder: Přidejte na každý řádek jeden název článku nebo jednu
       URL
     add_available_submit: Přidejte články
@@ -355,14 +358,12 @@ cs:
     archived: Archivované kurzy
     actions: Možnosti
     articles: Články
-    articles_none: V tomto kurzu nebyly editovány žádné články.
     assignment_headings:
       assigned_articles: Přiřazené články
       assigned_reviews: Přiřazené recenze
       available_articles: Články k dispozici
       available_reviews: Články spolužáků
     assignment_end: Konec kurzu
-    assignments_none: Tento kurz nemá žádné zadané články.
     assignment_start: Začátek kurzu
     calendar:
       legend: Legenda
@@ -504,8 +505,6 @@ cs:
     dismiss_survey_confirm: Jste si {{GENDER:|jist|jista|jist(a)}}, že chcete trvale
       skrýt tento průzkum?
     download_stats_data: Stáhnout statistiky
-    does_not_exist: Tento článek neexistuje. Vytvořte stránku na pískovišti a přiřaďte
-      se k ní, abyste mohl(a) dostávat návrhy.
     duration: Průběh kurzů
     edit_count: Počet editací
     edit_course_dates: Upravit termíny kurzů
@@ -596,7 +595,8 @@ cs:
     private: Soukromý
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
-    rating_feedback: 'Předpokládané hodnocení článku je:'
+    rating_feedback:
+      articles: 'Předpokládané hodnocení článku je:'
     requested_accounts: Požadované účty
     requested_accounts_alert:
       one: '%{count} účet čeká na vyřízení.'
@@ -666,7 +666,8 @@ cs:
       Wikimedia Commons.
     user_recent_uploads: Poslední nahrané soubory
     user_suggestions: 'Uživatelův návrh:'
-    user_suggestions_prompt: Vaše návrhy pro editory článku
+    user_suggestions_prompt:
+      articles: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy
     view: Zobrazit kurz
     view_doc: Odhadovaný počet návštěv článků editovaných účastníky tohoto kurzu (počítáno
@@ -693,7 +694,6 @@ cs:
     add_campaign: Přidat kampaň
     all_courses: Všechny programy
     archived: Archivované programy
-    articles_none: V tomto projektu zatím nejsou žádné editované články
     assignment_end: Konec události
     assignments_none: Tento kurz nemá žádné přidělené články.
     assignment_start: Začátek události

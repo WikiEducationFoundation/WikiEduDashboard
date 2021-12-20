@@ -30,7 +30,8 @@ ksh:
     view: Atikel belohre
     view_all: Alle belohre
   assignments:
-    add_available: Donn ene Atikkel derbei, dä et ald jitt
+    add_available:
+      articles: Donn ene Atikkel derbei, dä et ald jitt
     confirm_add_available: Wells De di Sigg „%{title}“ verhaftesch derbei donn?
     confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
       zohwihse?
@@ -46,7 +47,6 @@ ksh:
     activity: Aktivitäht
     actions: Akßjuhne
     articles: Atikele
-    assignments_none: För dä Lihrjang sin kein Atikelle zohjedeijlt
     calendar:
       legend_class_not_meeting: Keij Träfe es jeplahnt
     course_description: Korse för em Wikki ze liehre.

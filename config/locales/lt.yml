@@ -89,7 +89,8 @@ lt:
     article_link: Straipsnis
     title_too_large: Pavadinimas neturėtų viršyti 255 simbolių
     assign_other: Priskirti straipsnį
-    add_available: Pridėti prieinamą straipsnį
+    add_available:
+      articles: Pridėti prieinamą straipsnį
     assign_self: Priskirti straipsnį sau
     bibliography: Bibliografija
     confirm_add_available: Ar tikrai norite pridėti %{title}?
@@ -152,9 +153,7 @@ lt:
     archived: Archyvuoti Kursai
     actions: Veiksmai
     articles: Straipsniai
-    articles_none: Šis kursas neredagavo jokių straipsnių.
     assignment_end: Užduoties Pabaiga
-    assignments_none: Šis kursas neturi priskirtų straipsnių.
     assignment_start: Užduoties Pradžia
     calendar:
       legend: Legenda
@@ -291,7 +290,6 @@ lt:
   courses_generic:
     school_system: Akademinė Sistema
     all_courses: Visos Programos
-    articles_none: Dar nėra redaguotų straipsnių šiam projektui.
     assignment_end: Laiko Juostos Pabaigą
     assignments_none: Šis projektas neturi priskirtų straipsnių.
     assignment_start: Laiko Juostos Pradžia

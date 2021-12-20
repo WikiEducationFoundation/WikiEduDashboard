@@ -218,7 +218,8 @@ ru:
     article_link: Статья
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
-    add_available: Добавить доступные статьи
+    add_available:
+      articles: Добавить доступные статьи
     add_available_submit: Добавить статьи
     bibliography: Библиография
     clone: Клонировать

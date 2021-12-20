@@ -7,6 +7,7 @@
 # Author: Bonfire12
 # Author: Kkairri
 # Author: MathXplore
+# Author: MirukuPC
 # Author: Omotecho
 # Author: Otokoume
 # Author: Shirayuki
@@ -108,6 +109,7 @@ ja:
     character_doc: 開始日から終了日までの間に編集担当が書き加えた文字数の合計
     cross_wiki_tracking: これらは最初と最後の日付の間に編集された記事です。ダッシュボードはこのプログラムの最初のwikiや、「課題」や「利用可能な記事」がある他のwikiから投稿を収集します。
     deleted: (削除済み)
+    does_not_exist: この記事は存在しません。下書きページを作成し、アドバイスを受ける係に立候補します。
     edited: 編集した記事
     edited_by: '編集した人:'
     edited_mobile: 記事
@@ -165,7 +167,8 @@ ja:
     title_too_large: 題名は半角255文字以下にしてください
     assignees: 課題の提出者
     assign_other: 記事を割り当て
-    add_available: 掲載してある記事を追加
+    add_available:
+      articles: 掲載してある記事を追加
     add_available_placeholder: 1行に記入できる記事名もしくはURLは1件です
     add_available_submit: 記事を追加
     assign_self: 自分に課題を割り当てる
@@ -185,7 +188,7 @@ ja:
     peer_review_link: 査読
     remove: 除去
     reviewers: 査読者
-    review_other: 査読を割り当て
+    review_other: 査読の割り当て/削除
     review_self: 記事を査読する
     review_tooltip: これは査読したりフィードバックを書いたりする予定の記事のための機能です。
     sandbox_draft_link: サンドボックスの草稿
@@ -284,14 +287,12 @@ ja:
     archived: アーカイブ済みコース
     actions: 操作
     articles: 記事
-    articles_none: このコースで編集された記事はありません。
     assignment_headings:
       assigned_articles: 課題の記事
       assigned_reviews: 担当する査読
       available_articles: 掲載してある記事
       available_reviews: 同級生の記事
     assignment_end: 課題の終了
-    assignments_none: このコースには課題の記事がありません。
     assignment_start: 課題の開始
     calendar:
       legend: 凡例
@@ -376,7 +377,6 @@ ja:
     delete_suggestion: 削除
     delete_course_instructions: このページを削除するには、まずキャンペーンをすべて削除してください。
     dismiss_survey: 閉じる
-    does_not_exist: この記事は存在しません。下書きページを作成し、アドバイスを受ける係に立候補します。
     duration: コース開講期間
     edit_count: 編集回数
     edit_course_dates: コース日程を編集
@@ -436,7 +436,8 @@ ja:
     please_log_in: ログインしてください。
     private: 非公開
     published: コースを公開しました！ 以下のURLを開くと、受講者はコースに登録できます。
-    rating_feedback: この記事の推定評価：
+    rating_feedback:
+      articles: この記事の推定評価：
     requested_accounts: アカウント申請
     requested_accounts_alert_view: 表示
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
@@ -486,7 +487,8 @@ ja:
     user_uploads_none: この利用者からウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_recent_uploads: 最近のアップロード
     user_suggestions: 'ユーザーの提案:'
-    user_suggestions_prompt: 記事の編集者に対するアドバイス
+    user_suggestions_prompt:
+      articles: 記事の編集者に対するアドバイス
     view_other: 他の告知を見る
     view: コースを見る
     view_doc: 特定の編集者が個別の記事に初めて編集を加えて以降の、参加編集者が編集した記事の閲覧総数
@@ -510,7 +512,6 @@ ja:
     add_campaign: 告知の追加
     all_courses: すべてのプログラム
     archived: アーカイブされたプログラム
-    articles_none: このプロジェクトの編集記事はまだありません。
     assignment_headings:
       available_reviews: 査読を受付中
     assignment_end: イベント終了

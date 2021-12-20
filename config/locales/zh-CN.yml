@@ -143,9 +143,11 @@ zh-CN:
     character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
     cross_wiki_tracking: 在开始日期和结束日期期间编辑的主空间页面如下。控制面板从此计划的主wiki拉进贡献，与这里有分配任务或有意义条目的其他wiki一样。
     deleted: （已删除）
+    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     edited: 编辑的条目
     edited_by: 编辑者：
     edited_mobile: 条目
+    edited_none: 还没有任何已编辑的条目。
     filter:
       wiki_all: 全部
       new: 新的
@@ -202,7 +204,8 @@ zh-CN:
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配/移除一个文章
-    add_available: 添加可用条目
+    add_available:
+      articles: 添加可用条目
     add_available_placeholder: 添加条目标题或URL（每行一个）
     add_available_submit: 添加条目
     assign_self: 给我自己分配一个条目
@@ -315,11 +318,9 @@ zh-CN:
     archived: 已存档的课程
     actions: 操作
     articles: 条目
-    articles_none: 此课程没有编辑任何条目。
     articles_i_will_create: 我要创建的文章
     articles_i_am_updating: 我在更新的文章
     assignment_end: 任务结束
-    assignments_none: 此课程没有分配的条目。
     assignment_start: 任务开始
     calendar:
       legend: 图例
@@ -403,7 +404,6 @@ zh-CN:
     dismiss_survey: 关闭
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
     download_stats_data: 下载统计
-    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     duration: 课程持续时间
     edit_count: 编辑数
     edit_course_dates: 编辑课程日期
@@ -473,7 +473,8 @@ zh-CN:
     please_log_in: 请登录
     private: 私有
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
-    rating_feedback: 条目预测的评级为：
+    rating_feedback:
+      articles: 条目预测的评级为：
     requested_accounts: 请求的账户
     requested_accounts_alert_view: 查看
     review_timeline: 现在请检查您的分配时间表，自定义它以符合您的需求。一旦您感到满意，您可以将其提交给维基教育职员以待批准。一旦获得批准，您将收到一个登记URL，学生可以使用它加入课程并访问培训。（注意：您仍然可以稍后编辑。）
@@ -521,7 +522,8 @@ zh-CN:
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     user_recent_uploads: 最近上传
     user_suggestions: 用户建议：
-    user_suggestions_prompt: 您为条目编辑者提出的建议
+    user_suggestions_prompt:
+      articles: 您为条目编辑者提出的建议
     view_other: 查看其它活动
     view: 查看课程
     view_doc: 由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量的估计浏览量
@@ -545,7 +547,6 @@ zh-CN:
     add_campaign: 添加通告
     all_courses: 所有计划
     archived: 存档的计划
-    articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 活动结束
     assignments_none: 此项目没有分配的条目。
     assignment_start: 活动开始

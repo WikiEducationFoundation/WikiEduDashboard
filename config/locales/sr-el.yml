@@ -118,6 +118,8 @@ sr-el:
       matičnog vikija ovog programa, zajedno sa svim drugim vikijima za koje postoji
       zadatak ili dostupni članak za uređivanje.
     deleted: (obrisano)
+    does_not_exist: Članak ne postoji. Napravite stranicu u Pesku i dodelite je sebi
+      da biste dobili predloge.
     edited: Uređeni članci
     edited_by: 'Izmenio/la:'
     edited_mobile: Članci
@@ -187,7 +189,8 @@ sr-el:
     title_too_large: Naslov ne bi trebalo da ima više od 255 znakova
     assignees: Dodeljeno
     assign_other: Dodeli članak
-    add_available: Dodaj dostupne članke
+    add_available:
+      articles: Dodaj dostupne članke
     add_available_placeholder: Dodajte jedan naslov članka ili URL u jednom redu
     add_available_submit: Dodaj članke
     assign_self: Dodeli mi članak
@@ -311,14 +314,12 @@ sr-el:
     archived: Arhivirani kursevi
     actions: Radnje
     articles: Članci
-    articles_none: Ovaj kurs nije uredio nijedan članak.
     assignment_headings:
       assigned_articles: Dodeljeni članci
       assigned_reviews: Dodeljeni pregledi
       available_articles: Dodeljeni članci
       available_reviews: Članci odeljenja
     assignment_end: Kraj dodeljivanja
-    assignments_none: Ovaj kurs ne sadrži dodeljene članke.
     assignment_start: Početak dodeljivanja
     calendar:
       legend: Legenda
@@ -445,8 +446,6 @@ sr-el:
     dismiss_survey: Odbaci
     dismiss_survey_confirm: Da li ste sigurni da želite da odbacite ovu anketu?
     download_stats_data: Preuzmi statistiku
-    does_not_exist: Članak ne postoji. Napravite stranicu u Pesku i dodelite je sebi
-      da biste dobili predloge.
     duration: Trajanje kursa
     edit_count: Broj izmena
     edit_course_dates: Izmeni datume kursa
@@ -537,7 +536,8 @@ sr-el:
     private: Privatno
     published: 'Vaš kurs je objavljen! Studenti se mogu upisati tako što će posetiti
       sledeću adresu:'
-    rating_feedback: 'Predviđena ocena za članak je:'
+    rating_feedback:
+      articles: 'Predviđena ocena za članak je:'
     requested_accounts: Zahtevani nalozi
     requested_accounts_alert_view: Pregled
     review_timeline: 'Sada pregledajte vremenski okvir za izradu zadatka, prilagođavajući
@@ -604,7 +604,8 @@ sr-el:
       datoteku na Vikimedijinu ostavu.
     user_recent_uploads: Skorašnja otpremanja
     user_suggestions: 'Predlozi korisnika:'
-    user_suggestions_prompt: Vaši predlozi za urednike članka
+    user_suggestions_prompt:
+      articles: Vaši predlozi za urednike članka
     view_other: Pogledaj ostale kampanje
     view: Vidi kurs
     view_doc: Procenjeni broj pregleda članaka koji su uređeni od strane upisanih
@@ -636,7 +637,6 @@ sr-el:
     add_campaign: Dodaj kampanju
     all_courses: Svi programi
     archived: Arhivirani programi
-    articles_none: Još uvek ne postoje izmenjeni članci za ovaj projekat.
     assignment_headings:
       available_reviews: Dostupno za pregled
     assignment_end: Kraj događaja

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Adamw
+# Author: Ajeje Brazorf
 # Author: Amire80
 # Author: BaRaN6161 TURK
 # Author: Base
@@ -140,6 +141,7 @@ qqq:
       Short name for activities
       {{Identical|Activity}}
   articles:
+    articles: '{{Identical|Article}}'
     article_development: Label for article development link
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
@@ -149,6 +151,7 @@ qqq:
     edited: Label for a list of articles edited.
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
+    edited_none: Label stating that no articles have been edited.
     filter:
       new: '{{Identical|New}}'
     hide: '{{Identical|Hide}}'
@@ -207,8 +210,9 @@ qqq:
       prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
-    add_available: Button to add article titles to the list of articles available
-      for program participants to work on
+    add_available:
+      articles: Button to add article titles to the list of articles available for
+        program participants to work on
     assign_self: Button to assign an article to self
     confirm_add_available: Confirmation message for adding an article as an assignment
       that is available for other participants to work on. "title" is a wiki page
@@ -310,7 +314,6 @@ qqq:
     articles: |-
       Label for link to list of articles worked on by a course
       {{Identical|Article}}
-    articles_none: Message indicating that no articles have been edited (Wiki Ed only)
     articles_i_am_reviewing: Heading for list of articles that the user is signed
       up to review
     articles_i_will_create: Heading for list of a user's assigned article titles that
@@ -318,7 +321,6 @@ qqq:
     articles_i_am_updating: Heading for list of a user's assigned articles
     assignment_end: The date on which the planned Wikipedia activities for a course
       end. (Wiki Ed only)
-    assignments_none: Message indicating that no articles are assigned (Wiki Ed only)
     assignment_start: Label for start date of assignment timeline (Wiki Ed only)
     calendar:
       legend: |-
@@ -528,7 +530,6 @@ qqq:
       Button to view the list of all courses. Uses alternative word for generic courses.
       {{Identical|Programs}}
     archived: The alternative wording for generic courses.
-    articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
     cancel: '{{Identical|Cancel}}'
     course: '{{Identical|Program}}'

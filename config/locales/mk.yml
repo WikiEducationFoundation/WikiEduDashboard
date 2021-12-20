@@ -74,6 +74,7 @@ mk:
     edited: Уредени статии
     edited_by: 'Уредено од:'
     edited_mobile: Статии
+    edited_none: '%{title} нема уредено ниедна статија.'
     filter:
       wiki_all: Сите
       new: Нови
@@ -178,11 +179,9 @@ mk:
     all_courses: Сите курсеви
     actions: Дејства
     articles: Статии
-    articles_none: Овој курс засега нема уредени статии.
     assignment_headings:
       assigned_articles: Зададени статии
     assignment_end: Крај на задачата
-    assignments_none: Овој курс нема зададени статии.
     assignment_start: Почеток на задачата
     calendar:
       legend: Легенда
@@ -311,7 +310,6 @@ mk:
     yourcourses: Ваши курсеви
   courses_generic:
     add_campaign: Додај поход
-    articles_none: Засега нема уредени статии за овој проект.
     assignment_end: Крај на временската рамка
     assignments_none: Овој проект нема зададени статии.
     assignment_start: Почеток на временската рамка

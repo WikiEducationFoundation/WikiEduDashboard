@@ -148,7 +148,8 @@ sq:
     already_exists: Kjo detyrë tashmë ekziston!
     assignees: I/të caktuari(t)
     assign_other: Cakto një artikull
-    add_available: Shto një artikull në dispozicion
+    add_available:
+      articles: Shto një artikull në dispozicion
     add_available_submit: Shto artikuj
     assign_self: Caktoja vetes një artikull
     confirm_add_available: A jeni të sigurt që doni të shtoni %{title}?
@@ -221,12 +222,10 @@ sq:
     archived: Lëndet e Arkivuara
     actions: Veprimet
     articles: Artikujt
-    articles_none: Kjo lëndë nuk ka redaktuar ndonjë artikull.
     assignment_headings:
       assigned_articles: Artikujt e caktuar
       available_articles: Artikujt në dispozicion
     assignment_end: Fundi i detyrës
-    assignments_none: Kjo lëndë nuk ka artikuj të caktuar.
     assignment_start: Fillimi i Detyrës
     calendar:
       legend: Legjenda
@@ -382,7 +381,6 @@ sq:
       link: Filloni anketën
   courses_generic:
     archived: Programet e Arkivuara
-    articles_none: Ende nuk ka artikuj të redaktuar për këtë projekt.
     assignment_end: Fundi i Afatit Kohor
     assignments_none: Ky projekt nuk ka artikuj të caktuar.
     assignment_start: Fillimi i Afatit Kohor

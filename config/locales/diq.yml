@@ -120,7 +120,8 @@ diq:
     article_link: Meqale
     assignees: Çebyayış(i)
     assign_other: Wesiqa cı ke
-    add_available: Mewcud yu wesiqa dek
+    add_available:
+      articles: Mewcud yu wesiqa dek
     bibliography: Bibliyografiye
     clone: Klon kerê
     loading: Çebyayena bena bar....

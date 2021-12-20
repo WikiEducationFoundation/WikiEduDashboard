@@ -146,9 +146,12 @@ de:
       Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
       die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
     deleted: (gelöscht)
+    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
+      und weise dich selbst zu, um Vorschläge zu erhalten.
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
+    edited_none: '%{title} hat keine Artikel bearbeitet.'
     filter:
       wiki_all: Alle
       new: Neu
@@ -225,7 +228,8 @@ de:
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
-    add_available: Verfügbare Artikel hinzufügen
+    add_available:
+      articles: Verfügbare Artikel hinzufügen
     add_available_placeholder: Einen Artikelnamen oder eine URL pro Zeile hinzufügen
     add_available_submit: Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
@@ -381,7 +385,6 @@ de:
     archived: Archivierte Kurse
     actions: Aktionen
     articles: Artikel
-    articles_none: Dieser Kurs hat keine Artikel bearbeitet.
     article_viewer: Artikelbetrachter
     articles_i_am_reviewing: Artikel die ich peer reviewe
     assignment_headings:
@@ -390,7 +393,6 @@ de:
       available_articles: Verfügbare Artikel
       available_reviews: Artikel anderer Kampagnenteilnehmer
     assignment_end: Zuweisungs-Ende
-    assignments_none: Dieser Kurs hat keine zugewiesenen Artikel.
     assignment_start: Zuweisungs-Beginn
     calendar:
       legend: Legende
@@ -547,8 +549,6 @@ de:
     dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
       möchtest?
     download_stats_data: Statistiken herunterladen
-    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
-      und weise dich selbst zu, um Vorschläge zu erhalten.
     duration: Kursdauer
     edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
@@ -658,7 +658,8 @@ de:
     private: Privat
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
-    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
+    rating_feedback:
+      articles: 'Die vorhergesagte Bewertung für den Artikel ist:'
     requested_accounts: Beantragte Benutzerkonten
     requested_accounts_alert:
       one: Ein angefordertes Benutzerkonto ist ausstehend.
@@ -731,7 +732,8 @@ de:
       auf Wikimedia Commons hochgeladen.
     user_recent_uploads: Zuletzt hochgeladene Dateien
     user_suggestions: 'Benutzervorschläge:'
-    user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
+    user_suggestions_prompt:
+      articles: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen
     view: Kurs anzeigen
     view_doc: Die geschätzte Anzahl aller Aufrufe von Artikeln, die von eingeschriebenen
@@ -769,7 +771,6 @@ de:
     all_courses: Alle Programme
     archived: Archivierte Programme
     articles_i_am_reviewing: Artikel die ich überüfe
-    articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_headings:
       available_reviews: Bereit für Review
     assignment_end: Ereignisende

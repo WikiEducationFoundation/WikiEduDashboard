@@ -157,6 +157,8 @@ tr:
       bir atama veya kullanılabilir makale bulunan diğer vikilerden gelen katkıları
       alır.
     deleted: (silindi)
+    does_not_exist: Madde mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
+      almak için kendinize atayın.
     edited: Düzenlenen Makaleler
     edited_by: 'Düzenleyen:'
     edited_mobile: Makale
@@ -238,7 +240,8 @@ tr:
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
     assign_other: Bir makaleyi devredin
-    add_available: Mevcut makaleleri ekleyin
+    add_available:
+      articles: Mevcut makaleleri ekleyin
     add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
     add_available_submit: Makale ekle
     assign_self: Bir makaleyi kendime devredeyim
@@ -405,7 +408,6 @@ tr:
     archived: Arşivlenmiş Kurslar
     actions: Eylemler
     articles: Makale
-    articles_none: Bu kursta herhangi bir makale düzenlenmedi.
     article_viewer: Makale Görüntüleyici
     articles_i_am_reviewing: Akran incelemesinden aldığım makale
     articles_i_will_create: Oluşturacağım maddeler
@@ -416,7 +418,6 @@ tr:
       available_articles: Kullanılabilir Makale
       available_reviews: Sınıf Arkadaşları Maddeleri
     assignment_end: Atama Sonu
-    assignments_none: Bu kursun atanmış makalesi bulunmamaktadır.
     assignment_start: Atama Başlangıcı
     calendar:
       legend: Gösterge
@@ -568,8 +569,6 @@ tr:
     dismiss_survey: Kapat
     dismiss_survey_confirm: Bu anketi kalıcı olarak kapatmak istediğinizden emin misiniz?
     download_stats_data: İstatistikleri indir
-    does_not_exist: Madde mevcut değil. Bir deneme tahtası sayfası oluşturun ve öneri
-      almak için kendinize atayın.
     duration: Kurs Süresi
     edit_count: Değişiklik Sayısı
     edit_course_dates: Kurs Tarihlerini Düzenle
@@ -678,7 +677,8 @@ tr:
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
-    rating_feedback: 'madde için tahmini değerlendirme:'
+    rating_feedback:
+      articles: 'madde için tahmini değerlendirme:'
     requested_accounts: İstenen hesaplar
     requested_accounts_alert:
       one: '%{count} istenen hesap beklemede.'
@@ -752,7 +752,8 @@ tr:
       başka medya dosyası eklemedi.
     user_recent_uploads: Son Yüklenenler
     user_suggestions: 'Kullanıcı Önerileri:'
-    user_suggestions_prompt: Makalenin editörleri için önerileriniz
+    user_suggestions_prompt:
+      articles: Makalenin editörleri için önerileriniz
     view_other: Diğer kampanyaları görüntüle
     view: Kursu Görüntüle
     view_doc: Editör her makalede ilk düzenlemesini yaptıktan sonra kayıtlı editörler
@@ -788,7 +789,6 @@ tr:
     all_courses: Tüm Programlar
     archived: Arşivlenmiş Programlar
     articles_i_am_reviewing: İncelediğim maddeler
-    articles_none: Bu proje için henüz düzenlenmiş madde yok.
     assignment_headings:
       available_reviews: İncelemeye Uygun
     assignment_end: Etkinlik Sonu

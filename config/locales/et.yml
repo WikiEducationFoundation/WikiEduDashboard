@@ -115,6 +115,8 @@ et:
       põhinimeruumi artiklitest. Töölaud koondab kaastöid programmi koduvikist ning
       kõigist teistest vikidest, millega on seotud mõni ülesanne või vaba artikkel.
     deleted: (kustutatud)
+    does_not_exist: Sellist artiklit ei eksisteeri. Soovituste saamiseks loo lehekülg
+      liivakastis ning määra ennast selle autoriks.
     edited: Muudetud artiklid
     edited_by: 'Muutnud:'
     edited_mobile: Artiklid
@@ -192,7 +194,8 @@ et:
     title_too_large: Pealkiri ei tohi olla pikem kui 255 märki
     assignees: Seotud kasutajakonto(d)
     assign_other: Seo artikkel kasutajakontoga
-    add_available: Lisa valitavaid artikleid
+    add_available:
+      articles: Lisa valitavaid artikleid
     add_available_placeholder: Lisa üks artikli pealkiri või URL rea kohta
     add_available_submit: Lisa artikleid
     assign_self: Seo artikkel oma kontoga
@@ -340,14 +343,12 @@ et:
     archived: Arhiveeritud kursused
     actions: Toimingud
     articles: Artiklid
-    articles_none: Kursusel osalejad ei ole muutnud ühtegi artiklit.
     assignment_headings:
       assigned_articles: Muutmiseks määratud artiklid
       assigned_reviews: Määratud retsensedid
       available_articles: Vabad artiklid
       available_reviews: Rühmakaaslaste artiklid
     assignment_end: Ülesande lõppkuupäev
-    assignments_none: Kursusel osalejatele ei ole muutmiseks määratud ühtegi artiklit.
     assignment_start: Ülesande alguskuupäev
     calendar:
       legend: Seletus
@@ -499,8 +500,6 @@ et:
     dismiss_survey: Peida
     dismiss_survey_confirm: Kas soovid kindlasti selle küsitluse püsivalt peita?
     download_stats_data: Allalaadimiste statistika
-    does_not_exist: Sellist artiklit ei eksisteeri. Soovituste saamiseks loo lehekülg
-      liivakastis ning määra ennast selle autoriks.
     duration: Kursuse kestus
     edit_count: Muudatuste arv
     edit_course_dates: Muuda kursuse kuupäevi
@@ -601,7 +600,8 @@ et:
     please_log_in: Logi sisse.
     private: Kinnine
     published: 'Kursus on avaldatud! Osalejad saavad kursusele registreeruda aadressil:'
-    rating_feedback: 'Artikli prognoositav hinne on:'
+    rating_feedback:
+      articles: 'Artikli prognoositav hinne on:'
     requested_accounts: Taotletavad kontod
     requested_accounts_alert:
       one: '%{count} ootel kontotaotlus.'
@@ -669,7 +669,8 @@ et:
       ega muud meediumifaili.
     user_recent_uploads: Hiljutised üleslaadimised
     user_suggestions: 'Kasutajate ettepanekud:'
-    user_suggestions_prompt: Sinu ettepanekud artikli toimetajatele
+    user_suggestions_prompt:
+      articles: Sinu ettepanekud artikli toimetajatele
     view_other: Vaata teisi kampaaniaid
     view: Vaata kursust
     view_doc: Registreerunud kaastööliste muudetud artiklite vaatamiste koguarv alates
@@ -704,7 +705,6 @@ et:
     add_campaign: Lisa kampaania
     all_courses: Kõik programmid
     archived: Arhiveeritud programmid
-    articles_none: Projektiga seoses muudetud artiklid puuduvad.
     assignment_headings:
       available_reviews: Valmis retsenseerimiseks
     assignment_end: Sündmuse lõpp

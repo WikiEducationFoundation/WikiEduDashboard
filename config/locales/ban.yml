@@ -55,6 +55,7 @@ ban:
     edited_by: 'Kauahin olih:'
     label: Parilaksana
   articles:
+    articles: Suratan
     next: Selanturné
     previous: Sadurungné
     edited: Suratan sané kauahin
@@ -76,6 +77,8 @@ ban:
     view_on_wiki: Cingak ring wiki
     wiki: Wiki
     articles_short: Suratan
+  items:
+    items: Item
   articles_wikidata:
     articles_short: Item
   articles_generic:

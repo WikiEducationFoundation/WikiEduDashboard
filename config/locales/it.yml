@@ -124,6 +124,7 @@ it:
     edited_by: Modificato da
     label: Attività
   articles:
+    articles: Voci
     article_not_found: Questa voce non è stata ancora creata.
     article_development: (sviluppo della voce)
     assigned: Voci assegnate
@@ -140,9 +141,12 @@ it:
       home wiki di questo programma, insieme a qualsiasi altra wiki per la quale c'è
       un'Assegnazione o una voce disponibile.
     deleted: (cancellato)
+    does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
+      per ricevere suggerimenti.
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
+    edited_none: Non ci sono voci modificate ancora.
     filter:
       wiki_all: Tutto
       new: Nuovo
@@ -203,6 +207,10 @@ it:
       la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
     articles_short: Voci
+  items:
+    items: Elementi
+    available: Elementi disponibili
+    edited: Elementi modificati
   articles_wikidata:
     articles_short: Elementi
   articles_generic:
@@ -214,7 +222,8 @@ it:
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna/rimuovi una voce
-    add_available: Aggiungi voci disponibili
+    add_available:
+      articles: Aggiungi voci disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
@@ -336,14 +345,12 @@ it:
     archived: Corsi archiviati
     actions: Azioni
     articles: Voci
-    articles_none: Questo corso non ha modificato alcuna voce.
     assignment_headings:
       assigned_articles: Voci assegnate
       assigned_reviews: Revisioni assegnate
       available_articles: Voci disponibili
       available_reviews: Voci dei compagni di classe
     assignment_end: Fine assegnazione
-    assignments_none: Questo corso non ha voci assegnate.
     assignment_start: Inizio assegnazione
     calendar:
       legend: Legenda
@@ -501,8 +508,6 @@ it:
     dismiss_survey_confirm: Sei sicuro di voler nascondere definitivamente questo
       sondaggio?
     download_stats_data: Scarica statistiche
-    does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
-      per ricevere suggerimenti.
     duration: Durata del corso
     edit_count: Contatore di modifiche
     edit_course_dates: Modifica date del corso
@@ -633,7 +638,6 @@ it:
   courses_generic:
     add_campaign: Aggiungi campagna
     all_courses: Tutti i programmi
-    articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_headings:
       available_reviews: Disponibile per revisione
     assignment_end: Fine evento

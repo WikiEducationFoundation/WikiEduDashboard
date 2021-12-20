@@ -109,7 +109,8 @@ en-gb:
     already_exists: This assignment already exists!
     assignees: Assignee(s)
     assign_other: Assign/remove an article
-    add_available: Add available articles
+    add_available:
+      articles: Add available articles
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
@@ -136,9 +137,7 @@ en-gb:
     archived: Archived Courses
     actions: Actions
     articles: Articles
-    articles_none: This course has not edited any articles.
     assignment_end: Assignment End
-    assignments_none: This course has no assigned articles.
     assignment_start: Assignment Start
     calendar:
       legend: Legend
