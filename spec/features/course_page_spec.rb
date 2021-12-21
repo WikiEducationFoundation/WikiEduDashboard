@@ -77,7 +77,7 @@ describe 'the course page', type: :feature, js: true do
     end
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
-    (1...article_count/2).each do |i|
+    (1...article_count / 2).each do |i|
       create(:article,
              id: i,
              title: "Article #{i}",
@@ -85,7 +85,7 @@ describe 'the course page', type: :feature, js: true do
              wiki_id:  home_wiki.id,
              rating: ratings[(i + 5) % 10])
     end
-    (article_count/2..article_count).each do |i|
+    (article_count / 2..article_count).each do |i|
       create(:article,
              id: i,
              title: "Article #{i}",
