@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextAreaInput from '../common/text_area_input';
 import CourseUtils from '../../utils/course_utils.js';
-import ArticleUtils from '../../utils/article_utils';
 
 const AddAvailableArticles = createReactClass({
   displayName: 'AddAvailableArticles',
@@ -65,7 +64,7 @@ const AddAvailableArticles = createReactClass({
   },
 
   render() {
-    const articlesOrItems = ArticleUtils.articlesOrItems(this.props.course.home_wiki.project);
+    const articlesOrItems = this.props.project === 'wikidata' ? 'items' : 'articles';
     return (
       <div className="pop__padded-content">
         <TextAreaInput

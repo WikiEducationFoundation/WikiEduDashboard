@@ -193,9 +193,9 @@ const EditButton = ({
   );
 };
 
-const FindArticles = ({ course, open }) => {
+const FindArticles = ({ course, open, project }) => {
   let btnText = 'Search Wikipedia for an Article';
-  if (course.home_wiki.project === 'wikidata') {
+  if (project === 'wikidata') {
     btnText = 'Search Wikidata for an Item';
   }
   return (
@@ -218,7 +218,7 @@ export class AssignButton extends React.Component {
     super(props);
     this.state = {
       language: '',
-      project: '',
+      project: this.props.articlesOrItems,
       title: ''
     };
   }
@@ -497,7 +497,7 @@ export class AssignButton extends React.Component {
 
     // Add the FindArticles button
     if (role === ASSIGNED_ROLE && !isStudentsPage) {
-      assignmentRows.push(<FindArticles course={course} open={open} key="find-articles-link" />);
+      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} key="find-articles-link" />);
     }
 
     return (
