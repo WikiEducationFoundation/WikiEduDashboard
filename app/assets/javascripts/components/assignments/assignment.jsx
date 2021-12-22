@@ -36,6 +36,7 @@ const Assignment = createReactClass({
     const assignees = [];
     const reviewers = [];
     const iterable = sortBy(this.props.assignmentGroup, 'username');
+    const isWikipedia = article.project === 'wikipedia';
     for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
@@ -65,14 +66,15 @@ const Assignment = createReactClass({
     return (
       <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
-          <p className="rating_num hidden">{article.rating_num}</p>
-          <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
-          <div className="tooltip dark">
+          {isWikipedia && <p className="rating_num hidden">{article.rating_num}</p>}
+          {isWikipedia && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
-          </div>
+            {/* eslint-disable-next-line */}
+          </div>}
         </td>
         <td>
-          <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>
+          {isWikipedia && <div className={ratingMobileClass}><p>{article.pretty_rating}</p></div>}
           <p className="title">
             {articleLink}
           </p>

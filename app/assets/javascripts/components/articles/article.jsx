@@ -73,17 +73,21 @@ const Article = createReactClass({
     if (project === 'wikidata') language = 'www';
     const pageviewUrl = `https://pageviews.toolforge.org/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
 
+    const isWikipedia = project === 'wikipedia';
+
     return (
       <tr className="article">
         <td className="tooltip-trigger desktop-only-tc">
-          <p className="rating_num hidden">{this.props.article.rating_num}</p>
-          <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
-          <div className="tooltip dark">
+          {isWikipedia && <p className="rating_num hidden">{this.props.article.rating_num}</p>}
+          {isWikipedia && <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
-          </div>
+            {/* eslint-disable-next-line */}
+          </div>}
         </td>
         <td>
-          <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
+          {isWikipedia && <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>}
+          {isWikipedia && <div />}
           <div className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />
