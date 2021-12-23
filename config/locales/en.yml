@@ -256,12 +256,10 @@ en:
     add_available:
       articles: Add available articles
       items: Add available items
-    add_available_placeholder:
-      articles: Add one article title or URL per line
-      items: Add one item title or URL per line
-    add_available_submit:
-      articles: Add articles
-      items: Add items
+    add_available_placeholder: Add one article title or URL per line
+    add_available_placeholder_wikidata: Add one item title or URL per line
+    add_available_submit: Add articles
+    add_available_submit_wikidata: Add items
     assign_self:
       articles: Assign myself an article
       items: Assign myself an item
