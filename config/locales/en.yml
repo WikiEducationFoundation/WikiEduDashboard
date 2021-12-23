@@ -760,10 +760,8 @@ en:
       if you don't want templates added to user pages, the talk pages of assigned articles, etc.
     wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
-    word_count_doc_separated:
-      articles: An estimate of the number of words added to mainspace articles by the course's students during the course term
-      items: An estimate of the number of words added to mainspace items by the course's students during the course term
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
     survey:
       notification_message: Take our survey for this course.
@@ -868,10 +866,8 @@ en:
     user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Program Page
-    word_count_doc_separated:
-      items: An estimate of the number of words added to mainspace items by the program's editors during the program term
-      articles: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
     yourcourses: Your Programs
 
   editable:
@@ -945,10 +941,9 @@ en:
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
-    references_doc_separated:
-      articles: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
-      items: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
+    references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
+
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
       because of replication lag (replag). When this is the case, the missing edits will show up later on.

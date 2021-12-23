@@ -63,7 +63,7 @@ const RevisionList = createReactClass({
       references: {
         label: I18n.t('revisions.references'),
         desktop_only: true,
-        info_key: `metrics.references_doc_separated.${ArticleUtils.articlesOrItems(this.props.course.home_wiki.project)}`
+        info_key: `metrics.${ArticleUtils.chooseMsg(this.props.course.home_wiki.project, 'references_doc')}`
       },
       date: {
         label: I18n.t('revisions.date_time'),

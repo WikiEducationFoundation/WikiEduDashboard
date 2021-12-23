@@ -5,7 +5,7 @@ const contentAddedKey = (course, articlesOrItems) => {
     return {
       label: I18n.t('metrics.word_count'),
       desktop_only: true,
-      info_key: `${course.string_prefix}.word_count_doc_separated.${articlesOrItems}`
+      info_key: `${course.string_prefix}.${ArticleUtils.chooseMsg(course.home_wiki.project, 'word_count_doc')}`
     };
   }
   return {
@@ -31,7 +31,7 @@ const articleListKeys = (course) => {
     references_count: {
       label: I18n.t('metrics.references_count'),
       desktop_only: true,
-      info_key: `metrics.references_doc_separated.${articlesOrItems}`
+      info_key: `metrics.${ArticleUtils.chooseMsg(course.home_wiki.project, 'references_doc')}`
     },
     view_count: {
       label: I18n.t('metrics.view'),
