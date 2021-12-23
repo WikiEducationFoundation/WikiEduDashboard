@@ -12,8 +12,12 @@ export default class ArticleUtils {
   }
 
 // Returns article or item message, based on home Wiki project.
-static I18n(messageKey, project) {
+  static I18n(messageKey, project) {
   const articlesOrItems = ArticleUtils.articlesOrItems(project);
   return ArticleUtils.articlesOrItemsMsg(messageKey, articlesOrItems);
+}
+
+  static chooseMsg(project, msg) {
+  return project === 'wikidata' ? `${msg}_wikidata` : msg;
 }
 }

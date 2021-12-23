@@ -1455,15 +1455,12 @@ en:
       why_are_you_here: "What would you like to do?"
 
   article_finder:
-    add_available_article:
-      articles: "Add as available article"
-      items: "Add as available item"
-    article_finder:
-      articles: "Article Finder"
-      items: "Item Finder"
-    article_quality:
-      articles: "Article Quality(0-100)"
-      items: "Item Quality(0-100)"
+    add_available_article: "Add as available article"
+    add_available_article_wikidata: "Add as available item"
+    article_finder: "Article Finder"
+    article_finder_wikidata: "Item Finder"
+    article_quality: "Article Quality(0-100)"
+    article_quality_wikidata: "Item Quality(0-100)"
     assign_article_self: "Assign yourself"
     average_views: "Average views per day"
     category_search: "Category Search"
@@ -1472,38 +1469,31 @@ en:
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
     fetching_revisions: "Fetching Page Revisions"
-    fetched_articles:
-      articles: "Fetched Articles"
-      items: "Fetched Items"
-    filtered_articles:
-      articles: "Filtered Articles"
-      items: "Filtered Items"
+    fetched_articles: "Fetched Articles"
+    fetched_articles_wikidata: "Fetched Items"
+    filtered_articles: "Filtered Articles"
+    filtered_articles_wikidata: "Filtered Items"
     hide_options: "Hide Options"
     keyword_search: "Keyword Search"
     minimum_views_label: "Minimum Views"
     more_results: "More Results"
-    no_article_found:
-      articles: "No articles found in this category"
-      items: "No items found in this category"
+    no_article_found: "No articles found in this category"
+    no_article_found_wikidata: "No items found in this category"
     page_assessment_class: "Class"
     relevanceIndex: "Relevance Index"
-    remove_article:
-      articles: "Remove article"
-      items: "Remove items"
+    remove_article: "Remove article"
+    remove_article_wikidata: "Remove items"
     search: "Search"
-    searching_articles:
-      articles: "Searching Articles"
-      items: "Searching Items"
+    searching_articles: "Searching Articles"
+    searching_articles_wikidata: "Searching Items"
     search_placeholder: "Enter your keyword"
     show_options: "Show Options"
-    subheading_message:
-      articles: "Let's find a Wikipedia article to work on."
-      items: "Let's find a Wikidata item to work on."
+    subheading_message: "Let's find a Wikipedia article to work on."
+    subheading_message_wikidata: "Let's find a Wikidata item to work on."
     submit: "Submit"
     tools: "Tools"
-    unassign_article_self:
-      articles: "Unassign Article"
-      items: "Unassign Item"
+    unassign_article_self: "Unassign Article"
+    unassign_article_self_wikidata: "Unassign Item"
 
   training_status:
     completed: "Completed"

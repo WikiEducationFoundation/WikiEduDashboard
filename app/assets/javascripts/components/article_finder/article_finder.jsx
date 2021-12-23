@@ -133,6 +133,7 @@ const ArticleFinder = createReactClass({
   },
 
   render() {
+    const project = this.props.location.project || this.props.course.home_wiki.project;
     const articlesOrItems = ArticleUtils.articlesOrItems(this.props.location.project) || ArticleUtils.articlesOrItems(this.props.course.home_wiki.project);
     const searchButton = <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>;
     const searchTerm = (
@@ -187,7 +188,7 @@ const ArticleFinder = createReactClass({
     const articleQuality = (
       <div>
         <div className="form-group range-container">
-          <label className="mb2">{I18n.t(`article_finder.article_quality.${articlesOrItems}`)}</label>
+          <label className="mb2">{I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'article_quality')}`)}</label>
           <InputRange
             maxValue={100}
             minValue={0}
@@ -325,7 +326,7 @@ const ArticleFinder = createReactClass({
           sortable={true}
           table_key="category-articles"
           className="table--expandable table--hoverable"
-          none_message={I18n.t(`article_finder.no_article_found.${articlesOrItems}`)}
+          none_message={I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'no_article_found')}`)}
           sortBy={this.props.sortArticleFinder}
         />
       );
@@ -352,11 +353,11 @@ const ArticleFinder = createReactClass({
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
-              <small>{I18n.t(`article_finder.fetched_articles.${articlesOrItems}`)}</small>
+              <small>{I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'fetched_articles')}`)}</small>
             </div>
             <div className="stat-display__stat" id="articles-filtered">
               <div className="stat-display__value">{filteredCount}</div>
-              <small>{I18n.t(`article_finder.filtered_articles.${articlesOrItems}`)}</small>
+              <small>{I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'filtered_articles')}`)}</small>
             </div>
           </div>
         </div>
@@ -364,7 +365,7 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: I18n.t(`article_finder.searching_articles.${articlesOrItems}`),
+      ARTICLES_LOADING: I18n.t(`article_finder..${ArticleUtils.chooseMsg(project, 'searching_articles')}`),
       TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
       PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
       REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
@@ -384,7 +385,6 @@ const ArticleFinder = createReactClass({
     const trackedWikis = trackedWikisMaker(this.props.course);
 
     const language = this.props.location.project ? this.props.location.language : this.props.home_wiki.language;
-    const project = this.props.location.project || this.props.home_wiki.project;
     console.log(language, project);
 
     const options = (
@@ -401,9 +401,9 @@ const ArticleFinder = createReactClass({
     return (
       <div className="container">
         <header>
-          <h1 className="title">{I18n.t(`article_finder.article_finder.${articlesOrItems}`)}</h1>
+          <h1 className="title">{I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'article_finder')}`)}</h1>
           <div>
-            {I18n.t(`article_finder.subheading_message.${articlesOrItems}`)}
+            {I18n.t(`article_finder.${ArticleUtils.chooseMsg(project, 'subheading_message')}`)}
           </div>
         </header>
         <div className="article-finder-form">
