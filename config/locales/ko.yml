@@ -98,6 +98,7 @@ ko:
     article_not_found: 이 문서는 아직 생성되지 않았습니다.
     articles_shown: '%{total}개 중 %{count}개 표시 중'
     assigned: 할당된 문서
+    assignments_none: 아직 할당된 문서가 없습니다.
     available: 이용 가능한 글
     next: 다음
     previous: 이전
@@ -108,6 +109,7 @@ ko:
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
+    edited_none: 아직 편집한 문서가 없습니다.
     filter:
       wiki_all: 모두
       new: 새 항목
@@ -144,7 +146,11 @@ ko:
     wiki: 위키
   items:
     items: 항목
+    assigned: 할당된 항목
+    assignments_none: 아직 할당된 항목이 없습니다.
     available: 사용 가능한 항목
+    edited: 편집된 항목
+    edited_none: 아직 편집한 항목이 없습니다.
   assignments:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     article_link: 문서
@@ -162,6 +168,7 @@ ko:
     no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
     remove: 제거
     reviewers: 검토자
+    review_other: 동료 평가 할당/제거
     review_self: 문서 미리보기
     sandbox_draft_link: 연습장 초안
     select: 선택
@@ -431,13 +438,17 @@ ko:
       title: '%{prefix} 선택'
   metrics:
     last_update: 최근 통계 업데이트
+    late_update_part1: 새 업데이트가 예정되었습니다
+    late_update_part2: 이는 업데이트가 예상보다 더 오래 소요되거나 업데이트가 차단되는 문제임을 의미할 수 있습니다.
+    no_update: 대시보드는 아직 이 프로그램의 데이터를 가져오지 못했습니다.
+    enqueued_update: 이 프로그램은 업데이트 대기열에 추가되었습니다.
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_created_generic: 만든 문서
     articles_created_wikidata: 만들어진 아이템
     articles_edited: 문서 편집됨
     articles_edited_generic: 수정된 페이지
-    articles_edited_wikidata: 수정된 아이템
+    articles_edited_wikidata: 편집된 항목
     characters: 글자
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜

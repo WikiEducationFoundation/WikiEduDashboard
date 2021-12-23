@@ -80,6 +80,7 @@ lb:
     article_not_found: Dësen Artikel gouf nach net ugeluecht.
     article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
+    assignments_none: Et gëtt nach keng zougedeelt Artikelen.
     available: Disponibel Artikelen
     no_available: Keng Artikelen disponibel
     next: Nächst
@@ -131,6 +132,8 @@ lb:
   items:
     items: Elementer
     available: Disponibel Elementer
+    edited: Geännert Elementer
+    edited_none: Et gëtt nach keng geännert Elementer.
   articles_wikidata:
     articles_short: Elementer
   articles_generic:
