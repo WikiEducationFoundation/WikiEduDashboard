@@ -193,7 +193,7 @@ const EditButton = ({
   );
 };
 
-const FindArticles = ({ course, open, project }) => {
+const FindArticles = ({ course, open, project, language }) => {
   let btnText = 'Search Wikipedia for an Article';
   if (project === 'wikidata') {
     btnText = 'Search Wikidata for an Item';
@@ -201,7 +201,7 @@ const FindArticles = ({ course, open, project }) => {
   return (
     <tr className="assignment find-articles-section">
       <td>
-        <Link to={`/courses/${course.slug}/article_finder`}>
+        <Link to={{ pathname: `/courses/${course.slug}/article_finder`, project: `${project}`, language: `${language}` }}>
           <button className="button border small link" onClick={open}>
             {btnText}
           </button>
@@ -211,14 +211,13 @@ const FindArticles = ({ course, open, project }) => {
   );
 };
 
-
 // Main Component
 export class AssignButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       language: '',
-      project: this.props.articlesOrItems,
+      project: '',
       title: ''
     };
   }
@@ -376,9 +375,10 @@ export class AssignButton extends React.Component {
   render() {
     const {
       assignments, allowMultipleArticles, course, current_user,
-      isStudentsPage, is_open, open, permitted, role, student, tooltip_message, articlesOrItems
+      isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
+    const articlesOrItems = this.state.project === 'wikidata' ? 'items' : 'articles';
     let showButton;
     if (!permitted && assignments.length > 1) {
       showButton = (
@@ -497,7 +497,7 @@ export class AssignButton extends React.Component {
 
     // Add the FindArticles button
     if (role === ASSIGNED_ROLE && !isStudentsPage) {
-      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} key="find-articles-link" />);
+      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} language={this.state.language} key="find-articles-link" />);
     }
 
     return (

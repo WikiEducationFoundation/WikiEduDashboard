@@ -58,7 +58,7 @@ export const AssignCell = (props) => {
   return (
     <div className="inline-button-peer">
       {link}
-      <AssignButton {...props} permitted={permitted} articlesOrItems={articlesOrItems} />
+      <AssignButton {...props} permitted={permitted} />
     </div>
   );
 };

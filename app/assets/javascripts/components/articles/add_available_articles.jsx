@@ -64,6 +64,7 @@ const AddAvailableArticles = createReactClass({
   },
 
   render() {
+    console.log(this.props.project, 'props project');
     const articlesOrItems = this.props.project === 'wikidata' ? 'items' : 'articles';
     return (
       <div className="pop__padded-content">

@@ -285,10 +285,8 @@ en:
     random_peer_review:
       confirm_addition: >
         In most cases, you should only use this after all students have been assigned their main articles.
-
         Alternatively, you can ask your students to choose their own peer reviews or
         you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
-
         Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
         chosen from among their classmates' articles.
       heading: Assign random peer reviews
@@ -307,7 +305,6 @@ en:
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
       must add the following wiki to this course: %{wiki}
-
   blocks:
     milestones:
       title: Milestones
@@ -1012,7 +1009,7 @@ en:
       Wikipedia's plagiarism detection system uses Turnitin/iThenticate to compare new edits with published text.
       These reports are not 100% accurate. For example, a direct quote with proper attribution
       may trigger a false positive plagiarism report. Please review the student's contributions
-      and the details of the report before taking any action. (If you find that the change — or
+      and the details of the report before taking any action. (If you find that the change — or
       the entire article — is not accessible, the content may have been deleted for copyright reasons.)
     recent_edits: Recent Edits
     recent_uploads: Recent Uploads
@@ -1315,7 +1312,6 @@ en:
       across all edits that added more than they removed. This number doesn't
       necessarily reflect the amount of new content the user added. Restoring
       removed content will also increase this total.
-
     role:
       description: Role in course
       visitor: Visitor
@@ -1459,35 +1455,55 @@ en:
       why_are_you_here: "What would you like to do?"
 
   article_finder:
-    page_assessment_class: "Class"
-    completeness_estimate: "Completeness Score"
+    add_available_article:
+      articles: "Add as available article"
+      items: "Add as available item"
+    article_finder:
+      articles: "Article Finder"
+      items: "Item Finder"
+    article_quality:
+      articles: "Article Quality(0-100)"
+      items: "Item Quality(0-100)"
+    assign_article_self: "Assign yourself"
     average_views: "Average views per day"
-    add_available_article: "Add as available article"
-    remove_article: "Remove article"
-    minimum_views_label: "Minimum Views"
-    no_article_found: "No articles found in this category"
-    search_placeholder: "Enter your keyword"
-    search: "Search"
-    tools: "Tools"
-    show_options: "Show Options"
-    hide_options: "Hide Options"
-    keyword_search: "Keyword Search"
     category_search: "Category Search"
-    article_quality: "Article Quality(0-100)"
-    more_results: "More Results"
-    fetched_articles: "Fetched Articles"
-    filtered_articles: "Filtered Articles"
-    searching_articles: "Searching Articles"
+    completeness_estimate: "Completeness Score"
     fetching_assessments: "Fetching Page Assessments"
-    fetching_revisions: "Fetching Page Revisions"
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
-    subheading_message: "Let's find a Wikipedia article to work on."
-    article_finder: "Article Finder"
-    submit: "Submit"
+    fetching_revisions: "Fetching Page Revisions"
+    fetched_articles:
+      articles: "Fetched Articles"
+      items: "Fetched Items"
+    filtered_articles:
+      articles: "Filtered Articles"
+      items: "Filtered Items"
+    hide_options: "Hide Options"
+    keyword_search: "Keyword Search"
+    minimum_views_label: "Minimum Views"
+    more_results: "More Results"
+    no_article_found:
+      articles: "No articles found in this category"
+      items: "No items found in this category"
+    page_assessment_class: "Class"
     relevanceIndex: "Relevance Index"
-    assign_article_self: "Assign yourself"
-    unassign_article_self: "Unassign Article"
+    remove_article:
+      articles: "Remove article"
+      items: "Remove items"
+    search: "Search"
+    searching_articles:
+      articles: "Searching Articles"
+      items: "Searching Items"
+    search_placeholder: "Enter your keyword"
+    show_options: "Show Options"
+    subheading_message:
+      articles: "Let's find a Wikipedia article to work on."
+      items: "Let's find a Wikidata item to work on."
+    submit: "Submit"
+    tools: "Tools"
+    unassign_article_self:
+      articles: "Unassign Article"
+      items: "Unassign Item"
 
   training_status:
     completed: "Completed"
