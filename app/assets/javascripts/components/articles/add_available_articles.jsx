@@ -84,7 +84,7 @@ const AddAvailableArticles = createReactClass({
           editable
           placeholder={I18n.t('assignments.add_available_placeholder')}
         />}
-        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.${ArticleUtils.chooseMsg(this.props.project, 'add_available_submit')}`)}</button>
+        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
       </div>
     );
   }

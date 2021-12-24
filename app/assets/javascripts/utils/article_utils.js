@@ -17,7 +17,7 @@ export default class ArticleUtils {
   return ArticleUtils.articlesOrItemsMsg(messageKey, articlesOrItems);
 }
 
-  static chooseMsg(project, msg) {
-  return project === 'wikidata' ? `${msg}_wikidata` : msg;
+  static projectSuffix(project, messageKey) {
+  return project === 'wikidata' ? `${messageKey}_wikidata` : messageKey;
 }
 }

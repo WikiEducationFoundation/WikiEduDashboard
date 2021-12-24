@@ -121,14 +121,14 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.chooseMsg(this.props.home_wiki.project, 'remove_article')}`)}</button>
+            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'remove_article')}`)}</button>
           </td>
         );
       } else {
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.chooseMsg(this.props.home_wiki.project, 'add_available_article')}`)}</button>
+            <button className={className} onClick={() => this.assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
@@ -137,7 +137,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.chooseMsg(this.props.home_wiki.project, 'unassign_article_self')}`)}</button>
+            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'unassign_article_self')}`)}</button>
           </td>
         );
       } else {
