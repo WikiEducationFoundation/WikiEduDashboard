@@ -194,10 +194,7 @@ const EditButton = ({
 };
 
 const FindArticles = ({ course, open, project, language }) => {
-  let btnText = 'Search Wikipedia for an Article';
-  if (project === 'wikidata') {
-    btnText = 'Search Wikidata for an Item';
-  }
+  const btnText = project === 'wikidata' ? I18n.t('items.search') : I18n.t('articles.search');
   return (
     <tr className="assignment find-articles-section">
       <td>

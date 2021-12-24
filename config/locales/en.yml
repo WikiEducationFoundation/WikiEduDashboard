@@ -194,6 +194,7 @@ en:
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
     see_more: See more
+    search: Search Wikipedia for an Article
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
     show_current_version_with_authorship_highlighting: "Current Version w/ Authorship Highlighting"
@@ -235,6 +236,7 @@ en:
     does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Items Edited
     edited_none: There are no edited items yet.
+    search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
     view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
 
