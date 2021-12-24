@@ -335,7 +335,7 @@ ArticleViewer.propTypes = {
   alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
     id: PropTypes.number,
-    language: PropTypes.string.isRequired,
+    language: PropTypes.string,
     project: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
