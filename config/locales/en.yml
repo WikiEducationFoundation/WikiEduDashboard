@@ -252,19 +252,16 @@ en:
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
-    assign_other:
-      articles: Assign/remove an article
-      items: Assign/remove an item
-    add_available:
-      articles: Add available articles
-      items: Add available items
+    assign_other: Assign/remove an article
+    assign_other_wikidata: Assign/remove an item
+    add_available: Add available articles
+    add_available_wikidata: Add available items
     add_available_placeholder: Add one article title or URL per line
     add_available_placeholder_wikidata: Add one item title or URL per line
     add_available_submit: Add articles
     add_available_submit_wikidata: Add items
-    assign_self:
-      articles: Assign myself an article
-      items: Assign myself an item
+    assign_self: Assign myself an article
+    assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     bibliography: Bibliography
     clone: Clone
@@ -295,9 +292,8 @@ en:
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign/remove a peer review
-    review_self:
-      articles: Review an article
-      items: Review an item
+    review_self: Review an article
+    review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
@@ -425,16 +421,13 @@ en:
     articles_i_will_create: Articles I will create
     articles_i_am_updating: Articles I'm updating
     assignment_headings:
-      assigned_articles:
-        articles: Assigned Articles
-        items: Assigned Items
+      assigned_articles: Assigned Articles
+      assigned_articles_wikidata: Assigned Items
       assigned_reviews: Assigned Reviews
-      available_articles:
-        articles: Available Articles
-        items: Available Items
-      available_reviews:
-        articles: Classmates' Articles
-        items: Classmates' Items
+      available_articles: Available Articles
+      available_articles_wikidata: Available Items
+      available_reviews: Classmates' Articles
+      available_reviews_wikidata: Classmates' Items
     assignment_end: Assignment End
     assignment_start: Assignment Start
     calendar:
@@ -790,9 +783,8 @@ en:
     archived: Archived Programs
     articles_i_am_reviewing: Articles I'm reviewing
     assignment_headings:
-      available_reviews:
-        articles: Available to Review
-        items: Available to Review
+      available_reviews: Available to Review
+      available_reviews_wikidata: Available to Review
     assignment_end: Event End
     assignments_none: This project has no assigned articles.
     assignment_start: Event Start
@@ -1245,18 +1237,16 @@ en:
     my_reviewing: "Reviewing:"
     name: Name
     none: There are no participants.
-    no_articles:
-      articles: No articles
-      items: No items
+    no_articles: No articles
+    no_articles_wikidata: No items
     no_revisions: This editor has made no revisions.
     no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
     number_of_articles:
-      articles:
-        one: "%{count} article"
-        other: "%{count} articles"
-      items:
-        one: "%{count} items"
-        other: "%{count} items"
+      one: "%{count} article"
+      other: "%{count} articles"
+    number_of_articles_wikidata:
+      one: "%{count} items"
+      other: "%{count} items"
     profile: profile
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?

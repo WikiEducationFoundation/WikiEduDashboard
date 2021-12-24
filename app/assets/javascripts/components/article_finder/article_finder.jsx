@@ -366,7 +366,7 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: I18n.t(`article_finder..${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'searching_articles')}`),
+      ARTICLES_LOADING: I18n.t(`article_finder.${ArticleUtils.projectSuffix(this.props.home_wiki.project, 'searching_articles')}`),
       TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
       PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
       REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),

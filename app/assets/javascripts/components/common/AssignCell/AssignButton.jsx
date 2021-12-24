@@ -13,6 +13,7 @@ import NewAssignmentInput from '../../assignments/new_assignment_input';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants';
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
+import ArticleUtils from '../../../utils/article_utils';
 
 // Helper Components
 // Button to show the static list
@@ -75,8 +76,7 @@ const getArticle = (assignment, course, labels) => {
 };
 
 const AssignedAssignmentRows = ({
-  assignments = [], course, permitted, role, wikidataLabels, articlesOrItems,
-  unassign // functions
+  assignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -98,7 +98,7 @@ const AssignedAssignmentRows = ({
   });
 
   const text = role === ASSIGNED_ROLE
-    ? I18n.t(`courses.assignment_headings.assigned_articles.${articlesOrItems}`)
+    ? I18n.t(`courses.assignment_headings.${ArticleUtils.projectSuffix(project, 'assigned_articles')}`)
     : I18n.t('courses.assignment_headings.assigned_reviews');
   const title = (
     <tr key="assigned" className="assignment-section-header">
@@ -111,8 +111,9 @@ const AssignedAssignmentRows = ({
 };
 
 const PotentialAssignmentRows = ({
-  assignments = [], course, permitted, articlesOrItems, role, wikidataLabels,
-  assign // functions
+  assignments = [], course, permitted, role, wikidataLabels,
+  assign, // functions
+  project
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -135,8 +136,8 @@ const PotentialAssignmentRows = ({
   });
 
   const text = role === ASSIGNED_ROLE
-    ? I18n.t(`courses.assignment_headings.available_articles.${articlesOrItems}`)
-    : CourseUtils.i18n(`assignment_headings.available_reviews.${articlesOrItems}`, course.string_prefix);
+    ? I18n.t(`courses.assignment_headings.${ArticleUtils.projectSuffix(project, 'available_articles')}`)
+    : CourseUtils.i18n(`assignment_headings.${ArticleUtils.projectSuffix(project, ' available_reviews')}`, course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>
@@ -160,20 +161,20 @@ const Tooltip = ({ message }) => {
 // Button to add new assignments
 const EditButton = ({
   allowMultipleArticles, current_user, is_open, open, role, student,
-  tooltip, tooltipIndicator, assignmentLength, articlesOrItems
+  tooltip, tooltipIndicator, assignmentLength, project
 }) => {
   let assignText;
   let reviewText;
   if (allowMultipleArticles) {
-    assignText = I18n.t(`assignments.add_available.${articlesOrItems}`);
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'add_available')}`);
   } else if (assignmentLength) {
     assignText = '+/-';
     reviewText = '+/-';
   } else if (student && current_user.id === student.id) {
-    assignText = I18n.t(`assignments.assign_self.${articlesOrItems}`);
-    reviewText = I18n.t(`assignments.review_self.${articlesOrItems}`);
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'assign_self')}`);
+    reviewText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'review_self')}`);
   } else if (current_user.role > 0 || current_user.admin) {
-    assignText = I18n.t(`assignments.assign_other.${articlesOrItems}`);
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'assign_other')}`);
     reviewText = I18n.t('assignments.review_other');
   }
 
@@ -375,7 +376,6 @@ export class AssignButton extends React.Component {
       isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
-    const articlesOrItems = this.state.project === 'wikidata' ? 'items' : 'articles';
     let showButton;
     if (!permitted && assignments.length > 1) {
       showButton = (
@@ -406,7 +406,7 @@ export class AssignButton extends React.Component {
           tooltip={tooltip}
           tooltipIndicator={tooltipIndicator}
           assignmentLength={isStudentsPage && assignments.length}
-          articlesOrItems={articlesOrItems}
+          project={this.state.project}
         />
       );
     }
@@ -469,7 +469,7 @@ export class AssignButton extends React.Component {
           permitted={permitted}
           role={role}
           wikidataLabels={wikidataLabels}
-          articlesOrItems={articlesOrItems}
+          project={this.state.project}
         />
       );
     }
@@ -487,7 +487,7 @@ export class AssignButton extends React.Component {
           permitted={permitted}
           role={role}
           wikidataLabels={wikidataLabels}
-          articlesOrItems={articlesOrItems}
+          project={this.state.project}
         />
       );
     }
@@ -527,8 +527,7 @@ AssignButton.propTypes = {
   addAssignment: PropTypes.func,
   initiateConfirm: PropTypes.func,
   deleteAssignment: PropTypes.func,
-  unassigned: PropTypes.array,
-  articlesOrItems: PropTypes.string
+  unassigned: PropTypes.array
 };
 
 const mapDispatchToProps = {
