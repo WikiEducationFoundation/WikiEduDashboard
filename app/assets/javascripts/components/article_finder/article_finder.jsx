@@ -48,6 +48,9 @@ const ArticleFinder = createReactClass({
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
+    if (this.props.location.project) {
+      return this.updateFields('home_wiki', { language: this.props.location.language, project: this.props.location.project });
+    }
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
@@ -384,19 +387,14 @@ const ArticleFinder = createReactClass({
 
     const trackedWikis = trackedWikisMaker(this.props.course);
 
-    const language = this.props.location.project ? this.props.location.language : this.props.home_wiki.language;
-    console.log(language, project);
-
     const options = (
       <SelectedWikiOption
-        language={language}
-        project={project}
+        language={this.props.home_wiki.language}
+        project={this.props.home_wiki.project}
         handleWikiChange={this.handleWikiChange}
         trackedWikis={trackedWikis}
       />
     );
-
-
 
     return (
       <div className="container">
