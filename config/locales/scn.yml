@@ -43,6 +43,7 @@ scn:
     label: Vuci
     new: (novu)
     rating: Classi
+    show_current_version: Ammustra la virsioni attuali
     title: Tìtulu
     title_example: Tìtulu dâ vuci
     view: Talìa vuci
@@ -95,6 +96,7 @@ scn:
     diff_show: Ammustra
     diff_hide: Ammuccia
     title: Tìtulu
+    show_all: Ammustra tutti
   timeline:
     block_custom: Pirsunalizzatu
     empty_week_3: o
@@ -115,4 +117,6 @@ scn:
   survey:
     email:
       headline: Ciau, %{username}
+  article_finder:
+    show_options: Ammustra opzioni
 ...

@@ -188,7 +188,10 @@ fi:
       englanninkielisen Wikipedian artikkeleille.)'
   items:
     items: Kohteet
+    assigned: Määritetyt kohteet
     available: Saatavilla olevat kohteet
+    character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
+      välisenä aikana.
     edited_none: Ei muokattuja kohteita vielä.
   assignments:
     article: Artikkeli %{title} on nyt annettu tehtäväksi sinulle.
@@ -199,6 +202,7 @@ fi:
     assign_other: Anna artikkeli tehtäväksi tai poista se
     add_available:
       articles: Lisää saatavilla olevat artikkelit
+      items: Lisää saatavilla olevia kohteita
     add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
     add_available_submit: Lisää artikkelit
     assign_self: Anna itsellesi artikkeli tehtäväksi
@@ -528,6 +532,7 @@ fi:
     user_suggestions: 'Käyttäjien ehdotukset:'
     user_suggestions_prompt:
       articles: Ehdotuksesi artikkelin muokkaajille
+      items: Ehdotuksesi kohteen muokkaajille
     view_other: Selaa muita kampanjoita
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
