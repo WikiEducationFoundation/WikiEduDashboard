@@ -149,6 +149,8 @@ uk:
       між початковою і кінцевою датами. Панель витягує внесок у домашній вікі цієї
       програми, а також інших вікі, де є завдання або доступна стаття.
     deleted: (вилучено)
+    does_not_exist: Стаття не існує. Створіть чернетку і призначте її собі, щоб отримати
+      підказки.
     edited: Редаговані статті
     edited_by: 'Відредаговано:'
     edited_mobile: Статті
@@ -228,7 +230,8 @@ uk:
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити/вилучити статтю
-    add_available: Додати доступні статті
+    add_available:
+      articles: Додати доступні статті
     add_available_placeholder: Додавання однієї назви статті або URL-посилання в одному
       рядку
     add_available_submit: Додати статті
@@ -390,7 +393,6 @@ uk:
     archived: Архівні курси
     actions: Дії
     articles: Статті
-    articles_none: Цей курс ще не редагував жодні статті.
     article_viewer: Оглядач статей
     articles_i_am_reviewing: Статті, рецензовані мною
     articles_i_will_create: Я буду створювати статті
@@ -401,7 +403,6 @@ uk:
       available_articles: Доступні статті
       available_reviews: Статті однокласників
     assignment_end: Кінець завдання
-    assignments_none: Цей курс не має заданих статей.
     assignment_start: Початок завдання
     calendar:
       legend: Легенда
@@ -553,8 +554,6 @@ uk:
     dismiss_survey: Приховати
     dismiss_survey_confirm: Ви впевнені, що хочете назавжди приховати це опитування?
     download_stats_data: Завантажити статистику
-    does_not_exist: Стаття не існує. Створіть чернетку і призначте її собі, щоб отримати
-      підказки.
     duration: Тривалість курсу
     edit_count: Кількість редагувань
     edit_course_dates: Редагувати дати курсу
@@ -665,7 +664,8 @@ uk:
     private: Приватний
     published: 'Ваш курс було опубліковано! Студенти можуть записатись на нього, перейшовши
       за таким URL:'
-    rating_feedback: 'Передбачена оцінка статті:'
+    rating_feedback:
+      articles: 'Передбачена оцінка статті:'
     requested_accounts: Запити на облікові записи
     requested_accounts_alert:
       one: Очікує %{count} запит на обліковий запис.
@@ -739,7 +739,8 @@ uk:
       у Вікісховище.
     user_recent_uploads: Недавні завантаження
     user_suggestions: 'Пропозиції користувача:'
-    user_suggestions_prompt: Ваші пропозиції редакторам статті
+    user_suggestions_prompt:
+      articles: Ваші пропозиції редакторам статті
     view_other: Переглянути інші кампанії
     view: Перегляд курсу
     view_doc: Очікувана кількість всіх переглядів статей, що редагувались записаними
@@ -776,7 +777,6 @@ uk:
     all_courses: Усі програми
     archived: Архівовані програми
     articles_i_am_reviewing: Статті, оглянуті мною
-    articles_none: У цьому проєкті ще немає редагованих статей
     assignment_headings:
       available_reviews: Доступно для огляду
     assignment_end: Кінець події

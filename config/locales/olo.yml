@@ -11,6 +11,7 @@ olo:
   articles:
     edited: Kohendetut kirjutukset
     edited_mobile: Kirjutukset
+    edited_none: '%{title} ei ole kohendannuh ni yhty kirjutustu.'
     rating: Kluassu
     title: Rubriekku
     view: Ozuta stuat't'u

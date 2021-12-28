@@ -135,6 +135,7 @@ ast:
     edited: Artículos editaos
     edited_by: 'Editáu por:'
     edited_mobile: Artículos
+    edited_none: '%{title} nun editó nengún artículu.'
     filter:
       wiki_all: Toes
       new: Nuevos
@@ -211,7 +212,8 @@ ast:
     title_too_large: El títulu nun tendría de pasar los 255 caráuteres
     assignees: Encargáu(os)
     assign_other: Asinar un artículu
-    add_available: Añadir artículos disponibles
+    add_available:
+      articles: Añadir artículos disponibles
     add_available_placeholder: Añade un títulu d'artículu o una URL per llinia
     add_available_submit: Amestar artículos
     assign_self: Asiname un artículu
@@ -314,9 +316,7 @@ ast:
     archived: Cursos archivaos
     actions: Aiciones
     articles: Artículos
-    articles_none: Esti cursu nun editó nengún artículu.
     assignment_end: Fin de la xera
-    assignments_none: Esti cursu nun tien artículos asinaos.
     assignment_start: Entamu de la xera
     calendar:
       legend: Lleenda
@@ -483,7 +483,8 @@ ast:
     private: Priváu
     published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
       la siguiente URL:'
-    rating_feedback: 'La puntuación prevista pal artículu ye:'
+    rating_feedback:
+      articles: 'La puntuación prevista pal artículu ye:'
     requested_accounts: Cuentes solicitaes
     requested_accounts_alert_view: Ver
     review_timeline: 'Agora, revisa''l cronograma de trabayu, y personalízalu según
@@ -541,7 +542,6 @@ ast:
   courses_generic:
     all_courses: Tolos programes
     archived: Programes archivaos
-    articles_none: Inda nun hai artículos editaos nesti proyeutu.
     assignment_end: Fin del socesu
     assignments_none: Esti proyeutu nun tien artículos asinaos.
     assignment_start: Principiu del socesu

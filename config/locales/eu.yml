@@ -140,6 +140,8 @@ eu:
       eskuratzen ditu, baita Lan edo Artikulu Eskuragarri bat daukaten beste edozein
       wikietakoak ere.
     deleted: (ezabatua)
+    does_not_exist: Artikulua ez da existitzen. Proba orria sortu eta eman zeure izena
+      iradokizunak jasotzeko.
     edited: Editatutako artikuluak
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
@@ -218,7 +220,8 @@ eu:
     title_too_large: Izenburuak ez du 255 karaktere baino gehiago izan behar
     assignees: Artikulu-egilea(k)
     assign_other: Artikulu bat esleitu
-    add_available: Gehitu artikulu erabilgarri bat
+    add_available:
+      articles: Gehitu artikulu erabilgarri bat
     add_available_placeholder: Gehitu artikulu izenburu bat edo URL linea bakoitzeko
     add_available_submit: Artikuluak gehitu
     assign_self: Neure buruari artikulu bat esleitu
@@ -334,9 +337,7 @@ eu:
     archived: Artxibatutako ikastaroak
     actions: Ekintzak
     articles: Artikuluak
-    articles_none: Ikastaro honek ez du artikulurik editatu.
     assignment_end: Lana amaitu
-    assignments_none: Ikastaro honek ez du esleitutako artikulurik.
     assignment_start: Lana hasi
     calendar:
       legend: Legenda
@@ -462,8 +463,6 @@ eu:
     dismiss_survey: Baztertu
     dismiss_survey_confirm: Ziur zaude inkesta betiko baztertu nahi duzula?
     download_stats_data: Estatistikak jaitsi
-    does_not_exist: Artikulua ez da existitzen. Proba orria sortu eta eman zeure izena
-      iradokizunak jasotzeko.
     duration: Ikastaroaren iraupena
     edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu
@@ -555,7 +554,8 @@ eu:
     private: Pribatua
     published: 'Argitaratu da zure ikastaroa! Ikasleek ondorengo URLa bisitatuz eman
       dezakete izena ikastaroan:'
-    rating_feedback: 'Aurreikusten den artikuluaren ebaluazioa:'
+    rating_feedback:
+      articles: 'Aurreikusten den artikuluaren ebaluazioa:'
     requested_accounts: Eskatu kontua
     requested_accounts_alert_view: Ikusi
     review_timeline: 'Orain, berrikusi kronograma hau eta zure beharretara egokitu.
@@ -620,7 +620,8 @@ eu:
       gehitu Wikimedia Commonsera.
     user_recent_uploads: Azken igoerak
     user_suggestions: 'Lankide iradokizunak:'
-    user_suggestions_prompt: Artikulu honen editoreentzako zure iradokizunak
+    user_suggestions_prompt:
+      articles: Artikulu honen editoreentzako zure iradokizunak
     view_other: Beste kanpainak ikusi
     view: Ikastaroa ikusi
     view_doc: Izena emandako editoreek aldatutako artikuluen ikustaldi guztien batura
@@ -647,7 +648,6 @@ eu:
     add_campaign: Kanpainia gehitu
     all_courses: Programa guztiak
     archived: Artxibatutako programak
-    articles_none: Ez dago proiektu honi buruzko artikulurik oraindik.
     assignment_end: Kronogramaren amaiera
     assignments_none: Proiektu honi ez zaio artikulurik gehitu.
     assignment_start: Kronogramaren hasiera

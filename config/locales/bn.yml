@@ -15,6 +15,7 @@
 # Author: Tahmid
 # Author: Tahmid02016
 # Author: Titodutta
+# Author: Yahya
 # Author: আজিজ
 # Author: আফতাবুজ্জামান
 ---
@@ -81,6 +82,7 @@ bn:
     all: কর্মকাণ্ড
     label: কর্মকাণ্ড
   articles:
+    articles: নিবন্ধ
     deleted: (অপসারিত)
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
@@ -104,8 +106,14 @@ bn:
     view_on_wiki: উইকিতে দেখুন
     wiki: উইকি
     wp10: কাঠামোগত সম্পূর্ণতা
+  items:
+    items: আইটেম
+    available: উপলব্ধ আইটেম
+    edited: সম্পাদিত আইটেমসমূহ
   assignments:
     title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
+    add_available:
+      items: উপলব্ধ আইটেমগুলো যুক্ত করুন
     assign_self: নিজেকে একটি প্রবন্ধে নিয়োজিত করুন
     assign_tooltip: একটি বরাদ্দকৃত নিবন্ধ হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের পরিকল্পনা
       করছেন।

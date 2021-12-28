@@ -111,7 +111,10 @@ const Details = createReactClass({
 
   handleMultiWikiChange(wikis) {
     wikis = wikis.map(wiki => wiki.value);
-    const { id, ...home_wiki } = this.props.course.home_wiki;
+    const home_wiki = {
+      language: this.props.course.home_wiki.language || 'www',
+      project: this.props.course.home_wiki.project
+    };
     wikis = CourseUtils.normalizeWikis(wikis, home_wiki);
     this.props.updateCourse({ ...this.props.course, wikis });
   },

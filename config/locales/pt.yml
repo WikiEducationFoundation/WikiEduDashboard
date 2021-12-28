@@ -150,6 +150,8 @@ pt:
       na wiki de acolhimento deste programa, assim como nas outras wikis para as quais
       houver um artigo atribuído ou disponível.
     deleted: (apagado)
+    does_not_exist: O artigo não existe. Crie uma página de testes e atribua a si
+      próprio para receber sugestões.
     edited: Artigos editados
     edited_by: 'Editado por:'
     edited_mobile: Artigos
@@ -230,7 +232,8 @@ pt:
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Aluno(s)
     assign_other: Atribuir um artigo
-    add_available: Adicionar artigos disponíveis
+    add_available:
+      articles: Adicionar artigos disponíveis
     add_available_placeholder: Adicionar um título de artigo ou URL por linha
     add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
@@ -394,7 +397,6 @@ pt:
     archived: Cursos arquivados
     actions: Ações
     articles: Artigos
-    articles_none: Este curso não editou nenhum artigo.
     article_viewer: Leitor de artigos
     articles_i_am_reviewing: Artigos que estou a rever entre pares
     articles_i_will_create: Artigos que vou criar
@@ -405,7 +407,6 @@ pt:
       available_articles: Artigos disponíveis
       available_reviews: Artigos de colegas
     assignment_end: Fim do trabalho
-    assignments_none: Este curso não tem artigos atribuídos.
     assignment_start: Início do trabalho
     calendar:
       legend: Legenda
@@ -565,8 +566,6 @@ pt:
     dismiss_survey_confirm: Tem a certeza de que deseja ignorar permanentemente este
       inquérito?
     download_stats_data: Descarregar as estatísticas
-    does_not_exist: O artigo não existe. Crie uma página de testes e atribua a si
-      próprio para receber sugestões.
     duration: Duração do curso
     edit_count: Contador de edições
     edit_course_dates: Editar datas do curso
@@ -678,7 +677,8 @@ pt:
     private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
-    rating_feedback: 'A avaliação prevista para o artigo é:'
+    rating_feedback:
+      articles: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
     requested_accounts_alert:
       one: '%{count} conta solicitada pendente.'
@@ -754,7 +754,8 @@ pt:
       ficheiro multimédia para a wiki Wikimedia Commons.
     user_recent_uploads: Carregamentos recentes
     user_suggestions: 'Sugestões do utilizador:'
-    user_suggestions_prompt: As suas sugestões para os editores do artigo
+    user_suggestions_prompt:
+      articles: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
     view: Ver Curso
     view_doc: Estimativa das visitas a artigos editados por editores inscritos, desde
@@ -791,7 +792,6 @@ pt:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_i_am_reviewing: Artigos que estou a rever
-    articles_none: Não há ainda artigos editados neste projeto.
     assignment_headings:
       available_reviews: Disponível para revisão
     assignment_end: Fim do evento

@@ -77,7 +77,15 @@ describe 'the course page', type: :feature, js: true do
     end
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
-    (1..article_count).each do |i|
+    (1...article_count / 2).each do |i|
+      create(:article,
+             id: i,
+             title: "Article #{i}",
+             namespace: 0,
+             wiki_id:  home_wiki.id,
+             rating: ratings[(i + 5) % 10])
+    end
+    (article_count / 2..article_count).each do |i|
       create(:article,
              id: i,
              title: "Article #{i}",
@@ -246,12 +254,15 @@ describe 'the course page', type: :feature, js: true do
   describe 'articles edited view' do
     it 'displays a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
-      # List of articles
       sleep 1
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
+    end
 
-      # Sorting
+    it 'sorts Wikipedia articles by class' do
+      js_visit "/courses/#{slug}/articles"
+      sleep 1
+
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
       first_rating = page.find(:css, 'table.articles', match: :first).first('td .rating p')
@@ -262,6 +273,14 @@ describe 'the course page', type: :feature, js: true do
       expect(new_first_rating).to have_content '-'
       title = page.find(:css, 'table.articles', match: :first).first('td .title')
       expect(title).to have_content 'es:wiktionary:Article'
+    end
+
+    it 'does not show ratings for non Wikipedia articles' do
+      js_visit "/courses/#{slug}/articles"
+      sleep 1
+      rows = page.all('tr.article').count
+      ratings = page.all('.rating').count
+      expect(rows).to be > ratings
     end
 
     it 'includes a list of available articles' do

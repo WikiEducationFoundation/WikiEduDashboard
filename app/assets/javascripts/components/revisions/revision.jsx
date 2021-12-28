@@ -9,17 +9,20 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
   const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
+  const isWikipedia = revision.wiki.project === 'wikipedia';
+
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">
-        <p className="rating_num hidden">{revision.rating_num}</p>
-        <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>
-        <div className="tooltip dark">
+        {isWikipedia && <p className="rating_num hidden">{revision.rating_num}</p>}
+        {isWikipedia && <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>}
+        {isWikipedia && <div className="tooltip dark">
           <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`, { class: revision.rating || '' })}</p>
-        </div>
+          {/* eslint-disable-next-line */}
+        </div>}
       </td>
       <td>
-        <div className={ratingMobileClass}><p>{revision.pretty_rating || '-'}</p></div>
+        {isWikipedia && <div className={ratingMobileClass}><p>{revision.pretty_rating || '-'}</p></div>}
         <a href={revision.article_url} target="_blank" className="inline"><p className="title">{formattedTitle}&nbsp;<small>{subtitle}</small></p></a>
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>

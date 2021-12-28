@@ -82,6 +82,7 @@ br:
     edited: Pennadoù kemmet
     edited_by: 'Kemmet gant :'
     edited_mobile: Pennadoù
+    edited_none: '%{title} n''en deus kemmet pennad ebet.'
     hide: Kuzhat
     label: Pennadoù
     loading: Kargañ pennadoù...
@@ -115,7 +116,8 @@ br:
     wp10: Anterinded frammus
   assignments:
     assignees: Deverkadenn(où)
-    add_available: Ouzhpennañ ur pennad hag a c'haller kaout
+    add_available:
+      articles: Ouzhpennañ ur pennad hag a c'haller kaout
     bibliography: Levrlennadur
     clone: Eilañ
     confirm_add_available: Ha sur eo e fell deoc'h ouzhpennañ %{title}?
@@ -188,7 +190,6 @@ br:
     archived: Kentel diellaouet
     actions: Oberoù
     articles: Pennadoù
-    articles_none: Gant ar gentel-mañ n'eus bet kemmet pennad ebet.
     article_viewer: Lenner pennadoù
     articles_i_am_reviewing: Pennadoù a adlennan evel keneil
     assignment_headings:
@@ -197,7 +198,6 @@ br:
       available_articles: Pennadoù a c'haller kaout
       available_reviews: Pennadoù kenskolidi
     assignment_end: Dibenn deverkañ
-    assignments_none: Ar gentel-mañ n'he deus pennad ebet deverket.
     assignment_start: Deroù deverkañ
     calendar:
       legend: Alc'hwez
@@ -311,7 +311,6 @@ br:
       link: Kemer perzh er sontadeg
   courses_generic:
     articles_i_am_reviewing: Pennadoù a adlennan
-    articles_none: N'eus pennad ebet kemmet evit ar raktres-se.
     assignment_end: Dibenn an darvoud
     assignments_none: Ar raktres-mañ n'eus pennad ebet deverket dezhañ.
     assignment_start: Deroù an darvoud

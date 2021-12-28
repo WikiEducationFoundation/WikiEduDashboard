@@ -147,6 +147,8 @@ ar:
       والانتهاء أدناه، تسحب لوحة المعلومات المساهمات من الويكي الرئيسي لهذا البرنامج،
       بالإضافة إلى أية مواقع ويكي أخرى يوجد لها واجب أو مقالة متاحة.
     deleted: (المحذوفة)
+    does_not_exist: هذه المقالة غير موجودة، أنشئ صفحة ملعب وعين نفسك لها لتتلقى اقتراحات
+      بشأنها.
     edited: المقالات التي عُدلت
     edited_by: 'التعديلات بواسطة:'
     edited_mobile: المقالات
@@ -221,7 +223,8 @@ ar:
     title_too_large: يجب أن لا يزيد العنوان عن عدد 255 محرف
     assignees: المخصص له(م)
     assign_other: تعيين مقال
-    add_available: إضافة مقالات متاحة
+    add_available:
+      articles: إضافة مقالات متاحة
     add_available_placeholder: أضف عنوان مقالة أو مسارا واحد لكل سطر
     add_available_submit: إضافة مقالات
     assign_self: تعيين مقالة لنفسي
@@ -372,7 +375,6 @@ ar:
     archived: دورات مؤرشفة
     actions: الإجراءات
     articles: المقالات
-    articles_none: هذه الدورة لم تحرر أية مقالات.
     article_viewer: عارض المقالات
     articles_i_am_reviewing: مقالات أشارك في مراجعتها
     assignment_headings:
@@ -381,7 +383,6 @@ ar:
       available_articles: المقالات المتاحة
       available_reviews: مقالات زملاء الدراسة
     assignment_end: نهاية التخصيص
-    assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بدء التعيين
     calendar:
       legend: العنوان التفسيري
@@ -521,8 +522,6 @@ ar:
     dismiss_survey: تجاهل
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
     download_stats_data: إحصاءات التنزيل
-    does_not_exist: هذه المقالة غير موجودة، أنشئ صفحة ملعب وعين نفسك لها لتتلقى اقتراحات
-      بشأنها.
     duration: مدة الدورة
     edit_count: عدد التعديلات
     edit_course_dates: تواريخ دورة التحرير
@@ -623,7 +622,8 @@ ar:
     private: خاص
     published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة المسار
       التالي:'
-    rating_feedback: 'التقييم المتنبأ لهذه المقالة هو:'
+    rating_feedback:
+      articles: 'التقييم المتنبأ لهذه المقالة هو:'
     requested_accounts: الحسابات المطلوبة
     requested_accounts_alert:
       one: '%{count} الحساب المطلوب معلق.'
@@ -692,7 +692,8 @@ ar:
       ​​كومنز.
     user_recent_uploads: أحدث المرفوعات
     user_suggestions: 'اقتراحات المستخدم:'
-    user_suggestions_prompt: اقتراحاتك لمحرري المقالة
+    user_suggestions_prompt:
+      articles: اقتراحاتك لمحرري المقالة
     view_other: عرض حملات أخرى
     view: عرض الدورة
     view_doc: العدد المقدر للمشاهدات لمقالات تم تحريرها بواسطة المحررين المسجلين منذ
@@ -727,7 +728,6 @@ ar:
     all_courses: كل البرامج
     archived: البرامج المؤرشفة
     articles_i_am_reviewing: المقالات التي أراجعها
-    articles_none: لا توجد مقالات محررة لهذا المشروع حتى الآن.
     assignment_headings:
       available_reviews: متاحة للمراجعة
     assignment_end: نهاية الحدث

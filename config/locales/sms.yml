@@ -9,7 +9,10 @@ sms:
       decimal_units:
         format: '%n%u'
   application:
+    cookie_consent_acknowledge: Fiʹttjam
     cookie_consent_see_more: Lââʹssteâđ
+    greeting: Tiõrv!
+    home: Ouddseidd
     log_in: Ǩeeʹrjtõõđ sizz
     log_out: Ǩeeʹrjtõõđ åålǥas
     request_account_create: Raaj tobdldõõǥǥ
@@ -17,7 +20,12 @@ sms:
     details: Teâđ
   articles:
     deleted: (jaukkuum)
+    edited_mobile: Artikkeeʹl
+    filter:
+      wiki_all: Puk
     hide: Čiõǥǥ
+    history: (historia)
+    label: Artikkeeʹl
     see_more: Lââʹssteâđ
     view: Čuäʹjet artikkeeʹl
     articles_short: Artikkeeʹl
@@ -26,10 +34,13 @@ sms:
   assignments:
     article_link: Artikkel
     add_available_submit: Lââʹzzet artikkeeʹlid
+    bibliography: Bibliografia
     remove: Jaukkâd
+    select: Vaʹlljed
   campaign:
     alert_user_id: Õõʹnni
     created_at: Peiʹvvmieʹrr
+    course: Kurss
   categories:
     add_category: Lââʹzzet kategoria
     add_psid: Lââʹzzet PetScan PSID
@@ -43,6 +54,7 @@ sms:
     template_name: Maall nõmm
     remove: Jaukkâd
   courses:
+    all_courses: Puk kuurs
     course: Kurss
     course_description: Kuurs
     courses: Kuurs
@@ -58,6 +70,7 @@ sms:
     delete_course: Jaukkâd kuurs
     delete_suggestion: Jaukkâd
     duration: Kuurs pešttmõš
+    features_feedback: 'Automaattlaž eʹtǩǩõõzz:'
     feedback: Maacctõs
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
@@ -104,12 +117,15 @@ sms:
     special_users:
       new:
         form_placeholder: Õõʹnninõmm
+  suggestions:
+    editing: Muʹttemeʹtǩǩõõzz
   training:
     page: Seidd
   users:
     contribution_statistics: Muʹttemstatistiikk
     first_name: Risttnõmm
     last_name: Sokknõmm
+    references_count: Lââʹzztum teâttkääiv
     name: Nõmm
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm

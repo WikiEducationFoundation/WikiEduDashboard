@@ -126,7 +126,8 @@ eo:
     article_link: Artikolo
     already_exists: Ĉi tiu asigno jam ekzistas!
     assign_other: Asigni artikolon
-    add_available: Aldoni haveblajn artikolojn
+    add_available:
+      articles: Aldoni haveblajn artikolojn
     add_available_submit: Aldoni artikolojn
     assign_self: Asigni artikolon al mi
     bibliography: Bibliografio

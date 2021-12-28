@@ -132,7 +132,8 @@ cy:
     title_too_large: Uchafswm y llythrennau / symbolau = 255
     assignees: Neilltuwyd ar gyfer
     assign_other: Neilltuwch ar gyfer
-    add_available: Ychwanegwch erthyglau sydd ar gael
+    add_available:
+      articles: Ychwanegwch erthyglau sydd ar gael
     add_available_submit: Ychwanegwch erthyglau
     assign_self: Neilltuo erthygl i fi fy hun
     assign_tooltip: Erthygl a neilltuwyd yw un yr ydych yn bwriadur ei chreu neu ei
@@ -250,14 +251,12 @@ cy:
     archived: Cyrsiau a Archifwyd
     actions: Gweithrediadau
     articles: Erthyglau
-    articles_none: Nid yw aelodau'r cwrs yma wedi golygu unrhyw erthygl.
     assignment_headings:
       assigned_articles: Erthyglau a aseiniwyd
       assigned_reviews: Adolygiadau a Neilltuwyd neu Aseiniwyd
       available_articles: Erthyglau ar Gael
       available_reviews: Erthyglau'r Dosbarth
     assignment_end: Diwedd yr Aseiniad
-    assignments_none: Nid oes erthyglau wedi'u neilltuo ar y cwrs yma.
     assignment_start: Dechrau'r Aseiniad
     calendar:
       legend: Allwedd
@@ -435,7 +434,8 @@ cy:
       eraill i Gomin Wicimedia.
     user_recent_uploads: Uwchlwythiadau Diweddar
     user_suggestions: 'Awgrymiadau''r Defnyddiwr:'
-    user_suggestions_prompt: Eich awgrymiadau chi - i olygyddion yr erthygl
+    user_suggestions_prompt:
+      articles: Eich awgrymiadau chi - i olygyddion yr erthygl
     view_other: Gweld ymgyrchoedd eraill
     view: Gweld y Cyrsiau
     view_page: Gweld Tudalen y Cwrs
@@ -457,7 +457,6 @@ cy:
     add_campaign: Ychwanegu ymgyrch
     all_courses: Yr holl Raglenni
     archived: Rhaglenni a Archifwyd
-    articles_none: Does dim erthyglau wedi'u golygu ar y prosiect hwn hyd yma.
     assignment_headings:
       available_reviews: Yn Barod ar Gyfer eu Hadolygu
     assignment_end: Diwedd y Digwyddiad

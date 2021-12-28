@@ -164,7 +164,8 @@ sk:
     title_too_large: Názov by nemal presiahnuť 255 znakov
     assignees: Priraďovač(i)
     assign_other: Zadať článok
-    add_available: Pridať dostupné články
+    add_available:
+      articles: Pridať dostupné články
     add_available_submit: Pridať články
     assign_self: Zadať si článok
     assign_tooltip: Priradený článok je ten, ktorý plánujete vytvoriť alebo vylepšiť.
@@ -200,9 +201,7 @@ sk:
     archived: Archivované kurzy
     actions: Akcie
     articles: Články
-    articles_none: Počas tohto kurzu neboli upravené žiadne články.
     assignment_end: Koniec kurzu
-    assignments_none: Tento kurz nemá žiadne priradené články.
     assignment_start: Začiatok kurzu
     calendar:
       legend: Legenda

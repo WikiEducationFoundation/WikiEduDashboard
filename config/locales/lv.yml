@@ -55,6 +55,7 @@ lv:
     edited_by: Labotājs
     label: Aktivitāte
   articles:
+    articles: Raksti
     article_development: (raksta attīstība)
     assigned: Piešķirtie raksti
     available: Pieejamie raksti
@@ -66,6 +67,7 @@ lv:
     edited: Labotie raksti
     edited_by: 'Labotāji:'
     edited_mobile: Raksti
+    edited_none: '%{title} nav labojis nevienu rakstu.'
     hide: Paslēpt
     history: (vēsture)
     label: Raksti
@@ -85,7 +87,8 @@ lv:
   assignments:
     article_link: Raksts
     assign_other: Piešķirt rakstu
-    add_available: Pievienot pieejamos rakstus
+    add_available:
+      articles: Pievienot pieejamos rakstus
     add_available_submit: Pievienot rakstus
     assign_self: Piešķirt sev rakstu
     bibliography: Bibliogrāfija
@@ -143,7 +146,6 @@ lv:
     archived: Arhivētie kursi
     actions: Darbības
     articles: Raksti
-    articles_none: Šajā kursā nav labots neviens raksts.
     assignment_headings:
       assigned_articles: Piešķirtie raksti
       available_articles: Pieejamie raksti

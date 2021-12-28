@@ -136,6 +136,7 @@ es:
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
+    edited_none: '%{title} no ha editado ningún artículo.'
     hide: Ocultar
     history: (historial)
     label: Artículos
@@ -200,7 +201,8 @@ es:
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
-    add_available: Añadir artículos disponibles
+    add_available:
+      articles: Añadir artículos disponibles
     add_available_placeholder: Añade un título de artículo o un URL por renglón
     add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
@@ -304,12 +306,10 @@ es:
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
-    articles_none: En este curso no se ha editado ningún artículo.
     assignment_headings:
       available_articles: Artículos disponibles
       available_reviews: Artículos de compañeros
     assignment_end: Fin de la tarea
-    assignments_none: Este curso no tiene artículos asignados.
     assignment_start: Inicio de la tarea
     calendar:
       legend: Leyenda
@@ -533,7 +533,8 @@ es:
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     user_suggestions: 'Sugerencias de usuario:'
-    user_suggestions_prompt: Tus sugerencias para los editores del artículo
+    user_suggestions_prompt:
+      articles: Tus sugerencias para los editores del artículo
     view_other: Ver otras campañas
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
@@ -560,7 +561,6 @@ es:
     add_campaign: Añadir campaña
     all_courses: Todos los programas
     archived: Programas archivados
-    articles_none: No hay artículos editados para este proyecto aún.
     assignment_headings:
       available_reviews: Disponibles para revisión
     assignment_end: Final del evento

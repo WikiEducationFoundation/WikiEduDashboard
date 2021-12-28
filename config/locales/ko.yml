@@ -94,18 +94,22 @@ ko:
     edited_by: '편집자 :'
     label: 활동 내역
   articles:
+    articles: 문서
     article_not_found: 이 문서는 아직 생성되지 않았습니다.
     articles_shown: '%{total}개 중 %{count}개 표시 중'
     assigned: 할당된 문서
+    assignments_none: 아직 할당된 문서가 없습니다.
     available: 이용 가능한 글
     next: 다음
     previous: 이전
     article_title: 문서 제목
     assigned_to: 할당됨
     deleted: (삭제됨)
+    does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
+    edited_none: 아직 편집한 문서가 없습니다.
     filter:
       wiki_all: 모두
       new: 새 항목
@@ -140,13 +144,22 @@ ko:
     view_on_wiki: 위키에서 보기
     edit_size: 편집 크기
     wiki: 위키
+  items:
+    items: 항목
+    assigned: 할당된 항목
+    assignments_none: 아직 할당된 항목이 없습니다.
+    available: 사용 가능한 항목
+    edited: 편집된 항목
+    edited_none: 아직 편집한 항목이 없습니다.
   assignments:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     article_link: 문서
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     assign_other: 문서 할당/제거
-    add_available: 읽을 수 있는 글 추가
+    add_available:
+      articles: 읽을 수 있는 글 추가
+      items: 사용 가능한 항목 추가
     add_available_placeholder: 줄마다 문서 제목이나 URL을 추가합니다
     add_available_submit: 문서 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
@@ -155,6 +168,7 @@ ko:
     no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
     remove: 제거
     reviewers: 검토자
+    review_other: 동료 평가 할당/제거
     review_self: 문서 미리보기
     sandbox_draft_link: 연습장 초안
     select: 선택
@@ -202,7 +216,6 @@ ko:
     already_enrolled: 이미 %{title}에 참여하고 계세요!
     actions: 행동
     articles: 문서
-    articles_none: 본 코스는 어떠한 문서도 편집한 적이 없습니다.
     article_viewer: 문서 뷰어
     articles_i_am_reviewing: 동료 검사 중인 문서
     calendar:
@@ -254,7 +267,6 @@ ko:
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
     download_stats_data: 다운로드 통계
-    does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     duration: 과정 기간
     edit_count: 편집 수
     edit_course_dates: 코스 날짜 편집하기
@@ -312,7 +324,8 @@ ko:
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
     please_log_in: 로그인해 주십시오.
     private: 비공개
-    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
+    rating_feedback:
+      articles: '이 글의 예측된 평가는 다음과 같습니다:'
     requested_accounts_alert_view: 보기
     school: 학교
     search_courses: 강의 검색
@@ -364,7 +377,6 @@ ko:
     all_courses: 모든 프로그램
     archived: 보존된 프로그램
     articles_i_am_reviewing: 검토하고 있는 문서
-    articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 이벤트 끝
     assignment_start: 이벤트 시작
     cancel: 취소
@@ -426,13 +438,17 @@ ko:
       title: '%{prefix} 선택'
   metrics:
     last_update: 최근 통계 업데이트
+    late_update_part1: 새 업데이트가 예정되었습니다
+    late_update_part2: 이는 업데이트가 예상보다 더 오래 소요되거나 업데이트가 차단되는 문제임을 의미할 수 있습니다.
+    no_update: 대시보드는 아직 이 프로그램의 데이터를 가져오지 못했습니다.
+    enqueued_update: 이 프로그램은 업데이트 대기열에 추가되었습니다.
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_created_generic: 만든 문서
     articles_created_wikidata: 만들어진 아이템
     articles_edited: 문서 편집됨
     articles_edited_generic: 수정된 페이지
-    articles_edited_wikidata: 수정된 아이템
+    articles_edited_wikidata: 편집된 항목
     characters: 글자
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜

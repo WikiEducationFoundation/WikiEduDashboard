@@ -5,6 +5,7 @@
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: ArlandGa
+# Author: Daud I.F. Argana
 # Author: Hidayatsrf
 # Author: Joseagush
 # Author: Masjawad99
@@ -21,6 +22,7 @@ id:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: Rb
           million: Jt
@@ -80,7 +82,7 @@ id:
     hide: Sembunyikan
     loading: Memuat artikel...
     rating_docs:
-      start: Mulai kelas - artikel awal dengan banyak ruang untuk perbaikan
+      start: Kelas %{class} — artikel awal dengan banyak ruang untuk perbaikan
     view: Lihat Artikel
     view_all: Tampilkan semua
     wiki: Wiki

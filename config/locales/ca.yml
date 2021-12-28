@@ -135,6 +135,8 @@ ca:
       wiki principal d'aquest programa, juntament amb qualsevol altra wiki on hi ha
       un article disponible o assignat.
     deleted: (suprimit)
+    does_not_exist: Aquest article no existeix. Creeu una pàgina de proves i assigneu-vos-hi
+      per rebre suggeriments.
     edited: Articles editats
     edited_by: 'Editat per:'
     edited_mobile: Articles
@@ -210,7 +212,8 @@ ca:
     title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
     assign_other: Assigna un article
-    add_available: Afegeix articles disponibles
+    add_available:
+      articles: Afegeix articles disponibles
     add_available_placeholder: Afegiu un títol d'article o URL per línia
     add_available_submit: Afegeix articles
     assign_self: Assigna'm un article
@@ -328,9 +331,7 @@ ca:
     archived: Cursos arxivats
     actions: Accions
     articles: Articles
-    articles_none: Aquest curs no ha editat cap article.
     assignment_end: Final de la tasca
-    assignments_none: Aquest curs no té cap article disponible.
     assignment_start: Inici de la tasca
     calendar:
       legend: Llegenda
@@ -472,8 +473,6 @@ ca:
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     download_stats_data: Descarrega les estadístiques
-    does_not_exist: Aquest article no existeix. Creeu una pàgina de proves i assigneu-vos-hi
-      per rebre suggeriments.
     duration: Durada del curs
     edit_count: Recompte d’edicions
     edit_course_dates: Edita les dates del curs
@@ -624,7 +623,8 @@ ca:
       tipus de fitxer a Wikimedia Commons.
     user_recent_uploads: Càrregues recents
     user_suggestions: Suggeriments d'usuaris
-    user_suggestions_prompt: Els vostres suggeriments pels editors de l'article
+    user_suggestions_prompt:
+      articles: Els vostres suggeriments pels editors de l'article
     view_other: Visualitza altres campanyes
     view: Vegeu el curs
     view_doc: El nombre estimat de les visites a articles editats pels estudiants
@@ -654,7 +654,6 @@ ca:
     add_campaign: Afegiu un curs
     all_courses: Tots els programes
     archived: Programes arxivats
-    articles_none: Encara no hi han articles editats en aquest projecte.
     assignment_end: Final de l’esdeveniment
     assignments_none: Aquest projecte no té articles assignats.
     assignment_start: Inici de l’esdeveniment

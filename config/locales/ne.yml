@@ -170,7 +170,8 @@ ne:
     title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुन सक्दैन
     assignees: निर्दिष्ट गरिएका(हरू)
     assign_other: लेख निर्दिष्ट गर्नुहोस्
-    add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available:
+      articles: एक उपलब्ध लेख थप्नुहोस्
     add_available_placeholder: हरेक हरफमा एक शीर्षक या युआरएल थप्नुहोस्
     add_available_submit: लेखहरू थप्नुहोस्
     assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
@@ -250,12 +251,10 @@ ne:
     archived: अभिलेख गरिएका पाठ्यक्रमहरू
     actions: विभागहरू
     articles: लेखहरू
-    articles_none: यो पाठ्यक्रमले कुनै पनि लेख सम्पादन गरेको छैन।
     assignment_headings:
       assigned_articles: निर्दिष्ट गरिएका लेखहरू
       available_articles: उपलब्ध लेखहरू
     assignment_end: असाइन्मेन्ट अन्त
-    assignments_none: यो पाठ्यक्रममा कुनै पनि निर्दिष्ट लेखहरू छैनन्।
     assignment_start: असाइन्मेन्ट सुरु
     calendar:
       legend: लेजेन्ड

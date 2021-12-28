@@ -76,9 +76,11 @@ lb:
     edited_by: Geännert Vum
     label: Aktivitéit
   articles:
+    articles: Artikelen
     article_not_found: Dësen Artikel gouf nach net ugeluecht.
     article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
+    assignments_none: Et gëtt nach keng zougedeelt Artikelen.
     available: Disponibel Artikelen
     no_available: Keng Artikelen disponibel
     next: Nächst
@@ -88,6 +90,7 @@ lb:
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
+    edited_none: Et gëtt nach keng geännert Artikelen.
     filter:
       wiki_all: All
       new: Nei
@@ -126,6 +129,11 @@ lb:
     edit_size: Gréisst änneren
     wiki: Wiki
     articles_short: Artikelen
+  items:
+    items: Elementer
+    available: Disponibel Elementer
+    edited: Geännert Elementer
+    edited_none: Et gëtt nach keng geännert Elementer.
   articles_wikidata:
     articles_short: Elementer
   articles_generic:
@@ -133,7 +141,8 @@ lb:
   assignments:
     article_link: Artikel
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
-    add_available: Disponibel Artikelen derbäisetzen
+    add_available:
+      articles: Disponibel Artikelen derbäisetzen
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     clone: Eng Kopie maachen
@@ -310,7 +319,8 @@ lb:
     title: Titel
     update_stats: Statistiken aktualiséieren
     user_suggestions: 'Benotzervirschléi:'
-    user_suggestions_prompt: Är Virschléi fir d'Auteure vum Artikel
+    user_suggestions_prompt:
+      articles: Är Virschléi fir d'Auteure vum Artikel
     view_other: Aner Campagne kucken
     view: Cours weisen
     view_wiki: Op Wikipedia kucken

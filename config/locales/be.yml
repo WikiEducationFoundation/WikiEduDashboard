@@ -122,7 +122,8 @@ be:
     already_exists: Заданне ўжо ёсць!
     assignees: Выканаўца(-цы)
     assign_other: Прызначыць артыкул
-    add_available: Дадаць даступны артыкул
+    add_available:
+      articles: Дадаць даступны артыкул
     assign_self: Прызначыць сабе артыкул
     confirm_add_available: Упэўнены, што хочаце дадаць %{title}?
     confirm_addition: Упэўнены, што хочаце прызначыць %{title} карыстальніку %{username}?
@@ -150,9 +151,7 @@ be:
     archived: Архіваваныя курсы
     actions: Дзеянні
     articles: Артыкулы
-    articles_none: У курсе няма праўленых артыкулаў.
     assignment_end: Канец задання
-    assignments_none: У курсе няма прызначаных артыкулаў.
     assignment_start: Пачатак задання
     calendar:
       legend: Апісанне
@@ -313,7 +312,6 @@ be:
       notification_message: Прыміце ўдзел у нашым апытанні для гэтага курса.
       link: Прайсці апытанне
   courses_generic:
-    articles_none: Пакуль няма адрэдагаваных артыкулаў для гэтага праекта.
     assignment_end: Канец раскладу
     assignments_none: У праекце няма прызначаных артыкулаў
     assignment_start: Пачатак раскладу

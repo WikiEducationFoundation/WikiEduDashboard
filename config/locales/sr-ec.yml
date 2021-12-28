@@ -133,9 +133,12 @@ sr-ec:
       матичног викија овог програма, заједно са свим другим викијима за које постоји
       задатак или доступни чланак за уређивање.
     deleted: (обрисано)
+    does_not_exist: Чланак не постоји. Направите страницу у Песку и доделите је себи
+      да бисте добили предлоге.
     edited: Уређени чланци
     edited_by: 'Изменио/ла:'
     edited_mobile: Чланци
+    edited_none: '%{title} није уредио нити један чланак.'
     filter:
       wiki_all: Све
       new: Ново
@@ -205,7 +208,8 @@ sr-ec:
     title_too_large: Наслов не би требало да има више од 255 знакова
     assignees: Додељено
     assign_other: Додели/уклони чланак
-    add_available: Додај доступне чланке
+    add_available:
+      articles: Додај доступне чланке
     add_available_placeholder: Додајте један наслов чланка или URL у једном реду
     add_available_submit: Додај чланке
     assign_self: Додели ми чланак
@@ -331,14 +335,12 @@ sr-ec:
     archived: Архивирани курсеви
     actions: Радње
     articles: Чланци
-    articles_none: Овај курс није уредио ниједан чланак.
     assignment_headings:
       assigned_articles: Додељени чланци
       assigned_reviews: Додељени прегледи
       available_articles: Додељени чланци
       available_reviews: Чланци одељења
     assignment_end: Крај додељивања
-    assignments_none: Овај курс не садржи додељене чланке.
     assignment_start: Почетак додељивања
     calendar:
       legend: Легенда
@@ -465,8 +467,6 @@ sr-ec:
     dismiss_survey: Одбаци
     dismiss_survey_confirm: Да ли сте сигурни да желите да одбаците ову анкету?
     download_stats_data: Преузми статистику
-    does_not_exist: Чланак не постоји. Направите страницу у Песку и доделите је себи
-      да бисте добили предлоге.
     duration: Трајање курса
     edit_count: Број измена
     edit_course_dates: Измени датуме курса
@@ -557,7 +557,8 @@ sr-ec:
     private: Приватно
     published: 'Ваш курс је објављен! Студенти се могу уписати тако што ће посетити
       следећу адресу:'
-    rating_feedback: 'Предвиђена оцена за чланак је:'
+    rating_feedback:
+      articles: 'Предвиђена оцена за чланак је:'
     requested_accounts: Захтевани налози
     requested_accounts_alert_view: Преглед
     review_timeline: 'Сада прегледајте временски оквир за израду задатка, прилагођавајући
@@ -625,7 +626,8 @@ sr-ec:
       датотеку на Викимедијину оставу.
     user_recent_uploads: Скорашња отпремања
     user_suggestions: 'Предлози корисника:'
-    user_suggestions_prompt: Ваши предлози за уреднике чланка
+    user_suggestions_prompt:
+      articles: Ваши предлози за уреднике чланка
     view_other: Погледај остале кампање
     view: Види курс
     view_doc: Процењени број прегледа чланака који су уређени од стране уписаних уредника
@@ -657,7 +659,6 @@ sr-ec:
     add_campaign: Додај кампању
     all_courses: Сви програми
     archived: Архивирани програми
-    articles_none: Још увек не постоје измењени чланци за овај пројекат.
     assignment_headings:
       available_reviews: Доступно за преглед
     assignment_end: Крај догађаја

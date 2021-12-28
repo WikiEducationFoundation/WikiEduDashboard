@@ -158,9 +158,12 @@ pt-br:
       desse programa, assim como outras wiki para as quais houver um Artigo Designado
       ou Disponível.
     deleted: (apagado)
+    does_not_exist: O artigo não existe. Crie uma página de testes e atribua a você
+      próprio para receber sugestões.
     edited: Artigos editados
     edited_by: 'Editado por:'
     edited_mobile: Artigos
+    edited_none: '%{title} não editou nenhum artigo.'
     filter:
       wiki_all: Todos
       new: Novo
@@ -238,7 +241,8 @@ pt-br:
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
     assign_other: Atribuir um artigo
-    add_available: Adicionar artigos disponíveis
+    add_available:
+      articles: Adicionar artigos disponíveis
     add_available_placeholder: Adicionar um título de artigo ou URL por linha
     add_available_submit: Adicionar artigos
     assign_self: Atribuir um artigo a mim mesmo
@@ -401,7 +405,6 @@ pt-br:
     archived: Cursos arquivados
     actions: Ações
     articles: Artigos
-    articles_none: Este curso não editou nenhum artigo.
     article_viewer: Visualizador de artigos
     articles_i_am_reviewing: Artigos que estou revisando
     articles_i_am_updating: Artigos eu estou atualizando.
@@ -411,7 +414,6 @@ pt-br:
       available_articles: Artigos disponíveis
       available_reviews: Artigos dos colegas
     assignment_end: Fim da atribuição
-    assignments_none: Este curso não possui artigos atribuídos.
     assignment_start: Início da atribuição
     calendar:
       legend: Legenda
@@ -570,8 +572,6 @@ pt-br:
     dismiss_survey: Dispensar
     dismiss_survey_confirm: Tem certeza que deseja ignorar permanentemente este questionário?
     download_stats_data: Baixar as estatísticas
-    does_not_exist: O artigo não existe. Crie uma página de testes e atribua a você
-      próprio para receber sugestões.
     duration: Duração do curso
     edit_count: Editar conta
     edit_course_dates: Editar data do Curso
@@ -679,7 +679,8 @@ pt-br:
     private: Privado
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
-    rating_feedback: 'A avaliação prevista para o artigo é:'
+    rating_feedback:
+      articles: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
     requested_accounts_alert:
       one: '%{count} conta solicitada pendente.'
@@ -755,7 +756,8 @@ pt-br:
       de mídia para o Wikimedia Commons.
     user_recent_uploads: Últimos Envios
     user_suggestions: 'Sugestões do usuário:'
-    user_suggestions_prompt: As suas sugestões para os editores do artigo
+    user_suggestions_prompt:
+      articles: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
     view: Ver curso
     view_doc: Estimativa das visitas a artigos editados por editores inscritos, desde
@@ -791,7 +793,6 @@ pt-br:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_i_am_reviewing: Artigos que estou revisando
-    articles_none: Não há ainda artigos editados neste projeto.
     assignment_headings:
       available_reviews: Disponível para revisão
     assignment_end: Fim do evento
