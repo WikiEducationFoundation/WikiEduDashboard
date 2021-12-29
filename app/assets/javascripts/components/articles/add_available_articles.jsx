@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextAreaInput from '../common/text_area_input';
 import CourseUtils from '../../utils/course_utils.js';
+import ArticleUtils from '../../utils/article_utils';
 
 const AddAvailableArticles = createReactClass({
   displayName: 'AddAvailableArticles',
@@ -64,17 +65,20 @@ const AddAvailableArticles = createReactClass({
   },
 
   render() {
+    const isWikidata = this.props.project === 'wikidata';
+    const inputId = isWikidata ? 'add_available_items' : 'add_available_articles';
+    const inputPlaceholder = isWikidata ? I18n.t('assignments.add_available_placeholder_wikidata') : I18n.t('assignments.add_available_placeholder');
     return (
       <div className="pop__padded-content">
         <TextAreaInput
-          id="add_available_articles"
+          id={inputId}
           onChange={this.updateInput}
           value={this.state.assignments}
           value_key="assignments"
           editable
-          placeholder={I18n.t('assignments.add_available_placeholder')}
+          placeholder={inputPlaceholder}
         />
-        <button className="button border pull-right" onClick={this.submit}>{I18n.t('assignments.add_available_submit')}</button>
+        <button className="button border pull-right" onClick={this.submit}>{I18n.t(`assignments.${ArticleUtils.projectSuffix(this.props.project, 'add_available_submit')}`)}</button>
       </div>
     );
   }

@@ -194,6 +194,7 @@ en:
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
     see_more: See more
+    search: Search Wikipedia for an Article
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
     show_current_version_with_authorship_highlighting: "Current Version w/ Authorship Highlighting"
@@ -235,6 +236,7 @@ en:
     does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Items Edited
     edited_none: There are no edited items yet.
+    search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
     view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
 
@@ -251,18 +253,21 @@ en:
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
     assign_other: Assign/remove an article
-    add_available:
-      articles: Add available articles
-      items: Add available items
+    assign_other_wikidata: Assign/remove an item
+    add_available: Add available articles
+    add_available_wikidata: Add available items
     add_available_placeholder: Add one article title or URL per line
+    add_available_placeholder_wikidata: Add one item title or URL per line
     add_available_submit: Add articles
+    add_available_submit_wikidata: Add items
     assign_self: Assign myself an article
+    assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     bibliography: Bibliography
     clone: Clone
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this article assignment?
+    confirm_deletion: Are you sure you want to delete this assignment?
     editors: Assigned to
     group_members: Group members
     label: Assign
@@ -277,10 +282,8 @@ en:
     random_peer_review:
       confirm_addition: >
         In most cases, you should only use this after all students have been assigned their main articles.
-
         Alternatively, you can ask your students to choose their own peer reviews or
         you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
-
         Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
         chosen from among their classmates' articles.
       heading: Assign random peer reviews
@@ -290,6 +293,7 @@ en:
     reviewers: Reviewer(s)
     review_other: Assign/remove a peer review
     review_self: Review an article
+    review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
@@ -297,7 +301,6 @@ en:
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
       must add the following wiki to this course: %{wiki}
-
   blocks:
     milestones:
       title: Milestones
@@ -419,9 +422,12 @@ en:
     articles_i_am_updating: Articles I'm updating
     assignment_headings:
       assigned_articles: Assigned Articles
+      assigned_articles_wikidata: Assigned Items
       assigned_reviews: Assigned Reviews
       available_articles: Available Articles
+      available_articles_wikidata: Available Items
       available_reviews: Classmates' Articles
+      available_reviews_wikidata: Classmates' Items
     assignment_end: Assignment End
     assignment_start: Assignment Start
     calendar:
@@ -664,9 +670,7 @@ en:
     please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
-    rating_feedback:
-      articles: "Predicted rating for the article is:"
-      items: "Predicted rating for the item is:"
+    rating_feedback: "Predicted rating for the article is:"
     requested_accounts: Requested accounts
     requested_accounts_alert:
       one: "%{count} requested account pending."
@@ -734,9 +738,7 @@ en:
     user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
     user_recent_uploads: Recent Uploads
     user_suggestions: "User Suggestions:"
-    user_suggestions_prompt:
-      articles: "Your suggestions for the editors of the article"
-      items: "Your suggestions for the editors of the item"
+    user_suggestions_prompt: "Your suggestions for the editors of the article"
     view_other: View other campaigns
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
@@ -776,6 +778,7 @@ en:
     articles_i_am_reviewing: Articles I'm reviewing
     assignment_headings:
       available_reviews: Available to Review
+      available_reviews_wikidata: Available to Review
     assignment_end: Event End
     assignments_none: This project has no assigned articles.
     assignment_start: Event Start
@@ -989,7 +992,7 @@ en:
       Wikipedia's plagiarism detection system uses Turnitin/iThenticate to compare new edits with published text.
       These reports are not 100% accurate. For example, a direct quote with proper attribution
       may trigger a false positive plagiarism report. Please review the student's contributions
-      and the details of the report before taking any action. (If you find that the change — or
+      and the details of the report before taking any action. (If you find that the change — or
       the entire article — is not accessible, the content may have been deleted for copyright reasons.)
     recent_edits: Recent Edits
     recent_uploads: Recent Uploads
@@ -1226,11 +1229,15 @@ en:
     name: Name
     none: There are no participants.
     no_articles: No articles
+    no_articles_wikidata: No items
     no_revisions: This editor has made no revisions.
     no_highlighting: "No text from the current version of the article is attributed to this editor. Check the page history to see their edits."
     number_of_articles:
       one: "%{count} article"
       other: "%{count} articles"
+    number_of_articles_wikidata:
+      one: "%{count} items"
+      other: "%{count} items"
     profile: profile
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
@@ -1286,7 +1293,6 @@ en:
       across all edits that added more than they removed. This number doesn't
       necessarily reflect the amount of new content the user added. Restoring
       removed content will also increase this total.
-
     role:
       description: Role in course
       visitor: Visitor
@@ -1430,35 +1436,45 @@ en:
       why_are_you_here: "What would you like to do?"
 
   article_finder:
-    page_assessment_class: "Class"
-    completeness_estimate: "Completeness Score"
-    average_views: "Average views per day"
     add_available_article: "Add as available article"
-    remove_article: "Remove article"
-    minimum_views_label: "Minimum Views"
-    no_article_found: "No articles found in this category"
-    search_placeholder: "Enter your keyword"
-    search: "Search"
-    tools: "Tools"
-    show_options: "Show Options"
-    hide_options: "Hide Options"
-    keyword_search: "Keyword Search"
-    category_search: "Category Search"
+    add_available_article_wikidata: "Add as available item"
+    article_finder: "Article Finder"
+    article_finder_wikidata: "Item Finder"
     article_quality: "Article Quality(0-100)"
-    more_results: "More Results"
-    fetched_articles: "Fetched Articles"
-    filtered_articles: "Filtered Articles"
-    searching_articles: "Searching Articles"
+    article_quality_wikidata: "Item Quality(0-100)"
+    assign_article_self: "Assign yourself"
+    average_views: "Average views per day"
+    category_search: "Category Search"
+    completeness_estimate: "Completeness Score"
     fetching_assessments: "Fetching Page Assessments"
-    fetching_revisions: "Fetching Page Revisions"
     fetching_scores: "Fetching Completeness Score"
     fetching_pageviews: "Fetching Page Views"
-    subheading_message: "Let's find a Wikipedia article to work on."
-    article_finder: "Article Finder"
-    submit: "Submit"
+    fetching_revisions: "Fetching Page Revisions"
+    fetched_articles: "Fetched Articles"
+    fetched_articles_wikidata: "Fetched Items"
+    filtered_articles: "Filtered Articles"
+    filtered_articles_wikidata: "Filtered Items"
+    hide_options: "Hide Options"
+    keyword_search: "Keyword Search"
+    minimum_views_label: "Minimum Views"
+    more_results: "More Results"
+    no_article_found: "No articles found in this category"
+    no_article_found_wikidata: "No items found in this category"
+    page_assessment_class: "Class"
     relevanceIndex: "Relevance Index"
-    assign_article_self: "Assign yourself"
+    remove_article: "Remove article"
+    remove_article_wikidata: "Remove items"
+    search: "Search"
+    searching_articles: "Searching Articles"
+    searching_articles_wikidata: "Searching Items"
+    search_placeholder: "Enter your keyword"
+    show_options: "Show Options"
+    subheading_message: "Let's find a Wikipedia article to work on."
+    subheading_message_wikidata: "Let's find a Wikidata item to work on."
+    submit: "Submit"
+    tools: "Tools"
     unassign_article_self: "Unassign Article"
+    unassign_article_self_wikidata: "Unassign Item"
 
   training_status:
     completed: "Completed"

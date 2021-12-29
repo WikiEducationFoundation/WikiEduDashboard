@@ -76,8 +76,7 @@ const getArticle = (assignment, course, labels) => {
 };
 
 const AssignedAssignmentRows = ({
-  assignments = [], course, permitted, role, wikidataLabels,
-  unassign // functions
+  assignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -99,7 +98,7 @@ const AssignedAssignmentRows = ({
   });
 
   const text = role === ASSIGNED_ROLE
-    ? I18n.t('courses.assignment_headings.assigned_articles')
+    ? I18n.t(`courses.assignment_headings.${ArticleUtils.projectSuffix(project, 'assigned_articles')}`)
     : I18n.t('courses.assignment_headings.assigned_reviews');
   const title = (
     <tr key="assigned" className="assignment-section-header">
@@ -112,8 +111,9 @@ const AssignedAssignmentRows = ({
 };
 
 const PotentialAssignmentRows = ({
-  assignments = [], course, permitted, articlesOrItems, role, wikidataLabels,
-  assign // functions
+  assignments = [], course, permitted, role, wikidataLabels,
+  assign, // functions
+  project
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -136,8 +136,8 @@ const PotentialAssignmentRows = ({
   });
 
   const text = role === ASSIGNED_ROLE
-    ? I18n.t(`courses.assignment_headings.available_${articlesOrItems}`)
-    : CourseUtils.i18n('assignment_headings.available_reviews', course.string_prefix);
+    ? I18n.t(`courses.assignment_headings.${ArticleUtils.projectSuffix(project, 'available_articles')}`)
+    : CourseUtils.i18n(`assignment_headings.${ArticleUtils.projectSuffix(project, ' available_reviews')}`, course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>
@@ -161,20 +161,20 @@ const Tooltip = ({ message }) => {
 // Button to add new assignments
 const EditButton = ({
   allowMultipleArticles, current_user, is_open, open, role, student,
-  tooltip, tooltipIndicator, assignmentLength, articlesOrItems
+  tooltip, tooltipIndicator, assignmentLength, project
 }) => {
   let assignText;
   let reviewText;
   if (allowMultipleArticles) {
-    assignText = I18n.t(`assignments.add_available.${articlesOrItems}`);
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'add_available')}`);
   } else if (assignmentLength) {
     assignText = '+/-';
     reviewText = '+/-';
   } else if (student && current_user.id === student.id) {
-    assignText = I18n.t('assignments.assign_self');
-    reviewText = I18n.t('assignments.review_self');
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'assign_self')}`);
+    reviewText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'review_self')}`);
   } else if (current_user.role > 0 || current_user.admin) {
-    assignText = I18n.t('assignments.assign_other');
+    assignText = I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'assign_other')}`);
     reviewText = I18n.t('assignments.review_other');
   }
 
@@ -194,20 +194,20 @@ const EditButton = ({
   );
 };
 
-const FindArticles = ({ course, open }) => {
+const FindArticles = ({ course, open, project, language }) => {
+  const btnText = project === 'wikidata' ? I18n.t('items.search') : I18n.t('articles.search');
   return (
     <tr className="assignment find-articles-section">
       <td>
-        <Link to={`/courses/${course.slug}/article_finder`}>
+        <Link to={{ pathname: `/courses/${course.slug}/article_finder`, project: `${project}`, language: `${language}` }}>
           <button className="button border small link" onClick={open}>
-            Search Wikipedia for an Article
+            {btnText}
           </button>
         </Link>
       </td>
     </tr>
   );
 };
-
 
 // Main Component
 export class AssignButton extends React.Component {
@@ -376,8 +376,6 @@ export class AssignButton extends React.Component {
       isStudentsPage, is_open, open, permitted, role, student, tooltip_message
     } = this.props;
 
-    const articlesOrItems = ArticleUtils.articlesOrItems(course.home_wiki.project);
-
     let showButton;
     if (!permitted && assignments.length > 1) {
       showButton = (
@@ -408,7 +406,7 @@ export class AssignButton extends React.Component {
           tooltip={tooltip}
           tooltipIndicator={tooltipIndicator}
           assignmentLength={isStudentsPage && assignments.length}
-          articlesOrItems={articlesOrItems}
+          project={this.state.project}
         />
       );
     }
@@ -471,6 +469,7 @@ export class AssignButton extends React.Component {
           permitted={permitted}
           role={role}
           wikidataLabels={wikidataLabels}
+          project={this.state.project}
         />
       );
     }
@@ -488,14 +487,15 @@ export class AssignButton extends React.Component {
           permitted={permitted}
           role={role}
           wikidataLabels={wikidataLabels}
-          articlesOrItems={articlesOrItems}
+          project={this.state.project}
         />
       );
     }
 
     // Add the FindArticles button
     if (role === ASSIGNED_ROLE && !isStudentsPage) {
-      assignmentRows.push(<FindArticles course={course} open={open} key="find-articles-link" />);
+      const wikiLanguage = this.state.language === null ? 'www' : this.state.language;
+      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} language={wikiLanguage} key="find-articles-link" />);
     }
 
     return (
