@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 describe PushCourseToSalesforce do
-  let(:course) { create(:course, flags: flags, expected_students: 51, withdrawn: true) }
-  let(:content_expert) { create(:admin) }
+  let(:course) { create(:course, flags: flags, expected_students: 51, withdrawn: withdrawn) }
+  let(:content_expert) { create(:admin, username: 'abcdefg') }
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
   let(:week) { create(:week, course: course) }
+  let(:withdrawn) { false }
 
   before do
     Setting.create(key: 'content_expert_salesforce_ids',
@@ -55,6 +56,15 @@ describe PushCourseToSalesforce do
         expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
         expect(subject.instance_variable_get(:@sandbox_block)).not_to be_nil
         expect(subject.instance_variable_get(:@mainspace_block)).not_to be_nil
+      end
+    end
+
+    context 'when the course is withdrawn' do
+      let(:withdrawn) { true }
+
+      it 'runs without error' do
+        expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+        expect(subject.result).to eq(true)
       end
     end
 
