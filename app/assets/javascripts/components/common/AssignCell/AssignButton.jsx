@@ -494,7 +494,8 @@ export class AssignButton extends React.Component {
 
     // Add the FindArticles button
     if (role === ASSIGNED_ROLE && !isStudentsPage) {
-      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} language={this.state.language} key="find-articles-link" />);
+      const wikiLanguage = this.state.language === null ? 'www' : this.state.language;
+      assignmentRows.push(<FindArticles course={course} open={open} project={this.state.project} language={wikiLanguage} key="find-articles-link" />);
     }
 
     return (
