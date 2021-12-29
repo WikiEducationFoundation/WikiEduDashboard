@@ -225,6 +225,7 @@ en:
 
   items:
     items: Items
+    article_not_found: "This item has not been created yet."
     assigned: Assigned Items
     assignments_none: There are no assigned items yet.
     available: Available Items
@@ -893,23 +894,29 @@ en:
   instructor_view:
     article_assignments: "%{prefix} Assignments"
     assignments_table:
-      article_name: Article Name
+      article_name: Name
       current_stage: Current Stage
       relevant_links: Relevant Links
     assigned_articles: Assigned Articles
+    assigned_articles_wikidata: Assigned Articles
     bad_work:
       learn_more: "If student work made the article worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
+      learn_more_wikidata: "If student work made the item worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
       learn_more_button: "Learn More"
       submit_issue: "What are the significant problems with this article?"
+      submit_issue_wikidata: "What are the significant problems with this item?"
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
+    no_assignments_wikidata: "This student currently has no assigned itemss. You can assign an item by using the buttons above."
     overview: "%{prefix} Overview"
     reviewing_articles: Reviewing Articles
+    reviewing_articles: Reviewing Items
     select_student:
       title: "Select %{prefix}"
       content: to assign and view article assignments
+      content_wikidata: to assign and view article assignments
 
   metrics:
     label: Course Activity
