@@ -173,6 +173,7 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+    find: Find Articles
     hide: Hide
     history: (history)
     label: Articles
@@ -238,6 +239,7 @@ en:
     does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Items Edited
     edited_none: There are no edited items yet.
+    find: Find Items
     preview: Brief preview of Item
     search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
@@ -266,6 +268,7 @@ en:
     assign_self: Assign myself an article
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
+    assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
     bibliography: Bibliography
     clone: Clone
     confirm_add_available: Are you sure you want to add %{title}?
@@ -306,6 +309,7 @@ en:
     review_self: Review an article
     review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
+    review_tooltip_wikidata: This is for item(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
     warning_untracked_wiki: >
@@ -637,6 +641,7 @@ en:
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
     my_articles: My Articles
+    my_articles_wikidata: My Items
     needs_update: Schedule Data Update
     new_week: Add New Week
     new_account_check_username: Check username availability
@@ -918,7 +923,7 @@ en:
     select_student:
       title: "Select %{prefix}"
       content: to assign and view article assignments
-      content_wikidata: to assign and view article assignments
+      content_wikidata: to assign and view item assignments
 
   metrics:
     label: Course Activity
