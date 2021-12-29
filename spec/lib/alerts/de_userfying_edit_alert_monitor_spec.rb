@@ -65,12 +65,12 @@ describe DeUserfyingEditAlertMonitor do
     before do
       populate_content_expert
       populate_articles
-      allow(mntor).to receive(:edits).and_return(editsfeed)
+      allow_any_instance_of(described_class).to receive(:edits).and_return(editsfeed)
       allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
     end
 
     it 'emails a content expert per edit' do
-      mntor.create_alerts
+      described_class.create_alerts_for_deuserfying_edits
       expect(Alert.all.pluck(:email_sent_at).compact.count).to eq editsfeed.count
     end
 
