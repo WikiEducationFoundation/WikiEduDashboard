@@ -6,6 +6,7 @@ import createReactClass from 'create-react-class';
 import { initiateConfirm } from '../../../actions/confirm_actions';
 import { randomPeerAssignments } from '../../../actions/assignment_actions';
 import { REVIEWING_ROLE } from '../../../constants';
+import ArticleUtils from '../../../utils/article_utils';
 
 const RandomPeerAssignButton = createReactClass({
   displayName: 'RandomPeerAssignButton',
@@ -25,10 +26,10 @@ const RandomPeerAssignButton = createReactClass({
     let confirmMessage;
     let onConfirm;
     if (randomAssignmentsCount <= 0) {
-      confirmMessage = I18n.t('assignments.random_peer_review.limit_exceeded', { maximum: peerReviewCount });
+      confirmMessage = I18n.t(`assignments.random_peer_review.${ArticleUtils.projectSuffix(this.props.course.home_wiki.project, 'limit_exceeded')}`, { maximum: peerReviewCount });
       onConfirm = () => {};
     } else {
-      confirmMessage = I18n.t('assignments.random_peer_review.confirm_addition', { count: randomAssignmentsCount, maximum: peerReviewCount });
+      confirmMessage = I18n.t(`assignments.random_peer_review.${ArticleUtils.projectSuffix(this.props.course.home_wiki.project, 'confirm_addition')}`, { count: randomAssignmentsCount, maximum: peerReviewCount });
       onConfirm = () => this.props.randomPeerAssignments({ course_slug: this.props.course.slug });
     }
 
@@ -47,7 +48,7 @@ const RandomPeerAssignButton = createReactClass({
         </button>
         <div className="tooltip">
           <p>
-            {I18n.t('assignments.random_peer_review.tooltip_message')}
+            {I18n.t(`assignments.random_peer_review.${ArticleUtils.projectSuffix(this.props.course.home_wiki.project, 'tooltip_message')}`)}
           </p>
         </div>
       </div>
