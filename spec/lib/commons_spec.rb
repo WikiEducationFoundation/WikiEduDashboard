@@ -55,8 +55,8 @@ describe Commons do
     it 'gets usage data for a widely-used file' do
       VCR.use_cassette 'commons/get_usage_lots' do
         upload = create(:commons_upload,
-                        id: 54726518,
-                        file_name: 'File:Generic Camera Icon.svg')
+                        id: 1488574,
+                        file_name: 'File:Goblet Glass (Banquet).svg')
         response = described_class.get_usages [upload]
         # The response count is the number of separate API queries that are made
         # to get all the results, at 500 results per query.
