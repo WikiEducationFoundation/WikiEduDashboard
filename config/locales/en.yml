@@ -179,6 +179,7 @@ en:
     loading: Loading articles...
     new: (new)
     none: This course has not edited any articles.
+    preview: Brief preview of Article
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -237,6 +238,7 @@ en:
     does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Items Edited
     edited_none: There are no edited items yet.
+    preview: Brief preview of Item
     search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
     view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
