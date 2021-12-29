@@ -1,3 +1,5 @@
+import ArticleUtils from '../../../../utils/article_utils';
+
 const charactersAddedKey = {
   label: I18n.t('users.chars_added'),
   desktop_only: true,
@@ -22,7 +24,7 @@ const studentListKeys = (course) => {
       sortable: true,
     },
     assignment_title: {
-      label: I18n.t('users.assigned'),
+      label: I18n.t(`users.${ArticleUtils.projectSuffix(course.home_wiki.project, 'assigned')}`),
       desktop_only: true,
       sortable: false
     },
@@ -42,7 +44,7 @@ const studentListKeys = (course) => {
       label: I18n.t('users.references_count'),
       desktop_only: true,
       sortable: true,
-      info_key: 'metrics.references_doc'
+      info_key: `metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`
     },
     total_uploads: {
       label: I18n.t('users.total_uploads'),
