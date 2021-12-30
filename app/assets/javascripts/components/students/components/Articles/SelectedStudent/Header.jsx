@@ -6,6 +6,7 @@ import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 
 // Helper Functions
 import { groupByAssignmentType } from '@components/util/helpers';
+import ArticleUtils from '../../../../../utils/article_utils.js';
 
 // Constants
 import {
@@ -42,7 +43,7 @@ export const Header = ({
           prefix={I18n.t('users.my_assigned')}
           role={ASSIGNED_ROLE}
           student={selected}
-          tooltip_message={I18n.t('assignments.assign_tooltip')}
+          tooltip_message={I18n.t(`assignments.${ArticleUtils.projectSuffix(course.home_wiki.project, 'assign_tooltip')}`)}
           unassigned={assignable}
           wikidataLabels={wikidataLabels}
         />
@@ -55,7 +56,7 @@ export const Header = ({
           prefix={I18n.t('users.my_reviewing')}
           role={REVIEWING_ROLE}
           student={selected}
-          tooltip_message={I18n.t('assignments.review_tooltip')}
+          tooltip_message={I18n.t(`assignments.${ArticleUtils.projectSuffix(course.home_wiki.project, 'review_tooltip')}`)}
           unassigned={reviewable}
           wikidataLabels={wikidataLabels}
         />

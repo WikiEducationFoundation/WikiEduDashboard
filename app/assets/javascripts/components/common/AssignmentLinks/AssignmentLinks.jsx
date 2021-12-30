@@ -85,7 +85,7 @@ AssignmentLinks.propTypes = {
     reviewers: PropTypes.array,
     role: PropTypes.number.isRequired
   }),
-  project: PropTypes.string,
+  project: PropTypes.string.isRequired,
   courseType: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };
