@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ArticleUtils from '../../../../../utils/article_utils';
 
 // Components
 import TextAreaInput from '@components/common/text_area_input.jsx';
 
-export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSubmitting, message }) => {
+export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSubmitting, message, project }) => {
   if (alertStatus.created) {
     return (
       <article className="submit-alert">
@@ -15,7 +16,7 @@ export const SubmitIssuePanel = ({ alertStatus, handleChange, handleSubmit, isSu
 
   return (
     <article className="submit-alert">
-      <p>{I18n.t('instructor_view.bad_work.submit_issue')}</p>
+      <p>{I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(project, 'submit_issue')}`)}</p>
       <form onSubmit={handleSubmit}>
         <TextAreaInput
           id="submit-bad-work-alert"
@@ -41,7 +42,8 @@ SubmitIssuePanel.propTypes = {
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired
+  message: PropTypes.string.isRequired,
+  project: PropTypes.string.isRequired
 };
 
 export default SubmitIssuePanel;

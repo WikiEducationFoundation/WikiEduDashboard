@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import ArticleUtils from '../../../../../utils/article_utils';
 // Components
 import SubmitIssuePanel from '@components/common/ArticleViewer/components/BadWorkAlert/SubmitIssuePanel.jsx';
 
@@ -30,7 +30,7 @@ export class BadWorkAlert extends React.Component {
     return (
       <section className="article-alert">
         <article className="learn-more">
-          <p>{ I18n.t('instructor_view.bad_work.learn_more') }</p>
+          <p>{ I18n.t(`instructor_view.bad_work.${ArticleUtils.projectSuffix(this.props.project, 'learn_more')}`) }</p>
           <a target="_blank" className="button dark" href="/training/instructors/fixing-bad-articles/instructors-role-in-cleanup">
             {I18n.t('instructor_view.bad_work.learn_more_button')}
           </a>
@@ -41,6 +41,7 @@ export class BadWorkAlert extends React.Component {
           handleSubmit={this.handleSubmit}
           isSubmitting={isSubmitting}
           message={message}
+          project={this.props.project}
         />
       </section>
     );
@@ -50,6 +51,7 @@ BadWorkAlert.propTypes = {
   alertStatus: PropTypes.shape({
     created: PropTypes.bool.isRequired
   }).isRequired,
+  project: PropTypes.string.isRequired,
   submitBadWorkAlert: PropTypes.func.isRequired
 };
 

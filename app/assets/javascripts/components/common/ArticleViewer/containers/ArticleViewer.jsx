@@ -303,6 +303,7 @@ export class ArticleViewer extends React.Component {
             showBadArticleAlert && (
               <BadWorkAlert
                 alertStatus={alertStatus}
+                project={this.props.article.project}
                 submitBadWorkAlert={this.submitBadWorkAlert}
               />
             )
