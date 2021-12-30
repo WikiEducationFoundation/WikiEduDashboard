@@ -1,10 +1,12 @@
 import ArticleUtils from '../../../../utils/article_utils';
 
-const charactersAddedKey = {
-  label: I18n.t('users.chars_added'),
-  desktop_only: true,
-  sortable: true,
-  info_key: 'users.character_doc'
+const charactersAddedKey = (project) => {
+  return {
+    label: I18n.t(`users.${ArticleUtils.projectSuffix(project, 'chars_added')}`),
+    desktop_only: true,
+    sortable: true,
+    info_key: 'users.character_doc'
+  };
 };
 
 const wordsAddedKey = {
@@ -15,7 +17,7 @@ const wordsAddedKey = {
 };
 
 const studentListKeys = (course) => {
-  const contentAddedKey = course.home_wiki_bytes_per_word ? wordsAddedKey : charactersAddedKey;
+  const contentAddedKey = course.home_wiki_bytes_per_word ? wordsAddedKey : charactersAddedKey(course.home_wiki.project);
 
   return {
     username: {

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ArticleUtils from '../../utils/article_utils.js';
-
-
 import UserUtils from '../../utils/user_utils.js';
 // import Scroll from 'react-scroll';
 
@@ -36,7 +33,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         } else if (user.activeRevision === true) {
           res = <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
         } else {
-          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t(`users.${ArticleUtils.projectSuffix(article.project, 'no_highlighting')}`)}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+          res = <div key={`legend-${user.name}`} className={'user-legend tooltip-trigger'}><p className={'tooltip dark large'}>{I18n.t('users.no_highlighting')}</p><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
         }
 
         return res;
