@@ -433,6 +433,7 @@ en:
     actions: Actions
     articles: Articles
     article_viewer: Article Viewer
+    article_viewer_wikidata: Item Viewer
     articles_i_am_reviewing: Articles I'm peer reviewing
     articles_i_will_create: Articles I will create
     articles_i_am_updating: Articles I'm updating
@@ -917,7 +918,7 @@ en:
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
-    no_assignments_wikidata: "This student currently has no assigned itemss. You can assign an item by using the buttons above."
+    no_assignments_wikidata: "This student currently has no assigned items. You can assign an item by using the buttons above."
     overview: "%{prefix} Overview"
     reviewing_articles: Reviewing Articles
     reviewing_articles: Reviewing Items
