@@ -254,6 +254,7 @@ en:
   assignments:
     article: The article %{title} is now assigned to you.
     article_link: Article
+    article_link_wikidata: Item
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)

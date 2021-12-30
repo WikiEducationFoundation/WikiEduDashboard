@@ -9,6 +9,7 @@ import GroupMembersLink from './GroupMembersLink';
 import PeerReviewLink from './PeerReviewLink';
 import AllPeerReviewLinks from './AllPeerReviewLinks';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
+import ArticleUtils from '../../../utils/article_utils';
 
 // constants
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
@@ -21,7 +22,7 @@ const interleaveSeparators = (acc, link, index, collection) => {
   return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
 };
 
-const AssignmentLinks = ({ assignment, courseType, user }) => {
+const AssignmentLinks = ({ assignment, courseType, user, project }) => {
   const { article_url, id, role, editors } = assignment;
   const actions = [];
 
@@ -44,7 +45,7 @@ const AssignmentLinks = ({ assignment, courseType, user }) => {
   }
 
   const article = (
-    <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t('assignments.article_link')}</a>
+    <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'article_link')}`)}</a>
   );
 
   let groupMembers;
@@ -84,6 +85,7 @@ AssignmentLinks.propTypes = {
     reviewers: PropTypes.array,
     role: PropTypes.number.isRequired
   }),
+  project: PropTypes.string,
   courseType: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };

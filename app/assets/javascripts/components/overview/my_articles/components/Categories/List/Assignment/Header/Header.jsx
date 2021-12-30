@@ -41,6 +41,7 @@ export const Header = ({
   <header aria-label={`${articleTitle} assignment`} className="header-wrapper">
     <MyArticlesAssignmentLinks
       articleTitle={articleTitle}
+      project={article.project}
       assignment={assignment}
       courseType={course.type}
       current_user={current_user}
