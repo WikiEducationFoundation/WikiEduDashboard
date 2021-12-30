@@ -218,8 +218,7 @@ da:
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assignees: Tildelt til
     assign_other: Tildel en artikel
-    add_available:
-      articles: Tilføj tilgængelige artikler
+    add_available: Tilføj tilgængelige artikler
     add_available_placeholder: Tilføj en artikel-titel eller url pr linje
     add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
@@ -652,8 +651,7 @@ da:
     private: Privat
     published: 'Dit kursus er blevet offentliggjort! Deltagere kan nu indskrives på
       kurset ved at besøge følgende URL:'
-    rating_feedback:
-      articles: 'Anslået vurdering af denne artikel er:'
+    rating_feedback: 'Anslået vurdering af denne artikel er:'
     requested_accounts: Anmodede konti
     requested_accounts_alert:
       one: '%{count} anmodet konto venter.'
@@ -727,8 +725,7 @@ da:
       medier til Wikimedia Commons.
     user_recent_uploads: Seneste uploads
     user_suggestions: 'Brugerforslag:'
-    user_suggestions_prompt:
-      articles: Dine forslag til dem der redigerer denne artikel
+    user_suggestions_prompt: Dine forslag til dem der redigerer denne artikel
     view_other: Vis andre kampagner
     view: Vis kursus
     view_doc: Det anslåede antal visninger af artikler redigeret af tilmeldte brugere
@@ -1424,34 +1421,34 @@ da:
       where_did_you_hear: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
       why_are_you_here: Hvad kunne du tænke dig at gøre?
   article_finder:
-    page_assessment_class: Klasse
-    completeness_estimate: Resultat
-    average_views: Gennemsnitlig visning per dag
     add_available_article: Tilføj som tilgængelig artikel
-    remove_article: Fjern artikel
-    minimum_views_label: Mindste antal visninger
-    no_article_found: Ingen artikler fundet i denne kategori
-    search_placeholder: Skriv dit nøgleord
-    search: Søg
-    tools: Værktøjer
-    show_options: Vis valgmuligheer
-    hide_options: Skjul valgmuligheder
-    keyword_search: Søg via keywords
-    category_search: Kategori søgning
+    article_finder: Artikel-finder
     article_quality: Artikelkvalitet(0-100)
-    more_results: Flere resultater
-    fetched_articles: Hentede artikler
-    filtered_articles: Filtrerede artikler
-    searching_articles: Søger artikler
+    assign_article_self: Tildel dig selv
+    average_views: Gennemsnitlig visning per dag
+    category_search: Kategori søgning
+    completeness_estimate: Resultat
     fetching_assessments: Henter sidevurderinger
-    fetching_revisions: Henter siderevisioner
     fetching_scores: Henter fuldførelsesresultat
     fetching_pageviews: Henter sidevisninger
-    subheading_message: Lad os finde en Wikipedia-artikel at arbejde med.
-    article_finder: Artikel-finder
-    submit: Indsend
+    fetching_revisions: Henter siderevisioner
+    fetched_articles: Hentede artikler
+    filtered_articles: Filtrerede artikler
+    hide_options: Skjul valgmuligheder
+    keyword_search: Søg via keywords
+    minimum_views_label: Mindste antal visninger
+    more_results: Flere resultater
+    no_article_found: Ingen artikler fundet i denne kategori
+    page_assessment_class: Klasse
     relevanceIndex: Relevans-index
-    assign_article_self: Tildel dig selv
+    remove_article: Fjern artikel
+    search: Søg
+    searching_articles: Søger artikler
+    search_placeholder: Skriv dit nøgleord
+    show_options: Vis valgmuligheer
+    subheading_message: Lad os finde en Wikipedia-artikel at arbejde med.
+    submit: Indsend
+    tools: Værktøjer
     unassign_article_self: Ikke-tildelt artikel
   training_status:
     completed: Fuldført

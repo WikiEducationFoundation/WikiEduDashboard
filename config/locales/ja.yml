@@ -167,8 +167,7 @@ ja:
     title_too_large: 題名は半角255文字以下にしてください
     assignees: 課題の提出者
     assign_other: 記事を割り当て
-    add_available:
-      articles: 掲載してある記事を追加
+    add_available: 掲載してある記事を追加
     add_available_placeholder: 1行に記入できる記事名もしくはURLは1件です
     add_available_submit: 記事を追加
     assign_self: 自分に課題を割り当てる
@@ -436,8 +435,7 @@ ja:
     please_log_in: ログインしてください。
     private: 非公開
     published: コースを公開しました！ 以下のURLを開くと、受講者はコースに登録できます。
-    rating_feedback:
-      articles: この記事の推定評価：
+    rating_feedback: この記事の推定評価：
     requested_accounts: アカウント申請
     requested_accounts_alert_view: 表示
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
@@ -487,8 +485,7 @@ ja:
     user_uploads_none: この利用者からウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_recent_uploads: 最近のアップロード
     user_suggestions: 'ユーザーの提案:'
-    user_suggestions_prompt:
-      articles: 記事の編集者に対するアドバイス
+    user_suggestions_prompt: 記事の編集者に対するアドバイス
     view_other: 他の告知を見る
     view: コースを見る
     view_doc: 特定の編集者が個別の記事に初めて編集を加えて以降の、参加編集者が編集した記事の閲覧総数
@@ -785,22 +782,22 @@ ja:
       message: ご利用の%{course_title}コースに関する調査について、お知らせします。この調査にお答えいただき、ウィキペディアを課題に指定された皆さんへのサポート改善にご協力くだされば幸いです。
   article_finder:
     add_available_article: 存在する記事として追加
-    remove_article: 記事を除去
-    no_article_found: このカテゴリには記事がありませんでした
-    search_placeholder: キーワードを入力
-    search: 検索
-    tools: ツール
-    show_options: オプションを表示
+    article_finder: 記事を見つける
+    article_quality: 記事の品質（0-100）
+    assign_article_self: 担当に立候補する
+    category_search: カテゴリ検索
+    fetched_articles: 獲得した記事
     hide_options: オプションを隠す
     keyword_search: キーワード検索
-    category_search: カテゴリ検索
-    article_quality: 記事の品質（0-100）
     more_results: その他の結果
-    fetched_articles: 獲得した記事
+    no_article_found: このカテゴリには記事がありませんでした
+    remove_article: 記事を除去
+    search: 検索
     searching_articles: 記事の検索
+    search_placeholder: キーワードを入力
+    show_options: オプションを表示
     subheading_message: 作業対象のウィキペディア記事を探しましょう。
-    article_finder: 記事を見つける
-    assign_article_self: 担当に立候補する
+    tools: ツール
   training_status:
     due: '%{due_date} 〆切'
     assignment_status: トレーニングの割り当て (%{status})

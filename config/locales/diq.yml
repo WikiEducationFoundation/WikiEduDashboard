@@ -120,8 +120,7 @@ diq:
     article_link: Meqale
     assignees: Çebyayış(i)
     assign_other: Wesiqa cı ke
-    add_available:
-      articles: Mewcud yu wesiqa dek
+    add_available: Mewcud yu wesiqa dek
     bibliography: Bibliyografiye
     clone: Klon kerê
     loading: Çebyayena bena bar....
@@ -312,8 +311,8 @@ diq:
   article_finder:
     page_assessment_class: Sınıfe
     search: Cı geyre
-    tools: Haceti
     submit: Qeyd ke
+    tools: Haceti
   training_status:
     completed: Temam
     continue: Dewam ke

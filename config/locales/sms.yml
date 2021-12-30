@@ -69,6 +69,7 @@ sms:
     data_wikidata: Wikidata-statistiikk
     delete_course: Jaukkâd kuurs
     delete_suggestion: Jaukkâd
+    download_stats_data: Laadd statistiikkid
     duration: Kuurs pešttmõš
     features_feedback: 'Automaattlaž eʹtǩǩõõzz:'
     feedback: Maacctõs
@@ -135,6 +136,6 @@ sms:
     email:
       headline: Tiõrv, %{username}
   article_finder:
-    show_options: Čuäʹjet asetõõzzid
     hide_options: Čiõǥǥ asetõõzzid
+    show_options: Čuäʹjet asetõõzzid
 ...

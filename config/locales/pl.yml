@@ -183,8 +183,7 @@ pl:
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
     assign_other: Zadaj artykuł
-    add_available:
-      articles: Dodaj dostępne artykuły
+    add_available: Dodaj dostępne artykuły
     add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
     add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
@@ -500,8 +499,7 @@ pl:
       do Wikimedia Commons.
     user_recent_uploads: Niedawno przesłane
     user_suggestions: 'Sugestie użytkowników:'
-    user_suggestions_prompt:
-      articles: Twoje sugestie do edytorów tego artykułu
+    user_suggestions_prompt: Twoje sugestie do edytorów tego artykułu
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników
@@ -980,14 +978,14 @@ pl:
       header: Jak się o nas dowiedziałeś?
       why_are_you_here: Co chciałbyś robić?
   article_finder:
-    page_assessment_class: Klasa
-    average_views: Średnia dzienna liczba wyświetleń
-    remove_article: Usuń artykuł
-    no_article_found: Nie znaleziono artykułów w tej kategorii
-    search_placeholder: Wpisz słowo kluczowe
-    tools: Narzędzia
-    more_results: Więcej wyników
-    submit: Wyślij
     assign_article_self: Przydziel się
+    average_views: Średnia dzienna liczba wyświetleń
+    more_results: Więcej wyników
+    no_article_found: Nie znaleziono artykułów w tej kategorii
+    page_assessment_class: Klasa
+    remove_article: Usuń artykuł
+    search_placeholder: Wpisz słowo kluczowe
+    submit: Wyślij
+    tools: Narzędzia
     unassign_article_self: Usuń przypisanie artykułu
 ...

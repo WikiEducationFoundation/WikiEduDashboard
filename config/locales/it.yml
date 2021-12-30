@@ -222,8 +222,7 @@ it:
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna/rimuovi una voce
-    add_available:
-      articles: Aggiungi voci disponibili
+    add_available: Aggiungi voci disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
@@ -1003,16 +1002,16 @@ it:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
   article_finder:
+    category_search: Ricerca per categoria
+    hide_options: Nascondi opzioni
+    keyword_search: Ricerca per parole chiave
     page_assessment_class: Classe
     remove_article: Rimuovi voce
     search: Cerca
-    tools: Strumenti
     show_options: Mostra opzioni
-    hide_options: Nascondi opzioni
-    keyword_search: Ricerca per parole chiave
-    category_search: Ricerca per categoria
     subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
+    tools: Strumenti
   training_status:
     completed: Completato
     continue: Continua

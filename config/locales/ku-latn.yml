@@ -150,23 +150,23 @@ ku-latn:
     email:
       headline: Silav %{username}
   article_finder:
-    page_assessment_class: Pol
-    average_views: Hejmara lênerîna rojane ya nîvekî
-    search_placeholder: Şîfreya xwe binivîse
-    search: Lêgerîn
-    tools: Alav
-    keyword_search: Lêgerîna Peyva Kilîd
-    category_search: Lêgerîna Kategorî
+    article_finder: Peydakera Gotar
     article_quality: Kalîteya Gotar(0-100)
-    more_results: Encamên zêdetir
-    fetched_articles: Gotarên Standî
-    filtered_articles: Fîltreyên Gotaran
-    searching_articles: Lêgerîna Gotaran
+    average_views: Hejmara lênerîna rojane ya nîvekî
+    category_search: Lêgerîna Kategorî
     fetching_assessments: Nirxandinên Rûpelan Stendin
-    fetching_revisions: Sererastkirina Rûpelan Stendin
     fetching_scores: Puana Temamkirinê Stendin
     fetching_pageviews: Lênerîna Rûpelan Standin
+    fetching_revisions: Sererastkirina Rûpelan Stendin
+    fetched_articles: Gotarên Standî
+    filtered_articles: Fîltreyên Gotaran
+    keyword_search: Lêgerîna Peyva Kilîd
+    more_results: Encamên zêdetir
+    page_assessment_class: Pol
+    search: Lêgerîn
+    searching_articles: Lêgerîna Gotaran
+    search_placeholder: Şîfreya xwe binivîse
     subheading_message: Ka em gotareke Wîkîpediyayê bibînin ji bo li serê bixebitî.
-    article_finder: Peydakera Gotar
     submit: Tomar bike
+    tools: Alav
 ...

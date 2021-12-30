@@ -171,8 +171,7 @@ be-tarask:
     already_exists: Заданьне ўжо існуе!
     assignees: Выканаўца(-ы)
     assign_other: Прызначыць/выдаліць артыкул
-    add_available:
-      articles: Дадаць даступныя артыкулы
+    add_available: Дадаць даступныя артыкулы
     assign_self: Прызначыць артыкул сабе
     bibliography: Бібліяграфія
     clone: Клянаваць

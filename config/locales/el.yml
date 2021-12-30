@@ -122,8 +122,7 @@ el:
   assignments:
     article_link: Άρθρο
     assign_other: Αναθέστε ένα άρθρο
-    add_available:
-      articles: Προσθήκη διαθέσιμων άρθρων
+    add_available: Προσθήκη διαθέσιμων άρθρων
     add_available_submit: Προσθήκη λήμματος
     label: Ανάθεση
     loading: Φόρτωση αναθέσεων...
@@ -340,26 +339,26 @@ el:
     supplementary:
       why_are_you_here: Τι θα θέλατε να κάνετε;
   article_finder:
-    page_assessment_class: Κλάση
-    completeness_estimate: Σκορ ολοκληρωτικότητας
-    average_views: Μέσος όρος προβολών ανά ημέρα
     add_available_article: Προσθήκη ως διαθέσιμο άρθρο
-    remove_article: Κατάργηση άρθρου
-    minimum_views_label: Ελάχιστες προβολές
-    no_article_found: Δεν βρέθηκαν άρθρα σε αυτή τη κατηγορία
-    search_placeholder: Εισαγάγετε τη λέξη κλειδιού σας
-    search: Αναζήτηση
-    tools: Εργαλεία
-    show_options: Εμφάνιση επιλογών
+    article_finder: Ευρητής λημμάτων
+    article_quality: Ποιότητα Λήμματος (0-100)
+    assign_article_self: Ανάθεση του εαυτού σας
+    average_views: Μέσος όρος προβολών ανά ημέρα
+    category_search: Αναζήτηση κατηγοριών
+    completeness_estimate: Σκορ ολοκληρωτικότητας
+    filtered_articles: Φιλτραρισμένα άρθρα
     hide_options: Απόκρυψη επιλογών
     keyword_search: Αναζήτηση πληκτρολογίου
-    category_search: Αναζήτηση κατηγοριών
-    article_quality: Ποιότητα Λήμματος (0-100)
+    minimum_views_label: Ελάχιστες προβολές
     more_results: Περισσότερα αποτελέσματα
-    filtered_articles: Φιλτραρισμένα άρθρα
+    no_article_found: Δεν βρέθηκαν άρθρα σε αυτή τη κατηγορία
+    page_assessment_class: Κλάση
+    remove_article: Κατάργηση άρθρου
+    search: Αναζήτηση
     searching_articles: Αναζήτηση λημμάτων
-    article_finder: Ευρητής λημμάτων
+    search_placeholder: Εισαγάγετε τη λέξη κλειδιού σας
+    show_options: Εμφάνιση επιλογών
     submit: Υποβολή
-    assign_article_self: Ανάθεση του εαυτού σας
+    tools: Εργαλεία
     unassign_article_self: Ξεανάθεση άρθρου
 ...

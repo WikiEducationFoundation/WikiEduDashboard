@@ -148,8 +148,7 @@ sq:
     already_exists: Kjo detyrë tashmë ekziston!
     assignees: I/të caktuari(t)
     assign_other: Cakto një artikull
-    add_available:
-      articles: Shto një artikull në dispozicion
+    add_available: Shto një artikull në dispozicion
     add_available_submit: Shto artikuj
     assign_self: Caktoja vetes një artikull
     confirm_add_available: A jeni të sigurt që doni të shtoni %{title}?

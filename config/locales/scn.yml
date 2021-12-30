@@ -89,6 +89,7 @@ scn:
     save: Sarva
     edit_details: Cancia li dittagghî
   recent_activity:
+    article_title: Tìtulu
     image: Mmàggini
     file_name: Nomu dû file
   revisions:

@@ -89,8 +89,7 @@ lt:
     article_link: Straipsnis
     title_too_large: Pavadinimas neturėtų viršyti 255 simbolių
     assign_other: Priskirti straipsnį
-    add_available:
-      articles: Pridėti prieinamą straipsnį
+    add_available: Pridėti prieinamą straipsnį
     assign_self: Priskirti straipsnį sau
     bibliography: Bibliografija
     confirm_add_available: Ar tikrai norite pridėti %{title}?

@@ -109,8 +109,7 @@ en-gb:
     already_exists: This assignment already exists!
     assignees: Assignee(s)
     assign_other: Assign/remove an article
-    add_available:
-      articles: Add available articles
+    add_available: Add available articles
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?

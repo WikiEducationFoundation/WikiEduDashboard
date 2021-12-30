@@ -132,8 +132,7 @@ cy:
     title_too_large: Uchafswm y llythrennau / symbolau = 255
     assignees: Neilltuwyd ar gyfer
     assign_other: Neilltuwch ar gyfer
-    add_available:
-      articles: Ychwanegwch erthyglau sydd ar gael
+    add_available: Ychwanegwch erthyglau sydd ar gael
     add_available_submit: Ychwanegwch erthyglau
     assign_self: Neilltuo erthygl i fi fy hun
     assign_tooltip: Erthygl a neilltuwyd yw un yr ydych yn bwriadur ei chreu neu ei
@@ -434,8 +433,7 @@ cy:
       eraill i Gomin Wicimedia.
     user_recent_uploads: Uwchlwythiadau Diweddar
     user_suggestions: 'Awgrymiadau''r Defnyddiwr:'
-    user_suggestions_prompt:
-      articles: Eich awgrymiadau chi - i olygyddion yr erthygl
+    user_suggestions_prompt: Eich awgrymiadau chi - i olygyddion yr erthygl
     view_other: Gweld ymgyrchoedd eraill
     view: Gweld y Cyrsiau
     view_page: Gweld Tudalen y Cwrs
@@ -818,25 +816,25 @@ cy:
       where_did_you_hear: Sut, neu gan bwy y clywsoch am Wici Addysg?
       why_are_you_here: Beth hoffech ei wneud?
   article_finder:
-    page_assessment_class: Dosbarth
-    completeness_estimate: Sgor Cyflawnrwydd (Completeness)
-    average_views: Cyfartaledd y fiws bob yn ddiwrnod
-    remove_article: Tynnu'r erthygl
-    no_article_found: Dim erthygl yn y categori yma
-    search_placeholder: Nodwch eich cod-mynediad
-    search: Chwilio
-    tools: Taclau
-    show_options: Dangos y Dewisiadau
-    hide_options: Cuddio'r Opsiynau
-    keyword_search: Chwilio gydag Allweddair
-    category_search: Chwilio o fewn Categoriau
+    article_finder: Canfod Erthygl
     article_quality: Safon yr Erthygl/au (0-100)
-    more_results: Rhagor o Ganlyniadau
+    average_views: Cyfartaledd y fiws bob yn ddiwrnod
+    category_search: Chwilio o fewn Categoriau
+    completeness_estimate: Sgor Cyflawnrwydd (Completeness)
     fetched_articles: Erthyglau a Gynaeafwyd
     filtered_articles: Erthyglau wedi'u Ffiltro
+    hide_options: Cuddio'r Opsiynau
+    keyword_search: Chwilio gydag Allweddair
+    more_results: Rhagor o Ganlyniadau
+    no_article_found: Dim erthygl yn y categori yma
+    page_assessment_class: Dosbarth
+    remove_article: Tynnu'r erthygl
+    search: Chwilio
     searching_articles: Chwilio o fewn Erthyglau
-    article_finder: Canfod Erthygl
+    search_placeholder: Nodwch eich cod-mynediad
+    show_options: Dangos y Dewisiadau
     submit: Anfon
+    tools: Taclau
   training_status:
     completed: Cwbwlhawyd
     continue: Parhau

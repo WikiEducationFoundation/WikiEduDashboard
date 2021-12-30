@@ -210,9 +210,8 @@ qqq:
       prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
-    add_available:
-      articles: Button to add article titles to the list of articles available for
-        program participants to work on
+    add_available: Button to add article titles to the list of articles available
+      for program participants to work on
     assign_self: Button to assign an article to self
     confirm_add_available: Confirmation message for adding an article as an assignment
       that is available for other participants to work on. "title" is a wiki page
@@ -619,7 +618,10 @@ qqq:
   recent_activity:
     active_courses: Header for a list of courses associated with an article (Wiki
       Ed only)
-    article_title: Label for a table column of article titles
+    article_title: |-
+      Label for a table column of article titles
+
+      {{Identical|Title}}
     datetime: Label for the date and time of an activity
     did_you_know_eligible: Label for "Did You Know" Eligible tab (Wiki Ed only)
     image: |-
@@ -858,41 +860,41 @@ qqq:
     follow_up:
       message: Survey invitation email text. (Wiki Ed only)
   article_finder:
-    page_assessment_class: |-
-      Table header label for page assessment class of articles
-      {{Identical|Class}}
-    completeness_estimate: Table header label for ORES estimation scores of articles
-    average_views: Table header label for average page views of articles
     add_available_article: Button label to add an article finder result to available
       articles
-    remove_article: Button label for removing an article
-    minimum_views_label: Input label for minimum views filter
-    no_article_found: Message indicating no search results
-    search_placeholder: Article finder search bar placeholder
-    search: Label for search bar in Article Finder {{Identical|Search}}
-    tools: Label for tools table column {{Identical|Tools}}
-    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
-      Search}}
-    category_search: Radio Button label for selecting category based search.
+    article_finder: Title heading for article finder
     article_quality: Slider lable for article quality filter
-    more_results: Button label for fetching more search results {{Identical|More Results}}
-    fetched_articles: Label indicating count of fetched results {{Identical|Fetched
-      Articles}}
-    filtered_articles: Label indicating count of filtered results {{Identical|Filtered
-      Articles}}
-    searching_articles: Loading spinner label indicating fetching of articles
+    assign_article_self: Button label to assign an article to self
+    average_views: Table header label for average page views of articles
+    category_search: Radio Button label for selecting category based search.
+    completeness_estimate: Table header label for ORES estimation scores of articles
     fetching_assessments: Loading spinner label indicating fetching of Page Assessment
       grades for found articles
-    fetching_revisions: Loading spinner label indicating fetching of Page revisions
-      for found articles
     fetching_scores: Loading spinner label indicating fetching of ORES estimation
       scores for found articles
     fetching_pageviews: Loading spinner label indicating fetching of Pageviews for
       found articles
-    subheading_message: Subheading message for the article finder tool
-    article_finder: Title heading for article finder
-    submit: Submit button label {{Identical|Submit}}
+    fetching_revisions: Loading spinner label indicating fetching of Page revisions
+      for found articles
+    fetched_articles: Label indicating count of fetched results {{Identical|Fetched
+      Articles}}
+    filtered_articles: Label indicating count of filtered results {{Identical|Filtered
+      Articles}}
+    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
+      Search}}
+    minimum_views_label: Input label for minimum views filter
+    more_results: Button label for fetching more search results {{Identical|More Results}}
+    no_article_found: Message indicating no search results
+    page_assessment_class: |-
+      Table header label for page assessment class of articles
+      {{Identical|Class}}
     relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
-    assign_article_self: Button label to assign an article to self
+    remove_article: Button label for removing an article
+    search: Label for search bar in Article Finder {{Identical|Search}}
+    searching_articles: Loading spinner label indicating fetching of articles
+    search_placeholder: Article finder search bar placeholder
+    subheading_message: Subheading message for the article finder tool
+    submit: Submit button label {{Identical|Submit}}
+    tools: Label for tools table column {{Identical|Tools}}
     unassign_article_self: Button label to unassign an article to self
 ...

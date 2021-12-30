@@ -271,9 +271,8 @@ fr:
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter/supprimer un article
-    add_available:
-      articles: Ajouter des articles disponibles
-      items: Ajouter les éléments disponibles
+    add_available: Ajouter des articles disponibles
+    add_available_wikidata: Ajouter les éléments disponibles
     add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
     add_available_submit: Ajouter des articles
     assign_self: M’affecter un article
@@ -731,9 +730,7 @@ fr:
     private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
-    rating_feedback:
-      articles: 'L’évaluation prévue pour cet article est :'
-      items: 'Le taux prévu pour cet élément est :'
+    rating_feedback: 'L’évaluation prévue pour cet article est :'
     requested_accounts: Comptes demandés
     requested_accounts_alert:
       one: '%{count} compte demandé en attente.'
@@ -810,9 +807,7 @@ fr:
       fichier média sur Wikimedia Commons.
     user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
-    user_suggestions_prompt:
-      articles: Vos suggestions pour les éditeurs de l’article
-      items: Vos suggestions pour les éditeurs de l’élément
+    user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher d’autres campagnes
     view: Afficher le cours
     view_doc: Le nombre estimé de vues des articles modifiés par les contributeurs
@@ -839,13 +834,10 @@ fr:
       etc.
     wiki_staff: Équipe de Wiki Éducation
     withdrawn: Affectation non réalisée
-    word_count_doc_separated:
-      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
-        principal par les étudiants du cours pendant sa durée
-      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
-        par les étudiants du cours pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
+    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
+      de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
     survey:
       notification_message: Répondez au sondage pour ce cours.
@@ -953,13 +945,10 @@ fr:
       aucune image ni aucun autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
-    word_count_doc_separated:
-      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
-        par les éditeurs du programme pendant sa durée
-      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
-        principal par les éditeurs du programme pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
+    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
+      de l’espace principal par les éditeurs du programme pendant sa durée
     yourcourses: Vos programmes
   editable:
     edit: Modifier
@@ -1043,19 +1032,14 @@ fr:
       ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
-    references_doc_separated:
-      articles: C’est le nombre de balises de référence ajoutées aux articles, et
-        cela peut inclure plusieurs références vers la même source. Les données viennent
-        du modèle de qualité d’article ORES, et est seulement disponible pour certaines
-        langues.
-      items: C’est le nombre de balises de référence ajoutées aux éléments, et cela
-        peut inclure plusieurs références à la même source. Les données viennent du
-        modèle de qualité d’élément ORES, et sont disponibles seulement pour certaines
-        langues.
     references_doc: Ceci est le nombre de balises de référence ajoutées aux articles
       et qui peut comprendre plusieurs références à la même source. Les données viennent
       du modèle de qualité d’article ORES et ne sont disponibles que pour certaines
       pages.
+    references_doc_wikidata: C’est le nombre de balises de référence ajoutées aux
+      éléments, et cela peut inclure plusieurs références à la même source. Les données
+      viennent du modèle de qualité d’élément ORES, et sont disponibles seulement
+      pour certaines langues.
     replag_info: Le tableau de bord récupère des données de modification des bases
       de données répliquées du cloud WMF. Parfois, ces bases n’ont pas les modifications
       les plus récentes du fait du délai de réplication (''replag''). Quand c’est
@@ -1572,34 +1556,34 @@ fr:
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
-    page_assessment_class: Classe
-    completeness_estimate: Note de complétude
-    average_views: Nombre moyen de vues par jour
     add_available_article: Ajouter comme un article disponible
-    remove_article: Retirer l’article
-    minimum_views_label: Nombre minimum de vues
-    no_article_found: Aucun article trouvé dans cette catégorie
-    search_placeholder: Saisir votre mot-clé
-    search: Rechercher
-    tools: Outils
-    show_options: Afficher les options
-    hide_options: Masquer les options
-    keyword_search: Recherche par mot-clé
-    category_search: Recherche par catégorie
+    article_finder: Découvreur d’article
     article_quality: Qualité de l’article (0 – 100)
-    more_results: Davantage de résultats
-    fetched_articles: Articles récupérés
-    filtered_articles: Articles filtrés
-    searching_articles: Recherche en cours d’articles
+    assign_article_self: Vous affecter vous-même
+    average_views: Nombre moyen de vues par jour
+    category_search: Recherche par catégorie
+    completeness_estimate: Note de complétude
     fetching_assessments: Récupération en cours des déclarations de page
-    fetching_revisions: Récupération en cours des révisions de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération en cours des compteurs de vues de page
-    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
-    article_finder: Découvreur d’article
-    submit: Soumettre
+    fetching_revisions: Récupération en cours des révisions de page
+    fetched_articles: Articles récupérés
+    filtered_articles: Articles filtrés
+    hide_options: Masquer les options
+    keyword_search: Recherche par mot-clé
+    minimum_views_label: Nombre minimum de vues
+    more_results: Davantage de résultats
+    no_article_found: Aucun article trouvé dans cette catégorie
+    page_assessment_class: Classe
     relevanceIndex: Indice de pertinence
-    assign_article_self: Vous affecter vous-même
+    remove_article: Retirer l’article
+    search: Rechercher
+    searching_articles: Recherche en cours d’articles
+    search_placeholder: Saisir votre mot-clé
+    show_options: Afficher les options
+    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
+    submit: Soumettre
+    tools: Outils
     unassign_article_self: Désaffecter un article
   training_status:
     completed: Terminé

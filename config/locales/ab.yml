@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: DDPAT
+# Author: Fraxinus.cs
 # Author: Irus
 # Author: Pupsik-ipa
 # Author: Surprizi
@@ -150,7 +151,7 @@ ab:
   namespace:
     user_ns: Алахәыла
   recent_activity:
-    article_title: Астатиа ахьӡ
+    article_title: Ахьӡ
     image: Асахьа
     file_name: Афаил ахьӡ
     recent_edits: Аҵыхәтәантәи ариашарақәа

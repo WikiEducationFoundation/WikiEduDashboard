@@ -576,13 +576,13 @@ mk:
     email:
       course: 'Курс: %{course_info}'
   article_finder:
-    remove_article: Отстрани статија
-    no_article_found: Не се пронајдени статии во оваа категорија
-    search: Пребарај
-    tools: Алатки
     category_search: Категориско пребарување
     filtered_articles: Филтрирани статии
+    no_article_found: Не се пронајдени статии во оваа категорија
+    remove_article: Отстрани статија
+    search: Пребарај
     submit: Поднеси
+    tools: Алатки
   training_status:
     completed: Завршено
     started: Започнато

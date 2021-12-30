@@ -200,9 +200,8 @@ fi:
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
     assign_other: Anna artikkeli tehtäväksi tai poista se
-    add_available:
-      articles: Lisää saatavilla olevat artikkelit
-      items: Lisää saatavilla olevia kohteita
+    add_available: Lisää saatavilla olevat artikkelit
+    add_available_wikidata: Lisää saatavilla olevia kohteita
     add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
     add_available_submit: Lisää artikkelit
     assign_self: Anna itsellesi artikkeli tehtäväksi
@@ -473,8 +472,7 @@ fi:
     private: Yksityinen
     published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
       linkin kautta:'
-    rating_feedback:
-      articles: 'Ennustettu arviointi tälle artikkelille on:'
+    rating_feedback: 'Ennustettu arviointi tälle artikkelille on:'
     requested_accounts: Pyydetyt tilit
     review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
       lähetä se hyväksyttäväksi Wiki Edin henkilökunnalle. Kun aikajana on hyväksytty,
@@ -530,9 +528,7 @@ fi:
       Wikimedia Commonsiin.
     user_recent_uploads: Tuoreet tallennukset
     user_suggestions: 'Käyttäjien ehdotukset:'
-    user_suggestions_prompt:
-      articles: Ehdotuksesi artikkelin muokkaajille
-      items: Ehdotuksesi kohteen muokkaajille
+    user_suggestions_prompt: Ehdotuksesi artikkelin muokkaajille
     view_other: Selaa muita kampanjoita
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
@@ -679,7 +675,7 @@ fi:
     user_ns: Käyttäjä
   recent_activity:
     active_courses: Artikkeli on käsittelyssä
-    article_title: Artikkelin nimi
+    article_title: Otsikko
     datetime: Päiväys/aika
     did_you_know_eligible: Tiesitkö, että -kelpoinen
     image: Kuva
@@ -988,19 +984,19 @@ fi:
     supplementary:
       why_are_you_here: Mitä haluaisit tehdä?
   article_finder:
-    page_assessment_class: Luokka
-    remove_article: Poista artikkeli
-    search_placeholder: Anna avainsana
-    search: Haku
-    show_options: Näytä asetukset
+    article_finder: Artikkelihaku
+    article_quality: Artikkelin laatu (0–100)
+    category_search: Luokkahaku
+    fetched_articles: Löydetyt artikkelit
     hide_options: Piilota asetukset
     keyword_search: Avainsanahaku
-    category_search: Luokkahaku
-    article_quality: Artikkelin laatu (0–100)
     more_results: Lisää tuloksia
-    fetched_articles: Löydetyt artikkelit
+    page_assessment_class: Luokka
+    remove_article: Poista artikkeli
+    search: Haku
     searching_articles: Etsitään artikkeleita
+    search_placeholder: Anna avainsana
+    show_options: Näytä asetukset
     subheading_message: Etsitään artikkeli, jota voit muokata.
-    article_finder: Artikkelihaku
     submit: Tallenna
 ...

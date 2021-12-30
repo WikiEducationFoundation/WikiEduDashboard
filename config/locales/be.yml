@@ -122,8 +122,7 @@ be:
     already_exists: Заданне ўжо ёсць!
     assignees: Выканаўца(-цы)
     assign_other: Прызначыць артыкул
-    add_available:
-      articles: Дадаць даступны артыкул
+    add_available: Дадаць даступны артыкул
     assign_self: Прызначыць сабе артыкул
     confirm_add_available: Упэўнены, што хочаце дадаць %{title}?
     confirm_addition: Упэўнены, што хочаце прызначыць %{title} карыстальніку %{username}?

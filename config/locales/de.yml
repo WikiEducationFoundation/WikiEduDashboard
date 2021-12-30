@@ -228,8 +228,7 @@ de:
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
-    add_available:
-      articles: Verfügbare Artikel hinzufügen
+    add_available: Verfügbare Artikel hinzufügen
     add_available_placeholder: Einen Artikelnamen oder eine URL pro Zeile hinzufügen
     add_available_submit: Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
@@ -658,8 +657,7 @@ de:
     private: Privat
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
-    rating_feedback:
-      articles: 'Die vorhergesagte Bewertung für den Artikel ist:'
+    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     requested_accounts: Beantragte Benutzerkonten
     requested_accounts_alert:
       one: Ein angefordertes Benutzerkonto ist ausstehend.
@@ -732,8 +730,7 @@ de:
       auf Wikimedia Commons hochgeladen.
     user_recent_uploads: Zuletzt hochgeladene Dateien
     user_suggestions: 'Benutzervorschläge:'
-    user_suggestions_prompt:
-      articles: Deine Vorschläge für die Autoren des Artikels
+    user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen
     view: Kurs anzeigen
     view_doc: Die geschätzte Anzahl aller Aufrufe von Artikeln, die von eingeschriebenen
@@ -1415,35 +1412,35 @@ de:
       where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
       why_are_you_here: Was möchtest du tun?
   article_finder:
-    page_assessment_class: Klasse
-    completeness_estimate: Vervollständigungs-Punktestand
-    average_views: Durchschnittliche Aufrufe pro Tag
     add_available_article: Als verfügbaren Artikel hinzufügen
-    remove_article: Artikel entfernen
-    minimum_views_label: Mindestaufrufe
-    no_article_found: Keine Artikel in dieser Kategorie gefunden
-    search_placeholder: Gib dein Schlüsselwort ein
-    search: Suchen
-    tools: Werkzeuge
-    show_options: Optionen anzeigen
-    hide_options: Optionen ausblenden
-    keyword_search: Schlüsselwortsuche
-    category_search: Kategoriesuche
+    article_finder: Artikelfinder
     article_quality: Artikelqualität (0–100)
-    more_results: Weitere Ergebnisse
-    fetched_articles: Abgerufene Artikel
-    filtered_articles: Gefilterte Artikel
-    searching_articles: Artikel suchen
+    assign_article_self: Dir selbst zuweisen
+    average_views: Durchschnittliche Aufrufe pro Tag
+    category_search: Kategoriesuche
+    completeness_estimate: Vervollständigungs-Punktestand
     fetching_assessments: Abrufen der Seitenbewertungen
-    fetching_revisions: Abrufen der Seitenversionen
     fetching_scores: Abrufen des Vervollständigungs-Punktestandes
     fetching_pageviews: Abrufen der Seitenaufrufe
+    fetching_revisions: Abrufen der Seitenversionen
+    fetched_articles: Abgerufene Artikel
+    filtered_articles: Gefilterte Artikel
+    hide_options: Optionen ausblenden
+    keyword_search: Schlüsselwortsuche
+    minimum_views_label: Mindestaufrufe
+    more_results: Weitere Ergebnisse
+    no_article_found: Keine Artikel in dieser Kategorie gefunden
+    page_assessment_class: Klasse
+    relevanceIndex: Relevanzindex
+    remove_article: Artikel entfernen
+    search: Suchen
+    searching_articles: Artikel suchen
+    search_placeholder: Gib dein Schlüsselwort ein
+    show_options: Optionen anzeigen
     subheading_message: Lass uns einen Wikipedia-Artikel finden, an dem gearbeitet
       werden soll.
-    article_finder: Artikelfinder
     submit: Absenden
-    relevanceIndex: Relevanzindex
-    assign_article_self: Dir selbst zuweisen
+    tools: Werkzeuge
     unassign_article_self: Zuweisung des Artikels entfernen
   training_status:
     completed: Abgeschlossen

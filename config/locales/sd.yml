@@ -157,8 +157,7 @@ sd:
     already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
-    add_available:
-      articles: موجود مضمون وجهو
+    add_available: موجود مضمون وجهو
     add_available_submit: مضمونَ شامل ڪريو
     assign_self: مون کي مضمون سونپيو
     bibliography: ببلوگرافي

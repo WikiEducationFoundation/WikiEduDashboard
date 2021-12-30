@@ -206,8 +206,7 @@ he:
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
     assign_other: שיוך ערך
-    add_available:
-      articles: הוספת ערכים זמינים
+    add_available: הוספת ערכים זמינים
     add_available_placeholder: יש להוסיף שם אחד או כתובת URL אחת של ערך בכל שורה
     add_available_submit: הוספת הערכים
     assign_self: הקצאת ערך לעצמי
@@ -506,8 +505,7 @@ he:
     user_uploads_none: משתמש זה לא תרם תמונות או קובצי מדיה אחרים לוויקישיתוף.
     user_recent_uploads: העלאות שבוצעו לאחרונה
     user_suggestions: 'הצעות משתמש:'
-    user_suggestions_prompt:
-      articles: ההצעות שלך לעורכי הערך
+    user_suggestions_prompt: ההצעות שלך לעורכי הערך
     view_other: עיון בקמפיינים אחרים
     view: הצגת התוכנית \ הקורס \ המיזם
     view_doc: סך כל הצפיות בערכים שערכו סטודנטים מאז שהעורך ביצע את עריכתו הראשונה
@@ -963,31 +961,31 @@ he:
       header: איך שמעת עלינו?
       why_are_you_here: מה ברצונך לעשות?
   article_finder:
-    page_assessment_class: מחלקה
-    average_views: ממוצע צפיות ביום
-    remove_article: הסרת ערך
-    no_article_found: לא נמצאו ערכים בקטגוריה הזאת
-    search_placeholder: יש להקליד מילת מפתח
-    search: חיפוש
-    tools: כלים
-    show_options: הצגת אפשרויות
-    hide_options: הסתרת אפשרויות
-    keyword_search: חיפוש לפי מילת מפתח
-    category_search: חיפוש לפי קטגוריה
+    article_finder: מציאת ערך
     article_quality: איכות הערך (0–100)
-    more_results: תוצאות נוספות
-    fetched_articles: ערכים שאוחזרו
-    filtered_articles: ערכים שסוננו
-    searching_articles: חיפוש ערכים
+    assign_article_self: שיוך עצמך
+    average_views: ממוצע צפיות ביום
+    category_search: חיפוש לפי קטגוריה
     fetching_assessments: אחזור הערכות דפים
-    fetching_revisions: אחזור גרסאות של דפים
     fetching_scores: אחזור דירוג השלמוּת
     fetching_pageviews: אחזור צפיות בדף
-    subheading_message: באפשרותך למצוא ערך מוויקיפדיה לצורך עבודה עליו.
-    article_finder: מציאת ערך
-    submit: חיפוש
+    fetching_revisions: אחזור גרסאות של דפים
+    fetched_articles: ערכים שאוחזרו
+    filtered_articles: ערכים שסוננו
+    hide_options: הסתרת אפשרויות
+    keyword_search: חיפוש לפי מילת מפתח
+    more_results: תוצאות נוספות
+    no_article_found: לא נמצאו ערכים בקטגוריה הזאת
+    page_assessment_class: מחלקה
     relevanceIndex: מדד רלוונטיות
-    assign_article_self: שיוך עצמך
+    remove_article: הסרת ערך
+    search: חיפוש
+    searching_articles: חיפוש ערכים
+    search_placeholder: יש להקליד מילת מפתח
+    show_options: הצגת אפשרויות
+    subheading_message: באפשרותך למצוא ערך מוויקיפדיה לצורך עבודה עליו.
+    submit: חיפוש
+    tools: כלים
     unassign_article_self: ביטול שיוך של ערך
   training_status:
     due: עד %{due_date}

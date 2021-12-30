@@ -240,8 +240,7 @@ tr:
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
     assign_other: Bir makaleyi devredin
-    add_available:
-      articles: Mevcut makaleleri ekleyin
+    add_available: Mevcut makaleleri ekleyin
     add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
     add_available_submit: Makale ekle
     assign_self: Bir makaleyi kendime devredeyim
@@ -677,8 +676,7 @@ tr:
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
-    rating_feedback:
-      articles: 'madde için tahmini değerlendirme:'
+    rating_feedback: 'madde için tahmini değerlendirme:'
     requested_accounts: İstenen hesaplar
     requested_accounts_alert:
       one: '%{count} istenen hesap beklemede.'
@@ -752,8 +750,7 @@ tr:
       başka medya dosyası eklemedi.
     user_recent_uploads: Son Yüklenenler
     user_suggestions: 'Kullanıcı Önerileri:'
-    user_suggestions_prompt:
-      articles: Makalenin editörleri için önerileriniz
+    user_suggestions_prompt: Makalenin editörleri için önerileriniz
     view_other: Diğer kampanyaları görüntüle
     view: Kursu Görüntüle
     view_doc: Editör her makalede ilk düzenlemesini yaptıktan sonra kayıtlı editörler
@@ -1451,35 +1448,35 @@ tr:
       where_did_you_hear: Viki Eğitim'i ilk defa nerede veya kimlerden duydun?
       why_are_you_here: Ne yapmak istiyorsun?
   article_finder:
-    page_assessment_class: Sınıf
-    completeness_estimate: Bütünlük Puanı
-    average_views: Günlük ortalama görüntüleme sayısı
     add_available_article: Kullanılabilir makaleyi ekle
-    remove_article: Makaleyi çıkar
-    minimum_views_label: Minimum Görünümler
-    no_article_found: Bu kategoride hiç madde bulunamadı
-    search_placeholder: Anahtar kelimenizi girin
-    search: Arama
-    tools: Araçlar
-    show_options: Seçenekleri Göster
-    hide_options: Seçenekleri Gizle
-    keyword_search: Anahtar Kelime Arama
-    category_search: Kategori Arama
+    article_finder: Madde Bulucu
     article_quality: Madde Kalitesi(0-100)
-    more_results: Daha fazla sonuç
-    fetched_articles: Getirilen Maddeler
-    filtered_articles: Filtrelenen Maddeler
-    searching_articles: Madde Aranıyor
+    assign_article_self: Kendini ata
+    average_views: Günlük ortalama görüntüleme sayısı
+    category_search: Kategori Arama
+    completeness_estimate: Bütünlük Puanı
     fetching_assessments: Sayfa Değerlendirmeleri Alınması
-    fetching_revisions: Sayfa Düzeltmeleri Alınması
     fetching_scores: Tamlık Puanı Alınması
     fetching_pageviews: Sayfa Görünümlerini Alma
+    fetching_revisions: Sayfa Düzeltmeleri Alınması
+    fetched_articles: Getirilen Maddeler
+    filtered_articles: Filtrelenen Maddeler
+    hide_options: Seçenekleri Gizle
+    keyword_search: Anahtar Kelime Arama
+    minimum_views_label: Minimum Görünümler
+    more_results: Daha fazla sonuç
+    no_article_found: Bu kategoride hiç madde bulunamadı
+    page_assessment_class: Sınıf
+    relevanceIndex: İlgi İndeksi
+    remove_article: Makaleyi çıkar
+    search: Arama
+    searching_articles: Madde Aranıyor
+    search_placeholder: Anahtar kelimenizi girin
+    show_options: Seçenekleri Göster
     subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
       bulalım
-    article_finder: Madde Bulucu
     submit: Gönder
-    relevanceIndex: İlgi İndeksi
-    assign_article_self: Kendini ata
+    tools: Araçlar
     unassign_article_self: Atanmamış Maddeler
   training_status:
     completed: Tamamlandı

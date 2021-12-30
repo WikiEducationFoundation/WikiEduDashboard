@@ -100,8 +100,7 @@ ml:
     articles_short: താളുകൾ
   assignments:
     article_link: ലേഖനം
-    add_available:
-      articles: ലഭ്യമായ ലേഖനങ്ങൾ ചേർക്കുക
+    add_available: ലഭ്യമായ ലേഖനങ്ങൾ ചേർക്കുക
     add_available_submit: ലേഖനങ്ങൾ ചേർക്കുക
     group_members: സംഘത്തിലെ അംഗങ്ങൾ
   courses_generic:
