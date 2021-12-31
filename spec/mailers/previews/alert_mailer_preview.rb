@@ -30,6 +30,10 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_de_userfying_alert, example_user)
   end
 
+  def no_med_training_for_course_alert
+    AlertMailer.alert(example_no_med_training_for_course, example_user)
+  end
+
   private
 
   def example_user
@@ -62,5 +66,11 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.new(type: 'DeUserfyingAlert', article: example_article,
               course: Course.last, id: 9, user: example_student,
               details: { logid: 125126035, timestamp: '2021-12-16T08:10:56Z' })
+  end
+
+  def example_no_med_training_for_course
+    Alert.new(type: 'NoMedTrainingForCourseAlert',
+              article: example_article,
+              course: example_course)
   end
 end

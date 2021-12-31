@@ -49,6 +49,7 @@ class Alert < ApplicationRecord
     HighQualityArticleEditAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
+    NoMedTrainingForCourseAlert
     OnboardingAlert
     OverdueTrainingAlert
     OverEnrollmentAlert

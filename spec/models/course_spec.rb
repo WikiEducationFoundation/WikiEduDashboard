@@ -53,9 +53,14 @@ require 'rails_helper'
 describe Course, type: :model do
   let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
-  before(:all) do
+  before(:context) do
     stub_wiki_validation
     TrainingModule.load_all
+  end
+
+  after(:context) do
+    TrainingLibrary.destroy_all
+    TrainingModule.destroy_all
   end
 
   it 'caches revision data for students' do
