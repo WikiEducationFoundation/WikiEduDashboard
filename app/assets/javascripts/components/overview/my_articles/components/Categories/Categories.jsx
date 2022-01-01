@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   IMPROVING_ARTICLE, NEW_ARTICLE, REVIEWING_ARTICLE
 } from '~/app/assets/javascripts/constants/assignments';
+import ArticleUtils from '../../../../../utils/article_utils';
 
 import CourseUtils from '~/app/assets/javascripts/utils/course_utils.js';
 
@@ -26,17 +27,17 @@ export const Categories = ({ assignments, course, current_user, wikidataLabels }
     <>
       {
         articles.new.length
-          ? <List {...listProps} assignments={articles.new} title={CourseUtils.i18n('articles_i_will_create', course.string_prefix)} />
+          ? <List {...listProps} assignments={articles.new} title={CourseUtils.i18n(ArticleUtils.projectSuffix(course.home_wiki.project, 'articles_i_will_create'), course.string_prefix)} />
           : null
       }
       {
         articles.improving.length
-          ? <List {...listProps} assignments={articles.improving} title={CourseUtils.i18n('articles_i_am_updating', course.string_prefix)} />
+          ? <List {...listProps} assignments={articles.improving} title={CourseUtils.i18n(ArticleUtils.projectSuffix(course.home_wiki.project, 'articles_i_am_updating'), course.string_prefix)} />
           : null
       }
       {
         articles.reviewing.length
-          ? <List {...listProps} assignments={articles.reviewing} title={CourseUtils.i18n('articles_i_am_reviewing', course.string_prefix)} />
+          ? <List {...listProps} assignments={articles.reviewing} title={CourseUtils.i18n(ArticleUtils.projectSuffix(course.home_wiki.project, 'articles_i_am_reviewing'), course.string_prefix)} />
           : null
       }
     </>

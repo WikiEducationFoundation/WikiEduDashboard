@@ -435,9 +435,12 @@ en:
     articles: Articles
     article_viewer: Article Viewer
     article_viewer_wikidata: Item Viewer
+    articles_i_am_reviewing_wikidata: Items I'm peer reviewing
     articles_i_am_reviewing: Articles I'm peer reviewing
     articles_i_will_create: Articles I will create
+    articles_i_will_create_wikidata: Items I will create
     articles_i_am_updating: Articles I'm updating
+    articles_i_am_updating_wikidata: Items I'm updating
     assignment_headings:
       assigned_articles: Assigned Articles
       assigned_articles_wikidata: Assigned Items
