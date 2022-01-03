@@ -7,7 +7,7 @@ import Header from '../../../../../app/assets/javascripts/components/overview/my
 describe('Header', () => {
   const props = {
     assigned: [],
-    course: { slug: 'course/slug', home_wiki: {project: 'wikipedia'} },
+    course: { slug: 'course/slug', home_wiki: { project: 'wikipedia' } },
     current_user: {},
     reviewable: [],
     reviewing: [],
