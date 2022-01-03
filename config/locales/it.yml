@@ -225,12 +225,13 @@ it:
     add_available: Aggiungi voci disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
     add_available_submit: Aggiungi voci
+    add_available_submit_wikidata: Aggiungi elementi
     assign_self: Assegnami una voce
     assign_tooltip: Una voce assegnata è quella che pianifichi di creare o migliorare.
     bibliography: Bibliografia
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
-    confirm_deletion: Sei sicuro di volere cancellare la valutazione di questa voce?
+    confirm_deletion: Sei sicuro di voler cancellare questa assegnazione?
     editors: Assegnato  a
     group_members: Membri del gruppo
     label: Assegna
@@ -1007,6 +1008,7 @@ it:
     keyword_search: Ricerca per parole chiave
     page_assessment_class: Classe
     remove_article: Rimuovi voce
+    remove_article_wikidata: Rimuovi elementi
     search: Cerca
     show_options: Mostra opzioni
     subheading_message: Troviamo una voce di Wikipedia su cui lavorare.

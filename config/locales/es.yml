@@ -209,7 +209,7 @@ es:
     bibliography: Bibliografía
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
-    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
+    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados

@@ -204,6 +204,7 @@ fi:
     add_available_wikidata: Lisää saatavilla olevia kohteita
     add_available_placeholder: Lisää yhden artikkelin otsikko ja URL kullekin riville
     add_available_submit: Lisää artikkelit
+    add_available_submit_wikidata: Lisää kohteita
     assign_self: Anna itsellesi artikkeli tehtäväksi
     assign_tooltip: Tehtäväartikkeli on se, jonka olet valinnut tehtäväksi tai parannettavaksi.
     clone: Luo kopio
@@ -221,6 +222,7 @@ fi:
     reviewers: Arvioija(t)
     review_other: Anna arvioiminen tehtäväksi tai ota se pois
     review_self: Arvioi artikkeli
+    review_self_wikidata: Tarkasta kohde
     review_tooltip: Tässä näytetään artikkelit, joita olet ottanut vertaisarvioitavaksi
       tai joille aiot antaa palautetta.
     select: Valitse
@@ -985,7 +987,9 @@ fi:
       why_are_you_here: Mitä haluaisit tehdä?
   article_finder:
     article_finder: Artikkelihaku
+    article_finder_wikidata: Kohteen löytäjä
     article_quality: Artikkelin laatu (0–100)
+    article_quality_wikidata: Kohteen laatu(0-100)
     category_search: Luokkahaku
     fetched_articles: Löydetyt artikkelit
     hide_options: Piilota asetukset
@@ -993,8 +997,10 @@ fi:
     more_results: Lisää tuloksia
     page_assessment_class: Luokka
     remove_article: Poista artikkeli
+    remove_article_wikidata: Poista kohteita
     search: Haku
     searching_articles: Etsitään artikkeleita
+    searching_articles_wikidata: Haetaan kohteita
     search_placeholder: Anna avainsana
     show_options: Näytä asetukset
     subheading_message: Etsitään artikkeli, jota voit muokata.

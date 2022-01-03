@@ -220,6 +220,7 @@ ru:
     assignees: Назначенный(е)
     add_available: Добавить доступные статьи
     add_available_submit: Добавить статьи
+    add_available_submit_wikidata: Добавить элементы
     bibliography: Библиография
     clone: Клонировать
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
@@ -675,6 +676,7 @@ ru:
     more_results: Ещё результаты
     page_assessment_class: Класс
     relevanceIndex: Индекс релевантности
+    remove_article_wikidata: Удалить элементы
     search: Найти
     show_options: Показать параметры
     submit: Отправить

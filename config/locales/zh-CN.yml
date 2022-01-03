@@ -212,7 +212,7 @@ zh-CN:
     bibliography: 参考文献
     confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
-    confirm_deletion: 您确定要删除此条目分配吗？
+    confirm_deletion: 您确定要删除此分配吗？
     editors: 分派给
     group_members: 小组成员
     label: 分配
@@ -225,10 +225,8 @@ zh-CN:
       已选择%{currentCount}/%{total}
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
     random_peer_review:
-      confirm_addition: |-
-        在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。
-        您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。
-        点击“OK”分配共计 %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
+      confirm_addition: 在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。点击“OK”分配共计
+        %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
       heading: 分配随机的同行复核
       limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
     remove: 移除

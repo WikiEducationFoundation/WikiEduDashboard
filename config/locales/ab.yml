@@ -50,6 +50,7 @@ ab:
     loading: Астатиақәа рҭагалара...
     new: (иҿыцу)
     rating: Акласс
+    search: Адаҟьа Авикипедиаҿы ԥшаатәуп
     show_current_version: Иаарԥштәуп уажәтәи аверсиа
     title: Ахьӡ
     title_example: Астатиа ахьӡ
@@ -184,5 +185,8 @@ ab:
     last_name: Ажәла
     name: Ахьӡ
     none: Алахәылаҩцәа ыҟам.
+    number_of_articles_wikidata:
+      one: '%{count} аелемент'
+      other: '%{count} аелементқәа'
     recent_revisions: Аҵыхәтәантәи ариашарақәа
 ...
