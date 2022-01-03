@@ -11,8 +11,7 @@ class CourseApprovalFollowupWorker
     perform_in(FOLLOWUP_DELAY, course.id)
   end
 
-  # TODO: Remove unused param once all jobs that use it have been run
-  def perform(course_id, _instructor_id = nil)
+  def perform(course_id)
     course = Course.find(course_id)
     CourseApprovalFollowupMailer.send_followup(course)
   end
