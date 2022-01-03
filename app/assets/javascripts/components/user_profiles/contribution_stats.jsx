@@ -37,7 +37,8 @@ const ContributionStats = createReactClass({
           isStudent = {this.state.isStudent.student}
           statsGraphsData = {this.props.statsGraphsData}
           graphWidth = {graphWidth}
-          graphHeight = {graphHeight}
+          graphHeight={graphHeight}
+          maxProject = {this.props.stats.max_project}
         />
       );
     } else if (this.state.isStudent.student) {
@@ -47,7 +48,8 @@ const ContributionStats = createReactClass({
           stats = {this.props.stats.as_student}
           statsGraphsData = {this.props.statsGraphsData}
           graphWidth = {graphWidth}
-          graphHeight = {graphHeight}
+          graphHeight={graphHeight}
+          maxProject = {this.props.stats.max_project}
         />
     );
     }

@@ -912,11 +912,13 @@ en:
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
-    articles_created_generic: Pages Created
     articles_created_wikidata: Items Created
+    articles_created_generic: Pages Created
+    articles_created_generic_wikidata: Items Created
     articles_edited: Articles Edited
-    articles_edited_generic: Pages Edited
     articles_edited_wikidata: Items Edited
+    articles_edited_generic: Pages Edited
+    articles_edited_generic_wikidata: Items Edited
     article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
     bytes_added: Bytes Added
     characters: Characters
@@ -943,7 +945,6 @@ en:
     references_count: References Added
     references_doc: This is the number of reference tags added to articles, and can include multiple references to the same source. The data comes from the ORES article quality model, and is only available for some languages.
     references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
-
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
       because of replication lag (replag). When this is the case, the missing edits will show up later on.
@@ -956,10 +957,14 @@ en:
     uploads_in_use_count:
       one: file used in an article
       other: files used in articles
+    uploads_in_use_count_wikidata:
+      one: file used in an item
+      other: files used in items
     upload_usages_count:
       one: total usage across languages
       other: total usages across languages
     view_count_description: Article Views
+    view_count_description_wikidata: Item Views
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.

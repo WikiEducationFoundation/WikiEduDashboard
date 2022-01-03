@@ -36,6 +36,7 @@ class UserProfilesController < ApplicationController
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
     @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
+    @max_project = max_project
   end
 
   def stats_graphs
@@ -57,6 +58,13 @@ class UserProfilesController < ApplicationController
     @user.user_profile.update_attribute(:image_file_link, nil)
     @user.user_profile.save
     redirect_to controller: 'user_profiles', action: 'show', username: @user.username
+  end
+
+  def max_project
+    ids_array = public_courses.map(&:home_wiki_id)
+    max_ids = ids_array.tally.select { |_k, v| v == ids_array.tally.values.max }.keys
+    projects = Wiki.where(id: max_ids).map(&:project)
+    return projects.include?('wikipedia') ? 'wikipedia' : projects[0]
   end
 
   private
