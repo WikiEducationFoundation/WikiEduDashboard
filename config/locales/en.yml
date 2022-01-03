@@ -281,6 +281,7 @@ en:
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
+    none_short_wikidata: No items assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
     peer_review_count: "%{currentCount}/%{total} selected"
