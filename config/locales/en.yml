@@ -911,7 +911,7 @@ en:
       current_stage: Current Stage
       relevant_links: Relevant Links
     assigned_articles: Assigned Articles
-    assigned_articles_wikidata: Assigned Articles
+    assigned_articles_wikidata: Assigned Items
     bad_work:
       learn_more: "If student work made the article worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
       learn_more_wikidata: "If student work made the item worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
@@ -925,7 +925,7 @@ en:
     no_assignments_wikidata: "This student currently has no assigned items. You can assign an item by using the buttons above."
     overview: "%{prefix} Overview"
     reviewing_articles: Reviewing Articles
-    reviewing_articles: Reviewing Items
+    reviewing_articles_wikidata: Reviewing Items
     select_student:
       title: "Select %{prefix}"
       content: to assign and view article assignments
@@ -943,6 +943,7 @@ en:
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
+    articles_created_wikidata: Articles Created
     articles_created_generic: Pages Created
     articles_created_wikidata: Items Created
     articles_edited: Articles Edited
@@ -987,10 +988,14 @@ en:
     uploads_in_use_count:
       one: file used in an article
       other: files used in articles
+    uploads_in_use_count_wikidata:
+      one: file used in an item
+      other: files used in items
     upload_usages_count:
       one: total usage across languages
       other: total usages across languages
     view_count_description: Article Views
+    view_count_description_wikidata: Item Views
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
