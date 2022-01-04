@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   put 'errors/incorrect_passcode'
 
   # Sessions
+  # This is for when you open a login link in a new tab, which prevents Rails JS from
+  # intercepting the click and issuing a post request. Omniauth login is post-only.
+  get 'users/auth/mediawiki', to: redirect('/')
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  
   devise_scope :user do
     # OmniAuth may fall back to :new_user_session when the OAuth flow fails.
     # So, we treat it as a login error.
