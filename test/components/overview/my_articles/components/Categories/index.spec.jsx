@@ -7,9 +7,10 @@ import Categories from '@components/overview/my_articles/components/Categories/C
 describe('Categories', () => {
   const props = {
     assignments: [],
-    course: {},
+    course: { home_wiki: { project: 'wikipedia' } },
     current_user: {},
     wikidataLabels: {}
+
   };
 
   it('should show articles the user is creating', () => {

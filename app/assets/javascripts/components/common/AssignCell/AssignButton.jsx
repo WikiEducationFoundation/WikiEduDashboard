@@ -137,7 +137,7 @@ const PotentialAssignmentRows = ({
 
   const text = role === ASSIGNED_ROLE
     ? I18n.t(`courses.assignment_headings.${ArticleUtils.projectSuffix(project, 'available_articles')}`)
-    : CourseUtils.i18n(`assignment_headings.${ArticleUtils.projectSuffix(project, ' available_reviews')}`, course.string_prefix);
+    : CourseUtils.i18n(`assignment_headings.${ArticleUtils.projectSuffix(project, 'available_reviews')}`, course.string_prefix);
   const title = (
     <tr key="available" className="assignment-section-header">
       <td>

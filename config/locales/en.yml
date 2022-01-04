@@ -173,12 +173,14 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+    find: Find Articles
     hide: Hide
     history: (history)
     label: Articles
     loading: Loading articles...
     new: (new)
     none: This course has not edited any articles.
+    preview: Brief preview of Article
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -225,6 +227,7 @@ en:
 
   items:
     items: Items
+    article_not_found: "This item has not been created yet."
     assigned: Assigned Items
     assignments_none: There are no assigned items yet.
     available: Available Items
@@ -236,9 +239,12 @@ en:
     does_not_exist: The Item doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     edited: Items Edited
     edited_none: There are no edited items yet.
+    find: Find Items
+    preview: Brief preview of Item
     search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
     view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    title_example: Item title
 
   articles_wikidata:
     articles_short: Items
@@ -249,6 +255,7 @@ en:
   assignments:
     article: The article %{title} is now assigned to you.
     article_link: Article
+    article_link_wikidata: Item
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
@@ -263,6 +270,7 @@ en:
     assign_self: Assign myself an article
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
+    assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
     bibliography: Bibliography
     clone: Clone
     confirm_add_available: Are you sure you want to add %{title}?
@@ -273,6 +281,7 @@ en:
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
+    none_short_wikidata: No items assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
     peer_review_count: "%{currentCount}/%{total} selected"
@@ -286,15 +295,24 @@ en:
         you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
         Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
         chosen from among their classmates' articles.
+      confirm_addition_wikidata: >
+        In most cases, you should only use this after all students have been assigned their main items.
+        Alternatively, you can ask your students to choose their own peer reviews or
+        you can manually assign peer reviews by clicking a student's row and then using "Assign/remove a peer review" button.
+        Clicking "OK" will assign a total of %{count} additional peer review(s), with a maximum of %{maximum} for each student,
+        chosen from among their classmates' items.
       heading: Assign random peer reviews
       tooltip_message: Assigns random articles (with peer review count as the maximum number) to each student.
+      tooltip_message_wikidata: Assigns random items (with peer review count as the maximum number) to each student.
       limit_exceeded: Each student is already reviewing at least %{maximum} articles(s).
+      limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
     remove: Remove
     reviewers: Reviewer(s)
     review_other: Assign/remove a peer review
     review_self: Review an article
     review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
+    review_tooltip_wikidata: This is for item(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     select: Select
     warning_untracked_wiki: >
@@ -417,9 +435,13 @@ en:
     actions: Actions
     articles: Articles
     article_viewer: Article Viewer
+    article_viewer_wikidata: Item Viewer
+    articles_i_am_reviewing_wikidata: Items I'm peer reviewing
     articles_i_am_reviewing: Articles I'm peer reviewing
     articles_i_will_create: Articles I will create
+    articles_i_will_create_wikidata: Items I will create
     articles_i_am_updating: Articles I'm updating
+    articles_i_am_updating_wikidata: Items I'm updating
     assignment_headings:
       assigned_articles: Assigned Articles
       assigned_articles_wikidata: Assigned Items
@@ -626,6 +648,7 @@ en:
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
     my_articles: My Articles
+    my_articles_wikidata: My Items
     needs_update: Schedule Data Update
     new_week: Add New Week
     new_account_check_username: Check username availability
@@ -885,23 +908,29 @@ en:
   instructor_view:
     article_assignments: "%{prefix} Assignments"
     assignments_table:
-      article_name: Article Name
+      article_name: Name
       current_stage: Current Stage
       relevant_links: Relevant Links
     assigned_articles: Assigned Articles
+    assigned_articles_wikidata: Assigned Items
     bad_work:
       learn_more: "If student work made the article worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
+      learn_more_wikidata: "If student work made the item worse, we encourage you to edit it yourself. Otherwise, let us know about the problems so that we can fix them later on."
       learn_more_button: "Learn More"
       submit_issue: "What are the significant problems with this article?"
+      submit_issue_wikidata: "What are the significant problems with this item?"
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles. You can assign an article by using the buttons above."
+    no_assignments_wikidata: "This student currently has no assigned items. You can assign an item by using the buttons above."
     overview: "%{prefix} Overview"
     reviewing_articles: Reviewing Articles
+    reviewing_articles_wikidata: Reviewing Items
     select_student:
       title: "Select %{prefix}"
       content: to assign and view article assignments
+      content_wikidata: to assign and view item assignments
 
   metrics:
     label: Course Activity
@@ -915,6 +944,7 @@ en:
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
+    articles_created_wikidata: Articles Created
     articles_created_generic: Pages Created
     articles_created_wikidata: Items Created
     articles_edited: Articles Edited
@@ -959,10 +989,14 @@ en:
     uploads_in_use_count:
       one: file used in an article
       other: files used in articles
+    uploads_in_use_count_wikidata:
+      one: file used in an item
+      other: files used in items
     upload_usages_count:
       one: total usage across languages
       other: total usages across languages
     view_count_description: Article Views
+    view_count_description_wikidata: Item Views
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1189,8 +1223,10 @@ en:
   users:
     already_enrolled: That user is already enrolled!
     assign_articles: Assign Articles
+    assign_articles_wikidata: Assign Items
     assign_articles_done: Done
     assigned: Assigned Articles
+    assigned_wikidata: Assigned Items
     assignees: Assignee(s)
     loading_authorship_data: loading authorship data
     authorship_data_not_fetched: could not fetch authorship data
@@ -1201,6 +1237,7 @@ en:
       amount of new content the user added. Restoring removed content
       will also increase this total.
     chars_added: Characters Added<br>(article | user | draft)
+    chars_added_wikidata: Characters Added<br>(item | user | draft)
     contributions: User Contributions
     contributions_history_full: View full contribution history
     contributions_more: View More Contributions
@@ -1220,10 +1257,10 @@ en:
     last_name: Last name
     loading: Loading users...
     characters_added_mainspace: Characters Added (article)
+    characters_added_mainspace_wikidata: Characters Added (item)
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: Characters Added (user)
     characters_added_draftspace: Characters Added (draft)
-    references_count: References Added
     my_assigned: "Assigned:"
     my_reviewing: "Reviewing:"
     name: Name
@@ -1240,6 +1277,7 @@ en:
       other: "%{count} items"
     profile: profile
     recent_revisions: Recent Edits
+    references_count: References Added
     remove_confirmation: Are you sure you want to remove %{username}?
     request_confirmation: Are you sure you want to request this account?
     requested_account_status:

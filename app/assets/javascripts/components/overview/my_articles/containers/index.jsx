@@ -13,6 +13,7 @@ import { fetchAssignments } from '~/app/assets/javascripts/actions/assignment_ac
 
 // helper functions
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
+import ArticleUtils from '../../../../utils/article_utils';
 
 export class MyArticlesContainer extends React.Component {
   componentDidMount() {
@@ -41,7 +42,7 @@ export class MyArticlesContainer extends React.Component {
       if (Features.wikiEd) {
         noArticlesMessage = <MyArticlesNoAssignmentMessage />;
       } else {
-        noArticlesMessage = <p id="no-assignment-message">{I18n.t('assignments.none_short')}</p>;
+        noArticlesMessage = <p id="no-assignment-message">{I18n.t(`assignments.${ArticleUtils.projectSuffix(course.home_wiki.project, 'none_short')}`)}</p>;
       }
     }
 

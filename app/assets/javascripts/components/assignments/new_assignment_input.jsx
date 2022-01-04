@@ -1,5 +1,6 @@
 import React from 'react';
 import SelectedWikiOption from '../common/selected_wiki_option';
+import ArticleUtils from '../../utils/article_utils';
 
 const NewAssignmentInput = ({
   language, project, title,
@@ -7,7 +8,7 @@ const NewAssignmentInput = ({
 }) => (
   <form onSubmit={assign}>
     <input
-      placeholder={I18n.t('articles.title_example')}
+      placeholder={ArticleUtils.I18n('title_example', project)}
       value={title}
       onSubmit={assign}
       onChange={handleChangeTitle}

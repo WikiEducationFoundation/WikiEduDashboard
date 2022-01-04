@@ -1,8 +1,12 @@
-const charactersAddedKey = {
-  label: I18n.t('users.chars_added'),
-  desktop_only: true,
-  sortable: true,
-  info_key: 'users.character_doc'
+import ArticleUtils from '../../../../utils/article_utils';
+
+const charactersAddedKey = (project) => {
+  return {
+    label: I18n.t(`users.${ArticleUtils.projectSuffix(project, 'chars_added')}`),
+    desktop_only: true,
+    sortable: true,
+    info_key: 'users.character_doc'
+  };
 };
 
 const wordsAddedKey = {
@@ -13,7 +17,7 @@ const wordsAddedKey = {
 };
 
 const studentListKeys = (course) => {
-  const contentAddedKey = course.home_wiki_bytes_per_word ? wordsAddedKey : charactersAddedKey;
+  const contentAddedKey = course.home_wiki_bytes_per_word ? wordsAddedKey : charactersAddedKey(course.home_wiki.project);
 
   return {
     username: {
@@ -22,7 +26,7 @@ const studentListKeys = (course) => {
       sortable: true,
     },
     assignment_title: {
-      label: I18n.t('users.assigned'),
+      label: I18n.t(`users.${ArticleUtils.projectSuffix(course.home_wiki.project, 'assigned')}`),
       desktop_only: true,
       sortable: false
     },
@@ -42,7 +46,7 @@ const studentListKeys = (course) => {
       label: I18n.t('users.references_count'),
       desktop_only: true,
       sortable: true,
-      info_key: 'metrics.references_doc'
+      info_key: `metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`
     },
     total_uploads: {
       label: I18n.t('users.total_uploads'),

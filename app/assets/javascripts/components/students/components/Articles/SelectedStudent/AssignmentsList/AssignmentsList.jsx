@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import Assignment from './Assignment/Assignment.jsx';
 import List from '@components/common/list.jsx';
+import ArticleUtils from '../../../../../../utils/article_utils.js';
 
 export const AssignmentsList = ({ assignments, course, current_user, fetchArticleDetails, title, user }) => {
   const options = { desktop_only: false, sortable: false };
@@ -21,7 +22,7 @@ export const AssignmentsList = ({ assignments, course, current_user, fetchArticl
       ...options
     },
     article_viewer: {
-      label: I18n.t('courses.article_viewer'),
+      label: I18n.t(`courses.${ArticleUtils.projectSuffix(course.home_wiki.project, 'article_viewer')}`),
       ...options
     }
   };

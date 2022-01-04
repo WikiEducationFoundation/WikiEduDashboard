@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import AssignmentLinks from '@components/common/AssignmentLinks/AssignmentLinks.jsx';
 
-export const MyArticlesAssignmentLinks = ({ articleTitle, assignment, courseType, current_user }) => {
+export const MyArticlesAssignmentLinks = ({ articleTitle, assignment, courseType, current_user, project }) => {
   return (
     <section className="header">
       <section className="title">
         <h4>{articleTitle}</h4>
       </section>
       <section className="editors">
-        <AssignmentLinks assignment={assignment} courseType={courseType} user={current_user} />
+        <AssignmentLinks assignment={assignment} courseType={courseType} user={current_user} project={project}/>
       </section>
     </section>
   );
@@ -19,6 +19,7 @@ export const MyArticlesAssignmentLinks = ({ articleTitle, assignment, courseType
 MyArticlesAssignmentLinks.propTypes = {
   // props
   articleTitle: PropTypes.string.isRequired,
+  project: PropTypes.string.isRequired,
   assignment: PropTypes.object.isRequired,
   courseType: PropTypes.string.isRequired,
   current_user: PropTypes.object.isRequired,
