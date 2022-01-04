@@ -204,8 +204,7 @@ zh-CN:
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配/移除一个文章
-    add_available:
-      articles: 添加可用条目
+    add_available: 添加可用条目
     add_available_placeholder: 添加条目标题或URL（每行一个）
     add_available_submit: 添加条目
     assign_self: 给我自己分配一个条目
@@ -213,7 +212,7 @@ zh-CN:
     bibliography: 参考文献
     confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
-    confirm_deletion: 您确定要删除此条目分配吗？
+    confirm_deletion: 您确定要删除此分配吗？
     editors: 分派给
     group_members: 小组成员
     label: 分配
@@ -226,10 +225,8 @@ zh-CN:
       已选择%{currentCount}/%{total}
     peer_review_count_tooltip: 您应该选择%{total} 个条目来同行审核
     random_peer_review:
-      confirm_addition: |-
-        在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。
-        您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。
-        点击“OK”分配共计 %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
+      confirm_addition: 在大多数情况下，您应当仅在所有学生都已分配他们的主要文章后使用此功能。您也可以让您的学生选择他们自己的同行评审，或者您可以通过点击学生所在行然后使用“分配/删除同行评审”按钮来手动分配同行评审。点击“OK”分配共计
+        %{count} 个额外的同行评审，每个学生最多从同学的文章中选择 %{maximum} 个。
       heading: 分配随机的同行复核
       limit_exceeded: 每位学生都已经在评论至少%{maximum}条文章。
     remove: 移除
@@ -473,8 +470,7 @@ zh-CN:
     please_log_in: 请登录
     private: 私有
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
-    rating_feedback:
-      articles: 条目预测的评级为：
+    rating_feedback: 条目预测的评级为：
     requested_accounts: 请求的账户
     requested_accounts_alert_view: 查看
     review_timeline: 现在请检查您的分配时间表，自定义它以符合您的需求。一旦您感到满意，您可以将其提交给维基教育职员以待批准。一旦获得批准，您将收到一个登记URL，学生可以使用它加入课程并访问培训。（注意：您仍然可以稍后编辑。）
@@ -522,8 +518,7 @@ zh-CN:
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     user_recent_uploads: 最近上传
     user_suggestions: 用户建议：
-    user_suggestions_prompt:
-      articles: 您为条目编辑者提出的建议
+    user_suggestions_prompt: 您为条目编辑者提出的建议
     view_other: 查看其它活动
     view: 查看课程
     view_doc: 由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量的估计浏览量
@@ -670,7 +665,7 @@ zh-CN:
     user_ns: 用户
   recent_activity:
     active_courses: 条目活跃于
-    article_title: 条目标题
+    article_title: 标题
     datetime: 日期/时间
     did_you_know_eligible: 符合“您知道吗”资格
     image: 图像
@@ -992,34 +987,34 @@ zh-CN:
       where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
       why_are_you_here: 您想做什么？
   article_finder:
-    page_assessment_class: 等级
-    completeness_estimate: 完整分数
-    average_views: 每天平均访问
     add_available_article: 添加为可用条目
-    remove_article: 移除条目
-    minimum_views_label: 最低访问
-    no_article_found: 此分类中找不到条目
-    search_placeholder: 输入您的密码
-    search: 搜索
-    tools: 工具
-    show_options: 显示选项
-    hide_options: 隐藏选项
-    keyword_search: 关键词搜索
-    category_search: 分类搜索
+    article_finder: 条目查找器
     article_quality: 条目质量（0~100）
-    more_results: 更多结果
-    fetched_articles: 检索的条目
-    filtered_articles: 过滤的条目
-    searching_articles: 正在搜索条目
+    assign_article_self: 分配您自己
+    average_views: 每天平均访问
+    category_search: 分类搜索
+    completeness_estimate: 完整分数
     fetching_assessments: 正在检索页面评价
-    fetching_revisions: 正在检索页面修订版本
     fetching_scores: 正在取得完整性分数
     fetching_pageviews: 正在检索页面浏览
-    subheading_message: 让我们查找需要操作的条目
-    article_finder: 条目查找器
-    submit: 提交
+    fetching_revisions: 正在检索页面修订版本
+    fetched_articles: 检索的条目
+    filtered_articles: 过滤的条目
+    hide_options: 隐藏选项
+    keyword_search: 关键词搜索
+    minimum_views_label: 最低访问
+    more_results: 更多结果
+    no_article_found: 此分类中找不到条目
+    page_assessment_class: 等级
     relevanceIndex: 相关性索引
-    assign_article_self: 分配您自己
+    remove_article: 移除条目
+    search: 搜索
+    searching_articles: 正在搜索条目
+    search_placeholder: 输入您的密码
+    show_options: 显示选项
+    subheading_message: 让我们查找需要操作的条目
+    submit: 提交
+    tools: 工具
     unassign_article_self: 取消分配条目
   training_status:
     completed: 完成于

@@ -87,8 +87,7 @@ lv:
   assignments:
     article_link: Raksts
     assign_other: Piešķirt rakstu
-    add_available:
-      articles: Pievienot pieejamos rakstus
+    add_available: Pievienot pieejamos rakstus
     add_available_submit: Pievienot rakstus
     assign_self: Piešķirt sev rakstu
     bibliography: Bibliogrāfija
@@ -423,8 +422,8 @@ lv:
   wiki_api:
     create_account_reason: Šis dalībnieks piedalās pasākumā "%{event}".
   article_finder:
-    submit: Iesniegt
     assign_article_self: Piešķirt sev
+    submit: Iesniegt
   training_status:
     completed: Pabeigts
     continue: Turpināt

@@ -212,8 +212,7 @@ ca:
     title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
     assign_other: Assigna un article
-    add_available:
-      articles: Afegeix articles disponibles
+    add_available: Afegeix articles disponibles
     add_available_placeholder: Afegiu un títol d'article o URL per línia
     add_available_submit: Afegeix articles
     assign_self: Assigna'm un article
@@ -623,8 +622,7 @@ ca:
       tipus de fitxer a Wikimedia Commons.
     user_recent_uploads: Càrregues recents
     user_suggestions: Suggeriments d'usuaris
-    user_suggestions_prompt:
-      articles: Els vostres suggeriments pels editors de l'article
+    user_suggestions_prompt: Els vostres suggeriments pels editors de l'article
     view_other: Visualitza altres campanyes
     view: Vegeu el curs
     view_doc: El nombre estimat de les visites a articles editats pels estudiants
@@ -1097,30 +1095,30 @@ ca:
         primera vegada?
       why_are_you_here: Què voleu fer?
   article_finder:
-    page_assessment_class: Classe
-    completeness_estimate: Puntuació de completesa
-    average_views: Visites mitjanes per dia
     add_available_article: Afegeix com a article disponible
-    remove_article: Elimina article
-    minimum_views_label: Visualitzacions mínimes
-    no_article_found: No s'han trobat articles en aquesta categoria
-    search_placeholder: Introduïu la paraula clau
-    search: Cerca
-    tools: Eines
-    show_options: Mostra opcions
-    hide_options: Amaga opciona
-    keyword_search: Cerca per paraules clau
-    category_search: Cerca per categories
+    article_finder: Buscador d'articles
     article_quality: Qualitat de l'article (0-100)
-    more_results: Més resultats
+    assign_article_self: Assigneu-vos-hi
+    average_views: Visites mitjanes per dia
+    category_search: Cerca per categories
+    completeness_estimate: Puntuació de completesa
     fetched_articles: S'han recuperat els articles
     filtered_articles: Articles filtrats
-    searching_articles: S’estan cercant els articles
-    subheading_message: Trobem un article de la Viquipèdia per treballar.
-    article_finder: Buscador d'articles
-    submit: Envia
+    hide_options: Amaga opciona
+    keyword_search: Cerca per paraules clau
+    minimum_views_label: Visualitzacions mínimes
+    more_results: Més resultats
+    no_article_found: No s'han trobat articles en aquesta categoria
+    page_assessment_class: Classe
     relevanceIndex: Índex de rellevància
-    assign_article_self: Assigneu-vos-hi
+    remove_article: Elimina article
+    search: Cerca
+    searching_articles: S’estan cercant els articles
+    search_placeholder: Introduïu la paraula clau
+    show_options: Mostra opcions
+    subheading_message: Trobem un article de la Viquipèdia per treballar.
+    submit: Envia
+    tools: Eines
     unassign_article_self: Desassigneu l'article
   training_status:
     completed: Completat

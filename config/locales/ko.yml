@@ -135,6 +135,7 @@ ko:
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
       does_not_exist: 이 글은 위키백과에 존재하지 않습니다
     see_more: 더 보기
+    search: 위키백과에서 문서 검색
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
@@ -151,17 +152,20 @@ ko:
     available: 사용 가능한 항목
     edited: 편집된 항목
     edited_none: 아직 편집한 항목이 없습니다.
+    search: 위키데이터에서 항목 검색
   assignments:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     article_link: 문서
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     assign_other: 문서 할당/제거
-    add_available:
-      articles: 읽을 수 있는 글 추가
-      items: 사용 가능한 항목 추가
+    assign_other_wikidata: 항목 할당/제거
+    add_available: 읽을 수 있는 글 추가
+    add_available_wikidata: 사용 가능한 항목 추가
     add_available_placeholder: 줄마다 문서 제목이나 URL을 추가합니다
+    add_available_placeholder_wikidata: 줄마다 항목 제목이나 URL을 추가합니다
     add_available_submit: 문서 추가
+    add_available_submit_wikidata: 항목 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
     none_short: 할당된 글이 없습니다
@@ -170,6 +174,7 @@ ko:
     reviewers: 검토자
     review_other: 동료 평가 할당/제거
     review_self: 문서 미리보기
+    review_self_wikidata: 항목 검토
     sandbox_draft_link: 연습장 초안
     select: 선택
   blocks:
@@ -218,6 +223,9 @@ ko:
     articles: 문서
     article_viewer: 문서 뷰어
     articles_i_am_reviewing: 동료 검사 중인 문서
+    assignment_headings:
+      assigned_articles_wikidata: 할당된 항목
+      available_articles_wikidata: 사용 가능한 항목
     calendar:
       legend: 범례
       legend_class_canceled: 휴강/취소됨
@@ -324,8 +332,7 @@ ko:
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
     please_log_in: 로그인해 주십시오.
     private: 비공개
-    rating_feedback:
-      articles: '이 글의 예측된 평가는 다음과 같습니다:'
+    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
     requested_accounts_alert_view: 보기
     school: 학교
     search_courses: 강의 검색
@@ -469,7 +476,7 @@ ko:
     user: 사용자 공간
     user_ns: 사용자
   recent_activity:
-    article_title: 문서 제목
+    article_title: 제목
     datetime: 날짜/시간
     did_you_know_eligible: Eligible을 알고 계십니까
     image: 그림
@@ -608,6 +615,7 @@ ko:
     name: 이름
     none: 참여자가 없습니다.
     no_articles: 문서 없음
+    no_articles_wikidata: 항목 없음
     number_of_articles:
       one: 문서 %{count}개
       other: 문서 %{count}개
@@ -700,26 +708,36 @@ ko:
       where_did_you_hear: 위키 교육에 관해 어디서, 누구에게 처음 들었습니까?
       why_are_you_here: 무엇을 하시겠습니까?
   article_finder:
-    average_views: 일일 평균 조회수
     add_available_article: 읽을 수 있는 글로 추가
-    remove_article: 문서 제거
-    minimum_views_label: 최소 조회수
-    no_article_found: 이 분류에 문서가 없습니다
-    search_placeholder: 키워드를 입력하십시오
-    search: 검색
-    tools: 도구
-    show_options: 옵션 보기
+    add_available_article_wikidata: 사용 가능한 항목으로 추가
+    article_finder: 문서 검색기
+    article_finder_wikidata: 항목 파인더
+    article_quality: 문서 품질(0-100)
+    article_quality_wikidata: 항목 품질(0-100)
+    average_views: 일일 평균 조회수
+    category_search: 분류 검색
+    fetched_articles_wikidata: 찾은 항목
+    filtered_articles: 필터링된 문서
+    filtered_articles_wikidata: 필터링된 항목
     hide_options: 옵션 숨기기
     keyword_search: 키워드 검색
-    category_search: 분류 검색
-    article_quality: 문서 품질(0-100)
+    minimum_views_label: 최소 조회수
     more_results: 더 많은 결과
-    filtered_articles: 필터링된 문서
+    no_article_found: 이 분류에 문서가 없습니다
+    no_article_found_wikidata: 이 분류에 항목이 없습니다
+    remove_article: 문서 제거
+    remove_article_wikidata: 항목 제거
+    search: 검색
     searching_articles: 문서 검색 중
+    searching_articles_wikidata: 항목을 검색하는 중
+    search_placeholder: 키워드를 입력하십시오
+    show_options: 옵션 보기
     subheading_message: 작업할 위키백과 문서를 찾아봅시다.
-    article_finder: 문서 검색기
+    subheading_message_wikidata: 작업할 위키데이터 항목을 찾아봅시다.
     submit: 제출
+    tools: 도구
     unassign_article_self: 문서 할당 해제
+    unassign_article_self_wikidata: 항목 할당 해제
   training_status:
     completed: 완료
     continue: 계속

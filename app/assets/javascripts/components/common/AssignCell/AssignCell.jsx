@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import AssignButton from './AssignButton.jsx';
 import { trunc } from '../../../utils/strings';
 import CourseUtils from '../../../utils/course_utils.js';
+import ArticleUtils from '../../../utils/article_utils';
+
 
 // Helper Components
 const ArticleLink = ({ content, href, prefix }) => {
@@ -36,14 +38,14 @@ export const AssignCell = (props) => {
   if (isStudentsPage && assignments.length) {
     const article = CourseUtils.articleFromAssignment(assignments[0], course.home_wiki);
     if (assignments.length > 1) {
-      const count = I18n.t('users.number_of_articles', { count: assignments.length });
+      const count = I18n.t(`users.${ArticleUtils.projectSuffix(course.home_wiki.project, 'number_of_articles')}`, { count: assignments.length });
       link = <ArticleLink prefix={prefix} content={count} />;
     } else {
       const title = trunc(article.formatted_title, 30);
       link = <ArticleLink prefix={prefix} href={article.url} content={title} />;
     }
   } else if (!current_user) {
-    link = <ArticleLink content={I18n.t('users.no_articles')} />;
+    link = <ArticleLink content={I18n.t(`users.${ArticleUtils.projectSuffix(course.home_wiki.project, 'no_articles')}`)} />;
   }
 
   let isCurrentUser;

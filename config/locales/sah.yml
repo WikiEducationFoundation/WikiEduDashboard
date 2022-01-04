@@ -11,8 +11,7 @@ sah:
   articles:
     available: Тоҕоостоох Ыстатыйалар
   assignments:
-    add_available:
-      articles: Тоҕоостоох ыстатыйаны киллэр
+    add_available: Тоҕоостоох ыстатыйаны киллэр
   users:
     contributions_history_full: Википедиҕа киллэрбит бары кылаатын көрөргө
     training_module_name: Үөрэнэр модуль

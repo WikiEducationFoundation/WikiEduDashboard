@@ -9,7 +9,8 @@ describe('MyArticlesAssignmentLinks', () => {
     articleTitle: 'title',
     assignment: { id: 1, article_url: 'url', role: 0 },
     courseType: 'ClassroomProgramCourse',
-    current_user: { id: 99, username: 'user' }
+    current_user: { id: 99, username: 'user' },
+    project: 'wikipedia'
   };
 
   it('should show the default links', () => {

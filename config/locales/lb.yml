@@ -118,6 +118,7 @@ lb:
         bewäert gouf
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia
     see_more: Méi gesinn
+    search: A Wikipedia no engem Artikel sichen
     show_cumulative_changes: Kumulativ Ännerunge weisen
     show_current_version: Aktuell Versioun weisen
     title: Titel
@@ -134,6 +135,7 @@ lb:
     available: Disponibel Elementer
     edited: Geännert Elementer
     edited_none: Et gëtt nach keng geännert Elementer.
+    search: A Wikidata no engem Element sichen
   articles_wikidata:
     articles_short: Elementer
   articles_generic:
@@ -141,8 +143,7 @@ lb:
   assignments:
     article_link: Artikel
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
-    add_available:
-      articles: Disponibel Artikelen derbäisetzen
+    add_available: Disponibel Artikelen derbäisetzen
     add_available_submit: Artikelen derbäisetzen
     bibliography: Bibliographie
     clone: Eng Kopie maachen
@@ -319,8 +320,7 @@ lb:
     title: Titel
     update_stats: Statistiken aktualiséieren
     user_suggestions: 'Benotzervirschléi:'
-    user_suggestions_prompt:
-      articles: Är Virschléi fir d'Auteure vum Artikel
+    user_suggestions_prompt: Är Virschléi fir d'Auteure vum Artikel
     view_other: Aner Campagne kucken
     view: Cours weisen
     view_wiki: Op Wikipedia kucken
@@ -423,7 +423,7 @@ lb:
     user: Benotzernummraum
     user_ns: Benotzer
   recent_activity:
-    article_title: Titel vum Artikel
+    article_title: Titel
     datetime: Datum/Zäit
     image: Bild
     file_name: Numm vum Fichier
@@ -537,6 +537,7 @@ lb:
     name: Numm
     none: Dëse Cours huet keng Participanten.
     no_articles: Keng Artikelen
+    no_articles_wikidata: Keng Elementer
     no_revisions: Dësen Auteur huet keng Ännerunge gemaach.
     number_of_articles:
       one: Een Artikel
@@ -619,21 +620,22 @@ lb:
         héieren?
       why_are_you_here: Wat wëllt Dir maachen?
   article_finder:
-    page_assessment_class: Klass
-    average_views: Duerchschnëttlech gekuckt pro Dag
     add_available_article: Als disponibelen Artikel derbäisetzen
-    remove_article: Artikel ewechhuelen
-    no_article_found: Keng Artikelen an dëser Kategorie fonnt
-    search: Sichen
-    tools: Geschierkëscht
-    show_options: Optioune weisen
-    hide_options: Optioune verstoppen
+    article_quality_wikidata: Qualitéit vum Element (0-100)
+    average_views: Duerchschnëttlech gekuckt pro Dag
     category_search: Kategorie Sichen
-    more_results: Méi Resultater
     filtered_articles: Gefiltert Artikelen
-    searching_articles: Artikele sichen
-    submit: Schécken
+    hide_options: Optioune verstoppen
+    more_results: Méi Resultater
+    no_article_found: Keng Artikelen an dëser Kategorie fonnt
+    page_assessment_class: Klass
     relevanceIndex: Relevanzindex
+    remove_article: Artikel ewechhuelen
+    search: Sichen
+    searching_articles: Artikele sichen
+    show_options: Optioune weisen
+    submit: Schécken
+    tools: Geschierkëscht
   training_status:
     completed: Fäerdeg
     continue: Virufueren

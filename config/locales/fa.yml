@@ -139,8 +139,7 @@ fa:
     title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
     assignees: دانش‌آموز(ها)
     assign_other: مقاله‌ای را اختصاص دهید
-    add_available:
-      articles: یک مقالهٔ موجود را بیفزا
+    add_available: یک مقالهٔ موجود را بیفزا
     assign_self: یک مقاله به خودم اختصاص بده
     confirm_add_available: آیا از افزودن %{title} اطمینان دارید؟
     confirm_addition: آیا از اختصاص دادن %{title} به %{username} اطمینان دارید؟

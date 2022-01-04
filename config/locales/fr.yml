@@ -208,6 +208,7 @@ fr:
         de Wikipédia
       does_not_exist: Cet article n’existe pas sur Wikipédia
     see_more: Voir plus
+    search: Rechercher un article dans Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
     show_current_version_with_authorship_highlighting: Version actuelle avec mise
@@ -254,6 +255,7 @@ fr:
       à elle pour recevoir les suggestions.
     edited: Éléments modifiés
     edited_none: Il n’y a pas encore d’éléments modifiés.
+    search: Rechercher un élément dans Wikidata
     tracked_doc: Seuls les éléments suivis contribuent aux statistiques pour ce programme.
       Quand les éléments sont marqués comme non suivis, ils seront supprimés des statistiques
       lors de la prochaine mise à jour des données.
@@ -271,19 +273,22 @@ fr:
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter/supprimer un article
-    add_available:
-      articles: Ajouter des articles disponibles
-      items: Ajouter les éléments disponibles
+    assign_other_wikidata: Affecter/enlever un élément
+    add_available: Ajouter des articles disponibles
+    add_available_wikidata: Ajouter les éléments disponibles
     add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
+    add_available_placeholder_wikidata: Ajouter un titre d’élément ou un URL par ligne
     add_available_submit: Ajouter des articles
+    add_available_submit_wikidata: Ajouter des éléments
     assign_self: M’affecter un article
+    assign_self_wikidata: M’affecter un élément
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
     bibliography: Bibliographie
     clone: Cloner
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username} ?
-    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
+    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
     editors: Assigné à
     group_members: Membres du groupe
     label: Assigner
@@ -297,10 +302,14 @@ fr:
     peer_review_link: Relecture par un pair
     peer_review_link_personalized: Révision du pair %{username}
     random_peer_review:
-      confirm_addition: |-
-        Dans la plupart des cas, vous ne devrez utiliser cela qu’une fois que tous les étudiants ont eu leurs articles principaux affectés.
-        Au choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures par pair, ou vous pouvez affecter manuellement les relectures par pair en cliquant sur la ligne d’un étudiant puis en utilisant le bouton « Affecter/supprimer une relecture par pair ».
-        Cliquer sur « OK » affectera un total de %{count} relecture(s) par pair supplémentaire(s), avec un maximum de %{maximum} pour chaque étudiant, choisi parmi les articles de leurs camarades.
+      confirm_addition: Dans la plupart des cas, vous ne devrez utiliser cela qu’une
+        fois que tous les étudiants ont eu leurs articles principaux affectés. Au
+        choix, vous pouvez demander à vos étudiants de choisir leurs propres relectures
+        par pair, ou vous pouvez affecter manuellement les relectures par pair en
+        cliquant sur la ligne d’un étudiant puis en utilisant le bouton « Affecter/supprimer
+        une relecture par pair ». Cliquer sur « OK » affectera un total de %{count}
+        relecture(s) par pair supplémentaire(s), avec un maximum de %{maximum} pour
+        chaque étudiant, choisi parmi les articles de leurs camarades.
       heading: Assigner des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
@@ -309,6 +318,7 @@ fr:
     reviewers: Relecteur(s)
     review_other: Attribuer/supprimer une relecture de pair
     review_self: Relire un article
+    review_self_wikidata: Relire un élément
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
     sandbox_draft_link: Brouillon du bac à sable
@@ -446,9 +456,12 @@ fr:
     articles_i_am_updating: Articles que je mets à jour
     assignment_headings:
       assigned_articles: Articles affectés
+      assigned_articles_wikidata: Éléments affectés
       assigned_reviews: Relectures affectées
       available_articles: Articles disponibles
+      available_articles_wikidata: Éléments disponibles
       available_reviews: Articles de camarades
+      available_reviews_wikidata: Éléments des camarades de classe
     assignment_end: Fin d’affectation
     assignment_start: Début d’affectation
     calendar:
@@ -731,9 +744,7 @@ fr:
     private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
-    rating_feedback:
-      articles: 'L’évaluation prévue pour cet article est :'
-      items: 'Le taux prévu pour cet élément est :'
+    rating_feedback: 'L’évaluation prévue pour cet article est :'
     requested_accounts: Comptes demandés
     requested_accounts_alert:
       one: '%{count} compte demandé en attente.'
@@ -810,9 +821,7 @@ fr:
       fichier média sur Wikimedia Commons.
     user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
-    user_suggestions_prompt:
-      articles: Vos suggestions pour les éditeurs de l’article
-      items: Vos suggestions pour les éditeurs de l’élément
+    user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher d’autres campagnes
     view: Afficher le cours
     view_doc: Le nombre estimé de vues des articles modifiés par les contributeurs
@@ -839,13 +848,10 @@ fr:
       etc.
     wiki_staff: Équipe de Wiki Éducation
     withdrawn: Affectation non réalisée
-    word_count_doc_separated:
-      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
-        principal par les étudiants du cours pendant sa durée
-      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
-        par les étudiants du cours pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
+    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
+      de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
     survey:
       notification_message: Répondez au sondage pour ce cours.
@@ -858,6 +864,7 @@ fr:
     articles_i_am_reviewing: Articles dont je suis relecteur
     assignment_headings:
       available_reviews: Disponible pour relecture
+      available_reviews_wikidata: Disponible à la relecture
     assignment_end: Fin de l’événement
     assignments_none: Ce projet n’a aucun article affecté.
     assignment_start: Début de l’événement
@@ -953,13 +960,10 @@ fr:
       aucune image ni aucun autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
-    word_count_doc_separated:
-      items: Une estimation du nombre de mots ajoutés aux éléments de l’espace principal
-        par les éditeurs du programme pendant sa durée
-      articles: Une estimation du nombre de mots ajoutés aux articles de l’espace
-        principal par les éditeurs du programme pendant sa durée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement
+    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
+      de l’espace principal par les éditeurs du programme pendant sa durée
     yourcourses: Vos programmes
   editable:
     edit: Modifier
@@ -1043,19 +1047,14 @@ fr:
       ont échoué et %{error_count} ont rencontré des erreurs.
     revisions: Modifications récentes
     references_count: Références ajoutées
-    references_doc_separated:
-      articles: C’est le nombre de balises de référence ajoutées aux articles, et
-        cela peut inclure plusieurs références vers la même source. Les données viennent
-        du modèle de qualité d’article ORES, et est seulement disponible pour certaines
-        langues.
-      items: C’est le nombre de balises de référence ajoutées aux éléments, et cela
-        peut inclure plusieurs références à la même source. Les données viennent du
-        modèle de qualité d’élément ORES, et sont disponibles seulement pour certaines
-        langues.
     references_doc: Ceci est le nombre de balises de référence ajoutées aux articles
       et qui peut comprendre plusieurs références à la même source. Les données viennent
       du modèle de qualité d’article ORES et ne sont disponibles que pour certaines
       pages.
+    references_doc_wikidata: C’est le nombre de balises de référence ajoutées aux
+      éléments, et cela peut inclure plusieurs références à la même source. Les données
+      viennent du modèle de qualité d’élément ORES, et sont disponibles seulement
+      pour certaines langues.
     replag_info: Le tableau de bord récupère des données de modification des bases
       de données répliquées du cloud WMF. Parfois, ces bases n’ont pas les modifications
       les plus récentes du fait du délai de réplication (''replag''). Quand c’est
@@ -1086,7 +1085,7 @@ fr:
     user_ns: Utilisateur
   recent_activity:
     active_courses: L’article est actif dans
-    article_title: Titre de l’article
+    article_title: Titre
     datetime: Horodatage
     did_you_know_eligible: Éligible à « Le saviez-vous ? »
     image: Image
@@ -1370,12 +1369,16 @@ fr:
     name: Nom
     none: Il n’y a aucun participant.
     no_articles: Aucun article
+    no_articles_wikidata: Aucun élément
     no_revisions: Ce rédacteur n’a fait aucune révision.
     no_highlighting: Aucun texte de la version actuelle de l’article n’est attribué
       à cet rédacteur. Vérifiez l’historique de la page pour voir ses modifications.
     number_of_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    number_of_articles_wikidata:
+      one: '%{count} élément'
+      other: '%{count} éléments'
     profile: profil
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr(e) de vouloir supprimer %{username} ?
@@ -1572,35 +1575,45 @@ fr:
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
-    page_assessment_class: Classe
-    completeness_estimate: Note de complétude
-    average_views: Nombre moyen de vues par jour
     add_available_article: Ajouter comme un article disponible
-    remove_article: Retirer l’article
-    minimum_views_label: Nombre minimum de vues
-    no_article_found: Aucun article trouvé dans cette catégorie
-    search_placeholder: Saisir votre mot-clé
-    search: Rechercher
-    tools: Outils
-    show_options: Afficher les options
-    hide_options: Masquer les options
-    keyword_search: Recherche par mot-clé
-    category_search: Recherche par catégorie
+    add_available_article_wikidata: Ajouter comme un élément disponible
+    article_finder: Découvreur d’article
+    article_finder_wikidata: Chercheur d’élément
     article_quality: Qualité de l’article (0 – 100)
-    more_results: Davantage de résultats
-    fetched_articles: Articles récupérés
-    filtered_articles: Articles filtrés
-    searching_articles: Recherche en cours d’articles
+    article_quality_wikidata: Qualité de l’élément (0-100)
+    assign_article_self: Vous affecter vous-même
+    average_views: Nombre moyen de vues par jour
+    category_search: Recherche par catégorie
+    completeness_estimate: Note de complétude
     fetching_assessments: Récupération en cours des déclarations de page
-    fetching_revisions: Récupération en cours des révisions de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération en cours des compteurs de vues de page
-    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
-    article_finder: Découvreur d’article
-    submit: Soumettre
+    fetching_revisions: Récupération en cours des révisions de page
+    fetched_articles: Articles récupérés
+    fetched_articles_wikidata: Éléments récupérés
+    filtered_articles: Articles filtrés
+    filtered_articles_wikidata: Éléments filtrés
+    hide_options: Masquer les options
+    keyword_search: Recherche par mot-clé
+    minimum_views_label: Nombre minimum de vues
+    more_results: Davantage de résultats
+    no_article_found: Aucun article trouvé dans cette catégorie
+    no_article_found_wikidata: Aucun élément trouvé dans cette catégorie
+    page_assessment_class: Classe
     relevanceIndex: Indice de pertinence
-    assign_article_self: Vous affecter vous-même
+    remove_article: Retirer l’article
+    remove_article_wikidata: Supprimer les éléments
+    search: Rechercher
+    searching_articles: Recherche en cours d’articles
+    searching_articles_wikidata: Recherche d’éléments
+    search_placeholder: Saisir votre mot-clé
+    show_options: Afficher les options
+    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
+    subheading_message_wikidata: Trouvons un élément de Wikidata sur lequel travailler.
+    submit: Soumettre
+    tools: Outils
     unassign_article_self: Désaffecter un article
+    unassign_article_self_wikidata: Élément non affecté
   training_status:
     completed: Terminé
     continue: Poursuivre

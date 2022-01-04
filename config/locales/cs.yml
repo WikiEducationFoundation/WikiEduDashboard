@@ -222,8 +222,7 @@ cs:
     title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení
     assign_other: Přiřadit článek
-    add_available:
-      articles: Přidat dostupný článek
+    add_available: Přidat dostupný článek
     add_available_placeholder: Přidejte na každý řádek jeden název článku nebo jednu
       URL
     add_available_submit: Přidejte články
@@ -595,8 +594,7 @@ cs:
     private: Soukromý
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
-    rating_feedback:
-      articles: 'Předpokládané hodnocení článku je:'
+    rating_feedback: 'Předpokládané hodnocení článku je:'
     requested_accounts: Požadované účty
     requested_accounts_alert:
       one: '%{count} účet čeká na vyřízení.'
@@ -666,8 +664,7 @@ cs:
       Wikimedia Commons.
     user_recent_uploads: Poslední nahrané soubory
     user_suggestions: 'Uživatelův návrh:'
-    user_suggestions_prompt:
-      articles: Vaše návrhy pro editory článku
+    user_suggestions_prompt: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy
     view: Zobrazit kurz
     view_doc: Odhadovaný počet návštěv článků editovaných účastníky tohoto kurzu (počítáno
@@ -1184,27 +1181,27 @@ cs:
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
       why_are_you_here: Co byste chtěli dělat?
   article_finder:
-    page_assessment_class: Třída
     add_available_article: Přidat jako dostupný článek
-    remove_article: Odstranit článek
-    minimum_views_label: Minimální počet zobrazení
-    no_article_found: V této kategorii nebyl nalezen žádný článek
-    search_placeholder: Vložte klíčové slovo
-    search: Hledat
-    tools: Nástroje
-    show_options: Zobrazit možnosti
+    article_finder: Vyhledávač článků
+    article_quality: Kvalita článku (0-100)
+    assign_article_self: Přiřaďte se
+    category_search: Vyhledávání kategorií
+    filtered_articles: Filtrované články
     hide_options: Skrýt možnosti
     keyword_search: Vyhledávání klíčových slov
-    category_search: Vyhledávání kategorií
-    article_quality: Kvalita článku (0-100)
+    minimum_views_label: Minimální počet zobrazení
     more_results: Více výsledků
-    filtered_articles: Filtrované články
-    searching_articles: Vyhledávání článků
-    subheading_message: Najděte si článek na Wikipedii, na kterém chcete pracovat.
-    article_finder: Vyhledávač článků
-    submit: Odeslat
+    no_article_found: V této kategorii nebyl nalezen žádný článek
+    page_assessment_class: Třída
     relevanceIndex: Shoda
-    assign_article_self: Přiřaďte se
+    remove_article: Odstranit článek
+    search: Hledat
+    searching_articles: Vyhledávání článků
+    search_placeholder: Vložte klíčové slovo
+    show_options: Zobrazit možnosti
+    subheading_message: Najděte si článek na Wikipedii, na kterém chcete pracovat.
+    submit: Odeslat
+    tools: Nástroje
     unassign_article_self: Nepřiřazený článek
   training_status:
     completed: Dokončeno

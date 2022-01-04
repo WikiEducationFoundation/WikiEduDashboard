@@ -155,8 +155,8 @@ roa-tara:
   tickets:
     none: Nisciune ticket
   article_finder:
-    show_options: Fà 'ndrucà le opziune
     hide_options: Scunne le opziune
+    show_options: Fà 'ndrucà le opziune
     subheading_message: Acchiame 'na vôsce de Uicchipèdie pe fatià.
   training_status:
     completed: Combletate

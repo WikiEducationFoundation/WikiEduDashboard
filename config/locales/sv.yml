@@ -158,8 +158,7 @@ sv:
     article: Artikeln %{title} har tilldelats dig
     article_link: Artikel
     assign_other: Tilldela en artikel
-    add_available:
-      articles: Lägg till tillgängliga artiklar
+    add_available: Lägg till tillgängliga artiklar
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
     add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
@@ -404,8 +403,7 @@ sv:
     passcode_none: Inget lösenord
     please_log_in: Var god logga in.
     private: Privat
-    rating_feedback:
-      articles: 'Förutsägelsebetyget för artikeln är:'
+    rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
     requested_accounts_alert_view: Visa
     school: Skola
@@ -780,12 +778,12 @@ sv:
       where_did_you_hear: Var, eller från vem, fick du först reda på om Wiki Education?
       why_are_you_here: Vad vill du göra?
   article_finder:
+    assign_article_self: Tilldela dig själv
+    hide_options: Dölj alternativ
     remove_article: Ta bort artikel
     search: Sök
-    tools: Verktyg
     show_options: Visa alternativ
-    hide_options: Dölj alternativ
-    assign_article_self: Tilldela dig själv
+    tools: Verktyg
   training_status:
     continue: Fortsätt
     view: Visa

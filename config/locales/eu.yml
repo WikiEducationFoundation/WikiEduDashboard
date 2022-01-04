@@ -220,8 +220,7 @@ eu:
     title_too_large: Izenburuak ez du 255 karaktere baino gehiago izan behar
     assignees: Artikulu-egilea(k)
     assign_other: Artikulu bat esleitu
-    add_available:
-      articles: Gehitu artikulu erabilgarri bat
+    add_available: Gehitu artikulu erabilgarri bat
     add_available_placeholder: Gehitu artikulu izenburu bat edo URL linea bakoitzeko
     add_available_submit: Artikuluak gehitu
     assign_self: Neure buruari artikulu bat esleitu
@@ -554,8 +553,7 @@ eu:
     private: Pribatua
     published: 'Argitaratu da zure ikastaroa! Ikasleek ondorengo URLa bisitatuz eman
       dezakete izena ikastaroan:'
-    rating_feedback:
-      articles: 'Aurreikusten den artikuluaren ebaluazioa:'
+    rating_feedback: 'Aurreikusten den artikuluaren ebaluazioa:'
     requested_accounts: Eskatu kontua
     requested_accounts_alert_view: Ikusi
     review_timeline: 'Orain, berrikusi kronograma hau eta zure beharretara egokitu.
@@ -620,8 +618,7 @@ eu:
       gehitu Wikimedia Commonsera.
     user_recent_uploads: Azken igoerak
     user_suggestions: 'Lankide iradokizunak:'
-    user_suggestions_prompt:
-      articles: Artikulu honen editoreentzako zure iradokizunak
+    user_suggestions_prompt: Artikulu honen editoreentzako zure iradokizunak
     view_other: Beste kanpainak ikusi
     view: Ikastaroa ikusi
     view_doc: Izena emandako editoreek aldatutako artikuluen ikustaldi guztien batura
@@ -1172,29 +1169,29 @@ eu:
         Programari buruz?
       why_are_you_here: Zer egin nahiko zenuke?
   article_finder:
-    page_assessment_class: Klasea
-    completeness_estimate: Osotasun Emaitza
-    average_views: Eguneko batez besteko ikustaldiak
     add_available_article: Gehitu artikulu erabilgarri gisa
-    remove_article: Artikulua ezabatu
-    minimum_views_label: Gutxieneko ikustaldiak
-    no_article_found: Ez da artikulurik aurkitu kategoria honetan
-    search_placeholder: Sartu zure bilaketa testua
-    search: Bilatu
-    tools: Tresnak
-    show_options: Erakutsi aukerak
-    hide_options: Ezkutatu aukerak
-    keyword_search: Hitz gako Bilaketa
-    category_search: Kategoria Bilaketa
+    article_finder: Artikulu bilatzailea
     article_quality: Artikulu kalitatea (0-100)
-    more_results: Emaitza gehiago
+    assign_article_self: Zure buruari esleitu
+    average_views: Eguneko batez besteko ikustaldiak
+    category_search: Kategoria Bilaketa
+    completeness_estimate: Osotasun Emaitza
     fetched_articles: Aurkitutako artikuluak
     filtered_articles: Iragazitako artikuluak
-    searching_articles: Artikuluak bilatzen
-    subheading_message: Aurki dezagun Wikipedia artikulu bat lanean hasteko.
-    article_finder: Artikulu bilatzailea
-    submit: Bidali
+    hide_options: Ezkutatu aukerak
+    keyword_search: Hitz gako Bilaketa
+    minimum_views_label: Gutxieneko ikustaldiak
+    more_results: Emaitza gehiago
+    no_article_found: Ez da artikulurik aurkitu kategoria honetan
+    page_assessment_class: Klasea
     relevanceIndex: Garrantzi indizea
-    assign_article_self: Zure buruari esleitu
+    remove_article: Artikulua ezabatu
+    search: Bilatu
+    searching_articles: Artikuluak bilatzen
+    search_placeholder: Sartu zure bilaketa testua
+    show_options: Erakutsi aukerak
+    subheading_message: Aurki dezagun Wikipedia artikulu bat lanean hasteko.
+    submit: Bidali
+    tools: Tresnak
     unassign_article_self: Artikulua desesleitu
 ...

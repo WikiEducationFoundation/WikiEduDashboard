@@ -152,11 +152,11 @@ ckb:
     read_more: زیاتر بخوێنەوە
     summary: کورتە
   article_finder:
-    search: بگەڕێ
-    tools: ئامرازەکان
-    more_results: ئەنجامی زیاتر
     article_finder: دۆزەرەوەی وتار
+    more_results: ئەنجامی زیاتر
+    search: بگەڕێ
     submit: ناردن
+    tools: ئامرازەکان
   training_status:
     continue: بەردەوام بە
     view: ببینە

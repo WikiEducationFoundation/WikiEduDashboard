@@ -116,8 +116,7 @@ br:
     wp10: Anterinded frammus
   assignments:
     assignees: Deverkadenn(où)
-    add_available:
-      articles: Ouzhpennañ ur pennad hag a c'haller kaout
+    add_available: Ouzhpennañ ur pennad hag a c'haller kaout
     bibliography: Levrlennadur
     clone: Eilañ
     confirm_add_available: Ha sur eo e fell deoc'h ouzhpennañ %{title}?

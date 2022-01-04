@@ -191,8 +191,7 @@ zh-TW:
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配/移除條目
-    add_available:
-      articles: 加入可用的條目
+    add_available: 加入可用的條目
     add_available_placeholder: 在每行添加一個條目標題或 URL
     add_available_submit: 添加條目
     assign_self: 指定自己一個條目
@@ -534,8 +533,7 @@ zh-TW:
     published: |-
       您的課程已經發布！
       學生可透過此 URL 登記課程：
-    rating_feedback:
-      articles: 該條目的預估評級為：
+    rating_feedback: 該條目的預估評級為：
     requested_accounts: 申請的帳號
     requested_accounts_alert:
       one: '%{count} 個請求帳號待定中。'
@@ -598,8 +596,7 @@ zh-TW:
     user_uploads_none: 此使用者未上傳任何圖片或媒體檔案至維基共享資源。
     user_recent_uploads: 最新上傳
     user_suggestions: 使用者建議：
-    user_suggestions_prompt:
-      articles: 您給予條目編輯者的建議
+    user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的估計瀏覽數量
@@ -1178,34 +1175,34 @@ zh-TW:
       where_did_you_hear: 您是在哪裡、或是從誰，來第一次聽到維基教育？
       why_are_you_here: 您想要做什麼？
   article_finder:
-    page_assessment_class: 等級
-    completeness_estimate: 完整性分數
-    average_views: 每日平均檢視
     add_available_article: 添加為可用條目
-    remove_article: 移除條目
-    minimum_views_label: 最小檢視數
-    no_article_found: 此分類裡沒有條目
-    search_placeholder: 輸入您的關鍵詞
-    search: 搜尋
-    tools: 工具
-    show_options: 顯示選項
-    hide_options: 隱藏選項
-    keyword_search: 關鍵詞搜尋
-    category_search: 分類搜尋
+    article_finder: 條目查找
     article_quality: 條目品質（0 - 100）
-    more_results: 更多結果
-    fetched_articles: 索取的條目
-    filtered_articles: 篩選出的條目
-    searching_articles: 搜尋條目中
+    assign_article_self: 分配給您自己
+    average_views: 每日平均檢視
+    category_search: 分類搜尋
+    completeness_estimate: 完整性分數
     fetching_assessments: 索取頁面評估中
-    fetching_revisions: 索取頁面修訂中
     fetching_scores: 索取完整性分數中
     fetching_pageviews: 索取頁面檢視次數中
-    subheading_message: 讓我們來找出影響的維基百科條目
-    article_finder: 條目查找
-    submit: 提交
+    fetching_revisions: 索取頁面修訂中
+    fetched_articles: 索取的條目
+    filtered_articles: 篩選出的條目
+    hide_options: 隱藏選項
+    keyword_search: 關鍵詞搜尋
+    minimum_views_label: 最小檢視數
+    more_results: 更多結果
+    no_article_found: 此分類裡沒有條目
+    page_assessment_class: 等級
     relevanceIndex: 關聯索引
-    assign_article_self: 分配給您自己
+    remove_article: 移除條目
+    search: 搜尋
+    searching_articles: 搜尋條目中
+    search_placeholder: 輸入您的關鍵詞
+    show_options: 顯示選項
+    subheading_message: 讓我們來找出影響的維基百科條目
+    submit: 提交
+    tools: 工具
     unassign_article_self: 取消分配條目
   training_status:
     completed: 已完成

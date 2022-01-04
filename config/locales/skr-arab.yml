@@ -284,12 +284,12 @@ skr-arab:
   wizard:
     summary: خلاصہ
   article_finder:
+    hide_options: اختیارات لُکاؤ
     page_assessment_class: جماعت
     search: ڳولو
-    tools: آوزار
     show_options: اختیارات ݙکھاؤ
-    hide_options: اختیارات لُکاؤ
     submit: جمع کرواؤ
+    tools: آوزار
   training_status:
     started: شروع تھیا
 ...

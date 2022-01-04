@@ -201,8 +201,7 @@ es:
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
-    add_available:
-      articles: Añadir artículos disponibles
+    add_available: Añadir artículos disponibles
     add_available_placeholder: Añade un título de artículo o un URL por renglón
     add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
@@ -210,7 +209,7 @@ es:
     bibliography: Bibliografía
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
-    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
+    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
@@ -533,8 +532,7 @@ es:
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     user_suggestions: 'Sugerencias de usuario:'
-    user_suggestions_prompt:
-      articles: Tus sugerencias para los editores del artículo
+    user_suggestions_prompt: Tus sugerencias para los editores del artículo
     view_other: Ver otras campañas
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
@@ -1046,18 +1044,18 @@ es:
         Wiki Education?
       why_are_you_here: ¿Qué quieres hacer?
   article_finder:
-    no_article_found: No se encontró ningún artículo en esta categoría
-    search_placeholder: Escribe una palabra clave
-    search: Buscar
-    tools: Herramientas
-    keyword_search: Búsqueda por palabras clave
-    category_search: Búsqueda por categorías
     article_quality: Calidad de artículo (0-100)
-    more_results: Más resultados
+    category_search: Búsqueda por categorías
     fetched_articles: Artículos recuperados
     filtered_articles: Artículos filtrados
+    keyword_search: Búsqueda por palabras clave
+    more_results: Más resultados
+    no_article_found: No se encontró ningún artículo en esta categoría
+    search: Buscar
     searching_articles: Buscando artículos
+    search_placeholder: Escribe una palabra clave
     submit: Enviar
+    tools: Herramientas
   training_status:
     continue: Continuar
     completion_time: Tiempo de compleción

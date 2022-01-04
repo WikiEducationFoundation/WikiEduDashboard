@@ -105,8 +105,26 @@ describe UploadImporter do
       described_class.import_upload(file_data)
       expect(CommonsUpload.last.id).to eq(12345)
       # Whether this gets saved with CGI.escape depends on whether the database can handle
-      # 4-byte characters.
+      # 4-byte characters. In new databases on travis-ci, it can, but in production might not.
       expect(CGI.unescape(CommonsUpload.last.file_name)).to eq('File:東-bronze-shang.svg')
+    end
+
+    it 'saves a file with 4-byte characters in the title' do
+      # This isn't the file's name anymore, and I can't find any live examples of such files,
+      # but it may come up again, so we still have code for handling this situation.
+      file_data = { 'user' => user.username, 'title' => 'File:𣒚-bronze.svg', 'pageid' => 12345 }
+
+      call_count = 0
+      allow_any_instance_of(CommonsUpload).to receive(:save) do |upload|
+        if call_count.zero?
+          call_count += 1
+          raise ActiveRecord::StatementInvalid
+        end
+        upload.save!
+      end
+
+      described_class.import_upload(file_data)
+      expect(CommonsUpload.last.id).to eq(12345)
     end
   end
 end

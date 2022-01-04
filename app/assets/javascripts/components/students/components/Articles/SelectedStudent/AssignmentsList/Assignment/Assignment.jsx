@@ -43,6 +43,7 @@ export const Assignment = ({ assignment, course, current_user, fetchArticleDetai
           assignment={assignment}
           courseType={course.type}
           user={user}
+          project={course.home_wiki.project}
         />
       </td>
       <td className="current-status">

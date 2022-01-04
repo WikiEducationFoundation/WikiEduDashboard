@@ -194,8 +194,7 @@ et:
     title_too_large: Pealkiri ei tohi olla pikem kui 255 märki
     assignees: Seotud kasutajakonto(d)
     assign_other: Seo artikkel kasutajakontoga
-    add_available:
-      articles: Lisa valitavaid artikleid
+    add_available: Lisa valitavaid artikleid
     add_available_placeholder: Lisa üks artikli pealkiri või URL rea kohta
     add_available_submit: Lisa artikleid
     assign_self: Seo artikkel oma kontoga
@@ -600,8 +599,7 @@ et:
     please_log_in: Logi sisse.
     private: Kinnine
     published: 'Kursus on avaldatud! Osalejad saavad kursusele registreeruda aadressil:'
-    rating_feedback:
-      articles: 'Artikli prognoositav hinne on:'
+    rating_feedback: 'Artikli prognoositav hinne on:'
     requested_accounts: Taotletavad kontod
     requested_accounts_alert:
       one: '%{count} ootel kontotaotlus.'
@@ -669,8 +667,7 @@ et:
       ega muud meediumifaili.
     user_recent_uploads: Hiljutised üleslaadimised
     user_suggestions: 'Kasutajate ettepanekud:'
-    user_suggestions_prompt:
-      articles: Sinu ettepanekud artikli toimetajatele
+    user_suggestions_prompt: Sinu ettepanekud artikli toimetajatele
     view_other: Vaata teisi kampaaniaid
     view: Vaata kursust
     view_doc: Registreerunud kaastööliste muudetud artiklite vaatamiste koguarv alates
@@ -1272,34 +1269,34 @@ et:
         Educationist?
       why_are_you_here: Mida Sa sooviksid teha?
   article_finder:
-    page_assessment_class: Rühm
-    completeness_estimate: Täielikkuse hinne
-    average_views: Keskmiselt vaatamisi päevas
     add_available_article: Lisa valitavaks artikliks
-    remove_article: Eemalda artikkel
-    minimum_views_label: Minimaalselt vaatamisi
-    no_article_found: Sellesse kategooriasse kuuluvad artiklid puuduvad
-    search_placeholder: Sisesta võtmesõna
-    search: Otsi
-    tools: Tööriistad
-    show_options: Näita suvandeid
-    hide_options: Peida suvandid
-    keyword_search: Võtmesõna otsing
-    category_search: Kategooria otsing
+    article_finder: Artikliotsing
     article_quality: Artikli kvaliteet (0–100)
-    more_results: Veel tulemusi
-    fetched_articles: Laaditud artiklid
-    filtered_articles: Filtreeritud artiklid
-    searching_articles: Artiklite otsimine
+    assign_article_self: Määra ennast muutjaks
+    average_views: Keskmiselt vaatamisi päevas
+    category_search: Kategooria otsing
+    completeness_estimate: Täielikkuse hinne
     fetching_assessments: Lehekülgede hinnete laadimine
-    fetching_revisions: Lehekülgede redaktsioonide laadimine
     fetching_scores: Täielikkuse hinnete laadimine
     fetching_pageviews: Vaatamiskordade arvu laadimine
-    subheading_message: Otsi Vikipeedia artikkel, mida täiendada.
-    article_finder: Artikliotsing
-    submit: Saada
+    fetching_revisions: Lehekülgede redaktsioonide laadimine
+    fetched_articles: Laaditud artiklid
+    filtered_articles: Filtreeritud artiklid
+    hide_options: Peida suvandid
+    keyword_search: Võtmesõna otsing
+    minimum_views_label: Minimaalselt vaatamisi
+    more_results: Veel tulemusi
+    no_article_found: Sellesse kategooriasse kuuluvad artiklid puuduvad
+    page_assessment_class: Rühm
     relevanceIndex: Asjakohasuse indeks
-    assign_article_self: Määra ennast muutjaks
+    remove_article: Eemalda artikkel
+    search: Otsi
+    searching_articles: Artiklite otsimine
+    search_placeholder: Sisesta võtmesõna
+    show_options: Näita suvandeid
+    subheading_message: Otsi Vikipeedia artikkel, mida täiendada.
+    submit: Saada
+    tools: Tööriistad
     unassign_article_self: Tühista muutjaks määramine
   training_status:
     completed: Lõpetatud

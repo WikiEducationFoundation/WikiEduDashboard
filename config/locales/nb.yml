@@ -188,8 +188,7 @@ nb:
     title_too_large: Tittelen bør ikke være lengre enn 255 tegn
     assignees: Tildelt til
     assign_other: Tildel en artikkel
-    add_available:
-      articles: Legg til tilgjengelige artikler
+    add_available: Legg til tilgjengelige artikler
     add_available_placeholder: Legg til én artikkeltittel eller URl per linje
     add_available_submit: Legg til artikler
     assign_self: Tildel meg selv en artikkel
@@ -517,8 +516,7 @@ nb:
       mediefiler på Wikimedia Commons.
     user_recent_uploads: Nylige opplastinger
     user_suggestions: 'Brukerforslag:'
-    user_suggestions_prompt:
-      articles: Forslagene dine til bidragsyterne til artikkelen
+    user_suggestions_prompt: Forslagene dine til bidragsyterne til artikkelen
     view_other: Vis andre prosjekter
     view: Vis kurs
     view_doc: Summen av visninger for alle artikler redigert av påmeldte deltakere
@@ -1008,8 +1006,8 @@ nb:
   wiki_api:
     create_account_reason: Brukeren deltar i/på %{event}.
   article_finder:
-    search: Søk
-    tools: Verktøy
-    show_options: Vis valg
     hide_options: Skjul valg
+    search: Søk
+    show_options: Vis valg
+    tools: Verktøy
 ...

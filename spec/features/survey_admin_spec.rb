@@ -195,7 +195,7 @@ describe 'Survey Administration', type: :feature, js: true do
       survey_assignment = create(:survey_assignment, survey_id: survey.id)
       create(:survey_notification, survey_assignment_id: survey_assignment.id,
                                    courses_users_id: CoursesUsers.last.id)
-      answer = create(:answer)
+      answer = create(:answer, follow_up_answer_text: 'yes')
       survey.rapidfire_question_groups << answer.question.question_group
       answer.question.update(track_sentiment: true, answer_options: 'foo')
       answer.answer_group.update(user_id: instructor.id)

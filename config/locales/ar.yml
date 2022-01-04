@@ -223,8 +223,7 @@ ar:
     title_too_large: يجب أن لا يزيد العنوان عن عدد 255 محرف
     assignees: المخصص له(م)
     assign_other: تعيين مقال
-    add_available:
-      articles: إضافة مقالات متاحة
+    add_available: إضافة مقالات متاحة
     add_available_placeholder: أضف عنوان مقالة أو مسارا واحد لكل سطر
     add_available_submit: إضافة مقالات
     assign_self: تعيين مقالة لنفسي
@@ -622,8 +621,7 @@ ar:
     private: خاص
     published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة المسار
       التالي:'
-    rating_feedback:
-      articles: 'التقييم المتنبأ لهذه المقالة هو:'
+    rating_feedback: 'التقييم المتنبأ لهذه المقالة هو:'
     requested_accounts: الحسابات المطلوبة
     requested_accounts_alert:
       one: '%{count} الحساب المطلوب معلق.'
@@ -692,8 +690,7 @@ ar:
       ​​كومنز.
     user_recent_uploads: أحدث المرفوعات
     user_suggestions: 'اقتراحات المستخدم:'
-    user_suggestions_prompt:
-      articles: اقتراحاتك لمحرري المقالة
+    user_suggestions_prompt: اقتراحاتك لمحرري المقالة
     view_other: عرض حملات أخرى
     view: عرض الدورة
     view_doc: العدد المقدر للمشاهدات لمقالات تم تحريرها بواسطة المحررين المسجلين منذ
@@ -1336,34 +1333,34 @@ ar:
       where_did_you_hear: من أين، أو من من سمعت عن ويكي التعليم؟
       why_are_you_here: ماذا تريد أن تفعل؟
   article_finder:
-    page_assessment_class: الرتبة
-    completeness_estimate: درجة الاكتمال
-    average_views: متوسط ​​المشاهدات لكل يوم
     add_available_article: الإضافة كمقالة متاحة
-    remove_article: أزل المقالة
-    minimum_views_label: الحد الأدنى للمعاينات
-    no_article_found: لم يتم العثور على مقالات في هذا التصنيف
-    search_placeholder: أدخل كلمة البحث
-    search: بحث
-    tools: الأدوات
-    show_options: عرض الخيارات
-    hide_options: إخفاء الخيارات
-    keyword_search: الكلمة الرئيسية للبحث
-    category_search: تصنيف البحث
+    article_finder: الباحث عن المقالات
     article_quality: جودة المقالة (0-100)
-    more_results: نتائج أكثر
-    fetched_articles: المقالات المجلوبة
-    filtered_articles: المقالات المفلترة
-    searching_articles: جارٍ البحث في المقالات
+    assign_article_self: عيِّن نفسك
+    average_views: متوسط ​​المشاهدات لكل يوم
+    category_search: تصنيف البحث
+    completeness_estimate: درجة الاكتمال
     fetching_assessments: جارٍ جلب تقييمات الصفحة
-    fetching_revisions: جارٍ جلب مراجعات الصفحة
     fetching_scores: جارٍ جلب درجة الاكتمال
     fetching_pageviews: جارٍ جلب مشاهدات الصفحة
-    subheading_message: دعنا نجد مقالة ويكيبيديا للعمل عليها.
-    article_finder: الباحث عن المقالات
-    submit: إرسال
+    fetching_revisions: جارٍ جلب مراجعات الصفحة
+    fetched_articles: المقالات المجلوبة
+    filtered_articles: المقالات المفلترة
+    hide_options: إخفاء الخيارات
+    keyword_search: الكلمة الرئيسية للبحث
+    minimum_views_label: الحد الأدنى للمعاينات
+    more_results: نتائج أكثر
+    no_article_found: لم يتم العثور على مقالات في هذا التصنيف
+    page_assessment_class: الرتبة
     relevanceIndex: مؤشر الصلة
-    assign_article_self: عيِّن نفسك
+    remove_article: أزل المقالة
+    search: بحث
+    searching_articles: جارٍ البحث في المقالات
+    search_placeholder: أدخل كلمة البحث
+    show_options: عرض الخيارات
+    subheading_message: دعنا نجد مقالة ويكيبيديا للعمل عليها.
+    submit: إرسال
+    tools: الأدوات
     unassign_article_self: إلغاء تعيين المقالة
   training_status:
     completed: مكتمل

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: DDPAT
+# Author: Fraxinus.cs
 # Author: Irus
 # Author: Pupsik-ipa
 # Author: Surprizi
@@ -49,6 +50,7 @@ ab:
     loading: Астатиақәа рҭагалара...
     new: (иҿыцу)
     rating: Акласс
+    search: Адаҟьа Авикипедиаҿы ԥшаатәуп
     show_current_version: Иаарԥштәуп уажәтәи аверсиа
     title: Ахьӡ
     title_example: Астатиа ахьӡ
@@ -150,7 +152,7 @@ ab:
   namespace:
     user_ns: Алахәыла
   recent_activity:
-    article_title: Астатиа ахьӡ
+    article_title: Ахьӡ
     image: Асахьа
     file_name: Афаил ахьӡ
     recent_edits: Аҵыхәтәантәи ариашарақәа
@@ -183,5 +185,8 @@ ab:
     last_name: Ажәла
     name: Ахьӡ
     none: Алахәылаҩцәа ыҟам.
+    number_of_articles_wikidata:
+      one: '%{count} аелемент'
+      other: '%{count} аелементқәа'
     recent_revisions: Аҵыхәтәантәи ариашарақәа
 ...

@@ -12,6 +12,7 @@ import EditedUnassignedArticles from './EditedUnassignedArticles/EditedUnassigne
 // Utils
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 import setOtherEditedArticles from '@components/students/utils/setOtherEditedArticles';
+import ArticleUtils from '../../../../../utils/article_utils';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
@@ -23,7 +24,6 @@ export const SelectedStudent = ({
   } = processAssignments({ assignments, course, current_user: selected });
   const otherEditedArticles = setOtherEditedArticles(groupedArticles, assignments, selected);
   const showArticleId = Number(location.search.split('showArticle=')[1]);
-
   return (
     <article className="assignments-list">
       <Header
@@ -41,7 +41,7 @@ export const SelectedStudent = ({
           course={course}
           current_user={current_user}
           fetchArticleDetails={fetchArticleDetails}
-          title={I18n.t('instructor_view.assigned_articles')}
+          title={I18n.t(`instructor_view.${ArticleUtils.projectSuffix(course.home_wiki.project, 'assigned_articles')}`)}
           user={selected}
         />
       }
@@ -52,13 +52,13 @@ export const SelectedStudent = ({
           course={course}
           current_user={current_user}
           fetchArticleDetails={fetchArticleDetails}
-          title={I18n.t('instructor_view.reviewing_articles')}
+          title={I18n.t(`instructor_view.${ArticleUtils.projectSuffix(course.home_wiki.project, 'reviewing_articles')}`)}
           user={selected}
         />
       }
 
       {
-        !assigned.length && !reviewing.length && <NoAssignments />
+        !assigned.length && !reviewing.length && <NoAssignments project={course.home_wiki.project} />
       }
 
       {

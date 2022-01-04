@@ -218,9 +218,9 @@ ru:
     article_link: Статья
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
-    add_available:
-      articles: Добавить доступные статьи
+    add_available: Добавить доступные статьи
     add_available_submit: Добавить статьи
+    add_available_submit_wikidata: Добавить элементы
     bibliography: Библиография
     clone: Клонировать
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
@@ -667,19 +667,20 @@ ru:
   wiki_api:
     create_account_reason: Этот пользователь учавствует в %{event}.
   article_finder:
-    page_assessment_class: Класс
-    average_views: В среднем просмотров в день
-    search: Найти
-    tools: Инструменты
-    show_options: Показать параметры
-    hide_options: Скрыть параметры
-    category_search: Поиск по категории
-    article_quality: Качество статьи(0-100)
-    more_results: Ещё результаты
     article_finder: Поиск статьи
-    submit: Отправить
-    relevanceIndex: Индекс релевантности
+    article_quality: Качество статьи(0-100)
     assign_article_self: Назначить себя
+    average_views: В среднем просмотров в день
+    category_search: Поиск по категории
+    hide_options: Скрыть параметры
+    more_results: Ещё результаты
+    page_assessment_class: Класс
+    relevanceIndex: Индекс релевантности
+    remove_article_wikidata: Удалить элементы
+    search: Найти
+    show_options: Показать параметры
+    submit: Отправить
+    tools: Инструменты
     unassign_article_self: Отменить назначение статьи
   multi_wiki:
     selector_placeholder: Начните вводить домен wiki

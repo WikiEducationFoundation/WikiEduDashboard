@@ -232,8 +232,7 @@ pt:
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Aluno(s)
     assign_other: Atribuir um artigo
-    add_available:
-      articles: Adicionar artigos disponíveis
+    add_available: Adicionar artigos disponíveis
     add_available_placeholder: Adicionar um título de artigo ou URL por linha
     add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
@@ -677,8 +676,7 @@ pt:
     private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
-    rating_feedback:
-      articles: 'A avaliação prevista para o artigo é:'
+    rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
     requested_accounts_alert:
       one: '%{count} conta solicitada pendente.'
@@ -754,8 +752,7 @@ pt:
       ficheiro multimédia para a wiki Wikimedia Commons.
     user_recent_uploads: Carregamentos recentes
     user_suggestions: 'Sugestões do utilizador:'
-    user_suggestions_prompt:
-      articles: As suas sugestões para os editores do artigo
+    user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
     view: Ver Curso
     view_doc: Estimativa das visitas a artigos editados por editores inscritos, desde
@@ -1480,34 +1477,34 @@ pt:
         da Wiki Educação?
       why_are_you_here: O que gostaria de fazer?
   article_finder:
-    page_assessment_class: Classe
-    completeness_estimate: Classificação de integridade
-    average_views: Média de visitas por dia
     add_available_article: Adicionar como artigo disponível
-    remove_article: Remover artigo
-    minimum_views_label: Número mínimo de visitas
-    no_article_found: Não foi encontrado nenhum artigo nesta categoria
-    search_placeholder: Introduza a sua palavra-chave
-    search: Pesquisar
-    tools: Ferramentas
-    show_options: Mostrar opções
-    hide_options: Ocultar opções
-    keyword_search: Pesquisa por palavra-chave
-    category_search: Pesquisa por categoria
+    article_finder: Pesquisa de artigos
     article_quality: Qualidade do artigo (0-100)
-    more_results: Mais resultados
-    fetched_articles: Artigos obtidos
-    filtered_articles: Artigos filtrados
-    searching_articles: A pesquisar artigos
+    assign_article_self: Atribuir a si
+    average_views: Média de visitas por dia
+    category_search: Pesquisa por categoria
+    completeness_estimate: Classificação de integridade
     fetching_assessments: A obter classificações de páginas
-    fetching_revisions: A obter revisões de páginas
     fetching_scores: A obter classificações de integridade
     fetching_pageviews: A obter visitas de páginas
-    subheading_message: Vamos procurar um artigo da Wikipédia para trabalhar nele.
-    article_finder: Pesquisa de artigos
-    submit: Enviar
+    fetching_revisions: A obter revisões de páginas
+    fetched_articles: Artigos obtidos
+    filtered_articles: Artigos filtrados
+    hide_options: Ocultar opções
+    keyword_search: Pesquisa por palavra-chave
+    minimum_views_label: Número mínimo de visitas
+    more_results: Mais resultados
+    no_article_found: Não foi encontrado nenhum artigo nesta categoria
+    page_assessment_class: Classe
     relevanceIndex: Índice de relevância
-    assign_article_self: Atribuir a si
+    remove_article: Remover artigo
+    search: Pesquisar
+    searching_articles: A pesquisar artigos
+    search_placeholder: Introduza a sua palavra-chave
+    show_options: Mostrar opções
+    subheading_message: Vamos procurar um artigo da Wikipédia para trabalhar nele.
+    submit: Enviar
+    tools: Ferramentas
     unassign_article_self: Remover atribuição de artigo
   training_status:
     completed: Concluída

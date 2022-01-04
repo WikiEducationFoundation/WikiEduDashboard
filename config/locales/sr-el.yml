@@ -189,8 +189,7 @@ sr-el:
     title_too_large: Naslov ne bi trebalo da ima više od 255 znakova
     assignees: Dodeljeno
     assign_other: Dodeli članak
-    add_available:
-      articles: Dodaj dostupne članke
+    add_available: Dodaj dostupne članke
     add_available_placeholder: Dodajte jedan naslov članka ili URL u jednom redu
     add_available_submit: Dodaj članke
     assign_self: Dodeli mi članak
@@ -536,8 +535,7 @@ sr-el:
     private: Privatno
     published: 'Vaš kurs je objavljen! Studenti se mogu upisati tako što će posetiti
       sledeću adresu:'
-    rating_feedback:
-      articles: 'Predviđena ocena za članak je:'
+    rating_feedback: 'Predviđena ocena za članak je:'
     requested_accounts: Zahtevani nalozi
     requested_accounts_alert_view: Pregled
     review_timeline: 'Sada pregledajte vremenski okvir za izradu zadatka, prilagođavajući
@@ -604,8 +602,7 @@ sr-el:
       datoteku na Vikimedijinu ostavu.
     user_recent_uploads: Skorašnja otpremanja
     user_suggestions: 'Predlozi korisnika:'
-    user_suggestions_prompt:
-      articles: Vaši predlozi za urednike članka
+    user_suggestions_prompt: Vaši predlozi za urednike članka
     view_other: Pogledaj ostale kampanje
     view: Vidi kurs
     view_doc: Procenjeni broj pregleda članaka koji su uređeni od strane upisanih
@@ -1190,34 +1187,34 @@ sr-el:
       where_did_you_hear: Gde i od koga ste prvo čuli za Viki obrazovanje?
       why_are_you_here: Šta biste želeli da uradite?
   article_finder:
-    page_assessment_class: Čas
-    completeness_estimate: Ocena učinka
-    average_views: Prosećan broj prikaza po danu
     add_available_article: Dodaj kao dostupan članak
-    remove_article: Ukloni članak
-    minimum_views_label: Najmanje prikaza
-    no_article_found: Nisu pronađeni članci u ovoj kategoriji
-    search_placeholder: Unesite svoje ključne reči
-    search: Pretraži
-    tools: Alatke
-    show_options: Prikaži opcije
-    hide_options: Sakrij opcije
-    keyword_search: Pretraga ključnih reči
-    category_search: Pretraga kategorija
+    article_finder: Pronalazač članaka
     article_quality: Kvalitet članka (0-100)
-    more_results: Još rezultata
-    fetched_articles: Izabrani članci
-    filtered_articles: Filtrirani članci
-    searching_articles: Pretraživanje članaka
+    assign_article_self: Dodelite sebi
+    average_views: Prosećan broj prikaza po danu
+    category_search: Pretraga kategorija
+    completeness_estimate: Ocena učinka
     fetching_assessments: Dobavljanje procene stranice
-    fetching_revisions: Dobavljanje izmena stranice
     fetching_scores: Dobavljanje rezultata učinka
     fetching_pageviews: Dobavljanje prikaza stranica
-    subheading_message: Hajde da pronađemo članak iz Vikipedije na kojem ćemo raditi.
-    article_finder: Pronalazač članaka
-    submit: Pošalji
+    fetching_revisions: Dobavljanje izmena stranice
+    fetched_articles: Izabrani članci
+    filtered_articles: Filtrirani članci
+    hide_options: Sakrij opcije
+    keyword_search: Pretraga ključnih reči
+    minimum_views_label: Najmanje prikaza
+    more_results: Još rezultata
+    no_article_found: Nisu pronađeni članci u ovoj kategoriji
+    page_assessment_class: Čas
     relevanceIndex: Indeks relevantnosti
-    assign_article_self: Dodelite sebi
+    remove_article: Ukloni članak
+    search: Pretraži
+    searching_articles: Pretraživanje članaka
+    search_placeholder: Unesite svoje ključne reči
+    show_options: Prikaži opcije
+    subheading_message: Hajde da pronađemo članak iz Vikipedije na kojem ćemo raditi.
+    submit: Pošalji
+    tools: Alatke
     unassign_article_self: Nedodeljeni članak
   training_status:
     completed: Završeno

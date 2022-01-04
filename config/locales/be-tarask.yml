@@ -151,6 +151,7 @@ be-tarask:
       stub: '%{class}-кляса — кароткі пачатак артыкулу, які патрабуе напаўненьня'
       list: '%{class}-кляса — хутчэй сьпіс, а не звычайны артыкул'
       '?': Неацэнены — артыкул, які яшчэ ня быў ацэнены паводле шкалы якасьці Вікіпэдыі
+    search: Шукаць артыкул у Вікіпэдыі
     title: Назва
     title_example: Назва артыкулу
     view: Праглядзець артыкул
@@ -167,12 +168,16 @@ be-tarask:
       бал звычайна азначае, што артыкул адпавядае крытэрам Вікіпэдыі па структуры
       добрага артыкулу, аднак гэта ня тычыцца самога зьместу (гэтыя балы даступныя
       толькі для артыкулаў у ангельскай Вікіпэдыі).
+  items:
+    search: Шукаць прадмет у Вікізьвестках
   assignments:
     already_exists: Заданьне ўжо існуе!
     assignees: Выканаўца(-ы)
     assign_other: Прызначыць/выдаліць артыкул
-    add_available:
-      articles: Дадаць даступныя артыкулы
+    assign_other_wikidata: Прызначыць/выдаліць прадмет
+    add_available: Дадаць даступныя артыкулы
+    add_available_placeholder_wikidata: Дадаць адзін загаловак ці вэб-адрас на радок
+    add_available_submit_wikidata: Дадаць прадметы
     assign_self: Прызначыць артыкул сабе
     bibliography: Бібліяграфія
     clone: Клянаваць
@@ -295,4 +300,8 @@ be-tarask:
     diff_hide: Схаваць
   uploads:
     label: Загрузкі
+  article_finder:
+    article_finder_wikidata: Шукальнік прадметаў
+    fetched_articles_wikidata: Атрыманыя прадметы
+    searching_articles_wikidata: Пошук прадметаў
 ...

@@ -112,8 +112,7 @@ bn:
     edited: সম্পাদিত আইটেমসমূহ
   assignments:
     title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
-    add_available:
-      items: উপলব্ধ আইটেমগুলো যুক্ত করুন
+    add_available_wikidata: উপলব্ধ আইটেমগুলো যুক্ত করুন
     assign_self: নিজেকে একটি প্রবন্ধে নিয়োজিত করুন
     assign_tooltip: একটি বরাদ্দকৃত নিবন্ধ হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের পরিকল্পনা
       করছেন।
@@ -377,11 +376,11 @@ bn:
     supplementary:
       why_are_you_here: আপনি কী করতে চান?
   article_finder:
+    more_results: আরও ফলাফল
     page_assessment_class: শ্রেণী
     search: অনুসন্ধান
-    tools: সরঞ্জাম
-    more_results: আরও ফলাফল
     submit: জমা দিন
+    tools: সরঞ্জাম
   training_status:
     continue: অব্যাহত
     view: দেখুন

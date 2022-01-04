@@ -6,6 +6,7 @@ import OnClickOutside from 'react-onclickoutside';
 // Utilities
 import { forEach, union } from 'lodash-es';
 import { trunc } from '~/app/assets/javascripts/utils/strings';
+import ArticleUtils from '~/app/assets/javascripts/utils/article_utils';
 
 // Components
 import Loading from '@components/common/loading.jsx';
@@ -85,7 +86,7 @@ export class ArticleViewer extends React.Component {
 
   showButtonLabel() {
     const { showArticleFinder, showButtonLabel } = this.props;
-    if (showArticleFinder) return 'Brief preview of Article';
+    if (showArticleFinder) return ArticleUtils.I18n('preview', this.props.article.project);
     if (showButtonLabel) return showButtonLabel;
     if (this.isWhocolorLang()) {
       return I18n.t('articles.show_current_version_with_authorship_highlighting');
@@ -302,6 +303,7 @@ export class ArticleViewer extends React.Component {
             showBadArticleAlert && (
               <BadWorkAlert
                 alertStatus={alertStatus}
+                project={this.props.article.project}
                 submitBadWorkAlert={this.submitBadWorkAlert}
               />
             )
@@ -335,7 +337,7 @@ ArticleViewer.propTypes = {
   alertStatus: PropTypes.object.isRequired,
   article: PropTypes.shape({
     id: PropTypes.number,
-    language: PropTypes.string.isRequired,
+    language: PropTypes.string,
     project: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired

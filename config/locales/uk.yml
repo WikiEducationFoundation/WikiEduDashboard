@@ -133,10 +133,12 @@ uk:
     edited_by: Редаговано
     label: Активність
   articles:
+    articles: Статті
     article_not_found: Ця стаття ще не створена.
     article_development: (розвиток статті)
     articles_shown: Показано %{count} із %{total}
     assigned: Задані статті…
+    assignments_none: Ще немає призначених статей.
     available: Доступні статті
     no_available: Доступних статей немає
     next: Далі
@@ -154,6 +156,7 @@ uk:
     edited: Редаговані статті
     edited_by: 'Відредаговано:'
     edited_mobile: Статті
+    edited_none: Ще немає відредагованих статей.
     filter:
       wiki_all: Всі
       new: Нові
@@ -219,6 +222,11 @@ uk:
       до структури доброї вікіпедійної статті, однак при оцінюванні не береться до
       уваги сам контент. (Ці оцінки доступні лише для статей англійської Вікіпедії.)
     articles_short: Статті
+  items:
+    items: Елементи
+    assigned: Призначені елементи
+    assignments_none: Ще немає призначених елементів.
+    available: Доступні елементи
   articles_wikidata:
     articles_short: Елементи
   articles_generic:
@@ -230,8 +238,7 @@ uk:
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити/вилучити статтю
-    add_available:
-      articles: Додати доступні статті
+    add_available: Додати доступні статті
     add_available_placeholder: Додавання однієї назви статті або URL-посилання в одному
       рядку
     add_available_submit: Додати статті
@@ -254,8 +261,10 @@ uk:
     peer_review_link: Перевірка колегами
     peer_review_link_personalized: Рецензія від %{username}
     random_peer_review:
-      confirm_addition: Це призначить усього %{count} додаткових peer review, максимально
-        %{maximum} для кожного студента, вибраних серед статей їхніх однокласників.
+      confirm_addition: |-
+        У більшості випадків ви повинні використовувати це лише після того, як усі студенти отримають свої основні статті.
+        Крім того, ви можете попросити своїх студентів вибрати власні експертні оцінки або ви можете вручну призначити експертні оцінки, натиснувши рядок студента, а потім скориставшись кнопкою «Призначити/видалити експертну рецензію».
+        Натиснувши «ОК», буде призначено загалом %{count} додаткових експертних оцінок, з максимальною кількістю %{maximum} для кожного студента, вибраного зі статей його однокласників.
       heading: Призначити випадкові рецензії
       tooltip_message: Призначає кожному студенту випадкові статті (з максимальним
         значенням кількості рецензій)
@@ -664,8 +673,7 @@ uk:
     private: Приватний
     published: 'Ваш курс було опубліковано! Студенти можуть записатись на нього, перейшовши
       за таким URL:'
-    rating_feedback:
-      articles: 'Передбачена оцінка статті:'
+    rating_feedback: 'Передбачена оцінка статті:'
     requested_accounts: Запити на облікові записи
     requested_accounts_alert:
       one: Очікує %{count} запит на обліковий запис.
@@ -739,8 +747,7 @@ uk:
       у Вікісховище.
     user_recent_uploads: Недавні завантаження
     user_suggestions: 'Пропозиції користувача:'
-    user_suggestions_prompt:
-      articles: Ваші пропозиції редакторам статті
+    user_suggestions_prompt: Ваші пропозиції редакторам статті
     view_other: Переглянути інші кампанії
     view: Перегляд курсу
     view_doc: Очікувана кількість всіх переглядів статей, що редагувались записаними
@@ -767,6 +774,8 @@ uk:
     withdrawn: Завдання не зроблено
     word_count_doc: Приблизне число символів, доданих до статей в основному просторі
       назв студентами курсу впродовж курсу
+    word_count_doc_wikidata: Оцінка кількості слів, доданих до елементів основного
+      простору студентами курсу протягом семестру курсу
     yourcourses: Ваші курси
     survey:
       notification_message: Пройдіть наше опитування для цього курсу.
@@ -1440,34 +1449,34 @@ uk:
       where_did_you_hear: Де чи від кого ви вперше почули про Wiki Education?
       why_are_you_here: Що б ви хотіли зробити?
   article_finder:
-    page_assessment_class: Клас
-    completeness_estimate: Рівень повноти
-    average_views: Середня кількість переглядів на день
     add_available_article: Додати як доступну статтю
-    remove_article: Вилучити статтю
-    minimum_views_label: Мінімум переглядів
-    no_article_found: Не знайдено статей у цій категорії
-    search_placeholder: Введіть ключове слово
-    search: Пошук
-    tools: Інструменти
-    show_options: Показати параметри
-    hide_options: Сховати параметри
-    keyword_search: Шукати за ключовим словом
-    category_search: Шукати в категорії
+    article_finder: Пошук статті
     article_quality: Якість статті (0-100)
-    more_results: Більше результатів
-    fetched_articles: Відібрані статті
-    filtered_articles: Фільтровані статті
-    searching_articles: Пошук статей
+    assign_article_self: Призначити себе
+    average_views: Середня кількість переглядів на день
+    category_search: Шукати в категорії
+    completeness_estimate: Рівень повноти
     fetching_assessments: Відбирання оцінок сторінок
-    fetching_revisions: Відбирання версій сторінок
     fetching_scores: Відбирання оцінок повноти
     fetching_pageviews: Відбирання переглядів сторінок
-    subheading_message: Давайте знайдемо статтю Вікіпедії, над якою можна попрацювати.
-    article_finder: Пошук статті
-    submit: Надіслати
+    fetching_revisions: Відбирання версій сторінок
+    fetched_articles: Відібрані статті
+    filtered_articles: Фільтровані статті
+    hide_options: Сховати параметри
+    keyword_search: Шукати за ключовим словом
+    minimum_views_label: Мінімум переглядів
+    more_results: Більше результатів
+    no_article_found: Не знайдено статей у цій категорії
+    page_assessment_class: Клас
     relevanceIndex: Індекс релевантності
-    assign_article_self: Призначити себе
+    remove_article: Вилучити статтю
+    search: Пошук
+    searching_articles: Пошук статей
+    search_placeholder: Введіть ключове слово
+    show_options: Показати параметри
+    subheading_message: Давайте знайдемо статтю Вікіпедії, над якою можна попрацювати.
+    submit: Надіслати
+    tools: Інструменти
     unassign_article_self: Скасувати призначення статті
   training_status:
     completed: Завершено

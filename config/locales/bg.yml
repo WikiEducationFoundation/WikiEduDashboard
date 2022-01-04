@@ -277,6 +277,6 @@ bg:
       headline: Здравейте, %{username}
   article_finder:
     search: Търсене
-    tools: Инструменти
     submit: Изпращане
+    tools: Инструменти
 ...
