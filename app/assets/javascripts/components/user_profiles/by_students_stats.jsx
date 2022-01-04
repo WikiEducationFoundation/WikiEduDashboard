@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ArticleUtils from '../../utils/article_utils';
 
-const ByStudentsStats = ({ username, stats }) => {
+const ByStudentsStats = ({ username, stats, maxProject }) => {
+  const uploads_in_use_count = ArticleUtils.projectSuffix(maxProject, 'uploads_in_use_count');
+
   return (
     <div className = "user_stats">
       <h5>
@@ -29,7 +32,7 @@ const ByStudentsStats = ({ username, stats }) => {
             {stats.view_sum}
           </div>
           <small>
-            {I18n.t('metrics.view_count_description')}
+            {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'view_count_description')}`)}
           </small>
         </div>
         <div className= "stat-display__stat">
@@ -37,7 +40,7 @@ const ByStudentsStats = ({ username, stats }) => {
             {stats.article_count}
           </div>
           <small>
-            {I18n.t('metrics.articles_edited')}
+            {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_edited')}`)}
           </small>
         </div>
         <div className= "stat-display__stat">
@@ -45,7 +48,7 @@ const ByStudentsStats = ({ username, stats }) => {
             {stats.new_article_count}
           </div>
           <small>
-            {I18n.t('metrics.articles_created')}
+            {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_created')}`)}
           </small>
         </div>
         <div className ="stat-display__stat tooltip-trigger">
@@ -61,7 +64,7 @@ const ByStudentsStats = ({ username, stats }) => {
               {stats.uploads_in_use_count}
             </h4>
             <p>
-              {I18n.t('metrics.uploads_in_use_count', { count: stats.uploads_in_use_count })}
+              {I18n.t(`metrics.${uploads_in_use_count}`, { count: stats.uploads_in_use_count })}
             </p>
             <h4>{stats.upload_usage_count}</h4>
             <p>

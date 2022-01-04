@@ -54,3 +54,5 @@ if @user.course_student?
       .individual_upload_usage_count
   end
 end
+
+json.max_project @max_project

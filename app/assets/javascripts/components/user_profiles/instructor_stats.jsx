@@ -14,7 +14,8 @@ const InstructorStats = createReactClass({
     isStudent: PropTypes.bool,
     statsGraphsData: PropTypes.object,
     graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number
+    graphHeight: PropTypes.number,
+    maxProject: PropTypes.string
   },
 
   getInitialState() {
@@ -44,7 +45,8 @@ const InstructorStats = createReactClass({
     const byStudents = (
       <ByStudentsStats
         username = {this.props.username}
-        stats = {this.props.stats.by_students}
+        stats={this.props.stats.by_students}
+        maxProject={this.props.maxProject}
       />
     );
     if (this.state.selectedGraph === 'courses_count') {
@@ -74,7 +76,8 @@ const InstructorStats = createReactClass({
       asStudent = (
         <StudentStats
           username = {this.props.username}
-          stats = {this.props.stats.as_student}
+          stats={this.props.stats.as_student}
+          maxProject = {this.props.maxProject}
         />
       );
     }
