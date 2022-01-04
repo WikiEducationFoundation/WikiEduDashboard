@@ -8,6 +8,7 @@ class IndividualStatisticsPresenter
   def initialize(user:)
     @user = user
     set_articles_edited
+    set_article_views
     set_upload_usage_counts
   end
 
@@ -72,13 +73,26 @@ class IndividualStatisticsPresenter
         article_edits[:characters][edit.mw_rev_id] = edit.characters
         article_edits[:references][edit.mw_rev_id] = edit.references_added
         article_edits[:new_article] = true if edit.new_article
-        # highest view count of all revisions for this article is the total for the article
-        article_edits[:views] = edit.views if edit.views > article_edits[:views]
+        article_edits[:earliest_revision] = edit.date if earliest_rev_yet?(edit, article_edits)
+        article_edits[:average_views] ||= edit.article.average_views
         @articles_edited[edit.article_id] = article_edits
       end
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def set_article_views
+    @articles_edited.each do |_article_id, article_edits|
+      next unless article_edits[:average_views]
+      days = (Time.now.utc.to_date - article_edits[:earliest_revision].to_date).to_i
+      article_edits[:views] = days * article_edits[:average_views]
+    end
+  end
+
+  def earliest_rev_yet?(edit, article_edits)
+    return true if article_edits[:earliest_revision].nil?
+    edit.date < article_edits[:earliest_revision]
+  end
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
@@ -92,6 +106,7 @@ class IndividualStatisticsPresenter
   def individual_mainspace_edits(course)
     course.all_revisions
           .joins(:article)
+          .includes(:article)
           .where(articles: { namespace: Article::Namespaces::MAINSPACE })
           .where(user: @user, deleted: false)
   end

@@ -7,10 +7,10 @@ describe IndividualStatisticsPresenter do
   describe 'individual_article_views' do
     subject { described_class.new(user: user) }
 
-    let(:course1) { create(:course) }
-    let(:course2) { create(:course, slug: 'foo/2') }
+    let(:course1) { create(:course, start: 1.year.ago, end: 1.day.ago) }
+    let(:course2) { create(:course, slug: 'foo/2', start: 1.year.ago, end: 1.day.ago) }
     let(:user) { create(:user) }
-    let(:article) { create(:article) }
+    let(:article) { create(:article, average_views: 10) }
     let(:refs_tags_key) { 'feature.wikitext.revision.ref_tags' }
 
     context 'when a user is in two courses that overlap' do
@@ -35,7 +35,7 @@ describe IndividualStatisticsPresenter do
       it 'does\'t double count the same articles or revisions in multiple courses' do
         expect(course1.revisions.count).to eq(1)
         expect(course2.revisions.count).to eq(1)
-        expect(subject.individual_article_views).to eq(100)
+        expect(subject.individual_article_views).to be > 3600
         expect(subject.individual_character_count).to eq(100)
         expect(subject.individual_references_count).to eq(22)
         expect(subject.individual_article_count).to eq(1)
@@ -57,7 +57,7 @@ describe IndividualStatisticsPresenter do
         create(:revision, views: 100, user_id: user.id, article_id: article.id,
                           date: course1.start + 1.minute)
         create(:revision, views: 150, user_id: user.id, article_id: article.id,
-                          date: course1.start - 1.minute)
+                          date: course1.start - 1.year)
         ArticlesCourses.update_from_course(course1)
         ArticlesCourses.update_from_course(course2)
       end
@@ -65,7 +65,7 @@ describe IndividualStatisticsPresenter do
       it 'only counts views for revisions that happen during a course' do
         expect(course1.revisions.count).to eq(1)
         expect(course2.revisions.count).to eq(1)
-        expect(subject.individual_article_views).to eq(100)
+        expect(subject.individual_article_views).to be < 3800
       end
     end
   end
