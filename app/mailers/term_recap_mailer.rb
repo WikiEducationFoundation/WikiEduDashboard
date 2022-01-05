@@ -32,7 +32,5 @@ class TermRecapMailer < ApplicationMailer
     @presenter = CoursesPresenter.new(current_user: nil, campaign_param: campaign.slug)
 
     @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
-    @upcoming_term = Campaign.find_by(slug: Deadlines.recruiting_term)
-    @deadline = Deadlines.deadline.strftime('%B %-d, %Y')
   end
 end
