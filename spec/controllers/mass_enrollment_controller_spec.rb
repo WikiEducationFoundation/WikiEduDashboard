@@ -55,6 +55,20 @@ describe MassEnrollmentController, type: :request do
       end
     end
 
+    context 'when the :no_max_users flag is set' do
+      let(:usernames) { (1..160).map { |i| "Username_#{i}" }.join("\n") }
+      let(:course) do
+        create(:course, start: 1.day.ago, end: 1.day.from_now, slug: slug_params,
+                        flags: { no_max_users: true })
+      end
+
+      it 'adds all users to the course' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        expect_any_instance_of(AddUsers).to receive(:add_all_at_once).and_return([])
+        post "/mass_enrollment/#{course.slug}", params: request_params
+      end
+    end
+
     context 'when user cannot edit course' do
       before do
         course.campaigns << Campaign.first
