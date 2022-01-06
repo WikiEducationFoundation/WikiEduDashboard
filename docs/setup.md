@@ -18,9 +18,7 @@
 # Script setup
 We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.), Fedora and MacOS.
 
-**Warning**: If you run this python script on Windows system, it will run a still in Development script, which is **not** tested fully and might **not** work properly.
-
-**Note**: We have a batch file for Windows which is still a **Work-in-progress**. If you are windows user, We would love your contribution in testing and developing the script for Windows platform. You can find the batch file under setup directory.
+For Windows, the easiest way to get an environment set up is to [use Ubuntu with WSL 2](./ubuntu_wsl_setup.md).
 
 ## Prerequisite
 There are some basic requirements for the script to work:
@@ -105,27 +103,9 @@ If you know your way around Rails, here's the very short version. Some additiona
   - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
   - Windows: [Download the installer](https://nodejs.org/)
 
-- Install Gems:
-    - $ `gem install bundler`
-    - $ `bundle install`
-    - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
-
-- [Install Yarn](https://yarnpkg.com/lang/en/docs/install/)
-- Install node modules via Yarn:
-    - $ `yarn`
-
-- Install Pandoc
-    - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
-    - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
-
-- Add config files:
-    - Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
-    - Or you can copy `config/application.example.yml` to `config/application.yml` by running the command `cp config/application.example.yml config/application.yml`
-    - and copy `config/database.example.yml` to `config/database.yml` by running the command `cp config/database.example.yml config/database.yml`
-
 - Create mysql development and test database:
     - Install mariadb-server (or mysql-server)
-        - Debian: `sudo apt-get install -y mariadb-server`
+        - Debian: `sudo apt-get install -y mariadb-server libmariadb-dev`
         - OSX: `brew install mariadb`
         - Windows: Install [XAMPP](https://www.apachefriends.org/index.html)
     - Start a mysql command line:
@@ -137,6 +117,25 @@ If you know your way around Rails, here's the very short version. Some additiona
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `exit`
+
+- Install Gems:
+    - $ `gem install bundler`
+    - $ `bundle install`
+    - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
+
+- [Install Yarn](https://yarnpkg.com/lang/en/docs/install/)
+- Install node modules via Yarn:
+    - $ `yarn`
+
+- Install Pandoc
+    - Debian: `sudo apt install pandoc`
+    - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
+    - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
+
+- Add config files:
+    - Either save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
+    - Or you can copy `config/application.example.yml` to `config/application.yml` by running the command `cp config/application.example.yml config/application.yml`
+    - and copy `config/database.example.yml` to `config/database.yml` by running the command `cp config/database.example.yml config/database.yml`
 
 - Install Redis:
   - Debian: `sudo apt install redis-server`
