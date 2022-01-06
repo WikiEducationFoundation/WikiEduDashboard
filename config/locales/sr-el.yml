@@ -1007,7 +1007,6 @@ sr-el:
     characters_added_short: 'GIP: %{mainspace}, KIP: %{userspace}'
     characters_added_userspace: Dodato znakova (korisnik)
     characters_added_draftspace: Dodato znakova (radno)
-    references_count: Dodato referenci
     my_assigned: 'Dodeljeno:'
     my_reviewing: 'Pregledanje:'
     name: Ime
@@ -1018,6 +1017,7 @@ sr-el:
       one: '%{count} članak'
       other: '%{count} članaka'
     recent_revisions: Skorašnje izmene
+    references_count: Dodato referenci
     remove_confirmation: Da li ste sigurni da želite da uklonite %{username}?
     request_confirmation: Želite li da zatražite ovaj nalog?
     revision_characters_and_views: 'Znakova dodato: %{characters}, Pregleda: %{views}'

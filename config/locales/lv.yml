@@ -68,6 +68,7 @@ lv:
     edited_by: 'Labotāji:'
     edited_mobile: Raksti
     edited_none: '%{title} nav labojis nevienu rakstu.'
+    find: Atrast rakstus
     hide: Paslēpt
     history: (vēsture)
     label: Raksti
@@ -300,7 +301,7 @@ lv:
     edit_template: Labot veidni
   instructor_view:
     assignments_table:
-      article_name: Raksta nosaukums
+      article_name: Nosaukums
     assigned_articles: Piešķirtie raksti
   metrics:
     label: Kursa aktivitāte
@@ -388,10 +389,10 @@ lv:
     first_name: Vārds
     last_name: Uzvārds
     loading: Ielādē lietotājus...
-    references_count: Pievienotās atsauces
     name: Nosaukums
     none: Dalībnieku nav.
     recent_revisions: Neseni labojumi
+    references_count: Pievienotās atsauces
     revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
     references_doc: Šī redaktora pievienotās vai dzēstās atsauces
     sub_navigation:

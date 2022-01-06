@@ -122,8 +122,16 @@ be-tarask:
     label: Актыўнасьць
   articles:
     articles: Артыкулы
+    article_not_found: Гэты артыкул яшчэ ня створаны.
+    article_development: (разьвіцьцё артыкулу)
+    articles_shown: Паказана %{count} з %{total}
     assigned: Прызначаныя артыкулы
+    assignments_none: Прызначаных артыкулаў яшчэ няма.
     available: Даступныя артыкулы
+    no_available: Даступных артыкулаў няма
+    next: Далей
+    previous: Назад
+    article_title: Назва артыкулу
     assigned_to: Прызначаная
     character_doc: Сума знакаў, дададзеных да артыкулаў запісанымі рэдактарамі між
       пачатковай і канчатковай датамі
@@ -183,7 +191,7 @@ be-tarask:
     clone: Клянаваць
     confirm_add_available: Вы ўпэўненыя, што жадаеце дадаць %{title}?
     confirm_addition: Вы ўпэўненыя, што хочаце прызначыць %{title} карыстальніку %{username}?
-    confirm_deletion: Вы ўпэўненыя, што жадаеце выдаліць заданьне на гэты артыкул?
+    confirm_deletion: Вы ўпэўненыя, што жадаеце выдаліць гэтае заданьне?
     label: Прызначыць
     loading: Загрузка заданьняў…
     none_short: Няма прызначаных артыкулаў

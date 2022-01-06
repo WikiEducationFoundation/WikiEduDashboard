@@ -10,6 +10,7 @@ kn:
   application:
     cookie_consent_see_more: ಇನ್ನಷ್ಟು ನೋಡಿ.
     log_in: ಲಾಗಿನ್
+    log_out: ಲಾಗ್ ಔಟ್
     submit: ಸಲ್ಲಿಸಿ
     change: ಬದಲಾಯಿಸಿ
     details: ವಿವರಗಳು

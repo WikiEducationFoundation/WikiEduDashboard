@@ -796,11 +796,11 @@ cs:
     activity: Nedávná aktivita
     are_trained: účastníků projektu
     articles_created: Vytvořené stránky
-    articles_created_generic: Vytvořené stránky
     articles_created_wikidata: Vytvořené položky
+    articles_created_generic: Vytvořené stránky
     articles_edited: Editované stránky
-    articles_edited_generic: Upravené stránky
     articles_edited_wikidata: Upravené položky
+    articles_edited_generic: Upravené stránky
     bytes_added: Přidáno bajtů
     characters: Znaky
     char_added: Přidáno znaků
@@ -1022,7 +1022,6 @@ cs:
     characters_added_short: 'HP: %{mainspace}, UP: %{userspace}'
     characters_added_userspace: Přidáno znaků (uživatel)
     characters_added_draftspace: Přidáno znaků (koncept)
-    references_count: Přidány reference
     my_assigned: 'Přiřazeno:'
     my_reviewing: 'Kontroluje:'
     name: Jméno
@@ -1035,6 +1034,7 @@ cs:
       other: '%{count} článků'
     profile: profil
     recent_revisions: Poslední editace
+    references_count: Přidány reference
     remove_confirmation: Jste si jist, že chcete odebrat %{username}?
     request_confirmation: Jste si jisti, že opravdu chcete žádat o tyto účty?
     revision_characters_and_views: 'Přidáno znaků: %{characters}, Zobrazení stránky:

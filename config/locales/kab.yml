@@ -138,10 +138,10 @@ kab:
   editable:
     edit_template: Snifel taneɣruft
   metrics:
-    articles_created_generic: Isebtar yettwarnan
     articles_created_wikidata: Iferdisen yettwarnan
-    articles_edited_generic: Isebtar yettwabeddlen
+    articles_created_generic: Isebtar yettwarnan
     articles_edited_wikidata: Iferdisen yettwabeddlen
+    articles_edited_generic: Isebtar yettwabeddlen
   users:
     contribution_statistics: Tidaddanin n uttekki
 ...

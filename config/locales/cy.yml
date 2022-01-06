@@ -545,11 +545,11 @@ cy:
     activity: Newidiadau Diweddar
     are_trained: yn gyfredol o ran hyfforddiant
     articles_created: Erthyglau a Grewyd
-    articles_created_generic: Tudalennau a Grewyd
     articles_created_wikidata: Eitemau a Grewyd
+    articles_created_generic: Tudalennau a Grewyd
     articles_edited: Erthyglau a Olygwyd
-    articles_edited_generic: Tudalennau a olygwyd
     articles_edited_wikidata: Eitemau a Olygwyd
+    articles_edited_generic: Tudalennau a olygwyd
     bytes_added: Beits a Ychwanegwyd
     characters: Llythyrennau/symbolau
     char_added: Llythyrennau/symbolau a Ychwanegwyd
@@ -730,7 +730,6 @@ cy:
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     characters_added_userspace: Llythrennau a ychwanegwyd
     characters_added_draftspace: Ychwanegwyd Llythrennau (drafft)
-    references_count: Cyfeiriadau a Ychwanegwyd
     my_assigned: 'Neilltuwyd:'
     my_reviewing: 'Yn adolygu:'
     name: Enw
@@ -741,6 +740,7 @@ cy:
       one: '%{count} erthygl'
       other: '%{count} erthygl'
     recent_revisions: Golygiadau diweddar
+    references_count: Cyfeiriadau a Ychwanegwyd
     remove_confirmation: Ydych chi'n sicr eich bod am ddileu %{username}?
     request_confirmation: Ydych chi'n siwr eich bod am wneud cais am y cyfri hwn?
     revision_characters_and_views: 'Nifer y Llythrennau a Ychwanegwyd: %{characters},

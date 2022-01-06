@@ -920,11 +920,11 @@ de:
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
-    articles_created_generic: Erstellte Seiten
     articles_created_wikidata: Erstellte Items
+    articles_created_generic: Erstellte Seiten
     articles_edited: Bearbeitete Artikel
-    articles_edited_generic: Bearbeitete Seiten
     articles_edited_wikidata: Geänderte Items
+    articles_edited_generic: Bearbeitete Seiten
     bytes_added: Hinzugefügte Bytes
     characters: Zeichen
     char_added: Zeichen hinzugefügt
@@ -1233,7 +1233,6 @@ de:
     characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
     characters_added_userspace: Hinzugefügte Zeichen (Benutzer)
     characters_added_draftspace: Hinzugefügte Zeichen (Entwurf)
-    references_count: Referenzen hinzugefügt
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
     name: Name
@@ -1248,6 +1247,7 @@ de:
       other: '%{count} Elemente'
     profile: Profil
     recent_revisions: Letzte Bearbeitungen
+    references_count: Referenzen hinzugefügt
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
     request_confirmation: Bist du sicher, dass du dieses Benutzerkonto beantragen
       möchtest?

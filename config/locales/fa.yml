@@ -83,6 +83,7 @@ fa:
     edited_by: ویراستهٔ
     label: فعالیت
   articles:
+    articles: مقاله‌ها
     assigned: مقالات اختصاص‌داده
     available: مقالات موجود
     no_available: مقاله‌ای در دسترس نیست
@@ -99,12 +100,14 @@ fa:
     filter:
       wiki_all: همه
       new: تازه
+    find: یافتن مقاله
     hide: نهفتن
     history: (تاریخچه)
     label: مقاله‌ها
     loading: در حال بارگذاری مقاله‌ها ...
     new: (نو)
     none: هیچ مقاله‌ای از این دوره، ویرایش نشده‌است.
+    preview: پیش‌نمایش مختصری از مقاله
     rating: کلاس
     rating_doc: درجهٔ هر مقاله توسط ویکی‌پروژه‌ها در ویکی‌پدیا اختصاص یافته‌است. این
       درجه‌ها می‌توانند مربوط به نسخه‌های قدیمی‌تر باشند، بنابراین آن‌ها فقط شاخص
@@ -124,6 +127,7 @@ fa:
       list: فهرست— فهرستی از لینک‌ها به مقاله‌های یک زمینهٔ خاص است.
       '?': درجه‌بندی‌نشده— مقاله‌ای که هنوز طبق معیارهای درجه‌بندی ویکی‌پدیا، درجه‌بندی
         نشده‌است.
+    search: جستجوی ویکی‌پدیا برای یافتن یک مقاله
     show_current_version: نمایش نسخهٔ فعلی
     title: عنوان
     title_example: عنوان مقاله
@@ -134,12 +138,21 @@ fa:
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
     edit_size: اندازهٔ‌ویرایش
     wiki: ویکی
+  items:
+    items: آیتم‌ها
+    available: آیتم‌های در دسترس
+    edited: آیتم‌های ویرایش‌شده
+    find: یافتن آیتم‌ها
+    search: جستجو در ویکی‌داده برای یک آیتم
+    title_example: عنوان آیتم
   assignments:
+    article_link_wikidata: آیتم
     already_exists: این تکلیف از پیش وجود دارد!
     title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
     assignees: دانش‌آموز(ها)
     assign_other: مقاله‌ای را اختصاص دهید
     add_available: یک مقالهٔ موجود را بیفزا
+    add_available_submit_wikidata: افزودن آیتم‌ها
     assign_self: یک مقاله به خودم اختصاص بده
     confirm_add_available: آیا از افزودن %{title} اطمینان دارید؟
     confirm_addition: آیا از اختصاص دادن %{title} به %{username} اطمینان دارید؟
@@ -153,6 +166,7 @@ fa:
     reviewers: 'بازبینی‌کننده‌(ها):'
     review_other: اختصاص یک بازبینی
     review_self: بازبینی یک مقاله
+    review_self_wikidata: بازبینی یک آیتم
     select: انتخاب
   blocks:
     milestones:
@@ -179,10 +193,15 @@ fa:
     archived: بایگانی دوره‌ها
     actions: اقدامات
     articles: مقاله‌ها
+    article_viewer_wikidata: مشاهده‌گر آیتم
+    articles_i_am_reviewing_wikidata: آیتم‌هایی که بازبینی همتا می‌کنم
     articles_i_will_create: مقاله‌هایی که ایجاد خواهم کرد
+    articles_i_will_create_wikidata: آیتم‌هایی که ایجاد خواهم کرد
     articles_i_am_updating: مقاله‌هایی که به‌روزرسانی می‌کنم
+    articles_i_am_updating_wikidata: آیتم‌هایی که به‌روزرسانی می‌کنم
     assignment_headings:
       available_articles: مقالات موجود
+      available_articles_wikidata: آیتم‌های در دسترس
     assignment_end: پایانِ تکلیف
     assignment_start: آغازِ تکلیف
     calendar:
@@ -278,6 +297,7 @@ fa:
     loading: در حال بارگیری...
     milestones_none: این دوره در حال حاضر به هیچ دست‌آورد ویژه‌ای نرسیده‌است.
     my_articles: مقاله‌های من
+    my_articles_wikidata: آیتم‌های من
     new_week: افزودن هفتهٔ تازه
     new_account_email: نشانی ایمیل
     new_account_email_placeholder: name@example.org
@@ -395,11 +415,17 @@ fa:
     save: ذخیره
     edit_description: ویرایش توضیحات
     edit_details: ویرایش جزئیات
+  instructor_view:
+    assignments_table:
+      article_name: نام
+    assigned_articles_wikidata: آیتم‌های اختصاص‌یافته
   metrics:
     last_update: آخرین روزآمدسازی
     activity: فعالیت‌های اخیر
     articles_created: مقاله‌های ایجادشده
+    articles_created_generic_wikidata: آیتم‌های ایجادشده
     articles_edited: مقاله‌های ویرایش‌شده
+    articles_edited_generic_wikidata: آیتم‌های ویرایش‌شده
     characters: کاراکترها
     char_added: کاراکترهای افزوده‌شده
     char_changed: کاراکترهای تغییریافته
@@ -519,8 +545,10 @@ fa:
     assign_articles: مقالات اختصاص‌یافته
     assign_articles_done: انجام شد
     assigned: مقالات اختصاص‌داده
+    assigned_wikidata: آیتم‌های اختصاص‌یافته
     assignees: عامل(ها)
     chars_added: کارکترهای افزوده‌شده<br>(فضای اصلی | فضای کاربری)
+    chars_added_wikidata: نویسه‌های افزوده‌شده<br>(آیتم | کاربر | پیش‌نویس)
     contributions: مشارکت‌های کاربر
     contributions_more: نمایش مشارکت‌های بیش‌تر
     course_passcode: 'کد دسترسی:'
@@ -535,6 +563,7 @@ fa:
     last_name: نام خانوادگی
     loading: در حال بارگذاری کاربران...
     characters_added_mainspace: کاراکترهای افزوده‌شده فضای اصلی
+    characters_added_mainspace_wikidata: نویسه‌های افزوده‌شده (آیتم)
     characters_added_short: 'فضای اصلی: %{mainspace}، فضای کاربر: %{userspace}'
     characters_added_userspace: کاراکترهای افزوده‌شده فضای کاربر
     my_assigned: 'اختصاص‌یافته:'
@@ -542,6 +571,7 @@ fa:
     name: نام
     none: مشارکت‌کننده‌ای وجود ندارد.
     no_articles: بدون مقاله
+    no_articles_wikidata: فاقد آیتم
     no_revisions: این ویراستار هیچ بازبینی‌ای انجام نداده‌است.
     number_of_articles:
       one: '%{count} مقاله'
@@ -626,4 +656,11 @@ fa:
       link: شرکت در نظرسنجی
   feedback_form_responses:
     no_responses: هنوز هیچ پاسخ بازخوردی وجود ندارد
+  article_finder:
+    article_finder_wikidata: آیتم‌یاب
+    article_quality_wikidata: کیفیت آیتم (۰-۱۰۰)
+    fetched_articles_wikidata: آیتم‌های واکشی‌شده
+    filtered_articles_wikidata: آیتم‌های پالایش‌شده
+    remove_article_wikidata: حذف آیتم‌ها
+    searching_articles_wikidata: جستجو برای آیتم‌ها
 ...

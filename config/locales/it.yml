@@ -218,15 +218,20 @@ it:
   assignments:
     article: La voce %{title} ora è assegnata a te.
     article_link: Voce
+    article_link_wikidata: Elemento
     already_exists: Questa assegnazione esiste già!
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna/rimuovi una voce
+    assign_other_wikidata: Assegna/rimuovi un elemento
     add_available: Aggiungi voci disponibili
     add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
+    add_available_placeholder_wikidata: Aggiungi il titolo di un elemento o un URL
+      per riga
     add_available_submit: Aggiungi voci
     add_available_submit_wikidata: Aggiungi elementi
     assign_self: Assegnami una voce
+    assign_self_wikidata: Assegnami un elemento
     assign_tooltip: Una voce assegnata è quella che pianifichi di creare o migliorare.
     bibliography: Bibliografia
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
@@ -347,8 +352,10 @@ it:
     articles: Voci
     assignment_headings:
       assigned_articles: Voci assegnate
+      assigned_articles_wikidata: Elementi assegnati
       assigned_reviews: Revisioni assegnate
       available_articles: Voci disponibili
+      available_articles_wikidata: Elementi disponibili
       available_reviews: Voci dei compagni di classe
     assignment_end: Fine assegnazione
     assignment_start: Inizio assegnazione
@@ -640,6 +647,7 @@ it:
     all_courses: Tutti i programmi
     assignment_headings:
       available_reviews: Disponibile per revisione
+      available_reviews_wikidata: Disponibile per revisione
     assignment_end: Fine evento
     assignments_none: Questo progetto non ha voci assegnate.
     assignment_start: Inizio evento
@@ -713,17 +721,19 @@ it:
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
   instructor_view:
+    assignments_table:
+      article_name: Nome
     bad_work:
       learn_more_button: Ulteriori informazioni
   metrics:
     last_update: Ultimo aggiornamento statistiche
     activity: Attività recente
     articles_created: Voci create
-    articles_created_generic: Pagine create
     articles_created_wikidata: Elementi creati
+    articles_created_generic: Pagine create
     articles_edited: Voci modificate
-    articles_edited_generic: Pagine modificate
     articles_edited_wikidata: Elementi modificati
+    articles_edited_generic: Pagine modificate
     bytes_added: Bytes aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
@@ -887,10 +897,14 @@ it:
     name: Nome
     none: Non ci sono partecipanti.
     no_articles: Nessuna voce
+    no_articles_wikidata: Nessun elemento
     no_revisions: Questo editor non ha creato versioni.
     number_of_articles:
       one: '%{count} voce'
       other: '%{count} voci'
+    number_of_articles_wikidata:
+      one: '%{count} elemento'
+      other: '%{count} elementi'
     profile: profilo
     recent_revisions: Modifiche recenti
     remove_confirmation: Sei sicuro di voler rimuovere %{username}?
@@ -1004,14 +1018,17 @@ it:
       why_are_you_here: Cosa ti piacerebbe fare?
   article_finder:
     category_search: Ricerca per categoria
+    fetched_articles_wikidata: Recupera elementi
     hide_options: Nascondi opzioni
     keyword_search: Ricerca per parole chiave
+    no_article_found_wikidata: Nessun elemento trovato in questa categoria
     page_assessment_class: Classe
     remove_article: Rimuovi voce
     remove_article_wikidata: Rimuovi elementi
     search: Cerca
     show_options: Mostra opzioni
     subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
+    subheading_message_wikidata: Troviamo un elemento di Wikidata su cui lavorare.
     submit: Invia
     tools: Strumenti
   training_status:

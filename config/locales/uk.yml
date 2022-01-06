@@ -924,11 +924,11 @@ uk:
     activity: Недавня активність
     are_trained: без запізнень у навчанні
     articles_created: Створені статті
-    articles_created_generic: Створені сторінки
     articles_created_wikidata: Створені елементи
+    articles_created_generic: Створені сторінки
     articles_edited: Редаговані статті
-    articles_edited_generic: Відредаговані сторінки
     articles_edited_wikidata: Додані елементи
+    articles_edited_generic: Відредаговані сторінки
     article_scoped_program_info: Це «програма конкретних статей», якраз рахує лише
       редагування у призначених статтях і категоріях.
     bytes_added: Байтів додано
@@ -1249,7 +1249,6 @@ uk:
     characters_added_short: 'ОП: %{mainspace}, ПК %{userspace}'
     characters_added_userspace: Додано символів (до сторінок користувачів)
     characters_added_draftspace: Додано символів (до чернеток)
-    references_count: Додано приміток
     my_assigned: 'Призначено:'
     my_reviewing: 'Перевіряються:'
     name: Ім'я
@@ -1263,6 +1262,7 @@ uk:
       other: '%{count} статті'
     profile: профіль
     recent_revisions: Останні зміни
+    references_count: Додано приміток
     remove_confirmation: Ви дійсно хочете вилучити %{username}?
     request_confirmation: Ви дійсно бажаєте подати запит на цей обліковий запис?
     requested_account_status:

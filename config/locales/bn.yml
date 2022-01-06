@@ -110,12 +110,16 @@ bn:
     items: আইটেম
     available: উপলব্ধ আইটেম
     edited: সম্পাদিত আইটেমসমূহ
+    title_example: আইটেমের শিরোনাম
   assignments:
+    article_link_wikidata: আইটেম
     title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
     add_available_wikidata: উপলব্ধ আইটেমগুলো যুক্ত করুন
     assign_self: নিজেকে একটি প্রবন্ধে নিয়োজিত করুন
     assign_tooltip: একটি বরাদ্দকৃত নিবন্ধ হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের পরিকল্পনা
       করছেন।
+    assign_tooltip_wikidata: একটি বরাদ্দকৃত আইটেম হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের
+      পরিকল্পনা করছেন।
     confirm_add_available: অাপনি কি নিশ্চিত আপনি %{title} যুক্ত করতে চান?
     confirm_addition: অাপনি কি নিশ্চিত আপনি এই %{title} %{username} কে বরাদ্দ দিতে
       চান?
@@ -263,10 +267,15 @@ bn:
     save: সংরক্ষণ
     edit_description: বিবরণ সম্পাদনা করুন
   instructor_view:
+    assignments_table:
+      article_name: নাম
     bad_work:
       learn_more: যদি শিক্ষার্থীদের কাজ নিবন্ধটি আরও খারাপ করে তোলে তবে আমরা আপনাকে
         এটি সম্পাদনা করতে উত্সাহিত করি।  অন্যথায়, সমস্যাগুলির সম্পর্কে আমাদের জানান
         যাতে আমরা সেগুলি পরে ঠিক করতে পারি।
+      learn_more_wikidata: যদি শিক্ষার্থীদের কাজ আইটেমট আরও খারাপ করে তোলে তবে আমরা
+        আপনাকে এটি সম্পাদনা করতে উত্সাহিত করি।  অন্যথায়, সমস্যাগুলির সম্পর্কে আমাদের
+        জানান যাতে আমরা সেগুলি পরে ঠিক করতে পারি।
       learn_more_button: আরও জানুন
       submit_issue: এই নিবন্ধটির সাথে উল্লেখযোগ্য সমস্যাগুলি কী?
       submit_issue_placeholder: আপনি যত বেশি বিশেষজ্ঞের দৃষ্টিভঙ্গি এবং বিশদ সরবরাহ
@@ -276,6 +285,7 @@ bn:
   metrics:
     activity: সাম্প্রতিক কার্যকালাপ
     articles_edited: সম্পাদিত নিবন্ধসমূহ
+    articles_edited_generic_wikidata: সম্পাদিত আইটেমসমূহ
     close_modal: বন্ধ করুন
     date_time: তারিখ/সময়
     edit_count_description: মোট সম্পাদনা

@@ -1093,7 +1093,6 @@ et:
     characters_added_short: 'Põhiruum: %{mainspace}, kasutajaruum: %{userspace}'
     characters_added_userspace: Lisatud märke (kasutaja)
     characters_added_draftspace: Lisatud märke (mustand)
-    references_count: Lisatud viiteid
     my_assigned: 'Määratud kasutajale:'
     my_reviewing: 'Retsenseerimisel:'
     name: Nimi
@@ -1104,6 +1103,7 @@ et:
       one: '%{count} artikkel'
       other: '%{count} artiklit'
     recent_revisions: Hiljutised muudatused
+    references_count: Lisatud viiteid
     remove_confirmation: Kas oled kindel, et soovid kasutaja %{username} eemaldada?
     request_confirmation: Kas oled kindel, et soovid taotleda selle nimega kontot?
     revision_characters_and_views: 'Lisatud märke: %{characters}, vaatamiskordi: %{views}'

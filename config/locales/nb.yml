@@ -865,7 +865,6 @@ nb:
     characters_added_short: 'Hn.: %{mainspace}, Bn. %{userspace}'
     characters_added_userspace: Tegn lagt til (bruker)
     characters_added_draftspace: Tegn lagt til (kladd)
-    references_count: Referanser lagt til
     my_assigned: 'Tildelt:'
     my_reviewing: 'Anmelder:'
     name: Navn
@@ -876,6 +875,7 @@ nb:
       one: '%{count} artikkel'
       other: '%{count} artikler'
     recent_revisions: Nylige redigeringer
+    references_count: Referanser lagt til
     remove_confirmation: Er du sikker på at du vil fjerne %{username}?
     request_confirmation: Er du sikker på at du forespørre denne kontoen?
     revision_characters_and_views: 'Tegn lagt til: %{characters}, visninger: %{views}'

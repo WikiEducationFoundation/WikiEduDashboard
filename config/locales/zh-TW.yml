@@ -744,11 +744,11 @@ zh-TW:
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目
-    articles_created_generic: 已建立頁面
     articles_created_wikidata: 已建立項目
+    articles_created_generic: 已建立頁面
     articles_edited: 已編輯的條目
-    articles_edited_generic: 頁面已編輯
     articles_edited_wikidata: 項目已編輯
+    articles_edited_generic: 頁面已編輯
     article_scoped_program_info: 此為「條目範圍方案」，這只會計算所分配到條目與分類的編輯次數。
     bytes_added: 已添加位元組
     characters: 字元
@@ -1020,7 +1020,6 @@ zh-TW:
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
     characters_added_userspace: 新增的字元（使用者）
     characters_added_draftspace: 新增的字元（草稿）
-    references_count: 參考來源已添加
     my_assigned: 已分配：
     my_reviewing: 審核中：
     name: 名稱
@@ -1033,6 +1032,7 @@ zh-TW:
       other: '%{count} 個條目'
     profile: 個人檔案
     recent_revisions: 近期編輯
+    references_count: 參考來源已添加
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
     requested_account_status:

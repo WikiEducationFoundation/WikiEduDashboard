@@ -858,11 +858,11 @@ ar:
     activity: آخر نشاط
     are_trained: محدثة مع التدريب
     articles_created: المقالات التي تم إنشاؤها
-    articles_created_generic: الصفحات المنشأة
     articles_created_wikidata: العناصر المنشأة
+    articles_created_generic: الصفحات المنشأة
     articles_edited: المقالات التي تم تعديلها
-    articles_edited_generic: الصفحات المعدلة
     articles_edited_wikidata: العناصر المعدلة
+    articles_edited_generic: الصفحات المعدلة
     article_scoped_program_info: هذا هو "برنامج نطاق المقالة"، والذي يحسب فقط التعديلات
       على المقالات والفئات المعينة.
     bytes_added: البايتات المضافة
@@ -1148,7 +1148,6 @@ ar:
     characters_added_short: 'النطاف الرئيسي: %{mainspace}، نطاق المستخدم: %{userspace}'
     characters_added_userspace: الحروف المضافة (مستخدم)
     characters_added_draftspace: الحروف المضافة (مسودة)
-    references_count: المراجع المضافة
     my_assigned: 'تم تعيينها:'
     my_reviewing: 'مراجعة:'
     name: الاسم
@@ -1160,6 +1159,7 @@ ar:
       other: '%{count} مقالات'
     profile: الملف الشخصي
     recent_revisions: تعديلات حديثة
+    references_count: المراجع المضافة
     remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
     request_confirmation: هل تريد بالتأكيد طلب هذا الحساب؟
     requested_account_status:

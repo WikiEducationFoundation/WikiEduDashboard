@@ -137,6 +137,7 @@ fi:
       new: Uusi
       existing: Olemassaoleva
       new_and_existing: Uudet ja olemassaolevat
+    find: Löydä artikkeleita
     hide: Piilota
     history: (historia)
     label: Artikkelit
@@ -193,9 +194,12 @@ fi:
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
     edited_none: Ei muokattuja kohteita vielä.
+    find: Löydä kohteita
+    title_example: Kohteen otsikko
   assignments:
     article: Artikkeli %{title} on nyt annettu tehtäväksi sinulle.
     article_link: Artikkeli
+    article_link_wikidata: Kohde
     already_exists: Tehtävä on jo luotu!
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
@@ -216,6 +220,7 @@ fi:
     label: Anna tehtäväksi
     loading: Ladataan tehtäviä...
     none_short: Ei yhtään artikkelia tehtävänä
+    none_short_wikidata: Ei määritettyjä kohteita
     none: Tällä kurssilla ei ole yhtään artikkelia tehtävänä.
     no_available: Tällä kurssilla ei ole yhtään tehtäväksi annettavaa artikelia.
     remove: Poista
@@ -300,6 +305,7 @@ fi:
     archived: Arkistoidut kurssit
     actions: Toiminnot
     articles: Artikkelit
+    articles_i_will_create_wikidata: Luomiani kohteita
     assignment_end: Tehtävän loppumispäivä
     assignment_start: Tehtävä alkaa
     calendar:
@@ -448,6 +454,7 @@ fi:
     loading: Ladataan…
     milestones_none: Tällä kurssilla ei toistaiseksi ole virstanpylväitä.
     my_articles: Omat artikkelit
+    my_articles_wikidata: Kohteeni
     needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
     new_account_check_username: Tarkista, onko käyttäjänimi saatavana
@@ -639,13 +646,17 @@ fi:
     edit_details: Muokkaa yksityiskohtia
     edit_template: Muokkaa mallinetta
   instructor_view:
+    assignments_table:
+      article_name: Nimi
     bad_work:
       learn_more_button: Lisätietoa
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
     articles_created: Luodut artikkelit
+    articles_created_generic_wikidata: Luotuja kohteita
     articles_edited: Muokatut artikkelit
+    articles_edited_generic_wikidata: Muokattuja kohteita
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
@@ -666,6 +677,7 @@ fi:
       one: kokonaiskäyttö eri kieliversioissa
       other: kokonaiskäytöt eri kieliversioissa
     view_count_description: Artikkelin näyttökertaa
+    view_count_description_wikidata: Katsottuja kohteita
     view: Näyttökerrat
     word_count: Lisätyt sanat
     word_count_average: Keskimääräinen sanamäärä
@@ -815,6 +827,7 @@ fi:
     assign_articles: Anna artikkelit tehtäväksi
     assign_articles_done: Valmis
     assigned: Tehtäväksi annetut artikkelit
+    assigned_wikidata: Määritettyjä kohteita
     assignees: Tehtävän tekijät
     character_doc: Muokkaajan tähän nimiavaruuteen lisäämän sisällön kokonaismäärä,
       johon lasketaan kaikkien sivun kokoa kasvattaneiden muokkausten merkkimäärät.
@@ -835,6 +848,7 @@ fi:
     last_name: Sukunimi
     loading: Ladataan käyttäjiä...
     characters_added_mainspace: Lisätyt merkit (artikkeli)
+    characters_added_mainspace_wikidata: Lisätyt merkit (kohde)
     characters_added_short: 'Päänimiavaruus: %{mainspace}, Käyttäjänimiavaruus: %{userspace}'
     characters_added_userspace: Lisätyt merkit (käyttäjä)
     my_assigned: 'Tehtävänä:'

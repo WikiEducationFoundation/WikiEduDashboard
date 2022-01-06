@@ -650,11 +650,11 @@ es:
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
-    articles_created_generic: Páginas creadas
     articles_created_wikidata: Elementos creados
+    articles_created_generic: Páginas creadas
     articles_edited: Artículos editados
-    articles_edited_generic: Páginas editadas
     articles_edited_wikidata: Elementos Editaron
+    articles_edited_generic: Páginas editadas
     bytes_added: Bytes añadidos
     characters: Caracteres
     char_added: Caracteres añadidos
@@ -868,7 +868,6 @@ es:
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres añadidos (usuario)
     characters_added_draftspace: Caracteres añadidos (borrador)
-    references_count: Referencias añadidas
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre
@@ -880,6 +879,7 @@ es:
       other: '%{count} artículos'
     profile: perfil
     recent_revisions: Ediciones recientes
+    references_count: Referencias añadidas
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
     requested_account_status:

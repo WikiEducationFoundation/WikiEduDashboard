@@ -122,13 +122,14 @@ sms:
   suggestions:
     editing: Muʹttemeʹtǩǩõõzz
   training:
+    view: Čuäʹjet
     page: Seidd
   users:
     contribution_statistics: Muʹttemstatistiikk
     first_name: Risttnõmm
     last_name: Sokknõmm
-    references_count: Lââʹzztum teâttkääiv
     name: Nõmm
+    references_count: Lââʹzztum teâttkääiv
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
   wizard:
@@ -139,4 +140,6 @@ sms:
   article_finder:
     hide_options: Čiõǥǥ asetõõzzid
     show_options: Čuäʹjet asetõõzzid
+  training_status:
+    view: Čuäʹjet
 ...

@@ -10,6 +10,7 @@
 # Author: MirukuPC
 # Author: Omotecho
 # Author: Otokoume
+# Author: RYOUMA1117
 # Author: Shirayuki
 # Author: Sudachi
 # Author: Sujiniku
@@ -163,6 +164,7 @@ ja:
   assignments:
     article: 現状で%{title}の記事はあなたに割り当てられています。
     article_link: 記事
+    article_link_wikidata: 項目
     already_exists: この課題は既に出題済みです！
     title_too_large: 題名は半角255文字以下にしてください
     assignees: 課題の提出者
@@ -176,7 +178,7 @@ ja:
     clone: 複製
     confirm_add_available: ほんとうに%{title}を追加しますか？
     confirm_addition: 課題%{title}を%{username}さんに割り当ててよろしいですか？
-    confirm_deletion: この記事を課題から除去してよろしいですか？
+    confirm_deletion: この項目を削除してよろしいですか？
     editors: 担当者
     label: 出題する
     loading: 課題の読み込み中…
@@ -511,6 +513,7 @@ ja:
     archived: アーカイブされたプログラム
     assignment_headings:
       available_reviews: 査読を受付中
+      available_reviews_wikidata: 査読を受付中
     assignment_end: イベント終了
     assignments_none: このプロジェクトには課題の記事がありません。
     assignment_start: イベント開始
@@ -583,7 +586,9 @@ ja:
     label: コース活動
     activity: 最近の活動
     articles_created: 作製した記事
+    articles_created_generic_wikidata: 項目を作成しました
     articles_edited: 編集した記事
+    articles_edited_generic_wikidata: 項目を編集しました
     characters: 文字
     close_modal: 閉じる
     date_time: 日付/時刻

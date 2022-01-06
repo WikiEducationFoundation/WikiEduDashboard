@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Dishual
 # Author: Fulup
+# Author: Gwendal
 # Author: Gwenn-Ael
 # Author: Macofe
 # Author: VIGNERON
@@ -74,6 +75,7 @@ br:
     edited_by: Kemmet gant
     label: Obererezh
   articles:
+    articles: Pennadoù
     assigned: Pennadoù deverket
     available: Pennadoù a c'haller kaout
     assigned_to: Deverket da
@@ -404,7 +406,7 @@ br:
     user_ns: Implijer
   recent_activity:
     active_courses: Oberiant eo ar pennad e
-    article_title: Titl ar pennad
+    article_title: Titl
     datetime: Deiziad/Eur
     did_you_know_eligible: Dilennadus e "Ha gouzout a rit"
     image: Skeudenn

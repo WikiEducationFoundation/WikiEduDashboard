@@ -16,6 +16,7 @@
 # Author: SeoJeongHo
 # Author: Yearning
 # Author: Ykhwong
+# Author: Yunbj
 # Author: 고솜
 # Author: 밥풀떼기
 # Author: 아라
@@ -152,10 +153,13 @@ ko:
     available: 사용 가능한 항목
     edited: 편집된 항목
     edited_none: 아직 편집한 항목이 없습니다.
+    find: 항목 찾기
+    preview: 항목의 간단한 미리보기
     search: 위키데이터에서 항목 검색
   assignments:
     article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     article_link: 문서
+    article_link_wikidata: 항목
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     assign_other: 문서 할당/제거
@@ -222,7 +226,9 @@ ko:
     actions: 행동
     articles: 문서
     article_viewer: 문서 뷰어
+    article_viewer_wikidata: 항목 보기
     articles_i_am_reviewing: 동료 검사 중인 문서
+    articles_i_will_create_wikidata: 내가 생성할 항목
     assignment_headings:
       assigned_articles_wikidata: 할당된 항목
       available_articles_wikidata: 사용 가능한 항목
@@ -305,6 +311,7 @@ ko:
     leave_course: 과정 나가기
     loading: 불러오는 중...
     my_articles: 내 문서
+    my_articles_wikidata: 내 항목
     new_account_check_username: 사용자 이름 사용 가능 여부 확인
     new_account_email: 이메일 주소
     new_account_email_placeholder: name@example.org
@@ -438,7 +445,10 @@ ko:
     assignments_table:
       article_name: 문서 이름
       relevant_links: 관련 링크
+    assigned_articles_wikidata: 할당된 항목
     bad_work:
+      learn_more_wikidata: 아직 학습 중인 사람이 항목을 악화시킨다면 당신이 직접 수정해 보는 것을 권장합니다. 그렇지 않다면
+        나중에 해결할 수 있도록 우리에게 문제를 알려주세요.
       learn_more_button: 더 알아보기
     overview: '%{prefix} 개요'
     select_student:
@@ -451,11 +461,13 @@ ko:
     enqueued_update: 이 프로그램은 업데이트 대기열에 추가되었습니다.
     activity: 최근 활동
     articles_created: 문서 생성됨
-    articles_created_generic: 만든 문서
     articles_created_wikidata: 만들어진 아이템
+    articles_created_generic: 만든 문서
+    articles_created_generic_wikidata: 만들어진 아이템
     articles_edited: 문서 편집됨
-    articles_edited_generic: 수정된 페이지
     articles_edited_wikidata: 편집된 항목
+    articles_edited_generic: 수정된 페이지
+    articles_edited_generic_wikidata: 편집된 항목
     characters: 글자
     char_added: 글자가 추가됨
     char_changed: 글자가 바뀜
@@ -595,7 +607,9 @@ ko:
     usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
     usages: 사용
   users:
+    assign_articles_wikidata: 할당된 항목
     assign_articles_done: 완료
+    assigned_wikidata: 할당된 항목
     contributions: 사용자 기여
     contributions_history_full: 전체 기여 역사 보기
     contributions_more: 기여 더 보기

@@ -900,11 +900,11 @@ da:
     activity: Seneste aktivitet
     are_trained: er ajour med træningen
     articles_created: Artikler oprettet
-    articles_created_generic: Sider oprettet
     articles_created_wikidata: Skabte objekter
+    articles_created_generic: Sider oprettet
     articles_edited: Artikler redigeret
-    articles_edited_generic: Sider redigeret
     articles_edited_wikidata: Objekter redigeret
+    articles_edited_generic: Sider redigeret
     article_scoped_program_info: Dette er et 'Artikelfokuseret program', der kun tæller
       redigeringer af tildelte artikler og kategorier.
     bytes_added: Bytes tilføjet
@@ -966,7 +966,7 @@ da:
     user_ns: Bruger
   recent_activity:
     active_courses: Artiklen er aktiv på
-    article_title: Artikeltitel
+    article_title: Titel
     datetime: Dato/tid
     did_you_know_eligible: '''Vidste du..'' berettiget'
     image: Billede
@@ -1227,7 +1227,6 @@ da:
     characters_added_short: 'HO: %{mainspace}, BO: %{userspace}'
     characters_added_userspace: Tegn tilføjet (bruger)
     characters_added_draftspace: Tegn tilføjet (kladde)
-    references_count: Referencer tilføjet
     my_assigned: 'Tildelt:'
     my_reviewing: 'Gennemsyn:'
     name: Navn
@@ -1241,6 +1240,7 @@ da:
       other: '%{count} artikler'
     profile: profil
     recent_revisions: Seneste redigeringer
+    references_count: Referencer tilføjet
     remove_confirmation: Er du sikker på du vil fjerne %{username}?
     request_confirmation: Er du sikker på at du vil anmode denne konto?
     requested_account_status:

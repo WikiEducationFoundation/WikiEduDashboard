@@ -922,11 +922,11 @@ tr:
     activity: Son Etkinlik
     are_trained: eğitim ile güncel
     articles_created: Oluşturulan Maddeler
-    articles_created_generic: Oluşturulan Sayfalar
     articles_created_wikidata: Oluşturulan Öğeler
+    articles_created_generic: Oluşturulan Sayfalar
     articles_edited: Düzenlenen Maddeler
-    articles_edited_generic: Düzenlenmiş Sayfalar
     articles_edited_wikidata: Düzenlenmiş Öğeler
+    articles_edited_generic: Düzenlenmiş Sayfalar
     article_scoped_program_info: Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
       düzenlemeleri sayan bir 'Madde Kapsamlı Program'dır.
     bytes_added: Bayt Eklendi
@@ -1252,7 +1252,6 @@ tr:
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     characters_added_userspace: Eklenen Karakter (kullanıcı)
     characters_added_draftspace: Eklenen Karakter (taslak)
-    references_count: Referanslar Eklendi
     my_assigned: 'Atanan:'
     my_reviewing: 'İnceleme:'
     name: Ad
@@ -1266,6 +1265,7 @@ tr:
       other: '%{count} madde'
     profile: profil
     recent_revisions: Son Düzenlemeler
+    references_count: Referanslar Eklendi
     remove_confirmation: '%{username} kullanıcısını çıkarmak istediğinize emin misiniz?'
     request_confirmation: Bu hesabı talep etmek istediğinizden emin misiniz?
     requested_account_status:

@@ -32,6 +32,7 @@
 # Author: Zhang8569
 # Author: 予弦
 # Author: 列维劳德
+# Author: 孟天皓
 # Author: 沈澄心
 # Author: 神樂坂秀吉
 ---
@@ -206,7 +207,9 @@ zh-CN:
     assign_other: 分配/移除一个文章
     add_available: 添加可用条目
     add_available_placeholder: 添加条目标题或URL（每行一个）
+    add_available_placeholder_wikidata: 添加条目标题或URL（每行一个）
     add_available_submit: 添加条目
+    add_available_submit_wikidata: 添加项目
     assign_self: 给我自己分配一个条目
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     bibliography: 参考文献

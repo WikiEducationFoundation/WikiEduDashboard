@@ -765,11 +765,11 @@ sr-ec:
     activity: Скорашње активности
     are_trained: су ажурни са тренинзима
     articles_created: Направљених чланака
-    articles_created_generic: Направљено страница
     articles_created_wikidata: Ставки направљено
+    articles_created_generic: Направљено страница
     articles_edited: Уређених чланака
-    articles_edited_generic: Измењено страница
     articles_edited_wikidata: Ставки измењено
+    articles_edited_generic: Измењено страница
     bytes_added: Додато бајтова
     characters: Знакова
     char_added: Додато знакова
@@ -1039,7 +1039,6 @@ sr-ec:
     characters_added_short: 'ГИП: %{mainspace}, КИП: %{userspace}'
     characters_added_userspace: Додато знакова (корисник)
     characters_added_draftspace: Додато знакова (радно)
-    references_count: Додато референци
     my_assigned: 'Додељено:'
     my_reviewing: 'Прегледање:'
     name: Име
@@ -1050,6 +1049,7 @@ sr-ec:
       one: '%{count} чланак'
       other: '%{count} чланака'
     recent_revisions: Скорашње измене
+    references_count: Додато референци
     remove_confirmation: Да ли сте сигурни да желите да уклоните %{username}?
     request_confirmation: Желите ли да затражите овај налог?
     revision_characters_and_views: 'Знакова додато: %{characters}, Прегледа: %{views}'

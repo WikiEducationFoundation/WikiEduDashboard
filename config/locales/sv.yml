@@ -525,11 +525,11 @@ sv:
     last_update: Senast uppdaterad
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
-    articles_created_generic: Skapade sidor
     articles_created_wikidata: Skapade objekt
+    articles_created_generic: Skapade sidor
     articles_edited: Redigerade artiklar
-    articles_edited_generic: Redigerade sidor
     articles_edited_wikidata: Redigerade objekt
+    articles_edited_generic: Redigerade sidor
     characters: Tecken
     char_added: Tillagda tecken
     char_changed: Ändrade tecken

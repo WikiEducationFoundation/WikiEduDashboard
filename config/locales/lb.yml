@@ -94,6 +94,7 @@ lb:
     filter:
       wiki_all: All
       new: Nei
+    find: Artikele sichen
     hide: Verstoppen
     history: (Versiounen)
     label: Artikelen
@@ -142,6 +143,7 @@ lb:
     articles_short: Säiten
   assignments:
     article_link: Artikel
+    article_link_wikidata: Element
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
     add_available: Disponibel Artikelen derbäisetzen
     add_available_submit: Artikelen derbäisetzen
@@ -386,7 +388,7 @@ lb:
     edit_template: Schabloun änneren
   instructor_view:
     assignments_table:
-      article_name: Numm vum Artikel
+      article_name: Numm
       current_stage: Aktuelle Stand
       relevant_links: Relevant Linken
     bad_work:
@@ -532,7 +534,6 @@ lb:
     first_name: Virnumm
     last_name: Familljennumm
     loading: Benotzer lueden...
-    references_count: Referenzen derbäigesat
     my_reviewing: 'Nokucken:'
     name: Numm
     none: Dëse Cours huet keng Participanten.
@@ -544,6 +545,7 @@ lb:
       other: '%{count} Artikelen'
     profile: Profil
     recent_revisions: Rezent Ännerungen
+    references_count: Referenzen derbäigesat
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
     revisions: Versiounen

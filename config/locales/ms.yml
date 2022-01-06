@@ -272,10 +272,10 @@ ms:
   metrics:
     last_update: Kemas kini perangkaan terakhir
     next_update: Kemas kini anggaran seterusnya
-    articles_created_generic: Rencana Tercipta
     articles_created_wikidata: Item Tercipta
-    articles_edited_generic: Halaman Tersunting
+    articles_created_generic: Rencana Tercipta
     articles_edited_wikidata: Item Tersunting
+    articles_edited_generic: Halaman Tersunting
     bytes_added: Bait Ditambah
     edit_count_description: Jumlah Suntingan
     revisions: Suntingan Terkini
@@ -305,11 +305,11 @@ ms:
     course_passcode: 'Kod laluan:'
     editors: Penyunting
     characters_added_draftspace: Aksara Ditambah (draf)
-    references_count: Rujukan Ditambah
     my_assigned: 'Ditugaskan:'
     my_reviewing: 'Meninjau semula:'
     no_revisions: Penyunting ini tidak membuat semakan.
     recent_revisions: Suntingan Terkini
+    references_count: Rujukan Ditambah
     references_doc: Bilangan rujukan ditambah atau dibuang oleh penyunting ini
     sub_navigation:
       assignments_and_exercises: Tugasan & Latihan
