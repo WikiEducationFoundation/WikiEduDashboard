@@ -4,19 +4,23 @@
 # is assigned for a course that doesn't have the medical content
 # training module.
 # wiki_education mode only
-# Goal: to catch cases where a class that wasn't expected 
+# Goal: to catch cases where a class that wasn't expected
 # to work on medical topics tries to do so.
 # Issue #4693
 class MedicineArticleMonitor
-  WIKI_PROJECT_MEDICINE_CAT = 'Category:All WikiProject Medicine articles'
-  NUMBER_OF_ARTICLES_TO_CHECK = 5
+  WIKI_PROJECT_MEDICINE_CAT = 'All_WikiProject_Medicine_articles'
+  MEDICAL_TRAINING_IDS = [11, 48].freeze
 
   def self.create_alerts_for_no_med_training_for_course
-    new.create_alerts_for_no_med_training_for_course
+    monitor = new
+    monitor.refresh_med_article_titles
+    monitor.create_alerts_for_no_med_training_for_course
   end
 
   def initialize
-    @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
+    @assignment_time_for_alert = 1.day.ago
+    @assignment_time_for_refresh_titles = 1.day.ago
+    @med_category = med_category
   end
 
   def create_alerts_for_no_med_training_for_course
@@ -31,8 +35,8 @@ class MedicineArticleMonitor
     return if alert_already_exists?(assignment)
 
     alert = Alert.create!(type: 'NoMedTrainingForCourseAlert',
-                  article_id: assignment.article_id,
-                  course_id: assignment.course_id)
+                          article_id: assignment.article_id,
+                          course_id: assignment.course_id)
     alert.email_content_expert
   end
 
@@ -48,43 +52,38 @@ class MedicineArticleMonitor
   end
 
   def last_assigned_articles
-    Assignment.last NUMBER_OF_ARTICLES_TO_CHECK
+    Assignment.where('created_at > ?', @assignment_time_for_alert)
   end
 
   def med_training_for_course?(course_id)
-    if Course
-       .find(course_id)
-       .training_modules
-       .find { |tm| tm.slug == 'editing-medical-topics' }
-      true
-    else
-      false
-    end
+    (Course
+      .find(course_id)
+      .training_module_ids & MEDICAL_TRAINING_IDS)
+      .any?
   end
 
-  # Query
-  # curl "https://en.wikipedia.org/w/api.php?action=query
-  # &prop=categories&titles=Talk:Appendectomy
-  # &cllimit=50&clcategories=Category:All_WikiProject_Medicine_articles
-  # &indexpageids=1&format=json"
-  # No need to normalize article title
-  # "Talk:Colonic polypectomy" eq Talk:Colonic_polypectomy
   def med_article?(title)
-    api = WikiApi.new @wiki
-    query_params = {
-      action: 'query',
-      prop: 'categories',
-      clcategories: WIKI_PROJECT_MEDICINE_CAT,
-      titles: "Talk:#{title}",
-      cllimit: 50,
-      indexpageids: 1
-    }
-    body = api.query(query_params)
-    id = body.data['pageids'].first
-    within_wiki_project_medecine_scope?(body, id)
+    @med_category.article_titles.include? title
   end
 
-  def within_wiki_project_medecine_scope?(hash, id)
-    hash.data.dig('pages', id, 'categories') ? true : false
+  def refresh_med_article_titles
+    @med_category.refresh_titles if must_refresh?
+  end
+
+  def must_refresh?
+    no_article_in_med_category? ||  last_refresh_too_late?
+  end
+
+  def last_refresh_too_late?
+    @med_category.updated_at < @assignment_time_for_refresh_titles
+  end
+
+  def no_article_in_med_category?
+    @med_category.article_titles.empty?
+  end
+
+  def med_category
+    prms = { name: WIKI_PROJECT_MEDICINE_CAT, source: 'category', wiki_id: 1 }
+    Category.find_by(prms) || Category.create(prms)
   end
 end

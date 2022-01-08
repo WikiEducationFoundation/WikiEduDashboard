@@ -8,13 +8,8 @@ describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
   let(:module_2) { TrainingModule.find_by(slug: 'evaluating-articles') }
 
-  before(:context) do
+  before(:all) do
     TrainingModule.load_all
-  end
-
-  after(:context) do
-    TrainingLibrary.destroy_all
-    TrainingModule.destroy_all
   end
 
   before do

@@ -24,7 +24,8 @@
 # the edits are automatically tagged de-userfying.
 class NoMedTrainingForCourseAlert < Alert
   def main_subject
-    "Course #{course.title} was not assigned the medical training module while article #{article.title} is a WP med article ."
+    "Course #{course.title} was not assigned the medical training module \
+    while article #{article.title} is a WP med article ."
   end
 
   def url

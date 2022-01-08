@@ -45,10 +45,16 @@ module UpdateCycleAlertGenerator
     log_message 'Generate de-userfying edits alerts'
     DeUserfyingEditAlertMonitor.create_alerts_for_deuserfying_edits
 
+    generate_alert_for_med_articles
+  end
+
+  def generate_alert_for_med_articles
     if Features.wiki_ed?
-      log_message 'Generate WP Medicine article assignment without medical content training module alert'
+      log_message 'Generate WP Medicine article assignment without medical \
+      content training module alert'
       MedicineArticleMonitor.create_alerts_for_no_med_training_for_course
     end
   end
+
   # rubocop:enable Metrics/MethodLength
 end
