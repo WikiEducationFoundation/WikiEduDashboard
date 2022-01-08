@@ -83,7 +83,11 @@ class MedicineArticleMonitor
   end
 
   def med_category
-    prms = { name: WIKI_PROJECT_MEDICINE_CAT, source: 'category', wiki_id: 1 }
+    prms = { name: WIKI_PROJECT_MEDICINE_CAT, source: 'category', wiki_id: en_wiki.id }
     Category.find_by(prms) || Category.create(prms)
+  end
+
+  def en_wiki
+    Wiki.find_by(language: 'en', project: 'wikipedia')
   end
 end

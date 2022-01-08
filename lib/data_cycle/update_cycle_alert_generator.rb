@@ -49,11 +49,10 @@ module UpdateCycleAlertGenerator
   end
 
   def generate_alert_for_med_articles
-    if Features.wiki_ed?
-      log_message 'Generate WP Medicine article assignment without medical \
+    return unless Features.wiki_ed?
+    log_message 'Generate WP Medicine article assignment without medical \
       content training module alert'
-      MedicineArticleMonitor.create_alerts_for_no_med_training_for_course
-    end
+    MedicineArticleMonitor.create_alerts_for_no_med_training_for_course
   end
 
   # rubocop:enable Metrics/MethodLength
