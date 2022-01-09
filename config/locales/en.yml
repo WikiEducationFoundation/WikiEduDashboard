@@ -622,6 +622,8 @@ en:
       one: Instructor
       other: Instructors
     instructors: Instructors
+    instructor_message: This is the same My Articles interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
+    instructor_message_wikidata: This is the same My Items interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
     invitation: >
       You’ve been invited to join %{title}. To join, you need to log in with a Wikipedia account.
     invitation_username_advice: >
