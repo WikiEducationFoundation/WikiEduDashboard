@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
+import ArticleUtils from '../../utils/article_utils.js';
 
 const CourseStats = ({ course }) => {
   const isWikidata = course.home_wiki.project === 'wikidata';
@@ -66,7 +67,7 @@ const CourseStats = ({ course }) => {
         </div>
         <small>{I18n.t('metrics.references_count')}</small>
         <div className="tooltip dark" id="upload-usage">
-          <p>{I18n.t('metrics.references_doc')}</p>
+          <p>{I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`)}</p>
         </div>
       </div>
     );
@@ -81,7 +82,7 @@ const CourseStats = ({ course }) => {
         <div className={valueClass('view_count')}>
           {course.view_count}
         </div>
-        <small>{I18n.t('metrics.view_count_description')}</small>
+        <small>{I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}</small>
       </div>
     );
   }
