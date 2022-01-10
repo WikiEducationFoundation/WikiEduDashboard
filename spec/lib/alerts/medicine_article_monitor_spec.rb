@@ -120,7 +120,7 @@ describe MedicineArticleMonitor do
 
     context 'When a WP med article without med training' do
       it 'creates an Alert' do
-        expect { monitor.create_alerts_for_no_med_training_for_course }
+        expect { described_class.create_alerts_for_no_med_training_for_course }
           .to change(Alert, :count).by(1)
       end
 
