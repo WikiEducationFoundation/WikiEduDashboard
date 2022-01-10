@@ -15,13 +15,14 @@
       4. `exit;`
 4. Close and reopen the Ubuntu terminal (to activate RVM)
 5. In Ubuntu terminal:
-   1. `rvm install 2.7.1`
-   2.  clone the WikiEduDashboard git repo and enter the directory
-   3. `bundle install`
-   4. `yarn`
-   5. `yarn build`
-   6. `bundle exec rake db:create`
-   7. `bundle exec rake db:migrate`
-   8. `rails s`
+   1. `sudo usermod -a -G rvm $USER` where $User is your UNIX username (preferably restart your machine after this step)
+   2. `rvm install 2.7.1`
+   3.  clone the WikiEduDashboard git repo and enter the directory
+   4. `bundle install`
+   5. `yarn`
+   6. `yarn build`
+   7. `bundle exec rake db:create`
+   8. `bundle exec rake db:migrate`
+   9. `rails s`
 
 6. Now you should have it running at localhost:3000
