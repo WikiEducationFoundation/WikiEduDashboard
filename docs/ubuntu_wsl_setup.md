@@ -18,11 +18,14 @@
    1. `sudo usermod -a -G rvm $USER` where $User is your UNIX username (preferably restart your machine after this step)
    2. `rvm install 2.7.1`
    3.  clone the WikiEduDashboard git repo and enter the directory
-   4. `bundle install`
-   5. `yarn`
-   6. `yarn build`
-   7. `bundle exec rake db:create`
-   8. `bundle exec rake db:migrate`
-   9. `rails s`
+   4.  In config folder -
+      1. Either save application.example.yml and database.example.yml as application.yml and database.yml, respectively, or 
+      2. Copy config/application.example.yml to config/application.yml and config/database.example.yml to config/database.yml using cp command.
+   5. `bundle install`
+   6. `yarn`
+   7. `yarn build`
+   8. `bundle exec rake db:create`
+   9. `bundle exec rake db:migrate`
+   10. `rails s`
 
 6. Now you should have it running at localhost:3000
