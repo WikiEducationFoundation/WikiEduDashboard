@@ -210,6 +210,9 @@ skr-arab:
     cancel: منسوخ
     save: بچاؤ
     edit_description: وضاحت وچ تبدیلی کرو
+  instructor_view:
+    assignments_table:
+      article_name: ناں
   metrics:
     date_time: تریخ/ویلا
     revisions: حالیہ تبدیلیاں

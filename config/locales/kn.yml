@@ -9,8 +9,13 @@
 kn:
   application:
     cookie_consent_see_more: ಇನ್ನಷ್ಟು ನೋಡಿ.
+    greeting2: ಸುಸ್ವಾಗತ!
+    greeting: ನಮಸ್ಕಾರ!
+    help: ಸಹಾಯ
+    home: ಮುಖ್ಯಪುಟ
     log_in: ಲಾಗಿನ್
     log_out: ಲಾಗ್ ಔಟ್
+    recent_activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
     submit: ಸಲ್ಲಿಸಿ
     change: ಬದಲಾಯಿಸಿ
     details: ವಿವರಗಳು
@@ -19,7 +24,15 @@ kn:
     opt_out: ಇಲ್ಲ
     opt_yes: ಹೌದು
     opt_no: ಇಲ್ಲ
+  activity:
+    all: ಚಟುವಟಿಕೆ
+    label: ಚಟುವಟಿಕೆ
   articles:
+    articles: ಲೇಖನಗಳು
+    available: ಲಭ್ಯವಿರುವ ಲೇಖನಗಳು
+    next: ಮುಂದಿನ
+    previous: ಹಿಂದಿನ
+    article_title: ಲೇಖನ ಶೀರ್ಷಿಕೆ
     edited_mobile: ಲೇಖನಗಳು
     filter:
       wiki_all: ಎಲ್ಲಾ
@@ -33,9 +46,46 @@ kn:
     title_example: ಲೇಖನ ಶೀರ್ಷಿಕೆ
     wiki: ವಿಕಿ
     articles_short: ಲೇಖನಗಳು
+  items:
+    items: ವಸ್ತುಗಳು
+  articles_wikidata:
+    articles_short: ವಸ್ತುಗಳು
   articles_generic:
     articles_short: ಪುಟಗಳು
+  assignments:
+    article_link: ಲೇಖನ
+    article_link_wikidata: ವಸ್ತು
+    add_available_submit: ಲೇಖನಗಳನ್ನು ಸೇರಿಸಿ
+    add_available_submit_wikidata: ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ
+    group_members: ಗುಂಪಿನ ಸದಸ್ಯರು
+    remove: ತೆಗೆ
+  blocks:
+    milestones:
+      title: ಮೈಲಿಗಲ್ಲುಗಳು
+  campaign:
+    alert_article: ಲೇಖನ ಶೀರ್ಷಿಕೆ
+    alert_type: ನಮೂನೆ
+    alert_user_id: ಬಳಕೆದಾರ
+    created_at: ದಿನಾಂಕ
+    none: ಯಾವುದೂ ಇಲ್ಲ
+    title: ಶೀರ್ಷಿಕೆ
+  categories:
+    add_category: ವರ್ಗ ಸೇರಿಸಿ
+    name: ಹೆಸರು
+    category_name: ವರ್ಗದ ಹೆಸರು
+    template_name: ಟೆಂಪ್ಲೇಟಿನ ಹೆಸರು
+    remove: ತೆಗೆ
   courses:
+    activity: ಚಟುವಟಿಕೆ
+    articles: ಲೇಖನಗಳು
+    assignment_headings:
+      available_articles: ಲಭ್ಯವಿರುವ ಲೇಖನಗಳು
+      available_articles_wikidata: ಲಭ್ಯವಿರುವ ವಸ್ತುಗಳು
+    creator:
+      end_date: ಮುಕ್ತಾಯದ ದಿನಾಂಕ
+      start_date: ಆರಂಭದ ದಿನಾಂಕ
+      subject: ವಿಷಯ
+    delete_suggestion: ಅಳಿಸು
     error:
       user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
     new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ

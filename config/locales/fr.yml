@@ -331,7 +331,10 @@ fr:
       heading: Assigner des relectures par des pairs aléatoires
       tooltip_message: Affecte des articles aléatoires (avec le compte des revues
         de pair en nombre maximum) à chaque étudiant.
+      tooltip_message_wikidata: Affecte des éléments aléatoires (avec un nombre de
+        relecture par pair jusqu’au nombre maximal) à chaque étudiant.
       limit_exceeded: Chaque étudiant relit déjà au moins %{maximum} article(s).
+      limit_exceeded_wikidata: Chaque étudiant relit déjà au moins %{maximum} élément(s).
     remove: Supprimer
     reviewers: Relecteur(s)
     review_other: Attribuer/supprimer une relecture de pair
@@ -339,6 +342,8 @@ fr:
     review_self_wikidata: Relire un élément
     review_tooltip: Ceci est prévu pour les articles que vous prévoyez de relire ou
       de commenter.
+    review_tooltip_wikidata: C’est pour les éléments que vous planifiez de faire relire
+      par un pair ou de fournir un avis dessus.
     sandbox_draft_link: Brouillon du bac à sable
     select: Sélectionner
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
@@ -469,9 +474,13 @@ fr:
     actions: Actions
     articles: Articles
     article_viewer: Lecteur d’article
+    article_viewer_wikidata: Afficheur d’élément
+    articles_i_am_reviewing_wikidata: Éléments que je relis comme pair
     articles_i_am_reviewing: Articles dont je suis relecteur pair
     articles_i_will_create: Articles que je créerai
+    articles_i_will_create_wikidata: Éléments que je veux créer
     articles_i_am_updating: Articles que je mets à jour
+    articles_i_am_updating_wikidata: Éléments que je mets à jour
     assignment_headings:
       assigned_articles: Articles affectés
       assigned_articles_wikidata: Éléments affectés
@@ -713,6 +722,7 @@ fr:
     loading: Chargement en cours…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     my_articles: Mes articles
+    my_articles_wikidata: Mes éléments
     needs_update: Planifier une mise à jour des données
     new_week: Ajouter une nouvelle semaine
     new_account_check_username: Vérifier la disponibilité du nom d’utilisateur
@@ -996,27 +1006,36 @@ fr:
   instructor_view:
     article_assignments: '%{prefix} affectations'
     assignments_table:
-      article_name: Nom de l’article
+      article_name: Nom
       current_stage: Étape actuelle
       relevant_links: Liens pertinents
     assigned_articles: Articles affectés
+    assigned_articles_wikidata: Éléments affectés
     bad_work:
       learn_more: Si le travail de l’étudiant a dégradé l’article, nous vous encourageons
         à le modifier vous-même. Sinon, faites-nous savoir les problèmes pour que
         nous puissions les corriger plus tard.
+      learn_more_wikidata: Si le travail de l’étudiant dégrade l’élément, nous vous
+        encourageons à le modifier vous-même. Sinon, faites-nous savoir les problèmes
+        afin que nous les corrigions ultérieurement.
       learn_more_button: En savoir plus
       submit_issue: Quels sont les problèmes significatifs de cet article ?
+      submit_issue_wikidata: Quels sont les problèmes significatifs avec cet élément ?
       submit_issue_placeholder: Plus vous pourrez fournir de perspective et de détails
         d’expert, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
     exercises_and_trainings: '%{prefix} Exercices et formations'
     no_assignments: Aucun article n’est affecté à cet étudiant(e) pour le moment.
       Vous pouvez lui affecter un article en utilisant les boutons ci-dessus.
+    no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
+      Vous pouvez affecter un élément en utilisant les boutons ci-dessous.
     overview: '%{prefix} Vue d’ensemble'
     reviewing_articles: Relecture des articles
+    reviewing_articles_wikidata: Relecture des éléments
     select_student:
       title: Sélectionner %{prefix}
       content: pour affecter et voir les affectations de l’article
+      content_wikidata: pour affecter et afficher les affectations d’élément
   metrics:
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
@@ -1032,9 +1051,11 @@ fr:
     articles_created: Articles créés
     articles_created_wikidata: Éléments créés
     articles_created_generic: Pages créées
+    articles_created_generic_wikidata: Éléments créés
     articles_edited: Articles modifiés
     articles_edited_wikidata: Éléments modifiés
     articles_edited_generic: Pages modifiées
+    articles_edited_generic_wikidata: Éléments modifiés
     article_scoped_program_info: Ceci est un « Programme ciblé sur les articles »,
       qui ne compte que les modifications des articles et catégories affectés.
     bytes_added: Octets ajoutés
@@ -1086,10 +1107,14 @@ fr:
     uploads_in_use_count:
       one: fichier utilisé dans un article
       other: fichiers utilisés dans des articles
+    uploads_in_use_count_wikidata:
+      one: fichier utilisé dans un élément
+      other: fichiers utilisés dans les éléments
     upload_usages_count:
       one: utilisation en tout (dans toutes les langues)
       other: utilisations en tout (dans toutes les langues)
     view_count_description: Articles vus
+    view_count_description_wikidata: Vues de l’élément
     view_data_unavailable: Aucune donnée visible disponible
     view: Vues
     wiki_ed_help: Utiliser le bouton « Obtenir de l’aide » pour signaler un problème.
@@ -1348,8 +1373,10 @@ fr:
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
     assign_articles: Affecter des articles
+    assign_articles_wikidata: Affecter les éléments
     assign_articles_done: Fait
     assigned: Articles affectés
+    assigned_wikidata: Éléments affectés
     assignees: Affecté(s)
     loading_authorship_data: chargement en cours des données de paternité
     authorship_data_not_fetched: impossible d’accéder aux données de paternité
@@ -1359,6 +1386,7 @@ fr:
       la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
       supprimé augmentera également ce total.
     chars_added: Caractères ajoutés<br /> (article | utilisateur | brouillon)
+    chars_added_wikidata: Caractères ajoutés<br>(élément | utilisateur | brouillon)
     contributions: Contributions de l’utilisateur
     contributions_history_full: Afficher l’historique complet des contributions
     contributions_more: Afficher plus de contributions
@@ -1378,6 +1406,7 @@ fr:
     last_name: Nom
     loading: Chargement en cours des utilisateurs...
     characters_added_mainspace: Caractères ajoutés (article)
+    characters_added_mainspace_wikidata: Caractères ajoutés (élément)
     characters_added_short: 'E.pr. : %{mainspace}, E.ut. : %{userspace}'
     characters_added_userspace: Caractères ajoutés (utilisateur)
     characters_added_draftspace: Caractères ajoutés (brouillon)

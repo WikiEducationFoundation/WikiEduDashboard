@@ -122,6 +122,7 @@ ja:
       tracked: 追跡
       untracked: 未追跡
       tracked_and_untracked: 追跡と未追跡
+    find: 記事を探す
     hide: 非表示にする
     history: (履歴)
     label: 記事
@@ -172,6 +173,7 @@ ja:
     add_available: 掲載してある記事を追加
     add_available_placeholder: 1行に記入できる記事名もしくはURLは1件です
     add_available_submit: 記事を追加
+    add_available_submit_wikidata: 項目を追加
     assign_self: 自分に課題を割り当てる
     assign_tooltip: 割り当ての記事とは、編集者が新規作成または改良に取り組もうと計画したものです。
     bibliography: 参考文献一覧
@@ -292,6 +294,7 @@ ja:
       assigned_articles: 課題の記事
       assigned_reviews: 担当する査読
       available_articles: 掲載してある記事
+      available_articles_wikidata: 利用可能なアイテム
       available_reviews: 同級生の記事
     assignment_end: 課題の終了
     assignment_start: 課題の開始
@@ -582,6 +585,9 @@ ja:
     edit_details: 詳細を編集
     edit_template: テンプレートの編集
     rename_confirmation: URLを構成するコースの分野が変更されました。この結果、URLの文字列が変更されるため、外部からのリンクはすべて切れてしまいます。この処理を本当に行ってよろしいですか？
+  instructor_view:
+    assignments_table:
+      article_name: 名前
   metrics:
     label: コース活動
     activity: 最近の活動
@@ -608,7 +614,7 @@ ja:
     user_ns: ユーザー
   recent_activity:
     active_courses: 記事が使用されるコース
-    article_title: 記事名
+    article_title: タイトル
     datetime: 日付と時刻
     image: 画像
     file_name: ファイル名
@@ -796,7 +802,9 @@ ja:
     keyword_search: キーワード検索
     more_results: その他の結果
     no_article_found: このカテゴリには記事がありませんでした
+    no_article_found_wikidata: このカテゴリには記事がありませんでした
     remove_article: 記事を除去
+    remove_article_wikidata: 項目を除去
     search: 検索
     searching_articles: 記事の検索
     search_placeholder: キーワードを入力
