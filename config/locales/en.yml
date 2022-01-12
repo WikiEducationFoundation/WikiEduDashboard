@@ -953,7 +953,7 @@ en:
     articles_edited_generic: Pages Edited
     articles_edited_generic_wikidata: Items Edited
     article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
-    article_scoped_program_info_wikidata: This is an 'Items Scoped Program', which only counts edits to assigned Items and categories.
+    article_scoped_program_info_wikidata: This is an 'Article Scoped Program', which only counts edits to assigned items and categories.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
