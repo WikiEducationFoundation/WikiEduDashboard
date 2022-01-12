@@ -12,7 +12,7 @@ class WikidataSummaryParser
     'items created' => :created_item?,
     'labels added' => :added_label?,
     'labels changed' => :changed_label?,
-    'labels removes' => :removed_label?,
+    'labels removed' => :removed_label?,
     'descriptions added' => :added_description?,
     'descriptions changed' => :changed_description?,
     'descriptions removed' => :removed_description?,
