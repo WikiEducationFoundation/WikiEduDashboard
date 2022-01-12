@@ -938,8 +938,7 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
-    late_update_part1: A new update was expected
-    late_update_part2: This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
+    late_update: A new update was expected %{late_update_time}. This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
     no_update: The Dashboard hasn't imported any data for this program yet.
     enqueued_update: This program has been added to the update queue.
     first_update: Estimated start of statistics update
@@ -954,6 +953,7 @@ en:
     articles_edited_generic: Pages Edited
     articles_edited_generic_wikidata: Items Edited
     article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
+    article_scoped_program_info_wikidata: This is an 'Items Scoped Program', which only counts edits to assigned Items and categories.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
