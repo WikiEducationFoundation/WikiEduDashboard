@@ -87,9 +87,11 @@ lv:
     articles_short: Lapas
   assignments:
     article_link: Raksts
+    article_link_wikidata: Vienums
     assign_other: Piešķirt rakstu
     add_available: Pievienot pieejamos rakstus
     add_available_submit: Pievienot rakstus
+    add_available_submit_wikidata: Pievienot vienumus
     assign_self: Piešķirt sev rakstu
     bibliography: Bibliogrāfija
     clone: Klonēt

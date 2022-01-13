@@ -61,7 +61,7 @@ it:
     my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
     report_problem: Segnala un problema
-    request_account: Richiedi utenza
+    request_account: Richiedi un'utenza
     request_account_create: Crea una nuova utenza
     search: fai una domanda
     search_results:
@@ -291,7 +291,7 @@ it:
     description: Descrizione
     delete_campaign: Cancella questa campagna
     disable_account_requests: Disattiva richieste di account
-    enable_account_requests: Attiva richieste di account
+    enable_account_requests: Attiva richieste utenza
     no_alerts: Questa campagna non ha avvisi
     no_passcode: nessun codice di accesso
     none: Nessuno
@@ -304,7 +304,7 @@ it:
       campagna, il testo di quest'area verrà copiato come descrizione nella pagina
       del programma
     random_passcode: un codice di accesso a caso
-    requested_accounts: Richiedi utenza
+    requested_accounts: Utenze richieste
     title: Titolo
     search_campaigns: Cerca campagne
     use_start_end_dates: Usa date di inizio e fine
@@ -521,7 +521,7 @@ it:
     embed_course_stats: Includi statistiche corso
     embed_course_stats_description: Per includere le statistiche di questo programma
       in un altro sito web, copia e incolla questo codice
-    enable_account_requests: Attiva richieste di account
+    enable_account_requests: Attiva richieste utenza
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi

@@ -136,6 +136,7 @@ lb:
     available: Disponibel Elementer
     edited: Geännert Elementer
     edited_none: Et gëtt nach keng geännert Elementer.
+    find: Elementer fannen
     search: A Wikidata no engem Element sichen
   articles_wikidata:
     articles_short: Elementer
@@ -206,6 +207,7 @@ lb:
     articles_i_am_updating: Artikelen déi ech aktualiséieren
     assignment_headings:
       available_articles: Disponibel Artikelen
+      available_articles_wikidata: Disponibel Elementer
     calendar:
       legend: Erklärung
       legend_class_canceled: Vakanz/Annuléiert
