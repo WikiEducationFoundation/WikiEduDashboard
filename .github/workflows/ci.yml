@@ -24,17 +24,15 @@ jobs:
         RAILS_ENV: test
 
 
-        services:
-        - redis-server
+    
         
 
-         steps:
-         if: matrix.os == 'Linux'
-          - name:Updating packages
+     steps:    
+       - name:Updating packages
           run:sudo apt-get update
           
            - name:Install dependencies
-         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc
+             run:sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc
   
           - name:Installing Yarn Globally
            run:sudo npm install --global yarn
