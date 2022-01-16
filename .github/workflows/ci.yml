@@ -6,16 +6,16 @@ jobs:
 
   build:
 
-      runs-on: '${{ matrix.os }}'
-    strategy:
+     runs-on: '${{ matrix.os }}'
+     strategy:
       matrix:
       os:
           - ubuntu-latest
-        ruby:
+      ruby:
           - 2.7.1
         
-        node-version: [16.x,17.x]
-        redis-server:
+      node-version: [16.x,17.x]
+      redis-server:
         mariadb:
 
           
@@ -34,50 +34,45 @@ jobs:
 
       steps:
          if: matrix.os == 'Linux'
-      - name: Updating packages
-        run: sudo apt-get update
+          - name:Updating packages
+          run:sudo apt-get update
+          
+           - name:Install dependencies
+         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc
+  
+          - name:Installing Yarn Globally
+           run:sudo npm install --global yarn
+
+          - name:Cache multiple paths
+          uses:actions/cache@v2
         
-      - name: Install dependencies
-        run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev rvm nodejs npm pandoc
-
-      - name: Installing Yarn Globally
-        run: sudo npm install --global yarn
-
-         - name: Cache multiple paths
-        uses: actions/cache@v2
-        with:
-          path: |
-          -
-            vendor
-            node_modules
 
 
-      - name: Start MySQL
-        run: sudo service mysql start
+           - name:Start MySQL
+            run:sudo service mysql start
 
-        if: matrix.db == 'mysql'
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v2.7.1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+           if:matrix.db == 'mysql'
+          - uses:actions/checkout@v2
+           - uses:ruby/setup-ruby@v2.7.1
+            with:ruby-version:${{ matrix.ruby }}
+                bundler-cache:true
 
 
           deployment
-      - run: mkdir tmp -m 777
-      - run: cp config/database.travis.yml config/database.yml
-      - run: sudo mysql -e "SET Password=PASSWORD('rootpassword')"
-      - run: >-
+          - run:mkdir tmp -m 777
+          - run:cp config/database.travis.yml config/database.yml
+          - run:sudo mysql -e "SET Password=PASSWORD('rootpassword')"
+          - run:>-
           sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT
           COLLATE utf8_general_ci;"
-      - run: 'bundle exec rake db:migrate RAILS_ENV=test'
-      - run: yarn build
-      - run: yarn test
-      - run: >-
+          - run:'bundle exec rake db:migrate RAILS_ENV=test'
+          - run:yarn build
+          - run:yarn test
+          - run:>-
           COVERAGE=true bundle exec rspec --color --profile --format
           documentation
-      - run: bundle exec rubocop
-      - run: yarn lint-non-build
-      - run: ./travis-deploy-staging.sh
+          - run:bundle exec rubocop
+          - run:yarn lint-non-build
+          - run:./travis-deploy-staging.sh
 
       
