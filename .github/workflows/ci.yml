@@ -9,21 +9,17 @@ jobs:
      runs-on: '${{ matrix.os }}'
      strategy:
       matrix:
-      os:
+       runs-on:
           - ubuntu-latest
-      ruby:
+       ruby:
           - 2.7.1
         
-      node-version: [16.x,17.x]
-      redis-server:
-        mariadb:
-
-          
-        db:
+       node-version: [16.x]
+       db:
           - mysql
           - mariadb
       
-      env:
+     env:
         DB: ${{ matrix.db }}
         RAILS_ENV: test
 
@@ -32,7 +28,7 @@ jobs:
         - redis-server
         
 
-      steps:
+         steps:
          if: matrix.os == 'Linux'
           - name:Updating packages
           run:sudo apt-get update
