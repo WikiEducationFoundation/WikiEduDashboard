@@ -587,7 +587,7 @@ qqq:
     edit_details: Label for button to edit the details of something
   instructor_view:
     assignments_table:
-      article_name: '{identical|Name}}'
+      article_name: '{{Identical|Name}}'
   metrics:
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned

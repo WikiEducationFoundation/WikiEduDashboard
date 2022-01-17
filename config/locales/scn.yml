@@ -88,6 +88,9 @@ scn:
     cancel: Annulla
     save: Sarva
     edit_details: Cancia li dittagghî
+  instructor_view:
+    assignments_table:
+      article_name: Nomu
   recent_activity:
     article_title: Tìtulu
     image: Mmàggini
@@ -98,6 +101,10 @@ scn:
     diff_hide: Ammuccia
     title: Tìtulu
     show_all: Ammustra tutti
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nomu utenti
   timeline:
     block_custom: Pirsunalizzatu
     empty_week_3: o

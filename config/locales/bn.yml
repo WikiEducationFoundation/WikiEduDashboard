@@ -123,7 +123,7 @@ bn:
     confirm_add_available: অাপনি কি নিশ্চিত আপনি %{title} যুক্ত করতে চান?
     confirm_addition: অাপনি কি নিশ্চিত আপনি এই %{title} %{username} কে বরাদ্দ দিতে
       চান?
-    confirm_deletion: অাপনি কি নিবন্ধের এই নির্ধারিত কাজ বাতিল করতে চান?
+    confirm_deletion: আপনি কি নিশ্চিত যে আপনি এই কাজটি অপসারণ করতে চান?
     label: বরাদ্দ করুন
     loading: কার্যভার লোড হচ্ছে...
     none_short: কোন নিবন্ধ বরাদ্দ দেয়া হয়নি
@@ -299,7 +299,7 @@ bn:
     user: ব্যবহারকারীস্থান
     user_ns: ব্যবহারকারী
   recent_activity:
-    article_title: নিবন্ধের শিরোনাম
+    article_title: শিরোনাম
     datetime: তারিখ/সময়
     image: চিত্র
     file_name: ফাইলের নাম

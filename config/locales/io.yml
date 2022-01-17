@@ -11,6 +11,8 @@ io:
     error: 'Eventis ula eroro:'
     explore: Explorez
     home: Chefpagino
+    log_in: Enirez
+    sign_up: Registragez
     submit: Sendar
     change: Modifiko
     confirm: O.K.
@@ -18,6 +20,7 @@ io:
     opt_out: "No"
   home:
     explore: Explorez
+    sign_up: Registragez uzanta Wikipedio
   activity:
     all: Aktiveso
     label: Aktiveso
