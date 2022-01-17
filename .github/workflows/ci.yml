@@ -9,7 +9,7 @@ jobs:
      runs-on: '${{ matrix.os }}'
      strategy:
       matrix:
-       runs-on:
+       os:
           - ubuntu-latest
        ruby:
           - 2.7.1
