@@ -53,9 +53,8 @@ class ScheduleCourseUpdates
       course.flags[:first_update] = first_update
       course.save
     end
-    log_message "Short update latency: #{latency('short_update')}"
-    log_message "Medium update latency: #{latency('medium_update')}"
-    log_message "Long update latency: #{latency('long_update')}"
+
+    log_latency_messages
   end
 
   def wikidata_stats_updates
@@ -73,6 +72,12 @@ class ScheduleCourseUpdates
 
   def latency(queue)
     Sidekiq::Queue.new(queue).latency
+  end
+
+  def log_latency_messages
+    log_message "Short update latency: #{latency('short_update')}"
+    log_message "Medium update latency: #{latency('medium_update')}"
+    log_message "Long update latency: #{latency('long_update')}"
   end
 
   def first_update_flags(course)

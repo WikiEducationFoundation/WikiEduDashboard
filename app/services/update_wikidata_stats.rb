@@ -32,10 +32,9 @@ class UpdateWikidataStats
   def update_wikidata_stats
     return if course_revisions.empty?
     stats = WikidataSummaryParser.analyze_revisions(course_revisions)
-    course_stat = CourseStat.find_by(course_id: @course.id)
-                  || CourseStat.create(course_id: @course.id)
-    course_stat.stats_hash = stats
-    course_stat.save
+    crs_stat = CourseStat.find_by(course_id: @course.id) || CourseStat.create(course_id: @course.id)
+    crs_stat.stats_hash = stats
+    crs_stat.save
   end
 
   def wikidata_revisions
