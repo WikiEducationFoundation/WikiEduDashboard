@@ -71,7 +71,7 @@ categories:
         description: Get to know Wikipedia's standards by evaluating a Wikipedia article.
       - slug: 'choose-topic-exercise'
         name: 'Exercise: Choose your article'
-        description: Find possibile topics to work on by exploring Wikipedia.
+        description: Find possible topics to work on by exploring Wikipedia.
       - slug: finalize-topic-exercise
         name: 'Exercise: Finalizing your topic and finding sources'
         description: Decide which topic to work on, and begin finding sources.
