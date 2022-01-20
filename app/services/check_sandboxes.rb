@@ -10,8 +10,16 @@ class CheckSandboxes
     @violations = []
   end
 
+  # These typically contain links to Wikipedia pages (false positives),
+  # and do not include new sources that should be flagged.
+  IGNORED_SANDBOXES = %w[
+    be_bold
+    Evaluate_an_Article
+  ].freeze
+
   def check_sandboxes
     @course.sandboxes.each do |sandbox|
+      next if IGNORED_SANDBOXES.any? { |ignored| sandbox.title.include? ignored }
       check_sandbox sandbox
     end
 
