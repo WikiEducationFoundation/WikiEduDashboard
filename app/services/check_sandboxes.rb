@@ -22,8 +22,8 @@ class CheckSandboxes
 
   def check_sandbox(sandbox)
     sandbox_content = sandbox.fetch_page_content
-    unreliable_sources(sandbox_content).each do |violation_comment, match|
-      @violations << [@course.slug, sandbox.url, violation_comment, match]
+    unreliable_sources(sandbox_content).each do |violation_comment, first_match, match_count|
+      @violations << [@course.slug, sandbox.url, violation_comment, first_match, match_count]
     end
   end
 

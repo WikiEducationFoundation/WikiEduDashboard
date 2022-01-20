@@ -10,12 +10,14 @@ class UnreliableSourcesDetector
     @content = content
   end
 
+  # returns an array of rules violations, where each violation
+  # is an array of [rule description, first match string, match count]
   def unreliable_sources
     unreliable_sources = []
     UNRELIABLE_JS_RULES.each do |rule|
-      @content.scan(rule[:regex]).each do |match|
-        unreliable_sources << [rule[:comment], match]
-      end
+      match = @content.match(rule[:regex])
+      next if match.nil?
+      unreliable_sources << [rule[:comment], match.to_s, match.length]
     end
     unreliable_sources
   end
