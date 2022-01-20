@@ -103,6 +103,7 @@ class Course < ApplicationRecord
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
   has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
+  has_many :sandboxes, -> { distinct.sandbox }, source: :article, through: :revisions
 
   has_many :assignments, dependent: :destroy
 
