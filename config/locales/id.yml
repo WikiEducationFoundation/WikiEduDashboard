@@ -10,6 +10,7 @@
 # Author: Joseagush
 # Author: Masjawad99
 # Author: Mirws
+# Author: Mnam23
 # Author: Pebaryan
 # Author: Presidenvolksraad
 # Author: RXerself
@@ -69,23 +70,44 @@ id:
     explore: Jelajah
     log_in: Masuk dengan Wikipedia
     sign_up: Masuk dengan Wikipedia
+  alerts:
+    alert_label: Peringatan
+    no_alerts: Peringatan tidak ditemukan.
+  activity:
+    all: Aktivitas
+    edited_by: Disunting Oleh
+    label: Aktivitas
   articles:
+    articles: Artikel
+    article_not_found: Artikel ini belum dibuat.
+    article_development: (pengembangan artikel)
+    articles_shown: Menampilkan %{count} dari %{total}
     next: Selanjutnya
     previous: Sebelumnya
     article_title: Judul artikel
     assigned_to: Ditugaskan Kepada
+    deleted: (dihapus)
     edited: Artikel yang disunting
     edited_by: 'Disunting oleh:'
+    edited_mobile: Artikel
     filter:
       wiki_all: Semua
       new: Baru
     hide: Sembunyikan
     loading: Memuat artikel...
+    rating: Kelas
     rating_docs:
       start: Kelas %{class} — artikel awal dengan banyak ruang untuk perbaikan
+    see_more: Lihat selengkapnya
+    title: Judul
+    title_example: Judul artikel
     view: Lihat Artikel
     view_all: Tampilkan semua
     wiki: Wiki
+    articles_short: Artikel
+  items:
+    items: Butir
+    article_not_found: Butir ini belum dibuat.
   assignments:
     article_link: Artikel
     bibliography: Bibliografi
@@ -117,6 +139,7 @@ id:
     edit_count: Jumlah suntingan
     edit_course_dates: Sunting tanggal kursus
     needs_update: Jadwalkan Pembaruan Data
+    user_recent_uploads: Unggahan Terkini
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
   courses_generic:
@@ -126,15 +149,35 @@ id:
       cancel_course_clone_confirm: Apakah anda yakin ingin menghentikan penggandaan
         program ini?
       checking_for_uniqueness: Keunikan program akan diperiksa.
+    student_editors: Penyunting
+    students: Penyunting
     view_other: Lihat kampanye lain
   metrics:
+    char_added: Karakter Ditambahkan
+    char: Karakter Ditambahkan
+    date_time: Tanggal/Waktu
     future_updates_remaining:
       1: Statistik akan terus diperbarui hingga %{date}.
       "": Statistik untuk program ini tidak lagi diperbarui secara berkala.
+    references_count: Referensi Ditambahkan
+    references_doc: Ini adalah jumlah dari tag referensi yang ditambahkan ke artikel,
+      dan bisa memasukkan beberapa referensi ke sumber yang sama. Data diambil dari
+      model kualitas artikel ORES, dan hanya tersedia untuk beberapa bahasa.
+    update_statistics_link: Lihat selengkapnya
     word_count: Kata ditambahkan
+  recent_activity:
+    datetime: Tanggal/Waktu
+    possible_plagiarism: Kemungkinan Plagiarisme
+    recent_uploads: Unggahan Terkini
+    revision_datetime: Tanggal/Waktu Revisi
   revisions:
+    chars_added: Karakter Ditambahkan
+    references: Referensi Ditambahkan
+    class: Kelas
+    date_time: Tanggal/Waktu
     diff: beda
     time_doc: Waktu setiap revisi dalam waktu lokal Anda
+    see_more: Lihat selengkapnya
   timeline:
     blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
       lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
@@ -145,11 +188,14 @@ id:
     kind:
       training: Pelatihan
   uploads:
+    label: Unggahan
     none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
       untuk Wikimedia Commons.
   users:
     contributions_more: Lihat Kontribusi lainnya
+    editors: Penyunting
     characters_added_short: 'RN: %{mainspace}, RP: %{userspace}'
+    references_count: Referensi Ditambahkan
     request_confirmation: Apakah anda yakin ingin memohon akun ini?
     revision_characters_and_views: 'Karakter ditambahkan: %{characters}, Dilihat:
       %{views}'
@@ -168,4 +214,6 @@ id:
     invalid_assignment: Tugas tidak sah
   wiki_api:
     create_account_reason: Pengguna ini sedang berpartisipasi dalam  %{event}.
+  article_finder:
+    page_assessment_class: Kelas
 ...

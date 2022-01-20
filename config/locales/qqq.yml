@@ -153,6 +153,7 @@ qqq:
     edited_mobile: '{{Identical|Article}}'
     edited_none: Label stating that no articles have been edited.
     filter:
+      wiki_all: '{{Identical|All}}'
       new: '{{Identical|New}}'
     hide: '{{Identical|Hide}}'
     history: |-

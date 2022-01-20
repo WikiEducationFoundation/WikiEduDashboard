@@ -1028,7 +1028,7 @@ fr:
     no_assignments: Aucun article n’est affecté à cet étudiant(e) pour le moment.
       Vous pouvez lui affecter un article en utilisant les boutons ci-dessus.
     no_assignments_wikidata: Cet étudiant n’a actuellement aucun élément affecté.
-      Vous pouvez affecter un élément en utilisant les boutons ci-dessous.
+      Vous pouvez affecter un élément en utilisant les boutons au dessus.
     overview: '%{prefix} Vue d’ensemble'
     reviewing_articles: Relecture des articles
     reviewing_articles_wikidata: Relecture des éléments
