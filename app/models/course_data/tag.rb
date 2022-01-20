@@ -15,4 +15,8 @@
 #= Tag model
 class Tag < ApplicationRecord
   belongs_to :course
+
+  def self.courses_tagged_with(tag)
+    Course.where(id: Tag.where(tag: tag).pluck(:course_id))
+  end
 end

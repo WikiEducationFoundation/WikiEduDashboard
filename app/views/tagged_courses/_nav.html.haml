@@ -1,0 +1,11 @@
+.campaign-nav__wrapper
+  .campaign_navigation
+    .container
+      %a
+        %h2.title
+          = "Tag: #{@tag}"
+      %nav
+        %ul.campaign-nav__ul
+          = nav_link(t('courses.courses'), programs_tagged_course_path(@tag))
+          = nav_link(t('courses.articles'), articles_tagged_course_path(@tag))
+          = nav_link(t('courses.alerts'), alerts_tagged_course_path(@tag))
