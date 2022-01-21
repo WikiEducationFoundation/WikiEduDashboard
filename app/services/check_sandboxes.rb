@@ -15,6 +15,7 @@ class CheckSandboxes
   IGNORED_SANDBOXES = %w[
     be_bold
     Evaluate_an_Article
+    Peer_Review
   ].freeze
 
   def check_sandboxes
