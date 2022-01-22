@@ -11,12 +11,10 @@ class ScheduleCourseUpdates
   include CourseQueueSorting
 
   def initialize
-    @updated_courses = []
     setup_logger
     return if updates_paused?
 
     run_update
-    wikidata_stats_updates
   end
 
   private
@@ -45,7 +43,7 @@ class ScheduleCourseUpdates
     courses_to_update.each do |course|
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
 
-      @updated_courses << course
+      UpdateWikidataStatsWorker.new.perform(course) if wikidata(course)
 
       # if course isn't updated before, add first update flags
       next if course.flags[:first_update] || course.flags['update_logs']
@@ -55,15 +53,6 @@ class ScheduleCourseUpdates
     end
 
     log_latency_messages
-  end
-
-  def wikidata_stats_updates
-    @updated_courses.each do |course|
-      if wikidata(course)
-        UpdateWikidataStatsWorker.update_course(course_id: course.id,
-                                                queue: queue_for(course))
-      end
-    end
   end
 
   def wikidata(course)
