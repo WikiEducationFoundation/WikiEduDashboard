@@ -5,15 +5,15 @@ require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
 class UpdateWikidataStats
   def initialize(course)
     @course = course
-    update_summaries
-    update_wikidata_stats
+    import_summaries
+    update_wikidata_statistics
   end
 
   private
 
-  def update_summaries
-    return if wikidata_revisions.empty?
-    wikidata_revisions.find_in_batches do |rev_batch|
+  def import_summaries
+    return if wikidata_revisions_without_summaries.empty?
+    wikidata_revisions_without_summaries.find_in_batches do |rev_batch|
       rev_batch.each do |rev|
         summary = WikidataSummaryParser.fetch_summary(rev)
         next if summary.nil?
@@ -25,11 +25,12 @@ class UpdateWikidataStats
         end
       end
     end
+
   end
 
   # Get Wikidata stats based on revision's summaries
 
-  def update_wikidata_stats
+  def update_wikidata_statistics
     return if course_revisions.empty?
     stats = WikidataSummaryParser.analyze_revisions(course_revisions)
     crs_stat = CourseStat.find_by(course_id: @course.id) || CourseStat.create(course_id: @course.id)
@@ -37,8 +38,8 @@ class UpdateWikidataStats
     crs_stat.save
   end
 
-  def wikidata_revisions
-    @course.revisions.where(wiki: wikidata, summary: nil, deleted: false)
+  def wikidata_revisions_without_summaries
+    course_revisions.where(summary: nil)
   end
 
   def course_revisions
@@ -46,6 +47,6 @@ class UpdateWikidataStats
   end
 
   def wikidata
-    Wiki.get_or_create(language: nil, project: 'wikidata')
+    @wikidata ||= Wiki.get_or_create(language: nil, project: 'wikidata')
   end
 end
