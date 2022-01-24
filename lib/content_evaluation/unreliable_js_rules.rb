@@ -8,7 +8,7 @@
 # rubocop:disable Style/RegexpLiteral
 # rubocop:disable Style/StringLiterals
 # rubocop:disable Style/QuotedSymbols
-# rubocop:disable Style/SpaceAfterColon
+# rubocop:disable Layout/SpaceAfterColon
 # rubocop:disable Layout/SpaceInsideHashLiteralBraces
 UNRELIABLE_JS_RULES = [
   # Sources that traditionally fail [[WP:MEDRS]], but which could be used for other more routine claims
@@ -90,5 +90,5 @@ UNRELIABLE_JS_RULES = [
 # rubocop:enable Style/RegexpLiteral
 # rubocop:enable Style/StringLiterals
 # rubocop:enable Style/QuotedSymbols
-# rubocop:enable Style/SpaceAfterColon
+# rubocop:enable Layout/SpaceAfterColon
 # rubocop:enable Layout/SpaceInsideHashLiteralBraces
