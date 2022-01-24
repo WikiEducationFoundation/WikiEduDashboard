@@ -25,7 +25,6 @@ class UpdateWikidataStats
         end
       end
     end
-
   end
 
   # Get Wikidata stats based on revision's summaries
