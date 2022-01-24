@@ -48,7 +48,7 @@ export class MyArticlesContainer extends React.Component {
 
     let instructorMessage;
     if (Features.wikiEd && current_user.isInstructor) {
-      instructorMessage = <MyArticlesInstructorMessage />;
+      instructorMessage = <MyArticlesInstructorMessage msg={I18n.t(`courses.${ArticleUtils.projectSuffix(course.home_wiki.project, 'instructor_message')}`)} />;
     }
 
     return (
