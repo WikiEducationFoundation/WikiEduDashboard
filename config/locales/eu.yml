@@ -1,6 +1,7 @@
 # Messages for Basque (euskara)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Amaia
 # Author: An13sa
 # Author: BaRaN6161 TURK
@@ -517,7 +518,7 @@ eu:
     new_week: Aste Berria gehitu
     new_account_check_username: Erabiltzaile izenaren erabilgarritasuna egiaztatu
     new_account_email: Helbide elektronikoa
-    new_account_email_placeholder: izena@adibidea.org
+    new_account_email_placeholder: izena@example.org
     new_account_info: Kontu bat eskatzeko, idatzi zure helbide elektronikoa eta zure
       erabiltzaile izena. Pasahitz bat bidaliko zaizu, gure sortzaileetako batek kontua
       sortu ondoren.

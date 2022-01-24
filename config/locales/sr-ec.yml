@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Acamicamacaraca
+# Author: Ajeje Brazorf
 # Author: BadDog
 # Author: Dungodung
 # Author: Kizule
@@ -523,7 +524,7 @@ sr-ec:
     new_week: Додај нову недељу
     new_account_check_username: Провери доступност корисничког имена
     new_account_email: Имејл адреса
-    new_account_email_placeholder: име@пример.org
+    new_account_email_placeholder: име@example.org
     new_account_info: Да бисте затражили налог, упишите своју адресу е-поште и жељено
       корисничко име. Лозинка ће вам бити послата пошто налог креира један од фацилитатора.
     new_account_info_admin: Да бисте креирали налог за новог уредника, унесит имејл

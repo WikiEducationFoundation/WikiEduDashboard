@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: 01miki10
 # Author: Actuallyisjoha
+# Author: Ajeje Brazorf
 # Author: Antsa
 # Author: MITO
 # Author: Mikahama
@@ -459,7 +460,7 @@ fi:
     new_week: Lisää uusi viikko
     new_account_check_username: Tarkista, onko käyttäjänimi saatavana
     new_account_email: Sähköpostiosoite
-    new_account_email_placeholder: nimi@esimerkki.org
+    new_account_email_placeholder: nimi@example.org
     new_account_username: Pyydetty käyttäjänimi
     new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
     new_account_username_taken: Käyttäjänimi on jo käytössä. Valitse ystävällisesti

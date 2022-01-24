@@ -1,6 +1,7 @@
 # Messages for Greek (Ελληνικά)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: GR
 # Author: Geraki
 # Author: Giorgos456
@@ -255,7 +256,7 @@ el:
     new_week: Πρόσθεση νέας εβδομάδας
     new_account_check_username: Έλεγχος διαθεσιμότητας ονόματος χρήστη
     new_account_email: 'Διεύθυνση ηλεκτρονικού ταχυδρομείου:'
-    new_account_email_placeholder: όνομα@παράδειγμα.org
+    new_account_email_placeholder: όνομα@example.org
     new_account_username: Απαιτούμενο όνομα χρήστη
     new_account_username_invalid: Αυτό δεν είναι έγκυρο όνομα χρήστη
     new_account_username_placeholder: Επεξεργαστής βίκι 123

@@ -1,6 +1,7 @@
 # Messages for Estonian (eesti)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Daniel charms
 # Author: Pikne
 ---
@@ -560,7 +561,7 @@ et:
     new_week: Lisa uus nädal
     new_account_check_username: Kontrolli, kas kasutajanimi on vaba
     new_account_email: E-posti aadress
-    new_account_email_placeholder: nimi@teenus.org
+    new_account_email_placeholder: nimi@example.org
     new_account_info: Konto taotlemiseks sisesta oma e-posti aadress ja kasutajanimi,
       mida soovid kasutada. Kui korraldaja on Sulle konto loonud, saadetakse selle
       parool Sinu e-posti aadressile.

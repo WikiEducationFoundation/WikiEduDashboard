@@ -1,6 +1,7 @@
 # Messages for Catalan (català)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Eduardo Martinez
 # Author: Fitoschido
 # Author: Kippelboy
@@ -527,7 +528,7 @@ ca:
     new_week: Afegeix una setmana nova
     new_account_check_username: Comprova la disponibilitat dels noms d’usuari
     new_account_email: Adreça electrònica
-    new_account_email_placeholder: nom@exemple.org
+    new_account_email_placeholder: nom@example.org
     new_account_info: Per sol·licitar un compte, introduïu una adreça de correu electrònic
       i el nom d'usuari que vulgueu. Rebreu una contrasenya per correu quan un dels
       facilitadors us hagi creat el compte.

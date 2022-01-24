@@ -217,6 +217,7 @@ ru:
   assignments:
     article: Вам назначена статья %{title}.
     article_link: Статья
+    article_link_wikidata: Элемент
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
     add_available: Добавить доступные статьи

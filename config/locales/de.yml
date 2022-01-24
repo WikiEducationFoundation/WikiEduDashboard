@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Anna7321
 # Author: Bjarncraft
 # Author: Bxalber
@@ -624,7 +625,7 @@ de:
     new_week: Neue Woche hinzufügen
     new_account_check_username: Benutzernamen-Verfügbarkeit überprüfen
     new_account_email: E-Mail-Adresse
-    new_account_email_placeholder: name@beispiel.org
+    new_account_email_placeholder: name@example.org
     new_account_info: Um ein Benutzerkonto zu beantragen, gib deine E-Mail-Adresse
       und den gewünschten Benutzernamen ein. Es wird ein Passwort per E-Mail an dich
       versandt, sobald das Benutzerkonto von einem der Vermittler erstellt wurde.

@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: BaRaN6161 TURK
 # Author: Botansahin
 # Author: By erdo can
@@ -345,7 +346,7 @@ tr:
     data_editors_by_course: Kurs editörü
     data_editors_by_course_info: Kayıtlı editörlerin ve kurslarının/programlarının
       listesi
-    data_editor_usernames: Editör kullanıcı adı
+    data_editor_usernames: Düzenleyici kullanıcı adları
     data_editor_usernames_info: Editör kullanıcı adlarının listesi, her satıra bir
       tane
     default_course_type: Varsayılan Kurs Türü
@@ -574,7 +575,7 @@ tr:
     data_edits: Düzenleme verileri
     data_edits_info: Düzenleme verileri, proje sırasında yapılan her düzenleme için
       detayları gösterir.
-    data_students: Editör verileri
+    data_students: Düzenleyici verileri
     data_students_info: Editör verileri, tüm kayıtlı editörleri, ne kadar düzenleme
       yaptıklarını ve proje sırasında hesaplarını kaydettirip kaydetmediklerini listeler.
     data_uploads: Commons yükleme verileri
@@ -659,7 +660,7 @@ tr:
     new_week: Yeni Hafta Ekle
     new_account_check_username: Kullanıcı adı müsaitliğini kontrol et
     new_account_email: E-posta adresi
-    new_account_email_placeholder: ornek@ornek.org
+    new_account_email_placeholder: ornek@example.org
     new_account_info: Bir hesap istemek için e-posta adresinizi ve istediğiniz kullanıcı
       adını girin. Hesap, kolaylaştırıcılardan biri tarafından oluşturulduktan sonra
       size bir şifre gönderilecektir.
@@ -869,7 +870,7 @@ tr:
     delete_course: Programı sil
     edit_course_dates: Proje Tarihini Düzenle
     end: Etkinlik izleme sonu
-    enroll: Editör Ekle
+    enroll: Düzenleyici Ekle
     enrollment: Editörleri ekle/kaldır
     explore: Program bul
     courses_enrolled: Katılınan programlar
@@ -890,10 +891,10 @@ tr:
     search_courses: Arama programları
     start: Etkinlik izleme başlangıcı
     student_editors: Editörler
-    student: Editör
+    student: Düzenleyici
     students: Editörler
-    students_taught: Toplam Editör
-    students_none: Bu projede kayıtlı editör yok.
+    students_taught: Toplam Düzenleyici
+    students_none: Bu projede kayıtlı düzenleyici yok.
     students_short: Editörler
     students_count: Katılımcı sayısı
     term: Ne zaman
@@ -1293,7 +1294,7 @@ tr:
     none: Katılımcı yok.
     no_articles: Madde yok
     no_articles_wikidata: Öge yok
-    no_revisions: Bu editör hiçbir değişiklik yapmadı.
+    no_revisions: Bu düzenleyici hiçbir revizyon yapmadı.
     no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
       Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:

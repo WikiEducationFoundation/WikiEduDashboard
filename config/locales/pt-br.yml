@@ -1,6 +1,7 @@
 # Messages for Brazilian Portuguese (português do Brasil)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: AndroidOSUser
 # Author: Athena in Wonderland
 # Author: Caçador de Palavras
@@ -637,7 +638,7 @@ pt-br:
     new_week: Adicionar nova semana
     new_account_check_username: Verificar a disponibilidade do nome de usuário
     new_account_email: Endereço de e-mail
-    new_account_email_placeholder: nome@exemplo.org
+    new_account_email_placeholder: nome@example.org
     new_account_info: Para solicitar uma conta, insira seu endereço de e-mail e seu
       nome de usuário desejado. Uma senha será enviada por email uma vez que a conta
       tenha sido criada por um dos facilitadores.
