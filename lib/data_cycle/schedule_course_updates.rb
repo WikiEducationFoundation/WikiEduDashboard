@@ -43,8 +43,6 @@ class ScheduleCourseUpdates
     courses_to_update.each do |course|
       CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue_for(course))
 
-      UpdateWikidataStatsWorker.new.perform(course) if wikidata(course)
-
       # if course isn't updated before, add first update flags
       next if course.flags[:first_update] || course.flags['update_logs']
       first_update = first_update_flags(course)
@@ -53,10 +51,6 @@ class ScheduleCourseUpdates
     end
 
     log_latency_messages
-  end
-
-  def wikidata(course)
-    course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
   def latency(queue)
