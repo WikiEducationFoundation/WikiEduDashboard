@@ -77,6 +77,7 @@ class Course < ApplicationRecord
            class_name: 'TicketDispenser::Ticket',
            foreign_key: 'project_id',
            dependent: :destroy
+  has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
 
   #########################
   # Activity by the users #
