@@ -33,7 +33,7 @@ class UpdateWikidataStats
     return if course_revisions.empty?
     stats = WikidataSummaryParser.analyze_revisions(course_revisions)
     crs_stat = CourseStat.find_by(course_id: @course.id) || CourseStat.create(course_id: @course.id)
-    crs_stat.stats_hash = stats
+    crs_stat.stats_hash[wikidata.domain] = stats
     crs_stat.save
   end
 
