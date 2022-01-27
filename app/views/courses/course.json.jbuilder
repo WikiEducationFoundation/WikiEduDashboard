@@ -33,6 +33,8 @@ json.course do
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
   json.wiki_string_prefix @course.home_wiki.string_prefix
 
+  json.course_stats @course.course_stat, :id, :stats_hash if @course.course_stat
+
   json.created_count number_to_human @course.new_article_count
   json.edited_count number_to_human @course.article_count
   json.edit_count number_to_human @course.revision_count
