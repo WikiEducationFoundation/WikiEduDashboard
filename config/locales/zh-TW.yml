@@ -736,8 +736,6 @@ zh-TW:
     label: 課程活動
     last_update: 最後一次統計更新
     next_update: 下一次的預計更新
-    late_update_part1: 預期有新的更新
-    late_update_part2: 這可能代表著更新的時間會比預期來得長，或者是指示出有一個會阻礙到更新的問題。
     no_update: 控制面板尚未匯入此方案的任何資料。
     enqueued_update: 此方案已加入到更新佇列裡。
     first_update: 估計統計更新的開始

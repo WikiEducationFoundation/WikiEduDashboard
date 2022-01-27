@@ -975,9 +975,6 @@ pt:
     label: Atividade do curso
     last_update: Última atualização das estatísticas
     next_update: Próxima atualização estimada
-    late_update_part1: Era esperada uma nova atualização
-    late_update_part2: Isto pode querer dizer que a atualização está a demorar mais
-      do que era esperado ou pode indicar um problema que esteja a bloquear atualizações.
     no_update: O painel ainda não importou nenhum dado para este programa.
     enqueued_update: Este programa foi adicionado à fila de atualizações.
     first_update: Início estimado da atualização de estatísticas

@@ -83,6 +83,7 @@ scn:
     add_available_submit: Agghiunci vuci
     bibliography: Bibliugrafìa
     confirm_add_available: Sî sìcuru di vuliri agghiunciri %{title}?
+    label: Assigna
     remove: Leva
   campaign:
     alert_article: Tìtulu dâ vuci

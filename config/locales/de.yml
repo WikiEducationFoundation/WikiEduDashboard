@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Anna7321
 # Author: Bjarncraft
+# Author: Brettchenweber
 # Author: Bxalber
 # Author: Domani
 # Author: ElBe
@@ -131,10 +132,12 @@ de:
     edited_by: Bearbeitet von
     label: Aktivität
   articles:
+    articles: Artikel
     article_not_found: Dieser Artikel wurde noch nicht erstellt.
     article_development: (Artikelentwicklung)
     articles_shown: Zeige %{count} von %{total}
     assigned: Zugeordnete Artikel
+    assignments_none: Es wurden noch keine Artikel zugeordnet.
     available: Verfügbare Artikel
     no_available: Keine verfügbaren Artikel
     next: Nächste
@@ -153,7 +156,7 @@ de:
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
-    edited_none: '%{title} hat keine Artikel bearbeitet.'
+    edited_none: Es wurden noch keine Artikel bearbeitet.
     filter:
       wiki_all: Alle
       new: Neu
@@ -162,12 +165,14 @@ de:
       tracked: Getrackt
       untracked: Ungetrackt
       tracked_and_untracked: Getrackt und ungetrackt
+    find: Artikel finden
     hide: Ausblenden
     history: (Versionsgeschichte)
     label: Artikel
     loading: Lade Artikel …
     new: (neu)
     none: Dieser Kurs hat keine Artikel bearbeitet.
+    preview: Kurze Artikelvorschau
     rating: Klasse
     rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
       Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
@@ -232,7 +237,7 @@ de:
     already_exists: Diese Zuweisung ist bereits vorhanden!
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
-    assign_other: Einen Artikel zuweisen
+    assign_other: Einen Artikel zuweisen / entfernen
     assign_other_wikidata: Element zuweisen/entfernen
     add_available: Verfügbare Artikel hinzufügen
     add_available_placeholder: Einen Artikelnamen oder eine URL pro Zeile hinzufügen
@@ -551,6 +556,7 @@ de:
     data_revisions: Versionsdaten
     data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
       Verwendungszähler eines jeden Medienuploads.
+    dates_too_long: Die Höchstdauer beträgt ein Jahr.
     delete_course: Kurs löschen
     delete_suggestion: Löschen
     delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
@@ -579,6 +585,7 @@ de:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
       user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
+      user_exists_on_wiki: Den Benutzer %{username} gibt es auf %{domain} leider nicht.
       invalid_language_or_project: Ungültige Sprache/Ungültiges Projekt
       invalid_slug: Leeres Schul- oder Kurstitel-Feld.
       duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
@@ -687,6 +694,7 @@ de:
     search_courses: Kurse suchen
     start: Start
     start_typing: Mit dem Tippen anfangen
+    stay_in_sandbox: Auf der Spielwiese bleiben
     student: Schüler
     students: Studenten
     students_taught: Unterrichtete Studenten
@@ -918,6 +926,9 @@ de:
     label: Kursaktivität
     last_update: Letzte Statistikaktualisierung
     next_update: Nächste geschätzte Aktualisierung
+    late_update: Ein neues Update war für den %{late_update_time} geplant. Dies kann
+      bedeuten, dass das Update länger als erwartet dauert, oder auf ein Problem hinweisen,
+      das Updates blockiert.
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel

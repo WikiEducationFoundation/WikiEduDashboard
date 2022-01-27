@@ -692,6 +692,13 @@ fr:
       one: Instructeur
       other: Instructeurs
     instructors: Instructeurs
+    instructor_message: Voici l’interface de « Mes articles », identique à celle dont
+      disposent les élèves. Vous pouvez l’utiliser pour suivre les mêmes étapes que
+      suivront les élèves. Cependant, seules les contributions des élèves seront suivies.
+    instructor_message_wikidata: Voici l’interface de « Mes articles », identique
+      à celle dont disposent les élèves. Vous pouvez l’utiliser pour suivre les mêmes
+      étapes que suivront les élèves. Cependant, seules les contributions des élèves
+      seront suivies.
     invitation: Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours,
       vous devez vous connecter avec un compte Wikipédia.
     invitation_username_advice: Si vous n’avez pas encore de compte Wikipédia, inscrivez-vous
@@ -779,9 +786,13 @@ fr:
       other: '%{count} comptes demandés en attente.'
     requested_accounts_alert_view: Afficher
     retain_available_articles: Conserver les articles disponibles
+    retain_available_articles_wikidata: Conserver les éléments disponibles
     retain_available_articles_info: Si activé, la sélection d’un article disponible
       ne le retire pas de la liste, ce qui permet à un groupe d’étudiants de sélectionner
       le même article.
+    retain_available_articles_info_wikidata: Si activé, la sélection d’un article
+      disponible ne le retire pas de la liste, ce qui permet à un groupe d’étudiants
+      de sélectionner le même article.
     review_timeline: 'Veuillez consulter maintenant votre agenda d’affectation et
       y faire les adaptations qui conviennent. Une fois satisfait, soumettez-le pour
       approbation par l’équipe de Wiki Éducation. Une fois cet agenda approuvé, vous
@@ -1040,9 +1051,9 @@ fr:
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
     next_update: Prochaine mise à jour estimée
-    late_update_part1: Une nouvelle mise à jour était attendue
-    late_update_part2: Cela peut vouloir dire que la mise à jour prend plus longtemps
-      que prévu, ou peut indiquer un problème qui bloque les mises à jour.
+    late_update: Une nouvelle mise à jour était attendue avant le %{late_update_time}.
+      Ceci peut signifier que la mise à jour  prend plus de temps qu’attendu ou qu’un
+      problème bloque les mises à jour.
     no_update: Le tableau de bord n’a encore importé aucune donnée pour ce programme.
     enqueued_update: Ce programme a été ajouté à la file de mise à jour.
     first_update: Démarrage estimé de la mise à jour des statistiques
@@ -1057,6 +1068,8 @@ fr:
     articles_edited_generic: Pages modifiées
     articles_edited_generic_wikidata: Éléments modifiés
     article_scoped_program_info: Ceci est un « Programme ciblé sur les articles »,
+      qui ne compte que les modifications des articles et catégories affectés.
+    article_scoped_program_info_wikidata: Ceci est un « Programme ciblé sur les articles »,
       qui ne compte que les modifications des articles et catégories affectés.
     bytes_added: Octets ajoutés
     characters: Caractères

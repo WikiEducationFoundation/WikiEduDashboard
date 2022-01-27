@@ -1265,6 +1265,7 @@ tr:
       Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
       geri yüklenmesi de bu toplamı artıracaktır.
     chars_added: Eklenen Karakterler<br>(madde | kullanıcı | taslak)
+    chars_added_wikidata: Eklenen Karakterler<br>(madde | kullanıcı | taslak)
     contributions: Kullanıcı Katkısı
     contributions_history_full: Tam katkı geçmişini görüntüle
     contributions_more: Diğer Katkıları Görüntüle
@@ -1486,6 +1487,7 @@ tr:
       why_are_you_here: Ne yapmak istiyorsun?
   article_finder:
     add_available_article: Kullanılabilir makaleyi ekle
+    add_available_article_wikidata: Kullanılabilir öge olarak ekle
     article_finder: Madde Bulucu
     article_finder_wikidata: Öge Bulucu
     article_quality: Madde Kalitesi(0-100)

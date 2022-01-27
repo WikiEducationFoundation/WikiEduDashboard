@@ -300,10 +300,10 @@ uk:
     already_exists: Ця кампанія вже існує! Будь ласка, спробуйте ще раз із іншою назвою
       чи скороченням.
     campaign: Кампанія
-    campaigns: Компанії
+    campaigns: Кампанії
     campaign_deleted: Кампанія «%{title}» вилучена
     campaign_not_updated: Кампанія не може бути змінена
-    campaign_updated: Компанію оновлено
+    campaign_updated: Кампанію оновлено
     created_at: Дата
     confirm_campaign_deletion: Ви впевнені, що хочете вилучити кампанію «%{title}»?
       Якщо так, введіть назву кампанії, щоб продовжити.
@@ -427,7 +427,7 @@ uk:
     cancel: Скасувати
     character_doc: Сума символів, доданих до статей в основному просторі назв студентами
       курсу впродовж семестру курсу
-    campaigns: 'Компанії:'
+    campaigns: 'Кампанії:'
     campaign_articles: Статті %{title}
     campaign_courses: Курси %{title}
     campaign_select: Обрати кампанію
@@ -800,7 +800,7 @@ uk:
     course: Програма
     courses: Програми
     courses_taught: Викладено програм
-    campaigns: 'Компанії:'
+    campaigns: 'Кампанії:'
     campaign_courses: Програми %{title}
     creator:
       assignment_end: Кінець події
@@ -925,7 +925,6 @@ uk:
     label: Активність курсу
     last_update: Останнє оновлення статистики
     next_update: Наступне плановане оновлення
-    late_update_part1: Очікувалося нове оновлення
     activity: Недавня активність
     are_trained: без запізнень у навчанні
     articles_created: Створені статті
