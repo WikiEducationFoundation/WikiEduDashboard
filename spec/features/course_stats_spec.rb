@@ -54,7 +54,7 @@ describe 'course stats', type: :feature, js: true do
     word_count = WordCount.from_characters(chars * revisions.count)
     references_count = revisions.sum(&:references_added)
     expect(page.find('#word-count')).to have_content word_count
-    expect(page.find('#references-added')).to have_content references_count
+    expect(page.find('#references-count')).to have_content references_count
     expect(page.find('#view-count')).to have_content views.to_s
   end
 end

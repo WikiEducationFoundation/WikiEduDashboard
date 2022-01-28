@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils.js';
+import CourseStat from './course_stat';
 
 const CourseStats = ({ course }) => {
   const isWikidata = course.home_wiki.project === 'wikidata';
@@ -31,46 +32,45 @@ const CourseStats = ({ course }) => {
   let uploadCount;
 
   let articlesCreated;
+
   if (course.created_count !== '0') {
-    articlesCreated = (
-      <div className="stat-display__stat" id="articles-created">
-        <div className={valueClass('created_count')}>{course.created_count}</div>
-        <small>{createdLabel}</small>
-      </div>
-    );
+    articlesCreated = <CourseStat
+      id="articles-created"
+      className={valueClass('articles-created')}
+      stat={course.created_count}
+      statMsg={createdLabel}
+      info={false}
+    />;
   }
 
   let contentCount;
   if (course.home_wiki.language === 'en') {
-    contentCount = (
-      <div className="stat-display__stat" id="word-count">
-        <div className={valueClass('word_count')}>{course.word_count}</div>
-        <small>{I18n.t('metrics.word_count')}</small>
-      </div>
-    );
+    contentCount = <CourseStat
+      id="word-count"
+      className={valueClass('word-count')}
+      stat={course.word_count}
+      statMsg={I18n.t('metrics.word_count')}
+      info={false}
+    />;
   } else if (!isWikidata) {
-    contentCount = (
-      <div className="stat-display__stat" id="bytes-added">
-        <div className={valueClass('word_count')}>{course.character_sum_human}</div>
-        <small>{I18n.t('metrics.bytes_added')}</small>
-      </div>
-    );
+    contentCount = <CourseStat
+      id="bytes-added"
+      className={valueClass('bytes-added')}
+      stat={course.character_sum_human}
+      statMsg={I18n.t('metrics.bytes_added')}
+      info={false}
+    />;
   }
 
   let refCount;
   if (course.references_count !== '0') {
-    refCount = (
-      <div className="stat-display__stat tooltip-trigger" id="references-added">
-        <div className={valueClass('references_count')}>
-          {course.references_count}
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-        </div>
-        <small>{I18n.t('metrics.references_count')}</small>
-        <div className="tooltip dark" id="upload-usage">
-          <p>{I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`)}</p>
-        </div>
-      </div>
-    );
+    refCount = <CourseStat
+      id="references-count"
+      className={valueClass('references-count')}
+      stat={course.references_count}
+      statMsg={I18n.t('metrics.references_count')}
+      info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`)}
+    />;
   }
 
   if (course.upload_usages_count === undefined) {
@@ -99,21 +99,16 @@ const CourseStats = ({ course }) => {
   }
 
   if (course.upload_count) {
+    const infoStats = [[course.upload_usages_count, I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })],
+      [course.upload_usages_count, I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })]];
     uploadCount = (
-      <div className="stat-display__stat tooltip-trigger" id="upload-count">
-        <div className={valueClass('upload_count')}>
-          {course.upload_count}
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-        </div>
-        <small>{I18n.t('metrics.upload_count')}</small>
-        <div className="tooltip dark" id="upload-usage">
-          <h4 className="stat-display__value">{course.upload_usages_count}</h4>
-          <p>{I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })}</p>
-          <h4 className="stat-display__value">{course.upload_usages_count}</h4>
-          <p>{I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })}</p>
-        </div>
-      </div>
-    );
+      <CourseStat
+        id="upload-count"
+        className={valueClass('upload_count')}
+        stat={course.upload_count}
+        statMsg={I18n.t('metrics.upload_count')}
+        info={infoStats}
+      />);
   }
 
   return (
@@ -127,6 +122,7 @@ const CourseStats = ({ course }) => {
         <div className={valueClass('edit_count')}>{course.edit_count}</div>
         <small>{I18n.t('metrics.edit_count_description')}</small>
       </div>
+
       <div className="stat-display__stat tooltip-trigger" id="student-editors">
         <div className={valueClass('student_count')}>
           {course.student_count}
@@ -135,6 +131,7 @@ const CourseStats = ({ course }) => {
         <small>{CourseUtils.i18n('student_editors', course.string_prefix)}</small>
         {trainedTooltip}
       </div>
+
       {contentCount}
       {refCount}
       {pageviews}
