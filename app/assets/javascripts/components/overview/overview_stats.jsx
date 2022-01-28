@@ -26,13 +26,8 @@ const OverviewStats = ({ course }) => {
     editedLabel = I18n.t('metrics.articles_edited_generic');
   }
 
-  let pageviews;
-  let infoImg;
-  let trainedTooltip;
-  let uploadCount;
 
   let articlesCreated;
-
   if (course.created_count !== '0') {
     articlesCreated = <OverviewStat
       id="articles-created"
@@ -67,34 +62,37 @@ const OverviewStats = ({ course }) => {
       stat={course.references_count}
       statMsg={I18n.t('metrics.references_count')}
       info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`)}
+      infoId="references-info"
     />;
   }
 
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display" />;
   }
-  if (course.view_count !== '0') {
-    pageviews = (
-      <div className="stat-display__stat" id="view-count">
-        <div className={valueClass('view_count')}>
-          {course.view_count}
-        </div>
-        <small>{I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}</small>
-      </div>
-    );
-  }
+
+  let editors = (
+    <OverviewStat
+      id="student-editors"
+      className={valueClass('student_count')}
+      stat={course.student_count}
+      statMsg={CourseUtils.i18n('student_editors', course.string_prefix)}
+    />
+  );
   if (course.timeline_enabled) {
-    infoImg = (
-      <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-    );
-    trainedTooltip = (
-      <div className="tooltip dark" id="trained-count">
-        <h4 className="stat-display__value">{course.trained_count}</h4>
-        <p>{I18n.t('metrics.are_trained')}</p>
-      </div>
+    const trainedInfo = [[course.trained_count, I18n.t('metrics.are_trained')]];
+    editors = (
+      <OverviewStat
+        id="student-editors"
+        className={valueClass('student_count')}
+        stat={course.student_count}
+        statMsg={CourseUtils.i18n('student_editors', course.string_prefix)}
+        info={trainedInfo}
+        infoId="trained-info"
+      />
     );
   }
 
+  let uploadCount;
   if (course.upload_count) {
     const infoStats = [[course.upload_usages_count, I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })],
       [course.upload_usages_count, I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })]];
@@ -105,33 +103,35 @@ const OverviewStats = ({ course }) => {
         stat={course.upload_count}
         statMsg={I18n.t('metrics.upload_count')}
         info={infoStats}
+        infoId="upload-info"
       />);
   }
 
   return (
     <div className="stat-display">
       {articlesCreated}
-      <div className="stat-display__stat" id="articles-edited">
-        <div className={valueClass('edited_count')}>{course.edited_count}</div>
-        <small>{editedLabel}</small>
-      </div>
-      <div className="stat-display__stat" id="total-edits">
-        <div className={valueClass('edit_count')}>{course.edit_count}</div>
-        <small>{I18n.t('metrics.edit_count_description')}</small>
-      </div>
-
-      <div className="stat-display__stat tooltip-trigger" id="student-editors">
-        <div className={valueClass('student_count')}>
-          {course.student_count}
-          {infoImg}
-        </div>
-        <small>{CourseUtils.i18n('student_editors', course.string_prefix)}</small>
-        {trainedTooltip}
-      </div>
-
+      <OverviewStat
+        id="articles-edited"
+        className={valueClass('edited_count')}
+        stat={course.edited_count}
+        statMsg={editedLabel}
+      />
+      <OverviewStat
+        id="total-edits"
+        className={valueClass('edited_count')}
+        stat={course.edit_count}
+        statMsg={I18n.t('metrics.edit_count_description')}
+      />
+      {editors}
       {contentCount}
       {refCount}
-      {pageviews}
+      {course.view_count !== '0'
+        && <OverviewStat
+          id="view-count"
+          className={valueClass('view_count')}
+          stat={course.view_count}
+          statMsg={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}
+        />}
       {uploadCount}
     </div>
   );

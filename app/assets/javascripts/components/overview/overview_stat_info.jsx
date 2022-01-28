@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const OverviewStatInfo = ({ info }) => {
+const OverviewStatInfo = ({ info, infoId }) => {
   let iStats;
   if (typeof info === 'string') {
       iStats = (
@@ -17,7 +17,7 @@ const OverviewStatInfo = ({ info }) => {
   );
   }
   return (
-    <div className="tooltip dark" id="upload-usage">
+    <div className="tooltip dark" id={infoId}>
       {iStats}
     </div>
   );
@@ -27,7 +27,8 @@ OverviewStatInfo.propTypes = {
   info: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string
-  ])
+  ]),
+  infoId: PropTypes.string
 };
 
 export default OverviewStatInfo;

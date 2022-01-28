@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OverviewStatInfo from './overview_stat_info';
 
-const OverviewStat = ({ id, className, stat, statMsg, info }) => {
+const OverviewStat = ({ id, className, stat, statMsg, info, infoId }) => {
   return (
     <div className="stat-display__stat tooltip-trigger" id={id}>
       <div className={className}>
@@ -14,6 +14,7 @@ const OverviewStat = ({ id, className, stat, statMsg, info }) => {
         info
         && <OverviewStatInfo
           info={info}
+          infoId={infoId}
         />
       }
     </div>
@@ -32,6 +33,7 @@ OverviewStat.propTypes = {
     PropTypes.array,
     PropTypes.string
   ]),
+  infoId: PropTypes.string
 };
 
 export default OverviewStat;
