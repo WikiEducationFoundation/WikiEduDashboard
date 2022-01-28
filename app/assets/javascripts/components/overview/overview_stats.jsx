@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils.js';
-import CourseStat from './course_stat';
+import OverviewStat from './overview_stat';
 
-const CourseStats = ({ course }) => {
+const OverviewStats = ({ course }) => {
   const isWikidata = course.home_wiki.project === 'wikidata';
   const isWikipedia = course.home_wiki.project === 'wikipedia';
 
@@ -34,37 +34,34 @@ const CourseStats = ({ course }) => {
   let articlesCreated;
 
   if (course.created_count !== '0') {
-    articlesCreated = <CourseStat
+    articlesCreated = <OverviewStat
       id="articles-created"
       className={valueClass('articles-created')}
       stat={course.created_count}
       statMsg={createdLabel}
-      info={false}
     />;
   }
 
   let contentCount;
   if (course.home_wiki.language === 'en') {
-    contentCount = <CourseStat
+    contentCount = <OverviewStat
       id="word-count"
       className={valueClass('word-count')}
       stat={course.word_count}
       statMsg={I18n.t('metrics.word_count')}
-      info={false}
     />;
   } else if (!isWikidata) {
-    contentCount = <CourseStat
+    contentCount = <OverviewStat
       id="bytes-added"
       className={valueClass('bytes-added')}
       stat={course.character_sum_human}
       statMsg={I18n.t('metrics.bytes_added')}
-      info={false}
     />;
   }
 
   let refCount;
   if (course.references_count !== '0') {
-    refCount = <CourseStat
+    refCount = <OverviewStat
       id="references-count"
       className={valueClass('references-count')}
       stat={course.references_count}
@@ -102,7 +99,7 @@ const CourseStats = ({ course }) => {
     const infoStats = [[course.upload_usages_count, I18n.t('metrics.uploads_in_use_count', { count: course.uploads_in_use_count })],
       [course.upload_usages_count, I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })]];
     uploadCount = (
-      <CourseStat
+      <OverviewStat
         id="upload-count"
         className={valueClass('upload_count')}
         stat={course.upload_count}
@@ -140,8 +137,8 @@ const CourseStats = ({ course }) => {
   );
 };
 
-CourseStats.propTypes = {
+OverviewStats.propTypes = {
   course: PropTypes.object
 };
 
-export default CourseStats;
+export default OverviewStats;

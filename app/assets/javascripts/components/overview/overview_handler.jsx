@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { parse } from 'query-string';
 import { withRouter } from 'react-router';
-import CourseStats from './course_stats.jsx';
+import OverviewStats from './overview_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
 import Milestones from './milestones.jsx';
@@ -165,7 +165,7 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         { syllabusUpload }
-        <CourseStats course={course} />
+        <OverviewStats course={course} />
         <StatisticsUpdateInfo course={course} />
         {userArticles}
         <div className="primary">

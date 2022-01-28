@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InfoStats from './info_stats';
+import OverviewStatInfo from './overview_stat_info';
 
-const CourseStat = ({ id, className, stat, statMsg, info }) => {
+const OverviewStat = ({ id, className, stat, statMsg, info }) => {
   return (
     <div className="stat-display__stat tooltip-trigger" id={id}>
       <div className={className}>
@@ -12,7 +12,7 @@ const CourseStat = ({ id, className, stat, statMsg, info }) => {
       <small>{statMsg}</small>
       {
         info
-        && <InfoStats
+        && <OverviewStatInfo
           info={info}
         />
       }
@@ -20,7 +20,7 @@ const CourseStat = ({ id, className, stat, statMsg, info }) => {
   );
 };
 
-CourseStat.propTypes = {
+OverviewStat.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   stat: PropTypes.oneOfType([
@@ -30,9 +30,8 @@ CourseStat.propTypes = {
   statMsg: PropTypes.string.isRequired,
   info: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.string,
-    PropTypes.bool
+    PropTypes.string
   ]),
 };
 
-export default CourseStat;
+export default OverviewStat;

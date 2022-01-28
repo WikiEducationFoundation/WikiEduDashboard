@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InfoStats = ({ info }) => {
+const OverviewStatInfo = ({ info }) => {
   let iStats;
-
   if (typeof info === 'string') {
       iStats = (
         <p>{info}</p>);
@@ -17,7 +16,6 @@ const InfoStats = ({ info }) => {
   })
   );
   }
-
   return (
     <div className="tooltip dark" id="upload-usage">
       {iStats}
@@ -25,11 +23,11 @@ const InfoStats = ({ info }) => {
   );
 };
 
-InfoStats.propTypes = {
+OverviewStatInfo.propTypes = {
   info: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string
   ])
 };
 
-export default InfoStats;
+export default OverviewStatInfo;
