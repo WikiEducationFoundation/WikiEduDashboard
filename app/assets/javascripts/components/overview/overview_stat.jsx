@@ -31,6 +31,7 @@ OverviewStat.propTypes = {
   statMsg: PropTypes.string.isRequired,
   info: PropTypes.oneOfType([
     PropTypes.array,
+    // info array is in format [[statNumber1, statDescription1], [statNumber2, statDescription2],...]
     PropTypes.string
   ]),
   infoId: PropTypes.string
