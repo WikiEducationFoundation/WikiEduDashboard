@@ -116,8 +116,8 @@ const OverviewStats = ({ course }) => {
     [statistics['claims removed'], I18n.t('metrics.claims_removed')]];
     const aliasesInfo = [[statistics['aliases changed'], I18n.t('metrics.aliases_changed')],
     [statistics['aliases removed'], I18n.t('metrics.aliases_removed')]];
-    const descriptionsInfo = [[statistics['description changed'], I18n.t('metrics.descriptions_changed')],
-    [statistics['description removed'], I18n.t('metrics.descriptions_removed')]];
+    const descriptionsInfo = [[statistics['descriptions changed'], I18n.t('metrics.descriptions_changed')],
+    [statistics['descriptions removed'], I18n.t('metrics.descriptions_removed')]];
     const interwikiLinksInfo = [[statistics['interwiki links removed'],
     I18n.t('metrics.interwiki_links_removed')]];
     const labelsInfo = [[statistics['labels changed'], I18n.t('metrics.labels_changed')],
