@@ -54,7 +54,7 @@ describe('URLBuilder', () => {
   describe('#wikiwhoColorURL', () => {
     it('should create a wikiwhoColorURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://api.wikiwho.net/en/whocolor/v1.0.0-beta/My%20Article/';
+      const expected = 'https://wikiwho-api.wmcloud.org/en/whocolor/v1.0.0-beta/My%20Article/';
       expect(helper.wikiwhoColorURL()).toEqual(expected);
     });
     it('should throw an error if the language is missing', () => {
@@ -72,7 +72,7 @@ describe('URLBuilder', () => {
   describe('#wikiwhoColorRevisionURL', () => {
     it('should create a wikiwhoColorRevisionURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://api.wikiwho.net/en/api/v1.0.0-beta/rev_content/My%20Article/?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
+      const expected = 'https://wikiwho-api.wmcloud.org/en/api/v1.0.0-beta/rev_content/My%20Article/?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
       expect(helper.wikiwhoColorRevisionURL()).toEqual(expected);
     });
     it('should throw an error if the language is missing', () => {

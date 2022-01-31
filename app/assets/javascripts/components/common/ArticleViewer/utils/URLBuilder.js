@@ -1,4 +1,4 @@
-const WIKIWHO_DOMAIN = 'https://api.wikiwho.net';
+const WIKIWHO_DOMAIN = 'https://wikiwho-api.wmcloud.org';
 
 export class URLBuilder {
   constructor({ article, users }) {
@@ -44,7 +44,7 @@ export class URLBuilder {
     if (!title) throw new TypeError('Article title is missing!');
 
     const query = '?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
-    const url = `https://api.wikiwho.net/${language}/api/v1.0.0-beta/rev_content/${title}/${query}`;
+    const url = `${WIKIWHO_DOMAIN}/${language}/api/v1.0.0-beta/rev_content/${title}/${query}`;
     return encodeURI(url);
   }
 
