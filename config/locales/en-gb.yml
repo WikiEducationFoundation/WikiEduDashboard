@@ -10,6 +10,7 @@
 # Author: Samwilson
 # Author: Sau226
 # Author: TheSkull28870
+# Author: Valentine Badu
 ---
 en-gb:
   application:
@@ -216,6 +217,9 @@ en-gb:
       one: Instructor
       other: Instructors
     instructors: Instructors
+    instructor_message_wikidata: Waei ne me nneɛma no nnianim ne asukuufoɔ no wɔ no
+      yɛ pɛ.Wo bɛtumi afa anante wɔ saa ananmoɔntuo a asukuufoɔ no bɛfa so akorɔ Neɛ
+      ɛteɛ biara asukuufoɔ no ntoboa no pɛ na yɛ bɛ hwehwɛ akyiraakwan.
     invitation: You’ve been invited to join %{title}. To join the course, you need
       to log in with a Wikipedia account.
     join: Join
@@ -260,6 +264,10 @@ en-gb:
     students_count: '# Students'
     student_editors: Student Editors
     timeline_enabled: Timeline enabled
+  metrics:
+    late_update: Na yɛ hwɛ mpagyamu fofroɔ %{ late_ update_ time}.Wae bɛtumi akyerɛ
+      sɛ mpagyamu no ɛkyɛ sene sɛ nea y'ɛhwɛ anim no,anaasɛ ɔhaw bi na ɛsi mpagyamu
+      no kwan.
   recent_activity:
     active_courses: Article is active in
     datetime: Date/Time

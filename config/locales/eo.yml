@@ -243,6 +243,9 @@ eo:
     edit: Redakti
     cancel: Nuligi
     save: Konservi
+  instructor_view:
+    assignments_table:
+      article_name: Nomo
   metrics:
     date_time: Dato/Tempo
     per_user: '%{number}/uzanto'
