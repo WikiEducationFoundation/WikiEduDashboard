@@ -134,14 +134,21 @@ const AvailableActions = createReactClass({
       }
     // If user has no role or is logged out
     } else if (!course.ended) {
-      controls.push(
-        <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
-      );
-      // On P&E Dashboard, offer option to join as online volunteer
-      if (!Features.wikiEd && course.online_volunteers_enabled) {
+
+      //If it's enrollment page, don't show 'Join course' button in Actions to avoid confusion
+      const urlParams = new URLSearchParams(window.location.search);
+      const isEnrollmentURL = urlParams.has('enroll');
+
+      if (!isEnrollmentURL) {
         controls.push(
-          <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+          <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
         );
+        // On P&E Dashboard, offer option to join as online volunteer
+        if (!Features.wikiEd && course.online_volunteers_enabled) {
+          controls.push(
+            <div key="volunteer" className="available-action"><button onClick={() => this.join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+          );
+        }
       }
     }
     // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
