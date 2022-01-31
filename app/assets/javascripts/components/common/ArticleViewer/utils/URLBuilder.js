@@ -1,3 +1,5 @@
+const WIKIWHO_DOMAIN = 'https://api.wikiwho.net';
+
 export class URLBuilder {
   constructor({ article, users }) {
     this.article = article;
@@ -31,7 +33,7 @@ export class URLBuilder {
     if (!language) throw new TypeError('Article language is missing!');
     if (!title) throw new TypeError('Article title is missing!');
 
-    const url = `https://api.wikiwho.net/${language}/whocolor/v1.0.0-beta/${title}/`;
+    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${title}/`;
     return encodeURI(url);
   }
 
