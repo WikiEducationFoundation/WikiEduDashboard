@@ -106,6 +106,8 @@ const AvailableActions = createReactClass({
     const course = this.props.course;
     const controls = [];
     const user = this.props.current_user;
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEnrollmentURL = urlParams.has('enroll');
     // If user has a role in the course or is an admin
     if ((user.isEnrolled) || user.admin || user.isAdvancedRole) {
       // If user is a student, show the 'leave' button.
@@ -132,8 +134,9 @@ const AvailableActions = createReactClass({
           <div key="needs_update" className="available-action"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></div>
         ));
       }
-    // If user has no role or is logged out
-    } else if (!course.ended) {
+    // If user has no role or is logged out, and if he is not on enrollment page, show 'Join course' button.
+    // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
+    } else if (!course.ended && !isEnrollmentURL) {
       controls.push(
         <div key="join" className="available-action"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
       );
