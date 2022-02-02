@@ -123,7 +123,8 @@ const OverviewStats = ({ course }) => {
     [statistics['redirects created'], I18n.t('metrics.redirects_created')],
     [statistics['restorations performed'], I18n.t('metrics.restorations_performed')],
     [statistics['reverts performed'], I18n.t('metrics.reverts_performed')],
-    [statistics['no data'], I18n.t('metrics.no_data')]];
+    [statistics['no data'], I18n.t('metrics.no_data')],
+    [statistics.unknown, I18n.t('metrics.unknown')]];
 
     wikidataStats = (
       <>

@@ -1032,6 +1032,7 @@ en:
     redirects_created: Redirects created
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
+    unknown: Unknown
 
   namespace:
     main: Mainspace
