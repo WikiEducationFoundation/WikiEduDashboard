@@ -18,14 +18,17 @@ const UploadList = createReactClass({
   render() {
     const uploads = this.props.uploads;
     let elements;
+    let noUploadsMessage;
     if (uploads.length > 0) {
       elements = uploads.map((upload) => {
         return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
       });
     } else if (!this.props.loadingUploads && this.props.totalUploadsCount > 0 && uploads.length === 0) {
-      elements = (<div className="none"><p>{I18n.t('courses_generic.user_uploads_none')}</p></div>);
+      elements = [];
+      noUploadsMessage = (<div className="none text-center"><p>{I18n.t('courses_generic.user_uploads_none')}</p></div>);
     } else if (!this.props.loadingUploads && uploads.length === 0) {
-      elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
+      elements = [];
+      noUploadsMessage = (<div className="none text-center"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
     } else {
       elements = (<div style={{ width: '100%' }}><Loading /></div>);
     }
@@ -62,11 +65,11 @@ const UploadList = createReactClass({
     let uploadsView;
 
     if (this.props.view === GALLERY_VIEW) {
-      uploadsView = (
-        <div className="gallery-view">
-          {elements}
-        </div>
-      );
+      if (elements.length === 0) {
+        uploadsView = (<div className="list-view">{noUploadsMessage}</div>);
+      } else {
+        uploadsView = (<div className="gallery-view"> {elements} </div>);
+      }
     }
 
     if (this.props.view === LIST_VIEW) {
@@ -86,7 +89,8 @@ const UploadList = createReactClass({
     if (this.props.view === TILE_VIEW) {
       uploadsView = (
         <div className="tile-view">
-          {elements}
+          {uploads.length > 0 && elements}
+          {uploads.length === 0 && noUploadsMessage}
         </div>
       );
     }
