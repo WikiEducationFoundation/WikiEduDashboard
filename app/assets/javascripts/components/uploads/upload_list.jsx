@@ -73,17 +73,19 @@ const UploadList = createReactClass({
     }
 
     if (this.props.view === LIST_VIEW) {
-      uploadsView = (
-        <div className="list-view">
-          <List
-            elements={elements}
-            keys={keys}
-            table_key="uploads"
-            sortBy={this.props.sortBy}
-            none_message={I18n.t('courses_generic.uploads_none')}
-          />
-        </div>
-      );
+      if (elements.length && elements.length > 0) {
+        uploadsView = (
+          <div className="list-view">
+            <List
+              elements={elements}
+              keys={keys}
+              table_key="uploads"
+              sortBy={this.props.sortBy}
+            />
+          </div>);
+      } else {
+          uploadsView = (<div className="list-view">{noUploadsMessage}</div>);
+        }
     }
 
     if (this.props.view === TILE_VIEW) {

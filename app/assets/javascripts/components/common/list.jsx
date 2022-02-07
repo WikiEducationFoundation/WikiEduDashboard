@@ -61,7 +61,7 @@ const List = createReactClass({
 
   render() {
     const { keys, sortable, table_key, className, none_message, sortBy, loading, stickyHeader } = this.props;
-    const { elements } = this.props;
+    let { elements } = this.props;
     const headers = [];
     const iterable = Object.keys(keys);
 
@@ -111,10 +111,8 @@ const List = createReactClass({
     // Handle the case of no elements:
     // Show a none message if data is already loaded, or
     // show the Loading spinner if data is not yet loaded.
-    let emptyMessage;
-    let tbody = true;
     if (elements.length === 0) {
-      tbody = false;
+      let emptyMessage;
       if (!loading) {
         // eslint-disable-next-line
         let noneMessage = none_message;
@@ -122,10 +120,17 @@ const List = createReactClass({
           // eslint-disable-next-line
           noneMessage = I18n.t(`${table_key}.none`);
         }
-        emptyMessage = <div className="none, text-center"><p>{noneMessage}</p></div>;
+        emptyMessage = <span>{noneMessage}</span>;
       } else {
         emptyMessage = <Loading />;
       }
+      elements = (
+        <tr className="disabled">
+          <td colSpan={headers.length + 1} className="text-center">
+            {emptyMessage}
+          </td>
+        </tr>
+      );
     }
     let fixedHeader;
     let fixedArea;
@@ -137,8 +142,7 @@ const List = createReactClass({
     }
     return (
       <div className={fixedArea}>
-        {/* eslint-disable */}
-        {tbody && <table className={defaultClassName}>
+        <table className={defaultClassName}>
           <thead className={fixedHeader}>
             <tr>
               {headers}
@@ -147,9 +151,7 @@ const List = createReactClass({
           <tbody>
             {elements}
           </tbody>
-        </table> }
-        {/* eslint-enable */}
-        {!tbody && emptyMessage}
+        </table>
       </div>
     );
   }
