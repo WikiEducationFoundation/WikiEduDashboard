@@ -65,15 +65,11 @@ const UploadList = createReactClass({
     let uploadsView;
 
     if (this.props.view === GALLERY_VIEW) {
-      if (elements.length === 0) {
-        uploadsView = (<div className="list-view">{noUploadsMessage}</div>);
-      } else {
-        uploadsView = (<div className="gallery-view"> {elements} </div>);
-      }
+      uploadsView = elements.length === 0 ? (<div className="list-view">{noUploadsMessage}</div>) : (<div className="gallery-view"> {elements} </div>);
     }
 
     if (this.props.view === LIST_VIEW) {
-      if (elements.length && elements.length > 0) {
+      if (elements.length > 0) {
         uploadsView = (
           <div className="list-view">
             <List
@@ -91,8 +87,7 @@ const UploadList = createReactClass({
     if (this.props.view === TILE_VIEW) {
       uploadsView = (
         <div className="tile-view">
-          {uploads.length > 0 && elements}
-          {uploads.length === 0 && noUploadsMessage}
+          {uploads.length > 0 ? elements : noUploadsMessage}
         </div>
       );
     }
