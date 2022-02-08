@@ -1,0 +1,55 @@
+name: Converted Workflow
+
+on : [push,pull_request]
+jobs:
+  Build:
+    strategy:
+      fail-fast: false
+      matrix:
+       os: [ubuntu-latest]
+      
+       db:
+         - mysql
+      
+    runs-on: ${{ matrix.os }}
+ 
+    steps:
+       - name: Installing system dependencies
+         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
+       - uses: actions/checkout@v2
+       - uses: ruby/setup-ruby@v1
+         with:
+           ruby-version: 2.7.1
+       - name: Setup Node
+         uses: actions/setup-node@v1
+       - name: start  mysql    
+         run: sudo systemctl start mysql.service
+       - run: 'export PATH=$PATH:`yarn global bin`'
+       - run: export DB=test
+       - run: export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
+       - name: Database and Build
+         run: |
+            mkdir tmp -m 777
+            yarn install
+            gem install bundler
+            gem install rubocop
+            gem install rubocop-rspec-focused
+            bundle config set path 'vendor'
+            bundle install --jobs=3 --retry=3
+            bundle exec rubocop   
+       - run : cp config/database.travis.yml config/database.yml
+       - name: running datatbase 
+         env:
+               DATABASE_NAME: dashboard_testing
+               DATABASE_USERNAME: wiki
+               DATABASE_PASSWORD: wikiedu
+               DATABASE_PORT: 3306
+               RAILS_ENV: test
+         run: |
+              bundle exec rails db:create  
+              bundle exec rake db:migrate
+
+              
+                  
+
+               
