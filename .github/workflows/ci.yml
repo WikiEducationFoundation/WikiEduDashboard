@@ -18,11 +18,10 @@ jobs:
     services:
        mariadb:
         image: mariadb:10.5
-#         env:
-#           mysql root password: root
-#           mysql user: wiki
-#           mysql password: wikiedu
-#           host port: 3306
+        env:
+          mysql user: root
+          mysql database: dashboard_testing
+          host port: 3306
   
 
     steps:
@@ -67,7 +66,8 @@ jobs:
              cp config/database.example.yml config/database.yml
              bundle exec rake db:migrate RAILS_ENV=test
              env:
-              mysql database: dashboard testing
+              mysql user: root
+              mysql database: dashboard_testing
               RAILS_ENV: test
               
               
