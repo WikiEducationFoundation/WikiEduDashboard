@@ -46,8 +46,8 @@ jobs:
       - name: running datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
-     
+             sudo mysql -uwiki -h127.0.0.1 -pwikiedu -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+             sudo mysql 'GRANT ALL PRIVILEGES ON *.* TO 'wiki';'
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
