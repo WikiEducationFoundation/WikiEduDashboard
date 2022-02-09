@@ -16,15 +16,15 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
   
-    services:
-       mariadb:
-        image: mariadb:10.5
-        env:
-          mysql root password: wikiedu
-          mysql database: dashboard_testing
-          mysql user: wiki
-          mysql password: wikiedu
-          host port: 3306
+#     services:
+#        mariadb:
+#         image: mariadb:10.5
+#         env:
+#           mysql root password: wikiedu
+#           mysql database: dashboard_testing
+#           mysql user: wiki
+#           mysql password: wikiedu
+#           host port: 3306
 
     steps:
       - uses: actions/checkout@v2
@@ -34,14 +34,14 @@ jobs:
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
       
 #       - run: sudo systemctl start mysql
-#       - name: Set up MariaDB
-#         uses: getong/mariadb-action@v1.1
-#         with:
-#                mysql root password: wikiedu
-#                mysql database: dashboard_testing
-#                mysql user: wiki
-#                mysql password: wikiedu
-#                host port: 3306
+      - name: Set up MariaDB
+        uses: getong/mariadb-action@v1.1
+        with:
+               mysql root password: wikiedu
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
+               host port: 3306
       - name: running datatbase 
         run: |
             sudo systemctl start mysql  
