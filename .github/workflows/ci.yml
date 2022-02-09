@@ -70,7 +70,6 @@ jobs:
               bundle install
               yarn
               yarn build
-              bundle exec rake db:create 
               bundle exec rake db:migrate
              
               
