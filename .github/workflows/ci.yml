@@ -67,6 +67,7 @@ jobs:
           
       - run: yarn
       - run:  yarn build
+      - run:  COVERAGE=true bundle exec rspec --color --profile --format documentation
       - run:  bundle exec rubocop
       - run:  yarn lint-non-build
     
