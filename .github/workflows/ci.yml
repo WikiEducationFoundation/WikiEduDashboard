@@ -44,8 +44,8 @@ jobs:
 #          mysql password: wikiedu
 #          mysql database: dashboard_testing
 #          host port: 3306  sudo mysql -e 'CREATE DATABASE test;'
-      - run : |
-              mkdir tmp -m 777
+      - run : mkdir tmp -m 777
+      - run: |
               cp config/database.example.yml config/database.yml
               cp config/application.example.yml config/application.yml
               bundle exec rake db:migrate RAILS_ENV=test
