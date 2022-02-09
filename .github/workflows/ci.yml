@@ -60,6 +60,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_PORT: 3306
         run: |
+            bin/rails db:create
             bin/rails db:migrate RAILS_ENV=test
           
            
