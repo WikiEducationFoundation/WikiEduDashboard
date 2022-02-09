@@ -32,9 +32,6 @@ jobs:
       
 #       - name: Installing system dependencies
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
-      
-#         - run: sudo systemctl start mysql
-      
 #       - run: sudo service mysql stop
 #       - name: Set up MariaDB
 #         uses: getong/mariadb-action@v1.1
@@ -47,9 +44,9 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-              
+      - run: sudo systemctl start mysql     
       - run: |           
-            sudo mysql "update user set password=PASSWORD('wikiedu') where User='wiki';"
+            sudo mysql "update user set password=PASSWORD('rootpassword') where User='wiki';"
 
 
 
