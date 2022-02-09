@@ -42,8 +42,7 @@ jobs:
 #                mysql password: wikiedu
 #                host port: 3306
       - name: running datatbase 
-        run: |
-              mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+        run: sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
               
      
       - uses: ruby/setup-ruby@v1
