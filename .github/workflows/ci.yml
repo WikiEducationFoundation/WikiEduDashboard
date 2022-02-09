@@ -60,10 +60,10 @@ jobs:
       - name: Set up MariaDB
         uses: getong/mariadb-action@v1.1
         with:
-               MYSQL_ROOT_PASSWORD: wikiedu
-               MYSQL_DATABASE: dashboard_testing
-               MYSQL_USER: wiki
-               MYSQL_PASSWORD: wikiedu
+               mysql root password: wikiedu
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
 
       - name: running datatbase 
         run: |  
