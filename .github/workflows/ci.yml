@@ -19,6 +19,7 @@ jobs:
        mariadb:
         image: mariadb:10.5
         env:
+          mysql database: test
           mysql user: root
           mysql password: root
           host port: 3306
@@ -62,12 +63,13 @@ jobs:
            
       - name: Running Rspec
         run: |
-             bundle exec rake db:create
+
              bundle exec rake db:schema:load
              env:
               RAILS_ENV: test
               mysql user: root
               mysql password: root
+              mysql database: test
               
       - name: Run Rspec       
         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
