@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils.js';
 import OverviewStat from './overview_stat';
-import WikidataOverviewStats from './wikidata_overview_stats';
 
 const OverviewStats = ({ course }) => {
   const isWikidata = course.home_wiki.project === 'wikidata';
@@ -139,10 +138,6 @@ const OverviewStats = ({ course }) => {
         renderZero={false}
       />
       {uploadCount}
-      {course.course_stats && <WikidataOverviewStats
-        statistics={course.course_stats.stats_hash['www.wikidata.org']}
-        valueClass={valueClass}
-      />}
     </div>
   );
 };

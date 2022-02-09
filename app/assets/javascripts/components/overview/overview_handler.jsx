@@ -24,6 +24,7 @@ import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
+import WikidataOverviewStats from './wikidata_overview_stats';
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -166,6 +167,9 @@ const Overview = createReactClass({
       <section className="overview container">
         { syllabusUpload }
         <OverviewStats course={course} />
+        {course.course_stats && <WikidataOverviewStats
+          statistics={course.course_stats.stats_hash['www.wikidata.org']}
+        />}
         <StatisticsUpdateInfo course={course} />
         {userArticles}
         <div className="primary">
