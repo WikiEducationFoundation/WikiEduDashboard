@@ -51,11 +51,16 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
            
-      - name: running datatbase 
+      - name: starting datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
-             bundle exec rake db:migrate RAILS_ENV=test
+             sudo mysql -uroot -proot;
+               
+        
+      - name: creating test database
+        run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
+             
+      - run: bundle exec rake db:migrate RAILS_ENV=test
              
              
 #       - name: test
