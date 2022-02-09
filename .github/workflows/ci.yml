@@ -37,18 +37,19 @@ jobs:
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
       - run: sudo service mysql stop
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-         mysql root password: wikiedu
-         mysql user: wiki
-         mysql password: wikiedu
+#       - name: Set up MariaDB
+#         uses: getong/mariadb-action@v1.1
+#         with:
+#          mysql root password: wikiedu
+#          mysql user: wiki
+#          mysql password: wikiedu
 #          mysql database: dashboard_testing
-         host port: 3306 
+#          host port: 3306  sudo mysql -e 'CREATE DATABASE test;'
       
       - name: running datatbase 
         run: |
-             sudo mysql -e 'CREATE DATABASE test;'
+             sudo mysql -uwiki -pwikiedu;
+            
              
       - uses: ruby/setup-ruby@v1
         with:
