@@ -50,7 +50,9 @@ jobs:
               
       - run: |
             sudo systemctl start mysql
-            sudo mysql -e "SET Password=PASSWORD('rootpassword')"
+            sudo mysql "update user set password=PASSWORD('wikiedu') where User='wiki';"
+
+
 
              
 #       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
