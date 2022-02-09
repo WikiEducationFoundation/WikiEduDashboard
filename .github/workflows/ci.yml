@@ -51,9 +51,11 @@ jobs:
       - name: running datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql -uroot -proot;
+             sudo mysql -u wiki -pwikiedu;
              
-      - run: sudo mysql -uroot -proot -e "CREATE DATABASE dashboard_testing;"
+      - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE dashboard_testing;"
+      - run: bundle exec rake db:migrate RAILS_ENV=test
+
     
              
       - uses: ruby/setup-ruby@v1
