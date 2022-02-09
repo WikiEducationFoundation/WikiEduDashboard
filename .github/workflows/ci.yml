@@ -43,12 +43,14 @@ jobs:
 #                mysql password: wikiedu
 #                host port: 3306
        
+      - run : cp config/database.example.yml config/database.yml
+      - run : cp config/application.example.yml config/application.yml
       
       - name: running datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql ALTER USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'
-             sudo mysql -uwiki -pwikiedu -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+             sudo mysql -u wiki -pwikiedu -P 3306 
+             sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
              
       - uses: ruby/setup-ruby@v1
         with:
@@ -74,8 +76,7 @@ jobs:
             bundle install --jobs=3 --retry=3
             bundle exec rubocop
             
-      - run : cp config/database.example.yml config/database.yml
-      - run : cp config/application.example.yml config/application.yml
+      
       
       
 
