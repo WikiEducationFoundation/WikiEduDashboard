@@ -40,6 +40,8 @@ jobs:
         run: sudo systemctl start mysql
       - name: creating new user
         run: sudo mysql -u root -proot -e "CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';";
+      - run : sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
@@ -61,21 +63,21 @@ jobs:
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3      
-      - run : sudo mysql -u wiki -p wikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-      - name: Running Database
-        run: |
-             cp config/database.example.yml config/database.yml
-             bundle exec rake db:migrate RAILS_ENV=test
-             env:
-              mysql user: wiki
-              mysql password: wikiedu
-              mysql database: dashboard_testing
-              RAILS_ENV: test
+#       - run : sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+#       - name: Running Database
+#         run: |
+#              cp config/database.example.yml config/database.yml
+#              bundle exec rake db:migrate RAILS_ENV=test
+#              env:
+#               mysql user: wiki
+#               mysql password: wikiedu
+#               mysql database: dashboard_testing
+#               RAILS_ENV: test
               
               
               
-#       - name: Run Rspec       
-#         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
+      - name: Run Rspec       
+        run: COVERAGE=true bundle exec rspec --color --profile --format documentation
 # #         env:
 # #            RAILS_ENV: test
 # #            mysql user: wiki
