@@ -28,6 +28,14 @@ jobs:
       - name: Installing system dependencies
         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
 
+      - name: Set up MariaDB
+        uses: getong/mariadb-action@v1.1
+        with:
+               mysql root password: root
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
+               host port: 3306
      
       - uses: ruby/setup-ruby@v1
         with:
@@ -56,22 +64,10 @@ jobs:
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
       
-#       - name: Starting Mysql
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-               mysql root password: root
-               mysql database: dashboard_testing
-               mysql user: wiki
-               character set server: utf8mb4
-               collation server: utf8mb4_general_ci
-               mysql password: wikiedu
-               host: 127.0.0.1
-               port: 3306
-
 
       - name: running datatbase 
-        run: |  
+        run: | 
+              sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
               bundle install
               yarn
               yarn build
