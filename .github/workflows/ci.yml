@@ -50,9 +50,8 @@ jobs:
               
       - run: |
             sudo systemctl start mysql
-            sudo mysql 'CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';'
-            sudo mysql "GRANT ALL PRIVILEGES ON *.* TO 'wiki';"
-            sudo mysql -u wiki -pwikiedu 
+            sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+
              
 #       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
     
