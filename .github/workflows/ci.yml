@@ -62,14 +62,14 @@ jobs:
         run: |
           bin/rails db:create
           bin/rails db:schema:load
-          bin/rails test
+          bundle exec rake db:migrate RAILS_ENV=test
+            
           
       - run: yarn
       - run:  yarn build
       - run:  bundle exec rubocop
       - run:  yarn lint-non-build
-      - run: bundle exec rake db:migrate RAILS_ENV=test
-            
+    
               
       
      
