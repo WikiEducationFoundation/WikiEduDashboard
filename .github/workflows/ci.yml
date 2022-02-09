@@ -47,10 +47,6 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-      - run: |
-            bundle install --jobs=3 --retry=3
-            gem install bundler
-            bundle exec rake db:migrate RAILS_ENV=test
              
       - name: running datatbase 
         run: |
