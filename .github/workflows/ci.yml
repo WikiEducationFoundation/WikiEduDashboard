@@ -43,20 +43,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
-           
-      - name: running datatbase 
-        run: |
-             bin/rake db:migrate
-             env:
-              RAILS_ENV: test
-              mysql user: wiki
-              mysql password: wikiedu
-              mysql database: 'dashboard_testing'  
-              
-      - name: Run Rspec       
-        run: COVERAGE=true bundle exec rspec --color --profile --format documentation
 
-           
       - name: Setup Node
         uses: actions/setup-node@v1
                
@@ -74,9 +61,18 @@ jobs:
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3
-            
-            
-     
+           
+      - name: running datatbase 
+        run: |
+             bin/rake db:migrate
+             env:
+              RAILS_ENV: test
+              mysql user: wiki
+              mysql password: wikiedu
+              mysql database: 'dashboard_testing'  
+              
+      - name: Run Rspec       
+        run: COVERAGE=true bundle exec rspec --color --profile --format documentation
       - run: yarn
       - run:  yarn build
       - run:  bundle exec rubocop
