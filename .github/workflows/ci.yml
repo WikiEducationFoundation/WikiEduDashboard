@@ -50,7 +50,7 @@ jobs:
              
 #       - name: running datatbase
  
-      - run: sudo mysql -u wiki -pwikiedu dashboard_testing<dashboard_testing.sql
+      - run: sudo mysql -u wiki -pwikiedu < test.sql
              
 #       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
     
