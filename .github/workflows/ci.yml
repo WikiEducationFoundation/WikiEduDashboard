@@ -40,10 +40,9 @@ jobs:
         run: |
               sudo systemctl start mysql
                
-        
       - name: running datatbase 
         run: |
-             bundle exec rake db:schema:load
+             bin/rake db:migrate
              env:
               RAILS_ENV: test
               mysql user: wiki
