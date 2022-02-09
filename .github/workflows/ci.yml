@@ -12,18 +12,35 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
+    services:
+      db:
+        image: mysql:5.7
+        env:
+          MYSQL_USERNAME: root
+#           MYSQL_PASSWORD: password
+#           MYSQL_ROOT_PASSWORD: password
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_PORT: 3306
+          MYSQL_DATABASE: test
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
   
     steps:
       - uses: actions/checkout@v2
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-      - name: starting MYSQL 
-        run: sudo systemctl start mysql  
-      - name: creating test database
-        run: |
-            sudo mysql "SET PASSWORD FOR 'root'@'localhost' = 'root';"
-            sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+#       - name: starting MYSQL 
+#         run: sudo systemctl start mysql  
+#       - name: creating test database
+#         run: |
+#             sudo mysql "SET PASSWORD FOR 'root'@'localhost' = 'root';"
+#             sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
       
       - uses: ruby/setup-ruby@v1
         with:
