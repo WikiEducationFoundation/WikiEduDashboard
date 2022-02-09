@@ -37,7 +37,13 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def survey_response_alert
-    AlertMailer.alert(example_survey_response_alert, example_user)
+    # Maybe there is no SurveyResponseAlert in the DB
+    # To test preview, one must before create an instance
+    # To do so: execute the following code in console:
+    # AlertMailerPreview.new.create_example_survey_response_alert
+    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/4650
+    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/4749
+    AlertMailer.alert(SurveyResponseAlert.last, example_user)
   end
 
   private
@@ -80,8 +86,9 @@ class AlertMailerPreview < ActionMailer::Preview
               course: example_course)
   end
 
-  def example_survey_response_alert
-    clean_up_answer
+  public
+
+  def create_example_survey_response_alert
     answer = create_answer
     details =
       {
@@ -91,7 +98,7 @@ class AlertMailerPreview < ActionMailer::Preview
         source: SurveyResponseAlertManager.source(answer)
       }
 
-    Alert.new(type: 'SurveyResponseAlert',
+    Alert.create(type: 'SurveyResponseAlert',
               user: answer.user,
               subject_id: answer.question.id,
               details: details)
@@ -119,9 +126,4 @@ class AlertMailerPreview < ActionMailer::Preview
     answer
   end
 
-  def clean_up_answer
-    PaperTrail::Version.destroy_by(item_id: 999999)
-    Rapidfire::QuestionGroup.destroy_by(id: 999999)
-    Rapidfire::Question.destroy_by(id: 999999)
-  end
 end
