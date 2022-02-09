@@ -58,7 +58,7 @@ jobs:
                
         
       - name: creating test database
-        run: sudo mysql -uwiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
+        run: sudo mysql -u wiki -p wikiedu "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
          
       - run: yarn
       - run:  yarn build
