@@ -38,7 +38,7 @@ jobs:
       - name: Starting MYSQL 
         run: sudo systemctl start mysql
       - name: creating new user
-        run: sudo mysql -u root -proot -e "GRANT ALL PRIVILEGES ON dashboard_testing.*TO "wiki"@"localhost" IDENTIFIED BY "wikiedu"";
+        run: sudo mysql -u root -proot -e "CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';";
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
