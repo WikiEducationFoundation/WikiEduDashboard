@@ -48,6 +48,7 @@ jobs:
       
       - name: running datatbase 
         run: |
+             sudo systemctl start mysql  
              sudo mysql -uwiki -pwikiedu;
             
              
