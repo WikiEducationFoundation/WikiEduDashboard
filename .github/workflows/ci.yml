@@ -36,9 +36,8 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
            
-      - name: starting datatbase 
-        run: |
-              sudo systemctl start mysql
+      - name: Starting MYSQL 
+        run: sudo systemctl start mysql
                
       - uses: ruby/setup-ruby@v1
         with:
@@ -62,9 +61,10 @@ jobs:
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3
            
-      - name: running datatbase 
+      - name: Running Rspec
         run: |
-             bin/rake db:migrate
+             bundle exec rake db:create
+             bundle exec rake db:schema:load
              env:
               RAILS_ENV: test
               mysql user: wiki
