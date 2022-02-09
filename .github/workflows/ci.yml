@@ -65,10 +65,9 @@ jobs:
       - name: Running Database
         run: |
              cp config/database.example.yml config/database.yml
-             bundle exec rake db:create RAILS_ENV: test
-             bundle exec rake db:schema:load RAILS_ENV: test
+             bundle exec rake db:migrate RAILS_ENV=test
              env:
-              mysql password: 'wikiedu'
+              mysql database: dashboard testing
               RAILS_ENV: test
               
               
