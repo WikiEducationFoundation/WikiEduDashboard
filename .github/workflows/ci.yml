@@ -46,7 +46,7 @@ jobs:
       - run: cp config/application.example.yml config/application.yml
       - run: sudo systemctl start mysql     
       - run: |           
-            sudo mysql "update user set password=PASSWORD('rootpassword') where User='wiki';"
+            sudo mysql "update user set password=PASSWORD('rootpassword') where User='root';"
 
 
 
