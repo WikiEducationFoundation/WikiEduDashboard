@@ -51,7 +51,7 @@ jobs:
       - name: running datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql -uroot -pwikiedu;
+             sudo mysql -uroot -proot;
             
              
       - uses: ruby/setup-ruby@v1
