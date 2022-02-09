@@ -36,6 +36,8 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
+      - name: starting MYSQL 
+        run: sudo systemctl start mysql 
       - run: sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 #       - name: starting MYSQL 
 #         run: sudo systemctl start mysql  
