@@ -35,7 +35,16 @@ jobs:
            
       - name: Setup Node
         uses: actions/setup-node@v1
-      - run: sudo service mysql start 
+        
+      - name: Starting Mysql
+        run: sudo service mysql start 
+        env:
+               RAILS_ENV: test
+               mysql root password: wikiedu
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
+               
       - run: 'export PATH=$PATH:`yarn global bin`'
       
       - run: export DB=test
@@ -58,12 +67,6 @@ jobs:
 
       
       - name: running datatbase 
-        env:
-               RAILS_ENV: test
-               mysql root password: wikiedu
-               mysql database: dashboard_testing
-               mysql user: wiki
-               mysql password: wikiedu
         run: |  
               bundle install
               yarn
