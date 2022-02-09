@@ -43,6 +43,10 @@ jobs:
       - run: cp config/application.example.yml config/application.yml
       - name: starting MYSQL 
         run: sudo systemctl start mysql  
+      - name: creating test database
+        run: |
+            sudo mysql "SET PASSWORD FOR 'root'@'%.localhost' = ' ';"
+            sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
         
       - name: creating test database
         run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"      
