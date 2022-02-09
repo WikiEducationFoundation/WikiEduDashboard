@@ -69,7 +69,6 @@ jobs:
              bundle exec rake db:schema:load RAILS_ENV: test
              env:
               RAILS_ENV: test
-              mysql database: dashboard_testing
               
               
               
