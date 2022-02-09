@@ -42,9 +42,9 @@ jobs:
                mysql user: wiki
                mysql password: wikiedu
                host port: 3306
-      - name: running datatbase 
-        run: |
-            sudo systemctl start mysql  
+#       - name: running datatbase 
+#         run: |
+#             sudo systemctl start mysql  
             
      
       - uses: ruby/setup-ruby@v1
@@ -76,12 +76,12 @@ jobs:
       
 
      
-#       - name: Running test
-#         run: |
-#               bundle install
-#               yarn
-#               yarn build
-#               bundle exec rake db:migrate RAILS_ENV=test
+      - name: Running test
+        run: |
+              bundle install
+              yarn
+              yarn build
+              bundle exec rake db:migrate RAILS_ENV=test
              
               
       
