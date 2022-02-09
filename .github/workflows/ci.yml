@@ -51,6 +51,16 @@ jobs:
       - run: export DB=test
       
       - run: export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
+      
+      - name: Database and Build
+        run: |
+            yarn install
+            gem install bundler
+            gem install rubocop
+            gem install rubocop-rspec-focused
+            bundle config set path 'vendor'
+            bundle install --jobs=3 --retry=3
+           
       - name: Running Database
         run: |
              cp config/database.example.yml config/database.yml
@@ -62,27 +72,6 @@ jobs:
               mysql user: wiki
               mysql password: wikiedu
               mysql database: dashboard_testing
-      
-      - name: Database and Build
-        run: |
-            yarn install
-            gem install bundler
-            gem install rubocop
-            gem install rubocop-rspec-focused
-            bundle config set path 'vendor'
-            bundle install --jobs=3 --retry=3
-           
-#       - name: Running Database
-#         run: |
-#              cp config/database.example.yml config/database.yml
-#              rails db:drop
-#              rails db:create
-#              rails db:schema:load
-#              env:
-#               RAILS_ENV: test
-#               mysql user: wiki
-#               mysql password: wikiedu
-#               mysql database: dashboard_testing
               
               
               
