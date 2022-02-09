@@ -40,6 +40,10 @@ jobs:
         run: |
               sudo systemctl start mysql
                
+      - uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 2.7.1
+           
       - name: running datatbase 
         run: |
              bin/rake db:migrate
@@ -51,11 +55,7 @@ jobs:
               
       - name: Run Rspec       
         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
-    
-             
-      - uses: ruby/setup-ruby@v1
-        with:
-           ruby-version: 2.7.1
+
            
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -74,6 +74,7 @@ jobs:
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3
+            
             
      
       - run: yarn
