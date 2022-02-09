@@ -36,8 +36,8 @@ jobs:
 #       - run: sudo systemctl start mysql
       
 #       - run: sudo service mysql stop
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
+#       - name: Set up MariaDB
+#         uses: getong/mariadb-action@v1.1
 #         with:
 #          mysql root password: wikiedu
 #          mysql user: wiki
@@ -48,10 +48,11 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
              
-      - name: running datatbase 
-        run: sudo mysql -u wiki -pwikiedu;
+      - name: running datatbase
+ 
+      - run: sudo mysql -u wiki -pwikiedu < test.sql
              
-      - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+#       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
     
              
       - uses: ruby/setup-ruby@v1
