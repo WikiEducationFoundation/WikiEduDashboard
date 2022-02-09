@@ -54,11 +54,11 @@ jobs:
       - name: starting datatbase 
         run: |
              sudo systemctl start mysql  
-             sudo mysql -uroot -proot;
+             sudo mysql -uwiki -pwikiedu;
                
         
       - name: creating test database
-        run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
+        run: sudo mysql -uwiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
          
       - run: yarn
       - run:  yarn build
