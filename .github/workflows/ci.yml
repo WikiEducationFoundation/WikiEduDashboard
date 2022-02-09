@@ -20,8 +20,8 @@ jobs:
         image: mariadb:10.5
         env:
           mysql database: dashboard_testing
-          mysql user: wiki
-          mysql password: wikiedu
+          mysql user: root
+          mysql password: root
           host port: 3306
   
 
@@ -67,8 +67,8 @@ jobs:
              bundle exec rake db:schema:load
              env:
               RAILS_ENV: test
-              mysql user: wiki
-              mysql password: wikiedu
+              mysql user: root
+              mysql password: root
               mysql database: 'dashboard_testing'  
               
       - name: Run Rspec       
