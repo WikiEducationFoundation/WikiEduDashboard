@@ -17,21 +17,26 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
   
-    services:
-       mariadb:
-        image: mariadb:10.5
+#     services:
+#        mariadb:
+#         image: mariadb:10.5
+#        env:
+#          env:
+#           MYSQL_ROOT_PASSWORD: wikiedu
+#           MYSQL_DATABASE: dashboard_testing
 
     steps:
       - uses: actions/checkout@v2
 
       
-      - name: Installing system dependencies
-        run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
-
+#       - name: Installing system dependencies
+#         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
+      
+      - run: sudo service mysql stop
       - name: Set up MariaDB
         uses: getong/mariadb-action@v1.1
         with:
-               mysql root password: root
+               mysql root password: wikiedu
                mysql database: dashboard_testing
                mysql user: wiki
                mysql password: wikiedu
@@ -39,8 +44,7 @@ jobs:
       - name: running datatbase 
         run: | 
               sudo service mysql start
-              sudo mysql
-              CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; 
+              sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
               
      
       - uses: ruby/setup-ruby@v1
