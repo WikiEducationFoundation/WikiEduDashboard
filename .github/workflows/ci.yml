@@ -36,6 +36,12 @@ jobs:
                mysql user: wiki
                mysql password: wikiedu
                host port: 3306
+      - name: running datatbase 
+        run: | 
+              sudo service mysql start
+              sudo mysql
+              CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; 
+              
      
       - uses: ruby/setup-ruby@v1
         with:
@@ -65,13 +71,13 @@ jobs:
       - run : cp config/application.example.yml config/application.yml
       
 
-      - name: running datatbase 
-        run: | 
-              sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-              bundle install
-              yarn
-              yarn build
-              bundle exec rake db:migrate RAILS_ENV=test
+     
+#       - name: Running test
+#         run: |
+#               bundle install
+#               yarn
+#               yarn build
+#               bundle exec rake db:migrate RAILS_ENV=test
              
               
       
