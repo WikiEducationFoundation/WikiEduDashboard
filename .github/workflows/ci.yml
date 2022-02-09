@@ -41,14 +41,14 @@ jobs:
 #                mysql database: test
 #                mysql user: wiki
 #                mysql password: wikiedu
-#                host port: 3306 sudo mysql -u wiki -pwikiedu -P 3306 
+#                host port: 3306 sudo systemctl start mysql
        
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
       
       - name: running datatbase 
         run: |
-             sudo systemctl start mysql  
+             sudo mysql -u wiki -pwikiedu -P 3306
              sudo mysql -e "SET Password=PASSWORD('rootpassword');"
              sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
              
