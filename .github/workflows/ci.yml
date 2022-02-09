@@ -21,6 +21,7 @@ jobs:
         env:
           mysql user: wiki
           mysql database: dashboard_testing
+          mysql password: wikiedu
           host port: 3306
   
 
@@ -60,13 +61,14 @@ jobs:
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3      
-      - run : sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+      - run : sudo mysql -u wiki -p wikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
       - name: Running Database
         run: |
              cp config/database.example.yml config/database.yml
              bundle exec rake db:migrate RAILS_ENV=test
              env:
               mysql user: wiki
+              mysql password: wikiedu
               mysql database: dashboard_testing
               RAILS_ENV: test
               
