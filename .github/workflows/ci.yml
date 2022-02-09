@@ -38,7 +38,7 @@ jobs:
       - run: cp config/application.example.yml config/application.yml
       - name: starting MYSQL 
         run: sudo systemctl start mysql 
-      - run: sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+      - run: sudo mysql -u root -ppassword -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 #       - name: starting MYSQL 
 #         run: sudo systemctl start mysql  
 #       - name: creating test database
