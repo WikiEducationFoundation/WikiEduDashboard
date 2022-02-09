@@ -19,6 +19,7 @@ jobs:
        mariadb:
         image: mariadb:10.5
         env:
+          mysql root password: wikiedu
           mysql user: wiki
           mysql password: wikiedu
           host port: 3306
@@ -75,11 +76,11 @@ jobs:
               
       - name: Run Rspec       
         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
-        env:
-           RAILS_ENV: test
-           mysql user: wiki
-           mysql password: wikiedu
-           mysql database: dashboard_testing
+#         env:
+#            RAILS_ENV: test
+#            mysql user: wiki
+#            mysql password: wikiedu
+#            mysql database: dashboard_testing
               
             
       - run: yarn
