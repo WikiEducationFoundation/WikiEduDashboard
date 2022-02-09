@@ -32,7 +32,7 @@ jobs:
 # - run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
       
       - run : mkdir tmp -m 777
-      - run: cp config/database.example.yml config/database.yml
+#       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
            
       - name: Starting MYSQL 
@@ -62,16 +62,26 @@ jobs:
            
       - name: Running Database
         run: |
-
+             cp config/database.example.yml config/database.yml
              bundle exec rake db:create
              bundle exec rake db:schema:load
              env:
               RAILS_ENV: test
               mysql user: wiki
               mysql password: wikiedu
+              mysql database: dashboard_testing
+              
+              
               
       - name: Run Rspec       
         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
+        env:
+           RAILS_ENV: test
+           mysql user: wiki
+           mysql password: wikiedu
+           mysql database: dashboard_testing
+              
+            
       - run: yarn
       - run:  yarn build
       - run:  bundle exec rubocop
