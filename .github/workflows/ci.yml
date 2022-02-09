@@ -52,6 +52,7 @@ jobs:
         run: |
              sudo systemctl start mysql  
              sudo mysql -uroot -proot;
+             sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
             
              
       - uses: ruby/setup-ruby@v1
