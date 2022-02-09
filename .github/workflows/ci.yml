@@ -56,14 +56,14 @@ jobs:
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
       
-      - name: Starting Mysql
-        run: sudo service mysql start 
-        env:
-               RAILS_ENV: test
-               MARIADB_ROOT_PASSWORD: wikiedu
-               MARIADB_DATABASE: dashboard_testing
-               MARIADB_USER: wiki
-               MARIADB_PASSWORD: wikiedu
+#       - name: Starting Mysql
+      - name: Set up MariaDB
+        uses: getong/mariadb-action@v1.1
+        with:
+               MYSQL_ROOT_PASSWORD: wikiedu
+               MYSQL_DATABASE: dashboard_testing
+               MYSQL_USER: wiki
+               MYSQL_PASSWORD: wikiedu
 
       - name: running datatbase 
         run: |  
