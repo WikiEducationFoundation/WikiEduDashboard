@@ -16,9 +16,9 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
   
-#     services:
-#        mariadb:
-#         image: mariadb:10.5
+    services:
+       mariadb:
+        image: mariadb:10.5
 #         env:
 #           mysql root password: wikiedu
 #           mysql database: dashboard_testing
