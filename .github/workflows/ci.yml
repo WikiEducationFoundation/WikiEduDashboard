@@ -15,6 +15,15 @@ jobs:
   
     steps:
       - uses: actions/checkout@v2
+      - name: starting datatbase 
+        run: |
+             sudo systemctl start mysql  
+             sudo mysql -uroot -p;
+               
+        
+      - name: creating test database
+        run: sudo mysql -uroot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
+         
              
       - uses: ruby/setup-ruby@v1
         with:
@@ -42,15 +51,7 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
            
-      - name: starting datatbase 
-        run: |
-             sudo systemctl start mysql  
-             sudo mysql -uroot -p;
-               
-        
-      - name: creating test database
-        run: sudo mysql -uroot -p -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
-         
+     
       - run: yarn
       - run:  yarn build
       - run:  bundle exec rubocop
