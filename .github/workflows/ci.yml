@@ -40,15 +40,15 @@ jobs:
       - name: Set up MariaDB
         uses: getong/mariadb-action@v1.1
         with:
-         mysql root password: rootpassword
+         mysql root password: wikiedu
          mysql user: wiki
          mysql password: wikiedu
-         mysql database: test
-#                host port: 3306 sudo systemctl start mysql  sudo systemctl start mysq  sudo systemctl start mysqld -uwiki -pwikiedu
+#          mysql database: dashboard_testing
+         host port: 3306 
       
       - name: running datatbase 
         run: |
-             sudo mysql 'CREATE DATABASE test;'
+             sudo mysql -e 'CREATE DATABASE test;'
              
       - uses: ruby/setup-ruby@v1
         with:
