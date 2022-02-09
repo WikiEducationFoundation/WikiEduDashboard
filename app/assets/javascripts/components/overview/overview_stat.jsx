@@ -2,26 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OverviewStatInfo from './overview_stat_info';
 
-const OverviewStat = ({ id, className, stat, statMsg, renderZero, info, infoId, renderZeroInfo }) => {
+const OverviewStat = ({ id, className, stat, statMsg, renderZero, info, infoId }) => {
   if (!renderZero && stat === 0) { return null; }
-
-  let isInfo = true;
-  if (!info) {
-    isInfo = false;
-  }
-  if (info && typeof info !== 'string' && info.map(i => i[0]).every(i => i === 0) && !renderZeroInfo) {
-    isInfo = false;
-      }
 
   return (
     <div className="stat-display__stat tooltip-trigger" id={id}>
       <div className={className}>
         {stat}
-        {isInfo && <img src="/assets/images/info.svg" alt="tooltip default logo" />}
+        {info && <img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />}
       </div>
       <small>{statMsg}</small>
       {
-        isInfo
+        info
         && <OverviewStatInfo
           info={info}
           infoId={infoId}
@@ -44,8 +36,7 @@ OverviewStat.propTypes = {
     // info array is in format [[statNumber1, statDescription1], [statNumber2, statDescription2],...]
     PropTypes.string
   ]),
-  infoId: PropTypes.string,
-  renderZeroInfo: PropTypes.bool
+  infoId: PropTypes.string
 };
 
 export default OverviewStat;

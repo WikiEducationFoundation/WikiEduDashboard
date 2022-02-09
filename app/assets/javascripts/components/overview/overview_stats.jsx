@@ -83,7 +83,6 @@ const OverviewStats = ({ course }) => {
         renderZero={true}
         info={trainedInfo}
         infoId="trained-info"
-        renderZeroInfo={true}
       />
     );
   }
