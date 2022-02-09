@@ -36,6 +36,7 @@ jobs:
 #       - run: sudo systemctl start mysql
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
+      - run: sudo service mysql stop
       - name: Set up MariaDB
         uses: getong/mariadb-action@v1.1
         with:
@@ -43,7 +44,7 @@ jobs:
          mysql user: root
          mysql password: rootpassword
          mysql database: test
-#                host port: 3306 sudo systemctl start mysql  sudo systemctl start mysq
+#                host port: 3306 sudo systemctl start mysql  sudo systemctl start mysq  sudo systemctl start mysqld -uwiki -pwikiedu
       
       - name: running datatbase 
         run: |
