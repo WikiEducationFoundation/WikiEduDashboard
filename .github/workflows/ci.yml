@@ -64,13 +64,11 @@ jobs:
       - name: Running Database
         run: |
              cp config/database.example.yml config/database.yml
-             rails db:drop
-             rails db:create
-             rails db:schema:load
+             bundle exec rake db:drop
+             bundle exec rake db:create
+             bundle exec rake db:schema:load
              env:
               RAILS_ENV: test
-              mysql user: wiki
-              mysql password: wikiedu
               mysql database: dashboard_testing
               
               
