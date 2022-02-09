@@ -32,6 +32,9 @@ jobs:
       
 #       - name: Installing system dependencies
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
+      
+#       - run: sudo systemctl start mysql
+      
 #       - run: sudo service mysql stop
 #       - name: Set up MariaDB
 #         uses: getong/mariadb-action@v1.1
@@ -44,15 +47,13 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-      - run: |
-             sudo systemctl start mysql       
-             sudo mysql -u root -proot
-             sudo mysql -e 'CREATE DATABASE dashboard_testing;'
-
-
-
              
-#       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+      - name: running datatbase 
+        run: |
+             sudo systemctl start mysql  
+             sudo mysql -uroot -proot;
+             
+      - run: sudo mysql -uroot -proot -e "CREATE DATABASE dashboard_testing;"
     
              
       - uses: ruby/setup-ruby@v1
@@ -70,7 +71,6 @@ jobs:
       
       - name: Database and Build
         run: |
-            mkdir tmp -m 777
             yarn install
             gem install bundler
             gem install rubocop
@@ -90,3 +90,4 @@ jobs:
               yarn build
               bundle exec rake db:migrate RAILS_ENV=test
              
+              
