@@ -32,19 +32,26 @@ jobs:
 #       - name: Installing system dependencies
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
       
-      - run: sudo systemctl start mysql
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
+#       - run: sudo systemctl start mysql
+#       - name: Set up MariaDB
+#         uses: getong/mariadb-action@v1.1
 #         with:
 #                mysql root password: wikiedu
 #                mysql database: dashboard_testing
 #                mysql user: wiki
 #                mysql password: wikiedu
 #                host port: 3306
-      - run: sudo service mysql start
       - name: running datatbase 
-        run: sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
-              
+        run: |
+            sudo systemctl start mysql  
+            sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+             env:
+               mysql root password: wikiedu
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
+               host port: 3306
+            
      
       - uses: ruby/setup-ruby@v1
         with:
