@@ -34,8 +34,8 @@ jobs:
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
       
 #       - run: sudo systemctl start mysql
-#       - name: Set up MariaDB
-#         uses: getong/mariadb-action@v1.1
+      - name: Set up MariaDB
+        uses: getong/mariadb-action@v1.1
 #         with:
 #                mysql root password: root
 #                mysql database: test
