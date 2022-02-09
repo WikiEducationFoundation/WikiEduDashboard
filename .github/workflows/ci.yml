@@ -44,6 +44,12 @@ jobs:
 #                host port: 3306
        
       
+      - name: running datatbase 
+        run: |
+             sudo systemctl start mysql  
+             sudo mysql ALTER USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu'
+             sudo mysql -uwiki -pwikiedu -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
+             
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
@@ -71,10 +77,6 @@ jobs:
       - run : cp config/database.example.yml config/database.yml
       - run : cp config/application.example.yml config/application.yml
       
-      - name: running datatbase 
-        run: |
-             sudo systemctl start mysql  
-             sudo mysql -uwiki -pwikiedu -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
       
 
       - name: Running test
