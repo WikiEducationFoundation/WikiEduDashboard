@@ -24,19 +24,19 @@ jobs:
           MYSQL_PORT: 3306
           MYSQL_DATABASE: test
         ports:
-          - 3307:3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+          - 8888:3306
+#         options: >-
+#           --health-cmd="mysqladmin ping"
+#           --health-interval=10s
+#           --health-timeout=5s
+#           --health-retries=5
   
     steps:
       - uses: actions/checkout@v2
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-      - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
+      - run: mysql -h 127.0.0.1 --port 8888 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
 #       - name: starting MYSQL 
 #         run: sudo systemctl start mysql  
 #       - name: creating test database
