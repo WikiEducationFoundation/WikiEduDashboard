@@ -60,10 +60,10 @@ jobs:
         run: sudo service mysql start 
         env:
                RAILS_ENV: test
-               MYSQL_ROOT_PASSWORD: wikiedu
-               MYSQL_DATABASE: dashboard_testing
-               MYSQL_USER: wiki
-               MYSQL_PASSWORD: wikiedu
+               MARIADB_ROOT_PASSWORD: wikiedu
+               MARIADB_DATABASE: dashboard_testing
+               MARIADB_USER: wiki
+               MARIADB_PASSWORD: wikiedu
 
       - name: running datatbase 
         run: |  
