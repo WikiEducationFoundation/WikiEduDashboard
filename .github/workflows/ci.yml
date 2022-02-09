@@ -15,50 +15,22 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
-  
     services:
        mariadb:
         image: mariadb:10.5
         env:
-#           mysql root password: wikiedu
-#           mysql database: dashboard_testing
+          mysql database: dashboard_testing
           mysql user: wiki
           mysql password: wikiedu
           host port: 3306
+  
 
     steps:
       - uses: actions/checkout@v2
-
-      
 #       - name: Installing system dependencies
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
-      
-#       - run: sudo systemctl start mysql
-      
-#       - run: sudo service mysql stop
-#       - name: Set up MariaDB
-#         uses: getong/mariadb-action@v1.1
-#         with:
-#          mysql root password: wikiedu
-#          mysql user: wiki
-#          mysql password: wikiedu
-#          mysql database: dashboard_testing
-#          host port: 3306  sudo mysql -e 'CREATE DATABASE test;'
-      - run : mkdir tmp -m 777
-      - run: cp config/database.example.yml config/database.yml
-      - run: cp config/application.example.yml config/application.yml
-             
-      - name: running datatbase 
-        run: |
-             bundle exec rake db:create
-             bundle exec rake db:schema:load
-             env:
-              RAILS_ENV: test
-              mysql user: wiki
-              mysql password: wikiedu             
-#       - run: sudo mysql "CREATE DATABASE dashboard_testing;"
-      - run: bundle exec rake db:migrate RAILS_ENV=test
-
+              
+# - run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
     
              
       - uses: ruby/setup-ruby@v1
@@ -82,17 +54,31 @@ jobs:
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3
-            bundle exec rubocop
             
-      
-      
-      
-
-      - name: Running test
+      - run : mkdir tmp -m 777
+      - run: cp config/database.example.yml config/database.yml
+      - run: cp config/application.example.yml config/application.yml
+           
+#       - name: starting datatbase 
+#         run: |
+#              sudo systemctl start mysql  
+#              sudo mysql -uwiki -pwikiedu;
+               
+        
+      - name: running datatbase 
         run: |
-              bundle install
-              yarn
-              yarn build
-              bundle exec rake db:migrate RAILS_ENV=test
-             
+             bundle exec rake db:create
+             bundle exec rake db:schema:load
+             env:
+              RAILS_ENV: test
+              mysql user: wiki
+              mysql password: wikiedu
+              mysql database:dashboard_testing  
               
+      - name: Run Rspec       
+        run: COVERAGE=true bundle exec rspec --color --profile --format documentation
+      - run: yarn
+      - run:  yarn build
+      - run:  bundle exec rubocop
+      - run:  yarn lint-non-build
+#       - run: bundle exec rake db:migrate RAILS_ENV=test
