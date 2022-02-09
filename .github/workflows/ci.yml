@@ -45,7 +45,8 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
       - run: |
-             sudo systemctl start mysql           
+             sudo systemctl start mysql       
+             sudo mysql -u root -proot
              sudo mysql -e 'CREATE DATABASE dashboard_testing;'
 
 
