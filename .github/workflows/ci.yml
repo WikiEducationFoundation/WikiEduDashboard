@@ -54,4 +54,19 @@ jobs:
             bundle exec rubocop
             
       - run : cp config/database.travis.yml config/database.yml
+      - run : cp config/application.travis.yml config/application.yml
+
+      
+      - name: running datatbase 
+        env:
+               RAILS_ENV: test
+               mysql root password: wikiedu
+               mysql database: dashboard_testing
+               mysql user: wiki
+               mysql password: wikiedu
+        run: | 
+              bundle install
+              sudo service mysql start
+              
+      
      
