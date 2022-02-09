@@ -17,13 +17,16 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
   
-#     services:
-#        mariadb:
-#         image: mariadb:10.5
-#        env:
-#          env:
-#           MYSQL_ROOT_PASSWORD: wikiedu
-#           MYSQL_DATABASE: dashboard_testing
+    services:
+       mariadb:
+        image: mariadb:10.5
+       env:
+         env:
+          mysql root password: wikiedu
+          mysql database: dashboard_testing
+          mysql user: wiki
+          mysql password: wikiedu
+          host port: 3306
 
     steps:
       - uses: actions/checkout@v2
@@ -45,12 +48,6 @@ jobs:
         run: |
             sudo systemctl start mysql  
             sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
-             env:
-               mysql root password: wikiedu
-               mysql database: dashboard_testing
-               mysql user: wiki
-               mysql password: wikiedu
-               host port: 3306
             
      
       - uses: ruby/setup-ruby@v1
