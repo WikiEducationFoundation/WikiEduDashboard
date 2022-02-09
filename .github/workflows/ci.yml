@@ -17,6 +17,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_USERNAME: root
+          MYSQL_ROOT_PASSWORD: password
 #           MYSQL_PASSWORD: password
 #           MYSQL_ROOT_PASSWORD: password
           MYSQL_HOST: 127.0.0.1
@@ -35,6 +36,7 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
+      - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
 #       - name: starting MYSQL 
 #         run: sudo systemctl start mysql  
 #       - name: creating test database
