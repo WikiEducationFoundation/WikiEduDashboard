@@ -24,11 +24,11 @@ class SurveyResponseAlertManager
       question: answer.question.question_text,
       answer: answer.answer_text,
       followup: answer.follow_up_answer_text,
-      source: self.class.source(answer)
+      source: source(answer)
     }
   end
 
-  def self.source(answer)
+  def source(answer)
     question_group = answer.answer_group.question_group
     survey_names = question_group.surveys.map(&:name).join(' .')
 
