@@ -59,20 +59,12 @@ jobs:
         
       - name: creating test database
         run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
-             
+         
+      - run: yarn
+      - run:  yarn build
+      - run:  bundle exec rubocop
+      - run:  yarn lint-non-build
       - run: bundle exec rake db:migrate RAILS_ENV=test
-             
-             
-#       - name: test
-#         run: bundle exec rake db:migrate RAILS_ENV=test
-             
-
-      - name: Running test
-        run: |
-              yarn
-              yarn build
-              bundle exec rubocop
-              yarn lint-non-build
             
               
       
