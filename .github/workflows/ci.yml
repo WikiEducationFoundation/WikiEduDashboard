@@ -41,6 +41,7 @@ jobs:
 #                mysql user: wiki
 #                mysql password: wikiedu
 #                host port: 3306
+      - run: sudo service mysql start
       - name: running datatbase 
         run: sudo mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
               
