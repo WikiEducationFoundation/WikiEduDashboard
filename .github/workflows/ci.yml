@@ -43,7 +43,6 @@ jobs:
                host port: 3306
       - name: running datatbase 
         run: |
-              sudo /etc/init.d/mysql start
               mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
               
      
