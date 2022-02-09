@@ -19,7 +19,6 @@ jobs:
        mariadb:
         image: mariadb:10.5
         env:
-          mysql database: dashboard_testing
           mysql user: root
           mysql password: root
           host port: 3306
@@ -69,7 +68,6 @@ jobs:
               RAILS_ENV: test
               mysql user: root
               mysql password: root
-              mysql database: 'dashboard_testing'  
               
       - name: Run Rspec       
         run: COVERAGE=true bundle exec rspec --color --profile --format documentation
