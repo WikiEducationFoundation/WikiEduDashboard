@@ -34,8 +34,7 @@ jobs:
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
       
 #       - run: sudo systemctl start mysql
-      - run : cp config/database.example.yml config/database.yml
-      - run : cp config/application.example.yml config/application.yml
+      
 #       - run: sudo service mysql stop
 #       - name: Set up MariaDB
 #         uses: getong/mariadb-action@v1.1
@@ -45,7 +44,12 @@ jobs:
 #          mysql password: wikiedu
 #          mysql database: dashboard_testing
 #          host port: 3306  sudo mysql -e 'CREATE DATABASE test;'
-      
+      - run : |
+              mkdir tmp -m 777
+              cp config/database.example.yml config/database.yml
+              cp config/application.example.yml config/application.yml
+              bundle exec rake db:migrate RAILS_ENV=test
+             
       - name: running datatbase 
         run: |
              sudo systemctl start mysql  
