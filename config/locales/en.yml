@@ -1008,24 +1008,19 @@ en:
     wiki_ed_help: Use the 'Get Help' button to report a problem.
     word_count: Words Added
     word_count_average: Average Word Count
-    aliases_added: Aliases added
-    aliases_changed: Aliases changed
-    aliases_removed: Aliases removed
-    claims_created: Claims created
-    claims_changed: Claims changed
-    claims_removed: Claims removed
-    descriptions_added: Descriptions added
-    descriptions_changed: Descriptions changed
-    descriptions_removed: Descriptions removed
+    total_revisions: Total revisions
+    claims: Claims
+    aliases: Aliases
+    merged: Merged
+    created: Created
+    changed: Changed
+    removed: Removed
+    cleared: Cleared
+    added: Added
+    descriptions: Descriptions
     interwiki_links_added: Interwiki links added
-    interwiki_links_removed: Interwiki links removed
-    items_created: Items created
-    items_cleared: Items cleared
-    labels_added: Labels added
-    labels_changed: Labels changed
-    labels_removed: Labels removed
-    merged_from: Merged from
-    merged_to: Merged to
+    labels: Labels
+    merged: Merged
     no_data: No data
     other_updates: Other updates
     qualifiers_added: Qualifiers added
@@ -1033,6 +1028,29 @@ en:
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
     unknown: Unknown
+    total_revisions_info: Description
+    items_created_info: Description
+    items_cleared_info: Description
+    claims_created_info: Description
+    claims_changed_info: Description
+    claims_removed_info: Description
+    labels_added_info: Description
+    labels_changed_info: Description
+    labels_removed_info: Description
+    descriptions_added_info: Description
+    descriptions_changed_info: Description
+    descriptions_removed_info: Description
+    merged_info: Description
+    interwiki_links_info: Description
+    aliases_added_info: Description
+    aliases_changed_info: Description
+    aliases_removed_info: Description
+    redirects_info: Description
+    restorations_info: Description
+    reverts_info: Description
+    unknown_info: Description
+    qualifiers_info: Description
+    other_updates_info: Description
 
   namespace:
     main: Mainspace

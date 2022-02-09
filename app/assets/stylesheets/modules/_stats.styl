@@ -66,6 +66,58 @@
     &:before
       left 50%
 
+.wikidata-stats-container
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+  padding: 0px 20px 10px 20px;
+  margin 0 0 20px 0
+
+  .wikidata-stats-title
+    font-size 20px
+    font-weight 500
+    line-height 55px
+    -webkit-font-smoothing auto
+    margin 0
+
+  .wikidata-display
+    width 100%
+    display flex
+    justify-content space-between
+    flex-flow wrap
+
+    .stat-display__row
+      width: auto
+      margin: 0 15px
+
+      .stat-display__value-group
+        display flex
+        justify-content space-between
+        gap 10px
+
+    .stat-display__stat
+          text-align center
+          width: auto
+
+          .stat-display__value-small
+            font-family inherit
+            color $brand_primary
+            font-size 18px
+            font-weight 300
+            text-align center
+            padding-right 15px
+
+          small
+            color #666
+            font-size 15px
+            line-height 1
+            max-width 80px
+            margin 0 5px 10px 5px
+
+          img
+            width 8px
+            position absolute
+            top 5px
+
 .user_stats
   .stat-display
     margin 0 0 30px 0
@@ -83,6 +135,15 @@
 
       .stat-display__stat
         margin 0 20px 0 20px
+
+.stats-label
+  text-align center
+  margin-bottom 5px
+  color #666
+  background-color: #F5F5F5
+
+.single-stat
+  margin-top 1.5rem
 
 @media only screen and (max-width: 919px)
   .stat-display
