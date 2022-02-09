@@ -45,7 +45,9 @@ jobs:
 #                host port: 3306 sudo systemctl start mysql  sudo systemctl start mysq
       
       - name: running datatbase 
-        run: mysql 'CREATE DATABASE test;'
+        run: |
+             sudo service mysql start;
+             sudo mysql 'CREATE DATABASE test;'
              
       - uses: ruby/setup-ruby@v1
         with:
