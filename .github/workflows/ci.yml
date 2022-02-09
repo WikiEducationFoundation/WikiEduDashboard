@@ -50,6 +50,7 @@ jobs:
               
       - run: |
             sudo systemctl start mysql
+            sudo CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';
             sudo mysql -u wiki -pwikiedu 
              
 #       - run: sudo mysql -u wiki -pwikiedu -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
