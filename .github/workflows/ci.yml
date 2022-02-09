@@ -30,16 +30,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 2.7.1
+           
+      - name: Setup Node
+        uses: actions/setup-node@v1
+               
+      - run: 'export PATH=$PATH:`yarn global bin`'
+      
+      - run: export DB=test
+      
+      - run: export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
+      
+      - name: Database and Build
+        run: |
+            yarn install
+            gem install bundler
+            gem install rubocop
+            gem install rubocop-rspec-focused
+            bundle config set path 'vendor'
+            bundle install --jobs=3 --retry=3
+            
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-           
-      - name: Setup Ruby 2.7
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-          bundler: default
-          bundler-cache: true
+
       - name: Run tests
         env:
           RAILS_ENV: test
@@ -48,28 +64,6 @@ jobs:
           bin/rails db:create
           bin/rails db:schema:load
           bin/rails test
-          
-#       - uses: ruby/setup-ruby@v1
-#         with:
-#            ruby-version: 2.7.1
-           
-#       - name: Setup Node
-#         uses: actions/setup-node@v1
-               
-#       - run: 'export PATH=$PATH:`yarn global bin`'
-      
-#       - run: export DB=test
-      
-#       - run: export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
-      
-#       - name: Database and Build
-#         run: |
-#             yarn install
-#             gem install bundler
-#             gem install rubocop
-#             gem install rubocop-rspec-focused
-#             bundle config set path 'vendor'
-#             bundle install --jobs=3 --retry=3
             
      
          
