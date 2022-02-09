@@ -40,10 +40,10 @@ jobs:
         run: sudo service mysql start 
         env:
                RAILS_ENV: test
-               mysql root password: wikiedu
-               mysql database: dashboard_testing
-               mysql user: wiki
-               mysql password: wikiedu
+               MYSQL_ROOT_PASSWORD: wikiedu
+               MYSQL_DATABASE: dashboard_testing
+               MYSQL_USER: wiki
+               MYSQL_PASSWORD: wikiedu
                
       - run: 'export PATH=$PATH:`yarn global bin`'
       
