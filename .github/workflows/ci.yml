@@ -39,7 +39,10 @@ jobs:
       - name: Starting MYSQL 
         run: sudo systemctl start mysql
       - name: creating new user
-        run: sudo mysql -u root -proot -e "CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';";
+        run: |
+             sudo mysql -u root -proot -e "CREATE USER 'wiki' IDENTIFIED BY 'wikiedu';";
+             sudo mysql -u wiki -pwikiedu "GRANT ALL PRIVILEGES ON *.* TO 'wiki';";
+
       - run : sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 
       - uses: ruby/setup-ruby@v1
