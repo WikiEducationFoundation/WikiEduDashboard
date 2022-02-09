@@ -34,18 +34,19 @@ jobs:
 #         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
       
 #       - run: sudo systemctl start mysql
-      - name: Set up MariaDB
-        uses: getong/mariadb-action@v1.1
-        with:
-               mysql root password: wikiedu
-               mysql database: test
-               mysql user: wiki
-               mysql password: wikiedu
-               host port: 3306
-#       - name: running datatbase 
-#         run: |
-#             sudo systemctl start mysql  
-            
+#       - name: Set up MariaDB
+#         uses: getong/mariadb-action@v1.1
+#         with:
+#                mysql root password: root
+#                mysql database: test
+#                mysql user: wiki
+#                mysql password: wikiedu
+#                host port: 3306
+       
+      - name: running datatbase 
+        run: |
+             sudo systemctl start mysql  
+             mysql -uwiki -h127.0.0.1 -pwikiedu -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
      
       - uses: ruby/setup-ruby@v1
         with:
