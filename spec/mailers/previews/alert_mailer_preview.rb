@@ -99,9 +99,9 @@ class AlertMailerPreview < ActionMailer::Preview
       }
 
     Alert.create(type: 'SurveyResponseAlert',
-              user: answer.user,
-              subject_id: answer.question.id,
-              details: details)
+                 user: answer.user,
+                 subject_id: answer.question.id,
+                 details: details)
   end
 
   def create_answer
@@ -125,5 +125,4 @@ class AlertMailerPreview < ActionMailer::Preview
     answer.user = example_student
     answer
   end
-
 end
