@@ -35,12 +35,12 @@ jobs:
       - run: sudo service mysql stop
       - name: Set up MariaDB
         uses: getong/mariadb-action@v1.1
-        with:
-               mysql root password: wikiedu
-               mysql database: dashboard_testing
-               mysql user: wiki
-               mysql password: wikiedu
-               host port: 3306
+#         with:
+#                mysql root password: wikiedu
+#                mysql database: dashboard_testing
+#                mysql user: wiki
+#                mysql password: wikiedu
+#                host port: 3306
       - name: running datatbase 
         run: |
               mysql -e 'CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;'
