@@ -1,5 +1,4 @@
 name: CI
-
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -7,47 +6,20 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
-    services:
-       mariadb:
-        image: mariadb:10.5
-        env:
-          mysql user: root
-          mysql database: dashboard_testing
-          mysql password: rootpassword
-          host port: 3306
   
-
     steps:
       - uses: actions/checkout@v2
-#       - name: Installing system dependencies
-#         run: sudo apt-get install -y redis-server mariadb-server libmariadb-dev nodejs npm pandoc
-              
-# - run: sudo mysql -uroot -proot -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-      
-      - run : mkdir tmp -m 777
-      - run: cp config/database.example.yml config/database.yml
-      - run: cp config/application.example.yml config/application.yml
-           
-      - name: Starting MYSQL 
-        run: sudo systemctl start mysql
-#       - name: creating new user
-#         run: sudo mysql -e "GRANT ALL PRIVILEGES ON dashboard_testing.* TO \"wiki\"@\"localhost\" IDENTIFIED BY \"wikiedu\"";
-           
-
-      - run : sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-
+             
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
-
+           
       - name: Setup Node
         uses: actions/setup-node@v1
                
@@ -64,31 +36,26 @@ jobs:
             gem install rubocop
             gem install rubocop-rspec-focused
             bundle config set path 'vendor'
-            bundle install --jobs=3 --retry=3      
-#       - run : sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-#       - name: Running Database
-#         run: |
-#              cp config/database.example.yml config/database.yml
-#              bundle exec rake db:migrate RAILS_ENV=test
-#              env:
-#               mysql user: wiki
-#               mysql password: wikiedu
-#               mysql database: dashboard_testing
-#               RAILS_ENV: test
-              
-              
-              
-      - name: Run Rspec       
-        run: COVERAGE=true bundle exec rspec --color --profile --format documentation
-# #         env:
-# #            RAILS_ENV: test
-# #            mysql user: wiki
-# #            mysql password: wikiedu
-# #            mysql database: dashboard_testing
-              
+            bundle install --jobs=3 --retry=3
             
+      - run : mkdir tmp -m 777
+      - run: cp config/database.example.yml config/database.yml
+      - run: cp config/application.example.yml config/application.yml
+           
+      - name: starting datatbase 
+        run: |
+             sudo systemctl start mysql  
+             sudo mysql -uroot -p;
+               
+        
+      - name: creating test database
+        run: sudo mysql -uroot -p -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"   
+         
       - run: yarn
       - run:  yarn build
       - run:  bundle exec rubocop
       - run:  yarn lint-non-build
-#       - run: bundle exec rake db:migrate RAILS_ENV=test
+      - run: bundle exec rake db:migrate RAILS_ENV=test
+            
+              
+      
