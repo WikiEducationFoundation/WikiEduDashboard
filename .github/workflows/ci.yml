@@ -44,9 +44,9 @@ jobs:
       - run : mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
-      - run: sudo systemctl start mysql     
-      - run: |           
-            sudo mysql "update user set password=PASSWORD('rootpassword') where User='root';"
+      - run: |
+             sudo systemctl start mysql           
+             sudo mysql -e 'CREATE DATABASE dashboard_testing;'
 
 
 
