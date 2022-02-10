@@ -134,9 +134,13 @@ zh-CN:
     edited_by: 编辑自
     label: 活跃
   articles:
+    articles: 条目
+    article_not_found: 此条目尚未创建。
     article_development: （条目状况）
+    articles_shown: 显示 %{total} 个条目中的 %{count} 个
     assigned: 分配的条目
     available: 可用条目
+    no_available: 没有可用的条目
     next: 下一步
     previous: 上一步
     article_title: 条目标题
@@ -152,9 +156,12 @@ zh-CN:
     filter:
       wiki_all: 全部
       new: 新的
+      existing: 存在
+      new_and_existing: 新的且存在
       tracked: 跟踪的
       untracked: 未跟踪的
       tracked_and_untracked: 追踪和未追踪
+    find: 寻找条目
     hide: 隐藏
     history: （历史）
     label: 条目
