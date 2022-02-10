@@ -95,7 +95,7 @@ class AlertMailerPreview < ActionMailer::Preview
         question: answer.question.question_text,
         answer: answer.answer_text,
         followup: answer.follow_up_answer_text,
-        source: SurveyResponseAlertManager.source(answer)
+        source: SurveyResponseAlertManager.new.source(answer)
       }
 
     Alert.create(type: 'SurveyResponseAlert',
