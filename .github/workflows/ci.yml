@@ -52,7 +52,7 @@ jobs:
           host port: 3306 
           mariadb version: '10.5' 
           mysql database: 'test' 
-          mysql user: 'root' 
+#           mysql user: 'root' 
 #           MARIADB_ALLOW_EMPTY_PASSWORD: yes
 #           mysql password:
       
