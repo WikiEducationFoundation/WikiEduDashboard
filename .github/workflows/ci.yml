@@ -17,28 +17,36 @@ jobs:
     runs-on: ubuntu-latest 
     services:
      mysql:
-        image: mysql:5.7
+        image: mariadb:10.6
         env:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: test
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_PASSWORD:
-        ports:
-          - "3306:3306"
+          mysql database: test
+          host port: 3306
+          MARIADB_ALLOW_EMPTY_PASSWORD: yes
+          mysql password:
+          
+#         env:
+#           MYSQL_HOST: 127.0.0.1
+#           MYSQL_DB: test
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           MYSQL_PASSWORD:
+#         ports:
+#           - "3306:3306"
   
 
     steps:
+      - uses: actions/checkout@v2
       - name: Cache multiple paths
         uses: actions/cache@v2
         with:
-          path: |-
-            vendor
-            node_modules
-          key: '${{ runner.os }}-${{ hashFiles(''TODO'') }}'
-      - uses: actions/checkout@v2
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
       - uses: ruby/setup-ruby@v1
         with:
            ruby-version: 2.7.1
+           bundler-cache: true
+
            
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -77,7 +85,7 @@ jobs:
           
       - run: yarn
       - run:  yarn build
-      - run: bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
+      - run:  COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
       - run:  bundle exec rubocop
       - run:  yarn lint-non-build
     
