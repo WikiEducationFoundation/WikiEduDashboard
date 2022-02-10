@@ -1028,29 +1028,6 @@ en:
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
     unknown: Unknown
-    total_revisions_info: Description
-    items_created_info: Description
-    items_cleared_info: Description
-    claims_created_info: Description
-    claims_changed_info: Description
-    claims_removed_info: Description
-    labels_added_info: Description
-    labels_changed_info: Description
-    labels_removed_info: Description
-    descriptions_added_info: Description
-    descriptions_changed_info: Description
-    descriptions_removed_info: Description
-    merged_info: Description
-    interwiki_links_info: Description
-    aliases_added_info: Description
-    aliases_changed_info: Description
-    aliases_removed_info: Description
-    redirects_info: Description
-    restorations_info: Description
-    reverts_info: Description
-    unknown_info: Description
-    qualifiers_info: Description
-    other_updates_info: Description
 
   namespace:
     main: Mainspace
