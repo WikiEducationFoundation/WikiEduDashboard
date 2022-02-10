@@ -9,6 +9,10 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
     CourseAdviceMailer.email(example_course, 'preliminary_work', example_staffer)
   end
 
+  def choosing_an_article
+    CourseAdviceMailer.email(example_course, 'choosing_an_article', example_staffer)
+  end
+
   def drafting_and_moving
     CourseAdviceMailer.email(example_course, 'drafting_and_moving', example_staffer)
   end

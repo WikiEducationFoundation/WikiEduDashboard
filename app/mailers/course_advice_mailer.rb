@@ -10,11 +10,13 @@ class CourseAdviceMailer < ApplicationMailer
   end
 
   SUBJECT_LINES = {
-    'biographies' => 'Tips for working on Wikipedia biography articles',
-    'preliminary_work' => 'Tips for navigating the early weeks of your Wikipedia assignment',
-    'drafting_and_moving' => 'Tips for drafting work and moving it into the article main space',
-    'peer_review' => 'Tips for peer review',
-    'assessing_contributions' => 'How to find and assess student contributions'
+    'biographies' => '[Wiki Education] Tips for working on Wikipedia biography articles',
+    'preliminary_work' => '[Wiki Education] Tips for navigating the early weeks of your Wikipedia assignment',
+    'choosing_an_article' => '[Wiki Education] Student success on Wikipedia starts with article choice!',
+    'bibliographies' => '[Wiki Education] Compiling a good bibliography is the key to success!',
+    'drafting_and_moving' => '[Wiki Education] Tips for drafting work and moving it into the article main space',
+    'peer_review' => '[Wiki Education] Tips for peer review',
+    'assessing_contributions' => '[Wiki Education] How to find and assess student contributions'
   }.freeze
 
   def email(course, subject, staffer)

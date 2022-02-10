@@ -1,0 +1,121 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                It's time for your students to start choosing the articles they'll be working
+                on for their Wikipedia assignment!
+              %p.paragraph
+                In many ways, the success of your students' contributions begins with article choice.
+                Please read through this message carefully, and be sure to check out the articles
+                your students are planning on improving to ensure their viability.
+              %h2.headline How should students go about finding articles to work on?
+              %p.paragraph
+                Students should begin by taking the training module on
+                = succeed ',' do
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/finding-your-article'} finding articles
+                followed by going through the
+                = succeed '.' do
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/choose-topic-exercise'} exercise on choosing an article
+                Both activities will guide them on how to search Wikipedia for appropriate articles to work
+                on for their Wikipedia assignment, and how to indicate their final article choice on the
+                Dashboard. Students can also make use of the Dashboard's article finder which they'll
+                access on the My Articles portion of your course page's Home tab. Students should consider
+                a few different options before settling on their final article and list these potential
+                choices on the designated page the "Choose your article" exercise will direct them to.
+              %p.paragraph
+                You can find the list of articles your students are proposing to work on by navigating
+                to the Students tab of your course page, and then clicking on the activities and exercises
+                link. Look for the article choice link for each student to see the articles they're proposing.
+              %h2.headline What types of articles should students work on?     
+              %p.paragraph
+                The best articles for students to work on are those that are highly relevant to a particular
+                field, with a good amount of available sources, but that are relatively underdeveloped on Wikipedia.
+                Your role as a subject-matter expert is especially important for providing guidance at this stage.
+              %p.paragraph
+                Article choice and sourcing go hand in hand. If a topic is sparsely covered in the literature,
+                students will struggle to make a meaningful contribution even if the article is in need of work.
+                As a student start narrowing down the articles they'd like to tackle, they should begin to
+                develop their bibliography to ensure that the topic they wish to cover has sufficient sourcing.
+              %h2.headline What types of articles should students avoid?
+              %p.paragraph
+                Your students will generally find it more difficult to make meaningful contributions to the
+                following types of articles. In most cases you should steer them away from these categories:
+                %ul.paragraph
+                  %li
+                    Articles that cover broad topics: Students may be tempted to make contributions to broad,
+                    sweeping topics, such as
+                    %a.link{href: 'https://en.wikipedia.org/wiki/Law'} law
+                    or
+                    = succeed '.' do
+                      %a.link{href: 'https://en.wikipedia.org/wiki/Religion'} religion
+                    Instead, students should peruse these broad articles for related topics that are more narrow
+                    and in need of improvement.
+                  %li
+                    Articles that have a rating above B: Articles that have a
+                    %a.link{href: 'https://en.wikipedia.org/wiki/Wikipedia:Content_assessment#Grades'} high rating on Wikipedia's assessment system
+                    (A-class, Good article, and Featured article) have gone through a vetting and review process
+                    by the community. They are typically already very well-developed and closely monitored.
+                    Students should avoid any article with these ratings. Examples of these articles include
+                    %a.link{href: 'https://en.wikipedia.org/wiki/Hudson_River'} Hudson River
+                    and 
+                    = succeed '.' do
+                      %a.link{href: 'https://en.wikipedia.org/wiki/Angker_Wat'} Angker Wat
+                  %li
+                    Contentious subjects: Many students will want to contribute to articles about which they are passionate.
+                    These may include current political and social issues that are themselves being hotly debated on Wikipedia.
+                    Students should follow their interests, but they can make more meaningful contributions to specific sub-topics
+                    rather than the main article for a hotbed topic. Students should avoid getting involved in existing Wikipedia
+                    controversies.
+                  %li
+                    Topics with few or low-quality sources: When choosing an article, students need to ensure that the subject they
+                    wish to address has enough available, published sourcing to support their writing. Sometimes an article is underdeveloped
+                    simply because there isn't enough literature to expand it further. This is why sourcing and article choice are
+                    so closely linked.
+              %h2.headline What if my student(s) choose to work on a new article?
+              %p.paragraph
+                The vast majority of students we support work on existing articles, but if your students choose to create a new entry,
+                they should consider the following critical points:
+                %ul.paragraph
+                  %li
+                    Does the topic meet Wikipedia's
+                    %a.link{href: 'https://en.wikipedia.org/wiki/Wikipedia:Notability'} notability
+                    requirements? To meet notability requirements, students must find
+                    2-3 sources with substantial coverage that are independent of the subject, reliable, and verifiable. This can
+                    be especially difficult when writing about living persons, or persons and subjects from historically underrepresented
+                    communities.
+                  %li
+                    Does an article on the topic already exist on Wikipedia? Before students start working on a new article, they must
+                    be certain that the article does not already exist on Wikipedia potentially under a different name, or as part of
+                    another article. (In some cases, it will make sense to create a new article for a topic that is covered briefly as
+                    a subtopic within an existing article, but students should plan for how content should be spread between the
+                    existing article and a potential new article to avoid unecessary redundant content.)
+              %h2.headline How can I, as their instructor, help?
+              %p.paragraph
+                Before your students begin to expand their bibliographies and draft their contributions, ensure
+                that the articles they have chosen to work on follow the guidelines outlined above. Again, as a
+                subject-matter expert, you can identify which topics are important and relevant in your field but are
+                not well-developed on Wikipedia. Please guide your students toward these topics and toward good
+                sourcing in your area of expertise. This is your chance to make sure that your students have a
+                real impact and that their work remains on Wikipedia in the long run.
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help with choosing appropriate articles.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Choosing-Articles-Advice-email'} leave feedback here.
