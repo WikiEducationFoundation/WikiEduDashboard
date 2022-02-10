@@ -15,28 +15,12 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
-#     services:
-#      mariadb:
-#         image: mariadb:10.6
-#         env:
-#           mysql database: test
-#           mysql user: root
-#           host port: 3306
-#           MARIADB_ALLOW_EMPTY_PASSWORD: yes
-#           mysql password: 
-          
-#         env:
-#           MYSQL_HOST: 127.0.0.1
-#           MYSQL_DB: test
-#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#           MYSQL_PASSWORD:
-#         ports:
-#           - "3306:3306"
-  
 
     steps:
       - uses: actions/checkout@v2
-      - name: Cache multiple paths
+      
+    #to speed up the execution time of Github Actions
+      - name: Cache multiple paths  
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -47,16 +31,13 @@ jobs:
           restore-keys: |
                 ${{ runner.os }}-yarn-
      
-      - uses: getong/mariadb-action@v1.1
+      - uses: getong/mariadb-action@v1.1  
         with:
           host port: 3306 
           mariadb version: '10.5' 
           mysql database: 'test' 
-#           mysql user: 'root' 
-#           MARIADB_ALLOW_EMPTY_PASSWORD: yes
-#           mysql password:
       
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1    
         with:
            ruby-version: 2.7.1
            bundler-cache: true
@@ -71,7 +52,7 @@ jobs:
       
       - run: export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
       
-      - name: Database and Build
+      - name: Installing Packages 
         run: |
             yarn install
             gem install bundler
@@ -84,7 +65,7 @@ jobs:
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
 
-      - name: Run tests
+      - name:  Creating Test Database 
         env:
           RAILS_ENV: test
           DATABASE_PORT: 3306
@@ -92,17 +73,14 @@ jobs:
             
             bin/rails db:create
             bin/rails db:migrate RAILS_ENV=test
-          
-           
-   # bin/rails db:schema:load
-   # bin/rails db:create
-   #bin/rails test
-          
-      - run: yarn
-      - run:  yarn build
-      - run:  COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
-      - run:  bundle exec rubocop
-      - run:  yarn lint-non-build
+      
+      - name: Running tests   
+      - run: |
+            yarn
+            yarn build
+            COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
+            bundle exec rubocop
+            yarn lint-non-build
     
               
       
