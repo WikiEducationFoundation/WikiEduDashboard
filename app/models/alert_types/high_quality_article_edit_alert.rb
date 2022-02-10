@@ -42,4 +42,8 @@ class HighQualityArticleEditAlert < Alert
       resolved alert was generated.
     EXPLANATION
   end
+
+  def reply_to
+    content_experts.first&.email
+  end
 end
