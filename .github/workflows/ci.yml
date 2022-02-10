@@ -61,7 +61,7 @@ jobs:
             bundle config set path 'vendor'
             bundle install --jobs=3 --retry=3
             
-      - run : mkdir tmp -m 777
+      - run: mkdir tmp -m 777
       - run: cp config/database.example.yml config/database.yml
       - run: cp config/application.example.yml config/application.yml
 
@@ -70,12 +70,11 @@ jobs:
           RAILS_ENV: test
           DATABASE_PORT: 3306
         run: |
-            
             bin/rails db:create
             bin/rails db:migrate RAILS_ENV=test
       
       - name: Running tests   
-      - run: |
+        run: |
             yarn
             yarn build
             COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
