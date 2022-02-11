@@ -2,7 +2,7 @@ import { URLBuilder } from './URLBuilder';
 
 describe('URLBuilder', () => {
   const defaults = {
-    article: { language: 'en', project: 'wikipedia', title: 'My Article' },
+    article: { language: 'en', project: 'wikipedia', title: 'Brown Bear, Brown Bear, What Do You See?' },
     users: ['user1', 'user2']
   };
   it('should be able to create a new instance of itself', () => {
@@ -13,7 +13,7 @@ describe('URLBuilder', () => {
   describe('#parsedArticleURL', () => {
     it('should create a parsedArticleURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&page=My%20Article';
+      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&page=Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F';
       expect(helper.parsedArticleURL()).toEqual(expected);
     });
     it('should throw an error if the project is missing', () => {
@@ -54,7 +54,7 @@ describe('URLBuilder', () => {
   describe('#wikiwhoColorURL', () => {
     it('should create a wikiwhoColorURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://api.wikiwho.net/en/whocolor/v1.0.0-beta/My%20Article/';
+      const expected = 'https://wikiwho-api.wmcloud.org/en/whocolor/v1.0.0-beta/Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F/';
       expect(helper.wikiwhoColorURL()).toEqual(expected);
     });
     it('should throw an error if the language is missing', () => {
@@ -72,7 +72,7 @@ describe('URLBuilder', () => {
   describe('#wikiwhoColorRevisionURL', () => {
     it('should create a wikiwhoColorRevisionURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://api.wikiwho.net/en/api/v1.0.0-beta/rev_content/My%20Article/?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
+      const expected = 'https://wikiwho-api.wmcloud.org/en/api/v1.0.0-beta/rev_content/Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F/?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
       expect(helper.wikiwhoColorRevisionURL()).toEqual(expected);
     });
     it('should throw an error if the language is missing', () => {

@@ -70,7 +70,7 @@ io:
     page: Pagino
     done: Facita!
   uploads:
-    label: Arkivi kargita
+    label: Arkivi sendita
   users:
     assign_articles_done: Facita
     exercises_and_trainings: Exerci & Aprentiteso

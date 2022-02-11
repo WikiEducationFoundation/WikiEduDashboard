@@ -1,6 +1,7 @@
 # Messages for Luxembourgish (Lëtzebuergesch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Les Meloures
 # Author: Robby
 # Author: Soued031
@@ -284,7 +285,7 @@ lb:
     my_articles: Meng Artikelen
     new_week: Nei Woch debäisetzen
     new_account_email: E-Mail-Adress
-    new_account_email_placeholder: numm@beispill.org
+    new_account_email_placeholder: numm@example.org
     new_account_username: Ugefrote Benotzernumm
     new_account_username_invalid: Dëst ass kee valabele Benotzernumm.
     new_account_username_placeholder: Wiki Editeur 123

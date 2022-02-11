@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/app/workers/course_data_update_worker"
+require_dependency "#{Rails.root}/app/workers/update_wikidata_stats_worker"
 
 # Puts courses into sidekiq queues for data updates
 class ScheduleCourseUpdates
@@ -27,6 +28,7 @@ class ScheduleCourseUpdates
     log_end_of_update 'Schedule course updates failed.'
     raise e
   end
+
   # rubocop:enable Lint/RescueException
 
   ###############
@@ -47,13 +49,18 @@ class ScheduleCourseUpdates
       course.flags[:first_update] = first_update
       course.save
     end
-    log_message "Short update latency: #{latency('short_update')}"
-    log_message "Medium update latency: #{latency('medium_update')}"
-    log_message "Long update latency: #{latency('long_update')}"
+
+    log_latency_messages
   end
 
   def latency(queue)
     Sidekiq::Queue.new(queue).latency
+  end
+
+  def log_latency_messages
+    log_message "Short update latency: #{latency('short_update')}"
+    log_message "Medium update latency: #{latency('medium_update')}"
+    log_message "Long update latency: #{latency('long_update')}"
   end
 
   def first_update_flags(course)

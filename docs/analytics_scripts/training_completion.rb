@@ -62,3 +62,23 @@ TrainingModule.all.each do |tm|
   end
 end
 
+# CSV of training activity for Wikimedia Germany's training modules
+
+module_ids = [40001, 40002, 40003, 40004]
+
+
+csv_data = [['username', 'training_module', 'last_slide_completed', 'module_completion_date', 'started_at', 'last_slide_completed_at']]
+
+module_ids.each do |m_id|
+  tm = TrainingModule.find(m_id)
+  tmus = TrainingModulesUsers.where(training_module_id: m_id)
+  tmus.each do |tmu|
+    csv_data << [tmu.user&.username, tm.slug, tmu.last_slide_completed, tmu.completed_at, tmu.created_at, tmu.updated_at]
+  end
+end
+
+CSV.open('/home/ragesoss/wmde_training_data_2022-02.csv', 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end

@@ -163,6 +163,7 @@ ja:
     wp10_doc: 「Structural Completeness」指数は特定の記事がウィキペディアの成長した記事の型にどれほど適合するかを示し、機械学習に基づく
       Objective Revision Evaluation Service を使います(https://ores.wikimedia.org/)。指数の算出は記事のサイズ、参考文献と内部リンクの件数やその他の文の基本要素に依拠します。通常、高得点はその記事がウィキペディアで採用する良質な記事の構造の規則に従っているという意味ですが、記事の内容そのものは考慮していません。(これらのスコア提示は英語版ウィキペディア限定です。)
   items:
+    article_not_found: このアイテムはまだ作成されていません。
     find: アイテムを探す
     title_example: アイテムのタイトル
   assignments:
@@ -421,6 +422,7 @@ ja:
     loading: 読み込み中…
     milestones_none: このコースには、現在、マイルストーンがありません。
     my_articles: 自分の記事
+    my_articles_wikidata: 私のアイテム
     needs_update: 統計データ更新
     new_week: 新しい週の追加
     new_account_check_username: ユーザー名の使用可能状況を確認する
@@ -729,6 +731,7 @@ ja:
     name: 名前
     none: 参加者はいません。
     no_articles: 記事はありません
+    no_articles_wikidata: アイテムがありません
     no_revisions: この編集者による変更履歴はありません。
     number_of_articles:
       other: '%{count}件の記事'
@@ -796,6 +799,7 @@ ja:
       message: ご利用の%{course_title}コースに関する調査について、お知らせします。この調査にお答えいただき、ウィキペディアを課題に指定された皆さんへのサポート改善にご協力くだされば幸いです。
   article_finder:
     add_available_article: 存在する記事として追加
+    add_available_article_wikidata: 利用可能なアイテムとして追加
     article_finder: 記事を見つける
     article_quality: 記事の品質（0-100）
     assign_article_self: 担当に立候補する

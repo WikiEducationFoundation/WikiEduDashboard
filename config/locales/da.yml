@@ -1,6 +1,7 @@
 # Messages for Danish (dansk)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Antonla
 # Author: Dipsacus fullonum
 # Author: IBDJ
@@ -609,7 +610,7 @@ da:
     new_week: Tilføj ny uge
     new_account_check_username: Tjek tilgængelighed for brugernavn
     new_account_email: E-mailadresse
-    new_account_email_placeholder: navn@eksempel.org
+    new_account_email_placeholder: navn@example.org
     new_account_info: For at anmode om en konto, skal du blot indskrive din email
       og dit foretrukne brugernavn. Du vil herefter modtage en email med en adgangskode,
       når kontoen til dig er oprettet af en af arrangørerne.

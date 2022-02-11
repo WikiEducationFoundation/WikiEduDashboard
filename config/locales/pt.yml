@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Athena in Wonderland
 # Author: Chicocvenancio
 # Author: Fitoschido
@@ -166,12 +167,14 @@ pt:
       tracked: Monitorizados
       untracked: Não monitorizados
       tracked_and_untracked: Monitorizados e não monitorizados
+    find: Encontrar artigos
     hide: Ocultar
     history: (histórico)
     label: Artigos
     loading: A carregar artigos...
     new: (novo)
     none: Este curso não editou nenhum artigo.
+    preview: Antevisão breve do artigo
     rating: Qualidade
     rating_doc: A avaliação que um artigo recebeu de Projetos Wiki na Wikipédia. Estas
       avaliações podem corresponder a versões muito mais antigas, logo são apenas
@@ -227,6 +230,7 @@ pt:
     articles_short: Artigos
   items:
     items: Elementos
+    article_not_found: Este elemento ainda não foi criado.
     assigned: Elementos atribuídos
     assignments_none: Ainda não há nenhum elemento atribuído.
     available: Elementos disponíveis
@@ -240,6 +244,8 @@ pt:
       si próprio para receber sugestões.
     edited: Elementos editados
     edited_none: Ainda não há nenhum elemento editado.
+    find: Encontrar elementos
+    preview: Antevisão breve do elemento
     search: Pesquisar um elemento na wiki Wikidata
     tracked_doc: Só os elementos monitorizados contribuem para as estatísticas deste
       programa. Quando os elementos forem marcados como não monitorizados, serão removidos
@@ -247,6 +253,7 @@ pt:
     view_doc: Estimativa das visitas a cada elemento, desde a primeira edição do mesmo
       até à atualização mais recente das estatísticas. Para ver os números exatos
       pode usar pageviews.toolforge.org.
+    title_example: Título do elemento
   articles_wikidata:
     articles_short: Elementos
   articles_generic:
@@ -254,6 +261,7 @@ pt:
   assignments:
     article: O artigo %{title} está atribuído agora a si.
     article_link: Artigo
+    article_link_wikidata: Elemento
     already_exists: Esta tarefa já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Aluno(s)
@@ -269,6 +277,8 @@ pt:
     assign_self: Atribuir-me um artigo
     assign_self_wikidata: Atribuir-me um elemento
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.
+    assign_tooltip_wikidata: Um elemento atribuído é um elemento que planeia criar
+      ou melhorar.
     bibliography: Bibliografia
     clone: Clonar
     confirm_add_available: Tem a certeza de que deseja adicionar %{title}?
@@ -279,6 +289,7 @@ pt:
     label: Atribuir
     loading: A carregar tarefas...
     none_short: Nenhum artigo atribuído
+    none_short_wikidata: Nenhum elemento atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
     peer_review_count: Selecionados %{currentCount}/%{total}
@@ -674,7 +685,7 @@ pt:
     new_week: Adicionar nova semana
     new_account_check_username: Verificar a disponibilidade do nome de utilizador
     new_account_email: Endereço de correio eletrónico
-    new_account_email_placeholder: nome@exemplo.org
+    new_account_email_placeholder: nome@example.org
     new_account_info: Para solicitar uma conta, introduza o seu endereço de correio
       eletrónico e o seu nome de utilizador desejado. Quando a conta tiver sido criada
       por um dos facilitadores, ser-lhe-á enviada uma palavra-passe por correio eletrónico.
@@ -974,9 +985,6 @@ pt:
     label: Atividade do curso
     last_update: Última atualização das estatísticas
     next_update: Próxima atualização estimada
-    late_update_part1: Era esperada uma nova atualização
-    late_update_part2: Isto pode querer dizer que a atualização está a demorar mais
-      do que era esperado ou pode indicar um problema que esteja a bloquear atualizações.
     no_update: O painel ainda não importou nenhum dado para este programa.
     enqueued_update: Este programa foi adicionado à fila de atualizações.
     first_update: Início estimado da atualização de estatísticas

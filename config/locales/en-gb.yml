@@ -9,6 +9,8 @@
 # Author: Pierpao
 # Author: Samwilson
 # Author: Sau226
+# Author: TheSkull28870
+# Author: Valentine Badu
 ---
 en-gb:
   application:
@@ -241,6 +243,10 @@ en-gb:
     passcode_prompt: 'Enter the passcode to join:'
     published: 'Your course has been published! Students may enrol in the course by
       visiting the following URL:'
+    retain_available_articles_wikidata: Retain Available Items
+    retain_available_articles_info_wikidata: When enabled, selecting an Available
+      Item does not remove it from the list, allowing a group of students to select
+      the same item.
     review_timeline: 'Now, review your assignment timeline, customising it to fit
       your needs. Once you''re satisfied, you can submit it for approval by Wiki Education
       staff. Once approved, you''ll receive an enrolment URL that students can use

@@ -32,4 +32,21 @@ describe Deadlines do
       end
     end
   end
+
+  describe '.recruiting_term' do
+    context 'when there is a deadline' do
+      before do
+        described_class.update_student_program(
+          recruiting_term: 'fall_2021',
+          deadline: 1.week.from_now.to_date,
+          before_deadline_message: 'You have one week left.',
+          after_deadline_message: 'The deadline is passed.'
+        )
+      end
+
+      it 'returns the student program recruiting term' do
+        expect(described_class.recruiting_term).to eq('fall_2021')
+      end
+    end
+  end
 end

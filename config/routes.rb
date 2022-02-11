@@ -260,6 +260,15 @@ Rails.application.routes.draw do
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
 
+  # Courses by tag
+  resources :tagged_courses, param: :tag do
+    member do
+      get 'programs'
+      get 'articles'
+      get 'alerts'
+    end
+  end
+
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity

@@ -1,6 +1,7 @@
 # Messages for Malay (Bahasa Melayu)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Anakmalaysia
 # Author: CyberTroopers
 # Author: SNN95
@@ -222,7 +223,7 @@ ms:
     my_articles: Rencana Saya
     new_week: Tambah Minggu Baru
     new_account_email: Alamat e-mel
-    new_account_email_placeholder: nama@contoh.org
+    new_account_email_placeholder: nama@example.org
     new_account_username_placeholder: Penyunting Wiki 123
     none: Tiada
     overview: Laman Utama

@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
@@ -460,7 +461,7 @@ es:
     new_week: Agregar una semana nueva
     new_account_check_username: Comprobar disponibilidad de nombre de usuario
     new_account_email: Dirección de correo electrónico
-    new_account_email_placeholder: nombre@ejemplo.org
+    new_account_email_placeholder: nombre@example.org
     new_account_info_admin: Para crear una cuenta para un editor nuevo, escribe su
       dirección de correo y nombre de usuario deseado. Recibirá una contraseña por
       correo una vez que se haya creado la cuenta.

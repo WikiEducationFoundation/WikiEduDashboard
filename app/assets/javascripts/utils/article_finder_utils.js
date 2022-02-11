@@ -5,6 +5,7 @@ export const queryUrl = (url, query = {}) => {
   return new Promise((res, rej) => {
     return $.ajax({
       url: url,
+      dataType: 'jsonp',
       data: query,
       success: (data) => {
         return res(data);

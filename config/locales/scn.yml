@@ -16,46 +16,77 @@ scn:
           quadrillion: Q
   application:
     cancel: Annulla
+    cookie_consent_see_more: Talìa àutru.
+    create_accounts: Crea cunti di Wikipedia
     documentation: Ducumintazzioni
+    field_invalid_characters: Stu campu cunteni carattiri nun vàlidi
     greeting2: Bimminutu!
+    greeting_extended: Bommegna supra Wikipedia
     greeting: Ciau!
     help: Aiutu
     home: Pàggina principali
     log_in_extended: Trasi supra Wikipedia
     log_in: Trasi
     log_out: Nesci
+    recent_activity: Attività ricenti
+    report_problem: Signala nu prubblema
+    request_account_create: Crea nu cuntu
+    search_results:
+      one: '%{count} risurtatu pi: ''%{search_terms}'''
+      other: '%{count} risurtati pi: ''%{search_terms}'''
+    sign_up_log_in_extended: cu Wikipedia
+    submit: Manna
+    change: Cancia
     details: Dittagghî
     confirm: OK
     opt_in: Sì
     opt_out: "No"
     opt_yes: sì
     opt_no: "no"
+  article_statuses:
+    not_yet_started: Guida ntruduttiva
   activity:
     all: Attivitati
     label: Attivitati
   articles:
     articles: Vuci
+    available: Vuci dispunìbbili
+    no_available: Nudda vuci dispunìbbili
+    article_title: Tìtulu dâ vuci
     deleted: (cancillatu)
     edited: Vuci canciati
     edited_mobile: Vuci
+    filter:
+      wiki_all: Tuttu
+      new: Novu
+    find: Attrova vuci
     hide: Ammuccia
     history: (crunuluggìa)
     label: Vuci
     new: (novu)
     rating: Classi
+    see_more: Talìa àutru
     show_current_version: Ammustra la virsioni attuali
     title: Tìtulu
     title_example: Tìtulu dâ vuci
     view: Talìa vuci
+    view_all: Talìa tuttu
+    view_on_wiki: Talìa supra lu wiki
     wiki: Wiki
     articles_short: Vuci
   articles_generic:
     articles_short: Pàggini
   assignments:
     article_link: Vuci
+    add_available: Agghiunci vuci dispunìbbili
+    add_available_placeholder: Agghiunca nu tìtulu di na vuce o n'URL pi lìnia
+    add_available_submit: Agghiunci vuci
     bibliography: Bibliugrafìa
+    confirm_add_available: Sî sìcuru di vuliri agghiunciri %{title}?
+    label: Assigna
     remove: Leva
   campaign:
+    alert_article: Tìtulu dâ vuci
     alert_type: Tipu
     alert_user_id: Utenti
     created_at: Data
@@ -63,19 +94,51 @@ scn:
     none: Nuddu
     title: Tìtulu
   categories:
+    add_category: Agghiunci catigurìa
+    add_psid: Agghiunci lu PSID PetScan
+    add_pileid: Agghiunci l'ID PagePile
+    add_template: Agghiunci template
+    add_this_category: Agghiunci sta catigurìa
+    add_this_psid: Agghiunci stu PSID
+    add_this_pileid: Agghiunci st'ID PagePile
+    add_this_template: Agghiunci stu template
+    depth: Profunnità dî suttacatigurìi
     name: Nomu
     category_name: Nomu dâ catigurìa
+    pileid_name: ID PagePile
+    template_name: Nomu dû template
     remove: Leva
   courses:
+    activity: Attività
+    active_courses: '%{course_type} attivu/a'
     actions: Azzioni
     articles: Vuci
+    articles_i_will_create: Vuci chi crirò
     cancel: Annulla
+    campaign_articles: '%{title} vuci'
+    creation_date: Data di criazzioni
+    creator:
+      end_date: Data di fini
+      subject: Uggettu
+    data_wikidata: Statìstichi di Wikidata
     delete_suggestion: Cancella
+    download_stats_data: Scàrrica li statìstchi
+    end: Fini
+    my_articles: Li mè vuci
+    new_week: Agghiunci simana nova
     new_account_email: Nnirizzu email
+    new_account_email_placeholder: nomu@example.org
     none: Nuddu
+    ores_plot: ORES
+    overview: Pàggina principali
+    please_log_in: Pi favuri trasi.
+    private: Privatu
     requested_accounts_alert_view: Talìa
     school: Scola
+    tags: 'Etichetti:'
     title: Tìtulu
+    update_stats: Statìstichi aggiurnati
+    view_wiki: Talìa supra Wikipedia
   courses_generic:
     cancel: Annulla
     creator:
@@ -106,6 +169,7 @@ scn:
       new:
         form_placeholder: Nomu utenti
   timeline:
+    block_assignment: Assignazzioni
     block_custom: Pirsunalizzatu
     empty_week_3: o
     week_number: Simana %{number}

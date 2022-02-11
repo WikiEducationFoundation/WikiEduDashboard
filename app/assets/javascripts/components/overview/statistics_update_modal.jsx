@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs } from '../../utils/statistic_update_info_utils';
+import ArticleUtils from '../../utils/article_utils';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
@@ -26,8 +27,7 @@ const StatisticsUpdateModal = (props) => {
   let nextUpdateMessage = props.nextUpdateMessage;
 
   if (!isNextUpdateAfter) {
-    const nextUpdateExpectedTime = nextUpdateExpected(course);
-    nextUpdateMessage = `${I18n.t('metrics.late_update_part1')}: ${nextUpdateExpectedTime}. ${I18n.t('metrics.late_update_part2')}`;
+    nextUpdateMessage = I18n.t('metrics.late_update', { late_update_time: nextUpdateExpected(course) });
   }
 
   return (
@@ -47,7 +47,7 @@ const StatisticsUpdateModal = (props) => {
         { I18n.t('metrics.missing_data_info') }:
         <ul>
           <li>{ I18n.t('metrics.replag_info') }<a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
-          { course.type === 'ArticleScopedProgram' && <li>{ I18n.t('metrics.article_scoped_program_info') }</li> }
+          { course.type === 'ArticleScopedProgram' && <li>{ I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'article_scoped_program_info')}`) }</li> }
         </ul>
         <small>{ helpMessage }</small>
         <br/>

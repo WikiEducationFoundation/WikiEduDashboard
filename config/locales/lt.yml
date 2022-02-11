@@ -1,6 +1,7 @@
 # Messages for Lithuanian (lietuvių)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Eitvys200
 # Author: Manvydasz
 # Author: Nersip
@@ -234,7 +235,7 @@ lt:
     new_week: Pridėti naują savaitę
     new_account_check_username: Tikrinti vartotojo vardo užimtumą
     new_account_email: El. pašto adresas
-    new_account_email_placeholder: vardas@pavyzdys.org
+    new_account_email_placeholder: vardas@example.org
     new_account_info: Kad paprašytumėte paskyros, įveskite savo el. pašto adresą ir
       pageidaujamą vartotojo vardą. Slaptažodis bus atsiųstas el. paštu, kai paskyra
       bus sukurta.

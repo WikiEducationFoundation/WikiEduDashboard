@@ -1,6 +1,7 @@
 # Messages for Asturian (asturianu)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Macofe
 # Author: Xuacu
 ---
@@ -461,7 +462,7 @@ ast:
     needs_update: Actualización de datos de la programación
     new_week: Amestar una selmana más
     new_account_email: Direición de corréu electrónicu
-    new_account_email_placeholder: nome@exemplu.ast
+    new_account_email_placeholder: nome@example.org
     new_account_username: Nome d'usuariu solicitáu
     new_account_username_invalid: Esti nome d'usuariu nun ye válidu.
     new_account_username_placeholder: Wiki Editor 123

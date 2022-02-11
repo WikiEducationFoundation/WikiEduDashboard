@@ -37,6 +37,7 @@ class Article < ApplicationRecord
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
   scope :ready_for_update, -> { joins(:courses).merge(Course.ready_for_update).distinct }
   scope :namespace, ->(ns) { where(namespace: ns) }
+  scope :sandbox, -> { where(namespace: Namespaces::USER) }
   scope :assigned, -> { joins(:assignments).distinct }
 
   validates :title, presence: true
@@ -152,6 +153,10 @@ class Article < ApplicationRecord
     prefix = NS_PREFIX[namespace]
     return prefix if prefix.is_a?(String)
     prefix[wiki.project == 'wikimedia' ? wiki.language : wiki.project]
+  end
+
+  def fetch_page_content
+    WikiApi.new(wiki).get_page_content(escaped_full_title)
   end
 
   private

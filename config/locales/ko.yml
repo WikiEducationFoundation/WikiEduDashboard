@@ -455,8 +455,6 @@ ko:
       title: '%{prefix} 선택'
   metrics:
     last_update: 최근 통계 업데이트
-    late_update_part1: 새 업데이트가 예정되었습니다
-    late_update_part2: 이는 업데이트가 예상보다 더 오래 소요되거나 업데이트가 차단되는 문제임을 의미할 수 있습니다.
     no_update: 대시보드는 아직 이 프로그램의 데이터를 가져오지 못했습니다.
     enqueued_update: 이 프로그램은 업데이트 대기열에 추가되었습니다.
     activity: 최근 활동

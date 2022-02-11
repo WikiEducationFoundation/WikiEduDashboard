@@ -7,10 +7,11 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil)
     @current_user = current_user
     @campaign_param = campaign_param
     @page = page
+    @tag = tag
     @courses_list = courses_list || campaign_courses
   end
 
@@ -32,6 +33,8 @@ class CoursesPresenter
   # If there are too many articles, this query can take a VERY long time.
   ARTICLE_SORTING_LIMIT = 50000
   def campaign_articles
+    return tag_articles if @tag
+
     too_many = campaign.articles_courses.count > ARTICLE_SORTING_LIMIT
     articles = campaign.articles_courses.tracked
                        .includes(article: :wiki)
@@ -39,6 +42,13 @@ class CoursesPresenter
                        .paginate(page: @page, per_page: 1000)
     articles = articles.order('articles.deleted', character_sum: :desc) unless too_many
     articles
+  end
+
+  def tag_articles
+    ArticlesCourses.tracked.includes(article: :wiki)
+                   .includes(:course).where(courses: { private: false })
+                   .where(course: @courses_list)
+                   .paginate(page: @page, per_page: 1000)
   end
 
   def can_remove_course?

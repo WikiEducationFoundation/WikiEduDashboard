@@ -1,6 +1,7 @@
 # Messages for Polish (polski)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Chrumps
 # Author: CiaPan
 # Author: DeRudySoulStorm
@@ -429,7 +430,7 @@ pl:
     new_week: Dodaj nowy tydzień
     new_account_check_username: Sprawdź dostępność nazwy użytkownika
     new_account_email: Adres e‐mail
-    new_account_email_placeholder: nazwa@przyklad.org
+    new_account_email_placeholder: nazwa@example.org
     new_account_username_invalid: To nie jest poprawna nazwa użytkownika.
     new_account_username_taken: Ta nazwa użytkownika jest już zajęta. Wybierz inną.
     new_account_submit: Wniosek o założenie konta

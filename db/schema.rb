@@ -183,7 +183,15 @@ ActiveRecord::Schema.define(version: 2021_06_29_163706) do
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
   end
 
-  create_table "courses", id: :integer, charset: "utf8mb3", force: :cascade do |t|
+  create_table "course_stats", charset: "utf8", force: :cascade do |t|
+    t.text "stats_hash"
+    t.integer "course_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_course_stats_on_course_id"
+  end
+
+  create_table "courses", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -586,4 +594,5 @@ ActiveRecord::Schema.define(version: 2021_06_29_163706) do
     t.index ["language", "project"], name: "index_wikis_on_language_and_project", unique: true
   end
 
+  add_foreign_key "course_stats", "courses"
 end

@@ -76,6 +76,8 @@ const fetchAdminAlertsPromise = () => fetchAlertsPromise('/alerts_list.json');
 
 const fetchCampaignAlertsPromise = slug => fetchAlertsPromise(`/campaigns/${slug}/alerts.json`);
 
+const fetchTaggedCourseAlertsPromise = tag => fetchAlertsPromise(`/tagged_courses/${tag}/alerts.json`);
+
 const fetchCourseAlertsPromise = slug => fetchAlertsPromise(`/courses/${slug}/alerts.json`);
 
 const receiveAlerts = dispatch => data => dispatch({ type: types.RECEIVE_ALERTS, data });
@@ -93,6 +95,14 @@ export const fetchAdminAlerts = () => (dispatch) => {
 export const fetchCampaignAlerts = campaignSlug => (dispatch) => {
   return (
     fetchCampaignAlertsPromise(campaignSlug)
+      .then(receiveAlerts(dispatch))
+      .catch(apiFail(dispatch))
+  );
+};
+
+export const fetchTaggedCourseAlerts = tag => (dispatch) => {
+  return (
+    fetchTaggedCourseAlertsPromise(tag)
       .then(receiveAlerts(dispatch))
       .catch(apiFail(dispatch))
   );

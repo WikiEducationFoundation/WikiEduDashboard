@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Bengtsson96
 # Author: Fader
 # Author: Jopparn
@@ -382,7 +383,7 @@ sv:
     new_week: Lägg till ny vecka
     new_account_check_username: Kontrollera användarnamnets tillgänglighet
     new_account_email: E-postadress
-    new_account_email_placeholder: namn@exempel.org
+    new_account_email_placeholder: namn@example.org
     new_account_info: För att begära ett konto, ange din e-postadress och ditt önskade
       användarnamn. Ett lösenord kommer att e-postas till dig när kontot har skapats.
     new_account_username: Begärt användarnamn

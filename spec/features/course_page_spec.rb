@@ -477,6 +477,25 @@ describe 'the course page', type: :feature, js: true do
     end
   end
 
+  describe 'uploads view when no uploads' do
+    it 'displays a message when there are no uploads in gallery view' do
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_content 'This project has not contributed any images or other media'
+    end
+
+    it 'displays a message when there are no uploads in list view' do
+      visit "/courses/#{slug}/uploads"
+      find('button#list-view').click
+      expect(page).to have_content 'This project has not contributed any images or other media'
+    end
+
+    it 'displays a message when there are no uploads in tile view' do
+      visit "/courses/#{slug}/uploads"
+      find('button#tile-view').click
+      expect(page).to have_content 'This project has not contributed any images or other media'
+    end
+  end
+
   describe '/manual_update' do
     it 'updates the course cache' do
       user = create(:user)

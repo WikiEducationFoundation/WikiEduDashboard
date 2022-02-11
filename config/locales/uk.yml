@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aced
+# Author: Ajeje Brazorf
 # Author: Alex Khimich
 # Author: Alexander Yukal
 # Author: Andrew J.Kurbiko
@@ -165,12 +166,14 @@ uk:
       tracked: Відстежувані
       untracked: Невідстежувані
       tracked_and_untracked: Відстежувані та невідстежувані
+    find: Знайти статті
     hide: Приховати
     history: (історія)
     label: Статті
     loading: Завантаження статей…
     new: (нова)
     none: Цей курс ще не редагував жодні статті.
+    preview: Короткий перегляд статті
     rating: Клас
     rating_doc: Оцінку статті було визначено вікіпроєктами Вікіпедії. Ці оцінки можуть
       відповідати найстарішим версіям, тож вони є тільки грубим індикатором зрілості
@@ -192,6 +195,7 @@ uk:
       '?': Не оцінена — стаття, яку не було оцінено за шкалою якості Вікіпедії
       does_not_exist: Цієї статті немає у Вікіпедії
     see_more: Див. більше
+    search: Знайдіть статтю у Вікіпедії
     show_cumulative_changes: Показати сукупні зміни
     show_current_version: Показати поточну версію
     show_current_version_with_authorship_highlighting: Поточна версія з підсвіткою
@@ -224,9 +228,30 @@ uk:
     articles_short: Статті
   items:
     items: Елементи
+    article_not_found: Цей елемент ще не створено.
     assigned: Призначені елементи
     assignments_none: Ще немає призначених елементів.
     available: Доступні елементи
+    character_doc: Сума символів, доданих до елементів зареєстрованими редакторами
+      між датами початку та завершення
+    cross_wiki_tracking: Нижче наведено сторінки основного простору, редаговані між
+      датами початку та завершення. Панель інструментів збирає внески з домашньої
+      вікі цієї програми, а також будь-яких інших вікі, для яких є призначення або
+      доступний елемент.
+    does_not_exist: Пункт не існує. Створіть сторінку «Пісочниця» і призначте себе
+      до неї, щоб отримувати пропозиції.
+    edited: Елементи відредаговані
+    edited_none: Ще немає відредагованих елементів.
+    find: Знайти елементи
+    preview: Короткий перегляд елемента
+    search: Пошук елемента у Вікіданих
+    tracked_doc: Лише відстежувані елементи беруть участь у статистиці для цієї програми.
+      Якщо елементи позначено як невідстежувані, вони будуть вилучені зі статистики
+      під час наступного оновлення даних.
+    view_doc: Приблизні перегляди кожного елемента з моменту його першого редагування
+      за допомогою останнього оновлення статистичних даних. Ви можете використовувати
+      pageviews.toolforge.org, щоб побачити точні цифри.
+    title_example: Назва елементу
   articles_wikidata:
     articles_short: Елементи
   articles_generic:
@@ -234,26 +259,36 @@ uk:
   assignments:
     article: Статтю %{title} тепер закріплено за вами.
     article_link: Стаття
+    article_link_wikidata: Елемент
     already_exists: Це завдання вже існує!
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити/вилучити статтю
+    assign_other_wikidata: Призначити/вилучити елемент
     add_available: Додати доступні статті
+    add_available_wikidata: Додайте доступні елементи
     add_available_placeholder: Додавання однієї назви статті або URL-посилання в одному
       рядку
+    add_available_placeholder_wikidata: Додайте один заголовок або URL-адресу елемента
+      на рядок
     add_available_submit: Додати статті
+    add_available_submit_wikidata: Додати елементи
     assign_self: Призначити собі статтю
+    assign_self_wikidata: Призначити собі елемент
     assign_tooltip: Задана стаття — це та, яку ви плануєте створити чи покращити.
+    assign_tooltip_wikidata: Призначений елемент — це той, який ви плануєте створити
+      або поліпшити.
     bibliography: Бібліографія
     clone: Клонувати
     confirm_add_available: Ви дійсно хочете додати %{title}?
     confirm_addition: Ви дійсно хочете задати %{title} користувачу %{username}?
-    confirm_deletion: Ви дійсно хочете вилучити це призначення статті?
+    confirm_deletion: Ви дійсно хочете вилучити це призначення?
     editors: Задано
     group_members: Члени групи
     label: Призначити
     loading: Завантаження завдань…
     none_short: Немає призначених статей
+    none_short_wikidata: Немає призначених елементів
     none: Цей курс не має заданих статей.
     no_available: Цей курс не має доступних статей.
     peer_review_count: '%{currentCount}/%{total} вибрано'
@@ -261,20 +296,36 @@ uk:
     peer_review_link: Перевірка колегами
     peer_review_link_personalized: Рецензія від %{username}
     random_peer_review:
-      confirm_addition: |-
-        У більшості випадків ви повинні використовувати це лише після того, як усі студенти отримають свої основні статті.
-        Крім того, ви можете попросити своїх студентів вибрати власні експертні оцінки або ви можете вручну призначити експертні оцінки, натиснувши рядок студента, а потім скориставшись кнопкою «Призначити/видалити експертну рецензію».
-        Натиснувши «ОК», буде призначено загалом %{count} додаткових експертних оцінок, з максимальною кількістю %{maximum} для кожного студента, вибраного зі статей його однокласників.
+      confirm_addition: У більшості випадків ви повинні використовувати це лише після
+        того, як усі студенти отримають свої основні статті. Крім того, ви можете
+        попросити своїх студентів вибрати власні експертні оцінки або ви можете вручну
+        призначити експертні оцінки, натиснувши рядок студента, а потім скориставшись
+        кнопкою «Призначити/видалити експертну рецензію». Натиснувши «ОК», буде призначено
+        загалом %{count} додаткових експертних оцінок, з максимальною кількістю %{maximum}
+        для кожного студента, вибраного зі статей його однокласників.
+      confirm_addition_wikidata: 'У більшості випадків ви повинні використовувати
+        це лише після того, як усі студенти отримають основні елементи. Крім того,
+        ви можете попросити своїх студентів вибрати власні експертні оцінки або ви
+        можете вручну призначити експертні оцінки, натиснувши рядок студента, а потім
+        скориставшись кнопкою «Призначити/видалити експертну рецензію». Натиснувши
+        «ОК», буде призначено додаткову кількість експертних оцінок: %{count}, максимум
+        %{maximum} для кожного учня, вибраного з-поміж елементів його однокласників.'
       heading: Призначити випадкові рецензії
       tooltip_message: Призначає кожному студенту випадкові статті (з максимальним
         значенням кількості рецензій)
+      tooltip_message_wikidata: Кожному студенту призначає випадкові елементи (з максимальною
+        кількістю експертних оцінок).
       limit_exceeded: Кожен студент уже рецензує принаймні %{maximum} статтю(ей).
+      limit_exceeded_wikidata: Кожен учень уже переглядає принаймні %{maximum} елемент(-ів).
     remove: Вилучити
     reviewers: Оцінювач(і)
     review_other: Призначити/вилучити рецензію
     review_self: Перевірити статтю
+    review_self_wikidata: Переглянути елемент
     review_tooltip: Це щоб слідкувати, яку(-і) статтю(-і) ви плануєте рецензувати
       чи зробити відгук.
+    review_tooltip_wikidata: Це для елементу(-ів), які ви плануєте перевірити або
+      надати відгук.
     sandbox_draft_link: Чернетка у пісочниці
     select: Обрати
     warning_untracked_wiki: 'Зверніть увагу, що обрана вами стаття розміщена на вікі,
@@ -295,10 +346,10 @@ uk:
     already_exists: Ця кампанія вже існує! Будь ласка, спробуйте ще раз із іншою назвою
       чи скороченням.
     campaign: Кампанія
-    campaigns: Компанії
+    campaigns: Кампанії
     campaign_deleted: Кампанія «%{title}» вилучена
     campaign_not_updated: Кампанія не може бути змінена
-    campaign_updated: Компанію оновлено
+    campaign_updated: Кампанію оновлено
     created_at: Дата
     confirm_campaign_deletion: Ви впевнені, що хочете вилучити кампанію «%{title}»?
       Якщо так, введіть назву кампанії, щоб продовжити.
@@ -403,14 +454,21 @@ uk:
     actions: Дії
     articles: Статті
     article_viewer: Оглядач статей
+    article_viewer_wikidata: Засіб перегляду елементів
+    articles_i_am_reviewing_wikidata: Елементи, які я перевіряю
     articles_i_am_reviewing: Статті, рецензовані мною
     articles_i_will_create: Я буду створювати статті
+    articles_i_will_create_wikidata: Елементи, які я створюю
     articles_i_am_updating: Статті я оновлюю
+    articles_i_am_updating_wikidata: Елементи, які я оновлюю
     assignment_headings:
       assigned_articles: Задані статті
+      assigned_articles_wikidata: Призначені елементи
       assigned_reviews: Призначені рецензії
       available_articles: Доступні статті
+      available_articles_wikidata: Доступні елементи
       available_reviews: Статті однокласників
+      available_reviews_wikidata: Елементи однокласників
     assignment_end: Кінець завдання
     assignment_start: Початок завдання
     calendar:
@@ -422,7 +480,7 @@ uk:
     cancel: Скасувати
     character_doc: Сума символів, доданих до статей в основному просторі назв студентами
       курсу впродовж семестру курсу
-    campaigns: 'Компанії:'
+    campaigns: 'Кампанії:'
     campaign_articles: Статті %{title}
     campaign_courses: Курси %{title}
     campaign_select: Обрати кампанію
@@ -598,6 +656,12 @@ uk:
       one: Інструктор
       other: Інструктори
     instructors: Інструктори
+    instructor_message: Це той самий інтерфейс «Мої статті», які мають студенти. Ви
+      можете використовувати його для проходження тих самих кроків, які пройдуть студенти.
+      Однак відстежуватимуться лише внески студентів.
+    instructor_message_wikidata: Це той самий інтерфейс «Мої елементи», які мають
+      студенти. Ви можете використовувати його для проходження тих самих кроків, які
+      пройдуть студенти. Однак відстежуватимуться лише внески студентів.
     invitation: Вас було запрошено приєднатись до %{title}. Щоб приєднатись до цього
       курсу, Вам необхідно увійти до системи під Вашим обліковим записом Вікіпедії.
     invitation_username_advice: Якщо у Вас ще немає облікового запису у Вікіпедії,
@@ -627,11 +691,12 @@ uk:
     loading: Завантаження…
     milestones_none: У цьому курсі наразі немає жодних віх.
     my_articles: Мої статті
+    my_articles_wikidata: Мої елементи
     needs_update: Запланувати оновлення даних
     new_week: Додати новий тиждень
     new_account_check_username: Перевірити доступність імені користувача
     new_account_email: Адреса електронної пошти
-    new_account_email_placeholder: ім'я@приклад.org
+    new_account_email_placeholder: ім'я@example.org
     new_account_info: Щоб зробити запит на обліковий запис, введіть свою ел. пошту
       і бажане ім'я користувача. Після створення облікового запису одним з фасилітаторів,
       на вашу ел. пошту прийде лист з паролем.
@@ -680,8 +745,11 @@ uk:
       other: Очікують %{count} запити на обліковий запис.
     requested_accounts_alert_view: Переглянути
     retain_available_articles: Зберегти доступні статті
+    retain_available_articles_wikidata: Зберігайте доступні елементи
     retain_available_articles_info: Якщо цей параметр увімкнено, вибір доступної статті
       не видаляє її зі списку, дозволяючи групі студентів вибрати ту саму статтю.
+    retain_available_articles_info_wikidata: Якщо ввімкнено, вибір доступного елемента
+      не вилучає його зі списку, дозволяючи групі студентів вибрати той самий елемент.
     review_timeline: 'Тепер, перевірте графік вашого завдання, вносячи зміни відповідно
       до власних потреб. Коли Ви станете задоволеними своїм графіком, ви можете надіслати
       його на схвалення штатним працівникам Wiki Education. Після затвердження Ви
@@ -788,6 +856,7 @@ uk:
     articles_i_am_reviewing: Статті, оглянуті мною
     assignment_headings:
       available_reviews: Доступно для огляду
+      available_reviews_wikidata: Доступно для огляду
     assignment_end: Кінець події
     assignments_none: У цьому проєкті немає заданих статей.
     assignment_start: Початок події
@@ -795,7 +864,7 @@ uk:
     course: Програма
     courses: Програми
     courses_taught: Викладено програм
-    campaigns: 'Компанії:'
+    campaigns: 'Кампанії:'
     campaign_courses: Програми %{title}
     creator:
       assignment_end: Кінець події
@@ -881,6 +950,8 @@ uk:
     view_page: Переглянути сторінку програми
     word_count_doc: Приблизна кількість слів, доданих до статей в основному просторі
       назв редакторами програми протягом терміну дії програми
+    word_count_doc_wikidata: Оцінка кількості слів, доданих редакторами програми до
+      елементів основного простору протягом терміну програми
     yourcourses: Ваші програми
   editable:
     edit: Редагувати
@@ -894,16 +965,21 @@ uk:
   instructor_view:
     article_assignments: '%{prefix} призначення'
     assignments_table:
-      article_name: Назва статті
+      article_name: Назва
       current_stage: Поточний стан
       relevant_links: Релевантні посилання
     assigned_articles: Призначені статті
+    assigned_articles_wikidata: Призначені елементи
     bad_work:
       learn_more: Якщо студент погіршив статтю, рекомендуємо вам відредагувати її
         самостійно. В іншому разі просимо повідомити нам про проблеми, щоб ми могли
         їх вирішити пізніше.
+      learn_more_wikidata: Якщо студентська робота погіршила цей пункт, ми рекомендуємо
+        вам відредагувати його самостійно. В іншому випадку, дайте Нам знати про проблеми,
+        щоб ми могли їх усунути пізніше.
       learn_more_button: Дізнатися більше
       submit_issue: Які суттєві проблеми має ця стаття?
+      submit_issue_wikidata: Які суттєві проблеми із цим предметом?
       submit_issue_placeholder: Чим більше експертних точок зору та подробиць ви можете
         надати, тим краще.
       thank_you: Дякуємо! Зв'яжіться із вашим експертом по вікі, якщо у вас є додаткові
@@ -911,26 +987,39 @@ uk:
     exercises_and_trainings: '%{prefix} вправи й тренінги'
     no_assignments: Цей студент наразі не має призначених статей. Можете призначити
       статтю за допомогою кнопок вище.
+    no_assignments_wikidata: Цей студент наразі не має призначених елементів. Ви можете
+      призначити елемент за допомогою кнопок вище.
     overview: '%{prefix} огляд'
     reviewing_articles: Огляд статей
+    reviewing_articles_wikidata: Переглянуті елементи
     select_student:
       title: Виберіть %{prefix}
       content: для того, щоб призначити й переглянути призначення статей
+      content_wikidata: для призначення та перегляду призначень елементів
   metrics:
     label: Активність курсу
     last_update: Останнє оновлення статистики
     next_update: Наступне плановане оновлення
-    late_update_part1: Очікувалося нове оновлення
+    late_update: Очікувалося нове оновлення %{late_update_time}. Це може означати,
+      що оновлення триває довше, ніж очікувалося, або може свідчити про проблему,
+      яка блокує оновлення.
+    no_update: Панель інструментів ще не імпортувала жодних даних для цієї програми.
+    enqueued_update: Цю програму додано до черги оновлення.
+    first_update: Орієнтовний початок оновлення статистики
     activity: Недавня активність
     are_trained: без запізнень у навчанні
     articles_created: Створені статті
     articles_created_wikidata: Створені елементи
     articles_created_generic: Створені сторінки
+    articles_created_generic_wikidata: Створені елементи
     articles_edited: Редаговані статті
     articles_edited_wikidata: Додані елементи
     articles_edited_generic: Відредаговані сторінки
+    articles_edited_generic_wikidata: Відредаговані елементи
     article_scoped_program_info: Це «програма конкретних статей», якраз рахує лише
       редагування у призначених статтях і категоріях.
+    article_scoped_program_info_wikidata: Це «Програма з об’ємом статей», яка враховує
+      лише зміни до призначених елементів та категорій.
     bytes_added: Байтів додано
     characters: Символи
     char_added: Додано символів
@@ -961,6 +1050,9 @@ uk:
     references_doc: Це кількість тегів приміток, доданих до статей, сюди враховуватимуться
       і багаторазові примітки на те саме джерело. Дані надходять з моделі якості статей
       ORES і доступні лише кількома мовами.
+    references_doc_wikidata: Це кількість тегів посилань, доданих до елементів, і
+      може включати кілька посилань на одне джерело. Дані надходять з моделі якості
+      товару ORES і доступні лише для деяких мов.
     replag_info: Панель отримує дані про редагування з хмарної копії баз даних ФВМ.
       Інколи ці бази даних не містять найсвіжіших редагувань наслідок затримки реплікації
       (replag). Коли так сталося, редагування, яких бракує, просто покажуться пізніше.
@@ -973,10 +1065,14 @@ uk:
     uploads_in_use_count:
       one: файл використовується у статті
       other: файли використовується у статтях
+    uploads_in_use_count_wikidata:
+      one: файл, який використовується в елементі
+      other: файли, що використовуються в елементах
     upload_usages_count:
       one: використання в різних мовах
       other: використання всього в різних мовах
     view_count_description: Переглядів статей
+    view_count_description_wikidata: Перегляди елементу
     view_data_unavailable: Немає доступних даних переглядів
     view: Переглядів
     wiki_ed_help: Скористайтеся кнопкою «Отримати допомогу», щоб повідомити про проблему.
@@ -990,7 +1086,7 @@ uk:
     user_ns: Користувач
   recent_activity:
     active_courses: Стаття активна в
-    article_title: Назва статті
+    article_title: Назва
     datetime: Дата/час
     did_you_know_eligible: Підхожа для Чи знаєте Ви що
     image: Зображення
@@ -1214,8 +1310,10 @@ uk:
   users:
     already_enrolled: Цей користувач вже записаний!
     assign_articles: Призначити статті
+    assign_articles_wikidata: Призначити елементи
     assign_articles_done: Готово
     assigned: Задані статті
+    assigned_wikidata: Призначені елементи
     assignees: Задано
     loading_authorship_data: завантаження даних про авторство
     authorship_data_not_fetched: не вдалося дістати даних про авторство
@@ -1225,6 +1323,7 @@ uk:
       вмісту, доданого користувачем. Відновлення вилученого вмісту також збільшуватиме
       цю суму.
     chars_added: Символів додано <br>(стаття | користувач | чернетка)
+    chars_added_wikidata: Додані символи<br>(item | user | draft)
     contributions: Внесок користувача
     contributions_history_full: Переглянути всю історію внеску
     contributions_more: Переглянути більше внесків
@@ -1246,6 +1345,7 @@ uk:
     last_name: Прізвище
     loading: Завантаження користувачів…
     characters_added_mainspace: Додано символів (до статей)
+    characters_added_mainspace_wikidata: Додані символи (елемент)
     characters_added_short: 'ОП: %{mainspace}, ПК %{userspace}'
     characters_added_userspace: Додано символів (до сторінок користувачів)
     characters_added_draftspace: Додано символів (до чернеток)
@@ -1254,12 +1354,16 @@ uk:
     name: Ім'я
     none: Немає користувачів.
     no_articles: Немає статей
+    no_articles_wikidata: Без елементів
     no_revisions: Цей редактор не зробив жодних редагувань.
     no_highlighting: Цьому редактору не приписано жодного тексту з поточної версії
       статті. Перегляньте історію сторінки, щоб побачити їхні редагування.
     number_of_articles:
       one: '%{count} стаття'
       other: '%{count} статті'
+    number_of_articles_wikidata:
+      one: '%{count} елемент'
+      other: '%{count} елементів'
     profile: профіль
     recent_revisions: Останні зміни
     references_count: Додано приміток
@@ -1450,8 +1554,11 @@ uk:
       why_are_you_here: Що б ви хотіли зробити?
   article_finder:
     add_available_article: Додати як доступну статтю
+    add_available_article_wikidata: Додати як доступний елемент
     article_finder: Пошук статті
+    article_finder_wikidata: Пошук предметів
     article_quality: Якість статті (0-100)
+    article_quality_wikidata: Якість елементу(0-100)
     assign_article_self: Призначити себе
     average_views: Середня кількість переглядів на день
     category_search: Шукати в категорії
@@ -1461,23 +1568,30 @@ uk:
     fetching_pageviews: Відбирання переглядів сторінок
     fetching_revisions: Відбирання версій сторінок
     fetched_articles: Відібрані статті
+    fetched_articles_wikidata: Отримані елементи
     filtered_articles: Фільтровані статті
+    filtered_articles_wikidata: Відфільтровані елементи
     hide_options: Сховати параметри
     keyword_search: Шукати за ключовим словом
     minimum_views_label: Мінімум переглядів
     more_results: Більше результатів
     no_article_found: Не знайдено статей у цій категорії
+    no_article_found_wikidata: У цій категорії не знайдено жодного елемента
     page_assessment_class: Клас
     relevanceIndex: Індекс релевантності
     remove_article: Вилучити статтю
+    remove_article_wikidata: Вилучити елементи
     search: Пошук
     searching_articles: Пошук статей
+    searching_articles_wikidata: Пошук елементів
     search_placeholder: Введіть ключове слово
     show_options: Показати параметри
     subheading_message: Давайте знайдемо статтю Вікіпедії, над якою можна попрацювати.
+    subheading_message_wikidata: Давайте знайдемо елемент Вікіданих для роботи.
     submit: Надіслати
     tools: Інструменти
     unassign_article_self: Скасувати призначення статті
+    unassign_article_self_wikidata: Скасувати призначення елемента
   training_status:
     completed: Завершено
     continue: Продовжити

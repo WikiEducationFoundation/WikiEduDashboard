@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Akapochtli
+# Author: Languaeditor
 # Author: Taresi
 ---
 nah:
@@ -21,7 +22,7 @@ nah:
   revisions:
     diff_show: Monextiz
   training:
-    page: Tlahcuilolamatl
+    page: Tlahkwilolamatl
   users:
     name: Tocaitl
   wizard:

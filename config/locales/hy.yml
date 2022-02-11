@@ -1,6 +1,7 @@
 # Messages for Armenian (հայերեն)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 23artashes
 # Author: Aram1985
 # Author: Azniv Stepanian
 # Author: Kareyac
@@ -15,7 +16,7 @@ hy:
     cookie_consent_acknowledge: Հասկանում եմ
     cookie_consent_see_more: Տեսնել ավելին
     create_accounts: Ստեղծել մասնակցային հաշիվ Վիքիպեդիայում
-    dashboard: Վիկի Ղեկավարման Վահանակ
+    dashboard: Վիքի ղեկավարման վահանակ
     documentation: Փաստաթղթեր
     error: Սխալ՝
     explore: Բացահայտել

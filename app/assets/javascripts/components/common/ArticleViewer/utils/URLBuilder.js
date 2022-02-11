@@ -1,3 +1,5 @@
+const WIKIWHO_DOMAIN = 'https://wikiwho-api.wmcloud.org';
+
 export class URLBuilder {
   constructor({ article, users }) {
     this.article = article;
@@ -31,8 +33,8 @@ export class URLBuilder {
     if (!language) throw new TypeError('Article language is missing!');
     if (!title) throw new TypeError('Article title is missing!');
 
-    const url = `https://api.wikiwho.net/${language}/whocolor/v1.0.0-beta/${title}/`;
-    return encodeURI(url);
+    const url = `${WIKIWHO_DOMAIN}/${language}/whocolor/v1.0.0-beta/${encodeURIComponent(title)}/`;
+    return url;
   }
 
   wikiwhoColorRevisionURL() {
@@ -42,8 +44,8 @@ export class URLBuilder {
     if (!title) throw new TypeError('Article title is missing!');
 
     const query = '?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
-    const url = `https://api.wikiwho.net/${language}/api/v1.0.0-beta/rev_content/${title}/${query}`;
-    return encodeURI(url);
+    const url = `${WIKIWHO_DOMAIN}/${language}/api/v1.0.0-beta/rev_content/${encodeURIComponent(title)}/${query}`;
+    return url;
   }
 
   wikiUserQueryURL(users = this.users) {

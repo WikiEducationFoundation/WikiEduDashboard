@@ -13,6 +13,7 @@ import SettingsHandler from '../settings/settings_handler.jsx';
 import TicketsHandler from '../tickets/tickets_handler.jsx';
 import TicketShowHandler from '../tickets/ticket_show_handler.jsx';
 import Campaign from '../campaign/campaign.jsx';
+import TaggedCourseAlerts from '../alerts/tagged_course_alerts.jsx';
 
 const routes = (
   <Switch>
@@ -28,6 +29,7 @@ const routes = (
     <Route exact path="/tickets/dashboard" component={TicketsHandler} />
     <Route exact path="/tickets/dashboard/:id" component={TicketShowHandler} />
     <Route path="/campaigns/:campaign_slug" component={Campaign} />
+    <Route path="/tagged_courses/:tag/alerts" component={TaggedCourseAlerts} />
   </Switch>
 );
 

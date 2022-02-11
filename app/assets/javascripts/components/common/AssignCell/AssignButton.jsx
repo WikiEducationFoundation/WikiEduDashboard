@@ -222,7 +222,7 @@ export class AssignButton extends React.Component {
 
   componentDidMount() {
     this.setState({
-      language: this.props.course.home_wiki.language,
+      language: this.props.course.home_wiki.language || 'www',
       project: this.props.course.home_wiki.project
     });
   }

@@ -1,6 +1,7 @@
 # Messages for Welsh (Cymraeg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Cymrodor
 # Author: Robin Owain
 # Author: Troswr
@@ -370,7 +371,7 @@ cy:
     new_week: Ychwanegwch Wythnos Newydd
     new_account_check_username: Edrychwch os yw'r enw defnyddiwr ar gael
     new_account_email: Cyfeiriad ebost
-    new_account_email_placeholder: enw@engreifftiol.org
+    new_account_email_placeholder: enw@example.org
     new_account_username: Yr enw-defnyddiwr a geisir
     new_account_username_invalid: Enw-defnyddiwr annilys.
     new_account_username_placeholder: Wiki Editor 123

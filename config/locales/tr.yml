@@ -1,9 +1,11 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: BaRaN6161 TURK
 # Author: Botansahin
 # Author: By erdo can
+# Author: Can
 # Author: Chansey
 # Author: Elftrkn
 # Author: Evrifaessa
@@ -170,12 +172,14 @@ tr:
       tracked: İzlenen
       untracked: İzlenmeyen
       tracked_and_untracked: İzlenen ve İzlenmeyen
+    find: Madde Bul
     hide: Gizle
     history: (geçmiş)
     label: Makale
     loading: Makaleler yükleniyor...
     new: (yeni)
     none: Bu kursta herhangi bir makale düzenlenmedi.
+    preview: Maddenin kısa önizlemesi
     rating: Sınıf
     rating_doc: Bir maddenin derecelendirmesi Vikipedi üzerinde VikiProje tarafından
       atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
@@ -200,6 +204,7 @@ tr:
         bir makalesi'
       does_not_exist: Bu makale, Vikipedi'de mevcut değil
     see_more: Daha fazla gör
+    search: Vikipedi'de Madde Arayın
     show_cumulative_changes: Birikmiş Değişiklikleri Göster
     show_current_version: Mevcut Sürümü Göster
     show_current_version_with_authorship_highlighting: Yazar Vurgulamalı Güncel Sürüm
@@ -229,6 +234,12 @@ tr:
       takip ettiğini gösterir, ancak içeriğin kendisini dikkate almaz. (Bu puanlar
       yalnızca İngilizce Vikipedi makaleleri için geçerlidir.)'
     articles_short: Makale
+  items:
+    article_not_found: Bu öge henüz oluşturulmadı.
+    find: Öge Bul
+    preview: Ögenin kısa önizlemesi
+    search: Wikidata'da Öge Arayın
+    title_example: Öge başlığı
   articles_wikidata:
     articles_short: Öge
   articles_generic:
@@ -236,14 +247,19 @@ tr:
   assignments:
     article: '%{title} makalesi artık size devredilmiştir.'
     article_link: Makale
+    article_link_wikidata: Ögeler
     already_exists: Bu devir işlemi zaten yapılmış!
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
     assign_other: Bir makaleyi devredin
+    assign_other_wikidata: Öge ata/kaldır
     add_available: Mevcut makaleleri ekleyin
     add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
+    add_available_placeholder_wikidata: Her satır için bir öge başlığı veya URL ekleyin
     add_available_submit: Makale ekle
+    add_available_submit_wikidata: Öge ekle
     assign_self: Bir makaleyi kendime devredeyim
+    assign_self_wikidata: Kendimi bir ögeye ata
     assign_tooltip: Atanan bir makale, oluşturmayı veya geliştirmeyi planladığınız
       bir maddedir.
     bibliography: Bibliyografya
@@ -257,6 +273,7 @@ tr:
     label: Ata
     loading: Atamalar yükleniyor...
     none_short: Herhangi bir makale atanmadı
+    none_short_wikidata: Atanmış öge yok
     none: Bu kursun atanmış makalesi bulunmamaktadır.
     no_available: Bu kursun atanmış makalesi bulunmamaktadır.
     peer_review_count: '%{currentCount}/%{total} seçildi'
@@ -275,6 +292,7 @@ tr:
     reviewers: İnceleyici
     review_other: Akran değerlendirmesi ata
     review_self: Bir makaleyi incele
+    review_self_wikidata: Ögeyi Gözden geçirin
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
       makale içindir.
     sandbox_draft_link: Deneme Tahtası Taslağı
@@ -328,7 +346,7 @@ tr:
     data_editors_by_course: Kurs editörü
     data_editors_by_course_info: Kayıtlı editörlerin ve kurslarının/programlarının
       listesi
-    data_editor_usernames: Editör kullanıcı adı
+    data_editor_usernames: Düzenleyici kullanıcı adları
     data_editor_usernames_info: Editör kullanıcı adlarının listesi, her satıra bir
       tane
     default_course_type: Varsayılan Kurs Türü
@@ -408,13 +426,19 @@ tr:
     actions: Eylemler
     articles: Makale
     article_viewer: Makale Görüntüleyici
+    article_viewer_wikidata: Öge Görüntüleyici
+    articles_i_am_reviewing_wikidata: Eş-gözden geçirme yaptığım Ögeler
     articles_i_am_reviewing: Akran incelemesinden aldığım makale
     articles_i_will_create: Oluşturacağım maddeler
+    articles_i_will_create_wikidata: Oluşturacağım Ögeler
     articles_i_am_updating: Güncellediğim maddeler
+    articles_i_am_updating_wikidata: Güncellediğim Ögeler
     assignment_headings:
       assigned_articles: Atanmış Makale
+      assigned_articles_wikidata: Atanan Ögeler
       assigned_reviews: Atanmış İncelemeler
       available_articles: Kullanılabilir Makale
+      available_articles_wikidata: Mevcut Ögeler
       available_reviews: Sınıf Arkadaşları Maddeleri
     assignment_end: Atama Sonu
     assignment_start: Atama Başlangıcı
@@ -551,7 +575,7 @@ tr:
     data_edits: Düzenleme verileri
     data_edits_info: Düzenleme verileri, proje sırasında yapılan her düzenleme için
       detayları gösterir.
-    data_students: Editör verileri
+    data_students: Düzenleyici verileri
     data_students_info: Editör verileri, tüm kayıtlı editörleri, ne kadar düzenleme
       yaptıklarını ve proje sırasında hesaplarını kaydettirip kaydetmediklerini listeler.
     data_uploads: Commons yükleme verileri
@@ -631,11 +655,12 @@ tr:
     loading: Yükleniyor...
     milestones_none: Bu kursun şu anda herhangi bir dönüm noktası bulunmamaktadır.
     my_articles: Makalelerim
+    my_articles_wikidata: Ögelerim
     needs_update: Programlanmış Veri Güncellemesi
     new_week: Yeni Hafta Ekle
     new_account_check_username: Kullanıcı adı müsaitliğini kontrol et
     new_account_email: E-posta adresi
-    new_account_email_placeholder: ornek@ornek.org
+    new_account_email_placeholder: ornek@example.org
     new_account_info: Bir hesap istemek için e-posta adresinizi ve istediğiniz kullanıcı
       adını girin. Hesap, kolaylaştırıcılardan biri tarafından oluşturulduktan sonra
       size bir şifre gönderilecektir.
@@ -788,6 +813,7 @@ tr:
     articles_i_am_reviewing: İncelediğim maddeler
     assignment_headings:
       available_reviews: İncelemeye Uygun
+      available_reviews_wikidata: İncelemeye Uygun
     assignment_end: Etkinlik Sonu
     assignments_none: Bu projede atanmış madde yok.
     assignment_start: Etkinlik Başlangıcı
@@ -844,7 +870,7 @@ tr:
     delete_course: Programı sil
     edit_course_dates: Proje Tarihini Düzenle
     end: Etkinlik izleme sonu
-    enroll: Editör Ekle
+    enroll: Düzenleyici Ekle
     enrollment: Editörleri ekle/kaldır
     explore: Program bul
     courses_enrolled: Katılınan programlar
@@ -865,10 +891,10 @@ tr:
     search_courses: Arama programları
     start: Etkinlik izleme başlangıcı
     student_editors: Editörler
-    student: Editör
+    student: Düzenleyici
     students: Editörler
-    students_taught: Toplam Editör
-    students_none: Bu projede kayıtlı editör yok.
+    students_taught: Toplam Düzenleyici
+    students_none: Bu projede kayıtlı düzenleyici yok.
     students_short: Editörler
     students_count: Katılımcı sayısı
     term: Ne zaman
@@ -894,16 +920,18 @@ tr:
   instructor_view:
     article_assignments: '%{prefix} Atanma'
     assignments_table:
-      article_name: Madde Adı
+      article_name: Ad
       current_stage: Geçerli Adım
       relevant_links: İlgili Bağlantılar
     assigned_articles: Atanmış Maddeler
+    assigned_articles_wikidata: Atanan Ögeler
     bad_work:
       learn_more: Öğrenci çalışması maddeyi daha da kötüleştirdiyse, maddeyi kendiniz
         düzenlemenizi öneririz. Aksi takdirde, sorunları daha sonra çözebilmemiz için
         bize bildirin.
       learn_more_button: Daha Fazla Bilgi
       submit_issue: Bu madde ile ilgili önemli sorunlar nelerdir?
+      submit_issue_wikidata: Bu ögeye ilişkin önemli sorunlar nedir?
       submit_issue_placeholder: Ne kadar uzman bakış açısı ve ayrıntı sunabilirseniz
         o kadar iyidir.
       thank_you: Teşekkür ederim! Başka sorularınız varsa Viki Uzmanınıza başvurun.
@@ -912,9 +940,11 @@ tr:
       kullanarak madde atayabilirsiniz.
     overview: '%{prefix} Genel Bakış'
     reviewing_articles: Makaleleri Gözden Geçirme
+    reviewing_articles_wikidata: İncelenen Ögeler
     select_student:
       title: '%{prefix} Seç'
       content: atamak ve maddeyi görüntülemek için
+      content_wikidata: atama ve öge atamalarını görüntüleme
   metrics:
     label: Kurs Etkinliği
     last_update: Son istatistik güncellemesi
@@ -924,9 +954,11 @@ tr:
     articles_created: Oluşturulan Maddeler
     articles_created_wikidata: Oluşturulan Öğeler
     articles_created_generic: Oluşturulan Sayfalar
+    articles_created_generic_wikidata: Oluşturlan Ögeler
     articles_edited: Düzenlenen Maddeler
     articles_edited_wikidata: Düzenlenmiş Öğeler
     articles_edited_generic: Düzenlenmiş Sayfalar
+    articles_edited_generic_wikidata: Düzenlenmiş Ögeler
     article_scoped_program_info: Bu, yalnızca atanan maddelerde ve kategorilerde yapılan
       düzenlemeleri sayan bir 'Madde Kapsamlı Program'dır.
     bytes_added: Bayt Eklendi
@@ -976,6 +1008,7 @@ tr:
       one: diller genelinde toplam kullanım
       other: diller genelinde toplam kullanım
     view_count_description: Madde Görünümleri
+    view_count_description_wikidata: Öge Görünümleri
     view_data_unavailable: Görüntüleme verisi yok
     view: Görüntülenme
     wiki_ed_help: Bir sorunu bildirmek için 'Yardım Al' düğmesini kullanın.
@@ -989,7 +1022,7 @@ tr:
     user_ns: Kullanıcı
   recent_activity:
     active_courses: Madde etkindir
-    article_title: Madde Başlığı
+    article_title: Başlık
     datetime: Tarih/Saat
     did_you_know_eligible: Uygun olduğunu biliyor muydunuz?
     image: Resim
@@ -1220,8 +1253,10 @@ tr:
   users:
     already_enrolled: Bu kullanıcı zaten kayıtlı!
     assign_articles: Atanmış Maddeler
+    assign_articles_wikidata: Öge Ata
     assign_articles_done: Yapıldı
     assigned: Atanmış Maddeler
+    assigned_wikidata: Atanan Ögeler
     assignees: Devredilen(ler)
     loading_authorship_data: yazarlık verileri yükleniyor
     authorship_data_not_fetched: yazarlık verileri alınamadı
@@ -1230,6 +1265,7 @@ tr:
       Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
       geri yüklenmesi de bu toplamı artıracaktır.
     chars_added: Eklenen Karakterler<br>(madde | kullanıcı | taslak)
+    chars_added_wikidata: Eklenen Karakterler<br>(madde | kullanıcı | taslak)
     contributions: Kullanıcı Katkısı
     contributions_history_full: Tam katkı geçmişini görüntüle
     contributions_more: Diğer Katkıları Görüntüle
@@ -1249,6 +1285,7 @@ tr:
     last_name: Soyad
     loading: Kullanıcılar yükleniyor...
     characters_added_mainspace: Eklenen Karakter (madde)
+    characters_added_mainspace_wikidata: Eklenen Karakter (öge)
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
     characters_added_userspace: Eklenen Karakter (kullanıcı)
     characters_added_draftspace: Eklenen Karakter (taslak)
@@ -1257,7 +1294,8 @@ tr:
     name: Ad
     none: Katılımcı yok.
     no_articles: Madde yok
-    no_revisions: Bu editör hiçbir değişiklik yapmadı.
+    no_articles_wikidata: Öge yok
+    no_revisions: Bu düzenleyici hiçbir revizyon yapmadı.
     no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
       Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:
@@ -1449,8 +1487,11 @@ tr:
       why_are_you_here: Ne yapmak istiyorsun?
   article_finder:
     add_available_article: Kullanılabilir makaleyi ekle
+    add_available_article_wikidata: Kullanılabilir öge olarak ekle
     article_finder: Madde Bulucu
+    article_finder_wikidata: Öge Bulucu
     article_quality: Madde Kalitesi(0-100)
+    article_quality_wikidata: Öge Kalitesi(0-100)
     assign_article_self: Kendini ata
     average_views: Günlük ortalama görüntüleme sayısı
     category_search: Kategori Arama
@@ -1460,24 +1501,31 @@ tr:
     fetching_pageviews: Sayfa Görünümlerini Alma
     fetching_revisions: Sayfa Düzeltmeleri Alınması
     fetched_articles: Getirilen Maddeler
+    fetched_articles_wikidata: Alınan Ögeler
     filtered_articles: Filtrelenen Maddeler
+    filtered_articles_wikidata: Filtrelenmiş Ögeler
     hide_options: Seçenekleri Gizle
     keyword_search: Anahtar Kelime Arama
     minimum_views_label: Minimum Görünümler
     more_results: Daha fazla sonuç
     no_article_found: Bu kategoride hiç madde bulunamadı
+    no_article_found_wikidata: Bu kategoride hiç öge bulunamadı
     page_assessment_class: Sınıf
     relevanceIndex: İlgi İndeksi
     remove_article: Makaleyi çıkar
+    remove_article_wikidata: Öge kaldır
     search: Arama
     searching_articles: Madde Aranıyor
+    searching_articles_wikidata: Öge Aranıyor
     search_placeholder: Anahtar kelimenizi girin
     show_options: Seçenekleri Göster
     subheading_message: Haydi, üzerinde çalışmak için uygun bir Vikipedi makalesi
       bulalım
+    subheading_message_wikidata: Hadi, üzerinde çalışmak için bir Wikidata ögesi bulalım.
     submit: Gönder
     tools: Araçlar
     unassign_article_self: Atanmamış Maddeler
+    unassign_article_self_wikidata: Öge atamasını Kaldır
   training_status:
     completed: Tamamlandı
     continue: Devam et

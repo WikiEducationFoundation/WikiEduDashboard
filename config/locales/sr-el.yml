@@ -1,6 +1,7 @@
 # Messages for Serbian (Latin script) (srpski (latinica))
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ajeje Brazorf
 # Author: Ego and his own
 # Author: Kizule
 # Author: Milicevic01
@@ -502,7 +503,7 @@ sr-el:
     new_week: Dodaj novu nedelju
     new_account_check_username: Proveri dostupnost korisničkog imena
     new_account_email: Imejl adresa
-    new_account_email_placeholder: ime@primer.org
+    new_account_email_placeholder: ime@example.org
     new_account_info: Da biste zatražili nalog, upišite svoju adresu e-pošte i željeno
       korisničko ime. Lozinka će vam biti poslata pošto nalog kreira jedan od facilitatora.
     new_account_info_admin: Da biste kreirali nalog za novog urednika, unesit imejl

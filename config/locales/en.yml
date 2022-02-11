@@ -622,6 +622,8 @@ en:
       one: Instructor
       other: Instructors
     instructors: Instructors
+    instructor_message: This is the same My Articles interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
+    instructor_message_wikidata: This is the same My Items interface that students have. You can use it to walk through the same steps students will go through. However, only student contributions will be tracked.
     invitation: >
       You’ve been invited to join %{title}. To join, you need to log in with a Wikipedia account.
     invitation_username_advice: >
@@ -700,9 +702,13 @@ en:
       other: "%{count} requested accounts pending."
     requested_accounts_alert_view: "View"
     retain_available_articles: Retain Available Articles
+    retain_available_articles_wikidata: Retain Available Items
     retain_available_articles_info: >
       When enabled, selecting an Available Article does not remove it from
       the list, allowing a group of students to select the same article.
+    retain_available_articles_info_wikidata: >
+      When enabled, selecting an Available Item does not remove it from
+      the list, allowing a group of students to select the same item.
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
@@ -936,8 +942,7 @@ en:
     label: Course Activity
     last_update: Last statistics update
     next_update: Next estimated update
-    late_update_part1: A new update was expected
-    late_update_part2: This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
+    late_update: A new update was expected %{late_update_time}. This may mean that the update is taking longer than expected, or may indicate a problem that is blocking updates.
     no_update: The Dashboard hasn't imported any data for this program yet.
     enqueued_update: This program has been added to the update queue.
     first_update: Estimated start of statistics update
@@ -952,6 +957,7 @@ en:
     articles_edited_generic: Pages Edited
     articles_edited_generic_wikidata: Items Edited
     article_scoped_program_info: This is an 'Article Scoped Program', which only counts edits to assigned articles and categories.
+    article_scoped_program_info_wikidata: This is an 'Article Scoped Program', which only counts edits to assigned items and categories.
     bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
