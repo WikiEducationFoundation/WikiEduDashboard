@@ -68,7 +68,7 @@ jobs:
         run: |
             yarn build
             yarn run test  
-            COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
+            COVERAGE=true bundle exec rspec spec/ --fail-fast --color --profile --format documentation
             
       - name: Running linters
         run: |
