@@ -37,7 +37,7 @@ jobs:
         with:
           host port: 3306 
           mariadb version: '10.5' 
-          mysql database: 'test' 
+          mysql database: 'dashboard_testing' 
       
       - uses: ruby/setup-ruby@v1    
         with:
