@@ -77,8 +77,8 @@ jobs:
       
       - name: Running tests   
         run: |
-            yarn test
             yarn build
+            yarn run test
             COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
             bundle exec rubocop
             yarn lint-non-build
