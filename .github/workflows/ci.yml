@@ -21,6 +21,9 @@ jobs:
     # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - uses: actions/checkout@v2
       
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      
     #to speed up the execution time of Github Actions
       - name: Cache multiple paths  
         uses: actions/cache@v2
