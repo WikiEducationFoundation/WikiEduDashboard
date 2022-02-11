@@ -38,6 +38,9 @@ jobs:
           host port: 3306 
           mariadb version: '10.5' 
           mysql database: 'dashboard_testing' 
+          mysql user: 'wiki'
+          mysql password: 'wikiedu'
+          
       
       - uses: ruby/setup-ruby@v1    
         with:
