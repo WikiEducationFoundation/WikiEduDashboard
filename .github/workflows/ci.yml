@@ -23,8 +23,7 @@ jobs:
       
       - uses: r-lib/actions/setup-pandoc@v1
       
-    # Starting Redis Server
-      - name: Start Redis
+      - name: Starting Redis-Server
         uses: supercharge/redis-github-action@1.4.0
       
     #to speed up the execution time of Github Actions
@@ -74,7 +73,7 @@ jobs:
         run: |
             yarn build
             yarn run test  
-            COVERAGE=true bundle exec rspec --color --profile --format documentation
+            COVERAGE=true bundle exec rspec spec/ --fail-fast --color --profile --format documentation
             
       - name: Running linters
         run: |
