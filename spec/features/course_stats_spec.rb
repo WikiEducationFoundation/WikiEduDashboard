@@ -50,11 +50,11 @@ describe 'course stats', type: :feature, js: true do
     expect(page.find('#articles-edited')).to have_content articles.count
     expect(page.find('#student-editors')).to have_content users.count
     find('#student-editors').click
-    expect(page.find('#trained-count')).to have_content trained
+    expect(page.find('#trained-info')).to have_content trained
     word_count = WordCount.from_characters(chars * revisions.count)
     references_count = revisions.sum(&:references_added)
     expect(page.find('#word-count')).to have_content word_count
-    expect(page.find('#references-added')).to have_content references_count
+    expect(page.find('#references-count')).to have_content references_count
     expect(page.find('#view-count')).to have_content views.to_s
   end
 end
