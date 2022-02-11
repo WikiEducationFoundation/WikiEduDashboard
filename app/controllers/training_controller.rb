@@ -40,6 +40,7 @@ class TrainingController < ApplicationController
         user_id: current_user.id,
         training_module_id: training_module.id
       )
+      @training_module_name = training_module.name
     end
     add_training_root_breadcrumb
     add_module_breadcrumb(training_module)
