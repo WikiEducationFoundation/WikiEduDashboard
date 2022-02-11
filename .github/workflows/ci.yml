@@ -32,7 +32,8 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
                 ${{ runner.os }}-yarn-
-     
+      
+    #Setting up test database from config/database.example.yml 
       - uses: getong/mariadb-action@v1.1  
         with:
           host port: 3306 
@@ -66,8 +67,11 @@ jobs:
       - name: Running tests   
         run: |
             yarn build
-            yarn run test
+            yarn run test  
             COVERAGE=true bundle exec rspec spec/ --format documentation --dry-run --example “#instance_method”
+            
+      - name: Running linters
+        run: |
             bundle exec rubocop
             yarn lint-non-build
     
