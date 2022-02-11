@@ -9,19 +9,31 @@ class SurveyResponseAlertManager
     @answers.each do |answer|
       next unless answer_meets_alert_conditions?(answer)
       next if alert_already_exists?(answer)
-      details = {
-        question: answer.question.question_text,
-        answer: answer.answer_text,
-        followup: answer.follow_up_answer_text
-      }
       alert = Alert.create(type: 'SurveyResponseAlert',
                            message: alert_message(answer),
                            user_id: answer.user.id,
                            subject_id: answer.question.id,
-                           details: details,
+                           details: details(answer),
                            target_user_id: alert_recipient&.id)
       alert.email_target_user
     end
+  end
+
+  def details(answer)
+    {
+      question: answer.question.question_text,
+      answer: answer.answer_text,
+      followup: answer.follow_up_answer_text,
+      source: source(answer)
+    }
+  end
+
+  def source(answer)
+    question_group = answer.answer_group.question_group
+    survey_names = question_group.surveys.map(&:name).join(' .')
+
+    format('Question group: %<qg>s, Survey(s): %<s>s ',
+           { qg: question_group.name, s: survey_names })
   end
 
   private
