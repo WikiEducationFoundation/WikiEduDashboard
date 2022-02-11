@@ -40,7 +40,7 @@ class AlertMailerPreview < ActionMailer::Preview
     # Maybe there is no SurveyResponseAlert in the DB
     # To test preview, one must before create an instance
     # To do so: execute the following code in console:
-    # AlertMailerPreview.new.create_example_survey_response_alert
+    # AlertMailerPreview.new.send(:create_example_survey_response_alert)
     # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/4650
     # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/4749
     AlertMailer.alert(SurveyResponseAlert.last, example_user)
@@ -85,8 +85,6 @@ class AlertMailerPreview < ActionMailer::Preview
               article: example_article,
               course: example_course)
   end
-
-  public
 
   def create_example_survey_response_alert
     answer = create_answer
