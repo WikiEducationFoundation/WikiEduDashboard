@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 import '../../testHelper';
-import CourseStats from '../../../app/assets/javascripts/components/overview/course_stats.jsx';
+import OverviewStats from '../../../app/assets/javascripts/components/overview/overview_stats.jsx';
 
 describe('for view count zero and edited count greater than 0', () => {
   const course = {
@@ -12,7 +12,7 @@ describe('for view count zero and edited count greater than 0', () => {
     home_wiki: { language: 'en', project: 'wikipedia' }
   };
   const testStats = (
-    <CourseStats
+    <OverviewStats
       course={course}
     />
   );
@@ -30,7 +30,7 @@ describe('for view count greater than zero', () => {
     home_wiki: { language: 'en', project: 'wikipedia' }
   };
   const testStats = (
-    <CourseStats
+    <OverviewStats
       course={course}
     />
   );

@@ -14,8 +14,8 @@ const GreetStudentsButton = createReactClass({
   },
 
   render() {
-    // Render nothing if user isn't an admin, or it's not the Wiki Ed Dashboard
-    if (!this.props.current_user.admin || !Features.wikiEd) {
+    // Render nothing if user isn't an admin, or it's not the Wiki Ed Dashboard, or not a student course
+    if (!this.props.current_user.admin || !Features.wikiEd || this.props.course.type !== 'ClassroomProgramCourse') {
       return <div />;
     }
 

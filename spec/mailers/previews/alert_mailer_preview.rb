@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
+
 #= Preview all emails at http://localhost:3000/rails/mailers/alert_mailer
 class AlertMailerPreview < ActionMailer::Preview
   def articles_for_deletion_alert
@@ -34,6 +36,16 @@ class AlertMailerPreview < ActionMailer::Preview
     AlertMailer.alert(example_no_med_training_for_course, example_user)
   end
 
+  def survey_response_alert
+    # Maybe there is no SurveyResponseAlert in the DB
+    # To test preview, one must before create an instance
+    # To do so: execute the following code in console:
+    # AlertMailerPreview.new.send(:create_example_survey_response_alert)
+    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/4650
+    # Cf. https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/4749
+    AlertMailer.alert(SurveyResponseAlert.last, example_user)
+  end
+
   private
 
   def example_user
@@ -41,7 +53,7 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def example_student
-    User.new(email: 'nospam@nospam.com', username: 'nospam', permissions: 0)
+    User.new(email: 'nospam@nospam.com', username: 'Me_student', permissions: 0)
   end
 
   def example_course
@@ -72,5 +84,43 @@ class AlertMailerPreview < ActionMailer::Preview
     Alert.new(type: 'NoMedTrainingForCourseAlert',
               article: example_article,
               course: example_course)
+  end
+
+  def create_example_survey_response_alert
+    answer = create_answer
+    details =
+      {
+        question: answer.question.question_text,
+        answer: answer.answer_text,
+        followup: answer.follow_up_answer_text,
+        source: SurveyResponseAlertManager.new.source(answer)
+      }
+
+    Alert.create(type: 'SurveyResponseAlert',
+                 user: answer.user,
+                 subject_id: answer.question.id,
+                 details: details)
+  end
+
+  def create_answer
+    survey = Survey.new(name: 'Test survey')
+    question_group = Rapidfire::QuestionGroup.new(id: 999999, name: 'Test question group')
+    survey.rapidfire_question_groups << question_group
+    question_group.surveys << survey
+    answer_group = Rapidfire::AnswerGroup
+                   .new(id: 999999,
+                        question_group: question_group,
+                        user: example_student)
+    question = Rapidfire::Question
+               .create!(id: 999999,
+                        question_text: 'What are you studying ?',
+                        question_group: question_group)
+    answer = Rapidfire::Answer
+             .new(answer_text: 'Physics',
+                  follow_up_answer_text: 'Really ?',
+                  answer_group: answer_group,
+                  question: question)
+    answer.user = example_student
+    answer
   end
 end

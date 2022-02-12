@@ -167,7 +167,7 @@ class Alert < ApplicationRecord
   end
 
   def reply_to
-    nil
+    SpecialUsers.technical_help_staff&.email
   end
 
   def resolvable?
