@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Starting Pandoc
-      - uses: r-lib/actions/setup-pandoc@v1
+        uses: r-lib/actions/setup-pandoc@v1
       
       - name: Starting Redis-Server
         uses: supercharge/redis-github-action@1.4.0
