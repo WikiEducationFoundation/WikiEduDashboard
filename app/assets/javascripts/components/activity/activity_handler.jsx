@@ -18,6 +18,10 @@ export const ActivityHandler = createReactClass({
     course: PropTypes.object,
   },
 
+  componentDidMount() {
+    document.title = `Activity - ${this.props.course.title}`;
+  },
+
   render() {
     const links = [
       {

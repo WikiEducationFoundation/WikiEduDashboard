@@ -44,6 +44,7 @@ const TimelineHandler = createReactClass({
   },
 
   componentDidMount() {
+    document.title = `Timeline - ${this.props.course.title}`;
     return this.props.fetchAllTrainingModules();
   },
 

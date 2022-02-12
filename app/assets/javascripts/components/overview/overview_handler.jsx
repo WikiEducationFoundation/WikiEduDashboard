@@ -52,6 +52,7 @@ const Overview = createReactClass({
   },
 
   componentDidMount() {
+    document.title = `Home - ${this.props.course.title}`;
     if (this.props.current_user.admin) {
       this.props.fetchOnboardingAlert(this.props.course);
       this.props.fetchTags(this.props.course_id);
@@ -162,7 +163,6 @@ const Overview = createReactClass({
     ) : (
       <div className="sidebar" />
     );
-
     return (
       <section className="overview container">
         { syllabusUpload }

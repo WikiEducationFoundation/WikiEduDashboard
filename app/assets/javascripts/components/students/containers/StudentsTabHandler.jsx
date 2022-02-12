@@ -37,6 +37,7 @@ const StudentsTabHandler = createReactClass({
   },
 
   componentDidMount() {
+    document.title = `Students - ${this.props.course.title}`;
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

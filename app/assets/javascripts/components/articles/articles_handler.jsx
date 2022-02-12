@@ -40,6 +40,7 @@ export const ArticlesHandler = createReactClass({
   },
 
   componentDidMount() {
+    document.title = `Articles - ${this.props.course.title}`;
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 
