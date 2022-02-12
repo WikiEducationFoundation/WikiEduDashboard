@@ -6,11 +6,11 @@ import I18n from 'i18n-js';
 const WikidataOverviewStats = ({ statistics }) => {
   // const total = Object.values(statistics).reduce((a, b) => a + b);
   let total;
-  if (statistics.total) {
+  if (statistics['total revisions']) {
     total = <OverviewStat
       id="total-revisions"
       className="stat-display__value-small"
-      stat={total}
+      stat={statistics['total revisions']}
       statMsg={I18n.t('metrics.total_revisions')}
       renderZero={true}
     />;
