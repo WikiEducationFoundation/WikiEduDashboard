@@ -24,6 +24,7 @@ const TrainingSlideHandler = createReactClass({
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
     window.addEventListener('keyup', this.handleKeyPress);
+    this.baseTitle = document.title;
   },
 
   componentWillUnmount() {
@@ -194,6 +195,9 @@ const TrainingSlideHandler = createReactClass({
         assessment = this.props.training.currentSlide.assessment;
       }
     }
+
+    // setting the page title based on the slide
+    document.title = `${slideTitle} - ${this.baseTitle}`;
 
     const menuClass = this.props.training.menuIsOpen === false ? 'hidden' : 'shown';
 
