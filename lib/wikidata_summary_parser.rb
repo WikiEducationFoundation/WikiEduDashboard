@@ -38,6 +38,7 @@ class WikidataSummaryParser
     REVISION_CLASSIFICATIONS.each do |label, method|
       stats[label] = revisions.count { |r| new(r.summary).send(method) }
     end
+    stats['total revisions'] = stats.values.sum
     stats
   end
 
