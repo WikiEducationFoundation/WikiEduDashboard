@@ -37,7 +37,7 @@ const StudentsTabHandler = createReactClass({
   },
 
   componentDidMount() {
-    document.title = `Students - ${this.props.course.title}`;
+    document.title = `${CourseUtils.i18n('students_short', this.props.course.string_prefix)} - ${this.props.course.title}`;
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

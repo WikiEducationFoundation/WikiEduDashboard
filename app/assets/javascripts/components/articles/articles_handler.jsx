@@ -16,6 +16,7 @@ import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByTrackedStatus } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 import ArticleUtils from '../../utils/article_utils.js';
+import CourseUtils from '../../utils/course_utils.js';
 
 export const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -40,7 +41,7 @@ export const ArticlesHandler = createReactClass({
   },
 
   componentDidMount() {
-    document.title = `Articles - ${this.props.course.title}`;
+    document.title = `${CourseUtils.i18n('articles_short', this.props.course.wiki_string_prefix)} - ${this.props.course.title}`;
     delayFetchAssignmentsAndArticles(this.props, () => this.setState({ loading: false }));
   },
 

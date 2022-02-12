@@ -28,7 +28,7 @@ const UploadsHandler = createReactClass({
   },
 
   componentDidMount() {
-    document.title = `Uploads - ${this.props.course.title}`;
+    document.title = `${I18n.t('uploads.label')} - ${this.props.course.title}`;
     if (this.props.loadingUploads) {
       return this.props.receiveUploads(this.props.course_id);
     }

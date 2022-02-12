@@ -19,7 +19,7 @@ export const ActivityHandler = createReactClass({
   },
 
   componentDidMount() {
-    document.title = `Activity - ${this.props.course.title}`;
+    document.title = `${I18n.t('activity.label')} - ${this.props.course.title}`;
   },
 
   render() {
