@@ -21,6 +21,7 @@ jobs:
     # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - uses: actions/checkout@v2
       
+      - name: Starting Pandoc
       - uses: r-lib/actions/setup-pandoc@v1
       
       - name: Starting Redis-Server
@@ -38,7 +39,7 @@ jobs:
           restore-keys: |
                 ${{ runner.os }}-yarn-
       
-    #Setting up test database from config/database.example.yml 
+    #Setting up MariaDB based upon 'config/database.example.yml'
       - uses: getong/mariadb-action@v1.1  
         with:
           host port: 3306 
@@ -47,38 +48,41 @@ jobs:
           mysql user: 'wiki'
           mysql password: 'wikiedu'
           
-      
+     #Starting ruby 
       - uses: ruby/setup-ruby@v1    
         with:
            ruby-version: 2.7.1
            bundler-cache: true
-
-           
+     
       - name: Setup Node
         uses: actions/setup-node@v1
-               
-            
-      - run: mkdir tmp -m 777
-      - run: cp config/database.example.yml config/database.yml
-      - run: cp config/application.example.yml config/application.yml
 
-      - name:  Running Test Database 
+      - name:  Creating Test Database 
         env:
           RAILS_ENV: test
           DATABASE_PORT: 3306
         run: |
+            mkdir tmp -m 777
+            config/database.example.yml config/database.yml
+            cp config/application.example.yml config/application.yml
             bin/rails db:migrate RAILS_ENV=test
       
-      - name: Running tests   
+      #Testing the pushed code onwards
+      
+      - name: Build and Running JS Tests   
         run: |
             yarn build
-            yarn run test  
-            COVERAGE=true bundle exec rspec spec/ --fail-fast --color --profile --format documentation
+            yarn run test 
+      
+      - name: Running JS Linter
+        run: yarn lint-non-build
+      
+      - name: Running Ruby Tests
+        run : COVERAGE=true bundle exec rspec spec/ --fail-fast --color --profile --format documentation
             
-      - name: Running linters
-        run: |
-            bundle exec rubocop
-            yarn lint-non-build
+      - name: Running Ruby Linter
+        run: bundle exec rubocop
+            
     
               
       
