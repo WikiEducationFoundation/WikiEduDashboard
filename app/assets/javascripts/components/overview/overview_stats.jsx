@@ -32,7 +32,7 @@ const OverviewStats = ({ course }) => {
     articlesCreated = <OverviewStat
       id="articles-created"
       className={valueClass('articles-created')}
-      stat={parseInt(course.created_count)}
+      stat={course.created_count}
       statMsg={createdLabel}
       renderZero={false}
     />;
@@ -44,7 +44,7 @@ const OverviewStats = ({ course }) => {
     contentCount = <OverviewStat
       id="word-count"
       className={valueClass('word-count')}
-      stat={parseInt(course.word_count)}
+      stat={course.word_count}
       statMsg={I18n.t('metrics.word_count')}
       renderZero={true}
     />;
@@ -52,7 +52,7 @@ const OverviewStats = ({ course }) => {
     contentCount = <OverviewStat
       id="bytes-added"
       className={valueClass('bytes-added')}
-      stat={parseInt(course.character_sum_human)}
+      stat={course.character_sum_human}
       statMsg={I18n.t('metrics.bytes_added')}
       renderZero={true}
     />;
@@ -108,14 +108,14 @@ const OverviewStats = ({ course }) => {
       <OverviewStat
         id="articles-edited"
         className={valueClass('edited_count')}
-        stat={parseInt(course.edited_count)}
+        stat={course.edited_count}
         statMsg={editedLabel}
         renderZero={true}
       />
       <OverviewStat
         id="total-edits"
         className={valueClass('edited_count')}
-        stat={parseInt(course.edit_count)}
+        stat={course.edit_count}
         statMsg={I18n.t('metrics.edit_count_description')}
         renderZero={true}
       />
@@ -124,7 +124,7 @@ const OverviewStats = ({ course }) => {
       <OverviewStat
         id="references-count"
         className={valueClass('references-count')}
-        stat={parseInt(course.references_count)}
+        stat={course.references_count}
         statMsg={I18n.t('metrics.references_count')}
         renderZero={false}
         info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'references_doc')}`)}
@@ -133,7 +133,7 @@ const OverviewStats = ({ course }) => {
       <OverviewStat
         id="view-count"
         className={valueClass('view_count')}
-        stat={parseInt(course.view_count)}
+        stat={course.view_count}
         statMsg={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}
         renderZero={false}
       />

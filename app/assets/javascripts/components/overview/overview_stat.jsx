@@ -27,7 +27,8 @@ OverviewStat.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   stat: PropTypes.oneOfType([
-    PropTypes.number
+    PropTypes.number,
+    PropTypes.string
   ]),
   statMsg: PropTypes.string.isRequired,
   renderZero: PropTypes.bool.isRequired,

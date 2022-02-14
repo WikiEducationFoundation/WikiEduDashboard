@@ -4,7 +4,17 @@ import OverviewStat from './overview_stat';
 import I18n from 'i18n-js';
 
 const WikidataOverviewStats = ({ statistics }) => {
-  const total = Object.values(statistics).reduce((a, b) => a + b);
+  // const total = Object.values(statistics).reduce((a, b) => a + b);
+  let total;
+  if (statistics['total revisions']) {
+    total = <OverviewStat
+      id="total-revisions"
+      className="stat-display__value-small"
+      stat={statistics['total revisions']}
+      statMsg={I18n.t('metrics.total_revisions')}
+      renderZero={true}
+    />;
+  }
 
   return (
     <div className="wikidata-stats-container">
@@ -12,13 +22,7 @@ const WikidataOverviewStats = ({ statistics }) => {
       <div className="wikidata-display">
 
         <div className="single-stat">
-          <OverviewStat
-            id="total-revisions"
-            className="stat-display__value-small"
-            stat={total}
-            statMsg={I18n.t('metrics.total_revisions')}
-            renderZero={true}
-          />
+          {total}
         </div>
         <div className="stat-display__row">
           <h5 className="stats-label">{I18n.t('items.items')}</h5>
