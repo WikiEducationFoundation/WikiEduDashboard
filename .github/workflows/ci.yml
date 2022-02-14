@@ -71,6 +71,7 @@ jobs:
       
       - name: Build and Running JS Tests   
         run: |
+            yarn
             yarn build
             yarn run test 
       
