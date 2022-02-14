@@ -15,6 +15,7 @@
 # Author: Ladsgroup
 # Author: Mardetanha
 # Author: Mohammad ebz
+# Author: NimaBagheriWP
 # Author: Ommmmid
 # Author: Reza1615
 # Author: Sunfyre
@@ -446,6 +447,20 @@ fa:
     view_count_description: بازدیدهای مقاله
     view: بازدیدها
     word_count: واژه‌های افزوده‌شده
+    total_revisions: مرور کلی
+    aliases: نام‌های مستعار
+    merged: ادغام‌شده
+    created: ایجاد شد
+    changed: تغییر یافته‌است
+    removed: حذف شد
+    cleared: پاک شد
+    added: اضافه شد
+    descriptions: توضیحات
+    labels: برچسب
+    no_data: بدون اطلاعات
+    other_updates: سایر بروزرسانی‌ها
+    redirects_created: تغییر مسیرها ایجاد شد
+    unknown: نامشخص
   namespace:
     main: فضای اصلی
     main_char_added: کاراکترهای افزوده‌شده فضای اصلی

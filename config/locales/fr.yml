@@ -56,7 +56,7 @@ fr:
     create_accounts: Créer les comptes Wikipédia
     dashboard: Tableau de bord de modification du wiki
     documentation: Documentation
-    error: 'Une erreur s’est produite :'
+    error: 'Une erreur est survenue :'
     explore: Explorer
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
@@ -177,7 +177,7 @@ fr:
       existing: Existant
       new_and_existing: Nouveau et existant
       tracked: Suivi
-      untracked: Non-suivi
+      untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
     find: Trouver des articles
     hide: Masquer
@@ -1133,6 +1133,25 @@ fr:
     wiki_ed_help: Utiliser le bouton « Obtenir de l’aide » pour signaler un problème.
     word_count: Mots ajoutés
     word_count_average: Nombre moyen de mots
+    total_revisions: Total des versions
+    claims: Revendications
+    aliases: Alias
+    merged: Fusionné
+    created: Créé
+    changed: Changé
+    removed: Enlevé
+    cleared: Effacé
+    added: Ajouté
+    descriptions: Descriptions
+    interwiki_links_added: Liens interwiki ajoutés
+    labels: Libellé
+    no_data: Aucune donnée
+    other_updates: Autres mises à jour
+    qualifiers_added: Qualificateurs ajoutés
+    redirects_created: Redirections créées
+    restorations_performed: Restauration effectuées
+    reverts_performed: Révocations effectuées
+    unknown: Inconnu
   namespace:
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal

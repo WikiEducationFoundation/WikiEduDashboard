@@ -195,7 +195,7 @@ ja:
     peer_review_link: 査読
     remove: 除去
     reviewers: 査読者
-    review_other: 査読の割り当て/削除
+    review_other: 査読を割り当て/除去
     review_self: 記事を査読する
     review_tooltip: これは査読したりフィードバックを書いたりする予定の記事のための機能です。
     sandbox_draft_link: サンドボックスの草稿
@@ -613,6 +613,18 @@ ja:
     view_count_description: 記事の閲覧数
     view_data_unavailable: 閲覧数のデータなし
     view: 閲覧回数
+    aliases: 別名
+    merged: 統合
+    created: 作成
+    changed: 変更
+    removed: 除去
+    added: 追加されました
+    descriptions: 説明
+    labels: ラベル
+    no_data: データがありません
+    redirects_created: リダイレクトが作成されました
+    reverts_performed: 差し戻しは実行されました
+    unknown: 不明
   namespace:
     main: メイン空間
     user: ユーザー空間
