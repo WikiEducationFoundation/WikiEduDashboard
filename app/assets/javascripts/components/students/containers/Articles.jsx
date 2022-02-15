@@ -36,7 +36,8 @@ export class Articles extends React.Component {
   componentDidMount() {
     // sets the title of this tab
     const { prefix } = this.props;
-    document.title = `${I18n.t('instructor_view.article_assignments', { prefix })}`;
+    const header = I18n.t('instructor_view.article_assignments', { prefix });
+    document.title = `${header} - ${this.props.course.title}`;
   }
 
   selectStudent(selected) {
