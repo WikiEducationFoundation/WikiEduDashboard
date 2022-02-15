@@ -19,6 +19,12 @@ const AssignmentList = createReactClass({
     wikidataLabels: PropTypes.object
   },
 
+  componentDidMount() {
+    // sets the title of this tab
+    const project = this.props.course.home_wiki.project;
+    document.title = `${ArticleUtils.I18n('assigned', project)} - ${this.props.course.title}`;
+  },
+
   hasAssignedUser(group) {
     return group.some((assignment) => {
       return assignment.user_id;

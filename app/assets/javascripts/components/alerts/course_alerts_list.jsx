@@ -7,6 +7,8 @@ import { fetchCourseAlerts } from '../../actions/alert_actions';
 
 class CourseAlertsList extends React.Component {
   componentDidMount() {
+    // sets the title of this tab
+    document.title = `${I18n.t('courses.alerts')} - ${this.props.course.title}`;
     // This adds the specific course alerts to the state, to be used in AlertsHandler
     this.props.fetchCourseAlerts(this.props.course_id);
   }

@@ -33,6 +33,11 @@ export class Articles extends React.Component {
     this.selectStudent = this.selectStudent.bind(this);
     this.generateArticlesUrl = this.generateArticlesUrl.bind(this);
   }
+  componentDidMount() {
+    // sets the title of this tab
+    const { prefix } = this.props;
+    document.title = `${I18n.t('instructor_view.article_assignments', { prefix })}`;
+  }
 
   selectStudent(selected) {
     this.setState({ selected });
