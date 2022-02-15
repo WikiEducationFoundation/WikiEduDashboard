@@ -52,7 +52,7 @@ const Overview = createReactClass({
   },
 
   componentDidMount() {
-    document.title = `${I18n.t('courses.overview')} - ${this.props.course.title}`;
+    document.title = this.props.course.title;
     if (this.props.current_user.admin) {
       this.props.fetchOnboardingAlert(this.props.course);
       this.props.fetchTags(this.props.course_id);

@@ -25,7 +25,7 @@ const AvailableArticles = createReactClass({
   componentDidMount() {
     // sets the title of this tab
     const project = this.props.course.home_wiki.project;
-    document.title = `${ArticleUtils.I18n('available', project)} - ${this.props.course.title}`;
+    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('available', project)}`;
   },
 
   render() {

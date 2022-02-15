@@ -22,7 +22,7 @@ const AssignmentList = createReactClass({
   componentDidMount() {
     // sets the title of this tab
     const project = this.props.course.home_wiki.project;
-    document.title = `${ArticleUtils.I18n('assigned', project)} - ${this.props.course.title}`;
+    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('assigned', project)}`;
   },
 
   hasAssignedUser(group) {

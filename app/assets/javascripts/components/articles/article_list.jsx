@@ -34,7 +34,7 @@ const ArticleList = createReactClass({
   componentDidMount() {
     // sets the title for this tab
     const project = this.props.course.home_wiki.project;
-    document.title = `${ArticleUtils.I18n('edited', project)} - ${this.props.course.title}`;
+    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('edited', project)}`;
   },
   onChangeFilter(e) {
     const value = e.target.value.split('.');

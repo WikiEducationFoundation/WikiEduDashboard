@@ -24,7 +24,7 @@ const PossiblePlagiarismHandler = createReactClass({
 
   componentDidMount() {
     // sets the title of this tab
-    document.title = `${I18n.t('recent_activity.possible_plagiarism')} - ${this.props.course.title}`;
+    document.title = `${this.props.course.title} - ${I18n.t('recent_activity.possible_plagiarism')}`;
 
     if (this.props.loading) {
       this.props.fetchSuspectedCoursePlagiarism(this.props.course_id);

@@ -65,7 +65,7 @@ const Resources = ({ weeks, current_user, course }) => {
   // setting page title
 
   useEffect(() => {
-    document.title = `${I18n.t('resources.label')} - ${course.title}`;
+    document.title = `${course.title} - ${I18n.t('resources.label')}`;
   }, []);
 
   const trainingLibrarySlug = course.training_library_slug;

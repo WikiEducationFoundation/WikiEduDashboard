@@ -15,7 +15,7 @@ export class Overview extends React.Component {
     // sets the title of this tab
     const { prefix } = this.props;
     const header = I18n.t('users.sub_navigation.student_overview', { prefix });
-    document.title = `${header} - ${this.props.course.title}`;
+    document.title = `${this.props.course.title} - ${header}`;
   }
 
   render() {
