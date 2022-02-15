@@ -63,7 +63,6 @@ const moduleByExercises = (modules) => {
 
 const Resources = ({ weeks, current_user, course }) => {
   // setting page title
-
   useEffect(() => {
     document.title = `${course.title} - ${I18n.t('resources.label')}`;
   }, []);
