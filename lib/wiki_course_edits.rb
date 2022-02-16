@@ -216,7 +216,8 @@ class WikiCourseEdits
                                                  templates: @templates)
 
     return if page_content.nil?
-    summary = "Update [[#{@course.wiki_title}|#{@course.title}]] assignment details"
+    update_or_remove = assignments_for_same_article.empty? ? 'Remove' : 'Update'
+    summary = "#{update_or_remove} [[#{@course.wiki_title}|#{@course.title}]] assignment details"
     @wiki_editor.post_whole_page(@current_user, talk_title, page_content, summary)
   end
 end
