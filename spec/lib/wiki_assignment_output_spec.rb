@@ -5,12 +5,17 @@ require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_assignment_output"
 
 describe WikiAssignmentOutput do
+  let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
   before do
+    stub_wiki_validation
+
     create(:course,
            id: 10001,
            title: 'Language in Hawaiʻi and the Pacific',
            school: 'University of Hawaiʻi at Mānoa',
            term: 'Fall 2016',
+           home_wiki: home_wiki,
            slug: 'University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)',
            submitted: true)
     create(:assignment,
@@ -18,12 +23,14 @@ describe WikiAssignmentOutput do
            user_id: 3,
            course_id: 10001,
            article_title: 'South_Efate_language',
+           wiki: home_wiki,
            role: Assignment::Roles::ASSIGNED_ROLE)
     create(:assignment,
            id: 2,
            user_id: 3,
            course_id: 10001,
            article_title: 'Selfie',
+           wiki: home_wiki,
            role: Assignment::Roles::REVIEWING_ROLE)
     # This UTF-8 username ensures that encoding compatibility issues are handled.
     create(:user, id: 3, username: 'Keï')
@@ -44,19 +51,22 @@ describe WikiAssignmentOutput do
   end
 
   describe '.build_assignment_page_content' do
-    context 'for an existing page' do
+    context 'for an existing page on en.wiki' do
       let(:title) { 'Selfie' }
       let(:talk_title) { 'Talk:Selfie' }
       let(:assignments_tag) { wiki_assignment_output.assignments_tag }
 
-      it 'adds an assignment tag to an existing talk page' do
+      it 'adds an assignment tag to an existing talk page as a new section' do
         VCR.use_cassette 'wiki_edits/assignments' do
           selfie_talk = WikiApi.new.get_page_content(talk_title)
           page_content = wiki_assignment_output
                          .build_assignment_page_content(assignments_tag,
                                                         selfie_talk)
-          expect(page_content)
-            .to include('{{dashboard.wikiedu.org assignment | course = ')
+          # rubocop:disable Layout/LineLength
+          expected_section = "==Wiki Education assignment: #{course.title}==\n{{dashboard.wikiedu.org assignment | course = "
+          # rubocop:enable Layout/LineLength
+
+          expect(page_content).to include(expected_section)
         end
       end
 
@@ -68,6 +78,51 @@ describe WikiAssignmentOutput do
           expect(page_content)
             .to include('{{dashboard.wikiedu.org assignment | course = ')
         end
+      end
+
+      it 'returns nil if the assignment template is already present' do
+        assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course.wiki_title}"
+        talk_page_templates = "{{some template}}\n{{some other template}}\n"
+        additional_talk_content = "This is a comment\n"
+        initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
+        output = wiki_assignment_output
+                 .build_assignment_page_content(assignment_tag,
+                                                initial_talk_page_content)
+        expect(output).to be_nil
+      end
+
+      context 'when the assignment is being removed so the new tag is blank' do
+        let(:title) { 'South_Efate_language' }
+        let(:talk_title) { 'Talk:South_Efate_language' }
+
+        it 'removes the existing assignment template if the new tag is blank' do
+          old_content = '{{dashboard.wikiedu.org assignment'\
+                        ' | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/'\
+                        'Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)'\
+                        ' | assignments = [[User:Keï|Keï]] }}
+
+  {{WP Languages|class=Stub}}
+  {{WikiProject Melanesia|class=Stub|Vanuatu=yes}}
+  '
+          page_content = wiki_assignment_output
+                         .build_assignment_page_content(
+                           '', String.new(old_content).force_encoding('ASCII-8BIT')
+                         )
+          expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
+        end
+      end
+    end
+
+    context 'for an existing article not on en.wiki' do
+      let(:home_wiki) { Wiki.get_or_create(language: 'pt', project: 'wikipedia') }
+      let(:title) { 'Selfie' }
+      let(:talk_title) { 'Talk:Selfie' }
+      let(:assignments_tag) { wiki_assignment_output.assignments_tag }
+
+      before do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('dashboard_url')
+                                  .and_return('outreachdashboard.wmflabs.org')
       end
 
       it 'does not mess things up when the talk page content is not a simple template line' do
@@ -137,38 +192,6 @@ describe WikiAssignmentOutput do
                                                 initial_talk_page_content)
         expected_output = initial_talk_page_content + assignment_tag + "\n"
         expect(output).to eq(expected_output)
-      end
-
-      it 'returns nil if the assignment template is already present' do
-        assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course.wiki_title}"
-        talk_page_templates = "{{some template}}\n{{some other template}}\n"
-        additional_talk_content = "This is a comment\n"
-        initial_talk_page_content = talk_page_templates + assignment_tag + additional_talk_content
-        output = wiki_assignment_output
-                 .build_assignment_page_content(assignment_tag,
-                                                initial_talk_page_content)
-        expect(output).to be_nil
-      end
-
-      context 'when the assignment is being removed so the new tag is blank' do
-        let(:title) { 'South_Efate_language' }
-        let(:talk_title) { 'Talk:South_Efate_language' }
-
-        it 'removes the existing assignment template if the new tag is blank' do
-          old_content = '{{dashboard.wikiedu.org assignment'\
-                        ' | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/'\
-                        'Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)'\
-                        ' | assignments = [[User:Keï|Keï]] }}
-
-  {{WP Languages|class=Stub}}
-  {{WikiProject Melanesia|class=Stub|Vanuatu=yes}}
-  '
-          page_content = wiki_assignment_output
-                         .build_assignment_page_content(
-                           '', String.new(old_content).force_encoding('ASCII-8BIT')
-                         )
-          expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
-        end
       end
     end
   end
