@@ -32,6 +32,9 @@ const RevisionHandler = createReactClass({
   },
 
   componentDidMount() {
+    // sets the title of this tab
+    document.title = `${this.props.course.title} - ${I18n.t('application.recent_activity')}`;
+
     if (!this.props.revisionsLoaded) {
       // Fetching in advance initially only for all revisions
       // For Course Scoped Revisions, fetching in componentDidUpdate

@@ -22,6 +22,12 @@ const AvailableArticles = createReactClass({
     assignments: PropTypes.array
   },
 
+  componentDidMount() {
+    // sets the title of this tab
+    const project = this.props.course.home_wiki.project;
+    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('available', project)}`;
+  },
+
   render() {
     let assignCell;
     let availableArticles;
