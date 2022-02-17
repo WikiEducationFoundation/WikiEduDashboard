@@ -55,6 +55,7 @@ const TrainingSlideHandler = () => {
 
   const next = () => {
     const nextSlug = training.nextSlide.slug;
+
     dispatch(setCurrentSlide(nextSlug));
     setSlideCompleted_FC(nextSlug);
   };
@@ -82,12 +83,15 @@ const TrainingSlideHandler = () => {
     const slideId = __guard__(routeParams, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('keyup', handleKeyPress);
 
     return () => {
       return window.removeEventListener('keyup', handleKeyPress);
     };
-  }, []);
+  }, [handleKeyPress]);
 
   if (training.loading === true) {
     return (
