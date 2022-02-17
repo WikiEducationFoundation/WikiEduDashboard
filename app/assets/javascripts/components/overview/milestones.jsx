@@ -13,6 +13,7 @@ const Milestones = createReactClass({
   propTypes: {
     timelineStart: PropTypes.string.isRequired,
     weeks: PropTypes.array.isRequired,
+    allWeeks: PropTypes.array.isRequired,
     course: PropTypes.object.isRequired
   },
 
@@ -23,6 +24,7 @@ const Milestones = createReactClass({
   },
 
   render() {
+    /*
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
@@ -45,7 +47,32 @@ const Milestones = createReactClass({
       }
       );
     }
-    );
+    );*/
+
+    const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
+    const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
+    const blocks = [];
+
+    this.props.allWeeks.map((week, index) => {
+      if (!week.empty) {
+        const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
+        return milestoneBlocks.map((block) => {
+          let classNames = 'module__data';
+          if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
+          const rawHtml = md.render(block.content);
+          const completionNote = this.weekIsCompleted(week, currentWeek) ? '- Complete' : undefined;
+          return blocks.push(
+            <div key={block.id} className="section-header">
+              <div className={classNames}>
+                <p>Week {week.weekNumber + weekNumberOffset} {completionNote}</p>
+                <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+                <hr />
+              </div>
+            </div>
+          );
+        });
+      }
+    });
 
     if (!blocks.length) {
       return null;
