@@ -1,281 +1,268 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import { withRouter } from 'react-router';
+import React, { useEffect } from 'react';
+import { useHistory, useParams } from 'react-router';
 import { extend } from 'lodash-es';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 
+
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
-const TrainingSlideHandler = createReactClass({
-  displayName: 'TrainingSlideHandler',
+const __guard__ = (value, transform) => {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+};
 
-  propTypes: {
-    match: PropTypes.object
-  },
+const moduleId = (params) => {
+  return __guard__(params, x => x.module_id);
+};
 
-  componentDidMount() {
-    const slideId = __guard__(this.props.match.params, x => x.slide_id);
-    const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
-    this.props.fetchTrainingModule({ module_id: this.moduleId(), slide_id: slideId, user_id: userId });
-    window.addEventListener('keyup', this.handleKeyPress);
-  },
+const returnToLink = () => {
+  return document.getElementById('react_root').getAttribute('data-return-to');
+};
 
-  componentWillUnmount() {
-    return window.removeEventListener('keyup', this.handleKeyPress);
-  },
+const userLoggedIn = () => {
+  return typeof __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id')) === 'string';
+};
 
-  setSlideCompleted(slideId) {
+const trainingUrl = (params) => {
+  return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
+};
+
+const keys = { rightKey: 39, leftKey: 37 };
+
+const TrainingSlideHandler = () => {
+  const training = useSelector(state => state.training);
+  const routeParams = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const disableNext = () => {
+    return Boolean(training.currentSlide.assessment) && !training.currentSlide.answeredCorrectly;
+  };
+
+  const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
-    return this.props.setSlideCompleted({
+    dispatch(setSlideCompleted({
       slide_id: slideId,
-      module_id: this.moduleId(),
+      module_id: moduleId(routeParams),
       user_id: userId
-    });
-  },
+    }));
+  };
 
-  next() {
-    const nextSlug = this.props.training.nextSlide.slug;
-    this.props.setCurrentSlide(nextSlug);
-    this.setSlideCompleted(nextSlug);
-  },
+  const next = () => {
+    const nextSlug = training.nextSlide.slug;
+    dispatch(setCurrentSlide(nextSlug));
+    setSlideCompleted_FC(nextSlug);
+  };
 
-  prev() {
-    this.props.setCurrentSlide(this.props.training.previousSlide.slug);
-  },
+  const prev = () => {
+    dispatch(setCurrentSlide(training.previousSlide.slug));
+  };
 
-  moduleId() {
-    return __guard__(this.props.match.params, x => x.module_id);
-  },
-
-  toggleMenuOpen(e) {
-    e.stopPropagation();
-    return this.props.toggleMenuOpen({ currently: this.props.training.menuIsOpen });
-  },
-
-  closeMenu(e) {
-    if (this.props.training.menuIsOpen) {
-      e.stopPropagation();
-      return this.props.toggleMenuOpen({ currently: true });
+  const handleKeyPress = (e) => {
+    const navParams = { library_id: routeParams.library_id, module_id: routeParams.module_id };
+    if (e.which === keys.leftKey && training.previousSlide) {
+      const params = extend(navParams, { slide_id: training.previousSlide.slug });
+      prev();
+      history.push(trainingUrl(params));
     }
-  },
-
-  userLoggedIn() {
-    return typeof __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id')) === 'string';
-  },
-
-  keys: { rightKey: 39, leftKey: 37 },
-
-  disableNext() {
-    return Boolean(this.props.training.currentSlide.assessment) && !this.props.training.currentSlide.answeredCorrectly;
-  },
-
-  returnToLink() {
-    return document.getElementById('react_root').getAttribute('data-return-to');
-  },
-
-  trainingUrl(params) {
-    return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
-  },
-
-  handleKeyPress(e) {
-    const navParams = { library_id: this.props.match.params.library_id, module_id: this.props.match.params.module_id };
-    if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
-      const params = extend(navParams, { slide_id: this.props.training.previousSlide.slug });
-      this.prev();
-      this.props.history.push(this.trainingUrl(params));
+    if (e.which === keys.rightKey && training.nextSlide) {
+      if (disableNext()) { return; }
+      const params = extend(navParams, { slide_id: training.nextSlide.slug });
+      next();
+      return history.push(trainingUrl(params));
     }
-    if (e.which === this.keys.rightKey && this.props.training.nextSlide) {
-      if (this.disableNext()) { return; }
-      const params = extend(navParams, { slide_id: this.props.training.nextSlide.slug });
-      this.next();
-      return this.props.history.push(this.trainingUrl(params));
-    }
-  },
+  };
 
-  render() {
-    if (this.props.training.loading === true) {
-      return (
-        <div className="training-loader">
-          <h1 className="h2">Loading…</h1>
-          <div className="training-loader__spinner" />
-        </div>
-      );
-    }
-    if (this.props.training.valid === false) {
-      return (
-        <div className="training__slide__notification" key="invalid">
-          <div className="container">
-            <p>{I18n.t('training.invalid')}</p>
-          </div>
-        </div>
-      );
-    }
-    let nextLink;
-    let pendingWarning;
-    if (__guard__(this.props.training.nextSlide, x1 => x1.slug)) {
-      nextLink = (
-        <SlideLink
-          slideId={this.props.training.nextSlide.slug}
-          buttonText={this.props.training.currentSlide.buttonText || I18n.t('training.next')}
-          disabled={this.disableNext()}
-          button={true}
-          params={this.props.match.params}
-          onClick={this.next}
-        />
-      );
-    } else {
-      let nextHref = this.returnToLink();
-      if (!nextHref) {
-        nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.match.params.library_id}`;
-      }
-      if (this.props.training.completed) {
-        nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {this.props.training.currentSlide.buttonText || I18n.t('training.done')} </a>;
-      } else {
-        nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {this.props.training.currentSlide.buttonText || I18n.t('training.done')} </a>;
-      }
+  useEffect(() => {
+    const slideId = __guard__(routeParams, x => x.slide_id);
+    const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
+    dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
+    window.addEventListener('keyup', handleKeyPress);
 
-      if (this.props.training.completed === false) {
-        pendingWarning = (
-          <div className="training__slide__notification" key="pending">
-            <div className="container">
-              <p>{I18n.t('training.wait')}</p>
-            </div>
-          </div>
-        );
-      }
-    }
+    return () => {
+      return window.removeEventListener('keyup', handleKeyPress);
+    };
+  }, []);
 
-    let loginWarning;
-    if (!this.userLoggedIn()) {
-      loginWarning = (
-        <div className="training__slide__notification" key="not_logged_in">
-          <div className="container">
-            <p>{I18n.t('training.logged_out')}</p>
-          </div>
-        </div>
-      );
-    }
-
-    let previousLink;
-    if (__guard__(this.props.training.previousSlide, x2 => x2.slug)) {
-      previousLink = (
-        <SlideLink
-          slideId={this.props.training.previousSlide.slug}
-          buttonText={I18n.t('training.previous')}
-          params={this.props.match.params}
-          onClick={this.prev}
-        />
-      );
-    }
-
-    let slideTitle;
-    let assessment;
-    let rawHtml;
-    const locale = I18n.locale;
-    if (this.props.training.currentSlide.translations && this.props.training.currentSlide.translations[locale]) {
-      slideTitle = this.props.training.currentSlide.translations[locale].title;
-      rawHtml = md.render(this.props.training.currentSlide.translations[locale].content);
-      if (this.props.training.currentSlide.translations[locale].assessment) {
-        assessment = this.props.training.currentSlide.translations[locale].assessment;
-      }
-    } else {
-      slideTitle = this.props.training.currentSlide.title;
-      if (this.props.training.currentSlide.content) {
-        rawHtml = md.render(this.props.training.currentSlide.content);
-      }
-      if (this.props.training.currentSlide.assessment) {
-        assessment = this.props.training.currentSlide.assessment;
-      }
-    }
-
-    const menuClass = this.props.training.menuIsOpen === false ? 'hidden' : 'shown';
-
-    let quiz;
-    if (this.props.training.currentSlide.assessment) {
-      quiz = (
-        <Quiz
-          question={assessment.question}
-          answers={assessment.answers}
-          selectedAnswer={this.props.training.currentSlide.selectedAnswer}
-          correctAnswer={this.props.training.currentSlide.assessment.correct_answer_id}
-        />
-      );
-    }
-
-    let titlePrefix;
-    if (this.props.training.currentSlide.title_prefix) {
-      titlePrefix = (
-        <h2 className="training__slide__title-prefix">{this.props.training.currentSlide.title_prefix}</h2>
-      );
-    }
-
-   let sourceLink;
-   if (this.props.training.currentSlide.wiki_page) {
-     sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${this.props.training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
-   }
-
+  if (training.loading === true) {
     return (
-      <div>
-        <Notifications />
-        <header>
-          <div className="pull-right training__slide__nav" onClick={this.toggleMenuOpen}>
-            <div className="pull-right hamburger">
-              <span className="hamburger__bar" />
-              <span className="hamburger__bar" />
-              <span className="hamburger__bar" />
-            </div>
-            <h3 className="pull-right">
-              <a href="" onFocus={this.toggleMenuOpen}>{I18n.t('training.page_number', { number: this.props.training.currentSlide.index, total: this.props.training.slides.length })}</a>
-            </h3>
-          </div>
-          <SlideMenu
-            closeMenu={this.closeMenu}
-            onClick={this.toggleMenuOpen}
-            menuClass={menuClass}
-            currentSlide={this.props.training.currentSlide}
-            params={this.props.match.params}
-            enabledSlides={this.props.training.enabledSlides}
-            slides={this.props.training.slides}
-          />
-        </header>
-        {loginWarning}
-        {pendingWarning}
-        <article className="training__slide">
-          {titlePrefix}
-          <h1>{slideTitle}</h1>
-          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
-          {quiz}
-          <footer className="training__slide__footer">
-            <span className="pull-left">{previousLink}</span>
-            {sourceLink}
-            <span className="pull-right">{nextLink}</span>
-          </footer>
-        </article>
+      <div className="training-loader">
+        <h1 className="h2">Loading…</h1>
+        <div className="training-loader__spinner" />
       </div>
     );
   }
-});
+  if (training.valid === false) {
+    return (
+      <div className="training__slide__notification" key="invalid">
+        <div className="container">
+          <p>{I18n.t('training.invalid')}</p>
+        </div>
+      </div>
+    );
+  }
+  let nextLink;
+  let pendingWarning;
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+  if (__guard__(training.nextSlide, x1 => x1.slug)) {
+    nextLink = (
+      <SlideLink
+        slideId={training.nextSlide.slug}
+        buttonText={training.currentSlide.buttonText || I18n.t('training.next')}
+        disabled={disableNext(training)}
+        button={true}
+        params={routeParams}
+        onClick={next}
+      />
+    );
+  } else {
+    let nextHref = returnToLink();
+    if (!nextHref) {
+      nextHref = userLoggedIn() ? '/' : `/training/${routeParams.library_id}`;
+    }
+    if (training.completed) {
+      nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {training.currentSlide.buttonText || I18n.t('training.done')} </a>;
+    } else {
+      nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {training.currentSlide.buttonText || I18n.t('training.done')} </a>;
+    }
 
-const mapStateToProps = state => ({
-  training: state.training
-});
+    if (training.completed === false) {
+      pendingWarning = (
+        <div className="training__slide__notification" key="pending">
+          <div className="container">
+            <p>{I18n.t('training.wait')}</p>
+          </div>
+        </div>
+      );
+    }
+  }
 
-const mapDispatchToProps = {
-  fetchTrainingModule,
-  setSlideCompleted,
-  setCurrentSlide,
-  toggleMenuOpen
+  let loginWarning;
+  if (!userLoggedIn()) {
+    loginWarning = (
+      <div className="training__slide__notification" key="not_logged_in">
+        <div className="container">
+          <p>{I18n.t('training.logged_out')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  let previousLink;
+  if (__guard__(training.previousSlide, x2 => x2.slug)) {
+    previousLink = (
+      <SlideLink
+        slideId={training.previousSlide.slug}
+        buttonText={I18n.t('training.previous')}
+        params={routeParams}
+        onClick={prev}
+      />
+    );
+  }
+
+  let slideTitle;
+  let assessment;
+  let rawHtml;
+  const locale = I18n.locale;
+  if (training.currentSlide.translations && training.currentSlide.translations[locale]) {
+    slideTitle = training.currentSlide.translations[locale].title;
+    rawHtml = md.render(training.currentSlide.translations[locale].content);
+    if (training.currentSlide.translations[locale].assessment) {
+      assessment = training.currentSlide.translations[locale].assessment;
+    }
+  } else {
+    slideTitle = training.currentSlide.title;
+    if (training.currentSlide.content) {
+      rawHtml = md.render(training.currentSlide.content);
+    }
+    if (training.currentSlide.assessment) {
+      assessment = training.currentSlide.assessment;
+    }
+  }
+
+  const menuClass = training.menuIsOpen === false ? 'hidden' : 'shown';
+
+  let quiz;
+  if (training.currentSlide.assessment) {
+    quiz = (
+      <Quiz
+        question={assessment.question}
+        answers={assessment.answers}
+        selectedAnswer={training.currentSlide.selectedAnswer}
+        correctAnswer={training.currentSlide.assessment.correct_answer_id}
+      />
+    );
+  }
+
+  let titlePrefix;
+  if (training.currentSlide.title_prefix) {
+    titlePrefix = (
+      <h2 className="training__slide__title-prefix">{training.currentSlide.title_prefix}</h2>
+    );
+  }
+
+ let sourceLink;
+ if (training.currentSlide.wiki_page) {
+   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+ }
+
+
+  const toggleMenuOpen_FC = (e) => {
+    e.stopPropagation();
+    dispatch(toggleMenuOpen({ currently: training.menuIsOpen }));
+  };
+
+  const closeMenu_FC = (e) => {
+    if (training.menuIsOpen) {
+      e.stopPropagation();
+      dispatch(toggleMenuOpen({ currently: true }));
+    }
+  };
+
+  return (
+    <div>
+      <Notifications />
+      <header>
+        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+          <div className="pull-right hamburger">
+            <span className="hamburger__bar" />
+            <span className="hamburger__bar" />
+            <span className="hamburger__bar" />
+          </div>
+          <h3 className="pull-right">
+            <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
+          </h3>
+        </div>
+        <SlideMenu
+          closeMenu={closeMenu_FC}
+          onClick={toggleMenuOpen_FC}
+          menuClass={menuClass}
+          currentSlide={training.currentSlide}
+          params={routeParams}
+          enabledSlides={training.enabledSlides}
+          slides={training.slides}
+        />
+      </header>
+      {loginWarning}
+      {pendingWarning}
+      <article className="training__slide">
+        {titlePrefix}
+        <h1>{slideTitle}</h1>
+        <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+        {quiz}
+        <footer className="training__slide__footer">
+          <span className="pull-left">{previousLink}</span>
+          {sourceLink}
+          <span className="pull-right">{nextLink}</span>
+        </footer>
+      </article>
+    </div>
+  );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TrainingSlideHandler));
+export default TrainingSlideHandler;
