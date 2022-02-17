@@ -682,6 +682,19 @@ fi:
     view: Näyttökerrat
     word_count: Lisätyt sanat
     word_count_average: Keskimääräinen sanamäärä
+    aliases: Aliakset
+    merged: Yhdistetty
+    created: Luotu
+    changed: Muutettu
+    removed: Poistettu
+    cleared: Tyhjennetty
+    added: Lisätty
+    descriptions: Kuvaukset
+    labels: Nimet
+    no_data: Ei tietoja
+    other_updates: Muut päivitykset
+    redirects_created: Ohjaukset luotu
+    unknown: Tuntematon
   namespace:
     main: Päänimiavaruus
     main_char_added: Päänimiavaruuteen lisätyt merkit

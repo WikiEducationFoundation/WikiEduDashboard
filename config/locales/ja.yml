@@ -618,10 +618,12 @@ ja:
     created: 作成
     changed: 変更
     removed: 除去
+    cleared: クリアしました
     added: 追加されました
     descriptions: 説明
     labels: ラベル
     no_data: データがありません
+    other_updates: 他の更新
     redirects_created: リダイレクトが作成されました
     reverts_performed: 差し戻しは実行されました
     unknown: 不明
