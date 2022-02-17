@@ -79,7 +79,7 @@ jobs:
         run: yarn lint-non-build
       
       - name: Running Ruby Tests
-        run : COVERAGE=true bundle exec rspec spec/ --fail-fast --color --profile --format documentation
+        run : COVERAGE=true bundle exec rspec spec/ --color --profile --format documentation
             
       - name: Running Ruby Linter
         run: bundle exec rubocop
