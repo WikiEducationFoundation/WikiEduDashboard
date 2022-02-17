@@ -4,6 +4,8 @@ import { getFiltered } from '../utils/model_utils';
 import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates } from '../constants';
 import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
+import CourseDateUtils from '../utils/course_date_utils.js';
+
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
@@ -195,6 +197,30 @@ export const getWeeksArray = createSelector(
     });
 
     return weeksArray;
+  }
+);
+
+export const getAllWeeksArray = createSelector(
+  [getWeeksArray, getCourse], (weeksArray, course) => {
+    const meetings = CourseDateUtils.meetings(course);
+    const weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
+    const allWeeks = [];
+    var i=0;
+    weeksArray.forEach((week, weekIndex) => {
+      while(weekMeetings[i] && weekMeetings[i].length===0) {
+        var emptyWeek = {"empty": true, "weekNumber": i+1};
+        allWeeks.push(emptyWeek);
+        i+=1;
+      }
+      var nonEmptyWeek = week;
+      nonEmptyWeek.empty = false;
+      nonEmptyWeek.weekNumber = i+1;
+      nonEmptyWeek.meetings = weekMeetings[i];
+      allWeeks.push(nonEmptyWeek);
+      i+=1;
+    });
+
+    return allWeeks;
   }
 );
 
