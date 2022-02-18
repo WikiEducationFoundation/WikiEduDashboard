@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { extend } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
+import I18n from 'i18n-js';
 
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
@@ -31,6 +32,32 @@ const trainingUrl = (params) => {
   return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
 };
 
+const disableNext = (training) => {
+  return Boolean(training.currentSlide.assessment) && !training.currentSlide.answeredCorrectly;
+};
+
+const getSlideInfo = (training, locale) => {
+  let slideTitle;
+  let assessment;
+  let rawHtml;
+  if (training.currentSlide.translations && training.currentSlide.translations[locale]) {
+    slideTitle = training.currentSlide.translations[locale].title;
+    rawHtml = md.render(training.currentSlide.translations[locale].content);
+    if (training.currentSlide.translations[locale].assessment) {
+      assessment = training.currentSlide.translations[locale].assessment;
+    }
+  } else {
+    slideTitle = training.currentSlide.title;
+    if (training.currentSlide.content) {
+      rawHtml = md.render(training.currentSlide.content);
+    }
+    if (training.currentSlide.assessment) {
+      assessment = training.currentSlide.assessment;
+    }
+  }
+  return { slideTitle, assessment, rawHtml };
+};
+
 const keys = { rightKey: 39, leftKey: 37 };
 
 const TrainingSlideHandler = () => {
@@ -38,10 +65,7 @@ const TrainingSlideHandler = () => {
   const routeParams = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const disableNext = () => {
-    return Boolean(training.currentSlide.assessment) && !training.currentSlide.answeredCorrectly;
-  };
+  const [baseTitle, setBaseTitle] = useState('');
 
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
@@ -64,34 +88,40 @@ const TrainingSlideHandler = () => {
     dispatch(setCurrentSlide(training.previousSlide.slug));
   };
 
-  const handleKeyPress = (e) => {
-    const navParams = { library_id: routeParams.library_id, module_id: routeParams.module_id };
-    if (e.which === keys.leftKey && training.previousSlide) {
-      const params = extend(navParams, { slide_id: training.previousSlide.slug });
-      prev();
-      history.push(trainingUrl(params));
-    }
-    if (e.which === keys.rightKey && training.nextSlide) {
-      if (disableNext()) { return; }
-      const params = extend(navParams, { slide_id: training.nextSlide.slug });
-      next();
-      return history.push(trainingUrl(params));
-    }
-  };
-
   useEffect(() => {
+    setBaseTitle(document.title);
     const slideId = __guard__(routeParams, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
   }, []);
 
   useEffect(() => {
+    const handleKeyPress = (e) => {
+      const navParams = { library_id: routeParams.library_id, module_id: routeParams.module_id };
+      if (e.which === keys.leftKey && training.previousSlide) {
+        const params = extend(navParams, { slide_id: training.previousSlide.slug });
+        prev();
+        history.push(trainingUrl(params));
+      }
+      if (e.which === keys.rightKey && training.nextSlide) {
+        if (disableNext(training)) { return; }
+        const params = extend(navParams, { slide_id: training.nextSlide.slug });
+        next();
+        return history.push(trainingUrl(params));
+      }
+    };
+
     window.addEventListener('keyup', handleKeyPress);
 
+    // training has changed, so update the title of the slide
+    const { slideTitle } = getSlideInfo(training, I18n.locale);
+    document.title = `${slideTitle} - ${baseTitle}`;
+
     return () => {
+      // cleanup
       return window.removeEventListener('keyup', handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [training]);
 
   if (training.loading === true) {
     return (
@@ -169,25 +199,7 @@ const TrainingSlideHandler = () => {
     );
   }
 
-  let slideTitle;
-  let assessment;
-  let rawHtml;
-  const locale = I18n.locale;
-  if (training.currentSlide.translations && training.currentSlide.translations[locale]) {
-    slideTitle = training.currentSlide.translations[locale].title;
-    rawHtml = md.render(training.currentSlide.translations[locale].content);
-    if (training.currentSlide.translations[locale].assessment) {
-      assessment = training.currentSlide.translations[locale].assessment;
-    }
-  } else {
-    slideTitle = training.currentSlide.title;
-    if (training.currentSlide.content) {
-      rawHtml = md.render(training.currentSlide.content);
-    }
-    if (training.currentSlide.assessment) {
-      assessment = training.currentSlide.assessment;
-    }
-  }
+  const { slideTitle, assessment, rawHtml } = getSlideInfo(training, I18n.locale);
 
   const menuClass = training.menuIsOpen === false ? 'hidden' : 'shown';
 
