@@ -43,7 +43,7 @@ const Overview = createReactClass({
     resetCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired,
     weeks: PropTypes.array.isRequired,
-    allWeeks: PropTypes.array.isRequired, 
+    allWeeks: PropTypes.array.isRequired,
     setValid: PropTypes.func.isRequired,
     setInvalid: PropTypes.func.isRequired,
     activateValidations: PropTypes.func.isRequired,

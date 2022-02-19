@@ -189,7 +189,6 @@ const Timeline = createReactClass({
     const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const usingCustomTitles = this.usingCustomTitles();
     const weekNavInfo = [];
-    let i = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
 
@@ -274,7 +273,7 @@ const Timeline = createReactClass({
       );
       return i += 1;
     }
-    );*/
+    ); */
 
     // Using allWeeks
     this.props.allWeeks.forEach((week, index) => {
@@ -298,8 +297,7 @@ const Timeline = createReactClass({
             />
           </div>
         ));
-      }
-      else {
+      } else {
         weekNavInfo.push({ emptyWeek: false, title: week.title });
         weekComponents.push((
           <div key={week.id}>
@@ -326,8 +324,8 @@ const Timeline = createReactClass({
               addBlock={this.props.addBlock}
               deleteBlock={this.props.deleteBlock}
               saveGlobalChanges={this.props.saveGlobalChanges}
-              canBlockMoveUp={this._canBlockMoveUp.bind(this, week, (week.order-1))}
-              canBlockMoveDown={this._canBlockMoveDown.bind(this, week, (week.order-1))}
+              canBlockMoveUp={this._canBlockMoveUp.bind(this, week, (week.order - 1))}
+              canBlockMoveDown={this._canBlockMoveDown.bind(this, week, (week.order - 1))}
               onMoveBlockUp={this._handleMoveBlock.bind(this, true)}
               onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
               onBlockDrag={this._handleBlockDrag}
@@ -338,9 +336,8 @@ const Timeline = createReactClass({
           </div>
         )
         );
-
       }
-    })
+    });
 
     // If there are no weeks at all, put in a special placeholder week with the
     // emptyTimeline parameter

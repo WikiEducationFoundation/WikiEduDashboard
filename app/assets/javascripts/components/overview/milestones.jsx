@@ -47,13 +47,13 @@ const Milestones = createReactClass({
       }
       );
     }
-    );*/
+    ); */
 
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
 
-    this.props.allWeeks.map((week, index) => {
+    this.props.allWeeks.map((week) => {
       if (!week.empty) {
         const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
         return milestoneBlocks.map((block) => {

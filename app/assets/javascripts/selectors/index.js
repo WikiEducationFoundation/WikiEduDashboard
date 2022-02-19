@@ -205,19 +205,19 @@ export const getAllWeeksArray = createSelector(
     const meetings = CourseDateUtils.meetings(course);
     const weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
     const allWeeks = [];
-    var i=0;
-    weeksArray.forEach((week, weekIndex) => {
-      while(weekMeetings[i] && weekMeetings[i].length===0) {
-        var emptyWeek = {"empty": true, "weekNumber": i+1};
+    let i = 0;
+    weeksArray.forEach((week) => {
+      while (weekMeetings[i] && weekMeetings[i].length === 0) {
+        const emptyWeek = { empty: true, weekNumber: i + 1 };
         allWeeks.push(emptyWeek);
-        i+=1;
+        i += 1;
       }
-      var nonEmptyWeek = week;
+      const nonEmptyWeek = week;
       nonEmptyWeek.empty = false;
-      nonEmptyWeek.weekNumber = i+1;
+      nonEmptyWeek.weekNumber = i + 1;
       nonEmptyWeek.meetings = weekMeetings[i];
       allWeeks.push(nonEmptyWeek);
-      i+=1;
+      i += 1;
     });
 
     return allWeeks;
