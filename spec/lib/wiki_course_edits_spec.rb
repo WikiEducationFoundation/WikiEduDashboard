@@ -4,8 +4,9 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 
 describe WikiCourseEdits do
+  let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:slug) { 'Missouri_SandT/History_of_Science_(Fall_2019)' }
-  let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1, slug: slug) }
+  let(:course) { create(:course, id: 1, submitted: true, home_wiki: home_wiki, slug: slug) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'Belajane41') }
   # rubocop:disable Layout/LineLength
@@ -303,7 +304,7 @@ describe WikiCourseEdits do
 
           context 'for disabled projects' do
             let(:wiki) { Wiki.get_or_create(language: 'pt', project: 'wikipedia') }
-            let(:course) { create(:course, submitted: true, home_wiki_id: wiki.id) }
+            let(:course) { create(:course, submitted: true, home_wiki: wiki) }
 
             it 'does not post to P&E Dashboard' do
               expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
@@ -368,6 +369,35 @@ describe WikiCourseEdits do
                               course: course,
                               current_user: user)
         end
+      end
+    end
+
+    context 'when an approved course is not on enwiki' do
+      let(:home_wiki) { Wiki.get_or_create(language: 'pt', project: 'wikipedia') }
+      let(:pt_selfie) { create(:article, wiki: home_wiki, title: 'Selfie') }
+      let(:campaign) { create(:campaign) }
+      let!(:campaigns_course) do
+        create(:campaigns_course, campaign: campaign, course: course)
+      end
+
+      before do
+        allow(ENV).to receive(:[]).and_call_original
+        allow(ENV).to receive(:[]).with('dashboard_url').and_return('outreachdashboard.wmflabs.org')
+        create(:assignment,
+               user: user,
+               course: course,
+               article_title: 'Selfie',
+               article: pt_selfie,
+               wiki: home_wiki,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+      end
+
+      it 'posts the template to the top of the page' do
+        expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
+        allow_any_instance_of(Wiki).to receive(:edits_enabled?).and_return(true)
+        described_class.new(action: :update_assignments,
+                            course: course,
+                            current_user: user)
       end
     end
   end

@@ -1,6 +1,7 @@
 # Messages for Gun (gungbe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Atej2*
 # Author: Gadarawamo
 # Author: Joshateji
 ---
@@ -66,6 +67,11 @@ guw:
     articles_edited_generic_wikidata: Hosọ he ko yin vivọjlado lẹ
     uploads_in_use_count_wikidata:
       other: dopo=wepo yin zinzan to nulọ mẹ
+    merged: Ko yin kinkọndopọ
+    changed: Ko yin didiọ
+    removed: Ko yin didesẹ
+    added: Ko yin yiyidogọ na
+    unknown: Ma yin yinyọnẹn
   recent_activity:
     article_title: Hosọ
   users:

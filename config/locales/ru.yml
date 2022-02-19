@@ -27,6 +27,7 @@
 # Author: Movses
 # Author: Nzeemin
 # Author: Okras
+# Author: Pacha Tchernof
 # Author: Patrick Star
 # Author: Pplex.vhs
 # Author: Putnik
@@ -34,6 +35,7 @@
 # Author: Romanko Mikhail
 # Author: Shaleych
 # Author: SmartNart12
+# Author: Tanzun
 # Author: Teretalexev
 # Author: Vlad5250
 # Author: Марио
@@ -503,6 +505,25 @@ ru:
     view: Просмотров
     word_count: Слов добавлено
     word_count_average: Среднее количество слов
+    total_revisions: Всего версий
+    claims: Претензии
+    aliases: Алиасы
+    merged: Объединено
+    created: Создано
+    changed: Изменилось
+    removed: Удалено
+    cleared: Очищено
+    added: Добавлено
+    descriptions: Описания
+    interwiki_links_added: Интервики-ссылок добавлено
+    labels: Метки
+    no_data: Нет данных
+    other_updates: Другие обновления
+    qualifiers_added: Спецификаторов добавлено
+    redirects_created: Перенаправляет созданное
+    restorations_performed: Выполненные восстановления
+    reverts_performed: Выполненные откаты
+    unknown: Неизвестно
   namespace:
     main: Основное пространство
     main_char_added: Добавлено символов в основном пространстве
@@ -510,7 +531,7 @@ ru:
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
   recent_activity:
-    article_title: Название статьи
+    article_title: Заголовок
     datetime: Дата/время
     image: Изображение
     file_name: Имя файла
@@ -558,6 +579,7 @@ ru:
   uploads:
     credit: Создатели
     file_name: Имя файла
+    header: Файлы, загруженные на Викисклад
     image: Изображение
     label: Загрузки
     loading: Загрузка приложений...
@@ -608,6 +630,7 @@ ru:
     training_module_time:
       minutes: мин.
       seconds: сек.
+    uploads_doc: Количество загрузок файлов на Викисклад
     username: Имя участника
     username_placeholder: Имя участника
     useremail_placeholder: Эл. почта

@@ -1078,6 +1078,25 @@ uk:
     wiki_ed_help: Скористайтеся кнопкою «Отримати допомогу», щоб повідомити про проблему.
     word_count: Слів додано
     word_count_average: Середня кількість слів
+    total_revisions: Всього версій
+    claims: Претензії
+    aliases: Псевдоніми
+    merged: Об'єднана
+    created: Створена
+    changed: Змінена
+    removed: Вилучена
+    cleared: Очищена
+    added: Додана
+    descriptions: Описи
+    interwiki_links_added: Додано посилання на інтервікі
+    labels: Етикетки
+    no_data: Немає даних
+    other_updates: Інші оновлення
+    qualifiers_added: Додано кваліфікації
+    redirects_created: Створено перенаправлення
+    restorations_performed: Виконані реставрації
+    reverts_performed: Повернення виконано
+    unknown: Невідомо
   namespace:
     main: Основний простір
     main_char_added: Додано символів в основному просторі

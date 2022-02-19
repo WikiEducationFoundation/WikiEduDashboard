@@ -31,6 +31,11 @@ const ArticleList = createReactClass({
     };
   },
 
+  componentDidMount() {
+    // sets the title for this tab
+    const project = this.props.course.home_wiki.project;
+    document.title = `${this.props.course.title} - ${ArticleUtils.I18n('edited', project)}`;
+  },
   onChangeFilter(e) {
     const value = e.target.value.split('.');
     if (value.length > 1) {

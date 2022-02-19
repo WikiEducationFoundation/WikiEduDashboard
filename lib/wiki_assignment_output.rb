@@ -93,17 +93,11 @@ class WikiAssignmentOutput
     existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
     page_content.gsub!(/#{Regexp.quote(existing_tag)}[^}]*\}\}/, new_tag)
 
-    # Add new tag at top (if there wasn't an existing tag already)
-    unless page_content.include?(new_tag)
-      # Append after existing templates, but only if there is no additional content
-      # on the line where the templates end.
-      if starts_with_template?(page_content) && matches_talk_template_pattern?(page_content)
-        # Insert the assignment tag the end of the page-top templates
-        page_content.sub!(end_of_templates_pattern, "}}\n#{new_tag}\n")
-      else # Add the tag to the top of the page
-        page_content = "#{new_tag}\n\n#{page_content}"
-      end
-    end
+    # If we replaced an existing tag with the new version of it, we're done.
+    return page_content if page_content.include?(new_tag)
+
+    # Otherwise, we need to add the tag to the right place.
+    page_content = insert_tag_into_talk_page(page_content, new_tag)
 
     page_content
   end
@@ -166,5 +160,39 @@ class WikiAssignmentOutput
     DISAMBIGUATION_TEMPLATE_FRAGMENTS.any? do |template_fragment|
       page_content.include?(template_fragment)
     end
+  end
+
+  def insert_tag_into_talk_page(page_content, new_tag)
+    if en_wiki?
+      add_template_in_new_section(page_content, new_tag)
+    else
+      add_template_to_page_top(page_content, new_tag)
+    end
+  end
+
+  def en_wiki?
+    @wiki.language == 'en' && @wiki.project == 'wikipedia'
+  end
+
+  # This is what do on wikis other than English Wikipedia
+  def add_template_to_page_top(page_content, template)
+    # Append after existing templates, but only if there is no additional content
+    # on the line where the templates end.
+    if starts_with_template?(page_content) && matches_talk_template_pattern?(page_content)
+      # Insert the assignment tag the end of the page-top templates
+      page_content.sub!(end_of_templates_pattern, "}}\n#{template}\n")
+    else # Add the tag to the top of the page
+      page_content = "#{template}\n\n#{page_content}"
+    end
+
+    page_content
+  end
+
+  # This is what we do on English Wikipedia
+  # based on the RfC here:
+  # https://en.wikipedia.org/w/index.php?title=Wikipedia:Education_noticeboard&oldid=1072013453#How_should_Wiki_Education_assignments_be_announced_on_article_talk_page?
+  def add_template_in_new_section(page_content, template)
+    section_header = "==Wiki Education assignment: #{@course.title}=="
+    "#{page_content}\n\n#{section_header}\n#{template}\n"
   end
 end
