@@ -1,17 +1,23 @@
 # Messages for Inari Sami (anarâškielâ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Seipinne
 # Author: Yupik
 ---
 smn:
   application:
     cookie_consent_see_more: Lasetiäđuh
+    greeting_extended: Tiervâpuáttim Wikipedian
   articles:
+    hide: Čievâ
     see_more: Lasetiäđuh
+  campaign:
+    alert_user_id: Kevttee
   categories:
     name: Nommâ
     template_name: Myenster nommâ
   courses:
+    home_wiki: Päikkiwiki
     tags: 'Kilgoleh:'
   courses_generic:
     creator:
@@ -19,13 +25,21 @@ smn:
   editable:
     save: Vuorkkii
   metrics:
+    close_modal: Toopâ
     tags: Kilgoleh
+  namespace:
+    user_ns: Kevttee
   recent_activity:
+    image: Kove
     file_name: Tiätuvuárkkánommâ
   revisions:
     diff_show: Čääiti
     diff_hide: Čievâ
     see_more: Lasetiäđuh
+  training:
+    page: Sijđo
+  uploads:
+    image: Kove
   users:
     first_name: Ovdânommâ
     last_name: Suhânommâ

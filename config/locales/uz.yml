@@ -1,0 +1,23 @@
+# Messages for Uzbek (oʻzbekcha/ўзбекча)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Malikxan
+# Author: Sociologist
+---
+uz:
+  assignments:
+    reviewers: Tekshiruvchi(lar)
+  metrics:
+    bytes_added: Bayt qoʻshildi
+    created: Yaratildi
+    changed: Oʻzgartirildi
+    removed: Olib tashlandi
+    cleared: Tozalandi
+    added: Qoʻshildi
+    descriptions: Tavsiflar
+    no_data: Maʼlumot yoʻq
+    other_updates: Boshqa yangilanishlar
+    unknown: Nomaʼlum
+  users:
+    contributions: Foydalanuvchi hissasi
+...

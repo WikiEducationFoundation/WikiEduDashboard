@@ -11,6 +11,7 @@
 # Author: Macofe
 # Author: Mikey641
 # Author: MojoMann
+# Author: N100a
 # Author: Or
 # Author: Steeve815
 # Author: Strayblues
@@ -645,6 +646,20 @@ he:
     wiki_ed_help: ניתן להשתמש בכפתור ’קבלת עזרה’ לדיווח על בעיה.
     word_count: מילים שנוספו
     word_count_average: כמות מילים ממוצעת
+    aliases: כינויים
+    merged: אוחד
+    created: נוצר
+    changed: השתנה
+    removed: הוסר
+    cleared: נוקה
+    added: נוסף
+    descriptions: תיאורים
+    interwiki_links_added: קישורים פנימיים של ויקיפדיה נוספו
+    labels: תוויות
+    no_data: אין נתונים
+    other_updates: עדכונים אחרים
+    restorations_performed: בוצע שחזור
+    unknown: לא ידוע
   namespace:
     main: המרחב הראשי
     main_char_added: מס' התווים שנוספו למרחב הערכים הראשי
