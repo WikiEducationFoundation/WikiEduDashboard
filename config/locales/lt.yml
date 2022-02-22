@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
 # Author: Eitvys200
+# Author: GustasMarc
 # Author: Manvydasz
 # Author: Nersip
 # Author: Zygimantus
@@ -360,6 +361,25 @@ lt:
     view: Peržiūros
     word_count: Pridėta Žodžių
     word_count_average: Vidutinis Žodžių Skaičius
+    total_revisions: Iš viso versijų
+    claims: Pretenzijos
+    aliases: Alternatyvūs vardai
+    merged: Sujungta
+    created: Sukurta
+    changed: Pakeista
+    removed: Pašalinta
+    cleared: Išvalyta
+    added: Pridėta
+    descriptions: Aprašymai
+    interwiki_links_added: Pridėtos „Interwiki“ nuorodos
+    labels: Etiketės
+    no_data: Nėra duomenų
+    other_updates: Kiti atnaujinimai
+    qualifiers_added: Kvalifikatoriai pridėti
+    redirects_created: Sukurti peradresavimai
+    restorations_performed: Atliktos restauracijos
+    reverts_performed: Atlikti grąžinimai
+    unknown: Nežinomas
   namespace:
     main: Pagrindinė sritis
     user_ns: Naudotojas

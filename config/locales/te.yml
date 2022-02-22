@@ -85,6 +85,9 @@ te:
     edit_count_description: మొత్తం దిద్దుబాట్లు
     update_statistics_link: ఇంకా చూడండి
     word_count: చేర్చిన పదాలు
+    labels: సూచికలు
+    other_updates: ఇతర తాజాకరణలు
+    unknown: తెలియని
   namespace:
     user_ns: వాడుకరి
   recent_activity:

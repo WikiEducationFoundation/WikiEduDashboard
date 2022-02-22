@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getWeeksArray } from '../../selectors';
@@ -62,6 +62,11 @@ const moduleByExercises = (modules) => {
 };
 
 const Resources = ({ weeks, current_user, course }) => {
+  // setting page title
+  useEffect(() => {
+    document.title = `${course.title} - ${I18n.t('resources.label')}`;
+  }, []);
+
   const trainingLibrarySlug = course.training_library_slug;
   let instructorModulesLink;
   if (current_user.isInstructor && Features.wikiEd) {

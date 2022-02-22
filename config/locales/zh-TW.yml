@@ -17,6 +17,7 @@
 # Author: Winston Sung
 # Author: Wwycheuk
 # Author: Xiplus
+# Author: 列维劳德
 ---
 zh-TW:
   number:
@@ -792,6 +793,25 @@ zh-TW:
     wiki_ed_help: 使用「取得幫助」按鈕來回報問題。
     word_count: 加入的文字
     word_count_average: 平均字數
+    total_revisions: 修訂總計
+    claims: 宣告
+    aliases: 別名
+    merged: 已合併
+    created: 已建立
+    changed: 已變更
+    removed: 已移除
+    cleared: 已清除
+    added: 已新增
+    descriptions: 描述
+    interwiki_links_added: 跨 wiki 連結已新增
+    labels: 標籤
+    no_data: 沒有資料
+    other_updates: 其他更新
+    qualifiers_added: 以新增辨識符號
+    redirects_created: 已建立重新導向
+    restorations_performed: 還原已執行
+    reverts_performed: 還原已執行
+    unknown: 未知
   namespace:
     main: 主空間
     main_char_added: 主空間字元以加入

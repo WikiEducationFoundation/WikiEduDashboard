@@ -154,6 +154,17 @@ scn:
   instructor_view:
     assignments_table:
       article_name: Nomu
+  metrics:
+    aliases: Alias
+    merged: Junciutu
+    created: Criatu
+    changed: Canciatu
+    removed: Livatu
+    added: Agghiunciutu
+    descriptions: Discrizzioni
+    labels: Etichetti
+    redirects_created: Rimanni criati
+    unknown: Scanusciutu
   recent_activity:
     article_title: Tìtulu
     image: Mmàggini

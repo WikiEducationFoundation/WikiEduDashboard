@@ -29,7 +29,7 @@ const EmbedCourseStats = () => {
   let refCount;
   if (course.references_count !== '0') {
     refCount = (
-      <div className="stat-display__stat" id="references-added">
+      <div className="stat-display__stat" id="references-count">
       <div className="stat-display__value">{course.references_count}</div>
       <small>{I18n.t('metrics.references_count')}</small>
     </div>

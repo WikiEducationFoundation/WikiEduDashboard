@@ -11,6 +11,13 @@ import RandomPeerAssignButton from '@components/students/components/RandomPeerAs
 import Loading from '@components/common/loading.jsx';
 
 export class Overview extends React.Component {
+  componentDidMount() {
+    // sets the title of this tab
+    const { prefix } = this.props;
+    const header = I18n.t('users.sub_navigation.student_overview', { prefix });
+    document.title = `${this.props.course.title} - ${header}`;
+  }
+
   render() {
     const {
       assignments, course, current_user, prefix, sort, students,

@@ -316,6 +316,9 @@ hi:
     edit: सम्पादन
     cancel: रद्द करें
     save: सहेजें
+  metrics:
+    removed: हटाया गया
+    added: जोड़ा गया
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय

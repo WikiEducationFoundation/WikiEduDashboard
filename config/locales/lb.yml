@@ -424,6 +424,11 @@ lb:
       other: Fichieren déi an Artikele  benotzt ginn
     word_count: Wierder derbäigesat
     word_count_average: Duerchschnëttlech Zuel vu Wierder
+    created: Ugeluecht
+    changed: Geännert
+    descriptions: Beschreiwungen
+    labels: Etiketten
+    unknown: Onbekannt
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer

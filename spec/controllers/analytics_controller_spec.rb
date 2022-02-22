@@ -131,11 +131,14 @@ describe AnalyticsController, type: :request do
     let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
     let(:course) { create(:course, slug: 'foo/bar_(baz)', home_wiki: wikidata) }
 
-    before { stub_wiki_validation }
+    before do
+      stub_wiki_validation
+      UpdateWikidataStats.new(course)
+    end
 
     it 'returns a CSV' do
       get '/course_wikidata_csv', params: { course: course.slug }
-      expect(response.body).to include('claims created')
+      expect(response.body).to include('total revisions')
     end
   end
 

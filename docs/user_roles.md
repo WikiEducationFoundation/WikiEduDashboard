@@ -117,3 +117,7 @@ interface messages differ between them: Course vs. Program, Student vs. Editor, 
 
 In `config/application.yml`, use `wiki_education: true` or `wiki_education: false` to
 toggle between these configurations.
+
+## Loading training modules
+
+In `wiki_education` mode, you can load the full set of training modules from .yml files by visiting `/reload_trainings?module=all`.

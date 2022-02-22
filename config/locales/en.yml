@@ -1008,6 +1008,26 @@ en:
     wiki_ed_help: Use the 'Get Help' button to report a problem.
     word_count: Words Added
     word_count_average: Average Word Count
+    total_revisions: Total revisions
+    claims: Claims
+    aliases: Aliases
+    merged: Merged
+    created: Created
+    changed: Changed
+    removed: Removed
+    cleared: Cleared
+    added: Added
+    descriptions: Descriptions
+    interwiki_links_added: Interwiki links added
+    labels: Labels
+    merged: Merged
+    no_data: No data
+    other_updates: Other updates
+    qualifiers_added: Qualifiers added
+    redirects_created: Redirects created
+    restorations_performed: Restorations performed
+    reverts_performed: Reverts performed
+    unknown: Unknown
 
   namespace:
     main: Mainspace
