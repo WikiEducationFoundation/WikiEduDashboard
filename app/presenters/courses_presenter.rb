@@ -159,6 +159,13 @@ class CoursesPresenter
     100 * trained_count.to_f / user_count
   end
 
+  def wikidata_stats
+    stats ||= courses.joins(:course_stat).where.not(course_stats: nil).map do |course|
+      course.course_stat.stats_hash['www.wikidata.org']
+    end
+    return { 'www.wikidata.org' => stats.inject { |a, b| a.merge(b) { |_, x, y| x + y } } }
+  end
+
   def creation_date
     I18n.l campaign.created_at.to_date
   end
