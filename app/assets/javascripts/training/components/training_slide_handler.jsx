@@ -88,6 +88,8 @@ const TrainingSlideHandler = () => {
     dispatch(setCurrentSlide(training.previousSlide.slug));
   };
 
+  // runs when the component is first rendered
+  // fetches the initial data and sets the base title
   useEffect(() => {
     setBaseTitle(document.title);
     const slideId = __guard__(routeParams, x => x.slide_id);
@@ -95,6 +97,9 @@ const TrainingSlideHandler = () => {
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
   }, []);
 
+  // runs whenever the training from the redux store changes
+  // which means its run essentially when the user goes from one slide to another
+  // changes the page title according to the slide title and updates the event listener
   useEffect(() => {
     const handleKeyPress = (e) => {
       const navParams = { library_id: routeParams.library_id, module_id: routeParams.module_id };
@@ -118,7 +123,7 @@ const TrainingSlideHandler = () => {
     document.title = `${slideTitle} - ${baseTitle}`;
 
     return () => {
-      // cleanup
+      // cleanup. Removes the old event listener
       return window.removeEventListener('keyup', handleKeyPress);
     };
   }, [training]);
