@@ -1,7 +1,7 @@
 %section#courses
   .section-header
     %h3
-      = t("courses.active_courses", course_type: t("#{presenter.course_string_prefix}.courses")) + ': ' + presenter.campaign.title
+      = t("courses.active_courses") + ': ' + presenter.campaign.title
     .sort-select
       %select.sorts{:rel => "courses"}
         %option{:rel => "asc", :value => "title"}= t("courses.title")
