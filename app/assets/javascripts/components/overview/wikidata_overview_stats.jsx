@@ -51,6 +51,7 @@ const WikidataOverviewStats = ({ statistics }) => {
               className="stat-display__value-small"
               stat={statistics['claims created']}
               statMsg={I18n.t('metrics.created')}
+              renderZero={true}
             />
             <OverviewStat
               id="claims-changed"
