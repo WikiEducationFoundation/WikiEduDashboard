@@ -17,7 +17,7 @@ describe('Milestones', () => {
     <Milestones
       timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[weeks_1, weeks_2]}
-      allWeeks = {allWeeks_1, allWeeks_2, allWeeks_3}
+      allWeeks = {[allWeeks_1, allWeeks_2, allWeeks_3]}
       course={course}
     />
   );
@@ -31,6 +31,7 @@ describe('Milestones', () => {
     <Milestones
       timelineStart={'2018-07-20T23:59:59.000Z'}
       weeks={[]}
+      allWeeks={[]}
       course={course}
     />
   );
