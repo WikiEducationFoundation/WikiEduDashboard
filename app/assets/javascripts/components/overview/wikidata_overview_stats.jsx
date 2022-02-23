@@ -173,8 +173,6 @@ const WikidataOverviewStats = ({ statistics }) => {
               stat={statistics['redirects created']}
               statMsg={I18n.t('metrics.redirects_created')}
               renderZero={true}
-              info={I18n.t('metrics.redirects_info')}
-              infoId="redirects-info"
             />
             <OverviewStat
               id="reverts-performed"
@@ -202,13 +200,6 @@ const WikidataOverviewStats = ({ statistics }) => {
               className="stat-display__value-small"
               stat={statistics['other updates']}
               statMsg={I18n.t('metrics.other_updates')}
-              renderZero={true}
-            />
-            <OverviewStat
-              id="unknown"
-              className="stat-display__value-small"
-              stat={statistics.unknown}
-              statMsg={I18n.t('metrics.unknown')}
               renderZero={true}
             />
           </div>

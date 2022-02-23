@@ -28,4 +28,15 @@ module CourseHelper
     string_prefix ||= Features.default_course_string_prefix
     I18n.t("#{string_prefix}.#{message_key}")
   end
+
+  def format_wikidata_stats(course_stats)
+    course_stats['www.wikidata.org']['other updates'] += course_stats['www.wikidata.org']['unknown']
+    course_stats['www.wikidata.org'].reject! { |k, _v| k == 'unknown' }
+    course_stats.each_value do |stat|
+      stat.each do |key, value|
+        stat[key] = number_to_human(value)
+      end
+    end
+    course_stats
+  end
 end

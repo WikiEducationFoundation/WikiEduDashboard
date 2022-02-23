@@ -304,6 +304,13 @@ pt:
         "Atribuir/remover uma revisão de pares". Clicar "OK" irá +atribuir um total
         de %{count} revisões de pares, com um máximo de %{maximum} a cada estudante,
         escolhidos entre os artigos dos colegas de aula.
+      confirm_addition_wikidata: Na maioria dos casos, só deve usar isto depois de
+        terem sido atribuídos a todos os alunos os seus elementos principais. Em alternativa,
+        pode pedir aos alunos que escolham as suas próprias revisões de pares ou pode
+        atribuir revisões de pares manualmente clicando na linha de um aluno e usando
+        o botão "Atribuir/remover uma revisão de pares". Clicar "OK" irá atribuir
+        um total de %{count} revisões de pares adicionais, com um máximo de %{maximum}
+        a cada estudante, escolhidas entre os elementos dos colegas.
       heading: Atribuir revisões de pares aleatórias
       tooltip_message: Atribui artigos aleatórios (com a contagem de revisão por pares
         como número máximo) a cada aluno.
@@ -959,10 +966,11 @@ pt:
   instructor_view:
     article_assignments: '%{prefix} Atribuições'
     assignments_table:
-      article_name: Nome do artigo
+      article_name: Nome
       current_stage: Estado atual
       relevant_links: Hiperligações relevantes
     assigned_articles: Artigos atribuídos
+    assigned_articles_wikidata: Elementos atribuídos
     bad_work:
       learn_more: Se o trabalho do aluno piorou o artigo, recomendamos que o edite.
         Caso contrário, informe-nos sobre os problemas para que possamos corrigi-los
