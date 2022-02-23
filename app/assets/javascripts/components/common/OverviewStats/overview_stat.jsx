@@ -9,7 +9,7 @@ const OverviewStat = ({ id, className, stat, statMsg, renderZero, info, infoId }
     <div className="stat-display__stat tooltip-trigger" id={id}>
       <div className={className}>
         {stat}
-        {info && <img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />}
+        {info && < img className="info-img" src="/assets/images/info.svg" alt="tooltip default logo" />}
       </div>
       <small>{statMsg}</small>
       {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OverviewStat from './overview_stat';
+import OverviewStat from '../common/OverviewStats/overview_stat';
 import I18n from 'i18n-js';
 
 const WikidataOverviewStats = ({ statistics }) => {
