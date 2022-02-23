@@ -9,8 +9,8 @@ if @campaign
     json.template_description @campaign.template_description
     json.default_course_type @campaign.default_course_type
     json.default_passcode @campaign.default_passcode
-    json.courses_count @presenter.courses.count
-    json.user_count @presenter.user_count
+    json.courses_count number_to_human @presenter.courses.count
+    json.user_count number_to_human @presenter.user_count
     json.new_article_count_human number_to_human(@presenter.courses.sum(:new_article_count))
     json.word_count_human number_to_human(@presenter.word_count)
     json.references_count_human number_to_human(@presenter.references_count)
