@@ -244,7 +244,6 @@ qqq:
   campaign:
     active_campaigns: |-
       Heading for the list of active campaigns
-      {{Identical|Active}}
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
     already_exists: Error shown when a new campaign has the same name or slug of another
@@ -300,7 +299,6 @@ qqq:
     activity: Label for link to the 'recent activity' list for a course
     active_courses: |-
       Heading for the list of active courses
-      {{Identical|Active}}
     all_courses: Button to view the list of all courses
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
