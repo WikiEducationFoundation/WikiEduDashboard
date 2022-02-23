@@ -29,5 +29,9 @@ if @campaign
     json.start @campaign.start
     json.end @campaign.end
     json.created_at @campaign.created_at
+
+    if @presenter.wikidata_stats['www.wikidata.org']
+      json.course_stats format_wikidata_stats(@presenter.wikidata_stats)
+    end
   end
 end
