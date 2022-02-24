@@ -4,7 +4,7 @@
 
 .container
   %section.overview.container
-    = render 'courses/header_stats', presenter: @presenter
+    #react_root{data: {slug: @campaign.slug}, class: 'top-stats-margin'}
 
 .container
   %section#campaign-articles

@@ -5,7 +5,7 @@
 
 %header.main-page
   .container
-    = render 'courses/header_stats', presenter: @presenter
+    #react_root{data: {slug: @campaign.slug}}
 
 .container
   %section#courses
