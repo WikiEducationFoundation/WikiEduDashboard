@@ -361,6 +361,8 @@ en:
     data_editors_by_course_info: List of enrolled editors and their courses/programs
     data_editor_usernames: Editor usernames
     data_editor_usernames_info: List of editor usernames, one per line
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
     default_course_type: Default Course Type
     default_passcode: Default Passcode
     default_passcode_explanation: "By default, new programs in this campaign should have:"

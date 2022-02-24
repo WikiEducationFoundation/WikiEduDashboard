@@ -11,6 +11,20 @@ const CampaignStatsDownloadModal = ({ match }) => {
   const editorsLink = `/campaigns/${campaignSlug}/students.csv`;
   const editorsByCourseLink = `/campaigns/${campaignSlug}/students.csv?course=true`;
   const instructorsLink = `/campaigns/${campaignSlug}/instructors.csv?course=true`;
+  const wikidataLink = `/campaigns/${campaignSlug}/wikidata.csv`;
+
+  let wikidataCsvLink;
+  if (Features.wikiEd) {
+    wikidataCsvLink = (
+      <>
+        <hr />
+        <p>
+          <a href={wikidataLink} className="button right">{I18n.t('campaign.data_wikidata')}</a>
+          {I18n.t('campaign.data_wikidata_info')}
+        </p>
+      </>
+    );
+  }
 
   if (!show) {
     return (
@@ -52,6 +66,7 @@ const CampaignStatsDownloadModal = ({ match }) => {
         <a href={instructorsLink} className="button right">{I18n.t('campaign.data_instructors')}</a>
         {I18n.t('campaign.data_instructors_info')}
       </p>
+      {wikidataCsvLink}
     </div>
   );
 };

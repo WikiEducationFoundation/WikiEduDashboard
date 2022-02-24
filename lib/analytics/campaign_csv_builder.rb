@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
 require_dependency "#{Rails.root}/app/workers/campaign_csv_worker"
+require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
   def initialize(campaign)
@@ -42,6 +43,11 @@ class CampaignCsvBuilder
     end
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def wikidata_to_csv
+    courses = @campaign.courses.joins(:course_stat)
+    CourseWikidataCsvBuilder.new(courses).generate_csv
   end
 
   class AllCourses
