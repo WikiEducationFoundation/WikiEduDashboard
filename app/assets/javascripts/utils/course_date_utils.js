@@ -123,11 +123,11 @@ const CourseDateUtils = {
   weekMeetings(recurrence, course, exceptions) {
     if (!recurrence) { return []; }
     const weekEnd = recurrence.endDate();
-    weekEnd?.day(6);
+    weekEnd.day(6);
     let weekStart = recurrence.startDate();
     const firstWeekStart = recurrence.startDate().day();
     weekStart.day(0);
-    const courseWeeks = Math.ceil(weekEnd?.diff(weekStart, 'weeks', true));
+    const courseWeeks = Math.ceil(weekEnd.diff(weekStart, 'weeks', true));
     if (!recurrence.rules || recurrence.rules[0].measure !== 'daysOfWeek') {
       return [];
     }

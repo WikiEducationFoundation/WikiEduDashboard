@@ -10,7 +10,7 @@ describe('Milestones', () => {
   const weeks_2 = { order: 2, blocks: [] };
   const allWeeks_1 = { empty: false, weekNumber: 1, order: 1, blocks: [block] };
   const allWeeks_2 = { empty: true, weekNumber: 2 };
-  const allWeeks_3 = { empty: false, weekNumber: 3, order: 2, blocks: [] }; 
+  const allWeeks_3 = { empty: false, weekNumber: 3, order: 2, blocks: [] };
   const course = { start: '2016-01-01', timeline_start: '2016-01-01' };
 
   const TestMilestonesWithWeeks = ReactTestUtils.renderIntoDocument(
