@@ -18,8 +18,8 @@ const initialState = {
     sortKey: null
   },
   wikis: [],
-  wikiFilter: null,
-  newnessFilter: null,
+  wikiFilter: { project: 'all' },
+  newnessFilter: 'both',
   trackedStatusFilter: 'tracked',
   loading: true,
   newnessFilterEnabled: false,
@@ -99,7 +99,7 @@ export default function articles(state = initialState, action) {
 
     case SET_PROJECT_FILTER: {
       if (action.wiki.project === 'all') {
-        return { ...state, wikiFilter: null };
+        return { ...state, wikiFilter: { project: 'all' } };
       }
       return { ...state, wikiFilter: action.wiki };
     }
