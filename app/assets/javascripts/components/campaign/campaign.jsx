@@ -28,28 +28,24 @@ export const Campaign = createReactClass({
     if (this.props.campaign.loading) {
       return <div />;
     }
-    if (window.location.href.match(/overview/)) {
-      return (
-        <div>
-          <CampaignStats campaign={this.props.campaign} />
-          <div className="stats-download-modal">
-            <CampaignOverviewHandler {...this.props} />
-          </div>
-        </div>);
-    }
 
-    let navBar;
-  if (window.location.href.match(/ores_plot/) || window.location.href.match(/alerts/)) {
-    navBar = (<CampaignNavbar
-      campaign={this.props.campaign}
-    />);
-  }
+    let campaignHandler;
+    if (window.location.href.match(/overview/)) {
+      campaignHandler = (
+        <div className="stats-download-modal">
+          <CampaignOverviewHandler {...this.props} />
+        </div>
+        );
+    }
     return (
       <div>
-        {navBar}
+        <CampaignNavbar
+          campaign={this.props.campaign}
+        />
         <div className="container">
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
+            {campaignHandler}
             <Switch>
               <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
               <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />

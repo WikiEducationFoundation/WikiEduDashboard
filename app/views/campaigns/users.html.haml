@@ -1,10 +1,9 @@
 - content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
 
-= render 'nav'
+#react_root{data: {slug: @campaign.slug}}
 
 .container
   %section.overview.container
-    #react_root{data: {slug: @campaign.slug}, class: 'top-stats-margin'}
 
 .container
   %section#users
