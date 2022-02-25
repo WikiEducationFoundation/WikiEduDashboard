@@ -12,6 +12,8 @@ import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
 
+const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
+
 const ArticleList = createReactClass({
   displayName: 'ArticleList',
 
@@ -32,30 +34,39 @@ const ArticleList = createReactClass({
 
     // filter by "wiki"
     if (wiki !== undefined) {
+      // wiki is passed as a search param
       const value = wiki.split('.');
       if (value.length > 1) {
         this.props.filterArticles({ language: value[0], project: value[1] });
       } else {
         this.props.filterArticles({ language: null, project: value[0] });
       }
+    } else {
+      // since the wiki search param is absent, set the URL using the previous
+      // filter in the redux store
+      const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
+      this.updateParams('wiki', wikiFilterValue);
     }
 
     // filter by "newness"
     if (newness !== undefined) {
+      // newness is passed as a search param
       this.props.filterNewness(newness);
+    } else {
+      // absent, so setting newness from the redux store
+      this.updateParams('newness', this.props.newnessFilter);
     }
 
     // filter by "tracked"
     if (tracked !== undefined) {
+      // tracked is passed as a search param
       this.props.filterTrackedStatus(tracked);
+    } else {
+      // absent, so setting tracked from the redux store
+      this.updateParams('tracked', this.props.trackedStatusFilter);
     }
 
-    // there is no need to return tracked, since there already exists a prop for that
-    // - trackedStatusFilter, which gets changed whenever filterTrackedStatus is called
-    // wiki and newness don't have any such props, which is why store them as state
     return {
-      wiki: wiki || 'all',
-      newness: newness || 'both',
       selectedIndex: -1,
     };
   },
@@ -86,11 +97,18 @@ const ArticleList = createReactClass({
   },
 
   updateParams(filter, value) {
-    const search = this.props.location.search;
+    const search = this.props.history.location.search;
     const history = this.props.history;
 
     const params = parse(search);
-    params[filter] = value;
+
+    // don't add the search param if the value is equal to the default value
+    if (defaults_params[filter] === value) {
+      // delete the existing key
+      delete params[filter];
+    } else {
+      params[filter] = value;
+    }
 
     history.push({
       search: stringify(params)
@@ -109,6 +127,17 @@ const ArticleList = createReactClass({
 
   sortSelect(e) {
     return this.props.sortArticles(e.target.value);
+  },
+
+  wikiObjectToString(wikiFilter) {
+    let wikiFilterValue;
+
+    if (wikiFilter.language) {
+      wikiFilterValue = `${wikiFilter.language}.${wikiFilter.project}`;
+    } else {
+      wikiFilterValue = `${wikiFilter.project}`;
+    }
+    return wikiFilterValue;
   },
 
   render() {
@@ -169,6 +198,8 @@ const ArticleList = createReactClass({
     }
 
     let filterWikis;
+    const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
+
     if (this.props.wikis.length > 1) {
       const wikiOptions = this.props.wikis.map((wiki) => {
         const wikiString = `${wiki.language ? `${wiki.language}.` : ''}${wiki.project}`;
@@ -178,7 +209,7 @@ const ArticleList = createReactClass({
       filterWikis = (
         <select
           onChange={this.onChangeFilter}
-          defaultValue={this.state.wiki}
+          value={wikiFilterValue}
         >
           <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
           {wikiOptions}
@@ -191,7 +222,7 @@ const ArticleList = createReactClass({
       filterArticlesSelect = (
         <select
           className="filter-articles"
-          defaultValue={this.state.newness}
+          value={this.props.newnessFilter}
           onChange={this.onNewnessChange}
         >
           <option value="new">{I18n.t('articles.filter.new')}</option>

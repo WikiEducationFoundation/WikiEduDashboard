@@ -127,7 +127,9 @@ const mapStateToProps = state => ({
   loadingAssignments: state.assignments.loading,
   newnessFilterEnabled: state.articles.newnessFilterEnabled,
   trackedStatusFilterEnabled: state.articles.trackedStatusFilterEnabled,
-  trackedStatusFilter: state.articles.trackedStatusFilter
+  trackedStatusFilter: state.articles.trackedStatusFilter,
+  wikiFilter: state.articles.wikiFilter,
+  newnessFilter: state.articles.newnessFilter
 });
 
 const mapDispatchToProps = {
