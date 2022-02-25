@@ -12,6 +12,8 @@ import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
 
+const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
+
 const ArticleList = createReactClass({
   displayName: 'ArticleList',
 
@@ -99,7 +101,14 @@ const ArticleList = createReactClass({
     const history = this.props.history;
 
     const params = parse(search);
-    params[filter] = value;
+
+    // don't add the search param if the value is equal to the default value
+    if (defaults_params[filter] === value) {
+      // delete the existing key
+      delete params[filter];
+    } else {
+      params[filter] = value;
+    }
 
     history.push({
       search: stringify(params)
