@@ -425,7 +425,7 @@ en:
       program participants at the same time.
     accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
-    active_courses: Active %{course_type}
+    active_courses: Active Courses
     add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.
     alerts: Alerts
     all_courses: All Courses
