@@ -59,7 +59,7 @@ const CampaignStats = ({ campaign }) => {
         renderZero={true}
       />
       <OverviewStat
-        id="campaign-articles"
+        id="campaign-articles-count"
         className="stat-display__value"
         stat={campaign.new_article_count_human}
         statMsg={I18n.t('metrics.articles_created')}

@@ -19,6 +19,20 @@ class CampaignAlerts extends React.Component {
   }
 
   componentDidMount() {
+    // This clears Rails parts of the previous pages, when changing Campagn tabs
+      if (document.getElementById('users')) {
+        document.getElementById('users').innerHTML = '';
+      }
+      if (document.getElementById('campaign-articles')) {
+        document.getElementById('campaign-articles').innerHTML = '';
+      }
+      if (document.getElementById('courses')) {
+        document.getElementById('courses').innerHTML = '';
+      }
+      if (document.getElementById('overview-campaign-details')) {
+        document.getElementById('overview-campaign-details').innerHTML = '';
+      }
+
     // This adds the specific campaign alerts to the state, to be used in AlertsHandler
     this.props.fetchCampaignAlerts(this.getCampaignSlug());
     this.props.filterAlerts(this.state.defaultFilters);
