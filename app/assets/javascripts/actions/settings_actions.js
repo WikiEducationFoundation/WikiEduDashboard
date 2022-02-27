@@ -152,10 +152,12 @@ export const upgradeSpecialUser = (username, position) => (dispatch) => {
           submitting: false
         },
       });
-
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
-        message: response.statusText,
+        message: response.responseJSON.message,
         closable: true
       })
       );
@@ -211,9 +213,12 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
         },
       });
 
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
-        message: response.statusText,
+        message: response.responseJSON.message,
         closable: true
       })
       );
@@ -260,10 +265,12 @@ export const upgradeAdmin = username => (dispatch) => {
           submitting: false
         },
       });
-
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
-        message: response.statusText,
+        message: response.responseJSON.message,
         closable: true
       })
       );
