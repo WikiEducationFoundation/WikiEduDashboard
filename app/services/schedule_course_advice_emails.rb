@@ -5,7 +5,6 @@ class ScheduleCourseAdviceEmails
   def initialize(course, in_progress: false)
     @course = course
     @in_progress = in_progress
-    schedule_emails
   end
 
   private

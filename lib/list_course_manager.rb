@@ -56,6 +56,6 @@ class ListCourseManager
 
     CourseApprovalFollowupWorker.schedule_followup_email(course: @course)
 
-    ScheduleCourseAdviceEmails.new(@course)
+    ScheduleCourseAdviceEmails.new(@course).schedule_emails
   end
 end
