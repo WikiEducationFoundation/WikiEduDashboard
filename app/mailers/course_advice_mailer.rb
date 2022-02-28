@@ -9,6 +9,7 @@ class CourseAdviceMailer < ApplicationMailer
     email(course, subject, staffer).deliver_now
   end
 
+  # rubocop:disable Metrics/LineLength
   SUBJECT_LINES = {
     'biographies' => '[Wiki Education] Tips for working on Wikipedia biography articles',
     'preliminary_work' => '[Wiki Education] Tips for navigating the early weeks of your Wikipedia assignment',
@@ -18,6 +19,7 @@ class CourseAdviceMailer < ApplicationMailer
     'peer_review' => '[Wiki Education] Tips for peer review',
     'assessing_contributions' => '[Wiki Education] How to find and assess student contributions'
   }.freeze
+  # rubocop:enable Metrics/LineLength
 
   def email(course, subject, staffer)
     @course = course
