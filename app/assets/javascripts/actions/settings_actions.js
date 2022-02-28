@@ -14,7 +14,7 @@ const fetchAdminUsersPromise = () => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'GET',
-      url: 'settings/all_admins',
+      url: '/settings/all_admins',
       success(data) {
         return accept(data);
       }
@@ -30,7 +30,7 @@ const fetchSpecialUsersPromise = () => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'GET',
-      url: 'settings/special_users',
+      url: '/settings/special_users',
       success(data) {
         return accept(data);
       }
@@ -152,7 +152,9 @@ export const upgradeSpecialUser = (username, position) => (dispatch) => {
           submitting: false
         },
       });
-
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
         message: response.responseJSON.message,
@@ -211,6 +213,9 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
         },
       });
 
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
         message: response.responseJSON.message,
@@ -260,7 +265,9 @@ export const upgradeAdmin = username => (dispatch) => {
           submitting: false
         },
       });
-
+      if (response.responseJSON === undefined) {
+        response.responseJSON = { message: response.responseText };
+      }
       dispatch(addNotification({
         type: 'error',
         message: response.responseJSON.message,
