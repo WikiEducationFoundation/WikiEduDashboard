@@ -478,6 +478,10 @@ describe CoursesController, type: :request do
     let(:user) { create(:admin, email: 'user@example.edu') }
     let(:teaching_assistant) { create(:user, username: 'TA', email: 'ta@example.com') }
     let(:week) { create(:week) }
+    let!(:choose_topics_block) { create(:block, title: 'Choose possible topics', week: week) }
+    let!(:bibliographies_block) do
+      create(:block, title: 'Finalize your topic and find sources', week: week)
+    end
     let!(:drafting_block) { create(:block, title: 'Start drafting your contributions', week: week) }
     let!(:peer_review_block) { create(:block, title: 'Peer review', week: week) }
     let!(:assessment_block) { create(:block, title: 'Final article', week: week) }

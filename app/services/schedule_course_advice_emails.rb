@@ -7,8 +7,6 @@ class ScheduleCourseAdviceEmails
     @in_progress = in_progress
   end
 
-  private
-
   def schedule_emails
     return unless @course.tag?('research_write_assignment')
 
@@ -20,6 +18,8 @@ class ScheduleCourseAdviceEmails
     schedule_peer_review_email
     schedule_assessing_contributions_email
   end
+
+  private
 
   def schedule_biographies_email
     return unless @course.tag?('biographies')
