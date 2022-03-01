@@ -7,7 +7,7 @@ const fetchTagsPromise = async (courseId) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -30,7 +30,7 @@ const fetchAllTagsPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -49,7 +49,7 @@ const addTagPromise = async (courseId, tag) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -75,7 +75,7 @@ const removeTagPromise = async (courseId, tag) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

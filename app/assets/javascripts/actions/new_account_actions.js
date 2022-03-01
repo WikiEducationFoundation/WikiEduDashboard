@@ -8,7 +8,7 @@ const _checkAvailability = async (newAccount) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

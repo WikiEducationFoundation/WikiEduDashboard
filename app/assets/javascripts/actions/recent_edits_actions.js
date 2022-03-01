@@ -7,7 +7,7 @@ const _fetchRecentEdits = async (opts = {}) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

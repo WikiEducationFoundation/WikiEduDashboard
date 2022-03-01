@@ -16,7 +16,7 @@ const fetchAdminUsersPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -26,7 +26,7 @@ const fetchSpecialUsersPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -45,7 +45,7 @@ const grantAdminPromise = async (username, upgrade) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -59,7 +59,7 @@ const grantSpecialUserPromise = async (username, upgrade, position) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -314,7 +314,7 @@ const updateSalesforceCredentialsPromise = async (password, token) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -330,7 +330,7 @@ const fetchCourseCreationSettingsPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -359,7 +359,7 @@ const updateCourseCreationSettingsPromise = async (settings) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -380,7 +380,7 @@ const fetchDefaultCamapignPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -409,7 +409,7 @@ const updateDefaultCampaignPromise = async (campaignSlug) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

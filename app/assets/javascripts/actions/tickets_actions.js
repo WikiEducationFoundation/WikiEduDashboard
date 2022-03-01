@@ -159,7 +159,7 @@ export const deleteNotePromise = async (id) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

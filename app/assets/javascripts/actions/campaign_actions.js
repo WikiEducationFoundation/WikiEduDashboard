@@ -7,7 +7,7 @@ const fetchCampaignsPromise = async (courseId) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -35,7 +35,7 @@ const removeCampaignsPromise = async (courseId, campaignId) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -61,7 +61,7 @@ const addCampaignsPromise = async (courseId, campaignId) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
@@ -84,7 +84,7 @@ const fetchAllCampaignsPromise = async () => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };

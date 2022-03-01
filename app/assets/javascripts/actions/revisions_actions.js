@@ -15,7 +15,7 @@ const fetchRevisionsPromise = async (courseId, limit, isCourseScoped) => {
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.json();
-    throw new Error(data.message);
+    throw data;
   }
   return response.json();
 };
