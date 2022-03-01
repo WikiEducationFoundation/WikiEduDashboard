@@ -152,20 +152,16 @@ export const deleteTicket = id => async (dispatch) => {
 };
 
 
-export const deleteNotePromise = (id) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'DELETE',
-      url: `/td/tickets/replies/${id}`,
-      success: function (data) {
-        return res(data);
-      }
-    })
-    .fail((err) => {
-      logErrorMessage(err);
-      return rej(err);
-    });
+export const deleteNotePromise = async (id) => {
+  const response = await request(`/td/tickets/replies/${id}`, {
+    method: 'DELETE'
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const deleteNote = id => (dispatch) => {

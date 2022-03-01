@@ -8,21 +8,16 @@ import {
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchRevisionsPromise = (courseId, limit, isCourseScoped) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseId}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+const fetchRevisionsPromise = async (courseId, limit, isCourseScoped) => {
+  const response = await request(`/courses/${courseId}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const fetchRevisions = (courseId, limit, isCourseScoped = false) => (dispatch) => {

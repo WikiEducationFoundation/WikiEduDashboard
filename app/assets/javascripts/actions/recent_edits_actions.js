@@ -1,21 +1,16 @@
 import { RECEIVE_RECENT_EDITS, SORT_RECENT_EDITS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const _fetchRecentEdits = (opts = {}) => {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/recent_edits.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  };
+const _fetchRecentEdits = async (opts = {}) => {
+  const response = await request(`/revision_analytics/recent_edits.json?scoped=${opts.scoped || false}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
+};
 
 export const fetchRecentEdits = (opts = {}) => (dispatch) => {
   return (

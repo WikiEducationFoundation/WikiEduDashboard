@@ -9,37 +9,26 @@ import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchAdminUsersPromise = () => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/settings/all_admins',
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
-  });
+const fetchAdminUsersPromise = async () => {
+  const response = await request('/settings/all_admins');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
-const fetchSpecialUsersPromise = () => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/settings/special_users',
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
-  });
+const fetchSpecialUsersPromise = async () => {
+  const response = await request('/settings/special_users');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 /*
@@ -47,40 +36,32 @@ const fetchSpecialUsersPromise = () => {
   username(string)
   upgrade(bool): if the user is being upgraded. If false, user is demoted.
 */
-const grantAdminPromise = (username, upgrade) => {
+const grantAdminPromise = async (username, upgrade) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'POST',
-      url: url,
-      data: { user: { username: username } },
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
+  const response = await request(url, {
+    method: 'POST',
+    body: JSON.stringify({ user: { username: username } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
-const grantSpecialUserPromise = (username, upgrade, position) => {
+const grantSpecialUserPromise = async (username, upgrade, position) => {
   const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_special_user`;
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'POST',
-      url: url,
-      data: { special_user: { username, position } },
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
+  const response = await request(url, {
+    method: 'POST',
+    body: JSON.stringify({ special_user: { username, position } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export function fetchSpecialUsers() {
@@ -144,7 +125,7 @@ export const upgradeSpecialUser = (username, position) => (dispatch) => {
             type: SET_SPECIAL_USERS,
             data: resp,
           }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })));
+        .catch(err => (dispatch({ type: API_FAIL, data: err })));
     }).catch((response) => {
       dispatch({
         type: SUBMITTING_NEW_SPECIAL_USER,
@@ -152,15 +133,10 @@ export const upgradeSpecialUser = (username, position) => (dispatch) => {
           submitting: false
         },
       });
-      if (response.responseJSON === undefined) {
-        response.responseJSON = { message: response.responseText };
-      }
-      dispatch(addNotification({
-        type: 'error',
-        message: response.responseJSON.message,
-        closable: true
-      })
-      );
+      dispatch({
+        type: API_FAIL,
+        data: response,
+      });
     });
 };
 
@@ -216,12 +192,10 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
       if (response.responseJSON === undefined) {
         response.responseJSON = { message: response.responseText };
       }
-      dispatch(addNotification({
-        type: 'error',
-        message: response.responseJSON.message,
-        closable: true
-      })
-      );
+      dispatch({
+        type: API_FAIL,
+        data: response,
+      });
     });
 };
 
@@ -248,16 +222,16 @@ export const upgradeAdmin = username => (dispatch) => {
         type: 'success',
         message: `${username} was upgraded to administrator.`,
         closable: true
-      })
-      );
+      }));
 
       fetchAdminUsersPromise()
-        .then(resp =>
+        .then((resp) => {
           dispatch({
             type: SET_ADMIN_USERS,
             data: resp,
-          }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })));
+          });
+        })
+        .catch((response) => { dispatch({ type: API_FAIL, data: response }); });
     }).catch((response) => {
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
@@ -268,12 +242,10 @@ export const upgradeAdmin = username => (dispatch) => {
       if (response.responseJSON === undefined) {
         response.responseJSON = { message: response.responseText };
       }
-      dispatch(addNotification({
-        type: 'error',
-        message: response.responseJSON.message,
-        closable: true
-      })
-      );
+      dispatch({
+        type: API_FAIL,
+        data: response,
+      });
     });
 };
 
@@ -326,31 +298,25 @@ export const downgradeAdmin = username => (dispatch) => {
         },
       });
 
-      dispatch(addNotification({
-        type: 'error',
-        message: response.responseJSON.message,
-        closable: true
-      })
-      );
+      dispatch({
+        type: API_FAIL,
+        data: response,
+      });
     });
 };
 
 
-const updateSalesforceCredentialsPromise = (password, token) => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'POST',
-      url: '/settings/update_salesforce_credentials',
-      data: { password, token },
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
+const updateSalesforceCredentialsPromise = async (password, token) => {
+  const response = await request('/settings/update_salesforce_credentials', {
+    method: 'POST',
+    body: JSON.stringify({ password, token })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const updateSalesforceCredentials = (password, token) => (dispatch) => {
@@ -359,20 +325,14 @@ export const updateSalesforceCredentials = (password, token) => (dispatch) => {
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
-const fetchCourseCreationSettingsPromise = () => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/settings/course_creation',
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
-  });
+const fetchCourseCreationSettingsPromise = async () => {
+  const response = await request('/settings/course_creation');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export function fetchCourseCreationSettings() {
@@ -390,21 +350,18 @@ export function fetchCourseCreationSettings() {
   };
 }
 
-const updateCourseCreationSettingsPromise = (settings) => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'POST',
-      url: '/settings/update_course_creation',
-      data: settings,
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
+const updateCourseCreationSettingsPromise = async (settings) => {
+  const response = await request('/settings/update_course_creation', {
+    method: 'POST',
+    body: JSON.stringify(settings)
   });
+
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const updateCourseCreationSettings = settings => (dispatch) => {
@@ -417,20 +374,15 @@ export const updateCourseCreationSettings = settings => (dispatch) => {
 };
 
 
-const fetchDefaultCamapignPromise = () => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/settings/default_campaign',
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
-  });
+const fetchDefaultCamapignPromise = async () => {
+  const response = await request('/settings/default_campaign');
+
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export function fetchDefaultCampaign() {
@@ -448,21 +400,18 @@ export function fetchDefaultCampaign() {
   };
 }
 
-const updateDefaultCampaignPromise = (campaignSlug) => {
-  return new Promise((accept, reject) => {
-    return $.ajax({
-      type: 'POST',
-      url: '/settings/update_default_campaign',
-      data: { default_campaign: campaignSlug },
-      success(data) {
-        return accept(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return reject(obj);
-      });
+const updateDefaultCampaignPromise = async (campaignSlug) => {
+  const response = await request('/settings/update_default_campaign', {
+    method: 'POST',
+    body: JSON.stringify({ default_campaign: campaignSlug })
   });
+
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const updateDefaultCampaign = campaignSlug => (dispatch) => {

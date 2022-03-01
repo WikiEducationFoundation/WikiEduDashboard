@@ -1,20 +1,16 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
+import request from '../utils/request';
 
-const _checkAvailability = (newAccount) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      url: `https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json&origin=*`,
-      success: (data) => {
-        const result = data.query.users[0];
-        return res(result);
-      }
-    }).fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
-  );
+const _checkAvailability = async (newAccount) => {
+  const response = await request(`https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json&origin=*`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const setNewAccountUsername = (_, username) => ({

@@ -1,17 +1,17 @@
 import API from '../utils/api.js';
+import request from '../utils/request';
+import logErrorMessage from '../utils/log_error_message';
+
 import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
 
-const fetchCampaignPromise = (slug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/campaigns/${slug}.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail(obj => rej(obj))
-  );
+const fetchCampaignPromise = async (slug) => {
+  const response = await request(`/campaigns/${slug}.json`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  return response.json();
 };
 
 export const fetchCampaign = slug => (dispatch) => {
