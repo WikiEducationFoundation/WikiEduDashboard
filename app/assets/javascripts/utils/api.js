@@ -300,7 +300,7 @@ const API = {
     this.obj = null;
     this.status = null;
     const response = await request(`/courses${append}.json`, {
-      method: 'PUT',
+      method: type,
       body: JSON.stringify(req_data)
     });
 
@@ -321,19 +321,18 @@ const API = {
     // return promise;
   },
 
-  deleteCourse(courseId) {
-    request(`/courses/${courseId}.json`, {
+  async deleteCourse(courseId) {
+    console.log("deleting")
+    const response = await request(`/courses/${courseId}.json`, {
       method: 'DELETE'
-    }).then((resp)=>{
-      if(!resp.ok){
-        throw 'Couldn\'t delete course';
-      }
-      return resp.json();
-    }).then(()=>{
-      return window.location = '/';
-    }).catch((err)=>{
-      console.error(err);
-    })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    window.location = '/';
+    return response.json();
   },
 
   async deleteBlock(block_id) {
