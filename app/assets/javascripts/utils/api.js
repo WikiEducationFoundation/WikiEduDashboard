@@ -180,7 +180,7 @@ const API = {
   },
 
   async deleteAssignment(assignment) {
-    const queryString = $.param(assignment);
+    const queryString = stringify(assignment);
     const response = await request(`/assignments/${assignment.id}?${queryString}`, {
       method: 'DELETE'
     });
@@ -194,7 +194,7 @@ const API = {
   },
 
   async createAssignment(opts) {
-    const queryString = $.param(opts);
+    const queryString = stringify(opts);
     const response = await request(`/assignments.json?${queryString}`, {
       method: 'POST'
     });
@@ -208,7 +208,7 @@ const API = {
   },
 
   async createRandomPeerAssignments(opts) {
-    const queryString = $.param(opts);
+    const queryString = stringify(opts);
     const response = await request(`/assignments/assign_reviewers_randomly?${queryString}`, {
       method: 'POST'
     });
