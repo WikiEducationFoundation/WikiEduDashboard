@@ -392,6 +392,10 @@ Rails.application.routes.draw do
     get '/salesforce/create_media' => 'salesforce#create_media'
   end
 
+  # Wikimedia Event Center
+  post '/wikimedia_event_center/confirm_event_sync' => 'wikimedia_event_center#confirm_event_sync'
+  post '/wikimedia_event_center/update_event_participants' => 'wikimedia_event_center#update_event_participants'
+
   # Experiments
   namespace :experiments do
     get 'fall2017_cmu_experiment/:course_id/:email_code/opt_in' => 'fall2017_cmu_experiment#opt_in'
