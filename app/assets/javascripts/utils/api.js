@@ -1,6 +1,7 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import request from './request';
+import { stringify } from 'query-string';
 
 const SentryLogger = {};
 
@@ -44,234 +45,180 @@ const API = {
       });
   },
 
-  createCustomFeedback(assignmentId, text, userId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/assignments/${assignmentId}/assignment_suggestions`,
-        data: { feedback: { text: text, assignment_id: assignmentId, user_id: userId } },
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
-  destroyCustomFeedback(assignmentId, id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/assignments/${assignmentId}/assignment_suggestions/${id}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
-  fetchUserProfileStats(username) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/user_stats.json?username=${username}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
-  updateArticleTrackedStatus(articleId, courseId, tracked) {
-    return new Promise((res, rej) => {
-      const url = `/articles/status.json?article_id=${articleId}&tracked=${tracked}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'POST',
-        url,
-        success(data) {
-          return res(data);
-        }
-      }).fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
+  async createCustomFeedback(assignmentId, text, userId) {
+    const response = await request(`/assignments/${assignmentId}/assignment_suggestions`, {
+      method: 'POST',
+      body: JSON.stringify({ feedback: { text: text, assignment_id: assignmentId, user_id: userId } })
     });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchArticleDetails(articleId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/articles/details.json?article_id=${articleId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        });
+  async destroyCustomFeedback(assignmentId, id) {
+    const response = await request(`/assignments/${assignmentId}/assignment_suggestions/${id}`, {
+      method: 'DELETE',
     });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchDykArticles(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async fetchUserProfileStats(username) {
+    const response = await request(`/user_stats.json?username=${username}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchSuspectedPlagiarism(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async updateArticleTrackedStatus(article_id, course_id, tracked) {
+    const params = {
+      article_id,course_id, tracked
+    }
+    const response = await request(`/articles/status.json?${stringify(params)}`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchSuspectedCoursePlagiarism(course_id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${course_id}/suspected_plagiarism.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    )
+  async fetchArticleDetails(articleId, courseId) {
+    const response = await request(`/articles/details.json?article_id=${articleId}&course_id=${courseId}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchRecentUploads(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async fetchDykArticles(opts = {}) {
+    const response = await request(`/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  cloneCourse(id, campaign) {
+  async fetchSuspectedPlagiarism(opts = {}) {
+    const response = await request(`/revision_analytics/suspected_plagiarism.json?scoped=${opts.scoped || false}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
+  },
+
+  async fetchSuspectedCoursePlagiarism(course_id) {
+    const response = await request(`/courses/${course_id}/suspected_plagiarism.json`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
+  },
+
+  async fetchRecentUploads(opts = {}) {
+    const response = await request(`/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
+  },
+
+  async cloneCourse(id, campaign) {
     const campaignQueryParam = campaign ? `?campaign_slug=${campaign}` : ''
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/clone_course/${id}${campaignQueryParam}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+    const response = await request(`/clone_course/${id}${campaignQueryParam}`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  fetchUserCourses(userId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses_users.json?user_id=${userId}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async fetchUserCourses(userId) {
+    const response = await request(`/courses_users.json?user_id=${userId}`);
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  deleteAssignment(assignment) {
+  async deleteAssignment(assignment) {
     const queryString = $.param(assignment);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/assignments/${assignment.id}?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+    const response = await request(`/assignments/${assignment.id}?${queryString}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  createAssignment(opts) {
+  async createAssignment(opts) {
     const queryString = $.param(opts);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/assignments.json?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+    const response = await request(`/assignments.json?${queryString}`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  createRandomPeerAssignments(opts) {
+  async createRandomPeerAssignments(opts) {
     const queryString = $.param(opts);
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/assignments/assign_reviewers_randomly?${queryString}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+    const response = await request(`/assignments/assign_reviewers_randomly?${queryString}`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
   fetch(courseId, endpoint) {
@@ -393,123 +340,90 @@ const API = {
       .fail(() => console.error('Couldn\'t delete course'));
   },
 
-  deleteBlock(block_id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/blocks/${block_id}.json`,
-        success(data) {
-          return res({ block_id });
-        }
-      })
-        .fail((obj) => {
-          console.error('Couldn\'t delete block');
-          return rej(obj);
-        })
-    );
+  async deleteBlock(block_id) {
+    const response = await request(`/blocks/${block_id}.json`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return {block_id};
   },
 
-  deleteWeek(week_id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/weeks/${week_id}.json`,
-        success(data) {
-          return res({ week_id });
-        }
-      })
-        .fail((obj) => {
-          console.error('Couldn\'t delete week');
-          return rej(obj);
-        })
-    );
+  async deleteWeek(week_id) {
+    const response = await request(`/weeks/${week_id}.json`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return { week_id };
   },
 
-  deleteAllWeeks(course_id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'DELETE',
-        url: `/courses/${course_id}/delete_all_weeks.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          console.error('Couldn\'t delete all weeks');
-          return rej(obj);
-        })
-    );
+  async deleteAllWeeks(course_id) {
+    const response = await request(`/courses/${course_id}/delete_all_weeks.json`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  notifyOverdue(courseSlug) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${courseSlug}/notify_untrained.json`,
-        success(data) {
-          alert('Students with overdue trainings notified!');
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj, 'Couldn\'t notify students! ');
-          return rej(obj);
-        })
-    );
+  async notifyOverdue(courseSlug) {
+    const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
+    if (!response.ok) {
+      logErrorMessage(response, 'Couldn\'t notify students! ');
+      const data = await response.json();
+      throw data;
+    }
+    alert('Students with overdue trainings notified!');
+    return response.json();
   },
 
-  greetStudents(courseId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: `/greeting?course_id=${courseId}`,
-        success(data) {
-          alert('Student greetings added to the queue.');
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj, 'There was an error with the greetings! ');
-          return rej(obj);
-        })
-    );
+  async greetStudents(courseId) {
+    const response = await request(`/greeting?course_id=${courseId}`, {
+      method: 'PUT',
+    });
+    if (!response.ok) {
+      logErrorMessage(response, 'There was an error with the greetings! ');
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  modify(model, courseSlug, data, add) {
+  async modify(model, courseSlug, data, add) {
     const verb = add ? 'added' : 'removed';
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: (add ? 'POST' : 'DELETE'),
-        url: `/courses/${courseSlug}/${model}.json`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj, `${capitalize(model)} not ${verb}: `);
-          return rej(obj);
-        })
-    );
+    const response = await request(`/courses/${courseSlug}/${model}.json`, {
+      method: (add ? 'POST' : 'DELETE'),
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+      logErrorMessage(response, `${capitalize(model)} not ${verb}: `);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  dismissNotification(id) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: '/survey_notification',
-        dataType: 'json',
-        data: { survey_notification: { id, dismissed: true } },
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async dismissNotification(id) {
+    const response = await request('/survey_notification', {
+      method: 'PUT',
+      body: JSON.stringify( { survey_notification: { id, dismissed: true } })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
   uploadSyllabus({ courseId, file }) {
@@ -534,103 +448,79 @@ const API = {
     });
   },
 
-  createBadWorkAlert(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: '/alerts',
-        data: { ...opts, alert_type: 'BadWorkAlert' },
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
-  createNeedHelpAlert(opts) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: '/alerts',
-        data: { ...opts, alert_type: 'NeedHelpAlert' },
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
-  },
-
-  requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
-    return new Promise((res, rej) => {
-      $.ajax({
-        type: 'PUT',
-        url: '/requested_accounts',
-        data: { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow },
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
+  async createBadWorkAlert(opts) {
+    const response = await request('/alerts', {
+      method: 'POST',
+      body: JSON.stringify( { ...opts, alert_type: 'BadWorkAlert' })
     });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  enableAccountRequests(courseSlug) {
-    return new Promise((res, rej) => {
-      $.ajax({
-        type: 'GET',
-        url: `/requested_accounts/${courseSlug}/enable_account_requests`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
+  async createNeedHelpAlert(opts) {
+    const response = await request('/alerts', {
+      method: 'POST',
+      body: JSON.stringify( { ...opts, alert_type: 'NeedHelpAlert' })
     });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  linkToSalesforce(courseId, salesforceId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: `/salesforce/link/${courseId}.json?salesforce_id=${salesforceId}`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
+    const response = await request('/requested_accounts', {
+      method: 'PUT',
+      body: JSON.stringify(  
+        { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow }
+      )
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  updateSalesforceRecord(courseId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: `/salesforce/update/${courseId}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        })
-    );
+  async enableAccountRequests(courseSlug) {
+    const response = await request(`/requested_accounts/${courseSlug}/enable_account_requests`);
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
+  },
+
+  async linkToSalesforce(courseId, salesforceId) {
+    const response = await request(`/salesforce/link/${courseId}.json?salesforce_id=${salesforceId}`, {
+      method: 'PUT'
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
+  },
+
+  async updateSalesforceRecord(courseId) {
+    const response = await request(`/salesforce/update/${courseId}.json`, {
+      method: 'PUT'
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 };
 
