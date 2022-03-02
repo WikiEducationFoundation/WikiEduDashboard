@@ -11,10 +11,10 @@ const OnboardAPI = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
+      const data = await response.text();
       throw data;
     }
-    return response.json();
+    return response.text();
   },
 
   async supplement(args) {
@@ -24,10 +24,10 @@ const OnboardAPI = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
+      const data = await response.text();
       throw data;
     }
-    return response.json();
+    return response.text();
   }
 };
 
