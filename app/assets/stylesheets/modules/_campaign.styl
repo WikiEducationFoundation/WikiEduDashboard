@@ -75,21 +75,15 @@
 
 .stats-download-modal
   position absolute
-  top 53vh
-  right 14%
+  top 55vh
+  right 16%
 
-.top-stats-margin
-  margin 20px 0 20px 0
-
-@media only screen and (max-width: 919px)
-
-  .stats-download-modal
-    top 95vh
+  +below(desktop)
+    top 105vh
     left 4%
 
-  .top-stats-margin
-    margin 0
+  +below(tablet)
+    top 107vh
 
-@media only screen and (max-width: 423px)
-  .stats-download-modal
-    top 100vh
+  +above(1300px)
+    top 53vh

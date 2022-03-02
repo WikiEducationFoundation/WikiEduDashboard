@@ -13,7 +13,7 @@
         %li
           = message.first
 
-.container.campaign_main
+.container
   %section.overview.container#overview-campaign-details
     .primary
       = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do

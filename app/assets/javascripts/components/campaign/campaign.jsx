@@ -37,20 +37,38 @@ export const Campaign = createReactClass({
         </div>
         );
     }
+
+    if (window.location.href.match(/programs/)) {
+      return (
+        <div>
+          <CampaignNavbar
+            campaign={this.props.campaign}
+          />
+          <header className="main-page">
+            <div className="container">
+              <section className="overview container">
+                <CampaignStats campaign={this.props.campaign} />
+              </section>
+
+            </div>
+          </header>
+        </div >);
+    }
+
     return (
       <div>
         <CampaignNavbar
           campaign={this.props.campaign}
         />
-        <div className="container">
+        <div className="container campaign_main">
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
-            {campaignHandler}
-            <Switch>
-              <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
-              <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
-            </Switch>
           </section>
+          {campaignHandler}
+          <Switch>
+            <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
+            <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
+          </Switch>
         </div>
       </div >
     );
