@@ -2,6 +2,7 @@ import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import request from './request';
 import { stringify } from 'query-string';
+import Rails from '@rails/ujs';
 
 const SentryLogger = {};
 
@@ -244,57 +245,52 @@ const API = {
   // /////////
   // Setters #
   // /////////
-  saveTimeline(courseId, data) {
+  async saveTimeline(courseId, data) {
     const cleanObject = object => {
       if (object.is_new) {
         delete object.id;
         delete object.is_new;
       }
     };
-    const promise = new Promise((res, rej) => {
-      const weeks = []
-      data.weeks.forEach(week => {
-        const cleanWeek = { ...week };
-        const cleanBlocks = [];
-        cleanWeek.blocks.forEach(block => {
-          const cleanBlock = { ...block }
-          cleanObject(cleanBlock);
-          cleanBlocks.push(cleanBlock);
-        });
-        cleanWeek.blocks = cleanBlocks;
-        cleanObject(cleanWeek);
-        weeks.push(cleanWeek);
+    
+    const weeks = []
+    data.weeks.forEach(week => {
+      const cleanWeek = { ...week };
+      const cleanBlocks = [];
+      cleanWeek.blocks.forEach(block => {
+        const cleanBlock = { ...block }
+        cleanObject(cleanBlock);
+        cleanBlocks.push(cleanBlock);
       });
-
-      const req_data = { weeks };
-      SentryLogger.type = 'POST';
-
-      return $.ajax({
-        type: 'POST',
-        url: `/courses/${courseId}/timeline.json`,
-        contentType: 'application/json',
-        data: JSON.stringify(req_data),
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail(function (obj, status) {
-          this.obj = obj;
-          this.status = status;
-          console.error('Couldn\'t save timeline!');
-          SentryLogger.obj = this.obj;
-          SentryLogger.status = this.status;
-          Sentry.captureMessage('saveTimeline failed', {
-            level: 'error',
-            extra: SentryLogger
-          });
-          return rej(obj);
-        });
+      cleanWeek.blocks = cleanBlocks;
+      cleanObject(cleanWeek);
+      weeks.push(cleanWeek);
     });
-    return promise;
+
+    const req_data = { weeks };
+    SentryLogger.type = 'POST';
+    const response = await request(`/courses/${courseId}/timeline.json`, {
+      method: 'POST',
+      body: JSON.stringify(req_data)
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      this.obj = data;
+      this.status = response.statusText;
+      console.error('Couldn\'t save timeline!');
+      SentryLogger.obj = this.obj;
+      SentryLogger.status = this.status;
+      Sentry.captureMessage('saveTimeline failed', {
+        level: 'error',
+        extra: SentryLogger
+      });
+      throw data;
+    }
+    return response.json();
   },
 
-  saveCourse(data, courseId = null) {
+  async saveCourse(data, courseId = null) {
     const append = (courseId != null) ? `/${courseId}` : '';
     // append = '.json'
     const type = (courseId != null) ? 'PUT' : 'POST';
@@ -303,41 +299,41 @@ const API = {
 
     this.obj = null;
     this.status = null;
-    const promise = new Promise((res, rej) =>
-      $.ajax({
-        type,
-        url: `/courses${append}.json`,
-        contentType: 'application/json',
-        data: JSON.stringify(req_data),
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail(function (obj, status) {
-          this.obj = obj;
-          this.status = status;
-          SentryLogger.obj = this.obj;
-          SentryLogger.status = this.status;
-          Sentry.captureMessage('saveCourse failed', {
-            level: 'error',
-            extra: SentryLogger
-          });
-          return rej(obj);
-        })
-    );
+    const response = await request(`/courses${append}.json`, {
+      method: 'PUT',
+      body: JSON.stringify(req_data)
+    });
 
-    return promise;
+    if (!response.ok) {
+      const data = await response.json();
+      this.obj = data;
+      this.status = response.statusText;
+      SentryLogger.obj = this.obj;
+      SentryLogger.status = this.status;
+      Sentry.captureMessage('saveCourse failed', {
+        level: 'error',
+        extra: SentryLogger
+      });
+      throw data;
+    }
+    return response.json();
+
+    // return promise;
   },
 
   deleteCourse(courseId) {
-    return $.ajax({
-      type: 'DELETE',
-      url: `/courses/${courseId}.json`,
-      success(data) {
-        return window.location = '/';
+    request(`/courses/${courseId}.json`, {
+      method: 'DELETE'
+    }).then((resp)=>{
+      if(!resp.ok){
+        throw 'Couldn\'t delete course';
       }
+      return resp.json();
+    }).then(()=>{
+      return window.location = '/';
+    }).catch((err)=>{
+      console.error(err);
     })
-      .fail(() => console.error('Couldn\'t delete course'));
   },
 
   async deleteBlock(block_id) {
@@ -426,26 +422,26 @@ const API = {
     return response.json();
   },
 
-  uploadSyllabus({ courseId, file }) {
-    return new Promise((res, rej) => {
-      const data = new FormData();
-      data.append('syllabus', file);
-      return $.ajax({
-        type: 'POST',
-        cache: false,
-        url: `/courses/${courseId}/update_syllabus`,
-        contentType: false,
-        processData: false,
-        data,
-        success(data) {
-          return res(data);
-        }
-      })
-        .fail((obj) => {
-          logErrorMessage(obj);
-          return rej(obj);
-        });
+  async uploadSyllabus({ courseId, file }) {
+    const data = new FormData();
+    data.append('syllabus', file);
+
+    // the request utility function assumes a header of "application/json"
+    // since we're sending files here, we must NOT set a content type
+    // see https://stackoverflow.com/a/49510941/5055190
+    const response = await fetch(`/courses/${courseId}/update_syllabus`, {
+      method: 'POST',
+      body: data,
+      headers:{
+        'X-CSRF-Token': Rails.csrfToken()
+      }
     });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
   async createBadWorkAlert(opts) {

@@ -1,42 +1,33 @@
 import logErrorMessage from './log_error_message';
+import request from '../utils/request';
 
 const OnboardAPI = {
   // /  GETTERS
 
-  onboard(args) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: '/onboarding/onboard',
-        contentType: 'application/json',
-        data: JSON.stringify(args),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+  async onboard(args) {
+    const response = await request('/onboarding/onboard', {
+      method: 'PUT',
+      body: JSON.stringify(args)
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   },
 
-  supplement(args) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'PUT',
-        url: '/onboarding/supplementary',
-        contentType: 'application/json',
-        data: JSON.stringify(args),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+  async supplement(args) {
+    const response = await request('/onboarding/supplementary', {
+      method: 'PUT',
+      body: JSON.stringify(args)
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.json();
+      throw data;
+    }
+    return response.json();
   }
 };
 
