@@ -31,8 +31,9 @@ export const Campaign = createReactClass({
 
     let campaignHandler;
     if (window.location.href.match(/overview/)) {
+      const modalClass = document.getElementById('low_modal') ? 'low-modal' : 'low-modal sidebar-correction';
       campaignHandler = (
-        <div className="stats-download-modal">
+        <div className={modalClass}>
           <CampaignOverviewHandler {...this.props} />
         </div>
         );

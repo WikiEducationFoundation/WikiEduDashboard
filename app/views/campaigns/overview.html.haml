@@ -29,7 +29,7 @@
       - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
-          %button.button.dark.green
+          %button.button.dark.green#low_modal
             = t('courses_generic.creator.create_short')
             %i.icon.icon-plus
       - if @editable
