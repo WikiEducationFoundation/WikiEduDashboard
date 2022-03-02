@@ -29,7 +29,7 @@ class AddUsers
     user ||= UserImporter.new_from_username(username, @course.home_wiki)
     return user if user.present?
 
-    @results[username] = { failure: 'Not an existing user.' }
+    @results[username] = { "failure" => 'Not an existing user.' }
     yield
   end
 end

@@ -21,7 +21,7 @@ class JoinCourse
     validate_request { return }
     create_courses_user
     update_course_user_count
-    @result = { success: 'User added to course.' }
+    @result = { "success" => 'User added to course.' }
   end
 
   def validate_request
