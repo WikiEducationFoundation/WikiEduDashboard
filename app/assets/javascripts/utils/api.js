@@ -373,7 +373,7 @@ const API = {
       const data = await response.json();
       throw data;
     }
-    return response.json();
+    return response.text();
   },
 
   async notifyOverdue(courseSlug) {
