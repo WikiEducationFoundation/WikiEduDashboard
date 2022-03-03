@@ -24,31 +24,6 @@ const Milestones = createReactClass({
   },
 
   render() {
-    /*
-    const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
-    const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
-    const blocks = [];
-    this.props.weeks.map((week) => {
-      const milestoneBlocks = filter(week.blocks, block => block.kind === this.milestoneBlockType);
-      return milestoneBlocks.map((block) => {
-        let classNames = 'module__data';
-        if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
-        const rawHtml = md.render(block.content);
-        const completionNote = this.weekIsCompleted(week, currentWeek) ? '- Complete' : undefined;
-        return blocks.push(
-          <div key={block.id} className="section-header">
-            <div className={classNames}>
-              <p>Week {week.order + weekNumberOffset} {completionNote}</p>
-              <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
-              <hr />
-            </div>
-          </div>
-        );
-      }
-      );
-    }
-    ); */
-
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const weekNumberOffset = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     const blocks = [];
