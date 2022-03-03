@@ -694,7 +694,6 @@ fi:
     no_data: Ei tietoja
     other_updates: Muut päivitykset
     redirects_created: Ohjaukset luotu
-    unknown: Tuntematon
   namespace:
     main: Päänimiavaruus
     main_char_added: Päänimiavaruuteen lisätyt merkit

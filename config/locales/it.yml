@@ -339,7 +339,7 @@ it:
     accounts_generation_confirm_message: Confermi che vuoi attivare le richieste di
       account?
     activity: Attività
-    active_courses: '%{course_type} attivo/a'
+    active_courses: Corsi attivi
     add_trainings: Si prega di aggiungere formazione per gli studenti alla tempistica
       dell'assegnazione. L'assegnazione di moduli di formazione è una parte essenziale
       delle migliori pratiche di contribuzione su Wikipedia.

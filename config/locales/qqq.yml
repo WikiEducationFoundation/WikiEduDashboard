@@ -242,8 +242,7 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
-    active_campaigns: |-
-      Heading for the list of active campaigns
+    active_campaigns: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
     already_exists: Error shown when a new campaign has the same name or slug of another
@@ -298,7 +297,12 @@ qqq:
   courses:
     activity: Label for link to the 'recent activity' list for a course
     active_courses: |-
-      Heading for the list of active courses
+      Heading for the list of active courses. 'course_type' is one of these messages:
+      * {{msg-wm|Wikiedudashboard-courses.courses}}
+      * {{msg-wm|Wikiedudashboard-campaign.campaigns}}
+
+      So in English, the message would say either 'Active Courses' or 'Active Campaigns'.
+      {{Identical|Active}}
     all_courses: Button to view the list of all courses
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
@@ -619,7 +623,6 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
-    unknown: '{{identical|Unknown}}'
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.

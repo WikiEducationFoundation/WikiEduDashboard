@@ -482,6 +482,7 @@ ko:
     view_data_unavailable: 이용 가능한 뷰 데이터 없음
     view: 보기
     word_count_average: 평균 단어 개수
+    no_data: 데이터 없음
   namespace:
     user: 사용자 공간
     user_ns: 사용자

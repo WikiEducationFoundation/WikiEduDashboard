@@ -199,7 +199,7 @@ lb:
     accounts_generation_confirm_message: Sidd Dir sécher datt Dir Ufroe fir Benotzerkonten
       aktivéiere wëllt?
     activity: Aktivitéit
-    active_courses: Aktiv %{course_type}
+    active_courses: Aktiv Coursen
     alerts: Meldungen
     all_courses: All Coursen
     archived: Archivéiert Coursen
@@ -424,11 +424,15 @@ lb:
       other: Fichieren déi an Artikele  benotzt ginn
     word_count: Wierder derbäigesat
     word_count_average: Duerchschnëttlech Zuel vu Wierder
+    total_revisions: Total vun de Versiounen
+    aliases: Aliasen
+    merged: Fusionéiert
     created: Ugeluecht
     changed: Geännert
+    removed: Ewechgeholl
     descriptions: Beschreiwungen
     labels: Etiketten
-    unknown: Onbekannt
+    no_data: Keng Donnéeën
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer

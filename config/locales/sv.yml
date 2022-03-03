@@ -259,7 +259,7 @@ sv:
     timestamp: Senast uppdaterad
   courses:
     activity: Aktivitet
-    active_courses: Aktiva %{course_type}
+    active_courses: Aktiva kurser
     alerts: Meddelanden
     all_courses: Alla kurser
     already_enrolled: Du är redan en del av '%{title}'!

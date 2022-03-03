@@ -123,7 +123,7 @@ nl:
     edited: Pagina's bewerkt
     edited_by: 'Bewerkt door:'
     edited_mobile: Pagina's
-    edited_none: '%{title} heeft geen pagina''s bewerkt.'
+    edited_none: Er zijn nog geen artikelen bewerkt.
     filter:
       wiki_all: Allemaal
       new: Nieuw
@@ -169,18 +169,18 @@ nl:
     article_link: Artikel
     already_exists: Deze opdracht bestaat al!
     assignees: Toegewezen aan
-    assign_other: Wijs een pagina toe
+    assign_other: Een artikel toewijzen/verwijderen
     assign_self: Wijs een pagina aan mezelf toe
     bibliography: Bibliografie
     confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
-    confirm_deletion: Weet u zeker dat u deze artikeltoewijzing wilt verwijderen?
+    confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
     group_members: Groepsleden
     label: Toewijzen
     loading: Bezig met het laden van opdrachten...
     none_short: Geen pagina's toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
     reviewers: Controleur(s)
-    review_other: Wijs een peerreview toe
+    review_other: Een peerreview toewijzen/verwijderen
     review_self: Controleer een pagina
   blocks:
     milestones:
@@ -439,7 +439,7 @@ nl:
     edit_template: Sjabloon bewerken
   instructor_view:
     assignments_table:
-      article_name: Artikelnaam
+      article_name: Naam
       relevant_links: Relevante koppelingen
   metrics:
     activity: Recente activiteit
@@ -472,7 +472,7 @@ nl:
     user_ns: Gebruiker
   recent_activity:
     active_courses: Artikel is actief in
-    article_title: Titel van artikel
+    article_title: Titel
     datetime: Datum/tijd
     did_you_know_eligible: In aanmerking voor Wist-Je-Dat
     image: Afbeelding

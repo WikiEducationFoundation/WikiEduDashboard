@@ -87,7 +87,6 @@ te:
     word_count: చేర్చిన పదాలు
     labels: సూచికలు
     other_updates: ఇతర తాజాకరణలు
-    unknown: తెలియని
   namespace:
     user_ns: వాడుకరి
   recent_activity:

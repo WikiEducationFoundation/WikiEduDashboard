@@ -238,9 +238,9 @@ fr:
       par la machine. Ces valeurs sont calculées sur la taille de l’article, le nombre
       de références et de liens Wiki, ainsi que d’autres caractéristiques de base
       du texte. Une valeur élevée indique généralement qu’un article suit les conventions
-      de Wikipedia pour la structure d’un bon article, mais il ne prend pas en compte
-      le contenu lui-même. (Ces statistiques ne sont uniquement disponibles que pour
-      les articles du Wikipédia anglais).
+      de Wikipédia pour la structure d’un bon article, mais il ne prend pas en compte
+      le contenu lui-même. (Ces statistiques ne sont disponibles que pour les articles
+      de l’édition en anglais de Wikipédia).
     articles_short: Articles
   items:
     items: Éléments
@@ -462,7 +462,7 @@ fr:
     accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
-    active_courses: '%{course_type} actifs'
+    active_courses: Cours actifs
     add_trainings: Veuillez ajouter des formations d’étudiant à votre planification
       d’affectation. Affecter les modules de formation est une part essentielle des
       meilleures pratiques du Wiki Éducation.
@@ -1151,7 +1151,6 @@ fr:
     redirects_created: Redirections créées
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
-    unknown: Inconnu
   namespace:
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal

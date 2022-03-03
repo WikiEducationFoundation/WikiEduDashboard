@@ -317,6 +317,7 @@ hi:
     cancel: रद्द करें
     save: सहेजें
   metrics:
+    created: बनाया गया
     removed: हटाया गया
     added: जोड़ा गया
   recent_activity:

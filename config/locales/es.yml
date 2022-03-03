@@ -8,12 +8,14 @@
 # Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
+# Author: Chopan050
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: DDPAT
 # Author: Dgstranz
 # Author: Fitoschido
 # Author: Fortega
+# Author: Ice bulldog
 # Author: Ihojose
 # Author: Irus
 # Author: Jakeukalane
@@ -302,7 +304,7 @@ es:
     accounts_generation_confirm_message: ¿Confirmas que quieres activar las solicitudes
       de cuentas?
     activity: Actividad
-    active_courses: '%{course_type} activos'
+    active_courses: Cursos activos
     alerts: Alertas
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».

@@ -349,7 +349,7 @@ cs:
       programu.
     accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita
-    active_courses: Aktivní %{course_type}
+    active_courses: Aktivní kurzy
     alerts: Upozornění
     all_courses: Všechny kurzy
     already_enrolled: Již jste součástí kurzu '%{title}'!
