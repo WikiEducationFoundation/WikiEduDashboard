@@ -202,6 +202,11 @@ export const getWeeksArray = createSelector(
 
 export const getAllWeeksArray = createSelector(
   [getWeeksArray, getCourse], (weeksArray, course) => {
+    // For each week, first insert an extra empty week for each week with empty
+    // week meetings, which indicates a blackout week. Then insert the week itself.
+    // The index 'i' represents the zero-index week number. However, weekNumber
+    // property indicates week number starting from 1. Both empty and non-empty
+    // weeks are included in this numbering scheme.
     const meetings = CourseDateUtils.meetings(course);
     const weekMeetings = CourseDateUtils.weekMeetings(meetings, course, course.day_exceptions);
     const allWeeks = [];
