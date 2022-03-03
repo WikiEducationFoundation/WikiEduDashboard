@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'A Wikidata course', type: :feature, js: true do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:course) { create(:course, home_wiki: wikidata,  start: '2017-01-01', end: '2020-01-01') }
+  let(:course) { create(:course, home_wiki: wikidata, start: '2017-01-01', end: '2020-01-01') }
   let(:user) { create(:user, username: 'Ragesoss') }
   let(:article) { create(:article, title: 'Q42', wiki: wikidata) }
 
