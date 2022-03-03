@@ -46,8 +46,22 @@ class CampaignCsvBuilder
   end
 
   def wikidata_to_csv
-    courses = @campaign.courses.joins(:course_stat)
-    CourseWikidataCsvBuilder.new(courses).generate_csv
+    csv_data = [CourseWikidataCsvBuilder::CSV_HEADERS]
+    courses = @campaign.courses
+                       .joins(:course_stat)
+                       .where(home_wiki_id: Wiki.find_by(project: 'wikidata').id)
+    courses.find_each do |course|
+      csv_data << CourseWikidataCsvBuilder.new(course).stat_row
+    end
+
+    csv_data << sum_wiki_columns(csv_data) if courses.any?
+
+    CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def sum_wiki_columns(csv_data)
+    # Skip 1st header row + 1st column course name
+    csv_data[1..].transpose[1..].map(&:sum).unshift('Total')
   end
 
   class AllCourses

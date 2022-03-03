@@ -444,7 +444,7 @@ describe CampaignsController, type: :request do
       get "/campaigns/#{campaign.slug}/wikidata.csv"
       follow_redirect!
       csv = response.body.force_encoding('utf-8')
-      expect(csv).to include('revision_type,count')
+      expect(csv).to include('course name,claims created')
     end
   end
 
