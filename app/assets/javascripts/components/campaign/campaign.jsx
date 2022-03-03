@@ -31,9 +31,13 @@ export const Campaign = createReactClass({
 
     let campaignHandler;
     if (window.location.href.match(/overview/)) {
-      const modalClass = document.getElementById('low_modal') ? 'low-modal' : 'low-modal sidebar-correction';
+      const countButtons = document.querySelectorAll('button').length;
+      const correction = countButtons > 0 ? `${(countButtons - 1) * 58}px` : '0px';
+      console.log(correction);
+      console.log(countButtons);
+      // const modalClass = document.getElementById('low_modal') ? 'low-modal' : 'low-modal sidebar-correction';
       campaignHandler = (
-        <div className={modalClass}>
+        <div className="high-modal" style={{ marginTop: `${correction}` }}>
           <CampaignOverviewHandler {...this.props} />
         </div>
         );
