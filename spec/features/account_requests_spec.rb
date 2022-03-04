@@ -23,6 +23,8 @@ describe 'Account requests', type: :feature, js: true do
   end
 
   it 'can be used by logged out users via the enroll link' do
+    pending 'Checking username availibility will not work in CI because of IP range blocks'
+
     course.update(flags: { register_accounts: true })
     visit "/courses/#{course.slug}?enroll=#{course.passcode}"
     click_button 'Request an account'
@@ -31,5 +33,7 @@ describe 'Account requests', type: :feature, js: true do
     click_button 'Check username availability'
     click_button 'Request account'
     expect(page).to have_content('Your request for an account has been submitted')
+
+    pass_pending_spec
   end
 end
