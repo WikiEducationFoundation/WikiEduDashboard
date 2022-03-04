@@ -400,7 +400,9 @@ describe CampaignsController, type: :request do
   end
 
   describe 'CSV actions' do
+    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
     let(:course) { create(:course) }
+    let(:another_course) { create(:course, home_wiki: wikidata, slug: 'campaign/acourse') }
     let(:campaign) { create(:campaign) }
     let(:article) { create(:article) }
     let(:user) { create(:user) }
@@ -408,8 +410,9 @@ describe CampaignsController, type: :request do
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
+      stub_wiki_validation
       login_as(user)
-      campaign.courses << course
+      campaign.courses.push course, another_course
       create(:courses_user, course: course, user: user)
     end
 
