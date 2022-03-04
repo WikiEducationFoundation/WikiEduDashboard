@@ -135,7 +135,7 @@ describe 'Admin users', type: :feature, js: true do
   end
 
   describe 'linking a course to its Salesforce record' do
-    it 'makes the Link to Salesforce button appear' do
+    it 'enables the Open and Update features' do
       stub_token_request
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
 
@@ -146,6 +146,11 @@ describe 'Admin users', type: :feature, js: true do
       end
       expect(page).to have_content 'Open in Salesforce'
       expect(Course.first.flags[:salesforce_id]).to eq('a0f1a011101Xyas')
+
+      expect(PushCourseToSalesforce).to receive(:new)
+      accept_confirm do
+        click_button 'Update Salesforce record'
+      end
     end
   end
 
