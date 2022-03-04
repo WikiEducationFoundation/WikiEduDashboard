@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from '../articles/course_quality_progress_graph';
+import request from '../../utils/request';
 
 const CampaignOresPlot = createReactClass({
   displayName: 'CampaignOresPlot',
@@ -51,12 +52,11 @@ const CampaignOresPlot = createReactClass({
   },
 
   fetchFilePath() {
-    $.ajax({
-      url: `/campaigns/${this.props.match.params.campaign_slug}/ores_data.json`,
-      success: (data) => {
+    request(`/campaigns/${this.props.match.params.campaign_slug}/ores_data.json`)
+      .then(resp => resp.json())
+      .then((data) => {
         this.setState({ articleData: data.ores_plot, loading: false });
-      }
-    });
+      });
   },
 
   render() {

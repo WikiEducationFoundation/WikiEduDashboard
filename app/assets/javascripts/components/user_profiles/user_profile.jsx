@@ -9,6 +9,7 @@ import { fetchStats } from '../../actions/user_profile_actions.js';
 import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
+import request from '../../utils/request';
 
 const UserProfile = createReactClass({
   propTypes: {
@@ -33,15 +34,11 @@ const UserProfile = createReactClass({
   getData() {
     const username = encodeURIComponent(this.props.match.params.username);
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
-    $.ajax(
-      {
-        dataType: 'json',
-        url: statsdataUrl,
-        success: (data) => {
-          this.setState({
-            statsGraphsData: data
-          });
-        }
+
+    request(statsdataUrl)
+      .then(resp => resp.json())
+      .then((data) => {
+        this.setState({ statsGraphsData: data });
       });
   },
 

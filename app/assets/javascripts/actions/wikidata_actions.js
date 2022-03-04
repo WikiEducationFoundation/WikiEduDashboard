@@ -2,28 +2,25 @@ import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
+import request from '../utils/request';
+import { stringify } from 'query-string';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 
-const fetchWikidataLabelsPromise = (qNumbers) => {
+const fetchWikidataLabelsPromise = async (qNumbers) => {
   const idsParam = join(qNumbers, '|');
-  return new Promise((res, rej) => {
-    return $.ajax({
-      url: wikidataApiBase,
-      data: {
-        ids: idsParam,
-        props: 'labels',
-        languages: `${I18n.locale}|en`
-      },
-      success: (data) => {
-        return res(data);
-      },
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-  });
+  const query = {
+    ids: idsParam,
+    props: 'labels',
+    languages: `${I18n.locale}|en`
+  };
+  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw data;
+  }
+  return response.json();
 };
 
 // This takes a Wikidata page title and checks whether it looks like
