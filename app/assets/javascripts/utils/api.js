@@ -391,6 +391,7 @@ const API = {
       const data = await response.json();
       throw data;
     }
+    alert('Student greetings added to the queue.');
     return response.json();
   },
 
