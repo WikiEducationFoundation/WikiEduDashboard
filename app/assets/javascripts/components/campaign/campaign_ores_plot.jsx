@@ -19,6 +19,21 @@ const CampaignOresPlot = createReactClass({
     };
   },
 
+  componentDidMount() {
+     // This clears Rails parts of the previous pages, when changing Campagn tabs
+    if (document.getElementById('users')) {
+      document.getElementById('users').innerHTML = '';
+    }
+    if (document.getElementById('campaign-articles')) {
+      document.getElementById('campaign-articles').innerHTML = '';
+    }
+    if (document.getElementById('courses')) {
+      document.getElementById('courses').innerHTML = '';
+    }
+    if (document.getElementById('overview-campaign-details')) {
+      document.getElementById('overview-campaign-details').innerHTML = '';
+    }
+  },
   show() {
     if (!this.state.filePath) {
       this.fetchFilePath();
@@ -48,7 +63,7 @@ const CampaignOresPlot = createReactClass({
     if (this.state.show) {
       if (this.state.articleData) {
         return (
-          <div className="ores-plot">
+          <div id="ores" className="ores-plot">
             <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={400} articleData={this.state.articleData} />
             <p>
               This graph visualizes, in aggregate, how much articles developed from

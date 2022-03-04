@@ -1,6 +1,6 @@
 - content_for :before_title, "#{@campaign.title} Overview  — "
 
-= render 'nav'
+#react_root{data: {slug: @campaign.slug}}
 
 = hot_javascript_tag 'campaigns'
 
@@ -13,9 +13,8 @@
         %li
           = message.first
 
-.container.campaign_main
-  %section.overview.container
-    = render 'courses/header_stats', presenter: @presenter
+.container
+  %section.overview.container#overview-campaign-details
     .primary
       = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
         .section-header
@@ -30,7 +29,7 @@
       - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
-          %button.button.dark.green
+          %button.button.dark.green#low_modal
             = t('courses_generic.creator.create_short')
             %i.icon.icon-plus
       - if @editable
@@ -69,7 +68,7 @@
                   - else
                     = succeed ', ' do
                       %a{href: "/users/#{organizer.username}"}= organizer.username
-              
+
                 %span.pop__container
                   %button.button.border.plus +
                   .pop
@@ -135,7 +134,6 @@
                 %span.rails_editable-content
                   = @campaign.default_passcode
       %section#campaign_stats
-        #react_root{data: {slug: @campaign.slug}}
       - if @campaign.template_description.present?
         = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
           .section-header
