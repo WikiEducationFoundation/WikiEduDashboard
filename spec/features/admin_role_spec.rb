@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'Admin users', type: :feature, js: true do
+  let(:admin) { create(:admin) }
+
   before do
     page.current_window.resize_to(1920, 1080)
     create(:user,
@@ -44,11 +46,7 @@ describe 'Admin users', type: :feature, js: true do
     create(:campaign, id: 2, title: 'Spring 2016',
                       created_at: Time.zone.now + 4.minutes)
 
-    user = create(:admin,
-                  id: 200,
-                  wiki_token: 'foo',
-                  wiki_secret: 'bar')
-    login_as(user, scope: :user)
+    login_as(admin)
   end
 
   after do
@@ -148,6 +146,22 @@ describe 'Admin users', type: :feature, js: true do
       end
       expect(page).to have_content 'Open in Salesforce'
       expect(Course.first.flags[:salesforce_id]).to eq('a0f1a011101Xyas')
+    end
+  end
+
+  describe 'clicking "Greet Students"' do
+    before do
+      JoinCourse.new(user: admin, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE,
+                     course: Course.first)
+    end
+
+    it 'schedules a GreetStudents worker' do
+      stub_token_request
+      expect(GreetStudentsWorker).to receive(:schedule_greetings)
+      visit "/courses/#{Course.first.slug}"
+      accept_confirm do
+        click_button 'Greet students'
+      end
     end
   end
 end
