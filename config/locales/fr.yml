@@ -394,6 +394,8 @@ fr:
     data_editors_by_course_info: Liste des rédacteurs inscrits avec leurs cours/programmes
     data_editor_usernames: Noms d’utilisateur des rédacteurs
     data_editor_usernames_info: Liste des noms d'utilisateur des rédacteurs, un par
+    data_wikidata: Statistiques de Wikidata
+    data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les résumés de modification
       ligne
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut

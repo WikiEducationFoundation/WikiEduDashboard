@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_revisions_csv_builder"
 require_dependency "#{Rails.root}/app/workers/campaign_csv_worker"
+require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
   def initialize(campaign)
@@ -42,6 +43,25 @@ class CampaignCsvBuilder
     end
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def wikidata_to_csv
+    csv_data = [CourseWikidataCsvBuilder::CSV_HEADERS]
+    courses = @campaign.courses
+                       .joins(:course_stat)
+                       .where(home_wiki_id: Wiki.find_by(project: 'wikidata').id)
+    courses.find_each do |course|
+      csv_data << CourseWikidataCsvBuilder.new(course).stat_row
+    end
+
+    csv_data << sum_wiki_columns(csv_data) if courses.any?
+
+    CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def sum_wiki_columns(csv_data)
+    # Skip 1st header row + 1st column course name
+    csv_data[1..].transpose[1..].map(&:sum).unshift('Total')
   end
 
   class AllCourses
