@@ -10,6 +10,7 @@ import CampaignOresPlot from './campaign_ores_plot.jsx';
 import CampaignOverviewHandler from './campaign_overview_handler';
 import CampaignNavbar from '../common/campaign_navbar';
 import CampaignStats from './campaign_stats';
+import WikidataOverviewStats from '../common/wikidata_overview_stats';
 
 export const Campaign = createReactClass({
   displayName: 'Campaign',
@@ -48,6 +49,9 @@ export const Campaign = createReactClass({
         <div className="container campaign_main">
           <section className="overview container">
             <CampaignStats campaign={this.props.campaign} />
+            {this.props.campaign.course_stats && <WikidataOverviewStats
+              statistics={this.props.campaign.course_stats['www.wikidata.org']}
+            />}
           </section>
           {campaignHandler}
           <Switch>

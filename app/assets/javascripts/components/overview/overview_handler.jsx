@@ -24,7 +24,7 @@ import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
-import WikidataOverviewStats from './wikidata_overview_stats';
+import WikidataOverviewStats from '../common/wikidata_overview_stats';
 
 const Overview = createReactClass({
   displayName: 'Overview',
