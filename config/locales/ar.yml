@@ -13,6 +13,7 @@
 # Author: Mido
 # Author: Moud hosny
 # Author: NEHAOUA
+# Author: NancyMilad
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
 # Author: Tala Ali
@@ -358,7 +359,7 @@ ar:
     assignment_edits_enabled: تم تمكين تعديلات المهمة
     assignment_edits_enabled_tooltip: في حالة التمكين، ستقوم لوحة البيانات بنشر قالب
       بصفحة النقاش لكل مقالة معينة.
-    accounts_generation_enabled: تم تمكين استحداث طلبات حسابات
+    accounts_generation_enabled: تم تفعيل انشاء طلب الحساب
     accounts_generation_explanation: سوف يمكن هذا الأمر المشاركين من إدخال عنوان بريدهم
       الإلكتروني واسم المستخدم المرغوب، بدلا من إنشاء حسابات جديدة بأنفسهم، ويمكنك
       بعد ذلك إنشاء حسابات من لوحة التحكم وإضافتها بصفة مشاركين في ذات الوقت.

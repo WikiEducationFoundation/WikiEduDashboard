@@ -418,6 +418,7 @@ fr:
     slug: Limace
     search_campaigns: Rechercher les campagnes
     use_start_end_dates: Utiliser les dates de début et de fin
+    search: Rechercher
   categories:
     add_category: Ajouter une catégorie
     add_psid: Ajouter le PSID PetScan
@@ -454,7 +455,7 @@ fr:
     assignment_edits_enabled: Modifications des affectations activées
     assignment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
       sur la page de discussion pour chaque article affecté.
-    accounts_generation_enabled: Génération de demande de comptes activée
+    accounts_generation_enabled: Génération de demande de compte activée
     accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
       nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de

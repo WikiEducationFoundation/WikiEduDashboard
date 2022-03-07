@@ -257,6 +257,7 @@ ja:
     title: 告知名
     slug: 別称
     use_start_end_dates: 開始日と終了日を使用
+    search: 検索
   categories:
     add_category: カテゴリを追加
     add_psid: PetScan PSID を追加

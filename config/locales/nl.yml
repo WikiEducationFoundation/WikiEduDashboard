@@ -18,6 +18,7 @@
 # Author: Milenej
 # Author: MrLeopold
 # Author: Ndecouck
+# Author: Nieuwsgierige Gebruiker
 # Author: Optilete
 # Author: Patio
 # Author: PonkoSasuke
@@ -191,6 +192,7 @@ nl:
     none: Geen
     organizers: Organisatoren
     title: Titel
+    search: Zoeken
   categories:
     depth: subcategorie diepte
     articles_count: Aantal pagina's

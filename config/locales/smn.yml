@@ -61,6 +61,7 @@ smn:
     add_available_submit: Lasseet artikkâlijd
   campaign:
     alert_user_id: Kevttee
+    search: Uusâ
   categories:
     add_category: Lasseet luoka
     name: Nommâ
@@ -88,6 +89,9 @@ smn:
     diff_show: Čääiti
     diff_hide: Čievâ
     see_more: Lasetiäđuh
+    show_all: Čääiti puoh
+  timeline:
+    save_all_changes: Vuorkkii puoh
   training:
     page: Sijđo
   uploads:

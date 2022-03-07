@@ -70,7 +70,7 @@ zh-TW:
     sign_up: 註冊
     submit: 送出
     training: 培訓
-    change: 修改
+    change: 變更
     details: 詳細內容
     confirm: 好
     opt_in: 是
@@ -972,7 +972,7 @@ zh-TW:
     page: 頁面
     page_number: 總計共 %{total} 個裡的第 %{number} 頁
     previous: <上一個
-    table_of_contents: 目錄
+    table_of_contents: 目次
     training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
     done: 完成！

@@ -277,6 +277,7 @@ ru:
     title: Название
     slug: Slug
     use_start_end_dates: Использовать даты начала и окончания
+    search: Найти
   categories:
     add_category: Добавить категорию
     add_template: Добавить шаблон
