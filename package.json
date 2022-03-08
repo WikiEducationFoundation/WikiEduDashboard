@@ -3,7 +3,8 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.10.2",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/polyfill": "^7.10.4",
