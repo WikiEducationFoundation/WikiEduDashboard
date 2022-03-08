@@ -123,7 +123,8 @@
     "coverage": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.development --env.coverage",
     "hot": "node prepare.js && webpack-dev-server --env.development",
     "build": "node prepare.js && parallel-webpack --config=webpack.multi.js -m=0 -- --env.production",
-    "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts"
+    "analyze": "webpack --env.production --env.stats --profile --json > stats.json && webpack-bundle-analyzer stats.json public/assets/javascripts",
+    "babel-build":"babel src/example.js --out-file app/example.js --watch"
   },
   "engines": {
     "yarn": ">= 1.0.0"
