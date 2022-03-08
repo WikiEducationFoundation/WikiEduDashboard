@@ -1,12 +1,15 @@
 import '../testHelper';
 import { updateCourse, persistCourse } from '../../app/assets/javascripts/actions/course_actions.js';
+import * as requestModule from '../../app/assets/javascripts/utils/request';
 
 describe('CourseActions', () => {
   beforeEach(() => {
-    sinon.stub($, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });
+    sinon.stub(requestModule, 'default').resolves(
+      { status: 200, ok: true, json: sinon.fake.returns({ course: { title: 'Bar' } }) }
+    );
   });
   afterEach(() => {
-    $.ajax.restore();
+    requestModule.default.restore();
   });
 
   test('.updateCourse sets course data in the store', () => {

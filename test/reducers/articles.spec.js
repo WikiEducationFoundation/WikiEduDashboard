@@ -44,8 +44,8 @@ describe('articles reducer', () => {
       expect(newState.sort.key).toBeNull();
       expect(newState.sort.sortKey).toBeNull();
       expect(Array.isArray(newState.wikis)).toBe(true);
-      expect(newState.wikiFilter).toBeNull();
-      expect(newState.newnessFilter).toBeNull();
+      expect(newState.wikiFilter).toMatchObject({ project: 'all' });
+      expect(newState.newnessFilter).toBe('both');
       expect(newState.loading).toBe(true);
       expect(newState.newnessFilterEnabled).toBe(false);
     }
@@ -99,7 +99,8 @@ describe('articles reducer', () => {
     };
 
     const state = articles(initialState, mockedAction);
-    expect(state.wikiFilter).toBeNull();
+    expect(state.wikiFilter).toMatchObject({ project: 'all' });
+
 
     const newMockedAction = {
       type: SET_PROJECT_FILTER,

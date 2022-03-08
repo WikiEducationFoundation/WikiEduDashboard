@@ -308,6 +308,7 @@ it:
     title: Titolo
     search_campaigns: Cerca campagne
     use_start_end_dates: Usa date di inizio e fine
+    search: Cerca
   categories:
     add_category: Aggiungi categoria
     add_pileid: Aggiungi ID PagePile
@@ -331,7 +332,7 @@ it:
     assignment_edits_enabled: Abilitata assegnazione dei contributori
     assignment_edits_enabled_tooltip: Se abilitato, il pannello pubblicherà un template
       nella pagina di discussione per ciascuna voce assegnata.
-    accounts_generation_enabled: Generazione di account attivata
+    accounts_generation_enabled: Generazione di richieste di utenze attivata
     accounts_generation_explanation: Ciò consentirà ai partecipanti di inserire il
       loro indirizzo email e il nome utente desiderato, invece di creare nuovi account.
       Sarai quindi in grado di creare gli account da questa Dashboard e aggiungerli
@@ -339,7 +340,7 @@ it:
     accounts_generation_confirm_message: Confermi che vuoi attivare le richieste di
       account?
     activity: Attività
-    active_courses: '%{course_type} attivo/a'
+    active_courses: Corsi attivi
     add_trainings: Si prega di aggiungere formazione per gli studenti alla tempistica
       dell'assegnazione. L'assegnazione di moduli di formazione è una parte essenziale
       delle migliori pratiche di contribuzione su Wikipedia.

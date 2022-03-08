@@ -11,6 +11,7 @@
 # Author: Base
 # Author: DDPAT
 # Author: Green Zero
+# Author: Ice bulldog
 # Author: Ihor.Zinchenko
 # Author: Macofe
 # Author: Movses
@@ -1096,7 +1097,6 @@ uk:
     redirects_created: Створено перенаправлення
     restorations_performed: Виконані реставрації
     reverts_performed: Повернення виконано
-    unknown: Невідомо
   namespace:
     main: Основний простір
     main_char_added: Додано символів в основному просторі

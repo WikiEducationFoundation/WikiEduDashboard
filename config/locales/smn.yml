@@ -5,19 +5,72 @@
 # Author: Yupik
 ---
 smn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: t.
+          million: milj.
   application:
+    cancel: Jooskâ
+    cookie_consent_acknowledge: Iberdâm
     cookie_consent_see_more: Lasetiäđuh
+    create_accounts: Räähti Wikipedia-tubdâlduvâid
+    documentation: Ravvuuh
+    error: 'Šoodâi feilâ:'
+    explore: Tuuđhâ
+    greeting2: Tiervâpuáttim!
     greeting_extended: Tiervâpuáttim Wikipedian
+    greeting: Tiervâ!
+    help: Iše
+    home: Ovdâsijđo
+    log_in_extended: Čäälit siisâ Wikipediain
+    log_in: Čäliškyeđe siisâ
+    log_out: Čäälit jieijâd olgos
+    recent_activity: Vorâs nubástusah
+    report_problem: Almoot čuolmâst
+    request_account_create: Räähti tubdâlduv
+    search: koijâd koččâmuš
+    sign_up_log_in_extended: Wikipediain
+    confirm: OK
+    opt_in: Joo
+    opt_out: Ij
   articles:
+    articles: Artikkâleh
+    next: Čuávuvâš
+    previous: Oovdeb
+    article_title: Artikkâl paječaalâ
+    edited_by: 'Hammim:'
+    edited_mobile: Artikkâleh
+    filter:
+      wiki_all: Puoh
     hide: Čievâ
+    history: (historjá)
+    label: Artikkâleh
+    new: (uuđâs)
     see_more: Lasetiäđuh
+    title_example: Artikkâl nommâ
+    view: Čääiti artikkâl
+    view_all: Čääiti puoh
+    wiki: Wiki
+    articles_short: Artikkâleh
+  articles_generic:
+    articles_short: Siijđoh
+  assignments:
+    article_link: Artikkâl
+    add_available_submit: Lasseet artikkâlijd
   campaign:
     alert_user_id: Kevttee
+    search: Uusâ
   categories:
+    add_category: Lasseet luoka
     name: Nommâ
     template_name: Myenster nommâ
   courses:
+    articles: Artikkâleh
     home_wiki: Päikkiwiki
+    new_account_email: Šleđgâpostâčujottâs
+    overview: Päikki
     tags: 'Kilgoleh:'
   courses_generic:
     creator:
@@ -36,6 +89,9 @@ smn:
     diff_show: Čääiti
     diff_hide: Čievâ
     see_more: Lasetiäđuh
+    show_all: Čääiti puoh
+  timeline:
+    save_all_changes: Vuorkkii puoh
   training:
     page: Sijđo
   uploads:
@@ -44,4 +100,10 @@ smn:
     first_name: Ovdânommâ
     last_name: Suhânommâ
     name: Nommâ
+  article_finder:
+    search: Uusâ
+    submit: Vuorkkii
+  training_status:
+    continue: Juáđhi
+    view: Čääiti
 ...

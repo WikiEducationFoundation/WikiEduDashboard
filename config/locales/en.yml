@@ -361,6 +361,8 @@ en:
     data_editors_by_course_info: List of enrolled editors and their courses/programs
     data_editor_usernames: Editor usernames
     data_editor_usernames_info: List of editor usernames, one per line
+    data_wikidata: Wikidata stats
+    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
     default_course_type: Default Course Type
     default_passcode: Default Passcode
     default_passcode_explanation: "By default, new programs in this campaign should have:"
@@ -384,6 +386,7 @@ en:
     slug: Slug
     search_campaigns: Search campaigns
     use_start_end_dates: Use start and end dates
+    search: Search
 
   categories:
     add_category: Add category
@@ -417,7 +420,7 @@ en:
     assignment_edits_enabled_tooltip: >
       If enabled, the dashboard will post a template to the talk page
       for each assigned article.
-    accounts_generation_enabled: Accounts request generation enabled
+    accounts_generation_enabled: Account request generation enabled
     accounts_generation_explanation: >
       This will allow participants to enter their email address and desired
       username, instead of creating new accounts themselves. You will then be
@@ -425,7 +428,7 @@ en:
       program participants at the same time.
     accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
-    active_courses: Active %{course_type}
+    active_courses: Active Courses
     add_trainings: Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.
     alerts: Alerts
     all_courses: All Courses

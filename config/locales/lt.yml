@@ -379,7 +379,6 @@ lt:
     redirects_created: Sukurti peradresavimai
     restorations_performed: Atliktos restauracijos
     reverts_performed: Atlikti grąžinimai
-    unknown: Nežinomas
   namespace:
     main: Pagrindinė sritis
     user_ns: Naudotojas

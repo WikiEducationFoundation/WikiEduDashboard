@@ -242,6 +242,7 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
+    active_campaigns: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
     already_exists: Error shown when a new campaign has the same name or slug of another
@@ -622,7 +623,6 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
-    unknown: '{{identical|Unknown}}'
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.

@@ -72,7 +72,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       format.json do
         @user = User.find_by(username: special_user_params[:username])
         @position = special_user_params[:position]
-        ensure_user_exists(params[:username]) { return }
+        ensure_user_exists(special_user_params[:username]) { return }
         unless SpecialUsers.respond_to? @position
           return render json: { message: 'position is invalid' },
                         status: :unprocessable_entity
@@ -127,7 +127,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     respond_to do |format|
       format.json do
         @user = User.find_by username: username_param[:username]
-        ensure_user_exists(params[:username]) { return }
+        ensure_user_exists(username_param[:username]) { return }
         yield
       end
     end

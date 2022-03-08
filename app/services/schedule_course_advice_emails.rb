@@ -5,20 +5,21 @@ class ScheduleCourseAdviceEmails
   def initialize(course, in_progress: false)
     @course = course
     @in_progress = in_progress
-    schedule_emails
   end
-
-  private
 
   def schedule_emails
     return unless @course.tag?('research_write_assignment')
 
     schedule_biographies_email
     schedule_preliminary_work_email
+    schedule_choosing_an_article_email
+    schedule_bibliographies_email
     schedule_drafting_and_moving_email
     schedule_peer_review_email
     schedule_assessing_contributions_email
   end
+
+  private
 
   def schedule_biographies_email
     return unless @course.tag?('biographies')
@@ -37,6 +38,36 @@ class ScheduleCourseAdviceEmails
       course: @course,
       subject: 'preliminary_work',
       send_at: @course.timeline_start
+    )
+  end
+
+  # This one only goes to courses that are took the
+  # 'explore_to_find_articles' option in the Assignment Wizard
+  def schedule_choosing_an_article_email
+    block = @course.find_block_by_title 'Choose possible topics'
+    return unless block
+    return if too_late?(block)
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'choosing_an_article',
+      send_at: block.calculated_date.to_datetime
+    )
+  end
+
+  # This goes to 'choose_articles_from_list' courses
+  # at the point of choosing articles, and to 'explore_to_find_articles'
+  # courses the week after at the "finalize topic" stage
+  def schedule_bibliographies_email
+    block = @course.find_block_by_title 'Finalize your topic and find sources'
+    block ||= @course.find_block_by_title 'Choose your article'
+    return unless block
+    return if too_late?(block)
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'bibliographies',
+      send_at: block.calculated_date.to_datetime
     )
   end
 

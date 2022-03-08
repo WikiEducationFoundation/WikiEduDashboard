@@ -1,10 +1,9 @@
 - content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '
 
-= render 'nav'
+#react_root{data: {slug: @campaign.slug}}
 
 .container
   %section.overview.container
-    = render 'courses/header_stats', presenter: @presenter
 
 .container
   %section#campaign-articles
@@ -74,4 +73,4 @@
             - cache [ac, locale] do
               = render 'campaigns/article_row', article: ac.article, article_course: ac
 
-  = will_paginate articles
+    = will_paginate articles

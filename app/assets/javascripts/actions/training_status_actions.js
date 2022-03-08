@@ -1,38 +1,26 @@
 import { RECEIVE_TRAINING_STATUS, RECEIVE_USER_TRAINING_STATUS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchTrainingStatusPromise = (userId, courseId) => {
-  return new Promise((res, rej) => {
-    const url = `/training_status.json?user_id=${userId}&course_id=${courseId}`;
-    return $.ajax({
-      type: 'GET',
-      url,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+
+const fetchTrainingStatusPromise = async (userId, courseId) => {
+  const response = await request(`/training_status.json?user_id=${userId}&course_id=${courseId}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw data;
+  }
+  return response.json();
 };
 
-const fetchUserTrainingStatusPromise = (username) => {
-  return new Promise((res, rej) => {
-    const url = `/user_training_status.json?username=${username}`;
-    return $.ajax({
-      type: 'GET',
-      url,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+const fetchUserTrainingStatusPromise = async (username) => {
+  const response = await request(`/user_training_status.json?username=${username}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.json();
+    throw data;
+  }
+  return response.json();
 };
 
 

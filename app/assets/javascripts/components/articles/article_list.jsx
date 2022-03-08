@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router';
 import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
+import { parse, stringify } from 'query-string';
+
+const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
 
 const ArticleList = createReactClass({
   displayName: 'ArticleList',
@@ -26,6 +29,43 @@ const ArticleList = createReactClass({
   },
 
   getInitialState() {
+    // getting filters from the URL
+    const { wiki, newness, tracked } = parse(this.props.location.search);
+
+    // filter by "wiki"
+    if (wiki !== undefined) {
+      // wiki is passed as a search param
+      const value = wiki.split('.');
+      if (value.length > 1) {
+        this.props.filterArticles({ language: value[0], project: value[1] });
+      } else {
+        this.props.filterArticles({ language: null, project: value[0] });
+      }
+    } else {
+      // since the wiki search param is absent, set the URL using the previous
+      // filter in the redux store
+      const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
+      this.updateParams('wiki', wikiFilterValue);
+    }
+
+    // filter by "newness"
+    if (newness !== undefined) {
+      // newness is passed as a search param
+      this.props.filterNewness(newness);
+    } else {
+      // absent, so setting newness from the redux store
+      this.updateParams('newness', this.props.newnessFilter);
+    }
+
+    // filter by "tracked"
+    if (tracked !== undefined) {
+      // tracked is passed as a search param
+      this.props.filterTrackedStatus(tracked);
+    } else {
+      // absent, so setting tracked from the redux store
+      this.updateParams('tracked', this.props.trackedStatusFilter);
+    }
+
     return {
       selectedIndex: -1,
     };
@@ -36,7 +76,9 @@ const ArticleList = createReactClass({
     const project = this.props.course.home_wiki.project;
     document.title = `${this.props.course.title} - ${ArticleUtils.I18n('edited', project)}`;
   },
+
   onChangeFilter(e) {
+    this.updateParams('wiki', e.target.value);
     const value = e.target.value.split('.');
     if (value.length > 1) {
       return this.props.filterArticles({ language: value[0], project: value[1] });
@@ -45,11 +87,32 @@ const ArticleList = createReactClass({
   },
 
   onNewnessChange(e) {
+    this.updateParams('newness', e.target.value);
     return this.props.filterNewness(e.target.value);
   },
 
   onTrackedFilterChange(e) {
+    this.updateParams('tracked', e.target.value);
     return this.props.filterTrackedStatus(e.target.value);
+  },
+
+  updateParams(filter, value) {
+    const search = this.props.history.location.search;
+    const history = this.props.history;
+
+    const params = parse(search);
+
+    // don't add the search param if the value is equal to the default value
+    if (defaults_params[filter] === value) {
+      // delete the existing key
+      delete params[filter];
+    } else {
+      params[filter] = value;
+    }
+
+    history.push({
+      search: stringify(params)
+    });
   },
 
   showDiff(index) {
@@ -64,6 +127,17 @@ const ArticleList = createReactClass({
 
   sortSelect(e) {
     return this.props.sortArticles(e.target.value);
+  },
+
+  wikiObjectToString(wikiFilter) {
+    let wikiFilterValue;
+
+    if (wikiFilter.language) {
+      wikiFilterValue = `${wikiFilter.language}.${wikiFilter.project}`;
+    } else {
+      wikiFilterValue = `${wikiFilter.project}`;
+    }
+    return wikiFilterValue;
   },
 
   render() {
@@ -124,6 +198,8 @@ const ArticleList = createReactClass({
     }
 
     let filterWikis;
+    const wikiFilterValue = this.wikiObjectToString(this.props.wikiFilter);
+
     if (this.props.wikis.length > 1) {
       const wikiOptions = this.props.wikis.map((wiki) => {
         const wikiString = `${wiki.language ? `${wiki.language}.` : ''}${wiki.project}`;
@@ -131,7 +207,10 @@ const ArticleList = createReactClass({
       });
 
       filterWikis = (
-        <select onChange={this.onChangeFilter}>
+        <select
+          onChange={this.onChangeFilter}
+          value={wikiFilterValue}
+        >
           <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
           {wikiOptions}
         </select>
@@ -141,7 +220,11 @@ const ArticleList = createReactClass({
     let filterArticlesSelect;
     if (this.props.newnessFilterEnabled) {
       filterArticlesSelect = (
-        <select className="filter-articles" defaultValue="both" onChange={this.onNewnessChange}>
+        <select
+          className="filter-articles"
+          value={this.props.newnessFilter}
+          onChange={this.onNewnessChange}
+        >
           <option value="new">{I18n.t('articles.filter.new')}</option>
           <option value="existing">{I18n.t('articles.filter.existing')}</option>
           <option value="both">{I18n.t('articles.filter.new_and_existing')}</option>
@@ -152,7 +235,11 @@ const ArticleList = createReactClass({
     let filterTracked;
     if (this.props.trackedStatusFilterEnabled) {
       filterTracked = (
-        <select className="filter-articles" value={this.props.trackedStatusFilter} onChange={this.onTrackedFilterChange}>
+        <select
+          className="filter-articles"
+          value={this.props.trackedStatusFilter}
+          onChange={this.onTrackedFilterChange}
+        >
           <option value="tracked">{I18n.t('articles.filter.tracked')}</option>
           <option value="untracked">{I18n.t('articles.filter.untracked')}</option>
           <option value="both">{I18n.t('articles.filter.tracked_and_untracked')}</option>
@@ -229,4 +316,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ArticleList));
