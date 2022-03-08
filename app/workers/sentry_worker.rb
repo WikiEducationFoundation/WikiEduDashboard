@@ -2,9 +2,9 @@
 
 class SentryWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 0
 
   def perform(event)
-    return unless Features.wiki_ed?
     Sentry.send_event(event) if defined?(Sentry)
   end
 end
