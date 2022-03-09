@@ -17,8 +17,9 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
   const response = await request(`${wikidataApiBase}&${stringify(query)}`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

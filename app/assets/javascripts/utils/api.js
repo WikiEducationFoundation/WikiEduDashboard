@@ -54,8 +54,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -67,8 +68,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.text();
   },
@@ -78,8 +80,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -94,8 +97,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -105,8 +109,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -116,8 +121,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -127,8 +133,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -138,8 +145,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -149,8 +157,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -163,8 +172,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -174,8 +184,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -188,8 +199,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -202,8 +214,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -216,8 +229,9 @@ const API = {
 
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -275,7 +289,7 @@ const API = {
     });
 
     if (!response.ok) {
-      const data = await response.json();
+      const data = await response.text();
       this.obj = data;
       this.status = response.statusText;
       console.error('Couldn\'t save timeline!');
@@ -285,7 +299,8 @@ const API = {
         level: 'error',
         extra: SentryLogger
       });
-      throw data;
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -305,7 +320,7 @@ const API = {
     });
 
     if (!response.ok) {
-      const data = await response.json();
+      const data = await response.text();
       this.obj = data;
       this.status = response.statusText;
       SentryLogger.obj = this.obj;
@@ -314,7 +329,8 @@ const API = {
         level: 'error',
         extra: SentryLogger
       });
-      throw data;
+      response.responseText = data;
+      throw response;
     }
     return response.json();
 
@@ -328,8 +344,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     window.location = '/';
     return response.json();
@@ -341,8 +358,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return {block_id};
   },
@@ -353,8 +371,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return { week_id };
   },
@@ -365,8 +384,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.text();
   },
@@ -375,8 +395,9 @@ const API = {
     const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
     if (!response.ok) {
       logErrorMessage(response, 'Couldn\'t notify students! ');
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     alert('Students with overdue trainings notified!');
     return response.json();
@@ -388,8 +409,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response, 'There was an error with the greetings! ');
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     alert('Student greetings added to the queue.');
     return response.json();
@@ -403,8 +425,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response, `${capitalize(model)} not ${verb}: `);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -416,8 +439,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -438,8 +462,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -451,8 +476,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -464,8 +490,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -479,8 +506,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -489,8 +517,9 @@ const API = {
     const response = await request(`/requested_accounts/${courseSlug}/enable_account_requests`);
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.text();
   },
@@ -501,8 +530,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },
@@ -513,8 +543,9 @@ const API = {
     });
     if (!response.ok) {
       logErrorMessage(response);
-      const data = await response.json();
-      throw data;
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
     }
     return response.json();
   },

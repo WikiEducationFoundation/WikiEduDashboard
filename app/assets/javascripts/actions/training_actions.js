@@ -12,8 +12,9 @@ const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -22,8 +23,9 @@ const fetchTrainingModulePromise = async (opts) => {
   const response = await request(`/training_module.json?module_id=${opts.module_id}`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -39,8 +41,9 @@ const setSlideCompletedPromise = async (opts) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

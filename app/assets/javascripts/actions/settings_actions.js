@@ -15,8 +15,9 @@ const fetchAdminUsersPromise = async () => {
   const response = await request('/settings/all_admins');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -25,8 +26,9 @@ const fetchSpecialUsersPromise = async () => {
   const response = await request('/settings/special_users');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -44,8 +46,9 @@ const grantAdminPromise = async (username, upgrade) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -58,8 +61,9 @@ const grantSpecialUserPromise = async (username, upgrade, position) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -313,8 +317,9 @@ const updateSalesforceCredentialsPromise = async (password, token) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -329,8 +334,9 @@ const fetchCourseCreationSettingsPromise = async () => {
   const response = await request('/settings/course_creation');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -358,8 +364,9 @@ const updateCourseCreationSettingsPromise = async (settings) => {
 
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -379,8 +386,9 @@ const fetchDefaultCamapignPromise = async () => {
 
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -408,8 +416,9 @@ const updateDefaultCampaignPromise = async (campaignSlug) => {
 
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
