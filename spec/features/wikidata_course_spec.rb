@@ -37,4 +37,9 @@ describe 'A Wikidata course', type: :feature, js: true do
     visit "/courses/#{course.slug}/articles"
     expect(page).to have_content 'Douglas Adams'
   end
+
+  it 'shows wikidata stats on the Campaign page' do
+    visit "/campaigns/#{Campaign.first.slug}/overview"
+    expect(page).to have_content('Wikidata stats')
+  end
 end
