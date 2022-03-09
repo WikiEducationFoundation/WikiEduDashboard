@@ -4,8 +4,8 @@
 // and other static (from a JavaScript perspective) data objects.
 
 
-// Polyfill
-import '@babel/polyfill';
+// core-js/stable is directly included to polyfill ES features as @babel/polyfill is deprecated.
+import 'core-js/stable';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
