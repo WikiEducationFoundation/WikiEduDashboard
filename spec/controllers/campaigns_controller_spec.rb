@@ -407,6 +407,12 @@ describe CampaignsController, type: :request do
     let(:article) { create(:article) }
     let(:user) { create(:user) }
     let!(:revision) { create(:revision, article: article, user: user, date: course.start + 1.hour) }
+    let!(:course_stats) do
+      create(:course_stats, stats_hash: { 'www.wikidata.org' => {
+               'claims created' => 12, 'other updates' => 1, 'unknown' => 1
+             } },
+             course: course)
+    end
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
