@@ -6,8 +6,9 @@ const fetchCampaignsPromise = async (courseId) => {
   const response = await request(`/courses/${courseId}/campaigns.json`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+      response.responseText = data;
+      throw response;
   }
   return response.json();
 };
@@ -34,8 +35,9 @@ const removeCampaignsPromise = async (courseId, campaignId) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -60,8 +62,9 @@ const addCampaignsPromise = async (courseId, campaignId) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -83,8 +86,9 @@ const fetchAllCampaignsPromise = async () => {
   const response = await request('/lookups/campaign.json');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

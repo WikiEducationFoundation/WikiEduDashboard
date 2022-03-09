@@ -6,8 +6,9 @@ const _fetchRecentEdits = async (opts = {}) => {
   const response = await request(`/revision_analytics/recent_edits.json?scoped=${opts.scoped || false}`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

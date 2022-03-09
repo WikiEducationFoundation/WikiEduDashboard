@@ -7,8 +7,9 @@ const fetchCategoriesPromise = async (courseSlug) => {
   const response = await request(`/courses/${courseSlug}/categories.json`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -41,8 +42,9 @@ const addCategoryPromise = async ({ category, source, project, language, depth, 
 
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -71,8 +73,9 @@ const removeCategoryPromise = async (course_id, category_id) => {
 
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
