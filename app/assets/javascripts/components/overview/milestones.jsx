@@ -20,7 +20,7 @@ const Milestones = createReactClass({
   milestoneBlockType: 2,
 
   weekIsCompleted(week, currentWeek) {
-    return week.order < currentWeek;
+    return week.weekNumber < currentWeek;
   },
 
   render() {
