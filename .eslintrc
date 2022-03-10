@@ -96,6 +96,7 @@
     "jquery": true,
     "browser": true
   },
+  "parser": "@babel/eslint-parser",
   "settings": {
     "import/resolver": {
       "babel-plugin-root-import": [
