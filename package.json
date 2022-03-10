@@ -3,7 +3,6 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
@@ -107,7 +106,7 @@
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^4.44.1",
+    "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^3.10.3",
     "webpack-exclude-assets-plugin": "^0.1.1",
@@ -128,6 +127,7 @@
     "yarn": ">= 1.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "babel-plugin-root-import": "^6.5.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
