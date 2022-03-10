@@ -1,12 +1,16 @@
 # Messages for Georgian (ქართული)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: David1010
 # Author: Lemon134340
 # Author: MIKHEIL
 # Author: Otogi
 # Author: Გიო ოქრო
 ---
 ka:
+  campaign:
+    data_wikidata: ვიკიმონაცემების სტატისტიკა
+    search: ძიება
   courses:
     dismiss_survey: უარყოფა
     review_timeline: 'ახლა, გადახედეთ თქვენს დავალებას, გემოვნების მიხედვით დაახარისხეთ.

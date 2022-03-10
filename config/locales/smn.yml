@@ -93,6 +93,7 @@ smn:
   timeline:
     save_all_changes: Vuorkkii puoh
   training:
+    next: Čuávuvâš sijđo
     page: Sijđo
   uploads:
     image: Kove
@@ -100,6 +101,8 @@ smn:
     first_name: Ovdânommâ
     last_name: Suhânommâ
     name: Nommâ
+    username: Kevtteenommâ
+    username_placeholder: Kevtteenommâ
   article_finder:
     search: Uusâ
     submit: Vuorkkii

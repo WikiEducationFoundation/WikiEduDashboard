@@ -36,13 +36,18 @@ nl:
       decimal_units:
         format: '%n%u'
         units:
+          thousand: K
           million: M
           billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Dit is een numeriek veld. De knoppen die door de meeste browsers
       weergegeven worden zullen de invoer verhogen en verlagen.
   application:
     cancel: Annuleren
+    cookie_consent_acknowledge: Ik begrijp
+    cookie_consent_see_more: Bekijk meer.
     create_accounts: Maak Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentatie
@@ -70,7 +75,9 @@ nl:
     search_results:
       one: '%{count} resultaat voor: ''%{search_terms}'''
       other: '%{count} resultaten voor: ''%{search_terms}'''
+    no_results: Geen resultaten gevonden voor “%{query}”
     sign_up_extended: Registreren via Wikipedia
+    sign_up_wikipedia: Of meld je aan op Wikipedia
     sign_up_log_in_extended: met Wikipedia
     sign_up: Inschrijven
     submit: Verzenden
@@ -84,6 +91,14 @@ nl:
     opt_no: nee
   article_statuses:
     not_yet_started: Aan de slag
+    in_progress: Werken in zandbak
+    ready_for_review: Het concept uitbreiden
+    ready_for_mainspace: Het werk verplaatsen naar de hoofdruimte
+    assignment_completed: Opdracht gemarkeerd als voltooid
+    reading_the_article: Het artikel lezen
+    providing_feedback: Het geven van een feedback
+    post_to_talk: Posten op de overlegpagina
+    peer_review_completed: Beoordeling voltooid
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     explore_course_pages: Verken de cursuspagina's
@@ -104,11 +119,14 @@ nl:
     sign_up_help: Om het dashboard te gebruiken, moet u zich aanmelden via Wikipedia
       en het toestemming geven voor toegang tot uw account. U kunt zich aanmelden
       met een bestaand Wikipedia-account of een nieuwe aanmaken.
+  alerts:
+    alert_label: Meldingen
   activity:
     all: Activiteit
     edited_by: Bewerkt door
     label: Activiteit
   articles:
+    articles: Artikelen
     assigned: Toegewezen pagina's
     next: Volgende
     previous: Vorige
