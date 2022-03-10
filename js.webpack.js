@@ -65,7 +65,7 @@ module.exports = (env) => {
           options: {
             cache: true,
             failOnError: !!env.production,
-            parser: 'babel-eslint'
+            parser: '@babel/eslint-parser'
           },
         },
       ],
