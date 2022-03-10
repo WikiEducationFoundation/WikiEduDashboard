@@ -2,6 +2,7 @@ const path = require('path');
 const config = require('./config');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const webpack = require('webpack');
 
@@ -58,16 +59,6 @@ module.exports = (env) => {
             },
           },
         },
-        {
-          test: /\.jsx?$/,
-          exclude: [/vendor/, /node_modules(?!\/striptags)/],
-          loader: 'eslint-loader',
-          options: {
-            cache: true,
-            failOnError: !!env.production,
-            parser: 'babel-eslint'
-          },
-        },
       ],
     },
     externals: {
@@ -88,7 +79,13 @@ module.exports = (env) => {
       // Creates smaller Lodash builds by replacing feature sets of modules with noop,
       // identity, or simpler alternatives.
       new LodashModuleReplacementPlugin(config.requiredLodashFeatures),
-      new MomentLocalesPlugin()
+      new MomentLocalesPlugin(),
+      new ESLintPlugin({
+        extensions: ['js', 'jsx'],
+        exclude: ['vendor', 'node_modules'],
+        cache: true,
+        failOnError: !!env.production
+      })
     ],
     optimization: {
       splitChunks: {

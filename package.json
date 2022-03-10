@@ -16,7 +16,6 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "autosize": "^4.0.2",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -30,9 +29,8 @@
     "deep-freeze": "^0.0.1",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
-    "eslint": "^7.14.0",
+    "eslint": "^8.10.0",
     "eslint-config-airbnb": "^17.1.1",
-    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.5",
@@ -128,9 +126,11 @@
     "yarn": ">= 1.0.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "babel-plugin-root-import": "^6.5.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-webpack-plugin": "2",
     "parallel-webpack": "^2.6.0",
     "stylus-native-loader": "^1.1.2",
     "webpack-cli": "^4.9.0"
