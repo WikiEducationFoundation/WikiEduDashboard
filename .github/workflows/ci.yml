@@ -17,18 +17,18 @@ jobs:
     runs-on: ubuntu-latest 
 
     steps:
-    
-    # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
-      - uses: actions/checkout@v2
+      # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
+      - name: checkout
+        uses: actions/checkout@v2
       
-      - name: Starting Pandoc
+      - name: install Pandoc
         uses: r-lib/actions/setup-pandoc@v1
       
-      - name: Starting Redis-Server
+      - name: setup Redis
         uses: supercharge/redis-github-action@1.4.0
       
-    #to speed up the execution time of Github Actions
-      - name: Cache multiple paths  
+      # to speed up the execution time of Github Actions
+      - name: setup caching for vendor and node_modules
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -39,8 +39,9 @@ jobs:
           restore-keys: |
                 ${{ runner.os }}-yarn-
       
-    #Setting up MariaDB based upon 'config/database.example.yml'
-      - uses: getong/mariadb-action@v1.1  
+      # Setting up MariaDB based upon 'config/database.example.yml'
+      - name: setup MariaDB server
+        uses: getong/mariadb-action@v1.1  
         with:
           host port: 3306 
           mariadb version: '10.5' 
@@ -48,16 +49,19 @@ jobs:
           mysql user: 'wiki'
           mysql password: 'wikiedu'
           
-     #Starting ruby 
-      - uses: ruby/setup-ruby@v1    
+      # Starting ruby 
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1    
         with:
            ruby-version: 2.7.1
            bundler-cache: true
      
-      - name: Setup Node
-        uses: actions/setup-node@v1
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      - name:  Creating Test Database 
+      - name: setup Dashboard database
         env:
           RAILS_ENV: test
           DATABASE_PORT: 3306
@@ -69,19 +73,19 @@ jobs:
       
       #Testing the pushed code onwards
       
-      - name: Build and Running JS Tests   
+      - name: JavaScript test suite 
         run: |
             yarn
             yarn build
             yarn run test 
       
-      - name: Running JS Linter
+      - name: JavaScript linting
         run: yarn lint-non-build
       
-      - name: Running Ruby Tests
+      - name: Ruby rspec test suite
         run : COVERAGE=true bundle exec rspec spec/ --color --profile --format documentation
             
-      - name: Running Ruby Linter
+      - name: Ruby linting
         run: bundle exec rubocop
             
     
