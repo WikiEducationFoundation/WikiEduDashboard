@@ -109,7 +109,7 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^3.10.3",
     "webpack-exclude-assets-plugin": "^0.1.1",
-    "webpack-manifest-plugin": "2.2.0",
+    "webpack-manifest-plugin": "4.1.1",
     "webpack-rtl-plugin": "^2.0.0",
     "wnumb": "^1.2.0"
   },
