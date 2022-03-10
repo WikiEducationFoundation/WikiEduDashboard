@@ -238,9 +238,9 @@ fr:
       par la machine. Ces valeurs sont calculées sur la taille de l’article, le nombre
       de références et de liens Wiki, ainsi que d’autres caractéristiques de base
       du texte. Une valeur élevée indique généralement qu’un article suit les conventions
-      de Wikipedia pour la structure d’un bon article, mais il ne prend pas en compte
-      le contenu lui-même. (Ces statistiques ne sont uniquement disponibles que pour
-      les articles du Wikipédia anglais).
+      de Wikipédia pour la structure d’un bon article, mais il ne prend pas en compte
+      le contenu lui-même. (Ces statistiques ne sont disponibles que pour les articles
+      de l’édition en anglais de Wikipédia).
     articles_short: Articles
   items:
     items: Éléments
@@ -393,8 +393,11 @@ fr:
     data_editors_by_course: Rédacteurs par cours
     data_editors_by_course_info: Liste des rédacteurs inscrits avec leurs cours/programmes
     data_editor_usernames: Noms d’utilisateur des rédacteurs
-    data_editor_usernames_info: Liste des noms d'utilisateur des rédacteurs, un par
+    data_editor_usernames_info: Liste des noms d’utilisateur des rédacteurs, un par
       ligne
+    data_wikidata: Statistiques de Wikidata
+    data_wikidata_info: Répartition détaillée de l’activité de Wikidata, d’après les
+      résumés de modification
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut
     default_passcode_explanation: 'Par défaut, les nouveaux programmes dans cette
@@ -418,6 +421,7 @@ fr:
     slug: Limace
     search_campaigns: Rechercher les campagnes
     use_start_end_dates: Utiliser les dates de début et de fin
+    search: Rechercher
   categories:
     add_category: Ajouter une catégorie
     add_psid: Ajouter le PSID PetScan
@@ -454,7 +458,7 @@ fr:
     assignment_edits_enabled: Modifications des affectations activées
     assignment_edits_enabled_tooltip: Si activé, le tableau de bord publiera un modèle
       sur la page de discussion pour chaque article affecté.
-    accounts_generation_enabled: Génération de demande de comptes activée
+    accounts_generation_enabled: Génération de demande de compte activée
     accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
       de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
       nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de
@@ -462,7 +466,7 @@ fr:
     accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
-    active_courses: '%{course_type} actifs'
+    active_courses: Cours actifs
     add_trainings: Veuillez ajouter des formations d’étudiant à votre planification
       d’affectation. Affecter les modules de formation est une part essentielle des
       meilleures pratiques du Wiki Éducation.
@@ -1151,7 +1155,6 @@ fr:
     redirects_created: Redirections créées
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
-    unknown: Inconnu
   namespace:
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal

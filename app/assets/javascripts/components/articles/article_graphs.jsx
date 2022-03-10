@@ -5,6 +5,8 @@ import OnClickOutside from 'react-onclickoutside';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
+import request from '../../utils/request';
+
 
 const ArticleGraphs = createReactClass({
   displayName: 'ArticleGraphs',
@@ -26,15 +28,10 @@ const ArticleGraphs = createReactClass({
 
     const articleId = this.props.article.id;
     const articledataUrl = `/articles/article_data.json?article_id=${articleId}`;
-    $.ajax(
-      {
-        dataType: 'json',
-        url: articledataUrl,
-        success: (data) => {
-          this.setState({
-            articleData: data
-          });
-        }
+    request(articledataUrl)
+      .then(resp => resp.json())
+      .then((data) => {
+        this.setState({ articleData: data });
       });
   },
 

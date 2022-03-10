@@ -11,7 +11,8 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course courses ores_plot articles_csv
-                                        revisions_csv alerts students instructors]
+                                        revisions_csv alerts students instructors
+                                        wikidata]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -194,6 +195,10 @@ class CampaignsController < ApplicationController
 
   def revisions_csv
     csv_of('revisions')
+  end
+
+  def wikidata
+    csv_of('wikidata')
   end
 
   private

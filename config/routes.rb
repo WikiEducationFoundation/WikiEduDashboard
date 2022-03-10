@@ -244,6 +244,7 @@ Rails.application.routes.draw do
       get 'articles_csv'
       get 'revisions_csv'
       get 'alerts'
+      get 'wikidata'
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'

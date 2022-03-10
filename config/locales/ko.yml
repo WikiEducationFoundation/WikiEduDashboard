@@ -192,6 +192,8 @@ ko:
     created_at: 날짜
     course: 과정
     data_download_info: CSV로 캠페인 데이터 다운로드
+    data_wikidata: 위키데이터 통계
+    data_wikidata_info: 편집 요약에 기반을 둔 위키데이터 활동의 자세한 내용입니다
     default_passcode: 기본 비밀번호
     description: 설명
     disable_account_requests: 계정 요청 비활성화
@@ -202,6 +204,7 @@ ko:
     requested_accounts: 요청된 계정
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
+    search: 검색
   categories:
     add_category: 분류 추가
     add_template: 틀 추가
@@ -482,6 +485,7 @@ ko:
     view_data_unavailable: 이용 가능한 뷰 데이터 없음
     view: 보기
     word_count_average: 평균 단어 개수
+    no_data: 데이터 없음
   namespace:
     user: 사용자 공간
     user_ns: 사용자

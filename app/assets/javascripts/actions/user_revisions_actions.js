@@ -1,20 +1,17 @@
 import { RECEIVE_USER_REVISIONS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchUserRevisionsPromise = (courseId, userId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/revisions.json?user_id=${userId}&course_id=${courseId}`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+
+const fetchUserRevisionsPromise = async (courseId, userId) => {
+  const response = await request(`/revisions.json?user_id=${userId}&course_id=${courseId}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchUserRevisions = (courseId, userId) => (dispatch, getState) => {

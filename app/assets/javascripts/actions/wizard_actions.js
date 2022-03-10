@@ -14,23 +14,19 @@ import {
 } from '../constants';
 import { fetchCourse } from './course_actions';
 import { fetchTimeline } from './timeline_actions';
+import request from '../utils/request';
 
 import logErrorMessage from '../utils/log_error_message';
 
-const fetchWizardIndexPromise = () => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: '/wizards.json',
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
-  );
+const fetchWizardIndexPromise = async () => {
+  const response = await request('/wizards.json');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchWizardIndex = () => (dispatch) => {
@@ -42,20 +38,15 @@ export const fetchWizardIndex = () => (dispatch) => {
 };
 
 
-const fetchWizardPanelsPromise = (wizardId) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/wizards/${wizardId}.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
-  );
+const fetchWizardPanelsPromise = async (wizardId) => {
+  const response = await request(`/wizards/${wizardId}.json`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchWizardPanels = wizardId => (dispatch) => {
@@ -116,22 +107,18 @@ export const disableSummaryMode = () => {
   return { type: WIZARD_DISABLE_SUMMARY_MODE };
 };
 
-const submitWizardPromise = (courseSlug, wizardId, wizardOutput) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'POST',
-      url: `/courses/${courseSlug}/wizard/${wizardId}.json`,
-      contentType: 'application/json',
-      data: JSON.stringify({ wizard_output: wizardOutput }),
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
-      return rej(obj);
-    })
-  );
+const submitWizardPromise = async (courseSlug, wizardId, wizardOutput) => {
+  const response = await request(`/courses/${courseSlug}/wizard/${wizardId}.json`, {
+    method: 'POST',
+    body: JSON.stringify({ wizard_output: wizardOutput })
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 const getWizardKey = (state) => {

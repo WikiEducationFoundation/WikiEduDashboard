@@ -6,56 +6,46 @@ import {
 } from '../constants';
 import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
+import { stringify } from 'query-string';
 
-const fetchAllTrainingModulesPromise = () => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: '/training_modules.json',
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-  );
+const fetchAllTrainingModulesPromise = async () => {
+  const response = await request('/training_modules.json');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
-const fetchTrainingModulePromise = (opts) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/training_module.json?module_id=${opts.module_id}`,
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-  );
+const fetchTrainingModulePromise = async (opts) => {
+  const response = await request(`/training_module.json?module_id=${opts.module_id}`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
-const setSlideCompletedPromise = (opts) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'POST',
-      url: `/training_modules_users.json?\
-module_id=${opts.module_id}&\
-user_id=${opts.user_id}&\
-slide_id=${opts.slide_id}`,
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-  );
+const setSlideCompletedPromise = async (opts) => {
+  const params = {
+    module_id: opts.module_id,
+    user_id: opts.user_id,
+    slide_id: opts.slide_id
+  };
+  const response = await request(`/training_modules_users.json?${stringify(params)}`, {
+    method: 'POST'
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchAllTrainingModules = () => (dispatch) => {

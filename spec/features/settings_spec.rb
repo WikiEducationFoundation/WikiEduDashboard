@@ -52,4 +52,25 @@ describe 'settings', type: :feature, js: true do
       expect(page).to have_content('new-default-campaign-slug')
     end
   end
+
+  describe 'for Salesforce credentials' do
+    it 'allows updating the password and token' do
+      click_button 'Update Salesforce Credentials'
+      fill_in('salesforce_password', with: 'password')
+      fill_in('salesforce_token', with: 'token')
+      click_button 'Submit'
+      expect(page).not_to have_content('Submit')
+    end
+  end
+
+  describe 'for admins' do
+    it 'allows adding and removing a admin rights' do
+      expect(page).not_to have_content(user.username)
+      click_button 'Add Admin'
+      fill_in('new_admin_name', with: user.username)
+      click_button 'Submit'
+      click_button 'Grant admin'
+      expect(page).to have_content(user.username)
+    end
+  end
 end

@@ -13,6 +13,7 @@
 # Author: Mido
 # Author: Moud hosny
 # Author: NEHAOUA
+# Author: NancyMilad
 # Author: Shbib Al-Subaie
 # Author: Sonic N800
 # Author: Tala Ali
@@ -303,6 +304,8 @@ ar:
     data_editors_by_course_info: قائمة المحررين المسجلين ودوراتهم/برامجهم
     data_editor_usernames: أسماء المستخدمين المحررين
     data_editor_usernames_info: قائمة أسماء المستخدمين المحررين، واحد لكل سطر
+    data_wikidata: احصائيات بيانات ويكي
+    data_wikidata_info: تحليل مفصل لنشاط بيانات ويكي ، بناءا على ملخصات التحرير
     default_course_type: نوع مقرر افتراضي
     default_passcode: رمز مرور افتراضي
     default_passcode_explanation: 'افتراضيا، البرامج الجديدة في هذه الحملة يجب أن
@@ -326,6 +329,7 @@ ar:
     slug: سبيكة
     search_campaigns: الحملات القائمة على البحث
     use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
+    search: بحث
   categories:
     add_category: أضف تصنيفًا
     add_psid: إضافة PetScan PSID
@@ -358,13 +362,13 @@ ar:
     assignment_edits_enabled: تم تمكين تعديلات المهمة
     assignment_edits_enabled_tooltip: في حالة التمكين، ستقوم لوحة البيانات بنشر قالب
       بصفحة النقاش لكل مقالة معينة.
-    accounts_generation_enabled: تم تمكين استحداث طلبات حسابات
+    accounts_generation_enabled: تم تفعيل انشاء طلب الحساب
     accounts_generation_explanation: سوف يمكن هذا الأمر المشاركين من إدخال عنوان بريدهم
       الإلكتروني واسم المستخدم المرغوب، بدلا من إنشاء حسابات جديدة بأنفسهم، ويمكنك
       بعد ذلك إنشاء حسابات من لوحة التحكم وإضافتها بصفة مشاركين في ذات الوقت.
     accounts_generation_confirm_message: هل أنت متأكد أنك ترغب في تمكين طلبات الحسابات؟
     activity: النشاط
-    active_courses: '%{course_type} الناشطة'
+    active_courses: الدورات الفعالة
     add_trainings: من فضلك أضف تمرينات الطلاب للخط الزمني لمهامك. إيكال أجزاء التدريب
       هو جزء أساسي من أفضل ممارسات ويكي التعليم.
     alerts: الإشعارات

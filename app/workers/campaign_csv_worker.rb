@@ -13,21 +13,27 @@ class CampaignCsvWorker
   def perform(campaign_id, filename, type, include_course)
     campaign = Campaign.find(campaign_id)
     builder = CampaignCsvBuilder.new(campaign)
-    data = case type
-           when 'instructors'
-             campaign.users_to_csv(:instructors, course: include_course)
-           when 'students'
-             campaign.users_to_csv(:students, course: include_course)
-           when 'courses'
-             builder.courses_to_csv
-           when 'articles'
-             builder.articles_to_csv
-           when 'revisions'
-             builder.revisions_to_csv
-           end
+    data = to_csv(type, campaign, builder, include_course)
 
     write_csv(filename, data)
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
+  end
+
+  def to_csv(type, campaign, builder, include_course)
+    case type
+    when 'instructors'
+      campaign.users_to_csv(:instructors, course: include_course)
+    when 'students'
+      campaign.users_to_csv(:students, course: include_course)
+    when 'courses'
+      builder.courses_to_csv
+    when 'articles'
+      builder.articles_to_csv
+    when 'revisions'
+      builder.revisions_to_csv
+    when 'wikidata'
+      builder.wikidata_to_csv
+    end
   end
 
   private

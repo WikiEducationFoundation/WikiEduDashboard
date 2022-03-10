@@ -1,20 +1,16 @@
 import { RECEIVE_TAGS, RECEIVE_ALL_TAGS, ADD_TAG, REMOVE_TAG, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchTagsPromise = (courseId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseId}/tags.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+const fetchTagsPromise = async (courseId) => {
+  const response = await request(`/courses/${courseId}/tags.json`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchTags = courseId => (dispatch) => {
@@ -30,20 +26,15 @@ export const fetchTags = courseId => (dispatch) => {
   );
 };
 
-const fetchAllTagsPromise = () => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/lookups/tag.json',
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
+const fetchAllTagsPromise = async () => {
+  const response = await request('/lookups/tag.json');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchAllTags = () => (dispatch) => {
@@ -52,21 +43,18 @@ export const fetchAllTags = () => (dispatch) => {
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
-const addTagPromise = (courseId, tag) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'POST',
-      url: `/courses/${courseId}/tag.json`,
-      data: { tag: { tag } },
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+const addTagPromise = async (courseId, tag) => {
+  const response = await request(`/courses/${courseId}/tag.json`, {
+    method: 'POST',
+    body: JSON.stringify({ tag: { tag } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const addTag = (courseId, tag) => (dispatch) => {
@@ -82,21 +70,18 @@ export const addTag = (courseId, tag) => (dispatch) => {
   );
 };
 
-const removeTagPromise = (courseId, tag) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'DELETE',
-      url: `/courses/${courseId}/tag.json`,
-      data: { tag: { tag } },
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
+const removeTagPromise = async (courseId, tag) => {
+  const response = await request(`/courses/${courseId}/tag.json`, {
+    method: 'DELETE',
+    body: JSON.stringify({ tag: { tag } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const removeTag = (courseId, tag) => (dispatch) => {

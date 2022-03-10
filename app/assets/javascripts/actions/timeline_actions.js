@@ -19,21 +19,17 @@ import {
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import { fetchCourse } from './course_actions';
+import request from '../utils/request';
 
-const fetchTimelinePromise = (courseSlug) => {
-  return new Promise((res, rej) =>
-    $.ajax({
-      type: 'GET',
-      url: `/courses/${courseSlug}/timeline.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    })
-  );
+const fetchTimelinePromise = async (courseSlug) => {
+  const response = await request(`/courses/${courseSlug}/timeline.json`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchTimeline = courseSlug => (dispatch) => {

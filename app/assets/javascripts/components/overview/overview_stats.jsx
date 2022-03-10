@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleUtils from '../../utils/article_utils.js';
-import OverviewStat from './overview_stat';
+import OverviewStat from '../common/OverviewStats/overview_stat';
 
 const OverviewStats = ({ course }) => {
   const isWikidata = course.home_wiki.project === 'wikidata';

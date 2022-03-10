@@ -14,6 +14,7 @@
 # Author: Gehhrr
 # Author: Happy13241
 # Author: INS Pirat
+# Author: Ice bulldog
 # Author: Iniquity
 # Author: Irus
 # Author: Kaganer
@@ -276,6 +277,7 @@ ru:
     title: Название
     slug: Slug
     use_start_end_dates: Использовать даты начала и окончания
+    search: Найти
   categories:
     add_category: Добавить категорию
     add_template: Добавить шаблон
@@ -523,7 +525,6 @@ ru:
     redirects_created: Перенаправляет созданное
     restorations_performed: Выполненные восстановления
     reverts_performed: Выполненные откаты
-    unknown: Неизвестно
   namespace:
     main: Основное пространство
     main_char_added: Добавлено символов в основном пространстве

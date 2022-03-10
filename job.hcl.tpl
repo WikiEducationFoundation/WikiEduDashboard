@@ -312,7 +312,7 @@ job "rails" {
 
       resources {
         cpu    = 1500
-        memory = 1024
+        memory = 2048
       }
 
       env {
@@ -371,7 +371,7 @@ job "rails" {
 
       resources {
         cpu    = 1500
-        memory = 1024
+        memory = 2048
       }
 
       env {
@@ -430,7 +430,7 @@ job "rails" {
 
       resources {
         cpu    = 1500
-        memory = 1024
+        memory = 2048
       }
 
       env {

@@ -18,6 +18,7 @@
 # Author: Milenej
 # Author: MrLeopold
 # Author: Ndecouck
+# Author: Nieuwsgierige Gebruiker
 # Author: Optilete
 # Author: Patio
 # Author: PonkoSasuke
@@ -35,13 +36,18 @@ nl:
       decimal_units:
         format: '%n%u'
         units:
+          thousand: K
           million: M
           billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Dit is een numeriek veld. De knoppen die door de meeste browsers
       weergegeven worden zullen de invoer verhogen en verlagen.
   application:
     cancel: Annuleren
+    cookie_consent_acknowledge: Ik begrijp
+    cookie_consent_see_more: Bekijk meer.
     create_accounts: Maak Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentatie
@@ -69,7 +75,9 @@ nl:
     search_results:
       one: '%{count} resultaat voor: ''%{search_terms}'''
       other: '%{count} resultaten voor: ''%{search_terms}'''
+    no_results: Geen resultaten gevonden voor “%{query}”
     sign_up_extended: Registreren via Wikipedia
+    sign_up_wikipedia: Of meld je aan op Wikipedia
     sign_up_log_in_extended: met Wikipedia
     sign_up: Inschrijven
     submit: Verzenden
@@ -83,6 +91,14 @@ nl:
     opt_no: nee
   article_statuses:
     not_yet_started: Aan de slag
+    in_progress: Werken in zandbak
+    ready_for_review: Het concept uitbreiden
+    ready_for_mainspace: Het werk verplaatsen naar de hoofdruimte
+    assignment_completed: Opdracht gemarkeerd als voltooid
+    reading_the_article: Het artikel lezen
+    providing_feedback: Het geven van een feedback
+    post_to_talk: Posten op de overlegpagina
+    peer_review_completed: Beoordeling voltooid
   dashboard:
     create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
     explore_course_pages: Verken de cursuspagina's
@@ -103,11 +119,14 @@ nl:
     sign_up_help: Om het dashboard te gebruiken, moet u zich aanmelden via Wikipedia
       en het toestemming geven voor toegang tot uw account. U kunt zich aanmelden
       met een bestaand Wikipedia-account of een nieuwe aanmaken.
+  alerts:
+    alert_label: Meldingen
   activity:
     all: Activiteit
     edited_by: Bewerkt door
     label: Activiteit
   articles:
+    articles: Artikelen
     assigned: Toegewezen pagina's
     next: Volgende
     previous: Vorige
@@ -123,7 +142,7 @@ nl:
     edited: Pagina's bewerkt
     edited_by: 'Bewerkt door:'
     edited_mobile: Pagina's
-    edited_none: '%{title} heeft geen pagina''s bewerkt.'
+    edited_none: Er zijn nog geen artikelen bewerkt.
     filter:
       wiki_all: Allemaal
       new: Nieuw
@@ -169,18 +188,18 @@ nl:
     article_link: Artikel
     already_exists: Deze opdracht bestaat al!
     assignees: Toegewezen aan
-    assign_other: Wijs een pagina toe
+    assign_other: Een artikel toewijzen/verwijderen
     assign_self: Wijs een pagina aan mezelf toe
     bibliography: Bibliografie
     confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
-    confirm_deletion: Weet u zeker dat u deze artikeltoewijzing wilt verwijderen?
+    confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
     group_members: Groepsleden
     label: Toewijzen
     loading: Bezig met het laden van opdrachten...
     none_short: Geen pagina's toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
     reviewers: Controleur(s)
-    review_other: Wijs een peerreview toe
+    review_other: Een peerreview toewijzen/verwijderen
     review_self: Controleer een pagina
   blocks:
     milestones:
@@ -191,6 +210,7 @@ nl:
     none: Geen
     organizers: Organisatoren
     title: Titel
+    search: Zoeken
   categories:
     depth: subcategorie diepte
     articles_count: Aantal pagina's
@@ -439,7 +459,7 @@ nl:
     edit_template: Sjabloon bewerken
   instructor_view:
     assignments_table:
-      article_name: Artikelnaam
+      article_name: Naam
       relevant_links: Relevante koppelingen
   metrics:
     activity: Recente activiteit
@@ -472,7 +492,7 @@ nl:
     user_ns: Gebruiker
   recent_activity:
     active_courses: Artikel is actief in
-    article_title: Titel van artikel
+    article_title: Titel
     datetime: Datum/tijd
     did_you_know_eligible: In aanmerking voor Wist-Je-Dat
     image: Afbeelding

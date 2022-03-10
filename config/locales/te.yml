@@ -61,8 +61,12 @@ te:
   assignments:
     remove: తీసివెయ్యి
   campaign:
+    data_wikidata: వికీడేటా గణాంకాలు
+    data_wikidata_info: దిద్దుబాటు సారాంశాలను బట్టి, సవివరమైన వికీడేటా కార్యకలాపం
     description: వివరణ
+    search: వెతుకు
   courses:
+    accounts_generation_enabled: ఖాతా అభ్యర్థన సృష్టిని చేతనం చేసాం
     cancel: రద్దుచేయి
     duration: కోర్సు కాలపరిమితి
     new_account_username: కోరిన వాడుకరిపేరు
@@ -87,7 +91,6 @@ te:
     word_count: చేర్చిన పదాలు
     labels: సూచికలు
     other_updates: ఇతర తాజాకరణలు
-    unknown: తెలియని
   namespace:
     user_ns: వాడుకరి
   recent_activity:

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from './course_quality_progress_graph';
 import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
+import request from '../../utils/request';
 
 const CourseOresPlot = createReactClass({
   displayName: 'CourseOresPlot',
@@ -51,21 +52,19 @@ const CourseOresPlot = createReactClass({
   },
 
   fetchFile() {
-    $.ajax({
-      url: `/courses/${this.props.course.slug}/refresh_ores_data.json`,
-      success: (data) => {
+    request(`/courses/${this.props.course.slug}/refresh_ores_data.json`)
+      .then(resp => resp.json())
+      .then((data) => {
         this.setState({ refreshedData: data.ores_plot, loading: false });
-      }
-    });
+      });
   },
 
   fetchFilePath() {
-    $.ajax({
-      url: `/courses/${this.props.course.slug}/ores_plot.json`,
-      success: (data) => {
+    request(`/courses/${this.props.course.slug}/ores_plot.json`)
+      .then(resp => resp.json())
+      .then((data) => {
         this.setState({ articleData: data.ores_plot, loading: false });
-      }
-    });
+      });
   },
 
   displayGraph(data) {

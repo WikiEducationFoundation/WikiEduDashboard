@@ -5,6 +5,8 @@ require 'rails_helper'
 describe UpdateCourseStats do
   let(:course) { create(:course, flags: flags) }
   let(:subject) { described_class.new(course) }
+  let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+  let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
 
   context 'when debugging is not enabled' do
     let(:flags) { nil }
@@ -38,7 +40,9 @@ describe UpdateCourseStats do
     let(:user) { create(:user, username: 'Ragesoss') }
 
     before do
+      stub_wiki_validation
       course.campaigns << Campaign.first
+      course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
       JoinCourse.new(course: course, user: user, role: 0)
       VCR.use_cassette 'course_update' do
         subject
@@ -46,13 +50,17 @@ describe UpdateCourseStats do
     end
 
     it 'imports average views of edited articles' do
-      expect(course.articles.count).to eq(2)
-      expect(course.articles.last.average_views).to be > 0
+      # two en.wiki articles plus many wikidata items
+      expect(course.articles.where(wiki: enwiki).count).to eq(2)
+      expect(course.articles.where(wiki: wikidata).count).to eq(25)
+      expect(course.articles.where(wiki: enwiki).last.average_views).to be > 0
     end
 
     it 'imports the revisions and their ORES data' do
-      expect(course.revisions.count).to eq(2)
-      course.revisions.each do |revision|
+      # two en.wiki edits plus many wikidata edits
+      expect(course.revisions.where(wiki: enwiki).count).to eq(2)
+      expect(course.revisions.where(wiki: wikidata).count).to eq(40)
+      course.revisions.where(wiki_id: enwiki).each do |revision|
         expect(revision.features).to have_key('feature.wikitext.revision.ref_tags')
         expect(revision.features_previous).to have_key('feature.wikitext.revision.ref_tags')
       end

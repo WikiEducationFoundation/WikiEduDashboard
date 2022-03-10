@@ -317,7 +317,7 @@ zh-CN:
     accounts_generation_explanation: 这将允许参与者输入其电子邮件地址以及想要的用户名，而不是让他们自己创建新账户。您稍后将从此面板创建账户，并同时添加为计划参与者。
     accounts_generation_confirm_message: 您确定要启用帐户请求吗？
     activity: 活动
-    active_courses: 激活%{course_type}
+    active_courses: 激活课程
     alerts: 提醒
     all_courses: 所有课程
     already_enrolled: 您已经是“%{title}”的一部分！

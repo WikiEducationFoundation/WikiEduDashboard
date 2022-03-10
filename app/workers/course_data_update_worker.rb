@@ -14,6 +14,7 @@ class CourseDataUpdateWorker
 
   def perform(course_id)
     course = Course.find(course_id)
+    logger.info "Updating course: #{course.slug}"
     UpdateCourseStats.new(course)
   rescue StandardError => e
     Sentry.capture_exception e

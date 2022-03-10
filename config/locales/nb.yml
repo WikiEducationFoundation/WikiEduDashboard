@@ -272,7 +272,7 @@ nb:
     timestamp: Sist oppdatert
   courses:
     activity: Aktivitet
-    active_courses: Aktive %{course_type}
+    active_courses: Aktive kurs
     alerts: Varsler
     all_courses: Alle kurs
     already_enrolled: Du er allerede del av «%{title}»!

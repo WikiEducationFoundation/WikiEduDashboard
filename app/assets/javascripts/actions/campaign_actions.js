@@ -1,20 +1,16 @@
 import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import request from '../utils/request';
 
-const fetchCampaignsPromise = (courseId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: `/courses/${courseId}/campaigns.json`,
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-  });
+const fetchCampaignsPromise = async (courseId) => {
+  const response = await request(`/courses/${courseId}/campaigns.json`);
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+      response.responseText = data;
+      throw response;
+  }
+  return response.json();
 };
 
 export const fetchCampaigns = courseId => (dispatch) => {
@@ -32,21 +28,18 @@ export const fetchCampaigns = courseId => (dispatch) => {
 
 export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS, key: key });
 
-const removeCampaignsPromise = (courseId, campaignId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'DELETE',
-      url: `/courses/${courseId}/campaign.json`,
-      data: { campaign: { title: campaignId } },
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
+const removeCampaignsPromise = async (courseId, campaignId) => {
+  const response = await request(`/courses/${courseId}/campaign.json`, {
+    method: 'DELETE',
+    body: JSON.stringify({ campaign: { title: campaignId } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const removeCampaign = (courseId, campaignId) => (dispatch) => {
@@ -62,21 +55,18 @@ export const removeCampaign = (courseId, campaignId) => (dispatch) => {
   );
 };
 
-const addCampaignsPromise = (courseId, campaignId) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'POST',
-      url: `/courses/${courseId}/campaign.json`,
-      data: { campaign: { title: campaignId } },
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
+const addCampaignsPromise = async (courseId, campaignId) => {
+  const response = await request(`/courses/${courseId}/campaign.json`, {
+    method: 'POST',
+    body: JSON.stringify({ campaign: { title: campaignId } })
   });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const addCampaign = (courseId, campaignId) => (dispatch) => {
@@ -92,20 +82,15 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
   );
 };
 
-const fetchAllCampaignsPromise = () => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      type: 'GET',
-      url: '/lookups/campaign.json',
-      success(data) {
-        return res(data);
-      }
-    })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-  });
+const fetchAllCampaignsPromise = async () => {
+  const response = await request('/lookups/campaign.json');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
 };
 
 export const fetchAllCampaigns = () => (dispatch) => {

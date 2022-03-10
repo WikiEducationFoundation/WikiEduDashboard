@@ -1,28 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OverviewStat from './overview_stat';
+import OverviewStat from './OverviewStats/overview_stat';
 import I18n from 'i18n-js';
 
 const WikidataOverviewStats = ({ statistics }) => {
-  // const total = Object.values(statistics).reduce((a, b) => a + b);
-  let total;
-  if (statistics['total revisions']) {
-    total = <OverviewStat
-      id="total-revisions"
-      className="stat-display__value-small"
-      stat={statistics['total revisions']}
-      statMsg={I18n.t('metrics.total_revisions')}
-      renderZero={true}
-    />;
-  }
-
   return (
     <div className="wikidata-stats-container">
       <h2 className="wikidata-stats-title">Wikidata stats</h2>
       <div className="wikidata-display">
-
         <div className="single-stat">
-          {total}
+          <OverviewStat
+            id="total-revisions"
+            className="stat-display__value-small"
+            stat={statistics['total revisions']}
+            statMsg={I18n.t('metrics.total_revisions')}
+            renderZero={true}
+          />
         </div>
         <div className="stat-display__row">
           <h5 className="stats-label">{I18n.t('items.items')}</h5>
@@ -51,6 +44,7 @@ const WikidataOverviewStats = ({ statistics }) => {
               className="stat-display__value-small"
               stat={statistics['claims created']}
               statMsg={I18n.t('metrics.created')}
+              renderZero={true}
             />
             <OverviewStat
               id="claims-changed"
