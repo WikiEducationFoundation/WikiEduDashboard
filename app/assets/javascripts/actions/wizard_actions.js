@@ -22,8 +22,9 @@ const fetchWizardIndexPromise = async () => {
   const response = await request('/wizards.json');
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -41,8 +42,9 @@ const fetchWizardPanelsPromise = async (wizardId) => {
   const response = await request(`/wizards/${wizardId}.json`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };
@@ -112,8 +114,9 @@ const submitWizardPromise = async (courseSlug, wizardId, wizardOutput) => {
   });
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

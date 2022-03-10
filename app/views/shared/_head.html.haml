@@ -44,7 +44,7 @@
     = hot_javascript_tag("sentry")
     // Sentry logging
     %script
-      Sentry.init({ dsn: SentryDsn });
+      Sentry.init({ dsn: SentryDsn, autoSessionTracking: false});
       Sentry.setContext(currentUser);
 
   = javascript_include_tag '/assets/javascripts/jquery.min.js'

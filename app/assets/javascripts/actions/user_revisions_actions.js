@@ -7,8 +7,9 @@ const fetchUserRevisionsPromise = async (courseId, userId) => {
   const response = await request(`/revisions.json?user_id=${userId}&course_id=${courseId}`);
   if (!response.ok) {
     logErrorMessage(response);
-    const data = await response.json();
-    throw data;
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
   }
   return response.json();
 };

@@ -9,7 +9,5 @@ class UpdateWikidataStatsWorker
 
   def perform(course)
     UpdateWikidataStats.new(course)
-  rescue StandardError => e
-    Sentry.capture_exception e
   end
 end

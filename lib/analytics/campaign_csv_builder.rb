@@ -49,7 +49,6 @@ class CampaignCsvBuilder
     csv_data = [CourseWikidataCsvBuilder::CSV_HEADERS]
     courses = @campaign.courses
                        .joins(:course_stat)
-                       .where(home_wiki_id: Wiki.find_by(project: 'wikidata').id)
     courses.find_each do |course|
       csv_data << CourseWikidataCsvBuilder.new(course).stat_row
     end
