@@ -26,7 +26,6 @@ import { addValidation, setValid, setInvalid, activateValidations } from '../../
 import { getStudentUsers, getWeeksArray, getAllWeeksArray, firstValidationErrorMessage, isValid } from '../../selectors';
 import WikidataOverviewStats from '../common/wikidata_overview_stats';
 
-
 const Overview = createReactClass({
   displayName: 'Overview',
 
