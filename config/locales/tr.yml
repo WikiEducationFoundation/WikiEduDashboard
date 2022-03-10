@@ -251,7 +251,7 @@ tr:
     already_exists: Bu devir işlemi zaten yapılmış!
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen
-    assign_other: Bir makaleyi devredin
+    assign_other: Bir madde ata/kaldır
     assign_other_wikidata: Öge ata/kaldır
     add_available: Mevcut makaleleri ekleyin
     add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
@@ -267,7 +267,7 @@ tr:
     confirm_add_available: '%{title} başlığını eklemek istediğinize emin misiniz?'
     confirm_addition: '%{username} kullanıcısına %{title} atamak istediğinizden emin
       misiniz?'
-    confirm_deletion: Bu makaleyi silmek istediğinizden emin misiniz?
+    confirm_deletion: Bu ödevi silmek istediğinizden emin misiniz?
     editors: Atanan
     group_members: Grup üyeleri
     label: Ata
@@ -281,16 +281,20 @@ tr:
     peer_review_link: Hakem Denetimi
     peer_review_link_personalized: '%{username} Kullanıcısının Akran Değerlendirmesi'
     random_peer_review:
-      confirm_addition: Bu, sınıf arkadaşlarının makaleleri arasından seçilen her
-        öğrenci için maksimum %{maximum} olmak üzere toplam %{count} ek akran incelemesi
-        atayacaktır.
+      confirm_addition: Çoğu durumda, bunu yalnızca tüm öğrencilere ana maddeleri
+        atandıktan sonra kullanmalısınız. Alternatif olarak, öğrencilerinizden kendi
+        akran değerlendirmelerini seçmelerini isteyebilir veya bir öğrencinin satırını
+        tıklayıp ardından "Meslektaş incelemesi ata/kaldır" düğmesini kullanarak meslektaş
+        değerlendirmelerini elle atayabilirsiniz. "Tamam" düğmesini tıkladığınızda,
+        her öğrenci için sınıf arkadaşlarının maddelerinden seçilen maksimum %{maximum}
+        olmak üzere toplam %{count} ek akran değerlendirmesi atanır.
       heading: Rastgele akran incelemeleri atayın
       tooltip_message: Her öğrenciye rastgele makaleler atar (maksimum sayı olarak
         akran incelemesi sayılır).
       limit_exceeded: Her öğrenci zaten en az %{maximum} maddeyi inceliyor.
     remove: Kaldır
     reviewers: İnceleyici
-    review_other: Akran değerlendirmesi ata
+    review_other: Meslektaş incelemesi ata/kaldır
     review_self: Bir makaleyi incele
     review_self_wikidata: Ögeyi Gözden geçirin
     review_tooltip: Bu incelemeyi gözden geçirmeyi veya geri bildirim vermeyi planladığınız
@@ -407,7 +411,7 @@ tr:
     assignment_edits_enabled: Atama düzenlemeleri etkin
     assignment_edits_enabled_tooltip: Etkinleştirilmişse gösterge paneli atanan her
       madde için tartışma sayfasına bir şablon gönderir.
-    accounts_generation_enabled: Hesap isteği oluşturma etkin
+    accounts_generation_enabled: Hesap isteği oluşturma etkinleştirildi
     accounts_generation_explanation: Bu, katılımcıların yeni hesaplar oluşturmak yerine
       e-posta adreslerini ve istenen kullanıcı adlarını girmelerine olanak tanır.
       Daha sonra bu Gösterge Tablosundan hesaplar oluşturabilir ve aynı anda program
@@ -415,7 +419,7 @@ tr:
     accounts_generation_confirm_message: Hesap isteklerini etkinleştirmek istediğinizden
       emin misiniz?
     activity: Etkinlik
-    active_courses: Etkin %{course_type}
+    active_courses: Aktif Kurslar
     add_trainings: Lütfen ödev zaman çizelgenize öğrenci eğitimleri ekleyin. Eğitim
       modüllerinin atanması, Wiki Ed'in en iyi uygulamalarının önemli bir parçasıdır.
     alerts: Uyarılar
@@ -627,8 +631,8 @@ tr:
       one: Eğitmen
       other: Eğitmen
     instructors: Eğitmenler
-    invitation: '%{title} kursuna katılmaya davetlisiniz. Kursa katılmak için bir
-      Vikipedi hesabıyla giriş yapmanız gerekmektedir.'
+    invitation: '%{title} grubuna katılmaya davet edildiniz. Katılmak için bir Vikipedi
+      hesabıyla oturum açmanız gerekir.'
     invitation_username_advice: Henüz bir Vikipedi hesabınız yoksa hemen kaydolun.
       Kullanıcı adınız, istediğiniz gibi anonim veya kişisel olarak tanımlanabilir.
       (Paylaşılan hesaplara izin verilmez.)
