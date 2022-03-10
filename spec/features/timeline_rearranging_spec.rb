@@ -12,8 +12,8 @@ describe 'timeline editing', feature: true, js: true do
   let(:user) { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
 
-  let(:week) { create(:week, course_id: course.id, order: 0) }
-  let(:week2) { create(:week, course_id: course.id, order: 1) }
+  let(:week) { create(:week, course_id: course.id, order: 1) }
+  let(:week2) { create(:week, course_id: course.id, order: 2) }
 
   before do
     page.current_window.resize_to(1920, 1080)
