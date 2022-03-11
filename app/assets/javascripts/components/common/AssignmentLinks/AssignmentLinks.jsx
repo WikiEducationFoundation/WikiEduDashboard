@@ -22,13 +22,13 @@ const interleaveSeparators = (acc, link, index, collection) => {
   return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
 };
 
-const AssignmentLinks = ({ assignment, courseType, user, project }) => {
+const AssignmentLinks = ({ assignment, courseType, user, project, editMode }) => {
   const { article_url, id, role, editors } = assignment;
   const actions = [];
 
   if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
     actions.push(
-      <SandboxLink key={`sandbox-${id}`} assignment={assignment} />
+      <SandboxLink key={`sandbox-${id}`} assignment={assignment} editMode={editMode} />
     );
   }
 
