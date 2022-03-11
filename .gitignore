@@ -54,3 +54,4 @@ Session.vim
 .byebug_history
 .ruby-gemset
 stats.json
+.eslintcache
