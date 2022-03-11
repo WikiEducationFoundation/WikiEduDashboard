@@ -13,8 +13,8 @@ describe('SandboxLink', () => {
     expect(component.find('a').props().href).toContain('url');
   });
 
-  it('should include a template in the link if the assignment is a new article', () => {
-    const component = shallow(<SandboxLink assignment={{ status: 'new_article' }} />);
+  it('should include a template in the link if the assignment is a new article and editMode is true', () => {
+    const component = shallow(<SandboxLink assignment={{ status: 'new_article' }} editMode={true} />);
     expect(component).toMatchSnapshot();
     expect(component.find('a').props().href).toContain('Template');
   });
