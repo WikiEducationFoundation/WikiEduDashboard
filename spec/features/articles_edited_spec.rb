@@ -29,7 +29,7 @@ describe 'Articles Edited view', type: :feature, js: true do
     create(:revision, article: article2, user: user, date: '2018-01-01')
     create(:revision, article: article3, user: user, date: '2020-04-01')
     create(:revision, article: article4, user: user, date: '2020-03-01')
-    create(:revision, article: article5, user: user, date: '202-05-01')
+    create(:revision, article: article5, user: user, date: '2020-05-01')
 
     create(:articles_course, course: course, article: article1, user_ids: [user.id])
     create(:articles_course, course: course, article: article2, user_ids: [user.id], new_article: true)
