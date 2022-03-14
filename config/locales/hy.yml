@@ -90,6 +90,7 @@ hy:
     filter:
       wiki_all: Բոլորը
       new: Նոր
+    find: Գտնել հոդվածներ
     hide: Թաքցնել
     history: (պատմություն)
     label: Հոդվածներ
@@ -111,16 +112,20 @@ hy:
     articles_short: Հոդվածներ
   items:
     items: Տարրեր
+    find: Գտնել տարրեր
   articles_wikidata:
     articles_short: Տարրեր
   articles_generic:
     articles_short: Էջեր
   assignments:
     article_link: Հոդված
+    article_link_wikidata: Տարր
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ
-    assign_other: Հանձնարարել հոդված
-    add_available_submit: Յօդուածներ աւելցնել
+    assign_other: Հանձնարարել/հեռացնել հոդված
+    assign_other_wikidata: Հանձնարարել/հեռացնել տարր
+    add_available_submit: Ավելացնել հոդվածներ
+    add_available_submit_wikidata: Ավելացնել տարրեր
     assign_self: Ինձ հոդված հանձնարարել
     bibliography: Մատենագրություն
     clone: Պատճենել
@@ -146,6 +151,7 @@ hy:
     alert_user_id: Մասնակից
     all_campaigns: Բոլոր համագործակցությունները
     campaign: Համագործակցություն
+    campaigns: Համագործակցություններ
     campaign_deleted: '%{title} համագործակցությունը ջնջվել է'
     campaign_updated: Համագործակցությունը թարմացվել է
     created_at: Ամսաթիվ
@@ -165,6 +171,7 @@ hy:
     program_template_tooltip: 'Երբ կազմակերպիչը ստեղծի ծրագիր այս համագործակցության
       մեջ, այս դաշտի տեքստը կպատճենվի որպես ծրագրի էջի նկարագրություն:'
     search_campaigns: Գտնել համագործակցություններ
+    search: Որոնել
   categories:
     add_category: Ավելացնել կատեգորիա
     add_template: Ավելացնել կաղապար
@@ -196,6 +203,7 @@ hy:
       end_date: Ավարտելու ամսաթիվ
       expected_number: Ուսանողների ակնկալվող քանակ
       start_date: Սկսելու ամսաթիվ
+      subject: Թեմա
     delete_suggestion: Ջնջել
     dismiss_survey: Փակել
     download_stats_data: Ներբեռնել վիճակագրությունը
@@ -214,6 +222,7 @@ hy:
     join: Միանալ
     loading: բեռնվում է
     my_articles: Իմ հոդվածները
+    my_articles_wikidata: Իմ տարրեր
     new_week: Ավելացնել Նոր շաբաթ
     new_account_email: Էլ–փոստի հասցե
     overview: Գլխավոր էջ
@@ -250,6 +259,8 @@ hy:
       find: Գտի՛ր քո նախագիծը
       save_cloned_course: Հիշել
     edit_course_dates: Խմբագրել նախագծի ամսաթվերը
+    enroll: Ավելացնել խմբագրին
+    enrollment: Ավելացնել/հեռացնել խմբագիրներին
     expected_students: Ակնկալվող խմբագիրներ
     instructors: Նախաձեռնողներ
     join_course: Միանալ ծրագրին
@@ -265,9 +276,12 @@ hy:
     cancel: Չեղարկել
     save: Հիշել
     edit_description: Խմբագրել նկարագրություն
+    edit_template: Խմբագրել կաղապար
   instructor_view:
     bad_work:
       learn_more_button: Իմանալ ավելին
+    select_student:
+      title: Ընտրել %{prefix}
   metrics:
     activity: Վերջին փոփոխություններ
     articles_created: Ստեղծված հոդվածներ
@@ -309,7 +323,7 @@ hy:
     page: Էջ
     done: Արված է
     kind:
-      discussion: Քննարկում
+      discussion: քննարկում
   uploads:
     image: Պատկեր
     label: Բեռնումներ
