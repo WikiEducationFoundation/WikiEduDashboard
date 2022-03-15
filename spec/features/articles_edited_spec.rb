@@ -7,7 +7,7 @@ describe 'Articles Edited view', type: :feature, js: true do
   let(:user) { create(:user, username: 'Ragesoss') }
   let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
-  let(:fr_wikidata) { create(:wiki, language: 'fr', project: 'wikidata') }
+  let(:wikidata) { create(:wiki, project: 'wikidata') }
 
   before do
     stub_wiki_validation
@@ -20,43 +20,63 @@ describe 'Articles Edited view', type: :feature, js: true do
       home_wiki: home_wiki
     )
 
-    article1 = create(:article, title: 'Article 1', wiki: home_wiki)
-    article2 =  create(:article, title: 'Article 2', wiki: es_wiktionary)
-    article3 =  create(:article, title: 'Article 3', wiki: fr_wikidata)
-    article4 =  create(:article, title: 'Article 4', wiki: fr_wikidata)
-    article5 =  create(:article, title: 'Article 5', wiki: fr_wikidata)
+    article_en_wiki = create(
+      :article,
+      title: 'Article en.wiki',
+      wiki: home_wiki
+    )
+    new_article_es_wiktionary = create(
+      :article,
+      title: 'Article new es.wiktionary',
+      wiki: es_wiktionary
+    )
+    article_wikidata = create(
+      :article,
+      title: 'Article wikidata',
+      wiki: wikidata
+    )
+    new_article_wikidata = create(
+      :article,
+      title: 'Article new wikidata',
+      wiki: wikidata
+    )
+    untracked_article_wikidata = create(
+      :article,
+      title: 'Article untracked wikidata',
+      wiki: wikidata
+    )
 
     course.campaigns << Campaign.first
     create(:courses_user, course: course, user: user)
-    create(:revision, article: article1, user: user, date: '2019-01-01')
-    create(:revision, article: article2, user: user, date: '2018-01-01')
-    create(:revision, article: article3, user: user, date: '2020-04-01')
-    create(:revision, article: article4, user: user, date: '2020-03-01')
-    create(:revision, article: article5, user: user, date: '2020-05-01')
+    create(:revision, article: article_en_wiki, user: user, date: '2019-01-01')
+    create(:revision, article: new_article_es_wiktionary, user: user, date: '2018-01-01')
+    create(:revision, article: article_wikidata, user: user, date: '2020-04-01')
+    create(:revision, article: new_article_wikidata, user: user, date: '2020-03-01')
+    create(:revision, article: untracked_article_wikidata, user: user, date: '2020-05-01')
 
     create(
       :articles_course,
       course: course,
-      article: article1,
+      article: article_en_wiki,
       user_ids: [user.id]
     )
     create(
       :articles_course,
       course: course,
-      article: article2,
+      article: new_article_es_wiktionary,
       user_ids: [user.id],
       new_article: true
     )
     create(
       :articles_course,
       course: course,
-      article: article3,
+      article: article_wikidata,
       user_ids: [user.id]
     )
     create(
       :articles_course,
       course: course,
-      article: article4,
+      article: new_article_wikidata,
       user_ids: [user.id],
       new_article: true
     )
@@ -64,7 +84,7 @@ describe 'Articles Edited view', type: :feature, js: true do
     create(
       :articles_course,
       course: course,
-      article: article5,
+      article: untracked_article_wikidata,
       user_ids: [user.id],
       tracked: false
     )
@@ -72,7 +92,7 @@ describe 'Articles Edited view', type: :feature, js: true do
 
   it 'article development graphs fetch and render edit data' do
     visit "/courses/#{slug}/articles"
-    expect(page).to have_content('Article 1')
+    expect(page).to have_content('Article en.wiki')
     find('a', text: '(article development)', match: :first).click
     expect(page).to have_content('Edit Size')
   end
@@ -81,12 +101,12 @@ describe 'Articles Edited view', type: :feature, js: true do
     visit "/courses/#{slug}/articles"
     select 'wikidata'
 
-    expect(page).to have_content('Article 3')
-    expect(page).to have_content('Article 4')
+    expect(page).to have_content('Article wikidata')
+    expect(page).to have_content('Article new wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 2')
-    expect(page).to have_no_content('Article 5')
+    expect(page).to have_no_content('Article untracked wikidata')
+    expect(page).to have_no_content('Article new es.wiktionary')
+    expect(page).to have_no_content('Article en.wiki')
 
     expect(page.current_url).to include('wiki=wikidata')
   end
@@ -95,12 +115,12 @@ describe 'Articles Edited view', type: :feature, js: true do
     visit "/courses/#{slug}/articles"
     select 'New'
 
-    expect(page).to have_content('Article 2')
-    expect(page).to have_content('Article 4')
+    expect(page).to have_content('Article new es.wiktionary')
+    expect(page).to have_content('Article new wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 3')
-    expect(page).to have_no_content('Article 5')
+    expect(page).to have_no_content('Article en.wiki')
+    expect(page).to have_no_content('Article wikidata')
+    expect(page).to have_no_content('Article untracked wikidata')
 
     expect(page.current_url).to include('newness=new')
   end
@@ -109,12 +129,12 @@ describe 'Articles Edited view', type: :feature, js: true do
     visit "/courses/#{slug}/articles"
     select 'Untracked'
 
-    expect(page).to have_content('Article 5')
+    expect(page).to have_content('Article untracked wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 2')
-    expect(page).to have_no_content('Article 3')
-    expect(page).to have_no_content('Article 4')
+    expect(page).to have_no_content('Article en.wiki')
+    expect(page).to have_no_content('Article new es.wiktionary')
+    expect(page).to have_no_content('Article wikidata')
+    expect(page).to have_no_content('Article new wikidata')
 
     expect(page.current_url).to include('tracked=untracked')
   end
@@ -122,12 +142,12 @@ describe 'Articles Edited view', type: :feature, js: true do
   it 'filters are set from the URL' do
     visit "/courses/#{slug}/articles?newness=new&wiki=wikidata"
 
-    expect(page).to have_content('Article 4')
+    expect(page).to have_content('Article new wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 2')
-    expect(page).to have_no_content('Article 3')
-    expect(page).to have_no_content('Article 5')
+    expect(page).to have_no_content('Article en.wiki')
+    expect(page).to have_no_content('Article new es.wiktionary')
+    expect(page).to have_no_content('Article untracked wikidata')
+    expect(page).to have_no_content('Article wikidata')
   end
 
   it 'switching to a different tab and returning maintains filters' do
@@ -136,12 +156,12 @@ describe 'Articles Edited view', type: :feature, js: true do
     select 'Existing'
     select 'wikidata'
 
-    expect(page).to have_content('Article 3')
+    expect(page).to have_content('Article wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 2')
-    expect(page).to have_no_content('Article 4')
-    expect(page).to have_no_content('Article 5')
+    expect(page).to have_no_content('Article en.wiki')
+    expect(page).to have_no_content('Article new es.wiktionary')
+    expect(page).to have_no_content('Article untracked wikidata')
+    expect(page).to have_no_content('Article new wikidata')
 
     expect(page.current_url).to include('wiki=wikidata')
     expect(page.current_url).to include('newness=existing')
@@ -151,12 +171,12 @@ describe 'Articles Edited view', type: :feature, js: true do
     # # return back
     click_link 'Articles'
 
-    expect(page).to have_content('Article 3')
+    expect(page).to have_content('Article wikidata')
 
-    expect(page).to have_no_content('Article 1')
-    expect(page).to have_no_content('Article 2')
-    expect(page).to have_no_content('Article 4')
-    expect(page).to have_no_content('Article 5')
+    expect(page).to have_no_content('Article en.wiki')
+    expect(page).to have_no_content('Article new es.wiktionary')
+    expect(page).to have_no_content('Article untracked wikidata')
+    expect(page).to have_no_content('Article new wikidata')
 
     expect(page.current_url).to include('wiki=wikidata')
     expect(page.current_url).to include('newness=existing')
