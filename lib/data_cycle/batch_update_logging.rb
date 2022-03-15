@@ -73,7 +73,15 @@ module BatchUpdateLogging
     Rails.logger.debug message
   end
 
-  def log_end_of_update(message)
+  # This can be used to reduce the frequency
+  # of logging to Sentry.
+  SPARSE_LOG_RATE = 10 # log 1 out of 10 updates
+  def sparse_log_end_of_update(message, update_number)
+    to_sentry = (update_number % SPARSE_LOG_RATE).zero?
+    log_end_of_update(message, to_sentry: to_sentry)
+  end
+
+  def log_end_of_update(message, to_sentry: true)
     @end_time = Time.zone.now
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
@@ -82,6 +90,8 @@ module BatchUpdateLogging
       UpdateLogger.update_settings_record('start_time' => @start_time.to_datetime,
                                           'end_time' => @end_time.to_datetime)
     end
+
+    return unless to_sentry
     Sentry.capture_message message,
                            level: 'info',
                            tags: { update_time: total_time },
