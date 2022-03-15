@@ -38,7 +38,6 @@ describe ScheduleCourseUpdates do
 
     it 'calls the revisions and articles updates on courses currently taking place' do
       expect(UpdateCourseStats).to receive(:new).exactly(7).times
-      expect(Sentry).to receive(:capture_message).and_call_original
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)
