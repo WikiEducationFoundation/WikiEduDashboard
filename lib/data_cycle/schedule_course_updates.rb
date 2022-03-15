@@ -22,7 +22,9 @@ class ScheduleCourseUpdates
   def run_update
     log_start_of_update 'Schedule course updates starting.'
     enqueue_course_updates
-    log_end_of_update 'Schedule course updates finished.'
+  # These are very reliable, so no need to log the successful ones.
+  # log_end_of_update 'Schedule course updates finished.'
+
   # rubocop:disable Lint/RescueException
   rescue Exception => e
     log_end_of_update 'Schedule course updates failed.'
