@@ -24,7 +24,7 @@ class UpdateLogger
   def self.number_of_constant_updates
     setting = Setting.find_or_create_by(key: 'metrics_update')
     logs = setting.value['constant_update']
-    logs.keys.max || 0
+    logs&.keys&.max || 0
   end
 
   ###########
