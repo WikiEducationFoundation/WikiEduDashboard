@@ -86,32 +86,39 @@
     flex-flow wrap
 
     .stat-display__row
-      width: auto
-      margin: 0 15px
+      width: 25%
+      padding: 0 15px 18px 0
+
+      &.double-row
+        width: 50%
 
       .stat-display__value-group
-        display flex
-        justify-content space-between
+        justify-content left
         gap 10px
 
+        &.double
+          width: 50%
+          float: left
+
     .stat-display__stat
-          text-align center
-          width: auto
+          width: 100%
+          line-height: 1.4
+          padding: 2px 0
 
           .stat-display__value-small
             font-family inherit
             color $brand_primary
-            font-size 18px
+            font-size 22px
             font-weight 300
-            text-align center
-            padding-right 15px
+            padding-left 15px
+            float left
 
           small
             color #666
             font-size 15px
             line-height 1
-            max-width 80px
-            margin 0 5px 10px 5px
+            margin 0 10px
+            vertical-align bottom
 
           img
             width 8px
@@ -137,7 +144,7 @@
         margin 0 20px 0 20px
 
 .stats-label
-  text-align center
+  padding-left 18px
   margin-bottom 5px
   color #666
   background-color: #F5F5F5
