@@ -23,6 +23,7 @@ class WikidataSummaryParser
     'merged to' => :merged_to?,
     'interwiki links added' => :added_interwiki_link?,
     'interwiki links removed' => :removed_interwiki_link?,
+    'interwiki links updated' => :updated_interwiki_link?,
     'redirects created' => :created_redirect?,
     'reverts performed' => :reverted_an_edit?,
     'restorations performed' => :restored_revision?,
@@ -61,6 +62,11 @@ class WikidataSummaryParser
     @summary = summary || ''
   end
 
+  # Almost all edits to Items have standard identifiers in the summary,
+  # but Wikidata edits to non-Item pages (like userpages) can have arbitrary
+  # edit summaries. Most of the 'unknown' edits should be edits outside of
+  # the Item namespace, but that may change over time if new identifiers
+  # are added that we don't handle here yet.
   # rubocop:disable Metrics/PerceivedComplexity
   def unknown?
     !created_claim? &&
@@ -80,6 +86,7 @@ class WikidataSummaryParser
       !merged_to? &&
       !added_interwiki_link? &&
       !removed_interwiki_link? &&
+      !updated_interwiki_link? &&
       !created_redirect? &&
       !reverted_an_edit? &&
       !cleared_item? &&
@@ -167,6 +174,10 @@ class WikidataSummaryParser
 
   def removed_interwiki_link?
     @summary.include? 'wbsetsitelink-remove'
+  end
+
+  def updated_interwiki_link?
+    @summary.include? 'clientsitelink-update'
   end
 
   def created_redirect?
