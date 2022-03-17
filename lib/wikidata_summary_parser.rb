@@ -28,6 +28,7 @@ class WikidataSummaryParser
     'restorations performed' => :restored_revision?,
     'items cleared' => :cleared_item?,
     'qualifiers added' => :added_qualifier?,
+    'references added' => :added_reference?,
     'other updates' => :unknown_update?,
     'unknown' => :unknown?,
     'no data' => :no_data?
@@ -84,6 +85,7 @@ class WikidataSummaryParser
       !cleared_item? &&
       !restored_revision? &&
       !added_qualifier? &&
+      !added_reference? &&
       !unknown_update?
   end
   # rubocop:enable Metrics/PerceivedComplexity
@@ -185,6 +187,10 @@ class WikidataSummaryParser
 
   def restored_revision?
     @summary.include? 'restore:'
+  end
+
+  def added_reference?
+    @summary.include? 'wbsetreference-add'
   end
 end
 # rubocop:enable Metrics/AbcSize
