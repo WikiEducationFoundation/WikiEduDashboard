@@ -4,6 +4,7 @@ import OverviewStatInfo from './overview_stat_info';
 
 const OverviewStat = ({ id, className, stat, statMsg, renderZero, info, infoId }) => {
   if (!renderZero && stat === 0) { return null; }
+  if (stat === undefined) { return null; }
 
   return (
     <div className="stat-display__stat tooltip-trigger" id={id}>
