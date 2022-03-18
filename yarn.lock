@@ -2069,28 +2069,25 @@
   resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.6.0.tgz#2c275aa05c895eccebbfc34cfb223c6e8bd591a2"
   integrity sha512-ZkVeqEmRpBV2GHvjjUZqEai2PpUbuq8Bqd//vEYsp63J8WyexI8ppCqVS3Zs0QADf6aWuPdU+0XsPI647PVlQA==
 
-"@wojtekmaj/enzyme-adapter-react-17@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@wojtekmaj/enzyme-adapter-react-17/-/enzyme-adapter-react-17-0.6.1.tgz#28caa37118c183e5f13c4dfb68cc32cde828ecbc"
-  integrity sha512-xgPfzLVpN0epIHeZofahwr5qwpukEDNAbrufgeDWN6vZPtfblGCC+OZG5TlfK+A6ePVy8sBkD8S2X4tO17JKjg==
+"@wojtekmaj/enzyme-adapter-react-17@^0.6.6":
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/@wojtekmaj/enzyme-adapter-react-17/-/enzyme-adapter-react-17-0.6.6.tgz#2ee3d4956caea4de05e372e5d9f39b31becffe6a"
+  integrity sha512-gSfhg8CiL0Vwc2UgUblGVZIy7M0KyXaZsd8+QwzV8TSVRLkGyzdLtYEcs9wRWyQTsdmOd+oRGqbVgUX7AVJxug==
   dependencies:
-    "@wojtekmaj/enzyme-adapter-utils" "^0.1.0"
+    "@wojtekmaj/enzyme-adapter-utils" "^0.1.2"
     enzyme-shallow-equal "^1.0.0"
     has "^1.0.0"
-    object.assign "^4.1.0"
-    object.values "^1.1.0"
     prop-types "^15.7.0"
     react-is "^17.0.0"
     react-test-renderer "^17.0.0"
 
-"@wojtekmaj/enzyme-adapter-utils@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@wojtekmaj/enzyme-adapter-utils/-/enzyme-adapter-utils-0.1.0.tgz#3a2a3db756111d53357e2f119a1612a969ab8c38"
-  integrity sha512-EYK/Vy0Y1ap0jH2UNQjOKtR/7HWkbEq8N+cwC5+yDf+Mwp5uu7j4Qg70RmWuzsA35DGGwgkop6m4pQsGwNOF2A==
+"@wojtekmaj/enzyme-adapter-utils@^0.1.2":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@wojtekmaj/enzyme-adapter-utils/-/enzyme-adapter-utils-0.1.4.tgz#bcd411ad6e368f17dce5425582c2907104cdb1ad"
+  integrity sha512-ARGIQSIIv3oBia1m5Ihn1VU0FGmft6KPe39SBKTb8p7LSXO23YI4kNtc4M/cKoIY7P+IYdrZcgMObvedyjoSQA==
   dependencies:
     function.prototype.name "^1.1.0"
     has "^1.0.0"
-    object.assign "^4.1.0"
     object.fromentries "^2.0.0"
     prop-types "^15.7.0"
 
@@ -11932,9 +11929,9 @@ write@1.0.3:
     mkdirp "^0.5.1"
 
 ws@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
-  integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.2.tgz#dd5cdbd57a9979916097652d78f1cc5faea0c32e"
+  integrity sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==
   dependencies:
     async-limiter "~1.0.0"
 
