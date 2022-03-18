@@ -89,9 +89,17 @@ class WikiAssignmentOutput
       return nil if page_content.include? new_tag
     end
 
-    # Check for existing tags and replace
+    # If we're removing the tag, also try to remove the immediately preceding
+    # header, if it's there.
+    header = new_tag.present? ? '' : section_header
     existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
-    page_content.gsub!(/#{Regexp.quote(existing_tag)}[^}]*\}\}/, new_tag)
+
+    # We're looking for an existing instance of the tag template, and optionally preceded
+    # (in the case of removing the tag) by the section header. This way, when we're removing a tag
+    # that is in the standard-format section, we remove the whole section rather than leaving an
+    # empty one.
+    tag_matcher = /(#{Regexp.quote(header)}[\n\r]+)?#{Regexp.quote(existing_tag)}[^}]*\}\}/
+    page_content.gsub!(tag_matcher, new_tag)
 
     # If we replaced an existing tag with the new version of it, we're done.
     return page_content if page_content.include?(new_tag)
@@ -192,7 +200,10 @@ class WikiAssignmentOutput
   # based on the RfC here:
   # https://en.wikipedia.org/w/index.php?title=Wikipedia:Education_noticeboard&oldid=1072013453#How_should_Wiki_Education_assignments_be_announced_on_article_talk_page?
   def add_template_in_new_section(page_content, template)
-    section_header = "==Wiki Education assignment: #{@course.title}=="
     "#{page_content}\n\n#{section_header}\n#{template}\n"
+  end
+
+  def section_header
+    "==Wiki Education assignment: #{@course.title}=="
   end
 end

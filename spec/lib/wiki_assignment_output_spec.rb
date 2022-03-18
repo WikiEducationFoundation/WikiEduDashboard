@@ -110,6 +110,30 @@ describe WikiAssignmentOutput do
                          )
           expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
         end
+
+        it 'removes the whole section when relevant' do
+          old_content = <<~TEMPLATE_IN_SECTION
+            {{WP Languages|class=Stub}}
+            {{WikiProject Melanesia|class=Stub|Vanuatu=yes}}
+
+            == Some section ==
+
+            ==Wiki Education assignment: Language in Hawaiʻi and the Pacific==
+
+            {{dashboard.wikiedu.org assignment | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016) | assignments = [[User:Keï|Keï]] }}
+
+            == Some other section ==
+
+          TEMPLATE_IN_SECTION
+          page_content = wiki_assignment_output
+                         .build_assignment_page_content(
+                           '', String.new(old_content).force_encoding('ASCII-8BIT')
+                         )
+          expect(page_content).not_to include('{{dashboard.wikiedu.org assignment')
+          expect(page_content).not_to include('==Wiki Education assignment:')
+          expect(page_content).to include('== Some section ==')
+          expect(page_content).to include('== Some other section ==')
+        end
       end
     end
 
