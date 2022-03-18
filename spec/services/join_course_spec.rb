@@ -35,8 +35,8 @@ describe JoinCourse do
 
     it 'allows a course to be joined' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 
@@ -50,8 +50,8 @@ describe JoinCourse do
 
     it 'allows a course to be joined' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 
@@ -60,8 +60,8 @@ describe JoinCourse do
 
     it 'does not allow joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).not_to be_nil
-      expect(result[:success]).to be_nil
+      expect(result['failure']).not_to be_nil
+      expect(result['success']).to be_nil
     end
   end
 
@@ -70,8 +70,8 @@ describe JoinCourse do
 
     it 'does not allow joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).not_to be_nil
-      expect(result[:success]).to be_nil
+      expect(result['failure']).not_to be_nil
+      expect(result['success']).to be_nil
     end
   end
 
@@ -80,8 +80,8 @@ describe JoinCourse do
 
     it 'allows joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 
@@ -90,8 +90,8 @@ describe JoinCourse do
 
     it 'allows joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 
@@ -100,8 +100,8 @@ describe JoinCourse do
 
     it 'allows joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 
@@ -110,8 +110,8 @@ describe JoinCourse do
 
     it 'allows joining with multiple roles' do
       result = subject.result
-      expect(result[:failure]).to be_nil
-      expect(result[:success]).not_to be_nil
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
     end
   end
 end
