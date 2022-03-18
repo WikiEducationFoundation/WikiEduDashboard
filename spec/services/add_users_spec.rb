@@ -24,9 +24,9 @@ describe AddUsers do
     VCR.use_cassette 'add_users' do
       result = subject.add_all_at_once
       expect(result.size).to eq(usernames_list.size)
-      expect(result['Ursos clio herodoto']).to have_key(:success)
+      expect(result['Ursos clio herodoto']).to have_key('success')
       expect(result[nonnormalized_username]).to be_nil
-      expect(result[nonexistent_username]).to have_key(:failure)
+      expect(result[nonexistent_username]).to have_key('failure')
     end
   end
 end
