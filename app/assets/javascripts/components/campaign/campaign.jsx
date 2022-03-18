@@ -55,8 +55,12 @@ export const Campaign = createReactClass({
           </section>
           {campaignHandler}
           <Switch>
-            <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
-            <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
+            <Route exact path="/campaigns/:campaign_slug/ores_plot" >
+              <CampaignOresPlot />
+            </Route>
+            <Route exact path="/campaigns/:campaign_slug/alerts" >
+              <CampaignAlerts />
+            </Route>
           </Switch>
         </div>
       </div >

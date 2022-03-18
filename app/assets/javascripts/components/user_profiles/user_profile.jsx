@@ -10,6 +10,7 @@ import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
 import request from '../../utils/request';
+import { withRouter } from 'react-router';
 
 const UserProfile = createReactClass({
   propTypes: {
@@ -69,4 +70,4 @@ const mapDispatchToProps = ({
   fetchUserTrainingStatus
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));

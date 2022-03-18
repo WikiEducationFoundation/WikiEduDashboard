@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from '../articles/course_quality_progress_graph';
 import request from '../../utils/request';
+import { withRouter } from 'react-router';
 
 const CampaignOresPlot = createReactClass({
   displayName: 'CampaignOresPlot',
@@ -86,4 +87,4 @@ const CampaignOresPlot = createReactClass({
   }
 });
 
-export default CampaignOresPlot;
+export default withRouter(CampaignOresPlot);

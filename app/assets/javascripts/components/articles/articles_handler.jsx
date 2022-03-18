@@ -88,8 +88,12 @@ export const ArticlesHandler = createReactClass({
         <SubNavigation links={links} />
 
         <Switch>
-          <Route exact path="/courses/:course_school/:course_title/articles/edited" render={() => <ArticleList {...this.props} />} />
-          <Route exact path="/courses/:course_school/:course_title/articles/assigned" render={() => <AssignmentList {...this.props} />} />
+          <Route exact path="/courses/:course_school/:course_title/articles/edited" >
+            <ArticleList {...this.props} />
+          </Route>
+          <Route exact path="/courses/:course_school/:course_title/articles/assigned" >
+            <AssignmentList {...this.props} />
+          </Route>
           <Route
             exact
             path="/courses/:course_school/:course_title/articles/available"

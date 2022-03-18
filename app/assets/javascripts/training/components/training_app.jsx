@@ -8,8 +8,12 @@ import TrainingSlideHandler from './training_slide_handler.jsx';
 const TrainingApp = () => (
   <div>
     <Switch>
-      <Route exact path="/training/:library_id/:module_id" component={TrainingModuleHandler} />
-      <Route exact path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
+      <Route exact path="/training/:library_id/:module_id" >
+        <TrainingModuleHandler />
+      </Route>
+      <Route exact path="/training/:library_id/:module_id/:slide_id" >
+        <TrainingSlideHandler />
+      </Route>
     </Switch>
   </div>
 );

@@ -131,8 +131,9 @@ export class Articles extends React.Component {
                 <Route
                   exact
                   path="/courses/:course_school/:course_title/students/articles"
-                  render={() => <NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />}
-                />
+                >
+                  <NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />
+                </Route>
               </Switch>
             </section>
           </article>

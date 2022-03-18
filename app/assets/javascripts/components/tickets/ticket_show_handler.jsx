@@ -5,6 +5,7 @@ import Loading from '../common/loading';
 import Notifications from '../common/notifications';
 import Show from './ticket_show';
 import { getTicketsById } from '../../selectors';
+import { withRouter } from 'react-router';
 
 import {
   createReply,
@@ -69,4 +70,4 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(TicketShow);
+export default withRouter(connector(TicketShow));

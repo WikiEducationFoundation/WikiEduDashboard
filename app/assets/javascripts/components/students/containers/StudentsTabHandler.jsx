@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 // Components
 import Loading from '@components/common/loading.jsx';
@@ -66,23 +66,19 @@ const StudentsTabHandler = createReactClass({
           <Route
             exact
             path="/courses/:course_school/:course_title/students/overview"
-            render={() => <Overview {...props} />}
-          />
+          >
+            <Overview {...props} />
+          </Route>
           <Route
             exact
             path={[
               '/courses/:course_school/:course_title/students/articles',
               '/courses/:course_school/:course_title/students/articles/:username'
             ]}
-            render={() => {
-              return <Articles {...props} />;
-            }}
-          />
-          <Redirect
-            to={{
-              pathname: '/courses/:course_school/:course_title/students/overview'
-            }}
-          />
+          >
+            <Articles {...props} />
+          </Route>
+          <Route render={() => <Redirect to={`/courses/${this.props.course.slug}/students/overview`}/>}/>
         </Switch>
       </div>
     );
@@ -106,4 +102,4 @@ const mapDispatchToProps = {
   fetchArticles
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentsTabHandler);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentsTabHandler));

@@ -17,19 +17,45 @@ import TaggedCourseAlerts from '../alerts/tagged_course_alerts.jsx';
 
 const routes = (
   <Switch>
-    <Route path="/onboarding" component={Onboarding} />
-    <Route path="/recent-activity" component={RecentActivityHandler} />
-    <Route path="/courses/:course_school/:course_title" component={Course} />
-    <Route path="/course_creator" component={ConnectedCourseCreator} />
-    <Route path="/users/:username" component={UserProfile} />
-    <Route path="/alerts_list" component={AdminAlerts} />
-    <Route path="/settings" component={SettingsHandler} />
-    <Route path="/article_finder" component={ArticleFinder} />
-    <Route path="/training" component={TrainingApp} />
-    <Route exact path="/tickets/dashboard" component={TicketsHandler} />
-    <Route exact path="/tickets/dashboard/:id" component={TicketShowHandler} />
-    <Route path="/campaigns/:campaign_slug" component={Campaign} />
-    <Route path="/tagged_courses/:tag/alerts" component={TaggedCourseAlerts} />
+    <Route path="/onboarding" >
+      <Onboarding />
+    </Route>
+    <Route path="/recent-activity" >
+      <RecentActivityHandler />
+    </Route>
+    <Route path="/courses/:course_school/:course_title" >
+      <Course />
+    </Route>
+    <Route path="/course_creator" >
+      <ConnectedCourseCreator />
+    </Route>
+    <Route path="/users/:username" >
+      <UserProfile />
+    </Route>
+    <Route path="/alerts_list" >
+      <AdminAlerts />
+    </Route>
+    <Route path="/settings" >
+      <SettingsHandler />
+    </Route>
+    <Route path="/article_finder" >
+      <ArticleFinder />
+    </Route>
+    <Route path="/training" >
+      <TrainingApp />
+    </Route>
+    <Route exact path="/tickets/dashboard" >
+      <TicketsHandler />
+    </Route>
+    <Route exact path="/tickets/dashboard/:id" >
+      <TicketShowHandler />
+    </Route>
+    <Route path="/campaigns/:campaign_slug" >
+      <Campaign />
+    </Route>
+    <Route path="/tagged_courses/:tag/alerts" >
+      <TaggedCourseAlerts />
+    </Route>
   </Switch>
 );
 

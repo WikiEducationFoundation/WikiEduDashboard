@@ -128,17 +128,37 @@ export const Course = createReactClass({
           <Confirm />
           {enrollCard}
           <Switch>
-            <Route exact path="/courses/:course_school/:course_title" render={() => <OverviewHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/home" render={() => <OverviewHandler {...courseProps} />} />
+            <Route exact path="/courses/:course_school/:course_title" >
+              <OverviewHandler {...courseProps} />
+            </Route>
+            <Route exact path="/courses/:course_school/:course_title/home" >
+              <OverviewHandler {...courseProps} />
+            </Route>
             {/* The overview route path should not be removed in order to preserve the default url */}
-            <Route exact path="/courses/:course_school/:course_title/overview" render={() => <OverviewHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/activity" render={() => <ActivityHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/students" render={() => <StudentsTabHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/article_finder" render={() => <ArticleFinder {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/timeline" render={() => <TimelineHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/resources" render={() => <Resources {...courseProps} />} />
+            <Route exact path="/courses/:course_school/:course_title/overview" >
+              <OverviewHandler {...courseProps} />
+            </Route>
+            <Route path="/courses/:course_school/:course_title/activity" >
+              <ActivityHandler {...courseProps} />
+            </Route>
+            <Route path="/courses/:course_school/:course_title/students" >
+              <StudentsTabHandler {...courseProps} />
+            </Route>
+            <Route path="/courses/:course_school/:course_title/articles" >
+              <ArticlesHandler {...courseProps} />
+            </Route>
+            <Route exact path="/courses/:course_school/:course_title/uploads" >
+              <UploadsHandler {...courseProps} />
+            </Route>
+            <Route exact path="/courses/:course_school/:course_title/article_finder" >
+              <ArticleFinder {...courseProps} />
+            </Route>
+            <Route path="/courses/:course_school/:course_title/timeline" >
+              <TimelineHandler {...courseProps} />
+            </Route>
+            <Route path="/courses/:course_school/:course_title/resources" >
+              <Resources {...courseProps} />
+            </Route>
           </Switch>
         </div>
       </div>

@@ -41,20 +41,17 @@ export const ActivityHandler = createReactClass({
       <div className="activity-handler">
         <SubNavigation links={links}/>
         <Switch>
+          <Route exact path="/courses/:course_school/:course_title/activity/recent">
+            <RevisionHandler {...this.props}/>
+          </Route>
+          <Route exact path="/courses/:course_school/:course_title/activity/alerts">
+            <CourseAlertsList {...this.props} />
+          </Route>
+          <Route exact path="/courses/:course_school/:course_title/activity/plagiarism">
+            <PossiblePlagiarismHandler {...this.props} />
+          </Route>
           <Route
-            exact path="/courses/:course_school/:course_title/activity/recent"
-            render={() => <RevisionHandler {...this.props}/>}
-          />
-          <Route
-            exact path="/courses/:course_school/:course_title/activity/alerts"
-            render={() => <CourseAlertsList {...this.props} />}
-          />
-          <Route
-            exact path="/courses/:course_school/:course_title/activity/plagiarism"
-            render={() => <PossiblePlagiarismHandler {...this.props} />}
-          />
-          <Redirect
-            to={{ pathname: '/courses/:course_school/:course_title/activity/recent' }}
+            render={() => <Redirect to={`/courses/${this.props.course.slug}/activity/recent`}/>}
           />
         </Switch>
       </div>

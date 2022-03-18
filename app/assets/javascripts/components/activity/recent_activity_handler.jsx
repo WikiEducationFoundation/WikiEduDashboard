@@ -47,10 +47,18 @@ const RecentActivityHandler = () => (
 
     <div className="container">
       <Switch>
-        <Route exact path="/recent-activity/dyk" component={DidYouKnowHandler} />
-        <Route exact path="/recent-activity/plagiarism" component={PlagiarismHandler} />
-        <Route exact path="/recent-activity/recent-edits" component={RecentEditsHandler} />
-        <Route exact path="/recent-activity/recent-uploads" component={RecentUploadsHandler} />
+        <Route exact path="/recent-activity/dyk" >
+          <DidYouKnowHandler />
+        </Route>
+        <Route exact path="/recent-activity/plagiarism" >
+          <PlagiarismHandler />
+        </Route>
+        <Route exact path="/recent-activity/recent-edits" >
+          <RecentEditsHandler />
+        </Route>
+        <Route exact path="/recent-activity/recent-uploads" >
+          <RecentUploadsHandler />
+        </Route>
         <Redirect to="/recent-activity/dyk" />
       </Switch>
     </div>

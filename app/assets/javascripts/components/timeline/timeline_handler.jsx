@@ -122,8 +122,12 @@ const TimelineHandler = createReactClass({
           timeout={500}
         >
           <Switch>
-            <Route exact path="/courses/:course_school/:course_title/timeline/wizard" render={() => <Wizard {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/timeline/dates" render={() => <Meetings {...courseProps} />} />
+            <Route exact path="/courses/:course_school/:course_title/timeline/wizard" >
+              <Wizard {...courseProps} />
+            </Route>
+            <Route exact path="/courses/:course_school/:course_title/timeline/dates" >
+              <Meetings {...courseProps} />
+            </Route>
           </Switch>
         </TransitionGroup>
 
