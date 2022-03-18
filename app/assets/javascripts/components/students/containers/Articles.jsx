@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
@@ -59,6 +59,7 @@ export class Articles extends React.Component {
 
     const { modules } = getModulesAndBlocksFromWeeks(weeks);
     const hasExercisesOrTrainings = !!modules.length;
+    const selected = selectUserByUsernameParam(students, this.props.match.params.username);
 
     const groupedArticles = groupArticlesCoursesByUserId(articles);
     if (!students.length) return null;
@@ -98,35 +99,34 @@ export class Articles extends React.Component {
                 <Route
                   exact
                   path="/courses/:course_school/:course_title/students/articles/:username"
-                  render={({ match }) => {
-                    const selected = selectUserByUsernameParam(students, match.params.username);
-                    if (!selected) {
-                      return (
-                        <Redirect to={this.generateArticlesUrl(course)} />
-                      );
-                    }
+                  render={() => {
+                  if (!selected) {
                     return (
-                      <SelectedStudent
-                        assignments={assignments}
-                        course={course}
-                        current_user={current_user}
-                        fetchArticleDetails={this.props.fetchArticleDetails}
-                        fetchUserRevisions={this.props.fetchUserRevisions}
-                        groupedArticles={groupedArticles}
-                        hasExercisesOrTrainings={hasExercisesOrTrainings}
-                        openKey={openKey}
-                        selected={selected}
-                        setUploadFilters={setUploadFilters}
-                        sort={sort}
-                        sortUsers={sortUsers}
-                        students={students}
-                        toggleUI={this.props.toggleUI}
-                        trainingStatus={trainingStatus}
-                        wikidataLabels={wikidataLabels}
-                        userRevisions={userRevisions}
-                      />
+                      <Redirect to={this.generateArticlesUrl(course)} />
                     );
-                  }}
+                  }
+                  return (
+                    <SelectedStudent
+                      assignments={assignments}
+                      course={course}
+                      current_user={current_user}
+                      fetchArticleDetails={this.props.fetchArticleDetails}
+                      fetchUserRevisions={this.props.fetchUserRevisions}
+                      groupedArticles={groupedArticles}
+                      hasExercisesOrTrainings={hasExercisesOrTrainings}
+                      openKey={openKey}
+                      selected={selected}
+                      setUploadFilters={setUploadFilters}
+                      sort={sort}
+                      sortUsers={sortUsers}
+                      students={students}
+                      toggleUI={this.props.toggleUI}
+                      trainingStatus={trainingStatus}
+                      wikidataLabels={wikidataLabels}
+                      userRevisions={userRevisions}
+                    />
+                  );
+                }}
                 />
                 <Route
                   exact
@@ -177,4 +177,4 @@ const mapDispatchToProps = {
   toggleUI
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Articles);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Articles));

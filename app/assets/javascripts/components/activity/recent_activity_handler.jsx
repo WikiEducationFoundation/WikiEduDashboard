@@ -59,7 +59,7 @@ const RecentActivityHandler = () => (
         <Route exact path="/recent-activity/recent-uploads" >
           <RecentUploadsHandler />
         </Route>
-        <Redirect to="/recent-activity/dyk" />
+        <Route render={() => { <Redirect to="/recent-activity/dyk" />; }} />
       </Switch>
     </div>
   </div>

@@ -106,11 +106,15 @@ export const ArticlesHandler = createReactClass({
               return <AvailableArticles {...this.props} />;
             }}
           />
-          <Redirect
-            to={{
-              pathname: '/courses/:course_school/:course_title/articles/edited',
-              search: this.props.location.search
-            }}
+          <Route render={() => {
+            <Redirect
+              to={{
+                pathname: '/courses/:course_school/:course_title/articles/edited',
+                search: this.props.location.search
+              }}
+            />;
+            }
+          }
           />
         </Switch>
 
