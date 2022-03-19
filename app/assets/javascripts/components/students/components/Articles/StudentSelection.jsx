@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import withRouter from '../../../util/withRouter';
 import { selectUserByUsernameParam } from '@components/util/helpers';
 
-export const StudentSelection = ({ articlesUrl, history, match, students }) => {
-  const selected = selectUserByUsernameParam(students, match.params.username);
+export const StudentSelection = ({ articlesUrl, router, students }) => {
+  const selected = selectUserByUsernameParam(students, router.params.username);
   const lis = students.map(student => (
     <li
       key={student.id}
       className={`student ${selected && selected.id === student.id ? 'selected' : ''}`}
       onClick={() => {
-        history.push(`${articlesUrl}/${encodeURIComponent(student.username)}`);
+        router.navigate(`${articlesUrl}/${encodeURIComponent(student.username)}`);
       }}
     >
       {

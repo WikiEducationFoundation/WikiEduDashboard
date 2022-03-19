@@ -5,7 +5,7 @@ export const SubNavigation = ({ heading, links }) => {
   const navLinks = links.map(({ href, text }, index) => {
     return (
       <li key={index}>
-        <NavLink to={href} activeClassName="active" className="button">
+        <NavLink to={href} className={({ isActive }) => `${isActive ? 'active' : ''} button`}>
           {text}
         </NavLink>
       </li>

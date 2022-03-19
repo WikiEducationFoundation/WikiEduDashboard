@@ -2,8 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-
+import { Navigate, Route, Routes } from 'react-router-dom';
+import withRouter from '../../util/withRouter';
 // Components
 import Loading from '@components/common/loading.jsx';
 import Overview from './Overview';
@@ -62,24 +62,20 @@ const StudentsTabHandler = createReactClass({
     };
     return (
       <div id="users">
-        <Switch>
+        <Routes>
           <Route
-            exact
-            path="/courses/:course_school/:course_title/students/overview"
-          >
-            <Overview {...props} />
-          </Route>
+            path="overview/*"
+            element={<Overview {...props} />}
+          />
           <Route
-            exact
-            path={[
-              '/courses/:course_school/:course_title/students/articles',
-              '/courses/:course_school/:course_title/students/articles/:username'
-            ]}
-          >
-            <Articles {...props} />
-          </Route>
-          <Route render={() => <Redirect to={`/courses/${this.props.course.slug}/students/overview`}/>}/>
-        </Switch>
+            path="articles/*"
+            element={<Articles {...props} />}
+          />
+          <Route
+            path="*"
+            element={<Navigate to="overview"/>}
+          />
+        </Routes>
       </div>
     );
   }

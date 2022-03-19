@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { extend } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
@@ -63,7 +63,7 @@ const keys = { rightKey: 39, leftKey: 37 };
 const TrainingSlideHandler = () => {
   const training = useSelector(state => state.training);
   const routeParams = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
 
@@ -106,13 +106,13 @@ const TrainingSlideHandler = () => {
       if (e.which === keys.leftKey && training.previousSlide) {
         const params = extend(navParams, { slide_id: training.previousSlide.slug });
         prev();
-        history.push(trainingUrl(params));
+        return navigate(trainingUrl(params));
       }
       if (e.which === keys.rightKey && training.nextSlide) {
         if (disableNext(training)) { return; }
         const params = extend(navParams, { slide_id: training.nextSlide.slug });
         next();
-        return history.push(trainingUrl(params));
+        return navigate(trainingUrl(params));
       }
     };
 

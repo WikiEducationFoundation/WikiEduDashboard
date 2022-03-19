@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { parse } from 'query-string';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 import OverviewStats from './overview_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
@@ -84,7 +84,7 @@ const Overview = createReactClass({
     }
 
     let syllabusUpload;
-    const query = parse(this.props.location.search);
+    const query = parse(this.props.router.location.search);
     if (query.syllabus_upload === 'true' && this.props.current_user.admin) {
       syllabusUpload = (
         <Modal modalClass="course__syllabus-upload">

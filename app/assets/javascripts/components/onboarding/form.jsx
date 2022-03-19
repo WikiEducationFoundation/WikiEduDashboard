@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
 
 import OnboardAPI from '../../utils/onboarding_utils.js';
@@ -51,7 +51,7 @@ const Form = createReactClass({
     })
     .then(() => {
       const destination = this.state.instructor === 'true' ? 'supplementary' : 'permissions';
-      return this.props.history.push(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
+      return this.props.router.navigate(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
     }
     )
     .catch(() => {

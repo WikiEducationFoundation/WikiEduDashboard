@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 import * as ArticleActions from '../../actions/article_actions';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
@@ -30,7 +30,7 @@ const ArticleList = createReactClass({
 
   getInitialState() {
     // getting filters from the URL
-    const { wiki, newness, tracked } = parse(this.props.location.search);
+    const { wiki, newness, tracked } = parse(this.props.router.location.search);
 
     // filter by "wiki"
     if (wiki !== undefined) {
@@ -65,7 +65,6 @@ const ArticleList = createReactClass({
       // absent, so setting tracked from the redux store
       this.updateParams('tracked', this.props.trackedStatusFilter);
     }
-
     return {
       selectedIndex: -1,
     };
@@ -97,9 +96,10 @@ const ArticleList = createReactClass({
   },
 
   updateParams(filter, value) {
-    const search = this.props.history.location.search;
-    const history = this.props.history;
-
+    // instead of using React Router's location, we must use window.location
+    // this is because v6 of React Router doesn't have a mutable history object
+    // to fix, probably convert this to a functional component with the params as state
+    const search = window.location.search;
     const params = parse(search);
 
     // don't add the search param if the value is equal to the default value
@@ -109,10 +109,7 @@ const ArticleList = createReactClass({
     } else {
       params[filter] = value;
     }
-
-    history.push({
-      search: stringify(params)
-    });
+    window.history.pushState(null, null, `?${stringify(params)}`);
   },
 
   showDiff(index) {

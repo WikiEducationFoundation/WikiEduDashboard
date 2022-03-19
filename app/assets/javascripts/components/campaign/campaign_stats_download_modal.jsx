@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const CampaignStatsDownloadModal = ({ match }) => {
+const CampaignStatsDownloadModal = ({ router }) => {
   const [show, setShow] = useState(false);
 
-  const campaignSlug = match.params.campaign_slug;
+  const campaignSlug = router.params.campaign_slug;
 
   const courseDataLink = `/campaigns/${campaignSlug}/courses.csv`;
   const articlesEditedLink = `/campaigns/${campaignSlug}/articles_csv.csv`;

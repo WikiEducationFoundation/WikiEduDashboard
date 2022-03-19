@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import DidYouKnowHandler from './did_you_know_handler.jsx';
 import PlagiarismHandler from './plagiarism_handler.jsx';
@@ -13,7 +13,9 @@ const RecentActivityHandler = () => (
       <div className="container">
         <div className="nav__item" id="dyk-link">
           <p>
-            <NavLink to="/recent-activity/dyk" activeClassName="active">
+            <NavLink
+              to="/recent-activity/dyk" className={({ isActive }) => (isActive ? 'active' : '')}
+            >
               {I18n.t('recent_activity.did_you_know_eligible')}
             </NavLink>
           </p>
@@ -21,7 +23,7 @@ const RecentActivityHandler = () => (
 
         <div className="nav__item" id="plagiarism-link">
           <p>
-            <NavLink to="/recent-activity/plagiarism" activeClassName="active">
+            <NavLink to="/recent-activity/plagiarism" className={({ isActive }) => (isActive ? 'active' : '')}>
               {I18n.t('recent_activity.possible_plagiarism')}
             </NavLink>
           </p>
@@ -29,7 +31,7 @@ const RecentActivityHandler = () => (
 
         <div className="nav__item" id="recent-edits-link">
           <p>
-            <NavLink to="/recent-activity/recent-edits" activeClassName="active">
+            <NavLink to="/recent-activity/recent-edits" className={({ isActive }) => (isActive ? 'active' : '')}>
               {I18n.t('recent_activity.recent_edits')}
             </NavLink>
           </p>
@@ -37,7 +39,7 @@ const RecentActivityHandler = () => (
 
         <div className="nav__item" id="recent-uploads-link">
           <p>
-            <NavLink to="/recent-activity/recent-uploads" activeClassName="active">
+            <NavLink to="/recent-activity/recent-uploads" className={({ isActive }) => (isActive ? 'active' : '')}>
               {I18n.t('recent_activity.recent_uploads')}
             </NavLink>
           </p>
@@ -46,21 +48,13 @@ const RecentActivityHandler = () => (
     </nav>
 
     <div className="container">
-      <Switch>
-        <Route exact path="/recent-activity/dyk" >
-          <DidYouKnowHandler />
-        </Route>
-        <Route exact path="/recent-activity/plagiarism" >
-          <PlagiarismHandler />
-        </Route>
-        <Route exact path="/recent-activity/recent-edits" >
-          <RecentEditsHandler />
-        </Route>
-        <Route exact path="/recent-activity/recent-uploads" >
-          <RecentUploadsHandler />
-        </Route>
-        <Route render={() => { <Redirect to="/recent-activity/dyk" />; }} />
-      </Switch>
+      <Routes>
+        <Route path="dyk" element={<DidYouKnowHandler />} />
+        <Route path="plagiarism" element={<PlagiarismHandler />} />
+        <Route path="recent-edits" element={<RecentEditsHandler />} />
+        <Route path="recent-uploads" element={<RecentUploadsHandler />} />
+        <Route path="*" element={<Navigate to="dyk"/>}/>
+      </Routes>
     </div>
   </div>
 );

@@ -64,7 +64,7 @@ const Nav = createReactClass({
   },
 
   isCoursePage() {
-    return !!this.props.history.location.pathname.match(/courses/);
+    return !!window.location.pathname.match(/courses/);
   },
 
   render() {

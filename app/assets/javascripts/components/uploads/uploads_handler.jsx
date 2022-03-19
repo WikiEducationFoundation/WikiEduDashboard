@@ -110,7 +110,7 @@ const UploadsHandler = createReactClass({
           previousLinkClassName={'previous_page'}
           nextLinkClassName={'next_page'}
           disabledClassName={'disabled'}
-          activeClassName={'active'}
+          className={({ isActive }) => (isActive ? 'active' : '')}
         />
       );
     }
