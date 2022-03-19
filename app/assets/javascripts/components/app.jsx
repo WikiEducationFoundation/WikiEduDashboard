@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
-import history from './util/history';
+import { BrowserRouter } from 'react-router-dom';
 import routes from './util/routes.jsx';
 
 import { Provider } from 'react-redux';
@@ -16,7 +15,7 @@ import Nav from './nav/nav.jsx';
 // `nav_root` is present throughout the app, via the Rails view layouts.
 const navBar = document.getElementById('nav_root');
 if (navBar) {
-  ReactDOM.render((<Nav history={history} />), navBar);
+  ReactDOM.render((<Nav/>), navBar);
 }
 
 // The main `react_root` is only present in some Rails views, corresponding
@@ -52,9 +51,9 @@ if (reactRoot) {
   // Render the main React app
   ReactDOM.render((
     <Provider store={store} >
-      <Router history={history}>
+      <BrowserRouter>
         {routes}
-      </Router>
+      </BrowserRouter>
     </Provider>
   ), reactRoot);
 }
