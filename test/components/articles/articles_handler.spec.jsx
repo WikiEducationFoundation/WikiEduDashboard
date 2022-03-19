@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import '../../testHelper';
 import { ArticlesHandler } from '~/app/assets/javascripts/components/articles/articles_handler.jsx';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('ArticlesHandler', () => {
   it('renders', () => {
@@ -21,10 +23,11 @@ describe('ArticlesHandler', () => {
       wikis: []
     };
     const component = shallow(
-      <ArticlesHandler {...props} />
+      <MemoryRouter>
+        <ArticlesHandler {...props} />
+      </MemoryRouter>
     );
 
-    component.setState({ loading: false });
     expect(component.find('NavLink')).toExist;
     expect(component.find('div.articles-view')).toExist;
   });

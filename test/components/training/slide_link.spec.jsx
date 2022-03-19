@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import '../../testHelper';
@@ -27,11 +27,12 @@ describe('SlideLink', () => {
   const TestLink = mount(
     <Provider store={store}>
       <MemoryRouter initialEntries={['/training/foo/bar/kittens']}>
-        <Route
-          exact
-          path="/training/:library_id/:module_id/:slide_id"
-          component={TrainingSlideHandler}
-        />
+        <Routes>
+          <Route
+            path="/training/:library_id/:module_id/:slide_id"
+            element={<TrainingSlideHandler/>}
+          />
+        </Routes>
       </MemoryRouter>
     </Provider>
   );
