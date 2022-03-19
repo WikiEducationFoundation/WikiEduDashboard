@@ -122,14 +122,8 @@ const TimelineHandler = createReactClass({
           timeout={500}
         >
           <Routes>
-            <Route
-              path="wizard"
-              element={<Wizard {...courseProps} />}
-            />
-            <Route
-              path="dates"
-              element={<Meetings {...courseProps} />}
-            />
+            <Route path="wizard" element={<Wizard {...courseProps} />} />
+            <Route path="dates" element={<Meetings {...courseProps} />} />
           </Routes>
         </TransitionGroup>
 

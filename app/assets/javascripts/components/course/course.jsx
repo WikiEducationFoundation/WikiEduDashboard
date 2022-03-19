@@ -128,48 +128,17 @@ export const Course = withRouter(createReactClass({
           <Confirm />
           {enrollCard}
           <Routes>
-            <Route
-              path="/"
-              element={<OverviewHandler {...courseProps} />}
-            />
-            <Route
-              path="home"
-              element={<OverviewHandler {...courseProps} />}
-            />
+            <Route path="/" element={<OverviewHandler {...courseProps} />} />
+            <Route path="home" element={<OverviewHandler {...courseProps} />} />
             {/* The overview route path should not be removed in order to preserve the default url */}
-            <Route
-              path="overview"
-              element={<OverviewHandler {...courseProps} />}
-            />
-            <Route
-              path="activity/*"
-              element={<ActivityHandler {...courseProps} />}
-            />
-            <Route
-              path="students/*"
-              element={<StudentsTabHandler {...courseProps} />}
-            />
-            <Route
-              path="articles/*"
-              element={<ArticlesHandler {...courseProps} />}
-            />
-            <Route
-              path="uploads"
-              element={<UploadsHandler {...courseProps} />}
-            />
-            <Route
-              path="article_finder"
-              element={<ArticleFinder {...courseProps} />}
-            />
-            <Route
-              path="timeline/*"
-              element={<TimelineHandler {...courseProps} />}
-            />
-            <Route
-              path="resources"
-              element={<Resources {...courseProps} />}
-            />
-            <Route path="*" element={<h1> Hello</h1>}/>
+            <Route path="overview" element={<OverviewHandler {...courseProps} />} />
+            <Route path="activity/*" element={<ActivityHandler {...courseProps} />} />
+            <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
+            <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
+            <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
+            <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
+            <Route path="timeline/*" element={<TimelineHandler {...courseProps} />} />
+            <Route path="resources" element={<Resources {...courseProps} />} />
           </Routes>
         </div>
       </div>

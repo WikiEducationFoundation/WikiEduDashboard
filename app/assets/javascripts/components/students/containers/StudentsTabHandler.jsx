@@ -63,18 +63,9 @@ const StudentsTabHandler = createReactClass({
     return (
       <div id="users">
         <Routes>
-          <Route
-            path="overview/*"
-            element={<Overview {...props} />}
-          />
-          <Route
-            path="articles/*"
-            element={<Articles {...props} />}
-          />
-          <Route
-            path="*"
-            element={<Navigate to="overview"/>}
-          />
+          <Route path="overview/*" element={<Overview {...props} />} />
+          <Route path="articles/*" element={<Articles {...props} />} />
+          <Route path="*" element={<Navigate to="overview"/>} />
         </Routes>
       </div>
     );

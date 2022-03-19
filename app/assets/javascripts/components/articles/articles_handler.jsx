@@ -88,14 +88,8 @@ export const ArticlesHandler = withRouter(createReactClass({
         <SubNavigation links={links} />
 
         <Routes>
-          <Route
-            path="edited"
-            element={<ArticleList {...this.props} />}
-          />
-          <Route
-            path="assigned"
-            element={<AssignmentList {...this.props} />}
-          />
+          <Route path="edited" element={<ArticleList {...this.props} />} />
+          <Route path="assigned" element={<AssignmentList {...this.props} />} />
           <Route
             path="available"
             element={(!this.state.loading && this.hideAssignments())
@@ -105,14 +99,12 @@ export const ArticlesHandler = withRouter(createReactClass({
             }
           />
           <Route
-            path="*"
-            element={
-              <Navigate
-                to={{
+            path="*" element={<Navigate
+              to={{
                   pathname: 'edited',
                   search: this.props.router.location.search
                 }}
-              />
+            />
             }
           />
         </Routes>
