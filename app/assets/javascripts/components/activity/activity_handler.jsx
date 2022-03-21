@@ -44,7 +44,7 @@ export const ActivityHandler = createReactClass({
           <Route path="recent" element={<RevisionHandler {...this.props}/>} />
           <Route path="alerts" element={<CourseAlertsList {...this.props} />} />
           <Route path="plagiarism" element={<PossiblePlagiarismHandler {...this.props} />}/>
-          <Route path="*" element={<Navigate to="recent"/>}/>
+          <Route path="*" element={<Navigate replace to="recent"/>}/>
         </Routes>
       </div>
     );

@@ -109,7 +109,7 @@ const ArticleList = createReactClass({
     } else {
       params[filter] = value;
     }
-    window.history.pushState(null, null, `?${stringify(params)}`);
+    window.history.replaceState(null, null, `?${stringify(params)}`);
   },
 
   showDiff(index) {

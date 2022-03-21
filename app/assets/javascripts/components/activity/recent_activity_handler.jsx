@@ -53,7 +53,7 @@ const RecentActivityHandler = () => (
         <Route path="plagiarism" element={<PlagiarismHandler />} />
         <Route path="recent-edits" element={<RecentEditsHandler />} />
         <Route path="recent-uploads" element={<RecentUploadsHandler />} />
-        <Route path="*" element={<Navigate to="dyk"/>}/>
+        <Route path="*" element={<Navigate replace to="dyk"/>}/>
       </Routes>
     </div>
   </div>

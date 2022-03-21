@@ -100,6 +100,7 @@ export const ArticlesHandler = withRouter(createReactClass({
           />
           <Route
             path="*" element={<Navigate
+              replace
               to={{
                   pathname: 'edited',
                   search: this.props.router.location.search
