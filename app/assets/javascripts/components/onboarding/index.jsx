@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import TransitionGroup from '../common/css_transition_group';
 import Intro from './intro.jsx';
 import Form from './form.jsx';
@@ -22,7 +22,8 @@ const setProps = ({ pathname }) => ({
 });
 
 // Router root
-const Root = ({ location }) => {
+const Root = () => {
+  const location = useLocation();
   const props = setProps(location);
   return (
     <div className="container">
@@ -32,13 +33,13 @@ const Root = ({ location }) => {
         component="div"
         timeout={250}
       >
-        <Switch key={location.key} location={location}>
-          <Route exact path="/onboarding" render={() => <Intro {...props} />} />
-          <Route exact path="/onboarding/form" render={() => <Form {...props} />} />
-          <Route exact path="/onboarding/supplementary" render={() => <Supplementary {...props} />} />
-          <Route exact path="/onboarding/permissions" render={() => <Permissions {...props} />} />
-          <Route exact path="/onboarding/finish" render={() => <Finished {...props} />} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Intro {...props} />} />
+          <Route path="form" element={<Form {...props} />} />
+          <Route path="supplementary" element={<Supplementary {...props} />} />
+          <Route path="permissions" element={<Permissions {...props} />} />
+          <Route path="finish" element={<Finished {...props} />} />
+        </Routes>
       </TransitionGroup>
     </div>
   );
@@ -46,7 +47,6 @@ const Root = ({ location }) => {
 
 Root.propTypes = {
   children: PropTypes.object,
-  location: PropTypes.object
 };
 
 export default Root;

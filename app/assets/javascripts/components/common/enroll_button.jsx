@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from './popover.jsx';
@@ -113,7 +113,7 @@ const EnrollButton = createReactClass({
   },
 
   _courseLinkParams() {
-    return `/courses/${this.props.match.params.course_school}/${this.props.match.params.course_title}`;
+    return `/courses/${this.props.router.params.course_school}/${this.props.router.params.course_title}`;
   },
 
   render() {

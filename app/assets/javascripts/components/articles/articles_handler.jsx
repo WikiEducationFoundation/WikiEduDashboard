@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import withRouter from '../util/withRouter';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import Loading from '../common/loading.jsx';
 import SubNavigation from '../common/sub_navigation.jsx';
@@ -17,7 +17,7 @@ import { getArticlesByTrackedStatus } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
 import ArticleUtils from '../../utils/article_utils.js';
 
-export const ArticlesHandler = createReactClass({
+export const ArticlesHandler = withRouter(createReactClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {
@@ -87,34 +87,34 @@ export const ArticlesHandler = createReactClass({
       <div className="articles-view">
         <SubNavigation links={links} />
 
-        <Switch>
-          <Route exact path="/courses/:course_school/:course_title/articles/edited" render={() => <ArticleList {...this.props} />} />
-          <Route exact path="/courses/:course_school/:course_title/articles/assigned" render={() => <AssignmentList {...this.props} />} />
+        <Routes>
+          <Route path="edited" element={<ArticleList {...this.props} />} />
+          <Route path="assigned" element={<AssignmentList {...this.props} />} />
           <Route
-            exact
-            path="/courses/:course_school/:course_title/articles/available"
-            render={() => {
+            path="available"
+            element={(!this.state.loading && this.hideAssignments())
               // If at any point there are no available articles, redirect the user
-              if (!this.state.loading && this.hideAssignments()) {
-                return <Redirect to={`/courses/${this.props.course.slug}`} />;
-              }
-
-              return <AvailableArticles {...this.props} />;
-            }}
+              ? <Navigate to={`/courses/${this.props.course.slug}`} />
+              : <AvailableArticles {...this.props} />
+            }
           />
-          <Redirect
-            to={{
-              pathname: '/courses/:course_school/:course_title/articles/edited',
-              search: this.props.location.search
-            }}
+          <Route
+            path="*" element={<Navigate
+              replace
+              to={{
+                  pathname: 'edited',
+                  search: this.props.router.location.search
+                }}
+            />
+            }
           />
-        </Switch>
+        </Routes>
 
         {categories}
       </div>
     );
   }
-});
+}));
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
@@ -143,4 +143,4 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 const component = connector(ArticlesHandler);
-export default withRouter(component);
+export default component;

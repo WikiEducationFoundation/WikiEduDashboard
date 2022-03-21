@@ -5,6 +5,7 @@ import Loading from '../common/loading';
 import Notifications from '../common/notifications';
 import Show from './ticket_show';
 import { getTicketsById } from '../../selectors';
+import withRouter from '../util/withRouter';
 
 import {
   createReply,
@@ -17,7 +18,7 @@ import {
 
 export class TicketShow extends React.Component {
   componentDidMount() {
-    const id = this.props.match.params.id;
+    const id = this.props.router.params.id;
     const ticket = this.props.ticketsById[id];
 
     if (ticket) {
@@ -31,7 +32,7 @@ export class TicketShow extends React.Component {
   }
 
   render() {
-    const id = this.props.match.params.id;
+    const id = this.props.router.params.id;
     if (!this.props.selectedTicket.id || this.props.selectedTicket.id !== parseInt(id)) return <Loading />;
 
     return (
@@ -69,4 +70,4 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(TicketShow);
+export default withRouter(connector(TicketShow));

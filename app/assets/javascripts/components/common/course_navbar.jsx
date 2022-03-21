@@ -36,7 +36,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     const timelineLink = `${courseLink}/timeline`;
     timeline = (
       <div className="nav__item" id="timeline-link">
-        <p><NavLink to={timelineLink} activeClassName="active">{I18n.t('courses.timeline_link')}</NavLink></p>
+        <p><NavLink to={timelineLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('courses.timeline_link')}</NavLink></p>
       </div>
     );
   }
@@ -46,7 +46,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     const resourcesLink = `${courseLink}/resources`;
     resources = (
       <div className="nav__item" id="resources-link">
-        <p><NavLink to={resourcesLink} activeClassName="active">{I18n.t('resources.label')}</NavLink></p>
+        <p><NavLink to={resourcesLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('resources.label')}</NavLink></p>
       </div>
     );
   }
@@ -76,20 +76,20 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
       {courseLinkElement}
       <nav>
         <div className="nav__item" id="overview-link">
-          <p><NavLink to={homeLink} className={homeLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</NavLink></p>
+          <p><NavLink to={homeLink} className={({ isActive }) => (isActive ? 'active' : homeLinkClassName)}>{I18n.t('courses.overview')}</NavLink></p>
         </div>
         {timeline}
         <div className="nav__item" id="students-link">
-          <p><NavLink to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
+          <p><NavLink to={studentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="articles-link">
-          <p><NavLink to={articlesLink} activeClassName="active">{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
+          <p><NavLink to={articlesLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
         </div>
         <div className="nav__item" id="uploads-link">
-          <p><NavLink to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</NavLink></p>
+          <p><NavLink to={uploadsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('uploads.label')}</NavLink></p>
         </div>
         <div className="nav__item" id="activity-link">
-          <p><NavLink to={activityLink} activeClassName="active">{I18n.t('activity.label')}</NavLink></p>
+          <p><NavLink to={activityLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('activity.label')}</NavLink></p>
         </div>
         {resources}
         {getHelp}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '../testHelper';
 
 import { Course } from '../../app/assets/javascripts/components/course/course.jsx';
@@ -31,17 +31,17 @@ describe('top-level course component', () => {
     };
     const testCourse = mount(
       <MemoryRouter initialEntries={['/courses/this_school/this_course']}>
-        <Route
-          exact
-          path="/courses/:course_school/:course_title"
-          render={location => (
-            <Course
-              {...location}
-              {...props}
-              {...fns}
-            />
-          )}
-        />
+        <Routes>
+          <Route
+            path="/courses/:course_school/:course_title" element={
+              <Course
+                {...props}
+                {...fns}
+              />
+              }
+          />
+        </Routes>
+
       </MemoryRouter>
     );
     expect(testCourse).toExist;

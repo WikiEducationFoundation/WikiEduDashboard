@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
-import { withRouter } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
+import withRouter from '../util/withRouter';
+import { Route, Routes } from 'react-router-dom';
 import Timeline from './timeline.jsx';
 // import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -121,10 +121,10 @@ const TimelineHandler = createReactClass({
           component="div"
           timeout={500}
         >
-          <Switch>
-            <Route exact path="/courses/:course_school/:course_title/timeline/wizard" render={() => <Wizard {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/timeline/dates" render={() => <Meetings {...courseProps} />} />
-          </Switch>
+          <Routes>
+            <Route path="wizard" element={<Wizard {...courseProps} />} />
+            <Route path="dates" element={<Meetings {...courseProps} />} />
+          </Routes>
         </TransitionGroup>
 
         <Timeline

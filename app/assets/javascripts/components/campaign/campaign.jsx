@@ -1,5 +1,5 @@
-import { Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
+import withRouter from '../util/withRouter';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
@@ -21,7 +21,7 @@ export const Campaign = createReactClass({
   },
 
   componentDidMount() {
-    const campaignSlug = this.props.match.params.campaign_slug;
+    const campaignSlug = this.props.router.params.campaign_slug;
     return this.props.getCampaign(campaignSlug);
   },
 
@@ -54,10 +54,10 @@ export const Campaign = createReactClass({
             />}
           </section>
           {campaignHandler}
-          <Switch>
-            <Route exact path="/campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
-            <Route exact path="/campaigns/:campaign_slug/alerts" component={CampaignAlerts} />
-          </Switch>
+          <Routes>
+            <Route path="ores_plot" element={<CampaignOresPlot />} />
+            <Route path="alerts" element={<CampaignAlerts />} />
+          </Routes>
         </div>
       </div >
     );

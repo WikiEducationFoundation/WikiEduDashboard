@@ -6,7 +6,7 @@ import { includes, map, find } from 'lodash-es';
 import qs from 'query-string';
 import SelectedWikiOption from '../common/selected_wiki_option';
 import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
+import withRouter from '../util/withRouter';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -48,8 +48,8 @@ const ArticleFinder = createReactClass({
     if (this.props.course_id && this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
     }
-    if (this.props.location.project) {
-      return this.updateFields('home_wiki', { language: this.props.location.language, project: this.props.location.project });
+    if (this.props.router.location.project) {
+      return this.updateFields('home_wiki', { language: this.props.router.location.language, project: this.props.router.location.project });
     }
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },

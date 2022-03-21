@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import withRouter from '../../../../util/withRouter';
 
 // Components
 import PopoverExpandable from '@components/high_order/popover_expandable.jsx';
@@ -105,7 +105,7 @@ export class EnrollButton extends React.Component {
   }
 
   _courseLinkParams() {
-    return `/courses/${this.props.match.params.course_school}/${this.props.match.params.course_title}`;
+    return `/courses/${this.props.router.params.course_school}/${this.props.router.params.course_title}`;
   }
 
   render() {

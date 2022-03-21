@@ -13,12 +13,19 @@ import EditedUnassignedArticles from './EditedUnassignedArticles/EditedUnassigne
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 import setOtherEditedArticles from '@components/students/utils/setOtherEditedArticles';
 import ArticleUtils from '../../../../../utils/article_utils';
+import { selectUserByUsernameParam } from '../../../../util/helpers.js';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const SelectedStudent = ({
   groupedArticles, assignments, course, current_user, fetchArticleDetails,
-  fetchUserRevisions, hasExercisesOrTrainings, openKey, selected, setUploadFilters,
-  sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions
+  fetchUserRevisions, hasExercisesOrTrainings, openKey, setUploadFilters,
+  sort, sortUsers, toggleUI, trainingStatus, wikidataLabels, userRevisions,
+  students
 }) => {
+  const location = useLocation();
+  const { username } = useParams();
+  const selected = selectUserByUsernameParam(students, username);
+
   const {
     assigned, reviewing
   } = processAssignments({ assignments, course, current_user: selected });
@@ -116,7 +123,6 @@ SelectedStudent.propTypes = {
   fetchArticleDetails: PropTypes.func.isRequired,
   fetchUserRevisions: PropTypes.func.isRequired,
   groupedArticles: PropTypes.object.isRequired,
-  selected: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object,
   userRevisions: PropTypes.object,
   weeks: PropTypes.array
