@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
 
 import OnboardAPI from '../../utils/onboarding_utils.js';
@@ -43,7 +43,7 @@ export const OnboardingSupplementary = createReactClass({
     .then(() => {
       const returnTo = decodeURIComponent(this.props.returnToParam);
       const nextUrl = `/onboarding/permissions?return_to=${returnTo}`;
-      return this.props.history.push(nextUrl);
+      return this.props.router.navigate(nextUrl);
     })
     .catch(() => {
       this.props.addNotification({

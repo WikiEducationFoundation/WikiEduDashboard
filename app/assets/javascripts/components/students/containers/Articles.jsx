@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { generatePath } from 'react-router';
-import { Redirect, Route, Switch } from 'react-router-dom';
-
+import { Route, Routes } from 'react-router-dom';
+import withRouter from '../../util/withRouter';
 // Components
 import StudentsSubNavigation from '@components/students/components/StudentsSubNavigation.jsx';
 import Controls from '@components/students/components/Overview/Controls/Controls.jsx';
@@ -20,7 +20,7 @@ import { toggleUI } from '~/app/assets/javascripts/actions';
 
 // Utils
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
-import { getModulesAndBlocksFromWeeks, selectUserByUsernameParam } from '@components/util/helpers';
+import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
 
 export class Articles extends React.Component {
@@ -59,7 +59,6 @@ export class Articles extends React.Component {
 
     const { modules } = getModulesAndBlocksFromWeeks(weeks);
     const hasExercisesOrTrainings = !!modules.length;
-
     const groupedArticles = groupArticlesCoursesByUserId(articles);
     if (!students.length) return null;
     return (
@@ -94,46 +93,34 @@ export class Articles extends React.Component {
           </aside>
           <article className="student-details">
             <section className="assignments">
-              <Switch>
+              <Routes>
                 <Route
-                  exact
-                  path="/courses/:course_school/:course_title/students/articles/:username"
-                  render={({ match }) => {
-                    const selected = selectUserByUsernameParam(students, match.params.username);
-                    if (!selected) {
-                      return (
-                        <Redirect to={this.generateArticlesUrl(course)} />
-                      );
-                    }
-                    return (
-                      <SelectedStudent
-                        assignments={assignments}
-                        course={course}
-                        current_user={current_user}
-                        fetchArticleDetails={this.props.fetchArticleDetails}
-                        fetchUserRevisions={this.props.fetchUserRevisions}
-                        groupedArticles={groupedArticles}
-                        hasExercisesOrTrainings={hasExercisesOrTrainings}
-                        openKey={openKey}
-                        selected={selected}
-                        setUploadFilters={setUploadFilters}
-                        sort={sort}
-                        sortUsers={sortUsers}
-                        students={students}
-                        toggleUI={this.props.toggleUI}
-                        trainingStatus={trainingStatus}
-                        wikidataLabels={wikidataLabels}
-                        userRevisions={userRevisions}
-                      />
-                    );
-                  }}
+                  path=":username"
+                  element={<SelectedStudent
+                    assignments={assignments}
+                    course={course}
+                    current_user={current_user}
+                    fetchArticleDetails={this.props.fetchArticleDetails}
+                    fetchUserRevisions={this.props.fetchUserRevisions}
+                    groupedArticles={groupedArticles}
+                    hasExercisesOrTrainings={hasExercisesOrTrainings}
+                    openKey={openKey}
+                    setUploadFilters={setUploadFilters}
+                    sort={sort}
+                    sortUsers={sortUsers}
+                    students={students}
+                    toggleUI={this.props.toggleUI}
+                    trainingStatus={trainingStatus}
+                    wikidataLabels={wikidataLabels}
+                    userRevisions={userRevisions}
+                  />
+                  }
                 />
                 <Route
-                  exact
-                  path="/courses/:course_school/:course_title/students/articles"
-                  render={() => <NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />}
+                  path="*"
+                  element={<NoSelectedStudent string_prefix={course.string_prefix} project={course.home_wiki.project} />}
                 />
-              </Switch>
+              </Routes>
             </section>
           </article>
         </section>
@@ -176,4 +163,4 @@ const mapDispatchToProps = {
   toggleUI
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Articles);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Articles));

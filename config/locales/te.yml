@@ -67,6 +67,7 @@ te:
     search: వెతుకు
   courses:
     accounts_generation_enabled: ఖాతా అభ్యర్థన సృష్టిని చేతనం చేసాం
+    active_courses: క్రియాశీల కోర్సులు
     cancel: రద్దుచేయి
     duration: కోర్సు కాలపరిమితి
     new_account_username: కోరిన వాడుకరిపేరు

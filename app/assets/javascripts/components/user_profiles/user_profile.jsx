@@ -10,6 +10,7 @@ import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
 import request from '../../utils/request';
+import withRouter from '../util/withRouter';
 
 const UserProfile = createReactClass({
   propTypes: {
@@ -25,14 +26,14 @@ const UserProfile = createReactClass({
   },
 
   componentDidMount() {
-    const username = encodeURIComponent(this.props.match.params.username);
+    const username = encodeURIComponent(this.props.router.params.username);
     this.props.fetchUserTrainingStatus(username);
     this.props.fetchStats(username);
     this.getData();
   },
 
   getData() {
-    const username = encodeURIComponent(this.props.match.params.username);
+    const username = encodeURIComponent(this.props.router.params.username);
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
 
     request(statsdataUrl)
@@ -49,7 +50,7 @@ const UserProfile = createReactClass({
 
     return (
       <div>
-        <ContributionStats params={this.props.match.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
+        <ContributionStats params={this.props.router.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
         <CourseDetails courses={this.props.stats.courses_details} />
         <UserUploads uploads={this.props.stats.user_recent_uploads} />
         <UserTrainingStatus trainingModules={this.props.trainingStatus} />
@@ -69,4 +70,4 @@ const mapDispatchToProps = ({
   fetchUserTrainingStatus
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfile));

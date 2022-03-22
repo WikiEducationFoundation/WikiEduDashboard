@@ -34,7 +34,7 @@ class ConstantUpdate
     update_new_article_ratings
     update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
-    log_end_of_update 'Constant update finished.'
+    sparse_log_end_of_update 'Constant update finished.', UpdateLogger.number_of_constant_updates
   # rubocop:disable Lint/RescueException
   rescue Exception => e
     log_end_of_update 'Constant update failed.'

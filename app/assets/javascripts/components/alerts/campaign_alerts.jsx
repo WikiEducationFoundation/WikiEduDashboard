@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withRouter from '../util/withRouter';
 import { connect } from 'react-redux';
 
 import AlertsHandler from './alerts_handler.jsx';
@@ -39,7 +40,7 @@ class CampaignAlerts extends React.Component {
   }
 
   getCampaignSlug() {
-    return `${this.props.match.params.campaign_slug}`;
+    return `${this.props.router.params.campaign_slug}`;
   }
 
   render() {
@@ -59,4 +60,4 @@ CampaignAlerts.propTypes = {
 
 const mapDispatchToProps = { fetchCampaignAlerts, filterAlerts };
 
-export default connect(null, mapDispatchToProps)(CampaignAlerts);
+export default withRouter(connect(null, mapDispatchToProps)(CampaignAlerts));

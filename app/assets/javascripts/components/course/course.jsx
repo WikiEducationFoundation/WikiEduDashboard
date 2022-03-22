@@ -4,8 +4,8 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { parse } from 'query-string';
-import { Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
+import withRouter from '../util/withRouter';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
 import StudentsTabHandler from '../students/containers/StudentsTabHandler';
@@ -28,7 +28,7 @@ import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 
-export const Course = createReactClass({
+export const Course = withRouter(createReactClass({
   displayName: 'Course',
 
   propTypes: {
@@ -52,12 +52,12 @@ export const Course = createReactClass({
   },
 
   getCourseSlug() {
-    const { course_school, course_title } = this.props.match.params;
+    const { course_school, course_title } = this.props.router.params;
     return `${course_school}/${course_title}`;
   },
 
   showEnrollCard(course) {
-    const location = this.props.location;
+    const location = this.props.router.location;
     const query = parse(location.search);
     // Only show it on the main url
     if (!CourseUtils.onHomeTab(location)) { return false; }
@@ -70,7 +70,7 @@ export const Course = createReactClass({
   },
 
   _courseLinkParams() {
-    return `/courses/${this.props.match.params.course_school}/${this.props.match.params.course_title}`;
+    return `/courses/${this.props.router.params.course_school}/${this.props.router.params.course_title}`;
   },
 
   render() {
@@ -85,7 +85,7 @@ export const Course = createReactClass({
     // //////////////////
     let enrollCard;
     if (this.showEnrollCard(course)) {
-      const query = parse(this.props.location.search);
+      const query = parse(this.props.router.location.search);
       enrollCard = (
         <EnrollCard
           user={this.props.currentUser}
@@ -105,7 +105,7 @@ export const Course = createReactClass({
           <Affix className="course_navigation" offset={57}>
             <CourseNavbar
               course={course}
-              location={this.props.location}
+              location={this.props.router.location}
               currentUser={this.props.currentUser}
               courseLink={this._courseLinkParams()}
             />
@@ -127,24 +127,24 @@ export const Course = createReactClass({
         <div className="course_main container">
           <Confirm />
           {enrollCard}
-          <Switch>
-            <Route exact path="/courses/:course_school/:course_title" render={() => <OverviewHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/home" render={() => <OverviewHandler {...courseProps} />} />
+          <Routes>
+            <Route path="/" element={<OverviewHandler {...courseProps} />} />
+            <Route path="home" element={<OverviewHandler {...courseProps} />} />
             {/* The overview route path should not be removed in order to preserve the default url */}
-            <Route exact path="/courses/:course_school/:course_title/overview" render={() => <OverviewHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/activity" render={() => <ActivityHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/students" render={() => <StudentsTabHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/articles" render={() => <ArticlesHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/uploads" render={() => <UploadsHandler {...courseProps} />} />
-            <Route exact path="/courses/:course_school/:course_title/article_finder" render={() => <ArticleFinder {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/timeline" render={() => <TimelineHandler {...courseProps} />} />
-            <Route path="/courses/:course_school/:course_title/resources" render={() => <Resources {...courseProps} />} />
-          </Switch>
+            <Route path="overview" element={<OverviewHandler {...courseProps} />} />
+            <Route path="activity/*" element={<ActivityHandler {...courseProps} />} />
+            <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
+            <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
+            <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
+            <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
+            <Route path="timeline/*" element={<TimelineHandler {...courseProps} />} />
+            <Route path="resources" element={<Resources {...courseProps} />} />
+          </Routes>
         </div>
       </div>
     );
   }
-});
+}));
 
 const mapStateToProps = state => ({
   courseAlerts: state.courseAlerts,
@@ -166,4 +166,4 @@ const mapDispatchToProps = {
   dismissNotification
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Course));
+export default connect(mapStateToProps, mapDispatchToProps)(Course);

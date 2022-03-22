@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { withRouter } from 'react-router';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import withRouter from '../util/withRouter';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import SubNavigation from '../common/sub_navigation.jsx';
 import CourseAlertsList from '../alerts/course_alerts_list';
@@ -40,23 +40,12 @@ export const ActivityHandler = createReactClass({
     return (
       <div className="activity-handler">
         <SubNavigation links={links}/>
-        <Switch>
-          <Route
-            exact path="/courses/:course_school/:course_title/activity/recent"
-            render={() => <RevisionHandler {...this.props}/>}
-          />
-          <Route
-            exact path="/courses/:course_school/:course_title/activity/alerts"
-            render={() => <CourseAlertsList {...this.props} />}
-          />
-          <Route
-            exact path="/courses/:course_school/:course_title/activity/plagiarism"
-            render={() => <PossiblePlagiarismHandler {...this.props} />}
-          />
-          <Redirect
-            to={{ pathname: '/courses/:course_school/:course_title/activity/recent' }}
-          />
-        </Switch>
+        <Routes>
+          <Route path="recent" element={<RevisionHandler {...this.props}/>} />
+          <Route path="alerts" element={<CourseAlertsList {...this.props} />} />
+          <Route path="plagiarism" element={<PossiblePlagiarismHandler {...this.props} />}/>
+          <Route path="*" element={<Navigate replace to="recent"/>}/>
+        </Routes>
       </div>
     );
   }

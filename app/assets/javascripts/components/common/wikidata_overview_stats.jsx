@@ -8,14 +8,31 @@ const WikidataOverviewStats = ({ statistics }) => {
     <div className="wikidata-stats-container">
       <h2 className="wikidata-stats-title">Wikidata stats</h2>
       <div className="wikidata-display">
-        <div className="single-stat">
-          <OverviewStat
-            id="total-revisions"
-            className="stat-display__value-small"
-            stat={statistics['total revisions']}
-            statMsg={I18n.t('metrics.total_revisions')}
-            renderZero={true}
-          />
+        <div className="stat-display__row">
+          <h5 className="stats-label">{I18n.t('metrics.general')}</h5>
+          <div className="stat-display__value-group">
+            <OverviewStat
+              id="total-revisions"
+              className="stat-display__value-small"
+              stat={statistics['total revisions']}
+              statMsg={I18n.t('metrics.total_revisions')}
+              renderZero={true}
+            />
+            <OverviewStat
+              id="merged"
+              className="stat-display__value-small"
+              stat = {statistics['merged to']}
+              statMsg={I18n.t('metrics.merged')}
+              renderZero={true}
+            />
+            <OverviewStat
+              id="interwiki-links"
+              className="stat-display__value-small"
+              stat = {statistics['interwiki links added']}
+              statMsg={I18n.t('metrics.interwiki_links_added')}
+              renderZero={true}
+            />
+          </div>
         </div>
         <div className="stat-display__row">
           <h5 className="stats-label">{I18n.t('items.items')}</h5>
@@ -114,24 +131,6 @@ const WikidataOverviewStats = ({ statistics }) => {
             />
           </div>
         </div>
-        <div className="single-stat">
-          <OverviewStat
-            id="merged"
-            className="stat-display__value-small"
-            stat = {statistics['merged to']}
-            statMsg={I18n.t('metrics.merged')}
-            renderZero={true}
-          />
-        </div>
-        <div className="single-stat">
-          <OverviewStat
-            id="interwiki-links"
-            className="stat-display__value-small"
-            stat = {statistics['interwiki links added']}
-            statMsg={I18n.t('metrics.interwiki_links_added')}
-            renderZero={true}
-          />
-        </div>
         <div className="stat-display__row">
           <h5 className="stats-label">Aliases</h5>
           <div className="stat-display__value-group">
@@ -158,9 +157,23 @@ const WikidataOverviewStats = ({ statistics }) => {
             />
           </div>
         </div>
-        <div className="stat-display__row">
+        <div className="stat-display__row double-row">
           <h5 className="stats-label">Other</h5>
-          <div className="stat-display__value-group">
+          <div className="stat-display__value-group double">
+            <OverviewStat
+              id="qualifiers-added"
+              className="stat-display__value-small"
+              stat={statistics['qualifiers added']}
+              statMsg={I18n.t('metrics.qualifiers_added')}
+              renderZero={true}
+            />
+            <OverviewStat
+              id="references-added"
+              className="stat-display__value-small"
+              stat={statistics['references added']}
+              statMsg={I18n.t('metrics.references_added')}
+              renderZero={true}
+            />
             <OverviewStat
               id="redirects-created"
               className="stat-display__value-small"
@@ -168,6 +181,8 @@ const WikidataOverviewStats = ({ statistics }) => {
               statMsg={I18n.t('metrics.redirects_created')}
               renderZero={true}
             />
+          </div>
+          <div className="stat-display__value-group double">
             <OverviewStat
               id="reverts-performed"
               className="stat-display__value-small"
@@ -181,13 +196,6 @@ const WikidataOverviewStats = ({ statistics }) => {
               stat={statistics['restorations performed']}
               statMsg={I18n.t('metrics.restorations_performed')}
               renderZero={true} i
-            />
-            <OverviewStat
-              id="qualifiers-added"
-              className="stat-display__value-small"
-              stat={statistics['qualifiers added']}
-              statMsg={I18n.t('metrics.qualifiers_added')}
-              renderZero={true}
             />
             <OverviewStat
               id="other-updates"

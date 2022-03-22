@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from '../common/css_transition_group';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 
 import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
@@ -65,7 +65,7 @@ const Wizard = createReactClass({
     unloadEvents();
   },
   timelinePath() {
-    const routes = this.props.location.pathname.split('/');
+    const routes = this.props.router.location.pathname.split('/');
     routes.pop();
     return routes.join('/');
   },

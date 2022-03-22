@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { withRouter } from 'react-router';
+import withRouter from '../../../../util/withRouter';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -46,9 +46,9 @@ const Student = createReactClass({
   },
 
   openStudentDetails() {
-    const { course, history, student } = this.props;
+    const { course, router, student } = this.props;
     const url = `/courses/${course.slug}/students/articles/${encodeURIComponent(student.username)}`;
-    return history.push(url);
+    return router.navigate(url);
   },
 
   _shouldShowRealName() {

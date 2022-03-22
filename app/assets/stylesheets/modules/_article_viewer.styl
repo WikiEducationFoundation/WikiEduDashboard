@@ -1,4 +1,7 @@
 .article-viewer
+  display grid
+  grid-template-rows max-content 1fr max-content
+  max-height calc(100vh - 140px)
   background-color white
   position fixed
   top 70px
@@ -46,12 +49,13 @@
 .article-footer
   border-top 1px solid mischka !important
   font-size 90%
+  max-height: calc((100vh - 140px) * 0.2)
   overflow-y auto
   overflow-x hidden
-  max-height 92px
   width 100%
   div
     float left
+    overflow hidden
 
 .article-viewer-button
   margin 10px
@@ -63,7 +67,6 @@
   color $warning_text
 
 .user-legend-wrap
-  position: absolute
   width 90%
   background white
 

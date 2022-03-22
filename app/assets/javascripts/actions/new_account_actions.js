@@ -27,19 +27,31 @@ export const checkAvailability = newAccount => (dispatch) => {
   return (
     _checkAvailability(newAccount)
       .then((resp) => {
-        if (resp.cancreate === '') {
+        // As of 2022-03-17, responses look like this:
+        // Valid: {"batchcomplete":"","query":{"users":[{"name":"Something Something New Editor","missing":"","cancreate":""}]}}
+        // Taken: {"batchcomplete":"","query":{"users":[{userid: 28076, name: 'Ragesoss'}]}}
+        // Too similar: {"batchcomplete":"","query":{"users":[{"name":"Rages0ss","missing":"","cancreateerror":[{"message":"$1","params":["The username &quot;Rages0ss&quot; is too similar to the following username:<ul><li>Ragesoss</li></ul>Please choose another username."],"code":"_1","type":"error"}]}]}}
+        if (canCreateAccount(resp)) {
           return dispatch({ type: types.NEW_ACCOUNT_USERNAME_VALID });
         }
-        return dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCancreateResponse(resp) });
+        return dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCanCreateResponse(resp) });
       }).catch(response => (dispatch({ type: types.API_FAIL, data: response })))
   );
 };
 
+const canCreateAccount = (response) => {
+  const user = response.query.users[0];
+  if (user.cancreate === '') {
+    return true;
+  }
+  return false;
+};
 
-const parseCancreateResponse = (response) => {
-  if (response.cancreateerror) {
-    const error = response.cancreateerror[0];
-    if (error.code === '$1') {
+const parseCanCreateResponse = (response) => {
+  const user = response.query.users[0];
+  if (user.cancreateerror) {
+    const error = user.cancreateerror[0];
+    if (error.code === '_1') {
       return error.params[0];
     } else if (error.code === 'userexists') {
       return I18n.t('courses.new_account_username_taken');
@@ -48,7 +60,7 @@ const parseCancreateResponse = (response) => {
     }
     return error.code;
   }
-  if (response.missing !== '') {
+  if (user.missing !== '') {
     return I18n.t('courses.new_account_username_taken');
   }
   return 'unknown error';

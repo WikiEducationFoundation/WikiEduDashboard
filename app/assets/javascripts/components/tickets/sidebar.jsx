@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { withRouter } from 'react-router';
+import withRouter from '../util/withRouter';
 import { Link } from 'react-router-dom';
 
 import TicketStatusHandler from './ticket_status_handler';
@@ -20,7 +20,7 @@ export class Sidebar extends React.Component {
     if (!confirm('Are you sure you want to delete this ticket?')) return;
 
     this.props.deleteTicket(this.props.ticket.id)
-      .then(() => this.props.history.push('/tickets/dashboard'));
+      .then(() => this.props.router.navigate('/tickets/dashboard'));
   }
 
   render() {

@@ -35,7 +35,7 @@ const Milestones = createReactClass({
       return milestoneBlocks.map((block) => {
         let classNames = 'module__data';
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
-        const rawHtml = md.render(block.content);
+        const rawHtml = md.render(block.content || '');
         const completionNote = this.weekIsCompleted(week, currentWeek) ? '- Complete' : undefined;
         return blocks.push(
           <div key={block.id} className="section-header">

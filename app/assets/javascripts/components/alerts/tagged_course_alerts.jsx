@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import withRouter from '../util/withRouter';
 import AlertsHandler from './alerts_handler.jsx';
 import { fetchTaggedCourseAlerts, filterAlerts } from '../../actions/alert_actions';
 
@@ -18,7 +18,7 @@ class TaggedCourseAlerts extends React.Component {
   }
 
   getTag() {
-    return `${this.props.match.params.tag}`;
+    return `${this.props.router.params.tag}`;
   }
 
   render() {
@@ -37,4 +37,4 @@ TaggedCourseAlerts.propTypes = {
 
 const mapDispatchToProps = { fetchTaggedCourseAlerts, filterAlerts };
 
-export default connect(null, mapDispatchToProps)(TaggedCourseAlerts);
+export default withRouter(connect(null, mapDispatchToProps)(TaggedCourseAlerts));

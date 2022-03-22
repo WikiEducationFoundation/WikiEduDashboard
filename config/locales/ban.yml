@@ -36,6 +36,7 @@ ban:
     request_account_create: Kardi akun
     sign_up_log_in_extended: sareng Wikipédia
     sign_up: Daptar
+    submit: Kirim
     training: Palatihan
     change: Uah
     details: Rerincén
@@ -50,6 +51,8 @@ ban:
     explore: Jelajahin
     log_in: Manjing log antuk Wikipédia
     sign_up: Manjing log antuk Wikipédia
+  alerts:
+    alert_label: Pakeling
   activity:
     all: Parilaksana
     edited_by: 'Kauahin olih:'
@@ -58,15 +61,19 @@ ban:
     articles: Suratan
     next: Selanturné
     previous: Sadurungné
+    article_title: Murda suratan
+    deleted: (kausap)
     edited: Suratan sané kauahin
     edited_by: 'Kauahin olih:'
     edited_mobile: Suratan
     filter:
       wiki_all: Sinamian
       new: Anyar
+      new_and_existing: Anyar lan Eksisting
     hide: Engkebang
     history: (babad)
     label: Suratan
+    loading: Ngamuat suratan...
     new: (anyar)
     rating: Kelas
     see_more: Cingak malih
@@ -84,6 +91,8 @@ ban:
   articles_generic:
     articles_short: Kaca
   assignments:
+    article_link: Suratan
+    article_link_wikidata: Item
     clone: Sineb
     group_members: Semeton grup
   campaign:

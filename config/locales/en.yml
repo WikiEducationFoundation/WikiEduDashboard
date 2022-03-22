@@ -1011,6 +1011,7 @@ en:
     wiki_ed_help: Use the 'Get Help' button to report a problem.
     word_count: Words Added
     word_count_average: Average Word Count
+    general: General
     total_revisions: Total revisions
     claims: Claims
     aliases: Aliases
@@ -1028,6 +1029,7 @@ en:
     other_updates: Other updates
     qualifiers_added: Qualifiers added
     redirects_created: Redirects created
+    references_added: References added
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
 

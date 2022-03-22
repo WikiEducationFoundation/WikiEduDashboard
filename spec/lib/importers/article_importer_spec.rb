@@ -59,5 +59,13 @@ describe ArticleImporter do
         expect(Article.find_by(title: 'Selfie').mw_page_id).to eq(6210294)
       end
     end
+
+    it 'updates the title if the article with that mw_page_id exists already' do
+      create(:article, title: 'Constantinople', mw_page_id: 3391396)
+      VCR.use_cassette 'article_importer/collisions' do
+        described_class.new(en_wiki).import_articles_by_title(['Istanbul'])
+        expect(Article.find_by(title: 'Istanbul').mw_page_id).to eq(3391396)
+      end
+    end
   end
 end
