@@ -6,7 +6,7 @@ document.onreadystatechange = () => {
     if (e.target.tagName === 'BUTTON') return;
 
     const loc = e.currentTarget.dataset.link;
-    if (e.metaKey || (window.navigator.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
+    if (e.metaKey || (window.navigator.userAgentData.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
       window.open(loc, '_blank');
     } else {
       window.location = loc;
