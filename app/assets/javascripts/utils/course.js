@@ -1,7 +1,7 @@
 const { List } = window;
-$(() => {
-  // Find tables with rows with data-link attribute, then make them clickable
-  $('tr[data-link]').on('click', (e) => {
+document.onreadystatechange = () => {
+// Find tables with rows with data-link attribute, then make them clickable
+  document.querySelector('tr[data-link]').addEventListener('click', (e) => {
     // skip if a button was clicked (used for other actions)
     if (e.target.tagName === 'BUTTON') return;
 
@@ -17,7 +17,7 @@ $(() => {
   // Course sorting
   // only sort if there are tables to sort
   let courseList;
-  if ($('#courses table').length) {
+  if (document.querySelectorAll('#courses table').length) {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
@@ -30,7 +30,7 @@ $(() => {
   // Course Results sorting
   // only sort if there are tables to sort
   let courseResultList;
-  if ($('#course_results table').length) {
+  if (document.querySelectorAll('#course_results table').length) {
     courseResultList = new List('course_results', {
       page: 500,
       valueNames: [
@@ -43,7 +43,7 @@ $(() => {
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
-  if ($('#campaigns table').length) {
+  if (document.querySelectorAll('#campaigns table').length) {
     campaignList = new List('campaigns', {
       page: 500,
       valueNames: [
@@ -55,7 +55,7 @@ $(() => {
   // Article sorting
   // only sort if there are tables to sort
   let articlesList;
-  if ($('#campaign-articles table').length) {
+  if (document.querySelectorAll('#campaign-articles table').length) {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
@@ -67,7 +67,7 @@ $(() => {
   // Student sorting
   // only sort if there are tables to sort
   let studentsList;
-  if ($('#users table').length) {
+  if (document.querySelectorAll('#users table').length) {
     studentsList = new List('users', {
       page: 10000,
       valueNames: [
@@ -77,7 +77,7 @@ $(() => {
   }
 
   // for use on campaign/programs page
-  $('.remove-course').on('click', (e) => {
+  document.querySelector('.remove-course').addEventListener('click', (e) => {
     const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
       title: e.target.dataset.title,
       campaign_title: e.target.dataset.campaignTitle
@@ -87,9 +87,9 @@ $(() => {
     }
   });
 
-  return $('select.sorts').on('change', function () {
+  return document.querySelector('select.sorts').addEventListener('change', function () {
     const list = (() => {
-      switch ($(this).attr('rel')) {
+      switch (document.querySelector(this).attr('rel')) {
         case 'courses': return courseList;
         case 'course_results': return courseResultList;
         case 'campaigns': return campaignList;
@@ -99,9 +99,9 @@ $(() => {
       }
 })();
     if (list) {
-      return list.sort($(this).val(), {
-        order: $(this).children('option:selected').attr('rel')
+      return list.sort(document.querySelector(this).value, {
+        order: document.querySelector(this).children('option:selected').attr('rel')
       });
     }
   });
-});
+};
