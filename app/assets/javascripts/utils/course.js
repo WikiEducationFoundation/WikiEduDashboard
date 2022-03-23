@@ -77,18 +77,17 @@ document.onreadystatechange = () => {
   }
 
   // for use on campaign/programs page
-  const x = document.querySelectorAll('.remove-course');
-  for (let i = 0; i < x.length; i += 1) {
-   x[i].addEventListener('click', (e) => {
+  document.querySelectorAll('.remove-course').forEach((item) => {
+    item.addEventListener('click', (e) => {
       const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
-        title: e.target.dataset.title,
-        campaign_title: e.target.dataset.campaignTitle
-      }));
+          title: e.target.dataset.title,
+          campaign_title: e.target.dataset.campaignTitle
+        }));
       if (!confirmed) {
         e.preventDefault();
       }
     });
-  }
+  });
 
   return document.querySelectorAll('select.sorts').forEach((item) => {
     item.addEventListener('change', () => {
