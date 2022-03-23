@@ -77,31 +77,41 @@ document.onreadystatechange = () => {
   }
 
   // for use on campaign/programs page
-  document.querySelector('.remove-course').addEventListener('click', (e) => {
-    const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
-      title: e.target.dataset.title,
-      campaign_title: e.target.dataset.campaignTitle
-    }));
-    if (!confirmed) {
-      e.preventDefault();
-    }
-  });
-
-  return document.querySelector('select.sorts').addEventListener('change', function () {
-    const list = (() => {
-      switch (document.querySelector(this).attr('rel')) {
-        case 'courses': return courseList;
-        case 'course_results': return courseResultList;
-        case 'campaigns': return campaignList;
-        case 'campaign-articles': return articlesList;
-        case 'users': return studentsList;
-        default: break;
+  const x = document.querySelectorAll('.remove-course');
+  for (let i = 0; i < x.length; i += 1) {
+   x[i].addEventListener('click', (e) => {
+      const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
+        title: e.target.dataset.title,
+        campaign_title: e.target.dataset.campaignTitle
+      }));
+      if (!confirmed) {
+        e.preventDefault();
       }
-})();
-    if (list) {
-      return list.sort(document.querySelector(this).value, {
-        order: document.querySelector(this).children('option:selected').attr('rel')
-      });
-    }
+    });
+  }
+
+  return document.querySelectorAll('select.sorts').forEach((item) => {
+    item.addEventListener('change', () => {
+      const list = (() => {
+        switch (item.getAttribute('rel')) {
+          case 'courses': return courseList;
+          case 'course_results': return courseResultList;
+          case 'campaigns': return campaignList;
+          case 'campaign-articles': return articlesList;
+          case 'users': return studentsList;
+          default: break;
+        }
+      })();
+      if (list) {
+        return list.sort(item.value, {
+          order: item.children.forEach((kid) => {
+              if (kid.tagName === 'option:selected') {
+                kid.getAttribute('rel');
+              }
+            })
+          });
+        }
+      }
+    );
   });
 };
