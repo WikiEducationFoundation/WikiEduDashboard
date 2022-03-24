@@ -12,7 +12,9 @@
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: DDPAT
+# Author: Danniel07
 # Author: Dgstranz
+# Author: DiegoAmbrocio
 # Author: Fitoschido
 # Author: Fortega
 # Author: Ice bulldog
@@ -690,6 +692,8 @@ es:
     view: Visualizaciones
     word_count: Palabras añadidas
     word_count_average: Promedio de recuento de palabras
+    general: General
+    references_added: Referencias añadidas
   namespace:
     main: Espacio principal
     main_char_added: Caracteres añadidos en el espacio principal

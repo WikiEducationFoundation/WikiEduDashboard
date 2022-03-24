@@ -271,6 +271,7 @@ zh-TW:
     data_editors_by_course_info: 已登記編輯者與他們的課程/方案清單
     data_editor_usernames: 編輯者使用者名稱
     data_editor_usernames_info: 編輯者使用者名稱清單，一行一個
+    data_wikidata: 維基數據統計
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
@@ -292,6 +293,7 @@ zh-TW:
     slug: 代稱
     search_campaigns: 搜尋競賽
     use_start_end_dates: 使用起始和結束時間
+    search: 搜尋
   categories:
     add_category: 新增分類
     add_psid: 添加 PetScan PSID

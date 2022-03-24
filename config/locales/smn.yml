@@ -24,9 +24,9 @@ smn:
     greeting: Tiervâ!
     help: Iše
     home: Ovdâsijđo
-    log_in_extended: Čäälit siisâ Wikipediain
-    log_in: Čäliškyeđe siisâ
-    log_out: Čäälit jieijâd olgos
+    log_in_extended: Čáládât siisâ Wikipediain
+    log_in: Čáládât siisâ
+    log_out: Čáládât olgos
     recent_activity: Vorâs nubástusah
     report_problem: Almoot čuolmâst
     request_account_create: Räähti tubdâlduv
@@ -35,6 +35,8 @@ smn:
     confirm: OK
     opt_in: Joo
     opt_out: Ij
+  home:
+    log_in: Čáládât siisâ Wikipedia peht
   articles:
     articles: Artikkâleh
     next: Čuávuvâš
@@ -67,10 +69,12 @@ smn:
     name: Nommâ
     template_name: Myenster nommâ
   courses:
+    alerts: Larmâdâsah
     articles: Artikkâleh
     home_wiki: Päikkiwiki
     new_account_email: Šleđgâpostâčujottâs
     overview: Päikki
+    please_log_in: Čáládât siisâ.
     tags: 'Kilgoleh:'
   courses_generic:
     creator:
@@ -80,6 +84,7 @@ smn:
   metrics:
     close_modal: Toopâ
     tags: Kilgoleh
+    upload_count: Vuorkkiimeh Commonsin
   namespace:
     user_ns: Kevttee
   recent_activity:

@@ -310,6 +310,7 @@ bn:
     tags: ট্যাগসমূহ
     word_count: যুক্ত শব্দসমূহ
     word_count_average: গড় শব্দ গণনা
+    general: সাধারণ
   namespace:
     main: নামস্থান
     user: ব্যবহারকারীস্থান

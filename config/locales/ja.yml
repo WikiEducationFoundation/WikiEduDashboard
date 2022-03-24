@@ -614,6 +614,7 @@ ja:
     view_count_description: 記事の閲覧数
     view_data_unavailable: 閲覧数のデータなし
     view: 閲覧回数
+    general: 全般
     aliases: 別名
     merged: 統合
     created: 作成
@@ -626,6 +627,7 @@ ja:
     no_data: データがありません
     other_updates: 他の更新
     redirects_created: リダイレクトが作成されました
+    references_added: 参考文献を追加しました
     reverts_performed: 差し戻しは実行されました
   namespace:
     main: メイン空間
