@@ -92,8 +92,6 @@ describe WikimediaEventCenterController, type: :request do
   end
 
   describe '#update_event_participants' do
-    let(:event_id) { '12345' }
-
     subject do
       post '/wikimedia_event_center/update_event_participants', params: {
         course_slug: course.slug,
@@ -104,6 +102,8 @@ describe WikimediaEventCenterController, type: :request do
         format: :json
       }
     end
+
+    let(:event_id) { '12345' }
 
     before do
       course.flags[:event_sync] = '12345'
@@ -127,7 +127,8 @@ describe WikimediaEventCenterController, type: :request do
       let(:usernames) { [] }
 
       before do
-        JoinCourse.new(course: course, user: non_organizer, role: CoursesUsers::Roles::STUDENT_ROLE)
+        JoinCourse.new(course: course, user: non_organizer,
+                       role: CoursesUsers::Roles::STUDENT_ROLE, event_sync: true)
       end
 
       it 'removes participants' do
