@@ -1,19 +1,20 @@
 const { List } = window;
 document.onreadystatechange = () => {
-// Find tables with rows with data-link attribute, then make them clickable
-  document.querySelector('tr[data-link]').addEventListener('click', (e) => {
-    // skip if a button was clicked (used for other actions)
-    if (e.target.tagName === 'BUTTON') return;
+  if (document.readyState === 'complete') {
+    // Find tables with rows with data-link attribute, then make them clickable
+    document.querySelector('tr[data-link]')?.addEventListener('click', (e) => {
+      // skip if a button was clicked (used for other actions)
+      if (e.target.tagName === 'BUTTON') return;
 
-    const loc = e.currentTarget.dataset.link;
-    if (e.metaKey || (window.navigator.userAgentData.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
+      const loc = e.currentTarget.dataset.link;
+      if (e.metaKey || (window.navigator.userAgentData.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
       window.open(loc, '_blank');
-    } else {
-      window.location = loc;
-    }
-    return false;
-  });
-
+      } else {
+        window.location = loc;
+      }
+      return false;
+    });
+  }
   // Course sorting
   // only sort if there are tables to sort
   let courseList;
@@ -78,7 +79,7 @@ document.onreadystatechange = () => {
 
   // for use on campaign/programs page
   document.querySelectorAll('.remove-course').forEach((item) => {
-    item.addEventListener('click', (e) => {
+    item?.addEventListener('click', (e) => {
       const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
           title: e.target.dataset.title,
           campaign_title: e.target.dataset.campaignTitle
@@ -90,7 +91,7 @@ document.onreadystatechange = () => {
   });
 
   return document.querySelectorAll('select.sorts').forEach((item) => {
-    item.addEventListener('change', () => {
+    item?.addEventListener('change', () => {
       const list = (() => {
         switch (item.getAttribute('rel')) {
           case 'courses': return courseList;
@@ -103,7 +104,7 @@ document.onreadystatechange = () => {
       })();
       if (list) {
         return list.sort(item.value, {
-          order: item.children.forEach((kid) => {
+          order: Array.from(item.children).forEach((kid) => {
               if (kid.tagName === 'option:selected') {
                 kid.getAttribute('rel');
               }
