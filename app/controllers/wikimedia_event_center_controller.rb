@@ -120,7 +120,8 @@ class WikimediaEventCenterController < ApplicationController
       next unless user
       JoinCourse.new(course: @course,
                      user: user,
-                     role: CoursesUsers::Roles::STUDENT_ROLE)
+                     role: CoursesUsers::Roles::STUDENT_ROLE,
+                     event_sync: true)
     end
   end
 

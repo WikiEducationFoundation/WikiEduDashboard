@@ -384,6 +384,10 @@ class Course < ApplicationRecord
     edit_settings['enrollment_edits_enabled']
   end
 
+  def controlled_by_event_center?
+    flags[:event_sync].present?
+  end
+
   def peer_review_count
     flags[:peer_review_count]
   end

@@ -6,12 +6,13 @@ require_dependency "#{Rails.root}/lib/course_cache_manager"
 class JoinCourse
   attr_reader :result
 
-  def initialize(course:, user:, role:, real_name: nil, role_description: nil)
+  def initialize(course:, user:, role:, real_name: nil, role_description: nil, event_sync: false)
     @course = course
     @user = user
     @role = role
     @real_name = real_name
     @role_description = role_description
+    @event_sync = event_sync
     process_join_request
   end
 
@@ -30,6 +31,8 @@ class JoinCourse
       @result = { 'failure' => 'cannot_join_twice' }
     elsif course_withdrawn?
       @result = { 'failure' => 'withdrawn' }
+    elsif invalid_sync?
+      @result = { 'failure' => 'invalid_sync' }
     elsif student_joining_before_approval?
       @result = { 'failure' => 'not_yet_approved' }
     else
@@ -52,6 +55,14 @@ class JoinCourse
 
   def course_withdrawn?
     @course.withdrawn
+  end
+
+  def invalid_sync?
+    # If this is an `event_sync` request, the course must
+    # have event sync enabled. Otherwise, it must *not* have
+    # event sync enabled.
+    return false unless student_role? # other roles are not handled by event sync
+    @course.controlled_by_event_center? != @event_sync
   end
 
   def student_joining_before_approval?

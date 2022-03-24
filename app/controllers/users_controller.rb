@@ -140,6 +140,11 @@ class UsersController < ApplicationController
   def remove
     set_course_and_user
     return if @user.nil?
+    # For events controlled by Event Center, only non-student roles
+    # can be changed on the Dashboard. Student role is handled
+    # via WikimediaEventCenterController.
+    return if @course.controlled_by_event_center? && student_role?
+
     @course_user = CoursesUsers.find_by(user_id: @user.id,
                                         course_id: @course.id,
                                         role: enroll_params[:role])
