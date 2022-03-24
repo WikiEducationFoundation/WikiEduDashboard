@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/course_cache_manager"
 class JoinCourse
   attr_reader :result
 
+  # rubocop:disable Metrics/ParameterLists
   def initialize(course:, user:, role:, real_name: nil, role_description: nil, event_sync: false)
     @course = course
     @user = user
@@ -15,6 +16,7 @@ class JoinCourse
     @event_sync = event_sync
     process_join_request
   end
+  # rubocop:enable Metrics/ParameterLists
 
   private
 
