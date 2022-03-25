@@ -78,40 +78,34 @@ document.onreadystatechange = () => {
   }
 
   // for use on campaign/programs page
-  document.querySelectorAll('.remove-course').forEach((item) => {
-    item?.addEventListener('click', (e) => {
-      const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
+  const x = document.querySelectorAll('.remove-course');
+  for (let i = 0; i < x.length; i += 1) {
+    x[i]?.addEventListener('click', (e) => {
+        const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
           title: e.target.dataset.title,
           campaign_title: e.target.dataset.campaignTitle
         }));
-      if (!confirmed) {
-        e.preventDefault();
-      }
+        if (!confirmed) {
+          e.preventDefault();
+        }
     });
-  });
+  }
 
-  return document.querySelectorAll('select.sorts').forEach((item) => {
-    item?.addEventListener('change', () => {
-      const list = (() => {
-        switch (item.getAttribute('rel')) {
-          case 'courses': return courseList;
-          case 'course_results': return courseResultList;
-          case 'campaigns': return campaignList;
-          case 'campaign-articles': return articlesList;
-          case 'users': return studentsList;
-          default: break;
-        }
-      })();
-      if (list) {
-        return list.sort(item.value, {
-          order: Array.from(item.children).forEach((kid) => {
-              if (kid.tagName === 'option:selected') {
-                kid.getAttribute('rel');
-              }
-            })
-          });
-        }
+  return document.querySelectorAll('select.sorts').forEach(item => item?.addEventListener('change', function () {
+    const list = (() => {
+      switch (this.getAttribute('rel')) {
+        case 'courses': return courseList;
+        case 'course_results': return courseResultList;
+        case 'campaigns': return campaignList;
+        case 'campaign-articles': return articlesList;
+        case 'users': return studentsList;
+        default: break;
       }
-    );
-  });
+  })();
+  if (list) {
+    return list.sort(this?.value, {
+      order: this.options[this.selectedIndex].getAttribute('rel')
+    });
+    }
+  }));
 };
