@@ -29,13 +29,14 @@ class CourseArticlesCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.tracked_revisions.includes(article: :wiki).map do |edit|
+    @course.tracked_revisions.includes(:user, article: :wiki).map do |edit|
       article_edits = @articles_edited[edit.article_id] || new_article_entry(edit)
       article_edits[:characters][edit.mw_rev_id] = edit.characters
       article_edits[:references][edit.mw_rev_id] = edit.references_added
       article_edits[:new_article] = true if edit.new_article
       # highest view count of all revisions for this article is the total for the article
       article_edits[:views] = edit.views if edit.views > article_edits[:views]
+      article_edits[:username] = edit.user.username
       @articles_edited[edit.article_id] = article_edits
     end
   end
@@ -62,6 +63,7 @@ class CourseArticlesCsvBuilder
     rating
     namespace
     wiki
+    username
     url
     edit_count
     characters_added
@@ -78,6 +80,7 @@ class CourseArticlesCsvBuilder
     row << article_data[:rating]
     row << article_data[:namespace]
     row << article_data[:wiki_domain]
+    row << article_data[:username]
     row << article_data[:url]
     row << article_data[:characters].count
     row << character_sum(article_data)
