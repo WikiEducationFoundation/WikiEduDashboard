@@ -39,8 +39,10 @@ sms:
     select: Vaʹlljed
   campaign:
     alert_user_id: Õõʹnni
+    campaign: Kampanjj
     created_at: Peiʹvvmieʹrr
     course: Kurss
+    delete_campaign: Jaukkâd tän kampaanj
   categories:
     add_category: Lââʹzzet kategoria
     add_psid: Lââʹzzet PetScan PSID
@@ -55,6 +57,7 @@ sms:
     remove: Jaukkâd
   courses:
     all_courses: Puk kuurs
+    campaigns: 'Kampanjj-joouk:'
     course: Kurss
     course_description: Kuurs
     courses: Kuurs
@@ -73,6 +76,7 @@ sms:
     duration: Kuurs pešttmõš
     features_feedback: 'Automaattlaž eʹtǩǩõõzz:'
     feedback: Maacctõs
+    new_account_email: E-pååʹštaddrõs
     please_log_in: Ǩeeʹrjtõõđ sizz.
     requested_accounts_alert_view: Čuäʹjet
     search_courses: Ooʒʒ kuursid
@@ -83,6 +87,7 @@ sms:
     view_page: Čuäʹjet kuurs seeid
     view_wiki: Čuäʹjet Wikipediast
   courses_generic:
+    add_campaign: Lââʹzzet kampaanj
     all_courses: Puk prograamm
     creator:
       create_label: Raaj ođđ prograamm
@@ -121,6 +126,9 @@ sms:
         form_placeholder: Õõʹnninõmm
   suggestions:
     editing: Muʹttemeʹtǩǩõõzz
+  timeline:
+    add_week: Lââʹzzet neäʹttel
+    gradeable_value: Ärvv
   training:
     view: Čuäʹjet
     page: Seidd

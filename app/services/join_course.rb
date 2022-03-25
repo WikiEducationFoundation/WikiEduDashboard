@@ -21,16 +21,17 @@ class JoinCourse
     validate_request { return }
     create_courses_user
     update_course_user_count
-    @result = { success: 'User added to course.' }
+    # This needs to use string keys because it is used in Sidekiq arguments.
+    @result = { 'success' => 'User added to course.' }
   end
 
   def validate_request
     if user_already_enrolled?
-      @result = { failure: :cannot_join_twice }
+      @result = { 'failure' => 'cannot_join_twice' }
     elsif course_withdrawn?
-      @result = { failure: :withdrawn }
+      @result = { 'failure' => 'withdrawn' }
     elsif student_joining_before_approval?
-      @result = { failure: :not_yet_approved }
+      @result = { 'failure' => 'not_yet_approved' }
     else
       return
     end

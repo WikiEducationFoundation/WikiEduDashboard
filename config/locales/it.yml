@@ -764,6 +764,7 @@ it:
     view: Visualizzazioni
     word_count: Parole aggiunte
     word_count_average: Conteggio medio parole
+    general: Generale
   namespace:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale

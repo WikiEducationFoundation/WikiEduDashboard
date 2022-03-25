@@ -4,8 +4,9 @@
 // and other static (from a JavaScript perspective) data objects.
 
 
-// Polyfill
-import '@babel/polyfill';
+// core-js/stable and regenerator-runtime/runtime are directly included to polyfill ES features and to use transpiled generator functions respectively, as @babel/polyfill is deprecated.
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views

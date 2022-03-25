@@ -17,6 +17,7 @@
 # Author: Liuxinyu970226
 # Author: Looong
 # Author: Macofe
+# Author: NACHOgao3
 # Author: NeverBehave
 # Author: Njzjz
 # Author: Phenolla
@@ -667,6 +668,7 @@ zh-CN:
     view: 查看
     word_count: 添加的文字
     word_count_average: 平均字数
+    references_added: 添加的参考文献
   namespace:
     main: 主命名空间
     main_char_added: 主命名空间字符已添加

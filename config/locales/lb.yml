@@ -174,6 +174,7 @@ lb:
     created_at: Datum
     course: Cours
     data_articles: Geännert Säiten
+    data_wikidata: Wikidata-Statistiken
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
@@ -183,6 +184,7 @@ lb:
     random_passcode: en zoufällege Passcode
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
+    search: Sichen
   categories:
     add_category: Kategorie derbäisetzen
     add_template: Schabloun derbäisetzen
@@ -424,6 +426,7 @@ lb:
       other: Fichieren déi an Artikele  benotzt ginn
     word_count: Wierder derbäigesat
     word_count_average: Duerchschnëttlech Zuel vu Wierder
+    general: Allgemeng
     total_revisions: Total vun de Versiounen
     aliases: Aliasen
     merged: Fusionéiert

@@ -321,6 +321,7 @@ hi:
     cancel: रद्द करें
     save: सहेजें
   metrics:
+    general: सामान्य
     created: बनाया गया
     removed: हटाया गया
     added: जोड़ा गया
