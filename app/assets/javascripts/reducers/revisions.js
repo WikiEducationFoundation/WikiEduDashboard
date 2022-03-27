@@ -19,13 +19,23 @@ const initialState = {
     sortKey: null,
   },
   revisionsLoaded: false,
-  courseScopedRevisionsLoaded: false
+  courseScopedRevisionsLoaded: false,
+  continueTokens: {}
 };
 
-const isLimitReached = (revs, limit) => {
+const isLimitReachedCourseSpecific = (revs, limit) => {
   return (revs.length < limit);
 };
 
+const isLimitReached = (continueTokens) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const value of Object.values(continueTokens)) {
+    if (value !== 'no-continue') {
+      return false;
+    }
+  }
+  return true;
+};
 export default function revisions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_REVISIONS:
@@ -33,15 +43,16 @@ export default function revisions(state = initialState, action) {
         ...state,
         revisions: action.data.course.revisions,
         limit: action.limit,
-        limitReached: isLimitReached(action.data.course.revisions, action.limit),
-        revisionsLoaded: true
+        limitReached: isLimitReached(action.data.continueTokens),
+        revisionsLoaded: true,
+        continueTokens: action.data.continueTokens
       };
     case RECEIVE_COURSE_SCOPED_REVISIONS:
       return {
         ...state,
         courseScopedRevisions: action.data.course.revisions,
         courseScopedLimit: action.limit,
-        courseScopedLimitReached: isLimitReached(action.data.course.revisions, action.limit),
+        courseScopedLimitReached: isLimitReachedCourseSpecific(action.data.course.revisions, action.limit),
         courseScopedRevisionsLoaded: true
       };
     case REVISIONS_LOADING:

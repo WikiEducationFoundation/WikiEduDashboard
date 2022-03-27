@@ -13,6 +13,7 @@ import API from '../utils/api';
 import moment from 'moment';
 import { stringify } from 'query-string';
 import { PageAssessmentGrades, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
+import { url } from '../utils/wiki_utils';
 
 const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
   // remove duplicates -> each article occurs only once after this
@@ -55,7 +56,7 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
   }
   /* eslint-enable no-restricted-syntax */
 };
-const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time) => {
+const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time, prevContinueToken) => {
   const params = {
     action: 'query',
     format: 'json',
@@ -67,6 +68,12 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time) => 
     ucstart: end_time,
     ucdir: 'older',
   };
+
+  if (prevContinueToken) {
+    // if token exists, add it.
+    params.uccontinue = prevContinueToken.uccontinue;
+    params.continue = prevContinueToken.continue;
+  }
 
   let prefix;
   if (wiki.language) {
@@ -80,6 +87,7 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time) => 
   const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
   const json = await response.json();
   const revisions = json.query.usercontribs;
+  const continueToken = json.continue;
   /* eslint-disable no-restricted-syntax */
 
   for (const revision of revisions) {
@@ -111,10 +119,10 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time) => 
     await fetchClassFromRevisions(wiki, API_URL, revisions);
   }
 
-  return revisions;
+  return { revisions, continueToken };
 };
 
-const fetchRevisionsFromUsers = async (course, users) => {
+const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
   const usernames = users.map(user => user.username).join('|');
 
   // Converting to ISO 8601 format
@@ -126,25 +134,39 @@ const fetchRevisionsFromUsers = async (course, users) => {
 
   /* eslint-disable no-restricted-syntax */
   for (const wiki of course.wikis) {
+    if (continueTokens[url(wiki)] === 'no-continue') {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
     /* eslint-disable no-await-in-loop */
-    const items = await fetchRevisionsFromWiki(wiki, usernames, start_time, end_time);
+    const { revisions: items, continueToken } = await fetchRevisionsFromWiki(wiki, usernames, start_time, end_time, continueTokens?.[url(wiki)]);
     revisions.push(...items);
+    if (continueToken) {
+      continueTokens[url(wiki)] = (continueToken);
+    } else {
+      continueTokens[url(wiki)] = 'no-continue';
+    }
     /* eslint-enable no-await-in-loop */
   }
   /* eslint-enable no-restricted-syntax */
 
-  revisions.sort((revision1, revision2) => {
-    const date1 = new Date(revision1.date);
-    const date2 = new Date(revision2.date);
-    return date2.getTime() - date1.getTime();
-  });
-  return revisions;
+  return { revisions, continueTokens };
 };
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, contTokens) => {
   if (!isCourseScoped) {
-    course.revisions = await fetchRevisionsFromUsers(course, users);
-    return { course };
+    const { revisions, continueTokens } = await fetchRevisionsFromUsers(course, users, contTokens);
+    if (course.revisions) {
+      course.revisions = course.revisions.concat(revisions);
+    } else {
+      course.revisions = revisions;
+    }
+    course.revisions = course.revisions.sort((revision1, revision2) => {
+      const date1 = new Date(revision1.date);
+      const date2 = new Date(revision2.date);
+      return date2.getTime() - date1.getTime();
+    });
+    return { course, continueTokens };
   }
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
   if (!response.ok) {
@@ -181,7 +203,7 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     }
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.continueTokens)
       .then((resp) => {
         dispatch({
           type: actionType,
