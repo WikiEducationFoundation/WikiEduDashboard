@@ -40,7 +40,7 @@ const RevisionHandler = createReactClass({
       // For Course Scoped Revisions, fetching in componentDidUpdate
       // because in most cases, users would not be using these, so we
       // will fetch only when the user initially goes there, hence saving extra queries
-      this.props.fetchRevisions(this.props.course_id, this.props.limit);
+      this.props.fetchRevisions(this.props.course, this.props.limit);
     }
   },
 
@@ -51,7 +51,7 @@ const RevisionHandler = createReactClass({
     // If user reaches the course scoped part initially, and there are no
     // loaded course scoped revisions, we fetch course scoped revisions
     if (toggledIsCourseScoped && !this.props.courseScopedRevisionsLoaded) {
-      this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit, true);
+      this.props.fetchRevisions(this.props.course, this.props.courseScopedLimit, true);
     }
   },
 
@@ -70,9 +70,9 @@ const RevisionHandler = createReactClass({
   // by keeping track of revisionsLoaded and courseScopedRevisionsLoaded
   showMore() {
     if (this.state.isCourseScoped) {
-      return this.props.fetchRevisions(this.props.course_id, this.props.courseScopedLimit + 100, true);
+      return this.props.fetchRevisions(this.props.course, this.props.courseScopedLimit + 100, true);
     }
-    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
+    return this.props.fetchRevisions(this.props.course, this.props.limit + 100);
   },
 
   render() {
