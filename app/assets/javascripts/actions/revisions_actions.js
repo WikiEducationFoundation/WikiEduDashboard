@@ -106,8 +106,7 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time) => 
   }
   /* eslint-enable no-restricted-syntax */
 
-
-  if (PageAssessmentSupportedWiki?.[wiki.project]?.[wiki.language]) {
+  if (PageAssessmentSupportedWiki?.[wiki.project]?.includes(wiki.language)) {
     // the wiki supports page assessments
     await fetchClassFromRevisions(wiki, API_URL, revisions);
   }
