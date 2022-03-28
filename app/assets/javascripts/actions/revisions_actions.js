@@ -119,7 +119,7 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time, pre
     await fetchClassFromRevisions(wiki, API_URL, revisions);
   }
 
-  return { revisions, continueToken };
+  return { revisions, continueToken, wiki };
 };
 
 const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
@@ -131,25 +131,27 @@ const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
   const end_time = moment.utc(course.timeline_end).format();
 
   const revisions = [];
-
+  const wikiPromises = [];
   /* eslint-disable no-restricted-syntax */
   for (const wiki of course.wikis) {
     if (continueTokens[url(wiki)] === 'no-continue') {
       // eslint-disable-next-line no-continue
       continue;
     }
-    /* eslint-disable no-await-in-loop */
-    const { revisions: items, continueToken } = await fetchRevisionsFromWiki(wiki, usernames, start_time, end_time, continueTokens?.[url(wiki)]);
+    wikiPromises.push(fetchRevisionsFromWiki(wiki, usernames, start_time, end_time, continueTokens?.[url(wiki)]));
+  }
+  const resolvedValues = await Promise.all(wikiPromises);
+  for (const value of resolvedValues) {
+    const { revisions: items, continueToken, wiki } = value;
     revisions.push(...items);
     if (continueToken) {
       continueTokens[url(wiki)] = (continueToken);
     } else {
       continueTokens[url(wiki)] = 'no-continue';
     }
-    /* eslint-enable no-await-in-loop */
   }
-  /* eslint-enable no-restricted-syntax */
 
+  /* eslint-enable no-restricted-syntax */
   return { revisions, continueTokens };
 };
 
