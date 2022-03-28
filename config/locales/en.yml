@@ -1030,6 +1030,11 @@ en:
     qualifiers_added: Qualifiers added
     redirects_created: Redirects created
     references_added: References added
+    references_added_info: >
+      This may only be a partial count of references added.
+      It is based on Wikidata edit summaries, and some edits
+      that add references are classified as a "Changed claim"
+      or "Created claim" instead.
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
 

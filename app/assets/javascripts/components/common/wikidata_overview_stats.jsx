@@ -173,6 +173,8 @@ const WikidataOverviewStats = ({ statistics }) => {
               stat={statistics['references added']}
               statMsg={I18n.t('metrics.references_added')}
               renderZero={true}
+              info={I18n.t('metrics.references_added_info')}
+              infoId="references-added-info"
             />
             <OverviewStat
               id="redirects-created"
