@@ -9,7 +9,6 @@ import {
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
-import API from '../utils/api';
 import moment from 'moment';
 import { stringify } from 'query-string';
 import { PageAssessmentGrades, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
@@ -29,8 +28,12 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
     palimit: 50
   };
   const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-  const ratings = (await response.json()).query.pages;
+  const ratings = (await response.json())?.query?.pages;
 
+  if (!ratings) {
+    // no ratings found
+    return;
+  }
 
   /* eslint-disable no-restricted-syntax */
   for (const revision of revisions) {
@@ -182,7 +185,6 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, contT
 };
 
 export const fetchRevisions = (course, limit, isCourseScoped = false) => async (dispatch, getState) => {
-  const courseId = course.slug;
   let actionType;
   if (isCourseScoped) {
     actionType = RECEIVE_COURSE_SCOPED_REVISIONS;
@@ -192,18 +194,15 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     dispatch({ type: REVISIONS_LOADING });
   }
   const state = getState();
-  let users;
-  if (state.users.users.length) {
-    // the users list has already been fetched
-    users = state.users.users;
-  } else {
-    try {
-      const response = await API.fetch(courseId, 'users');
-      users = response.course.users;
-    } catch (e) {
-      dispatch({ type: API_FAIL, data: e });
-      return;
-    }
+  const users = state.users.users;
+  if (users.length === 0) {
+    course.revisions = [];
+    dispatch({
+      type: actionType,
+      data: { course, continueTokens: {} },
+      limit: limit
+    });
+    return;
   }
   return (
     fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.continueTokens)
