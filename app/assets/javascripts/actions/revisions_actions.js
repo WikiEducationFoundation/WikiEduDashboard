@@ -56,7 +56,7 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
   }
   /* eslint-enable no-restricted-syntax */
 };
-const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time, prevContinueToken) => {
+const fetchRevisionsFromWiki = async (wiki, usernames, start_time, prevContinueToken) => {
   const params = {
     action: 'query',
     format: 'json',
@@ -65,7 +65,6 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, end_time, pre
     ucprop: 'ids|title|sizediff|timestamp',
     uclimit: 50,
     ucend: start_time,
-    ucstart: end_time,
     ucdir: 'older',
   };
 
@@ -128,7 +127,6 @@ const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
   // Converting to ISO 8601 format
   // the Media Wiki API doesn't accept fractional seconds. This gets rid of that
   const start_time = moment.utc(course.timeline_start).format();
-  const end_time = moment.utc(course.timeline_end).format();
 
   const revisions = [];
   const wikiPromises = [];
@@ -138,7 +136,7 @@ const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
       // eslint-disable-next-line no-continue
       continue;
     }
-    wikiPromises.push(fetchRevisionsFromWiki(wiki, usernames, start_time, end_time, continueTokens?.[url(wiki)]));
+    wikiPromises.push(fetchRevisionsFromWiki(wiki, usernames, start_time, continueTokens?.[url(wiki)]));
   }
   const resolvedValues = await Promise.all(wikiPromises);
   for (const value of resolvedValues) {

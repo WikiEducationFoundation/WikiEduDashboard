@@ -76,7 +76,7 @@ export const Course = withRouter(createReactClass({
   render() {
     const courseSlug = this.getCourseSlug();
     const course = this.props.course;
-    if (!courseSlug || !course || !course.home_wiki || course.title === '' || !this.props.users.length) { return <div />; }
+    if (!courseSlug || !course || !course.home_wiki || course.title === '') { return <div />; }
 
     const userRoles = this.props.currentUser;
     const courseProps = { course_id: courseSlug, current_user: userRoles, course };
@@ -132,7 +132,7 @@ export const Course = withRouter(createReactClass({
             <Route path="home" element={<OverviewHandler {...courseProps} />} />
             {/* The overview route path should not be removed in order to preserve the default url */}
             <Route path="overview" element={<OverviewHandler {...courseProps} />} />
-            <Route path="activity/*" element={<ActivityHandler {...courseProps} />} />
+            <Route path="activity/*" element={<ActivityHandler {...courseProps} users={this.props.users} />} />
             <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
             <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
             <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
