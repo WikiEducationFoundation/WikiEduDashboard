@@ -74,16 +74,19 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, prevContinueT
     params.continue = prevContinueToken.continue;
   }
 
-  let prefix;
-  if (wiki.language) {
-    prefix = `https://${wiki.language}.${wiki.project}.org`;
-  } else {
-    prefix = `https://${wiki.project}.org`;
-  }
+  const prefix = `https://${url(wiki)}`;
 
   const API_URL = `${prefix}/w/api.php`;
 
-  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  let response;
+  try {
+    response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+    if (!response.ok) {
+      throw response;
+    }
+  } catch (e) {
+    return { revisions: [], continueToken: undefined, wiki };
+  }
   const json = await response.json();
   const revisions = json.query.usercontribs;
   const continueToken = json.continue;
