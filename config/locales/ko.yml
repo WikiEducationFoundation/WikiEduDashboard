@@ -487,6 +487,7 @@ ko:
     word_count_average: 평균 단어 개수
     general: 일반
     no_data: 데이터 없음
+    references_added: 각주 추가됨
   namespace:
     user: 사용자 공간
     user_ns: 사용자

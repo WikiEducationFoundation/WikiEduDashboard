@@ -9,6 +9,7 @@
 # Author: Pon44695
 # Author: TMo3289
 # Author: Thas Tayapongsak
+# Author: Trisorn Triboon
 ---
 th:
   application:
@@ -96,6 +97,7 @@ th:
   campaign:
     campaign: การณรงค์
     none: ไม่มี
+    search: ค้นหา
   courses:
     activity: กิจกรรม
     archived: เก็บถาวรหลักสูตร
@@ -188,6 +190,8 @@ th:
     view: ดู
     word_count: เพิ่มคำแล้ว
     word_count_average: การนับคำเฉลี่ย
+    general: ทั่วไป
+    references_added: เพิ่มอ้างอิงแล้ว
   namespace:
     main: เมนสเปซ
   recent_activity:

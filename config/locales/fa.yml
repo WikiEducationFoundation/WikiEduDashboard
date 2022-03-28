@@ -7,6 +7,7 @@
 # Author: Arash.pt
 # Author: Arian Ar
 # Author: AzorAhai
+# Author: Beginneruser
 # Author: Darafsh
 # Author: Ebraminio
 # Author: FarsiNevis
@@ -182,6 +183,7 @@ fa:
     description: توضیحات
     none: هیچ‌کدام
     title: عنوان
+    search: جستجو
   categories:
     name: نام
     remove: حذف
@@ -246,10 +248,10 @@ fa:
       course_term: ترم آموزشی دوره
       course_term_placeholder: ترم
       course_title: عنوان دوره
-      create_button: دورهٔ مرا بساز!
-      create_label: ساختِ دوره‌ای تازه
-      create_new: ساختِ دوره‌ای تازه
-      create_short: ساختِ دوره
+      create_button: ایجاد دورۀ من!
+      create_label: ایجاد دورۀ تازه
+      create_new: ایجاد یک دورۀ تازه
+      create_short: ایجاد دوره
       end_date: تاریخِ پایان
       end_date_placeholder: YYYY-MM-DD
       expected_number: محدودیت تعداد دانش‌آموزان/دانشجویان
@@ -387,7 +389,7 @@ fa:
       course_title: عنوان برنامه
       create_button: ایجاد برنامهٔ من!
       create_label: ایجاد برنامهٔ نو
-      create_new: ایجاد برنامه‌ای مستقل
+      create_new: ایجاد یک برنامۀ مستقل
       create_short: ایجاد برنامه
       find: برنامه‌ای را پیدا کنید
       intro: تکمیل عنوان برنامه الزامی است، باقی موارد را می‌توان بعداً نیز پُر کرد.

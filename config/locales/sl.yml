@@ -10,6 +10,7 @@ sl:
     cancel: Prekliči
     dashboard: Nadzorna plošča urejanja wikija
     explore: Raziskuj
+    greeting2: Pozdravljeni!
     help: Pomoč
     home: Domov
     log_in_extended: Prijava z Wikipedijo
@@ -41,15 +42,18 @@ sl:
     creator:
       end_date: Datum konca
       start_date: Datum začetka
+    delete_suggestion: Izbriši
     loading: Nalaganje ...
     overview: Domov
     title: Naslov
   courses_generic:
+    cancel: Prekliči
     campaigns: 'Kampanje:'
     creator:
       save_cloned_course: Shrani
   editable:
     edit: Uredi
+    cancel: Prekliči
     save: Shrani
   metrics:
     bytes_added: Zlogov dodanih
