@@ -76,7 +76,7 @@ export const Course = withRouter(createReactClass({
   render() {
     const courseSlug = this.getCourseSlug();
     const course = this.props.course;
-    if (!courseSlug || !course || !course.home_wiki || course.title === '') { return <div />; }
+    if (!courseSlug || !course || !course.home_wiki || course.title === '' || !this.props.users.length) { return <div />; }
 
     const userRoles = this.props.currentUser;
     const courseProps = { course_id: courseSlug, current_user: userRoles, course };
