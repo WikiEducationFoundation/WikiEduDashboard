@@ -290,7 +290,7 @@ const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_
     revision.url = `${prefix}/w/index.php?${stringify(diff_params)}`;
 
     // main article url - we use stringify to ensure that its encoded properly
-    revision.article_url = `${prefix}/w/index.php?${stringify({ title: revision.title })}`;
+    revision.article_url = `${prefix}/wiki/${encodeURIComponent(revision.title)}`;
 
     // to maintain the old structure of the revision object
     revision.characters = revision.sizediff;
