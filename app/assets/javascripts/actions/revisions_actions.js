@@ -53,6 +53,8 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
   } else {
     ucend = moment(last_date).subtract(days, 'days').format();
   }
+  // eslint-disable-next-line no-console
+  console.log(`Fetching revisions between ${moment(last_date).format()} and ${ucend} -> ${days} days from ${API_URL}`);
   // since a max of 50 users are allowed in one query
   const usernamesChunks = chunk(usernames, 50);
   const usernamePromises = [];
@@ -80,6 +82,8 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   // remove duplicates -> each article occurs only once after this
   const prefix = `https://${wiki_url}`;
   const API_URL = `${prefix}/w/api.php`;
+  // eslint-disable-next-line no-console
+  console.log(`Fetching page assessments from ${wiki_url}`);
 
   const uniqueArticles = [...new Set(revisionsOfWiki.filter(revision => revision.ns === 0).map(revision => revision.title))];
   const allRatings = [];
@@ -156,6 +160,9 @@ const fetchReferencesAdded = async (prevReferences, wikiMap) => {
 };
 
 const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
+  // eslint-disable-next-line no-console
+  console.log(`Fetching references information from ${wiki_url}`);
+
   const list = wiki_url.split('.');
   let wiki;
   if (list.length === 3) {
@@ -230,15 +237,19 @@ const fetchRevisionsAndReferences = async (prevReferences, prevAssessments, revi
       }
     }
   }
-  fetchClassFromRevisions(prevAssessments, wikiMap)
-  .then(
-    assessments => dispatch({
+  fetchClassFromRevisions(prevAssessments, wikiMap).then((assessments) => {
+    // eslint-disable-next-line no-console
+    console.log('Successfully fetched all page assessment information');
+    dispatch({
       type: 'RECEIVE_ASSESSMENTS',
       data: { assessments }
-    })
+    });
+  }
   );
 
   fetchReferencesAdded(prevReferences, wikiMap).then((referencesAdded) => {
+    // eslint-disable-next-line no-console
+    console.log('Successfully fetched all references information');
     dispatch({
       type: 'RECEIVE_REFERENCES',
       data: { referencesAdded }
