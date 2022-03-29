@@ -220,12 +220,12 @@ const fetchRevisionsFromUsers = async (course, users, days, last_date) => {
   revisions = [...new Map(revisions.map(v => [v.id, v])).values()];
 
   /* eslint-enable no-restricted-syntax */
-  return { revisions, last_date, days };
+  return { revisions, last_date };
 };
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, days, last_date, assessments, dispatch) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, assessments, dispatch) => {
   if (!isCourseScoped) {
-    const { revisions, days: new_days, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, days, last_date);
+    const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
     if (course.revisions) {
       course.revisions = course.revisions.concat(revisions);
     } else {
@@ -238,7 +238,7 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, days,
     });
     // we don't await this. When the assessments get laoded, the action is dispatched
     fetchClassFromRevisions(assessments, revisions, dispatch);
-    return { course, days: new_days, last_date: new_last_date };
+    return { course, last_date: new_last_date };
   }
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
   if (!response.ok) {
@@ -271,7 +271,7 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.days, state.revisions.last_date, state.revisions.assessments, dispatch)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.assessments, dispatch)
       .then((resp) => {
         dispatch({
           type: actionType,

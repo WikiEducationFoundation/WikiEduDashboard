@@ -40,7 +40,7 @@ const RevisionList = createReactClass({
         setSelectedIndex={this.showDiff}
         lastIndex={this.props.revisions.length}
         selectedIndex={this.state.selectedIndex}
-        assessment={this.props.assessmentsLoaded ? this.props.assessments[revision.revid] : {}}
+        assessment={this.props.assessments[revision.revid]}
       />;
     });
 

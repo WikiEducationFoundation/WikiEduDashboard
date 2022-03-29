@@ -21,10 +21,8 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  days: 7,
   last_date: moment().format(),
   assessments: {},
-  assessmentsLoaded: false
 };
 
 const isLimitReachedCourseSpecific = (revs, limit) => {
@@ -40,7 +38,6 @@ export default function revisions(state = initialState, action) {
     case 'RECEIVE_ASSESSMENTS':
       return {
         ...state,
-        assessmentsLoaded: true,
         assessments: action.data.assessments
       };
     case RECEIVE_REVISIONS:
@@ -50,7 +47,6 @@ export default function revisions(state = initialState, action) {
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.start, state.last_date),
         revisionsLoaded: true,
-        days: action.data.days,
         last_date: action.data.last_date
       };
     case RECEIVE_COURSE_SCOPED_REVISIONS:
@@ -65,7 +61,6 @@ export default function revisions(state = initialState, action) {
       return {
         ...state,
         revisionsLoaded: false,
-        assessmentsLoaded: false
       };
     case COURSE_SCOPED_REVISIONS_LOADING:
       return {
