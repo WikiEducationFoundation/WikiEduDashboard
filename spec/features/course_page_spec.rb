@@ -518,7 +518,8 @@ describe 'the course page', type: :feature, js: true do
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
-      updated_user_count = user_count + 1
+      # this is 2 since there's another user(DSMalhotra) for testing the activity view
+      updated_user_count = user_count + 2
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
       expect(page).to have_content 'This Week'
     end
