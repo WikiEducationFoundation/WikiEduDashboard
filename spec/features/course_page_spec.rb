@@ -75,6 +75,9 @@ describe 'the course page', type: :feature, js: true do
              course_id: 10001,
              user_id: i.to_s)
     end
+    # for testing Activity using Media Wiki API
+    user = create(:user, username: 'DSMalhotra')
+    create(:courses_user, user: user, course: course)
 
     ratings = ['fl', 'fa', 'a', 'ga', 'b', 'c', 'start', 'stub', 'list', nil]
     (1...article_count / 2).each do |i|
@@ -472,8 +475,11 @@ describe 'the course page', type: :feature, js: true do
 
   describe 'activity view' do
     it 'displays a list of edits' do
-      js_visit "/courses/#{slug}/activity"
-      expect(page).to have_content 'Article 1'
+      Capybara.using_wait_time 10 do
+        js_visit "/courses/#{slug}/activity"
+        expect(page).to have_content('Bareilly College').twice
+        expect(page).to have_content('Hartmann College', count: 3)
+      end
     end
   end
 
