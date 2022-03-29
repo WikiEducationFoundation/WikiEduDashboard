@@ -4,7 +4,7 @@ import moment from 'moment';
 import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const Revision = ({ assessment, revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
+const Revision = ({ references, assessment, revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
   if (!assessment) {
     assessment = {};
   }
@@ -30,7 +30,7 @@ const Revision = ({ assessment, revision, index, wikidataLabel, course, setSelec
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>
-      <td className="desktop-only-tc">{revision.references_added}</td>
+      <td className="desktop-only-tc">{references || revision.references_added}</td>
       <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
         <DiffViewer

@@ -21,8 +21,9 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  last_date: moment().format(),
   assessments: {},
+  referencesAdded: {},
+  last_date: moment().format(),
 };
 
 const isLimitReachedCourseSpecific = (revs, limit) => {
@@ -35,6 +36,11 @@ const isLimitReached = (course_start, last_date) => {
 
 export default function revisions(state = initialState, action) {
   switch (action.type) {
+    case 'RECEIVE_REFERENCES':
+      return {
+        ...state,
+        referencesAdded: action.data.referencesAdded
+      };
     case 'RECEIVE_ASSESSMENTS':
       return {
         ...state,

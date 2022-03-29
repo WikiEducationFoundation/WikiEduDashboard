@@ -13,9 +13,10 @@ import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
 import moment from 'moment';
 import { stringify } from 'query-string';
-import { PageAssessmentGrades, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
+import { ORESSupportedWiki, PageAssessmentGrades, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
 import { url } from '../utils/wiki_utils';
 import { chunk, flatten } from 'lodash-es';
+import { queryUrl } from '../utils/article_finder_utils';
 
 const fetchAll = async (API_URL, params, continue_str) => {
   const allData = [];
@@ -80,30 +81,34 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   const prefix = `https://${wiki_url}`;
   const API_URL = `${prefix}/w/api.php`;
 
-  const uniqueArticles = [...new Set(revisionsOfWiki.map(revision => revision.title))];
-  const titles = uniqueArticles.join('|');
-
-  const params = {
-    action: 'query',
-    format: 'json',
-    titles,
-    prop: 'pageassessments',
-    pasubprojects: false,
-    palimit: 200
-  };
-  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-  const ratings = (await response.json())?.query?.pages;
-
-  if (!ratings) {
+  const uniqueArticles = [...new Set(revisionsOfWiki.filter(revision => revision.ns === 0).map(revision => revision.title))];
+  const allRatings = [];
+  const chunks = chunk(uniqueArticles, 50);
+  for (const uniqueArticlesChunk of chunks) {
+    const params = {
+      action: 'query',
+      format: 'json',
+      titles: uniqueArticlesChunk.join('|'),
+      prop: 'pageassessments',
+      pasubprojects: false,
+      palimit: 500
+    };
+    const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+    const pages = (await response.json())?.query?.pages;
+    if (pages) { allRatings.push(pages); }
+  }
+  if (!allRatings) {
     // no ratings found
     return;
   }
+  // merge list of objects of ratings into a single object
+  const ratings = Object.assign({}, ...allRatings);
   const assessments = {};
   /* eslint-disable no-restricted-syntax */
   for (const revision of revisionsOfWiki) {
     const assessment = {};
     // if pageassessments exists
-    if (ratings[revision.pageid].pageassessments) {
+    if (ratings?.[revision.pageid]?.pageassessments) {
       // pick the first key of the object pageassessments
       let rating;
       for (const value of Object.values(ratings[revision.pageid].pageassessments)) {
@@ -124,27 +129,124 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
     assessments[revision.revid] = assessment;
   }
   return assessments;
-  /* eslint-enable no-restricted-syntax */
 };
 
-const fetchClassFromRevisions = async (prevAssessments, revisions, dispatch) => {
+const getReferences = (item) => {
+  const features = item?.articlequality?.features;
+  return features?.['feature.wikitext.revision.ref_tags']
+        || features?.['feature.len(<datasource.wikidatawiki.revision.references>)']
+        || features?.['feature.enwiki.revision.shortened_footnote_templates']
+        || 0;
+};
+
+const fetchReferencesAdded = async (prevReferences, wikiMap) => {
+  // eslint-disable-next-line no-restricted-syntax
+  const referencesPromises = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [wiki_url, revisionsOfWiki] of wikiMap) {
+    referencesPromises.push(fetchReferencesAddedFromWiki(wiki_url, revisionsOfWiki));
+  }
+  const resolvedValues = await Promise.all(referencesPromises);
+
+  // merge array of objects into one object
+  const allReferences = Object.assign({}, ...resolvedValues);
+
+  // return after merging previous References and current
+  return Object.assign({}, ...[allReferences, prevReferences]);
+};
+
+const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
+  const list = wiki_url.split('.');
+  let wiki;
+  if (list.length === 3) {
+    wiki = { language: list[0], project: list[1] };
+  } else {
+    wiki = { project: list[0] };
+  }
+  if (
+    !ORESSupportedWiki.projects.includes(wiki.project)
+  && !ORESSupportedWiki.languages.includes(wiki.language)
+  ) {
+    // wiki does not support ORES
+    return;
+  }
+  let suffix;
+  if (wiki.project === 'wikidata') {
+    suffix = 'wikidatawiki';
+  } else {
+    suffix = `${wiki.language}wiki`;
+  }
+  const API_URL = `http://ores.wikimedia.org/v3/scores/${suffix}`;
+  const revids = revisions.map(revision => `${revision.parentid}|${revision.revid}`);
+  const chunks = chunk(revids, 25);
+  // eslint-disable-next-line no-restricted-syntax
+
+  const promises = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const revid_chunk of chunks) {
+    const params = {
+      revids: revid_chunk.join('|'),
+      features: true,
+      models: 'articlequality'
+    };
+
+    promises.push(queryUrl(`${API_URL}`, params));
+  }
+  // get the scores and remove all undefined values
+  // this is an array of objects
+  const values = (await Promise.all(promises)).map(data => data[suffix].scores).filter(item => item);
+
+  // merge the array of objects into one object
+  const combinedObject = Object.assign({}, ...values);
+
+  const referencesAdded = {};
+  // eslint-disable-next-line no-restricted-syntax
+  for (const revision of revisions) {
+    const references = getReferences(combinedObject?.[revision.revid]);
+    if (references) {
+      referencesAdded[revision.revid] = references - getReferences(combinedObject?.[revision.parentid]);
+    }
+  }
+  return referencesAdded;
+};
+
+const fetchRevisionsAndReferences = async (prevReferences, prevAssessments, revisions, dispatch) => {
   const wikiMap = new Map();
   // eslint-disable-next-line no-restricted-syntax
   for (const revision of revisions) {
-    if (!PageAssessmentSupportedWiki?.[revision.wiki.project]?.includes(revision.wiki.language)) {
-      // eslint-disable-next-line no-continue
-      continue;
-    }
-    if (wikiMap.has(url(revision.wiki))) {
-      const value = wikiMap.get(url(revision.wiki));
-      value.push(revision);
-      wikiMap.set(url(revision.wiki), value);
-    } else {
-      const value = [];
-      value.push(revision);
-      wikiMap.set(url(revision.wiki), value);
+    if (
+      PageAssessmentSupportedWiki?.[revision.wiki.project]?.includes(revision.wiki.language)
+      || ORESSupportedWiki.projects.includes(revision.wiki.project)
+      || ORESSupportedWiki.languages.includes(revision.wiki.language)
+    ) {
+      if (wikiMap.has(url(revision.wiki))) {
+        const value = wikiMap.get(url(revision.wiki));
+        value.push(revision);
+        wikiMap.set(url(revision.wiki), value);
+      } else {
+        const value = [];
+        value.push(revision);
+        wikiMap.set(url(revision.wiki), value);
+      }
     }
   }
+  fetchClassFromRevisions(prevAssessments, wikiMap)
+  .then(
+    assessments => dispatch({
+      type: 'RECEIVE_ASSESSMENTS',
+      data: { assessments }
+    })
+  );
+
+  fetchReferencesAdded(prevReferences, wikiMap).then((referencesAdded) => {
+    dispatch({
+      type: 'RECEIVE_REFERENCES',
+      data: { referencesAdded }
+    });
+  });
+};
+
+const fetchClassFromRevisions = async (prevAssessments, wikiMap) => {
   // eslint-disable-next-line no-restricted-syntax
   const assessmentsPromises = [];
   // eslint-disable-next-line no-restricted-syntax
@@ -156,10 +258,8 @@ const fetchClassFromRevisions = async (prevAssessments, revisions, dispatch) => 
   // merge all the assessments
   const allAssessments = Object.assign({}, ...resolvedValues);
 
-  dispatch({
-    type: 'RECEIVE_ASSESSMENTS',
-    data: { assessments: Object.assign({}, ...[allAssessments, prevAssessments]) }
-  });
+  // merge the previous and current assessments
+  return Object.assign({}, ...[allAssessments, prevAssessments]);
 };
 
 const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
@@ -223,7 +323,7 @@ const fetchRevisionsFromUsers = async (course, users, days, last_date) => {
   return { revisions, last_date };
 };
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, assessments, dispatch) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, prevAssessments, prevReferences, dispatch) => {
   if (!isCourseScoped) {
     const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
     if (course.revisions) {
@@ -236,8 +336,8 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_
       const date2 = new Date(revision2.date);
       return date2.getTime() - date1.getTime();
     });
-    // we don't await this. When the assessments get laoded, the action is dispatched
-    fetchClassFromRevisions(assessments, revisions, dispatch);
+    // we don't await this. When the assessments/references get laoded, the action is dispatched
+    fetchRevisionsAndReferences(prevReferences, prevAssessments, revisions, dispatch);
     return { course, last_date: new_last_date };
   }
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
@@ -271,7 +371,7 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.assessments, dispatch)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.assessments, state.revisions.referencesAdded, dispatch)
       .then((resp) => {
         dispatch({
           type: actionType,
