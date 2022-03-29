@@ -177,7 +177,7 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
     suffix = `${wiki.language}wiki`;
   }
   const API_URL = `http://ores.wikimedia.org/v3/scores/${suffix}`;
-  const revids = revisions.map(revision => `${revision.parentid}|${revision.revid}`);
+  const revids = revisions.filter(revision => revision.ns === 0).map(revision => `${revision.parentid}|${revision.revid}`);
   const chunks = chunk(revids, 25);
   // eslint-disable-next-line no-restricted-syntax
 
