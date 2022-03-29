@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 import {
   RECEIVE_REVISIONS,
   REVISIONS_LOADING,
@@ -13,10 +15,72 @@ import moment from 'moment';
 import { stringify } from 'query-string';
 import { PageAssessmentGrades, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
 import { url } from '../utils/wiki_utils';
+import { chunk, flatten } from 'lodash-es';
 
-const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
+const fetchAll = async (API_URL, params, continue_str) => {
+  const allData = [];
+  let continueToken;
+  let hasMore = true;
+  while (hasMore) {
+    let response;
+    if (continueToken) {
+      params[continue_str] = continueToken[continue_str];
+      params.continue = continueToken.continue;
+    }
+    try {
+      response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+      if (!response.ok) {
+        throw response;
+      }
+    } catch (e) {
+      return allData;
+    }
+    const json = await response.json();
+    allData.push(...json.query.usercontribs);
+    if (json.continue) {
+      continueToken = json.continue;
+    } else {
+      hasMore = false;
+    }
+  }
+  return allData;
+};
+const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, last_date) => {
+  let ucend;
+  if (moment(last_date).subtract(days, 'days').isBefore(course_start)) {
+    ucend = moment(course_start).format();
+  } else {
+    ucend = moment(last_date).subtract(days, 'days').format();
+  }
+  // since a max of 50 users are allowed in one query
+  const usernamesChunks = chunk(usernames, 50);
+  const usernamePromises = [];
+  /* eslint-disable no-restricted-syntax */
+  for (const usernameChunk of usernamesChunks) {
+    const params = {
+      action: 'query',
+      format: 'json',
+      list: 'usercontribs',
+      ucuser: usernameChunk.join('|'),
+      ucprop: 'ids|title|sizediff|timestamp',
+      uclimit: 50,
+      ucend,
+      ucstart: moment(last_date).format(),
+      ucdir: 'older',
+    };
+    usernamePromises.push(fetchAll(API_URL, params, 'uccontinue'));
+  }
+  const values = await Promise.all(usernamePromises);
+  const revisions = flatten(values);
+  return revisions;
+};
+
+const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   // remove duplicates -> each article occurs only once after this
-  const uniqueArticles = [...new Set(revisions.map(revision => revision.title))];
+  const prefix = `https://${wiki_url}`;
+  const API_URL = `${prefix}/w/api.php`;
+
+  const uniqueArticles = [...new Set(revisionsOfWiki.map(revision => revision.title))];
   const titles = uniqueArticles.join('|');
 
   const params = {
@@ -25,7 +89,7 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
     titles,
     prop: 'pageassessments',
     pasubprojects: false,
-    palimit: 50
+    palimit: 200
   };
   const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
   const ratings = (await response.json())?.query?.pages;
@@ -34,9 +98,10 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
     // no ratings found
     return;
   }
-
+  const assessments = {};
   /* eslint-disable no-restricted-syntax */
-  for (const revision of revisions) {
+  for (const revision of revisionsOfWiki) {
+    const assessment = {};
     // if pageassessments exists
     if (ratings[revision.pageid].pageassessments) {
       // pick the first key of the object pageassessments
@@ -48,53 +113,60 @@ const fetchClassFromRevisions = async (wiki, API_URL, revisions) => {
         }
       }
       if (rating) {
-        const mapping = PageAssessmentGrades[wiki.project][wiki.language][rating];
+        const mapping = PageAssessmentGrades[revision.wiki.project][revision.wiki.language][rating];
         if (mapping) {
-          revision.rating_num = mapping.score;
-          revision.pretty_rating = mapping.pretty;
-          revision.rating = mapping.class;
+          assessment.rating_num = mapping.score;
+          assessment.pretty_rating = mapping.pretty;
+          assessment.rating = mapping.class;
         }
       }
     }
+    assessments[revision.revid] = assessment;
   }
+  return assessments;
   /* eslint-enable no-restricted-syntax */
 };
-const fetchRevisionsFromWiki = async (wiki, usernames, start_time, prevContinueToken) => {
-  const params = {
-    action: 'query',
-    format: 'json',
-    list: 'usercontribs',
-    ucuser: usernames,
-    ucprop: 'ids|title|sizediff|timestamp',
-    uclimit: 50,
-    ucend: start_time,
-    ucdir: 'older',
-  };
 
-  if (prevContinueToken) {
-    // if token exists, add it.
-    params.uccontinue = prevContinueToken.uccontinue;
-    params.continue = prevContinueToken.continue;
-  }
-
-  const prefix = `https://${url(wiki)}`;
-
-  const API_URL = `${prefix}/w/api.php`;
-
-  let response;
-  try {
-    response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-    if (!response.ok) {
-      throw response;
+const fetchClassFromRevisions = async (prevAssessments, revisions, dispatch) => {
+  const wikiMap = new Map();
+  // eslint-disable-next-line no-restricted-syntax
+  for (const revision of revisions) {
+    if (!PageAssessmentSupportedWiki?.[revision.wiki.project]?.includes(revision.wiki.language)) {
+      // eslint-disable-next-line no-continue
+      continue;
     }
-  } catch (e) {
-    return { revisions: [], continueToken: undefined, wiki };
+    if (wikiMap.has(url(revision.wiki))) {
+      const value = wikiMap.get(url(revision.wiki));
+      value.push(revision);
+      wikiMap.set(url(revision.wiki), value);
+    } else {
+      const value = [];
+      value.push(revision);
+      wikiMap.set(url(revision.wiki), value);
+    }
   }
-  const json = await response.json();
-  const revisions = json.query.usercontribs;
-  const continueToken = json.continue;
-  /* eslint-disable no-restricted-syntax */
+  // eslint-disable-next-line no-restricted-syntax
+  const assessmentsPromises = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [wiki_url, revisionsOfWiki] of wikiMap) {
+    assessmentsPromises.push(fetchClassFromRevisionsOfWiki(wiki_url, revisionsOfWiki));
+  }
+  const resolvedValues = await Promise.all(assessmentsPromises);
 
+  // merge all the assessments
+  const allAssessments = Object.assign({}, ...resolvedValues);
+
+  dispatch({
+    type: 'RECEIVE_ASSESSMENTS',
+    data: { assessments: Object.assign({}, ...[allAssessments, prevAssessments]) }
+  });
+};
+
+const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
+  const prefix = `https://${url(wiki)}`;
+  const API_URL = `${prefix}/w/api.php`;
+  const revisions = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
+  /* eslint-disable no-restricted-syntax */
   for (const revision of revisions) {
     revision.wiki = wiki;
     const diff_params = {
@@ -118,50 +190,42 @@ const fetchRevisionsFromWiki = async (wiki, usernames, start_time, prevContinueT
     revision.mw_page_id = revision.pageid;
   }
   /* eslint-enable no-restricted-syntax */
-
-  if (PageAssessmentSupportedWiki?.[wiki.project]?.includes(wiki.language)) {
-    // the wiki supports page assessments
-    await fetchClassFromRevisions(wiki, API_URL, revisions);
-  }
-
-  return { revisions, continueToken, wiki };
+  return { revisions, wiki };
 };
 
-const fetchRevisionsFromUsers = async (course, users, continueTokens = {}) => {
-  const usernames = users.map(user => user.username).join('|');
+const fetchRevisionsFromUsers = async (course, users, days, last_date) => {
+  const usernames = users.map(user => user.username);
 
-  // Converting to ISO 8601 format
-  // the Media Wiki API doesn't accept fractional seconds. This gets rid of that
-  const start_time = moment.utc(course.timeline_start).format();
-
-  const revisions = [];
+  let revisions = [];
   const wikiPromises = [];
   /* eslint-disable no-restricted-syntax */
-  for (const wiki of course.wikis) {
-    if (continueTokens[url(wiki)] === 'no-continue') {
-      // eslint-disable-next-line no-continue
-      continue;
+
+  // request until we find 50 revisions or the date is outside the course duration
+  while (revisions.length < 50 && moment(last_date).isAfter(course.start)) {
+    for (const wiki of course.wikis) {
+      wikiPromises.push(fetchRevisionsFromWiki(days, wiki, usernames, course.start, last_date));
     }
-    wikiPromises.push(fetchRevisionsFromWiki(wiki, usernames, start_time, continueTokens?.[url(wiki)]));
-  }
-  const resolvedValues = await Promise.all(wikiPromises);
-  for (const value of resolvedValues) {
-    const { revisions: items, continueToken, wiki } = value;
-    revisions.push(...items);
-    if (continueToken) {
-      continueTokens[url(wiki)] = (continueToken);
-    } else {
-      continueTokens[url(wiki)] = 'no-continue';
+    const resolvedValues = await Promise.all(wikiPromises);
+    for (const value of resolvedValues) {
+      const { revisions: items } = value;
+      revisions.push(...items);
+    }
+    last_date = moment(last_date).subtract(days, 'days').format();
+    if (revisions.length < 50) {
+      days *= 3;
     }
   }
+  // remove duplicates
+  // they occur because dates overlap and sometimes the same revision is included twice
+  revisions = [...new Map(revisions.map(v => [v.id, v])).values()];
 
   /* eslint-enable no-restricted-syntax */
-  return { revisions, continueTokens };
+  return { revisions, last_date, days };
 };
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, contTokens) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, days, last_date, assessments, dispatch) => {
   if (!isCourseScoped) {
-    const { revisions, continueTokens } = await fetchRevisionsFromUsers(course, users, contTokens);
+    const { revisions, days: new_days, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, days, last_date);
     if (course.revisions) {
       course.revisions = course.revisions.concat(revisions);
     } else {
@@ -172,7 +236,9 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, contT
       const date2 = new Date(revision2.date);
       return date2.getTime() - date1.getTime();
     });
-    return { course, continueTokens };
+    // we don't await this. When the assessments get laoded, the action is dispatched
+    fetchClassFromRevisions(assessments, revisions, dispatch);
+    return { course, days: new_days, last_date: new_last_date };
   }
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
   if (!response.ok) {
@@ -199,13 +265,13 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     course.revisions = [];
     dispatch({
       type: actionType,
-      data: { course, continueTokens: {} },
+      data: { course },
       limit: limit
     });
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.continueTokens)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.days, state.revisions.last_date, state.revisions.assessments, dispatch)
       .then((resp) => {
         dispatch({
           type: actionType,

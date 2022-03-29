@@ -6,6 +6,7 @@ import {
   SORT_REVISIONS
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
+import moment from 'moment';
 
 const initialState = {
   revisions: [],
@@ -20,32 +21,37 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  continueTokens: {}
+  days: 7,
+  last_date: moment().format(),
+  assessments: {},
+  assessmentsLoaded: false
 };
 
 const isLimitReachedCourseSpecific = (revs, limit) => {
   return (revs.length < limit);
 };
 
-const isLimitReached = (continueTokens) => {
-  // eslint-disable-next-line no-restricted-syntax
-  for (const value of Object.values(continueTokens)) {
-    if (value !== 'no-continue') {
-      return false;
-    }
-  }
-  return true;
+const isLimitReached = (course_start, last_date) => {
+  return moment(course_start).isAfter(moment(last_date));
 };
+
 export default function revisions(state = initialState, action) {
   switch (action.type) {
+    case 'RECEIVE_ASSESSMENTS':
+      return {
+        ...state,
+        assessmentsLoaded: true,
+        assessments: action.data.assessments
+      };
     case RECEIVE_REVISIONS:
       return {
         ...state,
         revisions: action.data.course.revisions,
         limit: action.limit,
-        limitReached: isLimitReached(action.data.continueTokens),
+        limitReached: isLimitReached(action.data.course.start, state.last_date),
         revisionsLoaded: true,
-        continueTokens: action.data.continueTokens
+        days: action.data.days,
+        last_date: action.data.last_date
       };
     case RECEIVE_COURSE_SCOPED_REVISIONS:
       return {
@@ -58,7 +64,8 @@ export default function revisions(state = initialState, action) {
     case REVISIONS_LOADING:
       return {
         ...state,
-        revisionsLoaded: false
+        revisionsLoaded: false,
+        assessmentsLoaded: false
       };
     case COURSE_SCOPED_REVISIONS_LOADING:
       return {

@@ -4,8 +4,11 @@ import moment from 'moment';
 import DiffViewer from './diff_viewer.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
-  const ratingClass = `rating ${revision.rating}`;
+const Revision = ({ assessment, revision, index, wikidataLabel, course, setSelectedIndex, lastIndex, selectedIndex }) => {
+  if (!assessment) {
+    assessment = {};
+  }
+  const ratingClass = `rating ${assessment.rating || revision.rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
   const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
@@ -14,15 +17,15 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">
-        {isWikipedia && <p className="rating_num hidden">{revision.rating_num}</p>}
-        {isWikipedia && <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>}
+        {isWikipedia && <p className="rating_num hidden">{assessment.rating_num || revision.rating_num}</p>}
+        {isWikipedia && <div className={ratingClass}><p>{assessment.pretty_rating || revision.pretty_rating || '-'}</p></div>}
         {isWikipedia && <div className="tooltip dark">
-          <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`, { class: revision.rating || '' })}</p>
+          <p>{I18n.t(`articles.rating_docs.${assessment.rating || assessment.rating || '?'}`, { class: assessment.rating || revision.rating || '' })}</p>
           {/* eslint-disable-next-line */}
         </div>}
       </td>
       <td>
-        {isWikipedia && <div className={ratingMobileClass}><p>{revision.pretty_rating || '-'}</p></div>}
+        {isWikipedia && <div className={ratingMobileClass}><p>{assessment.pretty_rating || revision.pretty_rating || '-'}</p></div>}
         <a href={revision.article_url} target="_blank" className="inline"><p className="title">{formattedTitle}&nbsp;<small>{subtitle}</small></p></a>
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
