@@ -76,7 +76,15 @@ export default function revisions(state = initialState, action) {
     case SORT_REVISIONS: {
       const absolute = action.key === 'characters';
       const desc = action.key === state.sort.sortKey;
-      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute);
+      // some values like references and rating num are fetched independently of revisions
+      // to reduce waiting time
+      let mapTo;
+      if (action.key === 'references_added') {
+        mapTo = state.referencesAdded;
+      } else if (action.key === 'rating_num') {
+        mapTo = state.assessments;
+      }
+      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute, mapTo);
       const sortedCourseScopedRevisions = sortByKey(state.courseScopedRevisions, action.key, null, desc, absolute);
       return { ...state,
         revisions: sortedRevisions.newModels,

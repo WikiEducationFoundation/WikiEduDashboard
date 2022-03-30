@@ -212,6 +212,8 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
     const references = getReferences(combinedObject?.[revision.revid]);
     if (references) {
       referencesAdded[revision.revid] = references - getReferences(combinedObject?.[revision.parentid]);
+    } else {
+      referencesAdded[revision.revid] = 0;
     }
   }
   return referencesAdded;
