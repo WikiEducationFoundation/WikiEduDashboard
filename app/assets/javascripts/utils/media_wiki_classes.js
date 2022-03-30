@@ -70,7 +70,7 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
 
 // this functions takes in the previous assessments information, and a mapping between the wiki and
 // a list of its revisions. It then individually finds out the classes of all wikis, and then merges them together
-export const fetchClassFromRevisions = async (prevAssessments, wikiMap) => {
+export const fetchClassFromRevisions = async (wikiMap) => {
   const assessmentsPromises = [];
 
   for (const [wiki_url, revisionsOfWiki] of wikiMap) {
@@ -78,9 +78,6 @@ export const fetchClassFromRevisions = async (prevAssessments, wikiMap) => {
   }
   const resolvedValues = await Promise.all(assessmentsPromises);
 
-  // merge all the assessments
-  const allAssessments = Object.assign({}, ...resolvedValues);
-
-  // merge the previous and current assessments
-  return Object.assign({}, ...[allAssessments, prevAssessments]);
+  // merge all the assessments and return
+  return Object.assign({}, ...resolvedValues);
 };

@@ -66,7 +66,7 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
   return referencesAdded;
 };
 
-export const fetchReferencesAdded = async (prevReferences, wikiMap) => {
+export const fetchReferencesAdded = async (wikiMap) => {
   const referencesPromises = [];
   // eslint-disable-next-line no-restricted-syntax
   for (const [wiki_url, revisionsOfWiki] of wikiMap) {
@@ -74,9 +74,6 @@ export const fetchReferencesAdded = async (prevReferences, wikiMap) => {
   }
   const resolvedValues = await Promise.all(referencesPromises);
 
-  // merge array of objects into one object
-  const allReferences = Object.assign({}, ...resolvedValues);
-
-  // return after merging previous References and current
-  return Object.assign({}, ...[allReferences, prevReferences]);
+  // merge array of objects into one object and return
+  return Object.assign({}, ...resolvedValues);
 };

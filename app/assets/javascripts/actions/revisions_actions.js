@@ -14,7 +14,7 @@ import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, prevAssessments, prevReferences, dispatch) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, dispatch) => {
   if (!isCourseScoped) {
     const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
     if (course.revisions) {
@@ -25,7 +25,7 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_
     course.revisions = sortRevisionsByDate(course.revisions);
 
     // we don't await this. When the assessments/references get laoded, the action is dispatched
-    fetchRevisionsAndReferences(prevReferences, prevAssessments, revisions, dispatch);
+    fetchRevisionsAndReferences(revisions, dispatch);
     return { course, last_date: new_last_date };
   }
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
@@ -59,7 +59,7 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.assessments, state.revisions.referencesAdded, dispatch)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, dispatch)
       .then((resp) => {
         dispatch({
           type: actionType,

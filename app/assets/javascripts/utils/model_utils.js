@@ -19,8 +19,7 @@ export const getFiltered = (models, options) => {
 // already sorted by, and the default sorting direction.
 // If you sort a second time by the same key, then it will reverse the sorting.
 // Otherwise, it will just sort by that key.
-// mapTo is an optional object which maps the model's id to a value which is to be used for sorting
-export const sortByKey = (models, sortKey, previousKey = null, desc = false, absolute = false, mapTo) => {
+export const sortByKey = (models, sortKey, previousKey = null, desc = false, absolute = false) => {
   const sameKey = sortKey === previousKey;
   let newKey;
   if (sameKey) {
@@ -33,12 +32,7 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false, abs
   // null. The desired order requires the null values to be in the end instead
   // of beginning.
   const sortFunc = (model) => {
-    if (mapTo && sortKey === 'references_added') {
-      return mapTo?.[model.revid] ?? 0;
-    } else if (mapTo && sortKey === 'rating_num') {
-      return mapTo?.[model.revid]?.rating_num ?? 0;
-    }
-    return model[sortKey] ?? 0;
+    return model?.[sortKey] ?? 0;
   };
 
   const reverse = !sameKey !== !desc; // sameKey OR desc is truthy, but not both

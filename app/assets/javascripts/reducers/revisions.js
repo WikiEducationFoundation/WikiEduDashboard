@@ -21,8 +21,6 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  assessments: {},
-  referencesAdded: {},
   last_date: moment().format(),
 };
 
@@ -36,16 +34,29 @@ const isLimitReached = (course_start, last_date) => {
 
 export default function revisions(state = initialState, action) {
   switch (action.type) {
-    case 'RECEIVE_REFERENCES':
-      return {
-        ...state,
-        referencesAdded: action.data.referencesAdded
-      };
-    case 'RECEIVE_ASSESSMENTS':
-      return {
-        ...state,
-        assessments: action.data.assessments
-      };
+    case 'RECEIVE_REFERENCES': {
+      const newState = { ...state };
+      const revisionsArray = newState.revisions;
+      const referencesAdded = action.data.referencesAdded;
+      newState.revisions = revisionsArray.map((revision) => {
+        return { ...revision, references_added: referencesAdded?.[revision.revid] ?? 0 };
+      });
+      return newState;
+    }
+    case 'RECEIVE_ASSESSMENTS': {
+      const newState = { ...state };
+      const revisionsArray = newState.revisions;
+      const pageAssessments = action.data.assessments;
+      newState.revisions = revisionsArray.map((revision) => {
+        return {
+          ...revision,
+          rating_num: pageAssessments?.[revision.revid]?.rating_num,
+          pretty_rating: pageAssessments?.[revision.revid]?.pretty_rating,
+          rating: pageAssessments?.[revision.revid]?.rating
+        };
+      });
+      return newState;
+    }
     case RECEIVE_REVISIONS:
       return {
         ...state,
@@ -76,15 +87,8 @@ export default function revisions(state = initialState, action) {
     case SORT_REVISIONS: {
       const absolute = action.key === 'characters';
       const desc = action.key === state.sort.sortKey;
-      // some values like references and rating num are fetched independently of revisions
-      // to reduce waiting time
-      let mapTo;
-      if (action.key === 'references_added') {
-        mapTo = state.referencesAdded;
-      } else if (action.key === 'rating_num') {
-        mapTo = state.assessments;
-      }
-      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute, mapTo);
+
+      const sortedRevisions = sortByKey(state.revisions, action.key, null, desc, absolute);
       const sortedCourseScopedRevisions = sortByKey(state.courseScopedRevisions, action.key, null, desc, absolute);
       return { ...state,
         revisions: sortedRevisions.newModels,
