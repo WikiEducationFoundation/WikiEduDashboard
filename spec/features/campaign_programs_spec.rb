@@ -46,12 +46,13 @@ describe 'campaign programs page', type: :feature, js: true do
     it 'allows sorting using a dropdown' do
       visit "/campaigns/#{campaign.slug}/programs"
 
+	  find('#courses select.sorts').find(:xpath, 'option[3]').select_option
+      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
       find('#courses select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('[data-sort="title"].sort.asc')
       find('#courses select.sorts').find(:xpath, 'option[2]').select_option
       expect(page).to have_selector('[data-sort="school"].sort.asc')
-      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
+
       find('#courses select.sorts').find(:xpath, 'option[4]').select_option
       expect(page).to have_selector('[data-sort="characters"].sort.desc')
 
@@ -68,7 +69,13 @@ describe 'campaign programs page', type: :feature, js: true do
     it 'is sortable by the different selectors' do
       visit "/campaigns/#{campaign.slug}/programs"
 
+	  # Sortable by revision
+	  expect(page).to have_selector('[data-sort="revisions"].sort.desc')
+      find('#courses [data-sort="revisions"].sort').click
+      expect(page).to have_selector('[data-sort="revisions"].sort.asc')
+
       # Sortable by title
+	  find('#courses [data-sort="title"].sort').click
       expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
       find('#courses [data-sort="title"].sort').click
       expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
@@ -93,9 +100,9 @@ describe 'campaign programs page', type: :feature, js: true do
     it 'sorts the contained courses' do
       visit "/campaigns/#{campaign.slug}/programs"
 
+	  expect_advanced_before_regular_basketweaving
+      find('#courses [data-sort="revisions"].sort').click
       expect_advanced_before_regular_basketweaving
-      find('#courses [data-sort="title"].sort').click
-      expect_regular_before_advanced_basketweaving
 
       find('#courses [data-sort="school"].sort').click
       expect_regular_before_advanced_basketweaving
