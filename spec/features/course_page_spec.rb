@@ -477,8 +477,7 @@ describe 'the course page', type: :feature, js: true do
     it 'displays a list of edits' do
       Capybara.using_wait_time 10 do
         js_visit "/courses/#{slug}/activity"
-        expect(page).to have_content('Bareilly College').twice
-        expect(page).to have_content('Hartmann College', count: 3)
+        expect(page).to have_css(".revision", minimum: 5)
       end
     end
   end
