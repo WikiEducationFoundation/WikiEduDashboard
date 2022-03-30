@@ -20,14 +20,14 @@ describe 'difference viewer', type: :feature, js: true do
       visit "/courses/#{course.slug}/activity"
 
       # User has a total of 5 contributions since 7th Mar 2020
-      # https://en.wikipedia.org/wiki/Special:Contributions/Greatgavini
+      # https://en.wikipedia.org/wiki/Special:Contributions/DSMalhotra
       expect(page).to have_css('button.icon-diff-viewer', count: 5)
 
       # Checking length of difference, a small portion of changed text (which in this case
       # is 'large fields', should appear only once) and a small portion of unchanged text
-      # (which in this case is 'There are four sections of each class for NC to 10'), which should appear two
-      # times (i.e., in both the columns of diff viewer)
-      # https://en.wikipedia.org/w/index.php?diff=prev&oldid=554568302
+      # (which in this case is 'There are four sections of each class for NC to 10'),
+      # which should appear two times (i.e., in both the columns of diff viewer)
+      # https://en.wikipedia.org/w/index.php?diff=prev&oldid=944405819
       all('button.icon-diff-viewer')[2].click
       expect(page).to have_content('-22 Chars Added')
       expect(page).to have_content('large fields').once
