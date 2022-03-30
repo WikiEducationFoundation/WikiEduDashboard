@@ -29,7 +29,7 @@ const isLimitReachedCourseSpecific = (revs, limit) => {
 };
 
 const isLimitReached = (course_start, last_date) => {
-  return moment(course_start).isAfter(moment(last_date));
+  return moment(course_start).isAfter(moment(last_date)) || moment(last_date).isBefore(moment().subtract(5, 'years'));
 };
 
 export default function revisions(state = initialState, action) {

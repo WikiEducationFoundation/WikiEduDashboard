@@ -17,18 +17,22 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date) =>
   /* eslint-disable no-restricted-syntax */
 
   // request until we find 50 revisions or the date is outside the course duration
-  while (revisions.length < 50 && moment(last_date).isAfter(course.start)) {
+  // the last we fetch is up until 5 years ago
+  let keepRunning = true;
+  while (revisions.length < 50 && keepRunning) {
     for (const wiki of course.wikis) {
       wikiPromises.push(fetchRevisionsFromWiki(days, wiki, usernames, course.start, last_date));
     }
     const resolvedValues = await Promise.all(wikiPromises);
     for (const value of resolvedValues) {
-      const { revisions: items } = value;
+      const { revisions: items, exitNext } = value;
+      keepRunning = !exitNext;
       revisions.push(...items);
     }
     last_date = moment(last_date).subtract(days, 'days').format();
     if (revisions.length < 50) {
-      days *= 3;
+      // go back at most 2 years
+      days = Math.min(365 * 2, 3 * days);
     }
   }
   // remove duplicates
@@ -44,8 +48,13 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date) =>
 // is today's date, it will look for revisions from the past week
 const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, last_date) => {
   let ucend;
+  let exitNext = false;
   if (moment(last_date).subtract(days, 'days').isBefore(course_start)) {
     ucend = moment(course_start).format();
+    exitNext = true;
+  } else if (moment(last_date).subtract(days, 'days').isBefore(moment().subtract(5, 'years'))) {
+    ucend = moment().subtract(5, 'years').format();
+    exitNext = true;
   } else {
     ucend = moment(last_date).subtract(days, 'days').format();
   }
@@ -72,7 +81,7 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
   }
   const values = await Promise.all(usernamePromises);
   const revisions = flatten(values);
-  return revisions;
+  return { revisions, exitNext };
 };
 
 // wrapper function around fetchAllRevisions. This gets all the revisions returned by that function
@@ -80,7 +89,7 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
 const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_date) => {
   const prefix = `https://${url(wiki)}`;
   const API_URL = `${prefix}/w/api.php`;
-  const revisions = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
+  const { revisions, exitNext } = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
   /* eslint-disable no-restricted-syntax */
   for (const revision of revisions) {
     revision.wiki = wiki;
@@ -105,6 +114,6 @@ const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_
     revision.mw_page_id = revision.pageid;
   }
   /* eslint-enable no-restricted-syntax */
-  return { revisions, wiki };
+  return { revisions, wiki, exitNext };
 };
 
