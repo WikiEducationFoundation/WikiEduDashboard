@@ -28,10 +28,10 @@
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
-          %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
             = t('articles.title')
             %span.sortable-indicator
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
+          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
             .tooltip-trigger
               = t('metrics.char_added')
               %span.sortable-indicator
