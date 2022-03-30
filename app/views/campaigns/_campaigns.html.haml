@@ -17,10 +17,10 @@
   %table.table.table--hoverable.table--sortable
     %thead
       %tr
-        %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
+        %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "title"}
           = t('campaign.campaigns')
           %span.sortable-indicator
-        %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "num-courses", style: "width: 150px"}
+        %th.sort.sortable.desc{"data-default-order" => "desc", "data-sort" => "num-courses", style: "width: 150px"}
           .tooltip-trigger
             = t("#{Features.default_course_string_prefix}.courses")
             %span.sortable-indicator
