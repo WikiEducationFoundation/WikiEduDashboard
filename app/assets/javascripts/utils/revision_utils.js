@@ -28,7 +28,7 @@ export const fetchAll = async (API_URL, params, continue_str) => {
     }
     const json = await response.json();
     allData.push(...json.query.usercontribs);
-    if (allData.length >= 500) {
+    if (allData.length >= 1000) {
       // we have enough revisions - don't need to burden the API
       return allData;
     }
