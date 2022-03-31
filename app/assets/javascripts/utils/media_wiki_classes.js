@@ -2,10 +2,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
 import request from './request';
-import { PageAssessmentGrades } from './article_finder_language_mappings';
 import { stringify } from 'query-string';
 import { chunk } from 'lodash-es';
-
+import { getAssessments } from './revision_utils';
 // this function takes in a wiki url and the revisions of that particular wiki
 // it then finds the page assessments of all of the articles, merges them together
 // and returns an object in the form of {revision_id: {rating, pretty_rating, rating_num}, ...}
@@ -37,33 +36,7 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
     // no ratings found
     return;
   }
-  // merge list of objects of ratings into a single object
-  const ratings = Object.assign({}, ...allRatings);
-  const assessments = {};
-  for (const revision of revisionsOfWiki) {
-    const assessment = {};
-    // if pageassessments exists
-    if (ratings?.[revision.pageid]?.pageassessments) {
-      // pick the first key of the object pageassessments
-      let rating;
-      for (const value of Object.values(ratings[revision.pageid].pageassessments)) {
-        if (value.class) {
-          rating = value.class;
-          break;
-        }
-      }
-      if (rating) {
-        const mapping = PageAssessmentGrades[revision.wiki.project][revision.wiki.language][rating];
-        if (mapping) {
-          assessment.rating_num = mapping.score;
-          assessment.pretty_rating = mapping.pretty;
-          assessment.rating = mapping.class;
-        }
-      }
-    }
-    assessments[revision.revid] = assessment;
-  }
-  return assessments;
+  return getAssessments(allRatings, revisionsOfWiki);
 };
 
 // this functions takes in the previous assessments information, and a mapping between the wiki and

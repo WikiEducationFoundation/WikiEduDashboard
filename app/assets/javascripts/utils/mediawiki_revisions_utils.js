@@ -2,11 +2,48 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-import { fetchAll } from './revision_utils';
 import { flatten, chunk } from 'lodash-es';
 import { stringify } from 'query-string';
+import request from './request';
 import { url } from './wiki_utils';
 import moment from 'moment';
+
+// the MediaWiki API sends back revisions in pages
+// except the last page, each page has a continue token
+// that continue token must be included in the request to fetch the next page
+// this helper function exists to fetch and merge all those pages into one
+const fetchAll = async (API_URL, params, continue_str) => {
+  const allData = [];
+  let continueToken;
+  let hasMore = true;
+  while (hasMore) {
+    let response;
+    if (continueToken) {
+      params[continue_str] = continueToken[continue_str];
+      params.continue = continueToken.continue;
+    }
+    try {
+      response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+      if (!response.ok) {
+        throw response;
+      }
+    } catch (e) {
+      return allData;
+    }
+    const json = await response.json();
+    allData.push(...json.query.usercontribs);
+    if (allData.length >= 1000) {
+      // we have enough revisions - don't need to burden the API
+      return allData;
+    }
+    if (json.continue) {
+      continueToken = json.continue;
+    } else {
+      hasMore = false;
+    }
+  }
+  return allData;
+};
 
 export const fetchRevisionsFromUsers = async (course, users, days, last_date) => {
   const usernames = users.map(user => user.username);

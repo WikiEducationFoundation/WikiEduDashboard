@@ -1,48 +1,42 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import request from './request';
-import { stringify } from 'query-string';
-import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
+import { ORESSupportedWiki, PageAssessmentSupportedWiki, PageAssessmentGrades } from '../utils/article_finder_language_mappings';
 import { url } from './wiki_utils';
 
-// the MediaWiki API sends back revisions in pages
-// except the last page, each page has a continue token
-// that continue token must be included in the request to fetch the next page
-// this helper function exists to fetch and merge all those pages into one
-export const fetchAll = async (API_URL, params, continue_str) => {
-  const allData = [];
-  let continueToken;
-  let hasMore = true;
-  while (hasMore) {
-    let response;
-    if (continueToken) {
-      params[continue_str] = continueToken[continue_str];
-      params.continue = continueToken.continue;
-    }
-    try {
-      response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-      if (!response.ok) {
-        throw response;
+// this helper function takes in a list of objects of the ratings as returned by the ORES API
+// it first merges all the objects into one big one and extracts the assessment information.
+// it returns an assessment object, the keys of which are revision ids and the value is an object of the form
+// {rating_num, rating, pretty_rating}
+export const getAssessments = (allRatings, revisions) => {
+  const ratings = Object.assign({}, ...allRatings);
+  const assessments = {};
+  for (const revision of revisions) {
+    const assessment = {};
+    // if pageassessments exists
+    if (ratings?.[revision.pageid]?.pageassessments) {
+      // pick the first key of the object pageassessments
+      let rating;
+      for (const value of Object.values(ratings[revision.pageid].pageassessments)) {
+        if (value.class) {
+          rating = value.class;
+          break;
+        }
       }
-    } catch (e) {
-      return allData;
+      if (rating) {
+        const mapping = PageAssessmentGrades[revision.wiki.project][revision.wiki.language][rating];
+        if (mapping) {
+          assessment.rating_num = mapping.score;
+          assessment.pretty_rating = mapping.pretty;
+          assessment.rating = mapping.class;
+        }
+      }
     }
-    const json = await response.json();
-    allData.push(...json.query.usercontribs);
-    if (allData.length >= 1000) {
-      // we have enough revisions - don't need to burden the API
-      return allData;
-    }
-    if (json.continue) {
-      continueToken = json.continue;
-    } else {
-      hasMore = false;
-    }
+    assessments[revision.revid] = assessment;
   }
-  return allData;
+  return assessments;
 };
 
-// uses the ORES API to get the number of references in a particular revision
+// extracts the number of references in a particular revision
 export const getReferencesCount = (item) => {
   const features = item?.articlequality?.features;
   return features?.['feature.wikitext.revision.ref_tags']
