@@ -20,7 +20,6 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   const allRatings = [];
   const chunks = chunk(uniqueArticles, 50);
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const uniqueArticlesChunk of chunks) {
     const params = {
       action: 'query',
@@ -41,7 +40,6 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   // merge list of objects of ratings into a single object
   const ratings = Object.assign({}, ...allRatings);
   const assessments = {};
-  /* eslint-disable no-restricted-syntax */
   for (const revision of revisionsOfWiki) {
     const assessment = {};
     // if pageassessments exists

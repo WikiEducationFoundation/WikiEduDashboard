@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
@@ -14,7 +13,6 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date) =>
 
   let revisions = [];
   const wikiPromises = [];
-  /* eslint-disable no-restricted-syntax */
 
   // request until we find 50 revisions or the date is outside the course duration
   // the last we fetch is up until 5 years ago
@@ -39,7 +37,6 @@ export const fetchRevisionsFromUsers = async (course, users, days, last_date) =>
   // they occur because dates overlap and sometimes the same revision is included twice
   revisions = [...new Map(revisions.map(v => [v.id, v])).values()];
 
-  /* eslint-enable no-restricted-syntax */
   return { revisions, last_date };
 };
 
@@ -64,7 +61,6 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
   const usernamesChunks = chunk(usernames, 50);
   const usernamePromises = [];
 
-  /* eslint-disable no-restricted-syntax */
   for (const usernameChunk of usernamesChunks) {
     const params = {
       action: 'query',
@@ -90,7 +86,6 @@ const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_
   const prefix = `https://${url(wiki)}`;
   const API_URL = `${prefix}/w/api.php`;
   const { revisions, exitNext } = await fetchAllRevisions(API_URL, days, usernames, wiki, course_start, last_date);
-  /* eslint-disable no-restricted-syntax */
   for (const revision of revisions) {
     revision.wiki = wiki;
     const diff_params = {
@@ -113,7 +108,6 @@ const fetchRevisionsFromWiki = async (days, wiki, usernames, course_start, last_
     revision.date = revision.timestamp;
     revision.mw_page_id = revision.pageid;
   }
-  /* eslint-enable no-restricted-syntax */
   return { revisions, wiki, exitNext };
 };
 

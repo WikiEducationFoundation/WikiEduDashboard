@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import request from './request';
 import { stringify } from 'query-string';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings';
@@ -55,7 +56,6 @@ export const getReferencesCount = (item) => {
 // for example, {"en.wikipedia.org": [rev1, rev2], "fr.wikipedia.org": [rev4, rev3]}
 export const getWikiMap = (revisions) => {
   const wikiMap = new Map();
-  // eslint-disable-next-line no-restricted-syntax
   for (const revision of revisions) {
     if (
       PageAssessmentSupportedWiki?.[revision.wiki.project]?.includes(revision.wiki.language)

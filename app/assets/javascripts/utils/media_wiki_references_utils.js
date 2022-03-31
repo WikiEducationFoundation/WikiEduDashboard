@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { ORESSupportedWiki } from './article_finder_language_mappings';
 import { queryUrl } from './article_finder_utils';
 import { chunk } from 'lodash-es';
@@ -38,7 +39,6 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
 
   const promises = [];
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const revid_chunk of chunks) {
     const params = {
       revids: revid_chunk.join('|'),
@@ -57,7 +57,6 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
 
   const referencesAdded = {};
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const revision of revisions) {
     const references = getReferencesCount(combinedObject?.[revision.revid]);
     if (references) {
@@ -71,7 +70,6 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
 
 export const fetchReferencesAdded = async (wikiMap) => {
   const referencesPromises = [];
-  // eslint-disable-next-line no-restricted-syntax
   for (const [wiki_url, revisionsOfWiki] of wikiMap) {
     referencesPromises.push(fetchReferencesAddedFromWiki(wiki_url, revisionsOfWiki));
   }
