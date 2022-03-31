@@ -22,13 +22,16 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
     // wiki does not support ORES
     return;
   }
+  let models;
   let suffix;
   if (wiki.project === 'wikidata') {
     suffix = 'wikidatawiki';
+    models = 'itemquality';
   } else {
     suffix = `${wiki.language}wiki`;
+    models = 'articlequality';
   }
-  const API_URL = `http://ores.wikimedia.org/v3/scores/${suffix}`;
+  const API_URL = `https://ores.wikimedia.org/v3/scores/${suffix}`;
   const revids = revisions.filter(revision => revision.ns === 0).map(revision => `${revision.parentid}|${revision.revid}`);
   const chunks = chunk(revids, 25);
 
@@ -40,7 +43,7 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
     const params = {
       revids: revid_chunk.join('|'),
       features: true,
-      models: 'articlequality'
+      models
     };
 
     promises.push(queryUrl(`${API_URL}`, params));
