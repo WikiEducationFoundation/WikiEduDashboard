@@ -16,27 +16,17 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   console.log(`Fetching page assessments from ${wiki_url}`);
 
   const uniqueArticles = [...new Set(revisionsOfWiki.filter(revision => revision.ns === 0).map(revision => revision.title))];
-  const allRatings = [];
   const chunks = chunk(uniqueArticles, 50);
-
+  const allPromises = [];
   for (const uniqueArticlesChunk of chunks) {
-    const params = {
-      action: 'query',
-      format: 'json',
-      titles: uniqueArticlesChunk.join('|'),
-      prop: 'pageassessments',
-      pasubprojects: false,
-      palimit: 500
-    };
-    const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-    const pages = (await response.json())?.query?.pages;
-    if (pages) { allRatings.push(pages); }
+    allPromises.push(getClassesForArticles(API_URL, uniqueArticlesChunk));
   }
-  if (!allRatings) {
+  const resolvedValues = await Promise.all(allPromises);
+  if (!resolvedValues.length) {
     // no ratings found
-    return;
+    return {};
   }
-  return getAssessments(allRatings, revisionsOfWiki);
+  return getAssessments(resolvedValues, revisionsOfWiki);
 };
 
 // this functions takes in the previous assessments information, and a mapping between the wiki and
@@ -51,4 +41,21 @@ export const fetchClassFromRevisions = async (wikiMap) => {
 
   // merge all the assessments and return
   return Object.assign({}, ...resolvedValues);
+};
+
+// takes in a list of articles, and requests for their class information
+const getClassesForArticles = async (API_URL, articles) => {
+  const params = {
+    action: 'query',
+    format: 'json',
+    titles: articles.join('|'),
+    prop: 'pageassessments',
+    pasubprojects: false,
+    palimit: 500
+  };
+  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+  const pages = (await response.json())?.query?.pages;
+  if (pages) {
+    return pages;
+  }
 };
