@@ -14,21 +14,8 @@ import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, lastRevisions, dispatch) => {
-  if (!isCourseScoped) {
-    const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
-    if (lastRevisions.length) {
-      course.revisions = lastRevisions.concat(revisions);
-    } else {
-      course.revisions = revisions;
-    }
-    course.revisions = sortRevisionsByDate(course.revisions);
-
-    // we don't await this. When the assessments/references get laoded, the action is dispatched
-    fetchRevisionsAndReferences(revisions, dispatch);
-    return { course, last_date: new_last_date };
-  }
-  const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=${isCourseScoped}`);
+const fetchCourseScopedRevisionsPromise = async (course, limit) => {
+  const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
   if (!response.ok) {
     logErrorMessage(response);
     const data = await response.text();
@@ -38,31 +25,51 @@ const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_
   return response.json();
 };
 
-export const fetchRevisions = (course, limit, isCourseScoped = false) => async (dispatch, getState) => {
-  let actionType;
-  if (isCourseScoped) {
-    actionType = RECEIVE_COURSE_SCOPED_REVISIONS;
-    dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+const fetchRevisionsPromise = async (course, users, last_date, lastRevisions, dispatch) => {
+  const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
+  if (lastRevisions.length) {
+    course.revisions = lastRevisions.concat(revisions);
   } else {
-    actionType = RECEIVE_REVISIONS;
-    dispatch({ type: REVISIONS_LOADING });
+    course.revisions = revisions;
   }
+  course.revisions = sortRevisionsByDate(course.revisions);
+
+  // we don't await this. When the assessments/references get laoded, the action is dispatched
+  fetchRevisionsAndReferences(revisions, dispatch);
+  return { course, last_date: new_last_date };
+};
+
+export const fetchRevisions = course => async (dispatch, getState) => {
+  dispatch({ type: REVISIONS_LOADING });
   const state = getState();
   const users = state.users.users;
   if (users.length === 0) {
     course.revisions = [];
     dispatch({
-      type: actionType,
+      type: RECEIVE_REVISIONS,
       data: { course },
-      limit: limit
     });
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.revisions, dispatch)
+    fetchRevisionsPromise(course, users, state.revisions.last_date, state.revisions.revisions, dispatch)
       .then((resp) => {
         dispatch({
-          type: actionType,
+          type: RECEIVE_REVISIONS,
+          data: resp,
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+  );
+};
+
+export const fetchCourseScopedRevisions = (course, limit) => async (dispatch) => {
+  dispatch({ type: COURSE_SCOPED_REVISIONS_LOADING });
+  return (
+    fetchCourseScopedRevisionsPromise(course, limit)
+      .then((resp) => {
+        dispatch({
+          type: RECEIVE_COURSE_SCOPED_REVISIONS,
           data: resp,
           limit: limit
         });
@@ -73,5 +80,4 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
-
 export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key });

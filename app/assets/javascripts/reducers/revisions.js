@@ -12,7 +12,6 @@ import moment from 'moment';
 
 const initialState = {
   revisions: [],
-  limit: 50,
   limitReached: false,
   courseScopedRevisions: [],
   courseScopedLimit: 50,
@@ -63,7 +62,6 @@ export default function revisions(state = initialState, action) {
       return {
         ...state,
         revisions: action.data.course.revisions,
-        limit: action.limit,
         limitReached: isLimitReached(action.data.course.start, state.last_date),
         revisionsLoaded: true,
         last_date: action.data.last_date
