@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+import { Spring } from 'react-spring';
 import TransitionGroup from '../common/css_transition_group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
@@ -102,7 +103,6 @@ const Week = createReactClass({
     ) : (
       <p className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></p>
     );
-
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {
@@ -136,11 +136,10 @@ const Week = createReactClass({
             </li>
           );
         };
-
         return (
-          <Motion key={block.id} defaultStyle={{ y: i * 75 }} style={{ y: spring(i * 75, [220, 30]) }}>
+          <Spring key={block.id} style={{ to: { marginTop: `${i * 75}px` }, from: { marginTop: `${i * 75}px` } }}>
             {orderableBlock}
-          </Motion>
+          </Spring>
         );
       }
       // If not in reorderable mode
@@ -203,7 +202,7 @@ const Week = createReactClass({
         )
     );
 
-    let weekClassName = `week week-${this.props.index}`;
+    let weekClassName = `Week Week-${this.props.index}`;
     if (!this.props.meetings) {
       weekClassName += ' timeline-warning';
     }
