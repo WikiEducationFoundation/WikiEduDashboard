@@ -40,7 +40,7 @@ export default function revisions(state = initialState, action) {
       const revisionsArray = newState.revisions;
       const referencesAdded = action.data.referencesAdded;
       newState.revisions = revisionsArray.map((revision) => {
-        return { references_added: referencesAdded?.[revision.revid] ?? 0, ...revision };
+        return { references_added: referencesAdded?.[revision?.revid], ...revision };
       });
       return newState;
     }
