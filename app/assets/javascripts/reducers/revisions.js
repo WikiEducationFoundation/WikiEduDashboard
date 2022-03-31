@@ -3,7 +3,9 @@ import {
   REVISIONS_LOADING,
   RECEIVE_COURSE_SCOPED_REVISIONS,
   COURSE_SCOPED_REVISIONS_LOADING,
-  SORT_REVISIONS
+  SORT_REVISIONS,
+  RECEIVE_REFERENCES,
+  RECEIVE_ASSESSMENTS
 } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 import moment from 'moment';
@@ -34,7 +36,7 @@ const isLimitReached = (course_start, last_date) => {
 
 export default function revisions(state = initialState, action) {
   switch (action.type) {
-    case 'RECEIVE_REFERENCES': {
+    case RECEIVE_REFERENCES: {
       const newState = { ...state };
       const revisionsArray = newState.revisions;
       const referencesAdded = action.data.referencesAdded;
@@ -43,7 +45,7 @@ export default function revisions(state = initialState, action) {
       });
       return newState;
     }
-    case 'RECEIVE_ASSESSMENTS': {
+    case RECEIVE_ASSESSMENTS: {
       const newState = { ...state };
       const revisionsArray = newState.revisions;
       const pageAssessments = action.data.assessments;
