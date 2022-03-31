@@ -39,7 +39,7 @@ export default function revisions(state = initialState, action) {
       const revisionsArray = newState.revisions;
       const referencesAdded = action.data.referencesAdded;
       newState.revisions = revisionsArray.map((revision) => {
-        return { ...revision, references_added: referencesAdded?.[revision.revid] ?? 0 };
+        return { references_added: referencesAdded?.[revision.revid] ?? 0, ...revision };
       });
       return newState;
     }
@@ -49,10 +49,10 @@ export default function revisions(state = initialState, action) {
       const pageAssessments = action.data.assessments;
       newState.revisions = revisionsArray.map((revision) => {
         return {
-          ...revision,
           rating_num: pageAssessments?.[revision.revid]?.rating_num,
           pretty_rating: pageAssessments?.[revision.revid]?.pretty_rating,
-          rating: pageAssessments?.[revision.revid]?.rating
+          rating: pageAssessments?.[revision.revid]?.rating,
+          ...revision
         };
       });
       return newState;

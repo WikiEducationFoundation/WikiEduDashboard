@@ -14,11 +14,11 @@ import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
 
-const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, dispatch) => {
+const fetchRevisionsPromise = async (course, limit, isCourseScoped, users, last_date, lastRevisions, dispatch) => {
   if (!isCourseScoped) {
     const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
-    if (course.revisions) {
-      course.revisions = course.revisions.concat(revisions);
+    if (lastRevisions.length) {
+      course.revisions = lastRevisions.concat(revisions);
     } else {
       course.revisions = revisions;
     }
@@ -59,7 +59,7 @@ export const fetchRevisions = (course, limit, isCourseScoped = false) => async (
     return;
   }
   return (
-    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, dispatch)
+    fetchRevisionsPromise(course, limit, isCourseScoped, users, state.revisions.last_date, state.revisions.revisions, dispatch)
       .then((resp) => {
         dispatch({
           type: actionType,
