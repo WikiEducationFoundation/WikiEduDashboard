@@ -13,6 +13,7 @@ import request from '../utils/request';
 import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
+import { INCREASE_LIMIT } from '../constants/revisions';
 
 const fetchCourseScopedRevisionsPromise = async (course, limit) => {
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
@@ -25,14 +26,9 @@ const fetchCourseScopedRevisionsPromise = async (course, limit) => {
   return response.json();
 };
 
-const fetchRevisionsPromise = async (course, users, last_date, lastRevisions, dispatch) => {
+const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
   const { revisions, last_date: new_last_date } = await fetchRevisionsFromUsers(course, users, 7, last_date);
-  if (lastRevisions.length) {
-    course.revisions = lastRevisions.concat(revisions);
-  } else {
-    course.revisions = revisions;
-  }
-  course.revisions = sortRevisionsByDate(course.revisions);
+  course.revisions = sortRevisionsByDate(revisions);
 
   // we don't await this. When the assessments/references get laoded, the action is dispatched
   fetchRevisionsAndReferences(revisions, dispatch);
@@ -51,8 +47,14 @@ export const fetchRevisions = course => async (dispatch, getState) => {
     });
     return;
   }
+  if (state.revisions.revisionsDisplayed.length < state.revisions.revisions.length) {
+    // no need to fetch new revisions
+    return dispatch({
+      type: INCREASE_LIMIT
+    });
+  }
   return (
-    fetchRevisionsPromise(course, users, state.revisions.last_date, state.revisions.revisions, dispatch)
+    fetchRevisionsPromise(course, users, state.revisions.last_date, dispatch)
       .then((resp) => {
         dispatch({
           type: RECEIVE_REVISIONS,

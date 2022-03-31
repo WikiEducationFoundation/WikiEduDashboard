@@ -82,7 +82,7 @@ const RevisionHandler = createReactClass({
   render() {
     // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
     const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
-    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisions;
+    const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisionsDisplayed;
 
     let showMoreButton;
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
@@ -125,7 +125,7 @@ const mapStateToProps = state => ({
   courseScopedLimitReached: state.revisions.courseScopedLimitReached,
   courseScopedRevisions: state.revisions.courseScopedRevisions,
   limitReached: state.revisions.limitReached,
-  revisions: state.revisions.revisions,
+  revisionsDisplayed: state.revisions.revisionsDisplayed,
   wikidataLabels: state.wikidataLabels.labels,
   courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
   revisionsLoaded: state.revisions.revisionsLoaded,
