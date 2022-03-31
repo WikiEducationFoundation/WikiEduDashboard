@@ -94,6 +94,9 @@ te:
     labels: సూచికలు
     other_updates: ఇతర తాజాకరణలు
     references_added: మూలాలను చేర్చాం
+    references_added_info: ఇది మూలాల పాక్షిక లెక్క కావచ్చు. ఇది వికీడేటా దిద్దుబాటు
+      సారాంశాలపై ఆధారపడినది. మూలాలను చేర్చిన కొన్ని దిద్దుబాట్లను "Changed claim"
+      అని గానీ "Created claim" అని గానీ వర్గీకరించి ఉండవచ్చు.
   namespace:
     user_ns: వాడుకరి
   recent_activity:

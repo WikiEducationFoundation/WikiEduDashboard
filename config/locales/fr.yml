@@ -1155,6 +1155,10 @@ fr:
     qualifiers_added: Qualificateurs ajoutés
     redirects_created: Redirections créées
     references_added: Références ajoutées
+    references_added_info: Ceci peut n’être qu’un décompte partiel des références
+      ajoutées. Il est basé sur les résumés des modifications et certaines modifications
+      qui ajoutent des références sont classées à la place en tant que « Revendication
+      modifiée » ou « Revendication créée ».
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
   namespace:
