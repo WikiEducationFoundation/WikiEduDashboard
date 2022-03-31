@@ -16,7 +16,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
         {isWikipedia && <p className="rating_num hidden">{revision.rating_num}</p>}
         {isWikipedia && <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>}
         {isWikipedia && <div className="tooltip dark">
-          <p>{I18n.t(`articles.rating_docs.${'?'}`, { class: revision.rating || '' })}</p>
+          <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`, { class: revision.rating || '' })}</p>
           {/* eslint-disable-next-line */}
         </div>}
       </td>
