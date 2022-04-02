@@ -6,14 +6,16 @@ import createReactClass from 'create-react-class';
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 import { fetchSpecialUsers } from '../../actions/settings_actions';
-
+import { fetchAllCampaigns } from '../../actions/campaign_actions';
 
 const CourseApproval = createReactClass({
     displayName: 'CourseApproval',
 
     propTypes: {
       fetchSpecialUsers: PropTypes.func,
+      fetchAllCampaigns: PropTypes.func,
       specialUsers: PropTypes.object,
+      all_campaigns: PropTypes.array,
     },
 
     getInitialState() {
@@ -29,10 +31,11 @@ const CourseApproval = createReactClass({
 
     componentDidMount() {
       this.props.fetchSpecialUsers();
+      this.props.fetchAllCampaigns();
     },
 
     componentDidUpdate(prevProps) {
-      if (this.props.specialUsers !== prevProps.specialUsers ) {
+      if (this.props.specialUsers !== prevProps.specialUsers) {
         if (this.props.specialUsers.classroom_program_manager) {
           this.setState({
             selectedProgramManager: {
@@ -150,10 +153,12 @@ const CourseApproval = createReactClass({
 
 const mapStateToProps = state => ({
   specialUsers: state.settings.specialUsers,
+  all_campaigns: state.campaigns.all_campaigns
 });
 
 const mapDispatchToProps = {
   fetchSpecialUsers,
+  fetchAllCampaigns
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseApproval);
