@@ -494,7 +494,7 @@ const Details = createReactClass({
 
     let courseApprovalSection;
     if (canRename) {
-      courseApprovalSection = <CourseApproval />;
+      courseApprovalSection = <CourseApproval {...this.props}/>;
     }
 
     const shared = (
