@@ -8,7 +8,7 @@ import selectStyles from '../../styles/single_select';
 import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { addUser } from '../../actions/user_actions';
-import { getStaffUsers } from '../../selectors';
+import { getStaffUsers, getCourseApprovalStaff } from '../../selectors';
 
 const CourseApproval = createReactClass({
     displayName: 'CourseApproval',
@@ -20,7 +20,8 @@ const CourseApproval = createReactClass({
       addCampaign: PropTypes.func,
       specialUsers: PropTypes.object,
       allCampaigns: PropTypes.array,
-      wikiEdStaff: PropTypes.array
+      wikiEdStaff: PropTypes.array,
+      staff: PropTypes.array
     },
 
     getInitialState() {
@@ -220,7 +221,8 @@ const CourseApproval = createReactClass({
 const mapStateToProps = state => ({
   specialUsers: state.settings.specialUsers,
   allCampaigns: state.campaigns.all_campaigns,
-  wikiEdStaff: getStaffUsers(state)
+  wikiEdStaff: getStaffUsers(state),
+  staff: getCourseApprovalStaff(state)
 });
 
 const mapDispatchToProps = {

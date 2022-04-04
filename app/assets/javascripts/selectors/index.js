@@ -31,6 +31,7 @@ const getValidations = state => state.validations.validations;
 const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
 const getTickets = state => state.tickets;
+const getSpecialUsers = state => state.settings.specialUsers;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -54,6 +55,48 @@ export const getProgramManagers = createSelector(
 
 export const getContentExperts = createSelector(
   [getStaffUsers], users => getFiltered(users, { content_expert: true })
+);
+
+export const getCourseApprovalStaff = createSelector(
+  [getSpecialUsers, getStaffUsers], (specialUsers, staffUsers) => {
+    // Compare staff users of a course with classroom program manager and
+    // wiki expert users. Make a list of all Special Users objects with
+    // required information. Mark any user in the list as already_selected 
+    // if they have already been selected as a staff user, to prevent them 
+    // from being selected again and raising an error.
+    var staffList = [];
+    // Add classroom program manager
+    if (specialUsers.classroom_program_manager) {
+      staffList.push({
+        role: "classroom_program_manager",
+        username: specialUsers.classroom_program_manager[0].username,
+        realname: specialUsers.classroom_program_manager[0].real_name,
+        already_selected: false
+      });
+    }
+    // Add wikipedia experts
+    if (specialUsers.wikipedia_experts && specialUsers.wikipedia_experts.length>0) {
+      specialUsers.wikipedia_experts.forEach((user) => {
+        staffList.push({
+          role: "wikipedia_expert",
+          username: user.username,
+          realname: user.real_name,
+          already_selected: false
+        }
+        )
+      })
+    }
+    // Check if any of the staff users were already selected
+    const staffUsernames = staffList.map(user => { return  user.username; } );
+    staffUsers.forEach((staffUser) => {
+      if (staffUsernames.includes(staffUser.username)) {
+        const userObject = staffList.find(user => user.username === staffUser.username);
+        userObject.already_selected = true;
+      }
+    })
+    console.log(staffList);
+    return staffList;
+  }
 );
 
 export const getOnlineVolunteerUsers = createSelector(
