@@ -4,6 +4,10 @@ import { queryUrl } from './article_finder_utils';
 import { chunk } from 'lodash-es';
 import { getReferencesCount } from './revision_utils';
 
+import promiseLimit from 'promise-limit';
+
+const limit = promiseLimit(10);
+
 // given a particular wiki, find all the references added for each revision in it
 const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
   // eslint-disable-next-line no-console
@@ -36,21 +40,17 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
   const revids = revisions.filter(revision => revision.ns === 0).map(revision => `${revision.parentid}|${revision.revid}`);
   const chunks = chunk(revids, 25);
 
-
-  const promises = [];
-
-  for (const revid_chunk of chunks) {
-    const params = {
-      revids: revid_chunk.join('|'),
-      features: true,
-      models
-    };
-
-    promises.push(queryUrl(`${API_URL}`, params));
-  }
-  // get the scores and remove all undefined values
-  // this is an array of objects
-  const values = (await Promise.all(promises)).map(data => data[suffix].scores).filter(item => item);
+  const values = (await Promise.all(chunks.map((revid_chunk) => {
+    // at max 10 requests at a time
+    return limit(() => {
+      const params = {
+        revids: revid_chunk.join('|'),
+        features: true,
+        models
+      };
+      return queryUrl(`${API_URL}`, params).catch(() => undefined); // resolve to undefined if fails
+    });
+  }))).filter(item => item).map(data => data?.[suffix]?.scores);
 
   // merge the array of objects into one object
   const combinedObject = Object.assign({}, ...values);
