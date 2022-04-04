@@ -60,6 +60,7 @@ export const fetchRevisions = course => async (dispatch, getState) => {
           type: RECEIVE_REVISIONS,
           data: resp,
         });
+        fetchWikidataLabelsForRevisions(resp.course.revisions, dispatch);
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
