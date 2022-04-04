@@ -59,7 +59,7 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
 
   for (const revision of revisions) {
     const references = getReferencesCount(combinedObject?.[revision.revid], wiki.project === 'wikidata');
-    if (references) {
+    if (references !== undefined) {
       referencesAdded[revision.revid] = references - (getReferencesCount(combinedObject?.[revision.parentid]) || 0);
     }
   }
