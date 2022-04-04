@@ -6,7 +6,7 @@ import { getReferencesCount } from './revision_utils';
 
 import promiseLimit from 'promise-limit';
 
-const limit = promiseLimit(10);
+const limit = promiseLimit(5);
 
 // given a particular wiki, find all the references added for each revision in it
 const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
