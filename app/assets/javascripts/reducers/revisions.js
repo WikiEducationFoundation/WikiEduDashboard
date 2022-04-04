@@ -30,7 +30,7 @@ const initialState = {
   },
   revisionsLoaded: false,
   courseScopedRevisionsLoaded: false,
-  last_date: moment().format(),
+  last_date: moment().utc().format(),
   revisionsDisplayed: [],
 };
 
