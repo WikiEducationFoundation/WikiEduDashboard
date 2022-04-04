@@ -188,7 +188,7 @@ fr:
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
     rating: Classe
-    rating_doc: La notation a été attribuée à un article par WikiProjects sur Wikipédia.
+    rating_doc: La notation attribuée à un article par WikiProjets sur Wikipédia.
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:

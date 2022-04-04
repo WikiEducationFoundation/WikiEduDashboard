@@ -1113,6 +1113,7 @@ pt:
     created: Criados
     changed: Alterados
     removed: Removidos
+    cleared: Esvaziados
     added: Adicionados
     descriptions: Descrições
     interwiki_links_added: Hiperligações interwikis adicionadas
@@ -1131,14 +1132,14 @@ pt:
   namespace:
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
-    user: Domínio Utilizador
-    user_char_added: Caracteres adicionados ao espaço nominal de utilizador
+    user: Espaço nominal do utilizador
+    user_char_added: Caracteres adicionados ao espaço nominal do utilizador
     user_ns: Utilizador
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título
     datetime: Data/Horário
-    did_you_know_eligible: Sabia que Elegível
+    did_you_know_eligible: Elegível para "Sabia que..."
     image: Imagem
     file_name: Nome do ficheiro
     no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
@@ -1155,27 +1156,27 @@ pt:
       ao próprio artigo — o respetivo conteúdo pode ter sido eliminado por motivos
       de direitos de autor.
     recent_edits: Edições recentes
-    recent_uploads: Últimos Envios
-    revision_author: Autor da Revisão
-    revision_datetime: Data/Horário da Revisão
-    revision_score: Pontuação da Revisão
-    show_courses: Mostrar Apenas Meus Cursos
+    recent_uploads: Últimos carregamentos
+    revision_author: Autor da revisão
+    revision_datetime: Data e hora da revisão
+    revision_score: Pontuação da revisão
+    show_courses: Mostrar só os meus cursos
     uploaded_by: Enviado por
-    usage_count: Total de Uso
+    usage_count: Contagem de utilizações
   revisions:
-    chars_added: Caracteres Adicionados
+    chars_added: Caracteres adicionados
     references: Referências Adicionadas
     class: Classe
-    date_time: Data/Hora
+    date_time: Data e hora
     diff: dif
     diff_show: Mostrar
     diff_hide: Ocultar
     edit_time_span: As edições ocorreram de %{first_time} a %{last_time}
     edited_by: Editado por
     edited_on: Editado em %{edit_date}
-    loading: Carregando revisões...
+    loading: A carregar revisões...
     none: Este curso não tem nenhuma atividade recente de edição.
-    time_doc: Horário de cada revisão em seu horário local
+    time_doc: Hora de cada revisão na sua hora local
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Ver mais
@@ -1233,16 +1234,16 @@ pt:
         e outras referências. Considere usar a revisão por pares ou nomear o artigo
         para o estado bom. Se o artigo ainda não estiver devidamente formatado, faça-o
         agora.
-      b: Alguns aspetos do conteúdo e estilo precisam ser abordados. Pode ser necessário
-        ter conhecimentos especializados. A inclusão de materiais de suporte deve
-        ser considerada, na prática, e o artigo deve ser verificado, em conformidade
-        com o Livro de Estilo e as diretrizes relacionadas.
-      c: Uma edição considerável é necessária para fechar as lacunas no conteúdo e
-        solucionar os problemas de limpeza.
+      b: Alguns aspetos de conteúdo e estilo precisam de ser endereçados. Pode ser
+        necessário ter conhecimentos especializados. A inclusão de materiais de suporte
+        deve ser considerada, se for prática, e deve ser verificado que o artigo está
+        em conformidade com o livro de estilo e diretrizes de estilo relacionadas.
+      c: São necessárias alterações consideráveis para preencher lacunas de conteúdo
+        e solucionar problemas de limpeza.
       start: O fornecimento das referências e fontes confiáveis deve vir em primeiro
         lugar. O artigo também precisa de melhorias consideráveis no conteúdo e na
-        organização. Também realize correções gramaticais, ortográficas, o estilo
-        de escrita e evite o uso de gírias.
+        organização. Realize também correções gramaticais, ortográficas e do estilo
+        de escrita, e remova o uso de gíria.
       stub: Qualquer edição ou material adicional podem ser úteis. O fornecimento
         de conteúdo significativo deve ser uma prioridade. A melhor solução para transformar
         um artigo da classe Provisório num artigo da classe Iniciado é acrescentar
