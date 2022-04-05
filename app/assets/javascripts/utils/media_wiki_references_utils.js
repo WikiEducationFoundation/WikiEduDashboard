@@ -27,14 +27,19 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
     models = 'articlequality';
   }
   const API_URL = `https://ores.wikimedia.org/v3/scores/${suffix}`;
+  // first filter the revisions in namespace 0
+  // then map them to a string of the format "{parent_rev_id}|{rev_id}"
   const revids = revisions.filter(revision => revision.ns === 0).map(revision => `${revision.parentid}|${revision.revid}`);
+  // this means that each item of this array has 2 revisions.
+  // since the max revisions allowed by the ORES API for a single request is 50,
+  // we must divide the array into sub arrays, each of max size 25
   const chunks = chunk(revids, 25);
 
   const values = (await Promise.all(chunks.map((revid_chunk) => {
     // at max 10 requests at a time
     return limit(() => {
       const params = {
-        revids: revid_chunk.join('|'),
+        revids: revid_chunk.join('|'), // join all the strings of the array with "|".
         features: true,
         models
       };
