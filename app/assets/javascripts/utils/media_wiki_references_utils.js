@@ -1,8 +1,7 @@
 /* eslint-disable no-restricted-syntax */
-import { ORESSupportedWiki } from './article_finder_language_mappings';
 import { queryUrl } from './article_finder_utils';
 import { chunk } from 'lodash-es';
-import { getReferencesCount } from './revision_utils';
+import { getReferencesCount, getWikiObjectFromURL, isSupportedORESWiki } from './revision_utils';
 
 import promiseLimit from 'promise-limit';
 
@@ -13,18 +12,9 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
   // eslint-disable-next-line no-console
   console.log(`Fetching references information from ${wiki_url}`);
 
-  const list = wiki_url.split('.');
-  let wiki;
-  if (list.length === 3) {
-    wiki = { language: list[0], project: list[1] };
-  } else {
-    wiki = { project: list[0] };
-  }
-  if (
-    !ORESSupportedWiki.projects.includes(wiki.project)
-  && !ORESSupportedWiki.languages.includes(wiki.language)
-  ) {
-    // wiki does not support ORES
+  const wiki = getWikiObjectFromURL(wiki_url);
+  if (!isSupportedORESWiki(wiki)) {
+    // wiki is not supported
     return;
   }
   let models;

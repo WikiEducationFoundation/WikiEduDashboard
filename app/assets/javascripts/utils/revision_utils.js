@@ -50,10 +50,7 @@ export const getReferencesCount = (item, wikidata = false) => {
 export const getWikiMap = (revisions) => {
   const wikiMap = new Map();
   for (const revision of revisions) {
-    if (
-      PageAssessmentSupportedWiki?.[revision.wiki.project]?.includes(revision.wiki.language)
-      || ORESSupportedWiki.projects.includes(revision.wiki.project)
-      || ORESSupportedWiki.languages.includes(revision.wiki.language)
+    if (supportsPageAssessments(revision.wiki) || isSupportedORESWiki(revision.wiki)
     ) {
       if (wikiMap.has(url(revision.wiki))) {
         const value = wikiMap.get(url(revision.wiki));
@@ -75,4 +72,32 @@ export const sortRevisionsByDate = (revisions) => {
     const date2 = new Date(revision2.date);
     return date2.getTime() - date1.getTime();
   });
+};
+
+
+export const isSupportedORESWiki = (wiki) => {
+  // returns true if wiki.project is supported and wiki.language does not exist
+  // or if both the project and language is supported
+  return (
+    (!wiki.language && ORESSupportedWiki.projects.includes(wiki.project))
+    || (
+      ORESSupportedWiki.projects.includes(wiki.project)
+      && ORESSupportedWiki.languages.includes(wiki.language)
+      )
+    );
+};
+
+export const supportsPageAssessments = (wiki) => {
+  return PageAssessmentSupportedWiki?.[wiki.project]?.includes(wiki.language);
+};
+
+// urls are in the form www.wikidata.org or en.wikipedia.org
+// for wikis without a language, the first item is www
+export const getWikiObjectFromURL = (wiki_url) => {
+  const list = wiki_url.split('.');
+  if (list[0] === 'www') {
+    // there is no language
+    return { project: list[1] };
+  }
+  return { project: list[1], language: list[0] };
 };
