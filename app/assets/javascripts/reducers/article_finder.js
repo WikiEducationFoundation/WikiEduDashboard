@@ -4,7 +4,7 @@ import { sortByKey } from '../utils/model_utils';
 import { ORESWeights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, RECEIVE_ARTICLE_TITLE, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
 
 const initialState = {
   articles: {},
@@ -111,14 +111,14 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_KEYWORD_RESULTS: {
       const newStateArticles = { ...state.articles };
-      let i = 0; // track iteration for relevance index
-      forEach(action.data.articles, (article) => {
+      action.data.query.search.forEach((article, i) => {
         newStateArticles[article.title] = {
-          ...article,
-          title: article.displayTitle || article.title,
+          pageid: article.pageid,
+          ns: article.ns,
+          fetchState: 'TITLE_RECEIVED',
+          title: article.title,
           relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
-        i += 1;
       });
       let continueResults = false;
       let offset = 0;
@@ -127,7 +127,7 @@ export default function articleFinder(state = initialState, action) {
         offset = action.data.continue.sroffset;
       }
       let fetchState = 'TITLE_RECEIVED';
-      if (!action.data.articles.length) {
+      if (!action.data.query.search.length) {
         fetchState = 'PAGEVIEWS_RECEIVED';
       }
       return {
@@ -138,6 +138,18 @@ export default function articleFinder(state = initialState, action) {
         loading: false,
         fetchState: fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
+      };
+    }
+    case RECEIVE_ARTICLE_TITLE: {
+      const newStateArticles = cloneDeep(state.articles);
+      forEach(action.data, (article, key) => {
+        newStateArticles[key].title = article.title;
+      });
+
+      return {
+        ...state,
+        articles: newStateArticles,
+        fetchState: 'TITLES_RECEIVED',
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
