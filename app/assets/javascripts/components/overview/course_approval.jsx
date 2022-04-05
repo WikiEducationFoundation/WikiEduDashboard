@@ -8,7 +8,7 @@ import selectStyles from '../../styles/single_select';
 import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { addUser } from '../../actions/user_actions';
-import { getStaffUsers, getCourseApprovalStaff } from '../../selectors';
+import { getCourseApprovalStaff } from '../../selectors';
 
 const CourseApproval = createReactClass({
     displayName: 'CourseApproval',
@@ -18,10 +18,8 @@ const CourseApproval = createReactClass({
       fetchAllCampaigns: PropTypes.func,
       addUser: PropTypes.func,
       addCampaign: PropTypes.func,
-      specialUsers: PropTypes.object,
       allCampaigns: PropTypes.array,
       wikiEdStaff: PropTypes.array,
-      staff: PropTypes.array
     },
 
     getInitialState() {
@@ -40,29 +38,18 @@ const CourseApproval = createReactClass({
     },
 
     componentDidUpdate(prevProps) {
-      if (this.props.specialUsers !== prevProps.specialUsers) {
-        if (this.props.specialUsers.classroom_program_manager) {
-          const username = this.props.specialUsers.classroom_program_manager[0].username;
-          const realname = this.props.specialUsers.classroom_program_manager[0].real_name;
+      if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
+        if (this.props.wikiEdStaff.length>0) {
+          var program_manager = this.props.wikiEdStaff.find((user) => user.role==="classroom_program_manager");
           this.setState({
             programManager: {
-              value: `${username}-${realname}`,
-              label: `${username} (${realname})`,
+              value: program_manager.username,
+              label: `${program_manager.username} (${program_manager.realname})`
             }
-          }, this.setWikiExpertUser);
-        }
-
-        if (this.props.specialUsers.wikipedia_experts) {
-          this.setState({
-            wikiExpertOptions: this.props.specialUsers.wikipedia_experts.map((user) => {
-              const username = user.username;
-              const realname = user.real_name;
-              return { value: `${username}-${realname}`, label: `${username} (${realname})` };
-            })
           });
+          this.setWikiExpertUsers();
         }
       }
-
       if (this.props.allCampaigns !== prevProps.allCampaigns) {
         this.setState({
           selectedCampaign: {
@@ -76,26 +63,26 @@ const CourseApproval = createReactClass({
       }
     },
 
-    setWikiExpertUser() {
-        const programManager = this.state.programManager;
-        const user = this.props.wikiEdStaff.filter(user => user.username !== programManager.value.split("-")[0]);
-        if (user.length>0) {
-          const username = user[0].username;
-          const realname = user[0].real_name;
-          this.setState({
-            selectedWikiExpert: { value: `${username}-${realname}`, label: `${username} (${realname})`}
-          });
-        }
-        else {
-          if (this.state.wikiExpertOptions.length>0) {
+    setWikiExpertUsers() {
+        const staff = this.props.wikiEdStaff;
+        staff.forEach((user) => {
+          if (user.role==="wikipedia_expert") {
+            this.setState(prevState => ({
+              wikiExpertOptions: [ ...prevState.wikiExpertOptions, {
+                value: user.username,
+                label: `${user.username} (${user.realname})`
+              }]
+            }));
+          }
+          if (user.already_selected) {
             this.setState({
               selectedWikiExpert: {
-                value: this.state.wikiExpertOptions[0].value,
-                label: this.state.wikiExpertOptions[0].label,
+                value: user.username,
+                label: `${user.username} (${user.realname})`
               }
-            });
+            })
           }
-        }
+        });
     },
 
     _handleProgramManagerChange(selectedOption) {
@@ -155,7 +142,7 @@ const CourseApproval = createReactClass({
               <Select
                 id={'program_manager'}
                 value={programManager}
-                onChange={this._handleProgramManagerChange}
+                onChange={null}
                 options={[]}
                 simpleValue
                 styles={selectStyles}
@@ -219,10 +206,8 @@ const CourseApproval = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  specialUsers: state.settings.specialUsers,
   allCampaigns: state.campaigns.all_campaigns,
-  wikiEdStaff: getStaffUsers(state),
-  staff: getCourseApprovalStaff(state)
+  wikiEdStaff: getCourseApprovalStaff(state)
 });
 
 const mapDispatchToProps = {
