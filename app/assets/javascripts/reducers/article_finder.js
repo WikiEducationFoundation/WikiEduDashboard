@@ -143,7 +143,7 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_TITLE: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data, (article, key) => {
-        newStateArticles[key].title = article.title;
+        newStateArticles[key].title = `${article.title} (${key})`;
       });
 
       return {
