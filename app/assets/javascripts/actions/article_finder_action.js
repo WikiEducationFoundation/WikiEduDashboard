@@ -217,7 +217,7 @@ export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResu
       type: RECEIVE_KEYWORD_RESULTS,
       data: data,
     });
-    return data.query.search; // pass the unprocessed list format to be consistent with page assessment behavior
+    return data.query.search;
   })
   .then((articles) => {
     if (home_wiki.project === 'wikidata') fetchWikidataLabelsForArticleFinder(articles, home_wiki.language, dispatch);
