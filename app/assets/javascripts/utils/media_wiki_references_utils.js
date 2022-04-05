@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { queryUrl } from './article_finder_utils';
 import { chunk } from 'lodash-es';
-import { getReferencesCount, getWikiObjectFromURL, isSupportedORESWiki } from './revision_utils';
+import { getReferencesAdded, getWikiObjectFromURL, isSupportedORESWiki } from './revision_utils';
 
 import promiseLimit from 'promise-limit';
 
@@ -48,9 +48,9 @@ const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
   const referencesAdded = {};
 
   for (const revision of revisions) {
-    const references = getReferencesCount(combinedObject?.[revision.revid], wiki.project === 'wikidata');
+    const references = getReferencesAdded(combinedObject, revision);
     if (references !== undefined) {
-      referencesAdded[revision.revid] = references - (getReferencesCount(combinedObject?.[revision.parentid], wiki.project === 'wikidata') || 0);
+      referencesAdded[revision.revid] = references;
     }
   }
   return referencesAdded;

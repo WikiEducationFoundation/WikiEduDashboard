@@ -101,3 +101,24 @@ export const getWikiObjectFromURL = (wiki_url) => {
   }
   return { project: list[1], language: list[0] };
 };
+
+// the references Object contains key value pairs of revision IDs and ORES data
+// the references count has to be extracted from this data. Done by getReferencesCount defined above
+export const getReferencesAdded = (referencesObject, revision) => {
+  const isWikidata = revision.wiki.project === 'wikidata';
+  const current_references = getReferencesCount(referencesObject?.[revision.revid], isWikidata);
+  const parent_revision_id = revision.parentid;
+  if (!parent_revision_id) {
+    // this is the first revision of the article - there is no parent
+    return current_references;
+  }
+
+  const parent_references = getReferencesCount(referencesObject?.[parent_revision_id], isWikidata);
+
+  if (parent_references === undefined || current_references === undefined) {
+    // we have no information regarding 1) the parent revision or 2) the current revision
+    // so skip this
+    return undefined;
+  }
+  return current_references - parent_references;
+};
