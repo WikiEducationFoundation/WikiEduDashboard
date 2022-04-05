@@ -1,8 +1,10 @@
-import { chunk, map, includes, } from 'lodash-es';
+import { chunk, map, includes, forEach } from 'lodash-es';
 import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
+import { fetchWikidataLabelsForArticleFinder } from './wikidata_actions';
+
 
 const mediawikiApiBase = (language, project) => {
   if (project === 'wikidata') {
@@ -211,11 +213,28 @@ export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResu
   const query = keywordQueryGenerator(keyword, offset);
   return limit(() => queryUrl(mediawikiApiBase(home_wiki.language, home_wiki.project), query))
   .then((data) => {
+    data.articles = {};
+    forEach(data.query.search, (article) => {
+      data.articles[article.title] = {
+        pageid: article.pageid,
+        ns: article.ns,
+        fetchState: 'TITLE_RECEIVED',
+        title: article.title
+      };
+    });
+    return data;
+  })
+  .then((data) => {
+    if (home_wiki.project === 'wikidata') return fetchWikidataLabelsForArticleFinder(data, home_wiki.language);
+    return data;
+  })
+  .then((data) => {
+    console.log(data); // eslint-disable-line no-console
     dispatch({
       type: RECEIVE_KEYWORD_RESULTS,
       data: data,
     });
-    return data.query.search;
+    return data.query.search; // pass the unprocessed list format to be consistent with page assessment behavior
   })
   .then((articles) => {
     return fetchPageAssessment(articles, home_wiki, dispatch, getState);

@@ -111,14 +111,14 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_KEYWORD_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.query.search.forEach((article, i) => {
+      let i = 0; // track iteration for relevance index
+      forEach(action.data.articles, (article) => {
         newStateArticles[article.title] = {
-          pageid: article.pageid,
-          ns: article.ns,
-          fetchState: 'TITLE_RECEIVED',
-          title: article.title,
+          ...article,
+          title: article.displayTitle || article.title,
           relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
+        i += 1;
       });
       let continueResults = false;
       let offset = 0;
@@ -127,7 +127,7 @@ export default function articleFinder(state = initialState, action) {
         offset = action.data.continue.sroffset;
       }
       let fetchState = 'TITLE_RECEIVED';
-      if (!action.data.query.search.length) {
+      if (!action.data.articles.length) {
         fetchState = 'PAGEVIEWS_RECEIVED';
       }
       return {

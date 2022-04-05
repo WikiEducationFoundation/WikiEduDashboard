@@ -1,4 +1,4 @@
-import { chunk, map, join, filter } from 'lodash-es';
+import { chunk, map, join, filter, forEach } from 'lodash-es';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
@@ -52,7 +52,30 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   });
 };
 
-
+export const fetchWikidataLabelsForArticleFinder = (apiData, language) => new Promise((resolve, reject) => {
+  const articles = apiData.articles;
+  if (articles.length === 0) { resolve(apiData); }
+  const qNumbers = map(articles, 'title')
+                     .filter(isEntityTitle)
+                     .map(CourseUtils.removeNamespace);
+  const finalArticles = {}
+  const promises = chunk(qNumbers, 30).map((someQNumbers) => {
+    return fetchWikidataLabelsPromise(someQNumbers)
+      .then((resp) => {
+        forEach(resp.entities, (entity) => {
+          const label = entity.labels[language] || entity.labels.en;
+          finalArticles[entity.title] = {
+            ...articles[entity.title],
+            displayTitle: label.value
+          };
+        });
+      }).catch(reject);
+  });
+  Promise.all(promises).then(() => {
+    apiData.articles = finalArticles;
+    resolve(apiData); 
+  });
+});
 
 export const fetchWikidataLabelsForArticles = (articles, dispatch) => {
   const wikidataEntities = filter(articles, { project: 'wikidata' });
