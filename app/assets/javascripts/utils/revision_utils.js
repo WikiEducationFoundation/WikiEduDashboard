@@ -40,8 +40,8 @@ export const getAssessments = (allRatings, revisions) => {
 export const getReferencesCount = (item, wikidata = false) => {
   const features = wikidata ? item?.itemquality?.features : item?.articlequality?.features;
   return features?.['feature.wikitext.revision.ref_tags']
-        || features?.['feature.len(<datasource.wikidatawiki.revision.references>)']
-        || features?.['feature.enwiki.revision.shortened_footnote_templates'];
+        ?? features?.['feature.len(<datasource.wikidatawiki.revision.references>)']
+        ?? features?.['feature.enwiki.revision.shortened_footnote_templates'];
 };
 
 // this helper function returns a mapping between the different wikis and the various
