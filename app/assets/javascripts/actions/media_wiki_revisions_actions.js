@@ -6,8 +6,6 @@ import { RECEIVE_ASSESSMENTS, RECEIVE_REFERENCES } from '../constants/revisions'
 export const fetchRevisionsAndReferences = async (revisions, dispatch) => {
   const wikiMap = getWikiMap(revisions);
   fetchClassFromRevisions(wikiMap).then((assessments) => {
-    // eslint-disable-next-line no-console
-    console.log('Successfully fetched all page assessment information');
     return dispatch({
       type: RECEIVE_ASSESSMENTS,
       data: { assessments }
@@ -15,8 +13,6 @@ export const fetchRevisionsAndReferences = async (revisions, dispatch) => {
   });
 
   fetchReferencesAdded(wikiMap).then((referencesAdded) => {
-    // eslint-disable-next-line no-console
-    console.log('Successfully fetched all references information');
     dispatch({
       type: RECEIVE_REFERENCES,
       data: { referencesAdded }

@@ -9,9 +9,6 @@ const limit = promiseLimit(5);
 
 // given a particular wiki, find all the references added for each revision in it
 const fetchReferencesAddedFromWiki = async (wiki_url, revisions) => {
-  // eslint-disable-next-line no-console
-  console.log(`Fetching references information from ${wiki_url}`);
-
   const wiki = getWikiObjectFromURL(wiki_url);
   if (!isSupportedORESWiki(wiki)) {
     // wiki is not supported

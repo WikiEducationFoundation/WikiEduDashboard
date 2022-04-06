@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
 import request from './request';
@@ -12,8 +11,6 @@ const fetchClassFromRevisionsOfWiki = async (wiki_url, revisionsOfWiki) => {
   // remove duplicates -> each article occurs only once after this
   const prefix = `https://${wiki_url}`;
   const API_URL = `${prefix}/w/api.php`;
-  // eslint-disable-next-line no-console
-  console.log(`Fetching page assessments from ${wiki_url}`);
 
   const uniqueArticles = [...new Set(revisionsOfWiki.filter(revision => revision.ns === 0).map(revision => revision.title))];
   const chunks = chunk(uniqueArticles, 50);

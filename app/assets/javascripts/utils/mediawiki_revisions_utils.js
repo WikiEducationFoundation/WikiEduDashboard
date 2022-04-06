@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
 import { flatten, chunk } from 'lodash-es';
@@ -93,7 +92,6 @@ const fetchAllRevisions = async (API_URL, days, usernames, wiki, course_start, l
     ucend = moment(last_date).subtract(days, 'days').format();
   }
 
-  console.log(`Fetching revisions between ${moment(last_date).format()} and ${ucend} -> ${days} days from ${API_URL}`);
   // since a max of 50 users are allowed in one query
   const usernamesChunks = chunk(usernames, 50);
   const usernamePromises = [];
