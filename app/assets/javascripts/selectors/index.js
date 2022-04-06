@@ -19,7 +19,6 @@ const getTrackedStatusFilter = state => state.articles.trackedStatusFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
-const getWikidataLabelsState = state => state.wikidataLabels;
 const getUploads = state => state.uploads.uploads;
 const getUploadFilters = state => state.uploads.selectedFilters;
 const getTags = state => state.tags.tags;
@@ -140,10 +139,8 @@ export const getFilteredAlerts = createSelector(
 );
 
 export const getFilteredArticleFinder = createSelector(
-  [getArticleFinderState, getWikidataLabelsState], (articleFinder, wikidataLabels) => {
-    return pickBy(articleFinder.articles, (article, key) => {
-      if (wikidataLabels.labels && !!wikidataLabels.labels[key]) article.displayTitle = `${wikidataLabels.labels[key]} (${key})`;
-      else article.displayTitle = article.title;
+  [getArticleFinderState], (articleFinder) => {
+    return pickBy(articleFinder.articles, (article) => {
       const language = articleFinder.home_wiki.language;
       const project = articleFinder.home_wiki.project;
       if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
