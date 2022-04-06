@@ -261,6 +261,7 @@ es:
     data_revisions: Datos de revisiones
     data_revisions_info: Detalles sobre cada una de las revisiones monitorizadas de
       la campaña
+    data_wikidata: Estadísticas de Wikidata
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acceso predeterminado
     default_passcode_explanation: 'De manera predeterminada, los programas nuevos

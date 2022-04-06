@@ -318,6 +318,7 @@ el:
     total_updates: Συνολικός αριθμός ενημερώσεων έως τώρα
     update_status_heading: Ενημέρωση κατάστασης
     update_statistics_link: Δείτε περισσότερα
+    general: Γενικά
   training:
     previous: < Προηγούμενο
     view_library_source: προβολή πηγής βιβλιοθήκης

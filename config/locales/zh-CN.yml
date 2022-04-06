@@ -24,6 +24,7 @@
 # Author: Shizhao
 # Author: Shuiwater
 # Author: SomeyaMako
+# Author: StarrySky
 # Author: TsuyaMarisa
 # Author: Viztor
 # Author: WDLJT
@@ -140,6 +141,7 @@ zh-CN:
     article_development: （条目状况）
     articles_shown: 显示 %{total} 个条目中的 %{count} 个
     assigned: 分配的条目
+    assignments_none: 还没有任何已编辑的条目。
     available: 可用条目
     no_available: 没有可用的条目
     next: 下一步
@@ -209,10 +211,12 @@ zh-CN:
   assignments:
     article: 条目%{title}已分配给您。
     article_link: 条目
+    article_link_wikidata: 项目
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配/移除一个文章
+    assign_other_wikidata: 分配/移除一个文章
     add_available: 添加可用条目
     add_available_placeholder: 添加条目标题或URL（每行一个）
     add_available_placeholder_wikidata: 添加条目标题或URL（每行一个）
