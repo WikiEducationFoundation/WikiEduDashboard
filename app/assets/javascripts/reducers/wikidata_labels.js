@@ -15,6 +15,7 @@ export default function wikidataLabels(state = initialState, action) {
         if (!label) { return; }
         newLabels[entity.id] = label.value;
       });
+      console.log(newLabels); // eslint-disable-line no-console
       return { labels: newLabels };
     }
     default:

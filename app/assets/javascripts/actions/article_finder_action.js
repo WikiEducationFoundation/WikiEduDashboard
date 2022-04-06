@@ -3,7 +3,7 @@ import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
-import { fetchWikidataLabelsForArticleFinder } from './wikidata_actions';
+import { fetchWikidataLabels } from './wikidata_actions';
 
 
 const mediawikiApiBase = (language, project) => {
@@ -220,7 +220,7 @@ export const fetchKeywordResults = (keyword, home_wiki, offset = 0, continueResu
     return data.query.search;
   })
   .then((articles) => {
-    if (home_wiki.project === 'wikidata') fetchWikidataLabelsForArticleFinder(articles, home_wiki.language, dispatch);
+    if (home_wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
     return fetchPageAssessment(articles, home_wiki, dispatch, getState);
   })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));

@@ -431,6 +431,7 @@ const ArticleFinder = createReactClass({
 const mapStateToProps = state => ({
   articles: getFilteredArticleFinder(state),
   unfilteredArticles: state.articleFinder.articles,
+  labels: state.wikidataLabels.labels,
   loading: state.articleFinder.loading,
   search_term: state.articleFinder.search_term,
   min_views: state.articleFinder.min_views,

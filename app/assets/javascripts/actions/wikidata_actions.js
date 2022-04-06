@@ -35,7 +35,7 @@ const isEntityTitle = (title) => {
   return isQItem || isPropertyOrLexeme;
 };
 
-const fetchWikidataLabels = (wikidataEntities, dispatch) => {
+export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
   const qNumbers = map(wikidataEntities, 'title')
                      .filter(isEntityTitle)
@@ -49,29 +49,6 @@ const fetchWikidataLabels = (wikidataEntities, dispatch) => {
           language: I18n.locale
         });
       });
-  });
-};
-
-export const fetchWikidataLabelsForArticleFinder = (articles, language, dispatch) => {
-  if (articles.length === 0) return;
-  const qNumbers = map(articles, 'title')
-                     .filter(isEntityTitle)
-                     .map(CourseUtils.removeNamespace);
-  const finalArticles = keyBy(articles, 'title');
-  const promises = chunk(qNumbers, 30).map((someQNumbers) => {
-    return fetchWikidataLabelsPromise(someQNumbers)
-      .then((resp) => {
-        forEach(resp.entities, (entity) => {
-          const label = entity.labels[language] || entity.labels.en;
-          finalArticles[entity.id].title = label.value;
-        });
-      });
-  });
-  Promise.all(promises).then(() => {
-    dispatch({
-      type: types.RECEIVE_ARTICLE_TITLE,
-      data: finalArticles
-    });
   });
 };
 

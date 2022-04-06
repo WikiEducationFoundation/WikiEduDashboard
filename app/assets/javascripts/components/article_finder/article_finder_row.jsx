@@ -167,7 +167,7 @@ const ArticleFinderRow = createReactClass({
         article={article}
         course={this.props.course}
         current_user={this.props.current_user}
-        title={this.props.article.title}
+        title={this.props.article.displayTitle}
         showArticleFinder={true}
         showPermalink={false}
       />

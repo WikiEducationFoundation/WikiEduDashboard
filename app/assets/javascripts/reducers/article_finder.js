@@ -140,18 +140,6 @@ export default function articleFinder(state = initialState, action) {
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
-    case RECEIVE_ARTICLE_TITLE: {
-      const newStateArticles = cloneDeep(state.articles);
-      forEach(action.data, (article, key) => {
-        newStateArticles[key].title = `${article.title} (${key})`;
-      });
-
-      return {
-        ...state,
-        articles: newStateArticles,
-        fetchState: 'TITLES_RECEIVED',
-      };
-    }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data, (article) => {
