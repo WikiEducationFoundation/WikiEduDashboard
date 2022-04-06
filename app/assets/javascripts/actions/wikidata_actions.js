@@ -1,4 +1,4 @@
-import { keyBy, chunk, map, join, filter, forEach } from 'lodash-es';
+import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
