@@ -9,6 +9,8 @@ import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { addUser } from '../../actions/user_actions';
 import { getCourseApprovalStaff } from '../../selectors';
+import { STAFF_ROLE } from '../../constants';
+
 
 const CourseApproval = createReactClass({
     displayName: 'CourseApproval',
@@ -40,11 +42,16 @@ const CourseApproval = createReactClass({
     componentDidUpdate(prevProps) {
       if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
         if (this.props.wikiEdStaff.length>0) {
-          var program_manager = this.props.wikiEdStaff.find((user) => user.role==="classroom_program_manager");
+          var programManager = this.props.wikiEdStaff.find((user) => user.role==="classroom_program_manager");
+          var wikiExpert = this.props.wikiEdStaff.find((user) => user.role==="wikipedia_expert");
           this.setState({
             programManager: {
-              value: program_manager.username,
-              label: `${program_manager.username} (${program_manager.realname})`
+              value: programManager.username,
+              label: `${programManager.username} (${programManager.realname})`
+            },
+            selectedWikiExpert: {
+              value: wikiExpert.username,
+              label: `${wikiExpert.username} (${wikiExpert.realname})`
             }
           });
           this.setWikiExpertUsers();
@@ -73,20 +80,16 @@ const CourseApproval = createReactClass({
                 label: `${user.username} (${user.realname})`
               }]
             }));
-          }
-          if (user.already_selected) {
-            this.setState({
-              selectedWikiExpert: {
-                value: user.username,
-                label: `${user.username} (${user.realname})`
-              }
-            })
+            if (user.already_selected) {
+              this.setState({
+                selectedWikiExpert: {
+                  value: user.username,
+                  label: `${user.username} (${user.realname})`
+                }
+              })
+            }
           }
         });
-    },
-
-    _handleProgramManagerChange(selectedOption) {
-      return this.setState({ selectedProgramManager: selectedOption });
     },
 
     _handleWikiExpertChange(selectedOption) {
@@ -99,21 +102,28 @@ const CourseApproval = createReactClass({
 
     submitWikiEdStaff(programManager, wikiExpert) {
       const { course_id } = this.props;
-      const programManagerUserObject = {
-        username: programManager.value.split("-")[0],
-        role: 4, 
-        role_description: null,
-        real_name: programManager.value.split("-")[1]
-      };
-      const wikiExpertUserObject = {
-        username: wikiExpert.value.split("-")[0],
-        role: 4, 
-        role_description: null,
-        real_name: wikiExpert.value.split("-")[1]
-      };
       const addUserAction = this.props.addUser;
-      addUserAction(course_id, { user: programManagerUserObject });
-      addUserAction(course_id, { user: wikiExpertUserObject });
+
+      if (!programManager.already_selected) {
+        const programManagerUserObject = {
+          username: programManager.username,
+          role: STAFF_ROLE, 
+          role_description: null,
+          real_name: programManager.realname
+        };
+        addUserAction(course_id, { user: programManagerUserObject });
+      }
+      
+      if (!wikiExpert.already_selected) {
+        const wikiExpertUserObject = {
+          username: wikiExpert.username,
+          role: STAFF_ROLE, 
+          role_description: null,
+          real_name: wikiExpert.realname
+        };
+        addUserAction(course_id, { user: wikiExpertUserObject });
+      }
+      
     },
 
     submitCampaign(campaign) {
@@ -122,7 +132,10 @@ const CourseApproval = createReactClass({
     },
 
     submitApprovalForm() {
-      this.submitWikiEdStaff(this.state.programManager, this.state.selectedWikiExpert);
+      const programManager = this.props.wikiEdStaff.find(user => user.username===this.state.programManager.value);
+      const wikiExpert = this.props.wikiEdStaff.find(user => user.username===this.state.selectedWikiExpert.value);
+
+      this.submitWikiEdStaff(programManager, wikiExpert);
       this.submitCampaign(this.state.selectedCampaign);
     },
 
