@@ -14,6 +14,7 @@ import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
 import { INCREASE_LIMIT } from '../constants/revisions';
+import { STUDENT_ROLE } from '../constants/user_roles';
 
 const fetchCourseScopedRevisionsPromise = async (course, limit) => {
   const response = await request(`/courses/${course.slug}/revisions.json?limit=${limit}&course_scoped=true`);
@@ -38,7 +39,7 @@ const fetchRevisionsPromise = async (course, users, last_date, dispatch) => {
 export const fetchRevisions = course => async (dispatch, getState) => {
   dispatch({ type: REVISIONS_LOADING });
   const state = getState();
-  const users = state.users.users;
+  const users = state.users.users.filter(user => user.role === STUDENT_ROLE);
   if (users.length === 0) {
     course.revisions = [];
     dispatch({
