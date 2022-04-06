@@ -42,6 +42,7 @@ const CourseApproval = createReactClass({
     componentDidUpdate(prevProps) {
       if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
         if (this.props.wikiEdStaff.length>0) {
+          // Set state for classroom program manager and a default selected wiki expert
           var programManager = this.props.wikiEdStaff.find((user) => user.role==="classroom_program_manager");
           var wikiExpert = this.props.wikiEdStaff.find((user) => user.role==="wikipedia_expert");
           this.setState({
@@ -58,6 +59,8 @@ const CourseApproval = createReactClass({
         }
       }
       if (this.props.allCampaigns !== prevProps.allCampaigns) {
+        // Set the first campaign as default selected campaign and add all the 
+        // campaigns to campaignOptions
         this.setState({
           selectedCampaign: {
             value: this.props.allCampaigns[0],
@@ -72,6 +75,9 @@ const CourseApproval = createReactClass({
 
     setWikiExpertUsers() {
         const staff = this.props.wikiEdStaff;
+
+        // Set state for wikiExpertOptions and if any wikipedia expert was already
+        // assigned a staff user role for this course, make them selectedWikiExpert
         staff.forEach((user) => {
           if (user.role==="wikipedia_expert") {
             this.setState(prevState => ({
@@ -104,6 +110,7 @@ const CourseApproval = createReactClass({
       const { course_id } = this.props;
       const addUserAction = this.props.addUser;
 
+      // Only add the program manager, if they are not already assigned a staff role
       if (!programManager.already_selected) {
         const programManagerUserObject = {
           username: programManager.username,
@@ -114,6 +121,7 @@ const CourseApproval = createReactClass({
         addUserAction(course_id, { user: programManagerUserObject });
       }
       
+      // Only add the selected wiki expert, if they are not already assigned a staff role
       if (!wikiExpert.already_selected) {
         const wikiExpertUserObject = {
           username: wikiExpert.username,
@@ -132,6 +140,7 @@ const CourseApproval = createReactClass({
     },
 
     submitApprovalForm() {
+      // Get staff user objects from selected staff user options
       const programManager = this.props.wikiEdStaff.find(user => user.username===this.state.programManager.value);
       const wikiExpert = this.props.wikiEdStaff.find(user => user.username===this.state.selectedWikiExpert.value);
 
