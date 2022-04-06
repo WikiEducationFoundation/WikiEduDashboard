@@ -64,7 +64,7 @@
     "react-burger-menu": "2.6.13",
     "react-cookie-consent": "^3.0.0",
     "react-day-picker": "7.4.8",
-    "react-dnd": "^14.0.2",
+    "react-dnd": "^16.0.0",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.2",
     "react-dropzone": "11.0.2",
