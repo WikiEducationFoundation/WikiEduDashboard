@@ -41,10 +41,11 @@ const CourseApproval = createReactClass({
 
     componentDidUpdate(prevProps) {
       if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
-        if (this.props.wikiEdStaff.length>0) {
+        if (this.props.wikiEdStaff.length > 0) {
           // Set state for classroom program manager and a default selected wiki expert
-          var programManager = this.props.wikiEdStaff.find((user) => user.role==="classroom_program_manager");
-          var wikiExpert = this.props.wikiEdStaff.find((user) => user.role==="wikipedia_expert");
+          const programManager = this.props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
+          const wikiExpert = this.props.wikiEdStaff.find(user => user.role === 'wikipedia_expert');
+          // eslint-disable-next-line react/no-did-update-set-state
           this.setState({
             programManager: {
               value: programManager.username,
@@ -59,8 +60,9 @@ const CourseApproval = createReactClass({
         }
       }
       if (this.props.allCampaigns !== prevProps.allCampaigns) {
-        // Set the first campaign as default selected campaign and add all the 
+        // Set the first campaign as default selected campaign and add all the
         // campaigns to campaignOptions
+        // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           selectedCampaign: {
             value: this.props.allCampaigns[0],
@@ -79,9 +81,9 @@ const CourseApproval = createReactClass({
         // Set state for wikiExpertOptions and if any wikipedia expert was already
         // assigned a staff user role for this course, make them selectedWikiExpert
         staff.forEach((user) => {
-          if (user.role==="wikipedia_expert") {
+          if (user.role === 'wikipedia_expert') {
             this.setState(prevState => ({
-              wikiExpertOptions: [ ...prevState.wikiExpertOptions, {
+              wikiExpertOptions: [...prevState.wikiExpertOptions, {
                 value: user.username,
                 label: `${user.username} (${user.realname})`
               }]
@@ -92,7 +94,7 @@ const CourseApproval = createReactClass({
                   value: user.username,
                   label: `${user.username} (${user.realname})`
                 }
-              })
+              });
             }
           }
         });
@@ -114,24 +116,23 @@ const CourseApproval = createReactClass({
       if (!programManager.already_selected) {
         const programManagerUserObject = {
           username: programManager.username,
-          role: STAFF_ROLE, 
+          role: STAFF_ROLE,
           role_description: null,
           real_name: programManager.realname
         };
         addUserAction(course_id, { user: programManagerUserObject });
       }
-      
+
       // Only add the selected wiki expert, if they are not already assigned a staff role
       if (!wikiExpert.already_selected) {
         const wikiExpertUserObject = {
           username: wikiExpert.username,
-          role: STAFF_ROLE, 
+          role: STAFF_ROLE,
           role_description: null,
           real_name: wikiExpert.realname
         };
         addUserAction(course_id, { user: wikiExpertUserObject });
       }
-      
     },
 
     submitCampaign(campaign) {
@@ -141,17 +142,17 @@ const CourseApproval = createReactClass({
 
     submitApprovalForm() {
       // Get staff user objects from selected staff user options
-      const programManager = this.props.wikiEdStaff.find(user => user.username===this.state.programManager.value);
-      const wikiExpert = this.props.wikiEdStaff.find(user => user.username===this.state.selectedWikiExpert.value);
+      const programManager = this.props.wikiEdStaff.find(user => user.username === this.state.programManager.value);
+      const wikiExpert = this.props.wikiEdStaff.find(user => user.username === this.state.selectedWikiExpert.value);
 
       this.submitWikiEdStaff(programManager, wikiExpert);
       this.submitCampaign(this.state.selectedCampaign);
     },
 
     render() {
-        const { wikiExpertOptions, campaignOptions, 
+        const { wikiExpertOptions, campaignOptions,
         programManager, selectedWikiExpert, selectedCampaign } = this.state;
-        
+
         const wikiExpertValue = wikiExpertOptions.empty ? null : wikiExpertOptions.find(option => option.value === selectedWikiExpert.value);
         const campaignValue = campaignOptions.empty ? null : campaignOptions.find(option => option.value === selectedCampaign.value);
 
@@ -213,8 +214,8 @@ const CourseApproval = createReactClass({
           <div className="module reviewer-section">
             <div className="section-header">
               <h3>Course Approval Form</h3>
-              <div className='controls'>
-                <button className='dark button' onClick={this.submitApprovalForm}>Approve Course</button>
+              <div className="controls">
+                <button className="dark button" onClick={this.submitApprovalForm}>Approve Course</button>
               </div>
             </div>
             <div className="course-approval-fields">

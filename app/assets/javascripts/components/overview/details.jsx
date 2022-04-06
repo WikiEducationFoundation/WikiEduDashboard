@@ -569,7 +569,6 @@ const Details = createReactClass({
           </div>
         </div>
       </div>
-      
     );
 
     if (!this.props.editable) {
