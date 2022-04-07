@@ -1,14 +1,19 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { difference } from 'lodash-es';
+
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import selectStyles from '../../styles/single_select';
+
 import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
+import { removeTag, fetchAllTags, addTag } from '../../actions/tag_actions';
 import { addUser } from '../../actions/user_actions';
-import { getCourseApprovalStaff } from '../../selectors';
+import { getCourseApprovalStaff, getAvailableTags } from '../../selectors';
 import { STAFF_ROLE } from '../../constants';
 
 
@@ -22,6 +27,11 @@ const CourseApproval = createReactClass({
       addCampaign: PropTypes.func,
       allCampaigns: PropTypes.array,
       wikiEdStaff: PropTypes.array,
+      tags: PropTypes.array,
+      availableTags: PropTypes.array,
+      fetchAllTags: PropTypes.func,
+      addTag: PropTypes.func,
+      removeTag: PropTypes.func
     },
 
     getInitialState() {
@@ -30,13 +40,18 @@ const CourseApproval = createReactClass({
         selectedWikiExpert: {},
         selectedCampaigns: [],
         wikiExpertOptions: [],
-        campaignOptions: []
+        campaignOptions: [],
+        createdTagOption: [],
+        selectedTags: this.props.tags.map((tag) => {
+          return { value: tag.tag, label: tag.tag };
+        }),
       };
     },
 
     componentDidMount() {
       this.props.fetchSpecialUsers();
       this.props.fetchAllCampaigns();
+      this.props.fetchAllTags();
     },
 
     componentDidUpdate(prevProps) {
@@ -64,10 +79,10 @@ const CourseApproval = createReactClass({
         // campaigns to campaignOptions
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
-          selectedCampaigns: {
+          selectedCampaigns: [{
             value: this.props.allCampaigns[0],
             label: this.props.allCampaigns[0],
-          },
+          }],
           campaignOptions: this.props.allCampaigns.map((campaign) => {
             return { value: campaign, label: campaign };
           })
@@ -108,6 +123,20 @@ const CourseApproval = createReactClass({
       return this.setState({ selectedCampaigns: selectedOptions });
     },
 
+    handleTagsChange(val) {
+      if (!val) {
+        return this.setState({ selectedTag: null });
+      }
+  
+      // The value includes `__isNew__: true` if it's a user-created option.
+      // In that case, we need to add it to the list of options, so that it shows up as selected.
+      const isNew = val.__isNew__;
+      if (isNew) {
+        this.setState({ createdTagOption: [val] });
+      }
+      this.setState({ selectedTags: val });
+    },
+
     submitWikiEdStaff(programManager, wikiExpert) {
       const { course_id } = this.props;
       const addUserAction = this.props.addUser;
@@ -144,6 +173,22 @@ const CourseApproval = createReactClass({
       }
     },
 
+    submitTags() {
+      const currentTags = this.props.tags.map(tag => tag.tag);
+      const selectedTags = this.state.selectedTags.map(tag => tag.value);
+
+      const newTags = difference(selectedTags, currentTags);
+      const removedTags = difference(currentTags, selectedTags);
+      const { course_id } = this.props;
+
+      newTags.forEach((tag) => {
+        this.props.addTag(course_id, tag);
+      });
+      removedTags.forEach((tag) => {
+        this.props.removeTag(course_id, tag);
+      });
+    },
+
     submitApprovalForm() {
       // Get staff user objects from selected staff user options
       const programManager = this.props.wikiEdStaff.find(user => user.username === this.state.programManager.value);
@@ -151,6 +196,7 @@ const CourseApproval = createReactClass({
 
       this.submitWikiEdStaff(programManager, wikiExpert);
       this.submitCampaign(this.state.selectedCampaigns);
+      this.submitTags();
     },
 
     render() {
@@ -159,6 +205,11 @@ const CourseApproval = createReactClass({
 
         const wikiExpertValue = wikiExpertOptions.empty ? null : selectedWikiExpert;
         const campaignValue = campaignOptions.empty ? null : selectedCampaigns;
+
+        const availableTagOptions = this.props.availableTags.map((tag) => {
+          return { label: tag, value: tag };
+        });
+        const tagOptions = [...this.state.createdTagOption, ...availableTagOptions];
 
         const programManagerSelector = (
           <div className="course-approval-field form-group">
@@ -196,7 +247,7 @@ const CourseApproval = createReactClass({
           </div>
         );
 
-        const campaignSelector = (
+        const campaignsSelector = (
           <div className="course-approval-field form-group">
             <div className="group-left">
               <label htmlFor="campaign">Add Campaign:</label>
@@ -210,6 +261,29 @@ const CourseApproval = createReactClass({
                 simpleValue
                 styles={selectStyles}
                 isMulti={true}
+                isClearable={false}
+              />
+            </div>
+          </div>
+        );
+
+        const tagsSelector = (
+          <div className="course-approval-field form-group">
+            <div className="group-left">
+              <label htmlFor="campaign">Add tags:</label>
+            </div>
+            <div className="group-right select-with-button">
+              <CreatableSelect
+                className="fixed-width"
+                ref="tagSelect"
+                name="tag"
+                value={this.state.selectedTags}
+                placeholder={I18n.t('courses.tag_select')}
+                onChange={this.handleTagsChange}
+                options={tagOptions}
+                styles={selectStyles}
+                isMulti={true}
+                isClearable={false}
               />
             </div>
           </div>
@@ -226,7 +300,8 @@ const CourseApproval = createReactClass({
             <div className="course-approval-fields">
               {programManagerSelector}
               {wikiExpertSelector}
-              {campaignSelector}
+              {campaignsSelector}
+              {tagsSelector}
             </div>
           </div>
         );
@@ -235,14 +310,19 @@ const CourseApproval = createReactClass({
 
 const mapStateToProps = state => ({
   allCampaigns: state.campaigns.all_campaigns,
-  wikiEdStaff: getCourseApprovalStaff(state)
+  wikiEdStaff: getCourseApprovalStaff(state),
+  availableTags: getAvailableTags(state),
+  tags: state.tags.tags
 });
 
 const mapDispatchToProps = {
   fetchSpecialUsers,
   fetchAllCampaigns,
   addUser,
-  addCampaign
+  addCampaign,
+  removeTag,
+  addTag,
+  fetchAllTags
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseApproval);
