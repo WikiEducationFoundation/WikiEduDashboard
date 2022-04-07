@@ -22,6 +22,7 @@ import { toggleUI } from '~/app/assets/javascripts/actions';
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
 import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
+import ScrollToTopOnMount from '../../util/ScrollToTopOnMount';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -61,8 +62,18 @@ export class Articles extends React.Component {
     const hasExercisesOrTrainings = !!modules.length;
     const groupedArticles = groupArticlesCoursesByUserId(articles);
     if (!students.length) return null;
+    const studentSelection = (
+      <StudentSelection
+        articlesUrl={this.generateArticlesUrl(course)}
+        course={course}
+        selected={this.state.selected}
+        selectStudent={this.selectStudent}
+        students={students}
+      />
+    );
     return (
       <>
+        <ScrollToTopOnMount />
         <StudentsSubNavigation
           course={course}
           heading={I18n.t('instructor_view.article_assignments', { prefix })}
@@ -83,13 +94,14 @@ export class Articles extends React.Component {
         }
         <section className="users-articles">
           <aside className="student-selection">
-            <StudentSelection
-              articlesUrl={this.generateArticlesUrl(course)}
-              course={course}
-              selected={this.state.selected}
-              selectStudent={this.selectStudent}
-              students={students}
-            />
+            <Routes>
+              <Route
+                path=":username" element={studentSelection}
+              />
+              <Route
+                path="*" element={studentSelection}
+              />
+            </Routes>
           </aside>
           <article className="student-details">
             <section className="assignments">
