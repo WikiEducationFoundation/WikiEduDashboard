@@ -28,7 +28,7 @@ const CourseApproval = createReactClass({
       return {
         programManager: {},
         selectedWikiExpert: {},
-        selectedCampaign: {},
+        selectedCampaigns: [],
         wikiExpertOptions: [],
         campaignOptions: []
       };
@@ -64,7 +64,7 @@ const CourseApproval = createReactClass({
         // campaigns to campaignOptions
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
-          selectedCampaign: {
+          selectedCampaigns: {
             value: this.props.allCampaigns[0],
             label: this.props.allCampaigns[0],
           },
@@ -104,8 +104,8 @@ const CourseApproval = createReactClass({
       return this.setState({ selectedWikiExpert: selectedOption });
     },
 
-    _handleCampaignChange(selectedOption) {
-      return this.setState({ selectedCampaign: selectedOption });
+    _handleCampaignChange(selectedOptions) {
+      return this.setState({ selectedCampaigns: selectedOptions });
     },
 
     submitWikiEdStaff(programManager, wikiExpert) {
@@ -135,9 +135,13 @@ const CourseApproval = createReactClass({
       }
     },
 
-    submitCampaign(campaign) {
+    submitCampaign(campaigns) {
       const { course_id } = this.props;
-      this.props.addCampaign(course_id, campaign.value);
+      if (campaigns.length > 0) {
+        campaigns.forEach((campaign) => {
+          this.props.addCampaign(course_id, campaign.value);
+        });
+      }
     },
 
     submitApprovalForm() {
@@ -146,15 +150,15 @@ const CourseApproval = createReactClass({
       const wikiExpert = this.props.wikiEdStaff.find(user => user.username === this.state.selectedWikiExpert.value);
 
       this.submitWikiEdStaff(programManager, wikiExpert);
-      this.submitCampaign(this.state.selectedCampaign);
+      this.submitCampaign(this.state.selectedCampaigns);
     },
 
     render() {
         const { wikiExpertOptions, campaignOptions,
-        programManager, selectedWikiExpert, selectedCampaign } = this.state;
+        programManager, selectedWikiExpert, selectedCampaigns } = this.state;
 
-        const wikiExpertValue = wikiExpertOptions.empty ? null : wikiExpertOptions.find(option => option.value === selectedWikiExpert.value);
-        const campaignValue = campaignOptions.empty ? null : campaignOptions.find(option => option.value === selectedCampaign.value);
+        const wikiExpertValue = wikiExpertOptions.empty ? null : selectedWikiExpert;
+        const campaignValue = campaignOptions.empty ? null : selectedCampaigns;
 
         const programManagerSelector = (
           <div className="course-approval-field form-group">
@@ -205,6 +209,7 @@ const CourseApproval = createReactClass({
                 options={campaignOptions}
                 simpleValue
                 styles={selectStyles}
+                isMulti={true}
               />
             </div>
           </div>
