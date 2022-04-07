@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const ScrollToTop = () => {
+const ScrollToTopOnMount = () => {
   useEffect(() => {
       window.scrollTo(0, 0);
     },
@@ -9,4 +9,4 @@ const ScrollToTop = () => {
 };
 
 
-export default ScrollToTop;
+export default ScrollToTopOnMount;

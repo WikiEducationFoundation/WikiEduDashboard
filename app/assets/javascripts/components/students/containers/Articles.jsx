@@ -22,7 +22,7 @@ import { toggleUI } from '~/app/assets/javascripts/actions';
 import { getStudentUsers, getWeeksArray } from '~/app/assets/javascripts/selectors';
 import { getModulesAndBlocksFromWeeks } from '@components/util/helpers';
 import groupArticlesCoursesByUserId from '@components/students/utils/groupArticlesCoursesByUserId';
-import ScrollToTop from '../../util/ScrollToTop';
+import ScrollToTopOnMount from '../../util/ScrollToTopOnMount';
 
 export class Articles extends React.Component {
   constructor(props) {
@@ -73,7 +73,7 @@ export class Articles extends React.Component {
     );
     return (
       <>
-        <ScrollToTop />
+        <ScrollToTopOnMount />
         <StudentsSubNavigation
           course={course}
           heading={I18n.t('instructor_view.article_assignments', { prefix })}
