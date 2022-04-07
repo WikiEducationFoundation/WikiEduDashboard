@@ -6,6 +6,16 @@ export const PageAssessmentGrades = {
         pretty: 'FA',
         score: 100
       },
+      FL: {
+        class: 'fl',
+        pretty: 'FL',
+        score: 95
+      },
+      A: {
+        class: 'a',
+        pretty: 'A',
+        score: 85
+      },
       GA: {
         class: 'ga',
         pretty: 'GA',
@@ -30,6 +40,11 @@ export const PageAssessmentGrades = {
         class: 'stub',
         pretty: 'S',
         score: 0
+      },
+      List: {
+        class: 'list',
+        pretty: 'List',
+        score: -10
       }
     },
     ar: {

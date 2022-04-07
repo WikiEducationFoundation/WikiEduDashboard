@@ -10,7 +10,6 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
   const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
   const subtitle = wikidataLabel ? `(${CourseUtils.removeNamespace(revision.title)})` : '';
   const isWikipedia = revision.wiki.project === 'wikipedia';
-
   return (
     <tr className="revision">
       <td className="tooltip-trigger desktop-only-tc">

@@ -41,7 +41,7 @@ export const ActivityHandler = createReactClass({
       <div className="activity-handler">
         <SubNavigation links={links}/>
         <Routes>
-          <Route path="recent" element={<RevisionHandler {...this.props}/>} />
+          {this.props.usersLoaded && <Route path="recent" element={<RevisionHandler {...this.props}/>} />}
           <Route path="alerts" element={<CourseAlertsList {...this.props} />} />
           <Route path="plagiarism" element={<PossiblePlagiarismHandler {...this.props} />}/>
           <Route path="*" element={<Navigate replace to="recent"/>}/>
