@@ -125,6 +125,7 @@ export class Articles extends React.Component {
                     trainingStatus={trainingStatus}
                     wikidataLabels={wikidataLabels}
                     userRevisions={userRevisions}
+                    articlesUrl={this.generateArticlesUrl(course)}
                   />
                   }
                 />
