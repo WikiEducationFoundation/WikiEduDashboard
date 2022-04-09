@@ -48,6 +48,15 @@ const RevisionHandler = createReactClass({
     }
   },
 
+  getLoadingMessage() {
+    if (!this.props.assessmentsLoaded) {
+      return 'Loading page assessments';
+    }
+    if (!this.props.referencesLoaded) {
+      return 'Loading references';
+    }
+  },
+
   toggleCourseSpecific() {
     const toggledIsCourseScoped = !this.state.isCourseScoped;
     this.setState({ isCourseScoped: toggledIsCourseScoped });
@@ -83,7 +92,7 @@ const RevisionHandler = createReactClass({
     // Boolean to indicate whether the revisions in the current section (all scoped or course scoped are loaded)
     const loaded = (!this.state.isCourseScoped && this.props.revisionsLoaded) || (this.state.isCourseScoped && this.props.courseScopedRevisionsLoaded);
     const revisions = this.state.isCourseScoped ? this.props.courseScopedRevisions : this.props.revisionsDisplayed;
-
+    const metaDataLoading = !this.props.referencesLoaded || !this.props.assessmentsLoaded;
     let showMoreButton;
     if ((!this.state.isCourseScoped && !this.props.limitReached) || (this.state.isCourseScoped && !this.props.courseScopedLimitReached)) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
@@ -115,6 +124,15 @@ const RevisionHandler = createReactClass({
         />
         {!loaded && <Loading/>}
         {loaded && showMoreButton}
+        {loaded && metaDataLoading && (
+          <div id="progress" >
+            <div className="text-center">
+              <div className="loading__spinner__small" />
+              {this.getLoadingMessage()}
+            </div>
+          </div>
+          )
+        }
       </div>
     );
   }
@@ -130,6 +148,8 @@ const mapStateToProps = state => ({
   courseScopedRevisionsLoaded: state.revisions.courseScopedRevisionsLoaded,
   revisionsLoaded: state.revisions.revisionsLoaded,
   sort: state.revisions.sort,
+  referencesLoaded: state.revisions.referencesLoaded,
+  assessmentsLoaded: state.revisions.assessmentsLoaded
 });
 
 const mapDispatchToProps = {
