@@ -19,7 +19,6 @@ import TimelineToggle from './timeline_toggle.jsx';
 import OnlineVolunteersToggle from './online_volunteers_toggle.jsx';
 import StayInSandboxToggle from './stay_in_sandbox_toggle';
 import RetainAvailableArticlesToggle from './retain_available_articles_toggle';
-import CourseApproval from './course_approval';
 
 import WikiEditsToggle from './wiki_edits_toggle';
 import EditSettingsToggle from './edit_settings_toggle';
@@ -492,14 +491,8 @@ const Details = createReactClass({
       );
     }
 
-    let courseApprovalSection;
-    if (canRename) {
-      courseApprovalSection = <CourseApproval {...this.props}/>;
-    }
-
     const shared = (
       <div>
-        {courseApprovalSection}
         <div className="module course-details">
           <div className="section-header">
             <h3>{I18n.t('application.details')}</h3>

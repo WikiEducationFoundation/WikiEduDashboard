@@ -36,15 +36,10 @@ const CourseApproval = createReactClass({
 
     getInitialState() {
       return {
-        programManager: {},
         selectedWikiExpert: {},
         selectedCampaigns: [],
-        wikiExpertOptions: [],
-        campaignOptions: [],
         createdTagOption: [],
-        selectedTags: this.props.tags.map((tag) => {
-          return { value: tag.tag, label: tag.tag };
-        }),
+        selectedTags: [],
       };
     },
 
@@ -55,64 +50,57 @@ const CourseApproval = createReactClass({
     },
 
     componentDidUpdate(prevProps) {
-      if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
-        if (this.props.wikiEdStaff.length > 0) {
-          // Set state for classroom program manager and a default selected wiki expert
-          const programManager = this.props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
-          const wikiExpert = this.props.wikiEdStaff.find(user => user.role === 'wikipedia_expert');
-          // eslint-disable-next-line react/no-did-update-set-state
-          this.setState({
-            programManager: {
-              value: programManager.username,
-              label: `${programManager.username} (${programManager.realname})`
-            },
-            selectedWikiExpert: {
-              value: wikiExpert.username,
-              label: `${wikiExpert.username} (${wikiExpert.realname})`
-            }
-          });
-          this.setWikiExpertUsers();
-        }
-      }
       if (this.props.allCampaigns !== prevProps.allCampaigns) {
-        // Set the first campaign as default selected campaign and add all the
-        // campaigns to campaignOptions
+        // Set the first campaign as default selected campaign
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           selectedCampaigns: [{
             value: this.props.allCampaigns[0],
             label: this.props.allCampaigns[0],
           }],
-          campaignOptions: this.props.allCampaigns.map((campaign) => {
-            return { value: campaign, label: campaign };
-          })
         });
+      }
+      if (this.props.wikiEdStaff !== prevProps.wikiEdStaff) {
+        if (this.props.wikiEdStaff.length > 0) {
+          const wikiExpert = this.props.wikiEdStaff.find(user => user.role === 'wikipedia_expert');
+          const selectedWikiExpert = this.props.wikiEdStaff.find(user => user.role === 'wikipedia_expert' && user.already_selected);
+
+          this.setState({
+            selectedWikiExpert: (selectedWikiExpert != null || selectedWikiExpert != undefined) 
+              ? { value: selectedWikiExpert.username, label: `${selectedWikiExpert.username} (${selectedWikiExpert.realname})` }
+              : { value: wikiExpert.username, label: `${wikiExpert.username} (${wikiExpert.realname})` }
+          });
+        }
+      }
+
+      if (this.props.tags !== prevProps.tags) {
+        if (this.props.tags.length > 0) {
+          this.setState({
+            selectedTags: this.props.tags.map((tag) => {
+              return { value: tag.tag, label: tag.tag };
+            })
+          })
+        }
       }
     },
 
-    setWikiExpertUsers() {
-        const staff = this.props.wikiEdStaff;
+    setProgramManager() {
+      const programManager = this.props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
+      return { 
+        value: programManager.username, 
+        label: `${programManager.username} (${programManager.realname})`
+      }
+    },
 
-        // Set state for wikiExpertOptions and if any wikipedia expert was already
-        // assigned a staff user role for this course, make them selectedWikiExpert
-        staff.forEach((user) => {
-          if (user.role === 'wikipedia_expert') {
-            this.setState(prevState => ({
-              wikiExpertOptions: [...prevState.wikiExpertOptions, {
-                value: user.username,
-                label: `${user.username} (${user.realname})`
-              }]
-            }));
-            if (user.already_selected) {
-              this.setState({
-                selectedWikiExpert: {
-                  value: user.username,
-                  label: `${user.username} (${user.realname})`
-                }
-              });
-            }
-          }
-        });
+    setWikiExpertOptions() {
+      const wikiExperts = this.props.wikiEdStaff.filter(user => user.role === 'wikipedia_expert');
+      const options = wikiExperts.map((user) => {
+        return {
+          value: user.username, 
+          label: `${user.username} (${user.realname})`
+        }
+      });
+      return options;
     },
 
     _handleWikiExpertChange(selectedOption) {
@@ -164,10 +152,10 @@ const CourseApproval = createReactClass({
       }
     },
 
-    submitCampaign(campaigns) {
+    submitCampaigns() {
       const { course_id } = this.props;
-      if (campaigns.length > 0) {
-        campaigns.forEach((campaign) => {
+      if (this.state.selectedCampaigns.length > 0) {
+        this.state.selectedCampaigns.forEach((campaign) => {
           this.props.addCampaign(course_id, campaign.value);
         });
       }
@@ -191,126 +179,129 @@ const CourseApproval = createReactClass({
 
     submitApprovalForm() {
       // Get staff user objects from selected staff user options
-      const programManager = this.props.wikiEdStaff.find(user => user.username === this.state.programManager.value);
+      const programManager = this.props.wikiEdStaff.find(user => user.role === 'classroom_program_manager');
       const wikiExpert = this.props.wikiEdStaff.find(user => user.username === this.state.selectedWikiExpert.value);
 
       this.submitWikiEdStaff(programManager, wikiExpert);
-      this.submitCampaign(this.state.selectedCampaigns);
+      this.submitCampaigns();
       this.submitTags();
     },
 
     render() {
-        const { wikiExpertOptions, campaignOptions,
-        programManager, selectedWikiExpert, selectedCampaigns } = this.state;
+      const { selectedWikiExpert, selectedCampaigns } = this.state;
 
-        const wikiExpertValue = wikiExpertOptions.empty ? null : selectedWikiExpert;
-        const campaignValue = campaignOptions.empty ? null : selectedCampaigns;
+      const programManager = this.props.wikiEdStaff.length > 0 ? this.setProgramManager() : null;
+      const wikiExpertOptions = this.props.wikiEdStaff.length > 0 ? this.setWikiExpertOptions() : [];
 
-        const availableTagOptions = this.props.availableTags.map((tag) => {
-          return { label: tag, value: tag };
-        });
-        const tagOptions = [...this.state.createdTagOption, ...availableTagOptions];
+      const campaignOptions = this.props.allCampaigns.map((campaign) => {
+        return { value: campaign, label: campaign };
+      })
 
-        const programManagerSelector = (
-          <div className="course-approval-field form-group">
-            <div className="group-left">
-              <label htmlFor="program_manager">Add Program Manager:</label>
-            </div>
-            <div className="group-right">
-              <Select
-                id={'program_manager'}
-                value={programManager}
-                onChange={null}
-                options={[]}
-                simpleValue
-                styles={selectStyles}
-              />
+      const availableTagOptions = this.props.availableTags.map((tag) => {
+        return { label: tag, value: tag };
+      });
+      const tagOptions = [...this.state.createdTagOption, ...availableTagOptions];
+
+      const programManagerSelector = (
+        <div className="course-approval-field form-group">
+          <div className="group-left form-group">
+            <label htmlFor="program_manager">Add Program Manager</label>
+          </div>
+          <div className="group-right">
+            <Select
+              id={'program_manager'}
+              value={programManager}
+              onChange={null}
+              options={[]}
+              simpleValue
+              styles={selectStyles}
+            />
+          </div>
+        </div>
+      );
+
+      const wikiExpertSelector = (
+        <div className="course-approval-field form-group">
+          <div className="group-left form-group">
+            <label htmlFor="wiki_expert">Add Wikipedia Expert</label>
+          </div>
+          <div className="group-right">
+            <Select
+              id={'wiki_expert'}
+              value={wikiExpertOptions.empty ? null : selectedWikiExpert}
+              onChange={this._handleWikiExpertChange}
+              options={wikiExpertOptions}
+              simpleValue
+              styles={selectStyles}
+            />
+          </div>
+        </div>
+      );
+
+      const campaignsSelector = (
+        <div className="course-approval-field form-group">
+          <div className="group-left form-group">
+            <label htmlFor="campaign">Add Campaigns</label>
+          </div>
+          <div className="group-right">
+            <Select
+              id={'campaign'}
+              value={campaignOptions.empty ? null : selectedCampaigns}
+              onChange={this._handleCampaignChange}
+              options={campaignOptions}
+              simpleValue
+              styles={selectStyles}
+              isMulti={true}
+              isClearable={false}
+            />
+          </div>
+        </div>
+      );
+
+      const tagsSelector = (
+        <div className="course-approval-field form-group">
+          <div className="group-left form-group">
+            <label htmlFor="campaign">Add Tags</label>
+          </div>
+          <div className="group-right">
+            <CreatableSelect
+              className="fixed-width"
+              ref="tagSelect"
+              name="tag"
+              value={this.state.selectedTags}
+              placeholder={I18n.t('courses.tag_select')}
+              onChange={this.handleTagsChange}
+              options={tagOptions}
+              styles={selectStyles}
+              isMulti={true}
+              isClearable={false}
+            />
+          </div>
+        </div>
+      );
+
+      return (
+        <div className="module">
+          <div className="section-header">
+            <h3>Course Approval Form</h3>
+            <div className="controls">
+              <button className="dark button" onClick={this.submitApprovalForm}>Approve Course</button>
             </div>
           </div>
-        );
-
-        const wikiExpertSelector = (
-          <div className="course-approval-field form-group">
-            <div className="group-left">
-              <label htmlFor="wiki_expert">Add Wiki Expert:</label>
-            </div>
-            <div className="group-right">
-              <Select
-                id={'wiki_expert'}
-                value={wikiExpertValue}
-                onChange={this._handleWikiExpertChange}
-                options={wikiExpertOptions}
-                simpleValue
-                styles={selectStyles}
-              />
-            </div>
+          <div className="course-approval-form">
+            {programManagerSelector}
+            {wikiExpertSelector}
+            {tagsSelector}
+            {campaignsSelector}
           </div>
-        );
-
-        const campaignsSelector = (
-          <div className="course-approval-field form-group">
-            <div className="group-left">
-              <label htmlFor="campaign">Add Campaign:</label>
-            </div>
-            <div className="group-right">
-              <Select
-                id={'campaign'}
-                value={campaignValue}
-                onChange={this._handleCampaignChange}
-                options={campaignOptions}
-                simpleValue
-                styles={selectStyles}
-                isMulti={true}
-                isClearable={false}
-              />
-            </div>
-          </div>
-        );
-
-        const tagsSelector = (
-          <div className="course-approval-field form-group">
-            <div className="group-left">
-              <label htmlFor="campaign">Add tags:</label>
-            </div>
-            <div className="group-right select-with-button">
-              <CreatableSelect
-                className="fixed-width"
-                ref="tagSelect"
-                name="tag"
-                value={this.state.selectedTags}
-                placeholder={I18n.t('courses.tag_select')}
-                onChange={this.handleTagsChange}
-                options={tagOptions}
-                styles={selectStyles}
-                isMulti={true}
-                isClearable={false}
-              />
-            </div>
-          </div>
-        );
-
-        return (
-          <div className="module reviewer-section">
-            <div className="section-header">
-              <h3>Course Approval Form</h3>
-              <div className="controls">
-                <button className="dark button" onClick={this.submitApprovalForm}>Approve Course</button>
-              </div>
-            </div>
-            <div className="course-approval-fields">
-              {programManagerSelector}
-              {wikiExpertSelector}
-              {campaignsSelector}
-              {tagsSelector}
-            </div>
-          </div>
-        );
+        </div>
+      );
     }
 });
 
 const mapStateToProps = state => ({
-  allCampaigns: state.campaigns.all_campaigns,
   wikiEdStaff: getCourseApprovalStaff(state),
+  allCampaigns: state.campaigns.all_campaigns,
   availableTags: getAvailableTags(state),
   tags: state.tags.tags
 });
@@ -318,11 +309,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchSpecialUsers,
   fetchAllCampaigns,
+  fetchAllTags,
   addUser,
   addCampaign,
-  removeTag,
   addTag,
-  fetchAllTags
+  removeTag,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseApproval);

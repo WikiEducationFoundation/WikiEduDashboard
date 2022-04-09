@@ -27,6 +27,7 @@ import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
 import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
+import CourseApproval from '../overview/course_approval';
 
 export const Course = withRouter(createReactClass({
   displayName: 'Course',
@@ -56,6 +57,17 @@ export const Course = withRouter(createReactClass({
     return `${course_school}/${course_title}`;
   },
 
+  showCourseApprovalForm() {
+    const location = this.props.router.location;
+    var onHomeTab = CourseUtils.onHomeTab(location);
+    var isAdmin = this.props.currentUser.isAdmin;
+    var isSubmitted = this.props.course.submitted;
+    var isPublished = this.props.course.published;
+
+    if (onHomeTab && isAdmin && isSubmitted && !isPublished) { return true; }
+    return false;
+  },
+
   showEnrollCard(course) {
     const location = this.props.router.location;
     const query = parse(location.search);
@@ -80,6 +92,11 @@ export const Course = withRouter(createReactClass({
 
     const userRoles = this.props.currentUser;
     const courseProps = { course_id: courseSlug, current_user: userRoles, course };
+
+    let courseApprovalForm;
+    if (this.showCourseApprovalForm()) {
+      courseApprovalForm = <CourseApproval />;
+    }
     // //////////////////
     // Enrollment modal /
     // //////////////////
@@ -126,6 +143,7 @@ export const Course = withRouter(createReactClass({
         />
         <div className="course_main container">
           <Confirm />
+          {courseApprovalForm}
           {enrollCard}
           <Routes>
             <Route path="/" element={<OverviewHandler {...courseProps} />} />
